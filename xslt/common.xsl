@@ -439,6 +439,19 @@
 
  <!-- ############### END ALLELE COUNT STATISTICS ###################### --> 
 
+ <!-- standard pvalue output, common to other modules -->
+ <xsl:template match="pvalue">
+  <xsl:value-of select="."/> 
+  <xsl:call-template name="append-pad">
+   <xsl:with-param name="padChar">*</xsl:with-param>
+   <xsl:with-param name="length">
+    <xsl:call-template name="get-significance">
+     <xsl:with-param name="pvalue" select="."/>
+    </xsl:call-template>
+   </xsl:with-param>
+  </xsl:call-template>
+ </xsl:template>
+
  <!-- END MATCH TEMPLATE FUNCTIONS -->
  
 </xsl:stylesheet>
