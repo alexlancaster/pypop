@@ -12,11 +12,11 @@ read TAG_PREFIX
 VERSION=${TAG_PREFIX}-${DATE}
 echo "CVS tag is $VERSION"
 echo tagging pypop with $VERSION
-echo cvs tag $VERSION
+cvs tag $VERSION
 echo $VERSION > VERSION
 echo building $VERSION
-echo ./setup.py build
+./setup.py build
 echo installing $VERSION
-echo sudo ./setup.py install
+sudo ./setup.py install
 echo rm VERSION
 
