@@ -356,6 +356,8 @@ for locus in loci:
     hzExactObj = HomozygosityEWSlatkinExact(input.getAlleleCountAt(locus),
                                             debug=debug)
 
+    hzExactObj.serializeHomozygosityTo(xmlStream)
+
   xmlStream.closetag('locus')
   xmlStream.writeln()
 
@@ -391,14 +393,16 @@ if config.has_section("Emhaplofreq"):
     else:
       print "with no permutation test"
 
+
+  # first set the list of 2-locus haplotypes to show to empty
+  twoLocusHaplosToShow = []
+
   try:
     locusKeys=config.get("Emhaplofreq", "lociToEstHaplo")
 
     if locusKeys == '*':
       print "wildcard '*' given for lociToEstHaplo, assume entire data set"
       locusKeys=string.join(input.getIndividualsData().colList,':')
-
-    twoLocusHaplosToShow = []
 
     # if we will be running allPairwise*, then exclude any two-locus
     # haplotypes, since we will estimate them as part of 'all pairwise'
