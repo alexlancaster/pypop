@@ -356,10 +356,10 @@ class Emhaplofreq(Haplo):
                     self.fp.write("<group mode=\"haplo\" loci=\"%s\">%s" % (group, os.linesep))
                 self.fp.write(os.linesep)
 
-                self.fp.write("<individcount role=\"before-filtering\">%d</individcount>" % groupNumIndiv)
+                self.fp.write("<individcount role=\"before-filtering\">%d</individcount>" % self.totalNumIndiv)
                 self.fp.write(os.linesep)
                 
-                self.fp.write("<individcount role=\"after-filtering\">%d</individcount>" % self.totalNumIndiv)
+                self.fp.write("<individcount role=\"after-filtering\">%d</individcount>" % groupNumIndiv)
                 self.fp.write(os.linesep)
                 
                 # pass this submatrix to the SWIG-ed C function
