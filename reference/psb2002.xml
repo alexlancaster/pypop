@@ -759,7 +759,7 @@
 	    <para>mutation and migration rates are negligible (no
 	mutation, no migration)</para></listitem>
 	  
-	  <listitem>
+	<listitem>
 	    <para>no selection</para></listitem>
 	
 	  <listitem>
@@ -836,18 +836,16 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
 	statistically speaking, a simple statement about independence
 	of allele frequencies at a locus.</para>
 
-	<para>For example, we consider the ABO blood group system: A
+      <para>For example, we consider the ABO blood group system: A
 	is dominant to O, B is dominant to O, A and B are
 	co-dominant. For the following allele frequencies, A = 0.30, B
 	= 0.10, O = 0.60, the HWP are:</para>
-
-	<informaltable>
+      
+      <informaltable>
 	  <tgroup cols="3">
-	    <!--
 	    <colspec colname="col1" colwidth="2cm"/>
 	    <colspec colname="col2" colwidth="2cm"/>
-	    <colspec colname="col3" colwidth="3cm"/>
-	    -->
+	    <colspec colname="col3" colwidth="5.5cm"/>
 
 	    <thead>
 	      <row>
@@ -880,7 +878,7 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
 	    </tbody>
 	  </tgroup>
 	</informaltable>
-	
+
 	<para>(Note in this case that the allele frequencies cannot be
 	estimated by gene (allele) counting, since allele O is
 	recessive. The allele frequencies in this case are estimated
@@ -1000,6 +998,10 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
 
 	  <informaltable>
 	    <tgroup cols="4">
+	    <colspec colwidth="2cm"/>
+	    <colspec colwidth="2cm"/>
+	    <colspec colwidth="2cm"/>
+	    <colspec colwidth="3cm"/>
 	      <tbody>
 		<row>
 		  <entry>AA</entry> 
@@ -1103,15 +1105,15 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
 	  chi-square values and may result in spurious rejection of
 	  the null hypothesis.</para>
 
-	  <informaltable frame="none">
+ 	  <informaltable frame="none">
 	    <tgroup cols="7">
-	      <colspec colname="col1"/>
-	      <colspec colname="col2"/>
-	      <colspec colname="col3"/>
-	      <colspec colname="col4"/>
-	      <colspec colname="col5"/>
-	      <colspec colname="col6"/>
-	      <colspec colname="col7"/>
+	      <colspec colname="col1" colwidth="2cm"/>
+	      <colspec colname="col2" colwidth="2cm"/>
+	      <colspec colname="col3" colwidth="2cm"/>
+	      <colspec colname="col4" colwidth="2cm"/>
+	      <colspec colname="col5" colwidth="2cm"/>
+	      <colspec colname="col6" colwidth="2cm"/>
+	      <colspec colname="col7" colwidth="2cm"/>
 	      <tbody>
 		  <row>
 		  <entry colsep="1">0102</entry>
@@ -1206,98 +1208,102 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
            of alleles, are listed and sorted by their
            probabilities.</para>
 
-	  <informaltable frame="none">
-	    <tgroup cols="5" align="right">
-	      <tbody>
-		<row>
-		  <entry>AA</entry>
-		  <entry>a</entry>
-		  <entry>aa</entry>
-		  <entry>Probability</entry>
-		  <entry>Cumulative Probability</entry>
-		</row>
-		<row>
-		  <entry>9</entry>
-		  <entry>1</entry>
-		  <entry>30</entry>
-		  <entry>0.0000</entry>
-		  <entry>0.0000</entry>
-		</row>
+	<informaltable frame="none"> 
+	  <tgroup cols="5" align="right"> 
+	    <colspec colwidth="2cm"/>
+	    <colspec colwidth="2cm"/>
+	    <colspec colwidth="2cm"/>
+	    <colspec colwidth="2cm"/>
+	    <colspec colwidth="4.5cm"/>
+	    <tbody>
+	      <row>
+		<entry>AA</entry>
+		<entry>a</entry>
+		<entry>aa</entry>
+		<entry>Probability</entry>
+		<entry>Cumulative Probability</entry>
+	      </row>
+	      <row>
+		<entry>9</entry>
+		<entry>1</entry>
+		<entry>30</entry>
+		<entry>0.0000</entry>
+		<entry>0.0000</entry>
+	      </row>
+	      
+	      <row>
+		<entry>8</entry>
+		<entry>3</entry>
+		<entry>29</entry>
+		<entry>0.0000</entry>
+		<entry>0.0000</entry>
+	      </row>
+	      <row>
+		<entry>7</entry>
+		<entry>5</entry>
+		<entry>28</entry>
+		<entry>0.0001</entry>
+		<entry>0.0001</entry>
+	      </row>
+	      <row>
+		<entry>6</entry>
+		<entry>7</entry>
+		<entry>27</entry>
+		<entry>0.0023</entry>
+		<entry>0.0024</entry>
+	      </row>
+	      <row>
+		<entry>5</entry>
+		<entry>9</entry>
+		<entry>26</entry>
+		<entry>0.0205</entry>
+		<entry>0.0229 &lt; - observed data</entry>
+	      </row>
+	      <row>
+		<entry>0</entry>
+		<entry>19</entry>
+		<entry>21</entry>
+		<entry>0.0594</entry>
+		<entry>0.0823</entry>
+	      </row>
+	      <row>
+		<entry>4</entry>
+		<entry>11</entry>
+		<entry>25</entry>
+		<entry>0.0970</entry>
+		<entry>0.1793</entry>
+	      </row>
+	      <row>
+		<entry>1</entry>
+		<entry>17</entry>
+		<entry>22</entry>
+		<entry>0.2308</entry>
+		<entry>0.4101</entry>
+	      </row>
+	      <row>
+		<entry>3</entry>
+		<entry>13</entry>
+		<entry>24</entry>
+		<entry>0.2488</entry>
+		<entry>0.6589</entry>
+	      </row>
+	      <row>
+		<entry>2</entry>
+		<entry>15</entry>
+		<entry>23</entry>
+		<entry>0.3411</entry>
+		<entry>1.0000</entry>
+	      </row>
+	    </tbody>
+	  </tgroup>
+	</informaltable>
 
-		<row>
-		  <entry>8</entry>
-		  <entry>3</entry>
-		  <entry>29</entry>
-		  <entry>0.0000</entry>
-		  <entry>0.0000</entry>
-		</row>
-		<row>
-		  <entry>7</entry>
-		  <entry>5</entry>
-		  <entry>28</entry>
-		  <entry>0.0001</entry>
-		  <entry>0.0001</entry>
-		</row>
-		<row>
-		  <entry>6</entry>
-		  <entry>7</entry>
-		  <entry>27</entry>
-		  <entry>0.0023</entry>
-		  <entry>0.0024</entry>
-		</row>
-		<row>
-		  <entry>5</entry>
-		  <entry>9</entry>
-		  <entry>26</entry>
-		  <entry>0.0205</entry>
-		  <entry>0.0229</entry>
-		  <entry>&lt; -- Observed data</entry>
-		</row>
-		<row>
-		  <entry>0</entry>
-		  <entry>19</entry>
-		  <entry>21</entry>
-		  <entry>0.0594</entry>
-		  <entry>0.0823</entry>
-		</row>
-		<row>
-		  <entry>4</entry>
-		  <entry>11</entry>
-		  <entry>25</entry>
-		  <entry>0.0970</entry>
-		  <entry>0.1793</entry>
-		</row>
-		<row>
-		  <entry>1</entry>
-		  <entry>17</entry>
-		  <entry>22</entry>
-		  <entry>0.2308</entry>
-		  <entry>0.4101</entry>
-		</row>
-		<row>
-		  <entry>3</entry>
-		  <entry>13</entry>
-		  <entry>24</entry>
-		  <entry>0.2488</entry>
-		  <entry>0.6589</entry>
-		</row>
-		<row>
-		  <entry>2</entry>
-		  <entry>15</entry>
-		  <entry>23</entry>
-		  <entry>0.3411</entry>
-		  <entry>1.0000</entry>
-		</row>
-	      </tbody>
-	    </tgroup>
-	  </informaltable>
-
-	  <para>The probability of the observed genotypes is among the
+	<para>The probability of the observed genotypes is among the
 	  5% lowest ways to distribute genes into genotypic
 	  categories, so we reject the null hypothesis that the
 	  genotypes fit HWP.</para>
-
-	  <para> However, with an increase in the number of alleles
+	
+	<para> However, with an increase in the number of alleles
 	  and sample size, the number of possible configurations of
 	  samples using the above algorithm grows exponentially. It
 	  becomes computationally cumbersome or even infeasible. To
@@ -1860,9 +1866,14 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
       using the EM algorithm. &nbsp;A similar result was obtained by
       Tishkoff et al. (2000).</para>
 
-      <table id="em-performance-table">
+      <table id="em-performance-table.figure">
 	<title>Performance of EM algorithm</title>
-	<tgroup cols="4">
+	<tgroup cols="5" align="center">
+	  <colspec colwidth="2cm"/>
+	  <colspec colwidth="2cm"/>
+	  <colspec colwidth="2cm"/>
+	  <colspec colwidth="2cm"/>
+	  <colspec colwidth="2cm"/>
 	  <thead>
 	    <row>
 	      <entry>Haplotypes</entry>
@@ -2027,15 +2038,17 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
       the normalized deviate, FND, is considered (Salamon et
       al. 1999),</para>
 
-      <para> &nbsp;FND = (Fobserved - Fexpected) / (Variance
-      (Fexpected))1/2.</para>
+      <para>F<subscript>ND</subscript> =
+      (F<subscript>observed</subscript> -
+      F<subscript>expected</subscript>) / (Variance
+      (F<subscript>expected</subscript>))1/2.</para>
 
-      <para>Under the neutral model, FND has mean zero and variance
-      1. If we assume that samples from different populations are
-      statistically independent, the Central Limit Theorem predicts
-      that the distribution of the mean of FND values across
-      populations can be approximated by a standard normal
-      distribution.</para>
+      <para>Under the neutral model, F<subscript>ND</subscript> has
+      mean zero and variance 1. If we assume that samples from
+      different populations are statistically independent, the Central
+      Limit Theorem predicts that the distribution of the mean of
+      F<subscript>ND</subscript> values across populations can be
+      approximated by a standard normal distribution.</para>
     </sect2>
 
     <sect2>
@@ -2048,8 +2061,7 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
       even than expected under neutrality, suggesting that some form
       of balancing selection is operating on these genes (Hedrick and
       Thomson 1983, Klitz et al. 1986, 1992, Begovich et al. 1992). In
-      contrast, the distribution of DPB1 alleles<phrase role="strong">
-      </phrase>rarely<phrase role="strong"> </phrase>differs
+      contrast, the distribution of DPB1 alleles rarely differs
       significantly from neutrality expectations; usually there is a
       fairly common allele, which may differ between
       populations.</para>
@@ -2069,22 +2081,27 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
       specific, despite the linkage disequilibrium in the region,
       which is particularly strong for DR-DQ.</para>
 
-      <para><phrase role="strong"> </phrase>The table below summarizes
-      the findings of Valdes et al. (1999), illustrating (a) the large
-      number of populations for which neutrality was rejected at
-      certain loci; (b) the heterogeneity among loci with respect to
-      deviation from neutrality. Notice than in all loci, except DPB1,
-      the mean homozygosity across populations is lower than expected
-      under neutrality.</para>
+      <para>The table below summarizes the findings of Valdes et
+      al. (1999), illustrating (a) the large number of populations for
+      which neutrality was rejected at certain loci; (b) the
+      heterogeneity among loci with respect to deviation from
+      neutrality. Notice than in all loci, except DPB1, the mean
+      homozygosity across populations is lower than expected under
+      neutrality.</para>
 
-      <table>
+      <table id="ew-neutrality.table">
 	<title>Ewens-Watterson test of neutrality</title>
 	<tgroup cols="5">
+	  <colspec colwidth="2.5cm"/>
+	  <colspec colwidth="4cm"/>
+	  <colspec colwidth="3cm"/>
+	  <colspec colwidth="3cm"/>
+	  <colspec colwidth="3cm"/>
 	  <thead>
 	    <row>
 	      <entry>Locus</entry>
 	      <entry>Populations surveyed</entry>
-	      <entry>Neutrality rejected<footnote>
+	      <entry>Neutrality rejected <!-- <footnote>
 
 		  <para>Number of populations for which neutrality was
 		  rejected at the 5% level (From Valdes et al.,
@@ -2094,7 +2111,7 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
 		  averages of the expected homozygosity statistic
 		  under neutrality.</para>
 
-		</footnote>
+		</footnote> -->
                </entry>
 	      <entry>Mean F</entry>
 	      <entry>Expected F</entry>
