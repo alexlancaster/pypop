@@ -410,7 +410,9 @@ class ParseGenotypeFile(ParseFile):
     def getLocusList(self):
         """Returns the list of loci.
 
-        """
+        **Note:** *this list has filtered out all loci that consist
+        of individuals that are all untyped.* """
+        
         return self.freqcount.keys()
 
     def getAlleleCount(self):
@@ -437,7 +439,10 @@ class ParseGenotypeFile(ParseFile):
         Given a 'locus', return a list genotypes consisting of
         2-tuples which contain each of the alleles for that individual
         in the list.
-        """
+
+        **Note:** *this list has filtered out all individuals that are
+        untyped at either chromosome.* """
+
         return self.locusTable[locus]
 
 class ParseAlleleCountFile(ParseFile):
