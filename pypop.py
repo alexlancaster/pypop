@@ -54,6 +54,7 @@ current directory or in %s.
   -d, --debug          enable debugging output (overrides config file setting)
   -i, --interactive    run in interactive mode, prompting user for file names
   -g, --gui            run GUI (warning *very* experimental)
+  -o, --outputdir=DIR  put output in directory DIR 
   
   INPUTFILE   input text file""" % altpath
 
@@ -61,7 +62,7 @@ from getopt import getopt, GetoptError
 from ConfigParser import ConfigParser
 
 try:
-  opts, args =getopt(sys.argv[1:],"lsigc:hdx:", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl="])
+  opts, args =getopt(sys.argv[1:],"lsigc:hdx:o:", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "outputdir="])
 except GetoptError:
   sys.exit(usage_message)
 
@@ -74,6 +75,7 @@ debugFlag = 0
 interactiveFlag = 0
 guiFlag = 0
 xslFilename = None
+outputDir = None
 
 # parse options
 for o, v in opts:
@@ -94,6 +96,11 @@ for o, v in opts:
     interactiveFlag = 1
   elif o in ("-g", "--gui"):
     guiFlag = 1
+  elif o in ("-o", "--outputdir"):
+    if os.path.isdir(v):
+      outputDir = v
+    else:
+      sys.exit("'%s' is not a directory, please supply a valid output directory" % v)
 
 # if neither option is set explicitly, use libxslt python wrappers
 if not (use_libxsltmod or use_FourSuite):
@@ -192,15 +199,16 @@ return for each prompt.
                      datapath=datapath,
                      use_libxsltmod=use_libxsltmod,
                      use_FourSuite=use_FourSuite,
-                     xslFilename=xslFilename)
+                     xslFilename=xslFilename,
+                     outputDir=outputDir)
 
   if interactiveFlag:
 
     print "PyPop run complete!"
     print "XML output can be found in: " + \
-          application.getXmlOutFilename()
+          application.getXmlOutPath()
     print "Plain text output can be found in: " + \
-          application.getTxtOutFilename()
+          application.getTxtOutPath()
 
     # update .pypoprc file
 
