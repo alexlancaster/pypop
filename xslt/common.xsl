@@ -106,7 +106,7 @@
   
   <xsl:if test="$text!=''">
    <xsl:call-template name="newline"/>
-   <xsl:value-of select="$text"/>
+   <xsl:copy-of select="$text"/>
    <xsl:call-template name="newline"/>
   </xsl:if>
 
