@@ -16,3 +16,4 @@
 #define FALSE 0 
 #define TRUE  1 
  
+#define MAX_INIT_COND 20 
