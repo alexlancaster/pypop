@@ -114,7 +114,7 @@
 
    <xsl:choose>
     <!-- if allele data is present output the subnodes -->
-    <xsl:when test="allelecounts/@class!='no-data'">
+    <xsl:when test="allelecounts/@role!='no-data'">
      <xsl:apply-templates select="*"/>
     </xsl:when>
     <!-- if no allele data is present supress processing and print message -->
@@ -196,7 +196,7 @@
   <xsl:choose>
   
    <!-- if there's no data, don't do anything -->
-   <xsl:when test="@class='no-data'">
+   <xsl:when test="@role='no-data'">
     <xsl:text>No allele data!</xsl:text>
     <xsl:call-template name="newline"/>
    </xsl:when>
@@ -236,7 +236,7 @@
 
   <xsl:choose>
 
-   <xsl:when test="@class='lumps'">
+   <xsl:when test="@role='lumps'">
     <xsl:call-template name="newline"/>
     <xsl:text>*Lumped output*</xsl:text>
     <xsl:call-template name="newline"/>
@@ -246,7 +246,7 @@
     </xsl:call-template>
    </xsl:when>
 
-   <xsl:when test="@class='no-common-genotypes'">
+   <xsl:when test="@role='no-common-genotypes'">
     <xsl:text>*No common genotypes, no output!*</xsl:text>
     <xsl:call-template name="newline"/>
    </xsl:when>
@@ -268,7 +268,7 @@
   
   <xsl:choose>
 
-   <xsl:when test="@class='out-of-range'">
+   <xsl:when test="@role='out-of-range'">
     <xsl:text>*Out of range of simulated homozygosity values*</xsl:text>
     <xsl:call-template name="newline"/>
     <xsl:text>*can't estimate expected homozygosity*</xsl:text>
