@@ -1,3 +1,16 @@
+2004-10-25  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Change test
+	of uniqueCount so that all positions with data are sent to new
+	matrix (not just positions with polymorphic data.)
+	(AnthonyNolanFilter.makeSeqDictionaries): Putting locus name as
+	attribute in xml tag rather than part of tag name.
+	(AnthonyNolanFilter._getConsensusFromLines): Bug fix - logic for
+	finding closest matching allele names was broken recently when we
+	added functionality for dealing with ambiguous alleles.  This was
+	a corner-case test, just for when allele names are 0100,
+	essentially serological.  Functionality restored.
+
 2004-10-07  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* NEWS: Note new feature.

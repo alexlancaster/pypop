@@ -532,31 +532,31 @@ class AnthonyNolanFilter(Filter):
                 # and add it to polyseq and add its position to
                 # polyseqpos (actually we add the position plus one
                 # because that is how humans count.)
-                if uniqueCount > 1:
+                if uniqueCount > 0:
                     for allele in self.sequences:
                         self.polyseq[locus + '*' + allele] += self.sequences[allele][pos]
                     self.polyseqpos[locus].append(pos+1)
 
             # this block was used to output *complete* sequences for a pop file
             # (with all the positions, not just the polymorphic residues.)
-            if len(self.polyseqpos[locus]) > 1:
-                self.logFile.opentag('sequence-' + locus)
+            if len(self.polyseqpos[locus]) > 0:
+                self.logFile.opentag('sequence',locus=locus)
                 self.logFile.writeln()
 
                 # this will give you the complete sequence of each individual
-#                for individ in self.matrix[locus]:
-#                    for allele in individ:
-#                        alleleString = "> " + allele
-#                        self.logFile.writeln(alleleString)
-#                        self.logFile.writeln(self.sequences[allele])
+                for individ in self.matrix[locus]:
+                    for allele in individ:
+                        alleleString = "> " + allele
+                        self.logFile.writeln(alleleString)
+                        self.logFile.writeln(self.sequences[allele])
 
-                # this will give you the complete sequence for each unique allele in the pop
-                for allele in self.sequences:
-                    alleleString = "> " + allele
-                    self.logFile.writeln(alleleString)
-                    self.logFile.writeln(self.sequences[allele])
+#                # this will give you the complete sequence for each unique allele in the pop
+#                for allele in self.sequences:
+#                    alleleString = "> " + allele
+#                    self.logFile.writeln(alleleString)
+#                    self.logFile.writeln(self.sequences[allele])
 
-                self.logFile.closetag('sequence-' + locus)
+                self.logFile.closetag('sequence')
                 self.logFile.writeln()
 
 
@@ -745,7 +745,7 @@ class AnthonyNolanFilter(Filter):
                 
             # if the allele is 4 dig, ending in 00, we can safely chop
             # this off, as it won't be found in the seq dict
-            if len(alleleSplit) == 4 and alleleSplit.isdigit():
+            if len(alleleSplit) == 4 and alleleSplit[2:4] == '00':
                 alleleSplit = alleleSplit[:2]
 
             for potentialMatch in self.alleleLookupTable[locus]:
