@@ -49,21 +49,31 @@
  <xsl:template name="round-to">
   <xsl:param name="node" select="."/>
   <xsl:param name="places"/>
-  <xsl:variable name="factor">
-   <xsl:call-template name="raise-to-power">
-    <xsl:with-param name="number" select="10"/>
-    <xsl:with-param name="power" select="$places"/>
-   </xsl:call-template>
-  </xsl:variable>
-  <xsl:variable name="format">
-   <xsl:call-template name="append-pad">
-    <xsl:with-param name="padChar" select="'0'"/>
-    <xsl:with-param name="padVar" select="'0.'"/>
-    <xsl:with-param name="length" select="$places + 2"/>
-   </xsl:call-template>
-  </xsl:variable>
-  <xsl:value-of 
-   select="format-number((round($factor * $node) div $factor), $format)"/>
+
+  <!-- first check that string is, indeed, a number -->
+  <xsl:choose>
+   <xsl:when test= "string(number($node))='NaN'"> 
+
+    <xsl:variable name="factor">
+     <xsl:call-template name="raise-to-power">
+      <xsl:with-param name="number" select="10"/>
+      <xsl:with-param name="power" select="$places"/>
+     </xsl:call-template>
+    </xsl:variable>
+    <xsl:variable name="format">
+     <xsl:call-template name="append-pad">
+      <xsl:with-param name="padChar" select="'0'"/>
+      <xsl:with-param name="padVar" select="'0.'"/>
+      <xsl:with-param name="length" select="$places + 2"/>
+     </xsl:call-template>
+    </xsl:variable>
+    <xsl:value-of 
+     select="format-number((round($factor * $node) div $factor),
+     $format)"/>
+   </xsl:when>
+   <!-- if not a number (NaN) return as text -->
+   <xsl:otherwise><xsl:value-of select="$node"/></xsl:otherwise>
+  </xsl:choose>
  </xsl:template>
  
  <xsl:template name="prepend-pad"> 
