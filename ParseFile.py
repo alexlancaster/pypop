@@ -66,7 +66,7 @@ class ParseFile:
 
         - the total number of  metadata fields.
 
-        Intended to be used internally by class only."""
+        *For internal use only*."""
 
         # split line
         fields = line.split(self.separator)
