@@ -135,7 +135,7 @@ class ParseFile:
                 if assoc.has_key(key):
                     assoc[key] = assoc[key], i
                 else:
-                    assoc[key] = i
+                   assoc[key] = i
                     
             else:
                 print "error: field name `%s' not valid" % field
@@ -459,8 +459,8 @@ class ParseGenotypeFile(ParseFile):
             for line in sampleDataLines:
                 fields = string.split(line, separator)
 
-                allele1 = fields[col1]
-                allele2 = fields[col2]
+                allele1 = string.strip(fields[col1])
+                allele2 = string.strip(fields[col2])
                     
                 # extend the list by the allele pair
                 #self.individualsList[rowCount].extend([allele1 + ':',
