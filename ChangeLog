@@ -1,5 +1,9 @@
 2004-12-23  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* NEWS: Now builds against recent versions of SWIG (no longer
+	stuck at version 1.3.9), should be compatible with versions of
+	SWIG > 1.3.10. (Tested against SWIG 1.3.21).
+
 	* pval/pval_wrap.i: %module _Pvalue -> Pvalue for compatibility
 	with most recent SWIG.
 
