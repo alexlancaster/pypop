@@ -382,8 +382,9 @@ class HardyWeinberg:
     stream.opentag('hardyweinberg')
     stream.tagContents("samplesize", "%d" % self.n)
     stream.writeln()
-    stream.tagContents("distinctalleles", "%d" % self.k)
-    stream.writeln()
+    # don't print out, already printed out in <allelecounts> tag in ParseFile
+    # stream.tagContents("distinctalleles", "%d" % self.k)
+    # stream.writeln()
     stream.tagContents("lumpBelow", "%d" % self.lumpBelow)
     stream.writeln()
 
