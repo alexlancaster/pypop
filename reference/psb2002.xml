@@ -235,6 +235,7 @@
 
 <appendix>
   <appendixinfo>
+    <pubdate>Last modified: $Date$ by $Author$</pubdate>
     <authorgroup>
       <author>
 	<firstname>Glenys</firstname>
@@ -252,7 +253,16 @@
 	<firstname>Jill</firstname>
 	<surname>Hollenbach</surname>
       </author>
+      <author>
+	<firstname>Alex</firstname>
+	<surname>Lancaster</surname>
+      </author>
+      <author>
+	<firstname>Steve</firstname>
+	<surname>Mack</surname>
+      </author>
     </authorgroup>
+
   </appendixinfo>
 
   <title>The HLA region</title>
@@ -345,21 +355,21 @@
       and both are members of the immunoglobulin superfamily. The
       classical class I molecules (A, B, and C) are comprised of a
       heavy chain, encoded by the HLA region, and a light chain,
-      encoded by the invariant &#xf062;2-microglobulin gene on ch. 15
+      encoded by the invariant &beta;2-microglobulin gene on ch. 15
       (<xref linkend="hla-structure.figure"/>). The extracellular
-      portion of the heavy chain is divided into 3 domains: &#xf061;1,
-      &#xf061;2, and &#xf061;3, each about 90 amino acids long. The
-      &#xf061;1 and &#xf061;2 domains form a groove bordered by two
-      &#xf061;-helices with a &#xf062;-pleated sheet floor. It is in
+      portion of the heavy chain is divided into 3 domains: &alpha;1,
+      &alpha;2, and &alpha;3, each about 90 amino acids long. The
+      &alpha;1 and &alpha;2 domains form a groove bordered by two
+      &alpha;-helices with a &beta;-pleated sheet floor. It is in
       this groove, referred to as the antigen recognition site (ARS),
       that the peptide fragment is bound. The classical class II
-      molecules (DR, DQ, and DP) are composed of an &#xf061; and a
-      &#xf062; chain (from the A and B genes respectively) in a
+      molecules (DR, DQ, and DP) are composed of an &alpha; and a
+      &beta; chain (from the A and B genes respectively) in a
       non-covalent association (<xref
       linkend="hla-structure.figure"/>). The extracellular portion of
-      each chain consists of two domains (&#xf061;1, &#xf061;2 and
-      &#xf062;1, &#xf062;2), each about 90 amino acids long. The ARS
-      is formed by the &#xf061;1 and &#xf062;1 domains.</para>
+      each chain consists of two domains (&alpha;1, &alpha;2 and
+      &beta;1, &beta;2), each about 90 amino acids long. The ARS
+      is formed by the &alpha;1 and &beta;1 domains.</para>
 
       <figure id="hla-structure.figure">
 	<title>Class I and class II structure and antigen presentation</title>
@@ -449,8 +459,7 @@
       (Jakobsen et al. 1998). For class I, allelic lineages are seen
       most clearly at the less polymorphic loci A and C, however at
       even the most polymorphic class II locus, DRB1, the alleles can
-      be divided into 13 distinct allelic lineages which are highly
-      correlated with the serological DR specificities. Phylogenetic
+      be divided into 13 distinct allelic lineages. Phylogenetic
       studies support the idea that many of these lineages are very
       old, but that alleles within each lineage have been generated
       recently in hominoid evolution (Bergstrom et al. 1998).</para>
@@ -545,12 +554,12 @@
        incompatible with neutrality expectations.</para>
 
       <para>Huttley et al. (1999) used data from many laboratories on
-      ~5000 microsatellites from the Utah and Amish CEPH families to
-      examine LD levels across the genome of 54 independent
-      chromosomes. They identified ten regions that showed higher LD
-      than the HLA region and concluded that the pattern of LD was
-      consistent with the action of natural selection on loci in these
-      regions.</para>
+      ~5000 microsatellites from <!-- the Utah and Amish ? --> CEPH
+      families to examine LD levels across the genome of 54
+      independent chromosomes. They identified ten regions that showed
+      higher LD than the HLA region and concluded that the pattern of
+      LD was consistent with the action of natural selection on loci
+      in these regions.</para>
     </sect1>
 
     <sect1>
@@ -572,7 +581,7 @@
       can involve multiple HLA and non-HLA loci and exhibit incomplete
       penetrance, genetic heterogeneity within the HLA region, and
       synergistic effects. Type 1 diabetes exhibits all of these
-      features (Thomson 1997, 2001a,). The class II genes DRB1, DQA1,
+      features (Thomson 1997, 2001a). The class II genes DRB1, DQA1,
       and DQB1 all contribute to type 1 diabetes. Genetic variation
       additional to DR-DQ is also required to explain all of the HLA
       region contribution to disease.</para>
@@ -723,671 +732,739 @@
 
     -->
 
-    <sect1>
-      <title>Hardy-Weinberg Ratios</title>
+ <sect1>
+  <title>Hardy-Weinberg Ratios</title>
+  
+  <sect2>
+   <title>Introduction</title>
+   
+   <para> Mendelian genetics was rediscovered in the early 1900's. The
+    Hardy-Weinberg law is the foundation of population genetics, and
+    was derived independently in 1908 by an English mathematician
+    Hardy and a German physician Weinberg. R.C. Punnett brought to the
+    attention of Hardy a remark of Yule (a geneticist)&#x2014;Mr. Yule
+    is reported to have suggested as a criticism of the Mendelian
+    position that if brachydactyly (short fingeredness) is dominant
+    &#x201c;in the course of time one would expect, in the absence of
+    counteracting factors, to get 3 brachydactylous individuals to 1
+    normal.&#x201d; Of course we now understand that Yule is confusing
+    the Mendelian 3:1 ratio in an F1 cross (Aa x Aa gives 3A-:1aa)
+    with population features.</para>
 
-      <sect2>
-	<title>Introduction</title>
+   <para> Basically we want to consider whether or not Mendelian
+    segregation causes changes in the genetic structure of a
+    population. We want to consider the effect of this factor acting
+    in isolation from all other possible factors, so we assume:</para>
 
-	<para> Mendelian genetics was rediscovered in the early
-	1900's. The Hardy-Weinberg law is the foundation of population
-	genetics, and was derived independently in 1908 by an English
-	mathematician Hardy and a German physician
-	Weinberg. R.C. Punnett brought to the attention of Hardy a
-	remark of Yule (a geneticist)&#x2014;Mr. Yule is reported to
-	have suggested as a criticism of the Mendelian position that
-	if brachydactyly (short fingeredness) is dominant &#x201c;in
-	the course of time one would expect, in the absence of
-	counteracting factors, to get 3 brachydactylous individuals to
-	1 normal.&#x201d; Of course we now understand that Yule is
-	confusing the Mendelian 3:1 ratio in an F1 cross (Aa x Aa
-	gives 3A-:1aa) with population features.</para>
+   <orderedlist>
+    <listitem>
+     <para>random mating (sexually reproducing diploid)
+      population</para>
+    </listitem>
+    
+    <listitem>
+     <para>mutation and migration rates are negligible (no
+      mutation, no migration)</para></listitem>
+    
+    <listitem>
+     <para>no selection</para></listitem>
+    
+    <listitem>
+     <para>segregation according to Mendelian rules</para></listitem>
+    
+    <listitem>
+     <para>non-overlapping generations</para></listitem>
+    
+    <listitem>
+     
+     <para>infinite population size, i.e., the population size is so
+      large that we can ignore small chance variations in allele
+      frequencies, so we can predict exactly what the allele
+      frequencies will be in a future generation, this is known as a
+      deterministic model, e.g., the equivalent when a coin is tossed
+      is that you would get exactly 50% heads and 50% tails, not a
+      distribution of values as seen in reality with a finite sample
+      size (stochastic model).</para></listitem>
+   </orderedlist>
 
-	<para> Basically we want to consider whether or not Mendelian
-	segregation causes changes in the genetic structure of a
-	population. We want to consider the effect of this factor
-	acting in isolation from all other possible factors, so we
-	assume:</para>
+   <para>The importance of the Hardy-Weinberg law is that if there are
+    no counteracting forces, then the frequencies of alleles do not
+    change in a population. In other words, variation in a population,
+    under a Mendelian system, tends to be maintained. We contrast this
+    to the previously believed blending inheritance where genetic
+    variation is decreased each generation. Further, the expected
+    genotype frequencies each generation are determined by the allele
+    frequencies, and are termed Hardy-Weinberg proportions
+    (HWP). Continued random mating leads to the same genotype (and
+    allele) frequencies, hence the term Hardy-Weinberg
+    equilibrium.</para>
+  </sect2>
+  
+  <sect2>
+   <title>Hardy-Weinberg proportions (HWP)</title>
+   
+   <para> We consider initially a two allele system, but the
+    results extend easily to multiple alleles. The two alleles are
+    A and a with respective frequencies p and q (p+q=1, so note
+    that we have only one independent variable). If gametes
+    combine at random then the frequencies of the three genotypic
+    classes in the next generation are:</para>
+   
+   <para>
+    <informaltable>
+     <tgroup cols="3">
+      <colspec colwidth="2cm"/>
+      <colspec colwidth="2cm"/>
+      <colspec colwidth="2cm"/>
+      <tbody>
+       <row>
+	<entry>AA</entry>
+	<entry>Aa </entry>
+	<entry>aa</entry>
+       </row>
+       <row>
+	<entry>p<superscript>2</superscript></entry>
+	<entry>2pq</entry>
+	<entry>q<superscript>2</superscript></entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </informaltable>
+   </para>
 
-	<orderedlist>
-	  <listitem>
-	    <para>random mating (sexually reproducing diploid)
-	population</para>
-	  </listitem>
-	  
-	  <listitem>
-	    <para>mutation and migration rates are negligible (no
-	mutation, no migration)</para></listitem>
-	  
-	<listitem>
-	    <para>no selection</para></listitem>
-	
-	  <listitem>
-	    <para>segregation according to Mendelian rules</para></listitem>
-	  
-	  <listitem>
-	    <para>non-overlapping generations</para></listitem>
+   <para>(Note that the 2 for the heterozygote class comes about
+    since there are two ways a heterozygote can form, each with
+    probability pq, the father can supply the A allele and the
+    mother the a allele, or vice versa.) Using gene (allele)
+    counting, with f(.) denoting frequency, such that f(A) = f(AA)
+    + f(Aa)/2, and assuming we can distinguish the heterozygote
+    from the two homozygote classes, we obtain,</para>
+   
 
-	  <listitem>
-	    
-	    <para>infinite population size, i.e., the population size
-	is so large that we can ignore small chance variations in
-	allele frequencies, so we can predict exactly what the allele
-	frequencies will be in a future generation, this is known as a
-	deterministic model, e.g., the equivalent when a coin is
-	tossed is that you would get exactly 50% heads and 50% tails,
-	not a distribution of values as seen in reality with a finite
-	sample size (stochastic model).</para></listitem>
-	</orderedlist>
-
-	<para> The importance of the Hardy-Weinberg law is that if
-	there are no counteracting forces, then the frequencies of
-	alleles do not change in a population. In other words,
-	variation in a population, under a Mendelian system, tends to
-	be maintained. We contrast this to the previously believed
-	blending inheritance where genetic variation is decreased each
-	generation. Further, the expected genotype frequencies each
-	generation are determined by the allele frequencies, and are
-	termed Hardy-Weinberg proportions (HWP). Continued random
-	mating leads to the same genotype (and allele) frequencies,
-	hence the term Hardy-Weinberg equilibrium.</para>
-      </sect2>
-
-      <sect2>
-	<title>Hardy-Weinberg proportions (HWP)</title>
-
-	<para> We consider initially a two allele system, but the
-	results extend easily to multiple alleles. The two alleles are
-	A and a with respective frequencies p and q (p+q=1, so note
-	that we have only one independent variable). If gametes
-	combine at random then the frequencies of the three genotypic
-	classes in the next generation are:</para>
-
-	<literallayout>
-AA &nbsp;Aa &nbsp;aa
-p2 &nbsp;2pq &nbsp;q2</literallayout>
-
-	<para>(Note that the 2 for the heterozygote class comes about
-	since there are two ways a heterozygote can form, each with
-	probability pq, the father can supply the A allele and the
-	mother the a allele, or vice versa.) Using gene (allele)
-	counting, with f(.) denoting frequency, such that f(A) = f(AA)
-	+ f(Aa)/2, and assuming we can distinguish the heterozygote
-	from the two homozygote classes, we obtain,</para>
-
-	<informalequation> f(A) = p2 + pq = p(p + q) = p.</informalequation>
-
-	<para> Thus, we have demonstrated that under the assumptions
-	of the Hardy-Weinberg law, the allele frequencies in the
-	offspring generation are the same as those in the parental
-	generation. This results from the fact that there are no
-	forces operating to cause systematic change in allele
-	frequencies, since the two alleles in this case are considered
-	to be selectively equivalent (neutral with respect to each
-	other). Further, it follows that in all subsequent
-	generations, the genotypic distribution will remain p2AA,
-	2pqAa, q2aa. With overlapping generations, there is rapid
-	convergence to the HWP. For a multi-allelic system, the
-	results are exactly equivalent, with the expected homozygote
-	genotype frequencies given by pi2, where pi is the allele
-	frequency for the ith allele, and the expected heterozygote
-	genotype frequencies are given by 2pipj, with i&lt;j. Although
-	complicated in words, the Hardy Weinberg law is ,
-	statistically speaking, a simple statement about independence
-	of allele frequencies at a locus.</para>
-
-      <para>For example, we consider the ABO blood group system: A
-	is dominant to O, B is dominant to O, A and B are
-	co-dominant. For the following allele frequencies, A = 0.30, B
-	= 0.10, O = 0.60, the HWP are:</para>
+   <literallayout>f(A) = p<superscript>2</superscript> + pq = p(p + q) = p.</literallayout>
+   
+   <para> Thus, we have demonstrated that under the assumptions of the
+    Hardy-Weinberg law, the allele frequencies in the offspring
+    generation are the same as those in the parental generation. This
+    results from the fact that there are no forces operating to cause
+    systematic change in allele frequencies, since the two alleles in
+    this case are considered to be selectively equivalent (neutral
+    with respect to each other). Further, it follows that in all
+    subsequent generations, the genotypic distribution will remain
+    p<superscript>2</superscript>AA, 2pqAa,
+    q<superscript>2</superscript>aa. With overlapping generations,
+    there is rapid convergence to the HWP. For a multi-allelic system,
+    the results are exactly equivalent, with the expected homozygote
+    genotype frequencies given by
+    p<subscript>i</subscript><superscript>2</superscript>, where
+    p<subscript>i</subscript> is the allele frequency for the ith
+    allele, and the expected heterozygote genotype frequencies are
+    given by 2p<subscript>i</subscript>p<subscript>j</subscript>, with
+    i&lt;j. Although complicated in words, the Hardy Weinberg law is,
+    statistically speaking, a simple statement about independence of
+    allele frequencies at a locus.</para>
+   
+   <para>For example, we consider the ABO blood group system: A is
+    dominant to O, B is dominant to O, A and B are co-dominant. For
+    the following allele frequencies, A = 0.30, B = 0.10, O = 0.60,
+    the HWP are:</para>
+   
+   <para>
+    <informaltable>
+     <tgroup cols="3">
+      <colspec colname="col1" colwidth="2cm"/>
+      <colspec colname="col2" colwidth="2cm"/>
+      <colspec colname="col3" colwidth="5.5cm"/>
       
-      <informaltable>
-	  <tgroup cols="3">
-	    <colspec colname="col1" colwidth="2cm"/>
-	    <colspec colname="col2" colwidth="2cm"/>
-	    <colspec colname="col3" colwidth="5.5cm"/>
+      <thead>
+       <row>
+	<entry>Blood type</entry>
+	<entry>genotypes</entry>
+	<entry>Frequency</entry>
+       </row>
+      </thead>
+      <tbody>
+       <row>
+	<entry>A</entry>
+	<entry>AA, AO</entry>
+       <entry>(0.3)2 + 2(0.3)(0.6) = 0.45</entry>
+       </row>
+       <row>
+	<entry>B</entry> 
+	<entry>BB, BO</entry>
+	<entry>(0.1)2 + 2(0.1)(0.6) = 0.13</entry>
+       </row>
+       <row>
+	<entry>AB</entry>
+	<entry>AB</entry>
+	<entry>2(0.1)(0.3) = 0.06</entry>
+       </row>
+       <row>
+	<entry>O</entry>
+	<entry>OO</entry>
+	<entry>(0.6)2 = 0.36</entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </informaltable>
+   </para>
+   
+   <para>(Note in this case that the allele frequencies cannot be
+    estimated by gene (allele) counting, since allele O is
+    recessive. The allele frequencies in this case are estimated
+    by an iterative procedure.)</para>
+   
+   <para> For sex-linked (X chromosome) genes, females are
+    diploid and males are haploid, and the HWP are</para>
 
-	    <thead>
-	      <row>
-		<entry>Blood type</entry>
-		<entry>genotypes</entry>
-		<entry>Frequency</entry>
-	      </row>
-	    </thead>
-	    <tbody>
-	      <row>
-		<entry>A</entry>
-		<entry>AA, AO</entry>
-		<entry>(0.3)2 + 2(0.3)(0.6) = 0.45</entry>
-	      </row>
-	      <row>
-		<entry>B</entry> 
-		<entry>BB, BO</entry>
-		<entry>(0.1)2 + 2(0.1)(0.6) = 0.13</entry>
-	      </row>
-	      <row>
-		<entry>AB</entry>
-		<entry>AB</entry>
-		<entry>2(0.1)(0.3) = 0.06</entry>
-	      </row>
-	      <row>
-		<entry>O</entry>
-		<entry>OO</entry>
-		<entry>(0.6)2 = 0.36</entry>
-	      </row>
-	    </tbody>
-	  </tgroup>
-	</informaltable>
+   <para>
+    <informaltable>
+     <tgroup cols="5">
+      <colspec colname="col1" colwidth="2cm" align="center"/>
+      <colspec colname="col2" colwidth="2cm" align="center"/>
+      <colspec colname="col3" colwidth="2cm" align="center"/>
+      <colspec colname="col4" colwidth="2cm" align="center"/>
+      <colspec colname="col5" colwidth="2cm" align="center"/>
+      <thead>
+       <row>
+	<entry namest="col1" nameend="col3" align="center">females</entry>
+	<entry namest="col4" nameend="col5" align="center">males</entry>
+       </row>
+      </thead>
+      <tbody>
+       <row>
+	<entry>AA</entry>
+	<entry>Aa </entry>
+	<entry>aa</entry>
+	<entry>A</entry>
+	<entry>a</entry>
+       </row>
+       <row>
+	<entry>p<superscript>2</superscript></entry>
+	<entry>2pq</entry>
+	<entry>q<superscript>2</superscript></entry>
+	<entry>p</entry> <entry>q</entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </informaltable>
+   </para>
+   
+   <para>If the female and male initial allele frequencies are
+    equal, then these equilibrium frequencies are reached in one
+    generation. If they are unequal, then a rapid convergence to
+    the above equilibrium takes place.</para>
+   
+   <para> Due to the finite size of samples, observed genotype
+    frequencies are not expected to be in exact HWP. Two
+    illustrative examples using the codominant MN blood group
+    system are shown below, which have the same allele frequencies
+    f(M) = 0.6, f(N) = 0.4, and hence the same HWP, but very
+    different observed genotype frequencies (the first very close
+    to HWP, the second very different from HWP):</para>
 
-	<para>(Note in this case that the allele frequencies cannot be
-	estimated by gene (allele) counting, since allele O is
-	recessive. The allele frequencies in this case are estimated
-	by an iterative procedure.)</para>
+   <para>   
+    <informaltable>
+     <tgroup cols="4">
+      <colspec colwidth="4cm"/>
+      <colspec colwidth="2cm"/>
+      <colspec colwidth="2cm"/>
+      <colspec colwidth="2cm"/>
+      <thead>
+       <row>
+	<entry></entry>
+	<entry>MM</entry>
+	<entry>MN</entry>
+	<entry>NN</entry>
+       </row>
+      </thead>
+      <tbody>
+       <row>
+	<entry>obs. freq.</entry>
+	<entry>0.35</entry>
+	<entry>0.5</entry>
+	<entry>0.15</entry>
+       </row>
+       <row>
+	<entry>obs. freq.</entry>
+	<entry>0.56</entry>
+	<entry>0.08</entry>
+	<entry>0.36</entry>
+       </row>
+       <row>
+	<entry>exp. H-W</entry>
+	<entry>0.36</entry>
+	<entry>0.48</entry>
+	<entry>0.16</entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </informaltable>
+   </para>
 
-	<para> For sex-linked (X chromosome) genes, females are
-	diploid and males are haploid, and the HWP are</para>
+   <para> The strength of the Hardy-Weinberg law is that much of the
+    variation in natural populations follows HWP; its weakness is that
+    selection, etc., have to be very strong to detect deviations from
+    HWP.</para>
+  </sect2>
+  
+  <sect2>
+   <title>Testing fit to HWP</title>
+   
+   <para>There are two important issues with regard to HWP
+    testing. First is testing the overall fit of a
+    sample. Traditionally, a large sample goodness-of-fit chi-square
+    is performed when the number of genotypes is small relative to the
+    sample size. With the development of modern molecular technology,
+    the situation is often different from this. For instance, over 400
+    alleles have been described at the HLA class I B locus, although
+    not all these alleles are seen in any one population. However, it
+    is not uncommon for researchers to distinguish more than a few
+    dozen alleles in a reasonable-sized sample for the HLA class I and
+    class II loci. Therefore, in many studies the genotypic matrix is
+    relatively sparse and some simulation approaches, e.g. Guo and
+    Thompson (1992), are more appropriate than their asymptotic
+    counter parts in testing for overall fit of HWP.</para>
 
-
-	<para> &nbsp;females &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;males</para>
-	<para> AA &nbsp;Aa &nbsp;aa &nbsp;&nbsp;A &nbsp;a</para>
-	<para> p2 &nbsp;2pq &nbsp;q2 &nbsp;&nbsp;p &nbsp;q.</para>
-	
-	<para>If the female and male initial allele frequencies are
-         equal, then these equilibrium frequencies are reached in one
-         generation. If they are unequal, then a rapid convergence to
-         the above equilibrium takes place.</para>
-
-	<para> Due to the finite size of samples, observed genotype
-	frequencies are not expected to be in exact HWP. Two
-	illustrative examples using the codominant MN blood group
-	system are shown below, which have the same allele frequencies
-	f(M) = 0.6, f(N) = 0.4, and hence the same HWP, but very
-	different observed genotype frequencies (the first very close
-	to HWP, the second very different from HWP):</para>
-
-	<para> MM MN NN</para>
-	<para>(1) obs. freq. 0.35 0.5 0.15</para>
-	<para>(2) obs. freq. 0.56 0.08 0.36</para>
-	<para>exp. H-W 0.36 0.48 0.16</para>
-
-	<para> The strength of the Hardy-Weinberg law is that much of
-	the variation in natural populations follows HWP; its weakness
-	is that selection, etc., have to be very strong to detect
-	deviations from HWP.</para>
-      </sect2>
-
-      <sect2>
-	<title>Testing fit to HWP</title>
-
-	<para>There are two important issues with regard to HWP
-          testing. First is testing the overall fit of a
-          sample. Traditionally, a large sample goodness-of-fit
-          chi-square is performed when the number of genotypes is
-          small relative to the sample size. With the development of
-          modern molecular technology, the situation is often
-          different from this. For instance, over 400 alleles have
-          been described at the HLA class I B locus, although not all
-          these alleles are seen in any one population. However, it is
-          not uncommon for researchers to distinguish more than a few
-          dozen alleles in a reasonable-sized sample for the HLA class
-          I and class II loci. Therefore, in many studies the
-          genotypic matrix is relatively sparse and some simulation
-          approaches, e.g. Guo and Thompson (1992), are more
-          appropriate than their asymptotic counter parts in testing
-          for overall fit of HWP.</para>
-
-	<para> The second issue is testing at the individual
-	heterozygote level. For a given sample, beside the overall
-	fit, researchers are often interested in knowing which
-	individual heterozygote significantly deviates from its HW
-	expectation, especially when the genotype matrix is relatively
-	large. If one rejects the overall fit, which heterozygote(s)
-	is/are responsible for the deviation? If one does not reject
-	the overall fit, are there consistent and significant patterns
-	of deviation at the individual level, which were not detected
-	by an overall test? This is especially relevant when genetic
-	data are available from more than one population. By comparing
-	patterns across populations, consistent deviations, which may
-	not be strong enough to be found in the overall tests of an
-	individual sample, could be detected. This will allow
-	researchers to generate future hypothesis on the mechanisms
-	causing such patterns and facilitate further study of this
-	genetic region.</para>
-
-	  <sect3>
-	    <title>The chi-square test</title>
-
-	  <para> The basis of the chi-square test is to calculate
-	  expected genotype values based on HWP for individual
-	  genotype values and test for fit to HWP using an overall
-	  test. When expected genotype counts are &gt;=5 calculate the
-	  individual chi-square value for this genotype, i.e.,
-	  (O-E)<superscript>2</superscript>/E, where O is observed and
-	  E is expected for that genotype, and add together the
-	  contributions of each genotype. If there are no rare
-	  genotypes (expected &lt;5), the degrees of freedom (d.f.)
-	  for the overall chi-square test are given by k(k-1)/2, where
-	  k is the number of alleles in the sample under study. This
-	  comes from the formula, d.f. = number of categories - 1 -
-	  number of independent parameters estimated from the data
-	  needed to determine the expected values (in this case k-1,
-	  since if we know k-1 allele frequencies we can determine the
-	  kth allele frequency). Since the number of categories
-	  (genotypes) in this case is k (homozygotes) + k(k-1)/2
-	  (heterozygotes) = k(k+1)/2, from which we subtract 1 (since
-	  given the frequencies of all except one of these categories
-	  we can always determine the frequency of the remaining
-	  category given the sample size), and subtract (k-1) (the
-	  number of independent allele frequencies need to estimate
-	  the HWP), to give the d.f. = k(k-1)/2.</para>
+   <para> The second issue is testing at the individual heterozygote
+    level. For a given sample, beside the overall fit, researchers are
+    often interested in knowing which individual heterozygote or
+    homozygote significantly deviates from its HW expectation,
+    especially when the genotype matrix is relatively large. If one
+    rejects the overall fit, which heterozygote(s) is/are responsible
+    for the deviation? If one does not reject the overall fit, are
+    there consistent and significant patterns of deviation at the
+    individual level, which were not detected by an overall test?
+    This is especially relevant when genetic data are available from
+    more than one population. By comparing patterns across
+    populations, consistent deviations, which may not be strong enough
+    to be found in the overall tests of an individual sample, could be
+    detected. This will allow researchers to generate future
+    hypothesis on the mechanisms causing such patterns and facilitate
+    further study of this genetic region.</para>
+   
+   <sect3>
+    <title>The chi-square test</title>
+    
+    <para> The basis of the chi-square test is to calculate expected
+     genotype values based on HWP for individual genotype values and
+     test for fit to HWP using an overall test. When expected genotype
+     counts are &gt;=5, calculate the individual chi-square value for
+     this genotype, i.e., (O-E)<superscript>2</superscript>/E, where O
+     is observed and E is expected for that genotype, and add together
+     the contributions of each genotype. If there are no rare
+     genotypes (expected &lt;5), the degrees of freedom (d.f.)  for
+     the overall chi-square test are given by k(k-1)/2, where k is the
+     number of alleles in the sample under study. This comes from the
+     formula, d.f. = number of categories - 1 - number of independent
+     parameters estimated from the data needed to determine the
+     expected values (in this case k-1, since if we know k-1 allele
+     frequencies we can determine the kth allele frequency). Since the
+     number of categories (genotypes) in this case is k (homozygotes)
+     + k(k-1)/2 (heterozygotes) = k(k+1)/2, from which we subtract 1
+     (since given the frequencies of all except one of these
+     categories we can always determine the frequency of the remaining
+     category given the sample size), and subtract (k-1) (the number
+     of independent allele frequencies need to estimate the HWP), to
+     give the d.f. = k(k-1)/2.</para>
 	  
-	  <para> As examples we consider a 2 allele case, &nbsp;as
-	  above, with a range of observed (O) genotype frequencies,
-	  all with p = 0.6, q = 0.4, and all with sample size N = 100
-	  individuals. In all cases the expected (E) HWP genotype
-	  counts are 36, 48, and 16. Next to the observed numbers in
-	  each case the (O - E) values are given. The d.f. = 1 in each
-	  case for the overall chi-square test. For a chi-square
-	  distribution with 1 d.f., the cut-off points, i.e.,
-	  rejection of the null hypothesis of fit to HWP are 3.84
-	  (5%), 6.64 (1%), and 10.83 (0.1%). If the overall chi-square
-	  value is greater than one of these values, then the null
-	  hypothesis of overall fit to HWP for these genotypes is
-	  rejected with the type 1 error (probability you have made a
-	  mistake) given in parentheses.</para>
+    <para>As examples we consider a 2 allele case, &nbsp;as above,
+     with a range of observed (O) genotype frequencies, all with p =
+     0.6, q = 0.4, and all with sample size N = 100 individuals. In
+     all cases the expected (E) HWP genotype counts are 36, 48, and
+     16. Next to the observed numbers in each case the (O - E) values
+     are given. The d.f. = 1 in each case for the overall chi-square
+     test. For a chi-square distribution with 1 d.f., the cut-off
+     points, i.e., rejection of the null hypothesis of fit to HWP are
+     3.84 (5%), 6.64 (1%), and 10.83 (0.1%). If the overall chi-square
+     value is greater than one of these values, then the null
+     hypothesis of overall fit to HWP for these genotypes is rejected
+     with the type 1 error (probability you have made a mistake) given
+     in parentheses.</para>
+    
+    <para>
+     <informaltable>
+      <tgroup cols="4">
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="3cm"/>
+       <tbody>
+	<row>
+	 <entry>AA</entry> 
+	 <entry>Aa</entry>
+	 <entry>aa</entry>
+	 <entry>chi-square value</entry>
+	</row>
+	<row>
+	 <entry>35 (1)</entry>
+	 <entry>50 (2)</entry>
+	 <entry>15 (1)</entry>
+	 <entry>0.17</entry>
+	</row>
+	<row>
+	 <entry>32 (4)</entry>
+	 <entry>56 (8)</entry>
+	 <entry>12 (4)</entry>
+	 <entry>2.78</entry>
+	</row>
+	<row>
+	 <entry>31 (5)</entry>
+	 <entry>58 (10)</entry>
+	 <entry>11 (5)</entry>
+	 <entry>4.34, p&lt;0.05</entry>
+	</row>
+	<row>
+	 <entry>29 (7)</entry>
+	 <entry>62 (14)</entry>
+	 <entry>9 (7)</entry>
+	 <entry>8.51, p&lt;0.01</entry>
+	</row>
+	<row>
+	 <entry>27 (9)</entry>
+	 <entry>66 (18)</entry>
+	 <entry>7 (9)</entry>
+	 <entry>14.06, p&lt;0.001</entry>
+	</row>
+       </tbody>
+      </tgroup>
+     </informaltable>
+    </para>
 
-	  <informaltable>
-	    <tgroup cols="4">
-	    <colspec colwidth="2cm"/>
-	    <colspec colwidth="2cm"/>
-	    <colspec colwidth="2cm"/>
-	    <colspec colwidth="3cm"/>
-	      <tbody>
-		<row>
-		  <entry>AA</entry> 
-		  <entry>Aa</entry>
-		  <entry>aa</entry>
-		  <entry>chi-square value</entry>
-		</row>
-		<row>
-		  <entry>35 (1)</entry>
-		  <entry>50 (2)</entry>
-		  <entry>15 (1)</entry>
-		  <entry>0.17</entry>
-		</row>
-		<row>
-		  <entry>32 (4)</entry>
-		  <entry>56 (8)</entry>
-		  <entry>12 (4)</entry>
-		  <entry>2.78</entry>
-		</row>
-		<row>
-		  <entry>31 (5)</entry>
-		  <entry>58 (10)</entry>
-		  <entry>11 (5)</entry>
-		  <entry>4.34, p&lt;0.05</entry>
-		</row>
-		<row>
-		  <entry>29 (7)</entry>
-		  <entry>62 (14)</entry>
-		  <entry>9 (7)</entry>
-		  <entry>8.51, p&lt;0.01</entry>
-		</row>
-		<row>
-		  <entry>27 (9)</entry>
-		  <entry>66 (18)</entry>
-		  <entry>7 (9)</entry>
-		  <entry>14.06, p&lt;0.001</entry>
-		</row>
-	      </tbody>
-	    </tgroup>
-	  </informaltable>
+    <para>The individual genotype contributions
+     (O-E)<superscript>2</superscript>/E can each be asymptotically
+     tested against a chi-square distribution with 1 d.f., to
+     determine which genotypes are contributing to significant
+     deviation from HWP.</para>
 
-	  <para>The individual genotype contributions
-	  (O-E)<superscript>2</superscript>/E can each be
-	  asymptotically tested against a chi-square distribution with
-	  1 d.f., to determine which genotypes are contributing to
-	  significant deviation from HWP.</para>
+    <para>With a 3 allele system, there are 6 genotype classes (A1A1,
+     A1A2, A1A3, A2A2, A2A3, A3A3) and if all have expected values
+     &gt;=5, the overall chi-square will have 3 d.f.</para>
 
-	  <para> With a 3 allele system, there are 6 genotype classes
-	  (A1A1, A1A2, A1A3, A2A2, A2A3, A3A3) and if all have
-	  expected values &gt;=5, the overall chi-square will have 3
-	  d.f.</para>
+    <para>When expected genotype counts are &lt;5 a lumped category of
+     observed and expected values for all these genotypes needs to be
+     formed, and test fit to null hypothesis (no deviation from HWP)
+     of this chi-square value with 1 degree of freedom and output p
+     value. The chi-square value from this category is added to the
+     cumulative chi-square value from the genotypes &gt;=5 class to
+     give the overall chi-square value which is tested against the
+     null hypothesis of fit to HWP, degrees of freedom equals the
+     number of genotypes falling into &gt;=5 class minus the number of
+     independent parameters estimated. In the case of the highly
+     polymorphic HLA data, with high allele numbers and many sparse
+     cells, this calculation may result in zero or negative d.f. (for
+     which a test of significance cannot be applied). In this case,
+     the rarer alleles need to be appropriately combined.</para>
 
-	  <para> When expected genotype counts are &lt;5 a lumped
-	  category of observed and expected values for all these
-	  genotypes needs to be formed, and test fit to null
-	  hypothesis (no deviation from HWP) of this chi-square value
-	  with 1 degree of freedom and output p value. The chi-square
-	  value from this category is added to the cumulative
-	  chi-square value from the genotypes &gt;=5 class to give the
-	  overall chi-square value which is tested against the null
-	  hypothesis of fit to HWP, degrees of freedom equals the
-	  number of genotypes falling into &gt;=5 class minus the
-	  number of independent parameters estimated. In the case of
-	  the highly polymorphic HLA data, with high allele numbers
-	  and many sparse cells, this calculation may result in zero
-	  or negative d.f. (for which a test of significance cannot be
-	  applied). In this case, an appropriate strategy is to just
-	  subtract the number of alleles seen in the genotypes &lt;=5
-	  category. If this still gives a problem, the rarer alleles
-	  need to be appropriately combined.</para>
+    <para> For the above Pearson&#x2019;s goodness of fit test, the
+     general rule of thumb about the validity of the asymptotics is
+     that the expected cell counts need to be at least 5 (Cochran
+     1954), although it is found that the rule tends to be
+     conservative (Bradley et al. 1979). Several corrections to this
+     goodness of fit test have been proposed to improve the
+     approximation when small sample expectations exist in the
+     sample. Yates (1934) suggested using the continuity correction,
+     1/2, i.e., (absolute value (0 - E) - 1/2)2/E. Emigh (1980) showed
+     that in some cases a correction of 1/4 performs better.</para>
 
-	  <para> For the above Pearson&#x2019;s goodness of fit test,
-	  the general rule of thumb about the validity of the
-	  asymptotics is that the expected cell counts need to be at
-	  least 5 (Cochran 1954), although it is found that the rule
-	  tends to be conservative (Bradley et al. 1979). Several
-	  corrections to this goodness of fit test have been proposed
-	  to improve the approximation when small sample expectations
-	  exist in the sample. Yates (1934) suggested using the
-	  continuity correction, 1/2, i.e., (absolute value (0 - E) -
-	  1/2)2/E. Emigh (1980) showed that in some cases a correction
-	  of 1/4 performs better.</para>
-
-	  <para> Elston and Forthofer (1977) derived the likelihood
-	  ratio statistic for HWP testing. It was based on comparison
-	  of two maximum likelihoods of a sample coming from the
-	  multinomial distribution of genotype counts with (L0) versus
-	  without (L1) the HWP constraint. When the null hypothesis is
-	  true, i.e., HWP, the test statistic, G2 (= -2ln(L0/L1)),
-	  follows a chi-square distribution, with k(k-1)/2 d.f.</para>
+    <para> Elston and Forthofer (1977) derived the likelihood ratio
+     statistic for HWP testing. It was based on comparison of two
+     maximum likelihoods of a sample coming from the multinomial
+     distribution of genotype counts with (L0) versus without (L1) the
+     HWP constraint. When the null hypothesis is true, i.e., HWP, the
+     test statistic, G2 (= -2ln(L0/L1)), follows a chi-square
+     distribution, with k(k-1)/2 d.f.</para>
 
 
-	  <para>Below is an example of a contingency table with
-	  genotypic observed and expected counts, illustrating the
-	  problem of sparse cells (the data is for the DPA1 locus of
-	  the HLA region, from a Filipino population). The identity of
-	  the alleles (0102, 0103&#x2026;) present in each genotype
-	  are given on the margins, and genotypes with expected counts
-	  &lt;5 are shown in bold. Notice how the expected values for
-	  individual genotypes are often very low. These inflate the
-	  chi-square values and may result in spurious rejection of
-	  the null hypothesis.</para>
+    <para>Below is an example of a contingency table with genotypic
+     observed and expected counts, illustrating the problem of sparse
+     cells (the data is for the DPA1 locus of the HLA region, from a
+     Filipino population). The identity of the alleles (0102,
+     0103&#x2026;) present in each genotype are given on the margins,
+     and genotypes with expected counts &lt;5 are shown in
+     bold. Notice how the expected values for individual genotypes are
+     often very low. These inflate the chi-square values and may
+     result in spurious rejection of the null hypothesis.</para>
 
- 	  <informaltable frame="none">
-	    <tgroup cols="7">
-	      <colspec colname="col1" colwidth="2cm"/>
-	      <colspec colname="col2" colwidth="2cm"/>
-	      <colspec colname="col3" colwidth="2cm"/>
-	      <colspec colname="col4" colwidth="2cm"/>
-	      <colspec colname="col5" colwidth="2cm"/>
-	      <colspec colname="col6" colwidth="2cm"/>
-	      <colspec colname="col7" colwidth="2cm"/>
-	      <tbody>
-		  <row>
-		  <entry colsep="1">0102</entry>
-		  <entry>0/<phrase role="strong">0.1</phrase></entry>
-		</row>
-		<row>
-		  <entry colsep="1">0103</entry>
-		  <entry>0/<phrase role="strong">0.2</phrase></entry>
-		  <entry>0/<phrase role="strong">2.2</phrase></entry>
-		</row>
-		<row>
-		  <entry colsep="1">0104</entry>
-		  <entry>0/<phrase role="strong">0.1</phrase></entry>
-		  <entry>1/<phrase role="strong">0.2</phrase></entry>
-		  <entry>0/<phrase role="strong">0.1</phrase></entry>
-		</row>
-		<row>
-		  <entry colsep="1">02011</entry>
-		  <entry>0/<phrase role="strong">0.1</phrase></entry>
-		  <entry>3/<phrase role="strong">2.8</phrase></entry>
-		  <entry>0/<phrase role="strong">0.1</phrase></entry>
-		  <entry>0/<phrase role="strong">0.9</phrase></entry>
-		</row>
-		<row>
-		  <entry colsep="1">02022</entry>
-		  <entry>1/<phrase role="strong">0.7</phrase></entry>
-		  <entry>23/20.5</entry>
-		  <entry>0/<phrase role="strong">0.7</phrase></entry>
-		  <entry>14/12.7</entry>
-		  <entry>46/47.0</entry>
-		</row>
-		<row rowsep="1">
-		  <entry colsep="1">0401</entry>
-		  <entry>0/<phrase role="strong">0.1</phrase></entry>
-		  <entry>2/<phrase role="strong">0.9</phrase></entry>
-		  <entry>0/<phrase role="strong">0.1</phrase></entry>
-		  <entry>1/<phrase role="strong">0.6</phrase></entry>
-		  <entry>3/<phrase role="strong">4.2</phrase></entry>
-		  <entry>0/<phrase role="strong">0.1</phrase></entry>
-		</row>
-		<row>
-		  <entry colspec="1"></entry>
-		  <entry>0102</entry>
-		  <entry>0103</entry>
-		  <entry>0104</entry>
-		  <entry>02011</entry>
-		  <entry>02022</entry>
-		  <entry>0401</entry>
-		</row>
-	      </tbody>
-	    </tgroup>
-	  </informaltable>
+    <para>
+     <informaltable frame="none">
+      <tgroup cols="7">
+       <colspec colname="col1" colwidth="2cm"/>
+       <colspec colname="col2" colwidth="2cm"/>
+       <colspec colname="col3" colwidth="2cm"/>
+       <colspec colname="col4" colwidth="2cm"/>
+       <colspec colname="col5" colwidth="2cm"/>
+       <colspec colname="col6" colwidth="2cm"/>
+       <colspec colname="col7" colwidth="2cm"/>
+       <tbody>
+	<row>
+	 <entry colsep="1">0102</entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	</row>
+	<row>
+	 <entry colsep="1">0103</entry>
+	 <entry>0/<phrase role="strong">0.2</phrase></entry>
+	 <entry>0/<phrase role="strong">2.2</phrase></entry>
+	</row>
+	<row>
+	 <entry colsep="1">0104</entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	 <entry>1/<phrase role="strong">0.2</phrase></entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	</row>
+	<row>
+	 <entry colsep="1">02011</entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	 <entry>3/<phrase role="strong">2.8</phrase></entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	 <entry>0/<phrase role="strong">0.9</phrase></entry>
+	</row>
+	<row>
+	 <entry colsep="1">02022</entry>
+	 <entry>1/<phrase role="strong">0.7</phrase></entry>
+	 <entry>23/20.5</entry>
+	 <entry>0/<phrase role="strong">0.7</phrase></entry>
+	 <entry>14/12.7</entry>
+	 <entry>46/47.0</entry>
+	</row>
+	<row rowsep="1">
+	 <entry colsep="1">0401</entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	 <entry>2/<phrase role="strong">0.9</phrase></entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	 <entry>1/<phrase role="strong">0.6</phrase></entry>
+	 <entry>3/<phrase role="strong">4.2</phrase></entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	</row>
+	<row>
+	 <entry colspec="1"></entry>
+	 <entry>0102</entry>
+	 <entry>0103</entry>
+	 <entry>0104</entry>
+	 <entry>02011</entry>
+	 <entry>02022</entry>
+	 <entry>0401</entry>
+	</row>
+       </tbody>
+      </tgroup>
+     </informaltable>
+    </para>
+     
+    <para>In this example sparse cells are fairly common, even
+     though &nbsp;this is by no means a particularly polymorphic
+     HLA locus. The problem is particularly serious in the cases
+     where polymorphism is greater.</para>
+   </sect3>
 
-	  <para>In this example sparse cells are fairly common, even
-	  though &nbsp;this is by no means a particularly polymorphic
-	  HLA locus. The problem is particularly serious in the cases
-	  where polymorphism is greater.</para>
-	</sect3>
+   <sect3>
+    <title>Exact tests</title>
+    
+    <para>Levene (1949) described the conditional sampling
+     distribution for Hardy Weinberg populations. An algorithm for
+     generating the exact distribution of samples drawn from a
+     population in HWP was proposed by Louis and Dempster
+     (1987). Using this algorithm, one could develop an exact test for
+     HWP, analogous to Fisher&#x2019;s 2x2 exact test. This approach
+     can be applied to an arbitrary number of alleles, especially when
+     sample sizes are small. It provides a reliable alternative to the
+     standard goodness of fit test and methods that require
+     corrections. Below is an example of a test for deviations from
+     HWP using such an exact test.</para>
 
-	<sect3>
-	  <title>Exact tests</title>
+    <para>Consider a sample of 40 individuals, where the genotype
+     counts for a biallelic locus are: n(AA) = 5, n(Aa) = 9, and n(aa)
+     = 26. &nbsp;The total count for each allele is: n(A) = 19 , and
+     n(a) = 61. Using the expression given by Levene (1949) we compute
+     the probability of obtaining this set of genotypes, conditional
+     on the observed counts of alleles, under the null hypothesis of
+     no association (i.e. HWP). The probability of this combination is
+     0.0205</para>
 
-	  <para>Levene (1949) described the conditional sampling
-           distribution for Hardy Weinberg populations. An algorithm
-           for generating the exact distribution of samples drawn from
-           a population in HWP was proposed by Louis and Dempster
-           (1987). Using this algorithm, one could develop an exact
-           test for HWP, analogous to Fisher&#x2019;s 2x2 exact
-           test. This approach can be applied to an arbitrary number
-           of alleles, especially when sample sizes are small. It
-           provides a reliable alternative to the standard goodness of
-           fit test and methods that require corrections. Below is an
-           example of a test for deviations from HWP using such an
-           exact test.</para>
+    <para>The challenge now is to decide whether the probability
+     associated to this outcome is particularly low. This can be done
+     by comparing the probability of this specific genotypic
+     combination with that of all other possible combinations. This is
+     summarized in the table below. All genotypic possibilities,
+     conditional on the observed number of alleles, are listed and
+     sorted by their probabilities.</para>
 
-	  <para>Consider a sample of 40 individuals, where the
-	  genotype counts for a biallelic locus are: n(AA) = 5, n(Aa)
-	  = 9, and n(aa) = 26. &nbsp;The total count for each allele
-	  is: n(A) = 19 , and n(a) = 61. Using the expression given by
-	  Levene (1949) we compute the probability of obtaining this
-	  set of genotypes, conditional on the observed counts of
-	  alleles, under the null hypothesis of no association
-	  (i.e. HWP). The probability of this combination is
-	  0.0205</para>
-
-	  <para>The challenge now is to decide whether the probability
-           associated to this outcome is particularly low. This can be
-           done by comparing the probability of this specific
-           genotypic combination with that of all other possible
-           combinations. This is summarized in the table below. All
-           genotypic possibilities, conditional on the observed number
-           of alleles, are listed and sorted by their
-           probabilities.</para>
-
-	<informaltable frame="none"> 
-	  <tgroup cols="5" align="right"> 
-	    <colspec colwidth="2cm"/>
-	    <colspec colwidth="2cm"/>
-	    <colspec colwidth="2cm"/>
-	    <colspec colwidth="2cm"/>
-	    <colspec colwidth="4.5cm"/>
-	    <tbody>
-	      <row>
-		<entry>AA</entry>
-		<entry>a</entry>
-		<entry>aa</entry>
-		<entry>Probability</entry>
-		<entry>Cumulative Probability</entry>
-	      </row>
-	      <row>
-		<entry>9</entry>
-		<entry>1</entry>
-		<entry>30</entry>
-		<entry>0.0000</entry>
-		<entry>0.0000</entry>
-	      </row>
-	      
-	      <row>
-		<entry>8</entry>
-		<entry>3</entry>
-		<entry>29</entry>
-		<entry>0.0000</entry>
-		<entry>0.0000</entry>
-	      </row>
-	      <row>
-		<entry>7</entry>
-		<entry>5</entry>
-		<entry>28</entry>
-		<entry>0.0001</entry>
-		<entry>0.0001</entry>
-	      </row>
-	      <row>
-		<entry>6</entry>
-		<entry>7</entry>
-		<entry>27</entry>
-		<entry>0.0023</entry>
-		<entry>0.0024</entry>
-	      </row>
-	      <row>
-		<entry>5</entry>
-		<entry>9</entry>
-		<entry>26</entry>
-		<entry>0.0205</entry>
-		<entry>0.0229 &lt; - observed data</entry>
-	      </row>
-	      <row>
-		<entry>0</entry>
-		<entry>19</entry>
-		<entry>21</entry>
-		<entry>0.0594</entry>
-		<entry>0.0823</entry>
-	      </row>
-	      <row>
-		<entry>4</entry>
-		<entry>11</entry>
-		<entry>25</entry>
-		<entry>0.0970</entry>
-		<entry>0.1793</entry>
-	      </row>
-	      <row>
-		<entry>1</entry>
-		<entry>17</entry>
-		<entry>22</entry>
-		<entry>0.2308</entry>
-		<entry>0.4101</entry>
-	      </row>
-	      <row>
-		<entry>3</entry>
-		<entry>13</entry>
-		<entry>24</entry>
-		<entry>0.2488</entry>
-		<entry>0.6589</entry>
-	      </row>
-	      <row>
-		<entry>2</entry>
-		<entry>15</entry>
-		<entry>23</entry>
-		<entry>0.3411</entry>
-		<entry>1.0000</entry>
-	      </row>
-	    </tbody>
-	  </tgroup>
-	</informaltable>
-
-	<para>The probability of the observed genotypes is among the
-	  5% lowest ways to distribute genes into genotypic
-	  categories, so we reject the null hypothesis that the
-	  genotypes fit HWP.</para>
+    <para>
+     <informaltable frame="none"> 
+      <tgroup cols="5" align="right"> 
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="4.5cm"/>
+       <tbody>
+	<row>
+	 <entry>AA</entry>
+	 <entry>a</entry>
+	 <entry>aa</entry>
+	 <entry>Probability</entry>
+	 <entry>Cumulative Probability</entry>
+	</row>
+	<row>
+	 <entry>9</entry>
+	 <entry>1</entry>
+	 <entry>30</entry>
+	 <entry>0.0000</entry>
+	 <entry>0.0000</entry>
+	</row>
 	
-	<para> However, with an increase in the number of alleles
-	  and sample size, the number of possible configurations of
-	  samples using the above algorithm grows exponentially. It
-	  becomes computationally cumbersome or even infeasible. To
-	  avoid complete enumeration, Guo and Thompson (1992)
-	  developed two simulation approaches to perform an
-	  approximate exact overall HWP test. In their conventional
-	  Monte Carlo approach, gametes were permuted to generate new
-	  genotypes and the Monte Carlo p value of the observed sample
-	  can be estimated by comparing Levene&#x2019;s probabilities
-	  of the sample and those from different permutations.</para>
+	<row>
+	 <entry>8</entry>
+	 <entry>3</entry>
+	 <entry>29</entry>
+	 <entry>0.0000</entry>
+	 <entry>0.0000</entry>
+	</row>
+	<row>
+	 <entry>7</entry>
+	 <entry>5</entry>
+	 <entry>28</entry>
+		<entry>0.0001</entry>
+	 <entry>0.0001</entry>
+	</row>
+	<row>
+	 <entry>6</entry>
+	 <entry>7</entry>
+	 <entry>27</entry>
+	 <entry>0.0023</entry>
+	 <entry>0.0024</entry>
+	</row>
+	<row>
+	 <entry>5</entry>
+	 <entry>9</entry>
+	 <entry>26</entry>
+	 <entry>0.0205</entry>
+	 <entry>0.0229 &lt; - observed data</entry>
+	</row>
+	<row>
+	 <entry>0</entry>
+	 <entry>19</entry>
+	 <entry>21</entry>
+	 <entry>0.0594</entry>
+	 <entry>0.0823</entry>
+	</row>
+	<row>
+	 <entry>4</entry>
+	 <entry>11</entry>
+	 <entry>25</entry>
+	 <entry>0.0970</entry>
+	 <entry>0.1793</entry>
+	</row>
+	<row>
+	 <entry>1</entry>
+	 <entry>17</entry>
+	 <entry>22</entry>
+	 <entry>0.2308</entry>
+	 <entry>0.4101</entry>
+	</row>
+	<row>
+	 <entry>3</entry>
+	 <entry>13</entry>
+	 <entry>24</entry>
+	 <entry>0.2488</entry>
+	 <entry>0.6589</entry>
+	</row>
+	<row>
+	 <entry>2</entry>
+	 <entry>15</entry>
+	 <entry>23</entry>
+	 <entry>0.3411</entry>
+	 <entry>1.0000</entry>
+	</row>
+       </tbody>
+      </tgroup>
+     </informaltable>
+    </para>
+     
+    <para>The probability of the observed genotypes is among the 5%
+     lowest ways to distribute genes into genotypic categories, so we
+     reject the null hypothesis that the genotypes fit HWP.</para>
+	
+    <para> However, with an increase in the number of alleles and
+     sample size, the number of possible configurations of samples
+     using the above algorithm grows exponentially. It becomes
+     computationally cumbersome or even infeasible. To avoid complete
+     enumeration, Guo and Thompson (1992) developed two simulation
+     approaches to perform an approximate exact overall HWP test. In
+     their conventional Monte Carlo approach, gametes were permuted to
+     generate new genotypes and the Monte Carlo p value of the
+     observed sample can be estimated by comparing Levene&#x2019;s
+     probabilities of the sample and those from different
+     permutations.</para>
 
-	  <para> In the Markov chain Monte Carlo (MCMC) approach of
-	  Guo and Thompson (1992), a finite and irreducible Markov
-	  chain of states of genotype counts was generated using the
-	  Metropolis algorithm (Metropolis et al. 1953), where the
-	  transition probabilities between any two states were a
-	  function of the ratio of probabilities of being in each of
-	  them. The equilibrium distribution of the Markov chain was
-	  set to have the same allele frequencies as those in the
-	  observed sample and the HWP genotype probabilities. After a
-	  &#x201c;dememorization&#x201d; period, the p value was
-	  estimated by calculating the fraction of times the Markov
-	  chain was in any states which had equal or lower probability
-	  than the observed one.</para>
+    <para> In the Markov chain Monte Carlo (MCMC) approach of Guo and
+     Thompson (1992), a finite and irreducible Markov chain of states
+     of genotype counts was generated using the Metropolis algorithm
+     (Metropolis et al. 1953), where the transition probabilities
+     between any two states were a function of the ratio of
+     probabilities of being in each of them. The equilibrium
+     distribution of the Markov chain was set to have the same allele
+     frequencies as those in the observed sample and the HWP genotype
+     probabilities. After a &#x201c;dememorization&#x201d; period, the
+     p value was estimated by calculating the fraction of times the
+     Markov chain was in any states which had equal or lower
+     probability than the observed one.</para>
 
-	  <para> In Chen and Thomson (1999) the variance for the
-           disequilibrium coefficient in the individual Hardy-Weinberg
-           test has been determined. An exact test using a statistic
-           based on this variance has been developed (Chen et
-	  al. 1999).</para>
-	</sect3>
-      </sect2>
+    <para> In Chen and Thomson (1999) the variance for the
+     disequilibrium coefficient in the individual Hardy-Weinberg test
+     has been determined. An exact test using a statistic based on
+     this variance has been developed (Chen et al. 1999).</para>
+   </sect3>
+  </sect2>
+  
+  <sect2>
+   <title>Testing fit to HWP of HLA data</title>
+   
+   <para> The Guo and Thompson (1992) overall test, and the Chen et
+    al. (1999) exact test of individual heterozygote deviations from
+    HWP, have been applied to HLA class II genotype data in 26
+    populations (Chen et al. 1999). Eighty of the 99 overall tests
+    fitted HWP (73% for DRB1, 89% for DQA1, 81% for DQB1, and 81% for
+    DPB1), deviations were both locus and group specific. The
+    individual test results indicated that the departure was partly
+    due to recent admixture. Evidence for selection as a cause of
+    deviation from HWP was also observed; the fact that the DQB1
+    allele *0301 was involved in significant individual heterozygote
+    deficiencies in eight samples could well implicate
+    selection.</para>
 
-    <sect2>
-      <title>Testing fit to HWP of HLA data</title>
+   <para>In many cases the genotypes showing significant deviation
+    contain alleles suspected of being the result of admixture or
+    recent origin within the group. It is possible that admixture has
+    effectively caused the deviation from HWP, suggesting its very
+    recent history to the group, perhaps within one generation. Other
+    explanations for the deviation from HWP, including non-random
+    mating patterns with regard to admixed individuals within the
+    ethnic group, must also be considered. On the other hand,
+    significant deviations from HWP are also seen in populations which
+    showed very little evidence for any admixture, e.g., the Mixe, an
+    amerindian group from Oaxaca, Mexico (Hollenbach et
+    al. 2001). These deviations could be due to the impact of
+    selection pressures from infectious diseases on these
+    genes. </para>
 
-      <para> The Guo and Thompson (1992) overall test, and the Chen et
-       al. (1999) exact test of individual heterozygote deviations
-       from HWP, have been applied to HLA class II genotype data in 26
-       populations (Chen et al. 1999). Eighty of the 99 overall tests
-       fitted HWP (73% for DRB1, 89% for DQA1, 81% for DQB1, and 81%
-       for DPB1), deviations were both locus and group specific. The
-       individual test results indicated that the departure was partly
-       due to recent admixture. Evidence for selection as a cause of
-       deviation from HWP was also observed; the fact that the DQB1
-       allele *0301 was involved in significant individual
-       heterozygote deficiencies in eight samples could well implicate
-       selection.</para>
+   <para>&nbsp;Testing for fit to HWP can also serve a useful role in
+    assessing the initial quality of typing results. Should deviations
+    from expectations occur, it is possible to look again at the raw
+    data and the methods employed to generate them, and if deemed
+    necessary repeat typing and use alternative methods to confirm
+    results. This may be particularly relevant for HLA typing in
+    non-Caucasian populations, where new alleles which may not be
+    detected by the typing system are more likely to occur.</para>
 
-      <para>In many cases the genotypes showing significant deviation
-       contain alleles suspected of being the result of admixture or
-       recent origin within the group. It is possible that admixture
-       has effectively caused the deviation from HWP, suggesting its
-       very recent history to the group, perhaps within one
-       generation. Other explanations for the deviation from HWP,
-       including non-random mating patterns with regard to admixed
-       individuals within the ethnic group, must also be
-       considered. On the other hand, significant deviations from HWP
-       are also seen in populations which showed very little evidence
-       for any admixture, e.g., the Mixe, an amerindian group from
-       Oaxaca, Mexico (Hollenbach et al. 2001). These deviations could
-       be due to the impact of selection pressures from infectious
-       diseases on these genes. </para>
-
-      <para>&nbsp;Testing for fit to HWP can also serve a useful role
-       in assessing the initial quality of typing results. Should
-       deviations from expectations occur, it is possible to look
-       again at the raw data and the methods employed to generate
-       them, and if deemed necessary repeat typing and use alternative
-       methods to confirm results. This may be particularly relevant
-       for HLA typing in non-Caucasian populations, where new alleles
-       which may not be detected by the typing system are more likely
-       to occur.</para>
-
-      <para> Also, we have to caution here that the individual
-       heterozygote testing approach is most useful if one has an a
-       priori hypothesis about one or a few heterozygotes in the
-       sample, regarding their excess or deficit from HWP. By applying
-       the method to all heterozygotes, we face the problem of
-       multiple tests, and some results merely reflecting type 1
-       error. Therefore any p values need to judged with
-       care. However, the approach is still of general interest and
-       validity in detecting patterns and generating future
-       hypotheses.</para>
+   <para> Also, we have to caution here that the individual
+    heterozygote testing approach is most useful if one has an a
+    priori hypothesis about one or a few heterozygotes in the sample,
+    regarding their excess or deficit from HWP. By applying the method
+    to all heterozygotes, we face the problem of multiple tests, and
+    some results merely reflecting type 1 error. Therefore any p
+    values need to judged with care. However, the approach is still of
+    general interest and validity in detecting patterns and generating
+    future hypotheses.</para>
     </sect2>
   </sect1>
 
@@ -2296,7 +2373,7 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
       (disease&#x2014;function&#x2014;gene&#x2014;map). Sickle cell
       anemia was the first human disease to be successfully understood
       at the molecular level and isolation of the mutant molecule led
-      to the localization of the &#xf062;-globin gene on chromosome
+      to the localization of the &beta;-globin gene on chromosome
       11. Functional cloning is, however, only useful in a subset of
       Mendelian traits where the biological basis is known, and in
       very few complex traits.</para>
@@ -3104,5 +3181,7 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
 <!--
 Local variables:
 sgml-parent-document: ("biostat.xml" "appendix" "article" ("sect1" "glossary" "appendix"))
+sgml-indent-step: 1
+sgml-indent-data: 1
 End:
 -->
