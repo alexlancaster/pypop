@@ -33,7 +33,7 @@ class HardyWeinberg:
     self.debug = debug
 
     self.n = len(self.locusData)
-    self.k = 2 * self.n
+    self.k = len(self.alleleCounts)
 
     self._generateTables()
     self._calcChisq()
@@ -52,7 +52,6 @@ class HardyWeinberg:
 #       running_freq = 0.0
 #       for allele in self.alleleCount.keys():
 #         running_count += self.alleleCount[allele]
-#         #freq = self.alleleCount[allele] / float(self.k)
 #         freq = self.alleleCount[allele] / float(self.alleleTotal)
 #         running_freq += freq
 #         print allele, 'obs:', self.alleleCount[allele],\
@@ -100,7 +99,7 @@ class HardyWeinberg:
       """For each entry in the dictionary of allele counts
       generate a corresponding entry in a dictionary of frequencies"""
 
-      freq = self.alleleCounts[allele] / float(self.k)
+      freq = self.alleleCounts[allele] / float(self.alleleTotal)
       frequencyAccumulator += freq
       self.alleleFrequencies[allele] = freq
 
