@@ -2,7 +2,7 @@
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
- <xsl:import href="common.xsl"/>
+ <xsl:import href="lib.xsl"/>
  
  <!-- select "text" as output method -->
  <xsl:output method="xml" omit-xml-declaration="yes"/>
@@ -14,6 +14,10 @@
  <xsl:key name="loci" match="/meta/dataanalysis/locus" use="@name"/>
 
  <xsl:template match="/">
+  <xsl:call-template name="sort-by-locus"/>
+ </xsl:template>
+
+ <xsl:template name="sort-by-locus">
 
   <xsl:variable name="names"
    select="/meta/dataanalysis/locus[generate-id(.)=generate-id(key('loci',@name))]"/>
@@ -33,6 +37,11 @@
     <xsl:for-each select="key('loci',@name)">
      <xsl:element name="population">
       <xsl:call-template name="newline"/> 
+
+      <xsl:element name="popname">     
+       <xsl:value-of select="../populationdata/popname"/>
+      </xsl:element>
+      <xsl:call-template name="newline"/>
 
       <xsl:element name="filename">     
        <xsl:value-of select="../filename"/>
