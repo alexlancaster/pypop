@@ -70,8 +70,11 @@
  </xsl:attribute-set>
 
  <!-- workaround template for bugs in PassiveTeX which crop -->
- <!-- up in verbatim environments -->
- <xsl:template match="programlisting|screen|synopsis">
+ <!-- up in verbatim environments, exempt <screen> b/c workaround -->
+ <!-- strips off useful markup for inline elements, <programlisting> -->
+ <!-- is used for literal output with no inline elements -->
+
+ <xsl:template match="programlisting|synopsis">
   <xsl:param name="suppress-numbers" select="'0'"/>
   
   <xsl:variable name="id"><xsl:call-template name="object.id"/></xsl:variable>
@@ -82,6 +85,7 @@
    <!-- because PassiveTeX, being braindead sometimes -->
    <!-- doesn't treat blank spaces and actual -->
    <!-- XML characters identically (grr) -->
+
    <xsl:call-template name="string.subst">
     <xsl:with-param name="target" select="' '"/>
     <xsl:with-param name="replacement" select="'&#160;'"/>
@@ -110,7 +114,7 @@
   <!-- if verbatim environment embedded inside a *table element -->
   <!-- we can't use shaded background, this is a workaround for a -->
   <!-- *another* bug in PassiveTeX -->
-  <xsl:choose>
+ <xsl:choose>
    <xsl:when test="$shade.verbatim != 0">
 
     <xsl:choose>
@@ -146,6 +150,67 @@
   </xsl:otherwise>
   </xsl:choose>
  </xsl:template>
+
+ <!-- customization header content -->
+
+<xsl:template name="header.content">
+  <xsl:param name="pageclass" select="''"/>
+  <xsl:param name="sequence" select="''"/>
+  <xsl:param name="position" select="''"/>
+  <xsl:param name="gentext-key" select="''"/>
+  
+  <fo:block>
+   
+   <!-- sequence can be odd, even, first, blank -->
+   <!-- position can be left, center, right -->
+   <xsl:choose>
+    <xsl:when test="$sequence = 'blank'">
+     <!-- nothing -->
+    </xsl:when>
+    
+    <xsl:when test="$position='left'">
+        <!-- Same for odd, even, empty, and blank sequences -->
+        <xsl:call-template name="draft.text"/>
+    </xsl:when>
+    
+    <xsl:when test="($sequence='odd' or $sequence='even') and $position='center'">
+     <xsl:if test="$pageclass != 'titlepage'">
+      <xsl:choose>
+       <xsl:when test="ancestor::book and ($double.sided != 0)">
+         <fo:retrieve-marker retrieve-class-name="section.head.marker"
+          retrieve-position="first-including-carryover"
+          retrieve-boundary="page-sequence"/>
+       </xsl:when>
+       <xsl:otherwise>
+
+         <!-- use Chapter %n title form of markup rather than abbrev  -->
+         <xsl:apply-templates select="." mode="object.title.markup"/>
+        <!-- <xsl:apply-templates select="." mode="titleabbrev.markup"/> -->
+       </xsl:otherwise>
+      </xsl:choose>
+     </xsl:if>
+    </xsl:when>
+
+   <xsl:when test="$position='center'">
+    <!-- nothing for empty and blank sequences -->
+   </xsl:when>
+
+   <xsl:when test="$position='right'">
+    <!-- Same for odd, even, empty, and blank sequences -->
+    <xsl:call-template name="draft.text"/>
+   </xsl:when>
+
+   <xsl:when test="$sequence = 'first'">
+    <!-- nothing for first pages -->
+   </xsl:when>
+
+   <xsl:when test="$sequence = 'blank'">
+    <!-- nothing for blank pages -->
+   </xsl:when>
+  </xsl:choose>
+  </fo:block>
+ </xsl:template>
+
  
 </xsl:stylesheet>
 
