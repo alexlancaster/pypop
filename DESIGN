@@ -44,6 +44,15 @@ allele count case).
 
 **TODO**
 
+2001-09-14:
+
+- HardyWeinberg: Output a lower-triangular matrix for all relevant
+  values. (mpn/alex)
+
+- Output information about missing data on a per-locus basis (i.e. any
+  deviations from the total number of individuals in each input
+  file).  (alex)
+
 2001-09-13: 
 
 - "getopt-ify" emphaplofreq so that all currently hardcoded parameters
@@ -54,6 +63,7 @@ allele count case).
 
 - Make number of significant figures reported be a global parameter
   set in "config.ini" (e.g. "%.4f") (alex)
+
 
 2001-07-31:
 
