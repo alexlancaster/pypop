@@ -1,5 +1,5 @@
 Modifications by: Alex Lancaster and Diogo Meyer
-Date: January 2003.
+$Date$
 
 Modified version of Montgomery Slatkin's "enumeration.c" and
 "monte-carlo.c" code as found on 2002-08-16 at the following URL:
