@@ -2,7 +2,7 @@
 
   program name: ln_p_value.c
 
-  function to compute the log p value for given genetype frequencies
+  function to compute the log p value for given genotype frequencies
 
   status: modified from g-t program 
 
@@ -11,35 +11,31 @@
 *************************************************************************/
 #include "hwe.h"
 
-double ln_p_value(a, no_allele, constant)
-
-		 int a[LENGTH];
-		 int no_allele;
-		 double constant;
+double ln_p_value(int *a, int no_allele, double constant)
 
 {
-	register int i, j, l, temp;
-	register double ln_prob;
-	double log_factorial();
-
-	ln_prob = constant;
-	temp = 0;
-
-	for (i = 0; i < no_allele; ++i)
+  int i, j, l, temp;
+  double ln_prob = 0.0;
+  double log_factorial();
+  
+  printf("const=%e, ", constant);
+  ln_prob = constant;
+  temp = 0;
+  
+  for (i = 0; i < no_allele; ++i)
+    {
+      for (j = 0; j < i; ++j)
 	{
-		for (j = 0; j < i; ++j)
-		{
-			l = LL(i, j);
-			temp += a[l];
-			ln_prob -= log_factorial(a[l]);
-		}
-
-		l = LL(i, i);
-		ln_prob -= log_factorial(a[l]);
+	  l = LL(i, j);
+	  temp += a[l];
+	  ln_prob = ln_prob - log_factorial(a[l]);
 	}
+      l = LL(i, i);
+      ln_prob = ln_prob - log_factorial(a[l]); 
+    }
 
-	ln_prob += temp * log(2.0);
+  ln_prob = ln_prob + (temp * log(2.0));
+  printf("temp=%d, ln_prob=%e\n", temp, ln_prob);
 
-	return (ln_prob);
-
+  return (ln_prob);
 }

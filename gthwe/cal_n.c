@@ -12,20 +12,20 @@
 
 #include "hwe.h"
 
-void cal_n(int no_allele, int a[LENGTH], int n[MAX_ALLELE])
+void cal_n(int no_allele, int *a, int *n)
 {
-	register int i, j, l;
-
-	for (i = 0; i < no_allele; ++i)
+  register int i, j, l;
+  
+  for (i = 0; i < no_allele; ++i)
+    {
+      l = LL(i, i);
+      n[i] = a[l];
+      
+      for (j = 0; j < no_allele; ++j)
 	{
-		l = LL(i, i);
-		n[i] = a[l];
-
-		for (j = 0; j < no_allele; ++j)
-		{
-			l = L(i, j);
-			n[i] += a[l];
-		}
+	  l = L(i, j);
+	  n[i] += a[l];
 	}
+    }
 }
 
