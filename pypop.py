@@ -13,6 +13,8 @@ Expects to find a configuration file called 'config.ini' in the
 current directory or in %s.
 
   -e, --experimental   enable experimental features
+  -h, --help           show this message
+  -c, --config=FILE    select alternative config file
 
   INPUTFILE   input text file""" % altpath
 
@@ -25,17 +27,21 @@ from Utils import XMLOutputStream, TextOutputStream
 from getopt import getopt, GetoptError
 
 try:
-  opts, args =getopt(sys.argv[1:],"e", ["experimental"])
+  opts, args =getopt(sys.argv[1:],"ec:h", ["experimental", "config=", "help"])
 except GetoptError:
   sys.exit(usage_message)
 
 # default options
 experimentalFeatures = 0
+configFilename = 'config.ini'
 
 # parse options
 for o, v in opts:
-  if o in ("-e", "--experiemental"):
+  if o in ("-e", "--experimental"):
     experimentalFeatures = 1
+  elif o in ("-c", "--config"):
+    configFilename = v
+    specifiedConfigFile = 1
   elif o in ("-h", "--help"):
     sys.exit(usage_message)
 
@@ -52,16 +58,17 @@ prefixFileName = string.split(baseFileName, ".")[0]
 
 config = ConfigParser()
 
-
-
-if os.path.isfile("config.ini"):
-  config.read("config.ini")
+if os.path.isfile(configFilename):
+  config.read(configFilename)
 else:
-  if os.path.isfile(altpath):
-    config.read(altpath)
+  if specifiedConfigFile:
+    sys.exit("Could not find config file: `%s' " % configFilename)
   else:
-    sys.exit("Could not find config.ini either in current directory or " +
-             altpath + os.linesep + usage_message)
+    if os.path.isfile(altpath):
+      config.read(altpath)
+    else:
+      sys.exit("Could not find config file either in current directory or " +
+               altpath + os.linesep + usage_message)
 				
 if len(config.sections()) == 0:
 	sys.exit("No output defined!  Exiting...")
