@@ -378,125 +378,123 @@ class HardyWeinberg:
     type = getStreamType(stream)
 
     # stream serialization goes here
-    if type != "xml":
-      stream.writeln("removed text output--look at the xml output")
-    
+
+    stream.opentag('hardyweinberg')
+    stream.tagContents("samplesize", "%d" % self.n)
+    stream.writeln()
+    stream.tagContents("distinctalleles", "%d" % self.k)
+    stream.writeln()
+    stream.tagContents("lumpBelow", "%d" % self.lumpBelow)
+    stream.writeln()
+
+    self.serializeXMLTableTo(stream)
+
+    if self.flagHoms == 1:
+      stream.opentag('homozygotes')
+      stream.writeln()
+      stream.tagContents("observed", "%d" % self.totalHomsObs)
+      stream.writeln()
+      stream.tagContents("expected", "%4f" % self.totalHomsExp)
+      stream.writeln()
+      stream.tagContents("chisq", "%4f" % self.totalChisqHoms)
+      stream.writeln()
+      stream.tagContents("pvalue", "%4f" % self.chisqHomsPval)
+      stream.writeln()
+      stream.closetag('homozygotes')
+      stream.writeln()
+
+    if self.flagHets == 1:
+      stream.opentag('heterozygotes')
+      stream.writeln()
+      stream.tagContents("observed", "%d" % self.totalHetsObs)
+      stream.writeln()
+      stream.tagContents("expected", "%4f" % self.totalHetsExp)
+      stream.writeln()
+      stream.tagContents("chisq", "%4f" % self.totalChisqHets)
+      stream.writeln()
+      stream.tagContents("pvalue", "%4f" % self.chisqHetsPval)
+      stream.writeln()
+      stream.closetag('heterozygotes')
+      stream.writeln()
+
+    # loop for heterozygotes by allele
+    stream.opentag('heterozygotesByAllele')
+    stream.writeln()
+    for allele in self.hetsChisqByAllele.keys():
+      stream.opentag('allele', name=allele)
+      stream.writeln()
+      stream.tagContents("observed", "%d" % self.hetsObservedByAllele[allele])
+      stream.writeln()
+      stream.tagContents("expected", "%4f" % self.hetsExpectedByAllele[allele])
+      stream.writeln()
+      stream.tagContents("chisq", "%4f" % self.hetsChisqByAllele[allele])
+      stream.writeln()
+      stream.tagContents("pvalue", "%4f" % self.hetsPvalByAllele[allele])
+      stream.writeln()
+      stream.closetag('allele')
+      stream.writeln()
+
+    stream.closetag('heterozygotesByAllele')
+    stream.writeln()
+
+    # loop for all genotypes by genotype
+    stream.opentag('genotypesByGenotype')
+    stream.writeln()
+    for genotype in self.chisqByGenotype.keys():
+      stream.opentag('genotype', name=genotype)
+      stream.writeln()
+      stream.tagContents("observed", "%d" % self.observedGenotypeCounts[genotype])
+      stream.writeln()
+      stream.tagContents("expected", "%4f" % self.expectedGenotypeCounts[genotype])
+      stream.writeln()
+      stream.tagContents("chisq", "%4f" % self.chisqByGenotype[genotype])
+      stream.writeln()
+      stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[genotype])
+      stream.writeln()
+      stream.closetag('genotype')
+      stream.writeln()
+
+    stream.closetag('genotypesByGenotype')
+    stream.writeln()
+
+    if self.flagLumps == 1:
+      stream.opentag('lumped')
+      stream.writeln()
+      stream.tagContents("observed", "%d" % self.lumpedObservedGenotypes)
+      stream.writeln()
+      stream.tagContents("expected", "%4f" % self.lumpedExpectedGenotypes)
+      stream.writeln()
+      stream.tagContents("chisq", "%4f" % self.lumpedChisq)
+      stream.writeln()
+      stream.tagContents("pvalue", "%4f" % self.lumpedChisqPval)
+      stream.writeln()
+      stream.closetag('lumped')
+      stream.writeln()
     else:
+      if self.flagNoRareGenotypes == 1:
+        stream.emptytag('lumped', role='no-rare-genotypes')
+      if self.flagTooFewExpected == 1:
+        stream.emptytag('lumped', role='too-few-expected')
 
-      stream.opentag('hardyweinberg')
-      stream.tagContents("samplesize", "%d" % self.n)
+    if self.flagCommons == 1:
+      stream.opentag('common')
       stream.writeln()
-      stream.tagContents("distinctalleles", "%d" % self.k)
+      stream.tagContents("hwchisq", "%4f" % self.HWChisq)
       stream.writeln()
-
-      self.serializeXMLTableTo(stream)
-
-      if self.flagHoms == 1:
-        stream.opentag('homozygotes')
-        stream.writeln()
-        stream.tagContents("observed", "%d" % self.totalHomsObs)
-        stream.writeln()
-        stream.tagContents("expected", "%4f" % self.totalHomsExp)
-        stream.writeln()
-        stream.tagContents("chisq", "%4f" % self.totalChisqHoms)
-        stream.writeln()
-        stream.tagContents("pvalue", "%4f" % self.chisqHomsPval)
-        stream.writeln()
-        stream.closetag('homozygotes')
-        stream.writeln()
-
-      if self.flagHets == 1:
-        stream.opentag('heterozygotes')
-        stream.writeln()
-        stream.tagContents("observed", "%d" % self.totalHetsObs)
-        stream.writeln()
-        stream.tagContents("expected", "%4f" % self.totalHetsExp)
-        stream.writeln()
-        stream.tagContents("chisq", "%4f" % self.totalChisqHets)
-        stream.writeln()
-        stream.tagContents("pvalue", "%4f" % self.chisqHetsPval)
-        stream.writeln()
-        stream.closetag('heterozygotes')
-        stream.writeln()
-
-      # loop for heterozygotes by allele
-      stream.opentag('heterozygotesByAllele')
+      stream.tagContents("hwchisqdf", "%4f" % self.HWChisqDf)
       stream.writeln()
-      for allele in self.hetsChisqByAllele.keys():
-        stream.opentag('allele', name=allele)
-        stream.writeln()
-        stream.tagContents("observed", "%d" % self.hetsObservedByAllele[allele])
-        stream.writeln()
-        stream.tagContents("expected", "%4f" % self.hetsExpectedByAllele[allele])
-        stream.writeln()
-        stream.tagContents("chisq", "%4f" % self.hetsChisqByAllele[allele])
-        stream.writeln()
-        stream.tagContents("pvalue", "%4f" % self.hetsPvalByAllele[allele])
-        stream.writeln()
-        stream.closetag('allele')
-        stream.writeln()
-
-      stream.closetag('heterozygotesByAllele')
+      stream.tagContents("hwchisqpval", "%4f" % self.HWChisqPval)
+      stream.writeln()
+      stream.closetag('common')
+      stream.writeln()
+    else:
+      if self.flagNoCommonGenotypes == 1:
+        stream.emptytag('common', role='no-common-genotypes')
+      elif self.flagTooManyParameters == 1:
+        stream.emptytag('common', role='too-many-parameters')
       stream.writeln()
 
-      # loop for all genotypes by genotype
-      stream.opentag('genotypesByGenotype')
-      stream.writeln()
-      for genotype in self.chisqByGenotype.keys():
-        stream.opentag('genotype', name=genotype)
-        stream.writeln()
-        stream.tagContents("observed", "%d" % self.observedGenotypeCounts[genotype])
-        stream.writeln()
-        stream.tagContents("expected", "%4f" % self.expectedGenotypeCounts[genotype])
-        stream.writeln()
-        stream.tagContents("chisq", "%4f" % self.chisqByGenotype[genotype])
-        stream.writeln()
-        stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[genotype])
-        stream.writeln()
-        stream.closetag('genotype')
-        stream.writeln()
-
-      stream.closetag('genotypesByGenotype')
-      stream.writeln()
-
-      if self.flagLumps == 1:
-        stream.opentag('lumped')
-        stream.writeln()
-        stream.tagContents("observed", "%d" % self.lumpedObservedGenotypes)
-        stream.writeln()
-        stream.tagContents("expected", "%4f" % self.lumpedExpectedGenotypes)
-        stream.writeln()
-        stream.tagContents("chisq", "%4f" % self.lumpedChisq)
-        stream.writeln()
-        stream.tagContents("pvalue", "%4f" % self.lumpedChisqPval)
-        stream.writeln()
-        stream.closetag('lumped')
-        stream.writeln()
-      else:
-        if self.flagNoRareGenotypes == 1:
-          stream.emptytag('lumped', role='no-rare-genotypes')
-        if self.flagTooFewExpected == 1:
-          stream.emptytag('lumped', role='too-few-expected')
-
-      if self.flagCommons == 1:
-        stream.opentag('common')
-        stream.writeln()
-        stream.tagContents("hwchisq", "%4f" % self.HWChisq)
-        stream.writeln()
-        stream.tagContents("hwchisqdf", "%4f" % self.HWChisqDf)
-        stream.writeln()
-        stream.tagContents("hwchisqpval", "%4f" % self.HWChisqPval)
-        stream.writeln()
-        stream.closetag('common')
-        stream.writeln()
-      else:
-        if self.flagNoCommonGenotypes == 1:
-          stream.emptytag('common', role='no-common-genotypes')
-        elif self.flagTooManyParameters == 1:
-          stream.emptytag('common', role='too-many-parameters')
-        stream.writeln()
-
-      stream.closetag('hardyweinberg')
+    stream.closetag('hardyweinberg')
 
     # extra spacer line
     stream.writeln()
