@@ -51,7 +51,7 @@ for o, v in opts:
   elif o in ("-h", "--help"):
     sys.exit(usage_message)
 
-# if neither option is set explicity, use libxslt python wrappers
+# if neither option is set explicitly, use libxslt python wrappers
 if not (use_libxsltmod or use_FourSuite):
   use_libxsltmod = 1
 
