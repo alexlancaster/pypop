@@ -87,8 +87,8 @@ copyright_message = """Copyright (C) 2003 Regents of the University of Californi
 This is free software.  There is NO warranty; not even for
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
 
-usage_message = """Usage: pypop [OPTION] INPUTFILE
-Process and run population genetics statistics on an INPUTFILE.
+usage_message = """Usage: pypop [OPTION]... [INPUTFILE]...
+Process and run population genetics statistics on one or more INPUTFILEs.
 Expects to find a configuration file called 'config.ini' in the
 current directory or in %s.
 
@@ -99,8 +99,10 @@ current directory or in %s.
   -c, --config=FILE    select alternative config file
   -d, --debug          enable debugging output (overrides config file setting)
   -i, --interactive    run in interactive mode, prompting user for file names
-  -g, --gui            run GUI (warning *very* experimental)
+  -g, --gui            run GUI (currently disabled)
   -o, --outputdir=DIR  put output in directory DIR
+  -f, --filelist=FILE  file containing list of files (one per line) to process
+                        (mutually exclusive with supplying INPUTFILEs)
   -V, --version        print version of PyPop
   
   INPUTFILE   input text file""" % altpath
@@ -128,11 +130,12 @@ return for each prompt.
 ######################################################################
 
 from getopt import getopt, GetoptError
+from glob import glob
 from ConfigParser import ConfigParser
 from Main import getUserFilenameInput, checkXSLFile
 
 try:
-  opts, args =getopt(sys.argv[1:],"lsigc:hdx:o:V", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "outputdir=", "version"])
+  opts, args =getopt(sys.argv[1:],"lsigc:hdx:f:o:V", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "filelist=", "outputdir=", "version"])
 except GetoptError:
   sys.exit(usage_message)
 
@@ -146,6 +149,7 @@ interactiveFlag = 0
 guiFlag = 0
 xslFilename = None
 outputDir = None
+filelist = None
 
 # parse options
 for o, v in opts:
@@ -166,6 +170,11 @@ for o, v in opts:
     interactiveFlag = 1
   elif o in ("-g", "--gui"):
     guiFlag = 1
+  elif o in ("-f", "--filelist"):
+    if os.path.isfile(v):
+      filelist = v
+    else:
+      sys.exit("'%s' is not a file, please supply a valid file" % v)
   elif o in ("-o", "--outputdir"):
     if os.path.isdir(v):
       outputDir = v
@@ -228,6 +237,9 @@ if guiFlag:
 else:
   # call as a command-line application
 
+  # start by assuming an empty list of filenames
+  fileNames = []
+
   if interactiveFlag:
     # run in interactive mode, requesting input from user
 
@@ -262,37 +274,59 @@ else:
     
     # read user input for both filenames
     configFilename = getUserFilenameInput("config", configFilename)
-    fileName = getUserFilenameInput("population", fileName)
+    fileNames.append(getUserFilenameInput("population", fileName))
 
-    print "PyPop is processing %s ..." % fileName
+    print "PyPop is processing %s ..." % fileNames[0]
     
   else:   
     # non-interactive mode: run in 'batch' mode
-    
-    # check number of arguments
-    if len(args) != 1:
+
+    if filelist and len(args) > 0:
+      sys.exit("--filelist (-f) option is mutually exclusive with INPUTFILE")
+    elif filelist:
+      # if we are providing the filelist, don't check number of args
+      # use list from file as list to check
+      li = [string.strip(f) for f in open('filelist').readlines()]
+    elif len(args) > 0:
+      # check number of arguments, must be at least one, but can be more
+      # use args as list to check
+      li = args
+    # otherwise bail out with error
+    else:
       sys.exit(usage_message)
 
-    # parse arguments
-    fileName = args[0]
+    # loop through all arguments in , appending to list of files to
+    # process, ensuring we expand any Unix-shell globbing-style
+    # arguments
+    for fileName in li:
+      globbedFiles = glob(fileName)
+      if len(globbedFiles) == 0:
+        # if no files were found for that glob, please exit and warn
+        # the user
+        sys.exit("Couldn't find file(s): %s" % fileName)
+      else:
+        fileNames.extend(globbedFiles)
 
-  # parse out the parts of the filename
-  baseFileName = os.path.basename(fileName)
-
+  # parse config file
   from Main import Main, getConfigInstance
-
   config = getConfigInstance(configFilename, altpath, usage_message)
 
-  application = Main(config=config,
-                     debugFlag=debugFlag,
-                     fileName=fileName,
-                     datapath=datapath,
-                     use_libxsltmod=use_libxsltmod,
-                     use_FourSuite=use_FourSuite,
-                     xslFilename=xslFilename,
-                     xslFilenameDefault=xslFilenameDefault,
-                     outputDir=outputDir,
-                     version=version)
+  # loop through list of filenames passed, processing each in turn
+  for fileName in fileNames:
+
+    # parse out the parts of the filename
+    #baseFileName = os.path.basename(fileName)
+
+    application = Main(config=config,
+                       debugFlag=debugFlag,
+                       fileName=fileName,
+                       datapath=datapath,
+                       use_libxsltmod=use_libxsltmod,
+                       use_FourSuite=use_FourSuite,
+                       xslFilename=xslFilename,
+                       xslFilenameDefault=xslFilenameDefault,
+                       outputDir=outputDir,
+                       version=version)
 
   if interactiveFlag:
 
@@ -308,5 +342,5 @@ else:
       pypoprc.add_section('Files')
       
     pypoprc.set('Files', 'config', os.path.abspath(configFilename))
-    pypoprc.set('Files', 'pop', os.path.abspath(fileName))
+    pypoprc.set('Files', 'pop', os.path.abspath(fileNames[0]))
     pypoprc.write(open(pypoprcFilename, 'w'))
