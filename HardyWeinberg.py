@@ -766,6 +766,9 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
                       self.dememorizationSteps, self.samplingNum,
                       self.samplingSize, locusName, fp)
 
+      _Gthwe.run_randomization(flattenedMatrix, n, self.k, totalGametes, 17000)
+
+
       # copy XML output to stream
       stream.write(fp.getvalue())
       fp.close()
