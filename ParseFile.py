@@ -349,13 +349,14 @@ def _serializeAlleleCountDataAt(stream, alleleTable,
         stream.writeln()
 
 class ParseGenotypeFile(ParseFile):
-    """Class to parse standard datafile in genotype form.  Tweaked."""
+    """Class to parse standard datafile in genotype form."""
     
     def __init__(self,
                  filename,
                  alleleDesignator='*',
                  untypedAllele='****',
                  popNameDesignator='+',
+                 filter=None,
                  **kw):
         """Constructor for ParseGenotypeFile.
 
@@ -371,6 +372,8 @@ class ParseGenotypeFile(ParseFile):
         - 'popNameDesignator': The first character of the key which
         determines whether this column contains the population name.
         Defaults to '+'
+
+        - 'filter': Instance of filter for alleles (e.g. anthonynolan)
         
         - 'untypedAllele': The designator for an untyped locus.  Defaults
         to '****'.
@@ -378,6 +381,7 @@ class ParseGenotypeFile(ParseFile):
         self.alleleDesignator=alleleDesignator
         self.untypedAllele=untypedAllele
         self.popNameDesignator = popNameDesignator
+        self.filter = filter
         
         ParseFile.__init__(self, filename, **kw)
 
@@ -449,20 +453,9 @@ class ParseGenotypeFile(ParseFile):
         #self.individualsList = [[] for line in range(0, self.totalIndivCount)]
         self.matrix = StringMatrix(self.totalIndivCount, self.locusKeys)
 
-
-        # open log file for filter in append mode
-        self.filterLogFile = TextOutputStream(open('filter.log', 'a'))
-
-        self.filterLogFile.writeln()
-        self.filterLogFile.writeln("|| %s : filter results ||" % self.filename)
-        self.filterLogFile.writeln()
-        
-        # create a data cleaning filter to pass all data through
-        from Filter import AnthonyNolanFilter
-        filter = AnthonyNolanFilter(debug=self.debug,
-                                    untypedAllele=self.untypedAllele,
-				    filename=self.filename,
-                                    logFile=self.filterLogFile)
+        self.filter.logFile.writeln()
+        self.filter.logFile.writeln("|| %s : filter results ||" % self.filename)
+        self.filter.logFile.writeln()
         
         for locus in self.locusKeys:
 	    if self.debug:
@@ -483,18 +476,18 @@ class ParseGenotypeFile(ParseFile):
             # anthonynolan data filter/cleaner
 
             # initialize the filter
-            filter.startFirstPass(locus)
+            self.filter.startFirstPass(locus)
 
             # loop through all lines in locus
             for line in sampleDataLines:
                 fields = string.split(line, separator)
                 allele1 = string.strip(fields[col1])
                 allele2 = string.strip(fields[col2])
-                filter.addAllele(allele1)
-                filter.addAllele(allele2)
+                self.filter.addAllele(allele1)
+                self.filter.addAllele(allele2)
 
             # do final reassignments based on counts
-            filter.endFirstPass()
+            self.filter.endFirstPass()
 
             # re-initialise the row count on each iteration of the locus
             rowCount = 0
@@ -503,8 +496,8 @@ class ParseGenotypeFile(ParseFile):
 
                 # put all alleles through filter before doing
                 # data structures
-                allele1 = filter.filterAllele(string.strip(fields[col1]))
-                allele2 = filter.filterAllele(string.strip(fields[col2]))
+                allele1 = self.filter.filterAllele(string.strip(fields[col1]))
+                allele2 = self.filter.filterAllele(string.strip(fields[col2]))
                     
                 # extend the list by the allele pair
                 #self.individualsList[rowCount].extend([allele1 + ':',
@@ -562,7 +555,7 @@ class ParseGenotypeFile(ParseFile):
                 self.totalLociWithData += 1                
 
         # close log file for filter
-        self.filterLogFile.close()
+        self.filter.logFile.close()
 
     def _checkAlleles(self):
         pass
