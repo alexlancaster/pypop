@@ -1,5 +1,41 @@
 2003-12-17  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
+	* Utils.py (TextOutputStream.flush): New method, call flush() on
+	underlying file pointer.
+
+	* Main.py (Main._doGenotypeFile): API for Emhaplofreq has changed,
+	constructor now expects XML stream to be passed to it since
+	serialization is now done periodically from within class to avoid
+	memory overhead of in-memory string.  
+	Call Emhaplofreq.serializeStart() to generate start tag after
+	instantiation.  flush() current XML buffer before commencing
+	calculations to make sure they are written to disk in case of
+	problems.
+	At end of LD/haplo est calculations, change serializeTo() ->
+	serializeEnd()
+
+	* Haplo.py: Move import of cStringIO to top-level.  Doc fixes.
+	(Emhaplofreq.__init__): Constructor now expects an XML stream to
+	be given as a keyword parameter.  This class has different API to
+	the others because output is only available in stream
+	form (i.e. it cannot be accessed programmatically through method
+	calls).
+	(Emhaplofreq.serializeTo): Removed method, split into
+	serializeStart(), serializeEnd().  Serialization for emhaplofreq
+	output is now done periodically within the _runEmhaplofreq()
+	method to avoid huge overhead.
+	(Emhaplofreq.serializeStart, Emhaplofreq.serializeEnd): New
+	methods, perform the start and end tag as did old serializeTo()
+	method.
+	(Emhaplofreq._runEmhaplofreq): fp is now a local variable, not an
+	instance variable and created each time method is called.
+	Serialization for emhaplofreq output is now done at end of method
+	to to avoid huge overhead of storing the entire string in memory
+	until all emhaplofreq functions were called.  flush() self.stream
+	before exiting to get all buffered output written to disk.
+
+2003-12-17  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
 	* config.ini ([Emhaplofreq]): Add 'permutationPrintFlag' Boolean
 	option.  Determines whether the likelihood ratio for each
 	permutation will be logged to the XML output file, this is
