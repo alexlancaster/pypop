@@ -517,18 +517,23 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     (default 1000).
 
   - 'samplingSize': size of each chunk (default 1000).
+
+  - 'maxMatrixSize': maximum size of `flattened' lower-triangular matrix of
+     observed alleles (default 250).
   """
 
   def __init__(self, locusData, alleleCount,
                dememorizationSteps=2000,
                samplingNum=1000,
                samplingSize=1000,
+               maxMatrixSize=250,
                **kw):
 
     self.dememorizationSteps=dememorizationSteps
     self.samplingNum=samplingNum
     self.samplingSize=samplingSize
-
+    self.maxMatrixSize=maxMatrixSize
+    
     # call constructor of base class
     HardyWeinberg.__init__(self, locusData, alleleCount, **kw)
 
@@ -538,77 +543,113 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     if locusName[0] == '*':
       locusName = locusName[1:]
 
-    hwFilename = locusName + '.hw'
-    hwlFilename = locusName + '.hwl'
+    if self.k < 3:
+      stream.emptytag('hardyweinberg-guo-thompson', role='too-few-alleles')
+      return
+
+    matrixElemCount = (self.k * (self.k + 1)) / 2
+
+    if matrixElemCount < self.maxMatrixSize:
+      n = len(self.observedAlleles)
+
+      sortedAlleles = self.observedAlleles
+      sortedAlleles.sort()
+
+      if 0:
+        hwFilename = locusName + '.hw'
         
-    hwStream = TextOutputStream(open(hwFilename, 'w'))
-    hwlStream = TextOutputStream(open(hwlFilename, 'w'))
+        hwStream = TextOutputStream(open(hwFilename, 'w'))
+
+        # generate .hw file
+        hwStream.writeln(locusName)
+        hwStream.writeln("%d" % n)
+
+      # allele list
+      flattenedMatrix = []
     
-    n = len(self.observedAlleles)
+      for horiz in sortedAlleles:
+        # print "%2s" % horiz,
+        for vert in sortedAlleles:
+          # ensure that matrix is triangular
+          if vert > horiz:
+            continue
 
-    # generate .hwl file
-    hwlStream.writeln(locusName)
-    sortedAlleles = self.observedAlleles
-    sortedAlleles.sort()
+          # need to check both permutations of key
+          key1 = "%s:%s" % (horiz, vert)
+          key2 = "%s:%s" % (vert, horiz)
+          if self.observedGenotypeCounts.has_key(key1):
+            output = "%2s " % self.observedGenotypeCounts[key1]
+          elif self.observedGenotypeCounts.has_key(key2):
+            output = "%2s " % self.observedGenotypeCounts[key2]
+          else:
+            output = "%2s " % "0"
 
-    for allele in sortedAlleles:
-      hwlStream.writeln(allele)
+          if 0:
+            hwStream.write(output)
+          flattenedMatrix.append(int(output))
+        if 0:
+          hwStream.writeln()
 
-    # close the .hwl file
-    hwlStream.close()
-      
-    # generate .hw file
-    hwStream.writeln(locusName)
-    hwStream.writeln("%d" % n)
-
-    for horiz in sortedAlleles:
-      # print "%2s" % horiz,
-      for vert in sortedAlleles:
-        # ensure that matrix is triangular
-        if vert > horiz:
-          continue
-
-        # need to check both permutations of key
-        key1 = "%s:%s" % (horiz, vert)
-        key2 = "%s:%s" % (vert, horiz)
-        if self.observedGenotypeCounts.has_key(key1):
-          hwStream.write("%2s " % self.observedGenotypeCounts[key1])
-        elif self.observedGenotypeCounts.has_key(key2):
-          hwStream.write("%2s " % self.observedGenotypeCounts[key2])
-        else:
-          hwStream.write("%2s " % "0")
-      hwStream.writeln()
-
-    # set parameters
-    hwStream.writeln("%d %d %d" % (self.dememorizationSteps,
+      if 0:
+        # set parameters
+        hwStream.writeln("%d %d %d" % (self.dememorizationSteps,
                                    self.samplingNum,
                                    self.samplingSize))
-    
-    # close the .hw file
-    hwStream.close()
+        # close the .hw file
+        hwStream.close()
 
-    xmlFilename = locusName + '.xml'
+        xmlFilename = locusName + '.xml'
+        
+        # execute program, capture stdin, stout and stderr
+        commandStr = "gthwe %s %s" % (hwFilename, xmlFilename)
+        fin, fout, ferr = os.popen3(commandStr, 't', 2000000)
 
-    # execute program, capture stdin, stout and stderr
-    commandStr = "gthwe %s %s" % (hwFilename, xmlFilename)
-    fin, fout, ferr = os.popen3(commandStr, 't', 2000000)
-
-    # check stderr first
-    for line in ferr.readlines():
-      if line.startswith("***Error"):
-        print "too few alleles"
+        # check stderr first
+        for line in ferr.readlines():
+          if line.startswith("***Error"):
+            print "too few alleles"
    
-    print "stdout:", fout.readlines()
-    print "stderr:", ferr.readlines()
+            print "stdout:", fout.readlines()
+            print "stderr:", ferr.readlines()
 
-    if self.debug:
-      print open(xmlFilename, 'r').readlines()
+        if self.debug:
+          print open(xmlFilename, 'r').readlines()
 
-    # copy the resultant output to XML stream
-    for line in open(xmlFilename, 'r').readlines():
-      stream.write(line)
+        # copy the resultant output to XML stream
+        for line in open(xmlFilename, 'r').readlines():
+          stream.write(line)
 
-    # remove temporary files
-    os.remove(hwFilename)
-    os.remove(hwlFilename)
-    os.remove(xmlFilename)
+        # remove temporary files
+        os.remove(hwFilename)
+        os.remove(xmlFilename)
+
+      # create dummy array
+      n = [0]*35
+      
+      if self.debug:
+        print flattenedMatrix
+        print n
+        print self.k
+        print matrixElemCount
+        print self.dememorizationSteps, self.samplingNum, self.samplingSize
+        print locusName
+
+      # create string "file" buffer
+      import cStringIO
+      fp = cStringIO.StringIO()
+
+      # import library only when necessary
+      import _Gthwe
+
+      _Gthwe.run_data(flattenedMatrix, n, self.k, matrixElemCount,
+                      self.dememorizationSteps, self.samplingNum,
+                      self.samplingSize, locusName, fp)
+
+      # copy XML output to stream
+      stream.write(fp.getvalue())
+      fp.close()
+
+    else:
+      stream.emptytag('hardyweinberg-guo-thompson', role='too-large-matrix')
+      
+    
