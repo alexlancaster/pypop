@@ -108,11 +108,17 @@ class my_build_ext(build_ext):
 # we set the environment to emulate that.
 os.environ['CFLAGS'] = '-funroll-loops'
 
+# flag to say we are using the CVS version
+if os.path.isdir("CVS"):
+    cvs_version=1
+else:
+    cvs_version=0
+
 # if and only if we are making a source distribution, then regenerate
 # ChangeLog
 if sys.argv[1] == 'sdist':
     # first check to see if we are distributing from CVS
-    if os.path.isdir("CVS"):
+    if cvs_version:
         # if yes, generate a "ChangeLog"
         #print "creating ChangeLog from CVS entries"
         #os.system("rcs2log -u \"single:Richard Single:single@allele5.biol.berkeley.edu\" -u \"mpn:Mark Nelson:mpn@alleleb.biol.berkeley.edu\" -u \"alex:Alex Lancaster:alexl@socrates.berkeley.edu\" -u \"diogo:Diogo Meyer:diogo@allele5.biol.berkeley.edu\" -c /dev/null > ChangeLog")
@@ -149,6 +155,71 @@ data_file_paths = ['config.ini', 'VERSION']
 xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus']]
 data_file_paths.extend(xslt_files)
 
+# define each extension
+ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
+                            ["emhaplofreq/emhaplofreq_wrap.i",
+                             "emhaplofreq/emhaplofreq.c"],
+                            include_dirs=["emhaplofreq"],
+                            define_macros=[('fprintf', 'pyfprintf'),
+                                           ('DEBUG', '0'),
+                                           ('EXTERNAL_MODE', '1'),
+                                           ('XML_OUTPUT', '1')]
+                            )
+ext_EWSlatkinExact = Extension("_EWSlatkinExactmodule",
+                               ["slatkin-exact/monte-carlo_wrap.i",
+                                "slatkin-exact/monte-carlo.c"],
+                               )
+
+ext_Pvalue = Extension("_Pvaluemodule",
+                       ["pval/pval_wrap.i",
+                        "pval/pval.c",
+                        "pval/pchisq.c",
+                        "pval/chebyshev.c",
+                        "pval/ftrunc.c",
+                        "pval/lgamma.c",
+                        "pval/mlutils.c",
+                        "pval/pgamma.c",
+                        "pval/fmin2.c",
+                        "pval/gamma.c",
+                        "pval/lgammacor.c",
+                        "pval/pnorm.c"],
+                       include_dirs=["pval"],
+                       define_macros=[('MATHLIB_STANDALONE', '1')]
+                       )
+
+ext_Gthwe = Extension("_Gthwemodule",
+                      [ "gthwe/gthwe_wrap.i",
+                        "gthwe/hwe.c",
+                        "gthwe/cal_const.c",
+                        "gthwe/cal_n.c", "gthwe/cal_prob.c",
+                        "gthwe/check_file.c",
+                        "gthwe/do_switch.c", 
+                        "gthwe/new_rand.c",
+                        "gthwe/ln_p_value.c",
+                        "gthwe/to_calculate_log.c",
+                        "gthwe/print_data.c",
+                        "gthwe/random_choose.c",
+                         "gthwe/read_data.c",
+                        "gthwe/select_index.c",
+                        "gthwe/stamp_time.c",
+                        "gthwe/test_switch.c"],
+                      include_dirs=["gthwe"],
+                      define_macros=[('fprintf', 'pyfprintf'),
+                                     ('XML_OUTPUT', '1'),
+                                     ('SUPPRESS_ALLELE_TABLE', '1'),
+                                     ('MAX_ALLELE', '35'),
+                                     ('LENGTH',
+                                      'MAX_ALLELE*(MAX_ALLELE+1)/2')
+                                     ]
+                      )
+
+# default list of extensions to build
+extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue]
+
+# if we are running from our internal CVS version, append Gthwe
+if cvs_version:
+    extensions.append(ext_Gthwe)
+
 setup (name = "PyPop",
        version = version,
        description = "Python for Population Genetics",
@@ -174,63 +245,7 @@ particularly large-scale multilocus genotype data""",
 
        cmdclass = {'build_ext': my_build_ext,},
        
-       ext_modules=[Extension("_Emhaplofreqmodule",
-                              ["emhaplofreq/emhaplofreq_wrap.i",
-                               "emhaplofreq/emhaplofreq.c"],
-                              include_dirs=["emhaplofreq"],
-                              define_macros=[('fprintf', 'pyfprintf'),
-                                             ('DEBUG', '0'),
-                                             ('EXTERNAL_MODE', '1'),
-                                             ('XML_OUTPUT', '1')]
-                              ),
+       ext_modules=extensions
 
-                    Extension("_EWSlatkinExactmodule",
-                              ["slatkin-exact/monte-carlo_wrap.i",
-                               "slatkin-exact/monte-carlo.c"],
-                              ),
-
-                    Extension("_Pvaluemodule",
-                              ["pval/pval_wrap.i",
-                               "pval/pval.c",
-                               "pval/pchisq.c",
-                               "pval/chebyshev.c",
-                               "pval/ftrunc.c",
-                               "pval/lgamma.c",
-                               "pval/mlutils.c",
-                               "pval/pgamma.c",
-                               "pval/fmin2.c",
-                               "pval/gamma.c",
-                               "pval/lgammacor.c",
-                               "pval/pnorm.c"],
-                              include_dirs=["pval"],
-                              define_macros=[('MATHLIB_STANDALONE', '1')]
-                              ),
-
-                    Extension("_Gthwemodule",
-                              [ "gthwe/gthwe_wrap.i",
-                                "gthwe/hwe.c",
-                                "gthwe/cal_const.c",
-                                "gthwe/cal_n.c", "gthwe/cal_prob.c",
-                                "gthwe/check_file.c",
-                                "gthwe/do_switch.c", 
-                                "gthwe/new_rand.c",
-                                "gthwe/ln_p_value.c",
-                                "gthwe/to_calculate_log.c",
-                                "gthwe/print_data.c",
-                                "gthwe/random_choose.c",
-                                "gthwe/read_data.c",
-                                "gthwe/select_index.c",
-                                "gthwe/stamp_time.c",
-                                "gthwe/test_switch.c"],
-                              include_dirs=["gthwe"],
-                              define_macros=[('fprintf', 'pyfprintf'),
-                                             ('XML_OUTPUT', '1'),
-                                             ('SUPPRESS_ALLELE_TABLE', '1'),
-                                             ('MAX_ALLELE', '35'),
-                                             ('LENGTH',
-                                              'MAX_ALLELE*(MAX_ALLELE+1)/2')
-                                             ]
-                              )
-                    ]
        )
 
