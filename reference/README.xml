@@ -329,7 +329,16 @@ dqa1  count
 
    <para><application>PyPop</application> can also process allele
      count data.  However, you cannot mix allele count data and
-     genotype data together in the one file</para>
+     genotype data together in the one file.  
+     <note id="data-allelecount-note">
+      <para>Currently each <filename>.pop</filename> file can only
+       contain allele count data for <emphasis>one locus</emphasis>.
+       In order to process multiple loci for one population you must
+       create a separate <filename>.pop</filename> for each
+       locus.</para>
+     </note>
+    </para>
+
 
    </example>
 
@@ -620,6 +629,12 @@ allPairwiseLDWithPermu=0
    <programlisting>validSampleFields=A:B:C:DQA1:DQB1:DRB1:DPB1:DPA1
  count</programlisting>
 
+       <para>Note that each <filename>.pop</filename> file must
+	contain only one locus (see  <xref
+	linkend="data-allelecount-note"/> in <xref
+	 linkend="data-allelecount"/>), listing multiple loci simply
+	permits the same <filename>.ini</filename> file to be reused
+	for each data file.</para>
      </listitem>
     </itemizedlist>
    </callout>
