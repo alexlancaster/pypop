@@ -28,7 +28,27 @@
   </xsl:if>
   </div>
  </xsl:template>
+ 
+ <xsl:template match="bibliography">
+  <div class="{name(.)}">
+   <xsl:if test="$generate.id.attributes != 0">
+      <xsl:attribute name="id">
+     <xsl:call-template name="object.id"/>
+    </xsl:attribute>
+    </xsl:if>
+   
+   <xsl:call-template name="bibliography.titlepage"/>
+   
+   <xsl:apply-templates select="biblioentry">
+    <xsl:sort select="@id"/>
+    <xsl:sort select="abbrev"/>
+    <xsl:sort select="@xreflabel"/>
+   </xsl:apply-templates>
 
+   <xsl:call-template name="process.footnotes"/>
+  </div>
+ </xsl:template>
+ 
  <xsl:template match="para">
 
   <xsl:variable name="p">
