@@ -256,13 +256,19 @@ class Homozygosity:
       stream.closetag('pvalue')
       stream.writeln()
       stream.closetag('homozygosity')
+    elif self.sampleCount == 0:
+      stream.emptytag('homozygosity', role='no-data')
     else:
-      stream.emptytag('homozygosity', role='out-of-range')
-
+      stream.opentag('homozygosity', role='out-of-range')
+      stream.writeln()        
+      stream.tagContents('observed', "%.4f" % self.getObservedHomozygosity())
+      stream.writeln()
+      stream.closetag('homozygosity')
+      
     # always end on a newline
     stream.writeln()
 
-class HomozygosityEWSlatkinExact:
+class HomozygosityEWSlatkinExact(Homozygosity):
 
     def __init__(self,
                  alleleCountData=None,
@@ -306,6 +312,9 @@ class HomozygosityEWSlatkinExact:
         stream.writeln()
 
         stream.tagContents('meanHomozygosity', "%.4f" % self.EW.get_mean_homozygosity())
+        stream.writeln()
+
+        stream.tagContents('observedHomozygosity', "%.4f" % self.getObservedHomozygosity())
         stream.writeln()
 
         stream.tagContents('varHomozygosity', "%.4f" % self.EW.get_var_homozygosity())
