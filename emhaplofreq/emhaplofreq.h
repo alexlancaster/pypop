@@ -31,6 +31,14 @@
 #define FP_PERMU NULL
 #endif
 
+/* 
+ * macros to initialize elements of a given static array to "zero"
+ * make sure that functions are "re-entrant" (i.e. don't carry bogus
+ * data over from previous invocations) and are therefore idempotent
+ * (behave identically from function-call to function-call) when used
+ * in a shared library context.
+ */
+
 #define INIT_STATIC_DIM1(type,id,size1) \
 memset(id, '\0', size1*sizeof(type))
 
