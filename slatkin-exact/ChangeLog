@@ -1,6 +1,7 @@
 2003-12-08  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* Makefile (DFLAGS): Add call to link ElectricFence library.
+	(monte-carlo_distribution): DFLAGS -> CFLAGS.
 
 	* monte-carlo.c (free_vector, free_ivector): New functions, to fix
 	memory leak.  Before calling free() we need to shift pointer back
