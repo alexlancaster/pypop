@@ -145,8 +145,14 @@ if debug:
     for option in config.options(section):
       print " ", option, "=", config.get(section, option)
 
-# get version
-versionpath = os.path.join(datapath, 'VERSION')
+# if 'frozen' look for VERSION info in current directory
+if sys.frozen:
+  versionpath = 'VERSION'
+# otherwise look in installed datapath, by default
+else:
+  versionpath = os.path.join(datapath, 'VERSION')
+
+# bein a development version trumps all..
 if os.path.isfile('DEVEL_VERSION'):
   version = 'DEVEL_VERSION'
 elif os.path.isfile(versionpath):
