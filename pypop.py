@@ -17,6 +17,7 @@ current directory or in %s.
   -s, --use-4suite     filter XML via XSLT using 4Suite
   -h, --help           show this message
   -c, --config=FILE    select alternative config file
+  -d, --debug          enable debugging output (overrides config file setting)
 
   INPUTFILE   input text file""" % altpath
 
@@ -29,7 +30,7 @@ from Utils import XMLOutputStream, TextOutputStream
 from getopt import getopt, GetoptError
 
 try:
-  opts, args =getopt(sys.argv[1:],"lsc:h", ["use-libxslt", "use-4suite", "experimental", "config=", "help"])
+  opts, args =getopt(sys.argv[1:],"lsc:hd", ["use-libxslt", "use-4suite", "experimental", "config=", "help", "debug"])
 except GetoptError:
   sys.exit(usage_message)
 
@@ -38,6 +39,7 @@ use_libxsltmod = 0
 use_FourSuite = 0
 configFilename = 'config.ini'
 specifiedConfigFile = 0
+debugFlag = 0
 
 # parse options
 for o, v in opts:
@@ -48,6 +50,8 @@ for o, v in opts:
   elif o in ("-c", "--config"):
     configFilename = v
     specifiedConfigFile = 1
+  elif o in ("-d", "--debug"):
+    debugFlag = 1
   elif o in ("-h", "--help"):
     sys.exit(usage_message)
 
@@ -97,6 +101,12 @@ except NoOptionError:
   debug=0
 except ValueError:
   sys.exit("require a 0 or 1 as debug flag")
+
+# if "-d" command line option used, then respect that, overriding
+# config file setting
+
+if debugFlag == 1:
+  debug = 1
 
 # generate file prefix
 try:
