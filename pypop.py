@@ -25,7 +25,7 @@ from ParseFile import ParseGenotypeFile
 from Arlequin import ArlequinExactHWTest
 from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin
-from Homozygosity import Homozygosity
+from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
 from ConfigParser import ConfigParser, NoOptionError
 from Utils import XMLOutputStream, TextOutputStream
 from getopt import getopt, GetoptError
@@ -346,10 +346,15 @@ for locus in loci:
         
 
     hzObject = Homozygosity(input.getAlleleCountAt(locus),
-                                    rootPath=rootPath,
-                                    debug=debug)
+                            rootPath=rootPath,
+                            debug=debug)
 
     hzObject.serializeHomozygosityTo(xmlStream)
+
+  if config.has_section("HomozygosityEWSlatkinExact"):
+
+    hzExactObj = HomozygosityEWSlatkinExact(input.getAlleleCountAt(locus),
+                                            debug=debug)
 
   xmlStream.closetag('locus')
   xmlStream.writeln()
