@@ -665,6 +665,8 @@ Name      Frequency (Count)   | Name      Frequency (Count)
 
     <informaltable frame="none">
      <tgroup cols="2">
+      <colspec colwidth="9cm"/>
+      <colspec colwidth="9cm"/>
       <thead>
        <row>
 	<entry>Excerpt from <filename>Bugawan-Filipino-out.xml</filename>
