@@ -1,3 +1,11 @@
+2004-09-29  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Filter.py (AnthonyNolanFilter._getConsensusFromLines): Adding
+	yet another logic test to deal with allele name ambiguity: if the
+	allele name is 4 digit, ending in 00, we can safely chop this off,
+	as it won't be found in the seq dict (because the only reason this
+	function is called is when the allele name wasn't found.)
+
 2004-09-27  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* ParseFile.py (ParseFile._mapFields): Added if statement to see

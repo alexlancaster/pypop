@@ -738,8 +738,16 @@ class AnthonyNolanFilter(Filter):
 
         # we split the allele on the slash to deal with ambiguous typing
         for alleleSplit in allele.split('/'):
+            # we pad 5-digit alleles with a fifth position zero (FIXME:
+            # this is HLA specific!)
             if len(alleleSplit) == 5 and alleleSplit.isdigit():
                 alleleSplit = alleleSplit[:4] + '0' + alleleSplit[4:5]
+                
+            # if the allele is 4 dig, ending in 00, we can safely chop
+            # this off, as it won't be found in the seq dict
+            if len(alleleSplit) == 4 and alleleSplit.isdigit():
+                alleleSplit = alleleSplit[:2]
+
             for potentialMatch in self.alleleLookupTable[locus]:
                 for pos in range(len(potentialMatch)):
                     if alleleSplit == potentialMatch[:-pos] or alleleSplit == potentialMatch:
