@@ -1,6 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
-   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd"[
+<!ENTITY % versions.ent SYSTEM "versions.ent" >
+%versions.ent;
+]>
 <book xmlns:xi="http://www.w3.org/2001/XInclude">
  <bookinfo>
   <title>PyPop User Guide</title>
@@ -15,8 +18,8 @@
     <orgdiv></orgdiv>
    </affiliation>
   </author>
-  <releaseinfo>Version 0.2</releaseinfo>
-<!--  <pubdate>Last modified: $Date$ by $Author$</pubdate> -->
+  <releaseinfo>Version &VERSION;</releaseinfo>
+  <pubdate>&pubdate;</pubdate>
   
  </bookinfo>
 
