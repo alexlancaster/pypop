@@ -1,0 +1,29 @@
+HLADB-1.14.0-Apr 2002
+HLA-DRA Amino Acid Sequence Alignments
+Sequences Aligned: 12 Apr 2002
+Steven G. E. Marsh, Anthony Nolan Research Institute.
+
+
+            -30        -20        -10     -1 
+            |          |          |        | 
+DRA*0101         MAISG VPVLGFFIIA VLMSAQESWA        
+DRA*01021        ***** ********** **********                                                                              
+DRA*01022        ----- ---------- ----------                                                                              
+
+            1       10         20         30         40         50         60         70         80         90        100 
+            |        |          |          |          |          |          |          |          |          |          | 
+DRA*0101    IKEEHVIIQA EFYLNPDQSG EFMFDFDGDE IFHVDMAKKE TVWRLEEFGR FASFEAQGAL ANIAVDKANL EIMTKRSNYT PITNVPPEVT VLTNSPVELR 
+DRA*01021   ***------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- 
+DRA*01022   ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- 
+
+                   110        120        130        140        150        160        170        180        190        200 
+                     |          |          |          |          |          |          |          |          |          | 
+DRA*0101    EPNVLICFID KFTPPVVNVT WLRNGKPVTT GVSETVFLPR EDHLFRKFHY LPFLPSTEDV YDCRVEHWGL DEPLLKHWEF DAPSPLPETT ENVVCALGLT 
+DRA*01021   ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- 
+DRA*01022   ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- 
+
+                   210        220        230 
+                     |          |          | 
+DRA*0101    VGLVGIIIGT IFIIKGVRKS NAAERRGPL        
+DRA*01021   ---------- ------L--- ---------                                                                               
+DRA*01022   ---------- ------L--- ---------                                                                               
