@@ -178,6 +178,21 @@ ext_Gthwe = Extension("_Gthwemodule",
                                      ]
                       )
 
+ext_HweEnum = Extension("_HweEnum",
+                      [ "hwe-enumeration/src/hwe_enum_wrap.i",
+                        "hwe-enumeration/src/hwe_enum.c",
+                        "hwe-enumeration/src/factorial.c",
+                        "hwe-enumeration/src/main.c",
+                        "hwe-enumeration/src/common.c"],
+                      include_dirs=["hwe-enumeration/src/include",
+                                    "/usr/include/glib-2.0",
+                                    "/usr/include/glib-2.0/include",
+                                    "/usr/lib/glib-2.0/include",
+                                    "/usr/include/libxml2"],
+                      libraries=["glib-2.0", "xml2", "m"],
+                      define_macros=[('__SORT_TABLE__', '1')]
+                      )
+
 # check to see if version of Python is > 2.1
 # if so,  use depends
 if sys.version_info[0] == 2 and sys.version_info[1] > 1:
@@ -204,7 +219,7 @@ else:
     # building a source distribution, then append Gthwe
     if cvs_version:
         extensions.append(ext_Gthwe)
-    
+        extensions.append(ext_HweEnum)
 
 # get version from the file VERSION
 if os.path.isfile('VERSION'):
@@ -245,7 +260,7 @@ setup (name = "PyPop",
 particularly large-scale multilocus genotype data""",
        url = "http://allele5.biol.berkeley.edu/",
        maintainer = "Alex Lancaster",
-       maintainer_email = "alexl@socrates.berkeley.edu",
+       maintainer_email = "alexl@berkeley.edu",
        license = "GNU GPL",
        platforms = ["GNU/Linux", "Windows"],
        

@@ -1,3 +1,10 @@
+2005-02-22  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* setup.py (ext_HweEnum): Add new extension for Hazael's
+	Hardy-Weinberg enumeration program.
+	Currently only build it if we are running from CVS.
+	Fix e-mail address.
+
 2005-02-17  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* standalone.spec: Use .ini file from data/samples subdirectory.
