@@ -264,11 +264,6 @@
    <xsl:value-of select="$biblioentry.item.separator"/>
   </xsl:if>
 
-  <xsl:if test="pubdate">
-   <xsl:apply-templates select="pubdate" mode="bibliography.mode"/> 
-   <xsl:value-of select="$biblioentry.item.separator"/>
-  </xsl:if>
-
   <xsl:apply-templates select="citetitle[@pubwork='refentry']" mode="bibliography.mode"/>  
 
   <xsl:apply-templates select="citetitle[@pubwork='article']" mode="bibliography.mode"/>
@@ -279,7 +274,14 @@
    <xsl:value-of select="$biblioentry.item.separator"/>
    <xsl:apply-templates select="." mode="bibliography.mode"/> 
   </xsl:for-each>
-  <xsl:text>. </xsl:text>
+
+  <xsl:if test="pubdate">
+   <xsl:text> (</xsl:text>
+   <xsl:apply-templates select="pubdate" mode="bibliography.mode"/> 
+   <xsl:text>)</xsl:text>
+  </xsl:if>
+
+  <xsl:text>.</xsl:text>
   
   <xsl:call-template name="label.id"/> 
   <xsl:text>&#10;&#10;</xsl:text>
@@ -294,11 +296,15 @@
     <xsl:value-of select="."/>
     <xsl:text>} {\bf </xsl:text>
     <xsl:value-of select="../volumenum"/>
-    <xsl:text>}, </xsl:text>
-    <xsl:value-of select="../issuenum"/>
-    <xsl:text> (</xsl:text>
+    <xsl:text>}</xsl:text>
+    <xsl:if test="../issuenum">
+     <xsl:text>(</xsl:text>
+     <xsl:value-of select="../issuenum"/>
+     <xsl:text>)</xsl:text>
+    </xsl:if>
+    <xsl:text>:</xsl:text>
     <xsl:value-of select="../pagenums"/>
-    <xsl:text>)</xsl:text>
+    <xsl:text></xsl:text>
    </xsl:when>
    <xsl:when test="@pubwork='article'">
     <xsl:call-template name="gentext.nestedstartquote"/>
