@@ -112,7 +112,7 @@ class Homozygosity:
     Returns a boolean.
 
     *Internal use only"""
-    if (numAlleles <= 1) or (numAlleles >= 41):
+    if (numAlleles <= 1) or (numAlleles >= 101):
       return 0
     else:
       return 1
