@@ -48,13 +48,10 @@ MODIFICATIONS.
   <xsl:apply-templates/>
  </xsl:template>
 
-
  <xsl:template match="emhaplofreq/group[(string-length(@loci) -
  string-length(translate(@loci, ':', '')))=2 and @role!='no-data']"> 
 
-
   <xsl:variable name="loci-array" select="str:tokenize(@loci, ':')"/>
-
 
   <xsl:variable name="locus1" select="$loci-array[1]"/>
   <xsl:variable name="locus2" select="$loci-array[2]"/>
@@ -69,20 +66,16 @@ MODIFICATIONS.
 
    <xsl:sort select="frequency"/>
 
-   <xsl:call-template name="newline"/>
-
-   <!--
-   <xsl:value-of select="substring(@name, 1, string-length(@name)-1)"/>
-    -->
-   
    <xsl:variable name="allele-array" select="str:tokenize(substring(@name, 1,
     string-length(@name)-1), ':')"/>
-   
+
    <xsl:variable name="allele1" select="$allele-array[1]"/>
    <xsl:variable name="allele2" select="$allele-array[2]"/>
    <xsl:variable name="allele3" select="$allele-array[3]"/>
 
-   <xsl:call-template name="newline"/>
+   <xsl:variable name="allele-name12" select="concat($allele1,':',$allele2,':')"/>
+   <xsl:variable name="allele-name13" select="concat($allele1,':',$allele3,':')"/>
+   <xsl:variable name="allele-name23" select="concat($allele2,':',$allele3,':')"/>
 
    <xsl:value-of select="$locus1"/>
    <xsl:text>*</xsl:text>
@@ -97,73 +90,21 @@ MODIFICATIONS.
    <xsl:value-of select="$allele3"/>
 
    <xsl:call-template name="newline"/>
-   
-   <xsl:text> Allele freq for </xsl:text>
-   <xsl:value-of select="$allele1"/>
-   <xsl:text> at </xsl:text>
-   <xsl:value-of select="$locus1"/>
-   <xsl:text> locus = </xsl:text>
-   
-   <xsl:value-of
-    select="/dataanalysis/locus[@name=$locus1]/allelecounts/allele[@name=$allele1]/frequency"/>
-   <xsl:call-template name="newline"/>
-   
-   <xsl:text> Allele freq for </xsl:text>
-   <xsl:value-of select="$allele2"/>
-   <xsl:text> at </xsl:text>
-   <xsl:value-of select="$locus2"/>
-   <xsl:text> locus = </xsl:text>
-   
-   <xsl:value-of select="/dataanalysis/locus[@name=$locus2]/allelecounts/allele[@name=$allele2]/frequency"/>
-   
-   <xsl:call-template name="newline"/>
 
-   <xsl:text> Allele freq for </xsl:text>
-   <xsl:value-of select="$allele3"/>
-   <xsl:text> at </xsl:text>
-   <xsl:value-of select="$locus3"/>
-   <xsl:text> locus = </xsl:text>
-   
-   <xsl:value-of select="/dataanalysis/locus[@name=$locus3]/allelecounts/allele[@name=$allele3]/frequency"/>
-   
-   <xsl:call-template name="newline"/>
-
-   <xsl:variable name="allele-name12"
-    select="concat($allele1,':',$allele2,':')"/>
-    
-   <xsl:text> Haplotype freq for </xsl:text>
-   <xsl:value-of select="$allele-name12"/>
-   <xsl:text> at </xsl:text>
-   <xsl:value-of select="$locus-pair12"/>
-   <xsl:text> haplotype pair = </xsl:text>
+   <xsl:value-of select="/dataanalysis/locus[@name=$locus1]/allelecounts/allele[@name=$allele1]/frequency"/>
 
    <xsl:value-of select="/dataanalysis/emhaplofreq/group[@loci=$locus-pair12]/haplotypefreq/haplotype[@name=$allele-name12]/frequency"/>
-
-   <xsl:call-template name="newline"/>
-
-   <xsl:variable name="allele-name13"
-    select="concat($allele1,':',$allele3,':')"/>
-    
-   <xsl:text> Haplotype freq for </xsl:text>
-   <xsl:value-of select="$allele-name13"/>
-   <xsl:text> at </xsl:text>
-   <xsl:value-of select="$locus-pair13"/>
-   <xsl:text> haplotype pair = </xsl:text>
-
    <xsl:value-of select="/dataanalysis/emhaplofreq/group[@loci=$locus-pair13]/haplotypefreq/haplotype[@name=$allele-name13]/frequency"/>
 
    <xsl:call-template name="newline"/>
 
-   <xsl:variable name="allele-name23"
-    select="concat($allele2,':',$allele3,':')"/>
-    
-   <xsl:text> Haplotype freq for </xsl:text>
-   <xsl:value-of select="$allele-name23"/>
-   <xsl:text> at </xsl:text>
-   <xsl:value-of select="$locus-pair23"/>
-   <xsl:text> haplotype pair = </xsl:text>
-
+   <xsl:value-of select="/dataanalysis/locus[@name=$locus2]/allelecounts/allele[@name=$allele2]/frequency"/>
    <xsl:value-of select="/dataanalysis/emhaplofreq/group[@loci=$locus-pair23]/haplotypefreq/haplotype[@name=$allele-name23]/frequency"/>
+   <xsl:call-template name="newline"/>
+
+   <xsl:value-of select="/dataanalysis/locus[@name=$locus3]/allelecounts/allele[@name=$allele3]/frequency"/>
+
+   <xsl:call-template name="newline"/>
 
   </xsl:for-each>
   <xsl:call-template name="newline"/>
