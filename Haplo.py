@@ -258,7 +258,9 @@ class Emhaplofreq(Haplo):
     'emhaplofreq'.
     
     """
-    def __init__(self, locusData, debug=0):
+    def __init__(self, locusData,
+                 debug=0,
+                 untypedAllele='****'):
 
         # import the Python-to-C module wrapper
         # lazy importation of module only upon instantiation of class
@@ -270,6 +272,7 @@ class Emhaplofreq(Haplo):
         self._Emhaplofreq = _Emhaplofreq
         
         self.matrix = locusData
+        self.untypedAllele = untypedAllele
         
         rows, cols = self.matrix.shape
         self.totalNumIndiv = rows
@@ -326,7 +329,7 @@ class Emhaplofreq(Haplo):
             if lociCount <= self._Emhaplofreq.MAX_LOCI:
 
                 # filter-out all individual untyped at any position
-                subMatrix = self.matrix.filterOut(group, '****')
+                subMatrix = self.matrix.filterOut(group, self.untypedAllele)
 
                 # calculate the new number of individuals emhaplofreq is
                 # being run on
