@@ -394,7 +394,7 @@
     <exsl:document href="1-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:text>pop&#09;ethnic&#09;region&#09;latit&#09;longit&#09;locus&#09;2n&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;f.nd&#09;gt.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.exp&#09;f.slatkin.pval;&#09;f.slatkin.var&#09;f.slatkin.pval.ewens</xsl:text>
+     <xsl:text>pop&#09;ethnic&#09;region&#09;latit&#09;longit&#09;locus&#09;n.gametes&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;f.nd&#09;gt.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.exp&#09;f.slatkin.pval;&#09;f.slatkin.var&#09;f.slatkin.pval.ewens</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
@@ -416,7 +416,7 @@
     <exsl:document href="2-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:text>pop&#09;ethnic&#09;region&#09;latit&#09;longit&#09;n.haplo&#09;locus1&#09;locus2&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
+     <xsl:text>pop&#09;ethnic&#09;region&#09;latit&#09;longit&#09;n.gametes&#09;locus1&#09;locus2&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
