@@ -17,7 +17,7 @@
 #include <math.h>
 
 int main(int argc, char *argv[])
-/* correct execution of this program: hwe infile outfile */
+/* correct execution of this program: gthwe infile outfile */
 {
 	int a[LENGTH], n[MAX_ALLELE];
 	unsigned long xxx[12];
