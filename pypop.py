@@ -146,7 +146,7 @@ if debug:
       print " ", option, "=", config.get(section, option)
 
 # if 'frozen' look for VERSION info in current directory
-if sys.frozen:
+if hasattr(sys, 'frozen'):
   versionpath = 'VERSION'
 # otherwise look in installed datapath, by default
 else:
