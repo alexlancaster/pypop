@@ -243,9 +243,14 @@ MODIFICATIONS.
      </xsl:call-template>
      
      <xsl:call-template name="output-field">
+      <xsl:with-param name="node" select="homozygosityEWSlatkinExact/observedHomozygosity"/>
+     </xsl:call-template>
+     
+     <xsl:call-template name="output-field">
       <xsl:with-param name="node" select="homozygosityEWSlatkinExact/meanHomozygosity"/>
      </xsl:call-template>
-     <xsl:call-template name="output-field">
+    
+      <xsl:call-template name="output-field">
       <xsl:with-param name="node" select="homozygosityEWSlatkinExact/probHomozygosity"/>
      </xsl:call-template>
      
@@ -492,7 +497,7 @@ MODIFICATIONS.
     <exsl:document href="1-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;n.gametes&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.exp&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig</xsl:text>
+     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;n.gametes&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.obs&#09;f.slatkin.exp&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
