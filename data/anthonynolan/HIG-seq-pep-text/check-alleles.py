@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys, glob, re, os, string
 
-verbose = 1
+verbose = 0
 
 patt = re.compile("^([0-9a-zA-Z]+)\*([0-9a-zA-Z]+)")
 
@@ -54,44 +54,47 @@ for file in sortedXML:
 
         for allele in alleles:
             allele = string.strip(allele)
-            if string.strip(allele) in dict[locus]:
+	    alleleName, alleleCount = string.split(allele, '/')
+	    alleleInfo = "%s (%s)" % (alleleName, alleleCount)
+	    #print alleleName, alleleCount
+            if alleleName in dict[locus]:
                 if verbose:
-                    print "[", allele, "exact match found ]"
+                    print "[", alleleName, "exact match found ]"
             else:
                 expandedList = []
                 extraList = []
                 lcdList = []
 
                 for dbAllele in dict[locus]:
-                    if dbAllele[:4] == allele:
+                    if dbAllele[:4] == alleleName:
                         expandedList.append(dbAllele)
-                    if allele[:4] == dbAllele:
+                    if alleleName[:4] == dbAllele:
                         extraList.append(dbAllele)
-                    if allele[:4] == dbAllele[:4]:
+                    if alleleName[:4] == dbAllele[:4]:
                         lcdList.append(dbAllele)
                 if expandedList != []:
                     if verbose:
-                        print "  [", allele, "no exact match; expands into:",
+                        print "  [", alleleInfo, "no exact match; expands into:",
                         for li in expandedList:
                             print li, 
                         print "]"
                 elif extraList != []:
                     if verbose:
-                        print "  [", allele, "no exact match; zero-padded:",
+                        print "  [", alleleInfo, "no exact match; zero-padded:",
                         for li in extraList:
                             print li, 
                         print "]"
                 elif lcdList != []:
                     if verbose:
-                        print "  [", allele, "no exact match; un-zero-padded expands into:",
+                        print "  [", alleleInfo, "no exact match; un-zero-padded expands into:",
                         for li in lcdList:
                             print li, 
                         print "]"
                 else:
                     if verbose:
-                        print "  [", allele, "NOT FOUND; no close matches!]"
+                        print "  [", alleleInfo, "NOT FOUND; no close matches!]" 
                     else:
-                        print "  [%s: %s not found]" % (locus, allele)
+                        print "  [%s: %s not found ]" % (locus, alleleInfo)
                         
         if verbose:
             print "}"
