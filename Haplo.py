@@ -39,7 +39,7 @@
 """
 import sys, string, os, re
 from Arlequin import ArlequinBatch
-from Utils import getStreamType
+from Utils import getStreamType, appendTo2dList
 
 class Haplo:
     """*Abstract* base class for haplotype parsing/output.
@@ -366,7 +366,7 @@ class Emhaplofreq(Haplo):
             if lociCount <= self._Emhaplofreq.MAX_LOCI:
 
                 # filter-out all individual untyped at any position
-                subMatrix = self.matrix.filterOut(group, self.untypedAllele)
+                subMatrix = appendTo2dList(self.matrix.filterOut(group, self.untypedAllele), ':')
 
                 # calculate the new number of individuals emhaplofreq is
                 # being run on
@@ -380,7 +380,7 @@ class Emhaplofreq(Haplo):
                         theline = subMatrix[line]
                         print "dummyid",
                         for allele in range(0, len(theline)):
-                            print theline[allele][:-1], " ",
+                            print theline[allele], " ",
                         print
                     
                 self.fp.write(os.linesep)

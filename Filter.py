@@ -198,12 +198,11 @@ class AnthonyNolanFilter(Filter):
             # initialize first pass
             self.startFirstPass(locus)
 
-            # loop through all lines in locus, remove trailing
-            # colon ':' in each allele in data structure
+            # loop through all lines in locus, adding each allele
             for individ in self.matrix[locus]:
                 allele1, allele2 = individ
-                self.addAllele(allele1[:-1])
-                self.addAllele(allele2[:-1])
+                self.addAllele(allele1)
+                self.addAllele(allele2)
 
             # do final reassignments based on counts
             self.endFirstPass()
@@ -218,10 +217,9 @@ class AnthonyNolanFilter(Filter):
                 cur_allele1, cur_allele2 = individ
 
                 # put all alleles through filter and regenerate data
-                # structures, remember we must remove trailing
-                # colon ':'
-                allele1 = self.filterAllele(cur_allele1[:-1])
-                allele2 = self.filterAllele(cur_allele2[:-1])
+                # structures
+                allele1 = self.filterAllele(cur_allele1)
+                allele2 = self.filterAllele(cur_allele2)
 
                 self.matrix[rowCount,locus] = (allele1, allele2)
 
@@ -483,9 +481,6 @@ class AnthonyNolanFilter(Filter):
             for individ in self.matrix[locus]:
                 for allele in individ:
 
-                    # FIXME: allele referenced with trailing colon
-                    allele = allele[:-1]
-
                     # if the allele hasn't been keyed yet, we'll have to get a sequence
                     if not self.sequences.has_key(allele):
 
@@ -574,8 +569,8 @@ class AnthonyNolanFilter(Filter):
             individCount = 0
             for individ in self.matrix[locus]:
 
-                name1 = locus + '*' + individ[0][:-1]
-                name2 = locus + '*' + individ[1][:-1]
+                name1 = locus + '*' + individ[0]
+                name2 = locus + '*' + individ[1]
 
                 posCount = 0
 
@@ -719,7 +714,7 @@ class BinningFilter:
             individCount = 0
             for individ in matrix[locus]:
                 for i in range(2):
-                    alleles[i] = individ[i][:-1]
+                    alleles[i] = individ[i]
                     if alleles[i] != self.untypedAllele and len(alleles[i]) > self.binningDigits:
                         alleles[i] = alleles[i][:self.binningDigits]
                 matrix[individCount,locus] = (alleles[0],alleles[1])

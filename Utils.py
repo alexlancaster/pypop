@@ -480,11 +480,8 @@ class StringMatrix(UserArray):
       else:
           raise KeyError("can't find %s column" % col)
       # store each element in turn
-      # FIXME: hack to store each element in the format expected by
-      # emhaplofreq C module, with additional colon (':'), need to
-      # fix this elegantly to make class more generic.
-      self.array[(row,col1)] = asarray(value1+':',self._typecode)
-      self.array[(row,col2)] = asarray(value2+':',self._typecode)
+      self.array[(row,col1)] = asarray(value1,self._typecode)
+      self.array[(row,col2)] = asarray(value2,self._typecode)
 
   def filterOut(self, key, blankDesignator):
       """Returns a filtered matrix.
@@ -493,7 +490,7 @@ class StringMatrix(UserArray):
       the matrix that *do not* contain that designator at any rows"""
       def f(x, designator=blankDesignator):
           for value in x:
-              if value == designator+':':
+              if value == designator:
                   return 0
           return 1
 
@@ -514,6 +511,13 @@ class Group:
     if idx > len(self.l): 
       raise IndexError("Out of range")
     return self.l[idx:idx+self.size]
+
+### global FUNCTIONS start here
+
+def appendTo2dList(aList, appendStr=':'):
+
+    return [["%s%s" % (cell, appendStr) \
+             for cell in row] for row in aList]
 
 def convertLineEndings(file, mode):
     # 1 - Unix to Mac, 2 - Unix to DOS
@@ -577,21 +581,35 @@ if __name__ == "__main__":
     print "original matrix is all zeroes: "
     print a
 
-    a[0, 'B'] = ('XXX', 'XXX')
-    a[1, 'B'] = ('YYY', 'YYY')
+    a[0, 'B'] = ('B0', 'B0')
+    a[1, 'B'] = ('B1', 'B1')
     print "modified matrix: "
     print a
 
     #b = copy.deepcopy(a)
     b = a.copy()
     
-    b[0,'A'] = ('999', '999')
-    b[1,'A'] = ('666', '666')
+    b[0,'A'] = ('A0', 'A0')
+    b[1,'A'] = ('A1', 'A2')
 
     print "b should be changed:"
     print b
     
-    print "a should be unchanged and consist of zeroes:"
+    print "a should be unchanged and have nothing the A column:"
     print a
 
+    print "test subMatrix, get all data for b at locus 'A':"
+    print b['A']
 
+    print "test subMatrix, get all data for b at locus 'A:B':"
+    print b['A:B']
+
+    print "now filterOut B1 elements from b to create c:"
+    c = b.filterOut('A:B:C', 'B1')
+    print c
+    
+    print "test appending to a subMatrix c: "
+    print appendTo2dList(c, appendStr=':')
+
+    print "b should be unchanged by this:"
+    print b
