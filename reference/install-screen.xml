@@ -28,8 +28,9 @@ Please enter config filename [config.ini]: <userinput>sample.ini</userinput>
 Please enter population filename [no default]: <userinput>sample.pop</userinput>
 PyPop is processing sample.pop 
 
-<emphasis>(Note: some messages with the prefix "LOG:" may appear here.</emphasis>
-<emphasis>They are informational only and do not indicate improper operation of the program)</emphasis>
+<emphasis>(Note: some messages with the prefix "LOG:" may appear here.
+They are informational only and do not indicate improper operation 
+of the program)</emphasis>
 
 PyPop run complete!
 XML output can be found in: sample-out.xml
