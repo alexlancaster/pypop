@@ -439,6 +439,6 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       stream.write(line)
 
     # remove temporary files
-    #os.remove(hwFilename)
-    #os.remove(hwlFilename)
-    #os.remove(xmlFilename)
+    os.remove(hwFilename)
+    os.remove(hwlFilename)
+    os.remove(xmlFilename)
