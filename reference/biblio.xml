@@ -105,11 +105,14 @@
 
   </biblioset>
 
-  <biblioset relation="conference">
-   <confgroup>
-    <conftitle>Pacific Symposium on Biocomputing</conftitle>
-    <confdates>2003</confdates>
-   </confgroup>
+  <biblioset relation="book">
+   <citetitle>Pacific Symposium on Biocomputing 2003</citetitle>
+   <editor>
+    <firstname>R</firstname>
+    <othername>B</othername>
+    <surname>Altman</surname>
+   </editor>
+   <bibliomisc>et al.</bibliomisc>
   </biblioset>
 
  </biblioentry>
