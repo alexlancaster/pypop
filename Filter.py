@@ -663,10 +663,6 @@ class AnthonyNolanFilter(Filter):
                     if letter2 == '.' or letter2 == 'X' or letter2 == '*':
                         letter2 = self.untypedAllele
 
-                    # FIXME: this is useless, can't remember why I would have put it here.
-                    # letter1 = letter1
-                    # letter2 = letter2
-                               
                     seqMatrix[individCount,locus + '_' + str(pos)] = (letter1,letter2)
 
                     posCount += 1
@@ -766,17 +762,21 @@ class AnthonyNolanFilter(Filter):
 
         else:
             for pos in range(len(closestMatches.values()[0])):
-                letter1 = ''
-                letter2 = ''
-                uniqueCount = 0
+
+                # checks each position of each allele, counts the number
+                # of unique characters (excepting . X and * characters)
+                uniqueCounter = {}
+
                 for potentialMatch in closestMatches:
-                    letter2 = closestMatches[potentialMatch][pos]
-                    if letter1 != letter2:
-                        uniqueCount += 1
-                    letter1 = letter2
+                    letter = closestMatches[potentialMatch][pos]
+                    if letter != '.' and letter != 'X' and letter != '*':
+                        uniqueCounter[letter] = 1
+                        letterOfTheLaw = letter
+                        
+                uniqueCount = len(uniqueCounter)
 
                 if uniqueCount == 1:
-                    seq += closestMatches[potentialMatch][pos]
+                    seq += letterOfTheLaw
                 else:
                     seq += '*'
 
@@ -870,11 +870,6 @@ class BinningFilter:
         return matrix
 
 
-
-
-
-                    #        print locus + "*" + allele[i] + " is being replaced by " + ruleSet
-                    #        allele[i] = ruleSet
 
 class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
     """Filters data with an allelecount less than a threshold.
