@@ -47,6 +47,11 @@ allele count case).
 
 **TODO**
 
+2001-12-13:
+
+- 'Emhaplofreq' : when passing individuals data to C module, filter
+  out all individuals with missing data at any loci.  (_alex_).
+
 2001-11-27:
 
 - 'Emhaplofreq' : add names of loci and associated numerical labels to
