@@ -27,7 +27,11 @@ class Filter:
         raise SubclassError()
     def endFirstPass(self):
         raise SubclassError()
+    def startFiltering(self):
+        raise SubclassError()
     def filterAllele(self, alleleName):
+        raise SubclassError()
+    def endFiltering(self):
         raise SubclassError()
     def writeToLog(self, logstring=None):
         raise SubclassError()
@@ -43,8 +47,12 @@ class PassThroughFilter(Filter):
         pass
     def endFirstPass(self):
         pass
+    def startFiltering(self):
+        pass
     def filterAllele(self, alleleName):
         return alleleName
+    def endFiltering(self):
+        pass
     def writeToLog(self, logstring=None):
         pass
     
@@ -69,6 +77,10 @@ class AnthonyNolanFilter(Filter):
         self.untypedAllele = untypedAllele
         self.filename = filename
         self.logFile = logFile
+
+        # start log file
+        self.logFile.opentag('filterlog', filename=self.filename)
+        self.logFile.writeln()
 
         patt = re.compile("^([0-9a-zA-Z]+)\*([0-9a-zA-Z]+)")
         
@@ -103,6 +115,10 @@ class AnthonyNolanFilter(Filter):
         self.countTable = {}
         self.translTable = {}
 
+        # open tag for this section
+        self.logFile.opentag('firstpass', locus=locus)
+        self.logFile.writeln('<![CDATA[')
+
     def checkAlleleName(self, alleleName):
         """Checks allele name against the database.
 
@@ -111,8 +127,9 @@ class AnthonyNolanFilter(Filter):
         an untyped allele (normally four asterisks)
         """
 
-        alleleInfo = self.filename + ":" + self.locus + ":" + alleleName
-        
+        #alleleInfo = self.filename + ":" + self.locus + ":" + alleleName
+        alleleInfo = self.locus + ":" + alleleName
+
         # default return value is the allele name truncated to
         # numDigits length
         retval = alleleName[:self.numDigits]
@@ -234,7 +251,7 @@ class AnthonyNolanFilter(Filter):
                         foundMatch = 0
                         
                         for dbAllele in self.alleleLookupTable[self.locus]:
-                            print self.locus, dbAllele, testAllele
+
                             if dbAllele == testAllele:
                                 self.logFile.writeln(" -> resolved to %s: (not found in pop, but exact match %s in database)" % (testAllele, dbAllele))
                                 self.translTable[allele] = testAllele
@@ -249,19 +266,36 @@ class AnthonyNolanFilter(Filter):
                         # don't check any more alleles if we've found
                         # a match
                         if foundMatch: break
-                
+
+        self.logFile.writeln(']]>')
+        self.logFile.closetag('firstpass')
+        self.logFile.writeln()
         if self.debug:
             print "after filtering:", self.translTable
-        
+
+    def startFiltering(self):
+        self.logFile.opentag('translateTable', locus=self.locus)
+        self.logFile.writeln()
         
     def filterAllele(self, alleleName):
         transl = self.translTable[alleleName]
         if alleleName != transl:
-            self.logFile.writeln("<<%s to %s>>" % (alleleName, transl))
+            self.logFile.emptytag('translate', input=alleleName, output=transl)
+            self.logFile.writeln()
         return transl
+
+    def endFiltering(self):
+        self.logFile.closetag('translateTable')
+        self.logFile.writeln()
 
     def writeToLog(self, logstring=os.linesep):
         self.logFile.writeln(logstring)
+
+    def cleanup(self):
+        # end tag for XML
+        self.logFile.closetag('filterlog')
+        # probably should close log file here?
+
 
 class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
     """Filters data with an allelecount less than a threshold.
