@@ -422,7 +422,7 @@
   <xsl:call-template name="newline"/>
  </xsl:template>
 
- <xsl:template match="emhaplofreq/group[@mode='no-data]">
+ <xsl:template match="emhaplofreq/group[@mode='no-data']">
   <xsl:call-template name="header">
    <xsl:with-param name="title">No data left after filtering at: <xsl:value-of select="@loci"/>
    </xsl:with-param>
