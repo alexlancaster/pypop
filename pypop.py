@@ -476,9 +476,10 @@ if config.has_section("Emhaplofreq"):
 
       locusKeys = string.join(modLocusKeys, ',')
 
-    # estimate haplotype frequencies for the specified loci (excluding
-    # two locus haplotypes)
-    haplo.estHaplotypes(locusKeys)
+    # estimate haplotypes on set of locusKeys *only* if there are
+    # locus groups that remain after excluding two locus haplotypes
+    if locusKeys:
+      haplo.estHaplotypes(locusKeys)
 
   except NoOptionError:
     print "no loci provided for which to estimate haplotype frequencies"
