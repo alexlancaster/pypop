@@ -1,8 +1,9 @@
 
- temp.msf1  MSF: 1145  Type: N  January 01, 1776  12:00  Check: 9195 ..
+ temp.msf1  MSF: 1145  Type: N  January 01, 1776  12:00  Check: 355 ..
 
  Name: A*010101         Len:  1145  Check:   307  Weight:  1.00
  Name: A*010102         Len:  1145  Check:  4039  Weight:  1.00
+ Name: A*010103         Len:  1145  Check:  3153  Weight:  1.00
  Name: A*0102           Len:  1145  Check:  9617  Weight:  1.00
  Name: A*0103           Len:  1145  Check:  3605  Weight:  1.00
  Name: A*0104N          Len:  1145  Check:  1273  Weight:  1.00
@@ -22,6 +23,7 @@
  Name: A*020108         Len:  1145  Check:  9378  Weight:  1.00
  Name: A*020109         Len:  1145  Check:  9462  Weight:  1.00
  Name: A*020110         Len:  1145  Check:  8804  Weight:  1.00
+ Name: A*020111         Len:  1145  Check:    65  Weight:  1.00
  Name: A*0202           Len:  1145  Check:  9492  Weight:  1.00
  Name: A*020301         Len:  1145  Check:  3014  Weight:  1.00
  Name: A*020302         Len:  1145  Check:  8666  Weight:  1.00
@@ -29,6 +31,7 @@
  Name: A*0205           Len:  1145  Check:  2929  Weight:  1.00
  Name: A*020601         Len:  1145  Check:  2839  Weight:  1.00
  Name: A*020602         Len:  1145  Check:  8781  Weight:  1.00
+ Name: A*020603         Len:  1145  Check:  7778  Weight:  1.00
  Name: A*0207           Len:  1145  Check:  3600  Weight:  1.00
  Name: A*0208           Len:  1145  Check:  5258  Weight:  1.00
  Name: A*0209           Len:  1145  Check:  3474  Weight:  1.00
@@ -59,6 +62,7 @@
  Name: A*0233           Len:  1145  Check:  3552  Weight:  1.00
  Name: A*0234           Len:  1145  Check:  9562  Weight:  1.00
  Name: A*023501         Len:  1145  Check:  5896  Weight:  1.00
+ Name: A*023502         Len:  1145  Check:  5181  Weight:  1.00
  Name: A*0236           Len:  1145  Check:  4758  Weight:  1.00
  Name: A*0237           Len:  1145  Check:  4271  Weight:  1.00
  Name: A*0238           Len:  1145  Check:  4925  Weight:  1.00
@@ -67,7 +71,7 @@
  Name: A*0241           Len:  1145  Check:  4851  Weight:  1.00
  Name: A*0242           Len:  1145  Check:  5900  Weight:  1.00
  Name: A*0243N          Len:  1145  Check:  4116  Weight:  1.00
- Name: A*0244           Len:  1145  Check:  5035  Weight:  1.00
+ Name: A*0244           Len:  1145  Check:  8901  Weight:  1.00
  Name: A*0245           Len:  1145  Check:  5390  Weight:  1.00
  Name: A*0246           Len:  1145  Check:  1798  Weight:  1.00
  Name: A*0247           Len:  1145  Check:  5818  Weight:  1.00
@@ -96,10 +100,15 @@
  Name: A*0270           Len:  1145  Check:  9494  Weight:  1.00
  Name: A*0271           Len:  1145  Check:  9546  Weight:  1.00
  Name: A*0272           Len:  1145  Check:  8413  Weight:  1.00
+ Name: A*0273           Len:  1145  Check:  8118  Weight:  1.00
+ Name: A*0274           Len:  1145  Check:  9324  Weight:  1.00
+ Name: A*0275           Len:  1145  Check:  9078  Weight:  1.00
  Name: A*03010101       Len:  1145  Check:  2064  Weight:  1.00
  Name: A*03010102N      Len:  1145  Check:  2064  Weight:  1.00
+ Name: A*03010103       Len:  1145  Check:  2064  Weight:  1.00
  Name: A*030102         Len:  1145  Check:  5796  Weight:  1.00
  Name: A*030103         Len:  1145  Check:  6732  Weight:  1.00
+ Name: A*030104         Len:  1145  Check:  5903  Weight:  1.00
  Name: A*0302           Len:  1145  Check:  1615  Weight:  1.00
  Name: A*0303N          Len:  1145  Check:  9208  Weight:  1.00
  Name: A*0304           Len:  1145  Check:  2573  Weight:  1.00
@@ -115,8 +124,10 @@
  Name: A*0314           Len:  1145  Check:  5881  Weight:  1.00
  Name: A*110101         Len:  1145  Check:   716  Weight:  1.00
  Name: A*110102         Len:  1145  Check:  7702  Weight:  1.00
+ Name: A*110103         Len:  1145  Check:  4295  Weight:  1.00
+ Name: A*110104         Len:  1145  Check:  1600  Weight:  1.00
  Name: A*1102           Len:  1145  Check:  3016  Weight:  1.00
- Name: A*1103           Len:  1145  Check:  4304  Weight:  1.00
+ Name: A*1103           Len:  1145  Check:  1048  Weight:  1.00
  Name: A*1104           Len:  1145  Check:   508  Weight:  1.00
  Name: A*1105           Len:  1145  Check:  1934  Weight:  1.00
  Name: A*1106           Len:  1145  Check:  3772  Weight:  1.00
@@ -131,6 +142,10 @@
  Name: A*1115           Len:  1145  Check:  3812  Weight:  1.00
  Name: A*1116           Len:  1145  Check:  3435  Weight:  1.00
  Name: A*1117           Len:  1145  Check:  2657  Weight:  1.00
+ Name: A*1118           Len:  1145  Check:  3696  Weight:  1.00
+ Name: A*1119           Len:  1145  Check:  7602  Weight:  1.00
+ Name: A*1120           Len:  1145  Check:  3968  Weight:  1.00
+ Name: A*1121N          Len:  1145  Check:  8728  Weight:  1.00
  Name: A*2301           Len:  1145  Check:  9587  Weight:  1.00
  Name: A*2302           Len:  1145  Check:  2917  Weight:  1.00
  Name: A*2303           Len:  1145  Check:  3774  Weight:  1.00
@@ -149,6 +164,7 @@
  Name: A*240203         Len:  1145  Check:  8750  Weight:  1.00
  Name: A*240204         Len:  1145  Check:  2331  Weight:  1.00
  Name: A*240205         Len:  1145  Check:  2484  Weight:  1.00
+ Name: A*240206         Len:  1145  Check:  6048  Weight:  1.00
  Name: A*240301         Len:  1145  Check:  9588  Weight:  1.00
  Name: A*240302         Len:  1145  Check:  3458  Weight:  1.00
  Name: A*2404           Len:  1145  Check:  8797  Weight:  1.00
@@ -174,7 +190,7 @@
  Name: A*2426           Len:  1145  Check:  2125  Weight:  1.00
  Name: A*2427           Len:  1145  Check:  7371  Weight:  1.00
  Name: A*2428           Len:  1145  Check:  2980  Weight:  1.00
- Name: A*2429           Len:  1145  Check:  2120  Weight:  1.00
+ Name: A*2429           Len:  1145  Check:  2872  Weight:  1.00
  Name: A*2430           Len:  1145  Check:  2012  Weight:  1.00
  Name: A*2431           Len:  1145  Check:  2144  Weight:  1.00
  Name: A*2432           Len:  1145  Check:  2230  Weight:  1.00
@@ -189,6 +205,12 @@
  Name: A*2441           Len:  1145  Check:  2000  Weight:  1.00
  Name: A*2442           Len:  1145  Check:  2010  Weight:  1.00
  Name: A*2443           Len:  1145  Check:  6072  Weight:  1.00
+ Name: A*2444           Len:  1145  Check:  3848  Weight:  1.00
+ Name: A*2445N          Len:  1145  Check:  4709  Weight:  1.00
+ Name: A*2446           Len:  1145  Check:  6316  Weight:  1.00
+ Name: A*2447           Len:  1145  Check:  7077  Weight:  1.00
+ Name: A*2448N          Len:  1145  Check:  7304  Weight:  1.00
+ Name: A*2449           Len:  1145  Check:  6264  Weight:  1.00
  Name: A*250101         Len:  1145  Check:  1361  Weight:  1.00
  Name: A*250102         Len:  1145  Check:  3081  Weight:  1.00
  Name: A*2502           Len:  1145  Check:  1521  Weight:  1.00
@@ -217,6 +239,7 @@
  Name: A*2620           Len:  1145  Check:  9012  Weight:  1.00
  Name: A*2621           Len:  1145  Check:  8705  Weight:  1.00
  Name: A*2622           Len:  1145  Check:  8302  Weight:  1.00
+ Name: A*2623           Len:  1145  Check:  7750  Weight:  1.00
  Name: A*29010101       Len:  1145  Check:  4369  Weight:  1.00
  Name: A*29010102N      Len:  1145  Check:  4369  Weight:  1.00
  Name: A*290201         Len:  1145  Check:  4140  Weight:  1.00
@@ -230,8 +253,9 @@
  Name: A*2908N          Len:  1145  Check:  9775  Weight:  1.00
  Name: A*2909           Len:  1145  Check:  4757  Weight:  1.00
  Name: A*2910           Len:  1145  Check:  4707  Weight:  1.00
- Name: A*2911           Len:  1145  Check:  4869  Weight:  1.00
- Name: A*3001           Len:  1145  Check:  2592  Weight:  1.00
+ Name: A*2911           Len:  1145  Check:  6086  Weight:  1.00
+ Name: A*300101         Len:  1145  Check:  2592  Weight:  1.00
+ Name: A*300102         Len:  1145  Check:  5310  Weight:  1.00
  Name: A*300201         Len:  1145  Check:  1320  Weight:  1.00
  Name: A*300202         Len:  1145  Check:  3867  Weight:  1.00
  Name: A*3003           Len:  1145  Check:  8919  Weight:  1.00
@@ -252,6 +276,8 @@
  Name: A*3107           Len:  1145  Check:  2938  Weight:  1.00
  Name: A*3108           Len:  1145  Check:  3391  Weight:  1.00
  Name: A*3109           Len:  1145  Check:  5398  Weight:  1.00
+ Name: A*3110           Len:  1145  Check:  8308  Weight:  1.00
+ Name: A*3111           Len:  1145  Check:  5094  Weight:  1.00
  Name: A*3201           Len:  1145  Check:  3998  Weight:  1.00
  Name: A*3202           Len:  1145  Check:  3175  Weight:  1.00
  Name: A*3203           Len:  1145  Check:  4586  Weight:  1.00
@@ -329,6 +355,7 @@
 
        A*010101  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
        A*010102  .......... .......... .......... .......... ..........
+       A*010103  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
          A*0102  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
          A*0103  .......... .......... .......... .......... ..........
         A*0104N  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
@@ -348,6 +375,7 @@
        A*020108  .......... .......... .......... .......... ..........
        A*020109  .......... .......... .......... .......... ..........
        A*020110  .......... .......... .......... .......... ..........
+       A*020111  .......... .......... .......... .......... ..........
          A*0202  .......... .......... .......... .......... ..........
        A*020301  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCTCT
        A*020302  .......... .......... .......... .......... ..........
@@ -355,6 +383,7 @@
          A*0205  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCTCT
        A*020601  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCTCT
        A*020602  .......... .......... .......... .......... ..........
+       A*020603  .......... .......... .......... .......... ..........
          A*0207  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCTCT
          A*0208  .......... .......... .......... .......... ..........
          A*0209  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCTCT
@@ -385,6 +414,7 @@
          A*0233  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCTCT
          A*0234  .......... .......... .......... .......... ..........
        A*023501  .......... .......... .......... .......... ..........
+       A*023502  .......... .......... .......... .......... ..........
          A*0236  .......... .......... .......... .......... ..........
          A*0237  .......... .......... .......... .......... ..........
          A*0238  .......... .......... .......... .......... ..........
@@ -422,10 +452,15 @@
          A*0270  .......... .......... .......... .......... ..........
          A*0271  .......... .......... .......... .......... ..........
          A*0272  .......... .......... .......... .......... ..........
+         A*0273  .......... .......... .......... .......... ..........
+         A*0274  .......... .......... .......... .......... ..........
+         A*0275  .......... .......... .......... .......... ..........
      A*03010101  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
     A*03010102N  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
+     A*03010103  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
        A*030102  .......... .......... .......... .......... ..........
        A*030103  .......... .......... .......... .......... ..........
+       A*030104  .......... .......... .......... .......... ..........
          A*0302  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
         A*0303N  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
          A*0304  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
@@ -441,8 +476,10 @@
          A*0314  .......... .......... .......... .......... ..........
        A*110101  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
        A*110102  .......... .......... .......... .......... ..........
+       A*110103  .......... .......... .......... .......... ..........
+       A*110104  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
          A*1102  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
-         A*1103  .......... .......... .......... .......... ..........
+         A*1103  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
          A*1104  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
          A*1105  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
          A*1106  .......... .......... .......... .......... ..........
@@ -457,6 +494,10 @@
          A*1115  .......... .......... .......... .......... ..........
          A*1116  .......... .......... .......... .......... ..........
          A*1117  .......... .......... .......... .......... ..........
+         A*1118  .......... .......... .......... .......... ..........
+         A*1119  .......... .......... .......... .......... ..........
+         A*1120  .......... .......... .......... .......... ..........
+        A*1121N  .......... .......... .......... .......... ..........
          A*2301  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCCCT
          A*2302  .......... .......... .......... .......... ..........
          A*2303  .......... .......... .......... .......... ..........
@@ -475,6 +516,7 @@
        A*240203  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCCCT
        A*240204  .......... .......... .......... .......... ..........
        A*240205  .......... .......... .......... .......... ..........
+       A*240206  .......... .......... .......... .......... ..........
        A*240301  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCCCT
        A*240302  .......... .......... .......... .......... ..........
          A*2404  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCCCT
@@ -515,6 +557,12 @@
          A*2441  .......... .......... .......... .......... ..........
          A*2442  .......... .......... .......... .......... ..........
          A*2443  .......... .......... .......... .......... ..........
+         A*2444  .......... .......... .......... .......... ..........
+        A*2445N  .......... .......... .......... .......... ..........
+         A*2446  .......... .......... .......... .......... ..........
+         A*2447  .......... .......... .......... .......... ..........
+        A*2448N  .......... .......... .......... .......... ..........
+         A*2449  .......... .......... .......... .......... ..........
        A*250101  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCCCT
        A*250102  .......... .......... .......... .......... ..........
          A*2502  ATGGCCGTCA TGGCGCCCCG AACCCTCGTC CTGCTACTCT CGGGGGCCCT
@@ -543,6 +591,7 @@
          A*2620  .......... .......... .......... .......... ..........
          A*2621  .......... .......... .......... .......... ..........
          A*2622  .......... .......... .......... .......... ..........
+         A*2623  .......... .......... .......... .......... ..........
      A*29010101  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT TGGGGGCCCT
     A*29010102N  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT TGGGGGCCCT
        A*290201  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT TGGGGGCCCT
@@ -556,8 +605,9 @@
         A*2908N  .......... .......... .......... .......... ..........
          A*2909  .......... .......... .......... .......... ..........
          A*2910  .......... .......... .......... .......... ..........
-         A*2911  .......... .......... .......... .......... ..........
-         A*3001  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
+         A*2911  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT TGGGGGCCCT
+       A*300101  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
+       A*300102  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
        A*300201  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
        A*300202  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT CGGGGGCCCT
          A*3003  .......... .......... .......... .......... ..........
@@ -578,6 +628,8 @@
          A*3107  .......... .......... .......... .......... ..........
          A*3108  .......... .......... .......... .......... ..........
          A*3109  .......... .......... .......... .......... ..........
+         A*3110  .......... .......... .......... .......... ..........
+         A*3111  .......... .......... .......... .......... ..........
          A*3201  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT TGGGGGCCCT
          A*3202  ATGGCCGTCA TGGCGCCCCG AACCCTCCTC CTGCTACTCT TGGGGGCCCT
          A*3203  .......... .......... .......... .......... ..........
@@ -653,6 +705,7 @@
 
        A*010101  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTTCA
        A*010102  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTTCA
+       A*010103  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTTCA
          A*0102  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTCCA
          A*0103  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTTCA
         A*0104N  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTTCA
@@ -672,6 +725,7 @@
        A*020108  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
        A*020109  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
        A*020110  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
+       A*020111  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
          A*0202  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
        A*020301  GGCCCTGACC CAGACCTGGG CGGGCTCTCA CTCCATGAGG TATTTCTTCA
        A*020302  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
@@ -679,6 +733,7 @@
          A*0205  GGCCCTGACC CAGACCTGGG CGGGCTCTCA CTCCATGAGG TATTTCTACA
        A*020601  GGCCCTGACC CAGACCTGGG CGGGCTCTCA CTCCATGAGG TATTTCTACA
        A*020602  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTACA
+       A*020603  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTACA
          A*0207  GGCCCTGACC CAGACCTGGG CGGGCTCTCA CTCCATGAGG TATTTCTTCA
          A*0208  .......... ......TGGG CGGGCTCTCA CTCCATGAGG TATTTCTACA
          A*0209  GGCCCTGACC CAGACCTGGG CGGGCTCTCA CTCCATGAGG TATTTCTTCA
@@ -709,6 +764,7 @@
          A*0233  GGCCCTGACC CAGACCTGGG CGGGCTCTCA CTCCATGAGG TATTTCTTCA
          A*0234  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
        A*023501  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
+       A*023502  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
          A*0236  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
          A*0237  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
          A*0238  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
@@ -746,10 +802,15 @@
          A*0270  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
          A*0271  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
          A*0272  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTACA
+         A*0273  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
+         A*0274  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
+         A*0275  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
      A*03010101  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTTCA
     A*03010102N  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTTCA
+     A*03010103  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTTCA
        A*030102  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTTCA
        A*030103  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTTCA
+       A*030104  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTTCA
          A*0302  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTTCA
         A*0303N  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTTCA
          A*0304  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTTCA
@@ -765,8 +826,10 @@
          A*0314  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTTCA
        A*110101  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTACA
        A*110102  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
+       A*110103  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
+       A*110104  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTACA
          A*1102  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTACA
-         A*1103  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
+         A*1103  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTACA
          A*1104  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTACA
          A*1105  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTACA
          A*1106  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
@@ -781,6 +844,10 @@
          A*1115  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
          A*1116  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
          A*1117  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
+         A*1118  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
+         A*1119  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
+         A*1120  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
+        A*1121N  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
          A*2301  GGCCCTGACC CAGACCTGGG CAGGCTCCCA CTCCATGAGG TATTTCTCCA
          A*2302  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
          A*2303  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
@@ -799,6 +866,7 @@
        A*240203  GGCCCTGACC CAGACCTGGG CAGGCTCCCA CTCCATGAGG TATTTCTCCA
        A*240204  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
        A*240205  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
+       A*240206  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
        A*240301  GGCCCTGACC CAGACCTGGG CAGGCTCCCA CTCCATGAGG TATTTCTCCA
        A*240302  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
          A*2404  GGCCCTGACC CAGACCTGGG CAGGCTCCCA CTCCATGAGG TATTTCTCCA
@@ -839,6 +907,12 @@
          A*2441  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
          A*2442  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
          A*2443  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
+         A*2444  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
+        A*2445N  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
+         A*2446  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
+         A*2447  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
+        A*2448N  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
+         A*2449  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTCCA
        A*250101  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTACA
        A*250102  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
          A*2502  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTACA
@@ -867,6 +941,7 @@
          A*2620  .......... .......... ...GCTCTCA CTCCATGAGG TATTTCTTCA
          A*2621  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
          A*2622  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
+         A*2623  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTACA
      A*29010101  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCACCA
     A*29010102N  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCACCA
        A*290201  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCACCA
@@ -880,8 +955,9 @@
         A*2908N  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCACCA
          A*2909  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCACCA
          A*2910  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCACCA
-         A*2911  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCACCA
-         A*3001  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTCCA
+         A*2911  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCACCA
+       A*300101  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTCCA
+       A*300102  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTCCA
        A*300201  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTCCA
        A*300202  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTCCA
          A*3003  .......... .......... ..GGCTCCCA CTCCATGAGG TATTTCTCCA
@@ -902,6 +978,8 @@
          A*3107  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCACCA
          A*3108  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCACCA
          A*3109  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCACCA
+         A*3110  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCACCA
+         A*3111  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCACCA
          A*3201  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTTCA
          A*3202  GGCCCTGACC CAGACCTGGG CGGGCTCCCA CTCCATGAGG TATTTCTTCA
          A*3203  .......... .......... ...GCTCCCA CTCCATGAGG TATTTCTTCA
@@ -977,6 +1055,7 @@
 
        A*010101  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*010102  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+       A*010103  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*0102  CATCCGTGTC CCGGCCCGGC AGTGGAGAGC CCCGCTTCAT CGCAGTGGGC
          A*0103  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
         A*0104N  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
@@ -996,6 +1075,7 @@
        A*020108  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
        A*020109  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*020110  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
+       A*020111  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
          A*0202  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
        A*020301  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
        A*020302  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
@@ -1003,6 +1083,7 @@
          A*0205  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
        A*020601  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
        A*020602  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
+       A*020603  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
          A*0207  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
          A*0208  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
          A*0209  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
@@ -1033,6 +1114,7 @@
          A*0233  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
          A*0234  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
        A*023501  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
+       A*023502  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
          A*0236  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
          A*0237  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
          A*0238  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
@@ -1070,10 +1152,15 @@
          A*0270  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
          A*0271  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
          A*0272  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
+         A*0273  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
+         A*0274  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
+         A*0275  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
      A*03010101  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
     A*03010102N  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+     A*03010103  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*030102  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*030103  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+       A*030104  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*0302  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
         A*0303N  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*0304  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
@@ -1089,6 +1176,8 @@
          A*0314  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*110101  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*110102  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+       A*110103  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+       A*110104  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*1102  CCTCCGTGTC CCGGCCCGGC CGCGGGAAGC CCCGCTTCAT CGCCGTGGGC
          A*1103  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*1104  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
@@ -1105,6 +1194,10 @@
          A*1115  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*1116  CCTCCGTGTC CCGGCCCGGC CGCGGGAAGC CCCGCTTCAT CGCCGTGGGC
          A*1117  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+         A*1118  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+         A*1119  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+         A*1120  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+        A*1121N  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*2301  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*2302  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*2303  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
@@ -1123,6 +1216,7 @@
        A*240203  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*240204  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*240205  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+       A*240206  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCAGTGGGC
        A*240301  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*240302  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*2404  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
@@ -1163,6 +1257,12 @@
          A*2441  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*2442  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*2443  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+         A*2444  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+        A*2445N  ..TGGGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+         A*2446  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+         A*2447  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+        A*2448N  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+         A*2449  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*250101  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*250102  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*2502  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
@@ -1191,6 +1291,7 @@
          A*2620  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*2621  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*2622  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+         A*2623  CCTCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
      A*29010101  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
     A*29010102N  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
        A*290201  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
@@ -1205,7 +1306,8 @@
          A*2909  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*2910  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*2911  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
-         A*3001  CATCCGTGTC CCGGCCCGGC AGTGGAGAGC CCCGCTTCAT CGCAGTGGGC
+       A*300101  CATCCGTGTC CCGGCCCGGC AGTGGAGAGC CCCGCTTCAT CGCAGTGGGC
+       A*300102  CATCCGTGTC CCGGCCCGGC AGTGGAGAGC CCCGCTTCAT CGCAGTGGGC
        A*300201  CATCCGTGTC CCGGCCCGGC AGTGGAGAGC CCCGCTTCAT CGCAGTGGGC
        A*300202  CATCCGTGTC CCGGCCCGGC AGTGGAGAGC CCCGCTTCAT CGCAGTGGGC
          A*3003  CATCCGTGTC CCGGCCCGGC AGTGGAGAGC CCCGCTTCAT CGCAGTGGGC
@@ -1226,6 +1328,8 @@
          A*3107  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*3108  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*3109  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+         A*3110  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
+         A*3111  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*3201  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*3202  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
          A*3203  CATCCGTGTC CCGGCCCGGC CGCGGGGAGC CCCGCTTCAT CGCCGTGGGC
@@ -1301,6 +1405,7 @@
 
        A*010101  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*010102  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+       A*010103  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0102  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0103  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
         A*0104N  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1320,6 +1425,7 @@
        A*020108  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*020109  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*020110  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+       A*020111  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0202  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*020301  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*020302  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1327,6 +1433,7 @@
          A*0205  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*020601  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*020602  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+       A*020603  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0207  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0208  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0209  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1357,6 +1464,7 @@
          A*0233  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0234  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*023501  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+       A*023502  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0236  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0237  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0238  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1394,10 +1502,15 @@
          A*0270  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0271  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0272  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*0273  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*0274  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*0275  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
      A*03010101  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
     A*03010102N  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+     A*03010103  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*030102  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*030103  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+       A*030104  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0302  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
         A*0303N  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*0304  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1413,6 +1526,8 @@
          A*0314  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*110101  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*110102  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+       A*110103  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+       A*110104  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*1102  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*1103  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*1104  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1429,6 +1544,10 @@
          A*1115  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*1116  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*1117  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*1118  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*1119  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*1120  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+        A*1121N  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*2301  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*2302  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*2303  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1447,6 +1566,7 @@
        A*240203  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*240204  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*240205  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+       A*240206  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*240301  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*240302  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*2404  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1487,6 +1607,12 @@
          A*2441  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*2442  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*2443  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*2444  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+        A*2445N  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*2446  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*2447  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+        A*2448N  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*2449  .......... .......... ...TACGTGG ACTACACGCA GTTCGTGCGG
        A*250101  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*250102  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*2502  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1515,6 +1641,7 @@
          A*2620  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*2621  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*2622  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*2623  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
      A*29010101  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
     A*29010102N  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*290201  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1529,7 +1656,8 @@
          A*2909  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*2910  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*2911  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
-         A*3001  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+       A*300101  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+       A*300102  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*300201  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
        A*300202  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*3003  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1550,6 +1678,8 @@
          A*3107  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*3108  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*3109  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*3110  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
+         A*3111  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*3201  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*3202  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
          A*3203  .......... .......... ...TACGTGG ACGACACGCA GTTCGTGCGG
@@ -1625,6 +1755,7 @@
 
        A*010101  TTCGACAGCG ACGCCGCGAG CCAGAAGATG GAGCCG.... ..........
        A*010102  TTCGACAGCG ACGCCGCGAG CCAGAAGATG GAGCCG.... ..........
+       A*010103  TTCGACAGCG ACGCCGCGAG CCAGAAGATG GAGCCG.... ..........
          A*0102  TTCGACAGCG ACGCCGCGAG CCAGAAGATG GAGCCG.... ..........
          A*0103  TTCGACAGCG ACGCCGCGAG CCAGAAGATG GAGCCG.... ..........
         A*0104N  TTCGACAGCG ACGCCGCGAG CCAGAAGATG GAGCCG.... ..........
@@ -1644,6 +1775,7 @@
        A*020108  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*020109  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*020110  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+       A*020111  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*0202  TTCGACAGCG ACGCCGCGAG CCGGAGGATG GAGCCG.... ..........
        A*020301  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*020302  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
@@ -1651,6 +1783,7 @@
          A*0205  TTCGACAGCG ACGCCGCGAG CCGGAGGATG GAGCCG.... ..........
        A*020601  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*020602  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+       A*020603  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*0207  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*0208  TTCGACAGCG ACGCCGCGAG CCGGAGGATG GAGCCG.... ..........
          A*0209  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
@@ -1681,6 +1814,7 @@
          A*0233  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*0234  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*023501  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+       A*023502  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*0236  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*0237  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*0238  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
@@ -1718,10 +1852,15 @@
          A*0270  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*0271  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*0272  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*0273  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*0274  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*0275  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
      A*03010101  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
     A*03010102N  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+     A*03010103  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*030102  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*030103  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+       A*030104  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*0302  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
         A*0303N  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*0304  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
@@ -1737,6 +1876,8 @@
          A*0314  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*110101  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*110102  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+       A*110103  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+       A*110104  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*1102  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*1103  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*1104  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
@@ -1753,6 +1894,10 @@
          A*1115  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*1116  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*1117  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*1118  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*1119  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*1120  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+        A*1121N  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*2301  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*2302  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*2303  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
@@ -1771,6 +1916,7 @@
        A*240203  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*240204  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*240205  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+       A*240206  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*240301  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*240302  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*2404  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
@@ -1811,6 +1957,12 @@
          A*2441  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*2442  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*2443  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*2444  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+        A*2445N  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*2446  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*2447  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+        A*2448N  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*2449  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*250101  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*250102  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*2502  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
@@ -1839,6 +1991,7 @@
          A*2620  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*2621  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*2622  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*2623  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
      A*29010101  TTTGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
     A*29010102N  TTTGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*290201  TTTGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
@@ -1853,7 +2006,8 @@
          A*2909  TTTGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*2910  TTTGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*2911  TTTGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
-         A*3001  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+       A*300101  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+       A*300102  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*300201  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
        A*300202  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*3003  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
@@ -1874,6 +2028,8 @@
          A*3107  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*3108  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*3109  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*3110  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
+         A*3111  TTCGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*3201  TTTGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*3202  TTTGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
          A*3203  TTTGACAGCG ACGCCGCGAG CCAGAGGATG GAGCCG.... ..........
@@ -1949,6 +2105,7 @@
 
        A*010101  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
        A*010102  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
+       A*010103  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*0102  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*0103  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
         A*0104N  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
@@ -1968,6 +2125,7 @@
        A*020108  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
        A*020109  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
        A*020110  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
+       A*020111  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
          A*0202  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
        A*020301  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
        A*020302  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
@@ -1975,6 +2133,7 @@
          A*0205  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
        A*020601  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
        A*020602  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
+       A*020603  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
          A*0207  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
          A*0208  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
          A*0209  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
@@ -2005,6 +2164,7 @@
          A*0233  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
          A*0234  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
        A*023501  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
+       A*023502  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGG
          A*0236  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
          A*0237  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
          A*0238  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
@@ -2042,10 +2202,15 @@
          A*0270  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
          A*0271  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
          A*0272  ......CGGG CGCCGTGGAT AGAGCAGAAG GGTCCGGAGT ATTGGGACGG
+         A*0273  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
+         A*0274  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
+         A*0275  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACGG
      A*03010101  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
     A*03010102N  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
+     A*03010103  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
        A*030102  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
        A*030103  ......CGGG CGCCGTGGAT AGAGCAGGAG GGTCCGGAGT ATTGGGACCA
+       A*030104  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*0302  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
         A*0303N  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*0304  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
@@ -2061,6 +2226,8 @@
          A*0314  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
        A*110101  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
        A*110102  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
+       A*110103  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
+       A*110104  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*1102  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*1103  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*1104  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
@@ -2077,6 +2244,10 @@
          A*1115  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*1116  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*1117  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
+         A*1118  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
+         A*1119  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
+         A*1120  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
+        A*1121N  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*2301  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
          A*2302  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
          A*2303  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
@@ -2095,6 +2266,7 @@
        A*240203  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
        A*240204  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
        A*240205  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
+       A*240206  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
        A*240301  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
        A*240302  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
          A*2404  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
@@ -2135,6 +2307,12 @@
          A*2441  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
          A*2442  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGG
          A*2443  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
+         A*2444  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
+        A*2445N  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
+         A*2446  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
+         A*2447  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCTGGAGT ATTGGGACGA
+        A*2448N  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
+         A*2449  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
        A*250101  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCG
        A*250102  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCG
          A*2502  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCG
@@ -2163,6 +2341,7 @@
          A*2620  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCG
          A*2621  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCG
          A*2622  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCG
+         A*2623  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCG
      A*29010101  ......CGGG CACCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCT
     A*29010102N  ......CGGG CACCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCT
        A*290201  ......CGGG CACCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCT
@@ -2177,7 +2356,8 @@
          A*2909  ......CGGG CACCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCT
          A*2910  ......CGGG CACCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCT
          A*2911  ......CGGG CACCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCT
-         A*3001  ......CGGG CGCCGTGGAT AGAGCAGGAG AGGCCTGAGT ATTGGGACCA
+       A*300101  ......CGGG CGCCGTGGAT AGAGCAGGAG AGGCCTGAGT ATTGGGACCA
+       A*300102  ......CGGG CGCCGTGGAT AGAGCAGGAG AGGCCTGAGT ATTGGGACCA
        A*300201  ......CGGG CGCCGTGGAT AGAGCAGGAG AGGCCTGAGT ATTGGGACCA
        A*300202  ......CGGG CGCCGTGGAT AGAGCAGGAG AGGCCTGAGT ATTGGGACCA
          A*3003  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
@@ -2198,6 +2378,8 @@
          A*3107  ......CGGG CGCCGTGGAT AGAGCAGGAG AGGCCTGAGT ATTGGGACCA
          A*3108  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACGA
          A*3109  ......CGGG CGCCGTGGAT AGAGCAGGAG AGGCCTGAGT ATTGGGACCA
+         A*3110  ......CGGG CGCCGTGGAT AGAGCAGGAG AGGCCTGAGT ATTGGGACCA
+         A*3111  ......CGGG CGCCGTGGAT AGAGCAGGAG AGGCCTGAGT ATTGGGACCA
          A*3201  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*3202  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
          A*3203  ......CGGG CGCCGTGGAT AGAGCAGGAG GGGCCGGAGT ATTGGGACCA
@@ -2273,6 +2455,7 @@
 
        A*010101  GGAGACACGG AATATGAAGG CCCACTCACA GACTGACCGA GCGAACCTGG
        A*010102  GGAGACACGG AATATGAAGG CCCACTCACA GACTGACCGA GCGAACCTGG
+       A*010103  GGAGACACGG AATATGAAGG CCCACTCACA GACTGACCGA GCGAACCTGG
          A*0102  GGAGACACGG AATATGAAGG CCCACTCACA GACTGACCGA GCGAACCTGG
          A*0103  GGAGACACGG AATATGAAGG CCCACTCACA GACTGACCGA GCGAACCTGG
         A*0104N  GGAGACACGG AATATGAAGG CCCACTCACA GACTGACCGA GCGAACCTGG
@@ -2292,6 +2475,7 @@
        A*020108  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
        A*020109  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
        A*020110  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
+       A*020111  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
          A*0202  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
        A*020301  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
        A*020302  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
@@ -2299,6 +2483,7 @@
          A*0205  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
        A*020601  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
        A*020602  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGATCTGG
+       A*020603  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
          A*0207  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
          A*0208  GGAGACACGG AATGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
          A*0209  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
@@ -2329,6 +2514,7 @@
          A*0233  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
          A*0234  GGAGACACGG AAAGTGAAGG CCCAGTCACA GACTCACCGA GTGGACCTGG
        A*023501  GGAGACACGG AAAGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
+       A*023502  GGAGACACGG AAAGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
          A*0236  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
          A*0237  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
          A*0238  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
@@ -2366,10 +2552,15 @@
          A*0270  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
          A*0271  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
          A*0272  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
+         A*0273  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
+         A*0274  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
+         A*0275  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
      A*03010101  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
     A*03010102N  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
+     A*03010103  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
        A*030102  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
        A*030103  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
+       A*030104  GGAAACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
          A*0302  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
         A*0303N  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
          A*0304  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
@@ -2385,6 +2576,8 @@
          A*0314  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
        A*110101  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
        A*110102  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
+       A*110103  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
+       A*110104  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
          A*1102  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
          A*1103  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
          A*1104  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
@@ -2401,6 +2594,10 @@
          A*1115  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
          A*1116  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
          A*1117  GGAGACACGG AATATGAAGG CCCACTCACA GACTGACCGA GCGAACCTGG
+         A*1118  GGAGACACGG AATGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
+         A*1119  GGAGACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GTGGACCTGG
+         A*1120  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
+        A*1121N  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
          A*2301  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
          A*2302  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
          A*2303  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
@@ -2419,6 +2616,7 @@
        A*240203  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
        A*240204  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
        A*240205  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
+       A*240206  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
        A*240301  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
        A*240302  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
          A*2404  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GCGAACCTGG
@@ -2459,6 +2657,12 @@
          A*2441  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
          A*2442  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTCACCGA GAGAACCTGC
          A*2443  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
+         A*2444  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GTGGACCTGG
+        A*2445N  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
+         A*2446  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
+         A*2447  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
+        A*2448N  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
+         A*2449  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
        A*250101  GAACACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GAGAGCCTGC
        A*250102  GAACACACGG AATGTGAAGG CCCACTCACA GACTGACCGG GAGAGCCTGC
          A*2502  GAACACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GAGAGCCTGC
@@ -2487,6 +2691,7 @@
          A*2620  GAACACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GCGAACCTGG
          A*2621  GAACACACGG AATGTGAAGG CCCACTCACA GACTCACCGA GTGGACCTGG
          A*2622  GAACACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GCGAACCTGG
+         A*2623  GAACACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GCGAACCTGG
      A*29010101  GCAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GCGAACCTGG
     A*29010102N  GCAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GCGAACCTGG
        A*290201  GCAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GCGAACCTGG
@@ -2501,7 +2706,8 @@
          A*2909  GCAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GCGAACCTGG
          A*2910  GCAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GCGAACCTGG
          A*2911  GCAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GCGAACCTGG
-         A*3001  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
+       A*300101  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
+       A*300102  GGAGACACGG AATGTGAAGG CCCAGTCACA GACTGACCGA GTGGACCTGG
        A*300201  GGAGACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGG
        A*300202  GGAGACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGG
          A*3003  GGAGACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGG
@@ -2522,6 +2728,8 @@
          A*3107  GGAGACACGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
          A*3108  GGAGACAGGG AAAGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
          A*3109  GGAGACACGG AATGTGAAGG GCCACTCACA GATTGACCGA GTGGACCTGG
+         A*3110  GGAGACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
+         A*3111  GGAGACACGG AATGTGAAGG CCCACTCACA GATTGACCGA GTGGACCTGG
          A*3201  GGAGACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GAGAGCCTGC
          A*3202  GGAGACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GAGAGCCTGC
          A*3203  GGAGACACGG AATGTGAAGG CCCACTCACA GACTGACCGA GAGAACCTGC
@@ -2597,6 +2805,7 @@
 
        A*010101  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
        A*010102  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
+       A*010103  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
          A*0102  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
          A*0103  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
         A*0104N  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
@@ -2616,6 +2825,7 @@
        A*020108  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
        A*020109  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
        A*020110  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGGTC TCACACCGTC
+       A*020111  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
          A*0202  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
        A*020301  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
        A*020302  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
@@ -2623,6 +2833,7 @@
          A*0205  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
        A*020601  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
        A*020602  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
+       A*020603  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
          A*0207  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
          A*0208  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
          A*0209  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
@@ -2653,6 +2864,7 @@
          A*0233  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
          A*0234  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
        A*023501  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
+       A*023502  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
          A*0236  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
          A*0237  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
          A*0238  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
@@ -2690,10 +2902,15 @@
          A*0270  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
          A*0271  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
          A*0272  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
+         A*0273  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
+         A*0274  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
+         A*0275  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCGTC
      A*03010101  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
     A*03010102N  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
+     A*03010103  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
        A*030102  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
        A*030103  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
+       A*030104  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
          A*0302  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
         A*0303N  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
          A*0304  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
@@ -2709,6 +2926,8 @@
          A*0314  GGACCCTGCG CGGCTACTAC AACCACAGCG AGGCCGGTTC TCACACCATC
        A*110101  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
        A*110102  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
+       A*110103  GGACCCTGCG TGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
+       A*110104  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCATACCATC
          A*1102  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
          A*1103  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
          A*1104  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
@@ -2725,6 +2944,10 @@
          A*1115  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
          A*1116  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
          A*1117  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
+         A*1118  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
+         A*1119  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
+         A*1120  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
+        A*1121N  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
          A*2301  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
          A*2302  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
          A*2303  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
@@ -2743,6 +2966,7 @@
        A*240203  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
        A*240204  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
        A*240205  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
+       A*240206  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
        A*240301  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
        A*240302  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
          A*2404  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
@@ -2783,6 +3007,12 @@
          A*2441  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
          A*2442  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
          A*2443  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
+         A*2444  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCCTC
+        A*2445N  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
+         A*2446  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
+         A*2447  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
+        A*2448N  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
+         A*2449  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCCTC
        A*250101  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
        A*250102  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
          A*2502  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
@@ -2811,6 +3041,7 @@
          A*2620  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
          A*2621  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
          A*2622  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCGTC
+         A*2623  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGACGGTTC TCACACCATC
      A*29010101  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
     A*29010102N  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
        A*290201  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
@@ -2825,7 +3056,8 @@
          A*2909  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
          A*2910  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
          A*2911  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
-         A*3001  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
+       A*300101  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
+       A*300102  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
        A*300201  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
        A*300202  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
          A*3003  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
@@ -2846,6 +3078,8 @@
          A*3107  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
          A*3108  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
          A*3109  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
+         A*3110  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
+         A*3111  GGACCCTGCG CGGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
          A*3201  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
          A*3202  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
          A*3203  GGATCGCGCT CCGCTACTAC AACCAGAGCG AGGCCGGTTC TCACACCATC
@@ -2921,6 +3155,7 @@
 
        A*010101  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
        A*010102  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
+       A*010103  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*0102  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*0103  CAGATGATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
         A*0104N  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
@@ -2940,6 +3175,7 @@
        A*020108  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
        A*020109  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
        A*020110  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
+       A*020111  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
          A*0202  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTGCGCGG
        A*020301  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
        A*020302  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
@@ -2947,6 +3183,7 @@
          A*0205  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTGCGCGG
        A*020601  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
        A*020602  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
+       A*020603  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
          A*0207  CAGAGGATGT GTGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
          A*0208  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTGCGCGG
          A*0209  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
@@ -2977,6 +3214,7 @@
          A*0233  CAGAGGATGT CTGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
          A*0234  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
        A*023501  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
+       A*023502  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
          A*0236  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
          A*0237  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
          A*0238  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
@@ -3014,10 +3252,15 @@
          A*0270  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
          A*0271  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
          A*0272  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
+         A*0273  CAGAGGATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
+         A*0274  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
+         A*0275  CAGAGGATGT ATGGCTGCGA CGTGGGGTCG GACTGGCGCT TCCTCCGCGG
      A*03010101  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
     A*03010102N  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+     A*03010103  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
        A*030102  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
        A*030103  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+       A*030104  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*0302  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
         A*0303N  CAGATAATGT ATGGC..... .GTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*0304  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
@@ -3033,6 +3276,8 @@
          A*0314  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
        A*110101  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
        A*110102  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
+       A*110103  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
+       A*110104  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*1102  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*1103  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*1104  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
@@ -3049,6 +3294,10 @@
          A*1115  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*1116  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*1117  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
+         A*1118  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
+         A*1119  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
+         A*1120  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
+        A*1121N  CAGATAATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*2301  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*2302  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*2303  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
@@ -3067,6 +3316,7 @@
        A*240203  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
        A*240204  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
        A*240205  CAGATGATGT TTGGTTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+       A*240206  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
        A*240301  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
        A*240302  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*2404  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
@@ -3107,6 +3357,12 @@
          A*2441  CAGATGATGT TTGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*2442  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*2443  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+         A*2444  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+        A*2445N  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+         A*2446  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+         A*2447  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+        A*2448N  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+         A*2449  CAGATGATGT TTGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
        A*250101  CAGAGGATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
        A*250102  CAGAGGATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*2502  CAGAGGATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
@@ -3135,6 +3391,7 @@
          A*2620  CAGAGGATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*2621  CAGAGGATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
          A*2622  CAGAGGATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCT TCCTCCGCGG
+         A*2623  CAGAGGATGT ATGGCTGCGA CGTGGGGCCG GACGAGCGCT TCCTCCGCGG
      A*29010101  CAGATGATGT ATGGCTGCCA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
     A*29010102N  CAGATGATGT ATGGCTGCCA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
        A*290201  CAGATGATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
@@ -3149,7 +3406,8 @@
          A*2909  CAGATGATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*2910  CAGATGATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*2911  CAGATGATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
-         A*3001  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+       A*300101  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+       A*300102  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
        A*300201  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
        A*300202  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*3003  CAGATAATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
@@ -3170,6 +3428,8 @@
          A*3107  CAGATGATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*3108  CAGATGATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*3109  CAGATGATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+         A*3110  CAGATGATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
+         A*3111  CAGATGATGT ATGGCTGCGA CGTGGGGTCG GACGGGCGCT TCCTCCGCGG
          A*3201  CAGATGATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCC TCCTCCGCGG
          A*3202  CAGATGATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCC TCCTCCGCGG
          A*3203  CAGATGATGT ATGGCTGCGA CGTGGGGCCG GACGGGCGCC TCCTCCGCGG
@@ -3245,6 +3505,7 @@
 
        A*010101  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
        A*010102  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+       A*010103  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*0102  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*0103  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
         A*0104N  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
@@ -3264,6 +3525,7 @@
        A*020108  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*020109  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*020110  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+       A*020111  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*0202  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*020301  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*020302  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTAAAAGAGG
@@ -3271,6 +3533,7 @@
          A*0205  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*020601  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*020602  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+       A*020603  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*0207  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*0208  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*0209  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
@@ -3301,6 +3564,7 @@
          A*0233  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*0234  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*023501  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+       A*023502  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*0236  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*0237  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*0238  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
@@ -3338,10 +3602,15 @@
          A*0270  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*0271  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*0272  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+         A*0273  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+         A*0274  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+         A*0275  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
      A*03010101  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
     A*03010102N  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+     A*03010103  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
        A*030102  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
        A*030103  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+       A*030104  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*0302  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
         A*0303N  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*0304  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
@@ -3357,6 +3626,8 @@
          A*0314  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
        A*110101  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
        A*110102  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+       A*110103  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+       A*110104  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*1102  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*1103  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*1104  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
@@ -3373,6 +3644,10 @@
          A*1115  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*1116  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*1117  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+         A*1118  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+         A*1119  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+         A*1120  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+        A*1121N  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*2301  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*2302  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*2303  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
@@ -3391,6 +3666,7 @@
        A*240203  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*240204  GTACCACCAG TATGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*240205  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+       A*240206  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*240301  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*240302  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*2404  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
@@ -3431,6 +3707,12 @@
          A*2441  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*2442  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
          A*2443  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+         A*2444  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+        A*2445N  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+         A*2446  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+         A*2447  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+        A*2448N  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
+         A*2449  GTACCACCAG TACGCCTACG ACGGCAAGGA TTACATCGCC CTGAAAGAGG
        A*250101  GTACCAGCAG GACGCTTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
        A*250102  GTACCAGCAG GACGCTTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*2502  GTACCAGCAG GACGCTTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
@@ -3459,6 +3741,7 @@
          A*2620  GTACCAGCAG GACGCTTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*2621  GTACCAGCAG GACGCTTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*2622  GTACCAGCAG GACGCTTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+         A*2623  GTACCAGCAG GACGCTTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
      A*29010101  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
     A*29010102N  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
        A*290201  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
@@ -3473,7 +3756,8 @@
          A*2909  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
          A*2910  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
          A*2911  GTACCGGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
-         A*3001  GTATGAACAG CACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+       A*300101  GTATGAACAG CACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
+       A*300102  GTATGAACAG CACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
        A*300201  GTATGAACAG CACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
        A*300202  GTATGAACAG CACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
          A*3003  GTATGAACAG CACGCCTACG ACGGCAAGGA TTACATCGCC CTGAACGAGG
@@ -3494,6 +3778,8 @@
          A*3107  GTACCAGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
          A*3108  GTACCAGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
          A*3109  GTACCAGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
+         A*3110  GTACCAGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
+         A*3111  GTACCAGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
          A*3201  GTACCAGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
          A*3202  GTACCAGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
          A*3203  GTACCAGCAG GACGCCTACG ACGGCAAGGA TTACATCGCC TTGAACGAGG
@@ -3569,6 +3855,7 @@
 
        A*010101  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
        A*010102  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT TACCAAGCGC
+       A*010103  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
          A*0102  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
          A*0103  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
         A*0104N  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
@@ -3588,6 +3875,7 @@
        A*020108  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
        A*020109  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
        A*020110  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
+       A*020111  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
          A*0202  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
        A*020301  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
        A*020302  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
@@ -3595,6 +3883,7 @@
          A*0205  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
        A*020601  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
        A*020602  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
+       A*020603  ACCTGCGCTC CTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
          A*0207  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
          A*0208  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
          A*0209  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
@@ -3625,6 +3914,7 @@
          A*0233  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
          A*0234  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
        A*023501  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
+       A*023502  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
          A*0236  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
          A*0237  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
          A*0238  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
@@ -3662,10 +3952,15 @@
          A*0270  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
          A*0271  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCGGAC CACCAAGCAC
          A*0272  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
+         A*0273  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
+         A*0274  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
+         A*0275  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCAC
      A*03010101  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
     A*03010102N  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
+     A*03010103  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
        A*030102  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
        A*030103  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
+       A*030104  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
          A*0302  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
         A*0303N  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
          A*0304  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
@@ -3681,6 +3976,8 @@
          A*0314  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
        A*110101  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
        A*110102  ACCTGCGCTC TTGGACCGCG GCAGACATGG CAGCTCAGAT CACCAAGCGC
+       A*110103  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
+       A*110104  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
          A*1102  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
          A*1103  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
          A*1104  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
@@ -3697,6 +3994,10 @@
          A*1115  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
          A*1116  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAC CACCAAGCGC
          A*1117  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
+         A*1118  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
+         A*1119  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
+         A*1120  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
+        A*1121N  ACCTGCGCTC TTGGACCGCG GCGGACATGG CAGCTCAGAT CACCAAGCGC
          A*2301  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*2302  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*2303  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
@@ -3715,6 +4016,7 @@
        A*240203  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
        A*240204  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
        A*240205  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
+       A*240206  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
        A*240301  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
        A*240302  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
          A*2404  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
@@ -3755,6 +4057,12 @@
          A*2441  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
          A*2442  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
          A*2443  ACCTGCGCTC TTGGACCGCG GCGGACATGG AGGCTCAGAT CACCAAGCGC
+         A*2444  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
+        A*2445N  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
+         A*2446  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
+         A*2447  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
+        A*2448N  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
+         A*2449  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
        A*250101  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
        A*250102  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*2502  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
@@ -3783,6 +4091,7 @@
          A*2620  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*2621  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*2622  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
+         A*2623  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
      A*29010101  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
     A*29010102N  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
        A*290201  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
@@ -3797,7 +4106,8 @@
          A*2909  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCAAGCGC
          A*2910  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*2911  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCCGAT CACCCAGCGC
-         A*3001  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
+       A*300101  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
+       A*300102  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
        A*300201  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
        A*300202  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*3003  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
@@ -3818,6 +4128,8 @@
          A*3107  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*3108  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*3109  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
+         A*3110  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
+         A*3111  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*3201  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*3202  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
          A*3203  ACCTGCGCTC TTGGACCGCG GCGGACATGG CGGCTCAGAT CACCCAGCGC
@@ -3893,6 +4205,7 @@
 
        A*010101  AAGTGGGAG. .GCGGTCCAT GCGGCGGAGC AGCGGAGAGT CTACCTGGAG
        A*010102  AAGTGGGAG. .GCGGTCCAT GCGGCGGAGC AGCGGAGAGT CTACCTGGAG
+       A*010103  AAGTGGGAG. .GCGGTCCAT GCGGCGGAGC AGCGGAGAGT CTACCTGGAG
          A*0102  AAGTGGGAG. .GCGGTCCAT GCGGCGGAGC AGCGGAGAGT CTACCTGGAG
          A*0103  AAGTGGGAG. .GCGGTCCAT GCGGCGGAGC AGCGGAGAGT CTACCTGGAG
         A*0104N  AAGTGGGAG. .GCGGTCCAT GCGGCGGAGC AGCGGAGAGT CTACCTGGAG
@@ -3912,6 +4225,7 @@
        A*020108  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
        A*020109  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
        A*020110  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
+       A*020111  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*0202  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTGGAGAGC CTACCTGGAG
        A*020301  AAGTGGGAG. .ACGGCCCAT GAGGCGGAGC AGTGGAGAGC CTACCTGGAG
        A*020302  AAGTGGGAG. .ACGGCCCAT GAGGCGGAGC AGTGGAGAGC CTACCTGGAG
@@ -3919,6 +4233,7 @@
          A*0205  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTGGAGAGC CTACCTGGAG
        A*020601  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
        A*020602  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
+       A*020603  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*0207  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*0208  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTGGAGAGC CTACCTGGAG
          A*0209  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
@@ -3949,6 +4264,7 @@
          A*0233  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*0234  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
        A*023501  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
+       A*023502  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*0236  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*0237  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
          A*0238  AAGTGGGAG. .ACGGCCCAT GAGGCGGAGC AGCAGAGAGC CTACCTGGAG
@@ -3986,10 +4302,15 @@
          A*0270  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*0271  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*0272  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
+         A*0273  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
+         A*0274  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
+         A*0275  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
      A*03010101  AAGTGGGAG. .GCGGCCCAT GAGGCGGAGC AGTTGAGAGC CTACCTGGAT
     A*03010102N  AAGTGGGAG. .GCGGCCCAT GAGGCGGAGC AGTTGAGAGC CTACCTGGAT
+     A*03010103  AAGTGGGAG. .GCGGCCCAT GAGGCGGAGC AGTTGAGAGC CTACCTGGAT
        A*030102  AAGTGGGAG. .GCGGCCCAT GAGGCGGAGC AGCTGAGAGC CTACCTGGAT
        A*030103  AAGTGGGAG. .GCGGCCCAT GAGGCGGAGC AGTTGAGAGC CTACCTGGAT
+       A*030104  AAGTGGGAG. .GCGGCCCAT GAGGCGGAGC AGTTGAGAGC CTACCTGGAT
          A*0302  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAT
         A*0303N  AAGTGGGAG. .GCGGCCCAT GAGGCGGAGC AGTTGAGAGC CTACCTGGAT
          A*0304  AAGTGGGAG. .GCGGCCCAT GAGGCGGAGC AGTTGAGAGC CTACCTGGAT
@@ -4005,6 +4326,8 @@
          A*0314  AAGTGGGAG. .GCGGCCCAT GAGGCGGAGC AGTTGAGAGC CTACCTGGAT
        A*110101  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
        A*110102  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
+       A*110103  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
+       A*110104  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
          A*1102  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
          A*1103  AAGTGGGAG. .GCGGCCCGT GAGGCGGAGC AGCAGAGAGC CTACCTGGAG
          A*1104  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
@@ -4021,6 +4344,10 @@
          A*1115  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
          A*1116  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
          A*1117  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
+         A*1118  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
+         A*1119  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
+         A*1120  AAGTGGGAG. .GCGGCCCAT GAGGCGGAGC AGCAGAGAGC CTACCTGGAG
+        A*1121N  AAGTGGGAG. .GCGGCCCAT GCGGCGGAGC AGCAGAGAGC CTACCTGGAG
          A*2301  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*2302  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTGGAGAGC CTACCTGGAG
          A*2303  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
@@ -4039,6 +4366,7 @@
        A*240203  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
        A*240204  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
        A*240205  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
+       A*240206  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
        A*240301  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
        A*240302  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
          A*2404  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
@@ -4079,6 +4407,12 @@
          A*2441  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
          A*2442  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
          A*2443  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
+         A*2444  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
+        A*2445N  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
+         A*2446  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
+         A*2447  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
+        A*2448N  AAGTGGGAG. .GCGGCCCAT GTGGCGTAG. .......... ..........
+         A*2449  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
        A*250101  AAGTGGGAG. .ACGGCCCAT GAGGCGGAGC AGTGGAGAGC CTACCTGGAG
        A*250102  AAGTGGGAG. .ACGGCCCAT GAGGCGGAGC AGTGGAGAGC CTACCTGGAG
          A*2502  AAGTGGGAG. .ACGGCCCAT GAGGCGGAGC AGTGGAGAGC CTACCTGGAG
@@ -4107,6 +4441,7 @@
          A*2620  AAGTGGGAG. .ACGGCCCAT GAGGCGGAGC AGTGGAGAGC CTACCTGGAG
          A*2621  AAGTGGGAG. .ACGGCCCAT GAGGCGGAGC AGTGGAGAGC CTACCTGGAG
          A*2622  AAGTGGGAG. .ACGGCCCAT GAGGCGGAGC AGTGGAGAGC CTACCTGGAG
+         A*2623  AAGTGGGAG. .ACGGCCCAT GAGGCGGAGC AGTGGAGAGC CTACCTGGAG
      A*29010101  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
     A*29010102N  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
        A*290201  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
@@ -4121,7 +4456,8 @@
          A*2909  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*2910  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*2911  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
-         A*3001  AAGTGGGAG. .GCGGCCCGT TGGGCGGAGC AGTTGAGAGC CTACCTGGAG
+       A*300101  AAGTGGGAG. .GCGGCCCGT TGGGCGGAGC AGTTGAGAGC CTACCTGGAG
+       A*300102  AAGTGGGAG. .GCGGCCCGT TGGGCGGAGC AGTTGAGAGC CTACCTGGAG
        A*300201  AAGTGGGAG. .GCGGCCCGT CGGGCGGAGC AGTTGAGAGC CTACCTGGAG
        A*300202  AAGTGGGAG. .GCGGCCCGT CGGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*3003  AAGTGGGAG. .GCGGCCCGT CGGGCGGAGC AGTTGAGAGC CTACCTGGAG
@@ -4142,6 +4478,8 @@
          A*3107  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*3108  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*3109  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
+         A*3110  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
+         A*3111  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*3201  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
          A*3202  AAGTGGGAG. .GCGGCCCAT GTGGCGGAGC AGCAGAGAGC CTACCTGGAG
          A*3203  AAGTGGGAG. .GCGGCCCGT GTGGCGGAGC AGTTGAGAGC CTACCTGGAG
@@ -4217,6 +4555,7 @@
 
        A*010101  GGCCGGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*010102  GGCCGGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+       A*010103  GGCCGGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0102  GGCCGGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0103  GGCCGGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
         A*0104N  GGCCGGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
@@ -4236,6 +4575,7 @@
        A*020108  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*020109  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*020110  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+       A*020111  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0202  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*020301  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*020302  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
@@ -4243,6 +4583,7 @@
          A*0205  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*020601  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*020602  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+       A*020603  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0207  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0208  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0209  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
@@ -4273,6 +4614,7 @@
          A*0233  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0234  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*023501  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+       A*023502  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0236  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0237  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0238  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
@@ -4310,10 +4652,15 @@
          A*0270  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0271  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0272  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+         A*0273  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+         A*0274  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACA GGAAGGAGAC
+         A*0275  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
      A*03010101  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
     A*03010102N  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+     A*03010103  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*030102  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*030103  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+       A*030104  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0302  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
         A*0303N  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*0304  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACC GGAAGGAGAC
@@ -4329,6 +4676,8 @@
          A*0314  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*110101  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*110102  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+       A*110103  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+       A*110104  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*1102  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*1103  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*1104  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
@@ -4345,6 +4694,10 @@
          A*1115  GGCCGGTGCC TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*1116  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*1117  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+         A*1118  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+         A*1119  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+         A*1120  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+        A*1121N  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*2301  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*2302  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*2303  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
@@ -4363,6 +4716,7 @@
        A*240203  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*240204  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*240205  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+       A*240206  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*240301  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*240302  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*2404  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
@@ -4403,6 +4757,12 @@
          A*2441  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*2442  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*2443  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+         A*2444  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+        A*2445N  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+         A*2446  GGCCGGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+         A*2447  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+        A*2448N  .......... .......... .......... .......... ..........
+         A*2449  GGCACGTGCG TGGACGGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*250101  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*250102  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*2502  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
@@ -4431,6 +4791,7 @@
          A*2620  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*2621  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGAAGAACG GGAAGGAGAC
          A*2622  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+         A*2623  GGCCGGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
      A*29010101  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
     A*29010102N  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*290201  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
@@ -4445,7 +4806,8 @@
          A*2909  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*2910  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGAAGAC
          A*2911  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
-         A*3001  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+       A*300101  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+       A*300102  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*300201  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
        A*300202  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*3003  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
@@ -4466,6 +4828,8 @@
          A*3107  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*3108  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*3109  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+         A*3110  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
+         A*3111  GGCACGTGCC TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*3201  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*3202  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
          A*3203  GGCACGTGCG TGGAGTGGCT CCGCAGATAC CTGGAGAACG GGAAGGAGAC
@@ -4541,6 +4905,7 @@
 
        A*010101  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
        A*010102  GCTGCAGCGC ACGG...... .......... .......... ..........
+       A*010103  GCTGCAGCGC ACTGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
          A*0102  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
          A*0103  GCTGCAGCGC ACGG...... .......... .......... ..........
         A*0104N  GCTGCAGCGC ACGGACCCCC CCCAAGACAC ATATGACCCA CCACCCCATC
@@ -4560,6 +4925,7 @@
        A*020108  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
        A*020109  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
        A*020110  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
+       A*020111  GCTGCAGCGC ACGGATGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
          A*0202  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
        A*020301  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
        A*020302  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
@@ -4567,6 +4933,7 @@
          A*0205  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
        A*020601  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
        A*020602  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
+       A*020603  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
          A*0207  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
          A*0208  GCTGCAGCGC A......... .......... .......... ..........
          A*0209  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
@@ -4597,6 +4964,7 @@
          A*0233  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
          A*0234  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
        A*023501  GCTGCAGCGC ACGG...... .......... .......... ..........
+       A*023502  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*0236  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*0237  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*0238  GCTGCAGCGC ACGG...... .......... .......... ..........
@@ -4605,7 +4973,7 @@
          A*0241  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*0242  GCTGCAGCGC ACGG...... .......... .......... ..........
         A*0243N  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
-         A*0244  GCTGCAGCGC ACGG...... .......... .......... ..........
+         A*0244  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
          A*0245  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*0246  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*0247  GCTGCAGCGC ACGG...... .......... .......... ..........
@@ -4634,10 +5002,15 @@
          A*0270  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
          A*0271  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
          A*0272  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
+         A*0273  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
+         A*0274  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
+         A*0275  GCTGCAGCGC ACGGACGCCC CC.AAAACGC ATATGACTCA CCACGCTGTC
      A*03010101  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
     A*03010102N  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
+     A*03010103  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
        A*030102  GCTGCAGCGC ACGG...... .......... .......... ..........
        A*030103  GCTGCAGCGC ACGG...... .......... .......... ..........
+       A*030104  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*0302  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
         A*0303N  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
          A*0304  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
@@ -4653,8 +5026,10 @@
          A*0314  GCTGCAGCGC ACGG...... .......... .......... ..........
        A*110101  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
        A*110102  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
+       A*110103  GCTGCAGCGC ACGG...... .......... .......... ..........
+       A*110104  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
          A*1102  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
-         A*1103  GCTGCAGCGC ACGG...... .......... .......... ..........
+         A*1103  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
          A*1104  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
          A*1105  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
          A*1106  GCTGCAGCGC ACGG...... .......... .......... ..........
@@ -4669,6 +5044,10 @@
          A*1115  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*1116  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*1117  GCTGCAGCGC ACGG...... .......... .......... ..........
+         A*1118  GCTGCAGCGC ACGG...... .......... .......... ..........
+         A*1119  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
+         A*1120  GCTGCAGCGC ACGG...... .......... .......... ..........
+        A*1121N  GCTGCAGCGC ACGGACCCCC CCCAAGACAC ATATGACCCA CCACCCCATC
          A*2301  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
          A*2302  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*2303  GCTGCAGCGC ACGG...... .......... .......... ..........
@@ -4687,6 +5066,7 @@
        A*240203  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
        A*240204  GCTGCAGCGC ACGG...... .......... .......... ..........
        A*240205  GCTGCAGCGC ACGG...... .......... .......... ..........
+       A*240206  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
        A*240301  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
        A*240302  GCTGCAGCGC ACTG...... .......... .......... ..........
          A*2404  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
@@ -4712,7 +5092,7 @@
          A*2426  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*2427  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*2428  GCTGCAGCGC ACGG...... .......... .......... ..........
-         A*2429  GCTGCAGCGC ACGG...... .......... .......... ..........
+         A*2429  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
          A*2430  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*2431  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*2432  GCTGCAGCGC ACGG...... .......... .......... ..........
@@ -4727,6 +5107,12 @@
          A*2441  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*2442  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*2443  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
+         A*2444  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
+        A*2445N  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
+         A*2446  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
+         A*2447  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
+        A*2448N  .......... .......... .......... .......... ..........
+         A*2449  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
        A*250101  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
        A*250102  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*2502  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
@@ -4755,6 +5141,7 @@
          A*2620  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
          A*2621  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
          A*2622  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
+         A*2623  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
      A*29010101  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
     A*29010102N  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
        A*290201  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
@@ -4768,8 +5155,9 @@
         A*2908N  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
          A*2909  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*2910  GCTGCAGCGC ACGG...... .......... .......... ..........
-         A*2911  GCTGCAGCGC ACGG...... .......... .......... ..........
-         A*3001  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
+         A*2911  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
+       A*300101  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
+       A*300102  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
        A*300201  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
        A*300202  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
          A*3003  GCTGCAGCGC ACGGACCCCC CC.AAGACAC ATATGACCCA CCACCCCATC
@@ -4790,6 +5178,8 @@
          A*3107  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*3108  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*3109  GCTGCAGCGC ACGG...... .......... .......... ..........
+         A*3110  GCTGCAGCGC ACGGACCCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
+         A*3111  GCTGCAGCGC ACGG...... .......... .......... ..........
          A*3201  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
          A*3202  GCTGCAGCGC ACGGACGCCC CC.AAGACGC ATATGACTCA CCACGCTGTC
          A*3203  GCTGCAGCGC ACGG...... .......... .......... ..........
@@ -4865,6 +5255,7 @@
 
        A*010101  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
        A*010102  .......... .......... .......... .......... ..........
+       A*010103  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
          A*0102  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
          A*0103  .......... .......... .......... .......... ..........
         A*0104N  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
@@ -4884,6 +5275,7 @@
        A*020108  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
        A*020109  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
        A*020110  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
+       A*020111  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*0202  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
        A*020301  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
        A*020302  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
@@ -4891,6 +5283,7 @@
          A*0205  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
        A*020601  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
        A*020602  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
+       A*020603  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*0207  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*0208  .......... .......... .......... .......... ..........
          A*0209  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
@@ -4921,6 +5314,7 @@
          A*0233  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*0234  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
        A*023501  .......... .......... .......... .......... ..........
+       A*023502  .......... .......... .......... .......... ..........
          A*0236  .......... .......... .......... .......... ..........
          A*0237  .......... .......... .......... .......... ..........
          A*0238  .......... .......... .......... .......... ..........
@@ -4929,7 +5323,7 @@
          A*0241  .......... .......... .......... .......... ..........
          A*0242  .......... .......... .......... .......... ..........
         A*0243N  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
-         A*0244  .......... .......... .......... .......... ..........
+         A*0244  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*0245  .......... .......... .......... .......... ..........
          A*0246  .......... .......... .......... .......... ..........
          A*0247  .......... .......... .......... .......... ..........
@@ -4958,10 +5352,15 @@
          A*0270  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*0271  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*0272  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
+         A*0273  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
+         A*0274  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
+         A*0275  TCTGACCATG AAGCCACCCT GAGGTGCTGG GCCCTGAACT TCTACCCTGC
      A*03010101  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
     A*03010102N  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
+     A*03010103  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
        A*030102  .......... .......... .......... .......... ..........
        A*030103  .......... .......... .......... .......... ..........
+       A*030104  .......... .......... .......... .......... ..........
          A*0302  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
         A*0303N  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
          A*0304  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
@@ -4977,8 +5376,10 @@
          A*0314  .......... .......... .......... .......... ..........
        A*110101  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
        A*110102  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
+       A*110103  .......... .......... .......... .......... ..........
+       A*110104  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
          A*1102  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
-         A*1103  .......... .......... .......... .......... ..........
+         A*1103  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
          A*1104  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
          A*1105  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
          A*1106  .......... .......... .......... .......... ..........
@@ -4993,6 +5394,10 @@
          A*1115  .......... .......... .......... .......... ..........
          A*1116  .......... .......... .......... .......... ..........
          A*1117  .......... .......... .......... .......... ..........
+         A*1118  .......... .......... .......... .......... ..........
+         A*1119  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
+         A*1120  .......... .......... .......... .......... ..........
+        A*1121N  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
          A*2301  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
          A*2302  .......... .......... .......... .......... ..........
          A*2303  .......... .......... .......... .......... ..........
@@ -5011,6 +5416,7 @@
        A*240203  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
        A*240204  .......... .......... .......... .......... ..........
        A*240205  .......... .......... .......... .......... ..........
+       A*240206  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
        A*240301  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
        A*240302  .......... .......... .......... .......... ..........
          A*2404  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
@@ -5036,7 +5442,7 @@
          A*2426  .......... .......... .......... .......... ..........
          A*2427  .......... .......... .......... .......... ..........
          A*2428  .......... .......... .......... .......... ..........
-         A*2429  .......... .......... .......... .......... ..........
+         A*2429  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
          A*2430  .......... .......... .......... .......... ..........
          A*2431  .......... .......... .......... .......... ..........
          A*2432  .......... .......... .......... .......... ..........
@@ -5051,6 +5457,12 @@
          A*2441  .......... .......... .......... .......... ..........
          A*2442  .......... .......... .......... .......... ..........
          A*2443  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
+         A*2444  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
+        A*2445N  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
+         A*2446  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
+         A*2447  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
+        A*2448N  .......... .......... .......... .......... ..........
+         A*2449  TCTGACCATG AGGCCACTCT GAGATGCTGG GCCCTGGGCT TCTACCCTGC
        A*250101  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
        A*250102  .......... .......... .......... .......... ..........
          A*2502  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
@@ -5079,6 +5491,7 @@
          A*2620  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*2621  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*2622  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
+         A*2623  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
      A*29010101  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
     A*29010102N  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
        A*290201  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
@@ -5092,8 +5505,9 @@
         A*2908N  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*2909  .......... .......... .......... .......... ..........
          A*2910  .......... .......... .......... .......... ..........
-         A*2911  .......... .......... .......... .......... ..........
-         A*3001  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
+         A*2911  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
+       A*300101  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
+       A*300102  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
        A*300201  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
        A*300202  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
          A*3003  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGGGCT TCTACCCTGC
@@ -5114,6 +5528,8 @@
          A*3107  .......... .......... .......... .......... ..........
          A*3108  .......... .......... .......... .......... ..........
          A*3109  .......... .......... .......... .......... ..........
+         A*3110  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
+         A*3111  .......... .......... .......... .......... ..........
          A*3201  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*3202  TCTGACCATG AGGCCACCCT GAGGTGCTGG GCCCTGAGCT TCTACCCTGC
          A*3203  .......... .......... .......... .......... ..........
@@ -5189,6 +5605,7 @@
 
        A*010101  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*010102  .......... .......... .......... .......... ..........
+       A*010103  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*0102  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*0103  .......... .......... .......... .......... ..........
         A*0104N  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
@@ -5208,6 +5625,7 @@
        A*020108  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*020109  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*020110  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+       A*020111  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*0202  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*020301  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*020302  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
@@ -5215,6 +5633,7 @@
          A*0205  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*020601  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*020602  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+       A*020603  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*0207  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*0208  .......... .......... .......... .......... ..........
          A*0209  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
@@ -5245,6 +5664,7 @@
          A*0233  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*0234  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*023501  .......... .......... .......... .......... ..........
+       A*023502  .......... .......... .......... .......... ..........
          A*0236  .......... .......... .......... .......... ..........
          A*0237  .......... .......... .......... .......... ..........
          A*0238  .......... .......... .......... .......... ..........
@@ -5253,7 +5673,7 @@
          A*0241  .......... .......... .......... .......... ..........
          A*0242  .......... .......... .......... .......... ..........
         A*0243N  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
-         A*0244  .......... .......... .......... .......... ..........
+         A*0244  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*0245  .......... .......... .......... .......... ..........
          A*0246  .......... .......... .......... .......... ..........
          A*0247  .......... .......... .......... .......... ..........
@@ -5282,10 +5702,15 @@
          A*0270  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*0271  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*0272  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+         A*0273  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+         A*0274  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+         A*0275  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
      A*03010101  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
     A*03010102N  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+     A*03010103  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*030102  .......... .......... .......... .......... ..........
        A*030103  .......... .......... .......... .......... ..........
+       A*030104  .......... .......... .......... .......... ..........
          A*0302  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
         A*0303N  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*0304  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
@@ -5301,8 +5726,10 @@
          A*0314  .......... .......... .......... .......... ..........
        A*110101  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*110102  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+       A*110103  .......... .......... .......... .......... ..........
+       A*110104  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*1102  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
-         A*1103  .......... .......... .......... .......... ..........
+         A*1103  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*1104  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*1105  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*1106  .......... .......... .......... .......... ..........
@@ -5317,6 +5744,10 @@
          A*1115  .......... .......... .......... .......... ..........
          A*1116  .......... .......... .......... .......... ..........
          A*1117  .......... .......... .......... .......... ..........
+         A*1118  .......... .......... .......... .......... ..........
+         A*1119  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+         A*1120  .......... .......... .......... .......... ..........
+        A*1121N  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*2301  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*2302  .......... .......... .......... .......... ..........
          A*2303  .......... .......... .......... .......... ..........
@@ -5335,6 +5766,7 @@
        A*240203  AGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*240204  .......... .......... .......... .......... ..........
        A*240205  .......... .......... .......... .......... ..........
+       A*240206  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*240301  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*240302  .......... .......... .......... .......... ..........
          A*2404  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
@@ -5360,7 +5792,7 @@
          A*2426  .......... .......... .......... .......... ..........
          A*2427  .......... .......... .......... .......... ..........
          A*2428  .......... .......... .......... .......... ..........
-         A*2429  .......... .......... .......... .......... ..........
+         A*2429  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*2430  .......... .......... .......... .......... ..........
          A*2431  .......... .......... .......... .......... ..........
          A*2432  .......... .......... .......... .......... ..........
@@ -5375,6 +5807,12 @@
          A*2441  .......... .......... .......... .......... ..........
          A*2442  .......... .......... .......... .......... ..........
          A*2443  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+         A*2444  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+        A*2445N  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+         A*2446  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+         A*2447  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+        A*2448N  .......... .......... .......... .......... ..........
+         A*2449  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*250101  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*250102  .......... .......... .......... .......... ..........
          A*2502  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
@@ -5403,6 +5841,7 @@
          A*2620  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*2621  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*2622  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+         A*2623  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
      A*29010101  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
     A*29010102N  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*290201  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
@@ -5416,8 +5855,9 @@
         A*2908N  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*2909  .......... .......... .......... .......... ..........
          A*2910  .......... .......... .......... .......... ..........
-         A*2911  .......... .......... .......... .......... ..........
-         A*3001  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+         A*2911  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+       A*300101  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+       A*300102  GGAGATCACA TTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*300201  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
        A*300202  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*3003  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
@@ -5438,6 +5878,8 @@
          A*3107  .......... .......... .......... .......... ..........
          A*3108  .......... .......... .......... .......... ..........
          A*3109  .......... .......... .......... .......... ..........
+         A*3110  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
+         A*3111  .......... .......... .......... .......... ..........
          A*3201  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*3202  GGAGATCACA CTGACCTGGC AGCGGGATGG GGAGGACCAG ACCCAGGACA
          A*3203  .......... .......... .......... .......... ..........
@@ -5513,6 +5955,7 @@
 
        A*010101  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*010102  .......... .......... .......... .......... ..........
+       A*010103  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*0102  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*0103  .......... .......... .......... .......... ..........
         A*0104N  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
@@ -5532,6 +5975,7 @@
        A*020108  CAGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*020109  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*020110  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+       A*020111  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*0202  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*020301  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*020302  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
@@ -5539,6 +5983,7 @@
          A*0205  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*020601  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*020602  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+       A*020603  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*0207  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*0208  .......... .......... .......... .......... ..........
          A*0209  CGGAGCTCGT GGAGACCAGG CCTGA.AGGG GATGGAACCT TCCAGAAGTG
@@ -5569,6 +6014,7 @@
          A*0233  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*0234  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*023501  .......... .......... .......... .......... ..........
+       A*023502  .......... .......... .......... .......... ..........
          A*0236  .......... .......... .......... .......... ..........
          A*0237  .......... .......... .......... .......... ..........
          A*0238  .......... .......... .......... .......... ..........
@@ -5577,7 +6023,7 @@
          A*0241  .......... .......... .......... .......... ..........
          A*0242  .......... .......... .......... .......... ..........
         A*0243N  CGGAGCTCGT GGAGACCAGG CCTGCCAGGG GATGGAACCT TCCAGAAGTG
-         A*0244  .......... .......... .......... .......... ..........
+         A*0244  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*0245  .......... .......... .......... .......... ..........
          A*0246  .......... .......... .......... .......... ..........
          A*0247  .......... .......... .......... .......... ..........
@@ -5606,10 +6052,15 @@
          A*0270  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*0271  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*0272  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+         A*0273  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+         A*0274  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+         A*0275  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
      A*03010101  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
     A*03010102N  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+     A*03010103  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*030102  .......... .......... .......... .......... ..........
        A*030103  .......... .......... .......... .......... ..........
+       A*030104  .......... .......... .......... .......... ..........
          A*0302  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
         A*0303N  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*0304  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
@@ -5625,8 +6076,10 @@
          A*0314  .......... .......... .......... .......... ..........
        A*110101  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*110102  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+       A*110103  .......... .......... .......... .......... ..........
+       A*110104  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*1102  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
-         A*1103  .......... .......... .......... .......... ..........
+         A*1103  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*1104  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*1105  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*1106  .......... .......... .......... .......... ..........
@@ -5641,6 +6094,10 @@
          A*1115  .......... .......... .......... .......... ..........
          A*1116  .......... .......... .......... .......... ..........
          A*1117  .......... .......... .......... .......... ..........
+         A*1118  .......... .......... .......... .......... ..........
+         A*1119  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+         A*1120  .......... .......... .......... .......... ..........
+        A*1121N  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*2301  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*2302  .......... .......... .......... .......... ..........
          A*2303  .......... .......... .......... .......... ..........
@@ -5659,6 +6116,7 @@
        A*240203  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*240204  .......... .......... .......... .......... ..........
        A*240205  .......... .......... .......... .......... ..........
+       A*240206  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*240301  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*240302  .......... .......... .......... .......... ..........
          A*2404  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
@@ -5684,7 +6142,7 @@
          A*2426  .......... .......... .......... .......... ..........
          A*2427  .......... .......... .......... .......... ..........
          A*2428  .......... .......... .......... .......... ..........
-         A*2429  .......... .......... .......... .......... ..........
+         A*2429  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*2430  .......... .......... .......... .......... ..........
          A*2431  .......... .......... .......... .......... ..........
          A*2432  .......... .......... .......... .......... ..........
@@ -5699,6 +6157,12 @@
          A*2441  .......... .......... .......... .......... ..........
          A*2442  .......... .......... .......... .......... ..........
          A*2443  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+         A*2444  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+        A*2445N  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+         A*2446  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+         A*2447  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+        A*2448N  .......... .......... .......... .......... ..........
+         A*2449  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*250101  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGGACCT TCCAGAAGTG
        A*250102  .......... .......... .......... .......... ..........
          A*2502  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGGACCT TCCAGAAGTG
@@ -5727,6 +6191,7 @@
          A*2620  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGGACCT TCCAGAAGTG
          A*2621  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGGACCT TCCAGAAGTG
          A*2622  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGGACCT TCCAGAAGTG
+         A*2623  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGGACCT TCCAGAAGTG
      A*29010101  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
     A*29010102N  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*290201  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
@@ -5740,8 +6205,9 @@
         A*2908N  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*2909  .......... .......... .......... .......... ..........
          A*2910  .......... .......... .......... .......... ..........
-         A*2911  .......... .......... .......... .......... ..........
-         A*3001  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+         A*2911  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+       A*300101  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+       A*300102  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*300201  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
        A*300202  CGGAGCTCGT TGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*3003  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
@@ -5762,6 +6228,8 @@
          A*3107  .......... .......... .......... .......... ..........
          A*3108  .......... .......... .......... .......... ..........
          A*3109  .......... .......... .......... .......... ..........
+         A*3110  CGGAGCTCGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
+         A*3111  .......... .......... .......... .......... ..........
          A*3201  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*3202  CGGAGCTTGT GGAGACCAGG CCTGC.AGGG GATGGAACCT TCCAGAAGTG
          A*3203  .......... .......... .......... .......... ..........
@@ -5837,6 +6305,7 @@
 
        A*010101  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
        A*010102  .......... .......... .......... .......... ..........
+       A*010103  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
          A*0102  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
          A*0103  .......... .......... .......... .......... ..........
         A*0104N  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
@@ -5856,6 +6325,7 @@
        A*020108  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
        A*020109  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
        A*020110  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
+       A*020111  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*0202  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
        A*020301  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
        A*020302  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
@@ -5863,6 +6333,7 @@
          A*0205  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
        A*020601  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
        A*020602  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
+       A*020603  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*0207  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*0208  .......... .......... .......... .......... ..........
          A*0209  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
@@ -5893,6 +6364,7 @@
          A*0233  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*0234  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
        A*023501  .......... .......... .......... .......... ..........
+       A*023502  .......... .......... .......... .......... ..........
          A*0236  .......... .......... .......... .......... ..........
          A*0237  .......... .......... .......... .......... ..........
          A*0238  .......... .......... .......... .......... ..........
@@ -5901,7 +6373,7 @@
          A*0241  .......... .......... .......... .......... ..........
          A*0242  .......... .......... .......... .......... ..........
         A*0243N  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
-         A*0244  .......... .......... .......... .......... ..........
+         A*0244  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*0245  .......... .......... .......... .......... ..........
          A*0246  .......... .......... .......... .......... ..........
          A*0247  .......... .......... .......... .......... ..........
@@ -5930,10 +6402,15 @@
          A*0270  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*0271  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*0272  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
+         A*0273  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
+         A*0274  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
+         A*0275  GGCGGCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
      A*03010101  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
     A*03010102N  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
+     A*03010103  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
        A*030102  .......... .......... .......... .......... ..........
        A*030103  .......... .......... .......... .......... ..........
+       A*030104  .......... .......... .......... .......... ..........
          A*0302  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
         A*0303N  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
          A*0304  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
@@ -5949,8 +6426,10 @@
          A*0314  .......... .......... .......... .......... ..........
        A*110101  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
        A*110102  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
+       A*110103  .......... .......... .......... .......... ..........
+       A*110104  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
          A*1102  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
-         A*1103  .......... .......... .......... .......... ..........
+         A*1103  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
          A*1104  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
          A*1105  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
          A*1106  .......... .......... .......... .......... ..........
@@ -5965,6 +6444,10 @@
          A*1115  .......... .......... .......... .......... ..........
          A*1116  .......... .......... .......... .......... ..........
          A*1117  .......... .......... .......... .......... ..........
+         A*1118  .......... .......... .......... .......... ..........
+         A*1119  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
+         A*1120  .......... .......... .......... .......... ..........
+        A*1121N  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
          A*2301  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
          A*2302  .......... .......... .......... .......... ..........
          A*2303  .......... .......... .......... .......... ..........
@@ -5983,6 +6466,7 @@
        A*240203  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
        A*240204  .......... .......... .......... .......... ..........
        A*240205  .......... .......... .......... .......... ..........
+       A*240206  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
        A*240301  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
        A*240302  .......... .......... .......... .......... ..........
          A*2404  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
@@ -6008,7 +6492,7 @@
          A*2426  .......... .......... .......... .......... ..........
          A*2427  .......... .......... .......... .......... ..........
          A*2428  .......... .......... .......... .......... ..........
-         A*2429  .......... .......... .......... .......... ..........
+         A*2429  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
          A*2430  .......... .......... .......... .......... ..........
          A*2431  .......... .......... .......... .......... ..........
          A*2432  .......... .......... .......... .......... ..........
@@ -6023,6 +6507,12 @@
          A*2441  .......... .......... .......... .......... ..........
          A*2442  .......... .......... .......... .......... ..........
          A*2443  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
+         A*2444  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
+        A*2445N  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
+         A*2446  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
+         A*2447  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
+        A*2448N  .......... .......... .......... .......... ..........
+         A*2449  GGCAGCTGTG GTGGTACCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
        A*250101  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
        A*250102  .......... .......... .......... .......... ..........
          A*2502  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
@@ -6051,6 +6541,7 @@
          A*2620  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*2621  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*2622  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
+         A*2623  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
      A*29010101  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
     A*29010102N  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
        A*290201  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
@@ -6064,8 +6555,9 @@
         A*2908N  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*2909  .......... .......... .......... .......... ..........
          A*2910  .......... .......... .......... .......... ..........
-         A*2911  .......... .......... .......... .......... ..........
-         A*3001  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
+         A*2911  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
+       A*300101  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
+       A*300102  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
        A*300201  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
        A*300202  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAGATAC ACCTGCCATG
          A*3003  GGCGGCTGTG GTGGTGCCTT CTGGAGAGGA GCAGAG.... ..........
@@ -6086,6 +6578,8 @@
          A*3107  .......... .......... .......... .......... ..........
          A*3108  .......... .......... .......... .......... ..........
          A*3109  .......... .......... .......... .......... ..........
+         A*3110  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
+         A*3111  .......... .......... .......... .......... ..........
          A*3201  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*3202  GGCGTCTGTG GTGGTGCCTT CTGGACAGGA GCAGAGATAC ACCTGCCATG
          A*3203  .......... .......... .......... .......... ..........
@@ -6161,6 +6655,7 @@
 
        A*010101  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
        A*010102  .......... .......... .......... .......... ..........
+       A*010103  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
          A*0102  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
          A*0103  .......... .......... .......... .......... ..........
         A*0104N  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
@@ -6180,6 +6675,7 @@
        A*020108  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
        A*020109  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
        A*020110  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
+       A*020111  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
          A*0202  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
        A*020301  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
        A*020302  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
@@ -6187,6 +6683,7 @@
          A*0205  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
        A*020601  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
        A*020602  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
+       A*020603  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
          A*0207  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
          A*0208  .......... .......... .......... .......... ..........
          A*0209  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
@@ -6217,6 +6714,7 @@
          A*0233  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
          A*0234  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
        A*023501  .......... .......... .......... .......... ..........
+       A*023502  .......... .......... .......... .......... ..........
          A*0236  .......... .......... .......... .......... ..........
          A*0237  .......... .......... .......... .......... ..........
          A*0238  .......... .......... .......... .......... ..........
@@ -6225,7 +6723,7 @@
          A*0241  .......... .......... .......... .......... ..........
          A*0242  .......... .......... .......... .......... ..........
         A*0243N  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
-         A*0244  .......... .......... .......... .......... ..........
+         A*0244  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
          A*0245  .......... .......... .......... .......... ..........
          A*0246  .......... .......... .......... .......... ..........
          A*0247  .......... .......... .......... .......... ..........
@@ -6254,10 +6752,15 @@
          A*0270  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
          A*0271  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
          A*0272  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
+         A*0273  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
+         A*0274  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
+         A*0275  TGCAGCATGA GGGTTTGCCC AAGCCCCTCA CCCTGAGATG GG........
      A*03010101  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
     A*03010102N  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
+     A*03010103  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
        A*030102  .......... .......... .......... .......... ..........
        A*030103  .......... .......... .......... .......... ..........
+       A*030104  .......... .......... .......... .......... ..........
          A*0302  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
         A*0303N  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
          A*0304  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
@@ -6273,8 +6776,10 @@
          A*0314  .......... .......... .......... .......... ..........
        A*110101  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
        A*110102  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
+       A*110103  .......... .......... .......... .......... ..........
+       A*110104  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
          A*1102  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
-         A*1103  .......... .......... .......... .......... ..........
+         A*1103  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
          A*1104  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
          A*1105  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
          A*1106  .......... .......... .......... .......... ..........
@@ -6289,6 +6794,10 @@
          A*1115  .......... .......... .......... .......... ..........
          A*1116  .......... .......... .......... .......... ..........
          A*1117  .......... .......... .......... .......... ..........
+         A*1118  .......... .......... .......... .......... ..........
+         A*1119  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
+         A*1120  .......... .......... .......... .......... ..........
+        A*1121N  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
          A*2301  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCATCT
          A*2302  .......... .......... .......... .......... ..........
          A*2303  .......... .......... .......... .......... ..........
@@ -6307,6 +6816,7 @@
        A*240203  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCATCT
        A*240204  .......... .......... .......... .......... ..........
        A*240205  .......... .......... .......... .......... ..........
+       A*240206  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
        A*240301  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCATCT
        A*240302  .......... .......... .......... .......... ..........
          A*2404  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCATCT
@@ -6332,7 +6842,7 @@
          A*2426  .......... .......... .......... .......... ..........
          A*2427  .......... .......... .......... .......... ..........
          A*2428  .......... .......... .......... .......... ..........
-         A*2429  .......... .......... .......... .......... ..........
+         A*2429  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCATCT
          A*2430  .......... .......... .......... .......... ..........
          A*2431  .......... .......... .......... .......... ..........
          A*2432  .......... .......... .......... .......... ..........
@@ -6347,6 +6857,12 @@
          A*2441  .......... .......... .......... .......... ..........
          A*2442  .......... .......... .......... .......... ..........
          A*2443  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
+         A*2444  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCATCT
+        A*2445N  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
+         A*2446  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
+         A*2447  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
+        A*2448N  .......... .......... .......... .......... ..........
+         A*2449  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
        A*250101  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
        A*250102  .......... .......... .......... .......... ..........
          A*2502  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
@@ -6375,6 +6891,7 @@
          A*2620  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
          A*2621  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
          A*2622  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
+         A*2623  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
      A*29010101  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
     A*29010102N  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
        A*290201  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
@@ -6388,8 +6905,9 @@
         A*2908N  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
          A*2909  .......... .......... .......... .......... ..........
          A*2910  .......... .......... .......... .......... ..........
-         A*2911  .......... .......... .......... .......... ..........
-         A*3001  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
+         A*2911  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
+       A*300101  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
+       A*300102  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
        A*300201  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCTGTCT
        A*300202  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GG........
          A*3003  .......... .......... .......... .......... ..........
@@ -6410,6 +6928,8 @@
          A*3107  .......... .......... .......... .......... ..........
          A*3108  .......... .......... .......... .......... ..........
          A*3109  .......... .......... .......... .......... ..........
+         A*3110  TGCAGCATGA GGGTCTCCCC AAGCCCCTCA CCCTGAGATG GG........
+         A*3111  .......... .......... .......... .......... ..........
          A*3201  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
          A*3202  TGCAGCATGA GGGTCTGCCC AAGCCCCTCA CCCTGAGATG GGAGCCGTCT
          A*3203  .......... .......... .......... .......... ..........
@@ -6485,6 +7005,7 @@
 
        A*010101  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
        A*010102  .......... .......... .......... .......... ..........
+       A*010103  .......... .......... .......... .......... ..........
          A*0102  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
          A*0103  .......... .......... .......... .......... ..........
         A*0104N  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
@@ -6504,6 +7025,7 @@
        A*020108  .......... .......... .......... .......... ..........
        A*020109  .......... .......... .......... .......... ..........
        A*020110  .......... .......... .......... .......... ..........
+       A*020111  .......... .......... .......... .......... ..........
          A*0202  .......... .......... .......... .......... ..........
        A*020301  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCTT
        A*020302  .......... .......... .......... .......... ..........
@@ -6511,6 +7033,7 @@
          A*0205  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCTT
        A*020601  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCTT
        A*020602  .......... .......... .......... .......... ..........
+       A*020603  .......... .......... .......... .......... ..........
          A*0207  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCTT
          A*0208  .......... .......... .......... .......... ..........
          A*0209  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCTT
@@ -6541,6 +7064,7 @@
          A*0233  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCTT
          A*0234  .......... .......... .......... .......... ..........
        A*023501  .......... .......... .......... .......... ..........
+       A*023502  .......... .......... .......... .......... ..........
          A*0236  .......... .......... .......... .......... ..........
          A*0237  .......... .......... .......... .......... ..........
          A*0238  .......... .......... .......... .......... ..........
@@ -6578,10 +7102,15 @@
          A*0270  .......... .......... .......... .......... ..........
          A*0271  .......... .......... .......... .......... ..........
          A*0272  .......... .......... .......... .......... ..........
+         A*0273  .......... .......... .......... .......... ..........
+         A*0274  .......... .......... .......... .......... ..........
+         A*0275  .......... .......... .......... .......... ..........
      A*03010101  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
     A*03010102N  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
+     A*03010103  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
        A*030102  .......... .......... .......... .......... ..........
        A*030103  .......... .......... .......... .......... ..........
+       A*030104  .......... .......... .......... .......... ..........
          A*0302  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
         A*0303N  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
          A*0304  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
@@ -6597,8 +7126,10 @@
          A*0314  .......... .......... .......... .......... ..........
        A*110101  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
        A*110102  .......... .......... .......... .......... ..........
+       A*110103  .......... .......... .......... .......... ..........
+       A*110104  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
          A*1102  .......... .......... .......... .......... ..........
-         A*1103  .......... .......... .......... .......... ..........
+         A*1103  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
          A*1104  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
          A*1105  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
          A*1106  .......... .......... .......... .......... ..........
@@ -6613,6 +7144,10 @@
          A*1115  .......... .......... .......... .......... ..........
          A*1116  .......... .......... .......... .......... ..........
          A*1117  .......... .......... .......... .......... ..........
+         A*1118  .......... .......... .......... .......... ..........
+         A*1119  .......... .......... .......... .......... ..........
+         A*1120  .......... .......... .......... .......... ..........
+        A*1121N  .......... .......... .......... .......... ..........
          A*2301  TCCCAGCCCA CCGTCCACAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
          A*2302  .......... .......... .......... .......... ..........
          A*2303  .......... .......... .......... .......... ..........
@@ -6631,6 +7166,7 @@
        A*240203  TCCCAGCCCA CCGTCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
        A*240204  .......... .......... .......... .......... ..........
        A*240205  .......... .......... .......... .......... ..........
+       A*240206  .......... .......... .......... .......... ..........
        A*240301  TCCCAGCCCA CCGTCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
        A*240302  .......... .......... .......... .......... ..........
          A*2404  TCCCAGCCCA CCGTCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
@@ -6656,7 +7192,7 @@
          A*2426  .......... .......... .......... .......... ..........
          A*2427  .......... .......... .......... .......... ..........
          A*2428  .......... .......... .......... .......... ..........
-         A*2429  .......... .......... .......... .......... ..........
+         A*2429  TCCCAGCCCA CCGTCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
          A*2430  .......... .......... .......... .......... ..........
          A*2431  .......... .......... .......... .......... ..........
          A*2432  .......... .......... .......... .......... ..........
@@ -6671,6 +7207,12 @@
          A*2441  .......... .......... .......... .......... ..........
          A*2442  .......... .......... .......... .......... ..........
          A*2443  .......... .......... .......... .......... ..........
+         A*2444  TCCCAGCCCA CCGTCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
+        A*2445N  .......... .......... .......... .......... ..........
+         A*2446  .......... .......... .......... .......... ..........
+         A*2447  .......... .......... .......... .......... ..........
+        A*2448N  .......... .......... .......... .......... ..........
+         A*2449  .......... .......... .......... .......... ..........
        A*250101  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCTT
        A*250102  .......... .......... .......... .......... ..........
          A*2502  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCTT
@@ -6699,6 +7241,7 @@
          A*2620  .......... .......... .......... .......... ..........
          A*2621  .......... .......... .......... .......... ..........
          A*2622  .......... .......... .......... .......... ..........
+         A*2623  .......... .......... .......... .......... ..........
      A*29010101  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TAGTTCTCTT
     A*29010102N  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TAGTTCTCTT
        A*290201  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TAGTTCTCTT
@@ -6713,7 +7256,8 @@
          A*2909  .......... .......... .......... .......... ..........
          A*2910  .......... .......... .......... .......... ..........
          A*2911  .......... .......... .......... .......... ..........
-         A*3001  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
+       A*300101  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
+       A*300102  .......... .......... .......... .......... ..........
        A*300201  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TGGTTCTCCT
        A*300202  .......... .......... .......... .......... ..........
          A*3003  .......... .......... .......... .......... ..........
@@ -6734,6 +7278,8 @@
          A*3107  .......... .......... .......... .......... ..........
          A*3108  .......... .......... .......... .......... ..........
          A*3109  .......... .......... .......... .......... ..........
+         A*3110  .......... .......... .......... .......... ..........
+         A*3111  .......... .......... .......... .......... ..........
          A*3201  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TAGTTCTCTT
          A*3202  TCCCAGCCCA CCATCCCCAT CGTGGGCATC ATTGCTGGCC TAGTTCTCTT
          A*3203  .......... .......... .......... .......... ..........
@@ -6809,6 +7355,7 @@
 
        A*010101  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
        A*010102  .......... .......... .......... .......... ..........
+       A*010103  .......... .......... .......... .......... ..........
          A*0102  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
          A*0103  .......... .......... .......... .......... ..........
         A*0104N  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
@@ -6828,6 +7375,7 @@
        A*020108  .......... .......... .......... .......... ..........
        A*020109  .......... .......... .......... .......... ..........
        A*020110  .......... .......... .......... .......... ..........
+       A*020111  .......... .......... .......... .......... ..........
          A*0202  .......... .......... .......... .......... ..........
        A*020301  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
        A*020302  .......... .......... .......... .......... ..........
@@ -6835,6 +7383,7 @@
          A*0205  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
        A*020601  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
        A*020602  .......... .......... .......... .......... ..........
+       A*020603  .......... .......... .......... .......... ..........
          A*0207  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
          A*0208  .......... .......... .......... .......... ..........
          A*0209  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
@@ -6865,6 +7414,7 @@
          A*0233  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
          A*0234  .......... .......... .......... .......... ..........
        A*023501  .......... .......... .......... .......... ..........
+       A*023502  .......... .......... .......... .......... ..........
          A*0236  .......... .......... .......... .......... ..........
          A*0237  .......... .......... .......... .......... ..........
          A*0238  .......... .......... .......... .......... ..........
@@ -6902,10 +7452,15 @@
          A*0270  .......... .......... .......... .......... ..........
          A*0271  .......... .......... .......... .......... ..........
          A*0272  .......... .......... .......... .......... ..........
+         A*0273  .......... .......... .......... .......... ..........
+         A*0274  .......... .......... .......... .......... ..........
+         A*0275  .......... .......... .......... .......... ..........
      A*03010101  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
     A*03010102N  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
+     A*03010103  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
        A*030102  .......... .......... .......... .......... ..........
        A*030103  .......... .......... .......... .......... ..........
+       A*030104  .......... .......... .......... .......... ..........
          A*0302  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
         A*0303N  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
          A*0304  TGCAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
@@ -6921,8 +7476,10 @@
          A*0314  .......... .......... .......... .......... ..........
        A*110101  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
        A*110102  .......... .......... .......... .......... ..........
+       A*110103  .......... .......... .......... .......... ..........
+       A*110104  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
          A*1102  .......... .......... .......... .......... ..........
-         A*1103  .......... .......... .......... .......... ..........
+         A*1103  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
          A*1104  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
          A*1105  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
          A*1106  .......... .......... .......... .......... ..........
@@ -6937,6 +7494,10 @@
          A*1115  .......... .......... .......... .......... ..........
          A*1116  .......... .......... .......... .......... ..........
          A*1117  .......... .......... .......... .......... ..........
+         A*1118  .......... .......... .......... .......... ..........
+         A*1119  .......... .......... .......... .......... ..........
+         A*1120  .......... .......... .......... .......... ..........
+        A*1121N  .......... .......... .......... .......... ..........
          A*2301  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
          A*2302  .......... .......... .......... .......... ..........
          A*2303  .......... .......... .......... .......... ..........
@@ -6955,6 +7516,7 @@
        A*240203  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
        A*240204  .......... .......... .......... .......... ..........
        A*240205  .......... .......... .......... .......... ..........
+       A*240206  .......... .......... .......... .......... ..........
        A*240301  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
        A*240302  .......... .......... .......... .......... ..........
          A*2404  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
@@ -6980,7 +7542,7 @@
          A*2426  .......... .......... .......... .......... ..........
          A*2427  .......... .......... .......... .......... ..........
          A*2428  .......... .......... .......... .......... ..........
-         A*2429  .......... .......... .......... .......... ..........
+         A*2429  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
          A*2430  .......... .......... .......... .......... ..........
          A*2431  .......... .......... .......... .......... ..........
          A*2432  .......... .......... .......... .......... ..........
@@ -6995,6 +7557,12 @@
          A*2441  .......... .......... .......... .......... ..........
          A*2442  .......... .......... .......... .......... ..........
          A*2443  .......... .......... .......... .......... ..........
+         A*2444  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
+        A*2445N  .......... .......... .......... .......... ..........
+         A*2446  .......... .......... .......... .......... ..........
+         A*2447  .......... .......... .......... .......... ..........
+        A*2448N  .......... .......... .......... .......... ..........
+         A*2449  .......... .......... .......... .......... ..........
        A*250101  TGGAGCTGTG ATCGCTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
        A*250102  .......... .......... .......... .......... ..........
          A*2502  TGGAGCTGTG ATCGCTGGAG CTGTGGTCGC TGCTGTGATG TGGAGGAGGA
@@ -7023,6 +7591,7 @@
          A*2620  .......... .......... .......... .......... ..........
          A*2621  .......... .......... .......... .......... ..........
          A*2622  .......... .......... .......... .......... ..........
+         A*2623  .......... .......... .......... .......... ..........
      A*29010101  TGGAGCTGTG TTCGCTGGAG CTGTGGTCGC TGCTGTGAGG TGGAGGAGGA
     A*29010102N  TGGAGCTGTG TTCGCTGGAG CTGTGGTCGC TGCTGTGAGG TGGAGGAGGA
        A*290201  TGGAGCTGTG TTCGCTGGAG CTGTGGTCGC TGCTGTGAGG TGGAGGAGGA
@@ -7037,7 +7606,8 @@
          A*2909  .......... .......... .......... .......... ..........
          A*2910  .......... .......... .......... .......... ..........
          A*2911  .......... .......... .......... .......... ..........
-         A*3001  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
+       A*300101  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
+       A*300102  .......... .......... .......... .......... ..........
        A*300201  TGGAGCTGTG ATCACTGGAG CTGTGGTCGC TGCCGTGATG TGGAGGAGGA
        A*300202  .......... .......... .......... .......... ..........
          A*3003  .......... .......... .......... .......... ..........
@@ -7058,6 +7628,8 @@
          A*3107  .......... .......... .......... .......... ..........
          A*3108  .......... .......... .......... .......... ..........
          A*3109  .......... .......... .......... .......... ..........
+         A*3110  .......... .......... .......... .......... ..........
+         A*3111  .......... .......... .......... .......... ..........
          A*3201  TGGAGCTATG TTCGCTGGAG CTGTGGTCGC TGCTGTGAGG TGGAGGAGGA
          A*3202  TGGAGCTATG TTCGCTGGAG CTGTGGTCGC TGCTGTGAGG TGGAGGAGGA
          A*3203  .......... .......... .......... .......... ..........
@@ -7133,6 +7705,7 @@
 
        A*010101  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
        A*010102  .......... .......... .......... .......... ..........
+       A*010103  .......... .......... .......... .......... ..........
          A*0102  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
          A*0103  .......... .......... .......... .......... ..........
         A*0104N  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
@@ -7152,6 +7725,7 @@
        A*020108  .......... .......... .......... .......... ..........
        A*020109  .......... .......... .......... .......... ..........
        A*020110  .......... .......... .......... .......... ..........
+       A*020111  .......... .......... .......... .......... ..........
          A*0202  .......... .......... .......... .......... ..........
        A*020301  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
        A*020302  .......... .......... .......... .......... ..........
@@ -7159,6 +7733,7 @@
          A*0205  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
        A*020601  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
        A*020602  .......... .......... .......... .......... ..........
+       A*020603  .......... .......... .......... .......... ..........
          A*0207  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
          A*0208  .......... .......... .......... .......... ..........
          A*0209  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
@@ -7189,6 +7764,7 @@
          A*0233  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
          A*0234  .......... .......... .......... .......... ..........
        A*023501  .......... .......... .......... .......... ..........
+       A*023502  .......... .......... .......... .......... ..........
          A*0236  .......... .......... .......... .......... ..........
          A*0237  .......... .......... .......... .......... ..........
          A*0238  .......... .......... .......... .......... ..........
@@ -7226,10 +7802,15 @@
          A*0270  .......... .......... .......... .......... ..........
          A*0271  .......... .......... .......... .......... ..........
          A*0272  .......... .......... .......... .......... ..........
+         A*0273  .......... .......... .......... .......... ..........
+         A*0274  .......... .......... .......... .......... ..........
+         A*0275  .......... .......... .......... .......... ..........
      A*03010101  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
     A*03010102N  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
+     A*03010103  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
        A*030102  .......... .......... .......... .......... ..........
        A*030103  .......... .......... .......... .......... ..........
+       A*030104  .......... .......... .......... .......... ..........
          A*0302  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
         A*0303N  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
          A*0304  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
@@ -7245,8 +7826,10 @@
          A*0314  .......... .......... .......... .......... ..........
        A*110101  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
        A*110102  .......... .......... .......... .......... ..........
+       A*110103  .......... .......... .......... .......... ..........
+       A*110104  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
          A*1102  .......... .......... .......... .......... ..........
-         A*1103  .......... .......... .......... .......... ..........
+         A*1103  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
          A*1104  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
          A*1105  AGAGCTCAGA TAGAAAAGGA GGGAGTTACT CTCAGGCTGC AAGCAGTGAC
          A*1106  .......... .......... .......... .......... ..........
@@ -7261,6 +7844,10 @@
          A*1115  .......... .......... .......... .......... ..........
          A*1116  .......... .......... .......... .......... ..........
          A*1117  .......... .......... .......... .......... ..........
+         A*1118  .......... .......... .......... .......... ..........
+         A*1119  .......... .......... .......... .......... ..........
+         A*1120  .......... .......... .......... .......... ..........
+        A*1121N  .......... .......... .......... .......... ..........
          A*2301  ACAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
          A*2302  .......... .......... .......... .......... ..........
          A*2303  .......... .......... .......... .......... ..........
@@ -7279,6 +7866,7 @@
        A*240203  ACAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
        A*240204  .......... .......... .......... .......... ..........
        A*240205  .......... .......... .......... .......... ..........
+       A*240206  .......... .......... .......... .......... ..........
        A*240301  ACAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
        A*240302  .......... .......... .......... .......... ..........
          A*2404  ACAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
@@ -7304,7 +7892,7 @@
          A*2426  .......... .......... .......... .......... ..........
          A*2427  .......... .......... .......... .......... ..........
          A*2428  .......... .......... .......... .......... ..........
-         A*2429  .......... .......... .......... .......... ..........
+         A*2429  ACAGCTCAG. .......... .......... .......... ..........
          A*2430  .......... .......... .......... .......... ..........
          A*2431  .......... .......... .......... .......... ..........
          A*2432  .......... .......... .......... .......... ..........
@@ -7319,6 +7907,12 @@
          A*2441  .......... .......... .......... .......... ..........
          A*2442  .......... .......... .......... .......... ..........
          A*2443  .......... .......... .......... .......... ..........
+         A*2444  ACAGCTCAG. .......... .......... .......... ..........
+        A*2445N  .......... .......... .......... .......... ..........
+         A*2446  .......... .......... .......... .......... ..........
+         A*2447  .......... .......... .......... .......... ..........
+        A*2448N  .......... .......... .......... .......... ..........
+         A*2449  .......... .......... .......... .......... ..........
        A*250101  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
        A*250102  .......... .......... .......... .......... ..........
          A*2502  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
@@ -7347,6 +7941,7 @@
          A*2620  .......... .......... .......... .......... ..........
          A*2621  .......... .......... .......... .......... ..........
          A*2622  .......... .......... .......... .......... ..........
+         A*2623  .......... .......... .......... .......... ..........
      A*29010101  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
     A*29010102N  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
        A*290201  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
@@ -7361,7 +7956,8 @@
          A*2909  .......... .......... .......... .......... ..........
          A*2910  .......... .......... .......... .......... ..........
          A*2911  .......... .......... .......... .......... ..........
-         A*3001  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
+       A*300101  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
+       A*300102  .......... .......... .......... .......... ..........
        A*300201  AGAGCTCAGA TAGAAAAGGA GGGAGTTACA CTCAGGCTGC AAGCAGTGAC
        A*300202  .......... .......... .......... .......... ..........
          A*3003  .......... .......... .......... .......... ..........
@@ -7382,6 +7978,8 @@
          A*3107  .......... .......... .......... .......... ..........
          A*3108  .......... .......... .......... .......... ..........
          A*3109  .......... .......... .......... .......... ..........
+         A*3110  .......... .......... .......... .......... ..........
+         A*3111  .......... .......... .......... .......... ..........
          A*3201  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
          A*3202  AGAGCTCAGA TAGAAAAGGA GGGAGCTACT CTCAGGCTGC AAGCAGTGAC
          A*3203  .......... .......... .......... .......... ..........
@@ -7457,6 +8055,7 @@
 
        A*010101  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
        A*010102  .......... .......... .......... .......... .....
+       A*010103  .......... .......... .......... .......... .....
          A*0102  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
          A*0103  .......... .......... .......... .......... .....
         A*0104N  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
@@ -7476,6 +8075,7 @@
        A*020108  .......... .......... .......... .......... .....
        A*020109  .......... .......... .......... .......... .....
        A*020110  .......... .......... .......... .......... .....
+       A*020111  .......... .......... .......... .......... .....
          A*0202  .......... .......... .......... .......... .....
        A*020301  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
        A*020302  .......... .......... .......... .......... .....
@@ -7483,6 +8083,7 @@
          A*0205  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
        A*020601  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
        A*020602  .......... .......... .......... .......... .....
+       A*020603  .......... .......... .......... .......... .....
          A*0207  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
          A*0208  .......... .......... .......... .......... .....
          A*0209  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
@@ -7513,6 +8114,7 @@
          A*0233  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
          A*0234  .......... .......... .......... .......... .....
        A*023501  .......... .......... .......... .......... .....
+       A*023502  .......... .......... .......... .......... .....
          A*0236  .......... .......... .......... .......... .....
          A*0237  .......... .......... .......... .......... .....
          A*0238  .......... .......... .......... .......... .....
@@ -7550,10 +8152,15 @@
          A*0270  .......... .......... .......... .......... .....
          A*0271  .......... .......... .......... .......... .....
          A*0272  .......... .......... .......... .......... .....
+         A*0273  .......... .......... .......... .......... .....
+         A*0274  .......... .......... .......... .......... .....
+         A*0275  .......... .......... .......... .......... .....
      A*03010101  AGTGCCCAGG GCTCTGATGT GTCCCTCACA GCTTGTAAAG TGTGA
     A*03010102N  AGTGCCCAGG GCTCTGATGT GTCCCTCACA GCTTGTAAAG TGTGA
+     A*03010103  AGTGCCCAGG GCTCTGATGT GTCCCTCACA GCTTGTAAAG TGTGA
        A*030102  .......... .......... .......... .......... .....
        A*030103  .......... .......... .......... .......... .....
+       A*030104  .......... .......... .......... .......... .....
          A*0302  AGTGCCCAGG GCTCTGATGT GTCCCTCACA GCTTGTAAAG TGTGA
         A*0303N  AGTGCCCAGG GCTCTGATGT GTCCCTCACA GCTTGTAAAG TGTGA
          A*0304  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
@@ -7569,8 +8176,10 @@
          A*0314  .......... .......... .......... .......... .....
        A*110101  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
        A*110102  .......... .......... .......... .......... .....
+       A*110103  .......... .......... .......... .......... .....
+       A*110104  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
          A*1102  .......... .......... .......... .......... .....
-         A*1103  .......... .......... .......... .......... .....
+         A*1103  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
          A*1104  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
          A*1105  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
          A*1106  .......... .......... .......... .......... .....
@@ -7585,6 +8194,10 @@
          A*1115  .......... .......... .......... .......... .....
          A*1116  .......... .......... .......... .......... .....
          A*1117  .......... .......... .......... .......... .....
+         A*1118  .......... .......... .......... .......... .....
+         A*1119  .......... .......... .......... .......... .....
+         A*1120  .......... .......... .......... .......... .....
+        A*1121N  .......... .......... .......... .......... .....
          A*2301  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
          A*2302  .......... .......... .......... .......... .....
          A*2303  .......... .......... .......... .......... .....
@@ -7603,6 +8216,7 @@
        A*240203  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
        A*240204  .......... .......... .......... .......... .....
        A*240205  .......... .......... .......... .......... .....
+       A*240206  .......... .......... .......... .......... .....
        A*240301  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
        A*240302  .......... .......... .......... .......... .....
          A*2404  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
@@ -7643,6 +8257,12 @@
          A*2441  .......... .......... .......... .......... .....
          A*2442  .......... .......... .......... .......... .....
          A*2443  .......... .......... .......... .......... .....
+         A*2444  .......... .......... .......... .......... .....
+        A*2445N  .......... .......... .......... .......... .....
+         A*2446  .......... .......... .......... .......... .....
+         A*2447  .......... .......... .......... .......... .....
+        A*2448N  .......... .......... .......... .......... .....
+         A*2449  .......... .......... .......... .......... .....
        A*250101  AGTGCCCAGG GCTCTGATAT GTCTCTCACA GCTTGTAAAG TGTGA
        A*250102  .......... .......... .......... .......... .....
          A*2502  AGTGCCCAGG GCTCTGATAT GTCTCTCACA GCTTGTAAAG TGTGA
@@ -7671,6 +8291,7 @@
          A*2620  .......... .......... .......... .......... .....
          A*2621  .......... .......... .......... .......... .....
          A*2622  .......... .......... .......... .......... .....
+         A*2623  .......... .......... .......... .......... .....
      A*29010101  AGTGCCCAGG GCTCTGATAT GTCTCTCACA GCTTGTAAAG TGTGA
     A*29010102N  AGTGCCCAGG GCTCTGATAT GTCTCTCACA GCTTGTAAAG TGTGA
        A*290201  AGTGCCCAGG GCTCTGATAT GTCTCTCACA GCTTGTAAAG TG...
@@ -7685,7 +8306,8 @@
          A*2909  .......... .......... .......... .......... .....
          A*2910  .......... .......... .......... .......... .....
          A*2911  .......... .......... .......... .......... .....
-         A*3001  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
+       A*300101  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
+       A*300102  .......... .......... .......... .......... .....
        A*300201  AGTGCCCAGG GCTCTGATGT GTCTCTCACA GCTTGTAAAG TGTGA
        A*300202  .......... .......... .......... .......... .....
          A*3003  .......... .......... .......... .......... .....
@@ -7706,6 +8328,8 @@
          A*3107  .......... .......... .......... .......... .....
          A*3108  .......... .......... .......... .......... .....
          A*3109  .......... .......... .......... .......... .....
+         A*3110  .......... .......... .......... .......... .....
+         A*3111  .......... .......... .......... .......... .....
          A*3201  AGTGCCCAGG GCTCTGATAT GTCTCTCACA GCTTGTAAAG TGTGA
          A*3202  AGTGCCCAGG GCTCTGATAT GTCTCTCACA GCTTGTAAAG TGTGA
          A*3203  .......... .......... .......... .......... .....
