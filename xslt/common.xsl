@@ -775,11 +775,14 @@
   <xsl:call-template name="linesep-fields">
    <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood|individcount"/>
   </xsl:call-template>
-
-  <!-- until output is XML-fied, simply pass through the unmarked
-  CDATA section -->
-  <xsl:apply-templates select="haplotypefreq"/>
   <xsl:call-template name="newline"/>
+
+  <xsl:apply-templates select="haplotypefreq"/>
+
+  <xsl:call-template name="newline"/>
+
+  <xsl:apply-templates select="linkagediseq"/>
+
  </xsl:template>
 
 
@@ -795,12 +798,12 @@
   </xsl:call-template>
   <xsl:call-template name="newline"/>
 
-  <!-- until output sections are XML-fied, simply pass through the
-  unmarked CDATA sections -->
+  <xsl:apply-templates select="linkagediseq"/>
 
-  <xsl:value-of select="linkagediseq" disable-output-escaping="yes"/>
+  <xsl:call-template name="newline"/>
 
-  <xsl:value-of select="permutationSummary" disable-output-escaping="yes"/>
+  <xsl:apply-templates select="permutationSummary"/>
+
   <xsl:call-template name="newline"/>
  </xsl:template>
 
@@ -815,20 +818,41 @@
    <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood|individcount"/>
   </xsl:call-template>
   <xsl:call-template name="newline"/>
-
-  <!-- until output sections are XML-fied, simply pass through the unmarked
-  CDATA sections -->
+  <xsl:call-template name="newline"/>
 
   <xsl:apply-templates select="haplotypefreq"/>
 
   <xsl:call-template name="newline"/>
 
-  <xsl:value-of select="linkagediseq" disable-output-escaping="yes"/>
-  <xsl:value-of select="permutationSummary" disable-output-escaping="yes"/>
+  <xsl:apply-templates select="linkagediseq"/>
+
   <xsl:call-template name="newline"/>
+
+  <xsl:apply-templates select="permutationSummary"/>
+
+  <xsl:call-template name="newline"/>
+
  </xsl:template>
 
  <xsl:template match="haplotypefreq">
+
+  <!-- create header for table -->
+  <xsl:call-template name="append-pad">
+   <xsl:with-param name="padVar">haplotype</xsl:with-param>
+   <xsl:with-param name="length">24</xsl:with-param>
+  </xsl:call-template>
+
+  <xsl:call-template name="append-pad">
+   <xsl:with-param name="padVar">frequency</xsl:with-param>
+   <xsl:with-param name="length">24</xsl:with-param>
+  </xsl:call-template>
+
+  <xsl:call-template name="append-pad">
+   <xsl:with-param name="padVar">num. of copies</xsl:with-param>
+   <xsl:with-param name="length">24</xsl:with-param>
+  </xsl:call-template>
+
+  <xsl:call-template name="newline"/>
 
   <!-- loop through each haplotype-->
   <xsl:for-each select="haplotype">
@@ -844,6 +868,50 @@
 
  </xsl:template>
 
+ <xsl:template match="linkagediseq">
+
+  <xsl:for-each select="summary">
+   <xsl:text>LD summary statistics between: </xsl:text>
+   <xsl:variable name="loci" select="../../@loci"/>
+
+   <xsl:call-template name="get-nth-element">
+    <xsl:with-param name="delim">:</xsl:with-param>
+    <xsl:with-param name="str" select="$loci"/>
+    <xsl:with-param name="n" select="@first"/>
+   </xsl:call-template>
+
+   <xsl:text> and </xsl:text>
+
+   <xsl:call-template name="get-nth-element">
+    <xsl:with-param name="delim">:</xsl:with-param>
+    <xsl:with-param name="str" select="$loci"/>
+    <xsl:with-param name="n" select="@second"/>
+   </xsl:call-template>
+
+   <xsl:call-template name="newline"/>
+
+   <xsl:call-template name="linesep-fields">
+    <xsl:with-param name="nodes" select="dprime|wn|q/chisq|q/dof"/>
+   </xsl:call-template>
+
+   <xsl:call-template name="newline"/>
+
+  </xsl:for-each>
+  
+ </xsl:template>
+
+ <xsl:template match="permutationSummary">
+  <xsl:text>LD significance test:</xsl:text>
+
+  <xsl:call-template name="newline"/>
+
+  <xsl:apply-templates select="pvalue"/>
+  <xsl:text> from </xsl:text>
+  <xsl:value-of select="pvalue/@totalperm"/>
+  <xsl:text> permutations</xsl:text>
+  <xsl:call-template name="newline"/>
+
+ </xsl:template>
 
  <!-- ################# END  HAPLOTYPE/LD STATISTICS ################### --> 
 
