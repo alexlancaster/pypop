@@ -12,7 +12,7 @@
  <!-- now override some things we do/don't want in plaintext -->
  <xsl:param name="callout.unicode" select="'0'"/>
  <xsl:param name="callout.graphics" select="'0'"/>
- <xsl:param name="param generate.toc"></xsl:param>
+ <xsl:param name="generate.toc"></xsl:param>
 
  <xsl:template name="section.heading">
   <xsl:param name="section" select="."/>
