@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
 /* correct execution of this program: gthwe infile outfile */
 {
   int a[LENGTH], n[MAX_ALLELE];
-  
+   
   int no_allele, total;
   struct randomization sample;
   int step, group, size;
@@ -104,7 +104,11 @@ long init_rand(void) {
  * this can be called by external programs or be made into an
  * extension function in languages like Python using SWIG.
  */
-int run_data(int a[LENGTH], int n[MAX_ALLELE], int no_allele, int total, 
+/* int run_data(int a[LENGTH], int n[MAX_ALLELE], int no_allele, int total, 
+	     int thestep, int thegroup, int thesize,
+	     char *title, FILE *outfile) */
+
+int run_data(int *a, int *n, int no_allele, int total, 
 	     int thestep, int thegroup, int thesize,
 	     char *title, FILE *outfile)
 {
@@ -117,13 +121,15 @@ int run_data(int a[LENGTH], int n[MAX_ALLELE], int no_allele, int total,
   register int i, j;
   long t1;
 
+  /* int *a = (int *)calloc(genotypes, sizeof(int)); */
+
   /* do random number initialization */
   t1 = init_rand(); 
 
   /* reassemble struct */
   sample.step = thestep;
-  sample.group = thesize;
-  sample.size = thegroup;
+  sample.group = thegroup;
+  sample.size = thesize;
 
 #if DEBUG
   printf("no_allele=%d, total=%d, thestep=%d, thegroup=%d, thesize=%d, title=%s, t1=%ld\n",no_allele, total, sample.step, sample.group, sample.size, title, t1);
@@ -134,6 +140,8 @@ int run_data(int a[LENGTH], int n[MAX_ALLELE], int no_allele, int total,
     printf("n[%d] = %d\n", i, n[i]);
 
   printf("after looping through a, n!\n");
+
+  fflush(stdout);
 
 #endif
 
