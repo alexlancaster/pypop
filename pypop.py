@@ -29,7 +29,7 @@ from Utils import XMLOutputStream, TextOutputStream
 from getopt import getopt, GetoptError
 
 try:
-  opts, args =getopt(sys.argv[1:],"lsc:h", ["--use-libxslt", "--use-4suite", "experimental", "config=", "help"])
+  opts, args =getopt(sys.argv[1:],"lsc:h", ["use-libxslt", "use-4suite", "experimental", "config=", "help"])
 except GetoptError:
   sys.exit(usage_message)
 
