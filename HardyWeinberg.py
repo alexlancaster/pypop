@@ -715,6 +715,9 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       sortedAlleles = self.observedAlleles
       sortedAlleles.sort()
 
+      if self.debug:
+        print "sortedAlleles: ", sortedAlleles
+
       # allele list
       flattenedMatrix = []
     
@@ -742,12 +745,16 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       n = [0]*35
       
       if self.debug:
-        print flattenedMatrix
-        print n
-        print self.k
-        print matrixElemCount
-        print self.dememorizationSteps, self.samplingNum, self.samplingSize
-        print locusName
+        print "flattenedMatrix:", flattenedMatrix
+        print "len(flattenedMatrix):", len(flattenedMatrix)
+        print "n: ", n
+        print "k: ", self.k
+        print "matrixElemCount", matrixElemCount
+        print "sampling{steps,num, size}: ", self.dememorizationSteps, self.samplingNum, self.samplingSize
+        print "locusName: ", locusName
+
+        # flush stdout before running the G&T step
+        sys.stdout.flush()
 
       # create string "file" buffer
       import cStringIO

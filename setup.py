@@ -106,7 +106,7 @@ class my_build_ext(build_ext):
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
 # we set the environment to emulate that.
-os.environ['CFLAGS'] = '-funroll-loops'
+#os.environ['CFLAGS'] = '-funroll-loops'
 
 # flag to determine whether or not we are using the CVS version
 if os.path.isdir("CVS"):
@@ -164,8 +164,11 @@ ext_Gthwe = Extension("_Gthwemodule",
                         "gthwe/select_index.c",
                         "gthwe/stamp_time.c",
                         "gthwe/test_switch.c"],
+                      #  "gthwe/gamma.c"], no standalone compilation right now
                       include_dirs=["gthwe"],
+                      libraries=["gsl", "gslcblas"],
                       define_macros=[('fprintf', 'pyfprintf'),
+                                     ('DEBUG', '1'),
                                      ('XML_OUTPUT', '1'),
                                      ('SUPPRESS_ALLELE_TABLE', '1'),
                                      ('MAX_ALLELE', '35'),
