@@ -27,6 +27,12 @@
 	(Genotypes.serializeAlleleCountDataAt): Use alleleTable and total
 	as instance variables.
 
+2004-11-07  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Reverting
+	the sequence filter module changes made in version 1.27, so that
+	once again, only polymorphic positions are analyzed.
+
 2004-10-29  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* popmeta.py (datfiles): Use readline() rather than next() for
