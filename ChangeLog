@@ -1,8 +1,10 @@
 2004-07-20  Alex Lancaster  <alexl AT berkeley.edu>
 
- 	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): 
+	* setup.py (ext_Gthwe): Remove obsolete PERMU_TEST macro from
+	define_macros() section.  Add INDIVID_GENOTYPES macro: assign to
+	'1' (true).
 
-	* config.ini[HardyWeinbergGuoThompsonMonteCarlo]: New section,
+	* config.ini [HardyWeinbergGuoThompsonMonteCarlo]: New section,
 	implements the Guo & Thompson test without using the Markov
 	chain (i.e. pure Monte Carlo randomization).
 
