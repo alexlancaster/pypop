@@ -151,8 +151,8 @@ Table of genotypes, format of each cell is: observed/expected.
    <para> The values in this matrix are used to test hypotheses of
     deviation from HWP. The output table reports the observed and
     expected number of genotypes, the chi-square statistic, the number
-    of degrees of freedom and associated p-value for the following
-    classes of genotypes.</para>
+    of degrees of freedom and associated <varname>p</varname>-value
+    for the following classes of genotypes.</para>
    
    <itemizedlist>
    <listitem>
@@ -266,11 +266,12 @@ Common genotypes
    <para>This may by remedied by combining rare alleles and recalculating
     overall chi-square value and degrees of freedom.</para>
    
-   <para>The heterozygotes by allele section summarizes the observed and
-    expected number of counts of all heterozygotes carrying a specific
-    allele with expected value &ge; 5. The genotypes by genotype section lists
-    observed, expected, chi-square and p-values for all observed genotypes
-    with expected values &ge; 5.</para>
+   <para>The heterozygotes by allele section summarizes the observed
+    and expected number of counts of all heterozygotes carrying a
+    specific allele with expected value &ge; 5. The genotypes by
+    genotype section lists observed, expected, chi-square and
+    <varname>p</varname>-values for all observed genotypes with
+    expected values &ge; 5.</para>
   
   </sect2>
 
@@ -279,12 +280,13 @@ Common genotypes
   
    <para>For each locus the exact test for deviations from HWP is
     implemented using the method of <citation
-     role="citet">Guo:Thompson:1992</citation>. The p-value provided
-    describes how probable the observed set of genotypes is, with
-    respect to a large sample of other genotypic configurations
-    (conditioned on the same allele frequencies and
-    <varname>2n</varname>). P-values lower than 0.05 can be
-    interpreted as evidence that the sample does not fit HWP.</para>
+     role="citet">Guo:Thompson:1992</citation>. The
+    <varname>p</varname>-value provided describes how probable the
+    observed set of genotypes is, with respect to a large sample of
+    other genotypic configurations (conditioned on the same allele
+    frequencies and <varname>2n</varname>).
+    <varname>p</varname>-values lower than 0.05 can be interpreted as
+    evidence that the sample does not fit HWP.</para>
 
    <para>There are two implementations for this test, the first using
     the <application>gthwe</application> implementation originally due
@@ -319,10 +321,11 @@ Too large a matrix for 'gthwe' implementation of Guo and Thompson's exact test</
      <application>Arlequin</application> implementation</title>
 
    <para>Note that in the <application>Arlequin</application>
-    implementation, that the output is slightly different, and the
-    only directly comparable value between the two implementation is
-    the p-value.  These p-values may be slightly different, but should
-    agree to within one significant figure.</para>
+     implementation, that the output is slightly different, and the
+     only directly comparable value between the two implementation is
+     the <varname>p</varname>-value.  These
+     <varname>p</varname>-values may be slightly different, but should
+     agree to within one significant figure.</para>
 
 <programlisting>6.4. Guo and Thompson HardyWeinberg output(Arlequin's implementation) [DQA1]
 ----------------------------------------------------------------------------- 
@@ -355,13 +358,14 @@ p-value: 0.0518</programlisting>
     Negative Normalized deviates imply Observed Homozygosity values
     lower than Expected Homozygosity, in the direction of balancing
     selection. Positive values are in the direction of directional
-    selection. The p-value in the last row of the output is the
-    probability that the observed homozygosity would be obtained from
-    a neutral sample (of size <varname>2n</varname> and
-    <varname>k</varname> distinct alleles).  P-values at either
-    extreme of the distribution (&lt; 0.025 or &gt;0.975) are
-    considered significant at the 0.05 level, making this a two-tailed
-    test of the null hypothesis of neutrality. </para>
+    selection. The <varname>p</varname>-value in the last row of the
+    output is the probability that the observed homozygosity would be
+    obtained from a neutral sample (of size <varname>2n</varname> and
+    <varname>k</varname> distinct alleles).
+    <varname>p</varname>-values at either extreme of the distribution
+    (&lt; 0.025 or &gt;0.975) are considered significant at the 0.05
+    level, making this a two-tailed test of the null hypothesis of
+    neutrality. </para>
 
 
   <example>
@@ -382,9 +386,9 @@ p-value range: 0.0000 < p <= 0.0100 *
     implemented by Montgomery Slatkin (<citation
      role="citealt">Slatkin:1994</citation>; <citation
      role="citealt">Slatkin:1996</citation>).  It should be noted that
-    the significance of the p-value as reported is different that in
+    the significance of the <varname>p</varname>-value as reported is different that in
     the look-up tables above, because this test uses a single-tailed
-    p-value, although the p-value for this implementation should fall
+    <varname>p</varname>-value, although the <varname>p</varname>-value for this implementation should fall
     within the same range as that for the preceeding look-up table
     implementation.  Also note that neither the observed homozygosity
     (<varname>F</varname>) nor the normalized deviate are reported in
@@ -473,9 +477,9 @@ DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
 
 
     <para>We report two measures of overall linkage disequilibrium.
-     D<superscript>'</superscript> <citation>Hedrick:1987</citation>
-     weights the contribution to LD by specific allele pairs by the
-     product of their allele frequencies;
+     <varname>D'</varname> <citation>Hedrick:1987</citation> weights
+     the contribution to LD by specific allele pairs by the product of
+     their allele frequencies;
      <varname>W</varname><subscript>n</subscript> (Cramer, 1946) is a
      re-expression of the chi-square statistic for deviations between
      observed and expected haplotype frequencies. Both measures
@@ -494,10 +498,11 @@ DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
      empirical distribution of <varname>S</varname> is generated by
      shuffling genotypes among individuals, thus creating linkage
      equilibrium (<literal># permu</literal> indicates how many
-     permutations were carried out). The p-value is the fraction of
-     permutations that results in values of <varname>S</varname>
-     greater or equal to that observed; significant p-values (e.g.,
-     &lt; 0.05) are indicative of linkage disequilibrium.</para>
+     permutations were carried out). The <varname>p</varname>-value is
+     the fraction of permutations that results in values of
+     <varname>S</varname> greater or equal to that observed;
+     significant <varname>p</varname>-values (e.g., &lt; 0.05) are
+     indicative of linkage disequilibrium.</para>
 
    </example>
 
