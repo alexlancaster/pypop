@@ -22,6 +22,7 @@ class HaploArlequin(Haplo):
                  prefixCols,
                  suffixCols,
                  windowSize,
+                 untypedAllele = '0',
                  arlequinPrefix = "arl_run",
                  debug=0):
 
@@ -31,6 +32,7 @@ class HaploArlequin(Haplo):
         self.suffixCols = suffixCols
         self.windowSize = windowSize
         self.arlequinPrefix = arlequinPrefix
+        self.untypedAllele = untypedAllele
         self.debug = debug
 
     def _outputHeader(self, sampleCount):
@@ -41,12 +43,12 @@ class HaploArlequin(Haplo):
         NbSamples=%d
 
              GenotypicData=1
-             GameticPhase=1
+             GameticPhase=0
              DataType=STANDARD
              LocusSeparator=WHITESPACE
-             MissingData='?'
+             MissingData='%s'
              RecessiveData=0                         
-             RecessiveAllele=\"null\" """ % sampleCount)
+             RecessiveAllele=\"null\" """ % (sampleCount, self.untypedAllele))
 
         self.arpFile.write("""[Data]
 
@@ -60,7 +62,9 @@ class HaploArlequin(Haplo):
         SampleName=\"The %s population with %s individuals from %d col to %d col\"
         SampleSize= %s
         SampleData={"""  % ("??", len(data), startCol, endCol, len(data)))
-    
+
+        self.arpFile.write(os.linesep)
+        
         chunk = xrange(startCol, endCol)
         for line in data:
             words = string.split(line)
@@ -104,7 +108,7 @@ class HaploArlequin(Haplo):
     def _outputArlRunTxt(self, txtFilename, arpFilename):
         file = open(txtFilename, 'w')
         file.write("""%s
-use_interf_settings
+use_assoc_settings
 %s%s%s
 0
 0
@@ -119,7 +123,7 @@ TransitionWeight=1.0
 TranversionWeight=1.0
 UseOriginalHaplotypicInformation=0
 EliminateRedondHaplodefs=1
-AllowedLevelOfMissingData=0.05
+AllowedLevelOfMissingData=0.0
 GameticPhaseIsKnown=0
 HardyWeinbergTestType=0
 MakeHWExactTest=0
@@ -190,7 +194,13 @@ KeepNullDistrib=0""")
     def runArlequin(self):
         self._outputArlRunTxt(self.arlequinPrefix + ".txt", self.arpFilename)
         self._outputArlRunArs(self.arlequinPrefix + ".ars")
+
+        # spawn external Arlequin process
         os.system("arlecore.exe")
+
+        # fix permissions on result directory because Arlequin is
+        # brain-dead with respect to file permissions on Unix
+        os.chmod(self.arlequinPrefix + ".res", 0755)
     
 #print string.join([words[x] for x in chunk if (x % 2) == 0])
 #print string.join([words[x] for x in chunk if (x % 2) != 0])
