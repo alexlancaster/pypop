@@ -363,6 +363,14 @@ if config.has_section("Emhaplofreq"):
   haplo.estHaplotypes(locusKeys)
 
   try:
+    locusKeysLD=config.get("Emhaplofreq", "lociToEstLD")
+  except NoOptionError:
+    print "no loci to estimate, provided, assume entire data set"
+    locusKeysLD=string.join(input.getIndividualsData().colList,':')
+
+  haplo.estLinkageDisequilibrium(locusKeysLD)
+
+  try:
     estAllPairwise = config.getboolean("Emhaplofreq", "estAllPairwise")
   except NoOptionError:
     estAllPairwise=0
