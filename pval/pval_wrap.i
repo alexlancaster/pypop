@@ -32,7 +32,7 @@ MODIFICATIONS. */
 
 /* interface definition file for SWIG */
 
-%module _Pvalue
+%module Pvalue
 
 %include "typemap.i"
 

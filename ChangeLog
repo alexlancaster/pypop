@@ -1,3 +1,12 @@
+2004-12-23  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* pval/pval_wrap.i: %module _Pvalue -> Pvalue for compatibility
+	with most recent SWIG.
+
+	* SWIG/typemap.i: Update syntax for typemaps (remove deprecated
+	$source, $target).  In input typemaps: $source -> $input; $target
+	-> $1.  In output typemaps: $source -> $1; $target -> $result.
+	
 2004-11-09  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* NEWS: Note feature.
