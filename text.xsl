@@ -277,7 +277,6 @@
  </xsl:template>
 
  <!-- print out Guo and Thompson output if it's generated -->
- <!-- currently a CDATA section that's passed wholesale from the XML -->
  <xsl:template match="hardyweinbergGuoThompson">
   <xsl:call-template name="header">
    <xsl:with-param name="title">Guo and Thompson HardyWeinberg output [<xsl:value-of
