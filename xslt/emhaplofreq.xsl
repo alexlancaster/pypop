@@ -31,12 +31,12 @@
     </xsl:call-template>
 
     <!-- now print out haplotype frequencies for those specified haplotypes -->
-    <xsl:apply-templates select="group[@mode='haplo']"/>
+    <xsl:apply-templates select="group[@showHaplo='yes']"/>
   </xsl:with-param>
   </xsl:call-template>
  </xsl:template>
 
- <xsl:template match="group[@mode='haplo']">
+ <xsl:template match="group[@showHaplo='yes']">
   <xsl:call-template name="section">
    <xsl:with-param name="level" select="3"/>
    <xsl:with-param name="title">Haplotype frequency est. for loci: <xsl:value-of select="@loci"/>
