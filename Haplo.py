@@ -269,7 +269,6 @@ class Emhaplofreq(Haplo):
         # other methods in class
         self._Emhaplofreq = _Emhaplofreq
         
-        #self.matrix, self.loci = locusData
         self.matrix = locusData
         
         rows, cols = self.matrix.shape
@@ -280,6 +279,10 @@ class Emhaplofreq(Haplo):
 
         # initialize flag
         self.maxLociExceeded = 0
+
+        # create an in-memory file instance for the C program to write to
+        import cStringIO
+        self.fp = cStringIO.StringIO()
 
     def estHaplotypes(self, locusKeys=None, permutationFlag=0):
 
@@ -297,10 +300,6 @@ class Emhaplofreq(Haplo):
 
         print lociCount, self._Emhaplofreq.MAX_LOCI
         if lociCount <= self._Emhaplofreq.MAX_LOCI:
-
-            # create an in-memory file instance for the C program to write to
-            import cStringIO
-            self.fp = cStringIO.StringIO()
 
             subMatrix = self.matrix[locusKeys]
 
@@ -321,6 +320,38 @@ class Emhaplofreq(Haplo):
 
         else:
             self.maxLociExceeded = 1
+
+    def estAllPairwise(self):
+
+        loci = self.matrix.colList
+        li = []
+        for i in loci:
+            lociCopy = loci[:]
+            indexRemoved = loci.index(i)
+            del lociCopy[indexRemoved]
+            for j in lociCopy:
+                if ((i+':'+j) in li) or ((j+':'+i) in li):
+                    pass
+                else:
+                    li.append(i+':'+j)
+
+        if self.debug:
+            print li, len(li)
+            
+        for pair in li:
+
+            filename = string.join(string.split(pair,'*'),'')
+            # create stream to write to
+            stream = open(filename+'.haplo', 'w')
+
+            # create the in-memory file instance for the C program to write to
+            import cStringIO
+            self.fp = cStringIO.StringIO()
+
+            print "estimating haplos for", pair
+            self.estHaplotypes(pair)
+
+            self.serializeTo(stream)
             
 
     def serializeTo(self, stream):
@@ -339,4 +370,5 @@ class Emhaplofreq(Haplo):
             else:
                 stream.write(self.fp.getvalue())
                 self.fp.close()
+
         
