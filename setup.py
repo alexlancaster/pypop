@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-from distutils.core import setup
+from distutils.core import setup, Extension
 setup (name = "PyPop",
        version = "0.1",
        description = "Population genetics statistics",
@@ -13,7 +13,11 @@ setup (name = "PyPop",
                      "Haplo", "Homozygosity",  "ParseFile" ],
        scripts= ['pypop.py'],
 
-       data_files=[('share/PyPop', ['ws-fields.dat', 'ws-output-fields.dat','ws-pop-fields.dat', 'ws-sample-fields.dat', 'text.xsl', 'config.ini'])]
+       data_files=[('share/PyPop', ['ws-fields.dat', 'ws-output-fields.dat','ws-pop-fields.dat', 'ws-sample-fields.dat', 'text.xsl', 'config.ini'])],
+
+# compile SWIG module
+       
+       ext_modules=[Extension("Emhaplofreqmodule", ["emhaplofreq/emhaplofreq_wrap.i", "emhaplofreq/emhaplofreq.c"], include_dirs=["emhaplofreq"])]
 
        )
 
