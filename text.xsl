@@ -1,8 +1,22 @@
-<xsl:stylesheet version='1.0' xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+<xsl:stylesheet 
+ version='1.0'
+ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+ xmlns:data="any-uri">
 
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes"/>
- 
+
+ <!-- boiler-plate text that we may want to re-use -->
+ <data:hardyweinberg-col-headers>
+  <text>Observed</text>
+  <text>Expected</text>
+  <text>Chi-square</text>
+  <text>p-value</text>
+  <text>d.o.f.</text>
+ </data:hardyweinberg-col-headers>
+
+ <xsl:param name="hardyweinberg-col-width" select="11"/>
+
  <xsl:template match="/">
   <xsl:apply-templates/> 
  </xsl:template>
@@ -73,6 +87,15 @@
   </xsl:call-template>
  </xsl:template>
 
+ <!-- formats a "locus" header, given a title and then gets the -->
+ <!-- locus name from the "name" attribute in the parent context node -->
+ <xsl:template name="locus-header">
+  <xsl:param name="title"/>
+  <xsl:call-template name="header">
+   <xsl:with-param name="title"><xsl:value-of select="$title"/> [<xsl:value-of select="../@name"/>]</xsl:with-param>
+  </xsl:call-template>
+ </xsl:template>
+
  <!-- formats a list of nodes which are fields in name: value format
  separated by newlines -->
  <xsl:template name="linesep-fields">
@@ -117,14 +140,21 @@
  
  <!-- BEGIN MATCH TEMPLATE FUNCTIONS -->
  
- <!-- TOP-LEVEL ELEMENT -->
- <!-- START PROCESSING HERE -->
+
+ <!-- ####################  METADATA OUTPUT ###################### -->  
+
+ <!-- TOP-LEVEL XML ELEMENT -->
+
  <xsl:template match="dataanalysis">
   <xsl:text>Results of data analysis</xsl:text>
   <xsl:call-template name="newline"/>
   <xsl:text>Performed on the '</xsl:text><xsl:value-of select="filename"/><xsl:text>' file at: </xsl:text><xsl:value-of select="@date"/>
   <xsl:call-template name="newline"/>
   <xsl:call-template name="newline"/>
+
+ <!-- ####################  END METADATA OUTPUT ###################### -->  
+
+ <!-- ####################  POPULATION OUTPUT ######################## -->  
   
   <!-- print out population-level statistics and information -->
   <xsl:apply-templates select="filename|populationdata"/>
@@ -170,10 +200,11 @@
   <xsl:apply-templates/>
  </xsl:template>
  
- <xsl:template match="longitude|latitude|ethnicgroup|collectionsite|typingmethod|continentoforigin|labcode">
-  <xsl:text>*</xsl:text>
-  <xsl:value-of select="name(.)"/>
-  <xsl:text>*: </xsl:text>
+ <xsl:template match="longitude|latitude|ethnic-group|collection-site|typing-method|continent-of-origin|lab-code">
+
+  <!-- translate dashes back to spaces for output --> 
+  <xsl:value-of select="translate(name(.),'-', ' ')"/>
+  <xsl:text>: </xsl:text>
   <xsl:value-of select="."/>
   <xsl:call-template name="newline"/>
   </xsl:template>
@@ -217,10 +248,13 @@
   <xsl:call-template name="newline"/>
  </xsl:template>
 
- <!-- Allele count statistics --> 
+ <!-- ####################  END POPULATION OUTPUT ##################### -->  
+
+ <!-- #################  ALLELE COUNT STATISTICS ###################### --> 
+ 
  <xsl:template match="allelecounts">
-  <xsl:call-template name="header">
-   <xsl:with-param name="title">Allele Counts [<xsl:value-of select="../@name"/>]</xsl:with-param>
+  <xsl:call-template name="locus-header">
+   <xsl:with-param name="title">Allele Counts</xsl:with-param>
   </xsl:call-template>
   <xsl:call-template name="newline"/>
 
@@ -236,22 +270,36 @@
     <!-- do all the non-allelecount templates -->
     <xsl:apply-templates select="*[not(self::allele)]"/>
 
+    <xsl:call-template name="newline"/>
+
     <!-- create a header for table -->
-    <xsl:text>Name   Frequency  (Count)</xsl:text>
+    <xsl:text>Name      Frequency (Count)</xsl:text>
     <xsl:call-template name="newline"/>
     
     <!-- loop through each allele-->
     <xsl:for-each select="allele">
-     <xsl:value-of select="@name"/><xsl:text> </xsl:text>
-     <xsl:value-of select="frequency"/><xsl:text> </xsl:text>
-     <xsl:text>(</xsl:text><xsl:value-of select="count"/><xsl:text>)</xsl:text>
+     <xsl:for-each select="frequency|count|@name">
+      <xsl:call-template name="append-pad">
+       <xsl:with-param name="padVar" select="."/>
+       <xsl:with-param name="length">10</xsl:with-param>
+      </xsl:call-template>
+     </xsl:for-each>
      <xsl:call-template name="newline"/>
     </xsl:for-each>
     
-    <!-- print out the total at end of table -->
-    <xsl:text>Total frequency: </xsl:text><xsl:value-of
-     select="totalfrequency"/><xsl:text> (</xsl:text><xsl:value-of
-     select="totalcount"/><xsl:text>)</xsl:text>
+    <!-- print out the totals at end of table -->
+    <xsl:call-template name="append-pad">
+     <xsl:with-param name="padVar">Total</xsl:with-param>
+     <xsl:with-param name="length" select="10"/>
+    </xsl:call-template>
+    <xsl:call-template name="append-pad">
+     <xsl:with-param name="padVar" select="totalfrequency"/>
+     <xsl:with-param name="length" select="10"/>
+    </xsl:call-template>
+    <xsl:call-template name="append-pad">
+     <xsl:with-param name="padVar" select="totalcount"/>
+     <xsl:with-param name="length" select="10"/>
+    </xsl:call-template>
     <xsl:call-template name="newline"/>
 
    </xsl:otherwise>
@@ -259,86 +307,114 @@
   <xsl:call-template name="newline"/>
  </xsl:template>
 
- <!-- HardyWeinberg statistics -->
- <xsl:template match="hardyweinberg">
-  <xsl:call-template name="header">
-   <xsl:with-param name="title">HardyWeinberg [<xsl:value-of select="../@name"/>]</xsl:with-param>
-  </xsl:call-template>
-  <xsl:call-template name="newline"/>
+ <!-- ############### END ALLELE COUNT STATISTICS ###################### --> 
 
-  <xsl:apply-templates
-   select="common|lumped|heterozygotes|homozygotes|heterozygotesByAllele|genotypesByGenotype"/>
-  
-  <!-- now do genotype table -->
+ <!-- ################  HARDY-WEINBERG STATISTICS ###################### --> 
+
+ <xsl:template match="hardyweinberg">
+  <xsl:call-template name="locus-header">
+   <xsl:with-param name="title">HardyWeinberg</xsl:with-param>
+  </xsl:call-template>
+
+  <!-- do genotype table -->
   <xsl:apply-templates select="genotypetable"/>
 
   <xsl:call-template name="newline"/>
 
- </xsl:template>
-
- <!-- print out Guo and Thompson output if it's generated -->
- <xsl:template match="hardyweinbergGuoThompson">
-  <xsl:call-template name="header">
-   <xsl:with-param name="title">Guo and Thompson HardyWeinberg output [<xsl:value-of
-   select="../@name"/>]</xsl:with-param>
+  <!-- indent first line of table -->
+  <xsl:call-template name="prepend-pad">
+   <xsl:with-param name="length" select="$hardyweinberg-col-width + 3"/>
   </xsl:call-template>
-  <xsl:choose>
-   <xsl:when test="@role='too-few-alleles'">
-    <xsl:text>Too few alleles</xsl:text>
-   </xsl:when>
-   <xsl:when test="@role='too-large-matrix'">
-    <xsl:text>Too large a matrix for Guo and Thompson</xsl:text>
-   </xsl:when>
-   <xsl:otherwise>
 
-    <xsl:call-template name="linesep-fields">
-     <xsl:with-param name="nodes" select="*[not(self::switches)]"/>
+  <!-- print header for the individual stats -->
+  <xsl:for-each select="document('')//data:hardyweinberg-col-headers/text">
+    <xsl:call-template name="prepend-pad">
+     <xsl:with-param name="padVar" select="."/>
+     <xsl:with-param name="length" select="$hardyweinberg-col-width"/>
     </xsl:call-template>
-    <xsl:text>*switches*</xsl:text>
-    <xsl:call-template name="newline"/>
-    <xsl:call-template name="linesep-fields">
-     <xsl:with-param name="nodes" select="switches/*"/>
-    </xsl:call-template>
-   </xsl:otherwise>
-  </xsl:choose>
+  </xsl:for-each>
+
   <xsl:call-template name="newline"/>
+
+  <!-- no do individual stats for each class -->
+  <xsl:apply-templates select="common|lumped|heterozygotes|homozygotes"/>
+
+  <!-- do stats for all the heterozygotes and genotypes -->
+  <xsl:apply-templates select="heterozygotesByAllele|genotypesByGenotype"/>
+  
+  <xsl:call-template name="newline"/>
+
  </xsl:template>
 
- <!-- print out info on hetereozygotes and genotypes -->
- <xsl:template match="heterozygotesByAllele|genotypesByGenotype">
-  <xsl:value-of select="name(.)"/>
-  <xsl:call-template name="newline"/>
-  <xsl:for-each select="allele|genotype">
-   <xsl:value-of select="name(.)"/>: <xsl:value-of select="@name"/>
-   <xsl:call-template name="newline"/>
-   <xsl:call-template name="linesep-fields">
-    <xsl:with-param name="nodes" select="*"/>
+ <!-- template to generate the (padded) cell ;-) -->
+ <!-- this also handles the case when there is no tag because it -->
+ <!-- will simply return a white-space padded cell of the right length -->
+ <xsl:template name="hardyweinberg-gen-cell">
+  <xsl:param name="node" select="."/>
+  <xsl:call-template name="prepend-pad">
+   <xsl:with-param name="padVar" select="$node"/>
+   <xsl:with-param name="length" select="$hardyweinberg-col-width"/>
+  </xsl:call-template>
+ </xsl:template>
+
+ <!-- template to generate the row -->
+ <xsl:template name="hardyweinberg-gen-row">
+  
+  <!-- create variables from the contents of the cells  -->
+  <xsl:variable name="observed">
+   <xsl:call-template name="hardyweinberg-gen-cell">
+    <xsl:with-param name="node" select="observed"/>
    </xsl:call-template>
-   <xsl:call-template name="newline"/>
-  </xsl:for-each>  
+  </xsl:variable>
+  <xsl:variable name="expected">
+   <xsl:call-template name="hardyweinberg-gen-cell">
+    <xsl:with-param name="node" select="expected"/>
+   </xsl:call-template>
+  </xsl:variable>
+  <xsl:variable name="chisq">
+   <xsl:call-template name="hardyweinberg-gen-cell">
+    <xsl:with-param name="node" select="chisq"/>
+   </xsl:call-template>
+  </xsl:variable>
+  <xsl:variable name="pvalue">
+   <xsl:call-template name="hardyweinberg-gen-cell">
+    <xsl:with-param name="node" select="pvalue"/>
+   </xsl:call-template>
+  </xsl:variable>
+  <xsl:variable name="chisqdf">
+   <xsl:call-template name="hardyweinberg-gen-cell">
+    <xsl:with-param name="node" select="chisqdf"/>
+   </xsl:call-template>
+  </xsl:variable>
+
+  <!-- concatenate all the cells -->
+  <xsl:value-of select="concat($observed,$expected,$chisq,$pvalue,$chisqdf)"/>
+
  </xsl:template>
 
  <!-- print out overall HW stats  -->
  <xsl:template match="common|lumped|heterozygotes|homozygotes">
 
-  <xsl:text>*</xsl:text>
-  <xsl:value-of select="name(.)"/>
-  <xsl:text>*: </xsl:text>
-  <xsl:call-template name="newline"/>
+  <!-- indent table -->
+  <xsl:call-template name="prepend-pad">
+   <xsl:with-param name="length" select="$hardyweinberg-col-width + 3"/>
+   <xsl:with-param name="padVar" select="name(.)"/>
+  </xsl:call-template>
   
   <xsl:choose>
+   
    <xsl:when test="*!=''">
-    <!-- when the tag has content -->
-    <xsl:call-template name="linesep-fields">
-     <xsl:with-param name="nodes" select="*"/>
-    </xsl:call-template>
-    <xsl:call-template name="newline"/>
-
+    <!-- when the tag has content generate the row -->
+    <xsl:call-template name="hardyweinberg-gen-row"/>
    </xsl:when>
 
    <!-- if the tag does not have content, generate a diagnostic message -->
    <!-- based on the 'role' attribute -->
    <xsl:when test="*=''">
+
+    <!-- make an extra space, for case when following text is flush left -->
+    <xsl:text> </xsl:text>
+  
     <xsl:choose>
      <xsl:when test="@role='too-many-parameters'">
       <xsl:text>Overall chi-square for common genotypes cannot be calculated due to
@@ -368,11 +444,35 @@
    </xsl:otherwise>
   </xsl:choose>
   <xsl:call-template name="newline"/>
+  <xsl:call-template name="newline"/>
+
+ </xsl:template>
+
+ <!-- print out info on heterozygotes and genotypes -->
+ <xsl:template match="heterozygotesByAllele|genotypesByGenotype">
+  <xsl:value-of select="name(.)"/>
+  <xsl:call-template name="newline"/>
+  <xsl:for-each select="allele|genotype">
+
+  <!-- indent table with name of the allele -->
+   <xsl:call-template name="prepend-pad">
+    <xsl:with-param name="length" select="$hardyweinberg-col-width + 3"/>
+    <xsl:with-param name="padVar" select="@name"/>
+   </xsl:call-template>
+   <!-- generate the row -->
+   <xsl:call-template name="hardyweinberg-gen-row"/>
+   <xsl:call-template name="newline"/>
+  </xsl:for-each>  
+
+  <xsl:call-template name="newline"/>
 
  </xsl:template>
 
  <!-- format genotype table for HW -->
  <xsl:template match="genotypetable">
+
+  <xsl:text>Table of genotypes:</xsl:text>
+  <xsl:call-template name="newline"/>
 
   <xsl:variable name="padding" select="8"/>
 
@@ -435,15 +535,44 @@
     
    </xsl:if>
   </xsl:for-each>
-
   <xsl:call-template name="newline"/>
 
  </xsl:template>
 
- <!-- Homozygosity statistics --> 
+ <!-- print out Guo and Thompson output if it's generated -->
+ <xsl:template match="hardyweinbergGuoThompson">
+  <xsl:call-template name="locus-header">
+   <xsl:with-param name="title">Guo and Thompson HardyWeinberg output</xsl:with-param>
+  </xsl:call-template>
+  <xsl:choose>
+   <xsl:when test="@role='too-few-alleles'">
+    <xsl:text>Too few alleles</xsl:text>
+   </xsl:when>
+   <xsl:when test="@role='too-large-matrix'">
+    <xsl:text>Too large a matrix for Guo and Thompson</xsl:text>
+   </xsl:when>
+   <xsl:otherwise>
+
+    <xsl:call-template name="linesep-fields">
+     <xsl:with-param name="nodes" select="*[not(self::switches)]"/>
+    </xsl:call-template>
+    <xsl:text>*switches*</xsl:text>
+    <xsl:call-template name="newline"/>
+    <xsl:call-template name="linesep-fields">
+     <xsl:with-param name="nodes" select="switches/*"/>
+    </xsl:call-template>
+   </xsl:otherwise>
+  </xsl:choose>
+  <xsl:call-template name="newline"/>
+ </xsl:template>
+
+ <!-- ################  END HARDY-WEINBERG STATISTICS  ############### --> 
+
+ <!-- ################  HOMOZYGOSITY STATISTICS ###################### --> 
+ 
  <xsl:template match="homozygosity">
-  <xsl:call-template name="header">
-   <xsl:with-param name="title">Homozygosity [<xsl:value-of select="../@name"/>]</xsl:with-param>
+  <xsl:call-template name="locus-header">
+   <xsl:with-param name="title">Homozygosity</xsl:with-param>
   </xsl:call-template>
   
   <xsl:choose>
@@ -473,7 +602,10 @@
   <xsl:call-template name="newline"/>
  </xsl:template>
 
- <!-- Haplotype/LD statistics --> 
+ <!-- ################  HOMOZYGOSITY STATISTICS ###################### --> 
+
+ <!-- #################  HAPLOTYPE/LD STATISTICS ###################### --> 
+
  <xsl:template match="emhaplofreq">
   <xsl:call-template name="header">
    <xsl:with-param name="title">Haplotype/LD stats via emhaplofreq: <xsl:value-of select="../@loci"/>
@@ -527,6 +659,8 @@
   <xsl:value-of select="permutation" disable-output-escaping="yes"/>
   <xsl:call-template name="newline"/>
  </xsl:template>
+
+ <!-- ################# END  HAPLOTYPE/LD STATISTICS ################### --> 
 
  <!-- END MATCH TEMPLATE FUNCTIONS -->
  
