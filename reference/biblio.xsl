@@ -196,11 +196,11 @@
  <!--            BEGIN FO                -->
  <!-- ################################## -->
 
- <xsl:template match="bibliography" role="fo">
+ <xsl:template match="bibliography" mode="fo">
   <xsl:variable name="id">
    <xsl:call-template name="object.id"/>
   </xsl:variable>
-  
+
   <xsl:choose>
    <xsl:when test="not(parent::*) or parent::book">
     <xsl:variable name="master-reference">
