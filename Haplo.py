@@ -332,7 +332,7 @@ class Emhaplofreq(Haplo):
 
                 # if nothing left after filtering, simply return
                 if len(subMatrix) == 0:
-                    self.fp.write("<group role=\"no-data\" loci=\"%s\"/>%s" % (group, os.linesep))
+                    self.fp.write("<group mode=\"no-data\" loci=\"%s\"/>%s" % (group, os.linesep))
                     return
                 
                 if permutationFlag:
