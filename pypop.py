@@ -337,13 +337,18 @@ if config.has_section("Emhaplofreq"):
     print "no loci to estimate, provided, assume entire data set"
     locusKeys=string.join(input.getIndividualsData().colList,':')
 
-  haplo = Emhaplofreq(input.getIndividualsData(), debug=debug)
-  haplo.estHaplotypes(locusKeys)
-
   # output to text only (XML serialization to be completed)
   txtStream.writeln("Haplotype estimation via emhaplofreq:")
   txtStream.writeln("=====================================")
-  haplo.serializeTo(txtStream)
+
+  for group in string.split(locusKeys, ','):
+    haplo = Emhaplofreq(input.getIndividualsData(), debug=debug)
+    haplo.estHaplotypes(group)
+    txtStream.writeln()
+    txtStream.writeln("Est. haplotypes for locus groups: " + group)
+    txtStream.writeln("================================")
+    txtStream.writeln()
+    haplo.serializeTo(txtStream)
 
   try:
     estAllPairwise = config.getboolean("Emhaplofreq", "estAllPairwise")
