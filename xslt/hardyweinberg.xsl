@@ -269,14 +269,14 @@ MODIFICATIONS.
   
   <xsl:choose>
    
-   <xsl:when test="*!=''">
+   <xsl:when test="*">
     <!-- when the tag has content generate the row -->
     <xsl:call-template name="hardyweinberg-gen-row"/>
    </xsl:when>
 
    <!-- if the tag does not have content, generate a diagnostic message -->
    <!-- based on the 'role' attribute -->
-   <xsl:when test="*=''">
+   <xsl:when test=".=''">
 
     <!-- make an extra space, for case when following text is flush left -->
     <xsl:text> </xsl:text>
@@ -354,7 +354,7 @@ MODIFICATIONS.
   <xsl:text>Common genotypes</xsl:text>
   <xsl:call-template name="newline"/>
 
-  <xsl:for-each select="genotype[chisq/@role!='not-calculated']">  
+  <xsl:for-each select="genotype[not(chisq/@role='not-calculated')]">  
    <xsl:sort select="@col" data-type="text"/>
    <!-- generate genotype name -->
    <xsl:variable name="name">
@@ -378,13 +378,13 @@ MODIFICATIONS.
   </xsl:call-template>
 
   <xsl:call-template name="hardyweinberg-gen-cell">
-   <xsl:with-param name="node" select="sum(genotype[chisq/@role!='not-calculated']/observed)"/>
+   <xsl:with-param name="node" select="sum(genotype[not(chisq/@role='not-calculated')]/observed)"/>
   </xsl:call-template>
   <xsl:call-template name="hardyweinberg-gen-cell">
    <xsl:with-param name="node">
     <xsl:call-template name="round-to">
      <xsl:with-param name="node"
-     select="sum(genotype[chisq/@role!='not-calculated']/expected)"/>
+     select="sum(genotype[not(chisq/@role='not-calculated')]/expected)"/>
      <xsl:with-param name="places" select="2"/>
     </xsl:call-template>
    </xsl:with-param>

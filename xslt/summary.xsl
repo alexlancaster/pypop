@@ -83,7 +83,7 @@ MODIFICATIONS.
      <xsl:call-template name="newline"/>
      <xsl:call-template name="newline"/>
      
-     <xsl:for-each select="population[allelecounts[@role!='no-data']]">
+     <xsl:for-each select="population[allelecounts[not(@role='no-data')]]">
       <xsl:text>=====================</xsl:text>
       <xsl:call-template name="newline"/>
       <xsl:value-of select="filename"/>
@@ -94,7 +94,7 @@ MODIFICATIONS.
     </xsl:when>
 
     <xsl:when test="$output='R-output'">
-     <xsl:for-each select="population[allelecounts[@role!='no-data']]">
+     <xsl:for-each select="population[allelecounts[not(@role='no-data')]]">
 
       <xsl:call-template name="R-by-allele">
        <xsl:with-param name="kmax" select="$kmax"/>

@@ -185,7 +185,7 @@ MODIFICATIONS.
     
     <xsl:for-each select="$loci">
      
-     <xsl:if test="@role!='no-data'">
+     <xsl:if test="not(@role='no-data')">
       
       <!-- make sure convergence has happened -->
       <!--   <xsl:when test="../haplotypefreq/condition/@role='converged'"> -->
