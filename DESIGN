@@ -1,4 +1,4 @@
-Beginnings of a class library for parsing IHWG files.
+**Beginnings of a class library for parsing IHWG files.**
 
 - 'ParseFile' is a base class which has most of the common functionality
 for reading files.
@@ -20,8 +20,14 @@ allele count case).
 
 **TODO**
 
-- Implement ParseAllelecount.
+- Implement 'ParseAllelecount'.
 
-- Rationalize naming conventions for metadata.
+- Rationalize naming conventions.
 
 - much other guff..
+
+**NOTE**: When editing this 'README' file, it will help to adhere to
+the "structured text
+conventions":http://www.python.org/sigs/doc-sig/stext.html since
+Happydoc uses this information to format output documentation
+(including HTML) nicely.
