@@ -1,3 +1,35 @@
+2003-12-16  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* pypop.py: Move import of getUserFilenameInput to top-level, add
+	checkXSLFile import.
+	(xslFilename): Call Main.checkXSLFile() if xsl file is supplied as
+	a command-line option ("-x", "--xsl")
+	(xslFilenameDefault): Add heuristics to look for
+	xslFilenameDefault, in case command-line option was not set.
+	Heuristics may return a valid path or None (but xslFilenameDefault
+	here is *always* overriden by command-line option or .ini file
+	setting).  1) check datapath if it run from a 'system'
+	installation in sys.prefix and NOT in a 'frozen' state.  2) check
+	child directory 'xslt/' of script location first.  3) if not found
+	here check sibling directory '../xslt/'
+	Pass in xslFilenameDefault to Main() contructor call. 
+
+	* Main.py (checkXSLFile): New function to check existence of xsl
+	file, given a path, subdirectory, and filename, generate the
+	canonical path and check its existence and return it, return
+	'None' or abort with an error, depending on abort keyword
+	setting (default is not to abort).
+	(Main.__init__): Add keyword argument xslFilenameDefault to use if
+	not set by either command line option or '.ini' file.
+	(Main.__init__): Heuristics for checking XSL file have been moved
+	here and are checked before main loop.  Now we only use
+	xslFilenameDefault if not passed in via xslFilename or .ini file
+	is set.  xslFilename set (i.e. command-line option was used)
+	always takes precedence to .ini file.
+	(Main.__init__): Removed obsolete setting of altpath.
+	(Main._genTextOutput): Move heuristics for checking .ini file
+	options to __init__.
+
 2003-12-12  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* config.ini ([allPairwiseLDWithPermu]): Change semantics of

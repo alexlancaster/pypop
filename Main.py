@@ -49,6 +49,25 @@ from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringM
 from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
 from RandomBinning import RandomBinsForHomozygosity
 
+def checkXSLFile(xslFilename,
+                 path='',
+                 subdir='',
+                 abort=None,
+                 debug=None,
+                 msg=''):
+    if debug:
+        print "path=%s, subdir=%s, xslFilename=%s xsl path" % (path, subdir, xslFilename)
+
+    # generate a full path to check
+    checkPath = os.path.realpath(os.path.join(path, subdir, xslFilename))
+    if os.path.isfile(checkPath):
+        return checkPath
+    else:
+        if abort:
+            sys.exit("Can't find XSL: %s %s" % (checkPath, msg))
+        else:
+            return None
+    
 def getUserFilenameInput(prompt, filename):
     """Read user input for a filename, check its existence, continue
     requesting input until a valid filename is entered."""
@@ -120,6 +139,7 @@ class Main:
     def __init__(self,
                  config=None,
                  xslFilename=None,
+                 xslFilenameDefault=None,
                  debugFlag=0,
                  fileName=None,
                  datapath=None,
@@ -136,6 +156,7 @@ class Main:
         self.use_libxsltmod = use_libxsltmod
         self.use_FourSuite = use_FourSuite
         self.xslFilename = xslFilename
+        self.xslFilenameDefault = xslFilenameDefault
         self.outputDir = outputDir
         self.version = version
 
@@ -232,9 +253,27 @@ class Main:
             for option in self.config.options(section):
               print " ", option, "=", self.config.get(section, option)
 
+        # if not provided on command line or provided check .ini
+        # options, and use that location, if provided
+        if self.xslFilename == None:
+            try:
+                self.xslFilename = self.config.get("General", "xslFilename")
+                if self.debug:
+                    print "using .ini option for xslFilename:", self.xslFilename
+                checkXSLFile(self.xslFilename, abort=1, \
+                             debug=self.debug, msg='specified in .ini file')
+            except NoOptionError:
+                # otherwise fall back to xslFilenameDefault
+                if self.debug:
+                    print "xslFilename .ini option not set"
+                if self.xslFilenameDefault:
+                    self.xslFilename = self.xslFilenameDefault
+                else:
+                    sys.exit("No default XSL file found, must specify in .ini or on the command line")
 
-        altpath = os.path.join(self.datapath, 'config.ini')
-
+        else:
+            if self.debug:
+                print "using user supplied version in: ", self.xslFilename
 
         # check to see what kind of file we are parsing
 
@@ -919,28 +958,6 @@ class Main:
 
 
     def _genTextOutput(self):
-
-        # create default XSL stylesheet location
-        xslFilenameDefault = os.path.join(self.datapath, 'text.xsl')
-
-        # if not provided on command line try check self.config
-        # options, and use that location, if provided
-        if self.xslFilename == None:
-            try:
-                self.xslFilename = self.config.get("General", "xslFilename")
-            except NoOptionError:
-                # if frozen, look in xslt subdirectoy
-                if hasattr(sys, 'frozen'):
-                    self.xslFilename = os.path.join('xslt', 'text.xsl')
-                else:
-                    # otherwise use fallback            
-                    self.xslFilename=xslFilenameDefault
-
-        # check to see if file exists, otherwise fail with an error
-        if os.path.isfile(self.xslFilename):
-          pass
-        else:
-          sys.exit("Could not find xsl file: `%s' " % self.xslFilename)
 
         if self.use_libxsltmod:
 
