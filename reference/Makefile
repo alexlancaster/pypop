@@ -8,7 +8,8 @@ CVSPRE = cvs update -kv $<
 CVSPOST = cvs update -kkv $<
 endif
 
-XSLCOMMON = --param section.autolabel 1 --param tablecolumns.extension 0 --param use.extensions 1 --param callouts.extension 0
+XSLCOMMON = --param section.autolabel 1 --param tablecolumns.extension 0 --param use.extensions 1 --param callouts.extension 0 --stringparam tex.math.in.alt 'latex'
+
 # --stringparam draft.watermark.image images/draft.png
 XSLHTML =
 XSLFO = --param variablelist.as.blocks 1
@@ -36,20 +37,34 @@ ifeq ($(DOCBOOKXSLDIR),)
 	DOCBOOKXSLDIR=/net/share/xml/docbook/xsl-stylesheets
 endif
 
+# phony target for equation bitmaps for which we don't know the name of yet
+.PHONY: eqns
+
 FIGS = $(addprefix work-flow., png eps) $(addprefix design., png eps) api.png
-OUTPUTS =  $(addprefix biostat., html txt pdf)
+OUTPUTS = $(addprefix biostat., html txt pdf aux log out) $(addprefix tex-math-equations., tex dvi log aux) eqns
+EXTRA_XML_SOURCE = psb2002.xml
 
 all: $(OUTPUTS) $(FIGS) api/index.html
+
+tex-math-equations.tex: biostat.xml $(EXTRA_XML_SOURCE)
+
+# convert LaTeX images into DVI
+%.dvi: %.tex
+	latex $<
+
+# convert DVI into bitmaps
+eqns: tex-math-equations.dvi
+	dvi2bitmap -fp /var/cache/fonts/pk/ibmvga/public/cm $<
 
 %.txt: %.html
 	lynx -dump -nolist $< > $@
 
-%.html: %.xml $(FIGS) html.xsl
+%.html: %.xml $(FIGS) html.xsl $(EXTRA_XML_SOURCE)
 	$(CVSPRE) 
 	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML) -o $@ html.xsl $<
 	$(CVSPOST)
 
-%.fo: %.xml $(FIGS) fo.xsl
+%.fo: %.xml $(FIGS) fo.xsl $(EXTRA_XML_SOURCE)
 	$(CVSPRE) 
 	$(XSLTPROC) $(XSLCOMMON) $(XSLFO) -o $@ fo.xsl $<
 	$(CVSPOST)
