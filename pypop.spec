@@ -4,7 +4,7 @@ a = Analysis(['/home/alex/src/python-installer/support/useUnicode.py', 'pypop.py
 pyz = PYZ(a.pure)
 exe = EXE( pyz,
           a.scripts,
-	  a.binaries+[('VERSION', 'VERSION', 'BINARY')],
+	  a.binaries+[('VERSION', 'VERSION', 'BINARY'),('O',"",'OPTION')],
 	  name='pypop',
           debug=0,
           console=1)
