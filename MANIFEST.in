@@ -1,4 +1,7 @@
 include ChangeLog
+include AUTHORS
+include INSTALL
+include COPYING
 include pypop.py
 include text.xsl
 include config.ini
