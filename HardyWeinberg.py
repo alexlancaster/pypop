@@ -543,59 +543,6 @@ class HardyWeinberg:
     stream.closetag("genotypetable")
     stream.writeln()
 
-  def serializeTextTableTo(self, stream):
-
-    sortedAlleles = self.observedAlleles
-    sortedAlleles.sort()
-
-    # calculate padding width
-    width = len(sortedAlleles[0])
-
-    stream.writeln("Genotype table, format of each cell is: obsd/expt:")
-    stream.writeln()
-
-    for horiz in sortedAlleles:
-
-      # write each element of allele row header
-      stream.write("%*s " % (width, horiz))
-
-      for vert in sortedAlleles:
-        # ensure that matrix is triangular
-        if vert > horiz:
-          continue
-
-        # need to check both permutations of key
-        key1 = "%s:%s" % (horiz, vert)
-        key2 = "%s:%s" % (vert, horiz)
-
-        # get observed value
-        if self.observedGenotypeCounts.has_key(key1):
-          obs = self.observedGenotypeCounts[key1]
-        elif self.observedGenotypeCounts.has_key(key2):
-          obs = self.observedGenotypeCounts[key2]
-        else:
-          obs = "0"
-
-        # get expected value
-        if self.expectedGenotypeCounts.has_key(key1):
-          exp = self.expectedGenotypeCounts[key1]
-        elif self.expectedGenotypeCounts.has_key(key2):
-          exp = self.expectedGenotypeCounts[key2]
-        else:
-          exp = 0.0
-        stream.write("%2s/%.1f " % (obs, exp))
-      stream.writeln()
-
-    # indent allele column footer
-    stream.write("%5s" % " ")
-
-    # write allele column footer
-    for horiz in sortedAlleles:
-      stream.write("%6s " % horiz)
-    # end of footer line
-    stream.writeln()
-
-
 class HardyWeinbergGuoThompson(HardyWeinberg):
   """Wrapper class for 'gthwe'
 
