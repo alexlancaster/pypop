@@ -446,7 +446,7 @@
    <xsl:choose>
     <xsl:when test="name(.)='common'">
      <xsl:choose>
-      <xsl:when test="../lumped!=''">Common &amp; lumped</xsl:when>
+      <xsl:when test="../lumped!=''">Common + lumped</xsl:when>
       <xsl:when
       test="../lumped/@role='no-rare-genotypes'">Complete</xsl:when>
       <xsl:otherwise>Common</xsl:otherwise>
@@ -496,9 +496,13 @@
       <xsl:text>No rare genotypes with expected less than </xsl:text>
       <xsl:value-of select="../lumpBelow"/><xsl:text> was observed.</xsl:text>
      </xsl:when>
+     <xsl:when test="@role='too-few-expected'">
+      <xsl:text>
+       There are less than </xsl:text><xsl:value-of
+       select="../lumpBelow"/><xsl:text> genotypes with a value of at least </xsl:text><xsl:value-of select="../lumpBelow"/></xsl:when>
      <xsl:otherwise>
-      <xsl:text>Condition: "</xsl:text><xsl:value-of
-       select="@role"/><xsl:text>" not recognized.</xsl:text>
+      <xsl:text>Condition: </xsl:text><xsl:value-of
+       select="@role"/><xsl:text> not recognized.</xsl:text>
      </xsl:otherwise>
     </xsl:choose>
     <xsl:call-template name="newline"/>
