@@ -730,9 +730,10 @@
 
   <!-- until output is XML-fied, simply pass through the unmarked
   CDATA section -->
-  <xsl:value-of select="haplotypefreq" disable-output-escaping="yes"/>
+  <xsl:apply-templates select="haplotypefreq"/>
   <xsl:call-template name="newline"/>
  </xsl:template>
+
 
  <xsl:template match="emhaplofreq/group[@mode='LD']">
   <xsl:call-template name="header">
@@ -770,11 +771,31 @@
   <!-- until output sections are XML-fied, simply pass through the unmarked
   CDATA sections -->
 
-  <xsl:value-of select="haplotypefreq" disable-output-escaping="yes"/>
+  <xsl:apply-templates select="haplotypefreq"/>
+
+  <xsl:call-template name="newline"/>
+
   <xsl:value-of select="linkagediseq" disable-output-escaping="yes"/>
   <xsl:value-of select="permutationSummary" disable-output-escaping="yes"/>
   <xsl:call-template name="newline"/>
  </xsl:template>
+
+ <xsl:template match="haplotypefreq">
+
+  <!-- loop through each haplotype-->
+  <xsl:for-each select="haplotype">
+   <xsl:sort select="@name" data-type="text" order="ascending"/>
+   <xsl:for-each select="frequency|numCopies|@name">
+    <xsl:call-template name="append-pad">
+     <xsl:with-param name="padVar" select="."/>
+     <xsl:with-param name="length">24</xsl:with-param>
+    </xsl:call-template>
+   </xsl:for-each>
+   <xsl:call-template name="newline"/>
+  </xsl:for-each>
+
+ </xsl:template>
+
 
  <!-- ################# END  HAPLOTYPE/LD STATISTICS ################### --> 
 
