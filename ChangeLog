@@ -1,6 +1,8 @@
 2005-03-01  Alex Lancaster  <alexl AT berkeley.edu>
 
-	* setup.py (ext_Gthwe): Add gthwe/statistics.c.
+	* setup.py (ext_HweEnum): Set VERSION, PACKAGE_NAME macros to
+	substitute for automake doing this.
+	(ext_Gthwe): Add gthwe/statistics.c.
 
 2005-02-28  Alex Lancaster  <alexl AT berkeley.edu>
 
