@@ -25,27 +25,12 @@
  <section>
   <title>Introduction</title>
 
-<!-- tests for verbatim alignment
-  <literallayout>
-
-A1 A2 A3 A4 X
-B1 B2 B3 B4 X
-C1    C2    X
-   D1    D2 X
-E1       E2 X
-F1F2F3F4F5* X
-*********** X
-</literallayout>
-
--->
-
   <para>Running <application>PyPop</application> is really quite
    simple - you just need to type "<userinput>pypop</userinput>"
    followed by the name of your population file, like this:</para>
 
-  <screen>
-   <command>pypop</command> <filename>Guatemalan.pop</filename>
-  </screen>
+  <screen><command>pypop</command> <filename>Guatemalan.pop</filename></screen>
+
   <para>This assumes two things: that you have a file in your current
    folder called "<filename>config.ini</filename>" and that you have
    your population file also in the current folder.</para>
@@ -70,8 +55,7 @@ F1F2F3F4F5* X
    <example>
     <title>Multilocus allele-level genotype data</title>
 
-  <programlisting><![CDATA[
-labcode method              ethnic  contin  collect        latit           longit          
+  <programlisting><![CDATA[labcode method              ethnic  contin  collect        latit           longit          
 USAFEL  12th Workshop SSOP  Telle   NW Asia Targen Village 41 deg 12 min N 94 deg 7 min E  
 populat     id         a_1     a_2     c_1     c_2     b_1     b_2     
 UchiTelle   UT900-23   ****    ****    0102    02025   1301    18012   
@@ -89,8 +73,7 @@ UchiTelle   UT910-03   03012   3204    1507    0605    51013   39021
    <example>
     <title>Multilocus allele-level genotype data without header</title>
 
-  <programlisting>
-populat    id        a_1   a_2   c_1   c_2   b_1   b_2
+  <programlisting>populat    id        a_1   a_2   c_1   c_2   b_1   b_2
 UchiTelle  UT900-23  ****  ****  0102  02025 1301  18012 
 UchiTelle  UT900-24  0101  0201  0307  0605  1401  39021 
 UchiTelle  UT900-25  0210  03012 0712  0102  1520  1301  
@@ -106,8 +89,7 @@ UchiTelle  UT910-03  03012 3204  1507  0605  51013 39021
    <example>
     <title>Multilocus allele-level and microsatellite genotype data with less header information</title>
 
-  <programlisting>
-labcode ethnic  complex
+  <programlisting>labcode ethnic  complex
 AUSTAI  ****    0
 populat id      drb1_1  drb1_2  dqb1_1  dqb1_2  d6s2222_1  d6s2222_2  
 AUSTAI  FOW_2   01      301     201     0501    249        249        
@@ -146,8 +128,7 @@ Korean  KH-10    C             T             CG          TG
    <example>
     <title>Allele count data</title>
 
-  <programlisting>
-populat         method  ethnic     country    latit   longit
+  <programlisting>populat         method  ethnic     country    latit   longit
 West Cape York  PCR-SSO Aboriginal Australian 012.00S 142.50E
 DQA1    count
 0301    29
