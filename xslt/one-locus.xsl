@@ -5,12 +5,29 @@
  extension-element-prefixes="exsl">
 
  <xsl:import href="lib.xsl"/>
+<!-- <xsl:import href="sort-by-locus.xsl"/> -->
  
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
 
  <!-- unique key for all loci -->
  <xsl:key name="loci" match="/meta/dataanalysis/locus" use="@name"/>
+
+ <xsl:template name="phylip-lines">
+  <xsl:param name="nodes"/>
+
+  <xsl:for-each select="$nodes">
+
+   <xsl:for-each select="allelecounts/allele">
+    <xsl:text>&#09;</xsl:text>
+    <xsl:value-of select="frequency"/>
+   </xsl:for-each>
+
+   <xsl:call-template name="newline"/>
+    
+  </xsl:for-each>
+  
+ </xsl:template>
 
  <xsl:template name="gen-lines">
   <xsl:param name="nodes"/>
@@ -57,6 +74,7 @@
 
  <xsl:template match="/">
 
+
   <xsl:choose>
 
    <xsl:when test="element-available('exsl:document')">
@@ -85,6 +103,18 @@
      
     </exsl:document>
 
+    <exsl:document href="phylip.dat"
+     omit-xml-declaration="yes"
+     method="text">
+     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;k</xsl:text>
+     <xsl:call-template name="newline"/>
+     <xsl:call-template name="phylip-lines">
+      <xsl:with-param name="nodes" select="/meta/dataanalysis/locus[1]"/>
+     </xsl:call-template>
+    
+    </exsl:document>
+
+
     </xsl:when>
 
    <xsl:otherwise>
@@ -92,6 +122,14 @@
     </xsl:message>
    </xsl:otherwise>
   </xsl:choose>
+
+  <xsl:variable name="something">
+   <xsl:call-template name="sort-by-locus"/>
+  </xsl:variable>
+
+  <xsl:for-each select="$something">
+   <xsl:value-of select="name(.)"/>
+  </xsl:for-each>
 
   <xsl:call-template name="newline"/>
 
