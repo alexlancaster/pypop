@@ -87,7 +87,7 @@
   <para>The  <application>PyPop</application>
    (<emphasis>Py</emphasis>thon  for  <emphasis>Pop</emphasis>ulation
    Genetics)  package is a suite of programs  for  the  analysis  of
-   population genetic data <citation>Lancaster:etal:2003a</citation>.
+   population genetic data <citation>Lancaster:etal:2003</citation>.
    The primary motivation   for   developing this  project  was  our
    role  as  the "Biostatistics  Core" for the International
    Histocompatibility Working Group  (<ulink
@@ -106,7 +106,7 @@
    analyses  of  regional  and  worldwide patterns  of  allele
    frequencies,  haplotype  frequencies,  and LD. A description  of
    the methodology for specific tests can be found in
-   <citation>Single:etal:2003a</citation>.
+   <citation>Single:etal:2004a</citation>.
    <xref linkend="pypop:method"/>  outlines  the implementation of
    these population genetics methods via the different modules that
    make up PyPop.</para>
@@ -854,8 +854,8 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     data, such as level of heterozygosity or the continent of  origin
     for the sample. The results for many of these analyses for the
     13th workshop data can be found elsewhere (<citation
-     role="citealt">Meyer:etal:2003</citation>,
-    <citation role="citealt">Single:etal:2003b</citation>). As a
+     role="citealt">Meyer:etal:2004</citation>,
+    <citation role="citealt">Single:etal:2004b</citation>). As a
     simple example of <quote>slicing</quote>  the  data  along
     different axes, we can view the number of populations  for which
     data was provided for a given locus (<xref
