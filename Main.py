@@ -236,7 +236,9 @@ class Main:
         try:
             validPopFields = self.config.get(self.fileType, "validPopFields")
         except NoOptionError:
-            sys.exit("No valid population fields defined")
+            validPopFields = None
+            print "LOG: Data file has no header data block"
+            #sys.exit("No valid population fields defined")
 
         try:
             validSampleFields = self.config.get(self.fileType, "validSampleFields")
@@ -288,7 +290,7 @@ class Main:
               except NoOptionError:
                 binningPath=os.path.join(self.datapath, "filters", "binning")
                 if self.debug:
-                  print "Defaulting to system datapath %s for binningPath data" % binningPath
+                  print "LOG: Defaulting to system datapath %s for binningPath data" % binningPath
 
             if useAnthonyNolanFilter:
               try:
@@ -296,7 +298,7 @@ class Main:
               except NoOptionError:
                 anthonynolanPath=os.path.join(self.datapath, "anthonynolan", "HIG-seq-pep-text")
                 if self.debug:
-                  print "Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
+                  print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
 
               # open log file for filter in append mode
               filterLogFile = XMLOutputStream(open(defaultFilterLogFilename, 'w'))
@@ -446,7 +448,7 @@ class Main:
                 rootPath=self.config.get("Homozygosity", "rootPath")
             except NoOptionError:
                 rootPath='/net/share/PyPop/homozygosity'
-                print "Defaulting to system datapath %s for homozygosity tables" % rootPath
+                print "LOG: Defaulting to system datapath %s for homozygosity tables" % rootPath
 
             hzObject = Homozygosity(self.input.getAlleleCount(),
                                     rootPath=rootPath,
@@ -568,7 +570,7 @@ class Main:
               try:
                 arlequinExec = self.config.get("Arlequin", "arlequinExec")
               except NoOptionError:
-                print "Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
+                print "LOG: Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
 
             try:
               markovChainStepsHW = self.config.getint("HardyWeinbergGuoThompsonArlequin", \
@@ -606,7 +608,7 @@ class Main:
             except NoOptionError:
               rootPath=os.path.join(self.datapath, "homozygosity")
               if self.debug:
-                print "Defaulting to system datapath %s for homozygosity tables" % rootPath
+                print "LOG: Defaulting to system datapath %s for homozygosity tables" % rootPath
 
 
             hzObject = Homozygosity(self.input.getAlleleCountAt(locus),
@@ -658,7 +660,7 @@ class Main:
             sys.exit("require a 0 or 1 as a flag")
 
           if allPairwiseLD:
-            print "estimating all pairwise LD:",
+            print "LOG: estimating all pairwise LD:",
             if allPairwiseLDWithPermu:
               print "with permutation test"
             else:
@@ -699,20 +701,20 @@ class Main:
                 haplo.estHaplotypes(locusKeys)
 
           except NoOptionError:
-            print "no loci provided for which to estimate haplotype frequencies"
+            print "LOG: no loci provided for which to estimate haplotype frequencies"
 
           try:
             locusKeysLD=self.config.get("Emhaplofreq", "lociToEstLD")
 
             if locusKeysLD == '*':
-              print "wildcard '*' given for lociToEstLD, assume entire data set"
+              print "LOG: wildcard '*' given for lociToEstLD, assume entire data set"
               locusKeysLD=string.join(self.input.getIndividualsData().colList,':')
 
             # estimate LD for the specified loci
             haplo.estLinkageDisequilibrium(locusKeysLD)
 
           except NoOptionError:
-            print "no loci provided for which to estimate LD"
+            print "LOG: no loci provided for which to estimate LD"
 
           # do all pairwise LD, w/ or w/o permutation test
           if allPairwiseLD:
