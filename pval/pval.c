@@ -34,9 +34,13 @@ MODIFICATIONS. */
 #include <stdio.h>
 #include "Rmath.h"
 
+double pval(double chisq, double df) {
+  return 1 - pchisq(chisq, df, TRUE, FALSE);
+}
+
 int main(int argc, char **argv) {
   int i;
-  double df, chisq, pval;
+  double df, chisq;
   
   if(argc !=3)
     {
@@ -48,9 +52,8 @@ int main(int argc, char **argv) {
   chisq = (double)strtod(argv[2], NULL);
 
   /* call pchisq from R implementation */
-  pval = 1 - pchisq(chisq, df, TRUE, FALSE);
-
-  fprintf(stdout, "%f\n", pval);
+  fprintf(stdout, "%g\n", pval(chisq, df));
 
   return 0;
 }
+
