@@ -52,7 +52,7 @@
 
   <!-- first check that string is, indeed, a number -->
   <xsl:choose>
-   <xsl:when test= "string(number($node))='NaN'"> 
+   <xsl:when test= "string(number($node))!='NaN'"> 
 
     <xsl:variable name="factor">
      <xsl:call-template name="raise-to-power">
