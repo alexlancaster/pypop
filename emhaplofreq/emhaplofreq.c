@@ -1385,7 +1385,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
     {
 #ifdef XML_OUTPUT
       fprintf(fp_out, "<summary first=\"%d\" second=\"%d\">\n", j, k);
-      fprintf(fp_out, "<wn>%.5f</wn><q><val>%.5f</val><chisq>%d</chisq></q><dprime>%.5f</dprime>\n", summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), summary_dprime[coeff_count]);
+      fprintf(fp_out, "<wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dprime>%.5f</dprime>\n", summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), summary_dprime[coeff_count]);
       fprintf(fp_out, "</summary>\n");
 #else
       fprintf(fp_out,"--Loci:%2d\\%2d--\n", j, k);
