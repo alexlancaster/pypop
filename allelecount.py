@@ -40,9 +40,19 @@ input = ParseAlleleCountFile(sys.argv[1],
                              separator='\t',
                              debug=debug)
 
-xmlStream.opentag('dataanalysis')
+xmlStream.opentag('dataanalysis', role='allele-count-data')
+xmlStream.writeln()
 
 input.serializeMetadataTo(xmlStream)
+
+# get the locus name
+locusName = input.getLocusName()
+
+# wrap the output in a locus tag with the name of the locus, thus the
+# output XML has the same hierarchy as the ParseGenotypeFile output.
+
+xmlStream.opentag('locus', name=locusName)
+xmlStream.writeln()
 
 try:
   rootPath=config.get("Homozygosity", "rootPath")
@@ -56,6 +66,8 @@ hzObject = Homozygosity(input.getAlleleCount(),
 
 hzObject.serializeHomozygosityTo(xmlStream)
 
+xmlStream.closetag('locus')
+xmlStream.writeln()
 xmlStream.closetag('dataanalysis')
 
 xmlStream.close()
