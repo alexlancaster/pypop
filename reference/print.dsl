@@ -9,8 +9,20 @@
 (define %section-autolabel% #t)
 (define %default-quadding% 'justify)
 (define %mono-font-family% "Courier")
+(define %callout-fancy-bug% #t)
 
 (element subscript (process-children))
+(element superscript (process-children))
+
+(element application 
+  ($mono-seq$))
+
+(element phrase 
+  (if (and (attribute-string (normalize "role"))
+	   (or (equal? (attribute-string (normalize "role")) "strong")
+	       (equal? (attribute-string (normalize "role")) "bold")))
+      ($bold-mono-seq$)
+      (process-children)))
 
 </style-specification-body>
 </style-specification>
