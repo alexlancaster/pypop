@@ -20,7 +20,15 @@
   
  </bookinfo>
 
- <!-- <xi:include href="install.xml"/> -->
+ <xi:include href="authors.xml"/>
+
+ <chapter>
+  <chapterinfo>
+   <xi:include href="install.xml#xpointer(//articleinfo/*)"/>
+  </chapterinfo>
+  <xi:include href="install.xml#xpointer(//articleinfo/title)"/>
+  <xi:include href="install.xml#xpointer(/article/section)"/>
+ </chapter>
 
  <chapter>
   <chapterinfo>
@@ -43,6 +51,8 @@
  <!-- <xi:include href="pypop-appendices.xml"/>  -->
 
  <xi:include href="biblio.xml"/>
+
+ <xi:include href="gpl.xml"/>
 
 </book>
 
