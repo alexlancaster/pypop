@@ -50,22 +50,22 @@ find out for yourself.
 #include <errno.h>
 
 #define min(x, y)  (((x) < (y)) ? x : y)
-#define KLIMIT 40
+#define KLIMIT 100 /* changed from original 40--seen what HLA-B is up to now? */
 
-/* function prototypes for Slatkin */
+/* function prototypes for Slatkin's original */
 void print_results(int, int, int);
 double unif(void);
 void gsrand(int);
 int grand(void);
 
-/* function prototypes for AKL */
+/* function prototypes for returning values to Python caller */
 double get_theta(void);
 double get_prob_ewens(void);
 double get_prob_homozygosity(void);
 double get_mean_homozygosity(void);
 double get_var_homozygosity(void);
 
-/* function prototypes for mpn */
+/* function prototypes for printing the quantiles */
 int double_comp(const void *, const void *);
 int quantile_print(double *, int);
 
@@ -99,7 +99,18 @@ int main(int argc, char **argv)
     fprintf(stderr, "Specify the number of replicates on the command line\n");
     exit(EXIT_FAILURE);
   }
-  maxrep = atoi(argv[1]);
+  /* maxrep = atoi(argv[1]); can't check for errors, so don't use atoi() */
+
+  errno = 0;
+
+  maxrep = (int)strtol(argv[1], (char **)NULL, 10);
+
+  if(errno != 0)
+  {
+    perror("\nToo many replicates requested");
+    fprintf(stderr, "\n");
+    exit(EXIT_FAILURE);
+  }
 
   /* Find k and n from the observed configuration  */
 
@@ -120,28 +131,18 @@ int main(int argc, char **argv)
 
   main_proc(r_obs, k, n, maxrep);
 
+#ifndef DISTRIBUTION_OUTPUT
+
+  print_results(n, k, maxrep);
+
   finish_time = time(NULL);
   net_time = time(NULL) - start_time;
 
-#ifndef DISTRIBUTION_OUTPUT
-  print_results(n, k, maxrep);
-#endif
-
-#ifndef DISTRIBUTION_OUTPUT
   if (net_time < 60)
     fprintf(stdout, "Program took %ld seconds\n", net_time);
   else
     fprintf(stdout, "Program took %4.2f minutes\n", net_time / 60.0);
 #endif
-
-  /* test call-backs 
-     printf("%g, %g, %g, %g, %g\n", 
-     get_theta(),
-     get_prob_ewens(),
-     get_prob_homozygosity(), 
-     get_mean_homozygosity(),
-     get_var_homozygosity());
-   */
 
   return(EXIT_SUCCESS);
 }
@@ -214,7 +215,7 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 
     if (ewens_stat(r_random) <= E_obs)
       Ecount++;
-    if (F(k, n, r_random) <= F_obs)
+    if (Fvalues[repno] <= F_obs)
       Fcount++;
   } /* END for (repno = 0; repno < maxrep; repno++) */
 
@@ -223,22 +224,19 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 
 /* begin calculating the expected F, and its variance. DM, AKL */
 
-  E_F = (double)Ftot / maxrep;
+  E_F = Ftot / (double)maxrep;
 
-  Var_F = (double)((Fsq_tot / maxrep) - ((Ftot / maxrep) * (Ftot / maxrep)));
+  Var_F = ((Fsq_tot / (double)maxrep) - ((Ftot / (double)maxrep) * (Ftot / (double)maxrep)));
 
 /* end calculating the expected F, and its variance. DM, AKL */
 
 #ifdef DISTRIBUTION_OUTPUT
   qsort((void *)Fvalues, (size_t)maxrep, sizeof(double), double_comp);
 
-  for(repno = 0; repno < maxrep; repno++)
-  {
-    fprintf(stdout, "%.6f\n", Fvalues[repno]);
-  }
+  quantile_print(Fvalues, maxrep);
 #endif
 
-  /* --mpn-- no malloc without free */
+  /* no malloc without free */
   free(b);
   free(ranvec);
   free(Fvalues);
@@ -448,6 +446,37 @@ int double_comp(const void *d1, const void *d2)
   double b = *(double *)d2;
 
   return((a < b) ? -1 : (a > b) ? 1 : 0);
+}
+
+int quantile_print(double *Fvals, int limit)
+{
+  int i;
+  double quants[] = {1.0, 0.99995, 0.9999, 0.9995, 0.999, 0.995, 0.99, \
+                     0.975, 0.95, 0.9, 0.5, 0.1, 0.05, 0.025, 0.01, \
+                     0.005, 0.001, 0.0005, 0.0001, 0.00005};
+
+  fprintf(stdout, "%-7s %d\n", "Count:", limit);
+  fprintf(stdout, "%-7s %f\n", "Mean:", E_F);
+  fprintf(stdout, "%-7s %f\n", "Var:", Var_F);
+
+  /* for each quantile entry in the quants array */
+  /* print out the entry at that position in the */
+  /* array of F values.                          */
+  for(i = 0; i < sizeof(quants) / sizeof(double); i++)
+    fprintf(stdout, "%-19.6f %.5f\n", Fvals[(int)(quants[i] * limit) - 1], quants[i]);
+  fprintf(stdout, "\n");
+
+  /* old debugging output */
+  /*
+  for(i = 0; i < 1000; i++)
+    fprintf(stdout, "%-12d%-.16f\n", i, Fvals[i]);
+  fprintf(stdout, "\n");
+
+  for(i = limit - 1000; i < limit; i++)
+    fprintf(stdout, "%-12d%-.16f\n", i, Fvals[i]);
+  */
+
+  return(0);
 }
 
 /* functions for returning values to calling Python programme */
