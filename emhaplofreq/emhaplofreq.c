@@ -401,7 +401,10 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   {
     max_init_cond = MAX_INIT_FOR_PERMU; 
 
-    if (permu == 1) fprintf(fp_out, "\nComputing LD permutations...\n\n");
+#ifndef XML_OUTPUT
+    if (permu == 1) 
+      fprintf(fp_out, "\nComputing LD permutations...\n\n");
+#endif
 
     permute_alleles(data_ar, n_loci, n_recs); 
     
@@ -812,14 +815,10 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   if (permu_flag == 1)
   {
-
-#ifdef XML_OUTPUT
-    if (permu == 0) 
-      fprintf(fp_out, "<permutation><![CDATA[");
-#endif
-
+    /* moved XML output into section after printing haplotypes 
+       other code in this sections  */
   }
-
+  
   /* suppress printing of haplotypes if '-s' flag set */
   if ((permu == 0) && (suppress_haplo_print_flag != 1))
   {
@@ -911,12 +910,12 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     fprintf(fp_out, "\n");
 #endif
 
-    fprintf(fp_out, "Pairwise Linkage Disequilibrium\n");
-    fprintf(fp_out, "-------------------------------\n");
-
 #ifdef XML_OUTPUT
     fprintf(fp_out, "<linkagediseq><![CDATA[");
 #endif
+
+    fprintf(fp_out, "Pairwise Linkage Disequilibrium\n");
+    fprintf(fp_out, "-------------------------------\n");
 
     linkage_diseq(fp_out, mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
       n_loci, n_haplo, n_recs);
@@ -969,6 +968,11 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   /*** begin: post-processing for permutations ***/
   if (permu_flag == 1)
   {
+
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "<permutationSummary><![CDATA[");
+#endif
+
     fprintf(fp_permu, "permu   LR = -2*(LL_0 - LL_1)\n");
     pvalue = 0.0;
     fprintf(fp_permu, "%3d  %f \n", 0, like_ratio[0]); 
@@ -983,7 +987,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     fprintf(fp_permu, "pvalue = %f \n", pvalue); 
 
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "]]></permutation>\n");
+    fprintf(fp_out, "]]></permutationSummary>\n");
 #endif
 
 #ifndef EXTERNAL_MODE
