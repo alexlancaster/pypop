@@ -141,7 +141,7 @@ except NoOptionError:
 
 # generate filename for logging filter output
 
-defaultFilterLogFilename = uniquePrefix + "-filter.log"
+defaultFilterLogFilename = uniquePrefix + "-filter.xml"
 
 if debug:
   for section in config.sections():
@@ -170,8 +170,18 @@ altpath = os.path.join(datapath, 'config.ini')
 xmlStream = XMLOutputStream(open(xmlOutFilename, 'w'))
 
 # opening tag
-xmlStream.opentag('dataanalysis', date="%s-%s" % (datestr, timestr))
+xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr))
 xmlStream.writeln()
+
+# XInclude contents of filter.log
+xmlStream.opentag('xi:include', href=defaultFilterLogFilename, parse="xml")
+xmlStream.writeln()
+xmlStream.emptytag('xi:fallback')
+xmlStream.writeln()
+xmlStream.closetag('xi:include')
+xmlStream.writeln()
+
+# more meta-data
 xmlStream.tagContents('filename', baseFileName)
 xmlStream.writeln()
 xmlStream.tagContents('pypop-version', version)
@@ -222,7 +232,7 @@ if useAnthonyNolanFilter:
       print "Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
 
   # open log file for filter in append mode
-  filterLogFile = TextOutputStream(open(defaultFilterLogFilename, 'w'))
+  filterLogFile = XMLOutputStream(open(defaultFilterLogFilename, 'w'))
 
   # create a data cleaning filter to pass all data through
 
