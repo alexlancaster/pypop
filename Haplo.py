@@ -327,12 +327,18 @@ class Emhaplofreq(Haplo):
                     print "debug: key for matrix:", group
                     print "debug: subMatrix:", subMatrix
 
+                    
                 self.fp.write(os.linesep)
+
+                # if nothing left after filtering, simply return
+                if len(subMatrix) == 0:
+                    self.fp.write("<group role=\"no-data\" loci=\"%s\"/>%s" % (group, os.linesep))
+                    return
+                
                 if permutationFlag:
                     self.fp.write("<group mode=\"LD\" loci=\"%s\">%s" % (group, os.linesep))
                 else:
                     self.fp.write("<group mode=\"haplo\" loci=\"%s\">%s" % (group, os.linesep))
-
                 self.fp.write(os.linesep)
 
                 self.fp.write("<individcount role=\"before-filtering\">%d</individcount>" % len(self.matrix))
