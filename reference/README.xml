@@ -1050,7 +1050,8 @@ allPairwiseLDWithPermu=0
     ensuing analyses will consider each position in the sequence to be a 
     distinct locus.  This filter makes use of the same msf format alignment 
     files as used above in the AnthonyNolan filter.  It does not work with 
-    the txt format alignment files.
+    the txt format alignment files.</para>
+
    <itemizedlist>
     <listitem>
      <formalpara>
@@ -1059,13 +1060,16 @@ allPairwiseLDWithPermu=0
        a sequence for each allele.  (ie, if the file for locus A is 
        A_prot.msf, the value would be _prot whereas if you wanted to use
        the nucleotide sequence files, you might use _nuc.) [Default: _prot].</para>
+     </formalpara>
+    </listitem>
+    <listitem>
+     <formalpara>
       <title><literal>directory</literal></title>
       <para>Specifies the path to the root of the sequence files, in the same
        manner as in the AnthonyNolan section, above.</para>
      </formalpara>
     </listitem>
    </itemizedlist>
-
 
    <bridgehead><literal>[DigitBinning]</literal> filter section</bridgehead>
    <para>This section allows configuration of the DigitBinning filter.  Like
@@ -1086,7 +1090,8 @@ allPairwiseLDWithPermu=0
    <bridgehead><literal>[CustomBinning]</literal> filter section</bridgehead>
    <para>This section allows configuration of the CustomBinning filter.  Like all 
     filter sections, it will only be used if present in the 
-    <literal>filtersToApply</literal> line specified above.
+    <literal>filtersToApply</literal> line specified above.</para>
+
    <itemizedlist>
     <listitem>
      <formalpara>
@@ -1098,7 +1103,6 @@ allPairwiseLDWithPermu=0
      </formalpara>
     </listitem>
    </itemizedlist>
-
 
   </section>
 
