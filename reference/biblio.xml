@@ -286,7 +286,7 @@
   </biblioset>
  </biblioentry>
  
- <biblioentry id="Baur">
+ <biblioentry id="Baur:1980">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -358,7 +358,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Chen">
+ <biblioentry id="Chen:etal:1999">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -420,7 +420,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Chen:1999">
+ <biblioentry id="Chen:Thomson:1999">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -446,7 +446,7 @@
   
  </biblioentry>
 
- <biblioentry>
+ <biblioentry id="Cochron:1954">
   <biblioset relation="article">
   <author>
    <firstname>W</firstname>
@@ -462,7 +462,7 @@
   </biblioset>
  </biblioentry>
  
- <biblioentry id="Daly">
+ <biblioentry id="Daly:2001">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -580,6 +580,300 @@
   <pagenums>921-927</pagenums>
  </biblioentry>
 
+ <biblioentry id="Metropolis:1953">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>N</firstname>
+     <surname>Metropolis</surname>
+    </author>
+    <author>
+     <firstname>R</firstname>
+      <surname>AW</surname>
+    </author>
+    <author>
+     <firstname>AH</firstname>
+     <surname>Teller</surname>
+    </author>
+    <author>
+     <firstname>T</firstname>
+     <surname>E</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1953</pubdate>
+   <citetitle>Equations of state calculations by fast computing machines.</citetitle>
+   <volumenum>21</volumenum>
+   <pagenums>1087-1092</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Journal of Chemical Physics</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Hollenbach:etal:2001">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>JA</firstname>
+     <surname>Hollenbach</surname>
+    </author>
+    <author>
+     <firstname>G</firstname>
+     <surname>Thomson</surname>
+    </author>
+    <author>
+     <firstname>K</firstname>
+     <surname>Cao</surname>
+    </author>
+    <author>
+     <firstname>M</firstname>
+     <surname>Fernandez-Vina</surname>
+    </author>
+    <author>
+     <firstname>HA</firstname>
+     <surname>Erlich</surname>
+    </author>
+    <author>
+     <firstname>TL</firstname>
+     <surname>Bugawan</surname>
+    </author>
+    <author>
+     <firstname>C</firstname>
+     <surname>Winkler</surname>
+    </author>
+    <author>
+     <firstname>M</firstname>
+     <surname>Winter</surname>
+    </author>
+    <author>
+     <firstname>W</firstname>
+     <surname>Klitz</surname>
+    </author>
+   </authorgroup>
+   <pubdate>2001</pubdate>
+   <citetitle>HLA diversity, differentiation, and haplotype evolution in Mesoamerican natives</citetitle>
+   <volumenum>62</volumenum>
+   <pagenums>378-390</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Human Immunology</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Ewens:1972">
+  <author>
+   <firstname>W</firstname>
+   <surname>Ewens</surname>
+  </author>
+  <pubdate>1972</pubdate>
+  <citetitle pubwork="article">The sampling theory of selectively neutral alleles.</citetitle>
+  <volumenum>3</volumenum>
+  <pagenums>87-112</pagenums>
+  <citetitle pubwork="journal">Theor. Pop. Biol</citetitle>
+ </biblioentry>
+
+ <biblioentry id="Watterson:1978">
+  <author>
+   <firstname>G</firstname>
+   <surname>Watterson</surname>
+  </author>
+  <pubdate>1978</pubdate>
+  <citetitle pubwork="article">The homozygosity test of neutrality</citetitle>
+  <volumenum>88</volumenum>
+  <pagenums>405-417</pagenums>
+  <citetitle pubwork="journal">Genetics</citetitle>
+ </biblioentry>
+
+ <biblioentry id="Slatkin:1994">
+  <author>
+   <firstname>M</firstname>
+   <surname>Slatkin</surname>
+  </author>
+  <pubdate>1994</pubdate>
+  <citetitle pubwork="article">An exact test for neutrality based on the Ewens sampling distribution</citetitle>
+  <volumenum>64</volumenum>
+  <pagenums>71-74</pagenums>
+  <citetitle pubwork="journal">Genetical Research</citetitle>
+ </biblioentry>
+
+<!--
+<para>Slatkin M <pubdate>1994</pubdate>
+ Linkage disequilibrium in growing and stable populations. Genetics 137:331-336.-->
+
+ <biblioentry id="Slatkin:1996">
+  <author>
+   <firstname>M</firstname>
+   <surname>Slatkin</surname>
+  </author>
+  <pubdate>1996</pubdate>
+  <citetitle pubwork="article">A correction to the exact test based on the Ewens sampling distribution</citetitle>
+  <volumenum>68</volumenum>
+  <pagenums>259-260</pagenums>
+  <citetitle pubwork="journal">Genetical Research</citetitle>
+ </biblioentry>
+
+ <biblioentry id="Salamon:1999">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>H</firstname>
+     <surname>Salamon</surname>
+    </author>
+    <author>
+     <firstname>W</firstname>
+     <surname>Klitz</surname>
+    </author>
+    <author>
+     <firstname>S</firstname>
+     <surname>Easteal</surname>
+    </author>
+    <author>
+     <firstname>X</firstname>
+     <surname>Gao</surname>
+    </author>
+    <author>
+     <firstname>HA</firstname>
+     <surname>Erlich</surname>
+    </author>
+    <author>
+     <firstname>M</firstname>
+     <surname>Fernandez-Vina</surname>
+    </author>
+    <author>
+     <firstname>EA</firstname>
+     <surname>Trachtenberg</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1999</pubdate>
+   <citetitle>Evolution of HLA class II molecules: Allelic and amino acid site variability across populations</citetitle>
+   <volumenum>152</volumenum>
+   <pagenums>393-400</pagenums>
+  </biblioset>
+  <biblioset>
+   <citetitle>Genetics</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Valdes:1999">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>AM</firstname>
+     <surname>Valdes</surname>
+    </author>
+    <author>
+     <firstname>SK</firstname>
+     <surname>McWeeney</surname>
+    </author>
+    <author>
+     <firstname>D</firstname>
+     <surname>Meyer</surname>
+    </author>
+    <author>
+     <firstname>MP</firstname>
+     <surname>Nelson</surname>
+    </author>
+    <author>
+     <firstname>G</firstname>
+     <surname>Thomson</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1999</pubdate>
+   <citetitle>Locus and population specific evolution in HLA class II genes</citetitle>
+   <volumenum>63</volumenum>
+   <pagenums>27-43</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Annals of Human Genetics</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Moonsamy:1997">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>PV</firstname>
+     <surname>Moonsamy</surname>
+    </author>
+    <author>
+     <firstname>W</firstname>
+     <surname>Klitz</surname>
+    </author>
+    <author>
+     <firstname>MG</firstname>
+     <surname>Tilanus</surname>
+    </author>
+    <author>
+     <firstname>AB</firstname>
+     <surname>Begovich</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1997</pubdate>
+   <citetitle>Genetic variability and linkage disequilibrium within the DP region in the CEPH families</citetitle>
+   <volumenum>58</volumenum>
+   <pagenums>112-121</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Hum Immunol</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Valdes:1997">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>AM</firstname>
+     <surname>Valdes</surname>
+    </author>
+    <author>
+     <firstname>G</firstname>
+     <surname>Thomson</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1997</pubdate>
+   <citetitle>Detecting disease-predisposing variants: The haplotype method</citetitle>
+   <volumenum>60</volumenum>
+   <pagenums>703-716</pagenums>
+  </biblioset>
+  <biblioset>
+   <citetitle>American Journal of Human Genetics</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Hedrick:1983">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>P</firstname>
+     <surname>Hedrick</surname>
+    </author>
+    <author>
+     <firstname>G</firstname>
+     <surname>Thomson</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1983</pubdate>
+   <citetitle>Evidence for balancing selection at HLA</citetitle>
+   <volumenum>104</volumenum>
+   <pagenums>449-456</pagenums>
+  </biblioset>
+  <biblioset>
+   <citetitle>Genetics</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Thomson:1977">
+  <author>
+   <firstname>G</firstname>
+   <surname>Thomson</surname>
+  </author>
+  <pubdate>1977</pubdate>
+  <citetitle pubwork="article">The effect of a selected locus on linked neutral loci</citetitle>
+  <volumenum>85</volumenum>
+  <pagenums>753-788</pagenums>
+  <citetitle pubwork="journal">Genetics</citetitle>
+ </biblioentry>
+ 
 <!--
 <biblioentry id="Elston">
 <biblioset relation="article">
@@ -600,9 +894,6 @@
  A comparison of tests for Hardy-Weinberg equilibrium. Biometrics 36:627-642.
 </biblioentry>
 
-<para>Ewens W <pubdate>1972</pubdate>
- The sampling theory of selectively neutral alleles. Theor. Pop. Biol. 3:87-112.
-</biblioentry>
 
 <biblioentry id="Fallin">
 <biblioset relation="article">
@@ -646,58 +937,6 @@ Fan J-B, Ryder O., Jin L., Edgemon K, Ghandour G, Mayer RA, Sun B., Hsie L., Rob
 </author>
 <pubdate>1995</pubdate>
  HAPLO: a program using the EM algorythm to estimate the frequencies of multi-site haplotypes. Journal of Heredity 86:409-411.
-</biblioentry>
-
-<biblioentry id="Hedrick">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>P</firstname>
-<surname>Hedrick</surname>
-</author>
-<author>
-<firstname>G</firstname>
-<surname>Thomson</surname>
-</author>
-<pubdate>1983</pubdate>
- Evidence for balancing selection at HLA. Genetics 104:449-456.
-</biblioentry>
-
-<biblioentry id="Hollenbach">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>JA</firstname>
-<surname>Hollenbach</surname>
-</author>
-<author>
-<firstname>G</firstname>
-<surname>Thomson</surname>
-</author>
-<author>
-<firstname>K</firstname>
-<surname>Cao</surname>
-</author>
-Fernandez-Vi&ndash;a M, Erlich HA, Bugawan TL, Winkler C, Winter M, Klitz W. 2001. HLA diversity, differentiation, and haplotype evolution in Mesoamerican natives. Human Immunology 62: 378-390.
-</biblioentry>
-
-<biblioentry id="Hollenbach">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>JA</firstname>
-<surname>Hollenbach</surname>
-</author>
-<author>
-<firstname>G</firstname>
-<surname>Thomson</surname>
-</author>
-<author>
-<firstname>K</firstname>
-<surname>Cao</surname>
-</author>
-Fernandez-Vina M, Erlich HA, Bugawan TL, Winkler C, et al <pubdate>2001</pubdate>
- HLA diversity, differentiation, and haplotype evolution in Mesoamerican Natives. Hum Immunol 62:378-90.
 </biblioentry>
 
 <biblioentry id="Howell">
@@ -861,31 +1100,6 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
 <pubdate>1987</pubdate>
  An Exact Test for Hardy-Weinberg and Multiple Alleles. Biometrics 43:805-812.
 </biblioentry>
-
-<biblioentry id="Metropolis">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>N</firstname>
-<surname>Metropolis</surname>
-</AUTHOR>
-<AUTHOR>
-<FIRSTNAME>R</FIRSTNAME>
-<SURNAME>AW</SURNAME>
-</AUTHOR>
-<author>
-<firstname>AH</firstname>
-<surname>Teller</surname>
-</author>
-</AUTHOR>
-<AUTHOR>
-<FIRSTNAME>T</FIRSTNAME>
-<SURNAME>E</SURNAME>
-</AUTHOR>
-<pubdate>1953</pubdate>
- Equations of state calculations by fast computing machines. Journal of Chemical Physics 21:1087-1092.
-</biblioentry>
-
 <biblioentry id="Meyer">
 <biblioset relation="article">
 <authorgroup>
@@ -895,29 +1109,6 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
 Thomson G. 2001. How selection shapes variation of the human major histocompatibility complex: a review. Annals of Human Genetics 65: 1-26.
 </biblioentry>
 
-<biblioentry id="Moonsamy">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>PV</firstname>
-<surname>Moonsamy</surname>
-</author>
-<author>
-<firstname>W</firstname>
-<surname>Klitz</surname>
-</author>
-<author>
-<firstname>MG</firstname>
-<surname>Tilanus</surname>
-</author>
-</author>
-<author>
-<firstname>AB</firstname>
-<surname>Begovich</surname>
-</author>
-<pubdate>1997</pubdate>
- Genetic variability and linkage disequilibrium within the DP region in the CEPH families. Hum Immunol 58:112-21.
-</biblioentry>
 
 <biblioentry id="Mullis">
 <biblioset relation="article">
@@ -978,59 +1169,6 @@ B.S. Weir, and C.C. Cockerman. 1983. Estimation of the coancestry coefficient: B
 </author>
 <pubdate>1991</pubdate>
  Three-locus systems impose additional constraints on pairwise disequilibria. Genetics 129:925-30.
-</biblioentry>
-
-<biblioentry id="Salamon">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>H</firstname>
-<surname>Salamon</surname>
-</author>
-<author>
-<firstname>W</firstname>
-<surname>Klitz</surname>
-</author>
-<author>
-<firstname>S</firstname>
-<surname>Easteal</surname>
-</author>
-<author>
-<firstname>X</firstname>
-<surname>Gao</surname>
-</author>
-<author>
-<firstname>HA</firstname>
-<surname>Erlich</surname>
-</author>
-Fernandez-Vina M, Trachtenberg EA, et al <pubdate>1999</pubdate>
- Evolution of HLA class II molecules: Allelic and amino acid site variability across populations. Genetics 152:393-400.
-</biblioentry>
-
-<biblioentry id="Salamon">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>H</firstname>
-<surname>Salamon</surname>
-</author>
-<author>
-<firstname>W</firstname>
-<surname>Klitz</surname>
-</author>
-<author>
-<firstname>S</firstname>
-<surname>Easteal</surname>
-</author>
-<author>
-<firstname>XJ</firstname>
-<surname>Gao</surname>
-</author>
-<author>
-<firstname>HA</firstname>
-<surname>Erlich</surname>
-</author>
-Fernandez-Vi&ndash;a M, Trachtenberg EA, McWeeney SK, Nelson MP, Thomson G. 1999. Evolution of HLA class II molecules: allelic and amino acid site variability across populations. Genetics 152: 393-400.
 </biblioentry>
 
 <biblioentry id="Schipper">
@@ -1122,21 +1260,7 @@ Fernandez-Vi&ndash;a M, Trachtenberg EA, McWeeney SK, Nelson MP, Thomson G. 1999
 Thomson G. 2002. Haplotype frequency estimation in patient populations: an example from the HLA region. Genetic Epidemiology, In press.
 </biblioentry>
 
-<para>Slatkin M <pubdate>1994</pubdate>
- An exact test for neutrality based on the Ewens sampling distribution. Genetical Research 64:71-74.
-</biblioentry>
 
-<para>Slatkin M <pubdate>1994</pubdate>
- Linkage disequilibrium in growing and stable populations. Genetics 137:331-336.
-</biblioentry>
-
-<para>Slatkin M <pubdate>1996</pubdate>
- A correction to the exact test based on the Ewens sampling distribution. Genetical Research 68:259-260.
-</biblioentry>
-
-<para>Thomson G <pubdate>1977</pubdate>
- The effect of a selected locus on linked neutral loci. Genetics 85:753-88.
-</biblioentry>
 
 <biblioentry id="Thomson">
 <biblioset relation="article">
@@ -1147,52 +1271,7 @@ Thomson G. 2002. Haplotype frequency estimation in patient populations: an examp
 Esposito MS. 1999. The genetics of complex diseases. Trends in Genetics 15: M17-M20.
 </biblioentry>
 
-<biblioentry id="Valdes">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>AM</firstname>
-<surname>Valdes</surname>
-</author>
-<author>
-<firstname>SK</firstname>
-<surname>McWeeney</surname>
-</author>
-<author>
-<firstname>D</firstname>
-<surname>Meyer</surname>
-</author>
-<author>
-<firstname>MP</firstname>
-<surname>Nelson</surname>
-</author>
-</author>
-<author>
-<firstname>G</firstname>
-<surname>Thomson</surname>
-</author>
-<pubdate>1999</pubdate>
- Locus and population specific evolution in HLA class II genes. Annals of Human Genetics 63:27-43.
-</biblioentry>
 
-<biblioentry id="Valdes">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>AM</firstname>
-<surname>Valdes</surname>
-</author>
-<author>
-<firstname>G</firstname>
-<surname>Thomson</surname>
-</author>
-<pubdate>1997</pubdate>
- Detecting disease-predisposing variants: The haplotype method. American Journal of Human Genetics 60:703-716
-</biblioentry>
-
-<para>Watterson G <pubdate>1978</pubdate>
- The homozygosity test of neutrality. Genetics 88:405-417.
-</biblioentry>
 
 <para>Wright, S. 1931. Evolution in Mendelian populations. Genetics 16:97-159.
 </biblioentry>
