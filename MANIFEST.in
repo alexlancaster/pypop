@@ -3,7 +3,9 @@ include AUTHORS
 include INSTALL
 include COPYING
 include pypop.py
+include common.xsl
 include text.xsl
+include html.xsl
 include config.ini
 include SWIG/*.i
 include emhaplofreq/*.h

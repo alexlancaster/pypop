@@ -45,7 +45,7 @@ setup (name = "PyPop",
                      "Haplo", "Homozygosity",  "ParseFile" ],
        scripts= Ensure_Scripts(['pypop.py']),
 
-       data_files=[('share/PyPop', ['text.xsl', 'config.ini'])],
+       data_files=[('share/PyPop', ['text.xsl', 'html.xsl', 'common.xsl', 'config.ini'])],
 
 # compile SWIG module
        
