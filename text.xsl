@@ -338,10 +338,29 @@
 
    </xsl:when>
 
-   <!-- if the tag does not have content, print the role attribute
-   (will do more parsing of this for error messages later) -->
+   <!-- if the tag does not have content, generate a diagnostic message -->
+   <!-- based on the 'role' attribute -->
    <xsl:when test="*=''">
-    <xsl:value-of select="@role"/>
+    <xsl:choose>
+     <xsl:when test="@role='too-many-parameters'">
+      <xsl:text>Overall chi-square for common genotypes cannot be calculated due to
+  too many parameter estimates (allele frequencies) for the number of
+  common genotypes, leading to zero or negative degrees of freedom.
+  This may by remedied by combining rare alleles and recalculating
+  overall chi-square value and degrees of freedom.</xsl:text>
+     </xsl:when>
+     <xsl:when test="@role='no-common-genotypes'">
+      <xsl:text>No commmon genotypes; chi-square cannot be calculated</xsl:text>
+     </xsl:when>
+     <xsl:when test="@role='no-rare-genotypes'">
+      <xsl:text>No rare genotypes with expected less than </xsl:text>
+      <xsl:value-of select="../lumpBelow"/><xsl:text> was observed.</xsl:text>
+     </xsl:when>
+     <xsl:otherwise>
+      <xsl:text>Condition: "</xsl:text><xsl:value-of
+       select="@role"/><xsl:text>" not recognized.</xsl:text>
+     </xsl:otherwise>
+    </xsl:choose>
     <xsl:call-template name="newline"/>
    </xsl:when>
 
