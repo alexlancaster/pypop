@@ -22,7 +22,8 @@ if test "x$REAL" = xy; then
 	echo -n "do you want to continue and build a 'dummy' package? enter y:"
 	read CONTINUE
 	if test "x$CONTINUE" != xy; then
-	    exit
+	    echo "exiting..."
+	    exit -1
 	fi
 	DONTTAG=y
 	EXTRA=-dummy
