@@ -1,5 +1,7 @@
 2004-09-16  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* NEWS: Add notes about new features.
+
 	* allelecount.ini ([Homozygosity]): Comment out obsolete test.
 	Add testing of filters for allele count data: Sequence and
 	AnthonyNolan.
