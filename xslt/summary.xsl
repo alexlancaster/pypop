@@ -4,52 +4,101 @@
  xmlns:exslt="http://exslt.org/common"
  exclude-result-prefixes="exslt">
 
+ <xsl:import href="common.xsl"/>
  <xsl:import href="lib.xsl"/>
+
+ <xsl:template name="locus-header"/>
 
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes"/>
-
+ 
  <!-- suppress output of random text -->
  <xsl:template match="text()"/>
- 
+
+ <!-- unique key for all alleles -->
+ <xsl:key name="alleles" match="/output/locus/population/allelecounts/allele" use="@name"/>
+
+ <xsl:param name="output">allele-summary</xsl:param>
+
  <xsl:template match="/">
 
   <xsl:for-each select="output/locus">
    <xsl:variable name="kmax">
     <xsl:call-template name="max-value">
-     <xsl:with-param name="path" select="population/allelecounts/distinctalleles"/>
+     <xsl:with-param name="path" 
+      select="population/allelecounts/distinctalleles"/>
     </xsl:call-template>
    </xsl:variable>
-   
+
+<!--   
    <xsl:variable name="all-allele-names"
     select="population/allelecounts[distinctalleles=$kmax]/allele/@name"/>
+-->
 
+   <xsl:variable name="all-allele-names"
+    select="population/allelecounts/allele[generate-id(.)=generate-id(key('alleles',@name))]/@name"/>
+   
    <xsl:variable name="locus-name" select="substring-after(@name, '*')"/>
    
-   <xsl:for-each select="population[allelecounts[@role!='no-data']]">
+   <xsl:choose>
+    <xsl:when test="$output='allele-summary'">
 
-    <xsl:call-template name="R-by-allele">
-     <xsl:with-param name="kmax" select="$kmax"/>
-     <xsl:with-param name="locus-name" select="$locus-name"/>
-     <xsl:with-param name="pop-name"
-     select="substring-before(filename, '.pop')"/>
-     <xsl:with-param name="allele-list" select="allelecounts/allele"/>
-     <xsl:with-param name="all-allele-names" select="$all-allele-names"/>
-    </xsl:call-template>
+     <xsl:text>Locus: </xsl:text>
+     <xsl:value-of select="$locus-name"/>
+     <xsl:call-template name="newline"/>
+     <xsl:text>=====================</xsl:text>
+     <xsl:call-template name="newline"/>
+     <xsl:call-template name="newline"/>
+     
+     <xsl:for-each select="population[allelecounts[@role!='no-data']]">
+      <xsl:text>=====================</xsl:text>
+      <xsl:call-template name="newline"/>
+      <xsl:value-of select="filename"/>
+      <xsl:call-template name="newline"/>
+      <xsl:apply-templates select="allelecounts"/>
+     </xsl:for-each>
+      
+    </xsl:when>
 
-    <xsl:call-template name="R-by-count">
-     <xsl:with-param name="kmax" select="$kmax"/>
-     <xsl:with-param name="locus-name" select="$locus-name"/>
-     <xsl:with-param name="pop-name"
-      select="substring-before(filename, '.pop')"/>
-     <xsl:with-param name="allele-list" select="allelecounts/allele"/>
-    </xsl:call-template>
+    <xsl:when test="$output='R-output'">
+     <xsl:for-each select="population[allelecounts[@role!='no-data']]">
 
-   </xsl:for-each>  
-  </xsl:for-each>
-  
+      <xsl:call-template name="R-by-allele">
+       <xsl:with-param name="kmax" select="$kmax"/>
+       <xsl:with-param name="locus-name" select="$locus-name"/>
+       <xsl:with-param name="pop-name"
+	select="substring-before(filename, '.pop')"/>
+       <xsl:with-param name="allele-list" select="allelecounts/allele"/>
+       <xsl:with-param name="all-allele-names" select="$all-allele-names"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="R-by-count">
+       <xsl:with-param name="kmax" select="$kmax"/>
+       <xsl:with-param name="locus-name" select="$locus-name"/>
+       <xsl:with-param name="pop-name"
+	select="substring-before(filename, '.pop')"/>
+       <xsl:with-param name="allele-list" select="allelecounts/allele"/>
+      </xsl:call-template>
+
+     </xsl:for-each>
+    </xsl:when>
+
+    <xsl:when test="$output='all-alleles-by-locus'">
+     <xsl:value-of select="$locus-name"/>
+     <xsl:text>: </xsl:text>
+     <xsl:for-each select="$all-allele-names"> 
+      <xsl:sort/>
+      <xsl:value-of select="."/>
+      <xsl:text> </xsl:text>
+     </xsl:for-each>
+     <xsl:call-template name="newline"/>
+    </xsl:when>
+   </xsl:choose>
+
+  </xsl:for-each>   
+
  </xsl:template>
-
+ 
  <xsl:template name="R-init-vectors">
   <xsl:param name="kmax"/>
   <!-- initialize a vector with appropriate number of bins -->
