@@ -1,99 +1,102 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE bibliography PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <bibliography>
-  <title>References</title>
-  
-  <warning><para>Bibliography is incomplete, still
-    converting...</para></warning>
-  
-  <biblioentry id="Barcellos et al. 1997a">
-    <biblioset relation="article">
-      <authorgroup>
-	<author>
-	  <firstname>L</firstname>
-	  <othername>F</othername>
-	  <surname>Barcellos</surname>
-	</author>
-	<author>
-	  <firstname>W</firstname>
-	  <surname>Klitz</surname>
-	</author>
-	<author>
-	  <firstname>L</firstname>
-	  <othername>L</othername>
-	  <surname>Field</surname>
-	</author>
-	<author>
-	  <firstname>R</firstname>
-	  <surname>Tobias</surname>
-	</author>
-	<author>
-	  <firstname>A</firstname>
-	  <othername>M</othername>
-	  <surname>Bowcock</surname>
-	</author>
-	<author>
-	  <firstname>R</firstname>
-	  <surname>Wilson</surname>
-	</author>
-	<author>
-	  <surname>Nelson</surname>
-	  <firstname>M</firstname>
-	  <othername>P</othername>
-	</author>
+ <title>References</title>
+ 
+ <warning><para>Bibliography is incomplete, still
+   converting...</para></warning>
+ 
+ <biblioentry id="Barcellos et al. 1997a">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>L</firstname>
+     <othername>F</othername>
+     <surname>Barcellos</surname>
+    </author>
+    <author>
+     <firstname>W</firstname>
+     <surname>Klitz</surname>
+    </author>
+    <author>
+     <firstname>L</firstname>
+     <othername>L</othername>
+     <surname>Field</surname>
+    </author>
+    <author>
+     <firstname>R</firstname>
+     <surname>Tobias</surname>
+    </author>
+    <author>
+     <firstname>A</firstname>
+     <othername>M</othername>
+     <surname>Bowcock</surname>
+    </author>
+    <author>
+     <firstname>R</firstname>
+     <surname>Wilson</surname>
+    </author>
+    <author>
+     <surname>Nelson</surname>
+     <firstname>M</firstname>
+     <othername>P</othername>
+    </author>
       </authorgroup>
-      <pubdate>1997</pubdate>
-      <citetitle>Association mapping of disease loci, by use of a pooled DNA genomic screen</citetitle>
-      <volumenum>61</volumenum>
-      <pagenums>734-47</pagenums>
-      </biblioset>
-      <biblioset relation="journal">
-	<citetitle>Am J Hum Genet</citetitle>
-      </biblioset>
-    </biblioentry>
-
-  <biblioentry id="Barcellos et al. 1997b">
-    <biblioset relation="article">
-      <authorgroup>
-	<author>
-	  <firstname>L</firstname>
-	  <othername>F</othername>
-	  <surname>Barcellos</surname>
-	</author>
-	<author>
-	  <firstname>G</firstname>
-	  <surname>Thomson</surname>
-	</author>
-	<author>
-	  <firstname>M</firstname>
-	  <surname>Carrington</surname>
-	</author>
-	<author>
-	  <firstname>J</firstname>
-	  <surname>Schafer</surname>
-	</author>
-	<author>
-	  <firstname>A</firstname>
-	  <othername>B</othername>
-	  <surname>Begovich</surname>
-	</author>
-	<author>
-	  <firstname>P</firstname>
-	  <surname>Lin</surname>
-	</author>
-	<author>
-	  <firstname>X</firstname>
-	  <othername>H</othername>
-	  <surname>Xu</surname>
-	</author>
-      </authorgroup>
-      <pubdate>1997</pubdate>
-      <citetitle>Chromosome 19 single-locus and multilocus haplotype associations with multiple sclerosis. Evidence of a new susceptibility locus in Caucasian and Chinese patients</citetitle>
-      <volumenum>278</volumenum>
-      <pagenums>1256-61</pagenums>
-    </biblioset>
-    <biblioset relation="journal">
-      <citetitle>Jama</citetitle>
-    </biblioset>
-  </biblioentry>
+   <pubdate>1997</pubdate>
+   <citetitle>Association mapping of disease loci, by use of a pooled DNA genomic screen</citetitle>
+   <volumenum>61</volumenum>
+   <pagenums>734-47</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Am J Hum Genet</citetitle>
+  </biblioset>
+ </biblioentry>
+ 
+ <biblioentry id="Barcellos et al. 1997b">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>L</firstname>
+     <othername>F</othername>
+     <surname>Barcellos</surname>
+    </author>
+    <author>
+     <firstname>G</firstname>
+     <surname>Thomson</surname>
+    </author>
+    <author>
+     <firstname>M</firstname>
+     <surname>Carrington</surname>
+    </author>
+    <author>
+     <firstname>J</firstname>
+     <surname>Schafer</surname>
+    </author>
+    <author>
+     <firstname>A</firstname>
+     <othername>B</othername>
+     <surname>Begovich</surname>
+    </author>
+    <author>
+     <firstname>P</firstname>
+     <surname>Lin</surname>
+    </author>
+    <author>
+     <firstname>X</firstname>
+     <othername>H</othername>
+     <surname>Xu</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1997</pubdate>
+   <citetitle>Chromosome 19 single-locus and multilocus haplotype associations with multiple sclerosis. Evidence of a new susceptibility locus in Caucasian and Chinese patients</citetitle>
+   <volumenum>278</volumenum>
+   <pagenums>1256-61</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Jama</citetitle>
+  </biblioset>
+ </biblioentry>
 </bibliography>
 
 
@@ -167,4 +170,10 @@
 <para></para>
 <para></para>
 </section>
+-->
+<!--
+Local variables:
+sgml-indent-step: 1
+sgml-indent-data: 1
+End:
 -->
