@@ -67,29 +67,6 @@
   <xsl:value-of select="$latex.world-scientific"/> 
  </xsl:param>
 
-<!--
- <xsl:template match="ulink">
-  <xsl:variable name="url">
-   <xsl:text>{\tt </xsl:text>   
-   <xsl:value-of select="@url"/> 
-   <xsl:text>}</xsl:text>
-  </xsl:variable>
-
-  <xsl:choose>
-   <xsl:when test=".!=@url">
-    <xsl:apply-templates mode="slash.hyphen"/>
-    <xsl:text> (</xsl:text>
-    <xsl:value-of select="$url"/>
-    <xsl:text>)</xsl:text>
-   </xsl:when>
-   <xsl:otherwise>
-    <xsl:value-of select="$url"/>
-   </xsl:otherwise>
-  </xsl:choose>
- </xsl:template>
-
--->
-
  <!-- ARTICLE TEMPLATE -->
 
  <xsl:template match="article">
