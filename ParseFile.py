@@ -409,8 +409,11 @@ class ParseGenotypeFile(ParseFile):
                 else:
                     continue
 
-                # save alleles as a tuple
-                self.locusTable[locus].append((allele1, allele2))
+                # save alleles as a tuple, sorted alphabetically
+                if allele2 < allele1:
+                  self.locusTable[locus].append((allele2, allele1))
+                else:
+                  self.locusTable[locus].append((allele1, allele2))
 
                 if self.debug:
                     print col1, col2, allele1, allele2, total
@@ -544,7 +547,10 @@ class ParseGenotypeFile(ParseFile):
         in the list.
 
         **Note:** *this list has filtered out all individuals that are
-        untyped at either chromosome.* """
+        untyped at either chromosome.*
+
+        **Note 2** data is sorted so that allele1 < allele2, alphabetically
+        """
 
         return self.locusTable[locus]
 
