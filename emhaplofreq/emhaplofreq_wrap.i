@@ -3,9 +3,10 @@
 %module _Emhaplofreq
 
 %{
-#include "emhaplofreq.h"
 #include "cStringIO.h"
 %}
+
+%include "emhaplofreq/emhaplofreq.h"
 
 #define DEBUG 1
 
