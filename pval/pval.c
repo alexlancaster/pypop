@@ -40,7 +40,6 @@ double pval(double chisq, double df) {
 }
 
 int main(int argc, char **argv) {
-  int i;
   double df, chisq;
   
   if(argc !=3)
