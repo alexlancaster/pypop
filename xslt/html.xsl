@@ -5,13 +5,13 @@
  <xsl:import href="common.xsl"/>
 
  <!-- select "html" as output method -->
- <xsl:output method="html" omit-xml-declaration="yes"/>
+ <xsl:output method="html" omit-xml-declaration="yes" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
 
  <xsl:template match="/">
   <html>
-   <header>
+   <head>
     <title>Population summary</title>
-   </header>
+   </head>
    <body>
    <pre>
     <xsl:apply-templates/> 
