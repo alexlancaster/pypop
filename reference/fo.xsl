@@ -30,6 +30,9 @@
  <xsl:param name="title.margin.left" select="'0.0in'"/>
  <xsl:param name="toc.indent.width" select="8"/>
 
+ <xsl:param name="callout.unicode" select="'1'"/>
+ <xsl:param name="callout.graphics" select="'0'"/>
+
  <xsl:param name="insert.xref.page.number" select="1"/>
 
  <!-- page citation in format (see p.45) -->
@@ -113,7 +116,6 @@
     <xsl:choose>
     <!-- if we are an ancestor of entry, we ignore the shaded flag -->
      <xsl:when test="ancestor::entry">
-      <xsl:message>here, trying to replace! when ancestor::entry</xsl:message>
       <fo:block  wrap-option='no-wrap'
        white-space-collapse='false'
        linefeed-treatment="preserve"    
@@ -138,7 +140,6 @@
      white-space-collapse='false'
      linefeed-treatment="preserve"
      xsl:use-attribute-sets="monospace.verbatim.properties">
-    
      <xsl:copy-of select="$content"/>
     </fo:block>
  
