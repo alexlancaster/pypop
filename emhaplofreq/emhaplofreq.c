@@ -62,7 +62,7 @@ void sort2arrays(char (*)[], double *, int);
 */
 
 void emcalc(int (*)[], int *, int *, double *, double *, int, int, int, int, 
-       int *, int (*)[], int *, int *, double *);
+       int *, int (*)[], int *, int *, double *, double *);
 /* genopheno, numgeno, obspheno, freq_zero, mle, n_haplo, n_unique_geno, 
    n_unique_pheno, n_recs, xhaplo, xgeno, error_flag, iter_count, loglike */
 /*
@@ -304,6 +304,9 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /* needed to store loglikelihood under no LD */
   double loglike0 = 0.0;
+
+  /* store haplofreq sum for error reporting */
+  double haplo_freq_sum = 0.0;
 
   /* needed for multiple starting conditions */
   int error_flag, error_flag_best, init_cond, iter_count, iter_count_best;
@@ -653,7 +656,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   emcalc(genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
     n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
-    &error_flag, &iter_count, &loglike);
+    &error_flag, &iter_count, &loglike, &haplo_freq_sum);
 
   if (permu == 0)
   {
@@ -685,7 +688,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   
     emcalc(genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
       n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
-      &error_flag, &iter_count, &loglike);
+      &error_flag, &iter_count, &loglike, &haplo_freq_sum);
 
     if (permu == 0)
     {
@@ -743,9 +746,11 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     fprintf(fp_iter, "   -----------------------------------------------------------------------------------\n"); 
     fprintf(fp_iter, "\n"); 
 
-    if (error_flag_best == 0)
-      fprintf(fp_out, "Log likelihood converged in %3d iterations to : %f \n", 
-        iter_count_best, loglike_best);
+    if (error_flag_best == 0) {
+      fprintf(fp_out, "Log likelihood converged in %3d iterations to : %f\n",
+	      iter_count_best, loglike_best);
+      fprintf(fp_out, "Sum of haplotype frequencies = %f\n", haplo_freq_sum);
+    }
     else if (error_flag_best == 1)
       fprintf(fp_out, "There are no ambiguous haplotypes.              %f\n", loglike_best);
     else if (error_flag_best == 2)
@@ -757,7 +762,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     else if (error_flag_best == 5)
       fprintf(fp_out, "Log likelihood has decreased for more than 5 iterations.\n");
     else if (error_flag_best == 6)
-      fprintf(fp_out, "Estimated HFs do not sum to 1.\n");
+      fprintf(fp_out, "Estimated HFs do not sum to 1. Sum = %.5g\n", haplo_freq_sum);
     else /* (error_flag_best == 7) */
       fprintf(fp_out, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
 
@@ -1289,9 +1294,10 @@ void sort2arrays(char (*array1)[LINE_LEN / 2], double *array2, int n_haplo)
 
 /************************************************************************/
 void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
-      double *freq_zero, double *mle, int n_haplo, int n_unique_geno,
-      int n_unique_pheno, int n_recs, int *xhaplo, int (*xgeno)[2], 
-      int *error_flag, int *iter_count, double *loglike)
+	    double *freq_zero, double *mle, int n_haplo, int n_unique_geno,
+	    int n_unique_pheno, int n_recs, int *xhaplo, int (*xgeno)[2], 
+	    int *error_flag, int *iter_count, double *loglike, 
+	    double *haplo_freq_sum)
 {
   int i, j, k, l;
   int done, decr_loglike_count, tot_hap;
@@ -1529,6 +1535,7 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
           {
             *error_flag = 6;
           }
+	  *haplo_freq_sum = freqsum;
         }
       }
       *iter_count = iter + 1; 
