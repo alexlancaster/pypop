@@ -1,8 +1,8 @@
 2003-12-05  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* setup.py (ext_Emhaplofreq): Add "depends" for module on
-	'emhaplofreq/emhaplofreq.h'.  This won't work for Python 2.1,
-	added in 2.2 or 2.3.
+	'emhaplofreq/emhaplofreq.h'.  Only enable this for Python > 2.1,
+	[feature added in 2.2 or 2.3].
 	(ext_Pvalue, ext_Gthwe): Likewise for pval/*.h and gthwe/*.h
 	files.
 
