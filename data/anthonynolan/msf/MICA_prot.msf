@@ -1,5 +1,5 @@
 
- temp.msf  MSF: 383  Type: N  January 01, 1776  12:00  Check: 9960 ..
+ temp.msf  MSF: 389  Type: N  January 01, 1776  12:00  Check: 3514 ..
 
  Name: MICA*001         Len:   389  Check:  1197  Weight:  1.00
  Name: MICA*00201       Len:   389  Check:  4637  Weight:  1.00
@@ -55,8 +55,8 @@
  Name: MICA*047         Len:   389  Check:  8089  Weight:  1.00
  Name: MICA*048         Len:   389  Check:  3206  Weight:  1.00
  Name: MICA*049         Len:   389  Check:  4429  Weight:  1.00
- Name: MICA*050         Len:   387  Check:  5048  Weight:  1.00
- Name: MICA*051         Len:   383  Check:  9720  Weight:  1.00
+ Name: MICA*050         Len:   389  Check:  9326  Weight:  1.00
+ Name: MICA*051         Len:   389  Check:  8996  Weight:  1.00
 
 //
 
@@ -457,7 +457,7 @@
        MICA*048  LVLQSHWQTF HVSAVAAAAA .....IFVII IFYVRCCKKK TSAADGPELV
        MICA*049  LVLQSHWQTF HVSAVAAAAA A....IFVII IFYVRCCKKK TSAAEGPELV
        MICA*050  LVLQSHWQTF HVSAVAAAAA AA...IFVII IFYVCCCKKK TSAAEGP...
-       MICA*051  LVLQSHWQTF HVSAVAAAAI FVIIIFYVRC CKKKTSAAEG P.........
+       MICA*051  LVLQSHWQTF HVSAVAAAA. .....IFVII IFYVRCCKKK TSAAEGP...
 
        MICA*001  SLQVLDQHPV GTSDHRDATQ LGFQPLMSDL GSTGSTEGA
      MICA*00201  SLQVLDQHPV GTSDHRDATQ LGFQPLMSDL GSTGSTEGA
@@ -507,6 +507,6 @@
        MICA*047  .......... .......... .......... .........
        MICA*048  SLQVLDQHPV GTSDHRDATQ LGFQPLMSAL GSTGSTEGA
        MICA*049  SLQVLDQHPV GMSDHRDATQ LGFQPLMSAL GSTGSTEGA
-       MICA*050  .......... .......... .......... .......
-       MICA*051  .......... .......... .......... ...
+       MICA*050  .......... .......... .......... .........
+       MICA*051  .......... .......... .......... .........
 
