@@ -2,28 +2,28 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <chapter>
-  <chapterinfo>
-    <authorgroup>
-      <author>
-	<firstname>Glenys</firstname>
-	<surname>Thomson</surname>
-      </author>
-      <author>
-	<firstname>Diogo</firstname>
-	<surname>Meyer</surname>
-      </author>
-      <author>
-	<firstname>John</firstname>
-	<surname>Chen</surname>
-      </author>
-      <author>
-	<firstname>Richard</firstname>
-	<surname>Single</surname>
-      </author>
-    </authorgroup>
-  </chapterinfo>
-  
-  <title>Methods for analysis of genetic variation</title> 
+ <chapterinfo>
+  <authorgroup>
+   <author>
+    <firstname>Glenys</firstname>
+    <surname>Thomson</surname>
+   </author>
+   <author>
+    <firstname>Diogo</firstname>
+    <surname>Meyer</surname>
+   </author>
+   <author>
+    <firstname>John</firstname>
+    <surname>Chen</surname>
+   </author>
+   <author>
+    <firstname>Richard</firstname>
+    <surname>Single</surname>
+   </author>
+  </authorgroup>
+ </chapterinfo>
+ 
+ <title>Methods for analysis of genetic variation</title> 
   
 <!--
     <section>
@@ -1066,7 +1066,8 @@
    <para> The observed frequency distribution of alleles in a
     population is compared to neutrality expectations under an
     infinite alleles model. The expected proportion of homozygotes
-    under Hardy-Weinberg, i.e., the statistic F = sum(pi to 2) of
+    under Hardy-Weinberg, i.e., the statistic F =
+    &Sigma;p<subscript>i</subscript><superscript>2</superscript>) of
     Watterson (1978) for an observed number of alleles k (or amino
     acids at a site) and sample size n individuals (2n chromosomes),
     was compared with the distribution expected under the neutral
@@ -1116,7 +1117,8 @@
   <sect2>
    <title>Application of Ewens-Watterson test of neutrality to HLA
     allele data</title>
-   
+
+<!--   
    <para> Allele frequencies within a population for serologically
     typed HLA class I A, B, and C and the class II DR locus, and for
     molecularly typed class II DRB1, DQA1, and DQB1, are often more
@@ -1126,6 +1128,7 @@
     contrast, the distribution of DPB1 alleles rarely differs
     significantly from neutrality expectations; usually there is a
     fairly common allele, which may differ between populations.</para>
+-->
 
    <para>In both Salamon et al. (1999) and Valdes et al. (1999) where
     HLA class II data were analyzed, DQB1 showed striking evidence (in
@@ -1486,12 +1489,6 @@
     possible explanation for such a pattern.  How general around the
     genome this pattern is remains to be seen.</para>
 
-   <para>Population and evolutionary aspects of a genetic region
-    are highly relevant to the study of Mendelian and complex
-    diseases.  These relate to our ability to localize and
-    identify disease predisposing variants, and to our understanding
-    of the mechanisms by which some disease predisposing genes can
-    become relatively common in a population.</para>
   </sect2>
 
   <sect2>
