@@ -424,13 +424,21 @@
 
  <xsl:template match="emhaplofreq/group[@mode='haplo']">
   <xsl:call-template name="header">
+   <xsl:with-param name="title">No data left after filtering at: <xsl:value-of select="@loci"/>
+   </xsl:with-param>
+  </xsl:call-template>
+  <xsl:call-template name="newline"/>
+ </xsl:template>
+
+ <xsl:template match="emhaplofreq/group[@mode='haplo']">
+  <xsl:call-template name="header">
    <xsl:with-param name="title">Haplotype est. for loci: <xsl:value-of select="@loci"/>
    </xsl:with-param>
   </xsl:call-template>
   <xsl:call-template name="newline"/>
 
   <xsl:call-template name="linesep-fields">
-   <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood"/>
+   <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood|individcount"/>
   </xsl:call-template>
 
   <!-- until output is XML-fied, simply pass through the unmarked
@@ -446,8 +454,9 @@
   </xsl:call-template>
   <xsl:call-template name="newline"/>
 
+
   <xsl:call-template name="linesep-fields">
-   <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood"/>
+   <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood|individcount"/>
   </xsl:call-template>
   <xsl:call-template name="newline"/>
 
