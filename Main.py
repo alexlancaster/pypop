@@ -629,6 +629,18 @@ class Main:
 
           self.input.serializeAlleleCountDataAt(self.xmlStream, locus)
 
+          # check to see if given locus is monomorphic and skip the
+          # rest of the analysis for this particular if it is.
+          alleleTable, totalAlleles, untypedIndividuals =\
+                       self.input.getAlleleCountAt(locus)
+          numDistinctAlleles = len(alleleTable.keys())
+          
+          if numDistinctAlleles == 1:
+              # emit closing tags and go to the next locus
+              self.xmlStream.closetag('locus')
+              self.xmlStream.writeln()
+              continue
+
           # Parse "HardyWeinberg" section
 
           if self.config.has_section("HardyWeinberg") and \
@@ -769,8 +781,7 @@ class Main:
               if self.debug:
                 print "LOG: Defaulting to system datapath %s for homozygosity tables" % rootPath
 
-            alleleCount = self.input.getAlleleCountAt(locus)
-            alleleCount = alleleCount[0].values()
+            alleleCount = alleleTable.values()
 
             hzObject = Homozygosity(alleleCount,
                                     rootPath=rootPath,

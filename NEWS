@@ -18,7 +18,10 @@ Copyright (C) 2003, 2004 Regents of the University of California
     present (test was originally failing with a 'too-few-alleles'
     message if there were not at least 3 alleles).  Thanks to Kristie
     Mather for the report.
-
+*** Checks to see if a locus is monomorphic, if it is, it generates an 
+    allele summary report, but skips the rest of the single locus
+    analyses which do not make sense for monomorphic locus.  Thanks to
+    Steve Mack and Owen Solberg for the bug report(s).
 * Release Notes for PyPop 0.5.2 (public beta) 2004-03-09
 ** Bug fixes
 *** Add missing RandomBinning.py file to source distribution
