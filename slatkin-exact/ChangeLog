@@ -1,3 +1,9 @@
+2004-11-12  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* monte-carlo.c (main_proc): Change calculation of Var_F to reduce
+	number of unstable numerical operations involving subtracting very
+	small numbers.
+
 2004-11-12  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* monte-carlo.c (main): Changing def type 'void main_proc' to 'int
