@@ -1,11 +1,11 @@
 PROFILING=no
 CC=gcc
 
-CFLAGS=-O2 -g -static -funroll-loops
+CFLAGS=-O3 -g -funroll-loops
 LIBS=-lm
 ifeq ($(PROFILING),yes)
-	CFLAGS+=-pg
-	LIBS+=-lc_p
+	CFLAGS+=-pg -a
+#	LIBS+=-lc_p
 endif
 
 OBJS=emhaplofreq.o
@@ -13,9 +13,9 @@ OBJS=emhaplofreq.o
 emhaplofreq: $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o emhaplofreq $(LIBS)
 # make a symlink to run for backwards-compatibility
-	ln -s emhaplofreq run
+	ln -sf emhaplofreq run
 
-.c.o:
+%.o: %.c %.h
 	$(CC) $(CFLAGS) -c -o $*.o $<
 
 final: emhaplofreq
