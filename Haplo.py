@@ -4,6 +4,7 @@
 
 """
 import sys, string, os, re
+from Arlequin import ArlequinBatch
 
 class Haplo:
     """*Abstract* base class for haplotype parsing/output.
@@ -17,7 +18,10 @@ class HaploArlequin(Haplo):
     
     Outputs Arlequin format data files and runtime info, also runs and
     parses the resulting Arlequin data so it can be made available
-    programatically to rest of Python framework. """
+    programatically to rest of Python framework.
+
+    Delegates all calls Arlequin to an internally instantiated
+    ArlequinBatch Python object called 'batch'.  """
     
     def __init__(self,
                  arpFilename,
@@ -54,7 +58,9 @@ class HaploArlequin(Haplo):
         - debug: (defaults to 0)
         
         """
+
         self.arpFilename = arpFilename
+        self.arsFilename = 'arl_run.ars'
         self.idCol = idCol
         self.prefixCols = prefixCols
         self.suffixCols = suffixCols
@@ -62,148 +68,20 @@ class HaploArlequin(Haplo):
         self.arlequinPrefix = arlequinPrefix
         self.untypedAllele = untypedAllele
         self.debug = debug
-
-        if arpFilename[-4:] == '.arp':
-            self.arpFilename = arpFilename
-            self.arlResPrefix = arpFilename[:-4]
-        else:
-            sys.exit("Error: Arlequin filename: %s does not have a .arp suffix", arpFilename)
-
-    def _outputHeader(self, sampleCount):
-
-        headerLines = []
-        headerLines.append("""[Profile]
         
-        Title=\"Arlequin sample run\"
-        NbSamples=%d
-
-             GenotypicData=1
-             GameticPhase=0
-             DataType=STANDARD
-             LocusSeparator=WHITESPACE
-             MissingData='%s'
-             RecessiveData=0                         
-             RecessiveAllele=\"null\" """ % (sampleCount, self.untypedAllele))
-
-        headerLines.append("""[Data]
-
-        [[Samples]]""")
-
-        return headerLines
-
-    def _outputSample (self, data, startCol, endCol):
-
-        # store output Arlequin-formatted genotypes in an array
-        samples = []
-        sampleLines = []
-        
-        # convert columns to locus number
-        startLocus = (startCol - self.prefixCols)/2 + 1
-        endLocus = (startLocus - 1) + (endCol - startCol)/2
-
-        chunk = xrange(startCol, endCol)
-        for line in data:
-            words = string.split(line)
-            unphase1 = "%10s 1 " % words[self.idCol]
-            unphase2 = "%13s" % " "
-            for i in chunk:
-                allele = words[i]
-                # don't output individual if *any* loci is untyped
-                if allele == self.untypedAllele:
-                    if self.debug:
-                        print "untyped allele %s in (%s), (%s)" \
-                              % (allele, unphase1, unphase2)
-                    break
-                if ((i - startCol) % 2): unphase1 = unphase1 + " " + allele
-                else: unphase2 = unphase2 + " " + allele
-            else:
-                # store formatted output samples
-                samples.append(unphase1 + os.linesep)
-                samples.append(unphase2 + os.linesep)
-
-        # adjust the output count of samples for the `SamplesSize'
-        # metadata field
-
-        if len(samples) != 0:
-            sampleLines.append("""
-            
-            SampleName=\"%s pop with %s individuals from locus %d to %d\"
-            SampleSize= %s
-            SampleData={"""  % (self.arlResPrefix, len(samples)/2, startLocus, endLocus, len(samples)/2))
-
-            sampleLines.append(os.linesep)
-
-            # output previously-stored samples to stream only after
-            # calculation of number of samples is made
-            for line in samples:
-                sampleLines.append(line)
-            sampleLines.append("}")
-            validSample = 1
-        else:
-            validSample = 0
-
-        return sampleLines, validSample
+        # arsFilename is default because we generate it
+        self.batch = ArlequinBatch(arpFilename = self.arpFilename,
+                              arsFilename = self.arsFilename,
+                              idCol = self.idCol,
+                              prefixCols = self.prefixCols,
+                              suffixCols = self.suffixCols,
+                              windowSize = self.windowSize,
+                              debug = self.debug)
 
     def outputArlequin(self, data):
         """Outputs the specified .arp sample file.
         """
-        
-        if self.debug:
-            print "Counted", len(data), "lines."
-        firstLine = data[0]
-
-        # estimate the number of loci from the number of columns
-        # and the prefix and suffix columns which can be ignored  
-        cols = len(string.split(firstLine))
-        colCount = cols - (self.prefixCols + self.suffixCols)
-
-        # sanity check to ensure column number is even (2 alleles for
-        # each loci)
-        if colCount % 2 != 0:
-            sys.exit ("Error: col count (%d) is not even" % colCount)
-        else:
-            locusCount = (colCount)/2
-
-        if self.debug:
-            print "First line", firstLine, "has", cols, "columns and", \
-                  locusCount, "allele pairs"
-
-        chunk = xrange(0, locusCount - self.windowSize + 1)
-
-        sampleCount = 0
-        totalSamples = []
-        
-        for locus in chunk:
-            start = self.prefixCols + locus*2
-            end = start + self.windowSize*2
-            sampleLines, validSample = self._outputSample(data, start, end)
-            totalSamples.extend(sampleLines)
-            sampleCount += validSample
-
-        headerLines = self._outputHeader(sampleCount)
-
-        if self.debug:
-            print "sample count", sampleCount
-            
-        # open specified arp
-        self.arpFile = open(self.arpFilename, 'w')
-        for line in headerLines:
-            self.arpFile.write(line)
-        for line in totalSamples:
-            self.arpFile.write(line)
-        # close .arp file
-        self.arpFile.close()
-
-    def _outputArlRunTxt(self, txtFilename, arpFilename):
-        """Outputs the run-time Arlequin program file.
-        """
-        file = open(txtFilename, 'w')
-        file.write("""%s
-use_interf_settings
-%s%s%s
-0
-0
-end""" % (os.getcwd(), os.getcwd(), os.sep, arpFilename))
+        self.batch.outputArlequin(data)
 
     def _outputArlRunArs(self, arsFilename):
         """Outputs the run-time Arlequin setting file.
@@ -284,7 +162,7 @@ PrintMinSpannNetworkPop=0
 PrintMinSpannNetworkGlob=0
 KeepNullDistrib=0""")
         file.close()
-        
+
     def runArlequin(self):
         """Run the Arlequin haplotyping program.
 
@@ -293,17 +171,14 @@ KeepNullDistrib=0""")
         actually generate the haplotype estimates from the generated
         '.arp' file.
         """
-        
-        self._outputArlRunTxt(self.arlequinPrefix + ".txt", self.arpFilename)
+        # generate the `standard' run file
+        self.batch._outputArlRunTxt(self.arlequinPrefix + ".txt", self.arpFilename)
+        # generate a customized settings file for haplotype estimation
         self._outputArlRunArs(self.arlequinPrefix + ".ars")
-
+        
         # spawn external Arlequin process
-        os.system("arlecore.exe")
-
-        # fix permissions on result directory because Arlequin is
-        # brain-dead with respect to file permissions on Unix
-        os.chmod(self.arlResPrefix + ".res", 0755)
-
+        self.batch.runArlequin()
+        
     def genHaplotypes(self):
         """Gets the haplotype estimates back from Arlequin.
 
@@ -315,7 +190,7 @@ KeepNullDistrib=0""")
 
         - dictionary entry (the haplotype-frequency) key-value pairs.
 
-        - population name (original .arp file prefix)
+        - population name (original '.arp' file prefix)
 
         - sample count (number of samples for that window)
 
@@ -323,7 +198,7 @@ KeepNullDistrib=0""")
 
         - stop (where the window stops)
         """
-        outFile = self.arlResPrefix + ".res" + os.sep + self.arlResPrefix + ".htm"
+        outFile = self.batch.arlResPrefix + ".res" + os.sep + self.batch.arlResPrefix + ".htm"
         dataFound = 0
         headerFound = 0
 
