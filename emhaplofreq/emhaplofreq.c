@@ -1156,11 +1156,6 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
             ambig[i] += addto_ambig[i];
           }
 
-          for (i = 0; i < n_haplo; i++)
-          {
-            hap_freq[i][iter] = (unambig[i] + ambig[i]) / (double)tot_hap;
-          }
-
           diff = normed_addto_ambig_sum - 2 * (double)obspheno[k_pheno];
           if (fabs(diff) > .1)
           {
@@ -1170,6 +1165,11 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
           }
         }
       }        /* end of loop for k_pheno */
+
+      for (i = 0; i < n_haplo; i++)
+      {
+        hap_freq[i][iter] = (unambig[i] + ambig[i]) / (double)tot_hap;
+      }
 
       /* Calculate geno freqs from current estimate of haplo freqs */
       for (i = 0; i < n_unique_geno; i++)
