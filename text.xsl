@@ -2,7 +2,7 @@
 <xsl:stylesheet version='1.0' xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
  <!-- select "text" as output method -->
- <xsl:output method="text"/>
+ <xsl:output method="text" omit-xml-declaration="yes"/>
  
  <xsl:template match="/">
   <xsl:apply-templates/>
@@ -12,7 +12,7 @@
  <xsl:template match="text()">
   <!--  <xsl:value-of select="."/>  -->
  </xsl:template>
-
+ 
  <!-- BEGIN NAMED TEMPLATE FUNCTIONS -->
 
  <xsl:template name="prepend-pad"> 
@@ -137,6 +137,11 @@
    </xsl:choose>
    <xsl:call-template name="newline"/>
   </xsl:for-each>
+
+  <!-- Print out whole population-levels stats, such as --> 
+  <!-- estimation of haplotypes and LD -->
+  <xsl:apply-templates select="emhaplofreq"/>
+
  </xsl:template>
  
  <!-- leave filename blank, this is output in a different context  -->
@@ -376,6 +381,18 @@
 
   </xsl:choose>
   <xsl:call-template name="newline"/>
+ </xsl:template>
+
+ <!-- Haplotype/LD statistics --> 
+ <xsl:template match="emhaplofreq">
+  <xsl:call-template name="header">
+   <xsl:with-param name="title">Haplotype estimation via emhaplofreq:</xsl:with-param>
+  </xsl:call-template>
+  <xsl:call-template name="newline"/>
+
+  <!-- until output is XML-fied, simply pass through the unmarked
+  CDATA section -->
+  <xsl:value-of select="." disable-output-escaping="yes"/>
  </xsl:template>
 
  <!-- END MATCH TEMPLATE FUNCTIONS -->
