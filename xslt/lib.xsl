@@ -108,6 +108,9 @@
   </xsl:choose>
  </xsl:template>
 
+ <!-- Wraps an {append, prepend-pad} to create a justified {left, -->
+ <!-- right} cell.  If content is missing, use a specified noVal  -->
+ <!-- (defaults to '*'). -->
  <xsl:template name="justified-cell">
   <xsl:param name="noVal" select="'*'"/>
   <xsl:param name="padVar"/>
