@@ -1,3 +1,4 @@
+
 # generates frozen standalone installation in a single directory
 
 # global imports
@@ -28,11 +29,11 @@ elif sys.platform == 'linux2':
     exec_name = 'pypop'
     type = 'Linux'
     file_sep = '/'
-    wrapper_name = 'pypop.sh'
+    wrapper_name = 'pypop'
     wrapper_contents = """#!/bin/sh
 dir=$(dirname $0)
 LD_LIBRARY_PATH=$dir/%s $dir/%s/%s -i""" % (bin_dir, bin_dir, exec_name)
-    batch_wrapper = 'pypop-batch.sh'
+    batch_wrapper = 'pypop-batch'
     batch_wrapper_contents = """#!/bin/sh
 dir=$(dirname $0)
 LD_LIBRARY_PATH=$dir/%s $dir/%s/%s $@""" % (bin_dir, bin_dir, exec_name)

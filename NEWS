@@ -2,6 +2,11 @@ PyPop NEWS --- history of user-visible changes to PyPop.  -*- outline -*-
 Copyright (C) 2003 Regents of the University of California
 
 * Release Notes for PyPop 0.5 (public beta)
+** Changes
+*** All Linux wrapper scripts no longer have .sh file suffixes for 
+    consistency with DOS (all DOS bat files can be executed without
+    specifying the .bat extension).
+
 ** Bug fixes
 *** Add wrapper scripts for interactive and batch mode for 
     both DOS and Linux so that correct shared libraries are called.

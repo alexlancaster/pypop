@@ -1,13 +1,16 @@
 2003-12-29  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* NEWS (PyPop 0.5): Start adding release notes for public release.
+	Note new wrapper changes.
 	
 	* standalone.spec (pypop-batch.bat): Mirror Linux batch wrapper
 	script for DOS [Win9*,2k,NT,XP] binary.
 	(pypop.bat): Add a "pause" statement in DOS .bat file so that DOS
 	window doesn't disappear when interactive script finishes, will
 	now wait for user to press a key.
-
+	Remove '.sh' prefix from all Linux wrapper scripts, now use
+	'#!/bin/sh' to indicate to file(1) that it is a shell-script.
+	
 	* Makefile (NAME_BIN): Make uname test for "CYGWIN_NT" work for
 	both 5.0 [Win2k] and XP [5.1].
 
