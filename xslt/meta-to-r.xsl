@@ -95,11 +95,13 @@
       <xsl:with-param name="popnode" select="../../populationdata"/>
      </xsl:call-template>
 
-     <xsl:value-of select="substring-after(substring-before(@loci,
-     ':'), '*')"/>
+     <xsl:value-of select="substring-before(@loci, ':')"/>
+
+     <!--     <xsl:value-of select="substring-after(substring-before(@loci,
+     ':'), '*')"/> -->
+
      <xsl:text>&#09;</xsl:text>
-     <xsl:value-of select="substring-after(substring-after(@loci,
-      ':'), '*')"/>
+     <xsl:value-of select="substring-after(@loci, ':')"/>
 
      <xsl:text>&#09;</xsl:text>
      <xsl:value-of select="linkagediseq/summary/dprime"/>
@@ -121,11 +123,9 @@
        <xsl:with-param name="popnode" select="../../populationdata"/>
       </xsl:call-template>
 
-      <xsl:value-of select="substring-after(substring-before(@loci,
-       ':'), '*')"/>
+      <xsl:value-of select="substring-before(@loci,':')"/>
       <xsl:text>:</xsl:text>
-      <xsl:value-of select="substring-after(substring-after(@loci,
-       ':'), '*')"/>
+      <xsl:value-of select="substring-after(@loci, ':')"/>
      </xsl:variable>
 
      <xsl:for-each select="haplotypefreq/haplotype">
@@ -169,6 +169,10 @@
 
      <xsl:for-each select="allelecounts/allele">
       <xsl:value-of select="$curr-line-start"/>
+
+      <xsl:value-of select="../../@name"/>
+      <xsl:text>&#09;</xsl:text>
+
       <xsl:value-of select="@name"/>
       <xsl:text>&#09;</xsl:text>
       <xsl:value-of select="frequency"/>
