@@ -346,7 +346,13 @@
  </xsl:template>
  
  <xsl:template match="locuscount">
-  <xsl:text>Total Loci: </xsl:text>
+  <xsl:text>Total Loci in file: </xsl:text>
+  <xsl:value-of select="."/>
+  <xsl:call-template name="newline"/>
+ </xsl:template>
+
+ <xsl:template match="lociWithDataCount">
+  <xsl:text>Total Loci with data: </xsl:text>
   <xsl:value-of select="."/>
   <xsl:call-template name="newline"/>
  </xsl:template>
