@@ -34,7 +34,7 @@
    <sidebar>
     <formalpara>
      <title>System requirements</title>
-      <para>Your GNU/Linux system should contain at least 2.3.3 version
+      <para>Your GNU/Linux system should contain at least 2.3.4 version
      of <literal>glibc</literal> (the GNU C library).</para>
     </formalpara>
     <formalpara>
