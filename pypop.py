@@ -139,6 +139,8 @@ try:
 except NoOptionError:
   xmlOutFilename = defaultXmlOutFilename
 
+# generate filename for logging filter output
+
 defaultFilterLogFilename = uniquePrefix + "-filter.log"
 
 if debug:
