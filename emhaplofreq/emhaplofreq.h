@@ -1,5 +1,4 @@
 /* a translation from Richard Single's awk programme */ 
-/* a useless comment */
  
 #define NAME_LEN    12       /* 10 chars for allele name, plus colon and null */ 
 #define LINE_LEN    132      /* RS changed from 120 to 132=6*2*(10+1) */ 
