@@ -642,8 +642,60 @@ class ParseGenotypeFile(ParseFile):
 class ParseAlleleCountFile(ParseFile):
     """Class to parse datafile in allele count form.
 
-    *Currently unimplemented*."""
-    pass
+    *Currently a prototype implementation*."""
+    def __init__(self,
+                 filename,
+                 **kw):
+        ParseFile.__init__(self, filename, **kw)
+        self._genDataStructures()
+
+    def _genDataStructures(self):
+        sampleDataLines, separator = self.getFileData()
+
+        total = 0
+        self.alleleTable = {}
+        
+        for line in sampleDataLines:
+            allele, count = string.split(line, separator)
+            self.alleleTable[allele] = count
+            total += int(count)
+
+        print self.alleleTable
+
+        # simply reconstruct the 3-tuple as generated in
+        # ParseGenotypeFile: alleleTable (a map of counts keyed by
+        # allele), total allele count and the number of untyped
+        # individuals (in this case, by definition it is zero).
+
+        self.alleleCount = self.alleleTable, total, 0
+        self.totalAlleleCount = total
+
+    def genValidKey(self, field, fieldList):
+        if (field in fieldList):
+            isValidKey = 1
+        else:
+            isValidKey = 0
+
+        return isValidKey, field
+
+    def serializeSubclassMetadataTo(self, stream):
+        """Serialize subclass-specific metadata.
+
+        Specifically, total number of alleles and loci.
+         """
+        type = getStreamType(stream)
+
+        stream.opentag('totals')
+        stream.writeln()
+        stream.tagContents('allelecount', "%d" % self.totalAlleleCount)
+        stream.writeln()
+        stream.tagContents('locuscount', "%d" % 1)
+        stream.writeln()
+        stream.closetag('totals')
+        stream.writeln()
+
+    def getAlleleCount(self):
+        return self.alleleCount
 
 # this test harness is called if this module is executed standalone
 if __name__ == "__main__":
