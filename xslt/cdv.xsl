@@ -44,14 +44,14 @@ MODIFICATIONS.
 
  <xsl:template match="text()"/>
 
+ <xsl:param name="limit" select="0.02"/>
+ 
  <xsl:template match="/">
   <xsl:apply-templates/>
  </xsl:template>
 
  <xsl:template match="emhaplofreq/group[(string-length(@loci) -
  string-length(translate(@loci, ':', '')))=2 and @role!='no-data']"> 
-
-  <xsl:param name="limit" select="0.02"/>
 
   <xsl:variable name="loci-array" select="str:tokenize(@loci, ':')"/>
 
