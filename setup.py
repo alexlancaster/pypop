@@ -39,37 +39,6 @@ from distutils.file_util import copy_file
 import sys, os, string
 
 from distutils.command.build_ext import build_ext
-from distutils.command.sdist import sdist
-from distutils.core import Command
-
-class my_sdist(sdist):
-
-    def copy_file(self, file, dest, link=None):
-
-        print "copying file", file, "to", dest #, link
-
-
-        Command.copy_file(self, file, dest, link=link)
-
-        basename = os.path.basename(file)
-        print basename
-        list = file.split('.')
-        if len(list) == 0:
-            print "can't guess type"
-
-        f = open(dest, '
-        elif len(list) == 2:
-            prefix, suffix = tuple(list)
-            if suffix == 'py':
-                print "Python code"
-            elif suffix == 'c':
-                print "C code"
-            elif suffix == 'xsl':
-                print "XSL code"
-            else:
-                print "Suffix is:", suffix
-
-        
         
 # override implementation of swig_sources method in standard build_ext
 # class, so we can change the way SWIG is called by Python's default
@@ -145,8 +114,8 @@ if sys.argv[1] == 'sdist':
     # first check to see if we are distributing from CVS
     if os.path.isdir("CVS"):
         # if yes, generate a "ChangeLog"
-        print "creating ChangeLog from CVS entries"
-        #os.system("rcs2log -u \"single:Richard Single:single@allele5.biol.berkeley.edu\" -u \"mpn:Mark Nelson:mpn@alleleb.biol.berkeley.edu\" -u \"alex:Alex Lancaster:alexl@socrates.berkeley.edu\" -u \"diogo:Diogo Meyer:diogo@allele5.biol.berkeley.edu\" > ChangeLog")
+        #print "creating ChangeLog from CVS entries"
+        #os.system("rcs2log -u \"single:Richard Single:single@allele5.biol.berkeley.edu\" -u \"mpn:Mark Nelson:mpn@alleleb.biol.berkeley.edu\" -u \"alex:Alex Lancaster:alexl@socrates.berkeley.edu\" -u \"diogo:Diogo Meyer:diogo@allele5.biol.berkeley.edu\" -c /dev/null > ChangeLog")
         if os.path.isfile('VERSION') == 0:
             sys.exit("before distributing, please create a VERSION file!")
 
@@ -198,7 +167,7 @@ setup (name = "PyPop",
 
 # compile SWIG module
 
-       cmdclass = {'build_ext': my_build_ext,'sdist': my_sdist,},
+       cmdclass = {'build_ext': my_build_ext,},
        
        ext_modules=[Extension("_Emhaplofreqmodule",
                               ["emhaplofreq/emhaplofreq_wrap.i",
