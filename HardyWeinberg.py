@@ -490,7 +490,7 @@ class HardyWeinberg:
         stream.closetag('common')
         stream.writeln()
       else:
-        if self.flagNoCommonGenotypes == 1
+        if self.flagNoCommonGenotypes == 1:
           stream.emptytag('common', role='no-common-genotypes')
         elif self.flagTooManyParameters == 1:
           stream.emptytag('common', role='too-many-parameters')
