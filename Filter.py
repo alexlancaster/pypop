@@ -43,7 +43,7 @@ class AnthonyNolanFilter(Filter):
         for locus in loci:
             if self.debug:
                 print locus
-            lines = (open(directoryName + locus + '_pt.txt', 'r')).readlines()
+            lines = (open(os.path.join(directoryName, locus + '_pt.txt'), 'r')).readlines()
 
             for line in lines:
                 matchobj = re.search(patt, line)
