@@ -62,6 +62,10 @@ def translate_to_stdout(xslFilename, inString):
     import libxml2
     import libxslt
 
+    # force the libxml2 processor to generate DOM trees compliant with
+    # the XPath data model.
+    libxml2.lineNumbersDefault(1)
+
     # set libxml2 to substitute the entities in the document by default...
     libxml2.substituteEntitiesDefault(1)
 
