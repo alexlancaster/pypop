@@ -7,25 +7,19 @@
  genotype data for human genome variation</title>
 
  <articleinfo>
-  <authorgroup>
-   <author>
-    <firstname>Alex</firstname>
-    <surname>Lancaster</surname>
-    
-    <affiliation>
-     <orgname>University of California, Berkeley</orgname>
-     <orgdiv>Department of Integrative Biology</orgdiv>
-     <address><street>3060 Valley Life Sciences</street>
-      <city>Berkeley</city> <state>CA</state> <country>USA</country>
-      <email>alexl@socrates.berkeley.edu</email></address>
-    </affiliation>
-   </author>
-   <author>
-    <firstname>Glenys</firstname>
-    <surname>Thomson</surname>
-   </author>
-  </authorgroup>
-
+  <author>
+   <firstname>Alex</firstname>
+   <surname>Lancaster</surname>
+   
+   <affiliation>
+    <orgname>University of California, Berkeley</orgname>
+    <orgdiv>Department of Integrative Biology</orgdiv>
+    <address><street>3060 Valley Life Sciences</street>
+     <city>Berkeley</city> <state>CA</state> <country>USA</country>
+     <email>alexl@socrates.berkeley.edu</email></address>
+   </affiliation>
+  </author>
+  
   <pubdate>Last modified: $Date$</pubdate>
  </articleinfo>
 
@@ -207,9 +201,8 @@
 
     <listitem>
      <formalpara>
-      <title>modular</title>
-      <para>each analysis (e.g. Hardy Weinberg) should be run
-       stand-alone or as part of a battery of tests</para>
+      <title>modular</title> <para>each analysis (e.g. Hardy Weinberg)
+      can be run stand-alone or as part of a battery of tests</para>
      </formalpara>
     </listitem>
 
@@ -233,11 +226,8 @@
      <formalpara>
       <title>standardized output</title>
 
-      <para>output should be generated in XML (eXtensible Markup
-       Language http://www.w3.org/XML). 1) allows consumption by other
-       programs; 2) readily transformable from XML into human-readable
-       form (e.g. a text file) or web-form (e.g. HTML) via XSLT
-       (eXtensible Stylesheet Language for Transformations).</para>
+      <para>output should be generated in the open standard format
+      XML</para>
      </formalpara>
     </listitem>
 
@@ -272,103 +262,279 @@
     tool that could integrate features of existing software, and where
     needed, implement missing features that would realize our goals of
     doing large-scale population genetic data analysis.  Specific
-    limitations that we wished to address were: (1) Modularity: some
-    programs often produce a monolithic output set of statistics in a
-    data format that were not easily parsable (such as unstructured
-    plain ASCII text or HTML).  (2) Batchability: some software relied
-    on a <quote>captive user interface</quote>, meaning that for each
-    population to be analysed the software required user interaction
-    such as mouse clicks and menus (difficult for analysing hundreds
-    of data sets!).  We needed to be able to set up an entire job in
-    an unattended <quote>batch mode</quote>, involving simple scripts
-    and a configuration files.  (3) Scalability: this relates partly
-    to the previous point: often existing software was oriented
-    towards smaller and less heterogeneous datasets.  More typical in
-    evolutionary genetics studies is integrating results across
-    several populations at one or two loci, rather than many
-    populations with a large number of loci and high variability in
-    the number of individuals.  Thus is often difficult, for example,
-    to gather a single statistic for several populations and display
-    it in a table without a laborious manual search across many
-    files. (4) Open-source: some existing software is not open-source,
-    which makes it difficult to extend existing software and reuse
-    components and tends to lead to duplication of effort.  (5)
-    Cross-platform.  Some software was not cross platform, often tied
-    to proprietary features in a Windows or Macintosh environment,
-    making it difficult to port to high-performance UNIX platforms
-    such GNU/Linux or Solaris. </para>
+    limitations that we wished to address were:</para>
+
+   <orderedlist>
+    <listitem>
+     <formalpara><title>Modularity</title> 
+
+      <para>Programs should allow different options to be set for
+       analysis and produce content that is easily parsable, not a
+       monolithic output set of statistics (such as unstructured plain
+       ASCII text or HTML).</para>
+     </formalpara>
+    </listitem>
+
+    <listitem>
+     <formalpara><title>Batchability</title>
+
+      <para>It should be simple to set up an entire job in an
+       unattended <quote>batch mode</quote>, involving simple scripts
+       and a configuration files.  Software that relies on a
+       <quote>captive user interface</quote>, where for population to
+       be analysed requires user interaction such as mouse clicks and
+       menus, makes it difficult to analyse hundreds of data sets.
+       </para>
+     </formalpara>
+    </listitem>
+
+    <listitem>
+     <formalpara>
+      <title>Scalability</title> 
+      
+      <para>It should be straightforward, for example, to gather a
+      single statistic for several populations and display it in a
+      table without a laborious manual search across many files.  This
+      relates partly to the previous point: often existing software
+      was oriented towards smaller and less heterogeneous datasets.
+      More typical in evolutionary genetics studies is integrating
+      results across several populations at one or two loci, rather
+      than many populations with a large number of loci and high
+      variability in the number of individuals.</para>
+     </formalpara>
+    </listitem>
+    
+    <listitem>
+     <formalpara>
+      <title>Open-source</title>
+      
+      <para>We plan to release our software under an open source
+       license <xref linkend="OSI:2002"/>.  Software that is
+       open-source allows others to extend and re-use components,
+       write interfaces to, and can often reduces duplication of
+       effort within the community.  Some existing software that was
+       not open-source required reverse engineering of their file
+       formats in order to be able to communicate and write
+       interfaces, effort that would be more wisely spent improving
+       that software.
+       </para>
+     </formalpara>
+    </listitem>
+
+    <listitem>
+     <formalpara>
+      <title>Cross-platform</title>
+
+      <para>Some software should be cross platform, and not be tied to
+      proprietary features such as can be found in a Windows or
+      Macintosh environment.  In particular it should be be available
+      to run high-performance UNIX platforms such GNU/Linux or
+      Solaris as well as Windows and Macintosh platforms. </para>
+     </formalpara>
+    </listitem>
+   </orderedlist>
   </section>
  </section>
 
  <section>
   <title>Method</title>
 
-<!-- design and implementation -->
+  <section>
+   <title>Overall design</title>
 
-<literallayout>
-Object-oriented scripting language Python
-http://www.python.org
-rapid prototyping, good integration with C extensions and convenient standard library 
-Wrap existing code (C, C++, Java) using SWIG 
-http://www.swig.org (Simple Wrapper Interface Generator)
-  </literallayout>
+   <para>To be able to integrate the data analyses for multiple
+   populations, the analysis pipeline for PyPop has been designed in
+   two major parts, or phases, the first is the basic population
+   genetic analyses, and the second integrates the results of these
+   analyses across multiple populations.  The overall data and work
+   flow is shown in <xref linkend="pypop:work-flow"/>.</para>
 
-  <literallayout>
-Design and implementation (2)
-Leverage other open-source components:
-Numeric Python (http://numpy.sf.net)
-R [clone of S-Plus] (http://www.r-project.org/)
-XSLT using libxslt GNOME library (http://xmlsoft.org)
-XML output transformed (via XSLT) into formats suitable for other programs:
-Phylip input
-Arlequin '.arp' files
+   <figure id="pypop:work-flow">
+   <title>Work flow</title>
+   <mediaobject>
+    <imageobject>
+     <imagedata fileref="work-flow2.png" align="center" scale="99"/>  <!-- scale="45" -->
+    </imageobject>
+    <textobject>
+     <phrase>Diagram of software workflow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.png</phrase>
+    </textobject>
+   </mediaobject>
+  </figure>
+  </section>
 
-</literallayout>
+  <section>
+   <title>Implementation</title>
 
-<literallayout>
-Analysis pipeline (1)
-Phase I: Basic population genetic analyses
-individual .pop files exported from database
-filter module: a set of rules that traps any allele name which does not have a close match in the database
-HLA data use current list at: www.anthonynolan.com
-filters can be written for other types of population data 
-result in an output XML data file per population
-presentation of data is independent of generation of data
-output can be tweaked without rerunning analyses
-  </literallayout>
+   <para>We decided to implement the project in the object-oriented
+    scripting language <xref linkend="Python"/>.  It is is interpreted
+    language allowing for rapid prototyping of modules and has a
+    convenient standard library of functions.  Through use of the the
+    Simple Wrapper Interface Generator (SWIG <xref linkend="SWIG"/>),
+    it is also straightforward to <quote>wrap</quote> existing code in
+    C, C++ or Java and call it from Python.</para>
 
-  <literallayout>Analysis pipeline (2)
-Phase II: Meta-analyses
-results of Phase I used to investigate patterns of variation across populations and within populations
-e.g. comparisons of evidence of selection, using the homozygosity test of neutrality
-among - loci within populations (e.g. DPA1 for all populations)
-populations within loci (e.g. all loci for Filipinos)
-e.g. compare the sets of loci in significant linkage disequilibrium across populations
+   <para>In line with our philosophy or integrating with <quote>best
+   of breed</quote> open-source components, we leveraged the work of
+   the Numeric Python project <xref linkend="Numpy"/>, which provides
+   efficient data structures for holding large arrays of data,
+   <application>R</application>, the open-source implementation <xref
+   linkend="R-Stat"/> of the programming language
+   <application>S</application>.  As our XSLT parser, we chose the
+   fast C-based <application>libxslt</application> <xref
+   linkend="libxslt"/> from the GNOME project <xref linkend="GNOME"/>.
+   </para>
+  </section>
 
-Overview of PyPop dataflow
-</literallayout>
+  <section>
+   <title>Data flow</title>
+
+   <para>In phase I, before analysis begins, each
+    <filename>.pop</filename>, is passed through a filter module for
+    data cleaning. the basic population genetic analyses for each
+    population file from the database are run.  The filter module is a
+    set of rules that traps any allele name which does not have a
+    close match in the database of HLA alleles maintained by Steve
+    Marsh <xref linkend="IMGT"/>.  Although at present this is
+    HLA-specific, it has been designed in such a way that it is simple
+    to write a filter for other types of population data, and if it
+    desired (if the data is already <quote>clean</quote>), it can be
+    simply switched off.  Next the analysis begins, depending on the
+    users configuration, this can include basic allele count data; the
+    Hardy-Weinberg statistics; haplotype estimates; and the
+    Ewens-Watterson test of neutrality (represented by the green
+    modules in <xref linkend="pypop:work-flow"/>).  The results of the
+    analyses are stored in an XML file format as shown in <xref
+    linkend="pypop:sample-xml"/>.</para>
+   
+   <figure id="pypop:sample-xml">
+    <title>Extract from sample XML output file</title>
+<programlisting><![CDATA[
+<dataanalysis date="2002-07-09-05-01-18">
+<filename>ukimid_nireland.pop</filename>
+<pypop-version>DEVEL_VERSION</pypop-version>
+<populationdata>
+<labcode>UKIMID</labcode>
+<method>SSOP</method>
+<ethnic>Irish</ethnic>
+<contin>Europe</contin>
+<collect>Northern Ireland</collect>
+<latit>54 degrees 40 minutes north</latit>
+<longit>6 degrees 45 minutes west</longit>
+<complex>3</complex>
+<popname>NIreland</popname>
+<totals>
+<indivcount>1000</indivcount>
+<allelecount>2000</allelecount>
+<locuscount>9</locuscount>
+<lociWithDataCount>4</lociWithDataCount>
+</totals>
+</populationdata>
+<locus name="A">
+<allelecounts>
+<untypedindividuals>0</untypedindividuals>
+<indivcount>1000</indivcount>
+<allelecount>2000</allelecount>
+<distinctalleles>26</distinctalleles>
+<allele name="0101">
+<frequency>0.20200 </frequency><count>404</count>
+</allele>
+]]></programlisting>
+   </figure>
+
+   <para>XML was chosen as the output format because: 1) allows
+    consumption by other programs and; 2) it readily transformable
+    from XML into human-readable form (e.g. a text file) or web-form
+    (e.g. HTML) via XSLT (eXtensible Stylesheet Language for
+    Transformations).</para>
+
+   <para>In phase II, the results of the data analyses of the
+    individual data files are integrated, and the benefits of using
+    XML as the storage and exchange format are realized.  There are
+    two major benefits, one relevant for displaying results of each
+    individual run, the second, for more powerful benefit, when to
+    aggregate the data for both cross-population meta-analyses and to
+    transform as input for third party packages.  First, since many of
+    the analyses (notably estimating the significance of all pairwise
+    linkage disequilibrium) can take a considerable amount of time,
+    especially if the population consists of many individuals and is
+    highly polymorphic, the <emphasis>analysis generation</emphasis>
+    stage is as decoupled as possible from the <emphasis>analysis
+    presentation</emphasis> stage.  This enables tweaking of the
+    <quote>human-readable</quote> text output of the individual files
+    of the presentation without completely re-running the analyses.  A
+    sample text output is shown in <xref linkend="pypop:sample-txt"/>.
+    The same XML content can also be used to generate an HTML version
+    or web version of the same data set.
+   </para>
+
+   <figure id="pypop:sample-txt">
+    <title>Extract from sample plain text output</title>
+    <programlisting format="linespecific"><![CDATA[
+Performed on the 'ukimid_nireland.pop' file at: 2002-07-09-05-01-18
+
+Population Summary
+==================
+
+       Lab code: UKIMID
+  Typing method: SSOP
+      Ethnicity: Irish
+      Continent: Europe
+Collection site: Northern Ireland
+       Latitude: 54 degrees 40 minutes north
+      Longitude: 6 degrees 45 minutes west
+Population Name: NIreland
+
+[...]
+
+1.1. Allele Counts [A]
+______________________
+
+Untyped individuals: 0
+Sample Size (n): 1000
+Allele Count (2n): 2000
+Distinct alleles (k): 26
+
+Counts ordered by frequency   | Counts ordered by name        
+Name      Frequency (Count)   | Name      Frequency (Count)   
+0201      0.27400   548       | 0101      0.20200   404       
+0101      0.20200   404       | 0201      0.27400   548       
+]]></programlisting>
+   </figure>
+
+   <para>Second, the results of Phase I are used to investigate
+    patterns of variation across populations and within populations.
+    Examples include comparisons of evidence of selection, using the
+    homozygosity test of neutrality for a given loci for all
+    populations (e.g. DPA1 for all populations), or comparing the sets
+    of loci in significant linkage disequilibrium across populations.
+    This is implemented using XSLT to transform the all the sets of
+    output XML files, desired into tables of data that are read by the
+    statistical package <application>R</application>.</para>
+
+   <para>The XML output (both the individual population-level data
+    files, and the aggregated multi-population data) can be
+    transformed (via XSLT) into formats suitable for input to other
+    programs.  Currently we have a prototype module for generating
+    input for Phylip and a prototype module to generate Arlequin
+    <filename>.arp</filename> files.
+   </para>
+
+   <para><application>PyPop</application> is currently in alpha
+    development, and while Phase I and II are largely completed, the
+    development of new modules is ongoing.  We plan to released
+    <application>PyPop</application> under an open source license.
+    Details will be made available at the Thomson lab website:
+    http://allele5.biol.berkeley.edu</para>
+
+  </section>
  </section>
 
-<section>
-  <title>Current status</title>
+ <ackno>NIH grant 795?? (13<superscript>th</superscript> IHWG )</ackno>
 
-  <literallayout>
-Currently in alpha development
-Phase I and II completed
-Development of new modules is ongoing
-Will ultimately be released as open-source
-under the Regents of the University of California license (the 'UC Berkeley' license, which is OSI http://www.opensource.org approved)
-Details will be available at the Thomson lab website:
-http://allele5.biol.berkeley.edu
-</literallayout>
- </section>
-
- <section>
-  <title>Design</title>
+<!--
+ <appendix condition="main">
+  <title>UML specification</title>
   
-  <para>The overall data and work flow for
-   <application>PyPop</application>, the software framework for
-   parsing the data files is shown in <xref linkend="pypop:work-flow"/>. </para>
   <para>A sample UML use-case is given in <xref linkend="pypop:design"/>.
    This indicates the processing steps involved the calculation of
    single statistic.  Note the exact object and method names are
@@ -376,37 +542,21 @@ http://allele5.biol.berkeley.edu
    implementation.</para>
   
   
-  <figure id="pypop:work-flow">
-   <title>Work flow</title>
-   <mediaobject>
-    <imageobject>
-     <imagedata fileref="work-flow.png" align="center" scale="45"/>
-    </imageobject>
-    <textobject>
-     <phrase>Diagram of software workflow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.png</phrase>
-    </textobject>
-     <!--
-    <imageobject>
-     <imagedata fileref="work-flow.eps" align="center" scale="50"/>
-    </imageobject>
-     -->
-   </mediaobject>
-  </figure>
-  
   <figure id="pypop:design">
    <title>Schematic UML design</title>
    <mediaobject>
     <imageobject>
-     <imagedata fileref="design.png" align="center" scale="45"/>
+     <imagedata fileref="design.png" align="center"/>  
     </imageobject>
     <textobject>
-     <phrase>Digram of UML design can be found at: http://allele5.biol.berkeley.edu/ihwg/design.png</phrase>
+     <phrase>Diagram of UML design can be found at:
+     http://allele5.biol.berkeley.edu/ihwg/design.png</phrase>
     </textobject>
    </mediaobject>
   </figure>
- </section>
+ </appendix>
  
- <section>
+ <appendix condition="main">
   <title>API (Application Programmers Interface)</title>
   
   <para>The current <application>PyPop</application> Application
@@ -419,15 +569,15 @@ http://allele5.biol.berkeley.edu
    <title>UML diagram of API</title>
    <mediaobject>
     <imageobject>
-     <imagedata fileref="api.png" align="center" scale="40"/>
+     <imagedata fileref="api.png" align="center"/>
     </imageobject>
     <textobject>
      <phrase>Diagram of UML API can be found at: http://allele5.biol.berkeley.edu/ihwg/api.png</phrase>
     </textobject>
    </mediaobject>
   </figure>
- </section>
-
+ </appendix>
+ 
  <appendix condition="main">
   <title>Data interchange</title>
   <section>
@@ -570,6 +720,7 @@ Other
    </orderedlist>
   </section>
  </appendix>
+ -->
 
  <bibliography>
   <biblioentry id="Schneider:2000" xreflabel="Schneider et al. 2000">
@@ -638,6 +789,12 @@ Other
    <citetitle pubwork="journal">Rev. Immunogentics</citetitle>
   </biblioentry>
 
+  <!--
+  Numeric Python (http://numpy.sf.net)
+  R [clone of S-Plus] (http://www.r-project.org/)
+  XSLT using libxslt GNOME library (http://xmlsoft.org)
+  -->
+  <!--       (eXtensible Markup Language http://www.w3.org/XML) -->
  </bibliography>
  
 </article>
