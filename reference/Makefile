@@ -69,7 +69,7 @@ all: $(FIGS) api/index.html
 
 tex-math-equations.tex: biostat.xml $(EXTRA_XML_SOURCE)
 
-guide.*: INSTALL.xml README.xml COPYING.xml biblio.xml instructions.xml
+pypop-guide.*: INSTALL.xml README.xml COPYING.xml biblio.xml instructions.xml
 
 # convert LaTeX images into DVI
 %.dvi: %.tex
