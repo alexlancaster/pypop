@@ -1803,7 +1803,7 @@
     the null hypothesis.</para>
    
    <figure id="lr-stat-null">
-    <title>Distribution of likelihood ratio statistic, S, under the null hypothesis of linkage equilibrium</title>
+    <title>Distribution of likelihood ratio statistic, <varname>S</varname>, under the null hypothesis of linkage equilibrium</title>
     <programlisting></programlisting>
    </figure>
   </sect2>
