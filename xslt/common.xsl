@@ -441,7 +441,13 @@
 
  <!-- standard pvalue output, common to other modules -->
  <xsl:template match="pvalue">
-  <xsl:value-of select="."/> 
+
+  <!-- round to 4 decimal places -->
+  <xsl:call-template name="round-to">
+   <xsl:with-param name="node" select="."/>
+   <xsl:with-param name="places" select="4"/>
+  </xsl:call-template>
+
   <xsl:call-template name="append-pad">
    <xsl:with-param name="padChar">*</xsl:with-param>
    <xsl:with-param name="length">
