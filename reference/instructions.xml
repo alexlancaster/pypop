@@ -385,14 +385,14 @@ p-value range: 0.0000 < p <= 0.0100 *
     Monte-Carlo implementation of the exact test originally
     implemented by Montgomery Slatkin (<citation
      role="citealt">Slatkin:1994</citation>; <citation
-     role="citealt">Slatkin:1996</citation>).  It should be noted that
-    the significance of the <varname>p</varname>-value as reported is different that in
-    the look-up tables above, because this test uses a single-tailed
-    <varname>p</varname>-value, although the <varname>p</varname>-value for this implementation should fall
-    within the same range as that for the preceeding look-up table
-    implementation.  Also note that neither the observed homozygosity
-    (<varname>F</varname>) nor the normalized deviate are reported in
-    this case.</para>
+     role="citealt">Slatkin:1996</citation>).  
+This test differs from the previous one in that rather than simulate
+data under neutrality, a Markov-Chain Monte Carlo method is used to obtain
+the probability of the homozygosity under neutrality.
+The <varname>p</varname>-value reported is once again the probability of 
+the observed homozygosity under the null hypothesis of neutrality, 
+and can be interpreted as a two-tailed test.
+/para>
 
 <programlisting>1.6. Slatkin's implementation of EW homozygosity test of neutrality [A]
 -----------------------------------------------------------------------
