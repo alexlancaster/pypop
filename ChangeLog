@@ -1,3 +1,13 @@
+2003-12-30  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* NEWS: Note "missing <prefix>" message suppression.
+
+	* standalone.spec: Set PYTHONHOME in both sh and DOS wrapper
+	scripts so that standalone executable stops whining about missing
+	prefix and exec_prefix.
+	Refactor wrapper script and .bat file generation so that common
+	options are set in one place.
+
 2003-12-29  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* NEWS (PyPop 0.5): Start adding release notes for public release.
