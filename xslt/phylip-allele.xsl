@@ -174,8 +174,8 @@
     <xsl:for-each select="output/locus">
      <xsl:variable name="locusname" select="@name"/>
      <xsl:if test="count($all-allele-list/locus[@name=$locusname]/allele)!=0">
-      <xsl:variable name="filename" select="concat($locusname, '.allele.phy')"/>
-      <exslt:document href="{$filename}"
+      <xsl:variable name="pair-filename" select="concat($locusname, '.allele.phy')"/>
+      <exslt:document href="{$pair-filename}"
        omit-xml-declaration="yes"
        method="text">
        <xsl:call-template name="phylip-alleles">
