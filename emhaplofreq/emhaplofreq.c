@@ -1057,9 +1057,16 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     }
     lr_sd = sqrt( lr_sd / ((max_permutations-1) - 1) );
     lr_z = ( sqrt(2.0*df_LRtest)/n_recs ) * ( (like_ratio[0] - lr_mean) / lr_sd ); 
+
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "<lr>%f</lr>\n", lr_z); 
+    fprintf(fp_out, "<lr-mean>%f</lr-mean>\n", lr_mean); 
+    fprintf(fp_out, "<lr-sd>%f</lr-sd>\n", lr_sd); 
+#else
     fprintf(fp_out, "Standardized LR statistic = %f\n", lr_z); 
     fprintf(fp_out, "LR mean = %f\n", lr_mean); 
     fprintf(fp_out, "LR SD = %f\n", lr_sd); 
+#endif
 
 #ifdef XML_OUTPUT
     fprintf(fp_permu, "</permutationSummary>\n");
