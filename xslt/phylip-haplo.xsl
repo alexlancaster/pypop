@@ -27,10 +27,12 @@
   <xsl:param name="node"/>
   <xsl:param name="loci-to-output"/>
 
-
+<!--
   <xsl:message>count: <xsl:value-of select="count($node)"/></xsl:message>
   <xsl:message><xsl:value-of select="name($node)"/></xsl:message>
   <xsl:message>loci to output: <xsl:value-of select="$loci-to-output"/></xsl:message>
+
+-->
 
   <xsl:text>    </xsl:text>
   <xsl:value-of select="count($node)"/>
