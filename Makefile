@@ -22,12 +22,13 @@ $(NAME_BIN): MANIFEST $(DEPS)
 
 # rule to generate documentation files
 %: $(DOCPATH)/%.xml
-	(cd $(DOCPATH);	$(MAKE) $@.txt)
+	(cd $(DOCPATH); $(MAKE) $@.txt)
 	cp $(DOCPATH)/$@.txt $@
 
+
 # rule to remake MANIFEST if either setup.py or MANIFEST.in change
-MANIFEST: MANIFEST.in setup.py
-	python setup.py sdist
+MANIFEST: MANIFEST.in setup.py README AUTHORS COPYING INSTALL
+	python setup.py sdist --manifest-only
 
 # rule to regenerate source distribution
 dist/$(NAME_SRC):  $(NAME_BIN)
