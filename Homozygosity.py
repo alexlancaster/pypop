@@ -4,7 +4,7 @@
 
 """
 
-import string, sys, os
+import string, sys, os, math
 
 from Utils import getStreamType
 
@@ -96,9 +96,9 @@ class Homozygosity:
         
 
         self.count = int(lines[0].split(':')[1])
-        self.mean = float(lines[1].split(':')[1])
-        self.var = float(lines[2].split(':')[1])
-        self.sem = float(lines[3].split(':')[1])
+        self.expectedHomozygosity = float(lines[1].split(':')[1])
+        self.varExpectedHomozygosity = float(lines[2].split(':')[1])
+        self.semExpectedHomozygosity = float(lines[3].split(':')[1])
 
         self.quantile = []
         for i in range(4, len(lines)):
@@ -106,7 +106,7 @@ class Homozygosity:
           self.quantile.append((obsvHomo, calcP, pValue))
 
         if self.debug:
-          print self.count, self.mean, self.var, self.sem
+          print self.count, self.expectedHomozygosity, self.varExpectedHomozygosity, self.semExpectedHomozygosity
           print self.sampleCount, self.numAlleles
           
         return 1
@@ -181,30 +181,40 @@ class Homozygosity:
     Only meaningful if 'canGenerateExpectedStats()' returns true."""
     return self.count
 
-  def getMean(self):
+  def getExpectedHomozygosity(self):
     """Gets mean of expected homozygosity.
 
     This is the estimate of the *expected* homozygosity.
     
     Only meaningful if 'canGenerateExpectedStats()' returns true."""
-    return self.mean
+    return self.expectedHomozygosity
 
-  def getVar(self):
+  def getVarExpectedHomozygosity(self):
     """Gets variance of expected homozygosity.
 
     This is the estimate of the variance *expected* homozygosity.
     
     Only meaningful if 'canGenerateExpectedStats()' returns true."""
-    return self.var
+    return self.varExpectedHomozygosity
 
-  def getSem(self):
+  def getSemExpectedHomozygosity(self):
     """Gets s.e.m. of expected homozygosity.
 
     This is the standard error of the mean of the *expected*
     homozygosity.
     
     Only meaningful if 'canGenerateExpectedStats()' returns true."""
-    return self.sem
+    return self.semExpectedHomozygosity
+
+  def getNormDevHomozygosity(self):
+    """Gets normalized deviate of homozygosity.
+
+    Only meaningful if 'canGenerateExpectedStats()' returns true."""
+
+    sqrtVar = math.sqrt(self.getVarExpectedHomozygosity())
+    self.normDevHomozygosity = (self.getObservedHomozygosity() - \
+                                self.getExpectedHomozygosity()) / sqrtVar
+    return self.normDevHomozygosity
 
   def serializeHomozygosityTo(self, stream):
     type = getStreamType(stream)
@@ -215,12 +225,15 @@ class Homozygosity:
         stream.writeln()        
         stream.tagContents('observed', "%.4f" % self.getObservedHomozygosity())
         stream.writeln()
-        stream.tagContents('expected', "%.4f" % self.getMean())
+        stream.tagContents('expected', "%.4f" % self.getExpectedHomozygosity())
         stream.writeln()
-        stream.tagContents('expectedVariance', "%.4f" % self.getVar())
+        stream.tagContents('normdev', "%.4f" % self.getNormDevHomozygosity())
         stream.writeln()
-        stream.tagContents('expectedStdErr', "%.4f" % self.getSem())
-        stream.writeln()
+        
+        #stream.tagContents('expectedVariance', "%.4f" % self.getVarExpectedHomozygosity())
+        #stream.writeln()
+        #stream.tagContents('expectedStdErr', "%.4f" % self.getSemExpectedHomozygosity())
+        #stream.writeln()
         stream.opentag('pvalue')
         lb, up = self.getPValueRange()
         stream.tagContents('lower', "%.4f" % lb)
@@ -230,15 +243,20 @@ class Homozygosity:
         stream.closetag('homozygosity')
       else:
         stream.writeln("Homozygosity statistics:")
+        stream.writeln("========================")
         stream.write("Observed Homozygosity: %.4f" % \
                      self.getObservedHomozygosity())
         stream.writeln()
-        stream.write("Expected Homozygosity %.4f" % self.getMean())
+        stream.write("Expected Homozygosity: %.4f" % \
+                     self.getExpectedHomozygosity())
         stream.writeln()
-        stream.write("Expected Variance %.4f" % self.getVar())
+        stream.write("Normalized Deviate of Homozygosity: %.4f" % \
+                     self.getNormDevHomozygosity())
         stream.writeln()
-        stream.write("Expected Stderr of the mean %.4f" % self.getSem())
-        stream.writeln()
+        #stream.write("Expected Variance %.4f" % self.getVarExpectedHomozygosity())
+        #stream.writeln()
+        #stream.write("Expected Stderr of the mean %.4f" % self.getSemExpectedHomozygosity())
+        #stream.writeln()
         stream.write("%f < pval < %f" % self.getPValueRange())
         stream.writeln()
     else:
