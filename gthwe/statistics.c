@@ -158,7 +158,7 @@ void store_stats(char *statistic_type, double (*statistic_func) (int, int, int, 
 					  allele_array, genotypes);
       /* printf("norm dev: sim = %g, ", sim_normdev); */
 
-      if (sim_normdev > obs_normdev[L(k,l)]) {
+      if (sim_normdev >= obs_normdev[L(k,l)]) {
 	normdev_count[L(k,l)]++;
 	/* printf("obs = %g\n", obs_normdev[L(k,l)]); */
       }

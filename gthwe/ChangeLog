@@ -1,3 +1,9 @@
+2005-03-03  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* statistics.c (store_stats): Use greater than or equal to ('>=')
+	when incrementing test statistic count, rather than just greater
+	than ('>') as noted by Richard Single.
+
 2005-03-01  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Makefile (SRC, OBJS, REMOVABLE): Add statistics.{c,o}
