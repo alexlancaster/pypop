@@ -32,7 +32,7 @@ MODIFICATIONS. */
 
 /* SWIG interface generation file */
 
-%module _Gthwe
+%module Gthwe
 
 %include "typemap.i"
 

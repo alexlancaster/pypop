@@ -1,3 +1,8 @@
+2004-12-23  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* gthwe_wrap.i: %module _Gthwe -> Gthw for compatibility with most
+	recent SWIG.
+
 2004-10-21  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* *.c, *.h: Add copyright for both Sun-Wei Guo (1992) and
