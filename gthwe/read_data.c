@@ -30,12 +30,11 @@ int read_data(int a[LENGTH], int *no_allele, int *total,\
 		return (err);
 	}
 
-	if (*no_allele < 3)
+	if (*no_allele < 2)
 	{
-		fprintf(stderr, "***Error! Number of alleles less than 3. \n");
+		fprintf(stderr, "***Error! Number of alleles less than 2. \n");
 		return (err);
 	}
-
 	for (i = 0; i < *no_allele; ++i)
 	{
 		for (j = 0; j <= i; ++j)

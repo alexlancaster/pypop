@@ -1,0 +1,24 @@
+Data set: LocusName
+
+Observed genotype frequencies: 
+
+------
+|2000|
+-----------
+|   3|   1|
+-----------
+
+Total number of alleles:  2
+
+Number of initial steps: 2000
+Number of chunks: 1000
+Size of each chunk: 1000
+
+Randomization test P-value: 0.001221  (5.875e-05) 
+Percentage of partial switches:   0.13 
+Percentage of full switches:   0.13 
+Percentage of all switches:   0.25 
+
+Total elapsed time: 2''
+Date and time: Fri Jun 11 20:16:04 2004
+
