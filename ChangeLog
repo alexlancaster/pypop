@@ -1,3 +1,21 @@
+2003-12-05  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* pypop.py (usage_message): Add new "-o", "--outputdir" option to
+	allow user to specify alternative directory for output and pass
+	through to invocation of Main. If directory does not exist, exit
+	with an error.  Replace getXmlOutFilename -> getXmlPath and
+	likewise for getTxtOutFilename -> getTxtOutPath.
+	
+	* Main.py (Main.__init__): Add new parameter outputDir for
+	allowing different output directories and set as instance
+	variable.  If set, prepend outputDir
+	to {xmlOut,txtOut,defaultFilterLog}Filename to create
+	corresponding {xmlOut,txtOut,defaultFilterLog}Path variables.
+	Use them in all "open()" functions.
+	(Main._genTextOutput): Likewise.
+	(Main.getXmlOutPath): Rename from getXmlOutFilename.
+	(Main.getTxtOutPath): Likewise for getTxtOutPath.
+
 2003-11-26  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* Main.py (Main.__init__): Moved filterLogFile creation to the

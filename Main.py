@@ -125,7 +125,8 @@ class Main:
                  datapath=None,
                  use_libxsltmod=1,
                  use_FourSuite=0,
-                 thread=None):
+                 thread=None,
+                 outputDir=None):
 
         self.config = config
         self.debugFlag = debugFlag
@@ -134,6 +135,7 @@ class Main:
         self.use_libxsltmod = use_libxsltmod
         self.use_FourSuite = use_FourSuite
         self.xslFilename = xslFilename
+        self.outputDir = outputDir
 
         # for threading to work
         self.thread = thread
@@ -178,6 +180,9 @@ class Main:
 
         # generate filenames for both text and XML files
 
+        #
+        # start with text filename
+        #
         defaultTxtOutFilename = uniquePrefix + "-out.txt"
         try:
           self.txtOutFilename = self.config.get("General", "txtOutFilename")
@@ -186,6 +191,9 @@ class Main:
         except NoOptionError:
           self.txtOutFilename = defaultTxtOutFilename
 
+        #
+        # now XML filename
+        #
         defaultXmlOutFilename = uniquePrefix + "-out.xml"
         try:
           self.xmlOutFilename = self.config.get("General", "xmlOutFilename")
@@ -194,9 +202,24 @@ class Main:
         except NoOptionError:
           self.xmlOutFilename = defaultXmlOutFilename
 
+        #
         # generate filename for logging filter output
-
+        #
         self.defaultFilterLogFilename = uniquePrefix + "-filter.xml"
+
+        # prepend directory to all files if one was supplied
+        if self.outputDir:
+            [self.txtOutPath, \
+             self.xmlOutPath, \
+             self.defaultFilterLogPath] = \
+             [os.path.join(self.outputDir, x) \
+              for x in self.txtOutFilename, \
+              self.xmlOutFilename, \
+              self.defaultFilterLogFilename]
+        else:
+            self.txtOutPath = self.txtOutFilename
+            self.xmlOutPath = self.xmlOutFilename
+            self.defaultFilterLogPath = self.defaultFilterLogFilename
 
         if self.debug:
           for section in self.config.sections():
@@ -299,7 +322,7 @@ class Main:
                 # so that file exists when it it is close()d
                 # get filtering options and open log file for
                 # filter in append mode
-                self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogFilename, 'w'))
+                self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogPath, 'w'))
                 
                 try:
                     self.filtersToApply = self.config.get("Filters", "filtersToApply")
@@ -345,7 +368,7 @@ class Main:
         # BEGIN common XML output section
         
         # create XML stream
-        self.xmlStream = XMLOutputStream(open(self.xmlOutFilename, 'w'))
+        self.xmlStream = XMLOutputStream(open(self.xmlOutPath, 'w'))
 
         # opening tag
         self.xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr), role=self.fileType)
@@ -943,7 +966,7 @@ class Main:
           style = libxslt.parseStylesheetDoc(styledoc)
 
           # read output XML file
-          doc = libxml2.parseFile(self.xmlOutFilename)
+          doc = libxml2.parseFile(self.xmlOutPath)
 
           # resolve and perform any XIncludes the document may have
           doc.xincludeProcess()
@@ -952,7 +975,7 @@ class Main:
           result = style.applyStylesheet(doc, None)
 
           # save result to file
-          style.saveResultToFilename(self.txtOutFilename, result, 0)
+          style.saveResultToFilename(self.txtOutPath, result, 0)
 
           # cleanup
           style.freeStylesheet()
@@ -963,8 +986,8 @@ class Main:
           # to use appropriate physical lineendings so that
           # lame Windoze editors like Notepad don't get confused
           if sys.platform == 'cygwin':
-              convertLineEndings(self.xmlOutFilename, 2)
-              convertLineEndings(self.txtOutFilename, 2)
+              convertLineEndings(self.xmlOutPath, 2)
+              convertLineEndings(self.txtOutPath, 2)
 
         # use of 4Suite is currently UNTESTED and DEPRECATED!!!
         if self.use_FourSuite:
@@ -978,7 +1001,7 @@ class Main:
           self.xmlStream = open(self.xmlOutFilename, 'r')
 
           # open new txt output
-          newOut = TextOutputStream(open(self.txtOutFilename, 'w'))
+          newOut = TextOutputStream(open(self.txtOutPath, 'w'))
 
           # create xsl process
           p = Processor()
@@ -993,11 +1016,11 @@ class Main:
           newOut.close()
           styleSheet.close()
 
-    def getXmlOutFilename(self):
+    def getXmlOutPath(self):
         # return the name of the generated XML file
-        return self.xmlOutFilename
+        return self.xmlOutPath
 
-    def getTxtOutFilename(self):
+    def getTxtOutPath(self):
         # return the name of the generated plain text (.txt) file
-        return self.txtOutFilename
+        return self.txtOutPath
 
