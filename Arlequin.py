@@ -329,7 +329,7 @@ genetics program.
 
     try: opts, args = \
          getopt(sys.argv[1:],"i:c:k:w:u:xhd",\
-                ["idcol", "cols", "sort", "windowsize", "help", "untyped", "execute", "debug"])
+                ["idcol=", "cols=", "sort=", "windowsize=", "untyped=", "execute", "help","debug"])
     except GetoptError:
         sys.exit(usage_message)
 
