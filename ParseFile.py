@@ -19,6 +19,7 @@ class ParseFile:
                  popFieldsFilename='ws-pop-fields.dat',
                  sampleFieldsFilename='ws-sample-fields.dat',
                  separator='\t',
+                 fieldPairDesignator="(2)",
                  debug=0):
         """Constructor for ParseFile object.
 
@@ -33,13 +34,17 @@ class ParseFile:
         - 'separator': separator for adjacent fields (default: a tab
            stop, '\\t').
 
+        - 'fieldPairDesignator': designates the pair indicator if a
+          fields are grouped in pairs [e.g. HLA-A, and HLA-A(B)]
+
         - 'debug': Switches debugging on if set to '1' (default: no
            debugging, '0')"""
         self.popFieldsFilename=popFieldsFilename
         self.sampleFieldsFilename=sampleFieldsFilename
         self.debug = debug
         self.separator = separator
-
+        self.fieldPairDesignator = fieldPairDesignator
+        
         if self.debug:
             print self.popFieldsFilename
 
@@ -122,11 +127,12 @@ class ParseFile:
             isValidKey, key = self.genValidKey(field, fieldList)
 
             if isValidKey:
-                    
+
+                augField = key + self.fieldPairDesignator
+                unAugField = key[:-len(self.fieldPairDesignator)]
                 if assoc.has_key(key):
                     # if key already used (col names are not unique)
-                    # append a (2)
-                    augField = key + "(2)"
+                    # append the fieldPairDesignator
                     if augField in fieldList:  
                         # see if augmented field exists
                         # create a tuple at the same key value
@@ -134,6 +140,20 @@ class ParseFile:
                     else:
                         print "error: can't find augmented fieldname", \
                               augField
+
+                # if key is one of pair with the augmented already in
+                # map, add it to make a tuple at that key
+                # e.g. HLA-A(2) already exists and inserting HLA-A
+                elif assoc.has_key(augField):
+                    if augField in fieldList:
+                        assoc[augField] = assoc[augField], i
+
+                # likewise if key is one of pair with the unaugmented
+                # already in map
+                # e.g. HLA-A already exists and inserting HLA-A(2)
+                elif assoc.has_key(unAugField):
+                    if unAugField in fieldList:  
+                        assoc[unAugField] = assoc[unAugField], i
                 else:
                     assoc[key] = i
             else:
@@ -352,6 +372,9 @@ class ParseGenotypeFile(ParseFile):
         self.freqcount = {}
         self.locusTable = {}
         for locus in self.alleleMap.keys():
+	    if self.debug:
+	       print "locus name:", locus
+	       print "column tuple:", self.alleleMap[locus]
             col1, col2 = self.alleleMap[locus]
 
             # initialise blank dictionary
