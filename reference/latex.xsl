@@ -46,7 +46,6 @@
 
  <xsl:variable name="latex.override">
   <xsl:value-of select="$latex.world-scientific"/> 
-<!--  <xsl:value-of select="$latex.std.1col"/> -->
  </xsl:variable>
 
  <xsl:template match="ulink">
