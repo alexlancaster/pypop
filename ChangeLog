@@ -1,5 +1,8 @@
 2005-03-03  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): If pvalue is
+	exactly one, don't suppress output, just print a note.
+
 	* setup.py (ext_HweEnum): Add "popt" to list of libraries to
 	compile _HweEnum against.
 

@@ -631,72 +631,70 @@ MODIFICATIONS.
      </xsl:when>
      
      <xsl:otherwise>
+      
       <xsl:choose>
        <!-- only when 1 is produced as a pvalue, we return an error -->
        <xsl:when test="normalize-space(pvalue)='1'">
-	<xsl:text>Guo and Thompson test failed to converge.</xsl:text>
+	<xsl:text>Note: p-value is exactly one.</xsl:text>
+	<xsl:call-template name="newline"/>
        </xsl:when>
-       <xsl:otherwise>
-
-	<!-- if we are doing MCMC calculate *total steps* to allow comparison with MC-only -->
-	<xsl:if test="dememorizationSteps">
-	 <xsl:text>Total steps in MCMC: </xsl:text>
-	 <xsl:value-of select="samplingNum * samplingSize"/>
-	 <xsl:call-template name="newline"/>
-	</xsl:if>
-
-	<xsl:for-each
-	 select="stderr|dememorizationSteps|samplingNum|samplingSize|steps">
-	 <xsl:variable name="node-name" select="name(.)"/>
-	 <xsl:value-of 
-	  select="$hw-guo-thompson[@col=$node-name]"/>  
-	 <xsl:text>: </xsl:text>
-	 <xsl:value-of select="."/>
-	 <xsl:call-template name="newline"/>
-	</xsl:for-each>
-	
-	<!-- do pvalue separately -->
-	<xsl:value-of select="$hw-guo-thompson[@col='pvalue']"/>  
-	<xsl:text> (overall): </xsl:text>
-	<xsl:apply-templates select="pvalue[@type='overall']"/>
-	<xsl:call-template name="newline"/>
-
-	<!-- do individual p-values -->
-	<xsl:call-template name="newline"/>
-	<xsl:text>Individual genotype p-values [Chen's statistic]:</xsl:text>
-	<xsl:call-template name="newline"/>
-	<xsl:for-each
-	 select="pvalue[@type='genotype' and @statistic='chen_statistic']">
-	 <xsl:variable name="offset" select="position()"/>
-	 <xsl:variable name="indiv-genotype" select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
-	 <xsl:value-of select="$indiv-genotype/@row"/>
-	 <xsl:text>:</xsl:text>
-	 <xsl:value-of select="$indiv-genotype/@col"/>
-	 <xsl:text>: </xsl:text>
-	 <xsl:apply-templates select="."/>
-	 <xsl:call-template name="newline"/>
-	</xsl:for-each>
-
-	<!-- do individual p-values -->
-	<xsl:call-template name="newline"/>
-	<xsl:text>Individual genotype p-values [diff statistic]:</xsl:text>
-	<xsl:call-template name="newline"/>
-	<xsl:for-each
-	 select="pvalue[@type='genotype' and @statistic='diff_statistic']">
-	 <xsl:variable name="offset" select="position()"/>
-	 <xsl:variable name="indiv-genotype" select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
-	 <xsl:value-of select="$indiv-genotype/@row"/>
-	 <xsl:text>:</xsl:text>
-	 <xsl:value-of select="$indiv-genotype/@col"/>
-	 <xsl:text>: </xsl:text>
-	 <xsl:apply-templates select="."/>
-	 <xsl:call-template name="newline"/>
-	</xsl:for-each>
-
-	
-       </xsl:otherwise>
       </xsl:choose>
 
+      <!-- if we are doing MCMC calculate *total steps* to allow comparison with MC-only -->
+      <xsl:if test="dememorizationSteps">
+       <xsl:text>Total steps in MCMC: </xsl:text>
+       <xsl:value-of select="samplingNum * samplingSize"/>
+       <xsl:call-template name="newline"/>
+      </xsl:if>
+      
+      <xsl:for-each
+       select="stderr|dememorizationSteps|samplingNum|samplingSize|steps">
+       <xsl:variable name="node-name" select="name(.)"/>
+       <xsl:value-of 
+	select="$hw-guo-thompson[@col=$node-name]"/>  
+       <xsl:text>: </xsl:text>
+       <xsl:value-of select="."/>
+       <xsl:call-template name="newline"/>
+      </xsl:for-each>
+      
+      <!-- do pvalue separately -->
+      <xsl:value-of select="$hw-guo-thompson[@col='pvalue']"/>  
+      <xsl:text> (overall): </xsl:text>
+      <xsl:apply-templates select="pvalue[@type='overall']"/>
+      <xsl:call-template name="newline"/>
+      
+      <!-- do individual p-values -->
+      <xsl:call-template name="newline"/>
+      <xsl:text>Individual genotype p-values [Chen's statistic]:</xsl:text>
+      <xsl:call-template name="newline"/>
+      <xsl:for-each
+       select="pvalue[@type='genotype' and @statistic='chen_statistic']">
+       <xsl:variable name="offset" select="position()"/>
+       <xsl:variable name="indiv-genotype" select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
+       <xsl:value-of select="$indiv-genotype/@row"/>
+       <xsl:text>:</xsl:text>
+       <xsl:value-of select="$indiv-genotype/@col"/>
+       <xsl:text>: </xsl:text>
+       <xsl:apply-templates select="."/>
+       <xsl:call-template name="newline"/>
+      </xsl:for-each>
+      
+      <!-- do individual p-values -->
+      <xsl:call-template name="newline"/>
+      <xsl:text>Individual genotype p-values [diff statistic]:</xsl:text>
+      <xsl:call-template name="newline"/>
+      <xsl:for-each
+       select="pvalue[@type='genotype' and @statistic='diff_statistic']">
+       <xsl:variable name="offset" select="position()"/>
+       <xsl:variable name="indiv-genotype" select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
+       <xsl:value-of select="$indiv-genotype/@row"/>
+       <xsl:text>:</xsl:text>
+       <xsl:value-of select="$indiv-genotype/@col"/>
+       <xsl:text>: </xsl:text>
+       <xsl:apply-templates select="."/>
+       <xsl:call-template name="newline"/>
+      </xsl:for-each>
+      
       <!--
       <xsl:text>*switches*</xsl:text>
       <xsl:call-template name="newline"/>
