@@ -1,4 +1,5 @@
 PDF2PS = pdf2ps
+XMLLINT = xmllint --noout --xinclude --postvalid $<
 
 ifeq ($(PUBLISH),)
 CVSPRE =
@@ -31,11 +32,8 @@ XSLFO += --param passivetex.extensions 1
 	xmlto pdf $<
 endif
 
-# set default location of stylesheets, if envar is not set
-# alternatively if envar is set, it will use that 
-ifeq ($(DOCBOOKXSLDIR),)
-	DOCBOOKXSLDIR=/net/share/xml/docbook/xsl-stylesheets
-endif
+# set default location of stylesheets
+DOCBOOKXSLDIR=http://docbook.sourceforge.net/release/xsl/snapshot/
 
 # phony target for equation bitmaps for which we don't know the name of yet
 .PHONY: eqns
@@ -60,13 +58,25 @@ eqns: tex-math-equations.dvi
 %.txt: %.html
 	lynx -dump -nolist $< > $@
 
+# profiling for 'main' version of document
+%-main-profile.xml: %.xml
+	$(XSLTPROC) --stringparam profile.condition main --xinclude -o $@ $(DOCBOOKXSLDIR)/profiling/profile.xsl $<
+
+# profiling for 'anthro' version of document
+%-anthro-profile.xml: %.xml
+	$(XSLTPROC) --stringparam profile.condition anthro-book --xinclude -o $@ $(DOCBOOKXSLDIR)/profiling/profile.xsl $<
+
+# rules to produce final version of HTML, FO, PDF etc.
+
 %.html: %.xml $(FIGS) html.xsl $(EXTRA_XML_SOURCE)
-	$(CVSPRE) 
-	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML) -o $@ html.xsl $<
+	$(CVSPRE)
+	$(XMLLINT)	
+	$(XSLTPROC) $(XSLCOMMON) --param profiling-highlighting $(if $(findstring profile,$<),0,1) $(XSLHTML) -o $@ html.xsl $<
 	$(CVSPOST)
 
 %.fo: %.xml $(FIGS) fo.xsl $(EXTRA_XML_SOURCE)
-	$(CVSPRE) 
+	$(CVSPRE)
+	$(XMLLINT)
 	$(XSLTPROC) $(XSLCOMMON) $(XSLFO) -o $@ fo.xsl $<
 	$(CVSPOST)
 
