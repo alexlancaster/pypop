@@ -28,6 +28,7 @@ from Homozygosity import Homozygosity
 from ConfigParser import ConfigParser, NoOptionError
 from Utils import XMLOutputStream, TextOutputStream
 from getopt import getopt, GetoptError
+from Filter import AnthonyNolanFilter
 
 try:
   opts, args =getopt(sys.argv[1:],"lsc:hd", ["use-libxslt", "use-4suite", "experimental", "config=", "help", "debug"])
@@ -196,6 +197,24 @@ try:
 except NoOptionError:
   sys.exit("No valid sample fields defined")
 
+try:
+  anthonynolanPath=config.get("ParseFile", "anthonynolanPath")
+except NoOptionError:
+  anthonynolanPath=os.path.join(datapath, "anthonynolan", "HIG-seq-pep-text")
+  if debug:
+    print "Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
+
+# open log file for filter in append mode
+filterLogFile = TextOutputStream(open('filter.log', 'a'))
+
+# create a data cleaning filter to pass all data through
+
+filter = AnthonyNolanFilter(debug=debug,
+                            directoryName=anthonynolanPath,
+                            untypedAllele=untypedAllele,
+                            filename=fileName,
+                            logFile=filterLogFile)
+
 # Generate the parse file object
 input = ParseGenotypeFile(fileName,
                           validPopFields=validPopFields,
@@ -204,6 +223,7 @@ input = ParseGenotypeFile(fileName,
 			  untypedAllele=untypedAllele,
                           popNameDesignator=popNameDesignator,
                           fieldPairDesignator=fieldPairDesignator,
+                          filter=filter,
 			  debug=debug)
 
 # serialize summary info for population in XML
