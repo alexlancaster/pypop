@@ -93,7 +93,7 @@ eqns: tex-math-equations.dvi
 %.jpg: %.ps
 	convert -crop 0x0 -rotate 90 $< $@
 
-%.rtf: %.xml
+%.rtf: %.xml color
 	(cat /usr/share/sgml/xml.dcl; xmllint --xinclude $<)| $(JADE) -V rtf-backend -t rtf -V biblio-filter-used -V biblio-citation-checked -o $@ -d print.dsl
 
 # phony targets for generating images
