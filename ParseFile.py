@@ -375,7 +375,14 @@ class ParseGenotypeFile(ParseFile):
         
         self.freqcount = {}
         self.locusTable = {}
-        for locus in self.alleleMap.keys():
+
+        # create an empty-list of lists to store all the row data
+        self.individualsList = [[] for line in range(0, self.totalIndivCount)]
+
+        # freeze the list of locusKeys in a particular order
+        self.locusKeys = self.alleleMap.keys()
+        
+        for locus in self.locusKeys:
 	    if self.debug:
 	       print "locus name:", locus
 	       print "column tuple:", self.alleleMap[locus]
@@ -389,11 +396,23 @@ class ParseGenotypeFile(ParseFile):
             
             total = 0
             untypedIndividuals = 0
+
+            # re-initialise the row count on each iteration of the locus
+            rowCount = 0
             for line in sampleDataLines:
                 fields = string.split(line, separator)
 
                 allele1 = fields[col1]
                 allele2 = fields[col2]
+
+                if self.debug:
+                    print rowCount, self.individualsList[rowCount]
+
+                # extend the list by the allele pair
+                self.individualsList[rowCount].extend([allele1, allele2])
+
+                # increment row count
+                rowCount += 1
 
                 # ensure that *both* alleles are typed 
                 if (self.untypedAllele != allele1) and \
@@ -425,6 +444,7 @@ class ParseGenotypeFile(ParseFile):
                     print col1, col2, allele1, allele2, total
                     
             self.freqcount[locus] = alleleTable, total, untypedIndividuals
+            self.individualsData = self.individualsList, self.locusKeys
 
     def genValidKey(self, field, fieldList):
         """Check and validate key.
@@ -460,10 +480,14 @@ class ParseGenotypeFile(ParseFile):
     def getLocusList(self):
         """Returns the list of loci.
 
-        **Note:** *this list has filtered out all loci that consist
-        of individuals that are all untyped.* """
+        *Note: this list has filtered out all loci that consist
+        of individuals that are all untyped.*
+
+        *Note 2: the order of this list is now fixed for the lifetime
+          of the object.*
+        """
         
-        return self.freqcount.keys()
+        return self.locusKeys
 
     def getAlleleCount(self):
         """Return allele count statistics for all loci.
@@ -621,7 +645,25 @@ class ParseGenotypeFile(ParseFile):
         return self.locusTable[locus]
     
     def getLocusData(self):
+        """Returns the genotyped data for all loci.
+
+        Returns a dictionary keyed by locus name of lists of 2-tuples
+        as defined by 'getLocusDataAt()'
+        """
         return self.locusTable
+
+    def getIndividualsData(self):
+        """Returns the individual data.
+
+        Returns a 2-tuple consisting of:
+
+        - a list of individuals (the original `rows' of data in the
+          input file) each of which consists of an ordered list of
+          allele strings.
+
+        - an ordered list of keys (the locus names)
+        """
+        return self.individualsData
 
 class ParseAlleleCountFile(ParseFile):
     """Class to parse datafile in allele count form.
