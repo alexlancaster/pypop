@@ -1,4 +1,4 @@
-2003-12-08  Alex Lancaster  <alexl@users.sourceforge.net>
+2003-12-08  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* Makefile (DFLAGS): Add call to link ElectricFence library.
 
