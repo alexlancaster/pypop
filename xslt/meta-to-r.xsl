@@ -94,9 +94,11 @@ MODIFICATIONS.
   <xsl:param name="node"/>
 
   <xsl:choose>
-   <xsl:when test="$node">
+   <!-- if the node exists and is non-empty print it's value -->
+   <xsl:when test="$node and not($node='')">
     <xsl:value-of select="$node"/>
    </xsl:when>
+   <!-- otherwise output placeholder -->
    <xsl:otherwise>****</xsl:otherwise>
   </xsl:choose>
 
@@ -366,12 +368,30 @@ MODIFICATIONS.
       </xsl:call-template>
      </xsl:variable>
 
-     <xsl:variable name="pvals-mcmc" select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/pvalue[@type='genotype']"/>
+     <xsl:variable name="pvals-chen-mcmc"
+     select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/pvalue[@statistic='chen_statistic' and @type='genotype']"/>
 
-     <xsl:variable name="pvals-monte-carlo" select="hardyweinbergGuoThompson[@type='monte-carlo']/pvalue[@type='genotype']"/>
+     <xsl:variable name="pvals-chen-monte-carlo" select="hardyweinbergGuoThompson[@type='monte-carlo']/pvalue[@statistic='chen_statistic' and @type='genotype']"/>
+
+     <xsl:variable name="pvals-diff-mcmc"
+     select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/pvalue[@statistic='diff_statistic' and @type='genotype']"/>
+
+     <xsl:variable name="pvals-diff-monte-carlo" select="hardyweinbergGuoThompson[@type='monte-carlo']/pvalue[@statistic='diff_statistic' and @type='genotype']"/>
+
+     <xsl:variable name="stats-chen-monte-carlo" select="hardyweinbergGuoThompson[@type='monte-carlo']/genotypeSimulatedStatistic[@statistic='chen_statistic']"/>
+
+     <xsl:variable name="stats-diff-monte-carlo" select="hardyweinbergGuoThompson[@type='monte-carlo']/genotypeSimulatedStatistic[@statistic='diff_statistic']"/>
+
+     <xsl:variable name="stats-chen-mcmc" select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/genotypeSimulatedStatistic[@statistic='chen_statistic']"/>
+
+     <xsl:variable name="stats-diff-mcmc" select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/genotypeSimulatedStatistic[@statistic='diff_statistic']"/>
+
+
+     <xsl:variable name="offset" select="count(hardyweinberg/genotypetable/genotype)"/>
 
      <xsl:for-each select="hardyweinberg/genotypetable/genotype">
       <xsl:variable name="pos" select="position()"/>
+      <xsl:variable name="pos-less1" select="position()-1"/>
       <xsl:value-of select="$curr-line-start"/>
 
       <xsl:value-of select="../../../@name"/>
@@ -381,18 +401,93 @@ MODIFICATIONS.
       <xsl:value-of select="@row"/>
       <xsl:text>&#09;</xsl:text>
 
-      <xsl:value-of select="observed"/>
-      <xsl:text>&#09;</xsl:text>
-      <xsl:value-of select="expected"/>
-      <xsl:text>&#09;</xsl:text>
-
       <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="$pvals-mcmc[$pos]"/>
+       <xsl:with-param name="node" select="observed"/>
       </xsl:call-template>
 
       <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="$pvals-monte-carlo[$pos]"/>
+       <xsl:with-param name="node" select="expected"/>
       </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="pvalue"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$pvals-chen-mcmc[$pos]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$pvals-chen-monte-carlo[$pos]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$pvals-diff-mcmc[$pos]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$pvals-diff-monte-carlo[$pos]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node"
+       select="../../../hardyweinbergGuoThompson[@type='monte-carlo']/genotypeObservedStatistic[@statistic='chen_statistic' and @id=$pos-less1]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="../../../hardyweinbergGuoThompson[@type='monte-carlo']/genotypeObservedStatistic[@statistic='diff_statistic' and @id=$pos-less1]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="../../../hardyweinbergGuoThompson[not(@type='monte-carlo')]/genotypeObservedStatistic[@statistic='chen_statistic' and @id=$pos-less1]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="../../../hardyweinbergGuoThompson[not(@type='monte-carlo')]/genotypeObservedStatistic[@statistic='diff_statistic' and @id=$pos-less1]"/>
+      </xsl:call-template>
+
+      <xsl:variable name="genotype-filename">
+       <xsl:text>genotype-</xsl:text>
+       <xsl:value-of select="@row"/>
+       <xsl:text>-</xsl:text>
+       <xsl:value-of select="@col"/>
+       <xsl:text>.dat</xsl:text>
+      </xsl:variable>
+
+      <exsl:document href="{$genotype-filename}"
+       omit-xml-declaration="yes"
+       method="text">
+
+       <xsl:variable name="cur-chen-mc" select="$stats-chen-monte-carlo[@id=$pos-less1]"/>
+
+       <xsl:variable name="cur-diff-mc" select="$stats-diff-monte-carlo[@id=$pos-less1]"/>
+
+       <xsl:variable name="cur-chen-mcmc" select="$stats-chen-mcmc[@id=$pos-less1]"/>
+
+       <xsl:variable name="cur-diff-mcmc" select="$stats-diff-mcmc[@id=$pos-less1]"/>
+
+       <xsl:text>stat.chen.mc</xsl:text>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:text>stat.diff.mc</xsl:text>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:text>stat.chen.mcmc</xsl:text>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:text>stat.diff.mcmc</xsl:text>
+       <xsl:call-template name="newline"/>
+
+       <xsl:for-each select="$cur-chen-mc">
+	<xsl:variable name="cur-pos" select="position()"/>
+	<xsl:value-of select="."/>
+	<xsl:text>&#09;</xsl:text>
+	<xsl:value-of select="$cur-diff-mc[$cur-pos]"/>
+	<xsl:text>&#09;</xsl:text>
+	<xsl:value-of select="$cur-chen-mcmc[$cur-pos]"/>
+	<xsl:text>&#09;</xsl:text>
+	<xsl:value-of select="$cur-diff-mcmc[$cur-pos]"/>
+
+	<xsl:call-template name="newline"/>
+       </xsl:for-each>
+      </exsl:document>
 
       <xsl:call-template name="newline"/>
      </xsl:for-each>
@@ -560,6 +655,7 @@ MODIFICATIONS.
   </xsl:for-each>
  </xsl:template>
 
+
  <xsl:template match="/">
 
 
@@ -592,7 +688,8 @@ MODIFICATIONS.
     <exsl:document href="1-locus-genotype.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.mcmc&#09;pval.monte-carlo</xsl:text>
+     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
+
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
