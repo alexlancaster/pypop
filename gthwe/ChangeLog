@@ -1,3 +1,24 @@
+2005-03-01  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* Makefile (SRC, OBJS, REMOVABLE): Add statistics.{c,o}
+
+	* func.h (diff_statistic, chen_statistic, init_stats, store_stats)
+	(print_stats):   Function prototypes.
+
+	* read_data.c (read_data): genotypes and allele_array now passed
+	in as pointer parameters, and calloc()ed internally.  Use
+	consistent variable naming, fixed indented.
+
+	* hwe.c (diff_statistic, chen_statistic, init_stats, store_stats)
+	(print_stats): Moved to statistics.c.
+	(main): Don't hardcode size of arrays, now calloced in read_data().
+	Pass pointers to genotypes, allele_array into read_data() function
+	Don't forget to free() at end of function.
+	(run_randomization): Remove an unused variable 'k'.
+
+	* statistics.c: New file, split out individual genotype statistic
+	gathering related function from hwe.c.
+
 2004-12-23  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* gthwe_wrap.i: %module _Gthwe -> Gthw for compatibility with most
