@@ -1,5 +1,3 @@
-/* a translation from Richard Single's awk programme */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -38,16 +36,22 @@ int count_unique_haplos(char (*)[][], char (*)[], int (*)[], char (*)[][], int *
   * create haplocus[i][j]: a 2-dim array of allele# at jth locus of ith haplotype
 */
 
-void id_unique_alleles(char (*)[][], char (*)[][], int *, int, int);
-/* data array, unique_allele array, no. of unique alleles array, no. of loci, no. of records */
+void id_unique_alleles(char (*)[][], char (*)[][], int *, double (*)[], int, int);
+/* data array, unique_allele array, no. of unique alleles array, allele_freq, no. of loci, no. of records */
 /* 
   * creates array of alleles unique to each locus 
 */
 
-void sort2dim(char (*)[][], int *, int);
-/* unique_allele array, no. of unique alleles array, no. of loci */
-/* 
-  * insertion sort in ascending order for 2nd dimension of 2-dim array
+double min(double, double);
+/*
+  * return minimum argument
+*/
+
+void linkage_diseq(double *, int (*)[], double (*)[], char (*)[][], int *, 
+       int, int, int); 
+/* mle, haplocus, allele_freq, unique_allele, n_unique_allele, n_loci, n_haplo, n_recs */
+/*
+  * compute LD coefficients
 */
 
 void sort2arrays(char (*)[], double *, int);
@@ -57,7 +61,7 @@ void sort2arrays(char (*)[], double *, int);
 */
 
 void emcalc(char (*)[], char (*)[][], int (*)[], int *, int *, double *,
-      double *, int, int, int, int);
+       double *, int, int, int, int);
 /* haplo, geno, genopheno, numgeno, obspheno, freq_zero, mle, n_haplo, n_unique_geno, 
    n_unique_pheno, n_recs */
 /*
@@ -212,6 +216,8 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 /* RS --- needed for check -1-
   int count;      
 */
+  /* needed for checking */
+  double temp;
 
   /* these should be malloced, but the stack will experience meltdown: */
   static char pheno[MAX_ROWS][LINE_LEN], geno[MAX_GENOS][2][LINE_LEN / 2];
@@ -230,19 +236,16 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   /* needed for the id_unique_alleles function */
   static char unique_allele[MAX_LOCI][MAX_ALLELES][NAME_LEN];
   static int n_unique_allele[MAX_LOCI];
-
-  /* nothing needed for sort2dim function */
+  static double allele_freq[MAX_LOCI][MAX_ALLELES];
 
   /* nothing needed for sort2arrays function */
 
   /* needed for the emcalc function */
   double mle[MAX_HAPLOS], freq_zero[MAX_HAPLOS];
 
-  /* needed for the allele_frequencies function */
-  static double allele_freq[MAX_LOCI][MAX_ALLELES];
-
   /******************* end: declarations ****************************/
 
+  /********* begin: arranging unique phenotypes and genotypes ************/
   n_hetero = n_hetero_prev = 0;
   n_geno = n_geno_prev = 1;
   /* begin by counting the unique phenotypes and genotypes */
@@ -447,14 +450,13 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   n_unique_pheno = unique_pheno_count + 1;
   n_unique_geno = unique_geno_count + 1;
 
-  /* finished arranging unique phenotypes and genotypes */
-  /* here endeth the code from the original count_unique_phenos_genos */
-  /* ---------------------------------------------------------------- */
+  /********* end: arranging unique phenotypes and genotypes ************/
 
   fprintf(stdout, "n_unique_pheno: %d n_unique_geno: %d \n", n_unique_pheno,
     n_unique_geno);
 
-  id_unique_alleles(data_ar, unique_allele, n_unique_allele, n_loci, n_recs);
+  id_unique_alleles(data_ar, unique_allele, n_unique_allele, allele_freq, 
+    n_loci, n_recs);
 
   n_haplo = count_unique_haplos(geno, haplo, haplocus, unique_allele, 
     n_unique_allele, n_unique_geno, n_loci);
@@ -478,26 +480,18 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   } 
 */
 
-/* RS --- List all genos observed 
+/* RS --- List all genos observed and haplos
   for(i = 0; i < n_unique_geno; i++)
   {
-    fprintf(stdout, "%d %s %s\n", i+1, geno[i][0], geno[i][1]);
+    fprintf(stdout, "geno[%d][0]:%s geno[%d][1]:%s\n", i, geno[i][0], i, geno[i][1]);
+  }
+  for(i = 0; i < n_haplo; i++)
+  {
+    fprintf(stdout, "haplo[%d]: %s\n", i, haplo[i]);
   }
 */
-
-  /* N.B. this sort destroys the haplocus[][] corrspondence */
-  sort2dim(unique_allele, n_unique_allele, n_loci);
-
-  for (locus = 0; locus < n_loci; locus++)
-  {
-    fprintf(stdout, "\n");
-    for (j = 0; j < n_unique_allele[locus]; j++)
-    {
-      fprintf(stdout, "unique_allele[%d][%d]: %s\n", locus, j,
-        unique_allele[locus][j]);
-    }
-  }
-
+  
+  /* Set initial haplotype frequencies  before EM calc */
   for (i = 0; i < n_haplo; i++)
   {
     freq_zero[i] = 1.0 / (double)n_haplo;
@@ -506,11 +500,10 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   emcalc(haplo, geno, genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
     n_unique_geno, n_unique_pheno, n_recs);
 
-  /* N.B. allele_frequencies requires the array mle */
-  allele_frequencies(mle, haplocus, allele_freq, n_unique_allele, n_loci, n_haplo);
-
-  /* N.B. can't sort arrays before using haplocus[][], since the order is needed */
+  /* N.B. this sort destroys the haplocus[][] corrspondence */
+/*  
   sort2arrays(haplo, mle, n_haplo);
+*/
 
   j = 0;
   fprintf(stdout, "\n\n \t MLE frequency \t haplo (MLE > .00001) \n");
@@ -523,18 +516,28 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     }
   }
 
-  /* Print out derived allele frequencies */
-  fprintf(stdout, "\nAllele Freq \t Locus \t Allele \n", 
-          allele_freq[i][j], i, unique_allele[i][j]);
+  /* Calc allele_freqs by summing over MLEs */
+  /* N.B. allele_frequencies requires the array mle    */
+  /*      haplocus[][] can not be destroyed by sorting */
+/*
+  allele_frequencies(mle, haplocus, allele_freq, n_unique_allele, n_loci, n_haplo);
+*/
+
+  /* Print out allele frequencies */
+  fprintf(stdout, "\nAllele frequencies\n");
+  fprintf(stdout, "------------------\n");
+  fprintf(stdout, "Frequency \t Locus \t Allele\n");
   for (i = 0; i < n_loci; i++)
   {
     for (j = 0; j < n_unique_allele[i]; j++)
     {
-      fprintf(stdout, "%f \t %d \t %s \n", allele_freq[i][j], i, unique_allele[i][j]);
+      fprintf(stdout, "%f \t %d \t %s \n", allele_freq[i][j], i, 
+        unique_allele[i][j]);
     }
   }
 
-  fprintf(stdout, "\n");
+  linkage_diseq(mle, haplocus, allele_freq, unique_allele, n_unique_allele, 
+    n_loci, n_haplo, n_recs);
 
   return (EXIT_SUCCESS);
 }
@@ -568,21 +571,21 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
   {
     strcpy(temp_array[0], temp_ptr);
     strcat(temp_array[0], ":");
-    for (i = 1; i < num_loci; i++) /* start at 1 since 0th is done */
+    for (k = 1; k < num_loci; k++) /* start at 1 since 0th is done */
     {
       temp_ptr = strtok(NULL,":");
       if (temp_ptr) 
       {  
-        strcpy(temp_array[i], temp_ptr);
-        strcat(temp_array[i], ":");
+        strcpy(temp_array[k], temp_ptr);
+        strcat(temp_array[k], ":");
       }  
     }
   }
 /* RS --- CHECKING
-  for (l = 0; l < num_loci; l++) 
+  for (k = 0; k < num_loci; k++) 
   {
     fprintf(stdout, "haplo_ar[0]: %s temp_array[%d]: %s \n", 
-            haplo_ar[0], l, temp_array[l]); 
+            haplo_ar[0], k, temp_array[k]); 
   }
 */
 
@@ -595,7 +598,7 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
         haplocus[0][l] = m;
     }
   }
-  
+
   for (i = 0; i < num_genos; i++)
   {
     for (j = 0; j < 2; j++)
@@ -604,7 +607,9 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
       for (k = 0; k <= unique_haplo_count && unique_haplo_flag == TRUE; k++)
       {
         if (!strcmp(geno_ar[i][j], haplo_ar[k]))
+        {  
           unique_haplo_flag = FALSE;
+        }  
       }
       if (unique_haplo_flag == TRUE)
       {
@@ -617,22 +622,22 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
         {
           strcpy(temp_array[0], temp_ptr);
           strcat(temp_array[0], ":");
-          for (i = 1; i < num_loci; i++) /* start at 1 since 0th is done */
+          for (k = 1; k < num_loci; k++) /* start at 1 since 0th is done */
           {
             temp_ptr = strtok(NULL,":");
             if (temp_ptr) 
             {  
-              strcpy(temp_array[i], temp_ptr);
-              strcat(temp_array[i], ":");
+              strcpy(temp_array[k], temp_ptr);
+              strcat(temp_array[k], ":");
             }  
           }
         }
 /* RS --- CHECKING
-        for (l = 0; l < num_loci; l++) 
+        for (k = 0; k < num_loci; k++) 
         {
           fprintf(stdout, "haplo_ar[%d]: %s temp_array[%d]: %s \n", 
                   unique_haplo_count, haplo_ar[unique_haplo_count], 
-                  l, temp_array[l]); 
+                  k, temp_array[k]); 
         }
 */
 
@@ -656,7 +661,8 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
 /************************************************************************/
 void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
            char (*unique_allele)[MAX_ALLELES][NAME_LEN],
-           int *n_unique_allele, int n_loci, int n_recs)
+           int *n_unique_allele, double (*allele_freq)[MAX_ALLELES],
+           int n_loci, int n_recs)
 /* 
    * Creates unique_allele[i,j]: jth unique allele for the ith locus        
    * Creates n_unique_allele[i]: number of unique alleles for the ith locus 
@@ -664,6 +670,7 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
 {
   int i, j, locus, col_0, col_1;
   int unique_allele_flag, unique_allele_count;
+  double temp; /* XX for checking */
 
 /* CHECKING
   for (i = 0; i < n_recs; i++)
@@ -689,12 +696,15 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
         if (!strcmp(data_ar[i][col_0], unique_allele[locus][j]))
         {
           unique_allele_flag = FALSE;
+          allele_freq[locus][j] += 1;
+
         }
       }
       if (unique_allele_flag == TRUE)
       {
         unique_allele_count += 1;
         strcpy(unique_allele[locus][unique_allele_count], data_ar[i][col_0]);
+        allele_freq[locus][unique_allele_count] += 1;
       }
 
       /* Process col_1 of current locus */
@@ -704,53 +714,255 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
         if (!strcmp(data_ar[i][col_1], unique_allele[locus][j]))
         {
           unique_allele_flag = FALSE;
+          allele_freq[locus][j] += 1;
         }
       }
       if (unique_allele_flag == TRUE)
       {
         unique_allele_count += 1;
         strcpy(unique_allele[locus][unique_allele_count], data_ar[i][col_1]);
+        allele_freq[locus][unique_allele_count] += 1;
       }
     }
     n_unique_allele[locus] = unique_allele_count + 1;
 
-/*
-    fprintf(stdout, "\n n_unique_allele[%d]: %d\n", locus,
-      n_unique_allele[locus]);
-*/
-
-/* CHECKING
+    temp = 0.0;
     for(j = 0; j < n_unique_allele[locus]; j++)
     {
-      fprintf(stdout, "unique_allele[%d][%d]: %s\n", locus, j, unique_allele[locus][j]); 
+      allele_freq[locus][j] = allele_freq[locus][j] / (2*(double)n_recs);
+      temp += allele_freq[locus][j];
     }
-*/
-
   }
 
 }
 
 /************************************************************************/
-void sort2dim(char (*unique_allele)[MAX_ALLELES][NAME_LEN],
-        int *n_unique_allele, int n_loci)
-/* insertion sort in ascending order for 2nd dimension of 2-dim array */
+double min(double a, double b)
 {
-  int i, j, locus;
-  char temp[NAME_LEN];
+  if (a < b)
+    return (a);
+  else
+    return (b);
+}
 
-  for (locus = 0; locus < n_loci; locus++)
+/************************************************************************/
+void linkage_diseq(double (*mle), int (*hl)[MAX_LOCI],
+       double (*af)[MAX_ALLELES], 
+       char (*unique_allele)[MAX_ALLELES][NAME_LEN],
+       int *n_unique_allele, int n_loci, int n_haplo, int n_recs)
+       /* hl: haplocus array           */
+       /* af: allele_frequencies array */
+{
+  int i, j, k, l, m, coeff_count;
+  static double dij[MAX_LOCI*(MAX_LOCI - 1)/2][MAX_ALLELES][MAX_ALLELES];
+  double dmax, norm_dij; 
+  double summary_dprime[MAX_LOCI*(MAX_LOCI - 1)/2]; 
+  double summary_q[MAX_LOCI*(MAX_LOCI - 1)/2]; 
+  double summary_wn[MAX_LOCI*(MAX_LOCI - 1)/2]; 
+  double sum; /* used to check sums */
+
+  /* After 1st pass dij[coeff_count][locusA_allele#][locusB_allele#] */
+  /*   contains Estimated 2-locus HFs based on full MLE HFs          */
+  /*   coeff_count runs from 0 to nCr(n_loci,2)                      */                     
+  for (i = 0; i < n_haplo; i++)
   {
-    for (i = 1; i < n_unique_allele[locus]; ++i)
+    coeff_count = 0;
+    for (j = 0; j < n_loci; j++)
     {
-      for (j = i; (j - 1) >= 0 && strcmp(unique_allele[locus][j - 1],
-        unique_allele[locus][j]) > 0; --j)
+      for (k = j+1; k < n_loci; k++)
       {
-        strcpy(temp, unique_allele[locus][j]);
-        strcpy(unique_allele[locus][j], unique_allele[locus][j - 1]);
-        strcpy(unique_allele[locus][j - 1], temp);
+        dij[coeff_count][ hl[i][j] ][ hl[i][k] ] = 
+          dij[coeff_count][ hl[i][j] ][ hl[i][k] ] + mle[i];
+        coeff_count += 1;
       }
     }
   }
+
+/* CHECKING inner loop
+          fprintf(stdout,"Loci: %d %d dij[%d][%d][%d]: %f \n", 
+            j, k, coeff_count, l, m, dij[coeff_count][l][m]);
+*/
+  /* print Estimated Observed Counts (2*n_recs*dij) */
+  fprintf(stdout,"\nEstimated Observed Counts\n");
+  fprintf(stdout,"-------------------------\n");
+  coeff_count = 0;
+  for (j = 0; j < n_loci; j++)
+  {
+    for (k = j+1; k < n_loci; k++)
+    {
+      fprintf(stdout,"--Loci:%2d\\%2d-- (Estimated Observed Counts)\n", j, k);
+      fprintf(stdout,"%10s ", " ");
+      for (m = 0; m < n_unique_allele[k]; m++)
+        fprintf(stdout,"%10s ", unique_allele[k][m]);
+      fprintf(stdout,"\n");
+      sum = 0.0; /* CHECKING sum */
+      for (l = 0; l < n_unique_allele[j]; l++)
+      {
+        fprintf(stdout,"%10s ", unique_allele[j][l]);
+        for (m = 0; m < n_unique_allele[k]; m++)
+        {
+          fprintf(stdout,"%10.4f ", 2 * (double)n_recs * dij[coeff_count][l][m]);
+          sum += 2 * (double)n_recs * dij[coeff_count][l][m];
+        }
+        fprintf(stdout,"\n"); 
+      }
+      coeff_count += 1;
+/* CHECKING sum
+      fprintf(stdout,"\t 2*n_recs: %d sum: %f \n", 2*n_recs, sum); 
+*/
+    }
+  }
+
+  /* print Expected Counts under No LD */
+  fprintf(stdout,"\nExpected Counts with No LD\n");
+  fprintf(stdout,"--------------------------\n");
+  coeff_count = 0;
+  for (j = 0; j < n_loci; j++)
+  {
+    for (k = j+1; k < n_loci; k++)
+    {
+      fprintf(stdout,"--Loci:%2d\\%2d-- (Expected Counts with No LD)\n", j, k);
+      fprintf(stdout,"%10s ", " ");
+      for (m = 0; m < n_unique_allele[k]; m++)
+        fprintf(stdout,"%10s ", unique_allele[k][m]);
+      fprintf(stdout,"\n");
+      sum = 0.0; /* CHECKING sum */
+      for (l = 0; l < n_unique_allele[j]; l++)
+      {
+        fprintf(stdout,"%10s ", unique_allele[j][l]);
+        for (m = 0; m < n_unique_allele[k]; m++)
+        {
+          fprintf(stdout,"%10.4f ", 2 * (double)n_recs * af[j][l] * af[k][m]);
+          sum += 2 * (double)n_recs * af[j][l] * af[k][m];
+        }
+        fprintf(stdout,"\n");
+      }
+      coeff_count += 1;
+/* CHECKING sum
+      fprintf(stdout,"\t 2*n_recs: %d sum: %f \n", 2*n_recs, sum); 
+*/
+    }
+  }
+
+  /* print   Individual 1-df Chi-square Statistics */
+  /* compute disequilibrium values overwriting dij[][][] */
+  fprintf(stdout,"\nSingle d.f. Chi-squares\n");
+  fprintf(stdout,"-----------------------\n");
+  coeff_count = 0;
+  for (j = 0; j < n_loci; j++)
+  {
+    for (k = j+1; k < n_loci; k++)
+    {
+      fprintf(stdout,"--Loci:%2d\\%2d-- (Single d.f. Chi-squares)\n", j, k);
+      fprintf(stdout,"%10s ", " ");
+      for (m = 0; m < n_unique_allele[k]; m++)
+        fprintf(stdout,"%10s ", unique_allele[k][m]);
+      fprintf(stdout,"\n");
+      for (l = 0; l < n_unique_allele[j]; l++)
+      {
+        fprintf(stdout,"%10s ", unique_allele[j][l]);
+        for (m = 0; m < n_unique_allele[k]; m++)
+        {
+          dij[coeff_count][l][m] -= af[j][l] * af[k][m];
+          fprintf(stdout,"%10.4f ", pow(dij[coeff_count][l][m], 2) * 
+            2 * (double)n_recs / ( af[j][l]*(1-af[j][l])*af[k][m]*(1-af[k][m]) ));
+        }
+        fprintf(stdout,"\n");
+      }
+      coeff_count += 1;
+    }
+  }
+
+  /* print   d_ij values */
+  /* compute summary_q and summary_wn */
+  fprintf(stdout,"\nDisequilibrium Values (d_ij)\n");
+  fprintf(stdout,"----------------------------\n");
+  coeff_count = 0;
+  for (j = 0; j < n_loci; j++)
+  {
+    for (k = j+1; k < n_loci; k++)
+    {
+      summary_q[coeff_count] = 0;
+      fprintf(stdout,"--Loci:%2d\\%2d-- (d_ij)\n", j, k);
+      fprintf(stdout,"%10s ", " ");
+      for (m = 0; m < n_unique_allele[k]; m++)
+        fprintf(stdout,"%10s ", unique_allele[k][m]);
+      fprintf(stdout,"\n");
+      for (l = 0; l < n_unique_allele[j]; l++)
+      {
+        fprintf(stdout,"%10s ", unique_allele[j][l]);
+        for (m = 0; m < n_unique_allele[k]; m++)
+        {
+          fprintf(stdout,"%10.4f ", dij[coeff_count][l][m]);
+          summary_q[coeff_count] += 2 * (double)n_recs * 
+            pow(dij[coeff_count][l][m], 2) / ( af[j][l] * af[k][m] ) ;
+        }
+        fprintf(stdout,"\n");
+      }
+      summary_wn[coeff_count]  = sqrt( summary_q[coeff_count] / 
+        ( 2*(double)n_recs * (min(n_unique_allele[j],n_unique_allele[k])-1) ) );
+      coeff_count += 1;
+    }
+  }
+
+  /* print   dprime_ij values */
+  /* compute dprime_ij values and summary_dprime */
+  fprintf(stdout,"\nNormalized Disequilibrium Values (d'_ij)\n");
+  fprintf(stdout,"----------------------------------------\n");
+  coeff_count = 0;
+  for (j = 0; j < n_loci; j++)
+  {
+    for (k = j+1; k < n_loci; k++)
+    {
+      summary_dprime[coeff_count] = 0;
+      fprintf(stdout,"--Loci:%2d\\%2d-- (d'_ij = d_ij/dmax)\n", j, k);
+      fprintf(stdout,"%10s ", " ");
+      for (m = 0; m < n_unique_allele[k]; m++)
+        fprintf(stdout,"%10s ", unique_allele[k][m]);
+      fprintf(stdout,"\n");
+      for (l = 0; l < n_unique_allele[j]; l++)
+      {
+        fprintf(stdout,"%10s ", unique_allele[j][l]);
+        for (m = 0; m < n_unique_allele[k]; m++)
+        {
+          if (dij[coeff_count][l][m] > 0)
+          {
+            dmax = min( af[j][l]*(1-af[k][m]), (1-af[j][l])*af[k][m] );
+            norm_dij = dij[coeff_count][l][m] / dmax;
+          }
+          else if (dij[coeff_count][l][m] < 0)
+          {
+            dmax = min( af[j][l]*af[k][m], (1-af[j][l])*(1-af[k][m]) );
+            norm_dij = dij[coeff_count][l][m] / dmax;
+          }
+          else
+            norm_dij = 0; 
+          fprintf(stdout,"%10.4f ", norm_dij);
+          summary_dprime[coeff_count] += af[j][l] * af[k][m] * fabs(norm_dij);
+        }
+        fprintf(stdout,"\n");
+      }
+      coeff_count += 1;
+    }
+  }
+
+  /* print   summary measures */
+  fprintf(stdout,"\nDisequilibrium Summary Measures\n");
+  fprintf(stdout,"-------------------------------\n");
+  coeff_count = 0;
+  for (j = 0; j < n_loci; j++)
+  {
+    for (k = j+1; k < n_loci; k++)
+    {
+      fprintf(stdout,"--Loci:%2d\\%2d--\n", j, k);
+      fprintf(stdout,"             Wn [Cohen, 1988]: %10.4f\n", summary_wn[coeff_count]);
+      fprintf(stdout,"               Q [Hill, 1975]: %10.4f (approx. Chi-square %d)\n", 
+        summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1) );
+      fprintf(stdout,"       Dprime [Hedrick, 1987]: %10.4f\n", summary_dprime[coeff_count]);
+      coeff_count += 1;
+    }
+  }
+
 }
 
 /************************************************************************/
@@ -1054,11 +1266,14 @@ void allele_frequencies(double *mle, int (*haplocus)[MAX_LOCI],
   {
     for (j = 0; j < n_unique_allele[i]; j++)
     {
+      allele_freq[i][j] = 0.0; 
       for (k = 0; k < n_haplo; k++)
       {
         if (haplocus[k][i] == j)
-          allele_freq[i][j] += mle[k];
+          allele_freq[i][j] += mle[k]; 
       }
     }
   }
 }
+
+/************************************************************************/
