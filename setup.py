@@ -4,6 +4,11 @@ from distutils.file_util import copy_file
 
 import sys, os
 
+# distutils doesn't currently have an explicit way of setting CFLAGS,
+# it takes CFLAGS from the environment variable of the same name, so
+# we set the environment to emulate that.
+os.environ['CFLAGS'] = '-funroll-loops'
+
 # if and only if we are making a source distribution, then regenerate
 # ChangeLog
 if sys.argv[1] == 'sdist':
