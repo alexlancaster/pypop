@@ -48,6 +48,10 @@ MODIFICATIONS.
  
  <xsl:template match="/">
   <xsl:apply-templates/>
+  <!--
+  <xsl:for-each match"emhaplofreq/group[(string-length(@loci) -
+   string-length(translate(@loci, ':', '')))=2 and @role!='no-data']">
+   -->
  </xsl:template>
 
  <xsl:template match="emhaplofreq/group[(string-length(@loci) -
@@ -89,6 +93,9 @@ MODIFICATIONS.
    <xsl:value-of select="$locus3"/>
    <xsl:text>*</xsl:text>
    <xsl:value-of select="$allele3"/>
+
+   <xsl:text>:   </xsl:text>
+   <xsl:value-of select="frequency"/>
 
    <xsl:call-template name="newline"/>
 
