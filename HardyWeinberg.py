@@ -314,11 +314,13 @@ class HardyWeinberg:
         stream.closetag('hardyweinberg')
       else:
         stream.writeln("HardyWeinberg statistics:")
+        stream.writeln("=========================")
         stream.writeln()
         stream.writeln("HWChisq    : %.4f " % self.HWChisq)
         stream.writeln("HWChisqDf  : %.4f " % self.HWChisqDf)
         stream.writeln("HWChisqPval: %.4f " % self.HWChisqPval)
         stream.writeln("No lumps")
+        stream.writeln()
         
     else:
 
@@ -345,6 +347,7 @@ class HardyWeinberg:
 
       else:
         stream.writeln("HardyWeinberg statistics:")
+        stream.writeln("=========================")
         stream.writeln("Sample size: %d" % self.n)
         stream.writeln("Alleles:   : %d" % self.k)
         stream.writeln("Chi Squared: %.4f" % self.HWChisq)
@@ -355,7 +358,7 @@ class HardyWeinberg:
         stream.writeln("Lumped expected: %.4f" % self.lumpedExpectedGenotypes)
         stream.writeln("Lumped Chisq   : %.4f" % self.lumpedChisq)
         stream.writeln("Lumped Pval    : %.4f" % float(self.lumpedChisqPval))
-
+        stream.writeln()
 
 class HardyWeinbergGuoThompson(HardyWeinberg):
   """Wrapper class for 'gthwe'
