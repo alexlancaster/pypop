@@ -1,3 +1,15 @@
+2004-02-26  Alex Lancaster  <alexl@socrates.berkeley.edu>
+
+	* popmeta.py (popmetabinpath): Improve heuristics to find 'xslt'
+	subdirectory.
+
+	* NEWS: Update with popmeta.py addition and release date.
+
+	* MANIFEST.in: Add allelelist-by-locus.xsl haplolist-by-group.xsl
+	to distribution.
+
+	* standalone.spec (xslt_dir): Likewise.
+
 2004-02-17  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* standalone.spec (createWrappers, createObjects):

@@ -1,7 +1,7 @@
 PyPop NEWS --- history of user-visible changes to PyPop.  -*- outline -*-
 Copyright (C) 2003 Regents of the University of California
 
-* Release Notes for PyPop 0.5.1 (public beta)
+* Release Notes for PyPop 0.5.1 (public beta) 2004-02-26
 ** Changes
 *** New parameter 'numInitCond', number of initial conditions by the
     haplotype estimation and LD algorithm used before performing 
@@ -10,6 +10,8 @@ Copyright (C) 2003 Regents of the University of California
     an error to the user (if nothing is wrong, don't say anything).  Add
     some more useful messages for what is being done in haplo/LD 
     estimation step.
+*** Add popmeta.py to the distribution: this is undocumented and unsupported 
+    as yet, it is at alpha stage only, use at your own risk!
 
 ** Bug fixes
 *** Remember to output plaintext version of LD for specified loci.
