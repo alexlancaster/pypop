@@ -266,7 +266,7 @@ class HomozygosityEWSlatkinExact:
 
     def __init__(self,
                  alleleCountData=None,
-                 numReplicates=1000,
+                 numReplicates=10000,
                  debug=0):
 
       self.alleleData, self.sampleCount, self.unusableIndividuals = \
