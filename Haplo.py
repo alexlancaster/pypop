@@ -3,7 +3,7 @@
 """Module for estimating haplotypes.
 
 """
-import sys, string, os
+import sys, string, os, re
 
 class Haplo:
     """*Abstract* base class for haplotype parsing/output.
@@ -13,9 +13,12 @@ class Haplo:
     pass
 
 class HaploArlequin(Haplo):
-    """Outputs Arlequin format data files and runtime info.
-
-    """
+    """Haplotype estimation implemented via Arlequin
+    
+    Outputs Arlequin format data files and runtime info, also runs and
+    parses the resulting Arlequin data so it can be made available
+    programatically by rest of Python framework. """
+    
     def __init__(self,
                  arpFilename,
                  idCol,
@@ -26,6 +29,31 @@ class HaploArlequin(Haplo):
                  arlequinPrefix = "arl_run",
                  debug=0):
 
+        """Constructor for HaploArlequin object.
+
+        Expects:
+
+        - arpFilename: Arlequin filename (must have '.arp' file
+          extension)
+        
+        - idCol: column in input file that contains the individual id.
+        
+        - prefixCols: number of columns to ignore before allele data
+          starts
+        
+        - suffixCols: number of columns to ignore after allele data
+          stops
+        
+        - windowSize: size of sliding window
+        
+        - untypedAllele:  (defaults to '0')
+        
+        - arlequinPrefix: prefix for all Arlequin run-time files
+        (defaults to 'arl_run').
+
+        - debug: (defaults to 0)
+        
+        """
         self.arpFilename = arpFilename
         self.idCol = idCol
         self.prefixCols = prefixCols
@@ -34,6 +62,12 @@ class HaploArlequin(Haplo):
         self.arlequinPrefix = arlequinPrefix
         self.untypedAllele = untypedAllele
         self.debug = debug
+
+        if arpFilename[-4:] == '.arp':
+            self.arpFilename = arpFilename
+            self.arlResPrefix = arpFilename[:-4]
+        else:
+            sys.exit("Error: Arlequin filename: %s does not have a .arp suffix", arpFilename)
 
     def _outputHeader(self, sampleCount):
 
@@ -84,9 +118,9 @@ class HaploArlequin(Haplo):
 
         self.arpFile.write("""
     
-        SampleName=\"The %s population with %s individuals from %d col to %d col\"
+        SampleName=\"%s pop with %s individuals from cols %d to %d\"
         SampleSize= %s
-        SampleData={"""  % ("??", len(samples)/2, startCol, endCol, len(samples)/2))
+        SampleData={"""  % (self.arlResPrefix, len(samples)/2, startCol, endCol, len(samples)/2))
 
         self.arpFile.write(os.linesep)
 
@@ -98,7 +132,8 @@ class HaploArlequin(Haplo):
         self.arpFile.write("}")
 
     def outputArlequin(self, data):
-
+        """Outputs the specified .arp sample file.
+        """
         # open specified arp
         self.arpFile = open(self.arpFilename, 'w')
         
@@ -113,7 +148,7 @@ class HaploArlequin(Haplo):
                   locusCount, "allele pairs"
 
         chunk = xrange(0, locusCount - self.windowSize + 1)
-        
+
         self._outputHeader(len(chunk))
         
         for locus in chunk:
@@ -125,6 +160,8 @@ class HaploArlequin(Haplo):
         self.arpFile.close()
 
     def _outputArlRunTxt(self, txtFilename, arpFilename):
+        """Outputs the run-time Arlequin program file.
+        """
         file = open(txtFilename, 'w')
         file.write("""%s
 use_assoc_settings
@@ -134,6 +171,9 @@ use_assoc_settings
 end""" % (os.getcwd(), os.getcwd(), os.sep, arpFilename))
 
     def _outputArlRunArs(self, arsFilename):
+        """Outputs the run-time Arlequin setting file.
+
+        """
         file = open(arsFilename, 'w')
         file.write("""[Setting for Calculations]
 TaskNumber=8
@@ -175,7 +215,7 @@ NumBootstrapReplicatesEM=0
 NumInitCondBootstrapEM=10
 ComputeAllSubHaplotypesEM=0
 ComputeAllHaplotypesEM=1
-ComputeAllAllelesEM=1
+ComputeAllAllelesEM=0
 EpsilonValue=1.0e-7
 FrequencyThreshold=1.0e-5
 ComputeConventionalFST=0
@@ -211,6 +251,14 @@ KeepNullDistrib=0""")
         file.close()
         
     def runArlequin(self):
+        """Run the Arlequin haplotyping program.
+
+        Generates the expected '.txt' set-up files for Arlequin, then
+        forks a copy of 'arlecore.exe', which must be on 'PATH' to
+        actually generate the haplotype estimates from the generated
+        '.arp' file.
+        """
+        
         self._outputArlRunTxt(self.arlequinPrefix + ".txt", self.arpFilename)
         self._outputArlRunArs(self.arlequinPrefix + ".ars")
 
@@ -219,7 +267,65 @@ KeepNullDistrib=0""")
 
         # fix permissions on result directory because Arlequin is
         # brain-dead with respect to file permissions on Unix
-        os.chmod(self.arlequinPrefix + ".res", 0755)
-    
-#print string.join([words[x] for x in chunk if (x % 2) == 0])
-#print string.join([words[x] for x in chunk if (x % 2) != 0])
+        os.chmod(self.arlResPrefix + ".res", 0755)
+
+    def genHaplotypes(self):
+        """Gets the haplotype estimates back from Arlequin.
+
+        Parses the Arlequin output nonsense to retrieve the haplotype
+        estimated data.  Returns a list of the sliding `windows' which
+        consists of tuples.
+
+        Each tuple consists of a:
+
+        - dictionary entry (the haplotype-frequency) key-value pairs.
+
+        - population name (original .arp file prefix)
+
+        - sample count (number of samples for that window)
+
+        - start (where the window starts)
+
+        - stop (where the window stops)
+        """
+        outFile = self.arlResPrefix + ".res" + os.sep + self.arlResPrefix + ".htm"
+        dataFound = 0
+        headerFound = 0
+
+        haplotypes = []
+        
+        patt1 = re.compile("== Sample :[\t ]*(\S+) pop with (\d+) individuals from cols (\d+) to (\d+)")
+        patt2 = re.compile("    #   Haplotype     Freq.      s.d.")
+        patt3 = re.compile("^\s+\d+\s+UNKNOWN(.*)")
+        
+        for line in open(outFile, 'r').readlines():
+            matchobj = re.search(patt1, line)
+            if matchobj:
+                headerFound = 1
+                popName = matchobj.group(1)
+                sampleCount = matchobj.group(2)
+                start = matchobj.group(3)
+                stop = matchobj.group(4)
+                freqs = {}
+                
+            if dataFound:
+                if line != os.linesep:
+                    if self.debug:
+                        print string.rstrip(line)
+                    matchobj = re.search(patt3, line)
+                    if matchobj:
+                        cols = string.split(matchobj.group(1))
+                        haplotype = cols[2] + "_" + cols[3] + "_" + cols[4]
+                        freq = float(cols[0])*float(sampleCount)
+                        freqs[haplotype] = freq
+                    else:
+                        sys.exit("Error: unknown output in arlequin line: %s" % line)
+                else:
+                    headerFound = 0
+                    dataFound = 0
+                    haplotypes.append((freqs, popName, sampleCount, start, stop))
+
+            if re.match(patt2, line):
+                dataFound = 1
+
+        return haplotypes
