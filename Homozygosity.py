@@ -274,14 +274,50 @@ class HomozygosityEWSlatkinExact:
       self.numAlleles = len(self.alleleData)
       self.numReplicates = numReplicates
       self.debug = debug
-
       
       if self.sampleCount > 0:
         import _EWSlatkinExact
 
-        _EWSlatkinExact.main_proc(self.alleleData.values(), self.numAlleles, \
-                                  self.sampleCount, self.numReplicates)
+        self.EW = _EWSlatkinExact
+
+        # create the correct array that module expect,
+        # by pre- and appending zeroes to the list
+        li = [0] 
+        li.extend(self.alleleData.values())
+        li.append(0)
+
+        self.EW.main_proc(li, self.numAlleles, \
+                          self.sampleCount, self.numReplicates)
+
+    def serializeHomozygosityTo(self, stream):
+    
+      if self.sampleCount > 0:
+      
+        stream.opentag('homozygosityEWSlatkinExact')
+        stream.writeln()
+
+        stream.tagContents('theta', "%.4f" % self.EW.get_theta())
+        stream.writeln()
+
+        stream.tagContents('probEwens', "%.4f" % self.EW.get_prob_ewens())
+        stream.writeln()
+
+        stream.tagContents('probHomozygosity', "%.4f" % self.EW.get_prob_homozygosity())
+        stream.writeln()
+
+        stream.tagContents('meanHomozygosity', "%.4f" % self.EW.get_mean_homozygosity())
+        stream.writeln()
+
+        stream.tagContents('varHomozygosity', "%.4f" % self.EW.get_var_homozygosity())
+        stream.writeln()
+
+        stream.closetag('homozygosityEWSlatkinExact')
 
       else:
-        print "no data at this locus!"
+        stream.emptytag('homozygosityEWSlatkinExact', role='no-data')
+
+      # always end on a newline
+      stream.writeln()
+
+        
         
