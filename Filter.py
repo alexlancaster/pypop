@@ -7,12 +7,47 @@
 
 ."""
 
-import sys, os, string, types, re
+import sys, os, string, types, re, exceptions
 from Utils import OrderedDict, TextOutputStream
 
-class Filter:
-    pass
+class SubclassError(Exception):
+    def __init__(self):
+        pass
+    def __str__(self):
+        return "Sub class must implement this method"
 
+class Filter:
+    def __init__(self):
+        pass
+    def startFirstPass(self, locus):
+        raise SubclassError()
+    def checkAlleleName(self, alleleName):
+        raise SubclassError()
+    def addAllele(self, alleleName):
+        raise SubclassError()
+    def endFirstPass(self):
+        raise SubclassError()
+    def filterAllele(self, alleleName):
+        raise SubclassError()
+    def writeToLog(self, logstring=None):
+        raise SubclassError()
+
+class PassThroughFilter(Filter):
+    def __init__(self):
+        pass
+    def startFirstPass(self, locus):
+        pass
+    def checkAlleleName(self, alleleName):
+        pass
+    def addAllele(self, alleleName):
+        pass
+    def endFirstPass(self):
+        pass
+    def filterAllele(self, alleleName):
+        return alleleName
+    def writeToLog(self, logstring=None):
+        pass
+    
 class AnthonyNolanFilter(Filter):
     """Filters data via anthonynolan's allele call data.
 
@@ -202,3 +237,7 @@ class AnthonyNolanFilter(Filter):
         if alleleName != transl:
             self.logFile.writeln("<<%s to %s>>" % (alleleName, transl))
         return transl
+
+    def writeToLog(self, logstring=os.linesep):
+        self.logFile.writeln(logstring)
+
