@@ -43,6 +43,11 @@ if test x$DONTTAG = xy; then
     echo "skipping tagging"
 else
     CVSTAG=PYPOP_SRC-$(cat VERSION|tr . _)
-    echo cvs tag $CVSTAG
+    echo -n "do you really want to tag this version with ${CVSTAG}? enter y: "
+    read REALLYTAG
+    if test "x$REALLYTAG" = xy; then
+	echo running cvs tag $CVSTAG
+    else
+	echo not tagging
 fi
 
