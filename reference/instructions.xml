@@ -317,7 +317,7 @@ Common genotypes
 
    <para>The  implementations of this  test is via a module that
     interfacest to <application>Arlequin</application>
-    <citation>Schneider:2000</citation>.</para>
+    <citation>Schneider:etal:2000</citation>.</para>
 
 <!--
 
@@ -325,7 +325,7 @@ Common genotypes
     the <application>gthwe</application> implementation originally due
     to Guo &amp; Thompson, but modified by John Chen, the second being
     <application>Arlequin</application>'s
-    <citation>Schneider:2000</citation> implementation.</para>
+    <citation>Schneider:etal:2000</citation> implementation.</para>
   
    <example>
     <title>Sample output for exact test using
@@ -391,7 +391,7 @@ p-value: 0.0518</programlisting>
     Homozygosity is the difference between the observed and expected
     homozygosity, divided by the square root of the variance of the
     expected homozygosity (also obtained by simulations; <citation
-     role="citet">Salamon:1999</citation>). Negative Normalized
+     role="citet">Salamon:etal:1999</citation>). Negative Normalized
     deviates imply Observed Homozygosity values lower than Expected
     Homozygosity, in the direction of balancing selection when there
     is significant deviation from neutrality expectation.  Significant
@@ -640,13 +640,13 @@ haplotype         frequency # copies  | haplotype         frequency # copies
 
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Ewens:1972'])"/>  
 
-   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Salamon:1999'])"/>  
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Salamon:etal:1999'])"/>  
 
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Slatkin:1994'])"/>  
 
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Slatkin:1996'])"/>  
 
-   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Schneider:2000'])"/>  
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Schneider:etal:2000'])"/>  
 
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Lancaster:etal:2003a'])"/>  
 
