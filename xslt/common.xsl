@@ -174,6 +174,18 @@
   <xsl:apply-templates select="filename|populationdata"/>
 
   <xsl:call-template name="section">
+   <xsl:with-param name="title">Legend for all analyses</xsl:with-param>
+   <xsl:with-param name="level" select="2"/>
+   <xsl:with-param name="text">
+    * = significant at the 5% level
+   ** = significant at the 1% level
+  *** = significant at the 0.1% level
+ **** = significant at the 0.01% level
+***** = significant at the 0.001% level
+   </xsl:with-param>
+  </xsl:call-template>
+
+  <xsl:call-template name="section">
    <xsl:with-param name="title">Single Locus Analyses</xsl:with-param>
    <xsl:with-param name="level" select="1"/>
    <xsl:with-param name="number" select="'I'"/>
