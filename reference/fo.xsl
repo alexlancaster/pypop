@@ -27,6 +27,8 @@
  <xsl:param name="sans.font.family">sans-serif</xsl:param>
  <xsl:param name="dingbat.font.family">serif</xsl:param>
 
+ <xsl:param name="line-height" select="1.4"></xsl:param>
+
  <xsl:param name="title.margin.left" select="'0.0in'"/>
  <xsl:param name="toc.indent.width" select="8"/>
 
