@@ -1,30 +1,32 @@
 #!/usr/bin/env python
 
 """Test driving wrapper.
-
-Usage:  tdw.py <filename>
-
-Expects to find a file called 'config.ini' in the current directory.
-
 """
 
-import sys
+usageMessage = """Usage: tdw.py INPUTFILE
+Process and run population genetics statistics on an INPUTFILE.
+Expects to find a file called 'config.ini' in the current directory.
+
+  INPUTFILE   input text file"""
+
+import sys, os
 
 from ParseFile import ParseGenotypeFile
 from HardyWeinberg import HardyWeinberg
 from Homozygosity import Homozygosity
 from ConfigParser import ConfigParser, NoOptionError
 
+if len(sys.argv) != 2:
+  sys.exit(usageMessage)
+
 fileName = sys.argv[1]
 
 config = ConfigParser()
 
-config.read("config.ini")
-
-for section in config.sections():
-  print section
-  for option in config.options(section):
-          print " ", option, "=", config.get(section, option)
+if os.path.isfile("config.ini"):
+  config.read("config.ini")
+else:
+  sys.exit("Could not find config.ini" + os.linesep + usageMessage)
 				
 if len(config.sections()) == 0:
 	sys.exit("No output defined!  Exiting...")
@@ -37,6 +39,13 @@ except NoOptionError:
 	debug=0
 except ValueError:
 	sys.exit("require a 0 or 1 as debug flag")
+
+if debug:
+  for section in config.sections():
+    print section
+    for option in config.options(section):
+      print " ", option, "=", config.get(section, option)
+
 
 # Parse "ParseFile" section
 try:
