@@ -598,9 +598,17 @@ class Main:
         except NoOptionError:
             numReplicates = 10000
 
-        hzExactObj =  HomozygosityEWSlatkinExact(self.input.getAlleleCount(), 
-                                                 numReplicates=numReplicates,
-                                                 debug=self.debug)
+        # make a dictionary of allele counts (don't need the last
+        # two elements that are returned by this method)
+        alleleCounts = self.input.getAlleleCount()[0]
+
+        # notice we pass just the alleleCount values.  But the
+        # dictionary is still useful to have in case we have to do
+        # random binning.
+        hzExactObj = HomozygosityEWSlatkinExact(alleleCounts.values(),
+                                                numReplicates=numReplicates,
+                                                debug=self.debug)
+
 
         hzExactObj.serializeHomozygosityTo(self.xmlStream)
         
