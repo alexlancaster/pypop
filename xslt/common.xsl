@@ -1054,68 +1054,106 @@
 
  <xsl:template match="haplotypefreq">
 
-  <!-- create header for table -->
-  <xsl:call-template name="append-pad">
-   <xsl:with-param name="padVar">haplotype</xsl:with-param>
-   <xsl:with-param name="length">24</xsl:with-param>
-  </xsl:call-template>
+  <xsl:choose>
+   <xsl:when test="condition/@role='converged'">
 
-  <xsl:call-template name="append-pad">
-   <xsl:with-param name="padVar">frequency</xsl:with-param>
-   <xsl:with-param name="length">24</xsl:with-param>
-  </xsl:call-template>
-
-  <xsl:call-template name="append-pad">
-   <xsl:with-param name="padVar">num. of copies</xsl:with-param>
-   <xsl:with-param name="length">24</xsl:with-param>
-  </xsl:call-template>
-
-  <xsl:call-template name="newline"/>
-
-  <!-- loop through each haplotype-->
-  <xsl:for-each select="haplotype">
-   <xsl:sort select="@name" data-type="text" order="ascending"/>
-   <xsl:for-each select="frequency|numCopies|@name">
+    <!-- create header for table -->
     <xsl:call-template name="append-pad">
-     <xsl:with-param name="padVar" select="."/>
+     <xsl:with-param name="padVar">haplotype</xsl:with-param>
      <xsl:with-param name="length">24</xsl:with-param>
     </xsl:call-template>
-   </xsl:for-each>
-   <xsl:call-template name="newline"/>
-  </xsl:for-each>
+    
+    <xsl:call-template name="append-pad">
+     <xsl:with-param name="padVar">frequency</xsl:with-param>
+     <xsl:with-param name="length">24</xsl:with-param>
+    </xsl:call-template>
+    
+    <xsl:call-template name="append-pad">
+     <xsl:with-param name="padVar">num. of copies</xsl:with-param>
+     <xsl:with-param name="length">24</xsl:with-param>
+    </xsl:call-template>
+    
+    <xsl:call-template name="newline"/>
+    
+    <!-- loop through each haplotype-->
+    <xsl:for-each select="haplotype">
+     <xsl:sort select="@name" data-type="text" order="ascending"/>
+     <xsl:for-each select="frequency|numCopies|@name">
+      <xsl:call-template name="append-pad">
+       <xsl:with-param name="padVar" select="."/>
+       <xsl:with-param name="length">24</xsl:with-param>
+      </xsl:call-template>
+     </xsl:for-each>
+     <xsl:call-template name="newline"/>
+    </xsl:for-each>
+
+   </xsl:when>
+
+   <xsl:when test="condition/@role='loglike-failed-converge'">
+    <xsl:text>Log likelihood failed to converge in specified number of iterations.
+    </xsl:text>
+   </xsl:when>
+
+   <xsl:otherwise>
+    <xsl:text>Unhandled 'role': </xsl:text> <xsl:value-of
+    select="condition/@role"/> 
+
+    <xsl:text>' Please implement.</xsl:text>
+   </xsl:otherwise>
+
+  </xsl:choose>
 
  </xsl:template>
 
  <xsl:template match="linkagediseq">
 
-  <xsl:for-each select="summary">
-   <xsl:text>LD summary statistics between: </xsl:text>
-   <xsl:variable name="loci" select="../../@loci"/>
+  <xsl:choose>
+   <xsl:when test="../haplotypefreq/condition/@role='converged'">
+    
+    <xsl:for-each select="summary">
+     <xsl:text>LD summary statistics between: </xsl:text>
+     <xsl:variable name="loci" select="../../@loci"/>
+     
+     <xsl:call-template name="get-nth-element">
+      <xsl:with-param name="delim">:</xsl:with-param>
+      <xsl:with-param name="str" select="$loci"/>
+      <xsl:with-param name="n" select="@first"/>
+     </xsl:call-template>
+     
+     <xsl:text> and </xsl:text>
+     
+     <xsl:call-template name="get-nth-element">
+      <xsl:with-param name="delim">:</xsl:with-param>
+      <xsl:with-param name="str" select="$loci"/>
+      <xsl:with-param name="n" select="@second"/>
+     </xsl:call-template>
+     
+     <xsl:call-template name="newline"/>
+     
+     <xsl:call-template name="linesep-fields">
+      <xsl:with-param name="nodes" select="dprime|wn|q/chisq|q/dof"/>
+     </xsl:call-template>
+     
+    </xsl:for-each>
+   
+   </xsl:when>  
 
-   <xsl:call-template name="get-nth-element">
-    <xsl:with-param name="delim">:</xsl:with-param>
-    <xsl:with-param name="str" select="$loci"/>
-    <xsl:with-param name="n" select="@first"/>
-   </xsl:call-template>
+   <xsl:when test="../haplotypefreq/condition/@role='loglike-failed-converge'">
+    <xsl:text>Log likelihood failed to converge: don't calculate any LD stats.</xsl:text>
 
-   <xsl:text> and </xsl:text>
+    <xsl:call-template name="newline"/>
+   </xsl:when>
 
-   <xsl:call-template name="get-nth-element">
-    <xsl:with-param name="delim">:</xsl:with-param>
-    <xsl:with-param name="str" select="$loci"/>
-    <xsl:with-param name="n" select="@second"/>
-   </xsl:call-template>
+   <xsl:otherwise>
+    <xsl:text>Unhandled 'role': Please implement!</xsl:text>
 
-   <xsl:call-template name="newline"/>
+    <xsl:call-template name="newline"/>
+   </xsl:otherwise>
 
-   <xsl:call-template name="linesep-fields">
-    <xsl:with-param name="nodes" select="dprime|wn|q/chisq|q/dof"/>
-   </xsl:call-template>
+  </xsl:choose>
 
-   <xsl:call-template name="newline"/>
+  <xsl:call-template name="newline"/>
 
-  </xsl:for-each>
-  
  </xsl:template>
 
  <xsl:template match="permutationSummary">
