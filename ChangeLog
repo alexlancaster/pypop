@@ -1,3 +1,14 @@
+2003-12-29  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* standalone.spec (pypop-batch.bat): Mirror Linux batch wrapper
+	script for DOS [Win9*,2k,NT,XP] binary.
+
+	* Makefile (NAME_BIN): Make uname test for "CYGWIN_NT" work for
+	both 5.0 [Win2k] and XP [5.1].
+
+	* Main.py (getConfigInstance): Remove obsolete code and unused
+	'specifiedConfigFile' variable.
+
 2003-12-24  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* standalone.spec: For Linux, add LD_LIBRARY_PATH variable to

@@ -19,19 +19,22 @@ if sys.platform == 'cygwin':
     file_sep = '\\'
     exec_name = 'pypop.exe'
     wrapper_name = 'pypop.bat'
-    wrapper_contents = """%s\pypop.exe -i""" % bin_dir
+    wrapper_contents = """%s\%s -i""" % (bin_dir, exec_name)
     batch_wrapper = 'pypop-batch.bat'
+    batch_wrapper_contents = """%s\%s %%*""" % (bin_dir, exec_name)
     compression = 'zip'
 elif sys.platform == 'linux2':
     exec_name = 'pypop'
     type = 'Linux'
     file_sep = '/'
     wrapper_name = 'pypop.sh'
-    wrapper_contents = """dir=$(dirname $0)
-LD_LIBRARY_PATH=$dir/%s $dir/%s/pypop -i""" % (bin_dir, bin_dir)
+    wrapper_contents = """#!/bin/sh
+dir=$(dirname $0)
+LD_LIBRARY_PATH=$dir/%s $dir/%s/%s -i""" % (bin_dir, bin_dir, exec_name)
     batch_wrapper = 'pypop-batch.sh'
-    batch_wrapper_contents = """dir=$(dirname $0)
-LD_LIBRARY_PATH=$dir/%s $dir/%s/pypop $@""" % (bin_dir, bin_dir)
+    batch_wrapper_contents = """#!/bin/sh
+dir=$(dirname $0)
+LD_LIBRARY_PATH=$dir/%s $dir/%s/%s $@""" % (bin_dir, bin_dir, exec_name)
     compression = 'gzip'
 else:
     sys.exit(sys.platform + " is currently unsupported")
@@ -105,13 +108,10 @@ os.chmod(filename, 0755)
 
 # create batch-file wrapper script
 filename = os.path.join(dist_dir, batch_wrapper)
-if type == 'Win32':
-    os.symlink(os.path.join(bin_dir, exec_name), filename)
-else:
-    batch = open(filename, 'w')
-    batch.write(batch_wrapper_contents)
-    batch.close()
-    os.chmod(filename, 0755)
+batch = open(filename, 'w')
+batch.write(batch_wrapper_contents)
+batch.close()
+os.chmod(filename, 0755)
 
 # create xslt subdirectory
 xslt_dir = os.path.join(dist_dir, 'xslt')

@@ -8,7 +8,7 @@ DOCPATH=reference
 ifeq ($(SYSTEM),Linux)
 NAME_BIN=PyPopLinux-$(VERSION).tar.gz
 endif
-ifeq ($(SYSTEM),CYGWIN_NT-5.1)
+ifeq ($(findstring CYGWIN_NT, $(SYSTEM)),CYGWIN_NT)
 NAME_BIN=PyPopWin32-$(VERSION).zip
 endif
 
