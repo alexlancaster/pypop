@@ -248,7 +248,7 @@
     <title>Data flow</title>
     <mediaobject>
      <imageobject>
-      <imagedata fileref="work-flow.jpg" align="center" scale="99"/>  <!-- scale="45" -->
+      <imagedata fileref="work-flow.jpg" align="center" scale="45"/>  <!-- scale="45" -->
      </imageobject>
      <textobject>
       <phrase>Diagram of software work-flow can be found at:
@@ -867,7 +867,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
      locus</title>
     <mediaobject>
      <imageobject>
-      <imagedata fileref="pops-by-locus.jpg" scale="90"/>
+      <imagedata fileref="pops-by-locus.jpg" scale="45"/>
      </imageobject>
     </mediaobject>
    </figure>
@@ -877,7 +877,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
      of populations within each region</title>
     <mediaobject>
      <imageobject>
-      <imagedata fileref="pops-by-region.jpg" scale="90"/>
+      <imagedata fileref="pops-by-region.jpg" scale="45"/>
      </imageobject>
     </mediaobject>
    </figure>
