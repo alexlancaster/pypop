@@ -172,6 +172,71 @@
  </biblioentry>
 
 
+
+ <biblioentry id="Meyer:etal:2003">
+  <biblioset relation="chapter">
+   <authorgroup>
+    <author role="uc">
+     <firstname>Diogo</firstname>
+     <surname>Meyer</surname>
+    </author>
+    <author role="uv">
+     <firstname>Richard</firstname>
+     <othername>M</othername>
+     <surname>Single</surname>
+    </author>
+    <author>
+     <firstname>Steven</firstname>
+     <othername>J.</othername>
+     <surname>Mack</surname>
+    </author>
+    <author role="uc">
+     <firstname>Alex</firstname>
+     <surname>Lancaster</surname>
+    </author>
+    <author role="uc">
+     <firstname>Mark</firstname>
+     <othername>P</othername>
+     <surname>Nelson</surname>
+    </author>
+    <author>
+     <firstname>M.</firstname>
+     <surname>Fernánndez-Viñaa</surname>
+    </author>
+    <author>
+     <firstname>Henry</firstname>
+     <surname>Erlich</surname>
+    </author>
+    <author role="uc">
+     <firstname>Glenys</firstname>
+     <surname>Thomson</surname>
+    </author>
+   </authorgroup>
+   <pubdate>2003</pubdate>
+   <citetitle>Haplotype  Frequencies and Linkage Disequilibrium  among
+    classical HLA genes</citetitle>
+  </biblioset>
+
+  <biblioset relation="book">
+   <authorgroup>
+    <editor>
+     <firstname>JA</firstname>
+     <surname>Hansen</surname>
+    </editor>
+    <editor>
+     <firstname>B</firstname>
+     <surname>Dupont</surname>
+    </editor>
+   </authorgroup>
+   <edition>in press</edition>
+   <citetitle>HLA 2002: Immunobiology of the Human MHC</citetitle>
+   <publishername>IHWG Press</publishername>
+  </biblioset>
+
+ </biblioentry>
+
+
+
  <biblioentry id="Schneider:2000">
   <authorgroup>
    <author>
@@ -1202,7 +1267,7 @@
     </author>
    </authorgroup>
    <pubdate>2003</pubdate>
-   <citetitle>200XX IMGT/HLA and IMGT/MHC - Sequence Databases for the study of the Major Histocompatibility Complex</citetitle>
+   <citetitle>2003 IMGT/HLA and IMGT/MHC - Sequence Databases for the study of the Major Histocompatibility Complex</citetitle>
   </biblioset>
   <biblioset relation="book">
    <authorgroup>
@@ -1221,7 +1286,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Single:etal:2003">
+ <biblioentry id="Single:etal:2003a">
   <biblioset relation="chapter">
    <authorgroup>
     <author>
@@ -1237,8 +1302,68 @@
      <surname>Thomson</surname>
     </author>
    </authorgroup>
-   <pubdate>2003</pubdate>
+   <pubdate>2003a</pubdate>
    <citetitle>Statistical methods for analysis of population genetic data.</citetitle>
+  </biblioset>
+  <biblioset relation="book">
+   <authorgroup>
+    <editor>
+     <firstname>JA</firstname>
+     <surname>Hansen</surname>
+    </editor>
+    <editor>
+     <firstname>B</firstname>
+     <surname>Dupont</surname>
+    </editor>
+   </authorgroup>
+   <edition>in press</edition>
+   <citetitle>HLA 2002: Immunobiology of the Human MHC</citetitle>
+   <publishername>IHWG Press</publishername>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Single:etal:2003b">
+  <biblioset relation="chapter">
+   <authorgroup>
+    <author>
+     <firstname>RM</firstname>
+     <surname>Single</surname>
+    </author>
+    <author>
+     <firstname>D</firstname>
+     <surname>Meyer</surname>
+    </author>
+    <author>
+     <firstname>Steven</firstname>
+     <othername>J.</othername>
+     <surname>Mack</surname>
+    </author>
+    <author role="uc">
+     <firstname>Alex</firstname>
+     <surname>Lancaster</surname>
+    </author>
+    <author role="uc">
+     <firstname>Mark</firstname>
+     <othername>P</othername>
+     <surname>Nelson</surname>
+    </author>
+    <author>
+     <firstname>M.</firstname>
+     <surname>Fernánndez-Viñaa</surname>
+    </author>
+    <author>
+     <firstname>Henry</firstname>
+     <surname>Erlich</surname>
+    </author>
+    <author>
+     <firstname>G</firstname>
+     <surname>Thomson</surname>
+    </author>
+   </authorgroup>
+   <pubdate>2003b</pubdate>
+   <citetitle>Single locus polymorphism of classical HLA
+    genes.</citetitle>
+
   </biblioset>
   <biblioset relation="book">
    <authorgroup>
