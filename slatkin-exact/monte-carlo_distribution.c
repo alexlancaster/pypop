@@ -171,6 +171,11 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 
 	Ecount = 0;
 	Fcount = 0;
+
+                /* Print header for stdout output */
+	printf("E_p \t F\n") ;
+
+
 	for (repno=1; repno<=maxrep; repno++)  {
 		generate(k, n, r_random, ranvec, b);
 
