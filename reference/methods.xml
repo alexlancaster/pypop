@@ -1254,10 +1254,9 @@
    genetic variation at two or more loci simultaneously, including
    non-random associations.  Gametic disequilibrium (usually referred
    to as linkage disequilibrium, LD) describes the non-random
-   association of alleles at different genetic loci.  <remark>there is
-   a problem here with grammar</remark> While linkage disequilibrium
-   can be more generally referred to as <quote>gametic phase
-   disequilibrium</quote>, or, in other words, the non-random
+   association of alleles at different genetic loci.  While linkage
+   disequilibrium can be more generally referred to as <quote>gametic
+   phase disequilibrium</quote>, or, in other words, the non-random
    occurrence in gametes of alleles at two or more loci, in general it
    is immaterial whether the two loci are linked.  In practice, and in
    almost all of the literature today, it is used only for linked
