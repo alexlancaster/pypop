@@ -476,18 +476,18 @@ class ParseGenotypeFile(ParseFile):
             # anthonynolan data filter/cleaner
 
             # initialize the filter
-            self.filter.startFirstPass(locus)
+#            self.filter.startFirstPass(locus)
 
             # loop through all lines in locus
-            for line in sampleDataLines:
-                fields = string.split(line, separator)
-                allele1 = string.strip(fields[col1])
-                allele2 = string.strip(fields[col2])
-                self.filter.addAllele(allele1)
-                self.filter.addAllele(allele2)
+#            for line in sampleDataLines:
+#                fields = string.split(line, separator)
+#                allele1 = string.strip(fields[col1])
+#                allele2 = string.strip(fields[col2])
+#                self.filter.addAllele(allele1)
+#                self.filter.addAllele(allele2)
 
             # do final reassignments based on counts
-            self.filter.endFirstPass()
+#            self.filter.endFirstPass()
 
             # re-initialise the row count on each iteration of the locus
             rowCount = 0
@@ -496,8 +496,10 @@ class ParseGenotypeFile(ParseFile):
 
                 # put all alleles through filter before doing
                 # data structures
-                allele1 = self.filter.filterAllele(string.strip(fields[col1]))
-                allele2 = self.filter.filterAllele(string.strip(fields[col2]))
+#                allele1 = self.filter.filterAllele(string.strip(fields[col1]))
+#                allele2 = self.filter.filterAllele(string.strip(fields[col2]))
+                allele1 = string.strip(fields[col1])
+                allele2 = string.strip(fields[col2])
                     
                 # extend the list by the allele pair
                 #self.individualsList[rowCount].extend([allele1 + ':',
