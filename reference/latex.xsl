@@ -37,9 +37,11 @@
 \fi
 \usepackage{amsmath,amsthm,amsfonts,amssymb,amsxtra,amsopn}
 \usepackage{graphicx}
+\usepackage{epsfig}
 \usepackage{float}
 \usepackage{algorithmic}
 \usepackage[dvips]{hyperref}
+\DeclareGraphicsExtensions{.eps}
  </xsl:variable>
 
  <xsl:variable name="latex.mapping.xml" select="document('ws.latex.mapping.xml')"/>
@@ -215,6 +217,26 @@
     <xsl:apply-templates/>
    </xsl:otherwise>
   </xsl:choose>
+ </xsl:template>
+ 
+ <xsl:template match="figure[programlisting]">
+  <xsl:call-template name="map.begin"/>
+  <xsl:apply-templates />
+  <xsl:call-template name="map.end"/>
+ </xsl:template>
+ 
+ <xsl:template match="programlisting">
+  <xsl:text>\begin{scriptsize}&#10;</xsl:text>
+  <xsl:text>\begin{verbatim}&#10;</xsl:text>
+  <xsl:apply-templates mode="latex.programlisting"/>
+  <xsl:text>\end{verbatim}&#10;</xsl:text>
+  <xsl:text>\end{scriptsize}&#10;</xsl:text>
+ </xsl:template>
+
+ <xsl:template match="ackno">
+  <xsl:call-template name="map.begin"/>
+  <xsl:apply-templates/>
+  <xsl:call-template name="map.end"/>
  </xsl:template>
 
 </xsl:stylesheet>
