@@ -100,11 +100,11 @@ class ArlequinWrapper:
             # get all even alleles (first phase of genotype data)
             # then filter them through the function to convert any
             # missing data into the form that Arlequin expects
-            even = string.join([self._fixMissingData(sample[i]) \
+            even = string.join([self._fixData(sample[i]) \
                                 for i in range(0,len(sample),2)], ' ')
 
             # do the same for the odd alleles
-            odd = string.join([self._fixMissingData(sample[i]) \
+            odd = string.join([self._fixData(sample[i]) \
                                for i in range(1,len(sample),2)], ' ')
 
             # output them on adjacent lines so that the alleles for
@@ -119,8 +119,10 @@ class ArlequinWrapper:
 
         self.arpFile.write("}")
 
-    def _fixMissingData(self, data):
-        """Convert missing data.
+    def _fixData(self, data):
+        """Fix data for Arlequin input.
+
+        Convert embedded spaces to 'x'
 
         Convert missing data using the untypedAllele parameter to
         class to the standard single character missing data signifier
@@ -131,7 +133,7 @@ class ArlequinWrapper:
         if data == self.untypedAllele + ":":
             output = '?'
         else:
-            output = data
+            output = data.replace(' ', 'x')
         return output
 
 
