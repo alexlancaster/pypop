@@ -368,8 +368,6 @@ if config.has_section("Emhaplofreq"):
   except NoOptionError:
     print "no loci provided for which to estimate LD"
 
-
-  # do all pairwise LD
   try:
     estAllPairwiseLD = config.getboolean("Emhaplofreq", "estAllPairwiseLD")
   except NoOptionError:
@@ -377,11 +375,6 @@ if config.has_section("Emhaplofreq"):
   except ValueError:
     sys.exit("require a 0 or 1 as a flag")
 
-  if estAllPairwiseLD:
-    print "estimating all pairwise LD..."
-    haplo.estAllPairwiseLD()
-
-  # do all pairwise haplotypes
   try:
     estAllPairwiseHaplo = config.getboolean("Emhaplofreq",
                                             "estAllPairwiseHaplo")
@@ -390,22 +383,19 @@ if config.has_section("Emhaplofreq"):
   except ValueError:
     sys.exit("require a 0 or 1 as a flag")
 
-  if estAllPairwiseHaplo:
-    print "estimating all pairwise haplotypes..."
-    haplo.estAllPairwiseHaplo()
-
-  # do all pairwise LD *and* haplotypes
-  try:
-    estAllPairwiseLDHaplo = config.getboolean("Emhaplofreq",
-                                              "estAllPairwiseLDHaplo")
-  except NoOptionError:
-    estAllPairwiseLDHaplo=0
-  except ValueError:
-    sys.exit("require a 0 or 1 as a flag")
-
-  if estAllPairwiseLDHaplo:
+  if estAllPairwiseLD and estAllPairwiseHaplo:
+    # do all pairwise LD *and* haplotypes
     print "estimating all pairwise LD and haplotypes..."
     haplo.estAllPairwiseLDHaplo()
+  else:
+    if estAllPairwiseLD:
+      # do all pairwise LD
+      print "estimating all pairwise LD..."
+      haplo.estAllPairwiseLD()
+    if estAllPairwiseHaplo:
+      # do all pairwise haplotypes
+      print "estimating all pairwise haplotypes..."
+      haplo.estAllPairwiseHaplo()
 
   # serialize to XML
   haplo.serializeTo(xmlStream)
