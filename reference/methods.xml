@@ -434,8 +434,8 @@
   <sect2>
    <title>Testing fit to HWP</title>
    
-   <para condition="main;anthro-book">There are two important issues with
-    regard to HWP testing. First is testing the overall fit of a
+   <para condition="main;anthro-book">There are two important issues
+    with regard to HWP testing. First is testing the overall fit of a
     sample. Traditionally, a large sample goodness-of-fit chi-square
     is performed when the number of genotypes is small relative to the
     sample size. With the development of modern molecular technology,
@@ -445,9 +445,10 @@
     is not uncommon for researchers to distinguish more than a few
     dozen alleles in a reasonable-sized sample for the HLA class I and
     class II loci. Therefore, in many studies the genotypic matrix is
-    relatively sparse and some simulation approaches, e.g. Guo and
-    Thompson (1992), are more appropriate than their asymptotic
-    counter parts in testing for overall fit of HWP.</para>
+    relatively sparse and some simulation approaches, e.g. <citation
+    role="citet">Guo:Thompson:1992</citation>, are more appropriate than
+    their asymptotic counter parts in testing for overall fit of
+    HWP.</para>
 
    <para condition="main;anthro-book">The second issue is testing at the
     individual heterozygote level. For a given sample, beside the
@@ -835,20 +836,21 @@
      sample size, the number of possible configurations of samples
      using the above algorithm grows exponentially. It becomes
      computationally cumbersome or even infeasible. To avoid complete
-     enumeration, Guo and Thompson (1992) developed two simulation
-     approaches to perform an approximate exact overall HWP test. In
-     their conventional Monte Carlo approach, gametes were permuted to
-     generate new genotypes and the Monte Carlo p value of the
-     observed sample can be estimated by comparing Levene's
-     probabilities of the sample and those from different
-     permutations.</para>
+     enumeration, <citation role="citet">Guo:Thompson:1992</citation>
+     developed two simulation approaches to perform an approximate
+     exact overall HWP test. In their conventional Monte Carlo
+     approach, gametes were permuted to generate new genotypes and the
+     Monte Carlo p value of the observed sample can be estimated by
+     comparing Levene's probabilities of the sample and those from
+     different permutations.</para>
 
-    <para> In the Markov chain Monte Carlo (MCMC) approach of Guo and
-     Thompson (1992), a finite and irreducible Markov chain of states
-     of genotype counts was generated using the Metropolis algorithm
-     (Metropolis et al. 1953), where the transition probabilities
-     between any two states were a function of the ratio of
-     probabilities of being in each of them. The equilibrium
+    <para> In the Markov chain Monte Carlo (MCMC) approach of
+     <citation role="citet">Guo:Thompson:1992</citation>, a finite and
+     irreducible Markov chain of states of genotype counts was
+     generated using the Metropolis algorithm
+     <citation>Metropolis:1953</citation>, where the transition
+     probabilities between any two states were a function of the ratio
+     of probabilities of being in each of them. The equilibrium
      distribution of the Markov chain was set to have the same allele
      frequencies as those in the observed sample and the HWP genotype
      probabilities. After a <quote>dememorization</quote> period, the
@@ -856,28 +858,30 @@
      Markov chain was in any states which had equal or lower
      probability than the observed one.</para>
 
-    <para> In Chen and Thomson (1999) the variance for the
-     disequilibrium coefficient in the individual Hardy-Weinberg
-     heterozygote test has been determined. An exact test using a
-     statistic based on this variance has been developed (Chen et
-     al. 1999).</para>
+    <para> In <citation role="citet">Chen:Thomson:1999</citation> the
+     variance for the disequilibrium coefficient in the individual
+     Hardy-Weinberg heterozygote test has been determined. An exact
+     test using a statistic based on this variance has been developed
+     <citation>Chen:etal:1999</citation>.</para>
    </sect3>
   </sect2>
   
   <sect2>
    <title>Testing fit to HWP of HLA data</title>
    
-   <para condition="main;anthro-book">The Guo and Thompson (1992)
-    overall test, and the Chen et al. (1999) exact test of individual
+   <para condition="main;anthro-book">The <citation
+    role="citet">Guo:Thompson:1992</citation> overall test, and the
+    <citation>Chen:etal:1999</citation> exact test of individual
     heterozygote deviations from HWP, have been applied to HLA class
-    II genotype data in 26 populations (Chen et al. 1999). Eighty of
-    the 99 overall tests fitted HWP (73% for DRB1, 89% for DQA1, 81%
-    for DQB1, and 81% for DPB1), deviations were both locus and group
-    specific. The individual test results indicated that the departure
-    was partly due to recent admixture. Evidence for selection as a
-    cause of deviation from HWP was also observed; the fact that the
-    DQB1 allele *0301 was involved in significant individual
-    heterozygote deficiencies in eight samples could well implicate
+    II genotype data in 26 populations
+    <citation>Chen:etal:1999</citation>. Eighty of the 99 overall
+    tests fitted HWP (73% for DRB1, 89% for DQA1, 81% for DQB1, and
+    81% for DPB1), deviations were both locus and group specific. The
+    individual test results indicated that the departure was partly
+    due to recent admixture. Evidence for selection as a cause of
+    deviation from HWP was also observed; the fact that the DQB1
+    allele *0301 was involved in significant individual heterozygote
+    deficiencies in eight samples could well implicate
     selection.</para>
 
    <para condition="main">In many cases the genotypes showing
@@ -891,9 +895,9 @@
     the other hand, significant deviations from HWP are also seen in
     populations which showed very little evidence for any admixture,
     e.g., the Mixe, an Amerindian group from Oaxaca, Mexico
-    (Hollenbach et al. 2001). These deviations could be due to the
-    impact of selection pressures from infectious diseases on these
-    genes. </para>
+    <citation>Hollenbach:etal:2001</citation>. These deviations could
+    be due to the impact of selection pressures from infectious
+    diseases on these genes. </para>
 
    <para condition="main;anthro-book"> Testing for fit to HWP can also
     serve a useful role in assessing the initial quality of typing
@@ -1063,23 +1067,25 @@
    <para>The neutral theory of evolution at a locus assumes that all
     alleles are selectively equivalent, that mutation is the source of
     new genetic variation, and that genetic drift results in loss of
-    variation. Ewens (1972) developed a sampling theory that predicts
-    the distribution of alleles at a locus drawn from a population at
-    equilibrium under neutrality. Watterson (1978) developed a method,
-    using a homozygosity measure, denoted by F, for the observed
-    number of alleles and sample size, to compare a sample of allele
-    frequencies to neutrality expectations. For a given number of
-    observed alleles, a low value of the homozygosity measure F,
+    variation.  <citation role="citet">Ewens:1972</citation> developed
+    a sampling theory that predicts the distribution of alleles at a
+    locus drawn from a population at equilibrium under neutrality.
+    <citation role="citet">Watterson:1978</citation> developed a
+    method, using a homozygosity measure, denoted by F, for the
+    observed number of alleles and sample size, to compare a sample of
+    allele frequencies to neutrality expectations. For a given number
+    of observed alleles, a low value of the homozygosity measure F,
     compared to the neutrality expectation, corresponds to all alleles
     having similar frequencies. Some form of balancing selection is
     implied when the observed allele frequencies are more even than
-    the neutrality expectation (Watterson 1978). A high value of F,
-    compared to the neutrality expectation, corresponds to one allele
-    predominating with the others at low frequencies. Directional
-    selection is implicated in this case. Note that fit of a sample of
-    allele frequencies to neutrality expectations does not mean that
-    selection is not operating, but simply that one cannot reject the
-    neutral model.</para>
+    the neutrality expectation <citation>Watterson:1978</citation>. A
+    high value of F, compared to the neutrality expectation,
+    corresponds to one allele predominating with the others at low
+    frequencies. Directional selection is implicated in this
+    case. Note that fit of a sample of allele frequencies to
+    neutrality expectations does not mean that selection is not
+    operating, but simply that one cannot reject the neutral
+    model.</para>
     </sect2>
 
   <sect2 condition="main;anthro-book">
@@ -1090,27 +1096,29 @@
     infinite alleles model. The expected proportion of homozygotes
     under Hardy-Weinberg, i.e., the statistic F =
     &Sigma;p<subscript>i</subscript><superscript>2</superscript>) of
-    Watterson (1978) for an observed number of alleles k (or amino
-    acids at a site) and sample size n individuals (2n chromosomes),
-    was compared with the distribution expected under the neutral
-    model (Ewens 1972). Note that the Watterson homozygosity test of
-    neutrality does not examine deviations from Hardy-Weinberg
-    proportions, but utilizes the expected Hardy-Weinberg homozygosity
-    as a measure of the distribution of allelic frequencies, for a
-    given sample size (k) and observed number of alleles (2n). The
-    expected values of F, and the variance and quantiles under the
-    neutrality model can be found at <ulink
+    <citation role="citet">Watterson:1978</citation> for an observed
+    number of alleles k (or amino acids at a site) and sample size n
+    individuals (2n chromosomes), was compared with the distribution
+    expected under the neutral model
+    <citation>Ewens:1972</citation>. Note that the Watterson
+    homozygosity test of neutrality does not examine deviations from
+    Hardy-Weinberg proportions, but utilizes the expected
+    Hardy-Weinberg homozygosity as a measure of the distribution of
+    allelic frequencies, for a given sample size (k) and observed
+    number of alleles (2n). The expected values of F, and the variance
+    and quantiles under the neutrality model can be found at <ulink
     url="http://allele5.biol.berkeley.edu/homozygosity/homozygosity.html">http://allele5.biol.berkeley.edu/homozygosity/homozygosity.html</ulink>
     (Salamon H, Nelson M, Thomson G). The exact test developed by
-    Slatkin (1994, 1996), which calculates the probability of the
-    observed configuration under neutrality, can also be
-    implemented.</para>
+    (<citation role="citet">Slatkin:1994</citation>, <citation
+    role="citet">Slatkin:1996</citation>), which calculates the
+    probability of the observed configuration under neutrality, can
+    also be implemented.</para>
 
    <para> To allow comparison of homozygosity F statistics across
     populations with different numbers of alleles and sample sizes,
     the normalized deviate,
     <phrase>F<subscript>ND</subscript></phrase>, is considered
-    (Salamon et al. 1999),</para>
+    <citation>Salamon:1999</citation>,</para>
 
    <informalequation>
     <alt role="tex">F_{ND} = (\frac{F_{observed} - F_{expected}}{Variance \cdot F_{expected}})^{\frac{1}{2}}</alt>
@@ -1152,28 +1160,29 @@
     fairly common allele, which may differ between populations.</para>
 -->
 
-   <para condition="main;anthro-book">In both Salamon et al. (1999)
-    and Valdes et al. (1999) where HLA class II data were analyzed,
-    DQB1 showed striking evidence (in individual populations and
-    overall) for balancing selection (allele frequencies more even
+   <para condition="main;anthro-book">In both <citation
+    role="citet">Salamon:1999</citation> and <citation
+    role="citet">Valdes:1999</citation> where HLA class II data were
+    analyzed, DQB1 showed striking evidence (in individual populations
+    and overall) for balancing selection (allele frequencies more even
     than expected under the neutral model). DQA1 and DRB1 also showed
     significant evidence of balancing selection. Individual and
     overall population statistics for DPB1 were compatible with
     neutrality expectations in both studies. DPA1 allele and DPA1-DPB1
     haplotype frequencies showed no evidence of deviation from
-    neutrality expectations in the CEPH data (Moonsamy et
-    al. 1997). The results for class II loci demonstrate that
-    departure from neutrality is locus specific, despite the linkage
-    disequilibrium in the region, which is particularly strong for
-    DR-DQ.</para>
+    neutrality expectations in the CEPH data
+    <citation>Moonsamy:1997</citation>. The results for class II loci
+    demonstrate that departure from neutrality is locus specific,
+    despite the linkage disequilibrium in the region, which is
+    particularly strong for DR-DQ.</para>
 
    <para condition="main;anthro-book">The table below summarizes the
-    findings of Valdes et al. (1999), illustrating (a) the large
-    number of populations for which neutrality was rejected at certain
-    loci; (b) the heterogeneity among loci with respect to deviation
-    from neutrality. Notice than in all loci, except DPB1, the mean
-    homozygosity across populations is lower than expected under
-    neutrality.</para>
+    findings of <citation role="citet">Valdes:1999</citation>,
+    illustrating (a) the large number of populations for which
+    neutrality was rejected at certain loci; (b) the heterogeneity
+    among loci with respect to deviation from neutrality. Notice than
+    in all loci, except DPB1, the mean homozygosity across populations
+    is lower than expected under neutrality.</para>
 
    <table id="ew-neutrality.table" condition="main;anthro-book">
     <title>Ewens-Watterson test of neutrality</title>
@@ -1242,7 +1251,8 @@
     codon sites, and consistently so across diverse
     populations. However, directional selection was seen for a few
     sites, and neutrality profiles were exhibited by other codons
-    (Salamon et al. 1999, Valdes et al. 1999). Cases of amino acid
+    (<citation role="citet">Salamon:1999</citation>; <citation
+    role="citet">Valdes:1999</citation>). Cases of amino acid
     variation showing balancing selection occurred at sites both
     within the highly polymorphic antigen recognition site (ARS) and
     outside it. Only for DRB1 was there evidence of more balancing
@@ -1254,7 +1264,7 @@
     that two non-ARS sites identified as highly polymorphic and
     showing balancing selection (DQA1#47 and DQB1#26) have also been
     identified as amino acids involved in predisposition to type 1
-    diabetes (Valdes et al. 1997).</para>
+    diabetes <citation>Valdes:1997</citation>.</para>
   </sect2>
  </sect1>
 
@@ -1416,16 +1426,17 @@
     of reasons.</para>
 
    <para condition="main">Linkage disequilibrium can occur in
-    populations as a consequence of a number of factors (see Hedrick
-    1983 for review): (1) mutation&ndash;when a new mutant arises, it
-    occurs in one individual and is in linkage disequilibrium with all
-    polymorphic loci in the population; (2) selection&ndash;either
-    acting directly on the two loci, or transient linkage
-    disequilibrium can also be created with neutral loci via a
-    hitchhiking event with a selected locus (Thomson 1977); (3)
-    migration or admixture&ndash;generation of linkage disequilibrium
-    by these forces requires that the allelic frequencies of both loci
-    in the two populations be different, and this difference must be
+    populations as a consequence of a number of factors <citation
+    role="citep[for review, see][]">Hedrick:1983</citation>: (1)
+    mutation&ndash;when a new mutant arises, it occurs in one
+    individual and is in linkage disequilibrium with all polymorphic
+    loci in the population; (2) selection&ndash;either acting directly
+    on the two loci, or transient linkage disequilibrium can also be
+    created with neutral loci via a hitchhiking event with a selected
+    locus <citation>Thomson:1977</citation>; (3) migration or
+    admixture&ndash;generation of linkage disequilibrium by these
+    forces requires that the allelic frequencies of both loci in the
+    two populations be different, and this difference must be
     substantial to generate very much linkage disequilibrium; and (4)
     random genetic drift&ndash;while the expected value of pairwise
     linkage disequilibrium due to drift over many generations is zero,
@@ -1446,9 +1457,9 @@
     the recent past can cause significant linkage disequilibrium due
     to genetic drift for closely linked loci, and while less linkage
     disequilibrium will be generated by genetic drift in a rapidly
-    growing population (Slatkin 1994), any linkage disequilibrium
-    present before or during the early phase of the expansion will
-    persist.  </para>
+    growing population <citation>Slatkin:1994</citation>, any linkage
+    disequilibrium present before or during the early phase of the
+    expansion will persist.  </para>
 
    <remark>Keep this section??  As seen in Section II, the pattern of
     LD at many loci argues that human populations in sub-Saharan
@@ -1525,9 +1536,9 @@
     locus level, may nevertheless be detected in a multi-locus
     analysis.  This was the initial observation in the study of
     ch. 19q13.2 APOE region variation and multiple sclerosis
-    (Barcellos 1996, <citation role="citet">Barcellos:1997a</citation> and
-    1997c), and in analysis of ch. 19 markers and alcohol dependence
-    (Valdes et al. 1999).</para>
+    (Barcellos 1996, <citation role="citet">Barcellos:1997a</citation>
+    and 1997c), and in analysis of ch. 19 markers and alcohol
+    dependence <citation>Valdes:1999</citation>.</para>
    
    <para>Procedures that make use of the expectation-maximization (EM)
     algorithm to estimate haplotype frequencies (HFs) from unphased
@@ -1538,26 +1549,27 @@
     assumption of Hardy-Weinberg proportions (HWP) to converge on HF
     estimates.  The EM algorithm is an iterative algorithm for
     computing maximum likelihood estimates (MLEs) in an
-    incomplete-data setting (Dempster et al. 1977, Lange 1997).  The
-    algorithm is straightforward.  Each iteration consists of two
-    steps.  The E-step calculates the conditional expectation, and the
-    M-step maximizes the updated likelihood function. Although the
+    incomplete-data setting (<citation
+    role="citet">Dempster:1977</citation>; Lange 1997).  The algorithm
+    is straightforward.  Each iteration consists of two steps.  The
+    E-step calculates the conditional expectation, and the M-step
+    maximizes the updated likelihood function. Although the
     convergence of the EM algorithm could be slow, the general theory
     has shown that each iteration increases the likelihood and the
-    MLEs are generally achieved (Dempster et al. 1977).  The accuracy
-    of haplotype frequency estimates are in general relatively good,
-    except in the case of low frequency haplotypes (see e.g., Schipper
-    et al. 1998, Fallin and Schork 2000, Tishkoff et al. 2000, Single
-    et al. 2002).  Large over and under estimates of particular HFs
-    can occur even for common haplotypes, especially when the loci
-    involved deviate significantly from HWP (Single et al. 2002).
-    Estimating HFs for three or more loci and then collapsing over
-    loci so as to generate two locus haplotypes can improve the
-    accuracy of the estimation.  The collapsing procedure is most
-    beneficial when one of the loci in the two-locus haplotype of
-    interest deviates significantly from HWP and the locus collapsed
-    over is in linkage disequilibrium with the other loci (Single et
-    al 2002).</para>
+    MLEs are generally achieved <citation>Dempster:1977</citation>.
+    The accuracy of haplotype frequency estimates are in general
+    relatively good, except in the case of low frequency haplotypes
+    (see e.g., Schipper et al. 1998, Fallin and Schork 2000, Tishkoff
+    et al. 2000, Single et al. 2002).  Large over and under estimates
+    of particular HFs can occur even for common haplotypes, especially
+    when the loci involved deviate significantly from HWP (Single et
+    al. 2002).  Estimating HFs for three or more loci and then
+    collapsing over loci so as to generate two locus haplotypes can
+    improve the accuracy of the estimation.  The collapsing procedure
+    is most beneficial when one of the loci in the two-locus haplotype
+    of interest deviates significantly from HWP and the locus
+    collapsed over is in linkage disequilibrium with the other loci
+    (Single et al 2002).</para>
    
    <figure id="em-performance">
     <title>Performance of EM
