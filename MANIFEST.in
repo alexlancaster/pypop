@@ -7,6 +7,7 @@ include pypop.py
 include popmeta.py
 include MANIFEST.in
 include config.ini
+include standalone.spec
 recursive-include xslt text.xsl html.xsl lib.xsl common.xsl filter.xsl hardyweinberg.xsl homozygosity.xsl emhaplofreq.xsl meta-to-r.xsl sort-by-locus.xsl
 include SWIG/typemap.i
 recursive-include emhaplofreq emhaplofreq.h Makefile
