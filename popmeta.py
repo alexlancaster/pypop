@@ -79,23 +79,25 @@ def translate_file_to_stdout(xslFilename, inFile):
 def translate_file_to_file(xslFilename, inFile, outFile):
     _translate_file_to(xslFilename, inFile, outFile)
 
+datapath = os.path.join(sys.prefix, 'share', 'PyPop')
+
 usage_message = """Usage: popmeta.py [OPTION] INPUTFILES...
 
 Processes INPUTFILES and generates 'meta'-analyses.  INPUTFILES are
 expected to be the XML output files taken from runs of 'pypop'.
 
-  -m, --meta-xslt=DIR     use specified directory to find XSLT (default: 'xslt')
+  -m, --meta-xslt=DIR     use specified directory to find XSLT
+                            (default: '%s')
   -h, --help              show this message
   -d, --dump-meta         dump the meta output file to stdout, ignore xslt file
 
-  INPUTFILES  input XML files""" 
+  INPUTFILES  input XML files""" % datapath
 
 try:
   opts, args =getopt(sys.argv[1:],"m:hd", ["meta-xslt=", "help", "dump-meta"])
 except GetoptError:
   sys.exit(usage_message)
 
-datapath = os.path.join(sys.prefix, 'share', 'PyPop')
 metaXSLTDirectory= datapath
 dump_meta = 0
 
