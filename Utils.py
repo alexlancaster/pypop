@@ -351,7 +351,6 @@ class Index:
     self.i = i
 
 class StringMatrix(UserArray):
-
   """
   StringMatrix is a subclass of the Numeric Python (NumPy)
   UserArray class, and uses NumPy to store the data in an efficient
