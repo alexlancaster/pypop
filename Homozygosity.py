@@ -208,14 +208,11 @@ class Homozygosity:
 
   def serializeHomozygosityTo(self, stream):
     type = getStreamType(stream)
-    if type == 'xml':
-      stream.opentag('homozygosity')
-    else:
-      stream.writeln("Homozygosity statistics:")
-    stream.writeln()
     
     if self.expectedStatsFlag:
       if type == 'xml':
+        stream.opentag('homozygosity')
+        stream.writeln()        
         stream.tagContents('observed', "%.4f" % self.getObservedHomozygosity())
         stream.writeln()
         stream.tagContents('expected', "%.4f" % self.getMean())
@@ -232,6 +229,7 @@ class Homozygosity:
         stream.writeln()
         stream.closetag('homozygosity')
       else:
+        stream.writeln("Homozygosity statistics:")
         stream.write("Observed Homozygosity: %.4f" % \
                      self.getObservedHomozygosity())
         stream.writeln()
@@ -245,6 +243,10 @@ class Homozygosity:
         stream.writeln()
     else:
       if type == 'xml':
+        stream.opentag('homozygosity', 'class', 'out-of-range')
         stream.closetag('homozygosity')
       else:
-        stream.writeln("Can't generate expected stats")
+        stream.writeln("Can't generate expected homozygosity statistics")
+
+    # always end on a newline
+    stream.writeln()
