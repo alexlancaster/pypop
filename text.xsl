@@ -265,38 +265,48 @@
   <xsl:call-template name="header">
    <xsl:with-param name="title">HardyWeinberg [<xsl:value-of select="../@name"/>]</xsl:with-param>
   </xsl:call-template>
+  <xsl:call-template name="newline"/>
 
-  <xsl:choose>
-
-   <xsl:when test="@role='lumps'">
-    <xsl:call-template name="newline"/>
-    <xsl:text>*Lumped output*</xsl:text>
-    <xsl:call-template name="newline"/>
-
-    <!-- do all nodes except for genotype table -->
-    <xsl:call-template name="linesep-fields">
-     <xsl:with-param name="nodes" select="*[not(self::genotypetable)]"/>
-    </xsl:call-template>
-
-    <!-- now do genotype table -->
-    <xsl:apply-templates select="genotypetable"/>
-
-    <xsl:call-template name="newline"/>
-
-   </xsl:when>
-
-   <xsl:when test="@role='no-common-genotypes'">
-    <xsl:text>*No common genotypes, no output!*</xsl:text>
-    <xsl:call-template name="newline"/>
-   </xsl:when>
-
-   <xsl:otherwise>
-    <xsl:message>Error! hardyweinberg tag must have a 'class'
-     attribute</xsl:message>
-   </xsl:otherwise>
-  </xsl:choose>
+  <xsl:apply-templates
+   select="common|lumped|hetereozygotes|homozygotes"/>
+  
+  <!-- now do genotype table -->
+  <xsl:apply-templates select="genotypetable"/>
 
   <xsl:call-template name="newline"/>
+ </xsl:template>
+
+ <xsl:template match="common|lumped|hetereozygotes|homozygotes">
+
+  <xsl:text>*</xsl:text>
+  <xsl:value-of select="name(.)"/>
+  <xsl:text>*: </xsl:text>
+  <xsl:call-template name="newline"/>
+  
+  <xsl:choose>
+   <xsl:when test="*!=''">
+    <!-- when the tag has content -->
+    <xsl:call-template name="linesep-fields">
+     <xsl:with-param name="nodes" select="."/>
+    </xsl:call-template>
+    <xsl:call-template name="newline"/>
+
+   </xsl:when>
+
+   <!-- if the tag does not have content, print the role attribute
+   (will do more parsing of this for error messages later) -->
+   <xsl:when test="*=''">
+    <xsl:value-of select="@role"/>
+    <xsl:call-template name="newline"/>
+   </xsl:when>
+
+   <!-- an "assert" message to test XSLT is working -->
+   <xsl:otherwise>
+    <xsl:message>Error! Output XML condition not covered!</xsl:message>
+   </xsl:otherwise>
+  </xsl:choose>
+  <xsl:call-template name="newline"/>
+
  </xsl:template>
 
  <!-- format genotype table for HW -->
@@ -363,6 +373,9 @@
     
    </xsl:if>
   </xsl:for-each>
+
+  <xsl:call-template name="newline"/>
+
  </xsl:template>
 
  <!-- Homozygosity statistics --> 
