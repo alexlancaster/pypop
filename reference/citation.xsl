@@ -212,7 +212,7 @@ Additional citation possibilities (both author-year and numerical modes)
   <xsl:param name="entry"/>
   <xsl:param name="citationrole" select="'citep'"/>
 
-  <xsl:variable name="authors" select="$entry//author"/>
+  <xsl:variable name="authors" select="$entry//author|$entry//editor"/>
   <xsl:variable name="year" select="$entry//pubdate[1]|$entry//date[1]"/>
   <xsl:variable name="title" select="$entry//citetitle[1]|$entry//title[1]"/>
 
