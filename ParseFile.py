@@ -52,8 +52,11 @@ class ParseFile:
         return tuple(li)
 
     def _mapFields(self, line, fieldList):
-        """Takes a line and a list of valid fields and creates a dictionary
-        of positions keyed by valid field names.
+
+        """Maps a line of fields into dictionary of column values.
+
+        Takes a line and a list of valid fields and creates a
+        dictionary of positions keyed by valid field names.
 
         - Complains if a field name is not valid.
 
