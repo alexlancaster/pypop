@@ -8,7 +8,7 @@
 
 ************************************************************************/
 #include  "hwe.h"
-#include "gsl_sf_gamma.h"
+#include <gsl/gsl_sf_gamma.h>
 
 double log_factorial(int k)
 {
