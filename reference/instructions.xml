@@ -163,148 +163,147 @@ Table of genotypes, format of each cell is: observed/expected.
    <para>The values in this matrix are used to test hypotheses of
     deviation from HWP. The output also includes the chi-square
     statistic, the number of degrees of freedom and associated
-    <varname>p</varname>-value for the following classes of
-    genotypes:</para>
-   
-   <itemizedlist>
-    <listitem>
-     <formalpara><title>Common</title>
-      <para>The result for goodness of fit to HWP using only the
-       genotypes with at least <literal>lumpBelow</literal> expected
-       counts (the common genotypes) (in the output shown throughout
-       this example <literal>lumpBelow</literal> is equal to 5)
-       .</para>
-     </formalpara>
-    </listitem>
-    
-    <listitem>
-     <formalpara><title>Lumped genotypes</title> 
-      <para>The result for goodness of fit to HWP for the pooled set
-       of genotypes that individually have less than
-       <literal>lumpBelow</literal> expected counts.  </para>
-     </formalpara>
-    </listitem>
-    
-    <listitem>
-     <formalpara>
-      <title>Common + lumped</title> <para>The result for goodness of
-       fit to HWP for both the common and the lumped genotypes.</para>
-     </formalpara>
-    </listitem>
-    
-    <listitem>
-     <formalpara>
-      <title>All homozygotes</title>
-      <para>The result for goodness of fit to HWP for the pooled set
-       of homozygous genotypes.</para>
-     </formalpara>
-    </listitem>
-    
-    <listitem>
-     <formalpara>
-      <title>All heterozygotes</title> 
-      <para>The result for goodness of fit to HWP for the pooled set
-       of heterozygous genotypes.</para>
-     </formalpara>
-    </listitem>
-    
-   </itemizedlist>
+    <varname>p</varname>-value for a number of classes of
+    genotypes and is summarized in the following table:</para>
    
    <example>
-    <title>Sample output of HW classes</title>
-  
-    <programlisting><![CDATA[
+    <title>Sample output of HW genotype classes</title>
+
+    <programlisting>
                       Observed    Expected  Chi-square   DoF   p-value   
 ------------------------------------------------------------------------------
-            Common         N/A         N/A        4.65     1  0.0310*     
+            Common         N/A         N/A        4.65     1  0.0310* <co id="hw-common"/>  
 ------------------------------------------------------------------------------
-  Lumped genotypes         N/A         N/A        1.17     1  0.2797      
+  Lumped genotypes         N/A         N/A        1.17     1  0.2797  <co id="hw-lumped"/>
 ------------------------------------------------------------------------------
-   Common + lumped         N/A         N/A        5.82     1  0.0158*     
+   Common + lumped         N/A         N/A        5.82     1  0.0158* <co id="hw-common-lumped"/>
 ------------------------------------------------------------------------------
-   All homozygotes          21       13.01        4.91     1  0.0268*     
+   All homozygotes          21       13.01        4.91     1  0.0268* <co id="hw-all-homs"/>
 ------------------------------------------------------------------------------
- All heterozygotes          26       33.99        1.88     1  0.1706      
+ All heterozygotes          26       33.99        1.88     1  0.1706  <co id="hw-all-hets"/>
 ------------------------------------------------------------------------------
-Common heterozygotes by allele
+Common heterozygotes by allele                                        <co id="hw-common-hets"/>
               0201          15       20.78        1.61        0.2050      
               0301          10       10.47        0.02        0.8850      
               0401           9       16.31        3.28        0.0703      
               0501          18       20.43        0.29        0.5915      
 
 ------------------------------------------------------------------------------
-Common genotypes
+Common genotypes                                                      <co id="hw-common-geno"/>
          0201:0201           8        5.11        1.63        0.2014      
          0201:0401           3        6.93        2.23        0.1358      
          0201:0501           8        9.89        0.36        0.5472      
          0401:0501           5        6.70        0.43        0.5109      
              Total          24       28.63
 ------------------------------------------------------------------------------
-     ]]></programlisting>
+     </programlisting>
    </example>
 
-   <bridgehead>(1)</bridgehead>
+   <calloutlist>
+    <title>Explanation of each genotype class</title>
+    <callout arearefs="hw-common">
+     <formalpara><title>Common</title>
+      <para>The result for goodness of fit to HWP using only the
+       genotypes with at least <literal>lumpBelow</literal> expected
+       counts (the common genotypes) (in the output shown throughout
+       this example <literal>lumpBelow</literal> is equal to 5).</para>
+     </formalpara>
 
-   <para>If the dataset contains no genotypes with expected counts
-    equal or greater than <literal>lumpBelow</literal>, then there are
-    no common genotypes and the following message is reported: </para>
-
-   <programlisting>
+     <para>If the dataset contains no genotypes with expected counts
+      equal or greater than <literal>lumpBelow</literal>, then there are
+      no common genotypes and the following message is reported: </para>
+     
+     <programlisting>
    No common genotypes; chi-square cannot be calculated
    </programlisting>
 
-
-   <bridgehead>(2)</bridgehead>
-
-   <para>The pooling procedure is designed to avoid carrying out the
-    chi-square goodness of fit test in cases where there are few
-    expected counts, which could lead to spurious rejection of HWP.
-    However, in certain cases it may not be possible to carry out this
-    pooling approach.</para>
-
-   <bridgehead>(3)</bridgehead>
-
-   <para>If the sum of expected counts in the lumped class does not
-    add up to <literal>lumpBelow</literal>, then the test for the
-    lumped genotypes cannot be calculated and the following message is
-    reported:</para>
-  
-   <programlisting>
-   The total number of expected genotypes is less than 5
-   </programlisting>
-
-   <bridgehead>(4)</bridgehead>
-
-   <para>The analysis of common genotypes may lead to a situtation
-    where there are fewer classes (genotypes) than allele frequencies
-    to estimate.  For example, this means that the analysis cannot be
-    performed (degrees of freedom &lt; 1). In such a case the
-    following message is reported, explaining why the analysis could
-    not be performed:</para>
+     <para>The analysis of common genotypes may lead to a situtation
+      where there are fewer classes (genotypes) than allele
+      frequencies to estimate.  For example, this means that the
+      analysis cannot be performed (degrees of freedom &lt; 1). In
+      such a case the following message is reported, explaining why
+      the analysis could not be performed:</para>
 
    <programlisting>
    Too many parameters for chi-square test.
    </programlisting>
 
-   <para>This may by remedied by combining rare alleles and
-    recalculating overall chi-square value and degrees of freedom.
-    (This would require appropriate manipulation of the data set by
-    hand and is not a feature of
-    <application>PyPop</application>).</para>
+    </callout>
+    
+    <callout arearefs="hw-lumped">
+     <formalpara><title>Lumped genotypes</title> 
+      <para>The result for goodness of fit to HWP for the pooled set
+       of genotypes that individually have less than
+       <literal>lumpBelow</literal> expected counts.  </para>
+     </formalpara>
+     
+     <para>The pooling procedure is designed to avoid carrying out the
+      chi-square goodness of fit test in cases where there are few
+      expected counts, which could lead to spurious rejection of HWP.
+      However, in certain cases it may not be possible to carry out
+      this pooling approach.</para>
 
-   <bridgehead>(5)</bridgehead>
+     <para>If the sum of expected counts in the lumped class does not
+      add up to <literal>lumpBelow</literal>, then the test for the
+      lumped genotypes cannot be calculated and the following message
+      is reported:</para>
 
-   <para>The common heterozygotes by allele section summarizes the
-    observed and expected number of counts of all heterozygotes
-    carrying a specific allele with expected value &ge;
-    <literal>lumpBelow</literal>.</para>
+     <programlisting>
+   The total number of expected genotypes is less than 5
+     </programlisting>
 
-   <bridgehead>(6)</bridgehead>
+     <para>This may by remedied by combining rare alleles and
+      recalculating overall chi-square value and degrees of freedom.
+      (This would require appropriate manipulation of the data set by
+      hand and is not a feature of
+      <application>PyPop</application>).</para>
+    </callout>
+    
+    <callout arearefs="hw-common-lumped">
+     <formalpara>
+      <title>Common + lumped</title> <para>The result for goodness of
+       fit to HWP for both the common and the lumped genotypes.</para>
+     </formalpara>
+    </callout>
+    
+    <callout arearefs="hw-all-homs">
+     <formalpara>
+      <title>All homozygotes</title>
+      <para>The result for goodness of fit to HWP for the pooled set
+       of homozygous genotypes.</para>
+     </formalpara>
+    </callout>
+    
+    <callout arearefs="hw-all-hets">
+     <formalpara>
+      <title>All heterozygotes</title> 
+      <para>The result for goodness of fit to HWP for the pooled set
+       of heterozygous genotypes.</para>
+     </formalpara>
+    </callout>
 
-   <para>The common genotypes by genotype section lists observed,
-    expected, chi-square and <varname>p</varname>-values for all
-    observed genotypes with expected values &ge;
-    <literal>lumpBelow</literal>.</para>
+    <callout arearefs="hw-common-hets">
+     <formalpara>
+      <title>Common heterozygotes</title>
+
+      <para>The common heterozygotes by allele section summarizes the
+       observed and expected number of counts of all heterozygotes
+       carrying a specific allele with expected value &ge;
+       <literal>lumpBelow</literal>.</para>
+     </formalpara>
+    </callout>
+
+    <callout arearefs="hw-common-geno">
+     <formalpara>
+      <title>Common genotypes</title>
+
+      <para>The common genotypes by genotype section lists observed,
+       expected, chi-square and <varname>p</varname>-values for all
+       observed genotypes with expected values &ge;
+       <literal>lumpBelow</literal>.</para>
+     </formalpara>
+    </callout>
+   </calloutlist>
   
   </sect2>
 
@@ -413,6 +412,13 @@ p-value: 0.0518</programlisting>
     level, making this a two-tailed test of the null hypothesis of
     neutrality.</para>
 
+   <warning>
+    <para>The simulation table version of this test is now disabled by
+     default and it's use is deprecated in preference to the Slatkin
+     exact test described below, however some older
+     <application>PyPop</application> runs may include  output, so it
+     is documented here for completeness.</para>
+   </warning>
 
   <example>
    <title>Sample output of homozygosity test from simulation look-up tables</title>
@@ -427,15 +433,16 @@ p-value range: 0.0000 < p <= 0.0100 *
    <example>
     <title>Sample output of homozygosity test from Monte-Carlo implementation</title>
 
-   <para>There is a second implementation of the test using a
-     Monte-Carlo implementation of the exact test written by Slatkin
-     (<citation role="citealt">Slatkin:1994</citation>; <citation
+   <para>There is a second implementation of the test, (which is now
+     the standard version),  using a Monte-Carlo implementation of the
+     exact test written by Slatkin (<citation
+      role="citealt">Slatkin:1994</citation>; <citation
       role="citealt">Slatkin:1996</citation>). This test differs from
      the simulation tables described above, in that rather than
-     simulating data under neutrality, a Markov-Chain Monte Carlo method
-     is used to obtain the probability of the homozygosity under
-     neutrality. The <varname>p</varname>-value reported is once again
-     the probability of the observed homozygosity under the null
+     simulating data under neutrality, a Markov-Chain Monte Carlo
+     method is used to obtain the probability of the homozygosity
+     under neutrality. The <varname>p</varname>-value reported is once
+     again the probability of the observed homozygosity under the null
      hypothesis of neutrality, and can be interpreted as a two-tailed
      test.
     </para>
