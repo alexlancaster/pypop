@@ -85,7 +85,7 @@
 
   <para>The <application>PyPop</application>
    (<emphasis>Py</emphasis>thon for <emphasis>Pop</emphasis>ulation
-   Genetics) analysis package forms the base of the biostatisics core.
+   Genetics) analysis package forms the base of the biostatistics core.
    It is in an object-oriented framework implemented in the
    programming language Python. The object-oriented approach allows us
    to implement individual analysis modules which can be inserted or
@@ -340,7 +340,7 @@
       <para>We plan to release our software under an open source
        license <citation>OSI</citation>.  Software that is open-source
        allows others to extend and re-use components, allows
-       interoperation via an open and published interfaces, and can
+       inter-operation via an open and published interfaces, and can
        reduce duplication of effort within the community. Some
        existing software that was not open-source required reverse
        engineering of their file formats and run-time behaviour in
@@ -886,10 +886,10 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     front-end, possibly web-based, integration with data mining tools
     such as clustering analysis, and currently under discussion is
     integration with the NCBI's new <application>dbMHC</application>
-    database<citation>dbMHC</citation>.  We also plan to  release
-    <application>PyPop</application> under the GNU General Public
-    License (GPL<citation>GPL</citation>). Details will be made
-    available at the Thomson lab website: <ulink
+    database<citation>dbMHC</citation>.  We also plan to release the
+    complete source code to <application>PyPop</application> under the
+    GNU General Public License (GPL<citation>GPL</citation>). Details
+    will be made available at the Thomson lab website: <ulink
      url="http://allele5.biol.berkeley.edu/">http://allele5.biol.berkeley.edu/</ulink></para>
 
   </section>
