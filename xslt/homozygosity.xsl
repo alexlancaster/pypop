@@ -29,7 +29,7 @@
       <xsl:text>Observed: </xsl:text>
       <xsl:value-of select="observed"/>
       <xsl:text>, Expected: </xsl:text>
-      <xsl:value-of select="observed"/>
+      <xsl:value-of select="expected"/>
       <xsl:text>, Normalized deviate (Fnd): </xsl:text>
       <xsl:value-of select="normdev"/>
       <xsl:call-template name="newline"/>
