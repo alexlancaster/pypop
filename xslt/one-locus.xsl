@@ -55,6 +55,29 @@
       </xsl:when>
       <xsl:otherwise>0</xsl:otherwise>
      </xsl:choose>
+     <xsl:text>&#09;</xsl:text>
+     <xsl:choose>
+      <xsl:when test="homozygosity=''">
+       <xsl:text>****&#09;****&#09;****</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+       <xsl:value-of select="homozygosity/pvalue/lower"/>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:value-of select="homozygosity/pvalue/upper"/>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:value-of select="homozygosity/normdev"/>
+      </xsl:otherwise>
+     </xsl:choose>
+     <xsl:text>&#09;</xsl:text>
+     <xsl:choose>
+      <xsl:when test="hardyweinbergGuoThompson=''">
+       <xsl:text>****</xsl:text>
+      </xsl:when>
+      <xsl:otherwise>
+       <xsl:value-of select="hardyweinbergGuoThompson/pvalue"/>
+      </xsl:otherwise>
+     </xsl:choose>
+     
      <xsl:call-template name="newline"/>
     </xsl:when>
     <xsl:otherwise>
@@ -63,6 +86,8 @@
       <xsl:value-of select="@name"/>
       <xsl:text>&#09;</xsl:text>
       <xsl:value-of select="frequency"/>
+      <xsl:text>&#09;</xsl:text>
+      <xsl:value-of select="count"/>
       <xsl:call-template name="newline"/>
      </xsl:for-each>
     </xsl:otherwise>
@@ -82,7 +107,7 @@
     <exsl:document href="1-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;k</xsl:text>
+     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;k&#09;f.pval&#09;f.nd&#09;gt.pval</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
@@ -94,7 +119,7 @@
     <exsl:document href="1-locus-allele.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;allele&#09;allele.freq</xsl:text>
+     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
@@ -122,14 +147,6 @@
     </xsl:message>
    </xsl:otherwise>
   </xsl:choose>
-
-  <xsl:variable name="something">
-   <xsl:call-template name="sort-by-locus"/>
-  </xsl:variable>
-
-  <xsl:for-each select="$something">
-   <xsl:value-of select="name(.)"/>
-  </xsl:for-each>
 
   <xsl:call-template name="newline"/>
 
