@@ -182,4 +182,4 @@ else:
 
     # finally, using the 'allelelist-by-locus.xml' file implicitly,
     # generate all data output in formats for both R and phylip
-    os.popen("xsltproc %s %s" % (os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml'))
+    os.popen("xsltproc %s %s 2> log.out" % (os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml'))
