@@ -1,3 +1,9 @@
+2005-03-10  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* hwe.c (run_randomization): Use #ifdef INDIVID_GENOTYPES
+	selectively disable calculation of individual stats
+	in {init,store,print}_stats().
+
 2005-03-09  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* hwe.c (run_data): Remove old comment.

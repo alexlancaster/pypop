@@ -342,6 +342,7 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   fprintf(outfile, "Constant: %e, Observed: %e\n", constant, ln_p_observed);
 #endif
 
+#ifdef INDIVID_GENOTYPES	  
   /* allocate memory for per-genotype statistics */
   double *obs_chen_statistic = (double *)calloc(num_genotypes, sizeof(double));
   double *obs_diff_statistic = (double *)calloc(num_genotypes, sizeof(double));
@@ -356,6 +357,8 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   /* allocate memory for per-genotype counts */
   int *chen_statistic_count = (int *)calloc(num_genotypes, sizeof(int));
   int *diff_statistic_count = (int *)calloc(num_genotypes, sizeof(int));
+
+#endif
 
   /* calculate the number of gametes */
   int total_gametes = 0;
@@ -447,6 +450,7 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
     if (LESS_OR_EQUAL(ln_p_perm, ln_p_observed))
       K++;
 
+#ifdef INDIVID_GENOTYPES	  
     /* store the individual genotype stats */
     store_stats("chen_statistic", chen_statistic, obs_chen_statistic, 
 		chen_statistic_count, no_allele, 
@@ -455,6 +459,7 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
     store_stats("diff_statistic", diff_statistic, obs_diff_statistic, 
 		diff_statistic_count, no_allele, 
 		total_individuals, allele_array, g, outfile);
+#endif
 
     /* go through genotype list, reset genotype array, g  */
     for (i=0; i < num_genotypes; i++) 
@@ -471,6 +476,7 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   fprintf(outfile, "pvalue = %g\n", p_value);
 #endif
 
+#ifdef INDIVID_GENOTYPES
   /* print pvalues for each genotype */
   print_stats("chen_statistic", chen_statistic_count, 
 	      no_allele, iterations, outfile);
@@ -483,6 +489,8 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
 
   free(obs_diff_statistic);
   free(diff_statistic_count);
+#endif
+
 
   /* free dynamically-allocated memory  */
   free(g);
