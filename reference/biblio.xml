@@ -4,8 +4,8 @@
 <bibliography>
  <title>References</title>
  
- <warning><para>Bibliography is incomplete, still
-   converting...</para></warning>
+<!-- <warning><para>Bibliography is incomplete, still
+   converting...</para></warning> -->
 
  <!-- merged from instructions.xml -->
 
@@ -287,6 +287,11 @@
  <biblioentry id="Genepop">
   <citetitle pubwork="refentry">Genepop <ulink
     url="ftp://ftp.cefe.cnrs-mop.fr/genepop">ftp://ftp.cefe.cnrs-mop.fr/genepop</ulink></citetitle>
+ </biblioentry>
+
+ <biblioentry id="GPL">
+  <citetitle pubwork="refentry"><ulink
+    url="http://www.gnu.org/licenses/gpl.html">GNU General Public License</ulink></citetitle>
  </biblioentry>
  
  <!-- original PSB 2002 list starts here -->
