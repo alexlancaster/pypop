@@ -349,7 +349,7 @@ genetics program.
     for o, v in opts:
         if o in ("-i", "--idcol"):
             idCol = int(v)
-        if o in ("-l", "--ignorelines"):
+        elif o in ("-l", "--ignorelines"):
             ignoreLines = int(v)
         elif o in ("-c", "--cols"):
             prefixCols, suffixCols = map(int, string.split(v, ','))
