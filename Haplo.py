@@ -329,11 +329,10 @@ class Emhaplofreq(Haplo):
 
                 self.fp.write(os.linesep)
                 if permutationFlag:
-                    self.fp.write("Est. LD for locus groups: " + group + os.linesep)
+                    self.fp.write("<group mode=\"LD\" loci=\"%s\">%s" % (group, os.linesep))
                 else:
-                    self.fp.write("Est. haplotypes for locus groups: " + group + os.linesep)
-                self.fp.write("================================" + os.linesep)
-                
+                    self.fp.write("<group mode=\"haplo\" loci=\"%s\">%s" % (group, os.linesep))
+
                 self.fp.write(os.linesep)
 
                 
@@ -341,6 +340,8 @@ class Emhaplofreq(Haplo):
                 self._Emhaplofreq.main_proc(self.fp, subMatrix,
                                         lociCount, self.totalNumIndiv,
                                         permutationFlag, haploSuppressFlag)
+
+                self.fp.write("</group>")
 
                 if self.debug:
                     # in debug mode, print the in-memory file to sys.stdout
@@ -400,10 +401,8 @@ class Emhaplofreq(Haplo):
             # to XML file as a CDATA (character data) section
             stream.opentag('emhaplofreq')
             stream.writeln()
-            stream.writeln('<![CDATA[')
             stream.write(self.fp.getvalue())
             #self.fp.close()
-            stream.writeln(']]>')
             stream.closetag('emhaplofreq')
             stream.writeln()
         
