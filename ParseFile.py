@@ -345,13 +345,20 @@ class ParseGenotypeFile(ParseFile):
                 fields = string.split(line, separator)
 
                 allele1 = fields[col1]
+
+                # check to see if allele is untyped 
                 if self.untypedAllele != allele1:
                     if alleleTable.has_key(allele1):
                         alleleTable[fields[col1]] += 1
                     else:
                         alleleTable[fields[col1]] = 1
                     total += 1
-                    
+                # if allele is untyped it is we throw out the entire
+                # individual and go to the next individual
+                else:
+                    continue
+
+                # likewise check for untyped allele
                 allele2 = fields[col2]
                 if self.untypedAllele != allele2:
                     if alleleTable.has_key(allele2):
@@ -359,6 +366,8 @@ class ParseGenotypeFile(ParseFile):
                     else:
                         alleleTable[fields[col2]] = 1
                     total += 1
+                else:
+                    continue
 
                 # save alleles as a tuple
                 self.locusTable[locus].append((allele1, allele2))
@@ -422,7 +431,7 @@ class ParseGenotypeFile(ParseFile):
         
         return self.freqcount[locus]
 
-    def getLocusData(self, locus):
+    def getLocusDataAt(self, locus):
         """Returns the genotyped data for specified locus.
 
         Given a 'locus', return a list genotypes consisting of
