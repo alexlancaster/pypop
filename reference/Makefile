@@ -36,7 +36,7 @@ endif
 DOCBOOKXSLDIR=http://docbook.sourceforge.net/release/xsl/snapshot/
 
 # phony target for equation bitmaps for which we don't know the name of yet
-.PHONY: eqns
+.PHONY: eqns 
 
 FIGS = $(addprefix work-flow., png eps) $(addprefix design., png eps) api.png
 OUTPUTS = $(addprefix biostat., html txt pdf) $(addprefix tex-math-equations., tex dvi) eqns
@@ -68,13 +68,13 @@ eqns: tex-math-equations.dvi
 
 # rules to produce final version of HTML, FO, PDF etc.
 
-%.html: %.xml html.xsl citation.xsl $(EXTRA_XML_SOURCE)
+%.html: %.xml html.xsl citation.xsl $(EXTRA_XML_SOURCE) color
 	$(CVSPRE)
 	$(XMLLINT)	
 	$(XSLTPROC) $(XSLCOMMON) --param profiling-highlighting $(if $(findstring profile,$<),0,1) $(XSLHTML) -o $@ html.xsl $<
 	$(CVSPOST)
 
-%.fo: %.xml fo.xsl citation.xsl $(EXTRA_XML_SOURCE)
+%.fo: %.xml fo.xsl citation.xsl $(EXTRA_XML_SOURCE) color
 	$(CVSPRE)
 	$(XMLLINT)
 	$(XSLTPROC) $(XSLCOMMON) $(XSLFO) -o $@ fo.xsl $<
@@ -92,8 +92,23 @@ eqns: tex-math-equations.dvi
 %.jpg: %.ps
 	convert -crop 0x0 -rotate 90 $< $@
 
+# phony targets for generating images
+.PHONY: color grayscale
+
+# use the color version of images (default)
+color:
+	for f in $(wildcard *-color.jpg); do \
+	   ln -sf $$f $${f%-color.jpg}.jpg; \
+	done
+
+# use the grayscale version of images
+grayscale:
+	for f in $(wildcard *-grayscale.jpg); do \
+	   ln -sf $$f $${f%-grayscale.jpg}.jpg; \
+	done
+
 # convert XML to LaTeX using latex.xsl (a customization of db2latex)
-%-latex.tex: %.xml
+%-latex.tex: %.xml grayscale
 	$(XSLTPROC) --xinclude -o $@ latex.xsl $<
 
 # convert LaTeX to PDF using PDFLaTeX
