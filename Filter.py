@@ -340,7 +340,7 @@ class BinningFilter(AnthonyNolanFilter):
 
     """
     def __init__(self,
-                 binningPath='/data/ihwg/filters/binning,'
+                 binningPath='/data/ihwg/filters/binning',
                  **kw):
 
         AnthonyNolanFilter.__init__(self, **kw)
