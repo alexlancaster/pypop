@@ -160,7 +160,8 @@ set       toc,title
    <xsl:apply-templates/>
   </div>
  </xsl:template>
- 
+
+<!--  this customization should no longer be required as of 1.61.2
  <xsl:template name="head.content">
   <xsl:param name="node" select="."/>
   
@@ -201,7 +202,8 @@ set       toc,title
   </xsl:if>
   <xsl:apply-templates select="." mode="head.keywords.content"/>
  </xsl:template>
- 
+-->
+
 </xsl:stylesheet>
 
 <!--
