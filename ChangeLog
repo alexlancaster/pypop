@@ -1,0 +1,90 @@
+2003-11-26  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* Utils.py (StringMatrix.copy): Don't forget to copy the internal
+	array too!
+	(__main__): Modify test harness slightly.
+
+2003-11-25 Owen Solberg  <solberg AT socrates.berkeley.edu>
+	
+	* Homozygosity.py: Import add from operator.
+	(Homozygosity.getObservedHomozygosity): Change to reflect new data
+	structure above.
+	(HomozygosityEWSlatkinExact.__init__): Likewise change interface.
+	(HomozygosityEWSlatkinExact._doCalcs): New method, split out from
+	__init__ so we can reuse the object with new alleleData without
+	having to instantiate a new instance.  Move extraction of data
+	from wrapper from serializeHomozygosityTo method into new instance
+	variables, so we can return data outside the stream context.
+	(HomozygosityEWSlatkinExact.getHomozygosity): Return data as a
+	tuple, acquired in _doCalcs.
+	(HomozygosityEWSlatkinExact.serializeHomozygosityTo): Call
+	_doCalcs as per old interface.
+	(HomozygosityEWSlatkinExact.serializeHomozygosityTo): Populate
+	XML stream with data from new instance variables .
+	(Homozygosity.__init__): Change interface: now takes
+	alleleData (list of counts), directly, avoids having to unpack
+	data structure.
+
+	* config.ini ([Filters]): New section, new 'filtersToApply' option
+	can specifiy arbitrary filters, that each have their own section.
+	([Filter1], [Filter2]): Sample configs for AnthonyNolan and
+	DigitBinning filter, respectively.
+	([Sequence]): New section, sample configuration for translating
+	alleles and running entire analysis at sequence level (if section
+	not present, won't do this).
+	([RandomAlleleBinning]): New section to configure behaviour of
+	random binning.
+
+	* RandomBinning.py: New file.  
+	(RandomAlleleBinning): New class to handle creation of random
+	binning code in modular fashion.
+
+	* Filter.py: Import deepcopy from copy.
+	(AnthonyNolanFilter): Doc string.
+	(AnthonyNolanFilter.__init__): New keyword options:
+	alleleFileFormat (default: 'msf'), and alleleDesignator (default:
+	'*'), sequenceFileSuffix ('_prot') for handling different kind of
+	data.
+	Handle MSF files in addition to text ones..
+	Don't call self.cleanup (may need to write more to the log file).
+	(AnthonyNolanFilter.makeSeqDictionaries): New method, split out
+	from __init__ to make the the sequence dictionary creation
+	externally available.
+	(AnthonyNolanFilter.translateMatrix): New method, likewise split
+	out from __init__.
+	(AnthonyNolanFilter._getSequenceFromLines): New method to get
+	sequence for MSF files.
+	(AnthonyNolanFilter._getConsensusFromLines): New method, gets
+	consensus sequences.
+	(BinningFilter): Reworked the BinningFilter class.  Handles
+	digitBinning, comment out old CustomBinning for the moment, it is
+	broken against new interface.
+
+	* Main.py: From Filter, import MSFilter.
+	(getUserFilenameInput): Fix doc string.
+	(Main.__init__): Make defaultFilterLogFile an instance variable.
+	(Main.__init__): Likewise for alleleDesignator.
+	(Main.__init__): Completely refactor filtering: we now look for a
+	'[Filter]' section in the .ini file.  We can concatenate these
+	filters arbitrarily and each successive matrix is saved.  We run
+	filters just before we create the Genotypes matrix.  Remove
+	useAnthonyNolanFilter option from [ParseGenotypeFile].
+	Moved filterLog file creation out of AnthonyNolanFilter to here.
+	(Main._runFilters): New method, which implements the checking of
+	filters.  To emulate old filters we have some sensible defaults,
+	"AnthonyNolan" will behave like the old filter, and obviates the
+	need for a special "flag" in [ParseFile].  Filters that can
+	currently be used are: AnthonyNolanFilter (can use the MSF format
+	for parsing), DigitBinning, CustomBinnning, or Sequence (to
+	translate in a nucleotide or amino-acid sequence).
+	(Main._doGenotypeFile): Handle the change to the interface for
+	Homozygosity object, currently only requires the list of count
+	values, not the whole dictionary.  
+	Implement preliminary code for doing randomized "binning": both in
+	the truly random and "phylogenetically informed" way.
+	FIXME: Close the filterLog file here (currently broken if no
+	filters are used).
+
+2003-11-25  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* Start ChangeLog.
