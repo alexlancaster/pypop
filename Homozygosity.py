@@ -6,6 +6,8 @@
 
 import string, sys, os
 
+from Utils import getStreamType
+
 class Homozygosity:
   """Calculate homozygosity statistics.
   
@@ -110,9 +112,11 @@ class Homozygosity:
         return 1
         
       else:
-        print self.numAlleles, " is out of range of valid k!"
+        if self.debug:
+          print self.numAlleles, " is out of range of valid k!"
     else:
-      print self.sampleCount, " is out of range of valid 2n!"
+      if self.debug:
+        print self.sampleCount, " is out of range of valid 2n!"
 
     return 0
 
@@ -201,3 +205,46 @@ class Homozygosity:
     
     Only meaningful if 'canGenerateExpectedStats()' returns true."""
     return self.sem
+
+  def serializeHomozygosityTo(self, stream):
+    type = getStreamType(stream)
+    if type == 'xml':
+      stream.opentag('homozygosity')
+    else:
+      stream.writeln("Homozygosity statistics:")
+    stream.writeln()
+    
+    if self.expectedStatsFlag:
+      if type == 'xml':
+        stream.tagContents('observed', "%.4f" % self.getObservedHomozygosity())
+        stream.writeln()
+        stream.tagContents('expected', "%.4f" % self.getMean())
+        stream.writeln()
+        stream.tagContents('expectedVariance', "%.4f" % self.getVar())
+        stream.writeln()
+        stream.tagContents('expectedStdErr', "%.4f" % self.getSem())
+        stream.writeln()
+        stream.opentag('pvalue')
+        lb, up = self.getPValueRange()
+        stream.tagContents('lower', "%.4f" % lb)
+        stream.tagContents('upper', "%.4f" % up)
+        stream.closetag('pvalue')
+        stream.writeln()
+        stream.closetag('homozygosity')
+      else:
+        stream.write("Observed Homozygosity: %.4f" % \
+                     self.getObservedHomozygosity())
+        stream.writeln()
+        stream.write("Expected Homozygosity %.4f" % self.getMean())
+        stream.writeln()
+        stream.write("Expected Variance %.4f" % self.getVar())
+        stream.writeln()
+        stream.write("Expected Stderr of the mean %.4f" % self.getSem())
+        stream.writeln()
+        stream.write("%f < pval < %f" % self.getPValueRange())
+        stream.writeln()
+    else:
+      if type == 'xml':
+        stream.closetag('homozygosity')
+      else:
+        stream.writeln("Can't generate expected stats")
