@@ -171,11 +171,19 @@
           \thesubsection\quad
         \fi
         ##1}}}
-%
+
+%% original page style
+%\def\ps@plain{\let\@mkboth\@gobbletwo
+%%      \let\@oddhead\@empty
+%% 	\def\@oddfoot{\lower2pc\hbox{\fbox{\hbox to \hsize{\reset@font\rightnote\hfill {\bf \thepage}}}}}
+%% \let\@evenhead\@empty\let\@evenfoot\@oddfoot}
+
+% modified by AKL
 \def\ps@plain{\let\@mkboth\@gobbletwo
      \let\@oddhead\@empty
-	\def\@oddfoot{\lower2pc\hbox{\fbox{\hbox to \hsize{\reset@font\rightnote\hfill {\bf \thepage}}}}}
+     \let\@oddfoot\@empty
 \let\@evenhead\@empty\let\@evenfoot\@oddfoot}
+
 %
 \def\ps@myheadings{%
     \let\@oddfoot\@empty\let\@evenfoot\@empty
