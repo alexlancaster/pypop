@@ -747,7 +747,7 @@ class HardyWeinbergGuoThompsonArlequin:
                                      debug=self.debug)
 
       self.output = arlequin.getHWExactTest()
-      arlequin.cleanup()
+      #arlequin.cleanup()
       
     else:
       self.noDataFlag = 1
@@ -762,23 +762,32 @@ class HardyWeinbergGuoThompsonArlequin:
       if self.debug:
         print self.output
 
-      # only one locus done at a time from output
-      genos, obsHet, expHet, pvalue, stddev, steps = self.output['1']
+      # if this is monomorphic locus, can't do HW exact testwith
+      # Arlequin, return an empty tag with role='monomorphic'
+      
+      if self.output['1'] == 'monomorphic':
+        stream.emptytag('hardyweinbergGuoThompsonArlequin', role='monomorphic')
+        stream.writeln()
 
-      # generate output section
-      stream.opentag('hardyweinbergGuoThompsonArlequin')
-      stream.writeln()
-      stream.tagContents('obs-hetero', "%4f" % obsHet)
-      stream.writeln()
-      stream.tagContents('exp-hetero', "%4f" % expHet)
-      stream.writeln()
-      stream.tagContents('pvalue', "%4f" % pvalue)
-      stream.writeln()
-      stream.tagContents('stddev', "%4f" % stddev)
-      stream.writeln()
-      stream.tagContents('steps', "%d" % steps)
-      stream.writeln()
-      stream.closetag('hardyweinbergGuoThompsonArlequin')
-      stream.writeln()
+      else:
+        
+        # only one locus done at a time from output
+        genos, obsHet, expHet, pvalue, stddev, steps = self.output['1']
+
+        # generate output section
+        stream.opentag('hardyweinbergGuoThompsonArlequin')
+        stream.writeln()
+        stream.tagContents('obs-hetero', "%4f" % obsHet)
+        stream.writeln()
+        stream.tagContents('exp-hetero', "%4f" % expHet)
+        stream.writeln()
+        stream.tagContents('pvalue', "%4f" % pvalue)
+        stream.writeln()
+        stream.tagContents('stddev', "%4f" % stddev)
+        stream.writeln()
+        stream.tagContents('steps', "%d" % steps)
+        stream.writeln()
+        stream.closetag('hardyweinbergGuoThompsonArlequin')
+        stream.writeln()
       
     
