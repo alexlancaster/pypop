@@ -39,6 +39,7 @@
 import sys, os, string, time
 
 from ParseFile import ParseGenotypeFile, ParseAlleleCountFile
+from DataTypes import Genotypes, AlleleCounts
 from Arlequin import ArlequinExactHWTest
 from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin
@@ -327,8 +328,9 @@ class Main:
               # don't use filter, just create a "pass through filter"
               filter = PassThroughFilter()
 
-            # Generate the parse file object
-            self.input = ParseGenotypeFile(fileName,
+            # Generate the parse file object, which simply creates
+            # a filtered matrix (no allele count stuff done!)
+            self.parsed = ParseGenotypeFile(fileName,
                                       validPopFields=validPopFields,
                                       validSampleFields=validSampleFields,
                                       alleleDesignator=alleleDesignator, 
@@ -338,17 +340,27 @@ class Main:
                                       filter=filter,
                                       debug=self.debug)
 
+            # put in format for rest of processing
+            self.input = Genotypes(matrix=self.parsed.getMatrix(),
+                                   untypedAllele=self.untypedAllele,
+                                   debug=self.debug)
+
         # END PARSE for a genotype file (ParseGenotypeFile)
 
         # BEGIN PARSE: allelecount file (ParseAlleleCountFile)
         elif self.fileType == "ParseAlleleCountFile":
 
             # Generate the parse file object
-            self.input = ParseAlleleCountFile(fileName,
+            self.parsed = ParseAlleleCountFile(fileName,
                              validPopFields=validPopFields,
                              validSampleFields=validSampleFields,
                              separator='\t',
                              debug=self.debug)
+
+            self.input = AlleleCounts(alleleTable=self.parsed.getAlleleTable(),
+                                      locusName=self.parsed.getLocusName(),
+                                      debug=self.debug)
+            
         # END PARSE: allelecount file (ParseAlleleCountFile)
         
         else:
@@ -382,8 +394,11 @@ class Main:
         self.xmlStream.tagContents('pypop-version', version)
         self.xmlStream.writeln()
 
-        # serialize summary info for population in XML
-        self.input.serializeMetadataTo(self.xmlStream)
+        # serialize summary info for population in XML (common)
+        self.parsed.serializeMetadataTo(self.xmlStream)
+
+        # serialize the specific information for kind of file
+        self.input.serializeSubclassMetadataTo(self.xmlStream)
 
         # process the file depending on type
         if self.fileType == "ParseAlleleCountFile":
@@ -451,6 +466,7 @@ class Main:
         self.xmlStream.writeln()
 
     def _doGenotypeFile(self):
+
 
         loci = self.input.getLocusList()
 
