@@ -1368,8 +1368,13 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
       summary_wn[coeff_count]  = sqrt( summary_q[coeff_count] /
         ( 2*(double)n_recs * (min(n_unique_allele[j],n_unique_allele[k])-1) ) );
       coeff_count += 1;
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "</loci>\n");   /* close <loci> tag */
+#else
       fprintf(fp_out,"\n"); 
+#endif
     }
+    
   }
 
   /* print   summary measures */
