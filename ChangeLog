@@ -1,5 +1,7 @@
 2005-02-17  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* standalone.spec: Use .ini file from data/samples subdirectory.
+
 	* *.ini: Moved to data/samples subdirectory.
 
 2005-01-11  Owen Solberg  <solberg@mws11.biol.berkeley.edu>

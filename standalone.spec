@@ -139,7 +139,8 @@ for file in ['README', 'INSTALL', 'AUTHORS', 'COPYING', 'NEWS']:
 copyCustomPlatform('VERSION', os.path.join(dist_dir, bin_dir))
 
 # copy sample 'demo' files
-copyfileCustomPlatform('minimal-noheader-noids.ini', \
+copyfileCustomPlatform(os.path.join('data','samples',\
+                                    'minimal-noheader-noids.ini'), \
                       os.path.join(dist_dir, 'sample.ini'))
                
 copyfileCustomPlatform(os.path.join('data','samples',\
