@@ -163,8 +163,8 @@
 
    <section>
     <title>Ewens-Watterson test of neutrality</title> <para>This a
-    test of neutral evolution.  Given 2n, k.  Homozygosity: (give
-    equation here).  Determine probability that the observed
+    test of neutral evolution.  Given 2n, k.  Homozygosity: [PUT
+    EQUATION F = SUM(PI) HERE].  Determine probability that the observed
     homozygosity is more extreme than the expected homozygosity under
     neutrality with the same 2n and k.  This can tell us whether
     selection (either directional or balancing) is in operation on a
@@ -175,12 +175,12 @@
    <section>
     <title>Haplotype estimation and linkage disequilibrium</title>
 
-    <para>Selection on haplotypes?  </para>
+    <para>Selection on haplotypes?  [NEED TO ADD BRIEF DESCRIPTION...]</para>
    </section>
 
    <section>
     <title>Patterns of genetic differentiation</title>
-    <para>Fst?</para>
+    <para>Fst? [NEED TO ADD BRIEF DESCRIPTION...]</para>
    </section>
 
  </section>
@@ -468,7 +468,7 @@
    </para>
 
    <figure id="pypop:sample-txt">
-    <title>Extract from sample plain text output</title>
+    <title>Extract from sample plain text output generated from XML data</title>
     <programlisting format="linespecific"><![CDATA[
 Performed on the 'ukimid_nireland.pop' file at: 2002-07-09-05-01-18
 
@@ -510,6 +510,23 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     This is implemented using XSLT to transform the all the sets of
     output XML files, desired into tables of data that are read by the
     statistical package <application>R</application>.</para>
+   
+   <para>A sample output of this process is shown in <xref
+   linkend="pypop:ld.wn.summary"/>.  This is an output plot from R and
+   depicts for each of the loci analysed as part of the IHWG workshop,
+   the proportion of populations in which the linkage disequilibrium
+   exceed 0.6 (as defined by the W<subscript>n</subscript>
+    statistic <xref linkend="Cramer"/>).</para>
+
+   <figure id="pypop:ld.wn.summary">
+    <title>Proportions of population with linkage disequilibrium
+    measure W<subscript>n</subscript> greater than 0.6</title>
+    <mediaobject>
+     <imageobject>
+      <imagedata fileref="../ihws2002/plots/generated/ld-wn-summary.jpg" scale="80"/>
+     </imageobject>
+    </mediaobject>
+   </figure>
 
    <para>The XML output (both the individual population-level data
     files, and the aggregated multi-population data) can be
@@ -529,7 +546,25 @@ Name      Frequency (Count)   | Name      Frequency (Count)
   </section>
  </section>
 
- <ackno>NIH grant 795?? (13<superscript>th</superscript> IHWG )</ackno>
+ <section>
+  <title>Results and discussion</title>
+
+  <para>The PyPop framework was used to analyse the IHWG data...</para>
+
+  <para>[DESCRIPTIONS OF SOME DATA ANALYSES, with reference to
+  Ewens-Watterson test of neutrality, also describe future analyses at
+  amino-acide level and possible functional relevance to disease.]</para>
+
+  <para>[SUMMARY OF STRENGTHS AND WEAKNESSES OF PYPOP W.R.T. OTHER
+  PACKAGES.]</para>
+
+  <para>[CONCLUSION AND FUTURE DIRECTIONS.]</para>
+
+ </section>
+
+ <ackno>This work has benefitted from the support of NIH grant 795??
+ (13<superscript>th</superscript> IHWG).  Thanks to Diogo Meyer,
+ Richard Single, Steve Mack, Mark Nelson and Glenys Thomson.</ackno>
 
 <!--
  <appendix condition="main">
@@ -751,7 +786,7 @@ Other
 
   </biblioentry>
   
-  <biblioentry id="Guo:Thompson:1992" xreflabel="Guo &amp; Thompson 1992">
+  <biblioentry id="Guo:Thompson:1992" xreflabel="Guo \&amp; Thompson 1992">
    <authorgroup>
     <author>
      <firstname>SW</firstname>
@@ -769,7 +804,7 @@ Other
    <citetitle pubwork="journal">Biometrics</citetitle>
   </biblioentry>
 
-  <biblioentry id="Rhodes:Trowsdale:1999" xreflabel="Rhodes &amp; Trowsdale 1999">
+  <biblioentry id="Rhodes:Trowsdale:1999" xreflabel="Rhodes \&amp; Trowsdale 1999">
    <authorgroup>
     <author>
      <firstname>D</firstname>
