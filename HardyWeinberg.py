@@ -288,7 +288,11 @@ class HardyWeinberg:
 
       self.commonDf = self.commonGenotypeCounter - self.counterAllelesCommon
 
-      if self.commonDf > 1:
+      if self.debug:
+        print "self.commonGenotypeCounter - self.counterAllelesCommon = self.commonDf"
+        print self.commonGenotypeCounter, "-", self.counterAllelesCommon, "=", self.commonDf
+
+      if self.commonDf >= 1:
       # if the value for degrees of freedom is not zero or negative
 
         if self.lumpedExpectedGenotypes >= self.lumpBelow:
