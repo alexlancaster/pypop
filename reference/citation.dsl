@@ -76,53 +76,45 @@
 	(literal "(") ($charseq$) (literal ")"))))
 
 
-; (define (author-list-string #!optional (author (current-node)))
-;   ;; Return a formatted string representation of the contents of AUTHOR
-;   ;; *including appropriate punctuation* if the AUTHOR occurs in a list
-;   ;; of AUTHORs in an AUTHORGROUP:
-;   ;;
-;   ;;   John Doe
-;   ;; or
-;   ;;   John Doe and Jane Doe
-;   ;; or
-;   ;;   John Doe, Jane Doe, and A. Nonymous
-;   ;;
-
-;   (let* ((author-node-list (select-elements
-; 			    (descendants 
-; 			     (ancestor (normalize "authorgroup") author))
-; 			    (normalize "author")))
-; 	 (corpauthor-node-list (select-elements
-; 				(descendants 
-; 				 (ancestor (normalize "authorgroup") author))
-; 				(normalize "corpauthor")))
-; 	 (othercredit-node-list (select-elements
-; 				 (descendants 
-; 				  (ancestor (normalize "authorgroup") author))
-; 				 (normalize "othercredit")))
-; 	 (editor-node-list (select-elements
-; 			    (descendants 
-; 			     (ancestor (normalize "authorgroup")))
-; 			    (normalize "editor")))
-; 	 (author-count (if (have-ancestor? (normalize "authorgroup") author)
-; 			   (+ (node-list-length author-node-list)
-; 			      (node-list-length corpauthor-node-list)
-; 			      (node-list-length othercredit-node-list)
-; 			      (node-list-length editor-node-list))
-; 			   1)))
-;     (string-append
-;      (if (and (> author-count 1)
-; 	      (last-sibling? author))
-; 	 (string-append (gentext-and) " ")
-; 	 "")
-;      (author-string author)
-;      (if (and (> author-count 2)
-; 	      (not (last-sibling? author)))
-; 	 ", "
-; 	 (if (and (> author-count 1)
-; 		  (not (last-sibling? author)))		  
-; 	     " "
-; 	     "")))))
+(define (en-author-string #!optional (author (current-node)))
+  ;; Return a formatted string representation of the contents of:
+  ;; AUTHOR:
+  ;;   Handles Honorific, FirstName, SurName, and Lineage.
+  ;;     If %author-othername-in-middle% is #t, also OtherName
+  ;;   Handles *only* the first of each.
+  ;;   Format is "Honorific. FirstName [OtherName] SurName, Lineage"
+  ;; CORPAUTHOR:
+  ;;   returns (data corpauthor)
+  (let* ((h_nl (select-elements (descendants author) (normalize "honorific")))
+	 (f_nl (select-elements (descendants author) (normalize "firstname")))
+	 (o_nl (select-elements (descendants author) (normalize "othername")))
+	 (s_nl (select-elements (descendants author) (normalize "surname")))
+	 (l_nl (select-elements (descendants author) (normalize "lineage")))
+	 (has_h (not (node-list-empty? h_nl)))
+	 (has_f (not (node-list-empty? f_nl)))
+	 (has_o (and %author-othername-in-middle%
+		     (not (node-list-empty? o_nl))))
+	 (has_s (not (node-list-empty? s_nl)))
+	 (has_l (not (node-list-empty? l_nl))))
+    (if (or (equal? (gi author) (normalize "author"))
+	    (equal? (gi author) (normalize "editor"))
+	    (equal? (gi author) (normalize "othercredit")))
+	(string-append
+	 (if has_h (string-append (data-of (node-list-first h_nl)) 
+				  %honorific-punctuation%) "")
+	 ;; put surname first
+	 (if has_s (string-append 
+		    (if (or has_h has_f has_o) " " "")
+		    (data-of (node-list-first s_nl))) "")
+	 ;; only get first character of firstname
+	 (if has_f (string-append 
+		    (if (or has_h has_s) " " "") 
+		    (substring (data-of (node-list-first f_nl)) 0 1)) "")
+	 (if has_o (string-append
+		    (if (or has_h has_f) "" "")
+		    (data-of (node-list-first o_nl))) "")
+	 (if has_l (string-append ", " (data-of (node-list-first l_nl))) ""))
+	(data-of author))))
 
 ; (element biblioentry
 ;   (let* ((expanded-children   (expand-children 
