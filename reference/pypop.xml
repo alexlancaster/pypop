@@ -57,26 +57,26 @@
 
 <!--
  <abstract>
-   <para>Software to analyze multi-locus genotype data for entire
-   populations is useful for estimating haplotype frequencies,
-   deviation from Hardy-Weinberg equilibrium and patterns of linkage
-   disequilibrium.  These statistical results are important to both
-   those interested in human genome variation and disease
-   predisposition as well as evolutionary genetics.  As part of the
-   13<superscript>th</superscript> International Histocompatibility
-   and Immunogenetics Working Group (IHWG), we have developed a
-   software framework (<application>PyPop</application>).  The primary
-   novelty of this package is that it allows integration of statistics
-   <emphasis>across</emphasis> large numbers of data-sets by heavily
-   utilizing the XML file format and the <application>R</application> statistical package to view
-   graphical output, while retaining the ability to inter-operate with
-   existing software.  Largely developed to address human population
-   data, it can, however, be used for population based data for any
-   organism.  We tested our software on the data from the
-   13<superscript>th</superscript> IHWG which involved data sets from
-   at least 50 laboratories each of up to 1000 individuals with 9 MHC
-   loci (both class I and class II) and found that it scales to large
-   numbers of data sets well.</para>
+ <para>Software to analyze multi-locus genotype data for entire
+ populations is useful for estimating haplotype frequencies,
+ deviation from Hardy-Weinberg equilibrium and patterns of linkage
+ disequilibrium.  These statistical results are important to both
+ those interested in human genome variation and disease
+ predisposition as well as evolutionary genetics.  As part of the
+ 13<superscript>th</superscript> International Histocompatibility
+ and Immunogenetics Working Group (IHWG), we have developed a
+ software framework (<application>PyPop</application>).  The primary
+ novelty of this package is that it allows integration of statistics
+ <emphasis>across</emphasis> large numbers of data-sets by heavily
+ utilizing the XML file format and the <application>R</application> statistical package to view
+ graphical output, while retaining the ability to inter-operate with
+ existing software.  Largely developed to address human population
+ data, it can, however, be used for population based data for any
+ organism.  We tested our software on the data from the
+ 13<superscript>th</superscript> IHWG which involved data sets from
+ at least 50 laboratories each of up to 1000 individuals with 9 MHC
+ loci (both class I and class II) and found that it scales to large
+ numbers of data sets well.</para>
  </abstract>
  -->
 
@@ -97,16 +97,18 @@
    output of the analyses are stored in the XML format (XML is the
    eXtensible Markup Language devised by the World Wide Web
    Consortium, and is a platform-independent, vendor-neutral,
-   non-proprietary, open standard for storing data).  These output
-   files can then be transformed using standard tools into many other
-   data formats suitable for machine consumption (such as
+   non-proprietary, open standard for storing data
+   <citation>Bray:2000</citation>).  These output files can then be
+   transformed using standard tools into many other data formats
+   suitable for machine consumption (such as
    <application>Phylip</application> or input for the statistical
-   package, <application>R</application>), or plain text or HTML for
+   package <application>R</application>), or plain text or HTML for
    human-readable format.  Storing the output in XML allows the final
    viewable output format to be redesigned at will, without requiring
    the (often time-consuming) re-running of the analyses themselves.
-   Data from the anthropology, transplantation, and disease components
-   have been analyzed using <application>PyPop</application>.</para>
+   Data from the anthropology, transplantation, disease and cytokine
+   components have been analyzed using
+   <application>PyPop</application>.</para>
 
 
 <!--
@@ -150,10 +152,10 @@
 
   <para>Currently, packages for analyzing population data already
    exist such as
-   <application>Arlequin</application><citation>Schneider:2000</citation>, 
-   <application>PHYLIP</application><citation
+   <application>Arlequin</application> <citation>Schneider:2000</citation>, 
+   <application>PHYLIP</application> <citation
     role="citep">Felsenstein:1989</citation> and
-   <application>Genepop</application><citation>Genepop</citation>. In
+   <application>Genepop</application> <citation>Raymond:Rousset:1995</citation>. In
    general, however, they are not oriented towards large-scale
    cross-population data analyses.  Analogous to the tools being
    developed for sequence analysis and search, we seek a framework in
@@ -175,21 +177,23 @@
    <title>IHWG: International Histocompatibility Working Group</title>
 
    <para>The primary motivation for developing this project was our
-    role as the <quote>Biostatistics Core</quote> part of the
+    role as the <quote>Biostatistics Core</quote> for the
     International Histocompatibility Working Group (<ulink
-     url="http://www.ihwg.org/">IHWG</ulink>).  The IHWG collected
+     url="http://www.ihwg.org/">IHWG</ulink>). <!-- The IHWG collected
     population data on the HLA region and largely focused on the HLA
     classical class I (A, B, and C) (1.8 Mb) and class II (DR, DQ, and
     DP) (1.2 Mb) genes, which flank the class III region on chromosome
-    6 (ch. 6p21.31).</para>
+    6 (ch. 6p21.31). --> As part of the Anthropology and Human
+    Diversity component of the IHWG, HLA class I (A, B and C) and
+    class II (DRA1, DRB1, DQA1, DQB1, DPA1 and DPB1) data from
+    populations from upwards of 50 laboratories was made available via
+    a database housed at the Fred Hutchison Cancer Research Institute
+    (the <quote>Database Core</quote>). <!-- The IHWG provided
+    standardized typing reagents to each lab involved in the
+    component, which resulted in high resolution genotype data for
+    each population. -->
 
-   <para>As part of the Anthropology and Human Diversity component of
-    the IHWG, data from populations from upwards of 50 laboratories
-    was made available via a database housed at the Fred Hutchison
-    Cancer Research Institute (the <quote>Database Core</quote>).  The
-    IHWG provided standardized typing reagents to each lab involved in
-    the component, which resulted in high resolution genotype data for
-    each population.</para>
+   </para>
 
    <para>The molecular characterization of these alleles thus allowed
     us to use both the allele frequency (the raw allele
@@ -207,12 +211,13 @@
 
    <para>The particular cross-population analyses we wished to address
     included: (1) conformity to Hardy-Weinberg expectations, (2) tests
-    for balancing selection; (3) haplotype distributions and patterns
-    of linkage disequilibrium among populations; and (4) other tests
-    such as worldwide patterns of genetic differentiation. A
-    description of the methodology for specifc tests can be found in
-    the Workshop Statistical Methods paper details of statistics are
-    detailed in  chapters (reference?) of this volume.  <xref
+    for balancing or directional selection; (3) estimates of haplotype
+    frequencies and their distributions and patterns of linkage
+    disequilibrium among populations; and (4) other tests such as
+    worldwide patterns of genetic differentiation. A description of
+    the methodology for specifc tests can be found in the Workshop
+    Statistical Methods paper details of statistics are detailed in
+    chapters (reference?) of this volume.  <xref
      linkend="pypop:modules"/>  briefly outlines the
     <application>PyPop</application> modules and specific
     implementation details of population genetic methods.</para>
@@ -248,9 +253,10 @@
     </listitem>
 
     <listitem>
-     <formalpara><title>a filter</title>
+     <formalpara><title>machine-readable output</title>
       <para>all output from the analyses should be available as input
-       to other programs</para>
+       to other programs, so successive stages in the output can be
+       made available as input to later stages</para>
      </formalpara>
     </listitem>
     
@@ -259,7 +265,8 @@
       <title>standardized output</title>
 
       <para>output should be generated in the open standard format
-       XML</para>
+       XML, which is both machine readable and easily translated into
+       human readable format (such as text)</para>
      </formalpara>
     </listitem>
 
@@ -267,26 +274,20 @@
      <formalpara><title>integrating</title>
 
       <para>platform should allow simple integration of modules
-       written in other languages (e.g., C) and/or third party
-       software</para>
+       written in other languages (e.g., C such as
+       <application>emhaplofreq</application>, a program for haplotype
+       frequency estimation for the highly polymorphic HLA loci)
+       and/or third party software (such as
+       <application>Arlequin</application>
+       <citation>Schneider:2000</citation>,
+       <application>Genepop</application>
+       <citation>Raymond:Rousset:1995</citation>, and
+       <application>PHYLIP</application>
+       <citation>Felsenstein:1989</citation>, packages that deal with
+       some aspects of population genetic statistics).</para>
      </formalpara>
     </listitem>
    </itemizedlist>
-
-  </section>
-  
-  <section>
-   <title>Integrating with existing software</title>
-
-   <para>Where possible, we wished to integrate with existing
-    software.  <application>Arlequin</application>
-    <citation>Schneider:2000</citation> and
-    <application>PHYLIP</application><citation>Felsenstein:1989</citation> 
-    are packages that deal with some aspects of population genetic
-    statistics.  In addition, we had some existing in-house software,
-    such as <application>emhaplofreq</application>, a program for
-    haplotype frequency estimation for the highly polymorphic HLA
-    loci.</para>
 
 <!--
    <para>In using these programs, however, we realized a need for a
@@ -364,8 +365,8 @@
     </listitem>
    </orderedlist>
 -->
-
   </section>
+
  </section>
 
  <section>
@@ -400,22 +401,22 @@
    <title>Implementation</title>
 
    <para>We  implemented <application>PyPop</application> in the
-    object-oriented scripting language
-    Python<citation>Python</citation>.  It is an interpreted language
-    allowing for rapid prototyping of modules and has a convenient
-    standard library of functions.  Through use of the the Simple
-    Wrapper Interface Generator (SWIG <citation>SWIG</citation>), it
-    is also straightforward to <quote>wrap</quote> existing code in C,
-    C++ or Java and call it from Python.  We further leveraged other
-    open-source projects: Numeric Python <citation>Numpy</citation>
-    project, which provides efficient data structures for holding
-    large arrays of data, and <application>R</application>, the
-    open-source implementation
-    <citation>Ihaka:Gentleman:1996</citation> of the programming
-    language <application>S</application>.  As our XSLT parser, we
-    chose the fast C-based <application>libxslt</application>
-    <citation>Libxslt</citation> from the GNOME project
-    <citation>GNOME</citation>.
+    object-oriented scripting language Python
+    <citation>vanRossum:2001</citation>.  It is an interpreted
+    language allowing for rapid prototyping of modules and has a
+    convenient standard library of functions.  Through use of the the
+    Simple Wrapper Interface Generator (SWIG
+    <citation>Beazley:1996</citation>), it is also straightforward to
+    <quote>wrap</quote> existing code in C, C++ or Java and call it
+    from Python.  We further leveraged other open-source projects:
+    Numeric Python <citation>Dubois:1996</citation> project, which
+    provides efficient data structures for holding large arrays of
+    data, and <application>R</application>, the open-source
+    implementation <citation>Ihaka:Gentleman:1996</citation> of the
+    programming language <application>S</application>.  As our XSLT
+    parser, we chose the fast C-based <application><ulink
+      url="http://xmlsoft.org/">libxslt</ulink></application> from the
+    <ulink url="http://www.gnome.org/">GNOME</ulink> project.
    </para>
   </section>
 
@@ -594,11 +595,11 @@
      data for each population (stored in a text file with the
      <filename>.pop</filename> extension), is passed through a filter
      module for data cleaning. The filter module is a set of rules
-     that ensures that  allele names are valid or otherwise have a
-     close match in the database of HLA
-     alleles<citation>IMGT</citation> maintained by Steve Marsh of the
-     Anthony Nolan Trust in the UK.  This procedure works as
-     follows:</para>
+     that ensures that allele names are valid or otherwise have a
+     close match in the <ulink
+      url="http://www.ebi.ac.uk/imgt/hla/">IMGT</ulink> (a database of
+     HLA alleles maintained by Steve Marsh of the Anthony Nolan Trust
+     in the UK).  This procedure works as follows:</para>
 
     <orderedlist>
      <listitem>
@@ -611,19 +612,19 @@
       <para>This reduced allele is checked to see whether it closely
        matches<footnote>
 	<para>A close match means that the there is a common substring
-	 between the reduced allele and the database allele, up to the
+	 between the reduced allele and the IMTG database allele, up to the
 	 length of the common denominator (e.g., if
 	 <literal>0301</literal> is the reduced allele under question,
 	 then this can match both <literal>03011</literal> or
 	 <literal>03012</literal>, then <literal>0301</literal> is
 	 returned as the common substring match).</para>
-      </footnote> an allele in the database.  If it does, then this
+      </footnote> an allele in the IMTG database.  If it does, then this
        reduced allele is used in the data analysis.  A truncated
        allele which ends in a zero [such alleles do not exist in
-       the database], is mapped to the allele which has the highest
+       the IMTG database], is mapped to the allele which has the highest
        frequency in the population under question.  If such an allele
        does not exist, then the first allele which closely matches an
-       existing allele in the database, is used as the matching
+       existing allele in the IMTG database, is used as the matching
        allele.</para>
      
      </listitem>
@@ -692,7 +693,7 @@
      read as input by other programs and; 2) it is readily
      transformable into human-readable form (e.g., a text file) or
      web-form (e.g., HTML) via XSLT (eXtensible Stylesheet Language
-     for Transformations)<citation>XSLT</citation>.</para>
+     for Transformations) <citation>Clark:1999</citation>.</para>
    </section>
 
    <section>
@@ -894,10 +895,12 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     Longer-term possibilities include developing a graphical
     front-end, possibly web-based, integration with data mining tools
     such as clustering analysis, and currently under discussion is
-    integration with the NCBI's new <application>dbMHC</application>
-    database<citation>dbMHC</citation>.  We also plan to release the
-    complete source code to <application>PyPop</application> under the
-    GNU General Public License (GPL<citation>GPL</citation>). Details
+    integration with the NCBI's new <application><ulink
+      url="http://www.ncbi.nlm.nih.gov/IEB/Research/GVWG/MHC/">dbMHC</ulink></application> 
+    database.  We also plan to release the complete source code to
+    <application>PyPop</application> under the GNU General Public
+    License (<ulink
+     url="http://www.gnu.org/licenses/gpl.html">GPL</ulink>). Details
     will be made available at the Thomson lab website: <ulink
      url="http://allele5.biol.berkeley.edu/">http://allele5.biol.berkeley.edu/</ulink></para>
 
