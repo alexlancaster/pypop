@@ -37,6 +37,7 @@ except GetoptError:
 use_libxsltmod = 0
 use_FourSuite = 0
 configFilename = 'config.ini'
+specifiedConfigFile = 0
 
 # parse options
 for o, v in opts:
