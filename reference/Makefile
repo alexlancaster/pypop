@@ -151,7 +151,7 @@ grayscale:
 	done
 
 # convert XML to LaTeX using latex.xsl (a customization of db2latex)
-%-latex.tex: %.xml grayscale
+%-latex.tex: %.xml latex.xsl latex-common.xsl
 	$(XSLTPROC) --xinclude -o $@ latex.xsl $<
 
 # convert LaTeX to PDF using PDFLaTeX
