@@ -1,4 +1,4 @@
-2003-12-19  Owen Solberg  <solberg@localhost.localdomain>
+2003-12-19  Owen Solberg  <solberg AT socrates.berkeley.edu>
 
 	* Main.py (Main._runFilters): Parse the ini file for "directory"
 	and "file" rather than "path."
@@ -6,7 +6,7 @@
 	that method.
 	
 	* Filter.py (BinningFilter.__init__): Receive the binningPath when
-	this object is instatiated.
+	this object is instantiated.
 	(BinningFilter.doCustomBinning): Modularized this method so that
 	it can be called in line with the other filters.  Method now looks
 	for custom binning specifications in a single file, specified in
