@@ -63,7 +63,7 @@ FIGS = $(addprefix work-flow., png eps) $(addprefix design., png eps) api.png
 OUTPUTS = $(addprefix biostat., html txt pdf) $(addprefix tex-math-equations., tex dvi) eqns $(shell cat HTML.manifest)
 EXTRA_CLEAN = $(addprefix biostat., aux log out) $(addprefix tex-math-equations., tex dvi)
 EXTRA_XML_SOURCE = hlaintro.xml methods.xml pypop.xml glossary.xml instructions.xml versions.ent
-EXTRA_XSL_SOURCE = citation.xsl biblio.xsl
+EXTRA_XSL_SOURCE = xslt/citation.xsl xslt/biblio.xsl
 
 all: $(FIGS) api/index.html
 
@@ -81,11 +81,11 @@ eqns: tex-math-equations.dvi
 
 # profiling for 'main' version of document
 %-main-profile.xml: %.xml
-	$(XSLTPROC) --stringparam profile.condition main --xinclude -o $@ profile.xsl $<
+	$(XSLTPROC) --stringparam profile.condition main --xinclude -o $@ xslt/profile.xsl $<
 
 # profiling for 'anthro' version of document
 %-anthro-profile.xml: %.xml
-	$(XSLTPROC) --stringparam profile.condition anthro-book --xinclude -o $@ profile.xsl $<
+	$(XSLTPROC) --stringparam profile.condition anthro-book --xinclude -o $@ xslt/profile.xsl $<
 
 # generated a sorted <bibliography> where needed (for DSSSL)
 %-sorted.xml: %.xml
@@ -94,18 +94,18 @@ eqns: tex-math-equations.dvi
 # rules to produce final version of HTML, FO, PDF etc.
 
 # produces final HTML
-%.html: %.xml html.xsl $(EXTRA_XML_SOURCE) $(EXTRA_XSL_SOURCE)
+%.html: %.xml xslt/html.xsl $(EXTRA_XML_SOURCE) $(EXTRA_XSL_SOURCE)
 	$(CVSPRE)
 	$(XMLLINT)	
-	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML) --stringparam root.filename $(basename $@) html.xsl $<
+	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML) --stringparam root.filename $(basename $@) xslt/html.xsl $<
 	$(CVSPOST)
 
 # produces intermediate HTML suitable for conversion to plain text
 # disable TOC, graphic and unicode callouts
-%-singlepage.html: %.xml text.xsl $(EXTRA_XML_SOURCE) $(EXTRA_XSL_SOURCE)
+%-singlepage.html: %.xml xslt/text.xsl $(EXTRA_XML_SOURCE) $(EXTRA_XSL_SOURCE)
 	$(CVSPRE)
 	$(XMLLINT)	
-	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML)  -o $@ text.xsl $<
+	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML)  -o $@ xslt/text.xsl $<
 	$(CVSPOST)
 
 %.txt: %-singlepage.html
@@ -114,10 +114,10 @@ eqns: tex-math-equations.dvi
 # don't use profiling-highlighting right now
 #--param profiling-highlighting $(if $(findstring profile,$<),0,1)
 
-%.fo: %.xml fo.xsl pagesetup.xsl $(EXTRA_XML_SOURCE) $(EXTRA_XSL_SOURCE)
+%.fo: %.xml xslt/fo.xsl xslt/pagesetup.xsl $(EXTRA_XML_SOURCE) $(EXTRA_XSL_SOURCE)
 	$(CVSPRE)
 	$(XMLLINT)
-	$(XSLTPROC) $(XSLCOMMON) $(XSLFO) -o $@ fo.xsl $<
+	$(XSLTPROC) $(XSLCOMMON) $(XSLFO) -o $@ xslt/fo.xsl $<
 	$(CVSPOST)
 
 %.ps: %.fo
@@ -151,8 +151,8 @@ grayscale:
 	done
 
 # convert XML to LaTeX using latex.xsl (a customization of db2latex)
-%-latex.tex: %.xml latex.xsl latex-common.xsl
-	$(XSLTPROC) --xinclude -o $@ latex.xsl $<
+%-latex.tex: %.xml xslt/latex.xsl xslt/latex-common.xsl
+	$(XSLTPROC) --xinclude -o $@ xslt/latex.xsl $<
 
 # convert LaTeX to PDF using PDFLaTeX
 %.pdf: %.tex
@@ -193,7 +193,7 @@ api/index.docb:
 #	$(XSLTPROC) --xinclude $(XSLCOMMON) $(XSLHTML) -o $@ $(DOCBOOKXSLDIR)/html/chunk.xsl $<	
 
 api/index.fo: api/index.docb
-	$(XSLTPROC) --xinclude $(XSLCOMMON) $(XSLFO) -o $@ fo.xsl $<	
+	$(XSLTPROC) --xinclude $(XSLCOMMON) $(XSLFO) -o $@ xslt/fo.xsl $<	
 
 api.dia: $(PYTHON_SOURCE_PATH)
 	happydoc -d . --dia -t "" $(DOCOPTIONS) $(PYTHON_SOURCE_PATH)
