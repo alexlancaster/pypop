@@ -27,6 +27,14 @@
  
  <!-- BEGIN NAMED TEMPLATE FUNCTIONS -->
 
+ <!-- template to uppercase a node or variable -->
+
+ <xsl:template name="upcase">
+  <xsl:param name="var"/>
+  <xsl:value-of select="translate($var, 'abcdefghijklmnopqrstuvwxyz',
+   'ABCDEFGHIJKLMNOPQRSTUVWXYZ')"/>
+ </xsl:template>
+
  <!-- templates to calculate (number)^(power) -->
 
  <xsl:template name="raise-to-power">
