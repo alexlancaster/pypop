@@ -100,13 +100,13 @@
 
     <xsl:call-template name="justified-cell">
      <xsl:with-param name="padVar">Locus pair</xsl:with-param>
-     <xsl:with-param name="length" select="10"/>
+     <xsl:with-param name="length" select="15"/>
      <xsl:with-param name="type" select="'left'"/>
     </xsl:call-template>
     
     <xsl:call-template name="justified-cell">
      <xsl:with-param name="padVar">D'</xsl:with-param>
-     <xsl:with-param name="length" select="10"/>
+     <xsl:with-param name="length" select="8"/>
      <xsl:with-param name="type" select="'right'"/>
     </xsl:call-template>
     
@@ -142,7 +142,7 @@
     
     <xsl:call-template name="justified-cell">
      <xsl:with-param name="padVar"> p-value</xsl:with-param>
-     <xsl:with-param name="length" select="10"/>
+     <xsl:with-param name="length" select="8"/>
      <xsl:with-param name="type" select="'left'"/>
     </xsl:call-template>
     
@@ -159,13 +159,13 @@
       
       <xsl:call-template name="justified-cell">
        <xsl:with-param name="padVar" select="$locus-pair"/>
-       <xsl:with-param name="length" select="10"/>
+       <xsl:with-param name="length" select="15"/>
        <xsl:with-param name="type" select="'left'"/>
       </xsl:call-template>
       
       <xsl:call-template name="justified-cell">
        <xsl:with-param name="padVar" select="linkagediseq/summary/dprime"/>
-       <xsl:with-param name="length" select="10"/>
+       <xsl:with-param name="length" select="8"/>
        <xsl:with-param name="type" select="'right'"/>
       </xsl:call-template>
       
@@ -235,7 +235,7 @@
 	 <xsl:otherwise>-</xsl:otherwise>
 	</xsl:choose>
        </xsl:with-param>
-       <xsl:with-param name="length" select="10"/>
+       <xsl:with-param name="length" select="8"/>
        <xsl:with-param name="type" select="'left'"/>
       </xsl:call-template>
       
