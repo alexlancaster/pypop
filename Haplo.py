@@ -5,6 +5,7 @@
 """
 import sys, string, os, re
 from Arlequin import ArlequinBatch
+from Utils import getStreamType
 
 class Haplo:
     """*Abstract* base class for haplotype parsing/output.
@@ -248,20 +249,70 @@ KeepNullDistrib=0""")
         return haplotypes
 
 class Emhaplofreq(Haplo):
-    """Haplotype estimation implemented via emhaplofreq
+    """Haplotype estimation implemented via emhaplofreq.
+
+    This is essentially a wrapper to a Python extension built on top
+    of the 'emhaplofreq' command-line program.
+
+    Will refuse to estimate haplotypes longer than that defined by
+    'emhaplofreq'.
     
     """
-    def __init__(self, locusList, locusData):
+    def __init__(self, locusData, debug=0):
 
-        self.matrix = []
-        length = len(locusData[locusList[0]])
-        print "first locus %s length %d:" % (locusList[0], length)
-        for locus in locusList:
-            print "locus %s length %d:" % (locus, len(locusData[locus]))
-            if len(locusData[locus]) != length:
-                sys.exit("error: all loci must have same number of alleles")
+        # lazy importation of module only upon instantiation of class
+        # to save startup costs of invoking dynamic library loader
+        import _Emhaplofreq
 
-        for pos in xrange(0, (length-1)):
-            for locus in locusList:
-                print locusData[locus][pos],
-            print
+        # assign module to an instance variable so it is available to
+        # other methods in class
+        self._Emhaplofreq = _Emhaplofreq
+        
+        self.matrix, self.loci = locusData
+        self.lociCount = len(self.matrix[0]) / 2
+        self.debug = debug
+
+    def estHaplotypes(self, locusList, permutationFlag=0):
+
+        # import the Python-to-C module wrapper
+
+        self.maxLociExceeded = 0
+
+        print self.lociCount, self._Emhaplofreq.MAX_LOCI
+        if self.lociCount <= self._Emhaplofreq.MAX_LOCI:
+
+            # create an in-memory file instance for the C program to write to
+            import cStringIO
+            self.fp = cStringIO.StringIO()
+
+            # call the SWIG-ed method
+            self._Emhaplofreq.main_proc(self.fp, self.matrix, len(self.loci),
+                               len(self.matrix), permutationFlag)
+
+            if self.debug:
+                # in debug mode, print the in-memory file to sys.stdout
+                lines = string.split(self.fp.getvalue(), os.linesep)
+                for i in lines:
+                    print "debug:", i
+
+        else:
+            self.maxLociExceeded = 1
+            
+
+    def serializeTo(self, stream):
+
+        type = getStreamType(stream)
+
+        if type == 'xml':
+            # don't currently do anything, until we "XML-ify"
+            # output from emhaplofreq
+            pass
+        else:
+            # write complete contents of file pointer to text output
+            # stream
+            if self.maxLociExceeded:
+                stream.writeln("Couldn't estimate haplotypes, num loci: %d exceeded max loci: %d" % (self.lociCount, self._Emhaplofreq.MAX_LOCI))
+            else:
+                stream.write(self.fp.getvalue())
+                self.fp.close()
+        
