@@ -72,6 +72,9 @@ Additional citation possibilities (both author-year and numerical modes)
   </xsl:if>
  </xsl:template>
 
+ <!-- don't do anything if role is nocite -->
+ <xsl:template match="citation[@role='nocite']"/>
+
  <xsl:template match="citation">
   <xsl:choose>
    <xsl:when test="$stylesheet.result.type='html'">
