@@ -23,21 +23,39 @@
  <xsl:param name="map-order" 
   select="document('')//data:map-order/locusname"/>
 
+ <xsl:variable name="all-allele-list" select="document('allelelist-by-locus.xml')/allelelist-by-locus"/>
+
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
-
- <!-- unique key for all loci -->
- <xsl:key name="loci" match="/meta/dataanalysis/locus" use="@name"/>
 
  <xsl:template name="phylip-lines">
   <xsl:param name="nodes"/>
 
   <xsl:for-each select="$nodes">
+   <xsl:variable name="curlocus" select="@name"/>
 
-   <xsl:for-each select="allelecounts/allele">
-    <xsl:text>&#09;</xsl:text>
-    <xsl:value-of select="frequency"/>
-   </xsl:for-each>
+   <xsl:call-template name="append-pad">
+    <xsl:with-param name="padVar">
+     <xsl:value-of select="../populationdata/popname"/>
+     </xsl:with-param>
+    <xsl:with-param name="length" select="9"/>
+   </xsl:call-template>
+   <xsl:text> </xsl:text>
+
+   <xsl:value-of select="$curlocus"/>
+
+   <xsl:variable name="cur-allele-list" select="allelecounts/allele"/>
+   
+   <xsl:for-each select="$all-allele-list/locus[@name=$curlocus]/allele">
+    <xsl:variable name="allelename" select="."/>
+    <xsl:choose>
+     <xsl:when test="$cur-allele-list[@name=$allelename]">
+       <xsl:value-of select="normalize-space($cur-allele-list[@name=$allelename]/frequency)"/>
+      </xsl:when>
+      <xsl:otherwise>0.00000</xsl:otherwise>
+     </xsl:choose>
+    <xsl:text> </xsl:text>
+    </xsl:for-each>
 
    <xsl:call-template name="newline"/>
     
