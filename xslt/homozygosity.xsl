@@ -18,7 +18,14 @@
 
     <xsl:choose>
 
+     <xsl:when test="@role='no-data'">
+      <xsl:text>*No data*</xsl:text>
+     </xsl:when>
+
      <xsl:when test="@role='out-of-range'">
+      <xsl:text>Observed F: </xsl:text>
+      <xsl:value-of select="observed"/>
+      <xsl:call-template name="newline"/>
       <xsl:text>*Out of range of simulated homozygosity values*</xsl:text>
       <xsl:call-template name="newline"/>
       <xsl:text>*can't estimate expected homozygosity*</xsl:text>
@@ -69,11 +76,14 @@
       
       <!-- print specified fields invoking the template for  -->
 
-      <xsl:text>Expected F: </xsl:text>
+      <xsl:text>Observed F: </xsl:text>
+      <xsl:value-of select="observedHomozygosity"/>
+      <xsl:text>, Expected F: </xsl:text>
       <xsl:value-of select="meanHomozygosity"/>
       <xsl:text>, Variance in F: </xsl:text>
       <xsl:value-of select="varHomozygosity"/>
-      <xsl:text>, p-value of F: </xsl:text>
+      <xsl:call-template name="newline"/>
+      <xsl:text>p-value of F: </xsl:text>
 
       <!-- treat pvalue differently, get significance based on a -->
       <!-- two-tailed test -->
