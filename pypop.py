@@ -194,7 +194,6 @@ input = ParseGenotypeFile(fileName,
 input.serializeMetadataTo(xmlStream)
 
 loci = input.getLocusList()
-loci.sort()
 
 for locus in loci:
   xmlStream.opentag('locus', name=locus)
