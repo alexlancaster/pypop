@@ -76,13 +76,13 @@
 
    <author role="uc">
     <firstname>Mark</firstname>
-    <othername>P.</othername>
+    <othername>P</othername>
     <surname>Nelson</surname>
    </author>
 
    <author role="uv">
     <firstname>Richard</firstname>
-    <othername>M.</othername>
+    <othername>M</othername>
     <surname>Single</surname>
    </author>
 
@@ -124,11 +124,11 @@
     <surname>Schneider</surname>
    </author>
    <author>
-    <firstname>D.</firstname>
+    <firstname>D</firstname>
     <surname>Roessli</surname>
    </author>
    <author>
-    <firstname>L.</firstname>
+    <firstname>L</firstname>
     <surname>Excoffier</surname>
     </author>
   </authorgroup>
@@ -139,15 +139,15 @@
  <biblioentry id="Schneider:2000">
   <authorgroup>
    <author>
-    <firstname>S.</firstname>
+    <firstname>S</firstname>
     <surname>Schneider</surname>
    </author>
    <author>
-    <firstname>D.</firstname>
+    <firstname>D</firstname>
     <surname>Roessli</surname>
    </author>
    <author>
-    <firstname>L.</firstname>
+    <firstname>L</firstname>
     <surname>Excoffier</surname>
     </author>
   </authorgroup>
@@ -177,9 +177,9 @@
   </authorgroup>
   <pubdate>1992</pubdate>
   <citetitle pubwork="article">Performing the exact test of Hardy-Weinberg proportion for multiple alleles</citetitle> 
+  <citetitle pubwork="journal">Biometrics</citetitle>
   <volumenum>48</volumenum>
   <pagenums>361-72</pagenums>
-  <citetitle pubwork="journal">Biometrics</citetitle>
  </biblioentry>
  
  <biblioentry id="Rhodes:Trowsdale:1999">
@@ -196,10 +196,10 @@
   </authorgroup>
   <pubdate>1999</pubdate>
   <citetitle pubwork="article">Genetics and molecular genetics of the MHC</citetitle>
+  <citetitle pubwork="journal">Rev. Immunogenetics</citetitle>
   <volumenum>1</volumenum>
   <issuenum>1</issuenum>
   <pagenums>21-31</pagenums>
-  <citetitle pubwork="journal">Rev. Immunogenetics</citetitle>
   
  </biblioentry>
  
@@ -209,8 +209,8 @@
  
  <biblioentry id="Beazley:1996">
   <author>
-   <firstname>D.</firstname>
-   <othername>M.</othername>
+   <firstname>D</firstname>
+   <othername>M</othername>
    <surname>Beazley</surname>
   </author>
   <pubdate>1996</pubdate>
@@ -237,16 +237,16 @@
  <biblioentry id="Dubois:1996">
   <authorgroup>
    <author>
-    <firstname>P.</firstname>
-    <othername>F.</othername>
+    <firstname>P</firstname>
+    <othername>F</othername>
     <surname>Dubois</surname>
    </author>
    <author>
-    <firstname>K.</firstname>
+    <firstname>K</firstname>
     <surname>Hinsen</surname>
    </author>
    <author>
-    <firstname>J.</firstname>
+    <firstname>J</firstname>
     <surname>Hugunin</surname>
    </author>
   </authorgroup>
@@ -262,12 +262,12 @@
  <biblioentry id="vanRossum:2001">
   <authorgroup>
    <editor>
-    <firstname>G.</firstname>
+    <firstname>G</firstname>
     <surname>van Rossum</surname>
    </editor>
    <editor>
-    <firstname>F.</firstname>
-    <othername>L.</othername>
+    <firstname>F</firstname>
+    <othername>L</othername>
     <surname>Drake</surname>
    </editor>
   </authorgroup>
@@ -301,8 +301,8 @@
     <surname>Paoli</surname>
    </author>
    <author>
-    <firstname>C.</firstname>
-    <othername>M.</othername>
+    <firstname>C</firstname>
+    <othername>M</othername>
     <surname>Sperberg-McQueen</surname>
    </author>
    <author>
@@ -336,7 +336,7 @@
  
   <biblioentry id="Felsenstein:1989">
   <author>
-   <firstname>J.</firstname>
+   <firstname>J</firstname>
    <surname>Felsenstein</surname>
   </author>
   <pubdate>1989</pubdate>
@@ -679,23 +679,23 @@
   <biblioset relation="article">
    <authorgroup>
     <author>
-     <firstname>M.J.</firstname>
+     <firstname>M.J</firstname>
      <surname>Daly</surname>
     </author>
     <author>
-     <firstname>J.D.</firstname>
+     <firstname>J.D</firstname>
      <surname>Rioux</surname>
     </author>
     <author>
-     <firstname>S.E.</firstname>
+     <firstname>S.E</firstname>
      <surname>Schaeffer</surname>
     </author>
     <author>
-     <firstname>T.J.</firstname>
+     <firstname>T.J</firstname>
      <surname>Hudson</surname>
     </author> 
     <author>
-     <firstname>E.S.</firstname> 
+     <firstname>E.S</firstname> 
      <surname>Lander</surname></author>
    </authorgroup>
    <pubdate>2001</pubdate>
@@ -757,7 +757,7 @@
   <biblioset relation="book">
    <authorgroup>
     <author>
-     <firstname>S.</firstname>
+     <firstname>S</firstname>
      <surname>Brenner</surname>
     </author>
     <author>
@@ -880,9 +880,9 @@
   </author>
   <pubdate>1972</pubdate>
   <citetitle pubwork="article">The sampling theory of selectively neutral alleles.</citetitle>
+  <citetitle pubwork="journal">Theor. Pop. Biol</citetitle>
   <volumenum>3</volumenum>
   <pagenums>87-112</pagenums>
-  <citetitle pubwork="journal">Theor. Pop. Biol</citetitle>
  </biblioentry>
 
  <biblioentry id="Watterson:1978">
@@ -892,9 +892,9 @@
   </author>
   <pubdate>1978</pubdate>
   <citetitle pubwork="article">The homozygosity test of neutrality</citetitle>
+  <citetitle pubwork="journal">Genetics</citetitle>
   <volumenum>88</volumenum>
   <pagenums>405-417</pagenums>
-  <citetitle pubwork="journal">Genetics</citetitle>
  </biblioentry>
 
  <biblioentry id="Slatkin:1994">
@@ -904,9 +904,9 @@
   </author>
   <pubdate>1994</pubdate>
   <citetitle pubwork="article">An exact test for neutrality based on the Ewens sampling distribution</citetitle>
+  <citetitle pubwork="journal">Genetical Research</citetitle>
   <volumenum>64</volumenum>
   <pagenums>71-74</pagenums>
-  <citetitle pubwork="journal">Genetical Research</citetitle>
  </biblioentry>
 
 <!--
@@ -920,9 +920,9 @@
   </author>
   <pubdate>1996</pubdate>
   <citetitle pubwork="article">A correction to the exact test based on the Ewens sampling distribution</citetitle>
+  <citetitle pubwork="journal">Genetical Research</citetitle>
   <volumenum>68</volumenum>
   <pagenums>259-260</pagenums>
-  <citetitle pubwork="journal">Genetical Research</citetitle>
  </biblioentry>
 
  <biblioentry id="Salamon:1999">
@@ -1082,9 +1082,9 @@
   </author>
   <pubdate>1977</pubdate>
   <citetitle pubwork="article">The effect of a selected locus on linked neutral loci</citetitle>
+  <citetitle pubwork="journal">Genetics</citetitle>
   <volumenum>85</volumenum>
   <pagenums>753-788</pagenums>
-  <citetitle pubwork="journal">Genetics</citetitle>
  </biblioentry>
  
 <!--
@@ -1230,7 +1230,7 @@ Castiglione, CM, Kidd JK, Kidd KK, 1998.  Analysis of cross-species polymerase c
 <biblioentry id="Kidd">
 <authorgroup>
 <author>
-<firstname>J.R.</firstname>
+<firstname>J.R</firstname>
 <surname>Kidd</surname>
 </author>
 A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bonne-Tamir, J. Friedlaender, L.O. Schulz, J. Parnas, and K.K. Kidd, 2000. Haplotypes and linkage disequilibrium at the phenylalanine hydroxylase locus (PAH) in a global representation of populations. American Journal of Human Genetics 66:1882-1899.
@@ -1340,7 +1340,7 @@ Thomson G. 2001. How selection shapes variation of the human major histocompatib
 <biblioentry id="Osier">
 <authorgroup>
 <author>
-<firstname>M.</firstname>
+<firstname>M</firstname>
 <surname>Osier</surname>
 </author>
 A.J. Pakstis, J.R. Kidd, J.-F. Lee, S.-J. Yin, H.-C. Ko, H.J. Edenberg, R.-B. Lu, and K.K. Kidd, 1999. Linkage disequilibrium at the ADH2 and ADH3 loci and risk of alcoholism. American Journal of Human Genetics 64:1147-1157.
@@ -1349,7 +1349,7 @@ A.J. Pakstis, J.R. Kidd, J.-F. Lee, S.-J. Yin, H.-C. Ko, H.J. Edenberg, R.-B. Lu
 <biblioentry id="Reich">
 <authorgroup>
 <author>
-<firstname>D.E.</firstname>
+<firstname>D.E</firstname>
 <surname>Reich</surname>
 </author>
 M. Cargill, S. Bolk, J. Ireland, P.C. Sabeti, D.J. Richter, T. Lavery, R. Kouyoumjian, S.F. Farhadian, R. Ward, and E.S. Lander. 2001. Linkage disequilibrium in the human genome. Nature 411:199-204.
@@ -1358,7 +1358,7 @@ M. Cargill, S. Bolk, J. Ireland, P.C. Sabeti, D.J. Richter, T. Lavery, R. Kouyou
 <biblioentry id="Reynolds">
 <authorgroup>
 <author>
-<firstname>J.</firstname>
+<firstname>J</firstname>
 <surname>Reynolds</surname>
 </author>
 B.S. Weir, and C.C. Cockerman. 1983. Estimation of the coancestry coefficient: Basis for a short-term genetic distance. Genetics 105-767-779.
