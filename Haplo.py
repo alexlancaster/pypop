@@ -321,19 +321,30 @@ class Emhaplofreq(Haplo):
 
             if lociCount <= self._Emhaplofreq.MAX_LOCI:
 
+                # filter-out all individual untyped at any position
                 subMatrix = self.matrix.filterOut(group, '****')
-                
+
+                # calculate the new number of individuals emhaplofreq is
+                # being run on
+                groupNumIndiv = len(subMatrix)
+
                 if self.debug:
                     print "debug: key for matrix:", group
                     print "debug: subMatrix:", subMatrix
-
+                    print "debug: dump matrix in form for command-line input"
+                    for line in range(0, len(subMatrix)):
+                        theline = subMatrix[line]
+                        print "dummyid",
+                        for allele in range(0, len(theline)):
+                            print theline[allele][:-1], " ",
+                        print
                     
                 self.fp.write(os.linesep)
 
-                # if nothing left after filtering, simply return
-                if len(subMatrix) == 0:
+                # if nothing left after filtering, simply continue
+                if groupNumIndiv == 0:
                     self.fp.write("<group mode=\"no-data\" loci=\"%s\"/>%s" % (group, os.linesep))
-                    return
+                    continue
                 
                 if permutationFlag:
                     self.fp.write("<group mode=\"LD\" loci=\"%s\">%s" % (group, os.linesep))
@@ -341,15 +352,15 @@ class Emhaplofreq(Haplo):
                     self.fp.write("<group mode=\"haplo\" loci=\"%s\">%s" % (group, os.linesep))
                 self.fp.write(os.linesep)
 
-                self.fp.write("<individcount role=\"before-filtering\">%d</individcount>" % len(self.matrix))
+                self.fp.write("<individcount role=\"before-filtering\">%d</individcount>" % groupNumIndiv)
                 self.fp.write(os.linesep)
                 
-                self.fp.write("<individcount role=\"after-filtering\">%d</individcount>" % len(subMatrix))
+                self.fp.write("<individcount role=\"after-filtering\">%d</individcount>" % self.totalNumIndiv)
                 self.fp.write(os.linesep)
                 
                 # pass this submatrix to the SWIG-ed C function
                 self._Emhaplofreq.main_proc(self.fp, subMatrix,
-                                        lociCount, self.totalNumIndiv,
+                                        lociCount, groupNumIndiv,
                                         permutationFlag, haploSuppressFlag)
 
                 self.fp.write("</group>")
