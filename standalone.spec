@@ -14,7 +14,7 @@ VERSION = (open('VERSION', 'r').readline()).strip()
 bin_dir = 'bin'
 
 # generate name of executable
-if sys.platform == 'linux2':
+if sys.platform == 'cygwin':
     type = 'Win32'
     file_sep = '\\'
     exec_name = 'pypop.exe'
