@@ -122,6 +122,7 @@ int run_data(int *a, int *n, int no_allele, int total,
   struct outcome result;
   register int i, j;
   long t1;
+  int num_genotypes = no_allele * (no_allele + 1) / 2;
 
   /* int *a = (int *)calloc(genotypes, sizeof(int)); */
 
@@ -154,6 +155,9 @@ int run_data(int *a, int *n, int no_allele, int total,
     for (j=0; j <= i; j++)
       printf("a[%d, %d] = %d\n", i, j, a[LL(i,j)]);
 
+  for (i=0; i < num_genotypes; i++) 
+    printf("a[%d] = %d\n", i, a[i]);
+
   for (i=0; i < no_allele; i++) 
     printf("n[%d] = %d\n", i, n[i]);
 
@@ -174,7 +178,7 @@ int run_data(int *a, int *n, int no_allele, int total,
   result.p_value = result.se = (double) 0.0;	/* initialization */
   
   result.swch_count[0] = result.swch_count[1] = result.swch_count[2] = 0;
-  
+
   for (i = 0; i < sample.step; ++i)
     {        
       /* de-memorization for given steps */
@@ -242,18 +246,21 @@ int run_data(int *a, int *n, int no_allele, int total,
 
 #ifdef PERMU_TEST
   /* calculate number of alleles of each gamete */
-  cal_n(no_allele, a, n);
+  /* cal_n(no_allele, a, n); */
 
   /* reinitialize constant after n has been calculated using cal_n above: 
      don't know why this isn't done in original code? */
-  constant = cal_const(no_allele, n, total);
+  /* constant = cal_const(no_allele, n, total); */
 
   /* check original array */
-  for (i=0; i < no_allele; i++) 
-    printf("n[%d] = %d\n", i, n[i]);
+  /* for (i=0; i < no_allele; i++) 
+    for (j=0; j <= i; j++)
+      printf("a_copy[%d, %d] = %d\n", i, j, a_copy[LL(i,j)]);
+  */
 
   /* don't reinitialize observed value */
-  /* ln_p_observed = ln_p_value(a, no_allele, constant);  */
+  /* ln_p_observed = ln_p_value(a, no_allele, constant);   */
+  /* printf("after recalculating observed value\n"); */
 
   printf("Constant: %e, Observed: %e\n", constant, ln_p_observed);
 
@@ -299,33 +306,43 @@ int run_data(int *a, int *n, int no_allele, int total,
   /* start permuting index of gametes */
   int permu = 0, l = 0;
   int K = 0;
-  int N = 17000;
+  int N = 170000;
   double ln_p_perm;
   for (permu=0; permu < N; permu++) {
     gsl_ran_shuffle(r, s, total_gametes, sizeof(int));
 
-    /*
+#ifdef PERMU_DEBUG
     printf("after permutation: %d\n", permu);
     printf("s = [");
     for (i=0; i < total_gametes; i++) {
       printf("%d,", s[i]);
     }
     printf("]\n");
-
     printf("pairs: ");
-    */
+#endif
+
     for (i=0; i < total_gametes/2; i++) {
-      /* printf("(%d,%d)", s[i*2], s[i*2+1]); */
-      l = LL(s[i*2],s[i*2+1]);
+      l = L(s[i*2],s[i*2+1]);
+#ifdef PERMU_DEBUG
+      printf("(%d,%d)->%d, ", s[i*2], s[i*2+1], l); 
+#endif
       g[l]++;
     }
-    /* printf("\n"); 
+
+#ifdef PERMU_DEBUG
+    printf("\n");  
 
     printf("g = [");
-    for (i=0; i < total; i++) 
+    for (i=0; i < num_genotypes; i++) 
       printf("%d,", g[i]);
     printf("]\n");
-    */
+
+    cal_n(no_allele, g, n);
+
+    printf("check that n[] has not changed\n");
+    for (i=0; i < no_allele; i++) 
+      printf("n[%d] = %d\n", i, n[i]);
+#endif
 
     ln_p_perm = ln_p_value(g, no_allele, constant);
 
@@ -336,7 +353,7 @@ int run_data(int *a, int *n, int no_allele, int total,
     /* printf("K = %d\n", K); */
 
     /* reset genotype array, g */
-    for (i=0; i < total; i++)
+    for (i=0; i < num_genotypes; i++)
       g[i] = 0;
   }
 
@@ -345,6 +362,8 @@ int run_data(int *a, int *n, int no_allele, int total,
   double p_value = (double)K/N;
   printf("pvalue = %g\n", p_value);
 
+  free(g);
+  free(s);
 #endif
 
   return (0);

@@ -1,4 +1,23 @@
-2004-06-23    <alex@allele2.biol.berkeley.edu>
+2004-06-23  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* ln_p_value.c (ln_p_value): #ifdef PERMU_DEBUG around debug
+	output.
+
+	* hwe.c (run_data): New num_genotypes variable, initialize just
+	once. 
+	More fixes in permutation test, don't recalculate ln_p_observed,
+	because it will be based on a changed matrix.
+	Use num_genotypes in places where total was being used
+	erroneously, 'total' in context of rest of program refers to the
+	total number of *gametes* _not_ genotypes.
+	Fixed serious bug in estimating new genotypes, use L() macro not
+	LL() macro which takes into account if matrix is not referenced
+	using lower-triangular co-ordinates, previously, genotype (n,m)
+	was being treated differently to (m,n), throwing off numbers.
+	Free() (c)alloced arrays, 's' and 'g'.
+	More debug tweakage throughout.
+
+2004-06-23    <alexl AT berkeley.edu>
 
 	* ln_p_value.c (ln_p_value): Don't hardcode array lengths, make
 	them pointers.  Don't make the integers register variables.  More

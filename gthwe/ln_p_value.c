@@ -14,11 +14,13 @@
 double ln_p_value(int *a, int no_allele, double constant)
 
 {
-  int i, j, l, temp;
+  int i=0, j=0, l=0, temp=0;
   double ln_prob = 0.0;
   double log_factorial();
-  
+
+#ifdef PERMU_DEBUG  
   printf("const=%e, ", constant);
+#endif
   ln_prob = constant;
   temp = 0;
   
@@ -35,7 +37,9 @@ double ln_p_value(int *a, int no_allele, double constant)
     }
 
   ln_prob = ln_prob + (temp * log(2.0));
-  printf("temp=%d, ln_prob=%e\n", temp, ln_prob);
 
+#ifdef PERMU_DEBUG
+  printf("no_allele=%d, temp=%d, ln_prob=%e\n", no_allele, temp, ln_prob);
+#endif
   return (ln_prob);
 }
