@@ -42,7 +42,7 @@ endif
 
 FIGS = $(addprefix work-flow., png eps) $(addprefix design., png eps) api.png
 OUTPUTS = $(addprefix biostat., html txt pdf aux log out) $(addprefix tex-math-equations., tex dvi log aux) eqns
-EXTRA_XML_SOURCE = psb2002.xml
+EXTRA_XML_SOURCE = hlaintro.xml methods.xml pypop.xml glossary.xml biblio.xml
 
 all: $(OUTPUTS) $(FIGS) api/index.html
 
