@@ -147,7 +147,7 @@
     -->
 
  <sect1>
-  <title>Hardy-Weinberg Ratios</title>
+  <title>Hardy-Weinberg</title>
   
   <sect2>
    <title>Introduction</title>
@@ -156,18 +156,9 @@
     rediscovered in the early 1900's. The Hardy-Weinberg law is the
     foundation of population genetics, and was derived independently
     in 1908 by an English mathematician Hardy and a German physician
-    Weinberg.</para>
-
-   <para condition="anthro-book">For a gene with k alleles, the
-    expected frequency of each homozygote under Hardy Weinberg
-    proportions (HWP) is
-    p<subscript>i</subscript><superscript>2</superscript> and of each
-    heterozygote is 2p<subscript>i</subscript><subscript>j</subscript>
-    i &lt; j, i,j = 1,2,...,k</para>
-
-   <para condition="main">R.C. Punnett brought to the attention of
-    Hardy a remark of Yule (a geneticist)&mdash;Mr. Yule is reported
-    to have suggested as a criticism of the Mendelian position that if
+    Weinberg.  R.C. Punnett brought to the attention of Hardy a remark
+    of Yule (a geneticist)&mdash;Mr. Yule is reported to have
+    suggested as a criticism of the Mendelian position that if
     brachydactyly (short fingeredness) is dominant <quote>in the
      course of time one would expect, in the absence of counteracting
      factors, to get 3 brachydactylous individuals to 1
@@ -211,17 +202,28 @@
       size (stochastic model).</para></listitem>
    </orderedlist>
 
+   <para>For a gene with <varname>k</varname> alleles, the expected
+    frequency of each homozygote under Hardy Weinberg proportions
+    (HWP) is
+    <varname>p</varname><subscript>i</subscript><superscript>2</superscript> 
+    and of each heterozygote is
+    <varname>2p</varname><subscript>i</subscript><varname>p</varname><subscript>j</subscript> 
+    for i &lt; j, i,j = 1,2,...,k</para>
+
+
    <para condition="main;anthro-book">The importance of the
     Hardy-Weinberg law is that if there are no counteracting forces,
     then the frequencies of alleles do not change in a population. In
     other words, variation in a population, under a Mendelian system,
-    tends to be maintained. We contrast this to the previously
-    believed blending inheritance where genetic variation is decreased
-    each generation. Further, the expected genotype frequencies each
-    generation are determined by the allele frequencies, and are
-    termed Hardy-Weinberg proportions (HWP). Continued random mating
-    leads to the same genotype (and allele) frequencies, hence the
-    term Hardy-Weinberg equilibrium.</para>
+    tends to be maintained. We contrast this to blending inheritance,
+    a mechanism proposed before Mendel's rules were discovered, where
+    genetic variation is decreased each generation. Further, the
+    expected genotype frequencies each generation are determined by
+    the allele frequencies, and are termed Hardy-Weinberg proportions
+    (HWP). Continued random mating leads to the same genotype (and
+    allele) frequencies, hence the term Hardy-Weinberg equilibrium.
+    <remark>Statistical tests described ?? allow for the stochastic
+     effect of chance variations for there ???</remark>  </para>
   </sect2>
   
   <sect2 condition="main">
@@ -229,10 +231,11 @@
    
    <para> We consider initially a two allele system, but the results
     extend easily to multiple alleles. The two alleles are A and a
-    with respective frequencies p and q (p+q=1, so note that we have
-    only one independent variable). If gametes combine at random then
-    the frequencies of the three genotypic classes in the next
-    generation are:</para>
+    with respective frequencies <varname>p</varname> and
+    <varname>q</varname> (<varname>p</varname>+<varname>q</varname>=1,
+    so note that we have only one independent variable). If gametes
+    combine at random then the frequencies of the three genotypic
+    classes in the next generation are:</para>
    
    <para>
     <informaltable>
@@ -260,17 +263,18 @@
 
    <para>(Note that the 2 for the heterozygote class comes about since
     there are two ways a heterozygote can form, each with probability
-    pq, the father can supply the A allele and the mother the a
-    allele, or vice versa.) Using gene (allele) counting, with f(.)
-    denoting frequency, such that f(A) = f(AA) + f(Aa)/2, and assuming
-    we can distinguish the heterozygote from the two homozygote
-    classes, we obtain,</para>
+    <varname>pq</varname>, the father can supply the A allele and the
+    mother the a allele, or vice versa.) Using gene (allele) counting,
+    with <varname>f(.)</varname> denoting frequency, such that
+    <varname>f(A)</varname> = <varname>f(AA)</varname> +
+    <varname>f(Aa)</varname>/2, and assuming we can distinguish the
+    heterozygote from the two homozygote classes, we obtain,
+    <varname>f(A)</varname> =
+    <varname>p</varname><superscript>2</superscript> +
+    <varname>pq</varname> = <varname>p(p + q)</varname> =
+    <varname>p</varname>.</para>
    
-
-   <literallayout>f(A) = p<superscript>2</superscript> + pq = p(p + q)
-    = p.</literallayout>
-   
-   <para> Thus, we have demonstrated that under the assumptions of the
+   <para>Thus, we have demonstrated that under the assumptions of the
     Hardy-Weinberg law, the allele frequencies in the offspring
     generation are the same as those in the parental generation. This
     results from the fact that there are no forces operating to cause
@@ -278,18 +282,20 @@
     this case are considered to be selectively equivalent (neutral
     with respect to each other). Further, it follows that in all
     subsequent generations, the genotypic distribution will remain
-    p<superscript>2</superscript>AA, 2pqAa,
-    q<superscript>2</superscript>aa. With overlapping generations,
-    there is rapid convergence to the HWP. For a multi-allelic system,
-    the results are exactly equivalent, with the expected homozygote
-    genotype frequencies given by
-    p<subscript>i</subscript><superscript>2</superscript>, where
-    p<subscript>i</subscript> is the allele frequency for the ith
-    allele, and the expected heterozygote genotype frequencies are
-    given by 2p<subscript>i</subscript>p<subscript>j</subscript>, with
-    i&lt;j. Although complicated in words, the Hardy Weinberg law is,
-    statistically speaking, a simple statement about independence of
-    allele frequencies at a locus.</para>
+    <varname>p</varname><superscript>2</superscript>AA,
+    2<varname>pq</varname>Aa,
+    <varname>q</varname><superscript>2</superscript>aa. With
+    overlapping generations, there is rapid convergence to the HWP.
+    For a multi-allelic system, the results are exactly equivalent,
+    with the expected homozygote genotype frequencies given by
+    <varname>p</varname><subscript>i</subscript><superscript>2</superscript>, 
+    where <varname>p</varname><subscript>i</subscript> is the allele
+    frequency for the <varname>ith</varname> allele, and the expected
+    heterozygote genotype frequencies are given by
+    2<varname>p</varname><subscript>i</subscript>p<subscript>j</subscript>, 
+    with <varname>i&lt;j</varname>. Although complicated in words, the
+    Hardy Weinberg law is, statistically speaking, a simple statement
+    about independence of allele frequencies at a locus.</para>
    
    <para>For example, we consider the ABO blood group system: A is
     dominant to O, B is dominant to O, A and B are co-dominant. For
@@ -386,8 +392,9 @@
    <para> Due to the finite size of samples, observed genotype
     frequencies are not expected to be in exact HWP. Two illustrative
     examples using the co-dominant MN blood group system are shown
-    below, which have the same allele frequencies f(M) = 0.6, f(N) =
-    0.4, and hence the same HWP, but very different observed genotype
+    below, which have the same allele frequencies
+    <varname>f(M)</varname> = 0.6, <varname>f(N)</varname> = 0.4, and
+    hence the same HWP, but very different observed genotype
     frequencies (the first very close to HWP, the second very
     different from HWP):</para>
 
@@ -430,7 +437,7 @@
     </informaltable>
    </para>
 
-   <para> The strength of the Hardy-Weinberg law is that much of the
+   <para>The strength of the Hardy-Weinberg law is that much of the
     variation in natural populations follows HWP; its weakness is that
     selection, etc., have to be very strong to detect deviations from
     HWP.</para>
@@ -481,32 +488,37 @@
      individual genotype values and test for fit to HWP using an
      overall test. When expected genotype counts are &ge;5, calculate
      the individual chi-square value for this genotype, i.e.,
-     (O-E)<superscript>2</superscript>/E, where O is observed and E is
-     expected for that genotype, and add together the contributions of
-     each genotype.</para>
+     <varname>(O-E)</varname><superscript>2</superscript>/<varname>E</varname>, 
+     where <varname>O</varname> is observed and <varname>E</varname>
+     is expected for that genotype, and add together the contributions
+     of each genotype.</para>
 
     <para condition="main">If there are no rare genotypes (expected
-     &lt;5), the degrees of freedom (d.f.)  for the overall chi-square
-     test are given by k(k-1)/2, where k is the number of alleles in
-     the sample under study. This comes from the formula, d.f. =
-     number of categories - 1 - number of independent parameters
-     estimated from the data needed to determine the expected values
-     (in this case k-1, since if we know k-1 allele frequencies we can
-     determine the kth allele frequency). Since the number of
-     categories (genotypes) in this case is k (homozygotes) + k(k-1)/2
-     (heterozygotes) = k(k+1)/2, from which we subtract 1 (since given
-     the frequencies of all except one of these categories we can
-     always determine the frequency of the remaining category given
-     the sample size), and subtract (k-1) (the number of independent
-     allele frequencies need to estimate the HWP), to give the d.f. =
-     k(k-1)/2.</para>
+     number &lt; 5), the degrees of freedom (d.f.)  for the overall
+     chi-square test are given by <varname>k(k-1)</varname>/2, where
+     <varname>k</varname> is the number of alleles in the sample under
+     study. This comes from the formula, d.f. = number of categories -
+     1 - number of independent parameters estimated from the data
+     needed to determine the expected values (in this case
+     <varname>k-1</varname>, since if we know <varname>k-1</varname>
+     allele frequencies we can determine the <varname>kth</varname>
+     allele frequency). Since the number of categories (genotypes) in
+     this case is <varname>k</varname> (homozygotes) +
+     <varname>k(k-1)</varname>/2 (heterozygotes) =
+     <varname>k(k+1)</varname>/2, from which we subtract 1 (since
+     given the frequencies of all except one of these categories we
+     can always determine the frequency of the remaining category
+     given the sample size), and subtract <varname>(k-1)</varname>
+     (the number of independent allele frequencies need to estimate
+     the HWP), to give the d.f. = <varname>k(k-1)</varname>/2.</para>
 	  
     <para condition="main">As examples we consider a 2 allele case, as
      above, with a range of observed (O) genotype frequencies, all
-     with p = 0.6, q = 0.4, and all with sample size N = 100
-     individuals. In all cases the expected (E) HWP genotype counts
-     are 36, 48, and 16. Next to the observed numbers in each case the
-     (O - E) values are given. The d.f. = 1 in each case for the
+     with <varname>p</varname> = 0.6, <varname>q</varname> = 0.4, and
+     all with sample size <varname>N</varname> = 100 individuals. In
+     all cases the expected (E) HWP genotype counts are 36, 48, and
+     16. Next to the observed numbers in each case the <varname>(O -
+      E)</varname> values are given. The d.f. = 1 in each case for the
      overall chi-square test. For a chi-square distribution with 1
      d.f., the cut-off points, i.e., rejection of the null hypothesis
      of fit to HWP are 3.84 (5%), 6.64 (1%), and 10.83 (0.1%). If the
@@ -567,10 +579,10 @@
     </para>
 
     <para condition="main">The individual genotype contributions
-     (O-E)<superscript>2</superscript>/E can each be asymptotically
-     tested against a chi-square distribution with 1 d.f., to
-     determine which genotypes are contributing to significant
-     deviation from HWP.</para>
+     <varname>(O-E)</varname><superscript>2</superscript>/E can each
+     be asymptotically tested against a chi-square distribution with 1
+     d.f., to determine which genotypes are contributing to
+     significant deviation from HWP.</para>
 
     <para condition="main">With a 3 allele system, there are 6
      genotype classes
@@ -587,46 +599,45 @@
      lumped category of observed and expected values for all these
      genotypes needs to be formed, and test fit to null hypothesis (no
      deviation from HWP) of this chi-square value with 1 degree of
-     freedom and output p value. The chi-square value from this
-     category is added to the cumulative chi-square value from the
-     genotypes &ge;5 class to give the overall chi-square value which
-     is tested against the null hypothesis of fit to HWP, degrees of
-     freedom equals the number of genotypes falling into &ge;5 class
-     minus the number of independent parameters estimated. In the case
-     of the highly polymorphic HLA data, with high allele numbers and
-     many sparse cells, this calculation may result in zero or
-     negative d.f. (for which a test of significance cannot be
-     applied). In this case, the rarer alleles need to be
-     appropriately combined.</para>
+     freedom and output <varname>p</varname> value. The chi-square
+     value from this category is added to the cumulative chi-square
+     value from the genotypes &ge;5 class to give the overall
+     chi-square value which is tested against the null hypothesis of
+     fit to HWP, degrees of freedom equals the number of genotypes
+     falling into &ge;5 class minus the number of independent
+     parameters estimated. In the case of the highly polymorphic HLA
+     data, with high allele numbers and many sparse cells, this
+     calculation may result in zero or negative d.f. (for which a test
+     of significance cannot be applied). In this case, the rarer
+     alleles need to be appropriately combined.</para>
 
     <para condition="main;anthro-book">For the above Pearson's
      goodness of fit test, the general rule of thumb about the
      validity of the asymptotics is that the expected cell counts need
-     to be at least 5 <citation>Cochran:1954</citation>, although it is found that the
-     rule tends to be conservative <citation>Bradley:etal:1979</citation>.</para>
-
-    <para condition="main">Several corrections to this goodness of fit
-     test have been proposed to improve the approximation when small
-     sample expectations exist in the sample.  
-     <citation role="citet">Yates:1934</citation> suggested
-     using the continuity correction, &half;, i.e.:
-     (absolute value (0 - E) - &half;)<superscript>2</superscript>/E.
-     <citation role="citet">Emigh:1980</citation> showed
-     that in some cases a correction of &frac14; performs
-     better.</para>
+     to be at least 5 <citation>Cochran:1954</citation>, although it
+     is found that the rule tends to be conservative
+     <citation>Bradley:etal:1979</citation>.  Several corrections to
+     this goodness of fit test have been proposed to improve the
+     approximation when small sample expectations exist in the sample.
+     
+     <citation role="citet">Yates:1934</citation> suggested using the
+     continuity correction, &half;, i.e.: (absolute value <varname>(0
+      - E)</varname> - &half;)<superscript>2</superscript>/E.
+     <citation role="citet">Emigh:1980</citation> showed that in some
+     cases a correction of &frac14; performs better.</para>
 
     <para condition="main;anthro-book">
-     <citation role="citet">Elston:Forthofer:1977</citation>
-     derived the likelihood ratio statistic for HWP testing. It was
-     based on comparison of two maximum likelihoods of a sample coming
-     from the multinomial distribution of genotype counts with
-     (L<subscript>0</subscript>) versus without
-     (L<subscript>1</subscript>) the HWP constraint. When the null
-     hypothesis is true, i.e., HWP, the test statistic,
-     G<subscript>2</subscript> (=
-     -2ln(L<subscript>0</subscript>/L<subscript>1</subscript>)),
-     follows a chi-square distribution, with k(k-1)/2 d.f.</para>
-
+     <citation role="citet">Elston:Forthofer:1977</citation> derived
+     the likelihood ratio statistic for HWP testing. It was based on
+     comparison of two maximum likelihoods of a sample coming from the
+     multinomial distribution of genotype counts with
+     (<varname>L</varname><subscript>0</subscript>) versus without
+     (<varname>L</varname><subscript>1</subscript>) the HWP
+     constraint. When the null hypothesis is true, i.e., HWP, the test
+     statistic, <varname>G</varname><subscript>2</subscript> (=
+     -2<varname>ln</varname>(<varname>L</varname><subscript>0</subscript>/<varname>L</varname><subscript>1</subscript>)), 
+     follows a chi-square distribution, with
+     <varname>k(k-1)</varname>/2 d.f.</para>
 
     <para condition="main;anthro-book">Below is an example of a
      contingency table with genotypic observed and expected counts,
@@ -635,9 +646,10 @@
      identity of the alleles (0102, 0103&hellip;) present in each
      genotype are given on the margins, and genotypes with expected
      counts &lt;5 are shown in bold. Notice how the expected values
-     for individual genotypes are often very low. These inflate the
-     chi-square values and may result in spurious rejection of the
-     null hypothesis.</para>
+     for individual genotypes are often very low. These would inflate
+     the chi-square value <remark>if included ??? these could</remark>
+     in spurious rejection of the null hypothesis.  To avoid this
+     rare, <remark>??? are </remark></para>
 
     <para condition="main;anthro-book">
      <informaltable frame="none">
@@ -712,25 +724,28 @@
    <sect3 condition="main;anthro-book">
     <title>Exact tests</title>
     
-    <para>Levene (1949) described the conditional sampling
-     distribution for Hardy Weinberg populations. An algorithm for
-     generating the exact distribution of samples drawn from a
-     population in HWP was proposed by Louis and Dempster (1987).
-     Using this algorithm, one could develop an exact test for HWP,
-     analogous to Fisher's 2x2 exact test. This approach can be
-     applied to an arbitrary number of alleles, especially when sample
-     sizes are small. It provides a reliable alternative to the
-     standard goodness of fit test and methods that require
-     corrections. Below is an example of a test for deviations from
-     HWP using such an exact test.</para>
+    <para><citation role="citet">Levene:1949</citation> described the
+     conditional sampling distribution for Hardy Weinberg populations.
+     An algorithm for generating the exact distribution of samples
+     drawn from a population in HWP was proposed by
+     <citation role="citet">Louis:Dempster:1987</citation>. Using this
+     algorithm, one could develop an exact test for HWP, analogous to
+     Fisher's 2x2 exact test. This approach can be applied to an
+     arbitrary number of alleles, especially when sample sizes are
+     small. It provides a reliable alternative to the standard
+     goodness of fit test and methods that require corrections. Below
+     is an example of a test for deviations from HWP using such an
+     exact test.</para>
 
     <para>Consider a sample of 40 individuals, where the genotype
-     counts for a bi-allelic locus are: n(AA) = 5, n(Aa) = 9, and
-     n(aa) = 26.  The total count for each allele is: n(A) = 19 , and
-     n(a) = 61. Using the expression given by Levene (1949) we compute
-     the probability of obtaining this set of genotypes, conditional
-     on the observed counts of alleles, under the null hypothesis of
-     no association (i.e. HWP). The probability of this combination is
+     counts for a bi-allelic locus are: <varname>n(AA)</varname> = 5,
+     <varname>n(Aa)</varname> = 9, and <varname>n(aa)</varname> = 26.
+     The total count for each allele is: <varname>n(A)</varname> = 19
+     , and <varname>n(a)</varname> = 61. Using the expression given by
+     <citation role="citet">Levene:1949</citation> we compute the
+     probability of obtaining this set of genotypes, conditional on
+     the observed counts of alleles, under the null hypothesis of no
+     association (i.e., HWP). The probability of this combination is
      0.0205</para>
 
     <para>The challenge now is to decide whether the probability
@@ -848,11 +863,11 @@
      developed two simulation approaches to perform an approximate
      exact overall HWP test. In their conventional Monte Carlo
      approach, gametes were permuted to generate new genotypes and the
-     Monte Carlo p value of the observed sample can be estimated by
-     comparing Levene's probabilities of the sample and those from
-     different permutations.</para>
+     Monte Carlo <varname>p</varname> value of the observed sample can
+     be estimated by comparing Levene's probabilities of the sample
+     and those from different permutations.</para>
 
-    <para> In the Markov chain Monte Carlo (MCMC) approach of
+    <para>In the Markov chain Monte Carlo (MCMC) approach of
      <citation role="citet">Guo:Thompson:1992</citation>, a finite and
      irreducible Markov chain of states of genotype counts was
      generated using the Metropolis algorithm
@@ -862,11 +877,11 @@
      distribution of the Markov chain was set to have the same allele
      frequencies as those in the observed sample and the HWP genotype
      probabilities. After a <quote>dememorization</quote> period, the
-     p value was estimated by calculating the fraction of times the
-     Markov chain was in any states which had equal or lower
-     probability than the observed one.</para>
+     <varname>p</varname> value was estimated by calculating the
+     fraction of times the Markov chain was in any states which had
+     equal or lower probability than the observed one.</para>
 
-    <para> In <citation role="citet">Chen:Thomson:1999</citation> the
+    <para>In <citation role="citet">Chen:Thomson:1999</citation> the
      variance for the disequilibrium coefficient in the individual
      Hardy-Weinberg heterozygote test has been determined. An exact
      test using a statistic based on this variance has been developed
@@ -922,10 +937,11 @@
     if one has an a priori hypothesis about one or a few heterozygotes
     in the sample, regarding their excess or deficit from HWP. By
     applying the method to all heterozygotes, we face the problem of
-    multiple tests, and some results merely reflecting type 1
-    error. Therefore any p values need to judged with care. However,
-    the approach is still of general interest and validity in
-    detecting patterns and generating future hypotheses.</para>
+    multiple tests, and some results merely reflecting type 1 error.
+    Therefore any <varname>p</varname> values need to judged with
+    care. However, the approach is still of general interest and
+    validity in detecting patterns and generating future
+    hypotheses.</para>
     </sect2>
  </sect1>
 
@@ -1079,18 +1095,19 @@
     a sampling theory that predicts the distribution of alleles at a
     locus drawn from a population at equilibrium under neutrality.
     <citation role="citet">Watterson:1978</citation> developed a
-    method, using a homozygosity measure, denoted by F, for the
-    observed number of alleles and sample size, to compare a sample of
-    allele frequencies to neutrality expectations. For a given number
-    of observed alleles, a low value of the homozygosity measure F,
+    method, using a homozygosity measure, denoted by
+    <varname>F</varname>, for the observed number of alleles and
+    sample size, to compare a sample of allele frequencies to
+    neutrality expectations. For a given number of observed alleles, a
+    low value of the homozygosity measure <varname>F</varname>,
     compared to the neutrality expectation, corresponds to all alleles
     having similar frequencies. Some form of balancing selection is
     implied when the observed allele frequencies are more even than
     the neutrality expectation <citation>Watterson:1978</citation>. A
-    high value of F, compared to the neutrality expectation,
-    corresponds to one allele predominating with the others at low
-    frequencies. Directional selection is implicated in this
-    case. Note that fit of a sample of allele frequencies to
+    high value of <varname>F</varname>, compared to the neutrality
+    expectation, corresponds to one allele predominating with the
+    others at low frequencies. Directional selection is implicated in
+    this case. Note that fit of a sample of allele frequencies to
     neutrality expectations does not mean that selection is not
     operating, but simply that one cannot reject the neutral
     model.</para>
@@ -1102,39 +1119,41 @@
    <para> The observed frequency distribution of alleles in a
     population is compared to neutrality expectations under an
     infinite alleles model. The expected proportion of homozygotes
-    under Hardy-Weinberg, i.e., the statistic F =
-    &Sigma;p<subscript>i</subscript><superscript>2</superscript>) of
+    under Hardy-Weinberg, i.e., the statistic <varname>F</varname> =
+    &Sigma;p<subscript>i</subscript><superscript>2</superscript> of
     <citation role="citet">Watterson:1978</citation> for an observed
-    number of alleles k (or amino acids at a site) and sample size n
-    individuals (2n chromosomes), was compared with the distribution
-    expected under the neutral model
+    number of alleles <varname>k</varname> (or amino acids at a site)
+    and sample size <varname>n</varname> individuals
+    (2<varname>n</varname> chromosomes), was compared with the
+    distribution expected under the neutral model
     <citation>Ewens:1972</citation>. Note that the Watterson
     homozygosity test of neutrality does not examine deviations from
     Hardy-Weinberg proportions, but utilizes the expected
     Hardy-Weinberg homozygosity as a measure of the distribution of
-    allelic frequencies, for a given sample size (k) and observed
-    number of alleles (2n). The expected values of F, and the variance
-    and quantiles under the neutrality model can be found at <ulink
-    url="http://allele5.biol.berkeley.edu/homozygosity/homozygosity.html">http://allele5.biol.berkeley.edu/homozygosity/homozygosity.html</ulink>
+    allelic frequencies, for a given sample size
+    (<varname>k</varname>) and observed number of alleles
+    (2<varname>n</varname>). The expected values of
+    <varname>F</varname>, and the variance and quantiles under the
+    neutrality model can be found at <ulink
+     url="http://allele5.biol.berkeley.edu/homozygosity/homozygosity.html">http://allele5.biol.berkeley.edu/homozygosity/homozygosity.html</ulink> 
     (Salamon H, Nelson M, Thomson G). The exact test developed by
     (<citation role="citet">Slatkin:1994</citation>, <citation
     role="citet">Slatkin:1996</citation>), which calculates the
     probability of the observed configuration under neutrality, can
     also be implemented.</para>
 
-   <para> To allow comparison of homozygosity F statistics across
-    populations with different numbers of alleles and sample sizes,
-    the normalized deviate,
-    <phrase>F<subscript>ND</subscript></phrase>, is considered
+   <para>To allow comparison of homozygosity <varname>F</varname>
+    statistics across populations with different numbers of alleles
+    and sample sizes, the normalized deviate,
+    <varname>F</varname><subscript>ND</subscript>, is considered
     <citation>Salamon:etal:1999</citation>,</para>
 
    <informalequation>
-    <alt role="tex">F_{ND} = (\frac{F_{observed} - F_{expected}}{Variance \cdot F_{expected}})^{\frac{1}{2}}</alt>
-    
     <mediaobject>
-     <imageobject>
-      <imagedata fileref="fnd.png"/>
+     <imageobject role="html">
+      <imagedata fileref="fnd.png" format="PNG"/>
      </imageobject>
+     <textobject role="tex"><phrase>F_{ND} = \frac{F_{observed} - F_{expected}}{(Variance \cdot F_{expected})^{\frac{1}{2}}}</phrase></textobject>
      <textobject>
       <phrase>F<subscript>ND</subscript> =
        (F<subscript>observed</subscript> -
@@ -1144,12 +1163,14 @@
     </mediaobject>
    </informalequation>
    
-   <para>Under the neutral model, F<subscript>ND</subscript> has mean
-    zero and variance 1. If we assume that samples from different
-    populations are statistically independent, the Central Limit
-    Theorem predicts that the distribution of the mean of
-    F<subscript>ND</subscript> values across populations can be
-    approximated by a standard normal distribution.</para>
+   <para>Under the neutral model,
+    <varname>F</varname><subscript>ND</subscript> has mean zero and
+    variance 1. If we assume that samples from different populations
+    are statistically independent, the Central Limit Theorem predicts
+    that the distribution of the mean of
+    <varname>F</varname><subscript>ND</subscript> values across
+    populations can be approximated by a standard normal
+    distribution.</para>
   </sect2>
 
   <sect2>
@@ -1198,7 +1219,7 @@
     <tgroup cols="5">
      <colspec colwidth="2.5cm"/>
      <colspec colwidth="4cm"/>
-     <colspec colwidth="3cm"/>
+     <colspec colwidth="4cm"/>
      <colspec colwidth="3cm"/>
      <colspec colwidth="3cm"/>
      <thead>
@@ -1207,9 +1228,9 @@
        <entry>Populations surveyed</entry>
        <entry>Neutrality rejected <!-- <footnote> <para>Number of
 	populations for which neutrality was rejected at the 5% level
-	(From <citation>Valdes:etal:1999</citation>). The mean F value is the average of
+	(From <citation>Valdes:etal:1999</citation>). The mean <varname>F</varname> value is the average of
 	the observed values of the homozygosity statistic in the
-	populations studied. The expected F values are the averages of
+	populations studied. The expected <varname>F</varname> values are the averages of
 	the expected homozygosity statistic under neutrality.</para>
        </footnote> -->
        </entry>
@@ -1310,11 +1331,11 @@
 
   <sect2>
    
-   <title>Tests for Linkage Disequilibrium and its statistical
+   <title>Tests for linkage disequilibrium and its statistical
     significance</title>
 
    <para> One can estimate the frequencies of haplotypes in a
-    population and can measure the amount of non-randomness.  It is
+    population and then measure the amount of non-randomness.  It is
     important to distinguish the existence of non-randomness from
     specific statistics used to measure that non-randomness.  There
     are several different statistics in use today and considerable
@@ -1326,91 +1347,120 @@
     <emphasis>A</emphasis> and <emphasis>B</emphasis>), with two
     alleles each (A, a and B, b), and four gametic types (also
     referred to as haplotypes): AB, Ab, aB, and ab.  The frequencies
-    of the four gametes (denoted f(AB) etc.) can be described in terms
-    of the allele frequencies p<subscript>A</subscript>
-    (p<subscript>a</subscript>= 1 - p<subscript>A</subscript>) and
-    p<subscript>B</subscript> (p<subscript>b</subscript> = 1 -
-    p<subscript>B</subscript>) at the two loci, and the gametic
-    disequilibrium parameter D, as follows:</para>
+    of the four gametes (denoted <varname>f(AB)</varname> etc.) can be
+    described in terms of the allele frequencies
+    <varname>p</varname><subscript>A</subscript>
+    (<varname>p</varname><subscript>a</subscript>= 1 -
+    <varname>p</varname><subscript>A</subscript>) and
+    <varname>p</varname><subscript>B</subscript>
+    (<varname>p</varname><subscript>b</subscript> = 1 -
+    <varname>p</varname><subscript>B</subscript>) at the two loci, and
+    the gametic disequilibrium parameter <varname>D</varname>, as
+    follows:</para>
 
-   <para>f (AB) = p<subscript>A</subscript> p<subscript>B</subscript> + D,</para>
-   <para>f (Ab) = p<subscript>A</subscript> p<subscript>b</subscript> - D,</para>
-   <para>f (aB) = p<subscript>a</subscript> p<subscript>B</subscript> - D,</para>
-   <para>f (ab) = p<subscript>a</subscript> p<subscript>b</subscript> + D,</para>
+   <para><varname>f(AB)</varname> = <varname>p</varname><subscript>A</subscript> <varname>p</varname><subscript>B</subscript> + <varname>D</varname>,</para>
+   <para><varname>f(Ab)</varname> = <varname>p</varname><subscript>A</subscript> <varname>p</varname><subscript>b</subscript> - <varname>D</varname>,</para>
+   <para><varname>f(aB)</varname> = <varname>p</varname><subscript>a</subscript> <varname>p</varname><subscript>B</subscript> - <varname>D</varname>,</para>
+   <para><varname>f(ab)</varname> = <varname>p</varname><subscript>a</subscript> <varname>p</varname><subscript>b</subscript> + <varname>D</varname>,</para>
    
-   <para>where D = f(AB) - p<subscript>A</subscript>
-   p<subscript>B</subscript> = f(AB) f(ab) - f(Ab) f(aB).</para>
+   <para>where <varname>D</varname> = <varname>f(AB)</varname> - <varname>p</varname><subscript>A</subscript>
+   <varname>p</varname><subscript>B</subscript> = <varname>f(AB)</varname> <varname>f(ab)</varname> - <varname>f(Ab)</varname> <varname>f(aB)</varname>.</para>
 
    <para>D can be either positive or negative, depending on which
-    specific alleles are referenced.  If D = 0 (a state referred to as
-    gametic or linkage equilibrium) then the alleles at the two loci
-    are randomly associated.  If D &gt; 0 the allele A occurs more
-    often with allele B than expected by chance (and hence a with b),
-    while if D &lt; 0 alleles A and b (and hence a and B) are
-    preferentially associated.  The possible value of D in a two-locus
-    system is constrained by the fact that the frequency of any
-    haplotype is constrained as:</para>
+    specific alleles are referenced.  If <varname>D</varname> = 0 (a
+    state referred to as gametic or linkage equilibrium) then the
+    alleles at the two loci are randomly associated.  If
+    <varname>D</varname> &gt; 0 the allele A occurs more often with
+    allele B than expected by chance (and hence a with b), while if
+    <varname>D</varname> &lt; 0 alleles A and b (and hence a and B)
+    are preferentially associated.  The possible value of
+    <varname>D</varname> in a two-locus system is constrained by the
+    fact that the frequency of any haplotype is constrained as:</para>
 
-   <para>0 &le; f(AB)&le; min(p<subscript>A ,
-    </subscript>p<subscript>B</subscript>)</para>
+   <para>0 &le; <varname>f(AB)</varname>&le;
+    min(<varname>p</varname><subscript>A ,
+    </subscript><varname>p</varname><subscript>B</subscript>)</para>
 
    <para>and thus the disequilibrium coefficient is constrained
     by:</para>
 
-   <para>-p<subscript>a</subscript>p<subscript>b</subscript>,
-   -p<subscript>A</subscript>p<subscript>B</subscript> &le;
-   D<subscript>AB</subscript> &le;
-   p<subscript>A</subscript>p<subscript>b</subscript>,
-   p<subscript>a</subscript>p<subscript>B</subscript>.</para>
+   <para>-<varname>p</varname><subscript>a</subscript><varname>p</varname><subscript>b</subscript>, 
+    -<varname>p</varname><subscript>A</subscript><varname>p</varname><subscript>B</subscript> 
+    &le; <varname>D</varname><subscript>AB</subscript> &le;
+    <varname>p</varname><subscript>A</subscript><varname>p</varname><subscript>b</subscript>, 
+    <varname>p</varname><subscript>a</subscript><varname>p</varname><subscript>B</subscript>.</para>
 
-   <para>Consequently, interpretation of D values is dependent on the
-    allele frequencies. To avoid this, the normalized gametic
-    disequilibrium D<superscript>&prime;</superscript> =
-    D/D<subscript>max</subscript> is often considered, where
-    D<subscript>max</subscript> is equal to either the lesser of
-    p<subscript>A</subscript> p<subscript>b</subscript> or
-    p<subscript>a</subscript> p<subscript>B</subscript> if D is
-    positive, and the lesser of p<subscript>A</subscript>
-    p<subscript>B</subscript> or p<subscript>a</subscript>
-    p<subscript>b</subscript> if D is negative <citation>Lewontin:1964</citation>. The
-    advantage of this measure over D is that it has a range from -1 to
-    +1, regardless of the allele frequencies. Unfortunately, for both
-    D and D<superscript>&prime;</superscript> the values are not
-    related to statistical significance and are dependent on allele
-    frequencies. Therefore, several other measures are being used:
-    &delta;, &Delta; = r, r<superscript>2</superscript>,
-    d<superscript>2</superscript>. These are reviewed by <citation role="citet">Devlin:Risch:1995</citation> except for d<superscript>2</superscript>, used by
-    <citation role="citet">Kruglyak:1999</citation>, which is closely related to
-    D<superscript>2</superscript> and to
-    r<superscript>2</superscript>: d<superscript>2</superscript> =
-    D<superscript>2 </superscript>/ [f(1-f)]<superscript>2
-    </superscript>and d<superscript>2</superscript> =
-    r<superscript>2</superscript> m(1-m) /
-    [f(1-f)]<superscript>2</superscript> , where f is the variant
-    frequency and m is the marker allele frequency. Note, this is
-    referenced to the locus of the "variant". The correlation
-    coefficient, r = D / (p<subscript>A</subscript>
-    p<subscript>a</subscript> p<subscript>B</subscript>
-    p<subscript>b</subscript>)<superscript>&half;</superscript>, with
-    a range from -1 to +1, is often used, as well as
-    r<superscript>2</superscript> with a range from 0 to +1. An
-    example from the HLA region is the association between alleles at
-    the A, B and DR loci. The combinations A1-B8 and B8-DR3 have
-    fairly high normalized disequilibrium values
-    (D<superscript>&prime;</superscript> = 0.65 and
-    D<superscript>&prime;</superscript> = 0.73, respectively).</para>
+   <para>Consequently, interpretation of <varname>D</varname> values
+    is dependent on the allele frequencies. To avoid this, the
+    normalized gametic disequilibrium
+    <varname>D</varname><superscript>&prime;</superscript> =
+    <varname>D</varname>/<varname>D</varname><subscript>max</subscript> 
+    is often considered, where
+    <varname>D</varname><subscript>max</subscript> is equal to either
+    the lesser of <varname>p</varname><subscript>A</subscript>
+    <varname>p</varname><subscript>b</subscript> or
+    <varname>p</varname><subscript>a</subscript>
+    <varname>p</varname><subscript>B</subscript> if
+    <varname>D</varname> is positive, and the lesser of
+    <varname>p</varname><subscript>A</subscript>
+    <varname>p</varname><subscript>B</subscript> or
+    <varname>p</varname><subscript>a</subscript>
+    <varname>p</varname><subscript>b</subscript> if
+    <varname>D</varname> is negative
+    <citation>Lewontin:1964</citation>. The advantage of this measure
+    over <varname>D</varname> is that it has a range from -1 to +1,
+    regardless of the allele frequencies. Unfortunately, for both
+    <varname>D</varname> and
+    <varname>D</varname><superscript>&prime;</superscript> the values
+    are not related to statistical significance and are dependent on
+    allele frequencies. Therefore, several other measures are also
+    being used: &delta;, &Delta; = <varname>r</varname>,
+    <varname>r</varname><superscript>2</superscript>,
+    <varname>d</varname><superscript>2</superscript>. These are
+    reviewed by <citation
+     role="citet">Devlin:Risch:1995</citation> except for
+    <varname>d</varname><superscript>2</superscript>, used by
+    <citation role="citet">Kruglyak:1999</citation>, which is closely
+    related to <varname>D</varname><superscript>2</superscript> and to
+    <varname>r</varname><superscript>2</superscript>:
+    <varname>d</varname><superscript>2</superscript> =
+    <varname>D</varname><superscript>2 </superscript>/
+    [<varname>f(1-f)</varname>]<superscript>2 </superscript>and
+    <varname>d</varname><superscript>2</superscript> =
+    <varname>r</varname><superscript>2</superscript>
+    <varname>m(1-m)</varname> /
+    [<varname>f(1-f)</varname>]<superscript>2</superscript> , where
+    <varname>f</varname> is the variant frequency and
+    <varname>m</varname> is the marker allele frequency. Note, this is
+    referenced to the locus of the <quote>variant</quote>. The correlation
+    coefficient, <varname>r</varname> = <varname>D</varname> /
+    (<varname>p</varname><subscript>A</subscript>
+    <varname>p</varname><subscript>a</subscript>
+    <varname>p</varname><subscript>B</subscript>
+    <varname>p</varname><subscript>b</subscript>)<superscript>&half;</superscript>, 
+    with a range from -1 to +1, is often used, as well as
+    <varname>r</varname><superscript>2</superscript> with a range from
+    0 to +1. An example from the HLA region is the association between
+    alleles at the A, B and DR loci. The combinations A1-B8 and B8-DR3
+    have fairly high normalized disequilibrium values
+    (<varname>D</varname><superscript>&prime;</superscript> = 0.65 and
+    <varname>D</varname><superscript>&prime;</superscript> = 0.73,
+    respectively).</para>
 
-   <para>There is a relationship between D and the recombination
-    fraction c between two loci. (Various symbols are used for the
-    recombination fraction; the most common symbol in human genetics
-    is &thetas;.)  In the absence of drift and selection, changes in
-    gamete frequencies over generations only occur by recombination in
-    individuals heterozygous at both loci under consideration. In
-    fact, the value of D decreases by a fraction (1-c) each generation
-    under random mating and a neutral model.  Thus the LD in this case
-    converges to zero (random association of alleles) with time as (1
-    - c)n, where n is the number of generations.  The more loosely
-    linked are two loci, the faster the decay of gametic
+   <para>There is a relationship between <varname>D</varname> and the
+    recombination fraction <varname>c</varname> between two loci.
+    (Various symbols are used for the recombination fraction; the most
+    common symbol in human genetics is &thetas;.)  In the absence of
+    drift and selection, changes in gamete frequencies over
+    generations only occur by recombination in individuals
+    heterozygous at both loci under consideration. In fact, the value
+    of <varname>D</varname> decreases by a fraction
+    <varname>(1-c)</varname> each generation under random mating and a
+    neutral model.  Thus the LD in this case converges to zero (random
+    association of alleles) with time as
+    <varname>(1-c)</varname><superscript>n</superscript>, where
+    <varname>n</varname> is the number of generations.  The more
+    loosely linked are two loci, the faster the decay of linkage
     disequilibrium.  On the other hand, for very tightly linked loci
     gametic disequilibrium may exist for a very long time.</para>
 
@@ -1426,7 +1476,7 @@
     disequilibrium</emphasis> is commonly used and simply abbreviated
     LD.  There are two important points to remember: (1) that tight
     linkage or molecular proximity does not automatically mean there
-    will be LD and (2) that unlinked loci can show LD, for a variety
+    will be LD, and (2) that unlinked loci can show LD, for a variety
     of reasons.</para>
 
    <para condition="main">Linkage disequilibrium can occur in
@@ -1465,6 +1515,7 @@
     disequilibrium present before or during the early phase of the
     expansion will persist.  </para>
 
+<!--
    <remark>Keep this section??  As seen in Section II, the pattern of
     LD at many loci argues that human populations in sub-Saharan
     Africa have little LD beyond a few kb while all non-African
@@ -1474,20 +1525,24 @@
     of random genetic drift caused by a quite small population size)
     associated with the expansion of modern humans out of
     Africa.</remark>
+-->
 
-   <para>The definition of LD is "easily" extended to accommodate more
-    than two alleles at a locus or more than two loci: non-randomness
-    on chromosomes in the population across however many loci and/or
-    among however many alleles.  However, statistics to quantify LD
-    become more problematic in such cases.  All of the above are
-    defined for a pair of specified alleles at a pair of loci.  For
-    multi-allelic loci, one must choose one allele at each locus and
-    then pool all other alleles.  This gives n<subscript>1</subscript>
-    x n<subscript>2</subscript> different pairwise measures for two
-    loci with n<subscript>1</subscript> and n<subscript>2</subscript>
-    alleles, respectively.  Interpreting such a set of LD statistics
-    is not simple or obvious.  When considering three or more loci,
-    higher order disequilibrium terms are also needed (see
+   <para>The definition of LD is <quote>easily</quote> extended to
+    accommodate more than two alleles at a locus or more than two
+    loci: non-randomness on chromosomes in the population across
+    however many loci and/or among however many alleles.  However,
+    statistics to quantify LD become more problematic in such cases.
+    All of the above are defined for a pair of specified alleles at a
+    pair of loci.  For multi-allelic loci, one must choose one allele
+    at each locus and then pool all other alleles.  This gives
+    <varname>n</varname><subscript>1</subscript> x
+    <varname>n</varname><subscript>2</subscript> different pairwise
+    measures for two loci with
+    <varname>n</varname><subscript>1</subscript> and
+    <varname>n</varname><subscript>2</subscript> alleles,
+    respectively.  Interpreting such a set of LD statistics is not
+    simple or obvious.  When considering three or more loci, higher
+    order disequilibrium terms are also needed (see
     <citation>Robinson:etal:1991</citation>).  For example, in a
     three-locus system a gametic frequency can be expressed in terms
     of the three-allele frequencies, the three pairwise gametic
@@ -1525,12 +1580,12 @@
     disequilibrium which spanned 3 cM or more, and an additional 10
     genetic regions showed linkage disequilibrium equal to or greater
     than in the HLA region.  Most recently, a series of papers in the
-    October 2001 <citetitle>Nature Genetics</citetitle> present
-    evidence that LD in humans exists in blocks of strong LD separated
-    by short intervals across which all LD breaks down.  Recombination
-    hot spots and cold spots is one possible explanation for such a
-    pattern.  How general around the genome this pattern is remains to
-    be seen.</para>
+    October 2001 <citetitle>Nature Genetics</citetitle>
+    <citation>Daly:etal:2001</citation> present evidence that LD in
+    humans exists in blocks of strong LD separated by short intervals
+    across which all LD breaks down.  Recombination hot spots and cold
+    spots is one possible explanation for such a pattern.  How general
+    around the genome this pattern is remains to be seen.</para>
 
   </sect2>
 
@@ -1542,11 +1597,12 @@
     for microsatellite, SNP, and protein level variation.
     Marker-disease associations that are not detected at the single
     locus level, may nevertheless be detected in a multi-locus
-    analysis.  This was the initial observation in the study of
-    ch. 19q13.2 APOE region variation and multiple sclerosis
-    (Barcellos 1996, <citation role="citet">Barcellos:etal:1997a</citation>
-    and 1997c), and in analysis of ch. 19 markers and alcohol
-    dependence <citation>Valdes:etal:1999</citation>.</para>
+    analysis.  This was the initial observation in the study of ch.
+    19q13.2 APOE region variation and multiple sclerosis (<citation role="citealt">Barcellos:1996</citation>, <citation
+     role="citealt">Barcellos:etal:1997a</citation> and
+    <citation role="citealt">Barcellos:etal:1997b</citation>), and in analysis of
+    ch. 19 markers and alcohol dependence
+    <citation>Valdes:etal:1999</citation>.</para>
    
    <para>Procedures that make use of the expectation-maximization (EM)
     algorithm to estimate haplotype frequencies (HFs) from unphased
@@ -1573,18 +1629,20 @@
     MLEs are generally achieved <citation>Dempster:1977</citation>.
     The accuracy of haplotype frequency estimates are in general
     relatively good, except in the case of low frequency haplotypes
-    (see e.g., <citation>Schipper:etal:1998</citation>,
-    <citation>Fallin:Schork:2000</citation>, <citation>Tishkoff:etal:2000</citation>, 
-    <citation>Single:etal:2002</citation>).  Large over and under
-    estimates of particular HFs can occur even for common haplotypes,
-    especially when the loci involved deviate significantly from HWP
-    <citation>Single:etal:2002</citation>.
-    Estimating HFs for three or more loci and then collapsing over
-    loci so as to generate two locus haplotypes can improve the
-    accuracy of the estimation. The collapsing procedure is most
-    beneficial when one of the loci in the two-locus haplotype of
-    interest deviates significantly from HWP and the locus collapsed
-    over is in linkage disequilibrium with the other loci
+    (see e.g., <citation role="citealt">Schipper:etal:1998</citation>,
+    <citation role="citealt">Fallin:Schork:2000</citation>, <citation
+     role="citealt">Tishkoff:etal:2000</citation>, 
+    <citation role="citealt">Single:etal:2002</citation>).  Large over
+    and under estimates of particular HFs can occur even for common
+    haplotypes, especially when the loci involved deviate
+    significantly from HWP
+    <citation>Single:etal:2002</citation>. Estimating HFs for three or
+    more loci and then collapsing over loci so as to generate two
+    locus haplotypes can improve the accuracy of the estimation. The
+    collapsing procedure is most beneficial when one of the loci in
+    the two-locus haplotype of interest deviates significantly from
+    HWP and the locus collapsed over is in linkage disequilibrium with
+    the other loci
     <citation>Single:etal:2002</citation>.</para>
    
    <figure id="em-performance">
@@ -1622,12 +1680,12 @@
     below compares the true and estimated haplotype sets using a
     measure that takes into account the frequency differences among
     observed and inferred haplotypes (the If measure, see
-    <citation role="citealt">Single:etal:2002</citation>).  High values imply poor
-    estimates (maximum being 1) and low values imply accurate
-    estimates (minimum being 0).  Notice that when haplotypes that are
-    present as a single copy (column 1), the estimation is very
-    inaccurate, but improves as the true frequency increases.  The
-    haplotypes present as 4 or more copies are estimated most
+    <citation role="citealt">Single:etal:2002</citation>).  High
+    values imply poor estimates (maximum being 1) and low values imply
+    accurate estimates (minimum being 0).  Notice that with haplotypes
+    that are present as a single copy (column 1), the estimation is
+    very inaccurate, but improves as the true frequency increases.
+    The haplotypes present as 4 or more copies are estimated most
     accurately.  This confirms the intuition that low frequency
     haplotypes are difficult to infer using the EM algorithm.  A
     similar result was obtained by
@@ -1686,31 +1744,33 @@
    <para>Two approaches can be used to quantify and test linkage
     disequilibrium (LD).  The first consists of using known haplotype
     frequencies to obtain LD values.  Overall measures of LD, which
-    account for deviations from free association among all pairs of
+    account for deviations from random association among all pairs of
     alleles at two loci, can be used to generate test statistics that
     can be tested using parametric tests.  For example, the overall
-    measure of LD, Q (discussed in <citation
+    measure of LD, <varname>Q</varname> (discussed in <citation
      role="citealt">Hedrick:1987</citation>) follows a chi-square
-    distribution with (k-1)(l-1) degrees of freedom for datasets under
-    linkage equilibrium (where k and l are the number of alleles at
-    the first and second locus, respectively).  However, if haplotypes
-    are inferred from unphased genotype data this approach is limited
-    in that the uncertainty inherent in the haplotype estimation is
-    not accounted for when LD values are estimated and tested.  The
+    distribution with <varname>(k-1)(l-1)</varname> degrees of freedom
+    for datasets under linkage equilibrium (where <varname>k</varname>
+    and <varname>l</varname> are the number of alleles at the first
+    and second locus, respectively).  However, if haplotypes are
+    inferred from unphased genotype data this approach is limited in
+    that the uncertainty inherent in the haplotype estimation is not
+    accounted for when LD values are estimated and tested.  The
     following likelihood-based approach circumvents this limitation.
    </para>
 
    <para>Two likelihood values are defined: L<subscript>1</subscript>
     is the likelihood of observed genotypic data given the estimated
     haplotype set (this is the likelihood value obtained using the EM
-    algorithm). L<subscript>0</subscript> is the likelihood of the
-    observed data given haplotype frequencies expected under complete
-    equilibrium (i.e. haplotype frequencies are given by the product
-    of allele frequencies at each locus). The test-statistic is
-    defined as:
+    algorithm). <varname>L</varname><subscript>0</subscript> is the
+    likelihood of the observed data given haplotype frequencies
+    expected under complete equilibrium (i.e. haplotype frequencies
+    are given by the product of allele frequencies at each locus). The
+    test-statistic is defined as:
    </para>
 
-   <para>S = -2log(L<subscript>0</subscript>/L<subscript>1</subscript>)</para>
+   <para><varname>S</varname> =
+    -2log(<varname>L</varname><subscript>0</subscript>/<varname>L</varname><subscript>1</subscript>)</para>
 
    <para>The significance (p-value) of the observed test statistic can
     be obtained from a permutation test.  The logic behind a
@@ -1734,12 +1794,13 @@
     equilibrium haplotype frequencies.</para>
 
    <para>An example is provided in <xref linkend="lr-stat-null"/>,
-    where the distribution of S for a sample of Filipino individuals
-    for haplotypes involving the DQB1 and DPA1 loci.  The observed
-    value of S is indicated by an arrow, showing that the probability
-    of obtaining a value of S as extreme as that observed is 0.001
-    under the null hypothesis (no association between loci). Thus we
-    reject the null hypothesis.</para>
+    where the distribution of <varname>S</varname> for a sample of
+    Filipino individuals for haplotypes involving the DQB1 and DPA1
+    loci.  The observed value of <varname>S</varname> is indicated by
+    an arrow, showing that the probability of obtaining a value of
+    <varname>S</varname> as extreme as that observed is 0.001 under
+    the null hypothesis (no association between loci). Thus we reject
+    the null hypothesis.</para>
    
    <figure id="lr-stat-null">
     <title>Distribution of likelihood ratio statistic, S, under the null hypothesis of linkage equilibrium</title>
@@ -2043,12 +2104,12 @@
 <para>ibd sharing: 2 1 0 Total 15</para>
 <para>observed: 10 4 1</para>
 <para>observed %: 67% 27% 6%</para>
-<para>&#x3c7; = 14.07, p &lt; 0.001, mean ibd sharing = 0.805.</para>
+<para>&#x3c7; = 14.07, <varname>p</varname> &lt; 0.001, mean ibd sharing = 0.805.</para>
 <para><phrase role="strong">b. Payami et al. 1985, 538 families</phrase></para>
 <para>ibd sharing: 2 1 0</para>
 <para>observed: 373 283 55 Total 711</para>
 <para>observed %: 52% 40% 8%</para>
-<para>&#x3c7; = 314.03, p &lt; 10-5, mean ibd sharing = 0.724.</para>
+<para>&#x3c7; = 314.03, <varname>p</varname> &lt; 10-5, mean ibd sharing = 0.724.</para>
 
 
 	<para> Given the relative ease with which linkage was
