@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<?PSGML nofill programlisting screen literallayout userinput?>
+
+<article condition="main" xmlns:xi="http://www.w3.org/2001/XInclude">
+ <articleinfo>
+  <title>Installing <application>PyPop</application></title>
+  <authorgroup>
+   <author>
+    <firstname>Alex</firstname>
+    <surname>Lancaster</surname>
+   </author>
+  </authorgroup>
+  <pubdate>Last updated: $Date$ by $Author$</pubdate>
+ </articleinfo>
+ <section>
+  <title>Installing standalone binary</title>
+
+  <section>
+   <title>Installing on GNU/Linux</title>
+   <para></para>
+  </section>
+
+  <section>
+   <title>Installing on Winndows</title>
+   <para></para>
+  </section>
+
+ </section>
+
+ <section>
+  <title>Installing from source</title>
+
+  <para><emphasis>For the impatient</emphasis>, to build and install
+   Python, type:</para>
+
+<screen>python setup.py build
+python setup.py install</screen>
+
+  <section>
+   <title>System Requirements</title>
+
+  <itemizedlist>
+
+   <listitem>
+    <para><ulink url="http://www.python.org/">Python 2.1</ulink> or later.</para>
+   </listitem>
+   <listitem>
+    <para><ulink url="http://numpy.sourceforge.net/">Numerical Python
+      20.2.1</ulink> or later</para>
+   </listitem>
+
+   <listitem>
+    <para><ulink url="http://www.swig.org/">Simple Wrapper Interface Generator (SWIG)</ulink>: needs 'development' version 1.3.9 or 1.3.10. (Note: 1.3.11 or later will not work).</para>
+   </listitem>
+
+   <listitem>
+    <para><ulink url="http://xmlsoft.org/">libxml2/libxslt</ulink>
+     including <ulink
+      url="http://xmlsoft/XSLT/python.html">libxml2-python</ulink>, a
+     Python interface to the GNOME XML/XSLT parser (This is a fast C
+     library-based parser.  Most recent GNU/Linux distributions will
+     ship libxml2/libxslt as standard, but you may need to obtain
+     libxml2-python as a separate package).</para>
+
+    <para>(Untested recently: is <ulink
+      url="http://www.4suite.org/">4Suite</ulink> a pure Python
+     XML/XSLT parsing engine.)</para>
+
+   </listitem>
+  </itemizedlist>
+  </section>
+
+  <section>
+   <title>Installation</title>
+
+   <para><emphasis role="bold">Make sure Python and Distutils are installed correctly</emphasis></para>
+
+   <para>Installation should be as simple as going to the pypop directory,
+    and typing:</para>
+
+   <screen>python setup.py install</screen>
+
+
+   <para>If you need to do additional configuration, e.g. changing the
+    base directory, please type <userinput>python setup.py</userinput>, 
+    or see the documentation for
+    Distutils.</para>
+  </section>
+
+  <section>
+   <title>Test suite</title>
+
+   <para>None as yet.</para>
+
+  </section>
+
+
+  <section>
+   <title>Contributing, Bug Reports</title>
+
+   <para>Please send all bug reports and contributions to
+    <email>pypop@allele5.biol.berkeley.edu</email></para>
+   
+  </section>
+
+  <section>
+   <title>Distribution Structure</title>
+
+     <literallayout class="monospaced">
+AUTHORS --      An (incomplete) list of people who have contributed.
+
+gthwe/ --       Guo and Thompson test for Hardy-Weinberg extension modules
+
+emhaplofreq/ -- LD and haplotype estimation extension module
+
+COPYING --      License information for this package
+
+MANIFEST.in --  Tells distutils what files to distribute
+
+NEWS --         Release notes and news
+
+README --       Information and TODO list.
+
+INSTALL --      This file
+
+setup.py --     Installation file.
+     </literallayout>
+  </section>
+ </section>
+</article>
+
+<!--
+Local variables:
+sgml-local-catalogs: ("catalog")
+sgml-indent-step: 1
+sgml-indent-data: 1
+ispell-skip-html: t
+End:
+-->
