@@ -34,12 +34,16 @@ for locus in loci:
   hzObject = Homozygosity(input.getAlleleCountAt(locus),
 			  rootPath=homozyPath,
 			  debug=1)
-  if hzObject._parseFile():
-	  print "Fo = ", hzObject.getObservedHomozygosity()
+
+  print "Fo = ", hzObject.getObservedHomozygosity()
+
+  if hzObject.canGenerateExpectedStats():
 	  print "count = ", hzObject.getCount()
 	  print "mean of Fe = ", hzObject.getMean()
 	  print "var of Fe = ", hzObject.getVar()
 	  print "sem of Fe =", hzObject.getSem()
-	  print "pval =", hzObject.getPValue()
+	  print "%f < pval < %f" % hzObject.getPValueRange()
+  else:
+	  print "Can't generate expected stats"
 
 
