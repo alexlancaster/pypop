@@ -53,6 +53,8 @@ class ParseFile:
                  validSampleFields=None,
                  separator='\t',
                  fieldPairDesignator='_1:_2',
+                 alleleDesignator='*',
+                 popNameDesignator='+',
                  debug=0):
         """Constructor for ParseFile object.
 
@@ -74,6 +76,14 @@ class ParseFile:
           latter case distinguishes both fields from the stem]
           (default: ':(2)')
 
+        - 'alleleDesignator': The first character of the key which
+        determines whether this column contains allele data.  Defaults to
+        '*'
+
+        - 'popNameDesignator': The first character of the key which
+        determines whether this column contains the population name.
+        Defaults to '+'
+
         - 'debug': Switches debugging on if set to '1' (default: no
           debugging, '0')"""
 
@@ -83,6 +93,8 @@ class ParseFile:
         self.debug = debug
         self.separator = separator
         self.fieldPairDesignator = fieldPairDesignator
+        self.alleleDesignator=alleleDesignator
+        self.popNameDesignator = popNameDesignator
 
         self.popFields = ParseFile._dbFieldsRead(self,self.validPopFields)
         self.sampleFields = ParseFile._dbFieldsRead(self,self.validSampleFields)
@@ -96,7 +108,7 @@ class ParseFile:
         self._sampleFileRead(self.filename)
         self._mapPopHeaders()
         self._mapSampleHeaders()
-        
+
     def _dbFieldsRead(self, data):
         """Reads the valid key, value pairs.
 
@@ -268,6 +280,7 @@ class ParseFile:
                       "found, should have:", fieldCount, \
                       "\noffending line is:\n", line
 
+
     def getPopData(self):
         """Returns a dictionary of population data.
 
@@ -283,7 +296,7 @@ class ParseFile:
         specified in sample metadata file"""
 
         return self.sampleMap
-    
+
     def getFileData(self):
         """Returns file data.
 
@@ -315,7 +328,7 @@ class ParseFile:
         type = getStreamType(stream)
         stream.opentag('populationdata')
         stream.writeln()
-            
+
         for summary in self.popData.keys():
             # convert metadata name into a XML tag name
             tagname = string.lower(string.replace(summary,' ','-'))
@@ -328,67 +341,13 @@ class ParseFile:
         stream.closetag('populationdata')
         stream.writeln()
 
-def _serializeAlleleCountDataAt(stream, alleleTable,
-                                total, untypedIndividuals):
-
-    """Function to actually do the output"""
-
-    totalFreq = 0
-    alleles = alleleTable.keys()
-    alleles.sort()
-
-    # if all individuals are untyped then supress itemized output
-    if len(alleles) == 0:
-        stream.emptytag('allelecounts', role='no-data')
-        stream.writeln()
-    else:
-        stream.opentag('allelecounts')
-        stream.writeln()
-        stream.tagContents('untypedindividuals', \
-                           "%d" % untypedIndividuals)
-        stream.writeln()
-        stream.tagContents('indivcount', \
-                           "%d" % (total/2))
-        stream.writeln()
-        stream.tagContents('allelecount', \
-                           "%d" % total)
-        stream.writeln()
-        stream.tagContents('distinctalleles', \
-                           "%d" % len(alleleTable))
-        stream.writeln()
-
-        for allele in alleles:
-            freq = float(alleleTable[allele])/float(total)
-            totalFreq += freq
-            strFreq = "%0.5f " % freq
-            strCount = ("%d" % alleleTable[allele])
-
-            stream.opentag('allele', name=allele)
-            stream.writeln()
-            stream.tagContents('frequency', strFreq)
-            stream.tagContents('count', strCount)
-            stream.writeln()
-            stream.closetag('allele')
-
-            stream.writeln()
-
-        strTotalFreq = "%0.5f" % totalFreq
-        strTotal = "%d" % total
-
-        stream.tagContents('totalfrequency', strTotalFreq)
-        stream.writeln()
-        stream.tagContents('totalcount', strTotal)
-        stream.closetag("allelecounts")
-        stream.writeln()
 
 class ParseGenotypeFile(ParseFile):
     """Class to parse standard datafile in genotype form."""
     
     def __init__(self,
                  filename,
-                 alleleDesignator='*',
                  untypedAllele='****',
-                 popNameDesignator='+',
                  filter=None,
                  **kw):
         """Constructor for ParseGenotypeFile.
@@ -398,22 +357,12 @@ class ParseGenotypeFile(ParseFile):
         In addition to the arguments for the base class, this class
         accepts the following additional keywords:
 
-        - 'alleleDesignator': The first character of the key which
-        determines whether this column contains allele data.  Defaults to
-        '*'
-
-        - 'popNameDesignator': The first character of the key which
-        determines whether this column contains the population name.
-        Defaults to '+'
-
         - 'filter': Instance of filter for alleles (e.g. anthonynolan)
         
         - 'untypedAllele': The designator for an untyped locus.  Defaults
         to '****'.
         """
-        self.alleleDesignator=alleleDesignator
         self.untypedAllele=untypedAllele
-        self.popNameDesignator = popNameDesignator
         self.filter = filter
         
         ParseFile.__init__(self, filename, **kw)
@@ -445,39 +394,32 @@ class ParseGenotypeFile(ParseFile):
             elif key[0] == self.popNameDesignator:
                 self.popNameCol = self.sampleMap[key]
 
+        # save population name
+        self.popName = string.split(self.fileData[3], self.separator)[self.popNameCol]
+
         return self.alleleMap
 
-
     def _genDataStructures(self):
-        """Generates allele count and map data structures.
+        """Generates matrix only
         
         *For internal use only.*"""        
-
-        sampleDataLines, separator = self.getFileData()
 
         # generate alleleMap and population field name
         self._genInternalMaps()
 
+        sampleDataLines, separator = self.getFileData()
+
         if self.debug:
             print 'sampleMap keys:', self.sampleMap.keys()
             print 'sampleMap values:', self.sampleMap.values()
-            print 'popNameCol', self.popNameCol
             print 'first line of data', sampleDataLines[0]
 
-        # first get popName
-        self.popName = string.split(sampleDataLines[0], separator)[self.popNameCol]
 
         # then total number of individuals in data file
         self.totalIndivCount = len(sampleDataLines)
 
         # total number of loci contained in original file
         self.totalLocusCount = len(self.alleleMap)
-
-        # total loci that contain usable data
-        self.totalLociWithData = 0
-        
-        self.freqcount = {}
-        self.locusTable = {}
 
         # freeze the list of locusKeys in a particular order
         self.locusKeys = self.alleleMap.keys()
@@ -492,12 +434,6 @@ class ParseGenotypeFile(ParseFile):
                print "column tuple:", self.alleleMap[locus]
 
             col1, col2 = self.alleleMap[locus]
-
-            # initialise blank dictionary
-            alleleTable = {}
-
-            # initialise blank list
-            self.locusTable[locus] = []
             
             total = 0
             untypedIndividuals = 0
@@ -549,51 +485,11 @@ class ParseGenotypeFile(ParseFile):
                 # increment row count
                 rowCount += 1
 
-                # ensure that *both* alleles are typed 
-                if (self.untypedAllele != allele1) and \
-                   (self.untypedAllele != allele2):
-                    if alleleTable.has_key(allele1):
-                        alleleTable[allele1] += 1
-                    else:
-                        alleleTable[allele1] = 1
-                    total += 1
-
-                    if alleleTable.has_key(allele2):
-                        alleleTable[allele2] += 1
-                    else:
-                        alleleTable[allele2] = 1
-                    total += 1
-                # if either allele is untyped it is we throw out the
-                # entire individual and go to the next individual
-                else:
-                    untypedIndividuals += 1
-                    continue
-
-                # save alleles as a tuple, sorted alphabetically
-                if allele2 < allele1:
-                  self.locusTable[locus].append((allele2, allele1))
-                else:
-                  self.locusTable[locus].append((allele1, allele2))
-
-                if self.debug:
-                    print col1, col2, allele1, allele2, total
-
             # end filtering for this locus
             self.filter.endFiltering()
 
-            # assign frequency, counts
-            self.freqcount[locus] = alleleTable, total, untypedIndividuals
-
-            # if all individuals in a locus aren't untyped
-            # then count this locus as having usable data
-            if untypedIndividuals < self.totalIndivCount:
-                self.totalLociWithData += 1                
-
         # do cleanup/destructor
         self.filter.cleanup()
-
-    def _checkAlleles(self):
-        pass
 
     def genValidKey(self, field, fieldList):
         """Check and validate key.
@@ -652,113 +548,20 @@ class ParseGenotypeFile(ParseFile):
             
         return isValidKey, key
 
-    def getLocusList(self):
-        """Returns the list of loci.
+    def getMatrix(self):
+        """Returns the genotype data.
 
-        *Note: this list has filtered out all loci that consist
-        of individuals that are all untyped.*
-
-        *Note 2: the order of this list is now fixed for the lifetime
-          of the object.*
+        Returns the genotype data in a 'StringMatrix' NumPy array.
         """
-
-        # returns a clone of the locusKeys list, so that this instance
-        # variable can't be modified inadvertantly
-        return self.locusKeys[:]
-
-    def getAlleleCount(self):
-        """Return allele count statistics for all loci.
-        
-        Return a map of tuples where the key is the locus name.  Each
-        tuple is a triple, consisting of a map keyed by alleles
-        containing counts, the total count at that locus and the
-        number of untyped individuals.  """
-        
-        return self.freqcount
-
-    def getAlleleCountAt(self, locus):
-        """Return allele count for given locus.
-        
-        Given a locus name, return a tuple: consisting of a map keyed
-        by alleles containing counts, the total count at that
-        locus, and number of untyped individuals.  """
-        
-        return self.freqcount[locus]
+        return self.matrix
 
     def serializeSubclassMetadataTo(self, stream):
-        """Serialize subclass-specific metadata.
+        """Serialize subclass-specific metadata."""
 
-        Specifically, total number of individuals and loci and
-        population name.  """
-
+        # output population name first
         stream.tagContents('popname', self.popName)
         stream.writeln()
-        stream.opentag('totals')
-        stream.writeln()
-        stream.tagContents('indivcount', "%d" % self.totalIndivCount)
-        stream.writeln()
-        stream.tagContents('allelecount', "%d" % (self.totalIndivCount*2))
-        stream.writeln()
-        stream.tagContents('locuscount', "%d" % self.totalLocusCount)
-        stream.writeln()
-        stream.tagContents('lociWithDataCount', "%d" % self.totalLociWithData)
-        stream.writeln()
-        stream.closetag('totals')
-        stream.writeln()
 
-
-    def serializeAlleleCountDataAt(self, stream, locus):
-        """ """
-        
-        alleleTable, total, untypedIndividuals = self.freqcount[locus]
-        _serializeAlleleCountDataAt(stream, alleleTable,
-                                    total, untypedIndividuals)
-
-    def serializeAlleleCountDataTo(self, stream):
-        type = getStreamType(stream)
-        
-        stream.opentag('allelecounts')
-            
-        for locus in self.freqcount.keys():
-            stream.writeln()
-            stream.opentag('locus', name=locus)
-                    
-        stream.writeln()
-        stream.closetag('allelecounts')
-        return 1
-
-    def getLocusDataAt(self, locus):
-        """Returns the genotyped data for specified locus.
-
-        Given a 'locus', return a list genotypes consisting of
-        2-tuples which contain each of the alleles for that individual
-        in the list.
-
-        **Note:** *this list has filtered out all individuals that are
-        untyped at either chromosome.*
-
-        **Note 2:** data is sorted so that allele1 < allele2,
-        alphabetically """
-
-        # returns a clone of the list, so that this instance variable
-        # can't be modified inadvertantly
-        return (self.locusTable[locus])[:]
-    
-    def getLocusData(self):
-        """Returns the genotyped data for all loci.
-
-        Returns a dictionary keyed by locus name of lists of 2-tuples
-        as defined by 'getLocusDataAt()'
-        """
-        return self.locusTable
-
-    def getIndividualsData(self):
-        """Returns the individual data.
-
-        Returns a 'StringMatrix'.
-        """
-        #return self.individualsData
-        return self.matrix
 
 class ParseAlleleCountFile(ParseFile):
     """Class to parse datafile in allele count form.
@@ -782,40 +585,20 @@ class ParseAlleleCountFile(ParseFile):
     def _genDataStructures(self):
         sampleDataLines, separator = self.getFileData()
 
-        total = 0
-        self.freqcount = {}
-
         self.alleleTable = {}
         
         for line in sampleDataLines:
             allele, count = string.split(line, separator)
             # store as an integer
             self.alleleTable[allele] = int(count)
-            total += int(count)
 
-        # store in an iVar for the moment
-        self.totalAlleleCount = total
-        
         if self.debug:
             print 'alleleTable', self.alleleTable
             print 'sampleMap keys:', self.sampleMap.keys()
             print 'sampleMap values:', self.sampleMap.values()
             
-        # simply reconstruct the 3-tuple as generated in
-        # ParseGenotypeFile: alleleTable (a map of counts keyed by
-        # allele), total allele count and the number of untyped
-        # individuals (in this case, by definition it is zero).
-        # then store in the same data structure as ParseGenotypeFile
-
-        # use the locus name as key
         self.locusName = self.sampleMap.keys()[0]
         
-        # even though we only have a single locus, this will make it
-        # easy to generalize later
-
-        self.freqcount[self.locusName] = \
-                                  self.alleleTable, self.totalAlleleCount, 0
-
 
     def genValidKey(self, field, fieldList):
         """Checks to  see validity of a field.
@@ -851,30 +634,11 @@ class ParseAlleleCountFile(ParseFile):
         return isValidKey, field
 
     def serializeSubclassMetadataTo(self, stream):
-        """Serialize subclass-specific metadata.
-
-        Specifically, total number of alleles and loci.
-         """
-
-        stream.opentag('totals')
-        stream.writeln()
-        stream.tagContents('allelecount', "%d" % self.totalAlleleCount)
-        stream.writeln()
-        stream.tagContents('locuscount', "%d" % 1)
-        stream.writeln()
-        stream.closetag('totals')
-        stream.writeln()
-
-    def serializeAlleleCountDataAt(self, stream, locus):
-
-        # call the class-independent function...
-        
-        alleleTable, total, untypedIndividuals = self.freqcount[locus]
-        _serializeAlleleCountDataAt(stream, alleleTable,
-                                    total, untypedIndividuals)
-
-    def getAlleleCount(self):
-        return self.freqcount[self.locusName]
+        # nothing special is required here, so pass
+        pass
+    
+    def getAlleleTable(self):
+        return self.alleleTable
 
     def getLocusName(self):
         # the first key is the name of the locus
