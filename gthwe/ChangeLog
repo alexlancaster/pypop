@@ -1,3 +1,7 @@
+2004-09-19  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* hwe.c (run_data): Remove unused variables 'l', 'k'.
+
 2004-08-11  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* hwe.c (chen_statistic): Fixed numerical bug: using floating
