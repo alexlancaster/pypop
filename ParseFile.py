@@ -461,6 +461,7 @@ class ParseGenotypeFile(ParseFile):
         from Filter import AnthonyNolanFilter
         filter = AnthonyNolanFilter(debug=self.debug,
                                     untypedAllele=self.untypedAllele,
+				    filename=self.filename,
                                     logFile=self.filterLogFile)
         
         for locus in self.locusKeys:
