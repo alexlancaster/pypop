@@ -41,6 +41,16 @@ import string, sys, os, math
 from operator import add
 from Utils import getStreamType
 
+def getObservedHomozygosityFromAlleleData(alleleData):
+  sum = 0.0
+  sampleCount = reduce(add,alleleData)
+  for alleleCount in alleleData:
+    freq = float(alleleCount)/float(sampleCount)
+    sum += freq*freq
+
+  return sum
+  
+
 class Homozygosity:
   """Calculate homozygosity statistics.
   
@@ -321,15 +331,14 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         self.sampleCount = 0
       
       if self.sampleCount > 0:
-        import _EWSlatkinExact
 
+        import _EWSlatkinExact
+        
         self.EW = _EWSlatkinExact
 
         # create the correct array that module expect,
         # by pre- and appending zeroes to the list
-        li = [0] 
-        li.extend(self.alleleData)
-        li.append(0)
+        li = [0] + self.alleleData + [0] 
 
         if self.debug:
           print 'args to slatkin exact test:' , li, self.numAlleles, self.sampleCount, self.numReplicates
