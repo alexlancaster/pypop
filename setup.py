@@ -232,7 +232,7 @@ particularly large-scale multilocus genotype data""",
        url = "http://allele5.biol.berkeley.edu/",
        maintainer = "Alex Lancaster",
        maintainer_email = "alexl@socrates.berkeley.edu",
-       licence = "GNU GPL",
+       license = "GNU GPL",
        platforms = ["GNU/Linux", "Windows"],
        
        extra_path = 'PyPop',
