@@ -548,6 +548,51 @@ class AnthonyNolanFilter(Filter):
         
         self.polyseq, self.polyseqpos = self.makeSeqDictionaries(self.matrix)
 
+
+
+        # produce formatted output in filter log for the allele sequences
+        self.logFile.opentag('sequence')
+        self.logFile.writeln()
+
+        for locus in self.matrix.colList:
+            alleleTally = {}
+            for individ in self.matrix[locus]:
+                for allele in individ:
+                    if allele in alleleTally:
+                        alleleTally[allele] += 1
+                    else:
+                        alleleTally[allele] = 1
+
+            self.logFile.writeln('locus: %s' % locus)
+            positionString = {}
+
+            if len(self.polyseqpos[locus]) > 0:
+                longestPosition = len(str(max(self.polyseqpos[locus])))
+                
+                for positionDigit in xrange(longestPosition,0,-1):
+                    positionString[positionDigit] = ''
+
+                    for position in self.polyseqpos[locus]:
+
+                        if len(str(position)) >= positionDigit:
+                            positionString[positionDigit] += str(position)[-positionDigit]
+                        else:
+                            positionString[positionDigit] += ' '
+
+
+                for line in xrange(len(positionString.keys()),0,-1):
+                    self.logFile.writeln('\t\t' + positionString[line])
+
+            li = alleleTally.keys()
+            li.sort()
+            for allele in li:
+                self.logFile.writeln(allele + '\t' + str(alleleTally[allele]) + '\t' + self.polyseq[locus + '*' + allele])
+
+            self.logFile.writeln()
+
+        self.logFile.closetag('sequence')
+
+
         # creating the new data matrix
         # colList is the new list of columns, like A_33, A_47, etc...
         colList = []

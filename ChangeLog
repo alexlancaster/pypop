@@ -1,3 +1,9 @@
+2004-02-10  Owen Solberg  <solberg@localhost.localdomain>
+
+	* Filter.py (AnthonyNolanFilter.checkAlleleName): Sequence
+	translation filter now produces raw text dump to the filter xml
+	file, summarizing polymorphic positions of each allele.
+
 2004-02-09  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* xslt/emhaplofreq.xsl: (emhaplofreq): Don't forget to output the
