@@ -60,15 +60,15 @@
  <sect1>
   <title>Map of region</title>
 
-  <para condition="main;anthro-book">The HLA region maps to
-   ch. 6p21.31. It consists of 3.6 Mb of DNA and contains 224
-   identified genes, 128 of which are predicted to be expressed,
-   arranged in three major gene clusters (The MHC Sequencing
-   Consortium 1999, Rhodes and Trowsdale 1999). Only some of the HLA
-   region genes are involved in the immune response. Much of our
-   interest is in the HLA classical class I (A, B, and C) (1.8 Mb) and
-   class II (DR, DQ, and DP) (1.2 Mb) genes, which flank the class III
-   region (see <xref linkend="hla-map.figure"/>).</para>
+  <para condition="main;anthro-book">The HLA region maps to ch.
+   6p21.31. It consists of 3.6 Mb of DNA and contains 224 identified
+   genes, 128 of which are predicted to be expressed, arranged in
+   three major gene clusters (The MHC Sequencing Consortium 1999,
+   <citation role="citealt">Rhodes:Trowsdale:1999</citation>). Only
+   some of the HLA region genes are involved in the immune response.
+   Much of our interest is in the HLA classical class I (A, B, and C)
+   (1.8 Mb) and class II (DR, DQ, and DP) (1.2 Mb) genes, which flank
+   the class III region (see <xref linkend="hla-map.figure"/>).</para>
 
   <figure id="hla-map.figure">
    <title>Map of the HLA region (adapted from <citation role="citet">Rhodes:Trowsdale:1999</citation>)*</title>
@@ -92,20 +92,23 @@
    that help T cells recognize and respond to foreign antigens. The
    division into class I and II molecules is based on their structure,
    tissue distribution, source of peptide antigen, and the function of
-   responding T cells (McCluskey and Peh 1999, Little and Parham
-   1999). Each of the class II DR, DQ, and DP regions contains at
-   least two genes, denoted A and B respectively, e.g., DRA1,
-   DRB1. The class III region includes immune system and non-immune
-   system loci encoding, e.g., complement proteins, Factor B, C2, C4,
-   and tumor necrosis factors, TNFA and B.</para>
+   responding T cells (<citation
+    role="citealt">McCluskey:Peh:1999</citation>, <citation
+    role="citealt">Little:Parham:1999</citation>). Each of the class
+   II DR, DQ, and DP regions contains at least two genes, denoted A
+   and B respectively, e.g., DRA1, DRB1. The class III region includes
+   immune system and non-immune system loci encoding, e.g., complement
+   proteins, Factor B, C2, C4, and tumor necrosis factors, TNFA and
+   B.</para>
 
   <para condition="main;anthro-book">The recombination distance
    between the most distant of the HLA classical loci, the class I A
-   locus and the class II DPB1 locus is 3.7 cM (Carrington 1999). The
-   HLA region in fact extends beyond these boundaries; e.g., the
-   non-classical class I gene involved in hemochromatosis, HFE, maps 4
-   Mb from HLA-A (Rhodes and Trowsdale 1999, <ulink
-   url="http://www.sanger.ac.uk/">http://www.sanger.ac.uk/</ulink>).</para>
+   locus and the class II DPB1 locus is 3.7 cM
+   <citation>Carrington:1999</citation>. The HLA region in fact
+   extends beyond these boundaries; e.g., the non-classical class I
+   gene involved in hemochromatosis, HFE, maps 4 Mb from HLA-A
+   (<citation>Rhodes:Trowsdale:1999</citation>, <ulink
+    url="http://www.sanger.ac.uk/">http://www.sanger.ac.uk/</ulink>).</para>
   
  </sect1>
 
@@ -189,8 +192,9 @@
    described for the class II DRB1 gene, and 399 for the class I B
    gene, with much of the variation present at the protein level. The
    genetic variation is concentrated in the amino acid residues of the
-   ARS (see e.g., Little and Parham 1999). Alleles at HLA-A, for
-   example, differ from each other by up to 20&ndash;30 amino
+   ARS (see e.g., <citation
+    role="citealt">Little:Parham:1999</citation>). Alleles at HLA-A,
+   for example, differ from each other by up to 20&ndash;30 amino
    acids. In contrast to these highly polymorphic loci, there are also
    HLA region loci which show very little polymorphism, e.g., the
    non-classical class I genes, some class II genes such as DRA1, and
@@ -199,57 +203,63 @@
   <para condition="main;anthro-book">Point mutations generating new
    variation and genetic exchange (recombination or gene conversion)
    reassorting extant polymorphism into new combinations have played
-   key roles in creating HLA diversity (Little and Parham 1999). For
-   class I genes, generation of variants at the B locus appears to be
-   more rapid than at the A or C loci. HLA variation shows population
-   structure; some alleles differ in frequency between ethnic groups,
-   others are unique to a specific ethnic or geographic group,
-   particularly those of the highly polymorphic class I B and class II
-   DRB1 genes (see e.g., Imanishi et al. 1992, Charron 1997).</para>
+   key roles in creating HLA diversity
+   <citation>Little:Parham:1999</citation>. For class I genes,
+   generation of variants at the B locus appears to be more rapid than
+   at the A or C loci. HLA variation shows population structure; some
+   alleles differ in frequency between ethnic groups, others are
+   unique to a specific ethnic or geographic group, particularly those
+   of the highly polymorphic class I B and class II DRB1 genes (see
+   e.g., <citation>Imanishi:etal:1992</citation>,
+   <citation>Charron:1997</citation>).</para>
 
   <para condition="main">To explain the extensive polymorphism at the
-  HLA loci, Klein (1987) proposed a <quote>trans-species</quote>
-  hypothesis whereby ancestral allelic polymorphism is maintained,
-  presumably by balancing selection, after species divergence. First
-  applied to rodent species, this theory is also supported by evidence
-  in primates where, for example, certain chimpanzee alleles are more
-  closely related to specific human alleles than they are to other
-  chimpanzee alleles. This segregation of alleles across species into
-  <quote>allelic lineages</quote> is based primarily on sequence
-  homology and serological specificities, although these groupings for
-  the class I HLA-A locus have also been correlated with functional
-  attributes such as peptide binding specificities (Jakobsen et
-  al. 1998). For class I, allelic lineages are seen most clearly at
-  the less polymorphic loci A and C, however at even the most
-  polymorphic class II locus, DRB1, the alleles can be divided into 13
-  distinct allelic lineages. Phylogenetic studies support the idea
-  that many of these lineages are very old, but that alleles within
-  each lineage have been generated recently in hominoid evolution
-  (Bergstrom et al. 1998).</para>
+   HLA loci, <citation role="citet">Klein:1987</citation> proposed a
+   <quote>trans-species</quote> hypothesis whereby ancestral allelic
+   polymorphism is maintained, presumably by balancing selection,
+   after species divergence. First applied to rodent species, this
+   theory is also supported by evidence in primates where, for
+   example, certain chimpanzee alleles are more closely related to
+   specific human alleles than they are to other chimpanzee alleles.
+   This segregation of alleles across species into <quote>allelic
+    lineages</quote> is based primarily on sequence homology and
+   serological specificities, although these groupings for the class I
+   HLA-A locus have also been correlated with functional attributes
+   such as peptide binding specificities
+   (<citation>Jakobsen:etal:1998</citation>). For class I, allelic
+   lineages are seen most clearly at the less polymorphic loci A and
+   C, however at even the most polymorphic class II locus, DRB1, the
+   alleles can be divided into 13 distinct allelic lineages.
+   Phylogenetic studies support the idea that many of these lineages
+   are very old, but that alleles within each lineage have been
+   generated recently in hominoid evolution
+   (<citation>Bergstrom:etal:1998</citation>).</para>
 
   <para condition="main">Molecular typing methods, for example using
    PCR (polymerase chain reaction) and SSOP
    (sequence-specific-oligonucleotide probes), are now the standard
-   for typing class II loci (see e.g., Middleton 1999). The greater
-   degree and type of variability of HLA class I compared to class II
-   loci has made molecular typing more difficult than initially
-   expected by researchers in the field. Recently, molecular typing
-   methods have also been applied to class I loci (see e.g., Cao et
-   al. 1999). For molecularly defined alleles, the first two numbers
-   of the allele designation refer to the serological type of the
-   allele, so that DRB1*0401 and 0402 are subtypes of DR4. This is
-   indicative of the increased resolution of alleles available with
-   molecular typing.</para>
+   for typing class II loci (see e.g., <citation
+    role="citealt">Middleton:1999</citation>). The greater degree and
+   type of variability of HLA class I compared to class II loci has
+   made molecular typing more difficult than initially expected by
+   researchers in the field. Recently, molecular typing methods have
+   also been applied to class I loci (see e.g.,
+   <citation>Cao:etal:1999</citation>). For molecularly defined
+   alleles, the first two numbers of the allele designation refer to
+   the serological type of the allele, so that DRB1*0401 and 0402 are
+   subtypes of DR4. This is indicative of the increased resolution of
+   alleles available with molecular typing.</para>
 
   <para condition="main"> Microsatellites in the HLA region share the
    characteristics of microsatellites found elsewhere in the genome,
-   including high density, high mutation rates, and high
-   polymorphism. The utility of microsatellites for the identification
-   of HLA region disease genes has been demonstrated (see e.g.,
-   Foissac et al. 1997 for review, Carrington et
-   al. 1999). Identification of single nucleotide polymorphisms (SNPs)
-   across the HLA region in diverse ethnic groups is in progress
-   (Geraghty et al. 1999).</para>
+   including high density, high mutation rates, and high polymorphism.
+   The utility of microsatellites for the identification of HLA region
+   disease genes has been demonstrated (see e.g.,
+   <citation>Foissac:etal:1997</citation> for review,
+   <citation>Carrington:etal:1999</citation>). Identification of
+   single nucleotide polymorphisms (SNPs) across the HLA region in
+   diverse ethnic groups is in progress
+   (<citation>Geraghty:etal:1999</citation>).</para>
   
  </sect1>
  
@@ -261,43 +271,48 @@
    typed HLA class I A, B, and C and the class II DR locus, and for
    molecularly typed class II DRB1, DQA1, and DQB1, are often more
    even than expected under neutrality, suggesting that some form of
-   balancing selection is operating on these genes (see e.g., Hedrick
-   and Thomson 1983, Salamon et al. 1999, Valdes et al. 1999). In
-   contrast, the distribution of DPB1 alleles rarely differs
-   significantly from neutrality expectations; usually there is a
-   fairly common allele, which may differ between populations.</para>
+   balancing selection is operating on these genes (see e.g.,
+   <citation>Hedrick:Thomson:1983</citation>,
+   <citation>Salamon:etal:1999</citation>,
+   <citation>Valdes:etal:1999</citation>). In contrast, the
+   distribution of DPB1 alleles rarely differs significantly from
+   neutrality expectations; usually there is a fairly common allele,
+   which may differ between populations.</para>
 
   <para>From the examination of class I and II genes across species,
    nonsynonymous amino acid substitutions per site (dn) are
    proportionally more common than synonymous substitutions (ds) in
    the ARS, indicative of balancing selection maintaining the
-   extensive variation (Hughes and Nei 1988, 1989). Regions not
-   involved in peptide binding typically show dn &lt; ds, the pattern
-   expected under purifying selection.</para>
+   extensive variation (<citation>Hughes:Nei:1988></citation>,
+   <citation>Hughes:Nei:1988></citation>). Regions not involved in
+   peptide binding typically show dn &lt; ds, the pattern expected
+   under purifying selection.</para>
 
   <para> The specific mechanism of the selection acting on MHC
    variation has not yet been identified, although models invoking
    heterozygote advantage are strong candidates, since individuals
    heterozygous for HLA present a wider range of foreign peptides to T
-   cells (Parham and Ohta 1996, Edwards and Hedrick
-   1998). Observations on the pathogens <emphasis>Plasmodium
-   falciparum</emphasis> (malaria), human and simian immunodeficiency
-   viruses (HIV and SIV), Epstein-Barr virus (EBV), and hepatitis B
-   have indicated that HLA restricted cytotoxic T-cell responses may
-   influence the evolution of the host-pathogen relationship. HLA
-   associations with infectious diseases may differ between geographic
-   regions and reflect pathogen variation. This may account for some
-   of the differences seen in HLA allele frequencies between
-   geographical areas.</para>
+   cells (<citation>Parham:Ohta:1996</citation>,
+   <citation>Edwards:Hedrick:1998</citation>). Observations on the
+   pathogens <emphasis>Plasmodium falciparum</emphasis> (malaria),
+   human and simian immunodeficiency viruses (HIV and SIV),
+   Epstein-Barr virus (EBV), and hepatitis B have indicated that HLA
+   restricted cytotoxic T-cell responses may influence the evolution
+   of the host-pathogen relationship. HLA associations with infectious
+   diseases may differ between geographic regions and reflect pathogen
+   variation. This may account for some of the differences seen in HLA
+   allele frequencies between geographical areas.</para>
 
   <para> Other mechanisms proposed to explain MHC variability are
    disassortative mating and maternal-fetal incompatibility. There is
    evidence of maternal-fetal incompatibility in humans, and
-   disassortative mating for MHC in mice (Penn and Potts 1998) and in
-   humans (Ober et al. 1997, Génin et al. 2000), although it is not
-   seen in all studies (Hedrick and Black 1997). Multiple mechanisms
-   are probably responsible for HLA diversity (Edwards and Hedrick
-   1998, Meyer and Thomson 2001).</para>
+   disassortative mating for MHC in mice
+   (<citation>Penn:Potts:1998</citation>) and in humans
+   (<citation>Ober:etal:1997</citation>,
+   <citation>Génin:etal:2000</citation>), although it is not seen in
+   all studies (<citation>Hedrick:Black:1997</citation>). Multiple mechanisms are
+   probably responsible for HLA diversity (<citation>Edwards:Hedrick:1998</citation>,
+   <citation>Meyer:Thomson:2001</citation>).</para>
  </sect1>
  
  <sect1>
@@ -305,17 +320,18 @@
 
   <para condition="main;anthro-book">Significant linkage
    disequilibrium (LD) between alleles at different loci is observed
-   across the HLA region (see e.g., Imanishi et al. 1992, Charron
-   1997). Disequilibrium is in many cases nearly complete between the
-   tightly linked class II DRB1, DQA1, and DQB1 loci. For example,
-   almost all DR3 haplotypes in many ethnic groups are
-   DRB1*0301-DQA1*0501-DQB1*0201.  The class I B and C loci also
-   exhibit very high LD, while less closely linked loci show medium
-   levels of LD (e.g., class I A and B). The observed levels of
-   overall LD for HLA data are incompatible with neutrality
+   across the HLA region (see e.g.,
+   <citation>Imanishi:etal:1992</citation>,
+   <citation>Charron:1997</citation>). Disequilibrium is in many
+   cases nearly complete between the tightly linked class II DRB1,
+   DQA1, and DQB1 loci. For example, almost all DR3 haplotypes in many
+   ethnic groups are DRB1*0301-DQA1*0501-DQB1*0201.  The class I B and
+   C loci also exhibit very high LD, while less closely linked loci
+   show medium levels of LD (e.g., class I A and B). The observed
+   levels of overall LD for HLA data are incompatible with neutrality
    expectations.</para>
 
-  <para condition="main">Huttley et al. (1999) used data
+  <para condition="main"><citation>Huttley:etal:1999</citation> used data
    from many laboratories on ~5000 microsatellites from <!-- the Utah
    and Amish ? --> CEPH families to examine LD levels across the
    genome of 54 independent chromosomes. They identified ten regions
@@ -332,20 +348,22 @@
    type 1 diabetes, rheumatoid arthritis (RA), and multiple sclerosis
    (MS); Hodgkin disease and other cancers; infectious diseases
    including malaria, tuberculosis, and AIDS, and diseases of unknown
-   etiology such as narcolepsy (Tiwari and Terasaki 1985, Thorsby
-   1997). In some cases the HLA classical class I and II genes have
-   been implicated as directly involved in disease, e.g., ankylosing
-   spondylitis (class I), type 1 diabetes, RA, MS, celiac disease, and
-   narcolepsy (class II). In other cases, the association with
-   classical HLA genes was due to LD, as with hemochromatosis. The HLA
-   associated diseases are in general genetically complex. They can
-   involve multiple HLA and non-HLA loci and exhibit incomplete
-   penetrance, genetic heterogeneity within the HLA region, and
-   synergistic effects. Type 1 diabetes exhibits all of these features
-   (Thomson 1997, 2001a). The class II genes DRB1, DQA1, and DQB1 all
-   contribute to type 1 diabetes. Genetic variation additional to
-   DR-DQ is also required to explain all of the HLA region
-   contribution to disease.</para>
+   etiology such as narcolepsy
+   (<citation>Tiwari:Terasaki:1985</citation>,
+   <citation>Thorsby:1997</citation>). In some cases the HLA classical
+   class I and II genes have been implicated as directly involved in
+   disease, e.g., ankylosing spondylitis (class I), type 1 diabetes,
+   RA, MS, celiac disease, and narcolepsy (class II). In other cases,
+   the association with classical HLA genes was due to LD, as with
+   hemochromatosis. The HLA associated diseases are in general
+   genetically complex. They can involve multiple HLA and non-HLA loci
+   and exhibit incomplete penetrance, genetic heterogeneity within the
+   HLA region, and synergistic effects. Type 1 diabetes exhibits all
+   of these features (<citation>Thomson:1997</citation>,
+   <citation>Thomson:2001a</citation>). The class II genes DRB1, DQA1,
+   and DQB1 all contribute to type 1 diabetes. Genetic variation
+   additional to DR-DQ is also required to explain all of the HLA
+   region contribution to disease.</para>
 
   <para>Population and evolutionary aspects of a genetic region are
    highly relevant to the study of Mendelian and complex diseases.

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<?PSGML nofill programlisting screen citation?>
 <chapter>
  <chapterinfo>
   <authorgroup>
@@ -21,7 +22,8 @@
     <surname>Single</surname>
    </author>
   </authorgroup>
-  <pubdate>Last updated: $Date$ by $Author$</pubdate>
+  <pubdate>Last updated: $Date$ by $Author: alex
+   $</pubdate>
  </chapterinfo>
  
  <title>Methods for analysis of genetic variation</title> 
@@ -167,11 +169,11 @@
     Hardy a remark of Yule (a geneticist)&mdash;Mr. Yule is reported
     to have suggested as a criticism of the Mendelian position that if
     brachydactyly (short fingeredness) is dominant <quote>in the
-    course of time one would expect, in the absence of counteracting
-    factors, to get 3 brachydactylous individuals to 1 normal.</quote>
-    Of course we now understand that Yule is confusing the Mendelian
-    3:1 ratio in an F1 cross (Aa x Aa gives 3A-:1aa) with population
-    features.</para>
+     course of time one would expect, in the absence of counteracting
+     factors, to get 3 brachydactylous individuals to 1
+     normal.</quote> Of course we now understand that Yule is
+    confusing the Mendelian 3:1 ratio in an F1 cross (Aa x Aa gives
+    3A-:1aa) with population features.</para>
 
    <para condition="main">Basically we want to consider whether or not
     Mendelian segregation causes changes in the genetic structure of a
@@ -185,8 +187,8 @@
     </listitem>
     
     <listitem>
-     <para>mutation and migration rates are negligible (no
-      mutation, no migration)</para></listitem>
+     <para>mutation and migration rates are negligible (no mutation,
+      no migration)</para></listitem>
     
     <listitem>
      <para>no selection</para></listitem>
@@ -209,13 +211,13 @@
       size (stochastic model).</para></listitem>
    </orderedlist>
 
-   <para condition="main;anthro-book">The importance of the Hardy-Weinberg
-    law is that if there are no counteracting forces, then the
-    frequencies of alleles do not change in a population. In other
-    words, variation in a population, under a Mendelian system, tends
-    to be maintained. We contrast this to the previously believed
-    blending inheritance where genetic variation is decreased each
-    generation. Further, the expected genotype frequencies each
+   <para condition="main;anthro-book">The importance of the
+    Hardy-Weinberg law is that if there are no counteracting forces,
+    then the frequencies of alleles do not change in a population. In
+    other words, variation in a population, under a Mendelian system,
+    tends to be maintained. We contrast this to the previously
+    believed blending inheritance where genetic variation is decreased
+    each generation. Further, the expected genotype frequencies each
     generation are determined by the allele frequencies, and are
     termed Hardy-Weinberg proportions (HWP). Continued random mating
     leads to the same genotype (and allele) frequencies, hence the
@@ -225,12 +227,12 @@
   <sect2 condition="main">
    <title>Hardy-Weinberg proportions (HWP)</title>
    
-   <para> We consider initially a two allele system, but the
-    results extend easily to multiple alleles. The two alleles are
-    A and a with respective frequencies p and q (p+q=1, so note
-    that we have only one independent variable). If gametes
-    combine at random then the frequencies of the three genotypic
-    classes in the next generation are:</para>
+   <para> We consider initially a two allele system, but the results
+    extend easily to multiple alleles. The two alleles are A and a
+    with respective frequencies p and q (p+q=1, so note that we have
+    only one independent variable). If gametes combine at random then
+    the frequencies of the three genotypic classes in the next
+    generation are:</para>
    
    <para>
     <informaltable>
@@ -256,16 +258,17 @@
     </informaltable>
    </para>
 
-   <para>(Note that the 2 for the heterozygote class comes about
-    since there are two ways a heterozygote can form, each with
-    probability pq, the father can supply the A allele and the
-    mother the a allele, or vice versa.) Using gene (allele)
-    counting, with f(.) denoting frequency, such that f(A) = f(AA)
-    + f(Aa)/2, and assuming we can distinguish the heterozygote
-    from the two homozygote classes, we obtain,</para>
+   <para>(Note that the 2 for the heterozygote class comes about since
+    there are two ways a heterozygote can form, each with probability
+    pq, the father can supply the A allele and the mother the a
+    allele, or vice versa.) Using gene (allele) counting, with f(.)
+    denoting frequency, such that f(A) = f(AA) + f(Aa)/2, and assuming
+    we can distinguish the heterozygote from the two homozygote
+    classes, we obtain,</para>
    
 
-   <literallayout>f(A) = p<superscript>2</superscript> + pq = p(p + q) = p.</literallayout>
+   <literallayout>f(A) = p<superscript>2</superscript> + pq = p(p + q)
+    = p.</literallayout>
    
    <para> Thus, we have demonstrated that under the assumptions of the
     Hardy-Weinberg law, the allele frequencies in the offspring
@@ -310,7 +313,7 @@
        <row>
 	<entry>A</entry>
 	<entry>AA, AO</entry>
-       <entry>(0.3)2 + 2(0.3)(0.6) = 0.45</entry>
+	<entry>(0.3)2 + 2(0.3)(0.6) = 0.45</entry>
        </row>
        <row>
 	<entry>B</entry> 
@@ -333,12 +336,12 @@
    </para>
    
    <para>(Note in this case that the allele frequencies cannot be
-    estimated by gene (allele) counting, since allele O is
-    recessive. The allele frequencies in this case are estimated
-    by an iterative procedure.)</para>
+    estimated by gene (allele) counting, since allele O is recessive.
+    The allele frequencies in this case are estimated by an iterative
+    procedure.)</para>
    
-   <para> For sex-linked (X chromosome) genes, females are
-    diploid and males are haploid, and the HWP are</para>
+   <para> For sex-linked (X chromosome) genes, females are diploid and
+    males are haploid, and the HWP are</para>
 
    <para>
     <informaltable>
@@ -350,8 +353,10 @@
       <colspec colname="col5" colwidth="2cm" align="center"/>
       <thead>
        <row>
-	<entry namest="col1" nameend="col3" align="center">females</entry>
-	<entry namest="col4" nameend="col5" align="center">males</entry>
+	<entry namest="col1" nameend="col3"
+	 align="center">females</entry>
+	<entry namest="col4" nameend="col5"
+	 align="center">males</entry>
        </row>
       </thead>
       <tbody>
@@ -373,18 +378,18 @@
     </informaltable>
    </para>
    
-   <para>If the female and male initial allele frequencies are
-    equal, then these equilibrium frequencies are reached in one
-    generation. If they are unequal, then a rapid convergence to
-    the above equilibrium takes place.</para>
+   <para>If the female and male initial allele frequencies are equal,
+    then these equilibrium frequencies are reached in one generation.
+    If they are unequal, then a rapid convergence to the above
+    equilibrium takes place.</para>
    
    <para> Due to the finite size of samples, observed genotype
-    frequencies are not expected to be in exact HWP. Two
-    illustrative examples using the co-dominant MN blood group
-    system are shown below, which have the same allele frequencies
-    f(M) = 0.6, f(N) = 0.4, and hence the same HWP, but very
-    different observed genotype frequencies (the first very close
-    to HWP, the second very different from HWP):</para>
+    frequencies are not expected to be in exact HWP. Two illustrative
+    examples using the co-dominant MN blood group system are shown
+    below, which have the same allele frequencies f(M) = 0.6, f(N) =
+    0.4, and hence the same HWP, but very different observed genotype
+    frequencies (the first very close to HWP, the second very
+    different from HWP):</para>
 
    <para>   
     <informaltable>
@@ -446,12 +451,12 @@
     dozen alleles in a reasonable-sized sample for the HLA class I and
     class II loci. Therefore, in many studies the genotypic matrix is
     relatively sparse and some simulation approaches, e.g. <citation
-    role="citet">Guo:Thompson:1992</citation>, are more appropriate than
-    their asymptotic counter parts in testing for overall fit of
+     role="citet">Guo:Thompson:1992</citation>, are more appropriate
+    than their asymptotic counter parts in testing for overall fit of
     HWP.</para>
 
-   <para condition="main;anthro-book">The second issue is testing at the
-    individual heterozygote level. For a given sample, beside the
+   <para condition="main;anthro-book">The second issue is testing at
+    the individual heterozygote level. For a given sample, beside the
     overall fit, researchers are often interested in knowing which
     individual heterozygote or homozygote significantly deviates from
     its HW expectation, especially when the genotype matrix is
@@ -471,11 +476,11 @@
    <sect3>
     <title>The chi-square test</title>
     
-    <para condition="main;anthro-book">The basis of the chi-square test is
-     to calculate expected genotype values based on HWP for individual
-     genotype values and test for fit to HWP using an overall
-     test. When expected genotype counts are &ge;5, calculate the
-     individual chi-square value for this genotype, i.e.,
+    <para condition="main;anthro-book">The basis of the chi-square
+     test is to calculate expected genotype values based on HWP for
+     individual genotype values and test for fit to HWP using an
+     overall test. When expected genotype counts are &ge;5, calculate
+     the individual chi-square value for this genotype, i.e.,
      (O-E)<superscript>2</superscript>/E, where O is observed and E is
      expected for that genotype, and add together the contributions of
      each genotype.</para>
@@ -526,7 +531,7 @@
 	</row>
        </thead>
        <tbody>
-	 <row>
+	<row>
 	 <entry>35 (1)</entry>
 	 <entry>50 (2)</entry>
 	 <entry>15 (1)</entry>
@@ -594,21 +599,24 @@
      applied). In this case, the rarer alleles need to be
      appropriately combined.</para>
 
-    <para condition="main;anthro-book">For the above Pearson's goodness of fit
-     test, the general rule of thumb about the validity of the
-     asymptotics is that the expected cell counts need to be at least
-     5 (Cochran 1954), although it is found that the rule tends to be
-     conservative (Bradley et al. 1979).</para>
+    <para condition="main;anthro-book">For the above Pearson's
+     goodness of fit test, the general rule of thumb about the
+     validity of the asymptotics is that the expected cell counts need
+     to be at least 5 <citation>Cochran:1954</citation>, although it is found that the
+     rule tends to be conservative <citation>Bradley:etal:1979</citation>.</para>
 
     <para condition="main">Several corrections to this goodness of fit
      test have been proposed to improve the approximation when small
-     sample expectations exist in the sample. Yates (1934) suggested
-     using the continuity correction, &half;, i.e., (absolute value (0
-     - E) - &half;)<superscript>2</superscript>/E. Emigh (1980) showed
+     sample expectations exist in the sample.  
+     <citation role="citet">Yates:1934</citation> suggested
+     using the continuity correction, &half;, i.e.:
+     (absolute value (0 - E) - &half;)<superscript>2</superscript>/E.
+     <citation role="citet">Emigh:1980</citation> showed
      that in some cases a correction of &frac14; performs
      better.</para>
 
-    <para condition="main;anthro-book">Elston and Forthofer (1977)
+    <para condition="main;anthro-book">
+     <citation role="citet">Elston:Forthofer:1977</citation>
      derived the likelihood ratio statistic for HWP testing. It was
      based on comparison of two maximum likelihoods of a sample coming
      from the multinomial distribution of genotype counts with
@@ -707,18 +715,18 @@
     <para>Levene (1949) described the conditional sampling
      distribution for Hardy Weinberg populations. An algorithm for
      generating the exact distribution of samples drawn from a
-     population in HWP was proposed by Louis and Dempster
-     (1987). Using this algorithm, one could develop an exact test for
-     HWP, analogous to Fisher's 2x2 exact test. This approach
-     can be applied to an arbitrary number of alleles, especially when
-     sample sizes are small. It provides a reliable alternative to the
+     population in HWP was proposed by Louis and Dempster (1987).
+     Using this algorithm, one could develop an exact test for HWP,
+     analogous to Fisher's 2x2 exact test. This approach can be
+     applied to an arbitrary number of alleles, especially when sample
+     sizes are small. It provides a reliable alternative to the
      standard goodness of fit test and methods that require
      corrections. Below is an example of a test for deviations from
      HWP using such an exact test.</para>
 
     <para>Consider a sample of 40 individuals, where the genotype
-     counts for a bi-allelic locus are: n(AA) = 5, n(Aa) = 9, and n(aa)
-     = 26.  The total count for each allele is: n(A) = 19 , and
+     counts for a bi-allelic locus are: n(AA) = 5, n(Aa) = 9, and
+     n(aa) = 26.  The total count for each allele is: n(A) = 19 , and
      n(a) = 61. Using the expression given by Levene (1949) we compute
      the probability of obtaining this set of genotypes, conditional
      on the observed counts of alleles, under the null hypothesis of
@@ -770,7 +778,7 @@
 	 <entry>7</entry>
 	 <entry>5</entry>
 	 <entry>28</entry>
-		<entry>0.0001</entry>
+	 <entry>0.0001</entry>
 	 <entry>0.0001</entry>
 	</row>
 	<row>
@@ -919,7 +927,7 @@
     the approach is still of general interest and validity in
     detecting patterns and generating future hypotheses.</para>
     </sect2>
-  </sect1>
+ </sect1>
 
 <!--
   <section>
@@ -1118,7 +1126,7 @@
     populations with different numbers of alleles and sample sizes,
     the normalized deviate,
     <phrase>F<subscript>ND</subscript></phrase>, is considered
-    <citation>Salamon:1999</citation>,</para>
+    <citation>Salamon:etal:1999</citation>,</para>
 
    <informalequation>
     <alt role="tex">F_{ND} = (\frac{F_{observed} - F_{expected}}{Variance \cdot F_{expected}})^{\frac{1}{2}}</alt>
@@ -1153,16 +1161,17 @@
     typed HLA class I A, B, and C and the class II DR locus, and for
     molecularly typed class II DRB1, DQA1, and DQB1, are often more
     even than expected under neutrality, suggesting that some form of
-    balancing selection is operating on these genes (Hedrick and
-    Thomson 1983, Klitz et al. 1986, 1992, Begovich et al. 1992). In
-    contrast, the distribution of DPB1 alleles rarely differs
+    balancing selection is operating on these genes (
+   <citation>Hedrick:Thomson:1983</citation>, Klitz et al. 1986, 1992, 
+   Begovich et al. 1992). In
+   contrast, the distribution of DPB1 alleles rarely differs
     significantly from neutrality expectations; usually there is a
     fairly common allele, which may differ between populations.</para>
 -->
 
    <para condition="main;anthro-book">In both <citation
-    role="citet">Salamon:1999</citation> and <citation
-    role="citet">Valdes:1999</citation> where HLA class II data were
+    role="citet">Salamon:etal:1999</citation> and <citation
+    role="citet">Valdes:etal:1999</citation> where HLA class II data were
     analyzed, DQB1 showed striking evidence (in individual populations
     and overall) for balancing selection (allele frequencies more even
     than expected under the neutral model). DQA1 and DRB1 also showed
@@ -1177,7 +1186,7 @@
     particularly strong for DR-DQ.</para>
 
    <para condition="main;anthro-book">The table below summarizes the
-    findings of <citation role="citet">Valdes:1999</citation>,
+    findings of <citation role="citet">Valdes:etal:1999</citation>,
     illustrating (a) the large number of populations for which
     neutrality was rejected at certain loci; (b) the heterogeneity
     among loci with respect to deviation from neutrality. Notice than
@@ -1196,16 +1205,12 @@
       <row>
        <entry>Locus</entry>
        <entry>Populations surveyed</entry>
-       <entry>Neutrality rejected <!-- <footnote>
-	
-	<para>Number of populations for which neutrality was
-	rejected at the 5% level (From Valdes et al.,
-	1999). The mean F value is the average of the
-	observed values of the homozygosity statistic in the
-	populations studied. The expected F values are the
-	averages of the expected homozygosity statistic
-	under neutrality.</para>
-	
+       <entry>Neutrality rejected <!-- <footnote> <para>Number of
+	populations for which neutrality was rejected at the 5% level
+	(From <citation>Valdes:etal:1999</citation>). The mean F value is the average of
+	the observed values of the homozygosity statistic in the
+	populations studied. The expected F values are the averages of
+	the expected homozygosity statistic under neutrality.</para>
        </footnote> -->
        </entry>
        <entry>Mean F</entry>
@@ -1248,11 +1253,11 @@
    <para condition="main">In contrast to the allele level variation,
     at the amino acid level all 4 class II (DRB1, DQB1, DQA1, DPB1)
     loci showed evidence of balancing selection at many polymorphic
-    codon sites, and consistently so across diverse
-    populations. However, directional selection was seen for a few
-    sites, and neutrality profiles were exhibited by other codons
-    (<citation role="citet">Salamon:1999</citation>; <citation
-    role="citet">Valdes:1999</citation>). Cases of amino acid
+    codon sites, and consistently so across diverse populations.
+    However, directional selection was seen for a few sites, and
+    neutrality profiles were exhibited by other codons (<citation
+     role="citet">Salamon:etal:1999</citation>; <citation
+    role="citet">Valdes:etal:1999</citation>). Cases of amino acid
     variation showing balancing selection occurred at sites both
     within the highly polymorphic antigen recognition site (ARS) and
     outside it. Only for DRB1 was there evidence of more balancing
@@ -1264,7 +1269,7 @@
     that two non-ARS sites identified as highly polymorphic and
     showing balancing selection (DQA1#47 and DQB1#26) have also been
     identified as amino acids involved in predisposition to type 1
-    diabetes <citation>Valdes:1997</citation>.</para>
+    diabetes <citation>Valdes:Thomson:1997</citation>.</para>
   </sect2>
  </sect1>
 
@@ -1367,16 +1372,15 @@
     p<subscript>a</subscript> p<subscript>B</subscript> if D is
     positive, and the lesser of p<subscript>A</subscript>
     p<subscript>B</subscript> or p<subscript>a</subscript>
-    p<subscript>b</subscript> if D is negative (Lewontin, 1964). The
+    p<subscript>b</subscript> if D is negative <citation>Lewontin:1964</citation>. The
     advantage of this measure over D is that it has a range from -1 to
     +1, regardless of the allele frequencies. Unfortunately, for both
     D and D<superscript>&prime;</superscript> the values are not
     related to statistical significance and are dependent on allele
     frequencies. Therefore, several other measures are being used:
     &delta;, &Delta; = r, r<superscript>2</superscript>,
-    d<superscript>2</superscript>. These are reviewed by Devlin and
-    Risch (1995) except for d<superscript>2</superscript>, used by
-    Kruglyak (1999), which is closely related to
+    d<superscript>2</superscript>. These are reviewed by <citation role="citet">Devlin:Risch:1995</citation> except for d<superscript>2</superscript>, used by
+    <citation role="citet">Kruglyak:1999</citation>, which is closely related to
     D<superscript>2</superscript> and to
     r<superscript>2</superscript>: d<superscript>2</superscript> =
     D<superscript>2 </superscript>/ [f(1-f)]<superscript>2
@@ -1427,7 +1431,7 @@
 
    <para condition="main">Linkage disequilibrium can occur in
     populations as a consequence of a number of factors <citation
-    role="citep[for review, see][]">Hedrick:1983</citation>: (1)
+    role="citep[for review, see][]">Hedrick:Thomson:1983</citation>: (1)
     mutation&ndash;when a new mutant arises, it occurs in one
     individual and is in linkage disequilibrium with all polymorphic
     loci in the population; (2) selection&ndash;either acting directly
@@ -1483,16 +1487,16 @@
     loci with n<subscript>1</subscript> and n<subscript>2</subscript>
     alleles, respectively.  Interpreting such a set of LD statistics
     is not simple or obvious.  When considering three or more loci,
-    higher order disequilibrium terms are also needed (see Robinson et
-    al. 1991a).  For example, in a three-locus system a gametic
-    frequency can be expressed in terms of the three-allele
-    frequencies, the three pairwise gametic disequilibria, and a
-    single measure of third order gametic disequilibrium.  However,
-    when multi-allelic loci are included or multiple (&gt;3) sites are
-    included, the pairwise values and the higher order disequilibrium
-    terms become difficult to interpret.  Many papers now present data
-    for multiple sites in a haplotype as all possible pairwise
-    comparisons.  </para>
+    higher order disequilibrium terms are also needed (see
+    <citation>Robinson:etal:1991</citation>).  For example, in a
+    three-locus system a gametic frequency can be expressed in terms
+    of the three-allele frequencies, the three pairwise gametic
+    disequilibria, and a single measure of third order gametic
+    disequilibrium.  However, when multi-allelic loci are included or
+    multiple (&gt;3) sites are included, the pairwise values and the
+    higher order disequilibrium terms become difficult to interpret.
+    Many papers now present data for multiple sites in a haplotype as
+    all possible pairwise comparisons.  </para>
 
    <para>To date only one measure attempts to measure non-randomness
     in a general manner for an arbitrary number of sites with an
@@ -1506,23 +1510,27 @@
    <para condition="main">General population level observations are
     that there is an overall proportionality between linkage
     disequilibrium and the inverse of the recombination distance
-    (Huttley et al. 1999).  This rule however breaks down in very
-    closely linked regions (Reich et al. 2001, Huttley et al. 1999,
-    Jorde et al. 1994, Klitz et al. 1995).  Selection is expected to
+    (<citation>Huttley:etal:1999</citation>.  This rule however breaks
+    down in very closely linked regions
+    (<citation>Reich:etal:2001</citation>,
+    <citation>Huttley:etal:1999</citation>,
+    <citation>Jorde:etal:1994</citation>,
+    <citation>Klitz:etal:1995</citation>). Selection is expected to
     produce linkage disequilibrium non-randomly across the genome,
     whereas all the other factors should act randomly over the genome.
     In study of the CEPH families, linkage disequilibrium was found to
-    be non-randomly distributed throughout the genome (Huttley et
-    al. 1999).  Some regions, such as HLA, showed strong evidence of
-    selection and significant linkage disequilibrium which spanned 3
-    cM or more, and an additional 10 genetic regions showed linkage
-    disequilibrium equal to or greater than in the HLA region.  Most
-    recently, a series of papers in the October 2001 <emphasis>Nature
-    Genetics</emphasis> present evidence that LD in humans exists in
-    blocks of strong LD separated by short intervals across which all
-    LD breaks down.  Recombination hot spots and cold spots is one
-    possible explanation for such a pattern.  How general around the
-    genome this pattern is remains to be seen.</para>
+    be non-randomly distributed throughout the genome
+    <citation>Huttley:etal:1999</citation>.  Some regions, such as
+    HLA, showed strong evidence of selection and significant linkage
+    disequilibrium which spanned 3 cM or more, and an additional 10
+    genetic regions showed linkage disequilibrium equal to or greater
+    than in the HLA region.  Most recently, a series of papers in the
+    October 2001 <citetitle>Nature Genetics</citetitle> present
+    evidence that LD in humans exists in blocks of strong LD separated
+    by short intervals across which all LD breaks down.  Recombination
+    hot spots and cold spots is one possible explanation for such a
+    pattern.  How general around the genome this pattern is remains to
+    be seen.</para>
 
   </sect2>
 
@@ -1536,22 +1544,28 @@
     locus level, may nevertheless be detected in a multi-locus
     analysis.  This was the initial observation in the study of
     ch. 19q13.2 APOE region variation and multiple sclerosis
-    (Barcellos 1996, <citation role="citet">Barcellos:1997a</citation>
+    (Barcellos 1996, <citation role="citet">Barcellos:etal:1997a</citation>
     and 1997c), and in analysis of ch. 19 markers and alcohol
-    dependence <citation>Valdes:1999</citation>.</para>
+    dependence <citation>Valdes:etal:1999</citation>.</para>
    
    <para>Procedures that make use of the expectation-maximization (EM)
     algorithm to estimate haplotype frequencies (HFs) from unphased
-    genotype data are in common use in genetic studies, e.g., HAUPT
-    (Baur and Danilovs 1980), Arlequin (Schneider et al. 2000), HAPLO
-    (Hawley and Kidd 1995), and 3LOCUS.PAS (Long et al. 1995).  The EM
-    algorithm uses these unphased genotype frequencies along with the
-    assumption of Hardy-Weinberg proportions (HWP) to converge on HF
-    estimates.  The EM algorithm is an iterative algorithm for
-    computing maximum likelihood estimates (MLEs) in an
-    incomplete-data setting (<citation
-    role="citet">Dempster:1977</citation>; Lange 1997).  The algorithm
-    is straightforward.  Each iteration consists of two steps.  The
+    genotype data are in common use in genetic studies, e.g.,
+    <application>HAUPT</application>
+    <citation>Baur:Danilovs:1980</citation>),
+    <application>Arlequin</application>
+    <citation>Schneider:etal:2000</citation>,
+    <application>HAPLO</application>
+    <citation>Hawley:Kidd:1995</citation>, and
+    <application>3LOCUS.PAS</application>
+    <citation>Long:etal:1995</citation>.  The EM algorithm uses these
+    unphased genotype frequencies along with the assumption of
+    Hardy-Weinberg proportions (HWP) to converge on HF estimates.  The
+    EM algorithm is an iterative algorithm for computing maximum
+    likelihood estimates (MLEs) in an incomplete-data setting
+    (<citation role="citet">Dempster:1977</citation>;
+    <citation>Lange:1997</citation>). The algorithm is
+    straightforward.  Each iteration consists of two steps.  The
     E-step calculates the conditional expectation, and the M-step
     maximizes the updated likelihood function. Although the
     convergence of the EM algorithm could be slow, the general theory
@@ -1559,17 +1573,19 @@
     MLEs are generally achieved <citation>Dempster:1977</citation>.
     The accuracy of haplotype frequency estimates are in general
     relatively good, except in the case of low frequency haplotypes
-    (see e.g., Schipper et al. 1998, Fallin and Schork 2000, Tishkoff
-    et al. 2000, Single et al. 2002).  Large over and under estimates
-    of particular HFs can occur even for common haplotypes, especially
-    when the loci involved deviate significantly from HWP (Single et
-    al. 2002).  Estimating HFs for three or more loci and then
-    collapsing over loci so as to generate two locus haplotypes can
-    improve the accuracy of the estimation.  The collapsing procedure
-    is most beneficial when one of the loci in the two-locus haplotype
-    of interest deviates significantly from HWP and the locus
-    collapsed over is in linkage disequilibrium with the other loci
-    (Single et al 2002).</para>
+    (see e.g., <citation>Schipper:etal:1998</citation>,
+    <citation>Fallin:Schork:2000</citation>, <citation>Tishkoff:etal:2000</citation>, 
+    <citation>Single:etal:2002</citation>).  Large over and under
+    estimates of particular HFs can occur even for common haplotypes,
+    especially when the loci involved deviate significantly from HWP
+    <citation>Single:etal:2002</citation>.
+    Estimating HFs for three or more loci and then collapsing over
+    loci so as to generate two locus haplotypes can improve the
+    accuracy of the estimation. The collapsing procedure is most
+    beneficial when one of the loci in the two-locus haplotype of
+    interest deviates significantly from HWP and the locus collapsed
+    over is in linkage disequilibrium with the other loci
+    <citation>Single:etal:2002</citation>.</para>
    
    <figure id="em-performance">
     <title>Performance of EM
@@ -1581,39 +1597,41 @@
    <para>The performance of the EM algorithm for the estimation of
     haplotypes in the HLA region is illustrated in <xref
     linkend="em-performance"/>These are results from a study reported
-    in Single et al. (2002) where family data allowed haplotypes to be
-    unambiguously inferred, so true and estimated haplotype
-    frequencies could be compared.  The graphs depict the performance
-    of the EM algorithm in inferring two-locus haplotypes for selected
-    pairs of sites.  The circles represent true haplotype frequencies,
-    and the lines represent estimated haplotype frequencies.
-    Two-locus haplotypes for the DPB1 and A loci offer an example of
-    how pairs of loci between which there is little LD allow only poor
-    estimates of haplotype frequencies: notice the large discrepancies
-    between true (circles) and inferred (lines) frequencies.  In
-    addition, note how for the DPB1-A haplotypes there are instances
-    of missed haplotypes (true haplotypes not inferred - represented
-    by circles with no lines) and incorrect haplotypes (inferred but
-    not real - represented by lines with no circle).  The locus pair
-    DQB1-DRB1 exemplifies completely accurate inference.  This results
-    from the high LD values between these tightly linked loci.
-    Finally, an intermediate scenario is exemplified by the inference
-    of frequencies for the DQB1-B haplotype.</para>
+    in <citation role="citet">Single:etal:2002</citation> where family
+    data allowed haplotypes to be unambiguously inferred, so true and
+    estimated haplotype frequencies could be compared.  The graphs
+    depict the performance of the EM algorithm in inferring two-locus
+    haplotypes for selected pairs of sites.  The circles represent
+    true haplotype frequencies, and the lines represent estimated
+    haplotype frequencies. Two-locus haplotypes for the DPB1 and A
+    loci offer an example of how pairs of loci between which there is
+    little LD allow only poor estimates of haplotype frequencies:
+    notice the large discrepancies between true (circles) and inferred
+    (lines) frequencies.  In addition, note how for the DPB1-A
+    haplotypes there are instances of missed haplotypes (true
+    haplotypes not inferred - represented by circles with no lines)
+    and incorrect haplotypes (inferred but not real - represented by
+    lines with no circle).  The locus pair DQB1-DRB1 exemplifies
+    completely accurate inference.  This results from the high LD
+    values between these tightly linked loci. Finally, an intermediate
+    scenario is exemplified by the inference of frequencies for the
+    DQB1-B haplotype.</para>
 
    <para>The performance of the EM algorithm also differs depending on
     the true frequency of the haplotypes being estimated.  The table
     below compares the true and estimated haplotype sets using a
     measure that takes into account the frequency differences among
-    observed and inferred haplotypes (the If measure, see Single et
-    al. 2002).  High values imply poor estimates (maximum being 1) and
-    low values imply accurate estimates (minimum being 0).  Notice
-    that when haplotypes that are present as a single copy (column 1),
-    the estimation is very inaccurate, but improves as the true
-    frequency increases.  The haplotypes present as 4 or more copies
-    are estimated most accurately.  This confirms the intuition that
-    low frequency haplotypes are difficult to infer using the EM
-    algorithm.  A similar result was obtained by Tishkoff et
-    al. (2000).</para>
+    observed and inferred haplotypes (the If measure, see
+    <citation role="citealt">Single:etal:2002</citation>).  High values imply poor
+    estimates (maximum being 1) and low values imply accurate
+    estimates (minimum being 0).  Notice that when haplotypes that are
+    present as a single copy (column 1), the estimation is very
+    inaccurate, but improves as the true frequency increases.  The
+    haplotypes present as 4 or more copies are estimated most
+    accurately.  This confirms the intuition that low frequency
+    haplotypes are difficult to infer using the EM algorithm.  A
+    similar result was obtained by
+    <citation role="citet">Tishkoff:etal:2000</citation>.</para>
 
    <table id="em-performance-table.figure">
     <title>Performance of EM algorithm</title>
@@ -1671,15 +1689,16 @@
     account for deviations from free association among all pairs of
     alleles at two loci, can be used to generate test statistics that
     can be tested using parametric tests.  For example, the overall
-    measure of LD, Q (discussed in Hedrick, 1987) follows a chi-square
+    measure of LD, Q (discussed in <citation
+     role="citealt">Hedrick:1987</citation>) follows a chi-square
     distribution with (k-1)(l-1) degrees of freedom for datasets under
     linkage equilibrium (where k and l are the number of alleles at
     the first and second locus, respectively).  However, if haplotypes
     are inferred from unphased genotype data this approach is limited
     in that the uncertainty inherent in the haplotype estimation is
     not accounted for when LD values are estimated and tested.  The
-    following likelihood-based approach circumvents this
-    limitation. </para>
+    following likelihood-based approach circumvents this limitation.
+   </para>
 
    <para>Two likelihood values are defined: L<subscript>1</subscript>
     is the likelihood of observed genotypic data given the estimated
@@ -2161,7 +2180,7 @@
 	  strong HLA association with multiple sclerosis is not picked
 	  up in all genome linkage scans (Sawcer et al. 1997). As with
 	  linkage studies, haplotype level analyses can be more
-	  powerful than single locus analyses (<xref linkend="Barcellos et al. 1997a"/>, Valdes et al. 1999a).</para>
+	  powerful than single locus analyses (<citation>Barcellos:etal:1997a</citation>, Valdes et al. 1999a).</para>
 
 	  <para>At least 12,000 highly polymorphic, evenly spaced
 	  markers, giving an average distance between markers of 0.25
@@ -2169,7 +2188,7 @@
 	  association scan. Association scans are thus over an order
 	  of magnitude higher than the 300 to 400 markers at 10 cM
 	  typically used for linkage genome scans. The use of pooled
-	  samples of DNA for the study of RFLP (see e g., <xref linkend="Barcellos et al. 1997b"/>), and SNP variation (Germer et al. 1999), as well
+	  samples of DNA for the study of RFLP (see e g., <citation>Barcellos:etal:1997b</citation>), and SNP variation (Germer et al. 1999), as well
 	  as the current development of DNA chip technology for the
 	  study of SNPs, has opened the way for future routine and
 	  extensive use of association mapping in the study of complex
@@ -2181,12 +2200,11 @@
 	  positives that will result from genome-wide association
 	  scans make them unmanageable. A preliminary discussion of
 	  power and a multi-stage strategy to reduce false positives
-	  in genome-wide association studies is outlined in <xref
-	  linkend="Barcellos et al. 1997b"/>. As with linkage studies
+	  in genome-wide association studies is outlined in <citation>Barcellos:etal:1997b</citation>. As with linkage studies
 	  (Rao 1998), power should be high in an initial association
 	  scan, to reduce missing associations (false negatives), and
-	  sample sizes of 500 - 1,000 are recommended (<xref
-	  linkend="Barcellos et al. 1997b"/>, Long and Langley
+	  sample sizes of 500 - 1,000 are recommended (
+	  <citation>Barcellos et al. 1997b</citation>, Long and Langley
 	  1999). Long and Langley (1999) have demonstrated that
 	  greater power is achieved in association genome scans by
 	  increasing the sample size than by increasing the number of
