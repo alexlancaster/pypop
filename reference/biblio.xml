@@ -411,21 +411,8 @@
  Accuracy of haplotype frequency estimation for biallelic loci, via the expectation-maximization algorithm for unphased diploid genotype data. Am J Hum Genet 67:947-59.
 </biblioentry>
 
-<biblioentry id="Guo" xreflabel="Guo">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>SW</firstname>
-<surname>Guo</surname>
-</author>
-<author>
-<firstname>EA</firstname>
-<surname>Thompson</surname>
-</author>
-<pubdate>1992</pubdate>
- Performing the exact test of Hardy-Weinberg proportion for multiple alleles. Biometrics 48:361-72.
-</biblioentry>
-
+Guo and Thompson references goes here!
+ 
 <biblioentry id="Hacia" xreflabel="Hacia">
 <biblioset relation="article">
 <authorgroup>
