@@ -35,23 +35,24 @@
 
 import os, sys
 from getopt import getopt, GetoptError
+from Utils import checkXSLFile
 
 # don't use libxml/libxslt bindings for the moment, aren't working with
 # exslt extensions nor on all platforms.
 
-#import libxml2
-#import libxslt
+import libxml2
+import libxslt
 
-#libxslt.registerAllExtras()
+libxslt.registerAllExtras()
     
 ## force the libxml2 processor to generate DOM trees compliant with
 ## the XPath data model.
-#libxml2.lineNumbersDefault(1)
+libxml2.lineNumbersDefault(1)
 
 ## set libxml2 to substitute the entities in the document by default...
-#libxml2.substituteEntitiesDefault(1)
+libxml2.substituteEntitiesDefault(1)
 
-def _translate_string_to(xslFilename, inString, outFile):
+def _translate_string_to(xslFilename, inString, outFile, params=None):
     # do the transformation
     
     # parse the stylesheet file
@@ -64,7 +65,7 @@ def _translate_string_to(xslFilename, inString, outFile):
     doc = libxml2.parseDoc(inString)
 
     # apply the stylesheet instance to the document instance
-    result = style.applyStylesheet(doc, None)
+    result = style.applyStylesheet(doc, params)
     
     style.saveResultToFilename(outFile, result, 0)
 
@@ -79,14 +80,14 @@ def _translate_string_to(xslFilename, inString, outFile):
     doc.freeDoc()
     #return outString
     
-def translate_string_to_stdout(xslFilename, inString):
+def translate_string_to_stdout(xslFilename, inString, params=None):
     # save result to stdout "-"
-    _translate_string_to(xslFilename, inString, "-")
+    _translate_string_to(xslFilename, inString, "-", params)
 
-def translate_string_to_file(xslFilename, inString, outFile):
-    _translate_string_to(xslFilename, inString, outFile)
+def translate_string_to_file(xslFilename, inString, outFile, params=None):
+    _translate_string_to(xslFilename, inString, outFile, params)
 
-def _translate_file_to(xslFilename, inFile, outFile):
+def _translate_file_to(xslFilename, inFile, outFile, params=None):
     
     # parse the stylesheet file
     styledoc = libxml2.parseFile(xslFilename)
@@ -98,7 +99,7 @@ def _translate_file_to(xslFilename, inFile, outFile):
     doc = libxml2.parseFile(inFile)
 
     # apply the stylesheet instance to the document instance
-    result = style.applyStylesheet(doc, None)
+    result = style.applyStylesheet(doc, params)
     
     style.saveResultToFilename(outFile, result, 0)
 
@@ -107,11 +108,11 @@ def _translate_file_to(xslFilename, inFile, outFile):
     style.freeStylesheet()
     doc.freeDoc()
 
-def translate_file_to_stdout(xslFilename, inFile):
-    _translate_file_to(xslFilename, inFile, "-")
+def translate_file_to_stdout(xslFilename, inFile, params=None):
+    _translate_file_to(xslFilename, inFile, "-", params)
 
-def translate_file_to_file(xslFilename, inFile, outFile):
-    _translate_file_to(xslFilename, inFile, outFile)
+def translate_file_to_file(xslFilename, inFile, outFile, params=None):
+    _translate_file_to(xslFilename, inFile, outFile, params)
 
 datapath = os.path.join(sys.prefix, 'share', 'PyPop')
 
@@ -125,20 +126,33 @@ skip any XML files that are not well-formed XML.
                             (default: '%s')
   -h, --help              show this message
   -d, --dump-meta         dump the meta output file to stdout, ignore xslt file
-      --no-R              don't generate R *.dat files 
-      --no-PHYLIP         don't generate PHYLIP *.phy files
+      --disable-R         disable generation of R *.dat file
+      --enable-PHYLIP     enable generation of PHYLIP *.phy files
 
   INPUTFILES  input XML files""" % datapath
 
 try:
-  opts, args =getopt(sys.argv[1:],"m:hd", ["meta-xslt=", "help", "dump-meta", "no-R", "no-PHYLIP"])
+  opts, args =getopt(sys.argv[1:],"m:hd", ["meta-xslt=", "help", "dump-meta", "disable-R", "enable-PHYLIP"])
 except GetoptError:
   sys.exit(usage_message)
 
-metaXSLTDirectory= datapath
+# find our exactly where the current executable is being run from
+popmetabinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+# heuristics to find default location of 'xslt/' subdirectory, if it is
+# not supplied by the command-line option
+if checkXSLFile('meta-to-r.xsl', popmetabinpath, \
+                'xslt', abort=1):
+    metaXSLTDirectory = os.path.join(popmetabinpath, 'xslt')
+else:
+    metaXSLTDirectory= datapath
 dump_meta = 0
+
+# output R tables by default
 R_output=1
-PHYLIP_output=1
+
+# don't output PHYLIP by default
+PHYLIP_output=0
 
 # parse options
 for o, v in opts:
@@ -148,10 +162,10 @@ for o, v in opts:
     sys.exit(usage_message)
   elif o in ("-d", "--dump-meta"):
     dump_meta = 1
-  elif o=="--no-R":
+  elif o=="--disable-R":
     R_output = 0
-  elif o=="--no-PHYLIP":
-    PHYLIP_output = 0
+  elif o=="--enable-PHYLIP":
+    PHYLIP_output = 1
 
 # parse arguments
 files = args
@@ -162,16 +176,14 @@ if not(files):
 
 wellformed_files = []
 
-# check each file for "well-formedness" using xmllint (with '--noout'
-# command-line option) in libxslt package, if stderr is anything but
-# empty (indicating non-well-formedness), report an error on this
-# file, and skip this file in the meta analysis 
+# check each file for "well-formedness" using libxml2.parseFile()
+# libxml2 package, if not well-formed report an error on this file,
+# and skip this file in the meta analysis
 for f in files:
-    stdin, stdout, stderr  = os.popen3("xmllint --noout %s" % f)
-    lines = stderr.readlines()
-    if len(lines) == 0:
+    try:
+        libxml2.parseFile(f)
         wellformed_files.append(f)
-    else:
+    except:
         print "%s is not well-formed XML:" % f
         print "  probably a problem with analysis not completing, skipping in meta analysis!"
 
@@ -193,16 +205,12 @@ for f in wellformed_files:
 
 # put entities after doctype
 meta_string += entities
-
 # close doctype
 meta_string += "]>\n"
-
 # open tag
 meta_string += "<meta>\n"
-
 # include content
 meta_string += includes
-
 # close tag
 meta_string += "</meta>"
 
@@ -212,40 +220,34 @@ else:
     f = open('meta.xml', 'w')
     f.write(meta_string)
     f.close()
-    #translate_string_to_file(os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), meta_string, 'sorted.xml')
-    #translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'sorted.xml')
-    # have to resort to command-line version because the Python bindings
-    # don't understand how to load the exslt extensions in libxslt yet
-    # that the meta-to-r.xsl stylesheet uses
-
-    # generate the data file 'sorted-by-locus.xml' of pops sorted by locus
-    os.popen("xsltproc %s %s > %s" % (os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), 'meta.xml', 'sorted-by-locus.xml'))
+    translate_string_to_file(os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), meta_string, 'sorted-by-locus.xml')
 
     # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:
 
     if R_output:
         # generate all data output in formats for R
-        os.popen("xsltproc %s %s 2> log.out" % (os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml'))
+        translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml')
 
     if PHYLIP_output:
         # use 'sorted-by-locus.xml' to generate a list of unique alleles
         # 'allelelist-by-locus.xml' for each locus across all the
         # populations in the set of XML files passed
-        os.popen("xsltproc %s %s > %s" % (os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'), 'sorted-by-locus.xml', 'allelelist-by-locus.xml'))
+        translate_file_to_file(os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'), 'sorted-by-locus.xml', 'allelelist-by-locus.xml')
 
         # similarly, generate a unique list of haplotypes
         # 'haplolist-by-locus.xml'
-        os.popen("xsltproc %s %s > %s" % (os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), 'meta.xml', 'haplolist-by-group.xml'))
+        translate_file_to_file(os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), 'meta.xml', 'haplolist-by-group.xml')
 
         # generate Phylip allele data
 
         # generate individual locus files (don't use loci parameter)
-        os.popen("xsltproc %s %s" % (os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml'))
+        translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml')
 
         # generate locus group files
         for locus in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-            os.popen("xsltproc --stringparam loci %s %s %s" % (locus, os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml'))
+            translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml', params={'loci': '"' + locus + '"'})
 
         # generate Phylip haplotype data
         for haplo in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-            os.popen("xsltproc --stringparam loci %s %s %s" % (haplo, os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), 'meta.xml'))
+            translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), 'meta.xml', params={'loci': '"' + haplo + '"'})
+
