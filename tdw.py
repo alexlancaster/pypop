@@ -63,7 +63,7 @@ except NoOptionError:
 input = ParseGenotypeFile(fileName, 
 			  alleleDesignator=alleleDesignator, 
 			  untypedAllele=untypedAllele,
-			  debug=0)
+			  debug=debug)
 
 
 popData = input.getPopData()
@@ -107,7 +107,7 @@ for locus in loci:
     hwObject = HardyWeinbergGuoThompson(input.getLocusDataAt(locus), 
                                         input.getAlleleCountAt(locus), 
                                         lumpBelow=5,
-                                        debug=0)
+                                        debug=debug)
 
     # FIXME: for testing purposes, set stream to be stdout
     hwObject.dumpTable(locus, sys.stdout)
