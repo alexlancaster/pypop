@@ -3,6 +3,12 @@
 import sys, os, string
 from Haplo import HaploArlequin
 
+def stripSuffix(filename):
+    return string.split(os.path.basename(filename), '.')[0]
+
+def genArpFilename(prefix, start, stop):
+    return prefix + "-" + start + "-" + stop + ".haplo"
+
 def genHaplotypes(inputFilename, arpFilename):
 
     haploParse = HaploArlequin(idCol = 1,
@@ -16,9 +22,6 @@ def genHaplotypes(inputFilename, arpFilename):
     haplotypes = haploParse.genHaplotypes()
     return haplotypes
 
-def genArpFilename(prefix, start, stop):
-    return prefix + "-" + start + "-" + stop + ".haplo"
-
 def outputHaploFiles(filename, haplotypes):
     for window in haplotypes:
         freqs, popName, sampleCount, start, stop = window
@@ -28,29 +31,31 @@ def outputHaploFiles(filename, haplotypes):
             f.write("%s %s %s" % (haplotype, freqs[haplotype], os.linesep))
         f.close()
 
-casesFilename = sys.argv[1]
-casesArpFilename = string.split(os.path.basename(casesFilename), '.')[0] + ".arp"
-controlsFilename = sys.argv[2]
-controlsArpFilename = string.split(os.path.basename(controlsFilename), '.')[0] + ".arp"
+def genContingency(casesFilename, controlsFilename):
 
-casesHaplotypes = genHaplotypes(casesFilename,  casesArpFilename)
-controlsHaplotypes = genHaplotypes(controlsFilename, controlsArpFilename)
+    casesArpFilename = stripSuffix(casesFilename) + ".arp"
+    controlsArpFilename = stripSuffix(controlsFilename) + ".arp"
 
-outputHaploFiles(casesArpFilename, casesHaplotypes)
-outputHaploFiles(controlsArpFilename, controlsHaplotypes)
+    casesHaplotypes = genHaplotypes(casesFilename,  casesArpFilename)
+    controlsHaplotypes = genHaplotypes(controlsFilename, controlsArpFilename)
+    
+    outputHaploFiles(casesArpFilename, casesHaplotypes)
+    outputHaploFiles(controlsArpFilename, controlsHaplotypes)
 
-# loop through pairs of case, controls, generating contingency tables
-for window in casesHaplotypes:
-    freqs, popName, sampleCount, start, stop = window
-    contingFilename = popName + "-" + start + "-" + stop + ".conting"
-    print "running contingency: " + contingFilename
-    f = open(contingFilename, 'w')
-    f.write("Contingency table" + os.linesep)
-    f.write("Population: %s" % popName + os.linesep)
-    f.write("Loci: %s - %s" % (start, stop) + os.linesep)
-    f.write("Number of case samples: %s" % sampleCount + os.linesep)
-    f.close()
-    os.system("contingency.awk -c %s %s >> %s" \
-              % (genArpFilename(casesArpFilename, start, stop), \
-                 genArpFilename(controlsArpFilename, start, stop),
-                 contingFilename))
+    # loop through pairs of case, controls, generating contingency tables
+    for window in casesHaplotypes:
+        freqs, popName, sampleCount, start, stop = window
+        contingFilename = popName + "-" + start + "-" + stop + ".conting"
+        print "running contingency: " + contingFilename
+        f = open(contingFilename, 'w')
+        f.write("Contingency table" + os.linesep)
+        f.write("Population: %s" % popName + os.linesep)
+        f.write("Loci: %s - %s" % (start, stop) + os.linesep)
+        f.write("Number of case samples: %s" % sampleCount + os.linesep)
+        f.close()
+        os.system("contingency.awk -c %s %s >> %s" \
+                  % (genArpFilename(casesArpFilename, start, stop), \
+                     genArpFilename(controlsArpFilename, start, stop),
+                     contingFilename))
+
+genContingency(sys.argv[1], sys.argv[2])
