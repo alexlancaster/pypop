@@ -1,8 +1,15 @@
-class HardyWeinberg:
-  """Given the observed genotypes for a locus,
+#! /usr/bin/env python
 
-  calculate the expected genotype counts based on Hardy Weinberg proportions
-  for individual genotype values, and test for fit."""
+"""Module for calculating Hardy-Weinberg statistics.
+
+"""
+
+class HardyWeinberg:
+  """Calculate Hardy-Weinberg statistics.
+
+  Given the observed genotypes for a locus, calculate the expected
+  genotype counts based on Hardy Weinberg proportions for individual
+  genotype values, and test for fit."""
 
   def __init__(self, locusData, debug=0):
     """Constructor.
