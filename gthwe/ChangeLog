@@ -1,3 +1,13 @@
+2004-07-12  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* gthwe_wrap.i (run_randomization): Add FILE * to SWIG wrapper.
+
+	* hwe.c (run_data, init_stats, print_stats, run_randomization):
+	XML-ify individual genotype output.  Put much debugging output
+	inside DEBUG or PERMU_DEBUG #define's.
+	(run_randomization): Pass in FILE pointer parameter to save to XML
+	stream.
+
 2004-07-09  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* hwe.c (norm_dev): Recoded to calculate Z_ij and Z_ii stats
