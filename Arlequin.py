@@ -45,7 +45,7 @@ class ArlequinWrapper:
             sys.exit("Error: Arlequin settings filename: %s does not have a .ars suffix", arpFilename)
             
 
-    def outputArp(self, group):
+    def outputArpFile(self, group):
 
         dataLoci = [l for l in group \
                     if len(self.matrix.filterOut(l, self.untypedAllele)) > 0]
@@ -115,6 +115,53 @@ use_interf_settings
 0
 end""" % (os.path.join(os.getcwd(), self.arlSubdir), \
           os.path.join(os.getcwd(), self.arlSubdir, arpFilename)))
+
+    def outputArsFile(self, arsFilename, arsContents):
+        """Outputs the run-time Arlequin program file.
+        """
+        file = open(os.path.join(self.arlSubdir, arsFilename), 'w')
+        file.write(arsContents)
+        file.close()
+        
+    def outputRunFiles(self):
+        """Generates the expected '.txt' set-up files for Arlequin.
+        """
+        self._outputArlRunTxt(self.arlequinPrefix + ".txt", self.arpFilename)
+
+    def runArlequin(self):
+        """Run the Arlequin haplotyping program.
+         
+        Forks a copy of 'arlecore.exe', which must be on 'PATH' to
+        actually generate the desired statistics estimates from the
+        generated '.arp' file.  """
+
+        # save current directory
+        cwd = os.getcwd()
+
+        # change into subdirectory
+        os.chdir(self.arlSubdir)
+
+        # spawn external Arlequin process and store stdout
+        stdout = os.popen(self.arlequinExec, 'r').readlines()
+
+        if self.debug:
+            print "Arlequin stdout", stdout
+
+        # fix permissions on result directory because Arlequin is
+        # brain-dead with respect to file permissions on Unix
+        os.chmod(self.arlResPrefix + ".res", 0755)
+
+        # restore original directory
+        os.chdir(cwd)
+
+    def cleanup(self):
+        # remove the working arlequin subdirectory
+        shutil.rmtree(self.arlSubdir)
+
+class ArlequinExactHWTest(ArlequinWrapper):
+    """Wraps the Arlequin Hardy-Weinberg exact functionality
+
+    """
 
     hwExactTest = """[Setting for Calculations]
 TaskNumber=32
@@ -190,46 +237,40 @@ PrintMinSpannNetworkPop=0
 PrintMinSpannNetworkGlob=0
 KeepNullDistrib=0"""
 
-    def _outputArlRunArs(self, arsFilename):
-        """Outputs the run-time Arlequin program file.
+    def __init__(self,
+                 matrix=None,
+                 lociList=None,
+                 **kw):
+        """Setup run HW exact test.
+
+        Run Hardy-Weinberg exact test on list specified in 'lociList'.
+
         """
-        file = open(os.path.join(self.arlSubdir, arsFilename), 'w')
-        file.write(self.hwExactTest)
-        file.close()
-        
-    def outputRunFiles(self):
-        """Generates the expected '.txt' set-up files for Arlequin.
-        """
-        self._outputArlRunTxt(self.arlequinPrefix + ".txt", self.arpFilename)
-        self._outputArlRunArs(self.arsFilename)
-
-    def runArlequin(self):
-        """Run the Arlequin haplotyping program.
-         
-        Forks a copy of 'arlecore.exe', which must be on 'PATH' to
-        actually generate the desired statistics estimates from the
-        generated '.arp' file.  """
-
-        # save current directory
-        cwd = os.getcwd()
-
-        # change into subdirectory
-        os.chdir(self.arlSubdir)
-
-        # spawn external Arlequin process and store stdout
-        stdout = os.popen(self.arlequinExec, 'r').readlines()
-
-        if self.debug:
-            print "Arlequin stdout", stdout
-
-        # fix permissions on result directory because Arlequin is
-        # brain-dead with respect to file permissions on Unix
-        os.chmod(self.arlResPrefix + ".res", 0755)
-
-        # restore original directory
-        os.chdir(cwd)
+        ArlequinWrapper.__init__(self, matrix=matrix, **kw)
+        self.outputArpFile(lociList)
+        self.outputArsFile(self.arsFilename, self.hwExactTest)
+        self.outputRunFiles()
+        self.runArlequin()
 
     def getHWExactTest(self):
+        """Returns a dictionary of loci.
+
+        Each dictionary element contains a tuple of the results from
+        the Arlequin implementation of the Hardy-Weinberg exact test,
+        namely:
+
+        - number of genotypes,
+
+        - observed heterozygosity,
+
+        - expected heterozygosity,
+
+        - the p-value,
+
+        - the standard deviation,
+
+        - number of steps,
+        """
         
         outFile = os.path.join(self.arlSubdir, self.arlResPrefix + ".res" , self.arlResPrefix + ".htm")
         
@@ -259,9 +300,8 @@ KeepNullDistrib=0"""
 
         return hwExact
 
-    def cleanup(self):
-        # remove the working arlequin subdirectory
-        shutil.rmtree(self.arlSubdir)
+
+    
 
 class ArlequinBatch:
     """A Python `wrapper' class for Arlequin.
