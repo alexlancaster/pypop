@@ -47,6 +47,23 @@ allele count case).
 
 **TODO**
 
+2001-11-27:
+
+- 'Emhaplofreq' : add names of loci and associated numerical labels to output.
+	(_alex_)
+
+- 'Emhaplofreq' : remove allele frequency output. 
+	(_alex_)
+
+- 'Emhaplofreq' : check accuracy of chi-squared output in LD section.
+	(_single_: SOLVED 2001-11-29) the individual chi-squared values reported are actually
+	 computede for 2x2 contingency tables involving the alleles of interest and
+	 the complementary classes. 
+
+- 'Emhaplofreq' : ask Rich if we should increase the number of permutations by
+	one since the observed data's LR value does not contribute to the distribution.
+	(_single_)
+
 2001-11-21:
 
 - 'Emhaplofreq' : XML-ify Rich's program (_alex_).
