@@ -232,15 +232,16 @@ class HardyWeinberg:
 
     # now the chi-square for heterozygotes by allele
     for allele in self.observedAlleles:
-      self.chisqByAllele[allele] = ((self.hetsObservedByAllele[allele] -\
-                                    self.hetsExpectedByAllele[allele]) *\
-                                    (self.hetsObservedByAllele[allele] -\
-                                    self.hetsExpectedByAllele[allele])) /\
-                                    self.hetsExpectedByAllele[allele]
+      if self.hetsExpectedByAllele[allele] >= self.lumpBelow:
+        self.chisqByAllele[allele] = ((self.hetsObservedByAllele[allele] -\
+                                      self.hetsExpectedByAllele[allele]) *\
+                                      (self.hetsObservedByAllele[allele] -\
+                                      self.hetsExpectedByAllele[allele])) /\
+                                      self.hetsExpectedByAllele[allele]
 
-      command = "pval 1 %f" % (self.chisqByAllele[allele])
-      returnedValue = os.popen(command, 'r').readlines()
-      self.pvalByAllele[allele] = float(returnedValue[0][:-1])
+        command = "pval 1 %f" % (self.chisqByAllele[allele])
+        returnedValue = os.popen(command, 'r').readlines()
+        self.pvalByAllele[allele] = float(returnedValue[0][:-1])
 
       if self.debug:
         print 'By Allele:    obs exp   chi        p'
@@ -414,6 +415,8 @@ class HardyWeinberg:
         stream.tagContents("pvalue", "%4f" % self.chisqHetsPval)
         stream.writeln()
         stream.closetag('heterozygotes')
+
+      # loop for heterozygotes by allele to go here--mpn--
 
       if self.flagLumps == 1:
         stream.opentag('lumped')
