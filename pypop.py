@@ -187,6 +187,11 @@ except NoOptionError:
   sys.exit("No valid population fields defined")
 
 try:
+  popNameDesignator = config.get("ParseFile", "popNameDesignator")
+except NoOptionError:
+  popNameDesignator = "+"
+
+try:
   validSampleFields = config.get("ParseFile", "validSampleFields")
 except NoOptionError:
   sys.exit("No valid sample fields defined")
@@ -197,6 +202,7 @@ input = ParseGenotypeFile(fileName,
                           validSampleFields=validSampleFields,
 			  alleleDesignator=alleleDesignator, 
 			  untypedAllele=untypedAllele,
+                          popNameDesignator=popNameDesignator,
                           fieldPairDesignator=fieldPairDesignator,
 			  debug=debug)
 
