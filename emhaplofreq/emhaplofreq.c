@@ -69,6 +69,18 @@ void emcalc(char (*)[], char (*)[][], int (*)[], int *, int *, double *,
   * perform EM iterations with results in the mle array
 */
 
+void haplo_freqs_no_ld(double *, double (*)[], int (*)[], int *, int, int);
+/* freqs, allele_freq, haplocus, n_unique_allele, n_loci, n_haplo */
+/*
+  * compute haplotype frequencies under no LD as products of allele frequencies 
+*/
+
+double loglikelihood(char (*)[], char (*)[][], int (*)[], double *, int *, int, int, int);
+/* haplo, geno, genopheno, hap_freq, n_haplo, n_unique_geno, n_unique_pheno */
+/*
+  * compute log likelihood for a given set of haplotype frequencies
+*/
+
 /******************* end: function prototypes ****************************/
 
 int main(int argc, char **argv)
@@ -250,6 +262,9 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 
   /* needed for the emcalc function */
   double mle[MAX_HAPLOS], freq_zero[MAX_HAPLOS];
+
+  /* needed to store loglikelihood under no LD */
+  double loglike0;
 
   /******************* end: declarations ****************************/
 
@@ -498,7 +513,17 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     fprintf(stdout, "haplo[%d]: %s\n", i, haplo[i]);
   }
 */
+
+  /* Compute haplotype freqs under no LD and store them temporarily in freq_zero */
+  haplo_freqs_no_ld(freq_zero, allele_freq, haplocus, n_unique_allele, 
+    n_loci, n_haplo);
+
+  /* Compute log likelihood under no LD */
+  loglike0 = loglikelihood(haplo, geno, genopheno, freq_zero, obspheno, n_haplo, 
+    n_unique_geno, n_unique_pheno);
   
+  fprintf(stdout, "\n Log likelihood under no LD: %f \n", loglike0);
+
   /* Set initial haplotype frequencies  before EM calc */
   for (i = 0; i < n_haplo; i++)
   {
@@ -1244,6 +1269,93 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
     }      /* end of loop for iter */
   }        /* end of else if ( ambig_sum > 0 ) */
 
+}
+
+/************************************************************************/
+void haplo_freqs_no_ld(double *hap_freq, double (*allele_freq)[MAX_ALLELES],
+       int (*haplocus)[MAX_LOCI], int *n_unique_allele, int n_loci, int n_haplo)
+{
+  int i, j, k;
+
+  for (k = 0; k < n_haplo; k++) 
+  { 
+    hap_freq[k] = 1.0;
+  }
+
+  for (i = 0; i < n_loci; i++)
+  {
+    for (j = 0; j < n_unique_allele[i]; j++)
+    {
+      for (k = 0; k < n_haplo; k++)
+      {
+        if (haplocus[k][i] == j)
+          hap_freq[k] =  hap_freq[k] * allele_freq[i][j];
+      }
+    }
+  }
+}
+
+/************************************************************************/
+double loglikelihood(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2], 
+        int (*genopheno)[MAX_ROWS], double (*hap_freq), int *obspheno, int n_haplo, 
+        int n_unique_geno, int n_unique_pheno)
+
+{
+  int i, j, k, keep;
+  double geno_freq[MAX_GENOS], pheno_freq[MAX_ROWS], loglike;
+
+  /* Calculate geno freqs from haplo freqs */
+  for (i = 0; i < n_unique_geno; i++)
+  {
+    geno_freq[i] = 1.0;
+    keep = 0;
+    for (j = 0; j < 2; j++)
+    {
+      for (k = 0; k < n_haplo; k++)
+      {
+        if (!strcmp(haplo[k], geno[i][j]))
+        {
+          geno_freq[i] = geno_freq[i] * hap_freq[k];
+          if (j == 0)
+          {
+            keep = k;
+          }
+          if (k != keep)
+          {
+            geno_freq[i] = geno_freq[i] * 2;
+          }
+        }
+      }
+    }
+  }
+
+  /* Compute pheno freqs based on the computed geno freqs */
+  for (i = 0; i < n_unique_pheno; i++)
+  {
+    pheno_freq[i] = 0;
+    for (j = 0; j < n_unique_geno; j++)
+    {
+      if (genopheno[j][i] == 1)
+      {
+        pheno_freq[i] += geno_freq[j];
+      }
+    }
+  }
+
+  /* Compute the log likelihood */
+  loglike = 0;
+  for (i = 0; i < n_unique_pheno; i++)
+  {
+    if (pheno_freq[i] > DBL_EPSILON)
+    {
+      loglike += (double)obspheno[i] * log(pheno_freq[i]);
+    }
+    else
+    {
+      fprintf(stdout, "\n ** Warning - Est. freq. for pheno %d < 0 + epsilon", i);
+    }
+  }
+  return(loglike);
 }
 
 /************************************************************************/
