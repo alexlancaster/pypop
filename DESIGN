@@ -93,11 +93,11 @@ allele count case).
 
 - 'Emhaplofreq' : Calculate all pairwise loci linkage disequilibrium
   values.  Allow estimation of haplotypes of specified (via
-  'config.ini' file) subset of loci (_alex_).
+  'config.ini' file) subset of loci (_alex_: 100%-COMPLETED: 2001-12-04).
 
 - 'ParseFile' : Rejig internal format to allow more intutitive data
   retrieval in both row (individual-oriented) and column (loci
-  oriented) form (_alex_).
+  oriented) form (_alex_: FIRST-PASS-COMPLETED: 2001-12-04).
 
 2001-09-28:
 
@@ -128,12 +128,13 @@ allele count case).
 
 - Output information about missing data on a per-locus basis (i.e. any
   deviations from the total number of individuals in each input
-  file).  (_alex_: IN-PROGRESS 2001-09-19)
+  file).  (_alex_: 100%-COMPLETED 2001-12-04)
 
 2001-09-13: 
 
 - "getopt-ify" emphaplofreq so that all currently hardcoded parameters
-  can be passed in via command-line options.  (_alex_)
+  can be passed in via command-line options.  (_alex_: 100%-COMPLETED
+  2001-12-04)
 
 - Add parameters for Guo and Thompson into "config.ini".  (_alex_:
   100%-COMPLETED 2001-09-18)
@@ -142,7 +143,7 @@ allele count case).
   set in "config.ini" (e.g. "%.4f") (_alex_)
 
 - Wrap 'emphaplofreq' with SWIG, so that it can be called directly as a
-  Python object.  (_alex_: 80%-COMPLETED 2001-11-19)
+  Python object.  (_alex_: 100%-COMPLETED 2001-12-04)
 
 - Wrap 'gthwe' with SWIG, so that it can be called directly as a
   Python object.  (_alex_)
