@@ -33,11 +33,53 @@
   </div>
   </xsl:template>
 
+  <xsl:template name="head.content">
+  <xsl:param name="node" select="."/>
+
+  <title>
+    <xsl:apply-templates select="$node" mode="object.title.markup.textonly"/>
+  </title>
+
+  <xsl:if test="$html.stylesheet">
+    <link rel="stylesheet"
+          href="{$html.stylesheet}"
+          type="{$html.stylesheet.type}"/>
+  </xsl:if>
+
+  <xsl:if test="$link.mailto.url != ''">
+    <link rev="made"
+          href="{$link.mailto.url}"/>
+  </xsl:if>
+
+  <xsl:if test="$html.base != ''">
+    <base href="{$html.base}"/>
+  </xsl:if>
+
+  <meta name="generator" content="DocBook XSL Stylesheets V{$VERSION}"/>
+
+  <xsl:if test="ancestor-or-self::*[@status][1]/@status = 'draft'
+                and $draft.watermark.image != ''">
+    <style type="text/css"><xsl:text disable-output-escaping="yes">
+body { background-image: url("</xsl:text>
+<xsl:value-of select="$draft.watermark.image"/><xsl:text disable-output-escaping="yes">");
+       background-repeat: no-repeat;
+       background-position: top left;
+       /* The following properties make the watermark "fixed" on the page. */
+       /* I think that's just a bit too distracting for the reader... */
+       /* background-attachment: fixed; */
+       /* background-position: center center; */
+</xsl:text>
+    </style>
+  </xsl:if>
+  <xsl:apply-templates select="." mode="head.keywords.content"/>
+</xsl:template>
+
 </xsl:stylesheet>
 
 <!--
 Local variables:
 mode:xml
+sgml-default-dtd-file: "../../src/xslt/xsl.ced"
 sgml-local-catalogs: ("catalog")
 End:
 -->
