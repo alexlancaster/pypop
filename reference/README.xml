@@ -88,8 +88,7 @@
     change to the directory where you unpacked
     <application>PyPop</application> and type</para>
 
-   <screen><command>pypop-batch</command> <filename>Guatemalan.pop</filename> <emphasis>(DOS)</emphasis>    
-   </screen>
+   <screen><command>pypop-batch</command> <filename>Guatemalan.pop</filename></screen>
 
    <note>
     <para>If your system administrator has installed
