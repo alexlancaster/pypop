@@ -43,54 +43,66 @@ MODIFICATIONS. */
 *************************************************************************/
 #include "hwe.h"
 
-int read_data(int *a, int *no_allele, int *total,\
- struct randomization *sample, FILE **infile, char *title)
+int read_data(int **genotypes, int **allele_array, int *no_allele, 
+	      int *total, struct randomization *sample, FILE **infile, 
+	      char *title)
 {
-	register int i, j, l, err = 1;
+  register int i, j, l, err = 1;
 
-	*total = 0;
+  *total = 0;
+  
+  if (fscanf(*infile, "%s", title) != 1)
+    {
+      fprintf(stderr, "Please supply title\n");
+      printf("title %s", title);
+      return (err);
+    }
+  
+  if (fscanf(*infile, "%d", no_allele) != 1)
+    {
+      fprintf(stderr, "Please supply number of alleles\n");
+      return (err);
+    }
+  
+  if (*no_allele < 2)
+    {
+      fprintf(stderr, "***Error! Number of alleles less than 2. \n");
+      return (err);
+    }
+  
+  /* now we know how big genotype array is calloc memory for it */
+  *genotypes = calloc((*no_allele * (*no_allele + 1) / 2), sizeof(int));
+  
+  /* likewise for allele_array */
+  *allele_array = calloc(*no_allele, sizeof(int));
 
-	if (fscanf(*infile, "%s", title) != 1)
+  for (i = 0; i < *no_allele; ++i)
+    {
+      for (j = 0; j <= i; ++j)
 	{
-		fprintf(stderr, "Please supply title\n");
-		printf("title %s", title);
-		return (err);
+	  int *temp = *genotypes;
+	  l = LL(i, j);
+	  fscanf(*infile, "%d ", &temp[l]);
+	  *total += temp[l];
+#if DEBUG
+	  printf("in file: genotypes[%d]: %d, total=%d\n", l, temp[l], *total);
+#endif
 	}
-
-	if (fscanf(*infile, "%d", no_allele) != 1)
-	{
-		fprintf(stderr, "Please supply number of alleles\n");
-		return (err);
-	}
-
-	if (*no_allele < 2)
-	{
-		fprintf(stderr, "***Error! Number of alleles less than 2. \n");
-		return (err);
-	}
-	for (i = 0; i < *no_allele; ++i)
-	{
-		for (j = 0; j <= i; ++j)
-		{
-			l = LL(i, j);
-			fscanf(*infile, "%d ", &a[l]);
-			*total += a[l];
-		}
-	}
-
-	if (fscanf(*infile, "%d %d %d \n", &sample->step,
-						 &sample->group, &sample->size) != 3)
-	{
-		fprintf(stderr, " Please supply parameters.\n");
-		return (err);
-	}
-	else if (sample->step < 1 || sample->group <= 1)
-	{
-		fprintf(stderr, "***Error in parameter specification.\n");
-		return (err);
-	}
-
-	return (0);
+    }
+  
+  if (fscanf(*infile, "%d %d %d \n", &sample->step,
+	     &sample->group, &sample->size) != 3)
+    {
+      fprintf(stderr, " Please supply parameters.\n");
+      return (err);
+    }
+  else if (sample->step < 1 || sample->group <= 1)
+    {
+      fprintf(stderr, "***Error in parameter specification.\n");
+      return (err);
+    }
+  
+  return (0);
 
 }
 
