@@ -200,12 +200,7 @@
   
     <xsl:choose>
      <xsl:when test="@role='too-many-parameters'">
-      <xsl:text>
-       Overall chi-square for common genotypes cannot be calculated due to
-       too many parameter estimates (allele frequencies) for the number of
-       common genotypes, leading to zero or negative degrees of freedom.
-       This may by remedied by combining rare alleles and recalculating
-       overall chi-square value and degrees of freedom.</xsl:text>
+      <xsl:text>Too many parameters for chi-square test.</xsl:text>
      </xsl:when>
      <xsl:when test="@role='no-common-genotypes'">
       <xsl:text>No commmon genotypes; chi-square cannot be calculated</xsl:text>
