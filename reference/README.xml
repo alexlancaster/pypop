@@ -821,6 +821,31 @@ allPairwiseLDWithPermu=0
     </listitem>
    </itemizedlist>
 
+   <bridgehead><literal>[Emhaplofreq]</literal> advanced
+    options</bridgehead>
+
+   <itemizedlist>
+    <listitem>
+     <formalpara>
+      <title><literal>permutationPrintFlag</literal></title>
+      
+      <para>Determines whether the likelihood ratio for each
+       permutation will be logged to the XML output file, this is
+       disabled by default.  <emphasis role="bold">[Default:
+	<literal>0</literal> (OFF)]</emphasis>.</para>
+     </formalpara>
+
+     <warning>
+      <para>If this is enabled it can <emphasis>drastically</emphasis>
+       grow the size of the output XML file on the order of product of
+       the number of possible pairwise comparisons and permutations.
+       Machines with lower RAM and disk space may have difficulty
+       coping with this. </para>
+     </warning>
+    </listitem>
+   </itemizedlist>
+
+
    <bridgehead><literal>[Arlequin]</literal> extra
     section</bridgehead>
 
