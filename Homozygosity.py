@@ -311,7 +311,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
       self.numReplicates = numReplicates
       self.debug = debug
 
-    def _doCalcs(self,alleleData):
+    def doCalcs(self,alleleData):
 
       self.alleleData = alleleData
       self.numAlleles = len(self.alleleData)
@@ -353,7 +353,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
 
     def serializeHomozygosityTo(self, stream):
 
-      self._doCalcs(self.alleleData)
+      self.doCalcs(self.alleleData)
 
       if self.getObservedHomozygosity() >= 1.0:
         stream.emptytag('homozygosityEWSlatkinExact', role='monomorphic')

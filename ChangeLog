@@ -1,3 +1,43 @@
+2003-12-06  Owen Solberg  <solberg@localhost.localdomain>
+
+	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Any missing
+	sequence data is replaced with an asterisk prior to returning the
+	polyseq dictionary.
+	Approach to checking for polymorphic positions is more robust.
+
+	* Main.py: Changed imports to reflect new RandomBinning interface.
+	(Main.__init__): Move randomBinningFlag initialization to
+	beginning of method.
+	(Main._runFilters): Fixed faulty exception statement -
+	anthonyNolanPath -> alleleFileFormat.
+	(Main._doGenotypeFile): Added if statement to check to see if
+	random binning will actually be possible (ie, if the target number
+	of bins must be less than the initial number of bins.)
+	Removed randomHomozygosities list initialization, since the
+	Homozygosity module is called from RandomBinning now.
+
+	* RandomBinning.py: Import Homozygosity module.
+	(RandomBinsForHomozygosityExact): Renamed class from
+	RandomAlleleBinning.
+	Refactoring so that the class will run the homozygosity test for
+	each random binning result, immediately after producing it.
+	Formated printed output mainly for testing. [Later output will be
+	part of the XML stream.]
+	(RandomBinsForHomozygosityExact.__init__): Added keywords to
+	constructor needed for running Homozygosity test from within
+	module.
+	Created object for HomozygosityEWSlatkinExact test.
+	(RandomBinsForHomozygosityExact.sequenceMethod): Changed method so
+	that only random binnings that meet the target number of bins
+	exactly are accepted.  Infinite loops are prevented by opting out
+	if the number of failed attempts is greater than 10 times the
+	number of desired results.
+
+	* Homozygosity.py (HomozygosityEWSlatkinExact.doCalcs): Changed
+	_doCalcs to doCalcs (to make method public).
+	(HomozygosityEWSlatkinExact.serializeHomozygosityTo): Calling
+	doCalcs.
+
 2003-12-05  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* setup.py (ext_Emhaplofreq): Add "depends" for module on

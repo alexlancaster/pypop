@@ -47,7 +47,7 @@ from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
 from ConfigParser import ConfigParser, NoOptionError
 from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix
 from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
-from RandomBinning import RandomAlleleBinning
+from RandomBinning import RandomBinsForHomozygosityExact
 
 def getUserFilenameInput(prompt, filename):
     """Read user input for a filename, check its existence, continue
@@ -139,6 +139,9 @@ class Main:
 
         # for threading to work
         self.thread = thread
+
+        # switch off random binning by default
+        self.randomBinningFlag = 0
 
         # parse out the parts of the filename
         baseFileName = os.path.basename(self.fileName)
@@ -374,12 +377,6 @@ class Main:
         self.xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr), role=self.fileType)
         self.xmlStream.writeln()
 
-
-        # switch off random binning by default (will be enabled by
-        # presence of section)
-        self.randomBinningFlag = 0
-
-
         ## WHAT WOULD ALEX DO?
         ## Alex would check the presence of the section again ;-)
         if self.config.has_section("Filters"):
@@ -436,6 +433,7 @@ class Main:
 
 
     def _runFilters(self):
+
         if self.config.has_section("RandomAlleleBinning"):
             try:
                 self.binningMethod = self.config.get("RandomAlleleBinning", "binningMethod")
@@ -480,7 +478,7 @@ class Main:
                 try:
                     alleleFileFormat = self.config.get(filterCall, "alleleFileFormat")
                 except:
-                    anthonynolanPath = 'msf'
+                    alleleFileFormat = 'msf'
                 filter = AnthonyNolanFilter(debug=self.debug,
                                             directoryName=anthonynolanPath,
                                             alleleFileFormat=alleleFileFormat,
@@ -781,59 +779,52 @@ class Main:
                     print "alleleCountsInitial", len(alleleCountsInitial), alleleCountsInitial
                     print "alleleCounts", len(alleleCounts), alleleCounts
 
-                randObj = RandomAlleleBinning(debug=self.debug,
-                                              untypedAllele=self.untypedAllele,
-                                              filename=self.fileName)
-
-                if self.binningMethod == "random":
-                    randomlyBinnedAlleleCounts = \
-                         randObj.generateRandomBins(alleleCountsBefore=alleleCountsInitial,
-                                                    alleleCountsAfter=alleleCounts,
-                                                    binningReplicates=self.binningReplicates)
-                    
-                elif self.binningMethod == "sequence":
-                    try:
-                        sequenceFileSuffix = self.config.get("Sequence", "sequenceFileSuffix")
-                    except:
-                        sequenceFileSuffix='_nuc'
-                    try:
-                        anthonynolanPath = self.config.get("Sequence", "path")
-                    except:
-                        anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
-                        if self.debug:
-                            print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
-
-                    seqfilter = AnthonyNolanFilter(debug=self.debug,
-                                        directoryName=anthonynolanPath,
-                                        alleleFileFormat='msf',
-                                        alleleDesignator=self.alleleDesignator,
-                                        sequenceFileSuffix=sequenceFileSuffix,
-                                        untypedAllele=self.untypedAllele,
-                                        filename=self.fileName,
-                                        logFile=self.filterLogFile)
-
-                    polyseq, polyseqpos = seqfilter.makeSeqDictionaries(matrix=(self.matrixHistory[self.binningStartPoint]).copy(),locus=locus)
-
-                    randomlyBinnedAlleleCounts = \
-                         randObj.generateRandomBinsFromSequence(alleleCountsBefore=alleleCountsInitial,
-                                                                alleleCountsAfter=alleleCounts,
-                                                                binningReplicates=self.binningReplicates,
-                                                                polyseq=polyseq,
-                                                                locus=locus)
+                if len(alleleCountsInitial) <= len(alleleCounts):
+                    print 'skipping random binning because the initial allele count is not bigger than the target count'
 
                 else:
-                    sys.exit("Random binning method not recognized:" + self.binningMethod)
+                    # go ahead and do the random binning
+                    randObj = RandomBinsForHomozygosityExact(untypedAllele=self.untypedAllele,
+                                                             filename=self.fileName,
+                                                             numReplicates=numReplicates,
+                                                             binningReplicates=self.binningReplicates,
+                                                             locus=locus,
+                                                             debug=self.debug)
 
+                    if self.binningMethod == "random":
+                        randObj.randomMethod(alleleCountsBefore=alleleCountsInitial,
+                                             alleleCountsAfter=alleleCounts)
 
-                randomHomozygosities = []
+                    elif self.binningMethod == "sequence":
+                        try:
+                            sequenceFileSuffix = self.config.get("Sequence", "sequenceFileSuffix")
+                        except:
+                            sequenceFileSuffix='_nuc'
+                        try:
+                            anthonynolanPath = self.config.get("Sequence", "path")
+                        except:
+                            anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
+                            if self.debug:
+                                print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
 
-                for alleleCount in randomlyBinnedAlleleCounts:
-                    hzExactObj._doCalcs(alleleCount)
-                    randomHomozygosities.append(hzExactObj.getHomozygosity())
+                        seqfilter = AnthonyNolanFilter(debug=self.debug,
+                                            directoryName=anthonynolanPath,
+                                            alleleFileFormat='msf',
+                                            alleleDesignator=self.alleleDesignator,
+                                            sequenceFileSuffix=sequenceFileSuffix,
+                                            untypedAllele=self.untypedAllele,
+                                            filename=self.fileName,
+                                            logFile=self.filterLogFile)
 
-                if self.debug:
-                    print "randomlyBinnedAlleleCounts", randomlyBinnedAlleleCounts
-                    print "randomHomozygosities",randomHomozygosities
+                        polyseq, polyseqpos = seqfilter.makeSeqDictionaries(matrix=(self.matrixHistory[self.binningStartPoint]).copy(),locus=locus)
+
+                        randObj.sequenceMethod(alleleCountsBefore=alleleCountsInitial,
+                                               alleleCountsAfter=alleleCounts,
+                                               polyseq=polyseq)
+
+                    else:
+                        sys.exit("Random binning method not recognized:" + self.binningMethod)
+
 
           self.xmlStream.closetag('locus')
           self.xmlStream.writeln()

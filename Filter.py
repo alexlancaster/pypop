@@ -451,7 +451,8 @@ class AnthonyNolanFilter(Filter):
             if self.debug:
                print "------> beginning sequence translation of locus: %s <------" % locus
 
-            # self.sequences is a dictionary, keyed on allele, used to temporarily store sequences
+            # self.sequences is a dictionary, keyed on allele, used to
+            # temporarily store full sequences
             self.sequences = {}
 
             self._getMSFLinesForLocus(locus)
@@ -467,7 +468,6 @@ class AnthonyNolanFilter(Filter):
                 # FIXME:  How do we want to handle a non-existent MSF header alignment length
                 raise RuntimeError, 'could not find the alignment length from msf file %s.' % self.filename
 
-
             # see where the header of the MSF file ends (demarcated by // )
             self.msfHead = 0
             for line in self.lines:
@@ -475,7 +475,6 @@ class AnthonyNolanFilter(Filter):
                     break
                 else:
                     self.msfHead += 1
-
 
             rowCount = 0
             for individ in self.matrix[locus]:
@@ -507,28 +506,37 @@ class AnthonyNolanFilter(Filter):
                             else:
                                 self.sequences[allele] = self._getConsensusFromLines(locus, allele)
 
+            if self.debug:
+                print 'full sequence for locus', locus, self.sequences
 
-            # takes the sequences and produces a big dictionary of all
-            # loci and allele sequences containing only the
-            # polymorphic positions, keyed on 'locus*allele'
-            
+            # Make the asterix the standard null placeholder
+            for allele in self.sequences:
+                self.sequences[allele] = string.replace(self.sequences[allele],'.','*')
+                self.sequences[allele] = string.replace(self.sequences[allele],'X','*')
+
+            # pre-populates the polyseq dictionary with empty strings,
+            # so we can then build the polymorphic sequences
+            # letter-by-letter.  keyed on 'locus*allele'
             for allele in self.sequences:
                 self.polyseq[locus + '*' + allele] = ''
-            self.polyseqpos[locus] = []
 
+            # also initialize (with an empty list) polyseqpos
+            # dictionary entry for this locus so we can append to it
+            # later.  a note about positions: if you are using msf
+            # files, the position will be relative to the official
+            # IMGT/HLA sequence alignments (see
+            # http://www.ebi.ac.uk/imgt/hla/nomen_pt2.html )
+            self.polyseqpos[locus] = []
 
             # checks each position of each allele, counts the number
             # of unique characters (excepting . X and * characters)
             for pos in range(self.length):
-                letter1 = ''
-                letter2 = ''
-                uniqueCount = 0
+                uniqueCounter = {}
                 for allele in self.sequences:
-                    letter2 = self.sequences[allele][pos]
-                    if letter2 != '.' and letter2 != 'X' and letter2 != '*':
-                        if letter1 != letter2:
-                            uniqueCount += 1
-                        letter1 = letter2
+                    letter = self.sequences[allele][pos]
+                    if letter != '.' and letter != 'X' and letter != '*':
+                        uniqueCounter[letter] = 1
+                uniqueCount = len(uniqueCounter)
 
                 # if it is a polymorphic position, we loop thru again
                 # and add it to polyseq and add its position to
