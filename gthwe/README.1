@@ -24,7 +24,10 @@ example.gtout.
 
 Notes added by Alex Lancaster:
 
-2001-09-20:  By default the observed genotype lower-triangular matrix
-is *not* generated.  If you desire to reactive this feature simply
-comment out (or remove) the "-DSUPPRESS_TABLE=1" from the CFLAGS
+2002-02-30: By default text output is produced.  If XML output is
+desired, please enable it by adding "-DXML_OUTPUT=1" to the CFLAGS
 variable in the Makefile.
+
+2001-09-20: By default the observed genotype lower-triangular matrix
+is generated.  If you desire to suppress this feature simply add the
+"-DSUPPRESS_ALLELE_TABLE=1" to the CFLAGS variable in the Makefile.
