@@ -268,8 +268,12 @@ class Emhaplofreq(Haplo):
         # other methods in class
         self._Emhaplofreq = _Emhaplofreq
         
-        self.matrix, self.loci = locusData
-        self.lociCount = len(self.matrix[0]) / 2
+        #self.matrix, self.loci = locusData
+        self.matrix = locusData
+        
+        #self.lociCount = len(self.matrix[0]) / 2
+        self.numIndiv, self.lociCount = self.matrix.shape
+        
         self.debug = debug
 
     def estHaplotypes(self, locusList, permutationFlag=0):
@@ -286,8 +290,11 @@ class Emhaplofreq(Haplo):
             self.fp = cStringIO.StringIO()
 
             # call the SWIG-ed method
-            self._Emhaplofreq.main_proc(self.fp, self.matrix, len(self.loci),
-                               len(self.matrix), permutationFlag)
+            #self._Emhaplofreq.main_proc(self.fp, self.matrix, len(self.loci),
+            #                   len(self.matrix), permutationFlag)
+            self._Emhaplofreq.main_proc(self.fp, self.matrix.tolist(),
+                                        len(self.loci),
+                                        len(self.matrix), permutationFlag)
 
             if self.debug:
                 # in debug mode, print the in-memory file to sys.stdout
