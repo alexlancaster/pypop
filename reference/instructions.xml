@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<?PSGML nofill programlisting screen literallayout?>
 <article condition="main" xmlns:xi="http://www.w3.org/2001/XInclude">
 
  <title>Guidelines for interpreting analyses of population genetic
