@@ -1,7 +1,7 @@
 PDF2PS = pdf2ps
 XMLLINT = xmllint --noout --xinclude --postvalid $<
 JADE = 	SGML_CATALOG_FILES=$(SGML_CATALOG_FILES) jade
-DOWNLOAD_URL=http://allele5.biol.berkeley.edu/~alex/pypop/
+DOWNLOAD_URL=http://allele5.biol.berkeley.edu/pypop/
 
 ifeq ($(PUBLISH),)
 CVSPRE =
