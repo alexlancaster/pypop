@@ -977,19 +977,31 @@ allPairwiseLDWithPermu=0
      <formalpara>
       <title><literal>filtersToApply</literal></title>
       <para>Here you specify which filters you want applied to the
-       data and the order in which you want them applied.  Separate
-       each filter name with a colon (<literal>:</literal>).  
-       Currently there is one predefined filter:
-       <literal>AnthonyNolan</literal>.
+       data and the order in which you want them applied.  
+       Separate each filter name with a colon (<literal>:</literal>).  
+       Currently there are four predefined filter:
+       <literal>AnthonyNolan</literal>,
+       <literal>Sequence</literal>,
+       <literal>DigitBinning</literal>, and
+       <literal>CustomBinning</literal>.  If you specify one or more
+       of these filters, you will get the default behavior of the
+       filter.  If you wish to modify the default behavior, you should
+       add a section with the same name as the specified filter(s).
+       See next section for more on this.  Please note that, while you are
+       allowed to specify any ordering for the filters, some orderings may 
+       not make sense.  For example, the ordering Sequence:AnthonyNolan 
+       would not make sense (because as far as PyPop is concerned, your 
+       alleles are now amino acid residues.)  However, the reverse ordering,
+       AnthonyNolan:Sequence, would be logical and perhaps even advisable.
       </para>
      </formalpara>
     </listitem>
    </itemizedlist>
 
-   <bridgehead><literal>[AnthonyNolan]</literal> filter section</bridgehead>
 
+   <bridgehead><literal>[AnthonyNolan]</literal> filter section</bridgehead>
    <para>This section is <emphasis>only</emphasis> useful for HLA
-    data, and only will be used if present in the
+    data.  Like all filter sections, it will only will be used if present in the
     <literal>filtersToApply</literal> line specified above.  If so
     enabled, your data will be filtered through The Anthony Nolan
     database of known HLA allele names <!-- which version of the WHO
@@ -1002,7 +1014,6 @@ allPairwiseLDWithPermu=0
     <filename><replaceable>popfile</replaceable>-filter.xml</filename>
     file output showing what was resolved and what could not be
     resolved. </para>
-
    <itemizedlist>
     <listitem>
      <formalpara>
@@ -1016,10 +1027,9 @@ allPairwiseLDWithPermu=0
 	<literal>msf</literal>]</emphasis></para>
      </formalpara>
     </listitem>
-
     <listitem>
      <formalpara>
-      <title><literal>path</literal></title>
+      <title><literal>directory</literal></title>
       <para>Specifies the path to the root of the sequence files.  For
        <literal>txt</literal>: <emphasis role="bold">[Default:
 	<filename
@@ -1030,6 +1040,66 @@ allPairwiseLDWithPermu=0
      </formalpara>
     </listitem>
    </itemizedlist>
+
+
+   <bridgehead><literal>[Sequence]</literal> filter section</bridgehead>
+   <para>This section allows configuration of the sequence filter.  
+    Like all filter sections, it will only will be used if present in the
+    <literal>filtersToApply</literal> line specified above.  If so
+    enabled, your allele names will be translated into sequences, and all 
+    ensuing analyses will consider each position in the sequence to be a 
+    distinct locus.  This filter makes use of the same msf format alignment 
+    files as used above in the AnthonyNolan filter.  It does not work with 
+    the txt format alignment files.
+   <itemizedlist>
+    <listitem>
+     <formalpara>
+      <title><literal>sequenceFileSuffix</literal></title>
+      <para>Determines the files that will be examined in order to read in
+       a sequence for each allele.  (ie, if the file for locus A is 
+       A_prot.msf, the value would be _prot whereas if you wanted to use
+       the nucleotide sequence files, you might use _nuc.) [Default: _prot].</para>
+      <title><literal>directory</literal></title>
+      <para>Specifies the path to the root of the sequence files, in the same
+       manner as in the AnthonyNolan section, above.</para>
+     </formalpara>
+    </listitem>
+   </itemizedlist>
+
+
+   <bridgehead><literal>[DigitBinning]</literal> filter section</bridgehead>
+   <para>This section allows configuration of the DigitBinning filter.  Like
+    all filter sections, it will be used if present in the
+    <literal>filtersToApply</literal> line specified above.  If so
+    enabled, your allele names will be truncated after the nth digit. </para>
+   <itemizedlist>
+    <listitem>
+     <formalpara>
+      <title><literal>binningDigits</literal></title>
+      <para>An integer that specifies how many digits to keep after the truncation.
+       [Default: 4].</para>
+     </formalpara>
+    </listitem>
+   </itemizedlist>
+
+
+   <bridgehead><literal>[CustomBinning]</literal> filter section</bridgehead>
+   <para>This section allows configuration of the CustomBinning filter.  Like all 
+    filter sections, it will only be used if present in the 
+    <literal>filtersToApply</literal> line specified above.
+   <itemizedlist>
+    <listitem>
+     <formalpara>
+      <title><literal>customBinningFile</literal></title>
+      <para>Provides the name of the file that contains the custom binning rules.
+       The format of the custom binning file is provided in the default CustomBinning.ini
+       file provided with your installation.  
+       [Default: CustomBinning.ini].</para>
+     </formalpara>
+    </listitem>
+   </itemizedlist>
+
+
   </section>
 
  </section>
