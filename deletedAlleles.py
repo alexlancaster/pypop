@@ -10,7 +10,7 @@ import sys
 import re
 import string
 
-class deletedAlleles:
+class DeletedAlleles:
 
   def __init__(self, allelefile):
 
@@ -63,6 +63,6 @@ class deletedAlleles:
 
 # testing
 
-anExample = deletedAlleles(sys.argv[1])
+anExample = DeletedAlleles(sys.argv[1])
 anExample.putDictionary()
 anExample.removeNone()
