@@ -505,6 +505,10 @@ MODIFICATIONS.
 	 @second=$second]"/>
 	
 	<xsl:call-template name="output-field">
+	 <xsl:with-param name="node" select="$pair/diseq"/>
+	</xsl:call-template>
+  	
+	<xsl:call-template name="output-field">
 	 <xsl:with-param name="node" select="$pair/norm_dij"/>
 	</xsl:call-template>
   	
@@ -514,6 +518,10 @@ MODIFICATIONS.
          
         <xsl:call-template name="output-field">
           <xsl:with-param name="node" select="$pair/observed"/>
+        </xsl:call-template>
+
+        <xsl:call-template name="output-field">
+          <xsl:with-param name="node" select="frequency"/>
         </xsl:call-template>
 
         <xsl:call-template name="output-field">
@@ -591,7 +599,7 @@ MODIFICATIONS.
     <exsl:document href="2-locus-haplo.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count&#09;ld.dprime&#09;ld.chisq&#09;obs&#09;exp</xsl:text>
+     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count&#09;ld.d&#09;ld.dprime&#09;ld.chisq&#09;obs&#09;obs.freq&#09;exp</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
