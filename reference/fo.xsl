@@ -8,7 +8,31 @@
  <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/fo/docbook.xsl"/>
 
  <xsl:import href="citation.xsl"/>
- <!-- <xsl:import href="pagesetup.xsl"/> -->
+
+ <!--  <xsl:import href="pagesetup.xsl"/>-->
+
+ <xsl:template name="head.sep.rule">
+  <xsl:if test="$header.rule != 0">
+   
+   <!-- AKL -->
+   <xsl:attribute name="border-bottom-width">0.5pt</xsl:attribute>
+   <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
+   <xsl:attribute name="border-bottom-color">black</xsl:attribute>
+  </xsl:if>
+ </xsl:template>
+ 
+ <xsl:template name="foot.sep.rule">
+  <xsl:if test="$footer.rule != 0">
+   
+   <!-- AKL -->
+    <xsl:attribute name="border-top-width">0.5pt</xsl:attribute>
+   <xsl:attribute name="border-top-style">solid</xsl:attribute>
+   <xsl:attribute name="border-top-color">black</xsl:attribute>
+  </xsl:if>
+ </xsl:template>
+
+ <xsl:param name="headers.on.blank.pages" select="0"/>
+ <xsl:param name="footers.on.blank.pages" select="0"/>
 
  <xsl:param name="page.margin.top">0.0in</xsl:param>
  <xsl:param name="page.margin.bottom">0.20in</xsl:param>
@@ -16,7 +40,13 @@
  <xsl:param name="page.margin.outer">0.70in</xsl:param>
  <xsl:param name="body.margin.top">0.0in</xsl:param>
  <xsl:param name="body.margin.bottom">0.0in</xsl:param>
+
  <xsl:param name="body.font.family">Helvetica</xsl:param>
+ <xsl:param name="title.font.family">Helvetica</xsl:param>
+ <xsl:param name="monospace.font.family">Courier</xsl:param>
+ <xsl:param name="sans.font.family">Helvetica</xsl:param>
+ <xsl:param name="dingbat.font.family">Times Roman</xsl:param>
+
  <xsl:param name="title.margin.left" select="'0.0in'"/>
  <xsl:param name="toc.indent.width" select="8"/>
  <xsl:param name="insert.xref.page.number" select="1"/>
