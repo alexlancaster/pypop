@@ -1,5 +1,8 @@
 2004-07-07  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable):
+	Comment-out call to _Gthwe. run_randomization() for the moment.
+
 	* setup.py (ext_Gthwe): Make PERMU_TEST and DEBUG #defines be false
 	for the moment.
 
