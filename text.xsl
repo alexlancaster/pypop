@@ -417,11 +417,12 @@
   
     <xsl:choose>
      <xsl:when test="@role='too-many-parameters'">
-      <xsl:text>Overall chi-square for common genotypes cannot be calculated due to
-  too many parameter estimates (allele frequencies) for the number of
-  common genotypes, leading to zero or negative degrees of freedom.
-  This may by remedied by combining rare alleles and recalculating
-  overall chi-square value and degrees of freedom.</xsl:text>
+      <xsl:text>
+       Overall chi-square for common genotypes cannot be calculated due to
+       too many parameter estimates (allele frequencies) for the number of
+       common genotypes, leading to zero or negative degrees of freedom.
+       This may by remedied by combining rare alleles and recalculating
+       overall chi-square value and degrees of freedom.</xsl:text>
      </xsl:when>
      <xsl:when test="@role='no-common-genotypes'">
       <xsl:text>No commmon genotypes; chi-square cannot be calculated</xsl:text>
@@ -471,7 +472,7 @@
  <!-- format genotype table for HW -->
  <xsl:template match="genotypetable">
 
-  <xsl:text>Table of genotypes:</xsl:text>
+  <xsl:text>Table of genotypes, format of each cell is: observed/expected::</xsl:text>
   <xsl:call-template name="newline"/>
 
   <xsl:variable name="padding" select="8"/>
