@@ -25,15 +25,17 @@
      <xsl:value-of select="@name"/>
     </xsl:attribute>
 
+    <!--
     <xsl:message>
-     <xsl:value-of select="count(population/allelecounts/allele)"/>
-     <xsl:text>: </xsl:text>
-     <xsl:variable name="sort-by" select="'@name'"/>
-     <xsl:for-each select="population/allelecounts/allele">
-      <xsl:value-of select="@name"/>
+    <xsl:value-of select="count(population/allelecounts/allele)"/>
+    <xsl:text>: </xsl:text>
+    <xsl:variable name="sort-by" select="'@name'"/>
+    <xsl:for-each select="population/allelecounts/allele">
+    <xsl:value-of select="@name"/>
       <xsl:text> </xsl:text>
-    </xsl:for-each>
+   </xsl:for-each>
     </xsl:message>
+    -->
 
     <xsl:variable name="all-alleles">
      <xsl:for-each select="population/allelecounts/allele">
