@@ -8,7 +8,7 @@
  <data:haplo-fields>
   <text col="individcount">Number of individuals</text>
   <text col="uniquepheno">Unique phenotypes</text>
-  <text col="uniquegeno">Unique phenotypes</text>
+  <text col="uniquegeno">Unique genotypes</text>
   <text col="haplocount">Number of haplotypes</text>
   <text col="iterConverged">Number of iterations before convergence</text>
   <text col="loglikelihood-no-ld">Loglikelihood under linkage equilibrium ln(L_0)</text>
@@ -291,7 +291,7 @@
 
  <!-- generate the haplotype frequency table -->
  <xsl:template match="haplotypefreq">
-
+  
   <xsl:choose>
    <xsl:when test="condition/@role='converged'">
 
@@ -316,6 +316,13 @@
     </xsl:variable>
 
     <xsl:variable name="haplos-by-name">
+
+     <xsl:call-template name="append-pad">
+      <xsl:with-param name="padVar">Haplotypes sorted by name</xsl:with-param>
+      <xsl:with-param name="length">38</xsl:with-param>
+     </xsl:call-template>
+
+     <xsl:call-template name="newline"/>
 
      <xsl:value-of select="$haplos-header"/>
      
@@ -343,6 +350,14 @@
     </xsl:variable>
 
     <xsl:variable name="haplos-by-freq">
+
+     <xsl:call-template name="append-pad">
+      <xsl:with-param name="padVar">Haplotypes sorted by frequency</xsl:with-param>
+      <xsl:with-param name="length">38</xsl:with-param>
+     </xsl:call-template>
+
+     <xsl:call-template name="newline"/>
+
      <xsl:value-of select="$haplos-header"/>
 
      <!-- loop through each haplotype by name -->
