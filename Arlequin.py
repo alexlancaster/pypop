@@ -50,16 +50,15 @@ class ArlequinWrapper:
         dataLoci = [l for l in group \
                     if len(self.matrix.filterOut(l, self.untypedAllele)) > 0]
 
-        #groupCount = len(nonEmptyLoci)
-        #self._outputHeader(groupCount)
-
-        #for locus in nonEmptyLoci:
-        #    self._outputSample(locus)
+        if len(dataLoci) == 1:
+            keys = dataLoci[0]
+        else:
+            keys = string.join(dataLoci,':')
 
         self.arpFile = open(os.path.join(self.arlSubdir, self.arpFilename), 'w')
         
         self._outputHeader(1)
-        self._outputSample(string.join(dataLoci,':'))
+        self._outputSample(keys)
 
         self.arpFile.close()
 
