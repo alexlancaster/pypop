@@ -279,25 +279,20 @@ class ParseFile:
 
     def serializeMetadataTo(self, stream):
         type = getStreamType(stream)
-        if type == 'xml':
-            stream.opentag('populationdata')
-            stream.writeln()
+        stream.opentag('populationdata')
+        stream.writeln()
             
         for summary in self.popData.keys():
-            if type == 'xml':
-                # convert metadata name into a XML tag name
-                tagname = string.lower(string.replace(summary,' ',''))
-                stream.tagContents(tagname, self.popData[summary])
-                stream.writeln()
-            else:
-                stream.writeln("%20s: %s" % (summary, self.popData[summary]))
+            # convert metadata name into a XML tag name
+            tagname = string.lower(string.replace(summary,' ',''))
+            stream.tagContents(tagname, self.popData[summary])
+            stream.writeln()
 
         # call subclass-specific metadata serialization
         self.serializeSubclassMetadataTo(stream)
         
-        if type == 'xml':
-            stream.closetag('populationdata')
-            stream.writeln()
+        stream.closetag('populationdata')
+        stream.writeln()
 
 class ParseGenotypeFile(ParseFile):
     """Class to parse standard datafile in genotype form.  Tweaked."""
@@ -533,24 +528,16 @@ class ParseGenotypeFile(ParseFile):
          """
         type = getStreamType(stream)
 
-        if type == 'xml':
-            stream.opentag('totals')
-            stream.writeln()
-            stream.tagContents('indivcount', "%d" % self.totalIndivCount)
-            stream.writeln()
-            stream.tagContents('allelecount', "%d" % (self.totalIndivCount*2))
-            stream.writeln()
-            stream.tagContents('locuscount', "%d" % self.totalLocusCount)
-            stream.writeln()
-            stream.closetag('totals')
-            stream.writeln()
-        else:
-            stream.writeln("%20s: %d" % \
-                           ("Sample Size (n)", self.totalIndivCount))
-            stream.writeln("%20s: %d" % \
-                           ("Allele Count (2n)", self.totalIndivCount*2))
-            stream.writeln("%20s: %d" % \
-                           ("Total Loci", self.totalLocusCount))
+        stream.opentag('totals')
+        stream.writeln()
+        stream.tagContents('indivcount', "%d" % self.totalIndivCount)
+        stream.writeln()
+        stream.tagContents('allelecount', "%d" % (self.totalIndivCount*2))
+        stream.writeln()
+        stream.tagContents('locuscount', "%d" % self.totalLocusCount)
+        stream.writeln()
+        stream.closetag('totals')
+        stream.writeln()
 	
     def serializeAlleleCountDataAt(self, stream, locus):
         """ """
@@ -564,33 +551,20 @@ class ParseGenotypeFile(ParseFile):
 
         # if all individuals are untyped then supress itemized output
         if len(alleles) == 0:
-            if type == 'xml':
-                stream.emptytag('allelecounts', role='no-data')
-                stream.writeln()
-            else:
-                stream.writeln("No allele data; no allele counts generated")
+            stream.emptytag('allelecounts', role='no-data')
+            stream.writeln()
         else:
-
-            if type == 'xml':
-                stream.opentag('allelecounts')
-                stream.writeln()
-                stream.tagContents('untypedindividuals', \
-                                   "%d" % untypedIndividuals)
-                stream.writeln()
-                stream.tagContents('indivcount', \
-                                   "%d" % (total/2))
-                stream.writeln()
-                stream.tagContents('allelecount', \
-                                   "%d" % total)
-                stream.writeln()
-            else:
-                stream.writeln("Individuals w/ missing data: %d" \
-                               % untypedIndividuals)
-                stream.writeln("Sample Size (n): %d" % (total/2))
-                stream.writeln("Allele Count (2n): %d" % total)
-
-                # print header of freq table
-                stream.writeln("%4s: %-8s (%s)" % ("Name", "Freq", "Count"))
+            stream.opentag('allelecounts')
+            stream.writeln()
+            stream.tagContents('untypedindividuals', \
+                               "%d" % untypedIndividuals)
+            stream.writeln()
+            stream.tagContents('indivcount', \
+                               "%d" % (total/2))
+            stream.writeln()
+            stream.tagContents('allelecount', \
+                               "%d" % total)
+            stream.writeln()
 
             for allele in alleles:
                 freq = float(alleleTable[allele])/float(total)
@@ -598,53 +572,35 @@ class ParseGenotypeFile(ParseFile):
                 strFreq = "%0.5f " % freq
                 strCount = ("%d" % alleleTable[allele])
 
-                if type == 'xml':
-                    stream.opentag('allele', name=allele)
-                    stream.writeln()
-                    stream.tagContents('frequency', strFreq)
-                    stream.tagContents('count', strCount)
-                    stream.writeln()
-                    stream.closetag('allele')
-                else:
-                    stream.write("%s: %s (%s)" % (allele, strFreq, strCount))
+                stream.opentag('allele', name=allele)
+                stream.writeln()
+                stream.tagContents('frequency', strFreq)
+                stream.tagContents('count', strCount)
+                stream.writeln()
+                stream.closetag('allele')
 
                 stream.writeln()
 
             strTotalFreq = "%0.5f" % totalFreq
             strTotal = "%d" % total
 
-            if type == 'xml':
-                stream.tagContents('totalfrequency', strTotalFreq)
-                stream.writeln()
-                stream.tagContents('totalcount', strTotal)
-                stream.closetag("allelecounts")
-            else:
-                stream.writeln("Total frequency: %s (%s)"
-                             % (strTotalFreq, strTotal))
+            stream.tagContents('totalfrequency', strTotalFreq)
+            stream.writeln()
+            stream.tagContents('totalcount', strTotal)
+            stream.closetag("allelecounts")
             stream.writeln()
 
     def serializeAlleleCountDataTo(self, stream):
         type = getStreamType(stream)
         
-        if type == 'xml':
-            stream.opentag('allelecounts')
-        else:
-            stream.writeln("Allele counts")
+        stream.opentag('allelecounts')
             
         for locus in self.freqcount.keys():
             stream.writeln()
-            if type == 'xml':
-                stream.opentag('locus', name=locus)
-            else:
-                stream.write("Locus = %s" % locus)
-                stream.writeln()
-                self.serializeAlleleCountDataAt(stream, locus)
-                stream.closetag('locus')
+            stream.opentag('locus', name=locus)
                     
         stream.writeln()
-        
-        if type == 'xml':
-            stream.closetag('allelecounts')
+        stream.closetag('allelecounts')
         return 1
 
     def getLocusDataAt(self, locus):
