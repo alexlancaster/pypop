@@ -681,19 +681,21 @@ allPairwiseLDWithPermu=0></programlisting>
     <application>Arlequin</application>: <literal>[Arlequin]</literal>
     and <literal>[HardyWeinbergGuoThompsonArlequin]</literal>.</para>
    
-   <bridgehead><literal>[General]</literal> advanced options</bridgehead>
+   <bridgehead><literal>[General]</literal> advanced
+    options</bridgehead>
    
    <itemizedlist>
     <listitem>
      <formalpara>
-      <title><literal>txtOutFilename</literal> and <literal>xmlOutFilename</literal></title>
+      <title><literal>txtOutFilename</literal> and
+       <literal>xmlOutFilename</literal></title>
       
       <para>If you wish to specify a particular name for the output
-       file, which you want to remain identical over several runs,
-       you can set these two items to particular values. The
-       default is to have the program select the output filename, which
-       can be controlled by the next variable.  <emphasis role="bold">[Default: not
-	used]</emphasis></para>
+       file, which you want to remain identical over several runs, you
+       can set these two items to particular values. The default is to
+       have the program select the output filename, which can be
+       controlled by the next variable.  <emphasis
+	role="bold">[Default: not used]</emphasis></para>
       
      </formalpara>
     </listitem>
@@ -702,16 +704,17 @@ allPairwiseLDWithPermu=0></programlisting>
      <formalpara>
       <title><literal>outFilePrefixType</literal> </title>
       
-      <para>This option can either be omitted entirely (in which
-       case the default will be <literal>filename</literal>) or be
-       set in several ways.  The default is set as
-       <literal>filename</literal>, which will result in three
-       output files named
+      <para>This option can either be omitted entirely (in which case
+       the default will be <literal>filename</literal>) or be set in
+       several ways.  The default is set as
+       <literal>filename</literal>, which will result in three output
+       files named
        <filename><replaceable>original-filename-minus-suffix</replaceable>-out.xml</filename>, 
        <filename><replaceable>original-filename-minus-suffix</replaceable>-out.txt</filename>, 
        and
        <filename><replaceable>original-filename-minus-suffix</replaceable>-filter.xml</filename>. 
-       <emphasis role="bold">[Default: <literal>filename</literal>]</emphasis></para>
+       <emphasis role="bold">[Default:
+	<literal>filename</literal>]</emphasis></para>
      </formalpara>
      
      <para>If you set the value to <literal>date</literal> instead of
@@ -726,49 +729,33 @@ allPairwiseLDWithPermu=0></programlisting>
      <formalpara>
       <title><literal>xslFilename</literal></title>
       
-      <para>This option specifies where to find the file XSLT file
-       to use for transforming <application>PyPop</application>'s
-       xml output into human-readable form.  Most users will not
-       normally need to set this option, and the default is the
+      <para>This option specifies where to find the file XSLT file to
+       use for transforming <application>PyPop</application>'s xml
+       output into human-readable form.  Most users will not normally
+       need to set this option, and the default is the
        system-installed <filename>text.xsl</filename> file.</para>
-      </formalpara>
-     </listitem>
-    </itemizedlist>
+     </formalpara>
+    </listitem>
+   </itemizedlist>
 
-   <bridgehead><literal>[ParseGenotypeFile]</literal> advanced options</bridgehead>
+   <bridgehead><literal>[ParseGenotypeFile]</literal> advanced
+    options</bridgehead>
 
    <itemizedlist>
-    <listitem>
-     <formalpara>
-      <title><literal>useAnthonyNolanFilter</literal></title>
-      
-      <para>This option is <emphasis>only</emphasis> useful for HLA
-       data, and can be set to <literal>1</literal> (one) if you want
-       your data filtered through The Anthony Nolan database of known
-       HLA allele names <!-- which version of the WHO nomenclature
-       release? --> before processing.</para>
-     </formalpara>
-
-     <para>Assuming your data is not absolutely in agreement with all
-      the entries in this database, you'll get a
-      <filename><replaceable>popfile</replaceable>-filter.xml</filename> 
-      file output showing what was resolved and what could not be
-      resolved. <emphasis role="bold">[Default: <literal>0</literal>
-       (OFF)]</emphasis></para>
-    </listitem>
     <listitem>
      <formalpara>
       <title><literal>fieldPairDesignator</literal></title>
       
       <para>This option allows you to override the coding for the
        headers for each pair of alleles at each loci;  it must match
-       the entry in the config file under <literal>validSampleFields</literal>
-       and the entries in your population data file.
-       If you want to use something other than
+       the entry in the config file under
+       <literal>validSampleFields</literal> and the entries in your
+       population data file. If you want to use something other than
        <literal>_1</literal> and <literal>_2</literal>, change this
        option, for instance, to use letters and parentheses, change it
        as follows: <literal>fieldPairDesignator=(a):(b)</literal>
-       <emphasis role="bold">[Default: <literal>_1:_2</literal>]</emphasis></para>
+       <emphasis role="bold">[Default:
+	<literal>_1:_2</literal>]</emphasis></para>
      </formalpara>
     </listitem>
     
@@ -782,15 +769,15 @@ allPairwiseLDWithPermu=0></programlisting>
 	<literal>+</literal>]</emphasis></para>
      </formalpara>
      
-     <para>If you are analyzing data that contains a population
-      name for each sample, then the first entry in your
+     <para>If you are analyzing data that contains a population name
+      for each sample, then the first entry in your
       <literal>validSampleFields</literal> section should have a
       prefixed +, as below:</para>
 
      <programlisting>validSampleFields=+populat
  *a_1
  *a_2
-...</programlisting>
+      ...</programlisting>
 
     </listitem>
 
@@ -805,14 +792,14 @@ allPairwiseLDWithPermu=0></programlisting>
        three lines of header information of your file, if it has
        these.   <emphasis role="bold">[Default: required when
 	population data-block in data file]</emphasis>, e.g.:</para>
-	</formalpara>
+     </formalpara>
 
-<programlisting>validPopFields=labcode
+     <programlisting>validPopFields=labcode
  method
  ethnic
  country
  latit
- longit</programlisting>
+      longit</programlisting>
 
     </listitem>
    </itemizedlist>
@@ -837,9 +824,9 @@ allPairwiseLDWithPermu=0></programlisting>
       <title><literal>arlequinExec</literal></title>
       
       <para>This option specifies where to find the
-       <application>Arlequin</application> executable on your
-       system. The default assumes it is on your system path.
-       <emphasis role="bold">[Default:
+       <application>Arlequin</application> executable on your system.
+       The default assumes it is on your system path. <emphasis
+	role="bold">[Default:
 	<literal>arlecore.exe</literal>]</emphasis></para>
      </formalpara>
     </listitem>
@@ -848,16 +835,98 @@ allPairwiseLDWithPermu=0></programlisting>
    <bridgehead><literal>[HardyWeinbergGuoThompsonArlequin]</literal>
     extra section</bridgehead>
      
-    <para>When this section is present, Arlequin's implementation of
+   <para>When this section is present, Arlequin's implementation of
     the Hardy-Weinberg exact test is run, using a Monte-Carlo Markov
-    Chain implementation.  By default this is not enabled. The default
-    options are: <literal>markovChainStepsHW=2500000</literal>
-    <literal>markovChainDememorisationStepsHW=5000</literal> These
-    values have proved to be optimal for us.  Don't bother changing
-    them unless you are particularly curious.  If you change the
-    values and have problems, please let us  <emphasis
-     role="bold">know</emphasis> that you have changed them.</para>
+    Chain implementation.  By default this section is not
+    enabled.</para>
 
+    <itemizedlist>
+     <listitem>
+      <formalpara>
+       <title><literal>markovChainStepsHW</literal></title>
+       <para>Length of steps in the Markov chain <emphasis
+	 role="bold">[Default: 2500000]</emphasis>.</para>
+      </formalpara>
+     </listitem>
+     <listitem>
+      <formalpara>
+       <title><literal>markovChainDememorisationStepsHW</literal></title>
+       <para>Number of steps of to <quote>burn-in</quote> the Markov
+	chain before statistics are collected.<emphasis
+	 role="bold">[Default: 5000]</emphasis></para>
+      </formalpara>
+     </listitem>
+    </itemizedlist>
+
+   <para>The default values for options described above have proved
+    to be optimal for us and if the options are not provided these
+    defaults will be used.  If you change the values and have
+    problems, please let us <emphasis role="bold">know</emphasis>
+    that you have changed them.</para>
+
+   <bridgehead><literal>[Filters]</literal> extra section</bridgehead>
+
+   <para>When this section is present, it allows you to specify
+    succesive filters to the data.</para>
+
+   <itemizedlist>
+    <listitem>
+     <formalpara>
+      <title><literal>filtersToApply</literal></title>
+      <para>Here you specify which filters you want applied to the
+       data and the order in which you want them applied.  Separate
+       each filter name with a colon (<literal>:</literal>).  
+       Currently there is one predefined filter:
+       <literal>AnthonyNolan</literal>.
+      </para>
+     </formalpara>
+    </listitem>
+   </itemizedlist>
+
+   <bridgehead><literal>[AnthonyNolan]</literal> filter section</bridgehead>
+
+   <para>This section is <emphasis>only</emphasis> useful for HLA
+    data, and only will be used if present in the
+    <literal>filtersToApply</literal> line specified above.  If so
+    enabled, your data will be filtered through The Anthony Nolan
+    database of known HLA allele names <!-- which version of the WHO
+    nomenclature release? --> before processing.  The data files this
+    filter relies on are <emphasis>not</emphasis> currently
+    distributed with <application>PyPop</application> but can be
+    obtained via the <ulink
+     url="ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/">IMGT ftp
+     site</ulink>. Invocation of this filter will produce a
+    <filename><replaceable>popfile</replaceable>-filter.xml</filename>
+    file output showing what was resolved and what could not be
+    resolved. </para>
+
+   <itemizedlist>
+    <listitem>
+     <formalpara>
+      <title><literal>alleleFileFormat</literal></title>
+      <para>This options specifies which of the formats the  Anthony
+       Nolan allele data will be used.  The option can be set to
+       either <literal>txt</literal> (for the plain free text format)
+       or <literal>msf</literal> (for the <ulink
+	url="http://www.ebi.ac.uk/imgt/hla/download.html">Multiple
+	Sequence Format</ulink>)  <emphasis role="bold">[Default:
+	<literal>msf</literal>]</emphasis></para>
+     </formalpara>
+    </listitem>
+
+    <listitem>
+     <formalpara>
+      <title><literal>path</literal></title>
+      <para>Specifies the path to the root of the sequence files.  For
+       <literal>txt</literal>: <emphasis role="bold">[Default:
+	<filename
+	 class="directory"><replaceable>prefix</replaceable>/share/PyPop/anthonynolan/HIG-seq-pep-text/</filename>]</emphasis>. 
+       For <literal>msf</literal> files <emphasis
+	role="bold">[Default: <filename
+	 class="directory"><replaceable>prefix</replaceable>/share/PyPop/anthonynolan/msf/</filename>]</emphasis>.</para>
+     </formalpara>
+    </listitem>
+   </itemizedlist>
   </section>
 
  </section>
