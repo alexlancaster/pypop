@@ -1,4 +1,10 @@
+include ChangeLog
 include pypop.py
 include ws-*.dat
 include text.xsl
 include config.ini
+include emhaplofreq/*.h
+include emhaplofreq/Makefile
+include gthwe/*.h
+include gthwe/Makefile
+include gthwe/README.1
