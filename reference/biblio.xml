@@ -772,7 +772,7 @@
   </biblioset>
  </biblioentry>
  
- <biblioentry id="Daly:2001">
+ <biblioentry id="Daly:etal:2001">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -1700,6 +1700,45 @@
   </biblioset>
  </biblioentry>
 
+ <biblioentry id="Levene:1949">
+  <biblioset relation="article">
+   <author>
+    <firstname>H</firstname>
+    <surname>Levene</surname>
+   </author>
+   <pubdate>1949</pubdate>
+   <citetitle>On a matching problem arising in genetics.</citetitle>
+   <volumenum>20</volumenum>
+   <pagenums>627-642</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Ann Math Stat</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Louis:Dempster:1987">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>E</firstname>
+     <surname>Louis</surname>
+    </author>
+    <author>
+     <firstname>ER</firstname>
+     <surname>Dempster</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1987</pubdate>
+   <citetitle>An exact test for Hardy-Weinberg and multiple alleles.</citetitle>   <volumenum>43</volumenum>
+   <pagenums>805-812</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Biometrics</citetitle>
+  </biblioset>
+
+</biblioentry>
+
+
 <!--
  
 <biblioentry id="Hacia">
@@ -1797,40 +1836,6 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
  Contrasting evolutionary histories among tightly linked HLA loci. Am J Hum Genet 39:340-9.
 </biblioentry>
 
-<para>Levene H <pubdate>1949</pubdate>
- On a matching problem arising in genetics. Ann Math Stat 20:627-642
-</biblioentry>
-
-
-<biblioentry id="Louis">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>E</firstname>
-<surname>Louis</surname>
-</author>
-<author>
-<firstname>ER</firstname>
-<surname>Dempster</surname>
-</author>
-<pubdate>1987</pubdate>
- An exact test for Hardy-Weinberg and multiple alleles. Biometrics 43:805-811.
-</biblioentry>
-
-<biblioentry id="Louis">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>EJ</firstname>
-<surname>Louis</surname>
-</author>
-<author>
-<firstname>ER</firstname>
-<surname>Dempster</surname>
-</author>
-<pubdate>1987</pubdate>
- An Exact Test for Hardy-Weinberg and Multiple Alleles. Biometrics 43:805-812.
-</biblioentry>
 
 <biblioentry id="Mullis">
 <biblioset relation="article">
@@ -1863,12 +1868,6 @@ A.J. Pakstis, J.R. Kidd, J.-F. Lee, S.-J. Yin, H.-C. Ko, H.J. Edenberg, R.-B. Lu
 </author>
 B.S. Weir, and C.C. Cockerman. 1983. Estimation of the coancestry coefficient: Basis for a short-term genetic distance. Genetics 105-767-779.
 </biblioentry>
-
-
-<para>Schneider <pubdate>2000</pubdate>
- Arlequin: A software for population genetics data analysis.
-</biblioentry>
-
 
 <biblioentry id="Thomson">
 <biblioset relation="article">
