@@ -20,28 +20,85 @@
   </author>
   <releaseinfo>Version &VERSION;</releaseinfo>
   <pubdate>&pubdate;</pubdate>
-  
+  <copyright>
+   <year>2003</year>
+   <holder>Regents of the University of California</holder>
+  </copyright>
+  <legalnotice>
+   <title>Licence terms for PyPop documentation</title>
+    <para>Permission is granted to copy, distribute and/or modify this
+    document under the terms of the GNU Free Documentation License,
+    Version 1.2 or any later version published by the Free Software
+    Foundation; with no Invariant Sections no Front-Cover Texts and no
+    Back-Cover Texts.  A copy of the license is included in the
+    section entitled "GNU Free Documentation License".</para>
+  </legalnotice>
  </bookinfo>
 
- <xi:include href="authors.xml"/>
+ <preface id="guide-preface">
+  <title>Preface</title>
 
- <chapter>
+  <section id="guide-preface-intro">
+   <title>Introduction</title>
+
+   <para>This guide to <application>PyPop</application> contains is in
+    three parts:</para>
+
+   <itemizedlist>
+    <listitem>
+     <para><xref linkend="guide-chapter-install"/>
+      describes how to install the application either using a
+      standalone binary version that you can simply download and
+      install, or for programmers and other interested parties there
+      is a source version which you can build the application
+      yourself</para>
+    </listitem>
+
+    <listitem>
+     <para><xref linkend="guide-chapter-usage"/>
+      which describes how run <application>PyPop</application>.</para>
+    </listitem>
+
+    <listitem>
+     <para><xref linkend="guide-chapter-instructions"/> which details
+      the population genetics methods and statistics that
+      <application>PyPop</application> performs.</para>
+
+    </listitem>
+   </itemizedlist>
+
+   <para>Except where noted in the source,
+    <application>PyPop</application> is distributed under the terms of
+    the <ulink url="http://www.gnu.org/licenses/gpl.html">GNU General
+     Public License</ulink> (see <xref linkend="gpl"/>).  The list of
+    authors and contributors follows.</para>
+
+  </section>
+
+  <section id="guide-preface-authors">
+   <xi:include href="AUTHORS.xml#xpointer(/preface/title)"/>
+   <xi:include href="AUTHORS.xml#xpointer(/preface/*[not(self::title)])"/>
+  </section>
+
+ </preface>
+
+ <chapter id="guide-chapter-install">
   <chapterinfo>
-   <xi:include href="install.xml#xpointer(//articleinfo/*)"/>
+   <xi:include href="INSTALL.xml#xpointer(//articleinfo/*)"/>
   </chapterinfo>
-  <xi:include href="install.xml#xpointer(//articleinfo/title)"/>
-  <xi:include href="install.xml#xpointer(/article/section)"/>
+  <xi:include href="INSTALL.xml#xpointer(//articleinfo/title)"/>
+  <xi:include href="INSTALL.xml#xpointer(/article/section)"/>
  </chapter>
 
- <chapter>
+ <chapter id="guide-chapter-usage">
   <chapterinfo>
-   <xi:include href="usage.xml#xpointer(//articleinfo/*)"/>
+   <xi:include href="README.xml#xpointer(//articleinfo/*)"/>
   </chapterinfo>
-  <xi:include href="usage.xml#xpointer(//articleinfo/title)"/>
-  <xi:include href="usage.xml#xpointer(/article/section)"/>
+  <xi:include href="README.xml#xpointer(//articleinfo/title)"/>
+  <xi:include href="README.xml#xpointer(/article/section)"/>
  </chapter>
 
- <chapter>
+ <chapter id="guide-chapter-instructions">
   <chapterinfo>
    <xi:include href="instructions.xml#xpointer(//articleinfo/authorgroup)"/>
    <xi:include href="instructions.xml#xpointer(//articleinfo/pubdate)"/>
@@ -55,7 +112,7 @@
 
  <xi:include href="biblio.xml"/>
 
- <xi:include href="gpl.xml"/>
+ <xi:include href="COPYING.xml"/>
 
 </book>
 
