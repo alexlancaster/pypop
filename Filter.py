@@ -537,6 +537,20 @@ class AnthonyNolanFilter(Filter):
                         self.polyseq[locus + '*' + allele] += self.sequences[allele][pos]
                     self.polyseqpos[locus].append(pos+1)
 
+            # this block was used to output *complete* sequences for a pop file
+            # (with all the positions, not just the polymorphic residues.)
+#            if len(self.polyseqpos[locus]) > 1:
+#                self.logFile.opentag('sequence-' + locus)
+#                self.logFile.writeln()
+#                for individ in self.matrix[locus]:
+#                    for allele in individ:
+#                        self.logFile.writeln(self.sequences[allele])
+#
+#                self.logFile.closetag('sequence-' + locus)
+#                self.logFile.writeln()
+
+
+
         if self.debug:
             print self.polyseq
             print self.polyseqpos
@@ -549,7 +563,7 @@ class AnthonyNolanFilter(Filter):
         self.polyseq, self.polyseqpos = self.makeSeqDictionaries(self.matrix)
 
         # log to the -filter.xml file
-        self.logFile.opentag('sequence')
+        self.logFile.opentag('sequence-summary')
         self.logFile.writeln()
 
         for locus in self.matrix.colList:
@@ -603,7 +617,7 @@ class AnthonyNolanFilter(Filter):
 
             self.logFile.writeln()
 
-        self.logFile.closetag('sequence')
+        self.logFile.closetag('sequence-summary')
 
 
         # creating the new data matrix

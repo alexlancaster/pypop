@@ -1,3 +1,22 @@
+2004-08-17  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Main.py (Main._doGenotypeFile): Added "if self.debug" to quiet
+	the output during random binning.
+
+	* RandomBinning.py (RandomBinsForHomozygosity.__init__): Retooled
+	the output so it can deal with multiple input files.
+	(RandomBinsForHomozygosity.randomMethod): Retooled the output so
+	it can deal with multiple input files, as above.  Currently,
+	results of random binning are sent to standard out.  Need to put
+	this in a log file
+
+	* Filter.py (AnthonyNolanFilter.translateMatrix): Changed logFile
+	tag name for the sequence summary.
+	(AnthonyNolanFilter.makeSeqDictionaries): Added some commented-out
+	code which outputs full-sequence translations of a pop file (i.e.,
+	not just the polymorphic positions.)  This could become a method
+	wit options in the config file in the future.
+
 2004-08-11  Alex Lancaster  <alex AT berkeley.edu>
 
 	* xslt/meta-to-r.xsl (output-field): Fix template to also output
