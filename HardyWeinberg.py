@@ -667,15 +667,6 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       sortedAlleles = self.observedAlleles
       sortedAlleles.sort()
 
-      if 0:
-        hwFilename = locusName + '.hw'
-        
-        hwStream = TextOutputStream(open(hwFilename, 'w'))
-
-        # generate .hw file
-        hwStream.writeln(locusName)
-        hwStream.writeln("%d" % n)
-
       # allele list
       flattenedMatrix = []
     
@@ -696,44 +687,8 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
           else:
             output = "%2s " % "0"
 
-          if 0:
-            hwStream.write(output)
           flattenedMatrix.append(int(output))
-        if 0:
-          hwStream.writeln()
 
-      if 0:
-        # set parameters
-        hwStream.writeln("%d %d %d" % (self.dememorizationSteps,
-                                   self.samplingNum,
-                                   self.samplingSize))
-        # close the .hw file
-        hwStream.close()
-
-        xmlFilename = locusName + '.xml'
-        
-        # execute program, capture stdin, stout and stderr
-        commandStr = "gthwe %s %s" % (hwFilename, xmlFilename)
-        fin, fout, ferr = os.popen3(commandStr, 't', 2000000)
-
-        # check stderr first
-        for line in ferr.readlines():
-          if line.startswith("***Error"):
-            print "too few alleles"
-   
-            print "stdout:", fout.readlines()
-            print "stderr:", ferr.readlines()
-
-        if self.debug:
-          print open(xmlFilename, 'r').readlines()
-
-        # copy the resultant output to XML stream
-        for line in open(xmlFilename, 'r').readlines():
-          stream.write(line)
-
-        # remove temporary files
-        os.remove(hwFilename)
-        os.remove(xmlFilename)
 
       # create dummy array
       n = [0]*35
