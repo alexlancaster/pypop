@@ -352,12 +352,14 @@ class Index:
 
 class StringMatrix(UserArray):
 
+  """
+  StringMatrix is a subclass of the Numeric Python (NumPy)
+  UserArray class, and uses NumPy to store the data in an efficient
+  array format, rather than internal Python lists.
+  """
+
   def __init__(self, rowCount=None, colList=None):
       """Constructor for StringMatrix.
-
-      This is a subclass used the Numeric Python (NumPy) UserArray
-      class, and uses NumPy to store the data in an efficient array
-      format, rather than internal Python lists.
 
       colList is a mutable type so we freeze the list of locus keys in
       the original order in file by making a *clone* of the list of
