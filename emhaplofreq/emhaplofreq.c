@@ -823,9 +823,8 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
       {
 
 #ifdef XML_OUTPUT
-	fprintf(fp_out, "<haplotypefreq>\n");
+	fprintf(fp_out, "<haplotypefreq>\n<loginfo><![CDATA[");
 #endif
-
 	fprintf(fp_iter, "\n"); 
 	fprintf(fp_iter, "Percent of iterations with error_flag = 0: %7.3f\n", 100*error_flag0_pct/max_init_cond);
 	fprintf(fp_iter, "Percent of iterations with error_flag = 1: %7.3f\n", 100*error_flag1_pct/max_init_cond);
@@ -849,7 +848,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	fprintf(fp_iter, "\n"); 
 
 #ifdef XML_OUTPUT
-	fprintf(fp_out, "<condition role=\"");
+	fprintf(fp_out, "]]></loginfo>\n<condition role=\"");
 #endif
 
 	if (error_flag_best == 0) {
@@ -1012,24 +1011,38 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   {
 
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "<permutationSummary><![CDATA[");
-#endif
-
+    fprintf(fp_permu, "<permutationSummary>");
+#else
     fprintf(fp_permu, "permu   LR = -2*(LL_0 - LL_1)\n");
+#endif
+    
     pvalue = 0.0;
+
+#ifdef XML_OUTPUT
+    fprintf(fp_permu, "<permutation iter=\"%d\">%f</permutation>", 0, like_ratio[0]);
+#else
     fprintf(fp_permu, "%3d  %f \n", 0, like_ratio[0]); 
+#endif
     for (i = 1; i < max_permutations; i++)
     {
+#ifdef XML_OUTPUT
+      fprintf(fp_permu, "<permutation iter=\"%d\">%f</permutation>", i, like_ratio[i]);
+#else
       fprintf(fp_permu, "%3d  %f \n", i, like_ratio[i]); 
+#endif
       if (like_ratio[i] > like_ratio[0]) pvalue += 1;
     }
     pvalue = pvalue/(max_permutations-1);
-    fprintf(fp_out, "Permutation LR Test for Overall LD based on %d permutations: pvalue = %f\n", 
-      max_permutations-1, pvalue); 
-    fprintf(fp_permu, "pvalue = %f \n", pvalue); 
 
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "]]></permutationSummary>\n");
+    fprintf(fp_out, "\n<pvalue totalperm=\"%d\">%f</pvalue>\n", max_permutations-1, pvalue); 
+#else
+    fprintf(fp_out, "Permutation LR Test for Overall LD based on %d permutations: pvalue = %f\n", max_permutations-1, pvalue); 
+    fprintf(fp_permu, "pvalue = %f \n", pvalue); 
+#endif
+
+#ifdef XML_OUTPUT
+    fprintf(fp_permu, "</permutationSummary>\n");
 #endif
 
 #ifndef EXTERNAL_MODE
