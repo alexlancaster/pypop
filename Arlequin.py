@@ -23,6 +23,7 @@ class ArlequinBatch:
                  prefixCols,
                  suffixCols,
                  windowSize,
+                 mapOrder=None,
                  untypedAllele = '0',
                  arlequinPrefix = "arl_run",
                  debug=0):
@@ -44,13 +45,16 @@ class ArlequinBatch:
         
         - suffixCols: number of columns to ignore after allele data
           stops
-        
+
         - windowSize: size of sliding window
+
+        - mapOrder: list order of columns if different to column order in file
+          (defaults to order in file)
         
         - untypedAllele:  (defaults to '0')
         
         - arlequinPrefix: prefix for all Arlequin run-time files
-        (defaults to 'arl_run').
+          (defaults to 'arl_run').
 
         - debug: (defaults to 0)
         
@@ -60,6 +64,7 @@ class ArlequinBatch:
         self.idCol = idCol
         self.prefixCols = prefixCols
         self.suffixCols = suffixCols
+        self.mapOrder = mapOrder
         self.windowSize = windowSize
         self.arlequinPrefix = arlequinPrefix
         self.untypedAllele = untypedAllele
@@ -97,22 +102,21 @@ class ArlequinBatch:
 
         return headerLines
 
-    def _outputSample (self, data, startCol, endCol):
+    def _outputSample (self, data, chunk, slice):
 
         # store output Arlequin-formatted genotypes in an array
         samples = []
         sampleLines = []
         
-        # convert columns to locus number
-        startLocus = (startCol - self.prefixCols)/2 + 1
-        endLocus = (startLocus - 1) + (endCol - startCol)/2
 
-        chunk = xrange(startCol, endCol)
+        if self.debug:
+            print "_outputSample:chunk:", chunk
         for line in data:
             words = string.split(line)
             unphase1 = "%10s 1 " % words[self.idCol]
             unphase2 = "%13s" % " "
             for i in chunk:
+            #for i in chunk:
                 allele = words[i]
                 # don't output individual if *any* loci is untyped
                 if allele == self.untypedAllele:
@@ -120,7 +124,8 @@ class ArlequinBatch:
                         print "untyped allele %s in (%s), (%s)" \
                               % (allele, unphase1, unphase2)
                     break
-                if ((i - startCol) % 2): unphase1 = unphase1 + " " + allele
+                #print chunk.index(i), (i - startCol) % 2, chunk.index(i) % 2
+                if ((chunk.index(i) + 1) % 2): unphase1 = unphase1 + " " + allele
                 else: unphase2 = unphase2 + " " + allele
             else:
                 # store formatted output samples
@@ -133,9 +138,9 @@ class ArlequinBatch:
         if len(samples) != 0:
             sampleLines.append("""
             
-            SampleName=\"%s pop with %s individuals from locus %d to %d\"
+            SampleName=\"%s pop with %s individuals from loci %s\"
             SampleSize= %s
-            SampleData={"""  % (self.arlResPrefix, len(samples)/2, startLocus, endLocus, len(samples)/2))
+            SampleData={"""  % (self.arlResPrefix, len(samples)/2, str(slice), len(samples)/2))
 
             sampleLines.append(os.linesep)
 
@@ -149,6 +154,25 @@ class ArlequinBatch:
             validSample = 0
 
         return sampleLines, validSample
+
+    def _genChunk(self, offset, start, window, order):
+        """Generate a list of adjacent columns for '.arp' file.
+
+        Given a map 'order', generate the list of adjacent columns.
+
+        Return a tuple consisting of two lists:
+
+        - adjacent columns
+        - window on current map order (a `slice' of the overall map order).
+        """
+        newChunk = []
+        slice = order[start:(window + start)]
+        for x in slice:
+            col1 = offset + (x*2)
+            col2 = col1 + 1
+            newChunk.append(col1)
+            newChunk.append(col2)
+        return newChunk, slice
 
     def outputArlequin(self, data):
         """Outputs the specified .arp sample file.
@@ -170,9 +194,30 @@ class ArlequinBatch:
         else:
             locusCount = (colCount)/2
 
+        # create default map order if none given
+        if self.mapOrder == None:
+            self.mapOrder = [i for i in range(0, locusCount)]
+
+        # sanity check for map order if it is given
+        else:
+            if (locusCount < len(self.mapOrder)):
+                sys.exit("Error: \
+                there are %d loci but %d were given to sort order"\
+                         % (locusCount, len(self.mapOrder)))
+            else:
+                for i in self.mapOrder:
+                    if self.mapOrder.count(i) > 1:
+                        sys.exit("Error: \
+                        locus %d appears more than once in sort order" % i)
+                    elif (i > (locusCount - 1)) or (i < 0):
+                        sys.exit("Error: \
+                        locus %d out of range of number of loci" % i)
+                        
+            
         if self.debug:
             print "First line", firstLine, "has", cols, "columns and", \
                   locusCount, "allele pairs"
+            print "Map order:", self.mapOrder
 
         # if windowSize is set to zero, the default to using
         # locusCount as windowSize
@@ -180,15 +225,27 @@ class ArlequinBatch:
         if self.windowSize == 0:
             self.windowSize = locusCount
 
-        chunk = xrange(0, locusCount - self.windowSize + 1)
+        #chunk = xrange(0, locusCount - self.windowSize + 1)
+        chunk = xrange(0, len(self.mapOrder) - self.windowSize + 1)
 
         sampleCount = 0
         totalSamples = []
-        
+
         for locus in chunk:
-            start = self.prefixCols + locus*2
-            end = start + self.windowSize*2
-            sampleLines, validSample = self._outputSample(data, start, end)
+
+            # create the list of adjacent columns and the 'slice' of loci
+            # within the current map order we are looking at
+            colChunk, locusSlice = self._genChunk(self.prefixCols,
+                                                  locus,
+                                                  self.windowSize,
+                                                  self.mapOrder)
+            if self.debug:
+                print locus, colChunk, locusSlice
+
+            # generate the sample
+            sampleLines, validSample = self._outputSample(data,
+                                                          colChunk,
+                                                          locusSlice)
             totalSamples.extend(sampleLines)
             sampleCount += validSample
 
@@ -251,10 +308,14 @@ Process a tab-delimited INPUTFILE of alleles to produce an data files
 genetics program.
 
  -i, --idcol=NUM       column number of identifier (first column is zero)
- -k, --cols=POS1,POS2  number of leading columns (POS1) before start and end
+ -c, --cols=POS1,POS2  number of leading columns (POS1) before start and end
                         (POS2) of allele data (including IDCOL)
+ -k, --sort=POS1,..    specify order of loci if different from column order
+                        in file (must not repeat a locus)
  -w, --windowsize=NUM  number of loci involved in window size 
                         (note that this is twice the number of allele columns)
+ -u, --untyped=STR     the string that represents `untyped' alleles
+                        (defaults to '****')
  -x, --execute         execute the Arlequin program
  -h, --help            this message
  -d, --debug           switch on debugging
@@ -266,8 +327,8 @@ genetics program.
     from getopt import getopt, GetoptError
 
     try: opts, args = \
-         getopt(sys.argv[1:],"i:k:w:xhd",\
-                ["idcol", "cols", "windowsize", "help", "execute", "debug"])
+         getopt(sys.argv[1:],"i:c:k:w:u:xhd",\
+                ["idcol", "cols", "sort", "windowsize", "help", "untyped", "execute", "debug"])
     except GetoptError:
         sys.exit(usage_message)
 
@@ -275,26 +336,34 @@ genetics program.
     idCol = 0
     prefixCols = 1
     suffixCols = 0
+    mapOrder = None
     windowSize = 0
     executeFlag = 0
+    untypedAllele = '****'
     debug = 0
 
     # parse options
     for o, v in opts:
         if o in ("-i", "--idcol"):
             idCol = int(v)
-        elif o in ("-k", "--cols"):
+        elif o in ("-c", "--cols"):
             prefixCols, suffixCols = map(int, string.split(v, ','))
+        elif o in ("-k", "--sort"):
+            mapOrder = map(int, string.split(v, ','))
+            print mapOrder
         elif o in ("-t", "--trailcols"):
             suffixCols = int(v)
         elif o in ("-w", "--windowsize"):
             windowSize = int(v)
-        elif o in ("-h", "--help"):
-            sys.exit(usage_message)
+        elif o in ("-u", "--untyped"):
+            untypedAllele = v
         elif o in ("-x", "--execute"):
             executeFlag = 1
         elif o in ("-d", "--debug"):
             debug = 1
+        elif o in ("-h", "--help"):
+            sys.exit(usage_message)
+
 
     # check number of arguments
     if len(args) != 3:
@@ -306,12 +375,14 @@ genetics program.
     arsFilename = args[2]
     
     batch = ArlequinBatch(arpFilename = arpFilename,
-                               arsFilename = arsFilename,
-                               idCol = idCol,
-                               prefixCols = prefixCols,
-                               suffixCols = suffixCols,
-                               windowSize = windowSize,
-                               debug=debug)
+                          arsFilename = arsFilename,
+                          idCol = idCol,
+                          prefixCols = prefixCols,
+                          suffixCols = suffixCols,
+                          untypedAllele = untypedAllele,
+                          mapOrder = mapOrder,
+                          windowSize = windowSize,
+                          debug=debug)
     batch.outputArlequin(open(inputFilename, 'r').readlines())
     batch.outputRunFiles()
 
