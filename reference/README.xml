@@ -435,7 +435,8 @@ numReplicates=10000
 
 [Emhaplofreq]              <co id="emhaplofreq"/>
 allPairwiseLD=1
-allPairwiseLDWithPermu=0></programlisting>
+allPairwiseLDWithPermu=0
+;;numPermuInitCond=5</programlisting>
   </example>
    
   <calloutlist>
@@ -644,16 +645,32 @@ allPairwiseLDWithPermu=0></programlisting>
 
       <listitem>
       <formalpara>
-       <title><literal>allPairwiseLDWithPermu=0</literal></title>
+	<title><literal>allPairwiseLDWithPermu</literal></title>
    
-       <para>Set this to <literal>1</literal> (one) if you need to
-	determine the significance of the pairwise LD measures in the
-	previous section.  (Note this is done via permutation testing
-	performed after the pairwise LD test for all pairs of loci.
-	Note also that this test can take DAYS if your data is at all
-	polymorphic.)</para>
+	<para>Set this to a positive integer greater than 1 if you
+	 need to determine the significance of the pairwise LD
+	 measures in the previous section.  The number you use is the
+	 number of permutations that will be run to ascertain the
+	 significance (this should be at least 1000 or greater).
+	 (Note this is done via permutation testing performed after
+	 the pairwise LD test for all pairs of loci. Note also that
+	 this test can take DAYS if your data is at all
+	 polymorphic.)</para>
       </formalpara>
      </listitem>
+
+      <listitem>
+      <formalpara>
+	<title><literal>numPermuInitCond</literal></title>
+   
+	<para>Set this to change the number of initial conditions used
+	 per  permutation.   The default is 5 (<emphasis>Note: this
+	  parameter is only used if
+	  <literal>allPairwiseLDWithPermu</literal> is set and
+	  nonzero</emphasis>).</para>
+      </formalpara>
+     </listitem>
+
     </itemizedlist>
    </callout>
   </calloutlist>
