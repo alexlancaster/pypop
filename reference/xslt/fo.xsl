@@ -1,4 +1,3 @@
-
 <!DOCTYPE xsl:stylesheet PUBLIC "-//Thomson Lab//DTD Unofficial XSL//EN"  
                          "xsl.dtd">  
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
