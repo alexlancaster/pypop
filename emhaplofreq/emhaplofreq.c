@@ -9,7 +9,7 @@
 
 #include "emhaplofreq.h"
 
-/************************ function prototypes****************************/
+/***************** begin: function prototypes ***************************/
 
 void print_usage(void);
 
@@ -29,15 +29,15 @@ int main_proc(char (*)[][], int, int);
   * we only return from it to exit. 
 */
 
-int count_unique_haplos(char (*)[][], char (*)[], int);
-/* array of genotypes, array of haplotypes, number of unique genotypes */
+int count_unique_haplos(char (*)[][], char (*)[], int (*)[], char (*)[][], int *, int, int);
+/* array of genotypes, array of haplotypes, unique_allele array, */
+/* no. of unique alleles array, number of unique genotypes, number of loci */
 /* returns number of haplotypes */
 /* 
-  * creates array of possible haplotypes from 
-  * array of possibly observed genotypes 
+  * creates array of possible haplotypes from array of possibly observed genotypes 
+  * create haplocus[i][j]: a 2-dim array of allele# at jth locus of ith haplotype
 */
 
-/* RS added (begin) */
 void id_unique_alleles(char (*)[][], char (*)[][], int *, int, int);
 /* data array, unique_allele array, no. of unique alleles array, no. of loci, no. of records */
 /* 
@@ -64,7 +64,13 @@ void emcalc(char (*)[], char (*)[][], int (*)[], int *, int *, double *,
   * perform EM iterations with results in the mle array
 */
 
-/* RS added (end) */
+void allele_frequencies(double *, int (*)[], double (*)[], int *, int, int); 
+/* mle, haplocus, allele_freq, n_unique_allele, n_loci, n_haplo */
+/*
+  * compute allele frequencies at each locus by summing over mle haplo freqs
+*/
+
+/******************* end: function prototypes ****************************/
 
 int main(int argc, char **argv)
 {
@@ -106,8 +112,8 @@ FILE *parse_args(int arg_count, char *arg_buff[])
   {
     switch (arg_buff[1][1])
     {
-    case 'h':
-    default:
+      case 'h':
+      default:
       print_usage();
       exit(EXIT_FAILURE);
       break;      /* not reached */
@@ -123,15 +129,14 @@ FILE *parse_args(int arg_count, char *arg_buff[])
     exit(EXIT_FAILURE);
   }
   /* skip this until we're through testing */
-  /*--mpn--*/
-  /* 
-     else 
-     { 
-     fprintf(stdout, "\nOpened file %s\n", arg_buff[1]); 
-     fprintf(stdout, "\nN.B. The first line is expected to contain comments, "); 
-     fprintf(stdout, "and will not be parsed.\n\n"); 
-     } 
-   */
+/* 
+  else 
+  { 
+    fprintf(stdout, "\nOpened file %s\n", arg_buff[1]); 
+    fprintf(stdout, "\nN.B. The first line is expected to contain comments, "); 
+    fprintf(stdout, "and will not be parsed.\n\n"); 
+  } 
+*/
 
   return (fh);
 }
@@ -194,6 +199,8 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
 int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 {
 
+  
+  /******************* begin: declarations ****************************/
   int i, j, obs, locus, col_0, col_1;
   int unique_pheno_flag, unique_geno_flag;
   char buff[NAME_LEN];
@@ -201,15 +208,15 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   int n_hetero, n_hetero_prev;  /* heterozygous sites through current and previous locus loop */
   int n_geno, n_geno_prev;  /* distinct genotypes through current and previous locus loop */
   int unique_pheno_count, n_unique_pheno, unique_geno_count, n_unique_geno;
-  int count;      /* RS added */
+
+/* RS --- needed for check -1-
+  int count;      
+*/
 
   /* these should be malloced, but the stack will experience meltdown: */
-  /* RS LINE_LEN changed to LINE_LEN/2 in temp_geno and geno */
-  /* RS MAX_GENOS changed to MAX_ROWS in pheno, numgeno, obspheno, and 2nd dim of genopheno */
   static char pheno[MAX_ROWS][LINE_LEN], geno[MAX_GENOS][2][LINE_LEN / 2];
   static char temp_geno[MAX_GENOS][2][LINE_LEN / 2];
-  static int numgeno[MAX_ROWS], obspheno[MAX_ROWS],
-    genopheno[MAX_GENOS][MAX_ROWS];
+  static int numgeno[MAX_ROWS], obspheno[MAX_ROWS], genopheno[MAX_GENOS][MAX_ROWS];
 
   char temp_pheno[LINE_LEN];
 
@@ -217,7 +224,9 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   int n_haplo;
   static char haplo[MAX_HAPLOS][LINE_LEN / 2];  /* RS changed to MAX_HAPLOS from 2*MAX_ROWS */
 
-  /* RS added (begin) */
+  /* needed for the count_unique_haplotypes and allele_frequencies functions */
+  static int haplocus[MAX_HAPLOS][MAX_LOCI];
+
   /* needed for the id_unique_alleles function */
   static char unique_allele[MAX_LOCI][MAX_ALLELES][NAME_LEN];
   static int n_unique_allele[MAX_LOCI];
@@ -229,7 +238,10 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   /* needed for the emcalc function */
   double mle[MAX_HAPLOS], freq_zero[MAX_HAPLOS];
 
-  /* RS added (end) */
+  /* needed for the allele_frequencies function */
+  static double allele_freq[MAX_LOCI][MAX_ALLELES];
+
+  /******************* end: declarations ****************************/
 
   n_hetero = n_hetero_prev = 0;
   n_geno = n_geno_prev = 1;
@@ -243,18 +255,15 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     if (strcmp(data_ar[0][col_0], data_ar[0][col_1]))
     {
       n_hetero++;
-
       if (strcmp(data_ar[0][col_0], data_ar[0][col_1]) > 0)
       {
-  strcpy(buff, data_ar[0][col_0]);
-  strcpy(data_ar[0][col_0], data_ar[0][col_1]);
-  strcpy(data_ar[0][col_1], buff);
+        strcpy(buff, data_ar[0][col_0]);
+        strcpy(data_ar[0][col_0], data_ar[0][col_1]);
+        strcpy(data_ar[0][col_1], buff);
       }
     }
-
     strcat(pheno[0], data_ar[0][col_0]);
     strcat(pheno[0], data_ar[0][col_1]);
-
 
     /* update num distinct genotypes current locus loop */
     n_geno_prev = n_geno;
@@ -268,30 +277,30 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
       /* copy current geno sequence to create multiple genos for this pheno */
       for (i = n_geno_prev; i < 2 * n_geno_prev; i++)
       {
-  strcat(geno[i][0], geno[i - n_geno_prev][0]);
-  strcat(geno[i][1], geno[i - n_geno_prev][1]);
+        strcat(geno[i][0], geno[i - n_geno_prev][0]);
+        strcat(geno[i][1], geno[i - n_geno_prev][1]);
       }
       /* fill in next portion of genotype */
       for (i = 0; i < n_geno; i++)
       {
-  if (i < n_geno / 2)  /* fill in in normal order */
-  {
-    strcat(geno[i][0], data_ar[0][col_0]);
-    strcat(geno[i][1], data_ar[0][col_1]);
-  }
-  else      /* fill in in reverse order */
-  {
-    strcat(geno[i][0], data_ar[0][col_1]);
-    strcat(geno[i][1], data_ar[0][col_0]);
-  }
+        if (i < n_geno / 2)  /* fill in in normal order */
+        {
+          strcat(geno[i][0], data_ar[0][col_0]);
+          strcat(geno[i][1], data_ar[0][col_1]);
+        }
+        else      /* fill in in reverse order */
+        {
+          strcat(geno[i][0], data_ar[0][col_1]);
+          strcat(geno[i][1], data_ar[0][col_0]);
+        }
       }
     }
     else      /* n_geno is 1 or curr site is homozygous */
     {
       for (i = 0; i < n_geno; i++)
       {
-  strcat(geno[i][0], data_ar[0][col_0]);
-  strcat(geno[i][1], data_ar[0][col_1]);
+        strcat(geno[i][0], data_ar[0][col_0]);
+        strcat(geno[i][1], data_ar[0][col_1]);
       }
     }
     n_hetero_prev = n_hetero;
@@ -320,26 +329,26 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 
       if ((strcmp(data_ar[obs][col_0], data_ar[obs][col_1])) > 0)
       {
-  strcpy(buff, data_ar[obs][col_0]);
-  strcpy(data_ar[obs][col_0], data_ar[obs][col_1]);
-  strcpy(data_ar[obs][col_1], buff);
+        strcpy(buff, data_ar[obs][col_0]);
+        strcpy(data_ar[obs][col_0], data_ar[obs][col_1]);
+        strcpy(data_ar[obs][col_1], buff);
       }
 
       strcat(temp_pheno, data_ar[obs][col_0]);
       strcat(temp_pheno, data_ar[obs][col_1]);
     }
     /* check whether this is a new distinct phenotype */
-    unique_pheno_flag = 1;
+    unique_pheno_flag = TRUE;
     for (i = 0; i <= unique_pheno_count; i++)  /* RS changed from < to <= */
     {
       if (!strcmp(temp_pheno, pheno[i]))
       {
-  unique_pheno_flag = 0;
-  obspheno[i] += 1;
+        unique_pheno_flag = FALSE;
+        obspheno[i] += 1;
       }
     }
 
-    if (unique_pheno_flag == 1)
+    if (unique_pheno_flag == TRUE)
     {
       /* determine genotypes for the new phenotype */
 
@@ -348,58 +357,58 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 
       for (i = 0; i < numgeno[unique_pheno_count]; i++)
       {
-  strcpy(temp_geno[i][0], "\0");
-  strcpy(temp_geno[i][1], "\0");
+        strcpy(temp_geno[i][0], "\0");
+        strcpy(temp_geno[i][1], "\0");
       }
 
       for (locus = 0; locus < n_loci; locus++)
       {
-  col_0 = locus * 2;
-  col_1 = col_0 + 1;
+        col_0 = locus * 2;
+        col_1 = col_0 + 1;
 
-  if (strcmp(data_ar[obs][col_0], data_ar[obs][col_1]))
-    n_hetero++;
-  n_geno_prev = n_geno;
+        if (strcmp(data_ar[obs][col_0], data_ar[obs][col_1]))
+          n_hetero++;
+        n_geno_prev = n_geno;
 
-  if (n_hetero > 0)
-    n_geno = (int)pow(2, n_hetero - 1);
-  else
-    n_geno = 1;
+        if (n_hetero > 0)
+          n_geno = (int)pow(2, n_hetero - 1);
+        else
+          n_geno = 1;
 
-  if ((n_geno > 1) && (n_hetero - n_hetero_prev == 1))
-  {
-    /* copy current sequence to create multiple genos for this pheno */
-    for (i = n_geno_prev; i < 2 * n_geno_prev; i++)
-    {
-      strcat(temp_geno[i][0], temp_geno[i - n_geno_prev][0]);
-      strcat(temp_geno[i][1], temp_geno[i - n_geno_prev][1]);
-    }
+        if ((n_geno > 1) && (n_hetero - n_hetero_prev == 1))
+        {
+          /* copy current sequence to create multiple genos for this pheno */
+          for (i = n_geno_prev; i < 2 * n_geno_prev; i++)
+          {
+            strcat(temp_geno[i][0], temp_geno[i - n_geno_prev][0]);
+            strcat(temp_geno[i][1], temp_geno[i - n_geno_prev][1]);
+          }
 
-    /* fill in next portion */
-    for (i = 0; i < n_geno; i++)
-    {
-      if (i < n_geno / 2)
-      {
-        strcat(temp_geno[i][0], data_ar[obs][col_0]);
-        strcat(temp_geno[i][1], data_ar[obs][col_1]);
-      }
-      else    /* fill in reverse order */
-      {
-        strcat(temp_geno[i][0], data_ar[obs][col_1]);
-        strcat(temp_geno[i][1], data_ar[obs][col_0]);
-      }
-    }
-  }
-  else      /* n_geno == 1 or current site not heterozygous */
-  {
-    for (i = 0; i < n_geno; i++)
-    {
-      strcat(temp_geno[i][0], data_ar[obs][col_0]);
-      strcat(temp_geno[i][1], data_ar[obs][col_1]);
-    }
-  }
+          /* fill in next portion */
+          for (i = 0; i < n_geno; i++)
+          {
+            if (i < n_geno / 2)
+            {
+              strcat(temp_geno[i][0], data_ar[obs][col_0]);
+              strcat(temp_geno[i][1], data_ar[obs][col_1]);
+            }
+            else    /* fill in reverse order */
+            {
+              strcat(temp_geno[i][0], data_ar[obs][col_1]);
+              strcat(temp_geno[i][1], data_ar[obs][col_0]);
+            }
+          }
+        }
+        else      /* n_geno == 1 or current site not heterozygous */
+        {
+          for (i = 0; i < n_geno; i++)
+          {
+            strcat(temp_geno[i][0], data_ar[obs][col_0]);
+            strcat(temp_geno[i][1], data_ar[obs][col_1]);
+          }
+        }
 
-  n_hetero_prev = n_hetero;
+        n_hetero_prev = n_hetero;
 
       }        /* END for each locus */
 
@@ -411,29 +420,29 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
       /* check for new distinct genotypes */
       for (i = 0; i < n_geno; i++)
       {
-  unique_geno_flag = 1;
+        unique_geno_flag = TRUE;
 
-  for (j = 0; j <= unique_geno_count; j++)  /* RS changed from < to <= */
-  {
-    if (((!strcmp(temp_geno[i][0], geno[j][0])) &&
-         (!strcmp(temp_geno[i][1], geno[j][1]))) ||
-        ((!strcmp(temp_geno[i][0], geno[j][1])) &&
-         (!strcmp(temp_geno[i][1], geno[j][0]))))
-    {
-      unique_geno_flag = 0;
-    }
-  }
+        for (j = 0; j <= unique_geno_count; j++)  /* RS changed from < to <= */
+        {
+          if (((!strcmp(temp_geno[i][0], geno[j][0])) &&
+               (!strcmp(temp_geno[i][1], geno[j][1]))) ||
+              ((!strcmp(temp_geno[i][0], geno[j][1])) &&
+               (!strcmp(temp_geno[i][1], geno[j][0]))))
+          {
+            unique_geno_flag = FALSE;
+          }
+        }
 
-  if (unique_geno_flag == 1)
-  {
-    unique_geno_count++;
-    strcpy(geno[unique_geno_count][0], temp_geno[i][0]);
-    strcpy(geno[unique_geno_count][1], temp_geno[i][1]);
-    genopheno[unique_geno_count][unique_pheno_count] = 1;
-  }
+        if (unique_geno_flag == TRUE)
+        {
+          unique_geno_count++;
+          strcpy(geno[unique_geno_count][0], temp_geno[i][0]);
+          strcpy(geno[unique_geno_count][1], temp_geno[i][1]);
+          genopheno[unique_geno_count][unique_pheno_count] = 1;
+        }
       }
-    }        /* END of if unique_pheno_flag == 1 */
-  }        /* END for for loop for each observation */
+    }        /* END of if unique_pheno_flag == TRUE */
+  }          /* END for for loop for each observation */
 
   n_unique_pheno = unique_pheno_count + 1;
   n_unique_geno = unique_geno_count + 1;
@@ -445,10 +454,14 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   fprintf(stdout, "n_unique_pheno: %d n_unique_geno: %d \n", n_unique_pheno,
     n_unique_geno);
 
-  n_haplo = count_unique_haplos(geno, haplo, n_unique_geno);
+  id_unique_alleles(data_ar, unique_allele, n_unique_allele, n_loci, n_recs);
+
+  n_haplo = count_unique_haplos(geno, haplo, haplocus, unique_allele, 
+    n_unique_allele, n_unique_geno, n_loci);
+
   fprintf(stdout, "n_haplo: %d \n", n_haplo);
 
-/* RS --- List each obs pheno and corresponding possible genos
+/* RS -1- List each obs pheno and corresponding possible genos
   for(i = 0; i < n_unique_pheno; i++) 
   { 
     fprintf(stdout, "pheno: %s obspheno: %d numgeno %d \n", pheno[i], obspheno[i], numgeno[i]); 
@@ -472,8 +485,7 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   }
 */
 
-  id_unique_alleles(data_ar, unique_allele, n_unique_allele, n_loci, n_recs);
-
+  /* N.B. this sort destroys the haplocus[][] corrspondence */
   sort2dim(unique_allele, n_unique_allele, n_loci);
 
   for (locus = 0; locus < n_loci; locus++)
@@ -492,9 +504,10 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   }
 
   emcalc(haplo, geno, genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
-   n_unique_geno, n_unique_pheno, n_recs);
+    n_unique_geno, n_unique_pheno, n_recs);
 
-/* TO DO: allele_frequencies(), add haplocus[][] to count_unique_haplotypes() */
+  /* N.B. allele_frequencies requires the array mle */
+  allele_frequencies(mle, haplocus, allele_freq, n_unique_allele, n_loci, n_haplo);
 
   /* N.B. can't sort arrays before using haplocus[][], since the order is needed */
   sort2arrays(haplo, mle, n_haplo);
@@ -510,6 +523,17 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     }
   }
 
+  /* Print out derived allele frequencies */
+  fprintf(stdout, "\nAllele Freq \t Locus \t Allele \n", 
+          allele_freq[i][j], i, unique_allele[i][j]);
+  for (i = 0; i < n_loci; i++)
+  {
+    for (j = 0; j < n_unique_allele[i]; j++)
+    {
+      fprintf(stdout, "%f \t %d \t %s \n", allele_freq[i][j], i, unique_allele[i][j]);
+    }
+  }
+
   fprintf(stdout, "\n");
 
   return (EXIT_SUCCESS);
@@ -517,20 +541,61 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 
 /************************************************************************/
 int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
-      char (*haplo_ar)[LINE_LEN / 2], int num_genos)
-/* RS LINE_LEN changed to LINE_LEN/2 in geno_ar */
+      char (*haplo_ar)[LINE_LEN / 2], int (*haplocus)[MAX_LOCI], 
+      char (*unique_allele)[MAX_ALLELES][NAME_LEN],
+      int *n_unique_allele, int num_genos, int num_loci)
 /* 
   * run through the array of possible genotypes 
-  * and create an array of possible haplotypes 
+  * create an array of possible haplotypes 
+  * create haplocus[i][j]: a 2-dim array of allele# at jth locus of ith haplotype
 */
 {
   int i, j, k;
   int unique_haplo_flag, unique_haplo_count;
+  char *temp_ptr;
+  char temp_array[MAX_LOCI][NAME_LEN];  
+  int l, m;
+  static char temp_buff[LINE_LEN / 2];
 
   /* 0th assignment */
   unique_haplo_count = 0;
   strcpy(haplo_ar[0], geno_ar[0][0]);
 
+  /* split haplo_ar[0] into temp_array on ":" and add trailing ":" */
+  strcpy(temp_buff, haplo_ar[0]);
+  temp_ptr = strtok(temp_buff,":");
+  if (temp_ptr) 
+  {
+    strcpy(temp_array[0], temp_ptr);
+    strcat(temp_array[0], ":");
+    for (i = 1; i < num_loci; i++) /* start at 1 since 0th is done */
+    {
+      temp_ptr = strtok(NULL,":");
+      if (temp_ptr) 
+      {  
+        strcpy(temp_array[i], temp_ptr);
+        strcat(temp_array[i], ":");
+      }  
+    }
+  }
+/* RS --- CHECKING
+  for (l = 0; l < num_loci; l++) 
+  {
+    fprintf(stdout, "haplo_ar[0]: %s temp_array[%d]: %s \n", 
+            haplo_ar[0], l, temp_array[l]); 
+  }
+*/
+
+  /* identify allele# at lth locus for 0th haplotype */
+  for (l = 0; l < num_loci; l++) 
+  {
+    for (m = 0; m < n_unique_allele[l]; m++) 
+    {
+      if (!strcmp(temp_array[l], unique_allele[l][m])) 
+        haplocus[0][l] = m;
+    }
+  }
+  
   for (i = 0; i < num_genos; i++)
   {
     for (j = 0; j < 2; j++)
@@ -538,12 +603,49 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
       unique_haplo_flag = TRUE;
       for (k = 0; k <= unique_haplo_count && unique_haplo_flag == TRUE; k++)
       {
-  if (!strcmp(geno_ar[i][j], haplo_ar[k]))
-    unique_haplo_flag = FALSE;
+        if (!strcmp(geno_ar[i][j], haplo_ar[k]))
+          unique_haplo_flag = FALSE;
       }
       if (unique_haplo_flag == TRUE)
       {
-  strcpy(haplo_ar[++unique_haplo_count], geno_ar[i][j]);
+        strcpy(haplo_ar[++unique_haplo_count], geno_ar[i][j]);
+
+        /* split haplo_ar[unique_haplo_count] into temp_array ... */
+        strcpy(temp_buff, haplo_ar[unique_haplo_count]);
+        temp_ptr = strtok(temp_buff,":");
+        if (temp_ptr) 
+        {
+          strcpy(temp_array[0], temp_ptr);
+          strcat(temp_array[0], ":");
+          for (i = 1; i < num_loci; i++) /* start at 1 since 0th is done */
+          {
+            temp_ptr = strtok(NULL,":");
+            if (temp_ptr) 
+            {  
+              strcpy(temp_array[i], temp_ptr);
+              strcat(temp_array[i], ":");
+            }  
+          }
+        }
+/* RS --- CHECKING
+        for (l = 0; l < num_loci; l++) 
+        {
+          fprintf(stdout, "haplo_ar[%d]: %s temp_array[%d]: %s \n", 
+                  unique_haplo_count, haplo_ar[unique_haplo_count], 
+                  l, temp_array[l]); 
+        }
+*/
+
+        /* identify allele# at lth locus for unique_haplo_count haplotype */
+        for (l = 0; l < num_loci; l++) 
+        {
+          for (m = 0; m < n_unique_allele[l]; m++) 
+          {
+            if (!strcmp(temp_array[l], unique_allele[l][m])) 
+              haplocus[unique_haplo_count][l] = m;
+          }
+        }
+
       }
     }
   }
@@ -555,8 +657,10 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
 void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
            char (*unique_allele)[MAX_ALLELES][NAME_LEN],
            int *n_unique_allele, int n_loci, int n_recs)
-/* Creates unique_allele[i,j]: jth unique allele for the ith locus         */
-/*         n_unique_allele[i]: number of unique alleles for the ith locus  */
+/* 
+   * Creates unique_allele[i,j]: jth unique allele for the ith locus        
+   * Creates n_unique_allele[i]: number of unique alleles for the ith locus 
+*/
 {
   int i, j, locus, col_0, col_1;
   int unique_allele_flag, unique_allele_count;
@@ -565,7 +669,8 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
   for (i = 0; i < n_recs; i++)
   for (j = 0; j < 2*n_loci; j++)
   fprintf(stdout, "data[%d][%d]: %s\n", i, j, data_ar[i][j]); 
-  fprintf(stdout, "data0[%d][%d]: %s, uniq[%d][%d]:\n", i, col_0, data_ar[i][j], locus, j, unique_allele[locus][j]); 
+  fprintf(stdout, "data0[%d][%d]: %s, uniq[%d][%d]:\n", i, col_0, 
+    data_ar[i][j], locus, j, unique_allele[locus][j]); 
 */
 
   for (locus = 0; locus < n_loci; locus++)
@@ -581,36 +686,38 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
       unique_allele_flag = TRUE;
       for (j = 0; j <= unique_allele_count; j++)
       {
-  if (!strcmp(data_ar[i][col_0], unique_allele[locus][j]))
-  {
-    unique_allele_flag = FALSE;
-  }
+        if (!strcmp(data_ar[i][col_0], unique_allele[locus][j]))
+        {
+          unique_allele_flag = FALSE;
+        }
       }
       if (unique_allele_flag == TRUE)
       {
-  unique_allele_count += 1;
-  strcpy(unique_allele[locus][unique_allele_count], data_ar[i][col_0]);
+        unique_allele_count += 1;
+        strcpy(unique_allele[locus][unique_allele_count], data_ar[i][col_0]);
       }
 
       /* Process col_1 of current locus */
       unique_allele_flag = TRUE;
       for (j = 0; j <= unique_allele_count; j++)
       {
-  if (!strcmp(data_ar[i][col_1], unique_allele[locus][j]))
-  {
-    unique_allele_flag = FALSE;
-  }
+        if (!strcmp(data_ar[i][col_1], unique_allele[locus][j]))
+        {
+          unique_allele_flag = FALSE;
+        }
       }
       if (unique_allele_flag == TRUE)
       {
-  unique_allele_count += 1;
-  strcpy(unique_allele[locus][unique_allele_count], data_ar[i][col_1]);
+        unique_allele_count += 1;
+        strcpy(unique_allele[locus][unique_allele_count], data_ar[i][col_1]);
       }
     }
     n_unique_allele[locus] = unique_allele_count + 1;
 
+/*
     fprintf(stdout, "\n n_unique_allele[%d]: %d\n", locus,
       n_unique_allele[locus]);
+*/
 
 /* CHECKING
     for(j = 0; j < n_unique_allele[locus]; j++)
@@ -635,14 +742,12 @@ void sort2dim(char (*unique_allele)[MAX_ALLELES][NAME_LEN],
   {
     for (i = 1; i < n_unique_allele[locus]; ++i)
     {
-      for (j = i;
-     (j - 1) >= 0
-     && strcmp(unique_allele[locus][j - 1],
-         unique_allele[locus][j]) > 0; --j)
+      for (j = i; (j - 1) >= 0 && strcmp(unique_allele[locus][j - 1],
+        unique_allele[locus][j]) > 0; --j)
       {
-  strcpy(temp, unique_allele[locus][j]);
-  strcpy(unique_allele[locus][j], unique_allele[locus][j - 1]);
-  strcpy(unique_allele[locus][j - 1], temp);
+        strcpy(temp, unique_allele[locus][j]);
+        strcpy(unique_allele[locus][j], unique_allele[locus][j - 1]);
+        strcpy(unique_allele[locus][j - 1], temp);
       }
     }
   }
@@ -758,111 +863,111 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
       }
       for (kphen = 0; kphen < n_unique_pheno; kphen++)
       {
-  if ((numgeno[kphen] > 1) && (obspheno[kphen] >= 1))
-  {
-    for (k = 0; k < n_haplo; k++)
-    {
-      tempall[k] = 0;
-    }
-    sum = 0;
-    for (igeno = 0; igeno < n_unique_geno; igeno++)
-    {
-      if (genopheno[igeno][kphen] > 0)
-      {
-        for (k = 0; k < n_haplo; k++)
+        if ((numgeno[kphen] > 1) && (obspheno[kphen] >= 1))
         {
-          if (!strcmp(geno[igeno][0], haplo[k]))
+          for (k = 0; k < n_haplo; k++)
           {
-            iall = k;
+            tempall[k] = 0;
           }
-          if (!strcmp(geno[igeno][1], haplo[k]))
+          sum = 0;
+          for (igeno = 0; igeno < n_unique_geno; igeno++)
           {
-            jall = k;
+            if (genopheno[igeno][kphen] > 0)
+            {
+              for (k = 0; k < n_haplo; k++)
+              {
+                if (!strcmp(geno[igeno][0], haplo[k]))
+                {
+                  iall = k;
+                }
+                if (!strcmp(geno[igeno][1], haplo[k]))
+                {
+                  jall = k;
+                }
+              }
+              /* Calc expected frequency of this genotype using allele */
+              /* frequency estimates from the previous iteration       */
+              if (iall == jall)
+              {
+                expfreq = freqs[iall][iter - 1] * freqs[jall][iter - 1];
+              }
+              else
+              {
+                expfreq = 2 * freqs[iall][iter - 1] * freqs[jall][iter - 1];
+              }
+
+              /* Add proportionate numbers to TEMPALL */
+              tempall[iall] += expfreq * (double)obspheno[kphen];
+              tempall[jall] += expfreq * (double)obspheno[kphen];
+              sum += expfreq;
+            }
+          }
+
+          /* Normalize the numbers added for this phenotype */
+          if (sum < .000001)
+          {
+            fprintf(stdout, "\n sum near zero in tempall[i]/sum : sum = %f", sum);
+          }
+          sumall = 0;
+          for (i = 0; i < n_haplo; i++)
+          {
+            tempall[i] = tempall[i] / sum;
+            sumall += tempall[i];
+            /* add these obs to running count for ambiguous */
+            ambigall[i] += tempall[i];
+          }
+
+          for (i = 0; i < n_haplo; i++)
+          {
+            freqs[i][iter] = (unamball[i] + ambigall[i]) / (double)totall;
+          }
+
+          diff = sumall - 2 * (double)obspheno[kphen];
+          if (fabs(diff) > .1)
+          {
+            fprintf(stdout, "\n Wrong # of alleles allocated for pheno %d", kphen);
+            fprintf(stdout, "\n allocated : %f \n observed  : %d", sumall,
+              obspheno[kphen]);
           }
         }
-        /* Calc expected frequency of this genotype using allele */
-        /* frequency estimates from the previous iteration       */
-        if (iall == jall)
-        {
-          expfreq = freqs[iall][iter - 1] * freqs[jall][iter - 1];
-        }
-        else
-        {
-          expfreq = 2 * freqs[iall][iter - 1] * freqs[jall][iter - 1];
-        }
-
-        /* Add proportionate numbers to TEMPALL */
-        tempall[iall] += expfreq * (double)obspheno[kphen];
-        tempall[jall] += expfreq * (double)obspheno[kphen];
-        sum += expfreq;
-      }
-    }
-
-    /* Normalize the numbers added for this phenotype */
-    if (sum < .000001)
-    {
-      fprintf(stdout, "\n sum near zero in tempall[i]/sum : sum = %f",
-        sum);}
-    sumall = 0;
-    for (i = 0; i < n_haplo; i++)
-    {
-      tempall[i] = tempall[i] / sum;
-      sumall += tempall[i];
-      /* add these obs to running count for ambiguous */
-      ambigall[i] += tempall[i];
-    }
-
-    for (i = 0; i < n_haplo; i++)
-    {
-      freqs[i][iter] = (unamball[i] + ambigall[i]) / (double)totall;
-    }
-
-    diff = sumall - 2 * (double)obspheno[kphen];
-    if (fabs(diff) > .1)
-    {
-      fprintf(stdout, "\n Wrong # of alleles allocated for pheno %d", kphen);
-      fprintf(stdout, "\n allocated : %f \n observed  : %d", sumall,
-        obspheno[kphen]);
-    }
-    }
       }        /* end of loop for kphen */
 
       /* Calculate geno freqs from current estimate of haplo freqs */
       for (i = 0; i < n_unique_geno; i++)
       {
-  mgnfrq[i] = 1;
-  keep = 0;
-  for (j = 0; j < 2; j++)
-  {
-    for (k = 0; k < n_haplo; k++)
-    {
-      if (!strcmp(haplo[k], geno[i][j]))
-      {
-        mgnfrq[i] = mgnfrq[i] * freqs[k][iter];
-        if (j == 0)
+        mgnfrq[i] = 1;
+        keep = 0;
+        for (j = 0; j < 2; j++)
         {
-    keep = k;
+          for (k = 0; k < n_haplo; k++)
+          {
+            if (!strcmp(haplo[k], geno[i][j]))
+            {
+              mgnfrq[i] = mgnfrq[i] * freqs[k][iter];
+              if (j == 0)
+              {
+                keep = k;
+              }
+              if (k != keep)
+              {
+                mgnfrq[i] = mgnfrq[i] * 2;
+              }
+            }
+          }
         }
-        if (k != keep)
-        {
-    mgnfrq[i] = mgnfrq[i] * 2;
-        }
-      }
-    }
-  }
       }
 
       /* Calc pheno freqs based on these genotype freqs */
       for (i = 0; i < n_unique_pheno; i++)
       {
-  mfreq[i] = 0;
-  for (j = 0; j < n_unique_geno; j++)
-  {
-    if (genopheno[j][i] == 1)
-    {
-      mfreq[i] += mgnfrq[j];
-    }
-  }
+        mfreq[i] = 0;
+        for (j = 0; j < n_unique_geno; j++)
+        {
+          if (genopheno[j][i] == 1)
+          {
+            mfreq[i] += mgnfrq[j];
+          }
+        }
       }
 
       /* Calc log likelihood */
@@ -870,72 +975,90 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
       lltest = 0;
       for (i = 0; i < n_unique_pheno; i++)
       {
-  lltest += (double)obspheno[i];
-  if (mfreq[i] > DBL_EPSILON)
-  {
-    lglik += (double)obspheno[i] * log(mfreq[i]);
-  }
-  else
-  {
-    fprintf(stdout, "\n ** Warning - Est. freq. for pheno %d < 0", i);
-  }
+        lltest += (double)obspheno[i];
+        if (mfreq[i] > DBL_EPSILON)
+        {
+          lglik += (double)obspheno[i] * log(mfreq[i]);
+        }
+        else
+        {
+          fprintf(stdout, "\n ** Warning - Est. freq. for pheno %d < 0", i);
+        }
       }
       if (lltest != n_recs)
       {
-  fprintf(stdout,
-    "\n ** Error - Incorrect no. of obs. counted in likelihood calc.");
+        fprintf(stdout, 
+          "\n ** Error - Incorrect no. of obs. counted in likelihood calc.");
       }
       /* N.B. lltest could be removed and done in mainproc() if desired */
 
       if (iter <= 1)
       {
-  prevlk = lglik;
+        prevlk = lglik;
       }
       else if (iter > 1)
       {
-  /* Test for convergence */
-  diff = lglik - prevlk;
-  if (fabs(diff) > CRITERION)
-  {
-    /* If not converged, test if likelihood is decreasing */
-    if (prevlk > lglik)
-    {
-      itest += 1;
-    }
-    if (itest >= 5)
-    {
-      done = TRUE;
-      fprintf(stdout, "\n ** Warning - iterations terminated");
-      fprintf(stdout,
-        "\n              Likelihood has decreased for last 5 iterations");
-    }
-    else      /* ( itest < 5 ) */
-    {
-      prevlk = lglik;
-    }
-  }
-  else      /* ( abs(diff) <= CRITERION ) */
-  {
-    done = TRUE;
-    fprintf(stdout,
-      "\n Log likelihood converged in %d iterations to : %f",
-      iter + 1, lglik);
+        /* Test for convergence */
+        diff = lglik - prevlk;
+        if (fabs(diff) > CRITERION)
+        {
+          /* If not converged, test if likelihood is decreasing */
+          if (prevlk > lglik)
+          {
+            itest += 1;
+          }
+          if (itest >= 5)
+          {
+            done = TRUE;
+            fprintf(stdout, "\n ** Warning - iterations terminated");
+            fprintf(stdout,
+              "\n              Likelihood has decreased for last 5 iterations");
+          }
+          else      /* ( itest < 5 ) */
+          {
+            prevlk = lglik;
+          }
+        }
+        else      /* ( abs(diff) <= CRITERION ) */
+        {
+          done = TRUE;
+          fprintf(stdout, "\n Log likelihood converged in %d iterations to : %f", 
+            iter + 1, lglik);
 
-    freqsum = 0;
-    for (i = 0; i < n_haplo; i++)
-    {
-      mle[i] = freqs[i][iter];
-      freqsum += freqs[i][iter];
-    }
-    if (freqsum < .99 || freqsum > 1.01)
-    {
-      fprintf(stdout, "\n  ** Warning - final frequencies sum to %f",
-        freqsum);
-    }
-  }
+          freqsum = 0;
+          for (i = 0; i < n_haplo; i++)
+          {
+            mle[i] = freqs[i][iter];
+            freqsum += freqs[i][iter];
+          }
+          if (freqsum < .99 || freqsum > 1.01)
+          {
+            fprintf(stdout, "\n  ** Warning - final frequencies sum to %f",
+              freqsum);
+          }
+        }
       }
-
-    }        /* end of loop for iter */
+    }      /* end of loop for iter */
   }        /* end of else if ( sumambig > 0 ) */
 
+}
+
+/************************************************************************/
+void allele_frequencies(double *mle, int (*haplocus)[MAX_LOCI], 
+       double (*allele_freq)[MAX_ALLELES], int *n_unique_allele, 
+       int n_loci, int n_haplo)
+{
+  int i, j, k;
+
+  for (i = 0; i < n_loci; i++)
+  {
+    for (j = 0; j < n_unique_allele[i]; j++)
+    {
+      for (k = 0; k < n_haplo; k++)
+      {
+        if (haplocus[k][i] == j)
+          allele_freq[i][j] += mle[k];
+      }
+    }
+  }
 }
