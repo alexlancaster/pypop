@@ -71,7 +71,7 @@
    region (see <xref linkend="hla-map.figure"/>).</para>
 
   <figure id="hla-map.figure">
-   <title>Map of the HLA region (adapted from Rhodes and Trowsdale 1999)*</title>
+   <title>Map of the HLA region (adapted from <citation role="citet">Rhodes:Trowsdale:1999</citation>)*</title>
    <mediaobject>
     <imageobject>
      <imagedata fileref="hla-map.png" align="center"/>
