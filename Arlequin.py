@@ -73,7 +73,7 @@ class ArlequinWrapper:
         GameticPhase=0
         DataType=STANDARD
         LocusSeparator=WHITESPACE
-        MissingData=\"%s\"
+        MissingData='%s'
         RecessiveData=0                         
         RecessiveAllele=\"null\"
         """ % (groupCount, '?'))
@@ -96,13 +96,44 @@ class ArlequinWrapper:
         sampleNum = 1
 
         for sample in self.matrix[keys]:
-            even = string.join([sample[i] for i in range(0,len(sample),2)], ' ')
-            odd = string.join([sample[i] for i in range(1,len(sample),2)], ' ')
+
+            # get all even alleles (first phase of genotype data)
+            # then filter them through the function to convert any
+            # missing data into the form that Arlequin expects
+            even = string.join([self._fixMissingData(sample[i]) \
+                                for i in range(0,len(sample),2)], ' ')
+
+            # do the same for the odd alleles
+            odd = string.join([self._fixMissingData(sample[i]) \
+                               for i in range(1,len(sample),2)], ' ')
+
+            # output them on adjacent lines so that the alleles for
+            # each locus are paired up like so:
+            #
+            # sampleId 1 allele1-locus1 allele1-locus2
+            #            allele2-locus1 allele2-locus2
+
             self.arpFile.write("%10d 1 %s" % (sampleNum, even) + os.linesep)
             self.arpFile.write("%13s%s" % (" ", odd) + os.linesep)
             sampleNum += 1
 
         self.arpFile.write("}")
+
+    def _fixMissingData(self, data):
+        """Convert missing data.
+
+        Convert missing data using the untypedAllele parameter to
+        class to the standard single character missing data signifier
+        '?' that Arlequin uses"""
+
+        # add a colon ':' to the match, because all alleles in the original
+        # data structure have a trailing colon
+        if data == self.untypedAllele + ":":
+            output = '?'
+        else:
+            output = data
+        return output
+
 
     def _outputArlRunTxt(self, txtFilename, arpFilename):
         """Outputs the run-time Arlequin program file.
