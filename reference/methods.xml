@@ -89,7 +89,7 @@
 	population one wishes to estimate the frequency/frequencies of
 	the alleles.  First, one needs to determine the
 	relationships between genotypes and the observed
-	phenotypes.  Let us assume codominance as is often (but
+	phenotypes.  Let us assume co-dominance as is often (but
 	not always) the case for molecular markers.  This equates
 	to a 1:1 relationship between genotype and phenotype and
 	common sense says that we can count the alleles in the sample
@@ -380,7 +380,7 @@
    
    <para> Due to the finite size of samples, observed genotype
     frequencies are not expected to be in exact HWP. Two
-    illustrative examples using the codominant MN blood group
+    illustrative examples using the co-dominant MN blood group
     system are shown below, which have the same allele frequencies
     f(M) = 0.6, f(N) = 0.4, and hence the same HWP, but very
     different observed genotype frequencies (the first very close
@@ -716,7 +716,7 @@
      HWP using such an exact test.</para>
 
     <para>Consider a sample of 40 individuals, where the genotype
-     counts for a biallelic locus are: n(AA) = 5, n(Aa) = 9, and n(aa)
+     counts for a bi-allelic locus are: n(AA) = 5, n(Aa) = 9, and n(aa)
      = 26.  The total count for each allele is: n(A) = 19 , and
      n(a) = 61. Using the expression given by Levene (1949) we compute
      the probability of obtaining this set of genotypes, conditional
@@ -890,7 +890,7 @@
     individuals within the ethnic group, must also be considered. On
     the other hand, significant deviations from HWP are also seen in
     populations which showed very little evidence for any admixture,
-    e.g., the Mixe, an amerindian group from Oaxaca, Mexico
+    e.g., the Mixe, an Amerindian group from Oaxaca, Mexico
     (Hollenbach et al. 2001). These deviations could be due to the
     impact of selection pressures from infectious diseases on these
     genes. </para>
@@ -997,7 +997,7 @@
 
   <para>&#x3b8; = sin<superscript>-1</superscript>(sqrt p)</para>
 
-    <para>This, unlike the binormal variate, <emphasis>p</emphasis>(1
+    <para>This, unlike the bi-normal variate, <emphasis>p</emphasis>(1
     - <emphasis>p</emphasis>)/<emphasis>N</emphasis>, has variance
     independent of <emphasis>p</emphasis>:</para>
 
@@ -1038,7 +1038,7 @@
     mating of first or second cousins, will increase the proportion of
     homozygotes in the population over what would be expected in a
     randomly mating population as predicted by the Hardy-Weinberg
-    ratios. Wright drew the analogy with substructured populations
+    ratios. Wright drew the analogy with sub-structured populations
     where the structuring imposes a level of inbreeding, albeit not
     among close relatives. His F statistics measure the decrease in
     heterozygosity (increase in homozygosity) in a level of the
@@ -1466,7 +1466,7 @@
     among however many alleles.  However, statistics to quantify LD
     become more problematic in such cases.  All of the above are
     defined for a pair of specified alleles at a pair of loci.  For
-    multiallelic loci, one must choose one allele at each locus and
+    multi-allelic loci, one must choose one allele at each locus and
     then pool all other alleles.  This gives n<subscript>1</subscript>
     x n<subscript>2</subscript> different pairwise measures for two
     loci with n<subscript>1</subscript> and n<subscript>2</subscript>
@@ -1772,7 +1772,7 @@
       cancer.</para>
 
       <para> In contrast to Mendelian diseases, complex, or
-      multifactorial diseases are generally more common, and result
+      multi-factorial diseases are generally more common, and result
       from the interaction of multiple genes and environmental
       factors. Studies of rates of occurrence of disease in twins and
       other family members compared to population level rates are used
@@ -2468,5 +2468,6 @@ Local variables:
 sgml-local-catalogs: ("catalog")
 sgml-indent-step: 1
 sgml-indent-data: 1
+ispell-skip-html: t
 End:
 -->
