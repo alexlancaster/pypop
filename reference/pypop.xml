@@ -2,73 +2,72 @@
 <!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <chapter>
-  <title><application>PyPop</application>: software
+ <title><application>PyPop</application>: software
   framework</title>
+ 
+ <section>
+  <title>Design</title>
   
-  <section>
-   <title>Design</title>
-   
-   <para>The overall data and work flow for
-    <application>PyPop</application>, the software framework for
-    parsing the data files is shown in <xref linkend="pypop:work-flow"/>. </para>
-   
-   <para>A sample UML use-case is given in <xref linkend="pypop:design"/>.
-    This indicates the processing steps involved the calculation of
-    single statistic.  Note the exact object and method names are
-    schematic only and may be out-of-date with respect to the current
-    implementation.</para>
-   
-   
-   <figure id="pypop:work-flow">
-    <title>Work flow</title>
-    <mediaobject>
-     <imageobject>
-      <imagedata fileref="work-flow.eps" align="center" scale="50"/>
-     </imageobject>
-     <imageobject>
-      <imagedata fileref="work-flow.png" align="center" scale="45"/>
-     </imageobject>
-     <textobject>
-      <phrase>Diagram of software workflow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.png</phrase>
-     </textobject>
-    </mediaobject>
-   </figure>
-   
-   <figure id="pypop:design">
-    <title>Schematic UML design</title>
-    <mediaobject>
-     <imageobject>
-      <imagedata fileref="design.png" align="center" scale="45"/>
-     </imageobject>
-     <textobject>
-      <phrase>Digram of UML design can be found at: http://allele5.biol.berkeley.edu/ihwg/design.png</phrase>
-     </textobject>
-    </mediaobject>
-   </figure>
-  </section>
+  <para>The overall data and work flow for
+   <application>PyPop</application>, the software framework for
+   parsing the data files is shown in <xref linkend="pypop:work-flow"/>. </para>
+  <para>A sample UML use-case is given in <xref linkend="pypop:design"/>.
+   This indicates the processing steps involved the calculation of
+   single statistic.  Note the exact object and method names are
+   schematic only and may be out-of-date with respect to the current
+   implementation.</para>
   
-  <section>
-   <title>API (Application Programmers Interface)</title>
-   
-   <para>The current <application>PyPop</application> Application
-    Programmers Interface (API), can be found at:  <ulink
-     url="api/index.html">API</ulink>.  A UML diagram of the class
-    diagram is shown in <xref linkend="pypop:api"/>.</para>
-   
-   
-   <figure id="pypop:api">
-    <title>UML diagram of API</title>
-    <mediaobject>
-     <imageobject>
-      <imagedata fileref="api.png" align="center" scale="40"/>
-     </imageobject>
-     <textobject>
-      <phrase>Digram of UML API can be found at: http://allele5.biol.berkeley.edu/ihwg/api.png</phrase>
-     </textobject>
-    </mediaobject>
-   </figure>
-  </section>
-   <appendix>
+  
+  <figure id="pypop:work-flow">
+   <title>Work flow</title>
+   <mediaobject>
+    <imageobject>
+     <imagedata fileref="work-flow.eps" align="center" scale="50"/>
+    </imageobject>
+    <imageobject>
+     <imagedata fileref="work-flow.png" align="center" scale="45"/>
+    </imageobject>
+    <textobject>
+     <phrase>Diagram of software workflow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.png</phrase>
+    </textobject>
+   </mediaobject>
+  </figure>
+  
+  <figure id="pypop:design">
+   <title>Schematic UML design</title>
+   <mediaobject>
+    <imageobject>
+     <imagedata fileref="design.png" align="center" scale="45"/>
+    </imageobject>
+    <textobject>
+     <phrase>Digram of UML design can be found at: http://allele5.biol.berkeley.edu/ihwg/design.png</phrase>
+    </textobject>
+   </mediaobject>
+  </figure>
+ </section>
+ 
+ <section>
+  <title>API (Application Programmers Interface)</title>
+  
+  <para>The current <application>PyPop</application> Application
+   Programmers Interface (API), can be found at:  <ulink
+    url="api/index.html">API</ulink>.  A UML diagram of the class
+   diagram is shown in <xref linkend="pypop:api"/>.</para>
+  
+  
+  <figure id="pypop:api">
+   <title>UML diagram of API</title>
+   <mediaobject>
+    <imageobject>
+     <imagedata fileref="api.png" align="center" scale="40"/>
+    </imageobject>
+    <textobject>
+     <phrase>Digram of UML API can be found at: http://allele5.biol.berkeley.edu/ihwg/api.png</phrase>
+    </textobject>
+   </mediaobject>
+  </figure>
+ </section>
+ <appendix>
   <title>Data interchange</title>
   <section>
    <title>Data format</title>
@@ -83,7 +82,7 @@
    
    <para>There should be 3 lines of header information on a
     population file.</para>
-
+   
    <para>The three lines are as follows:</para>
    
    <programlistingco>
@@ -207,9 +206,9 @@ Other
       log in to your server via <command>[s]ftp</command> and download
       the text files.</para>
     </listitem>
-      </orderedlist>
-    </section>
-  </appendix>
+   </orderedlist>
+  </section>
+ </appendix>
 
  <appendix>
   <title>Data dictionary</title>
@@ -291,7 +290,7 @@ Allele:
 	expected
 	patient vs. control chi-squared
 	patient vs. control p-value
-</programlisting>
+  </programlisting>
  </appendix>
 
 </chapter>
