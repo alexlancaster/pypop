@@ -1,13 +1,21 @@
+Modifications by: Alex Lancaster and Diogo Meyer
+Date: January 2003.
+
 Modified version of Montgomery Slatkin's "enumeration.c" and
 "monte-carlo.c" code as found on 2002-08-16 at the following URL:
 
  http://ib.berkeley.edu/labs/slatkin/monty/Ewens_exact.program
 
-Modifications by: Alex Lancaster and Diogo Meyer
-Date: January 2003.
+To generate the executables for the Monte-Carlo program, simply type
+"make" (this assumes that you are using GNU make and GCC).  This will
+generate two executables:
+
+ 1. The regular Monte-Carlo program  "monte-carlo".
+
+ 2. The Monte-Carlo distribution output enabled version
+    "monte-carlo_distribution"
 
 The unedited original README for these programs now follows:
-
 ---------------------------------------------------------------------------
 
 This file contains the C code the performs the Ewens exact and homozygosity
