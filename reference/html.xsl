@@ -7,7 +7,7 @@
   
   <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/html/docbook.xsl"/>
   
- <!-- <xsl:param name="html.stylesheet" doc:type="string">style.css</xsl:param> -->
+ <xsl:param name="html.stylesheet" doc:type="string">style.css</xsl:param>
   
   <xsl:param name="make.valid.html" select="1"/>
 
