@@ -2,7 +2,8 @@
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:exsl="http://exslt.org/common"
- extension-element-prefixes="exsl"
+ xmlns:str="http://exslt.org/strings"
+ extension-element-prefixes="exsl str"
  xmlns:data="any-uri">
 
  <xsl:import href="lib.xsl"/>
@@ -158,6 +159,7 @@
  <xsl:template name="gen-lines">
   <xsl:param name="nodes"/>
   <xsl:param name="type" select="'1'"/>
+  <xsl:param name="pairwise" select="1"/>
 
   <xsl:for-each select="$nodes">
 
@@ -290,123 +292,115 @@
      </xsl:for-each>
     </xsl:when>
 
-    <xsl:when test="$type='2-locus-summary'">
+    <xsl:when test="$type='multi-locus-summary'">
 
      <xsl:call-template name="line-start">
       <xsl:with-param name="popnode" select="../../populationdata"/>
      </xsl:call-template>
-     
-     <xsl:value-of
-      select="number(individcount[@role='after-filtering']) * 2"/>
-     <xsl:text>&#09;</xsl:text>
 
-     <xsl:variable name="locus1" select="substring-before(@loci, ':')"/>
-     <xsl:variable name="locus2" select="substring-after(@loci, ':')"/>
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node"
+      select="number(individcount[@role='after-filtering']) * 2"/>
+     </xsl:call-template>
 
      <!-- make sure locus1 and locus2 are always in map order -->
-     <xsl:choose>
-      <xsl:when test="$map-order[.=$locus1]/@order &lt;
-       $map-order[.=$locus2]/@order">
-       <xsl:value-of select="$locus1"/>
+      <xsl:for-each select="str:tokenize(@loci, ':')">
+       <xsl:sort select="$map-order[.=current()]/@order" data-type="number"/>
+       <xsl:value-of select="." />
        <xsl:text>&#09;</xsl:text>
-       <xsl:value-of select="$locus2"/>
-      </xsl:when>
-      <xsl:otherwise>
-       <xsl:value-of select="$locus2"/>
-       <xsl:text>&#09;</xsl:text>
-       <xsl:value-of select="$locus1"/>
-      </xsl:otherwise>
-     </xsl:choose>
-     <xsl:text>&#09;</xsl:text>
+      </xsl:for-each>
 
-     <xsl:call-template name="output-field">
-      <xsl:with-param name="node" select="linkagediseq/summary/dprime"/>
-     </xsl:call-template>
-
-     <xsl:call-template name="output-field">
-      <xsl:with-param name="node" select="linkagediseq/summary/wn"/>
-     </xsl:call-template>
-
-     <xsl:call-template name="output-field">
-      <xsl:with-param name="node" select="linkagediseq/summary/q/chisq"/>
-     </xsl:call-template>
-
-     <xsl:call-template name="output-field">
-      <xsl:with-param name="node" select="linkagediseq/summary/q/dof"/>
-     </xsl:call-template>     
-
-     <xsl:call-template name="output-field">
+     <xsl:if test="$pairwise=1">
+      
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="linkagediseq/summary/dprime"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="linkagediseq/summary/wn"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="linkagediseq/summary/q/chisq"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="linkagediseq/summary/q/dof"/>
+      </xsl:call-template>     
+      
+      <xsl:call-template name="output-field">
        <xsl:with-param name="node" select="permutationSummary/pvalue"/>
-     </xsl:call-template>
+      </xsl:call-template>
+      
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="permutationSummary/lr"/>
+      </xsl:call-template>
 
-     <xsl:call-template name="output-field">
-      <xsl:with-param name="node" select="permutationSummary/lr"/>
-     </xsl:call-template>
+     </xsl:if>
      
      <xsl:call-template name="newline"/>
    
     </xsl:when>
     
-    <xsl:when test="$type='2-locus-haplo'">
+    <xsl:when test="$type='multi-locus-haplo'">
      
      <xsl:variable name="curr-line-start">
       <xsl:call-template name="line-start">
        <xsl:with-param name="popnode" select="../../populationdata"/>
       </xsl:call-template>
-<!--
-      <xsl:message>
-       <xsl:call-template name="count-chars">
-	<xsl:with-param name="var" select="@loci"/>
-	<xsl:with-param name="char" select="':'"/>
-       </xsl:call-template>
-      </xsl:message>
--->
-
-      <xsl:variable name="locus1" select="substring-before(@loci,':')"/>
-      <xsl:variable name="locus2" select="substring-after(@loci, ':')"/>
 
       <!-- make sure locus1 and locus2 are always in map order -->
-      <xsl:choose>
-       <xsl:when test="$map-order[.=$locus1]/@order &lt;
-	$map-order[.=$locus2]/@order">
-	<xsl:value-of select="$locus1"/>
+      <xsl:for-each select="str:tokenize(@loci, ':')">
+       <xsl:sort select="$map-order[.=current()]/@order" data-type="number"/>
+       <xsl:value-of select="." />
+       <xsl:if test="position()!=last()">
 	<xsl:text>:</xsl:text>
-	<xsl:value-of select="$locus2"/>
-       </xsl:when>
-       <xsl:otherwise>
-	<xsl:value-of select="$locus2"/>
-	<xsl:text>:</xsl:text>
-	<xsl:value-of select="$locus1"/>
-       </xsl:otherwise>
-      </xsl:choose>
+       </xsl:if>
+      </xsl:for-each>
+
+      <xsl:text>&#09;</xsl:text>
 
      </xsl:variable>
 
      <xsl:for-each select="haplotypefreq/haplotype">
+
       <xsl:value-of select="$curr-line-start"/>
-      <xsl:text>&#09;</xsl:text>
-      <xsl:value-of select="@name"/>
-      <xsl:text>&#09;</xsl:text>
-      <xsl:value-of select="frequency"/>
-      <xsl:text>&#09;</xsl:text>
-      <xsl:value-of select="numCopies"/>
-      <xsl:text>&#09;</xsl:text>
+      
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="@name"/>
+      </xsl:call-template>
 
-      <xsl:variable name="first">
-       <xsl:value-of select="substring-before(@name, ':')"/>
-       <xsl:text>:</xsl:text>
-      </xsl:variable>
-      <xsl:variable name="second">
-       <xsl:value-of select="substring-after(@name, ':')"/>
-      </xsl:variable>
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="frequency"/>
+      </xsl:call-template>
 
-      <xsl:variable name="pair"
-      select="../../linkagediseq/loci[1]/allelepair[@first=$first and
-      @second=$second]"/>
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="numCopies"/>
+      </xsl:call-template>
 
-      <xsl:value-of select="$pair/norm_dij"/>
-      <xsl:text>&#09;</xsl:text>
-      <xsl:value-of select="$pair/chisq"/>
+      <xsl:if test="$pairwise=1">
+
+       <xsl:variable name="first">
+	<xsl:value-of select="substring-before(@name, ':')"/>
+	<xsl:text>:</xsl:text>
+       </xsl:variable>
+       <xsl:variable name="second">
+	<xsl:value-of select="substring-after(@name, ':')"/>
+       </xsl:variable>
+       
+       <xsl:variable name="pair"
+	select="../../linkagediseq/loci[1]/allelepair[@first=$first and
+	@second=$second]"/>
+       
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="$pair/norm_dij"/>
+       </xsl:call-template>
+
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="$pair/chisq"/>
+       </xsl:call-template>
+
+      </xsl:if>
 
       <xsl:call-template name="newline"/>
 
@@ -455,7 +449,7 @@
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
        select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu') and @role!='no-data']"/>
-      <xsl:with-param name="type" select="'2-locus-summary'"/>
+      <xsl:with-param name="type" select="'multi-locus-summary'"/>
      </xsl:call-template>
     </exsl:document>
 
@@ -467,35 +461,61 @@
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
       select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu') and @role!='no-data']"/>
-      <xsl:with-param name="type" select="'2-locus-haplo'"/>
+      <xsl:with-param name="type" select="'multi-locus-haplo'"/>
      </xsl:call-template>
     </exsl:document>
 
-<!--
     <exsl:document href="3-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
+     <xsl:value-of select="$header-line-start"/><xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
        select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=2 and @role!='no-data']"/>
-      <xsl:with-param name="type" select="'2-locus-summary'"/>
+      <xsl:with-param name="type" select="'multi-locus-summary'"/>
+      <xsl:with-param name="pairwise" select="0"/>
      </xsl:call-template>
     </exsl:document>
 
     <exsl:document href="3-locus-haplo.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count&#09;ld.dprime&#09;ld.chisq</xsl:text>
+     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
       select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=2 and @role!='no-data']"/>
-      <xsl:with-param name="type" select="'2-locus-haplo'"/>
+      <xsl:with-param name="type" select="'multi-locus-haplo'"/>
+      <xsl:with-param name="pairwise" select="0"/>
      </xsl:call-template>
     </exsl:document>
--->
+
+    <exsl:document href="4-locus-summary.dat"
+     omit-xml-declaration="yes"
+     method="text">
+     <xsl:value-of select="$header-line-start"/><xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3&#09;locus4</xsl:text>
+     <xsl:call-template name="newline"/>
+     <xsl:call-template name="gen-lines">
+      <xsl:with-param name="nodes"
+       select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=3 and @role!='no-data']"/>
+      <xsl:with-param name="type" select="'multi-locus-summary'"/>
+      <xsl:with-param name="pairwise" select="0"/>
+     </xsl:call-template>
+    </exsl:document>
+
+    <exsl:document href="4-locus-haplo.dat"
+     omit-xml-declaration="yes"
+     method="text">
+     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
+     <xsl:call-template name="newline"/>
+     <xsl:call-template name="gen-lines">
+      <xsl:with-param name="nodes"
+      select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=3 and @role!='no-data']"/>
+      <xsl:with-param name="type" select="'multi-locus-haplo'"/>
+      <xsl:with-param name="pairwise" select="0"/>
+     </xsl:call-template>
+    </exsl:document>
 
     <exsl:document href="phylip.dat"
      omit-xml-declaration="yes"
