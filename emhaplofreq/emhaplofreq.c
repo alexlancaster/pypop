@@ -384,7 +384,6 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   double pvalue = 0.0;
 
   double error_flag0_pct = 0.0;
-  double error_flag1_pct = 0.0;
   double error_flag2_pct = 0.0;
   double error_flag3_pct = 0.0;
   double error_flag4_pct = 0.0; 
@@ -764,7 +763,6 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	fprintf(fp_iter, "Init. condition   0: Log likelihood after %3d iterations: %f, error_flag: %d \n",
 		iter_count, loglike, error_flag);
 	if      (error_flag == 0) error_flag0_pct += 1;
-	else if (error_flag == 1) error_flag1_pct += 1;
 	else if (error_flag == 2) error_flag2_pct += 1;
 	else if (error_flag == 3) error_flag3_pct += 1;
 	else if (error_flag == 4) error_flag4_pct += 1;
@@ -803,7 +801,6 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	    fprintf(fp_iter, "Init. condition %3d: Log likelihood after %3d iterations: %f, error_flag: %d \n",
 		    init_cond, iter_count, loglike, error_flag);
 	    if      (error_flag == 0) error_flag0_pct += 1;
-	    else if (error_flag == 1) error_flag1_pct += 1;
 	    else if (error_flag == 2) error_flag2_pct += 1;
 	    else if (error_flag == 3) error_flag3_pct += 1;
 	    else if (error_flag == 4) error_flag4_pct += 1;
@@ -860,7 +857,6 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #endif
 	fprintf(fp_iter, "\n"); 
 	fprintf(fp_iter, "Percent of iterations with error_flag = 0: %7.3f\n", 100*error_flag0_pct/max_init_cond);
-	fprintf(fp_iter, "Percent of iterations with error_flag = 1: %7.3f\n", 100*error_flag1_pct/max_init_cond);
 	fprintf(fp_iter, "Percent of iterations with error_flag = 2: %7.3f\n", 100*error_flag2_pct/max_init_cond);
 	fprintf(fp_iter, "Percent of iterations with error_flag = 3: %7.3f\n", 100*error_flag3_pct/max_init_cond);
 	fprintf(fp_iter, "Percent of iterations with error_flag = 4: %7.3f\n", 100*error_flag4_pct/max_init_cond);
@@ -870,7 +866,6 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	fprintf(fp_iter, "\n"); 
 	fprintf(fp_iter, "--- Codes for error_flag ----------------------------------------------------------\n"); 
 	fprintf(fp_iter, "0: Iterations Converged, no errors \n");
-	fprintf(fp_iter, "1: There are no ambiguous haplotypes \n");
 	fprintf(fp_iter, "2: Normalization constant near zero. Est. HFs unstable \n");
 	fprintf(fp_iter, "3: Wrong # allocated for at least one phenotype based on est. HFs \n");
 	fprintf(fp_iter, "4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype \n");
@@ -894,12 +889,6 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	  fprintf(fp_out, "Sum of haplotype frequencies = %f\n", haplo_freq_sum);
 #endif
 	}
-	else if (error_flag_best == 1)
-#ifdef XML_OUTPUT
-	  fprintf(fp_out, "no-ambiguos-haplos\"/>\n");
-#else
-	fprintf(fp_out, "There are no ambiguous haplotypes.              %f\n", loglike_best);
-#endif
 	else if (error_flag_best == 2)
 #ifdef XML_OUTPUT
 	  fprintf(fp_out, "norm-const-near-zero\"/>\n");
@@ -1031,8 +1020,6 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
       if (error_flag_best == 0)
 	fprintf(fp_permu, "Log likelihood converged in %3d iterations to : %f \n", 
 		iter_count_best, loglike_best);
-      else if (error_flag_best == 1)
-	fprintf(fp_permu, "There are no ambiguous haplotypes.              %f\n", loglike_best);
       else if (error_flag_best == 2)
 	fprintf(fp_permu, "Normalization constant near zero. Estimated HFs unstable.\n");
       else if (error_flag_best == 3)
@@ -1706,7 +1693,7 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
   if (ambig_sum == 0)
   {
     iter = 1;
-    *error_flag = 1;
+    //*error_flag = 1 is no longer used since ambig_sum=0 is not an error 8/23/03
     for (i = 0; i < n_haplo; i++)
     {
       hap_freq[i] = unambig[i] / (double)tot_hap;
