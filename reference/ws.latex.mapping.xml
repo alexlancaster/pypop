@@ -45,6 +45,8 @@
    <line>\dbappendix{%title}&#10;</line>
    <line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
   </mapping>
+
+  <mapping key="application" text="{\tt "/>
   
   <mapping key="chapter"	text="">
    <line>&#10;</line>
@@ -205,7 +207,9 @@
    <line>\end{admonition}&#10;</line>
    <line>&#10;</line>
   </mapping>	
-  
+
+  <mapping key="application" text="}"/>  
+
   <mapping key="book" text="">
    <line>&#10;</line>
    <line>\end{document}&#10;</line>
