@@ -5,6 +5,7 @@
 """
 
 import string, sys, os
+from Utils import getStreamType
 
 class HardyWeinberg:
   """Calculate Hardy-Weinberg statistics.
@@ -263,9 +264,11 @@ class HardyWeinberg:
 ################################################################################
 
   def getChisq(self):
-    """ Output routines depend on existence or otherwise of common and rare genotypes"""
+    """ Output routines depend on existence or otherwise of common and
+    rare genotypes"""
 
-    # stream serialization goes here
+    # stream serialization has been moved to serializeTo method (below)
+    # this code remains here for backward compatibility with 'tdw.py'
     if self.commonGenotypeCounter == 0:
       print "No common genotypes; chi-square cannot be calculated"
 
@@ -288,4 +291,77 @@ class HardyWeinberg:
       print "Lumped Chisq   :", self.lumpedChisq
       print "Lumped Pval    :", self.lumpedChisqPval
 
+  def serializeTo(self, stream):
+    type = getStreamType(stream)
 
+    # stream serialization goes here
+    
+    if self.commonGenotypeCounter == 0:
+      
+      if type == 'xml':
+        stream.opentag('hardyweinberg', 'class', 'no-common-genotypes')
+        stream.closetag('hardyweinberg')
+      else:
+        stream.writeln("No common genotypes; chi-square cannot be calculated")
+
+    elif self.rareGenotypeCounter == 0:
+
+      if type == 'xml':
+        stream.opentag('hardyweinberg', 'class', 'no-lumps')
+        stream.tagContents("hwchisq", self.HWChisq)
+        stream.tagContents("hwchisqdf", self.HWChisqDf)
+        stream.tagContents("hwchisqpval", self.HWChisqPval)
+        stream.writeln()
+        stream.closetag('hardyweinberg')
+      else:
+        stream.writeln("HardyWeinberg statistics:")
+        stream.writeln()
+        stream.writeln("HWChisq    : %.4f " % self.HWChisq)
+        stream.writeln("HWChisqDf  : %.4f " % self.HWChisqDf)
+        stream.writeln("HWChisqPval: %.4f " % self.HWChisqPval)
+        stream.writeln("No lumps")
+        
+    else:
+
+      if type == 'xml':
+        stream.opentag('hardyweinberg', 'class', 'lumps')
+        stream.tagContents("samplesize", "%d" % self.n)
+        stream.writeln()
+        stream.tagContents("allelecount", "%d" % self.k)
+        stream.writeln()
+        stream.tagContents("chisquared", "%.4f" % self.HWChisq)
+        stream.writeln()
+        stream.tagContents("degressoffreedom", "%.4f" % self.HWChisqDf)
+        stream.writeln()
+        stream.tagContents("hwchisqpval", "%.4f" % float(self.HWChisqPval))
+        stream.writeln()
+        stream.tagContents("lumpedobserved", "%.4f" % self.lumpedObservedGenotypes)
+        stream.writeln()
+        stream.tagContents("lumpedexpected", "%4f" % self.lumpedExpectedGenotypes)
+        stream.writeln()
+        stream.tagContents("lumpedChisq", "%4f" % self.lumpedChisq)
+        stream.writeln()
+        stream.tagContents("lumpedPval", "%4f" % float(self.lumpedChisqPval))
+        stream.writeln()
+
+      else:
+        stream.writeln("HardyWeinberg statistics:")
+        stream.writeln("Sample size: %d" % self.n)
+        stream.writeln("Alleles:   : %d" % self.k)
+        stream.writeln("Chi Squared: %.4f" % self.HWChisq)
+        stream.writeln("DoF        : %d " % self.HWChisqDf)
+        stream.writeln("HWChisqPval: " + self.HWChisqPval)
+        stream.writeln()
+        stream.writeln("Lumped observed: %.4f" % self.lumpedObservedGenotypes)
+        stream.writeln("Lumped expected: %.4f" % self.lumpedExpectedGenotypes)
+        stream.writeln("Lumped Chisq   : %.4f" % self.lumpedChisq)
+        stream.writeln("Lumped Pval    : %.4f" % float(self.lumpedChisqPval))
+
+
+class HardyWeinbergGuoThompson(HardyWeinberg):
+  """Wrapper class for 'gthwe'
+
+  Currently a dummy placeholder class for a wrapper for the Guo &
+  Thompson program 'gthwe'.
+  """
+  pass
