@@ -420,12 +420,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	}
 
       /* genopheno does not need to be initialized from last permu 08/01/02 */
-
-      /* initialize allele freqs from last permu */
-      for (j = 0; j < n_loci; j++)
-	{
-	  for (i = 0; i < MAX_ALLELES; i++) allele_freq[j][i] = 0;
-	}
+      /* allele freqs do not need to be initialized from last permu 08/01/02 since now only computed for permu=0 */
     }
     /*** end: pre-processing for permutations ***/
 
