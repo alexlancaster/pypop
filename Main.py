@@ -329,7 +329,7 @@ class Main:
               filter = PassThroughFilter()
 
             # Generate the parse file object, which simply creates
-            # a filtered matrix (no allele count stuff done!)
+            # a matrix (no allele count stuff done!)
             self.parsed = ParseGenotypeFile(fileName,
                                       validPopFields=validPopFields,
                                       validSampleFields=validSampleFields,
@@ -337,11 +337,15 @@ class Main:
                                       untypedAllele=self.untypedAllele,
                                       popNameDesignator=popNameDesignator,
                                       fieldPairDesignator=fieldPairDesignator,
-                                      filter=filter,
                                       debug=self.debug)
 
-            # put in format for rest of processing
-            self.input = Genotypes(matrix=self.parsed.getMatrix(),
+            # now we do the filtering on the parsed file to create a
+            # new filtered data matrix
+            self.filtered = filter.doFiltering(self.parsed.getMatrix())
+
+            # and then we pass the filtered matrix to be put in format
+            # for rest of processing
+            self.input = Genotypes(matrix=self.filtered,
                                    untypedAllele=self.untypedAllele,
                                    debug=self.debug)
 
