@@ -14,6 +14,8 @@
  <xsl:param name="headers.on.blank.pages" select="0"/>
  <xsl:param name="footers.on.blank.pages" select="0"/>
 
+ <xsl:param name="preferred.mediaobject.role">tex</xsl:param>
+
  <xsl:param name="page.margin.top">0.3in</xsl:param>
  <xsl:param name="page.margin.bottom">0.40in</xsl:param>
  <xsl:param name="page.margin.inner">0.60in</xsl:param>
