@@ -292,8 +292,9 @@ for locus in loci:
       rootPath=config.get("Homozygosity", "rootPath")
     except NoOptionError:
       rootPath=os.path.join(datapath, "homozygosity")
-      print "Defaulting to system datapath %s for homozygosity tables" % rootPath
-
+      if debug:
+        print "Defaulting to system datapath %s for homozygosity tables" % rootPath
+        
 
     hzObject = Homozygosity(input.getAlleleCountAt(locus),
                                     rootPath=rootPath,
