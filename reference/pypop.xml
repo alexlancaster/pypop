@@ -139,8 +139,8 @@
    packages (either as part of the framework or through file formats).
    In this way, our software, <emphasis>PyPop</emphasis>
    (<emphasis>Py</emphasis>thon for <emphasis>Pop</emphasis>ulation
-   Genetics) can be viewed as a framework which can draw on the
-   strengths of existing tools in the community.</para>
+   Genetics) can be viewed as an integrating framework which draws on
+   the strengths of existing tools in the community.</para>
 
   <section>
    <title>IHWG: International Histocompatibility Working Group</title>
