@@ -84,7 +84,8 @@ datapath = os.path.join(sys.prefix, 'share', 'PyPop')
 usage_message = """Usage: popmeta.py [OPTION] INPUTFILES...
 
 Processes INPUTFILES and generates 'meta'-analyses.  INPUTFILES are
-expected to be the XML output files taken from runs of 'pypop'.
+expected to be the XML output files taken from runs of 'pypop'.  Will
+skip any XML files that are not well-formed XML.
 
   -m, --meta-xslt=DIR     use specified directory to find XSLT
                             (default: '%s')
@@ -113,6 +114,22 @@ for o, v in opts:
 # parse arguments
 files = args
 
+wellformed_files = []
+
+# check each file for "well-formedness" using xmllint (with '--noout'
+# command-line option) in libxslt package, if stderr is anything but
+# empty (indicating non-well-formedness), report an error on this
+# file, and skip this file in the meta analysis 
+for f in files:
+    stdin, stdout, stderr  = os.popen3("xmllint --noout %s" % f)
+    lines = stderr.readlines()
+    if len(lines) == 0:
+        wellformed_files.append(f)
+    else:
+        print "%s is not well-formed XML:" % f
+        print "  probably a problem with analysis not completing, skipping in meta analysis!"
+
+
 # generate a metafile XML wrapper
 
 # open doctype
@@ -120,7 +137,9 @@ meta_string="<!DOCTYPE meta [\n"
 entities = ""
 includes = ""
 
-for f in files:
+# loop through and create the meta.xml file *only* for the well-formed
+# XML files
+for f in wellformed_files:
     base = os.path.basename(f)
     ent = "ENT" + base
     entities += "<!ENTITY %s SYSTEM \"%s\">\n" % (ent, f)
