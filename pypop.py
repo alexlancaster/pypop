@@ -5,7 +5,8 @@
 
 import sys, os, string, time
 
-altpath = os.path.join(sys.prefix, 'share', 'PyPop', 'config.ini')
+datapath = os.path.join(sys.prefix, 'share', 'PyPop')
+altpath = os.path.join(datapath, 'config.ini')
 
 usage_message = """Usage: pypop [OPTION] INPUTFILE
 Process and run population genetics statistics on an INPUTFILE.
@@ -255,13 +256,13 @@ for locus in loci:
     
   # Parse "Homozygosity" section
 	
-  if config.has_section("Homozygosity") and \
-     len(config.options("Homozygosity")) > 0:
+  if config.has_section("Homozygosity"):
           
     try:
       rootPath=config.get("Homozygosity", "rootPath")
     except NoOptionError:
-      sys.exit("If homozygosity statistics are run, path to the simulated data sets must be provided")
+      rootPath=os.path.join(datapath, "homozygosity")
+      print "Defaulting to system datapath %s for homozygosity tables" % rootPath
 
 
     hzObject = Homozygosity(input.getAlleleCountAt(locus),
