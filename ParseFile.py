@@ -300,6 +300,72 @@ class ParseGenotypeFile(ParseFile):
         self.untypedAllele=untypedAllele
 
         ParseFile.__init__(self, filename, **kw)
+        self._genDataStructures()
+
+    def _getAlleleColPos(self):
+        """Returns dictionary containing 2-tuple of column position.
+
+        It is keyed by allele names originally specified in sample
+        metadata file
+
+        Note that this is simply a _subset_ of that returned by
+        **getSampleMap()**
+
+        *For internal use only."""
+
+        self.alleleMap = {}
+        for key in self.sampleMap.keys():
+            # do we have the allele designator?
+            if key[0] == self.alleleDesignator:
+                self.alleleMap[key] = self.sampleMap[key]
+
+        return self.alleleMap
+
+    def _genDataStructures(self):
+        """Generates allele count and map data structures.
+        
+        *For internal use only.*"""        
+
+        sampleDataLines, separator = self.getFileData()
+        self._getAlleleColPos()
+        
+        self.freqcount = {}
+        self.locusTable = {}
+        for locus in self.alleleMap.keys():
+            col1, col2 = self.alleleMap[locus]
+
+            # initialise blank dictionary
+            alleleTable = {}
+
+            # initialise blank list
+            self.locusTable[locus] = []
+            
+            total = 0
+            for line in sampleDataLines:
+                fields = string.split(line, separator)
+
+                allele1 = fields[col1]
+                if self.untypedAllele != allele1:
+                    if alleleTable.has_key(allele1):
+                        alleleTable[fields[col1]] += 1
+                    else:
+                        alleleTable[fields[col1]] = 1
+                    total += 1
+                    
+                allele2 = fields[col2]
+                if self.untypedAllele != allele2:
+                    if alleleTable.has_key(allele2):
+                        alleleTable[fields[col2]] += 1
+                    else:
+                        alleleTable[fields[col2]] = 1
+                    total += 1
+
+                # save alleles as a tuple
+                self.locusTable[locus].append((allele1, allele2))
+
+                if self.debug:
+                    print col1, col2, allele1, allele2, total
+                self.freqcount[locus] = alleleTable, total
 
     def genValidKey(self, field, fieldList):
         """Check and validate key.
@@ -331,63 +397,32 @@ class ParseGenotypeFile(ParseFile):
             key = field
 
         return isValidKey, key
-        
-    def getAlleleMap(self):
-        """Returns dictionary containing 2-tuple of column position.
 
-        It is keyed by allele names originally specified in sample
-        metadata file
+    def getLocusList(self):
+        """Returns the list of loci.
 
-        Note that this is simply a _subset_ of that returned by
-        **getSampleMap()**"""
-
-        self.alleleMap = {}
-        for key in self.sampleMap.keys():
-            # do we have the allele designator?
-            if key[0] == self.alleleDesignator:
-                self.alleleMap[key] = self.sampleMap[key]
-
-        return self.alleleMap
-
-    def getAllelecount(self):
-        """Generate and return a map of tuples where the key is the
-        locus name.  Each tuple is a double, consisting of a map keyed
-        by alleles containing counts and the total count at that locus.
         """
-        sampleDataLines, separator = self.getFileData()
-        self.getAlleleMap()
+        return self.freqcount.keys()
+
+    def getAlleleCount(self):
+        """Return allele count statistics.
         
-        self.freqcount = {}
-        for locus in self.alleleMap.keys():
-            col1, col2 = self.alleleMap[locus]
-            alleleTable = {}
-            total = 0
-            for line in sampleDataLines:
-                fields = string.split(line, separator)
-
-                allele1 = fields[col1]
-                if self.untypedAllele != allele1:
-                    if alleleTable.has_key(allele1):
-                        alleleTable[fields[col1]] += 1
-                    else:
-                        alleleTable[fields[col1]] = 1
-                    total += 1
-                    
-                allele2 = fields[col2]
-                if self.untypedAllele != allele2:
-                    if alleleTable.has_key(allele2):
-                        alleleTable[fields[col2]] += 1
-                    else:
-                        alleleTable[fields[col2]] = 1
-                    total += 1
-
-                if self.debug:
-                    print col1, col2, allele1, allele2, total
-                self.freqcount[locus] = alleleTable, total
-
+        Return a map of tuples where the key is the locus name.  Each
+        tuple is a double, consisting of a map keyed by alleles
+        containing counts and the total count at that locus.  """
+        
         return self.freqcount
 
-class ParseAllelecountFile(ParseFile):
+    def getLocusData(self, locus):
+        """Returns the genotyped data for specified locus.
+
+        Given a 'locus', return a list genotypes consisting of
+        2-tuples which contain each of the alleles for that individual
+        in the list.
+        """
+        return self.locusTable[locus]
+
+class ParseAlleleCountFile(ParseFile):
     """Class to parse datafile in allele count form."""
     pass
 
