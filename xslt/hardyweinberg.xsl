@@ -590,15 +590,21 @@ MODIFICATIONS.
    <xsl:with-param name="length" select="$row-len-max"/>
   </xsl:call-template>
   
-  <!-- create column footer by filtering out appropriate columns from
-  unique column list -->
-  <xsl:for-each select="$unique-cols[position() &gt;= $start-col and position() &lt;= $end-col]">
+  <!-- create column footer -->
+  <xsl:for-each select="$unique-cols"> 
    <!-- sort by count (frequency) -->
-   <xsl:sort select="../count" data-type="number" order="descending"/>   
-   <xsl:call-template name="prepend-pad">
-    <xsl:with-param name="length" select="$col-len-max"/>
-    <xsl:with-param name="padVar" select="."/>
-   </xsl:call-template>
+   <xsl:sort select="../count" data-type="number" order="descending" />   
+   
+   <!-- filter out appropriate subset of columns from unique-column list -->
+   <!-- choose the start and end positions of columns *after* sort is -->
+   <!-- performed so that reordered positions are consistent with row order -->
+   <xsl:if test="position() &gt;= $start-col and position() &lt;= $end-col">
+    <xsl:call-template name="prepend-pad">
+     <xsl:with-param name="length" select="$col-len-max"/>
+     <xsl:with-param name="padVar" select="."/>
+    </xsl:call-template>
+   </xsl:if>
+
   </xsl:for-each>
 
   <xsl:call-template name="newline"/>
