@@ -10,6 +10,7 @@
   <text col="uniquepheno">Unique phenotypes</text>
   <text col="uniquegeno">Unique phenotypes</text>
   <text col="haplocount">Number of haplotypes</text>
+  <text col="iterConverged">Number of iterations before convergence</text>
   <text col="loglikelihood-no-ld">Loglikelihood under linkage equilibrium ln(L_0)</text>
   <text col="loglikelihood">Loglikelihood obtained via the EM algorithm ln(L_1)</text>
  </data:haplo-fields>
@@ -45,30 +46,41 @@
     <xsl:for-each
      select="uniquepheno|uniquegeno|haplocount|individcount">
      <xsl:value-of
-     select="document(''//data:haplo-fields/text[@col=name(.)])"/>
+      select="document('')//data:haplo-fields/text[@col=name(current())]"/>
      <xsl:text>: </xsl:text>
      <xsl:value-of select="."/>
+     <xsl:if test="@role">
+      <xsl:text> (</xsl:text>
+      <xsl:value-of select="@role"/>
+      <xsl:text>)</xsl:text>
+     </xsl:if>
+     <xsl:call-template name="newline"/>
     </xsl:for-each>
     
     <xsl:choose>
      <xsl:when test="haplotypefreq/condition[@role='converged']">
       <xsl:value-of 
        select="document('')//data:haplo-fields/text[@col='loglikelihood-no-ld']"/>  
+      <xsl:text>: </xsl:text>
       <xsl:value-of select="loglikelihood"/>
       <xsl:call-template name="newline"/>
       <xsl:value-of 
        select="document('')//data:haplo-fields/text[@col='loglikelihood']"/>  
-      <xsl:value-of select="haplotypefreq/loglikelihood"/>
       <xsl:text>: </xsl:text>
+      <xsl:value-of select="haplotypefreq/loglikelihood"/>
       <xsl:call-template name="newline"/>
       <xsl:value-of 
        select="document('')//data:haplo-fields/text[@col='iterConverged']"/>  
-       <xsl:value-of select="haplotypefreq/iterConverged"/>
+      <xsl:text>: </xsl:text>
+      <xsl:value-of select="haplotypefreq/iterConverged"/>
       <xsl:call-template name="newline"/>
+
+      <xsl:call-template name="newline"/>
+
       <xsl:apply-templates select="haplotypefreq"/>
      </xsl:when>
      <xsl:otherwise>
-      <xsl:text>Emhaplofreq did not converge!</xsl:text>
+      <xsl:text>EM algorithm failed to converge.</xsl:text>
       <xsl:call-template name="newline"/>
      </xsl:otherwise>
     </xsl:choose>
