@@ -660,7 +660,8 @@ class ParseAlleleCountFile(ParseFile):
             self.alleleTable[allele] = count
             total += int(count)
 
-        print self.alleleTable
+        if self.debug:
+            print self.alleleTable
 
         # simply reconstruct the 3-tuple as generated in
         # ParseGenotypeFile: alleleTable (a map of counts keyed by
