@@ -120,9 +120,6 @@ Total     1.00000   90        | Total     1.00000   90
  <sect1 id="instructions-homozygosity">
   <title>The Ewens-Watterson Homozygosity test of neutrality</title>
 
-<citation role="citet">Watterson:1978</citation>.
-<citation role="citet">Ewens:1972</citation>.
-
   <para>For each locus we implement the Ewens-Watterson homozygosity
    test of neutrality (<citation role="citet">Watterson:1978</citation>,
    <citation role="citet">Ewens:1972</citation>). The expected homozygosity 
@@ -505,6 +502,11 @@ DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
 
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Excoffier:Slatkin:1995'])"/>  
 
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Watterson:1978'])"/>  
+
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Ewens:1972'])"/>  
+
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Salamon:1999'])"/>  
 
   </bibliodiv>
  </bibliography>
