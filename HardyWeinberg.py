@@ -324,6 +324,8 @@ class HardyWeinberg:
       else:
         stream.writeln("No common genotypes; chi-square cannot be calculated")
 
+      stream.writeln()
+      
     elif self.rareGenotypeCounter == 0:
 
       if type == 'xml':
@@ -332,7 +334,11 @@ class HardyWeinberg:
         stream.tagContents("hwchisqdf", "%4f" % self.HWChisqDf)
         stream.tagContents("hwchisqpval", "%4f" % self.HWChisqPval)
         stream.writeln()
+
+        self.serializeXMLTableTo(stream)
+
         stream.closetag('hardyweinberg')
+        
       else:
         stream.writeln("HardyWeinberg statistics:")
         stream.writeln("=========================")
@@ -369,8 +375,11 @@ class HardyWeinberg:
         stream.writeln()
         stream.tagContents("lumpedPval", "%4f" % float(self.lumpedChisqPval))
         stream.writeln()
-        stream.closetag('hardyweinberg')
 
+        self.serializeXMLTableTo(stream)
+
+        stream.closetag('hardyweinberg')
+        
       else:
         stream.writeln("HardyWeinberg statistics:")
         stream.writeln("=========================")
@@ -388,8 +397,52 @@ class HardyWeinberg:
 
         self.serializeTextTableTo(stream)
 
-        # extra spacer line
+      # extra spacer line
+      stream.writeln()
+
+  def serializeXMLTableTo(self, stream):
+
+    sortedAlleles = self.observedAlleles[:]
+    sortedAlleles.sort()
+
+    stream.opentag("genotypetable")
+    stream.writeln()
+
+    for horiz in sortedAlleles:
+
+      for vert in sortedAlleles:
+        # ensure that matrix is triangular
+        if vert > horiz:
+          continue
+
+        # need to check both permutations of key
+        key1 = "%s:%s" % (horiz, vert)
+        key2 = "%s:%s" % (vert, horiz)
+
+        # get observed value
+        if self.observedGenotypeCounts.has_key(key1):
+          obs = self.observedGenotypeCounts[key1]
+        elif self.observedGenotypeCounts.has_key(key2):
+          obs = self.observedGenotypeCounts[key2]
+        else:
+          obs = "0"
+
+        # get expected value
+        if self.expectedGenotypeCounts.has_key(key1):
+          exp = self.expectedGenotypeCounts[key1]
+        elif self.expectedGenotypeCounts.has_key(key2):
+          exp = self.expectedGenotypeCounts[key2]
+        else:
+          exp = 0.0
+
+        stream.opentag("genotype", "name", key1)
+        stream.tagContents("observed", "%2s" % obs)
+        stream.tagContents("expected", "%.1f" % exp)
+        stream.closetag("genotype")
         stream.writeln()
+
+    stream.closetag("genotypetable")
+    stream.writeln()
 
   def serializeTextTableTo(self, stream):
 
