@@ -331,6 +331,7 @@ class StringMatrix(UserArray):
       
       self.colCount = len(self.colList)
       self.rowCount = rowCount
+
       self.array = zeros((self.rowCount, self.colCount*2), PyObject)
       self.shape = self.array.shape
       self._typecode = self.array.typecode()
@@ -399,5 +400,12 @@ class StringMatrix(UserArray):
       self.array[(row,col1)] = asarray(value1+':',self._typecode)
       self.array[(row,col2)] = asarray(value2+':',self._typecode)
 
-  def getColList(self):
-      return self.colList
+  def filterOut(self, key, blankDesignator):
+      def f(x, designator=blankDesignator):
+          for value in x:
+              if value == designator+':':
+                  return 0
+          return 1
+
+      return filter(f, self.__getitem__(key))
+      
