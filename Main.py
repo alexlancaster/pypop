@@ -225,6 +225,21 @@ class Main:
         except NoOptionError:
           useAnthonyNolanFilter=0
 
+        try:
+          useBinningFilter=self.config.getboolean("ParseFile", "useBinningFilter")
+        except NoOptionError:
+          useBinningFilter=0
+
+        # BinningFilter requires AnthonyNolanFilter; converse is not true.
+        if useBinningFilter:
+          useAnthonyNolanFilter=1
+          try:
+            binningPath=self.config.get("ParseFile", "binningPath")
+          except NoOptionError:
+            binningPath=os.path.join(self.datapath, "filters", "binning")
+            if debug:
+              print "Defaulting to system datapath %s for binningPath data" % binningPath
+
         if useAnthonyNolanFilter:
           try:
             anthonynolanPath=self.config.get("ParseFile", "anthonynolanPath")
@@ -236,20 +251,30 @@ class Main:
           # open log file for filter in append mode
           filterLogFile = XMLOutputStream(open(defaultFilterLogFilename, 'w'))
 
-          # create a data cleaning filter to pass all data through
+        # create a data cleaning filter to pass all data through
 
+        if useBinningFilter:
+          # for the binningFilter, we need to add the path to the binfiles
+          filter = BinningFilter(debug=debug,
+                                 directoryName=anthonynolanPath,
+                                 untypedAllele=untypedAllele,
+                                 filename=fileName,
+                                 logFile=filterLogFile,
+                                 binsDirectory=binningPath)
+
+        elif useAnthonyNolanFilter:
           filter = AnthonyNolanFilter(debug=debug,
                                       directoryName=anthonynolanPath,
                                       untypedAllele=untypedAllele,
                                       filename=fileName,
                                       logFile=filterLogFile)
 
-          #filter = AlleleCountAnthonyNolanFilter(debug=debug,
-          #                                       directoryName=anthonynolanPath,
-          #                                       untypedAllele=untypedAllele,
-          #                                       filename=fileName,
-          #                                       logFile=filterLogFile,
-          #                                       lumpThreshold=5)
+        #filter = AlleleCountAnthonyNolanFilter(debug=debug,
+        #                                       directoryName=anthonynolanPath,
+        #                                       untypedAllele=untypedAllele,
+        #                                       filename=fileName,
+        #                                       logFile=filterLogFile,
+        #                                       lumpThreshold=5)
 
         else:
           # don't use filter, just create a "pass through filter"
