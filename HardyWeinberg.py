@@ -524,6 +524,8 @@ class HardyWeinberg:
         stream.emptytag('commonpluslumped', role='no-common-genotypes')
       elif self.flagTooManyParameters == 1:
         stream.emptytag('commonpluslumped', role='too-many-parameters')
+      elif self.flagTooFewExpected == 1:
+        stream.emptytag('commonpluslumped', role='not-calulated')
       else:
         stream.emptytag('commonpluslumped', role='huh')
       stream.writeln()
