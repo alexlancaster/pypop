@@ -69,6 +69,10 @@ class HardyWeinberg:
     self.observedGenotypeCounts = {}
     self.possibleGenotypes = []
     self.expectedGenotypeCounts = {}
+    self.totalHomsObs = 0
+    self.totalHetsObs = 0
+    self.totalHomsExp = 0.0
+    self.totalHetsExp = 0.0
     
     # self.alleleTotal = 0
 
@@ -103,14 +107,20 @@ class HardyWeinberg:
       self.alleleFrequencies[allele] = freq
 
     for genotype in self.observedGenotypes:
-      """Generate a dictionary of genotype:count key:values"""
+      """Generate a dictionary of genotype:count key:values
 
-      # maybe this should be a copy of possibleGenotypes with zeroes where
-      # there are no observations???
+      - and accumulate totals for homozygotes and heterozygotes"""
+
       if self.observedGenotypeCounts.has_key(genotype):
         self.observedGenotypeCounts[genotype] += 1
       else:
         self.observedGenotypeCounts[genotype] = 1
+
+      temp = string.split(genotype, ':')
+      if temp[0] == temp[1]:
+        self.totalHomsObs += 1
+      else:
+        self.totalHetsObs += 1
 
     for i in range(len(self.observedAlleles)):
       """Generate a list of all possible genotypes
@@ -126,15 +136,19 @@ class HardyWeinberg:
     for genotype in self.possibleGenotypes:
       """Calculate expected genotype counts under HWP
 
-      - Create a dictionary of genotype:frequency key:values"""
+      - Create a dictionary of genotype:frequency key:values
+
+      - and accumulate totals for homozygotes and heterozygotes"""
 
       temp = string.split(genotype, ':')
       if temp[0] == temp[1]:         # homozygote, N * pi * pi
         self.expectedGenotypeCounts[genotype] = self.n * \
         self.alleleFrequencies[temp[0]] * self.alleleFrequencies[temp[1]]
+        self.totalHomsExp += self.expectedGenotypeCounts[genotype]
       else:                          # heterozygote, 2N * pi * pj
         self.expectedGenotypeCounts[genotype] = 2 * self.n * \
         self.alleleFrequencies[temp[0]] * self.alleleFrequencies[temp[1]]
+        self.totalHetsExp += self.expectedGenotypeCounts[genotype]
 
     total = 0
     for value in self.expectedGenotypeCounts.values():
@@ -166,7 +180,10 @@ class HardyWeinberg:
 ################################################################################
 
   def _calcChisq(self):
-    """Calculate the chi-squareds for the common genotypes.
+    """First calculate the chi-squareds for the homozygotes
+    and heterozygotes,
+
+    - then calculate the chi-squareds for the common genotypes.
 
     - create a count of observed and expected lumped together
     for genotypes with an expected value of less than lumpBelow
@@ -174,7 +191,30 @@ class HardyWeinberg:
     - Open a pipe to get the p-value from the system
     using the pval program (should be replaced later)"""
 
-    self.printExpected = [] # list flagging genotypes worth printing
+    if self.totalHomsExp < self.lumpBelow:
+      print "Total homozygotes expected is less than", self.lumpBelow
+      print "chi-square value cannot be calculated."
+    else:
+      self.totalChisqHoms = ((self.totalHomsObs - self.totalHomsExp) *\
+                            (self.totalHomsObs - self.totalHomsExp)) /\
+                            self.totalHomsExp
+
+      command = "pval 1 %f" % (self.totalChisqHoms)
+      returnedValue = os.popen(command, 'r').readlines()
+      self.chisqHomsPval = returnedValue[0][:-1]
+
+    if self.totalHetsExp < self.lumpBelow:
+      print "Total homozygotes expected is less than", self.lumpBelow
+      print "chi-square value cannot be calculated."
+    else:
+      self.totalChisqHets = ((self.totalHetsObs - self.totalHetsExp) *\
+                            (self.totalHetsObs - self.totalHetsExp)) /\
+                            self.totalHetsExp
+
+      command = "pval 1 %f" % (self.totalChisqHets)
+      returnedValue = os.popen(command, 'r').readlines()
+      self.chisqHetsPval = returnedValue[0][:-1]
+
     self.counterA = {}
     self.chisq = {}
     self.chisqPval = {}
@@ -188,7 +228,7 @@ class HardyWeinberg:
     for genotype in self.expectedGenotypeCounts.keys():
       if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
 
-        self.printExpected.append(genotype) # replaces HWprintexpAiAj in specs
+#        self.printExpected.append(genotype) # replaces HWprintexpAiAj in specs
 
         temp = string.split(genotype, ':')
         if self.counterA.has_key(temp[0]):
