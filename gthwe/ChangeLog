@@ -1,3 +1,15 @@
+2004-07-09  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* hwe.c (norm_dev): Recoded to calculate Z_ij and Z_ii stats
+	according to Biometrics 55:1269-1272 (for heterozygote case) and
+	Chen et al. 2004 for homozygote case.
+	(run_data): Split out individual genotype stat recording functions
+	into functions described below.
+	(init_stats, store_stats, print_stats): New functions to store
+	individual genotype statistics, split out of main run_data()
+	function, so they can be reused by run_randomization() function.
+	(run_randomization): Use them.  Obsoletes storage of histograms.
+
 2004-06-30  Alex Lancaster <alexl AT berkeley.edu>
 
 	* gthwe_wrap.i (run_randomization): New prototype for SWIG export.
