@@ -97,7 +97,7 @@
    output of the analyses are stored in the XML format (XML is the
    eXtensible Markup Language devised by the World Wide Web
    Consortium, and is a platform-independent, vendor-neutral,
-   non-proprietary, open-standard for storing data).  These output
+   non-proprietary, open standard for storing data).  These output
    files can then be transformed using standard tools into many other
    data formats suitable for machine consumption (such as
    <application>Phylip</application> or input for the statistical
@@ -175,7 +175,7 @@
    <title>IHWG: International Histocompatibility Working Group</title>
 
    <para>The primary motivation for developing this project was our
-    role as the <quote>Biostatistics Core</quote>, part of the
+    role as the <quote>Biostatistics Core</quote> part of the
     International Histocompatibility Working Group (<ulink
      url="http://www.ihwg.org/">IHWG</ulink>).  The IHWG collected
     population data on the HLA region and largely focused on the HLA
@@ -221,12 +221,11 @@
 
    <para>The data sets we wished to analyze were highly heterogeneous.
     Datasets varied considerably in the number of loci typed (from two
-    to nine), number of individuals sampled (from less than 50 to
-    1000), and number of alleles at each locus (from 5 to 179).  Given
-    that we had such highly diverse data sets, we nevertheless wished
-    to generate analyses that could be integrated in a systematic way,
-    this led to a set of requirements for the software
-    framework:</para>
+    to nine), number of individuals sampled (from 12 to 1012), and
+    number of alleles at each locus (from 2 to 55).  Given that we had
+    such highly diverse data sets, we nevertheless wished to generate
+    analyses that could be integrated in a systematic way, this led to
+    a set of requirements for the software framework:</para>
 
    <itemizedlist>
 
@@ -284,10 +283,7 @@
     are packages that deal with some aspect of population genetic
     statistics.  In addition, we had some existing in-house software,
     such as <application>emhaplofreq</application>, a program for
-    haplotype estimation for the highly polymorphic HLA loci, and
-    <application>gthwe</application>, a program for implementing  Guo
-    and Thompson's Hardy-Weinberg exact test<citation
-     role="citeyearpar">Guo:Thompson:1992</citation>.</para>
+    haplotype estimation for the highly polymorphic HLA loci.</para>
 
 <!--
    <para>In using these programs, however, we realized a need for a
@@ -507,10 +503,12 @@
     </para>
 -->
 
-    <para>Ewens-Watterson homozygosity test of neutrality (observed
-     homozygosity under HW for the sample, which reflects the allele
-     frequency distribution for the given sample size
-     (<varname>n</varname>) and observed number of alleles
+    <para>Ewens-Watterson (<citation
+      role="citealt">Ewens:1972</citation>; <citation
+      role="citealt">Watterson:1978</citation>) homozygosity test of
+     neutrality (observed homozygosity under HW for the sample, which
+     reflects the allele frequency distribution for the given sample
+     size (<varname>n</varname>) and observed number of alleles
      (<varname>k</varname>), expected homozygosity under neutrality
      for the same <varname>n</varname> and <varname>k</varname>
      values, <varname>p</varname> value indicating fit to neutrality
@@ -520,11 +518,12 @@
 
    <para>For this test, we created an extension module in
     <application>PyPop</application>, that used a C implementation of
-    kindly provided by Montgomery Slatkin <citation
-     role="citealt">Slatkin:1994</citation>, <citation
-     role="citealt">Slatkin:1996</citation>.  This test uses a
+    kindly provided by Montgomery Slatkin (<citation
+     role="citeyear">Slatkin:1994</citation>, <citation
+     role="citeyear">Slatkin:1996</citation>).  This test uses a
     Monte-Carlo approximation to the exact test with 10,000
-    replicates.</para>
+    replicates.  <!-- We also checked results against a look-up table of
+    simulation results by <citation>Salamon:1995?</citation> --> </para>
    
    <formalpara>
     <title>Haplotype estimation and linkage disequilibrium</title>
@@ -563,8 +562,8 @@
     the highly polymorphic HLA loci were developed (they are also
     appropriate for analysis of loci showing less variation than HLA).
     In addition to the high level of polymorphism, large sample sizes
-    in some cases, such 1,000 samples in in an anthropology data set,
-    and 2,000 samples for the overall transplant data, are also
+    in some cases (as many as 1,012 samples in an anthropology data
+    set, and 2,000 samples for the overall transplant data) are also
     problematic for methods using resampling and/or iterative
     procedures, such as the  HW exact test, haplotype estimation, and
     LD significance testing.
@@ -604,11 +603,12 @@
      <para>This reduced allele is checked to see whether it closely
       matches<footnote>
        <para>A close match means that the there is a common substring
-	between the reduced allele and the database allele, up to the
-	length of the common denominator (e.g., if "0301" is the
-	reduced allele under question, then this can match both
-	"03011" or "03012", then "0301" is returned as the common
-	substring match).</para>
+	 between the reduced allele and the database allele, up to the
+	 length of the common denominator (e.g., if
+	 <literal>0301</literal> is the reduced allele under question,
+	 then this can match both <literal>03011</literal> or
+	 <literal>03012</literal>, then <literal>0301</literal> is
+	 returned as the common substring match).</para>
       </footnote> an allele in the database, if it does, then this
       reduced allele is used in the data analysis.  A truncated allele
       which end in a zero (0) [such alleles do not exist in the
@@ -700,17 +700,16 @@
     transforming it as input for third party packages.</para>
 
    <para>First, since many of the analyses (notably estimating the
-    significance of all pairwise linkage disequilibrium) can take a
-    considerable amount of time, especially if the population consists
-    of many individuals and is highly polymorphic, the
-    <emphasis>analysis generation</emphasis> stage is decoupled from
-    the <emphasis>analysis presentation</emphasis> stage.  This
-    enables tweaking of the <quote>human-readable</quote> text output
-    of the individual files of the presentation without completely
-    re-running the analyses.  A sample text output is shown in <xref
-     linkend="pypop:sample-txt" />. The same XML content can
-    also be used to generate an HTML version or web version of the
-    same data set.
+     significance of all pairwise linkage disequilibrium) can take a
+     considerable amount of time, especially if the population
+     consists of many individuals and is highly polymorphic, the
+     <emphasis>analysis generation</emphasis> stage is decoupled from
+     the <emphasis>analysis presentation</emphasis> stage.  This
+     enables tweaking of the <quote>human-readable</quote> text output
+     of the individual files of the presentation without completely
+     re-running the analyses.  A sample text output is shown in <xref
+     linkend="pypop:sample-txt" />. The same XML content can also be
+     used to generate a web version (HTML) of the same data set.
    </para>
 
    <figure id="pypop:sample-txt">
@@ -747,15 +746,17 @@ Name      Frequency (Count)   | Name      Frequency (Count)
    </figure>
 
    <para>Second, the results of Phase I are used to investigate
-    patterns of variation across populations and within populations.
-    Examples include comparisons of evidence of selection, using the
-    homozygosity test of neutrality for a given locus for all
-    populations (e.g., DPA1 for all populations), or comparing the
-    sets of loci in significant linkage disequilibrium across
-    populations. This is implemented using XSLT to transform all the
-    desired sets of output XML files into tables of data that are read
-    by the statistical package <application>R</application>.</para>
-   
+     patterns of variation across populations and within populations.
+     Examples include comparisons of evidence of selection, using the
+     homozygosity test of neutrality for a given locus for all
+     populations (e.g., DPA1 for all populations), or comparing the
+     sets of loci in significant linkage disequilibrium across
+     populations. This is implemented using XSLT to transform all the
+     desired sets of output XML files into tables of data that are
+     read by the statistical package <application>R</application>.
+     Sample outputs of this process are shown in <xref
+      linkend="pypop:meta-results"/>.</para>
+<!--   
    <para>A sample output of this process is shown in <xref
      linkend="pypop:ld.wn.summary"/>.  This is an output plot from
     <application>R</application> and depicts for each of the loci
@@ -764,7 +765,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     the W<subscript>n</subscript> statistic, exceed 0.6.</para>
 
    <figure id="pypop:ld.wn.summary">
-    <title>Sample graphical output from <quote>meta-analysis</quote>:
+    <title>Sample graphical output from meta-analysis:
     proportions of populations with linkage disequilibrium measure
     W<subscript>n</subscript> greater than 0.6</title>
     <mediaobject>
@@ -773,6 +774,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
      </imageobject>
     </mediaobject>
    </figure>
+-->
 
    <para>The XML output (both the individual population-level data
     files, and the aggregated multi-population data) can be
@@ -786,7 +788,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
   </section>
  </section>
 
- <section>
+ <section id="pypop:meta-results">
   <title>Meta-analysis and results</title>
 
   <section>
@@ -802,16 +804,16 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     individual output analyses.  For each file, an individual XML file
     was generated.  From these individual files, using XSLT
     stylesheets as described above in phase II of
-    <application>PyPop</application>, it was straightforward to
-    generate the input data files for the statistical package,
-    <application>R</application>.  The <application>R</application>
-    code was set up to generate overall graphs for many population
-    genetic parameters of interest.  In particular, the analysis
-    allows <quote>slicing</quote> of the data along a number of axes.
-    As an example, we can view Hardy Weinberg deviation, for all
-    geographic regions at a given locus, or view all loci for a given
-    region. As another example, we can view the number of populations
-    that have data for a given region (<xref
+    <application>PyPop</application>, input data files for the
+    statistical package, <application>R</application> were generated.
+    The <application>R</application> code was set up to generate
+    overall graphs for many population genetic parameters of interest.
+    In particular, the analysis allows <quote>slicing</quote> of the
+    data along a number of axes. As an example, we can view Hardy
+    Weinberg deviation, for all geographic regions at a given locus,
+    or view all loci for a given region. As another example, we can
+    view the number of populations that have data for a given region
+    (<xref
     linkend="pypop:pops-by-locus"/>), or number of populations for
     which data was provided for a given locus (<xref
     linkend="pypop:pops-by-region"/>).</para>
@@ -835,15 +837,15 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     </mediaobject>
    </figure>
 
-   <para>This <quote>meta-analysis</quote> code is modular and can
-    cope with non-HLA data, and thus can potentially be useful for
-    other large-scale population genetic analyses.  The significance
-    is that the complete pipeline, from analyzing the individual data
-    files, to the generation of the overall <quote>meta</quote> output
-    can be completely automated from the command-line.  Further, the
-    flexibility of the XML format, allows us to easily extract and
-    output data for future data analyses without requiring
-    regeneration of the basic population genetics statistics.</para>
+   <para>This meta-analysis code is modular and can cope with non-HLA
+    data, and thus can potentially be useful for other large-scale
+    population genetic analyses.  The significance is that the
+    complete pipeline, from analyzing the individual data files, to
+    the generation of the overall meta output can be completely
+    automated from the command-line.  Further, the flexibility of the
+    XML format, allows us to  extract and output data easily for
+    future data analyses without requiring regeneration of the basic
+    population genetics statistics.</para>
 
   </section>
 
@@ -877,10 +879,10 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     <application>Arlequin</application>.  We also plan to take the
     Ewens-Watterson test of neutrality down to the amino-acid level
     (by considering each amino acid site as a genetic locus),
-    necessitating the translation of the allele <quote>calls</quote>
-    into sequence data (where possible).  This will result in a useful
-    module for those wishing to analyze allele data at the sequence
-    level.  Longer-term possibilities include developing a graphical
+    necessitating the translation of the allele calls into sequence
+    data (where possible).  This will result in a useful module for
+    those wishing to analyze allele data at the sequence level.
+    Longer-term possibilities include developing a graphical
     front-end, possibly web-based, integration with data mining tools
     such as clustering analysis, and currently under discussion is
     integration with the NCBI's new <application>dbMHC</application>
