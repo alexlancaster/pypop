@@ -24,10 +24,12 @@
  <xsl:variable name="all-allele-list" select="document('allelelist-by-locus.xml', .)/allelelist-by-locus"/>
  
  <xsl:template name="phylip-alleles">
-  <xsl:param name="node" select="."/>
+  <xsl:param name="node"/>
 
   <xsl:variable name="loci" select="$node/@name"/>
   <xsl:variable name="populations" select="$node[1]//popname"/>
+
+<!--  <xsl:variable name="populations" select="$node[population/allelecounts[@role!='no-data']]//popname"/> -->
 
   <xsl:text>     </xsl:text>
   <xsl:value-of select="count($populations)"/>
@@ -66,9 +68,9 @@
     <xsl:variable name="curlocus" select="."/>
     
     <xsl:variable name="allelelist-curlocus"
-    select="$all-allele-list/locus[@name=$curlocus]"/>
-
-   <xsl:variable name="cur-allele-list" select="$node[@name=$curlocus]/population[popname=$curpop]/allelecounts/allele"/>
+     select="$all-allele-list/locus[@name=$curlocus]"/>
+    
+    <xsl:variable name="cur-allele-list" select="$node[@name=$curlocus]/population[popname=$curpop]/allelecounts/allele"/>
     
     <xsl:for-each select="$allelelist-curlocus/allele">
      <xsl:variable name="allelename" select="."/>
@@ -86,53 +88,68 @@
    <xsl:call-template name="newline"/>
   </xsl:for-each>
  </xsl:template>
+
+ <!-- loci to group, no default -->
+ <xsl:param name="loci"/>
  
  <xsl:template match="/">
 
-  <exslt:document href="A-B.allele.phy"
-   omit-xml-declaration="yes"
-   method="text">
-   <xsl:call-template name="phylip-alleles">
-    <xsl:with-param name="node" select="output/locus[@name='A' or @name='B']"/>
-   </xsl:call-template>
-  </exslt:document>
+  <xsl:variable name="filename" select="concat(translate($loci, ':', '-'), '.allele.phy')"/>
 
-  <xsl:for-each select="output/locus">
-   <xsl:variable name="locusname" select="@name"/>
-   <xsl:if test="count($all-allele-list/locus[@name=$locusname]/allele)!=0">
-    <xsl:variable name="filename" select="concat($locusname, '.allele.phy')"/>
+  <xsl:choose>
+   <xsl:when test="$loci">
+    <!-- a parameter is passed in, do those specified loci -->
 
     <exslt:document href="{$filename}"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="phylip-alleles">
-     <xsl:with-param name="node" select="."/>
+      <xsl:with-param name="node" select="output/locus[contains($loci, @name)]"/>
      </xsl:call-template>
     </exslt:document>
-   </xsl:if>
-  </xsl:for-each>
+   </xsl:when>
 
-  <exslt:document href="2n-by-locus.dat"
-   omit-xml-declaration="yes"
-   method="text">
-   <xsl:for-each select="output/locus">
-    <xsl:text>Locus: </xsl:text>
-    <xsl:value-of select="@name"/>
-    <xsl:call-template name="newline"/>
-    
-    <xsl:for-each select="population">
-     <xsl:text>  </xsl:text>
-     <xsl:value-of select="popname"/><xsl:text> ('</xsl:text><xsl:value-of select="filename"/><xsl:text>'): </xsl:text>
-     <xsl:choose>
-      <xsl:when test="allelecounts/allelecount">
-       <xsl:value-of select="allelecounts/allelecount"/>
-      </xsl:when>
-      <xsl:otherwise>0</xsl:otherwise>
-     </xsl:choose>
-     <xsl:call-template name="newline"/>
+   <xsl:otherwise>
+    <!-- otherwise, do all pairs -->
+
+    <xsl:for-each select="output/locus">
+     <xsl:variable name="locusname" select="@name"/>
+     <xsl:if test="count($all-allele-list/locus[@name=$locusname]/allele)!=0">
+      <xsl:variable name="filename" select="concat($locusname, '.allele.phy')"/>
+      
+      <exslt:document href="{$filename}"
+       omit-xml-declaration="yes"
+       method="text">
+       <xsl:call-template name="phylip-alleles">
+	<xsl:with-param name="node" select="."/>
+       </xsl:call-template>
+      </exslt:document>
+     </xsl:if>
     </xsl:for-each>
-   </xsl:for-each>  
-  </exslt:document>
+    
+    <exslt:document href="2n-by-locus.dat"
+     omit-xml-declaration="yes"
+     method="text">
+     <xsl:for-each select="output/locus">
+      <xsl:text>Locus: </xsl:text>
+      <xsl:value-of select="@name"/>
+      <xsl:call-template name="newline"/>
+      
+      <xsl:for-each select="population">
+       <xsl:text>  </xsl:text>
+       <xsl:value-of select="popname"/><xsl:text> ('</xsl:text><xsl:value-of select="filename"/><xsl:text>'): </xsl:text>
+       <xsl:choose>
+	<xsl:when test="allelecounts/allelecount">
+	 <xsl:value-of select="allelecounts/allelecount"/>
+	</xsl:when>
+	<xsl:otherwise>0</xsl:otherwise>
+       </xsl:choose>
+       <xsl:call-template name="newline"/>
+      </xsl:for-each>
+     </xsl:for-each>  
+    </exslt:document>
+   </xsl:otherwise>
+  </xsl:choose>
 
  </xsl:template>
 
