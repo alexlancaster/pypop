@@ -719,6 +719,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
       # allele list
       flattenedMatrix = []
+      flattenedMatrixNames = []
       totalGametes = 0
       for horiz in sortedAlleles:
         # print "%2s" % horiz,
@@ -738,6 +739,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
             output = "%2s " % "0"
             
           flattenedMatrix.append(int(output))
+          flattenedMatrixNames.append(key2)
           totalGametes += int(output)
 
       # create dummy array with length of the number of alleles
@@ -745,6 +747,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
       if self.debug:
         print "flattenedMatrix:", flattenedMatrix
+        print "flattenedMatrixNames:", flattenedMatrixNames
         print "len(flattenedMatrix):", len(flattenedMatrix)
         print "n: ", n
         print "k: ", self.k
@@ -766,13 +769,19 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
                       self.dememorizationSteps, self.samplingNum,
                       self.samplingSize, locusName, fp)
 
-      #_Gthwe.run_randomization(flattenedMatrix, n, self.k, totalGametes, 17000)
-
+      _Gthwe.run_randomization(flattenedMatrix, n, self.k, totalGametes,
+                               250000, fp)
 
       # copy XML output to stream
       stream.write(fp.getvalue())
       fp.close()
 
+      for i in range(len(flattenedMatrixNames)):
+        stream.opentag('genotype', number=str(i))
+        stream.write(flattenedMatrixNames[i])
+        stream.closetag('genotype')
+        stream.writeln()
+        
     else:
       stream.emptytag('hardyweinbergGuoThompson', role='too-large-matrix')
 
