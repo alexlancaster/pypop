@@ -20,8 +20,29 @@
  <section id="install-standalone">
   <title>Installing standalone binary</title>
 
+  <para>Standalone binary versions are provided for
+   <application>PyPop</application> that  make minimal assumptions
+   about external software installed on your system, and for the
+   majority of users, will be the simplest way to install
+   <application>PyPop</application>.  We have only tested them on a
+   subset of the possible operating systems and have noted them in the
+   relevant section below.</para>
+
   <section id="install-standalone-linux">
    <title>Installing on GNU/Linux</title>
+
+   <sidebar>
+    <formalpara>
+     <title>System requirements</title>
+      <para>Your GNU/Linux system should contain at least 2.3.2 version
+     of <literal>glibc</literal> (the GNU C library).</para>
+    </formalpara>
+    <formalpara>
+     <title>Systems tested</title>
+     <para>Red Hat Linux 9, Slackware 9.1 (may work on other platforms
+      but untested at present)</para>
+    </formalpara>
+   </sidebar>
 
    <orderedlist>
     <listitem>
@@ -74,6 +95,18 @@
   <section id="install-standalone-windows">
    <title>Installing on Windows</title>
 
+   <sidebar>
+     <formalpara>
+      <title>System requirements</title>
+       <para>At least Windows 98</para>
+     </formalpara>
+     <formalpara>
+      <title>Systems tested</title>
+       <para>Windows 98, Windows XP (may work on other platform
+	but untested at present)</para>
+     </formalpara>
+   </sidebar>
+
    <orderedlist>
     <listitem>
      <para>Before starting an install on Windows, you must first make
@@ -109,9 +142,10 @@
    <para>To test your installation:</para>
    <orderedlist>
     <listitem>
-     <para>Once you have the PyPopWin32-&VERSION; directory extracted,
-      open the directory and double-click on the
-      <filename>pypop.sh</filename> file.</para>
+     <para>Once you have the <filename
+       class="directory">PyPopWin32-&VERSION;</filename> directory
+      extracted, open the directory and double-click on the
+      <filename>pypop.bat</filename> file.</para>
     </listitem>
     <listitem>
 
@@ -136,10 +170,9 @@
   <itemizedlist>
    <listitem>
     <para> <application><ulink
-       url="&downloadroot;pypop-&VERSION;.tar.gz">&downloadroot;pypop-&VERSION;.tar.gz</ulink></application></para>
+       url="&downloadroot;PyPop-&VERSION;.tar.gz">&downloadroot;PyPop-&VERSION;.tar.gz</ulink></application></para>
    </listitem>
   </itemizedlist>
-
 
   <para>The short version of installation (assuming you have
    installed all the system requirements, below)  once you have
@@ -220,22 +253,17 @@ python setup.py install</screen>
    <title>Distribution structure</title>
 
      <literallayout class="monospaced">
-AUTHORS --      An (incomplete) list of people who have contributed.
-
-gthwe/ --       Guo and Thompson test for Hardy-Weinberg extension modules
-
+AUTHORS --      A list of people who have contributed.
 emhaplofreq/ -- LD and haplotype estimation extension module
-
+pval/ --        Modified code from R project for p-value calculation
+slatkin-exact/  Slatkin's code for Ewens-Watterson exact test
+SWIG/ --        Helper code for SWIG for generating C-Python wrappers
+xslt/ --        XSLT for generating text and other output from XML
 COPYING --      License information for this package
-
 MANIFEST.in --  Tells distutils what files to distribute
-
 NEWS --         Release notes and news
-
 README --       Information and TODO list.
-
 INSTALL --      This file
-
 setup.py --     Installation file.
      </literallayout>
   </section>
