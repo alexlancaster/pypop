@@ -35,7 +35,9 @@ class Filter:
         raise SubclassError()
     def writeToLog(self, logstring=None):
         raise SubclassError()
-
+    def cleanup(self):
+        raise SubclassError()
+    
 class PassThroughFilter(Filter):
     def __init__(self):
         pass
@@ -55,7 +57,9 @@ class PassThroughFilter(Filter):
         pass
     def writeToLog(self, logstring=None):
         pass
-    
+    def cleanup(self):
+        pass
+
 class AnthonyNolanFilter(Filter):
     """Filters data via anthonynolan's allele call data.
 
