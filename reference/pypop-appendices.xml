@@ -275,7 +275,10 @@ numReplicates=100000
     replicates.   </para>
 
   </sect2>
-  
+
+ <!-- currently obsolete -->
+
+  <!--
   <sect2 id="pypop:data-interchange-transmission">
    <title>Data transmission</title>
    
@@ -298,5 +301,7 @@ numReplicates=100000
     </listitem>
    </orderedlist>
   </sect2>
+ -->
+
  </sect1>
 </appendix>
