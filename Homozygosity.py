@@ -137,20 +137,22 @@ class Homozygosity:
         # open file with full path name created in-line
         lines = open(self.rootPath + os.sep + path, 'r').readlines()
         
-
         self.count = int(lines[0].split(':')[1])
         self.expectedHomozygosity = float(lines[1].split(':')[1])
         self.varExpectedHomozygosity = float(lines[2].split(':')[1])
-        self.semExpectedHomozygosity = float(lines[3].split(':')[1])
 
         if self.count > 1999:
           self.quantile = []
+          # read until we've reached the end of lines or a blank line
           for i in range(4, len(lines)):
-            obsvHomo, calcP, pValue = [float(val) for val in lines[i].split()]
-            self.quantile.append((obsvHomo, calcP, pValue))
+            # stop reading quantiles if blank encountered
+            if lines[i] == os.linesep:
+              break
+            obsvHomo, pValue = [float(val) for val in lines[i].split()]
+            self.quantile.append((obsvHomo, pValue))
 
           if self.debug:
-            print self.count, self.expectedHomozygosity, self.varExpectedHomozygosity, self.semExpectedHomozygosity
+            print self.count, self.expectedHomozygosity, self.varExpectedHomozygosity 
             print self.sampleCount, self.numAlleles
 
           return 1
@@ -158,7 +160,7 @@ class Homozygosity:
         else:
           if self.debug:
             print self.sampleCount, self.numAlleles
-            print self.count, self.expectedHomozygosity, self.varExpectedHomozygosity, self.semExpectedHomozygosity
+            print self.count, self.expectedHomozygosity, self.varExpectedHomozygosity 
             print "Insufficient (", self.count, ") replicates observed for a valid analysis."
       else:
         if self.debug:
@@ -211,9 +213,9 @@ class Homozygosity:
       print "quartiles"
       print "homozyg  calcpVal pVal "
     for val in self.quantile:
-      obsvHomo, calcP, pVal = val
+      obsvHomo, pVal = val
       if self.debug:
-        print "%08f %08f %08f" % (obsvHomo, calcP, pVal)
+        print "%08f %08f" % (obsvHomo, pVal)
       if self.observedHomozygosity > obsvHomo:
         lowerBound = pVal
         return lowerBound, upperBound
@@ -245,15 +247,6 @@ class Homozygosity:
     
     Only meaningful if 'canGenerateExpectedStats()' returns true."""
     return self.varExpectedHomozygosity
-
-  def getSemExpectedHomozygosity(self):
-    """Gets s.e.m. of expected homozygosity.
-
-    This is the standard error of the mean of the *expected*
-    homozygosity.
-    
-    Only meaningful if 'canGenerateExpectedStats()' returns true."""
-    return self.semExpectedHomozygosity
 
   def getNormDevHomozygosity(self):
     """Gets normalized deviate of homozygosity.
