@@ -27,24 +27,6 @@
   
  </bookinfo>
 
- <preface>
-  <title>Preface</title>
-  <example>
-   <title>An example</title>
-<programlisting><xi:include href="glossary.xml" parse="text"/>
-  </programlisting>
-  </example>
-  <equation>
-   <title>First equation</title>
-   <alt>E=mc2</alt>
-   <mediaobject>
-    <imageobject>
-     <imagedata/>
-    </imageobject>
-   </mediaobject>
-  </equation>
- </preface>
-
  <xi:include href="hlaintro.xml"/>
  <xi:include href="methods.xml"/>
  <xi:include href="pypop.xml"/>
