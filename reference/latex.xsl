@@ -7,7 +7,9 @@
  <xsl:import href="http://db2latex.sourceforge.net/docbook.xsl"/>
  <xsl:import href="latex-common.xsl"/>
 
- <xsl:output method="xml" encoding="utf8" omit-xml-declaration="yes"
+ <xsl:output method="xml" 
+  encoding="utf8" 
+  omit-xml-declaration="yes"
   indent="yes"/> 
 
  <!-- set default language to English (en) -->
