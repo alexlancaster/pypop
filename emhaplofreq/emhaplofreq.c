@@ -1,3 +1,4 @@
+#include <unistd.h>  /* needed for GNU getopt */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -19,7 +20,7 @@ int read_infile(FILE *, char (*)[], char (*)[][], int *);
 /* open filehandle for data, ref array, data array, number of records */
 /* returns number of loci */
 
-int main_proc(FILE *, char (*)[][], int, int, int);
+int main_proc(FILE *, char (*)[][], int, int, int, int);
 /* data array, number of loci, number of records */
 /* main procedure that handles memory allocation and creation of arrays, 
   * spawns the rest of the data preparation and processing functions, 
@@ -99,17 +100,74 @@ int main(int argc, char **argv)
   char data[MAX_ROWS][MAX_COLS][NAME_LEN];
   int num_loci, num_recs;
   int ret_val;
-  int permu_flag;
 
-  if_handle = parse_args(argc, argv, &permu_flag);
+  /* initialize default options or 'switches' to program */
+  int permu_flag = 0;
+  int suppress_haplo_print_flag = 0;
+  
+  /* specifically required for getopt */
+  int num_args;
+  char c;
 
-/***
-  if ((fp_out = fopen("main.out", "w")) == NULL)
-  {
-    fprintf(stderr, "\nUnable to open main.out for writing.\n\n");
+  /* parse command-line using GNU getopt */
+  opterr = 0;
+     
+  /* first check values for short options (i.e. the options or
+     'switches' provided before command line arguments */
+  while ((c = getopt (argc, argv, "psh?")) != -1)
+    switch (c) {
+    case 'p':
+      permu_flag = 1;
+      break;
+    case 's':
+      suppress_haplo_print_flag = 1;
+      break;
+    case 'h':
+    case '?':
+      print_usage();  /* print usage message */
+      exit(EXIT_SUCCESS);      
+    default:
+      print_usage();
+      exit(EXIT_FAILURE);
+    }
+
+  /* calculate total number of non-option arguments passed to program */
+  /* 'argc' is the total number of space-delimited strings provided to
+     the program, and 'optind' is number of options, so argc less
+     optind is the remaining command line options*/
+  num_args = argc - optind;
+
+  /* second, check the number of non-option command line arguments,
+     and then their values */
+  switch (num_args) {
+  case 0:
+      if_handle = stdin;  /* no args, use stdin as file */
+      break;
+  case 1:                 /* one arg, try opening the given filename */
+    if ((if_handle = fopen(argv[optind], "r")) == NULL)
+      {
+	perror("Unable to open file");
+	fprintf(stderr, "\tOffending filename: %s\n\n", argv[optind]);
+	exit(EXIT_FAILURE);
+      }
+    /* skip this until we're through testing */
+    /* 
+       else 
+       { 
+       fprintf(stdout, "\nOpened file %s\n", arg_buff[1]); 
+      fprintf(stdout, "\nN.B. The first line is expected to contain comments, "); 
+      fprintf(stdout, "and will not be parsed.\n\n"); 
+      } 
+    */
+
+    break;
+  default:                
+    fprintf(stderr, "Too many arguments given\n");
+    print_usage();        /* more than one arg given, print usage and quit */
     exit(EXIT_FAILURE);
   }
-***/
+
+  /* set output to stdout by default */
   fp_out = stdout;
 
   num_loci = read_infile(if_handle, ref, data, &num_recs);
@@ -121,7 +179,8 @@ int main(int argc, char **argv)
     exit(EXIT_FAILURE);
   }
 
-  ret_val = main_proc(fp_out, data, num_loci, num_recs, permu_flag);
+  ret_val = main_proc(fp_out, data, num_loci, num_recs, permu_flag, 
+		      suppress_haplo_print_flag);
 
   return (ret_val);
 }
@@ -130,70 +189,20 @@ int main(int argc, char **argv)
 
 void print_usage(void)
 {
-  fprintf(stderr, "Usage: emhaplofreq [-] INPUTFILENAME.\n\n");
-  fprintf(stderr, "If  `-' is provided use standard input rather than INPUTFILENAME.\n");
-  fprintf(stderr, "If `-p' is provided a permutation test for overall LD is done.\n");
+  fprintf(stderr, 
+	  "Usage: emhaplofreq [-psh?] [INPUTFILENAME].\n\n");
+  fprintf(stderr, 
+	  "If no INPUTFILENAME is provided use standard input.\n");
+  fprintf(stderr, 
+	  "OPTIONS:\n\n");
+  fprintf(stderr, 
+	  "  `-p':       a permutation test for overall LD is done.\n");
+  fprintf(stderr, 
+	  "  `-s':       printing of the table of haplotypes is suppressed\n");
+  fprintf(stderr, 
+	  "  `-h', `-?': this message\n");
 }
 
-/************************************************************************/
-
-FILE *parse_args(int arg_count, char *arg_buff[], int *permu_flag)
-{
-  FILE *fh;
-  int use_stdin = 0;
-
-  if (arg_count < 2)
-  {
-    print_usage();
-    exit(EXIT_FAILURE);
-  }
-
-  for (; arg_count > 1 && arg_buff[1][0] == '-'; arg_count--, arg_buff++)
-  {
-    switch (arg_buff[1][1])
-    {
-      case NULL:
-	use_stdin = 1;
-        *permu_flag = 0;
-	break;
-      case 'p':                  
-        *permu_flag = 1; 
-        break;
-      default:
-        print_usage();
-        exit(EXIT_FAILURE);
-        break;      /* not reached */
-    }
-  }
-
-  if (use_stdin)
-  {
-    fh = stdin;
-  }
-  else 
-  {
-
-    /* what's left at argv[1] should be the name of the data file */
-
-    if ((fh = fopen(arg_buff[1], "r")) == NULL)
-    {
-      perror("Unable to open file");
-      fprintf(stderr, "\tOffending filename: %s\n\n", arg_buff[1]);
-      exit(EXIT_FAILURE);
-    }
-    /* skip this until we're through testing */
-    /* 
-    else 
-    { 
-      fprintf(stdout, "\nOpened file %s\n", arg_buff[1]); 
-      fprintf(stdout, "\nN.B. The first line is expected to contain comments, "); 
-      fprintf(stdout, "and will not be parsed.\n\n"); 
-    } 
-    */
-  }
-
-  return (fh);
-}
 
 /************************************************************************/
 
@@ -251,7 +260,7 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
 /************************************************************************/
 
 int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, 
-      int n_recs, int permu_flag)
+      int n_recs, int permu_flag, int suppress_haplo_print_flag)
 {
 
   
@@ -716,7 +725,8 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     fprintf(fp_permu, "permu = %3d, ", permu );
   }
 
-  if (permu == 0)
+  /* suppress printing of haplotypes if '-s' flag set */
+  if ((permu == 0) && (suppress_haplo_print_flag != 1))
   {
     fprintf(fp_iter, "\n"); 
     fprintf(fp_iter, "   --- Codes for error_flag ----------------------------------------------------------\n"); 
