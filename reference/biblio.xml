@@ -117,25 +117,6 @@
 
  </biblioentry>
 
- <biblioentry>
-  <authorgroup>
-   <author>
-    <firstname>Alex</firstname>
-    <surname>Schneider</surname>
-   </author>
-   <author>
-    <firstname>D</firstname>
-    <surname>Roessli</surname>
-   </author>
-   <author>
-    <firstname>L</firstname>
-    <surname>Excoffier</surname>
-    </author>
-  </authorgroup>
-  <pubdate>2000</pubdate>
-
- </biblioentry>
-
  <biblioentry id="Schneider:2000">
   <authorgroup>
    <author>
@@ -167,11 +148,13 @@
  <biblioentry id="Guo:Thompson:1992">
   <authorgroup>
    <author>
-    <firstname>SW</firstname>
+    <firstname>S</firstname>
+    <othername>W</othername>
     <surname>Guo</surname>
    </author>
    <author>
-    <firstname>EA</firstname>
+    <firstname>E</firstname>
+    <othername>A</othername>
     <surname>Thompson</surname>
    </author>
   </authorgroup>
@@ -293,8 +276,8 @@
   <biblioentry id="Bray:2000">
   <authorgroup>
    <author>
-    <firstname>Tim</firstname>
     <surname>Bray</surname>
+    <firstname>Tim</firstname>
    </author>
    <author>
     <firstname>Jean</firstname>
