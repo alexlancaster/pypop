@@ -83,12 +83,11 @@ else:
 if len(config.sections()) == 0:
 	sys.exit("No output defined!  Exiting...")
 
-# generate data and file prefix information
+# generate date and time
 
 now = time.time()
 datestr = time.strftime("%Y-%m-%d", time.localtime(now))
 timestr = time.strftime("%H-%M-%S", time.localtime(now))
-uniquePrefix = "%s-%s-%s" % (prefixFileName, datestr, timestr)
 
 # Parse "General" section
 
@@ -98,6 +97,17 @@ except NoOptionError:
   debug=0
 except ValueError:
   sys.exit("require a 0 or 1 as debug flag")
+
+# generate file prefix
+try:
+  outFilePrefixType = config.get("General", "outFilePrefixType")
+  if outFilePrefixType == 'filename':
+    uniquePrefix = prefixFileName
+  else:
+    sys.exit("outFilePrefixType: %s must be 'filename'" % outFilePrefixType)
+except NoOptionError:
+  uniquePrefix = "%s-%s-%s" % (prefixFileName, datestr, timestr)  
+
 
 # generate filenames for both text and XML files
 
