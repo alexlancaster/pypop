@@ -4,7 +4,7 @@
 <!ENTITY % versions.ent SYSTEM "versions.ent" >
 %versions.ent;
 ]>
-<book status="draft" id="guide">
+<book status="beta" id="guide">
  <bookinfo>
   <title><application>PyPop</application> User Guide</title>
   <subtitle>User Guide for Python for Population Genetics</subtitle>
