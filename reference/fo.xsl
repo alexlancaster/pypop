@@ -27,9 +27,64 @@
  <xsl:param name="sans.font.family">sans-serif</xsl:param>
  <xsl:param name="dingbat.font.family">serif</xsl:param>
 
- <xsl:param name="line-height" select="1.4"></xsl:param>
+ <!-- lines should be closer together than default -->
+ <xsl:param name="line-height" select="'1.2em'"></xsl:param> 
 
+ <!-- downshift relative font-size for titles level1 to level2 etc. -->
+ <xsl:attribute-set name="section.title.level1.properties">
+  <xsl:attribute name="font-size">
+   <xsl:value-of select="$body.font.master * 1.728"></xsl:value-of>
+   <xsl:text>pt</xsl:text>
+  </xsl:attribute>
+ </xsl:attribute-set>
+
+ <xsl:attribute-set name="section.title.level2.properties">
+  <xsl:attribute name="font-size">
+   <xsl:value-of select="$body.font.master * 1.44"></xsl:value-of>
+   <xsl:text>pt</xsl:text>
+  </xsl:attribute>
+ </xsl:attribute-set>
+
+ <xsl:attribute-set name="section.title.level3.properties">
+  <xsl:attribute name="font-size">
+   <xsl:value-of select="$body.font.master * 1.2"></xsl:value-of>
+   <xsl:text>pt</xsl:text>
+  </xsl:attribute>
+ </xsl:attribute-set>
+
+ <xsl:attribute-set name="section.title.level4.properties">
+  <xsl:attribute name="font-size">
+   <xsl:value-of select="$body.font.master"></xsl:value-of>
+   <xsl:text>pt</xsl:text>
+  </xsl:attribute>
+ </xsl:attribute-set>
+
+ <!-- adjust spacing between lists and paragraphs -->
+ <xsl:attribute-set name="list.block.spacing">
+  <xsl:attribute name="space-before.optimum">0.7em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.9em</xsl:attribute>
+  <xsl:attribute name="space-after.optimum">0.7em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0.5em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">0.9em</xsl:attribute>
+ </xsl:attribute-set>
+
+ <xsl:attribute-set name="list.item.spacing">
+  <xsl:attribute name="space-before.optimum">0.3em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.1em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.4em</xsl:attribute>
+ </xsl:attribute-set>
+
+ <xsl:attribute-set name="normal.para.spacing">
+  <xsl:attribute name="space-before.optimum">0.7em</xsl:attribute>
+  <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">0.9em</xsl:attribute>
+ </xsl:attribute-set>
+
+ <!-- don't indent body w.r.t. title -->
  <xsl:param name="title.margin.left" select="'0.0in'"/>
+
+ <!-- change indent of TOC -->
  <xsl:param name="toc.indent.width" select="8"/>
 
  <!-- callout format -->
@@ -45,12 +100,12 @@
 
  <xsl:param name="insert.xref.page.number" select="1"/>
 
- <!-- page citation in format (see p.45) -->
+ <!-- page citation in format (p.45) -->
  <xsl:param name="local.l10n.xml" select="document('')"/> 
  <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"> 
   <l:l10n language="en"> 
    <l:context name="xref"> 
-    <l:template name="page.citation" text=" (see p.%p)"/>
+    <l:template name="page.citation" text=" (p.%p)"/>
    </l:context>    
   </l:l10n>
  </l:i18n>
