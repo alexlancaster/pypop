@@ -29,6 +29,7 @@
 
  <xi:include href="hlaintro.xml"/>
  <xi:include href="methods.xml"/>
+ <xi:include href="instructions.xml"/>
  <xi:include href="pypop.xml"/>
  <xi:include href="glossary.xml"/>
  <xi:include href="biblio.xml"/>
