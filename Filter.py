@@ -223,10 +223,32 @@ class AnthonyNolanFilter(Filter):
                 else:
                     for i in xrange(1,9):
                         testAllele = "%s0%d" % (prefix, i)
-                        if testAllele in self.alleleLookupTable[self.locus]:
-                            self.logFile.writeln(" -> resolved to %s: (not found in pop, but in database)" % testAllele)
-                            self.translTable[allele] = testAllele
-                            break
+
+                        # only check to 4 digits of the allele name
+                        # against database i.e. if 03011 and 03012
+                        # both exist in the database return the match
+                        # 0301 if the original allele-to-match is 0300
+                        # and we are checking the first in the 030x
+                        # series
+
+                        foundMatch = 0
+                        
+                        for dbAllele in self.alleleLookupTable[self.locus]:
+                            print self.locus, dbAllele, testAllele
+                            if dbAllele == testAllele:
+                                self.logFile.writeln(" -> resolved to %s: (not found in pop, but exact match %s in database)" % (testAllele, dbAllele))
+                                self.translTable[allele] = testAllele
+                                foundMatch = 1
+                                break
+                            elif dbAllele[:4] == testAllele:
+                                self.logFile.writeln(" -> resolved to %s: (not found in pop, but truncated match %s in database)" % (testAllele, dbAllele))
+                                self.translTable[allele] = testAllele
+                                foundMatch = 1
+                                break
+
+                        # don't check any more alleles if we've found
+                        # a match
+                        if foundMatch: break
                 
         if self.debug:
             print "after filtering:", self.translTable
