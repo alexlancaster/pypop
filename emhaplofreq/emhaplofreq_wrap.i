@@ -32,7 +32,7 @@ MODIFICATIONS. */
 
 /* SWIG interface generation file */
 
-%module _Emhaplofreq
+%module Emhaplofreq
 
 %include "typemap.i"
 

@@ -1,3 +1,8 @@
+2004-12-23  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* emhaplofreq_wrap.i: %module _Emhaplofreq -> Emhaplofreq for
+	compatibility with most recent SWIG.
+
 2004-07-20  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* emhaplofreq.c (linkage_diseq): Add new alloc memory structure
