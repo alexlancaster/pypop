@@ -375,6 +375,9 @@ class Emhaplofreq(Haplo):
                 self.fp.write("Couldn't estimate haplotypes for %s, num loci: %d exceeded max loci: %d" % (group, lociCount, self._Emhaplofreq.MAX_LOCI))
                 self.fp.write(os.linesep)
 
+    def estLinkageDisequilibrium(self, locusKeys=None):
+        self.estHaplotypes(locusKeys, permutationFlag=1,
+                           haploSuppressFlag=1)
 
     def estAllPairwise(self):
         """Estimate LD (linkage disequilibrium) in all pairwise loci.
