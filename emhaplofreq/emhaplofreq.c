@@ -265,42 +265,56 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   
   /******************* begin: declarations ****************************/
-  int i, j, obs, locus, col_0, col_1;
-  int unique_pheno_flag, unique_geno_flag;
-  char buff[NAME_LEN];
+  int i, j, obs, locus, col_0, col_1 = 0;
+  int unique_pheno_flag, unique_geno_flag = 0;
 
-  int n_hetero, n_hetero_prev;  /* heterozygous sites through current and previous locus loop */
-  int n_geno, n_geno_prev;  /* distinct genotypes through current and previous locus loop */
-  int unique_pheno_count, n_unique_pheno, unique_geno_count, n_unique_geno;
+  CALLOC_ARRAY_DIM1(char, buff, NAME_LEN);
+
+  /* heterozygous sites through current and previous locus loop */
+  int n_hetero, n_hetero_prev = 0;  
+
+  /* distinct genotypes through current and previous locus loop */
+  int n_geno, n_geno_prev = 0;  
+  int unique_pheno_count, n_unique_pheno, unique_geno_count, n_unique_geno = 0;
 
   /* needed for checking, but not currently used*/
   /* int count = 0;      
      double temp = 0.0; */
 
-  /* these should be malloced, but the stack will experience meltdown: */
-  static char pheno[MAX_ROWS][LINE_LEN], geno[MAX_GENOS][2][LINE_LEN / 2];
-  static char temp_geno[MAX_GENOS_PER_PHENO][2][LINE_LEN / 2];
-  static int numgeno[MAX_ROWS], obspheno[MAX_ROWS], genopheno[MAX_GENOS][MAX_ROWS];
+  /* these should be calloc'ed, but the stack will experience
+     meltdown: we initialize them with macro call after declarations
+     for re-entrancy */ 
+  static char geno[MAX_GENOS][2][LINE_LEN / 2];
+  static int genopheno[MAX_GENOS][MAX_ROWS];
 
-  char temp_pheno[LINE_LEN];
+  CALLOC_ARRAY_DIM2(char, pheno, MAX_ROWS, LINE_LEN);
+  CALLOC_ARRAY_DIM3(char, temp_geno, MAX_GENOS_PER_PHENO, 2, LINE_LEN / 2);
+  CALLOC_ARRAY_DIM1(int, numgeno, MAX_ROWS);
+  CALLOC_ARRAY_DIM1(int, obspheno, MAX_ROWS);
+  CALLOC_ARRAY_DIM1(char, temp_pheno, LINE_LEN);
 
   /* needed for the count_unique_haplotypes function */
-  int n_haplo;
-  static char haplo[MAX_HAPLOS][LINE_LEN / 2];  /* RS changed to MAX_HAPLOS from 2*MAX_ROWS */
+  int n_haplo = 0;
+  
+  /* RS changed to MAX_HAPLOS from 2*MAX_ROWS */
+  CALLOC_ARRAY_DIM2(char, haplo, MAX_HAPLOS, LINE_LEN / 2);
 
   /* needed for the count_unique_haplotypes and allele_frequencies functions */
-  static int haplocus[MAX_HAPLOS][MAX_LOCI];
-  int xhaplo[MAX_HAPLOS], xgeno[MAX_GENOS][2];
+  CALLOC_ARRAY_DIM2(int, haplocus, MAX_HAPLOS, MAX_LOCI);
+  CALLOC_ARRAY_DIM1(int, xhaplo, MAX_HAPLOS);
+  CALLOC_ARRAY_DIM2(int, xgeno, MAX_GENOS, 2);
 
   /* needed for the id_unique_alleles function */
-  static char unique_allele[MAX_LOCI][MAX_ALLELES][NAME_LEN];
-  static int n_unique_allele[MAX_LOCI];
-  static double allele_freq[MAX_LOCI][MAX_ALLELES];
+
+  CALLOC_ARRAY_DIM3(char, unique_allele, MAX_LOCI, MAX_ALLELES, NAME_LEN);
+  CALLOC_ARRAY_DIM1(int, n_unique_allele, MAX_LOCI);
+  CALLOC_ARRAY_DIM2(double, allele_freq, MAX_LOCI, MAX_ALLELES);
 
   /* nothing needed for sort2arrays function */
 
   /* needed for the emcalc function */
-  double mle[MAX_HAPLOS], freq_zero[MAX_HAPLOS];
+  CALLOC_ARRAY_DIM1(double, mle, MAX_HAPLOS);
+  CALLOC_ARRAY_DIM1(double, freq_zero, MAX_HAPLOS);
 
   /* needed to store loglikelihood under no LD */
   double loglike0 = 0.0;
@@ -309,37 +323,26 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   double haplo_freq_sum = 0.0;
 
   /* needed for multiple starting conditions */
-  int error_flag, error_flag_best, init_cond, iter_count, iter_count_best;
-  double freq_sum, loglike, loglike_best;
-  double mle_best[MAX_HAPLOS];
+  int error_flag, error_flag_best, init_cond, iter_count, iter_count_best = 0;
+  double freq_sum, loglike, loglike_best = 0.0;
+
+  CALLOC_ARRAY_DIM1(double, mle_best, MAX_HAPLOS);
 
   /* needed for permutations */
-  int permu, max_permutations, max_init_cond;
-  double like_ratio[MAX_PERMU], pvalue;
+  int permu, max_permutations, max_init_cond = 0;
+
+  CALLOC_ARRAY_DIM1(double, like_ratio, MAX_PERMU);
+
+  double pvalue = 0.0;
+
+  /* default file pointers */
   FILE *fp_permu = FP_PERMU, *fp_iter = FP_ITER;
 
-  /* initialize elements of geno, genopheno and allele_freq arrays to
-     make function reentrant when used in a shared library */
-
+  /* initialize elements of geno, and genopheno static arrays to make
+     function reentrant when used in a shared library */
+  
   INIT_STATIC_DIM3(char, geno, MAX_GENOS, 2, (LINE_LEN/2));
   INIT_STATIC_DIM2(int, genopheno, MAX_GENOS, MAX_ROWS);
-  INIT_STATIC_DIM2(double, allele_freq, MAX_LOCI, MAX_ALLELES);
-
-#if 0
- /* don't currently need to initialize elements of these arrays, they
-    appear to be initialized by the program, nevertheless leave the
-    macro definitions in so that they can be zeroed out if
-    necessary */
-  INIT_STATIC_DIM2(char, pheno, MAX_ROWS, LINE_LEN);
-  INIT_STATIC_DIM3(char, temp_geno, MAX_GENOS, 2, (LINE_LEN/2));
-  INIT_STATIC_DIM1(int, numgeno, MAX_ROWS);
-  INIT_STATIC_DIM1(int, obspheno, MAX_ROWS);
-  
-  INIT_STATIC_DIM2(char, haplo, MAX_HAPLOS, (LINE_LEN / 2));
-  INIT_STATIC_DIM2(int, haplocus, MAX_HAPLOS, MAX_LOCI);
-  INIT_STATIC_DIM3(char, unique_allele, MAX_LOCI, MAX_ALLELES, NAME_LEN);
-  INIT_STATIC_DIM1(char, n_unique_allele, MAX_LOCI);
-#endif
 
   /******************* end: declarations ****************************/
 
@@ -370,14 +373,14 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   for (permu = 0; permu < max_permutations; permu++)
   {
   /*** begin: pre-processing for permutations ***/
-  if (permu > 0) 
+  if (permu > 0)  
   {
     max_init_cond = MAX_INIT_FOR_PERMU; 
 
     if (permu == 1) fprintf(fp_out, "\nComputing LD permutations...\n");
 
     permute_alleles(data_ar, n_loci, n_recs); 
-
+    
     /* initialize values for first obs from last permu */
     /* values for subsequent obs do not need inititialization */
     strcpy(pheno[0], "\0"); 
@@ -404,6 +407,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   /********* begin: arranging unique phenotypes and genotypes ************/
   n_hetero = n_hetero_prev = 0;
   n_geno = n_geno_prev = 1;
+
   /* begin by counting the unique phenotypes and genotypes */
 
   for (locus = 0; locus < n_loci; locus++)
@@ -912,6 +916,25 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   }
   /*** end: post-processing for permutations ***/
 
+  /* free calloc'ed space */
+  free(buff);
+  free(pheno);
+  free(temp_geno);
+  free(numgeno);
+  free(obspheno);
+  free(temp_pheno);
+  free(haplo);
+  free(haplocus);
+  free(xhaplo);
+  free(xgeno);
+  free(unique_allele);
+  free(n_unique_allele);
+  free(allele_freq);
+  free(mle);
+  free(freq_zero);
+  free(mle_best);
+  free(like_ratio);
+
   return (EXIT_SUCCESS);
 }
 
@@ -927,16 +950,13 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
   * create haplocus[i][j]: a 2-dim array of allele# at jth locus of ith haplotype
 */
 {
-  int i, j, k;
-  int unique_haplo_flag, unique_haplo_count;
-  char *temp_ptr;
-  char temp_array[MAX_LOCI][NAME_LEN];  
-  int l, m;
-  static char temp_buff[LINE_LEN / 2];
-  
-#if 0
-  INIT_STATIC_DIM1(char, temp_buff, (LINE_LEN / 2));
-#endif
+  int i, j, k = 0;
+  int unique_haplo_flag, unique_haplo_count = 0;
+  char *temp_ptr = 0;
+  int l, m = 0;
+
+  CALLOC_ARRAY_DIM2(char, temp_array, MAX_LOCI, NAME_LEN);
+  CALLOC_ARRAY_DIM1(char, temp_buff, LINE_LEN / 2);
 
   /* 0th assignment */
   unique_haplo_count = 0;
@@ -1038,6 +1058,10 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
       }
     }
   }
+  
+  /* free calloc'ed space */
+  free(temp_array);
+  free(temp_buff);
 
   return unique_haplo_count + 1;
 }
@@ -1053,8 +1077,8 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
    * Creates allele_freq[i][j]:  freq for jth allele at the ith locus 
 */
 {
-  int i, j, locus, col_0, col_1;
-  int unique_allele_flag, unique_allele_count;
+  int i, j, locus, col_0, col_1 = 0;
+  int unique_allele_flag, unique_allele_count = 0;
 
 /* CHECKING
   for (i = 0; i < n_recs; i++)
@@ -1135,16 +1159,20 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
        /* hl: haplocus array           */
        /* af: allele_frequencies array */
 {
-  int i, j, k, l, m, coeff_count;
+  int i, j, k, l, m, coeff_count = 0;
+  double dmax, norm_dij = 0.0; 
+
   static double dij[MAX_LOCI*(MAX_LOCI - 1)/2][MAX_ALLELES][MAX_ALLELES];
-  double dmax, norm_dij; 
-  double summary_dprime[MAX_LOCI*(MAX_LOCI - 1)/2]; 
-  double summary_q[MAX_LOCI*(MAX_LOCI - 1)/2]; 
-  double summary_wn[MAX_LOCI*(MAX_LOCI - 1)/2]; 
-  double sum; /* used to check sums */
+
+  CALLOC_ARRAY_DIM1(double, summary_dprime, MAX_LOCI*(MAX_LOCI - 1)/2);
+  CALLOC_ARRAY_DIM1(double, summary_q, MAX_LOCI*(MAX_LOCI - 1)/2);
+  CALLOC_ARRAY_DIM1(double, summary_wn, MAX_LOCI*(MAX_LOCI - 1)/2);
+
+  double sum = 0.0; /* used to check sums */
 
   /* zero out static array before each run to make code re-entrant */
-  INIT_STATIC_DIM3(double, dij, (MAX_LOCI*(MAX_LOCI-1)/2), MAX_ALLELES, MAX_ALLELES);
+  INIT_STATIC_DIM3(double, dij, (MAX_LOCI*(MAX_LOCI-1)/2), \
+		   MAX_ALLELES, MAX_ALLELES);
 
   /* After 1st pass dij[coeff_count][locusA_allele#][locusB_allele#] */
   /*   contains Estimated 2-locus HFs based on full MLE HFs          */
@@ -1348,15 +1376,21 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
     }
   }
 
+  /* free calloc'ed space */
+  free(summary_dprime);
+  free(summary_q);
+  free(summary_wn);
 }
 
 /************************************************************************/
 void sort2arrays(char (*array1)[LINE_LEN / 2], double *array2, int n_haplo)
 /* insertion sort in ascending order for 1st array also applied to 2nd array */
 {
-  int i, j;
-  char temp1[LINE_LEN / 2];
-  double temp2;
+  int i, j = 0;
+
+  CALLOC_ARRAY_DIM1(char, temp1, LINE_LEN / 2);
+
+  double temp2 = 0.0;
 
   for (i = 1; i < n_haplo; ++i)
   {
@@ -1370,6 +1404,9 @@ void sort2arrays(char (*array1)[LINE_LEN / 2], double *array2, int n_haplo)
       array2[j - 1] = temp2;
     }
   }
+
+  /* free calloc'ed space */
+  free(temp1);
 }
 
 /************************************************************************/
@@ -1379,19 +1416,36 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
 	    int *error_flag, int *iter_count, double *loglike, 
 	    double *haplo_freq_sum)
 {
-  int i, j, k, l;
-  int done, decr_loglike_count, tot_hap;
-  int iter, k_pheno, i_geno, i_haplo = 0, j_haplo = 0, keep;
-  double unambig[MAX_HAPLOS], ambig[MAX_HAPLOS], ambig_sum;
-  static double hap_freq[MAX_HAPLOS][MAX_ITER], addto_ambig[MAX_HAPLOS];
-  double expected_freq, expected_freq_sum, normed_addto_ambig_sum, diff; 
-  double geno_freq[MAX_GENOS], pheno_freq[MAX_ROWS], prev_loglike = 0.0, freqsum;
+  int i, j, k, l = 0;
+  int done, decr_loglike_count, tot_hap = 0;
+  int iter, k_pheno, i_geno, i_haplo, j_haplo, keep = 0;
 
-#if 0   
-  /* don't reset the memory for static variables, doesn't seem to be
-     necessary here  */
+  static double hap_freq[MAX_HAPLOS][MAX_ITER];
+
+  CALLOC_ARRAY_DIM1(double, unambig, MAX_HAPLOS);
+  CALLOC_ARRAY_DIM1(double, ambig, MAX_HAPLOS);
+
+  double ambig_sum = 0.0;
+
+  CALLOC_ARRAY_DIM1(double, addto_ambig, MAX_HAPLOS);
+
+  double expected_freq, expected_freq_sum, normed_addto_ambig_sum, diff = 0.0; 
+
+  CALLOC_ARRAY_DIM1(double, geno_freq, MAX_GENOS);
+  CALLOC_ARRAY_DIM1(double, pheno_freq, MAX_ROWS);
+
+  double prev_loglike, freqsum = 0.0;
+
+#if 0
+  /* AKL: 2002-01-24: for truly defensive programming to make the
+     function reliably `re-entrant', we should really should reset the
+     memory for static variables, but this would be a BIG performance
+     hit (since emcalc is called many times, and each `memset()' is
+     costly).  the function itself appears to overwrite any old data
+     from previous invocations, so it doesn't seem to be necessary
+     here  */
+
   INIT_STATIC_DIM2(double, hap_freq, MAX_HAPLOS, MAX_ITER);
-  INIT_STATIC_DIM1(double, addto_ambig, MAX_HAPLOS);
 #endif 
 
   done = FALSE;
@@ -1629,13 +1683,20 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
     }      /* end of loop for iter */
     if (*iter_count >= MAX_ITER) *error_flag = 7;
   }        /* end of else if ( ambig_sum > 0 ) */
+
+  /* free calloc'ed space */
+  free(unambig);
+  free(ambig);
+  free(addto_ambig);
+  free(geno_freq);
+  free(pheno_freq);
 }
 
 /************************************************************************/
 void haplo_freqs_no_ld(double *hap_freq, double (*allele_freq)[MAX_ALLELES],
        int (*haplocus)[MAX_LOCI], int *n_unique_allele, int n_loci, int n_haplo)
 {
-  int i, j, k;
+  int i, j, k = 0;
 
   for (k = 0; k < n_haplo; k++) 
   { 
@@ -1661,8 +1722,12 @@ double loglikelihood(int (*genopheno)[MAX_ROWS], double (*hap_freq),
          int *xhaplo, int (*xgeno)[2])
 
 {
-  int i, j, k, keep;
-  double geno_freq[MAX_GENOS], pheno_freq[MAX_ROWS], loglike;
+  int i, j, k, keep = 0;
+
+  CALLOC_ARRAY_DIM1(double, geno_freq, MAX_GENOS);
+  CALLOC_ARRAY_DIM1(double, pheno_freq, MAX_ROWS);
+
+  double loglike = 0.0; 
 
   /* Calculate geno freqs from haplo freqs */
   for (i = 0; i < n_unique_geno; i++)
@@ -1715,14 +1780,17 @@ double loglikelihood(int (*genopheno)[MAX_ROWS], double (*hap_freq),
       fprintf(stdout, "\n ** Warning - Est. freq. for pheno %d < 0 + epsilon", i);
     }
   }
+
+  free(geno_freq);
+  free(pheno_freq);
   return(loglike);
 }
 
 /************************************************************************/
 void permute_alleles(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 {
-  int j, locus, col_0, col_1, drawn;
-  char buff[NAME_LEN];
+  int j, locus, col_0, col_1, drawn = 0;
+  CALLOC_ARRAY_DIM1(char, buff, NAME_LEN);
 
   /* last locus not permuted */
   for (locus = 0; locus < n_loci-1; locus ++) 
@@ -1741,5 +1809,8 @@ void permute_alleles(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs
       strcpy(data_ar[j][col_1], buff);
     }
   }
+
+  /* free calloc'ed space */
+  free(buff);
 }
 
