@@ -20,6 +20,7 @@
 
  <xsl:template match="allelecounts[@role!='no-data']">
 
+  <!-- initialize a vector with appropriate number of bins -->
   <xsl:text>allele.counts = rep(c(0),</xsl:text><xsl:value-of
    select="count(allele)"/><xsl:text>)
 </xsl:text>
@@ -30,6 +31,7 @@
    select="count(allele)"/><xsl:text>)
 </xsl:text>
 
+  <!-- loop through alleles and assign each vector with count and label -->
   <xsl:for-each select="allele">
    <xsl:sort select="count" data-type="number" order="descending"/>
    <xsl:text>allele.counts[</xsl:text><xsl:value-of select="position()"/>
