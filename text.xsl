@@ -306,6 +306,7 @@
   <xsl:call-template name="newline"/>
  </xsl:template>
 
+ <!-- print out info on hetereozygotes and genotypes -->
  <xsl:template match="heterozygotesByAllele|genotypesByGenotype">
   <xsl:value-of select="name(.)"/>
   <xsl:call-template name="newline"/>
@@ -319,6 +320,7 @@
   </xsl:for-each>  
  </xsl:template>
 
+ <!-- print out overall HW stats  -->
  <xsl:template match="common|lumped|heterozygotes|homozygotes">
 
   <xsl:text>*</xsl:text>
