@@ -97,7 +97,8 @@ int main(int argc, char **argv)
 
 void print_usage(void)
 {
-  fprintf(stderr, "\nUsage: emhaplofreq [inputfilename].\n\n");
+  fprintf(stderr, "Usage: emhaplofreq [-] INPUTFILENAME.\n\n");
+  fprintf(stderr, "If `-' is provided use standard input rather than INPUTFILENAME.\n");
 }
 
 /************************************************************************/
@@ -105,6 +106,7 @@ void print_usage(void)
 FILE *parse_args(int arg_count, char *arg_buff[])
 {
   FILE *fh;
+  int use_stdin = 0;
 
   if (arg_count < 2)
   {
@@ -115,7 +117,10 @@ FILE *parse_args(int arg_count, char *arg_buff[])
   for (; arg_count > 1 && arg_buff[1][0] == '-'; arg_count--, arg_buff++)
   {
     switch (arg_buff[1][1])
-    {
+      {
+      case NULL:
+	use_stdin = 1;
+	break;
       case 'h':
       default:
       print_usage();
@@ -124,23 +129,31 @@ FILE *parse_args(int arg_count, char *arg_buff[])
     }
   }
 
-  /* what's left at argv[1] should be the name of the data file */
-
-  if ((fh = fopen(arg_buff[1], "r")) == NULL)
-  {
-    perror("Unable to open file");
-    fprintf(stderr, "\tOffending filename: %s\n\n", arg_buff[1]);
-    exit(EXIT_FAILURE);
-  }
-  /* skip this until we're through testing */
-/* 
+  if (use_stdin)
+    {
+      fh = stdin;
+    }
   else 
-  { 
-    fprintf(stdout, "\nOpened file %s\n", arg_buff[1]); 
+    {
+
+    /* what's left at argv[1] should be the name of the data file */
+
+    if ((fh = fopen(arg_buff[1], "r")) == NULL)
+      {
+	perror("Unable to open file");
+	fprintf(stderr, "\tOffending filename: %s\n\n", arg_buff[1]);
+	exit(EXIT_FAILURE);
+      }
+  /* skip this until we're through testing */
+    /* 
+       else 
+       { 
+       fprintf(stdout, "\nOpened file %s\n", arg_buff[1]); 
     fprintf(stdout, "\nN.B. The first line is expected to contain comments, "); 
     fprintf(stdout, "and will not be parsed.\n\n"); 
-  } 
-*/
+    } 
+    */
+  }
 
   return (fh);
 }
