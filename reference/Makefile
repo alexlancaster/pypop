@@ -49,7 +49,7 @@ tex-math-equations.tex: biostat.xml $(EXTRA_XML_SOURCE)
 
 # convert LaTeX images into DVI
 %.dvi: %.tex
-	latex $<
+	- latex $<
 
 # convert DVI into bitmaps
 eqns: tex-math-equations.dvi
@@ -89,6 +89,15 @@ eqns: tex-math-equations.dvi
 %.eps: %.dia
 	dia --nosplash -e $@ $<
 
+# convert XML to LaTeX using latex.xsl (a customization of db2latex)
+%-latex.tex: %.xml
+	$(XSLTPROC) --xinclude -o $@ latex.xsl $<
+
+# convert LaTeX to PDF using PDFLaTeX
+%.pdf: %.tex
+	- pdflatex $<
+	- pdflatex $<
+	- pdflatex $<
 
 PYTHON_SOURCE_PREFIX = ../../src
 PYTHON_SOURCE = ParseFile.py Haplo.py HardyWeinberg.py Utils.py Arlequin.py Homozygosity.py
