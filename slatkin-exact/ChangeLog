@@ -1,3 +1,8 @@
+2004-11-12  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* monte-carlo.c (main): Changing def type 'void main_proc' to 'int
+	main_proc' to be compliant with new gcc (per Alex.)
+
 2003-12-08  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* Makefile (DFLAGS): Add call to link ElectricFence library.
