@@ -1,6 +1,7 @@
 PDF2PS = pdf2ps
 XMLLINT = xmllint --noout --xinclude --postvalid $<
 JADE = 	SGML_CATALOG_FILES=$(SGML_CATALOG_FILES) jade
+DOWNLOAD_URL=http://allele5.biol.berkeley.edu/pypop/
 
 ifeq ($(PUBLISH),)
 CVSPRE =
@@ -37,12 +38,31 @@ endif
 DOCBOOKXSLDIR=http://docbook.sourceforge.net/release/xsl/snapshot/
 
 # phony target for equation bitmaps for which we don't know the name of yet
-.PHONY: eqns 
+.PHONY: eqns FORCE
+
+# create an entity file
+versions.ent: FORCE
+	(echo '<!ENTITY downloadroot "$(DOWNLOAD_URL)">') > versions.ent.new
+	((echo '<!ENTITY VERSION "' ; head -1 ../../src/VERSION ; echo '">') | tr -d '\n' ; echo) >> versions.ent.new
+	((echo '<!ENTITY pubdate "' ; date +'%d %B %Y' ; echo '">') | tr -d '\n' ; echo) >> versions.ent.new
+	@if test -f versions.ent; then \
+	  if cmp versions.ent versions.ent.new; then \
+	    echo No change, using old version.ent; \
+	    $(RM) versions.ent.new; \
+	  else \
+	    echo Different content, using new version; \
+	    mv versions.ent.new versions.ent; \
+	  fi \
+	else \
+	  echo Using versions.ent.new; \
+	  mv versions.ent.new versions.ent; \
+	fi
+
 
 FIGS = $(addprefix work-flow., png eps) $(addprefix design., png eps) api.png
 OUTPUTS = $(addprefix biostat., html txt pdf) $(addprefix tex-math-equations., tex dvi) eqns
 EXTRA_CLEAN = $(addprefix biostat., aux log out) $(addprefix tex-math-equations., tex dvi)
-EXTRA_XML_SOURCE = hlaintro.xml methods.xml pypop.xml glossary.xml biblio-sorted.xml instructions.xml
+EXTRA_XML_SOURCE = hlaintro.xml methods.xml pypop.xml glossary.xml instructions.xml versions.ent
 
 all: $(OUTPUTS) $(FIGS) api/index.html
 
