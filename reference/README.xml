@@ -681,8 +681,8 @@ allPairwiseLDWithPermu=0></programlisting>
     Options in the section are only used when a test requiring
     <application>Arlequin</application>, such as it's implementation
     of Guo and Thompson's <citation
-     role="citeyearpar">Guo:Thompson:1992</citation>Hardy-Weinberg  exact
-    test is invoked (see below).</para>
+     role="citeyearpar">Guo:Thompson:1992</citation> Hardy-Weinberg
+    exact test is invoked (see below).</para>
       
    <itemizedlist>
     <listitem>
