@@ -39,7 +39,7 @@
    files.
 """
 
-import os, string, types, re
+import os, sys, string, types, re, shutil
 import Numeric
 from Numeric import zeros, take, asarray, PyObject
 from UserArray import UserArray
