@@ -496,13 +496,21 @@ class ParseGenotypeFile(ParseFile):
         type = getStreamType(stream)
 
         if type == 'xml':
-            stream.tagContents('totalindivcount', "%d" % self.totalIndivCount)
+            stream.opentag('totals')
             stream.writeln()
-            stream.tagContents('totallocuscount', "%d" % self.totalLocusCount)
+            stream.tagContents('indivcount', "%d" % self.totalIndivCount)
+            stream.writeln()
+            stream.tagContents('allelecount', "%d" % (self.totalIndivCount*2))
+            stream.writeln()
+            stream.tagContents('locuscount', "%d" % self.totalLocusCount)
+            stream.writeln()
+            stream.closetag('totals')
             stream.writeln()
         else:
             stream.writeln("%20s: %d" % \
-                           ("Total Individuals", self.totalIndivCount))
+                           ("Sample Size (n)", self.totalIndivCount))
+            stream.writeln("%20s: %d" % \
+                           ("Allele Count (2n)", self.totalIndivCount*2))
             stream.writeln("%20s: %d" % \
                            ("Total Loci", self.totalLocusCount))
 	
@@ -531,9 +539,20 @@ class ParseGenotypeFile(ParseFile):
                 stream.tagContents('untypedindividuals', \
                                    "%d" % untypedIndividuals)
                 stream.writeln()
+                stream.tagContents('indivcount', \
+                                   "%d" % (total/2))
+                stream.writeln()
+                stream.tagContents('allelecount', \
+                                   "%d" % total)
+                stream.writeln()
             else:
-                stream.writeln("Missing data at one or more positions: %d" \
+                stream.writeln("Individuals w/ missing data: %d" \
                                % untypedIndividuals)
+                stream.writeln("Sample Size (n): %d" % (total/2))
+                stream.writeln("Allele Count (2n): %d" % total)
+
+                # print header of freq table
+                stream.writeln("%4s: %-8s (%s)" % ("Name", "Freq", "Count"))
 
             for allele in alleles:
                 freq = float(alleleTable[allele])/float(total)
