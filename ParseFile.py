@@ -211,7 +211,7 @@ class ParseFile:
 
         # parse it
         self.sampleMap, fieldCount = self._mapFields(sampleHeaderLine,
-                                                        self.sampleFields)
+                                                     self.sampleFields)
         # debugging only
         if self.debug:
             print "sample header line: ", sampleHeaderLine
@@ -642,6 +642,15 @@ class ParseGenotypeFile(ParseFile):
 class ParseAlleleCountFile(ParseFile):
     """Class to parse datafile in allele count form.
 
+    Currently  only handles one locus per population, in format:
+
+    <metadata-line1>
+    <metadata-line2>
+    DQA1 count
+    0102 20
+    0103 33
+    ...
+    
     *Currently a prototype implementation*."""
     def __init__(self,
                  filename,
@@ -668,8 +677,12 @@ class ParseAlleleCountFile(ParseFile):
         # allele), total allele count and the number of untyped
         # individuals (in this case, by definition it is zero).
 
-        self.alleleCount = self.alleleTable, total, 0
         self.totalAlleleCount = total
+        self.alleleCount = self.alleleTable, self.totalAlleleCount, 0
+
+        if self.debug:
+            print 'sampleMap keys:', self.sampleMap.keys()
+            print 'sampleMap values:', self.sampleMap.values()
 
     def genValidKey(self, field, fieldList):
         if (field in fieldList):
@@ -684,7 +697,6 @@ class ParseAlleleCountFile(ParseFile):
 
         Specifically, total number of alleles and loci.
          """
-        type = getStreamType(stream)
 
         stream.opentag('totals')
         stream.writeln()
@@ -697,6 +709,10 @@ class ParseAlleleCountFile(ParseFile):
 
     def getAlleleCount(self):
         return self.alleleCount
+
+    def getLocusName(self):
+        # the first key is the name of the locus
+        return self.sampleMap.keys()[0]
 
 # this test harness is called if this module is executed standalone
 if __name__ == "__main__":
