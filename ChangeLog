@@ -1,3 +1,10 @@
+2005-01-11  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Filter.py (AnthonyNolanFilter._getConsensusFromLines): Fixed
+	some of the logic that determines the consensus sequence
+	(basically copying the code that determines polymorphic sequence,
+	in another part of this file.)
+
 2005-01-09  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Filter.py (BinningFilter.doCustomBinning): Prototype of new
