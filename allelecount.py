@@ -18,7 +18,7 @@ from getopt import getopt, GetoptError
 from ConfigParser import ConfigParser, NoOptionError
 
 from ParseFile import ParseAlleleCountFile
-from Homozygosity import Homozygosity
+from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
 from Utils import XMLOutputStream
 
 try:
@@ -100,6 +100,8 @@ xmlStream.writeln()
 # generate the allele count statistics
 input.serializeAlleleCountDataAt(xmlStream, locus)
 
+# Homozygosity
+
 try:
   rootPath=config.get("Homozygosity", "rootPath")
 except NoOptionError:
@@ -111,6 +113,20 @@ hzObject = Homozygosity(input.getAlleleCount(),
                         debug=debug)
 
 hzObject.serializeHomozygosityTo(xmlStream)
+
+# HomozygosityEWSlatkinExact
+
+try:
+  numReplicates = config.getint("HomozygosityEWSlatkinExact", "numReplicates")
+
+except NoOptionError:
+  numReplicates = 10000
+
+hzExactObj = HomozygosityEWSlatkinExact(input.getAlleleCount(), 
+                                        numReplicates=numReplicates, 
+                                        debug=debug)
+
+hzExactObj.serializeHomozygosityTo(xmlStream)
 
 xmlStream.closetag('locus')
 xmlStream.writeln()
