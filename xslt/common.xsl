@@ -719,7 +719,7 @@
 
  <xsl:template match="emhaplofreq/group[@mode='haplo']">
   <xsl:call-template name="header">
-   <xsl:with-param name="title">Haplotype est. for loci: <xsl:value-of select="@loci"/>
+   <xsl:with-param name="title">Haplotype frequency est. for loci: <xsl:value-of select="@loci"/>
    </xsl:with-param>
   </xsl:call-template>
   <xsl:call-template name="newline"/>
@@ -741,15 +741,38 @@
   </xsl:call-template>
   <xsl:call-template name="newline"/>
 
+  <xsl:call-template name="linesep-fields">
+   <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood|individcount"/>
+  </xsl:call-template>
+  <xsl:call-template name="newline"/>
+
+  <!-- until output sections are XML-fied, simply pass through the
+  unmarked CDATA sections -->
+
+  <xsl:value-of select="linkagediseq" disable-output-escaping="yes"/>
+
+  <xsl:value-of select="permutationSummary" disable-output-escaping="yes"/>
+  <xsl:call-template name="newline"/>
+ </xsl:template>
+
+ <xsl:template match="emhaplofreq/group[@mode='haplo-LD']">
+  <xsl:call-template name="header">
+   <xsl:with-param name="title">Haplotype frequency and LD est. for loci: <xsl:value-of select="@loci"/>
+   </xsl:with-param>
+  </xsl:call-template>
+  <xsl:call-template name="newline"/>
 
   <xsl:call-template name="linesep-fields">
    <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood|individcount"/>
   </xsl:call-template>
   <xsl:call-template name="newline"/>
 
-  <!-- until output is XML-fied, simply pass through the unmarked
-  CDATA section -->
-  <xsl:value-of select="permutation" disable-output-escaping="yes"/>
+  <!-- until output sections are XML-fied, simply pass through the unmarked
+  CDATA sections -->
+
+  <xsl:value-of select="haplotypefreq" disable-output-escaping="yes"/>
+  <xsl:value-of select="linkagediseq" disable-output-escaping="yes"/>
+  <xsl:value-of select="permutationSummary" disable-output-escaping="yes"/>
   <xsl:call-template name="newline"/>
  </xsl:template>
 
