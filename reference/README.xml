@@ -17,10 +17,7 @@
     <surname>Lancaster</surname>
    </author>
   </authorgroup>
-  <affiliation>
-   <orgname><ulink url="http://www.berkeley.edu">University of California, Berkeley</ulink></orgname>
-   <orgdiv><ulink url="http://ib.berkeley.edu">Department of Integrative Biology</ulink></orgdiv>
-  </affiliation>
+  <pubdate>Last updated: $Date$ by $Author$</pubdate>
  </articleinfo>
  <section>
   <title>Introduction</title>
@@ -29,13 +26,13 @@
    simple - you just need to type "<userinput>pypop</userinput>"
    followed by the name of your population file, like this:</para>
 
-  <screen><command>pypop</command> <filename>Guatemalan.pop</filename></screen>
+  <para><command>pypop</command> <filename>Guatemalan.pop</filename></para>
 
   <para>This assumes two things: that you have a file in your current
    folder called "<filename>config.ini</filename>" and that you have
    your population file also in the current folder.</para>
 
-  <para>You may use <application>PyPop</application> to analyse many
+  <para>You may use <application>PyPop</application> to analyze many
    different kinds of data, including allele calls from HLA or any
    other area of any other chromosome, microsatellite data, SNPs,
    right down to nucleotide and amino acid data.</para>
@@ -49,11 +46,45 @@
    <title>Sample files</title>
 
    <para>Data may be input either as genotypes, or in an allele:count
-    format, depending on how your data is available to you.  Thus your
-    data file might look like this:</para>
+    format, depending on how your data is available to you.  The
+    simplest kind of data file might look like this:</para>
 
-   <example>
-    <title>Multilocus allele-level genotype data</title>
+   <example id="data-minimal-noheader-noids">
+    <title>Multi-locus allele-level genotype data</title>
+
+  <programlisting>a_1   a_2   c_1   c_2   b_1   b_2
+****  ****  0102  02025 1301  18012 
+0101  0201  0307  0605  1401  39021 
+0210  03012 0712  0102  1520  1301  
+0101  0218  0804  1202  35091 4005  
+2501  0201  1507  0307  51013 1401  
+0210  3204  1801  0102  78021 1301  
+03012 3204  1507  0605  51013 39021 
+  </programlisting>
+   </example>
+
+   <para>It is also possible have data files which have non-allele
+    data in some columns, like sample identifiers ("ids").</para>
+
+   <example id="data-minimal-noheader">
+    <title>Multi-locus allele-level genotype data with sample information</title>
+
+  <programlisting>populat    id        a_1   a_2   c_1   c_2   b_1   b_2
+UchiTelle  UT900-23  ****  ****  0102  02025 1301  18012 
+UchiTelle  UT900-24  0101  0201  0307  0605  1401  39021 
+UchiTelle  UT900-25  0210  03012 0712  0102  1520  1301  
+UchiTelle  UT900-26  0101  0218  0804  1202  35091 4005  
+UchiTelle  UT910-01  2501  0201  1507  0307  51013 1401  
+UchiTelle  UT910-02  0210  3204  1801  0102  78021 1301  
+UchiTelle  UT910-03  03012 3204  1507  0605  51013 39021 
+  </programlisting>
+   </example>
+
+  <para>One can also have a file identical to above, but including
+    population level information like this:</para>
+
+   <example id="data-hla">
+    <title>Multi-locus allele-level genotype data with sample and header information</title>
 
   <programlisting><![CDATA[labcode method              ethnic  contin  collect        latit           longit          
 USAFEL  12th Workshop SSOP  Telle   NW Asia Targen Village 41 deg 12 min N 94 deg 7 min E  
@@ -68,26 +99,10 @@ UchiTelle   UT910-03   03012   3204    1507    0605    51013   39021
 ]]></programlisting>
    </example>
 
-  <para>or identical but lacking the metadata header lines, like this:</para>
+  <para>It also possible to mix different kinds of data, like so:</para>
 
-   <example>
-    <title>Multilocus allele-level genotype data without header</title>
-
-  <programlisting>populat    id        a_1   a_2   c_1   c_2   b_1   b_2
-UchiTelle  UT900-23  ****  ****  0102  02025 1301  18012 
-UchiTelle  UT900-24  0101  0201  0307  0605  1401  39021 
-UchiTelle  UT900-25  0210  03012 0712  0102  1520  1301  
-UchiTelle  UT900-26  0101  0218  0804  1202  35091 4005  
-UchiTelle  UT910-01  2501  0201  1507  0307  51013 1401  
-UchiTelle  UT910-02  0210  3204  1801  0102  78021 1301  
-UchiTelle  UT910-03  03012 3204  1507  0605  51013 39021 
-  </programlisting>
-   </example>
-
-  <para>or like this:</para>
-
-   <example>
-    <title>Multilocus allele-level and microsatellite genotype data with less header information</title>
+   <example id="data-hla-microsat">
+    <title>Multi-locus allele-level and microsatellite genotype data with less header information</title>
 
   <programlisting>labcode ethnic  complex
 AUSTAI  ****    0
@@ -104,7 +119,7 @@ AUSTAI  GOU_4   301     0401    201     0302    247        249</programlisting>
 
   <para>or perhaps like this:</para>
 
-   <example>
+   <example id="data-nucleotide">
     <title>Nucleotide genotype data with header information</title>
 
   <programlisting>labcode file                                                
@@ -123,9 +138,10 @@ Korean  KH-10    C             T             CG          TG
   </programlisting>
    </example>
 
-  <para>or even like this:</para>
+   <para><application>PyPop</application> can also process allele
+    count data, such as the following:</para>
 
-   <example>
+   <example id="data-allelecount">
     <title>Allele count data</title>
 
   <programlisting>populat         method  ethnic     country    latit   longit
@@ -151,16 +167,19 @@ other   6
     export the file as tab-delimited text, and everything should be
     fine.</para>
   
-   <para>As you can see from the above examples, each population file
-    optionally begins with three lines of header information.  The
-    first line consists of headers specifying what will be on the
-    second line, and the third line contains the column headers for the
-    genotype or allele:count information on the population.</para>
+   <para>As you can see from the above examples, population file begin
+    with header information.  In the simplest case, the first line
+    contains the column headers for the genotype or allele count
+    information on the population.  If the file contains a population
+    data-block, then the first line consists of headers specifying
+    what will be on the second line, and then the third line will
+    contain the column headers for the genotype or allele count
+    information. </para>
 
    <para>Note that, for genotype data, each locus must be named
-    twice, with a suffix such as <literal>_a</literal>,
-    <literal>_b</literal>, or <literal>(1)</literal>,
-    <literal>(2)</literal>.  Although <application>PyPop</application>
+    twice, with a suffix such as <literal>_1</literal>,
+    <literal>_1</literal> (the default)  or <literal>_a</literal>,
+    <literal>_b</literal>.  Although <application>PyPop</application>
     needs this distinction to be made, phase is NOT assumed or
     inferred, nor, if present, is it acknowledged or honored.</para>
 
@@ -203,7 +222,7 @@ other   6
       message that takes experience to diagnose.</para></listitem>
     
     <listitem>
-     <para>Do not have more than one copy of the programme running at
+     <para>Do not have more than one copy of the program running at
       a time, as the <application>Arlequin</application> child of one
       instance will overwrite or remove the temporary files of another
       instance in an arbitrary fashion with unfortunate
@@ -211,13 +230,13 @@ other   6
     
     <listitem>
      <para>For haplotype estimation and linkage disequilibrium
-      calculations (i.e., the emhaplofreq part of the programme) you
+      calculations (i.e., the emhaplofreq part of the program) you
       are currently restricted to a maximum of seven loci per haplotype
       request.</para></listitem>
     
     <listitem>
-     <para>For emhaplofreq there is a limit of 1023 for the number of
-      records (n).</para></listitem>
+     <para>For haplotype estimation there is a limit of 1023 for the
+      number of records (n).</para></listitem>
     
    </itemizedlist>
    
@@ -231,161 +250,408 @@ other   6
    <application>PyPop</application> is controlled by a configuration
    file, the default name for which is
    "<filename>config.ini</filename>". This is another plain text file
-   consisting of comment lines, which start with a semi-colon, section
-   labels in square brackets, and lines specifying settings in a
-   parameter=value format.</para>
+   consisting of <firstterm>comments</firstterm> (which are lines
+   which start with a semi-colon), <firstterm>sections</firstterm>
+   (which are lines with labels in square brackets), and
+   <firstterm>options</firstterm> (which are lines specifying settings
+   relevant to that section in the
+   <literal><option>option</option>=<replaceable>value</replaceable></literal> 
+   format.</para>
 
-  <para>We'll go through the file here, section by section.</para>
-  
-  <para>Each section in the configuration file starts with a labeling line,
-   consisting of a word enclosed in square brackets.  The first one is this:</para>
-  
-  <section>
-   <title><literal>[General]</literal></title>
+  <section id="config-minimal">
+   <title>A minimal configuration file</title>
 
-   <para>This section contains some variables that control the overall behaviour
-   of <application>PyPop</application>.</para>
+   <para>Here we present  a fairly minimal <filename>.ini</filename>
+    file corresponding to <xref linkend="data-minimal-noheader-noids"/> and
+    will go through the file here, section by section.  (Note comment
+    lines have been omitted in the above example for clarity).  For
+    more advanced options see <xref linkend="config-advanced"/>.</para>
 
-  <programlisting>debug=0</programlisting>
+  <figure>
+   <title>Minimal <filename>config.ini</filename> file</title>
+  <programlisting>
+[General]                  <co id="general"/>
+debug=0			   
+			   
+[ParseGenotypeFile]        <co id="parsegenotype"/>
+untypedAllele=****         
+alleleDesignator=*         
+validSampleFields=*a_1     
+ *a_2			   
+ *c_1			   
+ *c_2			   
+ *b_1			   
+ *b_2			   
+			   
+[HardyWeinberg]            <co id="hardyweinberg"/>
+lumpBelow=5                
 
-  <para>This setting is for debugging.  Setting it to 1 will set off a
-    large amount of output of no interest to the general user.  It
-    should not be used except in collaboration with the
-    programmers.</para>
+<!--
+[HardyWeinbergGuoThompson] <co id="hardyweinbergGuoThompson"/>
+dememorizationSteps=2000
+samplingNum=1000
+samplingSize=1000
+-->
+[HomozygosityEWSlatkinExact] <co id="homozygosityEWSlatkinExact"/>
+numReplicates=10000
 
-   <programlisting>txtOutFilename=
-xmlOutFilename=</programlisting>
+[Emhaplofreq]              <co id="emhaplofreq"/>
+allPairwiseLD=1
+allPairwiseLDWithPermu=0></programlisting>
+  </figure>
+   
+  <calloutlist>
+    <title>Configuration file sections</title>
 
-  <para>If you wish to specify a particular name for the output file,
-    which you want to remain identical over several runs, you can set
-    these two items to particular values. Most people will just leave
-    them commented out.</para>
+    <callout arearefs="general">
+     
+     <para role="strong"><literal>[General]</literal></para>
+     
+     <para>This section contains some variables that control the
+      overall behavior of <application>PyPop</application>.</para>
+     
+     <itemizedlist>
+     <listitem>
+      <formalpara>
+      <title><literal>debug=0</literal></title>
+       <para>This setting is for debugging.  Setting it to 1 will set
+	 off a large amount of output of no interest to the general
+	 user.  It should not be used except if you are running into
+	 trouble and need to communicate with the developers about
+	 what it is wrong.</para>
+      </formalpara>
+     </listitem>
+    </itemizedlist>
+   </callout>
+   <callout arearefs="parsegenotype">
 
-   <programlisting>outFilePrefixType=filename</programlisting>
+     <para role="strong"><literal>[ParseGenotypeFile]</literal> and <literal>[ParseAlleleCountFile]</literal></para>
+     
+     <para>If your data is genotype data, you will want a section
+      labeled thus:  <literal>[ParseGenotypeFile]</literal>, for
+      allele count data it will be
+      <literal>[ParseAlleleCountFile]</literal>.</para>
 
-   <para>This can be set in several ways.  The default is to set it to
-    filename, which will result in three output files
-    named <filename><replaceable>original filename minus
-      suffix</replaceable>-out.xml</filename>,
-    <filename><replaceable>original filename minus
-      suffix</replaceable>-out.txt</filename>, and
-    <filename><replaceable>original filename minus
-      suffix</replaceable>-filter.xml</filename>.</para>
-
-  <para>If, on the other hand, you set the value it date instead of
-    filename, you'll get the date incorporated in the filename thus:
-    <filename><replaceable>original filename minus
-      suffix</replaceable>-YYYY-nn-dd-HH-MM-SS-out.{xml,txt}</filename>. 
-    e.g.,
-    <filename>Zulu-one-2001-09-21-01-29-35-out.xml</filename></para>
-
-   <programlisting>xslFilename=xslt/text.xsl</programlisting>
-
-   <para>This specifies where to find the file to use for transforming
-    <application>PyPop</application>'s xml output into human-readable
-    form.  The default is <filename>text.xsl</filename>.  Other
-    possibilities include <filename>html.xsl</filename>.  (AKL- is
-    this ready? mpn).</para>
-  </section>
-
-  <section>
-   <title><literal>[ParseGenotypeFile]</literal> and <literal>[ParseAlleleCountFile]</literal></title>
-
-   <para>If your data is genotype data, you will want a section
-    labeled thus:</para>
-
-  <programlisting>[ParseGenotypeFile]</programlisting>
-
-  <programlisting>alleleDesignator=*</programlisting>
-
-   <para>This line is used to help the parser figure out what is data and
-    what isn't.  Don't change it.</para>
-
-   <programlisting>untypedAllele-****</programlisting>
-
-   <para>This line is used to tell the parser what symbol you have
-    used in your data files to represent untyped or unknown data
-    fields.  These fields MAY NOT BE LEFT BLANK.  You must use
-    something consistent that cannot be confused with real data
-    here.</para>
-
-  <programlisting>useAnthonyNolanFilter=</programlisting>
-
-   <para>Set this to 1 (one) if you want your data filtered through
-    The Anthony Nolan database of know allele names before processing.
-    Assuming your data is not absolutely in agreement with all the
-    entries in this database, you'll get a
-    <filename>filter.xml</filename> file output showing what was
-    resolved and what could not be resolved.</para>
-
-  <programlisting>fieldPairDesignator=_1:_2</programlisting>
-
-   <para>How you designate allele 1 and allele 2 is up to you, but it
-    must match this entry in your config file.</para>
-
-   <para>If you want to use something other than <literal>_1</literal>
-    and <literal>_2</literal>, change this line, for instance, to use
-    letters and parentheses, change it like this:</para>
-
-  <programlisting>fieldPairDesignator=(a):(b)</programlisting>
-
-  <programlisting>validSampleFields=</programlisting>
-
-   <para>This section should contain the names listed on line 3 of
-    your genotype data file, if it has three header lines, or , in any
-    case, the contents of the line immediately preceding your genotype
-    data. The names of all your loci, preceded by the character
-    designated in the alleleDesignator field above, must be present in
-    the block that begins with this line. e.g.,</para>
-
-   <programlisting>validSampleFields=+populat
- id
- *a_1
+    <itemizedlist>
+     <listitem>
+      <formalpara>
+       <title><literal>alleleDesignator</literal></title>
+       <para>This line is used to help
+	 <application>PyPop</application> figure out what is allele
+	 data and what isn't. You  must use this symbol in <link
+	  linkend="validSampleFields"><literal>validSampleFields</literal> 
+	 </link> option.  The default is <literal>*</literal>, in
+	 general you won't need to change it.  <emphasis>[Default:
+	  <literal>*</literal>]</emphasis></para>
+      </formalpara>
+     </listitem>
+     <listitem>
+      <formalpara>
+       <title><literal>untypedAllele</literal></title>
+       
+       <para>This option is used to tell the
+	<application>PyPop</application> what symbol you have used
+	in your data files to represent untyped or unknown data
+	fields.  These fields MAY NOT BE LEFT BLANK.  You must use
+	something consistent that cannot be confused with real data
+	 here.  <emphasis>[Default: <literal>****</literal>]</emphasis></para>
+      </formalpara>
+     </listitem>
+     
+     <listitem>
+      <formalpara id="validSampleFields">
+	<title><literal>validSampleFields=</literal></title>
+       
+	<para>This option should contain the names of the loci
+	 immediately preceding your genotype data  (if it has three
+	 header lines, this will be the third line, otherwise it will
+	 be first line of the file). The names of all your loci,
+	 preceded by the character designated in the
+	 <literal>alleleDesignator</literal> option above, must be
+	 present in the block that begins with this line. e.g.,</para>
+      </formalpara>
+      
+      <programlisting>validSampleFields=*a_1
  *a_2
  *c_1
  *c_2
  *b_1
  *b_2
- *dra_1
- *dra_2
- *drb1_1
- *drb1_2
- *dqa1_1
- *dqa1_2
- *dqb1_1
- *dqb1_2
- *dpa1_1
- *dpa1_2
- *dpb1_1
- *dpb1_2</programlisting>
-
-   <para>Since our later analyses require a unique name for each
-    population, there is a special designator to mark this field,
-    which is usually the first field in the data block.  Things will
-    be much easier all round if you leave this in place, so the first
-    entry in your <literal>validSampleFields</literal> section should
-    have a prefixed +, as below:</para>
-
-   <programlisting>;; designates field name that hold population name
-popNameDesignator=+</programlisting>
-
-   <programlisting>;; valid fields for sample data block
-validSampleFields=+populat</programlisting>
-
-   <para>If your data is not genotype data, but rather, data of the
-    allelename  count format, then you will want to use the
-    <literal>[ParseAlleleCountFile]</literal> section INSTEAD of the
-    <literal>[ParseGenotypeFile]</literal> section.  Many of the
-    settings here are identical.</para>
-
-  <programlisting>[ParseAlleleCountFile]
-
-validPopFields=
 </programlisting>
+      
+     </listitem>
+    </itemizedlist>
+    
+    <formalpara>
+     <title><literal>[ParseAlleleCountFile]</literal></title>
 
-   <para>This field should contain the field names in the first line
-    of the three lines of header information of your file, if it has
-    these. e.g.,</para>
+      <para>If your data is not genotype data, but rather, data of the
+       allele-name  count format, then you will want to use the
+       <literal>[ParseAlleleCountFile]</literal> section INSTEAD of the
+       <literal>[ParseGenotypeFile]</literal> section.  Many of the
+       settings here are identical.</para>
+    </formalpara>
+
+    <itemizedlist>
+     <listitem>
+      <formalpara>
+       <title><literal>validSampleFields=</literal></title>
+
+       <para>This option should contain a colon-separated list of the
+	loci that may be in each of the data files you intend to
+	analyze, so that you don't have to change the ini file when
+	running over a batch of data files containing different loci.
+	e.g.,</para>
+      </formalpara>
+
+   <programlisting>validSampleFields=A:B:C:DQA1:DQB1:DRB1:DPB1:DPA1
+ count</programlisting>
+
+     </listitem>
+    </itemizedlist>
+   </callout>
+
+   <callout arearefs="hardyweinberg">
+
+     <para role="strong"><literal>[HardyWeinberg]</literal> and <literal>[HardyWeinbergGuoThompsonArlequin]</literal></para>
+
+      <para>Hardy-Weinberg analysis is switched on by the presence of
+       this section.</para>
+      
+      <itemizedlist>
+       <listitem>
+	<formalpara>
+	 <title><literal>lumpBelow</literal></title>
+	 
+	 <para>This option value represents a cut-off value.  Alleles
+	  with an expected value equal to or less than this will be
+	  lumped together into a single category for the purpose of
+	  calculating the degrees of freedom and overall p-value for the
+	  chi-squared Hardy-Weinberg test.</para>
+	</formalpara>
+       </listitem>
+      </itemizedlist>
+
+    </callout>
+
+   <callout arearefs="homozygosityEWSlatkinExact">
+
+    <para role="strong">
+      <literal>[HomozygosityEWSlatkinExact]</literal></para>
+     
+     <para>This section enables Slatkin's (1994) implementation of the
+      Ewens-Watterson exact test of neutrality to be run.
+     </para>
+
+    <itemizedlist>
+     <listitem>
+      <formalpara>
+       <title><literal>numReplicates</literal></title>
+
+       <para>These values have proved to be optimal for us.  There is
+	no reason to change them unless you are particularly curious.
+	If you have a problem when you change them you
+	<emphasis>must</emphasis> also let us know
+	<emphasis>that</emphasis> you've changed them.</para>
+      </formalpara>
+     </listitem>
+    </itemizedlist>
+   </callout>
+
+   <callout arearefs="emhaplofreq">
+
+     <para role="strong"><literal>[Emhaplofreq]</literal></para>
+
+     <para>This section enables haplotype estimation and calculation
+      of linkage disequilibrium (LD) measures.</para>
+
+
+    <itemizedlist>
+     <listitem>
+      <formalpara>
+       <title><literal>lociToEstHaplo</literal></title>
+
+       <para>In this option you may list the multi-locus haplotypes
+	you wish the program to estimate and to calculate the LD for.
+	It should be a comma-separated list of colon-joined loci.
+	e.g.,</para>
+      </formalpara>
+      <programlisting>lociToEstHaplo=a:b:drb1,a:b:c,drb1:dqa1:dpb1,drb1:dqb1:dpb1</programlisting>
+     </listitem>
+
+     <listitem>
+      <formalpara>
+       <title><literal>allPairwiseLD</literal></title>
+
+       <para>Set this to <literal>0</literal> (zero) of you do not
+	want the program to calculate all pairwise LD for your
+	data, otherwise set this to <literal>1</literal>.</para>
+      </formalpara>
+     </listitem>
+
+     <listitem>
+      <formalpara>
+       <title><literal>allPairwiseLDWithPermu=0</literal></title>
+   
+       <para>Set this to <literal>1</literal> (one) if you need to
+	determine the significance of the pairwise LD measures in the
+	previous section.  (Note this is done via permutation testing
+	performed after the pairwise LD test for all pairs of loci.
+	Note also that this test can take DAYS is your data is at all
+	polymorphic.)</para>
+      </formalpara>
+     </listitem>
+    </itemizedlist>
+   </callout>
+  </calloutlist>
+  </section>
+
+  <section id="config-advanced">
+   <title>Advanced options</title>
+
+   <para>The following describes additional options to previously
+    described sections,   Most
+    of the time these options can be omitted and
+    <application>PyPop</application> will choose sensible defaults,
+    however they do offer greater control over the application.  In
+    particular, customization will required for data that has sample
+    identifiers as in <xref
+     linkend="data-minimal-noheader"/> or header data block as in
+    <xref
+     linkend="data-hla"/> and both
+    <literal>validSampleFields</literal> (described above) and
+    <literal>validPopFields</literal> (described below) will need to
+    be modified.
+   </para>
+
+   <para>It also describes  two extra sections related to using
+    <application>PyPop</application> in conjunction with
+    <application>Arlequin</application>: <literal>[Arlequin]</literal>
+    and <literal>[HardyWeinbergGuoThompsonArlequin]</literal>.</para>
+   
+   <bridgehead><literal>[General]</literal> advanced options</bridgehead>
+   
+   <itemizedlist>
+    <listitem>
+     <formalpara>
+      <title><literal>txtOutFilename</literal> and <literal>xmlOutFilename</literal></title>
+      
+      <para>If you wish to specify a particular name for the output
+       file, which you want to remain identical over several runs,
+       you can set these two items to particular values. The
+       default is to have program select the output filename, which
+       can be controlled by the next variable.  <emphasis>[Default: not
+	used]</emphasis></para>
+      
+     </formalpara>
+    </listitem>
+    
+    <listitem>
+     <formalpara>
+      <title><literal>outFilePrefixType</literal> </title>
+      
+      <para>This option can either be omitted entirely (in which
+       case the default will be <literal>filename</literal>) or be
+       set in several ways.  The default is set as
+       <literal>filename</literal>, which will result in three
+       output files named
+       <filename><replaceable>original-filename-minus-suffix</replaceable>-out.xml</filename>, 
+       <filename><replaceable>original-filename-minus-suffix</replaceable>-out.txt</filename>, 
+       and
+       <filename><replaceable>original-filename-minus-suffix</replaceable>-filter.xml</filename>. 
+       <emphasis>[Default: <literal>filename</literal>]</emphasis></para>
+     </formalpara>
+     
+     <para>If, on the other hand, you set the value it
+      <literal>date</literal> instead of filename, you'll get the
+      date incorporated in the filename thus:
+      <filename><replaceable>original-filename-minus-suffix</replaceable>-YYYY-nn-dd-HH-MM-SS-out.{xml,txt}</filename>. 
+      e.g.,
+      <filename>Zulu-one-2001-09-21-01-29-35-out.xml</filename></para>
+    </listitem>
+    
+    <listitem>
+     <formalpara>
+      <title><literal>xslFilename</literal></title>
+      
+      <para>This option specifies where to find the file XSLT file
+       to use for transforming <application>PyPop</application>'s
+       xml output into human-readable form.  Most users will not
+       normally need to set this option, and the default is the
+       system-installed <filename>text.xsl</filename> file.</para>
+      </formalpara>
+     </listitem>
+    </itemizedlist>
+
+   <bridgehead><literal>[ParseGenotypeFile]</literal> advanced options</bridgehead>
+
+   <itemizedlist>
+    <listitem>
+     <formalpara>
+      <title><literal>useAnthonyNolanFilter</literal></title>
+      
+      <para>This option is <emphasis>only</emphasis> useful for HLA
+       data.  and can be set to <literal>1</literal> (one) if you want
+       your data filtered through The Anthony Nolan database of known
+       allele names before processing.</para>
+     </formalpara>
+
+     <para>Assuming your data is not absolutely in agreement with all
+      the entries in this database, you'll get a
+      <filename><replaceable>popfile</replaceable>-filter.xml</filename> 
+      file output showing what was resolved and what could not be
+      resolved. <emphasis>[Default: <literal>0</literal>
+       (OFF)]</emphasis></para>
+    </listitem>
+    <listitem>
+     <formalpara>
+      <title><literal>fieldPairDesignator</literal></title>
+      
+      <para>This option allows you to override the coding for the
+       headers for each pair of alleles at each loci,  it must match
+       the entries <literal>validSampleFields</literal> and in your
+       population data file.  If you want to use something other than
+       <literal>_1</literal> and <literal>_2</literal>, change this
+       line, for instance, to use letters and parentheses, change it
+       like this: <literal>fieldPairDesignator=(a):(b)</literal>
+       <emphasis>[Default: <literal>_1:_2</literal>]</emphasis></para>
+     </formalpara>
+    </listitem>
+    
+    <listitem>
+     <formalpara>
+      <title><literal>popNameDesignator</literal></title>
+      
+      <para>Since our later analyses require a unique name for each
+       population, there is a special designator to mark this field,
+       which is usually the first field in the data block.
+       <emphasis>[Default: <literal>+</literal>]</emphasis></para>
+     </formalpara>
+     
+     <para>If you are analyzing data that contains a population
+      name for each sample, then the first entry in your
+      <literal>validSampleFields</literal> section should have a
+      prefixed +, as below:</para>
+
+     <programlisting>validSampleFields=+populat
+ *a_1
+ *a_2
+...</programlisting>
+
+    </listitem>
+
+    <listitem>
+     <formalpara>
+      <title><literal>validPopFields</literal></title>
+      
+      <para>If you are analyzing data with an initial two line
+       population data block information like <xref
+	linkend="data-hla"/>, then you will need to set this option.
+       It should contain the field names in the first line of the
+       three lines of header information of your file, if it has
+       these.   <emphasis>[Default: required when population
+	data-block in data file]</emphasis>, e.g.:</para>
+	</formalpara>
 
 <programlisting>validPopFields=populat
  method
@@ -394,88 +660,49 @@ validPopFields=
  latit
  longit</programlisting>
 
-  <programlisting>validSampleFields=</programlisting>
+    </listitem>
+   </itemizedlist>
 
-   <para>This line should contain a colon-separated list of the loci that may
-    be in each of the data files you intend to analyse, so that you don't
-    have to change the ini file when running over a batch of data files
-    containing different loci. e.g.,</para>
+   <bridgehead><literal>[Arlequin]</literal> extra
+    section</bridgehead>
 
-   <programlisting>validSampleFields=A:B:C:DQA1:DQB1:DRB1:DPB1:DPA1
-    count</programlisting>
-
-  </section>
-
-  <section>
-   <title><literal>[HardyWeinberg]</literal> and <literal>[HardyWeinbergGuoThompsonArlequin]</literal></title>
-
-   <programlisting>[HardyWeinberg]
-lumpBelow=5</programlisting>
-
-  <para>This value represents a cut-off value.  Alleles with an
-    expected value equal to or less than this will be lumped together
-    into a single category for the purpose of calculating the degrees
-    of freedom and overall p-value for the chi-squared Hardy-Weinberg
-    test.</para>
    
-  <programlisting>[HardyWeinbergGuoThompsonArlequin]
-markovChainStepsHW=2500000
-markovChainDememorisationStepsHW=5000</programlisting>
-
-   <para>These values have proved to be optimal for us.  Don't bother changing
-    them unless you are particularly curious.  Don't complain to us if
-    you change them unless you also tell us you've changed them.</para>
-  </section>
-
-  <section>
-   <title><literal>[Homozygosity]</literal> and <literal>[HomozygosityEWSlatkinExact]</literal></title>
-
-   <programlisting>[Homozygosity]</programlisting>
+   <para>This section sets characteristics of the
+    <application>Arlequin</application> application if it has been
+    installed (it must be installed separately from
+    <application>PyPop</application> as we cannot distribute it).
+    Options in the section are only used when a test requiring
+    <application>Arlequin</application>, such as it's implementation
+    of Guo and Thompson's Hardy-Weinberg  exact test is invoked (see
+    below).</para>
+      
+   <itemizedlist>
+    <listitem>
+     <formalpara>
+      <title><literal>arlequinExec</literal></title>
+      
+      <para>This option specifies where to find the
+       <application>Arlequin</application> executable on your
+       system. The default assumes it is on your system path.
+       <emphasis>[Default:
+	<literal>arlecore.exe</literal>]</emphasis></para>
+     </formalpara>
+    </listitem>
+   </itemizedlist>
    
-   <para>Obsolete.</para>
-   
-   <programlisting>[HomozygosityEWSlatkinExact]
-numReplicates=100000
-</programlisting>
+   <bridgehead><literal>[HardyWeinbergGuoThompsonArlequin]</literal>
+    extra section</bridgehead>
+     
+    <para>When this section is present, Arlequin's implementation of
+    the Hardy-Weinberg exact test is run, which uses a Monte-Carlo
+    Markov Chain implementation.  By default this is not enabled. The
+    default options are: <literal>markovChainStepsHW=2500000</literal>
+    <literal>markovChainDememorisationStepsHW=5000</literal> These
+    values have proved to be optimal for us.  Don't bother changing
+    them unless you are particularly curious.  If you change the
+    values and have problems, please let us know
+    <emphasis>that</emphasis>  you have changed them.</para>
 
-   <para>These values have proved to be optimal for us.  Don't bother
-    changing them unless you are particularly curious.  Don't complain
-    to us if you change them unless you also tell us you've changed
-    them.</para>
-  </section>
-
-  <section>
-   <title><literal>[Emhaplofreq]</literal></title>
-
-  <programlisting>[Emhaplofreq]
-lociToEstHaplo=
-lociToEstLD=
-  </programlisting>
-
-   <para>In these two sections you may list the multi-locus haplotypes
-    you wish the programme to estimate and to calculate the LD for.
-    It should be a comma-separated list of colon-joined loci.
-    e.g.,</para>
-
-  <programlisting>lociToEstHaplo=a:b:drb1,a:b:c,drb1:dqa1:dpb1,drb1:dqb1:dpb1</programlisting>
-
-  <programlisting>allPairwiseLD=1</programlisting>
-   
-   <para>Set this to 0 (zero) of you do not want the programme to calculate
-    all pairwise LD for your data.</para>
-   
-   <programlisting>allPairwiseLDWithPermu=0</programlisting>
-   
-   <para>Set this to 1 (one) if you want the permutation test performed after
-    the pairwise LD test for all pairs of loci.  Note that this test
-    can take DAYS is your data is at all polymorphic.</para>
-  </section>
-
-  <section>
-   <title><literal>[Arlequin]</literal></title>
-
-   <para><programlisting>arlequinExec=arlecore.exe</programlisting> Specifies where to find the arlequin executable on your system.
-The default assumes it is on your system path.</para>
   </section>
 
  </section>
@@ -484,34 +711,38 @@ The default assumes it is on your system path.</para>
   <title>Processing your data</title>
 
   <para>The most common situation will be to edit your config.ini file to
-suit your data and then run like this:</para>
+   suit your data and then run like this:</para>
 
-  <screen><command>pypop</command> <option>-c</option> <replaceable>configfilename</replaceable> <replaceable>popfilename</replaceable>.txt</screen>
+  <para><command>pypop</command> <option>-c</option> <filename><replaceable>configfilename</replaceable></filename> <filename><replaceable>popfilename</replaceable>.txt</filename></para>
 
-  <para>The first output will be generated fairly quickly, but your run is
-   not finished until the text output file named <replaceable>popfilename</replaceable>-out.txt
-has been created.</para>
+  <para>The first output will be generated fairly quickly, but your
+   run is not finished until the text output file named
+   <replaceable>popfilename</replaceable>-out.txt has been created.  A
+   successful run will produce two output files:
+   <filename><replaceable>popfilename</replaceable>-out.xml</filename>, 
+   <filename><replaceable>popfilename</replaceable>-out.txt</filename>, 
+   (and a third if your data is HLA and you are using the Anthony
+   Nolan HLA filter option to check your input for valid/known HLA
+   alleles
+   <filename><replaceable>popfilename</replaceable>-filter.xml</filename>).</para>
 
-<para>A successful run will produce three output files:
-   <filename><replaceable>popfilename</replaceable>-out.xml</filename>, <filename><replaceable>popfilename</replaceable>-out.txt</filename>, and (if your data is
-HLA and you are using the Anthony Nolan HLA filter option to check
-   your input for valid/known HLA alleles) <filename><replaceable>popfilename</replaceable>-filter.xml</filename>.</para>
-
-   <para>A typical run may take anywhere from a couple of minutes to a couple
-of hours, depending on how large your data set is and who else is
-using the system at the same time.</para>
-
-  <para>Note that performing the allPairwiseLDWithPermu test may take several
-DAYS if you have highly polymorphic loci in your data set.</para>
+  <para>A typical run may take anywhere from a couple of minutes to a
+   couple of hours, depending on how large your data set is and who
+   else is using the system at the same time.  Note that performing
+   the <literal>allPairwiseLDWithPermu</literal> test may take several
+   DAYS if you have highly polymorphic loci in your data set.</para>
 
  </section>
 
+<!--
  <section>
   <title>Output</title>
 
   <para>Interpretation of the output file is explained here: <ulink url="http://allele5.biol.berkeley.edu/13ihwg/instructions.html">http://allele5.biol.berkeley.edu/13ihwg/instructions.html</ulink></para>
 
  </section>
+-->
+
 </article>
 
 <!--
