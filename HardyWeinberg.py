@@ -27,7 +27,7 @@ class HardyWeinberg:
 
 #     we can't use the alleleCount data at the moment
 #     because ParseFile.getAlleleCountAt() returns unclean data
-#     self.alleleCount = alleleCount[0] #just the dictionary of allelename:count
+#     self.alleleCounts = alleleCount[0] #just the dictionary of allelename:count
 #     self.alleleTotal = alleleCount[1]
 
     self.debug = debug
@@ -59,7 +59,7 @@ class HardyWeinberg:
 #                       'count:', running_count,\
 #                       'freq:', freq,\
 #                       'cum:', running_freq
-
+################################################################################
   def _generateTables(self):
     """Manipulate the given genotype data to generate
     the tables upon which the calculations will be based."""
@@ -141,7 +141,7 @@ class HardyWeinberg:
       print 'Calculated sum of expected genotype counts is:', total, ', but N is:', self.n
       sys.exit()
 
-#     if self.debug:
+    if self.debug:
 #       print 'Allele Frequencies:'
 #       for allele in self.alleleFrequencies.items():
 #         print allele
@@ -151,26 +151,33 @@ class HardyWeinberg:
 #       print 'Possible:'
 #       for genotype in self.possibleGenotypes:
 #         print genotype
-#       print 'Observed:'
-#       for genotype in self.observedGenotypeCounts.items():
-#         print genotype
-#       print 'Expected:'
-#       for genotype in self.expectedGenotypeCounts.items():
-#         print genotype
+      print 'Observed:'
+      for genotype in self.observedGenotypeCounts.items():
+        print genotype
+      print 'Expected:'
+      for genotype in self.expectedGenotypeCounts.items():
+        print genotype
+
+################################################################################
 
   def _calcChisq(self):
-    """Calculate the chi-squareds
+    """Calculate the chi-squareds for the common genotypes.
+
+    - create a count of observed and expected lumped together
+    for genotypes with an expected value of less than 5
 
     - Open a pipe to get the p-value from the system
     using the pval program (should be replaced later)"""
 
-    printExpected = [] # list flagging genotypes worth printing
-    chisq = {}
-    chisqPval = {}
-    commonGenotypeCounter = 0
-    rareGenotypeCounter = 0
-    commonChisqAccumulator = 0.0
-    print 'Calculating Chi Squared'
+    self.printExpected = [] # list flagging genotypes worth printing
+    self.chisq = {}
+    self.chisqPval = {}
+    self.commonGenotypeCounter = 0
+    self.commonChisqAccumulator = 0.0
+    self.rareGenotypeCounter = 0
+    self.lumpedObservedGenotypes = 0.0
+    self.lumpedExpectedGenotypes = 0.0
+    # print 'Calculating Chi Squared'
 
     #--mpn--
     for genotype in self.expectedGenotypeCounts.keys():
@@ -183,36 +190,101 @@ class HardyWeinberg:
           else:
             print 'Observed: 0'
 
-        printExpected.append(genotype)
+        self.printExpected.append(genotype)
 
-        commonGenotypeCounter += 1
+        self.commonGenotypeCounter += 1
         if self.observedGenotypeCounts.has_key(genotype):
           observedCount = self.observedGenotypeCounts[genotype]
         else:
           observedCount = 0.0
-        degreesOfFreedomAccumulator = commonGenotypeCounter - 1
-        chisq[genotype] = ((observedCount - \
+        self.commonDfAccumulator = self.commonGenotypeCounter - 1
+        self.chisq[genotype] = ((observedCount - \
                           self.expectedGenotypeCounts[genotype]) * \
                           (observedCount - \
                           self.expectedGenotypeCounts[genotype])) /\
                           self.expectedGenotypeCounts[genotype]
 
-        command = "pval 1 %f" % (chisq[genotype])
+        command = "pval 1 %f" % (self.chisq[genotype])
         returnedValue = os.popen(command, 'r').readlines()
-        chisqPval[genotype] = returnedValue[0][:-1]
-        commonChisqAccumulator += chisq[genotype]
+        self.chisqPval[genotype] = returnedValue[0][:-1]
+        self.commonChisqAccumulator += self.chisq[genotype]
+
         if self.debug:
           print 'Chi Squared value:'
-          print genotype, ':', chisq[genotype]
-          print "command %s returned %s" % (command, returnedValue)
+          print genotype, ':', self.chisq[genotype]
+          # print "command %s returned %s" % (command, returnedValue)
           print 'P-value:'
-          print genotype, ':', chisqPval[genotype]
+          print genotype, ':', self.chisqPval[genotype]
 
       else:
         """Expected genotype count for this genotype is less than 5"""
-        # do not append this genotype to the printExpected list
-        rareGenotypeCounter += 1
-        pass
 
+        # do not append this genotype to the printExpected list
+        self.rareGenotypeCounter += 1
+
+        self.lumpedExpectedGenotypes += self.expectedGenotypeCounts[genotype]
+
+        if self.observedGenotypeCounts.has_key(genotype):
+          self.lumpedObservedGenotypes += self.observedGenotypeCounts[genotype]
+
+
+    if self.rareGenotypeCounter > 0:
+      """ Calculate the Chi Squared value for the lumped rare genotypes"""
+
+      self.lumpedChisq = ((self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) * \
+                         (self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) / \
+                         self.lumpedExpectedGenotypes)
+
+      command = "pval 1 %f" % (self.lumpedChisq)
+      returnedValue = os.popen(command, 'r').readlines()
+      self.lumpedChisqPval = returnedValue[0][:-1]
+
+      if self.commonGenotypeCounter > 0:
+        self.HWChisq = self.commonChisqAccumulator + self.lumpedChisq
+        self.HWChisqDf = self.commonDfAccumulator + 1
+        command = "pval %f %f" % (self.HWChisqDf, self.HWChisq)
+        returnedValue = os.popen(command, 'r').readlines()
+        self.HWChisqPval = returnedValue[0][:-1]
+
+      if self.debug:
+        print "Lumped %d for a total of %d observed and %f expected" % (self.rareGenotypeCounter, self.lumpedObservedGenotypes, self.lumpedExpectedGenotypes)
+        print "Chisq: %f, P-Value (dof = 1): %s" % (self.lumpedChisq, self.lumpedChisqPval) # doesn't work if I claim Pval is a float?
+
+    elif self.commonGenotypeCounter > 0:
+      self.HWChisq = self.commonChisqAccumulator
+      self.HWChisqDf = self.commonDfAccumulator
+
+      command = "pval %d %f" % (self.commonDfAccumulator, self.commonChisqAccumulator)
+      returnValue = os.popen(command, 'r').readlines()
+
+      self.HWChisqPval = returnValue[0][:-1]
+
+################################################################################
+
+  def getChisq(self):
+    """ Output routines depend on existence or otherwise of common and rare genotypes"""
+
+    # stream serialization goes here
+    if self.commonGenotypeCounter == 0:
+      print "No common genotypes; chi-square cannot be calculated"
+
+    elif self.rareGenotypeCounter == 0:
+
+      print "HWChisq    :", self.HWChisq
+      print "HWChisqDf  :", self.HWChisqDf
+      print "HWChisqPval:", self.HWChisqPval
+      print "No lumps"
+
+    else:
+      print "Sample size:", self.n
+      print "Alleles:   :", self.k
+      print "Chi Squared:", self.HWChisq
+      print "DoF        :", self.HWChisqDf
+      print "HWChisqPval:", self.HWChisqPval
+      print ""
+      print "Lumped observed:", self.lumpedObservedGenotypes
+      print "Lumped expected:", self.lumpedExpectedGenotypes
+      print "Lumped Chisq   :", self.lumpedChisq
+      print "Lumped Pval    :", self.lumpedChisqPval
 
 
