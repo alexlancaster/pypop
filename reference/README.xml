@@ -777,7 +777,7 @@ allPairwiseLDWithPermu=0></programlisting>
      <programlisting>validSampleFields=+populat
  *a_1
  *a_2
-      ...</programlisting>
+ ...</programlisting>
 
     </listitem>
 
@@ -799,7 +799,7 @@ allPairwiseLDWithPermu=0></programlisting>
  ethnic
  country
  latit
-      longit</programlisting>
+ longit</programlisting>
 
     </listitem>
    </itemizedlist>
