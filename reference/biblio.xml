@@ -252,7 +252,7 @@
    <ulink
     url="http://lgb.unige.ch/arlequin/">http://lgb.unige.ch/arlequin/</ulink></citetitle>
   
-  <releaseinfo>Ver 2.000.</releaseinfo>
+  <releaseinfo>Ver 2.000</releaseinfo>
   <publisher>
    <publishername>Genetics and Biometry Lab, Dept. of Anthropology,
     University of Geneva</publishername></publisher>
@@ -825,7 +825,7 @@
     </author>
    </authorgroup>
    <pubdate>1977</pubdate>
-   <citetitle> Maximum likelihood estimation from incomplete data
+   <citetitle>Maximum likelihood estimation from incomplete data
    using the EM algorithm</citetitle>
    <volumenum>39</volumenum>
    <pagenums>1-38</pagenums>
