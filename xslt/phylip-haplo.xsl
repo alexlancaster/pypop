@@ -24,8 +24,13 @@
  <xsl:variable name="all-haplo-list" select="document('haplolist-by-group.xml', .)/haplolist-by-group"/>
 
  <xsl:template name="phylip-haplos">
-  <xsl:param name="node" select="."/>
+  <xsl:param name="node"/>
   <xsl:param name="loci-to-output"/>
+
+
+  <xsl:message>count: <xsl:value-of select="count($node)"/></xsl:message>
+  <xsl:message><xsl:value-of select="name($node)"/></xsl:message>
+  <xsl:message>loci to output: <xsl:value-of select="$loci-to-output"/></xsl:message>
 
   <xsl:text>     </xsl:text>
   <xsl:value-of select="count($node)"/>
@@ -70,18 +75,72 @@
   </xsl:for-each>
 
  </xsl:template>
- 
- <xsl:template match="/">
 
-  <exslt:document href="A-B.haplo.phy"
+ <xsl:template name="genfile">
+  <xsl:param name="filename"/>
+  <xsl:param name="loci"/>
+  
+  <exslt:document href="{$filename}"
    omit-xml-declaration="yes"
    method="text">
    <xsl:call-template name="phylip-haplos">
-    <xsl:with-param name="node" select="/meta/dataanalysis[emhaplofreq/group/@loci='A:B']"/>
-    <xsl:with-param name="loci-to-output" select="'A:B'"/>
+    <xsl:with-param name="node" select="//meta/dataanalysis[emhaplofreq/group/@loci=$loci]"/>
+    <xsl:with-param name="loci-to-output" select="$loci"/>
    </xsl:call-template>
   </exslt:document>
 
+ </xsl:template>
+
+ <!-- loci to do haplos for, no default -->
+ <xsl:param name="loci"/>
+ 
+ <xsl:template match="/">
+
+<!--
+  <xsl:for-each select="document('')//data:phylip-loci/loci">
+
+   <xsl:message>
+    <xsl:value-of select="count(//meta/dataanalysis)"/>
+   </xsl:message>
+
+   <xsl:variable name="filename">
+    <xsl:for-each select="locus">
+     <xsl:value-of select="."/>
+     <xsl:if test="position()!=last()">
+      <xsl:text>-</xsl:text>
+     </xsl:if>
+    </xsl:for-each>
+    <xsl:text>.haplo.phy</xsl:text>
+   </xsl:variable>
+
+   <xsl:variable name="loci">
+    <xsl:for-each select="locus">
+     <xsl:value-of select="."/>
+     <xsl:if test="position()!=last()">
+      <xsl:text>:</xsl:text>
+     </xsl:if>
+    </xsl:for-each>
+   </xsl:variable>
+
+   <xsl:call-template name="genfile">
+    <xsl:with-param name="filename" select="$filename"/>
+    <xsl:with-param name="loci" select="$loci"/>
+   </xsl:call-template>
+
+  </xsl:for-each>
+-->
+
+  <xsl:variable name="filename" select="concat(translate($loci, ':', '-'), '.haplo.phy')"/>
+
+  <exslt:document href="{$filename}"
+   omit-xml-declaration="yes"
+   method="text">
+    <xsl:call-template name="phylip-haplos">
+    <xsl:with-param name="node" select="//meta/dataanalysis[emhaplofreq/group/@loci=$loci]"/>
+    <xsl:with-param name="loci-to-output" select="$loci"/>
+   </xsl:call-template>
+  </exslt:document>
+  
  </xsl:template>
 
 </xsl:stylesheet>
