@@ -294,73 +294,61 @@
 
     <xsl:when test="$type='multi-locus-summary'">
 
-     <xsl:call-template name="line-start">
-      <xsl:with-param name="popnode" select="../../populationdata"/>
-     </xsl:call-template>
+     <!-- only attempt to print summary data  if haplotype est. converged -->
 
-     <xsl:call-template name="output-field">
-      <xsl:with-param name="node"
-      select="number(individcount[@role='after-filtering']) * 2"/>
-     </xsl:call-template>
+     <xsl:if test="haplotypefreq/condition/@role='converged'">
 
-     <!-- make sure locus1 and locus2 are always in map order -->
+      <xsl:call-template name="line-start">
+       <xsl:with-param name="popnode" select="../../populationdata" />
+      </xsl:call-template>
+      
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node"
+	select="number(individcount[@role='after-filtering']) * 2"/>
+      </xsl:call-template>
+      
+      <!-- make sure locus1 and locus2 are always in map order -->
       <xsl:for-each select="str:tokenize(@loci, ':')">
        <xsl:sort select="$map-order[.=current()]/@order" data-type="number"/>
        <xsl:value-of select="." />
        <xsl:text>&#09;</xsl:text>
       </xsl:for-each>
-
-     <xsl:if test="$pairwise=1">
       
-      <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="linkagediseq/summary/dprime"/>
-      </xsl:call-template>
+      <xsl:if test="$pairwise=1">
+       
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="linkagediseq/summary/dprime"/>
+       </xsl:call-template>
+       
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="linkagediseq/summary/wn"/>
+       </xsl:call-template>
+       
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="linkagediseq/summary/q/chisq"/>
+       </xsl:call-template>
+       
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="linkagediseq/summary/q/dof"/>
+       </xsl:call-template>     
+       
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="permutationSummary/pvalue"/>
+       </xsl:call-template>
+       
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="permutationSummary/lr"/>
+       </xsl:call-template>
+       
+      </xsl:if>
       
-      <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="linkagediseq/summary/wn"/>
-      </xsl:call-template>
+      <xsl:call-template name="newline"/>
       
-      <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="linkagediseq/summary/q/chisq"/>
-      </xsl:call-template>
-      
-      <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="linkagediseq/summary/q/dof"/>
-      </xsl:call-template>     
-      
-      <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="permutationSummary/pvalue"/>
-      </xsl:call-template>
-      
-      <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="permutationSummary/lr"/>
-      </xsl:call-template>
-
      </xsl:if>
      
-     <xsl:call-template name="newline"/>
-   
     </xsl:when>
     
     <xsl:when test="$type='multi-locus-haplo'">
-     
-     <xsl:variable name="curr-line-start">
-      <xsl:call-template name="line-start">
-       <xsl:with-param name="popnode" select="../../populationdata"/>
-      </xsl:call-template>
-
-      <!-- make sure locus1 and locus2 are always in map order -->
-      <xsl:for-each select="str:tokenize(@loci, ':')">
-       <xsl:sort select="$map-order[.=current()]/@order" data-type="number"/>
-       <xsl:value-of select="." />
-       <xsl:if test="position()!=last()">
-	<xsl:text>:</xsl:text>
-       </xsl:if>
-      </xsl:for-each>
-
-      <xsl:text>&#09;</xsl:text>
-
-     </xsl:variable>
 
      <!-- print out message if haplotype estimation failed to converge -->
      <xsl:message>
@@ -374,49 +362,74 @@
       </xsl:if>
      </xsl:message>
 
-     <xsl:for-each select="haplotypefreq/haplotype">
+     <!-- only attempt to print haplotypes if converged -->
+     <xsl:if test="haplotypefreq/condition/@role='converged'">
+     
+      <xsl:variable name="curr-line-start">
+       <xsl:call-template name="line-start">
+	<xsl:with-param name="popnode" select="../../populationdata"/>
+       </xsl:call-template>
 
-      <xsl:value-of select="$curr-line-start"/>
+       <!-- make sure locus1 and locus2 are always in map order -->
+       <xsl:for-each select="str:tokenize(@loci, ':')">
+	<xsl:sort select="$map-order[.=current()]/@order" data-type="number"/>
+	<xsl:value-of select="." />
+	<xsl:if test="position()!=last()">
+	 <xsl:text>:</xsl:text>
+	</xsl:if>
+       </xsl:for-each>
+       
+       <xsl:text>&#09;</xsl:text>
+       
+      </xsl:variable>
       
-      <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="@name"/>
-      </xsl:call-template>
-
-      <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="frequency"/>
-      </xsl:call-template>
-
-      <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="numCopies"/>
-      </xsl:call-template>
-
-      <xsl:if test="$pairwise=1">
-
-       <xsl:variable name="first">
-	<xsl:value-of select="substring-before(@name, ':')"/>
-	<xsl:text>:</xsl:text>
-       </xsl:variable>
-       <xsl:variable name="second">
-	<xsl:value-of select="substring-after(@name, ':')"/>
-       </xsl:variable>
+      
+      <xsl:for-each select="haplotypefreq/haplotype">
        
-       <xsl:variable name="pair"
-	select="../../linkagediseq/loci[1]/allelepair[@first=$first and
-	@second=$second]"/>
+       <xsl:value-of select="$curr-line-start"/>
        
        <xsl:call-template name="output-field">
-	<xsl:with-param name="node" select="$pair/norm_dij"/>
+	<xsl:with-param name="node" select="@name"/>
        </xsl:call-template>
-
+       
        <xsl:call-template name="output-field">
-	<xsl:with-param name="node" select="$pair/chisq"/>
+	<xsl:with-param name="node" select="frequency"/>
        </xsl:call-template>
+       
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="numCopies"/>
+       </xsl:call-template>
+       
+       <xsl:if test="$pairwise=1">
+	
+	<xsl:variable name="first">
+	 <xsl:value-of select="substring-before(@name, ':')"/>
+	 <xsl:text>:</xsl:text>
+	</xsl:variable>
+	<xsl:variable name="second">
+	 <xsl:value-of select="substring-after(@name, ':')"/>
+	</xsl:variable>
+       
+	<xsl:variable name="pair"
+	 select="../../linkagediseq/loci[1]/allelepair[@first=$first and
+	 @second=$second]"/>
+	
+	<xsl:call-template name="output-field">
+	 <xsl:with-param name="node" select="$pair/norm_dij"/>
+	</xsl:call-template>
+	
+	<xsl:call-template name="output-field">
+	 <xsl:with-param name="node" select="$pair/chisq"/>
+	</xsl:call-template>
+	
+       </xsl:if>
 
-      </xsl:if>
+       <xsl:call-template name="newline"/>
+       
+      </xsl:for-each>
 
-      <xsl:call-template name="newline"/>
+     </xsl:if>
 
-     </xsl:for-each>
     </xsl:when>
 
    </xsl:choose>
