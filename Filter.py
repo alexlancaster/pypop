@@ -131,10 +131,6 @@ class AnthonyNolanFilter(Filter):
         self.filename = filename
         self.logFile = logFile
 
-        # start log file
-        self.logFile.opentag('filterlog', filename=self.filename)
-        self.logFile.writeln()
-
         if self.alleleFileFormat == 'msf':
             patt = re.compile("^ *Name: *([0-9a-zA-Z]+)" + \
                               re.escape(self.alleleDesignator) + \
@@ -231,9 +227,6 @@ class AnthonyNolanFilter(Filter):
 
             # end filtering for this locus
             self.endFiltering()
-
-##         # do cleanup/destructor
-##         self.cleanup()
 
         return self.matrix
 
@@ -419,13 +412,9 @@ class AnthonyNolanFilter(Filter):
         self.logFile.writeln(logstring)
 
     def cleanup(self):
-        # end tag for XML
-        self.logFile.closetag('filterlog')
-        # close log file
-        self.logFile.close()
+        pass
 
 ################# translation methods begin here
-
     def makeSeqDictionaries(self, matrix=None, locus=None):
         
         self.matrix = matrix

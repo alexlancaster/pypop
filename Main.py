@@ -163,7 +163,8 @@ class Main:
         # for threading to work
         self.thread = thread
 
-        # switch off random binning by default
+        # switch off filtering and random binning by default
+        self.filteringFlag = 0
         self.randomBinningFlag = 0
 
         # parse out the parts of the filename
@@ -337,30 +338,29 @@ class Main:
                                 debug=self.debug)
 
             # we copy the parsed data to self.filtered, to be ready for the gamut of filters coming
-
             self.matrixHistory = []
-
             self.matrixHistory.append(self.parsed.getMatrix().copy())
             
-            # self.filtered = filter.doFiltering(self.parsed.getMatrix())
-
             # figure out what filters we will be using, if any
             if self.config.has_section("Filters"):
 
-                # even if section is blank still generate a logFile
-                # so that file exists when it it is close()d
-                # get filtering options and open log file for
-                # filter in append mode
-                self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogPath, 'w'))
-                
                 try:
                     self.filtersToApply = self.config.get("Filters", "filtersToApply")
                     self.filtersToApply = string.split(self.filtersToApply, ':')
                 except:
-                    pass
+                    self.filtersToApply = []
 
                 # this allows the user to have "filtersToApply=" without ill consequences
                 if len(self.filtersToApply) > 0 and len(self.filtersToApply[0]) > 0:
+
+                    # get filtering options and open log file for
+                    # filter in append mode
+                    self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogPath, 'w'))
+                    self.filterLogFile.opentag('filterlog', filename=self.defaultFilterLogPath)
+                    self.filterLogFile.writeln()
+                    self.filteringFlag = 1
+
+                    # run the filtering gamut
                     self._runFilters()
 
             # and then we pass the filtered matrix to be put in format
@@ -403,13 +403,11 @@ class Main:
         self.xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr), role=self.fileType)
         self.xmlStream.writeln()
 
-        ## WHAT WOULD ALEX DO?
-        ## Alex would check the presence of the section again ;-)
-        if self.config.has_section("Filters"):
 
-            # if and only if filtering is done, generate XInclude XML
-            # file output reference, to include
-            # <popfilename>-filter.log
+        # if and only if filtering is done, generate XInclude XML
+        # file output reference, to include
+        # <popfilename>-filter.log
+        if self.filteringFlag:
             
             self.xmlStream.opentag('xi:include', href=self.defaultFilterLogFilename, parse="xml")
             self.xmlStream.writeln()
@@ -443,7 +441,7 @@ class Main:
         # some kind of filtering, moving it here, means that the open
         # and close are at the same level and are called in the same
         # method.
-        if self.config.has_section("Filters"):
+        if self.filteringFlag:
             self.filterLogFile.closetag('filterlog')
             self.filterLogFile.close()
 
@@ -568,9 +566,6 @@ class Main:
         if self.debug:
             print "matrixHistory"
             print self.matrixHistory
-
-#        self.filterLogFile.closetag('filterlog')
-#        self.filterLogFile.close()
 
 
     def _doAlleleCountFile(self):
@@ -839,14 +834,14 @@ class Main:
                                             alleleDesignator=self.alleleDesignator,
                                             sequenceFileSuffix=sequenceFileSuffix,
                                             untypedAllele=self.untypedAllele,
-                                            filename=self.fileName,
-                                            logFile=self.filterLogFile)
+                                            filename=self.fileName)
 
                         polyseq, polyseqpos = seqfilter.makeSeqDictionaries(matrix=(self.matrixHistory[self.binningStartPoint]).copy(),locus=locus)
 
                         randObj.sequenceMethod(alleleCountsBefore=alleleCountsInitial,
                                                alleleCountsAfter=alleleCounts,
-                                               polyseq=polyseq)
+                                               polyseq=polyseq,
+                                               polyseqpos=polyseqpos)
 
                     else:
                         sys.exit("Random binning method not recognized:" + self.binningMethod)

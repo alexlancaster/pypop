@@ -1,3 +1,31 @@
+2003-12-17  Owen Solberg  <solberg@localhost.localdomain>
+
+	* RandomBinning.py (RandomBinsForHomozygosity.sequenceMethod):
+	Major retooling enables this method to keep track of each position
+	in the sequence.  This is useful for debugging and may be useful
+	in later applications of this method.  
+	Variable names changed and comments added to improve readiblity of
+	code.
+
+	* Main.py (Main.__init__): Initialize self.filteringFlag to zero.
+	This flag makes it easier to coordinate the filters and filterlog.
+	The filterLogFile XML output stream is initialized after checking
+	that there is a Filters section in the ini file, and that the
+	length of the filtersToApply is non-zero.  Immediately after
+	initializing the log file, the opentag is written (the filename
+	configuration has also been fixed) and the filteringFlag is set to
+	one.
+	(Main._doGenotypeFile): Calling the sequence-based random binning
+	method now also requires the polyseqpos to be passed to it, so the
+	method can tabulate statistics about each position.
+
+	* Filter.py (AnthonyNolanFilter.__init__): Removed the XML opentag
+	for the filterlog.  This is now handled by Main, as is the closing
+	of the filterlog.
+	(AnthonyNolanFilter.cleanup): Removed all code from this method,
+	leaving pass as a placeholder.  The closing the filterlog is now
+	handled by Main.
+
 2003-12-17  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* Utils.py (TextOutputStream.flush): New method, call flush() on
