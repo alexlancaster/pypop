@@ -64,6 +64,54 @@
   <section id="guide-preface-intro">
    <title>Introduction</title>
 
+   <para><application>PyPop</application>  (<firstterm>Python for
+     Population Genetics</firstterm>) is an environment developed at
+    UC Berkeley for doing large-scale population genetic analyses
+    including:</para>
+
+   <itemizedlist>
+    <listitem>
+     <para>conformity to Hardy-Weinberg expectations</para>
+    </listitem>
+    <listitem>
+     <para>tests for balancing or directional selection</para>
+    </listitem>
+    <listitem>
+     <para> estimates of
+    haplotype frequencies (and their distributions) and measures and
+    tests of significance for linkage disequilibrium (LD).</para>
+    </listitem>
+   </itemizedlist>
+
+   <para><application>PyPop</application> is an object-oriented
+    framework implemented in the programming language <ulink
+     url="http://www.python.org/">Python</ulink>. Python is a flexible
+    scripting language which allows rapid prototyping of code and has
+    powerful features for interfacing with other languages, such as C
+    (in which we have already implemented many routines and which is
+    particularly suited to computationally intensive tasks).</para>
+
+   <para>The output of the analyses are stored in the XML format (XML
+    is the eXtensible Markup Language devised by the World Wide Web
+    Consortium, and is a platform-independent, open standard for
+    storing data). These output files can then be transformed using
+    standard tools into many other data formats suitable for machine
+    input (such as PHYLIP or input for spreadsheet programs such as
+    Excel or statistical packages, such as R, plain text, or HTML for
+    human-readable format. Storing the output in XML allows the final
+    viewable output format to be redesigned at will, without requiring
+    the (often time-consuming) re-running of the analyses
+    themselves.</para>
+
+   <para>For more details on the design and technical details of
+    <application>PyPop</application>, please consult 
+    <citation role="citet">Lancaster:etal:2003a</citation>.</para>
+   
+  </section>
+
+  <section id="guide-preface-howto">
+   <title>How to use this guide</title>
+
    <para>This guide to <application>PyPop</application> contains is in
     three parts:</para>
 
@@ -77,7 +125,7 @@
     </listitem>
 
     <listitem>
-     <para><xref linkend="guide-chapter-usage"/> describes how run
+     <para><xref linkend="guide-chapter-usage"/> describes how to run
       <application>PyPop</application>.</para>
     </listitem>
 
@@ -93,7 +141,15 @@
     <application>PyPop</application> is distributed under the terms of
     the <ulink url="http://www.gnu.org/licenses/gpl.html">GNU General
      Public License</ulink> (see <xref linkend="gpl"/>).  The list of
-    authors and contributors follows.</para>
+    authors and contributors follows in <xref
+     linkend="guide-preface-authors"/>.</para>
+
+  </section>
+
+  <section id="guide-preface-news">
+   <title>Recent changes to <application>PyPop</application></title>
+
+   <literallayout class="normal"><xi:include href="../NEWS" xmlns:xi="http://www.w3.org/2001/XInclude" parse="text"/></literallayout>
 
   </section>
 
@@ -134,9 +190,12 @@
 
  <xi:include href="biblio.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
- <appendix>
-  <xi:include href="COPYING.xml#xpointer(/appendix/title)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+ <appendix id="licenses">
+  <title>License terms</title>
   <xi:include href="COPYING.xml#xpointer(/appendix/sidebar)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+  <sidebar>
+   <para>The <application>PyPop</application> documentation is distributed under the GNU Free Documentation License (see <xref linkend="gfdl"/>).</para>
+  </sidebar>
   <xi:include href="COPYING.xml#xpointer(/appendix/section)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   <section id="gfdl">
    <xi:include href="COPYING.FDL.xml#xpointer(/appendix/*)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
