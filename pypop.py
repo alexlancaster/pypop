@@ -345,6 +345,16 @@ if config.has_section("Emhaplofreq"):
   txtStream.writeln("=====================================")
   haplo.serializeTo(txtStream)
 
+  try:
+    estAllPairwise = config.getboolean("Emhaplofreq", "estAllPairwise")
+  except NoOptionError:
+    estAllPairwise=0
+  except ValueError:
+    sys.exit("require a 0 or 1 as debug flag")
+
+  if estAllPairwise:
+    haplo.estAllPairwise()
+
 # closing tag
 xmlStream.closetag('dataanalysis')
 
