@@ -37,7 +37,7 @@ int count_unique_haplos(char (*)[][], char (*)[], int (*)[], char (*)[][], int *
 
 void id_unique_alleles(char (*)[][], char (*)[][], int *, double (*)[], int, int);
 /* data array, unique_allele array, no. of unique alleles array, allele_freq, no. of loci, no. of records */
-/* 
+/*  
   * creates array of alleles unique to each locus 
   * Creates allele_freq[i][j]:  freq for jth allele at the ith locus 
 */
