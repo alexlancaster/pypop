@@ -39,7 +39,6 @@
  <xsl:template name="append-pad">
   <!-- recursive template to left justify and append  -->
   <!-- the value with whatever padChar is passed in   -->
-  <!-- <xsl:param name="padChar"> </xsl:param> -->
   <xsl:param name="padChar" select="' '"/>
   <xsl:param name="padVar"/>
   <xsl:param name="length"/>
