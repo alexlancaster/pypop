@@ -184,10 +184,15 @@ class HardyWeinberg:
     self.chisqPval = {}
     self.commonGenotypeCounter = 0
     self.commonChisqAccumulator = 0.0
+    self.commonObservedAccumulator = 0
+    self.commonExpectedAccumulator = 0.0
     self.rareGenotypeCounter = 0
     self.lumpedObservedGenotypes = 0.0
     self.lumpedExpectedGenotypes = 0.0
-    self.flagHets = self.flagHoms = self.flagCommons = self.flagLumps = 0
+    self.flagHets = 0
+    self.flagHoms = 0
+    self.flagCommons = 0
+    self.flagLumps = 0
     self.flagTooManyParameters = 0
     self.flagTooFewExpected = 0
     self.flagNoCommonGenotypes = 0
@@ -283,6 +288,8 @@ class HardyWeinberg:
         returnedValue = os.popen(command, 'r').readlines()
         self.chisqPval[genotype] = float(returnedValue[0][:-1])
         self.commonChisqAccumulator += self.chisq[genotype]
+        self.commonObservedAccumulator += observedCount
+        self.commonExpectedAccumulator += self.expectedGenotypeCounts[genotype]
 
         if self.debug:
           print 'Chi Squared value:'
@@ -307,6 +314,7 @@ class HardyWeinberg:
       self.flagNoCommonGenotypes = 1
 
     elif self.rareGenotypeCounter == 0:
+    # no rare genotypes, so just do overall grand total
 
       self.HWChisq = self.commonChisqAccumulator
 
@@ -359,6 +367,8 @@ class HardyWeinberg:
 
         if self.flagLumps == 1:
           self.HWChisq = self.commonChisqAccumulator + self.lumpedChisq
+          self.commonObservedAccumulator += self.lumpedObservedGenotypes
+          self.commonExpectedAccumulator += self.lumpedExpectedGenotypes
         else:
           self.HWChisq = self.commonChisqAccumulator
           self.flagTooFewExpected = 1
@@ -485,6 +495,10 @@ class HardyWeinberg:
 
     if self.flagCommons == 1:
       stream.opentag('common')
+      stream.writeln()
+      stream.tagContents("observed", "%d" % self.commonObservedAccumulator)
+      stream.writeln()
+      stream.tagContents("expected", "%4f" % self.commonExpectedAccumulator)
       stream.writeln()
       stream.tagContents("chisq", "%4f" % self.HWChisq)
       stream.writeln()
