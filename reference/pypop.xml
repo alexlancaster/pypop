@@ -385,7 +385,7 @@
      <imagedata fileref="work-flow2.png" align="center" scale="99"/>  <!-- scale="45" -->
     </imageobject>
     <textobject>
-     <phrase>Diagram of software workflow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.png</phrase>
+     <phrase>Diagram of software work-flow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.png</phrase>
     </textobject>
    </mediaobject>
   </figure>
@@ -877,50 +877,11 @@ Other
  
 </article>
  
-<!--  LocalWords:  PyPop  -->
-<!--  LocalWords:  Glenys pubdate haplotype Histocompatibility Immunogenetics
- -->
-<!--  LocalWords:  IHWG MHC psb HLA towards Arlequin Phylip Felsenstein Genepop
- -->
-<!--  LocalWords:  analyses Py thon ulation ulink url DQ upwards formalpara HWP
- -->
-<!--  LocalWords:  Ewens homozygosity LD itemizedlist listitem emhaplofreq OSI
- -->
-<!--  LocalWords:  gthwe orderedlist parsable Solaris linkend pypop mediaobject
- -->
-<!--  LocalWords:  imageobject imagedata fileref png textobject workflow Numpy
- -->
-<!--  LocalWords:  XSLT libxslt IMGT xml programlisting CDATA dataanalysis SSOP
- -->
-<!--  LocalWords:  ukimid nireland DEVEL populationdata labcode contin latit
- -->
-<!--  LocalWords:  longit popname NIreland indivcount allelecount locuscount
- -->
-<!--  LocalWords:  lociWithDataCount allelecounts untypedindividuals eXtensible
- -->
-<!--  LocalWords:  distinctalleles Stylesheet txt linespecific DPA arp metadata
- -->
-<!--  LocalWords:  stylesheets genomics NCBI's dbMHC ackno IHW Diogo UML API
- -->
-<!--  LocalWords:  api tabstops programlistingco areaspec linkends coords RLS
- -->
-<!--  LocalWords:  USAERL populat calloutlist callout arearefs xreflabel SBT
- -->
-<!--  LocalWords:  literallayout SSP RSCA PCR microsatellites RFLP SSCP onwards
- -->
-<!--  LocalWords:  homozygote DRB biblioentry Roessli Excoffier citetitle Ver
- -->
-<!--  LocalWords:  pubwork releaseinfo publishername Guo volumenum pagenums
- -->
-<!--  LocalWords:  Trowsdale othername issuenum Immunogentics refentry Ihaka
- -->
-<!--  LocalWords:  Cladistics sgml
- -->
 <!--
 Local variables:
 sgml-local-catalogs: ("catalog")
 sgml-indent-step: 1
 sgml-indent-data: 1
-ispell-skip-html: always
+ispell-skip-html: t
 End:
 -->
