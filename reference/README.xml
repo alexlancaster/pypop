@@ -35,9 +35,11 @@
   <title>Introduction</title>
 
   <para>You may use <application>PyPop</application> to analyze many
-   different kinds of data, including allele calls from HLA or any
-   other area of any other chromosome, microsatellite data, SNPs,
-   right down to nucleotide and amino acid data.</para>
+   different kinds of data, including allele-level genotypes (as in
+   <xref linkend="data-minimal-noheader-noids"/>) and allele-level
+   frequencies (as in <xref linkend="data-allelecount"/>)
+   from the HLA region regions other chromosomes, microsatellite data,
+   SNPs, and nucleotide and amino acid sequence data.</para>
 
   <para>There are two ways to run <application>PyPop</application>:
    <itemizedlist>
@@ -51,26 +53,26 @@
     </listitem>
    </itemizedlist> For the most straightforward application of
    <application>PyPop</application>, where you wish to analyze a
-   single population, the interactive mode is the simplest to use, we
-   will describe it first, then describe batch mode.</para>
+   single population, the interactive mode is the simplest to use. We
+   will describe this mode first, then describe batch mode.</para>
 
   <section>
    <title>Interactive mode</title>
 
-   <para>Running <application>PyPop</application> is really quite
-    simple - you just need to click the <filename>pypop.bat</filename>
-    file (Windows) or type <userinput>./pypop.sh</userinput>
+   <para>To run <application>PyPop</application>, click the
+    <filename>pypop.bat</filename> file (Windows) or type
+    <userinput>./pypop.sh</userinput> at the command prompt
     (GNU/Linux).  You should see something like the following output
-    (this is also described in install instructions in the
-    installation guide).</para>
+    (this is also described in detail in the instructions
+    in the installation guide).</para>
 
    <xi:include href="install-screen.xml#xpointer(/section/screen)"/>
 
-   <para>You should substitute <filename>sample.ini</filename> and
-    <filename>sample.pop</filename> in the above, with  the  names  of
-    your own configuration (say <filename>config.ini</filename>) and
-    population file (say <filename>Guatemalan.pop</filename>).  The
-    formats for these files are described in <xref
+   <para>You should substitute the names of your own configuration
+    (e.g., <filename>config.ini</filename>) and population file (e.g.,
+    <filename>Guatemalan.pop</filename>) for
+    <filename>sample.ini</filename> <filename>sample.pop</filename>.
+    The formats for these files are described in <xref
      linkend="guide-usage-datafile"/> and <xref
      linkend="guide-usage-configfile"/>, below.
    </para>
@@ -80,25 +82,24 @@
   <section>
    <title>Batch mode</title>
 
-   <para>Running <application>PyPop</application> in batch mode is
-    also simple.  From the command line (either a DOS shell in Windows
-    or a terminal window in GNU/Linux), you should type
-    <userinput>pypop</userinput>, followed by the name of your
-    population file, like this:</para>
+   <para>To run <application>PyPop</application> in batch mode, type
+    from the command line (either a DOS shell in Windows or a terminal
+    window in GNU/Linux): <userinput>pypop</userinput>, followed by the
+    name of your population file, as follows:</para>
 
    <screen><command>pypop</command> <filename>Guatemalan.pop</filename></screen>
-   <para>This assumes two things: that you have a file in your current
-    folder called <filename>config.ini</filename> and that you have
-    your population file also in the current folder.  You can change
-    the name of the configuration file, by supply the
-    <option>-c</option> option like so:</para>
+   <para>This mode assumes two things: that you have a file called
+    <filename>config.ini</filename> in your current folder and that
+    you also have your population file also in the current folder.  You can
+    change the name of the configuration file, by supplying the
+    <option>-c</option> option as follows:</para>
 
    <screen><command>pypop</command> -c <filename>newconfig.ini</filename> <filename>Guatemalan.pop</filename></screen>
 
    <para>For a full list of options supported by
-    <application>PyPop</application>, you can type <userinput>pypop
-     --help</userinput> and you should receive a screen something like
-    the following:</para>
+    <application>PyPop</application>,  type <userinput>pypop
+     --help</userinput>.   You should receive a screen resembling the
+    following:</para>
 
    <screen>pypop --help
 Usage: pypop [OPTION] INPUTFILE
@@ -118,8 +119,7 @@ current directory or in /usr/share/PyPop/config.ini.
   INPUTFILE   input text file</screen>
 
    <warning>
-    <para>Documentation for these options is currently incomplete, but
-     will be forthcoming.</para>
+    <para>Documentation for these options is currently incomplete.</para>
    </warning>
 
   </section>
@@ -127,15 +127,18 @@ current directory or in /usr/share/PyPop/config.ini.
   <section>
    <title>What happens when you run <application>PyPop</application>?</title>
 
-   <para>The most common situation will be to edit your
-    <filename>config.ini</filename> file to suit your data and then
-    using either the interactive or batch mode described above. If
-    your input configuration file is
+   <para>The most common types of analysis will involve the editing of
+    your <filename>config.ini</filename> file to suit your data (see
+    <xref
+     linkend="guide-usage-configfile"/>) followed by the selection of
+    either the interactive or batch mode described above. If your
+    input configuration file is
     <filename><replaceable>configfilename</replaceable></filename> and
     your population file name is
     <filename><replaceable>popfilename</replaceable>.txt</filename>
-    then the first output will be generated fairly quickly, but your
-    run is not finished until the text output file named
+    the initial output will be generated  quickly, but your the
+    <application>PyPop</application> execution will not be finished
+    until the text output file named
     <replaceable>popfilename</replaceable>-out.txt has been created. A
     successful run will produce two output files:
     <filename><replaceable>popfilename</replaceable>-out.xml</filename>, 
@@ -145,11 +148,12 @@ current directory or in /usr/share/PyPop/config.ini.
     for valid/known HLA alleles:
     <filename><replaceable>popfilename</replaceable>-filter.xml</filename>).</para>
 
-   <para>A typical run may take anywhere from a couple of minutes to a
-    couple of hours, depending on how large your data set is and who
-    else is using the system at the same time.  Note that performing
-    the <literal>allPairwiseLDWithPermu</literal> test may take
-    several <emphasis role="bold">days</emphasis> if you have highly
+   <para>A typical <application>PyPop</application> run might take
+    anywhere from a few of minutes to a few hours, depending on how
+    large your data set is and who else is using the system at the
+    same time.  Note that performing the
+    <literal>allPairwiseLDWithPermu</literal> test may take several
+    <emphasis role="bold">days</emphasis> if you have highly
     polymorphic loci in your data set.</para>
 
   </section>
@@ -162,9 +166,29 @@ current directory or in /usr/share/PyPop/config.ini.
   <section>
    <title>Sample files</title>
 
-   <para>Data may be input either as genotypes, or in an allele:count
-    format, depending on how your data is available to you.  The
-    simplest kind of data file might look like this:</para>
+   <para>Data can be input either as genotypes, or in an allele count
+    format, depending on the format of your data.</para> 
+
+   <para>As you will see in the following examples, population files
+    begin with header information.  In the simplest case, the first
+    line contains the column headers for the genotype, allele count,
+    or, sequence information from the population.  If the file
+    contains a population data-block, then the first line consists of
+    headers identifying the data on the second line, and the third
+    line contains the column headers for the genotype or allele count
+    information. </para>
+
+   <para>Note that for genotype data, each locus corresponds to two
+    columns in the population file.  The locus name must repeated,
+    with a suffix such as <literal>_1</literal>, <literal>_2</literal>
+    (the default)  or <literal>_a</literal>, <literal>_b</literal> and
+    must match the format defined in the
+    <filename>config.ini</filename> (see <xref
+     linkend="validSampleFields"/>).  Although
+    <application>PyPop</application> needs this distinction to be
+    made, phase is NOT assumed or inferred, nor, if present, is not
+    recognized.</para>
+
 
    <example id="data-minimal-noheader-noids">
     <title>Multi-locus allele-level genotype data</title>
@@ -178,10 +202,10 @@ current directory or in /usr/share/PyPop/config.ini.
 0210  3204  1801  0102  78021 1301  
 03012 3204  1507  0605  51013 39021 
   </programlisting>
-   </example>
 
-   <para>It is also possible have data files which have non-allele
-    data in some columns, like sample identifiers ("ids").</para>
+   <para>This is an example of the simplest kind of data file.</para>
+
+   </example>
 
    <example id="data-minimal-noheader">
     <title>Multi-locus allele-level genotype data with sample information</title>
@@ -197,8 +221,9 @@ UchiTelle  UT910-03  03012 3204  1507  0605  51013 39021
   </programlisting>
    </example>
 
-  <para>One can also have a file identical to above, but including
-    population level information like this:</para>
+   <para>This example shows a  data file which has non-allele data in
+    some columns, here we have population (<literal>populat</literal>)
+    and  sample identifiers (<literal>id</literal>).</para>
 
    <example id="data-hla">
     <title>Multi-locus allele-level genotype data with sample and header information</title>
@@ -214,30 +239,35 @@ UchiTelle   UT910-01   2501    0201    1507    0307    51013   1401
 UchiTelle   UT910-02   0210    3204    1801    0102    78021   1301    
 UchiTelle   UT910-03   03012   3204    1507    0605    51013   39021   
 ]]></programlisting>
-   </example>
 
-  <para>It also possible to mix different kinds of data, like so:</para>
+   <para>This is an example of a data file which is identical to <xref
+     linkend="data-minimal-noheader"/>, but which includes population
+    level information.</para>
+
+   </example>
 
    <example id="data-hla-microsat">
-    <title>Multi-locus allele-level and microsatellite genotype data with less header information</title>
+    <title>Multi-locus allele-level genotype and microsatellite genotype data with header information</title>
 
   <programlisting>labcode ethnic  complex
-AUSTAI  ****    0
-populat id      drb1_1  drb1_2  dqb1_1  dqb1_2  d6s2222_1  d6s2222_2  
-AUSTAI  FOW_2   01      301     201     0501    249        249        
-AUSTAI  FOW_1   301     301     201     201     249        249        
-AUSTAI  FOW_3   01      301     201     0501    249        249        
-AUSTAI  FOW_4   01      301     201     0501    249        249        
-AUSTAI  GOU_2   02      0401    0302    0602    247        249        
-AUSTAI  GOU_1   301     301     201     201     247        249        
-AUSTAI  GOU_3   301     0401    201     0302    249        249        
-AUSTAI  GOU_4   301     0401    201     0302    247        249</programlisting>
+USAFEL  ****    0
+populat    id      drb1_1  drb1_2  dqb1_1  dqb1_2  d6s2222_1  d6s2222_2  
+UchiTelle  HJK_2   01      0301    0201     0501    249        249        
+UchiTelle  HJK_1   0301    0301    0201     0201    249        249        
+UchiTelle  HJK_3   01      0301    0201     0501    249        249        
+UchiTelle  HJK_4   01      0301    0201     0501    249        249        
+UchiTelle  MYU_2   02      0401    0302     0602    247        249        
+UchiTelle  MYU_1   0301    0301    0201     0201    247        249        
+UchiTelle  MYU_3   0301    0401    0201     0302    249        249        
+UchiTelle  MYU_4   0301    0401    0201     0302    247        249</programlisting>
+
+    <para>This example  mixes different kinds of data: allele data
+     with microsatellite data.</para>
+
    </example>
 
-  <para>or perhaps like this:</para>
-
    <example id="data-nucleotide">
-    <title>Nucleotide genotype data with header information</title>
+    <title>Sequence genotype data with header information</title>
 
   <programlisting>labcode file                                                
 INDMEH  C_New Delhi Mehra                                              
@@ -253,10 +283,10 @@ Korean  KH-8     C             T             CG          TG
 Korean  KH-9     T             T             TG          TG     
 Korean  KH-10    C             T             CG          TG     
   </programlisting>
-   </example>
 
-   <para><application>PyPop</application> can also process allele
-    count data, such as the following:</para>
+  <para>This example includes nucleotide sequence data.</para>
+    
+   </example>
 
    <example id="data-allelecount">
     <title>Allele count data</title>
@@ -272,59 +302,43 @@ dqa1  count
 0401  9
 0501  35
   </programlisting>
+
+   <para><application>PyPop</application> can also process allele
+     count data.  However, you cannot mix allele count data and
+     genotype data together in the one file</para>
+
    </example>
 
    <para>These population files are plain text files, such as you
     might save out of the <application>Notepad</application>
     application on Windows (or <application>Emacs</application>).  The
-    columns are all tab-delimited, so you may include spaces in your
+    columns are all tab-delimited, so you can include spaces in your
     labels.  If you have your data in a spreadsheet application, such
     as <application>Excel</application> or
-    <application>OpenOffice.org</application>, you should be able to
-    export the file as tab-delimited text, and everything should be
-    fine.</para>
-  
-   <para>As you can see from the above examples, population files begin
-    with header information.  In the simplest case, the first line
-    contains the column headers for the genotype or allele count
-    information on the population.  If the file contains a population
-    data-block, then the first line consists of headers specifying
-    what will be on the second line, and then the third line will
-    contain the column headers for the genotype or allele count
-    information. </para>
-
-   <para>Note that, for genotype data, each locus corresponds to two
-    columns in the input file.  The locus name must repeated, with a
-    suffix such as <literal>_1</literal>, <literal>_2</literal> (the
-    default)  or <literal>_a</literal>, <literal>_b</literal> and must
-    match the format defined in the <filename>config.ini</filename>
-    (see <xref
-     linkend="validSampleFields"/>).  Although
-    <application>PyPop</application> needs this distinction to be
-    made, phase is NOT assumed or inferred, nor, if present, is it
-    acknowledged or honored.</para>
+    <application>OpenOffice.org</application>, export the file as
+    tab-delimited text, in order to use it as
+    <application>PyPop</application> data file.</para>
 
   </section>
   
   <section>
    <title>Missing data</title>
    
-   <para>Untyped data may be represented in any way you wish.  The
-    default is to use four asterisks (<literal>****</literal>) as
-    specified by the <filename>config.ini</filename>.  You may not
-    "represent" untyped data by merely leaving a column blank, nor may
-    you represent a homozygote by leaving the second column blank.
-    All columns for which you have data (be it an allele call or
-    whatever) must be filled in, and all columns for which you do not
-    have data must also be filled in, using some distinctive
-    mnemonic.</para>
+   <para>Untyped or missing data may be represented in a variety of
+    ways.  The default value for untyped or missing data is a series
+    of four asterisks (<literal>****</literal>) as specified by the
+    <filename>config.ini</filename>.  You may not "represent" untyped
+    data by leaving a column blank, nor may you represent a homozygote
+    by leaving the second column blank.  All cells for which you have
+    data must include data, and all cells for which you do not have
+    data must also be filled in, using a missing data value.</para>
    
-   <para>For individuals who were not typed at all loci, the data on
+   <para>For individuals who were not typed at all loci, the data in
     loci for which they are typed will be used on all single-locus
     analyses for that individual and locus, so that you will see the
-    value of N vary from locus to locus in the output.  These
-    individuals' data will also be used for multi-locus analyses where
-    possible.</para>
+    value of the number of individuals (<varname>n</varname>) vary
+    from locus to locus in the output.  These individuals' data will
+    also be used for multi-locus analyses where possible.</para>
    
    <para>If an individual is only partially typed at a locus, it will
     be treated as if it were completely untyped, and data for that
@@ -332,15 +346,15 @@ dqa1  count
     analyses.</para>
 
    <warning>
-   <title>Caveats and limitations</title>
+    <title>Current limitations of <application>PyPop</application></title>
    
    <itemizedlist>
     
     <listitem>
-     <para>Take care that there are no trailing blank lines at the end
-      of your data file, as this currently causes
-      <application>PyPop</application> to terminate with an error
-      message that takes experience to diagnose.</para></listitem>
+     <para>Do not leave trailing blank lines at the end of your data
+       file, as this currently causes <application>PyPop</application>
+       to terminate with an error message that takes experience to
+       diagnose.</para></listitem>
     
     <listitem>
      <para>Do not have more than one copy of the program running at
@@ -357,7 +371,7 @@ dqa1  count
     
     <listitem>
      <para>For haplotype estimation there is a limit of 1023 for the
-      number of records (n).</para></listitem>
+       number of individuals (<varname>n</varname>).</para></listitem>
     
    </itemizedlist>
    </warning>
@@ -367,13 +381,13 @@ dqa1  count
  <section id="guide-usage-configfile">
   <title>The configuration file</title>
   
-  <para>The way your data file is parsed by
+  <para>The way your population data file is parsed by
    <application>PyPop</application> is controlled by a configuration
    file, the default name for which is
    <filename>config.ini</filename>. This is another plain text file
-   consisting of <firstterm>comments</firstterm> (which are lines
-   which start with a semi-colon), <firstterm>sections</firstterm>
-   (which are lines with labels in square brackets), and
+   consisting of <firstterm>comments</firstterm> (which are lines that
+   start with a semi-colon), <firstterm>sections</firstterm> (which
+   are lines with labels in square brackets), and
    <firstterm>options</firstterm> (which are lines specifying settings
    relevant to that section in the
    <literal><option>option</option>=<replaceable>value</replaceable></literal> 
@@ -382,11 +396,13 @@ dqa1  count
   <section id="config-minimal">
    <title>A minimal configuration file</title>
 
-   <para>Here we present  a fairly minimal <filename>.ini</filename>
-    file corresponding to <xref linkend="data-minimal-noheader-noids"/> and
-    will go through the file here, section by section.  (Note comment
-    lines have been omitted in the above example for clarity).  For
-    more advanced options see <xref linkend="config-advanced"/>.</para>
+   <para>Here we present a minimal <filename>.ini</filename> file
+    corresponding to <xref
+     linkend="data-minimal-noheader-noids"/> A  section by section
+    review of this file follows.  (Note comment lines have been
+    omitted in the above example for clarity).  A description of  more
+    advanced options is contained in <xref
+     linkend="config-advanced"/>.</para>
 
   <example id="config-minimal-example">
    <title>Minimal <filename>config.ini</filename> file</title>
@@ -428,7 +444,7 @@ allPairwiseLDWithPermu=0></programlisting>
      
      <para role="strong"><literal>[General]</literal></para>
      
-     <para>This section contains some variables that control the
+     <para>This section contains variables that control the
       overall behavior of <application>PyPop</application>.</para>
      
      <itemizedlist>
