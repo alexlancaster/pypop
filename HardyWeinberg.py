@@ -452,26 +452,6 @@ class HardyWeinberg:
     stream.closetag('heterozygotesByAllele')
     stream.writeln()
 
-    # loop for all genotypes by genotype
-    stream.opentag('genotypesByGenotype')
-    stream.writeln()
-    for genotype in self.chisqByGenotype.keys():
-      stream.opentag('genotype', name=genotype)
-      stream.writeln()
-      stream.tagContents("observed", "%d" % self.observedGenotypeCounts[genotype])
-      stream.writeln()
-      stream.tagContents("expected", "%4f" % self.expectedGenotypeCounts[genotype])
-      stream.writeln()
-      stream.tagContents("chisq", "%4f" % self.chisqByGenotype[genotype])
-      stream.writeln()
-      stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[genotype])
-      stream.writeln()
-      stream.closetag('genotype')
-      stream.writeln()
-
-    stream.closetag('genotypesByGenotype')
-    stream.writeln()
-
     if self.flagLumps == 1:
       stream.opentag('lumped')
       stream.writeln()
@@ -535,6 +515,9 @@ class HardyWeinberg:
         if vert > horiz:
           continue
 
+        # start tag
+        stream.opentag("genotype", row=horiz, col=vert)
+
         # need to check both permutations of key
         key1 = "%s:%s" % (horiz, vert)
         key2 = "%s:%s" % (vert, horiz)
@@ -545,7 +528,7 @@ class HardyWeinberg:
         elif self.observedGenotypeCounts.has_key(key2):
           obs = self.observedGenotypeCounts[key2]
         else:
-          obs = "0"
+          obs = 0
 
         # get expected value
         if self.expectedGenotypeCounts.has_key(key1):
@@ -555,9 +538,27 @@ class HardyWeinberg:
         else:
           exp = 0.0
 
-        stream.opentag("genotype", row=horiz, col=vert)
-        stream.tagContents("observed", "%2s" % obs)
-        stream.tagContents("expected", "%.1f" % exp)
+        stream.writeln()
+        stream.tagContents("observed", "%d" % obs)
+        stream.writeln()
+        stream.tagContents("expected", "%4f" % exp)
+        stream.writeln()
+
+        # get and tag chisq and pvalue (if they exist)
+        if self.chisqByGenotype.has_key(key1):
+          stream.tagContents("chisq", "%4f" % self.chisqByGenotype[key1])
+          stream.writeln()
+          stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[key1])
+          stream.writeln()
+        elif self.chisqByGenotype.has_key(key2):
+          stream.tagContents("chisq", "%4f" % self.chisqByGenotype[key2])
+          stream.writeln()
+          stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[key2])
+          stream.writeln()
+        else:
+          stream.emptytag("chisq", role='not-calculated')
+          stream.emptytag("pvalue", role='not-calculated')
+          
         stream.closetag("genotype")
         stream.writeln()
 
