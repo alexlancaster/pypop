@@ -4,8 +4,16 @@
 
  <xsl:import href="common.xsl"/>
 
- <!-- select "text" as output method -->
- <xsl:output method="text" omit-xml-declaration="yes"/>
+ <!-- select "html" as output method -->
+ <xsl:output method="html" omit-xml-declaration="yes"/>
+
+ <xsl:template match="/">
+  <html>
+   <pre>
+    <xsl:apply-templates/> 
+   </pre>
+  </html>
+ </xsl:template>
 
 </xsl:stylesheet>
 
