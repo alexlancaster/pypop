@@ -144,7 +144,11 @@
  </biblioentry>
  
   <biblioentry id="XML">
-  <citetitle pubwork="refentry">eXtensible Markup Language <ulink url="http://www.w3.org/XML">http://www.w3.org/XML</ulink></citetitle>
+  <citetitle pubwork="refentry">eXtensible Markup Language <ulink url="http://www.w3.org/XML/">http://www.w3.org/XML/</ulink></citetitle>
+ </biblioentry>
+
+  <biblioentry id="XSLT">
+  <citetitle pubwork="refentry">eXtensible Stylesheet Language<ulink url="http://www.w3.org/Style/XSL/">http://www.w3.org/Style/XSL/</ulink></citetitle>
  </biblioentry>
  
   <biblioentry id="Felsenstein:1989">
