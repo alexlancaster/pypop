@@ -420,7 +420,7 @@
   </section>
 
   <section id="pypop:modules">
-   <title><application>PyPop</application> modules</title>
+   <title>PyPop modules</title>
 
    <para><application>PyPop</application> groups statistics into separate
     <emphasis>modules</emphasis>, represented in the data flow by
