@@ -655,6 +655,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
 
   <section>
    <title>Role and significance</title>
+
    <para>It's important to note that <application>PyPop</application>
     is not attempting to supplant or replace other, more established,
     population genetics analysis packages. The basic population
@@ -665,10 +666,11 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     Indeed, <application>PyPop</application> can use existing packages
     to calculate them. However the approach of integrating information
     in highly heterogeneous datasets on a large scale is new, and not
-    currently available in the evolutionary genetics community.  The
-    uniqueness of the present project is that it is intended be a
-    high-throughput system that helps population genetics join the
-    realm of genomics.</para>
+    currently available in the evolutionary genetics community.  In
+    addition to tests unavailable in existing projects, the uniqueness
+    of the present project is that it is intended to be a
+    high-throughput system that enables population genetics to join
+    the realm of genomics.</para>
 
   </section>
 
@@ -683,8 +685,9 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     (by considering each amino acid site as a genetic locus),
     necessitating the translation of the allele <quote>calls</quote>
     into sequence data (where possible).  This will result in a useful
-    module for those wishing to reinterpret existing allele data in
-    the light of new sequence information.</para>
+    module for those wishing to analyze allele data at the sequence
+    level.  <!-- reinterpret existing allele data in the light of new
+    sequence information. --></para>
    
    <para>Longer-term possibilities include developing a graphical
     front-end, possibly web-based, integration with data mining tools
@@ -701,7 +704,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
   
  </section>
 
- <ackno>This work has benefited from the support of NIH grant 79690
+ <ackno>This work has benefited from the support of NIH grant AI49213
  (13<superscript>th</superscript> IHW).  Thanks to Steve Mack.</ackno>
 
  <xi:include href="biblio.xml"/>
