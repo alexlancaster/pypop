@@ -6,7 +6,7 @@
 
 import string, sys, os, popen2
 from Utils import getStreamType, TextOutputStream
-from Arlequin import ArlequinWrapper
+from Arlequin import ArlequinExactHWTest
 
 class HardyWeinberg:
   """Calculate Hardy-Weinberg statistics.
@@ -785,14 +785,12 @@ class HardyWeinbergGuoThompsonArlequin:
     # if no data, don't run analysis
     if len(self.matrix.filterOut(self.locusName, self.untypedAllele)) > 0:
 
-      arlequin = ArlequinWrapper(matrix = self.matrix,
-                                 arlequinExec = self.arlequinExec,
-                                 untypedAllele = self.untypedAllele,
-                                 debug=self.debug)
+      arlequin = ArlequinExactHWTest(matrix = self.matrix,
+                                     arlequinExec = self.arlequinExec,
+                                     lociList = [self.locusName],
+                                     untypedAllele = self.untypedAllele,
+                                     debug=self.debug)
 
-      arlequin.outputArp([self.locusName])
-      arlequin.outputRunFiles()
-      arlequin.runArlequin()
       self.output = arlequin.getHWExactTest()
       arlequin.cleanup()
       
