@@ -5,12 +5,26 @@
 
  <!-- boiler-plate text that we may want to re-use -->
  <data:hardyweinberg-col-headers>
-  <text>Observed</text>
-  <text>Expected</text>
-  <text>Chi-square</text>
-  <text colwidth="5">dof</text>
-  <text justify="left">p-value</text>
+  <text col="observed">Observed</text>
+  <text col="expected">Expected</text>
+  <text col="chisq">Chi-square</text>
+  <text col="chisqdf" colwidth="6">DoF</text>
+  <text col="pvalue" justify="left">p-value</text>
  </data:hardyweinberg-col-headers>
+
+ <data:hardyweinberg-guo-thompson>
+  <text col="dememorizationSteps">Dememorization steps</text>
+  <text col="samplingNum">Number of samples</text>
+  <text col="samplingSize">Sample size</text>
+  <text col="pvalue">p-value</text>
+  <text col="stderr">Std. error</text>
+ </data:hardyweinberg-guo-thompson>
+
+ <xsl:variable name="hw-col-headers" 
+  select="document('')//data:hardyweinberg-col-headers/text"/>
+
+ <xsl:variable name="hw-guo-thompson" 
+  select="document('')//data:hardyweinberg-guo-thompson/text"/>
 
  <!-- ################  HARDY-WEINBERG STATISTICS ###################### --> 
 
@@ -35,7 +49,7 @@
     </xsl:call-template>
     
     <!-- print header for the individual stats -->
-    <xsl:for-each select="document('')//data:hardyweinberg-col-headers/text">
+    <xsl:for-each select="$hw-col-headers">
      <xsl:variable name="width">
       <xsl:choose>
        <xsl:when test="@colwidth">
@@ -50,7 +64,10 @@
       <xsl:when test="@justify='left'">
        <xsl:text> </xsl:text>
        <xsl:call-template name="append-pad">
-	<xsl:with-param name="padVar" select="."/>
+	<xsl:with-param name="padVar">
+	 <xsl:text>  </xsl:text>
+	 <xsl:value-of select="."/>
+	</xsl:with-param>
 	<xsl:with-param name="length" select="$width"/>
        </xsl:call-template>
       </xsl:when>
@@ -101,11 +118,11 @@
     </xsl:call-template>
    </xsl:when>
    <xsl:otherwise>
-    <!-- make sure there is at least one initial space -->
+    <!-- make sure there is at least two initial space -->
     <!-- FIXME: this entire table generation system is getting way too -->
     <!-- kludgy, need to replace the entire system, with a clean, generic --> 
     <!-- system real soon now(TM) -->
-    <xsl:text> </xsl:text>
+    <xsl:text>  </xsl:text>
     <xsl:call-template name="append-pad">
      <xsl:with-param name="padVar" select="$node"/>
      <xsl:with-param name="length" select="$width"/>
@@ -142,13 +159,18 @@
   </xsl:variable>
   <xsl:variable name="chisq">
    <xsl:call-template name="hardyweinberg-gen-cell">
-    <xsl:with-param name="node" select="chisq"/>
+    <xsl:with-param name="node">
+     <xsl:call-template name="round-to">
+      <xsl:with-param name="node" select="chisq"/>
+      <xsl:with-param name="places" select="2"/>
+     </xsl:call-template>
+    </xsl:with-param>
    </xsl:call-template>
   </xsl:variable>
   <xsl:variable name="pvalue">
    <xsl:call-template name="hardyweinberg-gen-cell">
     <xsl:with-param name="node">
-     <xsl:apply-templates select="pvalue"/>
+       <xsl:apply-templates select="pvalue"/>
     </xsl:with-param>
     <xsl:with-param name="prepend" select="0"/>
    </xsl:call-template>
@@ -156,7 +178,8 @@
   <xsl:variable name="chisqdf">
    <xsl:call-template name="hardyweinberg-gen-cell">
     <xsl:with-param name="node" select="chisqdf"/>
-    <xsl:with-param name="width" select="5"/>
+    <xsl:with-param name="width" 
+     select="$hw-col-headers[@col='chisqdf']/@colwidth"/>
    </xsl:call-template>
   </xsl:variable>
 
@@ -258,7 +281,7 @@
 
  <!-- print out info on heterozygotes and genotypes -->
  <xsl:template match="heterozygotesByAllele">
-  <xsl:text>Heterozygotes by allele</xsl:text>
+  <xsl:text>Common heterozygotes by allele</xsl:text>
   <xsl:call-template name="newline"/>
   <xsl:for-each select="allele">
    
@@ -284,7 +307,7 @@
 
  <!-- format genotype table for HW -->
  <xsl:template match="genotypetable" mode="genotypesByGenotype">
-  <xsl:text>Genotypes by genotype</xsl:text>
+  <xsl:text>Common genotypes</xsl:text>
   <xsl:call-template name="newline"/>
 
   <xsl:for-each select="genotype[chisq/@role!='not-calculated']">  
@@ -522,9 +545,23 @@
 	<xsl:text>Guo and Thompson test failed to converge.</xsl:text>
        </xsl:when>
        <xsl:otherwise>
-	<xsl:call-template name="linesep-fields">
-	 <xsl:with-param name="nodes" select="pvalue|stderr|dememorizationSteps|samplingNum|samplingSize"/>
-	</xsl:call-template>
+
+	<xsl:for-each
+	 select="stderr|dememorizationSteps|samplingNum|samplingSize">
+	 <xsl:variable name="node-name" select="name(.)"/>
+	 <xsl:value-of 
+	  select="$hw-guo-thompson[@col=$node-name]"/>  
+	 <xsl:text>: </xsl:text>
+	 <xsl:value-of select="."/>
+	 <xsl:call-template name="newline"/>
+	</xsl:for-each>
+	
+	<!-- do pvalue separately -->
+	<xsl:value-of select="$hw-guo-thompson[@col='pvalue']"/>  
+	<xsl:text>: </xsl:text>
+	<xsl:apply-templates select="pvalue"/>
+	<xsl:call-template name="newline"/>
+	
        </xsl:otherwise>
       </xsl:choose>
       <!--
