@@ -123,13 +123,10 @@ if debug:
     for option in config.options(section):
       print " ", option, "=", config.get(section, option)
 
-# create streams
-
-txtStream = TextOutputStream(open(txtOutFilename, 'w'))
+# create XML stream
 xmlStream = XMLOutputStream(open(xmlOutFilename, 'w'))
 
 # opening tag
-#xmlStream.opentag('dataanalysis', 'date', "%s-%s" % (datestr, timestr))
 xmlStream.opentag('dataanalysis', date="%s-%s" % (datestr, timestr))
 xmlStream.writeln()
 xmlStream.tagContents('filename', baseFileName)
@@ -170,9 +167,6 @@ input = ParseGenotypeFile(fileName,
                           fieldPairDesignator=fieldPairDesignator,
 			  debug=debug)
 
-# serialize summary info into text
-input.serializeMetadataTo(txtStream)
-
 # serialize summary info for population in XML
 input.serializeMetadataTo(xmlStream)
 
@@ -180,11 +174,9 @@ loci = input.getLocusList()
 loci.sort()
 
 for locus in loci:
-  txtStream.write("\nLocus: %s\n======\n" % locus)
   xmlStream.opentag('locus', name=locus)
   xmlStream.writeln()
   
-  input.serializeAlleleCountDataAt(txtStream, locus)
   input.serializeAlleleCountDataAt(xmlStream, locus)
   
   # Parse "HardyWeinberg" section
@@ -205,18 +197,7 @@ for locus in loci:
                              debug=debug)
 
     # serialize HardyWeinberg
-    hwObject.serializeTo(txtStream)
     hwObject.serializeTo(xmlStream)
-
-# don't parse the config.ini output options, just yet
-
-##     try:
-##       if config.getboolean("HardyWeinberg", "outputChisq"):
-##         hwObject.getChisq()
-##     except NoOptionError:
-##       pass
-##     except ValueError:
-##       sys.exit("require a 0 or 1 as a flag")
 
   # Parse "HardyWeinbergGuoThompson"
   
@@ -262,12 +243,6 @@ for locus in loci:
                                       lumpBelow=lumpBelow,
                                       debug=debug)
     
-    # output to text only (XML serialization to be completed)
-    txtStream.writeln("Guo & Thompson Hardy-Weinberg statistics:")
-    txtStream.writeln("=========================================")
-    txtStream.writeln("removed text output--look at the xml output")
-    txtStream.writeln()
-                      
     hwObject.dumpTable(locus, xmlStream)
     xmlStream.writeln()
     
@@ -286,62 +261,7 @@ for locus in loci:
                                     rootPath=rootPath,
                                     debug=debug)
 
-    hzObject.serializeHomozygosityTo(txtStream)
     hzObject.serializeHomozygosityTo(xmlStream)
-
-# don't parse the config.ini output options, just yet
-
-##     try:
-##       if config.getboolean("Homozygosity", "outputObservedHomozygosity"):
-##         print "Fo = ", hzObject.getObservedHomozygosity()
-##     except NoOptionError:
-##       pass
-##     except ValueError:
-##       sys.exit("require a 0 or 1 as a flag")
-          
-##     if hzObject.canGenerateExpectedStats():
-##       try:
-##         if config.getboolean("Homozygosity", "outputCount"):
-##           print "count = ", hzObject.getCount()
-##       except NoOptionError:
-##         pass
-##       except ValueError:
-##         sys.exit("require a 0 or 1 as a flag")
-                  
-##       try:
-##         if config.getboolean("Homozygosity", "outputMean"):
-##           print "mean of Fe = ", hzObject.getMean()
-##       except NoOptionError:
-##         pass
-##       except ValueError:
-##         sys.exit("require a 0 or 1 as a flag")
-                                                
-##       try:
-##         if config.getboolean("Homozygosity", "outputVar"):
-##           print "var of Fe = ", hzObject.getVar()
-##       except NoOptionError:
-##         pass
-##       except ValueError:
-##         sys.exit("require a 0 or 1 as a flag")
-
-##       try:
-##         if config.getboolean("Homozygosity", "outputSem"):
-##           print "sem of Fe = ", hzObject.getSem()
-##       except NoOptionError:
-##         pass
-##       except ValueError:
-##         sys.exit("require a 0 or 1 as a flag")
-
-##       try:
-##         if config.getboolean("Homozygosity", "outputPValueRange"):
-##           print "%f < pval < %f" % hzObject.getPValueRange()
-##       except NoOptionError:
-##         pass
-##       except ValueError:
-##         sys.exit("require a 0 or 1 as a flag")
-
-##       else:
-##          print "Can't generate expected stats"
 
   xmlStream.closetag('locus')
   xmlStream.writeln()
@@ -355,10 +275,7 @@ if config.has_section("Emhaplofreq"):
     print "no loci to estimate, provided, assume entire data set"
     locusKeys=string.join(input.getIndividualsData().colList,':')
 
-  # output to text only (XML serialization to be completed)
-  txtStream.writeln("Haplotype estimation via emhaplofreq:")
-  txtStream.writeln("=====================================")
-
+  # serialize to XML
   haplo = Emhaplofreq(input.getIndividualsData(), debug=debug)
   haplo.estHaplotypes(locusKeys)
 
@@ -380,7 +297,6 @@ if config.has_section("Emhaplofreq"):
   if estAllPairwise:
     haplo.estAllPairwise()
 
-  haplo.serializeTo(txtStream)
   haplo.serializeTo(xmlStream)
 
   # close file pointer
@@ -390,8 +306,7 @@ if config.has_section("Emhaplofreq"):
 # closing tag
 xmlStream.closetag('dataanalysis')
 
-# close streams
-txtStream.close()
+# close XML stream
 xmlStream.close()
 
 # create default XSL stylesheet location
@@ -415,7 +330,7 @@ if use_libxsltmod:
   output = libxsltmod.translate_to_string('f', xslFilename, 'f', xmlOutFilename)
   
   # open new txt output
-  newOut = open("new-" + txtOutFilename, 'w')
+  newOut = TextOutputStream(open(txtOutFilename, 'w'))
   newOut.write(output)
   newOut.close()
 
@@ -430,7 +345,7 @@ if use_FourSuite:
   xmlStream = open(xmlOutFilename, 'r')
 
   # open new txt output
-  newOut = open("new-" + txtOutFilename, 'w')
+  newOut = TextOutputStream(open(txtOutFilename, 'w'))
   
   # create xsl process
   p = Processor()
