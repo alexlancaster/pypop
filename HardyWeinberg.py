@@ -88,13 +88,11 @@ class HardyWeinberg:
 
       self.observedGenotypes.append(allele[0] + ":" + allele[1])
 
-    frequencyAccumulator = 0.
     for allele in self.alleleCounts.keys():
       """For each entry in the dictionary of allele counts
       generate a corresponding entry in a dictionary of frequencies"""
 
       freq = self.alleleCounts[allele] / float(self.alleleTotal)
-      frequencyAccumulator += freq
       self.alleleFrequencies[allele] = freq
 
     for genotype in self.observedGenotypes:
