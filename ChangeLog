@@ -1,3 +1,7 @@
+2005-03-01  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* setup.py (ext_Gthwe): Add gthwe/statistics.c.
+
 2005-02-28  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* HardyWeinberg.py (HardyWeinbergEnumeration.serializeTo):
