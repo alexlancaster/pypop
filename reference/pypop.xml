@@ -133,14 +133,14 @@
    the framework or through file formats).  In this way, our software,
    <emphasis>PyPop</emphasis> (<emphasis>Py</emphasis>thon for
    <emphasis>Pop</emphasis>ulation Genetics) can be viewed as a
-   meta-analysis framework package which can draw on the strengths of
-   existing tools in the community.</para>
+   framework which can draw on the strengths of existing tools in the
+   community.</para>
 
   <section>
    <title>IHWG: International Histocompatibility Working Group</title>
 
    <para>The primary motivation for developing this project was our
-    role as the <quote>Biostatistics Core</quote> as part of the
+    role as the <quote>Biostatistics Core</quote>, part of the
     International Histocompatibility Working Group (<ulink
      url="http://www.ihwg.org/">IHWG</ulink>).  The IHWG collected
     population data on the HLA region and largely focused on the HLA
@@ -154,13 +154,13 @@
     each lab involved in the component, which resulted in high
     resolution genotype data for each population.</para>
 
-   <para>The molecular characterization of these alleles using
-    standardized typing reagent kits thus allowed us to use both the
-    allele frequency (the raw allele <quote>calls</quote>) and the
-    underlying sequence information (the <quote>calls</quote> can be
-    converted into sequences if desired) as input to the analysis
-    framework.   <application>PyPop</application> does not distinguish
-    between allele calls or sequence data and can transparently handle
+   <para>The molecular characterization of these alleles thus allowed
+    us to use both the allele frequency (the raw allele
+    <quote>calls</quote>) and the underlying sequence information (the
+    <quote>calls</quote> can be converted into sequences if desired)
+    as input to the analysis framework.
+    <application>PyPop</application> does not distinguish between
+    allele calls or sequence data and can transparently handle
     both.</para>
 
   </section>
@@ -170,9 +170,10 @@
 
    <para>The particular cross-population statistics we wished to
     address included: (1) conformity to Hardy-Weinberg expectations,
-    (2) the haplotype distributions among populations; (3) patterns of
-    linkage disequilibrium; (4) tests for balancing selection and; (5)
-    worldwide patterns of genetic differentiation.</para>
+    (2) tests for balancing selection; (3) haplotype distributions and
+    patterns of linkage disequilibrium among populations; and (4)
+    other tests such as worldwide patterns of genetic
+    differentiation.</para>
 
    <formalpara>
     <title>Hardy-Weinberg</title>
@@ -211,7 +212,7 @@
      association of alleles at different genetic loci.  Through
      estimating haplotype frequencies, it is possible to estimate LD
      in a population, the presence of significant LD can be due to
-     history for very closely linked genes and also indicate the
+     history for very closely linked genes and can also indicate the
      operation of selection. </para>
    </formalpara>
 
@@ -385,7 +386,7 @@
   <section>
    <title>Overall design</title>
 
-   <para>To  integrate the data analyses for multiple populations, the
+   <para>To integrate the data analyses for multiple populations, the
     analysis pipeline for <application>PyPop</application> has been
     designed in two major parts, or phases, the first is the basic
     population genetic analyses, and the second integrates the results
@@ -397,10 +398,10 @@
    <title>Work flow</title>
    <mediaobject>
     <imageobject>
-     <imagedata fileref="work-flow2.png" align="center" scale="99"/>  <!-- scale="45" -->
+     <imagedata fileref="work-flow.jpg" align="center" scale="99"/>  <!-- scale="45" -->
     </imageobject>
     <textobject>
-     <phrase>Diagram of software work-flow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.png</phrase>
+     <phrase>Diagram of software work-flow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.jpg</phrase>
     </textobject>
    </mediaobject>
   </figure>
@@ -492,9 +493,9 @@
 
    <para>XML was chosen as the output format because: 1) it can be
     read as input by other programs and; 2) it is readily
-    transformable from XML into human-readable form (e.g., a text
-    file) or web-form (e.g., HTML) via XSLT (eXtensible Stylesheet
-    Language for Transformations)<citation>XSLT</citation>.</para>
+    transformable into human-readable form (e.g., a text file) or
+    web-form (e.g., HTML) via XSLT (eXtensible Stylesheet Language for
+    Transformations)<citation>XSLT</citation>.</para>
 
    <para>In phase II, the results of the data analyses of the
     individual data files are integrated, and the benefits of using
@@ -508,14 +509,14 @@
     significance of all pairwise linkage disequilibrium) can take a
     considerable amount of time, especially if the population consists
     of many individuals and is highly polymorphic, the
-    <emphasis>analysis generation</emphasis> stage is as decoupled as
-    possible from the <emphasis>analysis presentation</emphasis>
-    stage.  This enables tweaking of the <quote>human-readable</quote>
-    text output of the individual files of the presentation without
-    completely re-running the analyses.  A sample text output is shown
-    in <xref linkend="pypop:sample-txt" />.
-    The same XML content can also be used to generate an HTML version
-    or web version of the same data set.
+    <emphasis>analysis generation</emphasis> stage is decoupled from
+    the <emphasis>analysis presentation</emphasis> stage.  This
+    enables tweaking of the <quote>human-readable</quote> text output
+    of the individual files of the presentation without completely
+    re-running the analyses.  A sample text output is shown in <xref
+     linkend="pypop:sample-txt" />. The same XML content can
+    also be used to generate an HTML version or web version of the
+    same data set.
    </para>
 
    <figure id="pypop:sample-txt">
@@ -534,7 +535,6 @@ Collection site: Northern Ireland
        Latitude: 54 degrees 40 minutes north
       Longitude: 6 degrees 45 minutes west
 Population Name: NIreland
-
 [...]
 
 1.1. Allele Counts [A]
@@ -686,19 +686,14 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     necessitating the translation of the allele <quote>calls</quote>
     into sequence data (where possible).  This will result in a useful
     module for those wishing to analyze allele data at the sequence
-    level.  <!-- reinterpret existing allele data in the light of new
-    sequence information. --></para>
-   
-   <para>Longer-term possibilities include developing a graphical
+    level.  Longer-term possibilities include developing a graphical
     front-end, possibly web-based, integration with data mining tools
     such as clustering analysis, and currently under discussion is
     integration with the NCBI's new <application>dbMHC</application>
-    database<citation>dbMHC</citation>.</para>
-
-   <para>We plan to release
+    database<citation>dbMHC</citation>.  We also plan to  release
     <application>PyPop</application> under an open source license.
     Details will be made available at the Thomson lab website: <ulink
-    url="http://allele5.biol.berkeley.edu/">http://allele5.biol.berkeley.edu/</ulink></para>
+     url="http://allele5.biol.berkeley.edu/">http://allele5.biol.berkeley.edu/</ulink></para>
 
   </section>
   
