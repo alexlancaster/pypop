@@ -390,7 +390,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         stream.writeln()
 
         # calculate normalized deviate of homozygosity (F_nd)
-        sqrtVar = math.sqrt(self.EW.get_var_homozygosity())
+        sqrtVar = math.sqrt(math.fabs(self.EW.get_var_homozygosity()))
 
         try:
           normDevHomozygosity = (self.getObservedHomozygosity() - \

@@ -1,3 +1,21 @@
+2005-01-09  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Filter.py (BinningFilter.doCustomBinning): Prototype of new
+	custom binning function now operational.
+
+	* Homozygosity.py
+	(HomozygosityEWSlatkinExact.serializeHomozygosityTo): Prevent math
+	errors by forcing the homozygosity to be positive (only a problem
+	for rare cases, when the result is so close to zero that the
+	floating point algorithms cause a negative result.)
+
+	* Main.py (Main._runFilters): Setting up the call for the custom
+	binning filter.
+	(Main._doGenotypeFile): Changing the if statement to remove the
+	prohibition of running Emhaplofreq on allelecount data.  Although
+	pointless at the allele level, the user may want to estimate LD
+	for pairs of amino acid positions from allele count data.
+
 2004-12-23  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* NEWS: Now builds against recent versions of SWIG (no longer

@@ -792,7 +792,7 @@ class BinningFilter:
     """
 
     def __init__(self,
-                 binningPath=None,
+                 customBinningDict=None,
                  logFile=None,
                  untypedAllele='****',
                  filename=None,
@@ -800,7 +800,7 @@ class BinningFilter:
                  debug=0):
         self.binningDigits = binningDigits
         self.untypedAllele = untypedAllele
-        self.binningPath = binningPath
+        self.customBinningDict = customBinningDict
         
     
     def doDigitBinning(self,matrix=None):
@@ -818,39 +818,63 @@ class BinningFilter:
                     
         
     def doCustomBinning(self, matrix=None):
-
-        # first, create the custom binning dictionary
-        customBinningDict = {}
-        for locus in matrix.colList:
-            customBinningDict[locus] = {}
-
-        print self.binningPath
-        lines = (open(self.binningPath, 'r')).readlines()
-
-        for line in lines:
-            column1, column2 = line.split()
-            if column1 == "locus":
-                locus = string.upper(column2)
-            else:
-                customBinningDict[locus][column1] = column2
-
-
-        # then, go through each cell of the matrix and make necessary substitutions
+        # go through each cell of the matrix and make necessary substitutions
         allele = ['','']
         for locus in matrix.colList:
             individCount = 0
             for individ in matrix[locus]:
                 for i in range(2):
                     allele[i] = individ[i]
-                    if allele[i] in customBinningDict[locus]:
-                        print locus + "*" + allele[i] + " is being replaced by " + customBinningDict[locus][allele[i]]
-                        allele[i] = customBinningDict[locus][allele[i]]
+
+                    exactMatches = []
+                    closeMatches = {}
+                    
+                    # see if allele exists in the binning rules (exact or close)
+                    for ruleSet in self.customBinningDict[locus.lower()]:
+                        ruleSetSplit = ruleSet.split('/')
                         
+                        # check for exact match(es)
+                        if allele[i] in ruleSetSplit:
+                            exactMatches.append(ruleSet)
+
+                        # check for close match(es)
+                        if len(allele[i]) > 2:
+                            ruleCounter = 0
+                            matchTracker = {}
+                            for potentialMatch in ruleSetSplit:
+                                for digitSlice in xrange(len(allele[i])-2):
+                                    if allele[i][:-digitSlice-1] == potentialMatch:
+                                        closeMatches[ruleSet] = digitSlice+1
+                                    
+                    if exactMatches != []:
+                        print "Exact rule match: " + locus + "*" + allele[i] + " is being replaced by " + exactMatches[0]
+                        allele[i] = exactMatches[0]
+                        if len(exactMatches) > 1:
+                            print "WARNING: other exact matches found"
+                            print exactMatches
+                    elif len(closeMatches) > 0:
+                        bestScore = 1000
+                        for match in closeMatches:
+                            if closeMatches[match] < bestScore:
+                                bestScore = closeMatches[match]
+                                finalMatch = match
+                        print "Close rule match: " + locus + "*" + allele[i] + " is being replaced by " + finalMatch
+                        allele[i] = finalMatch
+                        if len(closeMatches) > 1:
+                            print "WARNING: other close matches found"
+                            print closeMatches
+                            
                 matrix[individCount,locus] = (allele[0],allele[1])
                 individCount += 1
+                
         return matrix
 
 
+
+
+
+                    #        print locus + "*" + allele[i] + " is being replaced by " + ruleSet
+                    #        allele[i] = ruleSet
 
 class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
     """Filters data with an allelecount less than a threshold.

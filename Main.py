@@ -494,12 +494,16 @@ class Main:
                 self.matrixHistory.append(filter.doDigitBinning((self.matrixHistory[-1]).copy()))
 
             elif filterType == 'CustomBinning':
+                customBinningDict = {}
                 try:
-                    binningPath=self.config.get(filterCall, "file")
+                    for option in self.config.options(filterCall):
+                        customBinningDict[option] = string.split(self.config.get(filterCall, option),os.linesep)
+                    if 1:   #self.debug:
+                        print customBinningDict
                 except:
-                    sys.exit("Could not find the CustomBinning filter file: " + binningPathspecified)
+                    sys.exit("Could not parse the CustomBinning rules.")
                 filter = BinningFilter(debug=self.debug,
-                                       binningPath=binningPath,
+                                       customBinningDict=customBinningDict,
                                        untypedAllele=self.untypedAllele,
                                        filename=self.fileName,
                                        logFile=self.filterLogFile)
@@ -824,8 +828,7 @@ class Main:
         # skip if not a genotype file, only makes sense for genotype
         # files.
 
-        if self.config.has_section("Emhaplofreq") and \
-           self.fileType == "ParseGenotypeFile":
+        if self.config.has_section("Emhaplofreq"):
 
           # create object to generate haplotype and LD statistics
           # a wrapper around the emhaplofreq module
