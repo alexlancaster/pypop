@@ -21,7 +21,10 @@ double ln_p_value();
 double cal_prob();
 double cal_const();
 
-
+int check_file();
+int read_data();
+long init_rand();
+int run_data();
 void print_data();
 void get_interval();
 void select_index();
