@@ -215,7 +215,7 @@
   </xsl:if>
   <!-- APPLY TEMPLATES -->
   <xsl:apply-templates/>
-  <!--                 -->
+
   <xsl:if test="@frame!='sides' and @frame!='none' and @frame!='top'">
    <xsl:text>\hline &#10;</xsl:text>
   </xsl:if>
