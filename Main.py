@@ -38,7 +38,7 @@
 
 import sys, os, string, time
 
-from ParseFile import ParseGenotypeFile
+from ParseFile import ParseGenotypeFile, ParseAlleleCountFile
 from Arlequin import ArlequinExactHWTest
 from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin
@@ -120,9 +120,9 @@ class Main:
         # Parse "General" section
 
         try:
-          debug = self.config.getboolean("General", "debug")
+          self.debug = self.config.getboolean("General", "debug")
         except NoOptionError:
-          debug=0
+          self.debug=0
         except ValueError:
           sys.exit("require a 0 or 1 as debug flag")
 
@@ -130,7 +130,7 @@ class Main:
         # self.config file setting
 
         if debugFlag == 1:
-          debug = 1
+          self.debug = 1
 
         # generate file prefix
         try:
@@ -147,25 +147,25 @@ class Main:
 
         defaultTxtOutFilename = uniquePrefix + "-out.txt"
         try:
-          txtOutFilename = self.config.get("General", "txtOutFilename")
-          if txtOutFilename == '':
-            txtOutFilename = defaultTxtOutFilename
+          self.txtOutFilename = self.config.get("General", "txtOutFilename")
+          if self.txtOutFilename == '':
+            self.txtOutFilename = defaultTxtOutFilename
         except NoOptionError:
-          txtOutFilename = defaultTxtOutFilename
+          self.txtOutFilename = defaultTxtOutFilename
 
         defaultXmlOutFilename = uniquePrefix + "-out.xml"
         try:
-          xmlOutFilename = self.config.get("General", "xmlOutFilename")
-          if xmlOutFilename == '':
-            xmlOutFilename = defaultXmlOutFilename
+          self.xmlOutFilename = self.config.get("General", "xmlOutFilename")
+          if self.xmlOutFilename == '':
+            self.xmlOutFilename = defaultXmlOutFilename
         except NoOptionError:
-          xmlOutFilename = defaultXmlOutFilename
+          self.xmlOutFilename = defaultXmlOutFilename
 
         # generate filename for logging filter output
 
         defaultFilterLogFilename = uniquePrefix + "-filter.xml"
 
-        if debug:
+        if self.debug:
           for section in self.config.sections():
             print section
             for option in self.config.options(section):
@@ -189,156 +189,259 @@ class Main:
 
         altpath = os.path.join(self.datapath, 'self.config.ini')
 
-        # Parse "ParseFile" section
-        try:
-          alleleDesignator = self.config.get("ParseFile", "alleleDesignator")
-        except NoOptionError:
-          alleleDesignator = '*'
 
-        try:
-          untypedAllele = self.config.get("ParseFile", "untypedAllele")
-        except NoOptionError:
-          untypedAllele = '****'
+        # check to see what kind of file we are parsing
 
-        try:
-          fieldPairDesignator = self.config.get("ParseFile", "fieldPairDesignator")
-        except NoOptionError:
-          fieldPairDesignator = '(2)'
-
-        try:
-          validPopFields = self.config.get("ParseFile", "validPopFields")
-        except NoOptionError:
-          sys.exit("No valid population fields defined")
-
-        try:
-          popNameDesignator = self.config.get("ParseFile", "popNameDesignator")
-        except NoOptionError:
-          popNameDesignator = "+"
-
-        try:
-          validSampleFields = self.config.get("ParseFile", "validSampleFields")
-        except NoOptionError:
-          sys.exit("No valid sample fields defined")
-
-        try:
-          useAnthonyNolanFilter=self.config.getboolean("ParseFile", "useAnthonyNolanFilter")
-        except NoOptionError:
-          useAnthonyNolanFilter=0
-
-        try:
-          useBinningFilter=self.config.getboolean("ParseFile", "useBinningFilter")
-        except NoOptionError:
-          useBinningFilter=0
-
-        # BinningFilter requires AnthonyNolanFilter; converse is not true.
-        if useBinningFilter:
-          useAnthonyNolanFilter=1
-          try:
-            binningPath=self.config.get("ParseFile", "binningPath")
-          except NoOptionError:
-            binningPath=os.path.join(self.datapath, "filters", "binning")
-            if debug:
-              print "Defaulting to system datapath %s for binningPath data" % binningPath
-
-        if useAnthonyNolanFilter:
-          try:
-            anthonynolanPath=self.config.get("ParseFile", "anthonynolanPath")
-          except NoOptionError:
-            anthonynolanPath=os.path.join(self.datapath, "anthonynolan", "HIG-seq-pep-text")
-            if debug:
-              print "Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
-
-          # open log file for filter in append mode
-          filterLogFile = XMLOutputStream(open(defaultFilterLogFilename, 'w'))
-
-        # create a data cleaning filter to pass all data through
-
-        if useBinningFilter:
-          # for the binningFilter, we need to add the path to the binfiles
-          filter = BinningFilter(debug=debug,
-                                 directoryName=anthonynolanPath,
-                                 untypedAllele=untypedAllele,
-                                 filename=fileName,
-                                 logFile=filterLogFile,
-                                 binsDirectory=binningPath)
-
-        elif useAnthonyNolanFilter:
-          filter = AnthonyNolanFilter(debug=debug,
-                                      directoryName=anthonynolanPath,
-                                      untypedAllele=untypedAllele,
-                                      filename=fileName,
-                                      logFile=filterLogFile)
-
-        #filter = AlleleCountAnthonyNolanFilter(debug=debug,
-        #                                       directoryName=anthonynolanPath,
-        #                                       untypedAllele=untypedAllele,
-        #                                       filename=fileName,
-        #                                       logFile=filterLogFile,
-        #                                       lumpThreshold=5)
-
+        if self.config.has_section("ParseFile"):
+            self.fileType = "ParseFile"
+        elif self.config.has_section("ParseAlleleCountFile"):
+            self.fileType = "ParseAlleleCountFile"
         else:
-          # don't use filter, just create a "pass through filter"
-          filter = PassThroughFilter()
+            sys.exit("File type is not recognised.  Exiting")
+            
+        
+        # Parse self.fileType section
 
-        # Generate the parse file object
-        input = ParseGenotypeFile(fileName,
-                                  validPopFields=validPopFields,
-                                  validSampleFields=validSampleFields,
-                                  alleleDesignator=alleleDesignator, 
-                                  untypedAllele=untypedAllele,
-                                  popNameDesignator=popNameDesignator,
-                                  fieldPairDesignator=fieldPairDesignator,
-                                  filter=filter,
-                                  debug=debug)
+        # do fields common to both types of files
+        try:
+            validPopFields = self.config.get(self.fileType, "validPopFields")
+        except NoOptionError:
+            sys.exit("No valid population fields defined")
 
-        # start output
+        try:
+            validSampleFields = self.config.get(self.fileType, "validSampleFields")
+        except NoOptionError:
+            sys.exit("No valid sample fields defined")
+
+        # no filter set yet, so assign to None
+        filter = None
+
+        # BEGIN PARSE for a genotype file (ParseGenotypeFile)
+        if self.fileType == "ParseFile":
+
+            try:
+              popNameDesignator = self.config.get(self.fileType, "popNameDesignator")
+            except NoOptionError:
+              popNameDesignator = "+"
+
+            try:
+              alleleDesignator = self.config.get(self.fileType, "alleleDesignator")
+            except NoOptionError:
+              alleleDesignator = '*'
+
+            try:
+              self.untypedAllele = self.config.get(self.fileType, "untypedAllele")
+            except NoOptionError:
+              self.untypedAllele = '****'
+
+            try:
+              fieldPairDesignator = self.config.get(self.fileType, "fieldPairDesignator")
+            except NoOptionError:
+              fieldPairDesignator = '(2)'
+
+
+            try:
+                useAnthonyNolanFilter=self.config.getboolean(self.fileType, "useAnthonyNolanFilter")
+            except NoOptionError:
+                useAnthonyNolanFilter=0
+
+            try:
+                useBinningFilter=self.config.getboolean(self.fileType, "useBinningFilter")
+            except NoOptionError:
+                useBinningFilter=0
+
+            # BinningFilter requires AnthonyNolanFilter; converse is not true.
+            if useBinningFilter:
+              useAnthonyNolanFilter=1
+              try:
+                binningPath=self.config.get(self.fileType, "binningPath")
+              except NoOptionError:
+                binningPath=os.path.join(self.datapath, "filters", "binning")
+                if self.debug:
+                  print "Defaulting to system datapath %s for binningPath data" % binningPath
+
+            if useAnthonyNolanFilter:
+              try:
+                anthonynolanPath=self.config.get(self.fileType, "anthonynolanPath")
+              except NoOptionError:
+                anthonynolanPath=os.path.join(self.datapath, "anthonynolan", "HIG-seq-pep-text")
+                if self.debug:
+                  print "Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
+
+              # open log file for filter in append mode
+              filterLogFile = XMLOutputStream(open(defaultFilterLogFilename, 'w'))
+
+            # create a data cleaning filter to pass all data through
+
+            if useBinningFilter:
+              # for the binningFilter, we need to add the path to the binfiles
+              filter = BinningFilter(debug=self.debug,
+                                     directoryName=anthonynolanPath,
+                                     untypedAllele=self.untypedAllele,
+                                     filename=fileName,
+                                     logFile=filterLogFile,
+                                     binsDirectory=binningPath)
+
+            elif useAnthonyNolanFilter:
+              filter = AnthonyNolanFilter(debug=self.debug,
+                                          directoryName=anthonynolanPath,
+                                          untypedAllele=self.untypedAllele,
+                                          filename=fileName,
+                                          logFile=filterLogFile)
+
+            #filter = AlleleCountAnthonyNolanFilter(debug=self.debug,
+            #                                       directoryName=anthonynolanPath,
+            #                                       untypedAllele=self.untypedAllele,
+            #                                       filename=fileName,
+            #                                       logFile=filterLogFile,
+            #                                       lumpThreshold=5)
+
+            else:
+              # don't use filter, just create a "pass through filter"
+              filter = PassThroughFilter()
+
+            # Generate the parse file object
+            self.input = ParseGenotypeFile(fileName,
+                                      validPopFields=validPopFields,
+                                      validSampleFields=validSampleFields,
+                                      alleleDesignator=alleleDesignator, 
+                                      untypedAllele=self.untypedAllele,
+                                      popNameDesignator=popNameDesignator,
+                                      fieldPairDesignator=fieldPairDesignator,
+                                      filter=filter,
+                                      debug=self.debug)
+
+        # END PARSE for a genotype file (ParseGenotypeFile)
+
+        # BEGIN PARSE: allelecount file (ParseAlleleCountFile)
+        elif self.fileType == "ParseAlleleCountFile":
+
+            # Generate the parse file object
+            self.input = ParseAlleleCountFile(fileName,
+                             validPopFields=validPopFields,
+                             validSampleFields=validSampleFields,
+                             separator='\t',
+                             debug=self.debug)
+        # END PARSE: allelecount file (ParseAlleleCountFile)
+        
+        else:
+            sys.exit("Unrecognised file type")
+
+        # BEGIN common XML output section
         
         # create XML stream
-        xmlStream = XMLOutputStream(open(xmlOutFilename, 'w'))
+        self.xmlStream = XMLOutputStream(open(self.xmlOutFilename, 'w'))
 
         # opening tag
-        xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr))
-        xmlStream.writeln()
+        self.xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr), role=self.fileType)
+        self.xmlStream.writeln()
 
-        if useAnthonyNolanFilter:
+        if filter:
 
             # if and only if filtering is done, generate XInclude XML
             # file output reference, to include
             # <popfilename>-filter.log
             
-            xmlStream.opentag('xi:include', href=defaultFilterLogFilename, parse="xml")
-            xmlStream.writeln()
-            xmlStream.emptytag('xi:fallback')
-            xmlStream.writeln()
-            xmlStream.closetag('xi:include')
-            xmlStream.writeln()
+            self.xmlStream.opentag('xi:include', href=defaultFilterLogFilename, parse="xml")
+            self.xmlStream.writeln()
+            self.xmlStream.emptytag('xi:fallback')
+            self.xmlStream.writeln()
+            self.xmlStream.closetag('xi:include')
+            self.xmlStream.writeln()
 
         # more meta-data
-        xmlStream.tagContents('filename', baseFileName)
-        xmlStream.writeln()
-        xmlStream.tagContents('pypop-version', version)
-        xmlStream.writeln()
+        self.xmlStream.tagContents('filename', baseFileName)
+        self.xmlStream.writeln()
+        self.xmlStream.tagContents('pypop-version', version)
+        self.xmlStream.writeln()
 
         # serialize summary info for population in XML
-        input.serializeMetadataTo(xmlStream)
+        self.input.serializeMetadataTo(self.xmlStream)
 
-        loci = input.getLocusList()
+        # process the file depending on type
+        if self.fileType == "ParseAlleleCountFile":
+            self._doAlleleCountFile()
+        elif self.fileType == "ParseFile":
+            self._doGenotypeFile()
+        else:
+            pass
+
+        # END common XML output section
+        
+        # closing tag
+        self.xmlStream.closetag('dataanalysis')
+        # close XML stream
+        self.xmlStream.close()
+
+        # lastly, generate the text output
+        self._genTextOutput()
+
+    def _doAlleleCountFile(self):
+
+        # get the locus name
+        locus = self.input.getLocusName()
+
+        # wrap the output in a locus tag with the name of the
+        # locus, thus the output XML has the same hierarchy as the
+        # ParseGenotypeFile output.
+        
+        self.xmlStream.opentag('locus', name=locus)
+        self.xmlStream.writeln()
+        
+        # generate the allele count statistics
+        self.input.serializeAlleleCountDataAt(self.xmlStream, locus)
+
+        # disabled old table-based Homozygosity
+
+        if 0:
+            try:
+                rootPath=self.config.get("Homozygosity", "rootPath")
+            except NoOptionError:
+                rootPath='/net/share/PyPop/homozygosity'
+                print "Defaulting to system datapath %s for homozygosity tables" % rootPath
+
+            hzObject = Homozygosity(self.input.getAlleleCount(),
+                                    rootPath=rootPath,
+                                    debug=self.debug)
+
+            hzObject.serializeHomozygosityTo(self.xmlStream)
+
+        # HomozygosityEWSlatkinExact
+
+        try:
+            numReplicates = self.config.getint("HomozygosityEWSlatkinExact",
+                                          "numReplicates")
+        except NoOptionError:
+            numReplicates = 10000
+
+        hzExactObj =  HomozygosityEWSlatkinExact(self.input.getAlleleCount(), 
+                                                 numReplicates=numReplicates,
+                                                 debug=self.debug)
+
+        hzExactObj.serializeHomozygosityTo(self.xmlStream)
+        
+        self.xmlStream.closetag('locus')
+        self.xmlStream.writeln()
+
+    def _doGenotypeFile(self):
+
+        loci = self.input.getLocusList()
 
         for locus in loci:
 
-          if thread and thread._want_abort:
+          if self.thread and self.thread._want_abort:
             from wxPython.wx import wxPostEvent
             from GUIApp import ResultEvent
             # Use a result of None to acknowledge the abort (of
             # course you can use whatever you'd like or even
             # a separate event type)
-            wxPostEvent(thread._notify_window,ResultEvent(None))
+            wxPostEvent(self.thread._notify_window,ResultEvent(None))
             return
             
-          xmlStream.opentag('locus', name=locus)
-          xmlStream.writeln()
+          self.xmlStream.opentag('locus', name=locus)
+          self.xmlStream.writeln()
 
-          input.serializeAlleleCountDataAt(xmlStream, locus)
+          self.input.serializeAlleleCountDataAt(self.xmlStream, locus)
 
           # Parse "HardyWeinberg" section
 
@@ -352,13 +455,13 @@ class Main:
             except ValueError:
               sys.exit("require integer value")
 
-            hwObject = HardyWeinberg(input.getLocusDataAt(locus), 
-                                     input.getAlleleCountAt(locus), 
+            hwObject = HardyWeinberg(self.input.getLocusDataAt(locus), 
+                                     self.input.getAlleleCountAt(locus), 
                                      lumpBelow=lumpBelow,
-                                     debug=debug)
+                                     debug=self.debug)
 
             # serialize HardyWeinberg
-            hwObject.serializeTo(xmlStream)
+            hwObject.serializeTo(self.xmlStream)
 
           # Parse "HardyWeinbergGuoThompson"
 
@@ -395,16 +498,16 @@ class Main:
               sys.exit("require integer value")
 
             # guo & thompson implementation
-            hwObject=HardyWeinbergGuoThompson(input.getLocusDataAt(locus), 
-                                              input.getAlleleCountAt(locus),
+            hwObject=HardyWeinbergGuoThompson(self.input.getLocusDataAt(locus), 
+                                              self.input.getAlleleCountAt(locus),
                                               dememorizationSteps=dememorizationSteps,
                                               samplingNum=samplingNum,
                                               samplingSize=samplingSize,
                                               maxMatrixSize=maxMatrixSize,
-                                              debug=debug)
+                                              debug=self.debug)
 
-            hwObject.dumpTable(locus, xmlStream)
-            xmlStream.writeln()
+            hwObject.dumpTable(locus, self.xmlStream)
+            self.xmlStream.writeln()
 
           if self.config.has_section("HardyWeinbergGuoThompsonArlequin"):
 
@@ -434,15 +537,15 @@ class Main:
               sys.exit("require integer value")
 
 
-            hwArlequin=HardyWeinbergGuoThompsonArlequin(input.getIndividualsData(),
+            hwArlequin=HardyWeinbergGuoThompsonArlequin(self.input.getIndividualsData(),
                                                         locusName = locus,
                                                         arlequinExec = arlequinExec,
                                                         markovChainStepsHW = \
                                                         markovChainStepsHW,
                                                         markovChainDememorisationStepsHW=markovChainDememorisationStepsHW,
-                                                        untypedAllele=untypedAllele,
-                                                        debug=debug)
-            hwArlequin.serializeTo(xmlStream)
+                                                        untypedAllele=self.untypedAllele,
+                                                        debug=self.debug)
+            hwArlequin.serializeTo(self.xmlStream)
 
 
           # Parse "Homozygosity" section
@@ -453,15 +556,15 @@ class Main:
               rootPath=self.config.get("Homozygosity", "rootPath")
             except NoOptionError:
               rootPath=os.path.join(self.datapath, "homozygosity")
-              if debug:
+              if self.debug:
                 print "Defaulting to system datapath %s for homozygosity tables" % rootPath
 
 
-            hzObject = Homozygosity(input.getAlleleCountAt(locus),
+            hzObject = Homozygosity(self.input.getAlleleCountAt(locus),
                                     rootPath=rootPath,
-                                    debug=debug)
+                                    debug=self.debug)
 
-            hzObject.serializeHomozygosityTo(xmlStream)
+            hzObject.serializeHomozygosityTo(self.xmlStream)
 
           if self.config.has_section("HomozygosityEWSlatkinExact"):
 
@@ -471,14 +574,14 @@ class Main:
             except NoOptionError:
               numReplicates=10000
 
-            hzExactObj = HomozygosityEWSlatkinExact(input.getAlleleCountAt(locus),
+            hzExactObj = HomozygosityEWSlatkinExact(self.input.getAlleleCountAt(locus),
                                                     numReplicates=numReplicates,
-                                                    debug=debug)
+                                                    debug=self.debug)
 
-            hzExactObj.serializeHomozygosityTo(xmlStream)
+            hzExactObj.serializeHomozygosityTo(self.xmlStream)
 
-          xmlStream.closetag('locus')
-          xmlStream.writeln()
+          self.xmlStream.closetag('locus')
+          self.xmlStream.writeln()
 
         # estimate haplotypes
 
@@ -486,9 +589,9 @@ class Main:
 
           # create object to generate haplotype and LD statistics
           # a wrapper around the emhaplofreq module
-          haplo = Emhaplofreq(input.getIndividualsData(),
-                              debug=debug,
-                              untypedAllele=untypedAllele)
+          haplo = Emhaplofreq(self.input.getIndividualsData(),
+                              debug=self.debug,
+                              untypedAllele=self.untypedAllele)
 
           try:
             allPairwiseLD = self.config.getboolean("Emhaplofreq", "allPairwiseLD")
@@ -521,7 +624,7 @@ class Main:
 
             if locusKeys == '*':
               print "wildcard '*' given for lociToEstHaplo, assume entire data set"
-              locusKeys=string.join(input.getIndividualsData().colList,':')
+              locusKeys=string.join(self.input.getIndividualsData().colList,':')
 
             # if we will be running allPairwise*, then exclude any two-locus
             # haplotypes, since we will estimate them as part of 'all pairwise'
@@ -554,7 +657,7 @@ class Main:
 
             if locusKeysLD == '*':
               print "wildcard '*' given for lociToEstLD, assume entire data set"
-              locusKeysLD=string.join(input.getIndividualsData().colList,':')
+              locusKeysLD=string.join(self.input.getIndividualsData().colList,':')
 
             # estimate LD for the specified loci
             haplo.estLinkageDisequilibrium(locusKeysLD)
@@ -569,13 +672,9 @@ class Main:
                               haplosToShow=twoLocusHaplosToShow)
 
           # serialize to XML
-          haplo.serializeTo(xmlStream)
+          haplo.serializeTo(self.xmlStream)
 
-        # closing tag
-        xmlStream.closetag('dataanalysis')
-
-        # close XML stream
-        xmlStream.close()
+    def _genTextOutput(self):
 
         # create default XSL stylesheet location
         xslFilenameDefault = os.path.join(self.datapath, 'text.xsl')
@@ -603,7 +702,7 @@ class Main:
           style = libxslt.parseStylesheetDoc(styledoc)
 
           # read output XML file
-          doc = libxml2.parseFile(xmlOutFilename)
+          doc = libxml2.parseFile(self.xmlOutFilename)
 
           # resolve and perform any XIncludes the document may have
           doc.xincludeProcess()
@@ -612,7 +711,7 @@ class Main:
           result = style.applyStylesheet(doc, None)
 
           # save result to file
-          style.saveResultToFilename(txtOutFilename, result, 0)
+          style.saveResultToFilename(self.txtOutFilename, result, 0)
 
           # cleanup
           style.freeStylesheet()
@@ -627,10 +726,10 @@ class Main:
           styleSheet = open(xslFilename, 'r')
 
           # re-open text stream
-          xmlStream = open(xmlOutFilename, 'r')
+          self.xmlStream = open(self.xmlOutFilename, 'r')
 
           # open new txt output
-          newOut = TextOutputStream(open(txtOutFilename, 'w'))
+          newOut = TextOutputStream(open(self.txtOutFilename, 'w'))
 
           # create xsl process
           p = Processor()
@@ -639,7 +738,7 @@ class Main:
           p.appendStylesheetStream(styleSheet)
 
           # run the stylesheet on the XML output
-          p.runStream(xmlStream, outputStream=newOut)
+          p.runStream(self.xmlStream, outputStream=newOut)
 
           # close streams
           newOut.close()
