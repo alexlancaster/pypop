@@ -116,7 +116,6 @@ class ArlequinBatch:
             unphase1 = "%10s 1 " % words[self.idCol]
             unphase2 = "%13s" % " "
             for i in chunk:
-            #for i in chunk:
                 allele = words[i]
                 # don't output individual if *any* loci is untyped
                 if allele == self.untypedAllele:
@@ -124,7 +123,6 @@ class ArlequinBatch:
                         print "untyped allele %s in (%s), (%s)" \
                               % (allele, unphase1, unphase2)
                     break
-                #print chunk.index(i), (i - startCol) % 2, chunk.index(i) % 2
                 if ((chunk.index(i) + 1) % 2): unphase1 = unphase1 + " " + allele
                 else: unphase2 = unphase2 + " " + allele
             else:
@@ -162,13 +160,16 @@ class ArlequinBatch:
 
         Return a tuple consisting of two lists:
 
-        - adjacent columns
-        - window on current map order (a `slice' of the overall map order).
+        - adjacent columns (NOTE: assumes column order starts at ZERO!!)
+        - window on current map order
+           (a `slice' of the overall map order,  NOTE: starts at ONE!!).
         """
+        
         newChunk = []
         slice = order[start:(window + start)]
         for x in slice:
-            col1 = offset + (x*2)
+            # subtract one, since we want column numbers, not locus numbers
+            col1 = offset + ((x-1)*2)
             col2 = col1 + 1
             newChunk.append(col1)
             newChunk.append(col2)
@@ -196,11 +197,11 @@ class ArlequinBatch:
 
         # create default map order if none given
         if self.mapOrder == None:
-            self.mapOrder = [i for i in range(0, locusCount)]
-
+            self.mapOrder = [i for i in range(1, locusCount + 1)]
+            
         # sanity check for map order if it is given
         else:
-            if (locusCount < len(self.mapOrder)):
+            if (locusCount <= len(self.mapOrder)):
                 sys.exit("Error: \
                 there are %d loci but %d were given to sort order"\
                          % (locusCount, len(self.mapOrder)))
@@ -209,7 +210,7 @@ class ArlequinBatch:
                     if self.mapOrder.count(i) > 1:
                         sys.exit("Error: \
                         locus %d appears more than once in sort order" % i)
-                    elif (i > (locusCount - 1)) or (i < 0):
+                    elif (i > locusCount) or (i < 0):
                         sys.exit("Error: \
                         locus %d out of range of number of loci" % i)
                         
