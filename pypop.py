@@ -102,15 +102,18 @@ if not (use_libxsltmod or use_FourSuite):
 if guiFlag:
   # instantiate PyPop GUI
 
-  from wxPython.wx import wxPySimpleApp
-  from GUIApp import MainWindow
+  if 1:
+    sys.exit("GUI support is currently disabled... sorry")
+  else:
+    #from wxPython.wx import wxPySimpleApp
+    #from GUIApp import MainWindow
   
-  app = wxPySimpleApp()
-  frame = MainWindow(None, -1, "PyPop",
-                     datapath = datapath,
-                     altpath = altpath,
-                     debugFlag = debugFlag)
-  app.MainLoop()
+    app = wxPySimpleApp()
+    frame = MainWindow(None, -1, "PyPop",
+                       datapath = datapath,
+                       altpath = altpath,
+                       debugFlag = debugFlag)
+    app.MainLoop()
 
 else:
   # call as a command-line application
