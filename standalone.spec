@@ -7,28 +7,34 @@ import os, sys, shutil, string
 # file is also loaded dynamically by Installer's Build.py
 execfile('Utils.py', locals())
 
-
-# generate name of executable
-if sys.platform == 'cygwin':
-    exec_name = 'pypop.exe'
-    wrapper_name = 'pypop.bat'
-    type = 'Win32'
-    file_sep = '\\'
-    compression = 'zip'
-elif sys.platform == 'linux2':
-    exec_name = 'pypop'
-    wrapper_name = 'pypop.sh'
-    type = 'Linux'
-    file_sep = '/'
-    compression = 'gzip'
-else:
-    sys.exit(sys.platform + " is currently unsupported")
-
 # get version from VERSION file
 VERSION = (open('VERSION', 'r').readline()).strip()
 
 # distribution bin directory name
 bin_dir = 'bin'
+
+# generate name of executable
+if sys.platform == 'linux2':
+    type = 'Win32'
+    file_sep = '\\'
+    exec_name = 'pypop.exe'
+    wrapper_name = 'pypop.bat'
+    wrapper_contents = """%s\pypop.exe -i""" % bin_dir
+    batch_wrapper = 'pypop-batch.bat'
+    compression = 'zip'
+elif sys.platform == 'linux2':
+    exec_name = 'pypop'
+    type = 'Linux'
+    file_sep = '/'
+    wrapper_name = 'pypop.sh'
+    wrapper_contents = """dir=$(dirname $0)
+LD_LIBRARY_PATH=$dir/%s $dir/%s/pypop -i""" % (bin_dir, bin_dir)
+    batch_wrapper = 'pypop-batch.sh'
+    batch_wrapper_contents = """dir=$(dirname $0)
+LD_LIBRARY_PATH=$dir/%s $dir/%s/pypop $@""" % (bin_dir, bin_dir)
+    compression = 'gzip'
+else:
+    sys.exit(sys.platform + " is currently unsupported")
 
 # distribution directory name
 dist_dir = 'PyPop' + type + "-" + VERSION
@@ -90,11 +96,22 @@ copyfileCustomPlatform(os.path.join('data','samples',\
                                    'USAFEL-UchiTelle-noheader-noids.pop'), \
                       os.path.join(dist_dir, 'sample.pop'))
 
-# create a wrapper script
-wrapper = open(os.path.join(dist_dir, wrapper_name), 'w')
-wrapper.write(bin_dir + file_sep + exec_name + " -i")
+# create an interactive wrapper script
+filename = os.path.join(dist_dir, wrapper_name)
+wrapper = open(filename, 'w')
+wrapper.write(wrapper_contents)
 wrapper.close()
-os.chmod(os.path.join(dist_dir, wrapper_name), 0755)
+os.chmod(filename, 0755)
+
+# create batch-file wrapper script
+filename = os.path.join(dist_dir, batch_wrapper)
+if type == 'Win32':
+    os.symlink(os.path.join(bin_dir, exec_name), filename)
+else:
+    batch = open(filename, 'w')
+    batch.write(batch_wrapper_contents)
+    batch.close()
+    os.chmod(filename, 0755)
 
 # create xslt subdirectory
 xslt_dir = os.path.join(dist_dir, 'xslt')
@@ -111,7 +128,7 @@ if compression == 'gzip':
     command = "tar zcf %s %s" % (package, dist_dir)
 elif compression == 'zip':
     # cheat and execute system command
-    command = "zip -r %s %s" % (package, dist_dir)
+    command = "zip -y -r %s %s" % (package, dist_dir)
 
 print command
 # cheat and execute system command
