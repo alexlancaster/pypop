@@ -78,8 +78,8 @@ api/index.docb:
 	(cd $(PYTHON_SOURCE_PREFIX); \
 	happydoc -d $(PWD)/api -p README -F docbookx -T mstruct formatter_encoding=utf-8 -t "PyPop API" $(DOCOPTIONS) $(PYTHON_SOURCE);)
 
-api/index.html: api/index.docb
-	$(XSLTPROC) --xinclude $(XSLCOMMON) $(XSLHTML) -o $@ $(DOCBOOKXSLDIR)/html/chunk.xsl $<	
+#api/index.html: api/index.docb
+#	$(XSLTPROC) --xinclude $(XSLCOMMON) $(XSLHTML) -o $@ $(DOCBOOKXSLDIR)/html/chunk.xsl $<	
 
 api/index.fo: api/index.docb
 	$(XSLTPROC) --xinclude $(XSLCOMMON) $(XSLFO) -o $@ fo.xsl $<	
