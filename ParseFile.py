@@ -295,7 +295,7 @@ class ParseFile:
             stream.writeln()
 
 class ParseGenotypeFile(ParseFile):
-    """Class to parse standard datafile in genotype form."""
+    """Class to parse standard datafile in genotype form.  Tweaked."""
     
     def __init__(self,
                  filename,
@@ -441,7 +441,7 @@ class ParseGenotypeFile(ParseFile):
         containing counts and the total count at that locus.  """
         
         return self.freqcount
-
+	
     def getAlleleCountAt(self, locus):
         """Return allele count for given locus.
         
@@ -450,10 +450,49 @@ class ParseGenotypeFile(ParseFile):
         locus.  """
         
         return self.freqcount[locus]
-
-    def serializeAlleleCountTo(self, stream):
+	
+    def serializeAlleleCountDataAt(self, stream, locus):
+        """ """
         type = getStreamType(stream)
+        
+        alleleTable, total = self.freqcount[locus]
+        totalFreq = 0
+        alleles = alleleTable.keys()
+        alleles.sort()
+        for allele in alleles:
+            freq = float(alleleTable[allele])/float(total)
+            totalFreq += freq
+            strFreq = "%0.5f " % freq
+            strCount = ("%d" % alleleTable[allele])
+			
+            if type == 'xml':
+                stream.opentag('allele', 'name', allele)
+                stream.writeln()
+                stream.tagContents('frequency', strFreq)
+                stream.tagContents('count', strCount)
+                stream.writeln()
+                stream.closetag('allele')
+            else:
+                stream.write("%s: %s (%s)" % (allele, strFreq, strCount))
+				
+            stream.writeln()
 
+        strTotalFreq = "%0.5f" % totalFreq
+        strTotal = "%d" % total
+
+        if type == 'xml':
+            stream.tagContents('totalfrequency', strTotalFreq)
+            stream.writeln()
+            stream.tagContents('totalcount', strTotal)
+            stream.writeln()
+        else:
+            stream.write("Total frequency: %s (%s)"
+                         % (strTotalFreq, strTotal))
+        stream.writeln()
+
+    def serializeAlleleCountDataTo(self, stream):
+        type = getStreamType(stream)
+        
         if type == 'xml':
             stream.opentag('allelecounts')
         else:
@@ -465,48 +504,15 @@ class ParseGenotypeFile(ParseFile):
                 stream.opentag('locus', 'name', locus)
             else:
                 stream.write("Locus = %s" % locus)
-            stream.writeln()
-            
-            alleleTable, total = self.freqcount[locus]
-            totalFreq = 0
-            alleles = alleleTable.keys()
-            alleles.sort()
-            for allele in alleles:
-                freq = float(alleleTable[allele])/float(total)
-                totalFreq += freq
-                strFreq = "%0.5f " % freq
-                strCount = ("%d" % alleleTable[allele])
-
-                if type == 'xml':
-                    stream.opentag('allele', 'name', allele)
-                    stream.writeln()
-                    stream.tagContents('frequency', strFreq)
-                    stream.tagContents('count', strCount)
-                    stream.writeln()
-                    stream.closetag('allele')
-                else:
-                    stream.write("%s: %s (%s)" % (allele, strFreq, strCount))
-
                 stream.writeln()
-
-            strTotalFreq = "%0.5f" % totalFreq
-            strTotal = "%d" % total
-
-            if type == 'xml':
-                stream.tagContents('totalfrequency', strTotalFreq)
-                stream.writeln()
-                stream.tagContents('totalcount', strTotal)
-                stream.writeln()
+                self.serializeAlleleCountDataAt(stream, locus)
                 stream.closetag('locus')
-            else:
-                stream.write("Total frequency: %s (%s)"
-                             % (strTotalFreq, strTotal))
-                
+                    
         stream.writeln()
-
+        
         if type == 'xml':
             stream.closetag('allelecounts')
-        
+        return 1
 
     def getLocusDataAt(self, locus):
         """Returns the genotyped data for specified locus.
