@@ -1,3 +1,27 @@
+2004-10-27  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* NEWS: Note new feature.
+
+	* popmeta.py (batchsize): New command-line option.  Does the
+	processing in "batches".  If set and greater than one, list of XML
+	files is split into batchsize group.  For example, if there are 20
+	XML files and option is via using ("-b 2" or "--batchsize=2") then
+	the files will be processed in two batches, each consisting of 10
+	files.  If the number does not divide evenly, the last list will
+	contain all the "left-over" files.  This option is particularly
+	useful with large numbers of XML files that may not fit in memory
+	all at once.  Note this option is mutually exclusive with the
+	'--enable-PHYLIP' option because the PHYLIP output needs to
+	calculate allele frequencies across all populations before
+	generating files.
+	Also, only generate the 'sorted-by-locus.xml' file and other
+	auxilary XML generation in the PHYLIP case (not needed for pure
+	.dat file generation).
+	
+	* Utils.py (splitIntoNGroups): New function, divides a list up
+	into n parcels (plus whatever is left over).  This uses iterators,
+	so requires at least Python 2.3!
+
 2004-10-25  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Change test
