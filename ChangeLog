@@ -8,7 +8,8 @@
 	* MANIFEST.in: Add allelelist-by-locus.xsl haplolist-by-group.xsl
 	to distribution.
 
-	* standalone.spec (xslt_dir): Likewise.
+	* standalone.spec (xslt_dir): Likewise.  Fix typo in batch file
+        generation under Windows.
 
 2004-02-17  Alex Lancaster  <alexl AT berkeley.edu>
 

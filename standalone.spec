@@ -42,7 +42,7 @@ def createWrappers(script=None, type=None, bin_dir=None, dist_dir=None):
         wrapper_common = """@echo off
 set PYTHONHOME="."
 %s\%s""" % (bin_dir, exec_name)
-        wrapper_name = basename + 'bat'
+        wrapper_name = basename + '.bat'
         wrapper_contents = wrapper_common + """ -i
 pause"""
         batch_wrapper = basename + '-batch.bat'
