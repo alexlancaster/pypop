@@ -1,7 +1,93 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE glossary PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<glossary>
+<glossary condition="main">
+
+ <sidebar>
+   <title>Data dictionary</title>
+  
+  <remark>This is from mpn's original in
+   <filename>properties.txt</filename> and needs to be massaged into
+   reasonable XML.</remark>
+  
+<programlisting>Species:
+	# things that can be said about more than one population
+	name
+
+Population:
+	# things that can be said about a single population
+	name
+	Lab code
+	typing method
+	ethnicity
+	origin
+	collection site
+	latitude
+	longtitude
+	sample size # perhaps this should move to locus?
+
+	patient or control # does this belong in Individual?
+	patient vs. control overall chi-squared
+	patient vs. control overall p-value
+	patient vs. control degrees of freedom
+
+	number of 2-way haplotypes
+	frequency of 2-way haplotypes
+	W
+	Wnorm
+	chi-squared
+	G
+
+	number of 3-way haplotypes
+	frequency of 3-way haplotypes
+
+	average dn
+	average ds
+
+Individual:
+	# things that can be said about one record
+	family_id
+	individual_id
+	age
+	set of alleles
+
+Locus:
+	name
+	number of alleles
+	set of alleles
+	HWP p-value
+	HWP p-value standard error
+
+	observed F
+	expected F
+	quantile
+	F-variance
+	FND
+
+	gene diversity index
+
+	synonymous differences
+	non-synonymous differences
+
+Haplotype:
+	number of loci
+	set of loci
+	observed
+	frequency
+	expected
+	d for each pairing
+	d' for each pairing
+
+Allele:
+	name
+	observed
+	frequency
+	expected
+	patient vs. control chi-squared
+	patient vs. control p-value
+   </programlisting>
+  </sidebar>
+
  <glossdiv>
   <title>Population attributes</title>
   <glossentry>
@@ -44,7 +130,8 @@
    </glossdef>
   </glossentry>
  </glossdiv>
- </glossary>
+</glossary>
+
  
 <!--
 Local variables:
