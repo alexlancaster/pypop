@@ -5,6 +5,7 @@
 <appendix condition="main">
  <title>Technical Appendix</title>
 
+<!--
  <sect1 id="pypop:design-uml">
   <title>UML specification</title>
   
@@ -14,7 +15,7 @@
    schematic only and may be out-of-date with respect to the current
    implementation.</para>
   
-  
+
   <figure id="pypop:design">
    <title>Schematic UML design</title>
    <mediaobject>
@@ -27,8 +28,10 @@
     </textobject>
   </mediaobject>
   </figure>
+
  </sect1>
- 
+
+
  <sect1 id="pypop:data-interchange" condition="main">
   <title>API (Application Programmers Interface)</title>
   
@@ -50,6 +53,7 @@
    </mediaobject>
   </figure>
  </sect1>
+ -->
  
  <sect1 condition="main">
   <title>Data interchange</title>
