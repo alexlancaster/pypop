@@ -14,8 +14,8 @@
 
  <data:hardyweinberg-guo-thompson>
   <text col="dememorizationSteps">Dememorization steps</text>
-  <text col="samplingNum">Number of samples</text>
-  <text col="samplingSize">Sample size</text>
+  <text col="samplingNum">Number of Markov chain samples</text>
+  <text col="samplingSize">Markov chain sample size</text>
   <text col="pvalue">p-value</text>
   <text col="stderr">Std. error</text>
  </data:hardyweinberg-guo-thompson>
@@ -23,7 +23,7 @@
  <data:hardyweinberg-guo-thompson-arlequin>
   <text col="obs-hetero">Observed heterozygosity</text>
   <text col="exp-hetero">Expected heterozygosity</text>
-  <text col="steps">Dememorization steps</text>
+  <text col="steps">Steps in Markov chain</text>
   <text col="pvalue">p-value</text>
   <text col="stddev">Std. deviation</text>
  </data:hardyweinberg-guo-thompson-arlequin>
