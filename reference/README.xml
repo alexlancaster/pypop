@@ -82,22 +82,39 @@
   <section>
    <title>Batch mode</title>
 
-   <para>To run <application>PyPop</application> in batch mode, type
-    from the command line (either a DOS shell in Windows or a terminal
-    window in GNU/Linux): <userinput>pypop</userinput>, followed by the
-    name of your population file, as follows:</para>
+   <para>To run <application>PyPop</application> in batch mode, you
+    can start <application>PyPop</application> from the command line
+    (in Windows: open a DOS shell, GNU/Linux: open a terminal window),
+    change to the directory where you unpacked
+    <application>PyPop</application> and type (note: if your system
+    administrator has installed <application>PyPop</application> the
+    name of the script may be renamed to something different or may
+    omit the filename extension, particularly under Linux):</para>
 
-   <screen><command>pypop</command> <filename>Guatemalan.pop</filename></screen>
-   <para>This mode assumes two things: that you have a file called
+   <screen><command>pypop-batch.bat</command> <filename>Guatemalan.pop</filename> <emphasis>(DOS)</emphasis>    
+<command>pypop-batch.sh</command> <filename>Guatemalan.pop</filename> <emphasis>(Linux)</emphasis></screen>
+
+   <para>You will need to supply the appropriate filename extension
+    for <userinput>pypop-batch</userinput> for your platform, the
+    following instructions omit them for clarity.</para>
+
+   <para>Batch mode assumes two things: that you have a file called
     <filename>config.ini</filename> in your current folder and that
-    you also have your population file also in the current folder.  You can
-    change the name of the configuration file, by supplying the
+    you also have your population file also in the current folder. You
+    can specify a particular configuration file for
+    <application>PyPop</application> to use, by supplying the
     <option>-c</option> option as follows:</para>
 
-   <screen><command>pypop</command> -c <filename>newconfig.ini</filename> <filename>Guatemalan.pop</filename></screen>
+   <screen><command>pypop-batch</command> <option>-c</option> <filename>newconfig.ini</filename> <filename>Guatemalan.pop</filename></screen>
+
+   <para>You may also redirect the output to a different directory
+    (which must already exist) by using the <option>-o</option>
+    option:</para>
+
+   <screen><command>pypop-batch</command> <option>-c</option> <filename>newconfig.ini</filename> <option>-o altdir</option> <filename>Guatemalan.pop</filename></screen>
 
    <para>For a full list of options supported by
-    <application>PyPop</application>,  type <userinput>pypop
+    <application>PyPop</application>,  type <userinput>pypop-batch
      --help</userinput>.   You should receive a screen resembling the
     following:</para>
 
@@ -106,7 +123,7 @@ Usage: pypop [OPTION] INPUTFILE
 Process and run population genetics statistics on an INPUTFILE.
 Expects to find a configuration file called 'config.ini' in the
 current directory or in /usr/share/PyPop/config.ini.
- 
+
   -l, --use-libxslt    filter XML via XSLT using libxslt (default)
   -s, --use-4suite     filter XML via XSLT using 4Suite
   -x, --xsl=FILE       use XSLT translation file FILE
@@ -114,12 +131,15 @@ current directory or in /usr/share/PyPop/config.ini.
   -c, --config=FILE    select alternative config file
   -d, --debug          enable debugging output (overrides config file setting)
   -i, --interactive    run in interactive mode, prompting user for file names
-  -g, --gui            run GUI (warning *very* experimental)
+  -g, --gui            run GUI (currently disabled)
+  -o, --outputdir=DIR  put output in directory DIR
+  -V, --version        print version of PyPop
    
-  INPUTFILE   input text file</screen>
+    INPUTFILE   input text file</screen>
 
    <warning>
-    <para>Documentation for these options is currently incomplete.</para>
+    <para>Documentation for these options is currently
+     incomplete.</para>
    </warning>
 
   </section>
