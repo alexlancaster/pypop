@@ -306,14 +306,31 @@
  </xsl:template>
  
  <xsl:template match="locuscount">
-  <xsl:text>Total Loci in file: </xsl:text>
+  <xsl:text>Total loci in file: </xsl:text>
   <xsl:value-of select="."/>
+  <xsl:text> [</xsl:text>
+  <xsl:for-each select="/dataanalysis/locus/@name">
+   <xsl:value-of select="."/>
+   <xsl:if test="position()!=last()">
+    <xsl:text>, </xsl:text>
+   </xsl:if>
+  </xsl:for-each>
+  <xsl:text>]</xsl:text>
+
   <xsl:call-template name="newline"/>
  </xsl:template>
 
  <xsl:template match="lociWithDataCount">
-  <xsl:text>Total Loci with data: </xsl:text>
+  <xsl:text>Total loci with data: </xsl:text>
   <xsl:value-of select="."/>
+  <xsl:text> [</xsl:text>
+  <xsl:for-each select="/dataanalysis/locus[allelecounts/@role!='no-data']/@name">
+   <xsl:value-of select="."/>
+   <xsl:if test="position()!=last()">
+    <xsl:text>, </xsl:text>
+   </xsl:if>
+  </xsl:for-each>
+  <xsl:text>]</xsl:text>
   <xsl:call-template name="newline"/>
  </xsl:template>
 
