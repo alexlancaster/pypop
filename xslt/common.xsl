@@ -248,7 +248,7 @@ MODIFICATIONS.
  <!-- ####################  POPULATION OUTPUT ######################## -->  
   
   <!-- print out population-level statistics and information -->
-  <xsl:apply-templates select="filename|populationdata"/>
+  <xsl:apply-templates select="filename|populationdata|summaryinfo"/>
 
   <xsl:call-template name="section">
    <xsl:with-param name="title">Legend for all analyses</xsl:with-param>
@@ -360,7 +360,7 @@ MODIFICATIONS.
  </xsl:template>
  
  <!-- metadata totals -->
- <xsl:template match="populationdata/totals">
+ <xsl:template match="summaryinfo">
   <xsl:call-template name="section">
    <xsl:with-param name="title">Population Totals</xsl:with-param>
    <xsl:with-param name="level" select="2"/>
