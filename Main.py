@@ -108,13 +108,10 @@ def getConfigInstance(configFilename = None,
     if os.path.isfile(configFilename):
         config.read(configFilename)
     else:
-        if specifiedConfigFile:
-          sys.exit("Could not find config file: `%s' " % configFilename)
+        if os.path.isfile(altpath):
+          config.read(altpath)
         else:
-          if os.path.isfile(altpath):
-            config.read(altpath)
-          else:
-            sys.exit("Could not find config file either in current directory or " +
+          sys.exit("Could not find config file either in current directory or " +
                      altpath + os.linesep + usage_message)
 
     if len(config.sections()) == 0:
