@@ -342,6 +342,15 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   double pvalue = 0.0;
 
+  double error_flag0_pct = 0.0;
+  double error_flag1_pct = 0.0;
+  double error_flag2_pct = 0.0;
+  double error_flag3_pct = 0.0;
+  double error_flag4_pct = 0.0; 
+  double error_flag5_pct = 0.0;
+  double error_flag6_pct = 0.0;
+  double error_flag7_pct = 0.0;
+
   /* default file pointers */
   FILE *fp_permu = FP_PERMU, *fp_iter = FP_ITER;
 
@@ -708,9 +717,17 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #ifdef XML_OUTPUT
     fprintf(fp_out, "<iterationsummary>\n<![CDATA[");
 #endif
-    fprintf(fp_iter, "\n   --- Iteration Summary for Original Data -------------------------------------------\n");
-    fprintf(fp_iter, "   Init. condition   0: Log likelihood after %3d iterations: %f, error_flag: %d \n",
+    fprintf(fp_iter, "\n--- Iteration Summary for Original Data -------------------------------------------\n");
+    fprintf(fp_iter, "Init. condition   0: Log likelihood after %3d iterations: %f, error_flag: %d \n",
 	    iter_count, loglike, error_flag);
+    if      (error_flag == 0) error_flag0_pct += 1;
+    else if (error_flag == 1) error_flag1_pct += 1;
+    else if (error_flag == 2) error_flag2_pct += 1;
+    else if (error_flag == 3) error_flag3_pct += 1;
+    else if (error_flag == 4) error_flag4_pct += 1;
+    else if (error_flag == 5) error_flag5_pct += 1;
+    else if (error_flag == 6) error_flag6_pct += 1;
+    else                      error_flag7_pct += 1;
   }
 
   loglike_best = loglike;
@@ -740,8 +757,16 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
     if (permu == 0)
     {
-      fprintf(fp_iter, "   Init. condition %3d: Log likelihood after %3d iterations: %f, error_flag: %d \n",
+      fprintf(fp_iter, "Init. condition %3d: Log likelihood after %3d iterations: %f, error_flag: %d \n",
         init_cond, iter_count, loglike, error_flag);
+      if      (error_flag == 0) error_flag0_pct += 1;
+      else if (error_flag == 1) error_flag1_pct += 1;
+      else if (error_flag == 2) error_flag2_pct += 1;
+      else if (error_flag == 3) error_flag3_pct += 1;
+      else if (error_flag == 4) error_flag4_pct += 1;
+      else if (error_flag == 5) error_flag5_pct += 1;
+      else if (error_flag == 6) error_flag6_pct += 1;
+      else                      error_flag7_pct += 1;
     }
 
     if (error_flag_best == 0)
@@ -770,7 +795,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
         } 
       }
     }
-  }
+  } /* end: for (init_cond) */
 
 #ifdef XML_OUTPUT
   if (permu == 0)
@@ -798,16 +823,25 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #endif
 
     fprintf(fp_iter, "\n"); 
-    fprintf(fp_iter, "   --- Codes for error_flag ----------------------------------------------------------\n"); 
-    fprintf(fp_iter, "    0: Iterations Converged, no errors \n");
-    fprintf(fp_iter, "    1: There are no ambiguous haplotypes \n");
-    fprintf(fp_iter, "    2: Normalization constant near zero. Est. HFs unstable \n");
-    fprintf(fp_iter, "    3: Wrong # allocated for at least one phenotype based on est. HFs \n");
-    fprintf(fp_iter, "    4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype \n");
-    fprintf(fp_iter, "    5: Log likelihood has decreased for more than 5 iterations \n");
-    fprintf(fp_iter, "    6: Est. HFs do not sum to 1.0 \n");
-    fprintf(fp_iter, "    7: Log likelihood failed to converge in %d iterations \n", MAX_ITER);
-    fprintf(fp_iter, "   -----------------------------------------------------------------------------------\n"); 
+    fprintf(fp_iter, "Percent of iterations with error_flag = 0: %7.3f\n", 100*error_flag0_pct/max_init_cond);
+    fprintf(fp_iter, "Percent of iterations with error_flag = 1: %7.3f\n", 100*error_flag1_pct/max_init_cond);
+    fprintf(fp_iter, "Percent of iterations with error_flag = 2: %7.3f\n", 100*error_flag2_pct/max_init_cond);
+    fprintf(fp_iter, "Percent of iterations with error_flag = 3: %7.3f\n", 100*error_flag3_pct/max_init_cond);
+    fprintf(fp_iter, "Percent of iterations with error_flag = 4: %7.3f\n", 100*error_flag4_pct/max_init_cond);
+    fprintf(fp_iter, "Percent of iterations with error_flag = 5: %7.3f\n", 100*error_flag5_pct/max_init_cond);
+    fprintf(fp_iter, "Percent of iterations with error_flag = 6: %7.3f\n", 100*error_flag6_pct/max_init_cond);
+    fprintf(fp_iter, "Percent of iterations with error_flag = 7: %7.3f\n", 100*error_flag7_pct/max_init_cond);
+    fprintf(fp_iter, "\n"); 
+    fprintf(fp_iter, "--- Codes for error_flag ----------------------------------------------------------\n"); 
+    fprintf(fp_iter, "0: Iterations Converged, no errors \n");
+    fprintf(fp_iter, "1: There are no ambiguous haplotypes \n");
+    fprintf(fp_iter, "2: Normalization constant near zero. Est. HFs unstable \n");
+    fprintf(fp_iter, "3: Wrong # allocated for at least one phenotype based on est. HFs \n");
+    fprintf(fp_iter, "4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype \n");
+    fprintf(fp_iter, "5: Log likelihood has decreased for more than 5 iterations \n");
+    fprintf(fp_iter, "6: Est. HFs do not sum to 1.0 \n");
+    fprintf(fp_iter, "7: Log likelihood failed to converge in %d iterations \n", MAX_ITER);
+    fprintf(fp_iter, "-----------------------------------------------------------------------------------\n"); 
     fprintf(fp_iter, "\n"); 
 
     if (error_flag_best == 0) {
