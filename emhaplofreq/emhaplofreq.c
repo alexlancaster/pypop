@@ -1,4 +1,4 @@
-#include <unistd.h>  /* needed for GNU getopt */
+#include <getopt.h>  /* needed for GNU getopt */
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -250,15 +250,15 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
       strcpy(data_ar[i][j], buff_ptr);
       strcat(data_ar[i][j], ":");
     }
+    /* check value of i is not greater than MAX_ROWS */
+    if(!(i < MAX_ROWS))
+    {
+      fprintf(stderr, "The number of lines of data exceeds %d\n", MAX_ROWS);
+      fprintf(stderr, "Unable to continue\n\n");
+      exit(EXIT_FAILURE);
+    }
   }
   *records = i + 1;
-  /* check this value is not greater than MAX_ROWS */
-  if( *records > MAX_ROWS)
-  {
-    fprintf(stderr, "The number of lines of data exceeds %s\n", MAX_ROWS);
-    fprintf(stderr, "Unable to continue\n\n");
-    exit(EXIT_FAILURE);
-  }
 
   fclose(in_file);
   return (num_cols / 2);  /* this being the number of loci */
