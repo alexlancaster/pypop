@@ -1,0 +1,104 @@
+<?xml version="1.0"?>
+<!DOCTYPE preface PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<?PSGML nofill programlisting screen literallayout userinput?>
+
+<preface>
+ <title>Authors</title>
+
+ <variablelist>
+  <title>PyPop</title>
+  <varlistentry>
+   <term>Alex Lancaster <email>alexl@socrates.berkeley.edu</email></term>
+   <listitem>
+    <para>Co-designer of Python framework: author of main engine, text
+     file parser, Python extension module framework using SWIG, XML
+     output and XSLT post-processing framework (to generate plain text
+     and HTML output).</para>
+   </listitem>
+  </varlistentry>
+
+  <varlistentry>
+   <term>Mark P. Nelson <email>mpn@alleleb.biol.berkeley.edu</email></term>
+   <listitem>
+    <para> Co-designer of Python framework: implemented and maintained
+     Python modules, particularly the module for Hardy-Weinberg
+     analysis. Updated and maintained XSLT code.</para>
+   </listitem>
+  </varlistentry>
+
+  <varlistentry>
+   <term>Richard M. Single
+    <email>single@allele5.biol.berkeley.edu</email></term>
+
+   <listitem>
+    <para> Author of haplotype frequency and linkage disequilibrium
+     analysis module "<application>emhaplofreq</application>", author
+     of R programs to do further statistical analysis and generate
+     graphs and figures in PostScript.</para></listitem>
+  </varlistentry>
+
+  <varlistentry>
+   <term>Diogo Meyer
+    <email>diogo@allele5.biol.berkeley.edu</email></term>
+   <listitem>
+    <para>Contributed further statistical analysis code for the R programs.</para>
+   </listitem>
+  </varlistentry>
+
+  <varlistentry>
+   <term>Glenys Thomson
+    <email>glenys@allele5.biol.berkeley.edu</email></term>
+
+   <listitem>
+    <para>Principal investigator and project lead.</para></listitem>
+  </varlistentry>
+ </variablelist>
+
+ <variablelist>
+  <title>Third-party modules</title>
+  <varlistentry>
+   <term><filename>slatkin-exact/monte-carlo.c</filename></term>
+   <listitem>
+
+  <para>Montgomery Slatkin's implementation of a Monte Carlo
+     approximation of the Ewens-Watterson exact test of neutrality.
+     Original code can be found at: <ulink
+      url="http://ib.berkeley.edu/labs/slatkin/monty/Ewens_exact.program">http://ib.berkeley.edu/labs/slatkin/monty/Ewens_exact.program</ulink>.</para>
+   </listitem>
+  </varlistentry>
+
+  <varlistentry>
+   <term><literal>pval</literal></term>
+
+   <listitem>
+    <para>  The code in the '<filename
+      class="directory">pval</filename>' directory (with the exception
+     of '<filename>pval.c</filename>' the SWIG wrapper,
+     <filename>'pval_wrap.i</filename>' and the Makefile) is part of
+     the R project's '<literal>nmath</literal>' numerical library
+     <ulink
+      url="http://www.r-project.org/">http://www.r-project.org/</ulink> 
+     and is also licensed under the GNU General Public License (GPL).
+     Minor modifications have been made to allow the module to build
+     correctly.</para></listitem>
+  </varlistentry>
+ </variablelist>
+
+<!--  Obsolete modules (not currently distributed)
+
+ gthwe:
+
+  Guo and Thompson's implementation of Hardy-Weinberg exact test,
+  originally coded by S.W. Guo and modified by John Chen.
+-->
+</preface>
+
+<!--
+Local variables:
+sgml-local-catalogs: ("catalog")
+sgml-indent-step: 1
+sgml-indent-data: 1
+ispell-skip-html: t
+End:
+-->
