@@ -38,11 +38,12 @@
  </articleinfo>
 
  <sect1 id="instructions-pop-summary">
-  <title>Population Summary</title>
+  <title>Population summary</title>
 
-  <para>A Population Summary is generated for each population/dataset
-   analyzed. It provides basic demographic information and summarizes
-   information about the sample size.</para>
+  <para>A <literal>Population Summary</literal> is generated for each
+   dataset analyzed.  This summary provides basic demographic
+   information and summarizes information about the sample
+   size.</para>
 
   <para>Sample output:</para>
   <example>
@@ -117,7 +118,7 @@ Total     1.00000   90        | Total     1.00000   90
 ]]></programlisting>
   </example>
 
-  <para>In the cases where there is no information for a locus a message is
+  <para>In the cases where there is no information for a locus, a message is
     displayed indicating lack of data. </para>
 
   <para>Sample output:</para>
@@ -131,15 +132,15 @@ _____________
   </sect2>
 
   <sect2 id="instructions-hardyweinberg">
-   <title>Chi-square test for deviation from Hardy-Weinberg proportions
-    (HWP).</title>
+   <title>Chi-square test for deviation from Hardy-Weinberg
+    proportions (HWP).</title>
    
-   <para>For each locus the observed genotype counts are compared to
+   <para>For each locus, the observed genotype counts are compared to
     those expected under Hardy Weinberg Proportions (HWP). A
     triangular matrix reports observed and expected genotype counts.
-    If the matrix is too wide, the output is split into different
-    sections. Each cell contains the observed and expected number for
-    a given genotype in the format
+    If the matrix is more than 80 characters, the output is split into
+    different sections. Each cell contains the observed and expected
+    number for a given genotype in the format
     <literal>observed/expected</literal>.</para>
 
    <example>
@@ -160,25 +161,27 @@ Table of genotypes, format of each cell is: observed/expected.
    </example>
 
    <para>The values in this matrix are used to test hypotheses of
-    deviation from HWP. The output table then the chi-square
+    deviation from HWP. The output also includes the chi-square
     statistic, the number of degrees of freedom and associated
     <varname>p</varname>-value for the following classes of
-    genotypes.</para>
+    genotypes:</para>
    
    <itemizedlist>
     <listitem>
      <formalpara><title>Common</title>
       <para>The result for goodness of fit to HWP using only the
-       genotypes with at least five expected counts (the common
-       genotypes).</para>
+       genotypes with at least <literal>lumpBelow</literal> expected
+       counts (the common genotypes) (in the output shown throughout
+       this example <literal>lumpBelow</literal> is equal to 5)
+       .</para>
      </formalpara>
     </listitem>
     
     <listitem>
      <formalpara><title>Lumped genotypes</title> 
       <para>The result for goodness of fit to HWP for the pooled set
-       of genotypes that individually have less than five expected
-       counts.  </para>
+       of genotypes that individually have less than
+       <literal>lumpBelow</literal> expected counts.  </para>
      </formalpara>
     </listitem>
     
@@ -243,8 +246,8 @@ Common genotypes
    <bridgehead>(1)</bridgehead>
 
    <para>If the dataset contains no genotypes with expected counts
-    equal or greater than 5, then there are no common genotypes and
-    the following message is reported: </para>
+    equal or greater than <literal>lumpBelow</literal>, then there are
+    no common genotypes and the following message is reported: </para>
 
    <programlisting>
    No common genotypes; chi-square cannot be calculated
@@ -262,8 +265,9 @@ Common genotypes
    <bridgehead>(3)</bridgehead>
 
    <para>If the sum of expected counts in the lumped class does not
-    add up to five, then the test for the lumped genotypes cannot be
-    calculated and the following message is reported:</para>
+    add up to <literal>lumpBelow</literal>, then the test for the
+    lumped genotypes cannot be calculated and the following message is
+    reported:</para>
   
    <programlisting>
    The total number of expected genotypes is less than 5
@@ -292,20 +296,22 @@ Common genotypes
 
    <para>The common heterozygotes by allele section summarizes the
     observed and expected number of counts of all heterozygotes
-    carrying a specific allele with expected value &ge; 5.</para>
+    carrying a specific allele with expected value &ge;
+    <literal>lumpBelow</literal>.</para>
 
    <bridgehead>(6)</bridgehead>
 
    <para>The common genotypes by genotype section lists observed,
     expected, chi-square and <varname>p</varname>-values for all
-    observed genotypes with expected values &ge; 5.</para>
+    observed genotypes with expected values &ge;
+    <literal>lumpBelow</literal>.</para>
   
   </sect2>
 
  <sect2 id="instructions-hardyweinberg-exact">
    <title>Exact test for deviation from HWP</title>
   
-   <para>For each locus the exact test for deviations from HWP is
+   <para>For each locus, the exact test for deviations from HWP is
     implemented using the method of <citation
      role="citet">Guo:Thompson:1992</citation>. The
     <varname>p</varname>-value provided describes how probable the
@@ -316,7 +322,7 @@ Common genotypes
     evidence that the sample does not fit HWP.</para>
 
    <para>The  implementations of this  test is via a module that
-    interfacest to <application>Arlequin</application>
+    interfaces to <application>Arlequin</application>
     <citation>Schneider:etal:2000</citation>.</para>
 
 <!--
@@ -378,23 +384,25 @@ p-value: 0.0518</programlisting>
   <sect2 id="instructions-homozygosity">
    <title>The Ewens-Watterson homozygosity test of neutrality</title>
    
-   <para>For each locus we implement the Ewens-Watterson homozygosity
+   <para>For each locus, we implement the Ewens-Watterson homozygosity
     test of neutrality (<citation
      role="citealt">Ewens:1972</citation>; <citation
-     role="citealt">Watterson:1978</citation>). The expected
-    homozygosity under Hardy-Weinberg proportions (the sum of the
-    squares of allele frequencies) is computed and reported. The
-    expected homozygosity under neutrality, for the same sample size
-    (<varname>2n</varname>) and number of unique alleles
+     role="citealt">Watterson:1978</citation>). The
+    <firstterm>expected homozygosity</firstterm>
+    (<varname>F</varname>) under Hardy-Weinberg proportions (the sum
+    of the squares of allele frequencies) is computed and reported.
+    The expected homozygosity under neutrality, for the same sample
+    size (<varname>2n</varname>) and number of unique alleles
     (<varname>k</varname>), is obtained by simulation and reported
-    (Expected Homozygosity). The Normalized Deviate of the
-    Homozygosity is the difference between the observed and expected
+    (expected homozygosity). The <firstterm>normalized deviate of the
+     homozygosity</firstterm> is the difference between the
+    <firstterm>observed homozygosity</firstterm> and expected
     homozygosity, divided by the square root of the variance of the
     expected homozygosity (also obtained by simulations; <citation
-     role="citet">Salamon:etal:1999</citation>). Negative Normalized
-    deviates imply Observed Homozygosity values lower than Expected
-    Homozygosity, in the direction of balancing selection when there
-    is significant deviation from neutrality expectation.  Significant
+     role="citet">Salamon:etal:1999</citation>). Negative normalized
+    deviates imply observed homozygosity values lower than expected
+    homozygosity, in the direction of balancing selection when there
+    is significant deviation from neutrality expectation. Significant
     positive values are in the direction of directional selection. The
     <varname>p</varname>-value in the last row of the output is the
     probability that the observed homozygosity would be obtained from
@@ -403,7 +411,7 @@ p-value: 0.0518</programlisting>
     <varname>p</varname>-values at either extreme of the distribution
     (&lt; 0.025 or &gt;0.975) are considered significant at the 0.05
     level, making this a two-tailed test of the null hypothesis of
-    neutrality. </para>
+    neutrality.</para>
 
 
   <example>
@@ -420,15 +428,16 @@ p-value range: 0.0000 < p <= 0.0100 *
     <title>Sample output of homozygosity test from Monte-Carlo implementation</title>
 
    <para>There is a second implementation of the test using a
-     Monte-Carlo implementation of the exact test due to Slatkin
+     Monte-Carlo implementation of the exact test written by Slatkin
      (<citation role="citealt">Slatkin:1994</citation>; <citation
       role="citealt">Slatkin:1996</citation>). This test differs from
-     the previous one in that rather than simulate data under
-     neutrality, a Markov-Chain Monte Carlo method is used to obtain
-     the probability of the homozygosity under neutrality. The
-     <varname>p</varname>-value reported is once again the probability
-     of the observed homozygosity under the null hypothesis of
-     neutrality, and can be interpreted as a two-tailed test.
+     the simulation tables described above, in that rather than
+     simulating data under neutrality, a Markov-Chain Monte Carlo method
+     is used to obtain the probability of the homozygosity under
+     neutrality. The <varname>p</varname>-value reported is once again
+     the probability of the observed homozygosity under the null
+     hypothesis of neutrality, and can be interpreted as a two-tailed
+     test.
     </para>
 
 <programlisting>1.6. Slatkin's implementation of EW homozygosity test of neutrality [A]
@@ -446,7 +455,7 @@ Expected F: 0.2649, Variance in F: 0.0083, p-value of F: 0.0029**
   <title>Multi-locus analyses</title>
   <subtitle>Haplotype Frequency and LD Estimation</subtitle>
   
-  <para>Haplotypes frequencies are estimated using the iterative
+  <para>Haplotype frequencies are estimated using the iterative
    Expectation-Maximization (EM) algorithm (<citation
    role="citealt">Dempster:1977</citation>; <citation
    role="citealt">Excoffier:Slatkin:1995</citation>).</para>
@@ -473,8 +482,8 @@ Expected F: 0.2649, Variance in F: 0.0083, p-value of F: 0.0029**
   <sect2 id="instructions-pairwise-ld">
    <title>All pairwise LD</title>
 
-   <para>For each pair of loci a series of linkage disequilibrium (LD)
-    measures are provided:</para>
+   <para>A series of linkage disequilibrium (LD) measures are
+    provided for each pair of loci.</para>
 
    <example>
     <title>Sample output of all pairwise LD</title>
@@ -529,21 +538,19 @@ DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
      under the null hypothesis of linkage equilibrium
      [<varname>ln(L_0)</varname>] are given. The statistic
      <varname>S</varname> is defined as twice the difference between
-     these likelihoods.  It has an asymptotic chi-square distribution,
-     but this distribution is better approximated using a
-     randomization procedure.  The empirical distribution of
-     <varname>S</varname> is generated by shuffling genotypes among
-     individuals, separately for each locus, thus creating linkage
-     equilibrium (<literal># permu</literal> indicates how many
-     permutations were carried out). The <varname>p</varname>-value is
-     the fraction of permutations that results in values of
-     <varname>S</varname> greater or equal to that observed. A
-     <varname>p</varname>-values &lt; 0.05 is indicative of overall
-     significant LD.
-
-     <!-- A significant result (e.g.
-     <varname>p</varname>-value &lt; 0.05) is indicative of linkage
-     disequilibrium. -->
+     these likelihoods.  <varname>S</varname> has an asymptotic
+     chi-square distribution, but this distribution is better
+     approximated using a randomization procedure.  The empirical
+     distribution of <varname>S</varname> is generated by shuffling
+     genotypes among individuals, separately for each locus, thus
+     creating linkage equilibrium (<literal># permu</literal>
+     indicates how many permutations were carried out). The
+     <varname>p</varname>-value is the fraction of permutations that
+     results in values of <varname>S</varname> greater or equal to
+     that observed. A <varname>p</varname>-value &lt; 0.05 is
+     indicative of overall significant LD. <!-- A significant result
+     (e.g. <varname>p</varname>-value &lt; 0.05) is indicative of
+     linkage disequilibrium. -->
 
     </para>
 
@@ -571,14 +578,14 @@ Number of iterations before convergence: 67
 ]]></programlisting>
    </example>
 
-   <para> The estimated haplotype frequencies are sorted by haplotype
-    name (left side), or in decreasing frequency (right side). Only
-    haplotypes estimated at a frequency of 0.00001 or larger are
-    reported.  The first column give the allele names over the three
-    loci, the second column provides the maximum likelihood estimate
-    for their frequencies, (frequency), and the third column gives the
-    corresponding approximate number of haplotypes (# of
-    copies).</para>
+   <para> The estimated haplotype frequencies are sorted
+    alphanumerically by haplotype name (left side), or in decreasing
+    frequency (right side). Only haplotypes estimated at a frequency
+    of 0.00001 or larger are reported.  The first column gives the
+    allele names in each of the three loci, the second column provides
+    the maximum likelihood estimate for their frequencies,
+    (<literal>frequency</literal>), and the third column gives the
+    corresponding approximate number of haplotypes (<literal># copies</literal>).</para>
 
    <example>
     <title>Sample output of estimated haplotype frequencies</title>
