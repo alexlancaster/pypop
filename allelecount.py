@@ -3,7 +3,7 @@
 """Python population genetics statistics -- parse a literature (allele
    and count data file).  """
 
-import sys
+import sys, os
 from ParseFile import ParseAlleleCountFile
 from Homozygosity import Homozygosity
 from ConfigParser import ConfigParser, NoOptionError
@@ -43,6 +43,12 @@ input = ParseAlleleCountFile(sys.argv[1],
 xmlStream.opentag('dataanalysis', role='allele-count-data')
 xmlStream.writeln()
 
+# generate basename
+baseFileName = os.path.basename(sys.argv[1])
+
+xmlStream.tagContents('filename', baseFileName)
+xmlStream.writeln()
+
 input.serializeMetadataTo(xmlStream)
 
 # get the locus name
@@ -74,3 +80,12 @@ xmlStream.writeln()
 xmlStream.closetag('dataanalysis')
 
 xmlStream.close()
+
+import libxsltmod
+output = libxsltmod.translate_to_string('f', 'text.xsl',
+                                        'f', 'parseallelecount.xml')
+
+# open new txt output
+newOut = open('parseallelecount.txt', 'w')
+newOut.write(output)
+newOut.close()
