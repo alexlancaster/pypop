@@ -33,9 +33,17 @@ else
     EXTRA=-dummy
 fi
 
-echo -n "Enter the VERSION tag (only alphanumeric, '.', '_' or '-' allowed): "
+# check old VERSION
+DEFAULT_VERSION=$(head -1 VERSION)
+
+echo "Enter the VERSION tag (only alphanumeric, '.', '_' or '-' allowed)"
+echo -n "or press return to accept default [${DEFAULT_VERSION}]: "
 read VERSION
-VERSION=${VERSION}${EXTRA}
+if test x$VERSION = x; then
+    VERSION=${DEFAULT_VERSION}
+else
+    VERSION=${VERSION}${EXTRA}
+fi
 echo "VERSION is $VERSION"
 echo $VERSION > VERSION
 
