@@ -1,5 +1,5 @@
 PDF2PS = pdf2ps
-XMLLINT = xmllint --nonet --noout --xinclude --postvalid $<
+XMLLINT = xmllint --noout --xinclude --postvalid $<
 JADE = 	SGML_CATALOG_FILES=$(SGML_CATALOG_FILES) jade
 DOWNLOAD_URL=http://allele5.biol.berkeley.edu/pypop/
 
