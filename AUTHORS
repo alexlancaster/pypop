@@ -1,8 +1,42 @@
-Alex Lancaster <alexl@socrates.berkeley.edu> 
-Mark Nelson <mpn@alleleb.biol.berkeley.edu> 
+PyPop authors:
+
+Alex Lancaster <alexl@socrates.berkeley.edu>
+
+ Co-designer of Python framework: author of main engine, text file
+ parser, Python extension module framework using SWIG, XML output and
+ XSLT post-processing framework (to generate plain text and HTML
+ output).
+
+Mark P. Nelson <mpn@alleleb.biol.berkeley.edu> 
+
+ Co-designer of Python framework: implemented and maintained Python
+ modules, particularly the module for Hardy-Weinberg analysis.
+ Updated and maintained XSLT code.
+
+Richard M. Single <single@allele5.biol.berkeley.edu> 
+
+ Author of haplotype frequency and linkage disequilibrium analysis
+ module "emhaplofreq", author of R programs to do further statistical
+ analysis and generate graphs and figures in PostScript.
+
 Diogo Meyer <diogo@allele5.biol.berkeley.edu>
-Richard Single <single@allele5.biol.berkeley.edu> 
 
-Guo and Thompson program (gthwe):
+ Contributed further statistical analysis code for the R programs.
 
-Originally coded by Guo (?) and modified by John Chen.
+Glenys Thomson <glenys@allele5.biol.berkeley.edu>
+
+ Principal investigator and project lead.
+
+Third-party contributed modules:
+
+ gthwe.c:
+
+  Guo and Thompson's implementation of Hardy-Weinberg exact test,
+  originally coded by S.W. Guo and modified by John Chen.
+
+ monte-carlo.c:
+
+  Montgomery Slatkin's implementation of a Monte Carlo approximation
+  of the Ewens-Watterson exact test of neutrality.
+ 
+  
