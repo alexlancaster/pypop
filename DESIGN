@@ -174,7 +174,7 @@ allele count case).
 
 - Rationalize naming conventions. (?)
 
-- Implement 'ParseAlleleCount'. (?)
+- Implement 'ParseAlleleCountFile'. (_alex_ : 50%-COMPLETED 2002-03-05)
 
 **NOTE**: When editing this 'README' file, it will help to adhere to
 the "structured text
