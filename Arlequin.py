@@ -310,12 +310,13 @@ genetics program.
 
  -i, --idcol=NUM       column number of identifier (first column is zero)
  -l, --ignorelines=NUM number of header lines to ignore in in file
- -c, --cols=POS1,POS2  number of leading columns (POS1) before start and end
-                        (POS2) of allele data (including IDCOL)
+ -c, --cols=POS1,POS2  number of leading columns (POS1) before start and
+                       number of trailing colums before the end (POS2) of
+                       allele data (including IDCOL)
  -k, --sort=POS1,..    specify order of loci if different from column order
                         in file (must not repeat a locus)
  -w, --windowsize=NUM  number of loci involved in window size 
-                        (note that this is twice the number of allele columns)
+                        (note that this is half the number of allele columns)
  -u, --untyped=STR     the string that represents `untyped' alleles
                         (defaults to '****')
  -x, --execute         execute the Arlequin program
