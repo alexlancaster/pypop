@@ -1,7 +1,7 @@
 **Class library for population genetics statistics.**
 
 <!-- Do not edit line below -->
-*Lasted updated: $Date$ by $Author$.*
+*Lasted updated: 2001/09/28 09:08:17 by alex.*
 
 - 'ParseFile' is a base class which has most of the common functionality
 for reading files.
@@ -16,7 +16,7 @@ with files consisting of allele counts across a whole population.
 - 'HardyWeinberg' is a class that calculates Hardy-Weinberg
 statistics given genotype data for a single locus.
 
-- 'HardyWeinbergGuoThompson' a subclass of HardyWeinberg that uses the
+- 'HardyWeinbergGuoThompson' a subclass of 'HardyWeinberg' that uses the
 Guo & Thompson algorithm for calculating statistics.
 
 - 'Haplo' is an abstract base class for estimating haplotypes given
@@ -24,6 +24,10 @@ genotype data.
 
 - 'HaploArlequin' is a subclass of 'Haplo' that uses Arlequin for
 estimation of haplotypes.
+
+- 'Emhaplofreq' is a subclass of 'Haplo' that uses 'emhaplofreq' (Rich
+Single's program) for the estimation of haplotypes and linkage
+disequilibrium values.
 
 - 'ArlequinBatch' the underlying class that `wraps' the functionality
 of the "Arlequin":http://lgb.unige.ch/arlequin/ program to estimate
@@ -42,6 +46,16 @@ itself (either individuals in the genotyped case, or alleles in the
 allele count case).
 
 **TODO**
+
+2001-11-19:
+
+- Emhaplofreq: Calculate all pairwise loci linkage disequilibrim
+  values.  Allow estimation of haplotypes of specified (via
+  'config.ini' file) subset of loci (_alex_).
+
+- ParseFile: Rejig internal format to allow more intutitive data
+  retrieval in both row (individual-oriented) and column (loci
+  oriented) form (_alex_).
 
 2001-09-28:
 
@@ -83,6 +97,11 @@ allele count case).
 - Make number of significant figures reported be a global parameter
   set in "config.ini" (e.g. "%.4f") (_alex_)
 
+- Wrap emphaplofreq with SWIG, so that it can be called directly as a
+  Python object.  (_alex_: 80%-COMPLETED 2001-11-19)
+
+- Wrap gthwe with SWIG, so that it can be called directly as a
+  Python object.  (_alex_)
 
 2001-07-31:
 
@@ -94,9 +113,6 @@ allele count case).
 *longer-term*:
 
 2001-09-13:
-
-- Wrap emphaplofreq with SWIG, so that it can be called directly as a
-  Python object.  (_alex_)
 
 - Abstract the configurator?  [use reflection to construct objects, so
   that constructors don't have to be hard-coded.]  (_alex_)
