@@ -1,0 +1,4 @@
+include pypop.py
+include ws-*.dat
+include text.xsl
+include config.ini
