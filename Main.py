@@ -155,26 +155,6 @@ class Main:
           sys.exit("Could not find a version!  Exiting...")
 
         altpath = os.path.join(self.datapath, 'self.config.ini')
-        # create XML stream
-        xmlStream = XMLOutputStream(open(xmlOutFilename, 'w'))
-
-        # opening tag
-        xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr))
-        xmlStream.writeln()
-
-        # XInclude contents of filter.log
-        xmlStream.opentag('xi:include', href=defaultFilterLogFilename, parse="xml")
-        xmlStream.writeln()
-        xmlStream.emptytag('xi:fallback')
-        xmlStream.writeln()
-        xmlStream.closetag('xi:include')
-        xmlStream.writeln()
-
-        # more meta-data
-        xmlStream.tagContents('filename', baseFileName)
-        xmlStream.writeln()
-        xmlStream.tagContents('pypop-version', version)
-        xmlStream.writeln()
 
         # Parse "ParseFile" section
         try:
@@ -252,6 +232,34 @@ class Main:
                                   fieldPairDesignator=fieldPairDesignator,
                                   filter=filter,
                                   debug=debug)
+
+        # start output
+        
+        # create XML stream
+        xmlStream = XMLOutputStream(open(xmlOutFilename, 'w'))
+
+        # opening tag
+        xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr))
+        xmlStream.writeln()
+
+        if useAnthonyNolanFilter:
+
+            # if and only if filtering is done, generate XInclude XML
+            # file output reference, to include
+            # <popfilename>-filter.log
+            
+            xmlStream.opentag('xi:include', href=defaultFilterLogFilename, parse="xml")
+            xmlStream.writeln()
+            xmlStream.emptytag('xi:fallback')
+            xmlStream.writeln()
+            xmlStream.closetag('xi:include')
+            xmlStream.writeln()
+
+        # more meta-data
+        xmlStream.tagContents('filename', baseFileName)
+        xmlStream.writeln()
+        xmlStream.tagContents('pypop-version', version)
+        xmlStream.writeln()
 
         # serialize summary info for population in XML
         input.serializeMetadataTo(xmlStream)
