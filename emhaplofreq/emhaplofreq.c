@@ -601,9 +601,23 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   if (permu == 0)
   {
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "<uniquepheno>%d</uniquepheno>\n", n_unique_pheno);
+#else
     fprintf(fp_out, "n_unique_pheno: %d \n", n_unique_pheno);
+#endif
+
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "<uniquegeno>%d</uniquegeno>\n", n_unique_geno);
+#else
     fprintf(fp_out, "n_unique_geno: %d \n", n_unique_geno);
+#endif
+
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "<haplocount>%d</haplocount>\n", n_haplo);
+#else
     fprintf(fp_out, "n_haplo: %d \n\n", n_haplo);
+#endif
   }
 
 /*** --- List each obs pheno and corresponding possible genos
@@ -644,8 +658,13 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     /* Compute log likelihood under no LD */
     loglike0 = loglikelihood(genopheno, freq_zero, obspheno, n_haplo, 
       n_unique_geno, n_unique_pheno, xhaplo, xgeno);
-  
+
+#ifdef XML_OUTPUT
+    fprintf(fp_out, 
+	    "<loglikelihood role=\"no-ld\">%f</loglikelihood>\n", loglike0);
+#else
     fprintf(fp_out, "Log likelihood under no LD: %f \n", loglike0);
+#endif
   }
 
   /* Set initial haplotype frequencies  before EM calc */
@@ -660,9 +679,12 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   if (permu == 0)
   {
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "<iterationsummary>\n<![CDATA[");
+#endif
     fprintf(fp_iter, "\n   --- Iteration Summary for Original Data -------------------------------------------\n");
-      fprintf(fp_iter, "   Init. condition   0: Log likelihood after %3d iterations: %f, error_flag: %d \n",
-      iter_count, loglike, error_flag);
+    fprintf(fp_iter, "   Init. condition   0: Log likelihood after %3d iterations: %f, error_flag: %d \n",
+	    iter_count, loglike, error_flag);
   }
 
   loglike_best = loglike;
@@ -724,8 +746,19 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     }
   }
 
+#ifdef XML_OUTPUT
+  if (permu == 0)
+    fprintf(fp_out, "]]></iterationsummary>\n");
+#endif
+
   if (permu_flag == 1)
   {
+
+#ifdef XML_OUTPUT
+    if (permu == 0) 
+      fprintf(fp_out, "<permutation><![CDATA[");
+#endif
+
     fprintf(fp_permu, "Log likelihood under no LD: %f \n", loglike0);
     fprintf(fp_permu, "permu = %3d, ", permu );
   }
@@ -733,6 +766,11 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   /* suppress printing of haplotypes if '-s' flag set */
   if ((permu == 0) && (suppress_haplo_print_flag != 1))
   {
+
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "<haplotypefreq><![CDATA[\n");
+#endif
+
     fprintf(fp_iter, "\n"); 
     fprintf(fp_iter, "   --- Codes for error_flag ----------------------------------------------------------\n"); 
     fprintf(fp_iter, "    0: Iterations Converged, no errors \n");
@@ -776,7 +814,11 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
         fprintf(fp_out, "%d \t %f \t %s\n", j, mle_best[i], haplo[i]);
       }
     }
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "]]></haplotypefreq>\n");
+#endif
 
+#ifndef XML_OUTPUT
     fprintf(fp_out, "\nAllele frequencies\n");
     fprintf(fp_out, "------------------\n");
     fprintf(fp_out, "Frequency \t Locus \t Allele\n");
@@ -788,13 +830,24 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
           unique_allele[i][j]);
       }
     }
+#endif
+
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "<linkagediseq><![CDATA[");
+#endif
 
     linkage_diseq(fp_out, mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
       n_loci, n_haplo, n_recs);
+
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "]]></linkagediseq>\n");
+#endif
+
   }
 
   if (permu_flag == 1)
   {
+
     if (error_flag_best == 0)
       fprintf(fp_permu, "Log likelihood converged in %3d iterations to : %f \n", 
         iter_count_best, loglike_best);
@@ -812,6 +865,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
       fprintf(fp_permu, "Estimated HFs do not sum to 1.\n");
     else /* (error_flag_best == 7) */
       fprintf(fp_permu, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
+
   }
 
   like_ratio[permu] = -2.0 * (loglike0 - loglike_best);
@@ -831,6 +885,10 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     pvalue = pvalue/max_permutations;
     fprintf(fp_out, "\nLD permutation pvalue = %f \n", pvalue); 
     fprintf(fp_permu, "pvalue = %f \n", pvalue); 
+
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "]]></permutation>\n");
+#endif
 
 #ifndef EXTERNAL_MODE
     fclose(fp_permu);
