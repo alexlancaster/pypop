@@ -404,7 +404,12 @@ class ParseGenotypeFile(ParseFile):
 
 
         self.totalIndivCount = len(sampleDataLines)
+
+        # total number of loci contained in original file
         self.totalLocusCount = len(self.alleleMap)
+
+        # total loci that contain usable data
+        self.totalLociWithData = 0
         
         self.freqcount = {}
         self.locusTable = {}
@@ -488,7 +493,11 @@ class ParseGenotypeFile(ParseFile):
                     print col1, col2, allele1, allele2, total
                     
             self.freqcount[locus] = alleleTable, total, untypedIndividuals
-            #self.individualsData = self.individualsList, self.locusKeys
+
+            # if all individuals in a locus aren't untyped
+            # then count this locus as having usable data
+            if untypedIndividuals < len(alleleTable):
+                self.totalLociWithData += 1                
             
 
     def genValidKey(self, field, fieldList):
@@ -587,6 +596,8 @@ class ParseGenotypeFile(ParseFile):
         stream.tagContents('allelecount', "%d" % (self.totalIndivCount*2))
         stream.writeln()
         stream.tagContents('locuscount', "%d" % self.totalLocusCount)
+        stream.writeln()
+        stream.tagContents('lociWithDataCount', "%d" % self.totalLociWithData)
         stream.writeln()
         stream.closetag('totals')
         stream.writeln()
