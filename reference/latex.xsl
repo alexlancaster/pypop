@@ -6,7 +6,8 @@
 
  <xsl:import href="http://db2latex.sourceforge.net/docbook.xsl"/>
 
- <xsl:output method="text" encoding="ISO-8859-1" indent="yes"/>
+ <xsl:output method="xml" encoding="utf8" omit-xml-declaration="yes"
+  indent="yes"/> 
 
  <!-- set default language to English (en) -->
  <xsl:param name="l10n.gentext.language" select="'en'"/>
@@ -45,13 +46,18 @@
 \else
 \documentclass[pdftex]{ws-p8-50x6-00}       
 \fi
+
+% enable unicode translation
+\usepackage{autofe}
+\usepackage[greek,english]{babel}
+\usepackage{ucs}
+% stylesheets should force UTF-8 encoding
+\usepackage[utf8]{inputenc}
+
 \usepackage{amsmath,amsthm,amsfonts,amssymb,amsxtra,amsopn}
 \usepackage{graphicx}
-%\usepackage{epsfig}
 \usepackage{float}
 \usepackage{algorithmic}
-%\usepackage[dvips]{hyperref}
-%\DeclareGraphicsExtensions{.eps}
  </xsl:variable>
 
  <xsl:variable name="latex.mapping.xml" select="document('ws.latex.mapping.xml')"/>
