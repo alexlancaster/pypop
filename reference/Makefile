@@ -10,7 +10,7 @@ CVSPRE = cvs update -kv $(wildcard *.xml)
 CVSPOST = cvs update -kkv $(wildcard *.xml)
 endif
 
-XSLCOMMON = --param use.svg 0 --param section.autolabel 1 --param tablecolumns.extension 0 --param use.extensions 1 --param callout.graphics 0 --param callout.unicode 1 --param callouts.extension 0 --stringparam tex.math.in.alt 'latex' --param section.label.includes.component.label 1  --param shade.verbatim 1 --xinclude
+XSLCOMMON = --param use.svg 0 --param section.autolabel 1 --param tablecolumns.extension 0 --param use.extensions 1  --param callouts.extension 0 --stringparam tex.math.in.alt 'latex' --param section.label.includes.component.label 1  --param shade.verbatim 1 --xinclude
 
 # --stringparam draft.watermark.image images/draft.png
 XSLHTML =
@@ -76,8 +76,11 @@ eqns: tex-math-equations.dvi
 %.html: %.xml html.xsl citation.xsl $(EXTRA_XML_SOURCE) color
 	$(CVSPRE)
 	$(XMLLINT)	
-	$(XSLTPROC) $(XSLCOMMON) --param profiling-highlighting $(if $(findstring profile,$<),0,1) $(XSLHTML) -o $@ html.xsl $<
+	$(XSLTPROC) $(XSLCOMMON)  $(XSLHTML) -o $@ html.xsl $<
 	$(CVSPOST)
+
+# don't use profiling-highlighting right now
+#--param profiling-highlighting $(if $(findstring profile,$<),0,1)
 
 %.fo: %.xml fo.xsl citation.xsl $(EXTRA_XML_SOURCE) color
 	$(CVSPRE)
