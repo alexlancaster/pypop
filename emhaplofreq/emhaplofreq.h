@@ -16,6 +16,9 @@
 #define FALSE 0 
 #define TRUE  1 
  
-#define MAX_INIT_COND 20 
+#define MAX_INIT 10 
 
 #define MAX_GENOS_PER_PHENO 64 /* 2^(max_loci - 1) */
+
+#define MAX_PERMU 1000 
+#define MAX_INIT_FOR_PERMU 10 
