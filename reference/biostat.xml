@@ -7,7 +7,7 @@
 <!ENTITY glossary SYSTEM "glossary.xml">
 <!ENTITY biblio SYSTEM "biblio.xml">
 ]>
-<book>
+<book xmlns:xi="http://www.w3.org/2001/XInclude">
  <bookinfo>
   <title>IHWG Analyses</title>
   <subtitle>Documentation for programs and methodology used for analyses
@@ -27,11 +27,37 @@
   
  </bookinfo>
 
+ <preface>
+  <title>Preface</title>
+  <example>
+   <title>An example</title>
+<programlisting><xi:include href="glossary.xml" parse="text"/>
+  </programlisting>
+  </example>
+  <equation>
+   <title>First equation</title>
+   <alt>E=mc2</alt>
+   <mediaobject>
+    <imageobject>
+     <imagedata/>
+    </imageobject>
+   </mediaobject>
+  </equation>
+ </preface>
+
+ <xi:include href="hlaintro.xml"/>
+ <xi:include href="methods.xml"/>
+ <xi:include href="pypop.xml"/>
+ <xi:include href="glossary.xml"/>
+ <xi:include href="biblio.xml"/>
+
+<!--
  &hlaintro;
  &methods;
  &pypop; 
  &glossary;
  &biblio;
+-->
 
 <!--
 

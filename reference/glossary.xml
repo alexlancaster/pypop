@@ -1,46 +1,49 @@
- <glossary>
-  <glossdiv>
-   <title>Population attributes</title>
-   <glossentry>
-    <glossterm><varname>n</varname></glossterm>
-    <glosssee otherterm="sample-size">sample size</glosssee>
-   </glossentry>
-   <glossentry id="sample-size">
-    <glossterm>sample size</glossterm>
-    <glossdef>
-     <para>Number of individuals in sample (can be total in
-      population or total within a locus).</para>
-    </glossdef>
-   </glossentry>
-   
-   <glossentry>
-    <glossterm>population name, lab code, typing method,
-     ethnicity, origin, collection site, latitude,
-     longtitude</glossterm>
-    <glossdef>
-     <para>Header information that should be provided for each
-      file.</para>
-    </glossdef>
-   </glossentry>
-  </glossdiv>
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE glossary PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<glossary>
+ <glossdiv>
+  <title>Population attributes</title>
+  <glossentry>
+   <glossterm><varname>n</varname></glossterm>
+   <glosssee otherterm="sample-size">sample size</glosssee>
+  </glossentry>
+  <glossentry id="sample-size">
+   <glossterm>sample size</glossterm>
+   <glossdef>
+    <para>Number of individuals in sample (can be total in
+     population or total within a locus).</para>
+   </glossdef>
+  </glossentry>
   
-  <glossdiv>
-   <title>Locus</title>
-   <glossentry id="locus-k">
-    <glossterm><varname>k</varname></glossterm>
-    <glossdef>
-     <para>Number of distinct allelic variants at a locus.</para>
-    </glossdef>
-   </glossentry>
-   <glossentry id="locus-hwe">
-    <glossterm>Hardy-Weinberg Equilibrium</glossterm>
-    <acronym>HWE</acronym>
-    <glossdef>
-     <para>Hardy-Weinberg equilibrium is an "ideal" randomly
-      mating population not undergoing selection.</para>
-    </glossdef>
-   </glossentry>
-  </glossdiv>
+  <glossentry>
+   <glossterm>population name, lab code, typing method,
+    ethnicity, origin, collection site, latitude,
+    longtitude</glossterm>
+   <glossdef>
+    <para>Header information that should be provided for each
+     file.</para>
+   </glossdef>
+  </glossentry>
+ </glossdiv>
+ 
+ <glossdiv>
+  <title>Locus</title>
+  <glossentry id="locus-k">
+   <glossterm><varname>k</varname></glossterm>
+   <glossdef>
+    <para>Number of distinct allelic variants at a locus.</para>
+   </glossdef>
+  </glossentry>
+  <glossentry id="locus-hwe">
+   <glossterm>Hardy-Weinberg Equilibrium</glossterm>
+   <acronym>HWE</acronym>
+   <glossdef>
+    <para>Hardy-Weinberg equilibrium is an "ideal" randomly
+     mating population not undergoing selection.</para>
+   </glossdef>
+  </glossentry>
+ </glossdiv>
  </glossary>
  
 <!--
