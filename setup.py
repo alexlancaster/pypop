@@ -47,7 +47,7 @@ def Ensure_Scripts(scripts):
 # data files to install
 data_file_paths = ['config.ini', 'VERSION']
 # xslt files are in a subdirectory
-xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'common', 'meta', 'summary', 'sort-by-locus']]
+xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'common', 'meta-to-R', 'summary', 'sort-by-locus']]
 data_file_paths.extend(xslt_files)
 
 setup (name = "PyPop",
