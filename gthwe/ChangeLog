@@ -1,3 +1,13 @@
+2004-06-25  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* hwe.c (run_data): For both MCMC and straight MC versions, save
+	histograms of simulated genotype frequencies found during each
+	search and at end of chain and permutations, respectively, print
+	output to stdout.  Implemented as a calloc()ed two-dimensional
+	array of dimension (num_genotypes * total) that is free()d at the
+	end of the function.  This is only enabled if PERMU_TEST is
+	#define'd.
+
 2004-06-23  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* ln_p_value.c (ln_p_value): #ifdef PERMU_DEBUG around debug
