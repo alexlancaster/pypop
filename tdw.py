@@ -9,12 +9,13 @@ Expects to find a file called 'config.ini' in the current directory.
 
   INPUTFILE   input text file"""
 
-import sys, os
+import sys, os, time
 
 from ParseFile import ParseGenotypeFile
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson
 from Homozygosity import Homozygosity
 from ConfigParser import ConfigParser, NoOptionError
+from Utils import XMLOutputStream, TextOutputStream
 
 if len(sys.argv) != 2:
   sys.exit(usageMessage)
@@ -30,6 +31,20 @@ else:
 				
 if len(config.sections()) == 0:
 	sys.exit("No output defined!  Exiting...")
+
+# create streams
+
+txtStream = TextOutputStream(open('out.txt', 'w'))
+xmlStream = XMLOutputStream(open('out.xml', 'w'))
+
+now = time.time()
+timestr = time.strftime("%Y-%m-%d", time.localtime(now))
+
+# opening tag
+xmlStream.opentag('dataanalysis', 'date', timestr)
+xmlStream.writeln()
+xmlStream.tagContents('filename', sys.argv[1])
+xmlStream.writeln()
 
 # Parse "General" section
 
@@ -54,28 +69,31 @@ except NoOptionError:
 	alleleDesignator = '*'
 
 try:
-	untypedAllele = config.get("ParseFile", "alleleDesignator")
+	untypedAllele = config.get("ParseFile", "untypedAllele")
 except NoOptionError:
 	untypedAllele = '****'
 
-
-
+# Generate the parse file object
 input = ParseGenotypeFile(fileName, 
 			  alleleDesignator=alleleDesignator, 
 			  untypedAllele=untypedAllele,
 			  debug=debug)
 
+# serialize summary info into text
+input.serializeMetadataTo(txtStream)
 
-popData = input.getPopData()
-for summary in popData.keys():
- 	print "%20s: %s" % (summary, popData[summary])
+# serialize summary info for population in XML
+input.serializeMetadataTo(xmlStream)
 
 loci = input.getLocusList()
 loci.sort()
 for locus in loci:
-  print "\nLocus:", locus
-  print "======\n"
+  txtStream.write("\nLocus: %s\n======\n" % locus)
+  xmlStream.opentag('locus', 'name', locus)
+  xmlStream.writeln()
   
+  input.serializeAlleleCountDataAt(txtStream, locus)
+  input.serializeAlleleCountDataAt(xmlStream, locus)
   
   # Parse "HardyWeinberg" section
   
@@ -94,23 +112,31 @@ for locus in loci:
                              lumpBelow=lumpBelow,
                              debug=debug)
 
-      
-    try:
-      if config.getboolean("HardyWeinberg", "outputChisq"):
-        hwObject.getChisq()
-    except NoOptionError:
-      pass
-    except ValueError:
-      sys.exit("require a 0 or 1 as a flag")
+    # serialize HardyWeinberg
+    hwObject.serializeTo(txtStream)
+    hwObject.serializeTo(xmlStream)
+
+# don't parse the config.ini output options, just yet
+
+##     try:
+##       if config.getboolean("HardyWeinberg", "outputChisq"):
+##         hwObject.getChisq()
+##     except NoOptionError:
+##       pass
+##     except ValueError:
+##       sys.exit("require a 0 or 1 as a flag")
 
     # guo & thompson implementation
     hwObject = HardyWeinbergGuoThompson(input.getLocusDataAt(locus), 
                                         input.getAlleleCountAt(locus), 
-                                        lumpBelow=5,
+                                        lumpBelow=lumpBelow,
                                         debug=debug)
 
-    # FIXME: for testing purposes, set stream to be stdout
-    hwObject.dumpTable(locus, sys.stdout)
+    # output to text only (XML serialization to be completed)
+    txtStream.writeln()
+    txtStream.writeln("Guo & Thompson Hardy-Weinberg statistics:")
+    txtStream.writeln()
+    hwObject.dumpTable(locus, txtStream)
 
   # Parse "Homozygosity" section
 	
@@ -126,56 +152,70 @@ for locus in loci:
     hzObject = Homozygosity(input.getAlleleCountAt(locus),
                                     rootPath=rootPath,
                                     debug=debug)
-            
-    try:
-      if config.getboolean("Homozygosity", "outputObservedHomozygosity"):
-        print "Fo = ", hzObject.getObservedHomozygosity()
-    except NoOptionError:
-      pass
-    except ValueError:
-      sys.exit("require a 0 or 1 as a flag")
+
+    hzObject.serializeHomozygosityTo(txtStream)
+    hzObject.serializeHomozygosityTo(xmlStream)
+
+# don't parse the config.ini output options, just yet
+
+##     try:
+##       if config.getboolean("Homozygosity", "outputObservedHomozygosity"):
+##         print "Fo = ", hzObject.getObservedHomozygosity()
+##     except NoOptionError:
+##       pass
+##     except ValueError:
+##       sys.exit("require a 0 or 1 as a flag")
           
-    if hzObject.canGenerateExpectedStats():
-      try:
-        if config.getboolean("Homozygosity", "outputCount"):
-          print "count = ", hzObject.getCount()
-      except NoOptionError:
-        pass
-      except ValueError:
-        sys.exit("require a 0 or 1 as a flag")
+##     if hzObject.canGenerateExpectedStats():
+##       try:
+##         if config.getboolean("Homozygosity", "outputCount"):
+##           print "count = ", hzObject.getCount()
+##       except NoOptionError:
+##         pass
+##       except ValueError:
+##         sys.exit("require a 0 or 1 as a flag")
                   
-      try:
-        if config.getboolean("Homozygosity", "outputMean"):
-          print "mean of Fe = ", hzObject.getMean()
-      except NoOptionError:
-        pass
-      except ValueError:
-        sys.exit("require a 0 or 1 as a flag")
+##       try:
+##         if config.getboolean("Homozygosity", "outputMean"):
+##           print "mean of Fe = ", hzObject.getMean()
+##       except NoOptionError:
+##         pass
+##       except ValueError:
+##         sys.exit("require a 0 or 1 as a flag")
                                                 
-      try:
-        if config.getboolean("Homozygosity", "outputVar"):
-          print "var of Fe = ", hzObject.getVar()
-      except NoOptionError:
-        pass
-      except ValueError:
-        sys.exit("require a 0 or 1 as a flag")
+##       try:
+##         if config.getboolean("Homozygosity", "outputVar"):
+##           print "var of Fe = ", hzObject.getVar()
+##       except NoOptionError:
+##         pass
+##       except ValueError:
+##         sys.exit("require a 0 or 1 as a flag")
 
-      try:
-        if config.getboolean("Homozygosity", "outputSem"):
-          print "sem of Fe = ", hzObject.getSem()
-      except NoOptionError:
-        pass
-      except ValueError:
-        sys.exit("require a 0 or 1 as a flag")
+##       try:
+##         if config.getboolean("Homozygosity", "outputSem"):
+##           print "sem of Fe = ", hzObject.getSem()
+##       except NoOptionError:
+##         pass
+##       except ValueError:
+##         sys.exit("require a 0 or 1 as a flag")
 
-      try:
-        if config.getboolean("Homozygosity", "outputPValueRange"):
-          print "%f < pval < %f" % hzObject.getPValueRange()
-      except NoOptionError:
-        pass
-      except ValueError:
-        sys.exit("require a 0 or 1 as a flag")
+##       try:
+##         if config.getboolean("Homozygosity", "outputPValueRange"):
+##           print "%f < pval < %f" % hzObject.getPValueRange()
+##       except NoOptionError:
+##         pass
+##       except ValueError:
+##         sys.exit("require a 0 or 1 as a flag")
 
-    else:
-      print "Can't generate expected stats"
+##       else:
+##          print "Can't generate expected stats"
 
+  xmlStream.closetag('locus')
+  xmlStream.writeln()
+
+# closing tag
+xmlStream.closetag('dataanalysis')
+
+# close streams
+txtStream.close()
+xmlStream.close()
