@@ -95,6 +95,7 @@ MODIFICATIONS.
    <xsl:value-of select="/dataanalysis/locus[@name=$locus1]/allelecounts/allele[@name=$allele1]/frequency"/>
 
    <xsl:value-of select="/dataanalysis/emhaplofreq/group[@loci=$locus-pair12]/haplotypefreq/haplotype[@name=$allele-name12]/frequency"/>
+   <xsl:text> </xsl:text>
    <xsl:value-of select="/dataanalysis/emhaplofreq/group[@loci=$locus-pair13]/haplotypefreq/haplotype[@name=$allele-name13]/frequency"/>
 
    <xsl:call-template name="newline"/>
