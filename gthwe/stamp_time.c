@@ -24,6 +24,11 @@ void stamp_time(t1, outfile)
 	t2 -= t1;
 	time(&now);
 
+#ifndef XML_OUTPUT
 	fprintf(*outfile, "\nTotal elapsed time: %d''\n", t2);
 	fprintf(*outfile, "Date and time: %s\n", ctime(&now));
+#else
+	fprintf(*outfile, "<elapsed-time>%d</elapsed-time>\n", t2);
+	fprintf(*outfile, "<timestamp>%s</timestamp>\n", ctime(&now));
+#endif
 }
