@@ -261,6 +261,16 @@ class Main:
         except NoOptionError:
             sys.exit("No valid sample fields defined")
 
+        try:
+          self.alleleDesignator = self.config.get(self.fileType, "alleleDesignator")
+        except NoOptionError:
+          self.alleleDesignator = '*'
+
+        try:
+          self.untypedAllele = self.config.get(self.fileType, "untypedAllele")
+        except NoOptionError:
+          self.untypedAllele = '****'
+
 
         # BEGIN PARSE for a genotype file (ParseGenotypeFile)
         if self.fileType == "ParseGenotypeFile":
@@ -270,15 +280,6 @@ class Main:
             except NoOptionError:
               popNameDesignator = "+"
 
-            try:
-              self.alleleDesignator = self.config.get(self.fileType, "alleleDesignator")
-            except NoOptionError:
-              self.alleleDesignator = '*'
-
-            try:
-              self.untypedAllele = self.config.get(self.fileType, "untypedAllele")
-            except NoOptionError:
-              self.untypedAllele = '****'
 
             try:
               fieldPairDesignator = self.config.get(self.fileType, "fieldPairDesignator")
@@ -297,45 +298,8 @@ class Main:
                                 fieldPairDesignator=fieldPairDesignator,
                                 debug=self.debug)
 
-            # we copy the parsed data to self.filtered, to be ready for the gamut of filters coming
-            self.matrixHistory = []
-            self.matrixHistory.append(self.parsed.getMatrix().copy())
-            
-            # figure out what filters we will be using, if any
-            if self.config.has_section("Filters"):
-
-                try:
-                    self.filtersToApply = self.config.get("Filters", "filtersToApply")
-                    self.filtersToApply = string.split(self.filtersToApply, ':')
-                except:
-                    self.filtersToApply = []
-                try:
-                    self.popDump = self.config.getint("Filters","makeNewPopFile")
-                except:
-                    self.popDump = 0
-
-                # this allows the user to have "filtersToApply=" without ill consequences
-                if len(self.filtersToApply) > 0 and len(self.filtersToApply[0]) > 0:
-
-                    # get filtering options and open log file for
-                    # filter in append mode
-                    self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogPath, 'w'))
-                    self.filterLogFile.opentag('filterlog', filename=self.fileName)
-                    self.filterLogFile.writeln()
-                    self.filteringFlag = 1
-
-                    # run the filtering gamut
-                    self._runFilters()
-
-            # and then we pass the filtered matrix to be put in format
-            # for rest of processing
-            self.input = Genotypes(matrix=self.matrixHistory[-1],
-                                   untypedAllele=self.untypedAllele,
-                                   debug=self.debug)
 
         # END PARSE for a genotype file (ParseGenotypeFile)
-
-
 
         # BEGIN PARSE: allelecount file (ParseAlleleCountFile)
         elif self.fileType == "ParseAlleleCountFile":
@@ -347,16 +311,48 @@ class Main:
                              separator='\t',
                              debug=self.debug)
 
-            self.input = AlleleCounts(alleleTable=self.parsed.getAlleleTable(),
-                                      locusName=self.parsed.getLocusName(),
-                                      debug=self.debug)
-            
         # END PARSE: allelecount file (ParseAlleleCountFile)
         
         else:
             sys.exit("Unrecognised file type")
 
+        # we copy the parsed data to self.filtered, to be ready for
+        # the gamut of filters coming
+        self.matrixHistory = []
+        self.matrixHistory.append(self.parsed.getMatrix().copy())
 
+        # figure out what filters we will be using, if any
+        if self.config.has_section("Filters"):
+
+            try:
+                self.filtersToApply = self.config.get("Filters", "filtersToApply")
+                self.filtersToApply = string.split(self.filtersToApply, ':')
+            except:
+                self.filtersToApply = []
+            try:
+                self.popDump = self.config.getint("Filters","makeNewPopFile")
+            except:
+                self.popDump = 0
+
+            # this allows the user to have "filtersToApply=" without ill consequences
+            if len(self.filtersToApply) > 0 and len(self.filtersToApply[0]) > 0:
+
+                # get filtering options and open log file for
+                # filter in append mode
+                self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogPath, 'w'))
+                self.filterLogFile.opentag('filterlog', filename=self.fileName)
+                self.filterLogFile.writeln()
+                self.filteringFlag = 1
+
+                # run the filtering gamut
+                self._runFilters()
+
+        # now convert into DataType: and then we pass the filtered
+        # matrix to be put in format for rest of processing
+
+        self.input = Genotypes(matrix=self.matrixHistory[-1],
+                               untypedAllele=self.untypedAllele,
+                               debug=self.debug)
 
         # BEGIN common XML output section
         
@@ -395,7 +391,8 @@ class Main:
 
         # process the file depending on type
         if self.fileType == "ParseAlleleCountFile":
-            self._doAlleleCountFile()
+            #self._doAlleleCountFile()
+            self._doGenotypeFile()
         elif self.fileType == "ParseGenotypeFile":
             self._doGenotypeFile()
         else:

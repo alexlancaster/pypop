@@ -39,7 +39,7 @@
    and classes for parsing literature data which only includes allele
    counts."""
 
-import sys, os, string, types, re
+import sys, os, string, types, re, operator
 
 from Utils import getStreamType, StringMatrix, OrderedDict, TextOutputStream
 
@@ -582,11 +582,12 @@ class ParseAlleleCountFile(ParseFile):
         sampleDataLines, separator = self.getFileData()
 
         self.alleleTable = {}
-        
+        totalAlleles = 0
         for line in sampleDataLines:
             allele, count = string.split(line, separator)
             # store as an integer
             self.alleleTable[allele] = int(count)
+            totalAlleles += self.alleleTable[allele]
 
         if self.debug:
             print 'alleleTable', self.alleleTable
@@ -594,7 +595,38 @@ class ParseAlleleCountFile(ParseFile):
             print 'sampleMap values:', self.sampleMap.values()
             
         self.locusName = self.sampleMap.keys()[0]
-        
+
+        # turn this into a pseudo-genotype data matrix
+
+        # calculate the total number of individuals to create
+        if operator.mod(totalAlleles, 2):
+            # if odd create an extra individual with one untyped
+            # allele to pad out the alleles
+            self.totalIndivCount = totalAlleles / 2 + 1
+        else:
+            self.totalIndivCount = totalAlleles / 2
+
+        self.locusList = [self.locusName]
+
+        # create an empty-list of lists to store all the row data
+        self.matrix = StringMatrix(self.totalIndivCount, self.locusList)
+
+        # loop through alleles creating genotypes
+        rowCount = 0
+        alleleCount = 0
+        for alleleName in self.alleleTable.keys():
+            for allele in range(0, self.alleleTable[alleleName]):
+                # odd position (end of individual)
+                # assign to 
+                if operator.mod(alleleCount, 2):
+                    genotype = (lastAlleleName, alleleName)
+                    self.matrix[rowCount, self.locusName] = genotype
+                    rowCount += 1
+                else:
+                    lastAlleleName = alleleName
+                alleleCount += 1
+                
+        print self.matrix
 
     def genValidKey(self, field, fieldList):
         """Checks to  see validity of a field.
@@ -639,6 +671,13 @@ class ParseAlleleCountFile(ParseFile):
     def getLocusName(self):
         # the first key is the name of the locus
         return self.locusName
+
+    def getMatrix(self):
+        """Returns the genotype data.
+
+        Returns the genotype data in a 'StringMatrix' NumPy array.
+        """
+        return self.matrix
 
 # this test harness is called if this module is executed standalone
 if __name__ == "__main__":
