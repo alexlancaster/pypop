@@ -396,13 +396,21 @@ class Emhaplofreq(Haplo):
         type = getStreamType(stream)
 
         if type == 'xml':
-            # don't currently do anything, until we "XML-ify"
-            # output from emhaplofreq
-            pass
+            # until we "XML-ify" simply pass output from emhaplofreq
+            # to XML file as a CDATA (character data) section
+            stream.opentag('emhaplofreq')
+            stream.writeln()
+            stream.writeln('<![CDATA[')
+            stream.write(self.fp.getvalue())
+            #self.fp.close()
+            stream.writeln(']]>')
+            stream.closetag('emhaplofreq')
+            stream.writeln()
+        
         else:
             # write complete contents of file pointer to text output
             # stream
             stream.write(self.fp.getvalue())
-            self.fp.close()
+            #self.fp.close()
 
         
