@@ -817,7 +817,8 @@ class Main:
                     print "alleleCounts", len(alleleCounts), alleleCounts
 
                 if len(alleleCountsInitial) <= len(alleleCounts):
-                    print 'skipping random binning because the initial allele count is not bigger than the target count'
+                    if self.debug:
+                        print 'skipping random binning because the initial allele count is not bigger than the target count'
 
                 else:
                     # go ahead and do the random binning

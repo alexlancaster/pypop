@@ -60,6 +60,8 @@ class RandomBinsForHomozygosity:
         self.binningReplicates = binningReplicates
         self.debug = debug
         self.locus = locus
+        self.filename = string.split(filename, ".")[-2]
+        self.filename = string.split(self.filename, "/")[-1]
 
     def randomMethod(self, alleleCountsBefore=None, alleleCountsAfter=None):
 
@@ -67,7 +69,7 @@ class RandomBinsForHomozygosity:
         alleleCountsBefore = alleleCountsBefore.values()
         alleleCountsAfter = alleleCountsAfter.values()
 
-        print "obsvHomozygosity\tlocus\tmethod"
+        #print "obsvHomozygosity\tlocus\tmethod\tpop"
         
         for i in range(self.binningReplicates):
 
@@ -82,12 +84,13 @@ class RandomBinsForHomozygosity:
                     del alleleCountsRand[bin2]
 
             homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsRand)
-            print join([str(homozygosityResult),self.locus,'random'],'\t')
+            #print join([str(homozygosityResult),self.locus,'random',self.filename],'\t')
+            print '%.5f\t%s\tr\t%s' %(homozygosityResult,self.locus,self.filename)
 
-        homozygosityResults = getObservedHomozygosityFromAlleleData(alleleCountsBefore)
-        print homozygosityResults,'\t',self.locus,'\tbefore'
-        homozygosityResults = getObservedHomozygosityFromAlleleData(alleleCountsAfter)
-        print homozygosityResults,'\t',self.locus,'\tafter'
+        homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsBefore)
+        print '%.5f\t%s\tb\t%s' %(homozygosityResult,self.locus,self.filename)
+        homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsAfter)
+        print '%.5f\t%s\ta\t%s' %(homozygosityResult,self.locus,self.filename)
 
 
     def sequenceMethod(self,
@@ -110,7 +113,7 @@ class RandomBinsForHomozygosity:
             collapseHistory[pos] = 0
             weightedCollapseHistory[pos] = 0
 
-        print "obsvHomozygosity\tlocus\tmethod"
+        #print "obsvHomozygosity\tlocus\tmethod\tpop"
         
         while binningAttemptsSuccessful < self.binningReplicates:
 
@@ -186,7 +189,7 @@ class RandomBinsForHomozygosity:
             if len(alleleCountsRand) == len(alleleCountsAfter):
 
                 homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsRand.values())
-                print join([str(homozygosityResult),self.locus,'sequence'],'\t')
+                print join([str(homozygosityResult),self.locus,'sequence',self.filename],'\t')
 
                 binningAttemptsSuccessful += 1
                 if self.debug:
@@ -208,9 +211,9 @@ class RandomBinsForHomozygosity:
 
         print 'STATISTICS OF THE BINNING'
         homozygosityResults = getObservedHomozygosityFromAlleleData(alleleCountsBefore.values())
-        print homozygosityResults,'\t',self.locus,'\tbefore'
+        print homozygosityResults,'\t',self.locus,'\tbefore\t',self.filename
         homozygosityResults = getObservedHomozygosityFromAlleleData(alleleCountsAfter.values())
-        print homozygosityResults,'\t',self.locus,'\tafter'
+        print homozygosityResults,'\t',self.locus,'\tafter\t',self.filename
 
         print 'had to try %d times to get %d random binnings' % (binningAttempts, binningAttemptsSuccessful)
 
