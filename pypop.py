@@ -425,10 +425,10 @@ if config.has_section("Emhaplofreq"):
 
 # this is pre-alpha prototype code!!
 # do not use
-if config.has_section("HaploArlequin"):
+if config.has_section("Arlequin"):
 
   try:
-    arlequinExec = config.get("HaploArlequin", "arlequinExec")
+    arlequinExec = config.get("Arlequin", "arlequinExec")
   except NoOptionError:
     arlequinExec = 'arlecore.exe'
     print "Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
@@ -437,8 +437,11 @@ if config.has_section("HaploArlequin"):
                              arlequinExec = arlequinExec,
                              untypedAllele = untypedAllele)
 
-
   arlequin.outputArp(input.getIndividualsData().colList)
+  arlequin.outputRunFiles()
+  arlequin.runArlequin()
+  print arlequin.getHWExactTest()
+  #arlequin.cleanup()
   
 ##   haploArlequin = HaploArlequin('arl_run.arp',
 ##                                 0,
