@@ -118,6 +118,7 @@ class Main:
     """
     def __init__(self,
                  config=None,
+                 xslFilename=None,
                  debugFlag=0,
                  fileName=None,
                  datapath=None,
@@ -131,6 +132,7 @@ class Main:
         self.datapath = datapath
         self.use_libxsltmod = use_libxsltmod
         self.use_FourSuite = use_FourSuite
+        self.xslFilename = xslFilename
 
         # for threading to work
         self.thread = thread
@@ -730,17 +732,20 @@ class Main:
         # create default XSL stylesheet location
         xslFilenameDefault = os.path.join(self.datapath, 'text.xsl')
 
-        # check self.config options, and use that location, if provided
-        try:
-          xslFilename = self.config.get("General", "xslFilename")
-        except NoOptionError:
-          xslFilename=xslFilenameDefault
+        # if not provided on command line try check self.config
+        # options, and use that location, if provided
+        if self.xslFilename == None:
+            try:
+                self.xslFilename = self.config.get("General", "xslFilename")
+            except NoOptionError:
+                # otherwise use fallback            
+                self.xslFilename=xslFilenameDefault
 
         # check to see if file exists, otherwise fail with an error
-        if os.path.isfile(xslFilename):
+        if os.path.isfile(self.xslFilename):
           pass
         else:
-          sys.exit("Could not find xsl file: `%s' " % xslFilename)
+          sys.exit("Could not find xsl file: `%s' " % self.xslFilename)
 
         if self.use_libxsltmod:
 
@@ -749,7 +754,7 @@ class Main:
           import libxslt
 
           # read and parse stylesheet
-          styledoc = libxml2.parseFile(xslFilename)
+          styledoc = libxml2.parseFile(self.xslFilename)
           style = libxslt.parseStylesheetDoc(styledoc)
 
           # read output XML file
@@ -774,7 +779,7 @@ class Main:
           from xml.xslt.Processor import Processor
 
           # open XSLT stylesheet
-          styleSheet = open(xslFilename, 'r')
+          styleSheet = open(self.xslFilename, 'r')
 
           # re-open text stream
           self.xmlStream = open(self.xmlOutFilename, 'r')
