@@ -1657,7 +1657,7 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
 
           /* Normalize addto_ambig[] for the current pheno */
           /* Add normalized amount to ambiguous count      */
-          if (expected_freq_sum < .000001)
+          if (expected_freq_sum < .0000001)
           {
             done = TRUE;
             *error_flag = 2;
