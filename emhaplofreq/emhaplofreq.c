@@ -377,7 +377,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   CALLOC_ARRAY_DIM1(double, mle_best, MAX_HAPLOS);
 
   /* needed for permutations */
-  int permu, max_permutations, max_init_cond = 0, ok_perm0;
+  int permu, max_permutations, max_init_cond = 0, ok_perm0 = 0;
   int permu_count; // RS 20031125
   double lr_mean, lr_sd, lr_z;
 
@@ -1378,7 +1378,6 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
   CALLOC_ARRAY_DIM1(double, summary_q, MAX_LOCI*(MAX_LOCI - 1)/2);
   CALLOC_ARRAY_DIM1(double, summary_wn, MAX_LOCI*(MAX_LOCI - 1)/2);
 
-  double sum = 0.0; /* used to check sums */
   double obs = 0.0; 
   double exp = 0.0; 
   double diseq = 0.0; 
@@ -1555,7 +1554,7 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
 	    int *error_flag, int *iter_count, double *loglike, 
 	    double *haplo_freq_sum, int permu, int (*gp)[MAX_ROWS])
 {
-  int i, j, k, l = 0;
+  int i, j, k = 0;
   int done, decr_loglike_count, tot_hap = 0;
   int iter, k_pheno, i_geno, j_geno, i_haplo, j_haplo = 0;
 
@@ -1607,7 +1606,7 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
         unambig[i_haplo] += (double)obspheno[i];
         unambig[j_haplo] += (double)obspheno[i];
       }
-      else // (numgeno[l] > 1) 
+      else // (numgeno[i] > 1) 
       {
         ambig[i_haplo] += (double)obspheno[i] / (double)numgeno[i];
         ambig[j_haplo] += (double)obspheno[i] / (double)numgeno[i];
@@ -1828,7 +1827,7 @@ double loglikelihood(int (*genopheno)[MAX_ROWS], int *numgeno, double (*hap_freq
          int *xhaplo, int (*xgeno)[2], int permu, int (*gp)[MAX_ROWS])
 
 {
-  int i, j, k = 0;
+  int i, j = 0;
   int i_haplo, j_haplo, j_geno;
 
   CALLOC_ARRAY_DIM1(double, geno_freq, MAX_GENOS);
