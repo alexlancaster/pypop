@@ -7,6 +7,7 @@ OBJS=emhaplofreq.o
 
 emhaplofreq: $(OBJS)
 	$(CC) $(OBJS) -o emhaplofreq $(LIBS)
+# make a symlink to run for backwards-compatibility
 	ln -s emhaplofreq run
 
 .c.o:
