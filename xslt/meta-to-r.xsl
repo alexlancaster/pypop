@@ -292,7 +292,7 @@
     <exsl:document href="2-locus-haplo.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;haplo&#09;haplo.freq&#09;haplo.count&#09;ld.dprime&#09;ld.chisq</xsl:text>
+     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;allele&#09;allele.freq&#09;allele.count&#09;ld.dprime&#09;ld.chisq</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
