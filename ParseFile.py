@@ -487,9 +487,10 @@ class ParseGenotypeFile(ParseFile):
         self.matrix = StringMatrix(self.totalIndivCount, self.locusKeys)
 
         for locus in self.locusKeys:
-	    if self.debug:
-	       print "locus name:", locus
-	       print "column tuple:", self.alleleMap[locus]
+            if self.debug:
+               print "locus name:", locus
+               print "column tuple:", self.alleleMap[locus]
+
             col1, col2 = self.alleleMap[locus]
 
             # initialise blank dictionary
@@ -674,7 +675,7 @@ class ParseGenotypeFile(ParseFile):
         number of untyped individuals.  """
         
         return self.freqcount
-	
+
     def getAlleleCountAt(self, locus):
         """Return allele count for given locus.
         
