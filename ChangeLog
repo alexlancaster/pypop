@@ -1,3 +1,8 @@
+2005-03-03  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* setup.py (ext_HweEnum): Add "popt" to list of libraries to
+	compile _HweEnum against.
+
 2005-03-01  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* setup.py (ext_HweEnum): Set VERSION, PACKAGE_NAME macros to
