@@ -414,6 +414,13 @@ MODIFICATIONS.
 
      <xsl:variable name="pvals-diff-monte-carlo" select="hardyweinbergGuoThompson[@type='monte-carlo']/pvalue[@statistic='diff_statistic' and @type='genotype']"/>
 
+     <!-- get the number of steps in both mcmc and mc version -->
+     <xsl:variable name="steps-mcmc"
+     select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/samplingNum * hardyweinbergGuoThompson[not(@type='monte-carlo')]/samplingSize"/>
+
+     <xsl:variable name="steps-monte-carlo" select="hardyweinbergGuoThompson[@type='monte-carlo']/steps"/>
+     
+     <!-- get actual test statistics -->
      <xsl:variable name="stats-chen-monte-carlo" select="hardyweinbergGuoThompson[@type='monte-carlo']/genotypeSimulatedStatistic[@statistic='chen_statistic']"/>
 
      <xsl:variable name="stats-diff-monte-carlo" select="hardyweinbergGuoThompson[@type='monte-carlo']/genotypeSimulatedStatistic[@statistic='diff_statistic']"/>
@@ -463,6 +470,15 @@ MODIFICATIONS.
 
       <xsl:call-template name="output-field">
        <xsl:with-param name="node" select="$pvals-diff-monte-carlo[$pos]"/>
+      </xsl:call-template>
+
+      <!-- output steps -->
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$steps-mcmc"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$steps-monte-carlo"/>
       </xsl:call-template>
 
       <xsl:call-template name="output-field">
@@ -736,7 +752,7 @@ MODIFICATIONS.
      <xsl:call-template name="header-line-start">
       <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
      </xsl:call-template>
-     <xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
+     <xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;steps.mcmc&#09;steps.monte.carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
 
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
