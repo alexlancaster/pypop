@@ -320,9 +320,24 @@
        <xsl:with-param name="popnode" select="../../populationdata"/>
       </xsl:call-template>
 
-      <xsl:value-of select="substring-before(@loci,':')"/>
-      <xsl:text>:</xsl:text>
-      <xsl:value-of select="substring-after(@loci, ':')"/>
+      <xsl:variable name="locus1" select="substring-before(@loci,':')"/>
+      <xsl:variable name="locus2" select="substring-after(@loci, ':')"/>
+
+      <!-- make sure locus1 and locus2 are always in map order -->
+      <xsl:choose>
+       <xsl:when test="$map-order[.=$locus1]/@order &lt;
+	$map-order[.=$locus2]/@order">
+	<xsl:value-of select="$locus1"/>
+	<xsl:text>:</xsl:text>
+	<xsl:value-of select="$locus2"/>
+       </xsl:when>
+       <xsl:otherwise>
+	<xsl:value-of select="$locus2"/>
+	<xsl:text>:</xsl:text>
+	<xsl:value-of select="$locus1"/>
+       </xsl:otherwise>
+      </xsl:choose>
+
      </xsl:variable>
 
      <xsl:for-each select="haplotypefreq/haplotype">
