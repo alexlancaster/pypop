@@ -5,10 +5,8 @@ include COPYING
 include VERSION
 include pypop.py
 include MANIFEST.in
-include common.xsl
-include text.xsl
-include html.xsl
 include config.ini
+include xslt/*.xsl
 include SWIG/*.i
 include emhaplofreq/*.h
 include emhaplofreq/Makefile
