@@ -1,0 +1,251 @@
+
+Program specifications for 13th IHW, Hardy Weinberg
+
+GT				3/15/01
+Revised 2001-10-26
+
+Abbreviations: HW Hardy Weinberg, HWP HW proportions
+
+Values that later will be output are indicated with underscores with their
+first definition
+
+You don't have to use the names I have given if there is reason not
+to, there is however logic to the names I have used, although they
+are very cumbersome.
+
+Input: from previous data input phase
+
+_locus name_
+
+_sample size N_ (are you calling this by locus name, e.g., NA (sample
+size for locus A), NDRB1 (locus DRB1), etc. or ? e.g, including
+population name also - below I will refer to this as N with the
+understanding that this number is population and locus specific,
+i.e., sample size per locus may vary even within a population)
+
+
+number of alleles k (again you may be calling this by locus name also
+or ?, as will vary across loci)
+
+allele frequencies pi, i=1,2,...,k (how many decimal places are you
+working to, always work to as many as possible, even though we will
+only output to a certain number of decimal places (to be decided re
+output of data input phase allele frequencies))
+
+observed genotype count AiAj for i<=j, i,j=1,2,...,k, and call these
+HWobsgenoctAiAj
+
+parameter space: there will be k homozygote classes AiAi, i =
+1,2,...,k, and k(k-1)/2 heterozygote AiAj, i<j, i,j = 1,2,...,k
+classes, for a total of k(k+1)/2 classes, e.g., k=2, total = 3, 2
+homozygote (A1A1, A2A2), 1 heterozygote (A1A2), and k=4, total = 10,
+4 homozygote (A1A1, A2A2, A3A3, A4A4), 6 heterozygote (A1A2, A1A3,
+A1A4, A2A3, A2A4, A3A4).
+
+(sometimes I need to distinguish between i<=j and i<j below in
+calculations for example of expected values)
+
+We require that number of alleles be > 1 to perform any of these tests,
+if k = 1, then output message 'number of alleles = 1 no HW tests can
+be performed" and exit this subroutine
+
+Output:
+
+pop name, ethnicity code, lab name, locus name, sample size (N = ??),
+number of alleles (k = ??), allele names, counts, frequencies.
+
+N.B. Add counter for case where k = 1
+
+All this is done in the file parsing, called in order to read in
+the data to be passed to the HWP programme.
+
+A. Chi-square test of fit to HW
+
+Logic:
+  Calculate expected genotype values based on Hardy Weinberg
+proportions for individual genotype values and test for fit to HWP
+of individual genotypes as well as an overall test. When expected
+genotype counts are >= 5 calculate individual chi-square value for this
+genotype, i.e., (O - E)^2 / E, where O is observed and E is expected
+for that genotype, test fit to null hypothesis (no deviation from HWP)
+of this chi-square value with 1 degree of freedom and output p value,
+and calculate cumulative chi-square value for all genotypes in this
+category.
+  If there are no genotypes with expected count < 5, then cumulative
+chi-square value is tested against the null hypothesis of fit to HWP.
+Degrees of freedom = k(k - 1) / 2, calculated from total number
+of genotypes minus one minus the number of independent parameters
+estimated from the data (i.e., k * (k + 1) / 2 - 1 - (k - 1) =
+k * (k - 1) / 2.).
+  When expected genotype counts are <5 form a lumped category
+of observed and expected values for all these genotypes, and test
+fit to null hypothesis (no deviation from HWP) of this chi-square
+value with 1 degree of freedom and output p value. The chi-square
+value from this category is added to the cumulative chi-square value
+from the genotypes >= 5 class to give the overall chi-square value
+which is tested against the null hypothesis of fit to HWP, degrees of
+freedom equals the number of genotypes falling into >= 5 class, minus
+the number of independent parameters estimated (This number will equal
+the number of different alleles seen in the common genotype classes.
+The overall degrees of freedom may be zero or negative, in which case
+the chi-square test cannot be performed.), and output p value.
+  The contribution of the common genotypes to the overall chi-square
+test (without the lumped category) will also be considered.
+  The p value from the overall test will also be compared to the
+p value from the Guo and Thompson test with reduced number of alleles
+in a meta analysis at a later date. The individual heterozygote p
+values from Chen test (see later) will also be output and compared
+to individual values from the chi-square test.
+
+Calculate expected genotype counts under HWP, same parameter space as
+for observed counts
+
+_HWexpgenoctAiAi_ = N * (p[i])^2, // homozygotes
+_HWexpgenoctAiAj_ = 2 * N * p[i] * p[j], i < j
+
+Check that sum of these is close to N, say within 0.1% (may have to
+fiddle with this later), maybe output to see where the values fall
+
+Calculate individual genotype contributions to the chi-square value
+and cumulative values for the overall chi-square value, set all the
+following values initially to 0 (zero) before starting the iterative
+calculations
+
+HWcountercommongenos, HWdfcommon, HWcumchisqcommons,
+HWcounterraregenos, HWobsgenoctlum, HWexpgenoctlum, HWchisq, HWchisqdf,
+HWchisqpval, HWchisqlum, HWchisqlumpval, and all initialized to zero.
+
+for i = 1, 2, ..., k,
+  counter A[i] = 0
+
+for i,j = 1,2,...,k, i <= j 
+
+  HWprintexpAiAj, HWchisqAiAj, HWchisqpvalAiAj set to 0
+
+do the following for all i,j = 1,2,...,k, i<=j
+  (i)
+  If HWexpgenoctAiAj is >= 5, for i <= j, then
+
+  counter A[i] += 1
+  counter A[j] += 1
+  (This counts number of common genotype categories in which alleles
+  A[i] and A[j] appear, homozygotes give a count of 2;  these are used
+  later to determine if an allele ever appears in a common genotype,
+  i.e., if counter > 0, and hence to determine degrees of freedom for
+  common genotypes.)
+
+  HWprintexpAiAj = 1 (this is a counter to tell us later to print the
+  HWchisqAiAj value, set to zero initially),
+
+  HWcountercommongenos = HWcountercommongenos (set counter = zero to
+  start with) + 1,
+
+  calculate cumulative degrees of freedom,
+
+  calculate contribution of this genotype to the chi-square value,
+  HWchisqAiAj = (HWobsgenoctAiAj - HWexpgenoctAiAj)2 / HWexpgenoctAiAj,
+
+  for this chi-square value (HWchisqAiAj) and degrees of freedom 1,
+  look up the p value and call this HWchisqpvalAiAj and calculate
+  cumulative chi-square value for these genotypes
+
+  HWcumchisqcommons =  HWcumchisqcommons (set counter = zero to start
+  with) + HWchisqAiAj
+
+  (ii)
+  If HWexpgenoctAiAj is < 5, for i < = j, then
+
+  HWprintexpAiAj = 99 (this is a counter to tell us later not to print the HWchisqAiAj value),
+
+  HWcounterraregenos = HWcounterraregenos (set counter = zero to start
+  with) + 1, and combine together in one class each the observed and
+  expected genotype count values in these cases
+
+  HWobsgenoctlum = HWobsgenoctlum (set counter = zero to start with)
+  + HWobsgenoctAiAj, and
+
+  HWexpgenoctlum = HWexpgenoctlum (set counter = zero to start with)
+  + HWexpgenoctAiAj,
+
+when have gone through all i,j values
+
+(iii)
+If HWcounterraregenos = 0, calculate
+  HWchisq = HWcumchisqcommons 
+  HWchisqdf = k * (k - 1) / 2
+  for this chi-square value (HWchisq) and degrees of freedom
+  (HWchisqdf), look up the p value and call this HWchisqpval
+
+  Output:
+  No rare genotypes with expected < 5 observed
+  HWchisq = ??, HWchisqdf = ??, HWchisqpval = ??, (?? means insert value, ns
+  if not significant)
+  Do for i <=j = 1, 2, .., k
+    If HWprintA[i]A[j] == 1
+      Output:
+      HWobsgenoctA[i]A[j] = ??   HWexpgenoctA[i]A[j] = ??
+      HWchisq[i]A[j] = ??   HWchisqpval[i]A[j] = ??
+      e.g.:
+      A1A2 15, 10, 2.5, ns (not significant)
+      and have header:
+      genotype, HWobsgenoct, HWexpgenoct, HWchisq, HWpval
+
+
+/*--mpn-- STOP HERE for now 2001-10-26*/
+(iv)
+If HWcountercommongenos = 0
+  Output 'no common genotypes chi-square cannot be calculated'
+
+(v)
+otherwise, calculate:
+
+  HWchisqlum = (HWobsgenoctlum - HWexpgenoctlum)2 / HWexpgenoctlum
+  this is (O-E)2/E for the 1 class of lumped data for the genotypes
+  with low expected values, i.e., <=5
+
+for this chi-square value (HWchisqlum) and degrees of freedom 1, look up the p value and call this HWchisqlumpval (I need to work out later automation of case where total expected here is less than 5, for moment will do by eye from outputs)
+and calculate
+HWchisq = HWcumchisqcommons + HWchisqlum
+HWchisqdf = HWdfcommon + 1,
+for this chi-square value (HWchisq) and degrees of freedom (HWchisqdf), look up the p value and call this HWchisqpval
+
+see output format later
+
+B. Guo and Thompson test of fit to HW
+Run Guo and Thompson exact test on 2 sets of data (i) all alleles, and (ii) a reduced set of alleles eliminating rare alleles
+set the following values initially to 0 (zero) before starting thecalcuations
+HWGTpval, HWkGTlum, HWGTpval, 
+(i) use all alleles and call the resulting p value HWGTpval and output
+(ii) using a reduced set of alleles with all alleles with observed count <= 10 combined in a class called GTlum (this value of 10 may be changed later), count the new adjusted number of alleles HWkGTlum and call the resulting p value from running Guo and Thompson test HWGTlumpval, and output HWkGTlum and HWGTlumpval.
+(there is a lot more output from GT test, not sure if we need to output any of this other than p value, needs to be looked at)
+
+C. John Chen test of individual heterozygote deviations from HW
+Parameters for i,j = 1,2,...,k, i<j set HWChenAiAj values all to zero, then run John Chen's program and output for heterozygotes only, with HWexpgenoctAiAj >=5 only, the p value from John's program for this genotype, call this HWChenAiAj.
+
+Output
+locus name, sample size N = ??, number of alleles k = ?? (depending on flow from previous ouput, e.g., allele frequencies, we may not need to output these)
+HWchisq = ??, HWchisqdf = ??, HWchisqpval = ??,
+(If HWcountercommongenos = 0, output 'no common genotypes, chi-square cannot be calculated' in lieu of the above, and in lieu of the following line also)
+HWobsgenoctlum = ??, HWexpgenoctlum = ??, HWchisqlum = ??, HWchisqlumpval = ??,
+(If HWcounterraregenos is = 0, output nc = no counts for these 2 values)
+HWGTpval = ??, HWGTlumpval= ??, HWkGTlum = ??
+
+Output a matrix, off diagonal, with allele names and values given below, will have to fiddle with format of output, spacing etc.
+
+	A1	A2	A3	........					Ak
+A1	v11	v12	v13						v1k
+A2	-	v22	v23						v2k
+A3	-	-	v33						v3k
+.
+.
+.
+Ak	-	-	-	-	-	-	-	-	vkk
+
+where v denotes the following values for homozygotes and heterozygotes where appropriate, - or some other notation to mean no value output, or leave blank?
+
+vii adn vij, i<j values are as follows
+HWobsgenoctAiAj
+HWexpgenoctAiAj
+HWchisqAiAj if HWprintexpAiAj = 1, if HWprintexpAiAj = 99, then output nc for not calculated
+HWchisqpvalAiAj if HWprintexpAiAj = 1, if HWprintexpAiAj = 99, then output e.g., nc for not calculated
+HWChenAiAj if HWprintexpAiAj = 1, and for heterozygotes only, if HWprintexpAiAj = 99, then output nc for not calculated, and if homozygote output nc also.

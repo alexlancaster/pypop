@@ -1,0 +1,65 @@
+
+File format is plain ASCII, with fields delimited by tabstops, not
+spaces.  Fields are separated by tabs so that spaces are permitted
+within a field.
+
+No field may be left blank.  Four asterisks should be used to designate
+untyped locus data or unknown descriptive data.
+
+There should be 3 lines of header information on a population file.
+
+The fields are labelled on the first line as follows:
+
+LINE 1:
+labcode	method	ethnic	contin	collect	latit	longit	complex
+
+Data under these headings are filled in on line 2 as follows:
+
+LINE 2:
+The method should be one of the following:
+SSOP
+RLS
+SBT
+SSP
+RSCA
+MS        (this is for PCR/gel sizing for microsatellites)
+RFLP
+SSCP
+Other
+
+The ethnic field may contain practically anything, but the contin field
+should contain one of the following geographic regions:
+North Africa
+Sub-Saharan Africa
+North-East Asia
+South-East Asia
+South-West Asia
+Australia
+Europe
+North America
+Oceania
+South America
+Other
+
+The collect field is for where the data was collected, latit and longit are
+for the latitude and longitude (approximately) of origin, and complex should
+be entered as a zero.
+
+There is one more line which contains the headers for the columns of genotype
+data.
+LINE 3:
+populat id	a_1	a_2	c_1	c_2	b_1	b_2	tap1_1	tap1_2
+
+populat should contain a name for the population and id should contain
+a sample id.
+
+There should be two header labels for each locus, giving the name of the locus,
+in lower case please, followed by an underscore and a one or a two.
+
+From here on down, the file should contain genotype data, all
+tab-separated, with no blanks and a string of four asterisks indicating
+untyped loci.  Homozygotes must be entered twice, otherwise they
+cannot be differentiated from ambiguous typing results.
+
+There should be no trailing blank lines at the end of a file.
+
