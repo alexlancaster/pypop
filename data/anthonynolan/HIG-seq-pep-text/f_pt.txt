@@ -1,0 +1,29 @@
+HLADB-2.6.0-Jul 2004
+HLA-F Protein Sequence Alignments
+Sequences Aligned: 09 Jul 2004
+Steven G. E. Marsh, Anthony Nolan Research Institute.
+
+Prot. Pos.                 -20        -10
+                             |          |
+F*010101                   M APRSLLLLLS GALALTDTWA 
+F*010102                   - ---------- ---------- 
+
+Prot. Pos.                10         20         30         40         50         60         70         80         90        100 
+                           |          |          |          |          |          |          |          |          |          | 
+F*010101          GSHSLRYFST AVSRPGRGEP RYIAVEYVDD TQFLRFDSDA AIPRMEPREP WVEQEGPQYW EWTTGYAKAN AQTDRVALRN LLRRYNQSEA GSHTLQGMNG 
+F*010102          ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- 
+
+Prot. Pos.               110        120        130        140        150        160        170        180        190        200 
+                           |          |          |          |          |          |          |          |          |          | 
+F*010101          CDMGPDGRLL RGYHQHAYDG KDYISLNEDL RSWTAADTVA QITQRFYEAE EYAEEFRTYL EGECLELLRR YLENGKETLQ RADPPKAHVA HHPISDHEAT 
+F*010102          ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- 
+
+Prot. Pos.               210        220        230        240        250        260        270        280        290        300 
+                           |          |          |          |          |          |          |          |          |          | 
+F*010101          LRCWALGFYP AEITLTWQRD GEEQTQDTEL VETRPAGDGT FQKWAAVVVP SGEEQRYTCH VQHEGLPQPL ILRWEQSPQP TIPIVGIVAG LVVLGAVVTG 
+F*010102          ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- ---------- 
+
+Prot. Pos.               310        320        330        340  
+                           |          |          |          |  
+F*010101          AVVAAVMWRK KSSDRNRGSY SQAAVTDSAQ GSGVSLTANK V
+F*010102          ---------- ---------- ----****** ********** *
