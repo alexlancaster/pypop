@@ -54,15 +54,21 @@ except ValueError:
 
 # generate filenames for both text and XML files
 
+defaultTxtOutFilename = uniquePrefix + "-out.txt"
 try:
   txtOutFilename = config.get("General", "txtOutFilename")
+  if txtOutFilename == '':
+    txtOutFilename = defaultTxtOutFilename
 except NoOptionError:
-  txtOutFilename = uniquePrefix + "-out.txt"
+  txtOutFilename = defaultTxtOutFilename
 
+defaultXmlOutFilename = uniquePrefix + "-out.xml"
 try:
   xmlOutFilename = config.get("General", "xmlOutFilename")
+  if xmlOutFilename == '':
+    xmlOutFilename = defaultXmlOutFilename
 except NoOptionError:
-  xmlOutFilename = uniquePrefix + "-out.xml"
+  xmlOutFilename = defaultXmlOutFilename
 
 if debug:
   for section in config.sections():
