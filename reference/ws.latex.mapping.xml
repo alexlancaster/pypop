@@ -181,6 +181,8 @@
 	<mapping key="refsect2"		text="&#10;\subsubsection*{%title}&#10;\label{%id}&#10;"/>
 	<mapping key="refsect3"		text="&#10;\paragraph*{%title}&#10;\label{%id}&#10;"/>
 
+        <mapping key="email" text="\\E-mail: "/>
+
 </latexmapping>
 
 
@@ -271,10 +273,14 @@
 		<line>% End RevHistory  &#10;</line>
 		<line>% ------------------------  &#10;</line>
 	</mapping>	
+
+    <mapping key="email" text=""/>
+
 </latexmapping>
 
 <latexmapping role="entities">
 	<mapping key="&#x0221E;"	text=" \infty "/>
 </latexmapping>
+
 
 </latexbindings>
