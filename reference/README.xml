@@ -324,7 +324,7 @@ allPairwiseLDWithPermu=0></programlisting>
 	 off a large amount of output of no interest to the general
 	 user.  It should not be used except if you are running into
 	 trouble and need to communicate with the developers about
-	 what it is wrong.</para>
+	 what is wrong.</para>
       </formalpara>
      </listitem>
     </itemizedlist>
@@ -355,7 +355,7 @@ allPairwiseLDWithPermu=0></programlisting>
       <formalpara>
        <title><literal>untypedAllele</literal></title>
        
-       <para>This option is used to tell the
+       <para>This option is used to tell
 	<application>PyPop</application> what symbol you have used
 	in your data files to represent untyped or unknown data
 	fields.  These fields MAY NOT BE LEFT BLANK.  You must use
@@ -371,7 +371,7 @@ allPairwiseLDWithPermu=0></programlisting>
 	<para>This option should contain the names of the loci
 	 immediately preceding your genotype data  (if it has three
 	 header lines, this will be the third line, otherwise it will
-	 be first line of the file). The names of all your loci,
+	 be the first line of the file). The names of all your loci,
 	 preceded by the character designated in the
 	 <literal>alleleDesignator</literal> option above, must be
 	 present in the block that begins with this line.
@@ -523,7 +523,7 @@ allPairwiseLDWithPermu=0></programlisting>
     of the time these options can be omitted and
     <application>PyPop</application> will choose sensible defaults,
     however they do offer greater control over the application.  In
-    particular, customization will required for data that has sample
+    particular, customization will be required for data that has sample
     identifiers as in <xref
      linkend="data-minimal-noheader"/> or header data block as in
     <xref
@@ -548,7 +548,7 @@ allPairwiseLDWithPermu=0></programlisting>
       <para>If you wish to specify a particular name for the output
        file, which you want to remain identical over several runs,
        you can set these two items to particular values. The
-       default is to have program select the output filename, which
+       default is to have the program select the output filename, which
        can be controlled by the next variable.  <emphasis role="bold">[Default: not
 	used]</emphasis></para>
       
@@ -599,9 +599,9 @@ allPairwiseLDWithPermu=0></programlisting>
       <title><literal>useAnthonyNolanFilter</literal></title>
       
       <para>This option is <emphasis>only</emphasis> useful for HLA
-       data.  and can be set to <literal>1</literal> (one) if you want
+       data, and can be set to <literal>1</literal> (one) if you want
        your data filtered through The Anthony Nolan database of known
-       allele names before processing.</para>
+       HLA allele names before processing.</para>
      </formalpara>
 
      <para>Assuming your data is not absolutely in agreement with all
@@ -616,9 +616,10 @@ allPairwiseLDWithPermu=0></programlisting>
       <title><literal>fieldPairDesignator</literal></title>
       
       <para>This option allows you to override the coding for the
-       headers for each pair of alleles at each loci,  it must match
-       the entries <literal>validSampleFields</literal> and in your
-       population data file.  If you want to use something other than
+       headers for each pair of alleles at each loci;  it must match
+       the entry in the config file under <literal>validSampleFields</literal>
+       and the entries in your population data file.
+       If you want to use something other than
        <literal>_1</literal> and <literal>_2</literal>, change this
        option, for instance, to use letters and parentheses, change it
        like this: <literal>fieldPairDesignator=(a):(b)</literal>
@@ -729,10 +730,10 @@ allPairwiseLDWithPermu=0></programlisting>
    <replaceable>popfilename</replaceable>-out.txt has been created.  A
    successful run will produce two output files:
    <filename><replaceable>popfilename</replaceable>-out.xml</filename>, 
-   <filename><replaceable>popfilename</replaceable>-out.txt</filename>, 
-   (and a third if your data is HLA and you are using the Anthony
-   Nolan HLA filter option to check your input for valid/known HLA
-   alleles
+   <filename><replaceable>popfilename</replaceable>-out.txt</filename>.
+   A third output file will be created if your data is HLA and you are
+   using the Anthony Nolan HLA filter option to check your input for
+   valid/known HLA alleles:
    <filename><replaceable>popfilename</replaceable>-filter.xml</filename>).</para>
 
   <para>A typical run may take anywhere from a couple of minutes to a
