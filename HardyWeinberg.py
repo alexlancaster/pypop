@@ -175,6 +175,7 @@ class HardyWeinberg:
     using the pval program (should be replaced later)"""
 
     self.printExpected = [] # list flagging genotypes worth printing
+    self.counterA = {}
     self.chisq = {}
     self.chisqPval = {}
     self.commonGenotypeCounter = 0
@@ -187,7 +188,17 @@ class HardyWeinberg:
     for genotype in self.expectedGenotypeCounts.keys():
       if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
 
-        self.printExpected.append(genotype)
+        self.printExpected.append(genotype) # replaces HWprintexpAiAj in specs
+
+        temp = string.split(genotype, ':')
+        if self.counterA.has_key(temp[0]):
+          self.counterA[temp[0]] += 1
+        else:
+          self.counterA[temp[0]] = 1
+        if self.counterA.has_key(temp[1]):
+          self.counterA[temp[1]] += 1
+        else:
+          self.counterA[temp[1]] = 1
 
         if self.debug:
           print 'Expected:'
@@ -202,7 +213,7 @@ class HardyWeinberg:
           observedCount = self.observedGenotypeCounts[genotype]
         else:
           observedCount = 0.0
-        self.commonDfAccumulator = self.commonGenotypeCounter - 1
+        # self.commonDfAccumulator = self.commonGenotypeCounter - 1
         self.chisq[genotype] = ((observedCount - \
                           self.expectedGenotypeCounts[genotype]) * \
                           (observedCount - \
@@ -235,34 +246,40 @@ class HardyWeinberg:
 
     if self.rareGenotypeCounter > 0:
       """ Calculate the Chi Squared value for the lumped rare genotypes"""
+      self.HWChisq = 99.0
+      self.HWChisqDf = 99.0
+      self.HWChisqPval = 99.0
+      self.lumpedChisq = 99.0
+      self.lumpedChisqPval = 99.0
 
-      self.lumpedChisq = ((self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) * \
-                         (self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) / \
-                         self.lumpedExpectedGenotypes)
-
-      command = "pval 1 %f" % (self.lumpedChisq)
-      returnedValue = os.popen(command, 'r').readlines()
-      self.lumpedChisqPval = returnedValue[0][:-1]
-
-      if self.commonGenotypeCounter > 0:
-        self.HWChisq = self.commonChisqAccumulator + self.lumpedChisq
-        self.HWChisqDf = self.commonDfAccumulator + 1
-        command = "pval %f %f" % (self.HWChisqDf, self.HWChisq)
-        returnedValue = os.popen(command, 'r').readlines()
-        self.HWChisqPval = returnedValue[0][:-1]
-
-      if self.debug:
-        print "Lumped %d for a total of %d observed and %f expected" % (self.rareGenotypeCounter, self.lumpedObservedGenotypes, self.lumpedExpectedGenotypes)
-        print "Chisq: %f, P-Value (dof = 1): %s" % (self.lumpedChisq, self.lumpedChisqPval) # doesn't work if I claim Pval is a float?
+#       self.lumpedChisq = ((self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) * \
+#                          (self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) / \
+#                          self.lumpedExpectedGenotypes)
+# 
+#       command = "pval 1 %f" % (self.lumpedChisq)
+#       returnedValue = os.popen(command, 'r').readlines()
+#       self.lumpedChisqPval = returnedValue[0][:-1]
+# 
+#       if self.commonGenotypeCounter > 0:
+#         self.HWChisq = self.commonChisqAccumulator + self.lumpedChisq
+#         self.HWChisqDf = self.commonDfAccumulator + 1
+#         command = "pval %f %f" % (self.HWChisqDf, self.HWChisq)
+#         returnedValue = os.popen(command, 'r').readlines()
+#         self.HWChisqPval = returnedValue[0][:-1]
+# 
+#       if self.debug:
+#         print "Lumped %d for a total of %d observed and %f expected" % (self.rareGenotypeCounter, self.lumpedObservedGenotypes, self.lumpedExpectedGenotypes)
+#         print "Chisq: %f, P-Value (dof = 1): %s" % (self.lumpedChisq, self.lumpedChisqPval) # doesn't work if I claim Pval is a float?
 
     elif self.commonGenotypeCounter > 0:
       self.HWChisq = self.commonChisqAccumulator
-      self.HWChisqDf = self.commonDfAccumulator
+      # self.HWChisqDf = self.commonDfAccumulator
+      self.HWChisqDf = (float(self.k) * (float(self.k - 1.0))) / 2.0
 
-      command = "pval %d %f" % (self.commonDfAccumulator, self.commonChisqAccumulator)
+      command = "pval %d %f" % (self.HWChisqDf, self.commonChisqAccumulator)
       returnValue = os.popen(command, 'r').readlines()
 
-      self.HWChisqPval = returnValue[0][:-1]
+      self.HWChisqPval = float(returnValue[0][:-1])
 
 ################################################################################
 
@@ -277,6 +294,7 @@ class HardyWeinberg:
 
     elif self.rareGenotypeCounter == 0:
 
+      print "No rare genotypes with expected less than %d." % self.lumpBelow
       print "HWChisq    :", self.HWChisq
       print "HWChisqDf  :", self.HWChisqDf
       print "HWChisqPval:", self.HWChisqPval
@@ -310,9 +328,9 @@ class HardyWeinberg:
 
       if type == 'xml':
         stream.opentag('hardyweinberg', 'class', 'no-lumps')
-        stream.tagContents("hwchisq", self.HWChisq)
-        stream.tagContents("hwchisqdf", self.HWChisqDf)
-        stream.tagContents("hwchisqpval", self.HWChisqPval)
+        stream.tagContents("hwchisq", "%4f" % self.HWChisq)
+        stream.tagContents("hwchisqdf", "%4f" % self.HWChisqDf)
+        stream.tagContents("hwchisqpval", "%4f" % self.HWChisqPval)
         stream.writeln()
         stream.closetag('hardyweinberg')
       else:
@@ -353,10 +371,10 @@ class HardyWeinberg:
         stream.writeln("HardyWeinberg statistics:")
         stream.writeln("=========================")
         stream.writeln("Sample size: %d" % self.n)
-        stream.writeln("Alleles:   : %d" % self.k)
+        stream.writeln("Alleles(k):  %d" % self.k)
         stream.writeln("Chi Squared: %.4f" % self.HWChisq)
         stream.writeln("DoF        : %d " % self.HWChisqDf)
-        stream.writeln("HWChisqPval: " + self.HWChisqPval)
+        stream.writeln("HWChisqPval: %.4f" % self.HWChisqPval)
         stream.writeln()
         stream.writeln("Lumped observed: %.4f" % self.lumpedObservedGenotypes)
         stream.writeln("Lumped expected: %.4f" % self.lumpedExpectedGenotypes)
@@ -376,6 +394,7 @@ class HardyWeinberg:
         for horiz in sortedAlleles:
 
           # write each element of allele row header
+          print "---> %d <---" % len(sortedAlleles)
           stream.write("%*s " % (width, horiz))
         
           for vert in sortedAlleles:
