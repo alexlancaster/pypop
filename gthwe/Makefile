@@ -4,8 +4,8 @@ NAME2 = gthwe
 CC      = gcc 
 
 #CFLAGS = -O2 -fno-strength-reduce
-#CFLAGS = -O
-CFLAGS = -g -static
+CFLAGS = -O2 -funroll-loops
+#CFLAGS = -g -static
 
 
 SRC = $(NAME).c cal_const.c cal_n.c cal_prob.c\
