@@ -316,11 +316,13 @@
      <formalpara><title>Batch-ability</title>
 
       <para>It should be simple to set up an entire job in an
-       unattended <quote>batch mode</quote>, involving simple scripts
-       and a configuration files.  Software that relies on a
-       <quote>captive user interface</quote>, for a population to be
-       analyzed and requires user interaction such as mouse clicks and
-       menus, makes it difficult to analyze hundreds of data sets.
+       unattended <quote>batch mode</quote>, involving  and the
+       creation or modification of a configuration files with a text
+       editor, followed by the invocation of a script.  Software that
+       relies on a <quote>captive user interface</quote>, for a
+       population to be analyzed and requires user interaction such as
+       mouse clicks and menus, makes it difficult to analyze hundreds
+       of data sets.
       </para>
      </formalpara>
     </listitem>
@@ -425,13 +427,14 @@
 
   <section>
    <title>Data flow</title>
-
-   <para>In phase I, before analysis begins, each population (the
-    <filename>.pop</filename> file), is passed through a filter module
-    for data cleaning. the basic population genetic analyses are run
-    for each population file from the database.  The filter module is
-    a set of rules that traps any allele name which does not have a
-    close match in the database of HLA
+   
+   <para>In phase I, before analysis begins, the multi-locus genotype
+    data for each population (stored in a text file with the
+    <filename>.pop</filename> extension), is passed through a filter
+    module for data cleaning. the basic population genetic analyses
+    are run for each population file from the database.  The filter
+    module is a set of rules that traps any allele name which does not
+    have a close match in the database of HLA
     alleles<citation>IMGT</citation> maintained by Steve Marsh of the
     Anthony Nolan Trust in the UK. Although at present this is
     HLA-specific, it has been designed in such a way that it is simple
@@ -441,9 +444,8 @@
     users configuration, this can include basic allele count data; the
     Hardy-Weinberg statistics; haplotype estimates; and the
     Ewens-Watterson test of neutrality (represented by the green
-    modules in <xref
-     linkend="pypop:work-flow"/>).  The results of the analyses are
-    stored in an XML file format as shown in <xref
+    modules in <xref linkend="pypop:work-flow" />).  The results of
+    the analyses are stored in an XML file format as shown in <xref
     linkend="pypop:sample-xml"/>.</para>
    
    <figure id="pypop:sample-xml">
@@ -482,24 +484,19 @@
 ]]></programlisting>
    </figure>
 
-   <para>XML was chosen as the output format because: 1) it allows
-    consumption by other programs and; 2) it is readily transformable
+   <para>XML was chosen as the output format because: 1) it can
+    be read as input by other programs and; 2) it is readily transformable
     from XML into human-readable form (e.g. a text file) or web-form
     (e.g. HTML) via XSLT (eXtensible Stylesheet Language for
     Transformations)<citation>XSLT</citation>.</para>
 
    <para>In phase II, the results of the data analyses of the
     individual data files are integrated, and the benefits of using
-    XML as the storage and exchange format are realized.  <!-- old
-    sentence: There are two major benefits, one relevant for
-    displaying results of each individual run, the second, for more
-    powerful benefit, when to aggregate the data for both
-    cross-population meta-analyses and to transform as input for third
-    party packages. -->  There are two major benefits: one relevant
-    for displaying results of each individual run, the second, far
-    more powerful benefit, for aggregating the data for
-    cross-population meta-analyses and transforming it as input for
-    third party packages.</para>
+    XML as the storage and exchange format are realized.  There are
+    two major benefits: one relevant for displaying results of each
+    individual run, the second, far more powerful benefit, for
+    aggregating the data for cross-population meta-analyses and
+    transforming it as input for third party packages.</para>
 
    <para>First, since many of the analyses (notably estimating the
     significance of all pairwise linkage disequilibrium) can take a
@@ -510,7 +507,7 @@
     stage.  This enables tweaking of the <quote>human-readable</quote>
     text output of the individual files of the presentation without
     completely re-running the analyses.  A sample text output is shown
-    in <xref linkend="pypop:sample-txt"/>.
+    in <xref linkend="pypop:sample-txt" />.
     The same XML content can also be used to generate an HTML version
     or web version of the same data set.
    </para>
