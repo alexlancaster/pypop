@@ -73,11 +73,21 @@
      <xsl:text>&#09;</xsl:text>
 
      <xsl:choose>
+      <xsl:when test="allelecounts/allelecount">
+       <xsl:value-of select="allelecounts/allelecount"/>
+      </xsl:when>
+      <xsl:otherwise>0</xsl:otherwise>
+     </xsl:choose>
+
+     <xsl:text>&#09;</xsl:text>
+
+     <xsl:choose>
       <xsl:when test="allelecounts/distinctalleles">
        <xsl:value-of select="allelecounts/distinctalleles"/>
       </xsl:when>
       <xsl:otherwise>0</xsl:otherwise>
      </xsl:choose>
+
      <xsl:text>&#09;</xsl:text>
      <xsl:choose>
       <xsl:when test="homozygosity=''">
@@ -146,6 +156,10 @@
      <xsl:call-template name="line-start">
       <xsl:with-param name="popnode" select="../../populationdata"/>
      </xsl:call-template>
+     
+     <xsl:value-of
+     select="number(individcount[@role='after-filtering']) * 2"/>
+     <xsl:text>&#09;</xsl:text>
 
      <xsl:variable name="locus1" select="substring-before(@loci, ':')"/>
      <xsl:variable name="locus2" select="substring-after(@loci, ':')"/>
@@ -259,7 +273,7 @@
     <exsl:document href="1-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;f.nd&#09;gt.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval</xsl:text>
+     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;2n&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;f.nd&#09;gt.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
@@ -281,7 +295,7 @@
     <exsl:document href="2-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:text>pop&#09;ethnic&#09;region&#09;locus1&#09;locus2&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df</xsl:text>
+     <xsl:text>pop&#09;ethnic&#09;region&#09;n.haplo&#09;locus1&#09;locus2&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/emhaplofreq/group[@mode='haplo' and (string-length(@loci) - string-length(translate(@loci, ':', '')))=1]"/>
