@@ -21,7 +21,7 @@ else
 	CATOPTS=$(XML_CATALOG_FILES)
 endif
 
-ifeq ($(PASSIVETEX),)
+ifneq ($(USEFOP),)
 XSLFO += --param fop.extensions 1
 %.pdf: %.fo
 	Fop $< $@
