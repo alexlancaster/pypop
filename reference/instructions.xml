@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<article condition="main">
+<article condition="main" xmlns:xi="http://www.w3.org/2001/XInclude">
 
  <title>Guidelines for interpreting analyses of population genetic data</title>
 
@@ -513,21 +513,18 @@ B:DRB1       0.64448   0.37899  -7981.15  -9491.04   3019.78         *
 
 </sect1>
 
- <sect1 id="instructions-references">
+ <bibliography id="instructions-references">
   <title>References</title>
   
-  <sect2>
+  <bibliodiv>
    <title>General population genetics</title>
 
-   <para>Hartl, D. and Clark, A. <emphasis>Principles of Population
-    Genetics</emphasis>. Third Edition. Sinauer, Sunderland,
-    MA.</para>
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Hartl:Clark'])"/>  
 
-   <para>Hedrick, P. 1999.  <emphasis>Genetics of
-    Populations</emphasis>. Second Edition. Jones and Bartlett,
-    Sudbury, MA.</para>
-  </sect2>
- </sect1>
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Hedrick:1999'])"/>  
+
+  </bibliodiv>
+ </bibliography>
 
 </article>
 
