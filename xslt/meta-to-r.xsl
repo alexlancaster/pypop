@@ -117,10 +117,24 @@
   <!-- apply short form of regions as defined in lookup table -->
   <xsl:value-of select="$region-order[@long=translate($popnode/contin, ' ', '-')]"/>
   <xsl:text>&#09;</xsl:text>
-  <xsl:value-of select="translate($popnode/latit, ' ', '_')"/>
+
+  <xsl:choose>
+   <xsl:when test="$popnode/latit!=''">
+    <xsl:value-of select="translate($popnode/latit, ' ', '_')"/>
+   </xsl:when>
+   <xsl:otherwise>****</xsl:otherwise>
+  </xsl:choose>
   <xsl:text>&#09;</xsl:text>
-  <xsl:value-of select="translate($popnode/latit, ' ', '_')"/>
+
+  <xsl:choose>
+   <xsl:when test="$popnode/longit!=''">
+    <xsl:value-of select="translate($popnode/longit, ' ', '_')"/>
+   </xsl:when>
+   <xsl:otherwise>****</xsl:otherwise>
+  </xsl:choose>
+
   <xsl:text>&#09;</xsl:text>
+
  </xsl:template>
 
  <xsl:template name="gen-lines">
