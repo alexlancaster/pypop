@@ -45,61 +45,61 @@ allele count case).
 
 2001-09-28:
 
-- Implement XML -> text conversion using XSLT "text.xsl" stylesheet,
+- Implement XML -> text conversion using XSLT 'text.xsl' stylesheet,
   so that text output is always generated from XML output.  This will
-  be done using the "xml.xslt" API (part of the 4Suite XML/ XSLT
-  package) (alex: enabled prototype XML -> text conversion in
-  "pypop.py").
+  be done using the 'xml.xslt' API (part of the
+  "4Suite":http://www.4suite.org XML/ XSLT package) (_alex_: enabled
+  prototype XML -> text conversion in 'pypop.py').
 
 - Remove all ad-hoc text output, all text output will be derived from
   the XML output, all serialization code will be collapsed into one
-  (alex).
+  (_alex_).
 
 2001-09-20:
 
 - gthwe: Remove extraneous information from output: table, #alleles,
-  chunkinfo, stepinfo.  (alex: 80%-COMPLETED 2001-09-21, done table).
+  chunkinfo, stepinfo.  (_alex_: 80%-COMPLETED 2001-09-21, done table).
 
-- Longer-term: rationalize and/or modernize code (diogo/alex).
+- Longer-term: rationalize and/or modernize code (_diogo_ / _alex_).
 
 2001-09-14:
 
 - HardyWeinberg: Output a lower-triangular matrix for all relevant
-  values. (mpn/alex: 80%-COMPLETED 2001-09-21, need to add more values
-  to cells)
+  values. (_mpn_ / _alex_: 80%-COMPLETED 2001-09-21, need to add more
+  values to cells)
 
 - Output information about missing data on a per-locus basis (i.e. any
   deviations from the total number of individuals in each input
-  file).  (alex: IN-PROGRESS 2001-09-19)
+  file).  (_alex_: IN-PROGRESS 2001-09-19)
 
 2001-09-13: 
 
 - "getopt-ify" emphaplofreq so that all currently hardcoded parameters
-  can be passed in via command-line options.  (alex)
+  can be passed in via command-line options.  (_alex_)
 
-- Add parameters for Guo and Thompson into "config.ini".  (alex:
+- Add parameters for Guo and Thompson into "config.ini".  (_alex_:
   100%-COMPLETED 2001-09-18)
 
 - Make number of significant figures reported be a global parameter
-  set in "config.ini" (e.g. "%.4f") (alex)
+  set in "config.ini" (e.g. "%.4f") (_alex_)
 
 
 2001-07-31:
 
-- Finish cleaning up 'HardyWeinberg'. (alex/mpn)
+- Finish cleaning up 'HardyWeinberg'. (_alex_ / _mpn_)
 
 - Implement a 'PopGenStats' module (?) Move some 'population-level'
-  statistics into this module. (alex)
+  statistics into this module. (_alex_)
 
 *longer-term*:
 
 2001-09-13:
 
 - Wrap emphaplofreq with SWIG, so that it can be called directly as a
-  Python object.  (alex)
+  Python object.  (_alex_)
 
 - Abstract the configurator?  [use reflection to construct objects, so
-  that constructors don't have to be hard-coded.]  (alex)
+  that constructors don't have to be hard-coded.]  (_alex_)
 
 2001-07-31:
 
