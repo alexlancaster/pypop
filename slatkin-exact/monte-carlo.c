@@ -47,39 +47,32 @@ find out for yourself.
 #include <stddef.h>
 #include <stdlib.h>
 #include <time.h>
+#include <errno.h>
 
 #define min(x, y)  (((x) < (y)) ? x : y)
 #define KLIMIT 40
+
+/* function prototypes for Slatkin */
+void print_results(int, int, int);
+double unif(void);
+void gsrand(int);
+int grand(void);
+
+/* function prototypes for AKL */
+double get_theta(void);
+double get_prob_ewens(void);
+double get_prob_homozygosity(void);
+double get_mean_homozygosity(void);
+double get_var_homozygosity(void);
+
+/* function prototypes for mpn */
+int double_comp(const void *, const void *);
+int quantile_print(double *, int);
 
 static int seed;
 
 /* declare static global variables */
 static double theta, P_E, P_H, E_F, Var_F, F_obs;
-
-double get_theta()
-{
-  return theta;
-}
-
-double get_prob_ewens()
-{
-  return P_E;
-}
-
-double get_prob_homozygosity()
-{
-  return P_H;
-}
-
-double get_mean_homozygosity()
-{
-  return E_F;
-}
-
-double get_var_homozygosity()
-{
-  return Var_F;
-}
 
 int main(int argc, char **argv)
 {
@@ -87,7 +80,6 @@ int main(int argc, char **argv)
   long start_time, finish_time, net_time;
   static int r_obs[KLIMIT];
   void main_proc(int r_obs[], int k, int n, int maxrep);
-  void print_results(int n, int k, int maxrep);
 
   /* = {0, 40, 3, 3, 1, 0}; */
 
@@ -104,8 +96,8 @@ int main(int argc, char **argv)
 
   if (argc < 2)
   {
-    printf("Specify the number of replicates on the command line\n");
-    exit(0);
+    fprintf(stderr, "Specify the number of replicates on the command line\n");
+    exit(EXIT_FAILURE);
   }
   maxrep = atoi(argv[1]);
 
@@ -131,12 +123,16 @@ int main(int argc, char **argv)
   finish_time = time(NULL);
   net_time = time(NULL) - start_time;
 
+#ifndef DISTRIBUTION_OUTPUT
   print_results(n, k, maxrep);
+#endif
 
+#ifndef DISTRIBUTION_OUTPUT
   if (net_time < 60)
-    printf("Program took %ld seconds\n", net_time);
+    fprintf(stdout, "Program took %ld seconds\n", net_time);
   else
-    printf("Program took %4.2f minutes\n", net_time / 60.0);
+    fprintf(stdout, "Program took %4.2f minutes\n", net_time / 60.0);
+#endif
 
   /* test call-backs 
      printf("%g, %g, %g, %g, %g\n", 
@@ -147,7 +143,7 @@ int main(int argc, char **argv)
      get_var_homozygosity());
    */
 
-  return 0;
+  return(EXIT_SUCCESS);
 }
 
 int main_proc(int r_obs[], int k, int n, int maxrep)
@@ -156,7 +152,6 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
   int i, j, repno, Ecount, Fcount;
   int *r_random;
   double ewens_stat(int *r), F(int k, int n, int *r);
-  double Ftot = 0, Fsq_tot = 0;	/* added by DM */
   double theta_est(int k_obs, int n);
   double E_obs;
   void print_config(int k, int *r);
@@ -166,11 +161,23 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
   int *ivector(long nl, long nh);
   void gsrand(int seed);
 
+  double Ftot, Fsq_tot;	/* added by DM */
+  double *Fvalues;
+
   gsrand(initseed);
 
   r_random = ivector(0, k + 1);
   r_random[0] = r_random[k + 1] = 0;
   ranvec = vector(1, k - 1);	/* to avoid doing this in each replicate */
+
+  Fvalues = (double *)malloc(maxrep * sizeof(double));
+
+  if(!Fvalues)
+  {
+    perror("\nmalloc failed for Fvalues");
+    fprintf(stderr, "\n");
+    exit(EXIT_FAILURE);
+  }
 
   /*  fill b matrix  */
 
@@ -190,33 +197,27 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 
   Ecount = 0;
   Fcount = 0;
+  Ftot = Fsq_tot = (double)0;
 
-#ifdef DISTRIBUTION_OUTPUT
-  /* Print header for stdout output */
-  printf("E_p \t F\n");
 
-#endif
-  for (repno = 1; repno <= maxrep; repno++)
+  for (repno = 0; repno < maxrep; repno++)
   {
     generate(k, n, r_random, ranvec, b);
 
-    /* lines for getting the expected F, DM */
+    /* lines for getting the expected F, DM, mpn */
 
-    Ftot += F(k, n, r_random);
-    Fsq_tot += F(k, n, r_random) * F(k, n, r_random);
+    Fvalues[repno] = F(k, n, r_random);
+    Ftot += Fvalues[repno];
+    Fsq_tot += Fvalues[repno] * Fvalues[repno];
+
     /* end lines for getting the expected F, DM */
 
-#ifdef DISTRIBUTION_OUTPUT
-    /* begin lines for printing homozygosity values to stdout. DM  */
-    printf("%-14.7g\t", ewens_stat(r_random));
-    printf("%-11.7f\n", F(k, n, r_random));
-    /* end lines for printing homozygosity values to stdout. DM */
-#endif
     if (ewens_stat(r_random) <= E_obs)
       Ecount++;
     if (F(k, n, r_random) <= F_obs)
       Fcount++;
-  }
+  } /* END for (repno = 0; repno < maxrep; repno++) */
+
   P_E = (double)Ecount / maxrep;
   P_H = (double)Fcount / maxrep;
 
@@ -228,22 +229,36 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 
 /* end calculating the expected F, and its variance. DM, AKL */
 
+#ifdef DISTRIBUTION_OUTPUT
+  qsort((void *)Fvalues, (size_t)maxrep, sizeof(double), double_comp);
+
+  for(repno = 0; repno < maxrep; repno++)
+  {
+    fprintf(stdout, "%.6f\n", Fvalues[repno]);
+  }
+#endif
+
+  /* --mpn-- no malloc without free */
+  free(b);
+  free(ranvec);
+  free(Fvalues);
+
   return 0;
 }				/*  end, main_proc  */
 
 void print_results(int n, int k, int maxrep)
 {
 
-  printf("\nn = %d, k = %d, theta = %g, F = %g, maxrep = %d\n",
+  fprintf(stdout, "\nn = %d, k = %d, theta = %g, F = %g, maxrep = %d\n",
 	 n, k, theta, F_obs, maxrep);
-  printf("P_E(approx) = %g\nP_H(approx) = %g\n", P_E, P_H);
-  printf("E(F) = %g\n", E_F);
-  printf("Var(F) = %g\n", Var_F);
+  fprintf(stdout, "P_E(approx) = %g\nP_H(approx) = %g\n", P_E, P_H);
+  fprintf(stdout, "E(F) = %g\n", E_F);
+  fprintf(stdout, "Var(F) = %g\n", Var_F);
 }
 
 void generate(int k, int n, int *r, double *ranvec, double **b)
 {
-  double unif(), cum;
+  double cum;
   int i, l, nleft;
 
   for (i = 1; i <= k - 1; i++)
@@ -268,11 +283,11 @@ void print_config(int k, int *r)
 {
   int i;
 
-  printf("(");
+  fprintf(stdout, "(");
   for (i = 1; i < k; i++)
-    printf("%d,", r[i]);
-  printf("%d)", r[k]);
-  printf("\n");
+    fprintf(stdout, "%d,", r[i]);
+  fprintf(stdout, "%d)", r[k]);
+  fprintf(stdout, "\n");
 }
 
 double ewens_stat(int *r)
@@ -393,7 +408,7 @@ void nrerror(char error_text[])
   fprintf(stderr, "Run-time error...\n");
   fprintf(stderr, "%s\n", error_text);
   fprintf(stderr, "...now exiting to system...\n");
-  exit(1);
+  exit(EXIT_FAILURE);
 }
 
 
@@ -402,21 +417,19 @@ void nrerror(char error_text[])
 #define Q 127773
 #define R 2836
 
-void gsrand(s)
-     int s;
+void gsrand(int s)
 {
   seed = s;
 }
 
 #define RM 2147483647.0
 
-double unif()			/* This is drand renamed to be consistent with my usage  */
+double unif(void)			/* This is drand renamed to be consistent with my usage  */
 {
-  int grand();
   return ((double)grand() / RM);
 }
 
-int grand()
+int grand(void)
 {
   int test;
 
@@ -427,3 +440,38 @@ int grand()
     seed = test + M;
   return (seed);
 }
+
+int double_comp(const void *d1, const void *d2)
+{
+  double a = *(double *)d1;
+  double b = *(double *)d2;
+
+  return((a < b) ? -1 : (a > b) ? 1 : 0);
+}
+
+/* functions for returning values to calling Python programme */
+double get_theta(void)
+{
+  return theta;
+}
+
+double get_prob_ewens(void)
+{
+  return P_E;
+}
+
+double get_prob_homozygosity(void)
+{
+  return P_H;
+}
+
+double get_mean_homozygosity(void)
+{
+  return E_F;
+}
+
+double get_var_homozygosity(void)
+{
+  return Var_F;
+}
+
