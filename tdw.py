@@ -133,11 +133,11 @@ for locus in loci:
                                         debug=debug)
 
     # output to text only (XML serialization to be completed)
-    txtStream.writeln()
     txtStream.writeln("Guo & Thompson Hardy-Weinberg statistics:")
-    txtStream.writeln()
+    txtStream.writeln("=========================================")
     hwObject.dumpTable(locus, txtStream)
-
+    txtStream.writeln()
+    
   # Parse "Homozygosity" section
 	
   if config.has_section("Homozygosity") and \
