@@ -12,6 +12,18 @@
   <text>d.o.f.</text>
  </data:hardyweinberg-col-headers>
 
+ <!-- lookup table to translate population metadata XML tag names back
+ to human-readable output -->
+ <data:pop-col-headers>
+  <text col="labcode">Lab code</text>
+  <text col="method">Typing method</text>
+  <text col="ethnic">Ethnicity</text>
+  <text col="contin">Continent</text>
+  <text col="collect">Collection site</text>
+  <text col="latit">Latitude</text>
+  <text col="longit">Longitude</text>
+ </data:pop-col-headers>
+
  <xsl:param name="hardyweinberg-col-width" select="11"/>
  <xsl:param name="hardyweinberg-first-col-width"
  select="$hardyweinberg-col-width + 6"/>
@@ -84,7 +96,6 @@
     <xsl:with-param name="length" select="$places + 2"/>
    </xsl:call-template>
   </xsl:variable>
-  <xsl:message>format string: <xsl:value-of select="$format"/></xsl:message>
   <xsl:value-of 
    select="format-number((round($factor * $node) div $factor), $format)"/>
  </xsl:template>
@@ -279,19 +290,27 @@
   <xsl:apply-templates/>
  </xsl:template>
 
- <!-- pre-calculate the maximum length of the metadata element (tag)
+ <!-- pre-calculate the maximum length of the metadata text
  length to use in padding for the population summary -->
  <xsl:param name="metadata-max-len">
-  <xsl:call-template name="max-tag-len">
-   <xsl:with-param name="path" select="//populationdata/*"/>
+  <xsl:call-template name="max-string-len">
+   <xsl:with-param name="path" 
+    select="document('')//data:pop-col-headers/text"/>
   </xsl:call-template>
  </xsl:param>
 
- <xsl:template match="longitude|latitude|ethnic-group|collection-site|typing-method|continent-of-origin|lab-code">
-  
-  <!-- translate dashes back to spaces for output --> 
+ <xsl:template match="longit|latit|ethnic|collect|method|contin|labcode">
+
+  <!-- store the current node name for the lookup-table -->
+  <xsl:variable name="node-name" select="name(.)"/>
+
+  <!-- use the lookup-table to get the verbose (human-readable)
+  version of the metadata element -->
   <xsl:call-template name="prepend-pad">
-   <xsl:with-param name="padVar" select="translate(name(.),'-', ' ')"/>
+   <xsl:with-param name="padVar">
+    <xsl:value-of 
+     select="document('')//data:pop-col-headers/text[@col=$node-name]"/>  
+   </xsl:with-param>
    <xsl:with-param name="length" select="$metadata-max-len"/>
   </xsl:call-template>
   <xsl:text>: </xsl:text>
