@@ -762,7 +762,7 @@
      </xsl:when>
      <xsl:otherwise>
       <xsl:call-template name="linesep-fields">
-       <xsl:with-param name="nodes" select="pvalue|stderr"/>
+       <xsl:with-param name="nodes" select="pvalue|stderr|dememorizationSteps|samplingNum|samplingSize"/>
       </xsl:call-template>
      </xsl:otherwise>
     </xsl:choose>
