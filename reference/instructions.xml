@@ -118,7 +118,7 @@ Total     1.00000   90        | Total     1.00000   90
  </sect1>
  
  <sect1 id="instructions-homozygosity">
-  <title>Homozygosity test of neutrality</title>
+  <title>The Ewens-Watterson Homozygosity test of neutrality</title>
 
   <para>For each locus the expected homozygosity under Hardy-Weinberg
    proportions (the sum of the squares of allele frequencies) is
@@ -126,16 +126,17 @@ Total     1.00000   90        | Total     1.00000   90
    for the same sample size and number of unique alleles is obtained
    by simulation and reported (Expected Homozygosity). The Normalized
    Deviate of the Homozygosity values is the difference between the
-   observed and expected homozygosity, divided by the square root of
-   the variance of the expected homozygosity (also obtained by
-   simulations). Negative Normalized deviates imply Observed
-   Homozygosity values lower than Expected Homozygosity, in the
-   direction of balancing selection. Positive values are in the
-   direction of directional selection. The p-value provided in the
-   last row of the output is the probability that the observed
-   homozygosity would be obtained from a neutral sample (of size 2n
-   and k distinct alleles).  P-values smaller than 0.05 reject the
-   null hypothesis of neutrality.</para>
+   observed and expected homozygosity, divided by the square root
+   of the variance of the expected homozygosity (also obtained
+   by simulations). Negative Normalized deviates imply Observed
+   Homozygosity values lower than Expected Homozygosity, in the direction
+   of balancing selection. Positive values are in the direction of
+   directional selection. The p-value provided in the last row of the
+   output is the probability that the observed homozygosity would be
+   obtained from a neutral sample (of size 2n and k distinct alleles).
+   P-values at either extreme of the distribution (<0.025 or >0.975)
+   are considered significant at the 0.05 level, making this a two-tailed
+   test of the null hypothesis of neutrality. </para>
 
   <example>
    <title>Sample output of homozygosity test</title>
@@ -314,7 +315,7 @@ Common genotypes
   <title>Exact test for deviation from HWP</title>
   
   <para>For each locus the exact test for deviations from HWP is implemented
-   using the method of Guo and Thompson (1992). The P-value provided
+   using the method of <xref linkend="Guo:Thompson:1992"/>. The P-value provided
    describes how probable the observed set of genotypes is, with respect
    to a large sample of other genotypic configurations (conditioned on
    the same allele frequencies and 2n). P-values lower than 0.05 can be
@@ -367,7 +368,7 @@ Too large a matrix for Guo and Thompson
    genotypes that have data for all loci for which haplotype
    estimation will be performed (<literal>after-filtering</literal>),
    the number of unique phenotypes (unphased genotypes), the number of
-   unique genotypes, the total number of possible haplotypes (many of
+   unique phased genotypes, the total number of possible haplotypes (many of
    these will have an estimated frequency of zero), and the
    log-likelihood of the observed genotypes under the assumption of
    linkage equilibrium.</para>
@@ -476,6 +477,8 @@ DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
    <title>General population genetics</title>
    
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Hartl:Clark'])"/>  
+
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Guo:Thompson:1992'])"/>  
 
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Hedrick:1999'])"/>  
 
