@@ -23,9 +23,31 @@
 
  <xi:include href="hlaintro.xml"/>
  <xi:include href="methods.xml"/>
- <xi:include href="instructions.xml"/>
- <xi:include href="pypop.xml"/>
- <xi:include href="pypop-appendix.xml"/>
+
+ <!-- <chapter> wrapper for XInclude-ing <article> instructions.xml -->
+ <!-- so we use XPointer to extract just the elements we need -->
+
+ <chapter condition="main">
+  <chapterinfo>
+   <xi:include href="instructions.xml#xpointer(//articleinfo/*)"/>
+  </chapterinfo>
+  <xi:include href="instructions.xml#xpointer(/article/title)"/>
+  <xi:include href="instructions.xml#xpointer(//sect1)"/>  
+ </chapter>
+
+ <!-- <chapter> wrapper likewise for <article> pypop.xsl -->
+
+ <chapter condition="main">
+  <chapterinfo>
+   <xi:include href="pypop.xml#xpointer(//articleinfo/*)"/>
+  </chapterinfo>
+  <xi:include href="pypop.xml#xpointer(/article/title)"/>
+  <xi:include href="pypop.xml#xpointer(/article/section)"/>  
+ </chapter>
+
+ <!-- get <appendix> from pypop.xml -->
+ <xi:include href="pypop.xml#xpointer(/article/appendix)"/> 
+
  <xi:include href="glossary.xml"/>
  <xi:include href="biblio.xml"/>
 
