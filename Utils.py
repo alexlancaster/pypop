@@ -39,7 +39,7 @@
    files.
 """
 
-import os, string, types
+import os, string, types, re
 import Numeric
 from Numeric import zeros, take, asarray, PyObject
 from UserArray import UserArray
@@ -457,3 +457,55 @@ class Group:
     if idx > len(self.l): 
       raise IndexError("Out of range")
     return self.l[idx:idx+self.size]
+
+def convertLineEndings(file, mode):
+    # 1 - Unix to Mac, 2 - Unix to DOS
+    if mode == 1:
+        if os.path.isdir(file):
+            sys.exit(file + "Directory!")
+        data = open(file, "r").read()
+        if '\0' in data:
+            sys.exit(file + "Binary!")
+        newdata = re.sub("\r?\n", "\r", data)
+        if newdata != data:
+            f = open(file, "w")
+            f.write(newdata)
+            f.close()
+    elif mode == 2:
+        if os.path.isdir(file):
+            sys.exit(file + "Directory!")
+        data = open(file, "r").read()
+        if '\0' in data:
+            sys.exit(file + "Binary!")
+        newdata = re.sub("\r(?!\n)|(?<!\r)\n", "\r\n", data)
+        if newdata != data:
+            f = open(file, "w")
+            f.write(newdata)
+            f.close()
+
+def fixForPlatform(filename, txt_ext=0):
+    # make file read-writeable by everybody
+    os.chmod(filename, 0666)
+
+    # create as a DOS format file LF -> CRLF
+    if sys.platform == 'cygwin':
+        convertLineEndings(filename, 2)
+        # give it a .txt extension so that lame Windows realizes it's text
+        if txt_ext:
+            os.rename(filename, filename + '.txt')
+            print filename + '.txt'
+        else:
+            print filename
+    else:
+        print filename
+
+def copyfileCustomPlatform(src, dest, txt_ext=0):
+    shutil.copyfile(src, dest)
+    fixForPlatform(dest, txt_ext=txt_ext)
+    print "copying %s to" % src,
+    
+def copyCustomPlatform(file, dist_dir, txt_ext=0):
+    new_filename=os.path.join(dist_dir, os.path.basename(file))
+    print "copying %s to" % file, 
+    shutil.copy(file, dist_dir)
+    fixForPlatform(new_filename, txt_ext=txt_ext)
