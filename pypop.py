@@ -268,11 +268,7 @@ for locus in loci:
     txtStream.writeln("removed text output--look at the xml output")
     txtStream.writeln()
                       
-    #xmlStream.opentag('hardyweinberg', role='guo-thompson')
-    #xmlStream.write('<![CDATA[')
     hwObject.dumpTable(locus, xmlStream)
-    #xmlStream.write(']]>')
-    #xmlStream.closetag('hardyweinberg')
     xmlStream.writeln()
     
   # Parse "Homozygosity" section
