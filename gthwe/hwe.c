@@ -138,7 +138,7 @@ int run_data(int a[LENGTH], int n[MAX_ALLELE], int no_allele, int total,
 #endif
 
 #ifdef XML_OUTPUT
-  fprintf(outfile, "<hardyweinberg-guo-thompson>\n");
+  fprintf(outfile, "<hardyweinbergGuoThompson>\n");
 #endif
 
 #ifndef SUPPRESS_ALLELE_TABLE
@@ -218,7 +218,7 @@ int run_data(int a[LENGTH], int n[MAX_ALLELE], int no_allele, int total,
   stamp_time(t1, &outfile);
   
 #ifdef XML_OUTPUT
-  fprintf(outfile, "</hardyweinberg-guo-thompson>");
+  fprintf(outfile, "</hardyweinbergGuoThompson>");
 #endif
   return (0);
 

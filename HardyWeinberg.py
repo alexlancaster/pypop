@@ -604,7 +604,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       locusName = locusName[1:]
 
     if self.k < 3:
-      stream.emptytag('hardyweinberg-guo-thompson', role='too-few-alleles')
+      stream.emptytag('hardyweinbergGuoThompson', role='too-few-alleles')
       return
 
     matrixElemCount = (self.k * (self.k + 1)) / 2
@@ -710,6 +710,6 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       fp.close()
 
     else:
-      stream.emptytag('hardyweinberg-guo-thompson', role='too-large-matrix')
+      stream.emptytag('hardyweinbergGuoThompson', role='too-large-matrix')
       
     
