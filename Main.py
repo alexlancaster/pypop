@@ -298,6 +298,9 @@ class Main:
                                 fieldPairDesignator=fieldPairDesignator,
                                 debug=self.debug)
 
+            # if we are dealing with data that is originally genotyped
+            # we dis-allow individuals that are typed at only allele
+            allowSemiTyped = 0
 
         # END PARSE for a genotype file (ParseGenotypeFile)
 
@@ -310,6 +313,12 @@ class Main:
                              validSampleFields=validSampleFields,
                              separator='\t',
                              debug=self.debug)
+            
+            # if we are dealing with data that is originally simply
+            # allele count data, we allow for typing at only allele
+            # because the matrix is not a true set of individuals, and
+            # it allows us to preserve as much data as possible
+            allowSemiTyped = 1
 
         # END PARSE: allelecount file (ParseAlleleCountFile)
         
@@ -352,6 +361,7 @@ class Main:
 
         self.input = Genotypes(matrix=self.matrixHistory[-1],
                                untypedAllele=self.untypedAllele,
+                               allowSemiTyped=allowSemiTyped,
                                debug=self.debug)
 
         # BEGIN common XML output section
