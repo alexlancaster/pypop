@@ -7,7 +7,7 @@
  <xsl:import href="http://db2latex.sourceforge.net/docbook.xsl"/>
  <xsl:import href="latex-common.xsl"/>
 
- <xsl:output method="xml" 
+ <xsl:output method="text" 
   encoding="utf8" 
   omit-xml-declaration="yes"
   indent="yes"/> 
