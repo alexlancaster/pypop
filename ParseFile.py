@@ -565,6 +565,9 @@ class ParseGenotypeFile(ParseFile):
             stream.tagContents('allelecount', \
                                "%d" % total)
             stream.writeln()
+            stream.tagContents('distinctalleles', \
+                               "%d" % len(alleleTable))
+            stream.writeln()
 
             for allele in alleles:
                 freq = float(alleleTable[allele])/float(total)
