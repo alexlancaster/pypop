@@ -24,7 +24,7 @@
  <xsl:param name="generate.manifest" select="1"/>
 
  <!-- set some HTML-specific things, style sheet etc. -->
- <xsl:param name="html.stylesheet" doc:type="string">style.css</xsl:param>
+ <xsl:param name="html.stylesheet">style.css</xsl:param>
  <xsl:param name="make.valid.html" select="1"/> 
  <xsl:param name="html.cleanup" select="1"/> 
  <xsl:param name="ignore.image.scaling" select="'1'"/>
