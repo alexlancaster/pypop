@@ -12,6 +12,8 @@ Copyright (C) 2003 Regents of the University of California
     both DOS and Linux so that correct shared libraries are called.
 *** Pause and wait for user to press a key at end of DOS .bat file
     so that output can be viewed before window close.
+*** Set PYTHONHOME in wrapper scripts to prevent messages about 
+    missing <prefix> being displayed.
 
 * Release Notes for PyPop 0.4.3beta
 ** Bug fixes

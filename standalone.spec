@@ -19,24 +19,26 @@ if sys.platform == 'cygwin':
     type = 'Win32'
     file_sep = '\\'
     exec_name = 'pypop.exe'
+    wrapper_common = """@echo off
+set PYTHONHOME="."
+%s\%s""" % (bin_dir, exec_name)
     wrapper_name = 'pypop.bat'
-    wrapper_contents = """%s\%s -i
-pause""" % (bin_dir, exec_name)
+    wrapper_contents = wrapper_common + """ -i
+pause"""
     batch_wrapper = 'pypop-batch.bat'
-    batch_wrapper_contents = """%s\%s %%*""" % (bin_dir, exec_name)
+    batch_wrapper_contents = wrapper_common + ' %*'
     compression = 'zip'
 elif sys.platform == 'linux2':
     exec_name = 'pypop'
     type = 'Linux'
     file_sep = '/'
+    wrapper_common = """#!/bin/sh
+dir=$(dirname $0)
+PYTHONHOME=. LD_LIBRARY_PATH=$dir/%s $dir/%s/%s""" % (bin_dir, bin_dir, exec_name)
     wrapper_name = 'pypop'
-    wrapper_contents = """#!/bin/sh
-dir=$(dirname $0)
-LD_LIBRARY_PATH=$dir/%s $dir/%s/%s -i""" % (bin_dir, bin_dir, exec_name)
+    wrapper_contents = wrapper_common + ' -i'
     batch_wrapper = 'pypop-batch'
-    batch_wrapper_contents = """#!/bin/sh
-dir=$(dirname $0)
-LD_LIBRARY_PATH=$dir/%s $dir/%s/%s $@""" % (bin_dir, bin_dir, exec_name)
+    batch_wrapper_contents = wrapper_common + ' $@'
     compression = 'gzip'
 else:
     sys.exit(sys.platform + " is currently unsupported")
