@@ -9,7 +9,7 @@ Expects to find a file called 'config.ini' in the current directory.
 
   INPUTFILE   input text file"""
 
-import sys, os, time
+import sys, os, string, time
 
 from ParseFile import ParseGenotypeFile
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson
@@ -20,7 +20,11 @@ from Utils import XMLOutputStream, TextOutputStream
 if len(sys.argv) != 2:
   sys.exit(usageMessage)
 
+# parse out the parts of the filename
+
 fileName = sys.argv[1]
+baseFileName = os.path.basename(fileName)
+prefixFileName = string.split(baseFileName, ".")[0]
 
 config = ConfigParser()
 
@@ -32,28 +36,33 @@ else:
 if len(config.sections()) == 0:
 	sys.exit("No output defined!  Exiting...")
 
-# create streams
-
-txtStream = TextOutputStream(open('out.txt', 'w'))
-xmlStream = XMLOutputStream(open('out.xml', 'w'))
+# generate data and file prefix information
 
 now = time.time()
-timestr = time.strftime("%Y-%m-%d", time.localtime(now))
-
-# opening tag
-xmlStream.opentag('dataanalysis', 'date', timestr)
-xmlStream.writeln()
-xmlStream.tagContents('filename', sys.argv[1])
-xmlStream.writeln()
+datestr = time.strftime("%Y-%m-%d", time.localtime(now))
+timestr = time.strftime("%H-%M-%S", time.localtime(now))
+uniquePrefix = "%s-%s-%s" % (prefixFileName, datestr, timestr)
 
 # Parse "General" section
 
 try:
-	debug = config.getboolean("General", "debug")
+  debug = config.getboolean("General", "debug")
 except NoOptionError:
-	debug=0
+  debug=0
 except ValueError:
-	sys.exit("require a 0 or 1 as debug flag")
+  sys.exit("require a 0 or 1 as debug flag")
+
+# generate filenames for both text and XML files
+
+try:
+  txtOutFilename = config.get("General", "txtOutFilename")
+except NoOptionError:
+  txtOutFilename = uniquePrefix + "-out.txt"
+
+try:
+  xmlOutFilename = config.get("General", "xmlOutFilename")
+except NoOptionError:
+  xmlOutFilename = uniquePrefix + "-out.xml"
 
 if debug:
   for section in config.sections():
@@ -61,6 +70,16 @@ if debug:
     for option in config.options(section):
       print " ", option, "=", config.get(section, option)
 
+# create streams
+
+txtStream = TextOutputStream(open(txtOutFilename, 'w'))
+xmlStream = XMLOutputStream(open(xmlOutFilename, 'w'))
+
+# opening tag
+xmlStream.opentag('dataanalysis', 'date', "%s-%s" % (datestr, timestr))
+xmlStream.writeln()
+xmlStream.tagContents('filename', baseFileName)
+xmlStream.writeln()
 
 # Parse "ParseFile" section
 try:
