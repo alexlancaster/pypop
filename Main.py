@@ -896,10 +896,23 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
           except ValueError:
             sys.exit("numPermuInitCond: option requires an integer")
 
+          try:
+            permutationPrintFlag = self.config.getboolean("Emhaplofreq",
+                                                          "permutationPrintFlag")
+          except NoOptionError:
+            permutationPrintFlag=0
+          except ValueError:
+            sys.exit("permutationPrintFlag: option requires a 0 or 1 flag")
+
+
           if allPairwiseLD:
             print "LOG: estimating all pairwise LD:",
             if allPairwiseLDWithPermu:
-              print "with %d permutations and %d initial conditions for each permutation" % (allPairwiseLDWithPermu, numPermuInitCond)
+              print "with %d permutations and %d initial conditions for each permutation" % (allPairwiseLDWithPermu, numPermuInitCond),
+              if permutationPrintFlag:
+                  print "and each permutation output will be logged to XML"
+              else:
+                  print
             else:
               print "with no permutation test"
 
@@ -955,7 +968,8 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
 
           # do all pairwise LD, w/ or w/o permutation test
           if allPairwiseLD:
-            haplo.allPairwise(numPermutations=allPairwiseLDWithPermu,
+            haplo.allPairwise(permutationPrintFlag=permutationPrintFlag,
+                              numPermutations=allPairwiseLDWithPermu,
                               numPermuInitCond=numPermuInitCond,
                               haploSuppressFlag=0,
                               haplosToShow=twoLocusHaplosToShow)

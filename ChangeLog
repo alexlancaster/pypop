@@ -1,3 +1,28 @@
+2003-12-17  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* config.ini ([Emhaplofreq]): Add 'permutationPrintFlag' Boolean
+	option.  Determines whether the likelihood ratio for each
+	permutation will be logged to the XML output file, this is
+	disabled by default WARNING: if this is enabled it can
+	*drastically* grow the size of the output XML file on the order of
+	product of the number of possible pairwise comparisons and
+	permutations.  Machines with lower RAM and disk space may have
+	difficulty coping with this.
+
+	* Main.py (Main._doGenotypeFile): Check for new [Emhaplofreq]
+	Boolean option 'permutationPrintFlag', default to zero.  Add
+	information that permutation info is being printed to LOG
+	diagnostic. Pass through to Haplo() instance.
+
+	* Haplo.py (Emhaplofreq._runEmhaplofreq): Add new keyword
+	parameter 'permutationPrintFlag': sets whether the result from
+	permutation output run will be included in the output XML.
+	Default: 0 (disabled).  Pass through to the SWIG wrapper.
+	(Emhaplofreq.allPairwise): Likewise add a matching keyword
+	parameter (default 0) and pass through to Main._runEmhaplofreq().
+	(Emhaplofreq.allPairwiseLD, allPairwiseWithPermu): Comment-out,
+	currently deprecated interface.
+
 2003-12-16  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* pypop.py: Move import of getUserFilenameInput to top-level, add
