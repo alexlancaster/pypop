@@ -257,8 +257,15 @@ for locus in loci:
     # output to text only (XML serialization to be completed)
     txtStream.writeln("Guo & Thompson Hardy-Weinberg statistics:")
     txtStream.writeln("=========================================")
-    hwObject.dumpTable(locus, txtStream)
+    txtStream.writeln("removed text output--look at the xml output")
     txtStream.writeln()
+                      
+    xmlStream.opentag('hardyweinberg', role='guo-thompson')
+    xmlStream.write('<![CDATA[')
+    hwObject.dumpTable(locus, xmlStream)
+    xmlStream.write(']]>')
+    xmlStream.closetag('hardyweinberg')
+    xmlStream.writeln()
     
   # Parse "Homozygosity" section
 	
