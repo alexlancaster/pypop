@@ -21,6 +21,7 @@
  <xsl:param name="make.valid.html" select="1"/> 
  <xsl:param name="html.cleanup" select="1"/> 
 
+
  <xsl:param name="profiling-highlighting" select="0"/>
 
  <xsl:template match="pubdate" mode="book.titlepage.recto.auto.mode">
@@ -31,6 +32,14 @@
    <p><font color="red">Red</font> text: only 'anthro' book.</p>
   </xsl:if>
   </div>
+ </xsl:template>
+
+ <xsl:template match="varname">
+  <xsl:call-template name="inline.italicmonoseq"/>
+ </xsl:template>
+
+ <xsl:template match="phrase[@role='strong']">
+  <xsl:call-template name="inline.boldseq"/>
  </xsl:template>
 
  <xsl:template match="bibliography">
