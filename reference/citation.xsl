@@ -4,6 +4,7 @@
                          "xsl.dtd">  
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+                xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
  <xsl:param name="use.natbib.citation.in.role" select="1"/>
@@ -62,6 +63,7 @@ Additional citation possibilities (both author-year and numerical modes)
   <xsl:if test="$use.natbib.citation.in.role != 1">
    <xsl:text>[</xsl:text>
   </xsl:if>
+
  </xsl:template>
  
  <xsl:template match="biblioentry|bibliomixed" mode="citation-to-suffix">
@@ -70,13 +72,27 @@ Additional citation possibilities (both author-year and numerical modes)
   </xsl:if>
  </xsl:template>
 
- <xsl:template match="citation" name="citation">
+ <xsl:template match="citation">
+  <xsl:choose>
+   <xsl:when test="$stylesheet.result.type='html'">
+    <xsl:apply-templates select="." mode="html"/>
+   </xsl:when>
+   <xsl:when test="$stylesheet.result.type='fo'">
+    <xsl:apply-templates select="." mode="fo"/>
+   </xsl:when>
+   <xsl:otherwise>
+    <xsl:message>Stylesheet type: <xsl:value-of select="$stylesheet.result.type"/> not recognized</xsl:message>
+   </xsl:otherwise>
+  </xsl:choose>
+ </xsl:template>
+
+ <xsl:template match="citation" name="citation" mode="html">
   <xsl:variable name="targets" select="key('id',.)"/>
   <xsl:variable name="target" select="$targets[1]"/>
   <xsl:variable name="refelem" select="local-name($target)"/>
 
   <xsl:call-template name="check.id.unique">
-    <xsl:with-param name="linkend" select="@linkend"/>
+    <xsl:with-param name="linkend" select="."/>
   </xsl:call-template>
 
   <xsl:call-template name="anchor"/>
@@ -127,6 +143,55 @@ Additional citation possibilities (both author-year and numerical modes)
     <xsl:apply-templates select="$target" mode="citation-to-suffix"/>
    </xsl:otherwise>
   </xsl:choose>
+ </xsl:template>
+
+ <xsl:template match="citation" name="citation" mode="fo">
+  <xsl:variable name="targets" select="key('id',.)"/>
+  <xsl:variable name="target" select="$targets[1]"/>
+  <xsl:variable name="refelem" select="local-name($target)"/>
+
+  <xsl:call-template name="check.id.unique">
+    <xsl:with-param name="linkend" select="."/>
+  </xsl:call-template>
+
+  <xsl:choose>
+   <xsl:when test="$refelem=''">
+    <xsl:message>
+     <xsl:text>Citation to nonexistent id: </xsl:text>
+     <xsl:value-of select="."/>
+    </xsl:message>
+    <xsl:text>???</xsl:text>
+   </xsl:when>
+   
+   <xsl:when test="$target/@xreflabel">
+    <fo:basic-link internal-destination="{.}"
+     xsl:use-attribute-sets="xref.properties">
+     <xsl:call-template name="xref.xreflabel">
+      <xsl:with-param name="target" select="$target"/>
+     </xsl:call-template>
+    </fo:basic-link>
+   </xsl:when>
+   
+   <xsl:otherwise>
+    <fo:basic-link internal-destination="{.}"
+     xsl:use-attribute-sets="xref.properties">
+     <xsl:apply-templates select="$target" mode="citation-to">
+      <xsl:with-param name="referrer" select="."/>
+      <xsl:with-param name="xrefstyle" select="@role"/>
+     </xsl:apply-templates>
+    </fo:basic-link>
+   </xsl:otherwise>
+  </xsl:choose>
+
+<!-- stylesheets version less than 1.52 don't support page number citations 
+
+  <xsl:if test="$insert.xref.page.number != 0 or local-name($target) = 'para'">
+  <xsl:apply-templates select="$target" mode="page.citation">
+  <xsl:with-param name="id" select="."/>
+ </xsl:apply-templates>
+ </xsl:if>
+-->
+
  </xsl:template>
 
  <xsl:template name="natbib-text">
@@ -373,8 +438,8 @@ Additional citation possibilities (both author-year and numerical modes)
   </xsl:variable>
 
   <xsl:value-of select="$title"/>
-</xsl:template>
+ </xsl:template>
 
-
+ 
 </xsl:stylesheet>
 
