@@ -143,6 +143,8 @@ popmetabinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
 # not supplied by the command-line option
 if checkXSLFile('meta-to-r.xsl', popmetabinpath, 'xslt'):
     metaXSLTDirectory = os.path.join(popmetabinpath, 'xslt')
+elif checkXSLFile('meta-to-r.xsl', popmetabinpath, os.path.join('..', 'xslt')):
+    metaXSLTDirectory = os.path.join(popmetabinpath, '..', 'xslt')
 else:
     metaXSLTDirectory= datapath
 dump_meta = 0

@@ -152,7 +152,8 @@ os.mkdir(xslt_dir)
 for file in ['xslt' + os.sep + i + '.xsl' \
              for i in ['text', 'html', 'lib', 'common', 'filter',
                        'hardyweinberg', 'homozygosity', 'emhaplofreq',
-                       'meta-to-r', 'sort-by-locus']]:
+                       'meta-to-r', 'sort-by-locus', 'allelelist-by-locus',
+                       'haplolist-by-group']]:
     copyCustomPlatform(file, xslt_dir)
 
 
