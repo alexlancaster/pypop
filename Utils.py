@@ -574,6 +574,52 @@ def copyCustomPlatform(file, dist_dir, txt_ext=0):
     shutil.copy(file, dist_dir)
     fixForPlatform(new_filename, txt_ext=txt_ext)
 
+def checkXSLFile(xslFilename,
+                 path='',
+                 subdir='',
+                 abort=None,
+                 debug=None,
+                 msg=''):
+    if debug:
+        print "path=%s, subdir=%s, xslFilename=%s xsl path" % (path, subdir, xslFilename)
+
+    # generate a full path to check
+    checkPath = os.path.realpath(os.path.join(path, subdir, xslFilename))
+    if os.path.isfile(checkPath):
+        return checkPath
+    else:
+        if abort:
+            sys.exit("Can't find XSL: %s %s" % (checkPath, msg))
+        else:
+            return None
+
+def getUserFilenameInput(prompt, filename):
+    """Read user input for a filename, check its existence, continue
+    requesting input until a valid filename is entered."""
+
+    nofile = 1
+    while nofile:
+      tempFilename = raw_input("Please enter %s filename [%s]: " % (prompt, filename))
+
+      # if we accept default, still check that file still exists
+      if tempFilename == '':
+          if os.path.isfile(filename):
+              nofile = 0
+          else:
+              print "File '%s' does not exist" % filename
+      else:
+          # if we don't accept default, check that file exists and use
+          # the user input as the filename
+          if os.path.isfile(tempFilename):
+              nofile = 0
+              filename = tempFilename
+          else:
+              # otherwise return an error
+              print "File '%s' does not exist" % tempFilename
+      
+    return filename
+
+
 if __name__ == "__main__":
     # test classes
     import copy
