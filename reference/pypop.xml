@@ -117,8 +117,8 @@
 
   <para>Currently, packages for analyzing population data already
    exist such as
-   <application>Arlequin</application><citation>Schneider:2000</citation> 
-   and <application>PHYLIP</application><citation
+   <application>Arlequin</application><citation>Schneider:2000</citation>, 
+   <application>PHYLIP</application><citation
     role="citep">Felsenstein:1989</citation> and
    <application>Genepop</application><citation>Genepop</citation>. In
    general, however, they are not oriented towards large-scale
