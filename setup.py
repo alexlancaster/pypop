@@ -1,11 +1,15 @@
 #!/usr/bin/env python
 from distutils.core import setup, Extension
-import os
-# check to see if we are distributing from CVS
-if os.path.isdir("CVS"):
-    # if yes, generate a "ChangeLog"
-    print "creating ChangeLog from CVS entries"
-    os.system("rcs2log > ChangeLog")
+import sys, os
+
+# if and only if we are making a source distribution, then regenerate
+# ChangeLog
+if sys.argv[1] == 'sdist':
+    # first check to see if we are distributing from CVS
+    if os.path.isdir("CVS"):
+        # if yes, generate a "ChangeLog"
+        print "creating ChangeLog from CVS entries"
+        os.system("rcs2log > ChangeLog")
     
 setup (name = "PyPop",
        version = "0.1",
@@ -20,7 +24,7 @@ setup (name = "PyPop",
                      "Haplo", "Homozygosity",  "ParseFile" ],
        scripts= ['pypop.py'],
 
-       data_files=[('share/PyPop', ['ws-fields.dat', 'ws-output-fields.dat','ws-pop-fields.dat', 'ws-sample-fields.dat', 'text.xsl', 'config.ini'])],
+       data_files=[('share/PyPop', ['text.xsl', 'config.ini'])],
 
 # compile SWIG module
        
