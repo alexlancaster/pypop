@@ -22,21 +22,93 @@
  <section>
   <title>Introduction</title>
 
-  <para>Running <application>PyPop</application> is really quite
-   simple - you just need to type "<userinput>pypop</userinput>"
-   followed by the name of your population file, like this:</para>
-
-  <para><command>pypop</command> <filename>Guatemalan.pop</filename></para>
-
-  <para>This assumes two things: that you have a file in your current
-   folder called "<filename>config.ini</filename>" and that you have
-   your population file also in the current folder.</para>
-
   <para>You may use <application>PyPop</application> to analyze many
    different kinds of data, including allele calls from HLA or any
    other area of any other chromosome, microsatellite data, SNPs,
    right down to nucleotide and amino acid data.</para>
 
+  <para>There are two ways to run <application>PyPop</application>:
+   <itemizedlist>
+    <listitem>
+     <para><firstterm>interactive</firstterm> mode (where the program
+      will prompt you to directly type the input it needs); and</para>
+    </listitem>
+    <listitem>
+     <para><firstterm>batch</firstterm>  mode  (where you supply all
+      the command line options the program needs).</para>
+    </listitem>
+   </itemizedlist> For the most straightforward application of
+   <application>PyPop</application>, where you wish to analyze a
+   single population, the interactive mode is the simplest to use, we
+   will describe it first, then describe batch mode.</para>
+
+  <section>
+   <title>Interactive mode</title>
+
+   <para>Running <application>PyPop</application> is really quite
+    simple - you just need to click the <filename>pypop.bat</filename>
+    file (Windows) or type <userinput>./pypop.sh</userinput>
+    (GNU/Linux).  The following is similar to the instructions in the
+    installation guide.</para>
+
+   <para>You should substitute <filename>sample.ini</filename> and
+    <filename>sample.pop</filename> with  the  names  of your own
+    configuration (say <filename>config.ini</filename>) and population
+    file (say <filename>Guatemalan.pop</filename>).  The  formats for
+    these files are described below.
+   </para>
+
+   <xi:include href="install-screen.xml#xpointer(/section/screen)"/>
+
+  </section>
+
+  <section>
+   <title>Batch mode</title>
+
+   <para>Running <application>PyPop</application> in batch mode is
+    also simple.  From the command line (either a DOS shell in Windows
+    or a terminal window in GNU/Linux), you should type
+    <userinput>pypop</userinput>, followed by the name of your
+    population file, like this:</para>
+
+   <screen><command>pypop</command> <filename>Guatemalan.pop</filename></screen>
+
+   <para>This assumes two things: that you have a file in your current
+    folder called "<filename>config.ini</filename>" and that you have
+    your population file also in the current folder.  You can change
+    the name of the configuration file, by supply the
+    <option>-c</option> option like so:</para>
+
+   <screen><command>pypop</command> -c <filename>newconfig.ini</filename> <filename>Guatemalan.pop</filename></screen>
+
+   <para>For a full list of options supported by
+    <application>PyPop</application>, you can type <userinput>pypop
+     --help</userinput> and you should receive a screen something like
+    the following:</para>
+
+   <screen>pypop --help
+Usage: pypop [OPTION] INPUTFILE
+Process and run population genetics statistics on an INPUTFILE.
+Expects to find a configuration file called 'config.ini' in the
+current directory or in /usr/share/PyPop/config.ini.
+ 
+  -l, --use-libxslt    filter XML via XSLT using libxslt (default)
+  -s, --use-4suite     filter XML via XSLT using 4Suite
+  -x, --xsl=FILE       use XSLT translation file FILE
+  -h, --help           show this message
+  -c, --config=FILE    select alternative config file
+  -d, --debug          enable debugging output (overrides config file setting)
+  -i, --interactive    run in interactive mode, prompting user for file names
+  -g, --gui            run GUI (warning *very* experimental)
+   
+  INPUTFILE   input text file</screen>
+
+   <warning>
+    <para>Documentation for these options is currently incomplete, but
+     will be forthcoming.</para>
+   </warning>
+
+  </section>
  </section>
 
  <section>
@@ -214,9 +286,8 @@ dqa1  count
     be treated as if it were completely untyped, and data for that
     individual for that locus will be dropped from ALL
     analyses.</para>
-  </section>
-  
-  <section>
+
+   <warning>
    <title>Caveats and limitations</title>
    
    <itemizedlist>
@@ -245,7 +316,7 @@ dqa1  count
       number of records (n).</para></listitem>
     
    </itemizedlist>
-   
+   </warning>
   </section>
  </section>
 
