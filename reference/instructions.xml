@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<chapter condition="main">
- <chapterinfo>
+<article condition="main">
+
+ <title>Guidelines for interpreting analyses of population genetic data</title>
+
+ <subtitle>Preliminary population genetic analyses for the Anthropology
+  Component of the 13th IHWG.</subtitle>
+
+ <articleinfo>
   <authorgroup>
    <author>
     <firstname>Diogo</firstname>
@@ -14,12 +20,8 @@
    </author>
   </authorgroup>
   <pubdate>Last updated: $Date$ by $Author$</pubdate>
- </chapterinfo>
+ </articleinfo>
 
- <title>Guidelines for interpreting analyses of population genetic data</title>
-
- <subtitle>Preliminary population genetic analyses for the Anthropology
-  Component of the 13th IHWG.</subtitle>
 
  <para>This document is intended to provide you with information about
   the format and the meaning of the results and data summaries you
@@ -527,7 +529,7 @@ B:DRB1       0.64448   0.37899  -7981.15  -9491.04   3019.78         *
   </sect2>
  </sect1>
 
-</chapter>
+</article>
 
 <!--
 Local variables:
