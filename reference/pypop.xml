@@ -655,24 +655,37 @@
    
     <figure id="pypop:sample-xml">
      <title>Extract from sample XML output file</title>
-     <programlisting><![CDATA[ <dataanalysis
-      date="2002-07-09-05-01-18">
-      <filename>ukimid_nireland.pop</filename>
-      <pypop-version>DEVEL_VERSION</pypop-version> <populationdata>
-      <labcode>UKIMID</labcode> <method>SSOP</method>
-      <ethnic>Irish</ethnic> <contin>Europe</contin> <collect>Northern
-      Ireland</collect> <latit>54 degrees 40 minutes north</latit>
-      <longit>6 degrees 45 minutes west</longit> <complex>3</complex>
-      <popname>NIreland</popname> <totals>
-      <indivcount>1000</indivcount> <allelecount>2000</allelecount>
-      <locuscount>9</locuscount>
-      <lociWithDataCount>4</lociWithDataCount> </totals>
-     </populationdata> <locus name="A"> <allelecounts>
-      <untypedindividuals>0</untypedindividuals>
-      <indivcount>1000</indivcount> <allelecount>2000</allelecount>
-      <distinctalleles>26</distinctalleles> <allele name="0101">
-      <frequency>0.20200 </frequency><count>404</count> </allele> ...
-      ]]></programlisting>
+<programlisting><![CDATA[<dataanalysis date="2002-07-09-05-01-18">
+   <filename>ukimid_nireland.pop</filename>
+   <pypop-version>DEVEL_VERSION</pypop-version>
+   <populationdata>
+     <labcode>UKIMID</labcode>
+     <method>SSOP</method>
+     <ethnic>Irish</ethnic>
+     <contin>Europe</contin>
+     <collect>Northern Ireland</collect>
+     <latit>54 degrees 40 minutes north</latit>
+     <longit>6 degrees 45 minutes west</longit>
+     <complex>3</complex>
+     <popname>NIreland</popname>
+     <totals>
+       <indivcount>1000</indivcount>
+       <allelecount>2000</allelecount>
+       <locuscount>9</locuscount>
+       <lociWithDataCount>4</lociWithDataCount>
+     </totals>
+   </populationdata>
+   <locus name="A">
+     <allelecounts>
+       <untypedindividuals>0</untypedindividuals>
+       <indivcount>1000</indivcount>
+       <allelecount>2000</allelecount>
+       <distinctalleles>26</distinctalleles>
+       <allele name="0101">
+         <frequency>0.20200 </frequency><count>404</count>
+       </allele>
+...
+]]></programlisting>
     </figure>
 
     <para>XML was chosen as the output format because: 1) it can be
@@ -709,18 +722,34 @@
     <figure id="pypop:sample-txt">
      <title>Extract from sample plain text output generated from XML
       data</title>
-     <programlisting format="linespecific"><![CDATA[ Performed on the
-      'ukimid_nireland.pop' file at: 2002-07-09-05-01-18 Population
-      Summary ================== Lab code: UKIMID Typing method: SSOP
-      Ethnicity: Irish Continent: Europe Collection site: Northern
-      Ireland Latitude: 54 degrees 40 minutes north Longitude: 6
-      degrees 45 minutes west Population Name: NIreland [...] 1.1.
-      Allele Counts [A] ______________________ Untyped individuals: 0
-      Sample Size (n): 1000 Allele Count (2n): 2000 Distinct alleles
-      (k): 26 Counts ordered by frequency   | Counts ordered by name
-      Name      Frequency (Count)   | Name      Frequency (Count) 0201
-      0.27400   548       | 0101      0.20200   404 0101      0.20200
-      404       | 0201      0.27400   548 ]]></programlisting>
+<programlisting format="linespecific"><![CDATA[Performed on the 'ukimid_nireland.pop' file at: 2002-07-09-05-01-18
+
+Population Summary
+==================
+
+       Lab code: UKIMID
+  Typing method: SSOP
+      Ethnicity: Irish
+      Continent: Europe
+Collection site: Northern Ireland
+       Latitude: 54 degrees 40 minutes north
+      Longitude: 6 degrees 45 minutes west
+Population Name: NIreland
+[...]
+
+1.1. Allele Counts [A]
+______________________
+
+Untyped individuals: 0
+Sample Size (n): 1000
+Allele Count (2n): 2000
+Distinct alleles (k): 26
+
+Counts ordered by frequency   | Counts ordered by name        
+Name      Frequency (Count)   | Name      Frequency (Count)   
+0201      0.27400   548       | 0101      0.20200   404       
+0101      0.20200   404       | 0201      0.27400   548       
+]]></programlisting>
     </figure>
 
     <para>Second, the results of Phase I are used to investigate
