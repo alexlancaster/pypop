@@ -317,7 +317,7 @@ class StringMatrix(UserArray):
       self.colList = colList
       self.colCount = len(colList)
       self.rowCount = rowCount
-      self.array = zeros((self.rowCount, self.colCount), PyObject)
+      self.array = zeros((self.rowCount, self.colCount*2), PyObject)
       self.shape = self.array.shape
       self._typecode = self.array.typecode()
       self.name = string.split(str(self.__class__))[0]
@@ -336,32 +336,50 @@ class StringMatrix(UserArray):
           return self.array[(row,col)]
       elif type(key) == types.StringType:
           colNames = string.split(key, ":")
-          print colNames
           li = []
           for col in colNames:
               if col in self.colList:
-                  li.append(self.colList.index(col))
+                  # get relative location in list
+                  relativeLoc = self.colList.index(col)
+                  # calculate real locations in array
+                  col1 = relativeLoc * 2
+                  col2 = col1 + 1
+                  li.append(col1)
+                  li.append(col2)
               else:
                   raise KeyError("can't find %s column" % col)
 
-              if len(colNames) == 1:
-                  # return simply the column at that location as
-                  # a list
-                  return self.array[:,li[0]].tolist()
-              else:
-                  # return the matrix consisting of column vectors
-                  # of the designated keys
-                  return take(self.array, tuple(li), 1).tolist()
+          if len(colNames) == 1:
+              # return simply the pair of columns at that location as
+              # a list
+              return take(self.array, tuple(li[0:2]), 1).tolist()
+          else:
+              # return the matrix consisting of column vectors
+              # of the designated keys
+              return take(self.array, tuple(li), 1).tolist()
       else:
           raise KeyError("keys must be a string or tuple")
 
   def __setitem__(self, index, value):
-      row, colName = index
+      if type(index) == types.TupleType:
+          row, colName = index
+      else:
+          raise IndexError("index is not a tuple")
+      if type(value) == types.TupleType:
+          value1, value2 = value
+      else:
+          raise ValueError("value being assigned is not a tuple")
+          
       if colName in self.colList:
+          # find the location in order in the array
           col = self.colList.index(colName)
+          # calculate the offsets to the actual array location
+          col1 = col * 2
+          col2 = col1 + 1
       else:
           raise KeyError("can't find %s column" % col)
-      self.array[(row,col)] = asarray(value,self._typecode)
-      
+      # store each element in turn
+      self.array[(row,col1)] = asarray(value1+':',self._typecode)
+      self.array[(row,col2)] = asarray(value2+':',self._typecode)
 
 
