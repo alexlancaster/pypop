@@ -16,9 +16,12 @@
  <xsl:include href="http://docbook.sourceforge.net/release/xsl/snapshot/html/chunk-code.xsl"/>
 
 
- <xsl:output method="html" encoding="ISO-8859-1"
+ <xsl:output method="html" encoding="UTF-8"
   doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
   doctype-system="http://www.w3.org/TR/html4/loose.dtd" indent="no"/>
+
+ <!-- switch from ISO-8859-1 to UTF-8 -->
+ <xsl:param name="chunker.output.encoding" select="'UTF-8'"/>
 
  <!-- generate an HTML manifest -->
  <xsl:param name="generate.manifest" select="1"/>
