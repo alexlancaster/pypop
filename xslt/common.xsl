@@ -724,7 +724,7 @@
    </xsl:with-param>
   </xsl:call-template>
   <xsl:text> </xsl:text>
-  <xsl:value-of select="lower"/><xsl:text disable-output-escaping="yes"> &lt; pvalue &lt; </xsl:text><xsl:value-of select="upper"/>
+  <xsl:value-of select="lower"/><xsl:text disable-output-escaping="yes"> &lt; pvalue &lt;= </xsl:text><xsl:value-of select="upper"/>
   
   </xsl:template>
 
