@@ -1,3 +1,9 @@
+2004-07-12  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Pass in
+	cStringIO "file pointer" to _run_randomization() routine.
+	Serialize list of genotypes and names also to XML output.
+
 2004-07-07  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable):
