@@ -4,6 +4,71 @@ from distutils.file_util import copy_file
 
 import sys, os, string
 
+from distutils.command.build_ext import build_ext
+
+# override implementation of swig_sources method in standard build_ext
+# class, so we can change the way SWIG is called by Python's default
+# configuration of distutils
+class my_build_ext(build_ext):
+
+    def swig_sources (self, sources):
+
+        """Walk the list of source files in 'sources', looking for SWIG
+        interface (.i) files.  Run SWIG on all that are found, and
+        return a modified 'sources' list with SWIG source files replaced
+        by the generated C (or C++) files.
+        """
+
+        new_sources = []
+        swig_sources = []
+        swig_targets = {}
+
+        # XXX this drops generated C/C++ files into the source tree, which
+        # is fine for developers who want to distribute the generated
+        # source -- but there should be an option to put SWIG output in
+        # the temp dir.
+
+        if self.swig_cpp:
+            target_ext = '.cpp'
+        else:
+            target_ext = '.c'
+
+        for source in sources:
+            (base, ext) = os.path.splitext(source)
+            if ext == ".i":             # SWIG interface file
+                new_sources.append(base + target_ext)
+                swig_sources.append(source)
+                swig_targets[source] = new_sources[-1]
+            else:
+                new_sources.append(source)
+
+        if not swig_sources:
+            return new_sources
+
+        swig = self.find_swig()
+
+        if os.environ.has_key('SWIG_VERSION') and os.environ['SWIG_VERSION'] == '1.3.11':
+            # in newer version of SWIG, need to use these options
+            # to build old style classes/typemaps, required under
+            # Cygwin, because newer SWIG version attempts to build
+            # extensions in a weird way that Python doesn't understand
+            swig_cmd = [swig, "-python", "-classic", "-noproxy", "-ISWIG"]
+        else:
+            # invoke old-style python, remove the "-dnone" option
+            swig_cmd = [swig, "-python", "-ISWIG"]
+
+        if self.swig_cpp:
+            swig_cmd.append("-c++")
+
+        for source in swig_sources:
+            target = swig_targets[source]
+            self.announce("swigging %s to %s" % (source, target))
+            self.spawn(swig_cmd + ["-o", target, source])
+
+        return new_sources
+
+    # swig_sources ()
+
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
 # we set the environment to emulate that.
@@ -66,6 +131,8 @@ setup (name = "PyPop",
        data_files=[('share/PyPop', data_file_paths)],
 
 # compile SWIG module
+
+       cmdclass = {'build_ext': my_build_ext,},
        
        ext_modules=[Extension("_Emhaplofreqmodule",
                               ["emhaplofreq/emhaplofreq_wrap.i",
