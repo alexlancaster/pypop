@@ -39,7 +39,7 @@
    files.
 """
 
-import os, sys, string, types, re, shutil
+import os, sys, string, types, re, shutil, copy
 import Numeric
 from Numeric import zeros, take, asarray, PyObject
 from UserArray import UserArray
@@ -353,13 +353,17 @@ class Index:
 class StringMatrix(UserArray):
 
   def __init__(self, rowCount=None, colList=None):
+      """Constructor for StringMatrix.
 
-      # colList is a mutable type so freeze the list of locus keys in
-      # the original order in file by making a *clone* of the list of
-      # keys.  the order of loci in the array will correspond to the
-      # original file order, and we don't want this tampered with by
-      # the `callee' function (i.e. effectively override the Python
-      # "pass by reference" default and "pass by value").
+      colList is a mutable type so we freeze the list of locus keys in
+      the original order in file by making a *clone* of the list of
+      keys.
+
+      the order of loci in the array will correspond to the original
+      file order, and we don't want this tampered with by the `callee'
+      function (i.e. effectively override the Python 'pass by
+      reference' default and 'pass by value')."""
+      
       self.colList = colList[:]
       
       self.colCount = len(self.colList)
@@ -369,12 +373,49 @@ class StringMatrix(UserArray):
       self.shape = self.array.shape
       self._typecode = self.array.typecode()
       self.name = string.split(str(self.__class__))[0]
+
+  def __repr__(self):
+      """Override default representation.
+
+      This is used when the object is 'print'ed, i.e.
+      a = StringMatrix(10, [1,2])
+      print a"""
+      if len(self.array.shape) > 0:
+          return (self.__class__.__name__)[6:12]+repr(self.array)[len("array"):]
+      else:
+          return (self.__class__.__name__)[6:12]+"("+repr(self.array)+")"
+
+  def copy(self):
+      """Make a (deep) copy of the StringMatrix
+
+      Currently this goes via the constructor, not sure if
+      there is a better way of doing this"""
+      thecopy = StringMatrix(copy.deepcopy(self.rowCount), \
+                             copy.deepcopy(self.colList))
+      return thecopy
+
+  def __deepcopy__(self, memo):
+      """Create a deepcopy for copy.deepcopy
+
+      This simply calls self.copy() to allow
+      copy.deepcopy(matrixInstance) to Do The Right Thing"""
+      return self.copy()
       
   def __getslice__(self, i, j):
       raise Exception("slices not currently supported")
       #return self._rc(self.array[i:j])
 
   def __getitem__(self, key):
+      """Override built in.
+
+      This is called when instance is called to retrieve a position
+      e.g.:
+
+      li = matrix['A']
+
+      returns a list (a single column vector if only one position
+      specified), or list of lists: (a set of column vectors if
+      several positions specified) of tuples for that position"""
       if type(key) == types.TupleType:
           row,colName= key
           if colName in self.colList:
@@ -409,6 +450,12 @@ class StringMatrix(UserArray):
           raise KeyError("keys must be a string or tuple")
 
   def __setitem__(self, index, value):
+      """Override built in.
+
+      This is called when instance is called to assign a value,
+      e.g.:
+
+      matrix[3, 'A'] = (entry1, entry2)"""
       if type(index) == types.TupleType:
           row, colName = index
       else:
@@ -434,6 +481,10 @@ class StringMatrix(UserArray):
       self.array[(row,col2)] = asarray(value2+':',self._typecode)
 
   def filterOut(self, key, blankDesignator):
+      """Returns a filtered matrix.
+
+      When passed a designator, this method will return the rows of
+      the matrix that *do not* contain that designator at any rows"""
       def f(x, designator=blankDesignator):
           for value in x:
               if value == designator+':':
@@ -509,3 +560,27 @@ def copyCustomPlatform(file, dist_dir, txt_ext=0):
     print "copying %s to" % file, 
     shutil.copy(file, dist_dir)
     fixForPlatform(new_filename, txt_ext=txt_ext)
+
+if __name__ == "__main__":
+    # test classes
+    import copy
+
+    # test StringMatrix class
+    a = StringMatrix(3, ['A', 'B', 'C'])
+
+    print "original matrix is all zeroes: "
+    print a
+
+    #b = copy.deepcopy(a)
+    b = a.copy()
+    
+    b[0,'A'] = ('999', '999')
+    b[1,'A'] = ('666', '666')
+
+    print "b should be changed:"
+    print b
+    
+    print "a should be unchanged and consist of zeroes:"
+    print a
+
+
