@@ -207,8 +207,26 @@
   <citetitle pubwork="refentry">IMGT/HLA Database <ulink url="http://www.ebi.ac.uk/imgt/hla/">http://www.ebi.ac.uk/imgt/hla/</ulink></citetitle>
  </biblioentry>
  
- <biblioentry id="SWIG">
-  <citetitle pubwork="refentry">Simple Wrapper Interface Generator <ulink url="http://www.swig.org/">http://www.swig.org/</ulink></citetitle>
+ <biblioentry id="Beazley:1996">
+  <author>
+   <firstname>D.</firstname>
+   <othername>M.</othername>
+   <surname>Beazley</surname>
+  </author>
+  <pubdate>1996</pubdate>
+
+  <citetitle pubwork="article">SWIG: an easy to use tool for
+   integrating scripting languages with C and C++, available at
+   <ulink
+    url="http://www.swig.org/">http://www.swig.org/</ulink></citetitle>
+
+  <confgroup>
+   <conftitle>4th Annual Tcl/Tk Workshop '96</conftitle>
+   <confsponsor>USENIX</confsponsor>
+   <confdates>July 10-13, 1996</confdates>
+  </confgroup>
+  <pagenums>129-139</pagenums>
+  
  </biblioentry>
  
  
@@ -216,14 +234,50 @@
   <citetitle pubwork="refentry">Open Source Initiative <ulink url="http://www.opensource.org/">http://www.opensource.org/</ulink></citetitle>
  </biblioentry>
  
- <biblioentry id="Numpy">
-  <citetitle pubwork="refentry">Numeric Python <ulink
+ <biblioentry id="Dubois:1996">
+  <authorgroup>
+   <author>
+    <firstname>P.</firstname>
+    <othername>F.</othername>
+    <surname>Dubois</surname>
+   </author>
+   <author>
+    <firstname>K.</firstname>
+    <surname>Hinsen</surname>
+   </author>
+   <author>
+    <firstname>J.</firstname>
+    <surname>Hugunin</surname>
+   </author>
+  </authorgroup>
+  <pubdate>1996</pubdate>
+  <citetitle pubwork="article">Numerical Python, available at <ulink
     url="http://numpy.sf.net/">http://numpy.sf.net/</ulink></citetitle>
+  <citetitle pubwork="journal">Computers in Physics</citetitle>
+  <volumenum>10</volumenum>
+  <issuenum>3</issuenum>
+  <pagenums>262-267</pagenums>
  </biblioentry>
  
- <biblioentry id="Python">
-  <citetitle pubwork="refentry">Python <ulink
+ <biblioentry id="vanRossum:2001">
+  <authorgroup>
+   <editor>
+    <firstname>G.</firstname>
+    <surname>van Rossum</surname>
+   </editor>
+   <editor>
+    <firstname>F.</firstname>
+    <othername>L.</othername>
+    <surname>Drake</surname>
+   </editor>
+  </authorgroup>
+  <pubdate>2001</pubdate>
+  <citetitle pubwork="refentry">Python Reference Manual, available at <ulink
     url="http://www.python.org/">http://www.python.org/</ulink></citetitle>
+  <publisher>
+   <publishername>PythonLabs</publishername>
+   <address><state>Virginia</state></address>
+  </publisher>
  </biblioentry>
  
  <biblioentry id="Libxslt">
@@ -236,12 +290,48 @@
     url="http://www.gnome.org/">http://www.gnome.org/</ulink></citetitle>
  </biblioentry>
  
-  <biblioentry id="XML">
-  <citetitle pubwork="refentry">eXtensible Markup Language <ulink url="http://www.w3.org/XML/">http://www.w3.org/XML/</ulink></citetitle>
+  <biblioentry id="Bray:2000">
+  <authorgroup>
+   <author>
+    <firstname>Tim</firstname>
+    <surname>Bray</surname>
+   </author>
+   <author>
+    <firstname>Jean</firstname>
+    <surname>Paoli</surname>
+   </author>
+   <author>
+    <firstname>C.</firstname>
+    <othername>M.</othername>
+    <surname>Sperberg-McQueen</surname>
+   </author>
+   <author>
+    <firstname>Eve</firstname>
+    <surname>Maler</surname>
+   </author>
+  </authorgroup>
+  <pubdate>2000</pubdate>
+  <citetitle pubwork="refentry"><ulink
+    url="http://www.w3.org/TR/REC-xml/">Extensible Markup Language 1.0
+    (XML)</ulink></citetitle>
+  <edition>Second Edition</edition>
+  <publisher>
+   <publishername>World Wide Web Consortium</publishername>
+  </publisher>
  </biblioentry>
 
-  <biblioentry id="XSLT">
-  <citetitle pubwork="refentry">eXtensible Stylesheet Language <ulink url="http://www.w3.org/Style/XSL/">http://www.w3.org/Style/XSL/</ulink></citetitle>
+  <biblioentry id="Clark:1999">
+  <editor>
+   <firstname>James</firstname>
+   <surname>Clark</surname>
+  </editor>
+  <pubdate>1999</pubdate>
+  <citetitle pubwork="refentry"><ulink
+  url="http://www.w3.org/TR/xslt/">Extensible Stylesheet Language
+  Transformations 1.0 (XSLT) </ulink></citetitle>
+  <publisher>
+   <publishername>World Wide Web Consortium</publishername>
+  </publisher>
  </biblioentry>
  
   <biblioentry id="Felsenstein:1989">
@@ -284,14 +374,35 @@
     url="http://www.ncbi.nlm.nih.gov/IEB/Research/GVWG/MHC/">http://www.ncbi.nlm.nih.gov/IEB/Research/GVWG/MHC/</ulink></citetitle>
  </biblioentry>
  
- <biblioentry id="Genepop">
-  <citetitle pubwork="refentry">Genepop <ulink
+ <biblioentry id="Raymond:Rousset:1995">
+  <authorgroup>
+   <author>
+    <firstname>M</firstname>
+    <surname>Raymond</surname>
+   </author>
+   <author>
+    <firstname>F</firstname>
+    <surname>Rousset</surname>
+   </author>
+  </authorgroup>
+  <pubdate>1995</pubdate>
+
+  <citetitle pubwork="article">GENEPOP (version 1.2): population
+  genetics software for exact tests and ecumenicism, available from <ulink
     url="ftp://ftp.cefe.cnrs-mop.fr/genepop">ftp://ftp.cefe.cnrs-mop.fr/genepop</ulink></citetitle>
+  <citetitle pubwork="journal">J. Hered</citetitle>
+  <volumenum>86</volumenum>
+  <pagenums>248-249</pagenums>
+
  </biblioentry>
 
  <biblioentry id="GPL">
   <citetitle pubwork="refentry">GNU General Public License <ulink
     url="http://www.gnu.org/licenses/gpl.html">http://www.gnu.org/licenses/gpl.html</ulink></citetitle>
+  <publisher>
+   <publishername>Free Software Foundation</publishername>
+   <address><city>Boston</city> <state>MA</state></address>
+  </publisher>
  </biblioentry>
  
  <!-- original PSB 2002 list starts here -->
