@@ -66,7 +66,7 @@
  <!-- merged from PyPop bibliography -->
 
 
- <biblioentry id="Lancaster:etal:2003">
+ <biblioentry id="Lancaster:etal:2003a">
   <biblioset relation="article">
    <authorgroup>
     <author role="uc">
@@ -97,7 +97,7 @@
    </author>
   </authorgroup>
    
-   <pubdate>2003</pubdate>
+   <pubdate>2003a</pubdate>
 
    <citetitle>PyPop: a software framework for population genomics: analyzing
     large-scale multi-locus genotype data</citetitle>
@@ -115,6 +115,62 @@
   </biblioset>
 
  </biblioentry>
+
+ <biblioentry id="Lancaster:etal:2003b">
+  <biblioset relation="chapter">
+   <authorgroup>
+    <author role="uc">
+     <firstname>Alex</firstname>
+     <surname>Lancaster</surname>
+    </author>
+
+   <author role="uc">
+    <firstname>Mark</firstname>
+    <othername>P</othername>
+    <surname>Nelson</surname>
+   </author>
+
+   <author role="uv">
+    <firstname>Richard</firstname>
+    <othername>M</othername>
+    <surname>Single</surname>
+   </author>
+
+   <author role="uc">
+    <firstname>Diogo</firstname>
+    <surname>Meyer</surname>
+   </author>
+
+   <author role="uc">
+    <firstname>Glenys</firstname>
+    <surname>Thomson</surname>
+   </author>
+  </authorgroup>
+   
+   <pubdate>2003b</pubdate>
+
+   <citetitle>Software framework for Biostatistics Core</citetitle>
+
+  </biblioset>
+
+  <biblioset relation="book">
+   <authorgroup>
+    <editor>
+     <firstname>JA</firstname>
+     <surname>Hansen</surname>
+    </editor>
+    <editor>
+     <firstname>B</firstname>
+     <surname>Dupont</surname>
+    </editor>
+   </authorgroup>
+   <edition>in press</edition>
+   <citetitle>HLA 2002: Immunobiology of the Human MHC</citetitle>
+   <publishername>IHWG Press</publishername>
+  </biblioset>
+
+ </biblioentry>
+
 
  <biblioentry id="Schneider:2000">
   <authorgroup>
