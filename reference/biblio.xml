@@ -42,6 +42,27 @@
   </publisher>
  </biblioentry>
 
+ <biblioentry id="Hedrick:1987">
+  <biblioset relation="article">
+   <author>
+    <firstname>P</firstname>
+    <othername>W</othername>
+    <surname>Hedrick</surname>
+   </author>
+   <pubdate>1987</pubdate>
+   <citetitle>Gametic disequilibrium measures:   proceed with
+    caution</citetitle>
+   <volumenum>117</volumenum>
+   <issuenum>2</issuenum>
+   <pagenums>331-41</pagenums>
+  </biblioset>
+
+  <biblioset relation="journal">
+   <citetitle>Genetics</citetitle>
+  </biblioset>
+  
+ </biblioentry>
+
  <!-- merged from PyPop bibliography -->
  <biblioentry id="Schneider:2000">
   <authorgroup>
