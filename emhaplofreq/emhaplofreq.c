@@ -318,13 +318,28 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   double like_ratio[MAX_PERMU], pvalue;
   FILE *fp_permu = FP_PERMU, *fp_iter = FP_ITER;
 
-  /* initialize first elements of geno array to make function
-     reentrant when used in a shared library */
-  for (i = 0; i < (int)pow(2, n_loci - 1); i++) 
-    {
-      strcpy(geno[i][0], "\0");
-      strcpy(geno[i][1], "\0");
-    }
+  /* initialize elements of geno, genopheno and allele_freq arrays to
+     make function reentrant when used in a shared library */
+
+  INIT_STATIC_DIM3(char, geno, MAX_GENOS, 2, (LINE_LEN/2));
+  INIT_STATIC_DIM2(int, genopheno, MAX_GENOS, MAX_ROWS);
+  INIT_STATIC_DIM2(double, allele_freq, MAX_LOCI, MAX_ALLELES);
+
+#if 0
+ /* don't currently need to initialize elements of these arrays, they
+    appear to be initialized by the program, nevertheless leave the
+    macro definitions in so that they can be zeroed out if
+    necessary */
+  INIT_STATIC_DIM2(char, pheno, MAX_ROWS, LINE_LEN);
+  INIT_STATIC_DIM3(char, temp_geno, MAX_GENOS, 2, (LINE_LEN/2));
+  INIT_STATIC_DIM1(int, numgeno, MAX_ROWS);
+  INIT_STATIC_DIM1(int, obspheno, MAX_ROWS);
+  
+  INIT_STATIC_DIM2(char, haplo, MAX_HAPLOS, (LINE_LEN / 2));
+  INIT_STATIC_DIM2(int, haplocus, MAX_HAPLOS, MAX_LOCI);
+  INIT_STATIC_DIM3(char, unique_allele, MAX_LOCI, MAX_ALLELES, NAME_LEN);
+  INIT_STATIC_DIM1(char, n_unique_allele, MAX_LOCI);
+#endif
 
   /******************* end: declarations ****************************/
 
@@ -918,6 +933,10 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
   char temp_array[MAX_LOCI][NAME_LEN];  
   int l, m;
   static char temp_buff[LINE_LEN / 2];
+  
+#if 0
+  INIT_STATIC_DIM1(char, temp_buff, (LINE_LEN / 2));
+#endif
 
   /* 0th assignment */
   unique_haplo_count = 0;
@@ -1123,6 +1142,9 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
   double summary_q[MAX_LOCI*(MAX_LOCI - 1)/2]; 
   double summary_wn[MAX_LOCI*(MAX_LOCI - 1)/2]; 
   double sum; /* used to check sums */
+
+  /* zero out static array before each run to make code re-entrant */
+  INIT_STATIC_DIM3(double, dij, (MAX_LOCI*(MAX_LOCI-1)/2), MAX_ALLELES, MAX_ALLELES);
 
   /* After 1st pass dij[coeff_count][locusA_allele#][locusB_allele#] */
   /*   contains Estimated 2-locus HFs based on full MLE HFs          */
@@ -1364,6 +1386,13 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
   static double hap_freq[MAX_HAPLOS][MAX_ITER], addto_ambig[MAX_HAPLOS];
   double expected_freq, expected_freq_sum, normed_addto_ambig_sum, diff; 
   double geno_freq[MAX_GENOS], pheno_freq[MAX_ROWS], prev_loglike = 0.0, freqsum;
+
+#if 0   
+  /* don't reset the memory for static variables, doesn't seem to be
+     necessary here  */
+  INIT_STATIC_DIM2(double, hap_freq, MAX_HAPLOS, MAX_ITER);
+  INIT_STATIC_DIM1(double, addto_ambig, MAX_HAPLOS);
+#endif 
 
   done = FALSE;
   decr_loglike_count = 0;
