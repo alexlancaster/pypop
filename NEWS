@@ -1,0 +1,11 @@
+PyPop NEWS --- history of user-visible changes to PyPop.  -*- text -*-
+Copyright (C) 2003 Regents of the University of California
+
+* Release Notes for PyPop 0.4.3beta
+** Bug fixes
+*** Fixed bug in processing of 'popname' field. 
+    Thanks to Richard Single for the report.
+
+Local variables:
+mode: outline
+end:
