@@ -39,14 +39,36 @@
    
    <xsl:call-template name="bibliography.titlepage"/>
 
-   <xsl:apply-templates select="biblioentry|bibliodiv/biblioentry">
-    <xsl:sort select="@id"/>
-    <xsl:sort select="abbrev"/>
-    <xsl:sort select="@xreflabel"/>
-   </xsl:apply-templates>
+   <xsl:apply-templates select="*[not(self::biblioentry | self::bibliomixed | self::bibliodiv)]"/>
+
+   <xsl:if test="biblioentry|bibliomixed">
+    <xsl:call-template name="order-biblioitems">
+     <xsl:with-param name="bibitems" select="biblioentry|bibliomixed"/>
+    </xsl:call-template>
+   </xsl:if>
+   
+   <xsl:if test="bibliodiv">
+    <xsl:for-each select="bibliodiv">
+     <xsl:apply-templates select="*[not(self::biblioentry | self::bibliomixed)]"/>
+     <xsl:call-template name="order-biblioitems">
+      <xsl:with-param name="bibitems" select="biblioentry|bibliomixed"/>
+     </xsl:call-template>
+    </xsl:for-each>
+   </xsl:if>
 
    <xsl:call-template name="process.footnotes"/>
   </div>
+ </xsl:template>
+
+ <xsl:template name="order-biblioitems">
+  <xsl:param name="bibitems"/>
+  
+  <xsl:apply-templates select="$bibitems">
+   <xsl:sort select="@id"/>
+   <xsl:sort select="abbrev"/>
+   <xsl:sort select="@xreflabel"/>
+  </xsl:apply-templates>
+  
  </xsl:template>
 
  <xsl:template match="para">
