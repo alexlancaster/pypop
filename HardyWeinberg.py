@@ -5,10 +5,10 @@ class HardyWeinberg:
   for individual genotype values, and test for fit."""
 
   def __init__(self, locusData, debug=0):
-  """Constructor.
+    """Constructor.
 
-  - locusData to be provided by driver script via a
-    call to ParseFile.getLocusData(locus)."""
+    - locusData to be provided by driver script via a
+      call to ParseFile.getLocusData(locus)."""
 
     self.locusData = locusData
     self.debug = debug
