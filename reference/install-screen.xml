@@ -13,7 +13,7 @@
    role="bold">bold</emphasis>).
  </para>
 
-<screen>PyPop: Python for Population Genetics
+<screen>PyPop: Python for Population Genetics (0.4.3)
 Copyright (C) 2003 Regents of the University of California
 This is free software.  There is NO warranty; not even for
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -28,7 +28,8 @@ Please enter config filename [config.ini]: <userinput>sample.ini</userinput>
 Please enter population filename [no default]: <userinput>sample.pop</userinput>
 PyPop is processing sample.pop 
 
-<emphasis>(Note: some log messages may appear here)</emphasis>
+<emphasis>(Note: some messages with the prefix "LOG:" may appear here.</emphasis>
+<emphasis>They are informational only and do not indicate improper operation of the program)</emphasis>
 
 PyPop run complete!
 XML output can be found in: sample-out.xml
