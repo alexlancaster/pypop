@@ -4,7 +4,7 @@
 #define LINE_LEN    132      /* RS changed from 120 to 132=6*2*(10+1) */ 
 #define MAX_ROWS    500      /* RS changed from 1023 to 500 */
 #define MAX_ALLELES 80 
-#define MAX_LOCI    6 
+#define MAX_LOCI    7 
 #define MAX_COLS    MAX_LOCI * 2 
                              /* max genotypes:  2^max_loci*max_rows */ 
 #define MAX_GENOS   20000    /* RS changed from 64*MAX_ROWS; 5000 in HAPLO */
