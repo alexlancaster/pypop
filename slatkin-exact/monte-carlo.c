@@ -229,7 +229,7 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 
   E_F = Ftot / (double)maxrep;
 
-  Var_F = ((Fsq_tot / (double)maxrep) - ((Ftot / (double)maxrep) * (Ftot / (double)maxrep)));
+  Var_F = (Fsq_tot - (Ftot*Ftot/(double)maxrep))/(double)maxrep;
 
 /* end calculating the expected F, and its variance. DM, AKL */
 
