@@ -73,12 +73,17 @@ int main(int argc, char *argv[])
 	if (read_data(a, &no_allele, &total, &sample, &infile, &title))
 		exit(2);
 
+#ifdef XML_OUTPUT
+	fprintf(outfile, "<?xml? version='1.0'>\n");
+	fprintf(outfile, "<singlelocus type=\"gthwe\">\n");
+#endif
+
 	print_data(a, no_allele, sample, &outfile, title);
+	
+	constant = cal_const ( no_allele, n, total );
 
-   constant = cal_const ( no_allele, n, total );
-
-   ln_p_observed = ln_p_value ( a, no_allele, constant );  
- 
+	ln_p_observed = ln_p_value ( a, no_allele, constant );  
+	
 	ln_p_simulated = ln_p_observed; 
 
 	p_mean = p_square = (double) 0.0;
@@ -124,6 +129,7 @@ int main(int argc, char *argv[])
 
 	total_step = sample.step + sample.group * sample.size;
 
+#ifndef XML_OUTPUT
 	fprintf(outfile, "Randomization test P-value: %7.4g  (%7.4g) \n",
 					result.p_value, result.se);
 	fprintf(outfile, "Percentage of partial switches: %6.2f \n",
@@ -132,9 +138,24 @@ int main(int argc, char *argv[])
 					result.swch_count[2] / total_step * 100);
 	fprintf(outfile, "Percentage of all switches: %6.2f \n",
 					(result.swch_count[1] + result.swch_count[2]) / total_step * 100);
+#else
+	fprintf(outfile, "<pvalue>%7.4g</pvalue><stderr>%7.4g</stderr>\n",
+					result.p_value, result.se);
+	fprintf(outfile, "<switches>\n");
+	fprintf(outfile, "<percent-partial>%6.2f</percent-partial>\n",
+					result.swch_count[1] / total_step * 100);
+	fprintf(outfile, "<percent-full>%6.2f</percent-full>\n",
+					result.swch_count[2] / total_step * 100);
+	fprintf(outfile, "<percent-all>%6.2f</percent-all>\n",
+					(result.swch_count[1] + result.swch_count[2]) / total_step * 100);
+	fprintf(outfile, "</switches>\n");
+#endif
 
 	stamp_time(t1, &outfile);
 
+#ifdef XML_OUTPUT
+	fprintf(outfile, "</singlelocus>");
+#endif
 	return (0);
 
 }

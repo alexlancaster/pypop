@@ -4,7 +4,7 @@ NAME2 = gthwe
 CC      = gcc 
 
 #CFLAGS = -O2 -fno-strength-reduce
-CFLAGS = -O2 -funroll-loops
+CFLAGS = -O2 -funroll-loops -DXML_OUTPUT=1
 #CFLAGS = -g -static
 
 
