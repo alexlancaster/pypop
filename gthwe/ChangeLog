@@ -1,3 +1,15 @@
+2004-06-29  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* hwe.c (norm_dev): New function to calculate normalized deviate
+	of genotype frequency.  This function is currently **broken**, a
+	placeholder for testing purposes only, please do not rely on it's
+	output.
+	(run_data): Calculate norm_dev() of initial genotype and store in
+	array.  Create an array to store count of times norm_dev exceeds
+	or falls below the observed norm_dev for each iteration in MCMC
+	chain.  Used to calculate p-value.  This p-value is also *broken*,
+	this is placeholder code only!
+
 2004-06-25  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* hwe.c (run_data): For both MCMC and straight MC versions, save

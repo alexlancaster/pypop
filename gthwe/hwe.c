@@ -101,6 +101,49 @@ long init_rand(void) {
   return (t1);
 }
 
+
+/*
+  THIS FUNCTION IS CURRENTLY **BROKEN**, A PLACEHOLDER FOR TESTING
+  PURPOSES ONLY, PLEASE DO NOT RELY ON ITS OUTPUT.
+
+  var(2p_ip_j) = 4 var(p_i) * var(p_j)
+               = 4 * 1/2N p_i*(1-p_i) * 1/2N p_j*(1-p_j)
+               = 1/N^2 * p_i*(1-p_i) * p_j*(1-p_j)
+
+  var(p_i^2) = var(p_i) * var(p_i)
+             = (1/4N^2)* p_i^2 * (1-p_i)^2
+*/
+double norm_dev(int i, int j, int obs_count, int total_gametes, int *n)
+{
+  double p_i = 0.0, p_j = 0.0;
+  double obs_freq, exp_freq, var, norm_dev;
+  int total_indivs = total_gametes/2;
+
+  /* printf("n[%d]=%d, n[%d]=%d, N=%d, obs_count=%d\n", 
+     i, n[i], j, n[j], total_indivs, obs_count); */
+  p_i = (double)n[i]/(double)total_gametes;
+
+  if (i != j) {
+    p_j = (double)n[i]/(double)total_gametes;
+    exp_freq = 2*p_i*p_j;
+    var = (p_i*(1-p_i) * p_j*(1-p_j))/(double)(total_indivs*total_indivs);
+  }
+  else {
+    exp_freq = p_i*p_i;
+    var = (p_i*p_i *(1-p_j)*(1-p_j))/(4.0*total_indivs*total_indivs);
+  }
+
+  obs_freq = (double)obs_count*2/(double)total_gametes;
+
+  /* printf("p_i=%g, p_j=%g, exp_freq=%g, obs_freq=%g, var=%g, ", 
+     p_i, p_j, exp_freq, obs_freq, var);  */
+  norm_dev = fabs(exp_freq - obs_freq)/sqrt(var);
+  /* printf("norm_dev = %g\n", norm_dev);  */
+  return(norm_dev);
+
+}
+
+
 /* 
  * run_data(): does the main processing, given the data in variables,
  * this can be called by external programs or be made into an
@@ -120,7 +163,7 @@ int run_data(int *a, int *n, int no_allele, int total,
   double constant, p_simulated, total_step;
   struct randomization sample;
   struct outcome result;
-  register int i, j, k;
+  register int i, j, k, l;
   long t1;
   int num_genotypes = no_allele * (no_allele + 1) / 2;
 
@@ -169,9 +212,17 @@ int run_data(int *a, int *n, int no_allele, int total,
 
 
 #ifdef PERMU_TEST
-  int **mcmc_histograms = (int **)calloc(num_genotypes, sizeof(int *));
-  for (k = 0; k < num_genotypes; k++)
-    mcmc_histograms[k] = calloc(total, sizeof(int));
+
+  double *obs_normdev = (double *)calloc(num_genotypes, sizeof(double));
+
+  for (i=0; i < no_allele; i++) 
+    for (j=0; j <= i; j++) {
+      obs_normdev[L(i,j)] = norm_dev(i, j, a[L(i,j)], (total * 2), n);
+      printf("obs_normdev[%d, %d] = %f\n", i, j, obs_normdev[L(i,j)]);
+      fflush(stdout);
+    }
+  int *normdev_count = (int *)calloc(num_genotypes, sizeof(int));
+
 #endif
 
   constant = cal_const(no_allele, n, total);
@@ -211,9 +262,19 @@ int run_data(int *a, int *n, int no_allele, int total,
 	  
 #ifdef PERMU_TEST
 	  /* go through genotype list at this step of the chain */
-	  for (k=0; k < num_genotypes; k++) 
-	    /* increase count a[i]-th place in the i-th histogram by one */
-	    mcmc_histograms[k][a[k]]++; 
+	  for (k=0; k < no_allele; k++) 
+	    for (l=0; l <= k; l++) {
+	      /* increase count in genotype if norm_dev > norm_dev[0] */
+	      /* printf("a[%d,%d]=%d, ", k, l, a[L(k,l)]); */
+
+	      double sim_normdev = norm_dev(k, l, a[L(k,l)], (total * 2), n);
+	      /* printf("norm dev: sim = %g, ", sim_normdev); */
+
+	      if (sim_normdev > obs_normdev[L(k,l)]) {
+		normdev_count[L(k,l)]++;
+		/* printf("obs = %g\n", obs_normdev[L(k,l)]); */
+	      }
+	    }
 #endif
 
 	}
@@ -227,7 +288,7 @@ int run_data(int *a, int *n, int no_allele, int total,
   result.se = p_square / ((double) sample.group) / (sample.group - 1.0)
     - p_mean / (sample.group - 1.0) * p_mean;
   result.se = sqrt(result.se);
-  
+   
   total_step = sample.step + sample.group * sample.size;
   
 #ifndef XML_OUTPUT
@@ -260,13 +321,11 @@ int run_data(int *a, int *n, int no_allele, int total,
 
 #ifdef PERMU_TEST
 
-  /* print mcmc_histograms */
+  /* print pvalues for each genotype */
   for (i=0; i < num_genotypes; i++) {
-    printf("mcmc_histogram[%d]: {", i);
-    for (j=0; j < total; j++) {
-      printf("%d, ", mcmc_histograms[i][j]);
-    }
-    printf("} observed: FIXME, need to copy original a[] array\n");
+    /* THIS P-VALUE IS *BROKEN*, THIS IS PLACEHOLDER CODE ONLY! */
+    printf("normdev_count[%d] = %d, p-value = %g\n", 
+	   i, normdev_count[i], normdev_count[i]/total_step);
   }
 
   /* calculate number of alleles of each gamete */
@@ -340,7 +399,7 @@ int run_data(int *a, int *n, int no_allele, int total,
   int *g = (int *)calloc(num_genotypes, sizeof(int));
 
   /* start permuting index of gametes */
-  int permu = 0, l = 0;
+  int permu = 0;
   int K = 0;
   int N = 17000;
   double ln_p_perm;
@@ -413,9 +472,8 @@ int run_data(int *a, int *n, int no_allele, int total,
   }
 
   /* free dynamically-allocated memory  */
-  for(i = 0; i < num_genotypes; i++)
-    free(mcmc_histograms[i]);
-  free(mcmc_histograms);
+  free(obs_normdev);
+  free(normdev_count);
 
   /* free dynamically-allocated memory  */
   for(i = 0; i < num_genotypes; i++)
@@ -429,4 +487,3 @@ int run_data(int *a, int *n, int no_allele, int total,
   return (0);
 
 }
-
