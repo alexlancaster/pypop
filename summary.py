@@ -1,7 +1,6 @@
 #! /usr/bin/env python
 import sys
 from ParseFile import ParseGenotypeFile
-from AlleleFreq import AlleleFreq
 
 # read in IHWG and parse data file from first argument to created
 # object
@@ -17,7 +16,7 @@ for summary in popData.keys():
     print "%20s: %s" % (summary, popData[summary])
 
 # retrieve the allele frequency data
-freqcount = parsefile.getAllelecount()
+freqcount = parsefile.getAlleleCount()
 
 # quick & dirty print output of the allele frequency table for each
 # locus, with totals of allele and total counts in parentheses.
@@ -36,6 +35,11 @@ for locus in freqcount.keys():
         print "%s :%0.5f (%d)" % (allele, freq, alleleTable[allele])
     print "Total freq: %0.5f (%d)" % (totalFreq, total)
 
+for locus in parsefile.getLocusList():
+    print "Locus: ", locus
+    print
+    print parsefile.getLocusData(locus)
+    print
 
 # read in the file that contains the desired output fields
 #outputSample = parsefile.dbFieldsRead('ihwg-output-fields.dat')
