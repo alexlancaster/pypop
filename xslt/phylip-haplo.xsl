@@ -34,47 +34,64 @@
 
 -->
 
-  <xsl:text>    </xsl:text>
-  <xsl:value-of select="count($node)"/>
-  <xsl:text> </xsl:text>
-  <xsl:text>1</xsl:text>
-  <xsl:call-template name="newline"/>
+  <xsl:choose>
+   <xsl:when test="count($node)=0">
+    <xsl:variable name="warning-text">
+    <xsl:value-of select="$loci-to-output"/>
 
-  <xsl:variable name="haplolist-curlocus"
-    select="$all-haplo-list/group[@loci=$loci-to-output]"/>
-  <xsl:value-of select="count($haplolist-curlocus/haplotype)"/>   
-  <xsl:text> </xsl:text>
+     <xsl:text>: no populations have haplotype data for specified loci.</xsl:text>
+    </xsl:variable>
 
-  <xsl:call-template name="newline"/>
+    <xsl:value-of select="$warning-text"/>
+    <xsl:message><xsl:value-of select="$warning-text"/></xsl:message>
+   </xsl:when>
 
-  <xsl:for-each select="$node">
+   <xsl:otherwise>
 
-   <xsl:sort select="populationdata/popname"/>
-
-   <xsl:call-template name="append-pad">
-    <xsl:with-param name="padVar">
-     <xsl:value-of select="populationdata/popname"/>
-    </xsl:with-param>
-    <xsl:with-param name="length" select="9"/>
-   </xsl:call-template>
-   <xsl:text> </xsl:text>
-
-   <xsl:variable name="cur-haplo-list" select="emhaplofreq/group[@loci=$loci-to-output]/haplotypefreq/haplotype"/>
-
-   <xsl:for-each select="$haplolist-curlocus/haplotype">
-    <xsl:variable name="haplotype" select="."/>
-    <xsl:choose>
-     <xsl:when test="$cur-haplo-list[@name=$haplotype]">
-      <xsl:value-of select="normalize-space($cur-haplo-list[@name=$haplotype]/frequency)"/>
-     </xsl:when>
-     <xsl:otherwise>0.00000</xsl:otherwise>
-    </xsl:choose>
+    <xsl:text>    </xsl:text>
+    <xsl:value-of select="count($node)"/>
     <xsl:text> </xsl:text>
+    <xsl:text>1</xsl:text>
+    <xsl:call-template name="newline"/>
+    
+    <xsl:variable name="haplolist-curlocus"
+     select="$all-haplo-list/group[@loci=$loci-to-output]"/>
+    <xsl:value-of select="count($haplolist-curlocus/haplotype)"/>   
+    <xsl:text> </xsl:text>
+    
+    <xsl:call-template name="newline"/>
+    
+    <xsl:for-each select="$node">
+     
+     <xsl:sort select="populationdata/popname"/>
+     
+     <xsl:call-template name="append-pad">
+      <xsl:with-param name="padVar">
+       <xsl:value-of select="populationdata/popname"/>
+      </xsl:with-param>
+      <xsl:with-param name="length" select="9"/>
+     </xsl:call-template>
+     <xsl:text> </xsl:text>
+     
+     <xsl:variable name="cur-haplo-list" select="emhaplofreq/group[@loci=$loci-to-output]/haplotypefreq/haplotype"/>
+     
+     <xsl:for-each select="$haplolist-curlocus/haplotype">
+      <xsl:variable name="haplotype" select="."/>
+      <xsl:choose>
+       <xsl:when test="$cur-haplo-list[@name=$haplotype]">
+	<xsl:value-of select="normalize-space($cur-haplo-list[@name=$haplotype]/frequency)"/>
+       </xsl:when>
+       <xsl:otherwise>0.00000</xsl:otherwise>
+      </xsl:choose>
+      <xsl:text> </xsl:text>
+     </xsl:for-each>
+     
+     <xsl:call-template name="newline"/>
+     
     </xsl:for-each>
-
-   <xsl:call-template name="newline"/>
    
-  </xsl:for-each>
+   </xsl:otherwise>
+  </xsl:choose>
 
  </xsl:template>
 
