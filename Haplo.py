@@ -292,6 +292,7 @@ class Emhaplofreq(Haplo):
     def _runEmhaplofreq(self, locusKeys=None,
                         permutationFlag=None,
                         haploSuppressFlag=None,
+                        showHaplo=None,
                         mode=None):
         
         """Internal method to call _Emhaplofreq shared library.
@@ -350,16 +351,20 @@ class Emhaplofreq(Haplo):
                     
                 self.fp.write(os.linesep)
 
+                modeAttr = "mode=\"%s\"" % mode
+                haploAttr = "showHaplo=\"%s\"" % showHaplo
+                lociAttr = "loci=\"%s\"" % group
+
                 if groupNumIndiv > self._Emhaplofreq.MAX_ROWS:
-                    self.fp.write("<group mode=\"%s\" role=\"too-many-lines\" loci=\"%s\"/>%s" % (mode, group, os.linesep))
+                    self.fp.write("<group %s role=\"too-many-lines\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
                     continue
                 # if nothing left after filtering, simply continue
                 elif groupNumIndiv == 0:
-                    self.fp.write("<group mode=\"%s\" role=\"no-data\" loci=\"%s\"/>%s" % (mode, group, os.linesep))
+                    self.fp.write("<group %s role=\"no-data\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
                     continue
 
                 if mode:
-                    self.fp.write("<group mode=\"%s\" loci=\"%s\">%s" % (mode, group, os.linesep))
+                    self.fp.write("<group %s %s %s>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
                 else:
                     sys.exit("A 'mode' for emhaplofreq must be specified")
                 
@@ -412,6 +417,7 @@ class Emhaplofreq(Haplo):
         """
         self._runEmhaplofreq(locusKeys=locusKeys, permutationFlag=0,
                              haploSuppressFlag=0,
+                             showHaplo='yes',
                              mode='haplo')
         
 
@@ -432,11 +438,13 @@ class Emhaplofreq(Haplo):
         """
         self._runEmhaplofreq(locusKeys, permutationFlag=1,
                              haploSuppressFlag=1,
+                             showHaplo='no',
                              mode='LD')
 
     def allPairwise(self,
                     permutationFlag=None,
                     haploSuppressFlag=None,
+                    haplosToShow=None,
                     mode=None):
         """Run pairwise statistics.
 
@@ -469,54 +477,42 @@ class Emhaplofreq(Haplo):
             print li, len(li)
 
         for pair in li:
+            # generate the reversed order in case user
+            # specified it in the opposite sense
+            sp = string.split(pair,':')
+            reversedPair =  sp[1] + ':' + sp[0]
+
+            if (pair in haplosToShow) or (reversedPair in haplosToShow):
+                showHaplo = 'yes'
+            else:
+                showHaplo = 'no'
+            
             self._runEmhaplofreq(pair,
                                  permutationFlag=permutationFlag,
                                  haploSuppressFlag=haploSuppressFlag,
+                                 showHaplo=showHaplo,
                                  mode=mode)
 
-    def allPairwiseLD(self):
-        """Estimate all pairwise LD.
+    def allPairwiseLD(self, haplosToShow=None):
+        """Estimate all pairwise LD and haplotype frequencies.
 
         Estimate the LD (linkage disequilibrium)for each pairwise set
         of loci.
         """
         self.allPairwise(permutationFlag=0,
-                             haploSuppressFlag=1,
-                             mode='all-pairwise-ld-no-permu')
+                         haploSuppressFlag=0,
+                         mode='all-pairwise-ld-no-permu')
 
-    def allPairwiseLDWithHaplo(self):
-        """Estimate all pairwise LD and haplotype frequencies.
-
-        Estimate the LD (linkage disequilibrium) and haplotypes
-        frequencies for each pairwise set of loci.
-        """
-
-        self.allPairwise(permutationFlag=0,
-                             haploSuppressFlag=0,
-                             mode='all-pairwise-ld-no-permu')
-
-    def allPairwiseLDWithPermu(self):
+    def allPairwiseLDWithPermu(self, haplosToShow=None):
         """Estimate all pairwise LD.
 
         Estimate the LD (linkage disequilibrium)for each pairwise set
         of loci.
         """
         self.allPairwise(permutationFlag=1,
-                             haploSuppressFlag=1,
-                             mode='all-pairwise-ld-with-permu')
+                         haploSuppressFlag=0,
+                         mode='all-pairwise-ld-with-permu')
 
-    def allPairwiseLDWithHaploWithPermu(self):
-        """Estimate all pairwise LD and haplotype frequencies.
-
-        Estimate the LD (linkage disequilibrium) and haplotypes
-        frequencies for each pairwise set of loci.
-        """
-
-        self.allPairwise(permutationFlag=1,
-                             haploSuppressFlag=0,
-                             mode='all-pairwise-ld-with-permu')
-
-            
     def serializeTo(self, stream):
         """Serialize output to XML stream
 
