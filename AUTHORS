@@ -1,4 +1,5 @@
 PyPop authors:
+=============
 
 Alex Lancaster <alexl@socrates.berkeley.edu>
 
@@ -27,16 +28,28 @@ Glenys Thomson <glenys@allele5.biol.berkeley.edu>
 
  Principal investigator and project lead.
 
-Third-party contributed modules:
+Third-party modules:
+===================
 
- gthwe.c:
+ slatkin-exact/monte-carlo.c:
+
+  Montgomery Slatkin's implementation of a Monte Carlo approximation
+  of the Ewens-Watterson exact test of neutrality.  Original code can
+  be found at:
+  
+   http://ib.berkeley.edu/labs/slatkin/monty/Ewens_exact.program
+ 
+ pval:
+
+  The code in the 'pval' directory (with the exception of 'pval.c' the
+  SWIG wrapper, 'pval_wrap.i' and the Makefile) is part of the R
+  project's 'nmath' numerical library (http://www.r-project.org/) and
+  is also licensed under the GNU General Public License (GPL).  Minor
+  modifications have been made to allow the module to build correctly.
+
+Obsolete modules (not distributed)
+
+ gthwe:
 
   Guo and Thompson's implementation of Hardy-Weinberg exact test,
   originally coded by S.W. Guo and modified by John Chen.
-
- monte-carlo.c:
-
-  Montgomery Slatkin's implementation of a Monte Carlo approximation
-  of the Ewens-Watterson exact test of neutrality.
- 
-  
