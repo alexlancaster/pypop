@@ -1,6 +1,8 @@
 <xsl:stylesheet 
  version='1.0'
- xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+ xmlns:exslt="http://exslt.org/common"
+ exclude-result-prefixes="exslt">
 
  <xsl:import href="lib.xsl"/>
 
