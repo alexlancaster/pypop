@@ -98,8 +98,8 @@
      <xsl:value-of select="substring-after(substring-before(@loci,
      ':'), '*')"/>
      <xsl:text>&#09;</xsl:text>
-     <xsl:value-of select="substring-after(substring-before(@loci,
-     ':'), '*')"/>
+     <xsl:value-of select="substring-after(substring-after(@loci,
+      ':'), '*')"/>
 
      <xsl:text>&#09;</xsl:text>
      <xsl:value-of select="linkagediseq/summary/dprime"/>
@@ -216,7 +216,7 @@
      <xsl:text>pop&#09;ethnic&#09;region&#09;locus1&#09;locus2&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
-      <xsl:with-param name="nodes" select="/meta/dataanalysis/emhaplofreq/group[@mode='haplo']"/>
+      <xsl:with-param name="nodes" select="/meta/dataanalysis/emhaplofreq/group[@mode='haplo' and (string-length(@loci) - string-length(translate(@loci, ':', '')))=1]"/>
       <xsl:with-param name="type" select="'2-locus-summary'"/>
      </xsl:call-template>
     </exsl:document>
