@@ -22,7 +22,7 @@ current directory or in %s.
   INPUTFILE   input text file""" % altpath
 
 from ParseFile import ParseGenotypeFile
-from Haplo import Emhaplofreq
+from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson
 from Homozygosity import Homozygosity
 from ConfigParser import ConfigParser, NoOptionError
@@ -421,6 +421,31 @@ if config.has_section("Emhaplofreq"):
   
   # serialize to XML
   haplo.serializeTo(xmlStream)
+
+# this is pre-alpha prototype code!!
+# do not use
+if config.has_section("HaploArlequin"):
+
+  try:
+    arlequinExec = config.get("HaploArlequin", "arlequinExec")
+  except NoOptionError:
+    arlequinExec = 'arlecore.exe'
+    print "Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
+
+  haploArlequin = HaploArlequin('arl_run.arp',
+                                0,
+                                2,
+                                0,
+                                2,
+                                mapOrder = None,
+                                untypedAllele = '****',
+                                arlequinPrefix = "arl_run",
+                                debug=debug)
+
+  fileData = open(fileName, 'r').readlines()
+  haploArlequin.outputArlequin(fileData[3:])
+  haploArlequin.runArlequin()
+
   
 # closing tag
 xmlStream.closetag('dataanalysis')
