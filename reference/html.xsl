@@ -38,6 +38,10 @@
   <xsl:call-template name="inline.italicmonoseq"/>
  </xsl:template>
 
+ <xsl:template match="application">
+  <xsl:call-template name="inline.monoseq"/>
+ </xsl:template>
+
  <xsl:template match="phrase[@role='strong']">
   <xsl:call-template name="inline.boldseq"/>
  </xsl:template>
