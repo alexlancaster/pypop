@@ -312,6 +312,7 @@
     
     <!-- loop through each allele-->
     <xsl:for-each select="allele">
+     <xsl:sort select="count" data-type="number" order="descending"/>
      <xsl:for-each select="frequency|count|@name">
       <xsl:call-template name="append-pad">
        <xsl:with-param name="padVar" select="."/>
