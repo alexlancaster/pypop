@@ -658,8 +658,16 @@ class HardyWeinberg:
 class HardyWeinbergGuoThompson(HardyWeinberg):
   """Wrapper class for 'gthwe'
 
-  Currently a hacked-up placeholder class for a wrapper for the Guo &
-  Thompson program 'gthwe'.  Need more work before being production!
+  A wrapper for the Guo & Thompson program 'gthwe'. 
+
+  - 'runMCMCTest': If enabled run the Monte Carlo-Markov chain (MCMC)
+    version of the test (what is normally referred to as "Guo &
+    Thompson")
+  
+  - 'runPlainMCTest': If enabled run a plain Monte Carlo/randomization
+    without the Markov-chain version of the test (this is also
+    described in the original "Guo & Thompson" Biometrics paper, but
+    was not in their original program)
 
   - 'locusData', 'alleleCount':  As per base class.
   
@@ -676,22 +684,31 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
   - 'maxMatrixSize': maximum size of `flattened' lower-triangular matrix of
      observed alleles (default 250).
-  """
+
+  - 'monteCarloSteps': number of steps for the plain Monte Carlo
+     randomization test (without Markov-chain)
+     """
 
   def __init__(self,
                locusData=None,
                alleleCount=None,
+               runMCMCTest=0,
+               runPlainMCTest=0,
                dememorizationSteps=2000,
                samplingNum=1000,
                samplingSize=1000,
                maxMatrixSize=250,
+               monteCarloSteps=1000000, # samplingNum*samplingSize (consistency)
                **kw):
 
+    self.runMCMCTest=runMCMCTest
+    self.runPlainMCTest=runPlainMCTest
     self.dememorizationSteps=dememorizationSteps
     self.samplingNum=samplingNum
     self.samplingSize=samplingSize
     self.maxMatrixSize=maxMatrixSize
-    
+    self.monteCarloSteps=monteCarloSteps
+
     # call constructor of base class
     HardyWeinberg.__init__(self,
                            locusData=locusData,
@@ -703,7 +720,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     if locusName[0] == '*':
       locusName = locusName[1:]
 
-    if self.k < 3:
+    if self.k < 2:
       stream.emptytag('hardyweinbergGuoThompson', role='too-few-alleles')
       return
 
@@ -721,6 +738,18 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       flattenedMatrix = []
       flattenedMatrixNames = []
       totalGametes = 0
+
+      # FIXME: The order in which this flattenedMatrix is generated is
+      # very important, because it must match *exactly* the order in
+      # which is emitted by the XML <hardyweinberg><genotypetable>.
+      # currently the order *does* match, because allele list is
+      # sorted before running test (check this!).  If it didn't, the
+      # individual pvalues genotypes output order in the gthwe module
+      # wouldn't match the genotypes in the XML, making it impossible
+      # to match the emitted pvalues with their genotype label (I
+      # can't think of any other solution to this other than passing
+      # in the labels for the genotypes which would be very
+      # cumbersome).
       for horiz in sortedAlleles:
         # print "%2s" % horiz,
         for vert in sortedAlleles:
@@ -765,22 +794,18 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       # import library only when necessary
       import _Gthwe
 
-      _Gthwe.run_data(flattenedMatrix, n, self.k, totalGametes,
-                      self.dememorizationSteps, self.samplingNum,
-                      self.samplingSize, locusName, fp)
+      if self.runMCMCTest:
+        _Gthwe.run_data(flattenedMatrix, n, self.k, totalGametes,
+                        self.dememorizationSteps, self.samplingNum,
+                        self.samplingSize, locusName, fp)
 
-      _Gthwe.run_randomization(flattenedMatrix, n, self.k, totalGametes,
-                               250000, fp)
+      if self.runPlainMCTest:
+        _Gthwe.run_randomization(flattenedMatrix, n, self.k, totalGametes,
+                                 self.monteCarloSteps, fp)
 
       # copy XML output to stream
       stream.write(fp.getvalue())
       fp.close()
-
-      for i in range(len(flattenedMatrixNames)):
-        stream.opentag('genotype', number=str(i))
-        stream.write(flattenedMatrixNames[i])
-        stream.closetag('genotype')
-        stream.writeln()
         
     else:
       stream.emptytag('hardyweinbergGuoThompson', role='too-large-matrix')
