@@ -4,7 +4,7 @@
 <!ENTITY % versions.ent SYSTEM "versions.ent" >
 %versions.ent;
 ]>
-<book status="draft" id="guide" xmlns:xi="http://www.w3.org/2001/XInclude">
+<book status="draft" id="guide">
  <bookinfo>
   <title><application>PyPop</application> User Guide</title>
   <subtitle>User Guide for Python for Population Genetics</subtitle>
@@ -98,48 +98,48 @@
   </section>
 
   <section id="guide-preface-authors">
-   <xi:include href="AUTHORS.xml#xpointer(/preface/title)"/>
-   <xi:include href="AUTHORS.xml#xpointer(/preface/*[not(self::title)])"/>
+   <xi:include href="AUTHORS.xml#xpointer(/preface/title)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <xi:include href="AUTHORS.xml#xpointer(/preface/*[not(self::title)])" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   </section>
 
  </preface>
 
  <chapter id="guide-chapter-install">
   <chapterinfo>
-   <xi:include href="INSTALL.xml#xpointer(//articleinfo/*)"/>
+   <xi:include href="INSTALL.xml#xpointer(//articleinfo/*)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   </chapterinfo>
-  <xi:include href="INSTALL.xml#xpointer(//articleinfo/title)"/>
-  <xi:include href="INSTALL.xml#xpointer(/article/section)"/>
+  <xi:include href="INSTALL.xml#xpointer(//articleinfo/title)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+  <xi:include href="INSTALL.xml#xpointer(/article/section)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
  </chapter>
 
  <chapter id="guide-chapter-usage">
   <chapterinfo>
-   <xi:include href="README.xml#xpointer(//articleinfo/*)"/>
+   <xi:include href="README.xml#xpointer(//articleinfo/*)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   </chapterinfo>
-  <xi:include href="README.xml#xpointer(//articleinfo/title)"/>
-  <xi:include href="README.xml#xpointer(/article/section)"/>
+  <xi:include href="README.xml#xpointer(//articleinfo/title)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+  <xi:include href="README.xml#xpointer(/article/section)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
  </chapter>
 
  <chapter id="guide-chapter-instructions">
   <chapterinfo>
-   <xi:include href="instructions.xml#xpointer(//articleinfo/authorgroup)"/>
-   <xi:include href="instructions.xml#xpointer(//articleinfo/pubdate)"/>
+   <xi:include href="instructions.xml#xpointer(//articleinfo/authorgroup)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <xi:include href="instructions.xml#xpointer(//articleinfo/pubdate)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   </chapterinfo>
   <title>Interpreting <application>PyPop</application> output</title>
-  <xi:include href="instructions.xml#xpointer(//sect1)"/>  
+  <xi:include href="instructions.xml#xpointer(//sect1)" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
  </chapter>
 
  <!-- XInclude appendix -->
- <!-- <xi:include href="pypop-appendices.xml"/>  -->
+ <!-- <xi:include href="pypop-appendices.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>  -->
 
- <xi:include href="biblio.xml"/>
+ <xi:include href="biblio.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
  <appendix>
-  <xi:include href="COPYING.xml#xpointer(/appendix/title)"/>
-  <xi:include href="COPYING.xml#xpointer(/appendix/sidebar)"/>
-  <xi:include href="COPYING.xml#xpointer(/appendix/section)"/>
+  <xi:include href="COPYING.xml#xpointer(/appendix/title)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+  <xi:include href="COPYING.xml#xpointer(/appendix/sidebar)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+  <xi:include href="COPYING.xml#xpointer(/appendix/section)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   <section id="gfdl">
-   <xi:include href="COPYING.FDL.xml#xpointer(/appendix/*)"/>
+   <xi:include href="COPYING.FDL.xml#xpointer(/appendix/*)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   </section>
  </appendix>
 
