@@ -1,3 +1,8 @@
+2004-07-07  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* setup.py (ext_Gthwe): Make PERMU_TEST #define be false for the
+	moment.
+
 2004-06-30  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Call new
