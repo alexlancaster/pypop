@@ -220,20 +220,21 @@ class HardyWeinberg:
 
     # now the values for heterozygoous genotypes by allele
     for allele in self.observedAlleles:
-      if self.hetsExpectedByAllele[allele] >= self.lumpBelow:
-        if not self.hetsObservedByAllele.has_key(allele):
-          self.hetsObservedByAllele[allele] = 0
+      if self.hetsExpectedByAllele:
+        if self.hetsExpectedByAllele[allele] >= self.lumpBelow:
+          if not self.hetsObservedByAllele.has_key(allele):
+            self.hetsObservedByAllele[allele] = 0
 
-        squareMe = self.hetsObservedByAllele[allele] - self.hetsExpectedByAllele[allele]
-        self.hetsChisqByAllele[allele] = (squareMe * squareMe) / self.hetsExpectedByAllele[allele]
+          squareMe = self.hetsObservedByAllele[allele] - self.hetsExpectedByAllele[allele]
+          self.hetsChisqByAllele[allele] = (squareMe * squareMe) / self.hetsExpectedByAllele[allele]
 
-        command = "pval 1 %f" % (self.hetsChisqByAllele[allele])
-        returnedValue = os.popen(command, 'r').readlines()
-        self.hetsPvalByAllele[allele] = float(returnedValue[0][:-1])
+          command = "pval 1 %f" % (self.hetsChisqByAllele[allele])
+          returnedValue = os.popen(command, 'r').readlines()
+          self.hetsPvalByAllele[allele] = float(returnedValue[0][:-1])
 
-        if self.debug:
-          print 'By Allele:    obs exp   chi        p'
-          print '          ', allele, self.hetsObservedByAllele[allele], self.hetsExpectedByAllele[allele], self.hetsChisqByAllele[allele], self.hetsPvalByAllele[allele]
+          if self.debug:
+            print 'By Allele:    obs exp   chi        p'
+            print '          ', allele, self.hetsObservedByAllele[allele], self.hetsExpectedByAllele[allele], self.hetsChisqByAllele[allele], self.hetsPvalByAllele[allele]
 
     # the list for all genotypes by genotype
     for genotype in self.expectedGenotypeCounts.keys():
