@@ -155,7 +155,6 @@ Additional citation possibilities (both author-year and numerical modes)
 
   <xsl:variable name="rest1">
    <xsl:if test="$citationstyle='citep'">
-    <xsl:message>citep</xsl:message>
     <xsl:if test="$extra-text1 = 1">
      <xsl:value-of select="substring-after($citationrole, '[')"/>
     </xsl:if>
@@ -207,10 +206,6 @@ Additional citation possibilities (both author-year and numerical modes)
     </xsl:otherwise>
    </xsl:choose>
   </xsl:variable>
-
-  <xsl:message><xsl:if test="$extra-text2=1 and $second=''">empty</xsl:if></xsl:message>
-
-  <xsl:message><xsl:if test="$extra-text2=0">not set</xsl:if></xsl:message>
 
   <xsl:choose>
 
