@@ -35,7 +35,8 @@
 
 import os, sys
 from getopt import getopt, GetoptError
-from Utils import checkXSLFile
+from shutil import move
+from Utils import checkXSLFile, splitIntoNGroups
 
 # don't use libxml/libxslt bindings for the moment, aren't working with
 # exslt extensions nor on all platforms.
@@ -123,16 +124,19 @@ expected to be the XML output files taken from runs of 'pypop'.  Will
 skip any XML files that are not well-formed XML.
 
   -m, --meta-xslt=DIR     use specified directory to find XSLT
-                            (default: '%s')
+                           (default: '%s')
   -h, --help              show this message
   -d, --dump-meta         dump the meta output file to stdout, ignore xslt file
       --disable-R         disable generation of R *.dat file
       --enable-PHYLIP     enable generation of PHYLIP *.phy files
-      --disable-ihwg      disable 13th workshop populationdata default headers, take as-is
+      --disable-ihwg      disable 13th workshop populationdata default headers,
+                           take as-is
+  -b, --batchsize=FACTOR  process in batches of size total/FACTOR rather than
+                           all at once [mutually exclusive with --enable-PHYLIP]
   INPUTFILES  input XML files""" % datapath
 
 try:
-  opts, args =getopt(sys.argv[1:],"m:hd", ["meta-xslt=", "help", "dump-meta", "disable-R", "enable-PHYLIP", "disable-ihwg"])
+  opts, args =getopt(sys.argv[1:],"m:hdb:", ["meta-xslt=", "help", "dump-meta", "disable-R", "enable-PHYLIP", "disable-ihwg", "batchsize"])
 except GetoptError:
   sys.exit(usage_message)
 
@@ -158,6 +162,9 @@ PHYLIP_output=0
 # by default, enable the 13th IHWG format headers
 ihwg_output = 1
 
+# by default process all at once (batchsize=0)
+batchsize = 0
+
 # parse options
 for o, v in opts:
   if o in ("-m", "--meta-xslt"):
@@ -172,14 +179,17 @@ for o, v in opts:
     PHYLIP_output = 1
   elif o=="--disable-ihwg":
     ihwg_output = 0
+  elif o in("-b", "--batchsize"):
+    batchsize = int(v)
+
+if batchsize and PHYLIP_output:
+    sys.exit("processing in batches and enabling PHYLIP are mutually exclusive options\n" + usage_message)
 
 # create XSLT parameters
 if ihwg_output:
     xslt_params = {"13ihwg-fmt": "1"}
 else:
     xslt_params = {"13ihwg-fmt": "0"}
-
-print xslt_params
 
 # parse arguments
 files = args
@@ -201,67 +211,107 @@ for f in files:
         print "%s is not well-formed XML:" % f
         print "  probably a problem with analysis not completing, skipping in meta analysis!"
 
-
-# generate a metafile XML wrapper
-
-# open doctype
-meta_string="<!DOCTYPE meta [\n"
-entities = ""
-includes = ""
-
-# loop through and create the meta.xml file *only* for the well-formed
-# XML files
-for f in wellformed_files:
-    base = os.path.basename(f)
-    ent = "ENT" + base
-    entities += "<!ENTITY %s SYSTEM \"%s\">\n" % (ent, f)
-    includes += "&%s;\n" % ent
-
-# put entities after doctype
-meta_string += entities
-# close doctype
-meta_string += "]>\n"
-# open tag
-meta_string += "<meta>\n"
-# include content
-meta_string += includes
-# close tag
-meta_string += "</meta>"
-
-if dump_meta == 1:
-    print meta_string
+if batchsize:
+    fileBatchList = splitIntoNGroups(wellformed_files, n=batchsize)
 else:
-    f = open('meta.xml', 'w')
-    f.write(meta_string)
-    f.close()
-    translate_string_to_file(os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), meta_string, 'sorted-by-locus.xml')
+    fileBatchList = splitIntoNGroups(wellformed_files, n=1)
 
-    # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:
+datfiles= ['1-locus-allele.dat', '1-locus-genotype.dat', '1-locus-summary.dat',
+           '2-locus-haplo.dat', '2-locus-summary.dat',
+           '3-locus-summary.dat', '3-locus-haplo.dat',
+           '4-locus-summary.dat', '4-locus-haplo.dat',]
 
-    if R_output:
-        # generate all data output in formats for R
-        translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml', xslt_params)
+for fileBatch in range(len(fileBatchList)):
 
-    if PHYLIP_output:
-        # use 'sorted-by-locus.xml' to generate a list of unique alleles
-        # 'allelelist-by-locus.xml' for each locus across all the
-        # populations in the set of XML files passed
-        translate_file_to_file(os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'), 'sorted-by-locus.xml', 'allelelist-by-locus.xml')
+    # generate a metafile XML wrapper
 
-        # similarly, generate a unique list of haplotypes
-        # 'haplolist-by-locus.xml'
-        translate_file_to_file(os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), 'meta.xml', 'haplolist-by-group.xml')
+    # open doctype
+    meta_string="<!DOCTYPE meta [\n"
+    entities = ""
+    includes = ""
 
-        # generate Phylip allele data
+    # loop through and create the meta.xml file *only* for the well-formed
+    # XML files
 
-        # generate individual locus files (don't use loci parameter)
-        translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml')
+    for f in fileBatchList[fileBatch]:
+        base = os.path.basename(f)
+        ent = "ENT" + base
+        entities += "<!ENTITY %s SYSTEM \"%s\">\n" % (ent, f)
+        includes += "&%s;\n" % ent
 
-        # generate locus group files
-        for locus in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-            translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml', params={'loci': '"' + locus + '"'})
+    # put entities after doctype
+    meta_string += entities
+    # close doctype
+    meta_string += "]>\n"
+    # open tag
+    meta_string += "<meta>\n"
+    # include content
+    meta_string += includes
+    # close tag
+    meta_string += "</meta>"
 
-        # generate Phylip haplotype data
-        for haplo in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-            translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), 'meta.xml', params={'loci': '"' + haplo + '"'})
+    if dump_meta == 1:
+        print meta_string
+    else:
+        f = open('meta.xml', 'w')
+        f.write(meta_string)
+        f.close()
 
+        if R_output:
+            # generate all data output in formats for R
+            translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml', xslt_params)
+
+        if PHYLIP_output:
+            # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:
+            translate_string_to_file(os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), meta_string, 'sorted-by-locus.xml')
+
+            # use 'sorted-by-locus.xml' to generate a list of unique alleles
+            # 'allelelist-by-locus.xml' for each locus across all the
+            # populations in the set of XML files passed
+            translate_file_to_file(os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'), 'sorted-by-locus.xml', 'allelelist-by-locus.xml')
+
+            # similarly, generate a unique list of haplotypes
+            # 'haplolist-by-locus.xml'
+            translate_file_to_file(os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), 'meta.xml', 'haplolist-by-group.xml')
+
+            # generate Phylip allele data
+
+            # generate individual locus files (don't use loci parameter)
+            translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml')
+
+            # generate locus group files
+            for locus in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
+                translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml', params={'loci': '"' + locus + '"'})
+
+            # generate Phylip haplotype data
+            for haplo in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
+                translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), 'meta.xml', params={'loci': '"' + haplo + '"'})
+
+        # after processing, move files if necessary
+        if len(fileBatchList) > 1:
+            for dat in datfiles:
+                # print "moving", dat, "to %s.%d" % (dat, fileBatch)
+                move(dat, "%s.%d" % (dat, fileBatch))
+                     
+# at end of entire processing, need to cat files together
+# this is a bit hacky
+if len(fileBatchList) > 1:
+    for dat in datfiles:
+        # create final file to concatenate to
+        outdat = file(dat, 'w')
+        # now concatenate them
+        for i in range(len(fileBatchList)):
+            # write temp file to outdat
+            catFilename = "%s.%d" % (dat, i)
+            catFile = file(catFilename)
+            # drop the first line, iff we are past first file
+            if i > 0:
+                catFile.next() # skip this line
+            for line in catFile:
+                outdat.write(line)
+            # then remove it
+            os.remove(catFilename)
+        # finally, close the ultimate output file
+        outdat.close()
+            
+            

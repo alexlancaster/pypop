@@ -23,6 +23,18 @@ Copyright (C) 2003, 2004 Regents of the University of California
     generation of the IHWG header output, and use the output as
     defined in the header in the original .pop input text file.  This
     is disabled by default to preserve backwards compatibility.
+*** Add '--batchsize' ('-b' short version) option  for popmeta.  Does the
+    processing in "batches".  If set and greater than one, list of XML
+    files is split into batchsize group.  For example, if there are 20
+    XML files and option is via using ("-b 2" or "--batchsize=2") then
+    the files will be processed in two batches, each consisting of 10
+    files.  If the number does not divide evenly, the last list will
+    contain all the "left-over" files.  This option is particularly
+    useful with large XML files that may not fit in memory all at
+    once.  Note this option is mutually exclusive with the
+    '--enable-PHYLIP' option because the PHYLIP output needs to
+    calculate allele frequencies across all populations before
+    generating files.
 ** Bug fixes
 *** Allow HardyWeinbergGuoThompson test to be run if at least two alleles
     present (test was originally failing with a 'too-few-alleles'
