@@ -4,11 +4,10 @@
 
 %{
 #include "cStringIO.h"
+#define DEBUG 1
 %}
 
 %include "emhaplofreq/emhaplofreq.h"
-
-#define DEBUG 1
 
 /* Convert a Python list of list of strings into a 2d array C of strings */
 
