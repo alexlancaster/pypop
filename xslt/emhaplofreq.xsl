@@ -20,7 +20,7 @@
  <xsl:template match="emhaplofreq">
   <xsl:call-template name="section">
    <xsl:with-param name="level" select="1"/>
-   <xsl:with-param name="title">Haplotype/LD stats via emhaplofreq</xsl:with-param>
+   <xsl:with-param name="title">Haplotype/ linkage disequlibrium (LD) statistics</xsl:with-param>
    <xsl:with-param name="text">
     
     <!-- first print out table of all pairwise LD (without HFs by default) -->
@@ -94,7 +94,7 @@
   <xsl:param name="loci"/>
 
   <xsl:call-template name="section">
-   <xsl:with-param name="title">All pairwise LD est. for loci</xsl:with-param>
+   <xsl:with-param name="title">Pairwise LD estimates</xsl:with-param>
    <xsl:with-param name="level" select="2"/>
    <xsl:with-param name="text">
 
@@ -136,7 +136,7 @@
     
     <xsl:call-template name="justified-cell">
      <xsl:with-param name="padVar"># permu</xsl:with-param>
-     <xsl:with-param name="length" select="10"/>
+     <xsl:with-param name="length" select="8"/>
      <xsl:with-param name="type" select="'right'"/>
     </xsl:call-template>
     
@@ -213,15 +213,27 @@
       </xsl:call-template>
       
       <xsl:call-template name="justified-cell">
-       <xsl:with-param name="padVar" select="permutationSummary/pvalue/@totalperm"/>
-       <xsl:with-param name="length" select="10"/>
+       <xsl:with-param name="padVar">
+	<xsl:choose>
+	  <xsl:when test="permutationSummary/pvalue">
+	  <xsl:value-of select="permutationSummary/pvalue/@totalperm"/>
+	 </xsl:when>
+	 <xsl:otherwise>-</xsl:otherwise>
+	</xsl:choose>
+       </xsl:with-param>
+       <xsl:with-param name="length" select="8"/>
        <xsl:with-param name="type" select="'right'"/>
     </xsl:call-template>
       
       <xsl:call-template name="justified-cell">
        <xsl:with-param name="padVar">
 	<xsl:text> </xsl:text>
-	<xsl:apply-templates select="permutationSummary/pvalue"/>
+	<xsl:choose>
+	  <xsl:when test="permutationSummary/pvalue">
+	  <xsl:apply-templates select="permutationSummary/pvalue"/>
+	 </xsl:when>
+	 <xsl:otherwise>-</xsl:otherwise>
+	</xsl:choose>
        </xsl:with-param>
        <xsl:with-param name="length" select="10"/>
        <xsl:with-param name="type" select="'left'"/>
