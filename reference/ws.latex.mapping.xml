@@ -38,7 +38,7 @@
 		<line>% appendix:  %title &#10;</line>
 		<line>% ------------------------------------------------------------- 	&#10;</line>
 		<line>\dbappendix{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 
 	<mapping key="chapter"	text="">
@@ -47,7 +47,7 @@
 		<line>% Chapter %title &#10;</line>
 		<line>% ------------------------------------------------------------- 	&#10;</line>
 		<line>\chapter{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 
 	<mapping key="figure"	text="">
@@ -83,14 +83,14 @@
 		<line>% &#10;</line>
 		<line>% ------------------------------------------------------------- &#10;</line>
 		<line>\dbglossary{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 
 	<mapping key="glossdiv"	text="">
 		<line>% &#10;</line>
 		<line>% ------------------------------------------------------------- &#10;</line>
 		<line>\dbglossdiv{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 		<line>\noindent%&#10;</line>
 		<line>\begin{description}%&#10;</line>
 	</mapping>
@@ -102,7 +102,7 @@
 		<line>% &#10;</line>
 		<line>% ------------------------------------------------------------- &#10;</line>
 		<line>\part{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 
 	<mapping key="refentry"	text="">
@@ -111,7 +111,7 @@
 		<line>% Refentry &#10;</line>
 		<line>% ------------------------------------------------------------- 	&#10;</line>
 		<line>\section*{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 
 	<mapping key="reference" text="">
@@ -120,7 +120,7 @@
 		<line>% Reference &#10;</line>
 		<line>% ------------------------------------------------------------- 	&#10;</line>
 		<line>\chapter*{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 
 	<mapping key="revhistory" text="">
@@ -130,7 +130,7 @@
 		<line>% ------------------------   &#10;</line>
 		<line>\pagebreak&#10;</line>
 		<line>\section*{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 		<line>\begin{center}&#10;</line>
 		<line>\begin{tt}&#10;</line>
 		<line>\begin{tabular}{|l||l|l|} \hline&#10;</line>
@@ -148,32 +148,32 @@
 		<line>% ------------------------   &#10;</line>
 		<line>% Section &#10;</line>
 		<line>\section{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 	
 	<mapping key="sect2"		text="">
 		<line>\subsection{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 	
 	<mapping key="sect3"		text="">
 		<line>\subsubsection{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 	
 	<mapping key="sect4"		text="">
 		<line>\subparagraph*{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 
 	<mapping key="sect5"		text="">
 		<line>\subparagraph*{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 
 	<mapping key="sect6"		text="">
 		<line>\subparagraph*{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 	</mapping>
 
 	<mapping key="refentry"		text="&#10;\section*{%title}&#10;\label{%id}&#10;"/>
@@ -209,21 +209,21 @@
 
 	<mapping key="example" text="">
 	<!--	<line>\caption{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
    		<line>\end{example}&#10;</line> 
 		<line>&#10;</line> -->
 	</mapping>	
 	
 	<mapping key="figure" text="">
 		<line>\caption{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 		<line>\end{center}&#10;</line>
 		<line>\end{figure}&#10;</line>
 		<line>&#10;</line>
 	</mapping>	
 	<mapping key="equation" text="">
 		<line>\caption{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 		<line>\end{center}&#10;</line>
 		<line>\end{dbequation}&#10;</line>
 		<line>&#10;</line>
@@ -241,7 +241,7 @@
 
 	<mapping key="table" text="">
 		<line>\caption{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 		<line>\end{center}&#10;</line>
 		<line>\end{table}&#10;</line>
 		<line>&#10;</line>
@@ -249,7 +249,7 @@
 
 	<mapping key="informaltable" text="">
 		<line>\caption{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 		<line>\end{center}&#10;</line>
 		<line>\end{table}&#10;</line>
 		<line>&#10;</line>
@@ -257,7 +257,7 @@
 
 	<mapping key="programlisting" text="">
 		<line>\caption{%title}&#10;</line>
-		<line>\label{%id}\hypertarget{%id}{}%&#10;</line>
+		<line>\label{%id}&#10;%\hypertarget{%id}{}%&#10;</line>
 		<line>\end{center}&#10;</line>
 		<line>\end{program}&#10;</line>
 		<line>&#10;</line>
