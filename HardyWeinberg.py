@@ -18,5 +18,5 @@ class HardyWeinberg:
       for item in self.locusData:
         print item
 
-    def getSampleSize(self):
-      return(len(self.locusData))
+  def getSampleSize(self):
+    return(len(self.locusData))
