@@ -1,3 +1,11 @@
+2004-02-12  Owen Solberg  <solberg@localhost.localdomain>
+
+	* Main.py (Main.__init__): Generate filename for pop file dump, to
+	be used if option is called.  Generate path for pop file dump by
+	appending the path.
+	(Main._runFilters): General cleanup of pop file dump code.
+	Renaming variables, making code more readable.
+
 2004-02-11  Owen Solberg  <solberg@localhost.localdomain>
 
 	* Filter.py: Import add from operator, for use in the tallying of
