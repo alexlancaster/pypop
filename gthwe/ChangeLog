@@ -1,3 +1,12 @@
+2005-03-09  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* hwe.c (run_data): Remove old comment.
+
+	* hwe.h (MAX_ALLELES): Remove.
+
+	* gthwe_wrap.i (run_data, run_randomization): Remove hardcoded
+	MAX_ALLELES, LENGTH.
+
 2005-03-03  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* hwe.c: Move GSL includes to hwe.h.

@@ -141,10 +141,6 @@ long init_rand(void) {
  * this can be called by external programs or be made into an
  * extension function in languages like Python using SWIG.
  */
-/* int run_data(int genotypes[LENGTH], int allele_array[MAX_ALLELE], int no_allele, int total_individuals, 
-	     int thestep, int thegroup, int thesize,
-	     char *title, FILE *outfile) */
-
 int run_data(int *genotypes, int *allele_array, int no_allele, 
 	     int total_individuals, int thestep, int thegroup, int thesize,
 	     char *title, FILE *outfile)
