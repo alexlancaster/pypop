@@ -22,6 +22,7 @@ class AnthonyNolanFilter(Filter):
                  directoryName='/home/alex/ihwg/src/data/anthonynolan/HIG-seq-pep-text/',
                  logFile=None,
                  untypedAllele='****',
+                 filename=None,
                  numDigits=4,
                  verboseFlag=1,
                  debug=0):
@@ -31,6 +32,7 @@ class AnthonyNolanFilter(Filter):
         self.verboseFlag = verboseFlag
         self.debug = debug
         self.untypedAllele = untypedAllele
+        self.filename = filename
         self.logFile = logFile
 
         patt = re.compile("^([0-9a-zA-Z]+)\*([0-9a-zA-Z]+)")
@@ -74,7 +76,7 @@ class AnthonyNolanFilter(Filter):
         an untyped allele (normally four asterisks)
         """
 
-        alleleInfo = self.locus + ":" + alleleName
+        alleleInfo = self.filename + ":" + self.locus + ":" + alleleName
         
         # default return value is the allele name truncated to
         # numDigits length
