@@ -827,6 +827,7 @@ class Main:
                                                         numReplicates=numReplicates,
                                                         binningReplicates=self.binningReplicates,
                                                         locus=locus,
+                                                        xmlfile=self.xmlStream,
                                                         debug=self.debug)
 
                     if self.binningMethod == "random":

@@ -42,7 +42,7 @@ from random import randrange
 from string import join
 
 from Filter import AnthonyNolanFilter
-from Homozygosity import getObservedHomozygosityFromAlleleData
+from Homozygosity import getObservedHomozygosityFromAlleleData, HomozygosityEWSlatkinExact
 
 class RandomBinsForHomozygosity:
 
@@ -54,14 +54,18 @@ class RandomBinsForHomozygosity:
                  numReplicates=10000,
                  binningReplicates=100,
                  locus=None,
+                 xmlfile=None,
                  debug=0):
 
         self.untypedAllele = untypedAllele
         self.binningReplicates = binningReplicates
+        self.numReplicates = numReplicates
         self.debug = debug
         self.locus = locus
         self.filename = string.split(filename, ".")[-2]
         self.filename = string.split(self.filename, "/")[-1]
+        self.xmlStream = xmlfile
+        self.debug = debug
 
     def randomMethod(self, alleleCountsBefore=None, alleleCountsAfter=None):
 
@@ -69,7 +73,8 @@ class RandomBinsForHomozygosity:
         alleleCountsBefore = alleleCountsBefore.values()
         alleleCountsAfter = alleleCountsAfter.values()
 
-        #print "obsvHomozygosity\tlocus\tmethod\tpop"
+        print "obsvHomozygosity\tlocus\tmethod\tpop"
+        #hzExactObj = HomozygosityEWSlatkinExact(alleleCountsBefore, numReplicates=self.numReplicates, debug=self.debug)
         
         for i in range(self.binningReplicates):
 
@@ -83,12 +88,19 @@ class RandomBinsForHomozygosity:
                     alleleCountsRand[bin1] += alleleCountsRand[bin2]
                     del alleleCountsRand[bin2]
 
+            #hzExactObj.doCalcs(alleleCountsRand)
+            #homozygosityResult = hzExactObj.getHomozygosity()[1]
+
             homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsRand)
-            #print join([str(homozygosityResult),self.locus,'random',self.filename],'\t')
             print '%.5f\t%s\tr\t%s' %(homozygosityResult,self.locus,self.filename)
 
+        #hzExactObj.doCalcs(alleleCountsBefore)
+        #homozygosityResult = hzExactObj.getHomozygosity()[1]
         homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsBefore)
         print '%.5f\t%s\tb\t%s' %(homozygosityResult,self.locus,self.filename)
+
+        #hzExactObj.doCalcs(alleleCountsAfter)
+        #homozygosityResult = hzExactObj.getHomozygosity()[1]
         homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsAfter)
         print '%.5f\t%s\ta\t%s' %(homozygosityResult,self.locus,self.filename)
 
@@ -113,7 +125,7 @@ class RandomBinsForHomozygosity:
             collapseHistory[pos] = 0
             weightedCollapseHistory[pos] = 0
 
-        #print "obsvHomozygosity\tlocus\tmethod\tpop"
+        print "obsvHomozygosity\tlocus\tmethod\tpop"
         
         while binningAttemptsSuccessful < self.binningReplicates:
 

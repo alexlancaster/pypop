@@ -539,15 +539,25 @@ class AnthonyNolanFilter(Filter):
 
             # this block was used to output *complete* sequences for a pop file
             # (with all the positions, not just the polymorphic residues.)
-#            if len(self.polyseqpos[locus]) > 1:
-#                self.logFile.opentag('sequence-' + locus)
-#                self.logFile.writeln()
+            if len(self.polyseqpos[locus]) > 1:
+                self.logFile.opentag('sequence-' + locus)
+                self.logFile.writeln()
+
+                # this will give you the complete sequence of each individual
 #                for individ in self.matrix[locus]:
 #                    for allele in individ:
+#                        alleleString = "> " + allele
+#                        self.logFile.writeln(alleleString)
 #                        self.logFile.writeln(self.sequences[allele])
-#
-#                self.logFile.closetag('sequence-' + locus)
-#                self.logFile.writeln()
+
+                # this will give you the complete sequence for each unique allele in the pop
+                for allele in self.sequences:
+                    alleleString = "> " + allele
+                    self.logFile.writeln(alleleString)
+                    self.logFile.writeln(self.sequences[allele])
+
+                self.logFile.closetag('sequence-' + locus)
+                self.logFile.writeln()
 
 
 
