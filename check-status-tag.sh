@@ -23,6 +23,7 @@ if test "x$REAL" = xy; then
 	read CONTINUE
 	if test "x$CONTINUE" != xy; then
 	    exit
+	fi
 	DONTTAG=y
 	EXTRA=-dummy
     fi
