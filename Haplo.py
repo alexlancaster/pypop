@@ -246,3 +246,22 @@ KeepNullDistrib=0""")
                 dataFound = 1
 
         return haplotypes
+
+class Emhaplofreq(Haplo):
+    """Haplotype estimation implemented via emhaplofreq
+    
+    """
+    def __init__(self, locusList, locusData):
+
+        self.matrix = []
+        length = len(locusData[locusList[0]])
+        print "first locus %s length %d:" % (locusList[0], length)
+        for locus in locusList:
+            print "locus %s length %d:" % (locus, len(locusData[locus]))
+            if len(locusData[locus]) != length:
+                sys.exit("error: all loci must have same number of alleles")
+
+        for pos in xrange(0, (length-1)):
+            for locus in locusList:
+                print locusData[locus][pos],
+            print
