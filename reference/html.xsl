@@ -19,7 +19,6 @@
  <xsl:param name="html.stylesheet" doc:type="string">style.css</xsl:param>
  <xsl:param name="make.valid.html" select="1"/> 
  <xsl:param name="html.cleanup" select="1"/> 
- <xsl:param name="shade.verbatim" select="1"/>
 
  <xsl:param name="profiling-highlighting" select="0"/>
 
