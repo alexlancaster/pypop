@@ -68,9 +68,9 @@ void sort2byfloat(char (*)[], double *, int);
 */
 
 void emcalc(int (*)[], int *, int *, double *, double *, int, int, int, int, 
-       int *, int (*)[], int *, int *, double *, double *);
+       int *, int (*)[], int *, int *, double *, double *, int);
 /* genopheno, numgeno, obspheno, freq_zero, mle, n_haplo, n_unique_geno, 
-   n_unique_pheno, n_recs, xhaplo, xgeno, error_flag, iter_count, loglike */
+   n_unique_pheno, n_recs, xhaplo, xgeno, error_flag, iter_count, loglike, permu */
 /*
   * perform EM iterations with results in the mle array
 */
@@ -81,8 +81,8 @@ void haplo_freqs_no_ld(double *, double (*)[], int (*)[], int *, int, int);
   * compute haplotype frequencies under no LD as products of allele frequencies 
 */
 
-double loglikelihood(int (*)[], double *, int *, int, int, int, int *, int (*)[]);
-/* genopheno, hap_freq, n_haplo, n_unique_geno, n_unique_pheno, xhaplo, xgeno */
+double loglikelihood(int (*)[], double *, int *, int, int, int, int *, int (*)[], int);
+/* genopheno, hap_freq, n_haplo, n_unique_geno, n_unique_pheno, xhaplo, xgeno, permu */
 /*
   * compute log likelihood for a given set of haplotype frequencies
 */
@@ -344,6 +344,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /* needed for permutations */
   int permu, max_permutations, max_init_cond = 0;
+  double lr_mean, lr_sd, lr_z;
 
   CALLOC_ARRAY_DIM1(double, like_ratio, MAX_PERMU);
 
@@ -369,8 +370,8 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /******************* end: declarations ****************************/
 
-  //srand48(1234567); 
-  srand48(time (NULL));
+  srand48(1234567); 
+  //srand48(time (NULL));
 
   if (fp_iter == NULL)
     if ((fp_iter = fopen("summary_iter.out", "w")) == NULL)
@@ -417,11 +418,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	  strcpy(geno[i][1], "\0");
 	}
 
-      /* initialize genopheno from last permu */
-      for (i = 0; i < n_unique_geno; i++) 
-	{
-	  for (j = 0; j < n_recs; j++) genopheno[i][j] = 0;
-	}
+      /* genopheno does not need to be initialized from last permu 08/01/02 */
 
       /* initialize allele freqs from last permu */
       for (j = 0; j < n_loci; j++)
@@ -504,7 +501,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     /* assign genotype-phenotype relationships */
     for (i = 0; i < numgeno[0]; i++)
       {
-	genopheno[i][0] = 1;
+	genopheno[i][0] = permu+1;
       }
 
     /* process remaining data records */
@@ -628,7 +625,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 		    unique_geno_count++;
 		    strcpy(geno[unique_geno_count][0], temp_geno[i][0]);
 		    strcpy(geno[unique_geno_count][1], temp_geno[i][1]);
-		    genopheno[unique_geno_count][unique_pheno_count] = 1;
+		    genopheno[unique_geno_count][unique_pheno_count] = permu+1;
 		  }
 	      }
 	  }        /* END of if unique_pheno_flag == TRUE */
@@ -639,8 +636,11 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
     /********* end: arranging unique phenotypes and genotypes ************/
 
-    id_unique_alleles(data_ar, unique_allele, n_unique_allele, allele_freq, 
-		      n_loci, n_recs);
+    if (permu == 0)
+    {
+      id_unique_alleles(data_ar, unique_allele, n_unique_allele, allele_freq, 
+  		        n_loci, n_recs);
+    }
 
     n_haplo = count_unique_haplos(geno, haplo, haplocus, unique_allele, 
 				  n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo);
@@ -673,7 +673,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	 count = 0;
 	 for(j = 0; j < n_unique_geno; j++) 
 	 { 
-	 if(genopheno[j][i] == 1)
+	 if(genopheno[j][i] > permu)
 	 { 
 	 count += 1;
 	 fprintf(fp_out, "possible geno: %d %s %s xgeno: %d %d j: %d \n", count, geno[j][0],  geno[j][1], 
@@ -683,7 +683,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	 fprintf(fp_out, "\n"); 
 	 } 
 
-     --- List all genos observed and haplos
+     //--- List all genos observed and haplos
 	 for(i = 0; i < n_unique_geno; i++)
 	 {
 	 fprintf(fp_out, "geno[%d][0]:%s geno[%d][1]:%s\n", i, geno[i][0], i, geno[i][1]);
@@ -702,7 +702,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
 	/* Compute log likelihood under no LD */
 	loglike0 = loglikelihood(genopheno, freq_zero, obspheno, n_haplo, 
-				 n_unique_geno, n_unique_pheno, xhaplo, xgeno);
+				 n_unique_geno, n_unique_pheno, xhaplo, xgeno, permu);
 
 #ifdef XML_OUTPUT
 	fprintf(fp_out, 
@@ -720,7 +720,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
     emcalc(genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
 	   n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
-	   &error_flag, &iter_count, &loglike, &haplo_freq_sum);
+	   &error_flag, &iter_count, &loglike, &haplo_freq_sum, permu);
 
     if (permu == 0)
       {
@@ -763,7 +763,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   
 	emcalc(genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
 	       n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
-	       &error_flag, &iter_count, &loglike, &haplo_freq_sum);
+	       &error_flag, &iter_count, &loglike, &haplo_freq_sum, permu);
 
 	if (permu == 0)
 	  {
@@ -1017,6 +1017,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #endif
     
     pvalue = 0.0;
+    lr_mean = 0.0;
 
 #ifdef XML_OUTPUT
     fprintf(fp_permu, "<permutation iter=\"%d\">%f</permutation>", 0, like_ratio[0]);
@@ -1031,8 +1032,10 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
       fprintf(fp_permu, "%3d  %f \n", i, like_ratio[i]); 
 #endif
       if (like_ratio[i] > like_ratio[0]) pvalue += 1;
+      lr_mean += like_ratio[i];
     }
     pvalue = pvalue/(max_permutations-1);
+    lr_mean = lr_mean/(max_permutations-1);
 
 #ifdef XML_OUTPUT
     fprintf(fp_out, "\n<pvalue totalperm=\"%d\">%f</pvalue>\n", max_permutations-1, pvalue); 
@@ -1040,6 +1043,17 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     fprintf(fp_out, "Permutation LR Test for Overall LD based on %d permutations: pvalue = %f\n", max_permutations-1, pvalue); 
     fprintf(fp_permu, "pvalue = %f \n", pvalue); 
 #endif
+
+    lr_sd = 0.0;
+    for (i = 1; i < max_permutations; i++)
+    {
+      lr_sd += pow((like_ratio[i] - lr_mean),2);
+    }
+    lr_sd = sqrt( lr_sd / ((max_permutations-1) - 1) );
+    lr_z = ( sqrt(2.0*df_LRtest)/n_recs ) * ( (like_ratio[0] - lr_mean) / lr_sd ); 
+    fprintf(fp_out, "Standardized LR statistic = %f\n", lr_z); 
+    fprintf(fp_out, "LR mean = %f\n", lr_mean); 
+    fprintf(fp_out, "LR SD = %f\n", lr_sd); 
 
 #ifdef XML_OUTPUT
     fprintf(fp_permu, "</permutationSummary>\n");
@@ -1480,16 +1494,14 @@ void sort2byfloat(char (*array1)[LINE_LEN / 2], double *array2, int n_haplo)
 
 /************************************************************************/
 void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
-	    double *freq_zero, double *mle, int n_haplo, int n_unique_geno,
+	    double *hap_freq, double *mle, int n_haplo, int n_unique_geno,
 	    int n_unique_pheno, int n_recs, int *xhaplo, int (*xgeno)[2], 
 	    int *error_flag, int *iter_count, double *loglike, 
-	    double *haplo_freq_sum)
+	    double *haplo_freq_sum, int permu)
 {
   int i, j, k, l = 0;
   int done, decr_loglike_count, tot_hap = 0;
   int iter, k_pheno, i_geno, i_haplo, j_haplo, keep = 0;
-
-  static double hap_freq[MAX_HAPLOS][MAX_ITER];
 
   CALLOC_ARRAY_DIM1(double, unambig, MAX_HAPLOS);
   CALLOC_ARRAY_DIM1(double, ambig, MAX_HAPLOS);
@@ -1513,8 +1525,6 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
      costly).  the function itself appears to overwrite any old data
      from previous invocations, so it doesn't seem to be necessary
      here  */
-
-  INIT_STATIC_DIM2(double, hap_freq, MAX_HAPLOS, MAX_ITER);
 #endif 
 
   done = FALSE;
@@ -1537,7 +1547,7 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
       {
         for (l = 0; l < n_unique_pheno; l++)
         {
-          if ((xgeno[i][j] == xhaplo[k]) && (genopheno[i][l] != 0))
+          if ((xgeno[i][j] == xhaplo[k]) && (genopheno[i][l] > permu))
           {
             if (numgeno[l] == 1)
             {
@@ -1559,7 +1569,6 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
   for (i = 0; i < n_haplo; i++)
   {
     ambig_sum += ambig[i];
-    hap_freq[i][iter] = freq_zero[i];
   }
 
   /* Test for observed ambiguous phenos */
@@ -1569,11 +1578,11 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
     *error_flag = 1;
     for (i = 0; i < n_haplo; i++)
     {
-      hap_freq[i][iter] = unambig[i] / (double)tot_hap;
-      mle[i] = hap_freq[i][iter];
+      hap_freq[i] = unambig[i] / (double)tot_hap;
+      mle[i] = hap_freq[i];
     }
     *loglike = loglikelihood(genopheno, mle, obspheno, n_haplo,
-      n_unique_geno, n_unique_pheno, xhaplo, xgeno);
+      n_unique_geno, n_unique_pheno, xhaplo, xgeno, permu);
   }
 
   /* Begin E-M iterations on ambiguous phenos */
@@ -1596,7 +1605,7 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
           expected_freq_sum = 0;
           for (i_geno = 0; i_geno < n_unique_geno; i_geno++)
           {
-            if (genopheno[i_geno][k_pheno] > 0)
+            if (genopheno[i_geno][k_pheno] > permu)
             {
               for (k = 0; k < n_haplo; k++)
               {
@@ -1613,11 +1622,11 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
               /* estimates from the previous iteration                  */
               if (i_haplo == j_haplo)
               {
-                expected_freq = hap_freq[i_haplo][iter - 1] * hap_freq[j_haplo][iter - 1];
+                expected_freq = hap_freq[i_haplo] * hap_freq[j_haplo];
               }
               else
               {
-                expected_freq = 2 * hap_freq[i_haplo][iter - 1] * hap_freq[j_haplo][iter - 1];
+                expected_freq = 2 * hap_freq[i_haplo] * hap_freq[j_haplo];
               }
 
               /* Add expected proportion of current pheno to addto_ambig[] for the appropriate haplo */
@@ -1653,7 +1662,7 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
 
       for (i = 0; i < n_haplo; i++)
       {
-        hap_freq[i][iter] = (unambig[i] + ambig[i]) / (double)tot_hap;
+        hap_freq[i] = (unambig[i] + ambig[i]) / (double)tot_hap;
       }
 
       /* Calculate geno freqs from current estimate of haplo freqs */
@@ -1667,7 +1676,7 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
           {
             if (xhaplo[k] == xgeno[i][j])
             {
-              geno_freq[i] = geno_freq[i] * hap_freq[k][iter];
+              geno_freq[i] = geno_freq[i] * hap_freq[k];
               if (j == 0)
               {
                 keep = k;
@@ -1682,22 +1691,19 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
       }
 
       /* Compute pheno freqs based on the computed geno freqs */
+      /* Compute the log likelihood for the current iteration */
+      *loglike = 0;
       for (i = 0; i < n_unique_pheno; i++)
       {
         pheno_freq[i] = 0;
         for (j = 0; j < n_unique_geno; j++)
         {
-          if (genopheno[j][i] == 1)
+          if (genopheno[j][i] > permu)
           {
             pheno_freq[i] += geno_freq[j];
           }
         }
-      }
 
-      /* Compute the log likelihood for the current iteration */
-      *loglike = 0;
-      for (i = 0; i < n_unique_pheno; i++)
-      {
         if (pheno_freq[i] > DBL_EPSILON)
         {
           *loglike += (double)obspheno[i] * log(pheno_freq[i]);
@@ -1738,8 +1744,8 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
           freqsum = 0;
           for (i = 0; i < n_haplo; i++)
           {
-            mle[i] = hap_freq[i][iter];
-            freqsum += hap_freq[i][iter];
+            mle[i] = hap_freq[i];
+            freqsum += hap_freq[i];
           }
           if (freqsum < .99 || freqsum > 1.01)
           {
@@ -1788,7 +1794,7 @@ void haplo_freqs_no_ld(double *hap_freq, double (*allele_freq)[MAX_ALLELES],
 /************************************************************************/
 double loglikelihood(int (*genopheno)[MAX_ROWS], double (*hap_freq), 
          int *obspheno, int n_haplo, int n_unique_geno, int n_unique_pheno, 
-         int *xhaplo, int (*xgeno)[2])
+         int *xhaplo, int (*xgeno)[2], int permu)
 
 {
   int i, j, k, keep = 0;
@@ -1829,7 +1835,7 @@ double loglikelihood(int (*genopheno)[MAX_ROWS], double (*hap_freq),
     pheno_freq[i] = 0;
     for (j = 0; j < n_unique_geno; j++)
     {
-      if (genopheno[j][i] == 1)
+      if (genopheno[j][i] > permu)
       {
         pheno_freq[i] += geno_freq[j];
       }
