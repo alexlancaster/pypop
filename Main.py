@@ -46,7 +46,7 @@ from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinberg
 from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
 from ConfigParser import ConfigParser, NoOptionError
 from Utils import XMLOutputStream, TextOutputStream, convertLineEndings
-from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter
+from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, MSFFilter
 
 def getUserFilenameInput(prompt, filename):
     """Read user input for a filename, check it's existence, continue
@@ -280,9 +280,19 @@ class Main:
                 useAnthonyNolanFilter=0
 
             try:
+                useMSFFilter=self.config.getboolean(self.fileType, "useMSFFilter")
+            except NoOptionError:
+                useMSFFilter=0
+
+            try:
                 useBinningFilter=self.config.getboolean(self.fileType, "useBinningFilter")
             except NoOptionError:
                 useBinningFilter=0
+
+            try:
+                translateMatrix=self.config.getboolean(self.fileType, "translateMatrix")
+            except NoOptionError:
+                translateMatrix=0
 
             # BinningFilter requires AnthonyNolanFilter; converse is not true.
             if useBinningFilter:
@@ -302,8 +312,17 @@ class Main:
                 if self.debug:
                   print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
 
-              # open log file for filter in append mode
-              filterLogFile = XMLOutputStream(open(defaultFilterLogFilename, 'w'))
+            if useMSFFilter:
+                try:
+                    msfPath=self.config.get(self.fileType, "msfPath")
+                except NoOptionError:
+                    msfPath=os.path.join(self.datapath, "msf")
+                if self.debug:
+                    print "LOG: Defaulting to system datapath %s for msfPath data" % msfPath
+
+            # open log file for filter in append mode
+            if useBinningFilter or useAnthonyNolanFilter or useMSFFilter:
+                filterLogFile = XMLOutputStream(open(defaultFilterLogFilename, 'w'))
 
             # create a data cleaning filter to pass all data through
 
@@ -322,6 +341,14 @@ class Main:
                                           untypedAllele=self.untypedAllele,
                                           filename=fileName,
                                           logFile=filterLogFile)
+
+            elif useMSFFilter:
+                filter = MSFFilter(debug=self.debug,
+                                   directoryName=msfPath,
+                                   alleleDesignator=alleleDesignator,
+                                   untypedAllele=self.untypedAllele,
+                                   filename=fileName,
+                                   logFile=filterLogFile)
 
             #filter = AlleleCountAnthonyNolanFilter(debug=self.debug,
             #                                       directoryName=anthonynolanPath,
@@ -348,6 +375,10 @@ class Main:
             # now we do the filtering on the parsed file to create a
             # new filtered data matrix
             self.filtered = filter.doFiltering(self.parsed.getMatrix())
+
+            # translate (into sequence) the datamatrix if specified
+            if translateMatrix:
+                self.filtered = filter.translateMatrix(self.filtered)
 
             # and then we pass the filtered matrix to be put in format
             # for rest of processing
