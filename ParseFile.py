@@ -96,17 +96,38 @@ class ParseFile:
         self.alleleDesignator=alleleDesignator
         self.popNameDesignator = popNameDesignator
 
-        self.popFields = ParseFile._dbFieldsRead(self,self.validPopFields)
+        # assume no population or sample data, until supplied
+        self.popData = None
+        self.sampleMap = None
+    
+        # Reads and parses a given filename.
+
+        self._sampleFileRead(self.filename)
+
+
+        if self.validPopFields == None:
+            # skip parsing of metadata header
+            self.sampleFirstLine = 1
+        else:
+            # parse metadata header
+            self.sampleFirstLine = 3
+
+            # gets the .ini file information for metadata
+            self.popFields = ParseFile._dbFieldsRead(self,self.validPopFields)
+            if self.debug:
+                # debugging only
+                print self.popFields
+
+            # parse the metadata
+            self._mapPopHeaders()
+
+
+        # gets the .ini file information for samples
         self.sampleFields = ParseFile._dbFieldsRead(self,self.validSampleFields)
         if self.debug:
-            # debugging only
-            print self.popFields
             print self.sampleFields
 
-        # Reads and parses a given filename.
-        
-        self._sampleFileRead(self.filename)
-        self._mapPopHeaders()
+        # always parse the samples, they must always exist!
         self._mapSampleHeaders()
 
     def _dbFieldsRead(self, data):
@@ -253,7 +274,7 @@ class ParseFile:
         *For internal use only*."""
 
         # get sample header metadata
-        sampleHeaderLine = string.rstrip(self.fileData[2])
+        sampleHeaderLine = string.rstrip(self.fileData[self.sampleFirstLine-1])
 
         # parse it
         self.sampleMap, fieldCount = self._mapFields(sampleHeaderLine,
@@ -266,7 +287,7 @@ class ParseFile:
         # check file data to see that correct number of fields are
         # present for each sample
 
-        for lineCount in range(3, len(self.fileData)):
+        for lineCount in range(self.sampleFirstLine, len(self.fileData)):
 
             # retrieve and strip newline
             line = string.rstrip(self.fileData[lineCount])
@@ -305,7 +326,7 @@ class ParseFile:
         - raw sample lines, *without*  header metadata.
         
         - the field separator."""
-        return self.fileData[3:], self.separator
+        return self.fileData[self.sampleFirstLine:], self.separator
     
     def genSampleOutput(self, fieldList):
         """Prints the data specified in ordered field list.
@@ -314,7 +335,7 @@ class ParseFile:
 
         #for field in fieldList:
         #print string.strip(field) + self.separator,
-        for lineCount in range(3, len(self.fileData)):
+        for lineCount in range(self.sampleFirstLine, len(self.fileData)):
             line = string.strip(self.fileData[lineCount])
             element = string.split(line, self.separator)
             for field in fieldList:
@@ -326,21 +347,23 @@ class ParseFile:
 
     def serializeMetadataTo(self, stream):
         type = getStreamType(stream)
+
         stream.opentag('populationdata')
         stream.writeln()
 
-        for summary in self.popData.keys():
-            # convert metadata name into a XML tag name
-            tagname = string.lower(string.replace(summary,' ','-'))
-            stream.tagContents(tagname, self.popData[summary])
-            stream.writeln()
+        if self.popData:
+
+            for summary in self.popData.keys():
+                # convert metadata name into a XML tag name
+                tagname = string.lower(string.replace(summary,' ','-'))
+                stream.tagContents(tagname, self.popData[summary])
+                stream.writeln()
 
         # call subclass-specific metadata serialization
         self.serializeSubclassMetadataTo(stream)
-        
+            
         stream.closetag('populationdata')
         stream.writeln()
-
 
 class ParseGenotypeFile(ParseFile):
     """Class to parse standard datafile in genotype form."""
@@ -391,7 +414,7 @@ class ParseGenotypeFile(ParseFile):
                 self.popNameCol = self.sampleMap[key]
 
         # save population name
-        self.popName = string.split(self.fileData[3], self.separator)[self.popNameCol]
+        self.popName = string.split(self.fileData[self.sampleFirstLine], self.separator)[self.popNameCol]
 
         return self.alleleMap
 
