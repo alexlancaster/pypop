@@ -1,5 +1,17 @@
 2004-09-09  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
+	* RandomBinning.py (RandomBinsForHomozygosity.randomMethod): Added
+	ability to use the EWSlatkinExact module to compute homozygosity F
+	statistics (rather than just F itself).  Other changes involve
+	accepting necessary parameters (like numReplicates) for this test.
+
+	* Main.py (Main._doGenotypeFile): Passing xmlStream filename to
+	the random binning module.
+
+	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Added
+	ability for sequence filter to output complete sequences, not just
+	the polymorphic positions.
+
 	* xslt/meta-to-r.xsl (1-locus-summary): Added normDevHomozygosity
 	as output field for the homozygosityEWSlatkinExact section.
 
