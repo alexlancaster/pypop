@@ -41,8 +41,19 @@ headers for the samples (sample metadata) followed by the sample data
 itself (either individuals in the genotyped case, or alleles in the
 allele count case).
 
-
 **TODO**
+
+2001-09-28:
+
+- Implement XML -> text conversion using XSLT "text.xsl" stylesheet,
+  so that text output is always generated from XML output.  This will
+  be done using the "xml.xslt" API (part of the 4Suite XML/ XSLT
+  package) (alex: enabled prototype XML -> text conversion in
+  "pypop.py").
+
+- Remove all ad-hoc text output, all text output will be derived from
+  the XML output, all serialization code will be collapsed into one
+  (alex).
 
 2001-09-20:
 
