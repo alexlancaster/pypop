@@ -5,34 +5,37 @@
  <!-- ################  HOMOZYGOSITY STATISTICS ###################### --> 
  
  <xsl:template match="homozygosity">
-  <xsl:call-template name="locus-header">
-   <xsl:with-param name="title">Homozygosity</xsl:with-param>
-  </xsl:call-template>
-  
-  <xsl:choose>
-
-   <xsl:when test="@role='out-of-range'">
-    <xsl:text>*Out of range of simulated homozygosity values*</xsl:text>
-    <xsl:call-template name="newline"/>
-    <xsl:text>*can't estimate expected homozygosity*</xsl:text>
-   </xsl:when>
-
-   <xsl:otherwise>
-    <xsl:call-template name="newline"/>
-
-    <!-- print out all lineseparated fields, except pvalue -->
-    <xsl:call-template name="linesep-fields">
-     <xsl:with-param name="nodes" select="*[not(self::pvalue)]"/>
+  <xsl:call-template name="section">
+   <xsl:with-param name="title">
+    <xsl:call-template name="locus-header">
+     <xsl:with-param name="title">Homozygosity</xsl:with-param>
     </xsl:call-template>
+   </xsl:with-param>
+   <xsl:with-param name="level" select="2"/>
+   <xsl:with-param name="text">
 
-    <!-- treat pvalue differently, since it is not a simple value, but
-    has an upper and lower bound -->
-    <xsl:apply-templates select="pvalue" mode="bounded"/>
-    <xsl:call-template name="newline"/>
-   </xsl:otherwise>
+    <xsl:choose>
 
-  </xsl:choose>
-  <xsl:call-template name="newline"/>
+     <xsl:when test="@role='out-of-range'">
+      <xsl:text>*Out of range of simulated homozygosity values*</xsl:text>
+      <xsl:call-template name="newline"/>
+      <xsl:text>*can't estimate expected homozygosity*</xsl:text>
+     </xsl:when>
+     
+     <xsl:otherwise>
+      
+      <!-- print out all lineseparated fields, except pvalue -->
+      <xsl:call-template name="linesep-fields">
+       <xsl:with-param name="nodes" select="*[not(self::pvalue)]"/>
+      </xsl:call-template>
+      
+      <!-- treat pvalue differently, since it is not a simple value, but
+      has an upper and lower bound -->
+      <xsl:apply-templates select="pvalue" mode="bounded"/>
+     </xsl:otherwise>
+    </xsl:choose>
+   </xsl:with-param>
+  </xsl:call-template>
  </xsl:template>
 
  <xsl:template match="pvalue">
