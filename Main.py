@@ -834,17 +834,17 @@ class Main:
             sys.exit("require a 0 or 1 as a flag")
 
           try:
-            allPairwiseLDWithPermu = self.config.getboolean("Emhaplofreq",
+            allPairwiseLDWithPermu = self.config.getint("Emhaplofreq",
                                                        "allPairwiseLDWithPermu")
           except NoOptionError:
             allPairwiseLDWithPermu=0
           except ValueError:
-            sys.exit("require a 0 or 1 as a flag")
+            sys.exit("allPairwiseLDWithPermu: option requires an integer")
 
           if allPairwiseLD:
             print "LOG: estimating all pairwise LD:",
             if allPairwiseLDWithPermu:
-              print "with permutation test"
+              print "with %d permutations" % allPairwiseLDWithPermu
             else:
               print "with no permutation test"
 
@@ -900,7 +900,7 @@ class Main:
 
           # do all pairwise LD, w/ or w/o permutation test
           if allPairwiseLD:
-            haplo.allPairwise(permutationFlag=allPairwiseLDWithPermu,
+            haplo.allPairwise(numPermutations=allPairwiseLDWithPermu,
                               haploSuppressFlag=0,
                               haplosToShow=twoLocusHaplosToShow)
 

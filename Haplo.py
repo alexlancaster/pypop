@@ -325,6 +325,8 @@ class Emhaplofreq(Haplo):
 
     def _runEmhaplofreq(self, locusKeys=None,
                         permutationFlag=None,
+                        numPermutations=1001,
+                        numPermuInitCond=5,
                         haploSuppressFlag=None,
                         showHaplo=None,
                         mode=None):
@@ -335,6 +337,12 @@ class Emhaplofreq(Haplo):
 
         - permutationFlag: sets whether permutation test will be
           performed.  No default.
+
+        - numPermutations: sets number of permutations that will be
+          performed if 'permutationFlag' *is* set.  Default: 1001.
+
+        - numPermuInitConds: sets number of initial conditions tried
+          per-permutation.  Default: 5.
 
         - haploSuppressFlag: sets whether haplotype information is
           generated in the output.   No default.
@@ -420,8 +428,9 @@ class Emhaplofreq(Haplo):
                 
                 # pass this submatrix to the SWIG-ed C function
                 self._Emhaplofreq.main_proc(self.fp, subMatrix,
-                                        lociCount, groupNumIndiv,
-                                        permutationFlag, haploSuppressFlag)
+                                            lociCount, groupNumIndiv,
+                                            permutationFlag, haploSuppressFlag,
+                                            numPermutations, numPermuInitCond)
 
                 self.fp.write("</group>")
 
@@ -476,7 +485,7 @@ class Emhaplofreq(Haplo):
                              mode='LD')
 
     def allPairwise(self,
-                    permutationFlag=None,
+                    numPermutations=None,
                     haploSuppressFlag=None,
                     haplosToShow=None,
                     mode=None):
@@ -487,10 +496,12 @@ class Emhaplofreq(Haplo):
         (linkage disequilibrium) and HF (haplotype frequencies), an
         optional permutation test on LD can be run """
 
-        if permutationFlag:
+        if numPermutations > 0:
             permuMode = 'with-permu'
+            permutationFlag = 1
         else:
             permuMode = 'no-permu'
+            permutationFlag = 0
 
         if mode == None:
             mode = 'all-pairwise-ld-' + permuMode
@@ -523,6 +534,7 @@ class Emhaplofreq(Haplo):
             
             self._runEmhaplofreq(pair,
                                  permutationFlag=permutationFlag,
+                                 numPermutations=numPermutations,
                                  haploSuppressFlag=haploSuppressFlag,
                                  showHaplo=showHaplo,
                                  mode=mode)
