@@ -3,6 +3,7 @@
 VERSION=$(shell cat VERSION)
 SYSTEM=$(shell uname)
 DOCPATH=reference
+DISTRIB=DISTRIB=true
 
 # binary distribution to create
 ifeq ($(SYSTEM),Linux)
@@ -28,24 +29,30 @@ DEPS=$(shell cat MANIFEST)
 $(NAME_BIN): MANIFEST $(DEPS)
 	@echo deps are $(DEPS)
 	rm -rf build                # remove temp build directory
-	python setup.py build
+	rm -f _*.so		    # force rebuild of Python extensions
+	$(DISTRIB) python setup.py build
 	rm -rf buildstandalone      # remove package dependency area
 	rm -rf bin		    # remove staging area
 	Build.py standalone.spec
+	rm -rf build
+	rm -f _*.so		    # remove Python extensions
+
 
 # rule to generate documentation files
+# make sure that it does not attempt to rebuild pypop from pypop.xml
 %: $(DOCPATH)/%.xml VERSION
-	(cd $(DOCPATH); $(MAKE) $@.txt)
-	cp $(DOCPATH)/$@.txt $@
-
+	@if [ "X$@" != "Xpypop" ]; then  \
+		(cd $(DOCPATH); $(MAKE) $@.txt); \
+		cp $(DOCPATH)/$@.txt $@; \
+	fi
 
 # rule to remake MANIFEST if either setup.py or MANIFEST.in change
 MANIFEST: MANIFEST.in setup.py README AUTHORS COPYING INSTALL 
-	python setup.py sdist --manifest-only
+	$(DISTRIB) python setup.py sdist --manifest-only
 
 # rule to regenerate source distribution
 $(NAME_SRC):  $(NAME_BIN)
-	python setup.py sdist
+	$(DISTRIB) python setup.py sdist
 
 # # before running happydoc, use CVS to fix the RCS keywords in README
 # # non-verbose form, then restore them immediately after

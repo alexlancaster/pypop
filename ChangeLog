@@ -1,3 +1,30 @@
+2005-03-10  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* setup.py (my_build_ext.swig_sources): Remove SWIG_VERSION
+	checking code, no longer necessary.
+	Add a flag to determine whether we are generating a distribution
+	version taken from environment variable $DISTRIB.
+	(ext_Gthwe_files, ext_Gthwe_macros): New variables to generate
+	lists of files and C macros to use.  Only in internal CVS version,
+	add do we add gthwe/statistics.c and INDIVID_GENOTYPES macro.
+	(ext_Gthwe): Use them.
+	(ext_Gthwe): Remove MAX_ALLELE and LENGTH define_macros.
+	(extensions): Change login for appending version, only generate
+	ext_HweEnum if using internal version, but allow ext_Gthwe in all
+	case.
+
+	* Makefile (DISTRIB): Set flag to pass to setup.py for
+	distributed.  version.
+	($(NAME_BIN)): Pass $DISTRIB environment variable to setup.py.
+	Remove Python extensions (.so files) before rebuild and remove
+	both extensions and build directory after build done.
+	(%): Make sure that doc rule does not attempt to rebuild pypop
+	from pypop.xml.
+	(MANIFEST, $(NAME_SRC)): Pass $DISTRIB env variable to setup.py.
+
+	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): Don't print
+	out individual genotypes if none present.
+
 2005-03-03  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): If pvalue is

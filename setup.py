@@ -80,17 +80,7 @@ class my_build_ext(build_ext):
             return new_sources
 
         swig = self.find_swig()
-
-        if os.environ.has_key('SWIG_VERSION') and os.environ['SWIG_VERSION'] == '1.3.11':
-            # in newer version of SWIG, need to use these options
-            # to build old style classes/typemaps, required under
-            # Cygwin, because newer SWIG version attempts to build
-            # extensions in a weird way that Python doesn't understand
-            swig_cmd = [swig, "-python", "-classic", "-noproxy", "-ISWIG"]
-        else:
-            # invoke old-style python, remove the "-dnone" option
-            swig_cmd = [swig, "-python", "-ISWIG"]
-
+        swig_cmd = [swig, "-python", "-ISWIG"]
         if self.swig_cpp:
             swig_cmd.append("-c++")
 
@@ -114,7 +104,13 @@ if os.path.isdir("CVS"):
 else:
     cvs_version=0
 
-    
+# flag to determine whether we are generating a distribution version
+if os.environ.has_key('DISTRIB') and \
+   os.environ['DISTRIB'] == 'true':
+    distrib_version=1
+else:
+    distrib_version=0
+
 
 # define each extension
 ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
@@ -148,35 +144,37 @@ ext_Pvalue = Extension("_Pvaluemodule",
                        define_macros=[('MATHLIB_STANDALONE', '1')]
                        )
 
+ext_Gthwe_files = ["gthwe/gthwe_wrap.i",
+                   "gthwe/hwe.c",
+                   "gthwe/cal_const.c",
+                   "gthwe/cal_n.c", "gthwe/cal_prob.c",
+                   "gthwe/check_file.c",
+                   "gthwe/do_switch.c", 
+                   "gthwe/new_rand.c",
+                   "gthwe/ln_p_value.c",
+                   "gthwe/to_calculate_log.c",
+                   "gthwe/print_data.c",
+                   "gthwe/random_choose.c",
+                   "gthwe/read_data.c",
+                   "gthwe/select_index.c",
+                   "gthwe/stamp_time.c",
+                   "gthwe/test_switch.c"]
+
+ext_Gthwe_macros = [('fprintf', 'pyfprintf'),
+                    ('DEBUG', '0'),
+                    ('XML_OUTPUT', '1'),
+                    ('SUPPRESS_ALLELE_TABLE', '1')]
+
+if not(distrib_version):
+    ext_Gthwe_files.append("gthwe/statistics.c")
+    ext_Gthwe_macros.append(('INDIVID_GENOTYPES', '1'))
+    
+
 ext_Gthwe = Extension("_Gthwemodule",
-                      [ "gthwe/gthwe_wrap.i",
-                        "gthwe/hwe.c",
-                        "gthwe/cal_const.c",
-                        "gthwe/cal_n.c", "gthwe/cal_prob.c",
-                        "gthwe/check_file.c",
-                        "gthwe/do_switch.c", 
-                        "gthwe/new_rand.c",
-                        "gthwe/ln_p_value.c",
-                        "gthwe/to_calculate_log.c",
-                        "gthwe/print_data.c",
-                        "gthwe/random_choose.c",
-                        "gthwe/read_data.c",
-                        "gthwe/select_index.c",
-                        "gthwe/stamp_time.c",
-                        "gthwe/test_switch.c",
-                        "gthwe/statistics.c"],
-                      #  "gthwe/gamma.c"], no standalone compilation right now
+                      ext_Gthwe_files,
                       include_dirs=["gthwe"],
                       libraries=["gsl", "gslcblas"],
-                      define_macros=[('fprintf', 'pyfprintf'),
-                                     ('DEBUG', '0'),
-                                     ('INDIVID_GENOTYPES', '1'),
-                                     ('XML_OUTPUT', '1'),
-                                     ('SUPPRESS_ALLELE_TABLE', '1'),
-                                     ('MAX_ALLELE', '35'),
-                                     ('LENGTH',
-                                      'MAX_ALLELE*(MAX_ALLELE+1)/2')
-                                     ]
+                      define_macros=ext_Gthwe_macros
                       )
 
 ext_HweEnum = Extension("_HweEnum",
@@ -219,12 +217,14 @@ if sys.argv[1] == 'sdist':
         if os.path.isfile('VERSION') == 0:
             sys.exit("before distributing, please create a VERSION file!")
 else:
-    # if we are running from our internal CVS version and *not*
-    # building a source distribution, then append Gthwe
-    if cvs_version:
+    # if we are distributing the version and *not* building a source
+    # distribution, then append Gthwe, but not HweEnum (yet)
+    if distrib_version:
+        extensions.append(ext_Gthwe)
+    else:
         extensions.append(ext_Gthwe)
         extensions.append(ext_HweEnum)
-
+        
 # get version from the file VERSION
 if os.path.isfile('VERSION'):
   f = open('VERSION')
