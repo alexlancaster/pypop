@@ -20,6 +20,17 @@
   <pubdate>Last updated: $Date$ by $Author$</pubdate>
  </articleinfo>
 
+ <sidebar>
+  <para>To learn how to install <application>PyPop</application>,
+   please consult the <filename>INSTALL</filename> file.   The list of
+   authors of <application>PyPop</application> is found in
+   <filename>AUTHORS</filename>.  PyPop is distributed under the terms
+   of the GNU General Public License <ulink
+    url="http://www.gnu.org/licenses/gpl.html">http://www.gnu.org/licenses/gpl.html</ulink>, 
+   please consult <filename>COPYING</filename> for terms and
+   conditions.</para>
+ </sidebar>
+
  <section id="guide-usage-intro">
   <title>Introduction</title>
 
