@@ -219,7 +219,7 @@ class HardyWeinberg:
         if not self.hetsObservedByAllele.has_key(allele):
           self.hetsObservedByAllele[allele] = 0
 
-        squareMe = 0 - self.hetsExpectedByAllele[allele]
+        squareMe = self.hetsObservedByAllele[allele] - self.hetsExpectedByAllele[allele]
         self.hetsChisqByAllele[allele] = (squareMe * squareMe) / self.hetsExpectedByAllele[allele]
 
         command = "pval 1 %f" % (self.hetsChisqByAllele[allele])
