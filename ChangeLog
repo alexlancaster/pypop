@@ -1,3 +1,11 @@
+2004-09-20  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* xslt/meta-to-r.xsl (output.genotype.distrib): New parameter to
+	selectively enable the generation of a separate file with full
+	test statistic distributions for p-values for *every* genotype.
+	By default, set to off ("0"), otherwise it generates too many
+	files.
+
 2004-09-17  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* ParseFile.py (ParseAlleleCountFile._genDataStructures): Bug fix:
