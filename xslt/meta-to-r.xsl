@@ -88,7 +88,7 @@ MODIFICATIONS.
  <xsl:param name="region-order" 
   select="document('')//data:region-order/regionname"/>
 
- <xsl:param name="header-line-start">pop&#09;ethnic&#09;region&#09;latit&#09;longit&#09;complex&#09;</xsl:param>
+ <xsl:param name="header-line-start">pop&#09;labcode&#09;method&#09;ethnic&#09;collect.site&#09;region&#09;latit&#09;longit&#09;complex&#09;</xsl:param>
 
  <xsl:template name="output-field">
   <xsl:param name="node"/>
@@ -114,9 +114,21 @@ MODIFICATIONS.
   <xsl:call-template name="output-field">
    <xsl:with-param name="node" select="translate($popnode/popname, ' ', '-')"/>
   </xsl:call-template>
+
+  <xsl:call-template name="output-field">
+   <xsl:with-param name="node" select="translate($popnode/labcode, ' ', '-')"/>
+  </xsl:call-template>
+
+  <xsl:call-template name="output-field">
+   <xsl:with-param name="node" select="translate($popnode/method, ' ', '-')"/>
+  </xsl:call-template>
  
   <xsl:call-template name="output-field">
    <xsl:with-param name="node" select="translate($popnode/ethnic, ' ', '-')"/>
+  </xsl:call-template>
+
+  <xsl:call-template name="output-field">
+   <xsl:with-param name="node" select="translate($popnode/collect, ' ', '-')"/>
   </xsl:call-template>
 
   <!-- apply short form of regions as defined in lookup table -->
