@@ -116,7 +116,9 @@ MODIFICATIONS.
       <xsl:text>, Variance in F: </xsl:text>
       <xsl:value-of select="varHomozygosity"/>
       <xsl:call-template name="newline"/>
-      <xsl:text>p-value of F: </xsl:text>
+      <xsl:text>Normalized deviate of F (Fnd): </xsl:text>
+      <xsl:value-of select="normDevHomozygosity"/>
+      <xsl:text>, p-value of F: </xsl:text>
 
       <!-- treat pvalue differently, get significance based on a -->
       <!-- two-tailed test -->
