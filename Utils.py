@@ -379,6 +379,9 @@ class StringMatrix(UserArray):
       else:
           raise KeyError("can't find %s column" % col)
       # store each element in turn
+      # FIXME: hack to store each element in the format expected by
+      # emhaplofreq C module, with additional colon (':'), need to
+      # fix this elegantly to make class more generic.
       self.array[(row,col1)] = asarray(value1+':',self._typecode)
       self.array[(row,col2)] = asarray(value2+':',self._typecode)
 
