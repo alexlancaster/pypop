@@ -27,6 +27,60 @@
  
  <!-- BEGIN NAMED TEMPLATE FUNCTIONS -->
 
+ <!-- templates to calculate (number)^(power) -->
+
+ <xsl:template name="raise-to-power">
+  <xsl:param name="number"/>
+  <xsl:param name="power"/>
+  <xsl:call-template name="raise-to-power-iter">
+   <xsl:with-param name="multiplier" select="$number"/>
+   <xsl:with-param name="accumulator" select="1"/>
+   <xsl:with-param name="reps" select="$power"/>
+  </xsl:call-template>
+ </xsl:template>
+
+ <xsl:template name="raise-to-power-iter">
+  <xsl:param name="multiplier"/>
+  <xsl:param name="accumulator"/>
+  <xsl:param name="reps"/>
+  <xsl:choose>
+   <xsl:when test="$reps &gt; 0">
+    <xsl:call-template name="raise-to-power-iter">
+     <xsl:with-param name="multiplier" select="$multiplier"/>
+     <xsl:with-param name="accumulator" 
+      select="$accumulator * $multiplier"/>
+     <xsl:with-param name="reps" select="$reps - 1"/>
+    </xsl:call-template>
+   </xsl:when>
+   <xsl:otherwise>
+    <xsl:value-of select="$accumulator"/>
+   </xsl:otherwise>
+  </xsl:choose>
+ </xsl:template>
+
+ <!-- round a number to specified decimal places -->
+ <!-- by default choose current node -->
+ <xsl:template name="round-to">
+  <xsl:param name="node" select="."/>
+  <xsl:param name="places"/>
+  <xsl:variable name="factor">
+   <xsl:call-template name="raise-to-power">
+    <xsl:with-param name="number" select="10"/>
+    <xsl:with-param name="power" select="$places"/>
+   </xsl:call-template>
+  </xsl:variable>
+  <xsl:variable name="format">
+   <xsl:call-template name="append-pad">
+    <xsl:with-param name="padChar" select="'0'"/>
+    <xsl:with-param name="padVar" select="'0.'"/>
+    <xsl:with-param name="length" select="$places + 2"/>
+   </xsl:call-template>
+  </xsl:variable>
+  <xsl:message>format string: <xsl:value-of select="$format"/></xsl:message>
+  <xsl:value-of 
+   select="format-number((round($factor * $node) div $factor), $format)"/>
+ </xsl:template>
+ 
  <xsl:template name="prepend-pad"> 
   <!-- recursive template to right justify and prepend-->
   <!-- the value with whatever padChar is passed in   -->
@@ -408,8 +462,16 @@
    </xsl:call-template>
   </xsl:variable>
   <xsl:variable name="expected">
+   <!-- for this column only, round the expected to 2 decimal places -->
+   <xsl:variable name="expected-rounded">
+    <xsl:call-template name="round-to">
+     <xsl:with-param name="node" select="expected"/>
+     <xsl:with-param name="places" select="2"/>
+    </xsl:call-template>
+   </xsl:variable>
+   <!-- then pass this new value to the generate the table cell -->
    <xsl:call-template name="hardyweinberg-gen-cell">
-    <xsl:with-param name="node" select="expected"/>
+    <xsl:with-param name="node" select="$expected-rounded"/>
    </xsl:call-template>
   </xsl:variable>
   <xsl:variable name="chisq">
@@ -526,8 +588,10 @@
   <xsl:text>Heterozygotes by allele</xsl:text>
   <xsl:call-template name="newline"/>
   <xsl:for-each select="allele">
-
-  <!-- indent table with name of the allele -->
+   
+   <!-- sort by allele name -->
+   <xsl:sort select="@name" data-type="text"/>
+   <!-- indent table with name of the allele -->
    <xsl:call-template name="prepend-pad">
     <xsl:with-param name="length" select="$hardyweinberg-first-col-width"/>
     <xsl:with-param name="padVar" select="@name"/>
@@ -552,6 +616,7 @@
 
   <!-- find all genotypes that have chisq set -->
   <xsl:for-each select="genotype[chisq/@role!='not-calculated']">  
+   <xsl:sort select="@col" data-type="text"/>
    <!-- generate genotype name -->
    <xsl:variable name="name">
     <xsl:value-of select="@col"/>:<xsl:value-of select="@row"/> 
@@ -608,7 +673,10 @@
     <xsl:sort select="."/>
     <xsl:variable name="cell">
      <!-- round and format the decimal values of "observed" to nearest 0.1 -->
-     <xsl:value-of select="../observed"/><xsl:text>/</xsl:text><xsl:value-of select="format-number((round(10*../expected) div 10), '0.0')"/>
+     <xsl:value-of select="../observed"/><xsl:text>/</xsl:text><xsl:call-template name="round-to">
+      <xsl:with-param name="node" select="../expected"/>
+      <xsl:with-param name="places" select="1"/>
+     </xsl:call-template>
     </xsl:variable>
     
     <xsl:call-template name="prepend-pad">
