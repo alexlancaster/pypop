@@ -342,8 +342,11 @@ class Emhaplofreq(Haplo):
                     
                 self.fp.write(os.linesep)
 
+                if groupNumIndiv > self._Emhaplofreq.MAX_ROWS:
+                    self.fp.write("<group mode=\"too-many-lines\" loci=\"%s\"/>%s" % (group, os.linesep))
+                    continue
                 # if nothing left after filtering, simply continue
-                if groupNumIndiv == 0:
+                elif groupNumIndiv == 0:
                     self.fp.write("<group mode=\"no-data\" loci=\"%s\"/>%s" % (group, os.linesep))
                     continue
                 
