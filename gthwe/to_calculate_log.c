@@ -8,17 +8,20 @@
 
 ************************************************************************/
 #include  "hwe.h"
+#include "gsl_sf_gamma.h"
 
 double log_factorial(int k)
 {
 
-	register double result;
+  return(gsl_sf_lnfact(k));
 
-	if (k == 0)
-		result = (double)0.0;
-	else
-		result = log((double)k) + log_factorial(k - 1);
-
-	return (result);
+  /*
+    register double result;
+    if (k == 0)
+	result = (double)0.0;
+    else
+	result = log((double)k) + log_factorial(k - 1);
+    return (result);
+  */
 }
 

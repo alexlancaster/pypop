@@ -13,7 +13,7 @@ void random_choose(int *k1, int *k2, int k)
 {
 	register int temp, i, not_find;
 	double new_rand();
-	int work[MAX_ALLELE];
+	int *work= (int *)calloc(k, sizeof(int));
 
 	for (i = 0; i < k; ++i)
 		work[i] = i;
@@ -41,6 +41,6 @@ void random_choose(int *k1, int *k2, int k)
 		*k1 = *k2;
 		*k2 = temp;
 	}
-
+	free(work);
 }
 
