@@ -98,6 +98,13 @@ int main(int argc, char **argv)
 
   num_loci = read_infile(if_handle, ref, data, &num_recs);
 
+  fprintf(stdout, "num_loci: %d\n", num_loci);
+  if (num_loci > MAX_LOCI) {
+    fprintf(stderr, "Error: number of loci: %d, exceeds maximum of: %d\n", 
+	    num_loci, MAX_LOCI);
+    exit(EXIT_FAILURE);
+  }
+
   ret_val = main_proc(data, num_loci, num_recs);
 
   return (ret_val);
