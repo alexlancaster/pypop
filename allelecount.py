@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
-"""Python population genetics statistics.
-"""
+"""Python population genetics statistics -- parse a literature (allele
+   and count data file).  """
 
 import sys
 from ParseFile import ParseAlleleCountFile
