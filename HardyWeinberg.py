@@ -193,6 +193,7 @@ class HardyWeinberg:
     self.flagHoms = 0
     self.flagCommons = 0
     self.flagLumps = 0
+    self.flagCommonPlusLumped = 0
     self.flagTooManyParameters = 0
     self.flagTooFewExpected = 0
     self.flagNoCommonGenotypes = 0
@@ -258,6 +259,8 @@ class HardyWeinberg:
     for genotype in self.expectedGenotypeCounts.keys():
       if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
 
+        # Count the common genotypes in categories by allele.
+        # Used to determine DoF for common genotypes later.
         temp = string.split(genotype, ':')
         if self.counterA.has_key(temp[0]):
           self.counterA[temp[0]] += 1
@@ -276,6 +279,8 @@ class HardyWeinberg:
           else:
             print 'Observed: 0'
 
+        # calculate the contribution of each genotype to it
+        # and tot up the cumulative chi-square 
         self.commonGenotypeCounter += 1
         if self.observedGenotypeCounts.has_key(genotype):
           observedCount = self.observedGenotypeCounts[genotype]
@@ -308,6 +313,7 @@ class HardyWeinberg:
 
         if self.observedGenotypeCounts.has_key(genotype):
           self.lumpedObservedGenotypes += self.observedGenotypeCounts[genotype]
+    # End of loop for genotype in self.expectedGenotypeCounts.keys():
 
     if self.commonGenotypeCounter == 0:
     # no common genotypes, so do no calculations.
@@ -366,19 +372,27 @@ class HardyWeinberg:
             print "Lumped %d for a total of %d observed and %f expected" % (self.rareGenotypeCounter, self.lumpedObservedGenotypes, self.lumpedExpectedGenotypes)
             print "Chisq: %f, P-Value (dof = 1): %s" % (self.lumpedChisq, self.lumpedChisqPval) # doesn't work if I claim Pval is a float?
 
-        if self.flagLumps == 1:
-          self.HWChisq = self.commonChisqAccumulator + self.lumpedChisq
-          self.commonObservedAccumulator += self.lumpedObservedGenotypes
-          self.commonExpectedAccumulator += self.lumpedExpectedGenotypes
         else:
-          self.HWChisq = self.commonChisqAccumulator
           self.flagTooFewExpected = 1
 
+        # Do commons by themselves first
+        self.HWChisq = self.commonChisqAccumulator
         self.HWChisqDf = self.commonDf
         command = "pval %f %f" % (self.HWChisqDf, self.HWChisq)
         returnedValue = os.popen(command, 'r').readlines()
         self.HWChisqPval = float(returnedValue[0][:-1])
         self.flagCommons = 1
+
+        if self.flagLumps == 1:
+        # Do common plus lumped
+          self.commonPlusLumpedChisq = self.commonChisqAccumulator + self.lumpedChisq
+          self.commonPlusLumpedObserved = self.commonObservedAccumulator + self.lumpedObservedGenotypes
+          self.commonPlusLumpedExpected = self.commonExpectedAccumulator + self.lumpedExpectedGenotypes
+          self.commonPlusLumpedChisqDf = self.commonDf
+          command = "pval %f %f" % (self.commonPlusLumpedChisqDf, self.commonPlusLumpedChisq)
+          returnedValue = os.popen(command, 'r').readlines()
+          self.commonPlusLumpedChisqPval = float(returnedValue[0][:-1])
+          self.flagCommonPlusLumped = 1
 
       else:
         self.flagTooManyParameters = 1
@@ -473,12 +487,8 @@ class HardyWeinberg:
         stream.emptytag('lumped', role='no-rare-genotypes')
       elif self.flagTooFewExpected == 1:
         stream.emptytag('lumped', role='too-few-expected')
-      elif self.flagNoCommonGenotypes == 1:
-        stream.emptytag('lumped', role='no-common-genotypes')
-      elif self.flagTooManyParameters == 1:
-        stream.emptytag('lumped', role='too-many-parameters')
       else:
-        stream.emptytag('lumped', role='huh')
+        stream.emptytag('lumped', role='not-calculated')
 
     if self.flagCommons == 1:
       stream.opentag('common')
@@ -501,33 +511,26 @@ class HardyWeinberg:
       elif self.flagTooManyParameters == 1:
         stream.emptytag('common', role='too-many-parameters')
       else:
-        stream.emptytag('common', role='huh')
+        stream.emptytag('common', role='not-calculated')
       stream.writeln()
 
-    if self.flagCommons == 1 and self.flagLumps == 1:
+    if self.flagCommonPlusLumped == 1:
       stream.opentag('commonpluslumped')
       stream.writeln()
-      stream.tagContents("observed", "%d" % self.commonObservedAccumulator)
+      stream.tagContents("observed", "%d" % self.commonPlusLumpedObserved)
       stream.writeln()
-      stream.tagContents("expected", "%4f" % self.commonExpectedAccumulator)
+      stream.tagContents("expected", "%4f" % self.commonPlusLumpedExpected)
       stream.writeln()
-      stream.tagContents("chisq", "%4f" % self.HWChisq)
+      stream.tagContents("chisq", "%4f" % self.commonPlusLumpedChisq)
       stream.writeln()
-      stream.tagContents("pvalue", "%4f" % self.HWChisqPval)
+      stream.tagContents("pvalue", "%4f" % self.commonPlusLumpedChisqPval)
       stream.writeln()
-      stream.tagContents("chisqdf", "%d" % int(self.HWChisqDf))
+      stream.tagContents("chisqdf", "%d" % int(self.commonPlusLumpedChisqDf))
       stream.writeln()
       stream.closetag('commonpluslumped')
       stream.writeln()
     else:
-      if self.flagNoCommonGenotypes == 1:
-        stream.emptytag('commonpluslumped', role='no-common-genotypes')
-      elif self.flagTooManyParameters == 1:
-        stream.emptytag('commonpluslumped', role='too-many-parameters')
-      elif self.flagTooFewExpected == 1:
-        stream.emptytag('commonpluslumped', role='not-calulated')
-      else:
-        stream.emptytag('commonpluslumped', role='huh')
+      stream.emptytag('commonpluslumped', role='not-calculated')
       stream.writeln()
 
     stream.closetag('hardyweinberg')
