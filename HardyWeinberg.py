@@ -17,7 +17,10 @@ class HardyWeinberg:
 
   """
 
-  def __init__(self, locusData, alleleCount, lumpBelow, debug=0):
+  def __init__(self, locusData=None,
+               alleleCount=None,
+               lumpBelow = 5,
+               debug=0):
     """Constructor.
 
     - locusData and alleleCount to be provided by driver script
@@ -627,7 +630,9 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
      observed alleles (default 250).
   """
 
-  def __init__(self, locusData, alleleCount,
+  def __init__(self,
+               locusData=None,
+               alleleCount=None,
                dememorizationSteps=2000,
                samplingNum=1000,
                samplingSize=1000,
@@ -640,8 +645,10 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     self.maxMatrixSize=maxMatrixSize
     
     # call constructor of base class
-    HardyWeinberg.__init__(self, locusData, alleleCount, **kw)
-
+    HardyWeinberg.__init__(self,
+                           locusData=locusData,
+                           alleleCount=alleleCount,
+                           **kw)
                
   def dumpTable(self, locusName, stream):
 
