@@ -171,6 +171,12 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 
 	Ecount = 0;
 	Fcount = 0;
+
+#ifdef DISTRIBUTION_OUTPUT
+                /* Print header for stdout output */
+	printf("E_p \t F\n") ;
+
+#endif
 	for (repno=1; repno<=maxrep; repno++)  {
 		generate(k, n, r_random, ranvec, b);
 
@@ -180,6 +186,12 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 	Fsq_tot += F(k, n, r_random) * F(k, n, r_random);
 		/* end lines for getting the expected F, DM */
 
+#ifdef DISTRIBUTION_OUTPUT
+		/* begin lines for printing homozygosity values to stdout. DM  */
+	printf("%g\t", ewens_stat(r_random)) ;
+	printf("%g\n", F(k, n, r_random));
+		/* end lines for printing homozygosity values to stdout. DM */
+#endif
 		if (ewens_stat(r_random) <= E_obs) 
 			Ecount++;
 		if (F(k, n, r_random) <= F_obs)
