@@ -45,6 +45,9 @@ versions.ent: FORCE
 	(echo '<!ENTITY downloadroot "$(DOWNLOAD_URL)">') > versions.ent.new
 	((echo '<!ENTITY VERSION "' ; head -1 ../../src/VERSION ; echo '">') | tr -d '\n' ; echo) >> versions.ent.new
 	((echo '<!ENTITY pubdate "' ; date +'%d %B %Y' ; echo '">') | tr -d '\n' ; echo) >> versions.ent.new
+	(echo "<!ENTITY affiliation-ucb '<affiliation><orgname><ulink url=\"http://www.berkeley.edu/\">University of California, Berkeley</ulink></orgname><orgdiv><ulink url=\"http://ib.berkeley.edu/\">Department of Integrative Biology</ulink></orgdiv></affiliation>'>") >> versions.ent.new
+	(echo "<!ENTITY affiliation-uvm '<affiliation><orgname><ulink url=\"http://www.uvm.edu\">University of Vermont</ulink></orgname><orgdiv>Department of Medical Biostatistics</orgdiv></affiliation>'>") >> versions.ent.new
+
 	@if test -f versions.ent; then \
 	  if cmp versions.ent versions.ent.new; then \
 	    echo No change, using old version.ent; \
