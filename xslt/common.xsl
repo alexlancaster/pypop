@@ -10,8 +10,8 @@
   <text>Observed</text>
   <text>Expected</text>
   <text>Chi-square</text>
+  <text colwidth="5">dof</text>
   <text>p-value</text>
-  <text>d.o.f.</text>
  </data:hardyweinberg-col-headers>
 
  <!-- lookup table to translate population metadata XML tag names back
@@ -338,10 +338,19 @@
 
   <!-- print header for the individual stats -->
   <xsl:for-each select="document('')//data:hardyweinberg-col-headers/text">
-    <xsl:call-template name="prepend-pad">
-     <xsl:with-param name="padVar" select="."/>
-     <xsl:with-param name="length" select="$hardyweinberg-col-width"/>
-    </xsl:call-template>
+   <xsl:call-template name="prepend-pad">
+    <xsl:with-param name="padVar" select="."/>
+    <xsl:with-param name="length">
+     <xsl:choose>
+      <xsl:when test="@colwidth">
+       <xsl:value-of select="@colwidth"/>
+      </xsl:when>
+      <xsl:otherwise> 
+       <xsl:value-of select="$hardyweinberg-col-width"/>
+      </xsl:otherwise>
+     </xsl:choose>
+    </xsl:with-param>
+   </xsl:call-template>
   </xsl:for-each>
 
   <!-- separator -->
@@ -369,10 +378,30 @@
  <!-- will simply return a white-space padded cell of the right length -->
  <xsl:template name="hardyweinberg-gen-cell">
   <xsl:param name="node" select="."/>
-  <xsl:call-template name="prepend-pad">
-   <xsl:with-param name="padVar" select="$node"/>
-   <xsl:with-param name="length" select="$hardyweinberg-col-width"/>
-  </xsl:call-template>
+  <xsl:param name="width" select="$hardyweinberg-col-width"/>
+
+  <!-- some columns may be left-justified, set this param to '0' if desired -->
+  <xsl:param name="prepend" select="1"/>
+  
+  <xsl:choose>
+   <xsl:when test="$prepend=1">
+    <xsl:call-template name="prepend-pad">
+     <xsl:with-param name="padVar" select="$node"/>
+     <xsl:with-param name="length" select="$width"/>
+    </xsl:call-template>
+   </xsl:when>
+   <xsl:otherwise>
+    <!-- make sure there is at least one initial space -->
+    <!-- FIXME: this entire table generation system is getting way too -->
+    <!-- kludgy, need to replace the entire system, with a clean, generic --> 
+    <!-- system real soon now(TM) -->
+    <xsl:text> </xsl:text>
+    <xsl:call-template name="append-pad">
+     <xsl:with-param name="padVar" select="$node"/>
+     <xsl:with-param name="length" select="$width"/>
+    </xsl:call-template>
+   </xsl:otherwise>
+  </xsl:choose>
  </xsl:template>
 
  <!-- template to generate the row -->
@@ -407,16 +436,18 @@
     <xsl:with-param name="node">
      <xsl:apply-templates select="pvalue"/>
     </xsl:with-param>
+    <xsl:with-param name="prepend" select="0"/>
    </xsl:call-template>
   </xsl:variable>
   <xsl:variable name="chisqdf">
    <xsl:call-template name="hardyweinberg-gen-cell">
     <xsl:with-param name="node" select="chisqdf"/>
+    <xsl:with-param name="width" select="5"/>
    </xsl:call-template>
   </xsl:variable>
 
   <!-- concatenate all the cells -->
-  <xsl:value-of select="concat($observed,$expected,$chisq,$pvalue,$chisqdf)"/>
+  <xsl:value-of select="concat($observed,$expected,$chisq,$chisqdf,$pvalue)"/>
 
  </xsl:template>
 
@@ -710,6 +741,7 @@
  </xsl:template>
 
  <xsl:template match="pvalue">
+  <xsl:value-of select="."/> 
   <xsl:call-template name="append-pad">
    <xsl:with-param name="padChar">*</xsl:with-param>
    <xsl:with-param name="length">
@@ -718,7 +750,6 @@
     </xsl:call-template>
    </xsl:with-param>
   </xsl:call-template>
-  <xsl:value-of select="."/> 
  </xsl:template>
 
  <xsl:template match="pvalue" mode="bounded">
