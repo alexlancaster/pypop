@@ -1,7 +1,7 @@
 CC=gcc
 EXTRACFLAGS=
 
-CFLAGS=-O3 -g -funroll-loops $(EXTRACFLAGS)
+CFLAGS=-O3 -g -funroll-loops -ansi -pedantic -Wall -Wstrict-prototypes $(EXTRACFLAGS) 
 
 all: monte-carlo monte-carlo_distribution
 
