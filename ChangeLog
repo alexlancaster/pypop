@@ -1,3 +1,18 @@
+2004-02-11  Owen Solberg  <solberg@localhost.localdomain>
+
+	* Filter.py: Import add from operator, for use in the tallying of
+	residues/nucleotides in sequence filter logging.
+	(AnthonyNolanFilter.translateMatrix): Adding comments and
+	improving readability of code for sequence filter logging.
+
+	* Main.py (Main.__init__): Look for option makeNewPopFile in the
+	Filters section of the ini file.  This is a digit that specifies
+	any point in the chain of filters where the user wants to have the
+	data structure saved back to disk in the pop format.
+	(Main._runFilters): After running all the filters and building the
+	matrixHistory list, this method now checks to see if the user
+	asked to have any one of the filter stages saved to disk.
+
 2004-02-10  Owen Solberg  <solberg@localhost.localdomain>
 
 	* Filter.py (AnthonyNolanFilter.checkAlleleName): Sequence
