@@ -30,8 +30,16 @@
  <xsl:param name="title.margin.left" select="'0.0in'"/>
  <xsl:param name="toc.indent.width" select="8"/>
 
+ <!-- callout format -->
  <xsl:param name="callout.unicode" select="'1'"/>
  <xsl:param name="callout.graphics" select="'0'"/>
+
+ <!-- admon format -->
+ <xsl:attribute-set name="admonition.properties">
+  <xsl:attribute name="font-family">serif</xsl:attribute>
+  <xsl:attribute name="font-style">italic</xsl:attribute>
+  <xsl:attribute name="font-weight">bold</xsl:attribute>
+ </xsl:attribute-set>
 
  <xsl:param name="insert.xref.page.number" select="1"/>
 
