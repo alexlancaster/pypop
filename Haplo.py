@@ -286,22 +286,23 @@ class Emhaplofreq(Haplo):
         import cStringIO
         self.fp = cStringIO.StringIO()
 
-    def estHaplotypes(self, locusKeys=None,
-                      permutationFlag=0, haploSuppressFlag=0):
+    def _runEmhaplofreq(self, locusKeys=None,
+                        permutationFlag=None, haploSuppressFlag=None):
         
-        """Estimate haplotypes for listed groups in 'locusKeys'.
+        """Internal method to call _Emhaplofreq shared library.
 
-        Format of 'locusKeys' is a string consisting of:
+        Format of 'locusKeys' is a string as per estHaplotypes():
 
-        - comma (',') separated haplotypes blocks for which to estimate
-          haplotypes
+        - permutationFlag: sets whether permutation test will be
+          performed.  No default.
 
-        - within each `block', each locus is separated by colons (':')
+        - haploSuppressFlag: sets whether haplotype information is
+          generated in the output.   No default.
 
-        e.g. '*DQA1:*DPB1,*DRB1:*DQB1', means to est. haplotypes for
-         'DQA1' and 'DPB1' loci followed by est. of haplotypes for
-         'DRB1' and 'DQB1' loci.
         """
+
+        if (permutationFlag == None) or (haploSuppressFlag == None):
+            sys.exit("must pass a permutation or haploSuppressFlag to _runEmhaplofreq!")
 
         # if no locus list passed, assume calculation of entire data
         # set
@@ -375,9 +376,41 @@ class Emhaplofreq(Haplo):
                 self.fp.write("Couldn't estimate haplotypes for %s, num loci: %d exceeded max loci: %d" % (group, lociCount, self._Emhaplofreq.MAX_LOCI))
                 self.fp.write(os.linesep)
 
+    def estHaplotypes(self, locusKeys=None):
+        """Estimate haplotypes for listed groups in 'locusKeys'.
+
+        Format of 'locusKeys' is a string consisting of:
+
+        - comma (',') separated haplotypes blocks for which to estimate
+          haplotypes
+
+        - within each `block', each locus is separated by colons (':')
+
+        e.g. '*DQA1:*DPB1,*DRB1:*DQB1', means to est. haplotypes for
+         'DQA1' and 'DPB1' loci followed by est. of haplotypes for
+         'DRB1' and 'DQB1' loci.
+        """
+        self._runEmhaplofreq(locusKeys=locusKeys, permutationFlag=0,
+                             haploSuppressFlag=0)
+        
+
     def estLinkageDisequilibrium(self, locusKeys=None):
-        self.estHaplotypes(locusKeys, permutationFlag=1,
-                           haploSuppressFlag=1)
+        """Estimate linkage disequilibrium (LD) for listed groups in
+        'locusKeys'.
+
+        Format of 'locusKeys' is a string consisting of:
+
+        - comma (',') separated haplotypes blocks for which to estimate
+          haplotypes
+
+        - within each `block', each locus is separated by colons (':')
+
+        e.g. '*DQA1:*DPB1,*DRB1:*DQB1', means to est. LD for
+         'DQA1' and 'DPB1' loci followed by est. of LD for
+         'DRB1' and 'DQB1' loci.
+        """
+        self._runEmhaplofreq(locusKeys, permutationFlag=1,
+                             haploSuppressFlag=1)
 
     def estAllPairwise(self):
         """Estimate LD (linkage disequilibrium) in all pairwise loci.
@@ -400,23 +433,9 @@ class Emhaplofreq(Haplo):
             print li, len(li)
 
         for pair in li:
-            self.estHaplotypes(pair, permutationFlag=1,
-                               haploSuppressFlag=1)
+            self._runEmhaplofreq(pair, permutationFlag=1,
+                                 haploSuppressFlag=1)
             
-##             filename = string.join(string.split(pair,'*'),'')
-##             # create stream to write to
-##             stream = open(filename+'.haplo', 'w')
-
-##             # create the in-memory file instance for the C program to write to
-##             import cStringIO
-##             self.fp = cStringIO.StringIO()
-
-##             print "estimating haplos for", pair
-##             self.estHaplotypes(pair)
-
-##             self.serializeTo(stream)
-            
-
     def serializeTo(self, stream):
 
         type = getStreamType(stream)
