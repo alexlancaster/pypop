@@ -51,14 +51,16 @@ current directory or in %s.
   -h, --help           show this message
   -c, --config=FILE    select alternative config file
   -d, --debug          enable debugging output (overrides config file setting)
+  -i, --interactive    run in interactive mode, prompting user for file names
   -g, --gui            run GUI (warning *very* experimental)
   
   INPUTFILE   input text file""" % altpath
 
 from getopt import getopt, GetoptError
+from ConfigParser import ConfigParser
 
 try:
-  opts, args =getopt(sys.argv[1:],"lsgc:hd", ["use-libxslt", "use-4suite", "gui", "config=", "help", "debug"])
+  opts, args =getopt(sys.argv[1:],"lsigc:hd", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug"])
 except GetoptError:
   sys.exit(usage_message)
 
@@ -68,7 +70,8 @@ use_FourSuite = 0
 configFilename = 'config.ini'
 specifiedConfigFile = 0
 debugFlag = 0
-guiFlag =0
+interactiveFlag = 0
+guiFlag = 0
 
 # parse options
 for o, v in opts:
@@ -83,6 +86,8 @@ for o, v in opts:
     debugFlag = 1
   elif o in ("-h", "--help"):
     sys.exit(usage_message)
+  elif o in ("-i", "--interactive"):
+    interactiveFlag = 1
   elif o in ("-g", "--gui"):
     guiFlag = 1
 
@@ -105,13 +110,67 @@ if guiFlag:
 
 else:
   # call as a command-line application
-  
-  # check number of arguments
-  if len(args) != 1:
-    sys.exit(usage_message)
 
-  # parse arguments
-  fileName = args[0]
+  if interactiveFlag:
+    # run in interactive mode, requesting input from user
+
+    # Choices made in previous runs of PyPop will be stored in a file
+    # called '.pypoprc', stored the user's home directory
+    # (i.e. $HOME/.pypoprc) so that in subsequent invocations of the
+    # script it will use the previous choices as defaults.
+
+    # For systems without a concept of a $HOME directory (i.e.
+    # Windows), it will look for .pypoprc in the current directory.
+
+    # The '.pypoprc' file will be created if it does not previously
+    # exist.  The format of this file is identical to the ConfigParser
+    # format (i.e. the .ini file format).
+    
+    if os.environ['HOME']:
+      pypoprcFilename = os.path.join(os.environ['HOME'],'.pypoprc')
+    else:
+      pypoprcFilename = '.pypoprc'
+
+    pypoprc = ConfigParser()
+      
+    if os.path.isfile(pypoprcFilename):
+      pypoprc.read(pypoprcFilename)
+      configFilename = pypoprc.get('Files', 'config')
+      fileName = pypoprc.get('Files', 'pop')
+    else:
+      configFilename = 'config.ini'
+      fileName = 'no default'
+
+    print """PyPop: Python for Population Genetics
+Copyright (C) 2003 Regents of the University of California
+This is free software.  There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+You may redistribute copies of PyPop under the terms of the
+GNU General Public License.  For more information about these
+matters, see the file named COPYING.
+
+To accept the default in brackets for each filename, simply press
+return for each prompt.
+"""
+
+    from Main import getUserFilenameInput
+
+    # read user input for both filenames
+    configFilename = getUserFilenameInput("config", configFilename)
+    fileName = getUserFilenameInput("population", fileName)
+
+    print "PyPop is running..."
+    
+  else:   
+    # non-interactive mode: run in 'batch' mode
+    
+    # check number of arguments
+    if len(args) != 1:
+      sys.exit(usage_message)
+
+      # parse arguments
+      fileName = args[0]
 
   # parse out the parts of the filename
   baseFileName = os.path.basename(fileName)
@@ -128,3 +187,14 @@ else:
                      use_libxsltmod=use_libxsltmod,
                      use_FourSuite=use_FourSuite)
 
+  if interactiveFlag:
+    print "PyPop run complete"
+
+    # update .pypoprc file
+
+    if pypoprc.has_section('Files') != 1:
+      pypoprc.add_section('Files')
+      
+    pypoprc.set('Files', 'config', os.path.abspath(configFilename))
+    pypoprc.set('Files', 'pop', os.path.abspath(fileName))
+    pypoprc.write(open(pypoprcFilename, 'w'))
