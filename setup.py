@@ -59,20 +59,31 @@ setup (name = "PyPop",
                                              ('XML_OUTPUT', '1')]
                               ),
 
-                    Extension("_Gthwe", ["gthwe/cal_const.c",
-                              "gthwe/cal_n.c", "gthwe/cal_prob.c",
-                              "gthwe/check_file.c",
-                              "gthwe/do_switch.c", 
-                              "gthwe/new_rand.c",
-                              "gthwe/ln_p_value.c",
-                              "gthwe/to_calculate_log.c",
-                              "gthwe/print_data.c",
-                              "gthwe/random_choose.c",
-                              "gthwe/read_data.c",
-                              "gthwe/select_index.c",
-                              "gthwe/stamp_time.c",
-                              "gthwe/test_switch.c"],
-                              include_dirs=["gthwe"])
+                    Extension("_Gthwemodule",
+                              [ "gthwe/gthwe_wrap.i",
+                                "gthwe/hwe.c",
+                                "gthwe/cal_const.c",
+                                "gthwe/cal_n.c", "gthwe/cal_prob.c",
+                                "gthwe/check_file.c",
+                                "gthwe/do_switch.c", 
+                                "gthwe/new_rand.c",
+                                "gthwe/ln_p_value.c",
+                                "gthwe/to_calculate_log.c",
+                                "gthwe/print_data.c",
+                                "gthwe/random_choose.c",
+                                "gthwe/read_data.c",
+                                "gthwe/select_index.c",
+                                "gthwe/stamp_time.c",
+                                "gthwe/test_switch.c"],
+                              include_dirs=["gthwe"],
+                              define_macros=[('fprintf', 'pyfprintf'),
+                                             ('XML_OUTPUT', '1'),
+                                             ('SUPPRESS_ALLELE_TABLE', '1'),
+                                             ('MAX_ALLELE', '35'),
+                                             ('LENGTH',
+                                              'MAX_ALLELE*(MAX_ALLELE+1)/2')
+                                             ]
+                              )
                     ]
        )
 
