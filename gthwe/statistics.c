@@ -132,10 +132,12 @@ void init_stats(char *statistic_type,
     for (j=0; j <= i; j++) {
       obs_normdev[L(i,j)] = statistic_func(i, j, (total_individuals * 2), 
 					   allele_array, genotypes);
+#ifdef LOGGING
 #ifndef XML_OUTPUT
-      fprintf(outfile, "obs_normdev[%d, %d] = %f\n", i, j, obs_normdev[L(i,j)]);
+      fprintf(outfile, "obs. teststat %s (%d,%d)[%d] = %f\n", statistic_type, i, j, genotypes[L(i,j)], obs_normdev[L(i,j)]);
 #else
       fprintf(outfile, "<genotypeObservedStatistic statistic=\"%s\" row=\"%d\" col=\"%d\" id=\"%d\">%g</genotypeObservedStatistic>\n", statistic_type, i, j, L(i,j), obs_normdev[L(i,j)]);
+#endif
 #endif
       fflush(stdout);
     }
@@ -156,19 +158,20 @@ void store_stats(char *statistic_type, double (*statistic_func) (int, int, int, 
       
       double sim_normdev = statistic_func(k, l, (total_individuals * 2), 
 					  allele_array, genotypes);
-      /* printf("norm dev: sim = %g, ", sim_normdev); */
-
-      if (sim_normdev >= obs_normdev[L(k,l)]) {
+      int comparison=0;
+      if (GREATER_OR_EQUAL (sim_normdev, obs_normdev[L(k,l)])) {
 	normdev_count[L(k,l)]++;
+	comparison=1;
 	/* printf("obs = %g\n", obs_normdev[L(k,l)]); */
       }
 
+#ifdef LOGGING
 #ifdef XML_OUTPUT
-  if (L(k,l) == 169)
       fprintf(outfile, "<genotypeSimulatedStatistic statistic=\"%s\" row=\"%d\" col=\"%d\" id=\"%d\">%g</genotypeSimulatedStatistic>\n", statistic_type, k, l, L(k,l), sim_normdev);
-
+#else
+      fprintf(outfile, "sim. test-stat %s (%d,%d) [%d]= %g (%g) [%s]\n", statistic_type, k, l, genotypes[L(k,l)], sim_normdev, obs_normdev[L(k,l)], comparison ? "YES": "NO"); 
 #endif
-
+#endif
     }
 }
 
@@ -179,8 +182,10 @@ void print_stats(char *statistic_type, int *normdev_count,
   for (k=0; k < no_allele; k++) 
     for (l=0; l <= k; l++) {
 #ifndef XML_OUTPUT      
-      fprintf(outfile, "normdev_count[%d, %d] = %d, p-value = %g\n", 
-	      k, l, normdev_count[L(k,l)], normdev_count[L(k,l)]/steps);
+      fprintf(outfile, 
+	      "test-stat %s count (%d,%d) = %d, p-value = %g\n", 
+	      statistic_type, k, l, normdev_count[L(k,l)], 
+	      normdev_count[L(k,l)]/steps);
 #else
       fprintf(outfile, "<pvalue type=\"genotype\" statistic=\"%s\" row=\"%d\" col=\"%d\">%g</pvalue>\n", statistic_type, k, l, normdev_count[L(k,l)]/steps);
 #endif

@@ -1,5 +1,25 @@
 2005-03-03  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* hwe.c: Move GSL includes to hwe.h.
+	(run_data): Use LESS_OR_EQUAL macro in place of '<=' when
+	comparing floats.
+	Correct for dememorisation steps when calculating p-values in the
+	case of individual genotypes.
+	(run_randomization): Use LESS_OR_EQUAL macro in place of '<=' when
+	comparing floats.
+
+	* statistics.c (store_stats): Use GREATER_OR_EQUAL macro in place
+	of '>=' which is numerically unstable.
+	(init_stats, store_stats, print_stats): Put logging in LOGGING
+	#ifdef and improve diagnostics.
+
+	* hwe.h (EPSILON, GREATER_OR_EQUAL, LESS_OR_EQUAL): New macros to
+	check for greater-than-or-equality and less-than-or-equality
+	between floats, use GNU Scientific Library (GSL) function
+	gsl_fcmp() to compare floats to within EPSILON.  Set EPSILON to
+	1e-6.
+	Move GSL #includes here.
+
 	* statistics.c (store_stats): Use greater than or equal to ('>=')
 	when incrementing test statistic count, rather than just greater
 	than ('>') as noted by Richard Single.

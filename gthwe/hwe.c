@@ -50,9 +50,6 @@ MODIFICATIONS. */
 #include "func.h"
 #include <math.h>
 
-#include <gsl/gsl_rng.h>
-#include <gsl/gsl_randist.h>
-
 /* correct execution of this program: gthwe infile outfile */
 int main(int argc, char *argv[])
 {
@@ -249,9 +246,10 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
       for (j = 0; j < sample.size; ++j)
 	{
 	  select_index(&index, no_allele);
-	  ln_p_simulated = cal_prob(genotypes, index, ln_p_simulated, &actual_switch);
+	  ln_p_simulated = cal_prob(genotypes, index, 
+				    ln_p_simulated, &actual_switch);
 	  
-	  if (ln_p_simulated <= ln_p_observed)  
+	  if (LESS_OR_EQUAL(ln_p_simulated, ln_p_observed))  
 	    ++counter;
 	  ++result.swch_count[actual_switch];
 
@@ -303,10 +301,11 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
   
 #ifdef INDIVID_GENOTYPES
   /* print pvalues for each genotype */
+  /* correct for number of dememorisation steps? */
   print_stats("chen_statistic", chen_statistic_count, no_allele, 
-	      total_step, outfile);
+	      total_step - sample.step, outfile);
   print_stats("diff_statistic", diff_statistic_count, no_allele, 
-	      total_step, outfile);
+	      total_step - sample.step, outfile);
 
   /* free dynamically-allocated memory  */
   free(obs_chen_statistic);
@@ -449,7 +448,7 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
     printf("obs. log[Pr(f)] = %e, sim. log[Pr(g)] = %e\n", ln_p_observed, ln_p_perm);
 #endif
 
-    if (ln_p_perm <= ln_p_observed)
+    if (LESS_OR_EQUAL(ln_p_perm, ln_p_observed))
       K++;
 
     /* store the individual genotype stats */
