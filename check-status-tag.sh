@@ -47,6 +47,7 @@ else
     read REALLYTAG
     if test "x$REALLYTAG" = xy; then
 	echo running cvs tag $CVSTAG
+	cvs tag $CVSTAG
     else
 	echo not tagging
     fi
