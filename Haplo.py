@@ -486,6 +486,7 @@ class Emhaplofreq(Haplo):
 
     def allPairwise(self,
                     numPermutations=None,
+                    numPermuInitCond=None,
                     haploSuppressFlag=None,
                     haplosToShow=None,
                     mode=None):
@@ -535,6 +536,7 @@ class Emhaplofreq(Haplo):
             self._runEmhaplofreq(pair,
                                  permutationFlag=permutationFlag,
                                  numPermutations=numPermutations,
+                                 numPermuInitCond=numPermuInitCond,
                                  haploSuppressFlag=haploSuppressFlag,
                                  showHaplo=showHaplo,
                                  mode=mode)

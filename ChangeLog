@@ -1,11 +1,15 @@
 2003-12-12  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
-	* config.ini (allPairwiseLDWithPermu): Change semantics of
+	* config.ini ([allPairwiseLDWithPermu]): Change semantics of
 	command, this is no longer a boolean variable but an integer
 	specifiying how many permutations we will.  If it is nonzero, the
 	default) or then permutations are enabled and the number of
 	permutations specified in the option is used.  If the flag is
 	ommited or zero, then no permutation testing is done.
+	([numPermuInitCond]): New .ini file option: Number of initial
+	conditions used if permutation test is run default is to 5 (this
+	parameter is only used if 'allPairwiseLDWithPermu' is set and
+	nonzero).
 	
 	* Main.py (Main._doGenotypeFile): Parse 'allePairwiseLDWithPermu'
 	as an integer, rather than a boolean.  If set to zero, then this
@@ -14,6 +18,9 @@
 	Update LOG message with number of permutations to be run.  Pass
 	allPairwiseLDWithPermu as the new numPermutations keyword to Haplo
 	class invocation.
+	Parse new '.ini' option. 'numPermuInitCond', an integer which is
+	the number of initial conditions used per permutation run (default
+	to 5).  Pass to allPairwise() method call.
 
 	* Haplo.py (Emhaplofreq._runEmhaplofreq): Add two new keyword
 	parameter to method: 'numPermutations': sets number of
@@ -25,6 +32,8 @@
 	permutationFlag -> numPermutations (integer).  Use in place
 	throughout, pass to _runEmhaplofreq.  Internal permutationFlag set
 	to zero if numPermutations = 0.
+	(Emhaplofreq.allPairwise): Add new keyword parameter:
+	'numPermuInitCond', no default.  Pass through to _runEmhaplofreq.
 
 2003-12-10  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 

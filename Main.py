@@ -841,10 +841,18 @@ class Main:
           except ValueError:
             sys.exit("allPairwiseLDWithPermu: option requires an integer")
 
+          try:
+            numPermuInitCond = self.config.getint("Emhaplofreq",
+                                                  "numPermuInitCond")
+          except NoOptionError:
+            numPermuInitCond=5
+          except ValueError:
+            sys.exit("allPairwiseLDWithPermu: option requires an integer")
+
           if allPairwiseLD:
             print "LOG: estimating all pairwise LD:",
             if allPairwiseLDWithPermu:
-              print "with %d permutations" % allPairwiseLDWithPermu
+              print "with %d permutations and %d initial conditions for each permutation" % (allPairwiseLDWithPermu, numPermuInitCond)
             else:
               print "with no permutation test"
 
@@ -901,6 +909,7 @@ class Main:
           # do all pairwise LD, w/ or w/o permutation test
           if allPairwiseLD:
             haplo.allPairwise(numPermutations=allPairwiseLDWithPermu,
+                              numPermuInitCond=numPermuInitCond,
                               haploSuppressFlag=0,
                               haplosToShow=twoLocusHaplosToShow)
 
