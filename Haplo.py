@@ -325,6 +325,7 @@ class Emhaplofreq(Haplo):
 
     def _runEmhaplofreq(self, locusKeys=None,
                         permutationFlag=None,
+                        permutationPrintFlag=0,
                         numPermutations=1001,
                         numPermuInitCond=5,
                         haploSuppressFlag=None,
@@ -337,6 +338,10 @@ class Emhaplofreq(Haplo):
 
         - permutationFlag: sets whether permutation test will be
           performed.  No default.
+
+        - permutationPrintFlag: sets whether the result from
+          permutation output run will be included in the output XML.
+          Default: 0 (disabled).
 
         - numPermutations: sets number of permutations that will be
           performed if 'permutationFlag' *is* set.  Default: 1001.
@@ -427,10 +432,15 @@ class Emhaplofreq(Haplo):
                 self.fp.write(os.linesep)
                 
                 # pass this submatrix to the SWIG-ed C function
-                self._Emhaplofreq.main_proc(self.fp, subMatrix,
-                                            lociCount, groupNumIndiv,
-                                            permutationFlag, haploSuppressFlag,
-                                            numPermutations, numPermuInitCond)
+                self._Emhaplofreq.main_proc(self.fp,
+                                            subMatrix,
+                                            lociCount,
+                                            groupNumIndiv,
+                                            permutationFlag,
+                                            haploSuppressFlag,
+                                            numPermutations,
+                                            numPermuInitCond,
+                                            permutationPrintFlag)
 
                 self.fp.write("</group>")
 
@@ -485,6 +495,7 @@ class Emhaplofreq(Haplo):
                              mode='LD')
 
     def allPairwise(self,
+                    permutationPrintFlag=0,
                     numPermutations=None,
                     numPermuInitCond=None,
                     haploSuppressFlag=None,
@@ -535,31 +546,32 @@ class Emhaplofreq(Haplo):
             
             self._runEmhaplofreq(pair,
                                  permutationFlag=permutationFlag,
+                                 permutationPrintFlag=permutationPrintFlag,
                                  numPermutations=numPermutations,
                                  numPermuInitCond=numPermuInitCond,
                                  haploSuppressFlag=haploSuppressFlag,
                                  showHaplo=showHaplo,
                                  mode=mode)
 
-    def allPairwiseLD(self, haplosToShow=None):
-        """Estimate all pairwise LD and haplotype frequencies.
+#     def allPairwiseLD(self, haplosToShow=None):
+#         """Estimate all pairwise LD and haplotype frequencies.
 
-        Estimate the LD (linkage disequilibrium)for each pairwise set
-        of loci.
-        """
-        self.allPairwise(permutationFlag=0,
-                         haploSuppressFlag=0,
-                         mode='all-pairwise-ld-no-permu')
+#         Estimate the LD (linkage disequilibrium)for each pairwise set
+#         of loci.
+#         """
+#         self.allPairwise(permutationFlag=0,
+#                          haploSuppressFlag=0,
+#                          mode='all-pairwise-ld-no-permu')
 
-    def allPairwiseLDWithPermu(self, haplosToShow=None):
-        """Estimate all pairwise LD.
+#     def allPairwiseLDWithPermu(self, haplosToShow=None):
+#         """Estimate all pairwise LD.
 
-        Estimate the LD (linkage disequilibrium)for each pairwise set
-        of loci.
-        """
-        self.allPairwise(permutationFlag=1,
-                         haploSuppressFlag=0,
-                         mode='all-pairwise-ld-with-permu')
+#         Estimate the LD (linkage disequilibrium)for each pairwise set
+#         of loci.
+#         """
+#         self.allPairwise(permutationFlag=1,
+#                          haploSuppressFlag=0,
+#                          mode='all-pairwise-ld-with-permu')
 
     def serializeTo(self, stream):
         """Serialize output to XML stream
