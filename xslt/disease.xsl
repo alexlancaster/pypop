@@ -121,20 +121,18 @@
 
   <!-- mpn having a go -->
   <xsl:call-template name="newline"/>
-  <xsl:call-template name="newline"/>
   <!-- loop through each haplotype-->
   <xsl:for-each select="haplotypefreq/haplotype">
    <xsl:sort select="@name" data-type="number" order="ascending"/>
    <xsl:for-each select="frequency|numCopies|@name">
     <xsl:call-template name="append-pad">
      <xsl:with-param name="padVar" select="."/>
-     <xsl:with-param name="length">32</xsl:with-param>
+     <xsl:with-param name="length">24</xsl:with-param>
     </xsl:call-template>
    </xsl:for-each>
    <xsl:call-template name="newline"/>
   </xsl:for-each>
 
-  <xsl:call-template name="newline"/>
  </xsl:template>
 
 </xsl:stylesheet>
