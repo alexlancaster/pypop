@@ -1647,14 +1647,19 @@
    
    <figure id="em-performance">
     <title>Performance of EM
-     algorithm in recovering known haplotypes (see text for
-     discussion)</title>
-    <programlisting></programlisting>
+     algorithm in recovering known haplotypes</title>
+    <mediaobject>
+     <imageobject>
+      <imagedata fileref="em-performance.jpg" format="JPG" scale="70"/>
+     </imageobject>
+     <caption>
+      <para>(see text for discussion)</para></caption>
+    </mediaobject>
    </figure>
    
    <para>The performance of the EM algorithm for the estimation of
     haplotypes in the HLA region is illustrated in <xref
-    linkend="em-performance"/>These are results from a study reported
+    linkend="em-performance"/>.  These are results from a study reported
     in <citation role="citet">Single:etal:2002</citation> where family
     data allowed haplotypes to be unambiguously inferred, so true and
     estimated haplotype frequencies could be compared.  The graphs
