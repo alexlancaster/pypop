@@ -625,7 +625,9 @@ class ParseAlleleCountFile(ParseFile):
                 else:
                     lastAlleleName = alleleName
                 alleleCount += 1
-                
+        if rowCount == (self.totalIndivCount - 1):
+            self.matrix[rowCount, self.locusName] = (lastAlleleName, '****')
+        
         print self.matrix
 
     def genValidKey(self, field, fieldList):
