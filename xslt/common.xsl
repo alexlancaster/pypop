@@ -30,6 +30,8 @@
  <xsl:param name="hardyweinberg-first-col-width"
  select="$hardyweinberg-col-width + 6"/>
 
+ <xsl:param name="hardyweinberg-cols-to-fit" select="9"/>
+
  <xsl:template match="/">
   <xsl:apply-templates/> 
  </xsl:template>
@@ -610,7 +612,11 @@
   <xsl:text>Table of genotypes, format of each cell is: observed/expected.</xsl:text>
   <xsl:call-template name="newline"/>
 
-  <xsl:variable name="padding" select="8"/>
+  <!-- save the unique list of column names-->
+  <xsl:variable name="unique-cols" select="genotype[@col!=preceding-sibling::genotype/@col]/@col"/>
+
+  <!-- save the current node -->
+  <xsl:variable name="curr-node" select="."/>
 
   <xsl:variable name="row-len-max">
    <xsl:call-template name="max-string-len">
@@ -623,10 +629,84 @@
     <xsl:with-param name="path" select="genotype/@col"/>
    </xsl:call-template>
   </xsl:variable>
+
+  <!-- check each unique column and output a subtable whenever  -->
+  <!-- the column header is a multiple of the cols to fit on the page -->
+  <xsl:for-each select="$unique-cols">
+
+   <xsl:variable name="pos" select="position()"/>
+
+   <xsl:choose>
+    <!-- can fit the max number of cols on page -->
+    <xsl:when test="$pos mod $hardyweinberg-cols-to-fit = 0">
+
+     <xsl:variable name="end-col" select="position()"/>
+     <xsl:variable name="start-col" 
+      select="$end-col - $hardyweinberg-cols-to-fit + 1"/>
+
+     <xsl:call-template name="gen-subtable">
+      <xsl:with-param name="node" select="$curr-node"/>
+      <xsl:with-param name="start-col" select="$start-col"/>
+      <xsl:with-param name="end-col" select="$end-col"/>
+      <xsl:with-param name="unique-cols" select="$unique-cols"/>
+      <xsl:with-param name="row-len-max" select="$row-len-max"/>
+      <xsl:with-param name="col-len-max" select="$col-len-max"/>
+     </xsl:call-template>
+
+     <xsl:text>                             [Cols: </xsl:text>
+     <xsl:value-of select="$start-col"/><xsl:text> to </xsl:text>
+     <xsl:value-of select="$end-col"/><xsl:text>]</xsl:text>
+
+    </xsl:when>
+
+    <!-- this deals with the situtation when there are some leftover cols -->
+    <xsl:when test="$pos=last() and $pos mod $hardyweinberg-cols-to-fit != 0">
+     
+     <xsl:variable name="end-col" select="position()"/>
+     <xsl:variable name="start-col" 
+      select="$end-col - ($pos mod $hardyweinberg-cols-to-fit) + 1"/>
+
+     <xsl:call-template name="gen-subtable">
+      <xsl:with-param name="node" select="$curr-node"/>
+      <xsl:with-param name="start-col" select="$start-col"/>
+      <xsl:with-param name="end-col" select="$end-col"/>
+      <xsl:with-param name="unique-cols" select="$unique-cols"/>
+      <xsl:with-param name="row-len-max" select="$row-len-max"/>
+      <xsl:with-param name="col-len-max" select="$col-len-max"/>
+     </xsl:call-template>
+
+     <xsl:text>                             [Cols: </xsl:text>
+     <xsl:value-of select="$start-col"/><xsl:text> to </xsl:text>
+     <xsl:value-of select="$end-col"/><xsl:text>]</xsl:text>
+
+    </xsl:when>
+   </xsl:choose>
+
+  </xsl:for-each>
+
+  <xsl:call-template name="newline"/>
+ </xsl:template>
+
+ <xsl:template name="gen-subtable">
+  <xsl:param name="node"/>
+  <xsl:param name="start-col"/>
+  <xsl:param name="end-col"/>
+  <xsl:param name="unique-cols"/>
+  <xsl:param name="row-len-max"/>
+  <xsl:param name="col-len-max"/>
   
-  <xsl:for-each select="genotype">
+  <xsl:variable name="padding" select="8"/>
+
+  <xsl:for-each select="$node/genotype">
    <xsl:sort select="@row"/>
-   <xsl:if test="@row!=preceding-sibling::genotype/@row">
+   
+   <xsl:variable name="row" select="@row"/>
+   <xsl:variable name="col" select="@col"/>
+   
+   <!-- generate row name, only on first col and only if the row --> 
+   <!-- is part of this column processing -->
+   
+   <xsl:if test="@row!=preceding-sibling::genotype/@row and $unique-cols[.=$row and position() &gt;= $start-col]">
     <xsl:call-template name="newline"/>
     <xsl:call-template name="prepend-pad">
      <xsl:with-param name="length" select="$row-len-max"/>
@@ -634,22 +714,26 @@
     </xsl:call-template>
    </xsl:if>
 
-   <xsl:for-each select="@col">
-    <xsl:sort select="."/>
+   <!-- only output cell if in the current column range -->
+   <xsl:if test="$unique-cols[.=$col and position() &gt;= $start-col and position() &lt;= $end-col]"> 
+
     <xsl:variable name="cell">
      <!-- round and format the decimal values of "observed" to nearest 0.1 -->
-     <xsl:value-of select="../observed"/><xsl:text>/</xsl:text><xsl:call-template name="round-to">
-      <xsl:with-param name="node" select="../expected"/>
+     <xsl:value-of select="observed"/><xsl:text>/</xsl:text>
+     <xsl:call-template name="round-to">
+      <xsl:with-param name="node" select="expected"/>
       <xsl:with-param name="places" select="1"/>
      </xsl:call-template>
     </xsl:variable>
     
+    <!-- output cell with padding -->
     <xsl:call-template name="prepend-pad">
      <xsl:with-param name="length" select="$padding"/>
-     <xsl:with-param name="padVar" select="$cell"/>
+     <xsl:with-param name="padVar" select="$cell"/> 
     </xsl:call-template>
     
-   </xsl:for-each>
+   </xsl:if>
+    
   </xsl:for-each>
 
   <xsl:call-template name="newline"/>
@@ -658,23 +742,17 @@
   <xsl:call-template name="prepend-pad">
    <xsl:with-param name="length" select="$row-len-max"/>
   </xsl:call-template>
-
-  <xsl:for-each select="genotype">
-   <xsl:sort select="@col"/>
-
-   <xsl:if test="@col!=preceding-sibling::genotype/@col">
-
-    <xsl:variable name="footercell">
-     <xsl:value-of select="@col"/>
-    </xsl:variable>
-
-    <xsl:call-template name="prepend-pad">
-     <xsl:with-param name="length" select="$padding"/>
-     <xsl:with-param name="padVar" select="$footercell"/>
-    </xsl:call-template>
-    
-   </xsl:if>
+  
+  <!-- create column footer by filtering out appropriate columns from
+  unique column list -->
+  <xsl:for-each select="$unique-cols[position() &gt;= $start-col and position() &lt;= $end-col]">
+   <xsl:sort select="."/>
+   <xsl:call-template name="prepend-pad">
+    <xsl:with-param name="length" select="$padding"/>
+    <xsl:with-param name="padVar" select="."/>
+   </xsl:call-template>
   </xsl:for-each>
+
   <xsl:call-template name="newline"/>
 
  </xsl:template>
