@@ -1,3 +1,7 @@
+2004-06-15    <alexl AT berkeley.edu>
+
+	* Makefile (CFLAGS): Add CFLAGSEXTRA for passing at command-line.
+
 2004-06-11 Alex Lancaster  <alexl berkeley.edu>
 
 	* read_data.c (read_data): Prevent test running only if less than
