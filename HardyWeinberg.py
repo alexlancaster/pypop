@@ -474,6 +474,8 @@ class HardyWeinberg:
         stream.emptytag('lumped', role='too-few-expected')
       elif self.flagNoCommonGenotypes == 1:
         stream.emptytag('lumped', role='no-common-genotypes')
+      elif self.flagTooManyParameters == 1:
+        stream.emptytag('lumped', role='too-many-parameters')
 
     if self.flagCommons == 1:
       stream.opentag('common')
