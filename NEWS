@@ -1,6 +1,11 @@
 PyPop NEWS --- history of user-visible changes to PyPop.  -*- outline -*-
 Copyright (C) 2003, 2004 Regents of the University of California
 
+* Release Notes towards PyPop 0.x.y (public beta)
+**Bug fixes
+*** Add missing RandomBinning.py file to source distribution
+    Thanks to Hazael Maldonado Torres for the bug report	.
+
 * Release Notes for PyPop 0.5.1 (public beta) 2004-02-26
 ** Changes
 *** New parameter 'numInitCond', number of initial conditions by the
