@@ -666,7 +666,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #endif
       }
 
-#ifdef DEBUG
+#if DEBUG == 1
 	 for(i = 0; i < n_unique_pheno; i++) 
 	 { 
 	 fprintf(fp_out, "pheno: %s obspheno: %d numgeno %d \n", pheno[i], obspheno[i], numgeno[i]); 
@@ -1118,7 +1118,7 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
     }
   }
 
-#ifdef DEBUG
+#if DEBUG == 1
   /*  RS --- CHECKING */
   for (k = 0; k < num_loci; k++) 
   {
@@ -1156,7 +1156,7 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
         xhaplo[unique_haplo_count] = unique_haplo_count; 
         xgeno[i][j] = unique_haplo_count;
 
-#ifdef DEBUG
+#if DEBUG == 1
 	fprintf(stdout, "xgeno[%d][%d]:%d \n", i,j,xgeno[i][j]);
 #endif
 
@@ -1177,7 +1177,7 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
             }  
           }
         }
-#ifdef DEBUG
+#if DEBUG == 1
 	/* RS --- CHECKING */
         for (k = 0; k < num_loci; k++) 
 	  fprintf(stdout, "haplo_ar[%d]: %s temp_array[%d]: %s \n", 
@@ -1220,7 +1220,7 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
   int i, j, locus, col_0, col_1 = 0;
   int unique_allele_flag, unique_allele_count = 0;
 
-#ifdef DEBUG
+#if DEBUG == 1
   for (i = 0; i < n_recs; i++)
   for (j = 0; j < 2*n_loci; j++)
   fprintf(stdout, "data[%d][%d]: %s\n", i, j, data_ar[i][j]); 
