@@ -60,13 +60,16 @@ versions.ent: FORCE
 
 
 FIGS = $(addprefix work-flow., png eps) $(addprefix design., png eps) api.png
-OUTPUTS = $(addprefix biostat., html txt pdf) $(addprefix tex-math-equations., tex dvi) eqns
+OUTPUTS = $(addprefix biostat., html txt pdf) $(addprefix tex-math-equations., tex dvi) eqns $(shell cat HTML.manifest)
 EXTRA_CLEAN = $(addprefix biostat., aux log out) $(addprefix tex-math-equations., tex dvi)
 EXTRA_XML_SOURCE = hlaintro.xml methods.xml pypop.xml glossary.xml instructions.xml versions.ent
+EXTRA_XSL_SOURCE = citation.xsl biblio.xsl
 
-all: $(OUTPUTS) $(FIGS) api/index.html
+all: $(FIGS) api/index.html
 
 tex-math-equations.tex: biostat.xml $(EXTRA_XML_SOURCE)
+
+guide.*: INSTALL.xml README.xml COPYING.xml biblio.xml instructions.xml
 
 # convert LaTeX images into DVI
 %.dvi: %.tex
@@ -91,27 +94,27 @@ eqns: tex-math-equations.dvi
 # rules to produce final version of HTML, FO, PDF etc.
 
 # produces final HTML
-%.html: %.xml html.xsl citation.xsl $(EXTRA_XML_SOURCE) color
+%.html: %.xml html.xsl $(EXTRA_XML_SOURCE) $(EXTRA_XSL_SOURCE)
 	$(CVSPRE)
 	$(XMLLINT)	
-	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML) -o $@ html.xsl $<
+	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML) --stringparam root.filename $(basename $@) html.xsl $<
 	$(CVSPOST)
 
 # produces intermediate HTML suitable for conversion to plain text
 # disable TOC, graphic and unicode callouts
-%-txt.html: %.xml html.xsl citation.xsl $(EXTRA_XML_SOURCE) color
+%-singlepage.html: %.xml text.xsl $(EXTRA_XML_SOURCE) $(EXTRA_XSL_SOURCE)
 	$(CVSPRE)
 	$(XMLLINT)	
 	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML)  -o $@ text.xsl $<
 	$(CVSPOST)
 
-%.txt: %-txt.html
+%.txt: %-singlepage.html
 	w3m -dump $< > $@
 
 # don't use profiling-highlighting right now
 #--param profiling-highlighting $(if $(findstring profile,$<),0,1)
 
-%.fo: %.xml fo.xsl citation.xsl $(EXTRA_XML_SOURCE) color
+%.fo: %.xml fo.xsl pagesetup.xsl $(EXTRA_XML_SOURCE) $(EXTRA_XSL_SOURCE)
 	$(CVSPRE)
 	$(XMLLINT)
 	$(XSLTPROC) $(XSLCOMMON) $(XSLFO) -o $@ fo.xsl $<
