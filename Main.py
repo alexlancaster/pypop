@@ -880,13 +880,21 @@ class Main:
           except ValueError:
             sys.exit("allPairwiseLDWithPermu: option requires an integer")
 
+          # FIXME: needed for backwards-compatibility, remove when not
+          # needed
+          if allPairwiseLDWithPermu == 1:
+              sys.exit("""ERROR: semantics of 'allPairwiseLDWithPerm' option have changed.
+It is no longer a boolean variable to enable the permutation test.
+It should now contain the NUMBER of permutations desired.  A value of
+at least 1000 is recommended.  A value of '1' is not permitted.""")
+
           try:
             numPermuInitCond = self.config.getint("Emhaplofreq",
                                                   "numPermuInitCond")
           except NoOptionError:
             numPermuInitCond=5
           except ValueError:
-            sys.exit("allPairwiseLDWithPermu: option requires an integer")
+            sys.exit("numPermuInitCond: option requires an integer")
 
           if allPairwiseLD:
             print "LOG: estimating all pairwise LD:",
