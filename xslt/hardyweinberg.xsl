@@ -538,10 +538,10 @@
    <xsl:with-param name="text">
     <xsl:choose>
      <xsl:when test="@role='too-few-alleles'">
-      <xsl:text>Too few alleles</xsl:text>
+      <xsl:text>Too few alleles for 'gthwe' implementation of Guo and Thompson's exact test</xsl:text>
      </xsl:when>
      <xsl:when test="@role='too-large-matrix'">
-      <xsl:text>Too large a matrix for Guo and Thompson</xsl:text>
+      <xsl:text>Too large a matrix for 'gthwe' implementation of Guo and Thompson's exact test</xsl:text>
      </xsl:when>
      
      <xsl:otherwise>
@@ -570,6 +570,7 @@
 	
        </xsl:otherwise>
       </xsl:choose>
+
       <!--
       <xsl:text>*switches*</xsl:text>
       <xsl:call-template name="newline"/>
@@ -577,9 +578,27 @@
       <xsl:with-param name="nodes" select="switches/*"/>
      </xsl:call-template>
       -->
+
      </xsl:otherwise>
      
     </xsl:choose>
+   </xsl:with-param>
+  </xsl:call-template>
+ </xsl:template>
+
+ <xsl:template match="hardyweinbergGuoThompsonArlequin">
+
+  <xsl:call-template name="section">
+   <xsl:with-param name="title">
+    <xsl:call-template name="locus-header">
+     <xsl:with-param name="title">Guo and Thompson HardyWeinberg output (Arlequin's implementation)</xsl:with-param>
+    </xsl:call-template>
+   </xsl:with-param>
+   <xsl:with-param name="level" select="3"/>
+   <xsl:with-param name="text">
+    <xsl:call-template name="linesep-fields">
+     <xsl:with-param name="nodes" select="*"/>
+    </xsl:call-template>
    </xsl:with-param>
   </xsl:call-template>
  </xsl:template>
