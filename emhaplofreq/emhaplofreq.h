@@ -32,8 +32,8 @@
 #endif
 
 /* 
- * macros to initialize elements of a given static array to "zero"
- * make sure that functions are "re-entrant" (i.e. don't carry bogus
+ * macros to initialize elements of a given static array to `zero'
+ * make sure that functions are `re-entrant' (i.e. don't carry bogus
  * data over from previous invocations) and are therefore idempotent
  * (behave identically from function-call to function-call) when used
  * in a shared library context.
@@ -48,4 +48,17 @@ memset(id, '\0', size1*size2*sizeof(type))
 #define INIT_STATIC_DIM3(type,id,size1,size2,size3) \
 memset(id, '\0', size1*size2*size3*sizeof(type))
 
+/*
+ * macros to allocate memory for automatic variables in a function to
+ * zero via `calloc' for different dimensional arrays.  a
+ * corresponding `free' must always be used at the end of the function
+ */
 
+#define CALLOC_ARRAY_DIM1(type,name,size1) \
+type *name = (type *)calloc(size1, sizeof(type))
+
+#define CALLOC_ARRAY_DIM2(type,name,size1,size2) \
+type (*name)[size2] = (type (*)[size2])calloc(size1*size2, sizeof(type))
+
+#define CALLOC_ARRAY_DIM3(type,name,size1,size2,size3) \
+type (*name)[size2][size3] = (type (*)[size2][size3])calloc(size1*size2*size3, sizeof(type))
