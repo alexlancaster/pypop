@@ -51,6 +51,8 @@ MODIFICATIONS.
  <xsl:template match="emhaplofreq/group[(string-length(@loci) -
  string-length(translate(@loci, ':', '')))=2 and @role!='no-data']"> 
 
+  <xsl:param name="limit" select="0.02"/>
+
   <xsl:variable name="loci-array" select="str:tokenize(@loci, ':')"/>
 
   <xsl:variable name="locus1" select="$loci-array[1]"/>
@@ -61,8 +63,7 @@ MODIFICATIONS.
   <xsl:variable name="locus-pair13" select="concat($locus1,':',$locus3)"/>
   <xsl:variable name="locus-pair23" select="concat($locus2,':',$locus3)"/>
 
-  <xsl:for-each select="haplotypefreq/haplotype[frequency &gt;=
-   0.02]">
+  <xsl:for-each select="haplotypefreq/haplotype[frequency &gt;= $limit]">
 
    <xsl:sort select="frequency"/>
 
