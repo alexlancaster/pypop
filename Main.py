@@ -47,6 +47,33 @@ from ConfigParser import ConfigParser, NoOptionError
 from Utils import XMLOutputStream, TextOutputStream
 from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter
 
+def getUserFilenameInput(prompt, filename):
+    """Read user input for a filename, check it's existence, continue
+    requesting input until a valid filename is entered."""
+
+    nofile = 1
+    while nofile:
+      tempFilename = raw_input("Please enter %s filename [%s]: " % (prompt, filename))
+
+      # if we accept default, still check that file still exists
+      if tempFilename == '':
+          if os.path.isfile(filename):
+              nofile = 0
+          else:
+              print "File '%s' does not exist" % filename
+      else:
+          # if we don't accept default, check that file exists and use
+          # the user input as the filename
+          if os.path.isfile(tempFilename):
+              nofile = 0
+              filename = tempFilename
+          else:
+              # otherwise return an error
+              print "File '%s' does not exist" % tempFilename
+      
+    return filename
+
+
 def getConfigInstance(configFilename = None,
                       altpath = None,
                       usage_message = None):
