@@ -1,3 +1,4 @@
+
 <xsl:stylesheet 
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
@@ -76,6 +77,14 @@
  <xsl:template name="newline"><xsl:text>
   </xsl:text></xsl:template>
 
+ <!-- separator -->
+ <xsl:template name="separator">
+  <xsl:call-template name="append-pad">
+   <xsl:with-param name="padChar" select="'-'"/>
+   <xsl:with-param name="length" select="75"/>
+  </xsl:call-template>
+ </xsl:template>
+
  <!-- formats a header: a "title" underlined with equals-signs (`=') -->
  <xsl:template name="header">
   <xsl:param name="title"/>
@@ -135,6 +144,16 @@
    <xsl:sort select="string-length(.)" data-type="number" order="descending"/>
    <xsl:if test="position()=1">
     <xsl:value-of select="string-length(.)"/></xsl:if>
+  </xsl:for-each>
+ </xsl:template>
+
+ <!-- finds the maximum length of an XML element (tag), found in 'path' -->
+ <xsl:template name="max-tag-len">
+  <xsl:param name="path" select="."/>
+  <xsl:for-each select="$path">
+   <xsl:sort select="string-length(name(.))" data-type="number" order="descending"/>
+   <xsl:if test="position()=1">
+    <xsl:value-of select="string-length(name(.))"/></xsl:if>
   </xsl:for-each>
  </xsl:template>
 
@@ -201,15 +220,26 @@
   <xsl:call-template name="newline"/>
   <xsl:apply-templates/>
  </xsl:template>
- 
+
+ <!-- pre-calculate the maximum length of the metadata element (tag)
+ length to use in padding for the population summary -->
+ <xsl:param name="metadata-max-len">
+  <xsl:call-template name="max-tag-len">
+   <xsl:with-param name="path" select="//populationdata/*"/>
+  </xsl:call-template>
+ </xsl:param>
+
  <xsl:template match="longitude|latitude|ethnic-group|collection-site|typing-method|continent-of-origin|lab-code">
   
   <!-- translate dashes back to spaces for output --> 
-  <xsl:value-of select="translate(name(.),'-', ' ')"/>
+  <xsl:call-template name="prepend-pad">
+   <xsl:with-param name="padVar" select="translate(name(.),'-', ' ')"/>
+   <xsl:with-param name="length" select="$metadata-max-len"/>
+  </xsl:call-template>
   <xsl:text>: </xsl:text>
   <xsl:value-of select="."/>
   <xsl:call-template name="newline"/>
-  </xsl:template>
+ </xsl:template>
  
  <!-- metadata totals -->
  <xsl:template match="populationdata/totals">
@@ -342,6 +372,9 @@
     </xsl:call-template>
   </xsl:for-each>
 
+  <!-- separator -->
+  <xsl:call-template name="newline"/>
+  <xsl:call-template name="separator"/>
   <xsl:call-template name="newline"/>
 
   <!-- no do individual stats for each class -->
@@ -470,6 +503,9 @@
    </xsl:otherwise>
   </xsl:choose>
   <xsl:call-template name="newline"/>
+
+  <!-- separator -->
+  <xsl:call-template name="separator"/>
   <xsl:call-template name="newline"/>
 
  </xsl:template>
@@ -490,6 +526,10 @@
    <xsl:call-template name="newline"/>
   </xsl:for-each>  
 
+  <xsl:call-template name="newline"/>
+  
+  <!-- separator -->
+  <xsl:call-template name="separator"/>
   <xsl:call-template name="newline"/>
 
  </xsl:template>
