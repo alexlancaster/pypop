@@ -94,26 +94,18 @@
 
 /* Typemap to convert a Python 1-d array of ints to int [] */
 %typemap(python, in) int [ANY] {
-#if DEBUG
   printf("converting from a 1-d array of ints\n");
-#endif
   if (PyList_Check($source)) {
     int i;
     int size0 = PyList_Size($source);
-#if DEBUG
     printf("length of list = %d\n", size0);
-#endif
     $target = (int *)malloc((size0+1)*sizeof(int));
     if ($target != NULL) {
       for (i = 0; i < size0; i++) {
 	PyObject *p = PyList_GetItem($source,i);
-#if DEBUG
 	printf("loc = %d\n", i);
-#endif
 	if (PyInt_Check(p)){
-#if DEBUG
 	  printf("$target[%d] = %d\n", i, (int)PyInt_AS_LONG(p));
-#endif
 	  $target[i] = (int)PyInt_AS_LONG(p);
 	} else {	      
 	  PyErr_SetString(PyExc_TypeError, "list must contain ints");
