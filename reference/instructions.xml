@@ -132,13 +132,13 @@ Total     1.00000   90        | Total     1.00000   90
    Homozygosity values lower than Expected Homozygosity, in the
    direction of balancing selection. Positive values are in the
    direction of directional selection. The p-value provided in the
-   last row of the ouput is the probability that the observed
+   last row of the output is the probability that the observed
    homozygosity would be obtained from a neutral sample (of size 2n
    and k distinct alleles).  P-values smaller than 0.05 reject the
    null hypothesis of neutrality.</para>
 
   <example>
-   <title>Sample output of homozyogsity test</title>
+   <title>Sample output of homozygosity test</title>
 <programlisting><![CDATA[
 1.4. Ewens-Watterson homozygosity test of neutrality [A]
 ________________________________________________________
@@ -158,10 +158,10 @@ p-value range: 0.0000 < p <= 0.0100 *
    matrix reports observed and expected genotype counts. If there are
    more than nine loci, the matrix is split into different
    sections. Each cell contains the observed and expected number for a
-   given genotype in the format oberved/expected.</para>
+   given genotype in the format observed/expected.</para>
 
   <example>
-   <title>Sample output of HardyWeinberg genotype table</title>
+   <title>Sample output of Hardy-Weinberg genotype table</title>
 
  <programlisting><![CDATA[
 1.2. HardyWeinberg [A]
@@ -278,7 +278,7 @@ Common genotypes
    message is reported: </para>
 
 <programlisting>
-   No commmon genotypes; chi-square cannot be calculated
+   No common genotypes; chi-square cannot be calculated
 </programlisting>
 
   <para>If the sum of expected counts in the lumped class does not add up to
@@ -291,7 +291,7 @@ Common genotypes
 
   <para>The lumping procedure may generate a dataset where there are fewer
    classes (genotypes) than allele frequencies to estimate.  This means
-   that the analysis cannot be peformed (degrees of freedom &lt; 1). In such
+   that the analysis cannot be performed (degrees of freedom &lt; 1). In such
    a case the following message is reported, explaining why the analysis
    could not be performed:</para>
 
@@ -365,7 +365,7 @@ Too large a matrix for Guo and Thompson
    frequencies were estimated, the number of individual genotypes in
    the dataset (<literal>before-filtering</literal>), the number of
    genotypes that have data for all loci for which haplotype
-   estimation will be peformed (<literal>after-filtering</literal>),
+   estimation will be performed (<literal>after-filtering</literal>),
    the number of unique phenotypes (unphased genotypes), the number of
    unique genotypes, the total number of possible haplotypes (many of
    these will have an estimated frequency of zero), and the
@@ -489,5 +489,6 @@ Local variables:
 sgml-local-catalogs: ("catalog")
 sgml-indent-step: 1
 sgml-indent-data: 1
+ispell-skip-html: t
 End:
 -->
