@@ -346,6 +346,10 @@ class Main:
                     self.filtersToApply = string.split(self.filtersToApply, ':')
                 except:
                     self.filtersToApply = []
+                try:
+                    self.makeNewPopFile = self.config.getint("Filters","makeNewPopFile")
+                except:
+                    self.makeNewPopFile = 0
 
                 # this allows the user to have "filtersToApply=" without ill consequences
                 if len(self.filtersToApply) > 0 and len(self.filtersToApply[0]) > 0:
@@ -560,6 +564,30 @@ class Main:
         if self.debug:
             print "matrixHistory"
             print self.matrixHistory
+
+        if self.makeNewPopFile:
+            
+            popdump = TextOutputStream(open('newpop.pop', 'w'))
+            dumpMatrix = self.matrixHistory[self.makeNewPopFile]
+
+
+            for locus in dumpMatrix.colList:
+                if dumpMatrix.colList.index(locus) > 0:
+                    popdump.write('\t')
+                popdump.write(locus + '_1\t' + locus + '_2')
+            popdump.write(os.linesep)
+            
+            individCount = 0
+            while individCount < len(dumpMatrix):
+                for locus in dumpMatrix.colList:
+                    individ = dumpMatrix[locus][individCount]
+                    if dumpMatrix.colList.index(locus) > 0:
+                        popdump.write('\t')
+                    popdump.write(individ[0] + '\t' + individ[1])
+                individCount += 1
+                popdump.write(os.linesep)
+            popdump.close()
+            
 
 
     def _doAlleleCountFile(self):

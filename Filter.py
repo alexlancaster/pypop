@@ -43,6 +43,7 @@
 import sys, os, string, types, re, exceptions
 from Utils import OrderedDict, TextOutputStream, StringMatrix
 from copy import deepcopy
+from operator import add
 
 class SubclassError(Exception):
     def __init__(self):
@@ -545,12 +546,9 @@ class AnthonyNolanFilter(Filter):
     def translateMatrix(self, matrix=None):
 
         self.matrix = matrix
-        
         self.polyseq, self.polyseqpos = self.makeSeqDictionaries(self.matrix)
 
-
-
-        # produce formatted output in filter log for the allele sequences
+        # log to the -filter.xml file
         self.logFile.opentag('sequence')
         self.logFile.writeln()
 
@@ -563,23 +561,20 @@ class AnthonyNolanFilter(Filter):
                     else:
                         alleleTally[allele] = 1
 
+            self.logFile.writeln('-------------------------')
             self.logFile.writeln('locus: %s' % locus)
-            positionString = {}
 
+            # makes the position numbers into a block of monospace, vertically oriented numbers
             if len(self.polyseqpos[locus]) > 0:
+                positionString = {}
                 longestPosition = len(str(max(self.polyseqpos[locus])))
-                
                 for positionDigit in xrange(longestPosition,0,-1):
                     positionString[positionDigit] = ''
-
                     for position in self.polyseqpos[locus]:
-
                         if len(str(position)) >= positionDigit:
                             positionString[positionDigit] += str(position)[-positionDigit]
                         else:
                             positionString[positionDigit] += ' '
-
-
                 for line in xrange(len(positionString.keys()),0,-1):
                     self.logFile.writeln('\t\t' + positionString[line])
 
@@ -587,6 +582,24 @@ class AnthonyNolanFilter(Filter):
             li.sort()
             for allele in li:
                 self.logFile.writeln(allele + '\t' + str(alleleTally[allele]) + '\t' + self.polyseq[locus + '*' + allele])
+            self.logFile.writeln()
+            self.logFile.writeln('Total chromosomes: %d' % reduce(add,alleleTally.values()))
+
+            for position in xrange(len(self.polyseqpos[locus])):
+                positionTally = {}
+                for allele in li:
+                    letter = self.polyseq[locus + '*' + allele][position]
+                    if letter in positionTally:
+                        positionTally[letter] += alleleTally[allele]
+                    else:
+                        positionTally[letter] = alleleTally[allele]
+
+                positionReportString = "Position: " + str(self.polyseqpos[locus][position])
+                letters = positionTally.keys()
+                letters.sort()
+                for letter in letters:
+                    positionReportString += "\t" + letter + " " + str(positionTally[letter])
+                self.logFile.writeln(positionReportString)
 
             self.logFile.writeln()
 
