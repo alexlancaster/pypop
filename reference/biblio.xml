@@ -1088,27 +1088,25 @@
  </biblioentry>
 
  <biblioentry id="Robinson:etal:1991">
-  <biblioset relation="article">
-   <authorgroup>
-    <author>
-     <firstname>WP</firstname>
-     <surname>Robinson</surname>
-    </author>
-    <author>
-     <firstname>MA</firstname>
-     <surname>Asmussen</surname>
-    </author>
-    <author>
-     <firstname>G</firstname>
-     <surname>Thomson</surname>
-    </author>
-   </authorgroup>
-   <pubdate>1991</pubdate>
+  <authorgroup>
+   <author>
+    <firstname>WP</firstname>
+    <surname>Robinson</surname>
+   </author>
+   <author>
+    <firstname>MA</firstname>
+    <surname>Asmussen</surname>
+   </author>
+   <author>
+    <firstname>G</firstname>
+    <surname>Thomson</surname>
+   </author>
+  </authorgroup>
+  <pubdate>1991</pubdate>
    <citetitle pubwork="article">Three-locus systems impose additional constraints on pairwise disequilibria</citetitle>
-   <citetitle pubwork="journal">Genetics</citetitle> 
-   <volumenum>129</volumenum>
-   <pagenums>925-30</pagenums>
-  </biblioset>
+  <citetitle pubwork="journal">Genetics</citetitle> 
+  <volumenum>129</volumenum>
+  <pagenums>925-30</pagenums>
  </biblioentry>
 
  <biblioentry id="Robinson:etal:2003">
@@ -1147,6 +1145,7 @@
      <surname>Marsh</surname>
     </author>
    </authorgroup>
+   <pubdate>2003</pubdate>
    <citetitle>200XX IMGT/HLA and IMGT/MHC - Sequence Databases for the study of the Major Histocompatibility Complex</citetitle>
   </biblioset>
   <biblioset relation="book">
@@ -1182,6 +1181,7 @@
      <surname>Thomson</surname>
     </author>
    </authorgroup>
+   <pubdate>2003</pubdate>
    <citetitle>Statistical methods for analysis of population genetic data.</citetitle>
   </biblioset>
   <biblioset relation="book">
