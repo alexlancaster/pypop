@@ -24,8 +24,10 @@ class ArlequinWrapper:
         self.arlequinExec = arlequinExec
         self.separator = '\t'
         self.debug = debug
-        
-        self.arlSubdir = 'arlequinRuns'
+
+        # append PID to make directory name unique
+        # note this is specific to Unix and Windows 
+        self.arlSubdir = 'arlequinRuns-%d' % os.getpid()
 
         # make a subdirectory
         if not os.path.exists(self.arlSubdir):
