@@ -46,47 +46,6 @@
   </xsl:call-template>
  </xsl:template>
 
- <!-- get significance for two-tailed test -->
- <xsl:template name="get-significance-two-tailed">
-  <xsl:param name="lower"/>
-  <xsl:param name="upper"/>
-
-   <!-- 
-   a two tailed test implies testing both end of distribution:
-
-   5%:    0.005 < p <= 0.025 OR 0.975 <= p < 0.995        (*)
-   1%:    0.0005 < p <= 0.005 OR 0.995 <= p < 0.9995      (**)
-   0.1%:  0.00005 < p <= 0.0005 OR 0.9995 <= p < 0.99995  (***)
-   0.01%: p <= 0.00005 OR p >= 0.99995                    (****)
-   -->
-
-  <xsl:choose>
-
-  <xsl:when test="($upper &lt;= 0.00005) or ($lower &gt;= 0.99995)">4</xsl:when>
-   <xsl:when test="($upper &lt;= 0.0005) or ($lower &gt;= 0.9995)">3</xsl:when>
-
-   <xsl:when test="($upper &lt;= 0.005) or ($lower &gt;= 0.995)">2</xsl:when>
-
-   <xsl:when test="($upper &lt;= 0.025) or ($lower &gt;= 0.975)">1</xsl:when>
-
-<!-- more strict test, that assumes we have an exact value, rather 
-     a than range
-
-  <xsl:when test="($upper &lt;= 0.00005)
-    or ($lower &gt;= 0.99995)">4</xsl:when>
-
-   <xsl:when test="($upper &lt;= 0.0005 and $lower &gt; 0.00005)
-    or ($upper &lt;= 0.99995 and $lower &gt; 0.9995)">3</xsl:when>
-   <xsl:when test="($upper &lt;= 0.005 and $lower &gt; 0.0005)
-    or ($upper &lt;= 0.9995 and $lower &gt; 0.995)">2</xsl:when>
-
-   <xsl:when test="($upper &lt;= 0.025 and $lower &gt; 0.005)
-    or ($upper &lt;= 0.995 and $lower &gt; 0.975)">1</xsl:when>
--->
- 
-   <xsl:otherwise>0</xsl:otherwise>
-  </xsl:choose>
- </xsl:template>
 
  <xsl:template match="homozygosityEWSlatkinExact">
   <xsl:call-template name="section">
@@ -115,16 +74,24 @@
       <xsl:text>, Variance in F: </xsl:text>
       <xsl:value-of select="varHomozygosity"/>
       <xsl:text>, p-value of F: </xsl:text>
-      <!-- treat pvalue differently -->
+
+      <!-- treat pvalue differently, get significance based on a -->
+      <!-- two-tailed test -->
       <xsl:call-template name="pvalue-func">
        <xsl:with-param name="val" select="probHomozygosity"/>
+       <xsl:with-param name="type" select="'two-tailed'"/>
       </xsl:call-template>
-     <!-- <xsl:value-of select="probHomozygosity"/> -->
+
+      <!--
       <xsl:call-template name="newline"/>
       <xsl:text>Theta: </xsl:text>
       <xsl:value-of select="theta"/>
-      <xsl:text>, prob of Ewens value: </xsl:text>
-      <xsl:value-of select="probEwens"/>
+      <xsl:text>, p-value for Ewens test: </xsl:text>
+      <xsl:call-template name="pvalue-func">
+       <xsl:with-param name="val" select="probEwens"/>
+      </xsl:call-template>
+      -->
+
      </xsl:otherwise>
     </xsl:choose>
    </xsl:with-param>
@@ -132,22 +99,6 @@
   
  </xsl:template>
  
- <xsl:template match="pvalue" mode="bounded">
-  
-  <xsl:value-of select="lower"/><xsl:text disable-output-escaping="yes"> &lt; p &lt;= </xsl:text><xsl:value-of select="upper"/>
-  <xsl:text> </xsl:text> 
-
-  <xsl:call-template name="append-pad">
-   <xsl:with-param name="padChar">*</xsl:with-param>
-   <xsl:with-param name="length">
-    <xsl:call-template name="get-significance-two-tailed">
-     <xsl:with-param name="lower" select="lower"/>
-     <xsl:with-param name="upper" select="upper"/>
-    </xsl:call-template>
-   </xsl:with-param>
-  </xsl:call-template>
-
-  </xsl:template>
 
  <!-- ################  END HOMOZYGOSITY STATISTICS ###################### --> 
 
