@@ -342,14 +342,8 @@ if config.has_section("Emhaplofreq"):
   txtStream.writeln("Haplotype estimation via emhaplofreq:")
   txtStream.writeln("=====================================")
 
-  for group in string.split(locusKeys, ','):
-    haplo = Emhaplofreq(input.getIndividualsData(), debug=debug)
-    haplo.estHaplotypes(group)
-    txtStream.writeln()
-    txtStream.writeln("Est. haplotypes for locus groups: " + group)
-    txtStream.writeln("================================")
-    txtStream.writeln()
-    haplo.serializeTo(txtStream)
+  haplo = Emhaplofreq(input.getIndividualsData(), debug=debug)
+  haplo.estHaplotypes(locusKeys)
 
   try:
     estAllPairwise = config.getboolean("Emhaplofreq", "estAllPairwise")
@@ -360,6 +354,8 @@ if config.has_section("Emhaplofreq"):
 
   if estAllPairwise:
     haplo.estAllPairwise()
+
+  haplo.serializeTo(txtStream)
 
 # closing tag
 xmlStream.closetag('dataanalysis')
