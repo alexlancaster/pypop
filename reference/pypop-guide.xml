@@ -16,7 +16,7 @@
    </affiliation>
   </author>
   <releaseinfo>Version 0.2</releaseinfo>
-  <pubdate>Last modified: $Date$ by $Author$</pubdate>
+<!--  <pubdate>Last modified: $Date$ by $Author$</pubdate> -->
   
  </bookinfo>
 
@@ -32,9 +32,10 @@
 
  <chapter>
   <chapterinfo>
-   <xi:include href="instructions.xml#xpointer(//articleinfo/*)"/>
+   <xi:include href="instructions.xml#xpointer(//articleinfo/authorgroup)"/>
+   <xi:include href="instructions.xml#xpointer(//articleinfo/pubdate)"/>
   </chapterinfo>
-  <xi:include href="instructions.xml#xpointer(/article/title)"/>
+  <title>Interpreting <application>PyPop</application> output</title>
   <xi:include href="instructions.xml#xpointer(//sect1)"/>  
  </chapter>
 
