@@ -128,11 +128,11 @@ skip any XML files that are not well-formed XML.
   -d, --dump-meta         dump the meta output file to stdout, ignore xslt file
       --disable-R         disable generation of R *.dat file
       --enable-PHYLIP     enable generation of PHYLIP *.phy files
-
+      --disable-ihwg      disable 13th workshop populationdata default headers, take as-is
   INPUTFILES  input XML files""" % datapath
 
 try:
-  opts, args =getopt(sys.argv[1:],"m:hd", ["meta-xslt=", "help", "dump-meta", "disable-R", "enable-PHYLIP"])
+  opts, args =getopt(sys.argv[1:],"m:hd", ["meta-xslt=", "help", "dump-meta", "disable-R", "enable-PHYLIP", "disable-ihwg"])
 except GetoptError:
   sys.exit(usage_message)
 
@@ -155,6 +155,9 @@ R_output=1
 # don't output PHYLIP by default
 PHYLIP_output=0
 
+# by default, enable the 13th IHWG format headers
+ihwg_output = 1
+
 # parse options
 for o, v in opts:
   if o in ("-m", "--meta-xslt"):
@@ -167,6 +170,16 @@ for o, v in opts:
     R_output = 0
   elif o=="--enable-PHYLIP":
     PHYLIP_output = 1
+  elif o=="--disable-ihwg":
+    ihwg_output = 0
+
+# create XSLT parameters
+if ihwg_output:
+    xslt_params = {"13ihwg-fmt": "1"}
+else:
+    xslt_params = {"13ihwg-fmt": "0"}
+
+print xslt_params
 
 # parse arguments
 files = args
@@ -227,7 +240,7 @@ else:
 
     if R_output:
         # generate all data output in formats for R
-        translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml')
+        translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml', xslt_params)
 
     if PHYLIP_output:
         # use 'sorted-by-locus.xml' to generate a list of unique alleles

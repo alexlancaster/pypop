@@ -84,13 +84,31 @@ MODIFICATIONS.
   <regionname long="Other">11.Other</regionname>          
  </data:region-order>
 
+ <xsl:param name="13ihwg-fmt" select="0"/>
+
  <xsl:param name="map-order" 
   select="document('')//data:map-order/locusname"/>
 
  <xsl:param name="region-order" 
   select="document('')//data:region-order/regionname"/>
 
- <xsl:param name="header-line-start">pop&#09;labcode&#09;method&#09;ethnic&#09;collect.site&#09;region&#09;latit&#09;longit&#09;complex&#09;</xsl:param>
+ <xsl:param name="13th-header-line-start">pop&#09;labcode&#09;method&#09;ethnic&#09;collect.site&#09;region&#09;latit&#09;longit&#09;complex&#09;</xsl:param>
+
+ <xsl:template name="header-line-start">
+  <xsl:param name="popnode"/>
+  <xsl:choose>
+   <xsl:when test="$13ihwg-fmt">
+    <xsl:value-of select="$13th-header-line-start"/>
+   </xsl:when>
+   <xsl:otherwise>
+    <xsl:for-each select="$popnode/*">
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node" select="name(.)"/>
+     </xsl:call-template>
+    </xsl:for-each>
+   </xsl:otherwise>
+  </xsl:choose>
+ </xsl:template>
 
  <xsl:template name="output-field">
   <xsl:param name="node"/>
@@ -114,44 +132,56 @@ MODIFICATIONS.
  
  <xsl:template name="line-start">
   <xsl:param name="popnode"/>
-  
-  <xsl:call-template name="output-field">
-   <xsl:with-param name="node" select="translate($popnode/popname, ' ', '-')"/>
-  </xsl:call-template>
 
-  <xsl:call-template name="output-field">
-   <xsl:with-param name="node" select="translate($popnode/labcode, ' ', '-')"/>
-  </xsl:call-template>
+  <xsl:choose>
+   <xsl:when test="$13ihwg-fmt">
 
-  <xsl:call-template name="output-field">
-   <xsl:with-param name="node" select="translate($popnode/method, ' ', '-')"/>
-  </xsl:call-template>
- 
-  <xsl:call-template name="output-field">
-   <xsl:with-param name="node" select="translate($popnode/ethnic, ' ', '-')"/>
-  </xsl:call-template>
+    <xsl:call-template name="output-field">
+     <xsl:with-param name="node" select="translate($popnode/popname, ' ', '-')"/>
+    </xsl:call-template>
+    
+    <xsl:call-template name="output-field">
+     <xsl:with-param name="node" select="translate($popnode/labcode, ' ', '-')"/>
+    </xsl:call-template>
+    
+    <xsl:call-template name="output-field">
+     <xsl:with-param name="node" select="translate($popnode/method, ' ', '-')"/>
+    </xsl:call-template>
+    
+    <xsl:call-template name="output-field">
+     <xsl:with-param name="node" select="translate($popnode/ethnic, ' ', '-')"/>
+    </xsl:call-template>
 
-  <xsl:call-template name="output-field">
-   <xsl:with-param name="node" select="translate($popnode/collect, ' ', '-')"/>
-  </xsl:call-template>
-
-  <!-- apply short form of regions as defined in lookup table -->
-  <xsl:call-template name="output-field">
-   <xsl:with-param name="node" select="$region-order[@long=translate($popnode/contin, ' ', '-')]"/>
-  </xsl:call-template>
-
-  <xsl:call-template name="output-field">
-   <xsl:with-param name="node" select="translate($popnode/latit, ' ', '_')"/>
-  </xsl:call-template>
-
-  <xsl:call-template name="output-field">
-   <xsl:with-param name="node" select="translate($popnode/longit, ' ', '_')"/>
-  </xsl:call-template>
-
-  <xsl:call-template name="output-field">
-   <xsl:with-param name="node" select="translate($popnode/complex, ' ', '_')"/>
-  </xsl:call-template>
-
+    <xsl:call-template name="output-field">
+     <xsl:with-param name="node" select="translate($popnode/collect, ' ', '-')"/>
+    </xsl:call-template>
+    
+    <!-- apply short form of regions as defined in lookup table -->
+    <xsl:call-template name="output-field">
+     <xsl:with-param name="node" select="$region-order[@long=translate($popnode/contin, ' ', '-')]"/>
+    </xsl:call-template>
+    
+    <xsl:call-template name="output-field">
+     <xsl:with-param name="node" select="translate($popnode/latit, ' ', '_')"/>
+    </xsl:call-template>
+    
+    <xsl:call-template name="output-field">
+     <xsl:with-param name="node" select="translate($popnode/longit, ' ', '_')"/>
+    </xsl:call-template>
+    
+    <xsl:call-template name="output-field">
+     <xsl:with-param name="node" select="translate($popnode/complex, ' ', '_')"/>
+    </xsl:call-template>
+    
+   </xsl:when>
+   <xsl:otherwise>
+    <xsl:for-each select="$popnode/*">
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node" select="."/>
+     </xsl:call-template>
+    </xsl:for-each>
+   </xsl:otherwise>  
+  </xsl:choose>
  </xsl:template>
 
  <xsl:template name="gen-lines">
@@ -675,7 +705,10 @@ MODIFICATIONS.
     <exsl:document href="1-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;n.gametes&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.obs&#09;f.slatkin.exp&#09;f.slatkin.fnd&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig</xsl:text>
+     <xsl:call-template name="header-line-start">
+      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+     </xsl:call-template>
+<xsl:text>locus&#09;n.gametes&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.obs&#09;f.slatkin.exp&#09;f.slatkin.fnd&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
@@ -686,7 +719,10 @@ MODIFICATIONS.
     <exsl:document href="1-locus-allele.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
+     <xsl:call-template name="header-line-start">
+      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+     </xsl:call-template>
+     <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
@@ -697,7 +733,10 @@ MODIFICATIONS.
     <exsl:document href="1-locus-genotype.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
+     <xsl:call-template name="header-line-start">
+      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+     </xsl:call-template>
+     <xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
 
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
@@ -710,7 +749,10 @@ MODIFICATIONS.
     <exsl:document href="2-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>n.gametes&#09;locus1&#09;locus2&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
+     <xsl:call-template name="header-line-start">
+      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+     </xsl:call-template>
+     <xsl:text>n.gametes&#09;locus1&#09;locus2&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
@@ -722,7 +764,10 @@ MODIFICATIONS.
     <exsl:document href="2-locus-haplo.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count&#09;ld.d&#09;ld.dprime&#09;ld.chisq&#09;obs&#09;obs.freq&#09;exp</xsl:text>
+     <xsl:call-template name="header-line-start">
+      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+     </xsl:call-template>
+     <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count&#09;ld.d&#09;ld.dprime&#09;ld.chisq&#09;obs&#09;obs.freq&#09;exp</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
@@ -734,7 +779,7 @@ MODIFICATIONS.
     <exsl:document href="3-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3</xsl:text>
+     <xsl:value-of select="header-line-start"/><xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
@@ -747,7 +792,10 @@ MODIFICATIONS.
     <exsl:document href="3-locus-haplo.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
+     <xsl:call-template name="header-line-start">
+      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+     </xsl:call-template>
+     <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
@@ -760,7 +808,10 @@ MODIFICATIONS.
     <exsl:document href="4-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3&#09;locus4</xsl:text>
+     <xsl:call-template name="header-line-start">
+      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+     </xsl:call-template>
+     <xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3&#09;locus4</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
@@ -773,7 +824,10 @@ MODIFICATIONS.
     <exsl:document href="4-locus-haplo.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
+     <xsl:call-template name="header-line-start">
+      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+     </xsl:call-template>
+     <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
