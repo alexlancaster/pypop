@@ -1,3 +1,9 @@
+/*  
+I have added code to estimate the expected homozygosity and the variance
+of the expected homozygosity, under neutrality.  
+Diogo Meyer 2002-08-23
+*/
+
 #include <stdio.h>
 #include <math.h>
 #include <stddef.h>
@@ -5,22 +11,26 @@
 #include <time.h>
 
 #define min(x, y)  (((x) < (y)) ? x : y)
-#define RLIM	200	/*  maximum sample size */
+#define RLIM	200	/*  maximum sample size */
 #define KLIMIT	40	/*  maximum number of alleles  */
 
-int r_obs[KLIMIT];  	/*  observed configuration */
+int r_obs[KLIMIT];  	/*  observed configuration */
 int r[KLIMIT];		/*  sample configuration  */
-int k;			/*  number of allelic classes */
-int r_tot;		/* 	number of copies sampled= n  */
-int r_top;		/*  highest value of r[i] */
+int k;			/*  number of allelic classes */
+int r_tot;		/* 	number of copies sampled= n  */
+int r_top;		/*  highest value of r[i] */
 int alpha[RLIM];    	/*  here so it will be set to zero  */
-double tot_sum;		/*  sum of all coefficients */
+double tot_sum;		/*  sum of all coefficients */
 double sig_sum;		/*  sum of significant coefficients  */
 double F_sig_sum;	/*  sum for significant F values  */
-double F_obs;		/*  homozygosity observed */
+double F_all, Fsq_all;	/*  My additional variable DM*/
+double F_obs;		/*  homozygosity observed */
 double obs_value;	/*  coefficient for r_obs  */
 long   double factors[RLIM];	/*  contains factorials  */
 int Fsig, Esig;
+
+
+/********************   begin main *******************************/
 
 void main(int argc, char *argv[]) {
 	int i, count, readfile;
@@ -53,7 +63,7 @@ void main(int argc, char *argv[]) {
 		printf("k = %d is too large.\n", k);
 		exit(0);
 		}
-	for (i=1;i<k; i++)
+	for (i=1;i<k; i++)
 		if (r_obs[i] < r_obs[i+1])  {
 			print_config(r_obs);
 			printf(" is not a valid configuration.\n");
@@ -67,13 +77,20 @@ void main(int argc, char *argv[]) {
 	print_config(r_obs);
 	printf(":  P_E = %g, ", sig_sum / tot_sum);
 	printf("P_H = %g\n", F_sig_sum / tot_sum);
+/* begin  my new line */
+	printf("Expected F = %g\t, Var (F) = %g\n", F_all / tot_sum, 
+    ( Fsq_all / tot_sum ) - ( (F_all / tot_sum) * (F_all / tot_sum) )  );
+/* begin  my new line */
 	finish_time = time(NULL);
 	net_time = time(NULL) - start_time;
 	if (net_time < 60)
 		printf("Program took %ld seconds\n", net_time);
 	else
 		printf("Program took %4.2f minutes\n", net_time / 60.0);
-  }  /*  end, main  */
+  }  
+/********************   end main ***********************************/
+
+/********************   begin config *******************************/
 
 void config(int rt, int rmax, int ic)  {
   int r1, i;
@@ -88,6 +105,10 @@ void config(int rt, int rmax, int ic)  {
     test_value = ewens_form(r, r_top, &multiplicity);
     tot_sum += multiplicity * test_value;
     F_test = F(r);
+    /* begin  my new line */
+    F_all += F_test * (multiplicity * test_value); 
+    Fsq_all += F_test * F_test * (multiplicity * test_value); 
+    /* end my new line */
     if (test_value <= obs_value)
       sig_sum += multiplicity * test_value;
     if (F_test <= F_obs)
@@ -95,13 +116,16 @@ void config(int rt, int rmax, int ic)  {
     }
     else  {
       for(r1=((rt%k)?rt/k+1:rt/k);r1<=(min(rmax,rt-k+ic+1));r1++)  { 
-        if (ic == 1)r_top = r1;
+        if (ic == 1) r_top = r1;
         r[ic] = r1;
         config(rt-r1, r1, ic+1);
         }
       }
-  }  /*  end, config  */
+  } 
 
+/********************   end, config *******************************/
+
+/********************   begin fill_factors  *******************************/
 void fill_factors()  {
 	int i;
 
@@ -110,6 +134,10 @@ void fill_factors()  {
 		factors[i] = i * factors[i-1];
 	}
 
+/********************   end fill_factors  *********************************/
+
+/********************   begin print_config  *******************************/
+
 void print_config(int *r) {
 	int i;
 
@@ -117,7 +145,11 @@ void print_config(int *r) {
 	for (i=1; i<k; i++)
 		printf("%d,", r[i]);
 	printf("%d)", r[k]);
-	}  /*  end, print_config  */
+	}  
+/*  **************** end, print_config  **********************************/
+
+
+/*  ***************** begin ewens_form  **********************************/
 
 double ewens_form(int *r, int r_top, double *mpt)  {
 	int i;
@@ -136,19 +168,13 @@ double ewens_form(int *r, int r_top, double *mpt)  {
     		*mpt /= factors[alpha[i]];
 			}
 	return coef;
-	}  /*  end, ewens_form  */
+	}  
 
-double F(int *r)  {
-  int i;
-  double sum;
+/*  ***************** end, ewens_form  **********************************/
 
-  sum = 0.0;
-  for (i=1; i<=k; i++)  sum += r[i] * r[i];
-  return sum / (r_tot * r_tot);
-  }
+/******  Estimates theta = 4N*mu using formula 9.26 in Ewens' book  *****/
 
 double theta_est(int k_obs, int n)  {
-/*  Estimates theta = 4N*mu using formula 9.26 in Ewens' book  */
 	double kval(double theta, int n);
 	double xlow, xhigh, xmid;
 	double eps;
@@ -168,7 +194,12 @@ double theta_est(int k_obs, int n)  {
 			xlow = xmid;
 		}
 	return xmid;
-	}  /*  end, theta_est  */
+	}  
+
+/*************************  end, theta_est  ************************/
+
+
+/************************ Various functions ************************/
 
 double kval(double x, int n)  {
 	int i;
@@ -179,3 +210,15 @@ double kval(double x, int n)  {
 		sum += x / (i + x);
 	return sum;
 	}
+
+double F(int *r)  {
+  int i;
+  double sum;
+
+  sum = 0.0;
+  for (i=1; i<=k; i++)  sum += r[i] * r[i];
+  return sum / (r_tot * r_tot);
+  }
+
+/*******************************************************************/
+
