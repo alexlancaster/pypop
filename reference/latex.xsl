@@ -28,6 +28,13 @@
 \usepackage[dvips]{hyperref}
  </xsl:variable>
 
+
+ <xsl:variable name="latex.ucthesis">
+\documentclass[11pt]{ucthesis}
+\def\dsp{\def\baselinestretch{2.0}\large\normalsize}
+\dsp
+ </xsl:variable>
+
  <!-- "World Scientific" style -->
  <xsl:variable name="latex.world-scientific">
 % --------------------------------------------  
@@ -54,9 +61,9 @@
  <xsl:variable name="latex.dont.hypertarget">1</xsl:variable>
  <xsl:variable name="latex.use.hyperref">0</xsl:variable>
 
- <xsl:variable name="latex.override">
+ <xsl:param name="latex.override">
   <xsl:value-of select="$latex.world-scientific"/> 
- </xsl:variable>
+ </xsl:param>
 
  <xsl:template match="ulink">
   <xsl:variable name="url">
