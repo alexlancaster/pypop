@@ -56,33 +56,11 @@
 
     <listitem>
      <para>Now you can run the interactive version of the program, by
-      simply typing <userinput>./pypop.sh</userinput>.</para>
+      simply typing <userinput>./pypop.sh</userinput>, at the command
+      line.</para>
 
-     <para>You should see an informational screen, and will be asked
-      to supply the name of the configuration file and then the
-      population file, select the file <filename>sample.ini</filename>
-      and <filename>sample.pop</filename>, respectively.
-     </para>
-     <screen id="guide-install-linux-run-screen">$ <userinput>./pypop.sh</userinput>
-PyPop: Python for Population Genetics
-Copyright (C) 2003 Regents of the University of California
-This is free software.  There is NO warranty; not even for
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
- 
-You may redistribute copies of PyPop under the terms of the
-GNU General Public License.  For more information about these
-matters, see the file named COPYING.
- 
-To accept the default in brackets for each filename, simply press
-return for each prompt.
-Please enter config filename [config.ini]: <userinput>sample.ini</userinput>
-Please enter population filename [no default]: <userinput>sample.pop</userinput>
-PyPop is processing sample.pop 
-<emphasis>log messages may appear here </emphasis>
-PyPop run complete!
-XML output can be found in: sample-out.xml
-Plain text output can be found in: sample-out.txt
-</screen>
+     <xi:include href="install-screen.xml#xpointer(/section/para)"/>
+     <xi:include href="install-screen.xml#xpointer(/section/screen)"/>
 
      <para><application>PyPop</application> will remember the names of
       the configuration and population files you used last, and in
@@ -137,17 +115,11 @@ Plain text output can be found in: sample-out.txt
     </listitem>
     <listitem>
 
-     <para>A DOS shell should then open <xi:include
-       href="../../src/VERSION" parse="text"/> running the program
-      inside it. </para>
+     <para>A DOS shell should then open running the program inside it.</para>
 
-     <remark>More to come..</remark>
+     <xi:include href="install-screen.xml#xpointer(/section/para)"/>
+     <xi:include href="install-screen.xml#xpointer(/section/screen)"/>
 
-<!--
-     <xi:include
-      href="install.xml#xpointer(/article/section/section/orderedlist/listitem/screen[@id='guide-install-linux-run-screen'])"/>
--->
-     
     </listitem>
    </orderedlist>
 
@@ -158,8 +130,21 @@ Plain text output can be found in: sample-out.txt
  <section>
   <title>Installing from source</title>
 
-  <para><emphasis>For the impatient</emphasis>, to build and install
-   Python, type:</para>
+  <para>The source code for <application>PyPop</application> can be
+   obtained here:</para>
+
+  <itemizedlist>
+   <listitem>
+    <para> <application><ulink
+       url="&downloadroot;pypop-&VERSION;.tar.gz">&downloadroot;pypop-&VERSION;.tar.gz</ulink></application></para>
+   </listitem>
+  </itemizedlist>
+
+
+  <para>The short version of installation (assuming you have
+   installed all the system requirements, below)  once you have
+   unzipped and untarred the above tar ball, to build and install
+   Python, is to type:</para>
 
 <screen>python setup.py build
 python setup.py install</screen>
