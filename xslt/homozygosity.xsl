@@ -104,6 +104,10 @@ MODIFICATIONS.
      <xsl:when test="@role='no-data'">
       <xsl:text>*No data*</xsl:text>
      </xsl:when>
+
+     <xsl:when test="@role='monomorphic'">
+      <xsl:text>*Monomorphic, exact test cannot be run*</xsl:text>
+     </xsl:when>
      
      <xsl:otherwise>
       
