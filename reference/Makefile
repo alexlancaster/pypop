@@ -1,9 +1,9 @@
 PDF2PS = pdf2ps
 CVSPRE = cvs update -kv
 CVSPOST = cvs update -kkv
-XSLCOMMON = --param section.autolabel 1 --param tablecolumns.extension 0
+XSLCOMMON = --param section.autolabel 1 --param tablecolumns.extension 0 --stringparam draft.watermark.image images/draft.png
 XSLHTML =
-XSLFO = --param fop.extensions 1 --param variablelist.as.blocks 1 --param generate.division.figure.lot 1 
+XSLFO = --param variablelist.as.blocks 1 --param generate.division.figure.lot 1   --param fop.extensions 1
 XSLTPROC = XML_CATALOG_FILES=$(CATOPTS) xsltproc
 
 ifeq ($(XML_CATALOG_FILES),)
