@@ -3,87 +3,364 @@
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <article condition="main">
 
- <title>PyPop: software framework</title>
- <subtitle><application>PyPop</application>: <emphasis>Py</emphasis>thon for <emphasis>Pop</emphasis>ulation Genetics
- </subtitle>
+ <title>PyPop: software framework for analysing large-scale multilocus
+ genotype data for human genome variation</title>
 
  <articleinfo>
-  <author>
-   <firstname>Alex</firstname>
-   <surname>Lancaster</surname>
-   
-   <affiliation>
-    <orgname>University of California, Berkeley</orgname>
-    <orgdiv>Department of Integrative Biology</orgdiv>
-    <address><street>3060 Valley Life Sciences</street>
-     <city>Berkeley</city> <state>CA</state> <country>USA</country>
-     <email>alexl@socrates.berkeley.edu</email></address>
-   </affiliation>
-   
-  </author>
+  <authorgroup>
+   <author>
+    <firstname>Alex</firstname>
+    <surname>Lancaster</surname>
+    
+    <affiliation>
+     <orgname>University of California, Berkeley</orgname>
+     <orgdiv>Department of Integrative Biology</orgdiv>
+     <address><street>3060 Valley Life Sciences</street>
+      <city>Berkeley</city> <state>CA</state> <country>USA</country>
+      <email>alexl@socrates.berkeley.edu</email></address>
+    </affiliation>
+   </author>
+   <author>
+    <firstname>Glenys</firstname>
+    <surname>Thomson</surname>
+   </author>
+  </authorgroup>
 
   <pubdate>Last modified: $Date$</pubdate>
  </articleinfo>
 
  <abstract>
-   <para>PyPop is a software framework for population genetics
-   analysis.</para>
+   <para>Software to analyse multilocus genotype data for entire
+   populations is useful for estimating haplotype frequencies,
+   deviation from Hardy-Weinberg equilibrium and patterns of linkage
+   disequilibrium.  These statistical results are of interest to both
+   those interested in human genome variation and disease
+   predispostion as well as evolutionary geneticists.  Packages for
+   analysing such data already exist <xref linkend="Schneider:2000"/>
+   but suffer from requiring incompatible file formats, are often
+   unable to scale effectively for multiple data sets and are not
+   open-source.  As part of the 13<superscript>th</superscript>
+   International Histocompatibility and Immunogenetics Working Group
+   (IHWG), we have developed a software framework
+   (<application>PyPop</application>) that addresses many of these
+   deficiencies whilst retaining the ability to interoperate with
+   existing software.  Largely developed to address human population
+   data, it can be used for population based data for any organism.
+   It is unique to allow rapid identification of statistics of
+   interest between population analyses using graphical output by
+   heavily utilising the XML file format and the R statistical package
+   .  We have tested our software on the data from the
+   13<superscript>th</superscript> IHWG which involved data sets from
+   at least 50 laboratories each of up to 1000 individuals with 9 MHC
+   loci (both class I and class II) and found that it scales
+   well.</para>
  </abstract>
 
-<!--
  <section>
-  <title>Motivation for PyPop</title>
-  
-  <para>Many packages out there, want to unify.</para>
+  <title>Introduction</title> 
 
-  <section>
-   <title>Packages used</title>
-   
-   <para></para>
+  <para>Several major factors account for variation in the human
+   genome: <emphasis>mutation,</emphasis> <emphasis>random genetic
+   drift</emphasis>, <emphasis>migration</emphasis> (or <emphasis>gene
+   flow</emphasis>) and <emphasis>natural selection</emphasis>.
+   Understanding of the relative roles of these evolutionary forces
+   are important for the study of both complex and Mendelian diseases,
+   since they can affect our ability to identify and localize disease
+   predisposing variants and our power to recognize underlying
+   functional mechanisms through which predisposing genes can become
+   relatively common in a population.  In particular, genetic systems
+   which are highly polymorphic can implicate natural selection as an
+   important factor in maintaining variation.  Genetic systems such as
+   the Human Leukocyte Antigen (HLA) region (the Major
+   Histocompatibility [MHC] region for humans) are highly polymorphic.
+   Six classical class I and II loci each contain up to 399 alleles
+   <xref linkend="Rhodes:Trowsdale:1999"/>.</para>
 
-   <itemizedlist>
-    <listitem>
-     <para>Python</para>
-    </listitem>
-    <listitem>
-     <para>libxml2/libxslt: GNOME project</para>
-    </listitem>
-   </itemizedlist>
-   
-   <para>
-    <informaltable>
-     <tgroup cols="3">
-      <colspec colwidth="2cm"/>
-      <colspec colwidth="2cm"/>
-      <colspec colwidth="2cm"/>
-      <thead>
-       <row>
-	<entry>AA</entry>
-	<entry>Aa </entry>
-	<entry>aa</entry>
-       </row>
-      </thead>
-      <tbody>
-       <row>
-	<entry>p<superscript>2</superscript></entry>
-	<entry>2pq</entry>
-	<entry>q<superscript>2</superscript></entry>
-       </row>
-      </tbody>
-     </tgroup>
-    </informaltable>
-   </para>
+  <para>Several basic population genetics statistics from multilocus
+   genotype data can help us understand these patterns of variation,
+   and their implications for disease studies and evolutionary
+   genetics.  These statistics include, but are not limited to, the
+   estimation of haplotype frequencies, identifying deviation from
+   Hardy-Weinberg equilibrium locating patterns of linkage
+   disequilibrium in a given population.  In population studies
+   several implementations of programs and routines to calculate these
+   basic statistics exist but are mainly oriented towards analysing
+   statistics on a population-by-population basis.  The ability to be
+   able cross-correlate these statistical features across not a just
+   few population data-sets, but many population data-sets will enable
+   the identification of features in the genetic data that can further
+   our understanding of the functional and disease predisposing role
+   of specific alleles, and conversely allow us to rule out
+   others.</para>
+
+  <para>Currently, packages for analysing population data already
+   exist <citation>Schneider:2000</citation>.  In general, however,
+   they are not oriented towards large-scale cross-population data
+   analyses.  Analoguous to the tools being developed for sequence
+   analysis and search, we seek a framework in which basic statistical
+   data from population genetic analyses can be housed, interrogated
+   and visualized in such a way that important features of interest to
+   both the biomedical investigator and the evolutionary biologist can
+   be highlighted.  We also did not want to reinvent the wheel, so,
+   where possibile we can interoperate with existing population
+   genetic analysis packages (either as part of the framework or
+   through file formats).  In this way, our software,
+   <emphasis>PyPop</emphasis> (<emphasis>Py</emphasis>thon for
+   <emphasis>Pop</emphasis>ulation Genetics) can be viewed as
+   meta-analysis framework package which can draw on existing tools
+   and strengths in the community.</para>
+
+ <section>
+  <title>IHWG: International Histocompatibility Working Group</title>
+
+   <para>The primary motivation for developing this project was our
+    role as the <quote>Biostatistics Core</quote> as part of the
+    International Histocompatibility Working Group (<ulink
+    url="http://www.ihwg.org/">IHWG</ulink>).  The IHWG was collecting
+    population data on the HLA region and largeley focused on the the
+    HLA classical class I (A, B, and C) (1.8 Mb) and class II (DR, DQ,
+    and DP) (1.2 Mb) genes, which flank the class III region on
+    chromosome 6 (ch. 6p21.31).  As part of the Anthropology and Human
+    Diversity component of the IHWG, data from populations from
+    upwards of 50 laboratories was made available via a database based
+    at the Fred Hutchison Cancer Research Institute (the
+    <quote>Database Core</quote>).  To each lab involved in the
+    component, the IHWG provided standardized typing reagents, which
+    resulted in high resolution genotype data for each
+    population.</para>
+
+   <para>The molecular characterization of these alleles using these
+   standardized typing reagent kits thus allowed us to use both the
+   allele frequency (the raw allele "calls") and the underlying
+   sequence information (the "calls" can be converted into sequences
+   if desired) as input to the analysis framework.  (As far as PyPop
+   is concerned it does not distinguish betweeen allele calls or
+   sequence data, it can transparently handle both).</para>
+
+ </section>
+
+ <section>
+  <title>Population genetic tests and statistics</title>
+
+   <para>The particular cross-population statistics we wished to
+    address included: (1) conformity to Hardy-Weinberg expectations,
+    (2) the haplotype distribution among populations; (3) patterns of
+    linkage disequilibrium; tests for balancing selection and; (4)
+    worldwide patterns of genetic differentiation.</para>
 
    <section>
-    <title>A really obscure section...</title>
-    <para>Not 'bout much at all.</para>
+    <title>Hardy-Weinberg</title>
+
+    <para>The importance of the Hardy-Weinberg law is that if there
+    are no counteracting forces, then the frequencies of alleles do
+    not change in a population. In other words, variation in a
+    population, under a Mendelian system, tends to be maintained. We
+    contrast this to the previously believed blending inheritance
+    where genetic variation is decreased each generation. Further, the
+    expected genotype frequencies each generation are determined by
+    the allele frequencies, and are termed Hardy-Weinberg proportions
+    (HWP).  In the context of multi-population analyses we can use
+    deviation from HWP to determine whether this results from: (1)
+    typing error (very common); (2) an <quote>admixed</quote>, or
+    merged population; (3) operation of natural selection; or (4)
+    inbreeding. </para>
    </section>
+
+   <section>
+    <title>Ewens-Watterson test of neutrality</title> <para>This a
+    test of neutral evolution.  Given 2n, k.  Homozygosity: (give
+    equation here).  Determine probability that the observed
+    homozygosity is more extreme than the expected homozygosity under
+    neutrality with the same 2n and k.  This can tell us whether
+    selection (either directional or balancing) is in operation on a
+    particular loci across populations.
+    </para>
+   </section>
+
+   <section>
+    <title>Haplotype estimation and linkage disequilibrium</title>
+
+    <para>Selection on haplotypes?  </para>
+   </section>
+
+   <section>
+    <title>Patterns of genetic differentiation</title>
+    <para>Fst?</para>
+   </section>
+
+ </section>
+
+ <section>
+  <title>Requirements</title>
+
+   <para>The data sets we wished to analyse were highly heterogenous.
+   Datasets varied considerably in the number of loci typed (from two
+   to nine), number of individuals sampled (from less than 50 to
+   1000), and number of alleles at each loci (from 5 to 179).  Given
+   that we had such highly diverse data sets, we nevertheless wished
+   to generate analyses that could be integrated in a systematic way,
+   this led to a set of requirements for the software
+   framework:</para>
+
+   <itemizedlist>
+
+    <listitem>
+     <formalpara>
+      <title>modular</title>
+      <para>each analysis (e.g. Hardy Weinberg) should be run
+       stand-alone or as part of a battery of tests</para>
+     </formalpara>
+    </listitem>
+
+    <listitem>
+     <formalpara><title>configurable</title>
+
+      <para>analyses can be switched on or off as required by the user
+       in a simple configuration file</para>
+
+     </formalpara>
+    </listitem>
+
+    <listitem>
+     <formalpara><title>a filter</title>
+      <para>all output from the analyses should be available as input to
+       other programs</para>
+     </formalpara>
+    </listitem>
+    
+    <listitem>
+     <formalpara>
+      <title>standardized output</title>
+
+      <para>output should be generated in XML (eXtensible Markup
+       Language http://www.w3.org/XML). 1) allows consumption by other
+       programs; 2) readily transformable from XML into human-readable
+       form (e.g. a text file) or web-form (e.g. HTML) via XSLT
+       (eXtensible Stylesheet Language for Transformations).</para>
+     </formalpara>
+    </listitem>
+
+    <listitem>
+     <formalpara><title>integrating</title>
+
+      <para>platform should allow simple integration of modules
+       written in other languages (e.g. C) and/or third party
+       software</para>
+     </formalpara>
+    </listitem>
+   </itemizedlist>
 
   </section>
   
+  <section>
+   <title>Integrating with existing software</title>
+
+   <para>Where possible, we would like to integrate with existing
+    software.  <application>Arlequin</application> <xref
+    linkend="Schneider:2000"/>, <application>Genepop</application>,
+    <application>Phylip</application> and
+    <application>PAUP</application> are all packages that deal with
+    some aspect of population genetic statistics.  In addition, we had
+    some existing in-house software, such as
+    <application>emhaplofreq</application>, a program for haplotype
+    estimation, and <application>gthwe</application>, a program for
+    implementing the <xref linkend="Guo:Thompson:1992"/>
+    Hardy-Weinberg exact test.</para>
+
+   <para>In using these programs, however, we realized a need for a
+    tool that could integrate features of existing software, and where
+    needed, implement missing features that would realize our goals of
+    doing large-scale population genetic data analysis.  Specific
+    limitations that we wished to address were: (1) Modularity: some
+    programs often produce a monolithic output set of statistics in a
+    data format that were not easily parsable (such as unstructured
+    plain ASCII text or HTML).  (2) Batchability: some software relied
+    on a <quote>captive user interface</quote>, meaning that for each
+    population to be analysed the software required user interaction
+    such as mouse clicks and menus (difficult for analysing hundreds
+    of data sets!).  We needed to be able to set up an entire job in
+    an unattended <quote>batch mode</quote>, involving simple scripts
+    and a configuration files.  (3) Scalability: this relates partly
+    to the previous point: often existing software was oriented
+    towards smaller and less heterogeneous datasets.  More typical in
+    evolutionary genetics studies is integrating results across
+    several populations at one or two loci, rather than many
+    populations with a large number of loci and high variability in
+    the number of individuals.  Thus is often difficult, for example,
+    to gather a single statistic for several populations and display
+    it in a table without a laborious manual search across many
+    files. (4) Open-source: some existing software is not open-source,
+    which makes it difficult to extend existing software and reuse
+    components and tends to lead to duplication of effort.  (5)
+    Cross-platform.  Some software was not cross platform, often tied
+    to proprietary features in a Windows or Macintosh environment,
+    making it difficult to port to high-performance UNIX platforms
+    such GNU/Linux or Solaris. </para>
+  </section>
  </section>
 
--->
+ <section>
+  <title>Method</title>
+
+  <title>Design and implementation</title>
+
+<literallayout>
+Object-oriented scripting language Python
+http://www.python.org
+rapid prototyping, good integration with C extensions and convenient standard library 
+Wrap existing code (C, C++, Java) using SWIG 
+http://www.swig.org (Simple Wrapper Interface Generator)
+  </literallayout>
+
+  <literallayout>
+Design and implementation (2)
+Leverage other open-source components:
+Numeric Python (http://numpy.sf.net)
+R [clone of S-Plus] (http://www.r-project.org/)
+XSLT using libxslt GNOME library (http://xmlsoft.org)
+XML output transformed (via XSLT) into formats suitable for other programs:
+Phylip input
+Arlequin '.arp' files
+
+</literallayout>
+
+<literallayout>
+Analysis pipeline (1)
+Phase I: Basic population genetic analyses
+individual .pop files exported from database
+filter module: a set of rules that traps any allele name which does not have a close match in the database
+HLA data use current list at: www.anthonynolan.com
+filters can be written for other types of population data 
+result in an output XML data file per population
+presentation of data is independent of generation of data
+output can be tweaked without rerunning analyses
+  </literallayout>
+
+  <literallayout>Analysis pipeline (2)
+Phase II: Meta-analyses
+results of Phase I used to investigate patterns of variation across populations and within populations
+e.g. comparisons of evidence of selection, using the homozygosity test of neutrality
+among - loci within populations (e.g. DPA1 for all populations)
+populations within loci (e.g. all loci for Filipinos)
+e.g. compare the sets of loci in significant linkage disequilibrium across populations
+
+Overview of PyPop dataflow
+</literallayout>
+ </section>
+
+<section>
+  <title>Current status</title>
+
+  <literallayout>
+Currently in alpha development
+Phase I and II completed
+Development of new modules is ongoing
+Will ultimately be released as open-source
+under the Regents of the University of California license (the 'UC Berkeley' license, which is OSI http://www.opensource.org approved)
+Details will be available at the Thomson lab website:
+http://allele5.biol.berkeley.edu
+</literallayout>
+ </section>
 
  <section>
   <title>Design</title>
@@ -293,6 +570,75 @@ Other
   </section>
  </appendix>
 
+ <bibliography>
+  <biblioentry id="Schneider:2000" xreflabel="Schneider et al. 2000">
+   <authorgroup>
+    <author>
+     <firstname>S.</firstname>
+     <surname>Schneider</surname>
+    </author>
+    <author>
+     <firstname>D.</firstname>
+     <surname>Roessli</surname>
+    </author>
+    <author>
+     <firstname>L.</firstname>
+     <surname>Excoffier</surname>
+    </author>
+   </authorgroup>
+   <pubdate>2000</pubdate>
+
+   <citetitle pubwork="article">Arlequin: A software for population genetics data analysis.
+   <ulink
+   url="http://lgb.unige.ch/arlequin/">http://lgb.unige.ch/arlequin/</ulink></citetitle>
+   
+   <releaseinfo>Ver 2.000.</releaseinfo>
+   <publisher>
+    <publishername>Genetics and Biometry Lab, Dept. of Anthropology,
+     University of Geneva</publishername></publisher>
+
+  </biblioentry>
+  
+  <biblioentry id="Guo:Thompson:1992" xreflabel="Guo &amp; Thompson 1992">
+   <authorgroup>
+    <author>
+     <firstname>SW</firstname>
+     <surname>Guo</surname>
+    </author>
+    <author>
+     <firstname>EA</firstname>
+     <surname>Thompson</surname>
+    </author>
+   </authorgroup>
+    <pubdate>1992</pubdate>
+   <citetitle pubwork="article">Performing the exact test of Hardy-Weinberg proportion for multiple alleles</citetitle> 
+   <volumenum>48</volumenum>
+   <pagenums>361-72</pagenums>
+   <citetitle pubwork="journal">Biometrics</citetitle>
+  </biblioentry>
+
+  <biblioentry id="Rhodes:Trowsdale:1999" xreflabel="Rhodes &amp; Trowsdale 1999">
+   <authorgroup>
+    <author>
+     <firstname>D</firstname>
+     <othername>A</othername>
+     <surname>Rhodes</surname>
+    </author>
+    <author>
+     <firstname>J</firstname>
+     <surname>Trowsdale</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1999</pubdate>
+   <citetitle pubwork="article">Genetics and molecular genetics of the MCH</citetitle>
+   <volumenum>1</volumenum>
+   <issuenum>1</issuenum>
+   <pagenums>21-31</pagenums>
+   <citetitle pubwork="journal">Rev. Immunogentics</citetitle>
+  </biblioentry>
+
+ </bibliography>
+ 
 </article>
  
 <!--
