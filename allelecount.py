@@ -46,13 +46,16 @@ xmlStream.writeln()
 input.serializeMetadataTo(xmlStream)
 
 # get the locus name
-locusName = input.getLocusName()
+locus = input.getLocusName()
 
 # wrap the output in a locus tag with the name of the locus, thus the
 # output XML has the same hierarchy as the ParseGenotypeFile output.
 
-xmlStream.opentag('locus', name=locusName)
+xmlStream.opentag('locus', name=locus)
 xmlStream.writeln()
+
+# generate the allele count statistics
+input.serializeAlleleCountDataAt(xmlStream, locus)
 
 try:
   rootPath=config.get("Homozygosity", "rootPath")
