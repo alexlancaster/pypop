@@ -17,7 +17,7 @@
      and HTML output).</para>
    </listitem>
   </varlistentry>
-
+  
   <varlistentry>
    <term>Mark P. Nelson <email>mpn@alleleb.biol.berkeley.edu</email></term>
    <listitem>
@@ -43,6 +43,22 @@
     <email>diogo@allele5.biol.berkeley.edu</email></term>
    <listitem>
     <para>Contributed further statistical analysis code for the R programs.</para>
+   </listitem>
+  </varlistentry>
+
+  <varlistentry>
+   <term>Owen Solberg <email>solberg@socrates.berkeley.edu</email></term>
+   <listitem>
+    <para>Implemented filter modules, including conversion to allele
+     name information to sequence data.</para>
+   </listitem>
+  </varlistentry>
+
+  <varlistentry>
+   <term>Yingssu Tsai</term>
+   <listitem>
+    <para>Implemented prototype of the allele names to sequence
+     conversion filter module.</para>
    </listitem>
   </varlistentry>
 
@@ -89,8 +105,8 @@
   <title>Acknowlegements</title>
   <para>This  work  has  benefited from the support of NIH grant
    AI49213 (13th IHW).  Thanks  to  Steven J. Mack, Kristie A. Mather,
-   Steve Marsh, Leslie Louie, and Owen Solberg for helpful comments
-   and testing.</para>
+   Yingssu Tsai, Steve Marsh, Leslie Louie, and Owen Solberg for
+   helpful comments and testing.</para>
  </sidebar>
 
 <!--  Obsolete modules (not currently distributed)
