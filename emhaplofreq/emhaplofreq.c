@@ -824,7 +824,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   {
 
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "<haplotypefreq><![CDATA[\n");
+    fprintf(fp_out, "<haplotypefreq>\n");
 #endif
 
     fprintf(fp_iter, "\n"); 
@@ -849,26 +849,62 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     fprintf(fp_iter, "-----------------------------------------------------------------------------------\n"); 
     fprintf(fp_iter, "\n"); 
 
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "<condition role=\"");
+#endif
+
     if (error_flag_best == 0) {
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "converged\"/>\n");
+      fprintf(fp_out, "<iterConverged>%d</iterConverged><loglikelihood>%f</loglikelihood>\n", iter_count_best, loglike_best);
+#else
       fprintf(fp_out, "Log likelihood converged in %3d iterations to : %f\n",
 	      iter_count_best, loglike_best);
       fprintf(fp_out, "Sum of haplotype frequencies = %f\n", haplo_freq_sum);
+#endif
     }
     else if (error_flag_best == 1)
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "no-ambiguos-haplos\"/>\n");
+#else
       fprintf(fp_out, "There are no ambiguous haplotypes.              %f\n", loglike_best);
+#endif
     else if (error_flag_best == 2)
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "norm-const-near-zero\"/>\n");
+#else
       fprintf(fp_out, "Normalization constant near zero. Estimated HFs unstable.\n");
+#endif
     else if (error_flag_best == 3)
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "wrong\"/>\n");
+#else
       fprintf(fp_out, "Wrong # allocated for at least one phenotype based on estimated HFs.\n");
+#endif
     else if (error_flag_best == 4)
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "zero-for-observed-pheno\"/>\n");
+#else
       fprintf(fp_out, "Phenotype freq., based on estimated HFs, was 0 for an observed phenotype.\n");
+#endif
     else if (error_flag_best == 5)
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "loglike-decreased\"/>\n");
+#else
       fprintf(fp_out, "Log likelihood has decreased for more than 5 iterations.\n");
+#endif
     else if (error_flag_best == 6)
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "hf-dont-sum-to-one\"/>\n");
+#else
       fprintf(fp_out, "Estimated HFs do not sum to 1. Sum = %.5g\n", haplo_freq_sum);
+#endif
     else /* (error_flag_best == 7) */
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "loglike-failed-converge\"/>\n");
+#else
       fprintf(fp_out, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
- 
+#endif
 
     /* copy mle_best to freq_zero so that sort does not interfere with info needed in LD calcs */
     /* Note: haplo[] is no longer linked to mle_best after the sort, but is not used subsequently */
@@ -879,20 +915,26 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     sort2byfloat(haplo, freq_zero, n_haplo);
 
     j = 0;
+#ifndef XML_OUTPUT
     fprintf(fp_out, "\n");
     fprintf(fp_out, "                   Approx No.   \n");
     fprintf(fp_out, "        MLE Freq*  of Copies  Haplo (*only printed if MLE > .00001)\n");
+#endif
     for (i = 0; i < n_haplo; i++)
     {
       if (freq_zero[i] > .00001)
       {
         j += 1;
+#ifdef XML_OUTPUT
+	fprintf(fp_out, "<haplotype name=\"%s\"><frequency>%.5f</frequency><numCopies>%.1f</numCopies></haplotype>\n", haplo[i], freq_zero[i], freq_zero[i]*2.0*n_recs);
+#else
         fprintf(fp_out, "%3d  %12.5f %8.1f    %s\n", j, freq_zero[i], freq_zero[i]*2.0*n_recs, haplo[i]);
+#endif
       }
     }
     fprintf(fp_out, "\n");
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "]]></haplotypefreq>\n");
+    fprintf(fp_out, "</haplotypefreq>\n");
 #endif
 
 #ifndef XML_OUTPUT
@@ -911,11 +953,11 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #endif
 
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "<linkagediseq><![CDATA[");
-#endif
-
+    fprintf(fp_out, "<linkagediseq>\n");
+#else
     fprintf(fp_out, "Pairwise Linkage Disequilibrium\n");
     fprintf(fp_out, "-------------------------------\n");
+#endif
 
     linkage_diseq(fp_out, mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
       n_loci, n_haplo, n_recs);
@@ -929,11 +971,13 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     }
     df_LRtest = df_LRtest - j + (n_loci - 1);
 
+#ifndef XML_OUTPUT
     fprintf(fp_out, "Asymptotic LR Test for Overall LD [-2*(LL_0 - LL_1)]: %f, df = %d\n",  
       -2.0 * (loglike0 - loglike_best), df_LRtest);
+#endif
 
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "]]></linkagediseq>\n");
+    fprintf(fp_out, "</linkagediseq>\n");
 #endif
 
   } /* end: if ((permu==0 && ...)) */
@@ -1281,8 +1325,12 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
   {
     for (k = j+1; k < n_loci; k++)
     {
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "<loci first=\"%d\" second=\"%d\">\n", j, k);
+#else
       fprintf(fp_out,"--Loci:%2d\\%2d--\n", j, k);
       fprintf(fp_out," Haplo         Observed*  Expected**     d_ij      d'_ij      chisq (*estimated) (**under Ho:no LD)\n");
+#endif
       for (l = 0; l < n_unique_allele[j]; l++)
       {
         for (m = 0; m < n_unique_allele[k]; m++)
@@ -1308,8 +1356,13 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
           else
             norm_dij = 0;
           summary_dprime[coeff_count] += af[j][l] * af[k][m] * fabs(norm_dij);
+#ifdef XML_OUTPUT
+	  fprintf(fp_out,"<allelepair first=\"%s\" second=\"%s\"><observed>%.5f</observed><expected>%.4f</expected><diseq>%.5f</diseq><norm_dij>%.5f</norm_dij><chisq>%.5f</chisq></allelepair>\n", 
+            unique_allele[j][l], unique_allele[k][m], obs, exp, diseq, norm_dij, chisq);
+#else
           fprintf(fp_out,"%6s%6s %10.4f %10.4f %10.4f %10.4f %10.4f\n", 
             unique_allele[j][l], unique_allele[k][m], obs, exp, diseq, norm_dij, chisq); 
+#endif
         }
       }
       summary_wn[coeff_count]  = sqrt( summary_q[coeff_count] /
@@ -1320,18 +1373,27 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
   }
 
   /* print   summary measures */
+
+#ifndef XML_OUTPUT
   fprintf(fp_out,"Disequilibrium Summary Measures\n");
   fprintf(fp_out,"-------------------------------\n");
+#endif
   coeff_count = 0;
   for (j = 0; j < n_loci; j++)
   {
     for (k = j+1; k < n_loci; k++)
     {
+#ifdef XML_OUTPUT
+      fprintf(fp_out, "<summary first=\"%d\" second=\"%d\">\n", j, k);
+      fprintf(fp_out, "<wn>%.5f</wn><q><val>%.5f</val><chisq>%d</chisq></q><dprime>%.5f</dprime>\n", summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), summary_dprime[coeff_count]);
+      fprintf(fp_out, "</summary>\n");
+#else
       fprintf(fp_out,"--Loci:%2d\\%2d--\n", j, k);
       fprintf(fp_out,"             Wn [Cohen, 1988]: %10.4f\n", summary_wn[coeff_count]);
       fprintf(fp_out,"               Q [Hill, 1975]: %10.4f (approx. Chi-square %d)\n", 
         summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1) );
       fprintf(fp_out,"       Dprime [Hedrick, 1987]: %10.4f\n\n", summary_dprime[coeff_count]);
+#endif
       coeff_count += 1;
     }
   }
