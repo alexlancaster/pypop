@@ -3,7 +3,7 @@
    "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <?PSGML nofill programlisting screen literallayout?>
 
-<article id="guide-usage" xmlns:xi="http://www.w3.org/2001/XInclude">
+<article id="guide-usage">
  <articleinfo>
   <title>Getting started with <application>PyPop</application></title>
   <authorgroup>
@@ -66,7 +66,7 @@
     (this is also described in detail in the instructions
     in the installation guide).</para>
 
-   <xi:include href="install-screen.xml#xpointer(/section/screen)"/>
+   <xi:include href="install-screen.xml#xpointer(/section/screen)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
    <para>You should substitute the names of your own configuration
     (e.g., <filename>config.ini</filename>) and population file (e.g.,
@@ -940,7 +940,7 @@ allPairwiseLDWithPermu=0></programlisting>
  </section>
 -->
 
- <xi:include href="biblio.xml"/>
+ <xi:include href="biblio.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
 </article>
 

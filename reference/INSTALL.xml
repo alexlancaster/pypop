@@ -6,7 +6,7 @@
 ]>
 <?PSGML nofill programlisting screen literallayout userinput?>
 
-<article xmlns:xi="http://www.w3.org/2001/XInclude">
+<article>
  <articleinfo>
   <title>Installing <application>PyPop</application></title>
   <authorgroup>
@@ -81,8 +81,8 @@
       typing <userinput>./pypop.sh</userinput>, at the command
       line.</para>
 
-     <xi:include href="install-screen.xml#xpointer(/section/para)"/>
-     <xi:include href="install-screen.xml#xpointer(/section/screen)"/>
+     <xi:include href="install-screen.xml#xpointer(/section/para)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+     <xi:include href="install-screen.xml#xpointer(/section/screen)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
      <para><application>PyPop</application> will remember the names of
       the configuration and population files you used last, and will
@@ -153,8 +153,8 @@
 
      <para>A DOS shell should then open running the program inside it.</para>
 
-     <xi:include href="install-screen.xml#xpointer(/section/para)"/>
-     <xi:include href="install-screen.xml#xpointer(/section/screen)"/>
+     <xi:include href="install-screen.xml#xpointer(/section/para)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+     <xi:include href="install-screen.xml#xpointer(/section/screen)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
     </listitem>
    </orderedlist>

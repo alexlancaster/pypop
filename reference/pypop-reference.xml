@@ -4,7 +4,7 @@
 <!ENTITY % versions.ent SYSTEM "versions.ent" >
 %versions.ent;
 ]>
-<book xmlns:xi="http://www.w3.org/2001/XInclude">
+<book>
  <bookinfo>
   <title><application>PyPop</application> Reference Guide</title>
 
@@ -27,7 +27,7 @@
   
  </bookinfo>
 
- <xi:include href="methods.xml"/>
+ <xi:include href="methods.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
  <!-- <chapter> wrapper for <article> pypop.xsl -->
 
@@ -35,20 +35,20 @@
 
  <chapter condition="main">
   <chapterinfo>
-   <xi:include href="pypop.xml#xpointer(//articleinfo/*)"/>
+   <xi:include href="pypop.xml#xpointer(//articleinfo/*)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   </chapterinfo>
   <title>PyPop: software framework</title>
-  <xi:include href="pypop.xml#xpointer(/article/section)"/>  
+  <xi:include href="pypop.xml#xpointer(/article/section)" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
  </chapter>
 
 -->
 
  <!-- glossary and appendices, currently out-of-date -->
- <!-- <xi:include href="glossary.xml"/> -->
- <!-- <xi:include href="pypop-appendices.xml"/>  -->
+ <!-- <xi:include href="glossary.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/> -->
+ <!-- <xi:include href="pypop-appendices.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>  -->
 
 
- <xi:include href="biblio.xml"/>
+ <xi:include href="biblio.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
 </book>
 
