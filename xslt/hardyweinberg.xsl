@@ -49,6 +49,7 @@ MODIFICATIONS.
   <text col="dememorizationSteps">Dememorization steps</text>
   <text col="samplingNum">Number of Markov chain samples</text>
   <text col="samplingSize">Markov chain sample size</text>
+  <text col="steps">Steps in Monte-Carlo randomization</text>
   <text col="pvalue">p-value</text>
   <text col="stderr">Std. error</text>
  </data:hardyweinberg-guo-thompson>
@@ -616,7 +617,7 @@ MODIFICATIONS.
   <xsl:call-template name="section">
    <xsl:with-param name="title">
     <xsl:call-template name="locus-header">
-     <xsl:with-param name="title">Guo and Thompson HardyWeinberg output</xsl:with-param>
+     <xsl:with-param name="title">Guo and Thompson HardyWeinberg output (<xsl:value-of select="@type"/>)</xsl:with-param>
     </xsl:call-template>
    </xsl:with-param>
    <xsl:with-param name="level" select="3"/>
@@ -637,8 +638,15 @@ MODIFICATIONS.
        </xsl:when>
        <xsl:otherwise>
 
+	<!-- if we are doing MCMC calculate *total steps* to allow comparison with MC-only -->
+	<xsl:if test="dememorizationSteps">
+	 <xsl:text>Total steps in MCMC: </xsl:text>
+	 <xsl:value-of select="samplingNum * samplingSize"/>
+	 <xsl:call-template name="newline"/>
+	</xsl:if>
+
 	<xsl:for-each
-	 select="stderr|dememorizationSteps|samplingNum|samplingSize">
+	 select="stderr|dememorizationSteps|samplingNum|samplingSize|steps">
 	 <xsl:variable name="node-name" select="name(.)"/>
 	 <xsl:value-of 
 	  select="$hw-guo-thompson[@col=$node-name]"/>  
@@ -652,6 +660,22 @@ MODIFICATIONS.
 	<xsl:text> (overall): </xsl:text>
 	<xsl:apply-templates select="pvalue[@type='overall']"/>
 	<xsl:call-template name="newline"/>
+
+	<!-- do individual p-values -->
+	<xsl:call-template name="newline"/>
+	<xsl:text>Individual genotype p-values:</xsl:text>
+	<xsl:call-template name="newline"/>
+	<xsl:for-each
+	 select="pvalue[@type='genotype']">
+	 <xsl:variable name="offset" select="position()"/>
+	 <xsl:variable name="indiv-genotype" select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
+	 <xsl:value-of select="$indiv-genotype/@row"/>
+	 <xsl:text>:</xsl:text>
+	 <xsl:value-of select="$indiv-genotype/@col"/>
+	 <xsl:text>: </xsl:text>
+	 <xsl:apply-templates select="."/>
+	 <xsl:call-template name="newline"/>
+	</xsl:for-each>
 	
        </xsl:otherwise>
       </xsl:choose>
