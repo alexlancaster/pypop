@@ -697,6 +697,14 @@
   <xsl:call-template name="newline"/>
  </xsl:template>
 
+ <xsl:template match="emhaplofreq/group[@mode='too-many-lines']">
+  <xsl:call-template name="header">
+   <xsl:with-param name="title">Too many rows for haplotype programme: <xsl:value-of select="@loci"/>
+   </xsl:with-param>
+  </xsl:call-template>
+  <xsl:call-template name="newline"/>
+ </xsl:template>
+
  <xsl:template match="emhaplofreq/group[@mode='haplo']">
   <xsl:call-template name="header">
    <xsl:with-param name="title">Haplotype est. for loci: <xsl:value-of select="@loci"/>
