@@ -34,12 +34,12 @@
    <sidebar>
     <formalpara>
      <title>System requirements</title>
-      <para>Your GNU/Linux system should contain at least 2.3.2 version
+      <para>Your GNU/Linux system should contain at least 2.3.3 version
      of <literal>glibc</literal> (the GNU C library).</para>
     </formalpara>
     <formalpara>
      <title>Systems tested</title>
-     <para>Red Hat Linux 9, Slackware 9.1 (may work on other platforms
+     <para>Fedora Core 3 (may work on other distributions
       but untested at present)</para>
     </formalpara>
    </sidebar>
