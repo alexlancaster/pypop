@@ -382,17 +382,17 @@ p-value range: 0.0000 < p <= 0.0100 *
     <title>Sample output of homozygosity test from Monte-Carlo implementation</title>
 
    <para>There is a second implementation of the test using a
-    Monte-Carlo implementation of the exact test originally
-    implemented by Montgomery Slatkin (<citation
-     role="citealt">Slatkin:1994</citation>; <citation
-     role="citealt">Slatkin:1996</citation>).  
-This test differs from the previous one in that rather than simulate
-data under neutrality, a Markov-Chain Monte Carlo method is used to obtain
-the probability of the homozygosity under neutrality.
-The <varname>p</varname>-value reported is once again the probability of 
-the observed homozygosity under the null hypothesis of neutrality, 
-and can be interpreted as a two-tailed test.
-/para>
+     Monte-Carlo implementation of the exact test originally
+     implemented by Montgomery Slatkin (<citation
+      role="citealt">Slatkin:1994</citation>; <citation
+      role="citealt">Slatkin:1996</citation>). This test differs from
+     the previous one in that rather than simulate data under
+     neutrality, a Markov-Chain Monte Carlo method is used to obtain
+     the probability of the homozygosity under neutrality. The
+     <varname>p</varname>-value reported is once again the probability
+     of the observed homozygosity under the null hypothesis of
+     neutrality, and can be interpreted as a two-tailed test.
+    </para>
 
 <programlisting>1.6. Slatkin's implementation of EW homozygosity test of neutrality [A]
 -----------------------------------------------------------------------
