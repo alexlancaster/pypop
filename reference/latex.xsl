@@ -5,6 +5,7 @@
                 version='1.0'>
 
  <xsl:import href="http://db2latex.sourceforge.net/docbook.xsl"/>
+ <xsl:import href="latex-common.xsl"/>
 
  <xsl:output method="xml" encoding="utf8" omit-xml-declaration="yes"
   indent="yes"/> 
@@ -27,13 +28,6 @@
 \usepackage{float}
 \usepackage{algorithmic}
 \usepackage[dvips]{hyperref}
- </xsl:variable>
-
-
- <xsl:variable name="latex.ucthesis">
-\documentclass[11pt]{ucthesis}
-\def\dsp{\def\baselinestretch{2.0}\large\normalsize}
-\dsp
  </xsl:variable>
 
  <!-- "World Scientific" style -->
@@ -179,9 +173,10 @@
 
  </xsl:template>
 
+<!--
  <xsl:template match="author">
   <xsl:text>\author{</xsl:text>
-  <!-- Display author information --> 
+
   <xsl:value-of select="firstname"/>
   <xsl:text> </xsl:text>
   <xsl:if test="othername">
@@ -194,7 +189,7 @@
   <xsl:apply-templates select="affiliation"/>
 
  </xsl:template>
-
+-->
  <xsl:template match="affiliation">
    <xsl:text>\address{</xsl:text>
 
@@ -244,75 +239,6 @@
   <xsl:call-template name="map.end"/>
  </xsl:template>
 
- <xsl:template name="biblioentry.output">
-  
-  <xsl:variable name="biblioentry.tag.label">
-   <xsl:choose>
-   <xsl:when test="$latex.dont.label!=1">
-    <xsl:text>[</xsl:text>
-    <xsl:choose>
-     <xsl:when test="@xreflabel">
-      <xsl:value-of select="normalize-space(@xreflabel)"/>
-     </xsl:when>
-     <xsl:otherwise>
-      <xsl:text>UNKNOWN</xsl:text>
-     </xsl:otherwise>
-    </xsl:choose>
-    <xsl:text>]</xsl:text>
-   </xsl:when>
-    <xsl:otherwise><xsl:text></xsl:text></xsl:otherwise>
-   </xsl:choose>
-  </xsl:variable>
-
-  <xsl:variable name="biblioentry.tag.id">
-   <xsl:text>{</xsl:text>
-   <xsl:choose>
-    <xsl:when test="abbrev">
-     <xsl:apply-templates select="abbrev" mode="bibliography.mode"/>
-    </xsl:when>
-    <xsl:when test="@id">
-     <xsl:value-of select="normalize-space(@id)"/>
-    </xsl:when>
-    <xsl:otherwise>
-     <xsl:text>UNKNOWN</xsl:text>
-    </xsl:otherwise>
-   </xsl:choose>
-   <xsl:text>}</xsl:text>
-  </xsl:variable>
-  
-  <xsl:text>&#10;</xsl:text>
-  <xsl:text>% -------------- biblioentry &#10;</xsl:text>
-  <xsl:text>\bibitem</xsl:text><xsl:value-of select="$biblioentry.tag.label"/><xsl:value-of select="$biblioentry.tag.id"/>
-
-  <xsl:if test="author|authorgroup">
-   <xsl:apply-templates select="author|authorgroup" mode="bibliography.mode"/>
-   <xsl:value-of select="$biblioentry.item.separator"/>
-  </xsl:if>
-
-  <xsl:apply-templates select="citetitle[@pubwork='refentry']" mode="bibliography.mode"/>  
-
-  <xsl:apply-templates select="citetitle[@pubwork='article']" mode="bibliography.mode"/>
-  
-  <xsl:apply-templates select="citetitle[@pubwork='journal']" mode="bibliography.mode"/>
-  
-  <xsl:for-each select="copyright|publisher|isbn">
-   <xsl:value-of select="$biblioentry.item.separator"/>
-   <xsl:apply-templates select="." mode="bibliography.mode"/> 
-  </xsl:for-each>
-
-  <xsl:if test="pubdate">
-   <xsl:text> (</xsl:text>
-   <xsl:apply-templates select="pubdate" mode="bibliography.mode"/> 
-   <xsl:text>)</xsl:text>
-  </xsl:if>
-
-  <xsl:text>.</xsl:text>
-  
-  <xsl:call-template name="label.id"/> 
-  <xsl:text>&#10;&#10;</xsl:text>
-
- </xsl:template>
-
  <xsl:template match="citetitle" mode="bibliography.mode">
 <!--  <xsl:value-of select="$biblioentry.item.separator"/> -->
   <xsl:choose>
@@ -354,51 +280,6 @@
   <xsl:apply-templates mode="latex.programlisting"/>
   <xsl:text>\end{verbatim}&#10;</xsl:text>
   <xsl:text>\end{scriptsize}&#10;</xsl:text>
- </xsl:template>
-
- <xsl:template match="ackno">
-  <xsl:call-template name="map.begin"/>
-  <xsl:apply-templates/>
-  <xsl:call-template name="map.end"/>
- </xsl:template>
-
-
- <xsl:template match="citation">
-  <!-- todo: biblio-citation-check -->
-  <xsl:text>~\cite{</xsl:text>
-  <xsl:apply-templates/>
-  <xsl:text>}</xsl:text>
- </xsl:template>
- 
- <xsl:template match="biblioentry" mode="bibliography.cited">
-  <xsl:param name="bibid" select="@id"/>
-  <xsl:param name="ab" select="abbrev"/>
-  <xsl:variable name="nx" select="//xref[@linkend=$bibid]"/>
-  <xsl:variable name="nc" select="//citation[text()=$ab]"/>
-  <xsl:variable name="ni" select="//citation[text()=$bibid]"/>
-  <xsl:if test="count($nx) &gt; 0 or count($nc) &gt; 0 or count($ni) &gt; 0">
-   <xsl:call-template name="biblioentry.output"/>
-  </xsl:if>
- </xsl:template>
- 
- <xsl:template match="application">
-  <xsl:call-template name="map.begin"/>
-  <xsl:apply-templates />
-  <xsl:call-template name="map.end"/>
- </xsl:template>
-
- <!-- override these templates, because default ones put extra whitespace
- where we don't want it in the output and where it is significant to LaTeX -->
-
- <xsl:template name="inline.italicseq">
-  <xsl:param name="content"> <xsl:apply-templates/> </xsl:param>
-  <xsl:text>{\em </xsl:text>
-  <xsl:copy-of select="$content"/> <xsl:text>}</xsl:text>
- </xsl:template>
-
- <xsl:template name="number.xref">
-  <xsl:text> \ref{</xsl:text><xsl:value-of
-   select="@id"/><xsl:text>}</xsl:text>
  </xsl:template>
 
 </xsl:stylesheet>
