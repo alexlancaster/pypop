@@ -1,0 +1,40 @@
+
+ temp.msf  MSF: 261  Type: N  January 01, 1776  12:00  Check: 3136 ..
+
+ Name: DMA*0101         Len:   261  Check:  8651  Weight:  1.00
+ Name: DMA*0102         Len:   261  Check:  9500  Weight:  1.00
+ Name: DMA*0103         Len:   261  Check:  2898  Weight:  1.00
+ Name: DMA*0104         Len:   261  Check:  2087  Weight:  1.00
+
+//
+
+       DMA*0101  MGHEQNQGAA LLQMLPLLWL LPHSWAVPEA PTPMWPDDLQ NHTFLHTVYC
+       DMA*0102  .......... .......... .......... PTPMWPDDLQ NHTFLHTVYC
+       DMA*0103  .......... .......... .......... .......... ..........
+       DMA*0104  .......... .......... .......... .......... ..........
+
+       DMA*0101  QDGSPSVGLS EAYDEDQLFF FDFSQNTRVP RLPEFADWAQ EQGDAPAILF
+       DMA*0102  QDGSPSVGLS EAYDEDQLFF FDFSQNTRVP RLPEFADWAQ EQGDAPAILF
+       DMA*0103  .......... .......... .......... .......... ..........
+       DMA*0104  .......... .......... .......... .......... ..........
+
+       DMA*0101  DKEFCEWMIQ QIGPKLDGKI PVSRGFPIAE VFTLKPLEFG KPNTLVCFVS
+       DMA*0102  DKEFCEWMIQ QIGPKLDGKI PVSRGFPIAE VFTLKPLEFG KPNTLVCFVS
+       DMA*0103  .......... .......... ....GFPIAE VFTLKPLEFG KPNTLVCFVS
+       DMA*0104  .......... .......... ....GFPIAE VFTLKPLEFG KPNTLVCFVS
+
+       DMA*0101  NLFPPMLTVN WQHHSVPVEG FGPTFVSAVD GLSFQAFSYL NFTPEPSDIF
+       DMA*0102  NLFPPMLTVN WQHHSIPVEG FGPTFVSAVD GLSFQAFSYL NFTPEPSDIF
+       DMA*0103  NLFPPMLTVN WQHHSVPVEG FGPTFVSAVD ALSFQAFSYL NFTPEPSDIF
+       DMA*0104  NLFPPMLTVN WQHHSIPVEG FGPTFVSAVD GLSFQAFSYL NFTPEPSDIF
+
+       DMA*0101  SCIVTHEIDR YTAIAYWVPR NALPSDLLEN VLCGVAFGLG VLGIIVGIVL
+       DMA*0102  SCIVTHEIDR YTAIAYW... .......... .......... ..........
+       DMA*0103  SCIVTHEIDH YTAIAYW... .......... .......... ..........
+       DMA*0104  SCIVTHEIDC YTAIAYW... .......... .......... ..........
+
+       DMA*0101  IIYFRKPCSG D
+       DMA*0102  .......... .
+       DMA*0103  .......... .
+       DMA*0104  .......... .
+
