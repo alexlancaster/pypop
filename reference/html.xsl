@@ -23,6 +23,10 @@
  <!-- crank up nominal image width from 6 * to 9 * -->
  <xsl:param name="nominal.image.width" select="9 * $pixels.per.inch"/>
 
+ <xsl:param name="callout.list.table" select="'1'"/>
+ <xsl:param name="callout.unicode" select="'0'"/>
+ <xsl:param name="callout.graphics" select="'0'"/>
+
  <xsl:param name="profiling-highlighting" select="0"/>
 
  <xsl:template match="pubdate" mode="book.titlepage.recto.auto.mode">
@@ -48,6 +52,8 @@
  </xsl:template>
 
  <!-- override to get profile highlighting working properly -->
+
+<!--
  <xsl:template match="para">
   <xsl:variable name="p">
    <p>
@@ -102,6 +108,7 @@
  <xsl:template match="footnote/para[1]|footnote/simpara[1]" priority="2">
   <xsl:apply-imports/>
  </xsl:template>
+-->
 
  <xsl:template match="article/appendix">
   <div class="{name(.)}">
