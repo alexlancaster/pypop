@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 
 """Module for calculating Hardy-Weinberg statistics.
@@ -115,10 +114,15 @@ class HardyWeinberg:
         self.observedGenotypeCounts[genotype] = 1
 
     for i in range(len(self.observedAlleles)):
-      """Generate a list of all possible genotypes"""
+      """Generate a list of all possible genotypes
+
+      - sorting the individual genotypes alphabetically"""
 
       for j in range(i, len(self.observedAlleles)):
-          self.possibleGenotypes.append(self.observedAlleles[i] + ":" + self.observedAlleles[j])
+          if self.observedAlleles[i] < self.observedAlleles[j]:
+            self.possibleGenotypes.append(self.observedAlleles[i] + ":" + self.observedAlleles[j])
+          else:
+            self.possibleGenotypes.append(self.observedAlleles[j] + ":" + self.observedAlleles[i])
 
     for genotype in self.possibleGenotypes:
       """Calculate expected genotype counts under HWP
