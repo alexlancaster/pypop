@@ -344,8 +344,6 @@ KeepNullDistrib=0"""
                         if self.debug:
                             print "locus", locus, "is monomorphic"
                         hwExact[locus] = 'monomorphic'
-                    else:
-                        sys.exit("Arlequin output for HW exact test can't be parsed properly")
                         
         return hwExact
 
