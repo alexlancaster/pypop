@@ -244,7 +244,7 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 
   /* these should be malloced, but the stack will experience meltdown: */
   static char pheno[MAX_ROWS][LINE_LEN], geno[MAX_GENOS][2][LINE_LEN / 2];
-  static char temp_geno[MAX_GENOS][2][LINE_LEN / 2];
+  static char temp_geno[MAX_GENOS_PER_PHENO][2][LINE_LEN / 2];
   static int numgeno[MAX_ROWS], obspheno[MAX_ROWS], genopheno[MAX_GENOS][MAX_ROWS];
 
   char temp_pheno[LINE_LEN];
@@ -390,7 +390,7 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
       n_hetero_prev = n_hetero = 0;
       n_geno_prev = n_geno = 1;
 
-      for (i = 0; i < numgeno[unique_pheno_count]; i++)
+      for (i = 0; i < (int)pow(2, n_loci - 1); i++)
       {
         strcpy(temp_geno[i][0], "\0");
         strcpy(temp_geno[i][1], "\0");
@@ -629,7 +629,7 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     fprintf(stdout, " Log likelihood converged in %3d iterations to : %f \n", 
       iter_count_best, loglike_best);
   else if (error_flag_best == 1)
-    fprintf(stdout, " There are no ambiguous haplotypes.\n");
+    fprintf(stdout, " There are no ambiguous haplotypes. Log likelihood: %f\n", loglike_best);
   else if (error_flag_best == 2)
     fprintf(stdout, " Normalization constant near zero. Estimated HFs unstable.\n");
   else if (error_flag_best == 3)
@@ -815,7 +815,6 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
 {
   int i, j, locus, col_0, col_1;
   int unique_allele_flag, unique_allele_count;
-  double temp; /* XX for checking */
 
 /* CHECKING
   for (i = 0; i < n_recs; i++)
@@ -871,11 +870,9 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
     }
     n_unique_allele[locus] = unique_allele_count + 1;
 
-    temp = 0.0;
     for(j = 0; j < n_unique_allele[locus]; j++)
     {
       allele_freq[locus][j] = allele_freq[locus][j] / (2*(double)n_recs);
-      temp += allele_freq[locus][j];
     }
   }
 
@@ -1200,6 +1197,8 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
     {
       hap_freq[i][iter] = unambig[i] / (double)tot_hap;
       mle[i] = hap_freq[i][iter];
+      *loglike = loglikelihood(genopheno, mle, obspheno, n_haplo,
+        n_unique_geno, n_unique_pheno, xhaplo, xgeno);
     }
   }
 

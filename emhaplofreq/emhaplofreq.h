@@ -17,3 +17,5 @@
 #define TRUE  1 
  
 #define MAX_INIT_COND 20 
+
+#define MAX_GENOS_PER_PHENO 64 /* 2^(max_loci - 1) */
