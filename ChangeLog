@@ -29,7 +29,11 @@
 	(Main.__init__): Removed obsolete setting of altpath.
 	(Main._genTextOutput): Move heuristics for checking .ini file
 	options to __init__.
-
+	(Main._doGenotypeFile): A value of '1' is not permitted for
+	'allPairwiseLDWithPerm' option. It is no longer a boolean variable
+	to enable the permutation test.  It should now contain the NUMBER
+	of permutations desired.  Exit with an error message.
+	
 2003-12-12  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* config.ini ([allPairwiseLDWithPermu]): Change semantics of
