@@ -1,3 +1,9 @@
+2004-06-30  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Call new
+	SWIG function in _Gthwe module, _Gthwe.run_randomization(), now
+	split out from run_data MCMC code.  Still need to XML-ify output.
+
 2004-06-23  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Fixed
