@@ -190,7 +190,8 @@ ext_HweEnum = Extension("_HweEnum",
                                     "/usr/lib/glib-2.0/include",
                                     "/usr/include/libxml2"],
                       libraries=["glib-2.0", "xml2", "m"],
-                      define_macros=[('__SORT_TABLE__', '1')]
+                      define_macros=[('__SORT_TABLE__', '1'),
+                                     ('g_fprintf', 'pyfprintf')]
                       )
 
 # check to see if version of Python is > 2.1
