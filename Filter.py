@@ -175,7 +175,7 @@ class AnthonyNolanFilter(Filter):
             self.translTable[alleleName] = self.checkAlleleName(alleleName)
 
         filteredAllele = self.translTable[alleleName]
-            
+
         if self.countTable.has_key(filteredAllele):
             self.countTable[filteredAllele] += 1
         else:
@@ -241,3 +241,44 @@ class AnthonyNolanFilter(Filter):
     def writeToLog(self, logstring=os.linesep):
         self.logFile.writeln(logstring)
 
+class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
+    """Filters data with an allelecount less than a threshold.
+
+    """
+    def __init__(self,
+                 lumpThreshold=None,
+                 **kw):
+
+        self.lumpThreshold = lumpThreshold
+        AnthonyNolanFilter.__init__(self, **kw)
+
+    def endFirstPass(self):
+
+        """Do regular AnthonyNolanFilter then translate alleles with
+        count < lumpThreshold to 'lump'
+
+        """
+
+        AnthonyNolanFilter.endFirstPass(self)
+
+        # now, translate alleles with count < lumpThreshold to "lump"
+
+        translKeys = self.translTable.keys()
+        
+        for allele in translKeys:
+
+            filteredAllele = self.translTable[allele]
+
+            if self.debug:
+                print allele, "translates to", filteredAllele, "and has count", self.countTable[filteredAllele]
+
+            # if below the threshold, make allele 'lump
+            if self.countTable[filteredAllele] <= self.lumpThreshold:
+                self.translTable[allele] = 'lump'
+
+
+        
+
+
+
+            
