@@ -24,7 +24,7 @@ setup (name = "PyPop",
 
 # compile SWIG module
        
-       ext_modules=[Extension("Emhaplofreqmodule",
+       ext_modules=[Extension("_Emhaplofreqmodule",
                               ["emhaplofreq/emhaplofreq_wrap.i",
                                "emhaplofreq/emhaplofreq.c"],
                               include_dirs=["emhaplofreq"]),
