@@ -612,7 +612,7 @@ class ParseAlleleCountFile(ParseFile):
 # this test harness is called if this module is executed standalone
 if __name__ == "__main__":
 
-    # read in IHWG data file from first argument
-    parsefile = ParseGenotypeFile(sys.argv[1], debug=1)
+    print "dummy test harness, currently a no-op"
+    #parsefile = ParseGenotypeFile(sys.argv[1], debug=1)
 
 
