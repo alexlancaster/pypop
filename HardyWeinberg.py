@@ -178,7 +178,7 @@ class HardyWeinberg:
     self.lumpedObservedGenotypes = 0.0
     self.lumpedExpectedGenotypes = 0.0
     self.flagHets = self.flagHoms = self.flagCommons = self.flagLumps = 0
-    self.flagTooManyParameters = 0
+    self.flagTooManyParameters = self.flagTooFewExpected = 0
 
     if self.totalHomsExp >= self.lumpBelow:
       self.totalChisqHoms = ((self.totalHomsObs - self.totalHomsExp) *\
@@ -274,22 +274,25 @@ class HardyWeinberg:
     elif self.rareGenotypeCounter > 0:
       """ Calculate the Chi Squared value for the lumped rare genotypes"""
 
-      if self.lumpedExpectedGenotypes >= self.lumpBelow:
+      # first calculate the degrees of freedom for the common genotypes
+      self.counterAllelesCommon = 0
 
-        self.counterAllelesCommon = 0
+      for allele in self.counterA.keys():
+        if self.counterA[allele] > 0:
+          self.counterAllelesCommon += 1
 
-        for allele in self.counterA.keys():
-          if self.counterA[allele] > 0:
-            self.counterAllelesCommon += 1
+      # if all alleles present in common genotypes, then there are
+      # k - 1 independent allele frequency estimates.
+      if self.counterAllelesCommon == self.k:
+        self.counterAllelesCommon -= 1
 
-        # if all alleles present in common genotypes, then there are
-        # k - 1 independent allele frequency estimates.
-        if self.counterAllelesCommon == self.k:
-          self.counterAllelesCommon -= 1
+      self.commonDf = self.commonGenotypeCounter - self.counterAllelesCommon
 
-        self.commonDf = self.commonGenotypeCounter - self.counterAllelesCommon
+      if self.commonDf > 1:
+      # if the value for degrees of freedom is not zero or negative
 
-        if self.commonDf > 1:
+        if self.lumpedExpectedGenotypes >= self.lumpBelow:
+        # do chisq for the lumped genotypes
 
           self.lumpedChisq = ((self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) * \
                              (self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) / \
@@ -300,19 +303,24 @@ class HardyWeinberg:
           self.lumpedChisqPval = float(returnedValue[0][:-1])
           self.flagLumps = 1
 
-          self.HWChisq = self.commonChisqAccumulator + self.lumpedChisq
-          self.HWChisqDf = self.commonDf
-          command = "pval %f %f" % (self.HWChisqDf, self.HWChisq)
-          returnedValue = os.popen(command, 'r').readlines()
-          self.HWChisqPval = float(returnedValue[0][:-1])
-          self.flagCommons = 1
-
-        else:
-          self.flagTooManyParameters = 1
-
           if self.debug:
             print "Lumped %d for a total of %d observed and %f expected" % (self.rareGenotypeCounter, self.lumpedObservedGenotypes, self.lumpedExpectedGenotypes)
             print "Chisq: %f, P-Value (dof = 1): %s" % (self.lumpedChisq, self.lumpedChisqPval) # doesn't work if I claim Pval is a float?
+
+        if self.flagLumps == 1:
+          self.HWChisq = self.commonChisqAccumulator + self.lumpedChisq
+        else:
+          self.HWChisq = self.commonChisqAccumulator
+
+        self.HWChisqDf = self.commonDf
+        command = "pval %f %f" % (self.HWChisqDf, self.HWChisq)
+        returnedValue = os.popen(command, 'r').readlines()
+        self.HWChisqPval = float(returnedValue[0][:-1])
+        self.flagCommons = 1
+
+      else:
+        self.flagTooManyParameters = 1
+
 
 ################################################################################
 
@@ -335,7 +343,7 @@ class HardyWeinberg:
 
       if self.flagHoms == 1:
         stream.opentag('homozygotes')
-        stream.tagContents("observed", "%.4f" % self.totalHomsObs)
+        stream.tagContents("observed", "%d" % self.totalHomsObs)
         stream.writeln()
         stream.tagContents("expected", "%4f" % self.totalHomsExp)
         stream.writeln()
@@ -347,7 +355,7 @@ class HardyWeinberg:
 
       if self.flagHets == 1:
         stream.opentag('heterozygotes')
-        stream.tagContents("observed", "%.4f" % self.totalHetsObs)
+        stream.tagContents("observed", "%d" % self.totalHetsObs)
         stream.writeln()
         stream.tagContents("expected", "%4f" % self.totalHetsExp)
         stream.writeln()
@@ -360,7 +368,7 @@ class HardyWeinberg:
       if self.flagLumps == 1:
         stream.opentag('lumped')
         stream.writeln()
-        stream.tagContents("observed", "%.4f" % self.lumpedObservedGenotypes)
+        stream.tagContents("observed", "%d" % self.lumpedObservedGenotypes)
         stream.writeln()
         stream.tagContents("expected", "%4f" % self.lumpedExpectedGenotypes)
         stream.writeln()
