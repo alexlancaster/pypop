@@ -50,7 +50,7 @@ $(NAME_SRC):  $(NAME_BIN)
 # # before running happydoc, use CVS to fix the RCS keywords in README
 # # non-verbose form, then restore them immediately after
 doc: 
-	(cd $(DOCPATH); $(MAKE) pypop-guide.pdf pypop-reference.pdf)
+	(cd $(DOCPATH); ../check-status-tag.sh ; $(MAKE) pypop-guide.pdf pypop-reference.pdf)
 
 
 clean:
