@@ -260,6 +260,7 @@ class Emhaplofreq(Haplo):
     """
     def __init__(self, locusData, debug=0):
 
+        # import the Python-to-C module wrapper
         # lazy importation of module only upon instantiation of class
         # to save startup costs of invoking dynamic library loader
         import _Emhaplofreq
@@ -271,30 +272,46 @@ class Emhaplofreq(Haplo):
         #self.matrix, self.loci = locusData
         self.matrix = locusData
         
-        #self.lociCount = len(self.matrix[0]) / 2
-        self.numIndiv, self.lociCount = self.matrix.shape
+        rows, cols = self.matrix.shape
+        self.totalNumIndiv = rows
+        self.totalLociCount = cols / 2
         
         self.debug = debug
 
-    def estHaplotypes(self, locusList, permutationFlag=0):
-
-        # import the Python-to-C module wrapper
-
+        # initialize flag
         self.maxLociExceeded = 0
 
-        print self.lociCount, self._Emhaplofreq.MAX_LOCI
-        if self.lociCount <= self._Emhaplofreq.MAX_LOCI:
+    def estHaplotypes(self, locusKeys=None, permutationFlag=0):
+
+        # if no locus list passed, assume calculation of entire data
+        # set
+        if locusKeys == None:
+            # create key for entire matrix
+            locusKeys = ':'.join(self.matrix.colList)
+
+        # get the actual number of loci being estimated
+        lociCount = len(string.split(locusKeys,':'))
+
+        if self.debug:
+            print "number of loci for haplotype est:", lociCount
+
+        print lociCount, self._Emhaplofreq.MAX_LOCI
+        if lociCount <= self._Emhaplofreq.MAX_LOCI:
 
             # create an in-memory file instance for the C program to write to
             import cStringIO
             self.fp = cStringIO.StringIO()
 
-            # call the SWIG-ed method
-            #self._Emhaplofreq.main_proc(self.fp, self.matrix, len(self.loci),
-            #                   len(self.matrix), permutationFlag)
-            self._Emhaplofreq.main_proc(self.fp, self.matrix.tolist(),
-                                        len(self.loci),
-                                        len(self.matrix), permutationFlag)
+            subMatrix = self.matrix[locusKeys]
+
+            if self.debug:
+                print "debug: key for matrix:", locusKeys
+                print "debug: subMatrix:", subMatrix
+
+            # pass this submatrix to the SWIG-ed C function
+            self._Emhaplofreq.main_proc(self.fp, subMatrix,
+                                        lociCount, self.totalNumIndiv,
+                                        permutationFlag)
 
             if self.debug:
                 # in debug mode, print the in-memory file to sys.stdout
