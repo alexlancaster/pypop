@@ -19,7 +19,7 @@ class ParseFile:
                  validPopFields=None,
                  validSampleFields=None,
                  separator='\t',
-                 fieldPairDesignator=':(2)',
+                 fieldPairDesignator='_1:_2',
                  debug=0):
         """Constructor for ParseFile object.
 
@@ -354,6 +354,7 @@ class ParseGenotypeFile(ParseFile):
                  filename,
                  alleleDesignator='*',
                  untypedAllele='****',
+                 popNameDesignator='+',
                  **kw):
         """Constructor for ParseGenotypeFile.
 
@@ -365,17 +366,22 @@ class ParseGenotypeFile(ParseFile):
         - 'alleleDesignator': The first character of the key which
         determines whether this column contains allele data.  Defaults to
         '*'
+
+        - 'popNameDesignator': The first character of the key which
+        determines whether this column contains the population name.
+        Defaults to '+'
         
         - 'untypedAllele': The designator for an untyped locus.  Defaults
         to '****'.
         """
         self.alleleDesignator=alleleDesignator
         self.untypedAllele=untypedAllele
-
+        self.popNameDesignator = popNameDesignator
+        
         ParseFile.__init__(self, filename, **kw)
         self._genDataStructures()
 
-    def _getAlleleColPos(self):
+    def _genInternalMaps(self):
         """Returns dictionary containing 2-tuple of column position.
 
         It is keyed by allele names originally specified in sample
@@ -391,6 +397,8 @@ class ParseGenotypeFile(ParseFile):
             # do we have the allele designator?
             if key[0] == self.alleleDesignator:
                 self.alleleMap[key] = self.sampleMap[key]
+            elif key[0] == self.popNameDesignator:
+                self.popNameCol = self.sampleMap[key]
 
         return self.alleleMap
 
@@ -400,8 +408,18 @@ class ParseGenotypeFile(ParseFile):
         *For internal use only.*"""        
 
         sampleDataLines, separator = self.getFileData()
-        self._getAlleleColPos()
 
+        # generate alleleMap and population field name
+        self._genInternalMaps()
+
+        if self.debug:
+            print 'sampleMap keys:', self.sampleMap.keys()
+            print 'sampleMap values:', self.sampleMap.values()
+            print 'popNameCol', self.popNameCol
+            print 'first line of data', sampleDataLines[0]
+
+        # first get popName
+        self.popName = string.split(sampleDataLines[0], separator)[self.popNameCol]
 
         self.totalIndivCount = len(sampleDataLines)
 
@@ -520,7 +538,10 @@ class ParseGenotypeFile(ParseFile):
            (self.alleleDesignator + field in fieldList):
             isValidKey = 1
         else:
-            isValidKey = 0
+            if self.popNameDesignator + field in fieldList:
+                isValidKey = 1
+            else:
+                isValidKey = 0
 
         # generate the key that matches the one in the data file
         # format
@@ -541,9 +562,13 @@ class ParseGenotypeFile(ParseFile):
             else:
                 key = self.alleleDesignator + field
 
-        # this is a regular (non-`allele' type field)
         else:
-            key = field
+            # this is the population field name
+            if self.popNameDesignator + field in fieldList:
+                key = self.popNameDesignator + field
+            else:
+                # this is a regular (non-`allele' type field)
+                key = field
 
         if self.debug:
             print "validKey: %d, key: %s" % (isValidKey, key)
@@ -586,9 +611,10 @@ class ParseGenotypeFile(ParseFile):
     def serializeSubclassMetadataTo(self, stream):
         """Serialize subclass-specific metadata.
 
-        Specifically, total number of individuals and loci.
+        Specifically, total number of individuals and loci and population name.
          """
-
+        stream.tagContents('popname', self.popName)
+        stream.writeln()
         stream.opentag('totals')
         stream.writeln()
         stream.tagContents('indivcount', "%d" % self.totalIndivCount)
