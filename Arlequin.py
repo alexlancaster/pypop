@@ -158,7 +158,7 @@ class ArlequinBatch:
             print "Counted", len(data), "lines."
         firstLine = data[0]
 
-        # estimate the number of loci from the number of columns
+        # calculate the number of loci from the number of columns
         # and the prefix and suffix columns which can be ignored  
         cols = len(string.split(firstLine))
         colCount = cols - (self.prefixCols + self.suffixCols)
@@ -173,6 +173,12 @@ class ArlequinBatch:
         if self.debug:
             print "First line", firstLine, "has", cols, "columns and", \
                   locusCount, "allele pairs"
+
+        # if windowSize is set to zero, the default to using
+        # locusCount as windowSize
+
+        if self.windowSize == 0:
+            self.windowSize = locusCount
 
         chunk = xrange(0, locusCount - self.windowSize + 1)
 
@@ -239,28 +245,65 @@ end""" % (os.getcwd(), os.getcwd(), os.sep, arpFilename))
 # this is called if this module is executed standalone
 if __name__ == "__main__":
 
-    if len(sys.argv) != 8:
-        sys.exit("""Usage: Arlequin.py INPUTFILE ARPFILE ARSFILE IDCOL LEADCOLS TRAILCOLS WINDOWSIZE
-Process a tab-delimited INPUTFILE of alleles to produce input data files for
-the Arlequin population genetics program.
+    usage_message = """Usage: Arlequin.py [OPTION] INPUTFILE ARPFILE ARSFILE
+Process a tab-delimited INPUTFILE of alleles to produce an data files
+(including ARPFILE), using parameters from ARSFILE for the Arlequin population
+genetics program.
+
+ -i, --idcol=NUM       column number of identifier (first column is zero)
+ -k, --cols=POS1,POS2  number of leading columns (POS1) before start and end
+                        (POS2) of allele data (including IDCOL)
+ -w, --windowsize=NUM  number of loci involved in window size 
+                        (note that this is twice the number of allele columns)
+ -x, --execute         execute the Arlequin program
+ -h, --help            this message
+ -d, --debug           switch on debugging
 
   INPUTFILE   input text file
   ARPFILE     output Arlequin '.arp' project file
-  ARSFILE     input Arlequin '.ars' settings file
-  IDCOL       column number of identifier (first column is zero)
-  LEADCOLS    number of leading columns before the start of allele data
-               (including IDCOL)
-  TRAILCOLS   number of trailing columns after the end of allele data
-  WINDOWSIZE  number of loci involved in window size 
-               (note that this is twice the number of allele columns)""")
-        
-    inputFilename = sys.argv[1]
-    arpFilename = sys.argv[2]
-    arsFilename = sys.argv[3]
-    idCol = int(sys.argv[4])
-    prefixCols = int(sys.argv[5])
-    suffixCols = int(sys.argv[6])
-    windowSize = int(sys.argv[7])
+  ARSFILE     input Arlequin '.ars' settings file"""
+
+    from getopt import getopt, GetoptError
+
+    try: opts, args = \
+         getopt(sys.argv[1:],"i:k:w:xhd",\
+                ["idcol", "cols", "windowsize", "help", "execute", "debug"])
+    except GetoptError:
+        sys.exit(usage_message)
+
+    # default options
+    idCol = 0
+    prefixCols = 1
+    suffixCols = 0
+    windowSize = 0
+    executeFlag = 0
+    debug = 0
+
+    # parse options
+    for o, v in opts:
+        if o in ("-i", "--idcol"):
+            idCol = int(v)
+        elif o in ("-k", "--cols"):
+            prefixCols, suffixCols = map(int, string.split(v, ','))
+        elif o in ("-t", "--trailcols"):
+            suffixCols = int(v)
+        elif o in ("-w", "--windowsize"):
+            windowSize = int(v)
+        elif o in ("-h", "--help"):
+            sys.exit(usage_message)
+        elif o in ("-x", "--execute"):
+            executeFlag = 1
+        elif o in ("-d", "--debug"):
+            debug = 1
+
+    # check number of arguments
+    if len(args) != 3:
+        sys.exit(usage_message)
+
+    # parse arguments
+    inputFilename = args[0]
+    arpFilename = args[1]
+    arsFilename = args[2]
     
     batch = ArlequinBatch(arpFilename = arpFilename,
                                arsFilename = arsFilename,
@@ -268,6 +311,10 @@ the Arlequin population genetics program.
                                prefixCols = prefixCols,
                                suffixCols = suffixCols,
                                windowSize = windowSize,
-                               debug=1)
+                               debug=debug)
     batch.outputArlequin(open(inputFilename, 'r').readlines())
     batch.outputRunFiles()
+
+    # run Arlequin if asked
+    if executeFlag:
+        batch.runArlequin()
