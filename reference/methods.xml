@@ -574,16 +574,17 @@
      which a test of significance cannot be applied). In this case,
      the rarer alleles need to be appropriately combined.</para>
 
-    <para> For the above Pearson's goodness of fit test, the
-     general rule of thumb about the validity of the asymptotics is
-     that the expected cell counts need to be at least 5 (Cochran
-     1954), although it is found that the rule tends to be
-     conservative (Bradley et al. 1979). Several corrections to this
-     goodness of fit test have been proposed to improve the
-     approximation when small sample expectations exist in the
-     sample. Yates (1934) suggested using the continuity correction,
-     1/2, i.e., (absolute value (0 - E) - 1/2)2/E. Emigh (1980) showed
-     that in some cases a correction of 1/4 performs better.</para>
+    <para> For the above Pearson's goodness of fit test, the general
+     rule of thumb about the validity of the asymptotics is that the
+     expected cell counts need to be at least 5 (Cochran 1954),
+     although it is found that the rule tends to be conservative
+     (Bradley et al. 1979). Several corrections to this goodness of
+     fit test have been proposed to improve the approximation when
+     small sample expectations exist in the sample. Yates (1934)
+     suggested using the continuity correction, &half;, i.e.,
+     (absolute value (0 - E) -
+     &half;)<superscript>2</superscript>/E. Emigh (1980) showed that
+     in some cases a correction of &frac14; performs better.</para>
 
     <para> Elston and Forthofer (1977) derived the likelihood ratio
      statistic for HWP testing. It was based on comparison of two
@@ -591,7 +592,7 @@
      distribution of genotype counts with (L<subscript>0</subscript>)
      versus without (L<subscript>1</subscript>) the HWP
      constraint. When the null hypothesis is true, i.e., HWP, the test
-     statistic, G2 (=
+     statistic, G<subscript>2</subscript> (=
      -2ln(L<subscript>0</subscript>/L<subscript>1</subscript>)),
      follows a chi-square distribution, with k(k-1)/2 d.f.</para>
 
@@ -1257,9 +1258,9 @@
    a problem here with grammar</remark> While linkage disequilibrium
    can be more generally referred to as <quote>gametic phase
    disequilibrium</quote>, or, in other words, the non-random
-   occurrence in gametes of alleles at two or more loci.  In general
-   it is immaterial whether the two loci are linked.  In practice, and
-   in almost all of the literature today, it is used only for linked
+   occurrence in gametes of alleles at two or more loci, in general it
+   is immaterial whether the two loci are linked.  In practice, and in
+   almost all of the literature today, it is used only for linked
    loci.  Thus, it can also be defined as the non-random occurrence on
    chromosomes in the population of alleles at two or more
    loci.</para>
@@ -1305,21 +1306,23 @@
     while if D &lt; 0 alleles A and b (and hence a and B) are
     preferentially associated.  The possible value of D in a two-locus
     system is constrained by the fact that the frequency of any
-    haplotype is constrained as 0 &le; p<subscript>AB </subscript>&le;
-    min(p<subscript>A , </subscript>p<subscript>B</subscript>) and
-    thus the disequilibrium coefficient is constrained by</para>
+    haplotype is constrained as:</para>
 
-   <remark>f(AB)? don't understand comment from Glenys</remark>
+   <para>0 &le; f(AB)&le; min(p<subscript>A ,
+    </subscript>p<subscript>B</subscript>)</para>
+
+   <para>and thus the disequilibrium coefficient is constrained
+    by:</para>
 
    <para>-p<subscript>a</subscript>p<subscript>b</subscript>,
    -p<subscript>A</subscript>p<subscript>B</subscript> &le;
-   p<subscript>AB</subscript> &le;
+   D<subscript>AB</subscript> &le;
    p<subscript>A</subscript>p<subscript>b</subscript>,
    p<subscript>a</subscript>p<subscript>B</subscript>.</para>
 
    <para>Consequently, interpretation of D values is dependent on the
     allele frequencies. To avoid this, the normalized gametic
-    disequilibrium D' = D/D<subscript>max</subscript> is often
+    disequilibrium D&prime; = D/D<subscript>max</subscript> is often
     considered, where D<subscript>max</subscript> is equal to either
     the lesser of p<subscript>A</subscript> p<subscript>b</subscript>
     or p<subscript>a</subscript> p<subscript>B</subscript> if D is
@@ -1328,7 +1331,7 @@
     p<subscript>b</subscript> if D is negative (Lewontin, 1964). The
     advantage of this measure over D is that it has a range from -1 to
     +1, regardless of the allele frequencies. Unfortunately, for both
-    D and D' the values are not related to statistical significance
+    D and D&prime; the values are not related to statistical significance
     and are dependent on allele frequencies. Therefore, several other
     measures are being used: &delta;, &Delta; = r,
     r<superscript>2</superscript>,
@@ -1345,11 +1348,12 @@
     referenced to the locus of the "variant". The correlation
     coefficient, r = D / (p<subscript>A</subscript>
     p<subscript>a</subscript> p<subscript>B</subscript>
-    p<subscript>b</subscript>), with a range from -1 to +1, is often
-    used, as well as r2 with a range from 0 to +1. An example from the
-    HLA region is the association between alleles at the A, B and DR
-    loci. The combinations A1-B8 and B8-DR3 have fairly high
-    normalized disequilibrium values (D' = 0.65 and D' =
+    p<subscript>b</subscript>)<superscript>&half;</superscript>, with
+    a range from -1 to +1, is often used, as well as
+    r<superscript>2</superscript> with a range from 0 to +1. An
+    example from the HLA region is the association between alleles at
+    the A, B and DR loci. The combinations A1-B8 and B8-DR3 have
+    fairly high normalized disequilibrium values (D&prime; = 0.65 and D&prime; =
     0.73, respectively).</para>
 
    <para>There is a relationship between D and the recombination
