@@ -1,3 +1,21 @@
+2003-12-19  Owen Solberg  <solberg@localhost.localdomain>
+
+	* Main.py (Main._runFilters): Parse the ini file for "directory"
+	and "file" rather than "path."
+	Change the way CustomBinning is called to account for changes in
+	that method.
+	
+	* Filter.py (BinningFilter.__init__): Receive the binningPath when
+	this object is instatiated.
+	(BinningFilter.doCustomBinning): Modularized this method so that
+	it can be called in line with the other filters.  Method now looks
+	for custom binning specifications in a single file, specified in
+	the CustomBinning section of the ini file using the file option.
+
+	* config.ini: For greater user clarity, paths which are
+	directories are now indicated by the option "directory" and paths
+	which are files by "file."
+
 2003-12-19  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* standalone.spec: Include NEWS file in standalone binary.
@@ -20,7 +38,7 @@
 	Major retooling enables this method to keep track of each position
 	in the sequence.  This is useful for debugging and may be useful
 	in later applications of this method.  
-	Variable names changed and comments added to improve readiblity of
+	Variable names changed and comments added to improve readablity of
 	code.
 
 	* Main.py (Main.__init__): Initialize self.filteringFlag to zero.

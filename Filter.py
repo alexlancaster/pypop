@@ -695,7 +695,7 @@ class BinningFilter:
     """
 
     def __init__(self,
-                 directoryName=None,
+                 binningPath=None,
                  logFile=None,
                  untypedAllele='****',
                  filename=None,
@@ -703,53 +703,55 @@ class BinningFilter:
                  debug=0):
         self.binningDigits = binningDigits
         self.untypedAllele = untypedAllele
+        self.binningPath = binningPath
         
     
     def doDigitBinning(self,matrix=None):
-        alleles = ['','']
+        allele = ['','']
         for locus in matrix.colList:
             individCount = 0
             for individ in matrix[locus]:
                 for i in range(2):
-                    alleles[i] = individ[i]
-                    if alleles[i] != self.untypedAllele and len(alleles[i]) > self.binningDigits:
-                        alleles[i] = alleles[i][:self.binningDigits]
-                matrix[individCount,locus] = (alleles[0],alleles[1])
+                    allele[i] = individ[i]
+                    if allele[i] != self.untypedAllele and len(allele[i]) > self.binningDigits:
+                        allele[i] = allele[i][:self.binningDigits]
+                matrix[individCount,locus] = (allele[0],allele[1])
                 individCount += 1
         return matrix
                     
         
-    def doCustomBinning(self,matrix=None):
-        pass
-    
-######################################################
-##     def NOT__init__(self,
-##                  binningPath='/data/ihwg/filters/binning',
-##                  **kw):
-##         AnthonyNolanFilter.__init__(self, **kw)
-##         columnPattern = re.compile("^([0-9a-zA-Z]+)\t([0-9a-zA-Z]+)")
-##         self.binningTable = {}
-##         for binningLocus in loci:
-##             binningEntries = (open(os.path.join(binningPath, binningLocus + '.tsv'), 'r')).readlines()
-##     def endFirstPass(self):
-##         """Do regular AnthonyNolanFilter then translate alleles with
-##         entries in the binning files.
-##         """
-##         AnthonyNolanFilter.endFirstPass(self)
-##         # now, loop over the loci, reading in binning rules
-##         # for each locus for which they are available.
-##         # This needs to be changed to be passed in from the config file
-##         # as is done for validSampleFields.
-##         translKeys = self.translTable.keys()
-##         for allele in translKeys:
-##             filteredAllele = self.translTable[allele]
-##             if self.debug:
-##                 print allele, "translates to", filteredAllele, "and has count", self.countTable[filteredAllele]
-##             # if below the threshold, make allele 'lump
-##             if self.countTable[filteredAllele] <= self.lumpThreshold:
-##                 self.translTable[allele] = 'lump'
-#############################################################
+    def doCustomBinning(self, matrix=None):
 
+        # first, create the custom binning dictionary
+        customBinningDict = {}
+        for locus in matrix.colList:
+            customBinningDict[locus] = {}
+
+        print self.binningPath
+        lines = (open(self.binningPath, 'r')).readlines()
+
+        for line in lines:
+            column1, column2 = line.split()
+            if column1 == "locus":
+                locus = string.upper(column2)
+            else:
+                customBinningDict[locus][column1] = column2
+
+
+        # then, go through each cell of the matrix and make necessary substitutions
+        allele = ['','']
+        for locus in matrix.colList:
+            individCount = 0
+            for individ in matrix[locus]:
+                for i in range(2):
+                    allele[i] = individ[i]
+                    if allele[i] in customBinningDict[locus]:
+                        print locus + "*" + allele[i] + " is being replaced by " + customBinningDict[locus][allele[i]]
+                        allele[i] = customBinningDict[locus][allele[i]]
+                        
+                matrix[individCount,locus] = (allele[0],allele[1])
+                individCount += 1
+        return matrix
 
 
 
