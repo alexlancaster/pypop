@@ -15,12 +15,15 @@ if sys.argv[1] == 'sdist':
 
 def Ensure_Scripts(scripts):
     """Strips '.py' from installed scripts.
+
+    This is a hack and needs work.
     """
     for script in scripts:
         suffix = script[-3:]
         prefix = script[:-3]
         if suffix == '.py':
-            copy_file(script,prefix)
+            if sys.argv[1] == 'install':
+                copy_file(script,prefix)
             scripts[scripts.index(script)] = prefix
     return scripts
     
