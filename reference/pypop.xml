@@ -556,7 +556,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     W<subscript>n</subscript> greater than 0.6</title>
     <mediaobject>
      <imageobject>
-      <imagedata fileref="../ihws2002/plots/generated/ld-wn-summary.jpg" scale="80"/>
+      <imagedata fileref="ld-wn-summary.jpg" scale="80"/>
      </imageobject>
     </mediaobject>
    </figure>
@@ -605,7 +605,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     <title>Sample metadata output: viewing number of populations by locus</title>
     <mediaobject>
      <imageobject>
-      <imagedata fileref="../ihws2002/plots/generated/pops-by-locus.jpg" scale="90"/>
+      <imagedata fileref="pops-by-locus.jpg" scale="90"/>
      </imageobject>
     </mediaobject>
    </figure>
@@ -615,7 +615,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
      of populations within each region</title>
     <mediaobject>
      <imageobject>
-      <imagedata fileref="../ihws2002/plots/generated/pops-by-region.jpg" scale="90"/>
+      <imagedata fileref="pops-by-region.jpg" scale="90"/>
      </imageobject>
     </mediaobject>
    </figure>
