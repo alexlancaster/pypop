@@ -252,6 +252,13 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
     }
   }
   *records = i + 1;
+  /* check this value is not greater than MAX_ROWS */
+  if( *records > MAX_ROWS)
+  {
+    fprintf(stderr, "The number of lines of data exceeds %s\n", MAX_ROWS);
+    fprintf(stderr, "Unable to continue\n\n");
+    exit(EXIT_FAILURE);
+  }
 
   fclose(in_file);
   return (num_cols / 2);  /* this being the number of loci */
@@ -351,18 +358,18 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   if (fp_iter == NULL)
     if ((fp_iter = fopen("summary_iter.out", "w")) == NULL)
       {
-	fprintf(stderr, "\nUnable to open summary_iter.out for writing.\n\n");
-	exit(EXIT_FAILURE);
+        fprintf(stderr, "\nUnable to open summary_iter.out for writing.\n\n");
+        exit(EXIT_FAILURE);
       }
 
   if (permu_flag == 1) {
     max_permutations = MAX_PERMU;
     if (fp_permu == NULL) {
       if ((fp_permu = fopen("summary_permu.out", "w")) == NULL)
-	{
-	  fprintf(stderr, "\nUnable to open summary_permu.out for writing.\n\n");
-	  exit(EXIT_FAILURE);
-	}
+      {
+        fprintf(stderr, "\nUnable to open summary_permu.out for writing.\n\n");
+        exit(EXIT_FAILURE);
+      }
     }
   }
   else
