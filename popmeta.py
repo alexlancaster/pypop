@@ -91,16 +91,20 @@ skip any XML files that are not well-formed XML.
                             (default: '%s')
   -h, --help              show this message
   -d, --dump-meta         dump the meta output file to stdout, ignore xslt file
+      --no-R              don't generate R *.dat files 
+      --no-PHYLIP         don't generate PHYLIP *.phy files
 
   INPUTFILES  input XML files""" % datapath
 
 try:
-  opts, args =getopt(sys.argv[1:],"m:hd", ["meta-xslt=", "help", "dump-meta"])
+  opts, args =getopt(sys.argv[1:],"m:hd", ["meta-xslt=", "help", "dump-meta", "no-R", "no-PHYLIP"])
 except GetoptError:
   sys.exit(usage_message)
 
 metaXSLTDirectory= datapath
 dump_meta = 0
+R_output=1
+PHYLIP_output=1
 
 # parse options
 for o, v in opts:
@@ -110,9 +114,17 @@ for o, v in opts:
     sys.exit(usage_message)
   elif o in ("-d", "--dump-meta"):
     dump_meta = 1
+  elif o=="--no-R":
+    R_output = 0
+  elif o=="--no-PHYLIP":
+    PHYLIP_output = 0
 
 # parse arguments
 files = args
+
+# report usage message if no file arguments given
+if not(files):
+    sys.exit(usage_message)
 
 wellformed_files = []
 
@@ -175,11 +187,24 @@ else:
     # generate the data file 'sorted-by-locus.xml' of pops sorted by locus
     os.popen("xsltproc %s %s > %s" % (os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), 'meta.xml', 'sorted-by-locus.xml'))
 
-    # use 'sorted-by-locus.xml' to generate a list of unique alleles
-    # 'allelelist-by-locus.xml' for each locus across all the
-    # populations in the set of XML files passed
-    os.popen("xsltproc %s %s > %s" % (os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'), 'sorted-by-locus.xml', 'allelelist-by-locus.xml'))
+    # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:
 
-    # finally, using the 'allelelist-by-locus.xml' file implicitly,
-    # generate all data output in formats for both R and phylip
-    os.popen("xsltproc %s %s 2> log.out" % (os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml'))
+    if R_output:
+        # generate all data output in formats for R
+        os.popen("xsltproc %s %s 2> log.out" % (os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml'))
+
+    if PHYLIP_output:
+        # use 'sorted-by-locus.xml' to generate a list of unique alleles
+        # 'allelelist-by-locus.xml' for each locus across all the
+        # populations in the set of XML files passed
+        os.popen("xsltproc %s %s > %s" % (os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'), 'sorted-by-locus.xml', 'allelelist-by-locus.xml'))
+
+        # similarly, generate a unique list of haplotypes
+        # 'haplolist-by-locus.xml'
+        os.popen("xsltproc %s %s > %s" % (os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), 'meta.xml', 'haplolist-by-group.xml'))
+
+        # generate Phylip allele data
+        os.popen("xsltproc %s %s" % (os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml'))
+
+        # generate Phylip haplotype data
+        os.popen("xsltproc %s %s" % (os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), 'meta.xml'))
