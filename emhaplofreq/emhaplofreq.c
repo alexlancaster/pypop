@@ -880,32 +880,39 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     sort2byfloat(haplo, freq_zero, n_haplo);
 
     j = 0;
-    fprintf(fp_out, "\n \t MLE freq \t ~#haps \t haplo (MLE > .00001) \n");
+    fprintf(fp_out, "\n");
+    fprintf(fp_out, "                   Approx No.   \n");
+    fprintf(fp_out, "        MLE Freq*  of Copies  Haplo (*only printed if MLE > .00001)\n");
     for (i = 0; i < n_haplo; i++)
     {
       if (freq_zero[i] > .00001)
       {
         j += 1;
-        fprintf(fp_out, "%d \t %f \t %5.1f \t %s\n", j, freq_zero[i], freq_zero[i]*2.0*n_recs, haplo[i]);
+        fprintf(fp_out, "%3d  %12.5f %8.1f    %s\n", j, freq_zero[i], freq_zero[i]*2.0*n_recs, haplo[i]);
       }
     }
+    fprintf(fp_out, "\n");
 #ifdef XML_OUTPUT
     fprintf(fp_out, "]]></haplotypefreq>\n");
 #endif
 
 #ifndef XML_OUTPUT
-    fprintf(fp_out, "\nAllele frequencies\n");
+    fprintf(fp_out, "Allele frequencies\n");
     fprintf(fp_out, "------------------\n");
-    fprintf(fp_out, "Frequency \t Locus \t Allele\n");
+    fprintf(fp_out, "       Frequency Locus Allele\n");
     for (i = 0; i < n_loci; i++)
     {
       for (j = 0; j < n_unique_allele[i]; j++)
       {
-        fprintf(fp_out, "%f \t %d \t %s \n", allele_freq[i][j], i, 
+        fprintf(fp_out, "%3d %12.5f %5d  %s \n", j+1, allele_freq[i][j], i, 
           unique_allele[i][j]);
       }
     }
+    fprintf(fp_out, "\n");
 #endif
+
+    fprintf(fp_out, "Pairwise Linkage Disequilibrium\n");
+    fprintf(fp_out, "-------------------------------\n");
 
 #ifdef XML_OUTPUT
     fprintf(fp_out, "<linkagediseq><![CDATA[");
@@ -1239,6 +1246,10 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
   CALLOC_ARRAY_DIM1(double, summary_wn, MAX_LOCI*(MAX_LOCI - 1)/2);
 
   double sum = 0.0; /* used to check sums */
+  double obs = 0.0; 
+  double exp = 0.0; 
+  double diseq = 0.0; 
+  double chisq = 0.0; 
 
   /* zero out static array before each run to make code re-entrant */
   INIT_STATIC_DIM3(double, dij, (MAX_LOCI*(MAX_LOCI-1)/2), \
@@ -1261,153 +1272,25 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
     }
   }
 
-/* CHECKING inner loop
-          fprintf(stdout,"Loci: %d %d dij[%d][%d][%d]: %f \n", 
-            j, k, coeff_count, l, m, dij[coeff_count][l][m]);
-*/
-  /* print Estimated Observed Counts (2*n_recs*dij) */
-  fprintf(fp_out,"\nEstimated Observed Counts\n");
-  fprintf(fp_out,"-------------------------\n");
   coeff_count = 0;
   for (j = 0; j < n_loci; j++)
   {
     for (k = j+1; k < n_loci; k++)
     {
-      fprintf(fp_out,"--Loci:%2d\\%2d-- (Estimated Observed Counts)\n", j, k);
-      fprintf(fp_out,"%10s ", " ");
-      for (m = 0; m < n_unique_allele[k]; m++)
-        fprintf(fp_out,"%10s ", unique_allele[k][m]);
-      fprintf(fp_out,"\n");
-      sum = 0.0; /* CHECKING sum */
+      fprintf(fp_out,"--Loci:%2d\\%2d--\n", j, k);
+      fprintf(fp_out," Haplo         Observed*  Expected**     d_ij      d'_ij      chisq (*estimated) (**under Ho:no LD)\n");
       for (l = 0; l < n_unique_allele[j]; l++)
       {
-        fprintf(fp_out,"%10s ", unique_allele[j][l]);
         for (m = 0; m < n_unique_allele[k]; m++)
         {
-          fprintf(fp_out,"%10.4f ", 2 * (double)n_recs * dij[coeff_count][l][m]);
-          sum += 2 * (double)n_recs * dij[coeff_count][l][m];
-        }
-        fprintf(fp_out,"\n"); 
-      }
-      coeff_count += 1;
-/* CHECKING sum
-      fprintf(stdout,"\t 2*n_recs: %d sum: %f \n", 2*n_recs, sum); 
-*/
-    }
-  }
-
-  /* print Expected Counts under No LD */
-  fprintf(fp_out,"\nExpected Counts with No LD\n");
-  fprintf(fp_out,"--------------------------\n");
-  coeff_count = 0;
-  for (j = 0; j < n_loci; j++)
-  {
-    for (k = j+1; k < n_loci; k++)
-    {
-      fprintf(fp_out,"--Loci:%2d\\%2d-- (Expected Counts with No LD)\n", j, k);
-      fprintf(fp_out,"%10s ", " ");
-      for (m = 0; m < n_unique_allele[k]; m++)
-        fprintf(fp_out,"%10s ", unique_allele[k][m]);
-      fprintf(fp_out,"\n");
-      sum = 0.0; /* CHECKING sum */
-      for (l = 0; l < n_unique_allele[j]; l++)
-      {
-        fprintf(fp_out,"%10s ", unique_allele[j][l]);
-        for (m = 0; m < n_unique_allele[k]; m++)
-        {
-          fprintf(fp_out,"%10.4f ", 2 * (double)n_recs * af[j][l] * af[k][m]);
-          sum += 2 * (double)n_recs * af[j][l] * af[k][m];
-        }
-        fprintf(fp_out,"\n");
-      }
-      coeff_count += 1;
-/* CHECKING sum
-      fprintf(stdout,"\t 2*n_recs: %d sum: %f \n", 2*n_recs, sum); 
-*/
-    }
-  }
-
-  /* print   Individual 1-df Chi-square Statistics */
-  /* compute disequilibrium values overwriting dij[][][] */
-  fprintf(fp_out,"\nSingle d.f. Chi-squares\n");
-  fprintf(fp_out,"-----------------------\n");
-  coeff_count = 0;
-  for (j = 0; j < n_loci; j++)
-  {
-    for (k = j+1; k < n_loci; k++)
-    {
-      fprintf(fp_out,"--Loci:%2d\\%2d-- (Single d.f. Chi-squares)\n", j, k);
-      fprintf(fp_out,"%10s ", " ");
-      for (m = 0; m < n_unique_allele[k]; m++)
-        fprintf(fp_out,"%10s ", unique_allele[k][m]);
-      fprintf(fp_out,"\n");
-      for (l = 0; l < n_unique_allele[j]; l++)
-      {
-        fprintf(fp_out,"%10s ", unique_allele[j][l]);
-        for (m = 0; m < n_unique_allele[k]; m++)
-        {
+          obs = 2 * (double)n_recs * dij[coeff_count][l][m];
+          exp = 2 * (double)n_recs * af[j][l] * af[k][m];
           dij[coeff_count][l][m] -= af[j][l] * af[k][m];
-          fprintf(fp_out,"%10.4f ", pow(dij[coeff_count][l][m], 2) * 
-            2 * (double)n_recs / ( af[j][l]*(1-af[j][l])*af[k][m]*(1-af[k][m]) ));
-        }
-        fprintf(fp_out,"\n");
-      }
-      coeff_count += 1;
-    }
-  }
-
-  /* print   d_ij values */
-  /* compute summary_q and summary_wn */
-  fprintf(fp_out,"\nDisequilibrium Values (d_ij)\n");
-  fprintf(fp_out,"----------------------------\n");
-  coeff_count = 0;
-  for (j = 0; j < n_loci; j++)
-  {
-    for (k = j+1; k < n_loci; k++)
-    {
-      summary_q[coeff_count] = 0;
-      fprintf(fp_out,"--Loci:%2d\\%2d-- (d_ij)\n", j, k);
-      fprintf(fp_out,"%10s ", " ");
-      for (m = 0; m < n_unique_allele[k]; m++)
-        fprintf(fp_out,"%10s ", unique_allele[k][m]);
-      fprintf(fp_out,"\n");
-      for (l = 0; l < n_unique_allele[j]; l++)
-      {
-        fprintf(fp_out,"%10s ", unique_allele[j][l]);
-        for (m = 0; m < n_unique_allele[k]; m++)
-        {
-          fprintf(fp_out,"%10.4f ", dij[coeff_count][l][m]);
-          summary_q[coeff_count] += 2 * (double)n_recs * 
+          diseq = dij[coeff_count][l][m];
+          chisq = pow(dij[coeff_count][l][m], 2) * 2 * (double)n_recs / 
+            ( af[j][l]*(1-af[j][l])*af[k][m]*(1-af[k][m]) );
+          summary_q[coeff_count] += 2 * (double)n_recs *
             pow(dij[coeff_count][l][m], 2) / ( af[j][l] * af[k][m] ) ;
-        }
-        fprintf(fp_out,"\n");
-      }
-      summary_wn[coeff_count]  = sqrt( summary_q[coeff_count] / 
-        ( 2*(double)n_recs * (min(n_unique_allele[j],n_unique_allele[k])-1) ) );
-      coeff_count += 1;
-    }
-  }
-
-  /* print   dprime_ij values */
-  /* compute dprime_ij values and summary_dprime */
-  fprintf(fp_out,"\nNormalized Disequilibrium Values (d'_ij)\n");
-  fprintf(fp_out,"----------------------------------------\n");
-  coeff_count = 0;
-  for (j = 0; j < n_loci; j++)
-  {
-    for (k = j+1; k < n_loci; k++)
-    {
-      summary_dprime[coeff_count] = 0;
-      fprintf(fp_out,"--Loci:%2d\\%2d-- (d'_ij = d_ij/dmax)\n", j, k);
-      fprintf(fp_out,"%10s ", " ");
-      for (m = 0; m < n_unique_allele[k]; m++)
-        fprintf(fp_out,"%10s ", unique_allele[k][m]);
-      fprintf(fp_out,"\n");
-      for (l = 0; l < n_unique_allele[j]; l++)
-      {
-        fprintf(fp_out,"%10s ", unique_allele[j][l]);
-        for (m = 0; m < n_unique_allele[k]; m++)
-        {
           if (dij[coeff_count][l][m] > 0)
           {
             dmax = min( af[j][l]*(1-af[k][m]), (1-af[j][l])*af[k][m] );
@@ -1419,18 +1302,21 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
             norm_dij = dij[coeff_count][l][m] / dmax;
           }
           else
-            norm_dij = 0; 
-          fprintf(fp_out,"%10.4f ", norm_dij);
+            norm_dij = 0;
           summary_dprime[coeff_count] += af[j][l] * af[k][m] * fabs(norm_dij);
+          fprintf(fp_out,"%6s%6s %10.4f %10.4f %10.4f %10.4f %10.4f\n", 
+            unique_allele[j][l], unique_allele[k][m], obs, exp, diseq, norm_dij, chisq); 
         }
-        fprintf(fp_out,"\n");
       }
+      summary_wn[coeff_count]  = sqrt( summary_q[coeff_count] /
+        ( 2*(double)n_recs * (min(n_unique_allele[j],n_unique_allele[k])-1) ) );
       coeff_count += 1;
+      fprintf(fp_out,"\n"); 
     }
   }
 
   /* print   summary measures */
-  fprintf(fp_out,"\nDisequilibrium Summary Measures\n");
+  fprintf(fp_out,"Disequilibrium Summary Measures\n");
   fprintf(fp_out,"-------------------------------\n");
   coeff_count = 0;
   for (j = 0; j < n_loci; j++)
