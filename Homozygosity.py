@@ -220,50 +220,28 @@ class Homozygosity:
     type = getStreamType(stream)
     
     if self.expectedStatsFlag:
-      if type == 'xml':
-        stream.opentag('homozygosity')
-        stream.writeln()        
-        stream.tagContents('observed', "%.4f" % self.getObservedHomozygosity())
-        stream.writeln()
-        stream.tagContents('expected', "%.4f" % self.getExpectedHomozygosity())
-        stream.writeln()
-        stream.tagContents('normdev', "%.4f" % self.getNormDevHomozygosity())
-        stream.writeln()
-        
-        #stream.tagContents('expectedVariance', "%.4f" % self.getVarExpectedHomozygosity())
-        #stream.writeln()
-        #stream.tagContents('expectedStdErr', "%.4f" % self.getSemExpectedHomozygosity())
-        #stream.writeln()
-        stream.opentag('pvalue')
-        lb, up = self.getPValueRange()
-        stream.tagContents('lower', "%.4f" % lb)
-        stream.tagContents('upper', "%.4f" % up)
-        stream.closetag('pvalue')
-        stream.writeln()
-        stream.closetag('homozygosity')
-      else:
-        stream.writeln("Homozygosity statistics:")
-        stream.writeln("========================")
-        stream.write("Observed Homozygosity: %.4f" % \
-                     self.getObservedHomozygosity())
-        stream.writeln()
-        stream.write("Expected Homozygosity: %.4f" % \
-                     self.getExpectedHomozygosity())
-        stream.writeln()
-        stream.write("Normalized Deviate of Homozygosity: %.4f" % \
-                     self.getNormDevHomozygosity())
-        stream.writeln()
-        #stream.write("Expected Variance %.4f" % self.getVarExpectedHomozygosity())
-        #stream.writeln()
-        #stream.write("Expected Stderr of the mean %.4f" % self.getSemExpectedHomozygosity())
-        #stream.writeln()
-        stream.write("%f < pval < %f" % self.getPValueRange())
-        stream.writeln()
+      stream.opentag('homozygosity')
+      stream.writeln()        
+      stream.tagContents('observed', "%.4f" % self.getObservedHomozygosity())
+      stream.writeln()
+      stream.tagContents('expected', "%.4f" % self.getExpectedHomozygosity())
+      stream.writeln()
+      stream.tagContents('normdev', "%.4f" % self.getNormDevHomozygosity())
+      stream.writeln()
+      
+      #stream.tagContents('expectedVariance', "%.4f" % self.getVarExpectedHomozygosity())
+      #stream.writeln()
+      #stream.tagContents('expectedStdErr', "%.4f" % self.getSemExpectedHomozygosity())
+      #stream.writeln()
+      stream.opentag('pvalue')
+      lb, up = self.getPValueRange()
+      stream.tagContents('lower', "%.4f" % lb)
+      stream.tagContents('upper', "%.4f" % up)
+      stream.closetag('pvalue')
+      stream.writeln()
+      stream.closetag('homozygosity')
     else:
-      if type == 'xml':
-        stream.emptytag('homozygosity', role='out-of-range')
-      else:
-        stream.writeln("Can't generate expected homozygosity statistics")
+      stream.emptytag('homozygosity', role='out-of-range')
 
     # always end on a newline
     stream.writeln()
