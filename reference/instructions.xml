@@ -39,7 +39,7 @@
 <programlisting><![CDATA[
 Population Summary
 ==================
-
+Population Name: UchiTelle
        Lab code: USAFEL
   Typing method: 12th Workshop SSOP
       Ethnicity: Telle
@@ -47,11 +47,9 @@ Population Summary
 Collection site: Targen Village
        Latitude: 41 deg 12 min N
       Longitude: 94 deg 7 min E
-Population Name: UchiTelle
 
 Population Totals
 _________________
-
 Sample Size (n): 47
 Allele Count (2n): 94
 Total Loci in file: 9
@@ -75,13 +73,14 @@ Total Loci with data: 8
   <example>
    <title>Basic locus information sample output</title>
 <programlisting><![CDATA[
-1. Locus: A
-===========
+I. Single Locus Analyses
+========================
 
+1. Locus: A
+___________
 
 1.1. Allele Counts [A]
-______________________
-
+----------------------
 Untyped individuals: 2
 Sample Size (n): 45
 Allele Count (2n): 90
@@ -110,8 +109,7 @@ Total     1.00000   90        | Total     1.00000   90
 
 <programlisting>
 4. Locus: DRA
-=============
-
+_____________
  No data for this locus!
 </programlisting>
 
@@ -147,8 +145,7 @@ Total     1.00000   90        | Total     1.00000   90
    <title>Sample output of homozygosity test</title>
 <programlisting><![CDATA[
 1.4. Ewens-Watterson homozygosity test of neutrality [A]
-________________________________________________________
-
+--------------------------------------------------------
 Observed F: 0.1326, Expected F: 0.2651, Normalized deviate (Fnd): -1.4506
 p-value range: 0.0000 < p <= 0.0100 *
 ]]></programlisting>
@@ -172,23 +169,16 @@ p-value range: 0.0000 < p <= 0.0100 *
    <title>Sample output of Hardy-Weinberg genotype table</title>
 
  <programlisting><![CDATA[
-1.2. HardyWeinberg [A]
-______________________
-
+6.2. HardyWeinberg [DQA1]
+-------------------------
 Table of genotypes, format of each cell is: observed/expected.
 
-0101 0/0.8
-0201 2/2.5 6/2.0
-0210 1/1.2 0/1.9 1/0.5
-0218 4/1.2 0/1.9 0/0.9 1/0.5
-0301 0/1.9 0/3.0 4/1.4 0/1.4 3/1.1
-2501 3/1.5 2/2.3 0/1.1 1/1.1 2/1.7 0/0.7
-3204 1/1.1 1/1.7 1/0.8 0/0.8 1/1.2 3/1.0 0/0.4
-6814 0/0.4 1/0.6 0/0.3 1/0.3 0/0.5 0/0.4 1/0.3 0/0.1
-6901 1/0.5 0/0.8 1/0.4 1/0.4 1/0.6 0/0.5 0/0.4 0/0.1 0/0.1
-7403 0/0.1 1/0.2 0/0.1 0/0.1 0/0.2 0/0.1 0/0.1 0/0.0 0/0.0 0/0.0
-      0101  0201  0210  0218  0301  2501  3204  6814  6901  7403
-                             [Cols: 1 to 10]
+0201 8/5.1
+0301 4/4.0 1/0.8
+0401 3/6.9 1/2.7 6/2.3
+0501 8/9.9 5/3.8 5/6.7 6/4.8
+      0201  0301  0401  0501
+                             [Cols: 1 to 4]
 ]]></programlisting>
   </example>
 
@@ -247,11 +237,11 @@ Table of genotypes, format of each cell is: observed/expected.
 <programlisting><![CDATA[
                       Observed    Expected  Chi-square   DoF   p-value   
 ------------------------------------------------------------------------------
-            Common           -        0.00        4.65     1  0.0310*     
+            Common         N/A         N/A        4.65     1  0.0310*     
 ------------------------------------------------------------------------------
-  Lumped genotypes           -        0.00        1.17     1  0.2797      
+  Lumped genotypes         N/A         N/A        1.17     1  0.2797      
 ------------------------------------------------------------------------------
-   Common + lumped           -        0.00        5.82     1  0.0158*     
+   Common + lumped         N/A         N/A        5.82     1  0.0158*     
 ------------------------------------------------------------------------------
    All homozygotes          21       13.01        4.91     1  0.0268*     
 ------------------------------------------------------------------------------
@@ -269,7 +259,7 @@ Common genotypes
          0201:0401           3        6.93        2.23        0.1358      
          0201:0501           8        9.89        0.36        0.5472      
          0401:0501           5        6.70        0.43        0.5109      
-             Total          24   28.632979
+             Total          24       28.63
 ------------------------------------------------------------------------------
 ]]></programlisting>
   </example>
@@ -334,14 +324,13 @@ Common genotypes
    <title>Sample output for exact test</title>
 
 <programlisting>
-1.3. Guo and Thompson HardyWeinberg output [A]
-______________________________________________
-
+6.3. Guo and Thompson HardyWeinberg output [DQA1]
+-------------------------------------------------
 Dememorization steps: 2000
 Number of samples: 1000
 Sample size: 1000
-Std. error: 0.0001534
-p-value: 0.0006***
+Std. error: 0.0009431
+p-value: 0.0537
 </programlisting>
   </example>
 
@@ -350,8 +339,7 @@ p-value: 0.0006***
 
 <programlisting>
 2.3. Guo and Thompson HardyWeinberg output [C]
-______________________________________________
-
+----------------------------------------------
 Too large a matrix for Guo and Thompson
 </programlisting>
 
@@ -391,15 +379,14 @@ Too large a matrix for Guo and Thompson
 
 <programlisting><![CDATA[
 Haplotype frequency est. for loci: A:B:DRB1
-___________________________________________
-
+-------------------------------------------
 Number of individuals: 47 (before-filtering)
 Number of individuals: 45 (after-filtering)
 Unique phenotypes: 45
 Unique genotypes: 113
 Number of haplotypes: 188
-Loglikelihood under linkage equilibrium ln(L_0): -472.700542
-Loglikelihood obtained via the EM algorithm ln(L_1): -340.676530
+Loglikelihood under linkage equilibrium [ln(L_0)]: -472.700542
+Loglikelihood obtained via the EM algorithm [ln(L_1)]: -340.676530
 Number of iterations before convergence: 67
 ]]></programlisting>
    </example>
@@ -449,9 +436,14 @@ haplotype         frequency # copies  | haplotype         frequency # copies
     <title>Sample output of all pairwise LD</title>
 
 <programlisting>
-Pairwise LD estimates
-_____________________
+II. Multi-locus Analyses
+========================
 
+Haplotype/ linkage disequlibrium (LD) statistics
+________________________________________________
+
+Pairwise LD estimates
+---------------------
 Locus pair        D'        Wn   ln(L_1)   ln(L_0)         S # permu p-value  
 A:C          0.49229   0.39472   -289.09   -326.81     75.44    1000 0.8510   
 A:B          0.50895   0.40145   -293.47   -330.83     74.73    1000 0.8730   
