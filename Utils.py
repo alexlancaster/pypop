@@ -407,5 +407,5 @@ class StringMatrix(UserArray):
                   return 0
           return 1
 
-      return filter(f, self.__getitem__(key))
+      return (filter(f, self.__getitem__(key)))[:]
       
