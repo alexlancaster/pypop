@@ -6,11 +6,13 @@ if sys.platform == 'cygwin':
     exec_name = 'pypop.exe'
     wrapper_name = 'pypop.bat'
     type = 'Win32'
+    file_sep = '\\'
     compression = 'zip'
 elif sys.platform == 'linux2':
     exec_name = 'pypop'
     wrapper_name = 'pypop.sh'
     type = 'Linux'
+    file_sep = '/'
     compression = 'gzip'
 else:
     sys.exit(sys.platform + " is currently unsupported")
@@ -80,7 +82,7 @@ shutil.copyfile(os.path.join('data','samples',\
 
 # create a wrapper script
 wrapper = open(os.path.join(dist_dir, wrapper_name), 'w')
-wrapper.write(os.path.join(bin_dir, exec_name) + " -i")
+wrapper.write(bin_dir + file_sep + exec_name + " -i")
 wrapper.close()
 os.chmod(os.path.join(dist_dir, wrapper_name), 0755)
 
