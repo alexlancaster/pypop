@@ -60,7 +60,7 @@ setup (name = "PyPop",
        extra_path = 'PyPop',
 
        py_modules = ["Arlequin", "HardyWeinberg", "Utils",
-                     "Haplo", "Homozygosity",  "ParseFile" ],
+                     "Haplo", "Homozygosity",  "ParseFile", "Filter"],
        scripts= Ensure_Scripts(['pypop.py']),
 
        data_files=[('share/PyPop', data_file_paths)],
