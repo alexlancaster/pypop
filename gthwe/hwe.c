@@ -101,6 +101,30 @@ long init_rand(void) {
   return (t1);
 }
 
+double diff_statistic(int i, int j, int total_gametes, 
+		      int *allele_array, int *genotypes)
+{
+  double p_i, p_j, expected;
+  double cur_observed = (double)genotypes[L(i,j)];
+
+  p_i = (double)allele_array[i]/(double)total_gametes;
+
+  if (i != j) {
+    p_j = (double)allele_array[j]/(double)total_gametes;
+    /* heterozygote case */
+    expected = 2*p_i*p_j*total_gametes/2;
+  }
+  else {
+    /* homozygote case */
+    expected = p_i*p_i*total_gametes/2;
+  }
+
+  /* printf("cur_observed = %g, expected = %g\n", cur_observed, expected); */
+
+  double diff_stat = fabs(cur_observed - expected);
+
+  return (diff_stat); 
+}
 
 /*
   THIS FUNCTION IS CURRENTLY **BROKEN**, A PLACEHOLDER FOR TESTING
@@ -129,8 +153,8 @@ long init_rand(void) {
   var(d_ii) = 1/n * (p_i^4 - 2*p_i^3 + p_i^2)
 
 */
-double norm_dev(int i, int j, int total_gametes, 
-		int *allele_array, int *genotypes)
+double chen_statistic (int i, int j, int total_gametes, 
+		      int *allele_array, int *genotypes)
 {
   double p_i, p_j, p_ij, p_ii, p_jj;
   double d, var, norm_dev;
@@ -167,15 +191,16 @@ double norm_dev(int i, int j, int total_gametes,
 
 }
 
-void init_stats(double *obs_normdev, int no_allele, int total_individuals,
+void init_stats(double (*statistic_func) (int, int, int, int *, int *),
+		double *obs_normdev, int no_allele, int total_individuals,
 		int *allele_array, int *genotypes,  FILE *outfile)
 {
   register int i, j;
 
   for (i=0; i < no_allele; i++) 
     for (j=0; j <= i; j++) {
-      obs_normdev[L(i,j)] = norm_dev(i, j, (total_individuals * 2), 
-				     allele_array, genotypes);
+      obs_normdev[L(i,j)] = statistic_func(i, j, (total_individuals * 2), 
+					   allele_array, genotypes);
 #ifndef XML_OUTPUT
       fprintf(outfile, "obs_normdev[%d, %d] = %f\n", i, j, obs_normdev[L(i,j)]);
 #else
@@ -185,7 +210,8 @@ void init_stats(double *obs_normdev, int no_allele, int total_individuals,
     }
 }
 
-void store_stats(double *obs_normdev, int *normdev_count, 
+void store_stats(double (*statistic_func) (int, int, int, int *, int *),
+		 double *obs_normdev, int *normdev_count, 
 		 int no_allele, int total_individuals,
 		 int *allele_array, int *genotypes)
 {
@@ -194,11 +220,11 @@ void store_stats(double *obs_normdev, int *normdev_count,
   /* go through genotype list at this step of the chain */
   for (k=0; k < no_allele; k++) 
     for (l=0; l <= k; l++) {
-      /* increase count in genotype if norm_dev > norm_dev[0] */
+      /* increase count in genotype if test statistic > test statistic[0] */
       /* printf("genotypes[%d,%d]=%d, ", k, l, genotypes[L(k,l)]); */
       
-      double sim_normdev = norm_dev(k, l, (total_individuals * 2), 
-				    allele_array, genotypes);
+      double sim_normdev = statistic_func(k, l, (total_individuals * 2), 
+					  allele_array, genotypes);
       /* printf("norm dev: sim = %g, ", sim_normdev); */
 
       if (sim_normdev > obs_normdev[L(k,l)]) {
@@ -208,7 +234,8 @@ void store_stats(double *obs_normdev, int *normdev_count,
     }
 }
 
-void print_stats(int *normdev_count, int no_allele, double steps, FILE *outfile)
+void print_stats(char *statistic_type, int *normdev_count, 
+		 int no_allele, double steps, FILE *outfile)
 {
   register int k, l;
   for (k=0; k < no_allele; k++) 
@@ -217,7 +244,7 @@ void print_stats(int *normdev_count, int no_allele, double steps, FILE *outfile)
       fprintf(outfile, "normdev_count[%d, %d] = %d, p-value = %g\n", 
 	      k, l, normdev_count[L(k,l)], normdev_count[L(k,l)]/steps);
 #else
-      fprintf(outfile, "<pvalue type=\"genotype\" row=\"%d\" col=\"%d\">%g</pvalue>\n", k, l, normdev_count[L(k,l)]/steps);
+      fprintf(outfile, "<pvalue type=\"genotype\" statistic=\"%s\" row=\"%d\" col=\"%d\">%g</pvalue>\n", statistic_type, k, l, normdev_count[L(k,l)]/steps);
 #endif
     }
 }
@@ -289,10 +316,16 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
 
 
 #ifdef INDIVID_GENOTYPES
-  double *obs_normdev = (double *)calloc(num_genotypes, sizeof(double));
-  init_stats(obs_normdev, no_allele, total_individuals, 
+  double *obs_chen_statistic = (double *)calloc(num_genotypes, sizeof(double));
+  double *obs_diff_statistic = (double *)calloc(num_genotypes, sizeof(double));
+
+  init_stats(chen_statistic, obs_chen_statistic, no_allele, total_individuals, 
 	     allele_array, genotypes, outfile);
-  int *normdev_count = (int *)calloc(num_genotypes, sizeof(int));
+  init_stats(diff_statistic, obs_diff_statistic, no_allele, total_individuals, 
+	     allele_array, genotypes, outfile);
+
+  int *chen_statistic_count = (int *)calloc(num_genotypes, sizeof(int));
+  int *diff_statistic_count = (int *)calloc(num_genotypes, sizeof(int));
 #endif
 
   constant = cal_const(no_allele, allele_array, total_individuals);
@@ -331,10 +364,13 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
 	  ++result.swch_count[actual_switch];
 
 #ifdef INDIVID_GENOTYPES	  
-	  store_stats(obs_normdev, normdev_count, no_allele, 
-		      total_individuals, allele_array, genotypes);
+	  store_stats(chen_statistic, obs_chen_statistic, 
+		      chen_statistic_count, no_allele, total_individuals, 
+		      allele_array, genotypes);
+	  store_stats(diff_statistic, obs_diff_statistic, 
+		      diff_statistic_count, no_allele, total_individuals, 
+		      allele_array, genotypes);
 #endif
-
 	}
       p_simulated = (double) counter / sample.size;
       p_mean += p_simulated;
@@ -375,11 +411,17 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
   
 #ifdef INDIVID_GENOTYPES
   /* print pvalues for each genotype */
-  print_stats(normdev_count, no_allele, total_step, outfile);
+  print_stats("chen_statistic", chen_statistic_count, no_allele, 
+	      total_step, outfile);
+  print_stats("diff_statistic", diff_statistic_count, no_allele, 
+	      total_step, outfile);
 
   /* free dynamically-allocated memory  */
-  free(obs_normdev);
-  free(normdev_count);
+  free(obs_chen_statistic);
+  free(chen_statistic_count);
+
+  free(obs_diff_statistic);
+  free(diff_statistic_count);
 #endif
 
 #ifdef XML_OUTPUT
@@ -413,14 +455,18 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   fprintf(outfile, "Constant: %e, Observed: %e\n", constant, ln_p_observed);
 #endif
 
-  /* allocate memory for per-genotype statistic */
-  double *obs_normdev = (double *)calloc(num_genotypes, sizeof(double));
+  /* allocate memory for per-genotype statistics */
+  double *obs_chen_statistic = (double *)calloc(num_genotypes, sizeof(double));
+  double *obs_diff_statistic = (double *)calloc(num_genotypes, sizeof(double));
 
-  init_stats(obs_normdev, no_allele, total_individuals, 
+  init_stats(chen_statistic, obs_chen_statistic, no_allele, total_individuals, 
+	     allele_array, genotypes, outfile);
+  init_stats(diff_statistic, obs_diff_statistic, no_allele, total_individuals, 
 	     allele_array, genotypes, outfile);
 
   /* allocate memory for per-genotype counts */
-  int *normdev_count = (int *)calloc(num_genotypes, sizeof(int));
+  int *chen_statistic_count = (int *)calloc(num_genotypes, sizeof(int));
+  int *diff_statistic_count = (int *)calloc(num_genotypes, sizeof(int));
 
   /* calculate the number of gametes */
   int total_gametes = 0;
@@ -513,7 +559,12 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
       K++;
 
     /* store the individual genotype stats */
-    store_stats(obs_normdev, normdev_count, no_allele, 
+    store_stats(chen_statistic, obs_chen_statistic, 
+		chen_statistic_count, no_allele, 
+		total_individuals, allele_array, g);
+
+    store_stats(diff_statistic, obs_diff_statistic, 
+		diff_statistic_count, no_allele, 
 		total_individuals, allele_array, g);
 
     /* go through genotype list, reset genotype array, g  */
@@ -532,11 +583,17 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
 #endif
 
   /* print pvalues for each genotype */
-  print_stats(normdev_count, no_allele, iterations, outfile);
+  print_stats("chen_statistic", chen_statistic_count, 
+	      no_allele, iterations, outfile);
+  print_stats("diff_statistic", diff_statistic_count, 
+	      no_allele, iterations, outfile);
 
   /* free dynamically-allocated memory for stats  */
-  free(obs_normdev);
-  free(normdev_count);
+  free(obs_chen_statistic);
+  free(chen_statistic_count);
+
+  free(obs_diff_statistic);
+  free(diff_statistic_count);
 
   /* free dynamically-allocated memory  */
   free(g);
