@@ -481,15 +481,19 @@ class HardyWeinberg:
         stream.tagContents("pvalue", "%4f" % self.lumpedChisqPval)
         stream.writeln()
         stream.closetag('lumped')
+        stream.writeln()
 
       if self.flagCommons == 1:
         stream.opentag('common')
         stream.writeln()
         stream.tagContents("hwchisq", "%4f" % self.HWChisq)
+        stream.writeln()
         stream.tagContents("hwchisqdf", "%4f" % self.HWChisqDf)
+        stream.writeln()
         stream.tagContents("hwchisqpval", "%4f" % self.HWChisqPval)
         stream.writeln()
         stream.closetag('common')
+        stream.writeln()
       else:
         if self.flagTooManyParameters == 1:
           stream.emptytag('common', role='too-many-parameters')
