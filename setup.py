@@ -108,7 +108,7 @@ class my_build_ext(build_ext):
 # we set the environment to emulate that.
 os.environ['CFLAGS'] = '-funroll-loops'
 
-# flag to say we are using the CVS version
+# flag to determine whether or not we are using the CVS version
 if os.path.isdir("CVS"):
     cvs_version=1
 else:
