@@ -371,7 +371,7 @@
   <xsl:call-template name="newline"/>
 
   <!-- save the unique list of column names-->
-  <xsl:variable name="unique-cols" select="genotype[@col!=preceding-sibling::genotype/@col]/@col"/>
+  <xsl:variable name="unique-cols" select="genotype[not(@col=preceding-sibling::genotype/@col)]/@col"/>
 
   <!-- save the current node -->
   <xsl:variable name="curr-node" select="."/>
@@ -485,8 +485,9 @@
    
    <!-- generate row name, only on first col and only if the row --> 
    <!-- is part of this column processing -->
-   
-   <xsl:if test="@row!=preceding-sibling::genotype/@row and $unique-cols[.=$row and position() &gt;= $start-col]">
+
+   <xsl:if test="not(@row=preceding-sibling::genotype/@row) and $unique-cols[.=$row and position() &gt;= $start-col]">
+
     <xsl:call-template name="newline"/>
     <xsl:call-template name="prepend-pad">
      <xsl:with-param name="length" select="$row-len-max"/>
