@@ -329,14 +329,12 @@ class StringMatrix(UserArray):
       self.shape = self.array.shape
       self._typecode = self.array.typecode()
       self.name = string.split(str(self.__class__))[0]
-      print "StringMatrix.__init__.colList:", self.colList
       
   def __getslice__(self, i, j):
       raise Exception("slices not currently supported")
       #return self._rc(self.array[i:j])
 
   def __getitem__(self, key):
-      print "start of StringMatrix.__getitem__.colList:", self.colList
       if type(key) == types.TupleType:
           row,colName= key
           if colName in self.colList:
@@ -359,9 +357,6 @@ class StringMatrix(UserArray):
               else:
                   raise KeyError("can't find %s column" % col)
 
-
-          print "after col check StringMatrix.__getitem__.colList:", self.colList
-          print "StringMatrix.__getitem__.li", li
           if len(colNames) == 1:
               # return simply the pair of columns at that location as
               # a list
@@ -383,7 +378,6 @@ class StringMatrix(UserArray):
       else:
           raise ValueError("value being assigned is not a tuple")
 
-      print "StringMatrix.__setitem__.colList", self.colList
       if colName in self.colList:
           # find the location in order in the array
           col = self.colList.index(colName)
