@@ -8,7 +8,7 @@
 
 import sys, os, string, types
 
-from Utils import getStreamType, StringMatrix
+from Utils import getStreamType, StringMatrix, OrderedDict
 
 class ParseFile:
     """*Abstract* class for parsing a datafile.
@@ -108,7 +108,7 @@ class ParseFile:
                   len(fieldList), "fields"
         
         i = 0
-        assoc = {}
+        assoc = OrderedDict()
         for field in fields:
 
             # strip the field of leading and trailing blanks because
@@ -191,7 +191,7 @@ class ParseFile:
 
         # create a dictionary using the metadata field names as key
         # for the population data
-        self.popData = {}
+        self.popData = OrderedDict()
         for popField in self.popMap.keys():
             self.popData[popField] = popDataFields[self.popMap[popField]]
 
@@ -338,7 +338,7 @@ class ParseGenotypeFile(ParseFile):
 
         *For internal use only.*"""
 
-        self.alleleMap = {}
+        self.alleleMap = OrderedDict()
         for key in self.sampleMap.keys():
             # do we have the allele designator?
             if key[0] == self.alleleDesignator:
