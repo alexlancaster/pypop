@@ -15,8 +15,8 @@
      <orgname>University of California, Berkeley</orgname>
      <orgdiv>Department of Integrative Biology</orgdiv>
      <address><street>3060 Valley Life Sciences</street>
-      <city>Berkeley</city> <state>CA</state>
-      <postcode>94720</postcode> <country>USA</country>
+      <city>Berkeley</city> <state>CA</state> <postcode>94720</postcode> 
+      <country>USA</country>
       <email>alexl@socrates.berkeley.edu</email></address>
     </affiliation>
    </author>
@@ -238,7 +238,7 @@
 
     <listitem>
      <formalpara>
-      <title>modular</title> <para>each analysis (e.g. Hardy Weinberg)
+      <title>modular</title> <para>each analysis (e.g. Hardy-Weinberg)
        can be run stand-alone or as part of a battery of tests</para>
      </formalpara>
     </listitem>
@@ -379,8 +379,10 @@
     analysis pipeline for <application>PyPop</application> has been
     designed in two major parts, or phases, the first is the basic
     population genetic analyses, and the second integrates the results
-    of these analyses across multiple populations.  The overall data
-    and work flow is shown in <xref
+    of these analyses across multiple populations to generate tabular
+    text file output that can be read by any statistical package or
+    spreadsheet program.  The overall data and work flow is shown in
+    <xref
      linkend="pypop:work-flow"/>.</para>
 
    <figure id="pypop:work-flow">
@@ -464,33 +466,19 @@
      inbreeding. </para>
 -->
 
-    <para>Hardy Weinberg (HW) testing using the chi-square test
-     statistic with genotypes with an expected value less than 5
-     combined together in a lumped class was performed.   Observed and
-     expected genotypes under HW, chi-square value, degrees of
-     freedom, and p value are given for the following categories: all
-     common genotypes, lumped genotypes, common plus lumped genotypes,
-     all homozygotes, all heterozygotes, heterozygotes by individual
-     alleles (i.e., A1X where X represents all non-A1 alleles, each
-     individual homozygote and heterozygote genotype with expected
-     greater than 5).</para>
+    <para>In addition to the traditional chi-square test, we
+     performed the exact test of Hardy-Weinberg using
+     <application>Arlequin</application>'s implementation of Guo &amp;
+     Thompson's <citation
+      role="citeyearpar">Guo:Thompson:1992</citation> method.  The
+     <application>PyPop</application> framework has a facility to
+     generate <application>Arlequin</application> format project
+     (<filename>.arp</filename>) and settings
+     (<filename>.ars</filename>) files,  execute the batch version of
+     Arlequin, and re-import the results back into the framework for
+     further downstream processing.  
+    </para>
    </formalpara>
-
-
-   <para>In addition to the traditional chi-square test, we performed
-    the exact test of Hardy-Weinberg using
-    <application>Arlequin</application>'s implementation of Guo &amp;
-    Thompson's <citation
-     role="citeyearpar">Guo:Thompson:1992</citation> method.  The
-    <application>PyPop</application> framework has a facility to
-    generate <application>Arlequin</application> format project
-    (<filename>.arp</filename>) and settings
-    (<filename>.ars</filename>) files,  execute the batch version of
-    Arlequin, and re-import the results back into the framework for
-    further downstream processing.  We used Arlequin's implementation
-    of the Hardy-Weinberg exact test setting the Markov chain to 2.5
-    million steps with a burn-in time of 5000 steps.
-   </para>
 
    <formalpara>
     <title>Ewens-Watterson test of neutrality</title> 
@@ -508,28 +496,20 @@
     </para>
 -->
 
-    <para>Ewens-Watterson (<citation
+   <para>For the Ewens-Watterson (<citation
       role="citealt">Ewens:1972</citation>; <citation
       role="citealt">Watterson:1978</citation>) homozygosity test of
-     neutrality (observed homozygosity under HW for the sample, which
-     reflects the allele frequency distribution for the given sample
-     size (<varname>n</varname>) and observed number of alleles
-     (<varname>k</varname>), expected homozygosity under neutrality
-     for the same <varname>n</varname> and <varname>k</varname>
-     values, <varname>p</varname> value indicating fit to neutrality
-     or lack of fit in the directions of balancing selection or
-     directional selection.)</para>
-   </formalpara>
+     neutrality, we created an extension module in
+     <application>PyPop</application>, that used a C implementation of
+     a Monte-Carlo approximation to the exact test kindly provided by
+     Montgomery Slatkin (<citation
+      role="citeyear">Slatkin:1994</citation>, <citation
+      role="citeyear">Slatkin:1996</citation>). <!-- We also checked
+     results against a look-up table of simulation results by
+     <citation>Salamon:1995?</citation> -->
+    </para>
 
-   <para>For this test, we created an extension module in
-    <application>PyPop</application>, that used a C implementation
-    kindly provided by Montgomery Slatkin (<citation
-     role="citeyear">Slatkin:1994</citation>, <citation
-     role="citeyear">Slatkin:1996</citation>).  This test uses a
-    Monte-Carlo approximation to the exact test with 10,000
-    replicates.  <!-- We also checked results against a look-up table
-    of simulation results by <citation>Salamon:1995?</citation> -->
-   </para>
+   </formalpara>
    
    <formalpara>
     <title>Haplotype frequency estimation and linkage disequilibrium</title>
@@ -545,15 +525,12 @@
 
     <para>Haplotype frequencies and linkage disequilibrium (LD) were
      estimated using a <application>emhaplofreq</application>, a C
-     extension module that we wrote as part of the framework.
-     Frequencies and LD were estimated using an
-     expectation-maximization (EM) algorithm was used with 400
-     iterations.  Significance of  LD was estimated using a
-     permutation test of the basic EM algorithm with 1000
-     permutations.</para>
+     extension module using the expectation-maximization (EM)
+     algorithm  that we wrote as part of the framework.</para>
 
    </formalpara>
 
+<!--
    <formalpara>
     <title>Other statistics</title> 
 
@@ -563,6 +540,7 @@
      subpopulations, relative to a larger population, allowing us the
      estimate the amount of admixture in a population.</para>
    </formalpara>
+-->
 
    <para>With the exception of the Arlequin implementation of the Guo
     &amp; Thompson's HW exact test and Slatkin's Monte-Carlo
@@ -583,23 +561,24 @@
    <title>Data flow</title>
 
    <para>Before running data through <application>PyPop</application>,
-    ambiguities in typing were resolved (this has been done by Steve
-    Mack for the anthropology data, by Effie Petersdorf and Mari
-    Malkki for the transplantation component, and by the respective
-    disease chairs in the disease component).</para>
+    ambiguities in typing should be resolved (in our case this has
+    been done by Steve Mack for the anthropology data, by Effie
+    Petersdorf and Mari Malkki for the transplantation component, and
+    by the respective disease chairs in the disease component).</para>
 
    <section>
     <title>Phase I</title>
 
     <para>In phase I, before analysis begins, the multi-locus genotype
      data for each population (stored in a text file with the
-     <filename>.pop</filename> extension), is passed through a filter
-     module for data cleaning. The filter module is a set of rules
-     that ensures that allele names are valid or otherwise have a
-     close match in the <ulink
-      url="http://www.ebi.ac.uk/imgt/hla/">IMGT</ulink> (a database of
-     HLA alleles maintained by Steve Marsh of the Anthony Nolan Trust
-     in the UK).  This procedure works as follows:</para>
+     <filename>.pop</filename> extension), can be passed through a
+     filter module for data cleaning (for non-HLA data this module can
+     be switched off).  The filter module is a set of rules that
+     ensures that allele names are valid or otherwise have a close
+     match in the <ulink url="http://www.ebi.ac.uk/imgt/hla/">IMGT
+      database</ulink> (a database of HLA alleles maintained by Steve
+     Marsh of the Anthony Nolan Trust in the UK).  This procedure
+     works as follows:</para>
 
     <orderedlist>
      <listitem>
@@ -610,23 +589,43 @@
      <listitem>
      
       <para>This reduced allele is checked to see whether it closely
-       matches<footnote>
-	<para>A close match means that the there is a common substring
-	 between the reduced allele and the IMTG database allele, up to the
-	 length of the common denominator (e.g., if
-	 <literal>0301</literal> is the reduced allele under question,
-	 then this can match both <literal>03011</literal> or
-	 <literal>03012</literal>, then <literal>0301</literal> is
-	 returned as the common substring match).</para>
-      </footnote> an allele in the IMTG database.  If it does, then this
-       reduced allele is used in the data analysis.  A truncated
-       allele which ends in a zero [such alleles do not exist in
-       the IMTG database], is mapped to the allele which has the highest
-       frequency in the population under question.  If such an allele
-       does not exist, then the first allele which closely matches an
-       existing allele in the IMTG database, is used as the matching
-       allele.</para>
-     
+       matches  an allele in the IMTG database.  A close match
+       means that the there is a common substring between the reduced
+       allele and the IMTG database allele, up to the length of the
+       common denominator (e.g., if <literal>0301</literal> is the
+       reduced allele under question, then this can match both
+       <literal>03011</literal> or <literal>03012</literal>, then
+       <literal>0301</literal> is returned as the common substring
+       match).</para>
+      
+      <orderedlist numeration="loweralpha">
+       <listitem>
+	<para>If a match is found, then this reduced allele is used
+	 in the data analysis.</para>
+       </listitem>
+       <listitem>
+	<para>If truncated allele which ends in a zero is found
+	 (alleles that end in zero, such as <literal>0300</literal>
+	  do not exist in the IMTG database) then:</para>
+	<orderedlist numeration="lowerroman">
+	 <listitem>
+	  <para>If other alleles exist in the population with the
+	   same prefix it is mapped to the allele which has the
+	   highest frequency in the population under question (e.g.
+	   if <literal>0300</literal> is the truncated allele, we
+	   check to see if there are any alleles of the form
+	   <literal>0301</literal>, <literal>0302</literal>, etc. in
+	   the population).</para>
+	 </listitem>
+	 <listitem>
+	  <para>If the allele does not exist in the population, then
+	   the first allele which closely matches an existing allele
+	   in the IMTG database, is used as the matching
+	   allele.</para>
+	 </listitem>
+	</orderedlist>
+       </listitem>
+      </orderedlist>
      </listitem>
     
      <listitem>
@@ -634,6 +633,7 @@
        an error message is output and the analysis is halted until the
        data is validated.</para>
      </listitem>
+
     </orderedlist>
    
     <para>After each population  was individually run through the set
@@ -707,6 +707,8 @@
      aggregating the data for cross-population meta-analyses and
      transforming it as input for third party packages.</para>
 
+    <formalpara>
+     <title>Generating human-readable output</title>
     <para>First, since many of the analyses (notably estimating the
      significance of all pairwise linkage disequilibrium) can take a
      considerable amount of time, especially if the population
@@ -719,6 +721,7 @@
      linkend="pypop:sample-txt" />. The same XML content can also be
      used to generate a web version (HTML) of the same data set.
     </para>
+    </formalpara>
 
     <figure id="pypop:sample-txt">
      <title>Extract from sample plain text output generated from XML
@@ -753,18 +756,143 @@ Name      Frequency (Count)   | Name      Frequency (Count)
 ]]></programlisting>
     </figure>
 
-    <para>Second, the results of Phase I are used to investigate
-     patterns of variation across populations and within populations.
-     Examples include comparisons of evidence of selection, using the
-     homozygosity test of neutrality for a given locus for all
-     populations (e.g., DPA1 for all populations), or comparing the
-     sets of loci in significant linkage disequilibrium across
-     populations. This is implemented using XSLT to transform all the
-     desired sets of output XML files into tables of data that can be
-     read by a statistical package such as
-     <application>R</application>. Sample outputs of this process are
-     shown in <xref
-      linkend="pypop:meta-results"/>.</para>
+    <formalpara>
+     <title>Combining results across populations</title>
+    <para>Second, the results of Phase I are are aggregated across
+      populations.  As indicated in by the <quote>Phase II</quote> box
+      in  <xref
+       linkend="pypop:work-flow"/>, the individual XML files
+      (indicated by <filename>out1.xml</filename> to
+      <filename>outn.xml</filename> in the diagram) are transformed
+      using an  XSLT stylesheet into tables of data that can be read
+      by any spreadsheet or statistical package such as
+      <application>R</application>.  The tables generated, are all
+      files of tab-separated values (TSV) that include:
+
+      <itemizedlist>
+       <listitem>
+	<para><filename>1-locus-summary.dat</filename>: consists of a
+	 line for population and locus, with fields for number of
+	 gametes (<literal>n.gametes</literal>) number of distinct
+	 alleles (<literal>k</literal>), Hardy-Weinberg
+	 <varname>p</varname>-value for the Chi-square test
+	 (<literal>hw.chisq.pval</literal>) and all other single locus
+	 statistics (where a test was not performed or there was no
+	 data, the <literal>****</literal> missing data is generated.
+	</para>
+       </listitem>
+       <listitem>
+	<para><filename>1-locus-allele.dat</filename>: consists of a
+	 line for each population, locus and allele, the allele
+	 frequency (<literal>allele.freq</literal>) and count
+	 (<literal>allele.count</literal>) a short example of this
+	 file is shown in <xref linkend="pypop:1-locus-allele.dat"/>
+	 below.</para>
+       </listitem>
+
+       <listitem>
+	<para><filename>2-</filename>,<filename>3-</filename>,
+	 <filename>4-locus-summary.dat</filename>: consists of a line
+	 for each population, and locus group (with separate files for
+	 pairs, three or four locus), the  LD measure using  both D'
+	 (<literal>ld.dprime</literal>) and W<subscript>n</subscript>
+	 (<literal>ld.wn</literal>) measures and other overall tests
+	 of LD.  </para>
+       </listitem>
+
+       <listitem>
+	<para><filename>2-</filename>,<filename>3-</filename>,
+	 <filename>4-locus-haplo.dat</filename>: this is analogue of
+	 the <filename>1-locus-allele.dat</filename>, except with
+	 information for each population's haplotype, such as the
+	 haplotype count and frequency.</para>
+       </listitem>
+
+      </itemizedlist>To illustrate this process, short excerpts from
+      the XML files (which include allele frequencies for same locus,
+      <quote>A</quote>) of two individual population runs
+      <filename>Bugawan-Filipino-out.xml</filename> and
+      <filename>CZEIVS-Czech-out.xml</filename> are shown below: <!--
+      <xref linkend="pypop:meta-aggregate"/> -->.
+    </para>
+    </formalpara>
+
+    <informaltable>
+     <tgroup cols="2">
+      <thead>
+       <row>
+	<entry>Excerpt from <filename>Bugawan-Filipino-out.xml</filename>
+	</entry>
+	<entry>
+	 Excerpt from <filename>CZEIVS-Czech-out.xml</filename>
+	</entry>
+       </row>
+      </thead>
+
+      <tbody>
+       <row>
+	<entry>
+<programlisting><![CDATA[...
+<locus name="A">
+<allelecounts>
+<untypedindividuals>0</untypedindividuals>
+<indivcount>94</indivcount>
+<allelecount>188</allelecount>
+<distinctalleles>16</distinctalleles>
+<allele name="0101">
+<frequency>]]><phrase role="strong">0.00532</phrase><![CDATA[</frequency>
+<count>1</count>
+</allele>
+... ]]></programlisting>
+
+	</entry>
+	<entry>
+<programlisting><![CDATA[...
+<locus name="A">
+<allelecounts>
+<untypedindividuals>1</untypedindividuals>
+<indivcount>105</indivcount>
+<allelecount>210</allelecount>
+<distinctalleles>22</distinctalleles>
+<allele name="0101">
+<frequency>]]><phrase role="strong">0.12857</phrase> <![CDATA[</frequency>
+<count>27</count>
+</allele>
+... ]]></programlisting>
+
+	</entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </informaltable>
+    
+    <para>The phase II part of <application>PyPop</application>  merges the 
+     allele frequencies (noted in <phrase role="strong">bold</phrase>) 
+     of the separate XML files into a single text file, 
+     <filename>1-locus-allele.dat</filename> which contains all the allele
+     frequencies listed by population and by locus.  Here is an extract of the 
+     file showing just two populations containing the same allele
+     (note that some columns have been omitted for clarity):
+
+     <figure id="pypop:1-locus-allele.dat">
+      <title>Extract from <filename>1-locus-allele.dat</filename></title>
+<programlisting>pop      ethnic   region     locus allele allele.freq allele.count
+Filipino Filipino 06.Oceania A     0101   <phrase role="strong">0.00532</phrase><co id="filipino-dat"/>    1
+...
+Czech    Czech    03.Europe  A     0101   <phrase role="strong">0.12857</phrase><co id="czech-dat"/>    27</programlisting>
+     </figure>
+     
+     <calloutlist>
+      <title>Legend</title>
+      <callout arearefs="filipino-dat">
+       <para>Allele frequency of 0101 allele in Filipino population</para>
+      </callout>
+      <callout arearefs="czech-dat">
+       <para>Allele frequency of 0101 allele in Czech population</para>
+      </callout>
+     </calloutlist>
+    </para>
+
 <!--   
    <para>A sample output of this process is shown in <xref
      linkend="pypop:ld.wn.summary"/>.  This is an output plot from
@@ -785,20 +913,108 @@ Name      Frequency (Count)   | Name      Frequency (Count)
    </figure>
 -->
 
+   </section>
+
+
+  </section>
+
+  <section>
+   <title>The next phase: dealing with PyPop output</title>
+
+   <para>The final output of the phase II part of the PyPop package consist
+    of both the <filename>.dat</filename> output tables and the
+    individual XML files for each population included in the analysis.
+    The former are simple text files consisting tab-separated values
+    (<abbrev>TSV</abbrev>) available for direct import to many
+    statistical packages.  The latter are XML files which contain more
+    information than the <filename>*.dat</filename> (such as numbers
+    of steps required for convergence for the EM algorithm) and can
+    likewise be used by programmers, as input for more sophisticated
+    analyses.  We deal with each in turn.</para>
+
+   <section>
+    <title>Using the tables</title>
+
+    <para>Packages to read the tables in the
+     <filename>*.dat</filename> files can be divided into two kinds:
+     graphical spreadsheet-style designed to be used by
+     non-programmers, which can generate a wide-range of barcharts,
+     pie charts and the like , and fully-fledged statistical packages,
+     which often require some knowledge of scripting/programming but
+     are often more powerful and better able to handle generation of
+     large numbers of graphs and figures for large datasets.  The
+     output that <application>PyPop</application> generates can be
+     handled easily by both.   A non-exhaustive list of options
+     includes:
+    
+    <itemizedlist>
+      <listitem>
+       <formalpara>
+	<title>spreadsheet packages</title>
+       
+	<para><application>OpenOffice.org Calc</application>, part of
+	 the open-source multi-platform Office package
+	 <application><ulink
+	   url="http://www.openoffice.org/">OpenOffice.org</ulink></application>, 
+	 the <application>Gnumeric</application> spreadsheet package
+	 available widely on UNIX and GNU/Linux systems, and
+	 proprietary alternatives such as Microsoft
+	 <application>Excel</application> on Windows and Macintosh
+	 platforms can all easily handle <abbrev>TSV</abbrev> files.
+	</para>
+       </formalpara>
+      </listitem>
+     
+      <listitem>
+       <formalpara>
+	<title>statistical packages</title>
+	<para>The previously mentioned <application>R</application>,
+	 and it's cousins <application>SPlus</application>,
+	 <application>SASS</application> can all handle TSV text
+	 files.  For all the graphical output described in the next
+	 section, we wrote custom <application>R</application> scripts
+	 (not currently part of <application>PyPop</application>)
+	 highly specific to HLA data to generate various figures such
+	 as barcharts, scatterplots and box plots from the raw table
+	 output.
+	</para>
+       </formalpara>
+      </listitem>
+     </itemizedlist>
+    </para>
+   </section>
+
+   <section>
+    <title>Advanced options</title>
+
     <para>The XML output (both the individual population-level data
-     files, and the aggregated multi-population data) can be
+     files, and the aggregated multi-population data) can also be
      transformed (via XSLT) into formats suitable for input to other
      programs.  Currently we have a prototype module for generating
      input for <application>PHYLIP</application> and a prototype
      module to generate <application>Arlequin</application>
-     <filename>.arp</filename> files.
+     <filename>.arp</filename> files.  We ultimately wish to develop
+     an extensible <quote>plug-in</quote> XSLT architecture so that
+     the output can be transformed into  formats suitable for other
+     programs and packages in such a way that doesn't require the user
+     to do their own programming.
     </para>
+
+    <para>Finally, for  users who have programming abilities or staff
+     to assist them, the raw XML files offer the opportunity for them
+     to write custom XSLT stylesheets which could parse the XML and
+     slice up the data in many ways. Alternatively it is possible to
+     load the XML into a database and the data queried using SQL.
+    </para>
+    
    </section>
+
   </section>
  </section>
+ 
 
  <section id="pypop:meta-results">
-  <title>Meta-analysis and results</title>
+  <title>Results and sample output</title>
 
   <section>
    <title>Analyzing IHWG workshop data</title>
@@ -819,7 +1035,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     overall graphical and numeric summaries for many population
     genetic parameters of interest. In particular, the analysis allows
     <quote>slicing</quote> of the data along a number of axes. As an
-    example, we can view Hardy Weinberg deviation, for all geographic
+    example, we can view Hardy-Weinberg deviation, for all geographic
     regions at a given locus, or view all loci for a given region. As
     another example, we can view the number of populations that have
     data for a given region (<xref
@@ -847,15 +1063,22 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     </mediaobject>
    </figure>
 
+<!--
    <para>This meta-analysis code is modular and can cope with non-HLA
     data, and thus can potentially be useful for other large-scale
-    population genetic analyses.  The significance is that the
-    complete pipeline, from analyzing the individual data files, to
-    the generation of the overall meta output can be completely
-    automated from the command-line.  Further, the flexibility of the
-    XML format, allows us to  extract and output data easily for
-    future data analyses without requiring regeneration of the basic
-    population genetics statistics.</para>
+    population genetic analyses.</para>
+-->
+
+   <para>For the IHWG analyses, the complete pipeline, from analyzing
+    the individual data files, to the generation of the initial meta
+    output <filename>*.dat </filename> files can be completely
+    automated from the command-line. Further, the flexibility of the
+    XML format, allows us to extract and output data easily for future
+    data analyses without requiring regeneration of the basic
+    population genetics statistics. However, once we had these basic
+    outputs, this  was simply the beginning of the analysis, the
+    jumping off point for the bulk of the data analyses, allowing
+    further interactive exploration of the data.</para>
 
   </section>
 
