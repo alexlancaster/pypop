@@ -1,3 +1,11 @@
+2003-12-24  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* standalone.spec: For Linux, add LD_LIBRARY_PATH variable to
+	wrapper scripts so that distributed shared libraries get used
+	*before* system libraries.
+	Generate pypop-batch.{sh,bat} wrapper scripts at top-level for
+	users for both Win32 and Linux.
+
 2003-12-19  Owen Solberg  <solberg AT socrates.berkeley.edu>
 
 	* Main.py (Main._runFilters): Parse the ini file for "directory"
