@@ -4,8 +4,8 @@ ifeq ($(PUBLISH),)
 CVSPRE =
 CVSPOST =
 else
-CVSPRE = cvs update -kv $<
-CVSPOST = cvs update -kkv $<
+CVSPRE = cvs update -kv $(wildcard *.xml)
+CVSPOST = cvs update -kkv $(wildcard *.xml)
 endif
 
 XSLCOMMON = --param section.autolabel 1 --param tablecolumns.extension 0 --param use.extensions 1 --param callouts.extension 0 --stringparam tex.math.in.alt 'latex'
