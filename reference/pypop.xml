@@ -15,9 +15,9 @@
      <orgname>University of California, Berkeley</orgname>
      <orgdiv>Department of Integrative Biology</orgdiv>
      <address><street>3060 Valley Life Sciences</street>
-     <city>Berkeley</city> <state>CA</state>
-     <postcode>94720</postcode> <country>USA</country>
-     <email>alexl@socrates.berkeley.edu</email></address>
+      <city>Berkeley</city> <state>CA</state>
+      <postcode>94720</postcode> <country>USA</country>
+      <email>alexl@socrates.berkeley.edu</email></address>
     </affiliation>
    </author>
 
@@ -25,16 +25,6 @@
     <firstname>Mark</firstname>
     <othername>P.</othername>
     <surname>Nelson</surname>
-   </author>
-
-   <author role="uc">
-    <firstname>Diogo</firstname>
-    <surname>Meyer</surname>
-   </author>
-
-   <author role="uc">
-    <firstname>Glenys</firstname>
-    <surname>Thomson</surname>
    </author>
 
    <author role="uv">
@@ -45,9 +35,19 @@
      <orgname>University of Vermont</orgname>
      <orgdiv>Department of Biometry</orgdiv>
      <address><street>Hills Science Building</street>
-      <city>Burlington</city> <state>VT</state>  
+      <city>Burlington</city> <state>VT</state>
       <postcode>05405</postcode> <country>USA</country></address>
     </affiliation>
+   </author>
+
+   <author role="uc">
+    <firstname>Diogo</firstname>
+    <surname>Meyer</surname>
+   </author>
+
+   <author role="uc">
+    <firstname>Glenys</firstname>
+    <surname>Thomson</surname>
    </author>
    
   </authorgroup>
@@ -85,8 +85,8 @@
 
   <para>The <application>PyPop</application>
    (<emphasis>Py</emphasis>thon for <emphasis>Pop</emphasis>ulation
-   Genetics) analysis package forms the base of the biostatistics core.
-   It is in an object-oriented framework implemented in the
+   Genetics) analysis package forms the base of the biostatistics
+   core. It is in an object-oriented framework implemented in the
    programming language Python. The object-oriented approach allows us
    to implement individual analysis modules which can be inserted or
    removed without affecting other modules. Python is a flexible
@@ -102,7 +102,7 @@
    data formats suitable for machine consumption (such as
    <application>Phylip</application> or input for the statistical
    package, <application>R</application>), or plain text or HTML for
-   human-readable format.  Storing the outputs in XML allows the final
+   human-readable format.  Storing the output in XML allows the final
    viewable output format to be redesigned at will, without requiring
    the (often time-consuming) re-running of the analyses themselves.
    Data from the anthropology, transplantation, and disease components
@@ -205,13 +205,15 @@
   <section condition="psb2003">
    <title>Population genetic statistics</title>
 
-   <para>The particular cross-population statistics we wished to
-    address included: (1) conformity to Hardy-Weinberg expectations,
-    (2) tests for balancing selection; (3) haplotype distributions and
-    patterns of linkage disequilibrium among populations; and (4)
-    other tests such as worldwide patterns of genetic differentiation.
-    The details of statistics are detailed in  chapters ?? of this
-    volume.  <xref linkend="pypop:modules"/>  briefly outlines the
+   <para>The particular cross-population analyses we wished to address
+    included: (1) conformity to Hardy-Weinberg expectations, (2) tests
+    for balancing selection; (3) haplotype distributions and patterns
+    of linkage disequilibrium among populations; and (4) other tests
+    such as worldwide patterns of genetic differentiation. A
+    description of the methodology for specifc tests can be found in
+    the Workshop Statistical Methods paper details of statistics are
+    detailed in  chapters (reference?) of this volume.  <xref
+     linkend="pypop:modules"/>  briefly outlines the
     <application>PyPop</application> modules and specific
     implementation details of population genetic methods.</para>
   </section>
@@ -219,13 +221,13 @@
   <section>
    <title>Requirements</title>
 
-   <para>The data sets we wished to analyze were highly heterogeneous.
+   <para>The data sets for analysis were highly heterogeneous.
     Datasets varied considerably in the number of loci typed (from two
     to nine), number of individuals sampled (from 12 to 1012), and
     number of alleles at each locus (from 2 to 55).  Given that we had
-    such highly diverse data sets, we nevertheless wished to generate
-    analyses that could be integrated in a systematic way, this led to
-    a set of requirements for the software framework:</para>
+    such highly diverse data sets, it was necessary to generate
+    analyses that could be integrated in a systematic way.  This led
+    to a set of requirements for the software framework:</para>
 
    <itemizedlist>
 
@@ -280,10 +282,11 @@
     software.  <application>Arlequin</application>
     <citation>Schneider:2000</citation> and
     <application>PHYLIP</application><citation>Felsenstein:1989</citation> 
-    are packages that deal with some aspect of population genetic
+    are packages that deal with some aspects of population genetic
     statistics.  In addition, we had some existing in-house software,
     such as <application>emhaplofreq</application>, a program for
-    haplotype estimation for the highly polymorphic HLA loci.</para>
+    haplotype frequency estimation for the highly polymorphic HLA
+    loci.</para>
 
 <!--
    <para>In using these programs, however, we realized a need for a
@@ -386,7 +389,8 @@
       <imagedata fileref="work-flow.jpg" align="center" scale="99"/>  <!-- scale="45" -->
      </imageobject>
      <textobject>
-      <phrase>Diagram of software work-flow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.jpg</phrase>
+      <phrase>Diagram of software work-flow can be found at:
+       http://allele5.biol.berkeley.edu/ihwg/work-flow.jpg</phrase>
      </textobject>
     </mediaobject>
    </figure>
@@ -418,9 +422,9 @@
   <section id="pypop:modules">
    <title>PyPop modules</title>
 
-   <para><application>PyPop</application> groups statistics into separate
-    <emphasis>modules</emphasis>, represented in the data flow by
-    the green boxes in
+   <para><application>PyPop</application> groups statistics into
+    separate <emphasis>modules</emphasis>, represented in the data
+    flow by the green boxes in
     <xref linkend="pypop:work-flow"/>.  The modules are outlined
     below, as noted earlier, detailed methodology can be found in
     Chapters ???.</para>
@@ -484,8 +488,8 @@
     Arlequin, and re-import the results back into the framework for
     further downstream processing.  We used Arlequin's implementation
     of the Hardy-Weinberg exact test setting the Markov chain to 2.5
-    million steps with a burn-in time of 500 steps.
-    </para>
+    million steps with a burn-in time of 5000 steps.
+   </para>
 
    <formalpara>
     <title>Ewens-Watterson test of neutrality</title> 
@@ -517,16 +521,17 @@
    </formalpara>
 
    <para>For this test, we created an extension module in
-    <application>PyPop</application>, that used a C implementation of
+    <application>PyPop</application>, that used a C implementation
     kindly provided by Montgomery Slatkin (<citation
      role="citeyear">Slatkin:1994</citation>, <citation
      role="citeyear">Slatkin:1996</citation>).  This test uses a
     Monte-Carlo approximation to the exact test with 10,000
-    replicates.  <!-- We also checked results against a look-up table of
-    simulation results by <citation>Salamon:1995?</citation> --> </para>
+    replicates.  <!-- We also checked results against a look-up table
+    of simulation results by <citation>Salamon:1995?</citation> -->
+   </para>
    
    <formalpara>
-    <title>Haplotype estimation and linkage disequilibrium</title>
+    <title>Haplotype frequency estimation and linkage disequilibrium</title>
     
 <!--
     <para>Linkage disequilibrium (LD) describes the non-random
@@ -537,12 +542,14 @@
      operation of selection. </para>
 -->
 
-    <para>Haplotypes and linkage disequilibrium (LD) were estimated
-     using a C extension module as part of the framework.  Haplotypes
-     and LD were estimated using an expectation-maximization (EM)
-     algorithm was used with 400 iterations.  Significance of  LD was
-     estimated using a permutation test of the basic EM algorithm with
-     1000 permutations.</para>
+    <para>Haplotype frequencies and linkage disequilibrium (LD) were
+     estimated using a <application>emhaplofreq</application>, a C
+     extension module that we wrote as part of the framework.
+     Frequencies and LD were estimated using an
+     expectation-maximization (EM) algorithm was used with 400
+     iterations.  Significance of  LD was estimated using a
+     permutation test of the basic EM algorithm with 1000
+     permutations.</para>
 
    </formalpara>
 
@@ -558,12 +565,13 @@
 
    <para>With the exception of the Arlequin implementation of the Guo
     &amp; Thompson's HW exact test and Slatkin's Monte-Carlo
-    implementation of the Ewens-Watterson test, new programs to handle
-    the highly polymorphic HLA loci were developed (they are also
-    appropriate for analysis of loci showing less variation than HLA).
-    In addition to the high level of polymorphism, large sample sizes
-    in some cases (as many as 1,012 samples in an anthropology data
-    set, and 2,000 samples for the overall transplant data) are also
+    implementation of the Ewens-Watterson test, new programs were
+    developed to handle the highly polymorphic HLA loci.   However,
+    they are not limited to use on HLA data, but are appropriate for
+    analysis of any loci with less polymorphism than HLA.  In addition
+    to the high level of polymorphism, large sample sizes in some
+    cases (as many as 1,012 samples in an anthropology data set, and
+    2,000 samples for the overall transplant data) are also
     problematic for methods using resampling and/or iterative
     procedures, such as the  HW exact test, haplotype estimation, and
     LD significance testing.
@@ -575,14 +583,14 @@
 
    <para>Before running data through <application>PyPop</application>,
     ambiguities in typing were resolved (this has been done by Steve
-    Mack for the anthropology data, by Effie Petersdorf and Mari Malki
-    for the transplantation component, and by the respective disease
-    chairs in the disease component).</para>
+    Mack for the anthropology data, by Effie Petersdorf and Mari
+    Malkki for the transplantation component, and by the respective
+    disease chairs in the disease component).</para>
 
    <section>
     <title>Phase I</title>
 
-   <para>In phase I, before analysis begins, the multi-locus genotype
+    <para>In phase I, before analysis begins, the multi-locus genotype
      data for each population (stored in a text file with the
      <filename>.pop</filename> extension), is passed through a filter
      module for data cleaning. The filter module is a set of rules
@@ -592,42 +600,42 @@
      Anthony Nolan Trust in the UK.  This procedure works as
      follows:</para>
 
-   <orderedlist>
-    <listitem>
-     <para>Alleles in data set are reduced to a common denominator (typically
-      four (4) digits)</para>
-    </listitem>
+    <orderedlist>
+     <listitem>
+      <para>Alleles in data set are reduced to a common denominator
+       (typically four (4) digits)</para>
+     </listitem>
 
-    <listitem>
+     <listitem>
      
-     <para>This reduced allele is checked to see whether it closely
-      matches<footnote>
-       <para>A close match means that the there is a common substring
+      <para>This reduced allele is checked to see whether it closely
+       matches<footnote>
+	<para>A close match means that the there is a common substring
 	 between the reduced allele and the database allele, up to the
 	 length of the common denominator (e.g., if
 	 <literal>0301</literal> is the reduced allele under question,
 	 then this can match both <literal>03011</literal> or
 	 <literal>03012</literal>, then <literal>0301</literal> is
 	 returned as the common substring match).</para>
-      </footnote> an allele in the database, if it does, then this
-      reduced allele is used in the data analysis.  A truncated allele
-      which end in a zero (0) [such alleles do not exist in the
-      database], is mapped to the allele which has the highest
-      frequency in the population under question, if such an allele
-      does not exist, then the first allele which closely matches an
-      existing in the allele database, is used as the matching
-      allele.</para>
+      </footnote> an allele in the database.  If it does, then this
+       reduced allele is used in the data analysis.  A truncated
+       allele which ends in a zero [such alleles do not exist in
+       the database], is mapped to the allele which has the highest
+       frequency in the population under question.  If such an allele
+       does not exist, then the first allele which closely matches an
+       existing allele in the database, is used as the matching
+       allele.</para>
      
      </listitem>
     
-    <listitem>
-     <para>If neither of the above checks result in a valid allele,
-      an error message is output and the analysis is halted until the
-      data is validated.</para>
-    </listitem>
-   </orderedlist>
+     <listitem>
+      <para>If neither of the above checks result in a valid allele,
+       an error message is output and the analysis is halted until the
+       data is validated.</para>
+     </listitem>
+    </orderedlist>
    
-   <para>After each population  was individually run through the set
+    <para>After each population  was individually run through the set
      of <application>PyPop</application> modules, the output of
      results was forwarded to the contributing laboratory for review
      and appropriate revision of data. <remark>Currently, analyses
@@ -643,63 +651,49 @@
      (represented by the green modules in <xref
      linkend="pypop:work-flow" />).  --> The results of the analyses
      are stored in an XML file format as shown in <xref
-     linkend="pypop:sample-xml" />.</para>
+      linkend="pypop:sample-xml" />.</para>
    
-   <figure id="pypop:sample-xml">
-    <title>Extract from sample XML output file</title>
-<programlisting><![CDATA[
-<dataanalysis date="2002-07-09-05-01-18">
-   <filename>ukimid_nireland.pop</filename>
-   <pypop-version>DEVEL_VERSION</pypop-version>
-   <populationdata>
-     <labcode>UKIMID</labcode>
-     <method>SSOP</method>
-     <ethnic>Irish</ethnic>
-     <contin>Europe</contin>
-     <collect>Northern Ireland</collect>
-     <latit>54 degrees 40 minutes north</latit>
-     <longit>6 degrees 45 minutes west</longit>
-     <complex>3</complex>
-     <popname>NIreland</popname>
-     <totals>
-       <indivcount>1000</indivcount>
-       <allelecount>2000</allelecount>
-       <locuscount>9</locuscount>
-       <lociWithDataCount>4</lociWithDataCount>
-     </totals>
-   </populationdata>
-   <locus name="A">
-     <allelecounts>
-       <untypedindividuals>0</untypedindividuals>
-       <indivcount>1000</indivcount>
-       <allelecount>2000</allelecount>
-       <distinctalleles>26</distinctalleles>
-       <allele name="0101">
-         <frequency>0.20200 </frequency><count>404</count>
-       </allele>
-...
-]]></programlisting>
-   </figure>
+    <figure id="pypop:sample-xml">
+     <title>Extract from sample XML output file</title>
+     <programlisting><![CDATA[ <dataanalysis
+      date="2002-07-09-05-01-18">
+      <filename>ukimid_nireland.pop</filename>
+      <pypop-version>DEVEL_VERSION</pypop-version> <populationdata>
+      <labcode>UKIMID</labcode> <method>SSOP</method>
+      <ethnic>Irish</ethnic> <contin>Europe</contin> <collect>Northern
+      Ireland</collect> <latit>54 degrees 40 minutes north</latit>
+      <longit>6 degrees 45 minutes west</longit> <complex>3</complex>
+      <popname>NIreland</popname> <totals>
+      <indivcount>1000</indivcount> <allelecount>2000</allelecount>
+      <locuscount>9</locuscount>
+      <lociWithDataCount>4</lociWithDataCount> </totals>
+     </populationdata> <locus name="A"> <allelecounts>
+      <untypedindividuals>0</untypedindividuals>
+      <indivcount>1000</indivcount> <allelecount>2000</allelecount>
+      <distinctalleles>26</distinctalleles> <allele name="0101">
+      <frequency>0.20200 </frequency><count>404</count> </allele> ...
+      ]]></programlisting>
+    </figure>
 
-   <para>XML was chosen as the output format because: 1) it can be
-    read as input by other programs and; 2) it is readily
-    transformable into human-readable form (e.g., a text file) or
-    web-form (e.g., HTML) via XSLT (eXtensible Stylesheet Language for
-    Transformations)<citation>XSLT</citation>.</para>
+    <para>XML was chosen as the output format because: 1) it can be
+     read as input by other programs and; 2) it is readily
+     transformable into human-readable form (e.g., a text file) or
+     web-form (e.g., HTML) via XSLT (eXtensible Stylesheet Language
+     for Transformations)<citation>XSLT</citation>.</para>
    </section>
 
    <section>
     <title>Phase II</title>
 
-   <para>In phase II, the results of the data analyses of the
-    individual data files are integrated, and the benefits of using
-    XML as the storage and exchange format are realized.  There are
-    two major benefits: one relevant for displaying results of each
-    individual run, the second, far more powerful benefit, for
-    aggregating the data for cross-population meta-analyses and
-    transforming it as input for third party packages.</para>
+    <para>In phase II, the results of the data analyses of the
+     individual data files are integrated, and the benefits of using
+     XML as the storage and exchange format are realized.  There are
+     two major benefits: one relevant for displaying results of each
+     individual run, the second, far more powerful benefit, for
+     aggregating the data for cross-population meta-analyses and
+     transforming it as input for third party packages.</para>
 
-   <para>First, since many of the analyses (notably estimating the
+    <para>First, since many of the analyses (notably estimating the
      significance of all pairwise linkage disequilibrium) can take a
      considerable amount of time, especially if the population
      consists of many individuals and is highly polymorphic, the
@@ -710,51 +704,36 @@
      re-running the analyses.  A sample text output is shown in <xref
      linkend="pypop:sample-txt" />. The same XML content can also be
      used to generate a web version (HTML) of the same data set.
-   </para>
+    </para>
 
-   <figure id="pypop:sample-txt">
-    <title>Extract from sample plain text output generated from XML data</title>
-    <programlisting format="linespecific"><![CDATA[
-Performed on the 'ukimid_nireland.pop' file at: 2002-07-09-05-01-18
+    <figure id="pypop:sample-txt">
+     <title>Extract from sample plain text output generated from XML
+      data</title>
+     <programlisting format="linespecific"><![CDATA[ Performed on the
+      'ukimid_nireland.pop' file at: 2002-07-09-05-01-18 Population
+      Summary ================== Lab code: UKIMID Typing method: SSOP
+      Ethnicity: Irish Continent: Europe Collection site: Northern
+      Ireland Latitude: 54 degrees 40 minutes north Longitude: 6
+      degrees 45 minutes west Population Name: NIreland [...] 1.1.
+      Allele Counts [A] ______________________ Untyped individuals: 0
+      Sample Size (n): 1000 Allele Count (2n): 2000 Distinct alleles
+      (k): 26 Counts ordered by frequency   | Counts ordered by name
+      Name      Frequency (Count)   | Name      Frequency (Count) 0201
+      0.27400   548       | 0101      0.20200   404 0101      0.20200
+      404       | 0201      0.27400   548 ]]></programlisting>
+    </figure>
 
-Population Summary
-==================
-
-       Lab code: UKIMID
-  Typing method: SSOP
-      Ethnicity: Irish
-      Continent: Europe
-Collection site: Northern Ireland
-       Latitude: 54 degrees 40 minutes north
-      Longitude: 6 degrees 45 minutes west
-Population Name: NIreland
-[...]
-
-1.1. Allele Counts [A]
-______________________
-
-Untyped individuals: 0
-Sample Size (n): 1000
-Allele Count (2n): 2000
-Distinct alleles (k): 26
-
-Counts ordered by frequency   | Counts ordered by name        
-Name      Frequency (Count)   | Name      Frequency (Count)   
-0201      0.27400   548       | 0101      0.20200   404       
-0101      0.20200   404       | 0201      0.27400   548       
-]]></programlisting>
-   </figure>
-
-   <para>Second, the results of Phase I are used to investigate
+    <para>Second, the results of Phase I are used to investigate
      patterns of variation across populations and within populations.
      Examples include comparisons of evidence of selection, using the
      homozygosity test of neutrality for a given locus for all
      populations (e.g., DPA1 for all populations), or comparing the
      sets of loci in significant linkage disequilibrium across
      populations. This is implemented using XSLT to transform all the
-     desired sets of output XML files into tables of data that are
-     read by the statistical package <application>R</application>.
-     Sample outputs of this process are shown in <xref
+     desired sets of output XML files into tables of data that can be
+     read by a statistical package such as
+     <application>R</application>. Sample outputs of this process are
+     shown in <xref
       linkend="pypop:meta-results"/>.</para>
 <!--   
    <para>A sample output of this process is shown in <xref
@@ -776,14 +755,14 @@ Name      Frequency (Count)   | Name      Frequency (Count)
    </figure>
 -->
 
-   <para>The XML output (both the individual population-level data
-    files, and the aggregated multi-population data) can be
-    transformed (via XSLT) into formats suitable for input to other
-    programs.  Currently we have a prototype module for generating
-    input for <application>PHYLIP</application> and a prototype module
-    to generate <application>Arlequin</application>
-    <filename>.arp</filename> files.
-   </para>
+    <para>The XML output (both the individual population-level data
+     files, and the aggregated multi-population data) can be
+     transformed (via XSLT) into formats suitable for input to other
+     programs.  Currently we have a prototype module for generating
+     input for <application>PHYLIP</application> and a prototype
+     module to generate <application>Arlequin</application>
+     <filename>.arp</filename> files.
+    </para>
    </section>
   </section>
  </section>
@@ -807,19 +786,20 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     <application>PyPop</application>, input data files for the
     statistical package, <application>R</application> were generated.
     The <application>R</application> code was set up to generate
-    overall graphs for many population genetic parameters of interest.
-    In particular, the analysis allows <quote>slicing</quote> of the
-    data along a number of axes. As an example, we can view Hardy
-    Weinberg deviation, for all geographic regions at a given locus,
-    or view all loci for a given region. As another example, we can
-    view the number of populations that have data for a given region
-    (<xref
+    overall graphical and numeric summaries for many population
+    genetic parameters of interest. In particular, the analysis allows
+    <quote>slicing</quote> of the data along a number of axes. As an
+    example, we can view Hardy Weinberg deviation, for all geographic
+    regions at a given locus, or view all loci for a given region. As
+    another example, we can view the number of populations that have
+    data for a given region (<xref
     linkend="pypop:pops-by-locus"/>), or number of populations for
     which data was provided for a given locus (<xref
-    linkend="pypop:pops-by-region"/>).</para>
+     linkend="pypop:pops-by-region"/>).</para>
 
    <figure id="pypop:pops-by-locus">
-    <title>Sample metadata output: viewing number of populations by locus</title>
+    <title>Sample metadata output: viewing number of populations by
+     locus</title>
     <mediaobject>
      <imageobject>
       <imagedata fileref="pops-by-locus.jpg" scale="90"/>
@@ -857,8 +837,8 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     population genetics analysis packages. The basic population
     genetic statistics computed by <application>PyPop</application>
     are not new in and of themselves, nor is the ability to perform
-    analyses on multiple populations
-    (e.g., <application>Arlequin</application> can currently do this).
+    analyses on multiple populations (e.g.,
+    <application>Arlequin</application> can currently do this).
     Indeed, <application>PyPop</application> can use existing packages
     to calculate them. However the approach of integrating information
     in highly heterogeneous datasets on a large scale is new, and not
@@ -897,7 +877,8 @@ Name      Frequency (Count)   | Name      Frequency (Count)
  </section>
 
  <ackno>This work has benefited from the support of NIH grant AI49213
- (13<superscript>th</superscript> IHW).  Thanks to Steve Mack.</ackno>
+  (13<superscript>th</superscript> IHW).  Thanks to Steve
+  Mack.</ackno>
 
  <xi:include href="biblio.xml"/>
  
