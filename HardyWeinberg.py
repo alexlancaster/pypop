@@ -736,11 +736,21 @@ class HardyWeinbergGuoThompsonArlequin:
   Since the directory name 'arlequinRuns' is currently hardcoded, this
   has the consequence that this class cannot be invoked concurrently.
 
+  Parameters:
+
+  - 'markovChainStepsHW': Number of steps to use in Markov chain
+  (default: 100000).
+
+  - 'markovChainDememorisationStepsHW': "Burn-in" time for Markov
+  chain (default: 1000).
+
   """
   def __init__(self,
                matrix=None,
                locusName=None,
                arlequinExec='arlecore.exe',
+               markovChainStepsHW = 100000,
+               markovChainDememorisationStepsHW = 1000,
                untypedAllele='****',
                debug=None):
 
@@ -748,6 +758,9 @@ class HardyWeinbergGuoThompsonArlequin:
     self.locusName = locusName
     self.debug = debug
     self.arlequinExec = arlequinExec
+    self.markovChainStepsHW = markovChainStepsHW
+    self.markovChainDememorisationStepsHW = markovChainDememorisationStepsHW
+
     self.untypedAllele = untypedAllele
     self.noDataFlag = 0
     
@@ -755,11 +768,15 @@ class HardyWeinbergGuoThompsonArlequin:
     if len(self.matrix.filterOut(self.locusName, self.untypedAllele)) > 0:
 
       arlequin = ArlequinExactHWTest(matrix = self.matrix,
-                                     arlequinExec = self.arlequinExec,
                                      lociList = [self.locusName],
+                                     arlequinExec = self.arlequinExec,
+                                     markovChainStepsHW = \
+                                     self.markovChainStepsHW,
+                                     markovChainDememorisationStepsHW = \
+                                     self.markovChainDememorisationStepsHW,
                                      untypedAllele = self.untypedAllele,
                                      debug=self.debug)
-
+      
       self.output = arlequin.getHWExactTest()
       arlequin.cleanup()
       
