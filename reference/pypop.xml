@@ -683,7 +683,6 @@ Name      Frequency (Count)   | Name      Frequency (Count)
  (13<superscript>th</superscript> IHW).  Thanks to Diogo Meyer and
  Steve Mack.</ackno>
 
-<!--
  <appendix condition="main">
   <title>UML specification</title>
   
@@ -872,7 +871,6 @@ Other
    </orderedlist>
   </section>
  </appendix>
- -->
 
  <xi:include href="biblio.xml"/>
  
