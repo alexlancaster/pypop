@@ -20,11 +20,22 @@
   <text col="stderr">Std. error</text>
  </data:hardyweinberg-guo-thompson>
 
+ <data:hardyweinberg-guo-thompson-arlequin>
+  <text col="obs-hetero">Observed heterozygosity</text>
+  <text col="exp-hetero">Expected heterozygosity</text>
+  <text col="steps">Dememorization steps</text>
+  <text col="pvalue">p-value</text>
+  <text col="stddev">Std. deviation</text>
+ </data:hardyweinberg-guo-thompson-arlequin>
+
  <xsl:variable name="hw-col-headers" 
   select="document('')//data:hardyweinberg-col-headers/text"/>
 
  <xsl:variable name="hw-guo-thompson" 
   select="document('')//data:hardyweinberg-guo-thompson/text"/>
+
+ <xsl:variable name="hw-guo-thompson-arlequin" 
+  select="document('')//data:hardyweinberg-guo-thompson-arlequin/text"/>
 
  <!-- ################  HARDY-WEINBERG STATISTICS ###################### --> 
 
@@ -596,9 +607,28 @@
    </xsl:with-param>
    <xsl:with-param name="level" select="3"/>
    <xsl:with-param name="text">
-    <xsl:call-template name="linesep-fields">
-     <xsl:with-param name="nodes" select="*"/>
-    </xsl:call-template>
+    <xsl:choose>
+     <xsl:when test="@role='monomorphic'">
+      <xsl:text>*This locus  is monomorphic: exact test can't be run.*</xsl:text>
+     </xsl:when>
+     <xsl:otherwise>
+	<xsl:for-each
+	 select="obs-hetero|exp-hetero|stddev|steps">
+       <xsl:variable name="node-name" select="name(.)"/>
+       <xsl:value-of select="$hw-guo-thompson-arlequin[@col=$node-name]"/>
+       <xsl:text>: </xsl:text>
+       <xsl:value-of select="."/>
+       <xsl:call-template name="newline"/>
+      </xsl:for-each>
+      
+      <!-- do pvalue separately -->
+      <xsl:value-of select="$hw-guo-thompson[@col='pvalue']"/>  
+      <xsl:text>: </xsl:text>
+      <xsl:apply-templates select="pvalue"/>
+      <xsl:call-template name="newline"/>
+
+     </xsl:otherwise>
+    </xsl:choose>
    </xsl:with-param>
   </xsl:call-template>
  </xsl:template>
