@@ -93,9 +93,9 @@
    population.  In particular, genetic systems which are highly
    polymorphic can implicate natural selection as an important factor
    in maintaining variation.  Genetic systems such as the Human
-   Leukocyte Antigen (HLA) region (the Major Histocompatibility [MHC]
-   region for humans) are highly polymorphic.  Six classical class I
-   and II loci each contain up to 399 alleles <citation
+   Leukocyte Antigen (HLA) region (the Major Histocompatibility
+   Complex [MHC] for humans) are highly polymorphic.  Six classical
+   class I and II loci each contain up to 399 alleles <citation
     role="citep">Rhodes:Trowsdale:1999</citation>.
   </para>
 
@@ -104,17 +104,16 @@
    and their implications for disease studies and evolutionary
    genetics.  These statistics include, but are not limited to
    estimating haplotype frequencies, identifying deviation from
-   Hardy-Weinberg equilibrium locating patterns of linkage
+   Hardy-Weinberg equilibrium and locating patterns of linkage
    disequilibrium in a given population.  In population studies
    several implementations of programs and routines to calculate these
    basic statistics exist but are mainly oriented towards analyzing
    statistics on a population-by-population basis.  The ability to
-   cross-correlate these statistical features across not a just few
-   population data-sets, but many population data-sets will enable the
-   identification of features in the genetic data that can further our
-   understanding of the functional and disease predisposing role of
-   specific alleles, and conversely allow us to rule out
-   others.</para>
+   cross-correlate these statistical features across many population
+   data-sets will enable the identification of features in the genetic
+   data that can further our understanding of the functional and
+   disease predisposing role of specific alleles, and conversely allow
+   us to rule out others.</para>
 
   <para>Currently, packages for analyzing population data already
    exist such as
@@ -144,19 +143,18 @@
     role as the <quote>Biostatistics Core</quote> as part of the
     International Histocompatibility Working Group (<ulink
      url="http://www.ihwg.org/">IHWG</ulink>).  The IHWG collected
-    population data on the HLA region and largely focused on the the
-    HLA classical class I (A, B, and C) (1.8 Mb) and class II (DR, DQ,
-    and DP) (1.2 Mb) genes, which flank the class III region on
-    chromosome 6 (ch. 6p21.31).  As part of the Anthropology and Human
-    Diversity component of the IHWG, data from populations from
-    upwards of 50 laboratories was made available via a database
-    housed at the Fred Hutchison Cancer Research Institute (the
-    <quote>Database Core</quote>).  The IHWG provided standardized
-    typing reagents to each lab involved in the component, which
-    resulted in high resolution genotype data for each
-    population.</para>
+    population data on the HLA region and largely focused on the HLA
+    classical class I (A, B, and C) (1.8 Mb) and class II (DR, DQ, and
+    DP) (1.2 Mb) genes, which flank the class III region on chromosome
+    6 (ch. 6p21.31).  As part of the Anthropology and Human Diversity
+    component of the IHWG, data from populations from upwards of 50
+    laboratories was made available via a database housed at the Fred
+    Hutchison Cancer Research Institute (the <quote>Database
+     Core</quote>).  The IHWG provided standardized typing reagents to
+    each lab involved in the component, which resulted in high
+    resolution genotype data for each population.</para>
 
-   <para>The molecular characterization of these alleles using these
+   <para>The molecular characterization of these alleles using
     standardized typing reagent kits thus allowed us to use both the
     allele frequency (the raw allele <quote>calls</quote>) and the
     underlying sequence information (the <quote>calls</quote> can be
@@ -172,8 +170,8 @@
 
    <para>The particular cross-population statistics we wished to
     address included: (1) conformity to Hardy-Weinberg expectations,
-    (2) the haplotype distribution among populations; (3) patterns of
-    linkage disequilibrium; tests for balancing selection and; (4)
+    (2) the haplotype distributions among populations; (3) patterns of
+    linkage disequilibrium; (4) tests for balancing selection and; (5)
     worldwide patterns of genetic differentiation.</para>
 
    <formalpara>
@@ -181,21 +179,26 @@
 
     <para>Hardy-Weinberg equilibrium essentially states that unless
      there are counteracting forces, the frequencies of alleles will
-     not change in a population. Expected genotype frequencies each
-     generation are determined by the allele frequencies, and are
+     not change in a population and the expected genotype frequencies
+     each generation are determined by the allele frequencies, and are
      termed Hardy-Weinberg proportions (HWP).  In the context of
      multi-population analyses we can use deviation from HWP to
-     determine whether this results from: (1) typing error (very
-     common); (2) an <quote>admixed</quote>, or merged population; (3)
-     operation of natural selection; or (4) inbreeding. </para>
+     determine whether this results from: (1) typing error (the first
+     possibility investigated); (2) an <quote>admixed</quote>,
+     or merged population; (3) operation of natural selection; or (4)
+     inbreeding. </para>
    </formalpara>
 
    <formalpara>
-    <title>Ewens-Watterson test of neutrality</title> <para>This a
-     test of neutral evolution which determines probability that the
-     observed homozygosity is more extreme than the expected
-     homozygosity under neutrality.  This test can tell us whether
-     selection (either directional or balancing) is in operation on a
+    <title>Ewens-Watterson test of neutrality</title> <para>This is a
+     test with the null hypothesis of neutral evolution and determines
+     the probability that the observed homozygosity under HWP, for a
+     given sample size and observed number of alleles, is more extreme
+     than the expected homozygosity under <remark>decode
+      Glenys</remark> and genetic drift (neutrality).  This test can
+     tell us whether selection, either directional (observed
+     homozygosity &gt; expected homozygosity) or balancing (observed
+     homozygosity &lt; expected homozygosity) is in operation on a
      particular locus across populations.
     </para>
    </formalpara>
@@ -206,15 +209,16 @@
     <para>Linkage disequilibrium (LD) describes the non-random
      association of alleles at different genetic loci.  Through
      estimating haplotype frequencies, it is possible to estimate LD
-     in a population, the presence of LD that is significant can
-     indicate the operation of selection. </para>
+     in a population, the presence of significant LD can
+     <remark>decode Glenys</remark>indicate the operation of
+     selection. </para>
    </formalpara>
 
    <formalpara>
     <title>Other statistics</title> 
 
     <para>Other individual-level population genetic statistics can
-     also be calculated, such F<subscript>st</subscript>, which
+     also be calculated, such as F<subscript>st</subscript>, which
      describes the apportionment of genetic diversity within
      subpopulations, relative to a larger population, allowing us the
      estimate the amount of admixture in a population.</para>
@@ -272,7 +276,7 @@
      <formalpara><title>integrating</title>
 
       <para>platform should allow simple integration of modules
-       written in other languages (e.g. C) and/or third party
+       written in other languages (e.g., C) and/or third party
        software</para>
      </formalpara>
     </listitem>
@@ -290,10 +294,10 @@
     are packages that deal with some aspect of population genetic
     statistics.  In addition, we had some existing in-house software,
     such as <application>emhaplofreq</application>, a program for
-    haplotype estimation, and <application>gthwe</application>, a
-    program for implementing the <citation
-     role="citet">Guo:Thompson:1992</citation> Hardy-Weinberg exact
-    test.</para>
+    haplotype estimation for the highly polymorphic HLA loci, and
+    <application>gthwe</application>, a program for implementing  Guo
+    and Thompson's Hardy-Weinberg exact test<citation
+     role="citeyearpar">Guo:Thompson:1992</citation>.</para>
 
    <para>In using these programs, however, we realized a need for a
     tool that could integrate features of existing software, and where
@@ -332,13 +336,13 @@
       
       <para>It should be straightforward, for example, to gather a
        single statistic for several populations and display it in a
-       table without a laborious manual search across many files.
-       This relates partly to the previous point: often existing
-       software was oriented towards smaller and less heterogeneous
-       datasets. More typical in evolutionary genetics studies is
-       integrating results across several populations at one or two
-       loci, rather than many populations with a large number of loci
-       and high variability in the number of individuals.</para>
+       table without a laborious manual search across many files. This
+       relates partly to the previous point: often existing software
+       was oriented towards smaller and less heterogeneous datasets.
+       More typical in evolutionary genetics studies is integrating
+       results across several populations at one or two loci, rather
+       than many populations with a large number of loci and high
+       variability in the number of individuals.</para>
      </formalpara>
     </listitem>
     
@@ -348,12 +352,14 @@
       
       <para>We plan to release our software under an open source
        license <citation>OSI</citation>.  Software that is open-source
-       allows others to extend and re-use components, write interfaces
-       to, and can reduce duplication of effort within the community.
-       Some existing software that was not open-source required
-       reverse engineering of their file formats in order to be able
-       to communicate and write interfaces, effort that could be more
-       beneficially spent improving that software.
+       allows others to extend and re-use components, allows
+       interoperation via an open and published interfaces, and can
+       reduce duplication of effort within the community. Some
+       existing software that was not open-source required reverse
+       engineering of their file formats and run-time behaviour in
+       order to be able to communicate and write interfaces to them.
+       <!-- effort that could be more beneficially spent improving
+       that software -->.
       </para>
      </formalpara>
     </listitem>
@@ -364,7 +370,7 @@
 
       <para>Software should be cross platform, and not be tied to
        proprietary features.  In particular it should be be available
-       to run high-performance UNIX platforms such GNU/Linux or
+       to run high-performance UNIX platforms such as GNU/Linux or
        Solaris as well as Windows and Macintosh platforms. </para>
      </formalpara>
     </listitem>
@@ -378,13 +384,13 @@
   <section>
    <title>Overall design</title>
 
-   <para>To be able to integrate the data analyses for multiple
-    populations, the analysis pipeline for
-    <application>PyPop</application> has been designed in two major
-    parts, or phases, the first is the basic population genetic
-    analyses, and the second integrates the results of these analyses
-    across multiple populations.  The overall data and work flow is
-    shown in <xref linkend="pypop:work-flow"/>.</para>
+   <para>To  integrate the data analyses for multiple populations, the
+    analysis pipeline for <application>PyPop</application> has been
+    designed in two major parts, or phases, the first is the basic
+    population genetic analyses, and the second integrates the results
+    of these analyses across multiple populations.  The overall data
+    and work flow is shown in <xref
+     linkend="pypop:work-flow"/>.</para>
 
    <figure id="pypop:work-flow">
    <title>Work flow</title>
@@ -430,14 +436,14 @@
    <para>In phase I, before analysis begins, the multi-locus genotype
     data for each population (stored in a text file with the
     <filename>.pop</filename> extension), is passed through a filter
-    module for data cleaning. the basic population genetic analyses
-    are run for each population file from the database.  The filter
-    module is a set of rules that traps any allele name which does not
-    have a close match in the database of HLA
+    module for data cleaning.  Next, the basic population genetic
+    analyses are run for each population file from the database.  The
+    filter module is a set of rules that traps any allele name which
+    does not have a close match in the database of HLA
     alleles<citation>IMGT</citation> maintained by Steve Marsh of the
     Anthony Nolan Trust in the UK. Although at present this is
     HLA-specific, it has been designed in such a way that it is simple
-    to write a filter for other types of population data, and if it
+    to write a filter for other types of population data, and if 
     desired (if the data is already <quote>clean</quote>), it can be
     simply switched off.  Next the analysis begins.  Depending on the
     users configuration, this can include basic allele count data; the
@@ -483,11 +489,11 @@
 ]]></programlisting>
    </figure>
 
-   <para>XML was chosen as the output format because: 1) it can
-    be read as input by other programs and; 2) it is readily transformable
-    from XML into human-readable form (e.g. a text file) or web-form
-    (e.g. HTML) via XSLT (eXtensible Stylesheet Language for
-    Transformations)<citation>XSLT</citation>.</para>
+   <para>XML was chosen as the output format because: 1) it can be
+    read as input by other programs and; 2) it is readily
+    transformable from XML into human-readable form (e.g., a text
+    file) or web-form (e.g., HTML) via XSLT (eXtensible Stylesheet
+    Language for Transformations)<citation>XSLT</citation>.</para>
 
    <para>In phase II, the results of the data analyses of the
     individual data files are integrated, and the benefits of using
@@ -549,18 +555,18 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     patterns of variation across populations and within populations.
     Examples include comparisons of evidence of selection, using the
     homozygosity test of neutrality for a given locus for all
-    populations (e.g. DPA1 for all populations), or comparing the sets
-    of loci in significant linkage disequilibrium across populations.
-    This is implemented using XSLT to transform all the sets of output
-    XML files, desired into tables of data that are read by the
-    statistical package <application>R</application>.</para>
+    populations (e.g., DPA1 for all populations), or comparing the
+    sets of loci in significant linkage disequilibrium across
+    populations. This is implemented using XSLT to transform all the
+    desired sets of output XML files into tables of data that are read
+    by the statistical package <application>R</application>.</para>
    
    <para>A sample output of this process is shown in <xref
      linkend="pypop:ld.wn.summary"/>.  This is an output plot from
     <application>R</application> and depicts for each of the loci
     analyzed as part of the IHWG workshop, the proportion of
-    populations in which the linkage disequilibrium exceed 0.6 (as
-    defined by the W<subscript>n</subscript> statistic).</para>
+    populations in which the linkage disequilibrium, as measured by
+    the W<subscript>n</subscript> statistic, exceed 0.6.</para>
 
    <figure id="pypop:ld.wn.summary">
     <title>Sample graphical output from <quote>meta-analysis</quote>:
@@ -595,7 +601,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     analyze the full set of IHWG data from both the
     12<superscript>th</superscript> and
     13<superscript>th</superscript> workshops.  With 119 separate
-    data-sets (some of which individually, required up to 9 days to
+    data-sets (some of which individually required up to 9 days to
     complete the basic per-population statistics), it was
     straightforward to set up a batch program to generate the
     individual output analyses.  For each file, an individual XML file
@@ -606,11 +612,11 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     <application>R</application>.  The <application>R</application>
     code was set up to generate overall graphs for many population
     genetic parameters of interest.  In particular, the analysis
-    allows <quote>slicing</quote> of the data up along a number of
-    axes.  As an example, we can view Hardy Weinberg deviation, for
-    all regions at a given locus, or view all loci for a given region.
-    As another example, we can view the number of populations that
-    have data for a given region (<xref
+    allows <quote>slicing</quote> of the data along a number of axes.
+    As an example, we can view Hardy Weinberg deviation, for all
+    geographic regions at a given locus, or view all loci for a given
+    region. As another example, we can view the number of populations
+    that have data for a given region (<xref
     linkend="pypop:pops-by-locus"/>), or number of populations for
     which data was provided for a given locus (<xref
     linkend="pypop:pops-by-region"/>).</para>
@@ -635,7 +641,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
    </figure>
 
    <para>This <quote>meta-analysis</quote> code is modular and can
-    cope with non-HLA data, and can thus can potentially be useful for
+    cope with non-HLA data, and thus can potentially be useful for
     other large-scale population genetic analyses.  The significance
     is that the complete pipeline, from analyzing the individual data
     files, to the generation of the overall <quote>meta</quote> output
@@ -675,9 +681,9 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     Ewens-Watterson test of neutrality down to the amino-acid level
     (by considering each amino acid site as a genetic locus),
     necessitating the translation of the allele <quote>calls</quote>
-    back into sequence data (where possible).  This will result in a
-    useful module for those wishing to reinterpret existing allele
-    data in the light of new sequence information.</para>
+    into sequence data (where possible).  This will result in a useful
+    module for those wishing to reinterpret existing allele data in
+    the light of new sequence information.</para>
    
    <para>Longer-term possibilities include developing a graphical
     front-end, possibly web-based, integration with data mining tools
