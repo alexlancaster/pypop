@@ -1,3 +1,14 @@
+2004-10-28  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* Utils.py (splitIntoNGroups): Backgrade to use regular slices,
+	rather than itertools to preserve backward-compatibility with
+	Python 2.2 (shipped with Fedora Core 1 and other end-of-lifed
+	distros).
+
+	* popmeta.py: Use os.rename, rather than shutil.move to preserve
+	backward-compatibility with Python 2.2 (shutil.move was added in
+	2.3).
+
 2004-10-27  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* NEWS: Note new feature.

@@ -41,7 +41,6 @@
 
 import os, sys, string, types, re, shutil, copy
 import Numeric
-from itertools import islice
 from Numeric import zeros, take, asarray, PyObject
 from UserArray import UserArray
 
@@ -624,23 +623,26 @@ def getUserFilenameInput(prompt, filename):
 def splitIntoNGroups(alist, n=1):
     """Divides a list up into n parcels (plus whatever is left over)
 
-    This uses iterators, so requires at least Python 2.3!
-    """
+    This class currently works with Python 2.2, but will eventually
+    use iterators, so ultimately will need least Python 2.3!  """
+    #from itertools import islice    
+    #it = iter(alist)
     
-    it = iter(alist)
     x = len(alist)/n    # note: don't just drop the last len(alist) % n items
     y = len(alist)%n
-
+    
     # initialize an empty list
     retval = []
 
     # only create list if divisor is non-zero
     if x:
-        retval = [ list(islice(it, x)) for i in range(n) ]
+        retval = [ alist[i*x:((i+1)*x)] for i in range(n) ]
+        #retval = [ list(islice(it, x)) for i in range(n) ]
 
     # if modulus is non-zero make sure to add the extra part of list
     if y:
-        extra = list(islice(it, y))
+        extra = alist[-y:]
+        #extra = list(islice(it, y))
         retval.append(extra)
 
     return retval
