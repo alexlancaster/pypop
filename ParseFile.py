@@ -6,7 +6,7 @@
    and classes for parsing literature data which only includes allele
    counts."""
 
-import sys, os, string
+import sys, os, string, types
 
 from Utils import getStreamType
 
@@ -19,7 +19,7 @@ class ParseFile:
                  validPopFields=None,
                  validSampleFields=None,
                  separator='\t',
-                 fieldPairDesignator='(2)',
+                 fieldPairDesignator=':(2)',
                  debug=0):
         """Constructor for ParseFile object.
 
@@ -34,9 +34,12 @@ class ParseFile:
         - 'separator': separator for adjacent fields (default: a tab
            stop, '\\t').
 
-        - 'fieldPairDesignator': designates the pair indicator if a
-          fields are grouped in pairs [e.g. HLA-A, and HLA-A(B)]
-          (default: '(2)')
+        - 'fieldPairDesignator': a string which consists of additions
+          to the allele `stem' for fields grouped in pairs (allele
+          fields) [e.g. for `HLA-A', and `HLA-A(2)', then we use
+          ':(2)', for `DQA1_1' and `DQA1_2', then use use '_1:_2', the
+          latter case distinguishes both fields from the stem]
+          (default: ':(2)')
 
         - 'debug': Switches debugging on if set to '1' (default: no
           debugging, '0')"""
@@ -124,34 +127,16 @@ class ParseFile:
 
             if isValidKey:
 
-                augField = key + self.fieldPairDesignator
-                unAugField = key[:-len(self.fieldPairDesignator)]
+                # if key is one of pair already in map, add it to make
+                # a tuple at that key e.g. `HLA-A(2)' already exists
+                # and inserting `HLA-A', or `DQB1_1' and `DQB1_2' should
+                # both be inserted at `DQB1'
+
                 if assoc.has_key(key):
-                    # if key already used (col names are not unique)
-                    # append the fieldPairDesignator
-                    if augField in fieldList:  
-                        # see if augmented field exists
-                        # create a tuple at the same key value
-                        assoc[key] = assoc[key], i
-                    else:
-                        print "error: can't find augmented fieldname", \
-                              augField
-
-                # if key is one of pair with the augmented already in
-                # map, add it to make a tuple at that key
-                # e.g. HLA-A(2) already exists and inserting HLA-A
-                elif assoc.has_key(augField):
-                    if augField in fieldList:
-                        assoc[augField] = assoc[augField], i
-
-                # likewise if key is one of pair with the unaugmented
-                # already in map
-                # e.g. HLA-A already exists and inserting HLA-A(2)
-                elif assoc.has_key(unAugField):
-                    if unAugField in fieldList:  
-                        assoc[unAugField] = assoc[unAugField], i
+                    assoc[key] = assoc[key], i
                 else:
                     assoc[key] = i
+                    
             else:
                 print "error: field name `%s' not valid" % field
 
@@ -469,13 +454,32 @@ class ParseGenotypeFile(ParseFile):
         else:
             isValidKey = 0
 
-        # generate the key that matches the one in the
-        # data file format
+        # generate the key that matches the one in the data file
+        # format
+
+        # if this is an `allele'-type field
         if self.alleleDesignator + field in fieldList:
-            key = self.alleleDesignator + field
+
+            li = string.split(self.fieldPairDesignator,":")
+
+            # if pair identifiers are both the same length and
+            # non-zero (e.g. '_1' and '_2', then we can assume that
+            # the underlying `stem' should be the field name with the
+            # pair identifer stripped off, otherwise simply use the
+            # field name
+            
+            if (len(li[0]) == len(li[1])) and (len(li[0]) != 0):
+                key = self.alleleDesignator + field[:-len(li[0])]
+            else:
+                key = self.alleleDesignator + field
+
+        # this is a regular (non-`allele' type field)
         else:
             key = field
 
+        if self.debug:
+            print "validKey: %d, key: %s" % (isValidKey, key)
+            
         return isValidKey, key
 
     def getLocusList(self):
