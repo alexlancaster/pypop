@@ -295,17 +295,21 @@ MODIFICATIONS.
    </xsl:with-param>
   </xsl:call-template>
 
-  <!-- Print out multi-locus population-levels stats, such as --> 
-  <!-- estimation of haplotypes and LD -->
+  <xsl:if test="emhaplofreq">
+
+   <!-- only if multi-locus analyses have been performed, print out -->
+   <!-- multi-locus population stats: estimation of haplotypes and LD -->
   
-  <xsl:call-template name="section">
-   <xsl:with-param name="title">Multi-locus Analyses</xsl:with-param>
-   <xsl:with-param name="level" select="1"/>
-   <xsl:with-param name="number" select="'II'"/>
-   <xsl:with-param name="text">
-    <xsl:apply-templates select="emhaplofreq"/>
-   </xsl:with-param>
-  </xsl:call-template>
+   <xsl:call-template name="section">
+    <xsl:with-param name="title">Multi-locus Analyses</xsl:with-param>
+    <xsl:with-param name="level" select="1" />
+    <xsl:with-param name="number" select="'II'"/>
+    <xsl:with-param name="text">
+     <xsl:apply-templates select="emhaplofreq"/>
+    </xsl:with-param>
+   </xsl:call-template>
+   
+  </xsl:if>
 
  </xsl:template>
  
