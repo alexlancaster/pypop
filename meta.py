@@ -149,4 +149,15 @@ else:
     # have to resort to command-line version because the Python bindings
     # don't understand how to load the exslt extensions in libxslt yet
     # that the meta-to-r.xsl stylesheet uses
+
+    # generate the data file 'sorted-by-locus.xml' of pops sorted by locus
+    os.popen("xsltproc %s %s > %s" % (os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), 'meta.xml', 'sorted-by-locus.xml'))
+
+    # use 'sorted-by-locus.xml' to generate a list of unique alleles
+    # 'allelelist-by-locus.xml' for each locus across all the
+    # populations in the set of XML files passed
+    os.popen("xsltproc %s %s > %s" % (os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'), 'sorted-by-locus.xml', 'allelelist-by-locus.xml'))
+
+    # finally, using the 'allelelist-by-locus.xml' file implicitly,
+    # generate all data output in formats for both R and phylip
     os.popen("xsltproc %s %s" % (os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml'))
