@@ -240,7 +240,19 @@ end""" % (os.getcwd(), os.getcwd(), os.sep, arpFilename))
 if __name__ == "__main__":
 
     if len(sys.argv) != 8:
-        sys.exit("Usage: Arlequin.py <input> <arpFilename> <arsFilename> <id column> <num of leading cols> <num of trailing cols> <size of window>")        
+        sys.exit("""Usage: Arlequin.py INPUTFILE ARPFILE ARSFILE IDCOL LEADCOLS TRAILCOLS WINDOWSIZE
+Process a tab-delimited INPUTFILE of alleles to produce input data files for
+the Arlequin population genetics program.
+
+  INPUTFILE   input text file
+  ARPFILE     output Arlequin '.arp' project file
+  ARSFILE     input Arlequin '.ars' settings file
+  IDCOL       column number of identifier (first column is zero)
+  LEADCOLS    number of leading columns before the start of allele data
+               (including IDCOL)
+  TRAILCOLS   number of trailing columns after the end of allele data
+  WINDOWSIZE  number of loci involved in window size 
+               (note that this is twice the number of allele columns)""")
         
     inputFilename = sys.argv[1]
     arpFilename = sys.argv[2]
