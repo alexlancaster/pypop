@@ -1,3 +1,20 @@
+2004-08-11  Alex Lancaster  <alex AT berkeley.edu>
+
+	* xslt/meta-to-r.xsl (output-field): Fix template to also output
+	'****' if node is present but empty.
+	(1-locus-genotype.dat): Print out p-values for each genotype for 4
+	types of stats: Chen & diff statistic
+	(for Monte-Carlo) and Chen & diff statistic (for Monte-Carlo
+	Markov chain).  Also print out individual files for each genotype
+	with the 4 statistics for *each* replicate.  Add the appropriate
+	headers.
+
+	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): Print out
+	individual genotypes for both Chen and "diff" statistic.
+
+	* HardyWeinberg.py (HardyWeinberg.serializeXMLTableTo): Include a
+	genotypeId attribute for each <genotype> in <genotypetable>.
+
 2004-08-04  Alex Lancaster  <alex AT berkeley.edu>
 
 	* xslt/meta-to-r.xsl (1-locus-genotype): Add observed and expected

@@ -598,6 +598,8 @@ class HardyWeinberg:
     stream.opentag("genotypetable")
     stream.writeln()
 
+    genotypeId = 0
+
     for horiz in sortedAlleles:
 
       for vert in sortedAlleles:
@@ -606,7 +608,10 @@ class HardyWeinberg:
           continue
 
         # start tag
-        stream.opentag("genotype", row=horiz, col=vert)
+        stream.opentag("genotype", row=horiz, col=vert, id=("%d" % genotypeId))
+
+        # increment id
+        genotypeId += 1
 
         # need to check both permutations of key
         key1 = "%s:%s" % (horiz, vert)
