@@ -290,8 +290,8 @@
  </biblioentry>
 
  <biblioentry id="GPL">
-  <citetitle pubwork="refentry"><ulink
-    url="http://www.gnu.org/licenses/gpl.html">GNU General Public License</ulink></citetitle>
+  <citetitle pubwork="refentry">GNU General Public License <ulink
+    url="http://www.gnu.org/licenses/gpl.html">http://www.gnu.org/licenses/gpl.html</ulink></citetitle>
  </biblioentry>
  
  <!-- original PSB 2002 list starts here -->
