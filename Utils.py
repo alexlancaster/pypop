@@ -315,14 +315,14 @@ class StringMatrix(UserArray):
 
   def __init__(self, rowCount=None, colList=None):
 
-      # list is a mutable type so freeze the list of locus keys in the
-      # original order in file by making a *clone* of the list of
+      # colList is a mutable type so freeze the list of locus keys in
+      # the original order in file by making a *clone* of the list of
       # keys.  the order of loci in the array will correspond to the
       # original file order, and we don't want this tampered with by
       # the `callee' function (i.e. effectively override the Python
       # "pass by reference" default and "pass by value").
-
       self.colList = colList[:]
+      
       self.colCount = len(self.colList)
       self.rowCount = rowCount
       self.array = zeros((self.rowCount, self.colCount*2), PyObject)
