@@ -9,7 +9,7 @@ if sys.argv[1] == 'sdist':
     if os.path.isdir("CVS"):
         # if yes, generate a "ChangeLog"
         print "creating ChangeLog from CVS entries"
-        os.system("rcs2log > ChangeLog")
+        os.system("rcs2log -u \"single:Richard Single:single@allele5.biol.berkeley.edu\" -u \"mpn:Mark Nelson:mpn@alleleb.biol.berkeley.edu\" -u \"alex:Alex Lancaster:alexl@socrates.berkeley.edu\" > ChangeLog")
     
 setup (name = "PyPop",
        version = "0.1",
