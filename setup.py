@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 from distutils.core import setup, Extension
+from distutils.file_util import copy_file
+
 import sys, os
 
 # if and only if we are making a source distribution, then regenerate
@@ -10,6 +12,17 @@ if sys.argv[1] == 'sdist':
         # if yes, generate a "ChangeLog"
         print "creating ChangeLog from CVS entries"
         os.system("rcs2log -u \"single:Richard Single:single@allele5.biol.berkeley.edu\" -u \"mpn:Mark Nelson:mpn@alleleb.biol.berkeley.edu\" -u \"alex:Alex Lancaster:alexl@socrates.berkeley.edu\" -u \"diogo:Diogo Meyer:diogo@allele5.biol.berkeley.edu\" > ChangeLog")
+
+def Ensure_Scripts(scripts):
+    """Strips '.py' from installed scripts.
+    """
+    for script in scripts:
+        suffix = script[-3:]
+        prefix = script[:-3]
+        if suffix == '.py':
+            copy_file(script,prefix)
+            scripts[scripts.index(script)] = prefix
+    return scripts
     
 setup (name = "PyPop",
        version = "0.1",
@@ -22,7 +35,7 @@ setup (name = "PyPop",
 
        py_modules = ["Arlequin", "HardyWeinberg", "Utils",
                      "Haplo", "Homozygosity",  "ParseFile" ],
-       scripts= ['pypop.py'],
+       scripts= Ensure_Scripts(['pypop.py']),
 
        data_files=[('share/PyPop', ['text.xsl', 'config.ini'])],
 
