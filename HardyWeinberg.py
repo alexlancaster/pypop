@@ -188,7 +188,10 @@ class HardyWeinberg:
     self.lumpedObservedGenotypes = 0.0
     self.lumpedExpectedGenotypes = 0.0
     self.flagHets = self.flagHoms = self.flagCommons = self.flagLumps = 0
-    self.flagTooManyParameters = self.flagTooFewExpected = 0
+    self.flagTooManyParameters = 0
+    self.flagTooFewExpected = 0
+    self.flagNoCommonGenotypes = 0
+    self.flagNoRareGenotypes = 0
 
     # first all the the homozygotes
     if self.totalHomsExp >= self.lumpBelow:
@@ -213,7 +216,10 @@ class HardyWeinberg:
     # now the values for heterozygoous genotypes by allele
     for allele in self.observedAlleles:
       if self.hetsExpectedByAllele[allele] >= self.lumpBelow:
-        squareMe = self.hetsObservedByAllele[allele] - self.hetsExpectedByAllele[allele]
+        if not self.hetsObservedByAllele.has_key(allele):
+          self.hetsObservedByAllele[allele] = 0
+
+        squareMe = 0 - self.hetsExpectedByAllele[allele]
         self.hetsChisqByAllele[allele] = (squareMe * squareMe) / self.hetsExpectedByAllele[allele]
 
         command = "pval 1 %f" % (self.hetsChisqByAllele[allele])
@@ -225,9 +231,13 @@ class HardyWeinberg:
           print '          ', allele, self.hetsObservedByAllele[allele], self.hetsExpectedByAllele[allele], self.hetsChisqByAllele[allele], self.hetsPvalByAllele[allele]
 
     # the list for all genotypes by genotype
-    for genotype in self.observedGenotypeCounts.keys():
+    for genotype in self.expectedGenotypeCounts.keys():
       if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
+        if not self.observedGenotypeCounts.has_key(genotype):
+          self.observedGenotypeCounts[genotype] = 0
+
         squareMe = self.observedGenotypeCounts[genotype] - self.expectedGenotypeCounts[genotype]
+
         self.chisqByGenotype[genotype] = (squareMe * squareMe) / self.expectedGenotypeCounts[genotype]
         command = "pval 1 %f" % (self.chisqByGenotype[genotype])
         returnedValue = os.popen(command, 'r').readlines()
@@ -292,8 +302,9 @@ class HardyWeinberg:
           self.lumpedObservedGenotypes += self.observedGenotypeCounts[genotype]
 
     if self.commonGenotypeCounter == 0:
+    # no common genotypes, so do no calculations.
 
-      pass
+      self.flagNoCommonGenotypes = 1
 
     elif self.rareGenotypeCounter == 0:
 
@@ -305,6 +316,7 @@ class HardyWeinberg:
       self.HWChisqPval = float(returnValue[0][:-1])
 
       self.flagCommons = 1
+      self.flagNoRareGenotypes = 1
 
     elif self.rareGenotypeCounter > 0:
       """ Calculate the Chi Squared value for the lumped rare genotypes"""
@@ -349,6 +361,7 @@ class HardyWeinberg:
           self.HWChisq = self.commonChisqAccumulator + self.lumpedChisq
         else:
           self.HWChisq = self.commonChisqAccumulator
+          self.flagTooFewExpected = 1
 
         self.HWChisqDf = self.commonDf
         command = "pval %f %f" % (self.HWChisqDf, self.HWChisq)
@@ -406,7 +419,7 @@ class HardyWeinberg:
         stream.closetag('heterozygotes')
         stream.writeln()
 
-      # loop for heterozygotes by allele to go here--mpn--
+      # loop for heterozygotes by allele
       stream.opentag('heterozygotesByAllele')
       stream.writeln()
       for allele in self.hetsChisqByAllele.keys():
@@ -459,6 +472,11 @@ class HardyWeinberg:
         stream.writeln()
         stream.closetag('lumped')
         stream.writeln()
+      else:
+        if self.flagNoRareGenotypes == 1:
+          stream.emptytag('lumped', role='no-rare-genotypes')
+        if self.flagTooFewExpected == 1:
+          stream.emptytag('lumped', role='too-few-expected')
 
       if self.flagCommons == 1:
         stream.opentag('common')
@@ -472,10 +490,10 @@ class HardyWeinberg:
         stream.closetag('common')
         stream.writeln()
       else:
-        if self.flagTooManyParameters == 1:
-          stream.emptytag('common', role='too-many-parameters')
-        else:
+        if self.flagNoCommonGenotypes == 1
           stream.emptytag('common', role='no-common-genotypes')
+        elif self.flagTooManyParameters == 1:
+          stream.emptytag('common', role='too-many-parameters')
         stream.writeln()
 
       stream.closetag('hardyweinberg')
