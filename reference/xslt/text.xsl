@@ -10,7 +10,7 @@
 
  <!-- import regular HTML customization -->
 <!--  <xsl:import href="html.xsl"/>-->
-
+ <xsl:import href="common.xsl"/>
  <xsl:import href="citation.xsl"/>
  <xsl:import href="biblio.xsl"/>
 
