@@ -1,37 +1,31 @@
 #! /usr/bin/env python
 import sys
-from ParseTSV import ParseTSV
+from ParseFile import ParseFile
 from AlleleFreq import AlleleFreq
 
 # create object
-parsefile = ParseTSV (debug=0)
+parsefile = ParseFile (debug=0)
 
-# read in IHWG data file from first argument
-parsefile.sample_file_read(sys.argv[1])
-
-# parse the population metadata header
-parsefile.map_pop_headers()
-
-# parse the sample metadata header
-parsefile.map_sample_headers()
+# read in IHWG and parse data file from first argument
+parsefile.parseFile(sys.argv[1])
 
 # print out summary info for population
-pop_data = parsefile.get_pop_data()
-for summary in pop_data.keys():
-    print "%20s: %s" % (summary, pop_data[summary])
+popData = parsefile.getPopData()
+for summary in popData.keys():
+    print "%20s: %s" % (summary, popData[summary])
 
 # using the locus map and lines of individuals, generate the
 # allele counts
-allelefreq = AlleleFreq(parsefile.get_allele_map(), parsefile.get_file_data(),
+allelefreq = AlleleFreq(parsefile.getAlleleMap(), parsefile.getFileData(),
                         debug=0)
-allelefreq.generate_allelecount()
+allelefreq.generateAllelecount()
 
 # print out allele frequency data
-allelefreq.print_allelefreq()
+allelefreq.printAllelefreq()
 
 
 # read in the file that contains the desired output fields
-#output_sample = parsefile.db_fields_read('ihwg-output-fields.dat')
+#outputSample = parsefile.dbFieldsRead('ihwg-output-fields.dat')
 
 # write it
-#parsefile.gen_sample_output(output_sample)
+#parsefile.genSampleOutput(outputSample)
