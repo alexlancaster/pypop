@@ -2,6 +2,7 @@ include ChangeLog
 include pypop.py
 include text.xsl
 include config.ini
+include SWIG/*.i
 include emhaplofreq/*.h
 include emhaplofreq/Makefile
 include gthwe/*.h
