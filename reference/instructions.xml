@@ -285,9 +285,15 @@ Common genotypes
    (conditioned on the same allele frequencies and <varname>2n</varname>). P-values lower
    than 0.05 can be interpreted as evidence that the sample does not
    fit HWP.</para>
+
+   <para>There are two implementations for this test, the first using
+    the <application>gthwe</application> implementation originally due
+    to Guo &amp; Thompson, but modified by John Chen, the second being
+    <application>Arlequin</application>'s
+    <citation>Schneider:2000</citation>implementation.</para>
   
   <example>
-   <title>Sample output for exact test</title>
+    <title>Sample output for exact test using <application>gthwe</application></title>
 
 <programlisting>
 6.3. Guo and Thompson HardyWeinberg output [DQA1]
@@ -298,16 +304,32 @@ Sample size: 1000
 Std. error: 0.0009431
 p-value: 0.0537
 </programlisting>
+
+
+    <para>In the <application>gthwe</application> implementation, if
+     there are many haplotypes, the exact test may be computationally
+     difficult. In this case the following message is reported:</para>
+
+<programlisting>2.3. Guo and Thompson HardyWeinberg output [C]
+----------------------------------------------
+Too large a matrix for 'gthwe' implementation of Guo and Thompson's exact test
+</programlisting>
   </example>
 
-  <para>If there are many haplotypes, the exact test may be computationally
-   impossible to implement. In this case the following message is reported:</para>
+   <example>
+    <title>Sample output for exact test using the
+    <application>Arlequin</application> implementation</title>
 
-<programlisting>
-2.3. Guo and Thompson HardyWeinberg output [C]
-----------------------------------------------
-Too large a matrix for Guo and Thompson
+<programlisting>6.4. Guo and Thompson HardyWeinberg output (Arlequin's implementation) [DQA1]
+-----------------------------------------------------------------------------
+Observed heterozygosity: 0.553190
+Expected heterozygosity: 0.763900
+Std. deviation: 0.000630
+Dememorization steps: 100172
+p-value: 0.0518
 </programlisting>
+
+   </example>
    
   </sect2>
 
@@ -316,8 +338,8 @@ Too large a matrix for Guo and Thompson
    
    <para>For each locus we implement the Ewens-Watterson homozygosity
     test of neutrality (<citation
-     role="citet">Watterson:1978</citation>, <citation
-     role="citet">Ewens:1972</citation>). The expected homozygosity
+     role="citealt">Watterson:1978</citation>; <citation
+     role="citealt">Ewens:1972</citation>). The expected homozygosity
     under Hardy-Weinberg proportions (the sum of the squares of allele
     frequencies) is computed and reported. The expected homozygosity
     under neutrality, for the same sample size (<varname>2n</varname>)
@@ -338,8 +360,16 @@ Too large a matrix for Guo and Thompson
     considered significant at the 0.05 level, making this a two-tailed
     test of the null hypothesis of neutrality. </para>
 
+   <para>Again, there are two implementations for this test: the first
+    uses look-up tables based on simulations over a  range of values
+    of <varname>2n</varname> and <varname>k</varname>, the second is a
+    Monte-Carlo implementation of the exact test originally
+    implemented by Montgomery Slatkin (<citation
+     role="citealt">Slatkin:1994</citation>; <citation
+     role="citealt">Slatkin:1996</citation>).</para>
+
   <example>
-   <title>Sample output of homozygosity test</title>
+   <title>Sample output of homozygosity test from look-up tables</title>
 <programlisting><![CDATA[
 1.4. Ewens-Watterson homozygosity test of neutrality [A]
 --------------------------------------------------------
@@ -347,6 +377,15 @@ Observed F: 0.1326, Expected F: 0.2651, Normalized deviate (Fnd): -1.4506
 p-value range: 0.0000 < p <= 0.0100 *
 ]]></programlisting>
   </example>
+
+   <example>
+    <title>Sample output of homozygosity test from Monte-Carlo implementation</title>
+
+<programlisting>1.6. Slatkin's implementation of EW homozygosity test of neutrality [A]
+-----------------------------------------------------------------------
+Expected F: 0.2649, Variance in F: 0.0083, p-value of F: 0.0029**
+</programlisting>
+   </example>
 
  </sect2>
 
@@ -359,8 +398,8 @@ p-value range: 0.0000 < p <= 0.0100 *
   
   <para>Haplotypes frequencies are estimated using the iterative
    Expectation-Maximization (EM) algorithm (<citation
-   role="citet">Dempster:1977</citation>; <citation
-   role="citet">Excoffier:Slatkin:1995</citation>).</para>
+   role="citealt">Dempster:1977</citation>; <citation
+   role="citealt">Excoffier:Slatkin:1995</citation>).</para>
 
   <para>Multiple starting conditions are used to minimize the possibility of
    local maxima being reached by the EM iterations. The haplotype
@@ -540,6 +579,12 @@ haplotype         frequency # copies  | haplotype         frequency # copies
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Ewens:1972'])"/>  
 
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Salamon:1999'])"/>  
+
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Slatkin:1994'])"/>  
+
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Slatkin:1996'])"/>  
+
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Schneider:2000'])"/>  
 
   </bibliodiv>
  </bibliography>
