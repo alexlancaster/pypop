@@ -490,11 +490,12 @@
  <!-- ############### END ALLELE COUNT STATISTICS ###################### --> 
 
  <!-- standard pvalue output, common to other modules -->
- <xsl:template match="pvalue">
+ <xsl:template match="pvalue" name="pvalue-func">
+  <xsl:param name="val" select="."/>
 
   <!-- round to 4 decimal places -->
   <xsl:call-template name="round-to">
-   <xsl:with-param name="node" select="."/>
+   <xsl:with-param name="node" select="$val"/>
    <xsl:with-param name="places" select="4"/>
   </xsl:call-template>
 
@@ -502,7 +503,7 @@
    <xsl:with-param name="padChar">*</xsl:with-param>
    <xsl:with-param name="length">
     <xsl:call-template name="get-significance">
-     <xsl:with-param name="pvalue" select="."/>
+     <xsl:with-param name="pvalue" select="$val"/>
     </xsl:call-template>
    </xsl:with-param>
   </xsl:call-template>
