@@ -57,7 +57,7 @@
   <xsl:variable name="populations" select="$all-populations[not(popname=preceding-sibling::popname)]/popname"/> 
 -->
 
-  <xsl:text>     </xsl:text>
+  <xsl:text>    </xsl:text>
   <xsl:value-of select="count($populations)"/>
   <xsl:text> </xsl:text>
   <xsl:value-of select="count($loci)"/>
