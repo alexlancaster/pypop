@@ -1,3 +1,21 @@
+2004-07-22  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* NEWS: Update with some of the new features since 0.5.2 (some yet
+	to be documented).
+
+	* pypop.py: New option '-f' (long version '--filelist') which
+	accepts a file containing a list of files (one per line) to
+	process (note that this is mutually exclusive with supplying
+	INPUTFILEs, and will abort with an error message if you supply
+	both simultaneously).   
+	In batch version, handle multiple INPUTFILEs supplied as
+	command-line arguments and support Unix shell-globbing
+	syntax (e.g. pypop.py *.pop).  Supported through use of a loop
+	around multiple calls to Main().  (NOTE: This is supported *only*
+	in batch version, not in the interactive version, which expects
+	one and only one file supplied by user.
+	(usage_message): Update accordingly.
+
 2004-07-20  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* xslt/meta-to-r.xsl (gen-lines): Added pairwise LD (as opposed to

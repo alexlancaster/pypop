@@ -1,6 +1,24 @@
 PyPop NEWS --- history of user-visible changes to PyPop.  -*- outline -*-
 Copyright (C) 2003, 2004 Regents of the University of California
 
+* Release Notes for PyPop 0.6.0 (public beta) [not released yet]
+** New features
+*** New command-line option '-f' (long version '--filelist') which
+    accepts a file containing a list of files (one per line) to
+    process (note that this is mutually exclusive with supplying
+    INPUTFILEs, and will abort with an error message if you supply
+    both simultaneously).
+*** In batch version, handle multiple INPUTFILEs supplied as command-line
+    arguments and support Unix shell-globbing syntax (e.g. 'pypop.py
+    -c config.ini *.pop'). (NOTE: This is supported *only* in
+    batch version, not in the interactive version, which expects one
+    and only one file supplied by user.
+** Bug fixes
+*** Allow HardyWeinbergGuoThompson test to be run if at least two alleles
+    present (test was originally failing with a 'too-few-alleles'
+    message if there were not at least 3 alleles).  Thanks to Kristie
+    Mather for the report.
+
 * Release Notes for PyPop 0.5.2 (public beta) 2004-03-09
 ** Bug fixes
 *** Add missing RandomBinning.py file to source distribution
