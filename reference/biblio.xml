@@ -167,10 +167,7 @@
    <citetitle>HLA 2002: Immunobiology of the Human MHC</citetitle>
    <publishername>IHWG Press</publishername>
   </biblioset>
-
  </biblioentry>
-
-
 
  <biblioentry id="Meyer:etal:2003">
   <biblioset relation="chapter">
@@ -233,8 +230,6 @@
   </biblioset>
 
  </biblioentry>
-
-
 
  <biblioentry id="Schneider:etal:2000">
   <authorgroup>
@@ -1683,6 +1678,28 @@
   </biblioset>
  </biblioentry>
 
+ <biblioentry id="Meyer:Thomson:2001">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>D</firstname>
+     <surname>Meyer</surname>
+    </author>
+    <author>
+     <firstname>G</firstname>
+     <surname>Thomson</surname>
+    </author>
+   </authorgroup>
+   <pubdate>2001</pubdate>
+   <citetitle>How selection shapes variation of the human major histocompatibility complex: a review</citetitle>
+   <volumenum>65</volumenum>
+   <pagenums>1-26</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Annals of Human Genetics</citetitle>
+  </biblioset>
+ </biblioentry>
+
 <!--
  
 <biblioentry id="Hacia">
@@ -1814,15 +1831,6 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
 <pubdate>1987</pubdate>
  An Exact Test for Hardy-Weinberg and Multiple Alleles. Biometrics 43:805-812.
 </biblioentry>
-<biblioentry id="Meyer">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>D</firstname>
-<surname>Meyer</surname>
-Thomson G. 2001. How selection shapes variation of the human major histocompatibility complex: a review. Annals of Human Genetics 65: 1-26.
-</biblioentry>
-
 
 <biblioentry id="Mullis">
 <biblioset relation="article">
