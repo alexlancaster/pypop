@@ -49,7 +49,8 @@ allele count case).
 - "getopt-ify" emphaplofreq so that all currently hardcoded parameters
   can be passed in via command-line options.  (alex)
 
-- Add parameters for Guo and Thompson into "config.ini".  (alex)
+- Add parameters for Guo and Thompson into "config.ini".  (alex: DONE
+  2001-09-18)
 
 - Make number of significant figures reported be a global parameter
   set in "config.ini" (e.g. "%.4f") (alex)
