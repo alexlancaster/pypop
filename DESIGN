@@ -72,8 +72,8 @@ allele count case).
 
 2001-11-21:
 
-- 'Emhaplofreq' : XML-ify Rich's program (_alex_: 80%-COMPLETED
-  2001-12-19).
+- 'Emhaplofreq' : XML-ify Rich's program (_alex_: 100%-COMPLETED
+  2002-05-11).
 
 - 'Emhaplofreq' : Conceive in more detail, the final output to feed into
   XML-ification (_diogo_).
@@ -89,7 +89,7 @@ allele count case).
   
 - 'Emhaplofreq' : After XML-ification, start on XSL stylesheet to
   consolidate output: each pairwise locus/allele into single table
-  (_alex_).
+  (_alex_: 80%-COMPLETED 2002-05-11).
 
 - 'HardyWeinberg' :  Decide on additional values within each cell (in
   addition to obsv/expct), each p-values (_diogo_)
