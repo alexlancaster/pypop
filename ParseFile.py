@@ -400,6 +400,10 @@ class ParseGenotypeFile(ParseFile):
 
         *For internal use only.*"""
 
+        # assume there is no population column
+        
+        popNameCol = None
+
         self.alleleMap = OrderedDict()
         for key in self.sampleMap.keys():
 
@@ -411,10 +415,13 @@ class ParseGenotypeFile(ParseFile):
                 locusKey = string.upper(key[len(self.alleleDesignator):])
                 self.alleleMap[locusKey] = self.sampleMap[key]
             elif key[0] == self.popNameDesignator:
-                self.popNameCol = self.sampleMap[key]
+                popNameCol = self.sampleMap[key]
 
-        # save population name
-        self.popName = string.split(self.fileData[self.sampleFirstLine], self.separator)[self.popNameCol]
+        if popNameCol:
+            # save population name
+            self.popName = string.split(self.fileData[self.sampleFirstLine], self.separator)[popNameCol]
+        else:
+            self.popName = None
 
         return self.alleleMap
 
@@ -546,9 +553,10 @@ class ParseGenotypeFile(ParseFile):
     def serializeSubclassMetadataTo(self, stream):
         """Serialize subclass-specific metadata."""
 
-        # output population name first
-        stream.tagContents('popname', self.popName)
-        stream.writeln()
+        if self.popName:
+            # if present in input , print population name
+            stream.tagContents('popname', self.popName)
+            stream.writeln()
 
 
 class ParseAlleleCountFile(ParseFile):
