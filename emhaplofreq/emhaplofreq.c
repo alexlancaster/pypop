@@ -371,8 +371,8 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /******************* end: declarations ****************************/
 
-  srand48(1234567); 
-  //srand48(time (NULL));
+  //srand48(1234567); 
+  srand48(time (NULL));
 
   if (fp_iter == NULL)
     if ((fp_iter = fopen("summary_iter.out", "w")) == NULL)
@@ -1715,7 +1715,8 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
 
           /* Normalize addto_ambig[] for the current pheno */
           /* Add normalized amount to ambiguous count      */
-          if (expected_freq_sum < .0000001)
+        //if (expected_freq_sum < .0000001)
+          if (expected_freq_sum < .00000001)
           {
             done = TRUE;
             *error_flag = 2;
