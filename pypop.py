@@ -110,19 +110,37 @@ xmlStream.writeln()
 
 # Parse "ParseFile" section
 try:
-	alleleDesignator = config.get("ParseFile", "alleleDesignator")
+  alleleDesignator = config.get("ParseFile", "alleleDesignator")
 except NoOptionError:
-	alleleDesignator = '*'
+  alleleDesignator = '*'
 
 try:
-	untypedAllele = config.get("ParseFile", "untypedAllele")
+  untypedAllele = config.get("ParseFile", "untypedAllele")
 except NoOptionError:
-	untypedAllele = '****'
+  untypedAllele = '****'
+
+try:
+  fieldPairDesignator = config.get("ParseFile", "fieldPairDesignator")
+except NoOptionError:
+  fieldPairDesignator = '(2)'
+
+try:
+  validPopFields = config.get("ParseFile", "validPopFields")
+except NoOptionError:
+  sys.exit("No valid population fields defined")
+
+try:
+  validSampleFields = config.get("ParseFile", "validSampleFields")
+except NoOptionError:
+  sys.exit("No valid sample fields defined")
 
 # Generate the parse file object
-input = ParseGenotypeFile(fileName, 
+input = ParseGenotypeFile(fileName,
+                          validPopFields=validPopFields,
+                          validSampleFields=validSampleFields,
 			  alleleDesignator=alleleDesignator, 
 			  untypedAllele=untypedAllele,
+                          fieldPairDesignator=fieldPairDesignator,
 			  debug=debug)
 
 # serialize summary info into text
