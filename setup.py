@@ -151,11 +151,16 @@ data_file_paths.extend(xslt_files)
 
 setup (name = "PyPop",
        version = version,
-       description = "Population genetics statistics",
-       url = "http://allele5.biol.berkeley.edu",
+       description = "Python for Population Genetics",
+       long_description = \
+       """PyPop is a framework for population genetics statistics
+particularly large-scale multilocus genotype data""",
+       url = "http://allele5.biol.berkeley.edu/",
        maintainer = "Alex Lancaster",
        maintainer_email = "alexl@socrates.berkeley.edu",
-
+       licence = "GNU GPL",
+       platforms = ["GNU/Linux", "Windows"],
+       
        extra_path = 'PyPop',
 
        py_modules = ["Arlequin", "HardyWeinberg", "Utils", "Haplo",
