@@ -1,3 +1,14 @@
+2004-05-19  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* setup.py (ext_Gthwe): Add PERMU_TEST macro to be true ('1') for
+	the moment.
+
+	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Remove
+	obsolete definition of n for gthwe module (should be an array, not
+	an integer).  When creating the array of zeroes, make it length of
+	self.k (number of distinct alleles), rather than hardcoded at
+	35 (since that limitation has been removed in the actual module).
+
 2004-05-17  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* setup.py (my_build_ext.swig_sources): Comment out setting of
