@@ -16,6 +16,8 @@
 #include "func.h"
 #include <math.h>
 
+#include <gsl/gsl_rng.h>
+
 int main(int argc, char *argv[])
 /* correct execution of this program: gthwe infile outfile */
 {
@@ -131,20 +133,6 @@ int run_data(int *a, int *n, int no_allele, int total,
   sample.group = thegroup;
   sample.size = thesize;
 
-#if DEBUG
-  printf("no_allele=%d, total=%d, thestep=%d, thegroup=%d, thesize=%d, title=%s, t1=%ld\n",no_allele, total, sample.step, sample.group, sample.size, title, t1);
-  for (i=0; i < (no_allele*(no_allele+1)/2); i++) 
-    printf("a[%d] = %d\n", i, a[i]);
-
-  for (i=0; i < MAX_ALLELE; i++) 
-    printf("n[%d] = %d\n", i, n[i]);
-
-  printf("after looping through a, n!\n");
-
-  fflush(stdout);
-
-#endif
-
 #ifdef XML_OUTPUT
   fprintf(outfile, "<hardyweinbergGuoThompson>\n");
   fprintf(outfile, "<dememorizationSteps>%d</dememorizationSteps>\n", 
@@ -156,9 +144,24 @@ int run_data(int *a, int *n, int no_allele, int total,
 #ifndef SUPPRESS_ALLELE_TABLE
   print_data(a, no_allele, sample, &outfile, title);
 #endif
-  constant = cal_const ( no_allele, n, total );
+
+#if DEBUG
+  printf("no_allele=%d, total=%d, thestep=%d, thegroup=%d, thesize=%d, title=%s, t1=%ld\n",no_allele, total, sample.step, sample.group, sample.size, title, t1);
+  for (i=0; i < (no_allele*(no_allele+1)/2); i++) 
+    printf("a[%d] = %d\n", i, a[i]);
+
+  for (i=0; i < no_allele; i++) 
+    printf("n[%d] = %d\n", i, n[i]);
+
+  printf("after looping through a, n!\n");
+
+  fflush(stdout);
+
+#endif
+
+  constant = cal_const(no_allele, n, total);
   
-  ln_p_observed = ln_p_value ( a, no_allele, constant );  
+  ln_p_observed = ln_p_value(a, no_allele, constant);  
   
   ln_p_simulated = ln_p_observed; 
   
@@ -232,6 +235,108 @@ int run_data(int *a, int *n, int no_allele, int total,
 #ifdef XML_OUTPUT
   fprintf(outfile, "</hardyweinbergGuoThompson>");
 #endif
+
+#ifdef PERMU_TEST
+  /* calculate number of alleles of each gamete */
+  cal_n(no_allele, a, n);
+
+  /* reinitialize constant after n has been calculated using cal_n above: 
+     don't know why this isn't done in original code? */
+  /*  constant = cal_const(no_allele, n, total); */
+  
+  /* reinitialize observed value */
+  /* ln_p_observed = ln_p_value(a, no_allele, constant);  */
+
+  /* calculate the number of gametes */
+  int total_gametes = 0;
+  for (i=0; i < no_allele; i++) 
+    total_gametes += n[i];
+
+  printf("n = [");
+  for (i=0; i < no_allele; i++) 
+    printf("%d,", n[i]);
+  printf("]\n");
+
+  printf("total gametes: %d\n", total_gametes);
+
+  int *s = (int *)calloc(total_gametes, sizeof(int));
+  int gamete = 0;
+
+  /* create index of gametes */
+  for (i=0; i < no_allele; i++) 
+    for (j=0; j < n[i]; j++) {
+      s[gamete] = i;
+      gamete++;
+    }
+
+  printf("before permutation");
+  printf("s = [");
+  for (i=0; i < total_gametes; i++) {
+    printf("%d,", s[i]);
+  }
+  printf("]\n");
+
+  const gsl_rng_type * T;
+  gsl_rng * r;
+  
+  gsl_rng_env_setup();
+  T = gsl_rng_default;
+  r = gsl_rng_alloc (T);
+
+  /* create empty genotype array */
+  int *g = (int *)calloc(total, sizeof(int));
+
+  /* start permuting index of gametes */
+  int permu = 0, l = 0;
+  int K = 0;
+  int N = 25000;
+  for (permu=0; permu < N; permu++) {
+    gsl_ran_shuffle(r, s, total_gametes, sizeof(int));
+
+    /*
+    printf("after permutation: %d\n", permu);
+    printf("s = [");
+    for (i=0; i < total_gametes; i++) {
+      printf("%d,", s[i]);
+    }
+    printf("]\n");
+
+    printf("pairs: ");
+    */
+    for (i=0; i < total_gametes/2; i++) {
+      /* printf("(%d,%d)", s[i*2], s[i*2+1]); */
+      l = LL(s[i*2],s[i*2+1]);
+      g[l]++;
+    }
+    /* printf("\n"); 
+
+    printf("g = [");
+    for (i=0; i < total; i++) 
+      printf("%d,", g[i]);
+    printf("]\n");
+    */
+
+    double ln_p_perm = ln_p_value(g, no_allele, constant);
+
+    /*    printf("log[Pr(f)] = %f\n", ln_p_observed);
+	  printf("log[Pr(g)] = %f\n", ln_p_perm);
+    */
+    if (ln_p_perm <= ln_p_observed)
+      K++;
+    /* printf("K = %d\n", K); */
+
+    /* reset genotype array, g */
+    for (i=0; i < total; i++)
+      g[i] = 0;
+  }
+
+  printf("finished permutations!\n");
+  printf("K = %d, N = %d\n", K, N);
+  double p_value = (double)K/N;
+  printf("pvalue = %g\n", p_value);
+
+#endif
+
   return (0);
 
 }
