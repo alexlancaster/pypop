@@ -1,4 +1,30 @@
-2003-12-08  Owen Solberg  <solberg@localhost.localdomain>
+2003-12-10  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* pypop.py: Relocated, streamlines 'VERSION' finding code.  The
+	logic is now to find our exactly which directory the current pypop
+	script is being run: 1) First, check to see if we are running from
+	the system-installed location and not in the 'frozen' standalone
+	state; 2) if not, assume VERSION is in the same directory where
+	the script is located; 3) finally check to see if the VERSION file
+	exists, if not, exit with an error message.  
+	Pass the version variable to the Main() class instance.
+	Add new command line option "-V", long version "--version" to
+	report the current version.  When passed simply exit with the
+	version_message.  
+	(usage_message): Mention it.
+	(copyright_message): Copyright boilerplate.
+	(interactive_message, version_message): New messages, version
+	message outputs the version and the copyright_message,
+	interactive_message also outputs version and copyright_message
+
+	* Main.py (Main.__init__): Add new keyword 'version' to
+	constructor, version information is now passed into the class, not
+	generated within.  Make version an instance variable throughout.
+	Move code to find the 'VERSION' file and the version information
+	to the main 'pypop.py' script.
+	Fixed 'self.config.ini' -> 'config.ini' in altpath construction.
+
+2003-12-08  Owen Solberg  <solberg AT socrates.berkeley.edu>
 
 	* RandomBinning.py: Changed import to use copy instead of
 	deepcopy. Copy should be sufficient and is probably less

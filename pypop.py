@@ -38,8 +38,55 @@
 
 import sys, os, string, time
 
+######################################################################
+# BEGIN: CHECK PATHS and FILEs
+######################################################################
+
+# create system-level defaults relative to where python is
+# installed, e.g. if python is installed in sys.prefix='/usr'
+# we look in /usr/share/PyPop, /usr/bin/pypop etc.
 datapath = os.path.join(sys.prefix, 'share', 'PyPop')
+binpath = os.path.join(sys.prefix, 'bin', 'pypop')
 altpath = os.path.join(datapath, 'config.ini')
+systemversionpath = os.path.join(datapath, 'VERSION')
+
+# find our exactly where the current pypop is being run from
+pypopbinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+# look for 'VERSION' file in this directory
+localversionpath = os.path.join(pypopbinpath, 'VERSION')
+
+# first, check to see if we are running from the system-installed location
+# and not in the 'frozen' standalone state
+if pypopbinpath == binpath and not hasattr(sys, 'frozen'):
+  versionpath = systemversionpath
+# if not, assume VERSION is in the current directory as the script
+else:
+  versionpath = localversionpath
+
+
+noversion_message = """Could not find VERSION file in %s!
+Your PyPop installation may be broken.  Exiting...""" % versionpath
+
+# check to see if the VERSION file exists,
+# if not, exit with an error message
+if os.path.isfile(versionpath):
+  f = open(versionpath)
+  version = string.strip(f.readline())
+else:
+  sys.exit(noversion_message)
+  
+######################################################################
+# END: CHECK PATHS and FILEs
+######################################################################
+
+######################################################################
+# BEGIN: generate message texts
+######################################################################
+
+copyright_message = """Copyright (C) 2003 Regents of the University of California
+This is free software.  There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
 
 usage_message = """Usage: pypop [OPTION] INPUTFILE
 Process and run population genetics statistics on an INPUTFILE.
@@ -54,15 +101,38 @@ current directory or in %s.
   -d, --debug          enable debugging output (overrides config file setting)
   -i, --interactive    run in interactive mode, prompting user for file names
   -g, --gui            run GUI (warning *very* experimental)
-  -o, --outputdir=DIR  put output in directory DIR 
+  -o, --outputdir=DIR  put output in directory DIR
+  -V, --version        print version of PyPop
   
   INPUTFILE   input text file""" % altpath
+
+version_message = """pypop %s
+%s""" % (version, copyright_message)
+
+interactive_message = """PyPop: Python for Population Genetics (%s)
+%s
+
+You may redistribute copies of PyPop under the terms of the
+GNU General Public License.  For more information about these
+matters, see the file named COPYING.
+
+To accept the default in brackets for each filename, simply press
+return for each prompt.
+""" % (version, copyright_message)
+
+######################################################################
+# END: generate message texts
+######################################################################
+
+######################################################################
+# BEGIN: parse command line options
+######################################################################
 
 from getopt import getopt, GetoptError
 from ConfigParser import ConfigParser
 
 try:
-  opts, args =getopt(sys.argv[1:],"lsigc:hdx:o:", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "outputdir="])
+  opts, args =getopt(sys.argv[1:],"lsigc:hdx:o:V", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "outputdir=", "version"])
 except GetoptError:
   sys.exit(usage_message)
 
@@ -101,10 +171,16 @@ for o, v in opts:
       outputDir = v
     else:
       sys.exit("'%s' is not a directory, please supply a valid output directory" % v)
-
+  elif o in ("-V", "--version"):
+    sys.exit(version_message)
+    
 # if neither option is set explicitly, use libxslt python wrappers
 if not (use_libxsltmod or use_FourSuite):
   use_libxsltmod = 1
+
+######################################################################
+# END: parse command line options
+######################################################################
 
 if guiFlag:
   # instantiate PyPop GUI
@@ -155,19 +231,8 @@ else:
       configFilename = 'config.ini'
       fileName = 'no default'
 
-    print """PyPop: Python for Population Genetics
-Copyright (C) 2003 Regents of the University of California
-This is free software.  There is NO warranty; not even for
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-You may redistribute copies of PyPop under the terms of the
-GNU General Public License.  For more information about these
-matters, see the file named COPYING.
-
-To accept the default in brackets for each filename, simply press
-return for each prompt.
-"""
-
+    print interactive_message
+    
     from Main import getUserFilenameInput
 
     # read user input for both filenames
@@ -200,7 +265,8 @@ return for each prompt.
                      use_libxsltmod=use_libxsltmod,
                      use_FourSuite=use_FourSuite,
                      xslFilename=xslFilename,
-                     outputDir=outputDir)
+                     outputDir=outputDir,
+                     version=version)
 
   if interactiveFlag:
 
