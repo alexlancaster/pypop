@@ -1,10 +1,8 @@
-2004-02-17  Alex Lancaster  <alexl@socrates.berkeley.edu>
+2004-02-17  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* standalone.spec (createWrappers, createObjects):
 	Refactor/separate out common code to create scripts and wrappers.
 	Add popmeta.py to scripts to generate standalone executables.
-
-2004-02-17  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Utils.py (checkXSLFile, getUserFilenameInput): Moved from
 	Main.py.
