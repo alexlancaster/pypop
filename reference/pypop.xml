@@ -1,0 +1,302 @@
+<chapter>
+  <title><application>PyPop</application>: software
+   framework</title>
+  
+  <section>
+   <title>Design</title>
+   
+   <para>The overall data and work flow for
+    <application>PyPop</application>, the software framework for
+    parsing the data files is shown in <xref linkend="pypop:work-flow"/>. </para>
+   
+   <para>A sample UML use-case is given in <xref linkend="pypop:design"/>.
+    This indicates the processing steps involved the calculation of
+    single statistic.  Note the exact object and method names are
+    schematic only and may be out-of-date with respect to the current
+    implementation.</para>
+   
+   
+   <figure id="pypop:work-flow">
+    <title>Work flow</title>
+    <mediaobject>
+     <imageobject>
+      <imagedata fileref="work-flow.eps" align="center" scale="50"/>
+     </imageobject>
+     <imageobject>
+      <imagedata fileref="work-flow.png" align="center" scale="45"/>
+     </imageobject>
+     <textobject>
+      <phrase>Diagram of software workflow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.png</phrase>
+     </textobject>
+    </mediaobject>
+   </figure>
+   
+   <figure id="pypop:design">
+    <title>Schematic UML design</title>
+    <mediaobject>
+     <imageobject>
+      <imagedata fileref="design.png" align="center" scale="45"/>
+     </imageobject>
+     <textobject>
+      <phrase>Digram of UML design can be found at: http://allele5.biol.berkeley.edu/ihwg/design.png</phrase>
+     </textobject>
+    </mediaobject>
+   </figure>
+  </section>
+  
+  <section>
+   <title>API (Application Programmers Interface)</title>
+   
+   <para>The current <application>PyPop</application> Application
+    Programmers Interface (API), can be found at:  <ulink
+     url="api/index.html">API</ulink>.  A UML diagram of the class
+    diagram is shown in <xref linkend="pypop:api"/>.</para>
+   
+   
+   <figure id="pypop:api">
+    <title>UML diagram of API</title>
+    <mediaobject>
+     <imageobject>
+      <imagedata fileref="api.png" align="center" scale="40"/>
+     </imageobject>
+     <textobject>
+      <phrase>Digram of UML API can be found at: http://allele5.biol.berkeley.edu/ihwg/api.png</phrase>
+     </textobject>
+    </mediaobject>
+   </figure>
+  </section>
+   <appendix>
+  <title>Data interchange</title>
+  <section>
+   <title>Data format</title>
+   
+   <para>File format is plain ASCII, with fields delimited by
+    tabstops, not spaces.  Fields are separated by tabs so that
+    spaces are permitted within a field.  The file suffix should
+    be <filename>.txt</filename></para>
+   
+   <para>No field may be left blank.  Four asterisks should be used
+    to designate untyped locus data or unknown descriptive data.</para>
+   
+   <para>There should be 3 lines of header information on a
+    population file.</para>
+
+   <para>The three lines are as follows:</para>
+   
+   <programlistingco>
+    <areaspec>
+     <area label="line1" linkends="line1-co" coords="1" id="line1"/>
+     <area coords="2" id="line2"/>
+     <area coords="3" id="line3"/>
+    </areaspec>
+    <programlisting>labcode	method	ethnic	contin	collect	latit	longit	complex
+USAERL  SSOP    Irish   Europe  Dublin  30 deg  350 deg 1
+populat id	a_1	a_2	c_1	c_2	b_1	b_2	tap1_1	tap1_2
+</programlisting>
+    <calloutlist>
+     <callout arearefs="line1" id="line1-co" xreflabel="line1">
+      <formalpara>
+       <title>Line 1</title>
+       <para>Column headers</para>
+      </formalpara>
+     </callout>
+     <callout arearefs="line2">
+      
+      <formalpara>
+       <title>Line 2</title> 
+       <para>Data under headings in line
+	1 are filled in on line 2 as follows:</para>
+      </formalpara>
+
+      <para>The <literal>method</literal> should be one of the
+following:</para> 
+<literallayout format="linespecific">SSOP
+RLS
+SBT
+SSP
+RSCA
+MS (this is for PCR/gel sizing for microsatellites)
+RFLP
+SSCP
+Other
+</literallayout>
+
+      <para>The <literal>ethnic</literal> field may contain
+       practically anything, but the <literal>contin</literal>
+       field should contain one of the following geographic
+       regions:</para>
+      <literallayout>
+North-Africa
+Sub-Saharan-Africa
+North-East-Asia
+South-East-Asia
+South-West-Asia
+Australia
+Europe
+North-America
+Oceania
+South-America
+Other
+</literallayout>
+
+      <para>The <literal>collect</literal> field is for where
+       the data was collected, <literal>latit</literal> and
+       <literal>longit</literal> are for the latitude and
+       longitude (approximately) of origin, and
+       <literal>complex</literal> should be entered as a
+       zero.</para>
+     </callout>
+     <callout arearefs="line3">
+      <formalpara>
+       <title>Line 3</title>
+       <para>There is one more line which contains the headers
+	for the columns of genotype data.</para>
+      </formalpara>
+      
+      <para><literal>populat</literal> should contain a name for
+       the population and <literal>id</literal> should contain a
+       sample id.</para>
+      
+      <para> There should be two header labels for each locus, giving
+       the name of the locus, in lower case please, followed by an
+       underscore and a one (1) or a two (2), so that each column name
+       is unique.</para>
+
+      <para>From <phrase role="strong">line 4</phrase> onwards, the
+       file should contain genotype data, all tab-separated, with no
+       blanks and a string of four asterisks indicating untyped
+       loci.</para>
+
+      <para><emphasis role="bold">VERY IMPORTANT</emphasis>, a
+       homozygote should include entries for both alleles i.e.,
+       <literal>DRB1</literal> <literal>0407</literal> should have
+       <literal>0407</literal> entered TWICE, the other allele should
+       NEVER be left blank, indicated by a dash, or in any way
+       assumed, otherwise they cannot be differentiated from ambiguous
+       typing results.</para>
+
+      <para>There should be no trailing blank lines at the end
+       of a file.</para>
+
+     </callout>
+	</calloutlist>
+   </programlistingco>
+   
+  </section>
+  
+  <section>
+   <title>Data transmission</title>
+   
+   <para>Possible methods:</para>
+   
+   <orderedlist>
+    <listitem>
+     <para>e-mail the data files.</para>
+    </listitem>
+    
+    <listitem>
+     <para>You log in to our server via <command>[s]ftp</command>
+      and upload the text files, alerting us by e-mail.</para>
+    </listitem>
+    
+    <listitem>
+     <para>You alert us by e-mail when new data is available, and we
+      log in to your server via <command>[s]ftp</command> and download
+      the text files.</para>
+    </listitem>
+      </orderedlist>
+    </section>
+  </appendix>
+
+ <appendix>
+  <title>Data dictionary</title>
+  <remark>This is from mpn's original in
+   <filename>properties.txt</filename> and needs to be massaged into
+   reasonable XML.</remark>
+  <programlisting>Species:
+	# things that can be said about more than one population
+	name
+
+Population:
+	# things that can be said about a single population
+	name
+	Lab code
+	typing method
+	ethnicity
+	origin
+	collection site
+	latitude
+	longtitude
+	sample size # perhaps this should move to locus?
+
+	patient or control # does this belong in Individual?
+	patient vs. control overall chi-squared
+	patient vs. control overall p-value
+	patient vs. control degrees of freedom
+
+	number of 2-way haplotypes
+	frequency of 2-way haplotypes
+	W
+	Wnorm
+	chi-squared
+	G
+
+	number of 3-way haplotypes
+	frequency of 3-way haplotypes
+
+	average dn
+	average ds
+
+Individual:
+	# things that can be said about one record
+	family_id
+	individual_id
+	age
+	set of alleles
+
+Locus:
+	name
+	number of alleles
+	set of alleles
+	HWP p-value
+	HWP p-value standard error
+
+	observed F
+	expected F
+	quantile
+	F-variance
+	FND
+
+	gene diversity index
+
+	synonymous differences
+	non-synonymous differences
+
+Haplotype:
+	number of loci
+	set of loci
+	observed
+	frequency
+	expected
+	d for each pairing
+	d' for each pairing
+
+Allele:
+	name
+	observed
+	frequency
+	expected
+	patient vs. control chi-squared
+	patient vs. control p-value
+</programlisting>
+ </appendix>
+
+</chapter>
+ 
+<!--
+Local variables:
+sgml-local-catalogs: ("catalog")
+sgml-indent-step: 1
+sgml-indent-data: 1
+End:
+-->

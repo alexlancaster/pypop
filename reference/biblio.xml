@@ -1,0 +1,170 @@
+<bibliography>
+  <title>References</title>
+  
+  <warning><para>Bibliography is incomplete, still
+    converting...</para></warning>
+  
+  <biblioentry id="Barcellos et al. 1997a">
+    <biblioset relation="article">
+      <authorgroup>
+	<author>
+	  <firstname>L</firstname>
+	  <othername>F</othername>
+	  <surname>Barcellos</surname>
+	</author>
+	<author>
+	  <firstname>W</firstname>
+	  <surname>Klitz</surname>
+	</author>
+	<author>
+	  <firstname>L</firstname>
+	  <othername>L</othername>
+	  <surname>Field</surname>
+	</author>
+	<author>
+	  <firstname>R</firstname>
+	  <surname>Tobias</surname>
+	</author>
+	<author>
+	  <firstname>A</firstname>
+	  <othername>M</othername>
+	  <surname>Bowcock</surname>
+	</author>
+	<author>
+	  <firstname>R</firstname>
+	  <surname>Wilson</surname>
+	</author>
+	<author>
+	  <surname>Nelson</surname>
+	  <firstname>M</firstname>
+	  <othername>P</othername>
+	</author>
+      </authorgroup>
+      <pubdate>1997</pubdate>
+      <citetitle>Association mapping of disease loci, by use of a pooled DNA genomic screen</citetitle>
+      <volumenum>61</volumenum>
+      <pagenums>734-47</pagenums>
+      </biblioset>
+      <biblioset relation="journal">
+	<citetitle>Am J Hum Genet</citetitle>
+      </biblioset>
+    </biblioentry>
+
+  <biblioentry id="Barcellos et al. 1997b">
+    <biblioset relation="article">
+      <authorgroup>
+	<author>
+	  <firstname>L</firstname>
+	  <othername>F</othername>
+	  <surname>Barcellos</surname>
+	</author>
+	<author>
+	  <firstname>G</firstname>
+	  <surname>Thomson</surname>
+	</author>
+	<author>
+	  <firstname>M</firstname>
+	  <surname>Carrington</surname>
+	</author>
+	<author>
+	  <firstname>J</firstname>
+	  <surname>Schafer</surname>
+	</author>
+	<author>
+	  <firstname>A</firstname>
+	  <othername>B</othername>
+	  <surname>Begovich</surname>
+	</author>
+	<author>
+	  <firstname>P</firstname>
+	  <surname>Lin</surname>
+	</author>
+	<author>
+	  <firstname>X</firstname>
+	  <othername>H</othername>
+	  <surname>Xu</surname>
+	</author>
+      </authorgroup>
+      <pubdate>1997</pubdate>
+      <citetitle>Chromosome 19 single-locus and multilocus haplotype associations with multiple sclerosis. Evidence of a new susceptibility locus in Caucasian and Chinese patients</citetitle>
+      <volumenum>278</volumenum>
+      <pagenums>1256-61</pagenums>
+    </biblioset>
+    <biblioset relation="journal">
+      <citetitle>Jama</citetitle>
+    </biblioset>
+  </biblioentry>
+</bibliography>
+
+
+<!--
+<para>Baur M, Danilovs J (1980) Population genetic analysis of HLA-A, B, C, DR, and other genetic markers. In: Terasaki P (ed) Histocompatibility Testing, 1980. UCLA Tissue Typing Laboratory, Los Angelas, pp 955-993.</para>
+<para>Begovich AB, McClure GR, Suraj VC, Helmuth RC, Fildes N, Bugawan TL, Erlich HA, et al (1992) Polymorphism, recombination, and linkage disequilibrium within the HLA class II region. J Immunol 148:249-58.</para>
+<para>Chen JJ, Hollenbach JA, Trachtenberg EA, Just JJ, Carrington M, Ronningen KS, Begovich A, King MC, McWeeney SK, Mack SJ, Erlich HA, Thomson G. 1999. Hardy-Weinberg testing for HLA class II (DRB1, DQA1, DQB1 and DPB1) loci in 26 human ethnic groups. Tissue Antigens 54: 533-542.</para>
+<para>Chen JJ, Thomson G (1999) The variance for the disequilibrium coefficient in the individual Hardy- Weinberg test. Biometrics 55:1269-72.</para>
+<para>Cochron W (1954) Some methods for strengthening the common Chi-Squared tests. Biometrics 10:417-451.</para>
+<para>Daly, M.J., J.D. Rioux, S.E. Schaffner, T.J. Hudson, and E.S. Lander. 2001. High-resolution haplotype structure in the human genome. Nature Genetics 29:229-232.</para>
+<para>Dempster A, Laird N, Rubin D (1977) Maximum likelihood estimation from incomplete data using the EM algorithm. J Royal Stat Soc 39:1-38.</para>
+<para>Dienard AS, Kidd KK. 1995.  Levels of DNA polymorphism in extant and extinct hominoids.  In:The Origin and Past of Modern Humans as Viewed from DNA.  Eds. S. Brenner and K. Hanihara, World Scientific, New Jersey, pp 149-170.</para>
+<para>Elston R, Forthofer R (1977) Testing for Hardy-Weinberg equilibrium in small samples. Biometrics 33:536-542.</para>
+<para>Emigh T (1980) A comparison of tests for Hardy-Weinberg equilibrium. Biometrics 36:627-642.</para>
+<para>Ewens W (1972) The sampling theory of selectively neutral alleles. Theor. Pop. Biol. 3:87-112.</para>
+<para>Fallin D, Schork NJ (2000) Accuracy of haplotype frequency estimation for biallelic loci, via the expectation-maximization algorithm for unphased diploid genotype data. Am J Hum Genet 67:947-59.</para>
+<para>Guo SW, Thompson EA (1992) Performing the exact test of Hardy-Weinberg proportion for multiple alleles. Biometrics 48:361-72.</para>
+<para>Hacia JG, Fan J-B, Ryder O., Jin L., Edgemon K, Ghandour G, Mayer RA, Sun B., Hsie L., Robbins CM, Brody LC, Wang D, Lander ES, Lipshutz R, Fodor SPA, Collins FS.  1999. Determination of ancestral alleles for human single-nucleotide polymorphisms using high-density oligonucleotide arrays.  Nature Genetics 22: 164-167.</para>
+<para>Hartl, D.L. and A.G. Clark. 1997. Principles of population genetics. 3<superscript>rd</superscript> Edition. Sinauer Associates, Inc. Publishers. Sunderland, MA.</para>
+<para>Hawley M, Kidd K (1995) HAPLO: a program using the EM algorythm to estimate the frequencies of multi-site haplotypes. Journal of Heredity 86:409-411.</para>
+<para>Hedrick P, Thomson G (1983) Evidence for balancing selection at HLA. Genetics 104:449-456.</para>
+<para>Hollenbach JA, Thomson G, Cao K, Fernandez-Vi&ndash;a M, Erlich HA, Bugawan TL, Winkler C, Winter M, Klitz W. 2001. HLA diversity, differentiation, and haplotype evolution in Mesoamerican natives. Human Immunology 62: 378-390.</para>
+<para>Hollenbach JA, Thomson G, Cao K, Fernandez-Vina M, Erlich HA, Bugawan TL, Winkler C, et al (2001) HLA diversity, differentiation, and haplotype evolution in Mesoamerican Natives. Hum Immunol 62:378-90.</para>
+<para>Howell WM, Jobs M, Gyllensten U, Brookes AJ, 1999.  Dynamic allele-specific hybridization.  Nature Biotechnology 17: 87-88.</para>
+<para>Huttley GA, Smith MW, Carrington M, O'Brien SJ (1999) A scan for linkage disequilibrium across the human genome. Genetics 152:1711-22.</para>
+<para>Iyengar S, Seaman M, Deinard AS, Rosenbaum HC, Sirugo G, Castiglione, CM, Kidd JK, Kidd KK, 1998.  Analysis of cross-species polymerase chain reaction products to infer the ancestral state of human polymorphisms.  DNA sequence 8: 317-327.</para>
+<para>Kidd, K.K. and L.L. Cavalli-Sforza, 1974. The role of genetic drift in the differentiation of Icelandic and Norwegian cattle. Evolution 28:381-395.</para>
+<para>Kidd, J.R., A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bonne-Tamir, J. Friedlaender, L.O. Schulz, J. Parnas, and K.K. Kidd, 2000. Haplotypes and linkage disequilibrium at the phenylalanine hydroxylase locus (PAH) in a global representation of populations. American Journal of Human Genetics 66:1882-1899.</para>
+<para>Klitz W (1992) Evotutionary and popualtion perspectives of the human HLA complex. In: (eds) HM (ed) Evolutionary Biology. Vol. Hecht MK (eds), pp 35-72.</para>
+<para>Klitz W, Thomson G, Baur MP (1986) Contrasting evolutionary histories among tightly linked HLA loci. Am J Hum Genet 39:340-9.</para>
+<para>Levene H (1949) On a matching problem arising in genetics. Ann Math Stat 20:627-642</para>
+<para>Long JC, Williams RC, Urbanek M (1995) An E-M algorithm and testing strategy for multiple-locus haplotypes. Am J Hum Genet 56:799-810.</para>
+<para>Louis E, Dempster ER (1987) An exact test for Hardy-Weinberg and multiple alleles. Biometrics 43:805-811.</para>
+<para>Louis EJ, Dempster ER (1987) An Exact Test for Hardy-Weinberg and Multiple Alleles. Biometrics 43:805-812.</para>
+<para>Metropolis N, AW R, Teller AH, E T (1953) Equations of state calculations by fast computing machines. Journal of Chemical Physics 21:1087-1092.</para>
+<para>Meyer D, Thomson G. 2001. How selection shapes variation of the human major histocompatibility complex: a review. Annals of Human Genetics 65: 1-26.</para>
+<para>Moonsamy PV, Klitz W, Tilanus MG, Begovich AB (1997) Genetic variability and linkage disequilibrium within the DP region in the CEPH families. Hum Immunol 58:112-21.</para>
+<para>Mullis KB, Faloona FA, 1987.  Specific synthesis of DNA in vitro via a polymerase-catalyzed chain reaction.  Pp 335-350 in J. N. Abelson and M.I. Simon (eds.) Methods in Enzymology 155: R. Wu, ed. Recombinant DNA, part F.  Academic Press, New York.</para>
+<para>Osier, M., A.J. Pakstis, J.R. Kidd, J.-F. Lee, S.-J. Yin, H.-C. Ko, H.J. Edenberg, R.-B. Lu, and K.K. Kidd, 1999. Linkage disequilibrium at the ADH2 and ADH3 loci and risk of alcoholism. American Journal of Human Genetics 64:1147-1157.</para>
+<para>Reich, D.E., M. Cargill, S. Bolk, J. Ireland, P.C. Sabeti, D.J. Richter, T. Lavery, R. Kouyoumjian, S.F. Farhadian, R. Ward, and E.S. Lander. 2001. Linkage disequilibrium in the human genome. Nature 411:199-204.</para>
+<para>Reynolds, J., B.S. Weir, and C.C. Cockerman. 1983. Estimation of the coancestry coefficient: Basis for a short-term genetic distance. Genetics 105-767-779.</para>
+<para>Robinson WP, Asmussen MA, Thomson G (1991) Three-locus systems impose additional constraints on pairwise disequilibria. Genetics 129:925-30.</para>
+<para>Salamon H, Klitz W, Easteal S, Gao X, Erlich HA, Fernandez-Vina M, Trachtenberg EA, et al (1999) Evolution of HLA class II molecules: Allelic and amino acid site variability across populations. Genetics 152:393-400.</para>
+<para>Salamon H, Klitz W, Easteal S, Gao XJ, Erlich HA, Fernandez-Vi&ndash;a M, Trachtenberg EA, McWeeney SK, Nelson MP, Thomson G. 1999. Evolution of HLA class II molecules: allelic and amino acid site variability across populations. Genetics 152: 393-400.</para>
+<para>Schipper RF, D'Amaro J, de Lange P, Schreuder GM, van Rood JJ, Oudshoorn M (1998) Validation of haplotype frequency estimation methods. Hum Immunol 59:518-23.</para>
+<para>Schneider (2000) Arlequin: A software for population genetics data analysis.</para>
+<para>Single R, Meyer D, Hollenbach J, Nelson M, Noble J, Erich H, Thomson G (2002) Haplotype Frequency Estimation in Patient Populations: The Effect of Departures from Hardy-Weinberg Proportions and Collapsing over a Locus in the HLA Region. Genetic Epidemiology, In press.</para>
+<para>Single RM, Meyer D, Hollenbach J, Nelson M, Noble JA, Erlich HA, Thomson G. 2002. Haplotype frequency estimation in patient populations: an example from the HLA region. Genetic Epidemiology, In press.</para>
+<para>Slatkin M (1994) An exact test for neutrality based on the Ewens sampling distribution. Genetical Research 64:71-74.</para>
+<para>Slatkin M (1994) Linkage disequilibrium in growing and stable populations. Genetics 137:331-336.</para>
+<para>Slatkin M (1996) A correction to the exact test based on the Ewens sampling distribution. Genetical Research 68:259-260.</para>
+<para>Thomson G (1977) The effect of a selected locus on linked neutral loci. Genetics 85:753-88.</para>
+<para>Thomson G, Esposito MS. 1999. The genetics of complex diseases. Trends in Genetics 15: M17-M20.</para>
+<para>Valdes AM, McWeeney SK, Meyer D, Nelson MP, Thomson G (1999) Locus and population specific evolution in HLA class II genes. Annals of Human Genetics 63:27-43.</para>
+<para>Valdes AM, Thomson G (1997) Detecting disease-predisposing variants: The haplotype method. American Journal of Human Genetics 60:703-716</para>
+<para>Watterson G (1978) The homozygosity test of neutrality. Genetics 88:405-417.</para>
+<para>Wright, S. 1931. Evolution in Mendelian populations. Genetics 16:97-159.</para>
+<para>Xiao W, Oefner PJ, 2001.  Denaturing high-performance liquid chromatography: A review.  Human Mutation 17: 439-474.</para>
+<para>Yates F (1963) Contingency tables involving small numbers and the Chi-square test. J Royal Stat Soc (supp) 1:217-235.</para>
+<para>Zhao H, Pakstis AJ, Kidd JR, Kidd KK (1999) Assessing linkage disequilibrium in a complex genetic system. I. Overall deviation from random association. Annals of Human Genetics 63:167-179.</para>
+<para>Zhao, H., A.J. Pakstis, J.R. Kidd, and K.K. Kidd, 1999. Assessing linkage disequilibrium in a complex genetic system I. Overall deviation from random association. Annals of Human Genetics 63:167-179.</para>
+<para>31</para>
+<para>PSB Tutorial on Genetic Variation 11/15/01 3:19 PM</para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+<para>Figure I.D.1. RFLP: Restriction Fragment Length Polymorphism</para>
+<para></para>
+<para></para>
+<para></para>
+<para></para>
+</section>
+-->

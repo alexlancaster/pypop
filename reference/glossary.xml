@@ -1,0 +1,51 @@
+ <glossary>
+  <glossdiv>
+   <title>Population attributes</title>
+   <glossentry>
+    <glossterm><varname>n</varname></glossterm>
+    <glosssee otherterm="sample-size">sample size</glosssee>
+   </glossentry>
+   <glossentry id="sample-size">
+    <glossterm>sample size</glossterm>
+    <glossdef>
+     <para>Number of individuals in sample (can be total in
+      population or total within a locus).</para>
+    </glossdef>
+   </glossentry>
+   
+   <glossentry>
+    <glossterm>population name, lab code, typing method,
+     ethnicity, origin, collection site, latitude,
+     longtitude</glossterm>
+    <glossdef>
+     <para>Header information that should be provided for each
+      file.</para>
+    </glossdef>
+   </glossentry>
+  </glossdiv>
+  
+  <glossdiv>
+   <title>Locus</title>
+   <glossentry id="locus-k">
+    <glossterm><varname>k</varname></glossterm>
+    <glossdef>
+     <para>Number of distinct allelic variants at a locus.</para>
+    </glossdef>
+   </glossentry>
+   <glossentry id="locus-hwe">
+    <glossterm>Hardy-Weinberg Equilibrium</glossterm>
+    <acronym>HWE</acronym>
+    <glossdef>
+     <para>Hardy-Weinberg equilibrium is an "ideal" randomly
+      mating population not undergoing selection.</para>
+    </glossdef>
+   </glossentry>
+  </glossdiv>
+ </glossary>
+ 
+<!--
+Local variables:
+sgml-indent-step: 1
+sgml-indent-data: 1
+End:
+-->
