@@ -37,14 +37,19 @@
 \fi
 \usepackage{amsmath,amsthm,amsfonts,amssymb,amsxtra,amsopn}
 \usepackage{graphicx}
-\usepackage{epsfig}
+%\usepackage{epsfig}
 \usepackage{float}
 \usepackage{algorithmic}
-\usepackage[dvips]{hyperref}
-\DeclareGraphicsExtensions{.eps}
+%\usepackage[dvips]{hyperref}
+%\DeclareGraphicsExtensions{.eps}
  </xsl:variable>
 
  <xsl:variable name="latex.mapping.xml" select="document('ws.latex.mapping.xml')"/>
+
+ <xsl:variable name="latex.biblio.output">cited</xsl:variable>
+ <xsl:variable name="latex.dont.label">1</xsl:variable>
+ <xsl:variable name="latex.dont.hypertarget">1</xsl:variable>
+ <xsl:variable name="latex.use.hyperref">0</xsl:variable>
 
  <xsl:variable name="latex.override">
   <xsl:value-of select="$latex.world-scientific"/> 
@@ -86,10 +91,8 @@
   <xsl:call-template name="normalize-scape"> 
    <xsl:with-param name="string" select="$article.title"/>
   </xsl:call-template>
-
   <xsl:text>}&#10;</xsl:text>
-  <!-- Display author information --> 
-  <xsl:text>\author{</xsl:text>
+
   <xsl:choose>
    <xsl:when test="artheader/author">		
     <xsl:apply-templates select="artheader/author"/>	
@@ -107,15 +110,7 @@
     <xsl:apply-templates select="author"/>
    </xsl:otherwise>
   </xsl:choose>
-  <xsl:text>}&#10;</xsl:text>
 
-  <xsl:if test="articleinfo/author/affiliation">
-   <xsl:text>\address{</xsl:text>
-   <xsl:apply-templates select="articleinfo/author/affiliation"
-    mode="header"/>
-   <xsl:text>}&#10;</xsl:text>
-  </xsl:if>
-  
   <!-- Display  begindocument command -->
   <xsl:value-of select="$latex.article.begindocument"/>
   <xsl:value-of select="$latex.article.maketitle"/>
@@ -123,7 +118,69 @@
   <xsl:value-of select="$latex.article.end"/>
  </xsl:template>
 
- <xsl:template match="affiliation" mode="header">
+ <xsl:template match="authorgroup">
+
+  <xsl:variable name="uniq-affil" select="author[not(@role=preceding-sibling::author/@role)]/@role"/>
+
+  <xsl:variable name="allauthors" select="author"/>
+
+  <xsl:for-each select="$uniq-affil">
+   <xsl:variable name="curr" select="."/>
+
+   <xsl:text>\author{</xsl:text>
+   <xsl:apply-templates select="$allauthors[@role=$curr]"
+    mode="authorgroup"/>
+   <xsl:text>}&#10;</xsl:text>
+
+   <xsl:apply-templates select="$allauthors[@role=$curr]/affiliation"/>
+   
+  </xsl:for-each>
+
+ </xsl:template>
+
+ <xsl:template match="author" mode="authorgroup">
+
+  <xsl:choose>
+    <xsl:when test="position()=last() and position()!=1">
+    <xsl:text> and </xsl:text>
+   </xsl:when>
+   <xsl:when test="position()!=1">
+    <xsl:text>, </xsl:text>
+   </xsl:when>
+   <xsl:otherwise>
+    <xsl:text></xsl:text>
+   </xsl:otherwise>
+  </xsl:choose>
+
+  <!-- Display author information --> 
+  <xsl:value-of select="firstname"/>
+  <xsl:text> </xsl:text>
+  <xsl:if test="othername">
+   <xsl:value-of select="othername"/>
+   <xsl:text> </xsl:text>
+  </xsl:if>
+  <xsl:value-of select="surname"/>
+
+ </xsl:template>
+
+ <xsl:template match="author">
+  <xsl:text>\author{</xsl:text>
+  <!-- Display author information --> 
+  <xsl:value-of select="firstname"/>
+  <xsl:text> </xsl:text>
+  <xsl:if test="othername">
+   <xsl:value-of select="othername"/>
+   <xsl:text> </xsl:text>
+  </xsl:if>
+  <xsl:value-of select="surname"/>
+  <xsl:text>}&#10;</xsl:text>
+  
+  <xsl:apply-templates select="affiliation"/>
+
+ </xsl:template>
+
+ <xsl:template match="affiliation">
+   <xsl:text>\address{</xsl:text>
 
   <xsl:for-each select="*[not(self::address)]">
    <xsl:if test="position()!=1">
@@ -136,6 +193,7 @@
    <xsl:text>, </xsl:text>
    <xsl:apply-templates select="address" mode="header"/>
   </xsl:if>
+  <xsl:text>}&#10;</xsl:text>
  </xsl:template>
 
  <xsl:template match="address" mode="header">
@@ -159,38 +217,62 @@
  </xsl:template>
 
  <xsl:template name="biblioentry.output">
-  <xsl:variable name="biblioentry.tag">
+  
+  <xsl:variable name="biblioentry.tag.label">
    <xsl:choose>
-    <xsl:when test="@xreflabel">
-     <xsl:value-of select="normalize-space(@xreflabel)"/> 
-    </xsl:when>
+   <xsl:when test="$latex.dont.label!=1">
+    <xsl:text>[</xsl:text>
+    <xsl:choose>
+     <xsl:when test="@xreflabel">
+      <xsl:value-of select="normalize-space(@xreflabel)"/>
+     </xsl:when>
+     <xsl:otherwise>
+      <xsl:text>UNKNOWN</xsl:text>
+     </xsl:otherwise>
+    </xsl:choose>
+    <xsl:text>]</xsl:text>
+   </xsl:when>
+    <xsl:otherwise><xsl:text></xsl:text></xsl:otherwise>
+   </xsl:choose>
+  </xsl:variable>
+
+  <xsl:variable name="biblioentry.tag.id">
+   <xsl:text>{</xsl:text>
+   <xsl:choose>
     <xsl:when test="abbrev">
-     <xsl:apply-templates select="abbrev" mode="bibliography.mode"/> 
+     <xsl:apply-templates select="abbrev" mode="bibliography.mode"/>
     </xsl:when>
     <xsl:when test="@id">
-     <xsl:value-of select="normalize-space(@id)"/> 
+     <xsl:value-of select="normalize-space(@id)"/>
     </xsl:when>
     <xsl:otherwise>
      <xsl:text>UNKNOWN</xsl:text>
     </xsl:otherwise>
    </xsl:choose>
+   <xsl:text>}</xsl:text>
   </xsl:variable>
+  
   <xsl:text>&#10;</xsl:text>
   <xsl:text>% -------------- biblioentry &#10;</xsl:text>
-  <xsl:text>\bibitem[</xsl:text><xsl:value-of select="$biblioentry.tag"/><xsl:text>]</xsl:text> 
-  <xsl:text>{</xsl:text><xsl:value-of select="$biblioentry.tag"/><xsl:text>}&#10;</xsl:text> 
+  <xsl:text>\bibitem</xsl:text><xsl:value-of select="$biblioentry.tag.label"/><xsl:value-of select="$biblioentry.tag.id"/>
 
-  <xsl:apply-templates select="author|authorgroup" mode="bibliography.mode"/>
+  <xsl:if test="author|authorgroup">
+   <xsl:apply-templates select="author|authorgroup" mode="bibliography.mode"/>
+   <xsl:value-of select="$biblioentry.item.separator"/>
+  </xsl:if>
 
-  <xsl:value-of select="$biblioentry.item.separator"/>
+  <xsl:if test="pubdate">
+   <xsl:apply-templates select="pubdate" mode="bibliography.mode"/> 
+   <xsl:value-of select="$biblioentry.item.separator"/>
+  </xsl:if>
 
-  <xsl:apply-templates select="pubdate" mode="bibliography.mode"/> 
+  <xsl:apply-templates select="citetitle[@pubwork='refentry']" mode="bibliography.mode"/>  
 
   <xsl:apply-templates select="citetitle[@pubwork='article']" mode="bibliography.mode"/>
-
+  
   <xsl:apply-templates select="citetitle[@pubwork='journal']" mode="bibliography.mode"/>
   
-  <xsl:for-each select="copyright|publisher|volumenum|pagenums|isbn">
+  <xsl:for-each select="copyright|publisher|isbn">
    <xsl:value-of select="$biblioentry.item.separator"/>
    <xsl:apply-templates select="." mode="bibliography.mode"/> 
   </xsl:for-each>
@@ -198,15 +280,22 @@
   
   <xsl:call-template name="label.id"/> 
   <xsl:text>&#10;&#10;</xsl:text>
+
  </xsl:template>
 
  <xsl:template match="citetitle" mode="bibliography.mode">
-  <xsl:value-of select="$biblioentry.item.separator"/>
+<!--  <xsl:value-of select="$biblioentry.item.separator"/> -->
   <xsl:choose>
    <xsl:when test="@pubwork='journal'">
     <xsl:text> {\em </xsl:text>
-    <xsl:apply-templates/>
-    <xsl:text>}</xsl:text>
+    <xsl:value-of select="."/>
+    <xsl:text>} {\bf </xsl:text>
+    <xsl:value-of select="../volumenum"/>
+    <xsl:text>}, </xsl:text>
+    <xsl:value-of select="../issuenum"/>
+    <xsl:text> (</xsl:text>
+    <xsl:value-of select="../pagenums"/>
+    <xsl:text>)</xsl:text>
    </xsl:when>
    <xsl:when test="@pubwork='article'">
     <xsl:call-template name="gentext.nestedstartquote"/>
@@ -236,6 +325,31 @@
  <xsl:template match="ackno">
   <xsl:call-template name="map.begin"/>
   <xsl:apply-templates/>
+  <xsl:call-template name="map.end"/>
+ </xsl:template>
+
+
+ <xsl:template match="citation">
+  <!-- todo: biblio-citation-check -->
+  <xsl:text>\cite{</xsl:text>
+  <xsl:apply-templates/>
+  <xsl:text>}</xsl:text>
+ </xsl:template>
+ 
+ <xsl:template match="biblioentry" mode="bibliography.cited">
+  <xsl:param name="bibid" select="@id"/>
+  <xsl:param name="ab" select="abbrev"/>
+  <xsl:variable name="nx" select="//xref[@linkend=$bibid]"/>
+  <xsl:variable name="nc" select="//citation[text()=$ab]"/>
+  <xsl:variable name="ni" select="//citation[text()=$bibid]"/>
+  <xsl:if test="count($nx) &gt; 0 or count($nc) &gt; 0 or count($ni) &gt; 0">
+   <xsl:call-template name="biblioentry.output"/>
+  </xsl:if>
+ </xsl:template>
+ 
+ <xsl:template match="application">
+  <xsl:call-template name="map.begin"/>
+  <xsl:apply-templates />
   <xsl:call-template name="map.end"/>
  </xsl:template>
 
