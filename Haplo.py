@@ -286,8 +286,9 @@ class Emhaplofreq(Haplo):
         import cStringIO
         self.fp = cStringIO.StringIO()
 
-    def estHaplotypes(self, locusKeys=None, permutationFlag=0):
-
+    def estHaplotypes(self, locusKeys=None,
+                      permutationFlag=0, haploSuppressFlag=0):
+        
         """Estimate haplotypes for listed groups in 'locusKeys'.
 
         Format of 'locusKeys' is a string consisting of:
@@ -327,15 +328,19 @@ class Emhaplofreq(Haplo):
                     print "debug: subMatrix:", subMatrix
 
                 self.fp.write(os.linesep)
-                self.fp.write("Est. haplotypes for locus groups: " + group + os.linesep)
+                if permutationFlag:
+                    self.fp.write("Est. LD for locus groups: " + group + os.linesep)
+                else:
+                    self.fp.write("Est. haplotypes for locus groups: " + group + os.linesep)
                 self.fp.write("================================" + os.linesep)
+                
                 self.fp.write(os.linesep)
 
                 
                 # pass this submatrix to the SWIG-ed C function
                 self._Emhaplofreq.main_proc(self.fp, subMatrix,
                                         lociCount, self.totalNumIndiv,
-                                        permutationFlag)
+                                        permutationFlag, haploSuppressFlag)
 
                 if self.debug:
                     # in debug mode, print the in-memory file to sys.stdout
@@ -369,7 +374,8 @@ class Emhaplofreq(Haplo):
             print li, len(li)
 
         for pair in li:
-            self.estHaplotypes(pair)
+            self.estHaplotypes(pair, permutationFlag=1,
+                               haploSuppressFlag=1)
             
 ##             filename = string.join(string.split(pair,'*'),'')
 ##             # create stream to write to
