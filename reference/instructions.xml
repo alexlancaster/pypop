@@ -3,10 +3,11 @@
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <article condition="main" xmlns:xi="http://www.w3.org/2001/XInclude">
 
- <title>Guidelines for interpreting analyses of population genetic data</title>
+ <title>Guidelines for interpreting analyses of population genetic
+  data from <application>PyPop</application></title>
 
- <subtitle>Preliminary population genetic analyses for the Anthropology
-  Component of the 13th IHWG.</subtitle>
+<!-- <subtitle>Preliminary population genetic analyses for the Anthropology
+  Component of the 13th IHWG.</subtitle> -->
 
  <articleinfo>
   <authorgroup>
@@ -22,10 +23,10 @@
   <pubdate>Last updated: $Date$ by $Author$</pubdate>
  </articleinfo>
 
- 
 
- <para>This document describes the output of the analyses carried out by PyPop,
-  and offers guidelines on how to interpret them.</para>
+ <para>This document describes the output of the analyses carried out
+  by <application>PyPop</application>, and offers guidelines on how to
+  interpret them.</para>
 
  <sect1 label="0" id="instructions-pop-summary">
   <title>Population Summary</title>
