@@ -209,11 +209,15 @@ class HardyWeinberg:
 
     - then calculate the chi-squareds for the common genotypes.
 
-    - create a count of observed and expected lumped together
-    for genotypes with an expected value of less than lumpBelow
+    - create a count of observed and expected lumped together for
+      genotypes with an expected value of less than lumpBelow
 
-    - Open a pipe to get the p-value from the system
-    using the pval program (should be replaced later)"""
+    - Chi-square p-values are calculated with the _Pvalue extension
+      module called as an inline Python function, but is C code
+      compiled as a loadable shared library.  This code is based on
+      R's implementation of the chi-square test which is released
+      under the GNU GPL and as such, is redistributable with our
+      code, removing the need for an external program"""
 
     self.counterA = {}
     self.chisq = {}
