@@ -1,3 +1,11 @@
+2004-09-15  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Main.py (Main._doAlleleCountFile): When we reconfigured the
+	Homozygosity object several months ago, we broke this call.  This
+	change makes it work as for a genotype file (i.e., it passes just
+	the values of the allele dictionary, not the entire dictionary
+	itself.)
+
 2004-09-11  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* NEWS: Update with note on fixes related to monomorphic loci:
