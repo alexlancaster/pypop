@@ -390,10 +390,8 @@ class Main:
         self.input.serializeSubclassMetadataTo(self.xmlStream)
 
         # process the file depending on type
-        if self.fileType == "ParseAlleleCountFile":
-            #self._doAlleleCountFile()
-            self._doGenotypeFile()
-        elif self.fileType == "ParseGenotypeFile":
+        if self.fileType == "ParseAlleleCountFile" or \
+           self.fileType == "ParseGenotypeFile":
             self._doGenotypeFile()
         else:
             pass
@@ -554,67 +552,8 @@ class Main:
                     individCount += 1
                     dumpFile.write(os.linesep)
                 dumpFile.close()
-            
-
-
-    def _doAlleleCountFile(self):
-
-        # get the locus name
-        locus = self.input.getLocusName()
-
-        # wrap the output in a locus tag with the name of the
-        # locus, thus the output XML has the same hierarchy as the
-        # ParseGenotypeFile output.
-        
-        self.xmlStream.opentag('locus', name=locus)
-        self.xmlStream.writeln()
-        
-        # generate the allele count statistics
-        self.input.serializeAlleleCountDataAt(self.xmlStream, locus)
-
-        # disabled old table-based Homozygosity
-
-        if 0:
-            try:
-                rootPath=self.config.get("Homozygosity", "rootPath")
-            except NoOptionError:
-                rootPath='/net/share/PyPop/homozygosity'
-                print "LOG: Defaulting to system datapath %s for homozygosity tables" % rootPath
-
-            hzObject = Homozygosity(self.input.getAlleleCount(),
-                                    rootPath=rootPath,
-                                    debug=self.debug)
-
-            hzObject.serializeHomozygosityTo(self.xmlStream)
-
-        # HomozygosityEWSlatkinExact
-
-        try:
-            numReplicates = self.config.getint("HomozygosityEWSlatkinExact",
-                                          "numReplicates")
-        except NoOptionError:
-            numReplicates = 10000
-
-        # make a dictionary of allele counts (don't need the last
-        # two elements that are returned by this method)
-        alleleCounts = self.input.getAlleleCount()[0]
-
-        # notice we pass just the alleleCount values.  But the
-        # dictionary is still useful to have in case we have to do
-        # random binning.
-        hzExactObj = HomozygosityEWSlatkinExact(alleleCounts.values(),
-                                                numReplicates=numReplicates,
-                                                debug=self.debug)
-
-
-        hzExactObj.serializeHomozygosityTo(self.xmlStream)
-        
-        self.xmlStream.closetag('locus')
-        self.xmlStream.writeln()
-
 
     def _doGenotypeFile(self):
-
 
         loci = self.input.getLocusList()
 
@@ -646,10 +585,14 @@ class Main:
               self.xmlStream.writeln()
               continue
 
-          # Parse "HardyWeinberg" section
+          # Parse [HardyWeinberg] sections
+
+          # HardyWeinberg sections only makes sense for true genotype
+          # files, so skip to the next section if not a genotype file
 
           if self.config.has_section("HardyWeinberg") and \
-             len(self.config.options("HardyWeinberg")) > 0:
+             len(self.config.options("HardyWeinberg")) > 0 and \
+             self.fileType == "ParseGenotypeFile":
 
             try:
               lumpBelow =  self.config.getint("HardyWeinberg", "lumpBelow")
@@ -775,26 +718,9 @@ class Main:
             hwArlequin.serializeTo(self.xmlStream)
 
 
-          # Parse "Homozygosity" section
-
-          if self.config.has_section("Homozygosity"):
-
-            try:
-              rootPath=self.config.get("Homozygosity", "rootPath")
-            except NoOptionError:
-              rootPath=os.path.join(self.datapath, "homozygosity")
-              if self.debug:
-                print "LOG: Defaulting to system datapath %s for homozygosity tables" % rootPath
-
-            alleleCount = alleleTable.values()
-
-            hzObject = Homozygosity(alleleCount,
-                                    rootPath=rootPath,
-                                    debug=self.debug)
-
-            hzObject.serializeHomozygosityTo(self.xmlStream)
-
-
+          # parse [HomozygosityEWSlatkinExact] section: this makes
+          # sense for both genotype *and* allele count data.
+          
           if self.config.has_section("HomozygosityEWSlatkinExact"):
             
             try:
@@ -884,9 +810,12 @@ class Main:
           self.xmlStream.closetag('locus')
           self.xmlStream.writeln()
 
-        # estimate haplotypes
+        # Parse [Emhaplofreq] section to estimate haplotypes and LD
+        # skip if not a genotype file, only makes sense for genotype
+        # files.
 
-        if self.config.has_section("Emhaplofreq"):
+        if self.config.has_section("Emhaplofreq") and \
+           self.fileType == "ParseGenotypeFile":
 
           # create object to generate haplotype and LD statistics
           # a wrapper around the emhaplofreq module
@@ -1035,7 +964,6 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
 
           # serialize end to XML
           haplo.serializeEnd()
-          #haplo.serializeTo(self.xmlStream)
 
 
     def _genTextOutput(self):

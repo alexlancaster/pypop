@@ -1,3 +1,34 @@
+2004-09-16  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* allelecount.ini ([Homozygosity]): Comment out obsolete test.
+	Add testing of filters for allele count data: Sequence and
+	AnthonyNolan.
+
+	* DataTypes.py (AlleleCounts): Note that class is obsolete.
+
+	* ParseFile.py: Import operator for mod function.
+	(ParseAlleleCountFile._genDataStructures): Create a
+	pseudo-genotype data matrix with the same number of alleles as the
+	original count file.
+	(ParseAlleleCountFile.getMatrix): New method to mirror the
+	identical method in ParseGenotypeFile class.
+
+	* Main.py (Main.__init__): Major code refactor: Move out the
+	parsing of the untypedAllele and alleleDesignator from
+	ParseGenotypeFile section to the common block.
+	Move filtering after parsing either ParseAlleleCount or
+	ParseGenotypeFile.
+	Don't instantitate the AlleleCounts object, obsolete, the output
+	of the ParseAlleleCountFile is now fed directly into the Genotypes
+	object.
+	Call _doGenotypeFile(), obsolete do_AlleleCountFile() method.
+	(Main._doAlleleCountFile): Remove obsolete method.
+	(Main._doGenotypeFile): Remove obsolete lookup-table-based
+	Homozygosity test.
+	Even if other sections such as [HardyWeinberg] and [Emhaplofreq]
+	are present, only run the homozygosity tests, since the other
+	tests only make sense for true genotype files.
+
 2004-09-15  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Main.py (Main._doAlleleCountFile): When we reconfigured the
