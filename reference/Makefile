@@ -60,11 +60,11 @@ eqns: tex-math-equations.dvi
 
 # profiling for 'main' version of document
 %-main-profile.xml: %.xml
-	$(XSLTPROC) --stringparam profile.condition main --xinclude -o $@ $(DOCBOOKXSLDIR)/profiling/profile.xsl $<
+	$(XSLTPROC) --stringparam profile.condition main --xinclude -o $@ profile.xsl $<
 
 # profiling for 'anthro' version of document
 %-anthro-profile.xml: %.xml
-	$(XSLTPROC) --stringparam profile.condition anthro-book --xinclude -o $@ $(DOCBOOKXSLDIR)/profiling/profile.xsl $<
+	$(XSLTPROC) --stringparam profile.condition anthro-book --xinclude -o profile.xsl $<
 
 # rules to produce final version of HTML, FO, PDF etc.
 
