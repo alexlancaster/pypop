@@ -190,8 +190,15 @@ class ParseFile:
             # class (i.e. the subclass will have 'knowledge' about the
             # nature of fields, but not this abstract class)
             
-            isValidKey, key = self.genValidKey(field, fieldList)
-
+            # If an asterisk character is given as the first item in
+            # the valid fields list, then accept any field name (ie,
+            # locus name) as valid.  This makes sense only in the
+            # allelecount file context.
+            if fieldList[0] == "*":
+                isValidKey, key = (1, field)
+            else:
+                isValidKey, key = self.genValidKey(field, fieldList)
+                
             if isValidKey:
 
                 # if key is one of pair already in map, add it to make
