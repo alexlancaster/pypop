@@ -269,39 +269,82 @@ for locus in loci:
 # estimate haplotypes
 
 if config.has_section("Emhaplofreq"):
-  try:
-    locusKeys=config.get("Emhaplofreq", "lociToEst")
-  except NoOptionError:
-    print "no loci to estimate, provided, assume entire data set"
-    locusKeys=string.join(input.getIndividualsData().colList,':')
 
-  # serialize to XML
+  # create object to generate haplotype and LD statistics
+  # a wrapper around the emhaplofreq module
   haplo = Emhaplofreq(input.getIndividualsData(), debug=debug)
-  haplo.estHaplotypes(locusKeys)
+  
+  try:
+    locusKeys=config.get("Emhaplofreq", "lociToEstHaplo")
+
+    if locusKeys == '*':
+      print "wildcard '*' given for lociToEstHaplo, assume entire data set"
+      locusKeys=string.join(input.getIndividualsData().colList,':')
+
+    # estimate haplotype frequencies for the specified loci
+    haplo.estHaplotypes(locusKeys)
+
+  except NoOptionError:
+    print "no loci provided for which to estimate haplotype frequencies"
 
   try:
     locusKeysLD=config.get("Emhaplofreq", "lociToEstLD")
+
+    if locusKeysLD == '*':
+      print "wildcard '*' given for lociToEstLD, assume entire data set"
+      locusKeysLD=string.join(input.getIndividualsData().colList,':')
+
+    # estimate LD for the specified loci
+    haplo.estLinkageDisequilibrium(locusKeysLD)
+
   except NoOptionError:
-    print "no loci to estimate, provided, assume entire data set"
-    locusKeysLD=string.join(input.getIndividualsData().colList,':')
+    print "no loci provided for which to estimate LD"
 
-  haplo.estLinkageDisequilibrium(locusKeysLD)
 
+  # do all pairwise LD
   try:
-    estAllPairwise = config.getboolean("Emhaplofreq", "estAllPairwise")
+    estAllPairwiseLD = config.getboolean("Emhaplofreq", "estAllPairwiseLD")
   except NoOptionError:
-    estAllPairwise=0
+    estAllPairwiseLD=0
   except ValueError:
-    sys.exit("require a 0 or 1 as debug flag")
+    sys.exit("require a 0 or 1 as a flag")
 
-  if estAllPairwise:
-    haplo.estAllPairwise()
+  if estAllPairwiseLD:
+    print "estimating all pairwise LD..."
+    haplo.estAllPairwiseLD()
 
+  # do all pairwise haplotypes
+  try:
+    estAllPairwiseHaplo = config.getboolean("Emhaplofreq",
+                                            "estAllPairwiseHaplo")
+  except NoOptionError:
+    estAllPairwiseHaplo=0
+  except ValueError:
+    sys.exit("require a 0 or 1 as a flag")
+
+  if estAllPairwiseHaplo:
+    print "estimating all pairwise haplotypes..."
+    haplo.estAllPairwiseHaplo()
+
+  # do all pairwise LD *and* haplotypes
+  try:
+    estAllPairwiseLDHaplo = config.getboolean("Emhaplofreq",
+                                              "estAllPairwiseLDHaplo")
+  except NoOptionError:
+    estAllPairwiseLDHaplo=0
+  except ValueError:
+    sys.exit("require a 0 or 1 as a flag")
+
+  if estAllPairwiseLDHaplo:
+    print "estimating all pairwise LD and haplotypes..."
+    haplo.estAllPairwiseLDHaplo()
+
+  # serialize to XML
   haplo.serializeTo(xmlStream)
 
   # close file pointer
   # FIXME: this breaks good OO-practice,should be done internal to object!!!
-  haplo.fp.close()
+  #haplo.fp.close()
   
 # closing tag
 xmlStream.closetag('dataanalysis')
