@@ -11,21 +11,20 @@
  <articleinfo>
   <authorgroup>
    <author>
-    <firstname>Diogo</firstname>
-    <surname>Meyer</surname>
-   </author>
-   <author>
     <firstname>Alex</firstname>
     <surname>Lancaster</surname>
+   </author>
+   <author>
+    <firstname>Diogo</firstname>
+    <surname>Meyer</surname>
    </author>
   </authorgroup>
   <pubdate>Last updated: $Date$ by $Author$</pubdate>
  </articleinfo>
 
 
- <para>This document is intended to provide you with information about
-  the format and the meaning of the results and data summaries you
-  have been sent.</para>
+ <para>This document describes the output of the analyses carried out by PyPop,
+  and offers guidelines on how to interpret them.</para>
 
  <sect1 id="instructions-pop-summary">
   <title>Population Summary</title>
@@ -70,7 +69,8 @@ Total Loci with data: 8
    individual were typed at each locus) sample size and allele count
    will differ among loci.  Untyped individuals are those for which
    one or two alleles were not typed. The alleles are listed in
-   descending frequency.</para>
+   descending frequency in the left hand column, and are
+   sorted numerically in the right column. </para>
 
   <example>
    <title>Basic locus information sample output</title>
@@ -120,18 +120,25 @@ Total     1.00000   90        | Total     1.00000   90
  <sect1 id="instructions-homozygosity">
   <title>The Ewens-Watterson Homozygosity test of neutrality</title>
 
-  <para>For each locus the expected homozygosity under Hardy-Weinberg
+<citation role="citet">Watterson:1978</citation>.
+<citation role="citet">Ewens:1972</citation>.
+
+  <para>For each locus we implement the Ewens-Watterson homozygosity
+   test of neutrality (<citation role="citet">Watterson:1978</citation>,
+   <citation role="citet">Ewens:1972</citation>). The expected homozygosity 
+   under Hardy-Weinberg
    proportions (the sum of the squares of allele frequencies) is
    computed and reported. The expected homozygosity under neutrality,
-   for the same sample size and number of unique alleles is obtained
+   for the same sample size (2n) and number of unique alleles (k) is obtained
    by simulation and reported (Expected Homozygosity). The Normalized
-   Deviate of the Homozygosity values is the difference between the
+   Deviate of the Homozygosity is the difference between the
    observed and expected homozygosity, divided by the square root of
    the variance of the expected homozygosity (also obtained by
-   simulations). Negative Normalized deviates imply Observed
+   simulations; <citation role="citet">Salamon:1999</citation>). Negative 
+   Normalized deviates imply Observed
    Homozygosity values lower than Expected Homozygosity, in the
    direction of balancing selection. Positive values are in the
-   direction of directional selection. The p-value provided in the
+   direction of directional selection. The p-value in the
    last row of the output is the probability that the observed
    homozygosity would be obtained from a neutral sample (of size 2n
    and k distinct alleles).  P-values at either extreme of the
@@ -157,8 +164,9 @@ p-value range: 0.0000 < p <= 0.0100 *
 
   <para>For each locus the observed genotype counts are compared to
    those expected under Hardy Weinberg Proportions (HWP). A triangular
-   matrix reports observed and expected genotype counts. If there are
-   more than nine loci, the matrix is split into different
+   matrix reports observed and expected genotype counts. If the matrix
+   is too wide, 
+   the output is split into different
    sections. Each cell contains the observed and expected number for a
    given genotype in the format
    <literal>observed/expected</literal>.</para>
@@ -190,7 +198,7 @@ Table of genotypes, format of each cell is: observed/expected.
   <para> The values in this matrix are used to test hypotheses of
    deviation from HWP. The output table reports the observed and
    expected number of genotypes, the chi-square statistic, the number
-   of degrees of freedom and associated p value for the following
+   of degrees of freedom and associated p-value for the following
    classes of genotypes.</para>
 
   <itemizedlist>
@@ -318,7 +326,7 @@ Common genotypes
   
   <para>For each locus the exact test for deviations from HWP is
    implemented using the method of <citation
-   role="citet">Guo:Thompson:1992</citation>. The P-value provided
+   role="citet">Guo:Thompson:1992</citation>. The p-value provided
    describes how probable the observed set of genotypes is, with
    respect to a large sample of other genotypic configurations
    (conditioned on the same allele frequencies and 2n). P-values lower
@@ -399,8 +407,9 @@ Number of iterations before convergence: 67
 ]]></programlisting>
    </example>
 
-   <para> The estimated haplotype frequencies are reported in order of
-    decreasing frequency. Only haplotypes estimated at a frequency of
+   <para> The estimated haplotype frequencies are sorted
+    by haplotype name (left column), or in 
+    decreasing frequency (left column). Only haplotypes estimated at a frequency of
     0.00001 or larger are reported.  The first column give the allele
     names over the three loci, the second column provides the maximum
     likelihood estimate for their frequencies, (frequency), and the
