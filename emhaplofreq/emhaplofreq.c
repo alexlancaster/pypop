@@ -376,7 +376,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   CALLOC_ARRAY_DIM1(double, mle_best, MAX_HAPLOS);
 
   /* needed for permutations */
-  int permu, max_permutations, max_init_cond = 0;
+  int permu, max_permutations, max_init_cond = 0, ok_perm0;
   double lr_mean, lr_sd, lr_z;
 
   CALLOC_ARRAY_DIM1(double, like_ratio, MAX_PERMU);
@@ -937,6 +937,15 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	fprintf(fp_out, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
 #endif
 
+    if (error_flag_best > 1) 
+    {
+      ok_perm0 = 0;
+      permu = max_permutations-1; // bail out of permutations
+    }
+    else
+    {
+    ok_perm0 = 1; 
+        
 	/* copy mle_best to freq_zero so that sort does not interfere with info needed in LD calcs */
 	/* Note: haplo[] is no longer linked to mle_best after the sort, but is not used subsequently */
 	for (i = 0; i < n_haplo; i++) 
@@ -1011,7 +1020,8 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	fprintf(fp_out, "</linkagediseq>\n");
 #endif
 
-      } /* end: if ((permu==0 && ...)) */
+    } /* end: else [i.e., error_flag_best <=1] */
+    } /* end: if ((permu==0 && ...)) */
 
 #if 0
     if (permu_flag == 1) {
@@ -1040,7 +1050,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   } /* end for (permu) */
   
   /*** begin: post-processing for permutations ***/
-  if (permu_flag == 1)
+  if (permu_flag == 1 && ok_perm0 == 1)
   {
 
 #ifdef XML_OUTPUT
