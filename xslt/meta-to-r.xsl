@@ -276,13 +276,31 @@
      </xsl:call-template>
 
      <xsl:call-template name="output-field">
-      <xsl:with-param name="node" select="count(hardyweinberg/genotypetable/genotype[chisq/@role!='not-calculated'])"/>
+      <xsl:with-param name="node">
+       <xsl:choose>
+	<xsl:when test="hardyweinberg/samplesize='0'">
+	 <xsl:value-of select="'****'"/>
+	</xsl:when>
+	<xsl:otherwise>
+	 <xsl:value-of select="count(hardyweinberg/genotypetable/genotype[chisq/@role!='not-calculated'])"/>
+	</xsl:otherwise>
+       </xsl:choose>
+      </xsl:with-param>
      </xsl:call-template>
 
      <xsl:call-template name="output-field">
-      <xsl:with-param name="node" select="count(hardyweinberg/genotypetable/genotype/pvalue[. &lt;= 0.05])"/>
+      <xsl:with-param name="node">
+       <xsl:choose>
+	<xsl:when test="hardyweinberg/samplesize='0'">
+	 <xsl:value-of select="'****'"/>
+	</xsl:when>
+	<xsl:otherwise>
+	 <xsl:value-of select="count(hardyweinberg/genotypetable/genotype/pvalue[. &lt;= 0.05])"/>
+	</xsl:otherwise>
+       </xsl:choose>
+      </xsl:with-param>
      </xsl:call-template>
-
+     
      <xsl:call-template name="newline"/>
 
     </xsl:when>
