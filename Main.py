@@ -893,6 +893,19 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
           except ValueError:
             sys.exit("numPermuInitCond: option requires an integer")
 
+          # Parse new [Emhaplofreq] option 'numInitCond', so that the
+          # number of initial conditions for the *first* iteration LD
+          # calculation (and therefore haplotype estimation) is
+          # user-configurable.  Default to 50.
+          try:
+            numInitCond = self.config.getint("Emhaplofreq",
+                                             "numInitCond")
+          except NoOptionError:
+            numInitCond=50
+          except ValueError:
+            sys.exit("numInitCond: option requires an integer")
+
+
           try:
             permutationPrintFlag = self.config.getboolean("Emhaplofreq",
                                                           "permutationPrintFlag")
@@ -923,11 +936,13 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             if locusKeys == '*':
               print "wildcard '*' given for lociToEstHaplo, assume entire data set"
               locusKeys=string.join(self.input.getIndividualsData().colList,':')
+            print "LOG: estimating haplotype frequencies for",
 
             # if we will be running allPairwise*, then exclude any two-locus
             # haplotypes, since we will estimate them as part of 'all pairwise'
             if allPairwiseLD:
 
+              print "all two locus haplotypes,",
               modLocusKeys = []
               for group in string.split(locusKeys, ','):
 
@@ -945,10 +960,12 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             # estimate haplotypes on set of locusKeys *only* if there are
             # locus groups that remain after excluding two locus haplotypes
             if locusKeys:
-                haplo.estHaplotypes(locusKeys)
+                haplo.estHaplotypes(locusKeys=locusKeys,
+                                    numInitCond=numInitCond)
+                print "specific haplotypes: [%s]" % locusKeys
 
           except NoOptionError:
-            print "LOG: no loci provided for which to estimate haplotype frequencies"
+              pass
 
           try:
             locusKeysLD=self.config.get("Emhaplofreq", "lociToEstLD")
@@ -958,14 +975,19 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
               locusKeysLD=string.join(self.input.getIndividualsData().colList,':')
 
             # estimate LD for the specified loci
-            haplo.estLinkageDisequilibrium(locusKeysLD)
+            haplo.estLinkageDisequilibrium(locusKeys=locusKeysLD,
+                                           numInitCond=numInitCond,
+                                           numPermutations=1001,
+                                           numPermuInitCond=numPermuInitCond)
+            print "LOG: estimating LD for specific loci: [%s]" % locusKeysLD
 
           except NoOptionError:
-            print "LOG: no loci provided for which to estimate LD"
+              pass
 
           # do all pairwise LD, w/ or w/o permutation test
           if allPairwiseLD:
             haplo.allPairwise(permutationPrintFlag=permutationPrintFlag,
+                              numInitCond=numInitCond,
                               numPermutations=allPairwiseLDWithPermu,
                               numPermuInitCond=numPermuInitCond,
                               haploSuppressFlag=0,
