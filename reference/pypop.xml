@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<?PSGML nofill programlisting screen?>
+<?PSGML nofill programlisting screen citation?>
 <article condition="main" xmlns:xi="http://www.w3.org/2001/XInclude">
 
  <title>Software framework for Biostatistics Core</title>
@@ -87,9 +87,10 @@
   <para>The  <application>PyPop</application>
    (<emphasis>Py</emphasis>thon  for  <emphasis>Pop</emphasis>ulation
    Genetics)  package is a suite of programs  for  the  analysis  of
-   population genetic data. The primary motivation   for   developing
-   this  project  was  our  role  as  the "Biostatistics  Core" for
-   the International Histocompatibility Working Group  (<ulink
+   population genetic data <citation>Lancaster:etal:2003a</citation>.
+   The primary motivation   for   developing this  project  was  our
+   role  as  the "Biostatistics  Core" for the International
+   Histocompatibility Working Group  (<ulink
     url="http://www.ihwg.org/">IHWG</ulink>). As part of the
    Anthropology and Human  Diversity  component  of the IHWG, HLA
    class I (A, B and C) and class II (DRA1, DRB1, DQA1, DQB1, DPA1 and
@@ -104,11 +105,11 @@
    significance of LD; tests of genetic  differentiation;  and
    analyses  of  regional  and  worldwide patterns  of  allele
    frequencies,  haplotype  frequencies,  and LD. A description  of
-   the methodology for specific tests can be found in the Statistical
-   Methods  <citation>Single:etal:2003</citation>  chapter of
-   the current volume.   <xref linkend="pypop:method"/>  outlines  the
-   implementation of these population genetics methods via the
-   different modules that make up PyPop.</para>
+   the methodology for specific tests can be found in
+   <citation>Single:etal:2003a</citation>.
+   <xref linkend="pypop:method"/>  outlines  the implementation of
+   these population genetics methods via the different modules that
+   make up PyPop.</para>
 
   <para><application>PyPop</application>   is   in   an
    object-oriented  framework  implemented  in  the programming
@@ -398,12 +399,11 @@
      was implemented as part of <application>PyPop</application> for
      the Workshop using    the <ulink
       url="http://www.ebi.ac.uk/imgt/hla/">IMGT/HLA database</ulink>,
-     maintained  by  the Anthony Nolan Trust in the UK (see the
-     chapters by <citation role="citealt">Mack  et  al.</citation> and
-     <citation role="citealt">Robinson:etal:2003</citation> in this
-     volume for further details). For  other  regions  of  the genome,
-     different  sets of rules can be defined and implemented
-     easily.</para>
+     maintained  by  the Anthony Nolan Trust in the UK (see 
+     <citation role="citealt">Mack:etal:2003</citation> and
+     <citation role="citealt">Robinson:etal:2003</citation>  for
+     further details). For  other  regions  of  the genome, different
+     sets of rules can be defined and implemented easily.</para>
    </section>
 
 
@@ -852,11 +852,13 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     ability to quantify how results for one particular test, for
     example deviation from HWP, were related to other features of the
     data, such as level of heterozygosity or the continent of  origin
-    for the sample.  The results for many of these analyses can be
-    found  in  chapters  XX,  XX,  XX,  and XX. As a simple example of
-    <quote>slicing</quote>  the  data  along  different axes, we can
-    view the number of populations  for which data was provided for a
-    given locus (<xref
+    for the sample. The results for many of these analyses for the
+    13th workshop data can be found elsewhere (<citation
+     role="citealt">Meyer:etal:2003</citation>,
+    <citation role="citealt">Single:etal:2003b</citation>). As a
+    simple example of <quote>slicing</quote>  the  data  along
+    different axes, we can view the number of populations  for which
+    data was provided for a given locus (<xref
      linkend="pypop:pops-by-locus"/>), or number of populations that
     have data for a given region (<xref
      linkend="pypop:pops-by-region"/>). 
@@ -953,7 +955,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     <citation>Thomson:Klitz:1987</citation>  and Constrained
     Disequilibrium Values   (<citation
      role="citealt">Robinson:etal:1991</citation>; <citation
-     role="citealt">Robinson:etal:2003</citation>),  are  in progress.
+     role="citealt">Robinson:etal:1991b</citation>),  are  in progress.
     <application>PyPop</application> was designed to handle missing
     data  in  a flexible manner that is consistent across all modules
     (see <xref
