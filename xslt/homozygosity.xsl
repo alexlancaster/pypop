@@ -13,7 +13,7 @@
      </xsl:with-param>
     </xsl:call-template>
    </xsl:with-param>
-   <xsl:with-param name="level" select="2"/>
+   <xsl:with-param name="level" select="3"/>
    <xsl:with-param name="text">
 
     <xsl:choose>
