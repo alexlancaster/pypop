@@ -41,7 +41,7 @@ specifying the number of replicates on the command line.  Usually, 100,000
 replicates is more than sufficient but you can try different values to 
 find out for yourself. 
 */
-  
+
 #include <stdio.h>
 #include <math.h>
 #include <stddef.h>
@@ -56,307 +56,344 @@ static int seed;
 /* declare static global variables */
 static double theta, P_E, P_H, E_F, Var_F, F_obs;
 
-double get_theta() { return theta; }
+double get_theta()
+{
+  return theta;
+}
 
-double get_prob_ewens() { return P_E; }
+double get_prob_ewens()
+{
+  return P_E;
+}
 
-double get_prob_homozygosity() { return P_H; }
+double get_prob_homozygosity()
+{
+  return P_H;
+}
 
-double get_mean_homozygosity() { return E_F; }     
+double get_mean_homozygosity()
+{
+  return E_F;
+}
 
-double get_var_homozygosity() { return Var_F; }     
+double get_var_homozygosity()
+{
+  return Var_F;
+}
 
-int main(int argc, char **argv) {
-	int k, n, maxrep, i;
-	long start_time, finish_time, net_time;
-	static int r_obs[KLIMIT];
-	void main_proc(int r_obs[], int k, int n, int maxrep);
-	void print_results(int n, int k, int maxrep);
+int main(int argc, char **argv)
+{
+  int k, n, maxrep, i;
+  long start_time, finish_time, net_time;
+  static int r_obs[KLIMIT];
+  void main_proc(int r_obs[], int k, int n, int maxrep);
+  void print_results(int n, int k, int maxrep);
 
-	/* = {0, 40, 3, 3, 1, 0}; */
+  /* = {0, 40, 3, 3, 1, 0}; */
 
-	/*  Rwandan DRB1 data  
-	    int r_obs[] = {0, 95, 87, 81, 52, 44, 32, 32, 31, 27, 24, 23, 20, 19, 12, 6, 6, 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}; */
-	
-	/*  Bedouin DRB1 data 
-	    int r_obs[] = {0, 32, 32, 30, 18, 15, 14, 13, 11, 10, 7, 6, 6, 5, 4, 4, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0};  */
+  /*  Rwandan DRB1 data  
+     int r_obs[] = {0, 95, 87, 81, 52, 44, 32, 32, 31, 27, 24, 23, 20, 19, 12, 6, 6, 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}; */
 
-	/*  int r_obs[] = {0, YOUR DATA HERE, 0};  */
-	/*  int r_obs[] = {0, 30, 62, 97, 15, 53, 18, 55, 35, 57, 14866, 
-	    160, 439, 18, 356, 165, 40, 41, 14, 27, 36, 39, 23, 120, 209, 0};  
-	    //  CF alleles from North Europe: P_H = 0.9977   */
-	
-	if (argc < 2)  {
-	printf("Specify the number of replicates on the command line\n");
-		exit(0);
-		}
-	maxrep = atoi(argv[1]);
-	
-	/* Find k and n from the observed configuration  */
-	
-	k = argc - 2;
-	n = 0;
+  /*  Bedouin DRB1 data 
+     int r_obs[] = {0, 32, 32, 30, 18, 15, 14, 13, 11, 10, 7, 6, 6, 5, 4, 4, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0};  */
 
-	/* reconstruct array in format as expected by original program */
-	/* with leading and trailing zeroes */
-	r_obs[0] = 0;
-	for (i=1; i<=k; i++)  {
-	  r_obs[i] = atoi(argv[i+1]);
-	  n += r_obs[i];
-	}
-	r_obs[k+1] = 0;
+  /*  int r_obs[] = {0, YOUR DATA HERE, 0};  */
+  /*  int r_obs[] = {0, 30, 62, 97, 15, 53, 18, 55, 35, 57, 14866, 
+     160, 439, 18, 356, 165, 40, 41, 14, 27, 36, 39, 23, 120, 209, 0};  
+     //  CF alleles from North Europe: P_H = 0.9977   */
 
-	start_time = time(NULL);
+  if (argc < 2)
+  {
+    printf("Specify the number of replicates on the command line\n");
+    exit(0);
+  }
+  maxrep = atoi(argv[1]);
 
-	main_proc(r_obs, k, n, maxrep);
+  /* Find k and n from the observed configuration  */
 
-	finish_time = time(NULL);
-	net_time = time(NULL) - start_time;
+  k = argc - 2;
+  n = 0;
 
-	print_results(n, k, maxrep);
+  /* reconstruct array in format as expected by original program */
+  /* with leading and trailing zeroes */
+  r_obs[0] = 0;
+  for (i = 1; i <= k; i++)
+  {
+    r_obs[i] = atoi(argv[i + 1]);
+    n += r_obs[i];
+  }
+  r_obs[k + 1] = 0;
 
-	if (net_time < 60)
-		printf("Program took %ld seconds\n", net_time);
-	else
-		printf("Program took %4.2f minutes\n", net_time / 60.0);
+  start_time = time(NULL);
 
-	/* test call-backs 
-	   printf("%g, %g, %g, %g, %g\n", 
-	   get_theta(),
-	   get_prob_ewens(),
-	   get_prob_homozygosity(), 
-	   get_mean_homozygosity(),
-	   get_var_homozygosity());
-	*/
+  main_proc(r_obs, k, n, maxrep);
 
-	return 0;
+  finish_time = time(NULL);
+  net_time = time(NULL) - start_time;
+
+  print_results(n, k, maxrep);
+
+  if (net_time < 60)
+    printf("Program took %ld seconds\n", net_time);
+  else
+    printf("Program took %4.2f minutes\n", net_time / 60.0);
+
+  /* test call-backs 
+     printf("%g, %g, %g, %g, %g\n", 
+     get_theta(),
+     get_prob_ewens(),
+     get_prob_homozygosity(), 
+     get_mean_homozygosity(),
+     get_var_homozygosity());
+   */
+
+  return 0;
 }
 
 int main_proc(int r_obs[], int k, int n, int maxrep)
 {
-	int initseed = 13840399;
-	int i, j, repno, Ecount, Fcount;
-	int *r_random;
-	double ewens_stat(int *r), F(int k, int n, int *r);
-	double Ftot = 0, Fsq_tot = 0;  /* added by DM */
-	double theta_est(int k_obs, int n);
-	double E_obs;
-	void print_config(int k, int *r);
-	void generate(int k, int n, int *r, double *ranvec, double **b);
-	double **b, **matrix(long nrl, long nrh, long ncl, long nch), *ranvec;
-	double *vector(long nl, long nh);
-	int *ivector(long nl, long nh);
-	void gsrand(int seed);
+  int initseed = 13840399;
+  int i, j, repno, Ecount, Fcount;
+  int *r_random;
+  double ewens_stat(int *r), F(int k, int n, int *r);
+  double Ftot = 0, Fsq_tot = 0;	/* added by DM */
+  double theta_est(int k_obs, int n);
+  double E_obs;
+  void print_config(int k, int *r);
+  void generate(int k, int n, int *r, double *ranvec, double **b);
+  double **b, **matrix(long nrl, long nrh, long ncl, long nch), *ranvec;
+  double *vector(long nl, long nh);
+  int *ivector(long nl, long nh);
+  void gsrand(int seed);
 
-	gsrand(initseed);
+  gsrand(initseed);
 
-	r_random = ivector(0, k+1);
-	r_random[0] = r_random[k+1] = 0;
-	ranvec = vector(1, k-1);  // to avoid doing this in each replicate
-	
-	/*  fill b matrix  */
-	
-	b = matrix(1, k, 1, n);
-	for (j=1; j<=n; j++)
-		b[1][j] = 1.0 / j;
-	for (i=2; i<=k; i++)  {
-		b[i][i] = 1.0;
-		for (j=i; j<n; j++)
-			b[i][j+1] = (i * b[i-1][j] + j * b[i][j]) / (j + 1.0);
-		}
-		
-	F_obs = F(k, n, r_obs);
-	E_obs = ewens_stat(r_obs);
-	theta = theta_est(k, n);
+  r_random = ivector(0, k + 1);
+  r_random[0] = r_random[k + 1] = 0;
+  ranvec = vector(1, k - 1);	/* to avoid doing this in each replicate */
 
-	Ecount = 0;
-	Fcount = 0;
+  /*  fill b matrix  */
 
-#ifdef DISTRIBUTION_OUTPUT
-                /* Print header for stdout output */
-	printf("E_p \t F\n") ;
+  b = matrix(1, k, 1, n);
+  for (j = 1; j <= n; j++)
+    b[1][j] = 1.0 / j;
+  for (i = 2; i <= k; i++)
+  {
+    b[i][i] = 1.0;
+    for (j = i; j < n; j++)
+      b[i][j + 1] = (i * b[i - 1][j] + j * b[i][j]) / (j + 1.0);
+  }
 
-#endif
-	for (repno=1; repno<=maxrep; repno++)  {
-		generate(k, n, r_random, ranvec, b);
+  F_obs = F(k, n, r_obs);
+  E_obs = ewens_stat(r_obs);
+  theta = theta_est(k, n);
 
-		/* lines for getting the expected F, DM */
-
-	Ftot += F(k, n, r_random);
-	Fsq_tot += F(k, n, r_random) * F(k, n, r_random);
-		/* end lines for getting the expected F, DM */
+  Ecount = 0;
+  Fcount = 0;
 
 #ifdef DISTRIBUTION_OUTPUT
-		/* begin lines for printing homozygosity values to stdout. DM  */
-	printf("%g\t", ewens_stat(r_random)) ;
-	printf("%g\n", F(k, n, r_random));
-		/* end lines for printing homozygosity values to stdout. DM */
+  /* Print header for stdout output */
+  printf("E_p \t F\n");
+
 #endif
-		if (ewens_stat(r_random) <= E_obs) 
-			Ecount++;
-		if (F(k, n, r_random) <= F_obs)
-			Fcount++;
-		}
-	P_E = (double) Ecount / maxrep;
-	P_H = (double) Fcount / maxrep;
+  for (repno = 1; repno <= maxrep; repno++)
+  {
+    generate(k, n, r_random, ranvec, b);
+
+    /* lines for getting the expected F, DM */
+
+    Ftot += F(k, n, r_random);
+    Fsq_tot += F(k, n, r_random) * F(k, n, r_random);
+    /* end lines for getting the expected F, DM */
+
+#ifdef DISTRIBUTION_OUTPUT
+    /* begin lines for printing homozygosity values to stdout. DM  */
+    printf("%-14.7g\t", ewens_stat(r_random));
+    printf("%-11.7f\n", F(k, n, r_random));
+    /* end lines for printing homozygosity values to stdout. DM */
+#endif
+    if (ewens_stat(r_random) <= E_obs)
+      Ecount++;
+    if (F(k, n, r_random) <= F_obs)
+      Fcount++;
+  }
+  P_E = (double)Ecount / maxrep;
+  P_H = (double)Fcount / maxrep;
 
 /* begin calculating the expected F, and its variance. DM, AKL */
-	
-	E_F = (double) Ftot / maxrep;
 
-	Var_F = (double) ((Fsq_tot / maxrep) - 
-			  ((Ftot / maxrep)*(Ftot / maxrep)));
+  E_F = (double)Ftot / maxrep;
+
+  Var_F = (double)((Fsq_tot / maxrep) - ((Ftot / maxrep) * (Ftot / maxrep)));
 
 /* end calculating the expected F, and its variance. DM, AKL */
-	
-	return 0;
-  }  /*  end, main_proc  */
 
-void print_results(int n, int k, int maxrep) {
+  return 0;
+}				/*  end, main_proc  */
 
-	printf("\nn = %d, k = %d, theta = %g, F = %g, maxrep = %d\n",
-		n, k, theta, F_obs, maxrep);
-	printf("P_E(approx) = %g\nP_H(approx) = %g\n", P_E, P_H);
-	printf("E(F) = %g\n", E_F);
-	printf("Var(F) = %g\n",  Var_F);
+void print_results(int n, int k, int maxrep)
+{
+
+  printf("\nn = %d, k = %d, theta = %g, F = %g, maxrep = %d\n",
+	 n, k, theta, F_obs, maxrep);
+  printf("P_E(approx) = %g\nP_H(approx) = %g\n", P_E, P_H);
+  printf("E(F) = %g\n", E_F);
+  printf("Var(F) = %g\n", Var_F);
 }
 
-void generate(int k, int n, int *r, double *ranvec, double **b)  {  
-	double unif(), cum;
-	int i, l, nleft;
-	
-	for (i=1; i<=k-1; i++)
-		ranvec[i] = unif();
-	nleft = n;
-	for (l=1; l<k; l++)  {
-		cum = 0.0;
-		for (i=1; i<=nleft; i++) {
-			cum += b[k-l][nleft-i] / (i * b[k-l+1][nleft]);
-			if (cum >= ranvec[l]) break;
-			}
-		r[l] = i;
-		nleft -= i;
-		}
-	r[k] = nleft;
-	}
+void generate(int k, int n, int *r, double *ranvec, double **b)
+{
+  double unif(), cum;
+  int i, l, nleft;
 
-void print_config(int k, int *r) {
-	int i;
+  for (i = 1; i <= k - 1; i++)
+    ranvec[i] = unif();
+  nleft = n;
+  for (l = 1; l < k; l++)
+  {
+    cum = 0.0;
+    for (i = 1; i <= nleft; i++)
+    {
+      cum += b[k - l][nleft - i] / (i * b[k - l + 1][nleft]);
+      if (cum >= ranvec[l])
+	break;
+    }
+    r[l] = i;
+    nleft -= i;
+  }
+  r[k] = nleft;
+}
 
-	printf("(");
-	for (i=1; i<k; i++)
-		printf("%d,", r[i]);
-	printf("%d)", r[k]);
-	printf("\n");
-	}
+void print_config(int k, int *r)
+{
+  int i;
 
-double ewens_stat(int *r)  {
-	int *ipt;
-	double coef;
+  printf("(");
+  for (i = 1; i < k; i++)
+    printf("%d,", r[i]);
+  printf("%d)", r[k]);
+  printf("\n");
+}
 
-	coef = 1.0;
-	for (ipt=r+1; *ipt; ipt++)
-		coef *= *ipt;
-	return 1.0 / coef;
-	}
+double ewens_stat(int *r)
+{
+  int *ipt;
+  double coef;
 
-double F(int k, int n, int *r)  {
+  coef = 1.0;
+  for (ipt = r + 1; *ipt; ipt++)
+    coef *= *ipt;
+  return 1.0 / coef;
+}
+
+double F(int k, int n, int *r)
+{
   int i;
   double sum;
 
   sum = 0.0;
-  for (i=1; i<=k; i++)  sum += r[i] * r[i];
+  for (i = 1; i <= k; i++)
+    sum += r[i] * r[i];
   return sum / (n * n);
-  }
+}
 
-double theta_est(int k_obs, int n)  {
+double theta_est(int k_obs, int n)
+{
 /*  Estimates theta = 4N*mu using formula 9.26 in Ewens' book  */
-	double kval(double theta, int n);
-	double xlow, xhigh, xmid;
-	double eps;
-	
-	eps = 0.00001;
-	xlow = 0.1;
-	while (kval(xlow, n) > k_obs)
-		xlow /= 10.0;
-	xhigh = 10.0;
-	while (kval(xhigh, n) < k_obs)
-		xhigh *= 10.0;
-	while ((xhigh - xlow) > eps)  {
-		xmid = (xhigh + xlow) / 2.0;
-		if (kval(xmid, n) > k_obs)
-			xhigh = xmid;
-		else
-			xlow = xmid;
-		}
-	return xmid;
-	}  /*  end, theta_est  */
+  double kval(double theta, int n);
+  double xlow, xhigh, xmid;
+  double eps;
 
-double kval(double x, int n)  {
-	int i;
-	double sum;
-	
-	sum = 0.0;
-	for (i=0; i<n; i++)
-		sum += x / (i + x);
-	return sum;
-	}
+  eps = 0.00001;
+  xlow = 0.1;
+  while (kval(xlow, n) > k_obs)
+    xlow /= 10.0;
+  xhigh = 10.0;
+  while (kval(xhigh, n) < k_obs)
+    xhigh *= 10.0;
+  while ((xhigh - xlow) > eps)
+  {
+    xmid = (xhigh + xlow) / 2.0;
+    if (kval(xmid, n) > k_obs)
+      xhigh = xmid;
+    else
+      xlow = xmid;
+  }
+  return xmid;
+}				/*  end, theta_est  */
+
+double kval(double x, int n)
+{
+  int i;
+  double sum;
+
+  sum = 0.0;
+  for (i = 0; i < n; i++)
+    sum += x / (i + x);
+  return sum;
+}
 
 #define NR_END 1
 
 double **matrix(long nrl, long nrh, long ncl, long nch)
 /* allocate a double matrix with subscript range m[nrl..nrh][ncl..nch] */
 {
-	long i, nrow=nrh-nrl+1,ncol=nch-ncl+1;
-	double **m;
-	void nrerror(char error_text[]);
+  long i, nrow = nrh - nrl + 1, ncol = nch - ncl + 1;
+  double **m;
+  void nrerror(char error_text[]);
 
-	/* allocate pointers to rows */
-	m=(double **) malloc((size_t)((nrow+NR_END)*sizeof(double*)));
-	if (!m) nrerror("allocation failure 1 in matrix()");
-	m += NR_END;
-	m -= nrl;
+  /* allocate pointers to rows */
+  m = (double **)malloc((size_t) ((nrow + NR_END) * sizeof(double *)));
+  if (!m)
+    nrerror("allocation failure 1 in matrix()");
+  m += NR_END;
+  m -= nrl;
 
-	/* allocate rows and set pointers to them */
-	m[nrl]=(double *) malloc((size_t)((nrow*ncol+NR_END)*sizeof(double)));
-	if (!m[nrl]) nrerror("allocation failure 2 in matrix()");
-	m[nrl] += NR_END;
-	m[nrl] -= ncl;
+  /* allocate rows and set pointers to them */
+  m[nrl] =
+    (double *)malloc((size_t) ((nrow * ncol + NR_END) * sizeof(double)));
+  if (!m[nrl])
+    nrerror("allocation failure 2 in matrix()");
+  m[nrl] += NR_END;
+  m[nrl] -= ncl;
 
-	for(i=nrl+1;i<=nrh;i++) m[i]=m[i-1]+ncol;
+  for (i = nrl + 1; i <= nrh; i++)
+    m[i] = m[i - 1] + ncol;
 
-	/* return pointer to array of pointers to rows */
-	return m;
+  /* return pointer to array of pointers to rows */
+  return m;
 }
 
 double *vector(long nl, long nh)
 /* allocate a double vector with subscript range v[nl..nh] */
 {
-	double *v;
-	void nrerror(char error_text[]);
-	
-	v=(double *)malloc((size_t) ((nh-nl+1+NR_END)*sizeof(double)));
-	if (!v) nrerror("allocation failure in vector()");
-	return v-nl+NR_END;
+  double *v;
+  void nrerror(char error_text[]);
+
+  v = (double *)malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(double)));
+  if (!v)
+    nrerror("allocation failure in vector()");
+  return v - nl + NR_END;
 }
 
 int *ivector(long nl, long nh)
 /* allocate an int vector with subscript range v[nl..nh] */
 {
-	int *v;
-	void nrerror(char error_text[]);
+  int *v;
+  void nrerror(char error_text[]);
 
-	v=(int *)malloc((size_t) ((nh-nl+1+NR_END)*sizeof(int)));
-	if (!v) nrerror("allocation failure in ivector()");
-	return v-nl+NR_END;
+  v = (int *)malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(int)));
+  if (!v)
+    nrerror("allocation failure in ivector()");
+  return v - nl + NR_END;
 }
 
 void nrerror(char error_text[])
 {
-	fprintf(stderr,"Run-time error...\n");
-	fprintf(stderr,"%s\n",error_text);
-	fprintf(stderr,"...now exiting to system...\n");
-	exit(1);
+  fprintf(stderr, "Run-time error...\n");
+  fprintf(stderr, "%s\n", error_text);
+  fprintf(stderr, "...now exiting to system...\n");
+  exit(1);
 }
 
 
@@ -366,25 +403,27 @@ void nrerror(char error_text[])
 #define R 2836
 
 void gsrand(s)
-int s;
+     int s;
 {
-	seed = s;
+  seed = s;
 }
 
 #define RM 2147483647.0
 
-double unif()  /* This is drand renamed to be consistent with my usage  */
+double unif()			/* This is drand renamed to be consistent with my usage  */
 {
-	int grand();
-	return ((double) grand() / RM);
+  int grand();
+  return ((double)grand() / RM);
 }
 
 int grand()
 {
-	int test;
-	
-    test = A * (seed % Q) - R * (seed / Q);
-    if (test > 0) seed = test;
-      else seed = test + M;
-    return(seed);
+  int test;
+
+  test = A * (seed % Q) - R * (seed / Q);
+  if (test > 0)
+    seed = test;
+  else
+    seed = test + M;
+  return (seed);
 }
