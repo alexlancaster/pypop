@@ -1,15 +1,33 @@
 PDF2PS = pdf2ps
-CVSPRE = cvs update -kv
-CVSPOST = cvs update -kkv
-XSLCOMMON = --param section.autolabel 1 --param tablecolumns.extension 0 --stringparam draft.watermark.image images/draft.png
+
+ifeq ($(PUBLISH),)
+CVSPRE =
+CVSPOST =
+else
+CVSPRE = cvs update -kv $<
+CVSPOST = cvs update -kkv $<
+endif
+
+XSLCOMMON = --param section.autolabel 1 --param tablecolumns.extension 0 --param use.extensions 1 --param callouts.extension 0
+# --stringparam draft.watermark.image images/draft.png
 XSLHTML =
-XSLFO = --param variablelist.as.blocks 1 --param generate.division.figure.lot 1   --param fop.extensions 1
+XSLFO = --param variablelist.as.blocks 1
 XSLTPROC = XML_CATALOG_FILES=$(CATOPTS) xsltproc
 
 ifeq ($(XML_CATALOG_FILES),)
 	CATOPTS=/net/etc/xml/catalog
 else
 	CATOPTS=$(XML_CATALOG_FILES)
+endif
+
+ifeq ($(PASSIVETEX),)
+XSLFO += --param fop.extensions 1
+%.pdf: %.fo
+	Fop $< $@
+else
+XSLFO += --param passivetex.extensions 1
+%.pdf: %.fo
+	xmlto pdf $<
 endif
 
 # set default location of stylesheets, if envar is not set
@@ -27,17 +45,14 @@ all: $(OUTPUTS) $(FIGS) api/index.html
 	lynx -dump -nolist $< > $@
 
 %.html: %.xml $(FIGS) html.xsl
-	$(CVSPRE) $<
+	$(CVSPRE) 
 	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML) -o $@ html.xsl $<
-	$(CVSPOST) $<
+	$(CVSPOST)
 
 %.fo: %.xml $(FIGS) fo.xsl
-	$(CVSPRE) $<
+	$(CVSPRE) 
 	$(XSLTPROC) $(XSLCOMMON) $(XSLFO) -o $@ fo.xsl $<
-	$(CVSPOST) $<
-
-%.pdf: %.fo
-	Fop $< $@
+	$(CVSPOST)
 
 %.ps: %.fo
 	Fop $< -ps $@
