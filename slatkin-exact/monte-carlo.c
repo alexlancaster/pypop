@@ -54,11 +54,17 @@ static int seed;
 
 void main(int argc, char *argv[]) {
 
-	int initseed = 13840399;
+int initseed = 13840399;
 
-	int r_obs[] = {0, 40, 3, 3, 1, 0}; 
+int r_obs[] = {0, 9, 2, 1, 1, 1, 1, 1, 0}; 
+
+/*  Rwandan DRB1 data  
+int r_obs[] = {0, 95, 87, 81, 52, 44, 32, 32, 31, 27, 24, 23, 20, 19, 12, 6, 6, 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}; */
+
+/*  Bedouin DRB1 data 
+int r_obs[] = {0, 32, 32, 30, 18, 15, 14, 13, 11, 10, 7, 6, 6, 5, 4, 4, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0};  */
+
 	/*  int r_obs[] = {0, YOUR DATA HERE, 0};  */
-	/* int r_obs[] = {0, 9, 2, 1, 1, 1, 1, 1, 0};  */
 	/*  int r_obs[] = {0, 30, 62, 97, 15, 53, 18, 55, 35, 57, 14866, 
 		160, 439, 18, 356, 165, 40, 41, 14, 27, 36, 39, 23, 120, 209, 0};  
 		//  CF alleles from North Europe: P_H = 0.9977   */
@@ -66,7 +72,7 @@ void main(int argc, char *argv[]) {
 	int i, j, k, n, repno, maxrep, Ecount, Fcount;
 	int *r_random, testE, testF;
 	double ewens_stat(int *r), F(int k, int n, int *r);
-	double ewens_stat_tot = 0 , Ftot = 0;  /* added by DM */
+	double ewens_stat_tot = 0 , Ftot = 0, Fsq_tot;  /* added by DM */
 	double theta_est(int k_obs, int n);
 	double E_obs, F_obs;
 	void print_config(int k, int *r);
@@ -118,8 +124,9 @@ void main(int argc, char *argv[]) {
 		generate(k, n, r_random, ranvec, b);
 
 		/* lines for getting the expected F, DM */
-	ewens_stat_tot += ewens_stat(r_random);
+
 	Ftot += F(k, n, r_random);
+	Fsq_tot += F(k, n, r_random) * F(k, n, r_random);
 		/* end lines for getting the expected F, DM */
 
 		if (ewens_stat(r_random) <= E_obs) 
@@ -129,12 +136,16 @@ void main(int argc, char *argv[]) {
 		}
 	printf("P_E(approx) = %g\nP_H(approx) = %g\n", 
 		(double) Ecount / maxrep, (double) Fcount / maxrep);
-/* 
-	printing the expected F, and its variance. DM
-*/
-	printf("E(F) = %g\n", (double) Ftot / maxrep );
 
-	finish_time = time(NULL);
+/* begin printing the expected F, and its variance. DM */
+	
+	printf("E(F) = %g\n", (double) Ftot / maxrep );
+	
+	printf("Var(F) = %g\n", (double) ((Fsq_tot / maxrep) - ((Ftot / maxrep)*(Ftot / maxrep))) );
+
+/* end printing the expected F, and its variance. DM */
+	
+  finish_time = time(NULL);
 	net_time = time(NULL) - start_time;
 	if (net_time < 60)
 		printf("Program took %ld seconds\n", net_time);
