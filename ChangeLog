@@ -1,5 +1,7 @@
 2003-12-29  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
+	* NEWS (PyPop 0.5): Start adding release notes for public release.
+	
 	* standalone.spec (pypop-batch.bat): Mirror Linux batch wrapper
 	script for DOS [Win9*,2k,NT,XP] binary.
 	(pypop.bat): Add a "pause" statement in DOS .bat file so that DOS

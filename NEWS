@@ -1,11 +1,15 @@
-PyPop NEWS --- history of user-visible changes to PyPop.  -*- text -*-
+PyPop NEWS --- history of user-visible changes to PyPop.  -*- outline -*-
 Copyright (C) 2003 Regents of the University of California
+
+* Release Notes for PyPop 0.5 (public beta)
+** Bug fixes
+*** Add wrapper scripts for interactive and batch mode for 
+    both DOS and Linux so that correct shared libraries are called.
+*** Pause and wait for user to press a key at end of DOS .bat file
+    so that output can be viewed before window close.
 
 * Release Notes for PyPop 0.4.3beta
 ** Bug fixes
 *** Fixed bug in processing of 'popname' field. 
     Thanks to Richard Single for the report.
 
-Local variables:
-mode: outline
-end:
