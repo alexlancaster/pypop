@@ -79,7 +79,7 @@ def translate_file_to_stdout(xslFilename, inFile):
 def translate_file_to_file(xslFilename, inFile, outFile):
     _translate_file_to(xslFilename, inFile, outFile)
 
-usage_message = """Usage: meta.py [OPTION] INPUTFILES...
+usage_message = """Usage: popmeta.py [OPTION] INPUTFILES...
 
 Processes INPUTFILES and generates 'meta'-analyses.  INPUTFILES are
 expected to be the XML output files taken from runs of 'pypop'.
