@@ -4,8 +4,14 @@
 
  <xsl:import href="common.xsl"/>
 
+ <xsl:output method="html"/>
+
  <!-- select "html" as output method -->
+<!--
+
  <xsl:output method="html" omit-xml-declaration="yes" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
+
+-->
 
  <xsl:template match="/">
   <html>
@@ -20,19 +26,52 @@
   </html>
  </xsl:template>
 
- <!-- sections should be at the h2 level -->
  <xsl:template name="header">
   <xsl:param name="title"/>
-  <h2>
   <xsl:value-of select="$title"/>
-  </h2>
  </xsl:template>
 
- <!-- subsections should be at the h3 level -->
- <xsl:template name="locus-header">
+ <!-- overriden <section> template -->
+ <xsl:template name="section">
+  <xsl:param name="level"/>
   <xsl:param name="title"/>
-  <h3><xsl:value-of select="$title"/> [<xsl:value-of select="../@name"/>]</h3>
+  <xsl:param name="text"/>
+  <xsl:param name="number"/>
+
+  <xsl:variable name="header-text">
+   <xsl:call-template name="header">
+    <xsl:with-param name="title">
+     <xsl:if test="$number">
+      <xsl:value-of select="$number"/>
+      <xsl:text>. </xsl:text>
+     </xsl:if>
+     <xsl:value-of select="$title"/>
+    </xsl:with-param>
+   </xsl:call-template>
+  </xsl:variable>
+
+  <xsl:choose>
+   <xsl:when test="$level=1">
+    <h2><xsl:value-of select="$header-text"/></h2>
+   </xsl:when> 
+   <xsl:when test="$level=2">
+    <h3><xsl:value-of select="$header-text"/></h3>
+   </xsl:when>
+   <xsl:otherwise>
+    <h4><xsl:value-of select="$header-text"/></h4>
+   </xsl:otherwise>
+  </xsl:choose>
+
+  <xsl:call-template name="newline"/>
+  
+  <xsl:if test="$text!=''">
+   <xsl:call-template name="newline"/>
+   <xsl:copy-of select="$text"/>
+   <xsl:call-template name="newline"/>
+  </xsl:if>
+
  </xsl:template>
+
 
  <xsl:template name="linesep-fields">
   <xsl:param name="nodes" select="*"/>
