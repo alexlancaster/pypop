@@ -46,7 +46,7 @@ import sys, os, string, time
 # installed, e.g. if python is installed in sys.prefix='/usr'
 # we look in /usr/share/PyPop, /usr/bin/pypop etc.
 datapath = os.path.join(sys.prefix, 'share', 'PyPop')
-binpath = os.path.join(sys.prefix, 'bin', 'pypop')
+binpath = os.path.join(sys.prefix, 'bin')
 altpath = os.path.join(datapath, 'config.ini')
 systemversionpath = os.path.join(datapath, 'VERSION')
 

@@ -1,5 +1,8 @@
 2005-02-22  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* pypop.py (binpath): Make this refer to the *directory* the
+	'pypop' script is found in, not the actual file.
+
 	* setup.py (ext_HweEnum): Add new extension for Hazael's
 	Hardy-Weinberg enumeration program.
 	Currently only build it if we are running from CVS.
