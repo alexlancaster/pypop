@@ -53,6 +53,19 @@ find out for yourself.
 
 static int seed;
 
+/* declare static global variables */
+static double theta, P_E, P_H, E_F, Var_F, F_obs;
+
+double get_theta() { return theta; }
+
+double get_prob_ewens() { return P_E; }
+
+double get_prob_homozygosity() { return P_H; }
+
+double get_mean_homozygosity() { return E_F; }     
+
+double get_var_homozygosity() { return Var_F; }     
+
 int main(int argc, char **argv) {
 	int k, n, maxrep, i;
 	static int r_obs[KLIMIT];
@@ -92,6 +105,16 @@ int main(int argc, char **argv) {
 	r_obs[k+1] = 0;
 
 	main_proc(r_obs, k, n, maxrep);
+
+	/* test call-backs 
+	   printf("%g, %g, %g, %g, %g\n", 
+	   get_theta(),
+	   get_prob_ewens(),
+	   get_prob_homozygosity(), 
+	   get_mean_homozygosity(),
+	   get_var_homozygosity());
+	*/
+
 	return 0;
 }
 
@@ -103,7 +126,7 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 	double ewens_stat(int *r), F(int k, int n, int *r);
 	double Ftot = 0, Fsq_tot = 0;  /* added by DM */
 	double theta_est(int k_obs, int n);
-	double E_obs, F_obs;
+	double E_obs;
 	void print_config(int k, int *r);
 	void generate(int k, int n, int *r, double *ranvec, double **b);
 	long start_time, finish_time, net_time;
@@ -133,8 +156,9 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 		
 	F_obs = F(k, n, r_obs);
 	E_obs = ewens_stat(r_obs);
+	theta = theta_est(k, n);
 	printf("\nn = %d, k = %d, theta = %g, F = %g, maxrep = %d\n",
-		n, k, theta_est(k, n), F_obs, maxrep);
+		n, k, theta, F_obs, maxrep);
 	Ecount = 0;
 	Fcount = 0;
 	for (repno=1; repno<=maxrep; repno++)  {
@@ -151,14 +175,18 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 		if (F(k, n, r_random) <= F_obs)
 			Fcount++;
 		}
-	printf("P_E(approx) = %g\nP_H(approx) = %g\n", 
-		(double) Ecount / maxrep, (double) Fcount / maxrep);
+	P_E = (double) Ecount / maxrep;
+	P_H = (double) Fcount / maxrep;
+	printf("P_E(approx) = %g\nP_H(approx) = %g\n", P_E, P_H);
 
 /* begin printing the expected F, and its variance. DM */
 	
-	printf("E(F) = %g\n", (double) Ftot / maxrep );
+	E_F = (double) Ftot / maxrep;
+	printf("E(F) = %g\n", E_F);
 	
-	printf("Var(F) = %g\n", (double) ((Fsq_tot / maxrep) - ((Ftot / maxrep)*(Ftot / maxrep))) );
+	Var_F = (double) ((Fsq_tot / maxrep) - 
+			  ((Ftot / maxrep)*(Ftot / maxrep)));
+	printf("Var(F) = %g\n",  Var_F);
 
 /* end printing the expected F, and its variance. DM */
 	
