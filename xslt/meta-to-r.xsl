@@ -214,6 +214,34 @@
       <xsl:otherwise>****</xsl:otherwise>
      </xsl:choose>
 
+     <xsl:text>&#09;</xsl:text>
+     <xsl:choose>
+      <xsl:when test="hardyweinbergGuoThompsonArlequin/pvalue">
+       <xsl:value-of select="hardyweinbergGuoThompsonArlequin/pvalue"/>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:value-of select="hardyweinbergGuoThompsonArlequin/stddev"/>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:value-of select="hardyweinbergGuoThompsonArlequin/exp-hetero"/>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:value-of select="hardyweinbergGuoThompsonArlequin/obs-hetero"/>
+      </xsl:when>
+      <xsl:otherwise>****&#09;****&#09;****&#09;****</xsl:otherwise>
+     </xsl:choose>
+
+     <xsl:text>&#09;</xsl:text>
+     <xsl:choose>
+      <xsl:when test="homozygosityEWSlatkinExact/meanHomozygosity">
+       <xsl:value-of select="homozygosityEWSlatkinExact/meanHomozygosity"/>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:value-of select="homozygosityEWSlatkinExact/probHomozygosity"/>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:value-of select="homozygosityEWSlatkinExact/varHomozygosity"/>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:value-of select="homozygosityEWSlatkinExact/probEwens"/>
+      </xsl:when>
+      <xsl:otherwise>****&#09;****&#09;****&#09;****</xsl:otherwise>
+     </xsl:choose>
+
      <xsl:call-template name="newline"/>
 
     </xsl:when>
@@ -352,7 +380,7 @@
     <exsl:document href="1-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:text>pop&#09;ethnic&#09;region&#09;latit&#09;longit&#09;locus&#09;2n&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;f.nd&#09;gt.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval</xsl:text>
+     <xsl:text>pop&#09;ethnic&#09;region&#09;latit&#09;longit&#09;locus&#09;2n&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;f.nd&#09;gt.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.exp&#09;f.slatkin.pval;&#09;f.slatkin.var&#09;f.slatkin.pval.ewens</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
