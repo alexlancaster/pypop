@@ -37,7 +37,7 @@ int count_unique_haplos(char (*)[][], char (*)[], int (*)[], char (*)[][], int *
 
 void id_unique_alleles(char (*)[][], char (*)[][], int *, double (*)[], int, int);
 /* data array, unique_allele array, no. of unique alleles array, allele_freq, no. of loci, no. of records */
-/*  
+/* 
   * creates array of alleles unique to each locus 
   * Creates allele_freq[i][j]:  freq for jth allele at the ith locus 
 */
@@ -1197,9 +1197,9 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
     {
       hap_freq[i][iter] = unambig[i] / (double)tot_hap;
       mle[i] = hap_freq[i][iter];
-      *loglike = loglikelihood(genopheno, mle, obspheno, n_haplo,
-        n_unique_geno, n_unique_pheno, xhaplo, xgeno);
     }
+    *loglike = loglikelihood(genopheno, mle, obspheno, n_haplo,
+      n_unique_geno, n_unique_pheno, xhaplo, xgeno);
   }
 
   /* Begin E-M iterations on ambiguous phenos */
