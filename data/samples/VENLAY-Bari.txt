@@ -1,7 +1,6 @@
 Lab Code	Typing method	Ethnic group	Continent of Origin	Collection site	Latitude	Longitude													
 VENLAY	RLS	Bari	South America	Campo Rosario/Saimadoyi	9 deg 50' N	72 50' deg 73 5' E													
-
-Population name	Sample identifier	HLA-A_1	HLA-A_2	HLA-C_1	HLA-C_2	HLA-B_1	HLA-B_2	DRA_1	DRA_2	DRB1_1	DRB1_2	DQA1_1	DQB1_2	DQB1_1	DQB1_2	DPB1_1	DPB1_2	DPA1_1	DPA1_2
+Population name	Sample identifier	HLA-A_1	HLA-A_2	HLA-C_1	HLA-C_2	HLA-B_1	HLA-B_2	DRA_1	DRA_2	DRB1_1	DRB1_2	DQA1_1	DQA1_2	DQB1_1	DQB1_2	DPB1_1	DPB1_2	DPA1_1	DPA1_2
 Bari	CRS001	02011	2402101	0102	0702	39061	5104	****	****	****	****	****	****	****	****	****	****	****	****
 Bari	CRS002	0222	2402101	0702	15021	****	****	****	****	****	****	****	****	****	****	****	****	****	****
 Bari	CRS004	0222	2402101	0702	15021	39061	39061	****	****	****	****	****	****	****	****	****	****	****	****
