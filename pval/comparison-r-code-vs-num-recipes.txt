@@ -1,0 +1,228 @@
+Results of comparison between pval implementation based on R GPL-ed code
+(listed first), and pval implementation on numerical recipies code 
+(listed second) on 2003-07-30 on home laptop (Fujitsu S-4542).
+
+Here is the command run and the terminal output:
+
+[alex@delpy pval]$ for dof in 1 2 3 4 5; do for chisq in 0.1 0.2 0.5 1.0 2.0 5.0 6.0 10.0 15.0 20.0 25.0; do echo dof=$dof, chisq=$chisq; echo "R code: $(./pval $dof $chisq)"; echo "N. rec: $(pval $dof $chisq)"; echo; done; done
+
+dof=1, chisq=0.1
+R code: 0.75183
+N. rec: 0.751830
+
+dof=1, chisq=0.2
+R code: 0.654721
+N. rec: 0.654721
+
+dof=1, chisq=0.5
+R code: 0.4795
+N. rec: 0.479500
+
+dof=1, chisq=1.0
+R code: 0.317311
+N. rec: 0.317311
+
+dof=1, chisq=2.0
+R code: 0.157299
+N. rec: 0.157299
+
+dof=1, chisq=5.0
+R code: 0.0253473
+N. rec: 0.025347
+
+dof=1, chisq=6.0
+R code: 0.0143059
+N. rec: 0.014306
+
+dof=1, chisq=10.0
+R code: 0.0015654
+N. rec: 0.001565
+
+dof=1, chisq=15.0
+R code: 0.000107511
+N. rec: 0.000108
+
+dof=1, chisq=20.0
+R code: 7.74422e-06
+N. rec: 0.000008
+
+dof=1, chisq=25.0
+R code: 5.73303e-07
+N. rec: 0.000001
+
+dof=2, chisq=0.1
+R code: 0.951229
+N. rec: 0.951229
+
+dof=2, chisq=0.2
+R code: 0.904837
+N. rec: 0.904837
+
+dof=2, chisq=0.5
+R code: 0.778801
+N. rec: 0.778801
+
+dof=2, chisq=1.0
+R code: 0.606531
+N. rec: 0.606531
+
+dof=2, chisq=2.0
+R code: 0.367879
+N. rec: 0.367879
+
+dof=2, chisq=5.0
+R code: 0.082085
+N. rec: 0.082085
+
+dof=2, chisq=6.0
+R code: 0.0497871
+N. rec: 0.049787
+
+dof=2, chisq=10.0
+R code: 0.00673795
+N. rec: 0.006738
+
+dof=2, chisq=15.0
+R code: 0.000553084
+N. rec: 0.000553
+
+dof=2, chisq=20.0
+R code: 4.53999e-05
+N. rec: 0.000045
+
+dof=2, chisq=25.0
+R code: 3.72665e-06
+N. rec: 0.000004
+
+dof=3, chisq=0.1
+R code: 0.991837
+N. rec: 0.991837
+
+dof=3, chisq=0.2
+R code: 0.977589
+N. rec: 0.977589
+
+dof=3, chisq=0.5
+R code: 0.918891
+N. rec: 0.918891
+
+dof=3, chisq=1.0
+R code: 0.801252
+N. rec: 0.801252
+
+dof=3, chisq=2.0
+R code: 0.572407
+N. rec: 0.572407
+
+dof=3, chisq=5.0
+R code: 0.171797
+N. rec: 0.171797
+
+dof=3, chisq=6.0
+R code: 0.11161
+N. rec: 0.111610
+
+dof=3, chisq=10.0
+R code: 0.0185661
+N. rec: 0.018566
+
+dof=3, chisq=15.0
+R code: 0.00181665
+N. rec: 0.001817
+
+dof=3, chisq=20.0
+R code: 0.000169742
+N. rec: 0.000170
+
+dof=3, chisq=25.0
+R code: 1.54405e-05
+N. rec: 0.000015
+
+dof=4, chisq=0.1
+R code: 0.998791
+N. rec: 0.998791
+
+dof=4, chisq=0.2
+R code: 0.995321
+N. rec: 0.995321
+
+dof=4, chisq=0.5
+R code: 0.973501
+N. rec: 0.973501
+
+dof=4, chisq=1.0
+R code: 0.909796
+N. rec: 0.909796
+
+dof=4, chisq=2.0
+R code: 0.735759
+N. rec: 0.735759
+
+dof=4, chisq=5.0
+R code: 0.287297
+N. rec: 0.287297
+
+dof=4, chisq=6.0
+R code: 0.199148
+N. rec: 0.199148
+
+dof=4, chisq=10.0
+R code: 0.0404277
+N. rec: 0.040428
+
+dof=4, chisq=15.0
+R code: 0.00470122
+N. rec: 0.004701
+
+dof=4, chisq=20.0
+R code: 0.000499399
+N. rec: 0.000499
+
+dof=4, chisq=25.0
+R code: 5.03098e-05
+N. rec: 0.000050
+
+dof=5, chisq=0.1
+R code: 0.999838
+N. rec: 0.999838
+
+dof=5, chisq=0.2
+R code: 0.999114
+N. rec: 0.999114
+
+dof=5, chisq=0.5
+R code: 0.992123
+N. rec: 0.992123
+
+dof=5, chisq=1.0
+R code: 0.962566
+N. rec: 0.962566
+
+dof=5, chisq=2.0
+R code: 0.849145
+N. rec: 0.849145
+
+dof=5, chisq=5.0
+R code: 0.41588
+N. rec: 0.415880
+
+dof=5, chisq=6.0
+R code: 0.306219
+N. rec: 0.306219
+
+dof=5, chisq=10.0
+R code: 0.0752352
+N. rec: 0.075235
+
+dof=5, chisq=15.0
+R code: 0.0103623
+N. rec: 0.010362
+
+dof=5, chisq=20.0
+R code: 0.00124973
+N. rec: 0.001250
+
+dof=5, chisq=25.0
+R code: 0.000139334
+N. rec: 0.000139
+
