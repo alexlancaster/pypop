@@ -6,7 +6,9 @@
  xmlns:data="any-uri">
 
  <xsl:import href="lib.xsl"/>
-<!-- <xsl:import href="sort-by-locus.xsl"/> -->
+
+ <!-- select "text" as output method -->
+ <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
 
  <data:map-order>
   <locusname order="1">A</locusname>
@@ -20,49 +22,78 @@
   <locusname order="9">DPB1</locusname>
  </data:map-order>
 
+ <data:region-order>
+  <regionname long="Sub-Saharan-Africa">1.Sub-Sah-Africa</regionname>
+  <regionname long="North-African">2.N-Africa</regionname>	  
+  <regionname long="Europe">3.Europe</regionname>	  
+  <regionname long="South-West-Asia">4.SW-Asia</regionname>	  
+  <regionname long="South-East-Asia">5.SE-Asia</regionname>	  
+  <regionname long="Oceania">6.Oceania</regionname>	  
+  <regionname long="North-East-Asia">7.NE-Asia</regionname>	  
+  <regionname long="North-America">8.N-America</regionname>	  
+  <regionname long="South-America">9.S-America</regionname>	  
+  <regionname long="Other">10.Other</regionname>          
+ </data:region-order>
+
  <xsl:param name="map-order" 
   select="document('')//data:map-order/locusname"/>
 
- <xsl:variable name="all-allele-list" select="document('allelelist-by-locus.xml')/allelelist-by-locus"/>
+ <xsl:param name="region-order" 
+  select="document('')//data:region-order/regionname"/>
 
- <!-- select "text" as output method -->
- <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
+ <xsl:variable name="all-allele-list" select="document('allelelist-by-locus.xml', .)/allelelist-by-locus"/>
+
+ <!-- suppress output of random text -->
+ <xsl:template match="text()"/>
 
  <xsl:template name="phylip-lines">
   <xsl:param name="nodes"/>
 
+  <xsl:text>     </xsl:text>
+  <xsl:value-of select="count($nodes)"/>
+  <xsl:text> </xsl:text>
+  <xsl:value-of select="count($all-allele-list/locus[.!=''])"/>
+  <xsl:call-template name="newline"/>
+
+  <xsl:for-each select="$all-allele-list/locus">
+   <xsl:if test="count(allele)!=0">
+    <xsl:value-of select="count(allele)"/>
+    <xsl:text> </xsl:text>
+   </xsl:if>
+  </xsl:for-each>
+
+  <xsl:call-template name="newline"/>
+
   <xsl:for-each select="$nodes">
-   <xsl:variable name="curlocus" select="@name"/>
 
    <xsl:call-template name="append-pad">
     <xsl:with-param name="padVar">
-     <xsl:value-of select="../populationdata/popname"/>
-     </xsl:with-param>
+     <xsl:value-of select="populationdata/popname"/>
+    </xsl:with-param>
     <xsl:with-param name="length" select="9"/>
    </xsl:call-template>
    <xsl:text> </xsl:text>
-
-   <xsl:value-of select="$curlocus"/>
-
-   <xsl:variable name="cur-allele-list" select="allelecounts/allele"/>
    
-   <xsl:for-each select="$all-allele-list/locus[@name=$curlocus]/allele">
-    <xsl:variable name="allelename" select="."/>
-    <xsl:choose>
-     <xsl:when test="$cur-allele-list[@name=$allelename]">
+   <xsl:for-each select="locus">
+    <xsl:variable name="curlocus" select="@name"/>
+    <xsl:variable name="cur-allele-list" select="allelecounts/allele"/>
+    
+    <xsl:for-each select="$all-allele-list/locus[@name=$curlocus]/allele">
+     <xsl:variable name="allelename" select="."/>
+     <xsl:choose>
+      <xsl:when test="$cur-allele-list[@name=$allelename]">
        <xsl:value-of select="normalize-space($cur-allele-list[@name=$allelename]/frequency)"/>
       </xsl:when>
       <xsl:otherwise>0.00000</xsl:otherwise>
      </xsl:choose>
-    <xsl:text> </xsl:text>
+     <xsl:text> </xsl:text>
     </xsl:for-each>
-
+   </xsl:for-each>
    <xsl:call-template name="newline"/>
-    
   </xsl:for-each>
-  
- </xsl:template>
-
+ 
+</xsl:template>
+ 
  <xsl:template name="line-start">
   <xsl:param name="popnode"/>
   
@@ -70,7 +101,8 @@
   <xsl:text>&#09;</xsl:text>
   <xsl:value-of select="translate($popnode/ethnic, ' ', '-')"/>
   <xsl:text>&#09;</xsl:text>
-  <xsl:value-of select="translate($popnode/contin, ' ', '-')"/>
+  <!-- apply short form of regions as defined in lookup table -->
+  <xsl:value-of select="$region-order[@long=translate($popnode/contin, ' ', '-')]"/>
   <xsl:text>&#09;</xsl:text>
  </xsl:template>
 
@@ -337,10 +369,8 @@
     <exsl:document href="phylip.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;k</xsl:text>
-     <xsl:call-template name="newline"/>
      <xsl:call-template name="phylip-lines">
-      <xsl:with-param name="nodes" select="/meta/dataanalysis/locus[1]"/>
+      <xsl:with-param name="nodes" select="/meta/dataanalysis"/>
      </xsl:call-template>
     
     </exsl:document>
@@ -354,16 +384,7 @@
    </xsl:otherwise>
   </xsl:choose>
 
-  <xsl:call-template name="newline"/>
-
  </xsl:template>
-
- 
- <!-- suppress output of random text -->
- <xsl:template match="text()">
-  <!--  <xsl:value-of select="."/>  -->
- </xsl:template>
-
 
 </xsl:stylesheet>
 
