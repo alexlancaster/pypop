@@ -73,8 +73,16 @@ for locus in loci:
   if config.has_section("HardyWeinberg") and \
      len(config.options("HardyWeinberg")) > 0:
     
+    try:
+      lumpBelow =  config.getint("HardyWeinberg", "lumpBelow")
+    except NoOptionError:
+      lumpBelow=5
+    except ValueError:
+      sys.exit("require integer value")
+
     hwObject = HardyWeinberg(input.getLocusDataAt(locus), 
                              input.getAlleleCountAt(locus), 
+                             lumpBelow=lumpBelow,
                              debug=debug)
           
     try:
