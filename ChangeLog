@@ -1,3 +1,22 @@
+2004-09-11  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* NEWS: Update with note on fixes related to monomorphic loci:
+	thanks to Steve Mack and Owen Solberg for the bug report(s).
+
+	* xslt/common.xsl (allelecounts): If locus is
+	monomorphic (checking 'role" attribute on the <allelecounts> XML
+	tag, emit a warning note in the output to alert the user.
+
+	* Main.py (Main._doGenotypeFile): In main loop for each locus,
+	check to see if given locus is monomorphic, if it is: skip the
+	rest of the analysis for that particular locus and emit the
+	closing </locus> XML tag and go to the next locus. Thanks to Steve
+	Mack and Owen Solberg for the bug report(s) on this issue.
+
+	* DataTypes.py (_serializeAlleleCountDataAt): When emitting XML
+	tag for <allelecounts>, add a 'role' attribute set to
+	'monomorphic' if there is only one distinct allele.
+
 2004-09-09  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* RandomBinning.py (RandomBinsForHomozygosity.randomMethod): Added

@@ -53,7 +53,13 @@ def _serializeAlleleCountDataAt(stream, alleleTable,
         stream.emptytag('allelecounts', role='no-data')
         stream.writeln()
     else:
-        stream.opentag('allelecounts')
+        # if monomorphic generate a role to indicate this, but
+        # still generate the summary output
+        if len(alleles) == 1:
+            stream.opentag('allelecounts', role='monomorphic')
+        else:
+            stream.opentag('allelecounts')
+
         stream.writeln()
         stream.tagContents('untypedindividuals', \
                            "%d" % untypedIndividuals)

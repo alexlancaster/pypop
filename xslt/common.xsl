@@ -570,6 +570,12 @@ MODIFICATIONS.
       <!-- that have been done for this particular locus -->
       <xsl:apply-templates select="/dataanalysis/filterlog/translateTable[@locus=$locus and translate]"/>
 
+     <xsl:if test="@role='monomorphic'">
+      <xsl:call-template name="newline"/>
+      <xsl:text>[Locus is monomorphic, so no further analyses performed]</xsl:text>
+      <xsl:call-template name="newline"/>
+     </xsl:if>
+
      </xsl:otherwise>
     </xsl:choose>
    </xsl:with-param>
