@@ -38,8 +38,7 @@ for locus in loci:
 	  print "mean of Fe = ", hzObject.getMean()
 	  print "var of Fe = ", hzObject.getVar()
 	  print "sem of Fe =", hzObject.getSem()
-	  lowerBound, upperBound = hzObject.getPValueRange()
-	  print "%f < pval < %f" % (lowerBound , upperBound)
+	  print "%f < pval < %f" % hzObject.getPValueRange()
   else:
 	  print "Can't generate expected stats"
 
