@@ -1,6 +1,6 @@
 Lab Code	Typing method	Ethnic group	Continent of Origin	Collection site	Latitude	Longitude											
 LANCASTER	11thWorkshopSSOP	FAKE	Gondawanland	Nowhere	30S	31E											
-Population name	Sample identifier	HLA-A	HLA-A(2)
+Population name	Sample identifier	HLA-A_1	HLA-A_2
 FAKE	11W001	a1	a1
 FAKE	11W002	a1	a1
 FAKE	11W003	a1	a1
