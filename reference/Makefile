@@ -56,9 +56,6 @@ tex-math-equations.tex: biostat.xml $(EXTRA_XML_SOURCE)
 eqns: tex-math-equations.dvi
 	dvi2bitmap -fp /var/cache/fonts/pk/ibmvga/public/cm $<
 
-%.txt: %.html
-	lynx -dump -nolist $< > $@
-
 # profiling for 'main' version of document
 %-main-profile.xml: %.xml
 	$(XSLTPROC) --stringparam profile.condition main --xinclude -o $@ profile.xsl $<
@@ -73,11 +70,23 @@ eqns: tex-math-equations.dvi
 
 # rules to produce final version of HTML, FO, PDF etc.
 
+# produces final HTML
 %.html: %.xml html.xsl citation.xsl $(EXTRA_XML_SOURCE) color
 	$(CVSPRE)
 	$(XMLLINT)	
-	$(XSLTPROC) $(XSLCOMMON)  $(XSLHTML) -o $@ html.xsl $<
+	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML) -o $@ html.xsl $<
 	$(CVSPOST)
+
+# produces intermediate HTML suitable for conversion to plain text
+# disable TOC, graphic and unicode callouts
+%-txt.html: %.xml html.xsl citation.xsl $(EXTRA_XML_SOURCE) color
+	$(CVSPRE)
+	$(XMLLINT)	
+	$(XSLTPROC) $(XSLCOMMON) $(XSLHTML)  -o $@ text.xsl $<
+	$(CVSPOST)
+
+%.txt: %-txt.html
+	w3m -dump $< > $@
 
 # don't use profiling-highlighting right now
 #--param profiling-highlighting $(if $(findstring profile,$<),0,1)
