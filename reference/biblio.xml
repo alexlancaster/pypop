@@ -24,7 +24,7 @@
   <edition>Third Edition</edition>
   <publisher>
    <publishername>Sinauer</publishername>
-   <address><city>Sunderland</city></address>
+   <address><city>Sunderland</city> <state>MA</state></address>
   </publisher>
  </biblioentry>
 
@@ -50,8 +50,7 @@
     <surname>Hedrick</surname>
    </author>
    <pubdate>1987</pubdate>
-   <citetitle>Gametic disequilibrium measures:   proceed with
-    caution</citetitle>
+   <citetitle>Gametic disequilibrium measures: proceed with caution</citetitle>
    <volumenum>117</volumenum>
    <issuenum>2</issuenum>
    <pagenums>331-41</pagenums>
@@ -237,7 +236,7 @@
 
 
 
- <biblioentry id="Schneider:2000">
+ <biblioentry id="Schneider:etal:2000">
   <authorgroup>
    <author>
     <firstname>S</firstname>
@@ -510,7 +509,7 @@
  
  <!-- original PSB 2002 list starts here -->
  
- <biblioentry id="Barcellos:1997a">
+ <biblioentry id="Barcellos:etal:1997a">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -557,7 +556,7 @@
  </biblioentry>
 
  
- <biblioentry id="Barcellos:1997b">
+ <biblioentry id="Barcellos:etal:1997b">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -602,7 +601,7 @@
   </biblioset>
  </biblioentry>
  
- <biblioentry id="Baur:1980">
+ <biblioentry id="Baur:Danilovs:1980">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -762,11 +761,11 @@
   
  </biblioentry>
 
- <biblioentry id="Cochron:1954">
+ <biblioentry id="Cochran:1954">
   <biblioset relation="article">
   <author>
    <firstname>W</firstname>
-   <surname>Cochron</surname>
+   <surname>Cochran</surname>
   </author>
   <pubdate>1954</pubdate>
   <citetitle>Some methods for strengthening the common Chi-Squared tests</citetitle>
@@ -1028,7 +1027,7 @@
   <pagenums>259-260</pagenums>
  </biblioentry>
 
- <biblioentry id="Salamon:1999">
+ <biblioentry id="Salamon:etal:1999">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -1070,7 +1069,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Valdes:1999">
+ <biblioentry id="Valdes:etal:1999">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -1134,7 +1133,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Valdes:1997">
+ <biblioentry id="Valdes:Thomson:1997">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -1156,7 +1155,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Hedrick:1983">
+ <biblioentry id="Hedrick:Thomson:1983">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -1382,43 +1381,309 @@
   </biblioset>
  </biblioentry>
 
+ <biblioentry id="Long:etal:1995">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>JC</firstname>
+     <surname>Long</surname>
+    </author>
+    <author>
+     <firstname>RC</firstname>
+     <surname>Williams</surname>
+    </author>
+    <author>
+     <firstname>M</firstname>
+     <surname>Urbanek</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1995</pubdate>
+   <citetitle>An E-M algorithm and testing strategy for multiple-locus haplotypes</citetitle>
+   <volumenum>56</volumenum>
+   <pagenums>799-810</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Am J Hum Genet</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Huttley:etal:1999">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>GA</firstname>
+     <surname>Huttley</surname>
+    </author>
+    <author>
+     <firstname>MW</firstname>
+     <surname>Smith</surname>
+    </author>
+    <author>
+     <firstname>M</firstname>
+     <surname>Carrington</surname>
+    </author>
+    <author>
+     <firstname>SJ</firstname>
+     <surname>O'Brien</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1999</pubdate>
+   <citetitle>A scan for linkage disequilibrium across the human genome</citetitle>
+   <volumenum> 152</volumenum>
+   <pagenums>1711-22</pagenums>
+  </biblioset>
+   <biblioset relation="journal">
+    <citetitle>Genetics</citetitle>
+   </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Reich:etal:2001">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>D.E</firstname>
+     <surname>Reich</surname>
+    </author>
+    <author>
+     <firstname>M</firstname>
+     <surname>Cargill</surname>
+    </author>
+    <author>
+     <firstname>S</firstname>
+     <surname>Bolk</surname>
+    </author>
+    <author>
+     <firstname>J</firstname> 
+     <surname>Ireland</surname>
+    </author>
+    <author>
+     <firstname>P</firstname>
+     <othername>C</othername>
+     <surname>Sabeti</surname>
+    </author>
+    <author>
+     <firstname>D</firstname>
+     <othername>J</othername>
+     <surname>Richter</surname>
+    </author>
+    <author>
+     <firstname>T</firstname>
+     <surname>Lavery</surname>
+    </author>
+    <author>
+     <firstname>R</firstname>
+     <surname>Kouyoumjian</surname>
+    </author>
+    <author>
+     <firstname>S</firstname>
+     <othername>F</othername>
+     <surname>Farhadian</surname>
+    </author>
+    <author>
+     <firstname>R</firstname>
+     <surname>Ward</surname>
+    </author>
+    <author>
+     <firstname>E</firstname>
+     <othername>S</othername>
+     <surname>Lander</surname>
+    </author>
+   </authorgroup>
+   <citetitle>Linkage disequilibrium in the human genome</citetitle>
+   <pubdate>2001</pubdate>
+   <volumenum>411</volumenum>
+   <pagenums>199-204</pagenums>
+  </biblioset>
+ <biblioset relation="journal">
+  <citetitle>Nature</citetitle>
+ </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Hawley:Kidd:1995">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>M</firstname>
+     <surname>Hawley</surname>
+    </author>
+    <author>
+     <firstname>K</firstname>
+     <surname>Kidd</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1995</pubdate>
+   <citetitle>HAPLO: a program using the EM algorithm to estimate the frequencies of multi-site haplotypes</citetitle>
+   <volumenum>86</volumenum>
+   <pagenums>409-411</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Journal of Heredity</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Single:etal:2002">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>R</firstname>
+     <othername>M</othername>
+     <surname>Single</surname>
+    </author>
+    <author>
+     <firstname>D</firstname>
+     <surname>Meyer</surname>
+    </author>
+    <author>
+     <firstname>J</firstname>
+     <othername>A</othername>
+     <surname>Hollenbach</surname>
+    </author>
+    <author>
+     <firstname>M</firstname>
+     <othername>P</othername>
+     <surname>Nelson</surname>
+    </author>
+    <author>
+     <firstname>J</firstname>
+     <othername>A</othername>
+     <surname>Noble</surname>
+    </author>
+    <author>
+     <firstname>H</firstname>
+     <othername>A</othername>
+     <surname>Erich</surname>
+    </author>
+    <author>
+     <firstname>G</firstname>
+     <surname>Thomson</surname>
+    </author>
+   </authorgroup>
+   <pubdate>2002</pubdate>
+   <citetitle>Haplotype frequency estimation in patient populations: the effect of departures from Hardy-Weinberg proportions and collapsing over a locus in the HLA region</citetitle>
+   <volumenum>22</volumenum>
+   <pagenums>186-195</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Genetic Epidemiology</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Schipper:etal:1998">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>RF</firstname>
+     <surname>Schipper</surname>
+    </author>
+    <author>
+     <firstname>J</firstname>
+     <surname>D'Amaro</surname>
+    </author>
+    <author>
+     <firstname>P</firstname>
+     <surname>de Lange</surname>
+    </author>
+    <author>
+     <firstname>GM</firstname>
+     <surname>Schreuder</surname>
+    </author>
+    <author>
+     <firstname>JJ</firstname>
+     <surname>van Rood</surname>
+    </author>
+    <author>
+     <firstname>M</firstname>
+     <surname>Oudshoorn</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1998</pubdate>
+   <citetitle>Validation of haplotype frequency estimation methods</citetitle>
+   <volumenum>59</volumenum>
+   <pagenums>518-523</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Hum Immunol</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Fallin:Schork:2000">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>D</firstname>
+     <surname>Fallin</surname>
+    </author>
+    <author>
+     <firstname>NJ</firstname>
+     <surname>Schork</surname>
+    </author>
+   </authorgroup>
+   <pubdate>2000</pubdate>
+   <citetitle>Accuracy of haplotype frequency estimation for biallelic loci, via the expectation-maximization algorithm for unphased diploid genotype data</citetitle>
+   <volumenum>67</volumenum>
+   <pagenums>947-959</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Am J Hum Genet</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Emigh:1980">
+  <biblioset relation="article">
+  <author>
+   <firstname>T</firstname>
+   <surname>Emigh</surname>
+  </author>
+  <pubdate>1980</pubdate>
+  <citetitle> A comparison of tests for Hardy-Weinberg equilibrium</citetitle>
+  <volumenum>36</volumenum>
+  <pagenums>627-642</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Biometrics</citetitle> 
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Elston:Forthofer:1977">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>R</firstname>
+     <surname>Elston</surname>
+    </author>
+    <author>
+     <firstname>R</firstname>
+     <surname>Forthofer</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1977</pubdate>
+   <citetitle>Testing for Hardy-Weinberg equilibrium in small samples</citetitle>
+   <volumenum>33</volumenum>
+   <pagenums>536-542</pagenums>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>Biometrics</citetitle>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Yates:1934">
+  <biblioset relation="article">
+   <author>
+    <firstname>F</firstname>
+    <surname>Yates</surname>
+   </author>
+   <pubdate>1934</pubdate>
+   <citetitle> Contingency tables involving small numbers and the Chi-square test</citetitle>
+   <volumenum>1</volumenum>
+   <pagenums>217-235</pagenums>
+   <issuenum>(supp)</issuenum>
+  </biblioset>
+  <biblioset relation="journal">
+   <citetitle>J Royal Stat Soc</citetitle> 
+  </biblioset>
+ </biblioentry>
+
 <!--
-<biblioentry id="Elston">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>R</firstname>
-<surname>Elston</surname>
-</author>
-<author>
-<firstname>R</firstname>
-<surname>Forthofer</surname>
-</author>
-<pubdate>1977</pubdate>
- Testing for Hardy-Weinberg equilibrium in small samples. Biometrics 33:536-542.
-</biblioentry>
-
-<para>Emigh T <pubdate>1980</pubdate>
- A comparison of tests for Hardy-Weinberg equilibrium. Biometrics 36:627-642.
-</biblioentry>
-
-
-<biblioentry id="Fallin">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>D</firstname>
-<surname>Fallin</surname>
-</author>
-<author>
-<firstname>NJ</firstname>
-<surname>Schork</surname>
-</author>
-<pubdate>2000</pubdate>
- Accuracy of haplotype frequency estimation for biallelic loci, via the expectation-maximization algorithm for unphased diploid genotype data. Am J Hum Genet 67:947-59.
-</biblioentry>
-
-Guo and Thompson references goes here!
  
 <biblioentry id="Hacia">
 <biblioset relation="article">
@@ -1429,23 +1694,6 @@ Guo and Thompson references goes here!
 Fan J-B, Ryder O., Jin L., Edgemon K, Ghandour G, Mayer RA, Sun B., Hsie L., Robbins CM, Brody LC, Wang D, Lander ES, Lipshutz R, Fodor SPA, Collins FS.  1999. Determination of ancestral alleles for human single-nucleotide polymorphisms using high-density oligonucleotide arrays.  Nature Genetics 22: 164-167.
 </biblioentry>
 
-<para>Hartl, D.L. and A.G. Clark. 1997. Principles of population genetics. 3<superscript>rd</superscript> Edition. Sinauer Associates, Inc. Publishers. Sunderland, MA.
-</biblioentry>
-
-<biblioentry id="Hawley">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>M</firstname>
-<surname>Hawley</surname>
-</author>
-<author>
-<firstname>K</firstname>
-<surname>Kidd</surname>
-</author>
-<pubdate>1995</pubdate>
- HAPLO: a program using the EM algorythm to estimate the frequencies of multi-site haplotypes. Journal of Heredity 86:409-411.
-</biblioentry>
 
 <biblioentry id="Howell">
 <biblioset relation="article">
@@ -1469,29 +1717,6 @@ Fan J-B, Ryder O., Jin L., Edgemon K, Ghandour G, Mayer RA, Sun B., Hsie L., Rob
 1999.  Dynamic allele-specific hybridization.  Nature Biotechnology 17: 87-88.
 </biblioentry>
 
-<biblioentry id="Huttley">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>GA</firstname>
-<surname>Huttley</surname>
-</author>
-<author>
-<firstname>MW</firstname>
-<surname>Smith</surname>
-</author>
-<author>
-<firstname>M</firstname>
-<surname>Carrington</surname>
-</author>
-</author>
-<author>
-<firstname>SJ</firstname>
-<surname>O'Brien</surname>
-</author>
-<pubdate>1999</pubdate>
- A scan for linkage disequilibrium across the human genome. Genetics 152:1711-22.
-</biblioentry>
 
 <biblioentry id="Iyengar">
 <biblioset relation="article">
@@ -1559,25 +1784,6 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
  On a matching problem arising in genetics. Ann Math Stat 20:627-642
 </biblioentry>
 
-<biblioentry id="Long">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>JC</firstname>
-<surname>Long</surname>
-</author>
-<author>
-<firstname>RC</firstname>
-<surname>Williams</surname>
-</author>
-</author>
-<author>
-<firstname>M</firstname>
-<surname>Urbanek</surname>
-</author>
-<pubdate>1995</pubdate>
- An E-M algorithm and testing strategy for multiple-locus haplotypes. Am J Hum Genet 56:799-810.
-</biblioentry>
 
 <biblioentry id="Louis">
 <biblioset relation="article">
@@ -1641,15 +1847,6 @@ Thomson G. 2001. How selection shapes variation of the human major histocompatib
 A.J. Pakstis, J.R. Kidd, J.-F. Lee, S.-J. Yin, H.-C. Ko, H.J. Edenberg, R.-B. Lu, and K.K. Kidd, 1999. Linkage disequilibrium at the ADH2 and ADH3 loci and risk of alcoholism. American Journal of Human Genetics 64:1147-1157.
 </biblioentry>
 
-<biblioentry id="Reich">
-<authorgroup>
-<author>
-<firstname>D.E</firstname>
-<surname>Reich</surname>
-</author>
-M. Cargill, S. Bolk, J. Ireland, P.C. Sabeti, D.J. Richter, T. Lavery, R. Kouyoumjian, S.F. Farhadian, R. Ward, and E.S. Lander. 2001. Linkage disequilibrium in the human genome. Nature 411:199-204.
-</biblioentry>
-
 <biblioentry id="Reynolds">
 <authorgroup>
 <author>
@@ -1659,95 +1856,10 @@ M. Cargill, S. Bolk, J. Ireland, P.C. Sabeti, D.J. Richter, T. Lavery, R. Kouyou
 B.S. Weir, and C.C. Cockerman. 1983. Estimation of the coancestry coefficient: Basis for a short-term genetic distance. Genetics 105-767-779.
 </biblioentry>
 
-<biblioentry id="Schipper">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>RF</firstname>
-<surname>Schipper</surname>
-</author>
-<author>
-<firstname>J</firstname>
-<surname>D'Amaro</surname>
-</author>
-<author>
-<firstname>Lange P</firstname>
-<surname>de</surname>
-</author>
- Schreuder GM, van Rood JJ, Oudshoorn M <pubdate>1998</pubdate>
- Validation of haplotype frequency estimation methods. Hum Immunol 59:518-23.
-</biblioentry>
 
 <para>Schneider <pubdate>2000</pubdate>
  Arlequin: A software for population genetics data analysis.
 </biblioentry>
-
-<biblioentry id="Single">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>R</firstname>
-<surname>Single</surname>
-</author>
-<author>
-<firstname>D</firstname>
-<surname>Meyer</surname>
-</author>
-<author>
-<firstname>J</firstname>
-<surname>Hollenbach</surname>
-</author>
-<author>
-<firstname>M</firstname>
-<surname>Nelson</surname>
-</author>
-<author>
-<firstname>J</firstname>
-<surname>Noble</surname>
-</author>
-<author>
-<firstname>H</firstname>
-<surname>Erich</surname>
-</author>
-</author>
-<author>
-<firstname>G</firstname>
-<surname>Thomson</surname>
-</author>
-<pubdate>2002</pubdate>
- Haplotype Frequency Estimation in Patient Populations: The Effect of Departures from Hardy-Weinberg Proportions and Collapsing over a Locus in the HLA Region. Genetic Epidemiology, In press.
-</biblioentry>
-
-<biblioentry id="Single">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>RM</firstname>
-<surname>Single</surname>
-</author>
-<author>
-<firstname>D</firstname>
-<surname>Meyer</surname>
-</author>
-<author>
-<firstname>J</firstname>
-<surname>Hollenbach</surname>
-</author>
-<author>
-<firstname>M</firstname>
-<surname>Nelson</surname>
-</author>
-<author>
-<firstname>JA</firstname>
-<surname>Noble</surname>
-</author>
-<author>
-<firstname>HA</firstname>
-<surname>Erlich</surname>
-</author>
-Thomson G. 2002. Haplotype frequency estimation in patient populations: an example from the HLA region. Genetic Epidemiology, In press.
-</biblioentry>
-
 
 
 <biblioentry id="Thomson">
@@ -1778,9 +1890,6 @@ Esposito MS. 1999. The genetics of complex diseases. Trends in Genetics 15: M17-
 2001.  Denaturing high-performance liquid chromatography: A review.  Human Mutation 17: 439-474.
 </biblioentry>
 
-<para>Yates F <pubdate>1963</pubdate>
- Contingency tables involving small numbers and the Chi-square test. J Royal Stat Soc (supp) 1:217-235.
-</biblioentry>
 
 <biblioentry id="Zhao">
 <biblioset relation="article">
