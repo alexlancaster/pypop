@@ -470,8 +470,10 @@ class HardyWeinberg:
     else:
       if self.flagNoRareGenotypes == 1:
         stream.emptytag('lumped', role='no-rare-genotypes')
-      if self.flagTooFewExpected == 1:
+      elif self.flagTooFewExpected == 1:
         stream.emptytag('lumped', role='too-few-expected')
+      elif self.flagNoCommonGenotypes == 1:
+        stream.emptytag('lumped', role='no-common-genotypes')
 
     if self.flagCommons == 1:
       stream.opentag('common')
@@ -484,7 +486,7 @@ class HardyWeinberg:
       stream.writeln()
       stream.tagContents("pvalue", "%4f" % self.HWChisqPval)
       stream.writeln()
-      stream.tagContents("chisqdf", "%4f" % self.HWChisqDf)
+      stream.tagContents("chisqdf", "%d" % int(self.HWChisqDf))
       stream.writeln()
       stream.closetag('common')
       stream.writeln()
