@@ -163,8 +163,8 @@ class AnthonyNolanFilter(Filter):
                 if matchobj:
                     name = matchobj.group(1)
                     # CORNER CASE! 'C' locus is called 'Cw' in data files
-                    if name == "Cw":
-                        name = "C"
+#                    if name == "Cw":
+#                        name = "C"
                     allele = matchobj.group(2)
 
                     if self.alleleLookupTable.has_key(name):
@@ -684,8 +684,8 @@ class AnthonyNolanFilter(Filter):
 
         # FIXME: this code is specific to hla data
         # CORNER CASE! 'C' locus is called 'Cw' in data files
-        if locus == 'C':
-            locus = 'Cw'
+#        if locus == 'C':
+#            locus = 'Cw'
 
         # FIXME:  make the file name configurable
         self.filename = locus + self.sequenceFileSuffix + '.msf'
@@ -698,8 +698,8 @@ class AnthonyNolanFilter(Filter):
 
         # FIXME: this code is specific to hla data
         # CORNER CASE! 'C' locus is called 'Cw' in data files
-        if locus == 'C':
-            locus = 'Cw'
+#        if locus == 'C':
+#            locus = 'Cw'
 
         name = locus + self.alleleDesignator + allele
 
@@ -732,11 +732,18 @@ class AnthonyNolanFilter(Filter):
 
     def _getConsensusFromLines(self, locus=None, allele=None):
         
+        # dictionary to store all the good matches we come up with.
+        # this will be used to make the consensus
         closestMatches = {}
-        for potentialMatch in self.alleleLookupTable[locus]:
-            for pos in range(len(potentialMatch)):
-                if allele == potentialMatch[:-pos]:
-                    closestMatches[potentialMatch] = self._getSequenceFromLines(locus, potentialMatch)
+
+        # we split the allele on the slash to deal with ambiguous typing
+        for alleleSplit in allele.split('/'):
+            if len(alleleSplit) == 5 and alleleSplit.isdigit():
+                alleleSplit = alleleSplit[:4] + '0' + alleleSplit[4:5]
+            for potentialMatch in self.alleleLookupTable[locus]:
+                for pos in range(len(potentialMatch)):
+                    if alleleSplit == potentialMatch[:-pos] or alleleSplit == potentialMatch:
+                        closestMatches[potentialMatch] = self._getSequenceFromLines(locus, potentialMatch)
 
         seq = ''
         

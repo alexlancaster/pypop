@@ -1,3 +1,16 @@
+2004-09-16  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Filter.py (AnthonyNolanFilter.__init__): Commenting out C/Cw
+	corner case.  Expect to remove this eventually.
+	(AnthonyNolanFilter._getMSFLinesForLocus): Commenting out C/Cw.
+	(AnthonyNolanFilter._getSequenceFromLines): Commenting out C/Cw.
+	(AnthonyNolanFilter._getConsensusFromLines): Adding logic test to
+	split the allele name (as given) on a slash ('/') and then to use
+	the split strings to find consensus sequence.  This allows
+	reasonable sequence lookup when faced with ambiguous allele names
+	like 0101/0102/0103.  We may want to make the split character
+	configurable.
+
 2004-09-16  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* NEWS: Add notes about new features.
