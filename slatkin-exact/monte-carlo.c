@@ -319,6 +319,7 @@ double theta_est(int k_obs, int n)
   double xlow, xhigh, xmid;
   double eps;
 
+  xmid = 0.0;
   eps = 0.00001;
   xlow = 0.1;
   while (kval(xlow, n) > k_obs)
