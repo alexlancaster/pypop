@@ -1321,19 +1321,20 @@
 
    <para>Consequently, interpretation of D values is dependent on the
     allele frequencies. To avoid this, the normalized gametic
-    disequilibrium D&prime; = D/D<subscript>max</subscript> is often
-    considered, where D<subscript>max</subscript> is equal to either
-    the lesser of p<subscript>A</subscript> p<subscript>b</subscript>
-    or p<subscript>a</subscript> p<subscript>B</subscript> if D is
+    disequilibrium D<superscript>&prime;</superscript> =
+    D/D<subscript>max</subscript> is often considered, where
+    D<subscript>max</subscript> is equal to either the lesser of
+    p<subscript>A</subscript> p<subscript>b</subscript> or
+    p<subscript>a</subscript> p<subscript>B</subscript> if D is
     positive, and the lesser of p<subscript>A</subscript>
     p<subscript>B</subscript> or p<subscript>a</subscript>
     p<subscript>b</subscript> if D is negative (Lewontin, 1964). The
     advantage of this measure over D is that it has a range from -1 to
     +1, regardless of the allele frequencies. Unfortunately, for both
-    D and D&prime; the values are not related to statistical significance
-    and are dependent on allele frequencies. Therefore, several other
-    measures are being used: &delta;, &Delta; = r,
-    r<superscript>2</superscript>,
+    D and D<superscript>&prime;</superscript> the values are not
+    related to statistical significance and are dependent on allele
+    frequencies. Therefore, several other measures are being used:
+    &delta;, &Delta; = r, r<superscript>2</superscript>,
     d<superscript>2</superscript>. These are reviewed by Devlin and
     Risch (1995) except for d<superscript>2</superscript>, used by
     Kruglyak (1999), which is closely related to
@@ -1352,8 +1353,9 @@
     r<superscript>2</superscript> with a range from 0 to +1. An
     example from the HLA region is the association between alleles at
     the A, B and DR loci. The combinations A1-B8 and B8-DR3 have
-    fairly high normalized disequilibrium values (D&prime; = 0.65 and D&prime; =
-    0.73, respectively).</para>
+    fairly high normalized disequilibrium values
+    (D<superscript>&prime;</superscript> = 0.65 and
+    D<superscript>&prime;</superscript> = 0.73, respectively).</para>
 
    <para>There is a relationship between D and the recombination
     fraction c between two loci. (Various symbols are used for the
