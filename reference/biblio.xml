@@ -71,7 +71,7 @@
   
  </biblioentry>
  
- <biblioentry id="Guo:Thompson:1992" xreflabel="Guo \&amp; Thompson 1992">
+ <biblioentry id="Guo:Thompson:1992" xreflabel="Guo &amp; Thompson, 1992">
   <authorgroup>
    <author>
     <firstname>SW</firstname>
@@ -498,7 +498,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Dempster" xreflabel="Dempster">
+ <biblioentry id="Dempster:1977" xreflabel="Dempster et al. 1977">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -557,6 +557,27 @@
     <address><city>New Jersey</city></address>
    </publisher>
   </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Excoffier:Slatkin:1995" xreflabel="Excoffier &amp; Slatkin, 1995">
+  <authorgroup>
+   <author>
+    <firstname>Laurent</firstname>
+    <surname>Excoffier</surname>
+   </author>
+   <author>
+    <firstname>Montgomery</firstname>
+    <surname>Slatkin</surname>
+   </author>
+  </authorgroup>
+  <pubdate>1995</pubdate>
+  <citetitle pubwork="article">Maximum-likelihood estimation of molecular haplotype
+   frequencies in a diploid population</citetitle>
+
+  <citetitle pubwork="journal">Molecular Biology and Evolution</citetitle>
+  <volumenum>12</volumenum>
+  <issuenum>5</issuenum>
+  <pagenums>921-927</pagenums>
  </biblioentry>
 
 <!--
