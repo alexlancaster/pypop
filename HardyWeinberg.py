@@ -15,7 +15,7 @@ class HardyWeinberg:
 
   """
 
-  def __init__(self, locusData, alleleCount, debug=0):
+  def __init__(self, locusData, alleleCount, lumpBelow, debug=0):
     """Constructor.
 
     - locusData and alleleCount to be provided by driver script
@@ -24,11 +24,10 @@ class HardyWeinberg:
     """
 
     self.locusData = locusData
+    self.lumpBelow = lumpBelow
 
-#     we can't use the alleleCount data at the moment
-#     because ParseFile.getAlleleCountAt() returns unclean data
-#     self.alleleCounts = alleleCount[0] #just the dictionary of allelename:count
-#     self.alleleTotal = alleleCount[1]
+    self.alleleCounts = alleleCount[0] #just the dictionary of allelename:count
+    self.alleleTotal = alleleCount[1]
 
     self.debug = debug
 
@@ -64,7 +63,7 @@ class HardyWeinberg:
     """Manipulate the given genotype data to generate
     the tables upon which the calculations will be based."""
 
-    self.alleleCounts = {}
+    # self.alleleCounts = {}
     self.alleleFrequencies = {}
     self.observedGenotypes = []
     self.observedAlleles = []               # need a uniqed list
@@ -72,21 +71,21 @@ class HardyWeinberg:
     self.possibleGenotypes = []
     self.expectedGenotypeCounts = {}
     
-    self.alleleTotal = 0
+    # self.alleleTotal = 0
 
     for genotype in self.locusData:
       """Run through each tuple in the given genotype data and
       create a dictionary of allele counts"""
 
-      self.alleleTotal += 2
-      if self.alleleCounts.has_key(genotype[0]):
-        self.alleleCounts[genotype[0]] += 1
-      else:
-        self.alleleCounts[genotype[0]] = 1
-      if self.alleleCounts.has_key(genotype[1]):
-        self.alleleCounts[genotype[1]] += 1
-      else:
-        self.alleleCounts[genotype[1]] = 1
+      # self.alleleTotal += 2
+      # if self.alleleCounts.has_key(genotype[0]):
+      #   self.alleleCounts[genotype[0]] += 1
+      # else:
+      #   self.alleleCounts[genotype[0]] = 1
+      # if self.alleleCounts.has_key(genotype[1]):
+      #   self.alleleCounts[genotype[1]] += 1
+      # else:
+      #   self.alleleCounts[genotype[1]] = 1
 
       if genotype[0] not in self.observedAlleles:
         self.observedAlleles.append(genotype[0])
@@ -127,9 +126,11 @@ class HardyWeinberg:
 
       temp = string.split(genotype, ':')
       if temp[0] == temp[1]:         # homozygote, N * pi * pi
-        self.expectedGenotypeCounts[genotype] = self.n * self.alleleFrequencies[temp[0]] * self.alleleFrequencies[temp[1]]
+        self.expectedGenotypeCounts[genotype] = self.n * \
+        self.alleleFrequencies[temp[0]] * self.alleleFrequencies[temp[1]]
       else:                          # heterozygote, 2N * pi * pj
-        self.expectedGenotypeCounts[genotype] = 2 * self.n * self.alleleFrequencies[temp[0]] * self.alleleFrequencies[temp[1]]
+        self.expectedGenotypeCounts[genotype] = 2 * self.n * \
+        self.alleleFrequencies[temp[0]] * self.alleleFrequencies[temp[1]]
 
     total = 0
     for value in self.expectedGenotypeCounts.values():
@@ -164,7 +165,7 @@ class HardyWeinberg:
     """Calculate the chi-squareds for the common genotypes.
 
     - create a count of observed and expected lumped together
-    for genotypes with an expected value of less than 5
+    for genotypes with an expected value of less than lumpBelow
 
     - Open a pipe to get the p-value from the system
     using the pval program (should be replaced later)"""
@@ -181,7 +182,7 @@ class HardyWeinberg:
 
     #--mpn--
     for genotype in self.expectedGenotypeCounts.keys():
-      if self.expectedGenotypeCounts[genotype] > 4.99:
+      if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
         if self.debug:
           print 'Expected:'
           print genotype, self.expectedGenotypeCounts[genotype]
@@ -217,7 +218,7 @@ class HardyWeinberg:
           print genotype, ':', self.chisqPval[genotype]
 
       else:
-        """Expected genotype count for this genotype is less than 5"""
+        """Expected genotype count for this genotype is less than lumpBelow"""
 
         # do not append this genotype to the printExpected list
         self.rareGenotypeCounter += 1
