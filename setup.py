@@ -1,11 +1,76 @@
 #!/usr/bin/env python
+
+# This file is part of PyPop
+
+# Copyright (C) 2003. The Regents of the University of California (Regents)
+# All Rights Reserved.
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+
+# IN NO EVENT SHALL REGENTS BE LIABLE TO ANY PARTY FOR DIRECT,
+# INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING
+# LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS
+# DOCUMENTATION, EVEN IF REGENTS HAS BEEN ADVISED OF THE POSSIBILITY
+# OF SUCH DAMAGE.
+
+# REGENTS SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+# FOR A PARTICULAR PURPOSE. THE SOFTWARE AND ACCOMPANYING
+# DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
+# IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
+# UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
 from distutils.core import setup, Extension
 from distutils.file_util import copy_file
 
 import sys, os, string
 
 from distutils.command.build_ext import build_ext
+from distutils.command.sdist import sdist
+from distutils.core import Command
 
+class my_sdist(sdist):
+
+    def copy_file(self, file, dest, link=None):
+
+        print "copying file", file, "to", dest #, link
+
+
+        Command.copy_file(self, file, dest, link=link)
+
+        basename = os.path.basename(file)
+        print basename
+        list = file.split('.')
+        if len(list) == 0:
+            print "can't guess type"
+
+        f = open(dest, '
+        elif len(list) == 2:
+            prefix, suffix = tuple(list)
+            if suffix == 'py':
+                print "Python code"
+            elif suffix == 'c':
+                print "C code"
+            elif suffix == 'xsl':
+                print "XSL code"
+            else:
+                print "Suffix is:", suffix
+
+        
+        
 # override implementation of swig_sources method in standard build_ext
 # class, so we can change the way SWIG is called by Python's default
 # configuration of distutils
@@ -81,7 +146,7 @@ if sys.argv[1] == 'sdist':
     if os.path.isdir("CVS"):
         # if yes, generate a "ChangeLog"
         print "creating ChangeLog from CVS entries"
-        os.system("rcs2log -u \"single:Richard Single:single@allele5.biol.berkeley.edu\" -u \"mpn:Mark Nelson:mpn@alleleb.biol.berkeley.edu\" -u \"alex:Alex Lancaster:alexl@socrates.berkeley.edu\" -u \"diogo:Diogo Meyer:diogo@allele5.biol.berkeley.edu\" > ChangeLog")
+        #os.system("rcs2log -u \"single:Richard Single:single@allele5.biol.berkeley.edu\" -u \"mpn:Mark Nelson:mpn@alleleb.biol.berkeley.edu\" -u \"alex:Alex Lancaster:alexl@socrates.berkeley.edu\" -u \"diogo:Diogo Meyer:diogo@allele5.biol.berkeley.edu\" > ChangeLog")
         if os.path.isfile('VERSION') == 0:
             sys.exit("before distributing, please create a VERSION file!")
 
@@ -133,7 +198,7 @@ setup (name = "PyPop",
 
 # compile SWIG module
 
-       cmdclass = {'build_ext': my_build_ext,},
+       cmdclass = {'build_ext': my_build_ext,'sdist': my_sdist,},
        
        ext_modules=[Extension("_Emhaplofreqmodule",
                               ["emhaplofreq/emhaplofreq_wrap.i",
