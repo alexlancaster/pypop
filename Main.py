@@ -356,7 +356,7 @@ class Main:
                     # get filtering options and open log file for
                     # filter in append mode
                     self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogPath, 'w'))
-                    self.filterLogFile.opentag('filterlog', filename=self.defaultFilterLogPath)
+                    self.filterLogFile.opentag('filterlog', filename=self.fileName)
                     self.filterLogFile.writeln()
                     self.filteringFlag = 1
 
@@ -494,7 +494,7 @@ class Main:
 
             if filterType == 'AnthonyNolan':
                 try:
-                    anthonynolanPath = self.config.get(filterCall, "path")
+                    anthonynolanPath = self.config.get(filterCall, "directory")
                 except:
                     anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
                     if self.debug:
@@ -526,17 +526,14 @@ class Main:
 
             elif filterType == 'CustomBinning':
                 try:
-                    binningPath=self.config.get(filterCall, "path")
+                    binningPath=self.config.get(filterCall, "file")
                 except:
-                    binningPath=os.path.join(self.datapath, "filters", "binning")
-                    if self.debug:
-                        print "LOG: Defaulting to system datapath %s for binningPath data" % binningPath
+                    sys.exit("Could not find the CustomBinning filter file: " + binningPathspecified)
                 filter = BinningFilter(debug=self.debug,
-                                       directoryName=binningPath,
+                                       binningPath=binningPath,
                                        untypedAllele=self.untypedAllele,
                                        filename=self.fileName,
-                                       logFile=self.filterLogFile,
-                                       binningPath=binningPath)
+                                       logFile=self.filterLogFile)
                 self.matrixHistory.append(filter.doCustomBinning((self.matrixHistory[-1]).copy()))
 
             elif filterType == 'Sequence':
@@ -545,7 +542,7 @@ class Main:
                 except:
                     sequenceFileSuffix='_prot'
                 try:
-                    anthonynolanPath = self.config.get(filterCall, "path")
+                    anthonynolanPath = self.config.get(filterCall, "directory")
                 except:
                     anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
                     if self.debug:
@@ -822,7 +819,7 @@ class Main:
                         except:
                             sequenceFileSuffix='_nuc'
                         try:
-                            anthonynolanPath = self.config.get("Sequence", "path")
+                            anthonynolanPath = self.config.get("Sequence", "directory")
                         except:
                             anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
                             if self.debug:
