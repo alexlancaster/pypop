@@ -24,7 +24,7 @@ current directory or in %s.
 from ParseFile import ParseGenotypeFile
 from Arlequin import ArlequinWrapper
 from Haplo import Emhaplofreq, HaploArlequin
-from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson
+from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin
 from Homozygosity import Homozygosity
 from ConfigParser import ConfigParser, NoOptionError
 from Utils import XMLOutputStream, TextOutputStream
@@ -313,6 +313,26 @@ for locus in loci:
     
     hwObject.dumpTable(locus, xmlStream)
     xmlStream.writeln()
+
+  if config.has_section("HardyWeinbergGuoThompsonArlequin"):
+
+    # default location for Arlequin executable
+    arlequinExec = 'arlecore.exe'
+        
+    if config.has_section("Arlequin"):
+
+      try:
+        arlequinExec = config.get("Arlequin", "arlequinExec")
+      except NoOptionError:
+        print "Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
+
+
+    hwArlequin=HardyWeinbergGuoThompsonArlequin(input.getIndividualsData(),
+                                                locusName = locus,
+                                                arlequinExec = arlequinExec,
+                                                debug=debug)
+    hwArlequin.serializeTo(xmlStream)
+    
     
   # Parse "Homozygosity" section
 	
@@ -441,7 +461,7 @@ if config.has_section("Arlequin"):
   arlequin.outputRunFiles()
   arlequin.runArlequin()
   print arlequin.getHWExactTest()
-  #arlequin.cleanup()
+  arlequin.cleanup()
   
 ##   haploArlequin = HaploArlequin('arl_run.arp',
 ##                                 0,
