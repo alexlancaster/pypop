@@ -411,7 +411,14 @@ dqa1  count
    <firstterm>options</firstterm> (which are lines specifying settings
    relevant to that section in the
    <literal><option>option</option>=<replaceable>value</replaceable></literal> 
-   format.</para>
+   format).</para>
+
+  <note>
+   <para>If any option runs over one line (such as
+    <literal>validSampleFields</literal>) then the second and
+    subsequent lines must be indented by exactly <emphasis
+     role="strong">one space</emphasis>.</para>
+  </note>
 
   <section id="config-minimal">
    <title>A minimal configuration file</title>
@@ -524,27 +531,63 @@ allPairwiseLDWithPermu=0
      </listitem>
      
      <listitem>
-      <formalpara id="validSampleFields">
+       <formalpara id="validSampleFields">
 	<title><literal>validSampleFields</literal></title>
        
 	<para>This option should contain the names of the loci
 	 immediately preceding your genotype data  (if it has three
 	 header lines, this information will be on the third line,
-	 otherwise it will be the first line of the file). The names
-	 of all your loci, preceded by the character designated in the
-	 <literal>alleleDesignator</literal> option above, must be
-	 present in the block that begins with this line. <emphasis
+	 otherwise it will be the first line of the file).<emphasis
 	  role="bold">[There is no default, this option must always be
-	  present]</emphasis>  Here is an example,</para>
-      </formalpara>
+	  present]</emphasis></para>
+       </formalpara>
+       
+       <para>The format is as follows, for each sample field (which
+	may either be an identifying field for the sample such as
+	<literal>populat</literal>, or contain allele data) create a
+	new line where:
+	
+	<itemizedlist>
+	 <listitem>
+	  <para>The first line (<literal>validSampleFields=</literal>)
+	   consists of the name of your sample field (if it contains
+	   allele data, the name of the field should be preceded by
+	   the character designated in the
+	   <literal>alleleDesignator</literal> option above).</para>
+	 </listitem>
+	 <listitem>
+	  <para>All subsequent lines after the first
+	   <emphasis>must</emphasis> be preceded by <emphasis>one
+	    space</emphasis>  (again if it contains allele data, the
+	   name of the field should be preceded by the character
+	   designated in the <literal>alleleDesignator</literal>
+	   option above). 
+	  </para>
+	 </listitem>
+	 </itemizedlist>
+	</para>
+
+       <para>Here is an example:</para>
       
-      <programlisting>validSampleFields=*a_1
+       <programlisting>validSampleFields=*a_1
  *a_2
  *c_1
  *c_2
  *b_1
- *b_2
-</programlisting>
+ *b_2    <lineannotation>Note initial space at start of line.</lineannotation></programlisting>
+
+       <para>Here is example that includes identifying (non-allele
+	data) information such as sample id (<literal>id</literal>)
+	and population name (<literal>populat</literal>):</para>
+
+       <programlisting>validSampleFields=populat
+ id
+ *a_1
+ *a_2
+ *c_1
+ *c_2
+ *b_1
+ *b_2</programlisting>
 
      </listitem>
     </itemizedlist>
