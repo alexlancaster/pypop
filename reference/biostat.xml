@@ -45,8 +45,8 @@
   <xi:include href="pypop.xml#xpointer(/article/section)"/>  
  </chapter>
 
- <!-- get <appendix> from pypop.xml -->
- <xi:include href="pypop.xml#xpointer(/article/appendix)"/> 
+ <!-- XInclude appendix -->
+ <xi:include href="pypop-appendices.xml"/> 
 
  <xi:include href="glossary.xml"/>
  <xi:include href="biblio.xml"/>
