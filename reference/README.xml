@@ -381,9 +381,10 @@ dqa1  count
  <section id="guide-usage-configfile">
   <title>The configuration file</title>
   
-  <para>The way your population data file is parsed by
-   <application>PyPop</application> is controlled by a configuration
-   file, the default name for which is
+  <para>The sets of population genetic analyses that are run on your
+   population data file and the manner in which the data file is
+   interpreted by <application>PyPop</application>  is controlled by a
+   configuration file, the default name for which is
    <filename>config.ini</filename>. This is another plain text file
    consisting of <firstterm>comments</firstterm> (which are lines that
    start with a semi-colon), <firstterm>sections</firstterm> (which
@@ -453,32 +454,39 @@ allPairwiseLDWithPermu=0></programlisting>
       <title><literal>debug=0</literal></title>
        <para>This setting is for debugging.  Setting it to 1 will set
 	 off a large amount of output of no interest to the general
-	 user.  It should not be used except if you are running into
-	 trouble and need to communicate with the developers about
-	 what is wrong.</para>
+	 user.  It should not be used unless if you are running into
+	 trouble and need to communicate with the
+	 <application>PyPop</application> developers about the
+	 problems.</para>
       </formalpara>
      </listitem>
     </itemizedlist>
    </callout>
    <callout arearefs="parsegenotype">
 
-     <para role="strong"><literal>[ParseGenotypeFile]</literal> and <literal>[ParseAlleleCountFile]</literal></para>
-     
-     <para>If your data is genotype data, you will want a section
-      labeled thus:  <literal>[ParseGenotypeFile]</literal>, for
-      allele count data it will be
-      <literal>[ParseAlleleCountFile]</literal>.</para>
+     <para role="strong">Specifying data formats</para>
+
+     <para>There are two possible formats:
+      <literal>[ParseGenotypeFile]</literal> and
+      <literal>[ParseAlleleCountFile]</literal></para>
+
+     <formalpara>
+      <title><literal>[ParseGenotypeFile]</literal></title>
+      <para>If your data is genotype data, you will want a section
+       labeled:  <literal>[ParseGenotypeFile]</literal>.</para>
+     </formalpara>
 
     <itemizedlist>
      <listitem>
       <formalpara>
        <title><literal>alleleDesignator</literal></title>
-       <para>This option is used to help
+       <para>This option is used to tell
 	 <application>PyPop</application> figure out what is allele
 	 data and what isn't. You  must use this symbol in <link
 	  linkend="validSampleFields"><literal>validSampleFields</literal> 
-	 </link> option.  The default is <literal>*</literal>, in
-	 general you won't need to change it.  <emphasis role="bold">[Default:
+	 </link> option.  The default is <literal>*</literal>.  In
+	 general, you won't need to change it.  <emphasis
+	  role="bold">[Default:
 	  <literal>*</literal>]</emphasis></para>
       </formalpara>
      </listitem>
@@ -501,12 +509,12 @@ allPairwiseLDWithPermu=0></programlisting>
        
 	<para>This option should contain the names of the loci
 	 immediately preceding your genotype data  (if it has three
-	 header lines, this will be the third line, otherwise it will
-	 be the first line of the file). The names of all your loci,
-	 preceded by the character designated in the
+	 header lines, this information will be on the third line,
+	 otherwise it will be the first line of the file). The names
+	 of all your loci, preceded by the character designated in the
 	 <literal>alleleDesignator</literal> option above, must be
-	 present in the block that begins with this line.
-	 <emphasis role="bold">[There is no default, this option must always be
+	 present in the block that begins with this line. <emphasis
+	  role="bold">[There is no default, this option must always be
 	  present]</emphasis>  Here is an example,</para>
       </formalpara>
       
@@ -526,9 +534,12 @@ allPairwiseLDWithPermu=0></programlisting>
 
       <para>If your data is not genotype data, but rather, data of the
        allele-name  count format, then you will want to use the
-       <literal>[ParseAlleleCountFile]</literal> section INSTEAD of the
-       <literal>[ParseGenotypeFile]</literal> section.  Many of the
-       settings here are identical.</para>
+       <literal>[ParseAlleleCountFile]</literal> section INSTEAD of
+       the <literal>[ParseGenotypeFile]</literal> section.  The
+       <literal>alleleDesignator</literal> and
+       <literal>untypedAllele</literal> options work identically to
+       that described for
+       <literal>[ParseGenotypeFile]</literal>.</para>
     </formalpara>
 
     <itemizedlist>
@@ -537,10 +548,10 @@ allPairwiseLDWithPermu=0></programlisting>
        <title><literal>validSampleFields=</literal></title>
 
        <para>This option should contain a colon-separated list of the
-	loci that may be in each of the data files you intend to
-	analyze, so that you don't have to change the ini file when
-	running over a batch of data files containing different loci.
-	e.g.,</para>
+	 loci that will be in the data files you intend to analyze, so
+	 that you don't have to change the <filename>.ini</filename>
+	 file when running over a collection of data files containing
+	 different loci. e.g.,</para>
       </formalpara>
 
    <programlisting>validSampleFields=A:B:C:DQA1:DQB1:DRB1:DPB1:DPA1
@@ -554,7 +565,7 @@ allPairwiseLDWithPermu=0></programlisting>
 
      <para role="strong"><literal>[HardyWeinberg]</literal></para>
 
-      <para>Hardy-Weinberg analysis is switched on by the presence of
+      <para>Hardy-Weinberg analysis is enabled by the presence of
        this section.</para>
       
       <itemizedlist>
@@ -563,10 +574,11 @@ allPairwiseLDWithPermu=0></programlisting>
 	 <title><literal>lumpBelow</literal></title>
 	 
 	 <para>This option value represents a cut-off value.  Alleles
-	  with an expected value equal to or less than this will be
-	  lumped together into a single category for the purpose of
-	  calculating the degrees of freedom and overall p-value for the
-	  chi-squared Hardy-Weinberg test.</para>
+	 with an expected value equal to or less than
+	 <literal>lumpBelow</literal> will be lumped together into a
+	 single category for the purpose of calculating the degrees of
+	 freedom and overall <varname>p</varname>-value for the
+	 chi-squared Hardy-Weinberg test.</para>
 	</formalpara>
        </listitem>
       </itemizedlist>
@@ -578,9 +590,9 @@ allPairwiseLDWithPermu=0></programlisting>
     <para role="strong">
       <literal>[HomozygosityEWSlatkinExact]</literal></para>
      
-     <para>This section enables Slatkin's <citation
+     <para>The presence of this section enables Slatkin's <citation
        role="citeyearpar">Slatkin:1994</citation> implementation of the
-      Ewens-Watterson exact test of neutrality to be run.
+      Ewens-Watterson exact test of neutrality.
      </para>
 
     <itemizedlist>
@@ -588,11 +600,12 @@ allPairwiseLDWithPermu=0></programlisting>
       <formalpara>
        <title><literal>numReplicates</literal></title>
 
-       <para>These values have proved to be optimal for us.  There is
-	no reason to change them unless you are particularly curious.
-	If you have a problem when you change them you
-	<emphasis role="bold">must</emphasis> also let us know
-	<emphasis role="bold">that</emphasis> you've changed them.</para>
+       <para>These values, provided as defaults, have proved to be
+	 optimal for us.  There is no reason to change them unless you
+	 are particularly curious. If you have a problem when you
+	 change them you <emphasis role="bold">must</emphasis> also
+	 let us know <emphasis role="bold">that</emphasis> you've
+	 changed them.</para>
       </formalpara>
      </listitem>
     </itemizedlist>
@@ -602,8 +615,8 @@ allPairwiseLDWithPermu=0></programlisting>
 
      <para role="strong"><literal>[Emhaplofreq]</literal></para>
 
-     <para>This section enables haplotype estimation and calculation
-      of linkage disequilibrium (LD) measures.</para>
+     <para>The presence of this section enables haplotype estimation
+      and calculation of linkage disequilibrium (LD) measures.</para>
 
 
     <itemizedlist>
@@ -611,10 +624,10 @@ allPairwiseLDWithPermu=0></programlisting>
       <formalpara>
        <title><literal>lociToEstHaplo</literal></title>
 
-       <para>In this option you may list the multi-locus haplotypes
-	you wish the program to estimate and to calculate the LD for.
-	It should be a comma-separated list of colon-joined loci.
-	e.g.,</para>
+       <para>In this option you can list the multi-locus haplotypes
+	 for which you wish the program to estimate and to calculate
+	 the LD. It should be a comma-separated list of colon-joined
+	 loci. e.g.,</para>
       </formalpara>
       <programlisting>lociToEstHaplo=a:b:drb1,a:b:c,drb1:dqa1:dpb1,drb1:dqb1:dpb1</programlisting>
      </listitem>
@@ -623,13 +636,13 @@ allPairwiseLDWithPermu=0></programlisting>
       <formalpara>
        <title><literal>allPairwiseLD</literal></title>
 
-       <para>Set this to <literal>0</literal> (zero) of you do not
-	want the program to calculate all pairwise LD for your
-	data, otherwise set this to <literal>1</literal>.</para>
+       <para>Set this to <literal>1</literal> (one) if you want the
+	 program to calculate all pairwise LD for your data, otherwise
+	 set this to <literal>0</literal> (zero).</para>
       </formalpara>
      </listitem>
 
-     <listitem>
+      <listitem>
       <formalpara>
        <title><literal>allPairwiseLDWithPermu=0</literal></title>
    
@@ -637,7 +650,7 @@ allPairwiseLDWithPermu=0></programlisting>
 	determine the significance of the pairwise LD measures in the
 	previous section.  (Note this is done via permutation testing
 	performed after the pairwise LD test for all pairs of loci.
-	Note also that this test can take DAYS is your data is at all
+	Note also that this test can take DAYS if your data is at all
 	polymorphic.)</para>
       </formalpara>
      </listitem>
@@ -649,13 +662,12 @@ allPairwiseLDWithPermu=0></programlisting>
   <section id="config-advanced">
    <title>Advanced options</title>
 
-   <para>The following describes additional options to previously
-    described sections,   Most
-    of the time these options can be omitted and
-    <application>PyPop</application> will choose sensible defaults,
-    however they do offer greater control over the application.  In
-    particular, customization will be required for data that has sample
-    identifiers as in <xref
+   <para>The following section describes additional options to
+    previously described sections.   Most of the time these options
+    can be omitted and <application>PyPop</application> will choose
+    defaults, however these advanced options do offer greater control
+    over the application. In particular, customization will be
+    required for data that has sample identifiers as in <xref
      linkend="data-minimal-noheader"/> or header data block as in
     <xref
      linkend="data-hla"/> and both
@@ -664,7 +676,7 @@ allPairwiseLDWithPermu=0></programlisting>
     be modified.
    </para>
 
-   <para>It also describes  two extra sections related to using
+   <para>It also describes two extra sections related to using
     <application>PyPop</application> in conjunction with
     <application>Arlequin</application>: <literal>[Arlequin]</literal>
     and <literal>[HardyWeinbergGuoThompsonArlequin]</literal>.</para>
@@ -703,10 +715,11 @@ allPairwiseLDWithPermu=0></programlisting>
      </formalpara>
      
      <para>If you set the value to <literal>date</literal> instead of
-      filename, you'll get the date incorporated in the filename thus:
+      filename, you'll get the date incorporated in the filename as
+      follows:
       <filename><replaceable>original-filename-minus-suffix</replaceable>-YYYY-nn-dd-HH-MM-SS-out.{xml,txt}</filename>. 
       e.g.,
-      <filename>Zulu-one-2001-09-21-01-29-35-out.xml</filename></para>
+      <filename>USAFEL-UchiTelle-2003-09-21-01-29-35-out.xml</filename></para>
     </listitem>
     
     <listitem>
@@ -732,7 +745,8 @@ allPairwiseLDWithPermu=0></programlisting>
       <para>This option is <emphasis>only</emphasis> useful for HLA
        data, and can be set to <literal>1</literal> (one) if you want
        your data filtered through The Anthony Nolan database of known
-       HLA allele names before processing.</para>
+       HLA allele names <!-- which version of the WHO nomenclature
+       release? --> before processing.</para>
      </formalpara>
 
      <para>Assuming your data is not absolutely in agreement with all
@@ -753,7 +767,7 @@ allPairwiseLDWithPermu=0></programlisting>
        If you want to use something other than
        <literal>_1</literal> and <literal>_2</literal>, change this
        option, for instance, to use letters and parentheses, change it
-       like this: <literal>fieldPairDesignator=(a):(b)</literal>
+       as follows: <literal>fieldPairDesignator=(a):(b)</literal>
        <emphasis role="bold">[Default: <literal>_1:_2</literal>]</emphasis></para>
      </formalpara>
     </listitem>
@@ -762,10 +776,10 @@ allPairwiseLDWithPermu=0></programlisting>
      <formalpara>
       <title><literal>popNameDesignator</literal></title>
       
-      <para>Since our later analyses require a unique name for each
-       population, there is a special designator to mark this field,
-       which is usually the first field in the data block.
-       <emphasis role="bold">[Default: <literal>+</literal>]</emphasis></para>
+      <para>There is a special designator to mark the population name
+       field, which is usually the first field in the data block.
+       <emphasis role="bold">[Default:
+	<literal>+</literal>]</emphasis></para>
      </formalpara>
      
      <para>If you are analyzing data that contains a population
@@ -785,15 +799,15 @@ allPairwiseLDWithPermu=0></programlisting>
       <title><literal>validPopFields</literal></title>
       
       <para>If you are analyzing data with an initial two line
-       population data block information like <xref
+       population  header block information as in <xref
 	linkend="data-hla"/>, then you will need to set this option.
        It should contain the field names in the first line of the
        three lines of header information of your file, if it has
-       these.   <emphasis role="bold">[Default: required when population
-	data-block in data file]</emphasis>, e.g.:</para>
+       these.   <emphasis role="bold">[Default: required when
+	population data-block in data file]</emphasis>, e.g.:</para>
 	</formalpara>
 
-<programlisting>validPopFields=populat
+<programlisting>validPopFields=labcode
  method
  ethnic
  country
@@ -810,8 +824,8 @@ allPairwiseLDWithPermu=0></programlisting>
    <para>This section sets characteristics of the
     <application>Arlequin</application> application if it has been
     installed (it must be installed separately from
-    <application>PyPop</application> as we cannot distribute it).
-    Options in the section are only used when a test requiring
+    <application>PyPop</application> as we cannot distribute it). The
+    options in this section are only used when a test requiring
     <application>Arlequin</application>, such as it's implementation
     of Guo and Thompson's <citation
      role="citeyearpar">Guo:Thompson:1992</citation> Hardy-Weinberg
@@ -835,14 +849,14 @@ allPairwiseLDWithPermu=0></programlisting>
     extra section</bridgehead>
      
     <para>When this section is present, Arlequin's implementation of
-    the Hardy-Weinberg exact test is run, which uses a Monte-Carlo
-    Markov Chain implementation.  By default this is not enabled. The
-    default options are: <literal>markovChainStepsHW=2500000</literal>
+    the Hardy-Weinberg exact test is run, using a Monte-Carlo Markov
+    Chain implementation.  By default this is not enabled. The default
+    options are: <literal>markovChainStepsHW=2500000</literal>
     <literal>markovChainDememorisationStepsHW=5000</literal> These
     values have proved to be optimal for us.  Don't bother changing
     them unless you are particularly curious.  If you change the
-    values and have problems, please let us know
-    <emphasis role="bold">that</emphasis>  you have changed them.</para>
+    values and have problems, please let us  <emphasis
+     role="bold">know</emphasis> that you have changed them.</para>
 
   </section>
 
