@@ -318,12 +318,17 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         li.extend(self.alleleData.values())
         li.append(0)
 
+        if self.debug:
+          print 'args to slatkin exact test:' , li, self.numAlleles, self.sampleCount, self.numReplicates
+
         self.EW.main_proc(li, self.numAlleles, \
                           self.sampleCount, self.numReplicates)
 
     def serializeHomozygosityTo(self, stream):
-    
-      if self.sampleCount > 0:
+
+      if self.getObservedHomozygosity() >= 1.0:
+        stream.emptytag('homozygosityEWSlatkinExact', role='monomorphic')
+      elif self.sampleCount > 0:
       
         stream.opentag('homozygosityEWSlatkinExact')
         stream.writeln()
@@ -348,10 +353,15 @@ class HomozygosityEWSlatkinExact(Homozygosity):
 
         # calculate normalized deviate of homozygosity (F_nd)
         sqrtVar = math.sqrt(self.EW.get_var_homozygosity())
-        normDevHomozygosity = (self.getObservedHomozygosity() - \
+
+        try:
+          normDevHomozygosity = (self.getObservedHomozygosity() - \
                                 self.EW.get_mean_homozygosity()) / sqrtVar
-        
-        stream.tagContents('normDevHomozygosity', "%.4f" % normDevHomozygosity)
+          normDevStr =  "%.4f" % normDevHomozygosity
+        except:
+          normDevStr = '****'
+        stream.tagContents('normDevHomozygosity', normDevStr)
+          
         stream.writeln()
 
         stream.closetag('homozygosityEWSlatkinExact')
