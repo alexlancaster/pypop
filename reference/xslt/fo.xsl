@@ -7,6 +7,7 @@
 
  <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/fo/docbook.xsl"/>
 
+ <xsl:import href="common.xsl"/>
  <xsl:import href="citation.xsl"/>
  <xsl:import href="biblio.xsl"/> 
  <xsl:import href="pagesetup.xsl"/>
