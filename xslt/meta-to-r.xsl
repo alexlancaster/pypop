@@ -250,6 +250,18 @@
      <xsl:value-of select="linkagediseq/summary/q/chisq"/>
      <xsl:text>&#09;</xsl:text>
      <xsl:value-of select="linkagediseq/summary/q/dof"/>
+     <xsl:text>&#09;</xsl:text>     
+
+     <xsl:choose>
+      <xsl:when test="permutationSummary">
+       <xsl:value-of select="permutationSummary/pvalue"/>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:value-of select="permutationSummary/lr"/>
+      </xsl:when>
+      <xsl:otherwise>
+       <xsl:text>****&#09;****</xsl:text>
+      </xsl:otherwise>
+     </xsl:choose>
      <xsl:call-template name="newline"/>
      
     </xsl:when>
@@ -358,7 +370,7 @@
     <exsl:document href="2-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:text>pop&#09;ethnic&#09;region&#09;n.haplo&#09;locus1&#09;locus2&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df</xsl:text>
+     <xsl:text>pop&#09;ethnic&#09;region&#09;n.haplo&#09;locus1&#09;locus2&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
