@@ -8,7 +8,7 @@
 
 import sys, os, string, types
 
-from Utils import getStreamType
+from Utils import getStreamType, StringMatrix
 
 class ParseFile:
     """*Abstract* class for parsing a datafile.
@@ -361,11 +361,12 @@ class ParseGenotypeFile(ParseFile):
         self.freqcount = {}
         self.locusTable = {}
 
-        # create an empty-list of lists to store all the row data
-        self.individualsList = [[] for line in range(0, self.totalIndivCount)]
-
         # freeze the list of locusKeys in a particular order
         self.locusKeys = self.alleleMap.keys()
+
+        # create an empty-list of lists to store all the row data
+        #self.individualsList = [[] for line in range(0, self.totalIndivCount)]
+        self.matrix = StringMatrix(self.totalIndivCount, self.locusKeys)
         
         for locus in self.locusKeys:
 	    if self.debug:
@@ -390,12 +391,17 @@ class ParseGenotypeFile(ParseFile):
                 allele1 = fields[col1]
                 allele2 = fields[col2]
 
-                if self.debug:
-                    print rowCount, self.individualsList[rowCount]
-
+                    
                 # extend the list by the allele pair
-                self.individualsList[rowCount].extend([allele1 + ':',
-                                                       allele2 + ':'])
+                #self.individualsList[rowCount].extend([allele1 + ':',
+                #                                       allele2 + ':'])
+
+                # underlying NumPy array data type won't allow storage
+                # of any sequence-type object (e.g. list or tuple)
+                self.matrix[rowCount,locus] = allele1 + ':'+ allele2
+
+                if self.debug:
+                    print rowCount, self.matrix[rowCount,locus]
 
                 # increment row count
                 rowCount += 1
@@ -430,7 +436,8 @@ class ParseGenotypeFile(ParseFile):
                     print col1, col2, allele1, allele2, total
                     
             self.freqcount[locus] = alleleTable, total, untypedIndividuals
-            self.individualsData = self.individualsList, self.locusKeys
+            #self.individualsData = self.individualsList, self.locusKeys
+            
 
     def genValidKey(self, field, fieldList):
         """Check and validate key.
@@ -660,15 +667,10 @@ class ParseGenotypeFile(ParseFile):
     def getIndividualsData(self):
         """Returns the individual data.
 
-        Returns a 2-tuple consisting of:
-
-        - a list of individuals (the original `rows' of data in the
-          input file) each of which consists of an ordered list of
-          allele strings.
-
-        - an ordered list of keys (the locus names)
+        Returns a 'StringMatrix'.
         """
-        return self.individualsData
+        #return self.individualsData
+        return self.matrix
 
 class ParseAlleleCountFile(ParseFile):
     """Class to parse datafile in allele count form.
