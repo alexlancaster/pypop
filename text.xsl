@@ -268,7 +268,7 @@
   <xsl:call-template name="newline"/>
 
   <xsl:apply-templates
-   select="common|lumped|hetereozygotes|homozygotes"/>
+   select="common|lumped|heterozygotes|homozygotes"/>
   
   <!-- now do genotype table -->
   <xsl:apply-templates select="genotypetable"/>
@@ -276,7 +276,7 @@
   <xsl:call-template name="newline"/>
  </xsl:template>
 
- <xsl:template match="common|lumped|hetereozygotes|homozygotes">
+ <xsl:template match="common|lumped|heterozygotes|homozygotes">
 
   <xsl:text>*</xsl:text>
   <xsl:value-of select="name(.)"/>
@@ -287,7 +287,7 @@
    <xsl:when test="*!=''">
     <!-- when the tag has content -->
     <xsl:call-template name="linesep-fields">
-     <xsl:with-param name="nodes" select="."/>
+     <xsl:with-param name="nodes" select="*"/>
     </xsl:call-template>
     <xsl:call-template name="newline"/>
 
