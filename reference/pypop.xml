@@ -90,12 +90,14 @@
    our ability to identify and localize disease predisposing variants
    and our power to recognize underlying functional mechanisms through
    which predisposing genes can become relatively common in a
-   population.  In particular, genetic systems which are highly
-   polymorphic can implicate natural selection as an important factor
-   in maintaining variation.  Genetic systems such as the Human
-   Leukocyte Antigen (HLA) region (the Major Histocompatibility
-   Complex [MHC] for humans) are highly polymorphic.  Six classical
-   class I and II loci each contain up to 399 alleles <citation
+   population.</para>
+
+  <para>In particular, genetic systems which are highly polymorphic
+   can implicate natural selection as an important factor in
+   maintaining variation.  Genetic systems such as the Human Leukocyte
+   Antigen (HLA) region (the Major Histocompatibility Complex [MHC]
+   for humans) are highly polymorphic.  Six classical class I and II
+   loci each contain up to 399 alleles <citation
     role="citep">Rhodes:Trowsdale:1999</citation>.
   </para>
 
@@ -105,15 +107,16 @@
    genetics.  These statistics include, but are not limited to
    estimating haplotype frequencies, identifying deviation from
    Hardy-Weinberg equilibrium and locating patterns of linkage
-   disequilibrium in a given population.  In population studies
-   several implementations of programs and routines to calculate these
-   basic statistics exist but are mainly oriented towards analyzing
-   statistics on a population-by-population basis.  The ability to
-   cross-correlate these statistical features across many population
-   data-sets will enable the identification of features in the genetic
-   data that can further our understanding of the functional and
-   disease predisposing role of specific alleles, and conversely allow
-   us to rule out others.</para>
+   disequilibrium in a given population.</para>
+
+  <para>In population studies several implementations of programs and
+   routines to calculate these basic statistics exist, but are mainly
+   oriented towards analyzing statistics on a population-by-population
+   basis.  The ability to cross-correlate these statistical features
+   across many population data-sets will enable the identification of
+   features in the genetic data that can further our understanding of
+   the functional and disease predisposing role of specific alleles,
+   and conversely allow us to rule out others.</para>
 
   <para>Currently, packages for analyzing population data already
    exist such as
@@ -127,14 +130,15 @@
    which basic statistical data from population genetic analyses can
    be housed, interrogated and visualized in such a way that important
    features of interest to both the biomedical investigator and the
-   evolutionary biologist can be highlighted.  We also did not want to
-   reinvent the wheel, so, where possible we can inter-operate with
-   existing population genetic analysis packages (either as part of
-   the framework or through file formats).  In this way, our software,
-   <emphasis>PyPop</emphasis> (<emphasis>Py</emphasis>thon for
-   <emphasis>Pop</emphasis>ulation Genetics) can be viewed as a
-   framework which can draw on the strengths of existing tools in the
-   community.</para>
+   evolutionary biologist can be highlighted.</para>
+
+  <para>We also did not want to reinvent the wheel, so, where possible
+   we can inter-operate with existing population genetic analysis
+   packages (either as part of the framework or through file formats).
+   In this way, our software, <emphasis>PyPop</emphasis>
+   (<emphasis>Py</emphasis>thon for <emphasis>Pop</emphasis>ulation
+   Genetics) can be viewed as a framework which can draw on the
+   strengths of existing tools in the community.</para>
 
   <section>
    <title>IHWG: International Histocompatibility Working Group</title>
@@ -146,13 +150,15 @@
     population data on the HLA region and largely focused on the HLA
     classical class I (A, B, and C) (1.8 Mb) and class II (DR, DQ, and
     DP) (1.2 Mb) genes, which flank the class III region on chromosome
-    6 (ch. 6p21.31).  As part of the Anthropology and Human Diversity
-    component of the IHWG, data from populations from upwards of 50
-    laboratories was made available via a database housed at the Fred
-    Hutchison Cancer Research Institute (the <quote>Database
-     Core</quote>).  The IHWG provided standardized typing reagents to
-    each lab involved in the component, which resulted in high
-    resolution genotype data for each population.</para>
+    6 (ch. 6p21.31).</para>
+
+   <para>As part of the Anthropology and Human Diversity component of
+    the IHWG, data from populations from upwards of 50 laboratories
+    was made available via a database housed at the Fred Hutchison
+    Cancer Research Institute (the <quote>Database Core</quote>).  The
+    IHWG provided standardized typing reagents to each lab involved in
+    the component, which resulted in high resolution genotype data for
+    each population.</para>
 
    <para>The molecular characterization of these alleles thus allowed
     us to use both the allele frequency (the raw allele
