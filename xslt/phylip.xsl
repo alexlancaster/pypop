@@ -73,6 +73,28 @@
    </xsl:if>
   </xsl:for-each>
 
+  <exslt:document href="2n-by-locus.dat"
+   omit-xml-declaration="yes"
+   method="text">
+   <xsl:for-each select="output/locus">
+    <xsl:text>Locus: </xsl:text>
+    <xsl:value-of select="@name"/>
+    <xsl:call-template name="newline"/>
+    
+    <xsl:for-each select="population">
+     <xsl:text>  </xsl:text>
+     <xsl:value-of select="popname"/><xsl:text> ('</xsl:text><xsl:value-of select="filename"/><xsl:text>'): </xsl:text>
+     <xsl:choose>
+      <xsl:when test="allelecounts/allelecount">
+       <xsl:value-of select="allelecounts/allelecount"/>
+      </xsl:when>
+      <xsl:otherwise>0</xsl:otherwise>
+     </xsl:choose>
+     <xsl:call-template name="newline"/>
+    </xsl:for-each>
+   </xsl:for-each>  
+  </exslt:document>
+
   <!--  
   <xsl:for-each select="output/locus">
    <xsl:call-template name="phylip-contents">
