@@ -1,3 +1,22 @@
+2004-10-07  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* NEWS: Note new feature.
+
+	* xslt/meta-to-r.xsl (13ihwg-fmt): New parameter. When enabled,
+	use the metadata header directly from the XML, rather than
+	hardcoding it to the IHWG 13th workshop standard.  Disable by
+	default.
+	(header-line-start): Make a parameter into a template, so that the
+	population metadata line is generated dynamically from the XML
+	format.
+	(line-start, /): Use it and in the top-level template for
+	generation at the top of each file.
+	
+	* popmeta.py (usage_message): Add support for disabling the IHWG
+	standard header output, and use as is.  This is only enabled if
+	--disable-ihwg flag is enabled.  This is passed to the libxslt
+	Python bindings which in turn passes it to the stylesheets. 
+
 2004-09-29  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Filter.py (AnthonyNolanFilter._getConsensusFromLines): Adding

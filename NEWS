@@ -19,6 +19,10 @@ Copyright (C) 2003, 2004 Regents of the University of California
     refactor that treats allele count files as pseudo-genotype files
     for the purpose of filtering].  This change also resulted in the
     removal of the obsolete lookup-table-based homozygosity test.
+*** Add '--disable-ihwg' option to popmeta script to disable hardcoded 
+    generation of the IHWG header output, and use the output as
+    defined in the header in the original .pop input text file.  This
+    is disabled by default to preserve backwards compatibility.
 ** Bug fixes
 *** Allow HardyWeinbergGuoThompson test to be run if at least two alleles
     present (test was originally failing with a 'too-few-alleles'
