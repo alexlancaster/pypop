@@ -49,7 +49,7 @@ setup (name = "PyPop",
                                              ('DEBUG', '0')]
                               ),
 
-                    Extension("Gthwe", ["gthwe/cal_const.c",
+                    Extension("_Gthwe", ["gthwe/cal_const.c",
                               "gthwe/cal_n.c", "gthwe/cal_prob.c",
                               "gthwe/check_file.c",
                               "gthwe/do_switch.c", 
