@@ -261,3 +261,27 @@ class Homozygosity:
 
     # always end on a newline
     stream.writeln()
+
+class HomozygosityEWSlatkinExact:
+
+    def __init__(self,
+                 alleleCountData=None,
+                 numReplicates=1000,
+                 debug=0):
+
+      self.alleleData, self.sampleCount, self.unusableIndividuals = \
+                       alleleCountData
+      self.numAlleles = len(self.alleleData)
+      self.numReplicates = numReplicates
+      self.debug = debug
+
+      
+      if self.sampleCount > 0:
+        import _EWSlatkinExact
+
+        _EWSlatkinExact.main_proc(self.alleleData.values(), self.numAlleles, \
+                                  self.sampleCount, self.numReplicates)
+
+      else:
+        print "no data at this locus!"
+        
