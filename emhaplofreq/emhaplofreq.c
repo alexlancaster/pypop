@@ -55,10 +55,16 @@ void linkage_diseq(FILE *, double *, int (*)[], double (*)[], char (*)[][], int 
   * compute LD coefficients
 */
 
-void sort2arrays(char (*)[], double *, int);
+void sort2bychar(char (*)[], double *, int);
 /* haplo array, mle array, no. of haplotypes */
 /*
   * insertion sort in ascending order for 1st array also applied to 2nd array
+*/
+
+void sort2byfloat(char (*)[], double *, int);
+/* haplo array, mle array, no. of haplotypes */
+/*
+  * insertion sort in ascending order for 2nd array also applied to 1st array
 */
 
 void emcalc(int (*)[], int *, int *, double *, double *, int, int, int, int, 
@@ -317,7 +323,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   CALLOC_ARRAY_DIM1(int, n_unique_allele, MAX_LOCI);
   CALLOC_ARRAY_DIM2(double, allele_freq, MAX_LOCI, MAX_ALLELES);
 
-  /* nothing needed for sort2arrays function */
+  /* nothing needed for sort2bychar or sort2byfloat functions */
 
   /* needed for the emcalc function */
   CALLOC_ARRAY_DIM1(double, mle, MAX_HAPLOS);
@@ -325,6 +331,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /* needed to store loglikelihood under no LD */
   double loglike0 = 0.0;
+  int df_LRtest = 1; /* initialize to 1 for multiplicative increment */
 
   /* store haplofreq sum for error reporting */
   double haplo_freq_sum = 0.0;
@@ -362,7 +369,8 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /******************* end: declarations ****************************/
 
-  srand48(1234567);
+//srand48(1234567); 
+  srand48(time (NULL));
 
   if (fp_iter == NULL)
     if ((fp_iter = fopen("summary_iter.out", "w")) == NULL)
@@ -393,7 +401,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   {
     max_init_cond = MAX_INIT_FOR_PERMU; 
 
-    if (permu == 1) fprintf(fp_out, "\nComputing LD permutations...\n");
+    if (permu == 1) fprintf(fp_out, "\nComputing LD permutations...\n\n");
 
     permute_alleles(data_ar, n_loci, n_recs); 
     
@@ -810,8 +818,6 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
       fprintf(fp_out, "<permutation><![CDATA[");
 #endif
 
-    fprintf(fp_permu, "Log likelihood under no LD: %f \n", loglike0);
-    fprintf(fp_permu, "permu = %3d, ", permu );
   }
 
   /* suppress printing of haplotypes if '-s' flag set */
@@ -863,15 +869,24 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
       fprintf(fp_out, "Estimated HFs do not sum to 1. Sum = %.5g\n", haplo_freq_sum);
     else /* (error_flag_best == 7) */
       fprintf(fp_out, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
+ 
+
+    /* copy mle_best to freq_zero so that sort does not interfere with info needed in LD calcs */
+    /* Note: haplo[] is no longer linked to mle_best after the sort, but is not used subsequently */
+    for (i = 0; i < n_haplo; i++) 
+    {
+      freq_zero[i] = mle_best[i];
+    }
+    sort2byfloat(haplo, freq_zero, n_haplo);
 
     j = 0;
-    fprintf(fp_out, "\n \t MLE frequency \t haplo (MLE > .00001) \n");
+    fprintf(fp_out, "\n \t MLE freq \t ~#haps \t haplo (MLE > .00001) \n");
     for (i = 0; i < n_haplo; i++)
     {
-      if (mle_best[i] > .00001)
+      if (freq_zero[i] > .00001)
       {
         j += 1;
-        fprintf(fp_out, "%d \t %f \t %s\n", j, mle_best[i], haplo[i]);
+        fprintf(fp_out, "%d \t %f \t %5.1f \t %s\n", j, freq_zero[i], freq_zero[i]*2.0*n_recs, haplo[i]);
       }
     }
 #ifdef XML_OUTPUT
@@ -899,15 +914,27 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     linkage_diseq(fp_out, mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
       n_loci, n_haplo, n_recs);
 
+    /* compute df_LRtest */
+    j = 0;
+    for (i = 0; i < n_loci; i++)
+    {
+      df_LRtest *= n_unique_allele[i];
+      j += n_unique_allele[i];
+    }
+    df_LRtest = df_LRtest - j + (n_loci - 1);
+
+    fprintf(fp_out, "Asymptotic LR Test for Overall LD [-2*(LL_0 - LL_1)]: %f, df = %d\n",  
+      -2.0 * (loglike0 - loglike_best), df_LRtest);
+
 #ifdef XML_OUTPUT
     fprintf(fp_out, "]]></linkagediseq>\n");
 #endif
 
-  }
+  } /* end: if ((permu==0 && ...)) */
 
+/***
   if (permu_flag == 1)
   {
-
     if (error_flag_best == 0)
       fprintf(fp_permu, "Log likelihood converged in %3d iterations to : %f \n", 
         iter_count_best, loglike_best);
@@ -923,10 +950,10 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
       fprintf(fp_permu, "Log likelihood has decreased for more than 5 iterations.\n");
     else if (error_flag_best == 6)
       fprintf(fp_permu, "Estimated HFs do not sum to 1.\n");
-    else /* (error_flag_best == 7) */
+    else // (error_flag_best == 7) 
       fprintf(fp_permu, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
-
   }
+***/
 
   like_ratio[permu] = -2.0 * (loglike0 - loglike_best);
 
@@ -935,15 +962,17 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   /*** begin: post-processing for permutations ***/
   if (permu_flag == 1)
   {
+    fprintf(fp_permu, "permu   LR = -2*(LL_0 - LL_1)\n");
     pvalue = 0.0;
-    fprintf(fp_permu, "permu =   0, LR = -2*(LL_0 - LL_1) = %f \n", like_ratio[0]); 
+    fprintf(fp_permu, "%3d  %f \n", 0, like_ratio[0]); 
     for (i = 1; i < max_permutations; i++)
     {
-      fprintf(fp_permu, "permu = %3d, LR = -2*(LL_0 - LL_1) = %f \n", i, like_ratio[i]); 
+      fprintf(fp_permu, "%3d  %f \n", i, like_ratio[i]); 
       if (like_ratio[i] > like_ratio[0]) pvalue += 1;
     }
-    pvalue = pvalue/max_permutations;
-    fprintf(fp_out, "\nLD permutation pvalue = %f \n", pvalue); 
+    pvalue = pvalue/(max_permutations-1);
+    fprintf(fp_out, "Permutation LR Test for Overall LD based on %d permutations: pvalue = %f\n", 
+      max_permutations-1, pvalue); 
     fprintf(fp_permu, "pvalue = %f \n", pvalue); 
 
 #ifdef XML_OUTPUT
@@ -1412,7 +1441,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
       fprintf(fp_out,"             Wn [Cohen, 1988]: %10.4f\n", summary_wn[coeff_count]);
       fprintf(fp_out,"               Q [Hill, 1975]: %10.4f (approx. Chi-square %d)\n", 
         summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1) );
-      fprintf(fp_out,"       Dprime [Hedrick, 1987]: %10.4f\n", summary_dprime[coeff_count]);
+      fprintf(fp_out,"       Dprime [Hedrick, 1987]: %10.4f\n\n", summary_dprime[coeff_count]);
       coeff_count += 1;
     }
   }
@@ -1424,7 +1453,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
 }
 
 /************************************************************************/
-void sort2arrays(char (*array1)[LINE_LEN / 2], double *array2, int n_haplo)
+void sort2bychar(char (*array1)[LINE_LEN / 2], double *array2, int n_haplo)
 /* insertion sort in ascending order for 1st array also applied to 2nd array */
 {
   int i, j = 0;
@@ -1436,6 +1465,33 @@ void sort2arrays(char (*array1)[LINE_LEN / 2], double *array2, int n_haplo)
   for (i = 1; i < n_haplo; ++i)
   {
     for (j = i; (j - 1) >= 0 && strcmp(array1[j - 1], array1[j]) > 0; --j)
+    {
+      strcpy(temp1, array1[j]);
+      strcpy(array1[j], array1[j - 1]);
+      strcpy(array1[j - 1], temp1);
+      temp2 = array2[j];
+      array2[j] = array2[j - 1];
+      array2[j - 1] = temp2;
+    }
+  }
+
+  /* free calloc'ed space */
+  free(temp1);
+}
+
+/************************************************************************/
+void sort2byfloat(char (*array1)[LINE_LEN / 2], double *array2, int n_haplo)
+/* insertion sort in descending order for 2nd array also applied to 1st array */
+{
+  int i, j = 0;
+
+  CALLOC_ARRAY_DIM1(char, temp1, LINE_LEN / 2);
+
+  double temp2 = 0.0;
+
+  for (i = 1; i < n_haplo; ++i)
+  {
+    for (j = i; (j - 1) >= 0 && array2[j - 1] < array2[j]; --j)
     {
       strcpy(temp1, array1[j]);
       strcpy(array1[j], array1[j - 1]);
