@@ -10,13 +10,14 @@ endif
 
 OBJS=emhaplofreq.o
 
+all: emhaplofreq
+
+emhaplofreq.o: emhaplofreq.c emhaplofreq.h
+
 emhaplofreq: $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o emhaplofreq $(LIBS)
 # make a symlink to run for backwards-compatibility
 	ln -sf emhaplofreq run
-
-%.o: %.c %.h
-	$(CC) $(CFLAGS) -c -o $*.o $<
 
 final: emhaplofreq
 	strip emhaplofreq
