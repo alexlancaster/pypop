@@ -284,7 +284,7 @@ class ParseFile:
             
         for summary in self.popData.keys():
             # convert metadata name into a XML tag name
-            tagname = string.lower(string.replace(summary,' ',''))
+            tagname = string.lower(string.replace(summary,' ','-'))
             stream.tagContents(tagname, self.popData[summary])
             stream.writeln()
 
