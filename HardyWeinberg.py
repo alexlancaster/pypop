@@ -30,8 +30,7 @@ class HardyWeinberg:
     self.alleleCounts = alleleCount[0] #just the dictionary of allelename:count
     self.alleleTotal = alleleCount[1]
 
-    #self.debug = debug
-    self.debug = 1
+    self.debug = debug
 
     self.n = len(self.locusData)
     self.k = len(self.alleleCounts)
