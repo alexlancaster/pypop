@@ -11,9 +11,79 @@
   <author>
    <firstname>Alex</firstname>
    <surname>Lancaster</surname>
+   
+   <affiliation>
+    <orgname>University of California, Berkeley</orgname>
+    <orgdiv>Department of Integrative Biology</orgdiv>
+    <address><street>3060 Valley Life Sciences</street>
+     <city>Berkeley</city> <state>CA</state> <country>USA</country>
+     <email>alexl@socrates.berkeley.edu</email></address>
+   </affiliation>
+   
   </author>
+
   <pubdate>Last modified: $Date$</pubdate>
  </articleinfo>
+
+ <abstract>
+   <para>PyPop is a software framework for population genetics
+   analysis.</para>
+ </abstract>
+
+<!--
+ <section>
+  <title>Motivation for PyPop</title>
+  
+  <para>Many packages out there, want to unify.</para>
+
+  <section>
+   <title>Packages used</title>
+   
+   <para></para>
+
+   <itemizedlist>
+    <listitem>
+     <para>Python</para>
+    </listitem>
+    <listitem>
+     <para>libxml2/libxslt: GNOME project</para>
+    </listitem>
+   </itemizedlist>
+   
+   <para>
+    <informaltable>
+     <tgroup cols="3">
+      <colspec colwidth="2cm"/>
+      <colspec colwidth="2cm"/>
+      <colspec colwidth="2cm"/>
+      <thead>
+       <row>
+	<entry>AA</entry>
+	<entry>Aa </entry>
+	<entry>aa</entry>
+       </row>
+      </thead>
+      <tbody>
+       <row>
+	<entry>p<superscript>2</superscript></entry>
+	<entry>2pq</entry>
+	<entry>q<superscript>2</superscript></entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </informaltable>
+   </para>
+
+   <section>
+    <title>A really obscure section...</title>
+    <para>Not 'bout much at all.</para>
+   </section>
+
+  </section>
+  
+ </section>
+
+-->
 
  <section>
   <title>Design</title>
