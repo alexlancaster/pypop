@@ -40,6 +40,7 @@ void id_unique_alleles(char (*)[][], char (*)[][], int *, double (*)[], int, int
 /* data array, unique_allele array, no. of unique alleles array, allele_freq, no. of loci, no. of records */
 /* 
   * creates array of alleles unique to each locus 
+  * Creates allele_freq[i][j]:  freq for jth allele at the ith locus 
 */
 
 double min(double, double);
@@ -66,12 +67,6 @@ void emcalc(char (*)[], char (*)[][], int (*)[], int *, int *, double *,
    n_unique_pheno, n_recs */
 /*
   * perform EM iterations with results in the mle array
-*/
-
-void allele_frequencies(double *, int (*)[], double (*)[], int *, int, int); 
-/* mle, haplocus, allele_freq, n_unique_allele, n_loci, n_haplo */
-/*
-  * compute allele frequencies at each locus by summing over mle haplo freqs
 */
 
 /******************* end: function prototypes ****************************/
@@ -458,7 +453,7 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
         }
       }
     }        /* END of if unique_pheno_flag == TRUE */
-  }          /* END for for loop for each observation */
+  }          /* END of loop for each observation */
 
   n_unique_pheno = unique_pheno_count + 1;
   n_unique_geno = unique_geno_count + 1;
@@ -528,13 +523,6 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
       fprintf(stdout, "%d \t %f \t %s\n", j, mle[i], haplo[i]);
     }
   }
-
-  /* Calc allele_freqs by summing over MLEs */
-  /* N.B. allele_frequencies requires the array mle    */
-  /*      haplocus[][] can not be destroyed by sorting */
-/*
-  allele_frequencies(mle, haplocus, allele_freq, n_unique_allele, n_loci, n_haplo);
-*/
 
   /* Print out allele frequencies */
   fprintf(stdout, "\nAllele frequencies\n");
@@ -677,8 +665,9 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
            int *n_unique_allele, double (*allele_freq)[MAX_ALLELES],
            int n_loci, int n_recs)
 /* 
-   * Creates unique_allele[i,j]: jth unique allele for the ith locus        
+   * Creates unique_allele[i][j]: jth unique allele for the ith locus        
    * Creates n_unique_allele[i]: number of unique alleles for the ith locus 
+   * Creates allele_freq[i][j]:  freq for jth allele at the ith locus 
 */
 {
   int i, j, locus, col_0, col_1;
@@ -1007,26 +996,26 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
       int n_unique_pheno, int n_recs)
 {
   int i, j, k, l;
-  int done, itest, totall;
-  int iter, kphen, igeno, iall, jall, keep;
-  double unamball[MAX_HAPLOS], ambigall[MAX_HAPLOS], sumambig;
-  static double freqs[MAX_HAPLOS][MAX_ITER], tempall[MAX_HAPLOS];
-  double expfreq, sum, sumall, diff, mgnfrq[MAX_GENOS], mfreq[MAX_ROWS];
-  double lglik, lltest, prevlk, freqsum;
+  int done, decr_loglike_count, tot_hap;
+  int iter, k_pheno, i_geno, i_haplo, j_haplo, keep;
+  double unambig[MAX_HAPLOS], ambig[MAX_HAPLOS], ambig_sum;
+  static double hap_freq[MAX_HAPLOS][MAX_ITER], addto_ambig[MAX_HAPLOS];
+  double expected_freq, expected_freq_sum, normed_addto_ambig_sum, diff, geno_freq[MAX_GENOS], pheno_freq[MAX_ROWS];
+  double loglike, prev_loglike, freqsum;
 
   fprintf(stdout, "\nEMCALC: \n");
 
   done = FALSE;
-  itest = 0;
-  totall = 2 * n_recs;
+  decr_loglike_count = 0;
+  tot_hap = 2 * n_recs;
 
   for (i = 0; i < n_haplo; i++)
   {
-    unamball[i] = 0;
-    ambigall[i] = 0;
+    unambig[i] = 0;
+    ambig[i] = 0;
   }
 
-  /* Set up for first iteration - initial allele counting */
+  /* Pre-process for first iteration */
   for (i = 0; i < n_unique_geno; i++)
   {
     for (j = 0; j < 2; j++)
@@ -1039,11 +1028,11 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
           {
             if (numgeno[l] == 1)
             {
-              unamball[k] += (double)obspheno[l];
+              unambig[k] += (double)obspheno[l];
             }
             else if (numgeno[l] > 1)
             {
-              ambigall[k] += (double)obspheno[l] / (double)numgeno[l];
+              ambig[k] += (double)obspheno[l] / (double)numgeno[l];
             }
             else
             {
@@ -1057,110 +1046,110 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
 
   iter = 0;
 
-  sumambig = 0;
+  ambig_sum = 0;
   for (i = 0; i < n_haplo; i++)
   {
-    sumambig += ambigall[i];
-    freqs[i][iter] = freq_zero[i];
+    ambig_sum += ambig[i];
+    hap_freq[i][iter] = freq_zero[i];
   }
 
   /* Test for observed ambiguous phenos */
-  if (sumambig == 0)
+  if (ambig_sum == 0)
   {
     iter = 1;
 
     fprintf(stdout, "\n *** There is no ambiguity ...");
     for (i = 0; i < n_haplo; i++)
     {
-      freqs[i][iter] = unamball[i] / (double)totall;
-      mle[i] = freqs[i][iter];
+      hap_freq[i][iter] = unambig[i] / (double)tot_hap;
+      mle[i] = hap_freq[i][iter];
     }
   }
 
-  /* There are ambiguous phenos. Begin E-M iterations */
-  else if (sumambig > 0)
+  /* Begin E-M iterations on ambiguous phenos */
+  else /* (ambig_sum > 0) */
   {
     for (iter = 1; iter < MAX_ITER && done == FALSE; iter++)
     {
       for (k = 0; k < n_haplo; k++)
       {
-        ambigall[k] = 0;
+        ambig[k] = 0;
       }
-      for (kphen = 0; kphen < n_unique_pheno; kphen++)
+      for (k_pheno = 0; k_pheno < n_unique_pheno; k_pheno++)
       {
-        if ((numgeno[kphen] > 1) && (obspheno[kphen] >= 1))
+        if ((numgeno[k_pheno] > 1) && (obspheno[k_pheno] >= 1))
         {
           for (k = 0; k < n_haplo; k++)
           {
-            tempall[k] = 0;
+            addto_ambig[k] = 0;
           }
-          sum = 0;
-          for (igeno = 0; igeno < n_unique_geno; igeno++)
+          expected_freq_sum = 0;
+          for (i_geno = 0; i_geno < n_unique_geno; i_geno++)
           {
-            if (genopheno[igeno][kphen] > 0)
+            if (genopheno[i_geno][k_pheno] > 0)
             {
               for (k = 0; k < n_haplo; k++)
               {
-                if (!strcmp(geno[igeno][0], haplo[k]))
+                if (!strcmp(geno[i_geno][0], haplo[k]))
                 {
-                  iall = k;
+                  i_haplo = k;
                 }
-                if (!strcmp(geno[igeno][1], haplo[k]))
+                if (!strcmp(geno[i_geno][1], haplo[k]))
                 {
-                  jall = k;
+                  j_haplo = k;
                 }
               }
-              /* Calc expected frequency of this genotype using allele */
-              /* frequency estimates from the previous iteration       */
-              if (iall == jall)
+              /* Compute expected frequency of this geno using hap_freq */
+              /* estimates from the previous iteration                  */
+              if (i_haplo == j_haplo)
               {
-                expfreq = freqs[iall][iter - 1] * freqs[jall][iter - 1];
+                expected_freq = hap_freq[i_haplo][iter - 1] * hap_freq[j_haplo][iter - 1];
               }
               else
               {
-                expfreq = 2 * freqs[iall][iter - 1] * freqs[jall][iter - 1];
+                expected_freq = 2 * hap_freq[i_haplo][iter - 1] * hap_freq[j_haplo][iter - 1];
               }
 
-              /* Add proportionate numbers to TEMPALL */
-              tempall[iall] += expfreq * (double)obspheno[kphen];
-              tempall[jall] += expfreq * (double)obspheno[kphen];
-              sum += expfreq;
+              /* Add expected proportion of current pheno to addto_ambig[] for the appropriate haplo */
+              addto_ambig[i_haplo] += expected_freq * (double)obspheno[k_pheno];
+              addto_ambig[j_haplo] += expected_freq * (double)obspheno[k_pheno];
+              expected_freq_sum += expected_freq;
             }
           }
 
-          /* Normalize the numbers added for this phenotype */
-          if (sum < .000001)
+          /* Normalize addto_ambig[] for the current pheno */
+          /* Add normalized amount to ambiguous count      */
+          if (expected_freq_sum < .000001)
           {
-            fprintf(stdout, "\n sum near zero in tempall[i]/sum : sum = %f", sum);
+            fprintf(stdout, "\n sum near zero in addto_ambig[i]/sum : sum = %f", expected_freq_sum);
           }
-          sumall = 0;
+          normed_addto_ambig_sum = 0;
           for (i = 0; i < n_haplo; i++)
           {
-            tempall[i] = tempall[i] / sum;
-            sumall += tempall[i];
-            /* add these obs to running count for ambiguous */
-            ambigall[i] += tempall[i];
+            addto_ambig[i] = addto_ambig[i] / expected_freq_sum;
+            normed_addto_ambig_sum += addto_ambig[i];
+            ambig[i] += addto_ambig[i];
           }
 
           for (i = 0; i < n_haplo; i++)
           {
-            freqs[i][iter] = (unamball[i] + ambigall[i]) / (double)totall;
+            hap_freq[i][iter] = (unambig[i] + ambig[i]) / (double)tot_hap;
           }
 
-          diff = sumall - 2 * (double)obspheno[kphen];
+          diff = normed_addto_ambig_sum - 2 * (double)obspheno[k_pheno];
           if (fabs(diff) > .1)
           {
-            fprintf(stdout, "\n Wrong # of alleles allocated for pheno %d", kphen);
-            fprintf(stdout, "\n allocated : %f \n observed  : %d", sumall,
-              obspheno[kphen]);
+            fprintf(stdout, "\n Wrong # of alleles allocated for pheno %d", k_pheno);
+            fprintf(stdout, "\n allocated : %f \n observed  : %d", normed_addto_ambig_sum,
+              obspheno[k_pheno]);
           }
         }
-      }        /* end of loop for kphen */
+      }        /* end of loop for k_pheno */
 
       /* Calculate geno freqs from current estimate of haplo freqs */
       for (i = 0; i < n_unique_geno; i++)
       {
-        mgnfrq[i] = 1;
+        geno_freq[i] = 1;
         keep = 0;
         for (j = 0; j < 2; j++)
         {
@@ -1168,93 +1157,82 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
           {
             if (!strcmp(haplo[k], geno[i][j]))
             {
-              mgnfrq[i] = mgnfrq[i] * freqs[k][iter];
+              geno_freq[i] = geno_freq[i] * hap_freq[k][iter];
               if (j == 0)
               {
                 keep = k;
               }
               if (k != keep)
               {
-                mgnfrq[i] = mgnfrq[i] * 2;
+                geno_freq[i] = geno_freq[i] * 2;
               }
             }
           }
         }
       }
 
-      /* Calc pheno freqs based on these genotype freqs */
+      /* Compute pheno freqs based on the computed geno freqs */
       for (i = 0; i < n_unique_pheno; i++)
       {
-        mfreq[i] = 0;
+        pheno_freq[i] = 0;
         for (j = 0; j < n_unique_geno; j++)
         {
           if (genopheno[j][i] == 1)
           {
-            mfreq[i] += mgnfrq[j];
+            pheno_freq[i] += geno_freq[j];
           }
         }
       }
 
-      /* Calc log likelihood */
-      lglik = 0;
-      lltest = 0;
+      /* Compute the log likelihood for the current iteration */
+      loglike = 0;
       for (i = 0; i < n_unique_pheno; i++)
       {
-        lltest += (double)obspheno[i];
-        if (mfreq[i] > DBL_EPSILON)
+        if (pheno_freq[i] > DBL_EPSILON)
         {
-          lglik += (double)obspheno[i] * log(mfreq[i]);
+          loglike += (double)obspheno[i] * log(pheno_freq[i]);
         }
         else
         {
-          fprintf(stdout, "\n ** Warning - Est. freq. for pheno %d < 0", i);
+          fprintf(stdout, "\n ** Warning - Est. freq. for pheno %d < 0 + epsilon", i);
         }
       }
-      if (lltest != n_recs)
-      {
-        fprintf(stdout, 
-          "\n ** Error - Incorrect no. of obs. counted in likelihood calc.");
-      }
-      /* N.B. lltest could be removed and done in mainproc() if desired */
 
       if (iter <= 1)
       {
-        prevlk = lglik;
+        prev_loglike = loglike;
       }
-      else if (iter > 1)
+      else /* (iter > 1) */
       {
         /* Test for convergence */
-        diff = lglik - prevlk;
+        diff = loglike - prev_loglike;
         if (fabs(diff) > CRITERION)
         {
           /* If not converged, test if likelihood is decreasing */
-          if (prevlk > lglik)
+          if (prev_loglike > loglike)
           {
-            itest += 1;
+            decr_loglike_count += 1;
+            if (decr_loglike_count >= 5)
+            {
+              done = TRUE;
+              fprintf(stdout, "\n ** Warning - iterations terminated");
+              fprintf(stdout,
+                "\n              Likelihood has decreased for last 5 iterations");
+            }
           }
-          if (itest >= 5)
-          {
-            done = TRUE;
-            fprintf(stdout, "\n ** Warning - iterations terminated");
-            fprintf(stdout,
-              "\n              Likelihood has decreased for last 5 iterations");
-          }
-          else      /* ( itest < 5 ) */
-          {
-            prevlk = lglik;
-          }
+          prev_loglike = loglike;
         }
         else      /* ( abs(diff) <= CRITERION ) */
         {
           done = TRUE;
           fprintf(stdout, "\n Log likelihood converged in %d iterations to : %f", 
-            iter + 1, lglik);
+            iter + 1, loglike);
 
           freqsum = 0;
           for (i = 0; i < n_haplo; i++)
           {
-            mle[i] = freqs[i][iter];
-            freqsum += freqs[i][iter];
+            mle[i] = hap_freq[i][iter];
+            freqsum += hap_freq[i][iter];
           }
           if (freqsum < .99 || freqsum > 1.01)
           {
@@ -1264,29 +1242,8 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
         }
       }
     }      /* end of loop for iter */
-  }        /* end of else if ( sumambig > 0 ) */
+  }        /* end of else if ( ambig_sum > 0 ) */
 
-}
-
-/************************************************************************/
-void allele_frequencies(double *mle, int (*haplocus)[MAX_LOCI], 
-       double (*allele_freq)[MAX_ALLELES], int *n_unique_allele, 
-       int n_loci, int n_haplo)
-{
-  int i, j, k;
-
-  for (i = 0; i < n_loci; i++)
-  {
-    for (j = 0; j < n_unique_allele[i]; j++)
-    {
-      allele_freq[i][j] = 0.0; 
-      for (k = 0; k < n_haplo; k++)
-      {
-        if (haplocus[k][i] == j)
-          allele_freq[i][j] += mle[k]; 
-      }
-    }
-  }
 }
 
 /************************************************************************/
