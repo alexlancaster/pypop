@@ -710,7 +710,6 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     matrixElemCount = (self.k * (self.k + 1)) / 2
 
     if matrixElemCount < self.maxMatrixSize:
-      n = len(self.observedAlleles)
 
       sortedAlleles = self.observedAlleles
       sortedAlleles.sort()
@@ -740,10 +739,9 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
           flattenedMatrix.append(int(output))
 
+      # create dummy array with length of the number of alleles
+      n = [0]*(self.k)
 
-      # create dummy array
-      n = [0]*35
-      
       if self.debug:
         print "flattenedMatrix:", flattenedMatrix
         print "len(flattenedMatrix):", len(flattenedMatrix)
