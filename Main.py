@@ -165,11 +165,13 @@ class Main:
           outFilePrefixType = self.config.get("General", "outFilePrefixType")
           if outFilePrefixType == 'filename':
             uniquePrefix = prefixFileName
+          elif outFilePrefixType == 'date':
+            uniquePrefix = "%s-%s-%s" % (prefixFileName, datestr, timestr)  
           else:
-            sys.exit("outFilePrefixType: %s must be 'filename'" % outFilePrefixType)
+            sys.exit("outFilePrefixType: %s must be 'filename' or 'date'" % outFilePrefixType)
         except NoOptionError:
-          uniquePrefix = "%s-%s-%s" % (prefixFileName, datestr, timestr)  
-
+            # just use default prefix
+            uniquePrefix = prefixFileName
 
         # generate filenames for both text and XML files
 
@@ -220,8 +222,8 @@ class Main:
 
         # check to see what kind of file we are parsing
 
-        if self.config.has_section("ParseFile"):
-            self.fileType = "ParseFile"
+        if self.config.has_section("ParseGenotypeFile"):
+            self.fileType = "ParseGenotypeFile"
         elif self.config.has_section("ParseAlleleCountFile"):
             self.fileType = "ParseAlleleCountFile"
         else:
@@ -245,7 +247,7 @@ class Main:
         filter = None
 
         # BEGIN PARSE for a genotype file (ParseGenotypeFile)
-        if self.fileType == "ParseFile":
+        if self.fileType == "ParseGenotypeFile":
 
             try:
               popNameDesignator = self.config.get(self.fileType, "popNameDesignator")
@@ -265,7 +267,7 @@ class Main:
             try:
               fieldPairDesignator = self.config.get(self.fileType, "fieldPairDesignator")
             except NoOptionError:
-              fieldPairDesignator = '(2)'
+              fieldPairDesignator = '_1:_2'
 
 
             try:
@@ -407,7 +409,7 @@ class Main:
         # process the file depending on type
         if self.fileType == "ParseAlleleCountFile":
             self._doAlleleCountFile()
-        elif self.fileType == "ParseFile":
+        elif self.fileType == "ParseGenotypeFile":
             self._doGenotypeFile()
         else:
             pass
