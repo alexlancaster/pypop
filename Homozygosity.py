@@ -261,7 +261,7 @@ class Homozygosity:
         stream.writeln()
     else:
       if type == 'xml':
-        stream.emptytag('homozygosity', 'class', 'out-of-range')
+        stream.emptytag('homozygosity', role='out-of-range')
       else:
         stream.writeln("Can't generate expected homozygosity statistics")
 

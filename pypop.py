@@ -124,7 +124,8 @@ txtStream = TextOutputStream(open(txtOutFilename, 'w'))
 xmlStream = XMLOutputStream(open(xmlOutFilename, 'w'))
 
 # opening tag
-xmlStream.opentag('dataanalysis', 'date', "%s-%s" % (datestr, timestr))
+#xmlStream.opentag('dataanalysis', 'date', "%s-%s" % (datestr, timestr))
+xmlStream.opentag('dataanalysis', date="%s-%s" % (datestr, timestr))
 xmlStream.writeln()
 xmlStream.tagContents('filename', baseFileName)
 xmlStream.writeln()
@@ -175,7 +176,7 @@ loci.sort()
 
 for locus in loci:
   txtStream.write("\nLocus: %s\n======\n" % locus)
-  xmlStream.opentag('locus', 'name', locus)
+  xmlStream.opentag('locus', name=locus)
   xmlStream.writeln()
   
   input.serializeAlleleCountDataAt(txtStream, locus)
