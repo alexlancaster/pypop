@@ -39,11 +39,17 @@ def Ensure_Scripts(scripts):
         suffix = script[-3:]
         prefix = script[:-3]
         if suffix == '.py':
-            if sys.argv[1] == 'install':
-                copy_file(script,prefix)
+            #if sys.argv[1] == 'install':
+            copy_file(script,prefix,preserve_mode=0)
             scripts[scripts.index(script)] = prefix
     return scripts
-    
+
+# data files to install
+data_file_paths = ['config.ini', 'VERSION']
+# xslt files are in a subdirectory
+xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'common', 'meta', 'summary']]
+data_file_paths.extend(xslt_files)
+
 setup (name = "PyPop",
        version = version,
        description = "Population genetics statistics",
@@ -57,7 +63,7 @@ setup (name = "PyPop",
                      "Haplo", "Homozygosity",  "ParseFile" ],
        scripts= Ensure_Scripts(['pypop.py']),
 
-       data_files=[('share/PyPop', ['text.xsl', 'html.xsl', 'common.xsl', 'config.ini', 'VERSION'])],
+       data_files=[('share/PyPop', data_file_paths)],
 
 # compile SWIG module
        
