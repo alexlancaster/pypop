@@ -348,7 +348,6 @@ class ParseGenotypeFile(ParseFile):
     def __init__(self,
                  filename,
                  untypedAllele='****',
-                 filter=None,
                  **kw):
         """Constructor for ParseGenotypeFile.
 
@@ -357,13 +356,10 @@ class ParseGenotypeFile(ParseFile):
         In addition to the arguments for the base class, this class
         accepts the following additional keywords:
 
-        - 'filter': Instance of filter for alleles (e.g. anthonynolan)
-        
         - 'untypedAllele': The designator for an untyped locus.  Defaults
         to '****'.
         """
         self.untypedAllele=untypedAllele
-        self.filter = filter
         
         ParseFile.__init__(self, filename, **kw)
 
@@ -434,41 +430,16 @@ class ParseGenotypeFile(ParseFile):
                print "column tuple:", self.alleleMap[locus]
 
             col1, col2 = self.alleleMap[locus]
-            
-            total = 0
-            untypedIndividuals = 0
 
-            # first pass runs a filter of alleles through the
-            # anthonynolan data filter/cleaner
-
-            # initialize the filter
-            self.filter.startFirstPass(locus)
-
-            # loop through all lines in locus
-            for line in sampleDataLines:
-                fields = string.split(line, separator)
-                allele1 = string.strip(fields[col1])
-                allele2 = string.strip(fields[col2])
-                self.filter.addAllele(allele1)
-                self.filter.addAllele(allele2)
-
-            # do final reassignments based on counts
-            self.filter.endFirstPass()
-
-            self.filter.startFiltering()
             # re-initialise the row count on each iteration of the locus
             rowCount = 0
             for line in sampleDataLines:
                 fields = string.split(line, separator)
 
-                # put all alleles through filter before doing
-                # data structures
-                allele1 = self.filter.filterAllele(string.strip(fields[col1]))
-                allele2 = self.filter.filterAllele(string.strip(fields[col2]))
-                    
-                # extend the list by the allele pair
-                #self.individualsList[rowCount].extend([allele1 + ':',
-                #                                       allele2 + ':'])
+                # create data structures
+
+                allele1 = string.strip(fields[col1])
+                allele2 = string.strip(fields[col2])
 
                 # underlying NumPy array data type won't allow storage
                 # of any sequence-type object (e.g. list or tuple) but
@@ -484,12 +455,6 @@ class ParseGenotypeFile(ParseFile):
 
                 # increment row count
                 rowCount += 1
-
-            # end filtering for this locus
-            self.filter.endFiltering()
-
-        # do cleanup/destructor
-        self.filter.cleanup()
 
     def genValidKey(self, field, fieldList):
         """Check and validate key.
