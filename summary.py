@@ -1,27 +1,40 @@
 #! /usr/bin/env python
 import sys
-from ParseFile import ParseFile
+from ParseFile import ParseGenotypeFile
 from AlleleFreq import AlleleFreq
 
-# create object
-parsefile = ParseFile (debug=0)
+# read in IHWG and parse data file from first argument to created
+# object
 
-# read in IHWG and parse data file from first argument
-parsefile.parseFile(sys.argv[1])
+parsefile = ParseGenotypeFile (sys.argv[1],
+                               alleleDesignator='*',
+                               untypedAllele='****',
+                               debug=0)
 
 # print out summary info for population
 popData = parsefile.getPopData()
 for summary in popData.keys():
     print "%20s: %s" % (summary, popData[summary])
 
-# using the locus map and lines of individuals, generate the
-# allele counts
-allelefreq = AlleleFreq(parsefile.getAlleleMap(), parsefile.getFileData(),
-                        debug=0)
-allelefreq.generateAllelecount()
+# retrieve the allele frequency data
+freqcount = parsefile.getAllelecount()
 
-# print out allele frequency data
-allelefreq.printAllelefreq()
+# quick & dirty print output of the allele frequency table for each
+# locus, with totals of allele and total counts in parentheses.
+for locus in freqcount.keys():
+    print
+    print "Locus:", locus
+    print "======"
+    print
+    alleleTable, total = freqcount[locus]
+    totalFreq = 0
+    alleles = alleleTable.keys()
+    alleles.sort()
+    for allele in alleles:
+        freq = float(alleleTable[allele])/float(total)
+        totalFreq += freq
+        print "%s :%0.5f (%d)" % (allele, freq, alleleTable[allele])
+    print "Total freq: %s (%d)" % (totalFreq, total)
 
 
 # read in the file that contains the desired output fields
