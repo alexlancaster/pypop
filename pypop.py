@@ -169,8 +169,8 @@ return for each prompt.
     if len(args) != 1:
       sys.exit(usage_message)
 
-      # parse arguments
-      fileName = args[0]
+    # parse arguments
+    fileName = args[0]
 
   # parse out the parts of the filename
   baseFileName = os.path.basename(fileName)
