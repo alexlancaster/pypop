@@ -738,8 +738,12 @@ class Main:
             try:
                 self.xslFilename = self.config.get("General", "xslFilename")
             except NoOptionError:
-                # otherwise use fallback            
-                self.xslFilename=xslFilenameDefault
+                # if frozen, look in xslt subdirectoy
+                if hasattr(sys, 'frozen'):
+                    self.xslFilename = os.path.join('xslt', 'text.xsl')
+                else:
+                    # otherwise use fallback            
+                    self.xslFilename=xslFilenameDefault
 
         # check to see if file exists, otherwise fail with an error
         if os.path.isfile(self.xslFilename):
@@ -799,3 +803,12 @@ class Main:
           # close streams
           newOut.close()
           styleSheet.close()
+
+    def getXmlOutFilename(self):
+        # return the name of the generated XML file
+        return self.xmlOutFilename
+
+    def getTxtOutFilename(self):
+        # return the name of the generated plain text (.txt) file
+        return self.txtOutFilename
+
