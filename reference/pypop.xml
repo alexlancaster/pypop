@@ -412,7 +412,7 @@
    <citation>Ihaka:Gentleman:1996</citation> of the programming
    language <application>S</application>.  As our XSLT parser, we
    chose the fast C-based <application>libxslt</application>
-   <citation>libxslt</citation> from the GNOME project
+   <citation>Libxslt</citation> from the GNOME project
    <citation>GNOME</citation>.
    </para>
   </section>
