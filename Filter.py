@@ -335,6 +335,58 @@ class AnthonyNolanFilter(Filter):
         self.logFile.close()
 
 
+class BinningFilter(AnthonyNolanFilter):
+    """Filters data through rules defined in one file for each locus.
+
+    """
+    def __init__(self,
+                 binningPath='/data/ihwg/filters/binning,'
+                 **kw):
+
+        AnthonyNolanFilter.__init__(self, **kw)
+
+#         columnPattern = re.compile("^([0-9a-zA-Z]+)\t([0-9a-zA-Z]+)")
+# 
+#         self.binningTable = {}
+# 
+#         for binningLocus in loci:
+#             binningEntries = (open(os.path.join(binningPath, binningLocus + '.tsv'), 'r')).readlines()
+# 
+#             
+# ###########################################
+#     def endFirstPass(self):
+# 
+#         """Do regular AnthonyNolanFilter then translate alleles with
+#         entries in the binning files.
+# 
+#         """
+# 
+#         AnthonyNolanFilter.endFirstPass(self)
+# 
+#         # now, loop over the loci, reading in binning rules
+#         # for each locus for which they are available.
+#         # This needs to be changed to be passed in from the config file
+#         # as is done for validSampleFields.
+# 
+#         translKeys = self.translTable.keys()
+#         
+#         for allele in translKeys:
+# 
+#             filteredAllele = self.translTable[allele]
+# 
+#             if self.debug:
+#                 print allele, "translates to", filteredAllele, "and has count", self.countTable[filteredAllele]
+# 
+#             # if below the threshold, make allele 'lump
+#             if self.countTable[filteredAllele] <= self.lumpThreshold:
+#                 self.translTable[allele] = 'lump'
+# 
+
+        
+
+
+
+            
 class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
     """Filters data with an allelecount less than a threshold.
 
