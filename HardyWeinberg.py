@@ -30,7 +30,8 @@ class HardyWeinberg:
     self.alleleCounts = alleleCount[0] #just the dictionary of allelename:count
     self.alleleTotal = alleleCount[1]
 
-    self.debug = debug
+    #self.debug = debug
+    self.debug = 1
 
     self.n = len(self.locusData)
     self.k = len(self.alleleCounts)
@@ -58,6 +59,7 @@ class HardyWeinberg:
 #                       'count:', running_count,\
 #                       'freq:', freq,\
 #                       'cum:', running_freq
+
 ################################################################################
   def _generateTables(self):
     """Manipulate the given genotype data to generate
@@ -78,17 +80,7 @@ class HardyWeinberg:
 
     for genotype in self.locusData:
       """Run through each tuple in the given genotype data and
-      create a dictionary of allele counts"""
-
-      # self.alleleTotal += 2
-      # if self.alleleCounts.has_key(genotype[0]):
-      #   self.alleleCounts[genotype[0]] += 1
-      # else:
-      #   self.alleleCounts[genotype[0]] = 1
-      # if self.alleleCounts.has_key(genotype[1]):
-      #   self.alleleCounts[genotype[1]] += 1
-      # else:
-      #   self.alleleCounts[genotype[1]] = 1
+      create dictionaries of observed alleles and genotypes."""
 
       if genotype[0] not in self.observedAlleles:
         self.observedAlleles.append(genotype[0])
@@ -121,6 +113,10 @@ class HardyWeinberg:
         self.totalHomsObs += 1
       else:
         self.totalHetsObs += 1
+
+    if self.debug:
+      print "Total homozygotes observed:", self.totalHomsObs
+      print "Total heterozygotes observed:", self.totalHetsObs
 
     for i in range(len(self.observedAlleles)):
       """Generate a list of all possible genotypes
@@ -160,23 +156,6 @@ class HardyWeinberg:
       print 'Calculated sum of expected genotype counts is:', total, ', but N is:', self.n
       sys.exit()
 
-    if self.debug:
-#       print 'Allele Frequencies:'
-#       for allele in self.alleleFrequencies.items():
-#         print allele
-#       print 'Cumulative frequency:', frequencyAccumulator
-#       print 'Total allele count:', self.alleleTotal
-#       print '\nGenotype counts:'
-#       print 'Possible:'
-#       for genotype in self.possibleGenotypes:
-#         print genotype
-      print 'Observed:'
-      for genotype in self.observedGenotypeCounts.items():
-        print genotype
-      print 'Expected:'
-      for genotype in self.expectedGenotypeCounts.items():
-        print genotype
-
 ################################################################################
 
   def _calcChisq(self):
@@ -191,30 +170,6 @@ class HardyWeinberg:
     - Open a pipe to get the p-value from the system
     using the pval program (should be replaced later)"""
 
-    if self.totalHomsExp < self.lumpBelow:
-      print "Total homozygotes expected is less than", self.lumpBelow
-      print "chi-square value cannot be calculated."
-    else:
-      self.totalChisqHoms = ((self.totalHomsObs - self.totalHomsExp) *\
-                            (self.totalHomsObs - self.totalHomsExp)) /\
-                            self.totalHomsExp
-
-      command = "pval 1 %f" % (self.totalChisqHoms)
-      returnedValue = os.popen(command, 'r').readlines()
-      self.chisqHomsPval = returnedValue[0][:-1]
-
-    if self.totalHetsExp < self.lumpBelow:
-      print "Total homozygotes expected is less than", self.lumpBelow
-      print "chi-square value cannot be calculated."
-    else:
-      self.totalChisqHets = ((self.totalHetsObs - self.totalHetsExp) *\
-                            (self.totalHetsObs - self.totalHetsExp)) /\
-                            self.totalHetsExp
-
-      command = "pval 1 %f" % (self.totalChisqHets)
-      returnedValue = os.popen(command, 'r').readlines()
-      self.chisqHetsPval = returnedValue[0][:-1]
-
     self.counterA = {}
     self.chisq = {}
     self.chisqPval = {}
@@ -223,12 +178,30 @@ class HardyWeinberg:
     self.rareGenotypeCounter = 0
     self.lumpedObservedGenotypes = 0.0
     self.lumpedExpectedGenotypes = 0.0
-    # print 'Calculating Chi Squared'
+    self.flagHets = self.flagHoms = self.flagCommons = self.flagLumps = 0
+
+    if self.totalHomsExp >= self.lumpBelow:
+      self.totalChisqHoms = ((self.totalHomsObs - self.totalHomsExp) *\
+                            (self.totalHomsObs - self.totalHomsExp)) /\
+                            self.totalHomsExp
+
+      command = "pval 1 %f" % (self.totalChisqHoms)
+      returnedValue = os.popen(command, 'r').readlines()
+      self.chisqHomsPval = float(returnedValue[0][:-1])
+      self.flagHoms = 1
+
+    if self.totalHetsExp >= self.lumpBelow:
+      self.totalChisqHets = ((self.totalHetsObs - self.totalHetsExp) *\
+                            (self.totalHetsObs - self.totalHetsExp)) /\
+                            self.totalHetsExp
+
+      command = "pval 1 %f" % (self.totalChisqHets)
+      returnedValue = os.popen(command, 'r').readlines()
+      self.chisqHetsPval = float(returnedValue[0][:-1])
+      self.flagHets = 1
 
     for genotype in self.expectedGenotypeCounts.keys():
       if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
-
-#        self.printExpected.append(genotype) # replaces HWprintexpAiAj in specs
 
         temp = string.split(genotype, ':')
         if self.counterA.has_key(temp[0]):
@@ -253,7 +226,7 @@ class HardyWeinberg:
           observedCount = self.observedGenotypeCounts[genotype]
         else:
           observedCount = 0.0
-        # self.commonDfAccumulator = self.commonGenotypeCounter - 1
+
         self.chisq[genotype] = ((observedCount - \
                           self.expectedGenotypeCounts[genotype]) * \
                           (observedCount - \
@@ -262,7 +235,7 @@ class HardyWeinberg:
 
         command = "pval 1 %f" % (self.chisq[genotype])
         returnedValue = os.popen(command, 'r').readlines()
-        self.chisqPval[genotype] = returnedValue[0][:-1]
+        self.chisqPval[genotype] = float(returnedValue[0][:-1])
         self.commonChisqAccumulator += self.chisq[genotype]
 
         if self.debug:
@@ -283,162 +256,133 @@ class HardyWeinberg:
         if self.observedGenotypeCounts.has_key(genotype):
           self.lumpedObservedGenotypes += self.observedGenotypeCounts[genotype]
 
-
-    if self.rareGenotypeCounter > 0:
-      """ Calculate the Chi Squared value for the lumped rare genotypes"""
-      self.HWChisq = 99.0
-      self.HWChisqDf = 99.0
-      self.HWChisqPval = 99.0
-      self.lumpedChisq = 99.0
-      self.lumpedChisqPval = 99.0
-
-#       self.lumpedChisq = ((self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) * \
-#                          (self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) / \
-#                          self.lumpedExpectedGenotypes)
-# 
-#       command = "pval 1 %f" % (self.lumpedChisq)
-#       returnedValue = os.popen(command, 'r').readlines()
-#       self.lumpedChisqPval = returnedValue[0][:-1]
-# 
-#       if self.commonGenotypeCounter > 0:
-#         self.HWChisq = self.commonChisqAccumulator + self.lumpedChisq
-#         self.HWChisqDf = self.commonDfAccumulator + 1
-#         command = "pval %f %f" % (self.HWChisqDf, self.HWChisq)
-#         returnedValue = os.popen(command, 'r').readlines()
-#         self.HWChisqPval = returnedValue[0][:-1]
-# 
-#       if self.debug:
-#         print "Lumped %d for a total of %d observed and %f expected" % (self.rareGenotypeCounter, self.lumpedObservedGenotypes, self.lumpedExpectedGenotypes)
-#         print "Chisq: %f, P-Value (dof = 1): %s" % (self.lumpedChisq, self.lumpedChisqPval) # doesn't work if I claim Pval is a float?
-
-    elif self.commonGenotypeCounter > 0:
-      self.HWChisq = self.commonChisqAccumulator
-      # self.HWChisqDf = self.commonDfAccumulator
-      self.HWChisqDf = (float(self.k) * (float(self.k - 1.0))) / 2.0
-
-      command = "pval %d %f" % (self.HWChisqDf, self.commonChisqAccumulator)
-      returnValue = os.popen(command, 'r').readlines()
-
-      self.HWChisqPval = float(returnValue[0][:-1])
-
-################################################################################
-
-  def getChisq(self):
-    """ Output routines depend on existence or otherwise of common and
-    rare genotypes"""
-
-    # stream serialization has been moved to serializeTo method (below)
-    # this code remains here for backward compatibility with 'tdw.py'
     if self.commonGenotypeCounter == 0:
-      print "No common genotypes; chi-square cannot be calculated"
+
+      pass
 
     elif self.rareGenotypeCounter == 0:
 
-      print "No rare genotypes with expected less than %d." % self.lumpBelow
-      print "HWChisq    :", self.HWChisq
-      print "HWChisqDf  :", self.HWChisqDf
-      print "HWChisqPval:", self.HWChisqPval
-      print "No lumps"
+      self.HWChisq = self.commonChisqAccumulator
 
-    else:
-      print "Sample size     :", self.n
-      print "Distinct Alleles:", self.k
-      print "Chi Squared     :", self.HWChisq
-      print "DoF             :", self.HWChisqDf
-      print "HWChisqPval     :", self.HWChisqPval
-      print ""
-      print "Lumped observed:", self.lumpedObservedGenotypes
-      print "Lumped expected:", self.lumpedExpectedGenotypes
-      print "Lumped Chisq   :", self.lumpedChisq
-      print "Lumped Pval    :", self.lumpedChisqPval
+      self.HWChisqDf = (float(self.k) * (float(self.k - 1.0))) / 2.0
+      command = "pval %d %f" % (self.HWChisqDf, self.commonChisqAccumulator)
+      returnValue = os.popen(command, 'r').readlines()
+      self.HWChisqPval = float(returnValue[0][:-1])
+
+      flagCommons = 1
+
+    elif self.rareGenotypeCounter > 0:
+      """ Calculate the Chi Squared value for the lumped rare genotypes"""
+
+      if self.lumpedExpectedGenotypes >= self.lumpBelow:
+
+        self.counterAllelesCommon = 0
+
+        for allele in self.counterA.keys():
+          if self.counterA[allele] > 0:
+            self.counterAllelesCommon += 1
+
+        # if all alleles present in common genotypes, then there are
+        # k - 1 independent allele frequency estimates.
+        if self.counterAllelesCommon == self.k:
+          self.counterAllelesCommon -= 1
+
+        self.commonDfAccumulator = self.commonGenotypeCounter - self.counterAllelesCommon
+
+        if self.commonDfAccumulator > 1:
+
+          self.lumpedChisq = ((self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) * \
+                             (self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) / \
+                             self.lumpedExpectedGenotypes)
+
+          command = "pval 1 %f" % (self.lumpedChisq)
+          returnedValue = os.popen(command, 'r').readlines()
+          self.lumpedChisqPval = float(returnedValue[0][:-1])
+          self.flagLumps = 1
+
+          self.HWChisq = self.commonChisqAccumulator + self.lumpedChisq
+          self.HWChisqDf = self.commonDfAccumulator
+          command = "pval %f %f" % (self.HWChisqDf, self.HWChisq)
+          returnedValue = os.popen(command, 'r').readlines()
+          self.HWChisqPval = float(returnedValue[0][:-1])
+          self.flagCommons = 1
+
+          if self.debug:
+            print "Lumped %d for a total of %d observed and %f expected" % (self.rareGenotypeCounter, self.lumpedObservedGenotypes, self.lumpedExpectedGenotypes)
+            print "Chisq: %f, P-Value (dof = 1): %s" % (self.lumpedChisq, self.lumpedChisqPval) # doesn't work if I claim Pval is a float?
+
+################################################################################
 
   def serializeTo(self, stream):
     type = getStreamType(stream)
 
     # stream serialization goes here
+    if type != "xml":
+      stream.writeln("removed text output--look at the xml output")
     
-    if self.commonGenotypeCounter == 0:
-      
-      if type == 'xml':
-        stream.emptytag('hardyweinberg', role='no-common-genotypes')
-      else:
-        stream.writeln("No common genotypes; chi-square cannot be calculated")
+    else:
 
+      stream.opentag('hardyweinberg')
+      stream.tagContents("samplesize", "%d" % self.n)
       stream.writeln()
-      
-    elif self.rareGenotypeCounter == 0:
+      stream.tagContents("distinctalleles", "%d" % self.k)
+      stream.writeln()
 
-      if type == 'xml':
-        stream.opentag('hardyweinberg', role='no-lumps')
+      if self.flagHoms == 1:
+        stream.opentag('homozygotes')
+        stream.tagContents("observed", "%.4f" % self.totalHomsObs)
+        stream.writeln()
+        stream.tagContents("expected", "%4f" % self.totalHomsExp)
+        stream.writeln()
+        stream.tagContents("chisq", "%4f" % self.totalChisqHoms)
+        stream.writeln()
+        stream.tagContents("pvalue", "%4f" % self.chisqHomsPval)
+        stream.writeln()
+        stream.closetag('homozygotes')
+
+      if self.flagHets == 1:
+        stream.opentag('heterozygotes')
+        stream.tagContents("observed", "%.4f" % self.totalHetsObs)
+        stream.writeln()
+        stream.tagContents("expected", "%4f" % self.totalHetsExp)
+        stream.writeln()
+        stream.tagContents("chisq", "%4f" % self.totalChisqHets)
+        stream.writeln()
+        stream.tagContents("pvalue", "%4f" % self.chisqHetsPval)
+        stream.writeln()
+        stream.closetag('heterozygotes')
+
+      if self.flagLumps == 1:
+        stream.opentag('lumped')
+        stream.writeln()
+        stream.tagContents("observed", "%.4f" % self.lumpedObservedGenotypes)
+        stream.writeln()
+        stream.tagContents("expected", "%4f" % self.lumpedExpectedGenotypes)
+        stream.writeln()
+        stream.tagContents("chisq", "%4f" % self.lumpedChisq)
+        stream.writeln()
+        stream.tagContents("pvalue", "%4f" % self.lumpedChisqPval)
+        stream.writeln()
+        stream.closetag('lumped')
+
+      self.serializeXMLTableTo(stream)
+
+      if self.flagCommons == 1:
+        stream.opentag('common')
+        stream.writeln()
         stream.tagContents("hwchisq", "%4f" % self.HWChisq)
         stream.tagContents("hwchisqdf", "%4f" % self.HWChisqDf)
         stream.tagContents("hwchisqpval", "%4f" % self.HWChisqPval)
         stream.writeln()
-
-        self.serializeXMLTableTo(stream)
-
-        stream.closetag('hardyweinberg')
-        
+        stream.closetag('common')
       else:
-        stream.writeln("HardyWeinberg statistics:")
-        stream.writeln("=========================")
-        stream.writeln()
-        stream.writeln("No rare genotypes with expected less than %d." % self.lumpBelow)
-        stream.writeln("HWChisq    : %.4f " % self.HWChisq)
-        stream.writeln("HWChisqDf  : %.4f " % self.HWChisqDf)
-        stream.writeln("HWChisqPval: %.4f " % self.HWChisqPval)
-        stream.writeln("No lumps")
-
-        self.serializeTextTableTo(stream)
-
-        stream.writeln()
-        
-    else:
-
-      if type == 'xml':
-        stream.opentag('hardyweinberg', role='lumps')
-        stream.tagContents("samplesize", "%d" % self.n)
-        stream.writeln()
-        stream.tagContents("distinctalleles", "%d" % self.k)
-        stream.writeln()
-        stream.tagContents("chisquared", "%.4f" % self.HWChisq)
-        stream.writeln()
-        stream.tagContents("degressoffreedom", "%.4f" % self.HWChisqDf)
-        stream.writeln()
-        stream.tagContents("hwchisqpval", "%.4f" % float(self.HWChisqPval))
-        stream.writeln()
-        stream.tagContents("lumpedobserved", "%.4f" % self.lumpedObservedGenotypes)
-        stream.writeln()
-        stream.tagContents("lumpedexpected", "%4f" % self.lumpedExpectedGenotypes)
-        stream.writeln()
-        stream.tagContents("lumpedChisq", "%4f" % self.lumpedChisq)
-        stream.writeln()
-        stream.tagContents("lumpedPval", "%4f" % float(self.lumpedChisqPval))
+        stream.emptytag('common', role='no-common-genotypes')
         stream.writeln()
 
-        self.serializeXMLTableTo(stream)
+      stream.closetag('hardyweinberg')
 
-        stream.closetag('hardyweinberg')
-        
-      else:
-        stream.writeln("HardyWeinberg statistics:")
-        stream.writeln("=========================")
-        stream.writeln("Sample size: %d" % self.n)
-        stream.writeln("Distinct Alleles(k):  %d" % self.k)
-        stream.writeln("Chi Squared: %.4f" % self.HWChisq)
-        stream.writeln("DoF        : %d " % self.HWChisqDf)
-        stream.writeln("HWChisqPval: %.4f" % self.HWChisqPval)
-        stream.writeln()
-        stream.writeln("Lumped observed: %.4f" % self.lumpedObservedGenotypes)
-        stream.writeln("Lumped expected: %.4f" % self.lumpedExpectedGenotypes)
-        stream.writeln("Lumped Chisq   : %.4f" % self.lumpedChisq)
-        stream.writeln("Lumped Pval    : %.4f" % float(self.lumpedChisqPval))
-        stream.writeln()
-
-        self.serializeTextTableTo(stream)
-
-      # extra spacer line
-      stream.writeln()
+    # extra spacer line
+    stream.writeln()
 
   def serializeXMLTableTo(self, stream):
 
