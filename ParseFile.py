@@ -6,7 +6,7 @@
    and classes for parsing literature data which only includes allele
    counts."""
 
-import sys, string
+import sys, os, string
 
 from Utils import getStreamType
 
@@ -16,41 +16,39 @@ class ParseFile:
     *Not to be instantiated.*"""
     def __init__(self,
                  filename,
-                 popFieldsFilename='ws-pop-fields.dat',
-                 sampleFieldsFilename='ws-sample-fields.dat',
+                 validPopFields=None,
+                 validSampleFields=None,
                  separator='\t',
-                 fieldPairDesignator="(2)",
+                 fieldPairDesignator='(2)',
                  debug=0):
         """Constructor for ParseFile object.
 
         - 'filename': filename for the file to be parsed.
 
-        - 'popFieldsFieldname': valid headers for overall population
-           data  (default: 'ws-pop-fields.dat')
+        - 'validPopFields': a string consisting of valid headers (one
+           per line) for overall population data (no default)
 
-        - 'sampleFieldsFilename': valid headers for lines of sample
-        data.  (default: 'ws-sample-fields')
+        - 'validSampleFields': a string consisting of valid headers
+           (one per line) for lines of sample data.  (no default)
 
         - 'separator': separator for adjacent fields (default: a tab
            stop, '\\t').
 
         - 'fieldPairDesignator': designates the pair indicator if a
           fields are grouped in pairs [e.g. HLA-A, and HLA-A(B)]
+          (default: '(2)')
 
         - 'debug': Switches debugging on if set to '1' (default: no
-           debugging, '0')"""
-        self.popFieldsFilename=popFieldsFilename
-        self.sampleFieldsFilename=sampleFieldsFilename
+          debugging, '0')"""
+        
+        self.validPopFields=validPopFields
+        self.validSampleFields=validSampleFields
         self.debug = debug
         self.separator = separator
         self.fieldPairDesignator = fieldPairDesignator
         
-        if self.debug:
-            print self.popFieldsFilename
-
-        self.popFields = ParseFile._dbFieldsRead(self,self.popFieldsFilename)
-        self.sampleFields = ParseFile._dbFieldsRead(self,self.sampleFieldsFilename)
-
+        self.popFields = ParseFile._dbFieldsRead(self,self.validPopFields)
+        self.sampleFields = ParseFile._dbFieldsRead(self,self.validSampleFields)
         if self.debug:
             # debugging only
             print self.popFields
@@ -62,19 +60,17 @@ class ParseFile:
         self._mapPopHeaders()
         self._mapSampleHeaders()
         
-    def _dbFieldsRead(self, filename):
+    def _dbFieldsRead(self, data):
         """Reads the valid key, value pairs.
 
-        Takes a filename for a database and expects a file with
-        database field names separated by newlines.
+        Takes a string that is expected to consist of database field
+        names separated by newlines.
 
         Returns a tuple of field names.
 
         *For internal use only.*"""
-        f = open(filename, 'r')
-        data = f.readlines()
         li = []
-        for line in data:
+        for line in string.split(data, os.linesep):
             if self.debug:
                 print string.rstrip(line)
             li.append(string.rstrip(line))
