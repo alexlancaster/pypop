@@ -7,7 +7,7 @@
  <warning><para>Bibliography is incomplete, still
    converting...</para></warning>
  
- <biblioentry id="Barcellos et al. 1997a">
+ <biblioentry id="Barcellos:1997a" xreflabel="Barcellos et al. 1997a">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -53,7 +53,7 @@
   </biblioset>
  </biblioentry>
  
- <biblioentry id="Barcellos et al. 1997b">
+ <biblioentry id="Barcellos:1997b" xreflabel="Barcellos et al. 1997b">
   <biblioset relation="article">
    <authorgroup>
     <author>
