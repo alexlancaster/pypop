@@ -72,8 +72,8 @@ class HardyWeinberg:
     self.expectedGenotypeCounts = {}
     self.hetsObservedByAllele = {}
     self.hetsExpectedByAllele = {}
-    self.chisqByAllele = {}
-    self.pvalByAllele = {}
+    self.hetsChisqByAllele = {}
+    self.hetsPvalByAllele = {}
     self.totalHomsObs = 0
     self.totalHetsObs = 0
     self.totalHomsExp = 0.0
@@ -233,19 +233,19 @@ class HardyWeinberg:
     # now the chi-square for heterozygotes by allele
     for allele in self.observedAlleles:
       if self.hetsExpectedByAllele[allele] >= self.lumpBelow:
-        self.chisqByAllele[allele] = ((self.hetsObservedByAllele[allele] -\
+        self.hetsChisqByAllele[allele] = ((self.hetsObservedByAllele[allele] -\
                                       self.hetsExpectedByAllele[allele]) *\
                                       (self.hetsObservedByAllele[allele] -\
                                       self.hetsExpectedByAllele[allele])) /\
                                       self.hetsExpectedByAllele[allele]
 
-        command = "pval 1 %f" % (self.chisqByAllele[allele])
+        command = "pval 1 %f" % (self.hetsChisqByAllele[allele])
         returnedValue = os.popen(command, 'r').readlines()
-        self.pvalByAllele[allele] = float(returnedValue[0][:-1])
+        self.hetsPvalByAllele[allele] = float(returnedValue[0][:-1])
 
-      if self.debug:
-        print 'By Allele:    obs exp   chi        p'
-        print '          ', allele, self.hetsObservedByAllele[allele], self.hetsExpectedByAllele[allele], self.chisqByAllele[allele], self.pvalByAllele[allele]
+        if self.debug:
+          print 'By Allele:    obs exp   chi        p'
+          print '          ', allele, self.hetsObservedByAllele[allele], self.hetsExpectedByAllele[allele], self.hetsChisqByAllele[allele], self.hetsPvalByAllele[allele]
 
     # and now the hard stuff
     for genotype in self.expectedGenotypeCounts.keys():
@@ -403,6 +403,7 @@ class HardyWeinberg:
         stream.tagContents("pvalue", "%4f" % self.chisqHomsPval)
         stream.writeln()
         stream.closetag('homozygotes')
+        stream.writeln()
 
       if self.flagHets == 1:
         stream.opentag('heterozygotes')
@@ -415,8 +416,27 @@ class HardyWeinberg:
         stream.tagContents("pvalue", "%4f" % self.chisqHetsPval)
         stream.writeln()
         stream.closetag('heterozygotes')
+        stream.writeln()
 
       # loop for heterozygotes by allele to go here--mpn--
+      stream.opentag('heterozygotesByAllele')
+      stream.writeln()
+      for allele in self.hetsChisqByAllele.keys():
+        stream.opentag('allele', name=allele)
+        stream.writeln()
+        stream.tagContents("observed", "%d" % self.hetsObservedByAllele[allele])
+        stream.writeln()
+        stream.tagContents("expected", "%4f" % self.hetsExpectedByAllele[allele])
+        stream.writeln()
+        stream.tagContents("chisq", "%4f" % self.hetsChisqByAllele[allele])
+        stream.writeln()
+        stream.tagContents("pvalue", "%4f" % self.hetsPvalByAllele[allele])
+        stream.writeln()
+        stream.closetag('allele')
+        stream.writeln()
+
+      stream.closetag('heterozygotesByAllele')
+      stream.writeln()
 
       if self.flagLumps == 1:
         stream.opentag('lumped')
