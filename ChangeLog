@@ -1,3 +1,34 @@
+2003-12-08  Owen Solberg  <solberg@localhost.localdomain>
+
+	* RandomBinning.py: Changed import to use copy instead of
+	deepcopy. Copy should be sufficient and is probably less
+	intensive.  
+	Importing Homozygosity module so we can use the new classless
+	method contained therein.
+	(RandomBinsForHomozygosity): Removed 'Exact' from name of class.
+	(RandomBinsForHomozygosity.__init__): Removed setup of
+	EWSlatkinExact object.
+	(RandomBinsForHomozygosity.randomMethod): Changing printed
+	output to reflect absence of EWSlatkinExact test results.
+	Deepcopy changed to copy.
+	Homozygosity calculation is obtained by calling new method in
+	Homozygosity module.
+	(RandomBinsForHomozygosity.sequenceMethod): Changes as above for
+	randomMethod.
+
+	* Main.py: Changed import to reflect changed class name in
+	RandomBinning module.
+	(Main._doGenotypeFile): As above, reflects changed class name.
+
+	* Homozygosity.py (getObservedHomozygosityFromAlleleData): New
+	method to calculate observed homozygosity from a list of allele
+	counts.  This may want to be folded in to the similar method that
+	already exists in class Homozygosity, but that may require
+	retooling the class a bit.
+	(HomozygosityEWSlatkinExact.doCalcs): Cosmetic improvement for the
+	construction of li, the list of allele counts that gets passed to
+	the EWSlatkinExact object.
+
 2003-12-06  Owen Solberg  <solberg AT socrates.berkeley.edu>
 
 	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Any missing

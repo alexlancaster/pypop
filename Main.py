@@ -47,7 +47,7 @@ from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
 from ConfigParser import ConfigParser, NoOptionError
 from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix
 from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
-from RandomBinning import RandomBinsForHomozygosityExact
+from RandomBinning import RandomBinsForHomozygosity
 
 def getUserFilenameInput(prompt, filename):
     """Read user input for a filename, check its existence, continue
@@ -784,12 +784,12 @@ class Main:
 
                 else:
                     # go ahead and do the random binning
-                    randObj = RandomBinsForHomozygosityExact(untypedAllele=self.untypedAllele,
-                                                             filename=self.fileName,
-                                                             numReplicates=numReplicates,
-                                                             binningReplicates=self.binningReplicates,
-                                                             locus=locus,
-                                                             debug=self.debug)
+                    randObj = RandomBinsForHomozygosity(untypedAllele=self.untypedAllele,
+                                                        filename=self.fileName,
+                                                        numReplicates=numReplicates,
+                                                        binningReplicates=self.binningReplicates,
+                                                        locus=locus,
+                                                        debug=self.debug)
 
                     if self.binningMethod == "random":
                         randObj.randomMethod(alleleCountsBefore=alleleCountsInitial,

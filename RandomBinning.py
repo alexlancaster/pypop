@@ -37,13 +37,13 @@
 """
 
 import string
-from copy import deepcopy
+from copy import copy
 from random import randrange
 
 from Filter import AnthonyNolanFilter
-from Homozygosity import HomozygosityEWSlatkinExact
+import Homozygosity
 
-class RandomBinsForHomozygosityExact:
+class RandomBinsForHomozygosity:
 
     def __init__(self,
                  directoryName=None,
@@ -60,22 +60,17 @@ class RandomBinsForHomozygosityExact:
         self.debug = debug
         self.locus = locus
 
-        self.hzExactObj = HomozygosityEWSlatkinExact(alleleData = None,
-                                                     numReplicates=numReplicates,
-                                                     debug=self.debug)
-
-    
     def randomMethod(self, alleleCountsBefore=None, alleleCountsAfter=None):
 
         # we don't need the dictionary in this case, just the counts
         alleleCountsBefore = alleleCountsBefore.values()
         alleleCountsAfter = alleleCountsAfter.values()
 
-        print "theta\tprobEwens\tprobHomozygosity\tmeanHomozygosity\tobsvHomozygosity\tvarHomozygosity\tlocus\tmethod"
+        print "obsvHomozygosity\tlocus\tmethod"
         
         for i in range(self.binningReplicates):
 
-            alleleCountsRand = deepcopy(alleleCountsBefore)
+            alleleCountsRand = copy(alleleCountsBefore)
 
             while len(alleleCountsRand) > len(alleleCountsAfter):
                 bin1 = randrange(0,len(alleleCountsRand),1)
@@ -85,26 +80,13 @@ class RandomBinsForHomozygosityExact:
                     alleleCountsRand[bin1] += alleleCountsRand[bin2]
                     del alleleCountsRand[bin2]
 
-            self.hzExactObj.doCalcs(alleleCountsRand)
-            homozygosityResults = self.hzExactObj.getHomozygosity()
+            homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsRand)
+            print homozygosityResults,'\t',self.locus,'\trandom'
 
-            for item in homozygosityResults:
-                print item,'\t',
-            print self.locus,'\trandom'
-
-        print 'before binning'
-        self.hzExactObj.doCalcs(alleleCountsBefore)
-        homozygosityResults = self.hzExactObj.getHomozygosity()
-        for item in homozygosityResults:
-            print item,'\t',
-        print self.locus,'\tbefore'
-
-        print 'after binning'
-        self.hzExactObj.doCalcs(alleleCountsAfter)
-        homozygosityResults = self.hzExactObj.getHomozygosity()
-        for item in homozygosityResults:
-            print item,'\t',
-        print self.locus,'\tafter'
+        homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsBefore)
+        print homozygosityResults,'\t',self.locus,'\tbefore'
+        homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsAfter)
+        print homozygosityResults,'\t',self.locus,'\tafter'
 
 
     def sequenceMethod(self,
@@ -114,8 +96,8 @@ class RandomBinsForHomozygosityExact:
 
         binningAttempts = 0
         binningAttemptsSuccessful = 0
-
-        print "theta\tprobEwens\tprobHomozygosity\tmeanHomozygosity\tobsvHomozygosity\tvarHomozygosity\tlocus\tmethod"
+        
+        print "obsvHomozygosity\tlocus\tmethod"
         
         while binningAttemptsSuccessful < self.binningReplicates:
 
@@ -123,9 +105,7 @@ class RandomBinsForHomozygosityExact:
             for allele in alleleCountsBefore:
                 alleleCountsRand[self.locus+"*"+allele] = alleleCountsBefore[allele]
 
-            polyseqSliced = deepcopy(polyseq)
-
-
+            polyseqSliced = copy(polyseq)
 
             try:
                 del polyseqSliced[self.locus+"*"+self.untypedAllele]
@@ -175,12 +155,8 @@ class RandomBinsForHomozygosityExact:
             
             if len(alleleCountsRand) == len(alleleCountsAfter):
 
-                self.hzExactObj.doCalcs(alleleCountsRand.values())
-                homozygosityResults = self.hzExactObj.getHomozygosity()
-
-                for item in homozygosityResults:
-                    print item,'\t',
-                print self.locus,'\tsequence'
+                homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsRand.values())
+                print homozygosityResults,'\t',self.locus,'\trandom'
 
                 binningAttemptsSuccessful += 1
                 if self.debug:
@@ -194,19 +170,11 @@ class RandomBinsForHomozygosityExact:
                         print "**********OVERSHOT TOO MANY TIMES, EXITING BINNING ***********"
                     break
 
-        print 'before binning'
-        self.hzExactObj.doCalcs(alleleCountsBefore.values())
-        homozygosityResults = self.hzExactObj.getHomozygosity()
-        for item in homozygosityResults:
-            print item,'\t',
-        print self.locus,'\tbefore'
 
-        print 'after binning'
-        self.hzExactObj.doCalcs(alleleCountsAfter.values())
-        homozygosityResults = self.hzExactObj.getHomozygosity()
-        for item in homozygosityResults:
-            print item,'\t',
-        print self.locus,'\tafter'
+        homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsBefore.values())
+        print homozygosityResults,'\t',self.locus,'\tbefore'
+        homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsAfter.values())
+        print homozygosityResults,'\t',self.locus,'\tafter'
 
         print 'had to try %d times to get %d random binnings' % (binningAttempts, binningAttemptsSuccessful)
 
