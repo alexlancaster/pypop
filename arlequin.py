@@ -8,7 +8,7 @@ def outputHaploFile(inputFilename, arpFilename):
     haploParse = HaploArlequin(idCol = 1,
                                arpFilename = arpFilename,
                                prefixCols = 2,
-                               suffixCols = 1,
+                               suffixCols = 0,
                                windowSize = 3,
                                debug=1)
 
