@@ -2,7 +2,7 @@
 from distutils.core import setup, Extension
 from distutils.file_util import copy_file
 
-import sys, os
+import sys, os, string
 
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
@@ -17,6 +17,18 @@ if sys.argv[1] == 'sdist':
         # if yes, generate a "ChangeLog"
         print "creating ChangeLog from CVS entries"
         os.system("rcs2log -u \"single:Richard Single:single@allele5.biol.berkeley.edu\" -u \"mpn:Mark Nelson:mpn@alleleb.biol.berkeley.edu\" -u \"alex:Alex Lancaster:alexl@socrates.berkeley.edu\" -u \"diogo:Diogo Meyer:diogo@allele5.biol.berkeley.edu\" > ChangeLog")
+        if os.path.isfile('VERSION') == 0:
+            sys.exit("before distributing, please create a VERSION file!")
+
+# get version from the file VERSION
+if os.path.isfile('VERSION'):
+  f = open('VERSION')
+  version = string.strip(f.readline())
+# check if it's a development version (i.e. in CVS tree, use this)
+elif os.path.isfile('DEVEL_VERSION'):
+  version = 'DEVEL_VERSION'
+else:
+  sys.exit("Could not find VERSION file!  Exiting...")
 
 def Ensure_Scripts(scripts):
     """Strips '.py' from installed scripts.
@@ -33,7 +45,7 @@ def Ensure_Scripts(scripts):
     return scripts
     
 setup (name = "PyPop",
-       version = "0.1",
+       version = version,
        description = "Population genetics statistics",
        url = "http://allele5.biol.berkeley.edu",
        maintainer = "Alex Lancaster",
@@ -45,7 +57,7 @@ setup (name = "PyPop",
                      "Haplo", "Homozygosity",  "ParseFile" ],
        scripts= Ensure_Scripts(['pypop.py']),
 
-       data_files=[('share/PyPop', ['text.xsl', 'html.xsl', 'common.xsl', 'config.ini'])],
+       data_files=[('share/PyPop', ['text.xsl', 'html.xsl', 'common.xsl', 'config.ini', 'VERSION'])],
 
 # compile SWIG module
        
