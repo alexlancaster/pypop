@@ -453,10 +453,6 @@ class ParseGenotypeFile(ParseFile):
         #self.individualsList = [[] for line in range(0, self.totalIndivCount)]
         self.matrix = StringMatrix(self.totalIndivCount, self.locusKeys)
 
-        self.filter.writeToLog()
-        self.filter.writeToLog("|| %s : filter results ||" % self.filename)
-        self.filter.writeToLog()
-        
         for locus in self.locusKeys:
 	    if self.debug:
 	       print "locus name:", locus
@@ -489,6 +485,7 @@ class ParseGenotypeFile(ParseFile):
             # do final reassignments based on counts
             self.filter.endFirstPass()
 
+            self.filter.startFiltering()
             # re-initialise the row count on each iteration of the locus
             rowCount = 0
             for line in sampleDataLines:
@@ -546,7 +543,11 @@ class ParseGenotypeFile(ParseFile):
 
                 if self.debug:
                     print col1, col2, allele1, allele2, total
-                    
+
+            # end filtering for this locus
+            self.filter.endFiltering()
+
+            # assign frequency, counts
             self.freqcount[locus] = alleleTable, total, untypedIndividuals
 
             # if all individuals in a locus aren't untyped
@@ -554,8 +555,8 @@ class ParseGenotypeFile(ParseFile):
             if untypedIndividuals < self.totalIndivCount:
                 self.totalLociWithData += 1                
 
-        # close log file for filter
-        #self.filter.logFile.close()
+        # do cleanup/destructor
+        self.filter.cleanup()
 
     def _checkAlleles(self):
         pass
