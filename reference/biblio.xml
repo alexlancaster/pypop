@@ -1068,7 +1068,139 @@
   <volumenum>85</volumenum>
   <pagenums>753-788</pagenums>
  </biblioentry>
- 
+
+ <biblioentry id="Thomson:Klitz:1987">
+  <authorgroup>
+   <author>
+    <firstname>G</firstname>
+    <surname>Thomson</surname>
+   </author>
+   <author>
+    <firstname>W</firstname>
+    <surname>Klitz</surname>
+   </author>
+  </authorgroup>
+  <pubdate>1987</pubdate>
+  <citetitle pubwork="title">Disequilibrium pattern analysis. I. Theory</citetitle>
+  <citetitle pubwork="journal">Genetics</citetitle>
+  <volumenum>116</volumenum>
+  <pagenums>623-632</pagenums>
+ </biblioentry>
+
+ <biblioentry id="Robinson:etal:1991">
+  <biblioset relation="article">
+   <authorgroup>
+    <author>
+     <firstname>WP</firstname>
+     <surname>Robinson</surname>
+    </author>
+    <author>
+     <firstname>MA</firstname>
+     <surname>Asmussen</surname>
+    </author>
+    <author>
+     <firstname>G</firstname>
+     <surname>Thomson</surname>
+    </author>
+   </authorgroup>
+   <pubdate>1991</pubdate>
+   <citetitle pubwork="article">Three-locus systems impose additional constraints on pairwise disequilibria</citetitle>
+   <citetitle pubwork="journal">Genetics</citetitle> 
+   <volumenum>129</volumenum>
+   <pagenums>925-30</pagenums>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Robinson:etal:2003">
+  <biblioset relation="chapter">
+   <authorgroup>
+    <author>
+     <firstname>J</firstname>
+     <surname>Robinson</surname>
+    </author>
+    <author>
+     <firstname>M</firstname>
+     <surname>Waller</surname>
+    </author>
+    <author>
+     <firstname>P</firstname>
+     <surname>Parham</surname>
+    </author>
+    <author>
+     <firstname>N</firstname>
+     <surname>de Groot</surname>
+    </author>
+    <author>
+     <firstname>R</firstname>
+     <surname>Bontrop</surname>
+    </author>
+    <author>
+     <firstname>LJ</firstname>
+     <surname>Kennedy</surname>
+    </author>
+    <author>
+     <firstname>P</firstname>
+     <surname>Stoehr</surname>
+    </author>
+    <author>
+     <firstname>SGE</firstname>
+     <surname>Marsh</surname>
+    </author>
+   </authorgroup>
+   <citetitle>200XX IMGT/HLA and IMGT/MHC - Sequence Databases for the study of the Major Histocompatibility Complex</citetitle>
+  </biblioset>
+  <biblioset relation="book">
+   <authorgroup>
+    <editor>
+     <firstname>JA</firstname>
+     <surname>Hansen</surname>
+    </editor>
+    <editor>
+     <firstname>B</firstname>
+     <surname>Dupont</surname>
+    </editor>
+   </authorgroup>
+   <edition>in press</edition>
+   <citetitle>HLA 2002: Immunobiology of the Human MHC</citetitle>
+   <publishername>IHWG Press</publishername>
+  </biblioset>
+ </biblioentry>
+
+ <biblioentry id="Single:etal:2003">
+  <biblioset relation="chapter">
+   <authorgroup>
+    <author>
+     <firstname>RM</firstname>
+     <surname>Single</surname>
+    </author>
+    <author>
+     <firstname>D</firstname>
+     <surname>Meyer</surname>
+    </author>
+    <author>
+     <firstname>G</firstname>
+     <surname>Thomson</surname>
+    </author>
+   </authorgroup>
+   <citetitle>Statistical methods for analysis of population genetic data.</citetitle>
+  </biblioset>
+  <biblioset relation="book">
+   <authorgroup>
+    <editor>
+     <firstname>JA</firstname>
+     <surname>Hansen</surname>
+    </editor>
+    <editor>
+     <firstname>B</firstname>
+     <surname>Dupont</surname>
+    </editor>
+   </authorgroup>
+   <edition>in press</edition>
+   <citetitle>HLA 2002: Immunobiology of the Human MHC</citetitle>
+   <publishername>IHWG Press</publishername>
+  </biblioset>
+ </biblioentry>
+
 <!--
 <biblioentry id="Elston">
 <biblioset relation="article">
@@ -1344,26 +1476,6 @@ M. Cargill, S. Bolk, J. Ireland, P.C. Sabeti, D.J. Richter, T. Lavery, R. Kouyou
 <surname>Reynolds</surname>
 </author>
 B.S. Weir, and C.C. Cockerman. 1983. Estimation of the coancestry coefficient: Basis for a short-term genetic distance. Genetics 105-767-779.
-</biblioentry>
-
-<biblioentry id="Robinson">
-<biblioset relation="article">
-<authorgroup>
-<author>
-<firstname>WP</firstname>
-<surname>Robinson</surname>
-</author>
-<author>
-<firstname>MA</firstname>
-<surname>Asmussen</surname>
-</author>
-</author>
-<author>
-<firstname>G</firstname>
-<surname>Thomson</surname>
-</author>
-<pubdate>1991</pubdate>
- Three-locus systems impose additional constraints on pairwise disequilibria. Genetics 129:925-30.
 </biblioentry>
 
 <biblioentry id="Schipper">
