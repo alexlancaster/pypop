@@ -44,7 +44,10 @@ MODIFICATIONS.
 
  <xsl:template match="text()"/>
 
+ <!--
  <xsl:param name="limit" select="0.02"/>
+ -->
+ <xsl:param name="limit" select="20"/>
  
  <xsl:template match="/">
   <xsl:apply-templates/>
@@ -67,7 +70,10 @@ MODIFICATIONS.
   <xsl:variable name="locus-pair13" select="concat($locus1,':',$locus3)"/>
   <xsl:variable name="locus-pair23" select="concat($locus2,':',$locus3)"/>
 
+  <!--
   <xsl:for-each select="haplotypefreq/haplotype[frequency &gt;= $limit]">
+  -->
+  <xsl:for-each select="haplotypefreq/haplotype[numCopies &gt;= $limit]">
 
    <xsl:sort select="frequency"/>
 
