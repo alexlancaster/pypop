@@ -30,16 +30,47 @@ class XMLOutputStream(TextOutputStream):
     """Output stream for writing XML files.
     """
 
-    def opentag(self, tagname, attr='', val=''):
+    def _gentag(self, tagname, attr='', val=''):
+        """Internal method for generating tag text.
+
+        *Only use internally*.
+        """
         if attr == '':
-            self.f.write('<%s>' % (tagname))
+            return '%s' % tagname
         else:
-            self.f.write('<%s %s="%s">' % (tagname, attr, val))
+            return '%s %s="%s"' % (tagname, attr, val)
+
+    def opentag(self, tagname, attr='', val=''):
+        """Generate an open XML tag.
+
+        Generate a tag in the form '<tagname attr="val">'.  Note that
+        the attribute and values are optional and if omitted produce
+        '<tagname>'.  """
+        
+        self.f.write("<%s>" % self._gentag(tagname, attr, val))
+
+    def emptytag(self, tagname, attr='', val=''):
+        """Generate an empty XML tag.
+
+        As per 'opentag()' but without content, i.e.:
+
+        '<tagname attr="val"/>'.
+        """
+        self.f.write("<%s/>" % self._gentag(tagname, attr, val))
             
     def closetag(self, tagname):
+        """Generate a closing XML tag.
+
+        Generate a tag in the form: '</tagname>'. 
+        """
         self.f.write('</' + tagname + '>')
 
     def tagContents(self, tagname, content):
+        """Generate open and closing XML tags around contents.
+
+        Generates tags in the form:  '<tagname>content</tagname>'.
+        'content' must be a string.
+        """
         self.opentag(tagname)
         self.f.write(content)
         self.closetag(tagname)
