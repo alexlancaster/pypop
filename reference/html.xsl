@@ -6,12 +6,16 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
                 version='1.0'>
 
-  <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/html/docbook.xsl"/>
+ <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/html/docbook.xsl"/>
+
+ <xsl:import href="citation.xsl"/>
+
+ <!-- <xsl:import href="graphics.xsl"/> -->
 
  <xsl:output method="html" encoding="ISO-8859-1"
   doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
   doctype-system="http://www.w3.org/TR/html4/loose.dtd" indent="no"/>
- 
+
  <xsl:param name="html.stylesheet" doc:type="string">style.css</xsl:param>
  <xsl:param name="make.valid.html" select="1"/> 
  <xsl:param name="html.cleanup" select="1"/> 
