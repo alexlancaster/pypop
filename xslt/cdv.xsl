@@ -108,7 +108,6 @@ MODIFICATIONS.
    <xsl:call-template name="newline"/>
 
   </xsl:for-each>
-  <xsl:call-template name="newline"/>
 
  </xsl:template>
 
