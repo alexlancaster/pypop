@@ -7,8 +7,6 @@
 #define MAX_LOCI    6 
 #define MAX_COLS    MAX_LOCI * 2 
                              /* max genotypes:  2^max_loci*max_rows */ 
-/* #define MAX_GENOS   20000 */   
-/* #define MAX_HAPLOS  30000 */   
 #define MAX_GENOS   20000    /* RS changed from 64*MAX_ROWS; 5000 in HAPLO */
 #define MAX_HAPLOS  30000    /* RS added and changed declaration in main_proc; 1500 in HAPLO */
  
