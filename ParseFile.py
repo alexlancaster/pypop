@@ -294,6 +294,59 @@ class ParseFile:
         stream.closetag('populationdata')
         stream.writeln()
 
+def _serializeAlleleCountDataAt(stream, alleleTable,
+                                total, untypedIndividuals):
+
+    """Function to actually do the output"""
+
+    totalFreq = 0
+    alleles = alleleTable.keys()
+    alleles.sort()
+
+    # if all individuals are untyped then supress itemized output
+    if len(alleles) == 0:
+        stream.emptytag('allelecounts', role='no-data')
+        stream.writeln()
+    else:
+        stream.opentag('allelecounts')
+        stream.writeln()
+        stream.tagContents('untypedindividuals', \
+                           "%d" % untypedIndividuals)
+        stream.writeln()
+        stream.tagContents('indivcount', \
+                           "%d" % (total/2))
+        stream.writeln()
+        stream.tagContents('allelecount', \
+                           "%d" % total)
+        stream.writeln()
+        stream.tagContents('distinctalleles', \
+                           "%d" % len(alleleTable))
+        stream.writeln()
+
+        for allele in alleles:
+            freq = float(alleleTable[allele])/float(total)
+            totalFreq += freq
+            strFreq = "%0.5f " % freq
+            strCount = ("%d" % alleleTable[allele])
+
+            stream.opentag('allele', name=allele)
+            stream.writeln()
+            stream.tagContents('frequency', strFreq)
+            stream.tagContents('count', strCount)
+            stream.writeln()
+            stream.closetag('allele')
+
+            stream.writeln()
+
+        strTotalFreq = "%0.5f" % totalFreq
+        strTotal = "%d" % total
+
+        stream.tagContents('totalfrequency', strTotalFreq)
+        stream.writeln()
+        stream.tagContents('totalcount', strTotal)
+        stream.closetag("allelecounts")
+        stream.writeln()
+
 class ParseGenotypeFile(ParseFile):
     """Class to parse standard datafile in genotype form.  Tweaked."""
     
@@ -526,7 +579,6 @@ class ParseGenotypeFile(ParseFile):
 
         Specifically, total number of individuals and loci.
          """
-        type = getStreamType(stream)
 
         stream.opentag('totals')
         stream.writeln()
@@ -538,60 +590,14 @@ class ParseGenotypeFile(ParseFile):
         stream.writeln()
         stream.closetag('totals')
         stream.writeln()
-	
+
+
     def serializeAlleleCountDataAt(self, stream, locus):
         """ """
-        type = getStreamType(stream)
         
         alleleTable, total, untypedIndividuals = self.freqcount[locus]
-
-        totalFreq = 0
-        alleles = alleleTable.keys()
-        alleles.sort()
-
-        # if all individuals are untyped then supress itemized output
-        if len(alleles) == 0:
-            stream.emptytag('allelecounts', role='no-data')
-            stream.writeln()
-        else:
-            stream.opentag('allelecounts')
-            stream.writeln()
-            stream.tagContents('untypedindividuals', \
-                               "%d" % untypedIndividuals)
-            stream.writeln()
-            stream.tagContents('indivcount', \
-                               "%d" % (total/2))
-            stream.writeln()
-            stream.tagContents('allelecount', \
-                               "%d" % total)
-            stream.writeln()
-            stream.tagContents('distinctalleles', \
-                               "%d" % len(alleleTable))
-            stream.writeln()
-
-            for allele in alleles:
-                freq = float(alleleTable[allele])/float(total)
-                totalFreq += freq
-                strFreq = "%0.5f " % freq
-                strCount = ("%d" % alleleTable[allele])
-
-                stream.opentag('allele', name=allele)
-                stream.writeln()
-                stream.tagContents('frequency', strFreq)
-                stream.tagContents('count', strCount)
-                stream.writeln()
-                stream.closetag('allele')
-
-                stream.writeln()
-
-            strTotalFreq = "%0.5f" % totalFreq
-            strTotal = "%d" % total
-
-            stream.tagContents('totalfrequency', strTotalFreq)
-            stream.writeln()
-            stream.tagContents('totalcount', strTotal)
-            stream.closetag("allelecounts")
-            stream.writeln()
+        _serializeAlleleCountDataAt(stream, alleleTable,
+                                    total, untypedIndividuals)
 
     def serializeAlleleCountDataTo(self, stream):
         type = getStreamType(stream)
@@ -662,27 +668,39 @@ class ParseAlleleCountFile(ParseFile):
         sampleDataLines, separator = self.getFileData()
 
         total = 0
+        self.freqcount = {}
+
         self.alleleTable = {}
         
         for line in sampleDataLines:
             allele, count = string.split(line, separator)
-            self.alleleTable[allele] = count
+            # store as an integer
+            self.alleleTable[allele] = int(count)
             total += int(count)
 
+        # store in an iVar for the moment
+        self.totalAlleleCount = total
+        
         if self.debug:
-            print self.alleleTable
-
+            print 'alleleTable', self.alleleTable
+            print 'sampleMap keys:', self.sampleMap.keys()
+            print 'sampleMap values:', self.sampleMap.values()
+            
         # simply reconstruct the 3-tuple as generated in
         # ParseGenotypeFile: alleleTable (a map of counts keyed by
         # allele), total allele count and the number of untyped
         # individuals (in this case, by definition it is zero).
+        # then store in the same data structure as ParseGenotypeFile
 
-        self.totalAlleleCount = total
-        self.alleleCount = self.alleleTable, self.totalAlleleCount, 0
+        # use the locus name as key
+        self.locusName = self.sampleMap.keys()[0]
+        
+        # even though we only have a single locus, this will make it
+        # easy to generalize later
 
-        if self.debug:
-            print 'sampleMap keys:', self.sampleMap.keys()
-            print 'sampleMap values:', self.sampleMap.values()
+        self.freqcount[self.locusName] = \
+                                  self.alleleTable, self.totalAlleleCount, 0
+
 
     def genValidKey(self, field, fieldList):
         if (field in fieldList):
@@ -707,12 +725,20 @@ class ParseAlleleCountFile(ParseFile):
         stream.closetag('totals')
         stream.writeln()
 
+    def serializeAlleleCountDataAt(self, stream, locus):
+
+        # call the class-independent function...
+        
+        alleleTable, total, untypedIndividuals = self.freqcount[locus]
+        _serializeAlleleCountDataAt(stream, alleleTable,
+                                    total, untypedIndividuals)
+
     def getAlleleCount(self):
-        return self.alleleCount
+        return self.freqcount[self.locusName]
 
     def getLocusName(self):
         # the first key is the name of the locus
-        return self.sampleMap.keys()[0]
+        return self.locusName
 
 # this test harness is called if this module is executed standalone
 if __name__ == "__main__":
