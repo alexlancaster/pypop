@@ -1,3 +1,17 @@
+2004-06-23    <alex@allele2.biol.berkeley.edu>
+
+	* ln_p_value.c (ln_p_value): Don't hardcode array lengths, make
+	them pointers.  Don't make the integers register variables.  More
+	indentation, one printf debug statement.
+
+	* cal_n.c (cal_n): Don't hardcode array lengths, make them
+	pointers.  Indentation.
+
+	* cal_const.c (cal_const): Likewise.
+
+	* hwe.c (run_data): Add missing call to cal_n().  Tweak debug.
+	(run_data): More testing of straight Monte Carlo version.
+
 2004-06-15    <alexl AT berkeley.edu>
 
 	* Makefile (CFLAGS): Add CFLAGSEXTRA for passing at command-line.

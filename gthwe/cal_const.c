@@ -13,17 +13,17 @@
 **************************************************************************/
 #include "hwe.h"
 
-double cal_const(int no_allele, int n[MAX_ALLELE], int total)
+double cal_const(int no_allele, int *n, int total)
 {
-	register int i;
-	double constant;
-	double log_factorial();
-
-	constant = log_factorial(total) - log_factorial(2 * total);
-
-	for (i = 0; i < no_allele; ++i)
-		constant += log_factorial(n[i]);
-
-	return (constant);
+  register int i;
+  double constant;
+  double log_factorial();
+  
+  constant = log_factorial(total) - log_factorial(2 * total);
+  
+  for (i = 0; i < no_allele; ++i)
+    constant += log_factorial(n[i]);
+  
+  return (constant);
 }
 

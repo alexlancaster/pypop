@@ -145,10 +145,14 @@ int run_data(int *a, int *n, int no_allele, int total,
   print_data(a, no_allele, sample, &outfile, title);
 #endif
 
+  /* calculate number of alleles of each gamete */
+  cal_n(no_allele, a, n);
+
 #if DEBUG
   printf("no_allele=%d, total=%d, thestep=%d, thegroup=%d, thesize=%d, title=%s, t1=%ld\n",no_allele, total, sample.step, sample.group, sample.size, title, t1);
-  for (i=0; i < (no_allele*(no_allele+1)/2); i++) 
-    printf("a[%d] = %d\n", i, a[i]);
+  for (i=0; i < no_allele; i++) 
+    for (j=0; j <= i; j++)
+      printf("a[%d, %d] = %d\n", i, j, a[LL(i,j)]);
 
   for (i=0; i < no_allele; i++) 
     printf("n[%d] = %d\n", i, n[i]);
@@ -242,10 +246,16 @@ int run_data(int *a, int *n, int no_allele, int total,
 
   /* reinitialize constant after n has been calculated using cal_n above: 
      don't know why this isn't done in original code? */
-  /*  constant = cal_const(no_allele, n, total); */
-  
-  /* reinitialize observed value */
+  constant = cal_const(no_allele, n, total);
+
+  /* check original array */
+  for (i=0; i < no_allele; i++) 
+    printf("n[%d] = %d\n", i, n[i]);
+
+  /* don't reinitialize observed value */
   /* ln_p_observed = ln_p_value(a, no_allele, constant);  */
+
+  printf("Constant: %e, Observed: %e\n", constant, ln_p_observed);
 
   /* calculate the number of gametes */
   int total_gametes = 0;
@@ -289,7 +299,8 @@ int run_data(int *a, int *n, int no_allele, int total,
   /* start permuting index of gametes */
   int permu = 0, l = 0;
   int K = 0;
-  int N = 25000;
+  int N = 17000;
+  double ln_p_perm;
   for (permu=0; permu < N; permu++) {
     gsl_ran_shuffle(r, s, total_gametes, sizeof(int));
 
@@ -316,11 +327,10 @@ int run_data(int *a, int *n, int no_allele, int total,
     printf("]\n");
     */
 
-    double ln_p_perm = ln_p_value(g, no_allele, constant);
+    ln_p_perm = ln_p_value(g, no_allele, constant);
 
-    /*    printf("log[Pr(f)] = %f\n", ln_p_observed);
-	  printf("log[Pr(g)] = %f\n", ln_p_perm);
-    */
+    printf("obs. log[Pr(f)] = %e, sim. log[Pr(g)] = %e\n", ln_p_observed, ln_p_perm);
+
     if (ln_p_perm <= ln_p_observed)
       K++;
     /* printf("K = %d\n", K); */
