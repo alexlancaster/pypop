@@ -275,7 +275,7 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
   double constant, p_simulated, total_step;
   struct randomization sample;
   struct outcome result;
-  register int i, j, k, l;
+  register int i, j;
   long t1;
   int num_genotypes = no_allele * (no_allele + 1) / 2;
 
