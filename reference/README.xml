@@ -145,14 +145,15 @@ Korean  KH-10    C             T             CG          TG
     <title>Allele count data</title>
 
   <programlisting>populat         method  ethnic     country    latit   longit
-West Cape York  PCR-SSO Aboriginal Australian 012.00S 142.50E
-DQA1    count
-0301    29
-0103    38
-0501    12
-0101    7
-0102    20
-other   6
+Slavic  PCR-SSO Caucasian RU  059.83N 030.25E
+dqa1  count
+0101/0104 31
+0102  37
+0103  17
+0201  21
+0301  32
+0401  9
+0501  35
   </programlisting>
    </example>
 
@@ -167,7 +168,7 @@ other   6
     export the file as tab-delimited text, and everything should be
     fine.</para>
   
-   <para>As you can see from the above examples, population file begin
+   <para>As you can see from the above examples, population files begin
     with header information.  In the simplest case, the first line
     contains the column headers for the genotype or allele count
     information on the population.  If the file contains a population
@@ -178,7 +179,7 @@ other   6
 
    <para>Note that, for genotype data, each locus corresponds to two
     columns in the input file.  The locus name must repeated, with a
-    suffix such as <literal>_1</literal>, <literal>_1</literal> (the
+    suffix such as <literal>_1</literal>, <literal>_2</literal> (the
     default)  or <literal>_a</literal>, <literal>_b</literal> and must
     match the format defined in the <filename>config.ini</filename>
     (see <xref
