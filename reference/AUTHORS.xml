@@ -9,7 +9,7 @@
  <variablelist>
   <title>PyPop</title>
   <varlistentry>
-   <term>Alex Lancaster <email>alexl@socrates.berkeley.edu</email></term>
+   <term>Alex Lancaster <email>alexl@berkeley.edu</email></term>
    <listitem>
     <para>Co-designer of Python framework: author of main engine, text
      file parser, Python extension module framework using SWIG, XML
@@ -47,7 +47,7 @@
   </varlistentry>
 
   <varlistentry>
-   <term>Owen Solberg <email>solberg@socrates.berkeley.edu</email></term>
+   <term>Owen Solberg <email>solberg@berkeley.edu</email></term>
    <listitem>
     <para>Implemented filter modules, including conversion to allele
      name information to sequence data.</para>
@@ -64,7 +64,7 @@
 
   <varlistentry>
    <term>Glenys Thomson
-    <email>glenys@allele5.biol.berkeley.edu</email></term>
+    <email>glenys@berkeley.edu</email></term>
 
    <listitem>
     <para>Principal investigator and project lead.</para></listitem>
@@ -105,7 +105,7 @@
   <title>Acknowlegements</title>
   <para>This  work  has  benefited from the support of NIH grant
    AI49213 (13th IHW).  Thanks  to  Steven J. Mack, Kristie A. Mather,
-   Steve Marsh and Leslie Louie for helpful comments and
+   Steven G.E. Marsh and Leslie Louie for helpful comments and
    testing.</para>
  </sidebar>
 
