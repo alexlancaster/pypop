@@ -324,20 +324,9 @@
       <xsl:apply-templates select="*[not(self::allele)]"/>
       
       <xsl:call-template name="newline"/>
-      
-      <!-- create the allele count outputs in strings -->
-      
-      <!-- hold allele counts ordered by frequency in string -->
-      <xsl:variable name="allelecounts-by-frequency">
-       
-       <!-- create a header for table -->
-       <xsl:call-template name="append-pad">
-	<xsl:with-param name="padVar" select="'Counts ordered by frequency'"/>
-	<xsl:with-param name="length">30</xsl:with-param>
-       </xsl:call-template>
-       
-       <xsl:call-template name="newline"/>
-       
+
+      <!-- save header as a string to go at end of both tables -->
+      <xsl:variable name="header-as-string">
        <xsl:call-template name="append-pad">
 	<xsl:with-param name="padVar" select="'Name'"/>
 	<xsl:with-param name="length">10</xsl:with-param>
@@ -354,20 +343,10 @@
        </xsl:call-template>
        
        <xsl:call-template name="newline"/>
-       
-       <!-- loop through each allele by count/frequency -->
-       <xsl:for-each select="allele">
-	<xsl:sort select="count" data-type="number" order="descending"/>
-	<xsl:for-each select="frequency|count|@name">
-	 <xsl:call-template name="append-pad">
-	  <xsl:with-param name="padVar" select="."/>
-	  <xsl:with-param name="length">10</xsl:with-param>
-	 </xsl:call-template>
-	</xsl:for-each>
-	<xsl:call-template name="newline"/>
-       </xsl:for-each>
-       
-       <!-- print out the totals at end of table -->
+      </xsl:variable>
+
+      <!-- save the totals as a string to go at end of both tables -->
+      <xsl:variable name="totals-as-string">
        <xsl:call-template name="append-pad">
 	<xsl:with-param name="padVar">Total</xsl:with-param>
 	<xsl:with-param name="length" select="10"/>
@@ -382,6 +361,38 @@
        </xsl:call-template>
        <xsl:call-template name="newline"/>
       </xsl:variable>
+
+      <!-- create the allele count outputs in strings -->
+      
+      <!-- hold allele counts ordered by frequency in string -->
+      <xsl:variable name="allelecounts-by-frequency">
+       
+       <!-- create a header for table -->
+       <xsl:call-template name="append-pad">
+	<xsl:with-param name="padVar" select="'Counts ordered by frequency'"/>
+	<xsl:with-param name="length">30</xsl:with-param>
+       </xsl:call-template>
+       
+       <xsl:call-template name="newline"/>
+       
+       <xsl:value-of select="$header-as-string"/>
+       
+       <!-- loop through each allele by count/frequency -->
+       <xsl:for-each select="allele">
+	<xsl:sort select="count" data-type="number" order="descending"/>
+	<xsl:for-each select="frequency|count|@name">
+	 <xsl:call-template name="append-pad">
+	  <xsl:with-param name="padVar" select="."/>
+	  <xsl:with-param name="length">10</xsl:with-param>
+	 </xsl:call-template>
+	</xsl:for-each>
+	<xsl:call-template name="newline"/>
+       </xsl:for-each>
+
+       <!-- print out the totals at end of table -->
+       <xsl:value-of select="$totals-as-string"/>
+      </xsl:variable>      
+       
       
       <!-- hold allele counts ordered by name in string -->
       <xsl:variable name="allelecounts-by-name">
@@ -393,23 +404,8 @@
        </xsl:call-template>
        
        <xsl:call-template name="newline"/>
-       
-       <xsl:call-template name="append-pad">
-	<xsl:with-param name="padVar" select="'Name'"/>
-	<xsl:with-param name="length">10</xsl:with-param>
-       </xsl:call-template>
-       
-       <xsl:call-template name="append-pad">
-	<xsl:with-param name="padVar" select="'Frequency'"/>
-	<xsl:with-param name="length">10</xsl:with-param>
-       </xsl:call-template>
-       
-       <xsl:call-template name="append-pad">
-	<xsl:with-param name="padVar" select="'(Count)'"/>
-	<xsl:with-param name="length">10</xsl:with-param>
-       </xsl:call-template>
-       
-       <xsl:call-template name="newline"/>
+
+       <xsl:value-of select="$header-as-string"/>
        
        <!-- loop through each allele by name-->
        <xsl:for-each select="allele">
@@ -422,6 +418,10 @@
 	</xsl:for-each>
 	<xsl:call-template name="newline"/>
        </xsl:for-each>
+
+       <!-- print out the totals at end of table -->
+       <xsl:value-of select="$totals-as-string"/>
+
       </xsl:variable>
       
       <!-- paste the allelecounts ordered by frequency and name side-by-side -->
