@@ -1,8 +1,8 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California (Regents) 
-  All Rights Reserved.
+  Copyright (C) 2003, 2004. The Regents of the University of California
+  (Regents)  All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
