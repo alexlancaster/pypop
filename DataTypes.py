@@ -153,11 +153,6 @@ class Genotypes:
 
                 allele1, allele2 = subMatrix[line]
 
-                # remove trailing ':' from matrix representation
-                # FIXME: this is a hack: need to be fixed in Util.py
-                allele1 = allele1[:-1]
-                allele2 = allele2[:-1]
-
                 if self.debug:
                     print allele1, allele2
                 

@@ -294,6 +294,13 @@ class Main:
 
             # figure out what filters we will be using, if any
             if self.config.has_section("Filters"):
+
+                # even if section is blank still generate a logFile
+                # so that file exists when it it is close()d
+                # get filtering options and open log file for
+                # filter in append mode
+                self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogFilename, 'w'))
+                
                 try:
                     self.filtersToApply = self.config.get("Filters", "filtersToApply")
                     self.filtersToApply = string.split(self.filtersToApply, ':')
@@ -365,9 +372,6 @@ class Main:
             self.xmlStream.closetag('xi:include')
             self.xmlStream.writeln()
 
-            # create the log file
-            # get filtering options and open log file for filter in append mode
-            self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogFilename, 'w'))
 
         # more meta-data
         self.xmlStream.tagContents('filename', baseFileName)

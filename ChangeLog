@@ -1,5 +1,32 @@
 2003-11-26  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
+	* Main.py (Main.__init__): Moved filterLogFile creation to the
+	first if statement to check for the presence of the '[Filters]'
+	section in the configuration file, so that when _runFilters is
+	reached the file exists at that point.
+
+	* Utils.py (StringMatrix.__setitem__): Remove ugly hack to that
+	appended a colon to each item in StringMatrix.
+	(StringMatrix.filterOut.f): Remove colon check.
+	(appendTo2dList): New function to append a given string to each
+	element in a two 2d list (i.e. a list of lists).
+	(__main__): Tweak test harness.
+
+	* Haplo.py: Import new function appendTo2dList from Utils.py
+	(Emhaplofreq._runEmhaplofreq): Use it to add colon ':', when
+	generating the subMatrix to pass to the Emhaplofreq module.
+	Remove the truncation from the debug message as well.
+
+	* DataTypes.py (Genotypes._genDataStructures): Remove FIXME hack
+	for Utils.py, don't need to lop-off trailing colon.
+
+	* Filter.py (AnthonyNolanFilter.doFiltering): Likewise
+	(AnthonyNolanFilter.makeSeqDictionaries): Likewise.
+	(AnthonyNolanFilter.translateMatrix): Likewise.
+	(BinningFilter.doDigitBinning): Likewise.
+
+2003-11-26  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
 	* Main.py (Main.__init__): Set randomBinningFlag instance variable
 	to off (0) by default, so it always exists.
 	Move the creation of the filterLogFile to same place that the
