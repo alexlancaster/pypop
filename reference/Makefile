@@ -89,6 +89,9 @@ eqns: tex-math-equations.dvi
 %.eps: %.dia
 	dia --nosplash -e $@ $<
 
+%.jpg: %.ps
+	convert -crop 0x0 -rotate 90 $< $@
+
 # convert XML to LaTeX using latex.xsl (a customization of db2latex)
 %-latex.tex: %.xml
 	$(XSLTPROC) --xinclude -o $@ latex.xsl $<
