@@ -38,7 +38,7 @@
 """
 
 import string, sys, os, math
-
+from operator import add
 from Utils import getStreamType
 
 class Homozygosity:
@@ -49,7 +49,7 @@ class Homozygosity:
   statistics taken from previous simulation runs.
   """
   
-  def __init__(self, alleleCountData, rootPath=".", debug=0):
+  def __init__(self, alleleData, rootPath=".", debug=0):
     """Constructor for homozygosity statistics.
 
     Given:
@@ -62,8 +62,13 @@ class Homozygosity:
 
     - 'debug': flag to switch debugging on."""
 
-    self.alleleData, self.sampleCount, self.unusableIndividuals = alleleCountData
+    self.alleleData = alleleData
     self.numAlleles = len(self.alleleData)
+    if self.numAlleles > 0:
+      self.sampleCount = reduce(add,self.alleleData)
+    else:
+      self.sampleCount = 0
+
     self.rootPath = rootPath
     self.debug = debug
 
@@ -182,10 +187,10 @@ class Homozygosity:
     sampleCount = float(self.sampleCount)
     self.observedHomozygosity = 0.0
     
-    for allele in self.alleleData.keys():
-      freq = float(self.alleleData[allele])/sampleCount
+    for alleleCount in self.alleleData:
+      freq = float(alleleCount/sampleCount)
       if self.debug:
-        print "allelecount = ", self.alleleData[allele], " freq = ", freq
+        print "allelecount = ", alleleCount, " freq = ", freq
       sum += freq*freq
 
       self.observedHomozygosity = sum
@@ -297,15 +302,23 @@ class Homozygosity:
 class HomozygosityEWSlatkinExact(Homozygosity):
 
     def __init__(self,
-                 alleleCountData=None,
+                 alleleData=None,
                  numReplicates=10000,
                  debug=0):
 
-      self.alleleData, self.sampleCount, self.unusableIndividuals = \
-                       alleleCountData
-      self.numAlleles = len(self.alleleData)
+      self.alleleData = alleleData
+      
       self.numReplicates = numReplicates
       self.debug = debug
+
+    def _doCalcs(self,alleleData):
+
+      self.alleleData = alleleData
+      self.numAlleles = len(self.alleleData)
+      if self.numAlleles > 0:
+        self.sampleCount = reduce(add,self.alleleData)
+      else:
+        self.sampleCount = 0
       
       if self.sampleCount > 0:
         import _EWSlatkinExact
@@ -315,7 +328,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         # create the correct array that module expect,
         # by pre- and appending zeroes to the list
         li = [0] 
-        li.extend(self.alleleData.values())
+        li.extend(self.alleleData)
         li.append(0)
 
         if self.debug:
@@ -324,7 +337,23 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         self.EW.main_proc(li, self.numAlleles, \
                           self.sampleCount, self.numReplicates)
 
+        self.theta = self.EW.get_theta()
+        self.prob_ewens = self.EW.get_prob_ewens()
+        self.prob_homozygosity = self.EW.get_prob_homozygosity()
+        self.mean_homozygosity = self.EW.get_mean_homozygosity()
+        self.obsv_homozygosity = self.getObservedHomozygosity()
+        self.var_homozygosity = self.EW.get_var_homozygosity()
+
+
+    def getHomozygosity(self):
+
+      return self.theta, self.prob_ewens, self.prob_homozygosity, \
+             self.mean_homozygosity, self.obsv_homozygosity, self.var_homozygosity
+
+
     def serializeHomozygosityTo(self, stream):
+
+      self._doCalcs(self.alleleData)
 
       if self.getObservedHomozygosity() >= 1.0:
         stream.emptytag('homozygosityEWSlatkinExact', role='monomorphic')
@@ -333,22 +362,22 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         stream.opentag('homozygosityEWSlatkinExact')
         stream.writeln()
 
-        stream.tagContents('theta', "%.4f" % self.EW.get_theta())
+        stream.tagContents('theta', "%.4f" % self.theta)
         stream.writeln()
 
-        stream.tagContents('probEwens', "%.4f" % self.EW.get_prob_ewens())
+        stream.tagContents('probEwens', "%.4f" % self.prob_ewens)
         stream.writeln()
 
-        stream.tagContents('probHomozygosity', "%.4f" % self.EW.get_prob_homozygosity())
+        stream.tagContents('probHomozygosity', "%.4f" % self.prob_homozygosity)
         stream.writeln()
 
-        stream.tagContents('meanHomozygosity', "%.4f" % self.EW.get_mean_homozygosity())
+        stream.tagContents('meanHomozygosity', "%.4f" % self.mean_homozygosity)
         stream.writeln()
 
-        stream.tagContents('observedHomozygosity', "%.4f" % self.getObservedHomozygosity())
+        stream.tagContents('observedHomozygosity', "%.4f" % self.obsv_homozygosity)
         stream.writeln()
 
-        stream.tagContents('varHomozygosity', "%.4f" % self.EW.get_var_homozygosity())
+        stream.tagContents('varHomozygosity', "%.4f" % self.var_homozygosity)
         stream.writeln()
 
         # calculate normalized deviate of homozygosity (F_nd)

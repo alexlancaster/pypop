@@ -45,11 +45,12 @@ from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin
 from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
 from ConfigParser import ConfigParser, NoOptionError
-from Utils import XMLOutputStream, TextOutputStream, convertLineEndings
-from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, MSFFilter
+from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix
+from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
+from RandomBinning import RandomAlleleBinning
 
 def getUserFilenameInput(prompt, filename):
-    """Read user input for a filename, check it's existence, continue
+    """Read user input for a filename, check its existence, continue
     requesting input until a valid filename is entered."""
 
     nofile = 1
@@ -195,7 +196,7 @@ class Main:
 
         # generate filename for logging filter output
 
-        defaultFilterLogFilename = uniquePrefix + "-filter.xml"
+        self.defaultFilterLogFilename = uniquePrefix + "-filter.xml"
 
         if self.debug:
           for section in self.config.sections():
@@ -247,8 +248,6 @@ class Main:
         except NoOptionError:
             sys.exit("No valid sample fields defined")
 
-        # no filter set yet, so assign to None
-        filter = None
 
         # BEGIN PARSE for a genotype file (ParseGenotypeFile)
         if self.fileType == "ParseGenotypeFile":
@@ -259,9 +258,9 @@ class Main:
               popNameDesignator = "+"
 
             try:
-              alleleDesignator = self.config.get(self.fileType, "alleleDesignator")
+              self.alleleDesignator = self.config.get(self.fileType, "alleleDesignator")
             except NoOptionError:
-              alleleDesignator = '*'
+              self.alleleDesignator = '*'
 
             try:
               self.untypedAllele = self.config.get(self.fileType, "untypedAllele")
@@ -274,125 +273,52 @@ class Main:
               fieldPairDesignator = '_1:_2'
 
 
-            try:
-                useAnthonyNolanFilter=self.config.getboolean(self.fileType, "useAnthonyNolanFilter")
-            except NoOptionError:
-                useAnthonyNolanFilter=0
-
-            try:
-                useMSFFilter=self.config.getboolean(self.fileType, "useMSFFilter")
-            except NoOptionError:
-                useMSFFilter=0
-
-            try:
-                useBinningFilter=self.config.getboolean(self.fileType, "useBinningFilter")
-            except NoOptionError:
-                useBinningFilter=0
-
-            try:
-                translateMatrix=self.config.getboolean(self.fileType, "translateMatrix")
-            except NoOptionError:
-                translateMatrix=0
-
-            # BinningFilter requires AnthonyNolanFilter; converse is not true.
-            if useBinningFilter:
-              useAnthonyNolanFilter=1
-              try:
-                binningPath=self.config.get(self.fileType, "binningPath")
-              except NoOptionError:
-                binningPath=os.path.join(self.datapath, "filters", "binning")
-                if self.debug:
-                  print "LOG: Defaulting to system datapath %s for binningPath data" % binningPath
-
-            if useAnthonyNolanFilter:
-              try:
-                anthonynolanPath=self.config.get(self.fileType, "anthonynolanPath")
-              except NoOptionError:
-                anthonynolanPath=os.path.join(self.datapath, "anthonynolan", "HIG-seq-pep-text")
-                if self.debug:
-                  print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
-
-            if useMSFFilter:
-                try:
-                    msfPath=self.config.get(self.fileType, "msfPath")
-                except NoOptionError:
-                    msfPath=os.path.join(self.datapath, "msf")
-                if self.debug:
-                    print "LOG: Defaulting to system datapath %s for msfPath data" % msfPath
-
-            # open log file for filter in append mode
-            if useBinningFilter or useAnthonyNolanFilter or useMSFFilter:
-                filterLogFile = XMLOutputStream(open(defaultFilterLogFilename, 'w'))
-
-            # create a data cleaning filter to pass all data through
-
-            if useBinningFilter:
-              # for the binningFilter, we need to add the path to the binfiles
-              filter = BinningFilter(debug=self.debug,
-                                     directoryName=anthonynolanPath,
-                                     untypedAllele=self.untypedAllele,
-                                     filename=fileName,
-                                     logFile=filterLogFile,
-                                     binsDirectory=binningPath)
-
-            elif useAnthonyNolanFilter:
-              filter = AnthonyNolanFilter(debug=self.debug,
-                                          directoryName=anthonynolanPath,
-                                          untypedAllele=self.untypedAllele,
-                                          filename=fileName,
-                                          logFile=filterLogFile)
-
-            elif useMSFFilter:
-                filter = MSFFilter(debug=self.debug,
-                                   directoryName=msfPath,
-                                   alleleDesignator=alleleDesignator,
-                                   untypedAllele=self.untypedAllele,
-                                   filename=fileName,
-                                   logFile=filterLogFile)
-
-            #filter = AlleleCountAnthonyNolanFilter(debug=self.debug,
-            #                                       directoryName=anthonynolanPath,
-            #                                       untypedAllele=self.untypedAllele,
-            #                                       filename=fileName,
-            #                                       logFile=filterLogFile,
-            #                                       lumpThreshold=5)
-
-            else:
-              # don't use filter, just create a "pass through filter"
-              filter = PassThroughFilter()
-
             # Generate the parse file object, which simply creates
             # a matrix (no allele count stuff done!)
-            self.parsed = ParseGenotypeFile(fileName,
-                                      validPopFields=validPopFields,
-                                      validSampleFields=validSampleFields,
-                                      alleleDesignator=alleleDesignator, 
-                                      untypedAllele=self.untypedAllele,
-                                      popNameDesignator=popNameDesignator,
-                                      fieldPairDesignator=fieldPairDesignator,
-                                      debug=self.debug)
+            self.parsed = ParseGenotypeFile(self.fileName,
+                                validPopFields=validPopFields,
+                                validSampleFields=validSampleFields,
+                                alleleDesignator=self.alleleDesignator, 
+                                untypedAllele=self.untypedAllele,
+                                popNameDesignator=popNameDesignator,
+                                fieldPairDesignator=fieldPairDesignator,
+                                debug=self.debug)
 
-            # now we do the filtering on the parsed file to create a
-            # new filtered data matrix
-            self.filtered = filter.doFiltering(self.parsed.getMatrix())
+            # we copy the parsed data to self.filtered, to be ready for the gamut of filters coming
 
-            # translate (into sequence) the datamatrix if specified
-            if translateMatrix:
-                self.filtered = filter.translateMatrix(self.filtered)
+            self.matrixHistory = []
+
+            self.matrixHistory.append(self.parsed.getMatrix().copy())
+            
+            # self.filtered = filter.doFiltering(self.parsed.getMatrix())
+
+            # figure out what filters we will be using, if any
+            if self.config.has_section("Filters"):
+                try:
+                    self.filtersToApply = self.config.get("Filters", "filtersToApply")
+                    self.filtersToApply = string.split(self.filtersToApply, ':')
+                except:
+                    pass
+
+                # this allows the user to have "filtersToApply=" without ill consequences
+                if len(self.filtersToApply) > 0 and len(self.filtersToApply[0]) > 0:
+                    self._runFilters()
 
             # and then we pass the filtered matrix to be put in format
             # for rest of processing
-            self.input = Genotypes(matrix=self.filtered,
+            self.input = Genotypes(matrix=self.matrixHistory[-1],
                                    untypedAllele=self.untypedAllele,
                                    debug=self.debug)
 
         # END PARSE for a genotype file (ParseGenotypeFile)
 
+
+
         # BEGIN PARSE: allelecount file (ParseAlleleCountFile)
         elif self.fileType == "ParseAlleleCountFile":
 
             # Generate the parse file object
-            self.parsed = ParseAlleleCountFile(fileName,
+            self.parsed = ParseAlleleCountFile(self.fileName,
                              validPopFields=validPopFields,
                              validSampleFields=validSampleFields,
                              separator='\t',
@@ -407,6 +333,8 @@ class Main:
         else:
             sys.exit("Unrecognised file type")
 
+
+
         # BEGIN common XML output section
         
         # create XML stream
@@ -416,13 +344,14 @@ class Main:
         self.xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr), role=self.fileType)
         self.xmlStream.writeln()
 
+        ## WHAT WOULD ALEX DO?
         if filter:
 
             # if and only if filtering is done, generate XInclude XML
             # file output reference, to include
             # <popfilename>-filter.log
             
-            self.xmlStream.opentag('xi:include', href=defaultFilterLogFilename, parse="xml")
+            self.xmlStream.opentag('xi:include', href=self.defaultFilterLogFilename, parse="xml")
             self.xmlStream.writeln()
             self.xmlStream.emptytag('xi:fallback')
             self.xmlStream.writeln()
@@ -458,6 +387,127 @@ class Main:
 
         # lastly, generate the text output
         self._genTextOutput()
+
+
+    def _runFilters(self):
+
+        # this section is here because there is no reason to look for
+        # random binning if filters are not being used
+        self.randomBinningFlag = 0
+        if self.config.has_section("RandomAlleleBinning"):
+            try:
+                self.binningMethod = self.config.get("RandomAlleleBinning", "binningMethod")
+            except:
+                self.binningMethod = "random"
+            try:
+                self.binningStartPoint = self.config.getint("RandomAlleleBinning","binningStartPoint")
+            except:
+                self.binningStartPoint = 0
+            try:
+                self.binningReplicates = self.config.getint("RandomAlleleBinning", "binningReplicates")
+            except NoOptionError:
+                self.binningReplicates = 10000
+            try:
+                self.binningLoci = self.config.get("RandomAlleleBinning", "binningLoci")
+                self.binningLoci = string.split(self.binningLoci, ',')
+            except:
+                self.binningLoci = []
+            if len(self.binningLoci) > 0:
+                self.randomBinningFlag = 1
+
+        # get filtering options and open log file for filter in append mode
+        self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogFilename, 'w'))
+
+        for filterCall in self.filtersToApply:
+            if filterCall == 'AnthonyNolan' or \
+                   filterCall == 'DigitBinning' or \
+                   filterCall == 'CustomBinning' or \
+                   filterCall == 'Sequence':
+                filterType = filterCall
+            else:
+                try:
+                    filterType = self.config.get(filterCall, "filterType")
+                except:
+                    sys.exit("No valid filter type specified under filter heading " + filterCall)
+
+            if filterType == 'AnthonyNolan':
+                try:
+                    anthonynolanPath = self.config.get(filterCall, "path")
+                except:
+                    anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
+                    if self.debug:
+                        print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
+                try:
+                    alleleFileFormat = self.config.get(filterCall, "alleleFileFormat")
+                except:
+                    anthonynolanPath = 'msf'
+                filter = AnthonyNolanFilter(debug=self.debug,
+                                            directoryName=anthonynolanPath,
+                                            alleleFileFormat=alleleFileFormat,
+                                            alleleDesignator=self.alleleDesignator,
+                                            untypedAllele=self.untypedAllele,
+                                            filename=self.fileName,
+                                            logFile=self.filterLogFile)
+                self.matrixHistory.append(filter.doFiltering((self.matrixHistory[-1]).copy()))
+                
+            elif filterType == 'DigitBinning':
+                try:
+                    binningDigits = self.config.getint(filterCall, "binningDigits")
+                except:
+                    binningDigits = 4
+                filter = BinningFilter(debug=self.debug,
+                                       binningDigits=binningDigits,
+                                       untypedAllele=self.untypedAllele,
+                                       filename=self.fileName,
+                                       logFile=self.filterLogFile)
+                self.matrixHistory.append(filter.doDigitBinning((self.matrixHistory[-1]).copy()))
+
+            elif filterType == 'CustomBinning':
+                try:
+                    binningPath=self.config.get(filterCall, "path")
+                except:
+                    binningPath=os.path.join(self.datapath, "filters", "binning")
+                    if self.debug:
+                        print "LOG: Defaulting to system datapath %s for binningPath data" % binningPath
+                filter = BinningFilter(debug=self.debug,
+                                       directoryName=binningPath,
+                                       untypedAllele=self.untypedAllele,
+                                       filename=self.fileName,
+                                       logFile=self.filterLogFile,
+                                       binningPath=binningPath)
+                self.matrixHistory.append(filter.doCustomBinning((self.matrixHistory[-1]).copy()))
+
+            elif filterType == 'Sequence':
+                try:
+                    sequenceFileSuffix = self.config.get(filterCall, "sequenceFileSuffix")
+                except:
+                    sequenceFileSuffix='_prot'
+                try:
+                    anthonynolanPath = self.config.get(filterCall, "path")
+                except:
+                    anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
+                    if self.debug:
+                        print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
+                filter = AnthonyNolanFilter(debug=self.debug,
+                                            directoryName=anthonynolanPath,
+                                            alleleFileFormat='msf',
+                                            alleleDesignator=self.alleleDesignator,
+                                            sequenceFileSuffix=sequenceFileSuffix,
+                                            untypedAllele=self.untypedAllele,
+                                            filename=self.fileName,
+                                            logFile=self.filterLogFile)
+                self.matrixHistory.append(filter.translateMatrix((self.matrixHistory[-1]).copy()))
+
+            else:
+                sys.exit("The filter type '" + filterType + "' specified under filter heading '" + filterCall + "' is not recognized.")
+
+        if self.debug:
+            print "matrixHistory"
+            print self.matrixHistory
+
+#        self.filterLogFile.closetag('filterlog')
+#        self.filterLogFile.close()
+
 
     def _doAlleleCountFile(self):
 
@@ -505,6 +555,7 @@ class Main:
         
         self.xmlStream.closetag('locus')
         self.xmlStream.writeln()
+
 
     def _doGenotypeFile(self):
 
@@ -643,29 +694,114 @@ class Main:
               if self.debug:
                 print "LOG: Defaulting to system datapath %s for homozygosity tables" % rootPath
 
+            alleleCount = self.input.getAlleleCountAt(locus)
+            alleleCount = alleleCount[0].values()
 
-            hzObject = Homozygosity(self.input.getAlleleCountAt(locus),
+            hzObject = Homozygosity(alleleCount,
                                     rootPath=rootPath,
                                     debug=self.debug)
 
             hzObject.serializeHomozygosityTo(self.xmlStream)
 
-          if self.config.has_section("HomozygosityEWSlatkinExact"):
 
+          if self.config.has_section("HomozygosityEWSlatkinExact"):
+            
             try:
               numReplicates=self.config.getint("HomozygosityEWSlatkinExact", \
                                           "numReplicates")
             except NoOptionError:
               numReplicates=10000
 
-            hzExactObj = HomozygosityEWSlatkinExact(self.input.getAlleleCountAt(locus),
+            # make a dictionary of allele counts (don't need the last
+            # two elements that are returned by this method)            
+            alleleCounts = self.input.getAlleleCountAt(locus)[0]
+
+            # notice we pass just the alleleCount values.  But the
+            # dictionary is still useful to have in case we have to do
+            # random binning.
+            hzExactObj = HomozygosityEWSlatkinExact(alleleCounts.values(),
                                                     numReplicates=numReplicates,
                                                     debug=self.debug)
 
             hzExactObj.serializeHomozygosityTo(self.xmlStream)
 
+            # random binning for the homozygosity test begins here
+            if self.randomBinningFlag and locus in map(string.upper,self.binningLoci):
+
+                inputInitial = Genotypes(matrix=self.matrixHistory[self.binningStartPoint],
+                                         untypedAllele=self.untypedAllele,
+                                         debug=self.debug)
+
+                # as above, we create a dictionary of allele counts
+                # (made from the correct position in the
+                # matrixHistory)
+                alleleCountsInitial = inputInitial.getAlleleCountAt(locus)[0]
+
+                if self.debug:
+                    print "alleleCountsInitial", len(alleleCountsInitial), alleleCountsInitial
+                    print "alleleCounts", len(alleleCounts), alleleCounts
+
+                randObj = RandomAlleleBinning(debug=self.debug,
+                                              untypedAllele=self.untypedAllele,
+                                              filename=self.fileName)
+
+                if self.binningMethod == "random":
+                    randomlyBinnedAlleleCounts = \
+                         randObj.generateRandomBins(alleleCountsBefore=alleleCountsInitial,
+                                                    alleleCountsAfter=alleleCounts,
+                                                    binningReplicates=self.binningReplicates)
+                    
+                elif self.binningMethod == "sequence":
+                    try:
+                        sequenceFileSuffix = self.config.get("Sequence", "sequenceFileSuffix")
+                    except:
+                        sequenceFileSuffix='_nuc'
+                    try:
+                        anthonynolanPath = self.config.get("Sequence", "path")
+                    except:
+                        anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
+                        if self.debug:
+                            print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
+
+                    seqfilter = AnthonyNolanFilter(debug=self.debug,
+                                        directoryName=anthonynolanPath,
+                                        alleleFileFormat='msf',
+                                        alleleDesignator=self.alleleDesignator,
+                                        sequenceFileSuffix=sequenceFileSuffix,
+                                        untypedAllele=self.untypedAllele,
+                                        filename=self.fileName,
+                                        logFile=self.filterLogFile)
+
+                    polyseq, polyseqpos = seqfilter.makeSeqDictionaries(matrix=(self.matrixHistory[self.binningStartPoint]).copy(),locus=locus)
+
+                    randomlyBinnedAlleleCounts = \
+                         randObj.generateRandomBinsFromSequence(alleleCountsBefore=alleleCountsInitial,
+                                                                alleleCountsAfter=alleleCounts,
+                                                                binningReplicates=self.binningReplicates,
+                                                                polyseq=polyseq,
+                                                                locus=locus)
+
+                else:
+                    sys.exit("Random binning method not recognized:" + self.binningMethod)
+
+
+                randomHomozygosities = []
+
+                for alleleCount in randomlyBinnedAlleleCounts:
+                    hzExactObj._doCalcs(alleleCount)
+                    randomHomozygosities.append(hzExactObj.getHomozygosity())
+
+                if self.debug:
+                    print "randomlyBinnedAlleleCounts", randomlyBinnedAlleleCounts
+                    print "randomHomozygosities",randomHomozygosities
+
           self.xmlStream.closetag('locus')
           self.xmlStream.writeln()
+
+########################
+        self.filterLogFile.closetag('filterlog')
+        self.filterLogFile.close()
+##########################
 
         # estimate haplotypes
 
@@ -757,6 +893,8 @@ class Main:
 
           # serialize to XML
           haplo.serializeTo(self.xmlStream)
+
+
 
     def _genTextOutput(self):
 

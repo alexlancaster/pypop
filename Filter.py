@@ -42,6 +42,7 @@
 
 import sys, os, string, types, re, exceptions
 from Utils import OrderedDict, TextOutputStream, StringMatrix
+from copy import deepcopy
 
 class SubclassError(Exception):
     def __init__(self):
@@ -100,22 +101,33 @@ class PassThroughFilter(Filter):
 class AnthonyNolanFilter(Filter):
     """Filters data via anthonynolan's allele call data.
 
-    Data sets found at "anthonynolan":http://www.anthonynolan.com
+    Allele call data files can be of either txt or msf formats.
+    txt files available at http://www.anthonynolan.com
+    msf files available at ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/
+    Use of msf files is required in order to translate allele codes
+    into polymorphic sequence data.
     """
+
     def __init__(self,
                  directoryName=None,
+                 alleleFileFormat='msf',
+                 alleleDesignator='*',
                  logFile=None,
                  untypedAllele='****',
+                 sequenceFileSuffix='_prot',
                  filename=None,
                  numDigits=4,
                  verboseFlag=1,
                  debug=0):
 
         self.directoryName = directoryName
+        self.alleleFileFormat=alleleFileFormat
         self.numDigits = numDigits
         self.verboseFlag = verboseFlag
         self.debug = debug
+        self.alleleDesignator = alleleDesignator
         self.untypedAllele = untypedAllele
+        self.sequenceFileSuffix = sequenceFileSuffix
         self.filename = filename
         self.logFile = logFile
 
@@ -123,33 +135,51 @@ class AnthonyNolanFilter(Filter):
         self.logFile.opentag('filterlog', filename=self.filename)
         self.logFile.writeln()
 
-        patt = re.compile("^([0-9a-zA-Z]+)\*([0-9a-zA-Z]+)")
+        if self.alleleFileFormat == 'msf':
+            patt = re.compile("^ *Name: *([0-9a-zA-Z]+)" + \
+                              re.escape(self.alleleDesignator) + \
+                              "([0-9a-zA-Z]+)")
+            ## These are the names of the loci used in pop files.
+            ## These are also the official names specified by NCBI.
+            ## MSF files use all of these, except C is Cw.
+            ## This exception is handled as a corner case in the code.
+            ## In the future the ini file should specify a concordance table.
+            loci = ['A', 'C', 'B', 'DRA', 'DRB1', 'DQA1', 'DQB1', 'DPA1', 'DPB1']
+
+        else:
+            patt = re.compile("^([0-9a-zA-Z]+)" + \
+                              re.escape(self.alleleDesignator) + \
+                              "([0-9a-zA-Z]+)")
+            loci = ['a', 'b', 'c', 'dqa', 'dqb', 'dra', 'drb', 'dpb', 'dpa']
         
         self.alleleLookupTable = {}
-        loci = ['a', 'b', 'c', 'dqa', 'dqb', 'dra', 'drb', 'dpb', 'dpa']
         
         for locus in loci:
-            if self.debug:
-                print locus
-            lines = (open(os.path.join(directoryName, locus + '_pt.txt'), 'r')).readlines()
 
-            for line in lines:
+            if self.alleleFileFormat == 'msf':
+                self._getMSFLinesForLocus(locus)
+            else:
+                self.lines = (open(os.path.join(directoryName, locus + '_pt.txt'), 'r')).readlines()
+
+            for line in self.lines:
                 matchobj = re.search(patt, line)
                 if matchobj:
                     name = matchobj.group(1)
-                    # corner case!!
-                    # 'C' locus is called 'Cw' in data files
+                    # CORNER CASE! 'C' locus is called 'Cw' in data files
                     if name == "Cw":
                         name = "C"
                     allele = matchobj.group(2)
-                    if self.debug:
-                        print name, allele
+
                     if self.alleleLookupTable.has_key(name):
                         if allele not in self.alleleLookupTable[name]:
                             self.alleleLookupTable[name].append(allele)
                     else:
                         self.alleleLookupTable[name] = []
                         self.alleleLookupTable[name].append(allele)
+
+        if self.debug:
+            print self.alleleLookupTable
+
 
     def doFiltering(self, matrix=None):
         """Do filtering on StringMatrix
@@ -204,8 +234,8 @@ class AnthonyNolanFilter(Filter):
             # end filtering for this locus
             self.endFiltering()
 
-        # do cleanup/destructor
-        self.cleanup()
+##         # do cleanup/destructor
+##         self.cleanup()
 
         return self.matrix
 
@@ -396,187 +426,183 @@ class AnthonyNolanFilter(Filter):
         # close log file
         self.logFile.close()
 
+################# translation methods begin here
 
-class BinningFilter(AnthonyNolanFilter):
-    """Filters data through rules defined in one file for each locus.
-
-    """
-    def __init__(self,
-                 binningPath='/data/ihwg/filters/binning',
-                 **kw):
-
-        AnthonyNolanFilter.__init__(self, **kw)
-
-#         columnPattern = re.compile("^([0-9a-zA-Z]+)\t([0-9a-zA-Z]+)")
-# 
-#         self.binningTable = {}
-# 
-#         for binningLocus in loci:
-#             binningEntries = (open(os.path.join(binningPath, binningLocus + '.tsv'), 'r')).readlines()
-# 
-#             
-# ###########################################
-#     def endFirstPass(self):
-# 
-#         """Do regular AnthonyNolanFilter then translate alleles with
-#         entries in the binning files.
-# 
-#         """
-# 
-#         AnthonyNolanFilter.endFirstPass(self)
-# 
-#         # now, loop over the loci, reading in binning rules
-#         # for each locus for which they are available.
-#         # This needs to be changed to be passed in from the config file
-#         # as is done for validSampleFields.
-# 
-#         translKeys = self.translTable.keys()
-#         
-#         for allele in translKeys:
-# 
-#             filteredAllele = self.translTable[allele]
-# 
-#             if self.debug:
-#                 print allele, "translates to", filteredAllele, "and has count", self.countTable[filteredAllele]
-# 
-#             # if below the threshold, make allele 'lump
-#             if self.countTable[filteredAllele] <= self.lumpThreshold:
-#                 self.translTable[allele] = 'lump'
-# 
-
+    def makeSeqDictionaries(self, matrix=None, locus=None):
         
+        self.matrix = matrix
 
-
-
-            
-class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
-    """Filters data with an allelecount less than a threshold.
-
-    """
-    def __init__(self,
-                 lumpThreshold=None,
-                 **kw):
-
-        self.lumpThreshold = lumpThreshold
-        AnthonyNolanFilter.__init__(self, **kw)
-
-    def endFirstPass(self):
-
-        """Do regular AnthonyNolanFilter then translate alleles with
-        count < lumpThreshold to 'lump'
-
-        """
-
-        AnthonyNolanFilter.endFirstPass(self)
-
-        # now, translate alleles with count < lumpThreshold to "lump"
-
-        translKeys = self.translTable.keys()
+        # polyseq is a dictionary, keyed on 'locus*allele', of all
+        # allele sequences, containing ONLY the polymorphic positions.
+        # polyseqpos is a dictionary, keyed on 'locus', of the
+        # positions of the polymorphic residues which you find in
+        # polyseq.
         
-        for allele in translKeys:
+        self.polyseqpos = {}
+        self.polyseq = {}
 
-            filteredAllele = self.translTable[allele]
+        # if method was called without a single locus specified, we
+        # should find the sequences for ALL loci
+        if locus == None:
+            locusList = self.matrix.colList
+        else:
+            locusList = [locus]
+
+        for locus in locusList:
 
             if self.debug:
-                print allele, "translates to", filteredAllele, "and has count", self.countTable[filteredAllele]
+               print "------> beginning sequence translation of locus: %s <------" % locus
 
-            # if below the threshold, make allele 'lump
-            if self.countTable[filteredAllele] <= self.lumpThreshold:
-                self.translTable[allele] = 'lump'
-
-
-        
-
-
-class MSFFilter(AnthonyNolanFilter):
-    """ Filters sequence data from MSF alignment files.
-
-    MSF files for MHC alignments may be found at
-    ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/
-    This is a subclass of AnthonyNolanFilter.  It has new methods
-    which take the allelic data matrix and returns a new data matrix
-    where each polymorphic amino acid position is a separate cell in
-    the matrix.
-    """
-
-
-    def __init__(self,
-                 directoryName='/home/solberg/ihwg/src/data/msf/',
-                 logFile=None,
-                 alleleDesignator='*',
-                 untypedAllele='****',
-                 filename=None,
-                 numDigits=4,
-                 verboseFlag=1,
-                 debug=0):
-
-        self.directoryName = directoryName
-        self.numDigits = numDigits
-        self.verboseFlag = verboseFlag
-        self.debug = debug
-        self.alleleDesignator = alleleDesignator
-        self.untypedAllele = untypedAllele
-        self.filename = filename
-        self.logFile = logFile
-
-        # start log file
-        self.logFile.opentag('filterlog', filename=self.filename)
-        self.logFile.writeln()
-
-        patt = re.compile("^ *Name: *([0-9a-zA-Z]+)" \
-                          + re.escape(self.alleleDesignator) \
-                          + "([0-9a-zA-Z]+)")
-        
-        self.alleleLookupTable = {}
-
-
-        ## These are the names of the loci used in pop files.
-        ## These are also the official names specified by NCBI.
-        ## MSF files use all of these, except C is Cw.
-        ## This exception is handled as a corner case in the code.
-        ## In the future the ini file should specify a concordance table.
-
-        loci = ['A', 'C', 'B', 'DRA', 'DRB1', 'DQA1', 'DQB1', 'DPA1', 'DPB1']
-
-        
-        for locus in loci:
+            # self.sequences is a dictionary, keyed on allele, used to temporarily store sequences
+            self.sequences = {}
 
             self._getMSFLinesForLocus(locus)
 
+            # read the expected length of the alignment, as told by the msf file header
             for line in self.lines:
+                match = re.search('MSF: [0-9]+',line)
+                if match:
+                    break
+            try:
+                self.length = int(string.split(match.group())[1])
+            except:
+                # FIXME:  How do we want to handle a non-existent MSF header alignment length
+                raise RuntimeError, 'could not find the alignment length from msf file %s.' % self.filename
 
-                # no point in looking past the headers of each file
+
+            # see where the header of the MSF file ends (demarcated by // )
+            self.msfHead = 0
+            for line in self.lines:
                 if string.find(line,'//') != -1:
                     break
-
                 else:
-                    matchobj = re.search(patt, line)
+                    self.msfHead += 1
 
-                    if matchobj:
 
-                        name = matchobj.group(1)
-                        # CORNER CASE! 'C' locus is called 'Cw' in data files
-                        if name == "Cw":
-                            name = "C"
-                        allele = matchobj.group(2)
+            rowCount = 0
+            for individ in self.matrix[locus]:
+                for allele in individ:
 
-                        if self.alleleLookupTable.has_key(name):
-                            if allele not in self.alleleLookupTable[name]:
-                                self.alleleLookupTable[name].append(allele)
+                    # FIXME: allele referenced with trailing colon
+                    allele = allele[:-1]
+
+                    # if the allele hasn't been keyed yet, we'll have to get a sequence
+                    if not self.sequences.has_key(allele):
+
+                        # get the sequence if we can...
+                        if allele in self.alleleLookupTable[locus]:
+                            self.sequences[allele] = self._getSequenceFromLines(locus, allele)
+
+                        # ...otherwise, try to find a good close match
                         else:
-                            self.alleleLookupTable[name] = []
-                            self.alleleLookupTable[name].append(allele)
+                            if allele == self.untypedAllele:
+                                self.sequences[allele] = '*' * self.length
+
+                            # FIXME: this code is specific to hla data
+                            # deal with 5 digit allele codes and try again
+                            elif len(allele) == 5 and allele.isdigit():
+                                allele6digits = allele[:4] + '0' + allele[4:5]
+                                if self.debug:
+                                    print '%s NOT found in msf file (probably because it is five digits), trying %s' % (allele, allele6digits)
+                                if allele6digits in self.alleleLookupTable[locus]:
+                                    self.sequences[allele] = self._getSequenceFromLines(locus, allele6digits)
+                                else:
+                                    self.sequences[allele] = self._getConsensusFromLines(locus, allele6digits)
+
+                            else:
+                                self.sequences[allele] = self._getConsensusFromLines(locus, allele)
+
+
+            # takes the sequences and produces a big dictionary of all
+            # loci and allele sequences containing only the
+            # polymorphic positions, keyed on 'locus*allele'
+            
+            for allele in self.sequences:
+                self.polyseq[locus + '*' + allele] = ''
+            self.polyseqpos[locus] = []
+
+
+            # checks each position of each allele, counts the number
+            # of unique characters (excepting . X and * characters)
+            for pos in range(self.length):
+                letter1 = ''
+                letter2 = ''
+                uniqueCount = 0
+                for allele in self.sequences:
+                    letter2 = self.sequences[allele][pos]
+                    if letter2 != '.' and letter2 != 'X' and letter2 != '*':
+                        if letter1 != letter2:
+                            uniqueCount += 1
+                        letter1 = letter2
+
+                # if it is a polymorphic position, we loop thru again
+                # and add it to polyseq and add its position to
+                # polyseqpos
+                if uniqueCount > 1:
+                    for allele in self.sequences:
+                        self.polyseq[locus + '*' + allele] += self.sequences[allele][pos]
+                    self.polyseqpos[locus].append(pos)
+
         if self.debug:
-            print self.alleleLookupTable
+            print self.polyseq
+            print self.polyseqpos
 
-    def doFiltering(self, matrix=None):
-        """No-op method, just close logfile"""
+        return self.polyseq, self.polyseqpos
 
-        self.matrix=matrix
-        # do cleanup/destructor
-        self.cleanup()
+    def translateMatrix(self, matrix=None):
 
-        return self.matrix
+        self.matrix = matrix
+        
+        self.polyseq, self.polyseqpos = self.makeSeqDictionaries(self.matrix)
+
+        # creating the new data matrix
+        # colList is the new list of columns, like A_33, A_47, etc...
+        colList = []
+        for locus in self.matrix.colList:
+            for pos in self.polyseqpos[locus]:
+                colList.append(locus + '_' + str(pos))
+
+        rowCount = len(self.matrix[locus])
+
+        if self.debug:
+            print rowCount
+            print colList
+        
+        seqMatrix = StringMatrix(rowCount, colList)
+
+        for locus in self.matrix.colList:
+            individCount = 0
+            for individ in self.matrix[locus]:
+
+                name1 = locus + '*' + individ[0][:-1]
+                name2 = locus + '*' + individ[1][:-1]
+
+                posCount = 0
+
+                for pos in self.polyseqpos[locus]:
+
+                    letter1 = self.polyseq[name1][posCount]
+                    letter2 = self.polyseq[name2][posCount]
+                    
+                    if letter1 == '.' or letter1 == 'X' or letter1 == '*':
+                        letter1 = self.untypedAllele
+                    if letter2 == '.' or letter2 == 'X' or letter2 == '*':
+                        letter2 = self.untypedAllele
+
+                    # FIXME: this is useless, can't remember why I would have put it here.
+                    # letter1 = letter1
+                    # letter2 = letter2
+                               
+                    seqMatrix[individCount,locus + '_' + str(pos)] = (letter1,letter2)
+
+                    posCount += 1
+                    
+                individCount += 1
+
+        if self.debug:
+            print seqMatrix
+
+        return seqMatrix
 
 
     def _getMSFLinesForLocus(self, locus):
@@ -587,7 +613,7 @@ class MSFFilter(AnthonyNolanFilter):
             locus = 'Cw'
 
         # FIXME:  make the file name configurable
-        self.filename = locus + '_prot.msf'
+        self.filename = locus + self.sequenceFileSuffix + '.msf'
         
         self.lines = open(os.path.join(self.directoryName, self.filename), 'r').readlines()
 
@@ -671,169 +697,105 @@ class MSFFilter(AnthonyNolanFilter):
         return seq
 
 
-    def translateMatrix(self, matrix=None):
+class BinningFilter:
+    """Filters data through rules defined in one file for each locus.
+
+    """
+
+    def __init__(self,
+                 directoryName=None,
+                 logFile=None,
+                 untypedAllele='****',
+                 filename=None,
+                 binningDigits=4,
+                 debug=0):
+        self.binningDigits = binningDigits
+        self.untypedAllele = untypedAllele
         
-        self.matrix = matrix
-
-        # polyseq is a dictionary, keyed on 'locus*allele', of all
-        # allele sequences, containing ONLY the polymorphic positions.
-        # polyseqpos is a dictionary, keyed on 'locus', of the
-        # positions of the polymorphic residues which you find in
-        # polyseq.
+    
+    def doDigitBinning(self,matrix=None):
+        alleles = ['','']
+        for locus in matrix.colList:
+            individCount = 0
+            for individ in matrix[locus]:
+                for i in range(2):
+                    alleles[i] = individ[i][:-1]
+                    if alleles[i] != self.untypedAllele and len(alleles[i]) > self.binningDigits:
+                        alleles[i] = alleles[i][:self.binningDigits]
+                matrix[individCount,locus] = (alleles[0],alleles[1])
+                individCount += 1
+        return matrix
+                    
         
-        self.polyseqpos = {}
-        self.polyseq = {}
+    def doCustomBinning(self,matrix=None):
+        pass
+    
+######################################################
+##     def NOT__init__(self,
+##                  binningPath='/data/ihwg/filters/binning',
+##                  **kw):
+##         AnthonyNolanFilter.__init__(self, **kw)
+##         columnPattern = re.compile("^([0-9a-zA-Z]+)\t([0-9a-zA-Z]+)")
+##         self.binningTable = {}
+##         for binningLocus in loci:
+##             binningEntries = (open(os.path.join(binningPath, binningLocus + '.tsv'), 'r')).readlines()
+##     def endFirstPass(self):
+##         """Do regular AnthonyNolanFilter then translate alleles with
+##         entries in the binning files.
+##         """
+##         AnthonyNolanFilter.endFirstPass(self)
+##         # now, loop over the loci, reading in binning rules
+##         # for each locus for which they are available.
+##         # This needs to be changed to be passed in from the config file
+##         # as is done for validSampleFields.
+##         translKeys = self.translTable.keys()
+##         for allele in translKeys:
+##             filteredAllele = self.translTable[allele]
+##             if self.debug:
+##                 print allele, "translates to", filteredAllele, "and has count", self.countTable[filteredAllele]
+##             # if below the threshold, make allele 'lump
+##             if self.countTable[filteredAllele] <= self.lumpThreshold:
+##                 self.translTable[allele] = 'lump'
+#############################################################
 
 
-        for locus in self.matrix.colList:
+
+
+class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
+    """Filters data with an allelecount less than a threshold.
+
+    """
+    def __init__(self,
+                 lumpThreshold=None,
+                 **kw):
+
+        self.lumpThreshold = lumpThreshold
+        AnthonyNolanFilter.__init__(self, **kw)
+
+    def endFirstPass(self):
+
+        """Do regular AnthonyNolanFilter then translate alleles with
+        count < lumpThreshold to 'lump'
+
+        """
+
+        AnthonyNolanFilter.endFirstPass(self)
+
+        # now, translate alleles with count < lumpThreshold to "lump"
+
+        translKeys = self.translTable.keys()
+        
+        for allele in translKeys:
+
+            filteredAllele = self.translTable[allele]
 
             if self.debug:
-               print "------> beginning sequence translation of locus: %s <------" % locus
+                print allele, "translates to", filteredAllele, "and has count", self.countTable[filteredAllele]
 
-            # self.sequences is a dictionary, keyed on allele, used to temporarily store sequences
-            self.sequences = {}
-
-            self._getMSFLinesForLocus(locus)
-
-            # read the expected length of the alignment, as told by the msf file header
-            for line in self.lines:
-                match = re.search('MSF: [0-9]+',line)
-                if match:
-                    break
-            try:
-                self.length = int(string.split(match.group())[1])
-            except:
-                # FIXME:  How do we want to handle a non-existent MSF header alignment length
-                raise RuntimeError, 'could not find the alignment length from msf file %s.' % self.filename
+            # if below the threshold, make allele 'lump
+            if self.countTable[filteredAllele] <= self.lumpThreshold:
+                self.translTable[allele] = 'lump'
 
 
-            # see where the header of the MSF file ends (demarcated by // )
-            self.msfHead = 0
-            for line in self.lines:
-                if string.find(line,'//') != -1:
-                    break
-                else:
-                    self.msfHead += 1
-
-
-            rowCount = 0
-            for individ in self.matrix[locus]:
-                for allele in individ:
-
-                    # FIXME: allele referenced with trailing colon
-                    allele = allele[:-1]
-
-                    # if the allele hasn't been keyed yet, we'll have to get a sequence
-                    if not self.sequences.has_key(allele):
-
-
-                        # get the sequence if we can...
-                        if allele in self.alleleLookupTable[locus]:
-                            self.sequences[allele] = self._getSequenceFromLines(locus, allele)
-
-
-                        # ...otherwise, try to find a good close match
-                        else:
-
-                            if allele == self.untypedAllele:
-                                self.sequences[allele] = '*' * self.length
-
-                            # FIXME: this code is specific to hla data
-                            # deal with 5 digit allele codes and try again
-                            elif len(allele) == 5 and allele.isdigit():
-                                allele6digits = allele[:4] + '0' + allele[4:5]
-                                if self.debug:
-                                    print '%s NOT found in msf file (probably because it is five digits), trying %s' % (allele, allele6digits)
-                                if allele6digits in self.alleleLookupTable[locus]:
-                                    self.sequences[allele] = self._getSequenceFromLines(locus, allele6digits)
-                                else:
-                                    self.sequences[allele] = self._getConsensusFromLines(locus, allele6digits)
-
-                            else:
-                                self.sequences[allele] = self._getConsensusFromLines(locus, allele)
-
-
-            # takes the sequences and produces a big dictionary of all
-            # loci and allele sequences containing only the
-            # polymorphic positions, keyed on 'locus*allele'
-            
-            for allele in self.sequences:
-                self.polyseq[locus + '*' + allele] = ''
-            self.polyseqpos[locus] = []
-
-
-            # checks each position of each allele, counts the number
-            # of unique characters (excepting . X and * characters)
-            for pos in range(self.length):
-                letter1 = ''
-                letter2 = ''
-                uniqueCount = 0
-                for allele in self.sequences:
-                    letter2 = self.sequences[allele][pos]
-                    if letter2 != '.' and letter2 != 'X' and letter2 != '*':
-                        if letter1 != letter2:
-                            uniqueCount += 1
-                        letter1 = letter2
-
-                # if it is a polymorphic position, we loop thru again
-                # and add it to polyseq and add its position to
-                # polyseqpos
-                if uniqueCount > 1:
-                    for allele in self.sequences:
-                        self.polyseq[locus + '*' + allele] += self.sequences[allele][pos]
-                    self.polyseqpos[locus].append(pos)
-
-        if self.debug:
-            print self.polyseq
-            print self.polyseqpos
-
-
-        # creating the new data matrix
-        # colList is the new list of columns, like A_33, A_47, etc...
-        colList = []
-        for locus in self.matrix.colList:
-            for pos in self.polyseqpos[locus]:
-                colList.append(locus + '_' + str(pos))
-
-        rowCount = len(self.matrix[locus])
-
-        if self.debug:
-            print rowCount
-            print colList
         
-        seqMatrix = StringMatrix(rowCount, colList)
 
-        for locus in self.matrix.colList:
-            individCount = 0
-            for individ in self.matrix[locus]:
-                print individ
-
-                # FIXME: make the locus-allele separator configurable
-                name1 = locus + '*' + individ[0][:-1]
-                name2 = locus + '*' + individ[1][:-1]
-
-                posCount = 0
-
-                for pos in self.polyseqpos[locus]:
-
-                    letter1 = self.polyseq[name1][posCount]
-                    letter2 = self.polyseq[name2][posCount]
-                    
-                    if letter1 == '.' or letter1 == 'X' or letter1 == '*':
-                        letter1 = self.untypedAllele
-                    if letter2 == '.' or letter2 == 'X' or letter2 == '*':
-                        letter2 = self.untypedAllele
-
-                    letter1 = letter1
-                    letter2 = letter2
-                               
-                    seqMatrix[individCount,locus + '_' + str(pos)] = (letter1,letter2)
-
-                    posCount += 1
-                    
-                individCount += 1
-
-        if self.debug:
-            print seqMatrix
-
-        return seqMatrix

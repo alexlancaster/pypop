@@ -384,7 +384,7 @@ class StringMatrix(UserArray):
 
       This is used when the object is 'print'ed, i.e.
       a = StringMatrix(10, [1,2])
-      print a"""
+     print a"""
       if len(self.array.shape) > 0:
           return (self.__class__.__name__)[6:12]+repr(self.array)[len("array"):]
       else:
@@ -397,6 +397,7 @@ class StringMatrix(UserArray):
       there is a better way of doing this"""
       thecopy = StringMatrix(copy.deepcopy(self.rowCount), \
                              copy.deepcopy(self.colList))
+      thecopy.array = self.array.copy()
       return thecopy
 
   def __deepcopy__(self, memo):
@@ -574,6 +575,11 @@ if __name__ == "__main__":
     a = StringMatrix(3, ['A', 'B', 'C'])
 
     print "original matrix is all zeroes: "
+    print a
+
+    a[0, 'B'] = ('XXX', 'XXX')
+    a[1, 'B'] = ('YYY', 'YYY')
+    print "modified matrix: "
     print a
 
     #b = copy.deepcopy(a)
