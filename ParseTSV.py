@@ -7,13 +7,16 @@ class ParseTSV:
                  pop_fields_filename='ihwg-pop-fields.dat',
                  sample_fields_filename='ihwg-sample-fields.dat',
                  debug=0):
-        """Constructor for ParseTSV object.  Defaults to filenames:
+        """Constructor for ParseTSV object.
 
-        ihwg-pop-fields.dat: for valid overall population data fields
-        ihwg-sample-fields: for valid sample data fields.
+        Defaults to filenames:
 
-        Also defaults to no debugging.  Set debug=1 in call to constructor
-        if debuggin is desired"""
+        - ihwg-pop-fields.dat: for valid overall population data fields.
+
+        - ihwg-sample-fields: for valid sample data fields.
+
+        Defaults to no debugging.  Set debug=1 in call to constructor
+        if debugging is desired"""
         self.pop_fields_filename=pop_fields_filename
         self.sample_fields_filename=sample_fields_filename
         self.debug = debug
@@ -31,9 +34,9 @@ class ParseTSV:
         
     def _db_fields_read(self, filename):
         """Takes a filename for a database and expects a file with
-        database field names separated by newlines
+        database field names separated by newlines.
 
-        Returns a tuple of field names.  Use internally only"""
+        Returns a tuple of field names.  Use internally only."""
         f = open(filename, 'r')
         data = f.readlines()
         li = []
@@ -45,13 +48,17 @@ class ParseTSV:
 
     def _map_fields(self, line, field_list):
         """Takes a line and a list of valid fields and creates a dictionary
-        of positions keyed by valid field names.  Complains if a field
-        name is not valid.  Also complains if the correct number of fields
-        are not found for the metadata headers.
+        of positions keyed by valid field names.
+
+        - Complains if a field name is not valid.
+
+        - Complains if the correct number of fields are not found for
+        the metadata headers.
         
         Returns a 2-tuple:
         
-        - a dictionary keyed by field name
+        - a dictionary keyed by field name.
+
         - the total number of  metadata fields.
 
         Intended to be used internally by class only."""
@@ -104,7 +111,9 @@ class ParseTSV:
         return assoc, i
 
     def sample_file_read(self, filename):
-        """Takes a filename and reads the file data into an instance variable.
+        """Reads filename into object.
+
+        Takes a filename and reads the file data into an instance variable.
         """
         f = open(filename, 'r')
         self.file_data = f.readlines()
@@ -147,8 +156,9 @@ class ParseTSV:
             self.pop_data[pop_field] = pop_data_fields[self.pop_map[pop_field]]
 
     def map_sample_headers(self):
-        """Create the associations between field names and input columns by
-        parsing the header information from the top of the file, for the
+        """Create the associations between field names and input columns.
+
+        Parses the header information from the top of the file, for the
         sample data.
 
         Also validates the file information for the correct number of fields
@@ -183,23 +193,29 @@ class ParseTSV:
                       "\noffending line is:\n", line
 
     def get_pop_data(self):
-        """Returns a dictionary of population data keyed by
-        types specified in population metadata file"""
+        """Returns a dictionary of population data.
+
+        Dictionary is keyed by types specified in population metadata
+        file"""
         return self.pop_data
 
     def get_sample_map(self):
-        """Returns dictionary containing either a 2-tuple of column
-        position or a single column position keyed by field originally
-        specified in sample metadata file"""
+        """Returns dictionary of sample data.
+
+        It contains either a 2-tuple of column position or a single
+        column position keyed by field originally specified in sample
+        metadata file"""
 
         return self.sample_map
     
     def get_allele_map(self):
-        """Returns dictionary containing 2-tuple of column position keyed by
-        allele names originally specified in sample metadata file
+        """Returns dictionary containing 2-tuple of column position.
+
+        It is keyed by allele names originally specified in sample
+        metadata file
 
         Note that this is simply a _subset_ of that returned by
-        get_sample_map()"""
+        **get_sample_map()**"""
 
         self.allele_map = {}
         for key in self.sample_map.keys():
@@ -210,7 +226,7 @@ class ParseTSV:
         return self.allele_map
 
     def get_file_data(self):
-        """Return the raw lines, *without* the header metadata information"""
+        """Return raw sample lines, *without*  header metadata."""
         return self.file_data[3:]
     
     def gen_sample_output(self, field_list):
