@@ -44,10 +44,18 @@ allele count case).
 
 **TODO**
 
+2001-09-20:
+
+- gthwe: Remove extraneous information from output: table, #alleles,
+  chunkinfo, stepinfo.  (alex: 80%-COMPLETED 2001-09-21, done table).
+
+- Longer-term: rationalize and/or modernize code (diogo/alex).
+
 2001-09-14:
 
 - HardyWeinberg: Output a lower-triangular matrix for all relevant
-  values. (mpn/alex)
+  values. (mpn/alex: 80%-COMPLETED 2001-09-21, need to add more values
+  to cells)
 
 - Output information about missing data on a per-locus basis (i.e. any
   deviations from the total number of individuals in each input
@@ -59,7 +67,7 @@ allele count case).
   can be passed in via command-line options.  (alex)
 
 - Add parameters for Guo and Thompson into "config.ini".  (alex:
-  COMPLETED 2001-09-18)
+  100%-COMPLETED 2001-09-18)
 
 - Make number of significant figures reported be a global parameter
   set in "config.ini" (e.g. "%.4f") (alex)
@@ -69,7 +77,7 @@ allele count case).
 
 - Finish cleaning up 'HardyWeinberg'. (alex/mpn)
 
-- Implement a 'PopGenStats' module?  Move some 'population-level'
+- Implement a 'PopGenStats' module (?) Move some 'population-level'
   statistics into this module. (alex)
 
 *longer-term*:
