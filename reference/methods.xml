@@ -1804,7 +1804,11 @@
    
    <figure id="lr-stat-null">
     <title>Distribution of likelihood ratio statistic, <varname>S</varname>, under the null hypothesis of linkage equilibrium</title>
-    <programlisting></programlisting>
+    <mediaobject>
+     <imageobject>
+      <imagedata fileref="lr-distr.png" format="PNG" scale="45"/>
+     </imageobject>
+    </mediaobject>
    </figure>
   </sect2>
  </sect1>
