@@ -33,33 +33,39 @@ class XMLOutputStream(TextOutputStream):
     """Output stream for writing XML files.
     """
 
-    def _gentag(self, tagname, attr='', val=''):
+    def _gentag(self, tagname, **kw):
         """Internal method for generating tag text.
 
         *Only use internally*.
         """
+        attr=''
+        # loop through keywords turning each into an attr,key pair
+        for i in kw.keys():
+            attr = attr + i + "=" + "\"" + kw[i] + "\"" + " "
         if attr == '':
             return '%s' % tagname
         else:
-            return '%s %s="%s"' % (tagname, attr, val)
-
-    def opentag(self, tagname, attr='', val=''):
+            return '%s %s' % (tagname, string.strip(attr))
+        
+    def opentag(self, tagname, **kw):
         """Generate an open XML tag.
 
-        Generate a tag in the form '<tagname attr="val">'.  Note that
-        the attribute and values are optional and if omitted produce
-        '<tagname>'.  """
+        Generate an open XML tag.  Attributes are passed in the form
+        of optional named arguments, e.g. opentag('tagname',
+        role=something, id=else) will produce the result '<tagname
+        role="something" id="else"> Note that the attribute and values
+        are optional and if omitted produce '<tagname>'.  """
         
-        self.f.write("<%s>" % self._gentag(tagname, attr, val))
-
-    def emptytag(self, tagname, attr='', val=''):
+        self.f.write("<%s>" % self._gentag(tagname, **kw))
+        
+    def emptytag(self, tagname, **kw):
         """Generate an empty XML tag.
 
         As per 'opentag()' but without content, i.e.:
 
         '<tagname attr="val"/>'.
         """
-        self.f.write("<%s/>" % self._gentag(tagname, attr, val))
+        self.f.write("<%s/>" % self._gentag(tagname, **kw))
             
     def closetag(self, tagname):
         """Generate a closing XML tag.
