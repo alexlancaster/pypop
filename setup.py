@@ -50,7 +50,8 @@ setup (name = "PyPop",
                               include_dirs=["emhaplofreq"],
                               define_macros=[('fprintf', 'pyfprintf'),
                                              ('DEBUG', '0'),
-                                             ('EXTERNAL_MODE', '1')]
+                                             ('EXTERNAL_MODE', '1'),
+                                             ('XML_OUTPUT', '1')]
                               ),
 
                     Extension("_Gthwe", ["gthwe/cal_const.c",
