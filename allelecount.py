@@ -6,23 +6,39 @@
 import sys
 from ParseFile import ParseAlleleCountFile
 from Homozygosity import Homozygosity
+from ConfigParser import ConfigParser, NoOptionError
 
 from Utils import XMLOutputStream
+
+config = ConfigParser()
+
+config.read('allelecount.ini')
+  
+try:
+  debug = config.getboolean("General", "debug")
+except NoOptionError:
+  debug=0
+except ValueError:
+  sys.exit("require a 0 or 1 as debug flag")
+
+try:
+  validPopFields = config.get("ParseAlleleCountFile", "validPopFields")
+except NoOptionError:
+  sys.exit("No valid population fields defined")
+
+try:
+  validSampleFields = config.get("ParseAlleleCountFile", "validSampleFields")
+except NoOptionError:
+  sys.exit("No valid sample fields defined")
+
 
 xmlStream = XMLOutputStream(open('parseallelecount.xml', 'w'))
 
 input = ParseAlleleCountFile(sys.argv[1],
-                             validPopFields="""populat
-method
-ethnic
-country
-latit
-longit""",
-                             
-                             validSampleFields="""DQA1
-count""",
+                             validPopFields=validPopFields,
+                             validSampleFields=validSampleFields,
                              separator='\t',
-                             debug=1)
+                             debug=debug)
 
 xmlStream.opentag('dataanalysis')
 
@@ -30,7 +46,7 @@ input.serializeMetadataTo(xmlStream)
 
 hzObject = Homozygosity(input.getAlleleCount(),
                         rootPath='/net/share/PyPop/homozygosity',
-                        debug=1)
+                        debug=debug)
 
 hzObject.serializeHomozygosityTo(xmlStream)
 
