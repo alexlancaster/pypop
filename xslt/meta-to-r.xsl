@@ -225,8 +225,10 @@
 
       <!-- if either no-common-genotypes or too-many-parameters is found -->
       <!-- output the role attribute rather than a N/A '****' -->
-      
-      <xsl:when test="hardyweinberg/common[@role='no-common-genotypes' or @role='too-many-parameters']">
+      <!-- make sure that this node actually has data -->
+      <!-- should be fixed properly by outputing <hardyweinberg> with a -->
+      <!-- role="no-data" attribute -->
+      <xsl:when test="hardyweinberg/common[@role='no-common-genotypes' or @role='too-many-parameters'] and hardyweinberg/samplesize!=0">
        <xsl:value-of select="hardyweinberg/common/@role"/>
       </xsl:when>
 
