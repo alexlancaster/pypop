@@ -54,27 +54,46 @@ class HaploArlequin(Haplo):
 
         [[Samples]]""")
 
-
     def _outputSample (self, data, startCol, endCol):
 
-        self.arpFile.write("""
-    
-        SampleName=\"The %s population with %s individuals from %d col to %d col\"
-        SampleSize= %s
-        SampleData={"""  % ("??", len(data), startCol, endCol, len(data)))
+        # store output Arlequin-formatted genotypes in an array
+        samples = []
 
-        self.arpFile.write(os.linesep)
-        
         chunk = xrange(startCol, endCol)
         for line in data:
             words = string.split(line)
             unphase1 = "%10s 1 " % words[self.idCol]
             unphase2 = "%13s" % " "
             for i in chunk:
-                if (i % 2): unphase1 = unphase1 + " " + words[i]
-                else: unphase2 = unphase2 + " " + words[i]
-            self.arpFile.write(unphase1 + os.linesep)
-            self.arpFile.write(unphase2 + os.linesep)
+                allele = words[i]
+                # don't output individual if *any* loci is untyped
+                if allele == self.untypedAllele:
+                    if self.debug:
+                        print "untyped allele %s in (%s), (%s)" \
+                              % (allele, unphase1, unphase2)
+                    break
+                if ((i - startCol) % 2): unphase1 = unphase1 + " " + allele
+                else: unphase2 = unphase2 + " " + allele
+            else:
+                # store formatted output samples
+                samples.append(unphase1 + os.linesep)
+                samples.append(unphase2 + os.linesep)
+
+        # adjust the output count of samples for the `SamplesSize'
+        # metadata field
+
+        self.arpFile.write("""
+    
+        SampleName=\"The %s population with %s individuals from %d col to %d col\"
+        SampleSize= %s
+        SampleData={"""  % ("??", len(samples)/2, startCol, endCol, len(samples)/2))
+
+        self.arpFile.write(os.linesep)
+
+        # output previously-stored samples to stream only after
+        # calculation of number of samples is made
+        for line in samples:
+            self.arpFile.write(line)
 
         self.arpFile.write("}")
 
