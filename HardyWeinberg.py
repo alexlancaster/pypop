@@ -6,6 +6,7 @@
 
 import string, sys, os, popen2
 from Utils import getStreamType, TextOutputStream
+from Arlequin import ArlequinWrapper
 
 class HardyWeinberg:
   """Calculate Hardy-Weinberg statistics.
@@ -755,5 +756,69 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
     else:
       stream.emptytag('hardyweinbergGuoThompson', role='too-large-matrix')
+
+class HardyWeinbergGuoThompsonArlequin:
+  """Wrapper class for 'Arlequin'
+
+  """
+  def __init__(self,
+               matrix=None,
+               locusName=None,
+               arlequinExec='arlecore.exe',
+               untypedAllele='****',
+               debug=None):
+
+    self.matrix = matrix
+    self.locusName = locusName
+    self.debug = debug
+    self.arlequinExec = arlequinExec
+    self.untypedAllele = untypedAllele
+    self.noDataFlag = 0
+    
+    # if no data, don't run analysis
+    if len(self.matrix.filterOut(self.locusName, self.untypedAllele)) > 0:
+
+      arlequin = ArlequinWrapper(matrix = self.matrix,
+                                 arlequinExec = self.arlequinExec,
+                                 untypedAllele = self.untypedAllele,
+                                 debug=self.debug)
+
+      arlequin.outputArp([self.locusName])
+      arlequin.outputRunFiles()
+      arlequin.runArlequin()
+      self.output = arlequin.getHWExactTest()
+      arlequin.cleanup()
+      
+    else:
+      self.noDataFlag = 1
+
+  def serializeTo(self, stream):
+
+    if self.noDataFlag:
+      stream.emptytag('hardyweinbergGuoThompsonArlequin', role='no-data')
+      stream.writeln()
+
+    else:
+      if self.debug:
+        print self.output
+
+      # only one locus done at a time from output
+      genos, obsHet, expHet, pvalue, stddev, steps = self.output['1']
+
+      # generate output section
+      stream.opentag('hardyweinbergGuoThompsonArlequin')
+      stream.writeln()
+      stream.tagContents('obs-hetero', "%4f" % obsHet)
+      stream.writeln()
+      stream.tagContents('exp-hetero', "%4f" % expHet)
+      stream.writeln()
+      stream.tagContents('pvalue', "%4f" % pvalue)
+      stream.writeln()
+      stream.tagContents('stddev', "%4f" % stddev)
+      stream.writeln()
+      stream.tagContents('steps', "%d" % steps)
+      stream.writeln()
+      stream.closetag('hardyweinbergGuoThompsonArlequin')
+      stream.writeln()
       
     
