@@ -1,3 +1,11 @@
+2004-09-27  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* ParseFile.py (ParseFile._mapFields): Added if statement to see
+	if an asterisk character is given as the first item in the valid
+	fields list, in which case we accept any field name (ie, locus
+	name) as valid.  This makes sense only in the allelecount file
+	context.
+
 2004-09-22  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Main.py (Main.__init__): Change the way prefixFileName is made,
