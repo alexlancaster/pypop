@@ -51,15 +51,15 @@ allele count case).
 
 - Output information about missing data on a per-locus basis (i.e. any
   deviations from the total number of individuals in each input
-  file).  (alex)
+  file).  (alex: IN-PROGRESS 2001-09-19)
 
 2001-09-13: 
 
 - "getopt-ify" emphaplofreq so that all currently hardcoded parameters
   can be passed in via command-line options.  (alex)
 
-- Add parameters for Guo and Thompson into "config.ini".  (alex: DONE
-  2001-09-18)
+- Add parameters for Guo and Thompson into "config.ini".  (alex:
+  COMPLETED 2001-09-18)
 
 - Make number of significant figures reported be a global parameter
   set in "config.ini" (e.g. "%.4f") (alex)
@@ -72,7 +72,7 @@ allele count case).
 - Implement a 'PopGenStats' module?  Move some 'population-level'
   statistics into this module. (alex)
 
-More long-term:
+*longer-term*:
 
 2001-09-13:
 
