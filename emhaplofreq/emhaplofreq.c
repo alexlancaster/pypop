@@ -84,6 +84,12 @@ void srand48(long int seedval);
 
 double drand48(void);
 
+void permute_alleles(char (*)[][], int, int);
+/* data array, number of loci, number of records */
+/* 
+  * permutes the alleles at all but the last locus
+*/
+
 /******************* end: function prototypes ****************************/
 
 int main(int argc, char **argv)
@@ -97,11 +103,11 @@ int main(int argc, char **argv)
   if_handle = parse_args(argc, argv);
 
   num_loci = read_infile(if_handle, ref, data, &num_recs);
-
   fprintf(stdout, "num_loci: %d\n", num_loci);
-  if (num_loci > MAX_LOCI) {
-    fprintf(stderr, "Error: number of loci: %d, exceeds maximum of: %d\n", 
-	    num_loci, MAX_LOCI);
+  if (num_loci > MAX_LOCI) 
+  {
+    fprintf(stderr, "Error: number of loci: %d, exceeds maximum of: %d\n",
+      num_loci, MAX_LOCI);
     exit(EXIT_FAILURE);
   }
 
@@ -243,10 +249,8 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   int n_geno, n_geno_prev;  /* distinct genotypes through current and previous locus loop */
   int unique_pheno_count, n_unique_pheno, unique_geno_count, n_unique_geno;
 
-/* RS --- needed for check -1-
-  int count;      
-*/
   /* needed for checking */
+  int count;      
   double temp;
 
   /* these should be malloced, but the stack will experience meltdown: */
@@ -282,7 +286,70 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   double freq_sum, loglike, loglike_best;
   double mle_best[MAX_HAPLOS];
 
+  /* needed for permutations */
+  int permu, max_permutations, permu_flag, max_init_cond;
+  double like_ratio[MAX_PERMU], pvalue;
+  FILE *fp_permu, *fp_iter;
+
   /******************* end: declarations ****************************/
+
+  permu_flag = 1;
+
+  srand48(1234567);
+
+  if ((fp_iter = fopen("summary_iter.out", "w")) == NULL)
+  {
+    fprintf(stderr, "\nUnable to open summary_iter.out for writing.\n\n");
+    exit(EXIT_FAILURE);
+  }
+
+  if (permu_flag == 1)
+  {
+    max_permutations = MAX_PERMU;
+    if ((fp_permu = fopen("summary_permu.out", "w")) == NULL)
+    {
+      fprintf(stderr, "\nUnable to open summary_permu.out for writing.\n\n");
+      exit(EXIT_FAILURE);
+    }
+  }
+  else
+    max_permutations = 1;
+
+  max_init_cond = MAX_INIT;  
+
+  for (permu = 0; permu < max_permutations; permu++)
+  {
+  /*** begin: pre-processing for permutations ***/
+  if (permu > 0) 
+  {
+    max_init_cond = MAX_INIT_FOR_PERMU; 
+
+    if (permu == 1) fprintf(stdout, "\nComputing LD permutations...\n");
+
+    permute_alleles(data_ar, n_loci, n_recs); 
+
+    /* initialize values for first obs from last permu */
+    /* values for subsequent obs do not need inititialization */
+    strcpy(pheno[0], "\0"); 
+    for (i = 0; i < (int)pow(2, n_loci - 1); i++) 
+    {
+      strcpy(geno[i][0], "\0");
+      strcpy(geno[i][1], "\0");
+    }
+
+    /* initialize genopheno from last permu */
+    for (i = 0; i < MAX_GENOS; i++)
+    {
+      for (j = 0; j < n_recs; j++) genopheno[i][j] = 0;
+    }
+
+    /* initialize allele freqs from last permu */
+    for (j = 0; j < n_loci; j++)
+    {
+      for (i = 0; i < MAX_ALLELES; i++) allele_freq[j][i] = 0;
+    }
+  }
+  /*** end: pre-processing for permutations ***/
 
   /********* begin: arranging unique phenotypes and genotypes ************/
   n_hetero = n_hetero_prev = 0;
@@ -397,7 +464,7 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
       n_hetero_prev = n_hetero = 0;
       n_geno_prev = n_geno = 1;
 
-      for (i = 0; i < (int)pow(2, n_loci - 1); i++)
+      for (i = 0; i < (int)pow(2, n_loci - 1); i++) 
       {
         strcpy(temp_geno[i][0], "\0");
         strcpy(temp_geno[i][1], "\0");
@@ -491,18 +558,20 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 
   /********* end: arranging unique phenotypes and genotypes ************/
 
-  fprintf(stdout, "n_unique_pheno: %d n_unique_geno: %d \n", n_unique_pheno,
-    n_unique_geno);
-
   id_unique_alleles(data_ar, unique_allele, n_unique_allele, allele_freq, 
     n_loci, n_recs);
 
   n_haplo = count_unique_haplos(geno, haplo, haplocus, unique_allele, 
     n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo);
 
-  fprintf(stdout, "n_haplo: %d \n", n_haplo);
+  if (permu == 0)
+  {
+    fprintf(stdout, "n_unique_pheno: %d \n", n_unique_pheno);
+    fprintf(stdout, "n_unique_geno: %d \n", n_unique_geno);
+    fprintf(stdout, "n_haplo: %d \n\n", n_haplo);
+  }
 
-/* RS -1- List each obs pheno and corresponding possible genos
+/*** --- List each obs pheno and corresponding possible genos
   for(i = 0; i < n_unique_pheno; i++) 
   { 
     fprintf(stdout, "pheno: %s obspheno: %d numgeno %d \n", pheno[i], obspheno[i], numgeno[i]); 
@@ -518,9 +587,9 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     } 
     fprintf(stdout, "\n"); 
   } 
-*/
+***/
 
-/* RS --- List all genos observed and haplos
+/*** --- List all genos observed and haplos
   for(i = 0; i < n_unique_geno; i++)
   {
     fprintf(stdout, "geno[%d][0]:%s geno[%d][1]:%s\n", i, geno[i][0], i, geno[i][1]);
@@ -529,17 +598,21 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
   {
     fprintf(stdout, "haplo[%d]: %s\n", i, haplo[i]);
   }
-*/
+***/
 
-  /* Compute haplotype freqs under no LD and store them temporarily in freq_zero */
-  haplo_freqs_no_ld(freq_zero, allele_freq, haplocus, n_unique_allele, 
-    n_loci, n_haplo);
+  if (permu == 0)
+  {
+    /* Compute haplotype freqs under no LD and store them temporarily in freq_zero */
+    haplo_freqs_no_ld(freq_zero, allele_freq, haplocus, n_unique_allele, 
+      n_loci, n_haplo);
 
-  /* Compute log likelihood under no LD */
-  loglike0 = loglikelihood(genopheno, freq_zero, obspheno, n_haplo, 
-    n_unique_geno, n_unique_pheno, xhaplo, xgeno);
+    /* Compute log likelihood under no LD */
+    loglike0 = loglikelihood(genopheno, freq_zero, obspheno, n_haplo, 
+      n_unique_geno, n_unique_pheno, xhaplo, xgeno);
   
-  fprintf(stdout, "\n Log likelihood under no LD: %f \n", loglike0);
+    fprintf(stdout, "Log likelihood under no LD: %f \n", loglike0);
+    fprintf(fp_permu, "Log likelihood under no LD: %f \n", loglike0);
+  }
 
   /* Set initial haplotype frequencies  before EM calc */
   for (i = 0; i < n_haplo; i++)
@@ -551,9 +624,12 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
     &error_flag, &iter_count, &loglike);
 
-  fprintf(stdout, "\n   --- Iteration Summary -------------------------------------------------------------\n");
-  fprintf(stdout, "   Init. condition   0: Log likelihood after %3d iterations: %f, error_flag: %d \n",
-    iter_count, loglike, error_flag);
+  if (permu == 0)
+  {
+    fprintf(fp_iter, "\n   --- Iteration Summary for Original Data -------------------------------------------\n");
+      fprintf(fp_iter, "   Init. condition   0: Log likelihood after %3d iterations: %f, error_flag: %d \n",
+      iter_count, loglike, error_flag);
+  }
 
   loglike_best = loglike;
   iter_count_best = iter_count;
@@ -563,8 +639,7 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     mle_best[i] = mle[i]; 
   } 
 
-  srand48(1234567);
-  for (init_cond = 1; init_cond < MAX_INIT_COND; init_cond++)
+  for (init_cond = 1; init_cond < max_init_cond; init_cond++)
   {
     freq_sum = 0;
     for (i = 0; i < n_haplo; i++)
@@ -580,16 +655,12 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     emcalc(genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
       n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
       &error_flag, &iter_count, &loglike);
-  
-    fprintf(stdout, "   Init. condition %3d: Log likelihood after %3d iterations: %f, error_flag: %d \n",
-      init_cond, iter_count, loglike, error_flag);
 
-/*  PRINT OUT INITIAL HFS
-    fprintf(stdout, "\n"); 
-    fprintf(stdout, "x <- c("); 
-    for (i = 0; i < n_haplo; i++) fprintf(stdout, "%f,", freq_zero[i]); 
-    fprintf(stdout, ")\n"); 
-*/
+    if (permu == 0)
+    {
+      fprintf(fp_iter, "   Init. condition %3d: Log likelihood after %3d iterations: %f, error_flag: %d \n",
+        init_cond, iter_count, loglike, error_flag);
+    }
 
     if (error_flag_best == 0)
     {
@@ -619,69 +690,112 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     }
   }
 
-  fprintf(stdout, "\n"); 
-  fprintf(stdout, "   --- Codes for error_flag ----------------------------------------------------------\n"); 
-  fprintf(stdout, "    0: Iterations Converged, no errors \n");
-  fprintf(stdout, "    1: There are no ambiguous haplotypes \n");
-  fprintf(stdout, "    2: Normalization constant near zero. Est. HFs unstable \n");
-  fprintf(stdout, "    3: Wrong # allocated for at least one phenotype based on est. HFs \n");
-  fprintf(stdout, "    4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype \n");
-  fprintf(stdout, "    5: Log likelihood has decreased for more than 5 iterations \n");
-  fprintf(stdout, "    6: Est. HFs do not sum to 1.0 \n");
-  fprintf(stdout, "    7: Log likelihood failed to converge in %d iterations \n", MAX_ITER);
-  fprintf(stdout, "   -----------------------------------------------------------------------------------\n"); 
-
-  fprintf(stdout, "\n"); 
-  if (error_flag_best == 0)
-    fprintf(stdout, " Log likelihood converged in %3d iterations to : %f \n", 
-      iter_count_best, loglike_best);
-  else if (error_flag_best == 1)
-    fprintf(stdout, " There are no ambiguous haplotypes. Log likelihood: %f\n", loglike_best);
-  else if (error_flag_best == 2)
-    fprintf(stdout, " Normalization constant near zero. Estimated HFs unstable.\n");
-  else if (error_flag_best == 3)
-    fprintf(stdout, " Wrong # allocated for at least one phenotype based on estimated HFs.\n");
-  else if (error_flag_best == 4)
-    fprintf(stdout, " Phenotype freq., based on estimated HFs, was 0 for an observed phenotype.\n");
-  else if (error_flag_best == 5)
-    fprintf(stdout, " Log likelihood has decreased for more than 5 iterations.\n");
-  else if (error_flag_best == 6)
-    fprintf(stdout, " Estimated HFs do not sum to 1.\n");
-  else /* (error_flag_best == 7) */
-    fprintf(stdout, " Log likelihood failed to converge in %d iterations \n", MAX_ITER);
-
-  /* N.B. this sort destroys the haplocus[][] corrspondence */
-/***
-  sort2arrays(haplo, mle, n_haplo);
-***/
-
-  j = 0;
-  fprintf(stdout, "\n \t MLE frequency \t haplo (MLE > .00001) \n");
-  for (i = 0; i < n_haplo; i++)
+  if (permu_flag == 1)
   {
-    if (mle_best[i] > .00001)
-    {
-      j += 1;
-      fprintf(stdout, "%d \t %f \t %s\n", j, mle_best[i], haplo[i]);
-    }
+    fprintf(fp_permu, "permu = %3d, ", permu );
   }
 
-  fprintf(stdout, "\nAllele frequencies\n");
-  fprintf(stdout, "------------------\n");
-  fprintf(stdout, "Frequency \t Locus \t Allele\n");
-  for (i = 0; i < n_loci; i++)
+  if (permu == 0)
   {
-    for (j = 0; j < n_unique_allele[i]; j++)
+    fprintf(fp_iter, "\n"); 
+    fprintf(fp_iter, "   --- Codes for error_flag ----------------------------------------------------------\n"); 
+    fprintf(fp_iter, "    0: Iterations Converged, no errors \n");
+    fprintf(fp_iter, "    1: There are no ambiguous haplotypes \n");
+    fprintf(fp_iter, "    2: Normalization constant near zero. Est. HFs unstable \n");
+    fprintf(fp_iter, "    3: Wrong # allocated for at least one phenotype based on est. HFs \n");
+    fprintf(fp_iter, "    4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype \n");
+    fprintf(fp_iter, "    5: Log likelihood has decreased for more than 5 iterations \n");
+    fprintf(fp_iter, "    6: Est. HFs do not sum to 1.0 \n");
+    fprintf(fp_iter, "    7: Log likelihood failed to converge in %d iterations \n", MAX_ITER);
+    fprintf(fp_iter, "   -----------------------------------------------------------------------------------\n"); 
+    fprintf(fp_iter, "\n"); 
+
+    if (error_flag_best == 0)
+      fprintf(stdout, "Log likelihood converged in %3d iterations to : %f \n", 
+        iter_count_best, loglike_best);
+    else if (error_flag_best == 1)
+      fprintf(stdout, "There are no ambiguous haplotypes.              %f\n", loglike_best);
+    else if (error_flag_best == 2)
+      fprintf(stdout, "Normalization constant near zero. Estimated HFs unstable.\n");
+    else if (error_flag_best == 3)
+      fprintf(stdout, "Wrong # allocated for at least one phenotype based on estimated HFs.\n");
+    else if (error_flag_best == 4)
+      fprintf(stdout, "Phenotype freq., based on estimated HFs, was 0 for an observed phenotype.\n");
+    else if (error_flag_best == 5)
+      fprintf(stdout, "Log likelihood has decreased for more than 5 iterations.\n");
+    else if (error_flag_best == 6)
+      fprintf(stdout, "Estimated HFs do not sum to 1.\n");
+    else /* (error_flag_best == 7) */
+      fprintf(stdout, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
+
+    j = 0;
+    fprintf(stdout, "\n \t MLE frequency \t haplo (MLE > .00001) \n");
+    for (i = 0; i < n_haplo; i++)
     {
-      fprintf(stdout, "%f \t %d \t %s \n", allele_freq[i][j], i, 
-        unique_allele[i][j]);
+      if (mle_best[i] > .00001)
+      {
+        j += 1;
+        fprintf(stdout, "%d \t %f \t %s\n", j, mle_best[i], haplo[i]);
+      }
     }
+
+    fprintf(stdout, "\nAllele frequencies\n");
+    fprintf(stdout, "------------------\n");
+    fprintf(stdout, "Frequency \t Locus \t Allele\n");
+    for (i = 0; i < n_loci; i++)
+    {
+      for (j = 0; j < n_unique_allele[i]; j++)
+      {
+        fprintf(stdout, "%f \t %d \t %s \n", allele_freq[i][j], i, 
+          unique_allele[i][j]);
+      }
+    }
+
+    linkage_diseq(mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
+      n_loci, n_haplo, n_recs);
   }
 
-  linkage_diseq(mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
-    n_loci, n_haplo, n_recs);
-/***
-***/
+  if (permu_flag == 1)
+  {
+    if (error_flag_best == 0)
+      fprintf(fp_permu, "Log likelihood converged in %3d iterations to : %f \n", 
+        iter_count_best, loglike_best);
+    else if (error_flag_best == 1)
+      fprintf(fp_permu, "There are no ambiguous haplotypes.              %f\n", loglike_best);
+    else if (error_flag_best == 2)
+      fprintf(fp_permu, "Normalization constant near zero. Estimated HFs unstable.\n");
+    else if (error_flag_best == 3)
+      fprintf(fp_permu, "Wrong # allocated for at least one phenotype based on estimated HFs.\n");
+    else if (error_flag_best == 4)
+      fprintf(fp_permu, "Phenotype freq., based on estimated HFs, was 0 for an observed phenotype.\n");
+    else if (error_flag_best == 5)
+      fprintf(fp_permu, "Log likelihood has decreased for more than 5 iterations.\n");
+    else if (error_flag_best == 6)
+      fprintf(fp_permu, "Estimated HFs do not sum to 1.\n");
+    else /* (error_flag_best == 7) */
+      fprintf(fp_permu, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
+  }
+
+  like_ratio[permu] = -2.0 * (loglike0 - loglike_best);
+
+  } /* end for (permu) */
+  
+  /*** begin: post-processing for permutations ***/
+  if (permu_flag == 1)
+  {
+    pvalue = 0.0;
+    fprintf(fp_permu, "permu =   0, LR = -2*(LL_0 - LL_1) = %f \n", like_ratio[0]); 
+    for (i = 1; i < max_permutations; i++)
+    {
+      fprintf(fp_permu, "permu = %3d, LR = -2*(LL_0 - LL_1) = %f \n", i, like_ratio[i]); 
+      if (like_ratio[i] > like_ratio[0]) pvalue += 1;
+    }
+    pvalue = pvalue/max_permutations;
+    fprintf(stdout, "\nLD permutation pvalue = %f \n", pvalue); 
+    fprintf(fp_permu, "pvalue = %f \n", pvalue); 
+    fclose(fp_permu);
+  }
+  /*** end: post-processing for permutations ***/
 
   return (EXIT_SUCCESS);
 }
@@ -1474,3 +1588,56 @@ double loglikelihood(int (*genopheno)[MAX_ROWS], double (*hap_freq),
 }
 
 /************************************************************************/
+void permute_alleles(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
+{
+  int i, j, locus, col_0, col_1, drawn;
+  char buff[NAME_LEN];
+
+/***
+  fprintf(stdout, "before:\n");
+  for (i = 0; i < n_recs; i++)
+  {
+    for (locus = 0; locus < n_loci; locus++)
+    {
+      col_0 = locus * 2;
+      col_1 = col_0 + 1;
+      fprintf(stdout, "%s %s ", data_ar[i][col_0], data_ar[i][col_1]);
+    }
+    fprintf(stdout, "\n");
+  }
+***/
+
+  /* last locus not permuted */
+  for (locus = 0; locus < n_loci-1; locus ++) 
+  {
+    col_0 = locus * 2;
+    col_1 = col_0 + 1;
+    for (j = n_recs-1; j >= 0; j--)
+    {
+      drawn = (int) (j * drand48());
+      strcpy(buff, data_ar[drawn][col_0]);
+      strcpy(data_ar[drawn][col_0], data_ar[j][col_0]);
+      strcpy(data_ar[j][col_0], buff);
+  
+      strcpy(buff, data_ar[drawn][col_1]);
+      strcpy(data_ar[drawn][col_1], data_ar[j][col_1]);
+      strcpy(data_ar[j][col_1], buff);
+    }
+  }
+/***
+    fprintf(stdout, "after:\n");
+    for (i = 0; i < n_recs; i++)
+    {
+      for (locus = 0; locus < n_loci; locus++)
+      {
+        col_0 = locus * 2;
+        col_1 = col_0 + 1;
+        fprintf(stdout, "%s %s ", data_ar[i][col_0], data_ar[i][col_1]);
+      }
+      fprintf(stdout, "\n");
+    }
+***/
+  
+}
+
+
