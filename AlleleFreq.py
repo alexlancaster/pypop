@@ -3,68 +3,71 @@ import sys, string
 
 class AlleleFreq:
     """Class to generate allele frequencies."""
-    def __init__(self, locus_map, sample_data,
-                 allele_designator='*',
-                 untyped_allele='****',
+    def __init__(self, locusMap, sampleData,
+                 alleleDesignator='*',
+                 untypedAllele='****',
                  debug=0):
         """Constructor for AlleleFreq object.
 
-        - locus_map: Accepts a map keyed by locus names names holding a
+        - *locusMap*: Accepts a map keyed by locus names names holding a
         tuple of column numbers.
 
-        - sample_data:  Accepts a list of lines with individual sample data.
+        - *sampleData*:  Accepts a list of lines with individual sample data.
 
-        - allele_designator: The first character of the key which determines
+        - *alleleDesignator*: The first character of the key which determines
         whether this column contains allele data.  Defaults to `*'
         
-        - untyped_allele:  The designator for an untyped locus.  Defaults to
+        - *untypedAllele*:  The designator for an untyped locus.  Defaults to
         `****'.
 
-        - debug:  Defaults to no debugging, set debug=1 in call to constructor
-        if debugging is desired."""
-        self.locus_map=locus_map
-        self.allele_designator=allele_designator
-        self.sample_data=sample_data
-        self.untyped_allele=untyped_allele
+        - *debug*: Defaults to no debugging, set debug=1 in call to
+        constructor if debugging is desired."""
+        
+        self.locusMap=locusMap
+        self.alleleDesignator=alleleDesignator
+
+        # unpack the tuple of file information
+        self.sampleDataLines, self.separator = sampleData
+        self.untypedAllele=untypedAllele
         self.debug = debug
 
-    def generate_allelecount(self):
+    def generateAllelecount(self):
         """Generate and return a map of tuples where the key is the
         locus name.  Each tuple is a double, consisting of a map keyed
         by alleles containing counts and the total count at that locus.
         """
         
         self.freqcount = {}
-        for locus in self.locus_map.keys():
-            col1, col2 = self.locus_map[locus]
-            allele_table = {}
+        for locus in self.locusMap.keys():
+            col1, col2 = self.locusMap[locus]
+            alleleTable = {}
             total = 0
-            for line in self.sample_data:
+            for line in self.sampleDataLines:
                 fields = string.split(line, '\t')
 
                 allele1 = fields[col1]
-                if self.untyped_allele != allele1:
-                    if allele_table.has_key(allele1):
-                        allele_table[fields[col1]] += 1
+                if self.untypedAllele != allele1:
+                    if alleleTable.has_key(allele1):
+                        alleleTable[fields[col1]] += 1
                     else:
-                        allele_table[fields[col1]] = 1
+                        alleleTable[fields[col1]] = 1
                     total += 1
                     
                 allele2 = fields[col2]
-                if self.untyped_allele != allele2:
-                    if allele_table.has_key(allele2):
-                        allele_table[fields[col2]] += 1
+                if self.untypedAllele != allele2:
+                    if alleleTable.has_key(allele2):
+                        alleleTable[fields[col2]] += 1
                     else:
-                        allele_table[fields[col2]] = 1
+                        alleleTable[fields[col2]] = 1
                     total += 1
 
                 if self.debug:
                     print col1, col2, allele1, allele2, total
-                self.freqcount[locus] = allele_table, total
+                self.freqcount[locus] = alleleTable, total
 
         return self.freqcount
 
-    def print_allelefreq(self):
+    def printAllelefreq(self):
         """Print out the frequency table for each locus, with totals of
         allele and total counts in parentheses.
 
@@ -74,13 +77,13 @@ class AlleleFreq:
             print "Locus:", locus
             print "======"
             print
-            allele_table, total = self.freqcount[locus]
-            total_freq = 0
-            for allele in allele_table.keys():
-                freq = float(allele_table[allele])/float(total)
-                total_freq += freq
-                print "%s :%0.5f (%d)" % (allele, freq, allele_table[allele])
-            print "Total freq: %s (%d)" % (total_freq, total)
+            alleleTable, total = self.freqcount[locus]
+            totalFreq = 0
+            for allele in alleleTable.keys():
+                freq = float(alleleTable[allele])/float(total)
+                totalFreq += freq
+                print "%s :%0.5f (%d)" % (allele, freq, alleleTable[allele])
+            print "Total freq: %s (%d)" % (totalFreq, total)
             
 # should have a test harness here!!!
 
