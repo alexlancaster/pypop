@@ -6,22 +6,23 @@ def convert_line_endings(file, mode, re=re):
     if mode == 1:
         if os.path.isdir(file):
             sys.exit(file + "Directory!")
-        data = open(file, "rb").read()
+        data = open(file, "r").read()
         if '\0' in data:
             sys.exit(file + "Binary!")
         newdata = re.sub("\r?\n", "\r", data)
         if newdata != data:
-            f = open(file, "wb")
+            f = open(file, "w")
             f.write(newdata)
             f.close()
     elif mode == 2:
         if os.path.isdir(file):
             sys.exit(file + "Directory!")
-        data = open(file, "rb").read()
+        data = open(file, "r").read()
         if '\0' in data:
             sys.exit(file + "Binary!")
+        newdata = re.sub("\r(?!\n)|(?<!\r)\n", "\r\n", data)
         if newdata != data:
-            f = open(file, "wb")
+            f = open(file, "w")
             f.write(newdata)
             f.close()
 
@@ -31,7 +32,7 @@ def platform_fix(filename, txt_ext=0, convert_line_endings=convert_line_endings)
 
     # create as a DOS format file LF -> CRLF
     if sys.platform == 'cygwin':
-        convert_line_endings(filename, 1)
+        convert_line_endings(filename, 2)
         # give it a .txt extension so that lame Windows realizes it's text
         if txt_ext:
             os.rename(filename, filename + '.txt')        
@@ -114,8 +115,11 @@ print "Creating package: " + package
 shutil.copytree(bin_dir, os.path.join(dist_dir, bin_dir))
 
 # copy top-level files
-for file in ['README', 'INSTALL', 'VERSION', 'AUTHORS', 'COPYING']:
+for file in ['README', 'INSTALL', 'AUTHORS', 'COPYING']:
     copy_for_platform(file, dist_dir, txt_ext=1)
+
+# VERSION file must not be renamed
+copy_for_platform('VERSION', dist_dir)
 
 # copy sample 'demo' files
 copyfile_for_platform('minimal-noheader-noids.ini', \
