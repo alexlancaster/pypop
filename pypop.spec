@@ -6,7 +6,7 @@ exe = EXE( pyz,
           a.scripts,
 	  a.binaries+[('VERSION', 'VERSION', 'BINARY')],
 	  name='pypop',
-          debug=1,
+          debug=0,
           console=1)
 
 # Local variables:
