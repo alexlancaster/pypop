@@ -316,13 +316,12 @@
      <formalpara><title>Batch-ability</title>
 
       <para>It should be simple to set up an entire job in an
-       unattended <quote>batch mode</quote>, involving  and the
-       creation or modification of a configuration files with a text
-       editor, followed by the invocation of a script.  Software that
-       relies on a <quote>captive user interface</quote>, for a
-       population to be analyzed and requires user interaction such as
-       mouse clicks and menus, makes it difficult to analyze hundreds
-       of data sets.
+       unattended <quote>batch mode</quote>, involving the creation of
+       (or modification of) a configuration file with a text editor,
+       followed by the invocation of a script.  Software that relies
+       on a <quote>captive user interface</quote>, for a population to
+       be analyzed and requires user interaction such as mouse clicks
+       and menus, makes it difficult to analyze hundreds of data sets.
       </para>
      </formalpara>
     </listitem>
