@@ -619,6 +619,9 @@ class ParseGenotypeFile(ParseFile):
         alphabetically """
 
         return self.locusTable[locus]
+    
+    def getLocusData(self):
+        return self.locusTable
 
 class ParseAlleleCountFile(ParseFile):
     """Class to parse datafile in allele count form.
