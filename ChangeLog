@@ -1,3 +1,33 @@
+2004-02-09  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* config.ini [Emhaplofreq]: New parameter 'numInitCond': number of
+	initial conditions used before performing permutations. Default to
+	50.
+
+	* Haplo.py (Emhaplofreq._runEmhaplofreq): Accept new parameter
+	numInitConds: sets number of initial conditions before performing
+	the permutation test. Default: 50.  Pass through to SWIG wrapper
+	call main_proc().
+	(Emhaplofreq.estHaplotypes): Accept new parameter numInitCond,
+	pass to _runEmhaplofreq.
+	(Emhaplofreq.estLinkageDisequilibrium): Likewise, but also set
+	numPermutations, numPermuInitCond to 'None', should be initialized
+	by Main.
+	(Emhaplofreq.allPairwise): Likewise.
+
+	* Main.py (Main._doGenotypeFile): Parse new [Emhaplofreq] option
+	'numInitCond', so that the number of initial conditions for the
+	first iteration LD calculation (and therefore haplotype
+	estimation) is user-configurable.  Default to 50.
+	Add more verbose messages for telling user what is going on with
+	haplotype estimation.
+	Send 'numInitCond' to Haplo.estHaplotypes() method invocation.
+	Likewise pass 'numInitCond' to Haplo.allPairwise() call.
+	Likewise for Haplo.estLinkageDisequilibrium(), pass numInitCond,
+	numPermutations, numPermuInitCond.
+	Remove diagnostics that may erroneously imply an error to the
+	user (if nothing is wrong, don't say anything).
+
 2003-12-30  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* config.ini (directory): Remove all leading hardcoded

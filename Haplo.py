@@ -344,6 +344,7 @@ class Emhaplofreq(Haplo):
     def _runEmhaplofreq(self, locusKeys=None,
                         permutationFlag=None,
                         permutationPrintFlag=0,
+                        numInitCond=50,
                         numPermutations=1001,
                         numPermuInitCond=5,
                         haploSuppressFlag=None,
@@ -360,6 +361,9 @@ class Emhaplofreq(Haplo):
         - permutationPrintFlag: sets whether the result from
           permutation output run will be included in the output XML.
           Default: 0 (disabled).
+
+        - numInitConds: sets number of initial conditions before
+          performing the permutation test. Default: 50.
 
         - numPermutations: sets number of permutations that will be
           performed if 'permutationFlag' *is* set.  Default: 1001.
@@ -460,6 +464,7 @@ class Emhaplofreq(Haplo):
                                             groupNumIndiv,
                                             permutationFlag,
                                             haploSuppressFlag,
+                                            numInitCond,
                                             numPermutations,
                                             numPermuInitCond,
                                             permutationPrintFlag)
@@ -485,7 +490,9 @@ class Emhaplofreq(Haplo):
         # flush any buffered output to the stream
         self.stream.flush()
 
-    def estHaplotypes(self, locusKeys=None):
+    def estHaplotypes(self,
+                      locusKeys=None,
+                      numInitCond=None):
         """Estimate haplotypes for listed groups in 'locusKeys'.
 
         Format of 'locusKeys' is a string consisting of:
@@ -499,13 +506,20 @@ class Emhaplofreq(Haplo):
          'DQA1' and 'DPB1' loci followed by est. of haplotypes for
          'DRB1' and 'DQB1' loci.
         """
-        self._runEmhaplofreq(locusKeys=locusKeys, permutationFlag=0,
+        self._runEmhaplofreq(locusKeys=locusKeys,
+                             numInitCond=numInitCond,
+                             permutationFlag=0,
                              haploSuppressFlag=0,
                              showHaplo='yes',
                              mode='haplo')
         
 
-    def estLinkageDisequilibrium(self, locusKeys=None):
+    def estLinkageDisequilibrium(self,
+                                 locusKeys=None,
+                                 permutationPrintFlag=0,
+                                 numInitCond=None,
+                                 numPermutations=None,
+                                 numPermuInitCond=None):
         """Estimate linkage disequilibrium (LD) for listed groups in
         'locusKeys'.
 
@@ -520,13 +534,19 @@ class Emhaplofreq(Haplo):
          'DQA1' and 'DPB1' loci followed by est. of LD for
          'DRB1' and 'DQB1' loci.
         """
-        self._runEmhaplofreq(locusKeys, permutationFlag=1,
+        self._runEmhaplofreq(locusKeys,
+                             permutationFlag=1,
+                             permutationPrintFlag=permutationPrintFlag,
+                             numInitCond=numInitCond,
+                             numPermutations=numPermutations,
+                             numPermuInitCond=numPermuInitCond,
                              haploSuppressFlag=1,
                              showHaplo='no',
                              mode='LD')
 
     def allPairwise(self,
                     permutationPrintFlag=0,
+                    numInitCond=None,
                     numPermutations=None,
                     numPermuInitCond=None,
                     haploSuppressFlag=None,
@@ -578,6 +598,7 @@ class Emhaplofreq(Haplo):
             self._runEmhaplofreq(pair,
                                  permutationFlag=permutationFlag,
                                  permutationPrintFlag=permutationPrintFlag,
+                                 numInitCond=numInitCond,
                                  numPermutations=numPermutations,
                                  numPermuInitCond=numPermuInitCond,
                                  haploSuppressFlag=haploSuppressFlag,
