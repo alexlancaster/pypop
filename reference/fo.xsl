@@ -21,11 +21,11 @@
  <xsl:param name="body.margin.top">0.5in</xsl:param>
  <xsl:param name="body.margin.bottom">0.5in</xsl:param>
 
- <xsl:param name="body.font.family">Helvetica</xsl:param>
- <xsl:param name="title.font.family">Helvetica</xsl:param>
- <xsl:param name="monospace.font.family">Courier</xsl:param>
- <xsl:param name="sans.font.family">Helvetica</xsl:param>
- <xsl:param name="dingbat.font.family">Times Roman</xsl:param>
+ <xsl:param name="body.font.family">sans-serif</xsl:param>
+ <xsl:param name="title.font.family">sans-serif</xsl:param>
+ <xsl:param name="monospace.font.family">monospace</xsl:param>
+ <xsl:param name="sans.font.family">sans-serif</xsl:param>
+ <xsl:param name="dingbat.font.family">serif</xsl:param>
 
  <xsl:param name="title.margin.left" select="'0.0in'"/>
  <xsl:param name="toc.indent.width" select="8"/>
@@ -54,43 +54,83 @@
   <xsl:call-template name="inline.boldseq"/>
  </xsl:template>
 
- <!-- if verbatim environment embedded inside a *table element -->
- <!-- we can't use shaded background, this is a workaround for a -->
- <!-- bug in PassiveTeX -->
- <xsl:template match="programlisting[ancestor::entry]|screen[ancestor::entry]|synopsis[ancestor::entry]">
-  <xsl:param name="suppress-numbers" select="'0'"/>
+ <!-- make verbatim environments font-size 90% of main font size -->
+ <xsl:attribute-set name="verbatim.properties">
+  <xsl:attribute name="space-before.minimum">0.8em</xsl:attribute>
+  <xsl:attribute name="space-before.optimum">1em</xsl:attribute>
+  <xsl:attribute name="space-before.maximum">1.2em</xsl:attribute>
+  <xsl:attribute name="space-after.minimum">0.8em</xsl:attribute>
+  <xsl:attribute name="space-after.optimum">1em</xsl:attribute>
+  <xsl:attribute name="space-after.maximum">1.2em</xsl:attribute>
+  <xsl:attribute name="font-size">
+   <xsl:value-of select="$body.font.master*0.9"/><xsl:text>pt</xsl:text></xsl:attribute>
+ </xsl:attribute-set>
 
+ <!-- workaround template for bugs in PassiveTeX which crop -->
+ <!-- up in verbatim environments -->
+ <xsl:template match="programlisting|screen|synopsis">
+  <xsl:param name="suppress-numbers" select="'0'"/>
+  
   <xsl:variable name="id"><xsl:call-template name="object.id"/></xsl:variable>
   
-  <xsl:variable name="content">
-   <xsl:choose>
-    <xsl:when test="$suppress-numbers = '0'
-     and @linenumbering = 'numbered'
-     and $use.extensions != '0'
-     and $linenumbering.extension != '0'">
-     <xsl:call-template name="number.rtf.lines">
-      <xsl:with-param name="rtf">
-            <xsl:apply-templates/>
-      </xsl:with-param>
-     </xsl:call-template>
-    </xsl:when>
-    <xsl:otherwise>
-     <xsl:apply-templates/>
-    </xsl:otherwise>
-   </xsl:choose>
+  <xsl:variable name="content">  
+
+   <!-- replace ALL spaces with XML space character: &#160; -->
+   <!-- because PassiveTeX, being braindead sometimes -->
+   <!-- doesn't treat blank spaces and actual -->
+   <!-- XML characters identically (grr) -->
+   <xsl:call-template name="string.subst">
+    <xsl:with-param name="target" select="' '"/>
+    <xsl:with-param name="replacement" select="'&#160;'"/>
+    <xsl:with-param name="string">
+
+     <xsl:choose>
+      <xsl:when test="$suppress-numbers = '0'
+       and @linenumbering = 'numbered'
+       and $use.extensions != '0'
+       and $linenumbering.extension != '0'">
+       <xsl:call-template name="number.rtf.lines">
+	<xsl:with-param name="rtf">
+	 <xsl:apply-templates/>
+	</xsl:with-param>
+       </xsl:call-template>
+      </xsl:when>
+      <xsl:otherwise>
+       <xsl:apply-templates/>
+      </xsl:otherwise>
+     </xsl:choose>
+     
+    </xsl:with-param>
+   </xsl:call-template>
   </xsl:variable>
-  
+
+  <!-- if verbatim environment embedded inside a *table element -->
+  <!-- we can't use shaded background, this is a workaround for a -->
+  <!-- *another* bug in PassiveTeX -->
   <xsl:choose>
    <xsl:when test="$shade.verbatim != 0">
-    <!-- we check the for shaded flag, but don't use the attrib-set -->
-    <fo:block  wrap-option='no-wrap'
-     white-space-collapse='false'
-     linefeed-treatment="preserve"    
-     xsl:use-attribute-sets="monospace.verbatim.properties">
-     <!-- normally part of use-attribute-sets: shade.verbatim.style -->
-    <xsl:copy-of select="$content"/>
-    </fo:block> 
 
+    <xsl:choose>
+    <!-- if we are an ancestor of entry, we ignore the shaded flag -->
+     <xsl:when test="ancestor::entry">
+      <xsl:message>here, trying to replace! when ancestor::entry</xsl:message>
+      <fo:block  wrap-option='no-wrap'
+       white-space-collapse='false'
+       linefeed-treatment="preserve"    
+       xsl:use-attribute-sets="monospace.verbatim.properties">
+       <!-- normally part of use-attribute-sets: shade.verbatim.style -->
+      <xsl:copy-of select="$content"/>
+      </fo:block>
+     </xsl:when>
+     <xsl:otherwise>
+      <fo:block  wrap-option='no-wrap'
+       white-space-collapse='false'
+       linefeed-treatment="preserve"    
+       xsl:use-attribute-sets="monospace.verbatim.properties shade.verbatim.style">
+      <xsl:copy-of select="$content"/>
+      </fo:block>
+     </xsl:otherwise>
+    </xsl:choose>
    </xsl:when>
    <xsl:otherwise>
     
