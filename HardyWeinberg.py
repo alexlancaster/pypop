@@ -38,28 +38,8 @@ class HardyWeinberg:
     self._generateTables()
     self._calcChisq()
 
-#     if self.debug:
-#       self.counter = 0
-#       for genotype in self.locusData:
-#         self.counter += 1
-#         print genotype
-#       print "Population:", self.n
-#       print "Alleles:", self.k
-#       print 'Given:', self.alleleTotal
-#       print'Counter:', self.counter
-#       print self.alleleCount
-#       running_count = 0
-#       running_freq = 0.0
-#       for allele in self.alleleCount.keys():
-#         running_count += self.alleleCount[allele]
-#         freq = self.alleleCount[allele] / float(self.alleleTotal)
-#         running_freq += freq
-#         print allele, 'obs:', self.alleleCount[allele],\
-#                       'count:', running_count,\
-#                       'freq:', freq,\
-#                       'cum:', running_freq
-
 ################################################################################
+
   def _generateTables(self):
     """Manipulate the given genotype data to generate
     the tables upon which the calculations will be based."""
@@ -245,7 +225,7 @@ class HardyWeinberg:
           print '          ', allele, self.hetsObservedByAllele[allele], self.hetsExpectedByAllele[allele], self.hetsChisqByAllele[allele], self.hetsPvalByAllele[allele]
 
     # the list for all genotypes by genotype
-    for genotype in self.expectedGenotypeCounts.keys():
+    for genotype in self.observedGenotypeCounts.keys():
       if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
         squareMe = self.observedGenotypeCounts[genotype] - self.expectedGenotypeCounts[genotype]
         self.chisqByGenotype[genotype] = (squareMe * squareMe) / self.expectedGenotypeCounts[genotype]
@@ -379,7 +359,6 @@ class HardyWeinberg:
       else:
         self.flagTooManyParameters = 1
 
-
 ################################################################################
 
   def serializeTo(self, stream):
@@ -466,8 +445,6 @@ class HardyWeinberg:
 
       stream.closetag('genotypesByGenotype')
       stream.writeln()
-
-#########
 
       if self.flagLumps == 1:
         stream.opentag('lumped')
