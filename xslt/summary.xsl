@@ -53,6 +53,7 @@
 <xsl:text>allele.counts
 names(allele.counts) = allele.names
 names(allele.freq) = allele.names
+postscript("</xsl:text><xsl:value-of select="substring-after(../@name,'*')"/><xsl:text>.ps")
 barplot(allele.freq,las=2)
 title("Allele frequencies for locus </xsl:text><xsl:value-of select="../@name"/><xsl:text>")
 rm(allele.counts)
