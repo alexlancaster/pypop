@@ -193,7 +193,7 @@
     <exsl:document href="1-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;k&#09;f.pval&#09;f.nd&#09;gt.pval.lower&#09;gt.pval.upper</xsl:text>
+     <xsl:text>pop&#09;ethnic&#09;region&#09;locus&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;f.nd&#09;gt.pval</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
