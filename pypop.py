@@ -371,34 +371,46 @@ if config.has_section("Emhaplofreq"):
     print "no loci provided for which to estimate LD"
 
   try:
-    estAllPairwiseLD = config.getboolean("Emhaplofreq", "estAllPairwiseLD")
+    allPairwiseLD = config.getboolean("Emhaplofreq", "allPairwiseLD")
   except NoOptionError:
-    estAllPairwiseLD=0
+    allPairwiseLD=0
   except ValueError:
     sys.exit("require a 0 or 1 as a flag")
 
   try:
-    estAllPairwiseHaplo = config.getboolean("Emhaplofreq",
-                                            "estAllPairwiseHaplo")
+    allPairwiseLDWithHaplo = config.getboolean("Emhaplofreq",
+                                               "allPairwiseLDWithHaplo")
   except NoOptionError:
-    estAllPairwiseHaplo=0
+    allPairwiseLDWithHaplo=0
   except ValueError:
     sys.exit("require a 0 or 1 as a flag")
 
-  if estAllPairwiseLD and estAllPairwiseHaplo:
-    # do all pairwise LD *and* haplotypes
-    print "estimating all pairwise LD and haplotypes..."
-    haplo.estAllPairwiseLDHaplo()
-  else:
-    if estAllPairwiseLD:
-      # do all pairwise LD
-      print "estimating all pairwise LD..."
-      haplo.estAllPairwiseLD()
-    if estAllPairwiseHaplo:
-      # do all pairwise haplotypes
-      print "estimating all pairwise haplotypes..."
-      haplo.estAllPairwiseHaplo()
+  try:
+    allPairwiseLDWithPermu = config.getboolean("Emhaplofreq",
+                                               "allPairwiseLDWithPermu")
+  except NoOptionError:
+    allPairwiseLDWithPermu=0
+  except ValueError:
+    sys.exit("require a 0 or 1 as a flag")
 
+  print "estimating all pairwise LD:",
+
+  if allPairwiseLDWithPermu:
+    print "with permutation test and",
+  else:
+    print "with no permutation test and",
+
+  # invert sense of WithHaplo flag
+  if allPairwiseLDWithHaplo:
+    haploSuppressFlag = 0
+    print "with haplo output" 
+  else:
+    haploSuppress = 1
+    print "with no haplo output" 
+
+  haplo.allPairwise(permutationFlag=allPairwiseLDWithPermu,
+                    haploSuppressFlag=haploSuppressFlag)
+  
   # serialize to XML
   haplo.serializeTo(xmlStream)
   
