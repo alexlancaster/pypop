@@ -1,4 +1,5 @@
 CC=gcc
+EXTRACFLAGS=
 
 CFLAGS=-O3 -g -funroll-loops $(EXTRACFLAGS)
 
