@@ -357,7 +357,12 @@ if config.has_section("Emhaplofreq"):
     haplo.estAllPairwise()
 
   haplo.serializeTo(txtStream)
+  haplo.serializeTo(xmlStream)
 
+  # close file pointer
+  # FIXME: this breaks good OO-practice,should be done internal to object!!!
+  haplo.fp.close()
+  
 # closing tag
 xmlStream.closetag('dataanalysis')
 
