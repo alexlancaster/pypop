@@ -37,9 +37,9 @@
   <para>You may use <application>PyPop</application> to analyze many
    different kinds of data, including allele-level genotypes (as in
    <xref linkend="data-minimal-noheader-noids"/>) and allele-level
-   frequencies (as in <xref linkend="data-allelecount"/>)
-   from the HLA region and regions other chromosomes, microsatellite data,
-   SNPs, and nucleotide and amino acid sequence data.</para>
+   frequencies (as in <xref linkend="data-allelecount"/>) from the HLA
+   region (as well as regions from other chromosomes), microsatellite
+   data, SNPs, and nucleotide and amino acid sequence data.</para>
 
   <para>There are two ways to run <application>PyPop</application>:
    <itemizedlist>
