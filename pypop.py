@@ -29,7 +29,7 @@ from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
 from ConfigParser import ConfigParser, NoOptionError
 from Utils import XMLOutputStream, TextOutputStream
 from getopt import getopt, GetoptError
-from Filter import PassThroughFilter, AnthonyNolanFilter
+from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter
 
 try:
   opts, args =getopt(sys.argv[1:],"lsc:hd", ["use-libxslt", "use-4suite", "experimental", "config=", "help", "debug"])
@@ -227,6 +227,14 @@ if useAnthonyNolanFilter:
                               untypedAllele=untypedAllele,
                               filename=fileName,
                               logFile=filterLogFile)
+
+  #filter = AlleleCountAnthonyNolanFilter(debug=debug,
+  #                                       directoryName=anthonynolanPath,
+  #                                       untypedAllele=untypedAllele,
+  #                                       filename=fileName,
+  #                                       logFile=filterLogFile,
+  #                                       lumpThreshold=5)
+  
 else:
   # don't use filter, just create a "pass through filter"
   filter = PassThroughFilter()
