@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!DOCTYPE section PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<?PSGML nofill programlisting screen literallayout userinput?>
+<section>
+ <title>Reused text items</title>
+
+ <para>You should see an informational
+  screen, and will be asked to supply the name of the configuration
+  file and then the population file, select the file
+  <filename>sample.ini</filename> and <filename>sample.pop</filename>,
+  respectively (noted in the sample screen output below, in <emphasis
+   role="bold">bold</emphasis>).
+ </para>
+
+<screen>PyPop: Python for Population Genetics
+Copyright (C) 2003 Regents of the University of California
+This is free software.  There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ 
+You may redistribute copies of PyPop under the terms of the
+GNU General Public License.  For more information about these
+matters, see the file named COPYING.
+ 
+To accept the default in brackets for each filename, simply press
+return for each prompt.
+Please enter config filename [config.ini]: <userinput>sample.ini</userinput>
+Please enter population filename [no default]: <userinput>sample.pop</userinput>
+PyPop is processing sample.pop 
+
+<emphasis>(Note: some log messages may appear here)</emphasis>
+
+PyPop run complete!
+XML output can be found in: sample-out.xml
+Plain text output can be found in: sample-out.txt
+</screen>
+
+</section>
+<!--
+Local variables:
+sgml-local-catalogs: ("catalog")
+sgml-indent-step: 1
+sgml-indent-data: 1
+ispell-skip-html: t
+End:
+-->
