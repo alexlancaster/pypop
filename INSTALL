@@ -12,11 +12,12 @@ python setup.py install
 **System Requirements**
 
 
-o "Python 2.1":http://www.python.org/ or above
+o "Python 2.1":http://www.python.org/ or later
 
-o "mxTextTools":http://starship.python.net/~lemburg/mxTextTools.html
+o "Numerical Python 15.3 or later":http://numpy.sourceforge.net/ 
 
-o "Numerical Python 15.3 or above":http://numpy.sourceforge.net/ 
+o "Simple Wrapper Interface Generator (SWIG)":http://www.swig.org/
+   (needs 'development' version 1.3.9 or later).
 
 Either:
 
