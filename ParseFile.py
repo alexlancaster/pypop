@@ -565,7 +565,7 @@ class ParseGenotypeFile(ParseFile):
         # if all individuals are untyped then supress itemized output
         if len(alleles) == 0:
             if type == 'xml':
-                stream.emptytag('allelecounts', 'class', 'no-data')
+                stream.emptytag('allelecounts', role='no-data')
                 stream.writeln()
             else:
                 stream.writeln("No allele data; no allele counts generated")
@@ -599,7 +599,7 @@ class ParseGenotypeFile(ParseFile):
                 strCount = ("%d" % alleleTable[allele])
 
                 if type == 'xml':
-                    stream.opentag('allele', 'name', allele)
+                    stream.opentag('allele', name=allele)
                     stream.writeln()
                     stream.tagContents('frequency', strFreq)
                     stream.tagContents('count', strCount)
@@ -634,7 +634,7 @@ class ParseGenotypeFile(ParseFile):
         for locus in self.freqcount.keys():
             stream.writeln()
             if type == 'xml':
-                stream.opentag('locus', 'name', locus)
+                stream.opentag('locus', name=locus)
             else:
                 stream.write("Locus = %s" % locus)
                 stream.writeln()
