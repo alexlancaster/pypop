@@ -181,7 +181,7 @@ MODIFICATIONS.
    <xsl:with-param name="underline" select="$underline"/>
   </xsl:call-template>
   
-  <xsl:if test="$text!=''">
+  <xsl:if test="not($text='')">
    <!-- <xsl:call-template name="newline"/>  -->
    <xsl:copy-of select="$text"/>
    <xsl:call-template name="newline"/> 
@@ -279,7 +279,7 @@ MODIFICATIONS.
       <xsl:with-param name="text">
        <xsl:choose>
 	<!-- if allele data is present output the subnodes -->
-	<xsl:when test="allelecounts/@role!='no-data'">
+	<xsl:when test="not(allelecounts/@role='no-data')">
 	 <xsl:apply-templates select="*"/>
 	</xsl:when>
 	<!-- if no allele data is present supress processing and print message -->
@@ -405,7 +405,7 @@ MODIFICATIONS.
   <xsl:text>Total loci with data: </xsl:text>
   <xsl:value-of select="."/>
   <xsl:text> [</xsl:text>
-  <xsl:for-each select="/dataanalysis/locus[allelecounts/@role!='no-data']/@name">
+  <xsl:for-each select="/dataanalysis/locus[not(allelecounts/@role='no-data')]/@name">
    <xsl:value-of select="."/>
    <xsl:if test="position()!=last()">
     <xsl:text>, </xsl:text>

@@ -94,7 +94,7 @@ MODIFICATIONS.
   <xsl:param name="node"/>
 
   <xsl:choose>
-   <xsl:when test="$node!=''">
+   <xsl:when test="$node">
     <xsl:value-of select="$node"/>
    </xsl:when>
    <xsl:otherwise>****</xsl:otherwise>
@@ -269,7 +269,7 @@ MODIFICATIONS.
 	 <xsl:value-of select="'****'"/>
 	</xsl:when>
 	<xsl:otherwise>
-	 <xsl:value-of select="count(hardyweinberg/genotypetable/genotype[chisq/@role!='not-calculated'])"/>
+	 <xsl:value-of select="count(hardyweinberg/genotypetable/genotype[not(chisq/@role='not-calculated')])"/>
 	</xsl:otherwise>
        </xsl:choose>
       </xsl:with-param>
@@ -531,7 +531,7 @@ MODIFICATIONS.
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
-       select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu') and @role!='no-data']"/>
+       select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu') and not(@role='no-data')]"/>
       <xsl:with-param name="type" select="'multi-locus-summary'"/>
      </xsl:call-template>
     </exsl:document>
@@ -543,7 +543,7 @@ MODIFICATIONS.
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
-      select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu') and @role!='no-data']"/>
+      select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu') and not(@role='no-data')]"/>
       <xsl:with-param name="type" select="'multi-locus-haplo'"/>
      </xsl:call-template>
     </exsl:document>
@@ -555,7 +555,7 @@ MODIFICATIONS.
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
-       select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=2 and @role!='no-data']"/>
+       select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=2 and not(@role='no-data')]"/>
       <xsl:with-param name="type" select="'multi-locus-summary'"/>
       <xsl:with-param name="pairwise" select="0"/>
      </xsl:call-template>
@@ -568,7 +568,7 @@ MODIFICATIONS.
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
-      select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=2 and @role!='no-data']"/>
+      select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=2 and not(@role='no-data')]"/>
       <xsl:with-param name="type" select="'multi-locus-haplo'"/>
       <xsl:with-param name="pairwise" select="0"/>
      </xsl:call-template>
@@ -581,7 +581,7 @@ MODIFICATIONS.
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
-       select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=3 and @role!='no-data']"/>
+       select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=3 and not(@role='no-data')]"/>
       <xsl:with-param name="type" select="'multi-locus-summary'"/>
       <xsl:with-param name="pairwise" select="0"/>
      </xsl:call-template>
@@ -594,7 +594,7 @@ MODIFICATIONS.
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
-      select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=3 and @role!='no-data']"/>
+      select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=3 and not(@role='no-data')]"/>
       <xsl:with-param name="type" select="'multi-locus-haplo'"/>
       <xsl:with-param name="pairwise" select="0"/>
      </xsl:call-template>

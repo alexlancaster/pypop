@@ -58,7 +58,7 @@ MODIFICATIONS.
  -->
 
  <xsl:template match="emhaplofreq/group[(string-length(@loci) -
- string-length(translate(@loci, ':', '')))=2 and @role!='no-data']"> 
+  string-length(translate(@loci, ':', '')))=2 and not(@role='no-data')]"> 
 
   <xsl:text>filename	N	2N summed</xsl:text>
   <xsl:call-template name="newline"/>
