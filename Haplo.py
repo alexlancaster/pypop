@@ -140,8 +140,18 @@ class HaploArlequin(Haplo):
         if self.debug:
             print "Counted", len(data), "lines."
         firstLine = data[0]
+
+        # estimate the number of loci from the number of columns
+        # and the prefix and suffix columns which can be ignored  
         cols = len(string.split(firstLine))
-        locusCount = (cols - (self.prefixCols + self.suffixCols))/2
+        colCount = cols - (self.prefixCols + self.suffixCols)
+
+        # sanity check to ensure column number is even (2 alleles for
+        # each loci)
+        if colCount % 2 != 0:
+            sys.exit ("Error: col count (%d) is not even" % colCount)
+        else:
+            locusCount = (colCount)/2
 
         if self.debug:
             print "First line", firstLine, "has", cols, "columns and", \
