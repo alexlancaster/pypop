@@ -27,9 +27,8 @@ int main_proc(char (*)[][], int, int);
   * we only return from it to exit. 
 */
 
-int count_unique_haplos(char (*)[][], char (*)[], int (*)[], char (*)[][], int *, int, int);
-/* array of genotypes, array of haplotypes, unique_allele array, */
-/* no. of unique alleles array, number of unique genotypes, number of loci */
+int count_unique_haplos(char (*)[][], char (*)[], int (*)[], char (*)[][], int *, int, int, int (*)[], int *);
+/* geno, haplo, haplocus, unique_allele, n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo */
 /* returns number of haplotypes */
 /* 
   * creates array of possible haplotypes from array of possibly observed genotypes 
@@ -61,10 +60,10 @@ void sort2arrays(char (*)[], double *, int);
   * insertion sort in ascending order for 1st array also applied to 2nd array
 */
 
-void emcalc(char (*)[], char (*)[][], int (*)[], int *, int *, double *,
-       double *, int, int, int, int);
-/* haplo, geno, genopheno, numgeno, obspheno, freq_zero, mle, n_haplo, n_unique_geno, 
-   n_unique_pheno, n_recs */
+void emcalc(int (*)[], int *, int *, double *, double *, int, int, int, int, 
+       int *, int (*)[]);
+/* genopheno, numgeno, obspheno, freq_zero, mle, n_haplo, n_unique_geno, 
+   n_unique_pheno, n_recs, xhaplo, xgeno */
 /*
   * perform EM iterations with results in the mle array
 */
@@ -75,8 +74,8 @@ void haplo_freqs_no_ld(double *, double (*)[], int (*)[], int *, int, int);
   * compute haplotype frequencies under no LD as products of allele frequencies 
 */
 
-double loglikelihood(char (*)[], char (*)[][], int (*)[], double *, int *, int, int, int);
-/* haplo, geno, genopheno, hap_freq, n_haplo, n_unique_geno, n_unique_pheno */
+double loglikelihood(int (*)[], double *, int *, int, int, int, int *, int (*)[]);
+/* genopheno, hap_freq, n_haplo, n_unique_geno, n_unique_pheno, xhaplo, xgeno */
 /*
   * compute log likelihood for a given set of haplotype frequencies
 */
@@ -252,6 +251,7 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 
   /* needed for the count_unique_haplotypes and allele_frequencies functions */
   static int haplocus[MAX_HAPLOS][MAX_LOCI];
+  int xhaplo[MAX_HAPLOS], xgeno[MAX_GENOS][2];
 
   /* needed for the id_unique_alleles function */
   static char unique_allele[MAX_LOCI][MAX_ALLELES][NAME_LEN];
@@ -482,7 +482,7 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     n_loci, n_recs);
 
   n_haplo = count_unique_haplos(geno, haplo, haplocus, unique_allele, 
-    n_unique_allele, n_unique_geno, n_loci);
+    n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo);
 
   fprintf(stdout, "n_haplo: %d \n", n_haplo);
 
@@ -496,7 +496,8 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
       if(genopheno[j][i] == 1)
       { 
         count += 1;
-        fprintf(stdout, "possible geno: %d %s %s \n", count, geno[j][0],  geno[j][1]); 
+        fprintf(stdout, "possible geno: %d %s %s xgeno: %d %d j: %d \n", count, geno[j][0],  geno[j][1], 
+          xgeno[j][0],  xgeno[j][1], j); 
       } 
     } 
     fprintf(stdout, "\n"); 
@@ -519,8 +520,8 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     n_loci, n_haplo);
 
   /* Compute log likelihood under no LD */
-  loglike0 = loglikelihood(haplo, geno, genopheno, freq_zero, obspheno, n_haplo, 
-    n_unique_geno, n_unique_pheno);
+  loglike0 = loglikelihood(genopheno, freq_zero, obspheno, n_haplo, 
+    n_unique_geno, n_unique_pheno, xhaplo, xgeno);
   
   fprintf(stdout, "\n Log likelihood under no LD: %f \n", loglike0);
 
@@ -530,8 +531,8 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     freq_zero[i] = 1.0 / (double)n_haplo;
   }
 
-  emcalc(haplo, geno, genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
-    n_unique_geno, n_unique_pheno, n_recs);
+  emcalc(genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
+    n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno);
 
   /* N.B. this sort destroys the haplocus[][] corrspondence */
 /*  
@@ -562,6 +563,8 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
     }
   }
 
+/*
+*/
   linkage_diseq(mle, haplocus, allele_freq, unique_allele, n_unique_allele, 
     n_loci, n_haplo, n_recs);
 
@@ -572,7 +575,8 @@ int main_proc(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
       char (*haplo_ar)[LINE_LEN / 2], int (*haplocus)[MAX_LOCI], 
       char (*unique_allele)[MAX_ALLELES][NAME_LEN],
-      int *n_unique_allele, int num_genos, int num_loci)
+      int *n_unique_allele, int num_genos, int num_loci,
+      int (*xgeno)[2], int *xhaplo)
 /* 
   * run through the array of possible genotypes 
   * create an array of possible haplotypes 
@@ -589,6 +593,8 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
   /* 0th assignment */
   unique_haplo_count = 0;
   strcpy(haplo_ar[0], geno_ar[0][0]);
+  xhaplo[0] = 0;
+  xgeno[0][0] = 0;
 
   /* split haplo_ar[0] into temp_array on ":" and add trailing ":" */
   strcpy(temp_buff, haplo_ar[0]);
@@ -635,11 +641,15 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
         if (!strcmp(geno_ar[i][j], haplo_ar[k]))
         {  
           unique_haplo_flag = FALSE;
+          xgeno[i][j] = k;
         }  
       }
       if (unique_haplo_flag == TRUE)
       {
         strcpy(haplo_ar[++unique_haplo_count], geno_ar[i][j]);
+        xhaplo[unique_haplo_count] = unique_haplo_count; 
+        xgeno[i][j] = unique_haplo_count;
+/*   fprintf(stdout, "xgeno[%d][%d]:%d \n", i,j,xgeno[i][j]); */
 
         /* split haplo_ar[unique_haplo_count] into temp_array ... */
         strcpy(temp_buff, haplo_ar[unique_haplo_count]);
@@ -1015,18 +1025,17 @@ void sort2arrays(char (*array1)[LINE_LEN / 2], double *array2, int n_haplo)
 }
 
 /************************************************************************/
-void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
-      int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
+void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
       double *freq_zero, double *mle, int n_haplo, int n_unique_geno,
-      int n_unique_pheno, int n_recs)
+      int n_unique_pheno, int n_recs, int *xhaplo, int (*xgeno)[2])
 {
   int i, j, k, l;
   int done, decr_loglike_count, tot_hap;
   int iter, k_pheno, i_geno, i_haplo, j_haplo, keep;
   double unambig[MAX_HAPLOS], ambig[MAX_HAPLOS], ambig_sum;
   static double hap_freq[MAX_HAPLOS][MAX_ITER], addto_ambig[MAX_HAPLOS];
-  double expected_freq, expected_freq_sum, normed_addto_ambig_sum, diff, geno_freq[MAX_GENOS], pheno_freq[MAX_ROWS];
-  double loglike, prev_loglike, freqsum;
+  double expected_freq, expected_freq_sum, normed_addto_ambig_sum, diff; 
+  double geno_freq[MAX_GENOS], pheno_freq[MAX_ROWS], loglike, prev_loglike, freqsum;
 
   fprintf(stdout, "\nEMCALC: \n");
 
@@ -1049,7 +1058,7 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
       {
         for (l = 0; l < n_unique_pheno; l++)
         {
-          if ((!strcmp(geno[i][j], haplo[k])) && (genopheno[i][l] != 0))
+          if ((xgeno[i][j] == xhaplo[k]) && (genopheno[i][l] != 0))
           {
             if (numgeno[l] == 1)
             {
@@ -1115,11 +1124,11 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
             {
               for (k = 0; k < n_haplo; k++)
               {
-                if (!strcmp(geno[i_geno][0], haplo[k]))
+                if (xgeno[i_geno][0] == xhaplo[k])
                 {
                   i_haplo = k;
                 }
-                if (!strcmp(geno[i_geno][1], haplo[k]))
+                if (xgeno[i_geno][1] == xhaplo[k])
                 {
                   j_haplo = k;
                 }
@@ -1180,7 +1189,7 @@ void emcalc(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
         {
           for (k = 0; k < n_haplo; k++)
           {
-            if (!strcmp(haplo[k], geno[i][j]))
+            if (xhaplo[k] == xgeno[i][j])
             {
               geno_freq[i] = geno_freq[i] * hap_freq[k][iter];
               if (j == 0)
@@ -1296,9 +1305,9 @@ void haplo_freqs_no_ld(double *hap_freq, double (*allele_freq)[MAX_ALLELES],
 }
 
 /************************************************************************/
-double loglikelihood(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2], 
-        int (*genopheno)[MAX_ROWS], double (*hap_freq), int *obspheno, int n_haplo, 
-        int n_unique_geno, int n_unique_pheno)
+double loglikelihood(int (*genopheno)[MAX_ROWS], double (*hap_freq), 
+         int *obspheno, int n_haplo, int n_unique_geno, int n_unique_pheno, 
+         int *xhaplo, int (*xgeno)[2])
 
 {
   int i, j, k, keep;
@@ -1313,7 +1322,7 @@ double loglikelihood(char (*haplo)[LINE_LEN / 2], char (*geno)[2][LINE_LEN / 2],
     {
       for (k = 0; k < n_haplo; k++)
       {
-        if (!strcmp(haplo[k], geno[i][j]))
+        if (xhaplo[k] == xgeno[i][j])
         {
           geno_freq[i] = geno_freq[i] * hap_freq[k];
           if (j == 0)
