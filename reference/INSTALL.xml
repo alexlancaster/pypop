@@ -176,58 +176,57 @@
    </listitem>
   </itemizedlist>
 
-  <para>Assuming you have installed all the system requirements
-   (below), unzip and untar the above tar ball (above) and type:</para>
- 
-<screen>python setup.py build
-python setup.py install</screen>
-
-  <para>to build install <application>PyPop</application></para>
 
   <section id="install-from-source-sysreq">
    <title>System requirements</title>
 
-  <itemizedlist>
+   <itemizedlist>
 
-   <listitem>
-    <para><ulink url="http://www.python.org/">Python 2.1</ulink> or later.</para>
-   </listitem>
-   <listitem>
-    <para><ulink url="http://numpy.sourceforge.net/">Numerical Python
-      20.2.1</ulink> or later</para>
-   </listitem>
-
-   <listitem>
+    <listitem>
+     <para><ulink url="http://www.python.org/">Python 2.1</ulink> or later.</para>
+    </listitem>
+    <listitem>
+     <para><ulink url="http://numpy.sourceforge.net/">Numerical Python
+       20.2.1</ulink> or later</para>
+    </listitem>
+    
+    <listitem>
     <para><ulink url="http://www.swig.org/">Simple Wrapper Interface Generator (SWIG)</ulink>: needs 'development' version 1.3.9 or 1.3.10. (Note: 1.3.11 or later will not work).</para>
-   </listitem>
-
-   <listitem>
-    <para><ulink url="http://xmlsoft.org/">libxml2/libxslt</ulink>
-     including <ulink
-      url="http://xmlsoft/XSLT/python.html">libxml2-python</ulink>, a
-     Python interface to the GNOME XML/XSLT parser (This is a fast C
-     library-based parser.  Most recent GNU/Linux distributions will
-     ship libxml2/libxslt as standard, but you may need to obtain
-     libxml2-python as a separate package).</para>
-
-    <para>(Untested recently: <ulink
-      url="http://www.4suite.org/">4Suite</ulink> a pure Python
-     XML/XSLT parsing engine.)</para>
-
-   </listitem>
-  </itemizedlist>
+    </listitem>
+    
+    <listitem>
+     <para><ulink url="http://xmlsoft.org/">libxml2/libxslt</ulink>
+      including <ulink
+       url="http://xmlsoft/XSLT/python.html">libxml2-python</ulink>, a
+      Python interface to the GNOME XML/XSLT parser (This is a fast C
+      library-based parser.  Most recent GNU/Linux distributions will
+      ship libxml2/libxslt as standard, but you may need to obtain
+      libxml2-python as a separate package).</para>
+     
+     <para>(Untested recently: <ulink
+       url="http://www.4suite.org/">4Suite</ulink> a pure Python
+      XML/XSLT parsing engine.)</para>
+     
+    </listitem>
+   </itemizedlist>
   </section>
 
   <section id="install-from-source-install">
+
    <title>Installation</title>
+   
 
-   <para><emphasis role="bold">Make sure Python and Distutils are installed correctly</emphasis></para>
+   <para><emphasis>Before starting, you must ensure you have installed
+    all the system requirements listed above.  In particular, make
+    sure Python and Distutils are installed correctly.</emphasis></para>
+   
+   <para>Unzip and untar the above tar ball. Build and install
+    <application>PyPop</application> by changing into the <filename
+     class="directory">PyPop-&VERSION;</filename>  directory, and
+    type:</para>
 
-   <para>Install <application>PyPop</application> by changing into the
-    <filename class="directory">PyPop-&VERSION;</filename>  directory,
-    and type:</para>
-
-   <screen>python setup.py install</screen>
+<screen>python setup.py build
+python setup.py install</screen>
 
    <para>If you need to do additional configuration (e.g. changing the
     base directory) please type <userinput>python setup.py</userinput>, 

@@ -38,7 +38,7 @@
    different kinds of data, including allele-level genotypes (as in
    <xref linkend="data-minimal-noheader-noids"/>) and allele-level
    frequencies (as in <xref linkend="data-allelecount"/>)
-   from the HLA region regions other chromosomes, microsatellite data,
+   from the HLA region and regions other chromosomes, microsatellite data,
    SNPs, and nucleotide and amino acid sequence data.</para>
 
   <para>There are two ways to run <application>PyPop</application>:
@@ -186,7 +186,7 @@ current directory or in /usr/share/PyPop/config.ini.
     <filename>config.ini</filename> (see <xref
      linkend="validSampleFields"/>).  Although
     <application>PyPop</application> needs this distinction to be
-    made, phase is NOT assumed or inferred, nor, if present, is not
+    made, phase is NOT assumed or inferred, and if present, is not
     recognized.</para>
 
 
@@ -481,7 +481,7 @@ allPairwiseLDWithPermu=0></programlisting>
       <formalpara>
        <title><literal>alleleDesignator</literal></title>
        <para>This option is used to tell
-	 <application>PyPop</application> figure out what is allele
+	 <application>PyPop</application> what is allele
 	 data and what isn't. You  must use this symbol in <link
 	  linkend="validSampleFields"><literal>validSampleFields</literal> 
 	 </link> option.  The default is <literal>*</literal>.  In
