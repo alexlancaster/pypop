@@ -4,7 +4,13 @@ VERSION=$(shell cat VERSION)
 SYSTEM=$(shell uname)
 DOCPATH=../doc/reference
 
-NAME_BIN=PyPop$(SYSTEM)-$(VERSION).tar.gz
+ifeq ($(SYSTEM),Linux)
+NAME_BIN=PyPopLinux-$(VERSION).tar.gz
+endif
+ifeq ($(SYSTEM),CYGWIN_NT-5.1)
+NAME_BIN=PyPopWin32-$(VERSION).zip
+endif
+
 NAME_SRC=PyPop-$(VERSION).tar.gz
 
 CVS_COMMAND=$(shell cvs -Q status|grep "Status: "|grep -v "Up-to-date")
