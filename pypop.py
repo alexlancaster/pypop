@@ -3,16 +3,18 @@
 """Python population genetics statistics.
 """
 
+import sys, os, string, time
+
+altpath = os.path.join(sys.prefix, 'share', 'config.ini')
+
 usage_message = """Usage: pypop.py [OPTION] INPUTFILE
 Process and run population genetics statistics on an INPUTFILE.
 Expects to find a configuration file called 'config.ini' in the
-current directory.
+current directory or in %s.
 
   -e, --experimental   enable experimental features
 
-  INPUTFILE   input text file"""
-
-import sys, os, string, time
+  INPUTFILE   input text file""" % altpath
 
 from ParseFile import ParseGenotypeFile
 from Haplo import Emhaplofreq
@@ -50,10 +52,16 @@ prefixFileName = string.split(baseFileName, ".")[0]
 
 config = ConfigParser()
 
+
+
 if os.path.isfile("config.ini"):
   config.read("config.ini")
 else:
-  sys.exit("Could not find config.ini" + os.linesep + usage_message)
+  if os.path.isfile(altpath):
+    config.read(altpath)
+  else:
+    sys.exit("Could not find config.ini either in current directory or " +
+             altpath + os.linesep + usage_message)
 				
 if len(config.sections()) == 0:
 	sys.exit("No output defined!  Exiting...")
