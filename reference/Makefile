@@ -43,7 +43,7 @@ endif
 FIGS = $(addprefix work-flow., png eps) $(addprefix design., png eps) api.png
 OUTPUTS = $(addprefix biostat., html txt pdf) $(addprefix tex-math-equations., tex dvi) eqns
 EXTRA_CLEAN = $(addprefix biostat., aux log out) $(addprefix tex-math-equations., tex dvi)
-EXTRA_XML_SOURCE = hlaintro.xml methods.xml pypop.xml glossary.xml biblio.xml
+EXTRA_XML_SOURCE = hlaintro.xml methods.xml pypop.xml glossary.xml biblio.xml instructions.xml
 
 all: $(OUTPUTS) $(FIGS) api/index.html
 
