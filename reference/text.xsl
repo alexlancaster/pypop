@@ -6,17 +6,19 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
                 version='1.0'>
 
+ <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/html/docbook.xsl"/>
+
  <!-- import regular HTML customization -->
- <xsl:import href="html.xsl"/>
+<!--  <xsl:import href="html.xsl"/>-->
+
+ <xsl:import href="citation.xsl"/>
+ <xsl:import href="biblio.xsl"/>
 
 
  <!-- now override some things we do/don't want in plaintext -->
  <xsl:param name="callout.unicode" select="'0'"/>
  <xsl:param name="callout.graphics" select="'0'"/>
- <xsl:param name="generate.toc">
-appendix nop
-article nop
- </xsl:param>
+ <xsl:param name="generate.toc"></xsl:param>
 
  <xsl:param name="appendix.autolabel" select="0"/>
 
