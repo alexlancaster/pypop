@@ -305,7 +305,8 @@ if len(fileBatchList) > 1:
             catFile = file(catFilename)
             # drop the first line, iff we are past first file
             if i > 0:
-                catFile.next() # skip this line
+                catFile.readline() # skip this line
+                #catFile.next() <- this only works in Python 2.3 or better
             for line in catFile:
                 outdat.write(line)
             # then remove it

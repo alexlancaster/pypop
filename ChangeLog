@@ -1,3 +1,9 @@
+2004-10-29  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* popmeta.py (datfiles): Use readline() rather than next() for
+	file object.  Iterators only work for file objects in Python 2.3
+	or better.
+
 2004-10-28  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Utils.py (splitIntoNGroups): Backgrade to use regular slices,
