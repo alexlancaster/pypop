@@ -350,10 +350,14 @@ class Emhaplofreq(Haplo):
                     self.fp.write("<group mode=\"no-data\" loci=\"%s\"/>%s" % (group, os.linesep))
                     continue
                 
-                if permutationFlag:
+                if permutationFlag and haploSuppressFlag:
                     self.fp.write("<group mode=\"LD\" loci=\"%s\">%s" % (group, os.linesep))
-                else:
+                elif permutationFlag == 0 and haploSuppressFlag == 0:
                     self.fp.write("<group mode=\"haplo\" loci=\"%s\">%s" % (group, os.linesep))
+                elif permutationFlag and haploSuppressFlag == 0:
+                    self.fp.write("<group mode=\"haplo-LD\" loci=\"%s\">%s" % (group, os.linesep))
+                else:
+                    sys.exit("Unknown combination of permutationFlag and haploSuppressFlag")
                 self.fp.write(os.linesep)
 
                 self.fp.write("<individcount role=\"before-filtering\">%d</individcount>" % self.totalNumIndiv)
