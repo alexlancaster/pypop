@@ -80,7 +80,7 @@ int main(int argc, char **argv)
   int k, n, maxrep, i;
   long start_time, finish_time, net_time;
   static int r_obs[KLIMIT];
-  void main_proc(int r_obs[], int k, int n, int maxrep);
+  int main_proc(int r_obs[], int k, int n, int maxrep);
 
   /* = {0, 40, 3, 3, 1, 0}; */
 
