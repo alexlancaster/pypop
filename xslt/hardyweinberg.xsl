@@ -35,7 +35,7 @@
      <xsl:with-param name="title">HardyWeinberg</xsl:with-param>
     </xsl:call-template>
    </xsl:with-param>
-   <xsl:with-param name="level" select="2"/>
+   <xsl:with-param name="level" select="3"/>
    <xsl:with-param name="text">
 
     <!-- do genotype table -->
@@ -194,7 +194,7 @@
    <!-- if in the context of common, lumped or commonpluslumped
    doesn't make sense to output these values -->
    <xsl:when test="parent::common or parent::lumped or parent::commonpluslumped">
-    <xsl:text>-</xsl:text>
+    <xsl:text>N/A</xsl:text>
    </xsl:when>
    <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
   </xsl:choose>
@@ -337,7 +337,13 @@
    <xsl:with-param name="node" select="sum(genotype[chisq/@role!='not-calculated']/observed)"/>
   </xsl:call-template>
   <xsl:call-template name="hardyweinberg-gen-cell">
-   <xsl:with-param name="node" select="sum(genotype[chisq/@role!='not-calculated']/expected)"/>
+   <xsl:with-param name="node">
+    <xsl:call-template name="round-to">
+     <xsl:with-param name="node"
+     select="sum(genotype[chisq/@role!='not-calculated']/expected)"/>
+     <xsl:with-param name="places" select="2"/>
+    </xsl:call-template>
+   </xsl:with-param>
   </xsl:call-template>
   <xsl:call-template name="newline"/>
 
@@ -528,7 +534,7 @@
      <xsl:with-param name="title">Guo and Thompson HardyWeinberg output</xsl:with-param>
     </xsl:call-template>
    </xsl:with-param>
-   <xsl:with-param name="level" select="2"/>
+   <xsl:with-param name="level" select="3"/>
    <xsl:with-param name="text">
     <xsl:choose>
      <xsl:when test="@role='too-few-alleles'">
