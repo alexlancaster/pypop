@@ -3,7 +3,8 @@
 2003-03-03:
 
 - 'allelecount.py': add 'HomozygosityEWSlatkinExact' to calculate 
-  homozygosity. Suggested by Yingssu. (?)  
+  homozygosity. Suggested by Yingssu. (_yingssu_: 100%-COMPLETED 
+  2003-03-05).  
 
 2002-10-17:
 
