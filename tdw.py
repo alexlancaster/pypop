@@ -7,8 +7,12 @@
 import sys
 
 import ParseFile, HardyWeinberg
+from Homozygosity import Homozygosity
 
-input = ParseFile.ParseGenotypeFile(sys.argv[1],
+fileName = sys.argv[1]
+homozyPath = sys.argv[2]
+
+input = ParseFile.ParseGenotypeFile(fileName,
                                     alleleDesignator='*',
                                     untypedAllele='****',
                                     debug=0)
@@ -26,5 +30,16 @@ for locus in loci:
                                          input.getAlleleCountAt(locus),
                                          debug=0)
   hwObject.getChisq()
+
+  hzObject = Homozygosity(input.getAlleleCountAt(locus),
+			  rootPath=homozyPath,
+			  debug=1)
+  if hzObject._parseFile():
+	  print "Fo = ", hzObject.getObservedHomozygosity()
+	  print "count = ", hzObject.getCount()
+	  print "mean of Fe = ", hzObject.getMean()
+	  print "var of Fe = ", hzObject.getVar()
+	  print "sem of Fe =", hzObject.getSem()
+	  print "pval =", hzObject.getPValue()
 
 
