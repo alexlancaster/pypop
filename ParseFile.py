@@ -502,8 +502,10 @@ class ParseGenotypeFile(ParseFile):
         *Note 2: the order of this list is now fixed for the lifetime
           of the object.*
         """
-        
-        return self.locusKeys
+
+        # returns a clone of the locusKeys list, so that this instance
+        # variable can't be modified inadvertantly
+        return self.locusKeys[:]
 
     def getAlleleCount(self):
         """Return allele count statistics for all loci.
@@ -658,7 +660,9 @@ class ParseGenotypeFile(ParseFile):
         **Note 2:** data is sorted so that allele1 < allele2,
         alphabetically """
 
-        return self.locusTable[locus]
+        # returns a clone of the list, so that this instance variable
+        # can't be modified inadvertantly
+        return (self.locusTable[locus])[:]
     
     def getLocusData(self):
         """Returns the genotyped data for all loci.
