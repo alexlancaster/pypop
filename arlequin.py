@@ -2,23 +2,39 @@
 
 import sys, os, string, glob, re
 from Haplo import HaploArlequin
+from Utils import OrderedDict
 
 # global summary table
-summaryTable = {}
+summaryTable = OrderedDict()
 
 def stripSuffix(filename):
     return string.split(os.path.basename(filename), '.')[0]
 
-def genArpFilename(prefix, start, stop):
-    return prefix + "-" + start + "-" + stop + ".haplo"
+def lociListSuffix(lociList):
+    suffix = ""
+    print lociList, len(lociList)
+    for i in lociList:
+        print "locus:", i
+        extra = "%02d" % i
+        print "formatting:", extra
+        if suffix == "":
+            suffix = extra
+        else:
+            suffix = suffix + "-" + extra
+        print "new suffix:", suffix
+    return suffix
 
-def genHaplotypes(inputFilename, arpFilename, windowSize, debug):
+def genArpFilename(prefix, lociList):
+    return prefix + "-" + lociListSuffix(lociList) + ".haplo"
+
+def genHaplotypes(inputFilename, arpFilename, windowSize, mapOrder, debug):
 
     haploParse = HaploArlequin(idCol = 1,
                                arpFilename = arpFilename,
                                prefixCols = 2,
                                suffixCols = 0,
                                windowSize = windowSize,
+                               mapOrder = mapOrder,
                                debug=debug)
     haploParse.outputArlequin(open(inputFilename, 'r').readlines())
     haploParse.runArlequin()
@@ -27,14 +43,14 @@ def genHaplotypes(inputFilename, arpFilename, windowSize, debug):
 
 def outputHaploFiles(filename, haplotypes):
     for window in haplotypes:
-        freqs, popName, sampleCount, start, stop = window
-        f = open(genArpFilename(filename, start, stop), 'w')
+        freqs, popName, sampleCount, lociList = window
+        f = open(genArpFilename(filename, lociList), 'w')
         for haplotype in freqs.keys():
             # print haplotype, freqs[haplotype]
             f.write("%s %s %s" % (haplotype, freqs[haplotype], os.linesep))
         f.close()
 
-def recordSummary(data, popName, start, stop):
+def recordSummary(data, popName, lociList):
     global summaryTable
     pattLabel = re.compile("            Label.*")
     pattSep = re.compile ("[=].*")
@@ -66,7 +82,8 @@ def recordSummary(data, popName, start, stop):
     print pop, chrom, mostsigsofar, totalsig
 
     datatuple = (totalsig, mostsigsofar)
-    locus = ("%02d" % int(start)) + "-" + ("%02d" % int(stop))
+    # generate haplotype locus name
+    locus = lociListSuffix(lociList)
     
     if summaryTable.has_key(chrom):
         if summaryTable[chrom].has_key(locus):
@@ -75,9 +92,12 @@ def recordSummary(data, popName, start, stop):
             else:
                 summaryTable[chrom][locus][pop] = datatuple
         else:
-            summaryTable[chrom][locus] = {pop: datatuple}
+            summaryTable[chrom][locus] = OrderedDict([pop, datatuple])
     else:
-        summaryTable[chrom] = {locus: {pop: datatuple}}
+        summaryTable[chrom] = \
+                            OrderedDict([locus, OrderedDict([pop, datatuple])])
+
+    
 
 def printSummary():
     chroms = summaryTable.keys()
@@ -85,8 +105,11 @@ def printSummary():
     for chrom in chroms:
         print "Chromosome %s" % chrom
         print
+
+        # don't sort() loci, haplotypes are not necessarily in lexical
+        # order
         loci = summaryTable[chrom].keys()
-        loci.sort()
+
         # get the list of keys from the first loci
         pops = summaryTable[chrom][loci[0]].keys()
         pops.sort()
@@ -105,18 +128,20 @@ def printSummary():
             print
         print
 
-def genContingency(casesFilename, controlsFilename, ws, debug):
+def genContingency(casesFilename, controlsFilename, ws, mapOrder, debug):
 
     casesArpFilename = stripSuffix(casesFilename) + ".arp"
     controlsArpFilename = stripSuffix(controlsFilename) + ".arp"
 
     casesHaplotypes = genHaplotypes(casesFilename,
-                                  casesArpFilename,
-                                  ws,
-                                  debug)
+                                    casesArpFilename,
+                                    ws,
+                                    mapOrder,
+                                    debug)
     controlsHaplotypes = genHaplotypes(controlsFilename,
                                        controlsArpFilename,
                                        ws,
+                                       mapOrder,
                                        debug)
     
     outputHaploFiles(casesArpFilename, casesHaplotypes)
@@ -124,36 +149,42 @@ def genContingency(casesFilename, controlsFilename, ws, debug):
 
     # loop through pairs of case, controls, generating contingency tables
     for window in casesHaplotypes:
-        freqs, popName, sampleCount, start, stop = window
-        contingFilename = popName + "-" + start + "-" + stop + ".conting"
+        freqs, popName, sampleCount, lociList = window
+        contingFilename = popName + "-" + lociListSuffix(lociList) + ".conting"
         print "running contingency: " + contingFilename
         f = open(contingFilename, 'w')
         f.write("Contingency table" + os.linesep)
         f.write("Population: %s" % popName + os.linesep)
-        f.write("Loci: %s - %s" % (start, stop) + os.linesep)
+        f.write("Loci: %s" % lociListSuffix(lociList) + os.linesep)
         f.write("Number of case samples: %s" % sampleCount + os.linesep)
         f.close()
         os.system("contingency.awk -c %s %s >> %s" \
-                  % (genArpFilename(casesArpFilename, start, stop), \
-                     genArpFilename(controlsArpFilename, start, stop),
+                  % (genArpFilename(casesArpFilename, lociList), \
+                     genArpFilename(controlsArpFilename, lociList),
                      contingFilename))
         recordSummary(open(contingFilename, 'r').readlines(),
-                      popName, start, stop)
+                      popName, lociList)
 
 listcases=glob.glob(os.path.expanduser(sys.argv[1]))
 listcontrols=glob.glob(os.path.expanduser(sys.argv[2]))
 windowsize=int(sys.argv[3])
 
 debug = 0
-if len(sys.argv) == 5:
+mapOrder = None
+if len(sys.argv) >= 5:
     if sys.argv[4] == '1':
         debug = 1
+    if len(sys.argv) == 6:
+        print sys.argv[5]
+        mapOrder = map(int, string.split(sys.argv[5], ','))
+        print mapOrder
 
 if len(listcases) == len(listcontrols):
     for i in range(0, len(listcases)):
         print "generating contingency for (%s, %s)" % \
               (os.path.basename(listcases[i]), os.path.basename(listcontrols[i]))
-        genContingency(listcases[i], listcontrols[i], windowsize, debug)
+        genContingency(listcases[i], listcontrols[i], windowsize,
+                       mapOrder,debug)
 else:
     sys.exit("Error: must be same number of cases and controls!")
 
