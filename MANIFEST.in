@@ -2,6 +2,7 @@ include ChangeLog
 include AUTHORS
 include INSTALL
 include COPYING
+include VERSION
 include pypop.py
 include MANIFEST.in
 include common.xsl
