@@ -31,6 +31,10 @@
  <xsl:param name="toc.indent.width" select="8"/>
  <xsl:param name="insert.xref.page.number" select="1"/>
 
+ <xsl:template match="varname">
+  <xsl:call-template name="inline.italicmonoseq"/>
+ </xsl:template>
+
  <xsl:template match="phrase[@role='strong']">
   <xsl:call-template name="inline.boldseq"/>
  </xsl:template>
