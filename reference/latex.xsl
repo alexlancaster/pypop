@@ -67,6 +67,7 @@
   <xsl:value-of select="$latex.world-scientific"/> 
  </xsl:param>
 
+<!--
  <xsl:template match="ulink">
   <xsl:variable name="url">
    <xsl:text>{\tt </xsl:text>   
@@ -87,11 +88,14 @@
   </xsl:choose>
  </xsl:template>
 
+-->
+
  <!-- ARTICLE TEMPLATE -->
+
  <xsl:template match="article">
   <!-- Output LaTeX preamble -->
   <xsl:call-template name="generate.latex.article.preamble"/>
-  <!-- Get and output article title -->
+  <!-- Get and output article title  -->
   <xsl:variable name="article.title">
    <xsl:choose>
     <xsl:when test="./title"> <xsl:value-of select="./title"/> </xsl:when>
@@ -123,12 +127,13 @@
    </xsl:otherwise>
   </xsl:choose>
 
-  <!-- Display  begindocument command -->
+  <!--  Display  begindocument command  -->
   <xsl:value-of select="$latex.article.begindocument"/>
-  <xsl:value-of select="$latex.article.maketitle"/>
+ <xsl:value-of select="$latex.maketitle"/>
   <xsl:apply-templates/>
   <xsl:value-of select="$latex.article.end"/>
  </xsl:template>
+
 
  <xsl:template match="authorgroup">
 
@@ -192,6 +197,8 @@
 
  </xsl:template>
 -->
+
+
  <xsl:template match="affiliation">
    <xsl:text>\address{</xsl:text>
 
