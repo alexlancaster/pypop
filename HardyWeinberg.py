@@ -178,6 +178,7 @@ class HardyWeinberg:
     self.lumpedObservedGenotypes = 0.0
     self.lumpedExpectedGenotypes = 0.0
     self.flagHets = self.flagHoms = self.flagCommons = self.flagLumps = 0
+    self.flagTooManyParameters = 0
 
     if self.totalHomsExp >= self.lumpBelow:
       self.totalChisqHoms = ((self.totalHomsObs - self.totalHomsExp) *\
@@ -268,7 +269,7 @@ class HardyWeinberg:
       returnValue = os.popen(command, 'r').readlines()
       self.HWChisqPval = float(returnValue[0][:-1])
 
-      flagCommons = 1
+      self.flagCommons = 1
 
     elif self.rareGenotypeCounter > 0:
       """ Calculate the Chi Squared value for the lumped rare genotypes"""
@@ -286,9 +287,9 @@ class HardyWeinberg:
         if self.counterAllelesCommon == self.k:
           self.counterAllelesCommon -= 1
 
-        self.commonDfAccumulator = self.commonGenotypeCounter - self.counterAllelesCommon
+        self.commonDf = self.commonGenotypeCounter - self.counterAllelesCommon
 
-        if self.commonDfAccumulator > 1:
+        if self.commonDf > 1:
 
           self.lumpedChisq = ((self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) * \
                              (self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) / \
@@ -300,11 +301,14 @@ class HardyWeinberg:
           self.flagLumps = 1
 
           self.HWChisq = self.commonChisqAccumulator + self.lumpedChisq
-          self.HWChisqDf = self.commonDfAccumulator
+          self.HWChisqDf = self.commonDf
           command = "pval %f %f" % (self.HWChisqDf, self.HWChisq)
           returnedValue = os.popen(command, 'r').readlines()
           self.HWChisqPval = float(returnedValue[0][:-1])
           self.flagCommons = 1
+
+        else:
+          self.flagTooManyParameters = 1
 
           if self.debug:
             print "Lumped %d for a total of %d observed and %f expected" % (self.rareGenotypeCounter, self.lumpedObservedGenotypes, self.lumpedExpectedGenotypes)
@@ -326,6 +330,8 @@ class HardyWeinberg:
       stream.writeln()
       stream.tagContents("distinctalleles", "%d" % self.k)
       stream.writeln()
+
+      self.serializeXMLTableTo(stream)
 
       if self.flagHoms == 1:
         stream.opentag('homozygotes')
@@ -364,8 +370,6 @@ class HardyWeinberg:
         stream.writeln()
         stream.closetag('lumped')
 
-      self.serializeXMLTableTo(stream)
-
       if self.flagCommons == 1:
         stream.opentag('common')
         stream.writeln()
@@ -375,7 +379,10 @@ class HardyWeinberg:
         stream.writeln()
         stream.closetag('common')
       else:
-        stream.emptytag('common', role='no-common-genotypes')
+        if self.flagTooManyParameters == 1:
+          stream.emptytag('common', role='too-many-parameters')
+        else:
+          stream.emptytag('common', role='no-common-genotypes')
         stream.writeln()
 
       stream.closetag('hardyweinberg')
