@@ -529,11 +529,12 @@ class AnthonyNolanFilter(Filter):
 
                 # if it is a polymorphic position, we loop thru again
                 # and add it to polyseq and add its position to
-                # polyseqpos
+                # polyseqpos (actually we add the position plus one
+                # because that is how humans count.)
                 if uniqueCount > 1:
                     for allele in self.sequences:
                         self.polyseq[locus + '*' + allele] += self.sequences[allele][pos]
-                    self.polyseqpos[locus].append(pos)
+                    self.polyseqpos[locus].append(pos+1)
 
         if self.debug:
             print self.polyseq
