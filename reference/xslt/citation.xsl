@@ -89,7 +89,7 @@ Additional citation possibilities (both author-year and numerical modes)
   </xsl:choose>
  </xsl:template>
 
- <xsl:template match="citation" name="citation" mode="html">
+ <xsl:template match="citation" mode="html">
   <xsl:variable name="citetext" select="."/>
   <xsl:variable name="abbrevtarget" select="//bibliography/biblioentry[abbrev=$citetext]|//bibliography/bibliomixed[abbrev=$citetext]"/>
 
@@ -156,7 +156,7 @@ Additional citation possibilities (both author-year and numerical modes)
   </xsl:choose>
  </xsl:template>
 
- <xsl:template match="citation" name="citation" mode="fo">
+ <xsl:template match="citation" mode="fo">
   <xsl:variable name="citetext" select="."/>
   <xsl:variable name="abbrevtarget" select="//bibliography/biblioentry[abbrev=$citetext]|//bibliography/bibliomixed[abbrev=$citetext]"/>
 
