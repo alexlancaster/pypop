@@ -1,3 +1,8 @@
+2004-08-04  Alex Lancaster  <alex AT berkeley.edu>
+
+	* xslt/meta-to-r.xsl (1-locus-genotype): Add observed and expected
+	as output column headers.
+
 2004-07-29  Alex Lancaster  <alex AT berkeley.edu>
 
 	* xslt/meta-to-r.xsl (line-start): Added labcode, method, collect

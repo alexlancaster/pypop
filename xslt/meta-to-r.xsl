@@ -381,6 +381,11 @@ MODIFICATIONS.
       <xsl:value-of select="@row"/>
       <xsl:text>&#09;</xsl:text>
 
+      <xsl:value-of select="observed"/>
+      <xsl:text>&#09;</xsl:text>
+      <xsl:value-of select="expected"/>
+      <xsl:text>&#09;</xsl:text>
+
       <xsl:call-template name="output-field">
        <xsl:with-param name="node" select="$pvals-mcmc[$pos]"/>
       </xsl:call-template>
@@ -587,7 +592,7 @@ MODIFICATIONS.
     <exsl:document href="1-locus-genotype.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;genotype&#09;pval.mcmc&#09;pval.monte-carlo</xsl:text>
+     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.mcmc&#09;pval.monte-carlo</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
