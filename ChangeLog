@@ -1,3 +1,9 @@
+2004-07-16  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): Emit list of
+	p-values for individual genotypes, use order from
+	hardyweinberg/genotypetable to get names of genotypes.
+
 2004-07-12  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): Ensure that
