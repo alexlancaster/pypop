@@ -67,7 +67,7 @@
    <xsl:text>] = </xsl:text>
    <xsl:value-of select="frequency"/>
    <xsl:text>
-q</xsl:text>
+</xsl:text>
    <xsl:text>allele.names[</xsl:text><xsl:value-of select="position()"/>
    <xsl:text>] = "</xsl:text>
    <xsl:value-of select="@name"/>
