@@ -2,7 +2,7 @@
 
 VERSION=$(shell cat VERSION)
 SYSTEM=$(shell uname)
-DOCPATH=../doc/reference
+DOCPATH=reference
 
 ifeq ($(SYSTEM),Linux)
 NAME_BIN=PyPopLinux-$(VERSION).tar.gz
