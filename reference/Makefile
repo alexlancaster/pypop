@@ -68,13 +68,13 @@ eqns: tex-math-equations.dvi
 
 # rules to produce final version of HTML, FO, PDF etc.
 
-%.html: %.xml $(FIGS) html.xsl citation.xsl $(EXTRA_XML_SOURCE)
+%.html: %.xml html.xsl citation.xsl $(EXTRA_XML_SOURCE)
 	$(CVSPRE)
 	$(XMLLINT)	
 	$(XSLTPROC) $(XSLCOMMON) --param profiling-highlighting $(if $(findstring profile,$<),0,1) $(XSLHTML) -o $@ html.xsl $<
 	$(CVSPOST)
 
-%.fo: %.xml $(FIGS) fo.xsl citation.xsl $(EXTRA_XML_SOURCE)
+%.fo: %.xml fo.xsl citation.xsl $(EXTRA_XML_SOURCE)
 	$(CVSPRE)
 	$(XMLLINT)
 	$(XSLTPROC) $(XSLCOMMON) $(XSLFO) -o $@ fo.xsl $<
