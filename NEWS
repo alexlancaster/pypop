@@ -6,7 +6,7 @@ Copyright (C) 2003 Regents of the University of California
 *** New parameter 'numInitCond', number of initial conditions by the
     haplotype estimation and LD algorithm used before performing 
     permutations. Defaults to 50.
-*** Remove some LOG messages/diagnostics that were erroneously impling
+*** Remove some LOG messages/diagnostics that were erroneously implying
     an error to the user (if nothing is wrong, don't say anything).  Add
     some more useful messages for what is being done in haplo/LD 
     estimation step.
