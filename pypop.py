@@ -48,6 +48,7 @@ current directory or in %s.
 
   -l, --use-libxslt    filter XML via XSLT using libxslt (default)
   -s, --use-4suite     filter XML via XSLT using 4Suite
+  -x, --xsl=FILE       use XSLT translation file FILE
   -h, --help           show this message
   -c, --config=FILE    select alternative config file
   -d, --debug          enable debugging output (overrides config file setting)
@@ -60,7 +61,7 @@ from getopt import getopt, GetoptError
 from ConfigParser import ConfigParser
 
 try:
-  opts, args =getopt(sys.argv[1:],"lsigc:hd", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug"])
+  opts, args =getopt(sys.argv[1:],"lsigc:hdx:", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl="])
 except GetoptError:
   sys.exit(usage_message)
 
@@ -82,6 +83,8 @@ for o, v in opts:
   elif o in ("-c", "--config"):
     configFilename = v
     specifiedConfigFile = 1
+  elif o in ("-x", "--xsl"):
+    xslFilename = v
   elif o in ("-d", "--debug"):
     debugFlag = 1
   elif o in ("-h", "--help"):
@@ -185,7 +188,8 @@ return for each prompt.
                      fileName=fileName,
                      datapath=datapath,
                      use_libxsltmod=use_libxsltmod,
-                     use_FourSuite=use_FourSuite)
+                     use_FourSuite=use_FourSuite,
+                     xslFilename=xslFilename)
 
   if interactiveFlag:
     print "PyPop run complete"
