@@ -9,6 +9,8 @@
    <xsl:value-of select="substring-after(@name, '*')"/><xsl:text>: </xsl:text>
    <xsl:for-each select="allelecounts[@role!='no-data']/allele">
     <xsl:value-of select="@name"/>
+    <xsl:text>/</xsl:text>
+    <xsl:value-of select="count"/>
     <xsl:text> </xsl:text>
    </xsl:for-each>
 <xsl:text>
