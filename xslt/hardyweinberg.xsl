@@ -712,6 +712,26 @@ MODIFICATIONS.
   </xsl:call-template>
  </xsl:template>
 
+ <!-- print out Guo and Thompson output if it's generated -->
+ <xsl:template match="hardyweinbergEnumeration">
+  <xsl:call-template name="section">
+   <xsl:with-param name="title">
+    <xsl:call-template name="locus-header">
+     <xsl:with-param name="title">Exact enumeration HardyWeinberg output (<xsl:value-of select="@type"/>)</xsl:with-param>
+    </xsl:call-template>
+   </xsl:with-param>
+   <xsl:with-param name="level" select="3"/>
+   <xsl:with-param name="text">
+    <!-- do pvalue separately -->
+    <xsl:text>p-value (overall): </xsl:text>
+    <xsl:apply-templates select="pvalue[@type='overall']"/>
+    <xsl:call-template name="newline"/>
+    <xsl:text>initial observed p-value (overall): </xsl:text>
+    <xsl:apply-templates select="pvalue[@type='observed']"/>
+   </xsl:with-param>
+  </xsl:call-template>
+ </xsl:template>
+
  <xsl:template match="hardyweinbergGuoThompsonArlequin">
 
   <xsl:call-template name="section">
