@@ -4,7 +4,7 @@
 <!ENTITY % versions.ent SYSTEM "versions.ent" >
 %versions.ent;
 ]>
-<book xmlns:xi="http://www.w3.org/2001/XInclude">
+<book id="guide" xmlns:xi="http://www.w3.org/2001/XInclude">
  <bookinfo>
   <title>PyPop User Guide</title>
   <subtitle>User Guide for Python for Population Genetics</subtitle>
