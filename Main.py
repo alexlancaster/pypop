@@ -505,38 +505,6 @@ class Main:
           # serialize to XML
           haplo.serializeTo(xmlStream)
 
-        # this is pre-alpha prototype code!!
-        # do not use
-        ## if self.config.has_section("Arlequin"):
-
-        ##   try:
-        ##     arlequinExec = self.config.get("Arlequin", "arlequinExec")
-        ##   except NoOptionError:
-        ##     arlequinExec = 'arlecore.exe'
-        ##     print "Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
-
-        ##   arlequin = ArlequinExactHWTest(matrix = input.getIndividualsData(),
-        ##                                  lociList = input.getIndividualsData().colList,
-        ##                                  arlequinExec = arlequinExec,
-        ##                                  untypedAllele = untypedAllele)
-        ##   print arlequin.getHWExactTest()
-        ##   arlequin.cleanup()
-        #  
-        ##   haploArlequin = HaploArlequin('arl_run.arp',
-        ##                                 0,
-        ##                                 2,
-        ##                                 0,
-        ##                                 2,
-        ##                                 mapOrder = None,
-        ##                                 untypedAllele = '****',
-        ##                                 arlequinPrefix = "arl_run",
-        ##                                 debug=debug)
-
-        ##   fileData = open(fileName, 'r').readlines()
-        ##   haploArlequin.outputArlequin(fileData[3:])
-        ##   haploArlequin.runArlequin()
-
-
         # closing tag
         xmlStream.closetag('dataanalysis')
 
@@ -559,17 +527,6 @@ class Main:
           sys.exit("Could not find xsl file: `%s' " % xslFilename)
 
         if self.use_libxsltmod:
-
-        ## obsolete libxslt bindings
-
-        ##   import libxsltmod
-        ##   output = libxsltmod.translate_to_string('f', xslFilename,
-        ##                                           'f', xmlOutFilename)
-
-        ##   # open new txt output
-        ##   newOut = TextOutputStream(open(txtOutFilename, 'w'))
-        ##   newOut.write(output)
-        ##   newOut.close()
 
           # now use bindings that are part of libxml2/libxslt 
           import libxml2
