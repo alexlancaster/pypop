@@ -435,7 +435,7 @@
  <!-- print out overall HW stats  -->
  <xsl:template match="common|lumped|heterozygotes|homozygotes">
 
-  <xsl:variable name="type">
+ <xsl:variable name="type">
    <xsl:choose>
     <xsl:when test="name(.)='homozygotes'">All homozygotes</xsl:when>
    </xsl:choose>
@@ -443,13 +443,21 @@
     <xsl:when test="name(.)='heterozygotes'">All heterozygotes</xsl:when>
    </xsl:choose>
    <xsl:choose>
-    <xsl:when test="name(.)='common'">Common genotypes</xsl:when>
+    <xsl:when test="name(.)='common'">
+     <xsl:choose>
+      <xsl:when test="../lumped!=''">Common &amp; lumped</xsl:when>
+      <xsl:when
+      test="../lumped/@role='no-rare-genotypes'">Complete</xsl:when>
+      <xsl:otherwise>Common</xsl:otherwise>
+     </xsl:choose>
+    </xsl:when>
    </xsl:choose>
    <xsl:choose>
     <xsl:when test="name(.)='lumped'">Lumped genotypes</xsl:when>
    </xsl:choose>
 
-  </xsl:variable>
+ </xsl:variable>
+
 
   <!-- indent table -->
   <xsl:call-template name="prepend-pad">
