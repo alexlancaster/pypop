@@ -19,7 +19,7 @@
   <xsl:for-each select="$nodes">
 
    <xsl:variable name="begin-line">
-    <xsl:value-of select="../filename"/>
+    <xsl:value-of select="substring-before(../filename, '.')"/>
     <xsl:text>&#09;</xsl:text>
     <xsl:value-of select="translate(../populationdata/ethnic, ' ', '-')"/>
     <xsl:text>&#09;</xsl:text>
