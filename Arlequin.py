@@ -13,59 +13,256 @@ class ArlequinWrapper:
                  matrix=None,
                  arlequinPrefix = "arl_run",
                  arlequinExec="arlecore.exe",
-                 untypedAllele='****'):
+                 untypedAllele='****',
+                 arpFilename = 'output.arp',
+                 arsFilename = 'arl_run.ars',
+                 debug=None):
 
         self.matrix = matrix
         self.untypedAllele = untypedAllele
         self.arlequinPrefix = arlequinPrefix
         self.arlequinExec = arlequinExec
         self.separator = '\t'
+        self.debug = debug
+        
+        self.arlSubdir = 'arlequinRuns'
+
+        # make a subdirectory
+        if not os.path.exists(self.arlSubdir):
+            os.mkdir(self.arlSubdir)
+        
+        self.arpFilename = arpFilename
+        self.arsFilename = arsFilename
+        
+        if self.arpFilename[-4:] == '.arp':
+            self.arpFilename = self.arpFilename
+            self.arlResPrefix = self.arpFilename[:-4]
+        else:
+            sys.exit("Error: Arlequin filename: %s does not have a .arp suffix", arpFilename)
+        if self.arsFilename[-4:] == '.ars':
+            self.arsFilename = self.arsFilename
+        else:
+            sys.exit("Error: Arlequin settings filename: %s does not have a .ars suffix", arpFilename)
+            
 
     def outputArp(self, group):
 
-        groupCount = len(group)
-        self._outputHeader(groupCount)
+        dataLoci = [l for l in group \
+                    if len(self.matrix.filterOut(l, self.untypedAllele)) > 0]
 
-        for locus in group:
-            self._outputSample(locus)
+        #groupCount = len(nonEmptyLoci)
+        #self._outputHeader(groupCount)
 
+        #for locus in nonEmptyLoci:
+        #    self._outputSample(locus)
+
+        self.arpFile = open(os.path.join(self.arlSubdir, self.arpFilename), 'w')
+        
+        self._outputHeader(1)
+        self._outputSample(string.join(dataLoci,':'))
+
+        self.arpFile.close()
 
     def _outputHeader(self, groupCount):
 
-        print """[Profile]
+        self.arpFile.write("""[Profile]
         
         Title=\"Arlequin sample run\"
+
         NbSamples=%d
         GenotypicData=1
         GameticPhase=0
         DataType=STANDARD
         LocusSeparator=WHITESPACE
-        MissingData='%s'
+        MissingData=\"%s\"
         RecessiveData=0                         
-        RecessiveAllele=\"null\" """ % (groupCount, self.untypedAllele)
+        RecessiveAllele=\"null\"
+        """ % (groupCount, '?'))
 
-        print """[Data]
-        [[Samples]]"""
+        self.arpFile.write("""
+[Data]
+[[Samples]]
+""")
         
     def _outputSample(self, keys):
 
         numSamples = len(self.matrix[keys])
         
-        print """
-        SampleName=\"A pop with %s individuals from loci %s\"
-        SampleSize= %s
-        SampleData={""" % (numSamples, keys, numSamples)
+        self.arpFile.write("""
+        SampleName=\"A pop with %d individuals from loci %s\"
+        SampleSize=%d
+        SampleData={
+        """ % (numSamples, keys, numSamples))
 
         sampleNum = 1
 
         for sample in self.matrix[keys]:
             even = string.join([sample[i] for i in range(0,len(sample),2)], ' ')
             odd = string.join([sample[i] for i in range(1,len(sample),2)], ' ')
-            print "%10d 1 %s" % (sampleNum, even)
-            print "%13s%s" % (" ", odd)
+            self.arpFile.write("%10d 1 %s" % (sampleNum, even) + os.linesep)
+            self.arpFile.write("%13s%s" % (" ", odd) + os.linesep)
             sampleNum += 1
 
-        print "}"
+        self.arpFile.write("}")
+
+    def _outputArlRunTxt(self, txtFilename, arpFilename):
+        """Outputs the run-time Arlequin program file.
+        """
+        file = open(os.path.join(self.arlSubdir, txtFilename), 'w')
+        file.write("""%s
+use_interf_settings
+%s
+0
+0
+end""" % (os.path.join(os.getcwd(), self.arlSubdir), \
+          os.path.join(os.getcwd(), self.arlSubdir, arpFilename)))
+
+    hwExactTest = """[Setting for Calculations]
+TaskNumber=32
+DeletionWeight=1.0
+TransitionWeight=1.0
+TranversionWeight=1.0
+UseOriginalHaplotypicInformation=0
+EliminateRedondHaplodefs=1
+AllowedLevelOfMissingData=0.0
+GameticPhaseIsKnown=0
+HardyWeinbergTestType=0
+MakeHWExactTest=1
+MarkovChainStepsHW=100000
+MarkovChainDememorisationStepsHW=1000
+PrecisionOnPValueHW=0.0
+SignificanceLevelHW=2
+TypeOfTestHW=0
+LinkageDisequilibriumTestType=0
+MakeExactTestLD=0
+MarkovChainStepsLD=100000
+MarkovChainDememorisationStepsLD=1000
+PrecisionOnPValueLD=0.01
+SignificanceLevelLD=0.05
+PrintFlagHistogramLD=0
+InitialCondEMLD=10
+ComputeDvalues=0
+ComputeStandardDiversityIndices=0
+DistanceMethod=0
+GammaAValue=0.0
+ComputeTheta=0
+MismatchDistanceMethod=0
+MismatchGammaAValue=0.0
+PrintPopDistMat=0
+InitialConditionsEM=50
+MaximumNumOfIterationsEM=5000
+RecessiveAllelesEM=0
+CompactHaplotypeDataBaseEM=0
+NumBootstrapReplicatesEM=0
+NumInitCondBootstrapEM=10
+ComputeAllSubHaplotypesEM=0
+ComputeAllHaplotypesEM=1
+ComputeAllAllelesEM=0
+EpsilonValue=1.0e-7
+FrequencyThreshold=1.0e-5
+ComputeConventionalFST=0
+IncludeIndividualLevel=0
+ComputeDistanceMatrixAMOVA=0
+DistanceMethodAMOVA=0
+GammaAValueAMOVA=0.0
+PrintDistanceMatrix=0
+TestSignificancePairewiseFST=0
+NumPermutationsFST=100
+ComputePairwiseFST=0
+TestSignificanceAMOVA=0
+NumPermutationsAMOVA=1000
+NumPermutPopDiff=10000
+NumDememoPopDiff=1000
+PrecProbPopDiff=0.0
+PrintHistoPopDiff=1
+SignLevelPopDiff=0.05
+EwensWattersonHomozygosityTest=0
+NumIterationsNeutralityTests=1000
+NumSimulFuTest=1000
+NumPermMantel=1000
+NumBootExpDem=100
+LocByLocAMOVA=0
+PrintFstVals=0
+PrintConcestryCoeff=0
+PrintSlatkinsDist=0
+PrintMissIntermatchs=0
+UnequalPopSizeDiv=0
+PrintMinSpannNetworkPop=0
+PrintMinSpannNetworkGlob=0
+KeepNullDistrib=0"""
+
+    def _outputArlRunArs(self, arsFilename):
+        """Outputs the run-time Arlequin program file.
+        """
+        file = open(os.path.join(self.arlSubdir, arsFilename), 'w')
+        file.write(self.hwExactTest)
+        file.close()
+        
+    def outputRunFiles(self):
+        """Generates the expected '.txt' set-up files for Arlequin.
+        """
+        self._outputArlRunTxt(self.arlequinPrefix + ".txt", self.arpFilename)
+        self._outputArlRunArs(self.arsFilename)
+
+    def runArlequin(self):
+        """Run the Arlequin haplotyping program.
+         
+        Forks a copy of 'arlecore.exe', which must be on 'PATH' to
+        actually generate the desired statistics estimates from the
+        generated '.arp' file.  """
+
+        # save current directory
+        cwd = os.getcwd()
+
+        # change into subdirectory
+        os.chdir(self.arlSubdir)
+
+        # spawn external Arlequin process and store stdout
+        stdout = os.popen(self.arlequinExec, 'r').readlines()
+
+        if self.debug:
+            print "Arlequin stdout", stdout
+
+        # fix permissions on result directory because Arlequin is
+        # brain-dead with respect to file permissions on Unix
+        os.chmod(self.arlResPrefix + ".res", 0755)
+
+        # restore original directory
+        os.chdir(cwd)
+
+    def getHWExactTest(self):
+        
+        outFile = os.path.join(self.arlSubdir, self.arlResPrefix + ".res" , self.arlResPrefix + ".htm")
+        
+        dataFound = 0
+        headerFound = 0
+
+        patt1 = re.compile("Exact test using a Markov chain")
+        patt2 = re.compile("Locus  #Genot     Obs.Heter.   Exp.Heter.  P. value     s.d.  Steps done")
+        patt3 = re.compile("^\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+)")
+
+        hwExact = {}
+        
+        for line in open(outFile, 'r').readlines():
+            matchobj = re.search(patt2, line)
+            if matchobj:
+                headerFound = 1
+            if headerFound:
+                matchobj = re.search(patt3, line)
+                if matchobj:
+                    if self.debug:
+                        print matchobj.groups()
+                    locus, numGeno, obsHet, expHet, pval, sd, steps \
+                           = matchobj.groups()
+                    hwExact[locus] = (int(numGeno), float(obsHet), \
+                                      float(expHet), float(pval), float(sd), \
+                                      int(steps))
+
+        return hwExact
+
+    def cleanup(self):
+        # remove the working arlequin subdirectory
+        shutil.rmtree(self.arlSubdir)
 
 class ArlequinBatch:
     """A Python `wrapper' class for Arlequin.
