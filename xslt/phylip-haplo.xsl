@@ -136,7 +136,7 @@
    omit-xml-declaration="yes"
    method="text">
     <xsl:call-template name="phylip-haplos">
-    <xsl:with-param name="node" select="//meta/dataanalysis[emhaplofreq/group/@loci=$loci]"/>
+    <xsl:with-param name="node" select="//meta/dataanalysis[emhaplofreq/group[@loci=$loci and not(@role='no-data')]]"/>
     <xsl:with-param name="loci-to-output" select="$loci"/>
    </xsl:call-template>
   </exslt:document>
