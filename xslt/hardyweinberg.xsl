@@ -120,14 +120,18 @@
   <!-- create variables from the contents of the cells  -->
   <xsl:variable name="observed">
    <xsl:call-template name="hardyweinberg-gen-cell">
-    <xsl:with-param name="node" select="observed"/>
+    <xsl:with-param name="node">
+     <xsl:apply-templates select="observed"/>
+    </xsl:with-param>
    </xsl:call-template>
   </xsl:variable>
   <xsl:variable name="expected">
    <!-- for this column only, round the expected to 2 decimal places -->
    <xsl:variable name="expected-rounded">
     <xsl:call-template name="round-to">
-     <xsl:with-param name="node" select="expected"/>
+     <xsl:with-param name="node">
+      <xsl:apply-templates select="expected"/>
+     </xsl:with-param>
      <xsl:with-param name="places" select="2"/>
     </xsl:call-template>
    </xsl:variable>
@@ -161,10 +165,22 @@
 
  </xsl:template>
 
+ <!-- match template for observed and expected values -->
+ <xsl:template match="observed|expected">
+  <xsl:choose>
+   <!-- if in the context of common, lumped or commonpluslumped
+   doesn't make sense to output these values -->
+   <xsl:when test="parent::common or parent::lumped or parent::commonpluslumped">
+    <xsl:text>-</xsl:text>
+   </xsl:when>
+   <xsl:otherwise><xsl:value-of select="."/></xsl:otherwise>
+  </xsl:choose>
+ </xsl:template>
+
  <!-- print out overall HW stats  -->
  <xsl:template match="common|lumped|commonpluslumped|heterozygotes|homozygotes">
 
- <xsl:variable name="type">
+  <xsl:variable name="type">
    <xsl:choose>
     <xsl:when test="name(.)='homozygotes'">All homozygotes</xsl:when>
     <xsl:when test="name(.)='heterozygotes'">All heterozygotes</xsl:when>
@@ -175,9 +191,9 @@
      <xsl:message terminate="yes">Should always match something</xsl:message>
     </xsl:otherwise>
    </xsl:choose>
- </xsl:variable>
-
-
+  </xsl:variable>
+  
+  
   <!-- indent table -->
   <xsl:call-template name="prepend-pad">
    <xsl:with-param name="length" select="$hardyweinberg-first-col-width"/>
