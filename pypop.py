@@ -22,7 +22,7 @@ current directory or in %s.
   INPUTFILE   input text file""" % altpath
 
 from ParseFile import ParseGenotypeFile
-from Arlequin import ArlequinWrapper
+from Arlequin import ArlequinExactHWTest
 from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin
 from Homozygosity import Homozygosity
@@ -452,13 +452,10 @@ if config.has_section("Arlequin"):
     arlequinExec = 'arlecore.exe'
     print "Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
 
-  arlequin = ArlequinWrapper(matrix = input.getIndividualsData(),
-                             arlequinExec = arlequinExec,
-                             untypedAllele = untypedAllele)
-
-  arlequin.outputArp(input.getIndividualsData().colList)
-  arlequin.outputRunFiles()
-  arlequin.runArlequin()
+  arlequin = ArlequinExactHWTest(matrix = input.getIndividualsData(),
+                                 lociList = input.getIndividualsData().colList,
+                                 arlequinExec = arlequinExec,
+                                 untypedAllele = untypedAllele)
   print arlequin.getHWExactTest()
   arlequin.cleanup()
   
