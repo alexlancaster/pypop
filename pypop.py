@@ -12,7 +12,8 @@ Process and run population genetics statistics on an INPUTFILE.
 Expects to find a configuration file called 'config.ini' in the
 current directory or in %s.
 
-  -e, --experimental   enable experimental features
+  -l, --use-libxslt    generate XML output using libxsltmod
+  -s, --use-4suite     generate XML output using 4Suite
   -h, --help           show this message
   -c, --config=FILE    select alternative config file
 
@@ -27,18 +28,21 @@ from Utils import XMLOutputStream, TextOutputStream
 from getopt import getopt, GetoptError
 
 try:
-  opts, args =getopt(sys.argv[1:],"ec:h", ["experimental", "config=", "help"])
+  opts, args =getopt(sys.argv[1:],"lsc:h", ["--use-libxslt", "--use-4suite", "experimental", "config=", "help"])
 except GetoptError:
   sys.exit(usage_message)
 
 # default options
-experimentalFeatures = 0
+use_libxsltmod = 0
+use_FourSuite = 0
 configFilename = 'config.ini'
 
 # parse options
 for o, v in opts:
-  if o in ("-e", "--experimental"):
-    experimentalFeatures = 1
+  if o in ("-l", "--use-libxslt"):
+    use_libxsltmod = 1
+  elif o in ("-s", "--use-4suite"):
+    use_FourSuite = 1
   elif o in ("-c", "--config"):
     configFilename = v
     specifiedConfigFile = 1
@@ -340,28 +344,38 @@ xmlStream.closetag('dataanalysis')
 txtStream.close()
 xmlStream.close()
 
-if experimentalFeatures:
+if use_libxsltmod:
+
+  import libxsltmod
+  output = libxsltmod.translate_to_string('f', 'text.xsl', 'f', xmlOutFilename)
+  
+  # open new txt output
+  newOut = open("new-" + txtOutFilename, 'w')
+  newOut.write(output)
+  newOut.close()
+
+if use_FourSuite:
 
   from xml.xslt.Processor import Processor
 
   # open XSLT stylesheet
   styleSheet = open('text.xsl', 'r')
-
+  
   # re-open text stream
   xmlStream = open(xmlOutFilename, 'r')
 
   # open new txt output
   newOut = open("new-" + txtOutFilename, 'w')
-
+  
   # create xsl process
   p = Processor()
-
+  
   # attach the stylesheet
   p.appendStylesheetStream(styleSheet)
-
+  
   # run the stylesheet on the XML output
   p.runStream(xmlStream, outputStream=newOut)
-
+  
   # close streams
   newOut.close()
   styleSheet.close()
