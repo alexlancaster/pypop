@@ -8,7 +8,8 @@
   <xsl:call-template name="section">
    <xsl:with-param name="title">
     <xsl:call-template name="locus-header">
-     <xsl:with-param name="title">Homozygosity</xsl:with-param>
+     <xsl:with-param name="title">Ewens-Watterson homozygosity test of
+     neutrality</xsl:with-param>
     </xsl:call-template>
    </xsl:with-param>
    <xsl:with-param name="level" select="2"/>
@@ -26,9 +27,9 @@
       
       <!-- print specified fields then do templates for pvalue -->
 
-      <xsl:text>Observed: </xsl:text>
+      <xsl:text>Observed F: </xsl:text>
       <xsl:value-of select="observed"/>
-      <xsl:text>, Expected: </xsl:text>
+      <xsl:text>, Expected F: </xsl:text>
       <xsl:value-of select="expected"/>
       <xsl:text>, Normalized deviate (Fnd): </xsl:text>
       <xsl:value-of select="normdev"/>
