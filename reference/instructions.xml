@@ -131,7 +131,7 @@ _____________
   </sect2>
 
   <sect2 id="instructions-hardyweinberg">
-   <title>Test for deviation from Hardy-Weinberg proportions
+   <title>Chi-square test for deviation from Hardy-Weinberg proportions
     (HWP).</title>
    
    <para>For each locus the observed genotype counts are compared to
@@ -376,7 +376,7 @@ p-value: 0.0518</programlisting>
   </sect2>
 
   <sect2 id="instructions-homozygosity">
-   <title>The Ewens-Watterson Homozygosity test of neutrality</title>
+   <title>The Ewens-Watterson homozygosity test of neutrality</title>
    
    <para>For each locus we implement the Ewens-Watterson homozygosity
     test of neutrality (<citation
