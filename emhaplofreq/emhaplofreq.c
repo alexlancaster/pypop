@@ -52,7 +52,7 @@ int read_infile(FILE *, char (*)[], char (*)[][], int *);
 /* open filehandle for data, ref array, data array, number of records */
 /* returns number of loci */
 
-int main_proc(FILE *, char (*)[][], int, int, int, int);
+int main_proc(FILE *, char (*)[][], int, int, int, int, int, int);
 /* data array, number of loci, number of records */
 /* main procedure that handles memory allocation and creation of arrays, 
   * spawns the rest of the data preparation and processing functions, 
@@ -218,8 +218,10 @@ int main(int argc, char **argv)
     exit(EXIT_FAILURE);
   }
 
+  /* hard-code MAX_PERMU and MAX_INIT_FOR_PERMU * for command-line
+     invocation, until we add getopt-parsed options for them */
   ret_val = main_proc(fp_out, data, num_loci, num_recs, permu_flag, 
-		      suppress_haplo_print_flag);
+		      suppress_haplo_print_flag, MAX_PERMU, MAX_INIT_FOR_PERMU);
 
   return (ret_val);
 }
@@ -306,7 +308,8 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
 /************************************************************************/
 
 int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, 
-      int n_recs, int permu_flag, int suppress_haplo_print_flag)
+	      int n_recs, int permu_flag, int suppress_haplo_print_flag, 
+	      int max_permu, int max_init_for_permu)
 {
 
   
@@ -381,8 +384,8 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   int permu_count; // RS 20031125
   double lr_mean, lr_sd, lr_z;
 
-  CALLOC_ARRAY_DIM1(double, like_ratio, MAX_PERMU);
-  CALLOC_ARRAY_DIM1(int, error_flag_permu, MAX_PERMU); // RS 20031125
+  CALLOC_ARRAY_DIM1(double, like_ratio, max_permu);
+  CALLOC_ARRAY_DIM1(int, error_flag_permu, max_permu); // RS 20031125
 
   double pvalue = 0.0;
 
@@ -416,7 +419,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
       }
 
   if (permu_flag == 1) {
-    max_permutations = MAX_PERMU;
+    max_permutations = max_permu;
     if (fp_permu == NULL) {
       if ((fp_permu = fopen("summary_permu.out", "w")) == NULL)
       {
@@ -435,7 +438,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
     /*** begin: pre-processing for permutations ***/
     if (permu > 0)  {
-      max_init_cond = MAX_INIT_FOR_PERMU; 
+      max_init_cond = max_init_for_permu; 
 
 #ifndef XML_OUTPUT
       if (permu == 1) 
