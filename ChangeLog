@@ -1,5 +1,7 @@
 2004-02-09  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
+	* NEWS: Start collecting Release Notes for version 0.5.1.
+	
 	* config.ini [Emhaplofreq]: New parameter 'numInitCond': number of
 	initial conditions used before performing permutations. Default to
 	50.
