@@ -1,52 +1,13 @@
 # generates frozen standalone installation in a single directory
-import os, sys, shutil, string, re
 
-def convert_line_endings(file, mode, re=re):
-    # 1 - Unix to Mac, 2 - Unix to DOS
-    if mode == 1:
-        if os.path.isdir(file):
-            sys.exit(file + "Directory!")
-        data = open(file, "r").read()
-        if '\0' in data:
-            sys.exit(file + "Binary!")
-        newdata = re.sub("\r?\n", "\r", data)
-        if newdata != data:
-            f = open(file, "w")
-            f.write(newdata)
-            f.close()
-    elif mode == 2:
-        if os.path.isdir(file):
-            sys.exit(file + "Directory!")
-        data = open(file, "r").read()
-        if '\0' in data:
-            sys.exit(file + "Binary!")
-        newdata = re.sub("\r(?!\n)|(?<!\r)\n", "\r\n", data)
-        if newdata != data:
-            f = open(file, "w")
-            f.write(newdata)
-            f.close()
+# import locally generated class, dynamically (needed because current
+# file is also loaded dynamically by Installer's Build.py
+exec open('Utils.py', 'r').read()+'\n' in locals()
 
-def platform_fix(filename, txt_ext=0, convert_line_endings=convert_line_endings):
-    # make file read-writeable by everybody
-    os.chmod(filename, 0666)
-
-    # create as a DOS format file LF -> CRLF
-    if sys.platform == 'cygwin':
-        convert_line_endings(filename, 2)
-        # give it a .txt extension so that lame Windows realizes it's text
-        if txt_ext:
-            os.rename(filename, filename + '.txt')        
-
-def copyfile_for_platform(src, dest, txt_ext=0, platform_fix=platform_fix):
-    print "copying %s to %s" % (src, dest)
-    shutil.copyfile(src, dest)
-    platform_fix(dest, txt_ext=txt_ext)
-    
-def copy_for_platform(file, dist_dir, txt_ext=0, platform_fix=platform_fix):
-    new_filename=os.path.join(dist_dir, os.path.basename(file))
-    print "copying %s to %s" % (file, new_filename)
-    shutil.copy(file, dist_dir)
-    platform_fix(new_filename, txt_ext=txt_ext)
+# global imports
+import os, sys, shutil, string
+# local imports
+import Utils
 
 # generate name of executable
 if sys.platform == 'cygwin':
@@ -78,23 +39,23 @@ dist_dir = 'PyPop' + type + "-" + VERSION
 # generate from directory name of Build.py script
 INSTALLER = os.path.dirname(sys.argv[0])
 
-a = Analysis([INSTALLER + '/support/_mountzlib.py',
-              INSTALLER + '/support/useUnicode.py',
-              'pypop.py'],
-             pathex=[])
+## a = Analysis([INSTALLER + '/support/_mountzlib.py',
+##               INSTALLER + '/support/useUnicode.py',
+##               'pypop.py'],
+##              pathex=[])
 
-pyz = PYZ(a.pure)
-exe = EXE(pyz,
-          a.scripts,
-          exclude_binaries=1,
-          name='buildpypop-dir/' + exec_name,
-          debug=0,
-          strip=0,
-          console=1)
-coll = COLLECT(exe,
-               a.binaries,
-               strip=1,
-               name=bin_dir)
+## pyz = PYZ(a.pure)
+## exe = EXE(pyz,
+##           a.scripts,
+##           exclude_binaries=1,
+##           name='buildpypop-dir/' + exec_name,
+##           debug=0,
+##           strip=0,
+##           console=1)
+## coll = COLLECT(exe,
+##                a.binaries,
+##                strip=1,
+##                name=bin_dir)
 
 # add these later
 #[('README', 'README', 'DATA'),('VERSION','VERSION','DATA')],
@@ -116,16 +77,16 @@ shutil.copytree(bin_dir, os.path.join(dist_dir, bin_dir))
 
 # copy top-level files
 for file in ['README', 'INSTALL', 'AUTHORS', 'COPYING']:
-    copy_for_platform(file, dist_dir, txt_ext=1)
+    copyCustomPlatform(file, dist_dir, txt_ext=1)
 
 # VERSION file must not be renamed
-copy_for_platform('VERSION', dist_dir)
+copyCustomPlatform('VERSION', dist_dir)
 
 # copy sample 'demo' files
-copyfile_for_platform('minimal-noheader-noids.ini', \
+copyfileCustomPlatform('minimal-noheader-noids.ini', \
                       os.path.join(dist_dir, 'sample.ini'))
                
-copyfile_for_platform(os.path.join('data','samples',\
+copyfileCustomPlatform(os.path.join('data','samples',\
                                    'USAFEL-UchiTelle-noheader-noids.pop'), \
                       os.path.join(dist_dir, 'sample.pop'))
 
@@ -143,7 +104,7 @@ for file in ['xslt' + os.sep + i + '.xsl' \
              for i in ['text', 'html', 'lib', 'common', 'filter',
                        'hardyweinberg', 'homozygosity', 'emhaplofreq',
                        'meta-to-r', 'sort-by-locus']]:
-    copy_for_platform(file, xslt_dir)
+    copyCustomPlatform(file, xslt_dir)
 
 
 if compression == 'gzip':
@@ -155,7 +116,6 @@ elif compression == 'zip':
 print command
 # cheat and execute system command
 os.popen(command)
-
 
 print "Cleaning up"
 shutil.rmtree(dist_dir)
