@@ -91,7 +91,8 @@
    Leukocyte Antigen (HLA) region (the Major Histocompatibility [MHC]
    region for humans) are highly polymorphic.  Six classical class I
    and II loci each contain up to 399 alleles
-   <citation>Rhodes:Trowsdale:1999</citation></para>
+   <citation role="citep">Rhodes:Trowsdale:1999</citation>.
+  </para>
 
   <para>Several basic population genetics statistics from multi-locus
    genotype data can help us understand these patterns of variation,
@@ -114,7 +115,7 @@
    exist such as
    <application>Arlequin</application><citation>Schneider:2000</citation>
    and
-   <application>Phylip</application><citation>Felsenstein:1989</citation>
+   <application>Phylip</application><citation role="citep">Felsenstein:1989</citation>
    and <application>Genepop</application><citation>Genepop</citation>.
    In general, however, they are not oriented towards large-scale
    cross-population data analyses.  Analogous to the tools being
@@ -286,7 +287,7 @@
     such as <application>emhaplofreq</application>, a program for
     haplotype estimation, and <application>gthwe</application>, a
     program for implementing the
-    <citation>Guo:Thompson:1992</citation> Hardy-Weinberg exact
+    <citation role="citet">Guo:Thompson:1992</citation> Hardy-Weinberg exact
     test.</para>
 
    <para>In using these programs, however, we realized a need for a
@@ -408,7 +409,7 @@
    the Numeric Python <citation>Numpy</citation> project, which
    provides efficient data structures for holding large arrays of
    data, <application>R</application>, the open-source implementation
-   <citation>Ross:Gentleman:1996</citation> of the programming
+   <citation>Ihaka:Gentleman:1996</citation> of the programming
    language <application>S</application>.  As our XSLT parser, we
    chose the fast C-based <application>libxslt</application>
    <citation>libxslt</citation> from the GNOME project
