@@ -1,5 +1,9 @@
 2003-12-30  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
+	* config.ini (directory): Remove all leading hardcoded
+	'/home/solberg' from paths in filters.  For the purposes of this
+	demo file, assume paths are relative to ~/ihwg/src.
+
 	* NEWS: Note "missing <prefix>" message suppression.
 
 	* standalone.spec: Set PYTHONHOME in both sh and DOS wrapper
