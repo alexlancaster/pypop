@@ -161,9 +161,9 @@ int main(int argc, char **argv)
        else 
        { 
        fprintf(stdout, "\nOpened file %s\n", arg_buff[1]); 
-      fprintf(stdout, "\nN.B. The first line is expected to contain comments, "); 
-      fprintf(stdout, "and will not be parsed.\n\n"); 
-      } 
+       fprintf(stdout, "\nN.B. The first line is expected to contain comments, "); 
+       fprintf(stdout, "and will not be parsed.\n\n"); 
+       } 
     */
 
     break;
@@ -369,7 +369,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /******************* end: declarations ****************************/
 
-//srand48(1234567); 
+  //srand48(1234567); 
   srand48(time (NULL));
 
   if (fp_iter == NULL)
@@ -394,618 +394,616 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   max_init_cond = MAX_INIT;  
 
-  for (permu = 0; permu < max_permutations; permu++)
-  {
-  /*** begin: pre-processing for permutations ***/
-  if (permu > 0)  
-  {
-    max_init_cond = MAX_INIT_FOR_PERMU; 
+  /* start permutations */
+  for (permu = 0; permu < max_permutations; permu++) {
+
+    /*** begin: pre-processing for permutations ***/
+    if (permu > 0)  {
+      max_init_cond = MAX_INIT_FOR_PERMU; 
 
 #ifndef XML_OUTPUT
-    if (permu == 1) 
-      fprintf(fp_out, "\nComputing LD permutations...\n\n");
+      if (permu == 1) 
+	fprintf(fp_out, "\nComputing LD permutations...\n\n");
 #endif
 
-    permute_alleles(data_ar, n_loci, n_recs); 
+      permute_alleles(data_ar, n_loci, n_recs); 
     
-    /* initialize values for first obs from last permu */
-    /* values for subsequent obs do not need inititialization */
-    strcpy(pheno[0], "\0"); 
-    for (i = 0; i < (int)pow(2, n_loci - 1); i++) 
-    {
-      strcpy(geno[i][0], "\0");
-      strcpy(geno[i][1], "\0");
-    }
-
-    /* initialize genopheno from last permu */
-    for (i = 0; i < MAX_GENOS; i++)
-    {
-      for (j = 0; j < n_recs; j++) genopheno[i][j] = 0;
-    }
-
-    /* initialize allele freqs from last permu */
-    for (j = 0; j < n_loci; j++)
-    {
-      for (i = 0; i < MAX_ALLELES; i++) allele_freq[j][i] = 0;
-    }
-  }
-  /*** end: pre-processing for permutations ***/
-
-  /********* begin: arranging unique phenotypes and genotypes ************/
-  n_hetero = n_hetero_prev = 0;
-  n_geno = n_geno_prev = 1;
-
-  /* begin by counting the unique phenotypes and genotypes */
-
-  for (locus = 0; locus < n_loci; locus++)
-  {
-    col_0 = locus * 2;
-    col_1 = col_0 + 1;
-
-    if (strcmp(data_ar[0][col_0], data_ar[0][col_1]))
-    {
-      n_hetero++;
-      if (strcmp(data_ar[0][col_0], data_ar[0][col_1]) > 0)
-      {
-        strcpy(buff, data_ar[0][col_0]);
-        strcpy(data_ar[0][col_0], data_ar[0][col_1]);
-        strcpy(data_ar[0][col_1], buff);
-      }
-    }
-    strcat(pheno[0], data_ar[0][col_0]);
-    strcat(pheno[0], data_ar[0][col_1]);
-
-    /* update num distinct genotypes current locus loop */
-    n_geno_prev = n_geno;
-    if (n_hetero > 0)
-      n_geno = (int)pow(2, n_hetero - 1);
-    else
-      n_geno = 1;
-
-    if ((n_geno > 1) && (n_hetero - n_hetero_prev == 1))
-    {
-      /* copy current geno sequence to create multiple genos for this pheno */
-      for (i = n_geno_prev; i < 2 * n_geno_prev; i++)
-      {
-        strcat(geno[i][0], geno[i - n_geno_prev][0]);
-        strcat(geno[i][1], geno[i - n_geno_prev][1]);
-      }
-      /* fill in next portion of genotype */
-      for (i = 0; i < n_geno; i++)
-      {
-        if (i < n_geno / 2)  /* fill in in normal order */
-        {
-          strcat(geno[i][0], data_ar[0][col_0]);
-          strcat(geno[i][1], data_ar[0][col_1]);
-        }
-        else      /* fill in in reverse order */
-        {
-          strcat(geno[i][0], data_ar[0][col_1]);
-          strcat(geno[i][1], data_ar[0][col_0]);
-        }
-      }
-    }
-    else      /* n_geno is 1 or curr site is homozygous */
-    {
-      for (i = 0; i < n_geno; i++)
-      {
-        strcat(geno[i][0], data_ar[0][col_0]);
-        strcat(geno[i][1], data_ar[0][col_1]);
-      }
-    }
-    n_hetero_prev = n_hetero;
-  }        /* end of loop for a locus */
-
-  unique_pheno_count = 0;
-  unique_geno_count = n_geno - 1;
-  numgeno[0] = n_geno;
-  obspheno[0] = 1;
-
-  /* assign genotype-phenotype relationships */
-  for (i = 0; i < numgeno[0]; i++)
-  {
-    genopheno[i][0] = 1;
-  }
-
-  /* process remaining data records */
-  /* loop starts at one because we've already done one line */
-  for (obs = 1; obs < n_recs; obs++)
-  {
-    temp_pheno[0] = '\0';
-    for (locus = 0; locus < n_loci; locus++)
-    {
-      col_0 = locus * 2;
-      col_1 = col_0 + 1;
-
-      if ((strcmp(data_ar[obs][col_0], data_ar[obs][col_1])) > 0)
-      {
-        strcpy(buff, data_ar[obs][col_0]);
-        strcpy(data_ar[obs][col_0], data_ar[obs][col_1]);
-        strcpy(data_ar[obs][col_1], buff);
-      }
-
-      strcat(temp_pheno, data_ar[obs][col_0]);
-      strcat(temp_pheno, data_ar[obs][col_1]);
-    }
-    /* check whether this is a new distinct phenotype */
-    unique_pheno_flag = TRUE;
-    for (i = 0; i <= unique_pheno_count; i++)  /* RS changed from < to <= */
-    {
-      if (!strcmp(temp_pheno, pheno[i]))
-      {
-        unique_pheno_flag = FALSE;
-        obspheno[i] += 1;
-      }
-    }
-
-    if (unique_pheno_flag == TRUE)
-    {
-      /* determine genotypes for the new phenotype */
-
-      n_hetero_prev = n_hetero = 0;
-      n_geno_prev = n_geno = 1;
-
+      /* initialize values for first obs from last permu */
+      /* values for subsequent obs do not need inititialization */
+      strcpy(pheno[0], "\0"); 
       for (i = 0; i < (int)pow(2, n_loci - 1); i++) 
+	{
+	  strcpy(geno[i][0], "\0");
+	  strcpy(geno[i][1], "\0");
+	}
+
+      /* initialize genopheno from last permu */
+      for (i = 0; i < n_unique_geno; i++) 
+	{
+	  for (j = 0; j < n_recs; j++) genopheno[i][j] = 0;
+	}
+
+      /* initialize allele freqs from last permu */
+      for (j = 0; j < n_loci; j++)
+	{
+	  for (i = 0; i < MAX_ALLELES; i++) allele_freq[j][i] = 0;
+	}
+    }
+    /*** end: pre-processing for permutations ***/
+
+    /********* begin: arranging unique phenotypes and genotypes ************/
+    n_hetero = n_hetero_prev = 0;
+    n_geno = n_geno_prev = 1;
+
+    /* begin by counting the unique phenotypes and genotypes */
+
+    for (locus = 0; locus < n_loci; locus++)
       {
-        strcpy(temp_geno[i][0], "\0");
-        strcpy(temp_geno[i][1], "\0");
+	col_0 = locus * 2;
+	col_1 = col_0 + 1;
+
+	if (strcmp(data_ar[0][col_0], data_ar[0][col_1]))
+	  {
+	    n_hetero++;
+	    if (strcmp(data_ar[0][col_0], data_ar[0][col_1]) > 0)
+	      {
+		strcpy(buff, data_ar[0][col_0]);
+		strcpy(data_ar[0][col_0], data_ar[0][col_1]);
+		strcpy(data_ar[0][col_1], buff);
+	      }
+	  }
+	strcat(pheno[0], data_ar[0][col_0]);
+	strcat(pheno[0], data_ar[0][col_1]);
+
+	/* update num distinct genotypes current locus loop */
+	n_geno_prev = n_geno;
+	if (n_hetero > 0)
+	  n_geno = (int)pow(2, n_hetero - 1);
+	else
+	  n_geno = 1;
+
+	if ((n_geno > 1) && (n_hetero - n_hetero_prev == 1))
+	  {
+	    /* copy current geno sequence to create multiple genos for this pheno */
+	    for (i = n_geno_prev; i < 2 * n_geno_prev; i++)
+	      {
+		strcat(geno[i][0], geno[i - n_geno_prev][0]);
+		strcat(geno[i][1], geno[i - n_geno_prev][1]);
+	      }
+	    /* fill in next portion of genotype */
+	    for (i = 0; i < n_geno; i++)
+	      {
+		if (i < n_geno / 2)  /* fill in in normal order */
+		  {
+		    strcat(geno[i][0], data_ar[0][col_0]);
+		    strcat(geno[i][1], data_ar[0][col_1]);
+		  }
+		else      /* fill in in reverse order */
+		  {
+		    strcat(geno[i][0], data_ar[0][col_1]);
+		    strcat(geno[i][1], data_ar[0][col_0]);
+		  }
+	      }
+	  }
+	else      /* n_geno is 1 or curr site is homozygous */
+	  {
+	    for (i = 0; i < n_geno; i++)
+	      {
+		strcat(geno[i][0], data_ar[0][col_0]);
+		strcat(geno[i][1], data_ar[0][col_1]);
+	      }
+	  }
+	n_hetero_prev = n_hetero;
+      }        /* end of loop for a locus */
+
+    unique_pheno_count = 0;
+    unique_geno_count = n_geno - 1;
+    numgeno[0] = n_geno;
+    obspheno[0] = 1;
+
+    /* assign genotype-phenotype relationships */
+    for (i = 0; i < numgeno[0]; i++)
+      {
+	genopheno[i][0] = 1;
       }
 
-      for (locus = 0; locus < n_loci; locus++)
+    /* process remaining data records */
+    /* loop starts at one because we've already done one line */
+    for (obs = 1; obs < n_recs; obs++)
       {
-        col_0 = locus * 2;
-        col_1 = col_0 + 1;
+	temp_pheno[0] = '\0';
+	for (locus = 0; locus < n_loci; locus++)
+	  {
+	    col_0 = locus * 2;
+	    col_1 = col_0 + 1;
 
-        if (strcmp(data_ar[obs][col_0], data_ar[obs][col_1]))
-          n_hetero++;
-        n_geno_prev = n_geno;
+	    if ((strcmp(data_ar[obs][col_0], data_ar[obs][col_1])) > 0)
+	      {
+		strcpy(buff, data_ar[obs][col_0]);
+		strcpy(data_ar[obs][col_0], data_ar[obs][col_1]);
+		strcpy(data_ar[obs][col_1], buff);
+	      }
 
-        if (n_hetero > 0)
-          n_geno = (int)pow(2, n_hetero - 1);
-        else
-          n_geno = 1;
+	    strcat(temp_pheno, data_ar[obs][col_0]);
+	    strcat(temp_pheno, data_ar[obs][col_1]);
+	  }
+	/* check whether this is a new distinct phenotype */
+	unique_pheno_flag = TRUE;
+	for (i = 0; i <= unique_pheno_count; i++)  /* RS changed from < to <= */
+	  {
+	    if (!strcmp(temp_pheno, pheno[i]))
+	      {
+		unique_pheno_flag = FALSE;
+		obspheno[i] += 1;
+	      }
+	  }
 
-        if ((n_geno > 1) && (n_hetero - n_hetero_prev == 1))
-        {
-          /* copy current sequence to create multiple genos for this pheno */
-          for (i = n_geno_prev; i < 2 * n_geno_prev; i++)
-          {
-            strcat(temp_geno[i][0], temp_geno[i - n_geno_prev][0]);
-            strcat(temp_geno[i][1], temp_geno[i - n_geno_prev][1]);
-          }
+	if (unique_pheno_flag == TRUE)
+	  {
+	    /* determine genotypes for the new phenotype */
 
-          /* fill in next portion */
-          for (i = 0; i < n_geno; i++)
-          {
-            if (i < n_geno / 2)
-            {
-              strcat(temp_geno[i][0], data_ar[obs][col_0]);
-              strcat(temp_geno[i][1], data_ar[obs][col_1]);
-            }
-            else    /* fill in reverse order */
-            {
-              strcat(temp_geno[i][0], data_ar[obs][col_1]);
-              strcat(temp_geno[i][1], data_ar[obs][col_0]);
-            }
-          }
-        }
-        else      /* n_geno == 1 or current site not heterozygous */
-        {
-          for (i = 0; i < n_geno; i++)
-          {
-            strcat(temp_geno[i][0], data_ar[obs][col_0]);
-            strcat(temp_geno[i][1], data_ar[obs][col_1]);
-          }
-        }
+	    n_hetero_prev = n_hetero = 0;
+	    n_geno_prev = n_geno = 1;
 
-        n_hetero_prev = n_hetero;
+	    for (i = 0; i < (int)pow(2, n_loci - 1); i++) 
+	      {
+		strcpy(temp_geno[i][0], "\0");
+		strcpy(temp_geno[i][1], "\0");
+	      }
 
-      }        /* END for each locus */
+	    for (locus = 0; locus < n_loci; locus++)
+	      {
+		col_0 = locus * 2;
+		col_1 = col_0 + 1;
 
-      unique_pheno_count += 1;
-      strcpy(pheno[unique_pheno_count], temp_pheno);
-      numgeno[unique_pheno_count] = n_geno;
-      obspheno[unique_pheno_count] = 1;
+		if (strcmp(data_ar[obs][col_0], data_ar[obs][col_1]))
+		  n_hetero++;
+		n_geno_prev = n_geno;
 
-      /* check for new distinct genotypes */
-      for (i = 0; i < n_geno; i++)
-      {
-        unique_geno_flag = TRUE;
+		if (n_hetero > 0)
+		  n_geno = (int)pow(2, n_hetero - 1);
+		else
+		  n_geno = 1;
 
-        for (j = 0; j <= unique_geno_count; j++)  /* RS changed from < to <= */
-        {
-          if (((!strcmp(temp_geno[i][0], geno[j][0])) &&
-               (!strcmp(temp_geno[i][1], geno[j][1]))) ||
-              ((!strcmp(temp_geno[i][0], geno[j][1])) &&
-               (!strcmp(temp_geno[i][1], geno[j][0]))))
-          {
-            unique_geno_flag = FALSE;
-          }
-        }
+		if ((n_geno > 1) && (n_hetero - n_hetero_prev == 1))
+		  {
+		    /* copy current sequence to create multiple genos for this pheno */
+		    for (i = n_geno_prev; i < 2 * n_geno_prev; i++)
+		      {
+			strcat(temp_geno[i][0], temp_geno[i - n_geno_prev][0]);
+			strcat(temp_geno[i][1], temp_geno[i - n_geno_prev][1]);
+		      }
 
-        if (unique_geno_flag == TRUE)
-        {
-          unique_geno_count++;
-          strcpy(geno[unique_geno_count][0], temp_geno[i][0]);
-          strcpy(geno[unique_geno_count][1], temp_geno[i][1]);
-          genopheno[unique_geno_count][unique_pheno_count] = 1;
-        }
-      }
-    }        /* END of if unique_pheno_flag == TRUE */
-  }          /* END of loop for each observation */
+		    /* fill in next portion */
+		    for (i = 0; i < n_geno; i++)
+		      {
+			if (i < n_geno / 2)
+			  {
+			    strcat(temp_geno[i][0], data_ar[obs][col_0]);
+			    strcat(temp_geno[i][1], data_ar[obs][col_1]);
+			  }
+			else    /* fill in reverse order */
+			  {
+			    strcat(temp_geno[i][0], data_ar[obs][col_1]);
+			    strcat(temp_geno[i][1], data_ar[obs][col_0]);
+			  }
+		      }
+		  }
+		else      /* n_geno == 1 or current site not heterozygous */
+		  {
+		    for (i = 0; i < n_geno; i++)
+		      {
+			strcat(temp_geno[i][0], data_ar[obs][col_0]);
+			strcat(temp_geno[i][1], data_ar[obs][col_1]);
+		      }
+		  }
 
-  n_unique_pheno = unique_pheno_count + 1;
-  n_unique_geno = unique_geno_count + 1;
+		n_hetero_prev = n_hetero;
 
-  /********* end: arranging unique phenotypes and genotypes ************/
+	      }        /* END for each locus */
 
-  id_unique_alleles(data_ar, unique_allele, n_unique_allele, allele_freq, 
-    n_loci, n_recs);
+	    unique_pheno_count += 1;
+	    strcpy(pheno[unique_pheno_count], temp_pheno);
+	    numgeno[unique_pheno_count] = n_geno;
+	    obspheno[unique_pheno_count] = 1;
 
-  n_haplo = count_unique_haplos(geno, haplo, haplocus, unique_allele, 
-    n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo);
+	    /* check for new distinct genotypes */
+	    for (i = 0; i < n_geno; i++)
+	      {
+		unique_geno_flag = TRUE;
 
-  if (permu == 0)
-  {
-#ifdef XML_OUTPUT
-    fprintf(fp_out, "<uniquepheno>%d</uniquepheno>\n", n_unique_pheno);
-#else
-    fprintf(fp_out, "n_unique_pheno: %d \n", n_unique_pheno);
-#endif
+		for (j = 0; j <= unique_geno_count; j++)  /* RS changed from < to <= */
+		  {
+		    if (((!strcmp(temp_geno[i][0], geno[j][0])) &&
+			 (!strcmp(temp_geno[i][1], geno[j][1]))) ||
+			((!strcmp(temp_geno[i][0], geno[j][1])) &&
+			 (!strcmp(temp_geno[i][1], geno[j][0]))))
+		      {
+			unique_geno_flag = FALSE;
+		      }
+		  }
 
-#ifdef XML_OUTPUT
-    fprintf(fp_out, "<uniquegeno>%d</uniquegeno>\n", n_unique_geno);
-#else
-    fprintf(fp_out, "n_unique_geno: %d \n", n_unique_geno);
-#endif
+		if (unique_geno_flag == TRUE)
+		  {
+		    unique_geno_count++;
+		    strcpy(geno[unique_geno_count][0], temp_geno[i][0]);
+		    strcpy(geno[unique_geno_count][1], temp_geno[i][1]);
+		    genopheno[unique_geno_count][unique_pheno_count] = 1;
+		  }
+	      }
+	  }        /* END of if unique_pheno_flag == TRUE */
+      }          /* END of loop for each observation */
 
-#ifdef XML_OUTPUT
-    fprintf(fp_out, "<haplocount>%d</haplocount>\n", n_haplo);
-#else
-    fprintf(fp_out, "n_haplo: %d \n\n", n_haplo);
-#endif
-  }
+    n_unique_pheno = unique_pheno_count + 1;
+    n_unique_geno = unique_geno_count + 1;
 
-/*** --- List each obs pheno and corresponding possible genos
-  for(i = 0; i < n_unique_pheno; i++) 
-  { 
-    fprintf(fp_out, "pheno: %s obspheno: %d numgeno %d \n", pheno[i], obspheno[i], numgeno[i]); 
-    count = 0;
-    for(j = 0; j < n_unique_geno; j++) 
-    { 
-      if(genopheno[j][i] == 1)
-      { 
-        count += 1;
-        fprintf(fp_out, "possible geno: %d %s %s xgeno: %d %d j: %d \n", count, geno[j][0],  geno[j][1], 
-          xgeno[j][0],  xgeno[j][1], j); 
-      } 
-    } 
-    fprintf(fp_out, "\n"); 
-  } 
-***/
+    /********* end: arranging unique phenotypes and genotypes ************/
 
-/*** --- List all genos observed and haplos
-  for(i = 0; i < n_unique_geno; i++)
-  {
-    fprintf(fp_out, "geno[%d][0]:%s geno[%d][1]:%s\n", i, geno[i][0], i, geno[i][1]);
-  }
-  for(i = 0; i < n_haplo; i++)
-  {
-    fprintf(fp_out, "haplo[%d]: %s\n", i, haplo[i]);
-  }
-***/
+    id_unique_alleles(data_ar, unique_allele, n_unique_allele, allele_freq, 
+		      n_loci, n_recs);
 
-  if (permu == 0)
-  {
-    /* Compute haplotype freqs under no LD and store them temporarily in freq_zero */
-    haplo_freqs_no_ld(freq_zero, allele_freq, haplocus, n_unique_allele, 
-      n_loci, n_haplo);
-
-    /* Compute log likelihood under no LD */
-    loglike0 = loglikelihood(genopheno, freq_zero, obspheno, n_haplo, 
-      n_unique_geno, n_unique_pheno, xhaplo, xgeno);
-
-#ifdef XML_OUTPUT
-    fprintf(fp_out, 
-	    "<loglikelihood role=\"no-ld\">%f</loglikelihood>\n", loglike0);
-#else
-    fprintf(fp_out, "Log likelihood under no LD: %f \n", loglike0);
-#endif
-  }
-
-  /* Set initial haplotype frequencies  before EM calc */
-  for (i = 0; i < n_haplo; i++)
-  {
-    freq_zero[i] = 1.0 / (double)n_haplo;
-  }
-
-  emcalc(genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
-    n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
-    &error_flag, &iter_count, &loglike, &haplo_freq_sum);
-
-  if (permu == 0)
-  {
-#ifdef XML_OUTPUT
-    fprintf(fp_out, "<iterationsummary>\n<![CDATA[");
-#endif
-    fprintf(fp_iter, "\n--- Iteration Summary for Original Data -------------------------------------------\n");
-    fprintf(fp_iter, "Init. condition   0: Log likelihood after %3d iterations: %f, error_flag: %d \n",
-	    iter_count, loglike, error_flag);
-    if      (error_flag == 0) error_flag0_pct += 1;
-    else if (error_flag == 1) error_flag1_pct += 1;
-    else if (error_flag == 2) error_flag2_pct += 1;
-    else if (error_flag == 3) error_flag3_pct += 1;
-    else if (error_flag == 4) error_flag4_pct += 1;
-    else if (error_flag == 5) error_flag5_pct += 1;
-    else if (error_flag == 6) error_flag6_pct += 1;
-    else                      error_flag7_pct += 1;
-  }
-
-  loglike_best = loglike;
-  iter_count_best = iter_count;
-  error_flag_best = error_flag;
-  for (i = 0; i < n_haplo; i++)
-  { 
-    mle_best[i] = mle[i]; 
-  } 
-
-  for (init_cond = 1; init_cond < max_init_cond; init_cond++)
-  {
-    freq_sum = 0;
-    for (i = 0; i < n_haplo; i++)
-    { 
-      freq_zero[i] = drand48(); 
-      freq_sum += freq_zero[i];
-    }
-    for (i = 0; i < n_haplo; i++)
-    { 
-      freq_zero[i] = freq_zero[i] / freq_sum; 
-    }
-  
-    emcalc(genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
-      n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
-      &error_flag, &iter_count, &loglike, &haplo_freq_sum);
+    n_haplo = count_unique_haplos(geno, haplo, haplocus, unique_allele, 
+				  n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo);
 
     if (permu == 0)
-    {
-      fprintf(fp_iter, "Init. condition %3d: Log likelihood after %3d iterations: %f, error_flag: %d \n",
-        init_cond, iter_count, loglike, error_flag);
-      if      (error_flag == 0) error_flag0_pct += 1;
-      else if (error_flag == 1) error_flag1_pct += 1;
-      else if (error_flag == 2) error_flag2_pct += 1;
-      else if (error_flag == 3) error_flag3_pct += 1;
-      else if (error_flag == 4) error_flag4_pct += 1;
-      else if (error_flag == 5) error_flag5_pct += 1;
-      else if (error_flag == 6) error_flag6_pct += 1;
-      else                      error_flag7_pct += 1;
-    }
-
-    if (error_flag_best == 0)
-    {
-      if ((loglike > loglike_best) && (error_flag == 0))
       {
-        loglike_best = loglike;
-        iter_count_best = iter_count;
-        error_flag_best = error_flag;
-        for (i = 0; i < n_haplo; i++)
-        { 
-          mle_best[i] = mle[i]; 
-        } 
+#ifdef XML_OUTPUT
+	fprintf(fp_out, "<uniquepheno>%d</uniquepheno>\n", n_unique_pheno);
+#else
+	fprintf(fp_out, "n_unique_pheno: %d \n", n_unique_pheno);
+#endif
+
+#ifdef XML_OUTPUT
+	fprintf(fp_out, "<uniquegeno>%d</uniquegeno>\n", n_unique_geno);
+#else
+	fprintf(fp_out, "n_unique_geno: %d \n", n_unique_geno);
+#endif
+
+#ifdef XML_OUTPUT
+	fprintf(fp_out, "<haplocount>%d</haplocount>\n", n_haplo);
+#else
+	fprintf(fp_out, "n_haplo: %d \n\n", n_haplo);
+#endif
       }
-    }
-    else /* (error_flag_best != 0) */ 
-    {
-      if (error_flag == 0)
+
+#ifdef DEBUG
+	 for(i = 0; i < n_unique_pheno; i++) 
+	 { 
+	 fprintf(fp_out, "pheno: %s obspheno: %d numgeno %d \n", pheno[i], obspheno[i], numgeno[i]); 
+	 count = 0;
+	 for(j = 0; j < n_unique_geno; j++) 
+	 { 
+	 if(genopheno[j][i] == 1)
+	 { 
+	 count += 1;
+	 fprintf(fp_out, "possible geno: %d %s %s xgeno: %d %d j: %d \n", count, geno[j][0],  geno[j][1], 
+	 xgeno[j][0],  xgeno[j][1], j); 
+	 } 
+	 } 
+	 fprintf(fp_out, "\n"); 
+	 } 
+
+     --- List all genos observed and haplos
+	 for(i = 0; i < n_unique_geno; i++)
+	 {
+	 fprintf(fp_out, "geno[%d][0]:%s geno[%d][1]:%s\n", i, geno[i][0], i, geno[i][1]);
+	 }
+	 for(i = 0; i < n_haplo; i++)
+	 {
+	 fprintf(fp_out, "haplo[%d]: %s\n", i, haplo[i]);
+	 }
+#endif
+
+    if (permu == 0)
       {
-        loglike_best = loglike;
-        iter_count_best = iter_count;
-        error_flag_best = error_flag;
-        for (i = 0; i < n_haplo; i++)
-        { 
-          mle_best[i] = mle[i]; 
-        } 
+	/* Compute haplotype freqs under no LD and store them temporarily in freq_zero */
+	haplo_freqs_no_ld(freq_zero, allele_freq, haplocus, n_unique_allele, 
+			  n_loci, n_haplo);
+
+	/* Compute log likelihood under no LD */
+	loglike0 = loglikelihood(genopheno, freq_zero, obspheno, n_haplo, 
+				 n_unique_geno, n_unique_pheno, xhaplo, xgeno);
+
+#ifdef XML_OUTPUT
+	fprintf(fp_out, 
+		"<loglikelihood role=\"no-ld\">%f</loglikelihood>\n", loglike0);
+#else
+	fprintf(fp_out, "Log likelihood under no LD: %f \n", loglike0);
+#endif
       }
-    }
-  } /* end: for (init_cond) */
 
-#ifdef XML_OUTPUT
-  if (permu == 0)
-    fprintf(fp_out, "]]></iterationsummary>\n");
-#endif
-
-  if (permu_flag == 1)
-  {
-    /* moved XML output into section after printing haplotypes 
-       other code in this sections  */
-  }
-  
-  /* suppress printing of haplotypes if '-s' flag set */
-  if ((permu == 0) && (suppress_haplo_print_flag != 1))
-  {
-
-#ifdef XML_OUTPUT
-    fprintf(fp_out, "<haplotypefreq>\n");
-#endif
-
-    fprintf(fp_iter, "\n"); 
-    fprintf(fp_iter, "Percent of iterations with error_flag = 0: %7.3f\n", 100*error_flag0_pct/max_init_cond);
-    fprintf(fp_iter, "Percent of iterations with error_flag = 1: %7.3f\n", 100*error_flag1_pct/max_init_cond);
-    fprintf(fp_iter, "Percent of iterations with error_flag = 2: %7.3f\n", 100*error_flag2_pct/max_init_cond);
-    fprintf(fp_iter, "Percent of iterations with error_flag = 3: %7.3f\n", 100*error_flag3_pct/max_init_cond);
-    fprintf(fp_iter, "Percent of iterations with error_flag = 4: %7.3f\n", 100*error_flag4_pct/max_init_cond);
-    fprintf(fp_iter, "Percent of iterations with error_flag = 5: %7.3f\n", 100*error_flag5_pct/max_init_cond);
-    fprintf(fp_iter, "Percent of iterations with error_flag = 6: %7.3f\n", 100*error_flag6_pct/max_init_cond);
-    fprintf(fp_iter, "Percent of iterations with error_flag = 7: %7.3f\n", 100*error_flag7_pct/max_init_cond);
-    fprintf(fp_iter, "\n"); 
-    fprintf(fp_iter, "--- Codes for error_flag ----------------------------------------------------------\n"); 
-    fprintf(fp_iter, "0: Iterations Converged, no errors \n");
-    fprintf(fp_iter, "1: There are no ambiguous haplotypes \n");
-    fprintf(fp_iter, "2: Normalization constant near zero. Est. HFs unstable \n");
-    fprintf(fp_iter, "3: Wrong # allocated for at least one phenotype based on est. HFs \n");
-    fprintf(fp_iter, "4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype \n");
-    fprintf(fp_iter, "5: Log likelihood has decreased for more than 5 iterations \n");
-    fprintf(fp_iter, "6: Est. HFs do not sum to 1.0 \n");
-    fprintf(fp_iter, "7: Log likelihood failed to converge in %d iterations \n", MAX_ITER);
-    fprintf(fp_iter, "-----------------------------------------------------------------------------------\n"); 
-    fprintf(fp_iter, "\n"); 
-
-#ifdef XML_OUTPUT
-      fprintf(fp_out, "<condition role=\"");
-#endif
-
-    if (error_flag_best == 0) {
-#ifdef XML_OUTPUT
-      fprintf(fp_out, "converged\"/>\n");
-      fprintf(fp_out, "<iterConverged>%d</iterConverged><loglikelihood>%f</loglikelihood>\n", iter_count_best, loglike_best);
-#else
-      fprintf(fp_out, "Log likelihood converged in %3d iterations to : %f\n",
-	      iter_count_best, loglike_best);
-      fprintf(fp_out, "Sum of haplotype frequencies = %f\n", haplo_freq_sum);
-#endif
-    }
-    else if (error_flag_best == 1)
-#ifdef XML_OUTPUT
-      fprintf(fp_out, "no-ambiguos-haplos\"/>\n");
-#else
-      fprintf(fp_out, "There are no ambiguous haplotypes.              %f\n", loglike_best);
-#endif
-    else if (error_flag_best == 2)
-#ifdef XML_OUTPUT
-      fprintf(fp_out, "norm-const-near-zero\"/>\n");
-#else
-      fprintf(fp_out, "Normalization constant near zero. Estimated HFs unstable.\n");
-#endif
-    else if (error_flag_best == 3)
-#ifdef XML_OUTPUT
-      fprintf(fp_out, "wrong\"/>\n");
-#else
-      fprintf(fp_out, "Wrong # allocated for at least one phenotype based on estimated HFs.\n");
-#endif
-    else if (error_flag_best == 4)
-#ifdef XML_OUTPUT
-      fprintf(fp_out, "zero-for-observed-pheno\"/>\n");
-#else
-      fprintf(fp_out, "Phenotype freq., based on estimated HFs, was 0 for an observed phenotype.\n");
-#endif
-    else if (error_flag_best == 5)
-#ifdef XML_OUTPUT
-      fprintf(fp_out, "loglike-decreased\"/>\n");
-#else
-      fprintf(fp_out, "Log likelihood has decreased for more than 5 iterations.\n");
-#endif
-    else if (error_flag_best == 6)
-#ifdef XML_OUTPUT
-      fprintf(fp_out, "hf-dont-sum-to-one\"/>\n");
-#else
-      fprintf(fp_out, "Estimated HFs do not sum to 1. Sum = %.5g\n", haplo_freq_sum);
-#endif
-    else /* (error_flag_best == 7) */
-#ifdef XML_OUTPUT
-      fprintf(fp_out, "loglike-failed-converge\"/>\n");
-#else
-      fprintf(fp_out, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
-#endif
-
-    /* copy mle_best to freq_zero so that sort does not interfere with info needed in LD calcs */
-    /* Note: haplo[] is no longer linked to mle_best after the sort, but is not used subsequently */
-    for (i = 0; i < n_haplo; i++) 
-    {
-      freq_zero[i] = mle_best[i];
-    }
-    sort2byfloat(haplo, freq_zero, n_haplo);
-
-    j = 0;
-#ifndef XML_OUTPUT
-    fprintf(fp_out, "\n");
-    fprintf(fp_out, "                   Approx No.   \n");
-    fprintf(fp_out, "        MLE Freq*  of Copies  Haplo (*only printed if MLE > .00001)\n");
-#endif
+    /* Set initial haplotype frequencies  before EM calc */
     for (i = 0; i < n_haplo; i++)
-    {
-      if (freq_zero[i] > .00001)
       {
-        j += 1;
-#ifdef XML_OUTPUT
-	fprintf(fp_out, "<haplotype name=\"%s\"><frequency>%.5f</frequency><numCopies>%.1f</numCopies></haplotype>\n", haplo[i], freq_zero[i], freq_zero[i]*2.0*n_recs);
-#else
-        fprintf(fp_out, "%3d  %12.5f %8.1f    %s\n", j, freq_zero[i], freq_zero[i]*2.0*n_recs, haplo[i]);
-#endif
+	freq_zero[i] = 1.0 / (double)n_haplo;
       }
-    }
-    fprintf(fp_out, "\n");
+
+    emcalc(genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
+	   n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
+	   &error_flag, &iter_count, &loglike, &haplo_freq_sum);
+
+    if (permu == 0)
+      {
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "</haplotypefreq>\n");
+	fprintf(fp_out, "<iterationsummary>\n<![CDATA[");
+#endif
+	fprintf(fp_iter, "\n--- Iteration Summary for Original Data -------------------------------------------\n");
+	fprintf(fp_iter, "Init. condition   0: Log likelihood after %3d iterations: %f, error_flag: %d \n",
+		iter_count, loglike, error_flag);
+	if      (error_flag == 0) error_flag0_pct += 1;
+	else if (error_flag == 1) error_flag1_pct += 1;
+	else if (error_flag == 2) error_flag2_pct += 1;
+	else if (error_flag == 3) error_flag3_pct += 1;
+	else if (error_flag == 4) error_flag4_pct += 1;
+	else if (error_flag == 5) error_flag5_pct += 1;
+	else if (error_flag == 6) error_flag6_pct += 1;
+	else                      error_flag7_pct += 1;
+      }
+
+    loglike_best = loglike;
+    iter_count_best = iter_count;
+    error_flag_best = error_flag;
+    for (i = 0; i < n_haplo; i++)
+      { 
+	mle_best[i] = mle[i]; 
+      } 
+
+    for (init_cond = 1; init_cond < max_init_cond; init_cond++)
+      {
+	freq_sum = 0;
+	for (i = 0; i < n_haplo; i++)
+	  { 
+	    freq_zero[i] = drand48(); 
+	    freq_sum += freq_zero[i];
+	  }
+	for (i = 0; i < n_haplo; i++)
+	  { 
+	    freq_zero[i] = freq_zero[i] / freq_sum; 
+	  }
+  
+	emcalc(genopheno, numgeno, obspheno, freq_zero, mle, n_haplo,
+	       n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
+	       &error_flag, &iter_count, &loglike, &haplo_freq_sum);
+
+	if (permu == 0)
+	  {
+	    fprintf(fp_iter, "Init. condition %3d: Log likelihood after %3d iterations: %f, error_flag: %d \n",
+		    init_cond, iter_count, loglike, error_flag);
+	    if      (error_flag == 0) error_flag0_pct += 1;
+	    else if (error_flag == 1) error_flag1_pct += 1;
+	    else if (error_flag == 2) error_flag2_pct += 1;
+	    else if (error_flag == 3) error_flag3_pct += 1;
+	    else if (error_flag == 4) error_flag4_pct += 1;
+	    else if (error_flag == 5) error_flag5_pct += 1;
+	    else if (error_flag == 6) error_flag6_pct += 1;
+	    else                      error_flag7_pct += 1;
+	  }
+
+	if (error_flag_best == 0)
+	  {
+	    if ((loglike > loglike_best) && (error_flag == 0))
+	      {
+		loglike_best = loglike;
+		iter_count_best = iter_count;
+		error_flag_best = error_flag;
+		for (i = 0; i < n_haplo; i++)
+		  { 
+		    mle_best[i] = mle[i]; 
+		  } 
+	      }
+	  }
+	else /* (error_flag_best != 0) */ 
+	  {
+	    if (error_flag == 0)
+	      {
+		loglike_best = loglike;
+		iter_count_best = iter_count;
+		error_flag_best = error_flag;
+		for (i = 0; i < n_haplo; i++)
+		  { 
+		    mle_best[i] = mle[i]; 
+		  } 
+	      }
+	  }
+      } /* end: for (init_cond) */
+
+#ifdef XML_OUTPUT
+    if (permu == 0)
+      fprintf(fp_out, "]]></iterationsummary>\n");
+#endif
+
+    if (permu_flag == 1)
+      {
+	/* moved XML output into section after printing haplotypes 
+	   other code in this sections  */
+      }
+  
+    /* suppress printing of haplotypes if '-s' flag set */
+    if ((permu == 0) && (suppress_haplo_print_flag != 1))
+      {
+
+#ifdef XML_OUTPUT
+	fprintf(fp_out, "<haplotypefreq>\n");
+#endif
+
+	fprintf(fp_iter, "\n"); 
+	fprintf(fp_iter, "Percent of iterations with error_flag = 0: %7.3f\n", 100*error_flag0_pct/max_init_cond);
+	fprintf(fp_iter, "Percent of iterations with error_flag = 1: %7.3f\n", 100*error_flag1_pct/max_init_cond);
+	fprintf(fp_iter, "Percent of iterations with error_flag = 2: %7.3f\n", 100*error_flag2_pct/max_init_cond);
+	fprintf(fp_iter, "Percent of iterations with error_flag = 3: %7.3f\n", 100*error_flag3_pct/max_init_cond);
+	fprintf(fp_iter, "Percent of iterations with error_flag = 4: %7.3f\n", 100*error_flag4_pct/max_init_cond);
+	fprintf(fp_iter, "Percent of iterations with error_flag = 5: %7.3f\n", 100*error_flag5_pct/max_init_cond);
+	fprintf(fp_iter, "Percent of iterations with error_flag = 6: %7.3f\n", 100*error_flag6_pct/max_init_cond);
+	fprintf(fp_iter, "Percent of iterations with error_flag = 7: %7.3f\n", 100*error_flag7_pct/max_init_cond);
+	fprintf(fp_iter, "\n"); 
+	fprintf(fp_iter, "--- Codes for error_flag ----------------------------------------------------------\n"); 
+	fprintf(fp_iter, "0: Iterations Converged, no errors \n");
+	fprintf(fp_iter, "1: There are no ambiguous haplotypes \n");
+	fprintf(fp_iter, "2: Normalization constant near zero. Est. HFs unstable \n");
+	fprintf(fp_iter, "3: Wrong # allocated for at least one phenotype based on est. HFs \n");
+	fprintf(fp_iter, "4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype \n");
+	fprintf(fp_iter, "5: Log likelihood has decreased for more than 5 iterations \n");
+	fprintf(fp_iter, "6: Est. HFs do not sum to 1.0 \n");
+	fprintf(fp_iter, "7: Log likelihood failed to converge in %d iterations \n", MAX_ITER);
+	fprintf(fp_iter, "-----------------------------------------------------------------------------------\n"); 
+	fprintf(fp_iter, "\n"); 
+
+#ifdef XML_OUTPUT
+	fprintf(fp_out, "<condition role=\"");
+#endif
+
+	if (error_flag_best == 0) {
+#ifdef XML_OUTPUT
+	  fprintf(fp_out, "converged\"/>\n");
+	  fprintf(fp_out, "<iterConverged>%d</iterConverged><loglikelihood>%f</loglikelihood>\n", iter_count_best, loglike_best);
+#else
+	  fprintf(fp_out, "Log likelihood converged in %3d iterations to : %f\n",
+		  iter_count_best, loglike_best);
+	  fprintf(fp_out, "Sum of haplotype frequencies = %f\n", haplo_freq_sum);
+#endif
+	}
+	else if (error_flag_best == 1)
+#ifdef XML_OUTPUT
+	  fprintf(fp_out, "no-ambiguos-haplos\"/>\n");
+#else
+	fprintf(fp_out, "There are no ambiguous haplotypes.              %f\n", loglike_best);
+#endif
+	else if (error_flag_best == 2)
+#ifdef XML_OUTPUT
+	  fprintf(fp_out, "norm-const-near-zero\"/>\n");
+#else
+	fprintf(fp_out, "Normalization constant near zero. Estimated HFs unstable.\n");
+#endif
+	else if (error_flag_best == 3)
+#ifdef XML_OUTPUT
+	  fprintf(fp_out, "wrong\"/>\n");
+#else
+	fprintf(fp_out, "Wrong # allocated for at least one phenotype based on estimated HFs.\n");
+#endif
+	else if (error_flag_best == 4)
+#ifdef XML_OUTPUT
+	  fprintf(fp_out, "zero-for-observed-pheno\"/>\n");
+#else
+	fprintf(fp_out, "Phenotype freq., based on estimated HFs, was 0 for an observed phenotype.\n");
+#endif
+	else if (error_flag_best == 5)
+#ifdef XML_OUTPUT
+	  fprintf(fp_out, "loglike-decreased\"/>\n");
+#else
+	fprintf(fp_out, "Log likelihood has decreased for more than 5 iterations.\n");
+#endif
+	else if (error_flag_best == 6)
+#ifdef XML_OUTPUT
+	  fprintf(fp_out, "hf-dont-sum-to-one\"/>\n");
+#else
+	fprintf(fp_out, "Estimated HFs do not sum to 1. Sum = %.5g\n", haplo_freq_sum);
+#endif
+	else /* (error_flag_best == 7) */
+#ifdef XML_OUTPUT
+	  fprintf(fp_out, "loglike-failed-converge\"/>\n");
+#else
+	fprintf(fp_out, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
+#endif
+
+	/* copy mle_best to freq_zero so that sort does not interfere with info needed in LD calcs */
+	/* Note: haplo[] is no longer linked to mle_best after the sort, but is not used subsequently */
+	for (i = 0; i < n_haplo; i++) 
+	  {
+	    freq_zero[i] = mle_best[i];
+	  }
+	sort2byfloat(haplo, freq_zero, n_haplo);
+
+	j = 0;
+#ifndef XML_OUTPUT
+	fprintf(fp_out, "\n");
+	fprintf(fp_out, "                   Approx No.   \n");
+	fprintf(fp_out, "        MLE Freq*  of Copies  Haplo (*only printed if MLE > .00001)\n");
+#endif
+	for (i = 0; i < n_haplo; i++)
+	  {
+	    if (freq_zero[i] > .00001)
+	      {
+		j += 1;
+#ifdef XML_OUTPUT
+		fprintf(fp_out, "<haplotype name=\"%s\"><frequency>%.5f</frequency><numCopies>%.1f</numCopies></haplotype>\n", haplo[i], freq_zero[i], freq_zero[i]*2.0*n_recs);
+#else
+		fprintf(fp_out, "%3d  %12.5f %8.1f    %s\n", j, freq_zero[i], freq_zero[i]*2.0*n_recs, haplo[i]);
+#endif
+	      }
+	  }
+	fprintf(fp_out, "\n");
+#ifdef XML_OUTPUT
+	fprintf(fp_out, "</haplotypefreq>\n");
 #endif
 
 #ifndef XML_OUTPUT
-    fprintf(fp_out, "Allele frequencies\n");
-    fprintf(fp_out, "------------------\n");
-    fprintf(fp_out, "       Frequency Locus Allele\n");
-    for (i = 0; i < n_loci; i++)
-    {
-      for (j = 0; j < n_unique_allele[i]; j++)
-      {
-        fprintf(fp_out, "%3d %12.5f %5d  %s \n", j+1, allele_freq[i][j], i, 
-          unique_allele[i][j]);
-      }
-    }
-    fprintf(fp_out, "\n");
+	fprintf(fp_out, "Allele frequencies\n");
+	fprintf(fp_out, "------------------\n");
+	fprintf(fp_out, "       Frequency Locus Allele\n");
+	for (i = 0; i < n_loci; i++)
+	  {
+	    for (j = 0; j < n_unique_allele[i]; j++)
+	      {
+		fprintf(fp_out, "%3d %12.5f %5d  %s \n", j+1, allele_freq[i][j], i, 
+			unique_allele[i][j]);
+	      }
+	  }
+	fprintf(fp_out, "\n");
 #endif
 
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "<linkagediseq>\n");
+	fprintf(fp_out, "<linkagediseq>\n");
 #else
-    fprintf(fp_out, "Pairwise Linkage Disequilibrium\n");
-    fprintf(fp_out, "-------------------------------\n");
+	fprintf(fp_out, "Pairwise Linkage Disequilibrium\n");
+	fprintf(fp_out, "-------------------------------\n");
 #endif
 
-    linkage_diseq(fp_out, mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
-      n_loci, n_haplo, n_recs);
+	linkage_diseq(fp_out, mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
+		      n_loci, n_haplo, n_recs);
 
-    /* compute df_LRtest */
-    j = 0;
-    for (i = 0; i < n_loci; i++)
-    {
-      df_LRtest *= n_unique_allele[i];
-      j += n_unique_allele[i];
-    }
-    df_LRtest = df_LRtest - j + (n_loci - 1);
+	/* compute df_LRtest */
+	j = 0;
+	for (i = 0; i < n_loci; i++)
+	  {
+	    df_LRtest *= n_unique_allele[i];
+	    j += n_unique_allele[i];
+	  }
+	df_LRtest = df_LRtest - j + (n_loci - 1);
 
 #ifndef XML_OUTPUT
-    fprintf(fp_out, "Asymptotic LR Test for Overall LD [-2*(LL_0 - LL_1)]: %f, df = %d\n",  
-      -2.0 * (loglike0 - loglike_best), df_LRtest);
+	fprintf(fp_out, "Asymptotic LR Test for Overall LD [-2*(LL_0 - LL_1)]: %f, df = %d\n",  
+		-2.0 * (loglike0 - loglike_best), df_LRtest);
 #endif
 
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "</linkagediseq>\n");
+	fprintf(fp_out, "</linkagediseq>\n");
 #endif
 
-  } /* end: if ((permu==0 && ...)) */
+      } /* end: if ((permu==0 && ...)) */
 
-/***
-  if (permu_flag == 1)
-  {
-    if (error_flag_best == 0)
-      fprintf(fp_permu, "Log likelihood converged in %3d iterations to : %f \n", 
-        iter_count_best, loglike_best);
-    else if (error_flag_best == 1)
-      fprintf(fp_permu, "There are no ambiguous haplotypes.              %f\n", loglike_best);
-    else if (error_flag_best == 2)
-      fprintf(fp_permu, "Normalization constant near zero. Estimated HFs unstable.\n");
-    else if (error_flag_best == 3)
-      fprintf(fp_permu, "Wrong # allocated for at least one phenotype based on estimated HFs.\n");
-    else if (error_flag_best == 4)
-      fprintf(fp_permu, "Phenotype freq., based on estimated HFs, was 0 for an observed phenotype.\n");
-    else if (error_flag_best == 5)
-      fprintf(fp_permu, "Log likelihood has decreased for more than 5 iterations.\n");
-    else if (error_flag_best == 6)
-      fprintf(fp_permu, "Estimated HFs do not sum to 1.\n");
-    else // (error_flag_best == 7) 
-      fprintf(fp_permu, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
-  }
-***/
+#if 0
+    if (permu_flag == 1) {
+      if (error_flag_best == 0)
+	fprintf(fp_permu, "Log likelihood converged in %3d iterations to : %f \n", 
+		iter_count_best, loglike_best);
+      else if (error_flag_best == 1)
+	fprintf(fp_permu, "There are no ambiguous haplotypes.              %f\n", loglike_best);
+      else if (error_flag_best == 2)
+	fprintf(fp_permu, "Normalization constant near zero. Estimated HFs unstable.\n");
+      else if (error_flag_best == 3)
+	fprintf(fp_permu, "Wrong # allocated for at least one phenotype based on estimated HFs.\n");
+      else if (error_flag_best == 4)
+	fprintf(fp_permu, "Phenotype freq., based on estimated HFs, was 0 for an observed phenotype.\n");
+      else if (error_flag_best == 5)
+	fprintf(fp_permu, "Log likelihood has decreased for more than 5 iterations.\n");
+      else if (error_flag_best == 6)
+	fprintf(fp_permu, "Estimated HFs do not sum to 1.\n");
+      else // (error_flag_best == 7) 
+	fprintf(fp_permu, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
+    }
+#endif
 
-  like_ratio[permu] = -2.0 * (loglike0 - loglike_best);
+    like_ratio[permu] = -2.0 * (loglike0 - loglike_best);
 
   } /* end for (permu) */
   
@@ -1106,13 +1104,15 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
       }  
     }
   }
-/* RS --- CHECKING
+
+#ifdef DEBUG
+  /*  RS --- CHECKING */
   for (k = 0; k < num_loci; k++) 
   {
     fprintf(stdout, "haplo_ar[0]: %s temp_array[%d]: %s \n", 
             haplo_ar[0], k, temp_array[k]); 
   }
-*/
+#endif
 
   /* identify allele# at lth locus for 0th haplotype */
   for (l = 0; l < num_loci; l++) 
@@ -1142,7 +1142,10 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
         strcpy(haplo_ar[++unique_haplo_count], geno_ar[i][j]);
         xhaplo[unique_haplo_count] = unique_haplo_count; 
         xgeno[i][j] = unique_haplo_count;
-/*   fprintf(stdout, "xgeno[%d][%d]:%d \n", i,j,xgeno[i][j]); */
+
+#ifdef DEBUG
+	fprintf(stdout, "xgeno[%d][%d]:%d \n", i,j,xgeno[i][j]);
+#endif
 
         /* split haplo_ar[unique_haplo_count] into temp_array ... */
         strcpy(temp_buff, haplo_ar[unique_haplo_count]);
@@ -1161,14 +1164,13 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
             }  
           }
         }
-/* RS --- CHECKING
+#ifdef DEBUG
+	/* RS --- CHECKING */
         for (k = 0; k < num_loci; k++) 
-        {
-          fprintf(stdout, "haplo_ar[%d]: %s temp_array[%d]: %s \n", 
-                  unique_haplo_count, haplo_ar[unique_haplo_count], 
-                  k, temp_array[k]); 
-        }
-*/
+	  fprintf(stdout, "haplo_ar[%d]: %s temp_array[%d]: %s \n", 
+		  unique_haplo_count, haplo_ar[unique_haplo_count], 
+		  k, temp_array[k]); 
+#endif
 
         /* identify allele# at lth locus for unique_haplo_count haplotype */
         for (l = 0; l < num_loci; l++) 
@@ -1205,13 +1207,13 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
   int i, j, locus, col_0, col_1 = 0;
   int unique_allele_flag, unique_allele_count = 0;
 
-/* CHECKING
+#ifdef DEBUG
   for (i = 0; i < n_recs; i++)
   for (j = 0; j < 2*n_loci; j++)
   fprintf(stdout, "data[%d][%d]: %s\n", i, j, data_ar[i][j]); 
   fprintf(stdout, "data0[%d][%d]: %s, uniq[%d][%d]:\n", i, col_0, 
     data_ar[i][j], locus, j, unique_allele[locus][j]); 
-*/
+#endif
 
   for (locus = 0; locus < n_loci; locus++)
   {
