@@ -193,7 +193,36 @@
   <xsl:apply-templates/>
   <xsl:call-template name="map.end"/>
  </xsl:template>
-
+ 
+ <!-- fix template: needed space after \hline -->
+ <xsl:template match="tgroup">
+  <xsl:variable name="align" select="@align"/>
+  <xsl:variable name="colspecs" select="./colspec"/>
+  <!-- <xsl:text>{\tt </xsl:text> -->
+  <xsl:text>\begin{tabular}{</xsl:text>
+  <xsl:if test="@frame='' or @frame='all' or @frame='sides'">
+   <xsl:text>|</xsl:text>
+  </xsl:if>
+  <xsl:call-template name="table.format.tabular">
+   <xsl:with-param name="cols" select="@cols"/>
+  </xsl:call-template>
+  <xsl:if test="@frame='' or @frame='all' or @frame='sides'">
+   <xsl:text>|</xsl:text>
+  </xsl:if>
+  <xsl:text>}&#10;</xsl:text>
+  <xsl:if test="@frame!='sides' and @frame!='none' and @frame!='bottom'">
+   <xsl:text>\hline &#10;</xsl:text>
+  </xsl:if>
+  <!-- APPLY TEMPLATES -->
+  <xsl:apply-templates/>
+  <!--                 -->
+  <xsl:if test="@frame!='sides' and @frame!='none' and @frame!='top'">
+   <xsl:text>\hline &#10;</xsl:text>
+  </xsl:if>
+  <xsl:text>\end{tabular}&#10;</xsl:text>
+  <!-- <xsl:text>}</xsl:text> -->
+ </xsl:template>
+ 
 
 </xsl:stylesheet>
 
