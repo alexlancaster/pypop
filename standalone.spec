@@ -1,13 +1,12 @@
 # generates frozen standalone installation in a single directory
 
+# global imports
+import os, sys, shutil, string 
+
 # import locally generated class, dynamically (needed because current
 # file is also loaded dynamically by Installer's Build.py
-exec open('Utils.py', 'r').read()+'\n' in locals()
+execfile('Utils.py', locals())
 
-# global imports
-import os, sys, shutil, string
-# local imports
-import Utils
 
 # generate name of executable
 if sys.platform == 'cygwin':
