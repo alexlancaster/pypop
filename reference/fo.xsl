@@ -11,26 +11,6 @@
 
  <!--  <xsl:import href="pagesetup.xsl"/>-->
 
- <xsl:template name="head.sep.rule">
-  <xsl:if test="$header.rule != 0">
-   
-   <!-- AKL -->
-   <xsl:attribute name="border-bottom-width">0.5pt</xsl:attribute>
-   <xsl:attribute name="border-bottom-style">solid</xsl:attribute>
-   <xsl:attribute name="border-bottom-color">black</xsl:attribute>
-  </xsl:if>
- </xsl:template>
- 
- <xsl:template name="foot.sep.rule">
-  <xsl:if test="$footer.rule != 0">
-   
-   <!-- AKL -->
-    <xsl:attribute name="border-top-width">0.5pt</xsl:attribute>
-   <xsl:attribute name="border-top-style">solid</xsl:attribute>
-   <xsl:attribute name="border-top-color">black</xsl:attribute>
-  </xsl:if>
- </xsl:template>
-
  <xsl:param name="headers.on.blank.pages" select="0"/>
  <xsl:param name="footers.on.blank.pages" select="0"/>
 
