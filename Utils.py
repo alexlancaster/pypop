@@ -409,3 +409,18 @@ class StringMatrix(UserArray):
 
       return (filter(f, self.__getitem__(key)))[:]
       
+class Group:
+  # group a list or sequence by a given size
+  # example usage:
+  # for pair in Group('aabbccddee',2):
+  #   do something with pair.
+  
+  def __init__(self, l, size):
+    self.size=size
+    self.l = l
+
+  def __getitem__(self, group):
+    idx = group * self.size
+    if idx > len(self.l): 
+      raise IndexError("Out of range")
+    return self.l[idx:idx+self.size]
