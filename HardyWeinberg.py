@@ -365,8 +365,35 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
   Currently a hacked-up placeholder class for a wrapper for the Guo &
   Thompson program 'gthwe'.  Need more work before being production!
-  """
+
+  - 'locusData', 'alleleCount':  As per base class.
   
+  In addition to the arguments for the base class, this class
+  accepts the following additional keywords:
+  
+  - 'dememorizationSteps': number of `dememorization' initial steps
+    for random number generator (default 2000).
+
+  - 'samplingNum': the number of chunks for random number generator
+    (default 1000).
+
+  - 'samplingSize': size of each chunk (default 1000).
+  """
+
+  def __init__(self, locusData, alleleCount,
+               dememorizationSteps=2000,
+               samplingNum=1000,
+               samplingSize=1000,
+               **kw):
+
+    self.dememorizationSteps=dememorizationSteps
+    self.samplingNum=samplingNum
+    self.samplingSize=samplingSize
+
+    # call constructor of base class
+    HardyWeinberg.__init__(self, locusData, alleleCount, **kw)
+
+               
   def dumpTable(self, locusName, stream):
 
     if locusName[0] == '*':
@@ -413,9 +440,11 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
           hwStream.write("%2s " % "0")
       hwStream.writeln()
 
-    # arbitrary parameters found in hwe-prep??
-    hwStream.writeln("2000 1000 1000")
-
+    # set parameters
+    hwStream.writeln("%d %d %d" % (self.dememorizationSteps,
+                                   self.samplingNum,
+                                   self.samplingSize))
+    
     # close the .hw file
     hwStream.close()
 
