@@ -1,3 +1,11 @@
+2004-07-29  Alex Lancaster  <alex AT berkeley.edu>
+
+	* xslt/meta-to-r.xsl (line-start): Added labcode, method, collect
+	(collection site) which are present the XML output file, but were
+	missing in the .dat output files to the beginning of each line, so
+	they are propagated through and can be used later downstream
+	analyses.
+
 2004-07-22  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Don't
