@@ -119,7 +119,7 @@
    <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood|individcount"/>
   </xsl:call-template>
 
-  <!-- mpn having a go -->
+  <!-- print out haplotypes in ordered blocks -->
   <xsl:call-template name="newline"/>
   <!-- loop through each haplotype-->
   <xsl:for-each select="haplotypefreq/haplotype">
@@ -133,6 +133,7 @@
    <xsl:call-template name="newline"/>
   </xsl:for-each>
 
+ <xsl:call-template name="newline"/>
  </xsl:template>
 
 </xsl:stylesheet>
