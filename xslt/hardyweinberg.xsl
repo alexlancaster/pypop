@@ -370,8 +370,9 @@
   <xsl:text>Table of genotypes, format of each cell is: observed/expected.</xsl:text>
   <xsl:call-template name="newline"/>
 
-  <!-- save the unique list of column names-->
-  <xsl:variable name="unique-cols" select="genotype[not(@col=preceding-sibling::genotype/@col)]/@col"/>
+  <!-- get the unique list of column (allele) names from -->
+  <!-- <allelecount> section -->
+  <xsl:variable name="unique-cols" select="../../allelecounts/allele/@name"/>
 
   <!-- save the current node -->
   <xsl:variable name="curr-node" select="."/>
@@ -414,7 +415,9 @@
 
   <!-- check each unique column and output a subtable whenever  -->
   <!-- the column header is a multiple of the cols to fit on the page -->
+  <!-- sort by the count (frequency) taken from allelecounts/allele/count -->
   <xsl:for-each select="$unique-cols">
+   <xsl:sort select="../count" data-type="number" order="descending"/>   
 
    <xsl:variable name="pos" select="position()"/>
 
@@ -476,46 +479,76 @@
   <xsl:param name="unique-cols"/>
   <xsl:param name="row-len-max"/>
   <xsl:param name="col-len-max"/>
-  
-  <xsl:for-each select="$node/genotype">
-   <xsl:sort select="@row"/>
+
+  <!-- two loops across allele names, will traverse the matrix -->
+  <!-- because we need to use the alleles in count (frequency) order -->
+  <!-- don't loop across the <genotype> nodes anymore, we use the loop -->
+  <!-- "indicies" to randomly access the given genotype node, using -->
+  <!-- a genotype[row,col] format -->
+
+
+  <xsl:for-each select="$unique-cols">
+   <!-- sort by count (frequency) -->
+   <xsl:sort select="../count" data-type="number" order="descending"/>   
+   <xsl:variable name="row" select="."/>
+   <xsl:variable name="row-pos" select="position()"/>
    
-   <xsl:variable name="row" select="@row"/>
-   <xsl:variable name="col" select="@col"/>
-   
-   <!-- generate row name, only on first col and only if the row --> 
-   <!-- is part of this column processing -->
-
-   <xsl:if test="not(@row=preceding-sibling::genotype/@row) and $unique-cols[.=$row and position() &gt;= $start-col]">
-
-    <xsl:call-template name="newline"/>
-    <xsl:call-template name="prepend-pad">
-     <xsl:with-param name="length" select="$row-len-max"/>
-     <xsl:with-param name="padVar" select="@row"/>
-    </xsl:call-template>
-   </xsl:if>
-
-   <!-- only output cell if in the current column range -->
-   <xsl:if test="$unique-cols[.=$col and position() &gt;= $start-col and position() &lt;= $end-col]"> 
-
-    <xsl:variable name="cell">
-     <!-- round and format the decimal values of "observed" to nearest 0.1 -->
-     <xsl:value-of select="observed"/><xsl:text>/</xsl:text>
-     <xsl:call-template name="round-to">
-      <xsl:with-param name="node" select="expected"/>
-      <xsl:with-param name="places" select="1"/>
-     </xsl:call-template>
-    </xsl:variable>
+   <xsl:for-each select="$unique-cols">
+    <!-- sort by count (frequency) -->
+    <xsl:sort select="../count" data-type="number" order="descending"/>   
+    <xsl:variable name="col" select="."/>
+    <xsl:variable name="col-pos" select="position()"/>
     
-    <!-- output cell with padding -->
-    <xsl:call-template name="prepend-pad">
-     <xsl:with-param name="length" select="$col-len-max"/>
-     <xsl:with-param name="padVar" select="$cell"/> 
-    </xsl:call-template>
+    <!-- don't generate columns with position greater than the current -->
+    <!-- row position, ensures that the matrix remains lower-triangular -->
+    <xsl:if test="$col-pos &lt;= $row-pos">
+     
+     <!-- generate row name, only on first col and only if the row --> 
+     <!-- is part of this column processing -->
+     
+     <xsl:if test="$col-pos=$start-col">
+     <xsl:call-template name="newline"/>
+     <xsl:call-template name="prepend-pad">
+      <xsl:with-param name="length" select="$row-len-max"/>
+      <xsl:with-param name="padVar" select="$row"/>
+      </xsl:call-template>
+     </xsl:if>
+     
+     <!-- only output cell if in the current column range -->
+
+     <xsl:if test="$col-pos &gt;= $start-col and $col-pos &lt;= $end-col"> 
+
+      <xsl:variable name="cell">
+
+       <!-- "index" into the <genotype> nodes, check both genotype[row,col] -->
+       <!-- as well as genotype[col,row], because original genotype XML -->
+       <!-- only contains 1/2 * N-squared <genotype> lines, but the matrix -->
+       <!-- itself *is* symmetric -->
+       <xsl:variable name="genotype" 
+	select="$node/genotype[(@row=$row and @col=$col) or 
+	(@row=$col and @col=$row)]"/>
+
+       <xsl:value-of select="$genotype/observed"/><xsl:text>/</xsl:text>
+       
+       <!-- round, format the decimal values of "observed" to nearest 0.1 -->
+       <xsl:call-template name="round-to">
+	<xsl:with-param name="node" select="$genotype/expected"/>
+	<xsl:with-param name="places" select="1"/>
+       </xsl:call-template>
+      </xsl:variable>
+      
+      <!-- output cell with padding -->
+      <xsl:call-template name="prepend-pad">
+       <xsl:with-param name="length" select="$col-len-max"/>
+       <xsl:with-param name="padVar" select="$cell"/> 
+      </xsl:call-template>
+      
+     </xsl:if>
+    </xsl:if>
     
-   </xsl:if>
-    
+   </xsl:for-each>
   </xsl:for-each>
+
 
   <xsl:call-template name="newline"/>
 
@@ -527,7 +560,8 @@
   <!-- create column footer by filtering out appropriate columns from
   unique column list -->
   <xsl:for-each select="$unique-cols[position() &gt;= $start-col and position() &lt;= $end-col]">
-   <xsl:sort select="."/>
+   <!-- sort by count (frequency) -->
+   <xsl:sort select="../count" data-type="number" order="descending"/>   
    <xsl:call-template name="prepend-pad">
     <xsl:with-param name="length" select="$col-len-max"/>
     <xsl:with-param name="padVar" select="."/>
