@@ -23,16 +23,17 @@
  </data:map-order>
 
  <data:region-order>
-  <regionname long="Sub-Saharan-Africa">1.Sub-Sah-Africa</regionname>
-  <regionname long="North-Africa">2.N-Africa</regionname>	  
-  <regionname long="Europe">3.Europe</regionname>	  
-  <regionname long="South-West-Asia">4.SW-Asia</regionname>	  
-  <regionname long="South-East-Asia">5.SE-Asia</regionname>	  
-  <regionname long="Oceania">6.Oceania</regionname>	  
-  <regionname long="North-East-Asia">7.NE-Asia</regionname>	  
-  <regionname long="North-America">8.N-America</regionname>	  
-  <regionname long="South-America">9.S-America</regionname>	  
-  <regionname long="Other">10.Other</regionname>          
+  <regionname long="Sub-Saharan-Africa">01.SS-Africa</regionname>
+  <regionname long="North-Africa">02.N-Africa</regionname>	  
+  <regionname long="Europe">03.Europe</regionname>	  
+  <regionname long="South-West-Asia">04.SW-Asia</regionname>	  
+  <regionname long="South-East-Asia">05.SE-Asia</regionname>	  
+  <regionname long="Oceania">06.Oceania</regionname>	  
+  <regionname long="Australia">07.Australia</regionname>	  
+  <regionname long="North-East-Asia">08.NE-Asia</regionname>	  
+  <regionname long="North-America">09.N-America</regionname>	  
+  <regionname long="South-America">10.S-America</regionname>	  
+  <regionname long="Other">11.Other</regionname>          
  </data:region-order>
 
  <xsl:param name="map-order" 
