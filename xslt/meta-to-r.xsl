@@ -55,8 +55,6 @@
  <xsl:param name="region-order" 
   select="document('')//data:region-order/regionname"/>
 
- <xsl:variable name="all-allele-list" select="document('allelelist-by-locus.xml', .)/allelelist-by-locus"/>
-
  <xsl:param name="header-line-start">pop&#09;ethnic&#09;region&#09;latit&#09;longit&#09;complex&#09;</xsl:param>
 
  <xsl:template name="output-field">
@@ -74,57 +72,8 @@
   
  </xsl:template>
 
-
  <!-- suppress output of random text -->
  <xsl:template match="text()"/>
-
- <xsl:template name="phylip-lines">
-  <xsl:param name="nodes"/>
-
-  <xsl:text>     </xsl:text>
-  <xsl:value-of select="count($nodes)"/>
-  <xsl:text> </xsl:text>
-  <xsl:value-of select="count($all-allele-list/locus[.!=''])"/>
-  <xsl:call-template name="newline"/>
-
-  <xsl:for-each select="$all-allele-list/locus">
-   <xsl:if test="count(allele)!=0">
-    <xsl:value-of select="count(allele)"/>
-    <xsl:text> </xsl:text>
-   </xsl:if>
-  </xsl:for-each>
-
-  <xsl:call-template name="newline"/>
-
-  <xsl:for-each select="$nodes">
-
-   <xsl:call-template name="append-pad">
-    <xsl:with-param name="padVar">
-     <xsl:value-of select="populationdata/popname"/>
-    </xsl:with-param>
-    <xsl:with-param name="length" select="9"/>
-   </xsl:call-template>
-   <xsl:text> </xsl:text>
-   
-   <xsl:for-each select="locus">
-    <xsl:variable name="curlocus" select="@name"/>
-    <xsl:variable name="cur-allele-list" select="allelecounts/allele"/>
-    
-    <xsl:for-each select="$all-allele-list/locus[@name=$curlocus]/allele">
-     <xsl:variable name="allelename" select="."/>
-     <xsl:choose>
-      <xsl:when test="$cur-allele-list[@name=$allelename]">
-       <xsl:value-of select="normalize-space($cur-allele-list[@name=$allelename]/frequency)"/>
-      </xsl:when>
-      <xsl:otherwise>0.00000</xsl:otherwise>
-     </xsl:choose>
-     <xsl:text> </xsl:text>
-    </xsl:for-each>
-   </xsl:for-each>
-   <xsl:call-template name="newline"/>
-  </xsl:for-each>
- 
- </xsl:template>
  
  <xsl:template name="line-start">
   <xsl:param name="popnode"/>
@@ -604,16 +553,6 @@
       <xsl:with-param name="pairwise" select="0"/>
      </xsl:call-template>
     </exsl:document>
-
-    <exsl:document href="phylip.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="phylip-lines">
-      <xsl:with-param name="nodes" select="/meta/dataanalysis"/>
-     </xsl:call-template>
-    
-    </exsl:document>
-
 
     </xsl:when>
 
