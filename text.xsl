@@ -90,7 +90,7 @@
  <!-- END NAMED TEMPLATE FUNCTIONS -->
  
  <!-- BEGIN MATCH TEMPLATE FUNCTIONS -->
-
+ 
  <!-- top-level element -->
  <!-- start processing here -->
  <xsl:template match="dataanalysis">
@@ -99,7 +99,7 @@
   <xsl:text>Performed on the '</xsl:text><xsl:value-of select="filename"/><xsl:text>' file at: </xsl:text><xsl:value-of select="@date"/>
   <xsl:call-template name="newline"/>
   <xsl:call-template name="newline"/>
-
+  
   <!-- print out population-level statistics and information -->
   <xsl:apply-templates select="filename|populationdata"/>
 
@@ -240,10 +240,12 @@
     <xsl:call-template name="newline"/>
     <xsl:text>*Lumped output*</xsl:text>
     <xsl:call-template name="newline"/>
-<!--    <xsl:apply-templates select="*[not(self::allele)]"/> -->
+
+    <!-- do all nodes except for genotype table -->
     <xsl:call-template name="linesep-fields">
-     <xsl:with-param name="nodes" select="*"/>
+     <xsl:with-param name="nodes" select="*[not(self::genotypetable)]"/>
     </xsl:call-template>
+
    </xsl:when>
 
    <xsl:when test="@role='no-common-genotypes'">
