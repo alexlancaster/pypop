@@ -26,11 +26,8 @@ for o, v in opts:
   elif o in ("-h", "--help"):
     sys.exit(usage_message)
 
-print metaXSLTFilename
-
 # parse arguments
 files = args
-#files = sys.argv[1:]
 
 # generate a metafile XML wrapper
 
@@ -59,37 +56,43 @@ meta_string += includes
 # close tag
 meta_string += "</meta>"
 
-#print meta_string
+def translate_to_stdout(xslFilename, inString):
+    
+    # do the transformation
+    import libxml2
+    import libxslt
 
-# do the transformation
+    # set libxml2 to substitute the entities in the document by default...
+    libxml2.substituteEntitiesDefault(1)
 
-import libxml2
-import libxslt
+    # parse the stylesheet file
+    styledoc = libxml2.parseFile(xslFilename)
 
-# parse the stylesheet file
-styledoc = libxml2.parseFile(metaXSLTFilename)
+    # setup the stylesheet instance
+    style = libxslt.parseStylesheetDoc(styledoc)
 
-# setup the stylesheet instance
-style = libxslt.parseStylesheetDoc(styledoc)
+    # parse the inline generated XML file
+    doc = libxml2.parseDoc(inString)
 
-# parse the inline generated XML file
-doc = libxml2.parseDoc(meta_string)
+    # apply the stylesheet instance to the document instance
+    result = style.applyStylesheet(doc, None)
+    
+    # save result to stdout "-"
+    style.saveResultToFilename("-", result, 0)
 
-# apply the stylesheet instance to the document instance
-result = style.applyStylesheet(doc, None)
+    # use to dump directly to a string, problem is that it insists on
+    # outputting an XML declaration "<?xml ...?>", can't seem to
+    # suppress this
+    # outString = result.serialize()
 
-result.debugDumpDocument(None)
+    # free instances
+    result.freeDoc()
+    style.freeStylesheet()
+    doc.freeDoc()
 
-# save result to stdout "-"
-style.saveResultToFilename("-", result, 0)
-
-# free instances
-result.freeDoc()
-style.freeStylesheet()
-doc.freeDoc()
+    #return outString
 
 
-#output = libxsltmod.translate_to_string('f', 'meta.xsl',
-#                                        's', meta_string)
+output = translate_to_stdout(metaXSLTFilename, meta_string)
 
-#print output
+
