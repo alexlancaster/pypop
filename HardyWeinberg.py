@@ -301,11 +301,11 @@ class HardyWeinberg:
       print "No lumps"
 
     else:
-      print "Sample size:", self.n
-      print "Alleles:   :", self.k
-      print "Chi Squared:", self.HWChisq
-      print "DoF        :", self.HWChisqDf
-      print "HWChisqPval:", self.HWChisqPval
+      print "Sample size     :", self.n
+      print "Distinct Alleles:", self.k
+      print "Chi Squared     :", self.HWChisq
+      print "DoF             :", self.HWChisqDf
+      print "HWChisqPval     :", self.HWChisqPval
       print ""
       print "Lumped observed:", self.lumpedObservedGenotypes
       print "Lumped expected:", self.lumpedExpectedGenotypes
@@ -353,7 +353,7 @@ class HardyWeinberg:
         stream.opentag('hardyweinberg', 'class', 'lumps')
         stream.tagContents("samplesize", "%d" % self.n)
         stream.writeln()
-        stream.tagContents("allelecount", "%d" % self.k)
+        stream.tagContents("distinctalleles", "%d" % self.k)
         stream.writeln()
         stream.tagContents("chisquared", "%.4f" % self.HWChisq)
         stream.writeln()
@@ -375,7 +375,7 @@ class HardyWeinberg:
         stream.writeln("HardyWeinberg statistics:")
         stream.writeln("=========================")
         stream.writeln("Sample size: %d" % self.n)
-        stream.writeln("Alleles(k):  %d" % self.k)
+        stream.writeln("Distinct Alleles(k):  %d" % self.k)
         stream.writeln("Chi Squared: %.4f" % self.HWChisq)
         stream.writeln("DoF        : %d " % self.HWChisqDf)
         stream.writeln("HWChisqPval: %.4f" % self.HWChisqPval)
