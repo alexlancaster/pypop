@@ -19,7 +19,7 @@
 
  <xsl:template match="emhaplofreq">
   <xsl:call-template name="section">
-   <xsl:with-param name="level" select="1"/>
+   <xsl:with-param name="level" select="2"/>
    <xsl:with-param name="title">Haplotype/ linkage disequlibrium (LD) statistics</xsl:with-param>
    <xsl:with-param name="text">
     
@@ -38,7 +38,7 @@
 
  <xsl:template match="group[@mode='haplo']">
   <xsl:call-template name="section">
-   <xsl:with-param name="level" select="2"/>
+   <xsl:with-param name="level" select="3"/>
    <xsl:with-param name="title">Haplotype frequency est. for loci: <xsl:value-of select="@loci"/>
    </xsl:with-param>
    <xsl:with-param name="text">
@@ -95,7 +95,7 @@
 
   <xsl:call-template name="section">
    <xsl:with-param name="title">Pairwise LD estimates</xsl:with-param>
-   <xsl:with-param name="level" select="2"/>
+   <xsl:with-param name="level" select="3"/>
    <xsl:with-param name="text">
 
     <xsl:call-template name="justified-cell">
@@ -277,7 +277,7 @@
   <xsl:call-template name="section">
    <xsl:with-param name="title">No data left after filtering at: <xsl:value-of select="@loci"/>
    </xsl:with-param>
-   <xsl:with-param name="level" select="2"/>
+   <xsl:with-param name="level" select="3"/>
   </xsl:call-template>
  </xsl:template>
 
@@ -285,7 +285,7 @@
   <xsl:call-template name="section">
    <xsl:with-param name="title">Too many rows for haplotype programme: <xsl:value-of select="@loci"/>
    </xsl:with-param>
-   <xsl:with-param name="level" select="2"/>
+   <xsl:with-param name="level" select="3"/>
   </xsl:call-template>
  </xsl:template>
 
