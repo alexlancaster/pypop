@@ -61,10 +61,10 @@
 
    <para>To run <application>PyPop</application>, click the
     <filename>pypop.bat</filename> file (Windows) or type
-    <userinput>./pypop.sh</userinput> at the command prompt
+    <userinput>./pypop</userinput> at the command prompt
     (GNU/Linux).  You should see something like the following output
     (this is also described in detail in the instructions
-    in the installation guide).</para>
+    in the installation guide):</para>
 
    <xi:include href="install-screen.xml#xpointer(/section/screen)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
@@ -86,17 +86,16 @@
     can start <application>PyPop</application> from the command line
     (in Windows: open a DOS shell, GNU/Linux: open a terminal window),
     change to the directory where you unpacked
-    <application>PyPop</application> and type (note: if your system
-    administrator has installed <application>PyPop</application> the
-    name of the script may be renamed to something different or may
-    omit the filename extension, particularly under Linux):</para>
+    <application>PyPop</application> and type</para>
 
-   <screen><command>pypop-batch.bat</command> <filename>Guatemalan.pop</filename> <emphasis>(DOS)</emphasis>    
-<command>pypop-batch.sh</command> <filename>Guatemalan.pop</filename> <emphasis>(Linux)</emphasis></screen>
+   <screen><command>pypop-batch</command> <filename>Guatemalan.pop</filename> <emphasis>(DOS)</emphasis>    
+   </screen>
 
-   <para>You will need to supply the appropriate filename extension
-    for <userinput>pypop-batch</userinput> for your platform, the
-    following instructions omit them for clarity.</para>
+   <note>
+    <para>If your system administrator has installed
+     <application>PyPop</application> the name of the script may be
+     renamed to something different.</para>
+   </note>
 
    <para>Batch mode assumes two things: that you have a file called
     <filename>config.ini</filename> in your current folder and that
@@ -118,8 +117,7 @@
      --help</userinput>.   You should receive a screen resembling the
     following:</para>
 
-   <screen>pypop --help
-Usage: pypop [OPTION] INPUTFILE
+   <screen>Usage: pypop [OPTION] INPUTFILE
 Process and run population genetics statistics on an INPUTFILE.
 Expects to find a configuration file called 'config.ini' in the
 current directory or in /usr/share/PyPop/config.ini.
