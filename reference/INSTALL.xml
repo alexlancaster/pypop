@@ -183,11 +183,11 @@
    <itemizedlist>
 
     <listitem>
-     <para><ulink url="http://www.python.org/">Python 2.1</ulink> or later.</para>
+     <para><ulink url="http://www.python.org/">Python 2.3</ulink> or later.</para>
     </listitem>
     <listitem>
      <para><ulink url="http://numpy.sourceforge.net/">Numerical Python
-       20.2.1</ulink> or later</para>
+       23.0</ulink> or later</para>
     </listitem>
     
     <listitem>
