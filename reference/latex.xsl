@@ -21,7 +21,6 @@
 \usepackage{amsmath,amsthm, amsfonts, amssymb, amsxtra,amsopn}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{times}
 \usepackage{algorithmic}
 \usepackage[dvips]{hyperref}
  </xsl:variable>
@@ -36,10 +35,9 @@
 \else
 \documentclass[pdftex]{ws-p8-50x6-00}       
 \fi
-\usepackage{amsmath,amsthm, amsfonts, amssymb, amsxtra,amsopn}
+\usepackage{amsmath,amsthm,amsfonts,amssymb,amsxtra,amsopn}
 \usepackage{graphicx}
 \usepackage{float}
-\usepackage{times}
 \usepackage{algorithmic}
 \usepackage[dvips]{hyperref}
  </xsl:variable>
