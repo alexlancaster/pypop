@@ -107,14 +107,16 @@ Additional citation possibilities (both author-year and numerical modes)
   <xsl:call-template name="anchor"/>
 
   <xsl:choose>
-    <xsl:when test="$refelem=''">
-      <xsl:message>
-	<xsl:text>Citation to nonexistent id: </xsl:text>
-	<xsl:value-of select="."/>
-      </xsl:message>
-      <xsl:text>???</xsl:text>
-    </xsl:when>
-
+   <xsl:when test="$refelem=''">
+    <xsl:message>
+     <xsl:text>Citation to nonexistent id: </xsl:text>
+     <xsl:value-of select="."/>
+    </xsl:message>
+    <xsl:text>[</xsl:text>
+    <xsl:value-of select="."/>
+    <xsl:text>?]</xsl:text>
+   </xsl:when>
+   
     <xsl:when test="$target/@xreflabel">
       <a>
         <xsl:attribute name="href">
@@ -177,7 +179,9 @@ Additional citation possibilities (both author-year and numerical modes)
      <xsl:text>Citation to nonexistent id: </xsl:text>
      <xsl:value-of select="."/>
     </xsl:message>
-    <xsl:text>???</xsl:text>
+    <xsl:text>[</xsl:text>
+    <xsl:value-of select="."/>
+    <xsl:text>?]</xsl:text>
    </xsl:when>
    
    <xsl:when test="$target/@xreflabel">
