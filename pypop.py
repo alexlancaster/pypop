@@ -575,11 +575,23 @@ if use_libxsltmod:
   import libxml2
   import libxslt
 
+  # read and parse stylesheet
   styledoc = libxml2.parseFile(xslFilename)
   style = libxslt.parseStylesheetDoc(styledoc)
+
+  # read output XML file
   doc = libxml2.parseFile(xmlOutFilename)
+
+  # resolve and perform any XIncludes the document may have
+  doc.xincludeProcess()
+
+  # process via stylesheet
   result = style.applyStylesheet(doc, None)
+
+  # save result to file
   style.saveResultToFilename(txtOutFilename, result, 0)
+
+  # cleanup
   style.freeStylesheet()
   doc.freeDoc()
   result.freeDoc()
