@@ -10,9 +10,9 @@ To generate the executables for the Monte-Carlo program, simply type
 "make" (this assumes that you are using GNU make and GCC).  This will
 generate two executables:
 
- 1. The regular Monte-Carlo program  "monte-carlo".
+ 1. The regular Monte-Carlo program: "monte-carlo".
 
- 2. The Monte-Carlo distribution output enabled version
+ 2. The Monte-Carlo distribution output enabled version:
     "monte-carlo_distribution"
 
 The unedited original README for these programs now follows:
