@@ -10,9 +10,6 @@
 
  <xsl:import href="citation.xsl"/>
 
- <!-- workaround for bug in xsltproc -->
- <xsl:import href="graphics.xsl"/>
-
  <xsl:output method="html" encoding="ISO-8859-1"
   doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
   doctype-system="http://www.w3.org/TR/html4/loose.dtd" indent="no"/>
@@ -20,6 +17,7 @@
  <xsl:param name="html.stylesheet" doc:type="string">style.css</xsl:param>
  <xsl:param name="make.valid.html" select="1"/> 
  <xsl:param name="html.cleanup" select="1"/> 
+ <xsl:param name="ignore.image.scaling" select="'1'"/>
 
  <!-- crank up nominal image width from 6 * to 9 * -->
  <xsl:param name="nominal.image.width" select="9 * $pixels.per.inch"/>
