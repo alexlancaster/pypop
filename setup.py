@@ -31,7 +31,9 @@ setup (name = "PyPop",
        ext_modules=[Extension("_Emhaplofreqmodule",
                               ["emhaplofreq/emhaplofreq_wrap.i",
                                "emhaplofreq/emhaplofreq.c"],
-                              include_dirs=["emhaplofreq"]),
+                              include_dirs=["emhaplofreq"],
+                              define_macros=[('fprintf', 'pyfprintf')]
+                              ),
 
                     Extension("Gthwe", ["gthwe/cal_const.c",
                               "gthwe/cal_n.c", "gthwe/cal_prob.c",
