@@ -313,7 +313,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   /* needed for permutations */
   int permu, max_permutations, max_init_cond;
   double like_ratio[MAX_PERMU], pvalue;
-  FILE *fp_permu = NULL, *fp_iter;
+  FILE *fp_permu = FP_PERMU, *fp_iter = FP_ITER;
 
   /* initialize first elements of geno array to make function
      reentrant when used in a shared library */
@@ -327,19 +327,21 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   srand48(1234567);
 
-  if ((fp_iter = fopen("summary_iter.out", "w")) == NULL)
-  {
-    fprintf(stderr, "\nUnable to open summary_iter.out for writing.\n\n");
-    exit(EXIT_FAILURE);
-  }
+  if (fp_iter == NULL)
+    if ((fp_iter = fopen("summary_iter.out", "w")) == NULL)
+      {
+	fprintf(stderr, "\nUnable to open summary_iter.out for writing.\n\n");
+	exit(EXIT_FAILURE);
+      }
 
-  if (permu_flag == 1)
-  {
+  if (permu_flag == 1) {
     max_permutations = MAX_PERMU;
-    if ((fp_permu = fopen("summary_permu.out", "w")) == NULL)
-    {
-      fprintf(stderr, "\nUnable to open summary_permu.out for writing.\n\n");
-      exit(EXIT_FAILURE);
+    if (fp_permu == NULL) {
+      if ((fp_permu = fopen("summary_permu.out", "w")) == NULL)
+	{
+	  fprintf(stderr, "\nUnable to open summary_permu.out for writing.\n\n");
+	  exit(EXIT_FAILURE);
+	}
     }
   }
   else
@@ -824,7 +826,11 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     pvalue = pvalue/max_permutations;
     fprintf(fp_out, "\nLD permutation pvalue = %f \n", pvalue); 
     fprintf(fp_permu, "pvalue = %f \n", pvalue); 
+
+#ifndef EXTERNAL_MODE
     fclose(fp_permu);
+    fclose(fp_iter);
+#endif
   }
   /*** end: post-processing for permutations ***/
 
