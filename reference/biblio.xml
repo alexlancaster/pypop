@@ -43,7 +43,7 @@
  </biblioentry>
 
  <!-- merged from PyPop bibliography -->
- <biblioentry id="Schneider:2000" xreflabel="Schneider:2000">
+ <biblioentry id="Schneider:2000">
   <authorgroup>
    <author>
     <firstname>S.</firstname>
@@ -71,7 +71,7 @@
   
  </biblioentry>
  
- <biblioentry id="Guo:Thompson:1992" xreflabel="Guo &amp; Thompson, 1992">
+ <biblioentry id="Guo:Thompson:1992">
   <authorgroup>
    <author>
     <firstname>SW</firstname>
@@ -89,7 +89,7 @@
   <citetitle pubwork="journal">Biometrics</citetitle>
  </biblioentry>
  
- <biblioentry id="Rhodes:Trowsdale:1999" xreflabel="Rhodes \&amp; Trowsdale 1999">
+ <biblioentry id="Rhodes:Trowsdale:1999">
   <authorgroup>
    <author>
     <firstname>D</firstname>
@@ -110,40 +110,40 @@
   
  </biblioentry>
  
- <biblioentry id="IMGT" xreflabel="IMGT">
+ <biblioentry id="IMGT">
   <citetitle pubwork="refentry">IMGT/HLA Database <ulink url="http://www.ebi.ac.uk/imgt/hla/">http://www.ebi.ac.uk/imgt/hla/</ulink></citetitle>
  </biblioentry>
  
- <biblioentry id="SWIG" xreflabel="SWIG">
+ <biblioentry id="SWIG">
   <citetitle pubwork="refentry">Simple Wrapper Interface Generator <ulink url="http://www.swig.org/">http://www.swig.org/</ulink></citetitle>
  </biblioentry>
  
  
- <biblioentry id="OSI" xreflabel="OSI">
+ <biblioentry id="OSI">
   <citetitle pubwork="refentry">Open Source Initiative <ulink url="http://www.opensource.org/">http://www.opensource.org/</ulink></citetitle>
  </biblioentry>
  
- <biblioentry id="Numpy" xreflabel="Numpy">
+ <biblioentry id="Numpy">
   <citetitle pubwork="refentry">Numeric Python <ulink
     url="http://numpy.sf.net/">http://numpy.sf.net/</ulink></citetitle>
  </biblioentry>
  
- <biblioentry id="Python" xreflabel="Python">
+ <biblioentry id="Python">
   <citetitle pubwork="refentry">Python <ulink
     url="http://www.python.org/">http://www.python.org/</ulink></citetitle>
  </biblioentry>
  
- <biblioentry id="libxslt" xreflabel="libxslt">
+ <biblioentry id="libxslt">
   <citetitle pubwork="refentry">libxslt, XSLT C library for GNOME <ulink
     url="http://xmlsoft.org/">http://xmlsoft.org/</ulink></citetitle>
  </biblioentry>
 
- <biblioentry id="GNOME" xreflabel="GNOME">
+ <biblioentry id="GNOME">
   <citetitle pubwork="refentry">GNOME Project <ulink
     url="http://www.gnome.org/">http://www.gnome.org/</ulink></citetitle>
  </biblioentry>
  
-  <biblioentry id="XML" xreflabel="XML">
+  <biblioentry id="XML">
   <citetitle pubwork="refentry">eXtensible Markup Language <ulink url="http://www.w3.org/XML">http://www.w3.org/XML</ulink></citetitle>
  </biblioentry>
  
@@ -159,7 +159,7 @@
   <pagenums>164-166</pagenums>
  </biblioentry>
  
- <biblioentry id="Ross:Gentleman:1996" xreflabel="Ross \&amp; Gentleman 1996">
+ <biblioentry id="Ihaka:Gentleman:1996">
    <authorgroup>
    <author>
     <firstname>Ross</firstname>
@@ -194,7 +194,7 @@
  
  <!-- original PSB 2002 list starts here -->
  
- <biblioentry id="Barcellos:1997a" xreflabel="Barcellos et al. 1997a">
+ <biblioentry id="Barcellos:1997a">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -241,7 +241,7 @@
  </biblioentry>
 
  
- <biblioentry id="Barcellos:1997b" xreflabel="Barcellos et al. 1997b">
+ <biblioentry id="Barcellos:1997b">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -286,7 +286,7 @@
   </biblioset>
  </biblioentry>
  
- <biblioentry id="Baur" xreflabel="Baur">
+ <biblioentry id="Baur">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -316,7 +316,7 @@
   </biblioset>
    </biblioentry>
 
- <biblioentry id="Begovich" xreflabel="Begovich">
+ <biblioentry id="Begovich">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -358,7 +358,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Chen" xreflabel="Chen">
+ <biblioentry id="Chen">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -420,7 +420,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Chen:1999" xreflabel="Chen">
+ <biblioentry id="Chen:1999">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -462,7 +462,7 @@
   </biblioset>
  </biblioentry>
  
- <biblioentry id="Daly" xreflabel="Daly">
+ <biblioentry id="Daly">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -498,7 +498,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Dempster:1977" xreflabel="Dempster et al. 1977">
+ <biblioentry id="Dempster:1977">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -525,7 +525,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Dienard" xreflabel="Dienard">
+ <biblioentry id="Dienard">
   <biblioset relation="article">
    <authorgroup>
     <author>
@@ -559,7 +559,7 @@
   </biblioset>
  </biblioentry>
 
- <biblioentry id="Excoffier:Slatkin:1995" xreflabel="Excoffier &amp; Slatkin, 1995">
+ <biblioentry id="Excoffier:Slatkin:1995">
   <authorgroup>
    <author>
     <firstname>Laurent</firstname>
@@ -581,7 +581,7 @@
  </biblioentry>
 
 <!--
-<biblioentry id="Elston" xreflabel="Elston">
+<biblioentry id="Elston">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -604,7 +604,7 @@
  The sampling theory of selectively neutral alleles. Theor. Pop. Biol. 3:87-112.
 </biblioentry>
 
-<biblioentry id="Fallin" xreflabel="Fallin">
+<biblioentry id="Fallin">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -621,7 +621,7 @@
 
 Guo and Thompson references goes here!
  
-<biblioentry id="Hacia" xreflabel="Hacia">
+<biblioentry id="Hacia">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -633,7 +633,7 @@ Fan J-B, Ryder O., Jin L., Edgemon K, Ghandour G, Mayer RA, Sun B., Hsie L., Rob
 <para>Hartl, D.L. and A.G. Clark. 1997. Principles of population genetics. 3<superscript>rd</superscript> Edition. Sinauer Associates, Inc. Publishers. Sunderland, MA.
 </biblioentry>
 
-<biblioentry id="Hawley" xreflabel="Hawley">
+<biblioentry id="Hawley">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -648,7 +648,7 @@ Fan J-B, Ryder O., Jin L., Edgemon K, Ghandour G, Mayer RA, Sun B., Hsie L., Rob
  HAPLO: a program using the EM algorythm to estimate the frequencies of multi-site haplotypes. Journal of Heredity 86:409-411.
 </biblioentry>
 
-<biblioentry id="Hedrick" xreflabel="Hedrick">
+<biblioentry id="Hedrick">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -663,7 +663,7 @@ Fan J-B, Ryder O., Jin L., Edgemon K, Ghandour G, Mayer RA, Sun B., Hsie L., Rob
  Evidence for balancing selection at HLA. Genetics 104:449-456.
 </biblioentry>
 
-<biblioentry id="Hollenbach" xreflabel="Hollenbach">
+<biblioentry id="Hollenbach">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -681,7 +681,7 @@ Fan J-B, Ryder O., Jin L., Edgemon K, Ghandour G, Mayer RA, Sun B., Hsie L., Rob
 Fernandez-Vi&ndash;a M, Erlich HA, Bugawan TL, Winkler C, Winter M, Klitz W. 2001. HLA diversity, differentiation, and haplotype evolution in Mesoamerican natives. Human Immunology 62: 378-390.
 </biblioentry>
 
-<biblioentry id="Hollenbach" xreflabel="Hollenbach">
+<biblioentry id="Hollenbach">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -700,7 +700,7 @@ Fernandez-Vina M, Erlich HA, Bugawan TL, Winkler C, et al <pubdate>2001</pubdate
  HLA diversity, differentiation, and haplotype evolution in Mesoamerican Natives. Hum Immunol 62:378-90.
 </biblioentry>
 
-<biblioentry id="Howell" xreflabel="Howell">
+<biblioentry id="Howell">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -722,7 +722,7 @@ Fernandez-Vina M, Erlich HA, Bugawan TL, Winkler C, et al <pubdate>2001</pubdate
 1999.  Dynamic allele-specific hybridization.  Nature Biotechnology 17: 87-88.
 </biblioentry>
 
-<biblioentry id="Huttley" xreflabel="Huttley">
+<biblioentry id="Huttley">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -746,7 +746,7 @@ Fernandez-Vina M, Erlich HA, Bugawan TL, Winkler C, et al <pubdate>2001</pubdate
  A scan for linkage disequilibrium across the human genome. Genetics 152:1711-22.
 </biblioentry>
 
-<biblioentry id="Iyengar" xreflabel="Iyengar">
+<biblioentry id="Iyengar">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -775,7 +775,7 @@ Castiglione, CM, Kidd JK, Kidd KK, 1998.  Analysis of cross-species polymerase c
 <para>Kidd, K.K. and L.L. Cavalli-Sforza, 1974. The role of genetic drift in the differentiation of Icelandic and Norwegian cattle. Evolution 28:381-395.
 </biblioentry>
 
-<biblioentry id="Kidd" xreflabel="Kidd">
+<biblioentry id="Kidd">
 <authorgroup>
 <author>
 <firstname>J.R.</firstname>
@@ -788,7 +788,7 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
  Evotutionary and popualtion perspectives of the human HLA complex. In: (eds) HM (ed) Evolutionary Biology. Vol. Hecht MK (eds), pp 35-72.
 </biblioentry>
 
-<biblioentry id="Klitz" xreflabel="Klitz">
+<biblioentry id="Klitz">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -812,7 +812,7 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
  On a matching problem arising in genetics. Ann Math Stat 20:627-642
 </biblioentry>
 
-<biblioentry id="Long" xreflabel="Long">
+<biblioentry id="Long">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -832,7 +832,7 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
  An E-M algorithm and testing strategy for multiple-locus haplotypes. Am J Hum Genet 56:799-810.
 </biblioentry>
 
-<biblioentry id="Louis" xreflabel="Louis">
+<biblioentry id="Louis">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -847,7 +847,7 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
  An exact test for Hardy-Weinberg and multiple alleles. Biometrics 43:805-811.
 </biblioentry>
 
-<biblioentry id="Louis" xreflabel="Louis">
+<biblioentry id="Louis">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -862,7 +862,7 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
  An Exact Test for Hardy-Weinberg and Multiple Alleles. Biometrics 43:805-812.
 </biblioentry>
 
-<biblioentry id="Metropolis" xreflabel="Metropolis">
+<biblioentry id="Metropolis">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -886,7 +886,7 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
  Equations of state calculations by fast computing machines. Journal of Chemical Physics 21:1087-1092.
 </biblioentry>
 
-<biblioentry id="Meyer" xreflabel="Meyer">
+<biblioentry id="Meyer">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -895,7 +895,7 @@ A.J. Pakstis, H. Zhao, R.-B. Lu, F.E. Okonofua, A. Odunsi, E. Grigorenko, B. Bon
 Thomson G. 2001. How selection shapes variation of the human major histocompatibility complex: a review. Annals of Human Genetics 65: 1-26.
 </biblioentry>
 
-<biblioentry id="Moonsamy" xreflabel="Moonsamy">
+<biblioentry id="Moonsamy">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -919,7 +919,7 @@ Thomson G. 2001. How selection shapes variation of the human major histocompatib
  Genetic variability and linkage disequilibrium within the DP region in the CEPH families. Hum Immunol 58:112-21.
 </biblioentry>
 
-<biblioentry id="Mullis" xreflabel="Mullis">
+<biblioentry id="Mullis">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -933,7 +933,7 @@ Thomson G. 2001. How selection shapes variation of the human major histocompatib
 1987.  Specific synthesis of DNA in vitro via a polymerase-catalyzed chain reaction.  Pp 335-350 in J. N. Abelson and M.I. Simon (eds.) Methods in Enzymology 155: R. Wu, ed. Recombinant DNA, part F.  Academic Press, New York.
 </biblioentry>
 
-<biblioentry id="Osier" xreflabel="Osier">
+<biblioentry id="Osier">
 <authorgroup>
 <author>
 <firstname>M.</firstname>
@@ -942,7 +942,7 @@ Thomson G. 2001. How selection shapes variation of the human major histocompatib
 A.J. Pakstis, J.R. Kidd, J.-F. Lee, S.-J. Yin, H.-C. Ko, H.J. Edenberg, R.-B. Lu, and K.K. Kidd, 1999. Linkage disequilibrium at the ADH2 and ADH3 loci and risk of alcoholism. American Journal of Human Genetics 64:1147-1157.
 </biblioentry>
 
-<biblioentry id="Reich" xreflabel="Reich">
+<biblioentry id="Reich">
 <authorgroup>
 <author>
 <firstname>D.E.</firstname>
@@ -951,7 +951,7 @@ A.J. Pakstis, J.R. Kidd, J.-F. Lee, S.-J. Yin, H.-C. Ko, H.J. Edenberg, R.-B. Lu
 M. Cargill, S. Bolk, J. Ireland, P.C. Sabeti, D.J. Richter, T. Lavery, R. Kouyoumjian, S.F. Farhadian, R. Ward, and E.S. Lander. 2001. Linkage disequilibrium in the human genome. Nature 411:199-204.
 </biblioentry>
 
-<biblioentry id="Reynolds" xreflabel="Reynolds">
+<biblioentry id="Reynolds">
 <authorgroup>
 <author>
 <firstname>J.</firstname>
@@ -960,7 +960,7 @@ M. Cargill, S. Bolk, J. Ireland, P.C. Sabeti, D.J. Richter, T. Lavery, R. Kouyou
 B.S. Weir, and C.C. Cockerman. 1983. Estimation of the coancestry coefficient: Basis for a short-term genetic distance. Genetics 105-767-779.
 </biblioentry>
 
-<biblioentry id="Robinson" xreflabel="Robinson">
+<biblioentry id="Robinson">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -980,7 +980,7 @@ B.S. Weir, and C.C. Cockerman. 1983. Estimation of the coancestry coefficient: B
  Three-locus systems impose additional constraints on pairwise disequilibria. Genetics 129:925-30.
 </biblioentry>
 
-<biblioentry id="Salamon" xreflabel="Salamon">
+<biblioentry id="Salamon">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -1007,7 +1007,7 @@ Fernandez-Vina M, Trachtenberg EA, et al <pubdate>1999</pubdate>
  Evolution of HLA class II molecules: Allelic and amino acid site variability across populations. Genetics 152:393-400.
 </biblioentry>
 
-<biblioentry id="Salamon" xreflabel="Salamon">
+<biblioentry id="Salamon">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -1033,7 +1033,7 @@ Fernandez-Vina M, Trachtenberg EA, et al <pubdate>1999</pubdate>
 Fernandez-Vi&ndash;a M, Trachtenberg EA, McWeeney SK, Nelson MP, Thomson G. 1999. Evolution of HLA class II molecules: allelic and amino acid site variability across populations. Genetics 152: 393-400.
 </biblioentry>
 
-<biblioentry id="Schipper" xreflabel="Schipper">
+<biblioentry id="Schipper">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -1056,7 +1056,7 @@ Fernandez-Vi&ndash;a M, Trachtenberg EA, McWeeney SK, Nelson MP, Thomson G. 1999
  Arlequin: A software for population genetics data analysis.
 </biblioentry>
 
-<biblioentry id="Single" xreflabel="Single">
+<biblioentry id="Single">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -1092,7 +1092,7 @@ Fernandez-Vi&ndash;a M, Trachtenberg EA, McWeeney SK, Nelson MP, Thomson G. 1999
  Haplotype Frequency Estimation in Patient Populations: The Effect of Departures from Hardy-Weinberg Proportions and Collapsing over a Locus in the HLA Region. Genetic Epidemiology, In press.
 </biblioentry>
 
-<biblioentry id="Single" xreflabel="Single">
+<biblioentry id="Single">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -1138,7 +1138,7 @@ Thomson G. 2002. Haplotype frequency estimation in patient populations: an examp
  The effect of a selected locus on linked neutral loci. Genetics 85:753-88.
 </biblioentry>
 
-<biblioentry id="Thomson" xreflabel="Thomson">
+<biblioentry id="Thomson">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -1147,7 +1147,7 @@ Thomson G. 2002. Haplotype frequency estimation in patient populations: an examp
 Esposito MS. 1999. The genetics of complex diseases. Trends in Genetics 15: M17-M20.
 </biblioentry>
 
-<biblioentry id="Valdes" xreflabel="Valdes">
+<biblioentry id="Valdes">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -1175,7 +1175,7 @@ Esposito MS. 1999. The genetics of complex diseases. Trends in Genetics 15: M17-
  Locus and population specific evolution in HLA class II genes. Annals of Human Genetics 63:27-43.
 </biblioentry>
 
-<biblioentry id="Valdes" xreflabel="Valdes">
+<biblioentry id="Valdes">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -1197,7 +1197,7 @@ Esposito MS. 1999. The genetics of complex diseases. Trends in Genetics 15: M17-
 <para>Wright, S. 1931. Evolution in Mendelian populations. Genetics 16:97-159.
 </biblioentry>
 
-<biblioentry id="Xiao" xreflabel="Xiao">
+<biblioentry id="Xiao">
 <biblioset relation="article">
 <authorgroup>
 <author>
@@ -1215,7 +1215,7 @@ Esposito MS. 1999. The genetics of complex diseases. Trends in Genetics 15: M17-
  Contingency tables involving small numbers and the Chi-square test. J Royal Stat Soc (supp) 1:217-235.
 </biblioentry>
 
-<biblioentry id="Zhao" xreflabel="Zhao">
+<biblioentry id="Zhao">
 <biblioset relation="article">
 <authorgroup>
 <author>
