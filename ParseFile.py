@@ -453,9 +453,9 @@ class ParseGenotypeFile(ParseFile):
         #self.individualsList = [[] for line in range(0, self.totalIndivCount)]
         self.matrix = StringMatrix(self.totalIndivCount, self.locusKeys)
 
-        self.filter.logFile.writeln()
-        self.filter.logFile.writeln("|| %s : filter results ||" % self.filename)
-        self.filter.logFile.writeln()
+        self.filter.writeToLog()
+        self.filter.writeToLog("|| %s : filter results ||" % self.filename)
+        self.filter.writeToLog()
         
         for locus in self.locusKeys:
 	    if self.debug:
@@ -555,7 +555,7 @@ class ParseGenotypeFile(ParseFile):
                 self.totalLociWithData += 1                
 
         # close log file for filter
-        self.filter.logFile.close()
+        #self.filter.logFile.close()
 
     def _checkAlleles(self):
         pass
