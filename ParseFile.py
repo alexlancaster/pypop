@@ -8,6 +8,8 @@
 
 import sys, string
 
+from Utils import getStreamType
+
 class ParseFile:
     """*Abstract* class for parsing a datafile.
 
@@ -274,6 +276,24 @@ class ParseFile:
                     print "can't find this field"
                     print "\n"
 
+    def serializeMetadataTo(self, stream):
+        type = getStreamType(stream)
+        if type == 'xml':
+            stream.opentag('populationdata')
+            stream.writeln()
+            
+        for summary in self.popData.keys():
+            if type == 'xml':
+                # convert metadata name into a XML tag name
+                tagname = string.lower(string.replace(summary,' ',''))
+                stream.tagContents(tagname, self.popData[summary])
+                stream.writeln()
+            else:
+                stream.writeln("%20s: %s" % (summary, self.popData[summary]))
+        if type == 'xml':
+            stream.closetag('populationdata')
+            stream.writeln()
+
 class ParseGenotypeFile(ParseFile):
     """Class to parse standard IHWG datafile in genotype form."""
     
@@ -432,6 +452,63 @@ class ParseGenotypeFile(ParseFile):
         locus.  """
         
         return self.freqcount[locus]
+
+    def serializeAlleleCountTo(self, stream):
+        type = getStreamType(stream)
+
+        if type == 'xml':
+            stream.opentag('allelecounts')
+        else:
+            stream.writeln("Allele counts")
+            
+        for locus in self.freqcount.keys():
+            stream.writeln()
+            if type == 'xml':
+                stream.opentag('locus', 'name', locus)
+            else:
+                stream.write("Locus = %s" % locus)
+            stream.writeln()
+            
+            alleleTable, total = self.freqcount[locus]
+            totalFreq = 0
+            alleles = alleleTable.keys()
+            alleles.sort()
+            for allele in alleles:
+                freq = float(alleleTable[allele])/float(total)
+                totalFreq += freq
+                strFreq = "%0.5f " % freq
+                strCount = ("%d" % alleleTable[allele])
+
+                if type == 'xml':
+                    stream.opentag('allele', 'name', allele)
+                    stream.writeln()
+                    stream.tagContents('frequency', strFreq)
+                    stream.tagContents('count', strCount)
+                    stream.writeln()
+                    stream.closetag('allele')
+                else:
+                    stream.write("%s: %s (%s)" % (allele, strFreq, strCount))
+
+                stream.writeln()
+
+            strTotalFreq = "%0.5f" % totalFreq
+            strTotal = "%d" % total
+
+            if type == 'xml':
+                stream.tagContents('totalfrequency', strTotalFreq)
+                stream.writeln()
+                stream.tagContents('totalcount', strTotal)
+                stream.writeln()
+                stream.closetag('locus')
+            else:
+                stream.write("Total frequency: %s (%s)"
+                             % (strTotalFreq, strTotal))
+                
+        stream.writeln()
+
+        if type == 'xml':
+            stream.closetag('allelecounts')
+        
 
     def getLocusDataAt(self, locus):
         """Returns the genotyped data for specified locus.
