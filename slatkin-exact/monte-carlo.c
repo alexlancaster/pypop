@@ -49,30 +49,59 @@ find out for yourself.
 #include <time.h>
 
 #define min(x, y)  (((x) < (y)) ? x : y)
+#define KLIMIT 40
 
 static int seed;
 
-void main(int argc, char *argv[]) {
+int main(int argc, char **argv) {
+	int k, n, maxrep, i;
+	static int r_obs[KLIMIT];
+	void main_proc(int r_obs[], int k, int n, int maxrep);
 
-int initseed = 13840399;
+	/* = {0, 40, 3, 3, 1, 0}; */
 
-int r_obs[] = {0, 9, 2, 1, 1, 1, 1, 1, 0}; 
-
-/*  Rwandan DRB1 data  
-int r_obs[] = {0, 95, 87, 81, 52, 44, 32, 32, 31, 27, 24, 23, 20, 19, 12, 6, 6, 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}; */
-
-/*  Bedouin DRB1 data 
-int r_obs[] = {0, 32, 32, 30, 18, 15, 14, 13, 11, 10, 7, 6, 6, 5, 4, 4, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0};  */
+	/*  Rwandan DRB1 data  
+	    int r_obs[] = {0, 95, 87, 81, 52, 44, 32, 32, 31, 27, 24, 23, 20, 19, 12, 6, 6, 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}; */
+	
+	/*  Bedouin DRB1 data 
+	    int r_obs[] = {0, 32, 32, 30, 18, 15, 14, 13, 11, 10, 7, 6, 6, 5, 4, 4, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0};  */
 
 	/*  int r_obs[] = {0, YOUR DATA HERE, 0};  */
 	/*  int r_obs[] = {0, 30, 62, 97, 15, 53, 18, 55, 35, 57, 14866, 
-		160, 439, 18, 356, 165, 40, 41, 14, 27, 36, 39, 23, 120, 209, 0};  
-		//  CF alleles from North Europe: P_H = 0.9977   */
+	    160, 439, 18, 356, 165, 40, 41, 14, 27, 36, 39, 23, 120, 209, 0};  
+	    //  CF alleles from North Europe: P_H = 0.9977   */
+	
+	if (argc < 2)  {
+	printf("Specify the number of replicates on the command line\n");
+		exit(0);
+		}
+	maxrep = atoi(argv[1]);
+	
+	/* Find k and n from the observed configuration  */
+	
+	k = argc - 2;
+	n = 0;
 
-	int i, j, k, n, repno, maxrep, Ecount, Fcount;
-	int *r_random, testE, testF;
+	/* reconstruct array in format as expected by original program */
+	/* with leading and trailing zeroes */
+	r_obs[0] = 0;
+	for (i=1; i<=k; i++)  {
+	  r_obs[i] = atoi(argv[i+1]);
+	  n += r_obs[i];
+	}
+	r_obs[k+1] = 0;
+
+	main_proc(r_obs, k, n, maxrep);
+	return 0;
+}
+
+int main_proc(int r_obs[], int k, int n, int maxrep)
+{
+	int initseed = 13840399;
+	int i, j, repno, Ecount, Fcount;
+	int *r_random;
 	double ewens_stat(int *r), F(int k, int n, int *r);
-	double ewens_stat_tot = 0 , Ftot = 0, Fsq_tot;  /* added by DM */
+	double Ftot = 0, Fsq_tot = 0;  /* added by DM */
 	double theta_est(int k_obs, int n);
 	double E_obs, F_obs;
 	void print_config(int k, int *r);
@@ -84,21 +113,9 @@ int r_obs[] = {0, 32, 32, 30, 18, 15, 14, 13, 11, 10, 7, 6, 6, 5, 4, 4, 3, 2, 2,
 	void gsrand(int seed);
 
 	start_time = time(NULL);
-	if (argc != 2)  {
-	printf("Specify the number of replicates on the command line\n");
-		exit(0);
-		}
-	maxrep = atoi(argv[1]);
+
 	gsrand(initseed);
-	
-	/* Find k and n from the observed configuration  */
-	
-	k = 0;
-	n = 0;
-	while (r_obs[k+1]) {
-		k++;
-		n+=r_obs[k];
-		}
+
 	r_random = ivector(0, k+1);
 	r_random[0] = r_random[k+1] = 0;
 	ranvec = vector(1, k-1);  // to avoid doing this in each replicate
@@ -151,12 +168,13 @@ int r_obs[] = {0, 32, 32, 30, 18, 15, 14, 13, 11, 10, 7, 6, 6, 5, 4, 4, 3, 2, 2,
 		printf("Program took %ld seconds\n", net_time);
 	else
 		printf("Program took %4.2f minutes\n", net_time / 60.0);
-  }  /*  end, main  */
+
+	return 0;
+  }  /*  end, main_proc  */
 
 void generate(int k, int n, int *r, double *ranvec, double **b)  {  
-	double unif(), cum, x;
+	double unif(), cum;
 	int i, l, nleft;
-	double *rpt;
 	
 	for (i=1; i<=k-1; i++)
 		ranvec[i] = unif();
