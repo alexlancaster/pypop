@@ -44,7 +44,7 @@ from Arlequin import ArlequinExactHWTest
 from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin
 from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
-from ConfigParser import ConfigParser, NoOptionError
+from ConfigParser import ConfigParser, NoOptionError, NoSectionError
 from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix, checkXSLFile, getUserFilenameInput
 from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
 from RandomBinning import RandomBinsForHomozygosity
@@ -642,48 +642,72 @@ class Main:
             hwObject.serializeTo(self.xmlStream)
 
           # Parse "HardyWeinbergGuoThompson"
-
           if self.config.has_section("HardyWeinbergGuoThompson") and \
              len(self.config.options("HardyWeinbergGuoThompson")) > 0:
+              runMCMCTest = 1
+          else:
+              runMCMCTest = 0
+
+          # Parse "HardyWeinbergGuoThompsonMonteCarlo"
+          if self.config.has_section("HardyWeinbergGuoThompsonMonteCarlo") and \
+             len(self.config.options("HardyWeinbergGuoThompsonMonteCarlo")) > 0:
+              runPlainMCTest = 1
+          else:
+              runPlainMCTest = 0
+
+          # deal with these sections in one call to module, because data
+          # structures are identical
+          if runMCMCTest or runPlainMCTest:
 
             try:
               dememorizationSteps = self.config.getint("HardyWeinbergGuoThompson",
                                                   "dememorizationSteps")
-            except NoOptionError:
+            except (NoOptionError, NoSectionError):
               dememorizationSteps=2000
             except ValueError:
               sys.exit("require integer value")
 
             try:
               samplingNum = self.config.getint("HardyWeinbergGuoThompson", "samplingNum")
-            except NoOptionError:
+            except (NoOptionError, NoSectionError):
               samplingNum=1000
             except ValueError:
               sys.exit("require integer value")
 
             try:
               samplingSize = self.config.getint("HardyWeinbergGuoThompson", "samplingSize")
-            except NoOptionError:
+            except (NoOptionError, NoSectionError):
               samplingSize=1000
             except ValueError:
               sys.exit("require integer value")
 
             try:
               maxMatrixSize = self.config.getint("HardyWeinbergGuoThompson", "maxMatrixSize")
-            except NoOptionError:
+            except (NoOptionError, NoSectionError):
               maxMatrixSize=250
             except ValueError:
               sys.exit("require integer value")
 
-            # guo & thompson implementation
-            hwObject=HardyWeinbergGuoThompson(self.input.getLocusDataAt(locus), 
-                                              self.input.getAlleleCountAt(locus),
-                                              dememorizationSteps=dememorizationSteps,
-                                              samplingNum=samplingNum,
-                                              samplingSize=samplingSize,
-                                              maxMatrixSize=maxMatrixSize,
-                                              debug=self.debug)
+            try:
+              monteCarloSteps = self.config.getint("HardyWeinbergGuoThompsonMonteCarlo", "monteCarloSteps")
+            except (NoOptionError, NoSectionError):
+              monteCarloSteps=1000000
+            except ValueError:
+              sys.exit("require integer value")
 
+            # Guo & Thompson implementation
+            hwObject= HardyWeinbergGuoThompson(\
+                locusData=self.input.getLocusDataAt(locus), 
+                alleleCount=self.input.getAlleleCountAt(locus),
+                runMCMCTest=runMCMCTest,
+                runPlainMCTest=runPlainMCTest,
+                dememorizationSteps=dememorizationSteps,
+                samplingNum=samplingNum,
+                samplingSize=samplingSize,
+                maxMatrixSize=maxMatrixSize,
+                monteCarloSteps=monteCarloSteps,
+                debug=self.debug)
+            
             hwObject.dumpTable(locus, self.xmlStream)
             self.xmlStream.writeln()
 

@@ -1,3 +1,31 @@
+2004-07-20  Alex Lancaster  <alexl AT berkeley.edu>
+
+ 	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): 
+
+	* config.ini[HardyWeinbergGuoThompsonMonteCarlo]: New section,
+	implements the Guo & Thompson test without using the Markov
+	chain (i.e. pure Monte Carlo randomization).
+
+	* HardyWeinberg.py (HardyWeinbergGuoThompson.__init__): Handle new
+	Boolean flags: runMCMCTest and runPlainMCTest, and new option
+	monteCarloSteps, set as iVars.
+	(HardyWeinbergGuoThompson.dumpTable): Only run MCMC ("regular"
+	Guo&Thompson with Markov-chain) if runMCMCTest is set) and only
+	run randomization test (Monte-Carlo w/o Markov-chain) if
+	runPlainMCTest is set.
+	Allow GuoThompson test to be run if at least two alleles
+	present (test was originally bailing out with a 'too-few-alleles'
+	message if there were not at least 3 alleles).
+
+	* Main.py (Main._doGenotypeFile): Handle new
+	section [HardyWeinbergGuoThompsonMonteCarlo] in config file.  Deal
+	with it in the same [HardyWeinbergGuoThompson] block as sections
+	in one call to module, because data structures used are identical.
+	Now have to deal with NoSectionError as well as NoOptionError
+	exceptions when getting values.  Flags runMCMCTest and
+	runPlainMCTest are now passed as flagged to
+	HardyWeinbergGuoThompson class instantiation.
+
 2004-07-16  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): Emit list of
