@@ -25,8 +25,10 @@ class ArlequinWrapper:
         self.separator = '\t'
         self.debug = debug
 
-        # append PID to make directory name unique
-        # note this is specific to Unix and Windows 
+        # append PID to make directory name unique, so that multiple
+        # instances of PyPop can be running without interference with
+        # each other, note: this is specific to Unix and Windows
+        # (possibly also MacOS X)
         self.arlSubdir = 'arlequinRuns-%d' % os.getpid()
 
         # make a subdirectory
