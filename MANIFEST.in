@@ -4,6 +4,7 @@ include INSTALL
 include COPYING
 include VERSION
 include pypop.py
+include popmeta.py
 include MANIFEST.in
 include config.ini
 include xslt/*.xsl
