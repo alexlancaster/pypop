@@ -378,7 +378,9 @@
   <xsl:apply-templates select="heterozygotes|homozygotes"/>
 
   <!-- do stats for all the heterozygotes and genotypes -->
-  <xsl:apply-templates select="heterozygotesByAllele|genotypesByGenotype"/>
+  <xsl:apply-templates select="heterozygotesByAllele"/>
+
+  <xsl:apply-templates select="genotypetable" mode="genotypesByGenotype"/>
   
   <xsl:call-template name="newline"/>
 
@@ -507,10 +509,10 @@
  </xsl:template>
 
  <!-- print out info on heterozygotes and genotypes -->
- <xsl:template match="heterozygotesByAllele|genotypesByGenotype">
-  <xsl:value-of select="name(.)"/>
+ <xsl:template match="heterozygotesByAllele">
+  <xsl:text>Heterozygotes by allele</xsl:text>
   <xsl:call-template name="newline"/>
-  <xsl:for-each select="allele|genotype">
+  <xsl:for-each select="allele">
 
   <!-- indent table with name of the allele -->
    <xsl:call-template name="prepend-pad">
@@ -522,6 +524,35 @@
    <xsl:call-template name="newline"/>
   </xsl:for-each>  
 
+  <xsl:call-template name="newline"/>
+  
+  <!-- separator -->
+  <xsl:call-template name="separator"/>
+  <xsl:call-template name="newline"/>
+
+ </xsl:template>
+
+ <!-- format genotype table for HW -->
+ <xsl:template match="genotypetable" mode="genotypesByGenotype">
+  <xsl:text>Genotypes by genotype</xsl:text>
+  <xsl:call-template name="newline"/>
+
+  <!-- find all genotypes that have chisq set -->
+  <xsl:for-each select="genotype[chisq/@role!='not-calculated']">  
+   <!-- generate genotype name -->
+   <xsl:variable name="name">
+    <xsl:value-of select="@col"/>:<xsl:value-of select="@row"/> 
+   </xsl:variable>
+
+  <!-- indent table with name of the genotype -->
+   <xsl:call-template name="prepend-pad">
+    <xsl:with-param name="length" select="$hardyweinberg-first-col-width"/>
+    <xsl:with-param name="padVar" select="$name"/>
+   </xsl:call-template>
+   <!-- generate the row -->
+   <xsl:call-template name="hardyweinberg-gen-row"/>
+   <xsl:call-template name="newline"/>
+  </xsl:for-each>
   <xsl:call-template name="newline"/>
   
   <!-- separator -->
@@ -563,7 +594,8 @@
    <xsl:for-each select="@col">
     <xsl:sort select="."/>
     <xsl:variable name="cell">
-     <xsl:value-of select="../observed"/><xsl:text>/</xsl:text><xsl:value-of select="../expected"/>
+     <!-- round and format the decimal values of "observed" to nearest 0.1 -->
+     <xsl:value-of select="../observed"/><xsl:text>/</xsl:text><xsl:value-of select="format-number((round(10*../expected) div 10), '0.0')"/>
     </xsl:variable>
     
     <xsl:call-template name="prepend-pad">
