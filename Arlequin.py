@@ -309,6 +309,7 @@ Process a tab-delimited INPUTFILE of alleles to produce an data files
 genetics program.
 
  -i, --idcol=NUM       column number of identifier (first column is zero)
+ -l, --ignorelines=NUM number of header lines to ignore in in file
  -c, --cols=POS1,POS2  number of leading columns (POS1) before start and end
                         (POS2) of allele data (including IDCOL)
  -k, --sort=POS1,..    specify order of loci if different from column order
@@ -328,13 +329,14 @@ genetics program.
     from getopt import getopt, GetoptError
 
     try: opts, args = \
-         getopt(sys.argv[1:],"i:c:k:w:u:xhd",\
-                ["idcol=", "cols=", "sort=", "windowsize=", "untyped=", "execute", "help","debug"])
+         getopt(sys.argv[1:],"i:l:c:k:w:u:xhd",\
+                ["idcol=", "ignorelines=", "cols=", "sort=", "windowsize=", "untyped=", "execute", "help","debug"])
     except GetoptError:
         sys.exit(usage_message)
 
     # default options
     idCol = 0
+    ignoreLines = 0
     prefixCols = 1
     suffixCols = 0
     mapOrder = None
@@ -347,6 +349,8 @@ genetics program.
     for o, v in opts:
         if o in ("-i", "--idcol"):
             idCol = int(v)
+        if o in ("-l", "--ignorelines"):
+            ignoreLines = int(v)
         elif o in ("-c", "--cols"):
             prefixCols, suffixCols = map(int, string.split(v, ','))
         elif o in ("-k", "--sort"):
@@ -384,7 +388,10 @@ genetics program.
                           mapOrder = mapOrder,
                           windowSize = windowSize,
                           debug=debug)
-    batch.outputArlequin(open(inputFilename, 'r').readlines())
+    # open file
+    fileData = open(inputFilename, 'r').readlines()
+    # run data ignoring `ignoreLines' worth of data
+    batch.outputArlequin(fileData[ignoreLines:])
     batch.outputRunFiles()
 
     # run Arlequin if asked
