@@ -116,7 +116,7 @@
  <xsl:template name="separator">
   <xsl:call-template name="append-pad">
    <xsl:with-param name="padChar" select="'-'"/>
-   <xsl:with-param name="length" select="75"/>
+   <xsl:with-param name="length" select="78"/>
   </xsl:call-template>
  </xsl:template>
 
