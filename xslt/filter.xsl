@@ -7,7 +7,7 @@
  <xsl:template match="translateTable">
 
   <xsl:call-template name="newline"/>
-  <xsl:text>Translations performed:</xsl:text>
+  <xsl:text>Translations (based on alleles in Anthony Nolan database) performed:</xsl:text>
 
   <xsl:variable name="all-transl" select="translate"/>
   <xsl:variable name="unique-transl" select="translate[not(@input=preceding-sibling::translate/@input)]/@input"/>
