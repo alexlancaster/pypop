@@ -27,7 +27,7 @@
  <para>This document describes the output of the analyses carried out by PyPop,
   and offers guidelines on how to interpret them.</para>
 
- <sect1 id="instructions-pop-summary">
+ <sect1 label="0" id="instructions-pop-summary">
   <title>Population Summary</title>
 
   <para>A Population Summary is generated for each population/dataset
@@ -60,10 +60,10 @@ Total Loci with data: 8
 
  </sect1>
 
- <sect1 id="instructions-locus-info">
+ <sect1 label="I" id="instructions-locus-info">
   <title>Single locus analyses</title>
 
-  <sect2>
+  <sect2 id="instructions-allelecounts">
    <title>Basic allele count information</title>
 
    <para>Information relevant to individual loci is reported. If the
@@ -119,6 +119,197 @@ _____________
 
   </sect2>
 
+  <sect2 id="instructions-hardyweinberg">
+   <title>Test for deviation from Hardy-Weinberg proportions (HWP).</title>
+   
+   <para>For each locus the observed genotype counts are compared to
+    those expected under Hardy Weinberg Proportions (HWP). A
+    triangular matrix reports observed and expected genotype counts.
+    If the matrix is too wide, the output is split into different
+    sections. Each cell contains the observed and expected number for
+    a given genotype in the format
+    <literal>observed/expected</literal>.</para>
+
+  <example>
+   <title>Sample output of Hardy-Weinberg genotype table</title>
+
+ <programlisting><![CDATA[
+6.2. HardyWeinberg [DQA1]
+-------------------------
+Table of genotypes, format of each cell is: observed/expected.
+
+0201 8/5.1
+0301 4/4.0 1/0.8
+0401 3/6.9 1/2.7 6/2.3
+0501 8/9.9 5/3.8 5/6.7 6/4.8
+      0201  0301  0401  0501
+                             [Cols: 1 to 4]
+]]></programlisting>
+  </example>
+
+   <para> The values in this matrix are used to test hypotheses of
+    deviation from HWP. The output table reports the observed and
+    expected number of genotypes, the chi-square statistic, the number
+    of degrees of freedom and associated p-value for the following
+    classes of genotypes.</para>
+   
+   <itemizedlist>
+   <listitem>
+     <formalpara><title>Common</title>
+      <para>The result
+       for goodness of fit to HWP using only the genotypes with at
+       least five expected counts (the common genotypes).</para>
+    </formalpara>
+    </listitem>
+    
+    <listitem>
+     <formalpara><title>Lumped genotypes</title> 
+      <para>The result for goodness
+       of fit to HWP for the pooled set of genotypes that individually
+       have less than five expected counts.  </para>
+     </formalpara>
+    </listitem>
+    
+    <listitem>
+     <formalpara>
+      <title>Common + lumped</title> <para>The
+       result for goodness of fit to HWP for both the common and the
+       lumped genotypes.</para>
+     </formalpara>
+    </listitem>
+    
+    <listitem>
+     <formalpara>
+      <title>All homozygotes</title>
+      <para>The result for goodness of fit to HWP
+    for the pooled set of homozygous genotypes.</para>
+     </formalpara>
+   </listitem>
+    
+    <listitem>
+     <formalpara>
+      <title>All heterozygotes</title> 
+      <para>The result for goodness of fit to HWP
+       for the pooled set of heterozygous genotypes.</para>
+     </formalpara>
+    </listitem>
+    
+   </itemizedlist>
+   
+   <example>
+    <title>Sample output of HW classes</title>
+  
+<programlisting><![CDATA[
+                      Observed    Expected  Chi-square   DoF   p-value   
+------------------------------------------------------------------------------
+            Common         N/A         N/A        4.65     1  0.0310*     
+------------------------------------------------------------------------------
+  Lumped genotypes         N/A         N/A        1.17     1  0.2797      
+------------------------------------------------------------------------------
+   Common + lumped         N/A         N/A        5.82     1  0.0158*     
+------------------------------------------------------------------------------
+   All homozygotes          21       13.01        4.91     1  0.0268*     
+------------------------------------------------------------------------------
+ All heterozygotes          26       33.99        1.88     1  0.1706      
+------------------------------------------------------------------------------
+Common heterozygotes by allele
+              0201          15       20.78        1.61        0.2050      
+              0301          10       10.47        0.02        0.8850      
+              0401           9       16.31        3.28        0.0703      
+              0501          18       20.43        0.29        0.5915      
+
+------------------------------------------------------------------------------
+Common genotypes
+         0201:0201           8        5.11        1.63        0.2014      
+         0201:0401           3        6.93        2.23        0.1358      
+         0201:0501           8        9.89        0.36        0.5472      
+         0401:0501           5        6.70        0.43        0.5109      
+             Total          24       28.63
+------------------------------------------------------------------------------
+]]></programlisting>
+  </example>
+
+   <para> The pooling procedure is designed to avoid carrying out the
+    chi-square goodness of fit test in cases where there are few
+    expected counts, which could lead to spurious rejection of HWP.
+    However, in certain cases it may not be possible to carry out this
+    pooling approach.</para>
+
+   
+   <para>If the dataset contains no genotypes with expected counts
+    equal or greater than 5, then there are no common genotypes and
+    the following message is reported: </para>
+
+<programlisting>
+   No common genotypes; chi-square cannot be calculated
+</programlisting>
+
+   <para>If the sum of expected counts in the lumped class does not
+    add up to five, then the test for the lumped genotypes cannot be
+    calculated and the following message is reported:</para>
+  
+<programlisting>
+   The total number of expected genotypes is less than 5
+</programlisting>
+
+  <para>The lumping procedure may generate a dataset where there are fewer
+   classes (genotypes) than allele frequencies to estimate.  This means
+   that the analysis cannot be performed (degrees of freedom &lt; 1). In such
+   a case the following message is reported, explaining why the analysis
+   could not be performed:</para>
+
+<programlisting>
+   Too many parameters for chi-square test.
+</programlisting>
+
+   <para>This may by remedied by combining rare alleles and recalculating
+    overall chi-square value and degrees of freedom.</para>
+   
+   <para>The heterozygotes by allele section summarizes the observed and
+    expected number of counts of all heterozygotes carrying a specific
+    allele with expected value &ge; 5. The genotypes by genotype section lists
+    observed, expected, chi-square and p-values for all observed genotypes
+    with expected values &ge; 5.</para>
+  
+  </sect2>
+
+ <sect2 id="instructions-hardyweinberg-exact">
+  <title>Exact test for deviation from HWP</title>
+  
+  <para>For each locus the exact test for deviations from HWP is
+   implemented using the method of <citation
+   role="citet">Guo:Thompson:1992</citation>. The p-value provided
+   describes how probable the observed set of genotypes is, with
+   respect to a large sample of other genotypic configurations
+   (conditioned on the same allele frequencies and 2n). P-values lower
+   than 0.05 can be interpreted as evidence that the sample does not
+   fit HWP.</para>
+  
+  <example>
+   <title>Sample output for exact test</title>
+
+<programlisting>
+6.3. Guo and Thompson HardyWeinberg output [DQA1]
+-------------------------------------------------
+Dememorization steps: 2000
+Number of samples: 1000
+Sample size: 1000
+Std. error: 0.0009431
+p-value: 0.0537
+</programlisting>
+  </example>
+
+  <para>If there are many haplotypes, the exact test may be computationally
+   impossible to implement. In this case the following message is reported:</para>
+
+<programlisting>
+2.3. Guo and Thompson HardyWeinberg output [C]
+----------------------------------------------
+Too large a matrix for Guo and Thompson
+</programlisting>
+   
+  </sect2>
+
   <sect2 id="instructions-homozygosity">
    <title>The Ewens-Watterson Homozygosity test of neutrality</title>
    
@@ -157,200 +348,10 @@ p-value range: 0.0000 < p <= 0.0100 *
 
  </sect2>
 
- <sect2 id="instructions-hardyweinberg">
-  <title>Test for deviation from Hardy-Weinberg proportions (HWP).</title>
 
-  <para>For each locus the observed genotype counts are compared to
-   those expected under Hardy Weinberg Proportions (HWP). A triangular
-   matrix reports observed and expected genotype counts. If the matrix
-   is too wide, 
-   the output is split into different
-   sections. Each cell contains the observed and expected number for a
-   given genotype in the format
-   <literal>observed/expected</literal>.</para>
-
-  <example>
-   <title>Sample output of Hardy-Weinberg genotype table</title>
-
- <programlisting><![CDATA[
-6.2. HardyWeinberg [DQA1]
--------------------------
-Table of genotypes, format of each cell is: observed/expected.
-
-0201 8/5.1
-0301 4/4.0 1/0.8
-0401 3/6.9 1/2.7 6/2.3
-0501 8/9.9 5/3.8 5/6.7 6/4.8
-      0201  0301  0401  0501
-                             [Cols: 1 to 4]
-]]></programlisting>
-  </example>
-
-  <para> The values in this matrix are used to test hypotheses of
-   deviation from HWP. The output table reports the observed and
-   expected number of genotypes, the chi-square statistic, the number
-   of degrees of freedom and associated p-value for the following
-   classes of genotypes.</para>
-
-  <itemizedlist>
-   <listitem>
-    <formalpara><title>Common</title>
-     <para>The result
-      for goodness of fit to HWP using only the genotypes with at
-      least five expected counts (the common genotypes).</para>
-    </formalpara>
-   </listitem>
-
-   <listitem>
-    <formalpara><title>Lumped genotypes</title> 
-     <para>The result for goodness
-     of fit to HWP for the pooled set of genotypes that individually
-     have less than five expected counts.  </para>
-    </formalpara>
-   </listitem>
-
-   <listitem>
-    <formalpara>
-     <title>Common + lumped</title> <para>The
-      result for goodness of fit to HWP for both the common and the
-      lumped genotypes.</para>
-    </formalpara>
-   </listitem>
-   
-   <listitem>
-    <formalpara>
-     <title>All homozygotes</title>
-     <para>The result for goodness of fit to HWP
-    for the pooled set of homozygous genotypes.</para>
-    </formalpara>
-   </listitem>
-   
-   <listitem>
-    <formalpara>
-     <title>All heterozygotes</title> 
-     <para>The result for goodness of fit to HWP
-      for the pooled set of heterozygous genotypes.</para>
-    </formalpara>
-   </listitem>
-   
-  </itemizedlist>
-
-  <example>
-  <title>Sample output of HW classes</title>
-  
-<programlisting><![CDATA[
-                      Observed    Expected  Chi-square   DoF   p-value   
-------------------------------------------------------------------------------
-            Common         N/A         N/A        4.65     1  0.0310*     
-------------------------------------------------------------------------------
-  Lumped genotypes         N/A         N/A        1.17     1  0.2797      
-------------------------------------------------------------------------------
-   Common + lumped         N/A         N/A        5.82     1  0.0158*     
-------------------------------------------------------------------------------
-   All homozygotes          21       13.01        4.91     1  0.0268*     
-------------------------------------------------------------------------------
- All heterozygotes          26       33.99        1.88     1  0.1706      
-------------------------------------------------------------------------------
-Common heterozygotes by allele
-              0201          15       20.78        1.61        0.2050      
-              0301          10       10.47        0.02        0.8850      
-              0401           9       16.31        3.28        0.0703      
-              0501          18       20.43        0.29        0.5915      
-
-------------------------------------------------------------------------------
-Common genotypes
-         0201:0201           8        5.11        1.63        0.2014      
-         0201:0401           3        6.93        2.23        0.1358      
-         0201:0501           8        9.89        0.36        0.5472      
-         0401:0501           5        6.70        0.43        0.5109      
-             Total          24       28.63
-------------------------------------------------------------------------------
-]]></programlisting>
-  </example>
-
-  <para> The pooling procedure is designed to avoid carrying out the
-   chi-square goodness of fit test in cases where there are few
-   expected counts, which could lead to spurious rejection of
-   HWP. However, in certain cases it may not be possible to carry out
-   this pooling approach.</para>
-
-   
-  <para>If the dataset contains no genotypes with expected counts equal or
-   greater than 5, then there are no common genotypes and  the following
-   message is reported: </para>
-
-<programlisting>
-   No common genotypes; chi-square cannot be calculated
-</programlisting>
-
-  <para>If the sum of expected counts in the lumped class does not add up to
-   five, then the test for the lumped genotypes cannot be calculated and
-   the following message is reported:</para>
-  
-<programlisting>
-   The total number of expected genotypes is less than 5
-</programlisting>
-
-  <para>The lumping procedure may generate a dataset where there are fewer
-   classes (genotypes) than allele frequencies to estimate.  This means
-   that the analysis cannot be performed (degrees of freedom &lt; 1). In such
-   a case the following message is reported, explaining why the analysis
-   could not be performed:</para>
-
-<programlisting>
-   Too many parameters for chi-square test.
-</programlisting>
-
-  <para>This may by remedied by combining rare alleles and recalculating
-   overall chi-square value and degrees of freedom.</para>
-  
-  <para>The heterozygotes by allele section summarizes the observed and
-   expected number of counts of all heterozygotes carrying a specific
-   allele with expected value &ge; 5. The genotypes by genotype section lists
-   observed, expected, chi-square and p-values for all observed genotypes
-   with expected values &ge; 5.</para>
-  
-</sect2>
-
- <sect2 id="instructions-hardyweinberg-exact">
-  <title>Exact test for deviation from HWP</title>
-  
-  <para>For each locus the exact test for deviations from HWP is
-   implemented using the method of <citation
-   role="citet">Guo:Thompson:1992</citation>. The p-value provided
-   describes how probable the observed set of genotypes is, with
-   respect to a large sample of other genotypic configurations
-   (conditioned on the same allele frequencies and 2n). P-values lower
-   than 0.05 can be interpreted as evidence that the sample does not
-   fit HWP.</para>
-  
-  <example>
-   <title>Sample output for exact test</title>
-
-<programlisting>
-6.3. Guo and Thompson HardyWeinberg output [DQA1]
--------------------------------------------------
-Dememorization steps: 2000
-Number of samples: 1000
-Sample size: 1000
-Std. error: 0.0009431
-p-value: 0.0537
-</programlisting>
-  </example>
-
-  <para>If there are many haplotypes, the exact test may be computationally
-   impossible to implement. In this case the following message is reported:</para>
-
-<programlisting>
-2.3. Guo and Thompson HardyWeinberg output [C]
-----------------------------------------------
-Too large a matrix for Guo and Thompson
-</programlisting>
-   
-  </sect2>
  </sect1>
 
- <sect1 id="instructions-haplo">
+ <sect1 label="II" id="instructions-haplo">
   <title>Multi-locus analyses</title>
   <subtitle>Haplotype Frequency and LD Estimation</subtitle>
   
@@ -377,7 +378,53 @@ Too large a matrix for Guo and Thompson
    log-likelihood of the observed genotypes under the assumption of
    linkage equilibrium.</para>
 
-  <sect2>
+  <sect2 id="instructions-pairwise-ld">
+   <title>All pairwise LD</title>
+
+   <para>For each pair of loci a series of linkage disequilibrium measures
+    are provided:</para>
+
+   <example>
+    <title>Sample output of all pairwise LD</title>
+
+<programlisting>
+II. Multi-locus Analyses
+========================
+
+Haplotype/ linkage disequlibrium (LD) statistics
+________________________________________________
+
+Pairwise LD estimates
+---------------------
+Locus pair        D'        Wn   ln(L_1)   ln(L_0)         S # permu p-value  
+A:C          0.49229   0.39472   -289.09   -326.81     75.44    1000 0.8510   
+A:B          0.50895   0.40145   -293.47   -330.83     74.73    1000 0.8730   
+A:DRB1       0.44304   0.37671   -282.00   -309.16     54.32    1000 0.7540   
+A:DQA1       0.29361   0.34239   -257.94   -269.88     23.88    1000 0.9020   
+A:DQB1       0.39266   0.37495   -275.58   -297.61     44.07    1000 0.8140   
+A:DPA1       0.31210   0.37987   -203.89   -206.99      6.21    1000 0.8840   
+A:DPB1       0.42241   0.40404   -237.84   -262.05     48.42    1000 0.5930   
+C:B          0.88739   0.85752   -210.36   -342.68    264.63    1000 0.0000***
+C:DRB1       0.48046   0.47513   -280.34   -317.65     74.62    1000 0.2140   
+C:DQA1       0.42257   0.49869   -250.36   -276.72     52.73    1000 0.0370*  
+C:DQB1       0.45793   0.49879   -269.54   -305.27     71.46    1000 0.0580   
+C:DPA1       0.37214   0.46870   -208.99   -215.36     12.74    1000 0.7450   
+C:DPB1       0.46436   0.36984   -242.45   -268.45     52.01    1000 0.6290   
+B:DRB1       0.50255   0.41712   -286.79   -320.50     67.42    1000 0.4140   
+B:DQA1       0.41441   0.42844   -259.86   -279.56     39.40    1000 0.3880   
+B:DQB1       0.49040   0.43654   -277.29   -308.12     61.65    1000 0.2870   
+B:DPA1       0.29272   0.38831   -213.43   -218.01      9.14    1000 0.8780   
+B:DPB1       0.46082   0.38001   -247.83   -272.77     49.86    1000 0.7320   
+DRB1:DQA1    0.91847   0.91468   -164.06   -254.54    180.96    1000 0.0000***
+DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
+
+...
+</programlisting>
+   </example>
+
+  </sect2>
+
+  <sect2 id="instructions-haplotype-freqs">
   <title>Haplotype frequency estimation</title>
 
    <example>
@@ -432,51 +479,6 @@ haplotype         frequency # copies  | haplotype         frequency # copies
    </example>
   </sect2>
 
-  <sect2>
-   <title>All pairwise LD</title>
-
-   <para>For each pair of loci a series of linkage disequilibrium measures
-    are provided:</para>
-
-   <example>
-    <title>Sample output of all pairwise LD</title>
-
-<programlisting>
-II. Multi-locus Analyses
-========================
-
-Haplotype/ linkage disequlibrium (LD) statistics
-________________________________________________
-
-Pairwise LD estimates
----------------------
-Locus pair        D'        Wn   ln(L_1)   ln(L_0)         S # permu p-value  
-A:C          0.49229   0.39472   -289.09   -326.81     75.44    1000 0.8510   
-A:B          0.50895   0.40145   -293.47   -330.83     74.73    1000 0.8730   
-A:DRB1       0.44304   0.37671   -282.00   -309.16     54.32    1000 0.7540   
-A:DQA1       0.29361   0.34239   -257.94   -269.88     23.88    1000 0.9020   
-A:DQB1       0.39266   0.37495   -275.58   -297.61     44.07    1000 0.8140   
-A:DPA1       0.31210   0.37987   -203.89   -206.99      6.21    1000 0.8840   
-A:DPB1       0.42241   0.40404   -237.84   -262.05     48.42    1000 0.5930   
-C:B          0.88739   0.85752   -210.36   -342.68    264.63    1000 0.0000***
-C:DRB1       0.48046   0.47513   -280.34   -317.65     74.62    1000 0.2140   
-C:DQA1       0.42257   0.49869   -250.36   -276.72     52.73    1000 0.0370*  
-C:DQB1       0.45793   0.49879   -269.54   -305.27     71.46    1000 0.0580   
-C:DPA1       0.37214   0.46870   -208.99   -215.36     12.74    1000 0.7450   
-C:DPB1       0.46436   0.36984   -242.45   -268.45     52.01    1000 0.6290   
-B:DRB1       0.50255   0.41712   -286.79   -320.50     67.42    1000 0.4140   
-B:DQA1       0.41441   0.42844   -259.86   -279.56     39.40    1000 0.3880   
-B:DQB1       0.49040   0.43654   -277.29   -308.12     61.65    1000 0.2870   
-B:DPA1       0.29272   0.38831   -213.43   -218.01      9.14    1000 0.8780   
-B:DPB1       0.46082   0.38001   -247.83   -272.77     49.86    1000 0.7320   
-DRB1:DQA1    0.91847   0.91468   -164.06   -254.54    180.96    1000 0.0000***
-DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
-
-...
-</programlisting>
-   </example>
-
-  </sect2>
 
  </sect1>
  
