@@ -481,10 +481,14 @@ DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
    <title>General population genetics</title>
    
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Hartl:Clark'])"/>  
+   <xi:include
+   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Hedrick:1999'])"/>  
+   </bibliodiv>
+
+   <bibliodiv>
+   <title>Specific papers</title>
 
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Guo:Thompson:1992'])"/>  
-
-   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Hedrick:1999'])"/>  
 
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Dempster:1977'])"/>  
 
