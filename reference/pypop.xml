@@ -3,7 +3,7 @@
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <article condition="main" xmlns:xi="http://www.w3.org/2001/XInclude">
 
- <title>Software framework for IHWG Biostatistics Core</title>
+ <title>Software framework for Biostatistics Core</title>
 
  <articleinfo>
   <authorgroup>
@@ -85,8 +85,8 @@
 
   <para>The <application>PyPop</application>
    (<emphasis>Py</emphasis>thon for <emphasis>Pop</emphasis>ulation
-   Genetics) analysis package is suite of population genetic analyses
-   and forms the base of the biostatistics core. It is in an
+   Genetics) analysis package is a suite of population genetic
+   analyses and forms the base of the biostatistics core. It is in an
    object-oriented framework implemented in the programming language
    Python. The object-oriented approach allows us to implement
    individual analysis modules which can be inserted or removed
@@ -103,8 +103,8 @@
    other data formats suitable for machine input (such as
    <application>PHYLIP</application> <citation
     role="citep">Felsenstein:1989</citation> or input for  spreadsheet
-   programs such as Excel or statistical packages, such as
-   <application>R</application>
+   programs such as <application>Excel</application> or statistical
+   packages, such as <application>R</application>
    <citation>Ihaka:Gentleman:1996</citation>),  plain text, or HTML
    for human-readable format.  Storing the output in XML allows the
    final viewable output format to be redesigned at will, without
@@ -112,69 +112,6 @@
    themselves. Data from the anthropology, transplantation, disease
    and cytokine components have been analyzed using
    <application>PyPop</application>.</para>
-
-
-<!--
-  <para condition="psb2003">Several major factors account for
-   variation in the human genome: <emphasis>mutation,</emphasis>
-   <emphasis>random genetic drift</emphasis>,
-   <emphasis>migration</emphasis> (or <emphasis>gene flow</emphasis>)
-   and <emphasis>natural selection</emphasis>.  Understanding of the
-   relative roles of these evolutionary forces is important for the
-   study of both complex and Mendelian diseases, since they can affect
-   our ability to identify and localize disease predisposing variants
-   and our power to recognize underlying functional mechanisms through
-   which predisposing genes can become relatively common in a
-   population.</para>
-
-  <para>In particular, genetic systems which are highly polymorphic
-   can implicate natural selection as an important factor in
-   maintaining variation.  Genetic systems such as the Human Leukocyte
-   Antigen (HLA) region (the Major Histocompatibility Complex [MHC]
-   for humans) are highly polymorphic.  Six classical class I and II
-   loci each contain up to 399 alleles <citation
-    role="citep">Rhodes:Trowsdale:1999</citation>.
-  </para>
-
-  <para>Several basic population genetics statistics from multi-locus
-   genotype data can help us understand these patterns of variation,
-   and their implications for disease studies and evolutionary
-   genetics.  These statistics include, but are not limited to
-   estimating haplotype frequencies, identifying deviation from
-   Hardy-Weinberg equilibrium and locating patterns of linkage
-   disequilibrium in a given population.</para>
-
-  <para>In population studies several implementations of programs and
-   routines to calculate these basic statistics exist, but are mainly
-   oriented towards analyzing statistics on a population-by-population
-   basis.  The ability to cross-correlate these statistical features
-   across many population data-sets will enable the identification of
-   features in the genetic data that can further our understanding of
-   the functional and disease predisposing role of specific alleles,
-   and conversely allow us to rule out others.</para>
-
-  <para>Currently, packages for analyzing population data already
-   exist such as
-   <application>Arlequin</application> <citation>Schneider:2000</citation>, 
-   <application>PHYLIP</application> <citation
-    role="citep">Felsenstein:1989</citation> and
-   <application>Genepop</application> <citation>Raymond:Rousset:1995</citation>. In
-   general, however, they are not oriented towards large-scale
-   cross-population data analyses.  Analogous to the tools being
-   developed for sequence analysis and search, we seek a framework in
-   which basic statistical data from population genetic analyses can
-   be housed, interrogated and visualized in such a way that important
-   features of interest to both the biomedical investigator and the
-   evolutionary biologist can be highlighted.</para>
-
-  <para>We also did not want to reinvent the wheel, so, where possible
-   we can inter-operate with existing population genetic analysis
-   packages (either as part of the framework or through file formats).
-   In this way, our software, <emphasis>PyPop</emphasis>
-   (<emphasis>Py</emphasis>thon for <emphasis>Pop</emphasis>ulation
-   Genetics) can be viewed as an integrating framework which draws on
-   the strengths of existing tools in the community.</para>
--->
 
   <section>
    <title>IHWG: International Histocompatibility Working Group</title>
@@ -198,18 +135,6 @@
     data for each population. -->
 
    </para>
-
-   <para>
-
-    <!-- The molecular characterization of these alleles allows us to
-    use both the allele frequency (the raw allele
-    <quote>calls</quote>) and the underlying sequence information (the
-    <quote>calls</quote> can be converted into sequences if desired) -->
-
-    Either allele names or sequence data can be used as
-    as input, <application>PyPop</application> does not distinguish 
-    between allele calls or sequence data and can transparently handle
-    both.</para>
 
   </section>
 
@@ -246,9 +171,13 @@
 
     <listitem>
      <formalpara>
-      <title>modular</title> <para>each analysis (e.g. Hardy-Weinberg)
-       should be able to be run stand-alone or as part of a battery of
-       tests</para>
+      <title>modular</title> 
+      <para>each analysis (e.g. Hardy-Weinberg) should be implemented
+       as separate modules to allow  tests added in the future to be
+       integrated into the package seamlessly without affecting
+       existing tests, and for the output for each test to be
+       self-contained.
+      </para>
      </formalpara>
     </listitem>
 
@@ -256,7 +185,9 @@
      <formalpara><title>configurable</title>
 
       <para>analyses should be able to be  switched on or off as
-       required by the user in a simple configuration file</para>
+       required by the user in a simple configuration file and should
+       be able to be run stand-alone or as part of a battery of
+       tests</para>
 
      </formalpara>
     </listitem>
@@ -280,6 +211,18 @@
     </listitem>
 
     <listitem>
+     <formalpara>
+      <title>cross-platform</title>
+
+      <para>software should be cross platform, and not be tied to
+       proprietary features, it should be be available to run
+       high-performance UNIX platforms such as GNU/Linux or Solaris as
+       well as Windows and Macintosh platforms. </para>
+     </formalpara>
+    </listitem>
+
+
+    <listitem>
      <formalpara><title>integrating</title>
 
       <para>platform should allow simple integration of modules
@@ -297,83 +240,6 @@
      </formalpara>
     </listitem>
    </itemizedlist>
-
-<!--
-   <para>In using these programs, however, we realized a need for a
-    tool that could integrate features of existing software, and where
-    needed, implement missing features that would realize our goals of
-    doing large-scale population genetic data analysis.  Specific
-    limitations that we wished to address were:</para>
-
-   <orderedlist>
-    <listitem>
-     <formalpara><title>Modularity</title> 
-
-      <para>Programs should allow different options to be set for
-       analysis and produce content that is easily parsable, not a
-       monolithic output set of statistics (such as unstructured plain
-       ASCII text or HTML).</para>
-     </formalpara>
-    </listitem>
-
-    <listitem>
-     <formalpara><title>Batch-ability</title>
-
-      <para>It should be simple to set up an entire job in an
-       unattended <quote>batch mode</quote>, involving the creation of
-       (or modification of) a configuration file with a text editor,
-       followed by the invocation of a script.  Software that relies
-       on a <quote>captive user interface</quote>, for a population to
-       be analyzed and requires user interaction such as mouse clicks
-       and menus, makes it difficult to analyze hundreds of data sets.
-      </para>
-     </formalpara>
-    </listitem>
-
-    <listitem>
-     <formalpara>
-      <title>Scalability</title> 
-      
-      <para>It should be straightforward, for example, to gather a
-       single statistic for several populations and display it in a
-       table without a laborious manual search across many files. This
-       relates partly to the previous point: often existing software
-       was oriented towards smaller and less heterogeneous datasets.
-       More typical in evolutionary genetics studies is integrating
-       results across several populations at one or two loci, rather
-       than many populations with a large number of loci and high
-       variability in the number of individuals.</para>
-     </formalpara>
-    </listitem>
-    
-    <listitem>
-     <formalpara>
-      <title>Open-source</title>
-      
-      <para>We plan to release our software under an open source
-       license <citation>OSI</citation>.  Software that is open-source
-       allows others to extend and re-use components, allows
-       inter-operation via an open and published interfaces, and can
-       reduce duplication of effort within the community. Some
-       existing software that was not open-source required reverse
-       engineering of their file formats and run-time behaviour in
-       order to be able to communicate and write interfaces to them.
-      </para>
-     </formalpara>
-    </listitem>
-
-    <listitem>
-     <formalpara>
-      <title>Cross-platform</title>
-
-      <para>Software should be cross platform, and not be tied to
-       proprietary features.  In particular it should be be available
-       to run high-performance UNIX platforms such as GNU/Linux or
-       Solaris as well as Windows and Macintosh platforms. </para>
-     </formalpara>
-    </listitem>
-   </orderedlist>
--->
   </section>
 
  </section>
@@ -461,19 +327,6 @@
    <formalpara>
     <title>Hardy-Weinberg proportions</title>
 
-<!--
-    <para>Hardy-Weinberg equilibrium essentially states that unless
-     there are counteracting forces, the frequencies of alleles will
-     not change in a population and the expected genotype frequencies
-     each generation are determined by the allele frequencies, and are
-     termed Hardy-Weinberg proportions (HWP).  In the context of
-     multi-population analyses we can use deviation from HWP to
-     determine whether this results from: (1) typing error (the first
-     possibility investigated); (2) an <quote>admixed</quote>, or
-     merged population; (3) operation of natural selection; or (4)
-     inbreeding. </para>
--->
-
     <para>In addition to the traditional chi-square test, we performed
      the overall exact test of Hardy-Weinberg proportions (HWP) using
      <application>Arlequin</application>'s implementation of Guo &amp;
@@ -491,20 +344,7 @@
    <formalpara>
     <title>Ewens-Watterson test of neutrality</title> 
 
-<!--
-    <para>This is a test with the null hypothesis of neutral evolution
-     and determines the probability that the observed homozygosity
-     under HWP, for a given sample size and observed number of
-     alleles, is more extreme than the expected homozygosity under
-     random neutral mutations and genetic drift (neutrality).  This
-     test can tell us whether selection, either directional (observed
-     homozygosity &gt; expected homozygosity) or balancing (observed
-     homozygosity &lt; expected homozygosity) is in operation on a
-     particular locus across populations.
-    </para>
--->
-
-   <para>For the Ewens-Watterson (<citation
+    <para>For the Ewens-Watterson (<citation
       role="citealt">Ewens:1972</citation>; <citation
       role="citealt">Watterson:1978</citation>) homozygosity test of
      neutrality we created an extension module in
@@ -523,15 +363,6 @@
    
    <formalpara>
     <title>Haplotype frequency estimation and linkage disequilibrium</title>
-    
-<!--
-    <para>Linkage disequilibrium (LD) describes the non-random
-     association of alleles at different genetic loci.  Through
-     estimating haplotype frequencies, it is possible to estimate LD
-     in a population, the presence of significant LD can be due to
-     history for very closely linked genes and can also indicate the
-     operation of selection. </para>
--->
 
     <para>Haplotype frequencies (estimated using the
      expectation-maximization (EM) algorithm) and  linkage
@@ -540,18 +371,6 @@
      we wrote as part of the framework.</para>
 
    </formalpara>
-
-<!--
-   <formalpara>
-    <title>Other statistics</title> 
-
-    <para>Other individual-level population genetic statistics can
-     also be calculated, such as F<subscript>st</subscript>, which
-     describes the apportionment of genetic diversity within
-     subpopulations, relative to a larger population, allowing us the
-     estimate the amount of admixture in a population.</para>
-   </formalpara>
--->
 
    <para>With the exception of the Arlequin implementation of the Guo
     &amp; Thompson HW exact test and Slatkin's Monte-Carlo
@@ -571,24 +390,36 @@
   <section>
    <title>Data flow</title>
 
+   <para>The input to <application>PyPop</application> is a text file
+    with the <filename>.pop</filename> extension, containing the
+    multi-locus genotype data for each population.  The file format is
+    described in <xref linkend="pypop:data-interchange-format"/>.
+    Note that either allele names or sequence data can be used as as
+    input, <application>PyPop</application> does not distinguish
+    between allele calls or sequence data and can transparently handle
+    both.</para>
+
    <para>Before running data through <application>PyPop</application>,
-    ambiguities in typing had to be resolved (in our case this has
+    ambiguities in typing should be resolved (in our case this has
     been done by Steve Mack for the anthropology data, by Effie
     Petersdorf and Mari Malkki for the transplantation component, and
     by the respective disease chairs in the disease component).</para>
 
    <section>
-    <title>Phase I</title>
+    <title>Filtering</title>
 
-    <para>In phase I, before analysis begins, the multi-locus genotype
-     data for each population (stored in a text file with the
-     <filename>.pop</filename> extension), can be passed through a
-     filter module for data cleaning (this module can be switched off
-     if it is not needed).  The filter module is a set of rules that
-     ensures that allele names are valid.  For the IHWG analyses this module was designed as follows
-     the   This procedure
-     works as follows:</para>
+    <para>Before phase I analysis begins, the
+     <filename>.pop</filename> file can be passed through a filter
+     module for data validation (this module can be switched off if it
+     is not needed).  The filter module is a set of rules that ensures
+     that allele names are valid.  (An IHWG-specific filter was
+     implemented as part of <application>PyPop</application> using the
+     <ulink url="http://www.ebi.ac.uk/imgt/hla/">IMGT/HLA
+      database</ulink>, a database of HLA alleles maintained by the
+     Anthony Nolan Trust in the UK), see the chapter ? by Mack et al.
+     in this volume for further details).</para>
 
+<!--
     <orderedlist>
      <listitem>
       <para>Alleles in data set are reduced to a common denominator
@@ -646,21 +477,22 @@
      </listitem>
 
     </orderedlist>
+-->
+   </section>
+
+   <section>
+    <title>Phase I</title>
    
-    <para>After each population  was individually run through the set
-     of <application>PyPop</application> modules, an output file of
-     results was forwarded to the contributing laboratory for review
-     and appropriate revision of data. <!-- Although at present
-     this is HLA-specific, it has been designed in such a way that it
-     is simple to write a filter for other types of population data,
-     and if desired (if the data is already <quote>clean</quote>), it
-     can be simply switched off.  --> Next the analysis proper,
-     begins. <!-- Depending on the users configuration, this can
-     include basic allele count data; the Hardy-Weinberg statistics;
-     haplotype estimates; and the Ewens-Watterson test of neutrality
-     (represented by the green modules in <xref
-     linkend="pypop:work-flow" />).  --> The results of the analyses
-     are stored in an XML file format as shown in <xref
+    <para>Phase I analysis consists of a run of a single  population
+     data file run through the set of <application>PyPop</application>
+     modules (using the <command>pypop</command> script).   (For the
+     IHWG data set, once each single population analysis was complete,
+     an output file of results was forwarded to the contributing
+     laboratory for review and appropriate revision of data.  If the
+     review of data  required revisions, Phase I was repeated).  The
+     results of the Phase I analyses are stored in an XML file (one
+     per population) with the format as shown in
+     <xref
       linkend="pypop:sample-xml" />.</para>
    
     <figure id="pypop:sample-xml">
@@ -708,13 +540,14 @@
    <section>
     <title>Phase II</title>
 
-    <para>In phase II, the results of the analyses of the individual
-     data files are integrated, and the benefits of using XML as the
-     storage and exchange format are realized.  There are two major
-     benefits: one relevant for displaying results of each individual
-     run, the second, far more powerful benefit, for aggregating the
-     data for cross-population meta-analyses and transforming it as
-     input for third party packages.</para>
+    <para>Phase II, integrates the results of the analyses of the
+     individual data files from Phase I (using the
+     <command>popmeta</command> script).  At this stage the benefits
+     of using XML as the storage and exchange format are realized.
+     There are two major benefits: one relevant for displaying results
+     of each individual run, the second, far more powerful benefit,
+     for aggregating the data for cross-population meta-analyses and
+     transforming it as input for third party packages.</para>
 
     <formalpara>
      <title>Generating human-readable output</title>
@@ -769,7 +602,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     <formalpara>
      <title>Combining results across populations</title>
      
-     <para>Second, the results of Phase I are can be aggregated across
+     <para>Second, the results of Phase I can be aggregated across
       populations.  As indicated in the <quote>Phase II</quote> box in
       <xref
        linkend="pypop:work-flow"/>, the individual XML files
@@ -885,54 +718,38 @@ Name      Frequency (Count)   | Name      Frequency (Count)
      <filename>1-locus-allele.dat</filename> which contains all the allele
      frequencies listed by population and by locus.  Here is an extract of the 
      file showing just two populations containing the same allele
-     (note that some columns have been omitted for clarity):
+     (note that some columns have been omitted for clarity):</para>
 
-     <figure id="pypop:1-locus-allele.dat">
+    <figure id="pypop:1-locus-allele.dat">
       <title>Extract from <filename>1-locus-allele.dat</filename></title>
 <programlisting>pop      ethnic   region     locus allele allele.freq allele.count
 Filipino Filipino 06.Oceania A     0101   <phrase role="strong">0.00532</phrase><co id="filipino-dat"/>    1
 ...
 Czech    Czech    03.Europe  A     0101   <phrase role="strong">0.12857</phrase><co id="czech-dat"/>    27</programlisting>
      </figure>
-     
-     <calloutlist>
-      <title>Legend</title>
-      <callout arearefs="filipino-dat">
-       <para>Allele frequency of 0101 allele in Filipino population</para>
-      </callout>
-      <callout arearefs="czech-dat">
-       <para>Allele frequency of 0101 allele in Czech population</para>
-      </callout>
-     </calloutlist>
-    </para>
 
-<!--   
-   <para>A sample output of this process is shown in <xref
-     linkend="pypop:ld.wn.summary"/>.  This is an output plot from
-    <application>R</application> and depicts for each of the loci
-    analyzed as part of the IHWG workshop, the proportion of
-    populations in which the linkage disequilibrium, as measured by
-    the W<subscript>n</subscript> statistic, exceed 0.6.</para>
-
-   <figure id="pypop:ld.wn.summary">
-    <title>Sample graphical output from meta-analysis:
-    proportions of populations with linkage disequilibrium measure
-    W<subscript>n</subscript> greater than 0.6</title>
-    <mediaobject>
-     <imageobject>
-      <imagedata fileref="ld-wn-summary.jpg" scale="80"/>
-     </imageobject>
-    </mediaobject>
-   </figure>
--->
-
+    <calloutlist>
+     <title>Legend</title>
+     <callout arearefs="filipino-dat">
+      <para>Allele frequency of 0101 allele in Filipino population</para>
+     </callout>
+     <callout arearefs="czech-dat">
+      <para>Allele frequency of 0101 allele in Czech population</para>
+     </callout>
+    </calloutlist>
+    
+    <para>The <application>PyPop</application> application concludes
+     with the generation of the <filename>*.dat</filename> files.
+     The next section deals with various possible uses of the data
+     that <application>PyPop</application> generates after both Phase
+     I and Phase II are completed, but it is important to note that
+     they are not part of the framework.</para>
    </section>
-
 
   </section>
 
   <section>
-   <title>The next phase: using the PyPop output</title>
+   <title>After PyPop: using the output</title>
 
    <para>For the individual user, analyses may end with the generation
     of a text file for a single populations. When multiple populations
@@ -997,7 +814,7 @@ Czech    Czech    03.Europe  A     0101   <phrase role="strong">0.12857</phrase>
    </section>
 
    <section>
-    <title>Advanced options</title>
+    <title>Advanced usage</title>
 
     <para>The XML output (both the individual population-level data
      files, and the aggregated multi-population data) can also be
@@ -1033,27 +850,27 @@ Czech    Czech    03.Europe  A     0101   <phrase role="strong">0.12857</phrase>
    <para>The <application>PyPop</application> framework was used to
     analyze the full set of IHWG data from both the
     12<superscript>th</superscript> and
-    13<superscript>th</superscript> workshops.  With ? separate
+    13<superscript>th</superscript> workshops.  With over 140 separate
     data-sets (some of which individually required a long time to
     complete the basic per-population analyses), it was
-    straightforward to set up a batch program to generate the
-    individual output analyses.  For each file output, an individual
-    XML file was generated.  From these individual XML files, input
-    data files for the statistical package
+    straightforward to set up a batch program  (calling the
+    <command>pypop</command> script on each <filename>.pop</filename>
+    file) to generate the individual output analyses.  For each file
+    output, an individual XML file was generated.  From these
+    individual XML files, input data files for the statistical package
     <application>R</application> (the open-source implementation of
     the programming language <application>S</application>) were
     generated using XSLT stylesheets as described above in Phase II of
-    PyPop.   For statistical analyses we used the statistical package
-    <application>R</application>, . The <application>R</application>
-    code was set up to generate overall graphical and numeric
-    summaries for many population genetic parameters of interest. In
-    particular, the analysis allows <quote>slicing</quote> of the data
-    along a number of axes. As an example, we can view proportion of
-    populations with significant deviation from Hardy-Weinberg
-    proportions, for all geographic regions at a given locus, or view
-    all loci for a given region (data not shown). As another example,
-    we can view the number of populations that have data for a given
-    region (<xref
+    PyPop (invoked by the <command>popmeta</command> script).  The
+    <application>R</application> code was set up to generate overall
+    graphical and numeric summaries for many population genetic
+    parameters of interest. In particular, the analysis allows
+    <quote>slicing</quote> of the data along a number of axes. As an
+    example, we can view proportion of populations with significant
+    deviation from Hardy-Weinberg proportions, for all geographic
+    regions at a given locus, or view all loci for a given region
+    (data not shown). As another example, we can view the number of
+    populations that have data for a given region (<xref
     linkend="pypop:pops-by-locus"/>), or number of populations for
     which data was provided for a given locus (<xref
      linkend="pypop:pops-by-region"/>).</para>
@@ -1099,13 +916,13 @@ Czech    Czech    03.Europe  A     0101   <phrase role="strong">0.12857</phrase>
 
    <para>It is important to note that <application>PyPop</application>
     is not attempting to supplant or replace other, more established,
-    population genetics analysis packages. The basic population
+    population genetics analysis packages.  Many of the basic population
     genetic statistics computed by <application>PyPop</application>
     are not new in and of themselves, nor is the ability to perform
     analyses on multiple populations (e.g.,
     <application>Arlequin</application> can currently do this).
     Indeed, <application>PyPop</application> can use existing packages
-    to calculate them. However the approach of integrating information
+    to calculate them.  However the approach of integrating information
     in highly heterogeneous datasets on a large scale is new, and not
     currently available in the evolutionary genetics community.  In
     addition to adding some tests that are unavailable in existing
@@ -1115,22 +932,21 @@ Czech    Czech    03.Europe  A     0101   <phrase role="strong">0.12857</phrase>
 
   </section>
 
-
   <section>
    <title>Future directions</title>
 
    <para>In the future we plan to continue development on the modules
     that can inter-operate with <application>PHYLIP</application> and
-    <application>Arlequin</application>.  We also plan to take the
-    Ewens-Watterson test of neutrality down to the amino-acid level
-    (by considering each amino acid site as a genetic locus),
-    necessitating the translation of the allele calls into sequence
-    data (where possible).  This will result in a useful module for
-    those wishing to analyze allele data at the sequence level.
-    Longer-term possibilities include developing a graphical
-    front-end, possibly web-based, integration with data mining tools
-    such as clustering analysis, and integration with the NCBI's new
-    <application><ulink
+    <application>Arlequin</application>.  We also plan to develop a
+    module that can associate each allele name to an underlying
+    amino-acid sequence (for residues that are known). Analyses may
+    then be run by considering each amino acid site as a genetic
+    locus, rather than the entire allele, as is done currently. This
+    will result in a useful module for those wishing to analyze allele
+    data at the sequence level. Longer-term possibilities include
+    developing a graphical front-end, possibly web-based, integration
+    with data mining tools such as clustering analysis, and
+    integration with the NCBI's new <application><ulink
       url="http://www.ncbi.nlm.nih.gov/IEB/Research/GVWG/MHC/">dbMHC</ulink></application> 
     database.  We also plan to release the complete source code to
     <application>PyPop</application> under the GNU General Public
