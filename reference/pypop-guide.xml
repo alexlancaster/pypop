@@ -4,37 +4,33 @@
 <!ENTITY % versions.ent SYSTEM "versions.ent" >
 %versions.ent;
 ]>
-<book id="guide" xmlns:xi="http://www.w3.org/2001/XInclude">
+<book status="draft" id="guide" xmlns:xi="http://www.w3.org/2001/XInclude">
  <bookinfo>
-  <title>PyPop User Guide</title>
+  <title><application>PyPop</application> User Guide</title>
   <subtitle>User Guide for Python for Population Genetics</subtitle>
   
   <authorgroup>
    <author>
     <firstname>Alex</firstname>
     <surname>Lancaster</surname>
+    &affiliation-ucb;
    </author>
    <author>
     <firstname>Mark</firstname>
     <othername>P.</othername>
     <surname>Nelson</surname>
+    &affiliation-ucb;
    </author>
    <author>
     <firstname>Diogo</firstname>
     <surname>Meyer</surname>
-    <affiliation>
-     <orgname><ulink url="http://www.berkeley.edu/">University of California, Berkeley</ulink></orgname>
-     <orgdiv><ulink url="http://ib.berkeley.edu/">Department of Integrative Biology</ulink></orgdiv>
-    </affiliation>
+    &affiliation-ucb;
    </author>
    <author>
     <firstname>Richard</firstname>
     <othername>M.</othername>
     <surname>Single</surname>
-    <affiliation>
-     <orgname><ulink url="http://www.uvm.edu">University of Vermont</ulink></orgname>
-     <orgdiv>Department of Medical Biostatistics</orgdiv>
-    </affiliation>
+    &affiliation-uvm;
    </author>
   </authorgroup>
 
