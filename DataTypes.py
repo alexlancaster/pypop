@@ -308,7 +308,10 @@ class Genotypes:
         return self.matrix
 
 class AlleleCounts:
-    """Class to store information in allele count form."""
+    """WARNING: this class is now obsolete, the Genotypes class
+    now holds allele count data as pseudo-genotype matrix.
+    
+    Class to store information in allele count form."""
     
     def __init__(self,
                  alleleTable=None,

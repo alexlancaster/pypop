@@ -611,24 +611,26 @@ class ParseAlleleCountFile(ParseFile):
         # create an empty-list of lists to store all the row data
         self.matrix = StringMatrix(self.totalIndivCount, self.locusList)
 
-        # loop through alleles creating genotypes
+        # loop through alleles creating pseudo-genotypes
         rowCount = 0
         alleleCount = 0
         for alleleName in self.alleleTable.keys():
             for allele in range(0, self.alleleTable[alleleName]):
                 # odd position (end of individual)
-                # assign to 
                 if operator.mod(alleleCount, 2):
                     genotype = (lastAlleleName, alleleName)
                     self.matrix[rowCount, self.locusName] = genotype
                     rowCount += 1
+                # even position (start of individual, remember first allele)  
                 else:
                     lastAlleleName = alleleName
                 alleleCount += 1
         if rowCount == (self.totalIndivCount - 1):
             self.matrix[rowCount, self.locusName] = (lastAlleleName, '****')
-        
-        print self.matrix
+
+        if self.debug:
+            print "generated pseudo-genotype matrix:"
+            print self.matrix
 
     def genValidKey(self, field, fieldList):
         """Checks to  see validity of a field.
