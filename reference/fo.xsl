@@ -18,6 +18,10 @@
  <xsl:param name="toc.indent.width" select="8"/>
  <xsl:param name="insert.xref.page.number" select="1"/>
 
+ <xsl:template match="phrase[@role='strong']">
+  <xsl:call-template name="inline.boldseq"/>
+ </xsl:template>
+
  <xsl:template match="article/appendix">
   <xsl:variable name="id">
    <xsl:call-template name="object.id"/>
