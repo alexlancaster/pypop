@@ -1,0 +1,538 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE chapter PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
+   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<chapter>
+ <chapterinfo>
+  <authorgroup>
+   <author>
+    <firstname>Diogo</firstname>
+    <surname>Meyer</surname>
+   </author>
+   <author>
+    <firstname>Alex</firstname>
+    <surname>Lancaster</surname>
+   </author>
+  </authorgroup>
+  <pubdate>Last updated: $Date$ by $Author$</pubdate>
+ </chapterinfo>
+
+ <title>Guidelines for interpreting analyses of population genetic data</title>
+
+ <subtitle>Preliminary population genetic analyses for the Anthropology
+  Component of the 13th IHWG.</subtitle>
+
+ <para>This document is intended to provide you with information about
+  the format and the meaning of the results and data summaries you
+  have been sent.</para>
+
+ <sect1 id="instructions-pop-summary">
+  <title>Population Summary</title>
+
+  <para>A Population Summary is generated for each population/dataset
+   analyzed. It provides basic demographic information and summarizes
+   information about the sample size.</para>
+
+  <para>Sample output:</para>
+  <example>
+   <title>Population summary sample output</title>
+<programlisting><![CDATA[
+   Population Summary
+   ==================
+   
+          Lab code: UKIMID
+     Typing method: SSOP
+         Ethnicity: Irish
+         Continent: Europe
+   Collection site: Northern Ireland
+          Latitude: 54 degrees 40 minutes north
+         Longitude: 6 degrees 45 minutes west
+   Population Name: NIreland
+   
+   Population Totals
+   _________________
+   
+   Sample Size (n): 1000
+   Allele Count (2n): 2000
+   Total Loci in file: 9
+   Total Loci with data: 4
+]]></programlisting>
+  </example>
+
+ </sect1>
+
+ <sect1 id="instructions-locus-info">
+  <title>Locus specific information</title>
+
+  <para>Information relevant to individual loci is reported. If the
+   sample size differs among loci (as is the case if not all
+   individual were typed at each locus) sample size and allele count
+   will differ among loci.  Untyped individuals are those for which
+   one or two alleles were not typed. The alleles are listed in
+   descending frequency.</para>
+
+  <example>
+   <title>Basic locus information sample output</title>
+<programlisting><![CDATA[
+   1. Locus: A
+   ===========
+   
+   
+   1.1. Allele Counts [A]
+   ______________________
+   
+   Untyped individuals: 0
+   Sample Size (n): 1000
+   Allele Count (2n): 2000
+   Distinct alleles (k): 26
+   
+   Counts ordered by frequency   | Counts ordered by name        
+   Name      Frequency (Count)   | Name      Frequency (Count)   
+   0201      0.27400   548       | 0101      0.20200   404       
+   0101      0.20200   404       | 0201      0.27400   548       
+   0301      0.14300   286       | 0205      0.01200   24        
+   1101      0.07950   159       | 0217      0.00050   1         
+   2402      0.06050   121       | 0301      0.14300   286       
+   2902      0.04850   97        | 0302      0.00150   3         
+   3201      0.03200   64        | 1101      0.07950   159       
+   6801      0.02600   52        | 2301      0.01350   27        
+   3101      0.02550   51        | 2402      0.06050   121       
+   2501      0.02000   40        | 2409      0.00050   1         
+   2601      0.01750   35        | 2501      0.02000   40        
+   2301      0.01350   27        | 2502      0.00050   1         
+   0205      0.01200   24        | 2601      0.01750   35        
+   3002      0.01150   23        | 2608      0.00050   1         
+   3001      0.01100   22        | 2902      0.04850   97        
+   6802      0.00900   18        | 3001      0.01100   22        
+   3301      0.00650   13        | 3002      0.01150   23        
+   3303      0.00250   5         | 3004      0.00050   1         
+   0302      0.00150   3         | 3101      0.02550   51        
+   6601      0.00100   2         | 3201      0.03200   64        
+   0217      0.00050   1         | 3301      0.00650   13        
+   2409      0.00050   1         | 3303      0.00250   5         
+   2502      0.00050   1         | 3402      0.00050   1         
+   2608      0.00050   1         | 6601      0.00100   2         
+   3004      0.00050   1         | 6801      0.02600   52        
+   3402      0.00050   1         | 6802      0.00900   18        
+   Total     1.00000   2000      |                              
+]]></programlisting>
+  </example>
+
+  <para>In the cases where there is no information for a locus a message is
+    displayed indicating lack of data. </para>
+
+  <para>Sample output:</para>
+
+<programlisting>
+   Locus: DPB1
+   ===========
+   
+    No data for this locus!
+</programlisting>
+
+ </sect1>
+ 
+ <sect1 id="instructions-homozygosity">
+  <title>Homozygosity test of neutrality</title>
+
+  <para>For each locus the expected homozygosity under Hardy-Weinberg
+   proportions (the sum of the squares of allele frequencies) is
+   computed and reported. The expected homozygosity under neutrality,
+   for the same sample size and number of unique alleles is obtained
+   by simulation and reported (Expected Homozygosity). The Normalized
+   Deviate of the Homozygosity values is the difference between the
+   observed and expected homozygosity, divided by the square root of
+   the variance of the expected homozygosity (also obtained by
+   simulations). Negative Normalized deviates imply Observed
+   Homozygosity values lower than Expected Homozygosity, in the
+   direction of balancing selection. Positive values are in the
+   direction of directional selection. The p-value provided in the
+   last row of the ouput is the probability that the observed
+   homozygosity would be obtained from a neutral sample (of size 2n
+   and k distinct alleles).  P-values smaller than 0.05 reject the
+   null hypothesis of neutrality.</para>
+
+  <example>
+   <title>Sample output of homozyogsity test</title>
+<programlisting><![CDATA[
+   1.4. Homozygosity [A]
+   _____________________
+
+   Observed: 0.1524, Expected: 0.1524, Normalized deviate (Fnd): 0.0388
+   p-value range: 0.5000 < p <= 0.9000
+]]></programlisting>
+  </example>
+
+ </sect1>
+
+ <sect1 id="instructions-hardyweinberg">
+  <title>Test for deviation from Hardy-Weinberg proportions (HWP).</title>
+
+  <para>For each locus the observed genotype counts are compared to
+   those expected under Hardy Weinberg Proportions (HWP). A triangular
+   matrix reports observed and expected genotype counts. If there are
+   more than nine loci, the matrix is split into different
+   sections. Each cell contains the observed and expected number for a
+   given genotype in the format oberved/expected.</para>
+
+  <example>
+   <title>Sample output of HardyWeinberg genotype table</title>
+
+ <programlisting><![CDATA[
+   1.2. HardyWeinberg [A]
+   ______________________
+   
+   Table of genotypes, format of each cell is: observed/expected.
+   
+   0101   40/40.8
+   0201 105/110.7   80/75.1
+   0205     7/4.8     2/6.6     0/0.1
+   0217     1/0.2     0/0.3     0/0.0     0/0.0
+   0301   63/57.8   79/78.4     4/3.4     0/0.1   23/20.4
+   0302     1/0.6     1/0.8     0/0.0     0/0.0     0/0.4     0/0.0
+   1101   30/32.1   37/43.6     2/1.9     0/0.1   28/22.7     0/0.2     9/6.3
+   2301     4/5.5     5/7.4     0/0.3     0/0.0     2/3.9     0/0.0     1/2.1
+   2402   26/24.4   41/33.2     2/1.5     0/0.1   13/17.3     0/0.2    13/9.6
+   2409     0/0.2     1/0.3     0/0.0     0/0.0     0/0.1     0/0.0     0/0.1
+   2501     8/8.1   11/11.0     0/0.5     0/0.0     6/5.7     0/0.1     2/3.2
+   2502     0/0.2     1/0.3     0/0.0     0/0.0     0/0.1     0/0.0     0/0.1
+   2601     8/7.1     9/9.6     0/0.4     0/0.0     5/5.0     0/0.1     3/2.8
+   2608     0/0.2     1/0.3     0/0.0     0/0.0     0/0.1     0/0.0     0/0.1
+   2902   19/19.6   28/26.6     2/1.2     0/0.0   11/13.9     0/0.1     6/7.7
+   3001     3/4.4     5/6.0     0/0.3     0/0.0     5/3.1     0/0.0     2/1.7
+   3002     4/4.6     8/6.3     0/0.3     0/0.0     2/3.3     0/0.0     0/1.8
+   3004     1/0.2     0/0.3     0/0.0     0/0.0     0/0.1     0/0.0     0/0.1
+   3101   17/10.3    8/14.0     3/0.6     0/0.0     2/7.3     0/0.1     3/4.1
+   3201   13/12.9   21/17.5     0/0.8     0/0.0     7/9.2     0/0.1     5/5.1
+   3301     3/2.6     0/3.6     0/0.2     0/0.0     1/1.9     0/0.0     4/1.0
+   3303     0/1.0     1/1.4     0/0.1     0/0.0     1/0.7     0/0.0     1/0.4
+   3402     0/0.2     0/0.3     0/0.0     0/0.0     0/0.1     0/0.0     0/0.1
+   6601     0/0.4     0/0.5     0/0.0     0/0.0     0/0.3     0/0.0     1/0.2
+   6801    7/10.5   17/14.2     2/0.6     0/0.0    10/7.4     0/0.1     3/4.1
+   6802     4/3.6     7/4.9     0/0.2     0/0.0     1/2.6     1/0.0     0/1.4
+             0101      0201      0205      0217      0301      0302      1101
+                                [Cols: 1 to 7]
+   2301     0/0.2
+   2402     0/1.6     1/3.7
+   2409     0/0.0     0/0.1     0/0.0
+   2501     2/0.5     5/2.4     0/0.0     1/0.4
+   2502     0/0.0     0/0.1     0/0.0     0/0.0     0/0.0
+   2601     0/0.5     4/2.1     0/0.0     0/0.7     0/0.0     1/0.3
+   2608     0/0.0     0/0.1     0/0.0     0/0.0     0/0.0     0/0.0     0/0.0
+   2902     3/1.3     4/5.9     0/0.0     2/1.9     0/0.0     1/1.7     0/0.0
+   3001     2/0.3     0/1.3     0/0.0     0/0.4     0/0.0     0/0.4     0/0.0
+   3002     1/0.3     2/1.4     0/0.0     1/0.5     0/0.0     0/0.4     0/0.0
+   3004     0/0.0     0/0.1     0/0.0     0/0.0     0/0.0     0/0.0     0/0.0
+   3101     2/0.7     0/3.1     0/0.0     0/1.0     0/0.0     1/0.9     0/0.0
+   3201     1/0.9     5/3.9     0/0.0     0/1.3     0/0.0     0/1.1     0/0.0
+   3301     1/0.2     0/0.8     0/0.0     1/0.3     0/0.0     0/0.2     0/0.0
+   3303     0/0.1     0/0.3     0/0.0     0/0.1     0/0.0     0/0.1     0/0.0
+   3402     0/0.0     0/0.1     0/0.0     0/0.0     0/0.0     0/0.0     0/0.0
+   6601     0/0.0     1/0.1     0/0.0     0/0.0     0/0.0     0/0.0     0/0.0
+   6801     3/0.7     2/3.1     0/0.0     0/1.0     0/0.0     1/0.9     0/0.0
+   6802     0/0.2     1/1.1     0/0.0     0/0.4     0/0.0     1/0.3     0/0.0
+             2301      2402      2409      2501      2502      2601      2608
+                                [Cols: 8 to 14]
+]]></programlisting>
+  </example>
+
+  <para> The values in this matrix are used to test hypotheses of
+   deviation from HWP. The output table reports the observed and
+   expected number of genotypes, the chi-square statistic, the number
+   of degrees of freedom and associated p value for the following
+   classes of genotypes.</para>
+
+  <itemizedlist>
+   <listitem>
+    <formalpara><title>Common</title>
+     <para>The result
+      for goodness of fit to HWP using only the genotypes with at
+      least five expected counts (the common genotypes).</para>
+    </formalpara>
+   </listitem>
+
+   <listitem>
+    <formalpara><title>Lumped genotypes</title> 
+     <para>The result for goodness
+     of fit to HWP for the pooled set of genotypes that individually
+     have less than five expected counts.  </para>
+    </formalpara>
+   </listitem>
+
+   <listitem>
+    <formalpara>
+     <title>Common + lumped</title> <para>The
+      result for goodness of fit to HWP for both the common and the
+      lumped genotypes.</para>
+    </formalpara>
+   </listitem>
+   
+   <listitem>
+    <formalpara>
+     <title>All homozygotes</title>
+     <para>The result for goodness of fit to HWP
+    for the pooled set of homozygous genotypes.</para>
+    </formalpara>
+   </listitem>
+   
+   <listitem>
+    <formalpara>
+     <title>All heterozygotes</title> 
+     <para>The result for goodness of fit to HWP
+      for the pooled set of heterozygous genotypes.</para>
+    </formalpara>
+   </listitem>
+   
+  </itemizedlist>
+
+  <example>
+  <title>Sample output of HW classes</title>
+  
+<programlisting><![CDATA[
+                      Observed    Expected  Chi-square  dof p-value     
+------------------------------------------------------------------------------
+            Common           -           -   48.409466   38 0.120067    
+------------------------------------------------------------------------------
+  Lumped genotypes           -           -    0.059592    1 0.807142    
+------------------------------------------------------------------------------
+   Common + lumped           -           -   48.469058   38 0.118907    
+------------------------------------------------------------------------------
+   All homozygotes         114  114.350000    0.001071    1 0.973893    
+------------------------------------------------------------------------------
+ All heterozygotes         886  885.650000    0.000138    1 0.990627    
+------------------------------------------------------------------------------
+Heterozygotes by allele
+              0102          48   46.848000    0.028328      0.866340    
+              0202          41   40.159500    0.017591      0.894485    
+              0303          98   95.000000    0.094737      0.758239    
+              0304         115  118.935500    0.130223      0.718201    
+              0401         141  151.387500    0.712742      0.398535    
+              0501         224  221.742000    0.022993      0.879475    
+              0602         164  160.512000    0.075796      0.783077    
+              0701         304  304.062000    0.000013      0.997123    
+              0702         305  302.179500    0.026326      0.871107    
+...
+
+------------------------------------------------------------------------------
+Genotypes by genotype
+         0102:0501           4    6.096000    0.720672      0.395924    
+         0102:0701           5    8.976000    1.761205      0.184474    
+         0102:0702           6    8.904000    0.947127      0.330452    
+         0202:0501           8    5.207000    1.498147      0.220957    
+         0202:0701           9    7.667000    0.231758      0.630223    
+         0202:0702           6    7.605500    0.338917      0.560455    
+         0303:0304          10    6.350000    2.098031      0.147489    
+         0303:0401           8    8.250000    0.007576      0.930640    
+         0303:0501          13   12.700000    0.007087      0.932910    
+         0303:0602           8    8.800000    0.072727      0.787407    
+
+...
+             Total         848      850.98
+------------------------------------------------------------------------------
+]]></programlisting>
+  </example>
+
+  <para> The pooling procedure is designed to avoid carrying out the
+   chi-square goodness of fit test in cases where there are few
+   expected counts, which could lead to spurious rejection of
+   HWP. However, in certain cases it may not be possible to carry out
+   this pooling approach.</para>
+
+   
+  <para>If the dataset contains no genotypes with expected counts equal or
+   greater than 5, then there are no common genotypes and  the following
+   message is reported: </para>
+
+<programlisting>
+   No commmon genotypes; chi-square cannot be calculated
+</programlisting>
+
+  <para>If the sum of expected counts in the lumped class does not add up to
+   five, then the test for the lumped genotypes cannot be calculated and
+   the following message is reported:</para>
+  
+<programlisting>
+   The total number of expected genotypes is less than 5
+</programlisting>
+
+  <para>The lumping procedure may generate a dataset where there are fewer
+   classes (genotypes) than allele frequencies to estimate.  This means
+   that the analysis cannot be peformed (degrees of freedom &lt; 1). In such
+   a case the following message is reported, explaining why the analysis
+   could not be performed:</para>
+
+<programlisting>
+   Too many parameters for chi-square test.
+</programlisting>
+
+  <para>This may by remedied by combining rare alleles and recalculating
+   overall chi-square value and degrees of freedom.</para>
+  
+  <para>The heterozygotes by allele section summarizes the observed and
+   expected number of counts of all heterozygotes carrying a specific
+   allele with expected value &ge; 5. The genotypes by genotype section lists
+   observed, expected, chi-square and p-values for all observed genotypes
+   with expected values &ge; 5.</para>
+  
+</sect1>
+
+ <sect1 id="instructions-hardyweinberg-exact">
+  <title>Exact test for deviation from HWP</title>
+  
+  <para>For each locus the exact test for deviations from HWP is implemented
+   using the method of Guo and Thompson (1992). The P-value provided
+   describes how probable the observed set of genotypes is, with respect
+   to a large sample of other genotypic configurations (conditioned on
+   the same allele frequencies and 2n). P-values lower than 0.05 can be
+   interpreted as evidence that the sample does not fit HWP.</para>
+  
+  <example>
+   <title>Sample output for exact test</title>
+
+<programlisting>
+   Guo and Thompson HardyWeinberg output [C]
+   -----------------------------------------
+   Randomization test P-value: 0.1698   
+</programlisting>
+  </example>
+
+  <para>If there are many haplotypes, the exact test may be computationally
+   impossible to implement. In this case the following message is reported:</para>
+
+<programlisting>
+   Guo and Thompson HardyWeinberg output [C]
+   ----------------------------------------
+   Too large a matrix for Guo and Thompson
+</programlisting>
+
+ </sect1>
+ 
+ <sect1 id="instructions-haplo">
+  <title>Haplotype Frequency and LD Estimation</title>
+  
+  <para>Haplotypes frequencies are estimated using the iterative
+   Expectation-Maximization (EM) algorithm (Dempster et al, 1977;
+   Slatkin and Excoffier, 1995).</para>
+
+  <para>Multiple starting conditions are used to minimize the possibility of
+   local maxima being reached by the EM iterations. The haplotype
+   frequencies reported are those that correspond to the highest
+   logarithm of the sample likelihood found over the different starting
+   conditions and are labeled as the maximum likelihood estimates
+   (MLE).</para>
+
+  <para>The output provides the of loci for which haplotype
+   frequencies were estimated, the number of individual genotypes in
+   the dataset (<literal>before-filtering</literal>), the number of
+   genotypes that have data for all loci for which haplotype
+   estimation will be peformed (<literal>after-filtering</literal>),
+   the number of unique phenotypes (unphased genotypes), the number of
+   unique genotypes, the total number of possible haplotypes (many of
+   these will have an estimated frequency of zero), and the
+   log-likelihood of the observed genotypes under the assumption of
+   linkage equilibrium.</para>
+
+  <sect2>
+  <title>Haplotype frequency estimation</title>
+
+   <example>
+    <title>Sample output of haplotype estimation parameters</title>
+
+<programlisting><![CDATA[
+  Haplotype frequency est. for loci: A:B:DRB1
+  ___________________________________________
+  
+  Number of individuals: 1000 (before-filtering)
+  Number of individuals: 1000 (after-filtering)
+  Unique phenotypes: 905
+  Unique phenotypes: 3075
+  Number of haplotypes: 2222
+  Loglikelihood under linkage equilibrium ln(L_0): -13435.649946
+  Loglikelihood obtained via the EM algorithm ln(L_1): -10045.358506
+  Number of iterations before convergence: 155
+]]></programlisting>
+   </example>
+
+   <para> The estimated haplotype frequencies are reported in order of
+    decreasing frequency. Only haplotypes estimated at a frequency of
+    0.00001 or larger are reported.  The first column give the allele
+    names over the three loci, the second column provides the maximum
+    likelihood estimate for their frequencies, (frequency), and the
+    third column gives the corresponding approximate number of
+    haplotypes (num. of copies).</para>
+
+   <example>
+    <title>Sample output of estimated haplotype frequencies</title>
+
+<programlisting><![CDATA[
+haplotype         frequency # copies  | haplotype         frequency # copies  
+0101:0702:0101:   0.00470   9.4       | 0101:0801:0301:   0.08952   179.0     
+0101:0702:1101:   0.00025   0.5       | 0301:0702:1501:   0.04869   97.4      
+0101:0702:1501:   0.00905   18.1      | 0201:4402:0401:   0.04011   80.2      
+0101:0702:1502:   0.00050   1.0       | 0201:0702:1501:   0.03016   60.3      
+0101:0801:0101:   0.00345   6.9       | 2902:4403:0701:   0.02112   42.2      
+0101:0801:0103:   0.00053   1.1       | 0201:0801:0301:   0.01819   36.4      
+0101:0801:0301:   0.08952   179.0     | 0101:5701:0701:   0.01794   35.9      
+0101:0801:0401:   0.00219   4.4       | 0201:4402:1501:   0.01054   21.1      
+0101:0801:0404:   0.00414   8.3       | 2402:0702:1501:   0.00943   18.9      
+0101:0801:0701:   0.00324   6.5       | 3101:4001:0404:   0.00939   18.8      
+0101:0801:0901:   0.00050   1.0       | 1101:3501:0101:   0.00923   18.5      
+0101:0801:1101:   0.00213   4.3       | 0101:0702:1501:   0.00905   18.1      
+0101:0801:1301:   0.00250   5.0       | 0301:1402:1302:   0.00828   16.6      
+0101:0801:1401:   0.00051   1.0       | 0201:0702:0103:   0.00801   16.0      
+
+...]]></programlisting>
+   </example>
+  </sect2>
+
+  <sect2>
+   <title>All pairwise LD</title>
+
+   <para>For each pair of loci a series of linkage disequilibrium measures
+    are provided:</para>
+
+   <example>
+    <title>Sample output of all pairwise LD</title>
+
+<programlisting>
+All pairwise LD est. for loci
+_____________________________
+   
+Locus pair        D'        Wn   ln(L_1)   ln(L_0)         S   # permu p-value  
+A:C          0.47191   0.30538  -7382.70  -8144.10   1522.80         *          
+A:B          0.52861   0.43475  -7872.26  -8943.46   2142.40         *          
+A:DRB1       0.34203   0.26803  -7932.74  -8436.79   1008.09         *          
+C:B          0.94785   0.76532  -5669.41  -9198.35   7057.88         *          
+C:DRB1       0.57734   0.35789  -7601.21  -8691.67   2180.93         *          
+B:DRB1       0.64448   0.37899  -7981.15  -9491.04   3019.78         *          
+</programlisting>
+   </example>
+
+  </sect2>
+
+</sect1>
+
+ <sect1 id="instructions-references">
+  <title>References</title>
+  
+  <sect2>
+   <title>General population genetics</title>
+
+   <para>Hartl, D. and Clark, A. <emphasis>Principles of Population
+    Genetics</emphasis>. Third Edition. Sinauer, Sunderland,
+    MA.</para>
+
+   <para>Hedrick, P. 1999.  <emphasis>Genetics of
+    Populations</emphasis>. Second Edition. Jones and Bartlett,
+    Sudbury, MA.</para>
+  </sect2>
+ </sect1>
+
+</chapter>
+
+<!--
+Local variables:
+sgml-local-catalogs: ("catalog")
+sgml-indent-step: 1
+sgml-indent-data: 1
+End:
+-->
