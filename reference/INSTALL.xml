@@ -78,7 +78,7 @@
 
     <listitem>
      <para>Now you can run the interactive version of the program, by
-      typing <userinput>./pypop.sh</userinput>, at the command
+      typing <userinput>./pypop</userinput>, at the command
       line.</para>
 
      <xi:include href="install-screen.xml#xpointer(/section/para)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
