@@ -49,5 +49,6 @@ else
 	echo running cvs tag $CVSTAG
     else
 	echo not tagging
+    fi
 fi
 
