@@ -21,7 +21,7 @@
 int main(int argc, char *argv[])
 /* correct execution of this program: gthwe infile outfile */
 {
-  int a[LENGTH], n[MAX_ALLELE];
+  int genotypes[LENGTH], allele_array[MAX_ALLELE];
    
   int no_allele, total;
   struct randomization sample;
@@ -41,7 +41,7 @@ int main(int argc, char *argv[])
      from run_data() */
 
   /* get the parameters and data from the file and read into variables */
-  if (read_data(a, &no_allele, &total, &sample, &infile, &title))
+  if (read_data(genotypes, &no_allele, &total, &sample, &infile, &title))
     exit(2);
   
   /* "de"-construct or "flatten" struct to pass to function, so
@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
   size = sample.size;
 
   /* pass the parsed variables to do the main processing */
-  run_data(a, n, no_allele, total, step, group, size, title, outfile);
+  run_data(genotypes, allele_array, no_allele, total, step, group, size, title, outfile);
   
   return (0);
 }
@@ -113,18 +113,18 @@ long init_rand(void) {
   var(p_i^2) = var(p_i) * var(p_i)
              = (1/4N^2)* p_i^2 * (1-p_i)^2
 */
-double norm_dev(int i, int j, int obs_count, int total_gametes, int *n)
+double norm_dev(int i, int j, int obs_count, int total_gametes, int *allele_array)
 {
   double p_i = 0.0, p_j = 0.0;
   double obs_freq, exp_freq, var, norm_dev;
   int total_indivs = total_gametes/2;
 
-  /* printf("n[%d]=%d, n[%d]=%d, N=%d, obs_count=%d\n", 
-     i, n[i], j, n[j], total_indivs, obs_count); */
-  p_i = (double)n[i]/(double)total_gametes;
+  /* printf("allele_array[%d]=%d, allele_array[%d]=%d, N=%d, obs_count=%d\n", 
+     i, allele_array[i], j, allele_array[j], total_indivs, obs_count); */
+  p_i = (double)allele_array[i]/(double)total_gametes;
 
   if (i != j) {
-    p_j = (double)n[i]/(double)total_gametes;
+    p_j = (double)allele_array[i]/(double)total_gametes;
     exp_freq = 2*p_i*p_j;
     var = (p_i*(1-p_i) * p_j*(1-p_j))/(double)(total_indivs*total_indivs);
   }
@@ -149,12 +149,12 @@ double norm_dev(int i, int j, int obs_count, int total_gametes, int *n)
  * this can be called by external programs or be made into an
  * extension function in languages like Python using SWIG.
  */
-/* int run_data(int a[LENGTH], int n[MAX_ALLELE], int no_allele, int total, 
+/* int run_data(int genotypes[LENGTH], int allele_array[MAX_ALLELE], int no_allele, int total_individuals, 
 	     int thestep, int thegroup, int thesize,
 	     char *title, FILE *outfile) */
 
-int run_data(int *a, int *n, int no_allele, int total, 
-	     int thestep, int thegroup, int thesize,
+int run_data(int *genotypes, int *allele_array, int no_allele, 
+	     int total_individuals, int thestep, int thegroup, int thesize,
 	     char *title, FILE *outfile)
 {
   int actual_switch, counter;
@@ -167,7 +167,7 @@ int run_data(int *a, int *n, int no_allele, int total,
   long t1;
   int num_genotypes = no_allele * (no_allele + 1) / 2;
 
-  /* int *a = (int *)calloc(genotypes, sizeof(int)); */
+  /* int *genotypes = (int *)calloc(genotypes, sizeof(int)); */
 
   /* do random number initialization */
   t1 = init_rand(); 
@@ -186,23 +186,23 @@ int run_data(int *a, int *n, int no_allele, int total,
 #endif
 
 #ifndef SUPPRESS_ALLELE_TABLE
-  print_data(a, no_allele, sample, &outfile, title);
+  print_data(genotypes, no_allele, sample, &outfile, title);
 #endif
 
   /* calculate number of alleles of each gamete */
-  cal_n(no_allele, a, n);
+  cal_n(no_allele, genotypes, allele_array);
 
 #if DEBUG
-  printf("no_allele=%d, total=%d, thestep=%d, thegroup=%d, thesize=%d, title=%s, t1=%ld\n",no_allele, total, sample.step, sample.group, sample.size, title, t1);
+  printf("no_allele=%d, total_individuals=%d, thestep=%d, thegroup=%d, thesize=%d, title=%s, t1=%ld\n",no_allele, total_individuals, sample.step, sample.group, sample.size, title, t1);
   for (i=0; i < no_allele; i++) 
     for (j=0; j <= i; j++)
-      printf("a[%d, %d] = %d\n", i, j, a[LL(i,j)]);
+      printf("genotypes[%d, %d] = %d\n", i, j, genotypes[LL(i,j)]);
 
   for (i=0; i < num_genotypes; i++) 
-    printf("a[%d] = %d\n", i, a[i]);
+    printf("genotypes[%d] = %d\n", i, genotypes[i]);
 
   for (i=0; i < no_allele; i++) 
-    printf("n[%d] = %d\n", i, n[i]);
+    printf("allele_array[%d] = %d\n", i, allele_array[i]);
 
   printf("after looping through a, n!\n");
 
@@ -211,13 +211,13 @@ int run_data(int *a, int *n, int no_allele, int total,
 #endif
 
 
-#ifdef PERMU_TEST
+#ifdef INDIVID_GENOTYPES
 
   double *obs_normdev = (double *)calloc(num_genotypes, sizeof(double));
 
   for (i=0; i < no_allele; i++) 
     for (j=0; j <= i; j++) {
-      obs_normdev[L(i,j)] = norm_dev(i, j, a[L(i,j)], (total * 2), n);
+      obs_normdev[L(i,j)] = norm_dev(i, j, genotypes[L(i,j)], (total_individuals * 2), allele_array);
       printf("obs_normdev[%d, %d] = %f\n", i, j, obs_normdev[L(i,j)]);
       fflush(stdout);
     }
@@ -225,9 +225,9 @@ int run_data(int *a, int *n, int no_allele, int total,
 
 #endif
 
-  constant = cal_const(no_allele, n, total);
+  constant = cal_const(no_allele, allele_array, total_individuals);
   
-  ln_p_observed = ln_p_value(a, no_allele, constant);  
+  ln_p_observed = ln_p_value(genotypes, no_allele, constant);  
   
   ln_p_simulated = ln_p_observed; 
   
@@ -243,7 +243,7 @@ int run_data(int *a, int *n, int no_allele, int total,
       
       select_index(&index, no_allele);
 
-      ln_p_simulated = cal_prob(a, index, ln_p_simulated, &actual_switch);
+      ln_p_simulated = cal_prob(genotypes, index, ln_p_simulated, &actual_switch);
       ++result.swch_count[actual_switch];
     }
   
@@ -254,20 +254,22 @@ int run_data(int *a, int *n, int no_allele, int total,
       for (j = 0; j < sample.size; ++j)
 	{
 	  select_index(&index, no_allele);
-	  ln_p_simulated = cal_prob(a, index, ln_p_simulated, &actual_switch);
+	  ln_p_simulated = cal_prob(genotypes, index, ln_p_simulated, &actual_switch);
 	  
 	  if (ln_p_simulated <= ln_p_observed)  
 	    ++counter;
 	  ++result.swch_count[actual_switch];
-	  
-#ifdef PERMU_TEST
+
+#ifdef INDIVID_GENOTYPES	  
 	  /* go through genotype list at this step of the chain */
 	  for (k=0; k < no_allele; k++) 
 	    for (l=0; l <= k; l++) {
 	      /* increase count in genotype if norm_dev > norm_dev[0] */
-	      /* printf("a[%d,%d]=%d, ", k, l, a[L(k,l)]); */
+	      /* printf("genotypes[%d,%d]=%d, ", k, l, genotypes[L(k,l)]); */
 
-	      double sim_normdev = norm_dev(k, l, a[L(k,l)], (total * 2), n);
+	      double sim_normdev = 
+		norm_dev(k, l, genotypes[L(k,l)], 
+			 (total_individuals * 2), allele_array);
 	      /* printf("norm dev: sim = %g, ", sim_normdev); */
 
 	      if (sim_normdev > obs_normdev[L(k,l)]) {
@@ -319,7 +321,7 @@ int run_data(int *a, int *n, int no_allele, int total,
   fprintf(outfile, "</hardyweinbergGuoThompson>");
 #endif
 
-#ifdef PERMU_TEST
+#ifdef INDIVID_GENOTYPES
 
   /* print pvalues for each genotype */
   for (i=0; i < num_genotypes; i++) {
@@ -328,12 +330,32 @@ int run_data(int *a, int *n, int no_allele, int total,
 	   i, normdev_count[i], normdev_count[i]/total_step);
   }
 
+  /* free dynamically-allocated memory  */
+  free(obs_normdev);
+  free(normdev_count);
+
+#endif
+
+  return (0);
+}
+
+int run_randomization(int *genotypes, int *allele_array, int no_allele, 
+		      int total_individuals, int iterations)
+
+{
+
+  double ln_p_observed; 
+  double constant;
+  register int i, j, k, l;
+  int num_genotypes = no_allele * (no_allele + 1) / 2;
+
+
   /* calculate number of alleles of each gamete */
-  /* cal_n(no_allele, a, n); */
+  cal_n(no_allele, genotypes, allele_array); 
 
   /* reinitialize constant after n has been calculated using cal_n above: 
      don't know why this isn't done in original code? */
-  /* constant = cal_const(no_allele, n, total); */
+  constant = cal_const(no_allele, allele_array, total_individuals); 
 
   /* check original array */
   /* for (i=0; i < no_allele; i++) 
@@ -341,8 +363,8 @@ int run_data(int *a, int *n, int no_allele, int total,
       printf("a_copy[%d, %d] = %d\n", i, j, a_copy[LL(i,j)]);
   */
 
-  /* don't reinitialize observed value */
-  /* ln_p_observed = ln_p_value(a, no_allele, constant);   */
+  ln_p_observed = ln_p_value(genotypes, no_allele, constant);   
+
   /* printf("after recalculating observed value\n"); */
 
   /* store histograms of each genotype
@@ -355,18 +377,18 @@ int run_data(int *a, int *n, int no_allele, int total,
 
   int **histograms = (int **)calloc(num_genotypes, sizeof(int *));
   for (i = 0; i < num_genotypes; i++)
-    histograms[i] = calloc(total, sizeof(int));
+    histograms[i] = calloc(total_individuals, sizeof(int));
   
   printf("Constant: %e, Observed: %e\n", constant, ln_p_observed);
 
   /* calculate the number of gametes */
   int total_gametes = 0;
   for (i=0; i < no_allele; i++) 
-    total_gametes += n[i];
+    total_gametes += allele_array[i];
 
   printf("n = [");
   for (i=0; i < no_allele; i++) 
-    printf("%d,", n[i]);
+    printf("%d,", allele_array[i]);
   printf("]\n");
 
   printf("total gametes: %d\n", total_gametes);
@@ -376,7 +398,7 @@ int run_data(int *a, int *n, int no_allele, int total,
 
   /* create index of gametes */
   for (i=0; i < no_allele; i++) 
-    for (j=0; j < n[i]; j++) {
+    for (j=0; j < allele_array[i]; j++) {
       s[gamete] = i;
       gamete++;
     }
@@ -401,9 +423,9 @@ int run_data(int *a, int *n, int no_allele, int total,
   /* start permuting index of gametes */
   int permu = 0;
   int K = 0;
-  int N = 17000;
+
   double ln_p_perm;
-  for (permu=0; permu < N; permu++) {
+  for (permu=0; permu < iterations; permu++) {
     gsl_ran_shuffle(r, s, total_gametes, sizeof(int));
 
 #ifdef PERMU_DEBUG
@@ -432,11 +454,11 @@ int run_data(int *a, int *n, int no_allele, int total,
       printf("%d,", g[i]);
     printf("]\n");
 
-    cal_n(no_allele, g, n);
+    cal_n(no_allele, g, allele_array);
 
-    printf("check that n[] has not changed\n");
+    printf("check that allele_array[] has not changed\n");
     for (i=0; i < no_allele; i++) 
-      printf("n[%d] = %d\n", i, n[i]);
+      printf("allele_array[%d] = %d\n", i, allele_array[i]);
 #endif
 
     ln_p_perm = ln_p_value(g, no_allele, constant);
@@ -458,22 +480,19 @@ int run_data(int *a, int *n, int no_allele, int total,
   }
 
   printf("finished permutations!\n");
-  printf("K = %d, N = %d\n", K, N);
-  double p_value = (double)K/N;
+  printf("K = %d, N = %d\n", K, iterations);
+  double p_value = (double)K/iterations;
   printf("pvalue = %g\n", p_value);
 
   /* print histograms */
   for (i=0; i < num_genotypes; i++) {
     printf("histogram[%d]: {", i);
-    for (j=0; j < total; j++) {
+    for (j=0; j < total_individuals; j++) {
       printf("%d, ", histograms[i][j]);
     }
-    printf("} observed: FIXME, need to copy original a[] array\n");
+    printf("} observed: FIXME, need to copy original genotypes[] array\n");
   }
 
-  /* free dynamically-allocated memory  */
-  free(obs_normdev);
-  free(normdev_count);
 
   /* free dynamically-allocated memory  */
   for(i = 0; i < num_genotypes; i++)
@@ -482,8 +501,8 @@ int run_data(int *a, int *n, int no_allele, int total,
 
   free(g);
   free(s);
-#endif
 
   return (0);
+
 
 }

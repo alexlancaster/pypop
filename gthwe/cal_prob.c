@@ -14,7 +14,7 @@
 
 double cal_prob(a, index, ln_p_old, actual_switch)
 
-		 int a[LENGTH];
+		 int *a;
 		 Index index;
 		 double ln_p_old;
 		 int *actual_switch;

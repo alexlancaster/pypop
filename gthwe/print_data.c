@@ -13,7 +13,7 @@
 
 void print_data(a, no_allele, sample, outfile, title)
 
-		 int a[LENGTH];
+		 int *a;
 		 int no_allele;
 		 char title[80];
 		 struct randomization sample;
