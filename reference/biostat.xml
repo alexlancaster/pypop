@@ -39,9 +39,10 @@
 
  <chapter condition="main">
   <chapterinfo>
-   <xi:include href="pypop.xml#xpointer(//articleinfo/*)"/>
+   <xi:include href="pypop.xml#xpointer(//articleinfo/authorgroup)"/>
+   <xi:include href="pypop.xml#xpointer(//articleinfo/pubdate)"/>
   </chapterinfo>
-  <xi:include href="pypop.xml#xpointer(/article/title)"/>
+  <title>PyPop: software framework</title>
   <xi:include href="pypop.xml#xpointer(/article/section)"/>  
  </chapter>
 
