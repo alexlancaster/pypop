@@ -3,6 +3,19 @@
 <!-- Do not edit line below -->
 *Lasted updated: $Date$ by $Author$.*
 
+- 'Main' is the primary interface to the PyPop modules.  Given a
+ConfigParser instance, which can be (1) created from a filename passed
+from command-line argument or (2) from values populated by the GUI
+(currently selected from an .ini file, but can ultimately be set
+directly from the GUI or values based from a form to a web server or
+the) it then runs the specified modules (outlined below).
+
+- 'GUIApp' is the graphical front-end to PyPop which uses the
+"wxPython":http://www.wxpython.org GUI toolkit.  wxPython is a set of
+Python bindings to "wxWindows":http://www.wxwindows.org, which is an
+open-source cross-platform GUI widget toolkit which has a native look
+under GNU/Linux (GTK), Windows (MFC) and MacOS X (Aqua).
+
 - 'ParseFile' is a base class which has most of the common functionality
 for reading files.
 
@@ -48,152 +61,6 @@ followed by a line with the actual data, followed by the column
 headers for the samples (sample metadata) followed by the sample data
 itself (either individuals in the genotyped case, or alleles in the
 allele count case).
-
-**TODO**
-
-2002-10-17:
-
-- 'ParseFile': derive map order from the order of the loci from the
-  config.ini variable 'validSampleFields' (i.e. use that variable to
-  specify map order, and use this variable as the return value of
-  getLocusKeys in ParseFile.py).  This would mean that order loci in
-  the .pop files wouldn't matter for correct map order.  Then we would
-  use that as the list of loci to loop through for all subsequent
-  analyses.  (_alex_)
-
-2001-12-13:
-
-- 'Emhaplofreq' : when passing individuals data to C module, filter
-  out all individuals with missing data at any loci.  (_alex_:
-  100%-COMPLETED 2002-01-17).
-
-2001-11-27:
-
-- 'Emhaplofreq' : add names of loci and associated numerical labels to
-  output.  (_alex_: 100%-COMPLETED 2002)
-
-- 'Emhaplofreq' : remove allele frequency output. (_alex_: 100%-COMPLETED
-  2001-12-19)
-
-- 'Emhaplofreq' : check accuracy of chi-squared output in LD section.
-  (_single_: SOLVED 2001-11-29) the individual chi-squared values
-  reported are actually computede for 2x2 contingency tables involving
-  the alleles of interest and the complementary classes.
-
-- 'Emhaplofreq' : ask Rich if we should increase the number of
-   permutations by one since the observed data's LR value does not
-   contribute to the distribution.  (_single_)
-
-2001-11-21:
-
-- 'Emhaplofreq' : XML-ify Rich's program (_alex_: 100%-COMPLETED
-  2002-05-11).
-
-- 'Emhaplofreq' : Conceive in more detail, the final output to feed into
-  XML-ification (_diogo_: 100%-COMPLETED 2002).
-  
-  - decide on hierarchy of output files/sections 
-
-  - decide which input parameters are reported 
-
-  - need p-value computation?
-
-  - decide what currently hard-coded values in 'emhaplofreq.h' should
-    be user-configurable via 'config.ini' 
-  
-- 'Emhaplofreq' : After XML-ification, start on XSL stylesheet to
-  consolidate output: each pairwise locus/allele into single table
-  (_alex_: 100%-COMPLETED 2002-09-01).
-
-- 'HardyWeinberg' :  Decide on additional values within each cell (in
-  addition to obsv/expct), each p-values (_diogo_)
-
-- 'ParseFile' : Check that missing value stats that are currently
-  reported are adequate and correct (_diogo_).
-
-2001-11-19:
-
-- 'Emhaplofreq' : Calculate all pairwise loci linkage disequilibrium
-  values.  Allow estimation of haplotypes of specified (via
-  'config.ini' file) subset of loci (_alex_: 100%-COMPLETED: 2001-12-04).
-
-- 'ParseFile' : Rejig internal format to allow more intutitive data
-  retrieval in both row (individual-oriented) and column (loci
-  oriented) form (_alex_: FIRST-PASS-COMPLETED: 2001-12-04).
-
-2001-09-28:
-
-- Implement XML -> text conversion using XSLT 'text.xsl' stylesheet,
-  so that text output is always generated from XML output.  This will
-  be done using the 'xml.xslt' API (part of the
-  "4Suite":http://www.4suite.org XML/ XSLT package) (_alex_:
-  100%-COMPLETED 2001-12-19).
-
-- Remove all ad-hoc text output, all text output will be derived from
-  the XML output, all serialization code will be collapsed into one
-  (_alex_: 100%-COMPLETED 2002-02-13).
-
-2001-09-20:
-
-- 'gthwe' : Remove extraneous information from output: table,
-  #alleles, chunkinfo, stepinfo.  (_alex_: 100%-COMPLETED 2002) 
-
-- Longer-term: rationalize and/or modernize code (_diogo_ / _alex_ /
-  _single_).
-
-2001-09-14:
-
-- 'HardyWeinberg' : Output a lower-triangular matrix for all relevant
-  values. (_mpn_ / _alex_: 80%-COMPLETED 2001-09-21, need to add more
-  values to cells)
-
-- Output information about missing data on a per-locus basis (i.e. any
-  deviations from the total number of individuals in each input
-  file).  (_alex_: 100%-COMPLETED 2001-12-04)
-
-2001-09-13: 
-
-- "getopt-ify" emphaplofreq so that all currently hardcoded parameters
-  can be passed in via command-line options.  (_alex_: 100%-COMPLETED
-  2001-12-04)
-
-- Add parameters for Guo and Thompson into "config.ini".  (_alex_:
-  100%-COMPLETED 2001-09-18)
-
-- Make number of significant figures reported be a global parameter
-  set in "config.ini" (e.g. "%.4f") (_alex_)
-
-- Wrap 'emphaplofreq' with SWIG, so that it can be called directly as a
-  Python object.  (_alex_: 100%-COMPLETED 2001-12-04)
-
-- Wrap 'gthwe' with SWIG, so that it can be called directly as a
-  Python object.  (_alex_: 100%-COMPLETED 2002-01-30 )
-
-2001-07-31:
-
-- Finish cleaning up 'HardyWeinberg'. (_alex_ / _mpn_)
-
-- Implement a 'PopGenStats' module (?) Move some 'population-level'
-  statistics into this module. (_alex_)
-
-*longer-term*:
-
-2001-09-13:
-
-- Abstract the configurator?  [use reflection to construct objects, so
-  that constructors don't have to be hard-coded.]  (_alex_)
-
-2001-07-31:
-
-- Rationalize naming conventions. (?)
-
-- Implement 'ParseAlleleCountFile'. (_alex_ : 50%-COMPLETED 2002-03-05)
-
-**NOTE**: When editing this 'README' file, it will help to adhere to
-the "structured text
-conventions":http://www.python.org/sigs/doc-sig/stext.html since
-Happydoc uses this information to format output documentation
-(including HTML) nicely.
 
 <!--
 Local variables:
