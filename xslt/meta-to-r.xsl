@@ -361,7 +361,8 @@
      <xsl:text>pop&#09;ethnic&#09;region&#09;n.haplo&#09;locus1&#09;locus2&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
-      <xsl:with-param name="nodes" select="/meta/dataanalysis/emhaplofreq/group[@mode='haplo' and (string-length(@loci) - string-length(translate(@loci, ':', '')))=1]"/>
+      <xsl:with-param name="nodes"
+       select="/meta/dataanalysis/emhaplofreq/group[@mode='all-pairwise-ld-with-permu' and @role!='no-data']"/>
       <xsl:with-param name="type" select="'2-locus-summary'"/>
      </xsl:call-template>
     </exsl:document>
@@ -373,7 +374,7 @@
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
-      select="/meta/dataanalysis/emhaplofreq/group[@mode='haplo' and (string-length(@loci) - string-length(translate(@loci, ':', '')))=1]"/>
+      select="/meta/dataanalysis/emhaplofreq/group[@mode='all-pairwise-ld-with-permu' and @role!='no-data']"/>
       <xsl:with-param name="type" select="'2-locus-haplo'"/>
      </xsl:call-template>
     </exsl:document>
