@@ -3,8 +3,7 @@
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <article condition="main" xmlns:xi="http://www.w3.org/2001/XInclude">
 
- <title>PyPop: a software framework for population genomics: analyzing
- large-scale multi-locus genotype data</title>
+ <title>Software framework for IHWG Biostatistics Core</title>
 
  <articleinfo>
   <authorgroup>
@@ -56,6 +55,7 @@
   <pubdate>Last modified: $Date$</pubdate>
  </articleinfo>
 
+<!--
  <abstract>
    <para>Software to analyze multi-locus genotype data for entire
    populations is useful for estimating haplotype frequencies,
@@ -78,10 +78,38 @@
    loci (both class I and class II) and found that it scales to large
    numbers of data sets well.</para>
  </abstract>
- 
+ -->
+
  <section>
   <title>Introduction</title> 
 
+  <para>The <application>PyPop</application>
+   (<emphasis>Py</emphasis>thon for <emphasis>Pop</emphasis>ulation
+   Genetics) analysis package forms the base of the biostatisics core.
+   It is in an object-oriented framework implemented in the
+   programming language Python. The object-oriented approach allows us
+   to implement individual analysis modules which can be inserted or
+   removed without affecting other modules. Python is a flexible
+   scripting language which allows rapid prototyping of code and has
+   powerful features for interfacing with other languages, such as C
+   (in which we have already implemented many routines and which is
+   particularly suited to computationally intensive tasks).  The
+   output of the analyses are stored in the XML format (XML is the
+   eXtensible Markup Language devised by the World Wide Web
+   Consortium, and is a platform-independent, vendor-neutral,
+   non-proprietary, open-standard for storing data).  These output
+   files can then be transformed using standard tools into many other
+   data formats suitable for machine consumption (such as
+   <application>Phylip</application> or input for the statistical
+   package, <application>R</application>), or plain text or HTML for
+   human-readable format.  Storing the outputs in XML allows the final
+   viewable output format to be redesigned at will, without requiring
+   the (often time-consuming) re-running of the analyses themselves.
+   Data from the anthropology, transplantation, and disease components
+   have been analyzed using <application>PyPop</application>.</para>
+
+
+<!--
   <para condition="psb2003">Several major factors account for
    variation in the human genome: <emphasis>mutation,</emphasis>
    <emphasis>random genetic drift</emphasis>,
@@ -141,6 +169,7 @@
    (<emphasis>Py</emphasis>thon for <emphasis>Pop</emphasis>ulation
    Genetics) can be viewed as an integrating framework which draws on
    the strengths of existing tools in the community.</para>
+-->
 
   <section>
    <title>IHWG: International Histocompatibility Working Group</title>
@@ -174,66 +203,17 @@
   </section>
 
   <section condition="psb2003">
-   <title>Population genetic tests and statistics</title>
+   <title>Population genetic statistics</title>
 
    <para>The particular cross-population statistics we wished to
     address included: (1) conformity to Hardy-Weinberg expectations,
     (2) tests for balancing selection; (3) haplotype distributions and
     patterns of linkage disequilibrium among populations; and (4)
-    other tests such as worldwide patterns of genetic
-    differentiation.</para>
-
-   <formalpara>
-    <title>Hardy-Weinberg</title>
-
-    <para>Hardy-Weinberg equilibrium essentially states that unless
-     there are counteracting forces, the frequencies of alleles will
-     not change in a population and the expected genotype frequencies
-     each generation are determined by the allele frequencies, and are
-     termed Hardy-Weinberg proportions (HWP).  In the context of
-     multi-population analyses we can use deviation from HWP to
-     determine whether this results from: (1) typing error (the first
-     possibility investigated); (2) an <quote>admixed</quote>,
-     or merged population; (3) operation of natural selection; or (4)
-     inbreeding. </para>
-   </formalpara>
-
-   <formalpara>
-    <title>Ewens-Watterson test of neutrality</title> 
-
-    <para>This is a test with the null hypothesis of neutral evolution
-     and determines the probability that the observed homozygosity
-     under HWP, for a given sample size and observed number of
-     alleles, is more extreme than the expected homozygosity under
-     random neutral mutations and genetic drift (neutrality).  This
-     test can tell us whether selection, either directional (observed
-     homozygosity &gt; expected homozygosity) or balancing (observed
-     homozygosity &lt; expected homozygosity) is in operation on a
-     particular locus across populations.
-    </para>
-   </formalpara>
-
-   <formalpara>
-    <title>Haplotype estimation and linkage disequilibrium</title>
-
-    <para>Linkage disequilibrium (LD) describes the non-random
-     association of alleles at different genetic loci.  Through
-     estimating haplotype frequencies, it is possible to estimate LD
-     in a population, the presence of significant LD can be due to
-     history for very closely linked genes and can also indicate the
-     operation of selection. </para>
-   </formalpara>
-
-   <formalpara>
-    <title>Other statistics</title> 
-
-    <para>Other individual-level population genetic statistics can
-     also be calculated, such as F<subscript>st</subscript>, which
-     describes the apportionment of genetic diversity within
-     subpopulations, relative to a larger population, allowing us the
-     estimate the amount of admixture in a population.</para>
-   </formalpara>
-
+    other tests such as worldwide patterns of genetic differentiation.
+    The details of statistics are detailed in  chapters ?? of this
+    volume.  <xref linkend="pypop:modules"/>  briefly outlines the
+    <application>PyPop</application> modules and specific
+    implementation details of population genetic methods.</para>
   </section>
 
   <section>
@@ -297,7 +277,7 @@
   <section>
    <title>Integrating with existing software</title>
 
-   <para>Where possible, we would like to integrate with existing
+   <para>Where possible, we wished to integrate with existing
     software.  <application>Arlequin</application>
     <citation>Schneider:2000</citation> and
     <application>PHYLIP</application><citation>Felsenstein:1989</citation> 
@@ -309,6 +289,7 @@
     and Thompson's Hardy-Weinberg exact test<citation
      role="citeyearpar">Guo:Thompson:1992</citation>.</para>
 
+<!--
    <para>In using these programs, however, we realized a need for a
     tool that could integrate features of existing software, and where
     needed, implement missing features that would realize our goals of
@@ -368,8 +349,6 @@
        existing software that was not open-source required reverse
        engineering of their file formats and run-time behaviour in
        order to be able to communicate and write interfaces to them.
-       <!-- effort that could be more beneficially spent improving
-       that software -->
       </para>
      </formalpara>
     </listitem>
@@ -385,6 +364,8 @@
      </formalpara>
     </listitem>
    </orderedlist>
+-->
+
   </section>
  </section>
 
@@ -403,65 +384,266 @@
      linkend="pypop:work-flow"/>.</para>
 
    <figure id="pypop:work-flow">
-   <title>Work flow</title>
-   <mediaobject>
-    <imageobject>
-     <imagedata fileref="work-flow.jpg" align="center" scale="99"/>  <!-- scale="45" -->
-    </imageobject>
-    <textobject>
-     <phrase>Diagram of software work-flow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.jpg</phrase>
-    </textobject>
-   </mediaobject>
-  </figure>
+    <title>Data flow</title>
+    <mediaobject>
+     <imageobject>
+      <imagedata fileref="work-flow.jpg" align="center" scale="99"/>  <!-- scale="45" -->
+     </imageobject>
+     <textobject>
+      <phrase>Diagram of software work-flow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.jpg</phrase>
+     </textobject>
+    </mediaobject>
+   </figure>
   </section>
 
   <section>
    <title>Implementation</title>
 
-   <para>We decided to implement the project in the object-oriented
-    scripting language Python<citation>Python</citation>.  It is an
-    interpreted language allowing for rapid prototyping of modules and
-    has a convenient standard library of functions.  Through use of
-    the the Simple Wrapper Interface Generator (SWIG
-    <citation>SWIG</citation>), it is also straightforward to
-    <quote>wrap</quote> existing code in C, C++ or Java and call it
-    from Python.</para>
+   <para>We  implemented <application>PyPop</application> in the
+    object-oriented scripting language
+    Python<citation>Python</citation>.  It is an interpreted language
+    allowing for rapid prototyping of modules and has a convenient
+    standard library of functions.  Through use of the the Simple
+    Wrapper Interface Generator (SWIG <citation>SWIG</citation>), it
+    is also straightforward to <quote>wrap</quote> existing code in C,
+    C++ or Java and call it from Python.  We further leveraged other
+    open-source projects: Numeric Python <citation>Numpy</citation>
+    project, which provides efficient data structures for holding
+    large arrays of data, and <application>R</application>, the
+    open-source implementation
+    <citation>Ihaka:Gentleman:1996</citation> of the programming
+    language <application>S</application>.  As our XSLT parser, we
+    chose the fast C-based <application>libxslt</application>
+    <citation>Libxslt</citation> from the GNOME project
+    <citation>GNOME</citation>.
+   </para>
+  </section>
 
-   <para>In line with our philosophy of integrating with <quote>best
-   of breed</quote> open-source components, we leveraged the work of
-   the Numeric Python <citation>Numpy</citation> project, which
-   provides efficient data structures for holding large arrays of
-   data, and <application>R</application>, the open-source implementation
-   <citation>Ihaka:Gentleman:1996</citation> of the programming
-   language <application>S</application>.  As our XSLT parser, we
-   chose the fast C-based <application>libxslt</application>
-   <citation>Libxslt</citation> from the GNOME project
-   <citation>GNOME</citation>.
+  <section id="pypop:modules">
+   <title><application>PyPop</application> modules</title>
+
+   <para><application>PyPop</application> groups statistics into separate
+    <emphasis>modules</emphasis>, represented in the data flow by
+    the green boxes in
+    <xref linkend="pypop:work-flow"/>.  The modules are outlined
+    below, as noted earlier, detailed methodology can be found in
+    Chapters ???.</para>
+   
+   <formalpara>
+    <title>Population summary data</title>
+
+    <para>labcode, typing method, ethnic group, continent of origin,
+     collection site, latitude, longitude, total sample size, number
+     of loci typed</para>
+   </formalpara>
+
+   <formalpara>
+    <title>Locus-specific information</title>
+
+    <para>locus name, sample size, number of distinct alleles
+     observed, and the counts and frequencies of all alleles observed
+     in the sample (ordered by frequency and then by allele
+     name).</para>
+   </formalpara>
+
+
+   <formalpara>
+    <title>Hardy-Weinberg</title>
+
+<!--
+    <para>Hardy-Weinberg equilibrium essentially states that unless
+     there are counteracting forces, the frequencies of alleles will
+     not change in a population and the expected genotype frequencies
+     each generation are determined by the allele frequencies, and are
+     termed Hardy-Weinberg proportions (HWP).  In the context of
+     multi-population analyses we can use deviation from HWP to
+     determine whether this results from: (1) typing error (the first
+     possibility investigated); (2) an <quote>admixed</quote>, or
+     merged population; (3) operation of natural selection; or (4)
+     inbreeding. </para>
+-->
+
+    <para>Hardy Weinberg (HW) testing using the chi-square test
+     statistic with genotypes with an expected value less than 5
+     combined together in a lumped class was performed.   Observed and
+     expected genotypes under HW, chi-square value, degrees of
+     freedom, and p value are given for the following categories: all
+     common genotypes, lumped genotypes, common plus lumped genotypes,
+     all homozygotes, all heterozygotes, heterozygotes by individual
+     alleles (i.e., A1X where X represents all non-A1 alleles, each
+     individual homozygote and heterozygote genotype with expected
+     greater than 5).</para>
+   </formalpara>
+
+
+   <para>In addition to the traditional chi-square test, we performed
+    the exact test of Hardy-Weinberg using
+    <application>Arlequin</application>'s implementation of Guo &amp;
+    Thompson's <citation
+     role="citeyearpar">Guo:Thompson:1992</citation> method.  The
+    <application>PyPop</application> framework has a facility to
+    generate <application>Arlequin</application> format project
+    (<filename>.arp</filename>) and settings
+    (<filename>.ars</filename>) files,  execute the batch version of
+    Arlequin, and re-import the results back into the framework for
+    further downstream processing.  We used Arlequin's implementation
+    of the Hardy-Weinberg exact test setting the Markov chain to 2.5
+    million steps with a burn-in time of 500 steps.
+    </para>
+
+   <formalpara>
+    <title>Ewens-Watterson test of neutrality</title> 
+
+<!--
+    <para>This is a test with the null hypothesis of neutral evolution
+     and determines the probability that the observed homozygosity
+     under HWP, for a given sample size and observed number of
+     alleles, is more extreme than the expected homozygosity under
+     random neutral mutations and genetic drift (neutrality).  This
+     test can tell us whether selection, either directional (observed
+     homozygosity &gt; expected homozygosity) or balancing (observed
+     homozygosity &lt; expected homozygosity) is in operation on a
+     particular locus across populations.
+    </para>
+-->
+
+    <para>Ewens-Watterson homozygosity test of neutrality (observed
+     homozygosity under HW for the sample, which reflects the allele
+     frequency distribution for the given sample size
+     (<varname>n</varname>) and observed number of alleles
+     (<varname>k</varname>), expected homozygosity under neutrality
+     for the same <varname>n</varname> and <varname>k</varname>
+     values, <varname>p</varname> value indicating fit to neutrality
+     or lack of fit in the directions of balancing selection or
+     directional selection.)</para>
+   </formalpara>
+
+   <para>For this test, we created an extension module in
+    <application>PyPop</application>, that used a C implementation of
+    kindly provided by Montgomery Slatkin <citation
+     role="citealt">Slatkin:1994</citation>, <citation
+     role="citealt">Slatkin:1996</citation>.  This test uses a
+    Monte-Carlo approximation to the exact test with 10,000
+    replicates.</para>
+   
+   <formalpara>
+    <title>Haplotype estimation and linkage disequilibrium</title>
+    
+<!--
+    <para>Linkage disequilibrium (LD) describes the non-random
+     association of alleles at different genetic loci.  Through
+     estimating haplotype frequencies, it is possible to estimate LD
+     in a population, the presence of significant LD can be due to
+     history for very closely linked genes and can also indicate the
+     operation of selection. </para>
+-->
+
+    <para>Haplotypes and linkage disequilibrium (LD) were estimated
+     using a C extension module as part of the framework.  Haplotypes
+     and LD were estimated using an expectation-maximization (EM)
+     algorithm was used with 400 iterations.  Significance of  LD was
+     estimated using a permutation test of the basic EM algorithm with
+     1000 permutations.</para>
+
+   </formalpara>
+
+   <formalpara>
+    <title>Other statistics</title> 
+
+    <para>Other individual-level population genetic statistics can
+     also be calculated, such as F<subscript>st</subscript>, which
+     describes the apportionment of genetic diversity within
+     subpopulations, relative to a larger population, allowing us the
+     estimate the amount of admixture in a population.</para>
+   </formalpara>
+
+   <para>With the exception of the Arlequin implementation of the Guo
+    &amp; Thompson's HW exact test and Slatkin's Monte-Carlo
+    implementation of the Ewens-Watterson test, new programs to handle
+    the highly polymorphic HLA loci were developed (they are also
+    appropriate for analysis of loci showing less variation than HLA).
+    In addition to the high level of polymorphism, large sample sizes
+    in some cases, such 1,000 samples in in an anthropology data set,
+    and 2,000 samples for the overall transplant data, are also
+    problematic for methods using resampling and/or iterative
+    procedures, such as the  HW exact test, haplotype estimation, and
+    LD significance testing.
    </para>
   </section>
 
   <section>
    <title>Data flow</title>
-   
+
+   <para>Before running data through <application>PyPop</application>,
+    ambiguities in typing were resolved (this has been done by Steve
+    Mack for the anthropology data, by Effie Petersdorf and Mari Malki
+    for the transplantation component, and by the respective disease
+    chairs in the disease component).</para>
+
+   <section>
+    <title>Phase I</title>
+
    <para>In phase I, before analysis begins, the multi-locus genotype
-    data for each population (stored in a text file with the
-    <filename>.pop</filename> extension), is passed through a filter
-    module for data cleaning.  Next, the basic population genetic
-    analyses are run for each population file from the database.  The
-    filter module is a set of rules that traps any allele name which
-    does not have a close match in the database of HLA
-    alleles<citation>IMGT</citation> maintained by Steve Marsh of the
-    Anthony Nolan Trust in the UK. Although at present this is
-    HLA-specific, it has been designed in such a way that it is simple
-    to write a filter for other types of population data, and if 
-    desired (if the data is already <quote>clean</quote>), it can be
-    simply switched off.  Next the analysis begins.  Depending on the
-    users configuration, this can include basic allele count data; the
-    Hardy-Weinberg statistics; haplotype estimates; and the
-    Ewens-Watterson test of neutrality (represented by the green
-    modules in <xref linkend="pypop:work-flow" />).  The results of
-    the analyses are stored in an XML file format as shown in <xref
-    linkend="pypop:sample-xml"/>.</para>
+     data for each population (stored in a text file with the
+     <filename>.pop</filename> extension), is passed through a filter
+     module for data cleaning. The filter module is a set of rules
+     that ensures that  allele names are valid or otherwise have a
+     close match in the database of HLA
+     alleles<citation>IMGT</citation> maintained by Steve Marsh of the
+     Anthony Nolan Trust in the UK.  This procedure works as
+     follows:</para>
+
+   <orderedlist>
+    <listitem>
+     <para>Alleles in data set are reduced to a common denominator (typically
+      four (4) digits)</para>
+    </listitem>
+
+    <listitem>
+     
+     <para>This reduced allele is checked to see whether it closely
+      matches<footnote>
+       <para>A close match means that the there is a common substring
+	between the reduced allele and the database allele, up to the
+	length of the common denominator (e.g., if "0301" is the
+	reduced allele under question, then this can match both
+	"03011" or "03012", then "0301" is returned as the common
+	substring match).</para>
+      </footnote> an allele in the database, if it does, then this
+      reduced allele is used in the data analysis.  A truncated allele
+      which end in a zero (0) [such alleles do not exist in the
+      database], is mapped to the allele which has the highest
+      frequency in the population under question, if such an allele
+      does not exist, then the first allele which closely matches an
+      existing in the allele database, is used as the matching
+      allele.</para>
+     
+     </listitem>
+    
+    <listitem>
+     <para>If neither of the above checks result in a valid allele,
+      an error message is output and the analysis is halted until the
+      data is validated.</para>
+    </listitem>
+   </orderedlist>
+   
+   <para>After each population  was individually run through the set
+     of <application>PyPop</application> modules, the output of
+     results was forwarded to the contributing laboratory for review
+     and appropriate revision of data. <remark>Currently, analyses
+      have been performed on  ??? data sets from the 12th IHW, and ??
+      data sets from the 13th IHW.</remark> <!-- Although at present
+     this is HLA-specific, it has been designed in such a way that it
+     is simple to write a filter for other types of population data,
+     and if desired (if the data is already <quote>clean</quote>), it
+     can be simply switched off.  --> Next the analysis proper,
+     begins. <!-- Depending on the users configuration, this can
+     include basic allele count data; the Hardy-Weinberg statistics;
+     haplotype estimates; and the Ewens-Watterson test of neutrality
+     (represented by the green modules in <xref
+     linkend="pypop:work-flow" />).  --> The results of the analyses
+     are stored in an XML file format as shown in <xref
+     linkend="pypop:sample-xml" />.</para>
    
    <figure id="pypop:sample-xml">
     <title>Extract from sample XML output file</title>
@@ -504,6 +686,10 @@
     transformable into human-readable form (e.g., a text file) or
     web-form (e.g., HTML) via XSLT (eXtensible Stylesheet Language for
     Transformations)<citation>XSLT</citation>.</para>
+   </section>
+
+   <section>
+    <title>Phase II</title>
 
    <para>In phase II, the results of the data analyses of the
     individual data files are integrated, and the benefits of using
@@ -596,12 +782,12 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     to generate <application>Arlequin</application>
     <filename>.arp</filename> files.
    </para>
-
+   </section>
   </section>
  </section>
 
  <section>
-  <title>Results and discussion</title>
+  <title>Meta-analysis and results</title>
 
   <section>
    <title>Analyzing IHWG workshop data</title>
@@ -609,8 +795,8 @@ Name      Frequency (Count)   | Name      Frequency (Count)
    <para>The <application>PyPop</application> framework was used to
     analyze the full set of IHWG data from both the
     12<superscript>th</superscript> and
-    13<superscript>th</superscript> workshops.  With 119 separate
-    data-sets (some of which individually required up to 9 days to
+    13<superscript>th</superscript> workshops.  With ? separate
+    data-sets (some of which individually required several days to
     complete the basic per-population statistics), it was
     straightforward to set up a batch program to generate the
     individual output analyses.  For each file, an individual XML file
@@ -670,7 +856,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     genetic statistics computed by <application>PyPop</application>
     are not new in and of themselves, nor is the ability to perform
     analyses on multiple populations
-    (<application>Arlequin</application> can currently do this).
+    (e.g., <application>Arlequin</application> can currently do this).
     Indeed, <application>PyPop</application> can use existing packages
     to calculate them. However the approach of integrating information
     in highly heterogeneous datasets on a large scale is new, and not
@@ -699,8 +885,9 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     such as clustering analysis, and currently under discussion is
     integration with the NCBI's new <application>dbMHC</application>
     database<citation>dbMHC</citation>.  We also plan to  release
-    <application>PyPop</application> under an open source license.
-    Details will be made available at the Thomson lab website: <ulink
+    <application>PyPop</application> under the GNU General Public
+    License (GPL<citation>GPL</citation>). Details will be made
+    available at the Thomson lab website: <ulink
      url="http://allele5.biol.berkeley.edu/">http://allele5.biol.berkeley.edu/</ulink></para>
 
   </section>
