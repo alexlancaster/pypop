@@ -719,7 +719,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
       # allele list
       flattenedMatrix = []
-    
+      totalGametes = 0
       for horiz in sortedAlleles:
         # print "%2s" % horiz,
         for vert in sortedAlleles:
@@ -736,8 +736,9 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
             output = "%2s " % self.observedGenotypeCounts[key2]
           else:
             output = "%2s " % "0"
-
+            
           flattenedMatrix.append(int(output))
+          totalGametes += int(output)
 
       # create dummy array with length of the number of alleles
       n = [0]*(self.k)
@@ -747,7 +748,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
         print "len(flattenedMatrix):", len(flattenedMatrix)
         print "n: ", n
         print "k: ", self.k
-        print "matrixElemCount", matrixElemCount
+        print "totalGametes", totalGametes
         print "sampling{steps,num, size}: ", self.dememorizationSteps, self.samplingNum, self.samplingSize
         print "locusName: ", locusName
 
@@ -761,7 +762,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       # import library only when necessary
       import _Gthwe
 
-      _Gthwe.run_data(flattenedMatrix, n, self.k, matrixElemCount,
+      _Gthwe.run_data(flattenedMatrix, n, self.k, totalGametes,
                       self.dememorizationSteps, self.samplingNum,
                       self.samplingSize, locusName, fp)
 
