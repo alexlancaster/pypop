@@ -1469,7 +1469,7 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
     .95, is to use, instead of gene frequencies, their angular
     transforms:</para>
 
-    <para>&#x3b8; = sin<superscript>-1</superscript>(sqrt p)</para>
+  <para>&#x3b8; = sin<superscript>-1</superscript>(sqrt p)</para>
 
     <para>This, unlike the binormal variate, <emphasis>p</emphasis>(1
     - <emphasis>p</emphasis>)/<emphasis>N</emphasis>, has variance
@@ -2035,13 +2035,25 @@ p2 &nbsp;2pq &nbsp;q2</literallayout>
 
       <para> To allow comparison of homozygosity F statistics across
       populations with different numbers of alleles and sample sizes,
-      the normalized deviate, FND, is considered (Salamon et
-      al. 1999),</para>
+      the normalized deviate,
+      <phrase>F<subscript>ND</subscript></phrase>, is considered
+      (Salamon et al. 1999),</para>
 
-      <para>F<subscript>ND</subscript> =
+      <informalequation>
+	<alt role="tex">F_{ND} = (\frac{F_{observed} - F_{expected}}{Variance \cdot F_{expected}})^{\frac{1}{2}}</alt>
+
+	<mediaobject>
+	  <imageobject>
+	    <imagedata fileref="fnd.png"/>
+	  </imageobject>
+	  <textobject>
+	    <phrase>F<subscript>ND</subscript> =
       (F<subscript>observed</subscript> -
       F<subscript>expected</subscript>) / (Variance
-      (F<subscript>expected</subscript>))1/2.</para>
+      (F<subscript>expected</subscript>))1/2.</phrase>
+	  </textobject>
+	</mediaobject>
+      </informalequation>
 
       <para>Under the neutral model, F<subscript>ND</subscript> has
       mean zero and variance 1. If we assume that samples from
