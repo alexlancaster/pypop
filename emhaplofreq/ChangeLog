@@ -1,0 +1,29 @@
+2003-12-17  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* emhaplofreq_wrap.i (main_proc): Add matching parameter in
+	prototype for SWIG wrapper.
+
+	* emhaplofreq.c (main_proc): Add a new parameter 'permu_print', if
+	set to 1 the likelihood statistic will printed to the
+	output (either the permu file or the XML output depending on
+	compile-time option).  Used to suppress lengthy permutation
+	information when not required.
+	(main): When calling from command-line, enable permu_print.
+
+2003-12-12  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* emhaplofreq_wrap.i (main_proc): Update wrapper to reflect new
+	function syntax.
+
+	* emhaplofreq.c (main_proc): Add new parameters: max_permu and
+	max_init_for_permu which are no longer hard-coded and can be
+	passed in from an outside invocation of this function.  Use them
+	in calloc()ing the 'like_ratio' and 'error_flag_permu' arrays.
+	MAX_PERMU -> max_permu and MAX_INIT_FOR_PERMU ->
+	max_init_for_permu throughout.
+	(main): Pass the hard-coded MAX_PERMU and MAX_INIT_FOR_PERMU from
+	emhaplofreq, when invoked in command-line mode, until we add
+	getopt-parsed options for them.
+
+	* Start ChangeLog.
+
