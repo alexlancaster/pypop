@@ -353,7 +353,14 @@ for locus in loci:
 
   if config.has_section("HomozygosityEWSlatkinExact"):
 
+    try:
+      numReplicates=config.getint("HomozygosityEWSlatkinExact", \
+                                  "numReplicates")
+    except NoOptionError:
+      numReplicates=10000
+
     hzExactObj = HomozygosityEWSlatkinExact(input.getAlleleCountAt(locus),
+                                            numReplicates=numReplicates,
                                             debug=debug)
 
     hzExactObj.serializeHomozygosityTo(xmlStream)
