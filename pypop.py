@@ -245,12 +245,20 @@ for locus in loci:
     except ValueError:
       sys.exit("require integer value")
 
+    try:
+      maxMatrixSize = config.getint("HardyWeinbergGuoThompson", "maxMatrixSize")
+    except NoOptionError:
+      maxMatrixSize=250
+    except ValueError:
+      sys.exit("require integer value")
+
     # guo & thompson implementation
     hwObject=HardyWeinbergGuoThompson(input.getLocusDataAt(locus), 
                                       input.getAlleleCountAt(locus),
                                       dememorizationSteps=dememorizationSteps,
                                       samplingNum=samplingNum,
                                       samplingSize=samplingSize,
+                                      maxMatrixSize=maxMatrixSize,
                                       lumpBelow=lumpBelow,
                                       debug=debug)
     
@@ -260,11 +268,11 @@ for locus in loci:
     txtStream.writeln("removed text output--look at the xml output")
     txtStream.writeln()
                       
-    xmlStream.opentag('hardyweinberg', role='guo-thompson')
-    xmlStream.write('<![CDATA[')
+    #xmlStream.opentag('hardyweinberg', role='guo-thompson')
+    #xmlStream.write('<![CDATA[')
     hwObject.dumpTable(locus, xmlStream)
-    xmlStream.write(']]>')
-    xmlStream.closetag('hardyweinberg')
+    #xmlStream.write(']]>')
+    #xmlStream.closetag('hardyweinberg')
     xmlStream.writeln()
     
   # Parse "Homozygosity" section
