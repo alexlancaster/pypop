@@ -5,11 +5,16 @@
 
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
                 version='1.0'>
- 
- <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/html/docbook.xsl"/>
+
+  <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/html/docbook.xsl"/>
+
+ <xsl:output method="html" encoding="ISO-8859-1"
+  doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
+  doctype-system="http://www.w3.org/TR/html4/loose.dtd" indent="no"/>
  
  <xsl:param name="html.stylesheet" doc:type="string">style.css</xsl:param>
- <xsl:param name="make.valid.html" select="1"/>
+ <xsl:param name="make.valid.html" select="1"/> 
+ <xsl:param name="html.cleanup" select="1"/> 
  <xsl:param name="shade.verbatim" select="1"/>
 
  <xsl:param name="profiling-highlighting" select="0"/>
@@ -22,51 +27,55 @@
    <p><font color="red">Red</font> text: only 'anthro' book.</p>
   </xsl:if>
   </div>
-</xsl:template>
+ </xsl:template>
 
  <xsl:template match="para">
 
   <xsl:variable name="p">
-    <p>
-      <xsl:if test="position() = 1 and parent::listitem">
-        <xsl:call-template name="anchor">
-          <xsl:with-param name="node" select="parent::listitem"/>
-        </xsl:call-template>
-      </xsl:if>
+   <p>
 
+    <xsl:if test="position() = 1 and parent::listitem">
+     <xsl:call-template name="anchor">
+      <xsl:with-param name="node" select="parent::listitem"/>
+     </xsl:call-template>
+    </xsl:if>
+    
     <xsl:call-template name="anchor"/>
+
     <xsl:choose>
      <xsl:when test="$profiling-highlighting">
-     <xsl:choose>
-      <xsl:when test="ancestor-or-self::*[@condition='anthro-book']">
-       <font color="red"><xsl:apply-templates/></font>
+      <xsl:choose>
+       <xsl:when test="ancestor-or-self::*[@condition='anthro-book']">
+        <font color="red"><xsl:apply-templates/></font>
       </xsl:when>
       <xsl:when test="ancestor-or-self::*[contains(@condition,'anthro-book')]">
-       <font color="blue"><xsl:apply-templates/></font>
+        <font color="blue"><xsl:apply-templates/></font>
       </xsl:when>
-       <xsl:when test="not(ancestor-or-self::*[@condition])">
-         <font color="green"><xsl:apply-templates/></font>
-       </xsl:when>
+      <xsl:when test="not(ancestor-or-self::*[@condition])">
+        <font color="green"><xsl:apply-templates/></font>
+      </xsl:when>
       <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
      </xsl:choose>
      </xsl:when>
     <xsl:otherwise><xsl:apply-templates/></xsl:otherwise>
     </xsl:choose>
+
+    <xsl:apply-templates/>
    </p>
 
   </xsl:variable>
 
   <xsl:choose>
-    <xsl:when test="$html.cleanup != 0">
-      <xsl:call-template name="unwrap.p">
-        <xsl:with-param name="p" select="$p"/>
-      </xsl:call-template>
-    </xsl:when>
-    <xsl:otherwise>
-      <xsl:copy-of select="$p"/>
-    </xsl:otherwise>
+   <xsl:when test="$html.cleanup != 0">
+    <xsl:call-template name="unwrap.p">
+     <xsl:with-param name="p" select="$p"/>
+    </xsl:call-template>
+   </xsl:when>
+   <xsl:otherwise>
+    <xsl:copy-of select="$p"/>
+   </xsl:otherwise>
   </xsl:choose>
-
+  
  </xsl:template>
 
  <xsl:template match="article/appendix">
