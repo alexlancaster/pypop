@@ -7,19 +7,20 @@
 
  <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/fo/docbook.xsl"/>
 
+
  <xsl:import href="citation.xsl"/>
 
- <!--  <xsl:import href="pagesetup.xsl"/>-->
+ <xsl:import href="pagesetup.xsl"/>
 
  <xsl:param name="headers.on.blank.pages" select="0"/>
  <xsl:param name="footers.on.blank.pages" select="0"/>
 
- <xsl:param name="page.margin.top">0.0in</xsl:param>
- <xsl:param name="page.margin.bottom">0.20in</xsl:param>
+ <xsl:param name="page.margin.top">0.3in</xsl:param>
+ <xsl:param name="page.margin.bottom">0.40in</xsl:param>
  <xsl:param name="page.margin.inner">0.60in</xsl:param>
  <xsl:param name="page.margin.outer">0.70in</xsl:param>
- <xsl:param name="body.margin.top">0.0in</xsl:param>
- <xsl:param name="body.margin.bottom">0.0in</xsl:param>
+ <xsl:param name="body.margin.top">0.5in</xsl:param>
+ <xsl:param name="body.margin.bottom">0.5in</xsl:param>
 
  <xsl:param name="body.font.family">Helvetica</xsl:param>
  <xsl:param name="title.font.family">Helvetica</xsl:param>
@@ -29,6 +30,8 @@
 
  <xsl:param name="title.margin.left" select="'0.0in'"/>
  <xsl:param name="toc.indent.width" select="8"/>
+
+
  <xsl:param name="insert.xref.page.number" select="1"/>
 
  <xsl:template match="varname">
@@ -56,8 +59,6 @@
         <xsl:apply-templates select="." mode="object.title.markup"/>
       </xsl:with-param>
     </xsl:call-template>
-
-   <!-- generate authorgroup -->
 
    <xsl:for-each select="appendixinfo/authorgroup/author">
     <xsl:apply-templates select="." mode="appendix.titlepage.recto.auto.mode"/>
