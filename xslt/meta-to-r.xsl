@@ -117,9 +117,9 @@
   <!-- apply short form of regions as defined in lookup table -->
   <xsl:value-of select="$region-order[@long=translate($popnode/contin, ' ', '-')]"/>
   <xsl:text>&#09;</xsl:text>
-  <xsl:value-of select="translate($popnode/latit, ' ', '-')"/>
+  <xsl:value-of select="translate($popnode/latit, ' ', '_')"/>
   <xsl:text>&#09;</xsl:text>
-  <xsl:value-of select="translate($popnode/latit, ' ', '-')"/>
+  <xsl:value-of select="translate($popnode/latit, ' ', '_')"/>
   <xsl:text>&#09;</xsl:text>
  </xsl:template>
 
