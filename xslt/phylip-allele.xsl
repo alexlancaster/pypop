@@ -69,7 +69,7 @@
       <xsl:value-of select="."/>
       <xsl:text>:</xsl:text>
      </xsl:for-each>
-     <xsl:text> no populations have data for specified loci.</xsl:text>
+     <xsl:text> no populations have allele freq data for specified loci.</xsl:text>
     </xsl:variable>
 
     <xsl:value-of select="$warning-text"/>
