@@ -149,7 +149,7 @@ interactiveFlag = 0
 guiFlag = 0
 xslFilename = None
 outputDir = None
-filelist = None
+fileList = None
 
 # parse options
 for o, v in opts:
@@ -172,7 +172,7 @@ for o, v in opts:
     guiFlag = 1
   elif o in ("-f", "--filelist"):
     if os.path.isfile(v):
-      filelist = v
+      fileList = v
     else:
       sys.exit("'%s' is not a file, please supply a valid file" % v)
   elif o in ("-o", "--outputdir"):
@@ -281,12 +281,12 @@ else:
   else:   
     # non-interactive mode: run in 'batch' mode
 
-    if filelist and len(args) > 0:
+    if fileList and len(args) > 0:
       sys.exit("--filelist (-f) option is mutually exclusive with INPUTFILE")
-    elif filelist:
+    elif fileList:
       # if we are providing the filelist, don't check number of args
       # use list from file as list to check
-      li = [string.strip(f) for f in open('filelist').readlines()]
+      li = [string.strip(f) for f in open(fileList).readlines()]
     elif len(args) > 0:
       # check number of arguments, must be at least one, but can be more
       # use args as list to check
