@@ -9,7 +9,7 @@ CVSPRE = cvs update -kv $(wildcard *.xml)
 CVSPOST = cvs update -kkv $(wildcard *.xml)
 endif
 
-XSLCOMMON = --param section.autolabel 1 --param tablecolumns.extension 0 --param use.extensions 1 --param callouts.extension 0 --stringparam tex.math.in.alt 'latex' --param section.label.includes.component.label 1 --xinclude
+XSLCOMMON = --param use.svg 0 --param section.autolabel 1 --param tablecolumns.extension 0 --param use.extensions 1 --param callouts.extension 0 --stringparam tex.math.in.alt 'latex' --param section.label.includes.component.label 1 --xinclude
 
 # --stringparam draft.watermark.image images/draft.png
 XSLHTML =
@@ -68,7 +68,7 @@ eqns: tex-math-equations.dvi
 
 # rules to produce final version of HTML, FO, PDF etc.
 
-%.html: %.xml $(FIGS) html.xsl $(EXTRA_XML_SOURCE)
+%.html: %.xml $(FIGS) html.xsl citation.xsl $(EXTRA_XML_SOURCE)
 	$(CVSPRE)
 	$(XMLLINT)	
 	$(XSLTPROC) $(XSLCOMMON) --param profiling-highlighting $(if $(findstring profile,$<),0,1) $(XSLHTML) -o $@ html.xsl $<
