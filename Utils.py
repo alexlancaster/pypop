@@ -620,45 +620,45 @@ def getUserFilenameInput(prompt, filename):
     return filename
 
 
-if __name__ == "__main__":
-    # test classes
-    import copy
+# if __name__ == "__main__":
+#     # test classes
+#     import copy
 
-    # test StringMatrix class
-    a = StringMatrix(3, ['A', 'B', 'C'])
+#     # test StringMatrix class
+#     a = StringMatrix(3, ['A', 'B', 'C'])
 
-    print "original matrix is all zeroes: "
-    print a
+#     print "original matrix is all zeroes: "
+#     print a
 
-    a[0, 'B'] = ('B0', 'B0')
-    a[1, 'B'] = ('B1', 'B1')
-    print "modified matrix: "
-    print a
+#     a[0, 'B'] = ('B0', 'B0')
+#     a[1, 'B'] = ('B1', 'B1')
+#     print "modified matrix: "
+#     print a
 
-    #b = copy.deepcopy(a)
-    b = a.copy()
+#     #b = copy.deepcopy(a)
+#     b = a.copy()
     
-    b[0,'A'] = ('A0', 'A0')
-    b[1,'A'] = ('A1', 'A2')
+#     b[0,'A'] = ('A0', 'A0')
+#     b[1,'A'] = ('A1', 'A2')
 
-    print "b should be changed:"
-    print b
+#     print "b should be changed:"
+#     print b
     
-    print "a should be unchanged and have nothing the A column:"
-    print a
+#     print "a should be unchanged and have nothing the A column:"
+#     print a
 
-    print "test subMatrix, get all data for b at locus 'A':"
-    print b['A']
+#     print "test subMatrix, get all data for b at locus 'A':"
+#     print b['A']
 
-    print "test subMatrix, get all data for b at locus 'A:B':"
-    print b['A:B']
+#     print "test subMatrix, get all data for b at locus 'A:B':"
+#     print b['A:B']
 
-    print "now filterOut B1 elements from b to create c:"
-    c = b.filterOut('A:B:C', 'B1')
-    print c
+#     print "now filterOut B1 elements from b to create c:"
+#     c = b.filterOut('A:B:C', 'B1')
+#     print c
     
-    print "test appending to a subMatrix c: "
-    print appendTo2dList(c, appendStr=':')
+#     print "test appending to a subMatrix c: "
+#     print appendTo2dList(c, appendStr=':')
 
-    print "b should be unchanged by this:"
-    print b
+#     print "b should be unchanged by this:"
+#     print b

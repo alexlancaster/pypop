@@ -1,15 +1,17 @@
 PyPop NEWS --- history of user-visible changes to PyPop.  -*- outline -*-
 Copyright (C) 2003, 2004 Regents of the University of California
 
-* Release Notes towards PyPop 0.x.y (public beta)
-**Bug fixes
+* Release Notes for PyPop 0.5.2 (public beta) 2004-03-09
+** Bug fixes
 *** Add missing RandomBinning.py file to source distribution
-    Thanks to Hazael Maldonado Torres for the bug report	.
+    Thanks to Hazael Maldonado Torres for the bug report.
+*** Fixed line endings for .bat scripts for Win32 so they work under 
+    Windows 98 thanks to Wendy Hartogensis for the bug report.
 
 * Release Notes for PyPop 0.5.1 (public beta) 2004-02-26
 ** Changes
 *** New parameter 'numInitCond', number of initial conditions by the
-    haplotype estimation and LD algorithm used before performing 
+    haplotype estimation and LD algorithm used before performing
     permutations. Defaults to 50.
 *** Remove some LOG messages/diagnostics that were erroneously implying
     an error to the user (if nothing is wrong, don't say anything).  Add
