@@ -511,7 +511,7 @@ class ParseGenotypeFile(ParseFile):
             stream.writeln()
             stream.tagContents('totalcount', strTotal)
         else:
-            stream.write("Total frequency: %s (%s)"
+            stream.writeln("Total frequency: %s (%s)"
                          % (strTotalFreq, strTotal))
         stream.writeln()
 
