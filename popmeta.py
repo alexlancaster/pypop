@@ -95,7 +95,8 @@ try:
 except GetoptError:
   sys.exit(usage_message)
 
-metaXSLTDirectory= 'xslt/meta.xsl'
+datapath = os.path.join(sys.prefix, 'share', 'PyPop')
+metaXSLTDirectory= datapath
 dump_meta = 0
 
 # parse options
