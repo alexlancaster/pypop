@@ -320,7 +320,7 @@ class HardyWeinberg:
     if self.commonGenotypeCounter == 0:
       
       if type == 'xml':
-        stream.emptytag('hardyweinberg', 'class', 'no-common-genotypes')
+        stream.emptytag('hardyweinberg', role='no-common-genotypes')
       else:
         stream.writeln("No common genotypes; chi-square cannot be calculated")
 
@@ -329,7 +329,7 @@ class HardyWeinberg:
     elif self.rareGenotypeCounter == 0:
 
       if type == 'xml':
-        stream.opentag('hardyweinberg', 'class', 'no-lumps')
+        stream.opentag('hardyweinberg', role='no-lumps')
         stream.tagContents("hwchisq", "%4f" % self.HWChisq)
         stream.tagContents("hwchisqdf", "%4f" % self.HWChisqDf)
         stream.tagContents("hwchisqpval", "%4f" % self.HWChisqPval)
@@ -356,7 +356,7 @@ class HardyWeinberg:
     else:
 
       if type == 'xml':
-        stream.opentag('hardyweinberg', 'class', 'lumps')
+        stream.opentag('hardyweinberg', role='lumps')
         stream.tagContents("samplesize", "%d" % self.n)
         stream.writeln()
         stream.tagContents("distinctalleles", "%d" % self.k)
@@ -435,7 +435,7 @@ class HardyWeinberg:
         else:
           exp = 0.0
 
-        stream.opentag("genotype", "name", key1)
+        stream.opentag("genotype", row=horiz, col=vert)
         stream.tagContents("observed", "%2s" % obs)
         stream.tagContents("expected", "%.1f" % exp)
         stream.closetag("genotype")
