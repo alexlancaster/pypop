@@ -28,7 +28,7 @@ from Homozygosity import Homozygosity
 from ConfigParser import ConfigParser, NoOptionError
 from Utils import XMLOutputStream, TextOutputStream
 from getopt import getopt, GetoptError
-from Filter import AnthonyNolanFilter
+from Filter import PassThroughFilter, AnthonyNolanFilter
 
 try:
   opts, args =getopt(sys.argv[1:],"lsc:hd", ["use-libxslt", "use-4suite", "experimental", "config=", "help", "debug"])
@@ -198,22 +198,31 @@ except NoOptionError:
   sys.exit("No valid sample fields defined")
 
 try:
-  anthonynolanPath=config.get("ParseFile", "anthonynolanPath")
+  useAnthonyNolanFilter=config.getboolean("ParseFile", "useAnthonyNolanFilter")
 except NoOptionError:
-  anthonynolanPath=os.path.join(datapath, "anthonynolan", "HIG-seq-pep-text")
-  if debug:
-    print "Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
+  useAnthonyNolanFilter=0
 
-# open log file for filter in append mode
-filterLogFile = TextOutputStream(open('filter.log', 'a'))
+if useAnthonyNolanFilter:
+  try:
+    anthonynolanPath=config.get("ParseFile", "anthonynolanPath")
+  except NoOptionError:
+    anthonynolanPath=os.path.join(datapath, "anthonynolan", "HIG-seq-pep-text")
+    if debug:
+      print "Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
 
-# create a data cleaning filter to pass all data through
+  # open log file for filter in append mode
+  filterLogFile = TextOutputStream(open('filter.log', 'a'))
 
-filter = AnthonyNolanFilter(debug=debug,
-                            directoryName=anthonynolanPath,
-                            untypedAllele=untypedAllele,
-                            filename=fileName,
-                            logFile=filterLogFile)
+  # create a data cleaning filter to pass all data through
+
+  filter = AnthonyNolanFilter(debug=debug,
+                              directoryName=anthonynolanPath,
+                              untypedAllele=untypedAllele,
+                              filename=fileName,
+                              logFile=filterLogFile)
+else:
+  # don't use filter, just create a "pass through filter"
+  filter = PassThroughFilter()
 
 # Generate the parse file object
 input = ParseGenotypeFile(fileName,
