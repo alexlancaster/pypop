@@ -321,8 +321,8 @@ class Emhaplofreq(Haplo):
 
             if lociCount <= self._Emhaplofreq.MAX_LOCI:
 
-                subMatrix = self.matrix[group]
-
+                subMatrix = self.matrix.filterOut(group, '****')
+                
                 if self.debug:
                     print "debug: key for matrix:", group
                     print "debug: subMatrix:", subMatrix
@@ -335,6 +335,11 @@ class Emhaplofreq(Haplo):
 
                 self.fp.write(os.linesep)
 
+                self.fp.write("<individcount role=\"before-filtering\">%d</individcount>" % len(self.matrix))
+                self.fp.write(os.linesep)
+                
+                self.fp.write("<individcount role=\"after-filtering\">%d</individcount>" % len(subMatrix))
+                self.fp.write(os.linesep)
                 
                 # pass this submatrix to the SWIG-ed C function
                 self._Emhaplofreq.main_proc(self.fp, subMatrix,
