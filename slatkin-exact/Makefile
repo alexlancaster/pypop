@@ -11,4 +11,4 @@ monte-carlo_distribution:
 	$(CC) $(CFLAGS) -DDISTRIBUTION_OUTPUT=1 -o monte-carlo_distribution monte-carlo.c
 
 clean:
-	- rm monte-carlo monte-carlo_distribution
+	- rm -f monte-carlo monte-carlo_distribution
