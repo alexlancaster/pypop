@@ -1,4 +1,4 @@
-2004-02-26  Alex Lancaster  <alexl@socrates.berkeley.edu>
+2004-02-26  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* popmeta.py (popmetabinpath): Improve heuristics to find 'xslt'
 	subdirectory.
