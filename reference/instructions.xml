@@ -30,10 +30,10 @@
   <abstract>
    <para>This document describes the output of the analyses carried
     out by <application>PyPop</application> (<citation
-     role="citealt">Lancaster:etal:2003a</citation>, <citation
-     role="citealt">Lancaster:etal:2003b</citation>) and offers
+     role="citealt">Lancaster:etal:2003</citation>, <citation
+     role="citealt">Lancaster:etal:2004</citation>) and offers
     guidelines on how to interpret them
-    <citation>Single:etal:2003a</citation>.</para>
+    <citation>Single:etal:2004a</citation>.</para>
   </abstract>
  </articleinfo>
 
@@ -228,6 +228,10 @@ Common genotypes                                                      <co id="hw
    Too many parameters for chi-square test.
    </programlisting>
 
+     <para>To obviate this as much as possible, only alleles which
+     occur in common genotypes are used in the calculation of degrees
+     of freedom.</para>
+
     </callout>
     
     <callout arearefs="hw-lumped">
@@ -320,8 +324,8 @@ Common genotypes                                                      <co id="hw
     <varname>p</varname>-values lower than 0.05 can be interpreted as
     evidence that the sample does not fit HWP.</para>
 
-   <para>The  implementations of this  test is via a module that
-    interfaces to <application>Arlequin</application>
+   <para>The implementation of this test is via a module that
+    makes an external call to <application>Arlequin</application>
     <citation>Schneider:etal:2000</citation>.</para>
 
 <!--
@@ -412,46 +416,51 @@ p-value: 0.0518</programlisting>
     level, making this a two-tailed test of the null hypothesis of
     neutrality.</para>
 
+   <example>
+    <title>Sample output of homozygosity test from Monte-Carlo implementation</title>
+
+   <para>The standard implementation of the test uses a Monte-Carlo
+     implementation of the exact test written by Slatkin (<citation
+      role="citealt">Slatkin:1994</citation>; <citation
+      role="citealt">Slatkin:1996</citation>). A Markov-Chain Monte
+     Carlo method is used to obtain the probability of the
+     homozygosity under neutrality. The <varname>p</varname>-value
+     reported is once again the probability of the observed
+     homozygosity under the null hypothesis of neutrality, and can be
+     interpreted as a two-tailed test.
+    </para>
+
+<programlisting>1.6. Slatkin's implementation of EW homozygosity test of neutrality [A]
+-----------------------------------------------------------------------
+Observed F: 0.1326, Expected F: 0.2654, Variance in F: 0.0083
+Normalized deviate of F (Fnd): -1.4603, p-value of F: 0.0029**
+</programlisting>
+   </example>
+
    <warning>
     <para>The simulation table version of this test is now disabled by
-     default and it's use is deprecated in preference to the Slatkin
-     exact test described below, however some older
+     default and its use is deprecated in preference to the Slatkin
+     exact test described above, however some older
      <application>PyPop</application> runs may include  output, so it
-     is documented here for completeness.</para>
-   </warning>
+     is documented here for completeness.   This version differs from
+     the Monte-Carlo Markov Chain version described above in that the
+     data is simulated under neutrality to obtain the required
+     statistics.</para>
 
-  <example>
-   <title>Sample output of homozygosity test from simulation look-up tables</title>
+    <example>
+     <title>Sample output of homozygosity test from simulation look-up
+      tables (disabled by default)</title>
+
 <programlisting><![CDATA[
 1.4. Ewens-Watterson homozygosity test of neutrality [A]
 --------------------------------------------------------
 Observed F: 0.1326, Expected F: 0.2651, Normalized deviate (Fnd): -1.4506
 p-value range: 0.0000 < p <= 0.0100 *
 ]]></programlisting>
-  </example>
 
-   <example>
-    <title>Sample output of homozygosity test from Monte-Carlo implementation</title>
+    </example>
 
-   <para>There is a second implementation of the test, (which is now
-     the standard version),  using a Monte-Carlo implementation of the
-     exact test written by Slatkin (<citation
-      role="citealt">Slatkin:1994</citation>; <citation
-      role="citealt">Slatkin:1996</citation>). This test differs from
-     the simulation tables described above, in that rather than
-     simulating data under neutrality, a Markov-Chain Monte Carlo
-     method is used to obtain the probability of the homozygosity
-     under neutrality. The <varname>p</varname>-value reported is once
-     again the probability of the observed homozygosity under the null
-     hypothesis of neutrality, and can be interpreted as a two-tailed
-     test.
-    </para>
-
-<programlisting>1.6. Slatkin's implementation of EW homozygosity test of neutrality [A]
------------------------------------------------------------------------
-Expected F: 0.2649, Variance in F: 0.0083, p-value of F: 0.0029**
-</programlisting>
-   </example>
+   </warning>
 
  </sect2>
 
@@ -662,13 +671,13 @@ haplotype         frequency # copies  | haplotype         frequency # copies
 
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Schneider:etal:2000'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
 
-   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Lancaster:etal:2003a'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
+   <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Lancaster:etal:2003'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
 
    <xi:include
-   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Lancaster:etal:2003b'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
+   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Lancaster:etal:2004'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
 
    <xi:include
-   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Single:etal:2003a'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
+   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Single:etal:2004a'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
   </bibliodiv>
  </bibliography>
 
