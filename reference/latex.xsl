@@ -185,15 +185,27 @@
  <xsl:template match="affiliation">
    <xsl:text>\address{</xsl:text>
 
+<!--
   <xsl:for-each select="*[not(self::address)]">
    <xsl:if test="position()!=1">
     <xsl:text>, </xsl:text>
    </xsl:if>
    <xsl:value-of select="."/>
   </xsl:for-each>
+-->
 
-  <xsl:if test="address">
+  <xsl:if test="orgdiv">
+   <xsl:value-of select="orgdiv"/>
    <xsl:text>, </xsl:text>
+  </xsl:if>
+
+  <xsl:if test="orgname">
+   <xsl:value-of select="orgname"/>
+   <xsl:text>, </xsl:text>
+  </xsl:if>
+  
+  <xsl:if test="address">
+   <xsl:text>\\</xsl:text>
    <xsl:apply-templates select="address" mode="header"/>
   </xsl:if>
   <xsl:text>}&#10;</xsl:text>
