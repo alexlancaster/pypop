@@ -365,27 +365,24 @@ class ParseGenotypeFile(ParseFile):
                 fields = string.split(line, separator)
 
                 allele1 = fields[col1]
+                allele2 = fields[col2]
 
-                # check to see if allele is untyped 
-                if self.untypedAllele != allele1:
+                # ensure that *both* alleles are typed 
+                if (self.untypedAllele != allele1) and \
+                   (self.untypedAllele != allele2):
                     if alleleTable.has_key(allele1):
                         alleleTable[fields[col1]] += 1
                     else:
                         alleleTable[fields[col1]] = 1
                     total += 1
-                # if allele is untyped it is we throw out the entire
-                # individual and go to the next individual
-                else:
-                    continue
 
-                # likewise check for untyped allele
-                allele2 = fields[col2]
-                if self.untypedAllele != allele2:
                     if alleleTable.has_key(allele2):
                         alleleTable[fields[col2]] += 1
                     else:
                         alleleTable[fields[col2]] = 1
                     total += 1
+                # if either allele is untyped it is we throw out the
+                # entire individual and go to the next individual
                 else:
                     continue
 
@@ -394,7 +391,8 @@ class ParseGenotypeFile(ParseFile):
 
                 if self.debug:
                     print col1, col2, allele1, allele2, total
-                self.freqcount[locus] = alleleTable, total
+                    
+            self.freqcount[locus] = alleleTable, total
 
     def genValidKey(self, field, fieldList):
         """Check and validate key.
