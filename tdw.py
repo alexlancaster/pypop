@@ -126,12 +126,42 @@ for locus in loci:
 ##     except ValueError:
 ##       sys.exit("require a 0 or 1 as a flag")
 
-    # guo & thompson implementation
-    hwObject = HardyWeinbergGuoThompson(input.getLocusDataAt(locus), 
-                                        input.getAlleleCountAt(locus), 
-                                        lumpBelow=lumpBelow,
-                                        debug=debug)
+  # Parse "HardyWeinbergGuoThompson"
+  
+  if config.has_section("HardyWeinbergGuoThompson") and \
+     len(config.options("HardyWeinbergGuoThompson")) > 0:
+    
+    try:
+      dememorizationSteps = config.getint("HardyWeinbergGuoThompson",
+                                          "dememorizationSteps")
+    except NoOptionError:
+      dememorizationSteps=2000
+    except ValueError:
+      sys.exit("require integer value")
 
+    try:
+      samplingNum = config.getint("HardyWeinbergGuoThompson", "samplingNum")
+    except NoOptionError:
+      samplingNum=1000
+    except ValueError:
+      sys.exit("require integer value")
+
+    try:
+      samplingSize = config.getint("HardyWeinbergGuoThompson", "samplingSize")
+    except NoOptionError:
+      samplingSize=1000
+    except ValueError:
+      sys.exit("require integer value")
+
+    # guo & thompson implementation
+    hwObject=HardyWeinbergGuoThompson(input.getLocusDataAt(locus), 
+                                      input.getAlleleCountAt(locus),
+                                      dememorizationSteps=dememorizationSteps,
+                                      samplingNum=samplingNum,
+                                      samplingSize=samplingSize,
+                                      lumpBelow=lumpBelow,
+                                      debug=debug)
+    
     # output to text only (XML serialization to be completed)
     txtStream.writeln("Guo & Thompson Hardy-Weinberg statistics:")
     txtStream.writeln("=========================================")
