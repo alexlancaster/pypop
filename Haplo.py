@@ -415,11 +415,16 @@ class Emhaplofreq(Haplo):
         self._runEmhaplofreq(locusKeys, permutationFlag=1,
                              haploSuppressFlag=1)
 
-    def estAllPairwise(self):
-        """Estimate LD (linkage disequilibrium) in all pairwise loci.
+    def _runAllPairwise(self, permutationFlag=None, haploSuppressFlag=None):
+        """Run pairwise statistics.
 
-        Estimate the LD for each pairwise set of loci.  
+        *Internal use only*
+
+        Estimate pairwise statistics for a given set of loci.
+        Depending on the flags passed, can be used to estimate both LD
+        (linkage disequilibrium) and HF (haplotype frequencies)
         """
+        
         loci = self.matrix.colList
         li = []
         for i in loci:
@@ -436,17 +441,46 @@ class Emhaplofreq(Haplo):
             print li, len(li)
 
         for pair in li:
-            self._runEmhaplofreq(pair, permutationFlag=1,
-                                 haploSuppressFlag=1)
+            self._runEmhaplofreq(pair, permutationFlag=permutationFlag,
+                                 haploSuppressFlag=haploSuppressFlag)
+
+    def estAllPairwiseLD(self):
+        """Estimate all pairwise LD.
+
+        Estimate the LD (linkage disequilibrium)for each pairwise set
+        of loci.
+        """
+        self._runAllPairwise(permutationFlag=1,
+                             haploSuppressFlag=1)
+
+    def estAllPairwiseLDHaplo(self):
+        """Estimate all pairwise LD and haplotype frequencies.
+
+        Estimate the LD (linkage disequilibrium) and haplotypes
+        frequencies for each pairwise set of loci.
+        """
+
+        self._runAllPairwise(permutationFlag=1,
+                             haploSuppressFlag=0)
+
+
+    def estAllPairwiseHaplo(self):
+        """Estimate all pairwise haplotype frequencies.
+
+        Estimate haplotype frequencies for each pairwise set of loci.  
+        """
+        self._runAllPairwise(permutationFlag=0,
+                             haploSuppressFlag=0)
             
     def serializeTo(self, stream):
+        """Serialize output to XML stream
 
-        type = getStreamType(stream)
-
+        Must be called *after* all est* methods are called.
+        """
         stream.opentag('emhaplofreq')
         stream.writeln()
         stream.write(self.fp.getvalue())
-        #self.fp.close()
+        self.fp.close()
         stream.closetag('emhaplofreq')
         stream.writeln()
 
