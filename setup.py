@@ -114,47 +114,6 @@ if os.path.isdir("CVS"):
 else:
     cvs_version=0
 
-# if and only if we are making a source distribution, then regenerate
-# ChangeLog
-if sys.argv[1] == 'sdist':
-    # first check to see if we are distributing from CVS
-    if cvs_version:
-        # if yes, generate a "ChangeLog"
-        #print "creating ChangeLog from CVS entries"
-        #os.system("rcs2log -u \"single:Richard Single:single@allele5.biol.berkeley.edu\" -u \"mpn:Mark Nelson:mpn@alleleb.biol.berkeley.edu\" -u \"alex:Alex Lancaster:alexl@socrates.berkeley.edu\" -u \"diogo:Diogo Meyer:diogo@allele5.biol.berkeley.edu\" -c /dev/null > ChangeLog")
-        if os.path.isfile('VERSION') == 0:
-            sys.exit("before distributing, please create a VERSION file!")
-
-# get version from the file VERSION
-if os.path.isfile('VERSION'):
-  f = open('VERSION')
-  version = string.strip(f.readline())
-# check if it's a development version (i.e. in CVS tree, use this)
-elif os.path.isfile('DEVEL_VERSION'):
-  version = 'DEVEL_VERSION'
-else:
-  sys.exit("Could not find VERSION file!  Exiting...")
-
-def Ensure_Scripts(scripts):
-    """Strips '.py' from installed scripts.
-
-    This is a hack and needs work.
-    """
-    for script in scripts:
-        suffix = script[-3:]
-        prefix = script[:-3]
-        if suffix == '.py':
-            #if sys.argv[1] == 'install':
-            copy_file(script,prefix,preserve_mode=0)
-            scripts[scripts.index(script)] = prefix
-    return scripts
-
-# data files to install
-data_file_paths = ['config.ini', 'VERSION']
-# xslt files are in a subdirectory
-xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus']]
-data_file_paths.extend(xslt_files)
-
 # define each extension
 ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
                             ["emhaplofreq/emhaplofreq_wrap.i",
@@ -216,9 +175,53 @@ ext_Gthwe = Extension("_Gthwemodule",
 # default list of extensions to build
 extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue]
 
-# if we are running from our internal CVS version, append Gthwe
-if cvs_version:
-    extensions.append(ext_Gthwe)
+# if and only if we are making a source distribution, then regenerate
+# ChangeLog
+if sys.argv[1] == 'sdist':
+    # first check to see if we are distributing from CVS
+    if cvs_version:
+        # if yes, generate a "ChangeLog"
+        #print "creating ChangeLog from CVS entries"
+        #os.system("rcs2log -u \"single:Richard Single:single@allele5.biol.berkeley.edu\" -u \"mpn:Mark Nelson:mpn@alleleb.biol.berkeley.edu\" -u \"alex:Alex Lancaster:alexl@socrates.berkeley.edu\" -u \"diogo:Diogo Meyer:diogo@allele5.biol.berkeley.edu\" -c /dev/null > ChangeLog")
+        if os.path.isfile('VERSION') == 0:
+            sys.exit("before distributing, please create a VERSION file!")
+else:
+    # if we are running from our internal CVS version and *not*
+    # building a source distribution, then append Gthwe
+    if cvs_version:
+        extensions.append(ext_Gthwe)
+    
+
+# get version from the file VERSION
+if os.path.isfile('VERSION'):
+  f = open('VERSION')
+  version = string.strip(f.readline())
+# check if it's a development version (i.e. in CVS tree, use this)
+elif os.path.isfile('DEVEL_VERSION'):
+  version = 'DEVEL_VERSION'
+else:
+  sys.exit("Could not find VERSION file!  Exiting...")
+
+def Ensure_Scripts(scripts):
+    """Strips '.py' from installed scripts.
+
+    This is a hack and needs work.
+    """
+    for script in scripts:
+        suffix = script[-3:]
+        prefix = script[:-3]
+        if suffix == '.py':
+            #if sys.argv[1] == 'install':
+            copy_file(script,prefix,preserve_mode=0)
+            scripts[scripts.index(script)] = prefix
+    return scripts
+
+# data files to install
+data_file_paths = ['config.ini', 'VERSION']
+# xslt files are in a subdirectory
+xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus']]
+data_file_paths.extend(xslt_files)
+
 
 setup (name = "PyPop",
        version = version,
