@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 import sys
 from ParseFile import ParseGenotypeFile
+from Homozygosity import Homozygosity
 from Utils import XMLOutputStream, TextOutputStream
 
 # read in IHWG and parse data file from first argument to created
@@ -31,26 +32,39 @@ Remember not to close() the stream output until the entire data you
 want to dump to the file has been written.
 
 """
-parsefile.serializeMetadataTo(TextOutputStream(sys.stdout))
 
-# serialize the allele count in text form to stdout
-parsefile.serializeAlleleCountTo(TextOutputStream(sys.stdout))
+txtStream = TextOutputStream(open('out.txt', 'w'))
+xmlStream = XMLOutputStream(open('out.xml', 'w'))
+
+parsefile.serializeMetadataTo(txtStream)
 
 # serialize summary info for population in XML
-parsefile.serializeMetadataTo(XMLOutputStream(sys.stdout))
+parsefile.serializeMetadataTo(xmlStream)
+
+# serialize the allele count in text form to stdout
+#parsefile.serializeAlleleCountDataTo(txtStream)
 
 # serialize the allele count in XML form to stdout
-parsefile.serializeAlleleCountTo(XMLOutputStream(sys.stdout))
+#parsefile.serializeAlleleCountDataTo(xmlStream)
 
-# retrieve the allele frequency data
-#freqcount = parsefile.getAlleleCount()
+loci = parsefile.getLocusList()
+loci.sort()
+for locus in loci:
 
-#for locus in parsefile.getLocusList():
-#    print
-#     print "Locus: ", locus
-#     print
-#     print parsefile.getLocusDataAt(locus)
-#     print
-#     print "Allele Counts for: ", locus
-#     print
-#     print parsefile.getAlleleCountAt(locus)
+    txtStream.write("\nLocus: %s\n======\n" % locus)
+    xmlStream.opentag('locus', 'name', locus)
+    
+    parsefile.serializeAlleleCountDataAt(txtStream, locus)
+    parsefile.serializeAlleleCountDataAt(xmlStream, locus)
+    
+    hzObject = Homozygosity(parsefile.getAlleleCountAt(locus),
+                            rootPath='/home/alex/src/homozygosity',
+                            debug=0)
+    
+    hzObject.serializeHomozygosityTo(txtStream)
+    hzObject.serializeHomozygosityTo(xmlStream)
+
+    xmlStream.closetag('locus')
+    xmlStream.writeln()
+    
+
