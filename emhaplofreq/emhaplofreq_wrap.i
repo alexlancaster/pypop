@@ -4,7 +4,6 @@
 
 %{
 #include "cStringIO.h"
-#define DEBUG 1
 %}
 
 %include "emhaplofreq/emhaplofreq.h"
