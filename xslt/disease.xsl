@@ -123,7 +123,7 @@
   <xsl:call-template name="newline"/>
   <!-- loop through each haplotype-->
   <xsl:for-each select="haplotypefreq/haplotype">
-   <xsl:sort select="@name" data-type="number" order="ascending"/>
+   <xsl:sort select="@name" data-type="text" order="ascending"/>
    <xsl:for-each select="frequency|numCopies|@name">
     <xsl:call-template name="append-pad">
      <xsl:with-param name="padVar" select="."/>
