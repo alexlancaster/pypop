@@ -9,15 +9,42 @@
   <title>PyPop User Guide</title>
   <subtitle>User Guide for Python for Population Genetics</subtitle>
   
-  <corpauthor><ulink url="http://allele5.biol.berkeley.edu">
-    Thomson Lab</ulink></corpauthor>
-  <author>
-   <affiliation>
-    <orgname><ulink url="http://www.berkeley.edu/">University of California, Berkeley</ulink></orgname>
-    <orgdiv><ulink url="http://ib.berkeley.edu/">Department of Integrative Biology</ulink></orgdiv>
-    <orgdiv></orgdiv>
-   </affiliation>
-  </author>
+  <authorgroup>
+   <author>
+    <firstname>Alex</firstname>
+    <surname>Lancaster</surname>
+   </author>
+   <author>
+    <firstname>Mark</firstname>
+    <othername>P.</othername>
+    <surname>Nelson</surname>
+   </author>
+   <author>
+    <firstname>Diogo</firstname>
+    <surname>Meyer</surname>
+    <affiliation>
+     <orgname><ulink url="http://www.berkeley.edu/">University of California, Berkeley</ulink></orgname>
+     <orgdiv><ulink url="http://ib.berkeley.edu/">Department of Integrative Biology</ulink></orgdiv>
+    </affiliation>
+   </author>
+   <author>
+    <firstname>Richard</firstname>
+    <othername>M.</othername>
+    <surname>Single</surname>
+    <affiliation>
+     <orgname><ulink url="http://www.uvm.edu">University of Vermont</ulink></orgname>
+     <orgdiv>Department of Medical Biostatistics</orgdiv>
+    </affiliation>
+   </author>
+  </authorgroup>
+
+  <mediaobject>
+   <textobject>
+    <literallayout class="monospaced">P y P o P
+</literallayout>
+   </textobject>
+  </mediaobject>
+
   <releaseinfo>Version &VERSION;</releaseinfo>
   <pubdate>&pubdate;</pubdate>
   <copyright>
@@ -30,8 +57,8 @@
     document under the terms of the GNU Free Documentation License,
     Version 1.2 or any later version published by the Free Software
     Foundation; with no Invariant Sections no Front-Cover Texts and no
-    Back-Cover Texts.  A copy of the license is included in the
-    section entitled "GNU Free Documentation License".</para>
+    Back-Cover Texts.  A copy of the license is included in:
+    <xref linkend="gfdl"/>.</para>
   </legalnotice>
  </bookinfo>
 
@@ -112,6 +139,7 @@
  <xi:include href="biblio.xml"/>
 
  <xi:include href="COPYING.xml"/>
+ <xi:include href="COPYING.FDL.xml"/>
 
 </book>
 
