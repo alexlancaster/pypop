@@ -1,5 +1,10 @@
 **TODO**
 
+2003-03-03:
+
+- 'allelecount.py': add 'HomozygosityEWSlatkinExact' to calculate 
+  homozygosity. Suggested by Yingssu. (?)  
+
 2002-10-17:
 
 - 'ParseFile': derive map order from the order of the loci from the
