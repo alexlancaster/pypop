@@ -1,4 +1,4 @@
-2003-12-06  Owen Solberg  <solberg@localhost.localdomain>
+2003-12-06  Owen Solberg  <solberg AT socrates.berkeley.edu>
 
 	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Any missing
 	sequence data is replaced with an asterisk prior to returning the
