@@ -25,12 +25,8 @@
 
 #ifdef EXTERNAL_MODE
 #define FP_ITER fp_out
-#else
-#define FP_ITER NULL
-#endif
-
-#ifdef EXTERNAL_MODE
 #define FP_PERMU fp_out
 #else
+#define FP_ITER NULL
 #define FP_PERMU NULL
 #endif
