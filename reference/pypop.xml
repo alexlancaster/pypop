@@ -35,8 +35,8 @@
      <orgname>University of Vermont</orgname>
      <orgdiv>Department of Biometry</orgdiv>
      <address><street>Hills Science Building</street>
-      <city>Burlington</city> <state>VT</state>
-      <postcode>05405</postcode> <country>USA</country></address>
+      <city>Burlington</city> <state>VT</state> <postcode>05405</postcode> 
+      <country>USA</country></address>
     </affiliation>
    </author>
 
@@ -817,7 +817,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     </para>
     </formalpara>
 
-    <informaltable>
+    <informaltable frame="none">
      <tgroup cols="2">
       <thead>
        <row>
