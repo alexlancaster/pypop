@@ -1,3 +1,18 @@
+2004-05-17  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* setup.py (my_build_ext.swig_sources): Comment out setting of
+	CFLAGS to -funroll-loops, causes floating-point number operation
+	instability.  See post here:
+	http://www.oonumerics.org/MailArchives/oon-list/msg00740.php.
+	(ext_Gthwe): Added libraries to compile with "gsl" and "gslcblas"
+	for GNU Scientific Library (GSL), this has to be hardcoded for the
+	moment, as can't compile it as a standalone module as yet.
+	Set DEBUG C pre-processor flag to 1.
+
+	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Added
+	debug message for sortedAlleles.  More debug information and
+	flush() sys.stdout.
+
 2004-03-09  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Utils.py (getUserFilenameInput): Comment out test code for the
