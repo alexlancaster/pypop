@@ -649,8 +649,8 @@ MODIFICATIONS.
 	
 	<!-- do pvalue separately -->
 	<xsl:value-of select="$hw-guo-thompson[@col='pvalue']"/>  
-	<xsl:text>: </xsl:text>
-	<xsl:apply-templates select="pvalue"/>
+	<xsl:text> (overall): </xsl:text>
+	<xsl:apply-templates select="pvalue[@type='overall']"/>
 	<xsl:call-template name="newline"/>
 	
        </xsl:otherwise>
