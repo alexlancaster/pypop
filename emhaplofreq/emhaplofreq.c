@@ -210,6 +210,7 @@ int main(int argc, char **argv)
 
   num_loci = read_infile(if_handle, ref, data, &num_recs);
   fprintf(fp_out, "num_loci: %d\n", num_loci);
+  fprintf(fp_out, "Sample Size (n): %d\n", num_recs);
   if (num_loci > MAX_LOCI) 
   {
     fprintf(stderr, "Error: number of loci: %d, exceeds maximum of: %d\n",
@@ -377,9 +378,11 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /* needed for permutations */
   int permu, max_permutations, max_init_cond = 0, ok_perm0;
+  int permu_count; // RS 20031125
   double lr_mean, lr_sd, lr_z;
 
   CALLOC_ARRAY_DIM1(double, like_ratio, MAX_PERMU);
+  CALLOC_ARRAY_DIM1(int, error_flag_permu, MAX_PERMU); // RS 20031125
 
   double pvalue = 0.0;
 
@@ -1036,6 +1039,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #endif
 
     like_ratio[permu] = -2.0 * (loglike0 - loglike_best);
+    error_flag_permu[permu] = error_flag_best; // RS 20031125
 
   } /* end for (permu) */
   
@@ -1051,6 +1055,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     
     pvalue = 0.0;
     lr_mean = 0.0;
+    permu_count = 0; // RS 20031125
 
 #ifdef XML_OUTPUT
     fprintf(fp_permu, "<permutation iter=\"%d\">%f</permutation>", 0, like_ratio[0]);
@@ -1062,27 +1067,34 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #ifdef XML_OUTPUT
       fprintf(fp_permu, "<permutation iter=\"%d\">%f</permutation>", i, like_ratio[i]);
 #else
-      fprintf(fp_permu, "%3d  %f \n", i, like_ratio[i]); 
+      fprintf(fp_permu, "%3d  %f %d\n", i, like_ratio[i], error_flag_permu[i]); // RS 20031125
 #endif
-      if (like_ratio[i] > like_ratio[0]) pvalue += 1;
-      lr_mean += like_ratio[i];
+      if (error_flag_permu[i]==0) // RS 20031125
+      { 
+        permu_count += 1;
+        if (like_ratio[i] > like_ratio[0]) pvalue += 1;
+        lr_mean += like_ratio[i];
+      } 
     }
-    pvalue = pvalue/(max_permutations-1);
-    lr_mean = lr_mean/(max_permutations-1);
+    pvalue = pvalue/permu_count;   // RS 20031125
+    lr_mean = lr_mean/permu_count; // RS 20031125
 
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "\n<pvalue totalperm=\"%d\">%f</pvalue>\n", max_permutations-1, pvalue); 
+    fprintf(fp_out, "\n<pvalue totalperm=\"%d\">%f</pvalue>\n", permu_count, pvalue); 
 #else
-    fprintf(fp_out, "Permutation LR Test for Overall LD based on %d permutations: pvalue = %f\n", max_permutations-1, pvalue); 
+    fprintf(fp_out, "Permutation LR Test for Overall LD based on %d permutations: pvalue = %f\n", permu_count, pvalue); 
     fprintf(fp_permu, "pvalue = %f \n", pvalue); 
 #endif
 
     lr_sd = 0.0;
     for (i = 1; i < max_permutations; i++)
     {
-      lr_sd += pow((like_ratio[i] - lr_mean),2);
+      if (error_flag_permu[i]==0) // RS 20031125 
+      { 
+        lr_sd += pow((like_ratio[i] - lr_mean),2);
+      } 
     }
-    lr_sd = sqrt( lr_sd / ((max_permutations-1) - 1) );
+    lr_sd = sqrt( lr_sd / ((permu_count) - 1) ); // RS 20031125
     lr_z = ( sqrt(2.0*df_LRtest)/n_recs ) * ( (like_ratio[0] - lr_mean) / lr_sd ); 
 
 #ifdef XML_OUTPUT
@@ -1602,84 +1614,6 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
       }
     }
   }
-
-/* 
- * Orig
-  for (i = 0; i < n_unique_geno; i++)
-  {
-    for (j = 0; j < 2; j++)
-    {
-      for (k = 0; k < n_haplo; k++)
-      {
-        for (l = 0; l < n_unique_pheno; l++)
-        {
-          if ((xgeno[i][j] == xhaplo[k]) && (genopheno[i][l] > permu))
-          {
-            if (numgeno[l] == 1)
-            {
-              unambig[k] += (double)obspheno[l];
-            }
-            else // (numgeno[l] > 1) 
-            {
-              ambig[k] += (double)obspheno[l] / (double)numgeno[l];
-            }
-          }
-        }
-      }
-    }
-  }
-
- * mod.1
-  for (i = 0; i < n_unique_pheno; i++)
-  {
-    for (j = 0; j < n_unique_geno; j++)
-    {
-      for (k = 0; k < 2; k++)
-      {
-        for (l = 0; l < n_haplo; l++)
-        {
-          if ((xgeno[j][k] == xhaplo[l]) && (genopheno[j][i] > permu))
-          {
-            if (numgeno[i] == 1)
-            {
-              unambig[l] += (double)obspheno[i];
-            }
-            else // (numgeno[l] > 1) 
-            {
-              ambig[l] += (double)obspheno[i] / (double)numgeno[i];
-            }
-          }
-        }
-      }
-    }
-  }
-
- * mod.2
-  for (i = 0; i < n_unique_pheno; i++)
-  {
-    for (j = 0; j < numgeno[i]; j++)
-    {
-      j_geno = gp[j][i];
-      for (k = 0; k < 2; k++)
-      {
-        for (l = 0; l < n_haplo; l++)
-        {
-          if ((xgeno[j_geno][k] == xhaplo[l]))
-          {
-            if (numgeno[i] == 1)
-            {
-              unambig[l] += (double)obspheno[i];
-            }
-            else // (numgeno[l] > 1) 
-            {
-              ambig[l] += (double)obspheno[i] / (double)numgeno[i];
-            }
-          }
-        }
-      }
-    }
-  }
-*/
 
   iter = 0;
 
