@@ -316,12 +316,14 @@ Common genotypes
  <sect1 id="instructions-hardyweinberg-exact">
   <title>Exact test for deviation from HWP</title>
   
-  <para>For each locus the exact test for deviations from HWP is implemented
-   using the method of <xref linkend="Guo:Thompson:1992"/>. The P-value provided
-   describes how probable the observed set of genotypes is, with respect
-   to a large sample of other genotypic configurations (conditioned on
-   the same allele frequencies and 2n). P-values lower than 0.05 can be
-   interpreted as evidence that the sample does not fit HWP.</para>
+  <para>For each locus the exact test for deviations from HWP is
+   implemented using the method of <citation
+   role="citet">Guo:Thompson:1992</citation>. The P-value provided
+   describes how probable the observed set of genotypes is, with
+   respect to a large sample of other genotypic configurations
+   (conditioned on the same allele frequencies and 2n). P-values lower
+   than 0.05 can be interpreted as evidence that the sample does not
+   fit HWP.</para>
   
   <example>
    <title>Sample output for exact test</title>
@@ -354,9 +356,9 @@ Too large a matrix for Guo and Thompson
   <title>Haplotype Frequency and LD Estimation</title>
   
   <para>Haplotypes frequencies are estimated using the iterative
-   Expectation-Maximization (EM) algorithm (<xref
-   linkend="Dempster:1977"/>; <xref
-   linkend="Excoffier:Slatkin:1995"/>).</para>
+   Expectation-Maximization (EM) algorithm (<citation
+   role="citet">Dempster:1977</citation>; <citation
+   role="citet">Excoffier:Slatkin:1995</citation>).</para>
 
   <para>Multiple starting conditions are used to minimize the possibility of
    local maxima being reached by the EM iterations. The haplotype
