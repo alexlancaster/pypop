@@ -1,44 +1,90 @@
-
 # generates frozen standalone installation in a single directory
 
 # global imports
 import os, sys, shutil, string 
 
+# location of Python Installer directory
+#INSTALLER = '/home/alex/src/python-installer'
+# generate from directory name of Build.py script
+INSTALLER = os.path.dirname(sys.argv[0])
+
 # import locally generated class, dynamically (needed because current
 # file is also loaded dynamically by Installer's Build.py
 execfile('Utils.py', locals())
 
+# create TOCs for standalone directory installation
+def createObjects(script, type=type, INSTALLER=INSTALLER):
+    basename = script[:-3]
+    if type == 'Win32':
+        exec_name = basename + '.exe'
+    elif type == 'Linux':
+        exec_name = basename
+    
+    a = Analysis([INSTALLER + '/support/_mountzlib.py',
+                  INSTALLER + '/support/useUnicode.py',
+                  script],
+                 pathex=[])
+    pyz = PYZ(a.pure)
+    exe = EXE(pyz,
+              a.scripts,
+              exclude_binaries=1,
+              name=os.path.join('buildstandalone-new', exec_name),
+              debug=0,
+              strip=0,
+              console=1)
+    return exe, a
+
+# create wrapper scripts for all platforms
+def createWrappers(script=None, type=None, bin_dir=None, dist_dir=None):
+    basename = script[:-3]
+    if type == 'Win32':
+        exec_name = basename + '.exe'
+        wrapper_common = """@echo off
+set PYTHONHOME="."
+%s\%s""" % (bin_dir, exec_name)
+        wrapper_name = basename + 'bat'
+        wrapper_contents = wrapper_common + """ -i
+pause"""
+        batch_wrapper = basename + '-batch.bat'
+        batch_wrapper_contents = wrapper_common + ' %*'
+    elif type == 'Linux':
+        exec_name = basename
+        wrapper_common = """#!/bin/sh
+dir=$(dirname $0)
+PYTHONHOME=. LD_LIBRARY_PATH=$dir/%s $dir/%s/%s""" % (bin_dir, bin_dir, exec_name)
+        wrapper_name = basename
+        wrapper_contents = wrapper_common + ' -i'
+        batch_wrapper = basename + '-batch'
+        batch_wrapper_contents = wrapper_common + ' $@'
+
+    # create an interactive wrapper script
+    filename = os.path.join(dist_dir, wrapper_name)
+    wrapper = open(filename, 'w')
+    wrapper.write(wrapper_contents)
+    wrapper.close()
+    os.chmod(filename, 0755)
+
+    # create batch-file wrapper script
+    filename = os.path.join(dist_dir, batch_wrapper)
+    batch = open(filename, 'w')
+    batch.write(batch_wrapper_contents)
+    batch.close()
+    os.chmod(filename, 0755)
+        
 # get version from VERSION file
 VERSION = (open('VERSION', 'r').readline()).strip()
 
 # distribution bin directory name
 bin_dir = 'bin'
 
-# generate name of executable
+# set various platform-specific variables
 if sys.platform == 'cygwin':
     type = 'Win32'
     file_sep = '\\'
-    exec_name = 'pypop.exe'
-    wrapper_common = """@echo off
-set PYTHONHOME="."
-%s\%s""" % (bin_dir, exec_name)
-    wrapper_name = 'pypop.bat'
-    wrapper_contents = wrapper_common + """ -i
-pause"""
-    batch_wrapper = 'pypop-batch.bat'
-    batch_wrapper_contents = wrapper_common + ' %*'
     compression = 'zip'
 elif sys.platform == 'linux2':
-    exec_name = 'pypop'
     type = 'Linux'
     file_sep = '/'
-    wrapper_common = """#!/bin/sh
-dir=$(dirname $0)
-PYTHONHOME=. LD_LIBRARY_PATH=$dir/%s $dir/%s/%s""" % (bin_dir, bin_dir, exec_name)
-    wrapper_name = 'pypop'
-    wrapper_contents = wrapper_common + ' -i'
-    batch_wrapper = 'pypop-batch'
-    batch_wrapper_contents = wrapper_common + ' $@'
     compression = 'gzip'
 else:
     sys.exit(sys.platform + " is currently unsupported")
@@ -46,26 +92,15 @@ else:
 # distribution directory name
 dist_dir = 'PyPop' + type + "-" + VERSION
 
-# location of Python Installer directory
-#INSTALLER = '/home/alex/src/python-installer'
-# generate from directory name of Build.py script
-INSTALLER = os.path.dirname(sys.argv[0])
+# create TOCs so that files can be packaged up
+pypop_exe, pypop = createObjects('pypop.py', type=type)
+popmeta_exe, popmeta = createObjects('popmeta.py', type=type)
 
-a = Analysis([INSTALLER + '/support/_mountzlib.py',
-              INSTALLER + '/support/useUnicode.py',
-              'pypop.py'],
-             pathex=[])
-
-pyz = PYZ(a.pure)
-exe = EXE(pyz,
-          a.scripts,
-          exclude_binaries=1,
-          name=os.path.join('buildstandalone', exec_name),
-          debug=0,
-          strip=0,
-          console=1)
-coll = COLLECT(exe,
-               a.binaries,
+# collect them into a directory
+coll = COLLECT(pypop_exe,
+               popmeta_exe,
+               pypop.binaries,
+               popmeta.binaries,
                strip=1,
                name=bin_dir)
 
@@ -103,19 +138,12 @@ copyfileCustomPlatform(os.path.join('data','samples',\
                                    'USAFEL-UchiTelle-noheader-noids.pop'), \
                       os.path.join(dist_dir, 'sample.pop'))
 
-# create an interactive wrapper script
-filename = os.path.join(dist_dir, wrapper_name)
-wrapper = open(filename, 'w')
-wrapper.write(wrapper_contents)
-wrapper.close()
-os.chmod(filename, 0755)
+# create wrappers
+createWrappers(script='pypop.py', type=type, \
+               bin_dir=bin_dir, dist_dir=dist_dir)
+createWrappers(script='popmeta.py', type=type, \
+               bin_dir=bin_dir, dist_dir=dist_dir)
 
-# create batch-file wrapper script
-filename = os.path.join(dist_dir, batch_wrapper)
-batch = open(filename, 'w')
-batch.write(batch_wrapper_contents)
-batch.close()
-os.chmod(filename, 0755)
 
 # create xslt subdirectory
 xslt_dir = os.path.join(dist_dir, 'xslt')
