@@ -17,7 +17,7 @@
  <xsl:template match="pubdate" mode="book.titlepage.recto.auto.mode">
   <div xsl:use-attribute-sets="book.titlepage.recto.style">
    <xsl:apply-templates select="." mode="book.titlepage.recto.mode"/>
-   <xsl:if test="profiling-highlighting">
+   <xsl:if test="$profiling-highlighting">
    <p><font color="blue">Blue</font> and <font color="green">green</font> text: common to 'anthro' book and main text.</p>
    <p><font color="red">Red</font> text: only 'anthro' book.</p>
   </xsl:if>
