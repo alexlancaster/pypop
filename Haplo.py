@@ -528,6 +528,3 @@ class Emhaplofreq(Haplo):
         self.fp.close()
         stream.closetag('emhaplofreq')
         stream.writeln()
-
-
-        
