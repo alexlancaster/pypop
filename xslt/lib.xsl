@@ -108,6 +108,45 @@
   </xsl:choose>
  </xsl:template>
 
+ <xsl:template name="justified-cell">
+  <xsl:param name="noVal" select="'*'"/>
+  <xsl:param name="padVar"/>
+  <xsl:param name="length"/>
+  <xsl:param name="type" select="'left'"/>
+
+  <xsl:variable name="var">
+   <xsl:choose>
+    <xsl:when test="$padVar">
+     <xsl:value-of select="$padVar"/>
+    </xsl:when>
+    <xsl:otherwise>
+     <xsl:value-of select="$noVal"/>
+    </xsl:otherwise>
+   </xsl:choose>
+  </xsl:variable>
+  
+  <xsl:choose>
+   <xsl:when test="$type='left'">
+    <xsl:call-template name="append-pad">
+     <xsl:with-param name="padVar" select="$var"/>
+     <xsl:with-param name="length" select="$length"/>
+    </xsl:call-template>
+   </xsl:when>
+
+   <xsl:when test="$type='right'">
+    <xsl:call-template name="prepend-pad">
+     <xsl:with-param name="padVar" select="$var"/>
+     <xsl:with-param name="length" select="$length"/>
+    </xsl:call-template>
+   </xsl:when>
+
+   <xsl:otherwise>
+    <xsl:message terminate="yes">Justified type not implemented!</xsl:message>
+   </xsl:otherwise>
+  </xsl:choose>
+  
+ </xsl:template>
+
  <!-- prints a newline -->
  <xsl:template name="newline"><xsl:text>
 </xsl:text></xsl:template>
