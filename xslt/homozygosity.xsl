@@ -87,6 +87,50 @@
    <xsl:otherwise>0</xsl:otherwise>
   </xsl:choose>
  </xsl:template>
+
+ <xsl:template match="homozygosityEWSlatkinExact">
+  <xsl:call-template name="section">
+   <xsl:with-param name="title">
+    <xsl:call-template name="locus-header">
+     <xsl:with-param name="title">
+      <xsl:text>Slatkin's implementation of EW homozygosity test of neutrality</xsl:text>
+     </xsl:with-param>
+    </xsl:call-template>
+   </xsl:with-param>
+   <xsl:with-param name="level" select="3"/>
+   <xsl:with-param name="text">
+
+    <xsl:choose>
+
+     <xsl:when test="@role='no-data'">
+      <xsl:text>*No data*</xsl:text>
+     </xsl:when>
+     
+     <xsl:otherwise>
+      
+      <!-- print specified fields invoking the template for  -->
+
+      <xsl:text>Expected F: </xsl:text>
+      <xsl:value-of select="meanHomozygosity"/>
+      <xsl:text>, Variance in F: </xsl:text>
+      <xsl:value-of select="varHomozygosity"/>
+      <xsl:text>, p-value of F: </xsl:text>
+      <!-- treat pvalue differently -->
+      <xsl:call-template name="pvalue-func">
+       <xsl:with-param name="val" select="probHomozygosity"/>
+      </xsl:call-template>
+     <!-- <xsl:value-of select="probHomozygosity"/> -->
+      <xsl:call-template name="newline"/>
+      <xsl:text>Theta: </xsl:text>
+      <xsl:value-of select="theta"/>
+      <xsl:text>, prob of Ewens value: </xsl:text>
+      <xsl:value-of select="probEwens"/>
+     </xsl:otherwise>
+    </xsl:choose>
+   </xsl:with-param>
+  </xsl:call-template>
+  
+ </xsl:template>
  
  <xsl:template match="pvalue" mode="bounded">
   
