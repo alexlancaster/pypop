@@ -33,7 +33,7 @@
      role="citealt">Lancaster:etal:2003a</citation>, <citation
      role="citealt">Lancaster:etal:2003b</citation>) and offers
     guidelines on how to interpret them
-    <citation>Single:etal:2003</citation>.</para>
+    <citation>Single:etal:2003a</citation>.</para>
   </abstract>
  </articleinfo>
 
@@ -654,7 +654,7 @@ haplotype         frequency # copies  | haplotype         frequency # copies
    href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Lancaster:etal:2003b'])"/>  
 
    <xi:include
-   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Single:etal:2003'])"/>  
+   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Single:etal:2003a'])"/>  
   </bibliodiv>
  </bibliography>
 
