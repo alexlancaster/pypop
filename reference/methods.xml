@@ -1,0 +1,2444 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<chapter>
+  <chapterinfo>
+    <authorgroup>
+      <author>
+	<firstname>Glenys</firstname>
+	<surname>Thomson</surname>
+      </author>
+      <author>
+	<firstname>Diogo</firstname>
+	<surname>Meyer</surname>
+      </author>
+      <author>
+	<firstname>John</firstname>
+	<surname>Chen</surname>
+      </author>
+      <author>
+	<firstname>Richard</firstname>
+	<surname>Single</surname>
+      </author>
+    </authorgroup>
+  </chapterinfo>
+  
+  <title>Methods for analysis of genetic variation</title> 
+  
+<!--
+    <section>
+      <title>Background</title>
+
+      <formalpara>
+	<title>1. Statistical Aspects of Genetics</title> 
+	
+	<para> Both parameter estimation and hypothesis testing are
+	relevant.</para>
+      </formalpara>
+
+      <formalpara>
+	<title>2. Simple rules of probability are sufficient for most probability calculations in genetics:</title>
+
+	<para> the probability of both of two independent events
+	is the product of their separate probabilities;  the
+	probability of either of two mutually exclusive events is the
+	sum of their separate probabilities. For example, the
+	probability that a sibling of a child affected with a
+	recessive trait will also be affected is the probability that
+	both of the  parents transmit the variant
+	allele.  If the two parents are both phenotypically
+	normal, they must both be heterozygous. So, the probability of
+	both transmitting the allele for the trait is ½ x ½ =
+	¼.</para>
+      </formalpara>
+
+      <formalpara>
+	<title>3.  Likelihood and Maximum Likelihood</title>
+	
+	<para>One important concept to distinguish from probability is
+	likelihood.  Likelihood is the concept used to consider
+	different hypotheses given a set of data.  The likelihood
+	of a hypothesis given a set of data is defined as being
+	proportional to the probability of the data given that
+	hypothesis.</para>
+      </formalpara>
+      
+      <para> L(hypothesis|data) is proportional to P(data|hypothesis)</para>
+
+      <para>A likelihood ratio is defined as
+      L(H<subscript>0</subscript>|D)/L(H<subscript>1</subscript>|D) =
+      P(D|H<subscript>0</subscript>)/P(D|H<subscript>1</subscript>).  Thus,
+      one can consider hypothesis 0 being more or less likely than
+      hypothesis 1 given a set of data depending on whether the ratio
+      is greater than 1 or less than 1.  This leads to the
+      concept that the best hypothesis is the one that has the
+      greatest likelihood, the one under which the observed data are
+      the most probable.</para>
+
+      <para>4.  Genotype:Phenotype relationships must be
+      considered in all problems; the simplest qualitative ones
+      (dominance, recessivity, co-dominance) may not apply if more
+      than two alleles are present or more than one locus is involved
+      in the phenotype.</para>
+
+      <formalpara>
+	<title>5.  Gene frequency in a population</title>
+
+	<para>Given phenotypes for a sample of individuals from a
+	population one wishes to estimate the frequency/frequencies of
+	the alleles.  First, one needs to determine the
+	relationships between genotypes and the observed
+	phenotypes.  Let us assume codominance as is often (but
+	not always) the case for molecular markers.  This equates
+	to a 1:1 relationship between genotype and phenotype and
+	common sense says that we can count the alleles in the sample
+	and that the frequencies in the sample are our estimate of the
+	frequencies in the population.  In fact, that gene
+	counting estimate is the maximum likelihood
+	estimate.  How can you demonstrate that?</para>
+      </formalpara>
+    </section>
+
+    <section>
+      <title>Calculation of allele frequencies and heterozygosity</title>
+
+      <para> Allele frequencies are generally calculated by gene
+      counting assuming that each phenotype (what is seen: the
+      laboratory typing result) is equivalent to a
+      genotype.  These are used in the test for H-W
+      ratios.</para> <para> The standard statistic to describe amount
+      of variation is heterozygosity.  Why do we want to quantify
+      the amount of variation?  There are several reasons, most
+      of which involve statistical power that increases with
+      heterozygosity.  For example, in linkage mapping studies in
+      families researchers want markers that will be informative
+      (=heterozygous) in most members of any family being
+      studied.  The STRP markers with their large numbers of
+      alleles are the markers of choice for this purpose.  In
+      association studies researchers also want markers that are
+      capable of subdividing the population into moderately large
+      groups, but using markers with low mutation rates.  STRPs
+      with their high mutation rates are not so useful, but SNPs are
+      even though their maximum heterozygosity is 50%.  (Note,
+      many recent papers on SNPs refer to the <quote>minor allele
+      frequency</quote>.  This terminology is a neologism that
+      should be avoided.  The word <emphasis>minor</emphasis>
+      means <quote>less important</quote> NOT <quote>less
+      frequent</quote>.  Use of heterozygosity as a statistic
+      completely avoids this erroneous terminology.)</para>
+
+      <para> Mathematically, heterozygosity is defined as the expected
+      frequency of individuals that would be heterozygous in a large
+      population given the allele frequencies for the
+      population:</para>
+
+      <para>  H=1-&#xf053;p<subscript>i</subscript><superscript>2</superscript></para>
+
+      <para>The statistic applies to two-allele systems and to
+      multi-allele systems since the
+      p<subscript>i</subscript><superscript>2
+       </superscript>represent the expected frequencies of
+      homozygotes for each of the i alleles.</para>
+    </section>
+
+    -->
+
+ <sect1>
+  <title>Hardy-Weinberg Ratios</title>
+  
+  <sect2>
+   <title>Introduction</title>
+   
+   <para> Mendelian genetics was rediscovered in the early 1900's. The
+    Hardy-Weinberg law is the foundation of population genetics, and
+    was derived independently in 1908 by an English mathematician
+    Hardy and a German physician Weinberg. R.C. Punnett brought to the
+    attention of Hardy a remark of Yule (a geneticist)&mdash;Mr. Yule
+    is reported to have suggested as a criticism of the Mendelian
+    position that if brachydactyly (short fingeredness) is dominant
+    <quote>in the course of time one would expect, in the absence of
+    counteracting factors, to get 3 brachydactylous individuals to 1
+    normal.</quote> Of course we now understand that Yule is confusing
+    the Mendelian 3:1 ratio in an F1 cross (Aa x Aa gives 3A-:1aa)
+    with population features.</para>
+
+   <para> Basically we want to consider whether or not Mendelian
+    segregation causes changes in the genetic structure of a
+    population. We want to consider the effect of this factor acting
+    in isolation from all other possible factors, so we assume:</para>
+
+   <orderedlist>
+    <listitem>
+     <para>random mating (sexually reproducing diploid)
+      population</para>
+    </listitem>
+    
+    <listitem>
+     <para>mutation and migration rates are negligible (no
+      mutation, no migration)</para></listitem>
+    
+    <listitem>
+     <para>no selection</para></listitem>
+    
+    <listitem>
+     <para>segregation according to Mendelian rules</para></listitem>
+    
+    <listitem>
+     <para>non-overlapping generations</para></listitem>
+    
+    <listitem>
+     
+     <para>infinite population size, i.e., the population size is so
+      large that we can ignore small chance variations in allele
+      frequencies, so we can predict exactly what the allele
+      frequencies will be in a future generation, this is known as a
+      deterministic model, e.g., the equivalent when a coin is tossed
+      is that you would get exactly 50% heads and 50% tails, not a
+      distribution of values as seen in reality with a finite sample
+      size (stochastic model).</para></listitem>
+   </orderedlist>
+
+   <para>The importance of the Hardy-Weinberg law is that if there are
+    no counteracting forces, then the frequencies of alleles do not
+    change in a population. In other words, variation in a population,
+    under a Mendelian system, tends to be maintained. We contrast this
+    to the previously believed blending inheritance where genetic
+    variation is decreased each generation. Further, the expected
+    genotype frequencies each generation are determined by the allele
+    frequencies, and are termed Hardy-Weinberg proportions
+    (HWP). Continued random mating leads to the same genotype (and
+    allele) frequencies, hence the term Hardy-Weinberg
+    equilibrium.</para>
+  </sect2>
+  
+  <sect2>
+   <title>Hardy-Weinberg proportions (HWP)</title>
+   
+   <para> We consider initially a two allele system, but the
+    results extend easily to multiple alleles. The two alleles are
+    A and a with respective frequencies p and q (p+q=1, so note
+    that we have only one independent variable). If gametes
+    combine at random then the frequencies of the three genotypic
+    classes in the next generation are:</para>
+   
+   <para>
+    <informaltable>
+     <tgroup cols="3">
+      <colspec colwidth="2cm"/>
+      <colspec colwidth="2cm"/>
+      <colspec colwidth="2cm"/>
+      <thead>
+       <row>
+	<entry>AA</entry>
+	<entry>Aa </entry>
+	<entry>aa</entry>
+       </row>
+      </thead>
+      <tbody>
+       <row>
+	<entry>p<superscript>2</superscript></entry>
+	<entry>2pq</entry>
+	<entry>q<superscript>2</superscript></entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </informaltable>
+   </para>
+
+   <para>(Note that the 2 for the heterozygote class comes about
+    since there are two ways a heterozygote can form, each with
+    probability pq, the father can supply the A allele and the
+    mother the a allele, or vice versa.) Using gene (allele)
+    counting, with f(.) denoting frequency, such that f(A) = f(AA)
+    + f(Aa)/2, and assuming we can distinguish the heterozygote
+    from the two homozygote classes, we obtain,</para>
+   
+
+   <literallayout>f(A) = p<superscript>2</superscript> + pq = p(p + q) = p.</literallayout>
+   
+   <para> Thus, we have demonstrated that under the assumptions of the
+    Hardy-Weinberg law, the allele frequencies in the offspring
+    generation are the same as those in the parental generation. This
+    results from the fact that there are no forces operating to cause
+    systematic change in allele frequencies, since the two alleles in
+    this case are considered to be selectively equivalent (neutral
+    with respect to each other). Further, it follows that in all
+    subsequent generations, the genotypic distribution will remain
+    p<superscript>2</superscript>AA, 2pqAa,
+    q<superscript>2</superscript>aa. With overlapping generations,
+    there is rapid convergence to the HWP. For a multi-allelic system,
+    the results are exactly equivalent, with the expected homozygote
+    genotype frequencies given by
+    p<subscript>i</subscript><superscript>2</superscript>, where
+    p<subscript>i</subscript> is the allele frequency for the ith
+    allele, and the expected heterozygote genotype frequencies are
+    given by 2p<subscript>i</subscript>p<subscript>j</subscript>, with
+    i&lt;j. Although complicated in words, the Hardy Weinberg law is,
+    statistically speaking, a simple statement about independence of
+    allele frequencies at a locus.</para>
+   
+   <para>For example, we consider the ABO blood group system: A is
+    dominant to O, B is dominant to O, A and B are co-dominant. For
+    the following allele frequencies, A = 0.30, B = 0.10, O = 0.60,
+    the HWP are:</para>
+   
+   <para>
+    <informaltable>
+     <tgroup cols="3">
+      <colspec colname="col1" colwidth="2cm"/>
+      <colspec colname="col2" colwidth="2cm"/>
+      <colspec colname="col3" colwidth="5.5cm"/>
+      <thead>
+       <row>
+	<entry>Blood type</entry>
+	<entry>genotypes</entry>
+	<entry>Frequency</entry>
+       </row>
+      </thead>
+      <tbody>
+       <row>
+	<entry>A</entry>
+	<entry>AA, AO</entry>
+       <entry>(0.3)2 + 2(0.3)(0.6) = 0.45</entry>
+       </row>
+       <row>
+	<entry>B</entry> 
+	<entry>BB, BO</entry>
+	<entry>(0.1)2 + 2(0.1)(0.6) = 0.13</entry>
+       </row>
+       <row>
+	<entry>AB</entry>
+	<entry>AB</entry>
+	<entry>2(0.1)(0.3) = 0.06</entry>
+       </row>
+       <row>
+	<entry>O</entry>
+	<entry>OO</entry>
+	<entry>(0.6)2 = 0.36</entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </informaltable>
+   </para>
+   
+   <para>(Note in this case that the allele frequencies cannot be
+    estimated by gene (allele) counting, since allele O is
+    recessive. The allele frequencies in this case are estimated
+    by an iterative procedure.)</para>
+   
+   <para> For sex-linked (X chromosome) genes, females are
+    diploid and males are haploid, and the HWP are</para>
+
+   <para>
+    <informaltable>
+     <tgroup cols="5">
+      <colspec colname="col1" colwidth="2cm" align="center"/>
+      <colspec colname="col2" colwidth="2cm" align="center"/>
+      <colspec colname="col3" colwidth="2cm" align="center"/>
+      <colspec colname="col4" colwidth="2cm" align="center"/>
+      <colspec colname="col5" colwidth="2cm" align="center"/>
+      <thead>
+       <row>
+	<entry namest="col1" nameend="col3" align="center">females</entry>
+	<entry namest="col4" nameend="col5" align="center">males</entry>
+       </row>
+      </thead>
+      <tbody>
+       <row>
+	<entry>AA</entry>
+	<entry>Aa </entry>
+	<entry>aa</entry>
+	<entry>A</entry>
+	<entry>a</entry>
+       </row>
+       <row>
+	<entry>p<superscript>2</superscript></entry>
+	<entry>2pq</entry>
+	<entry>q<superscript>2</superscript></entry>
+	<entry>p</entry> <entry>q</entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </informaltable>
+   </para>
+   
+   <para>If the female and male initial allele frequencies are
+    equal, then these equilibrium frequencies are reached in one
+    generation. If they are unequal, then a rapid convergence to
+    the above equilibrium takes place.</para>
+   
+   <para> Due to the finite size of samples, observed genotype
+    frequencies are not expected to be in exact HWP. Two
+    illustrative examples using the codominant MN blood group
+    system are shown below, which have the same allele frequencies
+    f(M) = 0.6, f(N) = 0.4, and hence the same HWP, but very
+    different observed genotype frequencies (the first very close
+    to HWP, the second very different from HWP):</para>
+
+   <para>   
+    <informaltable>
+     <tgroup cols="4">
+      <colspec colwidth="4cm"/>
+      <colspec colwidth="2cm"/>
+      <colspec colwidth="2cm"/>
+      <colspec colwidth="2cm"/>
+      <thead>
+       <row>
+	<entry></entry>
+	<entry>MM</entry>
+	<entry>MN</entry>
+	<entry>NN</entry>
+       </row>
+      </thead>
+      <tbody>
+       <row>
+	<entry>obs. freq.</entry>
+	<entry>0.35</entry>
+	<entry>0.5</entry>
+	<entry>0.15</entry>
+       </row>
+       <row>
+	<entry>obs. freq.</entry>
+	<entry>0.56</entry>
+	<entry>0.08</entry>
+	<entry>0.36</entry>
+       </row>
+       <row>
+	<entry>exp. H-W</entry>
+	<entry>0.36</entry>
+	<entry>0.48</entry>
+	<entry>0.16</entry>
+       </row>
+      </tbody>
+     </tgroup>
+    </informaltable>
+   </para>
+
+   <para> The strength of the Hardy-Weinberg law is that much of the
+    variation in natural populations follows HWP; its weakness is that
+    selection, etc., have to be very strong to detect deviations from
+    HWP.</para>
+  </sect2>
+  
+  <sect2>
+   <title>Testing fit to HWP</title>
+   
+   <para>There are two important issues with regard to HWP
+    testing. First is testing the overall fit of a
+    sample. Traditionally, a large sample goodness-of-fit chi-square
+    is performed when the number of genotypes is small relative to the
+    sample size. With the development of modern molecular technology,
+    the situation is often different from this. For instance, over 400
+    alleles have been described at the HLA class I B locus, although
+    not all these alleles are seen in any one population. However, it
+    is not uncommon for researchers to distinguish more than a few
+    dozen alleles in a reasonable-sized sample for the HLA class I and
+    class II loci. Therefore, in many studies the genotypic matrix is
+    relatively sparse and some simulation approaches, e.g. Guo and
+    Thompson (1992), are more appropriate than their asymptotic
+    counter parts in testing for overall fit of HWP.</para>
+
+   <para> The second issue is testing at the individual heterozygote
+    level. For a given sample, beside the overall fit, researchers are
+    often interested in knowing which individual heterozygote or
+    homozygote significantly deviates from its HW expectation,
+    especially when the genotype matrix is relatively large. If one
+    rejects the overall fit, which heterozygote(s) is/are responsible
+    for the deviation? If one does not reject the overall fit, are
+    there consistent and significant patterns of deviation at the
+    individual level, which were not detected by an overall test?
+    This is especially relevant when genetic data are available from
+    more than one population. By comparing patterns across
+    populations, consistent deviations, which may not be strong enough
+    to be found in the overall tests of an individual sample, could be
+    detected. This will allow researchers to generate future
+    hypothesis on the mechanisms causing such patterns and facilitate
+    further study of this genetic region.</para>
+   
+   <sect3>
+    <title>The chi-square test</title>
+    
+    <para> The basis of the chi-square test is to calculate expected
+     genotype values based on HWP for individual genotype values and
+     test for fit to HWP using an overall test. When expected genotype
+     counts are &ge;5, calculate the individual chi-square value for
+     this genotype, i.e., (O-E)<superscript>2</superscript>/E, where O
+     is observed and E is expected for that genotype, and add together
+     the contributions of each genotype. If there are no rare
+     genotypes (expected &lt;5), the degrees of freedom (d.f.)  for
+     the overall chi-square test are given by k(k-1)/2, where k is the
+     number of alleles in the sample under study. This comes from the
+     formula, d.f. = number of categories - 1 - number of independent
+     parameters estimated from the data needed to determine the
+     expected values (in this case k-1, since if we know k-1 allele
+     frequencies we can determine the kth allele frequency). Since the
+     number of categories (genotypes) in this case is k (homozygotes)
+     + k(k-1)/2 (heterozygotes) = k(k+1)/2, from which we subtract 1
+     (since given the frequencies of all except one of these
+     categories we can always determine the frequency of the remaining
+     category given the sample size), and subtract (k-1) (the number
+     of independent allele frequencies need to estimate the HWP), to
+     give the d.f. = k(k-1)/2.</para>
+	  
+    <para>As examples we consider a 2 allele case,  as above,
+     with a range of observed (O) genotype frequencies, all with p =
+     0.6, q = 0.4, and all with sample size N = 100 individuals. In
+     all cases the expected (E) HWP genotype counts are 36, 48, and
+     16. Next to the observed numbers in each case the (O - E) values
+     are given. The d.f. = 1 in each case for the overall chi-square
+     test. For a chi-square distribution with 1 d.f., the cut-off
+     points, i.e., rejection of the null hypothesis of fit to HWP are
+     3.84 (5%), 6.64 (1%), and 10.83 (0.1%). If the overall chi-square
+     value is greater than one of these values, then the null
+     hypothesis of overall fit to HWP for these genotypes is rejected
+     with the type 1 error (probability you have made a mistake) given
+     in parentheses.</para>
+    
+    <para>
+     <informaltable>
+      <tgroup cols="4">
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="3cm"/>
+       <thead>
+	<row>
+	 <entry>AA</entry> 
+	 <entry>Aa</entry>
+	 <entry>aa</entry>
+	 <entry>chi-square value</entry>
+	</row>
+       </thead>
+       <tbody>
+	 <row>
+	 <entry>35 (1)</entry>
+	 <entry>50 (2)</entry>
+	 <entry>15 (1)</entry>
+	 <entry>0.17</entry>
+	</row>
+	<row>
+	 <entry>32 (4)</entry>
+	 <entry>56 (8)</entry>
+	 <entry>12 (4)</entry>
+	 <entry>2.78</entry>
+	</row>
+	<row>
+	 <entry>31 (5)</entry>
+	 <entry>58 (10)</entry>
+	 <entry>11 (5)</entry>
+	 <entry>4.34, p&lt;0.05</entry>
+	</row>
+	<row>
+	 <entry>29 (7)</entry>
+	 <entry>62 (14)</entry>
+	 <entry>9 (7)</entry>
+	 <entry>8.51, p&lt;0.01</entry>
+	</row>
+	<row>
+	 <entry>27 (9)</entry>
+	 <entry>66 (18)</entry>
+	 <entry>7 (9)</entry>
+	 <entry>14.06, p&lt;0.001</entry>
+	</row>
+       </tbody>
+      </tgroup>
+     </informaltable>
+    </para>
+
+    <para>The individual genotype contributions
+     (O-E)<superscript>2</superscript>/E can each be asymptotically
+     tested against a chi-square distribution with 1 d.f., to
+     determine which genotypes are contributing to significant
+     deviation from HWP.</para>
+
+    <para>With a 3 allele system, there are 6 genotype classes
+     (A<subscript>1</subscript>A<subscript>1</subscript>,
+     A<subscript>1</subscript>A<subscript>2</subscript>,
+     A<subscript>1</subscript>A<subscript>3</subscript>,
+     A<subscript>2</subscript>A<subscript>2</subscript>,
+     A<subscript>2</subscript>A<subscript>3</subscript>,
+     A<subscript>3</subscript>A<subscript>3</subscript>) and if all
+     have expected values &ge;5, the overall chi-square will have 3
+     d.f.</para>
+
+    <para>When expected genotype counts are &lt;5 a lumped category of
+     observed and expected values for all these genotypes needs to be
+     formed, and test fit to null hypothesis (no deviation from HWP)
+     of this chi-square value with 1 degree of freedom and output p
+     value. The chi-square value from this category is added to the
+     cumulative chi-square value from the genotypes &ge;5 class to
+     give the overall chi-square value which is tested against the
+     null hypothesis of fit to HWP, degrees of freedom equals the
+     number of genotypes falling into &ge;5 class minus the number of
+     independent parameters estimated. In the case of the highly
+     polymorphic HLA data, with high allele numbers and many sparse
+     cells, this calculation may result in zero or negative d.f. (for
+     which a test of significance cannot be applied). In this case,
+     the rarer alleles need to be appropriately combined.</para>
+
+    <para> For the above Pearson's goodness of fit test, the
+     general rule of thumb about the validity of the asymptotics is
+     that the expected cell counts need to be at least 5 (Cochran
+     1954), although it is found that the rule tends to be
+     conservative (Bradley et al. 1979). Several corrections to this
+     goodness of fit test have been proposed to improve the
+     approximation when small sample expectations exist in the
+     sample. Yates (1934) suggested using the continuity correction,
+     1/2, i.e., (absolute value (0 - E) - 1/2)2/E. Emigh (1980) showed
+     that in some cases a correction of 1/4 performs better.</para>
+
+    <para> Elston and Forthofer (1977) derived the likelihood ratio
+     statistic for HWP testing. It was based on comparison of two
+     maximum likelihoods of a sample coming from the multinomial
+     distribution of genotype counts with (L<subscript>0</subscript>)
+     versus without (L<subscript>1</subscript>) the HWP
+     constraint. When the null hypothesis is true, i.e., HWP, the test
+     statistic, G2 (=
+     -2ln(L<subscript>0</subscript>/L<subscript>1</subscript>)),
+     follows a chi-square distribution, with k(k-1)/2 d.f.</para>
+
+
+    <para>Below is an example of a contingency table with genotypic
+     observed and expected counts, illustrating the problem of sparse
+     cells (the data is for the DPA1 locus of the HLA region, from a
+     Filipino population). The identity of the alleles (0102,
+     0103&hellip;) present in each genotype are given on the margins,
+     and genotypes with expected counts &lt;5 are shown in
+     bold. Notice how the expected values for individual genotypes are
+     often very low. These inflate the chi-square values and may
+     result in spurious rejection of the null hypothesis.</para>
+
+    <para>
+     <informaltable frame="none">
+      <tgroup cols="7">
+       <colspec colname="col1" colwidth="2cm"/>
+       <colspec colname="col2" colwidth="2cm"/>
+       <colspec colname="col3" colwidth="2cm"/>
+       <colspec colname="col4" colwidth="2cm"/>
+       <colspec colname="col5" colwidth="2cm"/>
+       <colspec colname="col6" colwidth="2cm"/>
+       <colspec colname="col7" colwidth="2cm"/>
+       <tbody>
+	<row>
+	 <entry colsep="1">0102</entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	</row>
+	<row>
+	 <entry colsep="1">0103</entry>
+	 <entry>0/<phrase role="strong">0.2</phrase></entry>
+	 <entry>0/<phrase role="strong">2.2</phrase></entry>
+	</row>
+	<row>
+	 <entry colsep="1">0104</entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	 <entry>1/<phrase role="strong">0.2</phrase></entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	</row>
+	<row>
+	 <entry colsep="1">02011</entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	 <entry>3/<phrase role="strong">2.8</phrase></entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	 <entry>0/<phrase role="strong">0.9</phrase></entry>
+	</row>
+	<row>
+	 <entry colsep="1">02022</entry>
+	 <entry>1/<phrase role="strong">0.7</phrase></entry>
+	 <entry>23/20.5</entry>
+	 <entry>0/<phrase role="strong">0.7</phrase></entry>
+	 <entry>14/12.7</entry>
+	 <entry>46/47.0</entry>
+	</row>
+	<row rowsep="1">
+	 <entry colsep="1">0401</entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	 <entry>2/<phrase role="strong">0.9</phrase></entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	 <entry>1/<phrase role="strong">0.6</phrase></entry>
+	 <entry>3/<phrase role="strong">4.2</phrase></entry>
+	 <entry>0/<phrase role="strong">0.1</phrase></entry>
+	</row>
+	<row>
+	 <entry colspec="1"></entry>
+	 <entry>0102</entry>
+	 <entry>0103</entry>
+	 <entry>0104</entry>
+	 <entry>02011</entry>
+	 <entry>02022</entry>
+	 <entry>0401</entry>
+	</row>
+       </tbody>
+      </tgroup>
+     </informaltable>
+    </para>
+     
+    <para>In this example sparse cells are fairly common, even
+     though  this is by no means a particularly polymorphic
+     HLA locus. The problem is particularly serious in the cases
+     where polymorphism is greater.</para>
+   </sect3>
+
+   <sect3>
+    <title>Exact tests</title>
+    
+    <para>Levene (1949) described the conditional sampling
+     distribution for Hardy Weinberg populations. An algorithm for
+     generating the exact distribution of samples drawn from a
+     population in HWP was proposed by Louis and Dempster
+     (1987). Using this algorithm, one could develop an exact test for
+     HWP, analogous to Fisher's 2x2 exact test. This approach
+     can be applied to an arbitrary number of alleles, especially when
+     sample sizes are small. It provides a reliable alternative to the
+     standard goodness of fit test and methods that require
+     corrections. Below is an example of a test for deviations from
+     HWP using such an exact test.</para>
+
+    <para>Consider a sample of 40 individuals, where the genotype
+     counts for a biallelic locus are: n(AA) = 5, n(Aa) = 9, and n(aa)
+     = 26.  The total count for each allele is: n(A) = 19 , and
+     n(a) = 61. Using the expression given by Levene (1949) we compute
+     the probability of obtaining this set of genotypes, conditional
+     on the observed counts of alleles, under the null hypothesis of
+     no association (i.e. HWP). The probability of this combination is
+     0.0205</para>
+
+    <para>The challenge now is to decide whether the probability
+     associated to this outcome is particularly low. This can be done
+     by comparing the probability of this specific genotypic
+     combination with that of all other possible combinations. This is
+     summarized in the table below. All genotypic possibilities,
+     conditional on the observed number of alleles, are listed and
+     sorted by their probabilities.</para>
+
+    <para>
+     <informaltable frame="none"> 
+      <tgroup cols="5"> 
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="2cm"/>
+       <colspec colwidth="4.5cm"/>
+       <thead>
+	<row>
+	 <entry>AA</entry>
+	 <entry>a</entry>
+	 <entry>aa</entry>
+	 <entry>Probability</entry>
+	 <entry>Cumulative Probability</entry>
+	</row>
+       </thead>
+       <tbody>
+	<row>
+	 <entry>9</entry>
+	 <entry>1</entry>
+	 <entry>30</entry>
+	 <entry>0.0000</entry>
+	 <entry>0.0000</entry>
+	</row>
+	
+	<row>
+	 <entry>8</entry>
+	 <entry>3</entry>
+	 <entry>29</entry>
+	 <entry>0.0000</entry>
+	 <entry>0.0000</entry>
+	</row>
+	<row>
+	 <entry>7</entry>
+	 <entry>5</entry>
+	 <entry>28</entry>
+		<entry>0.0001</entry>
+	 <entry>0.0001</entry>
+	</row>
+	<row>
+	 <entry>6</entry>
+	 <entry>7</entry>
+	 <entry>27</entry>
+	 <entry>0.0023</entry>
+	 <entry>0.0024</entry>
+	</row>
+	<row>
+	 <entry>5</entry>
+	 <entry>9</entry>
+	 <entry>26</entry>
+	 <entry>0.0205</entry>
+	 <entry>0.0229 &lt; - observed data</entry>
+	</row>
+	<row>
+	 <entry>0</entry>
+	 <entry>19</entry>
+	 <entry>21</entry>
+	 <entry>0.0594</entry>
+	 <entry>0.0823</entry>
+	</row>
+	<row>
+	 <entry>4</entry>
+	 <entry>11</entry>
+	 <entry>25</entry>
+	 <entry>0.0970</entry>
+	 <entry>0.1793</entry>
+	</row>
+	<row>
+	 <entry>1</entry>
+	 <entry>17</entry>
+	 <entry>22</entry>
+	 <entry>0.2308</entry>
+	 <entry>0.4101</entry>
+	</row>
+	<row>
+	 <entry>3</entry>
+	 <entry>13</entry>
+	 <entry>24</entry>
+	 <entry>0.2488</entry>
+	 <entry>0.6589</entry>
+	</row>
+	<row>
+	 <entry>2</entry>
+	 <entry>15</entry>
+	 <entry>23</entry>
+	 <entry>0.3411</entry>
+	 <entry>1.0000</entry>
+	</row>
+       </tbody>
+      </tgroup>
+     </informaltable>
+    </para>
+     
+    <para>The probability of the observed genotypes is among the 5%
+     lowest probabilities of ways to distribute genes into genotypic
+     categories, so we reject the null hypothesis that the genotypes
+     fit HWP.</para>
+	
+    <para> However, with an increase in the number of alleles and
+     sample size, the number of possible configurations of samples
+     using the above algorithm grows exponentially. It becomes
+     computationally cumbersome or even infeasible. To avoid complete
+     enumeration, Guo and Thompson (1992) developed two simulation
+     approaches to perform an approximate exact overall HWP test. In
+     their conventional Monte Carlo approach, gametes were permuted to
+     generate new genotypes and the Monte Carlo p value of the
+     observed sample can be estimated by comparing Levene's
+     probabilities of the sample and those from different
+     permutations.</para>
+
+    <para> In the Markov chain Monte Carlo (MCMC) approach of Guo and
+     Thompson (1992), a finite and irreducible Markov chain of states
+     of genotype counts was generated using the Metropolis algorithm
+     (Metropolis et al. 1953), where the transition probabilities
+     between any two states were a function of the ratio of
+     probabilities of being in each of them. The equilibrium
+     distribution of the Markov chain was set to have the same allele
+     frequencies as those in the observed sample and the HWP genotype
+     probabilities. After a <quote>dememorization</quote> period, the
+     p value was estimated by calculating the fraction of times the
+     Markov chain was in any states which had equal or lower
+     probability than the observed one.</para>
+
+    <para> In Chen and Thomson (1999) the variance for the
+     disequilibrium coefficient in the individual Hardy-Weinberg
+     heterozygote test has been determined. An exact test using a
+     statistic based on this variance has been developed (Chen et
+     al. 1999).</para>
+   </sect3>
+  </sect2>
+  
+  <sect2>
+   <title>Testing fit to HWP of HLA data</title>
+   
+   <para> The Guo and Thompson (1992) overall test, and the Chen et
+    al. (1999) exact test of individual heterozygote deviations from
+    HWP, have been applied to HLA class II genotype data in 26
+    populations (Chen et al. 1999). Eighty of the 99 overall tests
+    fitted HWP (73% for DRB1, 89% for DQA1, 81% for DQB1, and 81% for
+    DPB1), deviations were both locus and group specific. The
+    individual test results indicated that the departure was partly
+    due to recent admixture. Evidence for selection as a cause of
+    deviation from HWP was also observed; the fact that the DQB1
+    allele *0301 was involved in significant individual heterozygote
+    deficiencies in eight samples could well implicate
+    selection.</para>
+
+   <para>In many cases the genotypes showing significant deviation
+    contain alleles suspected of being the result of admixture or
+    recent origin within the group. It is possible that admixture has
+    effectively caused the deviation from HWP, suggesting its very
+    recent history to the group, perhaps within one generation. Other
+    explanations for the deviation from HWP, including non-random
+    mating patterns with regard to admixed individuals within the
+    ethnic group, must also be considered. On the other hand,
+    significant deviations from HWP are also seen in populations which
+    showed very little evidence for any admixture, e.g., the Mixe, an
+    amerindian group from Oaxaca, Mexico (Hollenbach et
+    al. 2001). These deviations could be due to the impact of
+    selection pressures from infectious diseases on these
+    genes. </para>
+
+   <para> Testing for fit to HWP can also serve a useful role in
+    assessing the initial quality of typing results. Should deviations
+    from expectations occur, it is possible to look again at the raw
+    data and the methods employed to generate them, and if deemed
+    necessary repeat typing and use alternative methods to confirm
+    results. This may be particularly relevant for HLA typing in
+    non-Caucasian populations, where new alleles which may not be
+    detected by the typing system are more likely to occur.</para>
+
+   <para> Also, we have to caution here that the individual
+    heterozygote testing approach is most useful if one has an a
+    priori hypothesis about one or a few heterozygotes in the sample,
+    regarding their excess or deficit from HWP. By applying the method
+    to all heterozygotes, we face the problem of multiple tests, and
+    some results merely reflecting type 1 error. Therefore any p
+    values need to judged with care. However, the approach is still of
+    general interest and validity in detecting patterns and generating
+    future hypotheses.</para>
+    </sect2>
+  </sect1>
+
+<!--
+  <section>
+    
+    <title>Measuring genetic variation among populations</title>
+
+    <para>Genetic variation among populations is generally measured as
+      F<subscript>st</subscript> = &#x3c3;
+      <subscript>p</subscript><superscript>2</superscript>/p-bar
+      q-bar, as noted in section II.B. The theory underlying this
+      standardized variance derives from consideration of random
+      genetic drift. Random genetic drift is simply the accumulated
+      sampling error for transmission of alleles from generation to
+      generation in a finite population. If there is no selection
+      operating and a single population divides into two populations,
+      both with the identical allele frequencies, the allele
+      frequencies will gradually diverge over the generations if there
+      is no migration (exchange of alleles) between them. This is
+      easily measured as an increase in the variance in the frequency
+      of an allele across the two (or more) diverging
+      populations. With all populations starting at the same allele
+      frequency, p<subscript>0</subscript>, and maintaining a constant
+      population size, N, the variance at time t in generations of
+      independent random genetic drift is expected to be</para>
+
+    <para>
+     <emphasis>V</emphasis><emphasis><subscript>t</subscript></emphasis> =  </para>
+
+    <para>sum(i=1,n)((pi - p-bar)2/(n-1)</para>
+
+    <para> <emphasis>p</emphasis><emphasis><subscript>0</subscript></emphasis> (1 - <emphasis>p</emphasis><emphasis><subscript>0</subscript></emphasis>) (1 - <emphasis>e</emphasis><emphasis><superscript>-t/2N</superscript></emphasis>)</para>
+
+
+    <para>while the mean gene frequency p-bar;over all populations</para>
+
+    <para>p-bar = sum(i=1,n)(pi)/n</para>
+
+    <para>is expected to remain constant and equal to <emphasis>P</emphasis><emphasis><subscript>0</subscript></emphasis>. Taking</para>
+
+    <para>V<subscript>t</subscript>/P<subscript>0(1-P<subscript>0</subscript></subscript>) ? V<subscript>t</subscript>/p-bar(1-p-bar) = f<subscript>t</subscript></para>
+    
+    <para>as a measure of variation, which corresponds to F<subscript>st</subscript> in Wright's notation:</para>
+
+    <para>f<subscript>t</subscript>  1 - <emphasis>e</emphasis><emphasis><superscript>-t/2N</superscript></emphasis></para>
+
+    <para>The limiting value of f<subscript>t</subscript> (f) for
+    <emphasis>t</emphasis> = infinity is 1 where all populations are
+    fixed for one allele or the other.</para>
+
+    <para><emphasis>N</emphasis> must be estimated as effective
+    population size, not census size. It can be important to consider
+    the effect of the sex ratio of reproducing individuals, which is
+    sometimes different from 1:1. The harmonic mean of the numbers of
+    reproducing animals in the two sexes,
+    <emphasis>N</emphasis><emphasis><subscript>M</subscript></emphasis>
+    and
+    <emphasis>N</emphasis><emphasis><subscript>F</subscript></emphasis>,
+    is used (Wright, 1931):</para>
+
+    <para>1/N<subscript>h</subscript> = (1/N<subscript>M</subscript> + 1/N<subscript>F</subscript>)/2</para>
+
+    <para>Twice the harmonic mean of males and females,
+    <emphasis>2N</emphasis><emphasis><subscript>h</subscript></emphasis>,
+    is the effective population size:</para>
+
+    <para>N<subscript>e</subscript> = 4N<subscript>M</subscript>N<subscript>F</subscript>/(N<subscript>M</subscript> + N<subscript>F</subscript>)</para>
+
+    <para>The variation on <emphasis>N</emphasis> over generations is also accounted for by taking harmonic means.</para>
+
+    <para>Unbiased estimates of
+    <emphasis>V</emphasis><emphasis><subscript>t</subscript></emphasis><subscript>
+    </subscript>and of <emphasis>p</emphasis> do not necessarily give
+    rise to an unbiased estimate of <emphasis>f</emphasis>. Moreover,
+    the sampling properties of the static <emphasis>f</emphasis> are
+    not known. An approximation that has frequently been used and is
+    satisfactory when the average gene frequencies are between .05 and
+    .95, is to use, instead of gene frequencies, their angular
+    transforms:</para>
+
+  <para>&#x3b8; = sin<superscript>-1</superscript>(sqrt p)</para>
+
+    <para>This, unlike the binormal variate, <emphasis>p</emphasis>(1
+    - <emphasis>p</emphasis>)/<emphasis>N</emphasis>, has variance
+    independent of <emphasis>p</emphasis>:</para>
+
+    <para>V<subscript>q</subscript> = 1/4N</para>
+
+    <para>From this angular transform one can also derive an estimate
+    of F<subscript>st</subscript>. Note, in Wright's notation the t
+    does not relate to time but to the total population as though it
+    were not subdivided (see below).</para>
+
+    <para> These estimates of F<subscript>st</subscript> can be
+    related to the underlying parameter of time in generations and
+    effective population size as -ln (1 - F<subscript>st</subscript>)
+     t/2N<subscript>e</subscript> (Kidd and Cavalli-Sforza,
+    1974). Thus, divergence between populations increases with time
+    but more slowly for larger population sizes. From this inverse
+    relationship to population size one readily sees the basis for
+    what is often referred to as "founder effect" or "bottleneck
+    effect"  this is simply the same as random genetic drift but
+    at the end of the scale of very small population sizes over a
+    short time period. It is a quantitative phenomenon on a continuum
+    and not a qualitatively different phenomenon.</para>
+
+    <para>When populations are being studied for genetic
+    similarity/difference, many different statistics based on gene
+    frequency differences have been proposed but the most commonly
+    used measures are based on estimates of
+    F<subscript>st</subscript>. Reynolds et al. (1983) proposed an
+    estimator of F<subscript>st</subscript> that has excellent
+    statistical properties and can be applied to multiple loci with an
+    arbitrary number of alleles.</para>
+
+    <para>The F statistics of Wright (1921) (see, for example, a
+    standard population genetics textbook such as Hartl and Clark,
+    1997, for discussion) can be considered in different
+    ways. Originally they were defined to quantify inbreeding in
+    structured populations. Systematic inbreeding, say preferential
+    mating of first or second cousins, will increase the proportion of
+    homozygotes in the population over what would be expected in a
+    randomly mating population as predicted by the Hardy-Weinberg
+    ratios. Wright drew the analogy with substructured populations
+    where the structuring imposes a level of inbreeding, albeit not
+    among close relatives. His F statistics measure the decrease in
+    heterozygosity (increase in homozygosity) in a level of the
+    population hierarchy relative to the heterozygosity if there were
+    random mating at the more inclusive level. Thus, the subscripts in
+    F<subscript>st</subscript> refer to the reduction in
+    heterozygosity in the <phrase
+    role="strong">s</phrase>ubpopulations relative to that expected
+    for the <phrase role="strong">t</phrase>otal population:</para>
+
+    <para>F<subscript>st</subscript> = H<subscript>t</subscript> -
+    H<subscript>s</subscript>/H<subscript>t</subscript></para>
+  </section>
+-->
+
+ <sect1>
+  <title>Tests of neutrality (or selection)</title>
+
+  <sect2>
+   <title>Homozygosity test of neutrality</title>
+   
+   <para>The neutral theory of evolution at a locus assumes that all
+    alleles are selectively equivalent, that mutation is the source of
+    new genetic variation, and that genetic drift results in loss of
+    variation. Ewens (1972) developed a sampling theory that predicts
+    the distribution of alleles at a locus drawn from a population at
+    equilibrium under neutrality. Watterson (1978) developed a method,
+    using a homozygosity measure, denoted by F, for the observed
+    number of alleles and sample size, to compare a sample of allele
+    frequencies to neutrality expectations. For a given number of
+    observed alleles, a low value of the homozygosity measure F,
+    compared to the neutrality expectation, corresponds to all alleles
+    having similar frequencies. Some form of balancing selection is
+    implied when the observed allele frequencies are more even than
+    the neutrality expectation (Watterson 1978). A high value of F,
+    compared to the neutrality expectation, corresponds to one allele
+    predominating with the others at low frequencies. Directional
+    selection is implicated in this case. Note that fit of a sample of
+    allele frequencies to neutrality expectations does not mean that
+    selection is not operating, but simply that one cannot reject the
+    neutral model.</para>
+    </sect2>
+
+  <sect2>
+   <title>Methods</title>
+
+   <para> The observed frequency distribution of alleles in a
+    population is compared to neutrality expectations under an
+    infinite alleles model. The expected proportion of homozygotes
+    under Hardy-Weinberg, i.e., the statistic F = sum(pi to 2) of
+    Watterson (1978) for an observed number of alleles k (or amino
+    acids at a site) and sample size n individuals (2n chromosomes),
+    was compared with the distribution expected under the neutral
+    model (Ewens 1972). Note that the Watterson homozygosity test of
+    neutrality does not examine deviations from Hardy-Weinberg
+    proportions, but utilizes the expected Hardy-Weinberg homozygosity
+    as a measure of the distribution of allelic frequencies, for a
+    given sample size (k) and observed number of alleles (2n). The
+    expected values of F, and the variance and quantiles under the
+    neutrality model can be found at <ulink
+    url="http://allele5.biol.berkeley.edu/homozygosity/homozygosity.html">http://allele5.biol.berkeley.edu/homozygosity/homozygosity.html</ulink>
+    (Salamon H, Nelson M, Thomson G). The exact test developed by
+    Slatkin (1994, 1996), which calculates the probability of the
+    observed configuration under neutrality, can also be
+    implemented.</para>
+
+   <para> To allow comparison of homozygosity F statistics across
+    populations with different numbers of alleles and sample sizes,
+    the normalized deviate,
+    <phrase>F<subscript>ND</subscript></phrase>, is considered
+    (Salamon et al. 1999),</para>
+
+   <informalequation>
+    <alt role="tex">F_{ND} = (\frac{F_{observed} - F_{expected}}{Variance \cdot F_{expected}})^{\frac{1}{2}}</alt>
+    
+    <mediaobject>
+     <imageobject>
+      <imagedata fileref="fnd.png"/>
+     </imageobject>
+     <textobject>
+      <phrase>F<subscript>ND</subscript> =
+       (F<subscript>observed</subscript> -
+       F<subscript>expected</subscript>) / (Variance
+       (F<subscript>expected</subscript>))1/2.</phrase>
+     </textobject>
+    </mediaobject>
+   </informalequation>
+   
+   <para>Under the neutral model, F<subscript>ND</subscript> has mean
+    zero and variance 1. If we assume that samples from different
+    populations are statistically independent, the Central Limit
+    Theorem predicts that the distribution of the mean of
+    F<subscript>ND</subscript> values across populations can be
+    approximated by a standard normal distribution.</para>
+    </sect2>
+
+  <sect2>
+   <title>Application of Ewens-Watterson test of neutrality to HLA
+    allele data</title>
+   
+   <para> Allele frequencies within a population for serologically
+    typed HLA class I A, B, and C and the class II DR locus, and for
+    molecularly typed class II DRB1, DQA1, and DQB1, are often more
+    even than expected under neutrality, suggesting that some form of
+    balancing selection is operating on these genes (Hedrick and
+    Thomson 1983, Klitz et al. 1986, 1992, Begovich et al. 1992). In
+    contrast, the distribution of DPB1 alleles rarely differs
+    significantly from neutrality expectations; usually there is a
+    fairly common allele, which may differ between populations.</para>
+
+   <para>In both Salamon et al. (1999) and Valdes et al. (1999) where
+    HLA class II data were analyzed, DQB1 showed striking evidence (in
+    individual populations and overall) for balancing selection
+    (allele frequencies more even than expected under the neutral
+    model). DQA1 and DRB1 also showed significant evidence of
+    balancing selection. Individual and overall population statistics
+    for DPB1 were compatible with neutrality expectations in both
+    studies. DPA1 allele and DPA1-DPB1 haplotype frequencies showed no
+    evidence of deviation from neutrality expectations in the CEPH
+    data (Moonsamy et al. 1997). The results for class II loci
+    demonstrate that departure from neutrality is locus specific,
+    despite the linkage disequilibrium in the region, which is
+    particularly strong for DR-DQ.</para>
+
+   <para>The table below summarizes the findings of Valdes et
+    al. (1999), illustrating (a) the large number of populations for
+    which neutrality was rejected at certain loci; (b) the
+    heterogeneity among loci with respect to deviation from
+    neutrality. Notice than in all loci, except DPB1, the mean
+    homozygosity across populations is lower than expected under
+    neutrality.</para>
+
+   <table id="ew-neutrality.table">
+    <title>Ewens-Watterson test of neutrality</title>
+    <tgroup cols="5">
+     <colspec colwidth="2.5cm"/>
+     <colspec colwidth="4cm"/>
+     <colspec colwidth="3cm"/>
+     <colspec colwidth="3cm"/>
+     <colspec colwidth="3cm"/>
+     <thead>
+      <row>
+       <entry>Locus</entry>
+       <entry>Populations surveyed</entry>
+       <entry>Neutrality rejected <!-- <footnote>
+	
+	<para>Number of populations for which neutrality was
+	rejected at the 5% level (From Valdes et al.,
+	1999). The mean F value is the average of the
+	observed values of the homozygosity statistic in the
+	populations studied. The expected F values are the
+	averages of the expected homozygosity statistic
+	under neutrality.</para>
+	
+       </footnote> -->
+       </entry>
+       <entry>Mean F</entry>
+       <entry>Expected F</entry>
+      </row>
+     </thead>
+     <tbody>
+      <row>
+       <entry>DPB1</entry>
+       <entry>20</entry>
+       <entry>1</entry>
+       <entry>0.278</entry>
+       <entry>0.238</entry>
+      </row>
+      <row>
+       <entry>DQA1</entry>
+       <entry>19</entry>
+       <entry>5</entry>
+       <entry>0.255</entry>
+       <entry>0.405</entry>
+      </row>
+      <row>
+       <entry>DQB1</entry>
+       <entry>20</entry>
+       <entry>9</entry>
+       <entry>0.195</entry>
+       <entry>0.280</entry>
+      </row>
+      <row>
+       <entry>DRB1</entry>
+       <entry>17</entry>
+       <entry>3</entry>
+       <entry>0.125</entry>
+       <entry>0.161</entry>
+      </row>
+     </tbody>
+    </tgroup>
+   </table>
+
+   <para>In contrast to the allele level variation, at the amino acid
+    level all 4 class II (DRB1, DQB1, DQA1, DPB1) loci showed evidence
+    of balancing selection at many polymorphic codon sites, and
+    consistently so across diverse populations. However, directional
+    selection was seen for a few sites, and neutrality profiles were
+    exhibited by other codons (Salamon et al. 1999, Valdes et
+    al. 1999). Cases of amino acid variation showing balancing
+    selection occurred at sites both within the highly polymorphic
+    antigen recognition site (ARS) and outside it. Only for DRB1 was
+    there evidence of more balancing selection for ARS sites compared
+    to non-ARS sites. As the determination of DQ and DP ARS sites is
+    based on theoretical models in lieu of the crystal structure, it
+    is possible that many of the sites designated as non-ARS may
+    actually be involved in antigen presentation. It is of particular
+    interest in this context that two non-ARS sites identified as
+    highly polymorphic and showing balancing selection (DQA1#47 and
+    DQB1#26) have also been identified as amino acids involved in
+    predisposition to type 1 diabetes (Valdes et al. 1997).</para>
+  </sect2>
+ </sect1>
+
+ <sect1>
+  <sect1info>
+   <authorgroup>
+    <author>
+     <firstname>Glenys</firstname>
+     <surname>Thomson</surname>
+    </author>
+    <author>
+     <firstname>Diogo</firstname>
+     <surname>Meyer</surname>
+    </author>
+    <author>
+     <firstname>Richard</firstname>
+     <surname>Single</surname>
+    </author>
+   </authorgroup>
+  </sect1info>
+  <title>Measuring non-randomness of alleles on chromosomes</title>
+      
+  <para>The description of genetic variation at the population level
+   usually begins with consideration of allelic variation at a single
+   gene locus, as discussed above.  The next step is to consider
+   genetic variation at two or more loci simultaneously, including
+   non-random associations.  Gametic disequilibrium (usually referred
+   to as linkage disequilibrium, LD) describes the non-random
+   association of alleles at different genetic loci.  <remark>there is
+   a problem here with grammar</remark> While linkage disequilibrium
+   can be more generally referred to as <quote>gametic phase
+   disequilibrium</quote>, or, in other words, the non-random
+   occurrence in gametes of alleles at two or more loci.  In general
+   it is immaterial whether the two loci are linked.  In practice, and
+   in almost all of the literature today, it is used only for linked
+   loci.  Thus, it can also be defined as the non-random occurrence on
+   chromosomes in the population of alleles at two or more
+   loci.</para>
+
+  <sect2>
+   
+   <title>Tests for Linkage Disequilibrium and its statistical
+    significance</title>
+
+   <para> One can estimate the frequencies of haplotypes in a
+    population and can measure the amount of non-randomness.  It is
+    important to distinguish the existence of non-randomness from
+    specific statistics used to measure that non-randomness.  There
+    are several different statistics in use today and considerable
+    debate about which is <quote>correct</quote>.  The classic
+    pairwise gametic disequilibrium parameter, usually denoted D, is
+    given by the difference between the observed frequency of a
+    gametic type and the frequency expected on the basis of random
+    association of alleles in gametes.  Consider two genes (denoted
+    <emphasis>A</emphasis> and <emphasis>B</emphasis>), with two
+    alleles each (A, a and B, b), and four gametic types (also
+    referred to as haplotypes): AB, Ab, aB, and ab.  The frequencies
+    of the four gametes (denoted f(AB) etc.) can be described in terms
+    of the allele frequencies p<subscript>A</subscript>
+    (p<subscript>a</subscript>= 1 - p<subscript>A</subscript>) and
+    p<subscript>B</subscript> (p<subscript>b</subscript> = 1 -
+    p<subscript>B</subscript>) at the two loci, and the gametic
+    disequilibrium parameter D, as follows:</para>
+
+   <para>f (AB) = p<subscript>A</subscript> p<subscript>B</subscript> + D,</para>
+   <para>f (Ab) = p<subscript>A</subscript> p<subscript>b</subscript> - D,</para>
+   <para>f (aB) = p<subscript>a</subscript> p<subscript>B</subscript> - D,</para>
+   <para>f (ab) = p<subscript>a</subscript> p<subscript>b</subscript> + D,</para>
+   
+   <para>where D = f(AB) - p<subscript>A</subscript>
+   p<subscript>B</subscript> = f(AB) f(ab) - f(Ab) f(aB).</para>
+
+   <para>D can be either positive or negative, depending on which
+    specific alleles are referenced.  If D = 0 (a state referred to as
+    gametic or linkage equilibrium) then the alleles at the two loci
+    are randomly associated.  If D &gt; 0 the allele A occurs more
+    often with allele B than expected by chance (and hence a with b),
+    while if D &lt; 0 alleles A and b (and hence a and B) are
+    preferentially associated.  The possible value of D in a two-locus
+    system is constrained by the fact that the frequency of any
+    haplotype is constrained as 0 &le; p<subscript>AB </subscript>&le;
+    min(p<subscript>A , </subscript>p<subscript>B</subscript>) and
+    thus the disequilibrium coefficient is constrained by</para>
+
+   <remark>f(AB)? don't understand comment from Glenys</remark>
+
+   <para>-p<subscript>a</subscript>p<subscript>b</subscript>,
+   -p<subscript>A</subscript>p<subscript>B</subscript> &le;
+   p<subscript>AB</subscript> &le;
+   p<subscript>A</subscript>p<subscript>b</subscript>,
+   p<subscript>a</subscript>p<subscript>B</subscript>.</para>
+
+   <para>Consequently, interpretation of D values is dependent on the
+    allele frequencies. To avoid this, the normalized gametic
+    disequilibrium D' = D/D<subscript>max</subscript> is often
+    considered, where D<subscript>max</subscript> is equal to either
+    the lesser of p<subscript>A</subscript> p<subscript>b</subscript>
+    or p<subscript>a</subscript> p<subscript>B</subscript> if D is
+    positive, and the lesser of p<subscript>A</subscript>
+    p<subscript>B</subscript> or p<subscript>a</subscript>
+    p<subscript>b</subscript> if D is negative (Lewontin, 1964). The
+    advantage of this measure over D is that it has a range from -1 to
+    +1, regardless of the allele frequencies. Unfortunately, for both
+    D and D' the values are not related to statistical significance
+    and are dependent on allele frequencies. Therefore, several other
+    measures are being used: &delta;, &Delta; = r,
+    r<superscript>2</superscript>,
+    d<superscript>2</superscript>. These are reviewed by Devlin and
+    Risch (1995) except for d<superscript>2</superscript>, used by
+    Kruglyak (1999), which is closely related to
+    D<superscript>2</superscript> and to
+    r<superscript>2</superscript>: d<superscript>2</superscript> =
+    D<superscript>2 </superscript>/ [f(1-f)]<superscript>2
+    </superscript>and d<superscript>2</superscript> =
+    r<superscript>2</superscript> m(1-m) /
+    [f(1-f)]<superscript>2</superscript> , where f is the variant
+    frequency and m is the marker allele frequency. Note, this is
+    referenced to the locus of the "variant". The correlation
+    coefficient, r = D / (p<subscript>A</subscript>
+    p<subscript>a</subscript> p<subscript>B</subscript>
+    p<subscript>b</subscript>), with a range from -1 to +1, is often
+    used, as well as r2 with a range from 0 to +1. An example from the
+    HLA region is the association between alleles at the A, B and DR
+    loci. The combinations A1-B8 and B8-DR3 have fairly high
+    normalized disequilibrium values (D' = 0.65 and D' =
+    0.73, respectively).</para>
+
+   <para>There is a relationship between D and the recombination
+    fraction c between two loci. (Various symbols are used for the
+    recombination fraction; the most common symbol in human genetics
+    is &thetas;.)  In the absence of drift and selection, changes in
+    gamete frequencies over generations only occur by recombination in
+    individuals heterozygous at both loci under consideration. In
+    fact, the value of D decreases by a fraction (1-c) each generation
+    under random mating and a neutral model.  Thus the LD in this case
+    converges to zero (random association of alleles) with time as (1
+    - c)n, where n is the number of generations.  The more loosely
+    linked are two loci, the faster the decay of gametic
+    disequilibrium.  On the other hand, for very tightly linked loci
+    gametic disequilibrium may exist for a very long time.</para>
+
+   <para>It is possible, although relatively rare, that unlinked loci
+    can be in significant LD, and that very closely linked loci may be
+    in linkage (gametic) equilibrium. The value of LD is often
+    expected to change each generation. Further, a population at
+    genetic equilibrium can have significant LD (e.g., under various
+    selection schemes). The term <emphasis>linkage
+    disequilibrium</emphasis> is thus an unfortunate choice and the
+    term <emphasis>gametic disequilibrium</emphasis> is preferable,
+    although also not perfect.  However, the term <emphasis>linkage
+    disequilibrium</emphasis> is commonly used and simply abbreviated
+    LD.  There are two important points to remember: (1) that tight
+    linkage or molecular proximity does not automatically mean there
+    will be LD and (2) that unlinked loci can show LD, for a variety
+    of reasons.</para>
+
+   <para>Linkage disequilibrium can occur in populations as a
+    consequence of a number of factors (see Hedrick 1983 for review):
+    (1) mutation&ndash;when a new mutant arises, it occurs in one
+    individual and is in linkage disequilibrium with all polymorphic
+    loci in the population; (2) selection&ndash;either acting
+    directly on the two loci, or transient linkage disequilibrium can
+    also be created with neutral loci via a hitchhiking event with a
+    selected locus (Thomson 1977); (3) migration or
+    admixture&ndash;generation of linkage disequilibrium by these
+    forces requires that the allelic frequencies of both loci in the
+    two populations be different, and this difference must be
+    substantial to generate very much linkage disequilibrium; and (4)
+    random genetic drift&ndash;while the expected value of pairwise
+    linkage disequilibrium due to drift over many generations is zero,
+    the variance is large for closely linked loci in small
+    populations.</para>
+
+   <para>The amount of linkage disequilibrium observed in a population
+    is also affected by a number of factors: (1)
+    recombination&ndash;significant linkage disequilibrium may be
+    maintained for a long time between very closely linked loci; (2)
+    selection&ndash;if the selection is sufficiently strong compared
+    to the recombination rate linkage disequilibrium can be maintained
+    at an equilibrium state, and will occur transiently with a
+    hitchhiking event; (3) non-random mating&ndash;high levels of
+    inbreeding and self-fertilization in plants can retard the rate of
+    approach to linkage equilibrium; and (4) population
+    demographics&ndash;a small founder population or a bottleneck in
+    the recent past can cause significant linkage disequilibrium due
+    to genetic drift for closely linked loci, and while less linkage
+    disequilibrium will be generated by genetic drift in a rapidly
+    growing population (Slatkin 1994), any linkage disequilibrium
+    present before or during the early phase of the expansion will
+    persist.  </para>
+
+   <remark>Keep this section??  As seen in Section II, the pattern of
+    LD at many loci argues that human populations in sub-Saharan
+    Africa have little LD beyond a few kb while all non-African
+    populations tend to have much more LD and to share the same
+    haplotypes.  Thus the evidence argues that most LD in non-African
+    populations was produced by a founder effect (a very large amount
+    of random genetic drift caused by a quite small population size)
+    associated with the expansion of modern humans out of
+    Africa.</remark>
+
+   <para> The definition of LD is "easily" extended to accommodate
+    more than two alleles at a locus or more than two loci:
+    non-randomness on chromosomes in the population across however
+    many loci and/or among however many alleles.  However, statistics
+    to quantify LD become more problematic in such cases.  All of the
+    above are defined for a pair of specified alleles at a pair of
+    loci.  For multiallelic loci, one must choose one allele at each
+    locus and then pool all other alleles.  This gives
+    n<subscript>1</subscript> x n<subscript>2</subscript> different
+    pairwise measures for two loci with n<subscript>1</subscript> and
+    n<subscript>2</subscript> alleles, respectively.  Interpreting
+    such a set of LD statistics is not simple or obvious.  When
+    considering three or more loci, higher order disequilibrium terms
+    are also needed (see Robinson et al. 1991a).  For example, in a
+    three-locus system a gametic frequency can be expressed in terms
+    of the three-allele frequencies, the three pairwise gametic
+    disequilibria, and a single measure of third order gametic
+    disequilibrium.  However, when multi-allelic loci are included or
+    multiple (&gt;3) sites are included, the pairwise values and the
+    higher order disequilibrium terms become difficult to interpret.
+    Many papers now present data for multiple sites in a haplotype as
+    all possible pairwise comparisons.  </para>
+
+   <para>To date only one measure attempts to measure non-randomness
+    in a general manner for an arbitrary number of sites with an
+    arbitrary number of alleles at each: the permutation test based
+    &#x3be; (Zhao et al., 1999).  While that measure has not been
+    generally used by researchers studying LD in humans, it
+    illustrates the distinction between the pairwise measures and the
+    general concept of non-randomness of alleles on chromosomes in a
+    population.</para>
+
+   <para>General population level observations are that there is an
+    overall proportionality between linkage disequilibrium and the
+    inverse of the recombination distance (Huttley et al. 1999).  This
+    rule however breaks down in very closely linked regions (Reich et
+    al. 2001, Huttley et al. 1999, Jorde et al. 1994, Klitz et
+    al. 1995).  Selection is expected to produce linkage
+    disequilibrium non-randomly across the genome, whereas all the
+    other factors should act randomly over the genome.  In study of
+    the CEPH families, linkage disequilibrium was found to be
+    non-randomly distributed throughout the genome (Huttley et
+    al. 1999).  Some regions, such as HLA, showed strong evidence of
+    selection and significant linkage disequilibrium which spanned 3
+    cM or more, and an additional 10 genetic regions showed linkage
+    disequilibrium equal to or greater than in the HLA region.  Most
+    recently, a series of papers in the October 2001 <emphasis>Nature
+    Genetics</emphasis> present evidence that LD in humans exists in
+    blocks of strong LD separated by short intervals across which all
+    LD breaks down.  Recombination hot spots and cold spots is one
+    possible explanation for such a pattern.  How general around the
+    genome this pattern is remains to be seen.</para>
+
+   <para>Population and evolutionary aspects of a genetic region
+    are highly relevant to the study of Mendelian and complex
+    diseases.  These relate to our ability to localize and
+    identify disease predisposing variants, and to our understanding
+    of the mechanisms by which some disease predisposing genes can
+    become relatively common in a population.</para>
+  </sect2>
+
+  <sect2>
+   <title>Haplotype estimation on population and patient data sets</title>
+   
+   <para>The accuracy of haplotype estimates is of increasing interest
+    with regard to population data and disease association studies,
+    for microsatellite, SNP, and protein level variation.
+    Marker-disease associations that are not detected at the single
+    locus level, may nevertheless be detected in a multi-locus
+    analysis.  This was the initial observation in the study of
+    ch. 19q13.2 APOE region variation and multiple sclerosis
+    (Barcellos 1996, <xref linkend="Barcellos et al. 1997a"/> and
+    1997c), and in analysis of ch. 19 markers and alcohol dependence
+    (Valdes et al. 1999).</para>
+   
+   <para>Procedures that make use of the expectation-maximization (EM)
+    algorithm to estimate haplotype frequencies (HFs) from unphased
+    genotype data are in common use in genetic studies, e.g., HAUPT
+    (Baur and Danilovs 1980), Arlequin (Schneider et al. 2000), HAPLO
+    (Hawley and Kidd 1995), and 3LOCUS.PAS (Long et al. 1995).  The EM
+    algorithm uses these unphased genotype frequencies along with the
+    assumption of Hardy-Weinberg proportions (HWP) to converge on HF
+    estimates.  The EM algorithm is an iterative algorithm for
+    computing maximum likelihood estimates (MLEs) in an
+    incomplete-data setting (Dempster et al. 1977, Lange 1997).  The
+    algorithm is straightforward.  Each iteration consists of two
+    steps.  The E-step calculates the conditional expectation, and the
+    M-step maximizes the updated likelihood function. Although the
+    convergence of the EM algorithm could be slow, the general theory
+    has shown that each iteration increases the likelihood and the
+    MLEs are generally achieved (Dempster et al. 1977).  The accuracy
+    of haplotype frequency estimates are in general relatively good,
+    except in the case of low frequency haplotypes (see e.g., Schipper
+    et al. 1998, Fallin and Schork 2000, Tishkoff et al. 2000, Single
+    et al. 2002).  Large over and under estimates of particular HFs
+    can occur even for common haplotypes, especially when the loci
+    involved deviate significantly from HWP (Single et al. 2002).
+    Estimating HFs for three or more loci and then collapsing over
+    loci so as to generate two locus haplotypes can improve the
+    accuracy of the estimation.  The collapsing procedure is most
+    beneficial when one of the loci in the two-locus haplotype of
+    interest deviates significantly from HWP and the locus collapsed
+    over is in linkage disequilibrium with the other loci (Single et
+    al 2002).</para>
+   
+   <figure id="em-performance">
+    <title>Performance of EM
+     algorithm in recovering known haplotypes (see text for
+     discussion)</title>
+    <programlisting></programlisting>
+   </figure>
+   
+   <para>The performance of the EM algorithm for the estimation of
+    haplotypes in the HLA region is illustrated in <xref
+    linkend="em-performance"/>These are results from a study reported
+    in Single et al. (2002) where family data allowed haplotypes to be
+    unambiguously inferred, so true and estimated haplotype
+    frequencies could be compared.  The graphs depict the performance
+    of the EM algorithm in inferring two-locus haplotypes for selected
+    pairs of sites.  The circles represent true haplotype frequencies,
+    and the lines represent estimated haplotype frequencies.
+    Two-locus haplotypes for the DPB1 and A loci offer an example of
+    how pairs of loci between which there is little LD allow only poor
+    estimates of haplotype frequencies: notice the large discrepancies
+    between true (circles) and inferred (lines) frequencies.  In
+    addition, note how for the DPB1-A haplotypes there are instances
+    of missed haplotypes (true haplotypes not inferred - represented
+    by circles with no lines) and incorrect haplotypes (inferred but
+    not real - represented by lines with no circle).  The locus pair
+    DQB1-DRB1 exemplifies completely accurate inference.  This results
+    from the high LD values between these tightly linked loci.
+    Finally, an intermediate scenario is exemplified by the inference
+    of frequencies for the DQB1-B haplotype.</para>
+
+   <para>The performance of the EM algorithm also differs depending on
+    the true frequency of the haplotypes being estimated.  The table
+    below compares the true and estimated haplotype sets using a
+    measure that takes into account the frequency differences among
+    observed and inferred haplotypes (the If measure, see Single et
+    al. 2002).  High values imply poor estimates (maximum being 1) and
+    low values imply accurate estimates (minimum being 0).  Notice
+    that when haplotypes that are present as a single copy (column 1),
+    the estimation is very inaccurate, but improves as the true
+    frequency increases.  The haplotypes present as 4 or more copies
+    are estimated most accurately.  This confirms the intuition that
+    low frequency haplotypes are difficult to infer using the EM
+    algorithm.  A similar result was obtained by Tishkoff et
+    al. (2000).</para>
+
+   <table id="em-performance-table.figure">
+    <title>Performance of EM algorithm</title>
+    <tgroup cols="5" align="center">
+     <colspec colwidth="2cm"/>
+     <colspec colwidth="2cm"/>
+     <colspec colwidth="2cm"/>
+     <colspec colwidth="2cm"/>
+     <colspec colwidth="2cm"/>
+     <thead>
+      <row>
+       <entry>Haplotypes</entry>
+       <entry>1</entry>
+       <entry>2</entry>
+       <entry>3</entry>
+       <entry>4+</entry>
+      </row>
+     </thead>
+     <tbody>
+      <row>
+       <entry>DPB1-A</entry>
+       <entry>0.60</entry>
+       <entry>0.46</entry>
+       <entry>0.41</entry>
+       <entry>0.26</entry>
+      </row>
+      <row>
+       <entry>DQB1-A</entry>
+       <entry>0.63</entry>
+       <entry>0.58</entry>
+       <entry>0.53</entry>
+       <entry>0.28</entry>
+      </row>
+      <row>
+       <entry>DRB1-A</entry>
+       <entry>0.56</entry>
+       <entry>0.49</entry>
+       <entry>0.42</entry>
+       <entry>0.24</entry>
+      </row>
+     </tbody>
+    </tgroup>
+   </table>
+   
+  </sect2>
+  
+  <sect2>
+   
+   <title>Testing for significance of linkage disequilibrium in a
+    likelihood framework</title>
+   
+   <para>Two approaches can be used to quantify and test linkage
+    disequilibrium (LD).  The first consists of using known haplotype
+    frequencies to obtain LD values.  Overall measures of LD, which
+    account for deviations from free association among all pairs of
+    alleles at two loci, can be used to generate test statistics that
+    can be tested using parametric tests.  For example, the overall
+    measure of LD, Q (discussed in Hedrick, 1987) follows a chi-square
+    distribution with (k-1)(l-1) degrees of freedom for datasets under
+    linkage equilibrium (where k and l are the number of alleles at
+    the first and second locus, respectively).  However, if haplotypes
+    are inferred from unphased genotype data this approach is limited
+    in that the uncertainty inherent in the haplotype estimation is
+    not accounted for when LD values are estimated and tested.  The
+    following likelihood-based approach circumvents this
+    limitation. </para>
+
+   <para>Two likelihood values are defined: L<subscript>0</subscript>
+    is the likelihood of observed genotypic data given the estimated
+    haplotype set (this is the likelihood value obtained using the EM
+    algorithm). L<subscript>1</subscript> is the likelihood of the
+    observed data given haplotype frequencies expected under complete
+    equilibrium (i.e. haplotype frequencies are given by the product
+    of allele frequencies at each locus). The test-statistic is
+    defined as:
+   </para>
+
+   <para>S = -2log(L<subscript>1</subscript>/L<subscript>0</subscript>)</para>
+
+   <para>The significance (p-value) of the observed test statistic can
+    be obtained from a permutation test.  The logic behind a
+    permutation test for the significance of linkage disequilibrium is
+    that under the null hypothesis of no disequilibrium any genotype
+    at one site is going to occur with any genotype at another site
+    with the frequency equal to the product of those genotype
+    frequencies.  Thus, by randomly permuting the observed genotypes
+    at the separate sites among the individuals in the sample, the
+    marginal allele frequencies (and genotype frequencies) are
+    unaltered, but the new genotype combinations for the individuals
+    in the sample are one realization under the null hypothesis.  By
+    generating many such permuted datasets and evaluating each dataset
+    by whatever statistic is being used, one generates a distribution
+    of the statistic under the null hypothesis.  The statistic for the
+    observed data can then be compared to the distribution and the
+    significance is the fraction of the permuted datasets with a
+    statistic greater than the observed.  As stated above, the
+    statistic we use is the likelihood ratio for the observed data
+    with the estimated haplotype frequencies compared to with
+    equilibrium haplotype frequencies.</para>
+
+   <para>An example is provided in <xref linkend="lr-stat-null"/>,
+    where the distribution of S for a sample of Filipino individuals
+    for haplotypes involving the DQB1 and DPA1 loci.  The observed
+    value of S is indicated by an arrow, showing that the probability
+    of obtaining a value of S as extreme as that observed is 0.001
+    under the null hypothesis (no association between loci). Thus we
+    reject the null hypothesis.</para>
+   
+   <figure id="lr-stat-null">
+    <title>Distribution of likelihood ratio statistic, S, under the null hypothesis of linkage equilibrium</title>
+    <programlisting></programlisting>
+   </figure>
+  </sect2>
+ </sect1>
+
+
+ <!--
+  <section>
+    <title>Gene mapping&mdash;Linkage and association studies</title>
+
+    <section>
+      <title>Introduction</title>
+
+      <para> The genetic and physical maps, and technologies for gene
+      identification that have already emerged from the Human Genome
+      Project (HGP) have had a tremendous impact on the research
+      community's ability to discover the genes that underlie human
+      genetic variation (Collins et al. 1997, Gelerhter et al. 1998,
+      Thomson 2001a). Recent successes in the genetic mapping of
+      Mendelian traits and diseases have been remarkable. However,
+      progress has been exceedingly slow in elucidating the genetic
+      components of complex diseases and traits, such as
+      cardiovascular diseases, asthma, diabetes, rheumatoid arthritis,
+      obesity, alcoholism, and schizophrenia. Complex diseases involve
+      multiple genes, environmental effects, and their
+      interactions. Rather than being due to specific and relatively
+      rare mutations, complex diseases and traits may result
+      principally from genetic variation that is relatively common in
+      the general population. Examples include apolipoprotein E gene
+      (<emphasis>APOE</emphasis>) variation and age of onset of
+      Alzheimers disease, the angiotensin-converting enzyme gene
+      (<emphasis>ACE</emphasis>) and myocardial infarction, the
+      chemokine receptor CCR5 gene (<emphasis>CMKBR5</emphasis>) and
+      the risk of infection in those exposed to HIV, and the many
+      diseases for which immune response genes of the HLA region have
+      been implicated.</para>
+
+      <para>Diseases or traits caused by a single major gene or
+      biochemical pathway defect are referred to as Mendelian, or
+      single gene traits. Complicating factors such as incomplete
+      penetrance&mdash;not all genetically predisposed individuals
+      manifest the disease, as in polydactyly, and variable age of
+      onset effects, as in Huntington disease, are often
+      present. However, the basic single gene nature of the
+      inheritance pattern is often evident, with Mendelian segregation
+      patterns according to recessive, dominant, or sex chromosome
+      X-linked inheritance (see Gelehrter et al. 1998 for review). A
+      Mendelian disease can have complex clinical effects, e. g.,
+      sickle cell anemia affects many organ systems. Even with the
+      same allelic mutation, as in individuals with sickle cell
+      anemia, there may be considerable variation in disease severity,
+      due to modifier genes. The majority of Mendelian traits also
+      show allele and/or locus heterogeneity. Different alleles at one
+      gene may give rise to disease, e.g., cystic fibrosis, and result
+      in variation in the disease expression. Different genes may also
+      be responsible for disease in different families, e.g., the
+      BRCA1 and BRCA2 genes and early onset familial breast
+      cancer.</para>
+
+      <para> In contrast to Mendelian diseases, complex, or
+      multifactorial diseases are generally more common, and result
+      from the interaction of multiple genes and environmental
+      factors. Studies of rates of occurrence of disease in twins and
+      other family members compared to population level rates are used
+      to demonstrate the role of genetic and environmental factors in
+      complex diseases. Genetically complex diseases may exhibit the
+      following properties: incomplete penetrance &mdash;not all
+      susceptible individuals are affected; the involvement of several
+      disease-predisposing loci&mdash;some of which may have a major
+      effect, but many of which may have a relatively minor effect;
+      interaction effects between these loci and with environmental
+      factors; and heterogeneity&mdash;so that different loci and/or
+      alleles cause disease in different groups. As a result it is
+      difficult with complex diseases to: localize disease genes;
+      ascertain the number and relationship of disease loci involved;
+      understand modes of inheritance and interaction effects;
+      determine the molecular basis of disease; and understand the
+      mechanism(s) by which these genetic changes give rise to
+      disease, including all genetic and environmental factors and
+      their interactions.</para>
+
+      <para> The distinction in terminology between Mendelian and
+      complex traits is not meant to imply that the genes underlying
+      complex diseases do not follow the rules of Mendelian
+      inheritance, but merely that a simple pattern of inheritance is
+      not obvious. While the boundary between these two categories is
+      not precisely defined, a large number of diseases clearly fall
+      into each category. It is important to also remember that
+      although we often use the shorthand notation of disease gene, or
+      disease-causing gene, we are talking about variation at genes
+      involved in normal human health and development, specific
+      variations of which may lead to a disease state (Thomson and
+      Esposito 1999).</para>
+
+      <para> Sir Archibald Garrod's brilliant studies in 1908 of the
+      genetics and biochemical pathways involved in <quote>inborn
+      errors of metabolism.</quote> laid the conceptual foundation for
+      all later studies in human genetics (Gelehrter et al. 1998). The
+      single gene Mendelian nature of a large number of traits and
+      diseases was subsequently identified. Gene mapping in humans
+      before the 1970s was however essentially limited to the X
+      chromosome, based on the specific pattern of inheritance. Future
+      progress in biochemical genetics and gene mapping awaited
+      advances in molecular biology.</para>
+    </section>
+
+    <section>
+      <title>Mapping genes involved in disease</title>
+      
+      <para>There are three main approaches to mapping the genetic
+      variants involved in a disease: functional cloning, the
+      candidate gene strategy, and positional cloning (Gelehrter et
+      al. 1998). In functional cloning, identification of the
+      underlying protein defect leads to localization of the
+      responsible gene
+      (disease&mdash;function&mdash;gene&mdash;map). Sickle cell
+      anemia was the first human disease to be successfully understood
+      at the molecular level and isolation of the mutant molecule led
+      to the localization of the &beta;-globin gene on chromosome
+      11. Functional cloning is, however, only useful in a subset of
+      Mendelian traits where the biological basis is known, and in
+      very few complex traits.</para>
+
+      <para> In the candidate gene approach, genes with a known or
+      proposed function with the potential to influence the disease
+      phenotype are investigated for a direct role in disease
+      (Gelehrter et al. 1998). The most successful application of the
+      candidate gene approach to mapping complex diseases in humans
+      has been with the HLA region on chromosome 6p21, the major
+      histocompatibility complex of humans (see Section II.C
+      above). Genes in the HLA region have been implicated in the
+      etiology of over 200 diseases (Thorsby 1997).</para>
+
+      <para>Positional cloning is used when the biochemical nature of
+      a disease is unknown. Marker genes not related to disease
+      physiology and genome-wide screens are then the starting point
+      for mapping the genetic components of the disease. The aim is
+      first to identify the genetic region within which a
+      disease-predisposing gene lies and, once this is found, to
+      localize the gene and determine its functional and biological
+      role in the disease
+      (disease&#x2192;map&#x2192;gene&#x2192;function). Most markers
+      used nowadays are DNA based, (see Section I above).</para>
+
+      <para>Landmarks in positional cloning have included genetic
+      linkage of Huntington disease in 1983 to an RFLP (restriction
+      fragment length polymorphism) marker (see section I above) on
+      chromosome 4 (the gene was cloned in 1993) and the cloning of
+      the cystic fibrosis gene on chromosome 7 in 1989. By 1990, when
+      the HGP began, a handful of additional successes had accrued. In
+      1994, the early onset familial breast/ovarian cancer (BRCA1)
+      gene was cloned, and the early onset familial breast cancer
+      (BRCA2) gene in 1995. By 1997 close to 100 Mendelian disease
+      loci had been identified by positional cloning (Collins et
+      al. 1997, Gelehrter et al. 1998). More are identified every
+      month.</para>
+
+      <para>A complementary array of approaches is available to
+      uncover the different genetic facets of both Mendelian and
+      complex traits and diseases (Lander and Schork 1994). Two
+      complementary analytic methods, linkage analyses and association
+      (linkage disequilibrium) mapping (see Sections 3 and 4 below),
+      are used to detect the specific genetic regions and genes
+      involved in the disease process. These approaches can be applied
+      without prior knowledge of the biological basis of the disease
+      using genome-wide studies, together with the candidate gene
+      approach and comparative analyses using animal models of
+      disease.</para>
+
+      <para>While completion of a working draft of the human genome in
+      the year 2000 has greatly aided studies of Mendelian and complex
+      diseases, it does not provide an immediate solution to their
+      genetics, especially for complex diseases. We must first address
+      the daunting prospect of documenting the genetic variation of
+      human genomes at the population level within and across ethnic
+      groups. Only then, correlating this extensive genetic variation
+      with disease, can we uncover the complete genetics of complex
+      diseases and traits, and determine the environmental factors
+      impacting on each disease (Thomson and Esposito 1999, Thomson
+      2001a).</para>
+    </section>
+
+    <section>
+      <title>Linkage mapping</title>
+      
+      <section>
+	<title>Linkage analyses</title> 
+
+	<para> Linkage analyses test for co-segregation of a marker
+	and disease phenotype within a pedigree (implicating physical
+	linkage between the marker gene and a gene involved in the
+	disease process, and such loci are then said to be
+	<quote>linked</quote>) (Ott 1999). Linkage analyses do not
+	require linkage disequilibrium (LD) between the marker and
+	disease loci. Different marker alleles may segregate with
+	disease in each pedigree.</para>
+
+	<para> Linkage analyses can be performed using single marker
+	locus variation, and any kind of inherited difference can
+	potentially be a genetic marker. For genome-wide linkage
+	analyses, testing for co-segregation with disease of about
+	300-400 highly polymorphic markers, usually microsatellites,
+	distributed approximately evenly over the genome (average
+	spacing between markers is then on the order of 10cM, i.e.,
+	10% recombination) is the usual practice. The increasing
+	availability of more markers across the genome, combined with
+	multi-point analyses using a number of closely linked markers,
+	such as microsatellites and SNPs&mdash;hence increasing the
+	informativeness with respect to co-segregation, will increase
+	the power of linkage studies.</para>
+
+	<para>When large multi-generation pedigrees are available,
+	linkage analysis is a powerful technique for localizing
+	disease genes and has been successfully applied to a number of
+	monogenic traits, e.g., Huntington disease, and the familial
+	breast cancer genes BRCA1 and BRCA2. With diabetes, it has
+	been used to map MODY (maturity onset diabetes of the young)
+	genes. The occurrence of multiple alleles at one genetic locus
+	involved in disease, as in cystic fibrosis, does not affect
+	the power of linkage analyses. However, if different Mendelian
+	genes are involved in disease in different families as in
+	MODY, power can be reduced if all the families are analyzed
+	together.</para>
+
+	<para>For complex diseases, the involvement of many genes and
+	the strong influence of environmental factors means that large
+	multi-generation pedigrees are rarely, or never, seen. Linkage
+	analysis of nuclear families with both parents and two
+	children affected with the disease, although less powerful, is
+	therefore more commonly used to map complex traits (Thomson
+	and Esposito 1999, Thomson 1995a, 1995b, 2001a,
+	2001b). Consider an affected sib pair family (<xref
+	linkend="affected-sib-pair"/>), and assume for simplicity we
+	can distinguish all four parental chromosomes in the genetic
+	region under study. Deviation from the Mendelian random
+	expectations of 25%, 50%, and 25%, that the affected sibs will
+	on average share 2, 1, and 0 parental chromosomes in common
+	that are identical by descent (ibd) implicates a disease
+	predisposing gene in the region.</para>
+
+	<figure id="affected-sib-pair">
+	  <title>Affected sib pair families</title>
+	<programlisting></programlisting>
+	</figure>
+
+	<para>A nuclear family pedigree is shown with the father
+         (square) and mother (circle) in the first row and the two
+         affected children of either sex (shaded) in the 2nd
+         row. Assume for simplicity we can distinguish all four
+         parental alleles, denoted A, B, C, and D, in the genetic
+         region under study, with the parental alleles ordered such
+         that A and C are transmitted from the father and mother
+         respectively to the first affected child (Thomson 1995a and
+         1995b). Four possible configurations among the two offspring
+         with respect to the alleles inherited from the parents are
+         possible: they can share both parental alleles (AC); they can
+         share an allele from the father (A) but differ in the alleles
+         received from the mother (C and D); they can share an allele
+         from the mother (C) but differ in the alleles received from
+         the father (A and B); or they can share no parental alleles
+         in common. These four configurations are equally likely if
+         there is no influence of the genetic region under
+         consideration on the disease. The parental alleles that are
+         never transmitted to the affected sib pair in each family
+         type are used as a control population in association studies
+         using nuclear family data, the so-called AFBAC (affected
+         family based control) sample (Thomson 1995a, 1995b and see
+         Section 4.2 below).</para>
+
+	<para><phrase role="strong">Affected Sib pairs</phrase></para>
+	<para>       <phrase role="strong">AB</phrase>          <phrase role="strong">CD</phrase></para>
+	<para>       </para>
+	<para>       <phrase role="strong">AC AC share 2</phrase></para>
+	<para><phrase role="strong"> AD share 1</phrase></para>
+	<para><phrase role="strong"> BC share 1</phrase></para>
+	<para><phrase role="strong"> BD share 0</phrase></para>
+
+      </section>
+
+      <section>
+	<title>Linkage studies in complex diseases</title>
+
+	<para> Linkage of the HLA region to type 1 diabetes was
+	demonstrated initially with 15 affected sib pairs (Cudworth
+	and Woodrow 1975) (Table 1a). This linkage, termed IDDM1, has
+	been confirmed in many studies (Table 1b), with a mean ibd
+	sharing of parental alleles for HLA of 72% (Payami et
+	al. 1985, Pugliese 1999, Mein et al. 1998, Concannon et
+	al. 1998). For some other HLA associated diseases, e.g.,
+	multiple sclerosis and rheumatoid arthritis, the initial
+	number of affected sib pairs required to show evidence of
+	linkage has been larger, at least 50 and sometimes around
+	100.</para>
+
+<para><phrase role="strong">TABLE 1. HLA and IDDM affected sib pair values</phrase></para>
+<para></para>
+<para><phrase role="strong">a. Cudworth and Woodrow 1975</phrase></para>
+<para>ibd sharing: 2 1 0 Total 15</para>
+<para>observed: 10 4 1</para>
+<para>observed %: 67% 27% 6%</para>
+<para>&#x3c7; = 14.07, p &lt; 0.001, mean ibd sharing = 0.805.</para>
+<para><phrase role="strong">b. Payami et al. 1985, 538 families</phrase></para>
+<para>ibd sharing: 2 1 0</para>
+<para>observed: 373 283 55 Total 711</para>
+<para>observed %: 52% 40% 8%</para>
+<para>&#x3c7; = 314.03, p &lt; 10-5, mean ibd sharing = 0.724.</para>
+
+
+	<para> Given the relative ease with which linkage was
+	demonstrated for many HLA associated diseases, it seemed a
+	logical progression to use genome-wide linkage scans on
+	affected sib pair families to investigate all complex
+	diseases. Such studies of many complex disorders are in
+	progress: to map the non-HLA genes in a number of diseases
+	such as type 1 diabetes, multiple sclerosis, rheumatoid
+	arthritis, celiac disease, and Crohn's disease; and for many
+	other complex diseases, for example type 2 diabetes,
+	hypertension, coronary artery disease, alcoholism, and
+	schizophrenia.</para>
+
+	<para>Type 1 diabetes was the first complex disease for which
+	genome-wide linkage scans in affected sib pairs was carried
+	out. Many other studies using genome-wide scans to detect
+	non-HLA type 1 diabetes genes have followed since these papers
+	(reviewed in Pugliese 1999). Apart from HLA, no evidence of
+	major gene effects has been found. Using approximately 500
+	affected sib pairs, linkages for the chromosomal regions IDDM4
+	(11q13), IDDM5 (6q25), and IDDM8 (6q27) were confirmed (Luo et
+	al. 1996) using the criteria of Lander and Kruglyak
+	(1995). The mean ibd sharing values in these cases were much
+	closer to the 50% expected randomly than seen with IDDM1:
+	0.58, 0.58, and 0.60 respectively for IDDM4, IDDM5, and
+	IDDM8. IDDM6 (18q12-21), IDDM10 (10p11-q11), and IDDM12 (2q33)
+	have more recently been considered confirmed, using a
+	combination of affected sib pair and association/linkage tests
+	(see Pugliese 1999). Seven additional chromosomal regions have
+	shown evidence of linkage to type 1 diabetes in one or more
+	studies (reviewed in Pugliese 1999, Mein et al. 1998,
+	Concannon et al. 1998).</para>
+      </section>
+
+      <section>
+	<title>Observations from genome-wide linkage scans in complex
+	diseases</title>
+	
+	<para>A common feature of all complex disease studies has been
+	difficulty in both detecting and replicating linkages, with
+	considerable heterogeneity seen between data sets both within
+	and between populations and ethnic groups. The possible
+	involvement in disease of relatively common alleles of a large
+	number of loci, each with a relatively small effect overall,
+	requiring study of many hundreds, and usually thousands, of
+	affected sib pairs to establish linkage, can explain this
+	phenomenon (reviewed in Thomson 2001a, 2001b).</para>
+
+	<para>Two recent second generation type 1 diabetes genome
+	scans continue to illustrate the heterogeneity seen in linkage
+	studies in complex diseases (Mein et al. 1998, Concannon et
+	al. 1998). Even more surprising, little or no support was
+	found for most reported type 1 diabetes loci in one of these
+	studies (Concannon et al. 1998) even with a very large sample
+	size. The use of stratification analyses based on known IDDM
+	loci such as in the HLA region (IDDM1) may have contributed to
+	more examples of evidence of IDDM loci in the second study
+	(Mein et al. 1998).</para>
+
+	<para> Despite initial anxieties with genome-wide linkage
+	scans that we would be flooded with false positives (Lander
+	and Krugylak 1995), this has not been the case. An excess of
+	false linkages has never been a problem with complex
+	diseases. Instead we are scrambling to find any evidence of
+	disease-predisposing genes.In an insightful review of the many
+	factors that need to be considered in the design of
+	genome-wide scans and interpretation of linkage results, Rao
+	(1998) pointed out that application of stringent criteria
+	drastically reduces power, and leads to many disease genes
+	remaining undetected. Rao's recommendation was that <quote>we
+	tolerate/accept, on average, one false positive per individual
+	scan.</quote> The issue is to have a reasonable balance
+	between false positives and false negatives, while
+	understanding that false negatives are the more serious
+	concern.</para>
+      </section>
+
+      <section>
+	<title>Association (linkage disequilibrium) mapping</title>
+
+	<section>
+	  <title>Association analyses in case/control data</title>
+
+	  <para> Association studies compare marker frequencies in
+	  unrelated cases and controls, and test for the co-occurrence
+	  of a marker and disease at the population level; a
+	  significant association with disease may implicate a
+	  candidate gene in the etiology of a disease. Alternatively,
+	  an association can be due to linkage disequilibrium of a
+	  marker allele(s) with the disease predisposing gene, and
+	  this will usually imply close physical linkage of the marker
+	  and disease predisposing gene (see section III.E above)
+	  (Lander and Schork 1994), reflecting the historical origin
+	  of a mutation on a specific chromosome with a characteristic
+	  set of variation. In association studies it is essential
+	  that the patient and control groups be ethnically
+	  matched. If they are not, a spurious association of an
+	  unlinked marker with disease can result from population
+	  stratification, i.e., if there is a mixture of two groups in
+	  the patient and control samples with different frequencies
+	  of the marker allele and the disease. Given the large
+	  variation in allele frequencies among populations (see
+	  Section II above) even among populations from different
+	  parts of Europe, precise matching of ancestry for the cases
+	  and controls can be very difficult and historically many
+	  false positives have been reported (Kidd 1993), Kang et
+	  al. (1999) discuss one likely false positive for a complex
+	  trait.</para>
+
+	  <para>The success of association (linkage disequilibrium LD)
+	  studies to fine map Mendelian traits following initial
+	  localization of chromosomal regions by linkage analysis is
+	  well documented in many different populations (Jorde et
+	  al. 1994). In these studies linkage disequilibrium extended
+	  on average over 500kb (0.5% recombination). There are
+	  exceptions to the use of association data in localizing
+	  disease genes; the breast cancer gene BRCA1 could not be
+	  localized using linkage disequilibrium mapping as different
+	  mutations were implicated in each family.</para>
+
+	  <para>Association mapping may in many cases be more
+	  efficient than linkage analyses in detecting genetic regions
+	  involved in disease (Risch and Merikangas
+	  1996). IDDM2&mdash;the minisatellite VNTR (variable number
+	  of tandem repeats) 5' to the insulin gene, which is easily
+	  detected by association, is difficult to detect by linkage
+	  analysis (Spielman et al. 1989). The well established and
+	  strong HLA association with multiple sclerosis is not picked
+	  up in all genome linkage scans (Sawcer et al. 1997). As with
+	  linkage studies, haplotype level analyses can be more
+	  powerful than single locus analyses (<xref linkend="Barcellos et al. 1997a"/>, Valdes et al. 1999a).</para>
+
+	  <para>At least 12,000 highly polymorphic, evenly spaced
+	  markers, giving an average distance between markers of 0.25
+	  cM (250 kb), is required for an initial disease genomic
+	  association scan. Association scans are thus over an order
+	  of magnitude higher than the 300 to 400 markers at 10 cM
+	  typically used for linkage genome scans. The use of pooled
+	  samples of DNA for the study of RFLP (see e g., <xref linkend="Barcellos et al. 1997b"/>), and SNP variation (Germer et al. 1999), as well
+	  as the current development of DNA chip technology for the
+	  study of SNPs, has opened the way for future routine and
+	  extensive use of association mapping in the study of complex
+	  diseases. Genome-wide association scans in complex diseases
+	  are starting to be used, currently with DNA pooling and
+	  microsatellites.</para>
+
+	  <para>Many researchers feel that the number of false
+	  positives that will result from genome-wide association
+	  scans make them unmanageable. A preliminary discussion of
+	  power and a multi-stage strategy to reduce false positives
+	  in genome-wide association studies is outlined in <xref
+	  linkend="Barcellos et al. 1997b"/>. As with linkage studies
+	  (Rao 1998), power should be high in an initial association
+	  scan, to reduce missing associations (false negatives), and
+	  sample sizes of 500 - 1,000 are recommended (<xref
+	  linkend="Barcellos et al. 1997b"/>, Long and Langley
+	  1999). Long and Langley (1999) have demonstrated that
+	  greater power is achieved in association genome scans by
+	  increasing the sample size than by increasing the number of
+	  markers.Association mapping
+	  is appropriate for monogenic and complex diseases, and may
+	  always be preferable to linkage analyses for late onset
+	  diseases where it is difficult to obtain nuclear families,
+	  rare diseases for which multiplex pedigrees may not be
+	  available, e.g., type 1 diabetes and multiple sclerosis in
+	  China, and infectious diseases.</para>
+	</section>
+
+	<section>
+	  <title>Association analyses in nuclear family based data</title>
+
+	  <para>The use of nuclear family data in association studies
+	  was initially developed to avoid possible ethnic mismatching
+	  between patients and randomly ascertained controls. The
+	  parental marker alleles not transmitted to an affected
+	  child, or never transmitted to an affected sib pair, form
+	  the so-called AFBAC population (Thomson 1995a, 1995b, 2001a)
+	  (see Fig. 1). In a random mating population, when there is a
+	  marker association with disease, the AFBAC population
+	  provides an unbiased estimate of the overall population
+	  (control) marker alleles when the recombination fraction
+	  between the marker and disease genes is sufficiently small
+	  that it can be taken as zero (&#xf071; = 0), and differences
+	  between patient and AFBAC frequencies can be tested for
+	  example by a contingency table analysis for
+	  heterogeneity.</para>
+
+	  <para>Of more importance, however, is the fact that concerns
+	  about population stratification effects creating
+	  associations between unlinked loci are completely removed
+	  with family-based data. Testing for a 50% transmission ratio
+	  from parents heterozygous for a marker allele (the
+	  TDT&mdash;transmission disequilibrium test) detects
+	  significant differences with marker alleles that are in both
+	  linkage disequilibrium and linked to the disease
+	  predisposing gene (Spielman et al. 1993, Martin et al. 1997,
+	  Monks et al. 1998). This is because a compound null
+	  hypothesis is always being tested which involves a term
+	  which is zero if the marker and disease are unlinked, and a
+	  term which is zero if there is no linkage disequilibrium at
+	  the population level. Thus, associations at the population
+	  level of unlinked marker loci with disease caused by
+	  population stratification, migration or admixture, are
+	  eliminated, and significant effects are only seen for marker
+	  loci linked and in linkage disequilibrium with the disease
+	  loci. Further, results across populations can be combined
+	  using the TDT statistic, although it is important to keep in
+	  mind that power could be reduced if the same association(s)
+	  is not seen in all populations, association screens.</para>
+	</section>
+
+	<section>
+	  <title>Association studies in complex diseases</title>
+
+	  <para>Association mapping has been the main approach in
+	  implicating genes of the HLA region in disease etiology
+	  (Table 2). Association studies in the early 1970s
+	  distinguished type 1 (HLA associated) from type 2 (not HLA
+	  associated) diabetes. Association mapping has also been
+	  involved in mapping non-HLA genes. In a small subset of type
+	  2 diabetes cases association studies have identified the
+	  role of candidate genes in disease, e.g., the insulin gene,
+	  insulin receptor gene, glukokinase gene, and genes in the
+	  mitochondrial genome (see Thomson (1997) for
+	  references).</para>
+
+	  <table>
+	    <title>HLA associated diseases</title>
+	    <tgroup cols="3">
+	      <colspec colname="col1"/>
+	      <colspec colname="col2"/>
+	      <colspec colname="col3"/>
+	      <thead>
+		<row>
+		  <entry>HLA</entry>
+		  <entry>Patients <footnote>
+		      <para>For each disease, the frequency of the associated
+	  HLA allele is given in patients and controls. The letter
+	  designation denotes the HLA gene, while the number is
+	  assigned to a specific allele at the gene. For ease of
+	  reading, the data shown are older serological level HLA
+	  typing, rather than more recent molecular typing. The data
+	  are modified from Thorsby (1997).</para>
+		    </footnote></entry>
+		  <entry>Controls</entry>
+		</row>
+	      </thead>
+	      <tbody>
+		<row><entry namest="col1" nameend="col3">Ankylosing spondylitis</entry></row>
+		<row>
+		  <entry>B27</entry>
+		  <entry>90%</entry> 
+		  <entry>9%</entry>
+		</row>
+		<row><entry namest="col1" nameend="col3">Type 1 diabetes</entry></row>
+		<row>
+		  <entry>DR3</entry> 
+		  <entry>52%</entry>
+		  <entry>23%</entry>
+		</row>
+		<row>
+		  <entry>DR4</entry>
+		  <entry>74%</entry>
+		  <entry>24%</entry>
+		</row>
+		<row>
+		  <entry>DR3 or DR4</entry>
+		  <entry>93%</entry>
+		  <entry>43%</entry>
+		</row>
+		<row>
+		  <entry namest="col1" nameend="col3">Multiple sclerosis</entry>
+		</row>
+		<row>
+		  <entry>DR2</entry>
+		  <entry>86%</entry>
+		  <entry>33%</entry>
+		</row>
+		<row>
+		  <entry namest="col1" nameend="col3">Rheumatoid
+		  arthritis</entry>
+		</row>
+		<row>
+		  <entry>DR4</entry>
+		  <entry>81%</entry>
+		  <entry>33%</entry>
+		</row>
+		<row>
+		  <entry namest="col1" nameend="col3">Narcolepsy</entry>
+		</row>
+		<row>
+		  <entry>DR2</entry>
+		  <entry>&gt;95%</entry>
+		  <entry>33%</entry>
+		</row>
+	      </tbody>
+	    </tgroup>
+	  </table>
+
+	  <para>The potential of
+	  association studies as the optimal strategy for follow-up of
+	  regions showing preliminary evidence of linkage for complex
+	  diseases has been demonstrated (Mein et al. 1998), and
+	  awaits full utilization. As with linkage studies,
+	  heterogeneity in association results for complex diseases is
+	  also seen between studies, especially between populations,
+	  and is expected (Mein et al. 1998, Long and Langley
+	  1999). In their simulation study, Long and Langley (1999)
+	  concluded that association studies have a low repeatability
+	  unless sample sizes are on the order of 500
+	  individuals.</para>
+
+	  <para>Association mapping is appropriate for monogenic and
+	  complex diseases, and may always be preferable to linkage
+	  analyses for late onset diseases where it is difficult to
+	  obtain nuclear families, rare diseases for which multiplex
+	  pedigrees may not be available, e.g., type 1 diabetes and
+	  multiple sclerosis in China, and infectious diseases. Study
+	  design can incorporate disease heterogeneity and interaction
+	  effects between loci.</para>
+	</section>
+      </section>
+
+      <section>
+	<title>Determining the genetic components involved in disease,
+	the haplotype method</title>
+
+	<para> Determining the precise HLA components of disease is
+	difficult for the following primary reasons: multiple genetic
+	factors are involved; the HLA genes are in strong linkage
+	disequilibrium; HLA region loci have many polymorphic
+	residues; common HLA alleles may be involved in disease; and
+	interaction effects among HLA, and/or non-HLA, disease loci
+	may be important. These characteristics make necessary a
+	multi-strategy approach, in which complementary methods are
+	used. These include analysis of data from various ethnically
+	or geographically defined groups, as differences in HLA
+	polymorphism and disease prevalence across groups can point
+	toward the precise genetic factors that are important in
+	disease. The methods which have been applied to HLA data to
+	identify the actual disease predisposing factors, and to
+	determine all disease factors in the region, and the
+	difficulties encountered, apply equally to non-HLA
+	regions.</para>
+
+	<para>While linkage disequilibrium is our ally in detecting
+	genetic regions involved in disease, it confounds attempts to
+	identify the actual gene in the region involved in disease and
+	to identify additional genes in the region contributing to
+	disease. The so-called haplotype method to identify
+	disease-predisposing alleles and amino acids in a genetic
+	region is a stratification analysis to take account of the
+	effects of linkage disequilibrium (Valdes et al. 1997, Valdes
+	and Thomson 1997). If all alleles, or amino acid sites,
+	directly involved in disease in a genetic region have been
+	identified, then considering haplotypes (chromosome
+	combinations) containing all these sites, the relative
+	frequencies of alleles and amino acid sites on these
+	haplotypes not involved in disease should be the same in
+	patients and controls. The absolute frequencies of these
+	haplotypes will differ between patients and controls, but the
+	ratio of variants at sites not involved in disease will not
+	differ between patients and controls, provided all alleles or
+	amino acids involved in disease have been identified and all
+	these sites are included in the haplotypes
+	considered. Obviously, the haplotype method cannot distinguish
+	between sites which are very highly correlated in a
+	population, however ethnic comparisons can help identify the
+	predisposing factors. The method however can unequivocally
+	determine if all disease predisposing amino acid sites in
+	linkage disequilibrium in a genetic region have
+	<emphasis>not</emphasis> been identified. At the amino acid
+	level, a combination of sites at the HLA class II loci DRB1,
+	DQA1, and DQB1 was shown to be highly correlated with the
+	DR-DQ contribution to type 1 diabetes and to correlate with
+	disease incidence (Valdes et al. 1997). In the alcohol
+	dehydrogenase gene cluster variants at two tightly linked
+	genes (ADH1B and ADHIC) cause altered enzyme activities. The
+	high activity alleles at both loci are very common in East
+	Asian populations and appear to protect against alcoholism
+	when tested individually. Osier et al. (2000) showed by this
+	haplotype method that the variant at ADH1B was responsible for
+	the protective effect while the variant at ADH1C showed the
+	statistical association only because of linkage disequilibrium
+	with the variant at ADH1B.</para>
+      </section>
+
+      <section>
+	<title>The Future: Overview</title>
+
+	<para>With completion of the HGP, the functional and
+	positional cloning of Mendelian traits and diseases will
+	become fairly routine (Gelehrter et al. 1998). For genetically
+	complex human diseases and traits the HGP will not provide an
+	immediate solution to their genetics, although the ability to
+	identify candidate genes de novo and in a region identified by
+	positional cloning will greatly reduce the time required to
+	home in on the actual genes involved in complex
+	diseases.</para>
+
+	<para>A multi-strategy approach to the mapping of complex
+	diseases and traits is still appropriate: no single method is
+	sufficient or optimal (Thomson 2001a). Genome-wide linkage
+	studies are now routine, although still expensive and time
+	consuming. Despite extensive efforts by many groups, progress
+	in the mapping of complex diseases has been exceedingly slow;
+	only a few genes and some genetic regions involved in complex
+	diseases have been identified. The general picture is one of
+	difficulty in locating disease genes and replication of
+	reported linkages.</para>
+
+	<para>The practical application of association studies in
+	Mendelian and complex diseases in fine-mapping of genetic
+	regions identified by linkage analyses has been demonstrated
+	for many, but not all, disease predisposing loci. Also, while
+	association mapping can narrow down a genetic region
+	implicated via a linkage study, complete sequencing of this
+	region, which may be many Mb long, is still an arduous
+	task. Genome-wide association studies are now feasible with
+	pooled DNA samples and are starting to be used. As with
+	linkage studies, the overall power of association genome scans
+	to detect disease genes is unknown. Power for both linkage and
+	association studies depends on a number of unknown parameters,
+	will vary across the genome, and also between populations and
+	ethnic groups.  The increasing availability of more markers
+	across the genome, combined with multi-point analyses using
+	closely linked markers will increase the power of linkage and
+	association studies, including the follow-up of regions
+	potentially involved in disease.</para>
+
+	<para>Increasing technological advances in molecular biology,
+	such as the development of SNPs combined with DNA chip
+	technology, and biocomputing will allow screening and analysis
+	of large sample sizes, with predicted future rates of data
+	output which are astronomical. The full development of SNPs
+	will eventually permit routine typing for variation in every
+	human gene, and their regulatory regions, the ultimate
+	association study.</para>
+	</section>
+      </section>
+    </section>
+-->
+</chapter>
+
+<!--
+Local variables:
+sgml-local-catalogs: ("catalog")
+sgml-indent-step: 1
+sgml-indent-data: 1
+End:
+-->
