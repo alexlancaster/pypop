@@ -10,7 +10,7 @@
 
 #include "hwe.h"
 
-int check_file(int argc, char *argv[], FILE **infile, FILE **outfile)
+check_file(int argc, char *argv[], FILE **infile, FILE **outfile)
 {
 
 	int exit_value = 0;
@@ -19,7 +19,7 @@ int check_file(int argc, char *argv[], FILE **infile, FILE **outfile)
 
 	if (argc != 3)
 	{
-		fprintf(stderr, "\nUsage: gthwe infile outfile.\n\n");
+		fprintf(stderr, "\nUsage: hwe infile outfile.\n\n");
 		exit_value = 1;
 	}
 
