@@ -87,18 +87,24 @@ Additional citation possibilities (both author-year and numerical modes)
  </xsl:template>
 
  <xsl:template match="citation" name="citation" mode="html">
-  <xsl:variable name="targets" select="key('id',.)"/>
-  <xsl:variable name="target" select="$targets[1]"/>
+  <xsl:variable name="citetext" select="."/>
+  <xsl:variable name="abbrevtarget" select="//bibliography/biblioentry[abbrev=$citetext]|//bibliography/bibliomixed[abbrev=$citetext]"/>
+
+  <xsl:variable name="targets" select="key('id',$citetext)"/>
+  <xsl:variable name="target" select="$targets[1]|$abbrevtarget[1]"/>
   <xsl:variable name="refelem" select="local-name($target)"/>
 
-  <xsl:call-template name="check.id.unique">
+  <!-- only check if an id to biblio* element exists -->
+  <xsl:if test="count($targets) &gt; 0">
+   <xsl:call-template name="check.id.unique">
     <xsl:with-param name="linkend" select="."/>
-  </xsl:call-template>
+   </xsl:call-template>
+  </xsl:if>
 
   <xsl:call-template name="anchor"/>
 
   <xsl:choose>
-    <xsl:when test="count($target) = 0">
+    <xsl:when test="$refelem=''">
       <xsl:message>
 	<xsl:text>Citation to nonexistent id: </xsl:text>
 	<xsl:value-of select="."/>
@@ -153,7 +159,7 @@ Additional citation possibilities (both author-year and numerical modes)
   <xsl:variable name="target" select="$targets[1]|$abbrevtarget[1]"/>
   <xsl:variable name="refelem" select="local-name($target)"/>
 
-  <xsl:message><xsl:value-of select="count($abbrevtarget)"/></xsl:message>
+<!--  <xsl:message><xsl:value-of select="count($abbrevtarget)"/></xsl:message> -->
 
   <!-- only check if an id to biblio* element exists -->
   <xsl:if test="count($targets) &gt; 0">
@@ -207,7 +213,7 @@ Additional citation possibilities (both author-year and numerical modes)
   <xsl:param name="citationrole" select="'citep'"/>
 
   <xsl:variable name="authors" select="$entry//author"/>
-  <xsl:variable name="year" select="$entry//pubdate[1]"/>
+  <xsl:variable name="year" select="$entry//pubdate[1]|$entry//date[1]"/>
   <xsl:variable name="title" select="$entry//citetitle[1]|$entry//title[1]"/>
 
   <xsl:variable name="extra-text1">
@@ -282,8 +288,11 @@ Additional citation possibilities (both author-year and numerical modes)
 
   <xsl:choose>
 
-   <xsl:when test="$citationstyle='citep' or $citationstyle=''">
-    <xsl:text> (</xsl:text>
+   <xsl:when test="$citationstyle='citep' or $citationstyle='citealp' or $citationstyle=''">
+
+    <xsl:if test="$citationstyle!='citealp'">
+     <xsl:text>(</xsl:text>
+    </xsl:if>
 
     <xsl:choose>
      <xsl:when test="$extra-text1=1">
@@ -313,14 +322,28 @@ Additional citation possibilities (both author-year and numerical modes)
       </xsl:if>
      </xsl:otherwise>
     </xsl:choose>
-    <xsl:text>)</xsl:text>
+
+    <xsl:if test="$citationstyle!='citealp'">
+     <xsl:text>)</xsl:text>
+    </xsl:if>
+
    </xsl:when>
 
-   <xsl:when test="$citationstyle='citet'">
+   <xsl:when test="$citationstyle='citet' or $citationstyle='citealt'">
     <xsl:value-of select="$authortext"/>
-    <xsl:text> (</xsl:text>
+
+    <xsl:text> </xsl:text>
+
+    <xsl:if test="$citationstyle='citet'">
+     <xsl:text>(</xsl:text>
+    </xsl:if>
+
     <xsl:value-of select="$year"/>
-    <xsl:text>)</xsl:text>
+
+    <xsl:if test="$citationstyle='citet'">
+     <xsl:text>)</xsl:text>
+    </xsl:if>
+
    </xsl:when> 
 
    <xsl:when test="$citationstyle='citeauthor'">
