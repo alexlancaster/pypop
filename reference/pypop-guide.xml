@@ -134,8 +134,14 @@
 
  <xi:include href="biblio.xml"/>
 
- <xi:include href="COPYING.xml"/>
- <xi:include href="COPYING.FDL.xml"/>
+ <appendix>
+  <xi:include href="COPYING.xml#xpointer(/appendix/title)"/>
+  <xi:include href="COPYING.xml#xpointer(/appendix/sidebar)"/>
+  <xi:include href="COPYING.xml#xpointer(/appendix/section)"/>
+  <section id="gfdl">
+   <xi:include href="COPYING.FDL.xml#xpointer(/appendix/*)"/>
+  </section>
+ </appendix>
 
 </book>
 
