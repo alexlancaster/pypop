@@ -50,6 +50,10 @@ for o, v in opts:
   elif o in ("-h", "--help"):
     sys.exit(usage_message)
 
+# if neither option is set explicity, use libxslt python wrappers
+if not (use_libxsltmod or use_FourSuite):
+  use_libxsltmod = 1
+
 # check number of arguments
 if len(args) != 1:
   sys.exit(usage_message)
@@ -370,10 +374,25 @@ xmlStream.closetag('dataanalysis')
 txtStream.close()
 xmlStream.close()
 
+# create default XSL stylesheet location
+xslFilenameDefault = os.path.join(datapath, 'text.xsl')
+
+# check config options, and use that location, if provided
+try:
+  xslFilename = config.get("General", "xslFilename")
+except NoOptionError:
+  xslFilename=xslFilenameDefault
+
+# check to see if file exists, otherwise fail with an error
+if os.path.isfile(xslFilename):
+  pass
+else:
+  sys.exit("Could not find xsl file: `%s' " % xslFilename)
+
 if use_libxsltmod:
 
   import libxsltmod
-  output = libxsltmod.translate_to_string('f', 'text.xsl', 'f', xmlOutFilename)
+  output = libxsltmod.translate_to_string('f', xslFilename, 'f', xmlOutFilename)
   
   # open new txt output
   newOut = open("new-" + txtOutFilename, 'w')
@@ -385,7 +404,7 @@ if use_FourSuite:
   from xml.xslt.Processor import Processor
 
   # open XSLT stylesheet
-  styleSheet = open('text.xsl', 'r')
+  styleSheet = open(xslFilename, 'r')
   
   # re-open text stream
   xmlStream = open(xmlOutFilename, 'r')
