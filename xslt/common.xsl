@@ -5,6 +5,8 @@
 
  <xsl:import href="lib.xsl"/>
 
+ <xsl:import href="filter.xsl"/>
+
  <xsl:import href="hardyweinberg.xsl"/>
  <xsl:import href="homozygosity.xsl"/>
  <xsl:import href="emhaplofreq.xsl"/>
@@ -408,12 +410,12 @@
      <xsl:when test="@role='no-data'">
       <xsl:text>No allele data!</xsl:text>
       <xsl:call-template name="newline"/>
-   </xsl:when>
+     </xsl:when>
      
      <xsl:otherwise>
       
       <!-- do all the non-allelecount templates -->
-      <xsl:apply-templates select="*[not(self::allele)]"/>
+      <xsl:apply-templates select="*[not(self::allele)]" />
       
       <xsl:call-template name="newline"/>
 
@@ -522,7 +524,15 @@
        <xsl:with-param name="col2" select="$allelecounts-by-name"/>
        <xsl:with-param name="delim" select="'| '"/>
       </xsl:call-template>
-      
+
+      <xsl:variable name="locus" select="../@name"/>
+
+      <!-- output filter log stuff here -->
+
+      <!-- only output for the current locus and if there are translations -->
+      <!-- that have been done for this particular locus -->
+      <xsl:apply-templates select="/dataanalysis/filterlog/translateTable[@locus=$locus and translate]"/>
+
      </xsl:otherwise>
     </xsl:choose>
    </xsl:with-param>
