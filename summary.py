@@ -1,7 +1,8 @@
 #! /usr/bin/env python
-import sys
+import sys, time
 from ParseFile import ParseGenotypeFile
 from Homozygosity import Homozygosity
+from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson
 from Utils import XMLOutputStream, TextOutputStream
 
 # read in IHWG and parse data file from first argument to created
@@ -10,7 +11,7 @@ from Utils import XMLOutputStream, TextOutputStream
 if len(sys.argv) != 2:
     sys.exit("Usage: summary.py <datafile>")
 
-parsefile = ParseGenotypeFile (sys.argv[1],
+input = ParseGenotypeFile (sys.argv[1],
                                alleleDesignator='*',
                                untypedAllele='****',
                                debug=0)
@@ -24,8 +25,8 @@ you need to create a file handle to pass to the
 {Text,XML}OutputStream, e.g.:
 
 xmlOutStream = XMLOutputStream(open('output.xml', 'w'))
-parsefile.serializeMetadataTo(xmlOutStream)
-parsefile.serializeAlleleCountTo(xmlOutStream)
+input.serializeMetadataTo(xmlOutStream)
+input.serializeAlleleCountTo(xmlOutStream)
 xmlOutStream.close()
 
 Remember not to close() the stream output until the entire data you
@@ -36,35 +37,56 @@ want to dump to the file has been written.
 txtStream = TextOutputStream(open('out.txt', 'w'))
 xmlStream = XMLOutputStream(open('out.xml', 'w'))
 
-parsefile.serializeMetadataTo(txtStream)
+now = time.time()
+timestr = time.strftime("%Y-%m-%d", time.localtime(now))
+
+# opening tag
+xmlStream.opentag('dataanalysis', 'date', timestr)
+xmlStream.writeln()
+xmlStream.tagContents('filename', sys.argv[1])
+xmlStream.writeln()
+
+input.serializeMetadataTo(txtStream)
 
 # serialize summary info for population in XML
-parsefile.serializeMetadataTo(xmlStream)
+input.serializeMetadataTo(xmlStream)
 
 # serialize the allele count in text form to stdout
-#parsefile.serializeAlleleCountDataTo(txtStream)
+#input.serializeAlleleCountDataTo(txtStream)
 
 # serialize the allele count in XML form to stdout
-#parsefile.serializeAlleleCountDataTo(xmlStream)
+#input.serializeAlleleCountDataTo(xmlStream)
 
-loci = parsefile.getLocusList()
+loci = input.getLocusList()
 loci.sort()
 for locus in loci:
 
     txtStream.write("\nLocus: %s\n======\n" % locus)
     xmlStream.opentag('locus', 'name', locus)
+    xmlStream.writeln()
     
-    parsefile.serializeAlleleCountDataAt(txtStream, locus)
-    parsefile.serializeAlleleCountDataAt(xmlStream, locus)
+    input.serializeAlleleCountDataAt(txtStream, locus)
+    input.serializeAlleleCountDataAt(xmlStream, locus)
     
-    hzObject = Homozygosity(parsefile.getAlleleCountAt(locus),
+    hzObject = Homozygosity(input.getAlleleCountAt(locus),
                             rootPath='/home/alex/src/homozygosity',
                             debug=0)
-    
+
     hzObject.serializeHomozygosityTo(txtStream)
     hzObject.serializeHomozygosityTo(xmlStream)
 
+    hwObject = HardyWeinbergGuoThompson(input.getLocusDataAt(locus), 
+                                        input.getAlleleCountAt(locus), 
+                                        lumpBelow=5,
+                                        debug=0)
+
+    hwObject.serializeTo(txtStream)
+    hwObject.serializeTo(xmlStream)
+
+    hwObject.dumpTable(locus, xmlStream)
+
     xmlStream.closetag('locus')
     xmlStream.writeln()
-    
 
+# closing tag
+xmlStream.closetag('dataanalysis')
