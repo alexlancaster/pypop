@@ -210,9 +210,8 @@ class HardyWeinberg:
 
     # first the easy stuff, the homozygotes
     if self.totalHomsExp >= self.lumpBelow:
-      self.totalChisqHoms = ((self.totalHomsObs - self.totalHomsExp) *\
-                            (self.totalHomsObs - self.totalHomsExp)) /\
-                            self.totalHomsExp
+      squareMe = self.totalHomsObs - self.totalHomsExp
+      self.totalChisqHoms = (squareMe * squareMe) / self.totalHomsExp
 
       command = "pval 1 %f" % (self.totalChisqHoms)
       returnedValue = os.popen(command, 'r').readlines()
@@ -221,9 +220,8 @@ class HardyWeinberg:
 
     # next more easy stuff, the heterozygotes
     if self.totalHetsExp >= self.lumpBelow:
-      self.totalChisqHets = ((self.totalHetsObs - self.totalHetsExp) *\
-                            (self.totalHetsObs - self.totalHetsExp)) /\
-                            self.totalHetsExp
+      squareMe = self.totalHetsObs - self.totalHetsExp
+      self.totalChisqHets = (squareMe * squareMe) / self.totalHetsExp
 
       command = "pval 1 %f" % (self.totalChisqHets)
       returnedValue = os.popen(command, 'r').readlines()
@@ -233,11 +231,8 @@ class HardyWeinberg:
     # now the chi-square for heterozygotes by allele
     for allele in self.observedAlleles:
       if self.hetsExpectedByAllele[allele] >= self.lumpBelow:
-        self.hetsChisqByAllele[allele] = ((self.hetsObservedByAllele[allele] -\
-                                      self.hetsExpectedByAllele[allele]) *\
-                                      (self.hetsObservedByAllele[allele] -\
-                                      self.hetsExpectedByAllele[allele])) /\
-                                      self.hetsExpectedByAllele[allele]
+        squareMe = self.hetsObservedByAllele[allele] - self.hetsExpectedByAllele[allele]
+        self.hetsChisqByAllele[allele] = (squareMe * squareMe) / self.hetsExpectedByAllele[allele]
 
         command = "pval 1 %f" % (self.hetsChisqByAllele[allele])
         returnedValue = os.popen(command, 'r').readlines()
@@ -275,11 +270,8 @@ class HardyWeinberg:
         else:
           observedCount = 0.0
 
-        self.chisq[genotype] = ((observedCount - \
-                          self.expectedGenotypeCounts[genotype]) * \
-                          (observedCount - \
-                          self.expectedGenotypeCounts[genotype])) /\
-                          self.expectedGenotypeCounts[genotype]
+        squareMe = observedCount - self.expectedGenotypeCounts[genotype]
+        self.chisq[genotype] = (squareMe * squareMe) / self.expectedGenotypeCounts[genotype]
 
         command = "pval 1 %f" % (self.chisq[genotype])
         returnedValue = os.popen(command, 'r').readlines()
@@ -345,9 +337,8 @@ class HardyWeinberg:
         if self.lumpedExpectedGenotypes >= self.lumpBelow:
         # do chisq for the lumped genotypes
 
-          self.lumpedChisq = ((self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) * \
-                             (self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes) / \
-                             self.lumpedExpectedGenotypes)
+          squareMe = self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes
+          self.lumpedChisq = (squareMe * squareMe) / self.lumpedExpectedGenotypes
 
           command = "pval 1 %f" % (self.lumpedChisq)
           returnedValue = os.popen(command, 'r').readlines()
