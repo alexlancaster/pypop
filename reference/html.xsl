@@ -7,18 +7,26 @@
                 version='1.0'>
 
  <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/html/docbook.xsl"/>
-
+ <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/html/chunk-common.xsl"/>
  <xsl:import href="citation.xsl"/>
- <xsl:import href="biblio.xsl"/>
+ <xsl:import href="biblio.xsl"/> 
+ <xsl:include href="http://docbook.sourceforge.net/release/xsl/snapshot/html/manifest.xsl"/>
+ <xsl:include href="http://docbook.sourceforge.net/release/xsl/snapshot/html/chunk-code.xsl"/>
+
 
  <xsl:output method="html" encoding="ISO-8859-1"
   doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
   doctype-system="http://www.w3.org/TR/html4/loose.dtd" indent="no"/>
 
+ <!-- generate an HTML manifest -->
+ <xsl:param name="generate.manifest" select="1"/>
+
+ <!-- set some HTML-specific things, style sheet etc. -->
  <xsl:param name="html.stylesheet" doc:type="string">style.css</xsl:param>
  <xsl:param name="make.valid.html" select="1"/> 
  <xsl:param name="html.cleanup" select="1"/> 
  <xsl:param name="ignore.image.scaling" select="'1'"/>
+ <xsl:param name="use.id.as.filename" select="1"/>
 
  <!-- crank up nominal image width from 6 * to 9 * -->
  <xsl:param name="nominal.image.width" select="9 * $pixels.per.inch"/>
