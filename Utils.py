@@ -62,6 +62,9 @@ class TextOutputStream:
     def close(self):
         self.f.close()
 
+    def flush(self):
+        self.f.flush()
+
 class XMLOutputStream(TextOutputStream):
     """Output stream for writing XML files.
     """

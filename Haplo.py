@@ -37,7 +37,8 @@
 """Module for estimating haplotypes.
 
 """
-import sys, string, os, re
+import sys, string, os, re, cStringIO
+
 from Arlequin import ArlequinBatch
 from Utils import getStreamType, appendTo2dList
 
@@ -283,7 +284,7 @@ KeepNullDistrib=0""")
         return haplotypes
 
 class Emhaplofreq(Haplo):
-    """Haplotype estimation implemented via emhaplofreq.
+    """Haplotype and LD estimation implemented via emhaplofreq.
 
     This is essentially a wrapper to a Python extension built on top
     of the 'emhaplofreq' command-line program.
@@ -294,7 +295,8 @@ class Emhaplofreq(Haplo):
     """
     def __init__(self, locusData,
                  debug=0,
-                 untypedAllele='****'):
+                 untypedAllele='****',
+                 stream=None):
 
         # import the Python-to-C module wrapper
         # lazy importation of module only upon instantiation of class
@@ -317,11 +319,27 @@ class Emhaplofreq(Haplo):
         # initialize flag
         self.maxLociExceeded = 0
 
+        # must be passed a stream
+        if stream:
+            self.stream = stream
+        else:
+            sys.exit("Emhaplofreq constructor must be passed a stream, output is only available in stream form")
+                
         # create an in-memory file instance for the C program to write
         # to; this remains in effect until a call to 'serializeTo()'.
         
-        import cStringIO
-        self.fp = cStringIO.StringIO()
+        #import cStringIO
+        #self.fp = cStringIO.StringIO()
+
+    def serializeStart(self):
+        """Serialize start of XML output to XML stream"""
+        self.stream.opentag('emhaplofreq')
+        self.stream.writeln()
+
+    def serializeEnd(self):
+        """Serialize end of XML output to XML stream"""
+        self.stream.closetag('emhaplofreq')
+        self.stream.writeln()
 
     def _runEmhaplofreq(self, locusKeys=None,
                         permutationFlag=None,
@@ -353,6 +371,10 @@ class Emhaplofreq(Haplo):
           generated in the output.   No default.
 
         """
+
+        # create an in-memory file instance for the C program to write
+        # to; this remains in effect until end of method
+        fp = cStringIO.StringIO()
 
         if (permutationFlag == None) or (haploSuppressFlag == None):
             sys.exit("must pass a permutation or haploSuppressFlag to _runEmhaplofreq!")
@@ -396,43 +418,43 @@ class Emhaplofreq(Haplo):
                             print theline[allele], " ",
                         print
                     
-                self.fp.write(os.linesep)
+                fp.write(os.linesep)
 
                 modeAttr = "mode=\"%s\"" % mode
                 haploAttr = "showHaplo=\"%s\"" % showHaplo
                 lociAttr = "loci=\"%s\"" % group
 
                 if groupNumIndiv > self._Emhaplofreq.MAX_ROWS:
-                    self.fp.write("<group %s role=\"too-many-lines\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
+                    fp.write("<group %s role=\"too-many-lines\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
                     continue
                 # if nothing left after filtering, simply continue
                 elif groupNumIndiv == 0:
-                    self.fp.write("<group %s role=\"no-data\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
+                    fp.write("<group %s role=\"no-data\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
                     continue
 
                 if mode:
-                    self.fp.write("<group %s %s %s>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
+                    fp.write("<group %s %s %s>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
                 else:
                     sys.exit("A 'mode' for emhaplofreq must be specified")
                 
 ##                 if permutationFlag and haploSuppressFlag:
-##                     self.fp.write("<group mode=\"LD\" loci=\"%s\">%s" % (group, os.linesep))
+##                     fp.write("<group mode=\"LD\" loci=\"%s\">%s" % (group, os.linesep))
 ##                 elif permutationFlag == 0 and haploSuppressFlag == 0:
-##                     self.fp.write("<group mode=\"haplo\" loci=\"%s\">%s" % (group, os.linesep))
+##                     fp.write("<group mode=\"haplo\" loci=\"%s\">%s" % (group, os.linesep))
 ##                 elif permutationFlag and haploSuppressFlag == 0:
-##                     self.fp.write("<group mode=\"haplo-LD\" loci=\"%s\">%s" % (group, os.linesep))
+##                     fp.write("<group mode=\"haplo-LD\" loci=\"%s\">%s" % (group, os.linesep))
 ##                 else:
 ##                     sys.exit("Unknown combination of permutationFlag and haploSuppressFlag")
-                self.fp.write(os.linesep)
+                fp.write(os.linesep)
 
-                self.fp.write("<individcount role=\"before-filtering\">%d</individcount>" % self.totalNumIndiv)
-                self.fp.write(os.linesep)
+                fp.write("<individcount role=\"before-filtering\">%d</individcount>" % self.totalNumIndiv)
+                fp.write(os.linesep)
                 
-                self.fp.write("<individcount role=\"after-filtering\">%d</individcount>" % groupNumIndiv)
-                self.fp.write(os.linesep)
+                fp.write("<individcount role=\"after-filtering\">%d</individcount>" % groupNumIndiv)
+                fp.write(os.linesep)
                 
                 # pass this submatrix to the SWIG-ed C function
-                self._Emhaplofreq.main_proc(self.fp,
+                self._Emhaplofreq.main_proc(fp,
                                             subMatrix,
                                             lociCount,
                                             groupNumIndiv,
@@ -442,17 +464,26 @@ class Emhaplofreq(Haplo):
                                             numPermuInitCond,
                                             permutationPrintFlag)
 
-                self.fp.write("</group>")
+                fp.write("</group>")
 
                 if self.debug:
                     # in debug mode, print the in-memory file to sys.stdout
-                    lines = string.split(self.fp.getvalue(), os.linesep)
+                    lines = string.split(fp.getvalue(), os.linesep)
                     for i in lines:
                         print "debug:", i
 
             else:
-                self.fp.write("Couldn't estimate haplotypes for %s, num loci: %d exceeded max loci: %d" % (group, lociCount, self._Emhaplofreq.MAX_LOCI))
-                self.fp.write(os.linesep)
+                fp.write("Couldn't estimate haplotypes for %s, num loci: %d exceeded max loci: %d" % (group, lociCount, self._Emhaplofreq.MAX_LOCI))
+                fp.write(os.linesep)
+
+        # writing to file must be called *after* all output has been
+        # generated to cStringIO instance "fp"
+
+        self.stream.write(fp.getvalue())
+        fp.close()
+
+        # flush any buffered output to the stream
+        self.stream.flush()
 
     def estHaplotypes(self, locusKeys=None):
         """Estimate haplotypes for listed groups in 'locusKeys'.
@@ -553,34 +584,26 @@ class Emhaplofreq(Haplo):
                                  showHaplo=showHaplo,
                                  mode=mode)
 
-#     def allPairwiseLD(self, haplosToShow=None):
-#         """Estimate all pairwise LD and haplotype frequencies.
+            # def allPairwiseLD(self, haplosToShow=None):
+            #     """Estimate all pairwise LD and haplotype frequencies.
+            
+            #     Estimate the LD (linkage disequilibrium)for each pairwise set
+            #     of loci.
+            #     """
+            #     self.allPairwise(permutationFlag=0,
+            #                      haploSuppressFlag=0,
+            #                      mode='all-pairwise-ld-no-permu')
+            
+            # def allPairwiseLDWithPermu(self, haplosToShow=None):
+            #     """Estimate all pairwise LD.
+            
+            #     Estimate the LD (linkage disequilibrium)for each pairwise set
+            #     of loci.
+            #     """
+            #     self.allPairwise(permutationFlag=1,
+            #                      haploSuppressFlag=0,
+            #                      mode='all-pairwise-ld-with-permu')
 
-#         Estimate the LD (linkage disequilibrium)for each pairwise set
-#         of loci.
-#         """
-#         self.allPairwise(permutationFlag=0,
-#                          haploSuppressFlag=0,
-#                          mode='all-pairwise-ld-no-permu')
 
-#     def allPairwiseLDWithPermu(self, haplosToShow=None):
-#         """Estimate all pairwise LD.
+        
 
-#         Estimate the LD (linkage disequilibrium)for each pairwise set
-#         of loci.
-#         """
-#         self.allPairwise(permutationFlag=1,
-#                          haploSuppressFlag=0,
-#                          mode='all-pairwise-ld-with-permu')
-
-    def serializeTo(self, stream):
-        """Serialize output to XML stream
-
-        Must be called *after* all est* methods are called.
-        """
-        stream.opentag('emhaplofreq')
-        stream.writeln()
-        stream.write(self.fp.getvalue())
-        self.fp.close()
-        stream.closetag('emhaplofreq')
-        stream.writeln()

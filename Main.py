@@ -863,7 +863,15 @@ class Main:
           # a wrapper around the emhaplofreq module
           haplo = Emhaplofreq(self.input.getIndividualsData(),
                               debug=self.debug,
-                              untypedAllele=self.untypedAllele)
+                              untypedAllele=self.untypedAllele,
+                              stream=self.xmlStream)
+
+          # before running emhaplofreq, flush the current buffered
+          # output to file
+          self.xmlStream.flush()
+
+          # start by serializing the start of the XML block
+          haplo.serializeStart()
 
           try:
             allPairwiseLD = self.config.getboolean("Emhaplofreq", "allPairwiseLD")
@@ -974,9 +982,9 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                               haploSuppressFlag=0,
                               haplosToShow=twoLocusHaplosToShow)
 
-          # serialize to XML
-          haplo.serializeTo(self.xmlStream)
-
+          # serialize end to XML
+          haplo.serializeEnd()
+          #haplo.serializeTo(self.xmlStream)
 
 
     def _genTextOutput(self):
