@@ -1,8 +1,9 @@
 CC=gcc
-LIBS=-lm
+LIBS=-lm 
 EXTRACFLAGS=
-CFLAGS=-O3 -funroll-loops -ansi -pedantic -Wall -Wstrict-prototypes $(EXTRACFLAGS) 
-DFLAGS=-g -static
+DFLAGS=-g -lefence
+CFLAGS=-O3 -funroll-loops -ansi -pedantic -Wall -Wstrict-prototypes $(EXTRACFLAGS)
+
 
 all: monte-carlo monte-carlo_distribution
 
