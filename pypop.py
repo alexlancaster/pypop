@@ -5,9 +5,9 @@
 
 import sys, os, string, time
 
-altpath = os.path.join(sys.prefix, 'share', 'config.ini')
+altpath = os.path.join(sys.prefix, 'share', 'PyPop', 'config.ini')
 
-usage_message = """Usage: pypop.py [OPTION] INPUTFILE
+usage_message = """Usage: pypop [OPTION] INPUTFILE
 Process and run population genetics statistics on an INPUTFILE.
 Expects to find a configuration file called 'config.ini' in the
 current directory or in %s.
