@@ -1,7 +1,8 @@
 PROFILING=no
 CC=gcc
+EXTRACFLAGS=
 
-CFLAGS=-O3 -g -funroll-loops
+CFLAGS=-O3 -g -funroll-loops $(EXTRACFLAGS)
 LIBS=-lm
 ifeq ($(PROFILING),yes)
 	CFLAGS+=-pg -a
