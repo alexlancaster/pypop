@@ -39,9 +39,10 @@
 import string
 from copy import copy
 from random import randrange
+from string import join
 
 from Filter import AnthonyNolanFilter
-import Homozygosity
+from Homozygosity import getObservedHomozygosityFromAlleleData
 
 class RandomBinsForHomozygosity:
 
@@ -80,23 +81,35 @@ class RandomBinsForHomozygosity:
                     alleleCountsRand[bin1] += alleleCountsRand[bin2]
                     del alleleCountsRand[bin2]
 
-            homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsRand)
-            print homozygosityResults,'\t',self.locus,'\trandom'
+            homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsRand)
+            print join([str(homozygosityResult),self.locus,'random'],'\t')
 
-        homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsBefore)
+        homozygosityResults = getObservedHomozygosityFromAlleleData(alleleCountsBefore)
         print homozygosityResults,'\t',self.locus,'\tbefore'
-        homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsAfter)
+        homozygosityResults = getObservedHomozygosityFromAlleleData(alleleCountsAfter)
         print homozygosityResults,'\t',self.locus,'\tafter'
 
 
     def sequenceMethod(self,
                        alleleCountsBefore=None,
                        alleleCountsAfter=None,
-                       polyseq=None):
+                       polyseq=None,
+                       polyseqpos=None):
 
         binningAttempts = 0
         binningAttemptsSuccessful = 0
+        polyseqpos = polyseqpos[self.locus]
         
+        deleteHistory = {}
+        deleteHistoryAll = {}
+        collapseHistory = {}
+        weightedCollapseHistory = {}
+        for pos in polyseqpos:
+            deleteHistory[pos] = 0
+            deleteHistoryAll[pos] = 0
+            collapseHistory[pos] = 0
+            weightedCollapseHistory[pos] = 0
+
         print "obsvHomozygosity\tlocus\tmethod"
         
         while binningAttemptsSuccessful < self.binningReplicates:
@@ -106,6 +119,10 @@ class RandomBinsForHomozygosity:
                 alleleCountsRand[self.locus+"*"+allele] = alleleCountsBefore[allele]
 
             polyseqSliced = copy(polyseq)
+            polyseqposDeletes = copy(polyseqpos)
+            deleteHistorySaved = copy(deleteHistory)
+            collapseHistorySaved = copy(collapseHistory)
+            weightedCollapseHistorySaved = copy(weightedCollapseHistory)
 
             try:
                 del polyseqSliced[self.locus+"*"+self.untypedAllele]
@@ -116,18 +133,22 @@ class RandomBinsForHomozygosity:
             while len(alleleCountsRand) > len(alleleCountsAfter):
 
                 seqLength = len(polyseqSliced.values()[0])
-                charToDelete = randrange(0,seqLength,1)
+                posToDelete = randrange(0,seqLength,1)
+                absolutePosToDelete = polyseqposDeletes[posToDelete]
+                deleteHistory[absolutePosToDelete] += 1
+                deleteHistoryAll[absolutePosToDelete] += 1
                 allelesToBin = []
 
                 if self.debug:
                     print "polyseq",polyseqSliced
-                    print "charToDelete",charToDelete
-                    print "length of polyseq before",len(polyseqSliced.values()[0])
+                    print "posToDelete",posToDelete
+                    print "length of polyseq before",seqLength
                     print "alleles before binning",alleleCountsRand
 
                 # deletes the selected character from each sequence
                 for allele in polyseqSliced:
-                    polyseqSliced[allele] = polyseqSliced[allele][:charToDelete] + polyseqSliced[allele][charToDelete+1:]
+                    polyseqSliced[allele] = polyseqSliced[allele][:posToDelete] + polyseqSliced[allele][posToDelete+1:] 
+                del polyseqposDeletes[posToDelete]
 
                 # go thru again to check to see what we have collapsed
                 for allele in polyseqSliced:
@@ -138,9 +159,18 @@ class RandomBinsForHomozygosity:
                             if allele2 not in allelesToBin:
                                 allelesToBin.append(allele2)
 
+                # go thru again and tally up the allele counts from
+                # the collapse-ees into the collapse-er (which is the
+                # first one, arbitrarily)
                 for allele in allelesToBin[1:]:
                     alleleCountsRand[allelesToBin[0]] += alleleCountsRand[allele]
 
+                # to thru again and tally up the statistics
+                for allele in allelesToBin:
+                    collapseHistory[absolutePosToDelete] += 1
+                    weightedCollapseHistory[absolutePosToDelete] += alleleCountsRand[allele]
+
+                # go thru one more time to delete the collapse-ees
                 for allele in allelesToBin[1:]:
                     del alleleCountsRand[allele]
                     del polyseqSliced[allele]
@@ -152,17 +182,22 @@ class RandomBinsForHomozygosity:
                     print "--------------------"
 
             binningAttempts += 1
-            
+
             if len(alleleCountsRand) == len(alleleCountsAfter):
 
-                homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsRand.values())
-                print homozygosityResults,'\t',self.locus,'\trandom'
+                homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsRand.values())
+                print join([str(homozygosityResult),self.locus,'sequence'],'\t')
 
                 binningAttemptsSuccessful += 1
                 if self.debug:
                     print "========================================================="
 
             elif len(alleleCountsRand) < len(alleleCountsAfter):
+                # restore counters to pre-overshoot counts
+                deleteHistory = copy(deleteHistorySaved)
+                collapseHistory = copy(collapseHistorySaved)
+                weightedCollapseHistory = copy(weightedCollapseHistorySaved)
+                
                 if self.debug:
                     print "=======================OVERSHOT TARGET!=================="
                 if binningAttempts > (self.binningReplicates * 10):
@@ -171,12 +206,22 @@ class RandomBinsForHomozygosity:
                     break
 
 
-        homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsBefore.values())
+        print 'STATISTICS OF THE BINNING'
+        homozygosityResults = getObservedHomozygosityFromAlleleData(alleleCountsBefore.values())
         print homozygosityResults,'\t',self.locus,'\tbefore'
-        homozygosityResults = Homozygosity.getObservedHomozygosityFromAlleleData(alleleCountsAfter.values())
+        homozygosityResults = getObservedHomozygosityFromAlleleData(alleleCountsAfter.values())
         print homozygosityResults,'\t',self.locus,'\tafter'
 
         print 'had to try %d times to get %d random binnings' % (binningAttempts, binningAttemptsSuccessful)
+
+        print 'locus\tposition\ttimesDeleted\ttimesDeletedAll\tcollapses\tcollapsesWeighted'
+        for pos in polyseqpos:
+            print join([self.locus,
+                        str(pos),
+                        str(deleteHistory[pos]/float(binningAttemptsSuccessful)),
+                        str(deleteHistoryAll[pos]/float(binningAttemptsSuccessful)),
+                        str(collapseHistory[pos]/float(binningAttemptsSuccessful)),
+                        str(weightedCollapseHistory[pos]/float(binningAttemptsSuccessful))],'\t')
 
 
 
