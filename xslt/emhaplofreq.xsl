@@ -11,8 +11,8 @@
   <text col="uniquegeno">Unique genotypes</text>
   <text col="haplocount">Number of haplotypes</text>
   <text col="iterConverged">Number of iterations before convergence</text>
-  <text col="loglikelihood-no-ld">Loglikelihood under linkage equilibrium ln(L_0)</text>
-  <text col="loglikelihood">Loglikelihood obtained via the EM algorithm ln(L_1)</text>
+  <text col="loglikelihood-no-ld">Loglikelihood under linkage equilibrium [ln(L_0)]</text>
+  <text col="loglikelihood">Loglikelihood obtained via the EM algorithm [ln(L_1)]</text>
  </data:haplo-fields>
 
  <xsl:template match="emhaplofreq/group"/> 
