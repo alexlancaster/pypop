@@ -664,37 +664,41 @@ MODIFICATIONS.
       <xsl:call-template name="newline"/>
       
       <!-- do individual p-values -->
-      <xsl:call-template name="newline"/>
-      <xsl:text>Individual genotype p-values [Chen's statistic]:</xsl:text>
-      <xsl:call-template name="newline"/>
-      <xsl:for-each
+      <xsl:if test="pvalue[@type='genotype']">
+
+       <xsl:call-template name="newline"/>
+       <xsl:text>Individual genotype p-values [Chen's statistic]:</xsl:text>
+       <xsl:call-template name="newline"/>
+       <xsl:for-each
        select="pvalue[@type='genotype' and @statistic='chen_statistic']">
-       <xsl:variable name="offset" select="position()"/>
-       <xsl:variable name="indiv-genotype" select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
-       <xsl:value-of select="$indiv-genotype/@row"/>
-       <xsl:text>:</xsl:text>
-       <xsl:value-of select="$indiv-genotype/@col"/>
-       <xsl:text>: </xsl:text>
-       <xsl:apply-templates select="."/>
+	<xsl:variable name="offset" select="position()"/>
+	<xsl:variable name="indiv-genotype" select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
+	<xsl:value-of select="$indiv-genotype/@row"/>
+	<xsl:text>:</xsl:text>
+	<xsl:value-of select="$indiv-genotype/@col"/>
+	<xsl:text>: </xsl:text>
+	<xsl:apply-templates select="."/>
+	<xsl:call-template name="newline"/>
+       </xsl:for-each>
+       
+       <!-- do individual p-values -->
        <xsl:call-template name="newline"/>
-      </xsl:for-each>
-      
-      <!-- do individual p-values -->
-      <xsl:call-template name="newline"/>
-      <xsl:text>Individual genotype p-values [diff statistic]:</xsl:text>
-      <xsl:call-template name="newline"/>
-      <xsl:for-each
-       select="pvalue[@type='genotype' and @statistic='diff_statistic']">
-       <xsl:variable name="offset" select="position()"/>
-       <xsl:variable name="indiv-genotype" select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
-       <xsl:value-of select="$indiv-genotype/@row"/>
-       <xsl:text>:</xsl:text>
-       <xsl:value-of select="$indiv-genotype/@col"/>
-       <xsl:text>: </xsl:text>
-       <xsl:apply-templates select="."/>
+       <xsl:text>Individual genotype p-values [diff statistic]:</xsl:text>
        <xsl:call-template name="newline"/>
-      </xsl:for-each>
-      
+       <xsl:for-each
+	select="pvalue[@type='genotype' and @statistic='diff_statistic']">
+	<xsl:variable name="offset" select="position()"/>
+	<xsl:variable name="indiv-genotype" select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
+       <xsl:value-of select="$indiv-genotype/@row"/>
+	<xsl:text>:</xsl:text>
+	<xsl:value-of select="$indiv-genotype/@col"/>
+	<xsl:text>: </xsl:text>
+	<xsl:apply-templates select="."/>
+	<xsl:call-template name="newline"/>
+       </xsl:for-each>
+       
+      </xsl:if>      
+
       <!--
       <xsl:text>*switches*</xsl:text>
       <xsl:call-template name="newline"/>
