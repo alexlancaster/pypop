@@ -72,7 +72,7 @@ class Homozygosity:
   def _genPathName(self, sampleCount, numAlleles):
     """Generate path name for homozygosity file.
 
-    If 2n > 500, use 500 anyway.
+    If 2n > 2000, use 2000 anyway.
 
     *Internal use only*"""
     
@@ -82,9 +82,9 @@ class Homozygosity:
 
     twoEn = decade*10
 
-    # hack because we only have simulated data for 2n <= 500
-    if twoEn > 500:
-      twoEn = 500
+    # hack because we only have simulated data for 2n <= 2000
+    if twoEn > 2000:
+      twoEn = 2000
 
     dir = "2n%s" % twoEn
     file = "%s_%s.out" % (numAlleles, twoEn)
@@ -96,7 +96,7 @@ class Homozygosity:
 
     Only check whether sample size is too small
 
-    If sample size is too large, we will use 500 anyway.
+    If sample size is too large, we will use 2000 anyway.
 
     Returns a boolean.
 
