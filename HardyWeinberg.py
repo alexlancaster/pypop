@@ -344,6 +344,7 @@ class HardyWeinberg:
         stream.writeln()
         stream.tagContents("lumpedPval", "%4f" % float(self.lumpedChisqPval))
         stream.writeln()
+        stream.closetag('hardyweinberg')
 
       else:
         stream.writeln("HardyWeinberg statistics:")
