@@ -17,7 +17,6 @@
 unsigned long tausval, congrval;
 
 #define  MAX_ALLELE    35
-#define  LENGTH        MAX_ALLELE * ( MAX_ALLELE + 1 ) / 2
 #define  STR_END       '\0'
 #define  MAXRAND       RAND_MAX
 

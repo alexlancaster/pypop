@@ -22,7 +22,7 @@
 
 void test_switch(a, index, switch_ind, switch_type, p1_rt, p2_rt)
 
-		 int a[LENGTH];
+		 int *a;
 		 Index index;
 		 int *switch_ind, *switch_type;		/* switchability and type of switch */
 		 double *p1_rt, *p2_rt;			/* probability ratio */

@@ -1,3 +1,27 @@
+2004-06-30  Alex Lancaster <alexl AT berkeley.edu>
+
+	* gthwe_wrap.i (run_randomization): New prototype for SWIG export.
+
+	* hwe.c (run_data): Major code refactor.  Relabel variables with
+	sensible names: 'a' -> 'genotypes', 'n' -> 'allele_array',
+	'total' -> 'total_individuals'.  Split out randomization test
+	into new function run_randomization().
+	(run_randomization): New function, refactored out of run_data(),
+	can be called separately from run_data() via SWIG.
+
+	* hwe.h (LENGTH): Remove.
+
+	* cal_prob.c (cal_prob): Don't define array with hardcoded LENGTH,
+	use pointer.
+
+	* test_switch.c (test_switch): Likewise.
+
+	* read_data.c (read_data): Likewise.
+
+	* print_data.c (print_data): Likewise.
+
+	* do_switch.c (do_switch): Likewise.
+
 2004-06-29  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* hwe.c (norm_dev): New function to calculate normalized deviate

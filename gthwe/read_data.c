@@ -10,7 +10,7 @@
 *************************************************************************/
 #include "hwe.h"
 
-int read_data(int a[LENGTH], int *no_allele, int *total,\
+int read_data(int *a, int *no_allele, int *total,\
  struct randomization *sample, FILE **infile, char *title)
 {
 	register int i, j, l, err = 1;

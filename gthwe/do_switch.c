@@ -13,7 +13,7 @@
 
 #include "hwe.h"
 
-void do_switch(int a[LENGTH], Index index, int type)
+void do_switch(int *a, Index index, int type)
 {
 	register int k11, k22, k12, k21;
 
