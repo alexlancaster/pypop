@@ -1,4 +1,11 @@
 #! /usr/bin/env python
+
+"""Module for parsing IHWG files.
+
+   Includes classes for parsing individuals genotyped at multiple loci
+   and classes for parsing literature data which only includes allele
+   counts."""
+
 import sys, string
 
 class ParseFile:

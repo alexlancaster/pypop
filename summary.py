@@ -34,7 +34,7 @@ for locus in freqcount.keys():
         freq = float(alleleTable[allele])/float(total)
         totalFreq += freq
         print "%s :%0.5f (%d)" % (allele, freq, alleleTable[allele])
-    print "Total freq: %s (%d)" % (totalFreq, total)
+    print "Total freq: %0.5f (%d)" % (totalFreq, total)
 
 
 # read in the file that contains the desired output fields
