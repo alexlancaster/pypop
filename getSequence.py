@@ -1,4 +1,4 @@
-#!/usr/local/bin/python
+#!/usr/bin/env python
 
 # Yingssu Tsai
 # April 2003
@@ -10,6 +10,7 @@
 import sys	# system info
 import re		# string handling
 import string
+import deletedAlleles as replaceAlleles
 
 class getSequence:
 
