@@ -1,14 +1,14 @@
 
- temp.msf1  MSF: 1300  Type: N  January 01, 1776  12:00  Check: 6990 ..
+ temp.msf1  MSF: 1265  Type: N  January 01, 1776  12:00  Check: 2544 ..
 
  Name: DOB*01010101     Len:  1265  Check:  4548  Weight:  1.00
  Name: DOB*01010102     Len:  1265  Check:  4684  Weight:  1.00
- Name: DOB*010102       Len:  1300  Check:   896  Weight:  1.00
- Name: DOB*010201       Len:  1324  Check:  9140  Weight:  1.00
- Name: DOB*010202       Len:  1300  Check:   714  Weight:  1.00
- Name: DOB*0103         Len:  1324  Check:  9182  Weight:  1.00
+ Name: DOB*010102       Len:  1265  Check:  4206  Weight:  1.00
+ Name: DOB*010201       Len:  1265  Check:  1952  Weight:  1.00
+ Name: DOB*010202       Len:  1265  Check:  4024  Weight:  1.00
+ Name: DOB*0103         Len:  1265  Check:  1994  Weight:  1.00
  Name: DOB*01040101     Len:  1265  Check:  5177  Weight:  1.00
- Name: DOB*01040102     Len:  1300  Check:  2649  Weight:  1.00
+ Name: DOB*01040102     Len:  1265  Check:  5959  Weight:  1.00
 
 //
 
@@ -239,10 +239,10 @@
 
    DOB*01010101  ATAAAATGGA GATAC
    DOB*01010102  ATAAAATGGA GATAC
-     DOB*010102  ATAAAATGGA GATAC..... .......... .......... ..........
-     DOB*010201  .......... .......... .......... .......... ..........
-     DOB*010202  ATAAAATGGA GATAC..... .......... .......... ..........
-       DOB*0103  .......... .......... .......... .......... ..........
+     DOB*010102  ATAAAATGGA GATAC
+     DOB*010201  .......... .....
+     DOB*010202  ATAAAATGGA GATAC
+       DOB*0103  .......... .....
    DOB*01040101  ATAAAATGGA GATAC
-   DOB*01040102  ATAAAATGGA GATAC..... .......... .......... ..........
+   DOB*01040102  ATAAAATGGA GATAC
 

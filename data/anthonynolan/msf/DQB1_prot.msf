@@ -1,19 +1,20 @@
 
- temp.msf  MSF: 269  Type: N  January 01, 1776  12:00  Check: 9443 ..
+ temp.msf  MSF: 269  Type: N  January 01, 1776  12:00  Check: 8744 ..
 
- Name: DQB1*0201        Len:   269  Check:  6644  Weight:  1.00
+ Name: DQB1*020101      Len:   269  Check:  6644  Weight:  1.00
+ Name: DQB1*020102      Len:   270  Check:  7901  Weight:  1.00
  Name: DQB1*0202        Len:   269  Check:  6803  Weight:  1.00
  Name: DQB1*0203        Len:   269  Check:  4492  Weight:  1.00
  Name: DQB1*030101      Len:   269  Check:  1454  Weight:  1.00
  Name: DQB1*030102      Len:   269  Check:  4152  Weight:  1.00
  Name: DQB1*030201      Len:   269  Check:  7599  Weight:  1.00
- Name: DQB1*030202      Len:   261  Check:  3925  Weight:  1.00
+ Name: DQB1*030202      Len:   269  Check:  7725  Weight:  1.00
  Name: DQB1*030302      Len:   269  Check:  7695  Weight:  1.00
  Name: DQB1*030303      Len:   269  Check:  7821  Weight:  1.00
  Name: DQB1*0304        Len:   269  Check:  4624  Weight:  1.00
  Name: DQB1*030501      Len:   269  Check:   235  Weight:  1.00
  Name: DQB1*030502      Len:   269  Check:  7720  Weight:  1.00
- Name: DQB1*030503      Len:   261  Check:  3920  Weight:  1.00
+ Name: DQB1*030503      Len:   269  Check:  7720  Weight:  1.00
  Name: DQB1*0306        Len:   269  Check:  7099  Weight:  1.00
  Name: DQB1*0307        Len:   269  Check:  9080  Weight:  1.00
  Name: DQB1*0308        Len:   269  Check:  7230  Weight:  1.00
@@ -52,7 +53,7 @@
  Name: DQB1*0614        Len:   269  Check:  3071  Weight:  1.00
  Name: DQB1*0615        Len:   269  Check:  7142  Weight:  1.00
  Name: DQB1*0616        Len:   269  Check:  6143  Weight:  1.00
- Name: DQB1*0617        Len:   261  Check:  3243  Weight:  1.00
+ Name: DQB1*0617        Len:   269  Check:  7043  Weight:  1.00
  Name: DQB1*0618        Len:   269  Check:  4574  Weight:  1.00
  Name: DQB1*0619        Len:   269  Check:  6388  Weight:  1.00
  Name: DQB1*0620        Len:   269  Check:  1271  Weight:  1.00
@@ -60,7 +61,8 @@
 
 //
 
-      DQB1*0201  MSWKKALRIP GGLRAATVTL MLSMLSTPVA EGRDSPEDFV YQFKGMCYFT
+    DQB1*020101  MSWKKALRIP GGLRAATVTL MLSMLSTPVA EGRDSPEDFV YQFKGMCYFT
+    DQB1*020102  .......... .......... .......... .......DFV YQFKGMCYFT
       DQB1*0202  MSWKKALRIP GGLRAATVTL MLSMLSTPVA EGRDSPEDFV YQFKGMCYFT
       DQB1*0203  .......... .......... .......... .......DFV YQFKGMCYFT
     DQB1*030101  .......... .......... .......... ..RDSPEDFV YQFKAMCYFT
@@ -117,7 +119,8 @@
       DQB1*0620  .......... .......... .......... .......... FQFKGLCYFT
       DQB1*0621  .......... .......... .......... .......DFV YQFKGMCYFT
 
-      DQB1*0201  NGTERVRLVS RSIYNREEIV RFDSDVGEFR AVTLLGLPAA EYWNSQKDIL
+    DQB1*020101  NGTERVRLVS RSIYNREEIV RFDSDVGEFR AVTLLGLPAA EYWNSQKDIL
+    DQB1*020102  NGTERVRLVS RSIYNREEIV RFDSDVGEFR AVTLLGLPAA EYWNSQKDIL
       DQB1*0202  NGTERVRLVS RSIYNREEIV RFDSDVGEFR AVTLLGLPAA EYWNSQKDIL
       DQB1*0203  NGTERVRLVS RSIYNREEIV RFDSDVGEFR AVTLLGLPDA EYWNSQKDIL
     DQB1*030101  NGTERVRYVT RYIYNREEYA RFDSDVEVYR AVTPLGPPDA EYWNSQKEVL
@@ -174,7 +177,8 @@
       DQB1*0620  NGTERVRLVT RYIYNREEYA RFDSDVGVYR AVTPQGRPDA EYWNSQKEVL
       DQB1*0621  NGTERVRLVT RHIYNREEYA RFDSDVGVYR AVTPQGRPVA EYWNSQKEVL
 
-      DQB1*0201  ERKRAAVDRV CRHNYQLELR TTLQRRVEPT VTISPSRTEA LNHHNLLVCS
+    DQB1*020101  ERKRAAVDRV CRHNYQLELR TTLQRRVEPT VTISPSRTEA LNHHNLLVCS
+    DQB1*020102  ERKRAAVDRV CRHNYQLELR TTLQRR.... .......... ..........
       DQB1*0202  ERKRAAVDRV CRHNYQLELR TTLQRRVEPT VTISPSRTEA LNHHNLLVCS
       DQB1*0203  ERKRAAVDRV CRHNYQLELR TTLQRR.... ....PSRTEA LNHHNLLVCS
     DQB1*030101  ERTRAELDTV CRHNYQLELR TTLQRRVEPT VTISPSRTEA LNHHNLLVCS
@@ -231,7 +235,8 @@
       DQB1*0620  EGTRAELDTV CRHNYEVAFR .......... .......... ..........
       DQB1*0621  EGTRAELDTV CRHNYEVGYR GILQRR.... .......... ..........
 
-      DQB1*0201  VTDFYPAQIK VRWFRNDQEE TAGVVSTPLI RNGDWTFQIL VMLEMTPQRG
+    DQB1*020101  VTDFYPAQIK VRWFRNDQEE TAGVVSTPLI RNGDWTFQIL VMLEMTPQRG
+    DQB1*020102  .......... .......... .......... .......... ..........
       DQB1*0202  VTDFYPAQIK VRWFRNGQEE TAGVVSTPLI RNGDWTFQIL VMLEMTPQRG
       DQB1*0203  VTDFYPAQIK VRWFRNG... .......... .......... ..........
     DQB1*030101  VTDFYPAQIK VRWFRNDQEE TTGVVSTPLI RNGDWTFQIL VMLEMTPQHG
@@ -288,7 +293,8 @@
       DQB1*0620  .......... .......... .......... .......... ..........
       DQB1*0621  .......... .......... .......... .......... ..........
 
-      DQB1*0201  DVYTCHVEHP SLQSPITVEW RAQSESAQSK MLSGIGGFVL GLIFLGLGLI
+    DQB1*020101  DVYTCHVEHP SLQSPITVEW RAQSESAQSK MLSGIGGFVL GLIFLGLGLI
+    DQB1*020102  .......... .......... .......... .......... ..........
       DQB1*0202  DVYTCHVEHP SLQSPITVEW RAQSESAQSK MLSGIGGFVL GLIFLGLGLI
       DQB1*0203  .......... .......... .......... .......... ..........
     DQB1*030101  DVYTCHVEHP SLQNPITVEW RAQSESAQSK MLSGIGGFVL GLIFLGLGLI
@@ -345,19 +351,20 @@
       DQB1*0620  .......... .......... .......... .......... ..........
       DQB1*0621  .......... .......... .......... .......... ..........
 
-      DQB1*0201  IHHRSQKG.. ......LLH
+    DQB1*020101  IHHRSQKG.. ......LLH
+    DQB1*020102  .......... ..........
       DQB1*0202  IHHRSQKG.. ......LLH
       DQB1*0203  .......... .........
     DQB1*030101  IHHRSQKG.. ......LLH
     DQB1*030102  .......... .........
     DQB1*030201  IHHRSQKG.. ......LLH
-    DQB1*030202  .......... .
+    DQB1*030202  .......... .........
     DQB1*030302  IHHRSQKG.. ......LLH
     DQB1*030303  .......... .........
       DQB1*0304  .......... .........
     DQB1*030501  .......... .........
     DQB1*030502  .......... .........
-    DQB1*030503  .......... .
+    DQB1*030503  .......... .........
       DQB1*0306  .......... .........
       DQB1*0307  .......... .........
       DQB1*0308  .......... .........
@@ -396,7 +403,7 @@
       DQB1*0614  .......... .........
       DQB1*0615  .......... .........
       DQB1*0616  .......... .........
-      DQB1*0617  .......... .
+      DQB1*0617  .......... .........
       DQB1*0618  .......... .........
       DQB1*0619  .......... .........
       DQB1*0620  .......... .........

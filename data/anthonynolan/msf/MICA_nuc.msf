@@ -1,55 +1,55 @@
 
- temp.msf1  MSF: 1171  Type: N  January 01, 1776  12:00  Check: 3461 ..
+ temp.msf1  MSF: 1171  Type: N  January 01, 1776  12:00  Check: 305 ..
 
  Name: MICA*001         Len:  1171  Check:   558  Weight:  1.00
  Name: MICA*00201       Len:  1171  Check:  8373  Weight:  1.00
- Name: MICA*00202       Len:  1192  Check:  6338  Weight:  1.00
+ Name: MICA*00202       Len:  1171  Check:  5766  Weight:  1.00
  Name: MICA*004         Len:  1171  Check:  8662  Weight:  1.00
- Name: MICA*005         Len:  1192  Check:  5368  Weight:  1.00
+ Name: MICA*005         Len:  1171  Check:  4796  Weight:  1.00
  Name: MICA*006         Len:  1171  Check:   374  Weight:  1.00
  Name: MICA*00701       Len:  1171  Check:    48  Weight:  1.00
- Name: MICA*00702       Len:  1192  Check:  6759  Weight:  1.00
+ Name: MICA*00702       Len:  1171  Check:  6187  Weight:  1.00
  Name: MICA*00801       Len:  1171  Check:  7596  Weight:  1.00
  Name: MICA*00802       Len:  1171  Check:  4451  Weight:  1.00
- Name: MICA*00803       Len:  1192  Check:  6126  Weight:  1.00
+ Name: MICA*00803       Len:  1171  Check:  5554  Weight:  1.00
  Name: MICA*00901       Len:  1171  Check:   524  Weight:  1.00
  Name: MICA*00902       Len:  1171  Check:   626  Weight:  1.00
  Name: MICA*010         Len:  1171  Check:  5729  Weight:  1.00
  Name: MICA*011         Len:  1171  Check:  2174  Weight:  1.00
  Name: MICA*01201       Len:  1171  Check:  3279  Weight:  1.00
- Name: MICA*01202       Len:  1192  Check:  6632  Weight:  1.00
- Name: MICA*013         Len:  1192  Check:  5722  Weight:  1.00
- Name: MICA*014         Len:  1192  Check:  5358  Weight:  1.00
+ Name: MICA*01202       Len:  1171  Check:  6060  Weight:  1.00
+ Name: MICA*013         Len:  1171  Check:  5150  Weight:  1.00
+ Name: MICA*014         Len:  1171  Check:  4786  Weight:  1.00
  Name: MICA*015         Len:  1171  Check:  9852  Weight:  1.00
  Name: MICA*016         Len:  1171  Check:  6436  Weight:  1.00
  Name: MICA*017         Len:  1171  Check:   248  Weight:  1.00
  Name: MICA*018         Len:  1171  Check:  2686  Weight:  1.00
  Name: MICA*019         Len:  1171  Check:  2172  Weight:  1.00
  Name: MICA*020         Len:  1171  Check:  5493  Weight:  1.00
- Name: MICA*021         Len:  1192  Check:  6695  Weight:  1.00
- Name: MICA*022         Len:  1192  Check:  4982  Weight:  1.00
+ Name: MICA*021         Len:  1171  Check:  6123  Weight:  1.00
+ Name: MICA*022         Len:  1171  Check:  4410  Weight:  1.00
  Name: MICA*023         Len:  1171  Check:  6868  Weight:  1.00
- Name: MICA*024         Len:  1192  Check:  5639  Weight:  1.00
- Name: MICA*025         Len:  1192  Check:  7021  Weight:  1.00
+ Name: MICA*024         Len:  1171  Check:  5067  Weight:  1.00
+ Name: MICA*025         Len:  1171  Check:  6449  Weight:  1.00
  Name: MICA*026         Len:  1171  Check:  8390  Weight:  1.00
  Name: MICA*027         Len:  1171  Check:  3247  Weight:  1.00
  Name: MICA*028         Len:  1171  Check:  8348  Weight:  1.00
  Name: MICA*029         Len:  1171  Check:  9571  Weight:  1.00
- Name: MICA*030         Len:  1192  Check:  6183  Weight:  1.00
- Name: MICA*031         Len:  1192  Check:  6879  Weight:  1.00
- Name: MICA*032         Len:  1192  Check:  7606  Weight:  1.00
+ Name: MICA*030         Len:  1171  Check:  5611  Weight:  1.00
+ Name: MICA*031         Len:  1171  Check:  6307  Weight:  1.00
+ Name: MICA*032         Len:  1171  Check:  7034  Weight:  1.00
  Name: MICA*033         Len:  1171  Check:  3875  Weight:  1.00
- Name: MICA*034         Len:  1192  Check:  4201  Weight:  1.00
- Name: MICA*035         Len:  1192  Check:  4688  Weight:  1.00
- Name: MICA*036         Len:  1192  Check:  5801  Weight:  1.00
- Name: MICA*037         Len:  1192  Check:  5364  Weight:  1.00
- Name: MICA*038         Len:  1192  Check:  4835  Weight:  1.00
- Name: MICA*039         Len:  1192  Check:  5180  Weight:  1.00
- Name: MICA*040         Len:  1192  Check:  6501  Weight:  1.00
+ Name: MICA*034         Len:  1171  Check:  3629  Weight:  1.00
+ Name: MICA*035         Len:  1171  Check:  4116  Weight:  1.00
+ Name: MICA*036         Len:  1171  Check:  5229  Weight:  1.00
+ Name: MICA*037         Len:  1171  Check:  4792  Weight:  1.00
+ Name: MICA*038         Len:  1171  Check:  4263  Weight:  1.00
+ Name: MICA*039         Len:  1171  Check:  4608  Weight:  1.00
+ Name: MICA*040         Len:  1171  Check:  5929  Weight:  1.00
  Name: MICA*041         Len:  1171  Check:  4560  Weight:  1.00
- Name: MICA*042         Len:  1192  Check:  5946  Weight:  1.00
+ Name: MICA*042         Len:  1171  Check:  5374  Weight:  1.00
  Name: MICA*043         Len:  1171  Check:  1033  Weight:  1.00
- Name: MICA*044         Len:  1192  Check:  4723  Weight:  1.00
+ Name: MICA*044         Len:  1171  Check:  4151  Weight:  1.00
  Name: MICA*045         Len:  1171  Check:   136  Weight:  1.00
  Name: MICA*046         Len:  1171  Check:  5024  Weight:  1.00
  Name: MICA*047         Len:  1171  Check:  7738  Weight:  1.00
@@ -1373,53 +1373,53 @@
 
        MICA*001  GGCTCCACTG AGGGCGCCTA G
      MICA*00201  GGCTCCACTG AGGGCGCCTA G
-     MICA*00202  .......... .......... .......... .......... ..
+     MICA*00202  .......... .......... .
        MICA*004  GGCTCCACTG AGGGCGCCTA G
-       MICA*005  .......... .......... .......... .......... ..
+       MICA*005  .......... .......... .
        MICA*006  GGCTCCACTG AGGGCGCCTA G
      MICA*00701  .......... .......... .
-     MICA*00702  .......... .......... .......... .......... ..
+     MICA*00702  .......... .......... .
      MICA*00801  GGCTCCACTG AGGGCACCTA G
      MICA*00802  .......... .......... .
-     MICA*00803  .......... .......... .......... .......... ..
+     MICA*00803  .......... .......... .
      MICA*00901  GGCTCCACTG AGGGCGCCTA G
      MICA*00902  GGCTCCACTG AGGGCGCCTA G
        MICA*010  GGCTCCACTG AGGGCGCCTA .
        MICA*011  GGCTCCACTG AGGGTGCCTA G
      MICA*01201  GGCTCCACTG AGGGCGCCTA G
-     MICA*01202  .......... .......... .......... .......... ..
-       MICA*013  .......... .......... .......... .......... ..
-       MICA*014  .......... .......... .......... .......... ..
+     MICA*01202  .......... .......... .
+       MICA*013  .......... .......... .
+       MICA*014  .......... .......... .
        MICA*015  .......... .......... .
        MICA*016  GGCTCCACTG AGGGCGCCTA G
        MICA*017  .......... .......... .
        MICA*018  GGCTCCACTG AGGGCACCTA G
        MICA*019  .......... .......... .
        MICA*020  .......... .......... .
-       MICA*021  .......... .......... .......... .......... ..
-       MICA*022  .......... .......... .......... .......... ..
+       MICA*021  .......... .......... .
+       MICA*022  .......... .......... .
        MICA*023  .......... .......... .
-       MICA*024  .......... .......... .......... .......... ..
-       MICA*025  .......... .......... .......... .......... ..
+       MICA*024  .......... .......... .
+       MICA*025  .......... .......... .
        MICA*026  .......... .......... .
        MICA*027  .......... .......... .
        MICA*028  .......... .......... .
        MICA*029  .......... .......... .
-       MICA*030  .......... .......... .......... .......... ..
-       MICA*031  .......... .......... .......... .......... ..
-       MICA*032  .......... .......... .......... .......... ..
+       MICA*030  .......... .......... .
+       MICA*031  .......... .......... .
+       MICA*032  .......... .......... .
        MICA*033  .......... .......... .
-       MICA*034  .......... .......... .......... .......... ..
-       MICA*035  .......... .......... .......... .......... ..
-       MICA*036  .......... .......... .......... .......... ..
-       MICA*037  .......... .......... .......... .......... ..
-       MICA*038  .......... .......... .......... .......... ..
-       MICA*039  .......... .......... .......... .......... ..
-       MICA*040  .......... .......... .......... .......... ..
+       MICA*034  .......... .......... .
+       MICA*035  .......... .......... .
+       MICA*036  .......... .......... .
+       MICA*037  .......... .......... .
+       MICA*038  .......... .......... .
+       MICA*039  .......... .......... .
+       MICA*040  .......... .......... .
        MICA*041  .......... .......... .
-       MICA*042  .......... .......... .......... .......... ..
+       MICA*042  .......... .......... .
        MICA*043  .......... .......... .
-       MICA*044  .......... .......... .......... .......... ..
+       MICA*044  .......... .......... .
        MICA*045  .......... .......... .
        MICA*046  .......... .......... .
        MICA*047  .......... .......... .
