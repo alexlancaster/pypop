@@ -141,8 +141,7 @@ popmetabinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 # heuristics to find default location of 'xslt/' subdirectory, if it is
 # not supplied by the command-line option
-if checkXSLFile('meta-to-r.xsl', popmetabinpath, \
-                'xslt', abort=1):
+if checkXSLFile('meta-to-r.xsl', popmetabinpath, 'xslt'):
     metaXSLTDirectory = os.path.join(popmetabinpath, 'xslt')
 else:
     metaXSLTDirectory= datapath
