@@ -7,10 +7,8 @@ include pypop.py
 include popmeta.py
 include MANIFEST.in
 include config.ini
-include xslt/*.xsl
-include SWIG/*.i
-include emhaplofreq/*.h
-include emhaplofreq/Makefile
-include gthwe/*.h
-include gthwe/Makefile
-include gthwe/README.1
+recursive-include xslt text.xsl html.xsl lib.xsl common.xsl filter.xsl hardyweinberg.xsl homozygosity.xsl emhaplofreq.xsl meta-to-r.xsl sort-by-locus.xsl
+include SWIG/typemap.i
+recursive-include emhaplofreq emhaplofreq.h Makefile
+recursive-include gthwe *.h Makefile README.1
+recursive-include slatkin-exact Makefile README
