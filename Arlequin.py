@@ -301,6 +301,10 @@ KeepNullDistrib=0"""
         - the standard deviation,
 
         - number of steps,
+
+        If locus is monomorphic, the HW exact test can't be run, and
+        the contents of the dictionary element simply contains the
+        string 'monomorphic', rather than the tuple of values.
         """
         
         outFile = os.path.join(self.arlSubdir, self.arlResPrefix + ".res" , self.arlResPrefix + ".htm")
@@ -311,24 +315,38 @@ KeepNullDistrib=0"""
         patt1 = re.compile("Exact test using a Markov chain")
         patt2 = re.compile("Locus  #Genot     Obs.Heter.   Exp.Heter.  P. value     s.d.  Steps done")
         patt3 = re.compile("^\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+)")
+        patt4 = re.compile("^\s+(\d+)\s+This locus is monomorphic: no test done.")
 
         hwExact = {}
         
         for line in open(outFile, 'r').readlines():
-            matchobj = re.search(patt2, line)
-            if matchobj:
+            matchobj2 = re.search(patt2, line)
+            if matchobj2:
                 headerFound = 1
             if headerFound:
-                matchobj = re.search(patt3, line)
-                if matchobj:
+                matchobj3 = re.search(patt3, line)
+                matchobj4 = re.search(patt4, line)
+
+                # look for values
+                if matchobj3:
                     if self.debug:
-                        print matchobj.groups()
+                        print matchobj3.groups()
                     locus, numGeno, obsHet, expHet, pval, sd, steps \
-                           = matchobj.groups()
+                           = matchobj3.groups()
                     hwExact[locus] = (int(numGeno), float(obsHet), \
                                       float(expHet), float(pval), float(sd), \
                                       int(steps))
 
+                # if not, check to see if monomorphic
+                else:
+                    if matchobj4:
+                        locus = matchobj4.group(1)
+                        if self.debug:
+                            print "locus", locus, "is monomorphic"
+                        hwExact[locus] = 'monomorphic'
+                    else:
+                        sys.exit("Arlequin output for HW exact test can't be parsed properly")
+                        
         return hwExact
 
 
