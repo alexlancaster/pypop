@@ -82,6 +82,8 @@ conventions":http://www.python.org/sigs/doc-sig/stext.html since
 Happydoc uses this information to format output documentation
 (including HTML) nicely.
 
+<!--
 Local variables:
 mode: text
 End:
+-->
