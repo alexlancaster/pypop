@@ -359,12 +359,12 @@ if config.has_section("Emhaplofreq"):
   except ValueError:
     sys.exit("require a 0 or 1 as a flag")
 
-  print "estimating all pairwise LD:",
-
-  if allPairwiseLDWithPermu:
-    print "with permutation test"
-  else:
-    print "with no permutation test"
+  if allPairwiseLD:
+    print "estimating all pairwise LD:",
+    if allPairwiseLDWithPermu:
+      print "with permutation test"
+    else:
+      print "with no permutation test"
 
   try:
     locusKeys=config.get("Emhaplofreq", "lociToEstHaplo")
@@ -374,11 +374,12 @@ if config.has_section("Emhaplofreq"):
       locusKeys=string.join(input.getIndividualsData().colList,':')
 
     twoLocusHaplosToShow = []
-    modLocusKeys = []
 
-    # if we have already run allPairwise*, then exclude any two-locus
+    # if we will be running allPairwise*, then exclude any two-locus
     # haplotypes, since we will estimate them as part of 'all pairwise'
-    if allPairwiseLD or allPairwiseLDWithPermu:
+    if allPairwiseLD:
+
+      modLocusKeys = []
       for group in string.split(locusKeys, ','):
 
         # if a two-locus haplo, add it to the list that allPairwise
@@ -390,9 +391,11 @@ if config.has_section("Emhaplofreq"):
         else:
           modLocusKeys.append(group)
 
+      locusKeys = string.join(modLocusKeys, ',')
+
     # estimate haplotype frequencies for the specified loci (excluding
     # two locus haplotypes)
-    haplo.estHaplotypes(string.join(modLocusKeys, ','))
+    haplo.estHaplotypes(locusKeys)
 
   except NoOptionError:
     print "no loci provided for which to estimate haplotype frequencies"
@@ -410,10 +413,11 @@ if config.has_section("Emhaplofreq"):
   except NoOptionError:
     print "no loci provided for which to estimate LD"
 
-  # do pairwise
-  haplo.allPairwise(permutationFlag=allPairwiseLDWithPermu,
-                    haploSuppressFlag=0,
-                    haplosToShow=twoLocusHaplosToShow)
+  # do all pairwise LD, w/ or w/o permutation test
+  if allPairwiseLD:
+    haplo.allPairwise(permutationFlag=allPairwiseLDWithPermu,
+                      haploSuppressFlag=0,
+                      haplosToShow=twoLocusHaplosToShow)
   
   # serialize to XML
   haplo.serializeTo(xmlStream)
