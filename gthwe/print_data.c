@@ -22,7 +22,7 @@ void print_data(a, no_allele, sample, outfile, title)
 
 {
 
-	register i, j, k, l;
+	register int i, j, k, l;
 	char line[256];
 
 	line[0] = '-';
