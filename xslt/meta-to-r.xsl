@@ -362,6 +362,18 @@
 
      </xsl:variable>
 
+     <!-- print out message if haplotype estimation failed to converge -->
+     <xsl:message>
+      <xsl:if test="contains(haplotypefreq/loginfo, 'Percent of iterations with error_flag = 0:   0.000')">
+       <xsl:text>Problem with convergence of haplotype </xsl:text>
+       <xsl:value-of select="@loci"/> 
+       <xsl:text> in file: </xsl:text>
+       <xsl:value-of select="../../filename"/>
+       <xsl:call-template name="newline"/>
+       <xsl:value-of select="substring-before(haplotypefreq/loginfo, '--- Codes for error_flag')"/>
+      </xsl:if>
+     </xsl:message>
+
      <xsl:for-each select="haplotypefreq/haplotype">
 
       <xsl:value-of select="$curr-line-start"/>
