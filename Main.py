@@ -231,19 +231,27 @@ class Main:
         #
         self.defaultFilterLogFilename = uniquePrefix + "-filter.xml"
 
+        #
+        # generate filename for pop file dump (only used if option is set)
+        #
+        self.defaultPopDumpFilename = uniquePrefix + "-filtered.pop"
+
         # prepend directory to all files if one was supplied
         if self.outputDir:
             [self.txtOutPath, \
              self.xmlOutPath, \
-             self.defaultFilterLogPath] = \
+             self.defaultFilterLogPath, \
+             self.defaultPopDumpPath] = \
              [os.path.join(self.outputDir, x) \
               for x in self.txtOutFilename, \
               self.xmlOutFilename, \
-              self.defaultFilterLogFilename]
+              self.defaultFilterLogFilename, \
+              self.defaultPopDumpFilename]
         else:
             self.txtOutPath = self.txtOutFilename
             self.xmlOutPath = self.xmlOutFilename
             self.defaultFilterLogPath = self.defaultFilterLogFilename
+            self.defaultPopDumpPath = self.defaultPopDumpFilename
 
         if self.debug:
           for section in self.config.sections():
@@ -347,9 +355,9 @@ class Main:
                 except:
                     self.filtersToApply = []
                 try:
-                    self.makeNewPopFile = self.config.getint("Filters","makeNewPopFile")
+                    self.popDump = self.config.getint("Filters","makeNewPopFile")
                 except:
-                    self.makeNewPopFile = 0
+                    self.popDump = 0
 
                 # this allows the user to have "filtersToApply=" without ill consequences
                 if len(self.filtersToApply) > 0 and len(self.filtersToApply[0]) > 0:
@@ -565,28 +573,27 @@ class Main:
             print "matrixHistory"
             print self.matrixHistory
 
-        if self.makeNewPopFile:
-            
-            popdump = TextOutputStream(open('newpop.pop', 'w'))
-            dumpMatrix = self.matrixHistory[self.makeNewPopFile]
-
+        # outputs a pop file, of sorts.  method should be moved to data type class.
+        if self.popDump:
+            dumpFile = TextOutputStream(open(self.defaultPopDumpPath, 'w'))
+            dumpMatrix = self.matrixHistory[self.popDump]
 
             for locus in dumpMatrix.colList:
                 if dumpMatrix.colList.index(locus) > 0:
-                    popdump.write('\t')
-                popdump.write(locus + '_1\t' + locus + '_2')
-            popdump.write(os.linesep)
-            
+                    dumpFile.write('\t')
+                dumpFile.write(locus + '_1\t' + locus + '_2')
+
+            dumpFile.write(os.linesep)
             individCount = 0
             while individCount < len(dumpMatrix):
                 for locus in dumpMatrix.colList:
                     individ = dumpMatrix[locus][individCount]
                     if dumpMatrix.colList.index(locus) > 0:
-                        popdump.write('\t')
-                    popdump.write(individ[0] + '\t' + individ[1])
+                        dumpFile.write('\t')
+                    dumpFile.write(individ[0] + '\t' + individ[1])
                 individCount += 1
-                popdump.write(os.linesep)
-            popdump.close()
+                dumpFile.write(os.linesep)
+            dumpFile.close()
             
 
 
