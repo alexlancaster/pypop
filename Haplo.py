@@ -17,7 +17,7 @@ class HaploArlequin(Haplo):
     
     Outputs Arlequin format data files and runtime info, also runs and
     parses the resulting Arlequin data so it can be made available
-    programatically by rest of Python framework. """
+    programatically to rest of Python framework. """
     
     def __init__(self,
                  arpFilename,
