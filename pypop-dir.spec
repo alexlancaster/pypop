@@ -39,23 +39,23 @@ dist_dir = 'PyPop' + type + "-" + VERSION
 # generate from directory name of Build.py script
 INSTALLER = os.path.dirname(sys.argv[0])
 
-## a = Analysis([INSTALLER + '/support/_mountzlib.py',
-##               INSTALLER + '/support/useUnicode.py',
-##               'pypop.py'],
-##              pathex=[])
+a = Analysis([INSTALLER + '/support/_mountzlib.py',
+              INSTALLER + '/support/useUnicode.py',
+              'pypop.py'],
+             pathex=[])
 
-## pyz = PYZ(a.pure)
-## exe = EXE(pyz,
-##           a.scripts,
-##           exclude_binaries=1,
-##           name='buildpypop-dir/' + exec_name,
-##           debug=0,
-##           strip=0,
-##           console=1)
-## coll = COLLECT(exe,
-##                a.binaries,
-##                strip=1,
-##                name=bin_dir)
+pyz = PYZ(a.pure)
+exe = EXE(pyz,
+          a.scripts,
+          exclude_binaries=1,
+          name=os.path.join('buildstandalone', exec_name),
+          debug=0,
+          strip=0,
+          console=1)
+coll = COLLECT(exe,
+               a.binaries,
+               strip=1,
+               name=bin_dir)
 
 # add these later
 #[('README', 'README', 'DATA'),('VERSION','VERSION','DATA')],
