@@ -9,47 +9,47 @@
 
  <!-- suppress output of random text -->
  <xsl:template match="text()"/>
- 
+  
+  <xsl:variable name="all-allele-list" select="document('allelelist-by-locus.xml', .)/allelelist-by-locus"/>
+  
  <xsl:template match="/">
 
   <xsl:for-each select="output/locus">
-   <xsl:variable name="kmax">
-    <xsl:call-template name="max-value">
-     <xsl:with-param name="path" select="population/allelecounts/distinctalleles"/>
-    </xsl:call-template>
-   </xsl:variable>
    
-   <xsl:variable name="all-allele-names"
-    select="population/allelecounts[distinctalleles=$kmax]/allele/@name"/>
-
-   <xsl:variable name="locus-name" select="substring-after(@name, '*')"/>
-   
-   <xsl:text>&#09;</xsl:text>
-   <xsl:value-of select="count(population[allelecounts[@role!='no-data']])"/>
-   <xsl:call-template name="newline"/>
-
-   <xsl:for-each select="population[allelecounts[@role!='no-data']]">
-
-    <xsl:value-of select="substring(filename, 1, 10)"/>
-    <xsl:text>&#09;</xsl:text>
-
-    <xsl:variable name="allele-list" select="allelecounts/allele"/>
-
-    <xsl:for-each select="$all-allele-names">
-     <xsl:variable name="thename" select="."/>
-     <xsl:choose>
-      <xsl:when test="$allele-list[@name=$thename]">
-       <xsl:value-of select="$allele-list[@name=$thename]/frequency"/>
-      </xsl:when>
-      <xsl:otherwise>0.000</xsl:otherwise>
-     </xsl:choose>
-     <xsl:text>&#09;</xsl:text>
-    </xsl:for-each>
-
+   <xsl:variable name="curlocus" select="@name"/>
+   <xsl:variable name="allelelist-curlocus" select="$all-allele-list/locus[@name=$curlocus]"/>
+    <xsl:text>     </xsl:text>
+    <xsl:value-of select="count(population)"/>
+    <xsl:text> </xsl:text>
+    <xsl:text>1</xsl:text>
     <xsl:call-template name="newline"/>
-   </xsl:for-each>  
+
+   <xsl:for-each select="population">
+
+    <xsl:call-template name="append-pad">
+     <xsl:with-param name="padVar">
+      <xsl:value-of select="popname"/>
+     </xsl:with-param>
+     <xsl:with-param name="length" select="9"/>
+     </xsl:call-template>
+    <xsl:text> </xsl:text>
+
+    <xsl:variable name="cur-allele-list" select="allelecounts/allele"/>
+       
+    <xsl:for-each select="$allelelist-curlocus/allele">
+      <xsl:variable name="allelename" select="."/>
+      <xsl:choose>
+       <xsl:when test="$cur-allele-list[@name=$allelename]">
+        <xsl:value-of select="normalize-space($cur-allele-list[@name=$allelename]/frequency)"/>
+       </xsl:when>
+       <xsl:otherwise>0.00000</xsl:otherwise>
+      </xsl:choose>
+      <xsl:text> </xsl:text>
+      </xsl:for-each>
+      <xsl:call-template name="newline"/>
+   </xsl:for-each>
+
   </xsl:for-each>
-  
  </xsl:template>
 
 </xsl:stylesheet>
