@@ -195,8 +195,8 @@
 
    </para>
 
-   <para>The molecular characterization of these alleles thus allowed
-    us to use both the allele frequency (the raw allele
+   <para>The molecular characterization of these alleles allows us to
+    use both the allele frequency (the raw allele
     <quote>calls</quote>) and the underlying sequence information (the
     <quote>calls</quote> can be converted into sequences if desired)
     as input to the analysis framework.
@@ -209,15 +209,15 @@
   <section condition="psb2003">
    <title>Population genetic statistics</title>
 
-   <para>The particular cross-population analyses we wished to address
+   <para>The particular population analyses we wished to address
     included: (1) conformity to Hardy-Weinberg expectations, (2) tests
     for balancing or directional selection; (3) estimates of haplotype
     frequencies and their distributions and patterns of linkage
     disequilibrium among populations; and (4) other tests such as
     worldwide patterns of genetic differentiation. A description of
-    the methodology for specifc tests can be found in the Workshop
-    Statistical Methods paper details of statistics are detailed in
-    chapters (reference?) of this volume.  <xref
+    the methodology for specific tests can be found in the Workshop
+    Statistical Methods paper, chapters (reference?) of this volume.
+    <xref
      linkend="pypop:modules"/>  briefly outlines the
     <application>PyPop</application> modules and specific
     implementation details of population genetic methods.</para>
@@ -413,10 +413,11 @@
     from Python.  We further leveraged other open-source projects:
     Numeric Python <citation>Dubois:1996</citation> project, which
     provides efficient data structures for holding large arrays of
-    data, and <application>R</application>, the open-source
-    implementation <citation>Ihaka:Gentleman:1996</citation> of the
-    programming language <application>S</application>.  As our XSLT
-    parser, we chose the fast C-based <application><ulink
+    data.  For statistical analyses we used the statistical package
+    <application>R</application>, the open-source implementation
+    <citation>Ihaka:Gentleman:1996</citation> of the programming
+    language <application>S</application>.  As our XSLT parser, we
+    chose the fast C-based <application><ulink
       url="http://xmlsoft.org/">libxslt</ulink></application> from the
     <ulink url="http://www.gnome.org/">GNOME</ulink> project.
    </para>
@@ -427,7 +428,9 @@
 
    <para><application>PyPop</application> groups statistics into
     separate <emphasis>modules</emphasis>, represented in the data
-    flow by the green boxes in
+    flow by the grey boxes in the group
+    <literal>HardyWeinberg</literal>, <literal>Homozygosity</literal>
+    and <literal>Haplotypes/LD</literal> in
     <xref linkend="pypop:work-flow"/>.  The modules are outlined
     below, as noted earlier, detailed methodology can be found in
     Chapters ???.</para>
@@ -467,7 +470,7 @@
 -->
 
     <para>In addition to the traditional chi-square test, we
-     performed the exact test of Hardy-Weinberg using
+     performed the overall exact test of Hardy-Weinberg using
      <application>Arlequin</application>'s implementation of Guo &amp;
      Thompson's <citation
       role="citeyearpar">Guo:Thompson:1992</citation> method.  The
@@ -504,9 +507,11 @@
      a Monte-Carlo approximation to the exact test kindly provided by
      Montgomery Slatkin (<citation
       role="citeyear">Slatkin:1994</citation>, <citation
-      role="citeyear">Slatkin:1996</citation>). <!-- We also checked
-     results against a look-up table of simulation results by
-     <citation>Salamon:1995?</citation> -->
+      role="citeyear">Slatkin:1996</citation>).  We  modified these
+     programs to additionally report the normalized deviate of
+     homozygosity (F<subscript>nd</subscript>) and the variance.  <!--
+     We also checked results against a look-up table of simulation
+     results by <citation>Salamon:1995?</citation> -->
     </para>
 
    </formalpara>
@@ -523,10 +528,11 @@
      operation of selection. </para>
 -->
 
-    <para>Haplotype frequencies and linkage disequilibrium (LD) were
-     estimated using a <application>emhaplofreq</application>, a C
-     extension module using the expectation-maximization (EM)
-     algorithm  that we wrote as part of the framework.</para>
+    <para>Haplotype frequencies (estimated using the
+     expectation-maximization (EM) algorithm) and  linkage
+     disequilibrium (LD) were calculated using a
+     <application>emhaplofreq</application>, a C extension module that
+     we wrote as part of the framework.</para>
 
    </formalpara>
 
@@ -574,8 +580,8 @@
      <filename>.pop</filename> extension), can be passed through a
      filter module for data cleaning (for non-HLA data this module can
      be switched off).  The filter module is a set of rules that
-     ensures that allele names are valid or otherwise have a close
-     match in the <ulink url="http://www.ebi.ac.uk/imgt/hla/">IMGT
+     ensures that allele names are valid or otherwise have a match in
+     the <ulink url="http://www.ebi.ac.uk/imgt/hla/">IMGT
       database</ulink> (a database of HLA alleles maintained by Steve
      Marsh of the Anthony Nolan Trust in the UK).  This procedure
      works as follows:</para>
@@ -588,15 +594,14 @@
 
      <listitem>
      
-      <para>This reduced allele is checked to see whether it closely
-       matches  an allele in the IMTG database.  A close match
-       means that the there is a common substring between the reduced
-       allele and the IMTG database allele, up to the length of the
-       common denominator (e.g., if <literal>0301</literal> is the
-       reduced allele under question, then this can match both
-       <literal>03011</literal> or <literal>03012</literal>, then
-       <literal>0301</literal> is returned as the common substring
-       match).</para>
+      <para>This reduced allele is checked to see whether it matches
+       an allele in the IMTG database.  A match means that there
+       is a common substring between the reduced allele and the IMTG
+       database allele, up to the length of the common denominator
+       (e.g., if <literal>0301</literal> is the reduced allele under
+       question, then this  match as both <literal>03011</literal> and
+       <literal>03012</literal>, and <literal>0301</literal> is
+       returned as the common substring match).</para>
       
       <orderedlist numeration="loweralpha">
        <listitem>
@@ -604,7 +609,7 @@
 	 in the data analysis.</para>
        </listitem>
        <listitem>
-	<para>If truncated allele which ends in a zero is found
+	<para>If a truncated allele which ends in a zero is found
 	 (alleles that end in zero, such as <literal>0300</literal>
 	  do not exist in the IMTG database) then:</para>
 	<orderedlist numeration="lowerroman">
@@ -619,7 +624,7 @@
 	 </listitem>
 	 <listitem>
 	  <para>If the allele does not exist in the population, then
-	   the first allele which closely matches an existing allele
+	   the first allele which matches an existing allele
 	   in the IMTG database, is used as the matching
 	   allele.</para>
 	 </listitem>
@@ -709,18 +714,18 @@
 
     <formalpara>
      <title>Generating human-readable output</title>
-    <para>First, since many of the analyses (notably estimating the
-     significance of all pairwise linkage disequilibrium) can take a
-     considerable amount of time, especially if the population
-     consists of many individuals and is highly polymorphic, the
-     <emphasis>analysis generation</emphasis> stage is decoupled from
-     the <emphasis>analysis presentation</emphasis> stage.  This
-     enables tweaking of the <quote>human-readable</quote> text output
-     of the individual files of the presentation without completely
-     re-running the analyses.  A sample text output is shown in <xref
+     <para>First, since many of the analyses (notably estimating the
+      significance of all pairwise LD) can take a considerable amount
+      of time, especially if the population consists of many
+      individuals and is highly polymorphic, the <emphasis>analysis
+       generation</emphasis> stage is decoupled from the
+      <emphasis>analysis presentation</emphasis> stage.  This enables
+      tweaking of the <quote>human-readable</quote> text output of the
+      individual files of the presentation without completely
+      re-running the analyses.  A sample text output is shown in <xref
      linkend="pypop:sample-txt" />. The same XML content can also be
-     used to generate a web version (HTML) of the same data set.
-    </para>
+      used to generate a web version (HTML) of the same data set.
+     </para>
     </formalpara>
 
     <figure id="pypop:sample-txt">
@@ -758,15 +763,15 @@ Name      Frequency (Count)   | Name      Frequency (Count)
 
     <formalpara>
      <title>Combining results across populations</title>
-    <para>Second, the results of Phase I are are aggregated across
-      populations.  As indicated in by the <quote>Phase II</quote> box
-      in  <xref
+    <para>Second, the results of Phase I are aggregated across
+      populations.  As indicated in the <quote>Phase II</quote> box in
+      <xref
        linkend="pypop:work-flow"/>, the individual XML files
       (indicated by <filename>out1.xml</filename> to
       <filename>outn.xml</filename> in the diagram) are transformed
       using an  XSLT stylesheet into tables of data that can be read
       by any spreadsheet or statistical package such as
-      <application>R</application>.  The tables generated, are all
+      <application>R</application>.  The tables generated are all
       files of tab-separated values (TSV) that include:
 
       <itemizedlist>
@@ -809,8 +814,8 @@ Name      Frequency (Count)   | Name      Frequency (Count)
        </listitem>
 
       </itemizedlist>To illustrate this process, short excerpts from
-      the XML files (which include allele frequencies for same locus,
-      <quote>A</quote>) of two individual population runs
+      the XML files (which include allele frequencies for the same
+      locus, <quote>A</quote>) of two individual population runs
       <filename>Bugawan-Filipino-out.xml</filename> and
       <filename>CZEIVS-Czech-out.xml</filename> are shown below: <!--
       <xref linkend="pypop:meta-aggregate"/> -->.
@@ -924,7 +929,7 @@ Czech    Czech    03.Europe  A     0101   <phrase role="strong">0.12857</phrase>
    <para>The final output of the phase II part of the PyPop package consist
     of both the <filename>.dat</filename> output tables and the
     individual XML files for each population included in the analysis.
-    The former are simple text files consisting tab-separated values
+    The former are simple text files consisting of tab-separated values
     (<abbrev>TSV</abbrev>) available for direct import to many
     statistical packages.  The latter are XML files which contain more
     information than the <filename>*.dat</filename> (such as numbers
@@ -939,7 +944,7 @@ Czech    Czech    03.Europe  A     0101   <phrase role="strong">0.12857</phrase>
      <filename>*.dat</filename> files can be divided into two kinds:
      graphical spreadsheet-style designed to be used by
      non-programmers, which can generate a wide-range of barcharts,
-     pie charts and the like , and fully-fledged statistical packages,
+     pie charts and the like, and fully-fledged statistical packages,
      which often require some knowledge of scripting/programming but
      are often more powerful and better able to handle generation of
      large numbers of graphs and figures for large datasets.  The
@@ -1004,7 +1009,7 @@ Czech    Czech    03.Europe  A     0101   <phrase role="strong">0.12857</phrase>
      to assist them, the raw XML files offer the opportunity for them
      to write custom XSLT stylesheets which could parse the XML and
      slice up the data in many ways. Alternatively it is possible to
-     load the XML into a database and the data queried using SQL.
+     load the XML into a database and have the data queried using SQL.
     </para>
     
    </section>
@@ -1026,9 +1031,9 @@ Czech    Czech    03.Europe  A     0101   <phrase role="strong">0.12857</phrase>
     data-sets (some of which individually required several days to
     complete the basic per-population statistics), it was
     straightforward to set up a batch program to generate the
-    individual output analyses.  For each file, an individual XML file
-    was generated.  From these individual files, using XSLT
-    stylesheets as described above in phase II of
+    individual output analyses.  For each file output, an individual
+    XML file was generated.  From these individual XML files, using
+    XSLT stylesheets as described above in phase II of
     <application>PyPop</application>, input data files for the
     statistical package, <application>R</application> were generated.
     The <application>R</application> code was set up to generate
@@ -1117,15 +1122,17 @@ Czech    Czech    03.Europe  A     0101   <phrase role="strong">0.12857</phrase>
     those wishing to analyze allele data at the sequence level.
     Longer-term possibilities include developing a graphical
     front-end, possibly web-based, integration with data mining tools
-    such as clustering analysis, and currently under discussion is
-    integration with the NCBI's new <application><ulink
+    such as clustering analysis, and integration with the NCBI's new
+    <application><ulink
       url="http://www.ncbi.nlm.nih.gov/IEB/Research/GVWG/MHC/">dbMHC</ulink></application> 
     database.  We also plan to release the complete source code to
     <application>PyPop</application> under the GNU General Public
     License (<ulink
      url="http://www.gnu.org/licenses/gpl.html">GPL</ulink>). Details
     will be made available at the Thomson lab website: <ulink
-     url="http://allele5.biol.berkeley.edu/">http://allele5.biol.berkeley.edu/</ulink></para>
+     url="http://allele5.biol.berkeley.edu/">http://allele5.biol.berkeley.edu/</ulink>, 
+    and the 13th Workshop's website: <ulink
+     url="http://www.ihwg.org/">http://www.ihwg.org/</ulink>.</para>
 
   </section>
   
