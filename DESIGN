@@ -50,14 +50,16 @@ allele count case).
 2001-12-13:
 
 - 'Emhaplofreq' : when passing individuals data to C module, filter
-  out all individuals with missing data at any loci.  (_alex_).
+  out all individuals with missing data at any loci.  (_alex_:
+  100%-COMPLETED 2002-01-17).
 
 2001-11-27:
 
 - 'Emhaplofreq' : add names of loci and associated numerical labels to
   output.  (_alex_)
 
-- 'Emhaplofreq' : remove allele frequency output. (_alex_)
+- 'Emhaplofreq' : remove allele frequency output. (_alex_: 100%-COMPLETED
+  2001-12-19)
 
 - 'Emhaplofreq' : check accuracy of chi-squared output in LD section.
   (_single_: SOLVED 2001-11-29) the individual chi-squared values
@@ -70,7 +72,8 @@ allele count case).
 
 2001-11-21:
 
-- 'Emhaplofreq' : XML-ify Rich's program (_alex_).
+- 'Emhaplofreq' : XML-ify Rich's program (_alex_: 80%-COMPLETED
+  2001-12-19).
 
 - 'Emhaplofreq' : Conceive in more detail, the final output to feed into
   XML-ification (_diogo_).
@@ -109,12 +112,12 @@ allele count case).
 - Implement XML -> text conversion using XSLT 'text.xsl' stylesheet,
   so that text output is always generated from XML output.  This will
   be done using the 'xml.xslt' API (part of the
-  "4Suite":http://www.4suite.org XML/ XSLT package) (_alex_: enabled
-  prototype XML -> text conversion in 'pypop.py').
+  "4Suite":http://www.4suite.org XML/ XSLT package) (_alex_:
+  100%-COMPLETED 2001-12-19).
 
 - Remove all ad-hoc text output, all text output will be derived from
   the XML output, all serialization code will be collapsed into one
-  (_alex_).
+  (_alex_: 80%-COMPLETED 2002-01-30).
 
 2001-09-20:
 
@@ -151,7 +154,7 @@ allele count case).
   Python object.  (_alex_: 100%-COMPLETED 2001-12-04)
 
 - Wrap 'gthwe' with SWIG, so that it can be called directly as a
-  Python object.  (_alex_)
+  Python object.  (_alex_: 100%-COMPLETED 2002-01-30 )
 
 2001-07-31:
 
