@@ -14,6 +14,48 @@
  <xsl:param name="callout.graphics" select="'0'"/>
  <xsl:param name="generate.toc"></xsl:param>
 
+ <!-- put quotes around only inline <para> userinput and filename -->
+ <xsl:template match="para/userinput">
+  <xsl:text>"</xsl:text>
+  <xsl:call-template name="inline.boldmonoseq"/>
+  <xsl:text>"</xsl:text>
+ </xsl:template>
+
+ <xsl:template match="para/filename">
+  <xsl:text>"</xsl:text>
+  <xsl:call-template name="inline.monoseq"/>
+  <xsl:text>"</xsl:text>
+ </xsl:template>
+
+ <!-- put border around verbatim env -->
+ <xsl:attribute-set name="shade.verbatim.style">
+  <xsl:attribute name="border">1</xsl:attribute>
+  <xsl:attribute name="bgcolor">#E0E0E0</xsl:attribute>
+ </xsl:attribute-set>
+
+ <!-- template to repeat a $string, $count times -->
+ <xsl:template name="duplicate">
+  <xsl:param name="string"/>
+  <xsl:param name="count" select="1"/>
+
+  <xsl:choose>
+   <xsl:when test="not($count) or not($string)"/>
+   <xsl:when test="$count = 1">
+    <xsl:value-of select="$string"/>
+   </xsl:when>
+   <xsl:otherwise>
+    <xsl:if test="$count mod 2">
+     <xsl:value-of select="$string"/>
+    </xsl:if>
+
+    <xsl:call-template name="duplicate">
+     <xsl:with-param name="string" select="concat($string,$string)"/>
+     <xsl:with-param name="count" select="floor($count div 2)"/>
+    </xsl:call-template>
+   </xsl:otherwise>
+  </xsl:choose>
+ </xsl:template>
+
  <xsl:template name="section.heading">
   <xsl:param name="section" select="."/>
   <xsl:param name="level" select="1"/>
@@ -52,7 +94,22 @@
         <xsl:with-param name="conditional" select="0"/>
       </xsl:call-template>
     </xsl:if>
+
+   
     <xsl:copy-of select="$title"/>
+    <!-- after title, output a break then some text highlighting -->
+    <br/>
+   
+   <!-- if <h1> output '=', if <h2> or below, use '-' -->
+    <xsl:call-template name="duplicate">
+    <xsl:with-param name="string">
+     <xsl:choose>
+      <xsl:when test="($hlevel = 1) or ($hlevel = 2)">=</xsl:when>
+      <xsl:otherwise>-</xsl:otherwise>
+     </xsl:choose>
+    </xsl:with-param>
+    <xsl:with-param name="count" select="string-length($title)"/>
+   </xsl:call-template>
 
   </xsl:element>
 </xsl:template>
