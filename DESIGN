@@ -19,20 +19,24 @@ statistics given genotype data for a single locus.
 - 'HardyWeinbergGuoThompson' a subclass of 'HardyWeinberg' that uses the
 Guo & Thompson algorithm for calculating statistics.
 
+- 'HardyWeinbergGuoThompsonArlequin' a subclass of 'HardyWeinberg'
+that uses the Arlequin implementation of the Guo & Thompson algorithm
+for calculating statistics.
+
 - 'Haplo' is an abstract base class for estimating haplotypes given
 genotype data.
 
 - 'HaploArlequin' is a subclass of 'Haplo' that uses Arlequin for
-estimation of haplotypes.
+estimation of haplotypes (obsolete).
 
 - 'Emhaplofreq' is a subclass of 'Haplo' that uses 'emhaplofreq' (Rich
 Single's program) for the estimation of haplotypes and linkage
 disequilibrium values.
 
-- 'ArlequinBatch' the underlying class that `wraps' the functionality
-of the "Arlequin":http://lgb.unige.ch/arlequin/ program to estimate
-haplotypes.  This class, in turn, supplies 'HaploArlequin' with required
-information.
+- 'ArlequinWrapper' the underlying class that `wraps' the
+functionality of the "Arlequin":http://lgb.unige.ch/arlequin/ program
+(obsolete: this class, in turn, supplies 'HaploArlequin' with required
+information).
 
 - 'Homozygosity' Calculates homozygosity statistics for a given locus,
 calculates the observed homozygosity and returns the approximate
@@ -47,6 +51,16 @@ allele count case).
 
 **TODO**
 
+2002-10-17:
+
+- 'ParseFile': derive map order from the order of the loci from the
+  config.ini variable 'validSampleFields' (i.e. use that variable to
+  specify map order, and use this variable as the return value of
+  getLocusKeys in ParseFile.py).  This would mean that order loci in
+  the .pop files wouldn't matter for correct map order.  Then we would
+  use that as the list of loci to loop through for all subsequent
+  analyses.  (_alex_)
+
 2001-12-13:
 
 - 'Emhaplofreq' : when passing individuals data to C module, filter
@@ -56,7 +70,7 @@ allele count case).
 2001-11-27:
 
 - 'Emhaplofreq' : add names of loci and associated numerical labels to
-  output.  (_alex_)
+  output.  (_alex_: 100%-COMPLETED 2002)
 
 - 'Emhaplofreq' : remove allele frequency output. (_alex_: 100%-COMPLETED
   2001-12-19)
@@ -76,20 +90,20 @@ allele count case).
   2002-05-11).
 
 - 'Emhaplofreq' : Conceive in more detail, the final output to feed into
-  XML-ification (_diogo_).
+  XML-ification (_diogo_: 100%-COMPLETED 2002).
   
-  - decide on hierarchy of output files/sections  (_diogo_)
+  - decide on hierarchy of output files/sections 
 
-  - decide which input parameters are reported (_diogo_)
+  - decide which input parameters are reported 
 
-  - need p-value computation? (_diogo_)
+  - need p-value computation?
 
   - decide what currently hard-coded values in 'emhaplofreq.h' should
-    be user-configurable via 'config.ini' (_diogo_).
+    be user-configurable via 'config.ini' 
   
 - 'Emhaplofreq' : After XML-ification, start on XSL stylesheet to
   consolidate output: each pairwise locus/allele into single table
-  (_alex_: 80%-COMPLETED 2002-05-11).
+  (_alex_: 100%-COMPLETED 2002-09-01).
 
 - 'HardyWeinberg' :  Decide on additional values within each cell (in
   addition to obsv/expct), each p-values (_diogo_)
@@ -122,8 +136,7 @@ allele count case).
 2001-09-20:
 
 - 'gthwe' : Remove extraneous information from output: table,
-  #alleles, chunkinfo, stepinfo.  (_alex_: 80%-COMPLETED 2001-09-21,
-  done table).
+  #alleles, chunkinfo, stepinfo.  (_alex_: 100%-COMPLETED 2002) 
 
 - Longer-term: rationalize and/or modernize code (_diogo_ / _alex_ /
   _single_).
