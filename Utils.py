@@ -110,13 +110,13 @@ class XMLOutputStream(TextOutputStream):
         """
         self.f.write('</' + tagname + '>')
 
-    def tagContents(self, tagname, content):
+    def tagContents(self, tagname, content, **kw):
         """Generate open and closing XML tags around contents.
 
         Generates tags in the form:  '<tagname>content</tagname>'.
         'content' must be a string.
         """
-        self.opentag(tagname)
+        self.opentag(tagname, **kw)
         self.f.write(content)
         self.closetag(tagname)
 
