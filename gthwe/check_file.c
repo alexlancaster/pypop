@@ -10,7 +10,7 @@
 
 #include "hwe.h"
 
-check_file(int argc, char *argv[], FILE **infile, FILE **outfile)
+int check_file(int argc, char *argv[], FILE **infile, FILE **outfile)
 {
 
 	int exit_value = 0;
