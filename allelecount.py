@@ -44,8 +44,14 @@ xmlStream.opentag('dataanalysis')
 
 input.serializeMetadataTo(xmlStream)
 
+try:
+  rootPath=config.get("Homozygosity", "rootPath")
+except NoOptionError:
+  rootPath='/net/share/PyPop/homozygosity'
+  print "Defaulting to system datapath %s for homozygosity tables" % rootPath
+
 hzObject = Homozygosity(input.getAlleleCount(),
-                        rootPath='/net/share/PyPop/homozygosity',
+                        rootPath=rootPath,
                         debug=debug)
 
 hzObject.serializeHomozygosityTo(xmlStream)
