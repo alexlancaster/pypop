@@ -52,6 +52,8 @@ class SubclassError(Exception):
 class Filter:
     def __init__(self):
         pass
+    def doFiltering(self, matrix=None):
+        raise SubclassError()
     def startFirstPass(self, locus):
         raise SubclassError()
     def checkAlleleName(self, alleleName):
@@ -74,6 +76,8 @@ class Filter:
 class PassThroughFilter(Filter):
     def __init__(self):
         pass
+    def doFiltering(self, matrix=None):
+        return matrix
     def startFirstPass(self, locus):
         pass
     def checkAlleleName(self, alleleName):
@@ -146,6 +150,64 @@ class AnthonyNolanFilter(Filter):
                     else:
                         self.alleleLookupTable[name] = []
                         self.alleleLookupTable[name].append(allele)
+
+    def doFiltering(self, matrix=None):
+        """Do filtering on StringMatrix
+
+        Given a StringMatrix, does the filtering on the matrix, and
+        returns it for further downstream processing """
+        self.matrix = matrix
+
+        for locus in self.matrix.colList:
+            if self.debug:
+               print "locus name:", locus
+
+            # first pass runs generates the counts need for final
+            # reassignment
+
+            # initialize first pass
+            self.startFirstPass(locus)
+
+            # loop through all lines in locus, remove trailing
+            # semicolon ':' in each allele in data structure
+            for individ in self.matrix[locus]:
+                allele1, allele2 = individ
+                self.addAllele(allele1[:-1])
+                self.addAllele(allele2[:-1])
+
+            # do final reassignments based on counts
+            self.endFirstPass()
+
+            # now we start doing the actual filtering
+            self.startFiltering()
+
+            rowCount = 0
+            for individ in self.matrix[locus]:
+
+                # get current data out of matrix
+                cur_allele1, cur_allele2 = individ
+
+                # put all alleles through filter and regenerate data
+                # structures, remember we must remove trailing
+                # semicolon ':'
+                allele1 = self.filterAllele(cur_allele1[:-1])
+                allele2 = self.filterAllele(cur_allele2[:-1])
+
+                self.matrix[rowCount,locus] = (allele1, allele2)
+
+                if self.debug:
+                    print rowCount, self.matrix[rowCount,locus]
+
+                # increment row count
+                rowCount += 1
+
+            # end filtering for this locus
+            self.endFiltering()
+
+        # do cleanup/destructor
+        self.cleanup()
+
+        return self.matrix
 
     def startFirstPass(self, locus):
         self.locus = locus
