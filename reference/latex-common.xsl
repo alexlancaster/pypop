@@ -222,7 +222,15 @@
   <xsl:text>\end{tabular}&#10;</xsl:text>
   <!-- <xsl:text>}</xsl:text> -->
  </xsl:template>
- 
+
+ <xsl:template name="inline.monoseq">
+  <xsl:param name="content">
+   <xsl:apply-templates/>
+  </xsl:param>
+  <xsl:text>{\tt </xsl:text>
+  <xsl:copy-of select="$content"/>
+  <xsl:text>}</xsl:text>
+ </xsl:template>
 
 </xsl:stylesheet>
 
