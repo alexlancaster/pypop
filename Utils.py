@@ -6,7 +6,10 @@
    files.
 """
 
-import os, string
+import os, string, types
+import Numeric
+from Numeric import zeros, take, asarray, PyObject
+from UserArray import UserArray
 
 class TextOutputStream:
     """Output stream for writing text files.
@@ -179,7 +182,7 @@ class OrderedDict:
     """
     ret = []
     for key in self.KEYS:
-      ret.append(key,self.__hash[key])
+      ret.append((key,self.__hash[key]))
     return ret
 
 
@@ -307,3 +310,58 @@ class Index:
     Creates an Index object for use with OrderedDict
     """
     self.i = i
+
+class StringMatrix(UserArray):
+
+  def __init__(self, rowCount=None, colList=None):
+      self.colList = colList
+      self.colCount = len(colList)
+      self.rowCount = rowCount
+      self.array = zeros((self.rowCount, self.colCount), PyObject)
+      self.shape = self.array.shape
+      self._typecode = self.array.typecode()
+      self.name = string.split(str(self.__class__))[0]
+
+  def __getslice__(self, i, j):
+      raise Exception("slices not currently supported")
+      #return self._rc(self.array[i:j])
+
+  def __getitem__(self, key):
+      if type(key) == types.TupleType:
+          row,colName= key
+          if colName in self.colList:
+              col = self.colList.index(colName)
+          else:
+              raise KeyError("can't find %s column" % colName)
+          return self.array[(row,col)]
+      elif type(key) == types.StringType:
+          colNames = string.split(key, ":")
+          print colNames
+          li = []
+          for col in colNames:
+              if col in self.colList:
+                  li.append(self.colList.index(col))
+              else:
+                  raise KeyError("can't find %s column" % col)
+
+              if len(colNames) == 1:
+                  # return simply the column at that location as
+                  # a list
+                  return self.array[:,li[0]].tolist()
+              else:
+                  # return the matrix consisting of column vectors
+                  # of the designated keys
+                  return take(self.array, tuple(li), 1).tolist()
+      else:
+          raise KeyError("keys must be a string or tuple")
+
+  def __setitem__(self, index, value):
+      row, colName = index
+      if colName in self.colList:
+          col = self.colList.index(colName)
+      else:
+          raise KeyError("can't find %s column" % col)
+      self.array[(row,col)] = asarray(value,self._typecode)
+      
+
+
