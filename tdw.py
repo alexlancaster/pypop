@@ -61,8 +61,8 @@ except NoOptionError:
 
 
 input = ParseGenotypeFile(fileName, 
-			  alleleDesignator='*', 
-			  untypedAllele='****',
+			  alleleDesignator=alleleDesignator, 
+			  untypedAllele=untypedAllele,
 			  debug=0)
 
 
