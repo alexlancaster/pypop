@@ -103,3 +103,6 @@ clean::
 
 check: all
 
+# Local variables:
+# mode: makefile
+# End:
