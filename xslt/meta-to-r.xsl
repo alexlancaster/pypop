@@ -11,15 +11,27 @@
  <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
 
  <data:map-order>
-  <locusname order="1">A</locusname>
-  <locusname order="2">C</locusname>
-  <locusname order="3">B</locusname>
-  <locusname order="4">DRA</locusname>
-  <locusname order="5">DRB1</locusname>
-  <locusname order="6">DQA1</locusname>
-  <locusname order="7">DQB1</locusname>
-  <locusname order="8">DPA1</locusname>
-  <locusname order="9">DPB1</locusname>
+  <locusname order="1">D6S2239</locusname>
+  <locusname order="2">D6S2223</locusname>
+  <locusname order="3">D6S2222</locusname>
+  <locusname order="4">A</locusname>
+  <locusname order="5">D6S265</locusname>
+  <locusname order="6">C</locusname>
+  <locusname order="7">B</locusname>
+  <locusname order="8">MIB</locusname>
+  <locusname order="9">TNFD</locusname>
+  <locusname order="10">D6S273</locusname>
+  <locusname order="11">DRA</locusname>
+  <locusname order="12">DRB1</locusname>
+  <locusname order="13">DQA1</locusname>
+  <locusname order="14">DQIV</locusname>
+  <locusname order="15">DQCARII</locusname>
+  <locusname order="16">DQCAR</locusname>
+  <locusname order="17">DQB1</locusname>
+  <locusname order="18">G51152</locusname>
+  <locusname order="19">DPA1</locusname>
+  <locusname order="20">DPB1</locusname>
+  <locusname order="21">D6S291</locusname>
  </data:map-order>
 
  <data:region-order>
