@@ -4,7 +4,7 @@
  <xsl:output method="text" omit-xml-declaration="yes"/>
  
  <xsl:template match="/">
-  <xsl:apply-templates/>
+  <xsl:apply-templates/> 
  </xsl:template>
  
  <!-- suppress output of random text -->
@@ -83,7 +83,23 @@
    <xsl:value-of select="name(.)"/>
    <xsl:text>*: </xsl:text>
    <xsl:value-of select="."/>
+ 
+  <!-- if field has any attribute, print them out in brackets
+   separated by commas -->
+   
+   <xsl:if test="@*!=''">
+    <xsl:text> (</xsl:text>
+    <xsl:for-each select="@*">
+     <xsl:value-of select="."/>
+     <xsl:if test="position()!=last()">
+      <xsl:text>, </xsl:text>
+     </xsl:if>
+     </xsl:for-each>
+    <xsl:text>)</xsl:text>
+   </xsl:if>
+   
    <xsl:call-template name="newline"/>
+
   </xsl:for-each>
  </xsl:template> 
 
@@ -385,13 +401,47 @@
  <!-- Haplotype/LD statistics --> 
  <xsl:template match="emhaplofreq">
   <xsl:call-template name="header">
-   <xsl:with-param name="title">Haplotype estimation via emhaplofreq:</xsl:with-param>
+   <xsl:with-param name="title">Haplotype/LD stats via emhaplofreq: <xsl:value-of select="../@loci"/>
+   </xsl:with-param>
+  </xsl:call-template>
+  <xsl:call-template name="newline"/>
+  <xsl:apply-templates/>
+  <xsl:call-template name="newline"/>
+ </xsl:template>
+
+ <xsl:template match="emhaplofreq/group[@mode='haplo']">
+  <xsl:call-template name="header">
+   <xsl:with-param name="title">Haplotype est. for loci: <xsl:value-of select="@loci"/>
+   </xsl:with-param>
+  </xsl:call-template>
+  <xsl:call-template name="newline"/>
+
+  <xsl:call-template name="linesep-fields">
+   <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood"/>
+  </xsl:call-template>
+
+  <!-- until output is XML-fied, simply pass through the unmarked
+  CDATA section -->
+  <xsl:value-of select="haplotypefreq" disable-output-escaping="yes"/>
+  <xsl:call-template name="newline"/>
+ </xsl:template>
+
+ <xsl:template match="emhaplofreq/group[@mode='LD']">
+  <xsl:call-template name="header">
+   <xsl:with-param name="title">LD est. for loci: <xsl:value-of select="@loci"/>
+   </xsl:with-param>
+  </xsl:call-template>
+  <xsl:call-template name="newline"/>
+
+  <xsl:call-template name="linesep-fields">
+   <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood"/>
   </xsl:call-template>
   <xsl:call-template name="newline"/>
 
   <!-- until output is XML-fied, simply pass through the unmarked
   CDATA section -->
-  <xsl:value-of select="." disable-output-escaping="yes"/>
+  <xsl:value-of select="permutation" disable-output-escaping="yes"/>
+  <xsl:call-template name="newline"/>
  </xsl:template>
 
  <!-- END MATCH TEMPLATE FUNCTIONS -->
