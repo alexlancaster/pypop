@@ -114,11 +114,12 @@ if os.path.isdir("CVS"):
 else:
     cvs_version=0
 
+    
+
 # define each extension
 ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
                             ["emhaplofreq/emhaplofreq_wrap.i",
                              "emhaplofreq/emhaplofreq.c"],
-                            depends=["emhaplofreq/emhaplofreq.h"],
                             include_dirs=["emhaplofreq"],
                             define_macros=[('fprintf', 'pyfprintf'),
                                            ('DEBUG', '0'),
@@ -143,7 +144,6 @@ ext_Pvalue = Extension("_Pvaluemodule",
                         "pval/gamma.c",
                         "pval/lgammacor.c",
                         "pval/pnorm.c"],
-                       depends=['pval/Rconfig.h', 'pval/Rmath.h', 'pval/dpq.h', 'pval/nmath.h'],
                        include_dirs=["pval"],
                        define_macros=[('MATHLIB_STANDALONE', '1')]
                        )
@@ -164,7 +164,6 @@ ext_Gthwe = Extension("_Gthwemodule",
                         "gthwe/select_index.c",
                         "gthwe/stamp_time.c",
                         "gthwe/test_switch.c"],
-                      depends=['gthwe/func.h', 'gthwe/hwe.h'],
                       include_dirs=["gthwe"],
                       define_macros=[('fprintf', 'pyfprintf'),
                                      ('XML_OUTPUT', '1'),
@@ -174,6 +173,14 @@ ext_Gthwe = Extension("_Gthwemodule",
                                       'MAX_ALLELE*(MAX_ALLELE+1)/2')
                                      ]
                       )
+
+# check to see if version of Python is > 2.1
+# if so,  use depends
+if sys.version_info[0] == 2 and sys.version_info[1] > 1:
+    ext_Emhaplofreq.depends=["emhaplofreq/emhaplofreq.h"]
+    ext_Pvalue.depends=['pval/Rconfig.h', 'pval/Rmath.h', 'pval/dpq.h', 'pval/nmath.h']
+    ext_Gthwe.depends=['gthwe/func.h', 'gthwe/hwe.h']
+    
 
 # default list of extensions to build
 extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue]
