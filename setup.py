@@ -77,6 +77,11 @@ setup (name = "PyPop",
                                              ('XML_OUTPUT', '1')]
                               ),
 
+                    Extension("_EWSlatkinExactmodule",
+                              ["slatkin-exact/monte-carlo_wrap.i",
+                               "slatkin-exact/monte-carlo.c"],
+                              ),
+
                     Extension("_Gthwemodule",
                               [ "gthwe/gthwe_wrap.i",
                                 "gthwe/hwe.c",
