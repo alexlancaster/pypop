@@ -3,7 +3,6 @@ Copyright (C) 2003, 2004 Regents of the University of California
 
 * Release Notes for PyPop 0.6.0 (public beta) [not released yet]
 ** New features
-
 *** Allow for odd allele counts when processing an allele count data 
     (i.e "semi"-typing).  When PyPop is dealing with data that is
     originally genotyped, the current default is preserved i.e.  we
@@ -41,7 +40,16 @@ Copyright (C) 2003, 2004 Regents of the University of California
     '--enable-PHYLIP' option because the PHYLIP output needs to
     calculate allele frequencies across all populations before
     generating files.
+*** New .ini file option: [HardyWeinbergGuoThompsonMonteCarlo]: add a plain
+     Monte-Carlo (randomization, without the Markov chain test) test
+    for the HardyWeinberg "exact test".  Add code for Guo & Thompson
+    test to distribution (now under GNU GPL).
 ** Bug fixes
+*** HardyWeinbergGuoThompson overall p-value test was numerically unstable 
+    because it attempted to check for equality in greater than or
+    equal to constructs ("<=") which is not reliable in C.  Replaced
+    this with a GNU Scientific Library (GSL) function gsl_fcmp() which
+    compares floats to within an EPSILON (defaults to 1e-6).
 *** Allow HardyWeinbergGuoThompson test to be run if at least two alleles
     present (test was originally failing with a 'too-few-alleles'
     message if there were not at least 3 alleles).  Thanks to Kristie
@@ -53,6 +61,10 @@ Copyright (C) 2003, 2004 Regents of the University of California
 *** Now builds against recent versions of SWIG (no longer stuck at version 
     1.3.9), should be compatible with versions of SWIG > 1.3.10.
     (Tested against SWIG 1.3.21).
+*** Homozygosity module: Prevent math errors by in Slatkin's exact test by 
+    forcing the homozygosity to be positive (only a problem for rare
+    cases, when the result is so close to zero that the floating point
+    algorithms cause a negative result.)
 
 * Release Notes for PyPop 0.5.2 (public beta) 2004-03-09
 ** Bug fixes
