@@ -1,5 +1,6 @@
 <?xml version='1.0'?>
-<!DOCTYPE latexbindings SYSTEM "latex.mapping.dtd" []>
+<!DOCTYPE latexbindings SYSTEM
+ "http://db2latex.sourceforge.net/latex.mapping.dtd">
 
 <latexbindings>
 
