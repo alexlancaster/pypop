@@ -64,7 +64,6 @@ if pypopbinpath == binpath and not hasattr(sys, 'frozen'):
 else:
   versionpath = localversionpath
 
-
 noversion_message = """Could not find VERSION file in %s!
 Your PyPop installation may be broken.  Exiting...""" % versionpath
 
@@ -130,6 +129,7 @@ return for each prompt.
 
 from getopt import getopt, GetoptError
 from ConfigParser import ConfigParser
+from Main import getUserFilenameInput, checkXSLFile
 
 try:
   opts, args =getopt(sys.argv[1:],"lsigc:hdx:o:V", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "outputdir=", "version"])
@@ -177,6 +177,33 @@ for o, v in opts:
 # if neither option is set explicitly, use libxslt python wrappers
 if not (use_libxsltmod or use_FourSuite):
   use_libxsltmod = 1
+
+# heuristics for default 'text.xsl' XML -> text file
+
+if xslFilename:
+  # first, check the command supplied filename first, return canonical
+  # location and abort if it is not found immediately
+  xslFilename = checkXSLFile(xslFilename, abort=1, debug=debugFlag)
+  xslFilenameDefault = None
+
+else:
+  # if not supplied, use heuristics to set a default, heuristics may
+  # return a valid path or None (but the value found here is always
+  # overriden by options in the .ini file)
+
+  # check system if it run from sys.prefix and NOT in a 'frozen' state
+  if pypopbinpath == binpath and not hasattr(sys, 'frozen'):
+    xslFilenameDefault = checkXSLFile('text.xsl', datapath, \
+                                      abort=1, debug=debugFlag)
+  else:
+    # otherwise use heuristics for XSLT transformation file 'text.xsl'
+    # check child directory 'xslt/' first
+    xslFilenameDefault = checkXSLFile('text.xsl', pypopbinpath, \
+                                      'xslt', debug=debugFlag)
+    # if not found  check sibling directory '../xslt/'
+    if xslFilenameDefault == None:
+      xslFilenameDefault = checkXSLFile('text.xsl', pypopbinpath, \
+                                 '../xslt', debug=debugFlag)
 
 ######################################################################
 # END: parse command line options
@@ -233,8 +260,6 @@ else:
 
     print interactive_message
     
-    from Main import getUserFilenameInput
-
     # read user input for both filenames
     configFilename = getUserFilenameInput("config", configFilename)
     fileName = getUserFilenameInput("population", fileName)
@@ -265,6 +290,7 @@ else:
                      use_libxsltmod=use_libxsltmod,
                      use_FourSuite=use_FourSuite,
                      xslFilename=xslFilename,
+                     xslFilenameDefault=xslFilenameDefault,
                      outputDir=outputDir,
                      version=version)
 
