@@ -243,9 +243,9 @@ else:
         os.popen("xsltproc %s %s" % (os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml'))
 
         # generate locus group files
-        for locus in ['A:B','B:C','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
+        for locus in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
             os.popen("xsltproc --stringparam loci %s %s %s" % (locus, os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml'))
 
         # generate Phylip haplotype data
-        for haplo in ['A:B','B:C','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
+        for haplo in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
             os.popen("xsltproc --stringparam loci %s %s %s" % (haplo, os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), 'meta.xml'))
