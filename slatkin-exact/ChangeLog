@@ -1,0 +1,16 @@
+2003-12-08  Alex Lancaster  <alexl@users.sourceforge.net>
+
+	* Makefile (DFLAGS): Add call to link ElectricFence library.
+
+	* monte-carlo.c (free_vector, free_ivector): New functions, to fix
+	memory leak.  Before calling free() we need to shift pointer back
+	to beginning to the originally malloc()'ed memory address for both
+	the double vector and the integer vector because original program
+	returned an pointer with an offset, and free() requires the
+	pointer to match the malloc() call..
+	(main_proc): Use them.  Add free_ivector for r_random variable,
+	there was no free() call for this variable at all previously.
+	(NR_END): Move #define to beginning of file.
+
+	* Start ChangeLog.
+

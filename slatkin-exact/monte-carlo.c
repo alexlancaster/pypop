@@ -51,6 +51,7 @@ find out for yourself.
 
 #define min(x, y)  (((x) < (y)) ? x : y)
 #define KLIMIT 100 /* changed from original 40--seen what HLA-B is up to now? */
+#define NR_END 1
 
 /* function prototypes for Slatkin's original */
 void print_results(int, int, int);
@@ -159,7 +160,9 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
   void generate(int k, int n, int *r, double *ranvec, double **b);
   double **b, **matrix(long nrl, long nrh, long ncl, long nch), *ranvec;
   double *vector(long nl, long nh);
+  void free_vector(double *v, long nl, long nh);
   int *ivector(long nl, long nh);
+  void free_ivector(int *v, long nl, long nh);
   void gsrand(int seed);
 
   double Ftot, Fsq_tot;	/* added by DM */
@@ -238,8 +241,11 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 
   /* no malloc without free */
   free(b);
-  free(ranvec);
   free(Fvalues);
+
+  /* free for vector and ivector needs original dimensions */
+  free_vector(ranvec, 1, k - 1);
+  free_ivector(r_random, 0, k + 1);
 
   return 0;
 }				/*  end, main_proc  */
@@ -347,7 +353,6 @@ double kval(double x, int n)
   return sum;
 }
 
-#define NR_END 1
 
 double **matrix(long nrl, long nrh, long ncl, long nch)
 /* allocate a double matrix with subscript range m[nrl..nrh][ncl..nch] */
@@ -387,7 +392,15 @@ double *vector(long nl, long nh)
   v = (double *)malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(double)));
   if (!v)
     nrerror("allocation failure in vector()");
-  return v - nl + NR_END;
+  return v - nl + NR_END; 
+}
+
+/* free memory for double vector */
+void free_vector(double *v, long nl, long nh)
+{
+  /* shift pointer back to beginning to the */
+  /* originally malloc'ed memory address */
+  free(v + nl - NR_END);
 }
 
 int *ivector(long nl, long nh)
@@ -399,7 +412,15 @@ int *ivector(long nl, long nh)
   v = (int *)malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(int)));
   if (!v)
     nrerror("allocation failure in ivector()");
-  return v - nl + NR_END;
+  return v - nl + NR_END; 
+}
+
+/* free memory for integer vector */
+void free_ivector(int *v, long nl, long nh)
+{
+  /* shift pointer back to beginning to the */
+  /* originally malloc'ed memory address */
+  free(v + nl - NR_END);
 }
 
 void nrerror(char error_text[])
