@@ -87,7 +87,6 @@
     population file, like this:</para>
 
    <screen><command>pypop</command> <filename>Guatemalan.pop</filename></screen>
-
    <para>This assumes two things: that you have a file in your current
     folder called <filename>config.ini</filename> and that you have
     your population file also in the current folder.  You can change
@@ -124,6 +123,37 @@ current directory or in /usr/share/PyPop/config.ini.
    </warning>
 
   </section>
+
+  <section>
+   <title>What happens when you run <application>PyPop</application>?</title>
+
+   <para>The most common situation will be to edit your
+    <filename>config.ini</filename> file to suit your data and then
+    using either the interactive or batch mode described above. If
+    your input configuration file is
+    <filename><replaceable>configfilename</replaceable></filename> and
+    your population file name is
+    <filename><replaceable>popfilename</replaceable>.txt</filename>
+    then the first output will be generated fairly quickly, but your
+    run is not finished until the text output file named
+    <replaceable>popfilename</replaceable>-out.txt has been created. A
+    successful run will produce two output files:
+    <filename><replaceable>popfilename</replaceable>-out.xml</filename>, 
+    <filename><replaceable>popfilename</replaceable>-out.txt</filename>. 
+    A third output file will be created if your data is HLA and you
+    are using the Anthony Nolan HLA filter option to check your input
+    for valid/known HLA alleles:
+    <filename><replaceable>popfilename</replaceable>-filter.xml</filename>).</para>
+
+   <para>A typical run may take anywhere from a couple of minutes to a
+    couple of hours, depending on how large your data set is and who
+    else is using the system at the same time.  Note that performing
+    the <literal>allPairwiseLDWithPermu</literal> test may take
+    several <emphasis role="bold">days</emphasis> if you have highly
+    polymorphic loci in your data set.</para>
+
+  </section>
+
  </section>
 
  <section id="guide-usage-datafile">
@@ -358,7 +388,7 @@ dqa1  count
     lines have been omitted in the above example for clarity).  For
     more advanced options see <xref linkend="config-advanced"/>.</para>
 
-  <figure>
+  <example id="config-minimal-example">
    <title>Minimal <filename>config.ini</filename> file</title>
   <programlisting>
 [General]                  <co id="general"/>
@@ -389,7 +419,7 @@ numReplicates=10000
 [Emhaplofreq]              <co id="emhaplofreq"/>
 allPairwiseLD=1
 allPairwiseLDWithPermu=0></programlisting>
-  </figure>
+  </example>
    
   <calloutlist>
     <title>Configuration file sections</title>
@@ -799,33 +829,6 @@ allPairwiseLDWithPermu=0></programlisting>
     <emphasis role="bold">that</emphasis>  you have changed them.</para>
 
   </section>
-
- </section>
-
- <section>
-  <title>Processing your data</title>
-
-  <para>The most common situation will be to edit your config.ini file to
-   suit your data and then run like this:</para>
-
-  <para><command>pypop</command> <option>-c</option> <filename><replaceable>configfilename</replaceable></filename> <filename><replaceable>popfilename</replaceable>.txt</filename></para>
-
-  <para>The first output will be generated fairly quickly, but your
-   run is not finished until the text output file named
-   <replaceable>popfilename</replaceable>-out.txt has been created.  A
-   successful run will produce two output files:
-   <filename><replaceable>popfilename</replaceable>-out.xml</filename>, 
-   <filename><replaceable>popfilename</replaceable>-out.txt</filename>.
-   A third output file will be created if your data is HLA and you are
-   using the Anthony Nolan HLA filter option to check your input for
-   valid/known HLA alleles:
-   <filename><replaceable>popfilename</replaceable>-filter.xml</filename>).</para>
-
-  <para>A typical run may take anywhere from a couple of minutes to a
-   couple of hours, depending on how large your data set is and who
-   else is using the system at the same time.  Note that performing
-   the <literal>allPairwiseLDWithPermu</literal> test may take several
-   DAYS if you have highly polymorphic loci in your data set.</para>
 
  </section>
 
