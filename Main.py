@@ -45,54 +45,9 @@ from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin
 from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
 from ConfigParser import ConfigParser, NoOptionError
-from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix
+from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix, checkXSLFile, getUserFilenameInput
 from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
 from RandomBinning import RandomBinsForHomozygosity
-
-def checkXSLFile(xslFilename,
-                 path='',
-                 subdir='',
-                 abort=None,
-                 debug=None,
-                 msg=''):
-    if debug:
-        print "path=%s, subdir=%s, xslFilename=%s xsl path" % (path, subdir, xslFilename)
-
-    # generate a full path to check
-    checkPath = os.path.realpath(os.path.join(path, subdir, xslFilename))
-    if os.path.isfile(checkPath):
-        return checkPath
-    else:
-        if abort:
-            sys.exit("Can't find XSL: %s %s" % (checkPath, msg))
-        else:
-            return None
-    
-def getUserFilenameInput(prompt, filename):
-    """Read user input for a filename, check its existence, continue
-    requesting input until a valid filename is entered."""
-
-    nofile = 1
-    while nofile:
-      tempFilename = raw_input("Please enter %s filename [%s]: " % (prompt, filename))
-
-      # if we accept default, still check that file still exists
-      if tempFilename == '':
-          if os.path.isfile(filename):
-              nofile = 0
-          else:
-              print "File '%s' does not exist" % filename
-      else:
-          # if we don't accept default, check that file exists and use
-          # the user input as the filename
-          if os.path.isfile(tempFilename):
-              nofile = 0
-              filename = tempFilename
-          else:
-              # otherwise return an error
-              print "File '%s' does not exist" % tempFilename
-      
-    return filename
 
 
 def getConfigInstance(configFilename = None,
