@@ -43,7 +43,7 @@ class AlleleFreq:
             alleleTable = {}
             total = 0
             for line in self.sampleDataLines:
-                fields = string.split(line, '\t')
+                fields = string.split(line, self.separator)
 
                 allele1 = fields[col1]
                 if self.untypedAllele != allele1:
