@@ -68,8 +68,10 @@ double get_var_homozygosity() { return Var_F; }
 
 int main(int argc, char **argv) {
 	int k, n, maxrep, i;
+	long start_time, finish_time, net_time;
 	static int r_obs[KLIMIT];
 	void main_proc(int r_obs[], int k, int n, int maxrep);
+	void print_results(int n, int k, int maxrep);
 
 	/* = {0, 40, 3, 3, 1, 0}; */
 
@@ -104,7 +106,19 @@ int main(int argc, char **argv) {
 	}
 	r_obs[k+1] = 0;
 
+	start_time = time(NULL);
+
 	main_proc(r_obs, k, n, maxrep);
+
+	finish_time = time(NULL);
+	net_time = time(NULL) - start_time;
+
+	print_results(n, k, maxrep);
+
+	if (net_time < 60)
+		printf("Program took %ld seconds\n", net_time);
+	else
+		printf("Program took %4.2f minutes\n", net_time / 60.0);
 
 	/* test call-backs 
 	   printf("%g, %g, %g, %g, %g\n", 
@@ -129,13 +143,10 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 	double E_obs;
 	void print_config(int k, int *r);
 	void generate(int k, int n, int *r, double *ranvec, double **b);
-	long start_time, finish_time, net_time;
 	double **b, **matrix(long nrl, long nrh, long ncl, long nch), *ranvec;
 	double *vector(long nl, long nh);
 	int *ivector(long nl, long nh);
 	void gsrand(int seed);
-
-	start_time = time(NULL);
 
 	gsrand(initseed);
 
@@ -157,8 +168,7 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 	F_obs = F(k, n, r_obs);
 	E_obs = ewens_stat(r_obs);
 	theta = theta_est(k, n);
-	printf("\nn = %d, k = %d, theta = %g, F = %g, maxrep = %d\n",
-		n, k, theta, F_obs, maxrep);
+
 	Ecount = 0;
 	Fcount = 0;
 	for (repno=1; repno<=maxrep; repno++)  {
@@ -177,28 +187,27 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
 		}
 	P_E = (double) Ecount / maxrep;
 	P_H = (double) Fcount / maxrep;
-	printf("P_E(approx) = %g\nP_H(approx) = %g\n", P_E, P_H);
 
-/* begin printing the expected F, and its variance. DM */
+/* begin calculating the expected F, and its variance. DM, AKL */
 	
 	E_F = (double) Ftot / maxrep;
-	printf("E(F) = %g\n", E_F);
-	
+
 	Var_F = (double) ((Fsq_tot / maxrep) - 
 			  ((Ftot / maxrep)*(Ftot / maxrep)));
-	printf("Var(F) = %g\n",  Var_F);
 
-/* end printing the expected F, and its variance. DM */
+/* end calculating the expected F, and its variance. DM, AKL */
 	
-  finish_time = time(NULL);
-	net_time = time(NULL) - start_time;
-	if (net_time < 60)
-		printf("Program took %ld seconds\n", net_time);
-	else
-		printf("Program took %4.2f minutes\n", net_time / 60.0);
-
 	return 0;
   }  /*  end, main_proc  */
+
+void print_results(int n, int k, int maxrep) {
+
+	printf("\nn = %d, k = %d, theta = %g, F = %g, maxrep = %d\n",
+		n, k, theta, F_obs, maxrep);
+	printf("P_E(approx) = %g\nP_H(approx) = %g\n", P_E, P_H);
+	printf("E(F) = %g\n", E_F);
+	printf("Var(F) = %g\n",  Var_F);
+}
 
 void generate(int k, int n, int *r, double *ranvec, double **b)  {  
 	double unif(), cum;
