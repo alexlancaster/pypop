@@ -9,19 +9,19 @@ class AlleleFreq:
                  debug=0):
         """Constructor for AlleleFreq object.
 
-        locus_map: Accepts a map keyed by locus names names holding a
+        - locus_map: Accepts a map keyed by locus names names holding a
         tuple of column numbers.
 
-        sample_data:  Accepts a list of lines with individual sample data.
+        - sample_data:  Accepts a list of lines with individual sample data.
 
-        allele_designator: The first character of the key which determines
+        - allele_designator: The first character of the key which determines
         whether this column contains allele data.  Defaults to `*'
         
-        untyped_allele:  The designator for an untyped locus.  Defaults to
+        - untyped_allele:  The designator for an untyped locus.  Defaults to
         `****'.
 
-        debug:  Defaults to no debugging, set debug=1 in call to constructor
-        if debugging is desired"""
+        - debug:  Defaults to no debugging, set debug=1 in call to constructor
+        if debugging is desired."""
         self.locus_map=locus_map
         self.allele_designator=allele_designator
         self.sample_data=sample_data
@@ -66,7 +66,9 @@ class AlleleFreq:
 
     def print_allelefreq(self):
         """Print out the frequency table for each locus, with totals of
-        allele and total counts in parentheses"""
+        allele and total counts in parentheses.
+
+        **Note**: This is strictly a quick & dirty function for testing!!!"""
         for locus in self.freqcount.keys():
             print
             print "Locus:", locus
