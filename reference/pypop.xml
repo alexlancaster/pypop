@@ -59,22 +59,23 @@
  <section>
   <title>Introduction</title> 
 
-  <para>Several major factors account for variation in the human
-   genome: <emphasis>mutation,</emphasis> <emphasis>random genetic
-   drift</emphasis>, <emphasis>migration</emphasis> (or <emphasis>gene
-   flow</emphasis>) and <emphasis>natural selection</emphasis>.
-   Understanding of the relative roles of these evolutionary forces
-   are important for the study of both complex and Mendelian diseases,
-   since they can affect our ability to identify and localize disease
-   predisposing variants and our power to recognize underlying
-   functional mechanisms through which predisposing genes can become
-   relatively common in a population.  In particular, genetic systems
-   which are highly polymorphic can implicate natural selection as an
-   important factor in maintaining variation.  Genetic systems such as
-   the Human Leukocyte Antigen (HLA) region (the Major
-   Histocompatibility [MHC] region for humans) are highly polymorphic.
-   Six classical class I and II loci each contain up to 399 alleles
-   <xref linkend="Rhodes:Trowsdale:1999"/>.</para>
+  <para condition="psb2003">Several major factors account for
+   variation in the human genome: <emphasis>mutation,</emphasis>
+   <emphasis>random genetic drift</emphasis>,
+   <emphasis>migration</emphasis> (or <emphasis>gene flow</emphasis>)
+   and <emphasis>natural selection</emphasis>.  Understanding of the
+   relative roles of these evolutionary forces are important for the
+   study of both complex and Mendelian diseases, since they can affect
+   our ability to identify and localize disease predisposing variants
+   and our power to recognize underlying functional mechanisms through
+   which predisposing genes can become relatively common in a
+   population.  In particular, genetic systems which are highly
+   polymorphic can implicate natural selection as an important factor
+   in maintaining variation.  Genetic systems such as the Human
+   Leukocyte Antigen (HLA) region (the Major Histocompatibility [MHC]
+   region for humans) are highly polymorphic.  Six classical class I
+   and II loci each contain up to 399 alleles <xref
+   linkend="Rhodes:Trowsdale:1999"/>.</para>
 
   <para>Several basic population genetics statistics from multilocus
    genotype data can help us understand these patterns of variation,
@@ -139,7 +140,7 @@
 
  </section>
 
- <section>
+ <section condition="psb2003">
   <title>Population genetic tests and statistics</title>
 
    <para>The particular cross-population statistics we wished to
