@@ -1,6 +1,7 @@
 #! /usr/bin/env python
 import sys
 from ParseFile import ParseGenotypeFile
+from Utils import XMLOutputStream, TextOutputStream
 
 # read in IHWG and parse data file from first argument to created
 # object
@@ -10,46 +11,27 @@ parsefile = ParseGenotypeFile (sys.argv[1],
                                untypedAllele='****',
                                debug=0)
 
-# print out summary info for population
-popData = parsefile.getPopData()
-for summary in popData.keys():
-    print "%20s: %s" % (summary, popData[summary])
+# serialize summary info for population
+parsefile.serializeMetadataTo(TextOutputStream(sys.stdout))
+
+# serialize the allele count in text form to stdout
+parsefile.serializeAlleleCountTo(TextOutputStream(sys.stdout))
+
+# serialize summary info for population in XML
+parsefile.serializeMetadataTo(XMLOutputStream(sys.stdout))
+
+# serialize the allele count in XML form to stdout
+parsefile.serializeAlleleCountTo(XMLOutputStream(sys.stdout))
 
 # retrieve the allele frequency data
-freqcount = parsefile.getAlleleCount()
+#freqcount = parsefile.getAlleleCount()
 
-# quick & dirty print output of the allele frequency table for each
-# locus, with totals of allele and total counts in parentheses.
-for locus in freqcount.keys():
-    print
-    print "Locus:", locus
-    print "======"
-    print
-    alleleTable, total = freqcount[locus]
-    totalFreq = 0
-    alleles = alleleTable.keys()
-    alleles.sort()
-    for allele in alleles:
-        freq = float(alleleTable[allele])/float(total)
-        totalFreq += freq
-        print "%s :%0.5f (%d)" % (allele, freq, alleleTable[allele])
-    print "Total freq: %0.5f (%d)" % (totalFreq, total)
-
-print "====================================================="
-
-for locus in parsefile.getLocusList():
-    print
-    print "Locus: ", locus
-    print
-    print parsefile.getLocusData(locus)
-    print
-    print "Allele Counts for: ", locus
-    print
-    print parsefile.getAlleleCountAt(locus)
-
-    
-# read in the file that contains the desired output fields
-#outputSample = parsefile.dbFieldsRead('ihwg-output-fields.dat')
-
-# write it
-#parsefile.genSampleOutput(outputSample)
+#for locus in parsefile.getLocusList():
+#    print
+#     print "Locus: ", locus
+#     print
+#     print parsefile.getLocusDataAt(locus)
+#     print
+#     print "Allele Counts for: ", locus
+#     print
+#     print parsefile.getAlleleCountAt(locus)
