@@ -110,7 +110,7 @@
 
  <!-- prints a newline -->
  <xsl:template name="newline"><xsl:text>
-  </xsl:text></xsl:template>
+</xsl:text></xsl:template>
 
  <!-- separator -->
  <xsl:template name="separator">
