@@ -10,7 +10,7 @@
 /* #define MAX_GENOS   20000 */   
 /* #define MAX_HAPLOS  30000 */   
 #define MAX_GENOS   20000    /* RS changed from 64*MAX_ROWS; 5000 in HAPLO */
-#define MAX_HAPLOS  10000    /* RS added and changed declaration in main_proc; 1500 in HAPLO */
+#define MAX_HAPLOS  30000    /* RS added and changed declaration in main_proc; 1500 in HAPLO */
  
 #define CRITERION   0.000001 
 #define MAX_ITER    100      /* RS changed from 200 */
