@@ -5,15 +5,18 @@
 - 'ParseFile' is a base class which has most of the common functionality
 for reading files.
 
-- 'ParseGenotype' is a subclass of 'ParseFile' that deals with files
-that consist specifically of data with individual genotyped for one or
-more loci.
+- 'ParseGenotypeFile' is a subclass of 'ParseFile' that deals with
+files that consist specifically of data with individual genotyped for
+one or more loci.
 
 - 'ParseAlleleCount' is another subclass of 'ParseFile' that deals
 with files consisting of allele counts across a whole population.
 
 - 'HardyWeinberg' is a class that calculates Hardy-Weinberg
 statistics given genotype data for a single locus.
+
+- 'HardyWeinbergGuoThompson' a subclass of HardyWeinberg that uses the
+Guo & Thompson algorithm for calculating statistics.
 
 - 'Haplo' is an abstract base class for estimating haplotypes given
 genotype data.
@@ -40,18 +43,45 @@ allele count case).
 
 **TODO**
 
-- Implement 'ParseAllelecount'.
+2001-09-13: 
 
-- Finish cleaning up 'HardyWeinberg'.
+- "getopt-ify" emphaplofreq so that all currently hardcoded parameters
+  can be passed in via command-line options.  (alex)
+
+- Add parameters for Guo and Thompson into "config.ini".  (alex)
+
+- Make number of significant figures reported be a global parameter
+  set in "config.ini" (e.g. "%.4f") (alex)
+
+2001-07-31:
+
+- Finish cleaning up 'HardyWeinberg'. (alex/mpn)
 
 - Implement a 'PopGenStats' module?  Move some 'population-level'
-  statistics into this module.
+  statistics into this module. (alex)
 
-- Rationalize naming conventions.
+More long-term:
 
+2001-09-13:
+
+- Wrap emphaplofreq with SWIG, so that it can be called directly as a
+  Python object.  (alex)
+
+- Abstract the configurator?  [use reflection to construct objects, so
+  that constructors don't have to be hard-coded.]  (alex)
+
+2001-07-31:
+
+- Rationalize naming conventions. (?)
+
+- Implement 'ParseAlleleCount'. (?)
 
 **NOTE**: When editing this 'README' file, it will help to adhere to
 the "structured text
 conventions":http://www.python.org/sigs/doc-sig/stext.html since
 Happydoc uses this information to format output documentation
 (including HTML) nicely.
+
+Local variables:
+mode: text
+End:
