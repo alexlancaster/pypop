@@ -6,6 +6,193 @@
  
  <warning><para>Bibliography is incomplete, still
    converting...</para></warning>
+
+ <!-- merged from instructions.xml -->
+
+ <biblioentry id="Hartl:Clark">
+  <authorgroup>
+   <author>
+    <firstname>D</firstname>
+    <surname>Hartl</surname>
+   </author>
+   <author>
+    <firstname>A</firstname>
+    <surname>Clark</surname>
+   </author>
+  </authorgroup>
+  <citetitle pubwork="book">Principles of Population Genetics</citetitle>
+  <edition>Third Edition</edition>
+  <publisher>
+   <publishername>Sinauer</publishername>
+   <address><city>Sunderland</city></address>
+  </publisher>
+ </biblioentry>
+
+ <biblioentry id="Hedrick:1999">
+  <author>
+   <firstname>P</firstname>
+   <surname>Hedrick</surname>
+  </author>
+  <citetitle pubwork="book">Genetics of Populations</citetitle>
+  <pubdate>1999</pubdate>
+  <edition>Second Edition</edition>
+  <publisher>
+   <publishername>Jones and Bartlett</publishername>
+   <address><city>Sunbury</city> <state>MA</state></address>
+  </publisher>
+ </biblioentry>
+
+ <!-- merged from PyPop bibliography -->
+ <biblioentry id="Schneider:2000" xreflabel="Schneider:2000">
+  <authorgroup>
+   <author>
+    <firstname>S.</firstname>
+    <surname>Schneider</surname>
+   </author>
+   <author>
+    <firstname>D.</firstname>
+    <surname>Roessli</surname>
+   </author>
+   <author>
+    <firstname>L.</firstname>
+    <surname>Excoffier</surname>
+    </author>
+  </authorgroup>
+  <pubdate>2000</pubdate>
+  
+  <citetitle pubwork="article">Arlequin: A software for population genetics data analysis.
+   <ulink
+    url="http://lgb.unige.ch/arlequin/">http://lgb.unige.ch/arlequin/</ulink></citetitle>
+  
+  <releaseinfo>Ver 2.000.</releaseinfo>
+  <publisher>
+   <publishername>Genetics and Biometry Lab, Dept. of Anthropology,
+    University of Geneva</publishername></publisher>
+  
+ </biblioentry>
+ 
+ <biblioentry id="Guo:Thompson:1992" xreflabel="Guo \&amp; Thompson 1992">
+  <authorgroup>
+   <author>
+    <firstname>SW</firstname>
+    <surname>Guo</surname>
+   </author>
+   <author>
+    <firstname>EA</firstname>
+    <surname>Thompson</surname>
+   </author>
+  </authorgroup>
+  <pubdate>1992</pubdate>
+  <citetitle pubwork="article">Performing the exact test of Hardy-Weinberg proportion for multiple alleles</citetitle> 
+  <volumenum>48</volumenum>
+  <pagenums>361-72</pagenums>
+  <citetitle pubwork="journal">Biometrics</citetitle>
+ </biblioentry>
+ 
+ <biblioentry id="Rhodes:Trowsdale:1999" xreflabel="Rhodes \&amp; Trowsdale 1999">
+  <authorgroup>
+   <author>
+    <firstname>D</firstname>
+    <othername>A</othername>
+    <surname>Rhodes</surname>
+   </author>
+   <author>
+    <firstname>J</firstname>
+    <surname>Trowsdale</surname>
+   </author>
+  </authorgroup>
+  <pubdate>1999</pubdate>
+  <citetitle pubwork="article">Genetics and molecular genetics of the MHC</citetitle>
+  <volumenum>1</volumenum>
+  <issuenum>1</issuenum>
+  <pagenums>21-31</pagenums>
+  <citetitle pubwork="journal">Rev. Immunogenetics</citetitle>
+  
+ </biblioentry>
+ 
+ <biblioentry id="IMGT" xreflabel="IMGT">
+  <citetitle pubwork="refentry">IMGT/HLA Database <ulink url="http://www.ebi.ac.uk/imgt/hla/">http://www.ebi.ac.uk/imgt/hla/</ulink></citetitle>
+ </biblioentry>
+ 
+ <biblioentry id="SWIG" xreflabel="SWIG">
+  <citetitle pubwork="refentry">Simple Wrapper Interface Generator <ulink url="http://www.swig.org/">http://www.swig.org/</ulink></citetitle>
+ </biblioentry>
+ 
+ 
+ <biblioentry id="OSI" xreflabel="OSI">
+  <citetitle pubwork="refentry">Open Source Initiative <ulink url="http://www.opensource.org/">http://www.opensource.org/</ulink></citetitle>
+ </biblioentry>
+ 
+ <biblioentry id="Numpy" xreflabel="Numpy">
+  <citetitle pubwork="refentry">Numeric Python <ulink
+    url="http://numpy.sf.net/">http://numpy.sf.net/</ulink></citetitle>
+ </biblioentry>
+ 
+ <biblioentry id="Python" xreflabel="Python">
+  <citetitle pubwork="refentry">Python <ulink
+    url="http://www.python.org/">http://www.python.org/</ulink></citetitle>
+ </biblioentry>
+ 
+ <biblioentry id="libxslt" xreflabel="libxslt">
+  <citetitle pubwork="refentry">libxslt, XSLT C library for GNOME <ulink
+    url="http://xmlsoft.org/">http://xmlsoft.org/</ulink></citetitle>
+ </biblioentry>
+
+ <biblioentry id="GNOME" xreflabel="GNOME">
+  <citetitle pubwork="refentry">GNOME Project <ulink
+    url="http://www.gnome.org/">http://www.gnome.org/</ulink></citetitle>
+ </biblioentry>
+ 
+  <biblioentry id="XML" xreflabel="XML">
+  <citetitle pubwork="refentry">eXtensible Markup Language <ulink url="http://www.w3.org/XML">http://www.w3.org/XML</ulink></citetitle>
+ </biblioentry>
+ 
+  <biblioentry id="Felsenstein:1989">
+  <author>
+   <firstname>J.</firstname>
+   <surname>Felsenstein</surname>
+  </author>
+  <pubdate>1989</pubdate>
+  <citetitle pubwork="article">PHYLIP Phylogeny Inference Package (Version 3.2) <ulink url="http://evolution.genetics.washington.edu/phylip.html">http://evolution.genetics.washington.edu/phylip.html</ulink></citetitle>
+  <citetitle pubwork="journal">Cladistics</citetitle>
+  <volumenum>5</volumenum>
+  <pagenums>164-166</pagenums>
+ </biblioentry>
+ 
+ <biblioentry id="Ross:Gentleman:1996" xreflabel="Ross \&amp; Gentleman 1996">
+   <authorgroup>
+   <author>
+    <firstname>Ross</firstname>
+    <surname>Ihaka</surname>
+   </author>
+   <author>
+    <firstname>Robert</firstname>
+    <surname>Gentleman</surname>
+   </author>
+  </authorgroup>
+  <citetitle pubwork="article">R: A Language for Data Analysis and
+   Graphics <ulink
+    url="http://www.r-project.org/">http://www.r-project.org/</ulink></citetitle>
+  <pubdate>1996</pubdate>
+  
+  <citetitle pubwork="journal">Journal of Computational and Graphical
+   Statistics</citetitle>
+  <volumenum>5</volumenum>
+  <issuenum>3</issuenum>
+  <pagenums>299-314</pagenums>
+ </biblioentry>
+ 
+ <biblioentry id="dbMHC">
+  <citetitle pubwork="refentry">dbMHC <ulink
+    url="http://www.ncbi.nlm.nih.gov/IEB/Research/GVWG/MHC/">http://www.ncbi.nlm.nih.gov/IEB/Research/GVWG/MHC/</ulink></citetitle>
+ </biblioentry>
+ 
+ <biblioentry id="Genepop">
+  <citetitle pubwork="refentry">Genepop <ulink
+    url="ftp://ftp.cefe.cnrs-mop.fr/genepop">ftp://ftp.cefe.cnrs-mop.fr/genepop</ulink></citetitle>
+ </biblioentry>
+ 
+ <!-- original PSB 2002 list starts here -->
  
  <biblioentry id="Barcellos:1997a" xreflabel="Barcellos et al. 1997a">
   <biblioset relation="article">
