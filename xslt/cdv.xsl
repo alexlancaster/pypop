@@ -82,7 +82,7 @@ MODIFICATIONS.
    <xsl:variable name="allele-name13" select="concat($allele1,':',$allele3,':')"/>
    <xsl:variable name="allele-name23" select="concat($allele2,':',$allele3,':')"/>
 
-   <xsl:value-of select="$locus1"/>
+   <xsl:value-of select="$locus1"/>  <!-- output the 3-locus haplotype -->
    <xsl:text>*</xsl:text>
    <xsl:value-of select="$allele1"/>
    <xsl:text> </xsl:text>
@@ -93,9 +93,8 @@ MODIFICATIONS.
    <xsl:value-of select="$locus3"/>
    <xsl:text>*</xsl:text>
    <xsl:value-of select="$allele3"/>
-
-   <xsl:text>:   </xsl:text>
-   <xsl:value-of select="frequency"/>
+   <xsl:text>   </xsl:text>
+   <xsl:value-of select="frequency"/> <!-- followed by its frequency -->
 
    <xsl:call-template name="newline"/>
 
