@@ -73,6 +73,7 @@ specifiedConfigFile = 0
 debugFlag = 0
 interactiveFlag = 0
 guiFlag = 0
+xslFilename = None
 
 # parse options
 for o, v in opts:
@@ -163,7 +164,7 @@ return for each prompt.
     configFilename = getUserFilenameInput("config", configFilename)
     fileName = getUserFilenameInput("population", fileName)
 
-    print "PyPop is running..."
+    print "PyPop is processing %s ..." % fileName
     
   else:   
     # non-interactive mode: run in 'batch' mode
@@ -177,7 +178,6 @@ return for each prompt.
 
   # parse out the parts of the filename
   baseFileName = os.path.basename(fileName)
-  prefixFileName = string.split(baseFileName, ".")[0]
 
   from Main import Main, getConfigInstance
 
@@ -192,7 +192,12 @@ return for each prompt.
                      xslFilename=xslFilename)
 
   if interactiveFlag:
-    print "PyPop run complete"
+
+    print "PyPop run complete!"
+    print "XML output can be found in: " + \
+          application.getXmlOutFilename()
+    print "Plain text output can be found in: " + \
+          application.getTxtOutFilename()
 
     # update .pypoprc file
 
