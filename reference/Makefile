@@ -67,6 +67,10 @@ eqns: tex-math-equations.dvi
 %-anthro-profile.xml: %.xml
 	$(XSLTPROC) --stringparam profile.condition anthro-book --xinclude -o $@ profile.xsl $<
 
+# generated a sorted <bibliography> where needed (for DSSSL)
+%-sorted.xml: %.xml
+	$(XSLTPROC) -o $@ alex-sort-biblio.xsl $<
+
 # rules to produce final version of HTML, FO, PDF etc.
 
 %.html: %.xml html.xsl citation.xsl $(EXTRA_XML_SOURCE) color
@@ -93,7 +97,7 @@ eqns: tex-math-equations.dvi
 %.jpg: %.ps
 	convert -crop 0x0 -rotate 90 $< $@
 
-%.rtf: %.xml color
+%.rtf: %.xml color biblio-sorted.xml
 	(cat /usr/share/sgml/xml.dcl; xmllint --xinclude $<)| $(JADE) -V rtf-backend -t rtf -V biblio-filter-used -V biblio-citation-check -o $@ -d print.dsl
 
 # phony targets for generating images
