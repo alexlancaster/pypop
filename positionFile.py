@@ -15,6 +15,7 @@
 import sys
 import re
 import string
+import deletedAlleles
 
 class positionFile:
 
@@ -38,6 +39,10 @@ class positionFile:
     # locus : a, c, b, dra, drb1, dqa1, dqb1, dpa1, dpb1
     self.data = {}
 
+    # self.substitute - key : allele that needs to be replaced by another allele
+    # store : allele name of the replacement allele
+    self.substitute = {}
+    
     # self.locus_pos - key : locus_1 or locus_2, store : position in line
     self.locus_pos = {
       "a_1" : 2,
@@ -157,7 +162,7 @@ class positionFile:
   def findSequences(self):
     """obtain sequence from the sequence file as indicated in self.dataFile
     """
-    #	self.sequences - key : allele name, store : sequence
+    #	self.sequences - key : allele name only ie 0101, store : sequence
     self.sequences = {}
     # self.alleles - array of allele names in the sequence file
     self.alleles = []
@@ -268,12 +273,10 @@ class positionFile:
     return self.loci_used == []
 
 
-  def checkAlleles(self):
+  def checkAlleles(self, file):
     """checks the input data to determine if sequence exists for the alleles
     raises StandardError if it does not
     """
-
-    self.substitute = {}
 
     # add all "*" sequence for "****" allele
     seq = ""
@@ -284,6 +287,24 @@ class positionFile:
     seq = seq + "\n"
     self.sequences["****"] = seq
     
+    # some alleles have names that have been changed based on the anthony nolan
+    # website
+    deletedAlleles(file)
+    deletedAlleles.putDictionary()
+    deletedAlleles.removeNone()
+
+    # store the deleted alleles and the replacement names in self.substitute
+    for each in deletedAlleles.replace.keys():
+      c = each.index('*')
+      l = each[0:c]
+      locus = l.lower()
+      if locus == self.locus:
+        c += 1
+        a_allele = each[c:]
+        r = deletedAlleles.replace[each]
+        rep_allele = r[c:]
+        self.substitute[a_allele] = rep_allele
+
     for pos in self.pos:
       alleles_inFile = self.data[pos]
       for name in self.ids:
