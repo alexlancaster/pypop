@@ -126,7 +126,8 @@ class Main:
                  use_libxsltmod=1,
                  use_FourSuite=0,
                  thread=None,
-                 outputDir=None):
+                 outputDir=None,
+                 version=None):
 
         self.config = config
         self.debugFlag = debugFlag
@@ -136,6 +137,7 @@ class Main:
         self.use_FourSuite = use_FourSuite
         self.xslFilename = xslFilename
         self.outputDir = outputDir
+        self.version = version
 
         # for threading to work
         self.thread = thread
@@ -230,23 +232,8 @@ class Main:
             for option in self.config.options(section):
               print " ", option, "=", self.config.get(section, option)
 
-        # if 'frozen' look for VERSION info in current directory
-        if hasattr(sys, 'frozen'):
-          versionpath = 'VERSION'
-        # otherwise look in installed self.datapath, by default
-        else:
-          versionpath = os.path.join(self.datapath, 'VERSION')
 
-        # bein a development version trumps all..
-        if os.path.isfile('DEVEL_VERSION'):
-          version = 'DEVEL_VERSION'
-        elif os.path.isfile(versionpath):
-          f = open(versionpath)
-          version = string.strip(f.readline())
-        else:
-          sys.exit("Could not find a version!  Exiting...")
-
-        altpath = os.path.join(self.datapath, 'self.config.ini')
+        altpath = os.path.join(self.datapath, 'config.ini')
 
 
         # check to see what kind of file we are parsing
@@ -396,7 +383,7 @@ class Main:
         # more meta-data
         self.xmlStream.tagContents('filename', baseFileName)
         self.xmlStream.writeln()
-        self.xmlStream.tagContents('pypop-version', version)
+        self.xmlStream.tagContents('pypop-version', self.version)
         self.xmlStream.writeln()
 
         # serialize summary info for population in XML (common)
