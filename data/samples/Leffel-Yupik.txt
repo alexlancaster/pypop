@@ -1,7 +1,6 @@
 Lab Code      	Typing method	Ethnic group	Continent of Origin	Collection site	 Latitude	Longitude														
 USALEF	IHWG RLS/SSOP	Yupik Eskimo	North America	South Alaska	60 Deg N	160 Deg W														
-
-Population nam	Sample identifier	HLA-A	HLA-A(2)	HLA-C	HLA-C(2)	HLA-B	HLA-B2	DRA	DRA(2)	DRB1	DRB1(2)	DQA1	DQA1(2)	DQB1	DQB1(2)	DPA1	DPA1(2)	DPB1	DPB1(2)	
+Population name	Sample identifier	HLA-A	HLA-A(2)	HLA-C	HLA-C(2)	HLA-B	HLA-B(2)	DRA	DRA(2)	DRB1	DRB1(2)	DQA1	DQA1(2)	DQB1	DQB1(2)	DPA1	DPA1(2)	DPB1	DPB1(2)	
 EskiYupik	AN002	3001	6801	0102	0702	0702	2705	****	****	0101	1501	****	****	0501	0602	****	****	****	****	
 EskiYupik	AN003	0201	2402	0401	1502	3512	51011	****	****	0401	08021	****	****	0301	0402	****	****	****	****	
 EskiYupik	AN004	0201	0206	0304	0401	3501	4002	****	****	1402	****	****	****	0301	****	****	****	****	****	
