@@ -3,6 +3,7 @@ include AUTHORS
 include INSTALL
 include COPYING
 include VERSION
+include NEWS
 include pypop.py
 include popmeta.py
 include MANIFEST.in

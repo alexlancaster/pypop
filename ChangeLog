@@ -1,5 +1,13 @@
 2003-12-19  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
+	* standalone.spec: Include NEWS and ChangeLog files in standalone
+	binary.
+
+	* MANIFEST.in: Add NEWS to manifest.
+
+	* NEWS: New file. Contains "Release Notes": contains user-visible
+	changes to PyPop.
+
 	* ParseFile.py (ParseGenotypeFile._genInternalMaps): Fix logic
 	when checking for the existence of a column for the population
 	name, test for the presence of "None", because if 'popNameCol' is
