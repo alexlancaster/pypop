@@ -64,6 +64,75 @@
  </biblioentry>
 
  <!-- merged from PyPop bibliography -->
+
+
+ <biblioentry id="Lancaster:etal:2003">
+  <biblioset relation="article">
+   <authorgroup>
+    <author role="uc">
+     <firstname>Alex</firstname>
+     <surname>Lancaster</surname>
+    </author>
+
+   <author role="uc">
+    <firstname>Mark</firstname>
+    <othername>P.</othername>
+    <surname>Nelson</surname>
+   </author>
+
+   <author role="uv">
+    <firstname>Richard</firstname>
+    <othername>M.</othername>
+    <surname>Single</surname>
+   </author>
+
+   <author role="uc">
+    <firstname>Diogo</firstname>
+    <surname>Meyer</surname>
+   </author>
+
+   <author role="uc">
+    <firstname>Glenys</firstname>
+    <surname>Thomson</surname>
+   </author>
+  </authorgroup>
+   
+   <pubdate>2003</pubdate>
+   <edition>(in press)</edition>
+
+   <citetitle>PyPop: a software framework for population genomics: analyzing
+    large-scale multi-locus genotype data</citetitle>
+
+  </biblioset>
+
+  <biblioset relation="conference">
+   <confgroup>
+    <conftitle>Pacific Symposium on Biocomputing</conftitle>
+    <confdates>2003</confdates>
+   </confgroup>
+  </biblioset>
+
+ </biblioentry>
+
+ <biblioentry>
+  <authorgroup>
+   <author>
+    <firstname>Alex</firstname>
+    <surname>Schneider</surname>
+   </author>
+   <author>
+    <firstname>D.</firstname>
+    <surname>Roessli</surname>
+   </author>
+   <author>
+    <firstname>L.</firstname>
+    <surname>Excoffier</surname>
+    </author>
+  </authorgroup>
+  <pubdate>2000</pubdate>
+
+ </biblioentry>
+
  <biblioentry id="Schneider:2000">
   <authorgroup>
    <author>
