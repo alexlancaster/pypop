@@ -37,6 +37,26 @@
 
  <xsl:param name="profiling-highlighting" select="0"/>
 
+ <xsl:param name="generate.toc">
+appendix  nop
+article/appendix  nop
+article   toc,title
+book      toc,title,figure,table,example,equation
+chapter   toc,title
+part      toc,title
+preface   toc,title
+qandadiv  toc
+qandaset  toc
+reference toc,title
+sect1     toc
+sect2     toc
+sect3     toc
+sect4     toc
+sect5     toc
+section   toc
+set       toc,title
+</xsl:param>
+
  <xsl:template match="pubdate" mode="book.titlepage.recto.auto.mode">
   <div xsl:use-attribute-sets="book.titlepage.recto.style">
    <xsl:apply-templates select="." mode="book.titlepage.recto.mode"/>
