@@ -298,8 +298,7 @@ class HardyWeinberg:
     if self.commonGenotypeCounter == 0:
       
       if type == 'xml':
-        stream.opentag('hardyweinberg', 'class', 'no-common-genotypes')
-        stream.closetag('hardyweinberg')
+        stream.emptytag('hardyweinberg', 'class', 'no-common-genotypes')
       else:
         stream.writeln("No common genotypes; chi-square cannot be calculated")
 
