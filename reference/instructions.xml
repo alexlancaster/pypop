@@ -570,6 +570,11 @@ haplotype         frequency # copies  | haplotype         frequency # copies
  <bibliography id="instructions-references">
   <title>References</title>
 
+  <para>
+   <citation role="nocite">Hartl:Clark</citation>
+   <citation role="nocite">Hedrick:1999</citation>
+  </para>
+
   <bibliodiv>
    <title>General population genetics</title>
    
