@@ -153,9 +153,6 @@ input.serializeMetadataTo(xmlStream)
 loci = input.getLocusList()
 loci.sort()
 
-# haplotyping test
-#haplo = Emhaplofreq(loci, input.getLocusData())
-
 for locus in loci:
   txtStream.write("\nLocus: %s\n======\n" % locus)
   xmlStream.opentag('locus', 'name', locus)
@@ -311,6 +308,15 @@ for locus in loci:
 
   xmlStream.closetag('locus')
   xmlStream.writeln()
+
+# estimate haplotypes
+haplo = Emhaplofreq(input.getIndividualsData(), debug=debug)
+haplo.estHaplotypes([])
+
+# output to text only (XML serialization to be completed)
+txtStream.writeln("Haplotype estimation via emhaplofreq:")
+txtStream.writeln("=====================================")
+haplo.serializeTo(txtStream)
 
 # closing tag
 xmlStream.closetag('dataanalysis')
