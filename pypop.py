@@ -15,6 +15,7 @@ current directory.
 import sys, os, string, time
 
 from ParseFile import ParseGenotypeFile
+from Haplo import Emhaplofreq
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson
 from Homozygosity import Homozygosity
 from ConfigParser import ConfigParser, NoOptionError
@@ -151,6 +152,10 @@ input.serializeMetadataTo(xmlStream)
 
 loci = input.getLocusList()
 loci.sort()
+
+# haplotyping test
+#haplo = Emhaplofreq(loci, input.getLocusData())
+
 for locus in loci:
   txtStream.write("\nLocus: %s\n======\n" % locus)
   xmlStream.opentag('locus', 'name', locus)
