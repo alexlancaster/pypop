@@ -1,5 +1,8 @@
 2004-02-09  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
+	* xslt/emhaplofreq.xsl: (emhaplofreq): Don't forget to output the
+	<group mode="LD"/> output, for specified LD estimates.
+	
 	* NEWS: Start collecting Release Notes for version 0.5.1.
 	
 	* config.ini [Emhaplofreq]: New parameter 'numInitCond': number of

@@ -11,6 +11,9 @@ Copyright (C) 2003 Regents of the University of California
     some more useful messages for what is being done in haplo/LD 
     estimation step.
 
+** Bug fixes
+*** Remember to output plaintext version of LD for specified loci.
+
 * Release Notes for PyPop 0.5 (public beta) 2003-12-31
 ** Changes
 *** All Linux wrapper scripts no longer have .sh file suffixes for 

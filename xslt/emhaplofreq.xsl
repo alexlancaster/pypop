@@ -63,6 +63,8 @@ MODIFICATIONS.
       @mode='all-pairwise-ld-no-permu']"/>
     </xsl:call-template>
 
+    <xsl:apply-templates select="group[@mode='LD']"/>
+
     <!-- now print out haplotype frequencies for those specified haplotypes -->
     <xsl:apply-templates select="group[@showHaplo='yes']"/>
   </xsl:with-param>
