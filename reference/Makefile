@@ -95,9 +95,9 @@ eqns: tex-math-equations.dvi
 
 # convert LaTeX to PDF using PDFLaTeX
 %.pdf: %.tex
-	- pdflatex $<
-	- pdflatex $<
-	- pdflatex $<
+	- pdflatex -interaction=nonstopmode $<
+	- pdflatex -interaction=nonstopmode $<
+	- pdflatex -interaction=nonstopmode $<
 
 PYTHON_SOURCE_PREFIX = ../../src
 PYTHON_SOURCE = ParseFile.py Haplo.py HardyWeinberg.py Utils.py Arlequin.py Homozygosity.py
