@@ -74,6 +74,8 @@ class HardyWeinberg:
     self.hetsExpectedByAllele = {}
     self.hetsChisqByAllele = {}
     self.hetsPvalByAllele = {}
+    self.chisqByGenotype = {}
+    self.pvalByGenotype = {}
     self.totalHomsObs = 0
     self.totalHetsObs = 0
     self.totalHomsExp = 0.0
@@ -208,7 +210,7 @@ class HardyWeinberg:
     self.flagHets = self.flagHoms = self.flagCommons = self.flagLumps = 0
     self.flagTooManyParameters = self.flagTooFewExpected = 0
 
-    # first the easy stuff, the homozygotes
+    # first all the the homozygotes
     if self.totalHomsExp >= self.lumpBelow:
       squareMe = self.totalHomsObs - self.totalHomsExp
       self.totalChisqHoms = (squareMe * squareMe) / self.totalHomsExp
@@ -218,7 +220,7 @@ class HardyWeinberg:
       self.chisqHomsPval = float(returnedValue[0][:-1])
       self.flagHoms = 1
 
-    # next more easy stuff, the heterozygotes
+    # next all the heterozygotes
     if self.totalHetsExp >= self.lumpBelow:
       squareMe = self.totalHetsObs - self.totalHetsExp
       self.totalChisqHets = (squareMe * squareMe) / self.totalHetsExp
@@ -228,7 +230,7 @@ class HardyWeinberg:
       self.chisqHetsPval = float(returnedValue[0][:-1])
       self.flagHets = 1
 
-    # now the chi-square for heterozygotes by allele
+    # now the values for heterozygoous genotypes by allele
     for allele in self.observedAlleles:
       if self.hetsExpectedByAllele[allele] >= self.lumpBelow:
         squareMe = self.hetsObservedByAllele[allele] - self.hetsExpectedByAllele[allele]
@@ -241,6 +243,20 @@ class HardyWeinberg:
         if self.debug:
           print 'By Allele:    obs exp   chi        p'
           print '          ', allele, self.hetsObservedByAllele[allele], self.hetsExpectedByAllele[allele], self.hetsChisqByAllele[allele], self.hetsPvalByAllele[allele]
+
+    # the list for all genotypes by genotype
+    for genotype in self.expectedGenotypeCounts.keys():
+      if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
+        squareMe = self.observedGenotypeCounts[genotype] - self.expectedGenotypeCounts[genotype]
+        self.chisqByGenotype[genotype] = (squareMe * squareMe) / self.expectedGenotypeCounts[genotype]
+        command = "pval 1 %f" % (self.chisqByGenotype[genotype])
+        returnedValue = os.popen(command, 'r').readlines()
+        self.pvalByGenotype[genotype] = float(returnedValue[0][:-1])
+
+        if self.debug:
+          print 'By Genotype:  obs exp   chi        p'
+          print '          ', genotype, self.observedGenotypeCounts[genotype], self.expectedGenotypeCounts[genotype], self.chisqByGenotype[genotype], self.pvalByGenotype[genotype]
+
 
     # and now the hard stuff
     for genotype in self.expectedGenotypeCounts.keys():
@@ -385,6 +401,7 @@ class HardyWeinberg:
 
       if self.flagHoms == 1:
         stream.opentag('homozygotes')
+        stream.writeln()
         stream.tagContents("observed", "%d" % self.totalHomsObs)
         stream.writeln()
         stream.tagContents("expected", "%4f" % self.totalHomsExp)
@@ -398,6 +415,7 @@ class HardyWeinberg:
 
       if self.flagHets == 1:
         stream.opentag('heterozygotes')
+        stream.writeln()
         stream.tagContents("observed", "%d" % self.totalHetsObs)
         stream.writeln()
         stream.tagContents("expected", "%4f" % self.totalHetsExp)
@@ -428,6 +446,28 @@ class HardyWeinberg:
 
       stream.closetag('heterozygotesByAllele')
       stream.writeln()
+
+      # loop for all genotypes by genotype
+      stream.opentag('genotypesByGenotype')
+      stream.writeln()
+      for genotype in self.chisqByGenotype.keys():
+        stream.opentag('genotype', name=genotype)
+        stream.writeln()
+        stream.tagContents("observed", "%d" % self.observedGenotypeCounts[genotype])
+        stream.writeln()
+        stream.tagContents("expected", "%4f" % self.expectedGenotypeCounts[genotype])
+        stream.writeln()
+        stream.tagContents("chisq", "%4f" % self.chisqByGenotype[genotype])
+        stream.writeln()
+        stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[genotype])
+        stream.writeln()
+        stream.closetag('genotype')
+        stream.writeln()
+
+      stream.closetag('genotypesByGenotype')
+      stream.writeln()
+
+#########
 
       if self.flagLumps == 1:
         stream.opentag('lumped')
