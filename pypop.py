@@ -327,12 +327,25 @@ else:
 if use_libxsltmod:
 
   import libxsltmod
-  output = libxsltmod.translate_to_string('f', xslFilename, 'f', xmlOutFilename)
+  output = libxsltmod.translate_to_string('f', xslFilename,
+                                          'f', xmlOutFilename)
   
   # open new txt output
   newOut = TextOutputStream(open(txtOutFilename, 'w'))
   newOut.write(output)
   newOut.close()
+
+  #  import libxml2
+  #  import libxslt
+
+  #  styledoc = libxml2.parseFile(xslFilename)
+  #  style = libxslt.parseStylesheetDoc(styledoc)
+  #  doc = libxml2.parseFile(xmlOutFilename)
+  #  result = style.applyStylesheet(doc, None)
+  #  style.saveResultToFilename(txtOutFilename, result, 0)
+  #  style.freeStylesheet()
+  #  doc.freeDoc()
+  #  result.freeDoc()
 
 if use_FourSuite:
 
