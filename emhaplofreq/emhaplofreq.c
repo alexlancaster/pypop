@@ -1579,7 +1579,7 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
   CALLOC_ARRAY_DIM1(double, geno_freq, MAX_GENOS);
   CALLOC_ARRAY_DIM1(double, pheno_freq, MAX_ROWS);
 
-  double prev_loglike, freqsum = 0.0;
+  double prev_loglike = 0.0, freqsum = 0.0;
 
 #if 0
   /* AKL: 2002-01-24: for truly defensive programming to make the
