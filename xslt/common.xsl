@@ -30,7 +30,7 @@
  <xsl:param name="hardyweinberg-first-col-width"
  select="$hardyweinberg-col-width + 6"/>
 
- <xsl:param name="hardyweinberg-cols-to-fit" select="9"/>
+ <xsl:param name="page-width" select="80"/>
 
  <xsl:template match="/">
   <xsl:apply-templates/> 
@@ -623,11 +623,35 @@
    </xsl:call-template>
   </xsl:variable>
 
-  <xsl:variable name="col-len-max">
+  <!-- find the longest observed value -->
+  <xsl:variable name="observed-max">
    <xsl:call-template name="max-string-len">
-    <xsl:with-param name="path" select="genotype/@col"/>
+    <xsl:with-param name="path" select="genotype/observed"/>
    </xsl:call-template>
   </xsl:variable>
+
+  <!-- calculate the  width required for each cell, this twice the maximum -->
+  <!-- length of the "observed" cell 'XXX'  plus space needed for chars  -->
+  <!-- e.g.:  XXX/XXX.0 and a padding space  -->
+  <xsl:variable name="cell-width-max" select="$observed-max * 2 + 4"/>
+
+  <!-- choose the greater of the allele name or cell-width-max for the -->
+  <!-- standard width -->
+  <xsl:variable name="width">
+   <xsl:choose>
+    <xsl:when test="$cell-width-max &gt; $row-len-max">
+     <xsl:value-of select="$cell-width-max"/>
+    </xsl:when>
+    <xsl:otherwise>
+     <xsl:value-of select="$row-len-max"/>
+    </xsl:otherwise>
+   </xsl:choose>
+  </xsl:variable>
+
+  <!-- calculate the number of cols to fit (subtract one for the row -->
+  <!-- allele names) -->
+  <xsl:variable name="hardyweinberg-cols-to-fit" 
+   select="floor($page-width div $width) - 1"/>
 
   <!-- check each unique column and output a subtable whenever  -->
   <!-- the column header is a multiple of the cols to fit on the page -->
@@ -649,7 +673,7 @@
       <xsl:with-param name="end-col" select="$end-col"/>
       <xsl:with-param name="unique-cols" select="$unique-cols"/>
       <xsl:with-param name="row-len-max" select="$row-len-max"/>
-      <xsl:with-param name="col-len-max" select="$col-len-max"/>
+      <xsl:with-param name="col-len-max" select="$width"/>
      </xsl:call-template>
 
      <xsl:text>                             [Cols: </xsl:text>
@@ -671,7 +695,7 @@
       <xsl:with-param name="end-col" select="$end-col"/>
       <xsl:with-param name="unique-cols" select="$unique-cols"/>
       <xsl:with-param name="row-len-max" select="$row-len-max"/>
-      <xsl:with-param name="col-len-max" select="$col-len-max"/>
+      <xsl:with-param name="col-len-max" select="$width"/>
      </xsl:call-template>
 
      <xsl:text>                             [Cols: </xsl:text>
@@ -694,8 +718,6 @@
   <xsl:param name="row-len-max"/>
   <xsl:param name="col-len-max"/>
   
-  <xsl:variable name="padding" select="8"/>
-
   <xsl:for-each select="$node/genotype">
    <xsl:sort select="@row"/>
    
@@ -727,7 +749,7 @@
     
     <!-- output cell with padding -->
     <xsl:call-template name="prepend-pad">
-     <xsl:with-param name="length" select="$padding"/>
+     <xsl:with-param name="length" select="$col-len-max"/>
      <xsl:with-param name="padVar" select="$cell"/> 
     </xsl:call-template>
     
@@ -747,7 +769,7 @@
   <xsl:for-each select="$unique-cols[position() &gt;= $start-col and position() &lt;= $end-col]">
    <xsl:sort select="."/>
    <xsl:call-template name="prepend-pad">
-    <xsl:with-param name="length" select="$padding"/>
+    <xsl:with-param name="length" select="$col-len-max"/>
     <xsl:with-param name="padVar" select="."/>
    </xsl:call-template>
   </xsl:for-each>
