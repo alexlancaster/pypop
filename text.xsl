@@ -279,17 +279,29 @@
 
  <!-- print out Guo and Thompson output if it's generated -->
  <!-- currently a CDATA section that's passed wholesale from the XML -->
- <xsl:template match="hardyweinberg[@role='guo-thompson']">
+ <xsl:template match="hardyweinberg-guo-thompson">
   <xsl:call-template name="header">
    <xsl:with-param name="title">Guo and Thompson HardyWeinberg output [<xsl:value-of
    select="../@name"/>]</xsl:with-param>
   </xsl:call-template>
   <xsl:choose>
-   <xsl:when test=".!=''">
-    <xsl:value-of select="." disable-output-escaping="yes"/>
+   <xsl:when test="@role='too-few-alleles'">
+    <xsl:text>Too few alleles</xsl:text>
    </xsl:when>
-   <xsl:otherwise>Output wasn't generated for some reason, probably 
-  too many alleles for `gthwe' to cope with.</xsl:otherwise>
+   <xsl:when test="@role='too-large-matrix'">
+    <xsl:text>Too large a matrix for Guo and Thompson</xsl:text>
+   </xsl:when>
+   <xsl:otherwise>
+
+    <xsl:call-template name="linesep-fields">
+     <xsl:with-param name="nodes" select="*[not(self::switches)]"/>
+    </xsl:call-template>
+    <xsl:text>*switches*</xsl:text>
+    <xsl:call-template name="newline"/>
+    <xsl:call-template name="linesep-fields">
+     <xsl:with-param name="nodes" select="switches/*"/>
+    </xsl:call-template>
+   </xsl:otherwise>
   </xsl:choose>
   <xsl:call-template name="newline"/>
  </xsl:template>
