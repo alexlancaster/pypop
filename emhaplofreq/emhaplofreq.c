@@ -941,6 +941,9 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     {
       ok_perm0 = 0;
       permu = max_permutations-1; // bail out of permutations
+#ifdef XML_OUTPUT
+    fprintf(fp_out, "</haplotypefreq>\n"); // close this open tag
+#endif
     }
     else
     {
