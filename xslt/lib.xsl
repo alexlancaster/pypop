@@ -189,6 +189,98 @@
 
  </xsl:template>
 
+ <!-- given two two columns (as strings), outputs them as adjoining -->
+ <!-- each other with a specified delimiter -->
+ <!--columns can be of different lengths -->
+ <xsl:template name="paste-columns">
+  <xsl:param name="col1"/>
+  <xsl:param name="col2"/>
+  <xsl:param name="delim" select="' '"/>
+
+  <!-- make sure that both columns have text -->
+  <xsl:if test="contains($col1, '&#xA;') and contains($col2, '&#xA;')">
+   
+   <!-- split first column into strings before and after newline -->
+   <xsl:variable name="col1-before-nl">
+    <xsl:if test="contains($col1, '&#xA;')">
+     <xsl:value-of 
+      select="substring-before($col1, '&#xA;')"/>
+    </xsl:if>
+   </xsl:variable>
+   
+   <xsl:variable name="col1-after-nl">
+    <xsl:if test="contains($col1, '&#xA;')">
+     <xsl:value-of 
+      select="substring-after($col1, '&#xA;')"/>
+    </xsl:if>
+   </xsl:variable>
+
+   <!-- split second column into strings before and after newline -->   
+   <xsl:variable name="col2-before-nl">
+    <xsl:if test="contains($col2, '&#xA;')">
+     <xsl:value-of 
+      select="substring-before($col2, '&#xA;')"/>
+    </xsl:if>
+   </xsl:variable>
+   
+   <xsl:variable name="col2-after-nl">
+    <xsl:if test="contains($col2, '&#xA;')">
+     <xsl:value-of 
+      select="substring-after($col2, '&#xA;')"/>
+    </xsl:if>
+   </xsl:variable>
+   
+   <!-- output the concatenated strings before the newline -->
+   <xsl:value-of 
+    select="concat($col1-before-nl, $delim, $col2-before-nl, '&#xA;')"/>
+
+   <!-- at least one of the remaining substrings should contain -->
+   <!-- a newline -->
+
+   <xsl:if test="contains($col1-after-nl, '&#xA;') or 
+    contains($col2-after-nl, '&#xA;')">
+
+    <!-- recursively call template -->
+    <xsl:call-template name="paste-columns">
+    <xsl:with-param name="col1">
+     <xsl:choose>
+       <!-- if we have more text in this column, use it -->
+       <xsl:when test="contains($col1-after-nl, '&#xA;')">
+	<xsl:value-of select="$col1-after-nl"/>
+       </xsl:when>
+       <!-- otherwise pass in padded string of the same width as the -->
+       <!-- original string -->
+       <xsl:otherwise>
+	<xsl:call-template name="prepend-pad">
+	 <xsl:with-param name="padVar" select="'&#xA;'"/>
+	 <xsl:with-param name="length" 
+	  select="string-length($col1-before-nl)"/>
+	</xsl:call-template>
+       </xsl:otherwise>
+      </xsl:choose>
+     </xsl:with-param>     
+     
+     <!-- likewise for column 2 -->
+     <xsl:with-param name="col2">
+      <xsl:choose>
+       <xsl:when test="contains($col2-after-nl, '&#xA;')">
+	<xsl:value-of select="$col2-after-nl"/>
+       </xsl:when>
+       <xsl:otherwise>
+	<xsl:call-template name="prepend-pad">
+	 <xsl:with-param name="padVar" select="'&#xA;'"/>
+	 <xsl:with-param name="length" select="string-length($col2-before-nl)"/>
+	</xsl:call-template>
+       </xsl:otherwise>
+      </xsl:choose>
+     </xsl:with-param>
+     <xsl:with-param name="delim" select="$delim"/>
+    </xsl:call-template>
+   </xsl:if>
+  </xsl:if>
+  
+ </xsl:template>
+
 </xsl:stylesheet>
 
 <!-- 
