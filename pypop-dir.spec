@@ -13,7 +13,7 @@ elif sys.platform == 'linux2':
     type = 'Linux'
     compression = 'gzip'
 else:
-    exec_name = 'pypop'
+    sys.exit(sys.platform + " is currently unsupported")
 
 # get version from VERSION file
 VERSION = (open('VERSION', 'r').readline()).strip()
@@ -67,7 +67,7 @@ print "Creating package: " + package
 shutil.copytree(bin_dir, os.path.join(dist_dir, bin_dir))
 
 # copy top-level files
-for file in ['README', 'INSTALL', 'VERSION']:
+for file in ['README', 'INSTALL', 'VERSION', 'AUTHORS', 'COPYING']:
     shutil.copy(file, dist_dir)
 
 # copy sample 'demo' files
@@ -79,7 +79,7 @@ shutil.copyfile(os.path.join('data','samples',\
                 os.path.join(dist_dir, 'sample.pop'))
 
 # create a wrapper script
-wrapper = open(os.path.join(dist_dir, wrapper_name), 'wx')
+wrapper = open(os.path.join(dist_dir, wrapper_name), 'w')
 wrapper.write(os.path.join(bin_dir, exec_name) + " -i")
 wrapper.close()
 os.chmod(os.path.join(dist_dir, wrapper_name), 0755)
@@ -96,10 +96,15 @@ for file in ['xslt' + os.sep + i + '.xsl' \
 
 
 if compression == 'gzip':
-    # cheat and execute system command
     command = "tar zcf %s %s" % (package, dist_dir)
-    print command
-    os.popen(command)
+elif compression == 'zip':
+    # cheat and execute system command
+    command = "zip -r %s %s" % (package, dist_dir)
+
+print command
+# cheat and execute system command
+os.popen(command)
+
 
 print "Cleaning up"
 shutil.rmtree(dist_dir)
