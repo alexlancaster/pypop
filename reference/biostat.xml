@@ -48,7 +48,9 @@
  <!-- XInclude appendix -->
  <xi:include href="pypop-appendices.xml"/> 
 
- <xi:include href="glossary.xml"/>
+ <!-- glossary is currently out-of-date -->
+ <!-- <xi:include href="glossary.xml"/> -->
+
  <xi:include href="biblio.xml"/>
 
 </book>
