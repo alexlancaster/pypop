@@ -405,13 +405,22 @@ class ParseGenotypeFile(ParseFile):
         return self.freqcount.keys()
 
     def getAlleleCount(self):
-        """Return allele count statistics.
+        """Return allele count statistics for all loci.
         
         Return a map of tuples where the key is the locus name.  Each
         tuple is a double, consisting of a map keyed by alleles
         containing counts and the total count at that locus.  """
         
         return self.freqcount
+
+    def getAlleleCountAt(self, locus):
+        """Return allele count for given locus.
+        
+        Given a locus name, return a tuple: consisting of a map keyed
+        by alleles containing counts and the total count at that
+        locus.  """
+        
+        return self.freqcount[locus]
 
     def getLocusData(self, locus):
         """Returns the genotyped data for specified locus.
