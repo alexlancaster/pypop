@@ -207,8 +207,8 @@ AllowedLevelOfMissingData=0.0
 GameticPhaseIsKnown=0
 HardyWeinbergTestType=0
 MakeHWExactTest=1
-MarkovChainStepsHW=100000
-MarkovChainDememorisationStepsHW=1000
+MarkovChainStepsHW=%d
+MarkovChainDememorisationStepsHW=%d
 PrecisionOnPValueHW=0.0
 SignificanceLevelHW=2
 TypeOfTestHW=0
@@ -273,15 +273,31 @@ KeepNullDistrib=0"""
     def __init__(self,
                  matrix=None,
                  lociList=None,
+                 markovChainStepsHW=100000,
+                 markovChainDememorisationStepsHW=1000,
                  **kw):
         """Setup run HW exact test.
 
         Run Hardy-Weinberg exact test on list specified in 'lociList'.
 
+        - 'markovChainStepsHW': Number of steps to use in Markov chain
+          (default: 100000).
+
+        - 'markovChainDememorisationStepsHW': "Burn-in" time for
+          Markov chain (default: 1000).
+
         """
+        self.markovChainStepsHW=markovChainStepsHW
+        self.markovChainDememorisationStepsHW=markovChainDememorisationStepsHW
+
         ArlequinWrapper.__init__(self, matrix=matrix, **kw)
+
+
         self.outputArpFile(lociList)
-        self.outputArsFile(self.arsFilename, self.hwExactTest)
+        self.outputArsFile(self.arsFilename, \
+                           self.hwExactTest % \
+                           (self.markovChainStepsHW, \
+                            self.markovChainDememorisationStepsHW))
         self.outputRunFiles()
         self.runArlequin()
 
