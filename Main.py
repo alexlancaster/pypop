@@ -45,7 +45,7 @@ from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin
 from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
 from ConfigParser import ConfigParser, NoOptionError
-from Utils import XMLOutputStream, TextOutputStream
+from Utils import XMLOutputStream, TextOutputStream, convertLineEndings
 from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter
 
 def getUserFilenameInput(prompt, filename):
@@ -482,14 +482,14 @@ class Main:
 
         for locus in loci:
 
-          if self.thread and self.thread._want_abort:
-            from wxPython.wx import wxPostEvent
-            from GUIApp import ResultEvent
-            # Use a result of None to acknowledge the abort (of
-            # course you can use whatever you'd like or even
-            # a separate event type)
-            wxPostEvent(self.thread._notify_window,ResultEvent(None))
-            return
+##           if self.thread and self.thread._want_abort:
+##             from wxPython.wx import wxPostEvent
+##             from GUIApp import ResultEvent
+##             # Use a result of None to acknowledge the abort (of
+##             # course you can use whatever you'd like or even
+##             # a separate event type)
+##             wxPostEvent(self.thread._notify_window,ResultEvent(None))
+##             return
             
           self.xmlStream.opentag('locus', name=locus)
           self.xmlStream.writeln()
@@ -778,8 +778,16 @@ class Main:
           doc.freeDoc()
           result.freeDoc()
 
-        if self.use_FourSuite:
+          # if running under Windows, convert output files
+          # to use appropriate physical lineendings so that
+          # lame Windoze editors like Notepad don't get confused
+          if sys.platform == 'cygwin':
+              convertLineEndings(self.xmlOutFilename, 2)
+              convertLineEndings(self.txtOutFilename, 2)
 
+        # use of 4Suite is currently UNTESTED and DEPRECATED!!!
+        if self.use_FourSuite:
+        
           from xml.xslt.Processor import Processor
 
           # open XSLT stylesheet
