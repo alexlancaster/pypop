@@ -105,9 +105,9 @@
   </xsl:call-template>
   
   <xsl:if test="$text!=''">
-   <xsl:call-template name="newline"/>
+   <!-- <xsl:call-template name="newline"/>  -->
    <xsl:copy-of select="$text"/>
-   <xsl:call-template name="newline"/>
+   <xsl:call-template name="newline"/> 
   </xsl:if>
 
  </xsl:template>
@@ -161,7 +161,7 @@
 
  <xsl:template match="dataanalysis">
   <xsl:text>Results of data analysis</xsl:text>
-  <xsl:call-template name="newline"/>
+  <xsl:call-template name="newline" />
   <xsl:text>Performed on the '</xsl:text><xsl:value-of select="filename"/><xsl:text>' file at: </xsl:text><xsl:value-of select="@date"/>
   <xsl:call-template name="newline"/>
   <xsl:call-template name="newline"/>
@@ -173,33 +173,50 @@
   <!-- print out population-level statistics and information -->
   <xsl:apply-templates select="filename|populationdata"/>
 
-  <!-- loop through each locus in turn -->
-  <xsl:for-each select="locus">
+  <xsl:call-template name="section">
+   <xsl:with-param name="title">Single Locus Analyses</xsl:with-param>
+   <xsl:with-param name="level" select="1"/>
+   <xsl:with-param name="number" select="'I'"/>
+   <xsl:with-param name="text">
 
-   <!-- print each locus name -->
-   <xsl:call-template name="section">
-    <xsl:with-param name="title">Locus: <xsl:value-of select="@name"/></xsl:with-param>
-    <xsl:with-param name="level" select="1"/>
-    <xsl:with-param name="number" select="position()"/>
-    <xsl:with-param name="text">
-     <xsl:choose>
-      <!-- if allele data is present output the subnodes -->
-      <xsl:when test="allelecounts/@role!='no-data'">
-       <xsl:apply-templates select="*"/>
-      </xsl:when>
-      <!-- if no allele data is present supress processing and print message -->
-      <xsl:otherwise>
-       <xsl:text> No data for this locus!</xsl:text>
-      </xsl:otherwise>
-     </xsl:choose>
+    <!-- loop through each locus in turn -->
+    <xsl:for-each select="locus">
+     
+     <!-- print each locus name -->
+     <xsl:call-template name="section">
+      <xsl:with-param name="title">Locus: <xsl:value-of select="@name"/></xsl:with-param>
+      <xsl:with-param name="level" select="2"/>
+      <xsl:with-param name="number" select="position()"/>
+      <xsl:with-param name="text">
+       <xsl:choose>
+	<!-- if allele data is present output the subnodes -->
+	<xsl:when test="allelecounts/@role!='no-data'">
+	 <xsl:apply-templates select="*"/>
+	</xsl:when>
+	<!-- if no allele data is present supress processing and print message -->
+	<xsl:otherwise>
+	 <xsl:text> No data for this locus!</xsl:text>
+	</xsl:otherwise>
+       </xsl:choose>
+       
+      </xsl:with-param>
+     </xsl:call-template>
+    </xsl:for-each>
 
-    </xsl:with-param>
-   </xsl:call-template>
-  </xsl:for-each>
+   </xsl:with-param>
+  </xsl:call-template>
 
-  <!-- Print out whole population-levels stats, such as --> 
+  <!-- Print out multi-locus population-levels stats, such as --> 
   <!-- estimation of haplotypes and LD -->
-  <xsl:apply-templates select="emhaplofreq"/>
+  
+  <xsl:call-template name="section">
+   <xsl:with-param name="title">Multi-locus Analyses</xsl:with-param>
+   <xsl:with-param name="level" select="1"/>
+   <xsl:with-param name="number" select="'II'"/>
+   <xsl:with-param name="text">
+    <xsl:apply-templates select="emhaplofreq"/>
+   </xsl:with-param>
+  </xsl:call-template>
 
  </xsl:template>
  
@@ -212,8 +229,12 @@
    <xsl:with-param name="title">Population Summary</xsl:with-param>
    <xsl:with-param name="level" select="1"/>
    <xsl:with-param name="text">
+
     <!-- specify order of metadata field output -->
-    <xsl:apply-templates/>
+    <!-- ensure that popname is generated *first* -->
+
+    <xsl:apply-templates select="popname"/>
+    <xsl:apply-templates select="*[not(self::popname)]"/>
    </xsl:with-param>
   </xsl:call-template>
  </xsl:template>
@@ -307,7 +328,7 @@
      <xsl:with-param name="title">Allele Counts</xsl:with-param>
     </xsl:call-template>
    </xsl:with-param>
-   <xsl:with-param name="level" select="2"/>
+   <xsl:with-param name="level" select="3"/>
    <xsl:with-param name="text">
 
     <xsl:choose>
