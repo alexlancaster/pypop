@@ -39,21 +39,21 @@ MODIFICATIONS. */
 #ifdef DEBUG
   fprintf(stderr,"Converting Python [['a']] ->  2d C array C of strings\n");
 #endif
-  if (PyList_Check($source)) {
-    int size0 = PyList_Size($source);
+  if (PyList_Check($input)) {
+    int size0 = PyList_Size($input);
     int i = 0;
     int j = 0;
 #ifdef DEBUG
     fprintf(stderr,"Before malloc!\n");
     fprintf(stderr,"outer list size: %d\n", size0);
 #endif
-    $target = ($ltype)malloc(($dim0+1)*($dim1+1)*($dim2+1));
-    if ($target != NULL) {
+    $1 = ($ltype)malloc(($dim0+1)*($dim1+1)*($dim2+1));
+    if ($1 != NULL) {
 #ifdef DEBUG
       fprintf(stderr,"After malloc!\n");
 #endif
       for (i = 0; i < size0; i++) {
-	PyObject *o = PyList_GetItem($source, i);
+	PyObject *o = PyList_GetItem($input, i);
 #ifdef DEBUG
 	fprintf(stderr,"outer index: %d\n", i);
 #endif
@@ -68,16 +68,16 @@ MODIFICATIONS. */
 #ifdef DEBUG
 	      fprintf(stderr,"before assigning string: %s\n", PyString_AsString(p));
 #endif
-	      strcpy($target[i][j], PyString_AsString(p));
+	      strcpy($1[i][j], PyString_AsString(p));
 #ifdef DEBUG
 	      fprintf(stderr,"after assigning string\n");
-	      fprintf(stderr,"[%d, %d]: %s\n", i, j, $target[i][j]);
+	      fprintf(stderr,"[%d, %d]: %s\n", i, j, $1[i][j]);
 #endif
 	    }
 	    else {
 	      PyErr_SetString(PyExc_TypeError, 
 			      "list must contain strings");
-	      free($target);
+	      free($1);
 	      return NULL;
 	    }
 	  }
@@ -85,7 +85,7 @@ MODIFICATIONS. */
 	else {
 	  PyErr_SetString(PyExc_TypeError, 
 			  "inner array must be a list");
-	  free($target);
+	  free($1);
 	  return NULL;
 	}
       }
@@ -96,26 +96,26 @@ MODIFICATIONS. */
   } else {
     PyErr_SetString(PyExc_TypeError, 
 		    "outer array must be a list");
-    free($target);
+    free($1);
     return NULL;
   }
 }
 
 /* This cleans up the char [][][] array we malloc'd before the function call */
 %typemap(python,freearg) char [ANY][ANY][ANY] {
-  free(($ltype) $source);
+  free(($ltype) $1);
 }
 
 /* Typemap to convert python file type(s) to C file pointer */
 %typemap(python,in) FILE * {
   PycString_IMPORT;
   /* if file is an actual file on the filesystem, then pass directly to C */
-  if (PyFile_Check($source)) {
-    $target = PyFile_AsFile($source);
+  if (PyFile_Check($input)) {
+    $1 = PyFile_AsFile($input);
   }
   /* if file is a "cStringIO" in-memory "file" then cast to FILE type */
-  else if (PycStringIO_OutputCheck($source)) {
-    $target = (FILE *)$source;
+  else if (PycStringIO_OutputCheck($input)) {
+    $1 = (FILE *)$input;
   }
   /* otherwise raise an error */
   else {
@@ -129,24 +129,24 @@ MODIFICATIONS. */
 #if DEBUG
   printf("converting from a 1-d array of ints\n");
 #endif
-  if (PyList_Check($source)) {
+  if (PyList_Check($input)) {
     int i;
-    int size0 = PyList_Size($source);
+    int size0 = PyList_Size($input);
 #if DEBUG
     printf("length of list = %d\n", size0);
 #endif
-    $target = (int *)malloc((size0+1)*sizeof(int));
-    if ($target != NULL) {
+    $1 = (int *)malloc((size0+1)*sizeof(int));
+    if ($1 != NULL) {
       for (i = 0; i < size0; i++) {
-	PyObject *p = PyList_GetItem($source,i);
+	PyObject *p = PyList_GetItem($input,i);
 #if DEBUG
 	printf("loc = %d\n", i);
 #endif
 	if (PyInt_Check(p)){
 #if DEBUG
-	  printf("$target[%d] = %d\n", i, (int)PyInt_AS_LONG(p));
+	  printf("$1[%d] = %d\n", i, (int)PyInt_AS_LONG(p));
 #endif
-	  $target[i] = (int)PyInt_AS_LONG(p);
+	  $1[i] = (int)PyInt_AS_LONG(p);
 	} else {	      
 	  PyErr_SetString(PyExc_TypeError, "list must contain ints");
 	}
@@ -163,8 +163,8 @@ MODIFICATIONS. */
 
 /* This cleans up the int[] array we malloc'd before the function call */
 %typemap(python,freearg) int [ANY] {
-  if ($source)
-    free($source);
+  if ($1)
+    free($1);
 }
 
 %{
