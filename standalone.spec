@@ -10,7 +10,7 @@ INSTALLER = os.path.dirname(sys.argv[0])
 
 # import locally generated class, dynamically (needed because current
 # file is also loaded dynamically by Installer's Build.py
-execfile('Utils.py', locals())
+execfile('Utils.py', globals())
 
 # create TOCs for standalone directory installation
 def createObjects(script, type=type, INSTALLER=INSTALLER):
@@ -64,12 +64,20 @@ PYTHONHOME=. LD_LIBRARY_PATH=$dir/%s $dir/%s/%s""" % (bin_dir, bin_dir, exec_nam
     wrapper.close()
     os.chmod(filename, 0755)
 
+    # apply line ending fixes for Win32
+    if type == 'Win32':
+        convertLineEndings(filename, 2)
+
     # create batch-file wrapper script
     filename = os.path.join(dist_dir, batch_wrapper)
     batch = open(filename, 'w')
     batch.write(batch_wrapper_contents)
     batch.close()
     os.chmod(filename, 0755)
+
+    # apply line ending fixes for Win32
+    if type == 'Win32':
+        convertLineEndings(filename, 2)
         
 # get version from VERSION file
 VERSION = (open('VERSION', 'r').readline()).strip()
