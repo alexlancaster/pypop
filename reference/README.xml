@@ -3,7 +3,7 @@
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <?PSGML nofill programlisting screen literallayout?>
 
-<article condition="main" xmlns:xi="http://www.w3.org/2001/XInclude">
+<article id="guide-usage" xmlns:xi="http://www.w3.org/2001/XInclude">
  <articleinfo>
   <title>Getting started with <application>PyPop</application></title>
   <authorgroup>
@@ -19,7 +19,8 @@
   </authorgroup>
   <pubdate>Last updated: $Date$ by $Author$</pubdate>
  </articleinfo>
- <section>
+
+ <section id="guide-usage-intro">
   <title>Introduction</title>
 
   <para>You may use <application>PyPop</application> to analyze many
@@ -48,17 +49,20 @@
    <para>Running <application>PyPop</application> is really quite
     simple - you just need to click the <filename>pypop.bat</filename>
     file (Windows) or type <userinput>./pypop.sh</userinput>
-    (GNU/Linux).  The following is similar to the instructions in the
-    installation guide.</para>
-
-   <para>You should substitute <filename>sample.ini</filename> and
-    <filename>sample.pop</filename> with  the  names  of your own
-    configuration (say <filename>config.ini</filename>) and population
-    file (say <filename>Guatemalan.pop</filename>).  The  formats for
-    these files are described below.
-   </para>
+    (GNU/Linux).  You should see something like the following output
+    (this is also described in install instructions in the
+    installation guide).</para>
 
    <xi:include href="install-screen.xml#xpointer(/section/screen)"/>
+
+   <para>You should substitute <filename>sample.ini</filename> and
+    <filename>sample.pop</filename> in the above, with  the  names  of
+    your own configuration (say <filename>config.ini</filename>) and
+    population file (say <filename>Guatemalan.pop</filename>).  The
+    formats for these files are described in <xref
+     linkend="guide-usage-datafile"/> and <xref
+     linkend="guide-usage-configfile"/>, below.
+   </para>
 
   </section>
 
@@ -74,7 +78,7 @@
    <screen><command>pypop</command> <filename>Guatemalan.pop</filename></screen>
 
    <para>This assumes two things: that you have a file in your current
-    folder called "<filename>config.ini</filename>" and that you have
+    folder called <filename>config.ini</filename> and that you have
     your population file also in the current folder.  You can change
     the name of the configuration file, by supply the
     <option>-c</option> option like so:</para>
@@ -111,7 +115,7 @@ current directory or in /usr/share/PyPop/config.ini.
   </section>
  </section>
 
- <section>
+ <section id="guide-usage-datafile">
   <title>The data file</title>
 
   <section>
@@ -233,9 +237,8 @@ dqa1  count
     might save out of the <application>Notepad</application>
     application on Windows (or <application>Emacs</application>).  The
     columns are all tab-delimited, so you may include spaces in your
-    labels (as in West Cape York Australian Aborigines above).  If you
-    have your data in a spreadsheet application, such as
-    <application>Excel</application> or
+    labels.  If you have your data in a spreadsheet application, such
+    as <application>Excel</application> or
     <application>OpenOffice.org</application>, you should be able to
     export the file as tab-delimited text, and everything should be
     fine.</para>
@@ -320,13 +323,13 @@ dqa1  count
   </section>
  </section>
 
- <section>
+ <section id="guide-usage-configfile">
   <title>The configuration file</title>
   
   <para>The way your data file is parsed by
    <application>PyPop</application> is controlled by a configuration
    file, the default name for which is
-   "<filename>config.ini</filename>". This is another plain text file
+   <filename>config.ini</filename>. This is another plain text file
    consisting of <firstterm>comments</firstterm> (which are lines
    which start with a semi-colon), <firstterm>sections</firstterm>
    (which are lines with labels in square brackets), and
