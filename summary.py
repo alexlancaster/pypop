@@ -28,6 +28,7 @@ print "first line: ", string.rstrip(contents[0])
 words = (string.rstrip(contents[0])).split('\t')
 for word in words:
     print word
+    
 print
 
 print "second line: ", string.rstrip(contents[1])
