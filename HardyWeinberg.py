@@ -477,6 +477,8 @@ class HardyWeinberg:
         stream.emptytag('lumped', role='no-common-genotypes')
       elif self.flagTooManyParameters == 1:
         stream.emptytag('lumped', role='too-many-parameters')
+      else:
+        stream.emptytag('lumped', role='huh')
 
     if self.flagCommons == 1:
       stream.opentag('common')
@@ -498,6 +500,32 @@ class HardyWeinberg:
         stream.emptytag('common', role='no-common-genotypes')
       elif self.flagTooManyParameters == 1:
         stream.emptytag('common', role='too-many-parameters')
+      else:
+        stream.emptytag('common', role='huh')
+      stream.writeln()
+
+    if self.flagCommons == 1 and self.flagLumps == 1:
+      stream.opentag('commonpluslumped')
+      stream.writeln()
+      stream.tagContents("observed", "%d" % self.commonObservedAccumulator)
+      stream.writeln()
+      stream.tagContents("expected", "%4f" % self.commonExpectedAccumulator)
+      stream.writeln()
+      stream.tagContents("chisq", "%4f" % self.HWChisq)
+      stream.writeln()
+      stream.tagContents("pvalue", "%4f" % self.HWChisqPval)
+      stream.writeln()
+      stream.tagContents("chisqdf", "%d" % int(self.HWChisqDf))
+      stream.writeln()
+      stream.closetag('commonpluslumped')
+      stream.writeln()
+    else:
+      if self.flagNoCommonGenotypes == 1:
+        stream.emptytag('commonpluslumped', role='no-common-genotypes')
+      elif self.flagTooManyParameters == 1:
+        stream.emptytag('commonpluslumped', role='too-many-parameters')
+      else:
+        stream.emptytag('commonpluslumped', role='huh')
       stream.writeln()
 
     stream.closetag('hardyweinberg')
