@@ -14,11 +14,12 @@
  </xsl:template>
 
  <!-- BEGIN NAMED TEMPLATE FUNCTIONS -->
- 
+
  <xsl:template name="prepend-pad"> 
   <!-- recursive template to right justify and prepend-->
   <!-- the value with whatever padChar is passed in   -->
-  <xsl:param name="padChar"> </xsl:param>
+<!--  <xsl:param name="padChar"> </xsl:param> -->
+  <xsl:param name="padChar" select="' '"/>
   <xsl:param name="padVar"/>
   <xsl:param name="length"/>
   <xsl:choose>
@@ -40,7 +41,8 @@
  <xsl:template name="append-pad">
   <!-- recursive template to left justify and append  -->
   <!-- the value with whatever padChar is passed in   -->
-  <xsl:param name="padChar"> </xsl:param>
+  <!-- <xsl:param name="padChar"> </xsl:param> -->
+  <xsl:param name="padChar" select="' '"/>
   <xsl:param name="padVar"/>
   <xsl:param name="length"/>
   <xsl:choose>
@@ -87,12 +89,23 @@
   </xsl:for-each>
  </xsl:template> 
 
+ <!-- finds the maximum string length of a set of elements, found in
+ the `path' variable -->
+ <xsl:template name="max-string-len">
+  <xsl:param name="path" select="."/>
+  <xsl:for-each select="$path">
+   <xsl:sort select="string-length(.)" data-type="number" order="descending"/>
+   <xsl:if test="position()=1">
+    <xsl:value-of select="string-length(.)"/></xsl:if>
+  </xsl:for-each>
+ </xsl:template>
+
  <!-- END NAMED TEMPLATE FUNCTIONS -->
  
  <!-- BEGIN MATCH TEMPLATE FUNCTIONS -->
  
- <!-- top-level element -->
- <!-- start processing here -->
+ <!-- TOP-LEVEL ELEMENT -->
+ <!-- START PROCESSING HERE -->
  <xsl:template match="dataanalysis">
   <xsl:text>Results of data analysis</xsl:text>
   <xsl:call-template name="newline"/>
@@ -246,6 +259,11 @@
      <xsl:with-param name="nodes" select="*[not(self::genotypetable)]"/>
     </xsl:call-template>
 
+    <!-- now do genotype table -->
+    <xsl:apply-templates select="genotypetable"/>
+
+    <xsl:call-template name="newline"/>
+
    </xsl:when>
 
    <xsl:when test="@role='no-common-genotypes'">
@@ -260,6 +278,72 @@
   </xsl:choose>
 
   <xsl:call-template name="newline"/>
+ </xsl:template>
+
+ <!-- format genotype table for HW -->
+ <xsl:template match="genotypetable">
+
+  <xsl:variable name="padding" select="8"/>
+
+  <xsl:variable name="row-len-max">
+   <xsl:call-template name="max-string-len">
+    <xsl:with-param name="path" select="genotype/@row"/>
+   </xsl:call-template>
+  </xsl:variable>
+
+  <xsl:variable name="col-len-max">
+   <xsl:call-template name="max-string-len">
+    <xsl:with-param name="path" select="genotype/@col"/>
+   </xsl:call-template>
+  </xsl:variable>
+  
+  <xsl:for-each select="genotype">
+   <xsl:sort select="@row"/>
+   <xsl:if test="@row!=preceding-sibling::genotype/@row">
+    <xsl:call-template name="newline"/>
+    <xsl:call-template name="prepend-pad">
+     <xsl:with-param name="length" select="$row-len-max"/>
+     <xsl:with-param name="padVar" select="@row"/>
+    </xsl:call-template>
+   </xsl:if>
+
+   <xsl:for-each select="@col">
+    <xsl:sort select="."/>
+    <xsl:variable name="cell">
+     <xsl:value-of select="../observed"/><xsl:text>/</xsl:text><xsl:value-of select="../expected"/>
+    </xsl:variable>
+    
+    <xsl:call-template name="prepend-pad">
+     <xsl:with-param name="length" select="$padding"/>
+     <xsl:with-param name="padVar" select="$cell"/>
+    </xsl:call-template>
+    
+   </xsl:for-each>
+  </xsl:for-each>
+
+  <xsl:call-template name="newline"/>
+
+  <!-- indent row for column names-->
+  <xsl:call-template name="prepend-pad">
+   <xsl:with-param name="length" select="$row-len-max"/>
+  </xsl:call-template>
+
+  <xsl:for-each select="genotype">
+   <xsl:sort select="@col"/>
+
+   <xsl:if test="@col!=preceding-sibling::genotype/@col">
+
+    <xsl:variable name="footercell">
+     <xsl:value-of select="@col"/>
+    </xsl:variable>
+
+    <xsl:call-template name="prepend-pad">
+     <xsl:with-param name="length" select="$padding"/>
+     <xsl:with-param name="padVar" select="$footercell"/>
+    </xsl:call-template>
+    
+   </xsl:if>
+  </xsl:for-each>
  </xsl:template>
 
  <!-- Homozygosity statistics --> 
