@@ -140,6 +140,12 @@ MODIFICATIONS.
     </xsl:call-template>
     
     <xsl:call-template name="justified-cell">
+     <xsl:with-param name="padVar">D</xsl:with-param>
+     <xsl:with-param name="length" select="8"/>
+     <xsl:with-param name="type" select="'right'"/>
+    </xsl:call-template>
+    
+    <xsl:call-template name="justified-cell">
      <xsl:with-param name="padVar">D'</xsl:with-param>
      <xsl:with-param name="length" select="8"/>
      <xsl:with-param name="type" select="'right'"/>
@@ -196,6 +202,12 @@ MODIFICATIONS.
        <xsl:with-param name="padVar" select="$locus-pair"/>
        <xsl:with-param name="length" select="15"/>
        <xsl:with-param name="type" select="'left'"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="justified-cell">
+       <xsl:with-param name="padVar" select="linkagediseq/summary/dsummary"/>
+       <xsl:with-param name="length" select="8"/>
+       <xsl:with-param name="type" select="'right'"/>
       </xsl:call-template>
       
       <xsl:call-template name="justified-cell">

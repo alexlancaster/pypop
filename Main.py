@@ -189,7 +189,7 @@ class Main:
         #
         # generate filename for pop file dump (only used if option is set)
         #
-        self.defaultPopDumpFilename = uniquePrefix + "-filtered.pop"
+        self.defaultPopDumpFilename = uniquePrefix         # + "-filtered.pop"    FIXME
 
         # prepend directory to all files if one was supplied
         if self.outputDir:
@@ -530,25 +530,33 @@ class Main:
 
         # outputs a pop file, of sorts.  method should be moved to data type class.
         if self.popDump:
-            dumpFile = TextOutputStream(open(self.defaultPopDumpPath, 'w'))
-            dumpMatrix = self.matrixHistory[self.popDump]
 
-            for locus in dumpMatrix.colList:
-                if dumpMatrix.colList.index(locus) > 0:
-                    dumpFile.write('\t')
-                dumpFile.write(locus + '_1\t' + locus + '_2')
+            originalMatrix = self.matrixHistory[0]
 
-            dumpFile.write(os.linesep)
-            individCount = 0
-            while individCount < len(dumpMatrix):
-                for locus in dumpMatrix.colList:
-                    individ = dumpMatrix[locus][individCount]
-                    if dumpMatrix.colList.index(locus) > 0:
+            for locus in originalMatrix.colList:
+
+                popDumpPath = self.defaultPopDumpPath + "-" + locus + "-filtered.pop"
+                dumpFile = TextOutputStream(open(popDumpPath, 'w'))
+                
+                dumpMatrix = self.matrixHistory[self.popDump]
+
+                for locusPos in dumpMatrix.colList:
+                    if dumpMatrix.colList.index(locusPos) > 0 and locusPos[0:len(locus)] == locus:
                         dumpFile.write('\t')
-                    dumpFile.write(individ[0] + '\t' + individ[1])
-                individCount += 1
+                        dumpFile.write(locusPos + '_1\t' + locusPos + '_2')
+
                 dumpFile.write(os.linesep)
-            dumpFile.close()
+
+                individCount = 0
+                while individCount < len(dumpMatrix):
+                    for locusPos in dumpMatrix.colList:
+                        individ = dumpMatrix[locusPos][individCount]
+                        if dumpMatrix.colList.index(locusPos) > 0 and locusPos[0:len(locus)] == locus:
+                            dumpFile.write('\t')
+                            dumpFile.write(individ[0] + '\t' + individ[1])
+                    individCount += 1
+                    dumpFile.write(os.linesep)
+                dumpFile.close()
             
 
 

@@ -1,3 +1,20 @@
+2004-07-20  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* xslt/meta-to-r.xsl (gen-lines): Added pairwise LD (as opposed to
+	D prime) and haplo frequency, which are output to the
+	2-locus-haplo.dat file.
+
+	* xslt/emhaplofreq.xsl (pairwise-ld): Changes to make column
+	heading and provide data for D (LD) summary statistic (this is in
+	addition to the D prime, which was already included in the table.
+
+	* Main.py (Main.__init__, Main._runFilters): The ad hoc pop file
+	dump subroutine has been modified to create a separate file for
+	each locus.  This makes most sense when dealing with alleles that
+	have been translated to sequence (thus increasing the number of
+	'loci').  Changes deal with creating logical names for the dump
+	files.  This subroutine needs to be reworked.
+
 2004-07-20  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/meta-to-r.xsl (1-locus-genotype.dat): Generate new file
