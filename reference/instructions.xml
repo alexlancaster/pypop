@@ -37,7 +37,7 @@
   </abstract>
  </articleinfo>
 
- <sect1 label="0" id="instructions-pop-summary">
+ <sect1 id="instructions-pop-summary">
   <title>Population Summary</title>
 
   <para>A Population Summary is generated for each population/dataset
@@ -70,7 +70,7 @@ Total Loci with data: 8
 
  </sect1>
 
- <sect1 label="I" id="instructions-locus-info">
+ <sect1 id="instructions-locus-info">
   <title>Single locus analyses</title>
 
   <sect2 id="instructions-allelecounts">
@@ -442,7 +442,7 @@ Expected F: 0.2649, Variance in F: 0.0083, p-value of F: 0.0029**
 
  </sect1>
 
- <sect1 label="II" id="instructions-haplo">
+ <sect1 id="instructions-haplo">
   <title>Multi-locus analyses</title>
   <subtitle>Haplotype Frequency and LD Estimation</subtitle>
   
