@@ -3,10 +3,10 @@ NAME2 = gthwe
 
 CC      = gcc 
 
-#CFLAGS = -O2 -fno-strength-reduce
-CFLAGS = -O2 -funroll-loops
-#CFLAGS = -g -static
-
+# add this to "CFLAGS" if XML mode is desired: -DXML_OUTPUT=1
+# add this to "CFLAGS" if you don't want the allele frequency table
+#   printed out: -DSUPPRESS_ALLELE_TABLE=1
+CFLAGS = -O2 -funroll-loops 
 
 SRC = $(NAME).c cal_const.c cal_n.c cal_prob.c\
 	check_file.c do_switch.c guo_rand.c\
