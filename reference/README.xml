@@ -1,3 +1,4 @@
+
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" 
    "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
@@ -22,12 +23,14 @@
 
  <sidebar>
   <para>To learn how to install <application>PyPop</application>,
-   please consult the <filename>INSTALL</filename> file.   The list of
-   authors of <application>PyPop</application> is found in
+   please consult the file <filename>INSTALL</filename>.   For a list
+   of recent user-visible changes, consult the file
+   <filename>NEWS</filename>.  The list of authors of
+   <application>PyPop</application> is found in
    <filename>AUTHORS</filename>.  PyPop is distributed under the terms
    of the GNU General Public License <ulink
     url="http://www.gnu.org/licenses/gpl.html">http://www.gnu.org/licenses/gpl.html</ulink>, 
-   please consult <filename>COPYING</filename> for terms and
+   please consult the file <filename>COPYING</filename> for terms and
    conditions.</para>
  </sidebar>
 
@@ -287,18 +290,18 @@ UchiTelle  MYU_4   0301    0401    0201     0302    247        249</programlisti
     <title>Sequence genotype data with header information</title>
 
   <programlisting>labcode file                                                
-INDMEH  C_New Delhi Mehra                                              
+BLOGGS  C_New
 popName ID       TGFB1cdn10(1) TGFB1cdn10(2) TGFBhapl(1) TGFBhapl(2) 
-Korean  KH-1     C             T             CG          TG     
-Korean  KH-2     C             C             CG          CG     
-Korean  KH-5     C             T             CG          TG     
-Korean  KH-6     C             T             CG          TG     
-Korean  KH-7     C             T             CG          TG     
-Korean  KH-20    C             T             CG          TG     
-Korean  KH-21    T             T             TG          TG     
-Korean  KH-8     C             T             CG          TG     
-Korean  KH-9     T             T             TG          TG     
-Korean  KH-10    C             T             CG          TG     
+Urboro  XQ-1     C             T             CG          TG     
+Urboro  XQ-2     C             C             CG          CG     
+Urboro  XQ-5     C             T             CG          TG     
+Urboro  XQ-21    C             T             CG          TG     
+Urboro  XQ-7     C             T             CG          TG     
+Urboro  XQ-20    C             T             CG          TG     
+Urboro  XQ-6     T             T             TG          TG     
+Urboro  XQ-8     C             T             CG          TG     
+Urboro  XQ-9     T             T             TG          TG     
+Urboro  XQ-10    C             T             CG          TG     
   </programlisting>
 
   <para>This example includes nucleotide sequence data.</para>
@@ -308,10 +311,10 @@ Korean  KH-10    C             T             CG          TG
    <example id="data-allelecount">
     <title>Allele count data</title>
 
-  <programlisting>populat         method  ethnic     country    latit   longit
-Slavic  PCR-SSO Caucasian RU  059.83N 030.25E
+  <programlisting>populat    method  ethnic     country    latit   longit
+UchiTelle  PCR-SSO Klingon    QZ         052.81N 100.25E
 dqa1  count
-0101/0104 31
+0101  31
 0102  37
 0103  17
 0201  21
