@@ -133,6 +133,17 @@ if debug:
     for option in config.options(section):
       print " ", option, "=", config.get(section, option)
 
+# get version
+versionpath = os.path.join(datapath, 'VERSION')
+if os.path.isfile('DEVEL_VERSION'):
+  version = 'DEVEL_VERSION'
+elif os.path.isfile(versionpath):
+  f = open(versionpath)
+  version = string.strip(f.readline())
+else:
+  sys.exit("Could not find a version!  Exiting...")
+
+altpath = os.path.join(datapath, 'config.ini')
 # create XML stream
 xmlStream = XMLOutputStream(open(xmlOutFilename, 'w'))
 
@@ -140,6 +151,8 @@ xmlStream = XMLOutputStream(open(xmlOutFilename, 'w'))
 xmlStream.opentag('dataanalysis', date="%s-%s" % (datestr, timestr))
 xmlStream.writeln()
 xmlStream.tagContents('filename', baseFileName)
+xmlStream.writeln()
+xmlStream.tagContents('pypop-version', version)
 xmlStream.writeln()
 
 # Parse "ParseFile" section
