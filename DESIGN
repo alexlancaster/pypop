@@ -7,8 +7,18 @@ for reading files.
 that consist specifically of data with individual genotyped for one or
 more loci.
 
-- 'ParseAllelecount' is another subclass of 'ParseFile' that deals
+- 'ParseAlleleCount' is another subclass of 'ParseFile' that deals
 with files consisting of allele counts across a whole population.
+
+- 'HardyWeinberg' is a class that calculates Hardy-Weinberg
+statistics given genotype data for a single locus.
+
+- 'Haplo' is an abstract base class for estimating haplotypes given
+genotype data.
+
+- 'HaploArlequin' is a subclass of 'Haplo' that `wraps' the
+functionality of the "Arlequin":http://lgb.unige.ch/arlequin/ program
+to estimate haplotypes.
 
 Both file formats are assumed to have a population header information
 with, consisting of a line of column headers (population metadata)
@@ -22,9 +32,10 @@ allele count case).
 
 - Implement 'ParseAllelecount'.
 
+- Continue implementing 'HardyWeinberg'.
+
 - Rationalize naming conventions.
 
-- much other guff..
 
 **NOTE**: When editing this 'README' file, it will help to adhere to
 the "structured text
