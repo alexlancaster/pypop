@@ -8,8 +8,9 @@
   <xsl:call-template name="section">
    <xsl:with-param name="title">
     <xsl:call-template name="locus-header">
-     <xsl:with-param name="title">Ewens-Watterson homozygosity test of
-     neutrality</xsl:with-param>
+     <xsl:with-param name="title">
+      <xsl:text>Ewens-Watterson homozygosity test of neutrality</xsl:text>
+     </xsl:with-param>
     </xsl:call-template>
    </xsl:with-param>
    <xsl:with-param name="level" select="2"/>
