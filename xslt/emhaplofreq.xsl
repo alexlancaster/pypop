@@ -5,6 +5,15 @@
 
  <!-- #################  HAPLOTYPE/LD STATISTICS ###################### --> 
 
+ <data:haplo-fields>
+  <text col="individcount">Number of individuals</text>
+  <text col="uniquepheno">Unique phenotypes</text>
+  <text col="uniquegeno">Unique phenotypes</text>
+  <text col="haplocount">Number of haplotypes</text>
+  <text col="loglikelihood-no-ld">Loglikelihood under linkage equilibrium ln(L_0)</text>
+  <text col="loglikelihood">Loglikelihood obtained via the EM algorithm ln(L_1)</text>
+ </data:haplo-fields>
+
  <xsl:template match="emhaplofreq/group"/> 
 
  <xsl:template match="emhaplofreq">
@@ -33,18 +42,28 @@
    </xsl:with-param>
    <xsl:with-param name="text">
     
-    <xsl:call-template name="linesep-fields">
-     <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood|individcount"/>
-    </xsl:call-template>
+    <xsl:for-each
+     select="uniquepheno|uniquegeno|haplocount|individcount">
+     <xsl:value-of
+     select="document(''//data:haplo-fields/text[@col=name(.)])"/>
+     <xsl:text>: </xsl:text>
+     <xsl:value-of select="."/>
+    </xsl:for-each>
     
     <xsl:choose>
      <xsl:when test="haplotypefreq/condition[@role='converged']">
-      <xsl:call-template name="linesep-fields">
-       <xsl:with-param name="nodes" select="haplotypefreq/loglikelihood"/>
-      </xsl:call-template>
-      <xsl:call-template name="linesep-fields">
-       <xsl:with-param name="nodes" select="haplotypefreq/iterConverged"/>
-      </xsl:call-template>
+      <xsl:value-of 
+       select="document('')//data:haplo-fields/text[@col='loglikelihood-no-ld']"/>  
+      <xsl:value-of select="loglikelihood"/>
+      <xsl:call-template name="newline"/>
+      <xsl:value-of 
+       select="document('')//data:haplo-fields/text[@col='loglikelihood']"/>  
+      <xsl:value-of select="haplotypefreq/loglikelihood"/>
+      <xsl:text>: </xsl:text>
+      <xsl:call-template name="newline"/>
+      <xsl:value-of 
+       select="document('')//data:haplo-fields/text[@col='iterConverged']"/>  
+       <xsl:value-of select="haplotypefreq/iterConverged"/>
       <xsl:call-template name="newline"/>
       <xsl:apply-templates select="haplotypefreq"/>
      </xsl:when>
@@ -86,13 +105,13 @@
     </xsl:call-template>
 
     <xsl:call-template name="justified-cell">
-     <xsl:with-param name="padVar">ln(L_0)</xsl:with-param>
+     <xsl:with-param name="padVar">ln(L_1)</xsl:with-param>
      <xsl:with-param name="length" select="10"/>
      <xsl:with-param name="type" select="'right'"/>
     </xsl:call-template>
 
     <xsl:call-template name="justified-cell">
-     <xsl:with-param name="padVar">ln(L_1)</xsl:with-param>
+     <xsl:with-param name="padVar">ln(L_0)</xsl:with-param>
      <xsl:with-param name="length" select="10"/>
      <xsl:with-param name="type" select="'right'"/>
     </xsl:call-template>
@@ -144,14 +163,14 @@
        <xsl:with-param name="type" select="'right'"/>
       </xsl:call-template>
 
-      <xsl:variable name="L_0" select="haplotypefreq/loglikelihood"/>
-      <xsl:variable name="L_1" select="loglikelihood[@role='no-ld']"/>
-      <xsl:variable name="test-stat" select="-2 * ($L_1 - $L_0)"/>
+      <xsl:variable name="L_1" select="haplotypefreq/loglikelihood"/>
+      <xsl:variable name="L_0" select="loglikelihood[@role='no-ld']"/>
+      <xsl:variable name="test-stat" select="-2 * ($L_0 - $L_1)"/>
       
       <xsl:call-template name="justified-cell">
        <xsl:with-param name="padVar">
 	<xsl:call-template name="round-to">
-	 <xsl:with-param name="node" select="$L_0"/>
+	 <xsl:with-param name="node" select="$L_1"/>
 	 <xsl:with-param name="places" select="2"/>
 	</xsl:call-template>
        </xsl:with-param>
@@ -162,7 +181,7 @@
       <xsl:call-template name="justified-cell">
        <xsl:with-param name="padVar">
 	<xsl:call-template name="round-to">
-	 <xsl:with-param name="node" select="$L_1"/>
+	 <xsl:with-param name="node" select="$L_0"/>
 	 <xsl:with-param name="places" select="2"/>
 	</xsl:call-template>
        </xsl:with-param>
