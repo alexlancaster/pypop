@@ -185,7 +185,11 @@ MODIFICATIONS.
      </xsl:call-template>
 
      <xsl:call-template name="output-field">
-       <xsl:with-param name="node" select="hardyweinbergGuoThompson/pvalue"/>
+       <xsl:with-param name="node" select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/pvalue[@type='overall']"/>
+     </xsl:call-template>
+
+     <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="hardyweinbergGuoThompson[@type='monte-carlo']/pvalue[@type='overall']"/>
      </xsl:call-template>
      
      <xsl:choose>
@@ -341,6 +345,42 @@ MODIFICATIONS.
       <xsl:call-template name="newline"/>
      </xsl:for-each>
     </xsl:when>
+
+    <xsl:when test="$type='1-locus-genotype'">
+
+     <xsl:variable name="curr-line-start">
+      <xsl:call-template name="line-start">
+       <xsl:with-param name="popnode" select="../populationdata"/>
+      </xsl:call-template>
+     </xsl:variable>
+
+     <xsl:variable name="pvals-mcmc" select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/pvalue[@type='genotype']"/>
+
+     <xsl:variable name="pvals-monte-carlo" select="hardyweinbergGuoThompson[@type='monte-carlo']/pvalue[@type='genotype']"/>
+
+     <xsl:for-each select="hardyweinberg/genotypetable/genotype">
+      <xsl:variable name="pos" select="position()"/>
+      <xsl:value-of select="$curr-line-start"/>
+
+      <xsl:value-of select="../../../@name"/>
+      <xsl:text>&#09;</xsl:text>
+      <xsl:value-of select="@col"/>
+      <xsl:text>:</xsl:text>
+      <xsl:value-of select="@row"/>
+      <xsl:text>&#09;</xsl:text>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$pvals-mcmc[$pos]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$pvals-monte-carlo[$pos]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="newline"/>
+     </xsl:for-each>
+    </xsl:when>
+
 
     <xsl:when test="$type='multi-locus-summary'">
 
@@ -505,7 +545,7 @@ MODIFICATIONS.
     <exsl:document href="1-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;n.gametes&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.obs&#09;f.slatkin.exp&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig</xsl:text>
+     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;n.gametes&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.obs&#09;f.slatkin.exp&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
@@ -523,6 +563,18 @@ MODIFICATIONS.
       <xsl:with-param name="type" select="'1-locus-allele'"/>
      </xsl:call-template>
     </exsl:document>
+
+    <exsl:document href="1-locus-genotype.dat"
+     omit-xml-declaration="yes"
+     method="text">
+     <xsl:value-of select="$header-line-start"/><xsl:text>locus&#09;genotype&#09;pval.mcmc&#09;pval.monte-carlo</xsl:text>
+     <xsl:call-template name="newline"/>
+     <xsl:call-template name="gen-lines">
+      <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
+      <xsl:with-param name="type" select="'1-locus-genotype'"/>
+     </xsl:call-template>
+    </exsl:document>
+
 
     <exsl:document href="2-locus-summary.dat"
      omit-xml-declaration="yes"

@@ -1,5 +1,11 @@
 2004-07-20  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* xslt/meta-to-r.xsl (1-locus-genotype.dat): Generate new file
+	'1-locus-genotype.dat', modelled on '1-locus-allele.dat', except
+	that it generates 1-locus genotype statistics from the
+	HardyWeinberg modules such as the individual genotype p-values for
+	both MCMC and plain Monte Carlo test.
+
 	* setup.py (ext_Gthwe): Remove obsolete PERMU_TEST macro from
 	define_macros() section.  Add INDIVID_GENOTYPES macro: assign to
 	'1' (true).
