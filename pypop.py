@@ -22,15 +22,7 @@ current directory or in %s.
   
   INPUTFILE   input text file""" % altpath
 
-from ParseFile import ParseGenotypeFile
-from Arlequin import ArlequinExactHWTest
-from Haplo import Emhaplofreq, HaploArlequin
-from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin
-from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
-from ConfigParser import ConfigParser, NoOptionError
-from Utils import XMLOutputStream, TextOutputStream
 from getopt import getopt, GetoptError
-from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter
 
 try:
   opts, args =getopt(sys.argv[1:],"lsgc:hd", ["use-libxslt", "use-4suite", "gui", "config=", "help", "debug"])
