@@ -1,9 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
-   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd"[
+<!ENTITY % ents SYSTEM "versions.ent" >
+%ents;
+]>
 <?PSGML nofill programlisting screen literallayout userinput?>
 
-<article condition="main" xmlns:xi="http://www.w3.org/2001/XInclude">
+<article xmlns:xi="http://www.w3.org/2001/XInclude">
  <articleinfo>
   <title>Installing <application>PyPop</application></title>
   <authorgroup>
@@ -19,12 +22,135 @@
 
   <section>
    <title>Installing on GNU/Linux</title>
-   <para></para>
+
+   <orderedlist>
+    <listitem>
+     <para>Download the latest stable release and save it somewhere in
+      your home directory:</para>
+     <itemizedlist>
+      <listitem>
+       <para> <application><ulink
+	  url="&downloadroot;PyPopLinux-&VERSION;.tar.gz">&downloadroot;PyPopLinux-&VERSION;.tar.gz</ulink></application></para>
+      </listitem>
+     </itemizedlist>
+    </listitem>
+
+    <listitem>
+     <para>From the command-line terminal untar and uncompress the
+      package (typically using the GNU <command>tar</command>
+      program):</para>
+
+     <screen>$ tar zxf PyPopLinux-&VERSION;.tar.gz</screen>
+    </listitem>
+   </orderedlist>
+
+   <para>Voila, you have now successfully installed
+    <application>PyPop</application>.  To test your installation, run
+    the program and use the sample test files with the following steps:</para>
+
+   <orderedlist>
+    <listitem>
+     <para>Change directory into the extracted directory</para>
+     <screen>$ cd PyPopLinux-&VERSION;</screen>
+    </listitem>
+
+    <listitem>
+     <para>Now you can run the interactive version of the program, by
+      simply typing <userinput>./pypop.sh</userinput>.</para>
+
+     <para>You should see an informational screen, and will be asked
+      to supply the name of the configuration file and then the
+      population file, select the file <filename>sample.ini</filename>
+      and <filename>sample.pop</filename>, respectively.
+     </para>
+     <screen id="guide-install-linux-run-screen">$ <userinput>./pypop.sh</userinput>
+PyPop: Python for Population Genetics
+Copyright (C) 2003 Regents of the University of California
+This is free software.  There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ 
+You may redistribute copies of PyPop under the terms of the
+GNU General Public License.  For more information about these
+matters, see the file named COPYING.
+ 
+To accept the default in brackets for each filename, simply press
+return for each prompt.
+Please enter config filename [config.ini]: <userinput>sample.ini</userinput>
+Please enter population filename [no default]: <userinput>sample.pop</userinput>
+PyPop is processing sample.pop 
+<emphasis>log messages may appear here </emphasis>
+PyPop run complete!
+XML output can be found in: sample-out.xml
+Plain text output can be found in: sample-out.txt
+</screen>
+
+     <para><application>PyPop</application> will remember the names of
+      the configuration and population files you used last, and in
+      subsequent runs will provide those as defaults.</para>
+
+    </listitem>
+   </orderedlist>
+
   </section>
 
   <section>
-   <title>Installing on Winndows</title>
-   <para></para>
+   <title>Installing on Windows</title>
+
+   <orderedlist>
+    <listitem>
+     <para>Before starting an install on Windows, you must first make
+      sure you have a copy of a zip file extractor such as
+      <application>PowerArchiver</application> or
+      <application>WinZip</application>.</para>
+    </listitem>
+
+    <listitem>
+     <para>Download the latest stable Windows release and save it
+       in one of your directories or on the Desktop:</para>
+     <itemizedlist>
+      <listitem>
+       <para> <application><ulink
+	  url="&downloadroot;PyPopWin32-&VERSION;.zip">&downloadroot;PyPopWin32-&VERSION;.zip</ulink></application></para>
+      </listitem>
+     </itemizedlist>
+    </listitem>
+
+    <listitem>
+     <para>Once you have downloaded the file, you should double-click
+      it and if you have correctly installed one of the zip
+      compression utilities, it should open using that zip program.
+      You should then extract the contents of the zip file and put it
+      somewhere sensible. Consult the documentation for your archiving
+      utility for details on how to do this (it should be reasonably
+      self-explanatory).
+     </para>
+    </listitem>
+   </orderedlist>
+
+
+   <para>To test your installation:</para>
+   <orderedlist>
+    <listitem>
+     <para>Once you have the PyPopWin32-&VERSION; directory extracted,
+      open the directory and double-click on the
+      <filename>pypop.sh</filename> file.</para>
+    </listitem>
+    <listitem>
+
+     <para>A DOS shell should then open <xi:include
+       href="../../src/VERSION" parse="text"/> running the program
+      inside it. </para>
+
+     <remark>More to come..</remark>
+
+<!--
+     <xi:include
+      href="install.xml#xpointer(/article/section/section/orderedlist/listitem/screen[@id='guide-install-linux-run-screen'])"/>
+-->
+     
+    </listitem>
+   </orderedlist>
+
   </section>
 
  </section>
