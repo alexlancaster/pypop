@@ -24,7 +24,7 @@ class HardyWeinberg:
 
     """
 
-    self.locusData = locusData
+    self.locusData = locusData         # ordered tuples of genotypes
     self.lumpBelow = lumpBelow
 
     self.alleleCounts = alleleCount[0] #just the dictionary of allelename:count
@@ -63,7 +63,6 @@ class HardyWeinberg:
     """Manipulate the given genotype data to generate
     the tables upon which the calculations will be based."""
 
-    # self.alleleCounts = {}
     self.alleleFrequencies = {}
     self.observedGenotypes = []
     self.observedAlleles = []               # need a uniqed list
@@ -185,9 +184,11 @@ class HardyWeinberg:
     self.lumpedExpectedGenotypes = 0.0
     # print 'Calculating Chi Squared'
 
-    #--mpn--
     for genotype in self.expectedGenotypeCounts.keys():
       if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
+
+        self.printExpected.append(genotype)
+
         if self.debug:
           print 'Expected:'
           print genotype, self.expectedGenotypeCounts[genotype]
@@ -195,8 +196,6 @@ class HardyWeinberg:
             print 'Observed:', self.observedGenotypeCounts[genotype]
           else:
             print 'Observed: 0'
-
-        self.printExpected.append(genotype)
 
         self.commonGenotypeCounter += 1
         if self.observedGenotypeCounts.has_key(genotype):
