@@ -340,7 +340,9 @@ if config.has_section("Emhaplofreq"):
 
   # create object to generate haplotype and LD statistics
   # a wrapper around the emhaplofreq module
-  haplo = Emhaplofreq(input.getIndividualsData(), debug=debug)
+  haplo = Emhaplofreq(input.getIndividualsData(),
+                      debug=debug,
+                      untypedAllele=untypedAllele)
   
   try:
     locusKeys=config.get("Emhaplofreq", "lociToEstHaplo")
