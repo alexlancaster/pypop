@@ -399,7 +399,7 @@ class HardyWeinberg:
     # calculate padding width
     width = len(sortedAlleles[0])
 
-    stream.writeln("Genotype table, format of each cell is: expt/obsd:")
+    stream.writeln("Genotype table, format of each cell is: obsd/expt:")
     stream.writeln()
 
     for horiz in sortedAlleles:
