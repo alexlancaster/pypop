@@ -346,6 +346,14 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         stream.tagContents('varHomozygosity', "%.4f" % self.EW.get_var_homozygosity())
         stream.writeln()
 
+        # calculate normalized deviate of homozygosity (F_nd)
+        sqrtVar = math.sqrt(self.EW.get_var_homozygosity())
+        normDevHomozygosity = (self.getObservedHomozygosity() - \
+                                self.EW.get_mean_homozygosity()) / sqrtVar
+        
+        stream.tagContents('normDevHomozygosity', "%.4f" % normDevHomozygosity)
+        stream.writeln()
+
         stream.closetag('homozygosityEWSlatkinExact')
 
       else:
