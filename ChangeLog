@@ -1,5 +1,9 @@
 2004-07-12  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): Ensure that
+	overall pvalue is printed out in the appropriate location, by
+	restricting the XPath to use <pvalue type="overall">.
+
 	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Pass in
 	cStringIO "file pointer" to _run_randomization() routine.
 	Serialize list of genotypes and names also to XML output.
