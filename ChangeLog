@@ -1,4 +1,13 @@
-2003-12-17  Owen Solberg  <solberg@localhost.localdomain>
+2003-12-19  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* ParseFile.py (ParseGenotypeFile._genInternalMaps): Fix logic
+	when checking for the existence of a column for the population
+	name, test for the presence of "None", because if 'popNameCol' is
+	'0' (rather than a positive integer), then the test
+	will (erroneously) ignore the column and won't set the population
+	name correctly.
+
+2003-12-17  Owen Solberg  <solberg AT socrates.berkeley.edu>
 
 	* RandomBinning.py (RandomBinsForHomozygosity.sequenceMethod):
 	Major retooling enables this method to keep track of each position

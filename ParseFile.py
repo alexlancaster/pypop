@@ -417,11 +417,11 @@ class ParseGenotypeFile(ParseFile):
             elif key[0] == self.popNameDesignator:
                 popNameCol = self.sampleMap[key]
 
-        if popNameCol:
+        if popNameCol == None:
+            self.popName = None
+        else:
             # save population name
             self.popName = string.split(self.fileData[self.sampleFirstLine], self.separator)[popNameCol]
-        else:
-            self.popName = None
 
         return self.alleleMap
 
