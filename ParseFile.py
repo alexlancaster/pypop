@@ -485,15 +485,15 @@ class ParseGenotypeFile(ParseFile):
                 if (self.untypedAllele != allele1) and \
                    (self.untypedAllele != allele2):
                     if alleleTable.has_key(allele1):
-                        alleleTable[fields[col1]] += 1
+                        alleleTable[allele1] += 1
                     else:
-                        alleleTable[fields[col1]] = 1
+                        alleleTable[allele1] = 1
                     total += 1
 
                     if alleleTable.has_key(allele2):
-                        alleleTable[fields[col2]] += 1
+                        alleleTable[allele2] += 1
                     else:
-                        alleleTable[fields[col2]] = 1
+                        alleleTable[allele2] = 1
                     total += 1
                 # if either allele is untyped it is we throw out the
                 # entire individual and go to the next individual
