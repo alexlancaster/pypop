@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 
-"""Module for parsing IHWG files.
+"""Module for parsing data files.
 
    Includes classes for parsing individuals genotyped at multiple loci
    and classes for parsing literature data which only includes allele
@@ -16,8 +16,8 @@ class ParseFile:
     *Not to be instantiated.*"""
     def __init__(self,
                  filename,
-                 popFieldsFilename='ihwg-pop-fields.dat',
-                 sampleFieldsFilename='ihwg-sample-fields.dat',
+                 popFieldsFilename='ws-pop-fields.dat',
+                 sampleFieldsFilename='ws-sample-fields.dat',
                  separator='\t',
                  debug=0):
         """Constructor for ParseFile object.
@@ -25,10 +25,10 @@ class ParseFile:
         - 'filename': filename for the file to be parsed.
 
         - 'popFieldsFieldname': valid headers for overall population
-           data  (default: 'ihwg-pop-fields.dat')
+           data  (default: 'ws-pop-fields.dat')
 
         - 'sampleFieldsFilename': valid headers for lines of sample
-        data.  (default: 'ihwg-sample-fields')
+        data.  (default: 'ws-sample-fields')
 
         - 'separator': separator for adjacent fields (default: a tab
            stop, '\\t').
@@ -295,7 +295,7 @@ class ParseFile:
             stream.writeln()
 
 class ParseGenotypeFile(ParseFile):
-    """Class to parse standard IHWG datafile in genotype form."""
+    """Class to parse standard datafile in genotype form."""
     
     def __init__(self,
                  filename,

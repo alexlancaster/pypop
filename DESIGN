@@ -1,4 +1,4 @@
-**Beginnings of a class library for parsing IHWG files.**
+**Beginnings of a class library for parsing population genetics data files.**
 
 - 'ParseFile' is a base class which has most of the common functionality
 for reading files.
