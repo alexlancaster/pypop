@@ -35,12 +35,19 @@ for locus in freqcount.keys():
         print "%s :%0.5f (%d)" % (allele, freq, alleleTable[allele])
     print "Total freq: %0.5f (%d)" % (totalFreq, total)
 
+print "====================================================="
+
 for locus in parsefile.getLocusList():
+    print
     print "Locus: ", locus
     print
     print parsefile.getLocusData(locus)
     print
+    print "Allele Counts for: ", locus
+    print
+    print parsefile.getAlleleCountAt(locus)
 
+    
 # read in the file that contains the desired output fields
 #outputSample = parsefile.dbFieldsRead('ihwg-output-fields.dat')
 
