@@ -1,5 +1,17 @@
 2005-02-28  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* Main.py: Import HardyWeinbergEnumeration.
+	(Main._doGenotypeFile): Do enumeration version (comment out using
+	a "if 0" for the moment).
+
+	* HardyWeinberg.py (HardyWeinbergGuoThompson.generateFlattenedMatrix):
+	Split out generation of "flattened" matrix into separate method.
+	Make re-used variables instance variables.
+	(HardyWeinbergGuoThompson.dumpTable): Call it.  Use iVars in place
+	of local vars.
+	(HardyWeinbergEnumeration): New class, calls a SWIGed version of
+	Hazael Maldonado Torres' exact enumeration test (hwe-enumeration).
+
 	* setup.py (ext_HweEnum): Use SWIG wrapper pyfprintf function in
 	place of g_fprintf.
 

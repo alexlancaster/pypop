@@ -720,28 +720,19 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
                            locusData=locusData,
                            alleleCount=alleleCount,
                            **kw)
-               
-  def dumpTable(self, locusName, stream):
 
-    if locusName[0] == '*':
-      locusName = locusName[1:]
+  def generateFlattenedMatrix(self):
 
-    if self.k < 2:
-      stream.emptytag('hardyweinbergGuoThompson', role='too-few-alleles')
-      return
-
-    matrixElemCount = (self.k * (self.k + 1)) / 2
-
-    sortedAlleles = self.observedAlleles
-    sortedAlleles.sort()
+    self.sortedAlleles = self.observedAlleles
+    self.sortedAlleles.sort()
 
     if self.debug:
-      print "sortedAlleles: ", sortedAlleles
+      print "sortedAlleles: ", self.sortedAlleles
 
     # allele list
-    flattenedMatrix = []
-    flattenedMatrixNames = []
-    totalGametes = 0
+    self.flattenedMatrix = []
+    self.flattenedMatrixNames = []
+    self.totalGametes = 0
 
     # FIXME: The order in which this flattenedMatrix is generated is
     # very important, because it must match *exactly* the order in
@@ -754,9 +745,9 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     # can't think of any other solution to this other than passing
     # in the labels for the genotypes which would be very
     # cumbersome).
-    for horiz in sortedAlleles:
+    for horiz in self.sortedAlleles:
       # print "%2s" % horiz,
-      for vert in sortedAlleles:
+      for vert in self.sortedAlleles:
         # ensure that matrix is triangular
         if vert > horiz:
           continue
@@ -771,9 +762,23 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
         else:
           output = "%2s " % "0"
 
-        flattenedMatrix.append(int(output))
-        flattenedMatrixNames.append(key2)
-        totalGametes += int(output)
+        self.flattenedMatrix.append(int(output))
+        self.flattenedMatrixNames.append(key2)
+        self.totalGametes += int(output)
+               
+  def dumpTable(self, locusName, stream):
+
+    if locusName[0] == '*':
+      locusName = locusName[1:]
+
+    if self.k < 2:
+      stream.emptytag('hardyweinbergGuoThompson', role='too-few-alleles')
+      return
+
+    matrixElemCount = (self.k * (self.k + 1)) / 2
+
+    # generate a flattened matrix
+    self.generateFlattenedMatrix()
 
     # create dummy array with length of the number of alleles
     n = [0]*(self.k)
@@ -799,19 +804,44 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     import _Gthwe
 
     if self.runMCMCTest:
-      _Gthwe.run_data(flattenedMatrix, n, self.k, totalGametes,
+      _Gthwe.run_data(self.flattenedMatrix, n, self.k, self.totalGametes,
                       self.dememorizationSteps, self.samplingNum,
                       self.samplingSize, locusName, fp)
 
     if self.runPlainMCTest:
-      _Gthwe.run_randomization(flattenedMatrix, n, self.k, totalGametes,
-                               self.monteCarloSteps, fp)
+      _Gthwe.run_randomization(self.flattenedMatrix, n, self.k,
+                               self.totalGametes, self.monteCarloSteps, fp)
 
     # copy XML output to stream
     stream.write(fp.getvalue())
     fp.close()
-        
 
+class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
+  """Uses Hazael Maldonado Torres' exact enumeration test
+  
+  """
+  def __init__(self,
+               locusData=None,
+               alleleCount=None):
+    
+    HardyWeinbergGuoThompson.__init__(self,
+                                      locusData=locusData,
+                                      alleleCount=alleleCount)
+
+    self.generateFlattenedMatrix()
+    import _HweEnum
+    _HweEnum.run_external(self.flattenedMatrix, self.k)
+    self.exactPValue = _HweEnum.get_p_value()
+    self.observedPValue = _HweEnum.get_pr_observed()
+
+  def serializeTo(self, stream):
+    stream.opentag('hardyweinbergEnumeration')
+    stream.writeln()
+    stream.tagContents("pvalue", "%f" % self.exactPValue)
+    stream.tagContents("pvalue-observed", "%f" % self.observedPValue)
+    stream.writeln()
+    stream.closetag('hardyweinbergEnumeration')
+    
 class HardyWeinbergGuoThompsonArlequin:
   """Wrapper class for 'Arlequin'.
 

@@ -42,7 +42,7 @@ from ParseFile import ParseGenotypeFile, ParseAlleleCountFile
 from DataTypes import Genotypes, AlleleCounts
 from Arlequin import ArlequinExactHWTest
 from Haplo import Emhaplofreq, HaploArlequin
-from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin
+from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin, HardyWeinbergEnumeration
 from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
 from ConfigParser import ConfigParser, NoOptionError, NoSectionError
 from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix, checkXSLFile, getUserFilenameInput
@@ -693,6 +693,15 @@ class Main:
             hwObject.dumpTable(locus, self.xmlStream)
             self.xmlStream.writeln()
 
+            # FIXME: this is a hack until we support this in the
+            # .ini file
+            if 0:
+                hwEnum = HardyWeinbergEnumeration(\
+                      locusData=self.input.getLocusDataAt(locus), 
+                      alleleCount=self.input.getAlleleCountAt(locus))
+
+                hwEnum.serializeTo(self.xmlStream)
+            
           if self.config.has_section("HardyWeinbergGuoThompsonArlequin"):
 
             # default location for Arlequin executable
