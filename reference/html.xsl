@@ -24,7 +24,7 @@
  <xsl:param name="nominal.image.width" select="9 * $pixels.per.inch"/>
 
  <xsl:param name="callout.list.table" select="'1'"/>
- <xsl:param name="callout.unicode" select="'0'"/>
+ <xsl:param name="callout.unicode" select="'1'"/>
  <xsl:param name="callout.graphics" select="'0'"/>
 
  <xsl:param name="profiling-highlighting" select="0"/>
