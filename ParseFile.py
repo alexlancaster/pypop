@@ -409,7 +409,8 @@ class ParseGenotypeFile(ParseFile):
                     print rowCount, self.individualsList[rowCount]
 
                 # extend the list by the allele pair
-                self.individualsList[rowCount].extend([allele1, allele2])
+                self.individualsList[rowCount].extend([allele1 + ':',
+                                                       allele2 + ':'])
 
                 # increment row count
                 rowCount += 1
