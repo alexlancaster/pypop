@@ -119,6 +119,14 @@
   
  </xsl:template>
 
+ <xsl:template match="formalpara/para">
+  <xsl:apply-imports/>
+ </xsl:template>
+
+ <xsl:template match="footnote/para[1]|footnote/simpara[1]" priority="2">
+  <xsl:apply-imports/>
+ </xsl:template>
+
  <xsl:template match="article/appendix">
   <div class="{name(.)}">
    <xsl:if test="$generate.id.attributes != 0">
