@@ -58,7 +58,7 @@ class Homozygosity:
     Returns a boolean.
 
     *Internal use only"""
-    if (sampleCount <= 15) or (sampleCount >= 550):
+    if (sampleCount <= 15) or (sampleCount >= 505):
       return 0
     else:
       return 1
