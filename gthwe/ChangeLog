@@ -1,3 +1,8 @@
+2004-10-21  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* *.c, *.h: Add copyright for both Sun-Wei Guo (1992) and
+	UC (1999-2004) and GNU GPL license headers to all files.
+
 2004-09-19  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* hwe.c (run_data): Remove unused variables 'l', 'k'.
