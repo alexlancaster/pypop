@@ -24,7 +24,7 @@
 
  <data:region-order>
   <regionname long="Sub-Saharan-Africa">1.Sub-Sah-Africa</regionname>
-  <regionname long="North-African">2.N-Africa</regionname>	  
+  <regionname long="North-Africa">2.N-Africa</regionname>	  
   <regionname long="Europe">3.Europe</regionname>	  
   <regionname long="South-West-Asia">4.SW-Asia</regionname>	  
   <regionname long="South-East-Asia">5.SE-Asia</regionname>	  
