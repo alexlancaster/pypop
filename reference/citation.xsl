@@ -146,13 +146,21 @@ Additional citation possibilities (both author-year and numerical modes)
  </xsl:template>
 
  <xsl:template match="citation" name="citation" mode="fo">
-  <xsl:variable name="targets" select="key('id',.)"/>
-  <xsl:variable name="target" select="$targets[1]"/>
+  <xsl:variable name="citetext" select="."/>
+  <xsl:variable name="abbrevtarget" select="//bibliography/biblioentry[abbrev=$citetext]|//bibliography/bibliomixed[abbrev=$citetext]"/>
+
+  <xsl:variable name="targets" select="key('id',$citetext)"/>
+  <xsl:variable name="target" select="$targets[1]|$abbrevtarget[1]"/>
   <xsl:variable name="refelem" select="local-name($target)"/>
 
-  <xsl:call-template name="check.id.unique">
+  <xsl:message><xsl:value-of select="count($abbrevtarget)"/></xsl:message>
+
+  <!-- only check if an id to biblio* element exists -->
+  <xsl:if test="count($targets) &gt; 0">
+   <xsl:call-template name="check.id.unique">
     <xsl:with-param name="linkend" select="."/>
-  </xsl:call-template>
+   </xsl:call-template>
+  </xsl:if>
 
   <xsl:choose>
    <xsl:when test="$refelem=''">
