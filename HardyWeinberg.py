@@ -727,89 +727,85 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
     matrixElemCount = (self.k * (self.k + 1)) / 2
 
-    if matrixElemCount < self.maxMatrixSize:
+    sortedAlleles = self.observedAlleles
+    sortedAlleles.sort()
 
-      sortedAlleles = self.observedAlleles
-      sortedAlleles.sort()
+    if self.debug:
+      print "sortedAlleles: ", sortedAlleles
 
-      if self.debug:
-        print "sortedAlleles: ", sortedAlleles
+    # allele list
+    flattenedMatrix = []
+    flattenedMatrixNames = []
+    totalGametes = 0
 
-      # allele list
-      flattenedMatrix = []
-      flattenedMatrixNames = []
-      totalGametes = 0
+    # FIXME: The order in which this flattenedMatrix is generated is
+    # very important, because it must match *exactly* the order in
+    # which is emitted by the XML <hardyweinberg><genotypetable>.
+    # currently the order *does* match, because allele list is
+    # sorted before running test (check this!).  If it didn't, the
+    # individual pvalues genotypes output order in the gthwe module
+    # wouldn't match the genotypes in the XML, making it impossible
+    # to match the emitted pvalues with their genotype label (I
+    # can't think of any other solution to this other than passing
+    # in the labels for the genotypes which would be very
+    # cumbersome).
+    for horiz in sortedAlleles:
+      # print "%2s" % horiz,
+      for vert in sortedAlleles:
+        # ensure that matrix is triangular
+        if vert > horiz:
+          continue
 
-      # FIXME: The order in which this flattenedMatrix is generated is
-      # very important, because it must match *exactly* the order in
-      # which is emitted by the XML <hardyweinberg><genotypetable>.
-      # currently the order *does* match, because allele list is
-      # sorted before running test (check this!).  If it didn't, the
-      # individual pvalues genotypes output order in the gthwe module
-      # wouldn't match the genotypes in the XML, making it impossible
-      # to match the emitted pvalues with their genotype label (I
-      # can't think of any other solution to this other than passing
-      # in the labels for the genotypes which would be very
-      # cumbersome).
-      for horiz in sortedAlleles:
-        # print "%2s" % horiz,
-        for vert in sortedAlleles:
-          # ensure that matrix is triangular
-          if vert > horiz:
-            continue
+        # need to check both permutations of key
+        key1 = "%s:%s" % (horiz, vert)
+        key2 = "%s:%s" % (vert, horiz)
+        if self.observedGenotypeCounts.has_key(key1):
+          output = "%2s " % self.observedGenotypeCounts[key1]
+        elif self.observedGenotypeCounts.has_key(key2):
+          output = "%2s " % self.observedGenotypeCounts[key2]
+        else:
+          output = "%2s " % "0"
 
-          # need to check both permutations of key
-          key1 = "%s:%s" % (horiz, vert)
-          key2 = "%s:%s" % (vert, horiz)
-          if self.observedGenotypeCounts.has_key(key1):
-            output = "%2s " % self.observedGenotypeCounts[key1]
-          elif self.observedGenotypeCounts.has_key(key2):
-            output = "%2s " % self.observedGenotypeCounts[key2]
-          else:
-            output = "%2s " % "0"
-            
-          flattenedMatrix.append(int(output))
-          flattenedMatrixNames.append(key2)
-          totalGametes += int(output)
+        flattenedMatrix.append(int(output))
+        flattenedMatrixNames.append(key2)
+        totalGametes += int(output)
 
-      # create dummy array with length of the number of alleles
-      n = [0]*(self.k)
+    # create dummy array with length of the number of alleles
+    n = [0]*(self.k)
 
-      if self.debug:
-        print "flattenedMatrix:", flattenedMatrix
-        print "flattenedMatrixNames:", flattenedMatrixNames
-        print "len(flattenedMatrix):", len(flattenedMatrix)
-        print "n: ", n
-        print "k: ", self.k
-        print "totalGametes", totalGametes
-        print "sampling{steps,num, size}: ", self.dememorizationSteps, self.samplingNum, self.samplingSize
-        print "locusName: ", locusName
+    if self.debug:
+      print "flattenedMatrix:", flattenedMatrix
+      print "flattenedMatrixNames:", flattenedMatrixNames
+      print "len(flattenedMatrix):", len(flattenedMatrix)
+      print "n: ", n
+      print "k: ", self.k
+      print "totalGametes", totalGametes
+      print "sampling{steps,num, size}: ", self.dememorizationSteps, self.samplingNum, self.samplingSize
+      print "locusName: ", locusName
 
-        # flush stdout before running the G&T step
-        sys.stdout.flush()
+      # flush stdout before running the G&T step
+      sys.stdout.flush()
 
-      # create string "file" buffer
-      import cStringIO
-      fp = cStringIO.StringIO()
+    # create string "file" buffer
+    import cStringIO
+    fp = cStringIO.StringIO()
 
-      # import library only when necessary
-      import _Gthwe
+    # import library only when necessary
+    import _Gthwe
 
-      if self.runMCMCTest:
-        _Gthwe.run_data(flattenedMatrix, n, self.k, totalGametes,
-                        self.dememorizationSteps, self.samplingNum,
-                        self.samplingSize, locusName, fp)
+    if self.runMCMCTest:
+      _Gthwe.run_data(flattenedMatrix, n, self.k, totalGametes,
+                      self.dememorizationSteps, self.samplingNum,
+                      self.samplingSize, locusName, fp)
 
-      if self.runPlainMCTest:
-        _Gthwe.run_randomization(flattenedMatrix, n, self.k, totalGametes,
-                                 self.monteCarloSteps, fp)
+    if self.runPlainMCTest:
+      _Gthwe.run_randomization(flattenedMatrix, n, self.k, totalGametes,
+                               self.monteCarloSteps, fp)
 
-      # copy XML output to stream
-      stream.write(fp.getvalue())
-      fp.close()
+    # copy XML output to stream
+    stream.write(fp.getvalue())
+    fp.close()
         
-    else:
-      stream.emptytag('hardyweinbergGuoThompson', role='too-large-matrix')
 
 class HardyWeinbergGuoThompsonArlequin:
   """Wrapper class for 'Arlequin'.

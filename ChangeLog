@@ -1,5 +1,10 @@
 2004-07-22  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Don't
+	check self.maxMatrixSize, option is now deprecated as Gthwe
+	module should be able to handle matrices of arbitrary size.
+	Remove entire "if" statement.
+
 	* NEWS: Update with some of the new features since 0.5.2 (some yet
 	to be documented).
 
