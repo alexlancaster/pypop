@@ -769,12 +769,13 @@ ___________________________________________
 Number of individuals: 47 (before-filtering)
 Number of individuals: 45 (after-filtering)
 Unique phenotypes: 45
-Unique phenotypes: 113
+Unique genotypes: 113
 Number of haplotypes: 188
 Loglikelihood under linkage equilibrium ln(L_0): -472.700542
 Loglikelihood obtained via the EM algorithm ln(L_1): -340.676530
 Number of iterations before convergence: 67
 
+Haplotypes sorted by name             | Haplotypes sorted by frequency        
 haplotype         frequency # copies  | haplotype         frequency # copies  
 0101:1301:0402:   0.02222   2.0       | 0201:1401:0402:   0.03335   3.0       
 0101:1301:1101:   0.01111   1.0       | 3204:1401:0802:   0.03333   3.0       
@@ -852,12 +853,13 @@ ________________________________________
 Number of individuals: 47 (before-filtering)
 Number of individuals: 45 (after-filtering)
 Unique phenotypes: 43
-Unique phenotypes: 115
+Unique genotypes: 115
 Number of haplotypes: 170
 Loglikelihood under linkage equilibrium ln(L_0): -490.348381
 Loglikelihood obtained via the EM algorithm ln(L_1): -307.524049
 Number of iterations before convergence: 80
 
+Haplotypes sorted by name             | Haplotypes sorted by frequency        
 haplotype         frequency # copies  | haplotype         frequency # copies  
 0101:1301:0102:   0.03333   3.0       | 0201:1401:0307:   0.11111   10.0      
 0101:1401:0307:   0.02222   2.0       | 0218:1401:0307:   0.05556   5.0       
@@ -920,12 +922,13 @@ _________________________________________________
 Number of individuals: 47 (before-filtering)
 Number of individuals: 44 (after-filtering)
 Unique phenotypes: 38
-Unique phenotypes: 95
+Unique genotypes: 95
 Number of haplotypes: 93
 Loglikelihood under linkage equilibrium ln(L_0): -347.206209
 Loglikelihood obtained via the EM algorithm ln(L_1): -238.588740
 Number of iterations before convergence: 36
 
+Haplotypes sorted by name             | Haplotypes sorted by frequency        
 haplotype         frequency # copies  | haplotype         frequency # copies  
 0402:0301:5801:   0.01136   1.0       | 0802:0201:1401:   0.11883   10.5      
 0402:0401:0202:   0.02273   2.0       | 0802:0201:0403:   0.10274   9.0       
@@ -963,12 +966,13 @@ _________________________________________________
 Number of individuals: 47 (before-filtering)
 Number of individuals: 44 (after-filtering)
 Unique phenotypes: 38
-Unique phenotypes: 103
+Unique genotypes: 103
 Number of haplotypes: 112
 Loglikelihood under linkage equilibrium ln(L_0): -373.251866
 Loglikelihood obtained via the EM algorithm ln(L_1): -231.027770
 Number of iterations before convergence: 76
 
+Haplotypes sorted by name             | Haplotypes sorted by frequency        
 haplotype         frequency # copies  | haplotype         frequency # copies  
 0402:0601:0202:   0.02273   2.0       | 0802:0303:1401:   0.11554   10.2      
 0402:0601:0403:   0.11364   10.0      | 0402:0601:0403:   0.11364   10.0      
