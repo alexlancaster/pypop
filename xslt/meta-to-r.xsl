@@ -44,6 +44,8 @@ MODIFICATIONS.
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
 
+ <xsl:param name="output.genotype.distrib" select="0"/>
+
  <data:map-order>
   <locusname order="1">D6S2239</locusname>
   <locusname order="2">D6S2223</locusname>
@@ -450,50 +452,53 @@ MODIFICATIONS.
        <xsl:with-param name="node" select="../../../hardyweinbergGuoThompson[not(@type='monte-carlo')]/genotypeObservedStatistic[@statistic='diff_statistic' and @id=$pos-less1]"/>
       </xsl:call-template>
 
-      <xsl:variable name="genotype-filename">
-       <xsl:text>genotype-</xsl:text>
-       <xsl:value-of select="@row"/>
-       <xsl:text>-</xsl:text>
-       <xsl:value-of select="@col"/>
-       <xsl:text>.dat</xsl:text>
-      </xsl:variable>
+      <xsl:if test="$output.genotype.distrib=1">
 
-      <exsl:document href="{$genotype-filename}"
-       omit-xml-declaration="yes"
-       method="text">
-
-       <xsl:variable name="cur-chen-mc" select="$stats-chen-monte-carlo[@id=$pos-less1]"/>
-
-       <xsl:variable name="cur-diff-mc" select="$stats-diff-monte-carlo[@id=$pos-less1]"/>
-
-       <xsl:variable name="cur-chen-mcmc" select="$stats-chen-mcmc[@id=$pos-less1]"/>
-
-       <xsl:variable name="cur-diff-mcmc" select="$stats-diff-mcmc[@id=$pos-less1]"/>
-
-       <xsl:text>stat.chen.mc</xsl:text>
-       <xsl:text>&#09;</xsl:text>
-       <xsl:text>stat.diff.mc</xsl:text>
-       <xsl:text>&#09;</xsl:text>
-       <xsl:text>stat.chen.mcmc</xsl:text>
-       <xsl:text>&#09;</xsl:text>
-       <xsl:text>stat.diff.mcmc</xsl:text>
-       <xsl:call-template name="newline"/>
-
-       <xsl:for-each select="$cur-chen-mc">
-	<xsl:variable name="cur-pos" select="position()"/>
-	<xsl:value-of select="."/>
+       <xsl:variable name="genotype-filename">
+	<xsl:text>genotype-</xsl:text>
+	<xsl:value-of select="@row"/>
+	<xsl:text>-</xsl:text>
+	<xsl:value-of select="@col"/>
+	<xsl:text>.dat</xsl:text>
+       </xsl:variable>
+       
+       <exsl:document href="{$genotype-filename}"
+	omit-xml-declaration="yes"
+	method="text">
+	
+	<xsl:variable name="cur-chen-mc" select="$stats-chen-monte-carlo[@id=$pos-less1]"/>
+	
+	<xsl:variable name="cur-diff-mc" select="$stats-diff-monte-carlo[@id=$pos-less1]"/>
+	
+	<xsl:variable name="cur-chen-mcmc" select="$stats-chen-mcmc[@id=$pos-less1]"/>
+	
+	<xsl:variable name="cur-diff-mcmc" select="$stats-diff-mcmc[@id=$pos-less1]"/>
+	
+	<xsl:text>stat.chen.mc</xsl:text>
 	<xsl:text>&#09;</xsl:text>
-	<xsl:value-of select="$cur-diff-mc[$cur-pos]"/>
+	<xsl:text>stat.diff.mc</xsl:text>
 	<xsl:text>&#09;</xsl:text>
-	<xsl:value-of select="$cur-chen-mcmc[$cur-pos]"/>
+	<xsl:text>stat.chen.mcmc</xsl:text>
 	<xsl:text>&#09;</xsl:text>
-	<xsl:value-of select="$cur-diff-mcmc[$cur-pos]"/>
-
+	<xsl:text>stat.diff.mcmc</xsl:text>
 	<xsl:call-template name="newline"/>
-       </xsl:for-each>
-      </exsl:document>
+	
+	<xsl:for-each select="$cur-chen-mc">
+	 <xsl:variable name="cur-pos" select="position()"/>
+	 <xsl:value-of select="."/>
+	 <xsl:text>&#09;</xsl:text>
+	 <xsl:value-of select="$cur-diff-mc[$cur-pos]"/>
+	 <xsl:text>&#09;</xsl:text>
+	 <xsl:value-of select="$cur-chen-mcmc[$cur-pos]"/>
+	 <xsl:text>&#09;</xsl:text>
+	 <xsl:value-of select="$cur-diff-mcmc[$cur-pos]"/>
+	 
+	 <xsl:call-template name="newline"/>
+	</xsl:for-each>
+       </exsl:document>
+       </xsl:if>
 
-      <xsl:call-template name="newline"/>
+       <xsl:call-template name="newline"/>
      </xsl:for-each>
     </xsl:when>
 
