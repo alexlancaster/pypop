@@ -13,6 +13,12 @@ Copyright (C) 2003, 2004 Regents of the University of California
     -c config.ini *.pop'). (NOTE: This is supported *only* in
     batch version, not in the interactive version, which expects one
     and only one file supplied by user.
+*** Allele count files can now be filtered through the filter apparatus
+    (particularly the Sequence and AnthonyNolan) in the same was as
+    genotype files transparently.  [This has been enabled via a code
+    refactor that treats allele count files as pseudo-genotype files
+    for the purpose of filtering].  This change also resulted in the
+    removal of the obsolete lookup-table-based homozygosity test.
 ** Bug fixes
 *** Allow HardyWeinbergGuoThompson test to be run if at least two alleles
     present (test was originally failing with a 'too-few-alleles'
