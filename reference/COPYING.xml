@@ -27,6 +27,7 @@
     <releaseinfo>      Version 2, June 1991</releaseinfo>
   </appendixinfo>
   <title>GNU General Public License</title>
+
   <sect1>
     <title>Preamble</title>
     <para>      The licenses for most software are designed to take away your 
@@ -57,7 +58,7 @@
       must show them these terms so they know their rights.
     </para>
     <para>      We protect your rights with two steps:
-      <orderedlist>
+      <orderedlist numeration="loweralpha">
 	<listitem>
 	  <para>	    copyright the software, and
 	  </para>
