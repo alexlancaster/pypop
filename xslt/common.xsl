@@ -478,6 +478,9 @@
        There are less than </xsl:text><xsl:value-of
        select="../lumpBelow"/><xsl:text> genotypes with a value of at least </xsl:text><xsl:value-of select="../lumpBelow"/>
      </xsl:when>
+     <xsl:when test="@role='not-calculated'">
+      <xsl:text>Value not calculated.</xsl:text>
+     </xsl:when>
      <xsl:when test="@role='huh'">
       <xsl:text>Unhandled logical path through Hardy-Weinberg.</xsl:text>
      </xsl:when>
