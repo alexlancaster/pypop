@@ -496,7 +496,7 @@ class ParseGenotypeFile(ParseFile):
 
             # if all individuals in a locus aren't untyped
             # then count this locus as having usable data
-            if untypedIndividuals < len(alleleTable):
+            if untypedIndividuals < self.totalIndivCount:
                 self.totalLociWithData += 1                
             
 
