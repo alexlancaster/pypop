@@ -8,12 +8,12 @@ import string, sys, os
 
 class Homozygosity:
   """Calculate homozygosity statistics.
-
+  
   Given allele count data for a given locus, calculates the observed
   homozygosity and returns the approximate expected homozygosity
   statistics taken from previous simulation runs.
   """
-
+  
   def __init__(self, alleleCountData, rootPath=".", debug=0):
     """Constructor for homozygosity statistics.
 
@@ -45,7 +45,9 @@ class Homozygosity:
 
     twoEn = decade*10
 
-    path = "2n%s%s%s_%s.out" % (twoEn, os.sep, numAlleles, twoEn)
+    dir = "2n%s" % twoEn
+    file = "%s_%s.out" % (numAlleles, twoEn)
+    path = os.path.join(dir, file)
     return path
 
   def _checkCountRange(self, sampleCount):
