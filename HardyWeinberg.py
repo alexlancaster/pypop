@@ -660,6 +660,11 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
   A wrapper for the Guo & Thompson program 'gthwe'. 
 
+  - 'locusData', 'alleleCount':  As per base class.
+  
+  In addition to the arguments for the base class, this class
+  accepts the following additional keywords:
+
   - 'runMCMCTest': If enabled run the Monte Carlo-Markov chain (MCMC)
     version of the test (what is normally referred to as "Guo &
     Thompson")
@@ -669,11 +674,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     described in the original "Guo & Thompson" Biometrics paper, but
     was not in their original program)
 
-  - 'locusData', 'alleleCount':  As per base class.
-  
-  In addition to the arguments for the base class, this class
-  accepts the following additional keywords:
-  
+
   - 'dememorizationSteps': number of `dememorization' initial steps
     for random number generator (default 2000).
 
