@@ -7,60 +7,46 @@
 
   <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/fo/docbook.xsl"/>
 
-  <xsl:param name="page.margin.top">0.50in</xsl:param>
-  <xsl:param name="page.margin.bottom">0.50in</xsl:param>
-  <xsl:param name="page.margin.inner">0.60in</xsl:param>
-  <xsl:param name="page.margin.outer">0.70in</xsl:param>
-  <xsl:param name="body.font.family">Helvetica</xsl:param>
-  <xsl:param name="title.margin.left" select="'-2pc'"/>
-  <xsl:param name="insert.xref.page.number" doc:type="boolean">1</xsl:param>
+ <xsl:param name="page.margin.top">0.0in</xsl:param>
+ <xsl:param name="page.margin.bottom">0.20in</xsl:param>
+ <xsl:param name="page.margin.inner">0.60in</xsl:param>
+ <xsl:param name="page.margin.outer">0.70in</xsl:param>
+ <xsl:param name="body.margin.top">0.0in</xsl:param>
+ <xsl:param name="body.margin.bottom">0.0in</xsl:param>
+ <xsl:param name="body.font.family">Helvetica</xsl:param>
+ <xsl:param name="title.margin.left" select="'-2pc'"/>
+ <xsl:param name="toc.indent.width" select="8"/>
+ <xsl:param name="insert.xref.page.number" select="1"/>
 
-  <xsl:template match="article/appendix">
-   <xsl:variable name="id">
-    <xsl:call-template name="object.id"/>
-   </xsl:variable>
+ <xsl:template match="article/appendix">
+  <xsl:variable name="id">
+   <xsl:call-template name="object.id"/>
+  </xsl:variable>
+  
+  <fo:block id='{$id}'>
 
-   <fo:block id='{$id}'>
-    <xsl:call-template name="section.heading">
-      <xsl:with-param name="level" select="2"/>
-      <xsl:with-param name="title">
-        <!-- fix mode 'title.markup' to 'object.title.markup'. -->
-        <xsl:apply-templates select="." mode="object.title.markup"/>
-      </xsl:with-param>
-      </xsl:call-template>
+   <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="appendix.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.font.family}">
 
-      <xsl:for-each select="appendixinfo/authorgroup/author">
-       <xsl:apply-templates select="." mode="appendix.titlepage.recto.auto.mode"/>
-      </xsl:for-each>
-
-    <xsl:apply-templates/>
+   <xsl:call-template name="component.title">
+    <xsl:with-param name="node" select="."/>
+   </xsl:call-template>
    </fo:block>
-  </xsl:template>
 
-  <!-- make a matching template for sections within appendices in
-  articles to mirror the modified article/appendix rule above.
- -->
-  <xsl:template match="article/appendix/section">
-    <xsl:variable name="id">
-     <xsl:call-template name="object.id"/>
-    </xsl:variable>
+   <!-- generate authorgroup -->
 
-   <fo:block id='{$id}'>
-     <xsl:call-template name="section.heading">
-       <xsl:with-param name="level" select="3"/>
-       <xsl:with-param name="title">
-         <xsl:apply-templates select="." mode="object.title.markup"/>
-       </xsl:with-param>
-     </xsl:call-template>
+   <xsl:for-each select="appendixinfo/authorgroup/author">
+    <xsl:apply-templates select="." mode="appendix.titlepage.recto.auto.mode"/>
+   </xsl:for-each>
+   <xsl:apply-templates/>
 
-    <xsl:apply-templates/>
+  </fo:block>
  
-   </fo:block>
-  </xsl:template>
-
+ </xsl:template>
+ 
  <!-- override the current rule, somehow duplicates the id for the
  containing block, this is fixed in docbook CVS -->
 
+<!--
  <xsl:template match="glossentry">
   <xsl:variable name="id">
    <xsl:call-template name="object.id"/>
@@ -87,6 +73,7 @@
    </fo:block>
   </fo:list-item-label>
  </xsl:template>
+-->
 
 </xsl:stylesheet>
 
