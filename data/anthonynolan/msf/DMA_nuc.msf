@@ -1,0 +1,90 @@
+
+ temp.msf1  MSF: 786  Type: N  January 01, 1776  12:00  Check: 7336 ..
+
+ Name: DMA*0101         Len:   786  Check:  7904  Weight:  1.00
+ Name: DMA*0102         Len:   786  Check:  6531  Weight:  1.00
+ Name: DMA*0103         Len:   786  Check:  6498  Weight:  1.00
+ Name: DMA*0104         Len:   786  Check:  6403  Weight:  1.00
+
+//
+
+       DMA*0101  ATGGGTCATG AACAGAACCA AGGAGCTGCG CTGCTACAGA TGTTACCACT
+       DMA*0102  .......... .......... .......... .......... ..........
+       DMA*0103  .......... .......... .......... .......... ..........
+       DMA*0104  .......... .......... .......... .......... ..........
+
+       DMA*0101  TCTGTGGCTG CTACCCCACT CCTGGGCCGT CCCTGAAGCT CCTACTCCAA
+       DMA*0102  .......... .......... .......... ........CT CCTACTCCAA
+       DMA*0103  .......... .......... .......... .......... ..........
+       DMA*0104  .......... .......... .......... .......... ..........
+
+       DMA*0101  TGTGGCCAGA TGACCTGCAA AACCACACAT TCCTGCACAC AGTGTACTGC
+       DMA*0102  TGTGGCCAGA TGACCTGCAA AACCACACAT TCCTGCACAC AGTGTACTGC
+       DMA*0103  .......... .......... .......... .......... ..........
+       DMA*0104  .......... .......... .......... .......... ..........
+
+       DMA*0101  CAGGATGGGA GTCCCAGTGT GGGACTCTCT GAGGCCTACG ACGAGGACCA
+       DMA*0102  CAGGATGGGA GTCCCAGTGT GGGACTCTCT GAGGCCTACG ACGAGGACCA
+       DMA*0103  .......... .......... .......... .......... ..........
+       DMA*0104  .......... .......... .......... .......... ..........
+
+       DMA*0101  GCTTTTCTTC TTCGACTTTT CCCAGAACAC TCGGGTGCCT CGCCTGCCCG
+       DMA*0102  GCTTTTCTTC TTCGACTTTT CCCAGAACAC TCGGGTGCCT CGCCTGCCCG
+       DMA*0103  .......... .......... .......... .......... ..........
+       DMA*0104  .......... .......... .......... .......... ..........
+
+       DMA*0101  AATTTGCTGA CTGGGCTCAG GAACAGGGAG ATGCTCCTGC CATTTTATTT
+       DMA*0102  AATTTGCTGA CTGGGCTCAG GAACAGGGAG ATGCTCCTGC CATTTTATTT
+       DMA*0103  .......... .......... .......... .......... ..........
+       DMA*0104  .......... .......... .......... .......... ..........
+
+       DMA*0101  GACAAAGAGT TCTGCGAGTG GATGATCCAG CAAATAGGGC CAAAACTTGA
+       DMA*0102  GACAAAGAGT TCTGCGAGTG GATGATCCAG CAAATAGGGC CAAAACTTGA
+       DMA*0103  .......... .......... .......... .......... ..........
+       DMA*0104  .......... .......... .......... .......... ..........
+
+       DMA*0101  TGGGAAAATC CCGGTGTCCA GAGGGTTTCC TATCGCTGAA GTGTTCACGC
+       DMA*0102  TGGGAAAATC CCGGTGTCCA GAGGGTTTCC TATCGCTGAA GTGTTCACGC
+       DMA*0103  .......... .......... ..GGGTTTCC TATCGCTGAA GTGTTCACGC
+       DMA*0104  .......... .......... ..GGGTTTCC TATCGCTGAA GTGTTCACGC
+
+       DMA*0101  TGAAGCCCCT GGAGTTTGGC AAGCCCAACA CTTTGGTCTG TTTTGTCAGT
+       DMA*0102  TGAAGCCCCT GGAGTTTGGC AAGCCCAACA CTTTGGTCTG TTTTGTCAGT
+       DMA*0103  TGAAGCCCCT GGAGTTTGGC AAGCCCAACA CTTTGGTCTG TTTTGTCAGT
+       DMA*0104  TGAAGCCCCT GGAGTTTGGC AAGCCCAACA CTTTGGTCTG TTTTGTCAGT
+
+       DMA*0101  AATCTCTTCC CACCCATGCT GACAGTGAAC TGGCAGCATC ATTCCGTCCC
+       DMA*0102  AATCTCTTCC CACCCATGCT GACAGTGAAC TGGCAGCATC ATTCCATCCC
+       DMA*0103  AATCTCTTCC CACCCATGCT GACAGTGAAC TGGCAGCATC ATTCCGTCCC
+       DMA*0104  AATCTCTTCC CACCCATGCT GACAGTGAAC TGGCAGCATC ATTCCATCCC
+
+       DMA*0101  TGTGGAAGGA TTTGGGCCTA CTTTTGTCTC AGCTGTCGAT GGACTCAGCT
+       DMA*0102  TGTGGAAGGA TTTGGGCCTA CTTTTGTCTC AGCTGTCGAT GGACTCAGCT
+       DMA*0103  TGTGGAAGGA TTTGGGCCTA CTTTTGTCTC AGCTGTCGAT GCACTCAGCT
+       DMA*0104  TGTGGAAGGA TTTGGGCCTA CTTTTGTCTC AGCTGTCGAT GGACTCAGCT
+
+       DMA*0101  TCCAGGCCTT TTCTTACTTA AACTTCACAC CAGAACCTTC TGACATTTTC
+       DMA*0102  TCCAGGCCTT TTCTTACTTA AACTTCACAC CAGAACCTTC TGACATTTTC
+       DMA*0103  TCCAGGCCTT TTCTTACTTA AACTTCACAC CAGAACCTTC TGACATTTTC
+       DMA*0104  TCCAGGCCTT TTCTTACTTA AACTTCACAC CAGAACCTTC TGACATTTTC
+
+       DMA*0101  TCCTGCATTG TGACTCACGA AATTGACCGC TACACAGCAA TTGCCTATTG
+       DMA*0102  TCCTGCATTG TGACTCACGA AATTGACCGC TACACAGCAA TTGCCTATTG
+       DMA*0103  TCCTGCATTG TGACTCACGA AATTGACCAC TACACAGCAA TTGCCTATTG
+       DMA*0104  TCCTGCATTG TGACTCACGA AATTGACTGC TACACAGCAA TTGCCTATTG
+
+       DMA*0101  GGTACCCCGG AACGCACTGC CCTCAGATCT GCTGGAGAAT GTGCTGTGTG
+       DMA*0102  GG........ .......... .......... .......... ..........
+       DMA*0103  G......... .......... .......... .......... ..........
+       DMA*0104  G......... .......... .......... .......... ..........
+
+       DMA*0101  GCGTGGCCTT TGGCCTGGGT GTGCTGGGCA TCATCGTGGG CATTGTTCTC
+       DMA*0102  .......... .......... .......... .......... ..........
+       DMA*0103  .......... .......... .......... .......... ..........
+       DMA*0104  .......... .......... .......... .......... ..........
+
+       DMA*0101  ATCATCTACT TCCGGAAGCC TTGCTCAGGT GACTGA
+       DMA*0102  .......... .......... .......... ......
+       DMA*0103  .......... .......... .......... ......
+       DMA*0104  .......... .......... .......... ......
+
