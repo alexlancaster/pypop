@@ -1,3 +1,7 @@
+2005-02-17  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* *.ini: Moved to data/samples subdirectory.
+
 2005-01-11  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Filter.py (AnthonyNolanFilter._getConsensusFromLines): Fixed
