@@ -10,7 +10,8 @@
 
  <xsl:import href="citation.xsl"/>
 
- <!-- <xsl:import href="graphics.xsl"/> -->
+ <!-- workaround for bug in xsltproc -->
+ <xsl:import href="graphics.xsl"/>
 
  <xsl:output method="html" encoding="ISO-8859-1"
   doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN"
