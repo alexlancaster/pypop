@@ -2,24 +2,29 @@
 import sys, string
 
 class ParseFile:
-    """Class to parse a standard IHWG datafile."""
+    """*Abstract* class for parsing a datafile.
+
+    *Not to be instantiated.*"""
     def __init__(self,
+                 filename,
                  popFieldsFilename='ihwg-pop-fields.dat',
                  sampleFieldsFilename='ihwg-sample-fields.dat',
                  separator='\t',
                  debug=0):
         """Constructor for ParseFile object.
 
-        - *popFieldsFieldname*: valid headers for overall population
-           data  (default: `ihwg-pop-fields.dat')
+        - 'filename': filename for the file to be parsed.
 
-        - *sampleFieldsFilename: valid headers for lines of sample
-        data.  (default: `ihwg-sample-fields')
+        - 'popFieldsFieldname': valid headers for overall population
+           data  (default: 'ihwg-pop-fields.dat')
 
-        - *separator*: separator for adjacent fields (default: a tab
-           stop, '\t').
+        - 'sampleFieldsFilename': valid headers for lines of sample
+        data.  (default: 'ihwg-sample-fields')
 
-        - *debug*: Switches debugging on if set to `1' (default: no
+        - 'separator': separator for adjacent fields (default: a tab
+           stop, '\\t').
+
+        - 'debug': Switches debugging on if set to '1' (default: no
            debugging, '0')"""
         self.popFieldsFilename=popFieldsFilename
         self.sampleFieldsFilename=sampleFieldsFilename
@@ -36,12 +41,22 @@ class ParseFile:
             # debugging only
             print self.popFields
             print self.sampleFields
+
+        # Reads and parses a given filename.
+        
+        self._sampleFileRead(filename)
+        self._mapPopHeaders()
+        self._mapSampleHeaders()
         
     def _dbFieldsRead(self, filename):
-        """Takes a filename for a database and expects a file with
+        """Reads the valid key, value pairs.
+
+        Takes a filename for a database and expects a file with
         database field names separated by newlines.
 
-        Returns a tuple of field names.  Use internally only."""
+        Returns a tuple of field names.
+
+        *For internal use only.*"""
         f = open(filename, 'r')
         data = f.readlines()
         li = []
@@ -52,11 +67,11 @@ class ParseFile:
         return tuple(li)
 
     def _mapFields(self, line, fieldList):
+        """Creates a list of valid database fields.
 
-        """Maps a line of fields into dictionary of column values.
-
-        Takes a line and a list of valid fields and creates a
-        dictionary of positions keyed by valid field names.
+        From a separator delimited string, creates a list of valid
+        fields and creates a dictionary of positions keyed by valid
+        field names.
 
         - Complains if a field name is not valid.
 
@@ -69,7 +84,7 @@ class ParseFile:
 
         - the total number of  metadata fields.
 
-        *For internal use only*."""
+        *For internal use only.*"""
 
         # split line
         fields = line.split(self.separator)
@@ -89,14 +104,15 @@ class ParseFile:
         
             field = string.strip(field)
 
-            if (field in fieldList) or ("*" + field in fieldList):
+            # check to see whether field is a valid key, and generate
+            # the appropriate identifier, this is done as method call
+            # so it can overwritten in subclasses of this abstract
+            # class (i.e. the subclass will have 'knowledge' about the
+            # nature of fields, but not this abstract class)
+            
+            isValidKey, key = self.genValidKey(field, fieldList)
 
-                # generate the key that matches the one in the
-                # data file format
-                if "*" + field in fieldList:
-                    key = "*" + field
-                else:
-                    key = field
+            if isValidKey:
                     
                 if assoc.has_key(key):
                     # if key already used (col names are not unique)
@@ -208,16 +224,6 @@ class ParseFile:
                       "found, should have:", fieldCount, \
                       "\noffending line is:\n", line
 
-    def parseFile(self, filename):
-        """Read and parse given filename.
-
-        This method must be called before any accessor "get*" methods
-        can be called."""
-        
-        self._sampleFileRead(filename)
-        self._mapPopHeaders()
-        self._mapSampleHeaders()
-
     def getPopData(self):
         """Returns a dictionary of population data.
 
@@ -234,27 +240,10 @@ class ParseFile:
 
         return self.sampleMap
     
-    def getAlleleMap(self):
-        """Returns dictionary containing 2-tuple of column position.
-
-        It is keyed by allele names originally specified in sample
-        metadata file
-
-        Note that this is simply a _subset_ of that returned by
-        **getSampleMap()**"""
-
-        self.alleleMap = {}
-        for key in self.sampleMap.keys():
-            # do we have the allele designator?
-            if key[0] == '*':
-                self.alleleMap[key] = self.sampleMap[key]
-
-        return self.alleleMap
-
     def getFileData(self):
         """Returns file data.
 
-        Returns a 2-tuple 'wrapper':
+        Returns a 2-tuple `wrapper':
 
         - raw sample lines, *without*  header metadata.
         
@@ -262,6 +251,9 @@ class ParseFile:
         return self.fileData[3:], self.separator
     
     def genSampleOutput(self, fieldList):
+        """Prints the data specified in ordered field list.
+
+        *Use is currently deprecated.*"""
 
         #for field in fieldList:
         #print string.strip(field) + self.separator,
@@ -275,16 +267,127 @@ class ParseFile:
                     print "can't find this field"
                     print "\n"
 
+class ParseGenotypeFile(ParseFile):
+    """Class to parse standard IHWG datafile in genotype form."""
+    
+    def __init__(self,
+                 filename,
+                 alleleDesignator='*',
+                 untypedAllele='****',
+                 **kw):
+        """Constructor for ParseGenotypeFile.
+
+        - 'filename': filename for the file to be parsed.
+        
+        In addition to the arguments for the base class, this class
+        accepts the following additional keywords:
+
+        - 'alleleDesignator': The first character of the key which
+        determines whether this column contains allele data.  Defaults to
+        '*'
+        
+        - 'untypedAllele': The designator for an untyped locus.  Defaults
+        to '****'.
+        """
+        self.alleleDesignator=alleleDesignator
+        self.untypedAllele=untypedAllele
+
+        ParseFile.__init__(self, filename, **kw)
+
+    def genValidKey(self, field, fieldList):
+        """Check and validate key.
+
+        - 'field':  string with field name.
+
+        - 'fieldList':  a dictionary of valid fields.
+        
+        Check to see whether 'field' is a valid key, and generate the
+        appropriate 'key'.  Returns a 2-tuple consisting of
+        'isValidKey' boolean and the 'key'.
+
+        *Note: this is explicitly done in the subclass of the abstract
+        'ParseFile' class (i.e. since this subclass should have
+        `knowledge' about the nature of fields, but the abstract
+        class should not have)*"""
+
+        if (field in fieldList) or \
+           (self.alleleDesignator + field in fieldList):
+            isValidKey = 1
+        else:
+            isValidKey = 0
+
+        # generate the key that matches the one in the
+        # data file format
+        if self.alleleDesignator + field in fieldList:
+            key = self.alleleDesignator + field
+        else:
+            key = field
+
+        return isValidKey, key
+        
+    def getAlleleMap(self):
+        """Returns dictionary containing 2-tuple of column position.
+
+        It is keyed by allele names originally specified in sample
+        metadata file
+
+        Note that this is simply a _subset_ of that returned by
+        **getSampleMap()**"""
+
+        self.alleleMap = {}
+        for key in self.sampleMap.keys():
+            # do we have the allele designator?
+            if key[0] == self.alleleDesignator:
+                self.alleleMap[key] = self.sampleMap[key]
+
+        return self.alleleMap
+
+    def getAllelecount(self):
+        """Generate and return a map of tuples where the key is the
+        locus name.  Each tuple is a double, consisting of a map keyed
+        by alleles containing counts and the total count at that locus.
+        """
+        sampleDataLines, separator = self.getFileData()
+        self.getAlleleMap()
+        
+        self.freqcount = {}
+        for locus in self.alleleMap.keys():
+            col1, col2 = self.alleleMap[locus]
+            alleleTable = {}
+            total = 0
+            for line in sampleDataLines:
+                fields = string.split(line, separator)
+
+                allele1 = fields[col1]
+                if self.untypedAllele != allele1:
+                    if alleleTable.has_key(allele1):
+                        alleleTable[fields[col1]] += 1
+                    else:
+                        alleleTable[fields[col1]] = 1
+                    total += 1
+                    
+                allele2 = fields[col2]
+                if self.untypedAllele != allele2:
+                    if alleleTable.has_key(allele2):
+                        alleleTable[fields[col2]] += 1
+                    else:
+                        alleleTable[fields[col2]] = 1
+                    total += 1
+
+                if self.debug:
+                    print col1, col2, allele1, allele2, total
+                self.freqcount[locus] = alleleTable, total
+
+        return self.freqcount
+
+class ParseAllelecountFile(ParseFile):
+    """Class to parse datafile in allele count form."""
+    pass
 
 # this test harness is called if this module is executed standalone
 if __name__ == "__main__":
 
-    # create object
-    parsefile = ParseFile()
-
     # read in IHWG data file from first argument
-    parsefile.sampleFileRead(sys.argv[1])
+    parsefile = ParseGenotypeFile(sys.argv[1], debug=1)
 
-    # print the parsed header info
-    parsefile.mapHeaders()
 
