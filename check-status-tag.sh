@@ -19,6 +19,10 @@ if test "x$REAL" = xy; then
 	echo "(using 'cvs commit') and is also up-to-date (use 'cvs update')"
 	echo "automatically switching to 'dummy' mode"
 	echo
+	echo -n "do you want to continue and build a 'dummy' package? enter y:"
+	read CONTINUE
+	if test "x$CONTINUE" != xy; then
+	    exit
 	DONTTAG=y
 	EXTRA=-dummy
     fi
