@@ -176,12 +176,16 @@ other   6
     contain the column headers for the genotype or allele count
     information. </para>
 
-   <para>Note that, for genotype data, each locus must be named
-    twice, with a suffix such as <literal>_1</literal>,
-    <literal>_1</literal> (the default)  or <literal>_a</literal>,
-    <literal>_b</literal>.  Although <application>PyPop</application>
-    needs this distinction to be made, phase is NOT assumed or
-    inferred, nor, if present, is it acknowledged or honored.</para>
+   <para>Note that, for genotype data, each locus corresponds to two
+    columns in the input file.  The locus name must repeated, with a
+    suffix such as <literal>_1</literal>, <literal>_1</literal> (the
+    default)  or <literal>_a</literal>, <literal>_b</literal> and must
+    match the format defined in the <filename>config.ini</filename>
+    (see <xref
+     linkend="validSampleFields"/>).  Although
+    <application>PyPop</application> needs this distinction to be
+    made, phase is NOT assumed or inferred, nor, if present, is it
+    acknowledged or honored.</para>
 
   </section>
   
@@ -189,12 +193,13 @@ other   6
    <title>Missing data</title>
    
    <para>Untyped data may be represented in any way you wish.  The
-    default is to use four asterisks (<literal>****</literal>).  You
-    may not "represent" untyped data by merely leaving a column blank,
-    nor may you represent a homozygote by leaving the second column
-    blank.  All columns for which you have data (be it an allele call
-    or whatever) must be filled in, and all columns for which you do
-    not have data must also be filled in, using some distinctive
+    default is to use four asterisks (<literal>****</literal>) as
+    specified by the <filename>config.ini</filename>.  You may not
+    "represent" untyped data by merely leaving a column blank, nor may
+    you represent a homozygote by leaving the second column blank.
+    All columns for which you have data (be it an allele call or
+    whatever) must be filled in, and all columns for which you do not
+    have data must also be filled in, using some distinctive
     mnemonic.</para>
    
    <para>For individuals who were not typed at all loci, the data on
@@ -360,7 +365,7 @@ allPairwiseLDWithPermu=0></programlisting>
      
      <listitem>
       <formalpara id="validSampleFields">
-	<title><literal>validSampleFields=</literal></title>
+	<title><literal>validSampleFields</literal></title>
        
 	<para>This option should contain the names of the loci
 	 immediately preceding your genotype data  (if it has three
@@ -378,7 +383,10 @@ allPairwiseLDWithPermu=0></programlisting>
  *b_1
  *b_2
 </programlisting>
-      
+
+       <para><emphasis>[There is no default, this section must always
+	 be present]</emphasis></para>
+
      </listitem>
     </itemizedlist>
     
@@ -413,7 +421,7 @@ allPairwiseLDWithPermu=0></programlisting>
 
    <callout arearefs="hardyweinberg">
 
-     <para role="strong"><literal>[HardyWeinberg]</literal> and <literal>[HardyWeinbergGuoThompsonArlequin]</literal></para>
+     <para role="strong"><literal>[HardyWeinberg]</literal></para>
 
       <para>Hardy-Weinberg analysis is switched on by the presence of
        this section.</para>
@@ -562,9 +570,8 @@ allPairwiseLDWithPermu=0></programlisting>
        <emphasis>[Default: <literal>filename</literal>]</emphasis></para>
      </formalpara>
      
-     <para>If, on the other hand, you set the value it
-      <literal>date</literal> instead of filename, you'll get the
-      date incorporated in the filename thus:
+     <para>If you set the value to <literal>date</literal> instead of
+      filename, you'll get the date incorporated in the filename thus:
       <filename><replaceable>original-filename-minus-suffix</replaceable>-YYYY-nn-dd-HH-MM-SS-out.{xml,txt}</filename>. 
       e.g.,
       <filename>Zulu-one-2001-09-21-01-29-35-out.xml</filename></para>
