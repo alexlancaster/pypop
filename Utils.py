@@ -314,19 +314,29 @@ class Index:
 class StringMatrix(UserArray):
 
   def __init__(self, rowCount=None, colList=None):
-      self.colList = colList
-      self.colCount = len(colList)
+
+      # list is a mutable type so freeze the list of locus keys in the
+      # original order in file by making a *clone* of the list of
+      # keys.  the order of loci in the array will correspond to the
+      # original file order, and we don't want this tampered with by
+      # the `callee' function (i.e. effectively override the Python
+      # "pass by reference" default and "pass by value").
+
+      self.colList = colList[:]
+      self.colCount = len(self.colList)
       self.rowCount = rowCount
       self.array = zeros((self.rowCount, self.colCount*2), PyObject)
       self.shape = self.array.shape
       self._typecode = self.array.typecode()
       self.name = string.split(str(self.__class__))[0]
-
+      print "StringMatrix.__init__.colList:", self.colList
+      
   def __getslice__(self, i, j):
       raise Exception("slices not currently supported")
       #return self._rc(self.array[i:j])
 
   def __getitem__(self, key):
+      print "start of StringMatrix.__getitem__.colList:", self.colList
       if type(key) == types.TupleType:
           row,colName= key
           if colName in self.colList:
@@ -349,6 +359,9 @@ class StringMatrix(UserArray):
               else:
                   raise KeyError("can't find %s column" % col)
 
+
+          print "after col check StringMatrix.__getitem__.colList:", self.colList
+          print "StringMatrix.__getitem__.li", li
           if len(colNames) == 1:
               # return simply the pair of columns at that location as
               # a list
@@ -369,7 +382,8 @@ class StringMatrix(UserArray):
           value1, value2 = value
       else:
           raise ValueError("value being assigned is not a tuple")
-          
+
+      print "StringMatrix.__setitem__.colList", self.colList
       if colName in self.colList:
           # find the location in order in the array
           col = self.colList.index(colName)
@@ -385,4 +399,5 @@ class StringMatrix(UserArray):
       self.array[(row,col1)] = asarray(value1+':',self._typecode)
       self.array[(row,col2)] = asarray(value2+':',self._typecode)
 
-
+  def getColList(self):
+      return self.colList
