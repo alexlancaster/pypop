@@ -11,7 +11,7 @@
   <text>Expected</text>
   <text>Chi-square</text>
   <text colwidth="5">dof</text>
-  <text>p-value</text>
+  <text justify="left">p-value</text>
  </data:hardyweinberg-col-headers>
 
  <!-- lookup table to translate population metadata XML tag names back
@@ -338,19 +338,31 @@
 
   <!-- print header for the individual stats -->
   <xsl:for-each select="document('')//data:hardyweinberg-col-headers/text">
-   <xsl:call-template name="prepend-pad">
-    <xsl:with-param name="padVar" select="."/>
-    <xsl:with-param name="length">
-     <xsl:choose>
-      <xsl:when test="@colwidth">
-       <xsl:value-of select="@colwidth"/>
-      </xsl:when>
-      <xsl:otherwise> 
-       <xsl:value-of select="$hardyweinberg-col-width"/>
-      </xsl:otherwise>
-     </xsl:choose>
-    </xsl:with-param>
-   </xsl:call-template>
+   <xsl:variable name="width">
+    <xsl:choose>
+     <xsl:when test="@colwidth">
+      <xsl:value-of select="@colwidth"/>
+     </xsl:when>
+     <xsl:otherwise> 
+      <xsl:value-of select="$hardyweinberg-col-width"/>
+     </xsl:otherwise>
+    </xsl:choose>
+   </xsl:variable>
+   <xsl:choose>
+    <xsl:when test="@justify='left'">
+     <xsl:text> </xsl:text>
+     <xsl:call-template name="append-pad">
+      <xsl:with-param name="padVar" select="."/>
+      <xsl:with-param name="length" select="$width"/>
+     </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+     <xsl:call-template name="prepend-pad">
+      <xsl:with-param name="padVar" select="."/>
+      <xsl:with-param name="length" select="$width"/>
+     </xsl:call-template>
+    </xsl:otherwise>
+   </xsl:choose>
   </xsl:for-each>
 
   <!-- separator -->
