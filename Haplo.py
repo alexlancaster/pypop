@@ -29,6 +29,7 @@ class HaploArlequin(Haplo):
                  prefixCols,
                  suffixCols,
                  windowSize,
+                 mapOrder = None,
                  untypedAllele = '0',
                  arlequinPrefix = "arl_run",
                  debug=0):
@@ -49,7 +50,10 @@ class HaploArlequin(Haplo):
           stops
         
         - windowSize: size of sliding window
-        
+
+        - mapOrder: list order of columns if different to column order in file
+          (defaults to order in file)
+
         - untypedAllele:  (defaults to '0')
         
         - arlequinPrefix: prefix for all Arlequin run-time files
@@ -66,6 +70,7 @@ class HaploArlequin(Haplo):
         self.suffixCols = suffixCols
         self.windowSize = windowSize
         self.arlequinPrefix = arlequinPrefix
+        self.mapOrder = mapOrder
         self.untypedAllele = untypedAllele
         self.debug = debug
         
@@ -76,6 +81,7 @@ class HaploArlequin(Haplo):
                               prefixCols = self.prefixCols,
                               suffixCols = self.suffixCols,
                               windowSize = self.windowSize,
+                              mapOrder = self.mapOrder,
                               debug = self.debug)
 
     def outputArlequin(self, data):
@@ -194,9 +200,7 @@ KeepNullDistrib=0""")
 
         - sample count (number of samples for that window)
 
-        - start (where the window starts)
-
-        - stop (where the window stops)
+        - ordered list of loci considered
         """
         outFile = self.batch.arlResPrefix + ".res" + os.sep + self.batch.arlResPrefix + ".htm"
         dataFound = 0
@@ -204,7 +208,7 @@ KeepNullDistrib=0""")
 
         haplotypes = []
         
-        patt1 = re.compile("== Sample :[\t ]*(\S+) pop with (\d+) individuals from locus (\d+) to (\d+)")
+        patt1 = re.compile("== Sample :[\t ]*(\S+) pop with (\d+) individuals from loci \[([^]]+)\]")
         patt2 = re.compile("    #   Haplotype     Freq.      s.d.")
         patt3 = re.compile("^\s+\d+\s+UNKNOWN(.*)")
         windowRange = range(1, self.windowSize)
@@ -215,8 +219,9 @@ KeepNullDistrib=0""")
                 headerFound = 1
                 popName = matchobj.group(1)
                 sampleCount = matchobj.group(2)
-                start = matchobj.group(3)
-                stop = matchobj.group(4)
+                liststr = matchobj.group(3)
+                # convert into list of loci
+                lociList = map(int, string.split(liststr, ','))
                 freqs = {}
                 
             if dataFound:
@@ -236,8 +241,7 @@ KeepNullDistrib=0""")
                 else:
                     headerFound = 0
                     dataFound = 0
-                    haplotypes.append((freqs, popName, sampleCount, start, stop))
-
+                    haplotypes.append((freqs, popName, sampleCount, lociList))
             if re.match(patt2, line):
                 dataFound = 1
 
