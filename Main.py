@@ -344,8 +344,15 @@ class Main:
         self.xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr), role=self.fileType)
         self.xmlStream.writeln()
 
+
+        # switch off random binning by default (will be enabled by
+        # presence of section)
+        self.randomBinningFlag = 0
+
+
         ## WHAT WOULD ALEX DO?
-        if filter:
+        ## Alex would check the presence of the section again ;-)
+        if self.config.has_section("Filters"):
 
             # if and only if filtering is done, generate XInclude XML
             # file output reference, to include
@@ -357,6 +364,10 @@ class Main:
             self.xmlStream.writeln()
             self.xmlStream.closetag('xi:include')
             self.xmlStream.writeln()
+
+            # create the log file
+            # get filtering options and open log file for filter in append mode
+            self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogFilename, 'w'))
 
         # more meta-data
         self.xmlStream.tagContents('filename', baseFileName)
@@ -378,8 +389,16 @@ class Main:
         else:
             pass
 
+        # now close the filter log file, if and only if we have done
+        # some kind of filtering, moving it here, means that the open
+        # and close are at the same level and are called in the same
+        # method.
+        if self.config.has_section("Filters"):
+            self.filterLogFile.closetag('filterlog')
+            self.filterLogFile.close()
+
         # END common XML output section
-        
+
         # closing tag
         self.xmlStream.closetag('dataanalysis')
         # close XML stream
@@ -390,10 +409,6 @@ class Main:
 
 
     def _runFilters(self):
-
-        # this section is here because there is no reason to look for
-        # random binning if filters are not being used
-        self.randomBinningFlag = 0
         if self.config.has_section("RandomAlleleBinning"):
             try:
                 self.binningMethod = self.config.get("RandomAlleleBinning", "binningMethod")
@@ -415,8 +430,6 @@ class Main:
             if len(self.binningLoci) > 0:
                 self.randomBinningFlag = 1
 
-        # get filtering options and open log file for filter in append mode
-        self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogFilename, 'w'))
 
         for filterCall in self.filtersToApply:
             if filterCall == 'AnthonyNolan' or \
@@ -797,11 +810,6 @@ class Main:
 
           self.xmlStream.closetag('locus')
           self.xmlStream.writeln()
-
-########################
-        self.filterLogFile.closetag('filterlog')
-        self.filterLogFile.close()
-##########################
 
         # estimate haplotypes
 
