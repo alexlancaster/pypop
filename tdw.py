@@ -12,7 +12,7 @@ Expects to find a file called 'config.ini' in the current directory.
 import sys, os
 
 from ParseFile import ParseGenotypeFile
-from HardyWeinberg import HardyWeinberg
+from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson
 from Homozygosity import Homozygosity
 from ConfigParser import ConfigParser, NoOptionError
 
@@ -93,7 +93,8 @@ for locus in loci:
                              input.getAlleleCountAt(locus), 
                              lumpBelow=lumpBelow,
                              debug=debug)
-          
+
+      
     try:
       if config.getboolean("HardyWeinberg", "outputChisq"):
         hwObject.getChisq()
@@ -101,6 +102,15 @@ for locus in loci:
       pass
     except ValueError:
       sys.exit("require a 0 or 1 as a flag")
+
+    # guo & thompson implementation
+    hwObject = HardyWeinbergGuoThompson(input.getLocusDataAt(locus), 
+                                        input.getAlleleCountAt(locus), 
+                                        lumpBelow=5,
+                                        debug=0)
+
+    # FIXME: for testing purposes, set stream to be stdout
+    hwObject.dumpTable(locus, sys.stdout)
 
   # Parse "Homozygosity" section
 	
