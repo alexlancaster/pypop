@@ -35,7 +35,6 @@
 
 import os, sys
 from getopt import getopt, GetoptError
-from shutil import move
 from Utils import checkXSLFile, splitIntoNGroups
 
 # don't use libxml/libxslt bindings for the moment, aren't working with
@@ -291,7 +290,7 @@ for fileBatch in range(len(fileBatchList)):
         if len(fileBatchList) > 1:
             for dat in datfiles:
                 # print "moving", dat, "to %s.%d" % (dat, fileBatch)
-                move(dat, "%s.%d" % (dat, fileBatch))
+                os.rename(dat, "%s.%d" % (dat, fileBatch))
                      
 # at end of entire processing, need to cat files together
 # this is a bit hacky
