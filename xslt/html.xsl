@@ -4,14 +4,8 @@
 
  <xsl:import href="common.xsl"/>
 
- <xsl:output method="html"/>
-
  <!-- select "html" as output method -->
-<!--
-
  <xsl:output method="html" omit-xml-declaration="yes" doctype-public="-//W3C//DTD HTML 4.01 Transitional//EN" doctype-system="http://www.w3.org/TR/html4/loose.dtd"/>
-
--->
 
  <xsl:template match="/">
   <html>
@@ -62,12 +56,8 @@
    </xsl:otherwise>
   </xsl:choose>
 
-  <xsl:call-template name="newline"/>
-  
   <xsl:if test="$text!=''">
-   <xsl:call-template name="newline"/>
    <xsl:copy-of select="$text"/>
-   <xsl:call-template name="newline"/>
   </xsl:if>
 
  </xsl:template>
