@@ -1,3 +1,8 @@
+2004-09-09  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* xslt/meta-to-r.xsl (1-locus-summary): Added normDevHomozygosity
+	as output field for the homozygosityEWSlatkinExact section.
+
 2004-08-17  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Main.py (Main._doGenotypeFile): Added "if self.debug" to quiet
