@@ -93,6 +93,10 @@ class HaploArlequin(Haplo):
         # store output Arlequin-formatted genotypes in an array
         samples = []
 
+        # convert columns to locus number
+        startLocus = (startCol - self.prefixCols)/2 + 1
+        endLocus = (startLocus - 1) + (endCol - startCol)/2
+
         chunk = xrange(startCol, endCol)
         for line in data:
             words = string.split(line)
@@ -118,9 +122,9 @@ class HaploArlequin(Haplo):
 
         self.arpFile.write("""
     
-        SampleName=\"%s pop with %s individuals from cols %d to %d\"
+        SampleName=\"%s pop with %s individuals from locus %d to %d\"
         SampleSize= %s
-        SampleData={"""  % (self.arlResPrefix, len(samples)/2, startCol, endCol, len(samples)/2))
+        SampleData={"""  % (self.arlResPrefix, len(samples)/2, startLocus, endLocus, len(samples)/2))
 
         self.arpFile.write(os.linesep)
 
@@ -174,7 +178,7 @@ class HaploArlequin(Haplo):
         """
         file = open(txtFilename, 'w')
         file.write("""%s
-use_assoc_settings
+use_interf_settings
 %s%s%s
 0
 0
@@ -304,7 +308,7 @@ KeepNullDistrib=0""")
 
         haplotypes = []
         
-        patt1 = re.compile("== Sample :[\t ]*(\S+) pop with (\d+) individuals from cols (\d+) to (\d+)")
+        patt1 = re.compile("== Sample :[\t ]*(\S+) pop with (\d+) individuals from locus (\d+) to (\d+)")
         patt2 = re.compile("    #   Haplotype     Freq.      s.d.")
         patt3 = re.compile("^\s+\d+\s+UNKNOWN(.*)")
         
