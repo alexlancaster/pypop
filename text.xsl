@@ -375,7 +375,7 @@
     <!-- treat pvalue differently, since it is not a simple value, but
     has an upper and lower bound -->
 
-    <xsl:value-of select="pvalue/lower"/> <xsl:text>&lt; *pvalue* &lt; </xsl:text><xsl:value-of select="pvalue/upper"/>
+    <xsl:value-of select="pvalue/lower" disable-output-escaping="yes"/><xsl:text disable-output-escaping="yes"> &lt; *pvalue* &lt; </xsl:text><xsl:value-of select="pvalue/upper" disable-output-escaping="yes"/>
     <xsl:call-template name="newline"/>
    </xsl:otherwise>
 
