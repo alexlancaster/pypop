@@ -703,10 +703,35 @@ class ParseAlleleCountFile(ParseFile):
 
 
     def genValidKey(self, field, fieldList):
+        """Checks to  see validity of a field.
+
+        Given a 'field', this is checked against the 'fieldList' and a
+        tuple of a boolean (key is valid) and a a key is returned.
+
+        The first element in the 'fieldList' which is a locus name,
+        can match one of many loci (delimited by colons ':').  E.g. it
+        may look like:
+
+        'DQA1:DRA:DQB1'
+
+        If the field in the input file match *any* of these keys,
+        return the field and a valid match.
+        """
         if (field in fieldList):
             isValidKey = 1
         else:
-            isValidKey = 0
+            # get the locus name, always the first in the list
+            name = fieldList[0]
+
+            # turn this into a list, splitting on the colon
+            # delimiter
+            listOfValidLoci = string.split(name, ":")
+
+            # check to see if the locus is one of the valid ones
+            if (field in listOfValidLoci):
+                isValidKey = 1
+            else:
+                isValidKey = 0
 
         return isValidKey, field
 
