@@ -28,11 +28,12 @@
   </authorgroup>
   <pubdate>Last updated: $Date$ by $Author$</pubdate>
   <abstract>
-   <para>This document describes the output of the analyses carried out
-    by <application>PyPop</application>
-    (<citation role="citealt">Lancaster:etal:2003a</citation>,
-    <citation role="citealt">Lancaster:etal:2003b</citation>) and offers guidelines on
-    how to interpret them <citation>Single:etal:2003</citation>.</para>
+   <para>This document describes the output of the analyses carried
+    out by <application>PyPop</application> (<citation
+     role="citealt">Lancaster:etal:2003a</citation>, <citation
+     role="citealt">Lancaster:etal:2003b</citation>) and offers
+    guidelines on how to interpret them
+    <citation>Single:etal:2003</citation>.</para>
   </abstract>
  </articleinfo>
 
