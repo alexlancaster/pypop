@@ -49,11 +49,24 @@
  </xsl:variable>
 
  <xsl:template match="ulink">
-  <xsl:text>{\tt </xsl:text>
-  <xsl:value-of select="@url"/> 
-  <xsl:text>}</xsl:text>
- </xsl:template>
+  <xsl:variable name="url">
+   <xsl:text>{\tt </xsl:text>   
+   <xsl:value-of select="@url"/> 
+   <xsl:text>}</xsl:text>
+  </xsl:variable>
 
+  <xsl:choose>
+   <xsl:when test=".!=@url">
+    <xsl:apply-templates mode="slash.hyphen"/>
+    <xsl:text> (</xsl:text>
+    <xsl:value-of select="$url"/>
+    <xsl:text>)</xsl:text>
+   </xsl:when>
+   <xsl:otherwise>
+    <xsl:value-of select="$url"/>
+   </xsl:otherwise>
+  </xsl:choose>
+ </xsl:template>
 
  <!-- ARTICLE TEMPLATE -->
  <xsl:template match="article">
@@ -130,14 +143,78 @@
    </xsl:if>
    <xsl:value-of select="."/>
   </xsl:for-each>
-  
+
   <xsl:if test="email">
-   <xsl:text>\\</xsl:text>
-   <xsl:text>{\tt </xsl:text>
-   <xsl:value-of select="email"/>
-   <xsl:text>}</xsl:text>
+   <xsl:apply-templates select="email" mode="header"/>
   </xsl:if>
+
+ </xsl:template>
+
+ <xsl:template match="email" mode="header">
+  <xsl:call-template name="map.begin"/>
+  <xsl:value-of select="."/>
+  <xsl:call-template name="map.end"/>
+ </xsl:template>
+
+ <xsl:template name="biblioentry.output">
+  <xsl:variable name="biblioentry.tag">
+   <xsl:choose>
+    <xsl:when test="@xreflabel">
+     <xsl:value-of select="normalize-space(@xreflabel)"/> 
+    </xsl:when>
+    <xsl:when test="abbrev">
+     <xsl:apply-templates select="abbrev" mode="bibliography.mode"/> 
+    </xsl:when>
+    <xsl:when test="@id">
+     <xsl:value-of select="normalize-space(@id)"/> 
+    </xsl:when>
+    <xsl:otherwise>
+     <xsl:text>UNKNOWN</xsl:text>
+    </xsl:otherwise>
+   </xsl:choose>
+  </xsl:variable>
+  <xsl:text>&#10;</xsl:text>
+  <xsl:text>% -------------- biblioentry &#10;</xsl:text>
+  <xsl:text>\bibitem[</xsl:text><xsl:value-of select="$biblioentry.tag"/><xsl:text>]</xsl:text> 
+  <xsl:text>{</xsl:text><xsl:value-of select="$biblioentry.tag"/><xsl:text>}&#10;</xsl:text> 
+
+  <xsl:apply-templates select="author|authorgroup" mode="bibliography.mode"/>
+
+  <xsl:value-of select="$biblioentry.item.separator"/>
+
+  <xsl:apply-templates select="pubdate" mode="bibliography.mode"/> 
+
+  <xsl:apply-templates select="citetitle[@pubwork='article']" mode="bibliography.mode"/>
+
+  <xsl:apply-templates select="citetitle[@pubwork='journal']" mode="bibliography.mode"/>
   
+  <xsl:for-each select="copyright|publisher|volumenum|pagenums|isbn">
+   <xsl:value-of select="$biblioentry.item.separator"/>
+   <xsl:apply-templates select="." mode="bibliography.mode"/> 
+  </xsl:for-each>
+  <xsl:text>. </xsl:text>
+  
+  <xsl:call-template name="label.id"/> 
+  <xsl:text>&#10;&#10;</xsl:text>
+ </xsl:template>
+
+ <xsl:template match="citetitle" mode="bibliography.mode">
+  <xsl:value-of select="$biblioentry.item.separator"/>
+  <xsl:choose>
+   <xsl:when test="@pubwork='journal'">
+    <xsl:text> {\em </xsl:text>
+    <xsl:apply-templates/>
+    <xsl:text>}</xsl:text>
+   </xsl:when>
+   <xsl:when test="@pubwork='article'">
+    <xsl:call-template name="gentext.nestedstartquote"/>
+    <xsl:apply-templates/>
+    <xsl:call-template name="gentext.nestedendquote"/>
+   </xsl:when>
+   <xsl:otherwise>
+    <xsl:apply-templates/>
+   </xsl:otherwise>
+  </xsl:choose>
  </xsl:template>
 
 </xsl:stylesheet>
@@ -145,5 +222,6 @@
 <!--
 Local variables:
 sgml-local-catalogs: ("catalog")
+sgml-default-dtd-file: "../../src/xslt/xsl.ced"
 End:
 -->
