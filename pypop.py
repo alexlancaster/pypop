@@ -13,7 +13,7 @@ Process and run population genetics statistics on an INPUTFILE.
 Expects to find a configuration file called 'config.ini' in the
 current directory or in %s.
 
-  -l, --use-libxslt    filter XML via XSLT using libxsltmod (default)
+  -l, --use-libxslt    filter XML via XSLT using libxslt (default)
   -s, --use-4suite     filter XML via XSLT using 4Suite
   -h, --help           show this message
   -c, --config=FILE    select alternative config file
