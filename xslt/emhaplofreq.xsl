@@ -299,17 +299,17 @@
      <!-- create header for table -->
      <xsl:call-template name="append-pad">
       <xsl:with-param name="padVar">haplotype</xsl:with-param>
-      <xsl:with-param name="length">18</xsl:with-param>
+      <xsl:with-param name="length">21</xsl:with-param>
      </xsl:call-template>
      
      <xsl:call-template name="append-pad">
       <xsl:with-param name="padVar">frequency</xsl:with-param>
-      <xsl:with-param name="length">10</xsl:with-param>
+      <xsl:with-param name="length">9</xsl:with-param>
      </xsl:call-template>
      
      <xsl:call-template name="append-pad">
       <xsl:with-param name="padVar"># copies</xsl:with-param>
-      <xsl:with-param name="length">10</xsl:with-param>
+      <xsl:with-param name="length">8</xsl:with-param>
      </xsl:call-template>
 
      <xsl:call-template name="newline"/>
@@ -332,17 +332,17 @@
       
       <xsl:call-template name="append-pad">
        <xsl:with-param name="padVar" select="@name"/>
-       <xsl:with-param name="length">18</xsl:with-param>
+       <xsl:with-param name="length">21</xsl:with-param>
       </xsl:call-template>
       
       <xsl:call-template name="append-pad">
        <xsl:with-param name="padVar" select="frequency"/>
-       <xsl:with-param name="length">10</xsl:with-param>
+       <xsl:with-param name="length">9</xsl:with-param>
       </xsl:call-template>
       
       <xsl:call-template name="append-pad">
        <xsl:with-param name="padVar" select="numCopies"/>
-       <xsl:with-param name="length">10</xsl:with-param>
+       <xsl:with-param name="length">8</xsl:with-param>
       </xsl:call-template>
       
       <xsl:call-template name="newline"/>
@@ -366,17 +366,17 @@
       
       <xsl:call-template name="append-pad">
        <xsl:with-param name="padVar" select="@name"/>
-       <xsl:with-param name="length">18</xsl:with-param>
+       <xsl:with-param name="length">21</xsl:with-param>
       </xsl:call-template>
       
       <xsl:call-template name="append-pad">
        <xsl:with-param name="padVar" select="frequency"/>
-       <xsl:with-param name="length">10</xsl:with-param>
+       <xsl:with-param name="length">9</xsl:with-param>
       </xsl:call-template>
       
       <xsl:call-template name="append-pad">
        <xsl:with-param name="padVar" select="numCopies"/>
-       <xsl:with-param name="length">10</xsl:with-param>
+       <xsl:with-param name="length">8</xsl:with-param>
       </xsl:call-template>
       <xsl:call-template name="newline"/>
      </xsl:for-each>
