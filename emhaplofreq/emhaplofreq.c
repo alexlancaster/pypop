@@ -52,7 +52,7 @@ int read_infile(FILE *, char (*)[], char (*)[][], int *);
 /* open filehandle for data, ref array, data array, number of records */
 /* returns number of loci */
 
-int main_proc(FILE *, char (*)[][], int, int, int, int, int, int, int);
+int main_proc(FILE *, char (*)[][], int, int, int, int, int, int, int, int);
 /* data array, number of loci, number of records */
 /* main procedure that handles memory allocation and creation of arrays, 
   * spawns the rest of the data preparation and processing functions, 
@@ -218,11 +218,11 @@ int main(int argc, char **argv)
     exit(EXIT_FAILURE);
   }
 
-  /* hard-code MAX_PERMU and MAX_INIT_FOR_PERMU and set permu_print to
-     "1" (true) for command-line invocation, until we add
-     getopt-parsed options for them */
+  /* hard-code MAX_INIT, MAX_PERMU, MAX_INIT_FOR_PERMU and set
+     permu_print to "1" (true) for command-line invocation, until we
+     add getopt-parsed options for them */
   ret_val = main_proc(fp_out, data, num_loci, num_recs, permu_flag, 
-		      suppress_haplo_print_flag, MAX_PERMU, 
+		      suppress_haplo_print_flag, MAX_INIT, MAX_PERMU, 
 		      MAX_INIT_FOR_PERMU, 1);
 
   return (ret_val);
@@ -311,7 +311,8 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
 
 int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, 
 	      int n_recs, int permu_flag, int suppress_haplo_print_flag, 
-	      int max_permu, int max_init_for_permu, int permu_print)
+	      int max_init_cond, int max_permu, int max_init_for_permu, 
+	      int permu_print)
 {
 
   
@@ -382,7 +383,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   CALLOC_ARRAY_DIM1(double, mle_best, MAX_HAPLOS);
 
   /* needed for permutations */
-  int permu, max_permutations, max_init_cond = 0, ok_perm0 = 0;
+  int permu, max_permutations, ok_perm0 = 0;
   int permu_count; // RS 20031125
   double lr_mean, lr_sd, lr_z;
 
@@ -432,8 +433,6 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   }
   else
     max_permutations = 1;
-
-  max_init_cond = MAX_INIT;  
 
   /* start permutations */
   for (permu = 0; permu < max_permutations; permu++) {

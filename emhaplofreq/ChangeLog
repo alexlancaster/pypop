@@ -1,3 +1,15 @@
+2004-02-09  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
+	* emhaplofreq_wrap.i (main_proc): Accept new integer
+	max_init_cond, in function prototype.
+
+	* emhaplofreq.c: Add extra int to prototype of main_proc.
+	(main): Hardcode MAX_INIT only when invoked from command-line (to
+	preserve existing behavior).
+	(main_proc): Accept new function parameter: max_init_cond, so that
+	wrappers can use alternative number of initial conditions.  Don't
+	assign this value from the hardcoded value in the header file.
+
 2003-12-17  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* emhaplofreq_wrap.i (main_proc): Add matching parameter in
