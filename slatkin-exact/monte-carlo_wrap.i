@@ -1,6 +1,6 @@
 /* SWIG interface generation file */
 
-%module _EWSlatkinExact
+%module EWSlatkinExact
 
 %include "typemap.i"
 
