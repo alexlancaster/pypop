@@ -30,7 +30,6 @@
  <xsl:param name="title.margin.left" select="'0.0in'"/>
  <xsl:param name="toc.indent.width" select="8"/>
 
-
  <xsl:param name="insert.xref.page.number" select="1"/>
 
  <!-- page citation in format (see p.45) -->
@@ -44,7 +43,7 @@
  </l:i18n>
 
  <xsl:template match="varname">
-  <xsl:call-template name="inline.italicmonoseq"/>
+  <xsl:call-template name="inline.italicseq"/>
  </xsl:template>
 
  <xsl:template match="application">
@@ -55,6 +54,58 @@
   <xsl:call-template name="inline.boldseq"/>
  </xsl:template>
 
+ <!-- if verbatim environment embedded inside a *table element -->
+ <!-- we can't use shaded background, this is a workaround for a -->
+ <!-- bug in PassiveTeX -->
+ <xsl:template match="programlisting[ancestor::entry]|screen[ancestor::entry]|synopsis[ancestor::entry]">
+  <xsl:param name="suppress-numbers" select="'0'"/>
+
+  <xsl:variable name="id"><xsl:call-template name="object.id"/></xsl:variable>
+  
+  <xsl:variable name="content">
+   <xsl:choose>
+    <xsl:when test="$suppress-numbers = '0'
+     and @linenumbering = 'numbered'
+     and $use.extensions != '0'
+     and $linenumbering.extension != '0'">
+     <xsl:call-template name="number.rtf.lines">
+      <xsl:with-param name="rtf">
+            <xsl:apply-templates/>
+      </xsl:with-param>
+     </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+     <xsl:apply-templates/>
+    </xsl:otherwise>
+   </xsl:choose>
+  </xsl:variable>
+  
+  <xsl:choose>
+   <xsl:when test="$shade.verbatim != 0">
+    <!-- we check the for shaded flag, but don't use the attrib-set -->
+    <fo:block  wrap-option='no-wrap'
+     white-space-collapse='false'
+     linefeed-treatment="preserve"    
+     xsl:use-attribute-sets="monospace.verbatim.properties">
+     <!-- normally part of use-attribute-sets: shade.verbatim.style -->
+    <xsl:copy-of select="$content"/>
+    </fo:block> 
+
+   </xsl:when>
+   <xsl:otherwise>
+    
+    <fo:block  wrap-option='no-wrap'
+     white-space-collapse='false'
+     linefeed-treatment="preserve"
+     xsl:use-attribute-sets="monospace.verbatim.properties">
+    
+     <xsl:copy-of select="$content"/>
+    </fo:block>
+ 
+  </xsl:otherwise>
+  </xsl:choose>
+ </xsl:template>
+ 
 </xsl:stylesheet>
 
 <!--
