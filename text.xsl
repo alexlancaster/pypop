@@ -18,7 +18,6 @@
  <xsl:template name="prepend-pad"> 
   <!-- recursive template to right justify and prepend-->
   <!-- the value with whatever padChar is passed in   -->
-<!--  <xsl:param name="padChar"> </xsl:param> -->
   <xsl:param name="padChar" select="' '"/>
   <xsl:param name="padVar"/>
   <xsl:param name="length"/>
