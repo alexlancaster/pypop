@@ -720,7 +720,23 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       stream.emptytag('hardyweinbergGuoThompson', role='too-large-matrix')
 
 class HardyWeinbergGuoThompsonArlequin:
-  """Wrapper class for 'Arlequin'
+  """Wrapper class for 'Arlequin'.
+
+  This class extracts the Hardy-Weinberg (HW) statistics using the
+  Arlequin implementation of the HW exact test, by the following:
+
+  1. creates a subdirectory 'arlequinRuns' in which all the Arlequin
+     specific files are generated;
+
+  2. then the specified arlequin executable is run, generating the
+     Arlequin output HTML files (*.htm);
+
+  3. the Arlequin output is then parsed for the relevant statistics;
+
+  4. lastly, the 'arlequinRuns' directory is removed.
+
+  Since the directory name 'arlequinRuns' is currently hardcoded, this
+  has the consequence that this class cannot be invoked concurrently.
 
   """
   def __init__(self,
@@ -747,7 +763,7 @@ class HardyWeinbergGuoThompsonArlequin:
                                      debug=self.debug)
 
       self.output = arlequin.getHWExactTest()
-      #arlequin.cleanup()
+      arlequin.cleanup()
       
     else:
       self.noDataFlag = 1
