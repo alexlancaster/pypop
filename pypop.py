@@ -139,6 +139,8 @@ try:
 except NoOptionError:
   xmlOutFilename = defaultXmlOutFilename
 
+defaultFilterLogFilename = uniquePrefix + "-filter.log"
+
 if debug:
   for section in config.sections():
     print section
@@ -218,7 +220,7 @@ if useAnthonyNolanFilter:
       print "Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
 
   # open log file for filter in append mode
-  filterLogFile = TextOutputStream(open('filter.log', 'a'))
+  filterLogFile = TextOutputStream(open(defaultFilterLogFilename, 'w'))
 
   # create a data cleaning filter to pass all data through
 
