@@ -370,8 +370,8 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /******************* end: declarations ****************************/
 
-  srand48(1234567); 
-  //srand48(time (NULL));
+  //srand48(1234567); 
+  srand48(time (NULL));
 
   if (fp_iter == NULL)
     if ((fp_iter = fopen("summary_iter.out", "w")) == NULL)
