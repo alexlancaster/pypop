@@ -3,51 +3,72 @@
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
 <article condition="main">
 
- <title>PyPop: software framework for analysing large-scale multilocus
- genotype data for human genome variation</title>
+ <title>PyPop: a software framework for population genomics: analyzing
+ large-scale multi-locus genotype data</title>
 
  <articleinfo>
-  <author>
-   <firstname>Alex</firstname>
-   <surname>Lancaster</surname>
+  <authorgroup>
+   <author role="uc">
+    <firstname>Alex</firstname>
+    <surname>Lancaster</surname>
+    
+    <affiliation>
+     <orgname>University of California, Berkeley</orgname>
+     <orgdiv>Department of Integrative Biology</orgdiv>
+     <address><street>3060 Valley Life Sciences</street>
+      <city>Berkeley</city> <state>CA</state> <country>USA</country>
+      <email>alexl@socrates.berkeley.edu</email></address>
+    </affiliation>
+   </author>
+
+   <author role="uc">
+    <firstname>Mark</firstname>
+    <surname>Nelson</surname>
+   </author>
+
+   <author role="uc">
+    <firstname>Glenys</firstname>
+    <surname>Thomson</surname>
+   </author>
+
+   <author role="uv">
+    <firstname>Richard</firstname>
+    <surname>Single</surname>
+    <affiliation>
+     <orgname>University of Vermont</orgname>
+     <orgdiv>Department of Biometry</orgdiv>
+     <address><street>Hills Science Building</street>
+      <city>Burlington</city><state>VT</state>  
+      <zip>05405</zip><country>USA</country></address>
+    </affiliation>
+   </author>
    
-   <affiliation>
-    <orgname>University of California, Berkeley</orgname>
-    <orgdiv>Department of Integrative Biology</orgdiv>
-    <address><street>3060 Valley Life Sciences</street>
-     <city>Berkeley</city> <state>CA</state> <country>USA</country>
-     <email>alexl@socrates.berkeley.edu</email></address>
-   </affiliation>
-  </author>
+  </authorgroup>
   
   <pubdate>Last modified: $Date$</pubdate>
  </articleinfo>
 
  <abstract>
-   <para>Software to analyse multilocus genotype data for entire
+   <para>Software to analyze multi-locus genotype data for entire
    populations is useful for estimating haplotype frequencies,
    deviation from Hardy-Weinberg equilibrium and patterns of linkage
    disequilibrium.  These statistical results are of interest to both
    those interested in human genome variation and disease
-   predispostion as well as evolutionary geneticists.  Packages for
-   analysing such data already exist <xref linkend="Schneider:2000"/>
-   but suffer from requiring incompatible file formats, are often
-   unable to scale effectively for multiple data sets and are not
-   open-source.  As part of the 13<superscript>th</superscript>
-   International Histocompatibility and Immunogenetics Working Group
-   (IHWG), we have developed a software framework
-   (<application>PyPop</application>) that addresses many of these
-   deficiencies whilst retaining the ability to interoperate with
+   predisposition as well as evolutionary geneticists.  As part of the
+   13<superscript>th</superscript> International Histocompatibility
+   and Immunogenetics Working Group (IHWG), we have developed a
+   software framework (<application>PyPop</application>).  The primary
+   novelty of this package is that it allows integration of statistics
+   <emphasis>across</emphasis> large numbers of data-sets by heavily
+   utilizing the XML file format and the R statistical package to view
+   graphical output, while retaining the ability to inter-operate with
    existing software.  Largely developed to address human population
-   data, it can be used for population based data for any organism.
-   It is unique to allow rapid identification of statistics of
-   interest between population analyses using graphical output by
-   heavily utilising the XML file format and the R statistical package
-   .  We have tested our software on the data from the
+   data, it can, however, be used for population based data for any
+   organism.  We tested our software on the data from the
    13<superscript>th</superscript> IHWG which involved data sets from
    at least 50 laboratories each of up to 1000 individuals with 9 MHC
-   loci (both class I and class II) and found that it scales
-   well.</para>
+   loci (both class I and class II) and found that it scales to large
+   numbers of data sets well.</para>
  </abstract>
 
  <section>
@@ -68,10 +89,10 @@
    in maintaining variation.  Genetic systems such as the Human
    Leukocyte Antigen (HLA) region (the Major Histocompatibility [MHC]
    region for humans) are highly polymorphic.  Six classical class I
-   and II loci each contain up to 399 alleles <xref
-   linkend="Rhodes:Trowsdale:1999"/>.</para>
+   and II loci each contain up to 399 alleles
+   <citation>Rhodes:Trowsdale:1999</citation></para>
 
-  <para>Several basic population genetics statistics from multilocus
+  <para>Several basic population genetics statistics from multi-locus
    genotype data can help us understand these patterns of variation,
    and their implications for disease studies and evolutionary
    genetics.  These statistics include, but are not limited to, the
@@ -79,7 +100,7 @@
    Hardy-Weinberg equilibrium locating patterns of linkage
    disequilibrium in a given population.  In population studies
    several implementations of programs and routines to calculate these
-   basic statistics exist but are mainly oriented towards analysing
+   basic statistics exist but are mainly oriented towards analyzing
    statistics on a population-by-population basis.  The ability to be
    able cross-correlate these statistical features across not a just
    few population data-sets, but many population data-sets will enable
@@ -88,18 +109,22 @@
    of specific alleles, and conversely allow us to rule out
    others.</para>
 
-  <para>Currently, packages for analysing population data already
-   exist <citation>Schneider:2000</citation>.  In general, however,
-   they are not oriented towards large-scale cross-population data
-   analyses.  Analoguous to the tools being developed for sequence
-   analysis and search, we seek a framework in which basic statistical
-   data from population genetic analyses can be housed, interrogated
-   and visualized in such a way that important features of interest to
-   both the biomedical investigator and the evolutionary biologist can
-   be highlighted.  We also did not want to reinvent the wheel, so,
-   where possibile we can interoperate with existing population
-   genetic analysis packages (either as part of the framework or
-   through file formats).  In this way, our software,
+  <para>Currently, packages for analyzing population data already
+   exist such as
+   <application>Arlequin</application><citation>Schneider:2000</citation>
+   and
+   <application>Phylip</application><citation>Felsenstein:1989</citation>
+   and <application>Genepop</application><citation>Genepop</citation>.
+   In general, however, they are not oriented towards large-scale
+   cross-population data analyses.  Analogous to the tools being
+   developed for sequence analysis and search, we seek a framework in
+   which basic statistical data from population genetic analyses can
+   be housed, interrogated and visualized in such a way that important
+   features of interest to both the biomedical investigator and the
+   evolutionary biologist can be highlighted.  We also did not want to
+   reinvent the wheel, so, where possible we can inter-operate with
+   existing population genetic analysis packages (either as part of
+   the framework or through file formats).  In this way, our software,
    <emphasis>PyPop</emphasis> (<emphasis>Py</emphasis>thon for
    <emphasis>Pop</emphasis>ulation Genetics) can be viewed as
    meta-analysis framework package which can draw on existing tools
@@ -112,7 +137,7 @@
     role as the <quote>Biostatistics Core</quote> as part of the
     International Histocompatibility Working Group (<ulink
     url="http://www.ihwg.org/">IHWG</ulink>).  The IHWG was collecting
-    population data on the HLA region and largeley focused on the the
+    population data on the HLA region and largely focused on the the
     HLA classical class I (A, B, and C) (1.8 Mb) and class II (DR, DQ,
     and DP) (1.2 Mb) genes, which flank the class III region on
     chromosome 6 (ch. 6p21.31).  As part of the Anthropology and Human
@@ -126,11 +151,12 @@
 
    <para>The molecular characterization of these alleles using these
    standardized typing reagent kits thus allowed us to use both the
-   allele frequency (the raw allele "calls") and the underlying
-   sequence information (the "calls" can be converted into sequences
-   if desired) as input to the analysis framework.  (As far as PyPop
-   is concerned it does not distinguish betweeen allele calls or
-   sequence data, it can transparently handle both).</para>
+   allele frequency (the raw allele <quote>calls</quote>) and the
+   underlying sequence information (the <quote>calls</quote> can be
+   converted into sequences if desired) as input to the analysis
+   framework.  (As far as PyPop is concerned it does not distinguish
+   between allele calls or sequence data, it can transparently handle
+   both).</para>
 
  </section>
 
@@ -143,52 +169,56 @@
     linkage disequilibrium; tests for balancing selection and; (4)
     worldwide patterns of genetic differentiation.</para>
 
-   <section>
+   <formalpara>
     <title>Hardy-Weinberg</title>
 
-    <para>The importance of the Hardy-Weinberg law is that if there
-    are no counteracting forces, then the frequencies of alleles do
-    not change in a population. In other words, variation in a
-    population, under a Mendelian system, tends to be maintained. We
-    contrast this to the previously believed blending inheritance
-    where genetic variation is decreased each generation. Further, the
-    expected genotype frequencies each generation are determined by
-    the allele frequencies, and are termed Hardy-Weinberg proportions
-    (HWP).  In the context of multi-population analyses we can use
-    deviation from HWP to determine whether this results from: (1)
-    typing error (very common); (2) an <quote>admixed</quote>, or
-    merged population; (3) operation of natural selection; or (4)
-    inbreeding. </para>
-   </section>
+    <para>Hardy-Weinberg equilibrium essentially states that unless
+    there are counteracting forces, the frequencies of alleles will
+    not change in a population. Expected genotype frequencies each
+    generation are determined by the allele frequencies, and are
+    termed Hardy-Weinberg proportions (HWP).  In the context of
+    multi-population analyses we can use deviation from HWP to
+    determine whether this results from: (1) typing error (very
+    common); (2) an <quote>admixed</quote>, or merged population; (3)
+    operation of natural selection; or (4) inbreeding. </para>
+   </formalpara>
 
-   <section>
+   <formalpara>
     <title>Ewens-Watterson test of neutrality</title> <para>This a
-    test of neutral evolution.  Given 2n, k.  Homozygosity: [PUT
-    EQUATION F = SUM(PI) HERE].  Determine probability that the observed
-    homozygosity is more extreme than the expected homozygosity under
-    neutrality with the same 2n and k.  This can tell us whether
+    test of neutral evolution.  Determine probability that the
+    observed homozygosity is more extreme than the expected
+    homozygosity under neutrality.  This test can tell us whether
     selection (either directional or balancing) is in operation on a
     particular loci across populations.
     </para>
-   </section>
+   </formalpara>
 
-   <section>
+   <formalpara>
     <title>Haplotype estimation and linkage disequilibrium</title>
 
-    <para>Selection on haplotypes?  [NEED TO ADD BRIEF DESCRIPTION...]</para>
-   </section>
+    <para>Linkage disequilibrium (LD) describes the non-random
+     association of alleles at different genetic loci.  Through
+     estimating haplotype frequencies, it is possible to estimate LD
+     in a population, the presence of LD that is significant can
+     indicate the operation of selection. </para>
+   </formalpara>
 
-   <section>
-    <title>Patterns of genetic differentiation</title>
-    <para>Fst? [NEED TO ADD BRIEF DESCRIPTION...]</para>
-   </section>
+   <formalpara>
+    <title>Other statistics</title> 
+
+    <para>Other individual-level population genetic statistics can
+     also be calculated, such F<subscript>st</subscript>, which
+     describes the apportionment of genetic diversity within
+     subpopulations, relative to a larger population, allowing us the
+     estimate the amount of admixture in a population.</para>
+   </formalpara>
 
  </section>
 
  <section>
   <title>Requirements</title>
 
-   <para>The data sets we wished to analyse were highly heterogenous.
+   <para>The data sets we wished to analyze were highly heterogeneous.
    Datasets varied considerably in the number of loci typed (from two
    to nine), number of individuals sampled (from less than 50 to
    1000), and number of alleles at each loci (from 5 to 179).  Given
@@ -247,16 +277,16 @@
    <title>Integrating with existing software</title>
 
    <para>Where possible, we would like to integrate with existing
-    software.  <application>Arlequin</application> <xref
-    linkend="Schneider:2000"/>, <application>Genepop</application>,
-    <application>Phylip</application> and
-    <application>PAUP</application> are all packages that deal with
-    some aspect of population genetic statistics.  In addition, we had
-    some existing in-house software, such as
-    <application>emhaplofreq</application>, a program for haplotype
-    estimation, and <application>gthwe</application>, a program for
-    implementing the <xref linkend="Guo:Thompson:1992"/>
-    Hardy-Weinberg exact test.</para>
+    software.  <application>Arlequin</application>
+    <citation>Schneider:2000</citation> and
+    <application>Phylip</application><citation>Felsenstein:1989</citation>
+    are packages that deal with some aspect of population genetic
+    statistics.  In addition, we had some existing in-house software,
+    such as <application>emhaplofreq</application>, a program for
+    haplotype estimation, and <application>gthwe</application>, a
+    program for implementing the
+    <citation>Guo:Thompson:1992</citation> Hardy-Weinberg exact
+    test.</para>
 
    <para>In using these programs, however, we realized a need for a
     tool that could integrate features of existing software, and where
@@ -276,14 +306,14 @@
     </listitem>
 
     <listitem>
-     <formalpara><title>Batchability</title>
+     <formalpara><title>Batch-ability</title>
 
       <para>It should be simple to set up an entire job in an
        unattended <quote>batch mode</quote>, involving simple scripts
        and a configuration files.  Software that relies on a
-       <quote>captive user interface</quote>, where for population to
-       be analysed requires user interaction such as mouse clicks and
-       menus, makes it difficult to analyse hundreds of data sets.
+       <quote>captive user interface</quote>, for a population to be
+       analyzed and requires user interaction such as mouse clicks and
+       menus, makes it difficult to analyze hundreds of data sets.
        </para>
      </formalpara>
     </listitem>
@@ -309,14 +339,13 @@
       <title>Open-source</title>
       
       <para>We plan to release our software under an open source
-       license <xref linkend="OSI:2002"/>.  Software that is
-       open-source allows others to extend and re-use components,
-       write interfaces to, and can often reduces duplication of
-       effort within the community.  Some existing software that was
-       not open-source required reverse engineering of their file
-       formats in order to be able to communicate and write
-       interfaces, effort that would be more wisely spent improving
-       that software.
+       license <citation>OSI</citation>.  Software that is open-source
+       allows others to extend and re-use components, write interfaces
+       to, and can often reduces duplication of effort within the
+       community.  Some existing software that was not open-source
+       required reverse engineering of their file formats in order to
+       be able to communicate and write interfaces, effort that could
+       be more profitability spent improving that software.
        </para>
      </formalpara>
     </listitem>
@@ -325,11 +354,10 @@
      <formalpara>
       <title>Cross-platform</title>
 
-      <para>Some software should be cross platform, and not be tied to
-      proprietary features such as can be found in a Windows or
-      Macintosh environment.  In particular it should be be available
-      to run high-performance UNIX platforms such GNU/Linux or
-      Solaris as well as Windows and Macintosh platforms. </para>
+      <para>Software should be cross platform, and not be tied to
+       proprietary features.  In particular it should be be available
+       to run high-performance UNIX platforms such GNU/Linux or
+       Solaris as well as Windows and Macintosh platforms. </para>
      </formalpara>
     </listitem>
    </orderedlist>
@@ -366,22 +394,24 @@
    <title>Implementation</title>
 
    <para>We decided to implement the project in the object-oriented
-    scripting language <xref linkend="Python"/>.  It is is interpreted
-    language allowing for rapid prototyping of modules and has a
-    convenient standard library of functions.  Through use of the the
-    Simple Wrapper Interface Generator (SWIG <xref linkend="SWIG"/>),
-    it is also straightforward to <quote>wrap</quote> existing code in
-    C, C++ or Java and call it from Python.</para>
+    scripting language Python<citation>Python</citation>.  It is is
+    interpreted language allowing for rapid prototyping of modules and
+    has a convenient standard library of functions.  Through use of
+    the the Simple Wrapper Interface Generator (SWIG
+    <citation>SWIG</citation>), it is also straightforward to
+    <quote>wrap</quote> existing code in C, C++ or Java and call it
+    from Python.</para>
 
    <para>In line with our philosophy or integrating with <quote>best
    of breed</quote> open-source components, we leveraged the work of
-   the Numeric Python project <xref linkend="Numpy"/>, which provides
-   efficient data structures for holding large arrays of data,
-   <application>R</application>, the open-source implementation <xref
-   linkend="R-Stat"/> of the programming language
-   <application>S</application>.  As our XSLT parser, we chose the
-   fast C-based <application>libxslt</application> <xref
-   linkend="libxslt"/> from the GNOME project <xref linkend="GNOME"/>.
+   the Numeric Python <citation>Numpy</citation> project, which
+   provides efficient data structures for holding large arrays of
+   data, <application>R</application>, the open-source implementation
+   <citation>Ross:Gentleman:1996</citation> of the programming
+   language <application>S</application>.  As our XSLT parser, we
+   chose the fast C-based <application>libxslt</application>
+   <citation>libxslt</citation> from the GNOME project
+   <citation>GNOME</citation>.
    </para>
   </section>
 
@@ -394,7 +424,7 @@
     population file from the database are run.  The filter module is a
     set of rules that traps any allele name which does not have a
     close match in the database of HLA alleles maintained by Steve
-    Marsh <xref linkend="IMGT"/>.  Although at present this is
+    Marsh <citation>IMGT</citation>.  Although at present this is
     HLA-specific, it has been designed in such a way that it is simple
     to write a filter for other types of population data, and if it
     desired (if the data is already <quote>clean</quote>), it can be
@@ -512,15 +542,16 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     statistical package <application>R</application>.</para>
    
    <para>A sample output of this process is shown in <xref
-   linkend="pypop:ld.wn.summary"/>.  This is an output plot from R and
-   depicts for each of the loci analysed as part of the IHWG workshop,
-   the proportion of populations in which the linkage disequilibrium
-   exceed 0.6 (as defined by the W<subscript>n</subscript>
-    statistic <xref linkend="Cramer"/>).</para>
+     linkend="pypop:ld.wn.summary"/>.  This is an output plot from R
+     and depicts for each of the loci analyzed as part of the IHWG
+     workshop, the proportion of populations in which the linkage
+     disequilibrium exceed 0.6 (as defined by the
+     W<subscript>n</subscript> statistic).</para>
 
    <figure id="pypop:ld.wn.summary">
-    <title>Proportions of population with linkage disequilibrium
-    measure W<subscript>n</subscript> greater than 0.6</title>
+    <title>Sample graphical output from <quote>meta-analysis</quote>:
+    proportions of populations with linkage disequilibrium measure
+    W<subscript>n</subscript> greater than 0.6</title>
     <mediaobject>
      <imageobject>
       <imagedata fileref="../ihws2002/plots/generated/ld-wn-summary.jpg" scale="80"/>
@@ -532,16 +563,10 @@ Name      Frequency (Count)   | Name      Frequency (Count)
     files, and the aggregated multi-population data) can be
     transformed (via XSLT) into formats suitable for input to other
     programs.  Currently we have a prototype module for generating
-    input for Phylip and a prototype module to generate Arlequin
-    <filename>.arp</filename> files.
+    input for Phylip and a prototype module to generate
+    <application>Arlequin</application> <filename>.arp</filename>
+    files.
    </para>
-
-   <para><application>PyPop</application> is currently in alpha
-    development, and while Phase I and II are largely completed, the
-    development of new modules is ongoing.  We plan to released
-    <application>PyPop</application> under an open source license.
-    Details will be made available at the Thomson lab website:
-    http://allele5.biol.berkeley.edu</para>
 
   </section>
  </section>
@@ -549,22 +574,112 @@ Name      Frequency (Count)   | Name      Frequency (Count)
  <section>
   <title>Results and discussion</title>
 
-  <para>The PyPop framework was used to analyse the IHWG data...</para>
+  <section>
+   <title>Analyzing IHWG workshop data</title>
+   
+   <para>The PyPop framework was used to analyze the full set of IHWG
+    data from both the 12<superscript>th</superscript> and
+    13<superscript>th</superscript> workshops.  With 119 separate
+    data-sets (some of which individually, required up to 9 days to
+    complete the basic per-population statistics), it was
+    straightforward to set up a batch program to generate the
+    individual output analyses.  For each file, an individual XML file
+    was generated.  From these individual files, using XSLT
+    stylesheets as described above in phase II of
+    <application>PyPop</application>, it was straightforward to
+    generate the input data files for the statistical package, R.  The
+    R code was set up to generate overall graphs for many population
+    genetic parameters of interest.  In particular, the analysis
+    allows <quote>slicing</quote> of the data up along a number of
+    axes.  As an example, we can view Hardy Weinberg deviation, for
+    all regions at a give locus, or view all loci for a given region.
+    As an another example, we can view the number of populations that
+    have data for a given region (<xref
+    linkend="pypop:pops-by-locus"/>), or number of populations for
+    which data was provided for a given locus (<xref
+    linkend="pypop:pops-by-region"/>).</para>
 
-  <para>[DESCRIPTIONS OF SOME DATA ANALYSES, with reference to
-  Ewens-Watterson test of neutrality, also describe future analyses at
-  amino-acide level and possible functional relevance to disease.]</para>
+   <figure id="pypop:pops-by-locus">
+    <title>Sample metadata output: viewing number of populations by locus</title>
+    <mediaobject>
+     <imageobject>
+      <imagedata fileref="../ihws2002/plots/generated/pops-by-locus.jpg" scale="90"/>
+     </imageobject>
+    </mediaobject>
+   </figure>
 
-  <para>[SUMMARY OF STRENGTHS AND WEAKNESSES OF PYPOP W.R.T. OTHER
-  PACKAGES.]</para>
+   <figure id="pypop:pops-by-region">
+    <title>Sample metadata output, a second way to view data: number
+     of populations within each region</title>
+    <mediaobject>
+     <imageobject>
+      <imagedata fileref="../ihws2002/plots/generated/pops-by-region.jpg" scale="90"/>
+     </imageobject>
+    </mediaobject>
+   </figure>
 
-  <para>[CONCLUSION AND FUTURE DIRECTIONS.]</para>
+   <para>This <quote>meta-analysis</quote> code is modular and can
+    cope with non-HLA data, and can thus can potentially be useful for
+    other large-scale population genetic analyses.  The significance
+    is that the complete pipeline, from analyzing the individual data
+    files, to the generation of the overall <quote>meta</quote> output
+    can be completely automated from the command-line.  Further, the
+    flexibility of the XML format, allows us to easily extract and
+    output data for future data analyses without requiring
+    regeneration of the basic population genetics statistics.</para>
 
+  </section>
+
+  <section>
+   <title>Role and significance</title>
+   <para>It's important to note that <application>PyPop</application>
+    is not attempting to supplant or replace other, more established,
+    population genetics analysis packages.  The basic population
+    genetic statistics that it performs are not new in and of
+    themselves, and indeed <application>PyPop</application>, can use
+    existing packages to calculate them, nor of performing analyses on
+    multiple populations (<application>Arlequin</application> can
+    currently do this).  However the approach of integrating
+    information in highly heterogeneous datasets on a large scale is
+    new, and not currently available in the evolutionary genetics
+    community.  The uniqueness of the present project is that it is
+    intended be a high-throughput system that helps populations
+    genetics join the realm of genomics.</para>
+
+  </section>
+
+
+  <section>
+   <title>Future directions</title>
+
+   <para>In the future we plan to continue development on the modules
+    that can inter-operate with <application>Phylip</application> and
+    <application>Arlequin</application>.  We also plan to take the
+    Ewens-Watterson test of neutrality down to the amino-acid level
+    (by considering each amino acid site as a genetic locus),
+    necessitating the translation of the allele <quote>calls</quote>
+    back into sequence data (where possible).  This will result in a
+    useful module for those wishing to reinterpret existing allele
+    data in the light of new sequence information.</para>
+   
+   <para>Longer-term possibilities include developing a graphical
+    front-end, possibly web-based, integration with data mining tools
+    such as clustering analysis, and currently under discussion is
+    integration with the NCBI's new <application>dbMHC</application>
+    database<citation>dbMHC</citation>.</para>
+
+   <para>We plan to release
+    <application>PyPop</application> under an open source license.
+    Details will be made available at the Thomson lab website: <ulink
+    url="http://allele5.biol.berkeley.edu/">http://allele5.biol.berkeley.edu/</ulink></para>
+
+  </section>
+  
  </section>
 
- <ackno>This work has benefitted from the support of NIH grant 795??
- (13<superscript>th</superscript> IHWG).  Thanks to Diogo Meyer,
- Richard Single, Steve Mack, Mark Nelson and Glenys Thomson.</ackno>
+ <ackno>This work has benefited from the support of NIH grant 79690
+ (13<superscript>th</superscript> IHW).  Thanks to Diogo Meyer and
+ Steve Mack.</ackno>
 
 <!--
  <appendix condition="main">
@@ -733,7 +848,7 @@ Other
   </section>
   
   <section>
-   <title>Data transmission</title>
+ <title>Data transmission</title>
    
    <para>Possible methods:</para>
    
@@ -758,7 +873,7 @@ Other
  -->
 
  <bibliography>
-  <biblioentry id="Schneider:2000" xreflabel="Schneider et al. 2000">
+  <biblioentry id="Schneider:2000" xreflabel="Schneider:2000">
    <authorgroup>
     <author>
      <firstname>S.</firstname>
@@ -817,19 +932,96 @@ Other
     </author>
    </authorgroup>
    <pubdate>1999</pubdate>
-   <citetitle pubwork="article">Genetics and molecular genetics of the MCH</citetitle>
+   <citetitle pubwork="article">Genetics and molecular genetics of the MHC</citetitle>
    <volumenum>1</volumenum>
    <issuenum>1</issuenum>
    <pagenums>21-31</pagenums>
-   <citetitle pubwork="journal">Rev. Immunogentics</citetitle>
+   <citetitle pubwork="journal">Rev. Immunogenetics</citetitle>
+
   </biblioentry>
 
-  <!--
-  Numeric Python (http://numpy.sf.net)
-  R [clone of S-Plus] (http://www.r-project.org/)
-  XSLT using libxslt GNOME library (http://xmlsoft.org)
-  -->
-  <!--       (eXtensible Markup Language http://www.w3.org/XML) -->
+  <biblioentry id="IMGT" xreflabel="IMGT">
+   <citetitle pubwork="refentry">IMGT/HLA Database <ulink url="http://www.ebi.ac.uk/imgt/hla/">http://www.ebi.ac.uk/imgt/hla/</ulink></citetitle>
+  </biblioentry>
+
+  <biblioentry id="SWIG" xreflabel="SWIG">
+   <citetitle pubwork="refentry">Simple Wrapper Interface Generator <ulink url="http://www.swig.org/">http://www.swig.org/</ulink></citetitle>
+  </biblioentry>
+
+
+  <biblioentry id="OSI" xreflabel="OSI">
+   <citetitle pubwork="refentry">Open Source Initiative <ulink url="http://www.opensource.org/">http://www.opensource.org/</ulink></citetitle>
+  </biblioentry>
+
+  <biblioentry id="Numpy" xreflabel="Numpy">
+   <citetitle pubwork="refentry">Numeric Python <ulink
+   url="http://numpy.sf.net/">http://numpy.sf.net/</ulink></citetitle>
+  </biblioentry>
+
+  <biblioentry id="Python" xreflabel="Python">
+   <citetitle pubwork="refentry">Python <ulink
+   url="http://www.python.org/">http://www.python.org/</ulink></citetitle>
+  </biblioentry>
+
+  <biblioentry id="libxslt" xreflabel="libxslt">
+   <citetitle pubwork="refentry">libxslt, XSLT C library for GNOME <ulink
+   url="http://xmlsoft.org/">http://xmlsoft.org/</ulink></citetitle>
+  </biblioentry>
+
+  <biblioentry id="GNOME" xreflabel="GNOME">
+   <citetitle pubwork="refentry">GNOME Project <ulink
+   url="http://www.gnome.org/">http://www.gnome.org/</ulink></citetitle>
+  </biblioentry>
+
+  <biblioentry id="XML" xreflabel="XML">
+   <citetitle pubwork="refentry">eXtensible Markup Language <ulink url="http://www.w3.org/XML">http://www.w3.org/XML</ulink></citetitle>
+  </biblioentry>
+
+  <biblioentry id="Felsenstein:1989">
+   <author>
+    <firstname>J.</firstname>
+    <surname>Felsenstein</surname>
+   </author>
+   <pubdate>1989</pubdate>
+   <citetitle pubwork="article">PHYLIP Phylogeny Inference Package (Version 3.2) <ulink url="http://evolution.genetics.washington.edu/phylip.html">http://evolution.genetics.washington.edu/phylip.html</ulink></citetitle>
+   <citetitle pubwork="journal">Cladistics</citetitle>
+   <volumenum>5</volumenum>
+   <pagenums>164-166</pagenums>
+  </biblioentry>
+
+  <biblioentry id="Ross:Gentleman:1996" xreflabel="Ross \&amp; Gentleman 1996">
+   <authorgroup>
+    <author>
+     <firstname>Ross</firstname>
+     <surname>Ihaka</surname>
+    </author>
+    <author>
+     <firstname>Robert</firstname>
+     <surname>Gentleman</surname>
+    </author>
+   </authorgroup>
+   <citetitle pubwork="article">R: A Language for Data Analysis and
+   Graphics <ulink
+     url="http://www.r-project.org/">http://www.r-project.org/</ulink></citetitle>
+   <pubdate>1996</pubdate>
+
+   <citetitle pubwork="journal">Journal of Computational and Graphical
+   Statistics</citetitle>
+   <volumenum>5</volumenum>
+   <issuenum>3</issuenum>
+   <pagenums>299-314</pagenums>
+  </biblioentry>
+  
+  <biblioentry id="dbMHC">
+   <citetitle pubwork="refentry">dbMHC <ulink
+   url="http://www.ncbi.nlm.nih.gov/IEB/Research/GVWG/MHC/">http://www.ncbi.nlm.nih.gov/IEB/Research/GVWG/MHC/</ulink></citetitle>
+  </biblioentry>
+
+  <biblioentry id="Genepop">
+   <citetitle pubwork="refentry">Genepop <ulink
+     url="ftp://ftp.cefe.cnrs-mop.fr/genepop">ftp://ftp.cefe.cnrs-mop.fr/genepop</ulink></citetitle>
+  </biblioentry>
+
  </bibliography>
  
 </article>
@@ -839,5 +1031,46 @@ Local variables:
 sgml-local-catalogs: ("catalog")
 sgml-indent-step: 1
 sgml-indent-data: 1
+ispell-skip-sgml: t
 End:
 -->
+<!--  LocalWords:  PyPop articleinfo authorgroup uc firstname orgname orgdiv uv
+ -->
+<!--  LocalWords:  Glenys pubdate haplotype Histocompatibility Immunogenetics
+ -->
+<!--  LocalWords:  IHWG MHC psb HLA towards Arlequin Phylip Felsenstein Genepop
+ -->
+<!--  LocalWords:  analyses Py thon ulation ulink url DQ upwards formalpara HWP
+ -->
+<!--  LocalWords:  Ewens homozygosity LD itemizedlist listitem emhaplofreq OSI
+ -->
+<!--  LocalWords:  gthwe orderedlist parsable Solaris linkend pypop mediaobject
+ -->
+<!--  LocalWords:  imageobject imagedata fileref png textobject workflow Numpy
+ -->
+<!--  LocalWords:  XSLT libxslt IMGT xml programlisting CDATA dataanalysis SSOP
+ -->
+<!--  LocalWords:  ukimid nireland DEVEL populationdata labcode contin latit
+ -->
+<!--  LocalWords:  longit popname NIreland indivcount allelecount locuscount
+ -->
+<!--  LocalWords:  lociWithDataCount allelecounts untypedindividuals eXtensible
+ -->
+<!--  LocalWords:  distinctalleles Stylesheet txt linespecific DPA arp metadata
+ -->
+<!--  LocalWords:  stylesheets genomics NCBI's dbMHC ackno IHW Diogo UML API
+ -->
+<!--  LocalWords:  api tabstops programlistingco areaspec linkends coords RLS
+ -->
+<!--  LocalWords:  USAERL populat calloutlist callout arearefs xreflabel SBT
+ -->
+<!--  LocalWords:  literallayout SSP RSCA PCR microsatellites RFLP SSCP onwards
+ -->
+<!--  LocalWords:  homozygote DRB biblioentry Roessli Excoffier citetitle Ver
+ -->
+<!--  LocalWords:  pubwork releaseinfo publishername Guo volumenum pagenums
+ -->
+<!--  LocalWords:  Trowsdale othername issuenum Immunogentics refentry Ihaka
+ -->
+<!--  LocalWords:  Cladistics sgml
+ -->
