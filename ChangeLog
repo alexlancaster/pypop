@@ -1,5 +1,10 @@
 2005-03-10  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* NEWS: Note new features/bug fixes since December 2004.
+
+	* MANIFEST.in: Add various gthwe files to distribution (exclude
+	some stats modules not yet working).
+
 	* setup.py (my_build_ext.swig_sources): Remove SWIG_VERSION
 	checking code, no longer necessary.
 	Add a flag to determine whether we are generating a distribution
@@ -9,9 +14,8 @@
 	add do we add gthwe/statistics.c and INDIVID_GENOTYPES macro.
 	(ext_Gthwe): Use them.
 	(ext_Gthwe): Remove MAX_ALLELE and LENGTH define_macros.
-	(extensions): Change login for appending version, only generate
-	ext_HweEnum if using internal version, but allow ext_Gthwe in all
-	case.
+	(extensions): Always distribute ext_Gthwe, but only generate
+	ext_HweEnum if using internal version.
 
 	* Makefile (DISTRIB): Set flag to pass to setup.py for
 	distributed.  version.

@@ -204,7 +204,7 @@ if sys.version_info[0] == 2 and sys.version_info[1] > 1:
     
 
 # default list of extensions to build
-extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue]
+extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Gthwe]
 
 # if and only if we are making a source distribution, then regenerate
 # ChangeLog
@@ -217,12 +217,8 @@ if sys.argv[1] == 'sdist':
         if os.path.isfile('VERSION') == 0:
             sys.exit("before distributing, please create a VERSION file!")
 else:
-    # if we are distributing the version and *not* building a source
-    # distribution, then append Gthwe, but not HweEnum (yet)
-    if distrib_version:
-        extensions.append(ext_Gthwe)
-    else:
-        extensions.append(ext_Gthwe)
+    # if we are not distributing the version build HweEnum
+    if not(distrib_version):
         extensions.append(ext_HweEnum)
         
 # get version from the file VERSION
