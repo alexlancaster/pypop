@@ -28,7 +28,7 @@ def createObjects(script, type=type, INSTALLER=INSTALLER):
     exe = EXE(pyz,
               a.scripts,
               exclude_binaries=1,
-              name=os.path.join('buildstandalone-new', exec_name),
+              name=os.path.join('buildstandalone', exec_name),
               debug=0,
               strip=0,
               console=1)
