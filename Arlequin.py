@@ -4,6 +4,68 @@
 
 """
 import sys, string, os, re, shutil
+from Utils import Group
+
+class ArlequinWrapper:
+    """New wrapper for Arlequin"""
+
+    def __init__(self,
+                 matrix=None,
+                 arlequinPrefix = "arl_run",
+                 arlequinExec="arlecore.exe",
+                 untypedAllele='****'):
+
+        self.matrix = matrix
+        self.untypedAllele = untypedAllele
+        self.arlequinPrefix = arlequinPrefix
+        self.arlequinExec = arlequinExec
+        self.separator = '\t'
+
+    def outputArp(self, group):
+
+        groupCount = len(group)
+        self._outputHeader(groupCount)
+
+        for locus in group:
+            self._outputSample(locus)
+
+
+    def _outputHeader(self, groupCount):
+
+        print """[Profile]
+        
+        Title=\"Arlequin sample run\"
+        NbSamples=%d
+        GenotypicData=1
+        GameticPhase=0
+        DataType=STANDARD
+        LocusSeparator=WHITESPACE
+        MissingData='%s'
+        RecessiveData=0                         
+        RecessiveAllele=\"null\" """ % (groupCount, self.untypedAllele)
+
+        print """[Data]
+        [[Samples]]"""
+        
+    def _outputSample(self, keys):
+
+        numSamples = len(self.matrix[keys])
+        
+        print """
+        SampleName=\"A pop with %s individuals from loci %s\"
+        SampleSize= %s
+        SampleData={""" % (numSamples, keys, numSamples)
+
+        sampleNum = 1
+
+        for sample in self.matrix[keys]:
+            even = string.join([sample[i] for i in range(0,len(sample),2)], ' ')
+            odd = string.join([sample[i] for i in range(1,len(sample),2)], ' ')
+            print "%10d 1 %s" % (sampleNum, even)
+            print "%13s%s" % (" ", odd)
+            sampleNum += 1
+
+        print "}"
 
 class ArlequinBatch:
     """A Python `wrapper' class for Arlequin.
