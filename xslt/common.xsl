@@ -515,13 +515,12 @@
       <xsl:text>No commmon genotypes; chi-square cannot be calculated</xsl:text>
      </xsl:when>
      <xsl:when test="@role='no-rare-genotypes'">
-      <xsl:text>No rare genotypes with expected less than </xsl:text>
-      <xsl:value-of select="../lumpBelow"/><xsl:text> was observed.</xsl:text>
+      <xsl:text>No rare genotypes observed.</xsl:text>
      </xsl:when>
      <xsl:when test="@role='too-few-expected'">
       <xsl:text>
-       There are less than </xsl:text><xsl:value-of
-       select="../lumpBelow"/><xsl:text> genotypes with a value of at least </xsl:text><xsl:value-of select="../lumpBelow"/>
+       The total number of expected genotypes is less than </xsl:text><xsl:value-of
+       select="../lumpBelow"/>
      </xsl:when>
      <xsl:when test="@role='not-calculated'">
       <xsl:text>Value not calculated.</xsl:text>
