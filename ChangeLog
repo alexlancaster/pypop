@@ -1,3 +1,11 @@
+2004-06-23  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Fixed
+	erroneous value being passed to _Gthwe.run_data().  The total
+	number of *genotypes* (k*(k+1)/2) was being passed as the 'total'
+	parameter, rather than the total number of *gametes* (N).  This
+	has now been corrected.  This did not affect the MCMC results.
+
 2004-05-19  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* setup.py (ext_Gthwe): Add PERMU_TEST macro to be true ('1') for
