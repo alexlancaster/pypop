@@ -29,7 +29,7 @@ class Homozygosity:
 
     - 'debug': flag to switch debugging on."""
 
-    self.alleleData, self.sampleCount = alleleCountData
+    self.alleleData, self.sampleCount, self.unusableIndividuals = alleleCountData
     self.numAlleles = len(self.alleleData)
     self.rootPath = rootPath
     self.debug = debug
@@ -261,8 +261,7 @@ class Homozygosity:
         stream.writeln()
     else:
       if type == 'xml':
-        stream.opentag('homozygosity', 'class', 'out-of-range')
-        stream.closetag('homozygosity')
+        stream.emptytag('homozygosity', 'class', 'out-of-range')
       else:
         stream.writeln("Can't generate expected homozygosity statistics")
 
