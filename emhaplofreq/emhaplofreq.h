@@ -11,7 +11,7 @@
 #define MAX_HAPLOS  30000    /* RS added and changed declaration in main_proc; 1500 in HAPLO */
  
 #define CRITERION   0.000001 
-#define MAX_ITER    100      /* RS changed from 200 */
+#define MAX_ITER    200      /* RS changed from 200 */
  
 #define FALSE 0 
 #define TRUE  1 
