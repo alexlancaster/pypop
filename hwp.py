@@ -24,6 +24,7 @@ for locus in loci:
   print "======\n"
   hwObject = HardyWeinberg.HardyWeinberg(input.getLocusDataAt(locus),
                                          input.getAlleleCountAt(locus),
+                                         lumpBelow=5
                                          debug=0)
   hwObject.getChisq()
 
