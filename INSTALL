@@ -28,7 +28,7 @@ or:
 
 o "libxml2-python":http://xmlsoft/XSLT/python.html, a Python interface
    to "libxml2/libxslt":http://xmlsoft.org/ (also required), the GNOME
-   XML parser (This is a much faster C library-based parser.  Mmost
+   XML parser (This is a much faster C library-based parser.  Most
    recent GNU/Linux distributions will ship libxml2/libxslt as
    standard, but you may need to obtain libxml2-python as a separate
    package).
