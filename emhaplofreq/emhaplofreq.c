@@ -264,9 +264,9 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   int n_geno, n_geno_prev;  /* distinct genotypes through current and previous locus loop */
   int unique_pheno_count, n_unique_pheno, unique_geno_count, n_unique_geno;
 
-  /* needed for checking */
-  int count;      
-  double temp;
+  /* needed for checking, but not currently used*/
+  /* int count = 0;      
+     double temp = 0.0; */
 
   /* these should be malloced, but the stack will experience meltdown: */
   static char pheno[MAX_ROWS][LINE_LEN], geno[MAX_GENOS][2][LINE_LEN / 2];
@@ -294,7 +294,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   double mle[MAX_HAPLOS], freq_zero[MAX_HAPLOS];
 
   /* needed to store loglikelihood under no LD */
-  double loglike0;
+  double loglike0 = 0.0;
 
   /* needed for multiple starting conditions */
   int error_flag, error_flag_best, init_cond, iter_count, iter_count_best;
@@ -304,7 +304,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   /* needed for permutations */
   int permu, max_permutations, max_init_cond;
   double like_ratio[MAX_PERMU], pvalue;
-  FILE *fp_permu, *fp_iter;
+  FILE *fp_permu = NULL, *fp_iter;
 
   /* initialize first elements of geno array to make function
      reentrant when used in a shared library */
@@ -1279,11 +1279,11 @@ void emcalc(int (*genopheno)[MAX_ROWS], int *numgeno, int *obspheno,
 {
   int i, j, k, l;
   int done, decr_loglike_count, tot_hap;
-  int iter, k_pheno, i_geno, i_haplo, j_haplo, keep;
+  int iter, k_pheno, i_geno, i_haplo = 0, j_haplo = 0, keep;
   double unambig[MAX_HAPLOS], ambig[MAX_HAPLOS], ambig_sum;
   static double hap_freq[MAX_HAPLOS][MAX_ITER], addto_ambig[MAX_HAPLOS];
   double expected_freq, expected_freq_sum, normed_addto_ambig_sum, diff; 
-  double geno_freq[MAX_GENOS], pheno_freq[MAX_ROWS], prev_loglike, freqsum;
+  double geno_freq[MAX_GENOS], pheno_freq[MAX_ROWS], prev_loglike = 0.0, freqsum;
 
   done = FALSE;
   decr_loglike_count = 0;
@@ -1611,7 +1611,7 @@ double loglikelihood(int (*genopheno)[MAX_ROWS], double (*hap_freq),
 /************************************************************************/
 void permute_alleles(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs)
 {
-  int i, j, locus, col_0, col_1, drawn;
+  int j, locus, col_0, col_1, drawn;
   char buff[NAME_LEN];
 
   /* last locus not permuted */
