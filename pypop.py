@@ -345,14 +345,54 @@ if config.has_section("Emhaplofreq"):
                       untypedAllele=untypedAllele)
   
   try:
+    allPairwiseLD = config.getboolean("Emhaplofreq", "allPairwiseLD")
+  except NoOptionError:
+    allPairwiseLD=0
+  except ValueError:
+    sys.exit("require a 0 or 1 as a flag")
+
+  try:
+    allPairwiseLDWithPermu = config.getboolean("Emhaplofreq",
+                                               "allPairwiseLDWithPermu")
+  except NoOptionError:
+    allPairwiseLDWithPermu=0
+  except ValueError:
+    sys.exit("require a 0 or 1 as a flag")
+
+  print "estimating all pairwise LD:",
+
+  if allPairwiseLDWithPermu:
+    print "with permutation test"
+  else:
+    print "with no permutation test"
+
+  try:
     locusKeys=config.get("Emhaplofreq", "lociToEstHaplo")
 
     if locusKeys == '*':
       print "wildcard '*' given for lociToEstHaplo, assume entire data set"
       locusKeys=string.join(input.getIndividualsData().colList,':')
 
-    # estimate haplotype frequencies for the specified loci
-    haplo.estHaplotypes(locusKeys)
+    twoLocusHaplosToShow = []
+    modLocusKeys = []
+
+    # if we have already run allPairwise*, then exclude any two-locus
+    # haplotypes, since we will estimate them as part of 'all pairwise'
+    if allPairwiseLD or allPairwiseLDWithPermu:
+      for group in string.split(locusKeys, ','):
+
+        # if a two-locus haplo, add it to the list that allPairwise
+        # will use
+        if len(string.split(group, ':')) == 2:
+          twoLocusHaplosToShow.append(string.upper(group))
+
+        # otherwise add it to the regular output
+        else:
+          modLocusKeys.append(group)
+
+    # estimate haplotype frequencies for the specified loci (excluding
+    # two locus haplotypes)
+    haplo.estHaplotypes(string.join(modLocusKeys, ','))
 
   except NoOptionError:
     print "no loci provided for which to estimate haplotype frequencies"
@@ -370,46 +410,10 @@ if config.has_section("Emhaplofreq"):
   except NoOptionError:
     print "no loci provided for which to estimate LD"
 
-  try:
-    allPairwiseLD = config.getboolean("Emhaplofreq", "allPairwiseLD")
-  except NoOptionError:
-    allPairwiseLD=0
-  except ValueError:
-    sys.exit("require a 0 or 1 as a flag")
-
-  try:
-    allPairwiseLDWithHaplo = config.getboolean("Emhaplofreq",
-                                               "allPairwiseLDWithHaplo")
-  except NoOptionError:
-    allPairwiseLDWithHaplo=0
-  except ValueError:
-    sys.exit("require a 0 or 1 as a flag")
-
-  try:
-    allPairwiseLDWithPermu = config.getboolean("Emhaplofreq",
-                                               "allPairwiseLDWithPermu")
-  except NoOptionError:
-    allPairwiseLDWithPermu=0
-  except ValueError:
-    sys.exit("require a 0 or 1 as a flag")
-
-  print "estimating all pairwise LD:",
-
-  if allPairwiseLDWithPermu:
-    print "with permutation test and",
-  else:
-    print "with no permutation test and",
-
-  # invert sense of WithHaplo flag
-  if allPairwiseLDWithHaplo:
-    haploSuppressFlag = 0
-    print "with haplo output" 
-  else:
-    haploSuppress = 1
-    print "with no haplo output" 
-
+  # do pairwise
   haplo.allPairwise(permutationFlag=allPairwiseLDWithPermu,
-                    haploSuppressFlag=haploSuppressFlag)
+                    haploSuppressFlag=0,
+                    haplosToShow=twoLocusHaplosToShow)
   
   # serialize to XML
   haplo.serializeTo(xmlStream)
