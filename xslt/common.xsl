@@ -328,7 +328,7 @@
   <xsl:call-template name="newline"/>
 
   <!-- no do individual stats for each class -->
-  <xsl:apply-templates select="common|lumped"/>
+  <xsl:apply-templates select="common|lumped|commonpluslumped"/>
   <xsl:apply-templates select="heterozygotes|homozygotes"/>
 
   <!-- do stats for all the heterozygotes and genotypes -->
@@ -395,29 +395,19 @@
  </xsl:template>
 
  <!-- print out overall HW stats  -->
- <xsl:template match="common|lumped|heterozygotes|homozygotes">
+ <xsl:template match="common|lumped|commonpluslumped|heterozygotes|homozygotes">
 
  <xsl:variable name="type">
    <xsl:choose>
     <xsl:when test="name(.)='homozygotes'">All homozygotes</xsl:when>
-   </xsl:choose>
-   <xsl:choose>
     <xsl:when test="name(.)='heterozygotes'">All heterozygotes</xsl:when>
-   </xsl:choose>
-   <xsl:choose>
-    <xsl:when test="name(.)='common'">
-     <xsl:choose>
-      <xsl:when test="../lumped!=''">Common + lumped</xsl:when>
-      <xsl:when
-      test="../lumped/@role='no-rare-genotypes'">Complete</xsl:when>
-      <xsl:otherwise>Common</xsl:otherwise>
-     </xsl:choose>
-    </xsl:when>
-   </xsl:choose>
-   <xsl:choose>
+    <xsl:when test="name(.)='common'">Common</xsl:when>
+    <xsl:when test="name(.)='commonpluslumped'">Common + lumped</xsl:when>
     <xsl:when test="name(.)='lumped'">Lumped genotypes</xsl:when>
+    <xsl:otherwise>
+     <xsl:message terminate="yes">Should always match something</xsl:message>
+    </xsl:otherwise>
    </xsl:choose>
-
  </xsl:variable>
 
 
