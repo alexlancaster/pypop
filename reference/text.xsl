@@ -9,10 +9,16 @@
  <!-- import regular HTML customization -->
  <xsl:import href="html.xsl"/>
 
+
  <!-- now override some things we do/don't want in plaintext -->
  <xsl:param name="callout.unicode" select="'0'"/>
  <xsl:param name="callout.graphics" select="'0'"/>
- <xsl:param name="generate.toc"></xsl:param>
+ <xsl:param name="generate.toc">
+appendix nop
+article nop
+ </xsl:param>
+
+ <xsl:param name="appendix.autolabel" select="0"/>
 
  <!-- put quotes around only inline <para> userinput and filename -->
  <xsl:template match="para/userinput">
@@ -81,6 +87,8 @@
 
   <!-- HTML H level is one higher than section level -->
   <xsl:variable name="hlevel" select="$level + 1"/>
+
+<!--
   <xsl:element name="h{$hlevel}">
     <xsl:attribute name="class"><xsl:value-of select="$class"/></xsl:attribute>
     <xsl:if test="$css.decoration != '0'">
@@ -94,7 +102,7 @@
         <xsl:with-param name="conditional" select="0"/>
       </xsl:call-template>
     </xsl:if>
-
+-->
    
     <xsl:copy-of select="$title"/>
     <!-- after title, output a break then some text highlighting -->
@@ -111,7 +119,9 @@
     <xsl:with-param name="count" select="string-length($title)"/>
    </xsl:call-template>
 
+<!--
   </xsl:element>
+-->
 </xsl:template>
 
  
