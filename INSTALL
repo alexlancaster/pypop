@@ -1,0 +1,77 @@
+-*- text -*-
+
+**PyPop INSTALL file**
+ 
+**For the impatient**
+
+To build and install Python, type:
+python setup.py build
+python setup.py install
+
+
+**System Requirements**
+
+
+o "Python 2.1":http://www.python.org/ or above
+
+o "mxTextTools":http://starship.python.net/~lemburg/mxTextTools.html
+
+o "Numerical Python 15.3 or above":http://numpy.sourceforge.net/ 
+
+Either:
+
+o "4Suite":http://www.4suite.org/ a pure Python XML/XSLT parsing
+   engine.
+
+or:
+
+o "libxsltmod":http://www.rexx.com/~dkuhlman/libxsltmod.html, a Python
+   interface to libxml2/libxslt, the GNOME XML parser (This is a much
+   faster C library-based parser.  Note: if you install this, you will
+   require "libxml":http://xmlsoft.org, most recent GNU/Linux
+   distributions will ship libxml2/libxslt as standard).
+
+**Installation**
+
+*** Make sure Python and Distutils are installed correctly ***
+
+Installation should be as simple as going to the pypop directory,
+and typing:
+
+	'python setup.py install'
+
+
+If you need to do additional configuration, e.g. changing the base
+directory, please type 'python setup.py', or see the documentation for
+Distutils.
+
+
+**Testing**
+
+None as yet.
+
+
+**Contributing, Bug Reports**
+
+
+**Distribution Structure**
+
+AUTHORS --      An (incomplete) list of people who have contributed.
+
+gthwe/ --       Guo and Thompson test for Hardy-Weinberg extension modules
+
+emhaplofreq/ -- LD and haplotype estimation extension module
+
+COPYING --      License information for this package
+
+MANIFEST.in --  Tells distutils what files to distribute
+
+NEWS --         Release notes and news
+
+README --       Information and TODO list.
+
+INSTALL --      This file
+
+setup.py --     Installation file.
+
+
