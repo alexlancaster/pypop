@@ -57,7 +57,6 @@ unsigned long tausval, congrval;
 #define  GREATER_OR_EQUAL(a,b) (gsl_fcmp(a,b,EPSILON)>=0)
 #define  LESS_OR_EQUAL(a,b)    (gsl_fcmp(a,b,EPSILON)<=0)
 
-#define  MAX_ALLELE    35
 #define  STR_END       '\0'
 #define  MAXRAND       RAND_MAX
 
