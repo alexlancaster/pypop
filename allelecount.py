@@ -3,16 +3,54 @@
 """Python population genetics statistics -- parse a literature (allele
    and count data file).  """
 
-import sys, os
-from ParseFile import ParseAlleleCountFile
-from Homozygosity import Homozygosity
+usage_message = """Usage: allelecount.py [OPTION] INPUTFILE
+Process and run population genetics statistics on an INPUTFILE,
+which consists only of allelecount data (not multilocus genotypes).
+Note: config file name MUST be given.
+
+  -h, --help           show this message
+  -c, --config=FILE    select config file
+
+  INPUTFILE  input text file"""
+
+import sys, os, string
+from getopt import getopt, GetoptError
 from ConfigParser import ConfigParser, NoOptionError
 
+from ParseFile import ParseAlleleCountFile
+from Homozygosity import Homozygosity
 from Utils import XMLOutputStream
 
-config = ConfigParser()
+try:
+  opts, args =getopt(sys.argv[1:],"c:h", ["config=", "help"])
+except GetoptError:
+  sys.exit(usage_message)
 
-config.read('allelecount.ini')
+# parse options
+for o, v in opts:
+  if o in ("-c", "--config"):
+    configFilename = v
+  elif o in ("-h", "--help"):
+    sys.exit(usage_message)
+
+# check number of arguments
+if len(args) != 1:
+  sys.exit(usage_message)
+
+# parse arguments
+fileName = args[0]
+
+
+# generate basename
+baseFileName = os.path.basename(fileName)
+
+# parse out the parts of the filename
+prefixFileName = string.split(baseFileName, ".")[0]
+xmlOutFileName = prefixFileName + '.xml'
+txtOutFileName = prefixFileName + '.txt'
+
+config = ConfigParser()
+config.read(configFilename)
   
 try:
   debug = config.getboolean("General", "debug")
@@ -32,9 +70,10 @@ except NoOptionError:
   sys.exit("No valid sample fields defined")
 
 
-xmlStream = XMLOutputStream(open('parseallelecount.xml', 'w'))
 
-input = ParseAlleleCountFile(sys.argv[1],
+xmlStream = XMLOutputStream(open(xmlOutFileName, 'w'))
+
+input = ParseAlleleCountFile(fileName,
                              validPopFields=validPopFields,
                              validSampleFields=validSampleFields,
                              separator='\t',
@@ -43,8 +82,6 @@ input = ParseAlleleCountFile(sys.argv[1],
 xmlStream.opentag('dataanalysis', role='allele-count-data')
 xmlStream.writeln()
 
-# generate basename
-baseFileName = os.path.basename(sys.argv[1])
 
 xmlStream.tagContents('filename', baseFileName)
 xmlStream.writeln()
@@ -78,14 +115,23 @@ hzObject.serializeHomozygosityTo(xmlStream)
 xmlStream.closetag('locus')
 xmlStream.writeln()
 xmlStream.closetag('dataanalysis')
-
 xmlStream.close()
 
-import libxsltmod
-output = libxsltmod.translate_to_string('f', 'text.xsl',
-                                        'f', 'parseallelecount.xml')
+import libxml2
+import libxslt
 
-# open new txt output
-newOut = open('parseallelecount.txt', 'w')
-newOut.write(output)
-newOut.close()
+# parse XSL stylesheet
+styledoc = libxml2.parseFile("/net/share/PyPop/text.xsl")
+style = libxslt.parseStylesheetDoc(styledoc)
+
+# parse XML file
+doc = libxml2.parseFile(xmlOutFileName)
+
+# apply XSL transform to it
+result = style.applyStylesheet(doc, None)
+
+# save result to text file
+style.saveResultToFilename(txtOutFileName, result, 0)
+style.freeStylesheet()
+doc.freeDoc()
+result.freeDoc()
