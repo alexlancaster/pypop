@@ -46,22 +46,21 @@
 
    <itemizedlist>
     <listitem>
-     <para><xref linkend="guide-chapter-install"/>
-      describes how to install the application either using a
-      standalone binary version that you can simply download and
-      install, or for programmers and other interested parties there
-      is a source version which you can build the application
-      yourself</para>
+     <para><xref linkend="guide-chapter-install"/> describes how to
+      download and install a standalone binary version of the
+      application.  Programmers and other interested parties can
+      download source and  can build the application
+      themselves.</para>
     </listitem>
 
     <listitem>
-     <para><xref linkend="guide-chapter-usage"/>
-      which describes how run <application>PyPop</application>.</para>
+     <para><xref linkend="guide-chapter-usage"/> describes how run
+      <application>PyPop</application>.</para>
     </listitem>
 
     <listitem>
-     <para><xref linkend="guide-chapter-instructions"/> which details
-      the population genetics methods and statistics that
+     <para><xref linkend="guide-chapter-instructions"/>  details the
+      population genetics methods and statistics that
       <application>PyPop</application> performs.</para>
 
     </listitem>

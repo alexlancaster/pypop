@@ -5,11 +5,11 @@
 <section>
  <title>Reused text items</title>
 
- <para>You should see an informational
-  screen, and will be asked to supply the name of the configuration
-  file and then the population file, select the file
-  <filename>sample.ini</filename> and <filename>sample.pop</filename>,
-  respectively (noted in the sample screen output below, in <emphasis
+ <para>A short message describing PyPop will be displayed, followed by
+  prompts to supply the name of the configuration file and then the
+  population file.  Select the file, <filename>sample.ini</filename>
+  and <filename>sample.pop</filename>, respectively (noted in the
+  sample screen output below, in <emphasis
    role="bold">bold</emphasis>).
  </para>
 

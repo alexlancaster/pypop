@@ -65,9 +65,10 @@
     </listitem>
    </orderedlist>
 
-   <para>Voila, you have now successfully installed
-    <application>PyPop</application>.  To test your installation, run
-    the program and use the sample test files with the following steps:</para>
+   <para>At this point <application>PyPop</application> should be
+    successfully installed.  To test your installation, run the
+    program and use the sample test files with the following
+    steps:</para>
 
    <orderedlist>
     <listitem>
@@ -77,15 +78,15 @@
 
     <listitem>
      <para>Now you can run the interactive version of the program, by
-      simply typing <userinput>./pypop.sh</userinput>, at the command
+      typing <userinput>./pypop.sh</userinput>, at the command
       line.</para>
 
      <xi:include href="install-screen.xml#xpointer(/section/para)"/>
      <xi:include href="install-screen.xml#xpointer(/section/screen)"/>
 
      <para><application>PyPop</application> will remember the names of
-      the configuration and population files you used last, and in
-      subsequent runs will provide those as defaults.</para>
+      the configuration and population files you used last, and will
+      provide those as defaults in subsequent runs.</para>
 
     </listitem>
    </orderedlist>
@@ -116,8 +117,9 @@
     </listitem>
 
     <listitem>
-     <para>Download the latest stable Windows release and save it
-       in one of your directories or on the Desktop:</para>
+     <para>Download the latest stable Windows release of
+      <application>PyPop</application> and save it in one of your
+      directories or on the Desktop:</para>
      <itemizedlist>
       <listitem>
        <para> <application><ulink
@@ -128,12 +130,12 @@
 
     <listitem>
      <para>Once you have downloaded the file, you should double-click
-      it and if you have correctly installed one of the zip
-      compression utilities, it should open using that zip program.
-      You should then extract the contents of the zip file and put it
-      somewhere sensible. Consult the documentation for your archiving
-      utility for details on how to do this (it should be reasonably
-      self-explanatory).
+      it.  If you have correctly installed one of the zip compression
+      utilities, it should open using that zip program. Extract the
+      contents of the zip file to your desktop, or wherever you
+      normally save your programs and data. Consult the documentation
+      for your archiving utility for details on how to do this (it
+      should be reasonably self-explanatory).
      </para>
     </listitem>
    </orderedlist>
@@ -174,13 +176,13 @@
    </listitem>
   </itemizedlist>
 
-  <para>The short version of installation (assuming you have
-   installed all the system requirements, below)  once you have
-   unzipped and untarred the above tar ball, to build and install
-   Python, is to type:</para>
-
+  <para>Assuming you have installed all the system requirements
+   (below), unzip and untar the above tar ball (above) and type:</para>
+ 
 <screen>python setup.py build
 python setup.py install</screen>
+
+  <para>to build install <application>PyPop</application></para>
 
   <section id="install-from-source-sysreq">
    <title>System requirements</title>
@@ -208,7 +210,7 @@ python setup.py install</screen>
      ship libxml2/libxslt as standard, but you may need to obtain
      libxml2-python as a separate package).</para>
 
-    <para>(Untested recently: is <ulink
+    <para>(Untested recently: <ulink
       url="http://www.4suite.org/">4Suite</ulink> a pure Python
      XML/XSLT parsing engine.)</para>
 
@@ -221,14 +223,14 @@ python setup.py install</screen>
 
    <para><emphasis role="bold">Make sure Python and Distutils are installed correctly</emphasis></para>
 
-   <para>Installation should be as simple as going to the pypop directory,
-    and typing:</para>
+   <para>Install <application>PyPop</application> by changing into the
+    <filename class="directory">PyPop-&VERSION;</filename>  directory,
+    and type:</para>
 
    <screen>python setup.py install</screen>
 
-
-   <para>If you need to do additional configuration, e.g. changing the
-    base directory, please type <userinput>python setup.py</userinput>, 
+   <para>If you need to do additional configuration (e.g. changing the
+    base directory) please type <userinput>python setup.py</userinput>, 
     or see the documentation for
     Distutils.</para>
   </section>

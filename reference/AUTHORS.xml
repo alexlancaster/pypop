@@ -4,7 +4,7 @@
 <?PSGML nofill programlisting screen literallayout userinput?>
 
 <preface>
- <title>Authors</title>
+ <title>Authors of software components</title>
 
  <variablelist>
   <title>PyPop</title>
@@ -105,8 +105,8 @@
   <title>Acknowlegements</title>
   <para>This  work  has  benefited from the support of NIH grant
    AI49213 (13th IHW).  Thanks  to  Steven J. Mack, Kristie A. Mather,
-   Yingssu Tsai, Steve Marsh, Leslie Louie, and Owen Solberg for
-   helpful comments and testing.</para>
+   Steve Marsh and Leslie Louie for helpful comments and
+   testing.</para>
  </sidebar>
 
 <!--  Obsolete modules (not currently distributed)
