@@ -2,6 +2,9 @@
 
 	* standalone.spec (pypop-batch.bat): Mirror Linux batch wrapper
 	script for DOS [Win9*,2k,NT,XP] binary.
+	(pypop.bat): Add a "pause" statement in DOS .bat file so that DOS
+	window doesn't disappear when interactive script finishes, will
+	now wait for user to press a key.
 
 	* Makefile (NAME_BIN): Make uname test for "CYGWIN_NT" work for
 	both 5.0 [Win2k] and XP [5.1].

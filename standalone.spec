@@ -19,7 +19,8 @@ if sys.platform == 'cygwin':
     file_sep = '\\'
     exec_name = 'pypop.exe'
     wrapper_name = 'pypop.bat'
-    wrapper_contents = """%s\%s -i""" % (bin_dir, exec_name)
+    wrapper_contents = """%s\%s -i
+pause""" % (bin_dir, exec_name)
     batch_wrapper = 'pypop-batch.bat'
     batch_wrapper_contents = """%s\%s %%*""" % (bin_dir, exec_name)
     compression = 'zip'
