@@ -18,7 +18,8 @@ current directory or in %s.
   -h, --help           show this message
   -c, --config=FILE    select alternative config file
   -d, --debug          enable debugging output (overrides config file setting)
-
+  -g, --gui            run GUI (warning *very* experimental)
+  
   INPUTFILE   input text file""" % altpath
 
 from ParseFile import ParseGenotypeFile
@@ -32,7 +33,7 @@ from getopt import getopt, GetoptError
 from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter
 
 try:
-  opts, args =getopt(sys.argv[1:],"lsc:hd", ["use-libxslt", "use-4suite", "experimental", "config=", "help", "debug"])
+  opts, args =getopt(sys.argv[1:],"lsgc:hd", ["use-libxslt", "use-4suite", "gui", "config=", "help", "debug"])
 except GetoptError:
   sys.exit(usage_message)
 
@@ -42,6 +43,7 @@ use_FourSuite = 0
 configFilename = 'config.ini'
 specifiedConfigFile = 0
 debugFlag = 0
+guiFlag =0
 
 # parse options
 for o, v in opts:
@@ -56,38 +58,54 @@ for o, v in opts:
     debugFlag = 1
   elif o in ("-h", "--help"):
     sys.exit(usage_message)
+  elif o in ("-g", "--gui"):
+    guiFlag = 1
 
 # if neither option is set explicitly, use libxslt python wrappers
 if not (use_libxsltmod or use_FourSuite):
   use_libxsltmod = 1
 
-# check number of arguments
-if len(args) != 1:
-  sys.exit(usage_message)
+if guiFlag:
+  # instantiate PyPop GUI
 
-# parse arguments
-fileName = args[0]
+  from wxPython.wx import wxPySimpleApp
+  from GUIApp import MainWindow
+  
+  app = wxPySimpleApp()
+  frame = MainWindow(None, -1, "PyPop",
+                     datapath = datapath,
+                     altpath = altpath,
+                     debugFlag = debugFlag)
+  app.MainLoop()
 
-# parse out the parts of the filename
-baseFileName = os.path.basename(fileName)
-prefixFileName = string.split(baseFileName, ".")[0]
-
-config = ConfigParser()
-
-if os.path.isfile(configFilename):
-  config.read(configFilename)
 else:
-  if specifiedConfigFile:
-    sys.exit("Could not find config file: `%s' " % configFilename)
-  else:
-    if os.path.isfile(altpath):
-      config.read(altpath)
-    else:
-      sys.exit("Could not find config file either in current directory or " +
-               altpath + os.linesep + usage_message)
-				
-if len(config.sections()) == 0:
-	sys.exit("No output defined!  Exiting...")
+  # call as a command-line application
+  
+  # check number of arguments
+  if len(args) != 1:
+    sys.exit(usage_message)
+
+  # parse arguments
+  fileName = args[0]
+
+  # parse out the parts of the filename
+  baseFileName = os.path.basename(fileName)
+  prefixFileName = string.split(baseFileName, ".")[0]
+
+  from Main import Main, getConfigInstance
+
+  config = getConfigInstance(configFilename, altpath, usage_message)
+
+  application = Main(config=config,
+                     debugFlag=debugFlag,
+                     fileName=fileName,
+                     datapath=datapath,
+                     use_libxsltmod=use_libxsltmod,
+                     use_FourSuite=use_FourSuite)
+
+sys.exit()
+
+print "didn't get here!"
 
 # generate date and time
 
