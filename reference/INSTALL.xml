@@ -17,10 +17,10 @@
   </authorgroup>
   <pubdate>Last updated: $Date$ by $Author$</pubdate>
  </articleinfo>
- <section>
+ <section id="install-standalone">
   <title>Installing standalone binary</title>
 
-  <section>
+  <section id="install-standalone-linux">
    <title>Installing on GNU/Linux</title>
 
    <orderedlist>
@@ -71,7 +71,7 @@
 
   </section>
 
-  <section>
+  <section id="install-standalone-windows">
    <title>Installing on Windows</title>
 
    <orderedlist>
@@ -127,7 +127,7 @@
 
  </section>
 
- <section>
+ <section id="install-from-source">
   <title>Installing from source</title>
 
   <para>The source code for <application>PyPop</application> can be
@@ -149,7 +149,7 @@
 <screen>python setup.py build
 python setup.py install</screen>
 
-  <section>
+  <section id="install-from-source-sysreq">
    <title>System requirements</title>
 
   <itemizedlist>
@@ -183,7 +183,7 @@ python setup.py install</screen>
   </itemizedlist>
   </section>
 
-  <section>
+  <section id="install-from-source-install">
    <title>Installation</title>
 
    <para><emphasis role="bold">Make sure Python and Distutils are installed correctly</emphasis></para>
@@ -200,7 +200,7 @@ python setup.py install</screen>
     Distutils.</para>
   </section>
 
-  <section>
+  <section id="install-from-source-tests">
    <title>Test suite</title>
 
    <para>None as yet.</para>
@@ -208,7 +208,7 @@ python setup.py install</screen>
   </section>
 
 
-  <section>
+  <section id="install-from-source-bugs">
    <title>Contributions, bug reports</title>
 
    <para>Please send all bug reports and contributions to
@@ -216,7 +216,7 @@ python setup.py install</screen>
    
   </section>
 
-  <section>
+  <section id="install-from-source-distribution">
    <title>Distribution structure</title>
 
      <literallayout class="monospaced">
