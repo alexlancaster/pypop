@@ -52,7 +52,7 @@ config = ConfigParser()
 if os.path.isfile("config.ini"):
   config.read("config.ini")
 else:
-  sys.exit("Could not find config.ini" + os.linesep + usageMessage)
+  sys.exit("Could not find config.ini" + os.linesep + usage_message)
 				
 if len(config.sections()) == 0:
 	sys.exit("No output defined!  Exiting...")
