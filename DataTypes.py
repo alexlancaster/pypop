@@ -371,13 +371,6 @@ class AlleleCounts:
     def getAlleleCount(self):
         return self.freqcount[self.locusName]
 
-    def getAlleleCountAt(self, locus):
-        return self.freqcount[locus]
-
     def getLocusName(self):
         # the first key is the name of the locus
         return self.locusName
-
-    def getLocusList(self):
-        # the first key is the name of the locus
-        return [self.locusName]
