@@ -4,7 +4,7 @@
 
 """
 
-import string, sys
+import string, sys, os
 
 class HardyWeinberg:
   """Calculate Hardy-Weinberg statistics.
@@ -159,13 +159,17 @@ class HardyWeinberg:
 #         print genotype
 
   def _calcChisq(self):
-    """Calculate the chi-squareds"""
+    """Calculate the chi-squareds
+
+    - Open a pipe to get the p-value from the system
+    using the pval program (should be replaced later)"""
 
     printExpected = [] # list flagging genotypes worth printing
     chisq = {}
+    chisqPval = {}
     commonGenotypeCounter = 0
     rareGenotypeCounter = 0
-
+    commonChisqAccumulator = 0.0
     print 'Calculating Chi Squared'
 
     #--mpn--
@@ -192,9 +196,17 @@ class HardyWeinberg:
                           (observedCount - \
                           self.expectedGenotypeCounts[genotype])) /\
                           self.expectedGenotypeCounts[genotype]
+
+        command = "pval 1 %f" % (chisq[genotype])
+        returnedValue = os.popen(command, 'r').readlines()
+        chisqPval[genotype] = returnedValue[0][:-1]
+        commonChisqAccumulator += chisq[genotype]
         if self.debug:
           print 'Chi Squared value:'
           print genotype, ':', chisq[genotype]
+          print "command %s returned %s" % (command, returnedValue)
+          print 'P-value:'
+          print genotype, ':', chisqPval[genotype]
 
       else:
         """Expected genotype count for this genotype is less than 5"""
