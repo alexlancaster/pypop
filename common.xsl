@@ -358,7 +358,7 @@
  </xsl:template>
 
  <xsl:template match="distinctalleles">
-  <xsl:text>Distinct alleles: </xsl:text>
+  <xsl:text>Distinct alleles (k): </xsl:text>
   <xsl:value-of select="."/>
   <xsl:call-template name="newline"/>
  </xsl:template>
