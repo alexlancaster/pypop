@@ -65,7 +65,7 @@ def _serializeAlleleCountDataAt(stream, alleleTable,
                            "%d" % untypedIndividuals)
         stream.writeln()
         stream.tagContents('indivcount', \
-                           "%d" % (total/2))
+                           "%.1f" % (total/2.0))
         stream.writeln()
         stream.tagContents('allelecount', \
                            "%d" % total)
@@ -104,12 +104,25 @@ class Genotypes:
     def __init__(self,
                  matrix=None,
                  untypedAllele='****',
+                 allowSemiTyped=0,
                  debug=0):
         self.matrix = matrix
         self.untypedAllele = untypedAllele
+        self.allowSemiTyped = allowSemiTyped
         self.debug = debug
         
         self._genDataStructures()
+
+    def _checkAllele(self, allele1, allele2):
+        for phase in [allele1, allele2]:
+            if (self.untypedAllele != phase):
+                if self.alleleTable.has_key(phase):
+                    self.alleleTable[phase] += 1
+                else:
+                    self.alleleTable[phase] = 1
+                self.total += 1
+        
+
         
     def _genDataStructures(self):
         """Generates allele count and map data structures.
@@ -136,12 +149,12 @@ class Genotypes:
                print "column tuple:", self.matrix[locus]
 
             # initialise blank dictionary
-            alleleTable = {}
+            self.alleleTable = {}
 
             # initialise blank list
             self.locusTable[locus] = []
       
-            total = 0
+            self.total = 0
             untypedIndividuals = 0
 
             # first pass runs a filter of alleles through the
@@ -165,25 +178,18 @@ class Genotypes:
                 # increment row count
                 rowCount += 1
 
-                # ensure that *both* alleles are typed 
-                if (self.untypedAllele != allele1) and \
-                   (self.untypedAllele != allele2):
-                    if alleleTable.has_key(allele1):
-                        alleleTable[allele1] += 1
-                    else:
-                        alleleTable[allele1] = 1
-                    total += 1
-
-                    if alleleTable.has_key(allele2):
-                        alleleTable[allele2] += 1
-                    else:
-                        alleleTable[allele2] = 1
-                    total += 1
-                # if either allele is untyped it is we throw out the
-                # entire individual and go to the next individual
+                if self.allowSemiTyped:
+                    self._checkAllele(allele1, allele2)
                 else:
-                    untypedIndividuals += 1
-                    continue
+                    # ensure that *both* alleles are typed
+                    if (self.untypedAllele != allele1) and \
+                           (self.untypedAllele != allele2):
+                        self._checkAllele(allele1, allele2)
+                    # if either allele is untyped it is we throw out the
+                    # entire individual and go to the next individual
+                    else:
+                        untypedIndividuals += 1
+                        continue
 
                 # save alleles as a tuple, sorted alphabetically
                 if allele2 < allele1:
@@ -192,10 +198,10 @@ class Genotypes:
                   self.locusTable[locus].append((allele1, allele2))
 
                 if self.debug:
-                    print allele1, allele2, total
+                    print allele1, allele2, self.total
 
             # assign frequency, counts
-            self.freqcount[locus] = alleleTable, total, untypedIndividuals
+            self.freqcount[locus] = self.alleleTable, self.total, untypedIndividuals
 
             # if all individuals in a locus aren't untyped
             # then count this locus as having usable data
@@ -257,9 +263,9 @@ class Genotypes:
     def serializeAlleleCountDataAt(self, stream, locus):
         """ """
         
-        alleleTable, total, untypedIndividuals = self.freqcount[locus]
-        _serializeAlleleCountDataAt(stream, alleleTable,
-                                    total, untypedIndividuals)
+        self.alleleTable, self.total, untypedIndividuals = self.freqcount[locus]
+        _serializeAlleleCountDataAt(stream, self.alleleTable,
+                                    self.total, untypedIndividuals)
 
     def serializeAlleleCountDataTo(self, stream):
         type = getStreamType(stream)

@@ -3,6 +3,12 @@ Copyright (C) 2003, 2004 Regents of the University of California
 
 * Release Notes for PyPop 0.6.0 (public beta) [not released yet]
 ** New features
+
+*** Allow for odd allele counts when processing an allele count data 
+    (i.e "semi"-typing).  When PyPop is dealing with data that is
+    originally genotyped, the current default is preserved i.e.  we
+    dis-allow individuals that are typed at only allele, and set
+    allowSemiTyped to false.
 *** New command-line option '-f' (long version '--filelist') which
     accepts a file containing a list of files (one per line) to
     process (note that this is mutually exclusive with supplying

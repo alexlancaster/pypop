@@ -1,3 +1,32 @@
+2004-11-09  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* NEWS: Note feature.
+
+	* Main.py (Main.__init__): Handle odd allele counts when doing
+	allele count files.  If we are dealing with a
+	'[ParseGenotypeFile]' file type (i.e. that is originally
+	genotyped), we dis-allow individuals that are typed at only one
+	allele, and set allowSemiTyped to false.  If we have
+	a [ParseAllowCount] that data type (i.e. originally allele
+	counts), we allow for typing at only allele, because the matrix is
+	not a true set of individuals, and it allows us to preserve as
+	much data as possible, then set allowSemiTyped to true.
+
+	* DataTypes.py (_serializeAlleleCountDataAt): When tagging
+	<indivcount> use a float because in the case of allele count files
+	there could be "half"-individuals if not there is an odd number of
+	alleles in the population.
+	(Genotypes.__init__): Add new keyword parameter: 'allowSemiTyped'.
+	(Genotypes._checkAllele): New method to check if an individual is
+	valid.
+	(Genotypes._genDataStructures): Make 'alleleTable' and 'total'
+	into instance variables.  Use 'allowSemiTyped': if this is set, an
+	individual which is only typed at one allele is *not* thrown out
+	of the sample, but preserved.  If *not* set, the old default
+	behaviour is that the entire individual is thrown out.
+	(Genotypes.serializeAlleleCountDataAt): Use alleleTable and total
+	as instance variables.
+
 2004-10-29  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* popmeta.py (datfiles): Use readline() rather than next() for
