@@ -328,7 +328,9 @@
   <xsl:call-template name="newline"/>
 
   <!-- no do individual stats for each class -->
-  <xsl:apply-templates select="common|lumped|commonpluslumped"/>
+  <xsl:apply-templates select="common"/>
+  <xsl:apply-templates select="lumped"/>
+  <xsl:apply-templates select="commonpluslumped"/>
   <xsl:apply-templates select="heterozygotes|homozygotes"/>
 
   <!-- do stats for all the heterozygotes and genotypes -->
