@@ -331,15 +331,19 @@ for locus in loci:
 # estimate haplotypes
 
 if config.has_section("Emhaplofreq"):
-  print input.getIndividualsData()
-  #haplo = Emhaplofreq(input.getIndividualsData(), debug=debug)
-  #haplo.estHaplotypes([])
+  try:
+    locusKeys=config.get("Emhaplofreq", "lociToEst")
+  except NoOptionError:
+    print "no loci to estimate, provided, assume entire data set"
+    locusKeys=string.join(input.getIndividualsData().colList,':')
+
+  haplo = Emhaplofreq(input.getIndividualsData(), debug=debug)
+  haplo.estHaplotypes(locusKeys)
 
   # output to text only (XML serialization to be completed)
   txtStream.writeln("Haplotype estimation via emhaplofreq:")
   txtStream.writeln("=====================================")
-  txtStream.writeln("disabled temporarily")
-  #haplo.serializeTo(txtStream)
+  haplo.serializeTo(txtStream)
 
 # closing tag
 xmlStream.closetag('dataanalysis')
