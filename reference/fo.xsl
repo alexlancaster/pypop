@@ -7,9 +7,8 @@
 
  <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/fo/docbook.xsl"/>
 
-
  <xsl:import href="citation.xsl"/>
-
+ <xsl:import href="biblio.xsl"/> 
  <xsl:import href="pagesetup.xsl"/>
 
  <xsl:param name="headers.on.blank.pages" select="0"/>
@@ -34,6 +33,16 @@
 
  <xsl:param name="insert.xref.page.number" select="1"/>
 
+ <!-- page citation in format (see p.45) -->
+ <xsl:param name="local.l10n.xml" select="document('')"/> 
+ <l:i18n xmlns:l="http://docbook.sourceforge.net/xmlns/l10n/1.0"> 
+  <l:l10n language="en"> 
+   <l:context name="xref"> 
+    <l:template name="page.citation" text=" (see p.%p)"/>
+   </l:context>    
+  </l:l10n>
+ </l:i18n>
+
  <xsl:template match="varname">
   <xsl:call-template name="inline.italicmonoseq"/>
  </xsl:template>
@@ -44,30 +53,6 @@
 
  <xsl:template match="phrase[@role='strong']">
   <xsl:call-template name="inline.boldseq"/>
- </xsl:template>
-
- <xsl:template match="article/appendix">
-  <xsl:variable name="id">
-   <xsl:call-template name="object.id"/>
-  </xsl:variable>
-  
-  <fo:block id='{$id}'>
-
-   <xsl:call-template name="section.heading">
-      <xsl:with-param name="level" select="2"/>
-      <xsl:with-param name="title">
-        <xsl:apply-templates select="." mode="object.title.markup"/>
-      </xsl:with-param>
-    </xsl:call-template>
-
-   <xsl:for-each select="appendixinfo/authorgroup/author">
-    <xsl:apply-templates select="." mode="appendix.titlepage.recto.auto.mode"/>
-   </xsl:for-each>
-
-   <xsl:apply-templates/>
-
-  </fo:block>
- 
  </xsl:template>
 
 </xsl:stylesheet>
