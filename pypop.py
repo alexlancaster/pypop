@@ -308,7 +308,6 @@ for locus in loci:
                                       samplingNum=samplingNum,
                                       samplingSize=samplingSize,
                                       maxMatrixSize=maxMatrixSize,
-                                      lumpBelow=lumpBelow,
                                       debug=debug)
     
     hwObject.dumpTable(locus, xmlStream)
