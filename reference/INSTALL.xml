@@ -39,7 +39,7 @@
 python setup.py install</screen>
 
   <section>
-   <title>System Requirements</title>
+   <title>System requirements</title>
 
   <itemizedlist>
 
@@ -98,7 +98,7 @@ python setup.py install</screen>
 
 
   <section>
-   <title>Contributing, Bug Reports</title>
+   <title>Contributions, bug reports</title>
 
    <para>Please send all bug reports and contributions to
     <email>pypop@allele5.biol.berkeley.edu</email></para>
@@ -106,7 +106,7 @@ python setup.py install</screen>
   </section>
 
   <section>
-   <title>Distribution Structure</title>
+   <title>Distribution structure</title>
 
      <literallayout class="monospaced">
 AUTHORS --      An (incomplete) list of people who have contributed.
