@@ -94,7 +94,7 @@
   <xsl:variable name="id">
    <xsl:call-template name="object.id"/>
   </xsl:variable>
-  
+
   <xsl:choose>
    <xsl:when test="string(.) = ''">
     <xsl:variable name="bib" select="document($bibliography.collection)"/>
@@ -131,16 +131,21 @@
     <xsl:variable name="ni" select="//citation[text()=$bibid]"/>
 
     <!-- only if cited, do we output reference -->
-    <xsl:if test="count($nx) &gt; 0 or count($nc) &gt; 0 or count($ni) &gt; 0">
-     <div class="{name(.)}">
-      <xsl:call-template name="anchor"/>
-      <p>
-       <xsl:call-template name="biblioentry.label"/>
-          <xsl:apply-templates mode="bibliography.mode"/>
-      </p>
-     </div>
-    </xsl:if>
-    
+    <xsl:choose>
+     <xsl:when test="count($nx) &gt; 0 or count($nc) &gt; 0 or count($ni) &gt; 0">
+      <div class="{name(.)}">
+       <xsl:call-template name="anchor"/>
+       <p>
+	<xsl:call-template name="biblioentry.label"/>
+	<xsl:apply-templates mode="bibliography.mode"/>
+       </p>
+      </div>
+     </xsl:when>
+     <xsl:otherwise>
+      <xsl:message>Entry: <xsl:value-of select="$id"/> in bibliography but not cited</xsl:message>
+     </xsl:otherwise>
+    </xsl:choose>
+
    </xsl:otherwise>
   </xsl:choose>
  </xsl:template>
