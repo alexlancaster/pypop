@@ -100,17 +100,23 @@ class Homozygosity:
         self.varExpectedHomozygosity = float(lines[2].split(':')[1])
         self.semExpectedHomozygosity = float(lines[3].split(':')[1])
 
-        self.quantile = []
-        for i in range(4, len(lines)):
-          obsvHomo, calcP, pValue = [float(val) for val in lines[i].split()]
-          self.quantile.append((obsvHomo, calcP, pValue))
+        if self.count > 1999:
+          self.quantile = []
+          for i in range(4, len(lines)):
+            obsvHomo, calcP, pValue = [float(val) for val in lines[i].split()]
+            self.quantile.append((obsvHomo, calcP, pValue))
 
-        if self.debug:
-          print self.count, self.expectedHomozygosity, self.varExpectedHomozygosity, self.semExpectedHomozygosity
-          print self.sampleCount, self.numAlleles
-          
-        return 1
-        
+          if self.debug:
+            print self.count, self.expectedHomozygosity, self.varExpectedHomozygosity, self.semExpectedHomozygosity
+            print self.sampleCount, self.numAlleles
+
+          return 1
+
+        else:
+          if self.debug:
+            print self.sampleCount, self.numAlleles
+            print self.count, self.expectedHomozygosity, self.varExpectedHomozygosity, self.semExpectedHomozygosity
+            print "Insufficient (", self.count, ") replicates observed for a valid analysis."
       else:
         if self.debug:
           print self.numAlleles, " is out of range of valid k!"
