@@ -30,3 +30,14 @@
 #define FP_ITER NULL
 #define FP_PERMU NULL
 #endif
+
+#define INIT_STATIC_DIM1(type,id,size1) \
+memset(id, '\0', size1*sizeof(type))
+
+#define INIT_STATIC_DIM2(type,id,size1,size2) \
+memset(id, '\0', size1*size2*sizeof(type))
+
+#define INIT_STATIC_DIM3(type,id,size1,size2,size3) \
+memset(id, '\0', size1*size2*size3*sizeof(type))
+
+
