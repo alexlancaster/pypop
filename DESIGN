@@ -1,5 +1,7 @@
 **Beginnings of a class library for parsing population genetics data files.**
 
+*Lasted updated: $Date$ by $Author$.*
+
 - 'ParseFile' is a base class which has most of the common functionality
 for reading files.
 
