@@ -152,6 +152,43 @@
   </xsl:for-each>
  </xsl:template>
 
+ <!-- get the n-th token in string with a given delimiter (default to ':') -->
+ <xsl:template name="get-nth-element">
+  <xsl:param name="delim" select="':'"/>
+  <xsl:param name="str"/>
+  <xsl:param name="n"/>
+
+  <xsl:choose>
+   <xsl:when test="$n &gt; 0">
+
+    <!--    <xsl:message>n = <xsl:value-of select="$n"/>, str = <xsl:value-of select="$str"/></xsl:message> -->
+
+    <xsl:call-template name="get-nth-element">
+     <xsl:with-param name="delim" select="$delim"/>
+     <xsl:with-param name="str" select="substring-after($str,$delim)"/>
+     <xsl:with-param name="n" select="$n - 1"/>
+    </xsl:call-template>
+   </xsl:when>
+   <xsl:otherwise>
+
+    <!-- if the delimiter is found in the string, we must not be at
+     the end, and we return the portion before the delimter
+     (e.g. 'B:'), otherwise the n-th element is the end of the string,
+     in which case we simply return the current string (e.g. 'C') -->
+
+    <xsl:choose>
+     <xsl:when test="contains($str,$delim)">
+      <xsl:value-of select="substring-before($str,$delim)"/>
+     </xsl:when>
+     <xsl:otherwise><xsl:value-of select="$str"/>
+     </xsl:otherwise>
+    </xsl:choose>
+    
+   </xsl:otherwise>
+  </xsl:choose>
+
+ </xsl:template>
+
 </xsl:stylesheet>
 
 <!-- 
