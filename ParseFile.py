@@ -390,16 +390,20 @@ class ParseGenotypeFile(ParseFile):
 
                 allele1 = fields[col1]
                 allele2 = fields[col2]
-
                     
                 # extend the list by the allele pair
                 #self.individualsList[rowCount].extend([allele1 + ':',
                 #                                       allele2 + ':'])
 
                 # underlying NumPy array data type won't allow storage
-                # of any sequence-type object (e.g. list or tuple)
-                self.matrix[rowCount,locus] = allele1 + ':'+ allele2
+                # of any sequence-type object (e.g. list or tuple) but
+                # we can workaround this by overriding the __setitem__
+                # method of the UserArray wrapper class used for
+                # subtyping and storing tuple internally as two
+                # separate columns in the underlying array.
 
+                self.matrix[rowCount,locus] = (allele1, allele2)
+                
                 if self.debug:
                     print rowCount, self.matrix[rowCount,locus]
 
