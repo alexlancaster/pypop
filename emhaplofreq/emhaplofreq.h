@@ -20,5 +20,17 @@
 
 #define MAX_GENOS_PER_PHENO 64 /* 2^(max_loci - 1) */
 
-#define MAX_PERMU 1000 
+#define MAX_PERMU 1000
 #define MAX_INIT_FOR_PERMU 10 
+
+#ifdef EXTERNAL_MODE
+#define FP_ITER fp_out
+#else
+#define FP_ITER NULL
+#endif
+
+#ifdef EXTERNAL_MODE
+#define FP_PERMU fp_out
+#else
+#define FP_PERMU NULL
+#endif
