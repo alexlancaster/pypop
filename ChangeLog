@@ -1,5 +1,8 @@
 2003-12-10  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
+	* standalone.spec: When generating standalone version, VERSION file 
+	is now placed in dist_dir/bin where pypop script now looks for it.
+
 	* pypop.py: Relocated and streamlined 'VERSION' finding code.  The
 	logic is now to find our exactly which directory the current pypop
 	script is being run: 1) First, check to see if we are running from

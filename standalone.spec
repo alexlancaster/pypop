@@ -78,8 +78,9 @@ shutil.copytree(bin_dir, os.path.join(dist_dir, bin_dir))
 for file in ['README', 'INSTALL', 'AUTHORS', 'COPYING']:
     copyCustomPlatform(file, dist_dir, txt_ext=1)
 
-# VERSION file must not be renamed
-copyCustomPlatform('VERSION', dist_dir)
+# VERSION file must not be renamed and must be put in bin_dir
+# where pypop script now looks for it
+copyCustomPlatform('VERSION', os.path.join(dist_dir, bin_dir))
 
 # copy sample 'demo' files
 copyfileCustomPlatform('minimal-noheader-noids.ini', \
