@@ -228,7 +228,7 @@ class ParseFile:
             # restore the data with the newline stripped
             self.fileData[lineCount] = line
             
-            fields = string.split(line)
+            fields = string.split(line, self.separator)
             if fieldCount != len(fields):
                 print "error: incorrect number of fields:", len(fields), \
                       "found, should have:", fieldCount, \
