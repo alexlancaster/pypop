@@ -32,6 +32,7 @@
  <xsl:param name="html.cleanup" select="1"/> 
  <xsl:param name="ignore.image.scaling" select="'1'"/>
  <xsl:param name="use.id.as.filename" select="1"/>
+ <xsl:param name="admon.graphics" select="1"/>
 
  <!-- crank up nominal image width from 6 * to 9 * -->
  <xsl:param name="nominal.image.width" select="9 * $pixels.per.inch"/>
