@@ -837,8 +837,9 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
   def serializeTo(self, stream):
     stream.opentag('hardyweinbergEnumeration')
     stream.writeln()
-    stream.tagContents("pvalue", "%f" % self.exactPValue)
-    stream.tagContents("pvalue-observed", "%f" % self.observedPValue)
+    stream.tagContents("pvalue", "%f" % self.exactPValue, type="overall")
+    stream.writeln()
+    stream.tagContents("pvalue", "%f" % self.observedPValue, type="observed")
     stream.writeln()
     stream.closetag('hardyweinbergEnumeration')
     

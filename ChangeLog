@@ -1,5 +1,14 @@
 2005-02-28  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* HardyWeinberg.py (HardyWeinbergEnumeration.serializeTo):
+	Standardize output of pvalue tags.
+
+	* Utils.py (XMLOutputStream.tagContents): Allow keyword arguments
+	to generate XML attributes.
+
+	* xslt/hardyweinberg.xsl (hardyweinbergEnumeration): New template
+	to handle exact enumeration XML output.
+
 	* Main.py: Import HardyWeinbergEnumeration.
 	(Main._doGenotypeFile): Do enumeration version (comment out using
 	a "if 0" for the moment).
