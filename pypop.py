@@ -22,6 +22,7 @@ current directory or in %s.
   INPUTFILE   input text file""" % altpath
 
 from ParseFile import ParseGenotypeFile
+from Arlequin import ArlequinWrapper
 from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson
 from Homozygosity import Homozygosity
@@ -432,19 +433,26 @@ if config.has_section("HaploArlequin"):
     arlequinExec = 'arlecore.exe'
     print "Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
 
-  haploArlequin = HaploArlequin('arl_run.arp',
-                                0,
-                                2,
-                                0,
-                                2,
-                                mapOrder = None,
-                                untypedAllele = '****',
-                                arlequinPrefix = "arl_run",
-                                debug=debug)
+  arlequin = ArlequinWrapper(matrix = input.getIndividualsData(),
+                             arlequinExec = arlequinExec,
+                             untypedAllele = untypedAllele)
 
-  fileData = open(fileName, 'r').readlines()
-  haploArlequin.outputArlequin(fileData[3:])
-  haploArlequin.runArlequin()
+
+  arlequin.outputArp(input.getIndividualsData().colList)
+  
+##   haploArlequin = HaploArlequin('arl_run.arp',
+##                                 0,
+##                                 2,
+##                                 0,
+##                                 2,
+##                                 mapOrder = None,
+##                                 untypedAllele = '****',
+##                                 arlequinPrefix = "arl_run",
+##                                 debug=debug)
+
+##   fileData = open(fileName, 'r').readlines()
+##   haploArlequin.outputArlequin(fileData[3:])
+##   haploArlequin.runArlequin()
 
   
 # closing tag
