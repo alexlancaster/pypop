@@ -139,6 +139,10 @@ int run_data(int a[LENGTH], int n[MAX_ALLELE], int no_allele, int total,
 
 #ifdef XML_OUTPUT
   fprintf(outfile, "<hardyweinbergGuoThompson>\n");
+  fprintf(outfile, "<dememorizationSteps>%d</dememorizationSteps>\n", 
+	  sample.step);
+  fprintf(outfile, "<samplingNum>%d</samplingNum>\n", sample.group);
+  fprintf(outfile, "<samplingSize>%d</samplingSize>\n", sample.size);
 #endif
 
 #ifndef SUPPRESS_ALLELE_TABLE
