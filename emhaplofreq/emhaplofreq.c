@@ -1382,6 +1382,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
 
   static double dij[MAX_LOCI*(MAX_LOCI - 1)/2][MAX_ALLELES][MAX_ALLELES];
 
+  CALLOC_ARRAY_DIM1(double, summary_d, MAX_LOCI*(MAX_LOCI - 1)/2);
   CALLOC_ARRAY_DIM1(double, summary_dprime, MAX_LOCI*(MAX_LOCI - 1)/2);
   CALLOC_ARRAY_DIM1(double, summary_q, MAX_LOCI*(MAX_LOCI - 1)/2);
   CALLOC_ARRAY_DIM1(double, summary_wn, MAX_LOCI*(MAX_LOCI - 1)/2);
@@ -1447,6 +1448,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
           }
           else
             norm_dij = 0;
+	  summary_d[coeff_count] += af[j][l] * af[k][m] * fabs(norm_dij) * dmax;
           summary_dprime[coeff_count] += af[j][l] * af[k][m] * fabs(norm_dij);
 #ifdef XML_OUTPUT
 	  fprintf(fp_out,"<allelepair first=\"%s\" second=\"%s\"><observed>%.5f</observed><expected>%.4f</expected><diseq>%.5f</diseq><norm_dij>%.5f</norm_dij><chisq>%.5f</chisq></allelepair>\n", 
@@ -1482,7 +1484,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
     {
 #ifdef XML_OUTPUT
       fprintf(fp_out, "<summary first=\"%d\" second=\"%d\">\n", j, k);
-      fprintf(fp_out, "<wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dprime>%.5f</dprime>\n", summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), summary_dprime[coeff_count]);
+      fprintf(fp_out, "<wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>%.5f</dsummary><dprime>%.5f</dprime>\n", summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), summary_d[coeff_count], summary_dprime[coeff_count]);
       fprintf(fp_out, "</summary>\n");
 #else
       fprintf(fp_out,"--Loci:%2d\\%2d--\n", j, k);

@@ -1,3 +1,11 @@
+2004-07-20  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* emhaplofreq.c (linkage_diseq): Add new alloc memory structure
+	called summary_d to store the 'unprimed' LD measure.  This is
+	calculated by multiplying summary_dprime by dmax, which appears to
+	yield the expected behavior.  Also prints this value to the XML
+	stream next to where summary_dprime is printed.
+
 2004-02-09  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* emhaplofreq_wrap.i (main_proc): Accept new integer
