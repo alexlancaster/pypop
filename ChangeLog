@@ -1,3 +1,12 @@
+2004-09-17  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* ParseFile.py (ParseAlleleCountFile._genDataStructures): Bug fix:
+	check to see if key for allele already exists if it does,
+	increment the count for that allele, otherwise assign the count
+	for that allele.  This handles the case when the same allele
+	appears twice in an allele count file: it counts both entries as
+	being valid.
+
 2004-09-16  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Filter.py (AnthonyNolanFilter.__init__): Commenting out C/Cw

@@ -585,9 +585,18 @@ class ParseAlleleCountFile(ParseFile):
         totalAlleles = 0
         for line in sampleDataLines:
             allele, count = string.split(line, separator)
-            # store as an integer
-            self.alleleTable[allele] = int(count)
-            totalAlleles += self.alleleTable[allele]
+            # convert to integer
+            count = int(count)
+            # check to see if key already exists
+            if self.alleleTable.has_key(allele):
+                # if it does, increment the count
+                self.alleleTable[allele] += count
+            else:
+                # otherwise assign the count
+                self.alleleTable[allele] = count
+
+            # increment total alleles found
+            totalAlleles += count
 
         if self.debug:
             print 'alleleTable', self.alleleTable
