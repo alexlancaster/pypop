@@ -306,6 +306,14 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   double like_ratio[MAX_PERMU], pvalue;
   FILE *fp_permu, *fp_iter;
 
+  /* initialize first elements of geno array to make function
+     reentrant when used in a shared library */
+  for (i = 0; i < (int)pow(2, n_loci - 1); i++) 
+    {
+      strcpy(geno[i][0], "\0");
+      strcpy(geno[i][1], "\0");
+    }
+
   /******************* end: declarations ****************************/
 
   srand48(1234567);
