@@ -339,10 +339,29 @@ for locus in loci:
       except NoOptionError:
         print "Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
 
+    try:
+      markovChainStepsHW = config.getint("HardyWeinbergGuoThompsonArlequin", \
+                                         "markovChainStepsHW")
+    except NoOptionError:
+      samplingNum=100000
+    except ValueError:
+      sys.exit("require integer value")
+
+    try:
+      markovChainDememorisationStepsHW = config.getint("HardyWeinbergGuoThompsonArlequin", "markovChainDememorisationStepsHW")
+    except NoOptionError:
+      samplingNum=100000
+    except ValueError:
+      sys.exit("require integer value")
+
 
     hwArlequin=HardyWeinbergGuoThompsonArlequin(input.getIndividualsData(),
                                                 locusName = locus,
                                                 arlequinExec = arlequinExec,
+                                                markovChainStepsHW = \
+                                                markovChainStepsHW,
+                                                markovChainDememorisationStepsHW=markovChainDememorisationStepsHW,
+                                                untypedAllele=untypedAllele,
                                                 debug=debug)
     hwArlequin.serializeTo(xmlStream)
     
