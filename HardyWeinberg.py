@@ -70,6 +70,10 @@ class HardyWeinberg:
     self.observedGenotypeCounts = {}
     self.possibleGenotypes = []
     self.expectedGenotypeCounts = {}
+    self.hetsObservedByAllele = {}
+    self.hetsExpectedByAllele = {}
+    self.chisqByAllele = {}
+    self.pvalByAllele = {}
     self.totalHomsObs = 0
     self.totalHetsObs = 0
     self.totalHomsExp = 0.0
@@ -77,16 +81,26 @@ class HardyWeinberg:
     
     # self.alleleTotal = 0
 
-    for genotype in self.locusData:
+    for allele in self.locusData:
       """Run through each tuple in the given genotype data and
       create dictionaries of observed alleles and genotypes."""
 
-      if genotype[0] not in self.observedAlleles:
-        self.observedAlleles.append(genotype[0])
-      if genotype[1] not in self.observedAlleles:
-        self.observedAlleles.append(genotype[1])
+      if allele[0] not in self.observedAlleles:
+        self.observedAlleles.append(allele[0])
+      if allele[1] not in self.observedAlleles:
+        self.observedAlleles.append(allele[1])
 
-      self.observedGenotypes.append(genotype[0] + ":" + genotype[1])
+      if allele[0] != allele[1]:
+        if self.hetsObservedByAllele.has_key(allele[0]):
+          self.hetsObservedByAllele[allele[0]] += 1
+        else:
+          self.hetsObservedByAllele[allele[0]] = 1
+        if self.hetsObservedByAllele.has_key(allele[1]):
+          self.hetsObservedByAllele[allele[1]] += 1
+        else:
+          self.hetsObservedByAllele[allele[1]] = 1
+
+      self.observedGenotypes.append(allele[0] + ":" + allele[1])
 
     frequencyAccumulator = 0.
     for allele in self.alleleCounts.keys():
@@ -133,7 +147,9 @@ class HardyWeinberg:
 
       - Create a dictionary of genotype:frequency key:values
 
-      - and accumulate totals for homozygotes and heterozygotes"""
+      - accumulate totals for homozygotes and heterozygotes
+
+      - and build table of observed genotypes for each allele"""
 
       temp = string.split(genotype, ':')
       if temp[0] == temp[1]:         # homozygote, N * pi * pi
@@ -144,6 +160,18 @@ class HardyWeinberg:
         self.expectedGenotypeCounts[genotype] = 2 * self.n * \
         self.alleleFrequencies[temp[0]] * self.alleleFrequencies[temp[1]]
         self.totalHetsExp += self.expectedGenotypeCounts[genotype]
+
+        for allele in self.observedAlleles:
+          if allele == temp[0]:
+            if self.hetsExpectedByAllele.has_key(allele):
+              self.hetsExpectedByAllele[allele] += self.expectedGenotypeCounts[genotype]
+            else:
+              self.hetsExpectedByAllele[allele] = self.expectedGenotypeCounts[genotype]
+          elif allele == temp[1]:
+            if self.hetsExpectedByAllele.has_key(allele):
+              self.hetsExpectedByAllele[allele] += self.expectedGenotypeCounts[genotype]
+            else:
+              self.hetsExpectedByAllele[allele] = self.expectedGenotypeCounts[genotype]
 
     total = 0
     for value in self.expectedGenotypeCounts.values():
@@ -180,6 +208,7 @@ class HardyWeinberg:
     self.flagHets = self.flagHoms = self.flagCommons = self.flagLumps = 0
     self.flagTooManyParameters = self.flagTooFewExpected = 0
 
+    # first the easy stuff, the homozygotes
     if self.totalHomsExp >= self.lumpBelow:
       self.totalChisqHoms = ((self.totalHomsObs - self.totalHomsExp) *\
                             (self.totalHomsObs - self.totalHomsExp)) /\
@@ -190,6 +219,7 @@ class HardyWeinberg:
       self.chisqHomsPval = float(returnedValue[0][:-1])
       self.flagHoms = 1
 
+    # next more easy stuff, the heterozygotes
     if self.totalHetsExp >= self.lumpBelow:
       self.totalChisqHets = ((self.totalHetsObs - self.totalHetsExp) *\
                             (self.totalHetsObs - self.totalHetsExp)) /\
@@ -200,6 +230,23 @@ class HardyWeinberg:
       self.chisqHetsPval = float(returnedValue[0][:-1])
       self.flagHets = 1
 
+    # now the chi-square for heterozygotes by allele
+    for allele in self.observedAlleles:
+      self.chisqByAllele[allele] = ((self.hetsObservedByAllele[allele] -\
+                                    self.hetsExpectedByAllele[allele]) *\
+                                    (self.hetsObservedByAllele[allele] -\
+                                    self.hetsExpectedByAllele[allele])) /\
+                                    self.hetsExpectedByAllele[allele]
+
+      command = "pval 1 %f" % (self.chisqByAllele[allele])
+      returnedValue = os.popen(command, 'r').readlines()
+      self.pvalByAllele[allele] = float(returnedValue[0][:-1])
+
+      if self.debug:
+        print 'By Allele:    obs exp   chi        p'
+        print '          ', allele, self.hetsObservedByAllele[allele], self.hetsExpectedByAllele[allele], self.chisqByAllele[allele], self.pvalByAllele[allele]
+
+    # and now the hard stuff
     for genotype in self.expectedGenotypeCounts.keys():
       if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
 
@@ -248,7 +295,6 @@ class HardyWeinberg:
       else:
         """Expected genotype count for this genotype is less than lumpBelow"""
 
-        # do not append this genotype to the printExpected list
         self.rareGenotypeCounter += 1
 
         self.lumpedExpectedGenotypes += self.expectedGenotypeCounts[genotype]
