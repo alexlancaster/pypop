@@ -190,13 +190,14 @@
    </formalpara>
 
    <formalpara>
-    <title>Ewens-Watterson test of neutrality</title> <para>This is a
-     test with the null hypothesis of neutral evolution and determines
-     the probability that the observed homozygosity under HWP, for a
-     given sample size and observed number of alleles, is more extreme
-     than the expected homozygosity under <remark>decode
-      Glenys</remark> and genetic drift (neutrality).  This test can
-     tell us whether selection, either directional (observed
+    <title>Ewens-Watterson test of neutrality</title> 
+
+    <para>This is a test with the null hypothesis of neutral evolution
+     and determines the probability that the observed homozygosity
+     under HWP, for a given sample size and observed number of
+     alleles, is more extreme than the expected homozygosity under
+     random neutral mutations and genetic drift (neutrality).  This
+     test can tell us whether selection, either directional (observed
      homozygosity &gt; expected homozygosity) or balancing (observed
      homozygosity &lt; expected homozygosity) is in operation on a
      particular locus across populations.
@@ -209,9 +210,9 @@
     <para>Linkage disequilibrium (LD) describes the non-random
      association of alleles at different genetic loci.  Through
      estimating haplotype frequencies, it is possible to estimate LD
-     in a population, the presence of significant LD can
-     <remark>decode Glenys</remark>indicate the operation of
-     selection. </para>
+     in a population, the presence of significant LD can be due to
+     history for very closely linked genes and also indicate the
+     operation of selection. </para>
    </formalpara>
 
    <formalpara>
