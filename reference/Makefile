@@ -8,7 +8,7 @@ CVSPRE = cvs update -kv $(wildcard *.xml)
 CVSPOST = cvs update -kkv $(wildcard *.xml)
 endif
 
-XSLCOMMON = --param section.autolabel 1 --param tablecolumns.extension 0 --param use.extensions 1 --param callouts.extension 0 --stringparam tex.math.in.alt 'latex'
+XSLCOMMON = --param section.autolabel 1 --param tablecolumns.extension 0 --param use.extensions 1 --param callouts.extension 0 --stringparam tex.math.in.alt 'latex' --param section.label.includes.component.label 1
 
 # --stringparam draft.watermark.image images/draft.png
 XSLHTML =
@@ -41,7 +41,8 @@ endif
 .PHONY: eqns
 
 FIGS = $(addprefix work-flow., png eps) $(addprefix design., png eps) api.png
-OUTPUTS = $(addprefix biostat., html txt pdf aux log out) $(addprefix tex-math-equations., tex dvi log aux) eqns
+OUTPUTS = $(addprefix biostat., html txt pdf) $(addprefix tex-math-equations., tex dvi) eqns
+EXTRA_CLEAN = $(addprefix biostat., aux log out) $(addprefix tex-math-equations., tex dvi)
 EXTRA_XML_SOURCE = hlaintro.xml methods.xml pypop.xml glossary.xml biblio.xml
 
 all: $(OUTPUTS) $(FIGS) api/index.html
@@ -119,7 +120,7 @@ api.dia: $(PYTHON_SOURCE_PATH)
 	mv dia.dia api.dia
 
 clean:
-	- rm -f $(OUTPUTS) 
+	- rm -f $(OUTPUTS) $(EXTRA_CLEAN)
 
 reallyclean: clean
 	- rm -f $(FIGS) api.dia
