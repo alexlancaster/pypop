@@ -27,13 +27,13 @@ $(NAME_BIN): MANIFEST $(DEPS)
 	Build.py standalone.spec
 
 # rule to generate documentation files
-%: $(DOCPATH)/%.xml
+%: $(DOCPATH)/%.xml VERSION
 	(cd $(DOCPATH); $(MAKE) $@.txt)
 	cp $(DOCPATH)/$@.txt $@
 
 
 # rule to remake MANIFEST if either setup.py or MANIFEST.in change
-MANIFEST: MANIFEST.in setup.py README AUTHORS COPYING INSTALL
+MANIFEST: MANIFEST.in setup.py README AUTHORS COPYING INSTALL 
 	python setup.py sdist --manifest-only
 
 # rule to regenerate source distribution
