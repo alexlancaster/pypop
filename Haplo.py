@@ -71,7 +71,8 @@ class HaploArlequin(Haplo):
 
     def _outputHeader(self, sampleCount):
 
-        self.arpFile.write("""[Profile]
+        headerLines = []
+        headerLines.append("""[Profile]
         
         Title=\"Arlequin sample run\"
         NbSamples=%d
@@ -84,15 +85,18 @@ class HaploArlequin(Haplo):
              RecessiveData=0                         
              RecessiveAllele=\"null\" """ % (sampleCount, self.untypedAllele))
 
-        self.arpFile.write("""[Data]
+        headerLines.append("""[Data]
 
         [[Samples]]""")
+
+        return headerLines
 
     def _outputSample (self, data, startCol, endCol):
 
         # store output Arlequin-formatted genotypes in an array
         samples = []
-
+        sampleLines = []
+        
         # convert columns to locus number
         startLocus = (startCol - self.prefixCols)/2 + 1
         endLocus = (startLocus - 1) + (endCol - startCol)/2
@@ -120,26 +124,29 @@ class HaploArlequin(Haplo):
         # adjust the output count of samples for the `SamplesSize'
         # metadata field
 
-        self.arpFile.write("""
-    
-        SampleName=\"%s pop with %s individuals from locus %d to %d\"
-        SampleSize= %s
-        SampleData={"""  % (self.arlResPrefix, len(samples)/2, startLocus, endLocus, len(samples)/2))
+        if len(samples) != 0:
+            sampleLines.append("""
+            
+            SampleName=\"%s pop with %s individuals from locus %d to %d\"
+            SampleSize= %s
+            SampleData={"""  % (self.arlResPrefix, len(samples)/2, startLocus, endLocus, len(samples)/2))
 
-        self.arpFile.write(os.linesep)
+            sampleLines.append(os.linesep)
 
-        # output previously-stored samples to stream only after
-        # calculation of number of samples is made
-        for line in samples:
-            self.arpFile.write(line)
+            # output previously-stored samples to stream only after
+            # calculation of number of samples is made
+            for line in samples:
+                sampleLines.append(line)
+            sampleLines.append("}")
+            validSample = 1
+        else:
+            validSample = 0
 
-        self.arpFile.write("}")
+        return sampleLines, validSample
 
     def outputArlequin(self, data):
         """Outputs the specified .arp sample file.
         """
-        # open specified arp
-        self.arpFile = open(self.arpFilename, 'w')
         
         if self.debug:
             print "Counted", len(data), "lines."
@@ -163,13 +170,27 @@ class HaploArlequin(Haplo):
 
         chunk = xrange(0, locusCount - self.windowSize + 1)
 
-        self._outputHeader(len(chunk))
+        sampleCount = 0
+        totalSamples = []
         
         for locus in chunk:
             start = self.prefixCols + locus*2
             end = start + self.windowSize*2
-            self._outputSample(data, start, end)
+            sampleLines, validSample = self._outputSample(data, start, end)
+            totalSamples.extend(sampleLines)
+            sampleCount += validSample
 
+        headerLines = self._outputHeader(sampleCount)
+
+        if self.debug:
+            print "sample count", sampleCount
+            
+        # open specified arp
+        self.arpFile = open(self.arpFilename, 'w')
+        for line in headerLines:
+            self.arpFile.write(line)
+        for line in totalSamples:
+            self.arpFile.write(line)
         # close .arp file
         self.arpFile.close()
 
@@ -311,6 +332,7 @@ KeepNullDistrib=0""")
         patt1 = re.compile("== Sample :[\t ]*(\S+) pop with (\d+) individuals from locus (\d+) to (\d+)")
         patt2 = re.compile("    #   Haplotype     Freq.      s.d.")
         patt3 = re.compile("^\s+\d+\s+UNKNOWN(.*)")
+        windowRange = range(1, self.windowSize)
         
         for line in open(outFile, 'r').readlines():
             matchobj = re.search(patt1, line)
@@ -329,7 +351,9 @@ KeepNullDistrib=0""")
                     matchobj = re.search(patt3, line)
                     if matchobj:
                         cols = string.split(matchobj.group(1))
-                        haplotype = cols[2] + "_" + cols[3] + "_" + cols[4]
+                        haplotype = cols[2]
+                        for i in windowRange:
+                            haplotype = haplotype + "_" + cols[2+i]
                         freq = float(cols[0])*float(sampleCount)
                         freqs[haplotype] = freq
                     else:
