@@ -22,6 +22,8 @@ loci.sort()
 for locus in loci:
   print "\nLocus:", locus
   print "======\n"
-  hwObject = HardyWeinberg.HardyWeinberg(input.getLocusDataAt(locus), input.getAlleleCountAt(locus), debug=1)
+  hwObject = HardyWeinberg.HardyWeinberg(input.getLocusDataAt(locus),
+                                         input.getAlleleCountAt(locus),
+                                         debug=1)
 
 
