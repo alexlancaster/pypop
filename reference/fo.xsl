@@ -42,18 +42,19 @@
   
   <fo:block id='{$id}'>
 
-   <fo:block xmlns:fo="http://www.w3.org/1999/XSL/Format" xsl:use-attribute-sets="appendix.titlepage.recto.style" margin-left="{$title.margin.left}" font-size="17.28pt" font-weight="bold" font-family="{$title.font.family}">
-
-   <xsl:call-template name="component.title">
-    <xsl:with-param name="node" select="."/>
-   </xsl:call-template>
-   </fo:block>
+   <xsl:call-template name="section.heading">
+      <xsl:with-param name="level" select="2"/>
+      <xsl:with-param name="title">
+        <xsl:apply-templates select="." mode="object.title.markup"/>
+      </xsl:with-param>
+    </xsl:call-template>
 
    <!-- generate authorgroup -->
 
    <xsl:for-each select="appendixinfo/authorgroup/author">
     <xsl:apply-templates select="." mode="appendix.titlepage.recto.auto.mode"/>
    </xsl:for-each>
+
    <xsl:apply-templates/>
 
   </fo:block>
