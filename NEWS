@@ -50,6 +50,9 @@ Copyright (C) 2003, 2004 Regents of the University of California
     allele summary report, but skips the rest of the single locus
     analyses which do not make sense for monomorphic locus.  Thanks to
     Steve Mack and Owen Solberg for the bug report(s).
+*** Now builds against recent versions of SWIG (no longer stuck at version 
+    1.3.9), should be compatible with versions of SWIG > 1.3.10.
+    (Tested against SWIG 1.3.21).
 
 * Release Notes for PyPop 0.5.2 (public beta) 2004-03-09
 ** Bug fixes
