@@ -20,11 +20,12 @@ for i in range(0,matrixSize):
 
 # output .pop file
 
-print genotypes
+#print genotypes
 
 for genotype in genotypes.keys():
     for count in range(0, genotypes[genotype]):
-        print genotype
+        pair = string.split(genotype, ':')
+        print "%s\t%s" % (pair[0], pair[1])
 
 
 #a = [[1236],
