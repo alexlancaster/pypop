@@ -16,12 +16,12 @@
 #define FALSE 0 
 #define TRUE  1 
  
-#define MAX_INIT 10 
+#define MAX_INIT 20 
 
 #define MAX_GENOS_PER_PHENO 64 /* 2^(max_loci - 1) */
 
 #define MAX_PERMU 1001
-#define MAX_INIT_FOR_PERMU 10 
+#define MAX_INIT_FOR_PERMU 5 
 
 #ifdef EXTERNAL_MODE
 #define FP_ITER fp_out
