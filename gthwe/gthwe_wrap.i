@@ -10,7 +10,7 @@
 
 extern int run_data(int [LENGTH], int [MAX_ALLELE], int, int, int, int, int, char *, FILE *);
 
-extern int run_randomization(int [LENGTH], int [MAX_ALLELE], int, int, int);
+extern int run_randomization(int [LENGTH], int [MAX_ALLELE], int, int, int, FILE *);
 
 /* 
  * Local variables:
