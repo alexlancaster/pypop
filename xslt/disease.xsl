@@ -9,7 +9,7 @@
 
  <xsl:template match="hardyweinbergGuoThompson"/>	
 
- <xsl:template match="emhaplofreq"/>	
+ <!--  <xsl:template match="emhaplofreq"/> -->
 
  <xsl:template match="allelecounts">
   <xsl:call-template name="locus-header">
@@ -80,60 +80,6 @@
   </xsl:choose>
 
   <xsl:call-template name="newline"/>
- </xsl:template>
-
- <xsl:template match="emhaplofreq">
-  <xsl:call-template name="header">
-   <xsl:with-param name="title">Haplotype/LD stats via emhaplofreq: <xsl:value-of select="../@loci"/>
-   </xsl:with-param>
-  </xsl:call-template>
-  <xsl:call-template name="newline"/>
-  <xsl:apply-templates/>
-  <xsl:call-template name="newline"/>
- </xsl:template>
-
- <xsl:template match="emhaplofreq/group[@mode='no-data']">
-  <xsl:call-template name="header">
-   <xsl:with-param name="title">No data left after filtering at: <xsl:value-of select="@loci"/>
-   </xsl:with-param>
-  </xsl:call-template>
-  <xsl:call-template name="newline"/>
- </xsl:template>
-
- <xsl:template match="emhaplofreq/group[@mode='too-many-lines']">
-  <xsl:call-template name="header">
-   <xsl:with-param name="title">Too many rows for haplotype programme: <xsl:value-of select="@loci"/>
-   </xsl:with-param>
-  </xsl:call-template>
-  <xsl:call-template name="newline"/>
- </xsl:template>
-
- <xsl:template match="emhaplofreq/group[@mode='haplo']">
-  <xsl:call-template name="header">
-   <xsl:with-param name="title">Haplotype frequency est. for loci: <xsl:value-of select="@loci"/>
-   </xsl:with-param>
-  </xsl:call-template>
-  <xsl:call-template name="newline"/>
-
-  <xsl:call-template name="linesep-fields">
-   <xsl:with-param name="nodes" select="uniquepheno|uniquegeno|haplocount|loglikelihood|individcount"/>
-  </xsl:call-template>
-
-  <!-- print out haplotypes in ordered blocks -->
-  <xsl:call-template name="newline"/>
-  <!-- loop through each haplotype-->
-  <xsl:for-each select="haplotypefreq/haplotype">
-   <xsl:sort select="@name" data-type="text" order="ascending"/>
-   <xsl:for-each select="frequency|numCopies|@name">
-    <xsl:call-template name="append-pad">
-     <xsl:with-param name="padVar" select="."/>
-     <xsl:with-param name="length">24</xsl:with-param>
-    </xsl:call-template>
-   </xsl:for-each>
-   <xsl:call-template name="newline"/>
-  </xsl:for-each>
-
- <xsl:call-template name="newline"/>
  </xsl:template>
 
 </xsl:stylesheet>
