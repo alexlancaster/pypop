@@ -32,14 +32,16 @@
    <title>Work flow</title>
    <mediaobject>
     <imageobject>
-     <imagedata fileref="work-flow.eps" align="center" scale="50"/>
-    </imageobject>
-    <imageobject>
      <imagedata fileref="work-flow.png" align="center" scale="45"/>
     </imageobject>
     <textobject>
      <phrase>Diagram of software workflow can be found at: http://allele5.biol.berkeley.edu/ihwg/work-flow.png</phrase>
     </textobject>
+     <!--
+    <imageobject>
+     <imagedata fileref="work-flow.eps" align="center" scale="50"/>
+    </imageobject>
+     -->
    </mediaobject>
   </figure>
   
