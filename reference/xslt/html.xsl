@@ -7,7 +7,9 @@
                 version='1.0'>
 
  <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/html/docbook.xsl"/>
- <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/html/chunk-common.xsl"/>
+ <xsl:import
+ href="http://docbook.sourceforge.net/release/xsl/snapshot/html/chunk-common.xsl"/>
+ <xsl:import href="common.xsl"/>
  <xsl:import href="citation.xsl"/>
  <xsl:import href="biblio.xsl"/> 
  <xsl:include href="http://docbook.sourceforge.net/release/xsl/snapshot/html/manifest.xsl"/>
