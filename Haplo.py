@@ -280,11 +280,27 @@ class Emhaplofreq(Haplo):
         # initialize flag
         self.maxLociExceeded = 0
 
-        # create an in-memory file instance for the C program to write to
+        # create an in-memory file instance for the C program to write
+        # to; this remains in effect until a call to 'serializeTo()'.
+        
         import cStringIO
         self.fp = cStringIO.StringIO()
 
     def estHaplotypes(self, locusKeys=None, permutationFlag=0):
+
+        """Estimate haplotypes for listed groups in 'locusKeys'.
+
+        Format of 'locusKeys' is a string consisting of:
+
+        - comma (',') separated haplotypes blocks for which to estimate
+          haplotypes
+
+        - within each `block', each locus is separated by colons (':')
+
+        e.g. '*DQA1:*DPB1,*DRB1:*DQB1', means to est. haplotypes for
+         'DQA1' and 'DPB1' loci followed by est. of haplotypes for
+         'DRB1' and 'DQB1' loci.
+        """
 
         # if no locus list passed, assume calculation of entire data
         # set
@@ -292,37 +308,51 @@ class Emhaplofreq(Haplo):
             # create key for entire matrix
             locusKeys = ':'.join(self.matrix.colList)
 
-        # get the actual number of loci being estimated
-        lociCount = len(string.split(locusKeys,':'))
-
-        if self.debug:
-            print "number of loci for haplotype est:", lociCount
-
-        print lociCount, self._Emhaplofreq.MAX_LOCI
-        if lociCount <= self._Emhaplofreq.MAX_LOCI:
-
-            subMatrix = self.matrix[locusKeys]
+        for group in string.split(locusKeys, ','):
+            
+            # get the actual number of loci being estimated
+            lociCount = len(string.split(group,':'))
 
             if self.debug:
-                print "debug: key for matrix:", locusKeys
-                print "debug: subMatrix:", subMatrix
+                print "number of loci for haplotype est:", lociCount
 
-            # pass this submatrix to the SWIG-ed C function
-            self._Emhaplofreq.main_proc(self.fp, subMatrix,
+                print lociCount, self._Emhaplofreq.MAX_LOCI
+
+            if lociCount <= self._Emhaplofreq.MAX_LOCI:
+
+                subMatrix = self.matrix[group]
+
+                if self.debug:
+                    print "debug: key for matrix:", group
+                    print "debug: subMatrix:", subMatrix
+
+                self.fp.write(os.linesep)
+                self.fp.write("Est. haplotypes for locus groups: " + group + os.linesep)
+                self.fp.write("================================" + os.linesep)
+                self.fp.write(os.linesep)
+
+                
+                # pass this submatrix to the SWIG-ed C function
+                self._Emhaplofreq.main_proc(self.fp, subMatrix,
                                         lociCount, self.totalNumIndiv,
                                         permutationFlag)
 
-            if self.debug:
-                # in debug mode, print the in-memory file to sys.stdout
-                lines = string.split(self.fp.getvalue(), os.linesep)
-                for i in lines:
-                    print "debug:", i
+                if self.debug:
+                    # in debug mode, print the in-memory file to sys.stdout
+                    lines = string.split(self.fp.getvalue(), os.linesep)
+                    for i in lines:
+                        print "debug:", i
 
-        else:
-            self.maxLociExceeded = 1
+            else:
+                self.fp.write("Couldn't estimate haplotypes for %s, num loci: %d exceeded max loci: %d" % (group, lociCount, self._Emhaplofreq.MAX_LOCI))
+                self.fp.write(os.linesep)
+
 
     def estAllPairwise(self):
+        """Estimate LD (linkage disequilibrium) in all pairwise loci.
 
+        Estimate the LD for each pairwise set of loci.  
+        """
         loci = self.matrix.colList
         li = []
         for i in loci:
@@ -337,21 +367,22 @@ class Emhaplofreq(Haplo):
 
         if self.debug:
             print li, len(li)
-            
+
         for pair in li:
-
-            filename = string.join(string.split(pair,'*'),'')
-            # create stream to write to
-            stream = open(filename+'.haplo', 'w')
-
-            # create the in-memory file instance for the C program to write to
-            import cStringIO
-            self.fp = cStringIO.StringIO()
-
-            print "estimating haplos for", pair
             self.estHaplotypes(pair)
+            
+##             filename = string.join(string.split(pair,'*'),'')
+##             # create stream to write to
+##             stream = open(filename+'.haplo', 'w')
 
-            self.serializeTo(stream)
+##             # create the in-memory file instance for the C program to write to
+##             import cStringIO
+##             self.fp = cStringIO.StringIO()
+
+##             print "estimating haplos for", pair
+##             self.estHaplotypes(pair)
+
+##             self.serializeTo(stream)
             
 
     def serializeTo(self, stream):
@@ -365,10 +396,7 @@ class Emhaplofreq(Haplo):
         else:
             # write complete contents of file pointer to text output
             # stream
-            if self.maxLociExceeded:
-                stream.writeln("Couldn't estimate haplotypes, num loci: %d exceeded max loci: %d" % (self.lociCount, self._Emhaplofreq.MAX_LOCI))
-            else:
-                stream.write(self.fp.getvalue())
-                self.fp.close()
+            stream.write(self.fp.getvalue())
+            self.fp.close()
 
         
