@@ -21,6 +21,8 @@
  <xsl:param name="make.valid.html" select="1"/> 
  <xsl:param name="html.cleanup" select="1"/> 
 
+ <!-- crank up nominal image width from 6 * to 9 * -->
+ <xsl:param name="nominal.image.width" select="9 * $pixels.per.inch"/>
 
  <xsl:param name="profiling-highlighting" select="0"/>
 
@@ -86,6 +88,61 @@
    <xsl:sort select="@xreflabel"/>
   </xsl:apply-templates>
   
+ </xsl:template>
+
+ <xsl:template match="biblioentry">
+  <xsl:variable name="id">
+   <xsl:call-template name="object.id"/>
+  </xsl:variable>
+  
+  <xsl:choose>
+   <xsl:when test="string(.) = ''">
+    <xsl:variable name="bib" select="document($bibliography.collection)"/>
+    <xsl:variable name="entry" select="$bib/bibliography/*[@id=$id][1]"/>
+    <xsl:choose>
+     <xsl:when test="$entry">
+      <xsl:apply-templates select="$entry"/>
+     </xsl:when>
+     <xsl:otherwise>
+      <xsl:message>
+       <xsl:text>No bibliography entry: </xsl:text>
+       <xsl:value-of select="$id"/>
+       <xsl:text> found in </xsl:text>
+       <xsl:value-of select="$bibliography.collection"/>
+      </xsl:message>
+      <div class="{name(.)}">
+       <xsl:call-template name="anchor"/>
+       <p>
+	<xsl:call-template name="biblioentry.label"/>
+	<xsl:text>Error: no bibliography entry: </xsl:text>
+	<xsl:value-of select="$id"/>
+	<xsl:text> found in </xsl:text>
+	<xsl:value-of select="$bibliography.collection"/>
+       </p>
+      </div>
+     </xsl:otherwise>
+    </xsl:choose>
+   </xsl:when>
+   <xsl:otherwise>
+    <xsl:variable name="bibid" select="@id"/>
+    <xsl:variable name="ab" select="abbrev"/>
+    <xsl:variable name="nx" select="//xref[@linkend=$bibid]"/>
+    <xsl:variable name="nc" select="//citation[text()=$ab]"/>
+    <xsl:variable name="ni" select="//citation[text()=$bibid]"/>
+
+    <!-- only if cited, do we output reference -->
+    <xsl:if test="count($nx) &gt; 0 or count($nc) &gt; 0 or count($ni) &gt; 0">
+     <div class="{name(.)}">
+      <xsl:call-template name="anchor"/>
+      <p>
+       <xsl:call-template name="biblioentry.label"/>
+          <xsl:apply-templates mode="bibliography.mode"/>
+      </p>
+     </div>
+    </xsl:if>
+    
+   </xsl:otherwise>
+  </xsl:choose>
  </xsl:template>
 
  <xsl:template match="para">
