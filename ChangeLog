@@ -1,5 +1,17 @@
 2003-11-26  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
+	* Main.py (Main.__init__): Set randomBinningFlag instance variable
+	to off (0) by default, so it always exists.
+	Move the creation of the filterLogFile to same place that the
+	inline XML pointing to the filter log is created.
+	Close log file *after* running _do*File() methods moving it here,
+	means that the open and close are at the same level and are called
+	in the same method.
+	(Main._runFilters): Move setting of randomBinningFlag to __init__
+	Likewise for filterLogFile open() and close().
+
+2003-11-26  Alex Lancaster  <alexl AT socrates.berkeley.edu>
+
 	* Utils.py (StringMatrix.copy): Don't forget to copy the internal
 	array too!
 	(__main__): Modify test harness slightly.
