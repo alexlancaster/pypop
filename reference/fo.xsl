@@ -5,7 +5,9 @@
                 xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 version='1.0'>
 
-  <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/fo/docbook.xsl"/>
+ <xsl:import href="http://docbook.sourceforge.net/release/xsl/snapshot/fo/docbook.xsl"/>
+
+ <xsl:import href="citation.xsl"/>
 
  <xsl:param name="page.margin.top">0.0in</xsl:param>
  <xsl:param name="page.margin.bottom">0.20in</xsl:param>
