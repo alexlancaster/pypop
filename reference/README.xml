@@ -73,7 +73,7 @@
    <para>You should substitute the names of your own configuration
     (e.g., <filename>config.ini</filename>) and population file (e.g.,
     <filename>Guatemalan.pop</filename>) for
-    <filename>sample.ini</filename> <filename>sample.pop</filename>.
+    <filename>sample.ini</filename> and <filename>sample.pop</filename>.
     The formats for these files are described in <xref
      linkend="guide-usage-datafile"/> and <xref
      linkend="guide-usage-configfile"/>, below.
@@ -155,7 +155,7 @@ current directory or in /usr/share/PyPop/config.ini.
     <filename><replaceable>configfilename</replaceable></filename> and
     your population file name is
     <filename><replaceable>popfilename</replaceable>.txt</filename>
-    the initial output will be generated  quickly, but your the
+    the initial output will be generated quickly, but your the
     <application>PyPop</application> execution will not be finished
     until the text output file named
     <replaceable>popfilename</replaceable>-out.txt has been created. A
@@ -227,7 +227,7 @@ current directory or in /usr/share/PyPop/config.ini.
    </example>
 
    <example id="data-minimal-noheader">
-    <title>Multi-locus allele-level genotype data with sample information</title>
+    <title>Multi-locus allele-level HLA genotype data with sample information</title>
 
   <programlisting>populat    id        a_1   a_2   c_1   c_2   b_1   b_2
 UchiTelle  UT900-23  ****  ****  0102  02025 1301  18012 
@@ -240,12 +240,12 @@ UchiTelle  UT910-03  03012 3204  1507  0605  51013 39021
   </programlisting>
    </example>
 
-   <para>This example shows a  data file which has non-allele data in
+   <para>This example shows a data file which has non-allele data in
     some columns, here we have population (<literal>populat</literal>)
     and  sample identifiers (<literal>id</literal>).</para>
 
    <example id="data-hla">
-    <title>Multi-locus allele-level genotype data with sample and header information</title>
+    <title>Multi-locus allele-level HLA genotype data with sample and header information</title>
 
   <programlisting><![CDATA[labcode method              ethnic  contin  collect        latit           longit          
 USAFEL  12th Workshop SSOP  Telle   NW Asia Targen Village 41 deg 12 min N 94 deg 7 min E  
@@ -266,7 +266,7 @@ UchiTelle   UT910-03   03012   3204    1507    0605    51013   39021
    </example>
 
    <example id="data-hla-microsat">
-    <title>Multi-locus allele-level genotype and microsatellite genotype data with header information</title>
+    <title>Multi-locus allele-level HLA genotype and microsatellite genotype data with header information</title>
 
   <programlisting>labcode ethnic  complex
 USAFEL  ****    0
@@ -280,8 +280,9 @@ UchiTelle  MYU_1   0301    0301    0201     0201    247        249
 UchiTelle  MYU_3   0301    0401    0201     0302    249        249        
 UchiTelle  MYU_4   0301    0401    0201     0302    247        249</programlisting>
 
-    <para>This example  mixes different kinds of data: allele data
-     with microsatellite data.</para>
+    <para>This example  mixes different kinds of data: HLA allele data
+     (from DRB1 and DQB1 loci) with microsatellite data (locus
+     D6S2222).</para>
 
    </example>
 
@@ -303,7 +304,11 @@ Urboro  XQ-9     T             T             TG          TG
 Urboro  XQ-10    C             T             CG          TG     
   </programlisting>
 
-  <para>This example includes nucleotide sequence data.</para>
+  <para>This example includes nucleotide sequence data: the TGFB1CDN10
+     locus consists of one nucleotide, the TGFBhapl locus is actually
+     haplotype data, but <application>PyPop</application> simply
+     treats each combination as a separate "allele" for subsequent
+     analysis.</para>
     
    </example>
 
@@ -354,10 +359,11 @@ dqa1  count
    
    <para>For individuals who were not typed at all loci, the data in
     loci for which they are typed will be used on all single-locus
-    analyses for that individual and locus, so that you will see the
-    value of the number of individuals (<varname>n</varname>) vary
-    from locus to locus in the output.  These individuals' data will
-    also be used for multi-locus analyses where possible.</para>
+    analyses for that individual and locus, so that you see the value
+    of the number of individuals (<varname>n</varname>) vary from
+    locus to locus in the output.  These individuals' data will also
+    be used for multi-locus analyses.  Only the loci that contain no
+    missing data will be included in any multi-locus analysis.</para>
    
    <para>If an individual is only partially typed at a locus, it will
     be treated as if it were completely untyped, and data for that
@@ -376,22 +382,16 @@ dqa1  count
        diagnose.</para></listitem>
     
     <listitem>
-     <para>Do not have more than one copy of the program running at
-      a time, as the <application>Arlequin</application> child of one
-      instance will overwrite or remove the temporary files of another
-      instance in an arbitrary fashion with unfortunate
-      results.</para></listitem>
-    
-    <listitem>
      <para>For haplotype estimation and linkage disequilibrium
-      calculations (i.e., the emhaplofreq part of the program) you
-      are currently restricted to a maximum of seven loci per haplotype
-      request.</para></listitem>
-    
-    <listitem>
-     <para>For haplotype estimation there is a limit of 1023 for the
-       number of individuals (<varname>n</varname>).</para></listitem>
-    
+       calculations (i.e., the emhaplofreq part of the program) you
+       are currently restricted to a maximum of seven loci per
+       haplotype request.  For haplotype estimation there is a limit
+       of 1023 for the number of individuals (<varname>n</varname>)<footnote>
+	<para>These hardcoded numbers can be changed if you obtain the
+	 source code yourself and change the appropriate
+	 <systemitem>#define</systemitem> <filename
+	  class="headerfile"> emhaplofreq.h</filename> and recompile
+	 the program.</para></footnote></para></listitem>
    </itemizedlist>
    </warning>
   </section>
@@ -474,7 +474,7 @@ allPairwiseLDWithPermu=0
       <title><literal>debug=0</literal></title>
        <para>This setting is for debugging.  Setting it to 1 will set
 	 off a large amount of output of no interest to the general
-	 user.  It should not be used unless if you are running into
+	 user.  It should not be used unless you are running into
 	 trouble and need to communicate with the
 	 <application>PyPop</application> developers about the
 	 problems.</para>
@@ -501,8 +501,8 @@ allPairwiseLDWithPermu=0
       <formalpara>
        <title><literal>alleleDesignator</literal></title>
        <para>This option is used to tell
-	 <application>PyPop</application> what is allele
-	 data and what isn't. You  must use this symbol in <link
+	 <application>PyPop</application> what is allele data and what
+	 isn't. You must use this symbol in <link
 	  linkend="validSampleFields"><literal>validSampleFields</literal> 
 	 </link> option.  The default is <literal>*</literal>.  In
 	 general, you won't need to change it.  <emphasis
@@ -553,7 +553,7 @@ allPairwiseLDWithPermu=0
      <title><literal>[ParseAlleleCountFile]</literal></title>
 
       <para>If your data is not genotype data, but rather, data of the
-       allele-name  count format, then you will want to use the
+       allele-name count format, then you will want to use the
        <literal>[ParseAlleleCountFile]</literal> section INSTEAD of
        the <literal>[ParseGenotypeFile]</literal> section.  The
        <literal>alleleDesignator</literal> and
@@ -624,8 +624,7 @@ allPairwiseLDWithPermu=0
 	 optimal for us.  There is no reason to change them unless you
 	 are particularly curious. If you have a problem when you
 	 change them you <emphasis role="bold">must</emphasis> also
-	 let us know <emphasis role="bold">that</emphasis> you've
-	 changed them.</para>
+	 let us know.</para>
       </formalpara>
      </listitem>
     </itemizedlist>
@@ -670,11 +669,11 @@ allPairwiseLDWithPermu=0
 	 need to determine the significance of the pairwise LD
 	 measures in the previous section.  The number you use is the
 	 number of permutations that will be run to ascertain the
-	 significance (this should be at least 1000 or greater).
-	 (Note this is done via permutation testing performed after
-	 the pairwise LD test for all pairs of loci. Note also that
-	 this test can take DAYS if your data is at all
-	 polymorphic.)</para>
+	 significance (this should be at least 1000 or greater). (Note
+	 this is done via permutation testing performed after the
+	 pairwise LD test for all pairs of loci. Note also that this
+	 test can take <emphasis>DAYS</emphasis> if your data is
+	 highly polymorphic.)</para>
       </formalpara>
      </listitem>
 
@@ -683,7 +682,7 @@ allPairwiseLDWithPermu=0
 	<title><literal>numPermuInitCond</literal></title>
    
 	<para>Set this to change the number of initial conditions used
-	 per  permutation.   The default is 5 (<emphasis>Note: this
+	 per permutation.   The default is 5 (<emphasis>Note: this
 	  parameter is only used if
 	  <literal>allPairwiseLDWithPermu</literal> is set and
 	  nonzero</emphasis>).</para>
@@ -757,19 +756,20 @@ allPairwiseLDWithPermu=0
       filename, you'll get the date incorporated in the filename as
       follows:
       <filename><replaceable>original-filename-minus-suffix</replaceable>-YYYY-nn-dd-HH-MM-SS-out.{xml,txt}</filename>. 
-      e.g.,
-      <filename>USAFEL-UchiTelle-2003-09-21-01-29-35-out.xml</filename></para>
+      e.g., <filename>USAFEL-UchiTelle-2003-09-21-01-29-35-out.xml</filename>
+       (where Y, n, d, H, M, S refer to year, month, day, hour, minute
+       and second, respectively).</para>
     </listitem>
     
     <listitem>
      <formalpara>
       <title><literal>xslFilename</literal></title>
       
-      <para>This option specifies where to find the file XSLT file to
-       use for transforming <application>PyPop</application>'s xml
-       output into human-readable form.  Most users will not normally
-       need to set this option, and the default is the
-       system-installed <filename>text.xsl</filename> file.</para>
+      <para>This option specifies where to find the XSLT file to use
+       for transforming <application>PyPop</application>'s xml output
+       into human-readable form.  Most users will not normally need to
+       set this option, and the default is the system-installed
+       <filename>text.xsl</filename> file.</para>
      </formalpara>
     </listitem>
    </itemizedlist>
@@ -783,7 +783,7 @@ allPairwiseLDWithPermu=0
       <title><literal>fieldPairDesignator</literal></title>
       
       <para>This option allows you to override the coding for the
-       headers for each pair of alleles at each loci;  it must match
+       headers for each pair of alleles at each locus; it must match
        the entry in the config file under
        <literal>validSampleFields</literal> and the entries in your
        population data file. If you want to use something other than
@@ -822,7 +822,7 @@ allPairwiseLDWithPermu=0
       <title><literal>validPopFields</literal></title>
       
       <para>If you are analyzing data with an initial two line
-       population  header block information as in <xref
+       population header block information as in <xref
 	linkend="data-hla"/>, then you will need to set this option.
        It should contain the field names in the first line of the
        three lines of header information of your file, if it has
@@ -856,10 +856,10 @@ allPairwiseLDWithPermu=0
 
      <warning>
       <para>If this is enabled it can <emphasis>drastically</emphasis>
-       grow the size of the output XML file on the order of product of
-       the number of possible pairwise comparisons and permutations.
-       Machines with lower RAM and disk space may have difficulty
-       coping with this. </para>
+       increase the size of the output XML file on the order of the
+       product of the number of possible pairwise comparisons and
+       permutations. Machines with lower RAM and disk space may have
+       difficulty coping with this. </para>
      </warning>
     </listitem>
    </itemizedlist>
@@ -922,8 +922,7 @@ allPairwiseLDWithPermu=0
    <para>The default values for options described above have proved
     to be optimal for us and if the options are not provided these
     defaults will be used.  If you change the values and have
-    problems, please let us <emphasis role="bold">know</emphasis>
-    that you have changed them.</para>
+    problems, please let us <emphasis role="bold">know</emphasis>.</para>
 
    <bridgehead><literal>[Filters]</literal> extra section</bridgehead>
 
