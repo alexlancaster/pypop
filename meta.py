@@ -1,18 +1,21 @@
 #!/usr/bin/env python
-import os, sys, libxsltmod
+import os, sys
 from getopt import getopt, GetoptError
 
-import libxml2
-import libxslt
+# don't use libxml/libxslt bindings for the moment, aren't working with
+# exslt extensions nor on all platforms.
 
-libxslt.registerAllExtras()
+#import libxml2
+#import libxslt
+
+#libxslt.registerAllExtras()
     
-# force the libxml2 processor to generate DOM trees compliant with
-# the XPath data model.
-libxml2.lineNumbersDefault(1)
+## force the libxml2 processor to generate DOM trees compliant with
+## the XPath data model.
+#libxml2.lineNumbersDefault(1)
 
-# set libxml2 to substitute the entities in the document by default...
-libxml2.substituteEntitiesDefault(1)
+## set libxml2 to substitute the entities in the document by default...
+#libxml2.substituteEntitiesDefault(1)
 
 def _translate_string_to(xslFilename, inString, outFile):
     # do the transformation
