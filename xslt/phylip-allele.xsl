@@ -27,9 +27,35 @@
   <xsl:param name="node"/>
 
   <xsl:variable name="loci" select="$node/@name"/>
-  <xsl:variable name="populations" select="$node[1]//popname"/>
 
-<!--  <xsl:variable name="populations" select="$node[population/allelecounts[@role!='no-data']]//popname"/> -->
+  <xsl:variable name="loci-count" select="count($loci)"/>
+  
+  <xsl:variable name="unique-pops" select="//popname[not(.=following::popname)]" />   
+
+  <xsl:variable name="populations_alldata" select="$node/population[not(allelecounts/@role='no-data')]"/>
+
+  <xsl:variable name="populations" select="$unique-pops[count($populations_alldata[popname])=$loci-count]"/>
+
+
+  <xsl:message>
+   <xsl:for-each select="$unique-pops">
+    <xsl:value-of select="."/>
+    <xsl:text>: </xsl:text>
+    <xsl:value-of select="count($populations_alldata[current()=popname])=$loci-count"/>
+    <xsl:text>, </xsl:text>
+   </xsl:for-each>
+
+   <xsl:value-of select="count($populations)"/>
+
+   <xsl:value-of select="$populations"/>
+   
+  </xsl:message>
+
+<!--  <xsl:variable name="populations" select="$all-populations"/> -->
+
+<!--
+  <xsl:variable name="populations" select="$all-populations[not(popname=preceding-sibling::popname)]/popname"/> 
+-->
 
   <xsl:text>     </xsl:text>
   <xsl:value-of select="count($populations)"/>
@@ -116,7 +142,6 @@
      <xsl:variable name="locusname" select="@name"/>
      <xsl:if test="count($all-allele-list/locus[@name=$locusname]/allele)!=0">
       <xsl:variable name="filename" select="concat($locusname, '.allele.phy')"/>
-      
       <exslt:document href="{$filename}"
        omit-xml-declaration="yes"
        method="text">
