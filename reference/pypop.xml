@@ -105,10 +105,10 @@
    analyses  of  regional  and  worldwide patterns  of  allele
    frequencies,  haplotype  frequencies,  and LD. A description  of
    the methodology for specific tests can be found in the Statistical
-   Methods  (<citation>Single  et  al.  2003</citation>)  chapter of
-   the current volume.   Section  2  outlines  the  implementation of
-   these population genetics methods via the different modules that
-   make up PyPop.</para>
+   Methods  <citation>Single:etal:2003</citation>  chapter of
+   the current volume.   <xref linkend="pypop:method"/>  outlines  the
+   implementation of these population genetics methods via the
+   different modules that make up PyPop.</para>
 
   <para><application>PyPop</application>   is   in   an
    object-oriented  framework  implemented  in  the programming
@@ -123,25 +123,26 @@
    is the eXtensible Markup Language   devised  by the World  Wide Web
    Consortium,  and  is  a platform-independent, vendor-neutral,
    non-proprietary, open standard for  storing  data
-   (<citation>Bray:2000</citation>)).  These  output  files can  then
-   be transformed using standard tools into many other data formats
+   <citation>Bray:2000</citation>.  These  output  files can  then be
+   transformed using standard tools into many other data formats
    suitable for  machine  input  (such  as  PHYLIP
-   (<citation>Felsenstein:1989</citation>) or input for spreadsheet
+   <citation>Felsenstein:1989</citation> or input for spreadsheet
    programs such as Excel or statistical packages, such as R
-   (<citation>Ihaka:Gentleman:1996</citation>),  plain text,  or  HTML
+   <citation>Ihaka:Gentleman:1996</citation>,  plain text,  or  HTML
    for "human-readable" format.  Storing  the  output in XML allows
    the final viewable output format  to  be  redesigned at  will,
    without requiring  the  (often time-consuming) re-running  of the
    analyses themselves. Data from the anthropology, transplantation,
    disease, and cytokine components have been analyzed using
-   PyPop.</para>
+   <application>PyPop</application>.</para>
 
    <para>The   analysis  modules,  described  in  section  2.3,  were
    designed specifically  to  handle  the  high  polymorphism of HLA
-   data, but are appropriate  for  any data. PyPop can be used for
-   analyses on a single population  or  multiple  populations.  The
-   XML output facilitates the processing of results from analyses on
-   large numbers of populations.</para>
+   data, but are appropriate  for  any data.
+   <application>PyPop</application> can be used for analyses on a
+   single population  or  multiple  populations.  The XML output
+   facilitates the processing of results from analyses on large
+   numbers of populations.</para>
 
   <section>
    <title>Requirements</title>
@@ -227,7 +228,7 @@
 
  </section>
 
- <section>
+ <section id="pypop:method">
   <title>Method</title>
 
   <section>
@@ -266,7 +267,7 @@
     language allowing for rapid prototyping of modules. It also has a
     convenient standard library of functions.  Through use of the the
     Simple Wrapper Interface Generator (SWIG)
-    (<citation>Beazley:1996</citation>), it was straightforward to
+    <citation>Beazley:1996</citation>, it was straightforward to
     <quote>wrap</quote> existing code in C, C++ or Java and call it
     from Python.  We leveraged other open-source projects such as
     Numeric Python <citation>Dubois:1996</citation> project, which
@@ -337,8 +338,8 @@
      <application>PyPop</application>, that uses a C implementation of
      a Monte-Carlo approximation to the exact test kindly provided by
      the author (<citation
-      role="citeyear">Slatkin:1994</citation>, <citation
-      role="citeyear">Slatkin:1996</citation>).  We  modified these
+      role="citealt">Slatkin:1994</citation>; <citation
+      role="citealt">Slatkin:1996</citation>).  We  modified these
      programs to additionally report the normalized deviate of
      homozygosity (F<subscript>nd</subscript>) and the variance.  <!--
      We also checked results against a look-up table of simulation
@@ -398,10 +399,11 @@
      the Workshop using    the <ulink
       url="http://www.ebi.ac.uk/imgt/hla/">IMGT/HLA database</ulink>,
      maintained  by  the Anthony Nolan Trust in the UK (see the
-     chapters by <citation>Mack  et  al.</citation> and
-     <citation>Robinson et al.</citation> in this volume for further
-     details). For  other  regions  of  the genome, different  sets of
-     rules can be defined and implemented easily.</para>
+     chapters by <citation role="citealt">Mack  et  al.</citation> and
+     <citation role="citealt">Robinson:etal:2003</citation> in this
+     volume for further details). For  other  regions  of  the genome,
+     different  sets of rules can be defined and implemented
+     easily.</para>
    </section>
 
 
@@ -464,7 +466,6 @@
 
     </orderedlist>
 -->
-   </section>
 
    <section>
     <title>Phase I (Analysis Generation)</title>
@@ -479,7 +480,7 @@
      linkend="pypop:sample-txt"/>  in  the next  section),  a  web
     page,  or an input file for other programs via XSLT (eXtensible
     Stylesheet Language for Transformations)
-    (<citation>Clark:1999</citation>).</para>
+    <citation>Clark:1999</citation>.</para>
 
    <para>For the IHWG data, once each set of individual population
     analyses was complete,  a  plain  text  output file of results was
@@ -488,25 +489,38 @@
     revisions, Phase I was repeated.</para>
    
    <figure id="pypop:sample-xml">
-    <title>Extract from sample XML output file</title>
-    <programlisting><![CDATA[<dataanalysis
-      date="2002-07-09-05-01-18">
-      <filename>ukimid_nireland.pop</filename>
-      <pypop-version>DEVEL_VERSION</pypop-version> <populationdata>
-      <labcode>UKIMID</labcode> <method>SSOP</method>
-      <ethnic>Irish</ethnic> <contin>Europe</contin> <collect>Northern
-      Ireland</collect> <latit>54 degrees 40 minutes north</latit>
-      <longit>6 degrees 45 minutes west</longit> <complex>3</complex>
-      <popname>NIreland</popname> <totals>
-      <indivcount>1000</indivcount> <allelecount>2000</allelecount>
-      <locuscount>9</locuscount>
-      <lociWithDataCount>4</lociWithDataCount> </totals>
-     </populationdata> <locus name="A"> <allelecounts>
-      <untypedindividuals>0</untypedindividuals>
-      <indivcount>1000</indivcount> <allelecount>2000</allelecount>
-      <distinctalleles>26</distinctalleles> <allele name="0101">
-      <frequency>0.20200 </frequency><count>404</count> </allele> ...
-      ]]></programlisting>
+     <title>Extract from sample XML output file</title>
+
+     <programlisting><![CDATA[<dataanalysis date="2002-07-09-05-01-18">
+   <filename>ukimid_nireland.pop</filename>
+   <pypop-version>DEVEL_VERSION</pypop-version>
+   <populationdata>
+     <labcode>UKIMID</labcode>
+     <method>SSOP</method>
+     <ethnic>Irish</ethnic>
+     <contin>Europe</contin>
+     <collect>Northern Ireland</collect>
+     <latit>54 degrees 40 minutes north</latit>
+     <longit>6 degrees 45 minutes west</longit>
+     <complex>3</complex>
+     <popname>NIreland</popname>
+     <totals>
+       <indivcount>1000</indivcount>
+       <allelecount>2000</allelecount>
+       <locuscount>9</locuscount>
+       <lociWithDataCount>4</lociWithDataCount>
+     </totals>
+   </populationdata>
+   <locus name="A">
+     <allelecounts>
+       <untypedindividuals>0</untypedindividuals>
+       <indivcount>1000</indivcount>
+       <allelecount>2000</allelecount>
+       <distinctalleles>26</distinctalleles>
+       <allele name="0101">
+         <frequency>0.20200 </frequency><count>404</count>
+       </allele>
+      ...]]></programlisting>
     </figure>
 
    </section>
@@ -542,18 +556,34 @@
    <figure id="pypop:sample-txt">
     <title>Extract from sample plain text output generated from XML
      data</title>
-    <programlisting format="linespecific"><![CDATA[Performed on the
-      'ukimid_nireland.pop' file at: 2002-07-09-05-01-18 Population
-      Summary ================== Lab code: UKIMID Typing method: SSOP
-      Ethnicity: Irish Continent: Europe Collection site: Northern
-      Ireland Latitude: 54 degrees 40 minutes north Longitude: 6
-      degrees 45 minutes west Population Name: NIreland [...] 1.1.
-      Allele Counts [A] ______________________ Untyped individuals: 0
-      Sample Size (n): 1000 Allele Count (2n): 2000 Distinct alleles
-      (k): 26 Counts ordered by frequency   | Counts ordered by name
-      Name      Frequency (Count)   | Name      Frequency (Count) 0201
-      0.27400   548       | 0101      0.20200   404 0101      0.20200
-     404       | 0201      0.27400   548 ]]></programlisting>
+    <programlisting format="linespecific">Performed on the 'ukimid_nireland.pop' file at: 2002-07-09-05-01-18
+
+Population Summary
+==================
+
+       Lab code: UKIMID
+  Typing method: SSOP
+      Ethnicity: Irish
+      Continent: Europe
+Collection site: Northern Ireland
+       Latitude: 54 degrees 40 minutes north
+      Longitude: 6 degrees 45 minutes west
+Population Name: NIreland
+[...]
+
+1.1. Allele Counts [A]
+______________________
+
+Untyped individuals: 0
+Sample Size (n): 1000
+Allele Count (2n): 2000
+Distinct alleles (k): 26
+
+Counts ordered by frequency   | Counts ordered by name        
+Name      Frequency (Count)   | Name      Frequency (Count)   
+0201      0.27400   548       | 0101      0.20200   404       
+0101      0.20200   404       | 0201      0.27400   548       
+</programlisting>
    </figure>
 
    <para>The  results of the Phase I analyses can be aggregated across
@@ -564,11 +594,13 @@
     using an XSLT stylesheet into tables of data that  can be  read by
     any  spreadsheet  or statistical package. To illustrate this
     process, excerpts containing <literal>A*0101</literal> allele
-     frequencies from  two XML  files  are shown in Figure 4. In this
-     second stage of Phase II the allele frequencies (along with other
-     statistics not shown in  this example)  are combined into a
-     single text file. A portion of this text file, with the lines of
-     data corresponding to the results in Figure  4,  are  shown  in
+    frequencies from  two XML  files  are shown in <xref
+     linkend="pypop:sample-xml-excerpts"/>. In this second stage of
+    Phase II the allele frequencies (along with other statistics not
+    shown in  this example)  are combined into a single text file. A
+    portion of this text file, with the lines of data corresponding to
+    the results in <xref
+     linkend="pypop:sample-xml-excerpts"/>,  are  shown  in
     <xref
      linkend="pypop:1-locus-allele.dat"/>. Values shown in both
     figures are highlighted  in  bold  (note that  some columns have
@@ -615,7 +647,7 @@
 
    </itemizedlist>
 
-   <figure>
+   <figure id="pypop:sample-xml-excerpts">
     <title>Excerpts from two sample XML files of results</title>
 
    <informaltable frame="none">
@@ -625,10 +657,10 @@
      <thead>
       <row>
        <entry>Excerpt from
-	<filename>Bugawan-Filipino-out.xml</filename>
+	<filename>CANLUO-Kenyan-out.xml</filename>
        </entry>
        <entry>
-	Excerpt from <filename>CZEIVS-Czech-out.xml</filename>
+	Excerpt from <filename>CZAFHAM-Tamil-out.xml</filename>
        </entry>
       </row>
      </thead>
@@ -636,23 +668,32 @@
      <tbody>
       <row>
        <entry>
-	 <programlisting><![CDATA[... <locus name="A"> <allelecounts>
-	  <untypedindividuals>0</untypedindividuals>
-	  <indivcount>94</indivcount> <allelecount>188</allelecount>
-	  <distinctalleles>16</distinctalleles> <allele name="0101">
-	 <frequency>]]><phrase
-	  role="strong">0.00532</phrase><![CDATA[</frequency>
-	  <count>1</count> </allele> ... ]]></programlisting>
-
+	 <programlisting><![CDATA[...
+<locus name="A">
+<allelecounts>
+<untypedindividuals>0</untypedindividuals>
+<indivcount>143</indivcount>
+<allelecount>286</allelecount>
+<distinctalleles>39</distinctalleles>
+<allele name="0101">
+<frequency>0.03147</frequency>
+<count>9</count>
+</allele>
+...]]></programlisting>
        </entry>
        <entry>
-	 <programlisting><![CDATA[... <locus name="A"> <allelecounts>
-	  <untypedindividuals>1</untypedindividuals>
-	  <indivcount>105</indivcount> <allelecount>210</allelecount>
-	  <distinctalleles>22</distinctalleles> <allele name="0101">
-	 <frequency>]]><phrase role="strong">0.12857</phrase>
-	  <![CDATA[</frequency> <count>27</count> </allele> ...
-	  ]]></programlisting>
+	 <programlisting><![CDATA[...
+<locus name="A">
+<allelecounts>
+<untypedindividuals>0</untypedindividuals>
+<indivcount>50</indivcount>
+<allelecount>100</allelecount>
+<distinctalleles>16</distinctalleles>
+<allele name="0101">
+<frequency>0.17000 </frequency>
+<count>17</count>
+</allele>
+...]]></programlisting>
 
        </entry>
       </row>
@@ -699,92 +740,92 @@
     next  section  deals  with various possible uses of these results
     generated by Phase I and Phase II. The following analyses rely on
     these  files,  but their implementation is not part of the current
-    PyPop framework.</para>
-
+    <application>PyPop</application> framework.</para>
+   </section>
   </section>
-
-  </section>
-
+ 
   <section>
    <title>Post PyPop: using the output</title>
+   
+   <para>When  information from a single population is of interest
+    analyses may end  with the generation of a text file of results.
+    Alternatively, the user  may wish to generate tables with
+    information on many populations and  loci  which  we refer to as
+    the *.dat files. These are text files consisting  of
+    tab-separated values (TSV) available for direct import to  many
+    statistical  packages.  The  XML  files,  which contain more
+    information  than  the  *.dat files (such as numbers of steps
+    required for  convergence  for  the  EM  algorithm),  can  be used
+    as input for alternative analyses. We discuss each of these
+    below.</para>
 
-   <para>When  information from a single population is of interest analyses may
-   end  with the generation of a text file of results. Alternatively, the
-   user  may wish to generate tables with information on many populations
-   and  loci  which  we refer to as the *.dat files. These are text files
-   consisting  of  tab-separated values (TSV) available for direct import
-   to  many  statistical  packages.  The  XML  files,  which contain more
-   information  than  the  *.dat files (such as numbers of steps required
-   for  convergence  for  the  EM  algorithm),  can  be used as input for
-   alternative analyses. We discuss each of these below.</para>
-
-  <para>Packages to read the tables in the
-   <filename>*.dat</filename> files can be divided into two kinds:
-   graphical spreadsheet-style, which can generate a wide range of
-   charts, graphs and summaries, and  statistical packages which
-   offer a more flexible and powerful alternative, but often require
-   greater computer expertise.  The output that
-   <application>PyPop</application> generates can be handled easily
-   by both.   Some potential options include the following:
+   <para>Packages to read the tables in the <filename>*.dat</filename>
+    files can be divided into two kinds: graphical spreadsheet-style,
+    which can generate a wide range of charts, graphs and summaries,
+    and  statistical packages which offer a more flexible and powerful
+    alternative, but often require greater computer expertise.  The
+    output that <application>PyPop</application> generates can be
+    handled easily by both.   Some potential options include the
+    following:
     
-   <itemizedlist>
-    <listitem>
-     <formalpara>
-      <title>spreadsheet packages</title>
-      
-      <para><application>OpenOffice.org Calc</application>, part of
-       the open-source multi-platform Office package
-       <application><ulink
-	 url="http://www.openoffice.org/">OpenOffice.org</ulink></application>, 
-       the <application>Gnumeric</application> spreadsheet package
-       available widely on UNIX and GNU/Linux systems, and
-       proprietary alternatives such as Microsoft
-       <application>Excel</application> on Windows and Macintosh
-       platforms can all easily handle <abbrev>TSV</abbrev> files.
-      </para>
-     </formalpara>
-    </listitem>
+    <itemizedlist>
+     <listitem>
+      <formalpara>
+       <title>spreadsheet packages</title>
+       
+       <para><application>OpenOffice.org Calc</application>, part of
+	the open-source multi-platform Office package
+	<application><ulink
+	  url="http://www.openoffice.org/">OpenOffice.org</ulink></application>, 
+	the <application>Gnumeric</application> spreadsheet package
+	available widely on UNIX and GNU/Linux systems, and
+	proprietary alternatives such as Microsoft
+	<application>Excel</application> on Windows and Macintosh
+	platforms can all easily handle <abbrev>TSV</abbrev> files.
+       </para>
+      </formalpara>
+     </listitem>
     
-    <listitem>
-       <formalpara>
-      <title>statistical packages</title>
-      <para><application>R</application>,
-       <application>Splus</application>,
-       <application>SAS</application>,
-       <application>STATA</application>, and other programs can all
-       handle TSV text files.  For, example in the case of the
-       graphical output for the IHWG described in the next
-       section, we wrote custom <application>R</application> scripts
-       (not currently part of <application>PyPop</application>) highly
-       specific to HLA data to generate various summaries and plots
-       from aforementioned <filename>.dat</filename> files.
-      </para>
-     </formalpara>
-    </listitem>
-   </itemizedlist>
-  </para>
+     <listitem>
+      <formalpara>
+       <title>statistical packages</title>
+       <para><application>R</application>,
+	<application>Splus</application>,
+	<application>SAS</application>,
+	<application>STATA</application>, and other programs can all
+	handle TSV text files.  For, example in the case of the
+	graphical output for the IHWG described in the next section,
+	we wrote custom <application>R</application> scripts (not
+	currently part of <application>PyPop</application>) highly
+	specific to HLA data to generate various summaries and plots
+	from aforementioned <filename>.dat</filename> files.
+       </para>
+      </formalpara>
+     </listitem>
+    </itemizedlist>
+   </para>
+   
+   <para>The XML output (both the individual population-level data
+    files, and the aggregated multi-population data) can also be
+    transformed (via XSLT) into formats suitable for input to other
+    programs.  Currently we have prototype modules for generating
+    input for <application>PHYLIP</application> and
+    <application>Arlequin</application>.  We ultimately wish to
+    develop an extensible <quote>plug-in</quote> XSLT architecture so
+    that the output can be transformed into  formats suitable for
+    other programs and packages in  a way that does not require the
+    user to do their own programming.
+   </para>
 
-  <para>The XML output (both the individual population-level data
-   files, and the aggregated multi-population data) can also be
-   transformed (via XSLT) into formats suitable for input to other
-   programs.  Currently we have prototype modules for generating input
-   for <application>PHYLIP</application> and
-   <application>Arlequin</application>.  We ultimately wish to develop
-   an extensible <quote>plug-in</quote> XSLT architecture so that the
-   output can be transformed into  formats suitable for other programs
-   and packages in  a way that does not require the user to do their
-   own programming.
-  </para>
-
-  <para>Finally, the raw XML files offer the opportunity, for those
-   who are so inclined, to write custom XSLT stylesheets that can
-   parse the XML and transform the data in many ways. Alternatively
-   it is possible to load the XML into a database and query the data
-   using SQL.
-  </para>
-
+   <para>Finally, the raw XML files offer the opportunity, for those
+    who are so inclined, to write custom XSLT stylesheets that can
+    parse the XML and transform the data in many ways. Alternatively
+    it is possible to load the XML into a database and query the data
+    using SQL.
+   </para>
+  </section>
  </section>
- 
+
  <section id="pypop:meta-results">
   <title>Results and sample output</title>
 
@@ -859,9 +900,10 @@
     population genetics analysis packages. Rather,  we  have designed
     it to synthesize and enhance the tools  that are currently
     available, while at the same time adding new methodological
-    options.  Indeed,  PyPop  can use existing packages to compute  a
-    variety of statistics and tests. The added value that PyPop brings
-    is  the ability to supplement the results from various sources in
+    options.  Indeed,  <application>PyPop</application>  can use
+    existing packages to compute  a variety of statistics and tests.
+    The added value that <application>PyPop</application> brings is
+    the ability to supplement the results from various sources in
     order  to offer analyses with a greater breadth and depth, without
     having  to  reformat  the  data  for  each  separate  application.
     The modularity  and  prototyping  capabilities  of  the  program
@@ -869,8 +911,8 @@
     growing array of population genetic analyses methods and
     implementations. Therefore, as  new  methods  are  developed, they
     can be incorporated into PyPop. Several  enhancements  and  new
-    methods  that  are  part of PyPop are briefly described
-    below.</para>
+    methods  that  are  part of <application>PyPop</application> are
+    briefly described below.</para>
 
    <para>The approach of integrating information in highly
     heterogeneous datasets on a large scale is new, and not currently
@@ -880,40 +922,44 @@
     used as a high-throughput system that enables population genetics
     to join the realm of genomics.</para>
 
-   <para>The  abovementioned  features  of  PyPop  facilitate
-    analyses  of the behavior   of   specific   statistics   across
-    populations  and  the relationships   among   different
-    statistics   within   and   across populations.  For  example,  it
-    is relatively simple to search for the presence  or absence of
-    particular alleles or haplotypes across ethnic groups  or
-    geographic  regions.  Also,  the  availability  of several
-    measures  of overall LD (e.g., Wn, D', and the standardized
-    likelihood ratio  test  statistic)  have  allowed  us  to
-    investigate  how these measures  differ in the information they
-    convey about LD in the highly polymorphic  HLA  data. As a final
-    example, it has been informative to look  at  the  degree  of LD
-    and rejection of HWP for populations with different levels of
-    heterozygosity, complexity, etc.</para>
+   <para>The  abovementioned  features  of
+    <application>PyPop</application>  facilitate analyses  of the
+    behavior   of   specific   statistics   across populations  and
+    the relationships   among   different statistics   within   and
+    across populations.  For  example,  it is relatively simple to
+    search for the presence  or absence of particular alleles or
+    haplotypes across ethnic groups  or geographic  regions.  Also,
+    the  availability  of several measures  of overall LD (e.g., Wn,
+    D', and the standardized likelihood ratio  test  statistic)  have
+    allowed  us  to investigate  how these measures  differ in the
+    information they convey about LD in the highly polymorphic  HLA
+    data. As a final example, it has been informative to look  at  the
+    degree  of LD and rejection of HWP for populations with different
+    levels of heterozygosity, complexity, etc.</para>
 
-   <para>A  feature of PyPop that has proved very useful in the
-    analysis of the workshop   data   is   the   availability   of
-    tests  for  individual heterozygotes (Chen and Thomson, 1999) and
-    genotypes in the context of HWP  that  are  not  available  in
-    other  software. These tests allow investigation  of  the
-    specific genotypes that contribute most to any overall
-    significant deviation from HWP. We are currently working on a
-    permutation-based  test of individual genotypes for HWP and
-    individual D'ij  values  that  will provide similar capabilities
-    for LD analyses. Currently,  these  are implemented using a
-    chi-square test. Additional modules  for investigating patterns
-    indicative of selection, including Disequilibrium   Pattern
-    Analysis  (Thomson  and  Klitz,  1987)  and Constrained
-    Disequilibrium   Values   (Robinson   et   al.,   1991a;
-    ALSO...b)b),  are  in  progress.  PyPop was designed to handle
-    missing data  in  a flexible manner that is consistent across all
-    modules (see Appendix  A  for  a description of the
-    implementation). This important aspect  of  data  processing  and
-    analysis  is often implemented in a cumbersome  and  sometimes
+   <para>A  feature of <application>PyPop</application> that has
+    proved very useful in the analysis of the workshop   data   is the
+    availability   of tests  for  individual heterozygotes
+    <citation>Chen:Thomson:1999</citation> and genotypes in the
+    context of HWP  that  are not available  in other  software. These
+    tests allow investigation  of the specific genotypes that
+    contribute most to any overall significant deviation from HWP. We
+    are currently working on a permutation-based  test of individual
+    genotypes for HWP and individual D'<subscript>ij</subscript>
+    values  that  will provide similar capabilities for LD analyses.
+    Currently,  these  are implemented using a chi-square test.
+    Additional modules  for investigating patterns indicative of
+    selection, including Disequilibrium Pattern Analysis
+    <citation>Thomson:Klitz:1987</citation>  and Constrained
+    Disequilibrium Values   (<citation
+     role="citealt">Robinson:etal:1991</citation>; <citation
+     role="citealt">Robinson:etal:2003</citation>),  are  in progress.
+    <application>PyPop</application> was designed to handle missing
+    data  in  a flexible manner that is consistent across all modules
+    (see <xref
+     linkend="pypop:data-interchange-format"/> for a description of
+    the implementation). This important aspect of data processing and
+    analysis  is often implemented in a cumbersome and sometimes
     inconsistent manner, requiring reformatting of the data.</para>
 
   </section>
