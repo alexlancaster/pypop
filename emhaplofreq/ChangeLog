@@ -9,6 +9,8 @@
 	compile-time option).  Used to suppress lengthy permutation
 	information when not required.
 	(main): When calling from command-line, enable permu_print.
+	(emcalc): Initialize 'prev_loglike' to 0.0, to
+	quit compiler warning.
 
 2003-12-12  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
