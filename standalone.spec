@@ -75,7 +75,7 @@ print "Creating package: " + package
 shutil.copytree(bin_dir, os.path.join(dist_dir, bin_dir))
 
 # copy top-level files
-for file in ['README', 'INSTALL', 'AUTHORS', 'COPYING', 'NEWS', 'ChangeLog']:
+for file in ['README', 'INSTALL', 'AUTHORS', 'COPYING', 'NEWS']:
     copyCustomPlatform(file, dist_dir, txt_ext=1)
 
 # VERSION file must not be renamed and must be put in bin_dir

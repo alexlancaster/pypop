@@ -1,7 +1,6 @@
 2003-12-19  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
-	* standalone.spec: Include NEWS and ChangeLog files in standalone
-	binary.
+	* standalone.spec: Include NEWS file in standalone binary.
 
 	* MANIFEST.in: Add NEWS to manifest.
 
