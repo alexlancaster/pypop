@@ -4,8 +4,8 @@
 
 """
 
-import string, sys, os
-from Utils import getStreamType
+import string, sys, os, popen2
+from Utils import getStreamType, TextOutputStream
 
 class HardyWeinberg:
   """Calculate Hardy-Weinberg statistics.
@@ -361,7 +361,84 @@ class HardyWeinberg:
 class HardyWeinbergGuoThompson(HardyWeinberg):
   """Wrapper class for 'gthwe'
 
-  Currently a dummy placeholder class for a wrapper for the Guo &
-  Thompson program 'gthwe'.
+  Currently a hacked-up placeholder class for a wrapper for the Guo &
+  Thompson program 'gthwe'.  Need more work before being production!
   """
-  pass
+  
+  def dumpTable(self, locusName, stream):
+
+    if locusName[0] == '*':
+      locusName = locusName[1:]
+
+    hwFilename = locusName + '.hw'
+    hwlFilename = locusName + '.hwl'
+        
+    hwStream = TextOutputStream(open(hwFilename, 'w'))
+    hwlStream = TextOutputStream(open(hwlFilename, 'w'))
+    
+    n = len(self.observedAlleles)
+
+    # generate .hwl file
+    hwlStream.writeln(locusName)
+    sortedAlleles = self.observedAlleles
+    sortedAlleles.sort()
+
+    for allele in sortedAlleles:
+      hwlStream.writeln(allele)
+
+    # close the .hwl file
+    hwlStream.close()
+      
+    # generate .hw file
+    hwStream.writeln(locusName)
+    hwStream.writeln("%d" % n)
+
+    for horiz in sortedAlleles:
+      # print "%2s" % horiz,
+      for vert in sortedAlleles:
+        # ensure that matrix is triangular
+        if vert > horiz:
+          continue
+
+        # need to check both permutations of key
+        key1 = "%s:%s" % (horiz, vert)
+        key2 = "%s:%s" % (vert, horiz)
+        if self.observedGenotypeCounts.has_key(key1):
+          hwStream.write("%2s " % self.observedGenotypeCounts[key1])
+        elif self.observedGenotypeCounts.has_key(key2):
+          hwStream.write("%2s " % self.observedGenotypeCounts[key2])
+        else:
+          hwStream.write("%2s " % "0")
+      hwStream.writeln()
+
+    # arbitrary parameters found in hwe-prep??
+    hwStream.writeln("2000 1000 1000")
+
+    # close the .hw file
+    hwStream.close()
+
+    xmlFilename = locusName + '.xml'
+
+    # execute program, capture stdin, stout and stderr
+    commandStr = "gthwe %s %s" % (hwFilename, xmlFilename)
+    fin, fout, ferr = os.popen3(commandStr, 't', 2000000)
+
+    # check stderr first
+    for line in ferr.readlines():
+      if line.startswith("***Error"):
+        print "too few alleles"
+   
+    print "stdout:", fout.readlines()
+    print "stderr:", ferr.readlines()
+
+    if self.debug:
+      print open(xmlFilename, 'r').readlines()
+
+    # copy the resultant output to XML stream
+    for line in open(xmlFilename, 'r').readlines():
+      stream.write(line)
+
+    # remove temporary files
+    #os.remove(hwFilename)
+    #os.remove(hwlFilename)
+    #os.remove(xmlFilename)
