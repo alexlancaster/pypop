@@ -1,11 +1,14 @@
 #!/usr/bin/env python
 
-"""Test driving wrapper.
+"""Python population genetics statistics.
 """
 
-usageMessage = """Usage: tdw.py INPUTFILE
+usage_message = """Usage: pypop.py [OPTION] INPUTFILE
 Process and run population genetics statistics on an INPUTFILE.
-Expects to find a file called 'config.ini' in the current directory.
+Expects to find a configuration file called 'config.ini' in the
+current directory.
+
+  -e, --experimental   enable experimental features
 
   INPUTFILE   input text file"""
 
@@ -16,13 +19,31 @@ from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson
 from Homozygosity import Homozygosity
 from ConfigParser import ConfigParser, NoOptionError
 from Utils import XMLOutputStream, TextOutputStream
+from getopt import getopt, GetoptError
 
-if len(sys.argv) != 2:
-  sys.exit(usageMessage)
+try:
+  opts, args =getopt(sys.argv[1:],"e", ["experimental"])
+except GetoptError:
+  sys.exit(usage_message)
+
+# default options
+experimentalFeatures = 0
+
+# parse options
+for o, v in opts:
+  if o in ("-e", "--experiemental"):
+    experimentalFeatures = 1
+  elif o in ("-h", "--help"):
+    sys.exit(usage_message)
+
+# check number of arguments
+if len(args) != 1:
+  sys.exit(usage_message)
+
+# parse arguments
+fileName = args[0]
 
 # parse out the parts of the filename
-
-fileName = sys.argv[1]
 baseFileName = os.path.basename(fileName)
 prefixFileName = string.split(baseFileName, ".")[0]
 
@@ -274,3 +295,29 @@ xmlStream.closetag('dataanalysis')
 # close streams
 txtStream.close()
 xmlStream.close()
+
+if experimentalFeatures:
+
+  from xml.xslt.Processor import Processor
+
+  # open XSLT stylesheet
+  styleSheet = open('text.xsl', 'r')
+
+  # re-open text stream
+  xmlStream = open(xmlOutFilename, 'r')
+
+  # open new txt output
+  newOut = open("new-" + txtOutFilename, 'w')
+
+  # create xsl process
+  p = Processor()
+
+  # attach the stylesheet
+  p.appendStylesheetStream(styleSheet)
+
+  # run the stylesheet on the XML output
+  p.runStream(xmlStream, outputStream=newOut)
+
+  # close streams
+  newOut.close()
+  styleSheet.close()
