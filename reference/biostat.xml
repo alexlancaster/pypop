@@ -3,7 +3,7 @@
    "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
 <!ENTITY psb2002 SYSTEM "psb2002.xml">
 ]>
-<article>
+<article class="techreport" status="draft">
   <articleinfo>
 	<title>IHWG Analyses</title>
 	<subtitle>Documentation for programs and methodology used for analyses
