@@ -1645,17 +1645,17 @@
     following likelihood-based approach circumvents this
     limitation. </para>
 
-   <para>Two likelihood values are defined: L<subscript>0</subscript>
+   <para>Two likelihood values are defined: L<subscript>1</subscript>
     is the likelihood of observed genotypic data given the estimated
     haplotype set (this is the likelihood value obtained using the EM
-    algorithm). L<subscript>1</subscript> is the likelihood of the
+    algorithm). L<subscript>0</subscript> is the likelihood of the
     observed data given haplotype frequencies expected under complete
     equilibrium (i.e. haplotype frequencies are given by the product
     of allele frequencies at each locus). The test-statistic is
     defined as:
    </para>
 
-   <para>S = -2log(L<subscript>1</subscript>/L<subscript>0</subscript>)</para>
+   <para>S = -2log(L<subscript>0</subscript>/L<subscript>1</subscript>)</para>
 
    <para>The significance (p-value) of the observed test statistic can
     be obtained from a permutation test.  The logic behind a
