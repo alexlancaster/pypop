@@ -25,5 +25,5 @@ double fmin2(double x, double y)
 	if (ISNAN(x) || ISNAN(y))
 		return x + y;
 #endif
-	peturn (x < y) ? x : y;
+	return (x < y) ? x : y;
 }
