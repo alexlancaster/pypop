@@ -2,11 +2,27 @@
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:exsl="http://exslt.org/common"
- extension-element-prefixes="exsl">
+ extension-element-prefixes="exsl"
+ xmlns:data="any-uri">
 
  <xsl:import href="lib.xsl"/>
 <!-- <xsl:import href="sort-by-locus.xsl"/> -->
- 
+
+ <data:map-order>
+  <locusname order="1">A</locusname>
+  <locusname order="2">C</locusname>
+  <locusname order="3">B</locusname>
+  <locusname order="4">DRA</locusname>
+  <locusname order="5">DRB1</locusname>
+  <locusname order="6">DQA1</locusname>
+  <locusname order="7">DQB1</locusname>
+  <locusname order="8">DPA1</locusname>
+  <locusname order="9">DPB1</locusname>
+ </data:map-order>
+
+ <xsl:param name="map-order" 
+  select="document('')//data:map-order/locusname"/>
+
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
 
@@ -131,13 +147,23 @@
       <xsl:with-param name="popnode" select="../../populationdata"/>
      </xsl:call-template>
 
-     <xsl:value-of select="substring-before(@loci, ':')"/>
+     <xsl:variable name="locus1" select="substring-before(@loci, ':')"/>
+     <xsl:variable name="locus2" select="substring-after(@loci, ':')"/>
 
-     <!--     <xsl:value-of select="substring-after(substring-before(@loci,
-     ':'), '*')"/> -->
-
-     <xsl:text>&#09;</xsl:text>
-     <xsl:value-of select="substring-after(@loci, ':')"/>
+     <!-- make sure locus1 and locus2 are always in map order -->
+     <xsl:choose>
+      <xsl:when test="$map-order[.=$locus1]/@order &lt;
+       $map-order[.=$locus2]/@order">
+       <xsl:value-of select="$locus1"/>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:value-of select="$locus2"/>
+      </xsl:when>
+      <xsl:otherwise>
+       <xsl:value-of select="$locus2"/>
+       <xsl:text>&#09;</xsl:text>
+       <xsl:value-of select="$locus1"/>
+      </xsl:otherwise>
+     </xsl:choose>
 
      <xsl:text>&#09;</xsl:text>
      <xsl:value-of select="linkagediseq/summary/dprime"/>
