@@ -121,7 +121,7 @@ class Main:
 
         # parse out the parts of the filename
         baseFileName = os.path.basename(self.fileName)
-        prefixFileName = string.split(baseFileName, ".")[0]
+        prefixFileName = string.join(string.split(baseFileName, ".")[:-1],'.')
 
         # generate date and time
 
