@@ -16,8 +16,9 @@
      <orgname>University of California, Berkeley</orgname>
      <orgdiv>Department of Integrative Biology</orgdiv>
      <address><street>3060 Valley Life Sciences</street>
-      <city>Berkeley</city> <state>CA</state> <country>USA</country>
-      <email>alexl@socrates.berkeley.edu</email></address>
+     <city>Berkeley</city> <state>CA</state>
+     <postcode>94720</postcode><country>USA</country>
+     <email>alexl@socrates.berkeley.edu</email></address>
     </affiliation>
    </author>
 
@@ -39,7 +40,7 @@
      <orgdiv>Department of Biometry</orgdiv>
      <address><street>Hills Science Building</street>
       <city>Burlington</city><state>VT</state>  
-      <zip>05405</zip><country>USA</country></address>
+      <postcode>05405</postcode><country>USA</country></address>
     </affiliation>
    </author>
    
@@ -70,7 +71,7 @@
    loci (both class I and class II) and found that it scales to large
    numbers of data sets well.</para>
  </abstract>
-
+ 
  <section>
   <title>Introduction</title> 
 
@@ -1026,16 +1027,7 @@ Other
  
 </article>
  
-<!--
-Local variables:
-sgml-local-catalogs: ("catalog")
-sgml-indent-step: 1
-sgml-indent-data: 1
-ispell-skip-sgml: t
-End:
--->
-<!--  LocalWords:  PyPop articleinfo authorgroup uc firstname orgname orgdiv uv
- -->
+<!--  LocalWords:  PyPop  -->
 <!--  LocalWords:  Glenys pubdate haplotype Histocompatibility Immunogenetics
  -->
 <!--  LocalWords:  IHWG MHC psb HLA towards Arlequin Phylip Felsenstein Genepop
@@ -1074,3 +1066,11 @@ End:
  -->
 <!--  LocalWords:  Cladistics sgml
  -->
+<!--
+Local variables:
+sgml-local-catalogs: ("catalog")
+sgml-indent-step: 1
+sgml-indent-data: 1
+ispell-skip-html: always
+End:
+-->
