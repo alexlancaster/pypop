@@ -611,8 +611,9 @@ class ParseGenotypeFile(ParseFile):
     def serializeSubclassMetadataTo(self, stream):
         """Serialize subclass-specific metadata.
 
-        Specifically, total number of individuals and loci and population name.
-         """
+        Specifically, total number of individuals and loci and
+        population name.  """
+
         stream.tagContents('popname', self.popName)
         stream.writeln()
         stream.opentag('totals')
