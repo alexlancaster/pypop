@@ -120,7 +120,7 @@ int run_data(int *a, int *n, int no_allele, int total,
   double constant, p_simulated, total_step;
   struct randomization sample;
   struct outcome result;
-  register int i, j;
+  register int i, j, k;
   long t1;
   int num_genotypes = no_allele * (no_allele + 1) / 2;
 
@@ -167,6 +167,13 @@ int run_data(int *a, int *n, int no_allele, int total,
 
 #endif
 
+
+#ifdef PERMU_TEST
+  int **mcmc_histograms = (int **)calloc(num_genotypes, sizeof(int *));
+  for (k = 0; k < num_genotypes; k++)
+    mcmc_histograms[k] = calloc(total, sizeof(int));
+#endif
+
   constant = cal_const(no_allele, n, total);
   
   ln_p_observed = ln_p_value(a, no_allele, constant);  
@@ -202,6 +209,13 @@ int run_data(int *a, int *n, int no_allele, int total,
 	    ++counter;
 	  ++result.swch_count[actual_switch];
 	  
+#ifdef PERMU_TEST
+	  /* go through genotype list at this step of the chain */
+	  for (k=0; k < num_genotypes; k++) 
+	    /* increase count a[i]-th place in the i-th histogram by one */
+	    mcmc_histograms[k][a[k]]++; 
+#endif
+
 	}
       p_simulated = (double) counter / sample.size;
       p_mean += p_simulated;
@@ -245,6 +259,16 @@ int run_data(int *a, int *n, int no_allele, int total,
 #endif
 
 #ifdef PERMU_TEST
+
+  /* print mcmc_histograms */
+  for (i=0; i < num_genotypes; i++) {
+    printf("mcmc_histogram[%d]: {", i);
+    for (j=0; j < total; j++) {
+      printf("%d, ", mcmc_histograms[i][j]);
+    }
+    printf("} observed: FIXME, need to copy original a[] array\n");
+  }
+
   /* calculate number of alleles of each gamete */
   /* cal_n(no_allele, a, n); */
 
@@ -262,6 +286,18 @@ int run_data(int *a, int *n, int no_allele, int total,
   /* ln_p_observed = ln_p_value(a, no_allele, constant);   */
   /* printf("after recalculating observed value\n"); */
 
+  /* store histograms of each genotype
+
+   create a two dimensional array of size:
+   max. number of genotypes * max. number of individuals in pop
+      = k * (k + 1) / 2 * N = num_genotypes * total
+
+  */
+
+  int **histograms = (int **)calloc(num_genotypes, sizeof(int *));
+  for (i = 0; i < num_genotypes; i++)
+    histograms[i] = calloc(total, sizeof(int));
+  
   printf("Constant: %e, Observed: %e\n", constant, ln_p_observed);
 
   /* calculate the number of gametes */
@@ -301,12 +337,12 @@ int run_data(int *a, int *n, int no_allele, int total,
   r = gsl_rng_alloc (T);
 
   /* create empty genotype array */
-  int *g = (int *)calloc(total, sizeof(int));
+  int *g = (int *)calloc(num_genotypes, sizeof(int));
 
   /* start permuting index of gametes */
   int permu = 0, l = 0;
   int K = 0;
-  int N = 170000;
+  int N = 17000;
   double ln_p_perm;
   for (permu=0; permu < N; permu++) {
     gsl_ran_shuffle(r, s, total_gametes, sizeof(int));
@@ -352,15 +388,39 @@ int run_data(int *a, int *n, int no_allele, int total,
       K++;
     /* printf("K = %d\n", K); */
 
-    /* reset genotype array, g */
-    for (i=0; i < num_genotypes; i++)
+    /* go through genotype list */
+    for (i=0; i < num_genotypes; i++) {
+      /* increase the count g[i]-th place in the i-th histogram by one */
+      histograms[i][g[i]]++;
+
+      /* once done, reset genotype array, g */
       g[i] = 0;
+    }
   }
 
   printf("finished permutations!\n");
   printf("K = %d, N = %d\n", K, N);
   double p_value = (double)K/N;
   printf("pvalue = %g\n", p_value);
+
+  /* print histograms */
+  for (i=0; i < num_genotypes; i++) {
+    printf("histogram[%d]: {", i);
+    for (j=0; j < total; j++) {
+      printf("%d, ", histograms[i][j]);
+    }
+    printf("} observed: FIXME, need to copy original a[] array\n");
+  }
+
+  /* free dynamically-allocated memory  */
+  for(i = 0; i < num_genotypes; i++)
+    free(mcmc_histograms[i]);
+  free(mcmc_histograms);
+
+  /* free dynamically-allocated memory  */
+  for(i = 0; i < num_genotypes; i++)
+    free(histograms[i]);
+  free(histograms);
 
   free(g);
   free(s);
