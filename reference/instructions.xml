@@ -22,6 +22,7 @@
   <pubdate>Last updated: $Date$ by $Author$</pubdate>
  </articleinfo>
 
+ 
 
  <para>This document describes the output of the analyses carried out by PyPop,
   and offers guidelines on how to interpret them.</para>
@@ -60,15 +61,18 @@ Total Loci with data: 8
  </sect1>
 
  <sect1 id="instructions-locus-info">
-  <title>Locus specific information</title>
+  <title>Single locus analyses</title>
 
-  <para>Information relevant to individual loci is reported. If the
-   sample size differs among loci (as is the case if not all
-   individual were typed at each locus) sample size and allele count
-   will differ among loci.  Untyped individuals are those for which
-   one or two alleles were not typed. The alleles are listed in
-   descending frequency in the left hand column, and are
-   sorted numerically in the right column. </para>
+  <sect2>
+   <title>Basic allele count information</title>
+
+   <para>Information relevant to individual loci is reported. If the
+    sample size differs among loci (as is the case if not all
+    individual were typed at each locus) sample size and allele count
+    will differ among loci.  Untyped individuals are those for which
+    one or two alleles were not typed. The alleles are listed in
+    descending frequency in the left hand column, and are
+    sorted numerically in the right column. </para>
 
   <example>
    <title>Basic locus information sample output</title>
@@ -113,33 +117,33 @@ _____________
  No data for this locus!
 </programlisting>
 
- </sect1>
- 
- <sect1 id="instructions-homozygosity">
-  <title>The Ewens-Watterson Homozygosity test of neutrality</title>
+  </sect2>
 
-  <para>For each locus we implement the Ewens-Watterson homozygosity
-   test of neutrality (<citation role="citet">Watterson:1978</citation>,
-   <citation role="citet">Ewens:1972</citation>). The expected homozygosity 
-   under Hardy-Weinberg
-   proportions (the sum of the squares of allele frequencies) is
-   computed and reported. The expected homozygosity under neutrality,
-   for the same sample size (2n) and number of unique alleles (k) is obtained
-   by simulation and reported (Expected Homozygosity). The Normalized
-   Deviate of the Homozygosity is the difference between the
-   observed and expected homozygosity, divided by the square root of
-   the variance of the expected homozygosity (also obtained by
-   simulations; <citation role="citet">Salamon:1999</citation>). Negative 
-   Normalized deviates imply Observed
-   Homozygosity values lower than Expected Homozygosity, in the
-   direction of balancing selection. Positive values are in the
-   direction of directional selection. The p-value in the
-   last row of the output is the probability that the observed
-   homozygosity would be obtained from a neutral sample (of size 2n
-   and k distinct alleles).  P-values at either extreme of the
-   distribution (&lt; 0.025 or &gt;0.975) are considered significant
-   at the 0.05 level, making this a two-tailed test of the null
-   hypothesis of neutrality. </para>
+  <sect2 id="instructions-homozygosity">
+   <title>The Ewens-Watterson Homozygosity test of neutrality</title>
+   
+   <para>For each locus we implement the Ewens-Watterson homozygosity
+    test of neutrality (<citation
+     role="citet">Watterson:1978</citation>, <citation
+     role="citet">Ewens:1972</citation>). The expected homozygosity
+    under Hardy-Weinberg proportions (the sum of the squares of allele
+    frequencies) is computed and reported. The expected homozygosity
+    under neutrality, for the same sample size (2n) and number of
+    unique alleles (k) is obtained by simulation and reported
+    (Expected Homozygosity). The Normalized Deviate of the
+    Homozygosity is the difference between the observed and expected
+    homozygosity, divided by the square root of the variance of the
+    expected homozygosity (also obtained by simulations; <citation
+     role="citet">Salamon:1999</citation>). Negative Normalized
+    deviates imply Observed Homozygosity values lower than Expected
+    Homozygosity, in the direction of balancing selection. Positive
+    values are in the direction of directional selection. The p-value
+    in the last row of the output is the probability that the observed
+    homozygosity would be obtained from a neutral sample (of size 2n
+    and k distinct alleles).  P-values at either extreme of the
+    distribution (&lt; 0.025 or &gt;0.975) are considered significant
+    at the 0.05 level, making this a two-tailed test of the null
+    hypothesis of neutrality. </para>
 
   <example>
    <title>Sample output of homozygosity test</title>
@@ -151,9 +155,9 @@ p-value range: 0.0000 < p <= 0.0100 *
 ]]></programlisting>
   </example>
 
- </sect1>
+ </sect2>
 
- <sect1 id="instructions-hardyweinberg">
+ <sect2 id="instructions-hardyweinberg">
   <title>Test for deviation from Hardy-Weinberg proportions (HWP).</title>
 
   <para>For each locus the observed genotype counts are compared to
@@ -306,9 +310,9 @@ Common genotypes
    observed, expected, chi-square and p-values for all observed genotypes
    with expected values &ge; 5.</para>
   
-</sect1>
+</sect2>
 
- <sect1 id="instructions-hardyweinberg-exact">
+ <sect2 id="instructions-hardyweinberg-exact">
   <title>Exact test for deviation from HWP</title>
   
   <para>For each locus the exact test for deviations from HWP is
@@ -342,11 +346,13 @@ p-value: 0.0537
 ----------------------------------------------
 Too large a matrix for Guo and Thompson
 </programlisting>
-
+   
+  </sect2>
  </sect1>
- 
+
  <sect1 id="instructions-haplo">
-  <title>Haplotype Frequency and LD Estimation</title>
+  <title>Multi-locus analyses</title>
+  <subtitle>Haplotype Frequency and LD Estimation</subtitle>
   
   <para>Haplotypes frequencies are estimated using the iterative
    Expectation-Maximization (EM) algorithm (<citation
@@ -472,7 +478,7 @@ DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
 
   </sect2>
 
-</sect1>
+ </sect1>
  
  <bibliography id="instructions-references">
   <title>References</title>
