@@ -6,9 +6,9 @@
    and classes for parsing literature data which only includes allele
    counts."""
 
-import sys, os, string, types
+import sys, os, string, types, re
 
-from Utils import getStreamType, StringMatrix, OrderedDict
+from Utils import getStreamType, StringMatrix, OrderedDict, TextOutputStream
 
 class ParseFile:
     """*Abstract* class for parsing a datafile.
@@ -43,13 +43,14 @@ class ParseFile:
 
         - 'debug': Switches debugging on if set to '1' (default: no
           debugging, '0')"""
-        
+
+        self.filename = filename
         self.validPopFields=validPopFields
         self.validSampleFields=validSampleFields
         self.debug = debug
         self.separator = separator
         self.fieldPairDesignator = fieldPairDesignator
-        
+
         self.popFields = ParseFile._dbFieldsRead(self,self.validPopFields)
         self.sampleFields = ParseFile._dbFieldsRead(self,self.validSampleFields)
         if self.debug:
@@ -59,7 +60,7 @@ class ParseFile:
 
         # Reads and parses a given filename.
         
-        self._sampleFileRead(filename)
+        self._sampleFileRead(self.filename)
         self._mapPopHeaders()
         self._mapSampleHeaders()
         
@@ -379,28 +380,36 @@ class ParseGenotypeFile(ParseFile):
         self.popNameDesignator = popNameDesignator
         
         ParseFile.__init__(self, filename, **kw)
+
         self._genDataStructures()
 
     def _genInternalMaps(self):
         """Returns dictionary containing 2-tuple of column position.
 
-        It is keyed by allele names originally specified in sample
-        metadata file
+        It is keyed by locus names originally specified in sample
+        metadata file, the locus names (keys) are made uppercase and
+        don't contain the allele designator.
 
-        Note that this is simply a _subset_ of that returned by
-        **getSampleMap()**
+        Note that this is simply a transformed _subset_ of that
+        returned by **getSampleMap()**
 
         *For internal use only.*"""
 
         self.alleleMap = OrderedDict()
         for key in self.sampleMap.keys():
+
             # do we have the allele designator?
             if key[0] == self.alleleDesignator:
-                self.alleleMap[key] = self.sampleMap[key]
+                # remove allele designator, only necessary
+                # for initial splitting out of locus keys from
+                # other fields, and also make uppercase
+                locusKey = string.upper(key[len(self.alleleDesignator):])
+                self.alleleMap[locusKey] = self.sampleMap[key]
             elif key[0] == self.popNameDesignator:
                 self.popNameCol = self.sampleMap[key]
 
         return self.alleleMap
+
 
     def _genDataStructures(self):
         """Generates allele count and map data structures.
@@ -421,6 +430,7 @@ class ParseGenotypeFile(ParseFile):
         # first get popName
         self.popName = string.split(sampleDataLines[0], separator)[self.popNameCol]
 
+        # then total number of individuals in data file
         self.totalIndivCount = len(sampleDataLines)
 
         # total number of loci contained in original file
@@ -438,6 +448,20 @@ class ParseGenotypeFile(ParseFile):
         # create an empty-list of lists to store all the row data
         #self.individualsList = [[] for line in range(0, self.totalIndivCount)]
         self.matrix = StringMatrix(self.totalIndivCount, self.locusKeys)
+
+
+        # open log file for filter in append mode
+        self.filterLogFile = TextOutputStream(open('filter.log', 'a'))
+
+        self.filterLogFile.writeln()
+        self.filterLogFile.writeln("|| %s : filter results ||" % self.filename)
+        self.filterLogFile.writeln()
+        
+        # create a data cleaning filter to pass all data through
+        from Filter import AnthonyNolanFilter
+        filter = AnthonyNolanFilter(debug=self.debug,
+                                    untypedAllele=self.untypedAllele,
+                                    logFile=self.filterLogFile)
         
         for locus in self.locusKeys:
 	    if self.debug:
@@ -454,13 +478,32 @@ class ParseGenotypeFile(ParseFile):
             total = 0
             untypedIndividuals = 0
 
+            # first pass runs a filter of alleles through the
+            # anthonynolan data filter/cleaner
+
+            # initialize the filter
+            filter.startFirstPass(locus)
+
+            # loop through all lines in locus
+            for line in sampleDataLines:
+                fields = string.split(line, separator)
+                allele1 = string.strip(fields[col1])
+                allele2 = string.strip(fields[col2])
+                filter.addAllele(allele1)
+                filter.addAllele(allele2)
+
+            # do final reassignments based on counts
+            filter.endFirstPass()
+
             # re-initialise the row count on each iteration of the locus
             rowCount = 0
             for line in sampleDataLines:
                 fields = string.split(line, separator)
 
-                allele1 = string.strip(fields[col1])
-                allele2 = string.strip(fields[col2])
+                # put all alleles through filter before doing
+                # data structures
+                allele1 = filter.filterAllele(string.strip(fields[col1]))
+                allele2 = filter.filterAllele(string.strip(fields[col2]))
                     
                 # extend the list by the allele pair
                 #self.individualsList[rowCount].extend([allele1 + ':',
@@ -516,7 +559,12 @@ class ParseGenotypeFile(ParseFile):
             # then count this locus as having usable data
             if untypedIndividuals < self.totalIndivCount:
                 self.totalLociWithData += 1                
-            
+
+        # close log file for filter
+        self.filterLogFile.close()
+
+    def _checkAlleles(self):
+        pass
 
     def genValidKey(self, field, fieldList):
         """Check and validate key.
