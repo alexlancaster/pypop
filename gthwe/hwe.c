@@ -73,7 +73,9 @@ int main(int argc, char *argv[])
 	if (read_data(a, &no_allele, &total, &sample, &infile, &title))
 		exit(2);
 
+#ifndef SUPPRESS_TABLE
 	print_data(a, no_allele, sample, &outfile, title);
+#endif
 
    constant = cal_const ( no_allele, n, total );
 
