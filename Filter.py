@@ -294,7 +294,8 @@ class AnthonyNolanFilter(Filter):
     def cleanup(self):
         # end tag for XML
         self.logFile.closetag('filterlog')
-        # probably should close log file here?
+        # close log file
+        self.logFile.close()
 
 
 class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
