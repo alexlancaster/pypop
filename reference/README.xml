@@ -341,12 +341,12 @@ allPairwiseLDWithPermu=0></programlisting>
      <listitem>
       <formalpara>
        <title><literal>alleleDesignator</literal></title>
-       <para>This line is used to help
+       <para>This option is used to help
 	 <application>PyPop</application> figure out what is allele
 	 data and what isn't. You  must use this symbol in <link
 	  linkend="validSampleFields"><literal>validSampleFields</literal> 
 	 </link> option.  The default is <literal>*</literal>, in
-	 general you won't need to change it.  <emphasis>[Default:
+	 general you won't need to change it.  <emphasis role="bold">[Default:
 	  <literal>*</literal>]</emphasis></para>
       </formalpara>
      </listitem>
@@ -359,7 +359,7 @@ allPairwiseLDWithPermu=0></programlisting>
 	in your data files to represent untyped or unknown data
 	fields.  These fields MAY NOT BE LEFT BLANK.  You must use
 	something consistent that cannot be confused with real data
-	 here.  <emphasis>[Default: <literal>****</literal>]</emphasis></para>
+	 here.  <emphasis role="bold">[Default: <literal>****</literal>]</emphasis></para>
       </formalpara>
      </listitem>
      
@@ -373,7 +373,9 @@ allPairwiseLDWithPermu=0></programlisting>
 	 be first line of the file). The names of all your loci,
 	 preceded by the character designated in the
 	 <literal>alleleDesignator</literal> option above, must be
-	 present in the block that begins with this line. e.g.,</para>
+	 present in the block that begins with this line.
+	 <emphasis role="bold">[There is no default, this option must always be
+	  present]</emphasis>  Here is an example,</para>
       </formalpara>
       
       <programlisting>validSampleFields=*a_1
@@ -383,9 +385,6 @@ allPairwiseLDWithPermu=0></programlisting>
  *b_1
  *b_2
 </programlisting>
-
-       <para><emphasis>[There is no default, this section must always
-	 be present]</emphasis></para>
 
      </listitem>
     </itemizedlist>
@@ -447,7 +446,8 @@ allPairwiseLDWithPermu=0></programlisting>
     <para role="strong">
       <literal>[HomozygosityEWSlatkinExact]</literal></para>
      
-     <para>This section enables Slatkin's (1994) implementation of the
+     <para>This section enables Slatkin's <citation
+       role="citeyearpar">Slatkin:1994</citation> implementation of the
       Ewens-Watterson exact test of neutrality to be run.
      </para>
 
@@ -459,8 +459,8 @@ allPairwiseLDWithPermu=0></programlisting>
        <para>These values have proved to be optimal for us.  There is
 	no reason to change them unless you are particularly curious.
 	If you have a problem when you change them you
-	<emphasis>must</emphasis> also let us know
-	<emphasis>that</emphasis> you've changed them.</para>
+	<emphasis role="bold">must</emphasis> also let us know
+	<emphasis role="bold">that</emphasis> you've changed them.</para>
       </formalpara>
      </listitem>
     </itemizedlist>
@@ -548,7 +548,7 @@ allPairwiseLDWithPermu=0></programlisting>
        file, which you want to remain identical over several runs,
        you can set these two items to particular values. The
        default is to have program select the output filename, which
-       can be controlled by the next variable.  <emphasis>[Default: not
+       can be controlled by the next variable.  <emphasis role="bold">[Default: not
 	used]</emphasis></para>
       
      </formalpara>
@@ -567,7 +567,7 @@ allPairwiseLDWithPermu=0></programlisting>
        <filename><replaceable>original-filename-minus-suffix</replaceable>-out.txt</filename>, 
        and
        <filename><replaceable>original-filename-minus-suffix</replaceable>-filter.xml</filename>. 
-       <emphasis>[Default: <literal>filename</literal>]</emphasis></para>
+       <emphasis role="bold">[Default: <literal>filename</literal>]</emphasis></para>
      </formalpara>
      
      <para>If you set the value to <literal>date</literal> instead of
@@ -607,7 +607,7 @@ allPairwiseLDWithPermu=0></programlisting>
       the entries in this database, you'll get a
       <filename><replaceable>popfile</replaceable>-filter.xml</filename> 
       file output showing what was resolved and what could not be
-      resolved. <emphasis>[Default: <literal>0</literal>
+      resolved. <emphasis role="bold">[Default: <literal>0</literal>
        (OFF)]</emphasis></para>
     </listitem>
     <listitem>
@@ -619,9 +619,9 @@ allPairwiseLDWithPermu=0></programlisting>
        the entries <literal>validSampleFields</literal> and in your
        population data file.  If you want to use something other than
        <literal>_1</literal> and <literal>_2</literal>, change this
-       line, for instance, to use letters and parentheses, change it
+       option, for instance, to use letters and parentheses, change it
        like this: <literal>fieldPairDesignator=(a):(b)</literal>
-       <emphasis>[Default: <literal>_1:_2</literal>]</emphasis></para>
+       <emphasis role="bold">[Default: <literal>_1:_2</literal>]</emphasis></para>
      </formalpara>
     </listitem>
     
@@ -632,7 +632,7 @@ allPairwiseLDWithPermu=0></programlisting>
       <para>Since our later analyses require a unique name for each
        population, there is a special designator to mark this field,
        which is usually the first field in the data block.
-       <emphasis>[Default: <literal>+</literal>]</emphasis></para>
+       <emphasis role="bold">[Default: <literal>+</literal>]</emphasis></para>
      </formalpara>
      
      <para>If you are analyzing data that contains a population
@@ -656,7 +656,7 @@ allPairwiseLDWithPermu=0></programlisting>
 	linkend="data-hla"/>, then you will need to set this option.
        It should contain the field names in the first line of the
        three lines of header information of your file, if it has
-       these.   <emphasis>[Default: required when population
+       these.   <emphasis role="bold">[Default: required when population
 	data-block in data file]</emphasis>, e.g.:</para>
 	</formalpara>
 
@@ -680,8 +680,9 @@ allPairwiseLDWithPermu=0></programlisting>
     <application>PyPop</application> as we cannot distribute it).
     Options in the section are only used when a test requiring
     <application>Arlequin</application>, such as it's implementation
-    of Guo and Thompson's Hardy-Weinberg  exact test is invoked (see
-    below).</para>
+    of Guo and Thompson's <citation
+     role="citeyearpar">Guo:Thompson:1992</citation>Hardy-Weinberg  exact
+    test is invoked (see below).</para>
       
    <itemizedlist>
     <listitem>
@@ -691,7 +692,7 @@ allPairwiseLDWithPermu=0></programlisting>
       <para>This option specifies where to find the
        <application>Arlequin</application> executable on your
        system. The default assumes it is on your system path.
-       <emphasis>[Default:
+       <emphasis role="bold">[Default:
 	<literal>arlecore.exe</literal>]</emphasis></para>
      </formalpara>
     </listitem>
@@ -708,7 +709,7 @@ allPairwiseLDWithPermu=0></programlisting>
     values have proved to be optimal for us.  Don't bother changing
     them unless you are particularly curious.  If you change the
     values and have problems, please let us know
-    <emphasis>that</emphasis>  you have changed them.</para>
+    <emphasis role="bold">that</emphasis>  you have changed them.</para>
 
   </section>
 
@@ -749,6 +750,8 @@ allPairwiseLDWithPermu=0></programlisting>
 
  </section>
 -->
+
+ <xi:include href="biblio.xml"/>
 
 </article>
 
