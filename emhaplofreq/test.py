@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import _Emhaplofreq, sys
+import _Emhaplofreq, sys, string, os
 
 data_ar = [['0701:','1501:','0102:','0300:','0201:','0602:','0201:','0402:'], ['1101:','1501:','0102:','0501:','0301:','0602:','1101:','1801:']]
 
@@ -19,20 +19,28 @@ print "obs:", recs, "loci:", loci
 
 # save regular stdout
 print "before saving stdout"
-save_stdout = sys.stdout
+stdout = sys.stdout
 
-# create a buffer for capturing stdout
+# create a buffer for capturing stdout and redirect stdout to this buffer
 import StringIO
-captured_stdout = StringIO.StringIO()
+sys.stdout = file = StringIO.StringIO()
 
-# redirect stdout to this buffer
-sys.stdout = captured_stdout
+# use an in-memory file instance for the C program to write to
+import cStringIO
+fp = cStringIO.StringIO()
 
-_Emhaplofreq.main_proc(data_ar, loci, recs)
+# call the SWIG-ed method
+_Emhaplofreq.main_proc(fp, data_ar, loci, recs, 0)
+lines = string.split(fp.getvalue(), os.linesep)
+
+# print the in-memory file to sys.stdout
+for i in lines:
+    print ">", i
+fp.close()
 
 # reassign stdout back to sys.stdout
-sys.stdout = save_stdout
+sys.stdout = stdout
 
 # print out saved buffer
 print "outputing captured stdout"
-print captured_stdout.buf
+print file.getvalue()
