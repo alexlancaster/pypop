@@ -1,3 +1,11 @@
+2005-04-12  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* Filter.py (AnthonyNolanFilter.translateMatrix): Use
+	_genOffsets() when creating position numbers for StringMatrix.
+	(AnthonyNolanFilter._genOffsets): New method, specific to HLA,
+	creates offsets for each locus so that number of amino acid sites
+	does not include the signal peptide region.
+
 2005-03-10  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* NEWS: Note new features/bug fixes since December 2004.

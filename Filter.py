@@ -634,7 +634,7 @@ class AnthonyNolanFilter(Filter):
         colList = []
         for locus in self.matrix.colList:
             for pos in self.polyseqpos[locus]:
-                colList.append(locus + '_' + str(pos))
+                colList.append(locus + '_' + self._genOffsets(locus, pos))
 
         rowCount = len(self.matrix[locus])
 
@@ -663,7 +663,8 @@ class AnthonyNolanFilter(Filter):
                     if letter2 == '.' or letter2 == 'X' or letter2 == '*':
                         letter2 = self.untypedAllele
 
-                    seqMatrix[individCount,locus + '_' + str(pos)] = (letter1,letter2)
+                    seqMatrix[individCount,locus + '_' + \
+                              self._genOffsets(locus, pos)] = (letter1,letter2)
 
                     posCount += 1
                     
@@ -674,6 +675,18 @@ class AnthonyNolanFilter(Filter):
 
         return seqMatrix
 
+    def _genOffsets(self, locus, pos):
+
+        ## FIXME: this code is specific to HLA data
+        offsets = {'A': 24, 'B':24, 'C':24,  'DQA1': 23, 'DRB1': 29,
+                   'DQB1': 32, 'DPA1':31, 'DPB1': 29}
+
+        if offsets.has_key(locus):
+            str_pos = str(pos-offsets[locus])
+        else:
+            str_pos = str(pos)
+
+        return str_pos
 
     def _getMSFLinesForLocus(self, locus):
 
