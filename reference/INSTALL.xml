@@ -39,7 +39,7 @@
     </formalpara>
     <formalpara>
      <title>Systems tested</title>
-     <para>Fedora Core 2, Fedora Core 3, Slackware 9.1 (may work on other distributions but untested at present)</para>
+     <para>Red Hat 9, Fedora Core 2, Fedora Core 3, Slackware 9.1 (may work on other distributions but untested at present)</para>
     </formalpara>
    </sidebar>
 
