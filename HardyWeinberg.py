@@ -39,8 +39,45 @@
 
 import string, sys, os, popen2
 import _Pvalue
+from math import pow, sqrt
 from Utils import getStreamType, TextOutputStream
 from Arlequin import ArlequinExactHWTest
+
+def _chen_statistic (p_i, p_j, total_gametes, 
+                     p_ii, p_ij, homozygote=None):
+
+  #  double p_i, p_j, p_ij, p_ii, p_jj
+  #  double d, var, norm_dev
+  total_indivs = total_gametes/2
+
+  # printf("allele_array[%d]=%d, allele_array[%d]=%d, N=%d,
+  #     obs_count=%d\n", i, allele_array[i], j, allele_array[j],
+  #     total_indivs, obs_count) */
+
+  #p_i = allele_array[i]/float(total_gametes)
+  #p_ii = genotypes[L(i,i)]/float(total_indivs)
+
+  if (homozygote):
+    # heterozygote case
+
+    ##p_ij = float(genotypes[L(i,j)])/float(total_indivs)
+    ##p_jj = float(genotypes[L(j,j)])/float(total_indivs)
+
+    d = p_i*p_j - (0.5)*p_ij
+    var = (1.0/float(total_gametes))*(p_i*p_j*((1-p_i)*(1-p_j) + p_i*p_j)
+                                      + p_i*p_i*(p_jj - p_j*p_j) 
+                                      + p_j*p_j*(p_ii - p_i*p_i))
+  else:
+    # homozygote case 
+    d = p_i*p_i - p_ii
+    var = (1.0/float(total_indivs))*(pow(p_i, 4.0)-(2*pow(p_i,3.0))+(p_i*p_i))
+
+    norm_dev = abs(d)/sqrt(var)
+
+    #printf("i=%d, j=%d, p_i=%g, p_j=%g, p_ii=%g, p_ij=%g, p_jj=%g,
+    #d=%g, d'=%g, var=%g, ", i, j, p_i, p_j, p_ii, p_ij, p_jj, d,
+    #p_i*p_j - (0.5)*p_ij, var) */
+  return norm_dev
 
 class HardyWeinberg:
   """Calculate Hardy-Weinberg statistics.
