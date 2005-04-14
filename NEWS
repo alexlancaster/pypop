@@ -1,7 +1,7 @@
 PyPop NEWS --- history of user-visible changes to PyPop.  -*- outline -*-
 Copyright (C) 2003, 2004 Regents of the University of California
 
-* Release Notes for PyPop 0.6.0 (public beta) [not released yet]
+* Release Notes for PyPop 0.6.0
 ** New features
 *** Allow for odd allele counts when processing an allele count data 
     (i.e "semi"-typing).  When PyPop is dealing with data that is

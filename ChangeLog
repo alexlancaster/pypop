@@ -1,3 +1,7 @@
+2005-04-13  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* NEWS: Official 0.6.0 release.
+
 2005-04-12  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Filter.py (AnthonyNolanFilter.translateMatrix): Use
