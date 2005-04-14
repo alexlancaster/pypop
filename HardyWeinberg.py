@@ -43,25 +43,31 @@ from math import pow, sqrt
 from Utils import getStreamType, TextOutputStream
 from Arlequin import ArlequinExactHWTest
 
-def _chen_statistic (p_i, p_j, total_gametes, 
-                     p_ii, p_ij, homozygote=None):
+def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
 
-  #  double p_i, p_j, p_ij, p_ii, p_jj
-  #  double d, var, norm_dev
   total_indivs = total_gametes/2
 
-  # printf("allele_array[%d]=%d, allele_array[%d]=%d, N=%d,
-  #     obs_count=%d\n", i, allele_array[i], j, allele_array[j],
-  #     total_indivs, obs_count) */
+  allele1, allele2 = string.split(genotype, ':')
+  p_i = alleleFreqs[allele1]
+  p_j = alleleFreqs[allele2]
 
-  #p_i = allele_array[i]/float(total_gametes)
-  #p_ii = genotypes[L(i,i)]/float(total_indivs)
+  # get current genotype frequency
+  p_ij = genotypes[genotype]/float(total_indivs)
 
-  if (homozygote):
+  # get homozygous genotype frequencies, set to 0.0 if they aren't seen
+  try:
+    p_ii = genotypes[allele1+':'+allele1]/float(total_indivs)
+  except KeyError:
+    p_ii = 0.0
+  try:
+    p_jj = genotypes[allele2+':'+allele2]/float(total_indivs)
+  except KeyError:
+    p_jj = 0.0
+    
+  print p_ii, p_ij, p_jj
+
+  if (allele1 != allele2):
     # heterozygote case
-
-    ##p_ij = float(genotypes[L(i,j)])/float(total_indivs)
-    ##p_jj = float(genotypes[L(j,j)])/float(total_indivs)
 
     d = p_i*p_j - (0.5)*p_ij
     var = (1.0/float(total_gametes))*(p_i*p_j*((1-p_i)*(1-p_j) + p_i*p_j)
@@ -72,12 +78,9 @@ def _chen_statistic (p_i, p_j, total_gametes,
     d = p_i*p_i - p_ii
     var = (1.0/float(total_indivs))*(pow(p_i, 4.0)-(2*pow(p_i,3.0))+(p_i*p_i))
 
-    norm_dev = abs(d)/sqrt(var)
+  chiSquare = abs(d)*abs(d)/var
 
-    #printf("i=%d, j=%d, p_i=%g, p_j=%g, p_ii=%g, p_ij=%g, p_jj=%g,
-    #d=%g, d'=%g, var=%g, ", i, j, p_i, p_j, p_ii, p_ij, p_jj, d,
-    #p_i*p_j - (0.5)*p_ij, var) */
-  return norm_dev
+  return chiSquare
 
 class HardyWeinberg:
   """Calculate Hardy-Weinberg statistics.
@@ -317,8 +320,16 @@ class HardyWeinberg:
             print 'By Allele:    obs exp   chi        p'
             print '          ', allele, self.hetsObservedByAllele[allele], self.hetsExpectedByAllele[allele], self.hetsChisqByAllele[allele], self.hetsPvalByAllele[allele]
 
+    # do Chen's statistic
+    if 0:
+      for genotype in self.observedGenotypeCounts.keys():
+        print genotype
+        print _chen_statistic(genotype, self.alleleFrequencies,
+                            self.observedGenotypeCounts, self.alleleTotal)
+
     # the list for all genotypes by genotype
     for genotype in self.expectedGenotypeCounts.keys():
+
       if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
         if not self.observedGenotypeCounts.has_key(genotype):
           self.observedGenotypeCounts[genotype] = 0
