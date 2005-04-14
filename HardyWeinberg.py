@@ -64,8 +64,6 @@ def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
   except KeyError:
     p_jj = 0.0
     
-  print p_ii, p_ij, p_jj
-
   if (allele1 != allele2):
     # heterozygote case
 
@@ -324,8 +322,9 @@ class HardyWeinberg:
     if 0:
       for genotype in self.observedGenotypeCounts.keys():
         print genotype
-        print _chen_statistic(genotype, self.alleleFrequencies,
+        chenChiSquare = _chen_statistic(genotype, self.alleleFrequencies,
                             self.observedGenotypeCounts, self.alleleTotal)
+        print _Pvalue.pval(chenChiSquare,1)
 
     # the list for all genotypes by genotype
     for genotype in self.expectedGenotypeCounts.keys():
