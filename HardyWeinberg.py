@@ -111,8 +111,11 @@ class HardyWeinberg:
     self.n = len(self.locusData)
     self.k = len(self.alleleCounts)
 
+    self.flagChenTest = 0
+    
     self._generateTables()
     self._calcChisq()
+
 
 ################################################################################
 
@@ -138,6 +141,9 @@ class HardyWeinberg:
     self.totalHetsExp = 0.0
     
     # self.alleleTotal = 0
+
+    if self.flagChenTest:
+      self.chenPvalByGenotype = {}
 
     for allele in self.locusData:
       """Run through each tuple in the given genotype data and
@@ -282,9 +288,6 @@ class HardyWeinberg:
       squareMe = self.totalHomsObs - self.totalHomsExp
       self.totalChisqHoms = (squareMe * squareMe) / self.totalHomsExp
 
-      #command = "pval 1 %f" % (self.totalChisqHoms)
-      #returnedValue = os.popen(command, 'r').readlines()
-      #self.chisqHomsPval = float(returnedValue[0][:-1])
       self.chisqHomsPval = _Pvalue.pval(self.totalChisqHoms, 1)
       self.flagHoms = 1
 
@@ -293,9 +296,6 @@ class HardyWeinberg:
       squareMe = self.totalHetsObs - self.totalHetsExp
       self.totalChisqHets = (squareMe * squareMe) / self.totalHetsExp
 
-      #command = "pval 1 %f" % (self.totalChisqHets)
-      #returnedValue = os.popen(command, 'r').readlines()
-      #self.chisqHetsPval = float(returnedValue[0][:-1])
       self.chisqHetsPval = _Pvalue.pval(self.totalChisqHets, 1)
       self.flagHets = 1
 
@@ -309,9 +309,6 @@ class HardyWeinberg:
           squareMe = self.hetsObservedByAllele[allele] - self.hetsExpectedByAllele[allele]
           self.hetsChisqByAllele[allele] = (squareMe * squareMe) / self.hetsExpectedByAllele[allele]
 
-          #command = "pval 1 %f" % (self.hetsChisqByAllele[allele])
-          #returnedValue = os.popen(command, 'r').readlines()
-          #self.hetsPvalByAllele[allele] = float(returnedValue[0][:-1])
           self.hetsPvalByAllele[allele] = _Pvalue.pval(self.hetsChisqByAllele[allele], 1)
 
           if self.debug:
@@ -319,12 +316,11 @@ class HardyWeinberg:
             print '          ', allele, self.hetsObservedByAllele[allele], self.hetsExpectedByAllele[allele], self.hetsChisqByAllele[allele], self.hetsPvalByAllele[allele]
 
     # do Chen's statistic
-    if 0:
+    if self.flagChenTest:
       for genotype in self.observedGenotypeCounts.keys():
-        print genotype
         chenChiSquare = _chen_statistic(genotype, self.alleleFrequencies,
                             self.observedGenotypeCounts, self.alleleTotal)
-        print _Pvalue.pval(chenChiSquare,1)
+        self.chenPvalByGenotype[genotype] = _Pvalue.pval(chenChiSquare,1)
 
     # the list for all genotypes by genotype
     for genotype in self.expectedGenotypeCounts.keys():
@@ -336,9 +332,6 @@ class HardyWeinberg:
         squareMe = self.observedGenotypeCounts[genotype] - self.expectedGenotypeCounts[genotype]
 
         self.chisqByGenotype[genotype] = (squareMe * squareMe) / self.expectedGenotypeCounts[genotype]
-        #command = "pval 1 %f" % (self.chisqByGenotype[genotype])
-        #returnedValue = os.popen(command, 'r').readlines()
-        #self.pvalByGenotype[genotype] = float(returnedValue[0][:-1])
         self.pvalByGenotype[genotype] = _Pvalue.pval(self.chisqByGenotype[genotype],1)
         
         if self.debug:
@@ -381,9 +374,6 @@ class HardyWeinberg:
         squareMe = observedCount - self.expectedGenotypeCounts[genotype]
         self.chisq[genotype] = (squareMe * squareMe) / self.expectedGenotypeCounts[genotype]
 
-        #command = "pval 1 %f" % (self.chisq[genotype])
-        #returnedValue = os.popen(command, 'r').readlines()
-        #self.chisqPval[genotype] = float(returnedValue[0][:-1])
         self.chisqPval[genotype] = _Pvalue.pval(self.chisq[genotype], 1)
         
         self.commonChisqAccumulator += self.chisq[genotype]
@@ -419,9 +409,6 @@ class HardyWeinberg:
       self.HWChisq = self.commonChisqAccumulator
 
       self.HWChisqDf = (float(self.k) * (float(self.k - 1.0))) / 2.0
-      #command = "pval %d %f" % (self.HWChisqDf, self.commonChisqAccumulator)
-      #returnValue = os.popen(command, 'r').readlines()
-      #self.HWChisqPval = float(returnValue[0][:-1])
       self.HWChisqPval = _Pvalue.pval(self.commonChisqAccumulator, self.HWChisqDf)
 
       self.flagCommons = 1
@@ -457,9 +444,6 @@ class HardyWeinberg:
           squareMe = self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes
           self.lumpedChisq = (squareMe * squareMe) / self.lumpedExpectedGenotypes
 
-          #command = "pval 1 %f" % (self.lumpedChisq)
-          #returnedValue = os.popen(command, 'r').readlines()
-          #self.lumpedChisqPval = float(returnedValue[0][:-1])
           self.lumpedChisqPval = _Pvalue.pval(self.lumpedChisq, 1)
             
           self.flagLumps = 1
@@ -474,9 +458,6 @@ class HardyWeinberg:
         # Do commons by themselves first
         self.HWChisq = self.commonChisqAccumulator
         self.HWChisqDf = self.commonDf
-        #command = "pval %f %f" % (self.HWChisqDf, self.HWChisq)
-        #returnedValue = os.popen(command, 'r').readlines()
-        #self.HWChisqPval = float(returnedValue[0][:-1])
         self.HWChisqPval = _Pvalue.pval(self.HWChisq, self.HWChisqDf)
         self.flagCommons = 1
 
@@ -486,9 +467,6 @@ class HardyWeinberg:
           self.commonPlusLumpedObserved = self.commonObservedAccumulator + self.lumpedObservedGenotypes
           self.commonPlusLumpedExpected = self.commonExpectedAccumulator + self.lumpedExpectedGenotypes
           self.commonPlusLumpedChisqDf = self.commonDf
-          #command = "pval %f %f" % (self.commonPlusLumpedChisqDf, self.commonPlusLumpedChisq)
-          #returnedValue = os.popen(command, 'r').readlines()
-          #self.commonPlusLumpedChisqPval = float(returnedValue[0][:-1])
           self.commonPlusLumpedChisqPval = _Pvalue.pval(self.commonPlusLumpedChisq, self.commonPlusLumpedChisqDf)
           
           self.flagCommonPlusLumped = 1
@@ -692,11 +670,19 @@ class HardyWeinberg:
           stream.writeln()
           stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[key1])
           stream.writeln()
+          if self.flagChenTest:
+            stream.tagContents("chenPvalue", "%4f" % \
+                               self.chenPvalByGenotype[key1])
+            stream.writeln()
         elif self.chisqByGenotype.has_key(key2):
           stream.tagContents("chisq", "%4f" % self.chisqByGenotype[key2])
           stream.writeln()
           stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[key2])
           stream.writeln()
+          if self.flagChenTest:
+            stream.tagContents("chenPvalue", "%4f" % \
+                               self.chenPvalByGenotype[key2])
+            stream.writeln()
         else:
           stream.emptytag("chisq", role='not-calculated')
           stream.emptytag("pvalue", role='not-calculated')
