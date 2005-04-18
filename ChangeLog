@@ -1,3 +1,14 @@
+2005-04-18  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* HardyWeinberg.py (HardyWeinberg.__init__): Add flag for running
+	Chen's statistic.
+	(HardyWeinberg._generateTables): Create a data structure for
+	storing Chen statistics if above flag is set.
+	(HardyWeinberg._calcChisq): Store pvalue in data structure.
+	(HardyWeinberg.): Throughout: remove command-line pvalue cruft.
+	(HardyWeinberg.serializeXMLTableTo): Output Chen's statistics to
+	XML in genotypeTable block.
+
 2005-04-13  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* NEWS: Official 0.6.0 release.
