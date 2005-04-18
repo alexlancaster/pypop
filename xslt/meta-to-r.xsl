@@ -457,6 +457,10 @@ MODIFICATIONS.
       </xsl:call-template>
 
       <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="chenPvalue"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
        <xsl:with-param name="node" select="$pvals-chen-mcmc[$pos]"/>
       </xsl:call-template>
 
@@ -752,7 +756,7 @@ MODIFICATIONS.
      <xsl:call-template name="header-line-start">
       <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
      </xsl:call-template>
-     <xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;steps.mcmc&#09;steps.monte.carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
+     <xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chisq.chen&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;steps.mcmc&#09;steps.monte.carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
 
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">

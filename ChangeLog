@@ -1,5 +1,9 @@
 2005-04-18  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* xslt/meta-to-r.xsl (1-locus-genotype.dat): Support new
+	pval.chisq.chen field: p-value using Chen's chi-square statistic
+	in .dat file output as new field..
+
 	* HardyWeinberg.py (HardyWeinberg.__init__): Add flag for running
 	Chen's statistic.
 	(HardyWeinberg._generateTables): Create a data structure for
