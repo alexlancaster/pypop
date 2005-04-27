@@ -541,28 +541,49 @@ class Main:
         if self.popDump:
 
             originalMatrix = self.matrixHistory[0]
-
+	 
             for locus in originalMatrix.colList:
-
+		
                 popDumpPath = self.defaultPopDumpPath + "-" + locus + "-filtered.pop"
                 dumpFile = TextOutputStream(open(popDumpPath, 'w'))
                 
                 dumpMatrix = self.matrixHistory[self.popDump]
-
+		
                 for locusPos in dumpMatrix.colList:
-                    if dumpMatrix.colList.index(locusPos) > 0 and locusPos[0:len(locus)] == locus:
-                        dumpFile.write('\t')
+                    nextLoc = dumpMatrix.colList.index(locusPos)+1
+
+		    if nextLoc >= len(dumpMatrix.colList):
+			lastItem = 1
+		    else:
+			nextLocName = dumpMatrix.colList[nextLoc]
+			if nextLocName[0:len(locus)] == locus:
+		          lastItem = 0
+			else:
+			  lastItem = 1
+                    if dumpMatrix.colList.index(locusPos) >= 0 and locusPos[0:len(locus)] == locus:
                         dumpFile.write(locusPos + '_1\t' + locusPos + '_2')
+			if not(lastItem):
+                       	  dumpFile.write('\t')
 
                 dumpFile.write(os.linesep)
 
                 individCount = 0
                 while individCount < len(dumpMatrix):
                     for locusPos in dumpMatrix.colList:
+                    	nextLoc = dumpMatrix.colList.index(locusPos)+1
+		    	if nextLoc >= len(dumpMatrix.colList):
+				lastItem = 1
+		    	else:
+				nextLocName = dumpMatrix.colList[nextLoc]
+				if nextLocName[0:len(locus)] == locus:
+			          lastItem = 0
+				else:
+				  lastItem = 1
                         individ = dumpMatrix[locusPos][individCount]
-                        if dumpMatrix.colList.index(locusPos) > 0 and locusPos[0:len(locus)] == locus:
-                            dumpFile.write('\t')
+                        if dumpMatrix.colList.index(locusPos) >= 0 and locusPos[0:len(locus)] == locus:
                             dumpFile.write(individ[0] + '\t' + individ[1])
+			    if not(lastItem):
+                       	      dumpFile.write('\t')
                     individCount += 1
                     dumpFile.write(os.linesep)
                 dumpFile.close()
