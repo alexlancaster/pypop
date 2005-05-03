@@ -112,7 +112,7 @@ class HardyWeinberg:
     self.n = len(self.locusData)
     self.k = len(self.alleleCounts)
 
-    self.flagChenTest = 1
+    self.flagChenTest = 0
     
     self._generateTables()
     self._calcChisq()
