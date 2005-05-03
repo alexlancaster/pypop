@@ -1,3 +1,8 @@
+2005-05-03  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* HardyWeinberg.py (HardyWeinberg.serializeXMLTableTo): Fixed
+	logic in serialization:  make sure key always exists.
+
 2005-04-27  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Main.py (Main.__init__): Some more horrible hacks to make
