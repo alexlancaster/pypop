@@ -2,7 +2,8 @@
 
 # This file is part of PyPop
 
-# Copyright (C) 2003. The Regents of the University of California (Regents)
+# Copyright (C) 2003-2005.
+# The Regents of the University of California (Regents)
 # All Rights Reserved.
 
 # This program is free software; you can redistribute it and/or modify
@@ -111,7 +112,7 @@ class HardyWeinberg:
     self.n = len(self.locusData)
     self.k = len(self.alleleCounts)
 
-    self.flagChenTest = 0
+    self.flagChenTest = 1
     
     self._generateTables()
     self._calcChisq()
@@ -669,23 +670,27 @@ class HardyWeinberg:
           stream.tagContents("chisq", "%4f" % self.chisqByGenotype[key1])
           stream.writeln()
           stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[key1])
-          stream.writeln()
-          if self.flagChenTest:
-            stream.tagContents("chenPvalue", "%4f" % \
-                               self.chenPvalByGenotype[key1])
-            stream.writeln()
         elif self.chisqByGenotype.has_key(key2):
           stream.tagContents("chisq", "%4f" % self.chisqByGenotype[key2])
           stream.writeln()
           stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[key2])
-          stream.writeln()
-          if self.flagChenTest:
-            stream.tagContents("chenPvalue", "%4f" % \
-                               self.chenPvalByGenotype[key2])
-            stream.writeln()
         else:
           stream.emptytag("chisq", role='not-calculated')
+          stream.writeln()
           stream.emptytag("pvalue", role='not-calculated')
+        stream.writeln()
+
+        if self.flagChenTest:
+          if self.chenPvalByGenotype.has_key(key1):
+            stream.tagContents("chenPvalue", "%4f" % \
+                             self.chenPvalByGenotype[key1])
+          elif self.chenPvalByGenotype.has_key(key2):
+            stream.tagContents("chenPvalue", "%4f" % \
+                               self.chenPvalByGenotype[key2])
+          else:
+            stream.emptytag("chenPvalue", role='not-calculated')
+          stream.writeln()
+
           
         stream.closetag("genotype")
         stream.writeln()
