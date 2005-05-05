@@ -1,3 +1,8 @@
+2005-05-05  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* hwe.c (init_rand): Don't use fixed seed, take from call to
+	time().
+
 2005-03-10  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* hwe.c (run_randomization): Use #ifdef INDIVID_GENOTYPES
