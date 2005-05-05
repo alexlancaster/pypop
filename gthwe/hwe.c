@@ -94,8 +94,8 @@ int main(int argc, char *argv[])
 /* 
  * init_rand(): initializes random number generator 
  */
-long init_rand(void) {
-
+long init_rand(void) 
+{
   register int i, j;
   unsigned long xxx[12];
   
@@ -104,10 +104,10 @@ long init_rand(void) {
   long t1;
   extern unsigned long congrval, tausval;
 
-  /* srand(time(NULL));  */
+  srand(time(NULL)); 
   
   /* for testing purposes only */
-  srand(1234);  
+  /* srand(1234);   */
 
   /* seeds selection for Splus type random number generator. */	
   for (i = 0; i < 12; i++) {
