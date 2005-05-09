@@ -35,6 +35,7 @@
 
 from distutils.core import setup, Extension
 from distutils.file_util import copy_file
+from distutils.sysconfig import PREFIX
 
 import sys, os, string
 
@@ -172,7 +173,8 @@ if not(distrib_version):
 
 ext_Gthwe = Extension("_Gthwemodule",
                       ext_Gthwe_files,
-                      include_dirs=["gthwe"],
+                      include_dirs=["gthwe", os.path.join(PREFIX, "include")],
+                      library_dirs=[os.path.join(PREFIX, "lib")],
                       libraries=["gsl", "gslcblas"],
                       define_macros=ext_Gthwe_macros
                       )
