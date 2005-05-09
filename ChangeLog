@@ -1,3 +1,9 @@
+2005-05-09  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* setup.py (ext_Gthwe): Add PREFIX/include to include_dirs and
+	PREFIX/lib to library_dirs so that builds with prefixes that
+	aren't '/usr/' work.
+
 2005-05-03  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* HardyWeinberg.py (HardyWeinberg.serializeXMLTableTo): Fixed
