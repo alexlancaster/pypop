@@ -570,6 +570,16 @@ class Emhaplofreq(Haplo):
             mode = 'all-pairwise-ld-' + permuMode
 
         loci = self.matrix.colList
+
+        # FIXME: hack to determine whether we are analysing sequence
+        # we use a regex to match anything in the form A_32 or A_-32
+        # this should be passed as a parameter
+        print loci[0]
+        if re.search("[a-zA-Z]+_[-]?[0-9]+", loci[0]):
+            sequenceData = 1
+        else:
+            sequenceData = 0
+        
         li = []
         for i in loci:
             lociCopy = loci[:]
@@ -579,7 +589,18 @@ class Emhaplofreq(Haplo):
                 if ((i+':'+j) in li) or ((j+':'+i) in li):
                     pass
                 else:
-                    li.append(i+':'+j)
+                    # if we are running sequence data restrict pairs
+                    # to pairs within *within* the same gene locus
+                    if sequenceData:
+                        genelocus_i = string.split(i,'_')[0]
+                        genelocus_j = string.split(j,'_')[0]
+                        # only append if gene is *within* the same locus
+                        if genelocus_i == genelocus_j:
+                            li.append(i+':'+j)
+                        else:
+                            print i, j, " not a valid combo"
+                    else:
+                        li.append(i+':'+j)
 
         if self.debug:
             print li, len(li)
@@ -594,7 +615,8 @@ class Emhaplofreq(Haplo):
                 showHaplo = 'yes'
             else:
                 showHaplo = 'no'
-            
+
+            print "running pair: ", pair
             self._runEmhaplofreq(pair,
                                  permutationFlag=permutationFlag,
                                  permutationPrintFlag=permutationPrintFlag,
