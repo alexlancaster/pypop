@@ -1,5 +1,17 @@
 PyPop NEWS --- history of user-visible changes to PyPop.  -*- outline -*-
-Copyright (C) 2003, 2004 Regents of the University of California
+Copyright (C) 2003, 2004, 2005 Regents of the University of California
+
+* Release Notes since 0.6.0
+** New features
+*** 'makeNewPopFile' option has been changed.  This option allows user to 
+    generate intermediate output of filtered files. Now option should
+    be of the format: 'type:order' where 'type' is one of
+    'separate-loci' or 'all-loci' so that the user can specify whether
+    a separate file should be generated for each locus
+    ('separate-loci') or a single file with all loci ('all-loci').
+    'order' should be the order in the filtering chain where the
+    matrix is generated, there is no default, for example, for
+    generating files after the first filter operation use '1'.
 
 * Release Notes for PyPop 0.6.0
 ** New features
