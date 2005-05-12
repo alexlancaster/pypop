@@ -614,7 +614,6 @@ class Emhaplofreq(Haplo):
             else:
                 showHaplo = 'no'
 
-            print "running pair: ", pair
             self._runEmhaplofreq(pair,
                                  permutationFlag=permutationFlag,
                                  permutationPrintFlag=permutationPrintFlag,
