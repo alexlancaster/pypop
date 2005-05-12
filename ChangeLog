@@ -1,3 +1,48 @@
+2005-05-12  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* ParseFile.py (ParseGenotypeFile._genInternalMaps): Create a map
+	'self.nonAlleleMap' to contain non-allele fields.
+	Remove obsolete return of self.alleleMap, now an iVar.
+	(ParseGenotypeFile._genDataStructures): When creating initial
+	StringMatrix instance, now include the list of non-allele columns,
+	separator type and the header metadata.  Before storing allele
+	data, store the non-allele sample data using new StringMatrix
+	call.
+	Ensure that separator is called as an instance variable
+	self.separator.
+
+	* Main.py (Main.__init__): Implement more detailed semantics for
+	'makeNewPopFile' option.  Now option should be of the format:
+	'type:order' where 'type' is one of 'separate-loci' or 'all-loci'
+	so that the user can specify whether a separate file should be
+	generated for each locus ('separate-loci') or a single file with
+	all loci ('all-loci').  'order' should be the order in the
+	filtering chain where the matrix is generated, there is no
+	default, for example, for generating files after the first filter
+	operation use '1'.
+	(Main._runFilters): Use detailed semantics for choosing files,
+	complicated code for generating output has now been replaced by a
+	single call to the new StringMatrix.dump() method, suppyling an
+	appropriate file stream.
+
+	* Utils.py (StringMatrix.__init__): Retool data structure so that
+	it saves non-allele data (e.g. population name, sample id) and the
+	meta-data header so that the entire data structure can be
+	regenerated at each step of filtering.
+	Add new extraList, colSep, headerLines keyword parameters to save
+	Initialise array size to cope with extra data.
+	(StringMatrix.dump): New method, saves a file-like representation
+	of the data to the specified stream (defaults to sys.stdout).
+	(StringMatrix.copy): Ensure that new data structures get
+	propagated during the deep copy.
+	(StringMatrix.__setitem__): Handle storage of non-allele data.
+	(StringMatrix.__getitem__): Handle new offsets into the NumPy
+	array.  Now users can retrieve a list of non-allele columns,
+	e.g. matrix['populat'] or matrix['id'].
+
+	* config.ini (filtersToApply): Add commented-out sample of how to
+	use new 'makeNewPopFile' option.
+
 2005-05-09  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* setup.py (ext_Gthwe): Add PREFIX/include to include_dirs and
