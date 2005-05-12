@@ -411,6 +411,9 @@ class ParseGenotypeFile(ParseFile):
         
         popNameCol = None
 
+        # create a map that only contains non-allele fields
+        self.nonAlleleMap = OrderedDict()
+
         self.alleleMap = OrderedDict()
         for key in self.sampleMap.keys():
 
@@ -423,6 +426,9 @@ class ParseGenotypeFile(ParseFile):
                 self.alleleMap[locusKey] = self.sampleMap[key]
             elif key[0] == self.popNameDesignator:
                 popNameCol = self.sampleMap[key]
+                self.nonAlleleMap[key[1:]] = self.sampleMap[key]
+            else:
+                self.nonAlleleMap[key] = self.sampleMap[key]
 
         if popNameCol == None:
             self.popName = None
@@ -430,7 +436,6 @@ class ParseGenotypeFile(ParseFile):
             # save population name
             self.popName = string.split(self.fileData[self.sampleFirstLine], self.separator)[popNameCol]
 
-        return self.alleleMap
 
     def _genDataStructures(self):
         """Generates matrix only
@@ -457,9 +462,29 @@ class ParseGenotypeFile(ParseFile):
         # freeze the list of locusKeys in a particular order
         self.locusKeys = self.alleleMap.keys()
 
+        # freeze list of non-allel data
+        self.extraKeys = self.nonAlleleMap.keys()
+
         # create an empty-list of lists to store all the row data
         #self.individualsList = [[] for line in range(0, self.totalIndivCount)]
-        self.matrix = StringMatrix(self.totalIndivCount, self.locusKeys)
+        self.matrix = StringMatrix(self.totalIndivCount,
+                                   self.locusKeys,
+                                   self.extraKeys,
+                                   self.separator,
+                                   self.fileData[:self.sampleFirstLine-1])
+
+        rowCount = 0
+        # store all the non-allele meta-data
+        for line in sampleDataLines:
+            fields = string.split(line, self.separator)
+            for key in self.nonAlleleMap.keys():
+                self.matrix[rowCount, key] = fields[self.nonAlleleMap[key]]
+
+            rowCount += 1
+
+        if self.debug:
+            print "before filling matrix with allele data"
+            print self.matrix
 
         for locus in self.locusKeys:
             if self.debug:
@@ -471,7 +496,7 @@ class ParseGenotypeFile(ParseFile):
             # re-initialise the row count on each iteration of the locus
             rowCount = 0
             for line in sampleDataLines:
-                fields = string.split(line, separator)
+                fields = string.split(line, self.separator)
 
                 # create data structures
 
@@ -625,7 +650,9 @@ class ParseAlleleCountFile(ParseFile):
         self.locusList = [self.locusName]
 
         # create an empty-list of lists to store all the row data
-        self.matrix = StringMatrix(self.totalIndivCount, self.locusList)
+        self.matrix = StringMatrix(self.totalIndivCount,
+                                   self.locusList,
+                                   self.separator)
 
         # loop through alleles creating pseudo-genotypes
         rowCount = 0

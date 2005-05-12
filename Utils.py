@@ -360,7 +360,12 @@ class StringMatrix(UserArray):
   array format, rather than internal Python lists.
   """
 
-  def __init__(self, rowCount=None, colList=None):
+  def __init__(self,
+               rowCount=None,
+               colList=None,
+               extraList=None,
+               colSep='\t',
+               headerLines=None):
       """Constructor for StringMatrix.
 
       colList is a mutable type so we freeze the list of locus keys in
@@ -377,7 +382,18 @@ class StringMatrix(UserArray):
       self.colCount = len(self.colList)
       self.rowCount = rowCount
 
-      self.array = zeros((self.rowCount, self.colCount*2), PyObject)
+      if extraList:
+          self.extraList = extraList[:]
+          self.extraCount = len(self.extraList)
+      else:
+          self.extraList = None
+          self.extraCount = 0
+
+      self.colSep = colSep
+      self.headerLines = headerLines
+
+      # initialising the internal NumPy array
+      self.array = zeros((self.rowCount, self.colCount*2+self.extraCount), PyObject)
       self.shape = self.array.shape
       self._typecode = self.array.typecode()
       self.name = string.split(str(self.__class__))[0]
@@ -393,13 +409,46 @@ class StringMatrix(UserArray):
       else:
           return (self.__class__.__name__)[6:12]+"("+repr(self.array)+")"
 
+  def dump(self, locus=None, stream=sys.stdout):
+      # write out file in original format
+      # first write out header, if there is one
+      if self.headerLines:
+          for line in self.headerLines:
+              stream.write(line),
+
+      # next write out the non-allele column headers, if there are some
+      if self.extraList:
+          for elem in self.extraList:
+              stream.write(elem + self.colSep)
+
+      if locus:
+          locusList = locus
+      else:
+          locusList = string.join(self.colList,':')
+
+      # next write out the allele column headers
+      for elem in string.split(locusList, ':'):
+          stream.write(elem + '_1' + self.colSep)
+          stream.write(elem + '_2' + self.colSep,)
+      stream.write(os.linesep)
+
+      # finally the matrix itself
+      for row in self.__getitem__(string.join(self.extraList,':')+ ':' + \
+                                  locusList):
+          for elem in row:
+              stream.write(elem + self.colSep)
+          stream.write(os.linesep)
+
   def copy(self):
       """Make a (deep) copy of the StringMatrix
 
       Currently this goes via the constructor, not sure if
       there is a better way of doing this"""
       thecopy = StringMatrix(copy.deepcopy(self.rowCount), \
-                             copy.deepcopy(self.colList))
+                             copy.deepcopy(self.colList),
+                             copy.deepcopy(self.extraList),
+                             self.colSep,
+                             self.headerLines)
       thecopy.array = self.array.copy()
       return thecopy
 
@@ -428,7 +477,7 @@ class StringMatrix(UserArray):
       if type(key) == types.TupleType:
           row,colName= key
           if colName in self.colList:
-              col = self.colList.index(colName)
+              col = self.colList.index(self.extraCount+colName)
           else:
               raise KeyError("can't find %s column" % colName)
           return self.array[(row,col)]
@@ -436,14 +485,18 @@ class StringMatrix(UserArray):
           colNames = string.split(key, ":")
           li = []
           for col in colNames:
+              # check first in list of alleles
               if col in self.colList:
                   # get relative location in list
                   relativeLoc = self.colList.index(col)
                   # calculate real locations in array
-                  col1 = relativeLoc * 2
+                  col1 = relativeLoc * 2 + self.extraCount
                   col2 = col1 + 1
                   li.append(col1)
                   li.append(col2)
+              # now check in non-allele metadata
+              elif col in self.extraList:
+                  li.append(self.extraList.index(col))
               else:
                   raise KeyError("can't find %s column" % col)
 
@@ -471,6 +524,8 @@ class StringMatrix(UserArray):
           raise IndexError("index is not a tuple")
       if type(value) == types.TupleType:
           value1, value2 = value
+      elif type(value) == types.StringType:
+          value = value
       else:
           raise ValueError("value being assigned is not a tuple")
 
@@ -480,11 +535,15 @@ class StringMatrix(UserArray):
           # calculate the offsets to the actual array location
           col1 = col * 2
           col2 = col1 + 1
+          # store each element in turn
+          self.array[(row,col1+self.extraCount)] = asarray(value1,self._typecode)
+          self.array[(row,col2+self.extraCount)] = asarray(value2,self._typecode)
+
+      elif colName in self.extraList:
+          col = self.extraList.index(colName)
+          self.array[(row,col)] = asarray(value,self._typecode)
       else:
           raise KeyError("can't find %s column" % col)
-      # store each element in turn
-      self.array[(row,col1)] = asarray(value1,self._typecode)
-      self.array[(row,col2)] = asarray(value2,self._typecode)
 
   def filterOut(self, key, blankDesignator):
       """Returns a filtered matrix.

@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 
 # This file is part of PyPop
@@ -336,11 +337,18 @@ class Main:
             try:
                 self.filtersToApply = self.config.get("Filters", "filtersToApply")
                 self.filtersToApply = string.split(self.filtersToApply, ':')
-            except:
+            except NoOptionError:
                 self.filtersToApply = []
             try:
-                self.popDump = self.config.getint("Filters","makeNewPopFile")
-            except:
+                self.popDump = self.config.get("Filters","makeNewPopFile")
+                self.dumpType, self.dumpOrder = string.split(self.popDump, ':')
+
+                if self.dumpType in ['separate-loci', 'all-loci']:
+                    self.dumpOrder = int(self.dumpOrder)
+                else:
+                    sys.exit("%s is not a valid keyword for population dump: must be either 'separate-loci' or 'all-loci'" % self.dumpType )
+                
+            except NoOptionError:
                 self.popDump = 0
 
             # this allows the user to have "filtersToApply=" without ill consequences
@@ -537,56 +545,25 @@ class Main:
             print "matrixHistory"
             print self.matrixHistory
 
-        # outputs a pop file, of sorts.  method should be moved to data type class.
+        # outputs pop file(s)
         if self.popDump:
-
             originalMatrix = self.matrixHistory[0]
-	 
-            for locus in originalMatrix.colList:
-		
-                popDumpPath = self.defaultPopDumpPath + "-" + locus + "-filtered.pop"
-                dumpFile = TextOutputStream(open(popDumpPath, 'w'))
+
+            if self.dumpType == 'separate-loci':
+                for locus in originalMatrix.colList:
+                    popDumpPath = self.defaultPopDumpPath + "-" + \
+                                  locus + "-filtered.pop"
+                    dumpFile = TextOutputStream(open(popDumpPath, 'w'))
+                    dumpMatrix = self.matrixHistory[self.dumpOrder]
+                    dumpMatrix.dump(locus=locus, stream=dumpFile)
+                    dumpFile.close()
+            elif self.dumpType == 'all-loci':
+                    popDumpPath = self.defaultPopDumpPath + "-filtered.pop"
+                    dumpFile = TextOutputStream(open(popDumpPath, 'w'))
+                    dumpMatrix = self.matrixHistory[self.dumpOrder]
+                    dumpMatrix.dump(stream=dumpFile)
+                    dumpFile.close()
                 
-                dumpMatrix = self.matrixHistory[self.popDump]
-		
-                for locusPos in dumpMatrix.colList:
-                    nextLoc = dumpMatrix.colList.index(locusPos)+1
-
-		    if nextLoc >= len(dumpMatrix.colList):
-			lastItem = 1
-		    else:
-			nextLocName = dumpMatrix.colList[nextLoc]
-			if nextLocName[0:len(locus)] == locus:
-		          lastItem = 0
-			else:
-			  lastItem = 1
-                    if dumpMatrix.colList.index(locusPos) >= 0 and locusPos[0:len(locus)] == locus:
-                        dumpFile.write(locusPos + '_1\t' + locusPos + '_2')
-			if not(lastItem):
-                       	  dumpFile.write('\t')
-
-                dumpFile.write(os.linesep)
-
-                individCount = 0
-                while individCount < len(dumpMatrix):
-                    for locusPos in dumpMatrix.colList:
-                    	nextLoc = dumpMatrix.colList.index(locusPos)+1
-		    	if nextLoc >= len(dumpMatrix.colList):
-				lastItem = 1
-		    	else:
-				nextLocName = dumpMatrix.colList[nextLoc]
-				if nextLocName[0:len(locus)] == locus:
-			          lastItem = 0
-				else:
-				  lastItem = 1
-                        individ = dumpMatrix[locusPos][individCount]
-                        if dumpMatrix.colList.index(locusPos) >= 0 and locusPos[0:len(locus)] == locus:
-                            dumpFile.write(individ[0] + '\t' + individ[1])
-			    if not(lastItem):
-                       	      dumpFile.write('\t')
-                    individCount += 1
-                    dumpFile.write(os.linesep)
-                dumpFile.close()
 
     def _doGenotypeFile(self):
 
