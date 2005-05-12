@@ -1,5 +1,7 @@
 2005-05-12  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* NEWS: Note new feature.
+
 	* ParseFile.py (ParseGenotypeFile._genInternalMaps): Create a map
 	'self.nonAlleleMap' to contain non-allele fields.
 	Remove obsolete return of self.alleleMap, now an iVar.
