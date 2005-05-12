@@ -597,8 +597,6 @@ class Emhaplofreq(Haplo):
                         # only append if gene is *within* the same locus
                         if genelocus_i == genelocus_j:
                             li.append(i+':'+j)
-                        else:
-                            print i, j, " not a valid combo"
                     else:
                         li.append(i+':'+j)
 
