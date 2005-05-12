@@ -2,7 +2,7 @@
 
 # This file is part of PyPop
 
-# Copyright (C) 2003. The Regents of the University of California (Regents)
+# Copyright (C) 2003-2005. The Regents of the University of California (Regents)
 # All Rights Reserved.
 
 # This program is free software; you can redistribute it and/or modify
