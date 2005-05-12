@@ -1,5 +1,12 @@
 2005-05-12  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* Haplo.py (Emhaplofreq.allPairwise): A kludge to determine
+	whether we are analysing sequence data: use a regex to match loci
+	in the form A_32 or A_-32 (ideally this would be passed as a
+	parameter from the .ini file).  If we are running sequence data,
+	restrict "all" pairwise to pairs *within* the same gene
+	locus (e.g. "A_32:A_99" but *not* "A_32:C_45").
+
 	* pypop.py: Bump copyright dates.
 
 	* NEWS: Note new feature.
