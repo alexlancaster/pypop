@@ -46,7 +46,7 @@ from distutils.command.build_ext import build_ext
 # configuration of distutils
 class my_build_ext(build_ext):
 
-    def swig_sources (self, sources):
+    def swig_sources (self, sources, extension=None):
 
         """Walk the list of source files in 'sources', looking for SWIG
         interface (.i) files.  Run SWIG on all that are found, and
