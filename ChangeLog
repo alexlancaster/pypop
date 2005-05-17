@@ -1,3 +1,8 @@
+2005-05-16  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* setup.py (my_build_ext.swig_sources): Add "extension=None"
+	keyword parameter for forwards-compatibility with Pythoh 2.4.
+
 2005-05-12  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Haplo.py (Emhaplofreq.allPairwise): A kludge to determine
