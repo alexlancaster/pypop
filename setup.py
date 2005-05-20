@@ -184,7 +184,8 @@ ext_HweEnum = Extension("_HweEnum",
                         "hwe-enumeration/src/hwe_enum.c",
                         "hwe-enumeration/src/factorial.c",
                         "hwe-enumeration/src/main.c",
-                        "hwe-enumeration/src/common.c"],
+                        "hwe-enumeration/src/common.c",
+                        "hwe-enumeration/src/statistics.c"],
                       include_dirs=["hwe-enumeration/src/include",
                                     "/usr/include/glib-2.0",
                                     "/usr/include/glib-2.0/include",
@@ -194,7 +195,8 @@ ext_HweEnum = Extension("_HweEnum",
                       define_macros=[('__SORT_TABLE__', '1'),
                                      ('g_fprintf', 'pyfprintf'),
                                      ('VERSION', '"internal"'),
-                                     ('PACKAGE_NAME','"hwe-enumeration"')]
+                                     ('PACKAGE_NAME','"hwe-enumeration"'),
+                                     ('INDIVID_GENOTYPES', '1')]
                       )
 
 # check to see if version of Python is > 2.1
