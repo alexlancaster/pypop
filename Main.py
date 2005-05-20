@@ -691,9 +691,9 @@ class Main:
             hwObject.dumpTable(locus, self.xmlStream)
             self.xmlStream.writeln()
 
-          # FIXME: this is a hack until we support this in the
-          # .ini file
-          if 0:
+          # FIXME: need a way to disable if too many
+          # alleles/individuals in a given population.
+          if self.config.has_section("HardyWeinbergEnumeration"):
               hwEnum = HardyWeinbergEnumeration(\
                      locusData=self.input.getLocusDataAt(locus), 
                      alleleCount=self.input.getAlleleCountAt(locus),
