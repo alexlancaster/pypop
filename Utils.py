@@ -477,7 +477,7 @@ class StringMatrix(UserArray):
       if type(key) == types.TupleType:
           row,colName= key
           if colName in self.colList:
-              col = self.colList.index(self.extraCount+colName)
+              col = self.extraCount+self.colList.index(colName)
           else:
               raise KeyError("can't find %s column" % colName)
           return self.array[(row,col)]

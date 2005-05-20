@@ -1,3 +1,31 @@
+2005-05-20  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* Main.py (Main._doGenotypeFile): Add debug flag to
+	HardyWeinbergEnumeration() call.
+
+	* xslt/hardyweinberg.xsl (indiv-genotypes): Split out indiv
+	genotypes display code into a new template.
+	(hardyweinbergGuoThompson, hardyweinbergEnumeration): Use it.
+
+	* SWIG/typemap.i (typemap): New typemap to convert a 1-d array of
+	doubles (double []) to a Python list when returning from a C
+	function.  Add corresponding free method for double[]
+
+	* setup.py (ext_HweEnum): Include statistics.c file.  Define
+	INDIVID_GENOTYPES macro.
+
+	* Utils.py (StringMatrix.__getitem__): Fixed column calculation,
+	extraCount should be outside the call to index() on colList.
+
+	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Used
+	instance variables in debug class.
+	(HardyWeinbergEnumeration.__init__): Accept extra keywords for
+	base class and pass them on to base class.
+	Create new individual genotype pvalue lists from calls to new SWIG
+	methods _HweEnum.get_{diff,chen}_statistic_pvalue().
+	(HardyWeinbergEnumeration.serializeTo): Serialize new lists to
+	XML.
+
 2005-05-16  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* setup.py (my_build_ext.swig_sources): Add "extension=None"

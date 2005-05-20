@@ -239,6 +239,26 @@ int pyfprintf(FILE *fp, const char *format, ...) {
 }
 %}
 
+/* Typemap to convert a 1-d array of doubles to a Python list */
+%typemap(python,out) double*
+{
+	int len,i;
+	len = 0;
+	while($1 && $1[len])
+		len++;
+	$result = PyList_New(len);
+	for(i = 0;i < len;++i) {
+	  PyList_SetItem($result,i,PyFloat_FromDouble($1[i]));
+	}
+}
+
+/* This cleans up the double[] array we malloc'd before the function call */
+%typemap(python,free) double* {
+  if ($1)
+    free($1);
+}
+
+
 /* 
  * Local variables:
  * mode: c
