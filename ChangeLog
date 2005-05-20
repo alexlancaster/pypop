@@ -2,6 +2,10 @@
 
 	* Main.py (Main._doGenotypeFile): Add debug flag to
 	HardyWeinbergEnumeration() call.
+	Add support for a new .ini file section:
+	'[HardyWeinbergEnumeration]'.  If present, full HWE enumeration
+	will be done.  FIXME: need a way to disable if too many
+	alleles/individuals in a given population.
 
 	* xslt/hardyweinberg.xsl (indiv-genotypes): Split out indiv
 	genotypes display code into a new template.
