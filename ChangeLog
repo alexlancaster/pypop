@@ -1,5 +1,7 @@
 2005-05-20  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* config.ini: Document new section: '[HardyWeinbergEnumeration]'
+
 	* Main.py (Main._doGenotypeFile): Add debug flag to
 	HardyWeinbergEnumeration() call.
 	Add support for a new .ini file section:
