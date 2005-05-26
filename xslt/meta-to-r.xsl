@@ -237,6 +237,11 @@ MODIFICATIONS.
      <xsl:call-template name="output-field">
        <xsl:with-param name="node" select="hardyweinbergGuoThompson[@type='monte-carlo']/pvalue[@type='overall']"/>
      </xsl:call-template>
+
+     <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="hardyweinbergEnumeration/pvalue[@type='overall']"/>
+     </xsl:call-template>
+
      
      <xsl:choose>
       <!--complete -->
@@ -414,6 +419,10 @@ MODIFICATIONS.
 
      <xsl:variable name="pvals-diff-monte-carlo" select="hardyweinbergGuoThompson[@type='monte-carlo']/pvalue[@statistic='diff_statistic' and @type='genotype']"/>
 
+     <xsl:variable name="pvals-diff-enum" select="hardyweinbergEnumeration/pvalue[@statistic='diff_statistic' and @type='genotype']"/>
+
+     <xsl:variable name="pvals-chen-enum" select="hardyweinbergEnumeration/pvalue[@statistic='chen_statistic' and @type='genotype']"/>
+
      <!-- get the number of steps in both mcmc and mc version -->
      <xsl:variable name="steps-mcmc"
      select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/samplingNum * hardyweinbergGuoThompson[not(@type='monte-carlo')]/samplingSize"/>
@@ -474,6 +483,14 @@ MODIFICATIONS.
 
       <xsl:call-template name="output-field">
        <xsl:with-param name="node" select="$pvals-diff-monte-carlo[$pos]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$pvals-diff-enum[$pos]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$pvals-chen-enum[$pos]"/>
       </xsl:call-template>
 
       <!-- output steps -->
@@ -728,7 +745,7 @@ MODIFICATIONS.
      <xsl:call-template name="header-line-start">
       <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
      </xsl:call-template>
-<xsl:text>locus&#09;n.gametes&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.obs&#09;f.slatkin.exp&#09;f.slatkin.fnd&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig</xsl:text>
+<xsl:text>locus&#09;n.gametes&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.enum.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.obs&#09;f.slatkin.exp&#09;f.slatkin.fnd&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
@@ -756,7 +773,7 @@ MODIFICATIONS.
      <xsl:call-template name="header-line-start">
       <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
      </xsl:call-template>
-     <xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chisq.chen&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;steps.mcmc&#09;steps.monte.carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
+     <xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chisq.chen&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;pval.diff.enum&#09;pval.chen.enum&#09;steps.mcmc&#09;steps.monte.carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
 
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
