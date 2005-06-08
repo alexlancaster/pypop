@@ -43,7 +43,7 @@ def gen_table(n, k):
 number = int(sys.argv[1])
 n = int(sys.argv[2])
 k = int(sys.argv[3])
-shuffles = 1
+shuffles = int(sys.argv[4])
 
 if k > 2*n:
     sys.exit("must have at least as many gametes as alleles")
