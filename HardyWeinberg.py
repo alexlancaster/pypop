@@ -862,6 +862,8 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
                locusData=None,
                alleleCount=None,
                **kw):
+    import _HweEnum    
+    self.HweEnumProcess = _HweEnum
     
     HardyWeinbergGuoThompson.__init__(self,
                                       locusData=locusData,
@@ -869,12 +871,13 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
                                       **kw)
 
     self.generateFlattenedMatrix()
-    import _HweEnum
-    _HweEnum.run_external(self.flattenedMatrix, self.k)
-    self.exactPValue = _HweEnum.get_p_value()
-    self.observedPValue = _HweEnum.get_pr_observed()
-    self.diffPvals =  _HweEnum.get_diff_statistic_pvalue()
-    self.chenPvals =  _HweEnum.get_chen_statistic_pvalue()
+
+
+    self.HweEnumProcess.run_external(self.flattenedMatrix, self.k)
+    self.exactPValue = self.HweEnumProcess.get_p_value()
+    self.observedPValue = self.HweEnumProcess.get_pr_observed()
+    self.diffPvals =  self.HweEnumProcess.get_diff_statistic_pvalue()
+    self.chenPvals =  self.HweEnumProcess.get_chen_statistic_pvalue()
     
   def serializeTo(self, stream):
     stream.opentag('hardyweinbergEnumeration')
@@ -885,20 +888,23 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
     stream.writeln()
     for i in range(0, self.k):
       for j in range(0, i+1):
-        stream.tagContents ("pvalue", "%f" % self.diffPvals[i*(i+1)/2+j], \
+
+        if self.debug:
+          print "genotype count: %4d" % self.flattenedMatrix[(i*(i+1)/2)+j], \
+                "diff pval: %.4f" % self.diffPvals[(i*(i+1)/2)+j], \
+                "chen pval: %.4f" % self.chenPvals[(i*(i+1)/2)+j]
+
+        stream.tagContents ("pvalue", "%f" % self.diffPvals[(i*(i+1)/2)+j], \
                             type='genotype', statistic='diff_statistic', \
                             row=("%d" % i), col=("%d" % j))
 
-        stream.tagContents ("pvalue", "%f" % self.chenPvals[i*(i+1)/2+j], \
+        stream.tagContents ("pvalue", "%f" % self.chenPvals[(i*(i+1)/2)+j], \
                             type='genotype', statistic='chen_statistic', \
                             row=("%d" % i), col=("%d" % j))
 
-        if self.debug:
-          print "genotype count: %4d" % self.flattenedMatrix[i*(i+1)/2+j], \
-                "diff pval: %.4f" % self.diffPvals[i*(i+1)/2+j], \
-                "chen pval: %.4f" % self.chenPvals[i*(i+1)/2+j]
         stream.writeln()
     stream.closetag('hardyweinbergEnumeration')
+    self.HweEnumProcess.cleanup_genotypes()
     
 class HardyWeinbergGuoThompsonArlequin:
   """Wrapper class for 'Arlequin'.

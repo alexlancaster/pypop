@@ -1,3 +1,12 @@
+2005-06-07  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* HardyWeinberg.py (HardyWeinbergEnumeration.__init__): Add
+	_HweEnum as an instance variable so it can be called from other
+	methods.
+	(HardyWeinbergEnumeration.serializeTo): Call
+	_HweEnum.cleanup_genotypes() after data has been written out.
+	Rearrange debugging.
+
 2005-05-20  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* config.ini: Document new section: '[HardyWeinbergEnumeration]'
