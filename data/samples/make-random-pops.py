@@ -45,11 +45,27 @@ n = int(sys.argv[2])
 k = int(sys.argv[3])
 shuffles = int(sys.argv[4])
 
+if len(sys.argv) > 5:
+    fixed_allele_freqs = [int(i) for i in sys.argv[5:]]
+    if len(fixed_allele_freqs) != k:
+        sys.exit("specified number of alleles must be equal to k (%d)" % k)
+    print fixed_allele_freqs
+else:
+    fixed_allele_freqs = None
+
 if k > 2*n:
     sys.exit("must have at least as many gametes as alleles")
 
 for i in range(0, number):
-    alleles = gen_table(n, k)
+    if fixed_allele_freqs:
+        alleles = []
+        k = 0
+        for i in fixed_allele_freqs:
+            for j in range(0,i):
+                alleles.append(k)
+            k+=1
+    else:
+        alleles = gen_table(n, k)
     print alleles
 
     for shuffle in range(0, shuffles):
