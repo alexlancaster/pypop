@@ -699,6 +699,11 @@ MODIFICATIONS.
     <xsl:value-of select="$indiv-genotype/@col"/>
     <xsl:text>: </xsl:text>
     <xsl:apply-templates select="."/>
+    <xsl:text> (</xsl:text>
+    <xsl:value-of select="$indiv-genotype/observed"/>
+    <xsl:text>/</xsl:text>
+    <xsl:value-of select="$indiv-genotype/expected"/>
+    <xsl:text>)</xsl:text>
     <xsl:call-template name="newline"/>
    </xsl:for-each>
   </xsl:if>
@@ -717,6 +722,11 @@ MODIFICATIONS.
     <xsl:value-of select="$indiv-genotype/@col"/>
     <xsl:text>: </xsl:text>
     <xsl:apply-templates select="."/>
+    <xsl:text> (</xsl:text>
+    <xsl:value-of select="$indiv-genotype/observed"/>
+    <xsl:text>/</xsl:text>
+    <xsl:value-of select="$indiv-genotype/expected"/>
+    <xsl:text>)</xsl:text>
     <xsl:call-template name="newline"/>
    </xsl:for-each>
    </xsl:if>

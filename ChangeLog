@@ -1,3 +1,8 @@
+2005-06-09  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* xslt/hardyweinberg.xsl (indiv-genotypes): Add observed/expected
+	to each individual p-value.
+
 2005-06-07  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* HardyWeinberg.py (HardyWeinbergEnumeration.__init__): Add
