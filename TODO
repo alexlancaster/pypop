@@ -1,5 +1,13 @@
 **TODO**
 
+2005-06-15:
+
+- 'setup.py' has horrible hack necessitated by GCC 4.0 which sets the
+  CCFLAG -D_FORTIFY_SOURCE=2, this changes the behavouir of fprintf()
+  and it's interaction with SWIG, if it is taken to _FORTIFY_SOURCE=1,
+  then problem goes away.  See more here on this GCC list posting:
+  http://gcc.gnu.org/ml/gcc-patches/2004-09/msg02055.html
+
 2003-03-03:
 
 - 'allelecount.py': add 'HomozygosityEWSlatkinExact' to calculate 
