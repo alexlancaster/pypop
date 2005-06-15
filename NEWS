@@ -13,6 +13,9 @@ Copyright (C) 2003, 2004, 2005 Regents of the University of California
     matrix is generated, there is no default, for example, for
     generating files after the first filter operation use '1'.
 
+** Bug fixes
+*** Support Python 2.4 on GCC 4.0 platforms.
+
 * Release Notes for PyPop 0.6.0
 ** New features
 *** Allow for odd allele counts when processing an allele count data 

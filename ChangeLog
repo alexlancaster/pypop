@@ -1,10 +1,13 @@
 2005-06-15  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* NEWS: Add notes on GCC 4.0/Python 2.4.
+
 	* setup.py: Override the overzealous use of _FORTIFY_SOURCE CFLAGS
 	flags that are in /usr/lib/python2.4/config/Makefile used on
 	Fedora Core 4 releases with Python 2.4.  Nasty hack to achieve
 	this suggested on
 	http://mail.python.org/pipermail/distutils-sig/2002-December/003123.html
+
 2005-06-09  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/hardyweinberg.xsl (indiv-genotypes): Add observed/expected
