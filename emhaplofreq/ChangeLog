@@ -1,3 +1,9 @@
+2005-06-15  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* emhaplofreq.c: Change prototypes to match function calls
+	exactly, e.g. replace (*)[] invalid ANSI constructs with (*)[VAR]
+	constructs which is valid ANSI C and also to placate GCC 4.0.
+
 2004-12-23  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* emhaplofreq_wrap.i: %module _Emhaplofreq -> Emhaplofreq for
