@@ -48,11 +48,11 @@ FILE *parse_args(int, char **, int *);
 /* argc, argv */
 /* returns open filehandle of input file */
 
-int read_infile(FILE *, char (*)[], char (*)[][], int *);
+int read_infile(FILE *, char [MAX_ROWS][NAME_LEN], char [MAX_ROWS][MAX_COLS][NAME_LEN], int *);
 /* open filehandle for data, ref array, data array, number of records */
 /* returns number of loci */
 
-int main_proc(FILE *, char (*)[][], int, int, int, int, int, int, int, int);
+int main_proc(FILE *, char (*)[MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int);
 /* data array, number of loci, number of records */
 /* main procedure that handles memory allocation and creation of arrays, 
   * spawns the rest of the data preparation and processing functions, 
@@ -60,7 +60,7 @@ int main_proc(FILE *, char (*)[][], int, int, int, int, int, int, int, int);
   * we only return from it to exit. 
 */
 
-int count_unique_haplos(char (*)[][], char (*)[], int (*)[], char (*)[][], int *, int, int, int (*)[], int *);
+int count_unique_haplos(char (*)[2][LINE_LEN / 2], char (*)[LINE_LEN / 2], int (*)[MAX_LOCI], char (*)[MAX_ALLELES][NAME_LEN], int *, int, int, int (*)[2], int *);
 /* geno, haplo, haplocus, unique_allele, n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo */
 /* returns number of haplotypes */
 /* 
@@ -68,7 +68,7 @@ int count_unique_haplos(char (*)[][], char (*)[], int (*)[], char (*)[][], int *
   * create haplocus[i][j]: a 2-dim array of allele# at jth locus of ith haplotype
 */
 
-void id_unique_alleles(char (*)[][], char (*)[][], int *, double (*)[], int, int);
+void id_unique_alleles(char (*)[MAX_COLS][NAME_LEN], char (*)[MAX_ALLELES][NAME_LEN], int *, double (*)[MAX_ALLELES], int, int);
 /* data array, unique_allele array, no. of unique alleles array, allele_freq, no. of loci, no. of records */
 /* 
   * creates array of alleles unique to each locus 
@@ -80,8 +80,8 @@ double min(double, double);
   * return minimum argument
 */
 
-void linkage_diseq(FILE *, double *, int (*)[], double (*)[], char (*)[][], int *, 
-       int, int, int); 
+void linkage_diseq(FILE *, double *, int (*)[MAX_LOCI], double (*)[MAX_ALLELES],
+		   char (*)[MAX_ALLELES][NAME_LEN], int *, int, int, int); 
 /* mle, haplocus, allele_freq, unique_allele, n_unique_allele, n_loci, n_haplo, n_recs */
 /*
   * compute LD coefficients
@@ -123,7 +123,7 @@ void srand48(long int seedval);
 
 double drand48(void);
 
-void permute_alleles(char (*)[][], int, int);
+void permute_alleles(char (*)[MAX_COLS][NAME_LEN], int, int);
 /* data array, number of loci, number of records */
 /* 
   * permutes the alleles at all but the last locus
