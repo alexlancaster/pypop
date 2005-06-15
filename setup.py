@@ -2,7 +2,8 @@
 
 # This file is part of PyPop
 
-# Copyright (C) 2003. The Regents of the University of California (Regents)
+# Copyright (C) 2003-2005.
+# The Regents of the University of California (Regents)
 # All Rights Reserved.
 
 # This program is free software; you can redistribute it and/or modify
@@ -33,13 +34,21 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-from distutils.core import setup, Extension
-from distutils.file_util import copy_file
-from distutils.sysconfig import PREFIX
-
 import sys, os, string
 
+from distutils.core import setup, Extension
+from distutils.file_util import copy_file
+from distutils.sysconfig import PREFIX, get_config_vars
 from distutils.command.build_ext import build_ext
+
+# Override the overzealous use of _FORTIFY_SOURCE CFLAGS flags that
+# are in /usr/lib/python2.4/config/Makefile used on Fedora Core 4
+# releases with Python 2.4.  Nasty hack to achieve this suggested on
+# http://mail.python.org/pipermail/distutils-sig/2002-December/003123.html
+cv = get_config_vars()
+cv["OPT"] = cv["OPT"].replace("-D_FORTIFY_SOURCE=2", "-D_FORTIFY_SOURCE=1")
+
+print get_config_vars('OPT')
         
 # override implementation of swig_sources method in standard build_ext
 # class, so we can change the way SWIG is called by Python's default
@@ -161,7 +170,9 @@ ext_Gthwe_files = ["gthwe/gthwe_wrap.i",
                    "gthwe/stamp_time.c",
                    "gthwe/test_switch.c"]
 
+
 ext_Gthwe_macros = [('fprintf', 'pyfprintf'),
+                    ('_FORTIFY_SOURCE', '1'),
                     ('DEBUG', '0'),
                     ('XML_OUTPUT', '1'),
                     ('SUPPRESS_ALLELE_TABLE', '1')]
