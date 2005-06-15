@@ -48,8 +48,6 @@ from distutils.command.build_ext import build_ext
 cv = get_config_vars()
 cv["OPT"] = cv["OPT"].replace("-D_FORTIFY_SOURCE=2", "-D_FORTIFY_SOURCE=1")
 
-print get_config_vars('OPT')
-        
 # override implementation of swig_sources method in standard build_ext
 # class, so we can change the way SWIG is called by Python's default
 # configuration of distutils
