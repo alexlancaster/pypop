@@ -904,7 +904,7 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
 
         stream.writeln()
     stream.closetag('hardyweinbergEnumeration')
-    self.HweEnumProcess.cleanup_genotypes()
+    self.HweEnumProcess.cleanup()
     
 class HardyWeinbergGuoThompsonArlequin:
   """Wrapper class for 'Arlequin'.
