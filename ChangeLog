@@ -1,3 +1,10 @@
+2005-06-16  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* HardyWeinberg.py (HardyWeinbergEnumeration.serializeTo): API
+	change cleanup_genotypes() -> cleanup().
+
+	* setup.py (ext_HweEnum): Add external.c to extension.
+
 2005-06-15  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* NEWS: Add notes on GCC 4.0/Python 2.4.
