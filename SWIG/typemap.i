@@ -239,8 +239,9 @@ int pyfprintf(FILE *fp, const char *format, ...) {
 }
 %}
 
-/* Typemap to convert a 1-d array of doubles to a Python list */
-%typemap(python,out) double*
+/* Typemap to convert a 1-d array of long doubles to a Python list of
+   plain doubles */
+%typemap(python,out) long double*
 {
 	int len,i;
 	len = 0;
@@ -248,12 +249,12 @@ int pyfprintf(FILE *fp, const char *format, ...) {
 		len++;
 	$result = PyList_New(len);
 	for(i = 0;i < len;++i) {
-	  PyList_SetItem($result,i,PyFloat_FromDouble($1[i]));
+	  PyList_SetItem($result,i,PyFloat_FromDouble((double)$1[i]));
 	}
 }
 
-/* This cleans up the double[] array we malloc'd before the function call */
-%typemap(python,free) double* {
+/* This cleans up the long double array we malloc'd before the function call */
+%typemap(python,free) long double* {
   if ($1)
     free($1);
 }
