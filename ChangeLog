@@ -1,5 +1,9 @@
 2005-06-16  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* SWIG/typemap.i (typemap): Convert typemaps to convert a 1-d array
+	of (long doubles) rather than (doubles) to a 1-d Python list of
+	plain doubles.
+	
 	* HardyWeinberg.py (HardyWeinbergEnumeration.serializeTo): API
 	change cleanup_genotypes() -> cleanup().
 
