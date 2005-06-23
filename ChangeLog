@@ -1,3 +1,20 @@
+2005-06-22  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* NEWS: Note new --generate-tsv option.
+
+	* pypop.py (generateTSV): Add new command-line option
+	"--generate-tsv", will run the XML to TSV processing on the the
+	generated -out.xml files (aka "popmeta") directly from pypop
+	without needing to run additional script.  Update usage message.
+
+	* popmeta.py: Code refactoring: relocated bulk of XML processing
+	to new file, Meta.py.  Keep only command-line processing here,
+	functionality of this script should be unchanged.
+
+	* Meta.py: New file.  Relocated bulk of processing of XML files
+	from popmeta.py to here, so code can be accessed from other parts
+	of pypop.
+
 2005-06-16  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* SWIG/typemap.i (typemap): Convert typemaps to convert a 1-d array

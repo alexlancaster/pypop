@@ -35,84 +35,7 @@
 
 import os, sys
 from getopt import getopt, GetoptError
-from Utils import checkXSLFile, splitIntoNGroups
-
-# don't use libxml/libxslt bindings for the moment, aren't working with
-# exslt extensions nor on all platforms.
-
-import libxml2
-import libxslt
-
-libxslt.registerAllExtras()
-    
-## force the libxml2 processor to generate DOM trees compliant with
-## the XPath data model.
-libxml2.lineNumbersDefault(1)
-
-## set libxml2 to substitute the entities in the document by default...
-libxml2.substituteEntitiesDefault(1)
-
-def _translate_string_to(xslFilename, inString, outFile, params=None):
-    # do the transformation
-    
-    # parse the stylesheet file
-    styledoc = libxml2.parseFile(xslFilename)
-
-    # setup the stylesheet instance
-    style = libxslt.parseStylesheetDoc(styledoc)
-
-    # parse the inline generated XML file
-    doc = libxml2.parseDoc(inString)
-
-    # apply the stylesheet instance to the document instance
-    result = style.applyStylesheet(doc, params)
-    
-    style.saveResultToFilename(outFile, result, 0)
-
-    # use to dump directly to a string, problem is that it insists on
-    # outputting an XML declaration "<?xml ...?>", can't seem to
-    # suppress this
-    # outString = result.serialize()
-
-    # free instances
-    result.freeDoc()
-    style.freeStylesheet()
-    doc.freeDoc()
-    #return outString
-    
-def translate_string_to_stdout(xslFilename, inString, params=None):
-    # save result to stdout "-"
-    _translate_string_to(xslFilename, inString, "-", params)
-
-def translate_string_to_file(xslFilename, inString, outFile, params=None):
-    _translate_string_to(xslFilename, inString, outFile, params)
-
-def _translate_file_to(xslFilename, inFile, outFile, params=None):
-    
-    # parse the stylesheet file
-    styledoc = libxml2.parseFile(xslFilename)
-
-    # setup the stylesheet instance
-    style = libxslt.parseStylesheetDoc(styledoc)
-
-    # parse the inline generated XML file
-    doc = libxml2.parseFile(inFile)
-
-    # apply the stylesheet instance to the document instance
-    result = style.applyStylesheet(doc, params)
-    
-    style.saveResultToFilename(outFile, result, 0)
-
-    # free instances
-    result.freeDoc()
-    style.freeStylesheet()
-    doc.freeDoc()
-
-def translate_file_to_stdout(xslFilename, inFile, params=None):
-    _translate_file_to(xslFilename, inFile, "-", params)
-
-def translate_file_to_file(xslFilename, inFile, outFile, params=None):
-    _translate_file_to(xslFilename, inFile, outFile, params)
+from Meta import Meta
 
 datapath = os.path.join(sys.prefix, 'share', 'PyPop')
 
@@ -142,15 +65,9 @@ except GetoptError:
 # find our exactly where the current executable is being run from
 popmetabinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-# heuristics to find default location of 'xslt/' subdirectory, if it is
-# not supplied by the command-line option
-if checkXSLFile('meta-to-r.xsl', popmetabinpath, 'xslt'):
-    metaXSLTDirectory = os.path.join(popmetabinpath, 'xslt')
-elif checkXSLFile('meta-to-r.xsl', popmetabinpath, os.path.join('..', 'xslt')):
-    metaXSLTDirectory = os.path.join(popmetabinpath, '..', 'xslt')
-else:
-    metaXSLTDirectory= datapath
-dump_meta = 0
+# set to empty, either user will specify a path or the system default
+# will be used
+metaXSLTDirectory = None
 
 # output R tables by default
 R_output=1
@@ -163,6 +80,9 @@ ihwg_output = 1
 
 # by default process all at once (batchsize=0)
 batchsize = 0
+
+# by default don't print out XML
+dump_meta = 0
 
 # parse options
 for o, v in opts:
@@ -184,12 +104,6 @@ for o, v in opts:
 if batchsize and PHYLIP_output:
     sys.exit("processing in batches and enabling PHYLIP are mutually exclusive options\n" + usage_message)
 
-# create XSLT parameters
-if ihwg_output:
-    xslt_params = {"13ihwg-fmt": "1"}
-else:
-    xslt_params = {"13ihwg-fmt": "0"}
-
 # parse arguments
 files = args
 
@@ -197,121 +111,14 @@ files = args
 if not(files):
     sys.exit(usage_message)
 
-wellformed_files = []
-
-# check each file for "well-formedness" using libxml2.parseFile()
-# libxml2 package, if not well-formed report an error on this file,
-# and skip this file in the meta analysis
-for f in files:
-    try:
-        libxml2.parseFile(f)
-        wellformed_files.append(f)
-    except:
-        print "%s is not well-formed XML:" % f
-        print "  probably a problem with analysis not completing, skipping in meta analysis!"
-
-if batchsize:
-    fileBatchList = splitIntoNGroups(wellformed_files, n=batchsize)
-else:
-    fileBatchList = splitIntoNGroups(wellformed_files, n=1)
-
-datfiles= ['1-locus-allele.dat', '1-locus-genotype.dat', '1-locus-summary.dat',
-           '2-locus-haplo.dat', '2-locus-summary.dat',
-           '3-locus-summary.dat', '3-locus-haplo.dat',
-           '4-locus-summary.dat', '4-locus-haplo.dat',]
-
-for fileBatch in range(len(fileBatchList)):
-
-    # generate a metafile XML wrapper
-
-    # open doctype
-    meta_string="<!DOCTYPE meta [\n"
-    entities = ""
-    includes = ""
-
-    # loop through and create the meta.xml file *only* for the well-formed
-    # XML files
-
-    for f in fileBatchList[fileBatch]:
-        base = os.path.basename(f)
-        ent = "ENT" + base
-        entities += "<!ENTITY %s SYSTEM \"%s\">\n" % (ent, f)
-        includes += "&%s;\n" % ent
-
-    # put entities after doctype
-    meta_string += entities
-    # close doctype
-    meta_string += "]>\n"
-    # open tag
-    meta_string += "<meta>\n"
-    # include content
-    meta_string += includes
-    # close tag
-    meta_string += "</meta>"
-
-    if dump_meta == 1:
-        print meta_string
-    else:
-        f = open('meta.xml', 'w')
-        f.write(meta_string)
-        f.close()
-
-        if R_output:
-            # generate all data output in formats for R
-            translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml', xslt_params)
-
-        if PHYLIP_output:
-            # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:
-            translate_string_to_file(os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), meta_string, 'sorted-by-locus.xml')
-
-            # use 'sorted-by-locus.xml' to generate a list of unique alleles
-            # 'allelelist-by-locus.xml' for each locus across all the
-            # populations in the set of XML files passed
-            translate_file_to_file(os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'), 'sorted-by-locus.xml', 'allelelist-by-locus.xml')
-
-            # similarly, generate a unique list of haplotypes
-            # 'haplolist-by-locus.xml'
-            translate_file_to_file(os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), 'meta.xml', 'haplolist-by-group.xml')
-
-            # generate Phylip allele data
-
-            # generate individual locus files (don't use loci parameter)
-            translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml')
-
-            # generate locus group files
-            for locus in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-                translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml', params={'loci': '"' + locus + '"'})
-
-            # generate Phylip haplotype data
-            for haplo in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-                translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), 'meta.xml', params={'loci': '"' + haplo + '"'})
-
-        # after processing, move files if necessary
-        if len(fileBatchList) > 1:
-            for dat in datfiles:
-                # print "moving", dat, "to %s.%d" % (dat, fileBatch)
-                os.rename(dat, "%s.%d" % (dat, fileBatch))
-                     
-# at end of entire processing, need to cat files together
-# this is a bit hacky
-if len(fileBatchList) > 1:
-    for dat in datfiles:
-        # create final file to concatenate to
-        outdat = file(dat, 'w')
-        # now concatenate them
-        for i in range(len(fileBatchList)):
-            # write temp file to outdat
-            catFilename = "%s.%d" % (dat, i)
-            catFile = file(catFilename)
-            # drop the first line, iff we are past first file
-            if i > 0:
-                catFile.readline() # skip this line
-                #catFile.next() <- this only works in Python 2.3 or better
-            for line in catFile:
-                outdat.write(line)
-            # then remove it
-            os.remove(catFilename)
-        # finally, close the ultimate output file
-        outdat.close()
-            
-            
+print files
+print dir(Meta)
+Meta(popmetabinpath=popmetabinpath,
+     datapath=datapath,
+     metaXSLTDirectory=metaXSLTDirectory,
+     dump_meta=dump_meta,
+     R_output=R_output,
+     PHYLIP_output=PHYLIP_output,
+     ihwg_output=ihwg_output,
+     batchsize=batchsize,
+     files=files)
