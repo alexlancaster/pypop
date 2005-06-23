@@ -12,6 +12,11 @@ Copyright (C) 2003, 2004, 2005 Regents of the University of California
     'order' should be the order in the filtering chain where the
     matrix is generated, there is no default, for example, for
     generating files after the first filter operation use '1'.
+*** New command-line option '--generate-tsv', will generate the '.dat' 
+    tab-separated values (TSV) files on the the generated -out.xml
+    files (aka "popmeta") directly from pypop without needing to run
+    additional script.  Now output from pypop can be directly read
+    into spreadsheet.
 
 ** Bug fixes
 *** Support Python 2.4 on GCC 4.0 platforms.

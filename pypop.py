@@ -103,6 +103,7 @@ current directory or in %s.
   -o, --outputdir=DIR  put output in directory DIR
   -f, --filelist=FILE  file containing list of files (one per line) to process
                         (mutually exclusive with supplying INPUTFILEs)
+      --generate-tsv   generate TSV output files (aka run 'popmeta')
   -V, --version        print version of PyPop
   
   INPUTFILE   input text file""" % altpath
@@ -135,7 +136,7 @@ from ConfigParser import ConfigParser
 from Main import getUserFilenameInput, checkXSLFile
 
 try:
-  opts, args =getopt(sys.argv[1:],"lsigc:hdx:f:o:V", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "filelist=", "outputdir=", "version"])
+  opts, args =getopt(sys.argv[1:],"lsigc:hdx:f:o:V", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "filelist=", "outputdir=", "version", "generate-tsv"])
 except GetoptError:
   sys.exit(usage_message)
 
@@ -150,6 +151,7 @@ guiFlag = 0
 xslFilename = None
 outputDir = None
 fileList = None
+generateTSV = 0
 
 # parse options
 for o, v in opts:
@@ -170,6 +172,8 @@ for o, v in opts:
     interactiveFlag = 1
   elif o in ("-g", "--gui"):
     guiFlag = 1
+  elif o in ("--generate-tsv"):
+    generateTSV = 1
   elif o in ("-f", "--filelist"):
     if os.path.isfile(v):
       fileList = v
@@ -311,6 +315,8 @@ else:
   from Main import Main, getConfigInstance
   config = getConfigInstance(configFilename, altpath, usage_message)
 
+  xmlOutPaths = []
+  txtOutPaths = []
   # loop through list of filenames passed, processing each in turn
   for fileName in fileNames:
 
@@ -328,13 +334,28 @@ else:
                        outputDir=outputDir,
                        version=version)
 
+    xmlOutPaths.append(application.getXmlOutPath())
+    txtOutPaths.append(application.getTxtOutPath())
+
+  if generateTSV:
+    from Meta import Meta
+    
+    print "Generating TSV (.dat) files..."
+    Meta(popmetabinpath=pypopbinpath,
+         datapath=datapath,
+         metaXSLTDirectory=None,
+         dump_meta=0,
+         R_output=1,
+         PHYLIP_output=0,
+         ihwg_output=1,
+         batchsize=len(xmlOutPaths),
+         files=xmlOutPaths)
+
   if interactiveFlag:
 
     print "PyPop run complete!"
-    print "XML output can be found in: " + \
-          application.getXmlOutPath()
-    print "Plain text output can be found in: " + \
-          application.getTxtOutPath()
+    print "XML output(s) can be found in: " + xmlOutPaths
+    print "Plain text output(s) can be found in: " +  txtOutPaths
 
     # update .pypoprc file
 
@@ -344,3 +365,4 @@ else:
     pypoprc.set('Files', 'config', os.path.abspath(configFilename))
     pypoprc.set('Files', 'pop', os.path.abspath(fileNames[0]))
     pypoprc.write(open(pypoprcFilename, 'w'))
+
