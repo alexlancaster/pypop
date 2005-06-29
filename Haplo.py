@@ -574,7 +574,7 @@ class Emhaplofreq(Haplo):
         # FIXME: hack to determine whether we are analysing sequence
         # we use a regex to match anything in the form A_32 or A_-32
         # this should be passed as a parameter
-        if re.search("[a-zA-Z]+_[-]?[0-9]+", loci[0]):
+        if re.search("[a-zA-Z0-9]+_[-]?[0-9]+", loci[0]):
             sequenceData = 1
         else:
             sequenceData = 0
