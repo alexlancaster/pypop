@@ -591,7 +591,11 @@ MODIFICATIONS.
        <xsl:value-of select="." />
        <xsl:text>&#09;</xsl:text>
       </xsl:for-each>
-      
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="@metaloci"/>
+      </xsl:call-template>
+
       <xsl:if test="$pairwise=1">
        
        <xsl:call-template name="output-field">
@@ -789,7 +793,7 @@ MODIFICATIONS.
      <xsl:call-template name="header-line-start">
       <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
      </xsl:call-template>
-     <xsl:text>n.gametes&#09;locus1&#09;locus2&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
+     <xsl:text>n.gametes&#09;locus1&#09;locus2&#09;metaloci&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
