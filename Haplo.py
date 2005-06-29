@@ -424,9 +424,18 @@ class Emhaplofreq(Haplo):
                     
                 fp.write(os.linesep)
 
+                if self.sequenceData:
+                    metaLoci = string.split(string.split(group, ':')[0],'_')[0]
+                    print metaLoci
+
+
                 modeAttr = "mode=\"%s\"" % mode
                 haploAttr = "showHaplo=\"%s\"" % showHaplo
-                lociAttr = "loci=\"%s\"" % group
+
+                if metaLoci:
+                    lociAttr = "loci=\"%s\" metaloci=\"%s\"" % (group, metaLoci)
+                else:
+                    lociAttr = "loci=\"%s\"" % group
 
                 if groupNumIndiv > self._Emhaplofreq.MAX_ROWS:
                     fp.write("<group %s role=\"too-many-lines\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
@@ -575,9 +584,9 @@ class Emhaplofreq(Haplo):
         # we use a regex to match anything in the form A_32 or A_-32
         # this should be passed as a parameter
         if re.search("[a-zA-Z0-9]+_[-]?[0-9]+", loci[0]):
-            sequenceData = 1
+            self.sequenceData = 1
         else:
-            sequenceData = 0
+            self.sequenceData = 0
         
         li = []
         for i in loci:
@@ -590,7 +599,7 @@ class Emhaplofreq(Haplo):
                 else:
                     # if we are running sequence data restrict pairs
                     # to pairs within *within* the same gene locus
-                    if sequenceData:
+                    if self.sequenceData:
                         genelocus_i = string.split(i,'_')[0]
                         genelocus_j = string.split(j,'_')[0]
                         # only append if gene is *within* the same locus
