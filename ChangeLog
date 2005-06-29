@@ -1,3 +1,21 @@
+2005-06-29  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* xslt/meta-to-r.xsl (l-locus-genotype, 1-locus-summary): Add the
+	Hardy-Weinberg enumeration p-values to output (both overall and
+	the Chen and diff versions of the individual genotypes).  Add a
+	trailing tabstop to header for consistency in the case of
+	1-locus-summary.
+	(multi-locus-summary): Output the 'metaloci' as a new column for
+	the overall 'gene-level' locus to aid in grouping sequence data
+	into different genes.
+
+	* Haplo.py (Emhaplofreq._runEmhaplofreq): Add 'metaloci' attribute
+	to XML <group> tag if using sequence data to indicate which
+	gene-level locus this LD/haplotype group belongs to.
+	(Emhaplofreq.allPairwise): Fix regex for HLA sequenceData to deal
+	with locus names that include digits, e.g. DQA1_32. 
+	Make sequenceData an instance variable.
+
 2005-06-22  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* NEWS: Note new --generate-tsv option.
