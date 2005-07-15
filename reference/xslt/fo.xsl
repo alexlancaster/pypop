@@ -9,7 +9,7 @@
  <xsl:import href="common.xsl"/>
  <xsl:import href="citation.xsl"/>
  <xsl:import href="biblio.xsl"/> 
- <xsl:import href="pagesetup.xsl"/>
+ <xsl:import href="pagesetup.xsl"/> 
 
  <xsl:param name="headers.on.blank.pages" select="0"/>
  <xsl:param name="footers.on.blank.pages" select="0"/>
@@ -26,6 +26,7 @@
  <xsl:param name="page.margin.outer">0.70in</xsl:param>
  <xsl:param name="body.margin.top">0.5in</xsl:param>
  <xsl:param name="body.margin.bottom">0.5in</xsl:param>
+ <xsl:param name="body.start.indent">0.0in</xsl:param>
 
  <xsl:param name="body.font.family">sans-serif</xsl:param>
  <xsl:param name="title.font.family">sans-serif</xsl:param>
@@ -66,6 +67,7 @@
  </xsl:attribute-set>
 
  <!-- adjust spacing between lists and paragraphs -->
+
  <xsl:attribute-set name="list.block.spacing">
   <xsl:attribute name="space-before.optimum">0.7em</xsl:attribute>
   <xsl:attribute name="space-before.minimum">0.5em</xsl:attribute>
