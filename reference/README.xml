@@ -459,12 +459,11 @@ validSampleFields=*a_1
 [HardyWeinberg]            <co id="hardyweinberg"/>
 lumpBelow=5                
 
-<!--
 [HardyWeinbergGuoThompson] <co id="hardyweinbergGuoThompson"/>
 dememorizationSteps=2000
 samplingNum=1000
 samplingSize=1000
--->
+
 [HomozygosityEWSlatkinExact] <co id="homozygosityEWSlatkinExact"/>
 numReplicates=10000
 
@@ -660,6 +659,57 @@ allPairwiseLDWithPermu=0
 	</formalpara>
        </listitem>
       </itemizedlist>
+
+    </callout>
+
+    <callout arearefs="hardyweinbergGuoThompson">
+
+   <para role="strong"><literal>[HardyWeinbergGuoThompson]</literal></para>
+     
+   <para>When this section is present, an implementation of the
+      Hardy-Weinberg exact test is run using the original
+      <citation>Guo:Thompson:1992</citation> code, using a Monte-Carlo
+      Markov chain (MCMC).  By default this section is not enabled.
+      This is a different implementation to the Arlequin version
+      listed in
+      <xref linkend="config-advanced"/>, below.</para>
+     
+     <itemizedlist>
+      <listitem>
+       <formalpara>
+	<title><literal>dememorizationSteps</literal></title>
+	<para>Number of steps of to <quote>burn-in</quote> the Markov
+	 chain before statistics are collected.<emphasis
+	  role="bold">[Default: 2000]</emphasis></para>
+       </formalpara>
+      </listitem>
+      <listitem>
+       <formalpara>
+	<title><literal>samplingNum</literal></title>
+	<para>Number of Markov chain samples <emphasis
+	  role="bold">[Default: 1000]</emphasis>.</para>
+       </formalpara>
+      </listitem>
+      <listitem>
+       <formalpara>
+	<title><literal>samplingSize</literal></title>
+	<para>Markov chain sample size<emphasis
+	  role="bold">[Default: 1000]</emphasis>.</para>
+       </formalpara>
+      </listitem>
+     </itemizedlist>
+     
+     <para>Note that the <emphasis role="bold">total</emphasis> number
+      of steps in the Monte-Carlo Markov chain is the product of
+      <literal>samplingNum</literal> and
+      <literal>samplingSize</literal>, so the default values described
+      above would contain 1,000,000 (= 1000 x 1000) steps in the MCMC
+      chain.</para>
+
+     <para>The default values for options described above have proved
+      to be optimal for us and if the options are not provided these
+      defaults will be used.  If you change the values and have
+      problems, please let us <emphasis role="bold">know</emphasis>.</para>
 
     </callout>
 
