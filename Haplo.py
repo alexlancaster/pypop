@@ -426,6 +426,8 @@ class Emhaplofreq(Haplo):
 
                 if self.sequenceData:
                     metaLoci = string.split(string.split(group, ':')[0],'_')[0]
+                else:
+                    metaLoci = None
 
                 modeAttr = "mode=\"%s\"" % mode
                 haploAttr = "showHaplo=\"%s\"" % showHaplo
