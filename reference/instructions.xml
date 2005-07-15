@@ -314,9 +314,9 @@ Common genotypes                                                      <co id="hw
  <sect2 id="instructions-hardyweinberg-exact">
    <title>Exact test for deviation from HWP</title>
   
-   <para>For each locus, the exact test for deviations from HWP is
-    implemented using the method of <citation
-     role="citet">Guo:Thompson:1992</citation>. The
+   <para>If enabled in the configuration file, the exact test for
+    deviations from HWP may be output.  The exact test uses the method
+    of <citation role="citet">Guo:Thompson:1992</citation>. The
     <varname>p</varname>-value provided describes how probable the
     observed set of genotypes is, with respect to a large sample of
     other genotypic configurations (conditioned on the same allele
@@ -324,11 +324,9 @@ Common genotypes                                                      <co id="hw
     <varname>p</varname>-values lower than 0.05 can be interpreted as
     evidence that the sample does not fit HWP.</para>
 
-   <para>The implementation of this test is via a module that
+<!--   <para>The implementation of this test is via a module that
     makes an external call to <application>Arlequin</application>
-    <citation>Schneider:etal:2000</citation>.</para>
-
-<!--
+    <citation>Schneider:etal:2000</citation>.</para> -->
 
    <para>There are two implementations for this test, the first using
     the <application>gthwe</application> implementation originally due
@@ -341,31 +339,24 @@ Common genotypes                                                      <co id="hw
      <application>gthwe</application></title>
 
 <programlisting><![CDATA[6.3. Guo and Thompson HardyWeinberg output [DQA1]
-
+-------------------------------------------------
+Total steps in MCMC: 1000000
 Dememorization steps: 2000
-Number of samples: 1000
-Sample size: 1000
+Number of Markov chain samples: 1000
+Markov chain sample size: 1000
 Std. error: 0.0009431 
-p-value: 0.0537]]></programlisting>
+p-value (overall): 0.0537]]></programlisting>
 
 
-    <para>In the <application>gthwe</application> implementation, if
+<!--    <para>In the <application>gthwe</application> implementation, if
      there are many genotypes, the exact test may be computationally
      difficult. In this case the following message is reported:</para>
 
 <programlisting>2.3. Guo and Thompson HardyWeinberg output [C]
 Too large a matrix for 'gthwe' implementation of Guo and Thompson's
-   exact test</programlisting>
-
-   <para>Note that in the <application>Arlequin</application>
-     implementation, that the output is slightly different, and the
-     only directly comparable value between the two implementation is
-     the <varname>p</varname>-value.  These
-     <varname>p</varname>-values may be slightly different, but should
-     agree to within one significant figure.</para>
+   exact test</programlisting> -->
 
    </example>
--->
 
    <example>
     <title>Sample output for exact test using the
@@ -379,6 +370,13 @@ Expected heterozygosity: 0.763900
 Std. deviation: 0.000630
 Dememorization steps: 100172
 p-value: 0.0518</programlisting>
+
+   <para>Note that in the <application>Arlequin</application>
+     implementation, that the output is slightly different, and the
+     only directly comparable value between the two implementation is
+     the <varname>p</varname>-value.  These
+     <varname>p</varname>-values may be slightly different, but should
+     agree to within one significant figure.</para>
 
    </example>
    
