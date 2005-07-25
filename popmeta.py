@@ -111,8 +111,6 @@ files = args
 if not(files):
     sys.exit(usage_message)
 
-print files
-print dir(Meta)
 Meta(popmetabinpath=popmetabinpath,
      datapath=datapath,
      metaXSLTDirectory=metaXSLTDirectory,
