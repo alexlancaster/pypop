@@ -66,6 +66,7 @@ MODIFICATIONS.
   <locusname order="17">DQB1</locusname>
   <locusname order="18">G51152</locusname>
   <locusname order="19">DPA1</locusname>
+
   <locusname order="20">DPB1</locusname>
   <locusname order="21">D6S291</locusname>
  </data:map-order>
@@ -137,7 +138,16 @@ MODIFICATIONS.
    <xsl:when test="$13ihwg-fmt">
 
     <xsl:call-template name="output-field">
-     <xsl:with-param name="node" select="translate($popnode/popname, ' ', '-')"/>
+     <xsl:with-param name="node">
+      <xsl:choose>
+       <xsl:when test="$popnode/popname">
+	<xsl:value-of select="translate($popnode/popname, ' ', '-')"/>
+       </xsl:when>
+       <xsl:otherwise>
+	<xsl:value-of select="substring-before($popnode/../filename, '.')"/>
+       </xsl:otherwise>
+      </xsl:choose>
+     </xsl:with-param>
     </xsl:call-template>
     
     <xsl:call-template name="output-field">
@@ -423,6 +433,10 @@ MODIFICATIONS.
 
      <xsl:variable name="pvals-chen-enum" select="hardyweinbergEnumeration/pvalue[@statistic='chen_statistic' and @type='genotype']"/>
 
+     <xsl:variable name="pvals-diff-enum-3x3" select="hardyweinbergEnumeration/pvalue[@statistic='diff_statistic_3x3' and @type='genotype']"/>
+
+     <xsl:variable name="pvals-chen-enum-3x3" select="hardyweinbergEnumeration/pvalue[@statistic='chen_statistic_3x3' and @type='genotype']"/>
+
      <!-- get the number of steps in both mcmc and mc version -->
      <xsl:variable name="steps-mcmc"
      select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/samplingNum * hardyweinbergGuoThompson[not(@type='monte-carlo')]/samplingSize"/>
@@ -437,8 +451,6 @@ MODIFICATIONS.
      <xsl:variable name="stats-chen-mcmc" select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/genotypeSimulatedStatistic[@statistic='chen_statistic']"/>
 
      <xsl:variable name="stats-diff-mcmc" select="hardyweinbergGuoThompson[not(@type='monte-carlo')]/genotypeSimulatedStatistic[@statistic='diff_statistic']"/>
-
-
      <xsl:variable name="offset" select="count(hardyweinberg/genotypetable/genotype)"/>
 
      <xsl:for-each select="hardyweinberg/genotypetable/genotype">
@@ -490,7 +502,15 @@ MODIFICATIONS.
       </xsl:call-template>
 
       <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$pvals-diff-enum-3x3[$pos]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
        <xsl:with-param name="node" select="$pvals-chen-enum[$pos]"/>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$pvals-chen-enum-3x3[$pos]"/>
       </xsl:call-template>
 
       <!-- output steps -->
@@ -777,7 +797,7 @@ MODIFICATIONS.
      <xsl:call-template name="header-line-start">
       <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
      </xsl:call-template>
-     <xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chisq.chen&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;pval.diff.enum&#09;pval.chen.enum&#09;steps.mcmc&#09;steps.monte.carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
+     <xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chisq.chen&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;pval.diff.enum&#09;pval.diff.enum.three&#09;pval.chen.enum&#09;pval.chen.enum.three&#09;steps.mcmc&#09;steps.monte.carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
 
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">

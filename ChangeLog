@@ -1,3 +1,8 @@
+2005-07-26  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* xslt/meta-to-r.xsl: Use <filename> in pop field, if <popname>
+	not found.
+
 2005-07-15  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Haplo.py (Emhaplofreq._runEmhaplofreq): Sane initialisation of
