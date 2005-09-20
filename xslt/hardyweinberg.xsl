@@ -1,4 +1,4 @@
-<!--
+n<!--
 This file is part of PyPop
 
   Copyright (C) 2003. The Regents of the University of California (Regents) 
@@ -581,6 +581,61 @@ MODIFICATIONS.
     </xsl:if>
     
    </xsl:for-each>
+
+<!-- experimental code to generate lower-triangular matrix for p-vals
+     disable for the moment
+
+   <xsl:for-each select="$unique-cols">
+    <!-- sort by count (frequency) -->
+    <xsl:sort select="../count" data-type="number" order="descending"/>    
+    <xsl:variable name="col" select="."/>
+    <xsl:variable name="col-pos" select="position()"/>
+    
+    <!-- don't generate columns with position greater than the current -->
+    <!-- row position, ensures that the matrix remains lower-triangular -->
+    <xsl:if test="$col-pos &lt;= $row-pos">
+     
+     <!-- generate row name, only on first col and only if the row --> 
+     <!-- is part of this column processing -->
+     
+     <xsl:if test="$col-pos=$start-col">
+     <xsl:call-template name="newline"/>
+     <xsl:call-template name="prepend-pad">
+      <xsl:with-param name="length" select="$row-len-max"/>
+      <xsl:with-param name="padVar" select="' '"/>
+      </xsl:call-template>
+     </xsl:if>
+     
+     <!-- only output cell if in the current column range -->
+
+     <xsl:if test="$col-pos &gt;= $start-col and $col-pos &lt;= $end-col"> 
+
+      <xsl:variable name="cell">
+
+       <!-- "index" into the <genotype> nodes, check both genotype[row,col] -->
+       <!-- as well as genotype[col,row], because original genotype XML -->
+       <!-- only contains 1/2 * N-squared <genotype> lines, but the matrix -->
+       <!-- itself *is* symmetric -->
+
+       <xsl:call-template name="round-to">
+	<xsl:with-param name="node" select="../../../hardyweinbergGuoThompson/pvalue[@type='genotype' and @statistic='chen_statistic' and @row=$row-pos - 1 and @col=$col-pos - 1]"/>
+	<xsl:with-param name="places" select="3"/>
+       </xsl:call-template>
+
+      </xsl:variable>
+      
+      <!-- output cell with padding -->
+      <xsl:call-template name="prepend-pad">
+       <xsl:with-param name="length" select="$col-len-max"/>
+       <xsl:with-param name="padVar" select="$cell"/> 
+      </xsl:call-template>
+      
+     </xsl:if>
+    </xsl:if>
+    
+   </xsl:for-each>
+-->
+
   </xsl:for-each>
 
 
