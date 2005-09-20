@@ -739,54 +739,79 @@ MODIFICATIONS.
   </xsl:call-template>
  </xsl:template>
 
-<xsl:template name="indiv-genotypes">
+ <xsl:template name="indiv-genotypes">
   <xsl:param name="pvalues"/>
   <!-- do individual p-values -->
+  
+  <xsl:variable name="pvals-chen" 
+   select="$pvalues[@type='genotype' and @statistic='chen_statistic']"/>
+  <xsl:variable name="pvals-diff" 
+   select="$pvalues[@type='genotype' and @statistic='diff_statistic']"/>
 
-  <xsl:if test="$pvalues[@statistic='chen_statistic']">
+  <xsl:if test="$pvals-chen or $pvals-diff">
    <xsl:call-template name="newline"/>
-   <xsl:text>Individual genotype p-values [Chen's statistic]:</xsl:text>
+   <xsl:text>Individual genotype p-values found to be significant</xsl:text>
    <xsl:call-template name="newline"/>
-   <xsl:for-each
-    select="$pvalues[@type='genotype' and @statistic='chen_statistic']">
-    <xsl:variable name="offset" select="position()"/>
-    <xsl:variable name="indiv-genotype" select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
-    <xsl:value-of select="$indiv-genotype/@row"/>
-    <xsl:text>:</xsl:text>
-    <xsl:value-of select="$indiv-genotype/@col"/>
-    <xsl:text>: </xsl:text>
-    <xsl:apply-templates select="."/>
-    <xsl:text> (</xsl:text>
-    <xsl:value-of select="$indiv-genotype/observed"/>
-    <xsl:text>/</xsl:text>
-    <xsl:value-of select="$indiv-genotype/expected"/>
-    <xsl:text>)</xsl:text>
-    <xsl:call-template name="newline"/>
-   </xsl:for-each>
+   <xsl:text>Genotype (observed/expected) [Chen's pval] [diff pval]</xsl:text>
+   <xsl:call-template name="newline"/>
+
+   <xsl:choose>
+    <xsl:when test="$pvals-chen">
+     <xsl:call-template name="gen-genotype-pvals">
+      <xsl:with-param name="pvals-loop" select="$pvals-chen"/>
+      <xsl:with-param name="pvals-chen" select="$pvals-chen"/>
+      <xsl:with-param name="pvals-diff" select="$pvals-diff"/>
+     </xsl:call-template>
+    </xsl:when>
+    <xsl:otherwise>
+     <xsl:call-template name="gen-genotype-pvals">
+      <xsl:with-param name="pvals-loop" select="$pvals-diff"/>
+      <xsl:with-param name="pvals-chen" select="$pvals-chen"/>
+      <xsl:with-param name="pvals-diff" select="$pvals-diff"/>
+     </xsl:call-template>
+    </xsl:otherwise>
+   </xsl:choose>
   </xsl:if>
+ </xsl:template>
 
-  <!-- do individual p-values -->
-  <xsl:if test="$pvalues[@statistic='diff_statistic']">
-   <xsl:call-template name="newline"/>
-   <xsl:text>Individual genotype p-values [diff statistic]:</xsl:text>
-   <xsl:call-template name="newline"/>
-   <xsl:for-each
-    select="$pvalues[@type='genotype' and @statistic='diff_statistic']">
-    <xsl:variable name="offset" select="position()"/>
-    <xsl:variable name="indiv-genotype" select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
+ <xsl:template name="gen-genotype-pvals">
+  <xsl:param name="pvals-loop"/>
+  <xsl:param name="pvals-diff"/>
+  <xsl:param name="pvals-diff"/>
+  
+  <xsl:for-each select="$pvals-loop">
+   <xsl:variable name="offset" select="position()"/>
+   <xsl:variable name="chen-pval" select="$pvals-chen[$offset]"/>
+   <xsl:variable name="diff-pval" select="$pvals-diff[$offset]"/>
+
+   <xsl:if test="$chen-pval &lt;= 0.05 or $diff-pval &lt;= 0.05">
+    <xsl:variable name="indiv-genotype" 
+     select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
     <xsl:value-of select="$indiv-genotype/@row"/>
     <xsl:text>:</xsl:text>
     <xsl:value-of select="$indiv-genotype/@col"/>
     <xsl:text>: </xsl:text>
-    <xsl:apply-templates select="."/>
     <xsl:text> (</xsl:text>
     <xsl:value-of select="$indiv-genotype/observed"/>
     <xsl:text>/</xsl:text>
     <xsl:value-of select="$indiv-genotype/expected"/>
-    <xsl:text>)</xsl:text>
+    <xsl:text>) </xsl:text>
+    <xsl:choose>
+     <xsl:when test="$chen-pval">
+      <xsl:apply-templates select="$chen-pval"/>
+     </xsl:when>
+     <xsl:otherwise><xsl:text>---</xsl:text></xsl:otherwise>
+    </xsl:choose>
+    <xsl:text> </xsl:text>
+    <xsl:choose>
+     <xsl:when test="$diff-pval">
+      <xsl:apply-templates select="$diff-pval"/>
+     </xsl:when>
+     <xsl:otherwise><xsl:text>---</xsl:text></xsl:otherwise>
+    </xsl:choose>
     <xsl:call-template name="newline"/>
-   </xsl:for-each>
-   </xsl:if>
+   </xsl:if> 
+  </xsl:for-each>
  </xsl:template>
 
  <!-- print out exact enumeration output if it's generated -->
