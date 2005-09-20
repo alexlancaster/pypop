@@ -324,10 +324,19 @@ MODIFICATIONS.
    <xsl:with-param name="text">
 
     <!-- specify order of metadata field output -->
-    <!-- ensure that popname is generated *first* -->
+    <!-- ensure that popname (if it exists) is generated *first* -->
+    <xsl:if test="popname">
+     <xsl:call-template name="metadata-field">
+      <xsl:with-param name="field" select="popname"/>
+     </xsl:call-template>
+    </xsl:if>
 
-    <xsl:apply-templates select="popname"/>
-    <xsl:apply-templates select="*[not(self::popname)]"/>
+    <xsl:for-each select="*[not(self::popname)]">
+     <xsl:call-template name="metadata-field">
+      <xsl:with-param name="field" select="."/>
+     </xsl:call-template>
+    </xsl:for-each>
+
    </xsl:with-param>
   </xsl:call-template>
  </xsl:template>
@@ -341,21 +350,32 @@ MODIFICATIONS.
   </xsl:call-template>
  </xsl:param>
 
- <xsl:template match="popname|longit|latit|ethnic|collect|method|contin|labcode">
+<!-- <xsl:template match="popname|longit|latit|ethnic|collect|method|contin|labcode"> -->
+
+ <xsl:template name="metadata-field">
+  <xsl:param name="field"/>
   <!-- store the current node name for the lookup-table -->
-  <xsl:variable name="node-name" select="name(.)"/>
+  <xsl:variable name="node-name" select="name($field)"/>
 
   <!-- use the lookup-table to get the verbose (human-readable)
-  version of the metadata element -->
+   version of the metadata element if such an element does not  
+   exist in the lookup-table, use the XML element name -->
   <xsl:call-template name="prepend-pad">
    <xsl:with-param name="padVar">
-    <xsl:value-of 
-     select="document('')//data:pop-col-headers/text[@col=$node-name]"/>  
+    <xsl:variable name="label" select="document('')//data:pop-col-headers/text[@col=$node-name]"/>
+    <xsl:choose>
+     <xsl:when test="not($label)">
+      <xsl:value-of select="$node-name"/>
+     </xsl:when>
+     <xsl:otherwise>
+      <xsl:value-of select="$label"/>
+     </xsl:otherwise>
+    </xsl:choose>
    </xsl:with-param>
    <xsl:with-param name="length" select="$metadata-max-len"/>
   </xsl:call-template>
   <xsl:text>: </xsl:text>
-  <xsl:value-of select="."/>
+  <xsl:value-of select="$field"/>
   <xsl:call-template name="newline"/>
  </xsl:template>
  
