@@ -583,7 +583,9 @@ MODIFICATIONS.
    </xsl:for-each>
 
 <!-- experimental code to generate lower-triangular matrix for p-vals
-     disable for the moment
+     disable for the moment -->
+
+   <xsl:if test="0">
 
    <xsl:for-each select="$unique-cols">
     <!-- sort by count (frequency) -->
@@ -634,7 +636,7 @@ MODIFICATIONS.
     </xsl:if>
     
    </xsl:for-each>
--->
+   </xsl:if>
 
   </xsl:for-each>
 
