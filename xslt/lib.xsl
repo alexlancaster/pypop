@@ -366,6 +366,24 @@ MODIFICATIONS.
   
  </xsl:template>
 
+ <xsl:template name="cleanString">
+  <xsl:param name="string" />
+  <xsl:param name="character"/>
+  <xsl:param name="replacechar"/>
+  <xsl:if test="contains($string, $character)">
+   <xsl:value-of select="substring-before($string, $character)" />
+   <xsl:value-of select="$replacechar"/>
+   <xsl:call-template  name="cleanString">
+    <xsl:with-param name="string">
+     <xsl:value-of select="substring-after($string, $character)" />
+    </xsl:with-param>
+   </xsl:call-template>
+  </xsl:if>
+  <xsl:if test="not(contains($string, $character))">
+   <xsl:value-of select="$string" />
+  </xsl:if>
+ </xsl:template>
+
 </xsl:stylesheet>
 
 <!-- 
