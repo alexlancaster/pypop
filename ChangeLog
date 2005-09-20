@@ -1,5 +1,11 @@
 2005-09-20  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* Utils.py (XMLOutputStream._gentag): Strip out non-valid '?' in
+	XML tag name.
+	(XMLOutputStream.closetag): Use _gentag().
+	(XMLOutputStream.tagContents): Convert '&' and '<' and '>' into
+        valid XML equivalents.
+
 	* xslt/common.xsl (populationdata): Use the XML tag name in list
 	of metadata fields if a match in the list of standard fields is
 	not found.

@@ -72,9 +72,11 @@ class XMLOutputStream(TextOutputStream):
     def _gentag(self, tagname, **kw):
         """Internal method for generating tag text.
 
+        Strip out non-valid tag character: '?'
         *Only use internally*.
         """
         attr=''
+        tagname = tagname.replace('?', '')
         # loop through keywords turning each into an attr,key pair
         for i in kw.keys():
             attr = attr + i + "=" + "\"" + kw[i] + "\"" + " "
@@ -108,15 +110,20 @@ class XMLOutputStream(TextOutputStream):
 
         Generate a tag in the form: '</tagname>'. 
         """
-        self.f.write('</' + tagname + '>')
+        self.f.write('</%s>' % self._gentag(tagname))
 
     def tagContents(self, tagname, content, **kw):
         """Generate open and closing XML tags around contents.
 
-        Generates tags in the form:  '<tagname>content</tagname>'.
-        'content' must be a string.
+        Generates tags in the form: '<tagname>content</tagname>'.
+        'content' must be a string.  Convert '&' and '<' and '>' into
+        valid XML equivalents.
+
         """
         self.opentag(tagname, **kw)
+        content = content.replace("&", "&amp;")
+        content = content.replace("<", "&lt;")
+        content = content.replace(">", "&gt;")
         self.f.write(content)
         self.closetag(tagname)
 
