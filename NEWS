@@ -21,6 +21,11 @@ Copyright (C) 2003, 2004, 2005 Regents of the University of California
 ** Bug fixes
 *** Support Python 2.4 on GCC 4.0 platforms.
 
+** Other issues
+*** In the Sequence filter, add special case for Anthony Nolan HLA data:
+    mark null alleles ending in "N" (e.g. HLA-B*5127N) as "missing
+    data" (****).
+
 * Release Notes for PyPop 0.6.0
 ** New features
 *** Allow for odd allele counts when processing an allele count data 
