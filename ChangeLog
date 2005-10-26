@@ -1,5 +1,7 @@
 2005-10-26  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* NEWS: Note fix below.
+
 	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Make another
 	special case, specific to HLA data, if a "null alleles" (ending in
 	"N") is found, mark it as missing data.  
