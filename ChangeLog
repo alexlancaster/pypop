@@ -1,3 +1,12 @@
+2005-10-26  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Make another
+	special case, specific to HLA data, if a "null alleles" (ending in
+	"N") is found, mark it as missing data.  
+	Some comment cleanups, uncomment generation of matrix of
+	polymorphic sequences for the moment.  Still need to deal with
+	converting 7-digit to 8-digit Anthony Nolan HLA data.
+
 2005-09-20  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/hardyweinberg.xsl (indiv-genotypes): Combine Chen and diff

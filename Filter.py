@@ -473,8 +473,14 @@ class AnthonyNolanFilter(Filter):
                     # if the allele hasn't been keyed yet, we'll have to get a sequence
                     if not self.sequences.has_key(allele):
 
+                        # FIXME: this code is specific to HLA data
+                        # find "null alleles" (ending in "N")
+                        # it makes a null allele
+                        if allele[-1:] == 'N':
+                            self.sequences[allele] = '*' * self.length
+
                         # get the sequence if we can...
-                        if allele in self.alleleLookupTable[locus]:
+                        elif allele in self.alleleLookupTable[locus]:
                             self.sequences[allele] = self._getSequenceFromLines(locus, allele)
 
                         # ...otherwise, try to find a good close match
@@ -482,7 +488,7 @@ class AnthonyNolanFilter(Filter):
                             if allele == self.untypedAllele:
                                 self.sequences[allele] = '*' * self.length
 
-                            # FIXME: this code is specific to hla data
+                            # FIXME: this code is specific to HLA data
                             # deal with 5 digit allele codes and try again
                             elif len(allele) == 5 and allele.isdigit():
                                 allele6digits = allele[:4] + '0' + allele[4:5]
@@ -543,17 +549,17 @@ class AnthonyNolanFilter(Filter):
                 self.logFile.opentag('sequence',locus=locus)
                 self.logFile.writeln()
 
-#                # this will give you the complete sequence of each individual
-#                for individ in self.matrix[locus]:
-#                    for allele in individ:
-#                        alleleString = "> " + allele
-#                        self.logFile.writeln(alleleString)
-#                        self.logFile.writeln(self.sequences[allele])
-#                # this will give you the complete sequence for each unique allele in the pop
-#                for allele in self.sequences:
-#                    alleleString = "> " + allele
-#                    self.logFile.writeln(alleleString)
-#                    self.logFile.writeln(self.sequences[allele])
+                # this will give you the complete sequence of each individual
+                for individ in self.matrix[locus]:
+                    for allele in individ:
+                        alleleString = "> " + allele
+                        self.logFile.writeln(alleleString)
+                        self.logFile.writeln(self.sequences[allele])
+                # this will give you the complete sequence for each unique allele in the pop
+                for allele in self.sequences:
+                    alleleString = "> " + allele
+                    self.logFile.writeln(alleleString)
+                    self.logFile.writeln(self.sequences[allele])
 
                 self.logFile.closetag('sequence')
                 self.logFile.writeln()
