@@ -498,6 +498,16 @@ class AnthonyNolanFilter(Filter):
                                     self.sequences[allele] = self._getSequenceFromLines(locus, allele6digits)
                                 else:
                                     self.sequences[allele] = self._getConsensusFromLines(locus, allele6digits)
+                            ## FIXME: HLA-specific
+                            ## also test for 7 digits
+                            elif len(allele) == 7 and allele.isdigit():
+                                allele8digits = allele[:4] + '0' + allele[4:6]
+                                if self.debug:
+                                    print '%s NOT found in msf file (probably because it is five digits), trying %s' % (allele, allele8digits)
+                                if allele8digits in self.alleleLookupTable[locus]:
+                                    self.sequences[allele] = self._getSequenceFromLines(locus, allele8digits)
+                                else:
+                                    self.sequences[allele] = self._getConsensusFromLines(locus, allele8digits)
 
                             else:
                                 self.sequences[allele] = self._getConsensusFromLines(locus, allele)
