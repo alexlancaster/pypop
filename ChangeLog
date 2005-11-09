@@ -1,3 +1,11 @@
+2005-11-08  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* NEWS: Note recent fixes.
+
+	* Haplo.py (Emhaplofreq.__init__): Initialize instance variable
+	sequenceData to 0, was not being properly initialised before being
+	used in other methods.
+
 2005-10-27  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Add another

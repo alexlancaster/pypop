@@ -306,6 +306,9 @@ class Emhaplofreq(Haplo):
         # assign module to an instance variable so it is available to
         # other methods in class
         self._Emhaplofreq = _Emhaplofreq
+
+        # FIXME: by default assume we are not dealing sequence data
+        self.sequenceData = 0
         
         self.matrix = locusData
         self.untypedAllele = untypedAllele

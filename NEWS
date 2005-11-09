@@ -20,11 +20,17 @@ Copyright (C) 2003, 2004, 2005 Regents of the University of California
 
 ** Bug fixes
 *** Support Python 2.4 on GCC 4.0 platforms.
+*** Add missing initialisation for non-sequence data when processing 
+    haplotypes.  Thanks to Jill Hollenbach for the report.
 
 ** Other issues
 *** In the Sequence filter, add special case for Anthony Nolan HLA data:
     mark null alleles ending in "N" (e.g. HLA-B*5127N) as "missing
     data" (****).
+*** Add another special case for HLA data: test for 7 digits in allele names
+    (e.g. if 2402101 is not found insert a zero after the first 4
+    digits to form 24020101, and check for that).  This is to cope
+    with yet-another HLA nomenclature change.
 
 * Release Notes for PyPop 0.6.0
 ** New features
