@@ -313,6 +313,57 @@ class Genotypes:
         #return self.individualsData
         return self.matrix
 
+def checkIfSequenceData(matrix):
+
+    # FIXME: hack to determine whether we are analysing sequence
+    # we use a regex to match anything in the form A_32 or A_-32
+    # this should be passed as a parameter
+    locus = matrix.colList[0]
+    if re.search("[a-zA-Z0-9]+_[-]?[0-9]+", locus):
+        sequenceData = 1
+    else:
+        sequenceData = 0
+
+    return sequenceData
+
+def getMetaLocus(locus, isSequenceData):
+
+    if isSequenceData:
+        metaLocus = string.split(string.split(locus, ':')[0],'_')[0]
+    else:
+        metaLocus = None
+
+    return metaLocus
+
+def getLocusPairs(matrix, sequenceData):
+    """
+    Returns a list of all pairs of loci from a given StringMatrix
+    """
+        
+    loci = matrix.colList
+        
+    li = []
+    for i in loci:
+        lociCopy = loci[:]
+        indexRemoved = loci.index(i)
+        del lociCopy[indexRemoved]
+        for j in lociCopy:
+            if ((i+':'+j) in li) or ((j+':'+i) in li):
+                pass
+            else:
+                # if we are running sequence data restrict pairs
+                # to pairs within *within* the same gene locus
+                if sequenceData:
+                    genelocus_i = string.split(i,'_')[0]
+                    genelocus_j = string.split(j,'_')[0]
+                    # only append if gene is *within* the same locus
+                    if genelocus_i == genelocus_j:
+                        li.append(i+':'+j)
+                else:
+                    li.append(i+':'+j)
+    return li
+
+
 class AlleleCounts:
     """WARNING: this class is now obsolete, the Genotypes class
     now holds allele count data as pseudo-genotype matrix.

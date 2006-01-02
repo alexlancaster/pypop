@@ -41,6 +41,7 @@ import sys, string, os, re, cStringIO
 
 from Arlequin import ArlequinBatch
 from Utils import getStreamType, appendTo2dList
+from DataTypes import checkIfSequenceData, getLocusPairs
 
 class Haplo:
     """*Abstract* base class for haplotype parsing/output.
@@ -581,35 +582,8 @@ class Emhaplofreq(Haplo):
         if mode == None:
             mode = 'all-pairwise-ld-' + permuMode
 
-        loci = self.matrix.colList
-
-        # FIXME: hack to determine whether we are analysing sequence
-        # we use a regex to match anything in the form A_32 or A_-32
-        # this should be passed as a parameter
-        if re.search("[a-zA-Z0-9]+_[-]?[0-9]+", loci[0]):
-            self.sequenceData = 1
-        else:
-            self.sequenceData = 0
-        
-        li = []
-        for i in loci:
-            lociCopy = loci[:]
-            indexRemoved = loci.index(i)
-            del lociCopy[indexRemoved]
-            for j in lociCopy:
-                if ((i+':'+j) in li) or ((j+':'+i) in li):
-                    pass
-                else:
-                    # if we are running sequence data restrict pairs
-                    # to pairs within *within* the same gene locus
-                    if self.sequenceData:
-                        genelocus_i = string.split(i,'_')[0]
-                        genelocus_j = string.split(j,'_')[0]
-                        # only append if gene is *within* the same locus
-                        if genelocus_i == genelocus_j:
-                            li.append(i+':'+j)
-                    else:
-                        li.append(i+':'+j)
+        self.sequenceData = checkIfSequenceData(self.matrix)
+        li = getLocusPairs(self.matrix, self.sequenceData)
 
         if self.debug:
             print li, len(li)

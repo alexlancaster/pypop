@@ -1,3 +1,41 @@
+2006-01-02  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* xslt/homozygosity.xsl (homozygosityEWSlatkinExactPairwise):
+	Process the section.
+
+	* xslt/common.xsl (dataanalysis): Handle pairwise homozygosity,
+	pass to homozygosityEWSlatkinExactPairwise.
+
+	* Haplo.py (Emhaplofreq.allPairwise): Relocate some reusable code
+	to DataTypes.{checkIfSequenceData, getMetaLocus,
+	getLocusPairs}. Use them.
+
+	* Homozygosity.py (HomozygosityEWSlatkinExactPairwise): New class.
+	Generates homozygosity values using the Ewens-Watterson test for
+	all pairwise loci, or all sites within a gene for sequence data.
+	Note: this really only works for sequence data where the phase for
+	sites within an allele are known.
+
+	* Main.py (Main._doGenotypeFile): Handle a new section in the .ini
+	file: [homozygosityEWSlatkinExactPairwise], use new class.
+	
+	* DataTypes.py (checkIfSequenceData): New function: hack to
+	determine whether we are analysing sequence: we use a regex to
+	match anything in the form A_32 or A_-32.  
+	(getMetaLocus): Get the name of the gene if dealing with sequence
+	data. 
+	(getLocusPairs): New function, generates all pairs of loci. It
+	returns all pairs within a given gene if dealing with sequence
+	data.
+	All relocated from Haplo.py.
+	
+	* Utils.py (StringMatrix.getSuperType): New method.  Returns a
+	matrix grouped by columns.  e.g if matrix is [[A01, A02, B01,
+	B02], [A11, A12, B11, B12]] then getSuperType('A:B') will return
+	the matrix with the column vector:
+	[[A01:B01, A02:B02], [A11:B11, A12:B12]].  Used for generating
+	haplotype "alleles" for sequence data.
+
 2005-11-08  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* NEWS: Note recent fixes.

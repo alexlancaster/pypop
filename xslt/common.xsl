@@ -295,6 +295,20 @@ MODIFICATIONS.
    </xsl:with-param>
   </xsl:call-template>
 
+  <xsl:if test="homozygosityEWSlatkinExactPairwise">
+
+   <!-- should only be present if we are using sequence data -->
+   <xsl:call-template name="section">
+    <xsl:with-param name="title">Pairwise Fnd values</xsl:with-param>
+    <xsl:with-param name="level" select="2" />
+    <xsl:with-param name="number" select="'I(A)'"/>
+    <xsl:with-param name="text">
+     <xsl:apply-templates select="homozygosityEWSlatkinExactPairwise"/>
+    </xsl:with-param>
+   </xsl:call-template>
+
+  </xsl:if>
+
   <xsl:if test="emhaplofreq">
 
    <!-- only if multi-locus analyses have been performed, print out -->

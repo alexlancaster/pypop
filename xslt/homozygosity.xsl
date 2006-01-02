@@ -147,6 +147,98 @@ MODIFICATIONS.
   </xsl:call-template>
   
  </xsl:template>
+
+ <xsl:template match="homozygosityEWSlatkinExactPairwise">
+
+  <xsl:call-template name="newline"/>
+
+  <xsl:call-template name="justified-cell">
+   <xsl:with-param name="padVar">Locus</xsl:with-param>
+   <xsl:with-param name="length" select="15"/>
+   <xsl:with-param name="type" select="'left'"/>
+  </xsl:call-template>
+  
+  <xsl:call-template name="justified-cell">
+   <xsl:with-param name="padVar">F_obs</xsl:with-param>
+   <xsl:with-param name="length" select="8"/>
+   <xsl:with-param name="type" select="'right'"/>
+  </xsl:call-template>
+  
+  <xsl:call-template name="justified-cell">
+   <xsl:with-param name="padVar">F_obs</xsl:with-param>
+   <xsl:with-param name="length" select="8"/>
+   <xsl:with-param name="type" select="'right'"/>
+  </xsl:call-template>
+  
+  <xsl:call-template name="justified-cell">
+   <xsl:with-param name="padVar">Var(F)</xsl:with-param>
+   <xsl:with-param name="length" select="8"/>
+   <xsl:with-param name="type" select="'right'"/>
+  </xsl:call-template>
+  
+  <xsl:call-template name="justified-cell">
+   <xsl:with-param name="padVar">F_nd</xsl:with-param>
+   <xsl:with-param name="length" select="8"/>
+   <xsl:with-param name="type" select="'right'"/>
+  </xsl:call-template>
+  
+  <xsl:call-template name="justified-cell">
+   <xsl:with-param name="padVar"> p-value</xsl:with-param>
+   <xsl:with-param name="length" select="8"/>
+   <xsl:with-param name="type" select="'left'"/>
+  </xsl:call-template>
+    
+  <xsl:call-template name="newline"/>
+
+  <xsl:for-each select="group">
+
+   <xsl:call-template name="justified-cell">
+    <xsl:with-param name="padVar" select="@locus"/>
+    <xsl:with-param name="length" select="15"/>
+    <xsl:with-param name="type" select="'left'"/>
+   </xsl:call-template>
+
+   <xsl:call-template name="justified-cell">
+    <xsl:with-param name="padVar" select="homozygosityEWSlatkinExact/observedHomozygosity"/>
+    <xsl:with-param name="length" select="8"/>
+    <xsl:with-param name="type" select="'right'"/>
+   </xsl:call-template>
+
+   <xsl:call-template name="justified-cell">
+    <xsl:with-param name="padVar" select="homozygosityEWSlatkinExact/meanHomozygosity"/>
+    <xsl:with-param name="length" select="8"/>
+    <xsl:with-param name="type" select="'right'"/>
+   </xsl:call-template>
+   
+   <xsl:call-template name="justified-cell">
+    <xsl:with-param name="padVar" select="homozygosityEWSlatkinExact/varHomozygosity"/>
+    <xsl:with-param name="length" select="8"/>
+    <xsl:with-param name="type" select="'right'"/>
+   </xsl:call-template>
+   
+   <xsl:call-template name="justified-cell">
+    <xsl:with-param name="padVar" select="homozygosityEWSlatkinExact/normDevHomozygosity"/>
+    <xsl:with-param name="length" select="8"/>
+    <xsl:with-param name="type" select="'right'"/>
+   </xsl:call-template>
+   
+   <xsl:call-template name="justified-cell">
+    <xsl:with-param name="padVar">
+     <xsl:text> </xsl:text>
+     <xsl:call-template name="pvalue-func">
+      <xsl:with-param name="val" select="homozygosityEWSlatkinExact/probHomozygosity"/>
+      <xsl:with-param name="type" select="'two-tailed'"/>
+     </xsl:call-template>
+    </xsl:with-param>
+    <xsl:with-param name="length" select="8"/>
+    <xsl:with-param name="type" select="'left'"/>
+   </xsl:call-template>
+  
+   
+   <xsl:call-template name="newline"/>
+  </xsl:for-each>
+
+ </xsl:template>
  
 
  <!-- ################  END HOMOZYGOSITY STATISTICS ###################### --> 

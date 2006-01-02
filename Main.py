@@ -44,7 +44,7 @@ from DataTypes import Genotypes, AlleleCounts
 from Arlequin import ArlequinExactHWTest
 from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin, HardyWeinbergEnumeration
-from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact
+from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact, HomozygosityEWSlatkinExactPairwise
 from ConfigParser import ConfigParser, NoOptionError, NoSectionError
 from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix, checkXSLFile, getUserFilenameInput
 from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
@@ -831,6 +831,17 @@ class Main:
 
           self.xmlStream.closetag('locus')
           self.xmlStream.writeln()
+          
+
+        # Do pairwise Ewens-Watterson test
+        
+        if self.config.has_section("HomozygosityEWSlatkinExactPairwise"):
+            hz = HomozygosityEWSlatkinExactPairwise(\
+                matrix=self.input.getIndividualsData(),
+                numReplicates=numReplicates,
+                untypedAllele=self.untypedAllele,
+                debug=self.debug)
+            hz.serializeTo(self.xmlStream)
 
         # Parse [Emhaplofreq] section to estimate haplotypes and LD
         # skip if not a genotype file, only makes sense for genotype
