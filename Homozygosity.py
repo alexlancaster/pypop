@@ -40,6 +40,7 @@
 import string, sys, os, math
 from operator import add
 from Utils import getStreamType
+from DataTypes import Genotypes, getLocusPairs, checkIfSequenceData, getMetaLocus
 
 def getObservedHomozygosityFromAlleleData(alleleData):
   sum = 0.0
@@ -410,5 +411,56 @@ class HomozygosityEWSlatkinExact(Homozygosity):
       # always end on a newline
       stream.writeln()
 
+class HomozygosityEWSlatkinExactPairwise:
+  
+    def __init__(self,
+                 matrix=None,
+                 numReplicates=10000,
+                 untypedAllele='****',
+                 debug=0):
+
+      self.matrix = matrix
+      self.numReplicates = numReplicates
+      self.debug = debug
+      self.untypedAllele = untypedAllele
+      self.sequenceData = checkIfSequenceData(self.matrix)
+      self.pairs = getLocusPairs(self.matrix, self.sequenceData)
+
+    def serializeTo(self, stream):
+    
+      stream.opentag('homozygosityEWSlatkinExactPairwise')
+      stream.writeln()
+      
+      for pair in self.pairs:
+        metaLocus = getMetaLocus(pair, self.sequenceData)
         
+        stream.opentag('group', locus=pair, metalocus=metaLocus)
+        stream.writeln()
+        subMat = self.matrix.getSuperType(pair)
+        ##print subMat
+        ##print subMat.colList
+
+        # StringMatrix can't use a colon (":") as part of an allele
+        # identifier, so replace them with dash ("-")
+        colName = string.replace(pair, ":", "-")
+
+        # generate allele frequency counts via Genotypes class
+        g = Genotypes(matrix=subMat,
+                      untypedAllele=self.untypedAllele)
+
+        # get allele count data
+        countData = g.getAlleleCountAt(colName)[0]
+
+        # only pass in count frequencies
+        hz = HomozygosityEWSlatkinExact(countData.values(),
+                                        numReplicates=self.numReplicates,
+                                        debug=self.debug)
+
+        hz.serializeHomozygosityTo(stream)
+        stream.closetag('group')
+        stream.writeln()
+                
+      stream.closetag('homozygosityEWSlatkinExactPairwise')
+      stream.writeln()
+
         

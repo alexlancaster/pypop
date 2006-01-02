@@ -564,6 +564,34 @@ class StringMatrix(UserArray):
           return 1
 
       return (filter(f, self.__getitem__(key)))[:]
+
+  def getSuperType(self, key):
+      """Returns a matrix grouped by columns.
+
+      e.g if matrix is [[A01, A02, B01, B02], [A11, A12, B11, B12]]
+
+      then getSuperType('A:B') will return the matrix with the column
+      vector:
+      
+      [[A01:B01, A02:B02], [A11:B11, A12:B12]]
+      """
+      li = self.__getitem__(key)
+
+      colName = string.replace(key, ":", "-")
+      newMatrix = StringMatrix(rowCount=copy.deepcopy(self.rowCount), \
+                               colList=copy.deepcopy([colName]),
+                               extraList=copy.deepcopy(self.extraList),
+                               colSep=self.colSep,
+                               headerLines=self.headerLines)
+
+      pos = 0
+      for i in li:
+          newMatrix[pos, colName] = (string.join(i[0::2], ":"),
+                                     string.join(i[1::2],":"))
+          pos += 1
+
+      return newMatrix
+      
       
 class Group:
   # group a list or sequence by a given size
