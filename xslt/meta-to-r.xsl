@@ -589,13 +589,35 @@ MODIFICATIONS.
      </xsl:for-each>
     </xsl:when>
 
+    <xsl:when test="$type='1-locus-pairwise-fnd'">
+
+     <xsl:call-template name="line-start">
+      <xsl:with-param name="popnode" select="../../populationdata" />
+     </xsl:call-template>
+     
+     <!-- make sure locus1 and locus2 are always in map order -->
+     <xsl:for-each select="str:tokenize(@locus, ':')">
+      <xsl:sort select="$map-order[.=current()]/@order" data-type="number"/>
+      <xsl:value-of select="." />
+      <xsl:text>&#09;</xsl:text>
+     </xsl:for-each>
+     
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node" select="@metalocus"/>
+     </xsl:call-template>
+     
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node" select="homozygosityEWSlatkinExact/normDevHomozygosity"/>
+     </xsl:call-template>
+
+     <xsl:call-template name="newline"/>
+    </xsl:when>
 
     <xsl:when test="$type='multi-locus-summary'">
 
-     <!-- only attempt to print summary data  if haplotype est. converged -->
+     <!-- only attempt to print summary data if haplotype est. converged -->
 
      <xsl:if test="haplotypefreq/condition/@role='converged'">
-
       <xsl:call-template name="line-start">
        <xsl:with-param name="popnode" select="../../populationdata" />
       </xsl:call-template>
@@ -806,6 +828,21 @@ MODIFICATIONS.
      </xsl:call-template>
     </exsl:document>
 
+    <exsl:document href="1-locus-pairwise-fnd.dat"
+     omit-xml-declaration="yes"
+     method="text">
+     <xsl:call-template name="header-line-start">
+      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+     </xsl:call-template>
+     <xsl:text>locus1&#09;locus2&#09;metaloci&#09;f.slatkin.fnd</xsl:text>
+     <xsl:call-template name="newline"/>
+
+     <xsl:call-template name="gen-lines">
+      <xsl:with-param name="nodes"
+       select="/meta/dataanalysis/homozygosityEWSlatkinExactPairwise/group"/>
+      <xsl:with-param name="type" select="'1-locus-pairwise-fnd'"/>
+     </xsl:call-template>
+    </exsl:document>
 
     <exsl:document href="2-locus-summary.dat"
      omit-xml-declaration="yes"

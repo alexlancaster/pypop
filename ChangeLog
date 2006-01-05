@@ -1,3 +1,10 @@
+2006-01-05  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* xslt/meta-to-r.xsl (gen-lines): Add new section
+	1-locus-pairwise-fnd for dealing with pairwise fnd values.  Use
+	exsl:document extension to emit a new file:
+	"1-locus-pairwise-fnd.dat".
+
 2006-01-02  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/homozygosity.xsl (homozygosityEWSlatkinExactPairwise):
