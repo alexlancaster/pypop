@@ -1,3 +1,8 @@
+2006-01-11  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* Meta.py (Meta.__init__): Add '1-locus-pairwise-fnd.dat' to list
+	of files to process when appending files.
+
 2006-01-05  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/meta-to-r.xsl (gen-lines): Add new section
