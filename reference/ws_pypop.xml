@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
-   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
-<article condition="main" xmlns:xi="http://www.w3.org/2001/XInclude">
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" 
+   "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+<article condition="main">
 
- <xi:include href="pypop.xml#xpointer(/article/title)"/>
- <xi:include href="pypop.xml#xpointer(/article/articleinfo)"/>
- <xi:include href="pypop.xml#xpointer(/article/section)"/>
- <xi:include href="pypop.xml#xpointer(/article/ackno)"/>
+ <xi:include href="pypop.xml#xpointer(/article/title)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+ <xi:include href="pypop.xml#xpointer(/article/articleinfo)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+ <xi:include href="pypop.xml#xpointer(/article/section)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+ <xi:include href="pypop.xml#xpointer(/article/ackno)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
  <appendix id="pypop:data-interchange-format">
  <xi:include
- href="pypop-appendices.xml#xpointer(/appendix/sect1/sect2[@id='pypop:data-interchange-format']/*)"/>
+ href="pypop-appendices.xml#xpointer(/appendix/sect1/sect2[@id='pypop:data-interchange-format']/*)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
  </appendix>
 
- <xi:include href="biblio-sorted.xml"/>
+ <xi:include href="biblio-sorted.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
 
 </article>
