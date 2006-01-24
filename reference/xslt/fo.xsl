@@ -9,7 +9,10 @@
  <xsl:import href="common.xsl"/>
  <xsl:import href="citation.xsl"/>
  <xsl:import href="biblio.xsl"/> 
+
+ <!-- overridden DocBook XSL -->
  <xsl:import href="pagesetup.xsl"/> 
+ <xsl:import href="lists.xsl"/>  
 
  <xsl:param name="headers.on.blank.pages" select="0"/>
  <xsl:param name="footers.on.blank.pages" select="0"/>
@@ -142,6 +145,10 @@
    <xsl:value-of select="$body.font.master*0.9"/><xsl:text>pt</xsl:text></xsl:attribute>
  </xsl:attribute-set>
 
+ <!-- ==================================== -->
+ <!-- PassiveTeX workarounds begin -->
+ <!-- ==================================== -->
+
  <!-- workaround template for bugs in PassiveTeX which crop -->
  <!-- up in verbatim environments, exempt <screen> b/c workaround -->
  <!-- strips off useful markup for inline elements, <programlisting> -->
@@ -224,9 +231,10 @@
   </xsl:choose>
  </xsl:template>
 
+ <!-- ==================================== -->
  <!-- customization header content -->
 
-<xsl:template name="header.content">
+ <xsl:template name="header.content">
   <xsl:param name="pageclass" select="''"/>
   <xsl:param name="sequence" select="''"/>
   <xsl:param name="position" select="''"/>
@@ -284,6 +292,9 @@
   </fo:block>
  </xsl:template>
 
+ <!-- ==================================== -->
+
+ <!-- make appendix be really small -->
  <xsl:template match="appendix">
   <xsl:variable name="id">
     <xsl:call-template name="object.id"/>
