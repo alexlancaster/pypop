@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
-   "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd">
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" 
+   "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
 <?PSGML nofill programlisting screen citation?>
-<article condition="main" xmlns:xi="http://www.w3.org/2001/XInclude">
+<article condition="main">
 
  <title>Software framework for Biostatistics Core</title>
 
@@ -1000,7 +1000,7 @@ Name      Frequency (Count)   | Name      Frequency (Count)
   Steve Marsh, and Leslie Louie for helpful comments and
   testing.</ackno>
 
- <xi:include href="biblio.xml"/>
+ <xi:include href="biblio.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
  
 </article>
  
