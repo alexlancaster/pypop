@@ -53,7 +53,7 @@ MODIFICATIONS.
  <xsl:template match="emhaplofreq">
   <xsl:call-template name="section">
    <xsl:with-param name="level" select="2"/>
-   <xsl:with-param name="title">Haplotype/ linkage disequilibrium (LD) statistics</xsl:with-param>
+   <xsl:with-param name="title">Haplotype / linkage disequilibrium (LD) statistics</xsl:with-param>
    <xsl:with-param name="text">
     
     <!-- first print out table of all pairwise LD (without HFs by default) -->
