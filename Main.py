@@ -694,9 +694,23 @@ class Main:
           # FIXME: need a way to disable if too many
           # alleles/individuals in a given population.
           if self.config.has_section("HardyWeinbergEnumeration"):
+
+              # by default only to individual genotype enumeration
+              # p-values, which is feasible because it only does 3x3
+              # tables
+
+              try:
+                  doOverall = self.config.getboolean("HardyWeinbergEnumeration",
+                                                     "doOverall")
+              except NoOptionError:
+                  doOverall=0
+              except ValueError:
+                  sys.exit("doOverall: requires 0 or 1 as a boolean flag")
+              
               hwEnum = HardyWeinbergEnumeration(\
                      locusData=self.input.getLocusDataAt(locus), 
                      alleleCount=self.input.getAlleleCountAt(locus),
+                     doOverall=doOverall,
                      debug=self.debug)
 
               hwEnum.serializeTo(self.xmlStream)

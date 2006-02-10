@@ -1,3 +1,22 @@
+2006-02-10  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* Main.py (Main._doGenotypeFile): Add a new .ini file option
+	'doOverall' to '[HardyWeinbergEnumeration]' section.  Set to
+	false ('0') by default.  Pass through the HardyWeinbergEnumeration
+	module.
+
+	* HardyWeinberg.py (HardyWeinbergEnumeration.__init__): New
+	parameter: 'doOverall', which if set to true ('1'), then do
+	overall locus-level p-value test.  Default is false ('0').  This
+	parameter is now passed to the SWIG wrapper call: run_external().
+	If we aren't doing overall test, we don't get the overall p-value
+	from the wrapper.
+	(HardyWeinbergEnumeration.serializeTo): Use an empty XML tag for
+	overall p-value if doOverall is false.  Add a new "method"
+	attribute to the <pvalue> tags for genotypes, if overall is not
+	done, specify that we are using the "three-by-three", otherwise
+	specify it as "full".
+
 2006-01-11  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Meta.py (Meta.__init__): Add '1-locus-pairwise-fnd.dat' to list
