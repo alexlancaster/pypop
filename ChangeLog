@@ -1,5 +1,13 @@
 2006-02-10  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* xslt/hardyweinberg.xsl (indiv-geno-pval-cutoff): New parameter
+	for the cut-off p-value used to display genotypes, default to
+	0.05.  This can be overriden by a command-line arg to
+	xsltproc (e.g. "--param indiv-geno-pval-cutoff 1" passed to
+	xsltproc would display all genotypes).
+	(gen-genotype-pvals): Use $indiv-geno-pval-cutoff rather than
+	hard-coded 0.05 level.
+
 	* Main.py (Main._doGenotypeFile): Add a new .ini file option
 	'doOverall' to '[HardyWeinbergEnumeration]' section.  Set to
 	false ('0') by default.  Pass through the HardyWeinbergEnumeration
