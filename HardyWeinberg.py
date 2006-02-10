@@ -856,36 +856,59 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
 class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
   """Uses Hazael Maldonado Torres' exact enumeration test
-  
+
+  - 'doOverall': if set to true ('1'), then do overall p-value test
+                 default is false ('0')
   """
   def __init__(self,
                locusData=None,
                alleleCount=None,
+               doOverall=0,
                **kw):
-    import _HweEnum    
+    import _HweEnum
+
     self.HweEnumProcess = _HweEnum
     
     HardyWeinbergGuoThompson.__init__(self,
                                       locusData=locusData,
                                       alleleCount=alleleCount,
                                       **kw)
-
+    self.doOverall = doOverall
     self.generateFlattenedMatrix()
 
+    self.HweEnumProcess.run_external(self.flattenedMatrix,
+                                     self.k,
+                                     self.doOverall)
 
-    self.HweEnumProcess.run_external(self.flattenedMatrix, self.k)
-    self.exactPValue = self.HweEnumProcess.get_p_value()
-    self.observedPValue = self.HweEnumProcess.get_pr_observed()
-    self.diffPvals =  self.HweEnumProcess.get_diff_statistic_pvalue()
-    self.chenPvals =  self.HweEnumProcess.get_chen_statistic_pvalue()
+    if self.doOverall:
+      self.exactPValue = self.HweEnumProcess.get_p_value()
+      self.observedPValue = self.HweEnumProcess.get_pr_observed()
+      self.diffPvals =  self.HweEnumProcess.get_diff_statistic_pvalue()
+      self.chenPvals =  self.HweEnumProcess.get_chen_statistic_pvalue()
+    else:
+      self.diffPvals =  self.HweEnumProcess.get_diff_statistic_pvalue_ext()
+      self.chenPvals =  self.HweEnumProcess.get_chen_statistic_pvalue_ext()
+      
     
   def serializeTo(self, stream):
     stream.opentag('hardyweinbergEnumeration')
     stream.writeln()
-    stream.tagContents("pvalue", "%f" % self.exactPValue, type="overall")
+    if self.doOverall:
+      stream.tagContents("pvalue", "%f" % self.exactPValue, type="overall")
+    else:
+      stream.emptytag("pvalue", type="overall", role="not-calculated")
     stream.writeln()
-    stream.tagContents("pvalue", "%f" % self.observedPValue, type="observed")
+    if self.doOverall:
+      stream.tagContents("pvalue", "%f" % self.observedPValue, type="observed")
+    else:
+      stream.emptytag("pvalue", type="observed", role="not-calculated")
     stream.writeln()
+
+    if self.doOverall:
+      method="full"
+    else:
+      method="three-by-three"
+      
     for i in range(0, self.k):
       for j in range(0, i+1):
 
@@ -896,11 +919,11 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
 
         stream.tagContents ("pvalue", "%f" % self.diffPvals[(i*(i+1)/2)+j], \
                             type='genotype', statistic='diff_statistic', \
-                            row=("%d" % i), col=("%d" % j))
+                            row=("%d" % i), col=("%d" % j), method=method)
 
         stream.tagContents ("pvalue", "%f" % self.chenPvals[(i*(i+1)/2)+j], \
                             type='genotype', statistic='chen_statistic', \
-                            row=("%d" % i), col=("%d" % j))
+                            row=("%d" % i), col=("%d" % j), method=method)
 
         stream.writeln()
     stream.closetag('hardyweinbergEnumeration')
