@@ -36,6 +36,8 @@ MODIFICATIONS.
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:data="any-uri">
 
+ <xsl:param name="indiv-geno-pval-cutoff" select="0.05"/>
+
  <!-- boiler-plate text that we may want to re-use -->
  <data:hardyweinberg-col-headers>
   <text col="observed">Observed</text>
@@ -784,7 +786,7 @@ MODIFICATIONS.
    <xsl:variable name="chen-pval" select="$pvals-chen[$offset]"/>
    <xsl:variable name="diff-pval" select="$pvals-diff[$offset]"/>
 
-   <xsl:if test="$chen-pval &lt;= 0.05 or $diff-pval &lt;= 0.05">
+   <xsl:if test="$chen-pval &lt;= $indiv-geno-pval-cutoff or $diff-pval &lt;= $indiv-geno-pval-cutoff">
     <xsl:variable name="indiv-genotype" 
      select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
     <xsl:value-of select="$indiv-genotype/@row"/>
