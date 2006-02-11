@@ -1,5 +1,10 @@
 2006-02-10  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* xslt/emhaplofreq.xsl (haplotypefreq): Add a check, if the
+	maximum haplotype length is > 20, double the 21 character limit to
+	42 and put sorted-by-frequency and sorted-by-name on separate
+	pages, rather than side-by-side.
+
 	* xslt/hardyweinberg.xsl (indiv-geno-pval-cutoff): New parameter
 	for the cut-off p-value used to display genotypes, default to
 	0.05.  This can be overriden by a command-line arg to

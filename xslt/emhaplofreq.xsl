@@ -338,7 +338,20 @@ MODIFICATIONS.
 
  <!-- generate the haplotype frequency table -->
  <xsl:template match="haplotypefreq">
-  
+
+  <xsl:variable name="max-haplo-len"> 
+   <xsl:call-template name="max-string-len">
+    <xsl:with-param name="path" select="haplotype/@name"/>
+   </xsl:call-template>
+  </xsl:variable>
+
+  <xsl:variable name="extended">
+   <xsl:choose>
+    <xsl:when test="$max-haplo-len &lt; 20">0</xsl:when>
+    <xsl:otherwise>1</xsl:otherwise>
+   </xsl:choose>
+  </xsl:variable>
+
   <xsl:choose>
    <xsl:when test="condition/@role='converged'">
 
@@ -346,7 +359,12 @@ MODIFICATIONS.
      <!-- create header for table -->
      <xsl:call-template name="append-pad">
       <xsl:with-param name="padVar">haplotype</xsl:with-param>
-      <xsl:with-param name="length">21</xsl:with-param>
+      <xsl:with-param name="length">
+       <xsl:choose>
+	<xsl:when test="$extended=1">42</xsl:when>
+	<xsl:otherwise>21</xsl:otherwise>
+       </xsl:choose>
+      </xsl:with-param>
      </xsl:call-template>
      
      <xsl:call-template name="append-pad">
@@ -376,10 +394,15 @@ MODIFICATIONS.
      <!-- loop through each haplotype by name -->
      <xsl:for-each select="haplotype">
       <xsl:sort select="@name" data-type="text" order="ascending"/>
-      
+       
       <xsl:call-template name="append-pad">
        <xsl:with-param name="padVar" select="@name"/>
-       <xsl:with-param name="length">21</xsl:with-param>
+       <xsl:with-param name="length">
+       <xsl:choose>
+	<xsl:when test="$extended=1">42</xsl:when>
+	<xsl:otherwise>21</xsl:otherwise>
+       </xsl:choose>
+       </xsl:with-param>
       </xsl:call-template>
       
       <xsl:call-template name="append-pad">
@@ -413,7 +436,12 @@ MODIFICATIONS.
       
       <xsl:call-template name="append-pad">
        <xsl:with-param name="padVar" select="@name"/>
-       <xsl:with-param name="length">21</xsl:with-param>
+       <xsl:with-param name="length">
+	<xsl:choose>
+	 <xsl:when test="$extended=1">42</xsl:when>
+	 <xsl:otherwise>21</xsl:otherwise>
+	</xsl:choose>
+       </xsl:with-param>
       </xsl:call-template>
       
       <xsl:call-template name="append-pad">
@@ -429,11 +457,22 @@ MODIFICATIONS.
      </xsl:for-each>
     </xsl:variable>
 
-    <xsl:call-template name="paste-columns">
-     <xsl:with-param name="col1" select="$haplos-by-name"/>
-     <xsl:with-param name="col2" select="$haplos-by-freq"/>
-     <xsl:with-param name="delim" select="'| '"/>
-    </xsl:call-template>
+    <xsl:choose>
+     <xsl:when test="$extended=1">
+      <xsl:value-of select="$haplos-by-freq"/>
+      <xsl:call-template name="newline"/>
+      <xsl:value-of select="$haplos-by-name"/>
+     </xsl:when>
+
+     <xsl:otherwise>
+      <xsl:call-template name="paste-columns">
+       <xsl:with-param name="col1" select="$haplos-by-name"/>
+       <xsl:with-param name="col2" select="$haplos-by-freq"/>
+       <xsl:with-param name="delim" select="'| '"/>
+      </xsl:call-template>
+      
+     </xsl:otherwise>
+    </xsl:choose>
 
    </xsl:when>
 
