@@ -208,7 +208,8 @@ ext_HweEnum = Extension("_HweEnum",
                                      ('g_fprintf', 'pyfprintf'),
                                      ('VERSION', '"internal"'),
                                      ('PACKAGE_NAME','"hwe-enumeration"'),
-                                     ('INDIVID_GENOTYPES', '1')]
+                                     ('INDIVID_GENOTYPES', '1'),
+                                     ('HAVE_LIBGSL', '1')]
                       )
 
 # check to see if version of Python is > 2.1
