@@ -84,7 +84,7 @@ int main(int argc, char *argv[])
   size = sample.size;
 
   /* pass the parsed variables to do the main processing */
-  run_data(genotypes, allele_array, no_allele, total, step, group, size, title, outfile);
+  run_data(genotypes, allele_array, no_allele, total, step, group, size, title, outfile, 1);
 
   free(genotypes);
   free(allele_array);
@@ -143,7 +143,7 @@ long init_rand(void)
  */
 int run_data(int *genotypes, int *allele_array, int no_allele, 
 	     int total_individuals, int thestep, int thegroup, int thesize,
-	     char *title, FILE *outfile)
+	     char *title, FILE *outfile, int header)
 {
   int actual_switch, counter;
   Index index;
@@ -166,7 +166,8 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
   sample.size = thesize;
 
 #ifdef XML_OUTPUT
-  fprintf(outfile, "<hardyweinbergGuoThompson>\n");
+  if (header)
+    fprintf(outfile, "<hardyweinbergGuoThompson>\n");
   fprintf(outfile, "<dememorizationSteps>%d</dememorizationSteps>\n", 
 	  sample.step);
   fprintf(outfile, "<samplingNum>%d</samplingNum>\n", sample.group);
@@ -312,14 +313,16 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
 #endif
 
 #ifdef XML_OUTPUT
-  fprintf(outfile, "</hardyweinbergGuoThompson>");
+  if (header)
+    fprintf(outfile, "</hardyweinbergGuoThompson>");
 #endif
 
   return (0);
 }
 
 int run_randomization(int *genotypes, int *allele_array, int no_allele, 
-		      int total_individuals, int iterations, FILE *outfile)
+		      int total_individuals, int iterations, FILE *outfile,
+		      int header)
 {
   double ln_p_observed; 
   double constant;
@@ -336,8 +339,9 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   ln_p_observed = ln_p_value(genotypes, no_allele, constant);   
 
 #ifdef XML_OUTPUT
-  fprintf(outfile, 
-	  "\n<hardyweinbergGuoThompson type=\"monte-carlo\">\n");
+  if (header)
+    fprintf(outfile, 
+	    "\n<hardyweinbergGuoThompson type=\"monte-carlo\">\n");
 #else
   fprintf(outfile, "Constant: %e, Observed: %e\n", constant, ln_p_observed);
 #endif
@@ -496,6 +500,7 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   free(g);
   free(s);
 
-  fprintf(outfile, "</hardyweinbergGuoThompson>\n");
+  if (header)
+    fprintf(outfile, "</hardyweinbergGuoThompson>\n");
   return (0);
 }
