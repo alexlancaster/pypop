@@ -40,9 +40,9 @@ MODIFICATIONS. */
  * Python entry point to program.
  */
 
-extern int run_data(int [], int [], int, int, int, int, int, char *, FILE *);
+extern int run_data(int [], int [], int, int, int, int, int, char *, FILE *, int);
 
-extern int run_randomization(int [], int [], int, int, int, FILE *);
+extern int run_randomization(int [], int [], int, int, int, FILE *, int);
 
 /* 
  * Local variables:

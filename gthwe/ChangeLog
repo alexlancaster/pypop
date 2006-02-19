@@ -1,3 +1,14 @@
+2006-02-19  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* gthwe_wrap.i (run_data, run_randomization): New parameter for
+	the SWIG wrapper.
+
+	* hwe.c (main): Pass in '1' (true) for generating XML open tags if
+	running from command line.
+	(run_data): New parameter, 'header'.  If true, output the XML
+	<hardyweinbergGuoThompson> tag, otherwise surpress it.
+	(run_randomization): Likewise new parameter.
+
 2005-05-05  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* hwe.c (init_rand): Don't use fixed seed, take from call to
