@@ -2,8 +2,8 @@
 
 # This file is part of PyPop
 
-# Copyright (C) 2003. The Regents of the University of California (Regents)
-# All Rights Reserved.
+# Copyright (C) 2003-2006.
+# The Regents of the University of California (Regents). All Rights Reserved.
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -232,14 +232,36 @@ class Genotypes:
         
         return self.freqcount
 
-    def getAlleleCountAt(self, locus):
+    def getAlleleCountAt(self, locus, lumpValue=0):
         """Return allele count for given locus.
-        
+
+        - 'lumpValue': the specified amount of lumping (Default: 0)        
+
         Given a locus name, return a tuple: consisting of a map keyed
         by alleles containing counts, the total count at that
         locus, and number of untyped individuals.  """
-        
-        return self.freqcount[locus]
+
+        # need to recalculate values
+        if (lumpValue != 0):
+
+            alleles, totalAlleles, untyped = self.freqcount[locus]
+
+            lumpedAlleles = {}
+            for allele in alleles.keys():
+                count = alleles[allele]
+                if count <= lumpValue:
+                    if lumpedAlleles.has_key('lump'):
+                        lumpedAlleles['lump'] += count
+                    else:
+                        lumpedAlleles['lump'] = count
+                else:
+                    lumpedAlleles[allele] = count
+            lumpedTuple = lumpedAlleles, totalAlleles, untyped
+            ## print lumpedTuple
+            
+            return lumpedTuple
+        else:
+            return self.freqcount[locus]
 
     def serializeSubclassMetadataTo(self, stream):
         """Serialize subclass-specific metadata.
@@ -280,12 +302,14 @@ class Genotypes:
         stream.closetag('allelecounts')
         return 1
 
-    def getLocusDataAt(self, locus):
-        """Returns the genotyped data for specified locus.
+    def getLocusDataAt(self, locus, lumpValue=0):
+        """Returns the genotyped data for specified locus.  
 
         Given a 'locus', return a list genotypes consisting of
         2-tuples which contain each of the alleles for that individual
         in the list.
+
+        - 'lumpValue': the specified amount of lumping (Default: 0)
 
         **Note:** *this list has filtered out all individuals that are
         untyped at either chromosome.*
@@ -293,9 +317,46 @@ class Genotypes:
         **Note 2:** data is sorted so that allele1 < allele2,
         alphabetically """
 
-        # returns a clone of the list, so that this instance variable
-        # can't be modified inadvertantly
-        return (self.locusTable[locus])[:]
+        # need to recalculate values
+        if (lumpValue != 0):
+
+            alleles, totalAlleles, untyped = self.freqcount[locus]
+
+            lumpedAlleles = {}
+            listLumped = []
+            for allele in alleles.keys():
+                count = alleles[allele]
+                if count <= lumpValue:
+                    listLumped.append(allele)
+                    if lumpedAlleles.has_key('lump'):
+                        lumpedAlleles['lump'] += count
+                    else:
+                        lumpedAlleles['lump'] = count
+                else:
+                    lumpedAlleles[allele] = count
+            ##print listLumped
+            copyTable = (self.locusTable[locus])[:]
+            newTable = []
+            for li in copyTable:
+                allele1, allele2 = li
+                if allele1 in listLumped:
+                    newAllele1 = 'lump'
+                else:
+                    newAllele1 = allele1
+                if allele2 in listLumped:
+                    newAllele2 = 'lump'
+                else:
+                    newAllele2 = allele2
+                newTable.append((newAllele1, newAllele2))
+                    
+            ##print copyTable
+            ##print newTable
+            
+            return newTable
+        else:
+            # returns a clone of the list, so that this instance variable
+            # can't be modified inadvertantly
+            return (self.locusTable[locus])[:]
     
     def getLocusData(self):
         """Returns the genotyped data for all loci.
@@ -362,6 +423,19 @@ def getLocusPairs(matrix, sequenceData):
                 else:
                     li.append(i+':'+j)
     return li
+
+def getLumpedDataLevels(genotypeData, locus, lumpLevels):
+    """Returns a dictionary of tuples with alleleCount and locusData
+    lumped by different levels specified as a list of integers."""
+
+    lumpData = {}
+    for level in lumpLevels:
+        lumpData[level] = (genotypeData.getLocusDataAt(locus,
+                                                     lumpValue=level),
+                           genotypeData.getAlleleCountAt(locus,
+                                                         lumpValue=level))
+    return lumpData
+
 
 
 class AlleleCounts:

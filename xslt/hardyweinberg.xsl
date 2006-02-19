@@ -1,7 +1,8 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California (Regents) 
+  Copyright (C) 2003-2006. 
+  The Regents of the University of California (Regents) 
   All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -34,9 +35,13 @@ MODIFICATIONS.
 <xsl:stylesheet 
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+ xmlns:exslt="http://exslt.org/common"
+ extension-element-prefixes="exslt"
  xmlns:data="any-uri">
 
  <xsl:param name="indiv-geno-pval-cutoff" select="0.05"/>
+
+ <xsl:param name="new-hardyweinberg-format" select="0"/>
 
  <!-- boiler-plate text that we may want to re-use -->
  <data:hardyweinberg-col-headers>
@@ -79,7 +84,17 @@ MODIFICATIONS.
   <xsl:call-template name="section">
    <xsl:with-param name="title">
     <xsl:call-template name="locus-header">
-     <xsl:with-param name="title">HardyWeinberg</xsl:with-param>
+     <xsl:with-param name="title">
+      <xsl:text>HardyWeinberg</xsl:text>
+      <xsl:choose>
+       <xsl:when test="@allelelump=0 or not(@allelelump)"></xsl:when>
+       <xsl:otherwise>
+	<xsl:text> (lump alleles &lt;= </xsl:text>
+	<xsl:value-of select="@allelelump"/>
+	<xsl:text>)</xsl:text>
+       </xsl:otherwise>
+      </xsl:choose>
+     </xsl:with-param>
     </xsl:call-template>
    </xsl:with-param>
    <xsl:with-param name="level" select="3"/>
@@ -406,9 +421,26 @@ MODIFICATIONS.
   <xsl:text>Table of genotypes, format of each cell is: observed/expected.</xsl:text>
   <xsl:call-template name="newline"/>
 
-  <!-- get the unique list of column (allele) names from -->
-  <!-- <allelecount> section -->
-  <xsl:variable name="unique-cols" select="../../allelecounts/allele/@name"/>
+  <xsl:variable name="unique-cols-nodes">
+   <xsl:for-each select="genotype">
+    <xsl:if test="not(@col = preceding-sibling::genotype/@col)">
+     <unique><xsl:value-of select="@col"/></unique>
+       </xsl:if>
+   </xsl:for-each>
+  </xsl:variable>
+  
+  <xsl:variable name="unique-cols-new"
+   select="exslt:node-set($unique-cols-nodes)/unique"/>
+
+  <!-- old style: get the unique list of column (allele) names -->
+  <!-- from <allelecount> section -->
+ 
+  <xsl:variable name="unique-cols-old"
+   select="../../allelecounts/allele/@name"/> 
+
+  <xsl:variable name="unique-cols" 
+   select="$unique-cols-new[$new-hardyweinberg-format=1] | 
+   $unique-cols-old[$new-hardyweinberg-format=0]"/>
 
   <!-- save the current node -->
   <xsl:variable name="curr-node" select="."/>
@@ -676,7 +708,23 @@ MODIFICATIONS.
   <xsl:call-template name="section">
    <xsl:with-param name="title">
     <xsl:call-template name="locus-header">
-     <xsl:with-param name="title">Guo and Thompson HardyWeinberg output (<xsl:value-of select="@type"/>)</xsl:with-param>
+     <xsl:with-param name="title">
+      <xsl:text>Guo and Thompson HardyWeinberg output (</xsl:text>
+      <xsl:choose>
+       <!-- by default we generate MCMC output for the original GT92 test -->
+       <xsl:when test="not(@type)">mcmc</xsl:when>
+       <xsl:otherwise><xsl:value-of select="@type"/></xsl:otherwise>
+      </xsl:choose>
+      <xsl:text>)</xsl:text>
+      <xsl:choose>
+       <xsl:when test="@allelelump=0 or not(@allelelump)"></xsl:when>
+       <xsl:otherwise>
+	<xsl:text> [lump alleles &lt;= </xsl:text>
+	<xsl:value-of select="@allelelump"/>
+	<xsl:text>]</xsl:text>
+       </xsl:otherwise>
+      </xsl:choose>
+     </xsl:with-param>
     </xsl:call-template>
    </xsl:with-param>
    <xsl:with-param name="level" select="3"/>
@@ -785,10 +833,10 @@ MODIFICATIONS.
    <xsl:variable name="offset" select="position()"/>
    <xsl:variable name="chen-pval" select="$pvals-chen[$offset]"/>
    <xsl:variable name="diff-pval" select="$pvals-diff[$offset]"/>
-
+   
    <xsl:if test="$chen-pval &lt;= $indiv-geno-pval-cutoff or $diff-pval &lt;= $indiv-geno-pval-cutoff">
     <xsl:variable name="indiv-genotype" 
-     select="../../hardyweinberg/genotypetable/genotype[$offset]"/>
+     select="../genotypetable/genotype[$offset]"/>
     <xsl:value-of select="$indiv-genotype/@row"/>
     <xsl:text>:</xsl:text>
     <xsl:value-of select="$indiv-genotype/@col"/>
@@ -821,7 +869,17 @@ MODIFICATIONS.
   <xsl:call-template name="section">
    <xsl:with-param name="title">
     <xsl:call-template name="locus-header">
-     <xsl:with-param name="title">Exact enumeration HardyWeinberg output (<xsl:value-of select="@type"/>)</xsl:with-param>
+     <xsl:with-param name="title">
+      <xsl:text>Exact enumeration HardyWeinberg output</xsl:text>
+      <xsl:choose>
+       <xsl:when test="@allelelump=0 or not(@allelelump)"></xsl:when>
+       <xsl:otherwise>
+	<xsl:text> (lump alleles &lt;= </xsl:text>
+	<xsl:value-of select="@allelelump"/>
+	<xsl:text>)</xsl:text>
+       </xsl:otherwise>
+      </xsl:choose>
+     </xsl:with-param>
     </xsl:call-template>
    </xsl:with-param>
    <xsl:with-param name="level" select="3"/>

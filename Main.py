@@ -1,10 +1,9 @@
-
 #!/usr/bin/env python
 
 # This file is part of PyPop
 
-# Copyright (C) 2003. The Regents of the University of California (Regents)
-# All Rights Reserved.
+# Copyright (C) 2003, 2004, 2005, 2006.
+# The Regents of the University of California (Regents) All Rights Reserved.
 
 # This program is free software; you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -40,13 +39,13 @@
 import sys, os, string, time
 
 from ParseFile import ParseGenotypeFile, ParseAlleleCountFile
-from DataTypes import Genotypes, AlleleCounts
+from DataTypes import Genotypes, AlleleCounts, getLumpedDataLevels
 from Arlequin import ArlequinExactHWTest
 from Haplo import Emhaplofreq, HaploArlequin
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin, HardyWeinbergEnumeration
 from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact, HomozygosityEWSlatkinExactPairwise
 from ConfigParser import ConfigParser, NoOptionError, NoSectionError
-from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix, checkXSLFile, getUserFilenameInput
+from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix, checkXSLFile, getUserFilenameInput, unique_elements
 from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
 from RandomBinning import RandomBinsForHomozygosity
 
@@ -621,6 +620,29 @@ class Main:
             # serialize HardyWeinberg
             hwObject.serializeTo(self.xmlStream)
 
+            try:
+              alleleLump =  self.config.get("HardyWeinberg", "alleleLump")
+              li = [int(i) for i in string.split(alleleLump, ",")]
+              lumpData = getLumpedDataLevels(self.input,
+                                             locus,
+                                             li)
+            
+              for level in lumpData.keys():
+                  locusData, alleleData = lumpData[level]
+                  hwObjectLump = HardyWeinberg(locusData,
+                                               alleleData,
+                                               lumpBelow=lumpBelow,
+                                               debug=self.debug)
+
+                  # serialize HardyWeinberg
+                  hwObjectLump.serializeTo(self.xmlStream, allelelump=level)
+
+            except NoOptionError:
+                pass
+            except ValueError:
+              sys.exit("alleleLump: require comma-separated list of integers")
+
+
           # Parse "HardyWeinbergGuoThompson"
           if self.config.has_section("HardyWeinbergGuoThompson") and \
              len(self.config.options("HardyWeinbergGuoThompson")) > 0:
@@ -691,6 +713,57 @@ class Main:
             hwObject.dumpTable(locus, self.xmlStream)
             self.xmlStream.writeln()
 
+            try:
+                alleleLump1=self.config.get("HardyWeinbergGuoThompson",
+                                            "alleleLump")
+            except NoOptionError:
+                alleleLump1=0
+
+            try:
+                alleleLump2=self.config.get("HardyWeinbergGuoThompsonMonteCarlo",
+                                            "alleleLump")
+            except NoOptionError:
+                alleleLump2=0
+
+            if alleleLump1 or alleleLump2:
+                try:
+                    ## get the unique maximal number of possible lumpings
+                    if alleleLump1:
+                        li1 = [int(i) for i in string.split(alleleLump1, ",")]
+                    else:
+                        li1=[]
+                    if alleleLump2:
+                        li2 = [int(i) for i in string.split(alleleLump2, ",")]
+                    else:
+                        li2=[]
+                    li1.extend(li2)
+                    li = unique_elements(li1)
+
+                    lumpData = getLumpedDataLevels(self.input, locus, li)
+                    for level in lumpData.keys():
+                        locusData, alleleData = lumpData[level]
+
+                        hwObjectLump = HardyWeinbergGuoThompson(\
+                               locusData=locusData, 
+                               alleleCount=alleleData,
+                               runMCMCTest=runMCMCTest,
+                               runPlainMCTest=runPlainMCTest,
+                               dememorizationSteps=dememorizationSteps,
+                               samplingNum=samplingNum,
+                               samplingSize=samplingSize,
+                               maxMatrixSize=maxMatrixSize,
+                               monteCarloSteps=monteCarloSteps,
+                               debug=self.debug)
+                        
+                        # serialize HardyWeinberg
+                        hwObjectLump.dumpTable(locus, self.xmlStream,
+                                               allelelump=level)
+                        self.xmlStream.writeln()
+
+                except ValueError:
+                    sys.exit("alleleLump: require comma-separated list of integers")
+
+
           # FIXME: need a way to disable if too many
           # alleles/individuals in a given population.
           if self.config.has_section("HardyWeinbergEnumeration"):
@@ -714,6 +787,31 @@ class Main:
                      debug=self.debug)
 
               hwEnum.serializeTo(self.xmlStream)
+
+              try:
+                  alleleLump =  self.config.get("HardyWeinbergEnumeration",
+                                                "alleleLump")
+                  li = [int(i) for i in string.split(alleleLump, ",")]
+                  lumpData = getLumpedDataLevels(self.input,
+                                                 locus,
+                                                 li)
+            
+                  for level in lumpData.keys():
+                      locusData, alleleData = lumpData[level]
+                      
+                      hwEnumLump = HardyWeinbergEnumeration(\
+                                    locusData=locusData,
+                                    alleleCount=alleleData,
+                                    doOverall=doOverall,
+                                    debug=self.debug)
+                      
+                      # serialize HardyWeinberg
+                      hwEnumLump.serializeTo(self.xmlStream, allelelump=level)
+
+              except NoOptionError:
+                  pass
+              except ValueError:
+                  sys.exit("alleleLump: require comma-separated list of integers")
             
           if self.config.has_section("HardyWeinbergGuoThompsonArlequin"):
 
@@ -1030,8 +1128,9 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
           # resolve and perform any XIncludes the document may have
           doc.xincludeProcess()
 
+          params = {"new-hardyweinberg-format": 1}
           # process via stylesheet
-          result = style.applyStylesheet(doc, None)
+          result = style.applyStylesheet(doc, params)
 
           # save result to file
           style.saveResultToFilename(self.txtOutPath, result, 0)

@@ -2,7 +2,7 @@
 
 # This file is part of PyPop
 
-# Copyright (C) 2003-2005.
+# Copyright (C) 2003-2006.
 # The Regents of the University of California (Regents)
 # All Rights Reserved.
 
@@ -477,12 +477,13 @@ class HardyWeinberg:
 
 ################################################################################
 
-  def serializeTo(self, stream):
+  def serializeTo(self, stream, allelelump=0):
     type = getStreamType(stream)
 
     # stream serialization goes here
 
-    stream.opentag('hardyweinberg')
+    stream.opentag('hardyweinberg', allelelump=("%d" % allelelump))
+    stream.writeln()
     stream.tagContents("samplesize", "%d" % self.n)
     stream.writeln()
     # don't print out, already printed out in <allelecounts> tag in ParseFile
@@ -804,7 +805,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
         self.flattenedMatrixNames.append(key2)
         self.totalGametes += int(output)
                
-  def dumpTable(self, locusName, stream):
+  def dumpTable(self, locusName, stream, allelelump=0):
 
     if locusName[0] == '*':
       locusName = locusName[1:]
@@ -830,29 +831,52 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       print "totalGametes", self.totalGametes
       print "sampling{steps,num, size}: ", self.dememorizationSteps, self.samplingNum, self.samplingSize
       print "locusName: ", locusName
+      print "allelelump: ", allelelump
 
       # flush stdout before running the G&T step
       sys.stdout.flush()
 
     # create string "file" buffer
     import cStringIO
-    fp = cStringIO.StringIO()
 
     # import library only when necessary
     import _Gthwe
 
     if self.runMCMCTest:
+      fp = cStringIO.StringIO()
+      stream.opentag('hardyweinbergGuoThompson',
+                      allelelump=("%d" % allelelump))
+
+      self.serializeXMLTableTo(stream)
+
       _Gthwe.run_data(self.flattenedMatrix, n, self.k, self.totalGametes,
                       self.dememorizationSteps, self.samplingNum,
-                      self.samplingSize, locusName, fp)
+                      self.samplingSize, locusName, fp, 0)
+
+      # copy XML output to stream
+      stream.write(fp.getvalue())
+      fp.close()
+      stream.closetag('hardyweinbergGuoThompson')
+      stream.writeln()
+
 
     if self.runPlainMCTest:
+      fp = cStringIO.StringIO()
+      stream.opentag('hardyweinbergGuoThompson',
+                      type='monte-carlo',
+                      allelelump=("%d" % allelelump))
+      self.serializeXMLTableTo(stream)
+      
       _Gthwe.run_randomization(self.flattenedMatrix, n, self.k,
-                               self.totalGametes, self.monteCarloSteps, fp)
+                               self.totalGametes, self.monteCarloSteps, fp,
+                               0)
+      # copy XML output to stream
+      stream.write(fp.getvalue())
+      fp.close()
+      stream.closetag('hardyweinbergGuoThompson')
+      stream.writeln()
 
-    # copy XML output to stream
-    stream.write(fp.getvalue())
-    fp.close()
+
 
 class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
   """Uses Hazael Maldonado Torres' exact enumeration test
@@ -890,8 +914,12 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
       self.chenPvals =  self.HweEnumProcess.get_chen_statistic_pvalue_ext()
       
     
-  def serializeTo(self, stream):
-    stream.opentag('hardyweinbergEnumeration')
+  def serializeTo(self, stream, allelelump=0):
+    stream.opentag('hardyweinbergEnumeration',
+                   allelelump=("%d" % allelelump))
+
+    self.serializeXMLTableTo(stream)
+    
     stream.writeln()
     if self.doOverall:
       stream.tagContents("pvalue", "%f" % self.exactPValue, type="overall")

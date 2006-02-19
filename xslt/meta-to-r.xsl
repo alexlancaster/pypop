@@ -36,7 +36,8 @@ MODIFICATIONS.
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:exsl="http://exslt.org/common"
  xmlns:str="http://exslt.org/strings"
- extension-element-prefixes="exsl str"
+ xmlns:set="http://exslt.org/sets"
+ extension-element-prefixes="exsl str set"
  xmlns:data="any-uri">
 
  <xsl:import href="lib.xsl"/>
@@ -202,6 +203,210 @@ MODIFICATIONS.
   <xsl:for-each select="$nodes">
 
    <xsl:choose>
+
+    <xsl:when test="$type='1-locus-hardyweinberg'">
+
+     <xsl:variable name="cur-node" select="."/>
+
+     <!-- get the unique lump levels for all HW tests -->
+     <xsl:variable name="unique-lump-levels">
+      <xsl:for-each select="*//@allelelump">
+       <xsl:variable name="cur-lump" select="."/>
+       <xsl:if test="not($cur-lump = preceding)">
+	<unique><xsl:value-of select="."/></unique>
+       </xsl:if>
+      </xsl:for-each>
+     </xsl:variable>
+     
+     <xsl:variable name="lump-levels" select="set:distinct(*//@allelelump)"/>
+
+      <xsl:message>
+      <xsl:for-each select="$lump-levels">
+       <xsl:value-of select="."/>
+       <xsl:call-template name="newline"/>
+      </xsl:for-each>
+      </xsl:message>
+
+     <xsl:for-each select="$lump-levels">
+      
+      <xsl:variable name="lump" select="."/>
+
+      <xsl:call-template name="line-start">
+       <xsl:with-param name="popnode" select="$cur-node/../populationdata"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node">
+	<xsl:value-of select="translate($cur-node/@name, '*', '')"/>
+       </xsl:with-param>
+      </xsl:call-template>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node">
+	<xsl:value-of select="$lump"/>
+       </xsl:with-param>
+      </xsl:call-template>
+      
+      <xsl:variable name="hwGT" select="$cur-node/hardyweinbergGuoThompson[@allelelump=$lump]"/>
+      <xsl:variable name="hwGT-alleles" 
+       select="count(set:distinct($hwGT/genotypetable/genotype/@col))"/>
+
+      <xsl:variable name="hw" 
+       select="$cur-node/hardyweinberg[@allelelump=$lump]"/>
+
+      <xsl:variable name="hw-alleles" 
+       select="count(set:distinct($hw/genotypetable/genotype/@col))"/>
+      
+      <xsl:variable name="hwEnum" select="$cur-node/hardyweinbergEnumeration[@allelelump=$lump]"/>
+
+      <xsl:variable name="hwEnum-alleles" 
+       select="count(set:distinct($hwEnum/genotypetable/genotype/@col))"/>
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node">
+	<xsl:choose>
+	 <xsl:when test="$hw-alleles &gt; 0">
+	  <xsl:value-of select="$hw-alleles"/>
+	 </xsl:when>
+	 <xsl:when test="$hwGT-alleles &gt; 0">
+	  <xsl:value-of select="$hwGT-alleles"/>
+	 </xsl:when>
+	 <xsl:when test="$hwEnum-alleles &gt; 0">
+	  <xsl:value-of select="$hwEnum-alleles"/>
+	 </xsl:when>
+	 <xsl:otherwise>
+	  <xsl:text>****</xsl:text>
+	 </xsl:otherwise>
+	</xsl:choose>
+       </xsl:with-param>
+      </xsl:call-template>
+
+
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$hwGT[not(@type='monte-carlo')]/pvalue[@type='overall']"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$hwGT[@type='monte-carlo']/pvalue[@type='overall']"/>
+      </xsl:call-template>
+      
+      <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$hwEnum/pvalue[@type='overall']"/>
+      </xsl:call-template>
+      
+      <xsl:choose>
+       <!--complete -->
+       <xsl:when
+	test="$hw/lumped/@role='no-rare-genotypes' and 
+	hardyweinberg/common!=''">
+	<xsl:value-of select="$hw/common/pvalue"/>
+       </xsl:when>
+       <!-- common + lumped -->
+       <xsl:when test="$hw/lumped!='' and 
+	$cur-node/hardyweinberg/common!=''">
+	<xsl:value-of select="$hw/common/pvalue"/>
+       </xsl:when>
+       <!-- common -->
+       <xsl:when test="$hw/common!=''">
+	<xsl:value-of select="$hw/common/pvalue"/>
+       </xsl:when>
+
+      <!-- if either no-common-genotypes or too-many-parameters is found -->
+      <!-- output the role attribute rather than a N/A '****' -->
+      <!-- make sure that this node actually has data -->
+      <!-- should be fixed properly by outputing <hardyweinberg> with a -->
+      <!-- role="no-data" attribute -->
+      <xsl:when test="$hw/common[@role='no-common-genotypes' or @role='too-many-parameters'] and $hw/samplesize!=0">
+       <xsl:value-of select="$hw/common/@role"/>
+      </xsl:when>
+
+      <xsl:otherwise>****</xsl:otherwise>
+     </xsl:choose>
+     <xsl:text>&#09;</xsl:text>
+
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node" select="$hw/homozygotes/pvalue"/>
+     </xsl:call-template>
+
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node" select="$hw/heterozygotes/pvalue"/>
+     </xsl:call-template>
+
+      <xsl:variable name="hwGTA" select="$cur-node/hardyweinbergGuoThompsonArlequin"/>
+
+     <xsl:call-template name="output-field">
+       <xsl:with-param name="node" select="$hwGTA/pvalue"/>
+     </xsl:call-template>
+     
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node" select="$hwGTA/stddev"/>
+     </xsl:call-template>
+     
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node" select="$hwGTA/exp-hetero"/>
+     </xsl:call-template>
+     
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node" select="$hwGTA/obs-hetero"/>
+     </xsl:call-template>
+     
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node">
+       <xsl:choose>
+	<xsl:when test="$hw/samplesize='0'">
+	 <xsl:value-of select="'****'"/>
+	</xsl:when>
+	<xsl:otherwise>
+	 <xsl:value-of select="count($hw/genotypetable/genotype[not(chisq/@role='not-calculated')])"/>
+	</xsl:otherwise>
+       </xsl:choose>
+      </xsl:with-param>
+     </xsl:call-template>
+
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node">
+       <xsl:choose>
+	<xsl:when test="$hw/samplesize='0'">
+	 <xsl:value-of select="'****'"/>
+	</xsl:when>
+	<xsl:otherwise>
+	 <xsl:value-of select="count($hw/genotypetable/genotype/pvalue[. &lt;= 0.05])"/>
+	</xsl:otherwise>
+       </xsl:choose>
+      </xsl:with-param>
+     </xsl:call-template>
+
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node">
+       <xsl:choose>
+	<xsl:when test="$hw/samplesize='0'">
+	 <xsl:value-of select="'****'"/>
+	</xsl:when>
+	<xsl:otherwise>
+	 <xsl:value-of select="count($hw/heterozygotesByAllele/allele)"/>
+	</xsl:otherwise>
+       </xsl:choose>
+      </xsl:with-param>
+     </xsl:call-template>
+
+     <xsl:call-template name="output-field">
+      <xsl:with-param name="node">
+       <xsl:choose>
+	<xsl:when test="$hw/samplesize='0'">
+	 <xsl:value-of select="'****'"/>
+	</xsl:when>
+	<xsl:otherwise>
+	 <xsl:value-of select="count($hw/heterozygotesByAllele/allele/pvalue[. &lt;= 0.05])"/>
+	</xsl:otherwise>
+       </xsl:choose>
+      </xsl:with-param>
+     </xsl:call-template>
+
+      <xsl:call-template name="newline"/>
+     </xsl:for-each>
+     
+    </xsl:when>
+
     <xsl:when test="$type='1-locus-summary'">
 
      <xsl:call-template name="line-start">
@@ -784,6 +989,21 @@ MODIFICATIONS.
   <xsl:choose>
 
    <xsl:when test="element-available('exsl:document')">
+
+    <exsl:document href="1-locus-hardyweinberg.dat"
+     omit-xml-declaration="yes"
+     method="text">
+     <xsl:call-template name="header-line-start">
+      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+     </xsl:call-template>
+<xsl:text>locus&#09;lump&#09;k&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.enum.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig&#09;</xsl:text>
+     <xsl:call-template name="newline"/>
+     <xsl:call-template name="gen-lines">
+      <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
+      <xsl:with-param name="type" select="'1-locus-hardyweinberg'"/>
+     </xsl:call-template>
+    </exsl:document>
+
 
     <exsl:document href="1-locus-summary.dat"
      omit-xml-declaration="yes"

@@ -39,7 +39,7 @@
    files.
 """
 
-import os, sys, string, types, re, shutil, copy
+import os, sys, string, types, re, shutil, copy, operator
 import Numeric
 from Numeric import zeros, take, asarray, PyObject
 from UserArray import UserArray
@@ -610,6 +610,14 @@ class Group:
     return self.l[idx:idx+self.size]
 
 ### global FUNCTIONS start here
+
+
+def unique_elements(l):
+    """Gets the unique elements in a list"""
+    d = {}
+    length = len(l)
+    map(operator.setitem, length * [d], l, length * [None])
+    return d.keys ()
 
 def appendTo2dList(aList, appendStr=':'):
 

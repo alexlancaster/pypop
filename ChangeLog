@@ -1,3 +1,57 @@
+2006-02-19  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* xslt/meta-to-r.xsl (gen-lines, /): Add new file
+	'1-locus-hardyweinberg.dat' for generating tables of p-values for
+	each value of lumping.
+
+	* xslt/hardyweinberg.xsl (new-hardyweinberg-format): New
+	parameter.
+	(hardyweinberg, hardyweinbergGuoThompson,
+	hardyweinbergEnumeration): Output lump level (if present) in
+	header.
+	(genotypetable): Get list of unique columns from <genotypetable>
+	in each <hardyweinberg*> element (rather than global <allelecount>
+	element) if new-hardyweinberg-format is set, this is because the
+	genotype table may not be different for each run of hardyweinberg
+	due to lumping.
+	(gen-genotype-pvals): Likewise search each local genotypetable
+	table.
+
+	* setup.py (ext_HweEnum): Compile external module against gsl and
+	gslcblas libraries.
+
+	* Utils.py: Import operator.
+	(unique_elements): New function, gets unique elements in a list.
+
+	* Main.py: New imports.
+	(Main._doGenotypeFile): Do lumping for
+	HardyWeinberg{GuoThompson,Enumeration} if specified in .ini file,
+	using an 'alleleLump' parameter which is a comma-separated list of
+	lumping levels.
+	(Main._genTextOutput): Specify new parameter to stylesheet for new
+	format XML.
+
+	* HardyWeinberg.py (HardyWeinberg.serializeTo): Specify the allele
+	lumping level as an attribute in <hardyweinberg> XML tag.
+	(HardyWeinbergGuoThompson.dumpTable): Likewise.  Output open XML
+	tags <hardyweinbergGuoThompson> in Python module rather than
+	inside the C _Gthwe wrapper module.  Specify this to the _Gthwe
+	module.
+	Call HardyWeinberg.serializeXMLTableTo() here so that there is a
+	record of the genotype matrix for each different HW analysis.
+	Note this breaks compatibility with previous stylesheets.
+	
+	(HardyWeinbergEnumeration.serializeTo): Likewise specify output
+	allelelump attribute and call HardyWeinberg.serializeXMLTableTo().
+
+	* DataTypes.py (Genotypes.getAlleleCountAt): New parameter
+	lumpValue, get the allele count of a locus based on lumping
+	alleles with counts <= lumpValue.
+	(Genotypes.getLocusDataAt): Likewise.
+	(getLumpedDataLevels): New function: returns a dictionary of
+	tuples with alleleCount and locusData lumped by different levels
+	specified as a list of integers.
+
 2006-02-10  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/emhaplofreq.xsl (haplotypefreq): Add a check, if the
