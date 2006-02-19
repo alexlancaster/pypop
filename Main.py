@@ -1128,7 +1128,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
           # resolve and perform any XIncludes the document may have
           doc.xincludeProcess()
 
-          params = {"new-hardyweinberg-format": 1}
+          params = {"new-hardyweinberg-format": "1"}
           # process via stylesheet
           result = style.applyStylesheet(doc, params)
 
