@@ -285,7 +285,7 @@ particularly large-scale multilocus genotype data""",
 
        py_modules = ["Arlequin", "HardyWeinberg", "Utils", "Haplo",
                      "Homozygosity", "ParseFile", "Filter", "Main",
-                     "DataTypes", "GUIApp", "RandomBinning"],
+                     "DataTypes", "GUIApp", "RandomBinning", "Meta"],
        scripts= Ensure_Scripts(['pypop.py', 'popmeta.py']),
 
        data_files=[('share/PyPop', data_file_paths)],
