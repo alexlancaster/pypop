@@ -1,3 +1,7 @@
+2006-03-06  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* setup.py (py_modules): Add missing "Meta" module.
+
 2006-02-19  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/meta-to-r.xsl (gen-lines, /): Add new file
