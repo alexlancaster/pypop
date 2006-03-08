@@ -4,6 +4,7 @@
 	freeDoc() on a DOM instance] with the libxml2 bindings (which
 	require manual memory management) which caused popmeta to gobble
 	up all system resources bringing a machine to it's knees.
+	Added '1-locus-hardyweinberg.dat'
 
 2006-03-06  Alex Lancaster  <alexl AT berkeley.edu>
 
