@@ -180,11 +180,13 @@ class Meta:
         # and skip this file in the meta analysis
         for f in files:
             try:
-                libxml2.parseFile(f)
+                doc = libxml2.parseFile(f)
                 wellformed_files.append(f)
             except:
                 print "%s is not well-formed XML:" % f
                 print "  probably a problem with analysis not completing, skipping in meta analysis!"
+            doc.freeDoc()
+
 
         if batchsize:
             fileBatchList = splitIntoNGroups(wellformed_files, n=batchsize)
