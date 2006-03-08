@@ -1,3 +1,10 @@
+2006-03-07  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* Meta.py (Meta.__init__): Fix a nasty memory leak [by calling
+	freeDoc() on a DOM instance] with the libxml2 bindings (which
+	require manual memory management) which caused popmeta to gobble
+	up all system resources bringing a machine to it's knees.
+
 2006-03-06  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* setup.py (py_modules): Add missing "Meta" module.
