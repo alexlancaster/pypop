@@ -1,3 +1,21 @@
+2006-03-08  Alex Lancaster  <alex@delpy.biol.berkeley.edu>
+
+	* popmeta.py (ihwg_output): Change semantics of batchsize, make
+	"0" (default) process files separately if only R dat files is
+	enabled.  If batchsize not set explicitly (and therefore 0) set
+	batchsize to '1' is PHYLIP mode is enabled.
+
+	* Meta.py (_translate_file_to): Check that the file is valid
+	before parsing and return a success flag if it is.
+	(translate_file_to_stdout, translate_file_to_file): Return success
+	flag.
+	(Meta.__init__): Change semantics of batchsize, make "0" (default)
+	process files separately if only R dat files is enabled.  
+	Put freeDoc() call inside try.
+	If batchsize=0, do each file separately.
+	If transformation doesn't work, skip that file in the renaming and
+	emit a warning.
+
 2006-03-07  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Meta.py (Meta.__init__): Fix a nasty memory leak [by calling

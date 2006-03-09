@@ -97,24 +97,35 @@ def _translate_file_to(xslFilename, inFile, outFile, params=None):
     # setup the stylesheet instance
     style = libxslt.parseStylesheetDoc(styledoc)
 
-    # parse the inline generated XML file
-    doc = libxml2.parseFile(inFile)
+    try:
+        # parse the inline generated XML file
+        doc = libxml2.parseFile(inFile)
 
-    # apply the stylesheet instance to the document instance
-    result = style.applyStylesheet(doc, params)
+        # apply the stylesheet instance to the document instance
+        result = style.applyStylesheet(doc, params)
     
-    style.saveResultToFilename(outFile, result, 0)
+        style.saveResultToFilename(outFile, result, 0)
+
+        success = 1
+
+    except:
+        print "Can't parse: %s, skipping" % inFile
+        success = 0
 
     # free instances
     result.freeDoc()
     style.freeStylesheet()
     doc.freeDoc()
 
+    return success
+
 def translate_file_to_stdout(xslFilename, inFile, params=None):
-    _translate_file_to(xslFilename, inFile, "-", params)
+    retval = _translate_file_to(xslFilename, inFile, "-", params)
+    return retval
 
 def translate_file_to_file(xslFilename, inFile, outFile, params=None):
-    _translate_file_to(xslFilename, inFile, outFile, params)
+    retval = _translate_file_to(xslFilename, inFile, outFile, params)
+    return retval
 
 
 class Meta:
@@ -142,7 +153,7 @@ class Meta:
         # by default, enable the 13th IHWG format headers
         ihwg_output = 1
 
-        # by default process all at once (batchsize=0)
+        # by default process separately (batchsize=0)
         batchsize = 0
         """
 
@@ -157,7 +168,7 @@ class Meta:
             else:
                 metaXSLTDirectory= datapath
 
-        if batchsize and PHYLIP_output:
+        if (batchsize > 1) and PHYLIP_output:
             sys.exit("processing in batches and enabling PHYLIP are mutually exclusive options\n" + usage_message)
 
         # create XSLT parameters
@@ -182,16 +193,16 @@ class Meta:
             try:
                 doc = libxml2.parseFile(f)
                 wellformed_files.append(f)
+                doc.freeDoc()
             except:
                 print "%s is not well-formed XML:" % f
                 print "  probably a problem with analysis not completing, skipping in meta analysis!"
-            doc.freeDoc()
-
 
         if batchsize:
             fileBatchList = splitIntoNGroups(wellformed_files, n=batchsize)
         else:
-            fileBatchList = splitIntoNGroups(wellformed_files, n=1)
+            fileBatchList = splitIntoNGroups(wellformed_files, \
+                                             n=len(wellformed_files))
 
         datfiles= ['1-locus-allele.dat', '1-locus-genotype.dat',
                    '1-locus-summary.dat', '1-locus-pairwise-fnd.dat',
@@ -238,39 +249,43 @@ class Meta:
 
                 if R_output:
                     # generate all data output in formats for R
-                    translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml', xslt_params)
+                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml', xslt_params)
 
                 if PHYLIP_output:
                     # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:
-                    translate_string_to_file(os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), meta_string, 'sorted-by-locus.xml')
+                    success = translate_string_to_file(os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), meta_string, 'sorted-by-locus.xml')
 
                     # use 'sorted-by-locus.xml' to generate a list of unique alleles
                     # 'allelelist-by-locus.xml' for each locus across all the
                     # populations in the set of XML files passed
-                    translate_file_to_file(os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'), 'sorted-by-locus.xml', 'allelelist-by-locus.xml')
+                    success = translate_file_to_file(os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'), 'sorted-by-locus.xml', 'allelelist-by-locus.xml')
 
                     # similarly, generate a unique list of haplotypes
                     # 'haplolist-by-locus.xml'
-                    translate_file_to_file(os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), 'meta.xml', 'haplolist-by-group.xml')
+                    success = translate_file_to_file(os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), 'meta.xml', 'haplolist-by-group.xml')
 
                     # generate Phylip allele data
 
                     # generate individual locus files (don't use loci parameter)
-                    translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml')
+                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml')
 
                     # generate locus group files
                     for locus in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-                        translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml', params={'loci': '"' + locus + '"'})
+                        success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml', params={'loci': '"' + locus + '"'})
 
                     # generate Phylip haplotype data
                     for haplo in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-                        translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), 'meta.xml', params={'loci': '"' + haplo + '"'})
+                        success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), 'meta.xml', params={'loci': '"' + haplo + '"'})
 
                 # after processing, move files if necessary
                 if len(fileBatchList) > 1:
                     for dat in datfiles:
                         # print "moving", dat, "to %s.%d" % (dat, fileBatch)
-                        os.rename(dat, "%s.%d" % (dat, fileBatch))
+                        if success:
+                            os.rename(dat, "%s.%d" % (dat, fileBatch))
+                        else:
+                            print "problem with generating %s in batch %d" \
+                                  % (dat, fileBatch)
 
         # at end of entire processing, need to cat files together
         # this is a bit hacky

@@ -78,7 +78,7 @@ PHYLIP_output=0
 # by default, enable the 13th IHWG format headers
 ihwg_output = 1
 
-# by default process all at once (batchsize=0)
+# by default process each file separately (batchsize=0)
 batchsize = 0
 
 # by default don't print out XML
@@ -101,8 +101,13 @@ for o, v in opts:
   elif o in("-b", "--batchsize"):
     batchsize = int(v)
 
-if batchsize and PHYLIP_output:
+if PHYLIP_output:
+  # if set and not of size 1, exit
+  if (batchsize > 1):
     sys.exit("processing in batches and enabling PHYLIP are mutually exclusive options\n" + usage_message)
+  # otherwise set batch size to 1
+  else:
+    batchsize = 1
 
 # parse arguments
 files = args
