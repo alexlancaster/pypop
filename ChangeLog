@@ -1,4 +1,4 @@
-2006-03-08  Alex Lancaster  <alex@delpy.biol.berkeley.edu>
+2006-03-08  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* popmeta.py (ihwg_output): Change semantics of batchsize, make
 	"0" (default) process files separately if only R dat files is
