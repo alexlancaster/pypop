@@ -47,9 +47,14 @@ shuffles = int(sys.argv[4])
 
 if len(sys.argv) > 5:
     fixed_allele_freqs = [int(i) for i in sys.argv[5:]]
+    total_gametes = sum(fixed_allele_freqs) 
+    print fixed_allele_freqs
+    print total_gametes
+    print 2*n
     if len(fixed_allele_freqs) != k:
         sys.exit("specified number of alleles must be equal to k (%d)" % k)
-    print fixed_allele_freqs
+    if total_gametes != 2*n:
+        sys.exit("specified gamete totals must be equal to 2*n (%d)" % (2*n))
 else:
     fixed_allele_freqs = None
 
@@ -60,8 +65,8 @@ for i in range(0, number):
     if fixed_allele_freqs:
         alleles = []
         k = 0
-        for i in fixed_allele_freqs:
-            for j in range(0,i):
+        for m in fixed_allele_freqs:
+            for j in range(0, m):
                 alleles.append(k)
             k+=1
     else:
@@ -71,7 +76,7 @@ for i in range(0, number):
     for shuffle in range(0, shuffles):
         random.shuffle(alleles)
 
-        filename = "simdata-N%d-K%d-%02d-%02d.pop" % (n, k, i, shuffle)
+        filename = "simdata-N%d-K%d-%03d-%03d.pop" % (n, k, i, shuffle)
         print filename
         f = open(filename, "w")
         # output .pop file
