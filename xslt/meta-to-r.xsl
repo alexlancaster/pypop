@@ -426,6 +426,14 @@ MODIFICATIONS.
      <xsl:text>&#09;</xsl:text>
 
      <xsl:choose>
+      <xsl:when test="allelecounts/">
+       <xsl:value-of select="allelecounts/untypedindividuals"/>
+      </xsl:when>
+      <xsl:otherwise>0</xsl:otherwise>
+     </xsl:choose>
+     <xsl:text>&#09;</xsl:text>
+
+     <xsl:choose>
       <xsl:when test="allelecounts/distinctalleles">
        <xsl:value-of select="allelecounts/distinctalleles"/>
       </xsl:when>
@@ -1011,7 +1019,7 @@ MODIFICATIONS.
      <xsl:call-template name="header-line-start">
       <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
      </xsl:call-template>
-<xsl:text>locus&#09;n.gametes&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.enum.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.obs&#09;f.slatkin.exp&#09;f.slatkin.fnd&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig&#09;</xsl:text>
+<xsl:text>locus&#09;n.gametes&#09;untyped&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.enum.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.obs&#09;f.slatkin.exp&#09;f.slatkin.fnd&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig&#09;</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
