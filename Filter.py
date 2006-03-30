@@ -52,6 +52,8 @@ class SubclassError(Exception):
         return "Sub class must implement this method"
 
 class Filter:
+    """Abstract base class for Filters
+    """
     def __init__(self):
         pass
     def doFiltering(self, matrix=None):
@@ -76,6 +78,8 @@ class Filter:
         raise SubclassError()
     
 class PassThroughFilter(Filter):
+    """A filter that doesn't change input data.
+    """
     def __init__(self):
         pass
     def doFiltering(self, matrix=None):

@@ -129,7 +129,9 @@ def translate_file_to_file(xslFilename, inFile, outFile, params=None):
 
 
 class Meta:
+    """Aggregates output from multiple population runs.
 
+    """
     def __init__(self,
                  popmetabinpath = None,
                  datapath = None,

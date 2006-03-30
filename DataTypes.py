@@ -100,7 +100,8 @@ def _serializeAlleleCountDataAt(stream, alleleTable,
 
 
 class Genotypes:
-
+    """Base class that stores and caches basic genotype statistics.
+    """
     def __init__(self,
                  matrix=None,
                  untypedAllele='****',
