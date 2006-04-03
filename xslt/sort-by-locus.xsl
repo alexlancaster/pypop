@@ -36,9 +36,11 @@ MODIFICATIONS.
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
  <xsl:import href="lib.xsl"/>
- 
  <!-- select "text" as output method -->
  <xsl:output method="xml" omit-xml-declaration="yes"/>
+
+ <xsl:param name="two-en" select="0"/>
+ <xsl:param name="k" select="0"/>
 
  <!-- override for the moment -->
  <xsl:template name="newline"/>
@@ -68,6 +70,8 @@ MODIFICATIONS.
     <xsl:call-template name="newline"/> 
 
     <xsl:for-each select="key('loci',@name)">
+     <xsl:message><xsl:value-of select="allelecounts/allelecount"/> <xsl:value-of select="$two-en"/></xsl:message>
+     <xsl:if test="allelecounts/allelecount &gt;= $two-en and allelecounts/distinctalleles &gt;= $k">
      <xsl:element name="population">
       <xsl:call-template name="newline"/> 
 
@@ -86,7 +90,7 @@ MODIFICATIONS.
 
      </xsl:element>
      <xsl:call-template name="newline"/>
-
+     </xsl:if>
     </xsl:for-each>
    </xsl:element>
    <xsl:call-template name="newline"/>
