@@ -271,6 +271,8 @@ class Main:
         except NoOptionError:
           self.untypedAllele = '****'
 
+        ## add an empty unsequencedSite variable
+        self.unsequencedSite = None
 
         # BEGIN PARSE for a genotype file (ParseGenotypeFile)
         if self.fileType == "ParseGenotypeFile":
@@ -368,6 +370,7 @@ class Main:
 
         self.input = Genotypes(matrix=self.matrixHistory[-1],
                                untypedAllele=self.untypedAllele,
+                               unsequencedSite=self.unsequencedSite,
                                allowSemiTyped=allowSemiTyped,
                                debug=self.debug)
 
@@ -512,11 +515,18 @@ class Main:
                 filter = BinningFilter(debug=self.debug,
                                        customBinningDict=customBinningDict,
                                        untypedAllele=self.untypedAllele,
-                                       filename=self.fileName,
+                                       filename=self.fileName,or
                                        logFile=self.filterLogFile)
                 self.matrixHistory.append(filter.doCustomBinning((self.matrixHistory[-1]).copy()))
 
             elif filterType == 'Sequence':
+                
+                ## set the unsequencedSite
+                ## FIXME: do more sanity checking make sure different symbol from untypedAllele
+                try:
+                    self.unsequencedSite = self.config.get(filterCall, "unsequencedSite")
+                except:
+                    self.unsequencedSite='#'
                 try:
                     sequenceFileSuffix = self.config.get(filterCall, "sequenceFileSuffix")
                 except:
@@ -533,6 +543,7 @@ class Main:
                                             alleleDesignator=self.alleleDesignator,
                                             sequenceFileSuffix=sequenceFileSuffix,
                                             untypedAllele=self.untypedAllele,
+                                            unsequencedSite=self.unsequencedSite,
                                             filename=self.fileName,
                                             logFile=self.filterLogFile)
                 self.matrixHistory.append(filter.translateMatrix((self.matrixHistory[-1]).copy()))
@@ -586,7 +597,7 @@ class Main:
 
           # check to see if given locus is monomorphic and skip the
           # rest of the analysis for this particular if it is.
-          alleleTable, totalAlleles, untypedIndividuals =\
+          alleleTable, totalAlleles, untypedIndividuals, unsequencedIndividuals =\
                        self.input.getAlleleCountAt(locus)
           numDistinctAlleles = len(alleleTable.keys())
           

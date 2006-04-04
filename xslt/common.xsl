@@ -455,6 +455,14 @@ MODIFICATIONS.
   <xsl:call-template name="newline"/>
  </xsl:template>
 
+ <xsl:template match="unsequencedsites">
+  <xsl:if test=".!=0">
+   <xsl:text>Unsequenced sites: </xsl:text>
+   <xsl:value-of select="."/>
+   <xsl:call-template name="newline"/>
+  </xsl:if>
+ </xsl:template>
+
  <xsl:template match="distinctalleles">
   <xsl:text>Distinct alleles (k): </xsl:text>
   <xsl:value-of select="."/>

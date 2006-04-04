@@ -40,7 +40,8 @@ import sys, os, string, types, re
 from Utils import getStreamType, StringMatrix, OrderedDict, TextOutputStream
 
 def _serializeAlleleCountDataAt(stream, alleleTable,
-                                total, untypedIndividuals):
+                                total, untypedIndividuals,
+                                unsequencedSites):
 
     """Function to actually do the output"""
 
@@ -63,6 +64,9 @@ def _serializeAlleleCountDataAt(stream, alleleTable,
         stream.writeln()
         stream.tagContents('untypedindividuals', \
                            "%d" % untypedIndividuals)
+        stream.writeln()
+        stream.tagContents('unsequencedsites', \
+                           "%d" % unsequencedSites)
         stream.writeln()
         stream.tagContents('indivcount', \
                            "%.1f" % (total/2.0))
@@ -105,23 +109,29 @@ class Genotypes:
     def __init__(self,
                  matrix=None,
                  untypedAllele='****',
+                 unsequencedSite=None,
                  allowSemiTyped=0,
                  debug=0):
         self.matrix = matrix
         self.untypedAllele = untypedAllele
+        self.unsequencedSite = unsequencedSite
         self.allowSemiTyped = allowSemiTyped
         self.debug = debug
         
         self._genDataStructures()
 
-    def _checkAllele(self, allele1, allele2):
+    def _checkAllele(self, allele1, allele2, unsequencedSites):
         for phase in [allele1, allele2]:
-            if (self.untypedAllele != phase):
+            if (self.untypedAllele != phase and self.unsequencedSite != phase):
                 if self.alleleTable.has_key(phase):
                     self.alleleTable[phase] += 1
                 else:
                     self.alleleTable[phase] = 1
                 self.total += 1
+            else:
+                print self.unsequencedSite, phase, unsequencedSites
+                if (self.unsequencedSite == phase):
+                    unsequencedSites += 1
         
 
         
@@ -157,6 +167,7 @@ class Genotypes:
       
             self.total = 0
             untypedIndividuals = 0
+            unsequencedSites = 0
 
             # first pass runs a filter of alleles through the
             # anthonynolan data filter/cleaner
@@ -180,12 +191,22 @@ class Genotypes:
                 rowCount += 1
 
                 if self.allowSemiTyped:
-                    self._checkAllele(allele1, allele2)
+                    self._checkAllele(allele1, allele2, unsequencedSites)
                 else:
                     # ensure that *both* alleles are typed
                     if (self.untypedAllele != allele1) and \
                            (self.untypedAllele != allele2):
-                        self._checkAllele(allele1, allele2)
+                        # check to see if the "allele" isn't a missing sequence site
+                        if (self.unsequencedSite != allele1) and \
+                           (self.unsequencedSite != allele2):
+                            self._checkAllele(allele1, allele2, unsequencedSites)
+                        else:
+                            if self.unsequencedSite == allele1:
+                                unsequencedSites += 1
+                            if self.unsequencedSite == allele2:
+                                unsequencedSites += 1
+                            print locus, allele1, allele2, unsequencedSites
+                            continue
                     # if either allele is untyped it is we throw out the
                     # entire individual and go to the next individual
                     else:
@@ -202,7 +223,7 @@ class Genotypes:
                     print allele1, allele2, self.total
 
             # assign frequency, counts
-            self.freqcount[locus] = self.alleleTable, self.total, untypedIndividuals
+            self.freqcount[locus] = self.alleleTable, self.total, untypedIndividuals, unsequencedSites
 
             # if all individuals in a locus aren't untyped
             # then count this locus as having usable data
@@ -245,7 +266,7 @@ class Genotypes:
         # need to recalculate values
         if (lumpValue != 0):
 
-            alleles, totalAlleles, untyped = self.freqcount[locus]
+            alleles, totalAlleles, untyped, unsequenced = self.freqcount[locus]
 
             lumpedAlleles = {}
             for allele in alleles.keys():
@@ -257,7 +278,7 @@ class Genotypes:
                         lumpedAlleles['lump'] = count
                 else:
                     lumpedAlleles[allele] = count
-            lumpedTuple = lumpedAlleles, totalAlleles, untyped
+            lumpedTuple = lumpedAlleles, totalAlleles, untyped, unsequenced
             ## print lumpedTuple
             
             return lumpedTuple
@@ -286,9 +307,10 @@ class Genotypes:
     def serializeAlleleCountDataAt(self, stream, locus):
         """ """
         
-        self.alleleTable, self.total, untypedIndividuals = self.freqcount[locus]
+        self.alleleTable, self.total, untypedIndividuals, unsequencedSites = self.freqcount[locus]
         _serializeAlleleCountDataAt(stream, self.alleleTable,
-                                    self.total, untypedIndividuals)
+                                    self.total, untypedIndividuals,
+                                    unsequencedSites)
 
     def serializeAlleleCountDataTo(self, stream):
         type = getStreamType(stream)
@@ -321,7 +343,7 @@ class Genotypes:
         # need to recalculate values
         if (lumpValue != 0):
 
-            alleles, totalAlleles, untyped = self.freqcount[locus]
+            alleles, totalAlleles, untyped, unsequenced = self.freqcount[locus]
 
             lumpedAlleles = {}
             listLumped = []
@@ -477,7 +499,7 @@ class AlleleCounts:
         # easy to generalize later
 
         self.freqcount[self.locusName] = \
-                                  self.alleleTable, self.totalAlleleCount, 0
+                                  self.alleleTable, self.totalAlleleCount, 0, 0
 
 
     def serializeSubclassMetadataTo(self, stream):
@@ -499,9 +521,9 @@ class AlleleCounts:
 
         # call the class-independent function...
         
-        alleleTable, total, untypedIndividuals = self.freqcount[locus]
+        alleleTable, total, untypedIndividuals, unsequencedSites = self.freqcount[locus]
         _serializeAlleleCountDataAt(stream, alleleTable,
-                                    total, untypedIndividuals)
+                                    total, untypedIndividuals, unsequencedSites)
 
     def getAlleleCount(self):
         return self.freqcount[self.locusName]

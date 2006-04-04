@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python
 
 # This file is part of PyPop
@@ -119,6 +120,7 @@ class AnthonyNolanFilter(Filter):
                  alleleDesignator='*',
                  logFile=None,
                  untypedAllele='****',
+                 unsequencedSite = '#',
                  sequenceFileSuffix='_prot',
                  filename=None,
                  numDigits=4,
@@ -132,6 +134,11 @@ class AnthonyNolanFilter(Filter):
         self.debug = debug
         self.alleleDesignator = alleleDesignator
         self.untypedAllele = untypedAllele
+        self.unsequencedSite = unsequencedSite
+
+        if self.unsequencedSite == self.untypedAllele:
+            sys.exit("Designator for unsequenced site and untyped allele cannot be the same!")
+            
         self.sequenceFileSuffix = sequenceFileSuffix
         self.filename = filename
         self.logFile = logFile
@@ -481,6 +488,9 @@ class AnthonyNolanFilter(Filter):
                         # find "null alleles" (ending in "N")
                         # it makes a null allele
                         if allele[-1:] == 'N':
+                            ## FIXME: should we treat null alleles as 'unsequenced' or
+                            ## as an 'untyped' allele?, according to discussion with
+                            ## Steve Mack on 2006-04-03 best to have as 'untyped'
                             self.sequences[allele] = '*' * self.length
 
                         # get the sequence if we can...
@@ -519,11 +529,13 @@ class AnthonyNolanFilter(Filter):
             if self.debug:
                 print 'full sequence for locus', locus, self.sequences
 
-            # Make the asterix the standard null placeholder
+            # Make the self.unsequenedSite (normally '#') the standard null placeholder
             for allele in self.sequences:
-                self.sequences[allele] = string.replace(self.sequences[allele],'.','*')
-                self.sequences[allele] = string.replace(self.sequences[allele],'X','*')
-
+                ##self.sequences[allele] = string.replace(self.sequences[allele],'.','*')
+                self.sequences[allele] = string.replace(self.sequences[allele],'.',self.unsequencedSite)
+                ##self.sequences[allele] = string.replace(self.sequences[allele],'X','*')
+                self.sequences[allele] = string.replace(self.sequences[allele],'X',self.unsequencedSite)
+                
             # pre-populates the polyseq dictionary with empty strings,
             # so we can then build the polymorphic sequences
             # letter-by-letter.  keyed on 'locus*allele'
@@ -544,7 +556,9 @@ class AnthonyNolanFilter(Filter):
                 uniqueCounter = {}
                 for allele in self.sequences:
                     letter = self.sequences[allele][pos]
-                    if letter != '.' and letter != 'X' and letter != '*':
+                    ## FIXME: seems unnecessary to check '.' and 'X' because we have already
+                    ## made them self.unsequencedSite above, check!!
+                    if letter != '.' and letter != 'X' and letter != '*' and letter != self.unsequencedSite:
                         uniqueCounter[letter] = 1
                 uniqueCount = len(uniqueCounter)
 
@@ -677,11 +691,18 @@ class AnthonyNolanFilter(Filter):
 
                     letter1 = self.polyseq[name1][posCount]
                     letter2 = self.polyseq[name2][posCount]
-                    
-                    if letter1 == '.' or letter1 == 'X' or letter1 == '*':
+
+                    if letter1 == '*':
                         letter1 = self.untypedAllele
-                    if letter2 == '.' or letter2 == 'X' or letter2 == '*':
+                    if letter2 == '*':
                         letter2 = self.untypedAllele
+                    
+                    ##if letter1 == '.' or letter1 == 'X' or letter1 == '*':
+                        ##letter1 = self.untypedAllele
+                    ##    letter1 = self.unsequencedSite
+                    ##if letter2 == '.' or letter2 == 'X' or letter2 == '*':
+                        ##letter2 = self.untypedAllele
+                    ##    letter2 = self.unsequencedSite
 
                     seqMatrix[individCount,locus + '_' + \
                               self._genOffsets(locus, pos)] = (letter1,letter2)
@@ -786,7 +807,9 @@ class AnthonyNolanFilter(Filter):
         if len(closestMatches) == 0:
             if self.debug:
                 print '%s NOT found in the msf file, no close matches found.' % allele
-            seq = '*' * self.length
+            ##seq = '*' * self.length
+            ## FIXME: should we default to unsequenced here or missing data
+            seq = self.unsequencedSite * self.length
 
         elif len(closestMatches) == 1:
             if self.debug:
@@ -802,7 +825,7 @@ class AnthonyNolanFilter(Filter):
 
                 for potentialMatch in closestMatches:
                     letter = closestMatches[potentialMatch][pos]
-                    if letter != '.' and letter != 'X' and letter != '*':
+                    if letter != '.' and letter != 'X' and letter != '*' and letter != self.unsequencedSite:
                         uniqueCounter[letter] = 1
                         letterOfTheLaw = letter
                         
@@ -811,7 +834,9 @@ class AnthonyNolanFilter(Filter):
                 if uniqueCount == 1:
                     seq += letterOfTheLaw
                 else:
-                    seq += '*'
+                    ##seq += '*'
+                    ## FIXME: check this is correct!
+                    seq += self.unsequencedSite
 
             if self.debug:
                 print '%s NOT found in the msf file, so we use a consensus of ' % allele, closestMatches.keys()

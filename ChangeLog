@@ -1,3 +1,52 @@
+2006-04-04  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* xslt/meta-to-r.xsl (allelecounts/untypedindividuals,
+	allelecounts/unsequencedsites): New columns to keep track of
+	number of untyped and unsequenced individuals. for
+	'1-locus-summary.dat' output.
+	
+	* xslt/common.xsl (unsequencedsites): New template to output total
+	number of unsequencedSites per locus.
+
+	* Main.py (Main.__init__): Add an empty unsequencedSite variable,
+	pass into Genotypes constructor.
+	(Main._runFilters): Add new section option 'unsequencedSite' for
+	'[Sequence]' section ConfigParser instance.  Pass through to
+	AnthonyNolanFilter constructor
+	(Main._doGenotypeFile): Add to tuple extraction in
+	Genotypes.getAlleleCountAt() call.
+
+	* DataTypes.py (_serializeAlleleCountDataAt): Output XML tag with
+	total number of unsequencedSites.
+	(Genotypes.__init__): New parameter 'unsequencedSite' (no
+	default).
+	(Genotypes._checkAllele): Check for unsequencedSite as well as for
+	untypedAllele when doing counts, and keep a separate count.
+	(Genotypes._genDataStructures): New count unsequencedSites.
+	Likewise check for both 'untyped' and 'unsequenced' when keeping
+	track of counts.  Add unsequencedSites to the tuple stored in
+	self.freqcount (per locus).
+	(Genotypes.getAlleleCountAt): Add to tuple.
+	(Genotypes.serializeAlleleCountDataAt): Likewise.
+	(Genotypes.getLocusDataAt): Likewise.
+	(AlleleCounts._genDataStructures): Likewise.
+	(AlleleCounts.serializeAlleleCountDataAt): Likewise.
+
+	* Filter.py (AnthonyNolanFilter.__init__): Add new parameter
+	unsequencedSite as designator for a site which does not have a
+	sequence or has a sequence that is ambiguous (default to '#').
+	(AnthonyNolanFilter.makeSeqDictionaries): Use unsequencedSite
+	rather than '*' as standard null placeholder
+	(AnthonyNolanFilter.makeSeqDictionaries): Don't include '#' in
+	count of unique positions.  (Note FIXME: check whether we still
+	need to check for '.' for 'X')
+	(AnthonyNolanFilter.translateMatrix): Only '*' is now the missing
+	data, pass through "#" so that it can be counted separately.
+	(AnthonyNolanFilter._getConsensusFromLines): Check for unsequenced
+	site, if not unique, then use unsequencedSite as letter. If an
+	allele is not found, tag as unsequencedSite (FIXME: check this!)
+
+
 2006-04-03  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/sort-by-locus.xsl (sort-by-locus): Add two parameters
