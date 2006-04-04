@@ -1,3 +1,10 @@
+2006-04-03  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* xslt/sort-by-locus.xsl (sort-by-locus): Add two parameters
+	'two-en' and 'k', filters out populations with sample size (2n)
+	and number of distinct alleles (k) parameters less than these
+	values (default to '0').
+
 2006-03-08  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* popmeta.py (ihwg_output): Change semantics of batchsize, make
