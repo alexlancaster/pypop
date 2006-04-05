@@ -515,7 +515,7 @@ class Main:
                 filter = BinningFilter(debug=self.debug,
                                        customBinningDict=customBinningDict,
                                        untypedAllele=self.untypedAllele,
-                                       filename=self.fileName,or
+                                       filename=self.fileName,
                                        logFile=self.filterLogFile)
                 self.matrixHistory.append(filter.doCustomBinning((self.matrixHistory[-1]).copy()))
 
