@@ -1,3 +1,10 @@
+2006-04-04  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Filter.py (AnthonyNolanFilter._getConsensusFromLines): if no
+	matching sequence is found in the MSF files, then return a
+	sequence of * symbols (ie, will be treated as truly missing data,
+	not untyped alleles.
+
 2006-04-04  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* xslt/meta-to-r.xsl (allelecounts/untypedindividuals,

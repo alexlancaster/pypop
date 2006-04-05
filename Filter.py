@@ -1,4 +1,3 @@
-
 #!/usr/bin/env python
 
 # This file is part of PyPop
@@ -807,9 +806,7 @@ class AnthonyNolanFilter(Filter):
         if len(closestMatches) == 0:
             if self.debug:
                 print '%s NOT found in the msf file, no close matches found.' % allele
-            ##seq = '*' * self.length
-            ## FIXME: should we default to unsequenced here or missing data
-            seq = self.unsequencedSite * self.length
+            seq = '*' * self.length
 
         elif len(closestMatches) == 1:
             if self.debug:
