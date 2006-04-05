@@ -107,17 +107,19 @@ def _translate_file_to(xslFilename, inFile, outFile, params=None):
         style.saveResultToFilename(outFile, result, 0)
 
         success = 1
+    
+    
+        # free instances
+        result.freeDoc()
+        style.freeStylesheet()
+        doc.freeDoc()
 
     except:
         print "Can't parse: %s, skipping" % inFile
         success = 0
 
-    # free instances
-    result.freeDoc()
-    style.freeStylesheet()
-    doc.freeDoc()
-
     return success
+
 
 def translate_file_to_stdout(xslFilename, inFile, params=None):
     retval = _translate_file_to(xslFilename, inFile, "-", params)
