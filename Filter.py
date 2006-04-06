@@ -798,7 +798,9 @@ class AnthonyNolanFilter(Filter):
 
             for potentialMatch in self.alleleLookupTable[locus]:
                 for pos in range(len(potentialMatch)):
-                    if alleleSplit == potentialMatch[:-pos] or alleleSplit == potentialMatch:
+                    ## make sure that potential match is not a null allele
+                    ## FIXME: HLA specific
+                    if (alleleSplit == potentialMatch[:-pos] or alleleSplit == potentialMatch) and potentialMatch[-1:] != 'N':
                         closestMatches[potentialMatch] = self._getSequenceFromLines(locus, potentialMatch)
 
         seq = ''
@@ -822,20 +824,26 @@ class AnthonyNolanFilter(Filter):
 
                 for potentialMatch in closestMatches:
                     letter = closestMatches[potentialMatch][pos]
-                    if letter != '.' and letter != 'X' and letter != '*' and letter != self.unsequencedSite:
+                    ##if letter != '.' and letter != 'X' and letter != '*' and letter != self.unsequencedSite:
+                    ## treat unsequencedSite as a unique allele to make sure
+                    ## that those sites don't get treated as having a
+                    ## consensus sequence if only one of the sequences in the
+                    ## the set of matches is typed
+                    if letter != '*':
                         uniqueCounter[letter] = 1
                         letterOfTheLaw = letter
-                        
+
+                if self.debug:
+                    print uniqueCounter
                 uniqueCount = len(uniqueCounter)
 
                 if uniqueCount == 1:
                     seq += letterOfTheLaw
                 else:
-                    ##seq += '*'
-                    ## FIXME: check this is correct!
                     seq += self.unsequencedSite
 
             if self.debug:
+                print seq
                 print '%s NOT found in the msf file, so we use a consensus of ' % allele, closestMatches.keys()
 
         return seq

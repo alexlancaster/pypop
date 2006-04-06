@@ -129,7 +129,8 @@ class Genotypes:
                     self.alleleTable[phase] = 1
                 self.total += 1
             else:
-                print self.unsequencedSite, phase, unsequencedSites
+                if self.debug:
+                    print self.unsequencedSite, phase, unsequencedSites
                 if (self.unsequencedSite == phase):
                     unsequencedSites += 1
         
@@ -205,7 +206,8 @@ class Genotypes:
                                 unsequencedSites += 1
                             if self.unsequencedSite == allele2:
                                 unsequencedSites += 1
-                            print locus, allele1, allele2, unsequencedSites
+                            if self.debug:
+                                print locus, allele1, allele2, unsequencedSites
                             continue
                     # if either allele is untyped it is we throw out the
                     # entire individual and go to the next individual

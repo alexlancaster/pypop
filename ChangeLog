@@ -1,3 +1,17 @@
+2006-04-06  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* DataTypes.py (Genotypes._checkAllele): Put debugging code into
+	self.debug clauses.
+	(Genotypes._genDataStructures): Likewise.
+
+	* Filter.py (AnthonyNolanFilter._getConsensusFromLines): Make sure
+	that null alleles are not treated as if they were potential
+	matches.
+	Treat unsequencedSite as a unique allele to make sure that those
+	sites don't get treated as having a consensus sequence if only one
+	of the sequences in the the set of matches is typed
+	(AnthonyNolanFilter._getConsensusFromLines): Some debugging code.
+
 2006-04-04  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Filter.py (AnthonyNolanFilter._getConsensusFromLines): if no
