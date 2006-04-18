@@ -1,5 +1,11 @@
 2006-04-18  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* MANIFEST.in: Likewise add so that they are distributed
+
+	* setup.py (xslt_files): Add 'haplolist-by-group',
+	'phylip-allele', 'phylip-haplo' xsl files so that these files are
+	installed.
+
 	* config.ini ([HardyWeinberg]): Add new flag as 'chenChisq' so
 	that it is documentedin this sample .ini file.
 
