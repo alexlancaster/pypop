@@ -93,11 +93,18 @@ class HardyWeinberg:
   def __init__(self, locusData=None,
                alleleCount=None,
                lumpBelow = 5,
+               flagChenTest = 0,
                debug=0):
     """Constructor.
 
     - locusData and alleleCount to be provided by driver script
       via a call to ParseFile.getLocusData(locus).
+
+    - lumpBelow: treat alleles with frequency less than this as if they
+      were in same class  (Default: 5)
+
+    - flagChenTest: if enabled do Chen's chi-square-based "corrected"
+      p-value (Default: 0 [False])
 
     """
 
@@ -112,7 +119,7 @@ class HardyWeinberg:
     self.n = len(self.locusData)
     self.k = len(self.alleleCounts)
 
-    self.flagChenTest = 0
+    self.flagChenTest = flagChenTest
     
     self._generateTables()
     self._calcChisq()

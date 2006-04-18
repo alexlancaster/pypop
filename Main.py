@@ -623,9 +623,17 @@ class Main:
             except ValueError:
               sys.exit("require integer value")
 
+            try:
+              flagChenTest =  self.config.getboolean("HardyWeinberg", "chenChisq")
+            except NoOptionError:
+              flagChenTest = 0
+            except ValueError:
+              sys.exit("require a 0 or 1 as a Boolean flag")
+
             hwObject = HardyWeinberg(self.input.getLocusDataAt(locus), 
                                      self.input.getAlleleCountAt(locus), 
                                      lumpBelow=lumpBelow,
+                                     flagChenTest=flagChenTest,
                                      debug=self.debug)
 
             # serialize HardyWeinberg

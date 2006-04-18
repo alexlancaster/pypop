@@ -1,3 +1,15 @@
+2006-04-18  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* config.ini ([HardyWeinberg]): Add new flag as 'chenChisq' so
+	that it is documentedin this sample .ini file.
+
+	* Main.py (Main._doGenotypeFile): Parse 'flagChenTest'
+	in [HardyWeinberg] section of config.ini (default to '0' or
+	False), pass to HardyWeinberg module.
+
+	* HardyWeinberg.py (HardyWeinberg.__init__): Add: 'flagChenTest'
+	as a parameter, so that it can be set in config.ini.
+
 2006-04-06  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* DataTypes.py (Genotypes._checkAllele): Put debugging code into
