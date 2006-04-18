@@ -265,7 +265,7 @@ def Ensure_Scripts(scripts):
 # data files to install
 data_file_paths = ['config.ini', 'VERSION']
 # xslt files are in a subdirectory
-xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus']]
+xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
 data_file_paths.extend(xslt_files)
 
 
