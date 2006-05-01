@@ -1,3 +1,8 @@
+2006-05-01  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Meta.py (Meta.__init__): close each intermediate dat file
+	immediately upon finishing with it.
+
 2006-04-18  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* MANIFEST.in: Likewise add so that they are distributed

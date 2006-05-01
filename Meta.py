@@ -309,6 +309,7 @@ class Meta:
                     for line in catFile:
                         outdat.write(line)
                     # then remove it
+                    catFile.close()
                     os.remove(catFilename)
                 # finally, close the ultimate output file
                 outdat.close()
