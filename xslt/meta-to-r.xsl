@@ -220,12 +220,14 @@ MODIFICATIONS.
      
      <xsl:variable name="lump-levels" select="set:distinct(*//@allelelump)"/>
 
+     <!--
       <xsl:message>
       <xsl:for-each select="$lump-levels">
        <xsl:value-of select="."/>
        <xsl:call-template name="newline"/>
       </xsl:for-each>
       </xsl:message>
+     -->
 
      <xsl:for-each select="$lump-levels">
       
