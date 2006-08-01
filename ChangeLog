@@ -1,5 +1,9 @@
 2006-07-31  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* Meta.py (Meta.__init__): Replace all spaces by '%20' to make the
+	system identifier a true RFC 3986 compliant URI.  Use '-' in place
+	of spaces in the entity names.
+
 	* Filter.py (BinningFilter.doCustomBinning): If ruleSet starts
 	with a '*', use the first split (before the first '/') as the name
 	of the new allele, rather than the full name.
