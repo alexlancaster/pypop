@@ -1,3 +1,9 @@
+2006-07-31  Alex Lancaster  <alexl AT berkeley.edu>
+
+	* Filter.py (BinningFilter.doCustomBinning): If ruleSet starts
+	with a '*', use the first split (before the first '/') as the name
+	of the new allele, rather than the full name.
+
 2006-05-01  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Meta.py (Meta.__init__): close each intermediate dat file
