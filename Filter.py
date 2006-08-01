@@ -898,8 +898,11 @@ class BinningFilter:
                         
                         # check for exact match(es)
                         if allele[i] in ruleSetSplit:
-                            exactMatches.append(ruleSet)
-
+                            if ruleSet[0] == '*':
+                                exactMatches.append(ruleSetSplit[0][1:])
+                            else:
+                                exactMatches.append(ruleSet)
+                            
                         # check for close match(es)
                         if len(allele[i]) > 2:
                             ruleCounter = 0
