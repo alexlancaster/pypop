@@ -229,8 +229,8 @@ class Meta:
 
             for f in fileBatchList[fileBatch]:
                 base = os.path.basename(f)
-                ent = "ENT" + base
-                entities += "<!ENTITY %s SYSTEM \"%s\">\n" % (ent, f)
+                ent = "ENT" + base.replace(' ', '-')
+                entities += "<!ENTITY %s SYSTEM \"%s\">\n" % (ent, f.replace(' ', '%20'))
                 includes += "&%s;\n" % ent
 
             # put entities after doctype
