@@ -225,9 +225,9 @@ KeepNullDistrib=0""")
     def genHaplotypes(self):
         """Gets the haplotype estimates back from Arlequin.
 
-        Parses the Arlequin output nonsense to retrieve the haplotype
-        estimated data.  Returns a list of the sliding `windows' which
-        consists of tuples.
+        Parses the Arlequin output to retrieve the haplotype estimated
+        data.  Returns a list of the sliding `windows' which consists
+        of tuples.
 
         Each tuple consists of a:
 
