@@ -1,10 +1,11 @@
 
- temp.msf  MSF: 365  Type: N  January 01, 1776  12:00  Check: 6693 ..
+ temp.msf  MSF: 365  Type: N  January 01, 1776  12:00  Check: 115 ..
 
  Name: A*01010101       Len:   365  Check:  1951  Weight:  1.00
  Name: A*01010102N      Len:   200  Check:  2903  Weight:  1.00
  Name: A*010102         Len:   365  Check:   757  Weight:  1.00
  Name: A*010103         Len:   365  Check:  5660  Weight:  1.00
+ Name: A*010104         Len:   365  Check:   757  Weight:  1.00
  Name: A*0102           Len:   365  Check:  2421  Weight:  1.00
  Name: A*0103           Len:   365  Check:   785  Weight:  1.00
  Name: A*0104N          Len:   220  Check:  5296  Weight:  1.00
@@ -20,6 +21,9 @@
  Name: A*0115N          Len:   213  Check:   597  Weight:  1.00
  Name: A*0116N          Len:   220  Check:  2441  Weight:  1.00
  Name: A*0117           Len:   365  Check:  1090  Weight:  1.00
+ Name: A*0118N          Len:   365  Check:   727  Weight:  1.00
+ Name: A*0119           Len:   365  Check:   555  Weight:  1.00
+ Name: A*0120           Len:   365  Check:  2549  Weight:  1.00
  Name: A*02010101       Len:   365  Check:  3140  Weight:  1.00
  Name: A*02010102L      Len:   365  Check:  3140  Weight:  1.00
  Name: A*020102         Len:   365  Check:  1997  Weight:  1.00
@@ -125,14 +129,24 @@
  Name: A*0285           Len:   365  Check:  7140  Weight:  1.00
  Name: A*0286           Len:   365  Check:  1425  Weight:  1.00
  Name: A*0287           Len:   365  Check:  1259  Weight:  1.00
+ Name: A*0288N          Len:   140  Check:  3212  Weight:  1.00
  Name: A*0289           Len:   365  Check:  3545  Weight:  1.00
  Name: A*0290           Len:   365  Check:  6934  Weight:  1.00
+ Name: A*0291           Len:   365  Check:  3254  Weight:  1.00
+ Name: A*0292           Len:   365  Check:  1939  Weight:  1.00
+ Name: A*0293           Len:   365  Check:  1680  Weight:  1.00
+ Name: A*0294N          Len:   150  Check:  9815  Weight:  1.00
+ Name: A*0295           Len:   365  Check:  1725  Weight:  1.00
+ Name: A*0296           Len:   365  Check:  7094  Weight:  1.00
+ Name: A*0297           Len:   365  Check:  7070  Weight:  1.00
+ Name: A*0299           Len:   365  Check:  2539  Weight:  1.00
  Name: A*03010101       Len:   365  Check:  3033  Weight:  1.00
- Name: A*03010102N      Len:   365  Check:  3033  Weight:  1.00
+ Name: A*03010102N      Len:   320  Check:  3629  Weight:  1.00
  Name: A*03010103       Len:   365  Check:  3033  Weight:  1.00
  Name: A*030102         Len:   365  Check:  1839  Weight:  1.00
  Name: A*030103         Len:   365  Check:  1839  Weight:  1.00
  Name: A*030104         Len:   365  Check:  1839  Weight:  1.00
+ Name: A*030105         Len:   365  Check:  1839  Weight:  1.00
  Name: A*0302           Len:   365  Check:  3163  Weight:  1.00
  Name: A*0303N          Len:   365  Check:  2538  Weight:  1.00
  Name: A*0304           Len:   365  Check:  3137  Weight:  1.00
@@ -154,12 +168,18 @@
  Name: A*0320           Len:   365  Check:  6866  Weight:  1.00
  Name: A*0321N          Len:   220  Check:  6378  Weight:  1.00
  Name: A*0322           Len:   365  Check:  2163  Weight:  1.00
+ Name: A*0323           Len:   365  Check:  1450  Weight:  1.00
+ Name: A*0324           Len:   365  Check:  2138  Weight:  1.00
+ Name: A*0325           Len:   365  Check:  1830  Weight:  1.00
+ Name: A*0326           Len:   365  Check:  2991  Weight:  1.00
  Name: A*110101         Len:   365  Check:  3793  Weight:  1.00
  Name: A*110102         Len:   365  Check:  7710  Weight:  1.00
  Name: A*110103         Len:   365  Check:  2599  Weight:  1.00
  Name: A*110104         Len:   365  Check:  3793  Weight:  1.00
  Name: A*110105         Len:   365  Check:  7710  Weight:  1.00
- Name: A*1102           Len:   365  Check:  7760  Weight:  1.00
+ Name: A*110106         Len:   365  Check:  2599  Weight:  1.00
+ Name: A*110201         Len:   365  Check:  7760  Weight:  1.00
+ Name: A*110202         Len:   365  Check:  2857  Weight:  1.00
  Name: A*1103           Len:   365  Check:  3853  Weight:  1.00
  Name: A*1104           Len:   365  Check:  3825  Weight:  1.00
  Name: A*1105           Len:   365  Check:  3466  Weight:  1.00
@@ -181,6 +201,12 @@
  Name: A*1121N          Len:   220  Check:  7346  Weight:  1.00
  Name: A*1122           Len:   365  Check:  2551  Weight:  1.00
  Name: A*1123           Len:   365  Check:  2619  Weight:  1.00
+ Name: A*1124           Len:   365  Check:  2554  Weight:  1.00
+ Name: A*1125           Len:   365  Check:  3768  Weight:  1.00
+ Name: A*1126           Len:   365  Check:  2672  Weight:  1.00
+ Name: A*1127           Len:   365  Check:  2292  Weight:  1.00
+ Name: A*1128           Len:   365  Check:  2419  Weight:  1.00
+ Name: A*1129           Len:   365  Check:  7835  Weight:  1.00
  Name: A*2301           Len:   365  Check:  2351  Weight:  1.00
  Name: A*2302           Len:   365  Check:   852  Weight:  1.00
  Name: A*2303           Len:   365  Check:   864  Weight:  1.00
@@ -206,6 +232,9 @@
  Name: A*240208         Len:   365  Check:   434  Weight:  1.00
  Name: A*240209         Len:   365  Check:   434  Weight:  1.00
  Name: A*240210         Len:   365  Check:  2208  Weight:  1.00
+ Name: A*240211         Len:   365  Check:   434  Weight:  1.00
+ Name: A*240212         Len:   365  Check:   434  Weight:  1.00
+ Name: A*240213         Len:   365  Check:  4160  Weight:  1.00
  Name: A*240301         Len:   365  Check:  2547  Weight:  1.00
  Name: A*240302         Len:   365  Check:   773  Weight:  1.00
  Name: A*2404           Len:   365  Check:  2319  Weight:  1.00
@@ -230,7 +259,7 @@
  Name: A*2425           Len:   365  Check:  9752  Weight:  1.00
  Name: A*2426           Len:   365  Check:  9152  Weight:  1.00
  Name: A*2427           Len:   365  Check:   566  Weight:  1.00
- Name: A*2428           Len:   365  Check:  1172  Weight:  1.00
+ Name: A*2428           Len:   365  Check:  6283  Weight:  1.00
  Name: A*2429           Len:   365  Check:  6720  Weight:  1.00
  Name: A*2430           Len:   365  Check:   598  Weight:  1.00
  Name: A*2431           Len:   365  Check:   794  Weight:  1.00
@@ -242,7 +271,7 @@
  Name: A*2437           Len:   365  Check:   378  Weight:  1.00
  Name: A*2438           Len:   365  Check:   464  Weight:  1.00
  Name: A*2439           Len:   365  Check:  6154  Weight:  1.00
- Name: A*2440N          Len:   219  Check:  3889  Weight:  1.00
+ Name: A*2440N          Len:   220  Check:  3889  Weight:  1.00
  Name: A*2441           Len:   365  Check:    83  Weight:  1.00
  Name: A*2442           Len:   365  Check:  1008  Weight:  1.00
  Name: A*2443           Len:   365  Check:  5741  Weight:  1.00
@@ -261,11 +290,23 @@
  Name: A*2456           Len:   365  Check:   349  Weight:  1.00
  Name: A*2457           Len:   365  Check:   590  Weight:  1.00
  Name: A*2458           Len:   365  Check:  5369  Weight:  1.00
+ Name: A*2459           Len:   365  Check:  5440  Weight:  1.00
+ Name: A*2460N          Len:    99  Check:  7389  Weight:  1.00
+ Name: A*2461           Len:   365  Check:  2076  Weight:  1.00
+ Name: A*2462           Len:   365  Check:   104  Weight:  1.00
+ Name: A*2463           Len:   365  Check:  5803  Weight:  1.00
+ Name: A*2464           Len:   365  Check:   531  Weight:  1.00
+ Name: A*2465           Len:   365  Check:  5500  Weight:  1.00
+ Name: A*2466           Len:   365  Check:  9920  Weight:  1.00
+ Name: A*2467           Len:   365  Check:  1532  Weight:  1.00
+ Name: A*2468           Len:   365  Check:   457  Weight:  1.00
  Name: A*250101         Len:   365  Check:  3719  Weight:  1.00
  Name: A*250102         Len:   365  Check:  2686  Weight:  1.00
  Name: A*2502           Len:   365  Check:  4052  Weight:  1.00
  Name: A*2503           Len:   365  Check:  2059  Weight:  1.00
  Name: A*2504           Len:   365  Check:  2632  Weight:  1.00
+ Name: A*2505           Len:   365  Check:  2136  Weight:  1.00
+ Name: A*2506           Len:   365  Check:  9999  Weight:  1.00
  Name: A*260101         Len:   365  Check:  3610  Weight:  1.00
  Name: A*260102         Len:   365  Check:  8434  Weight:  1.00
  Name: A*260103         Len:   365  Check:  8434  Weight:  1.00
@@ -274,7 +315,7 @@
  Name: A*2603           Len:   365  Check:  4237  Weight:  1.00
  Name: A*2604           Len:   365  Check:  3514  Weight:  1.00
  Name: A*2605           Len:   365  Check:  3782  Weight:  1.00
- Name: A*2606           Len:   365  Check:  3229  Weight:  1.00
+ Name: A*2606           Len:   365  Check:  9086  Weight:  1.00
  Name: A*260701         Len:   365  Check:  2922  Weight:  1.00
  Name: A*260702         Len:   365  Check:  7746  Weight:  1.00
  Name: A*2608           Len:   365  Check:  3556  Weight:  1.00
@@ -297,8 +338,15 @@
  Name: A*2625N          Len:    98  Check:  5316  Weight:  1.00
  Name: A*2626           Len:   365  Check:  8310  Weight:  1.00
  Name: A*2627           Len:   365  Check:  2507  Weight:  1.00
+ Name: A*2628           Len:   365  Check:  2579  Weight:  1.00
+ Name: A*2629           Len:   365  Check:  2256  Weight:  1.00
+ Name: A*2630           Len:   365  Check:  3033  Weight:  1.00
+ Name: A*2631           Len:   365  Check:  8268  Weight:  1.00
+ Name: A*2632           Len:   365  Check:  2625  Weight:  1.00
+ Name: A*2633           Len:   365  Check:  8491  Weight:  1.00
+ Name: A*2634           Len:   365  Check:  2657  Weight:  1.00
  Name: A*29010101       Len:   365  Check:  3546  Weight:  1.00
- Name: A*29010102N      Len:   365  Check:  3546  Weight:  1.00
+ Name: A*29010102N      Len:   320  Check:  4338  Weight:  1.00
  Name: A*290201         Len:   365  Check:  3498  Weight:  1.00
  Name: A*290202         Len:   365  Check:  2544  Weight:  1.00
  Name: A*290203         Len:   365  Check:  2544  Weight:  1.00
@@ -314,13 +362,15 @@
  Name: A*2912           Len:   365  Check:  2524  Weight:  1.00
  Name: A*2913           Len:   365  Check:  2653  Weight:  1.00
  Name: A*2914           Len:   365  Check:  2582  Weight:  1.00
+ Name: A*2915           Len:   365  Check:  3024  Weight:  1.00
+ Name: A*2916           Len:   365  Check:  3048  Weight:  1.00
  Name: A*300101         Len:   365  Check:  4016  Weight:  1.00
  Name: A*300102         Len:   365  Check:  7725  Weight:  1.00
  Name: A*300201         Len:   365  Check:  3367  Weight:  1.00
  Name: A*300202         Len:   365  Check:  7076  Weight:  1.00
  Name: A*300203         Len:   365  Check:  7076  Weight:  1.00
  Name: A*3003           Len:   365  Check:  3532  Weight:  1.00
- Name: A*3004           Len:   365  Check:  2252  Weight:  1.00
+ Name: A*3004           Len:   365  Check:  7363  Weight:  1.00
  Name: A*3006           Len:   365  Check:  1207  Weight:  1.00
  Name: A*3007           Len:   365  Check:  1374  Weight:  1.00
  Name: A*3008           Len:   365  Check:  4214  Weight:  1.00
@@ -331,6 +381,10 @@
  Name: A*3013           Len:   365  Check:  2628  Weight:  1.00
  Name: A*3014L          Len:   365  Check:  3094  Weight:  1.00
  Name: A*3015           Len:   365  Check:  3072  Weight:  1.00
+ Name: A*3016           Len:   365  Check:  2986  Weight:  1.00
+ Name: A*3017           Len:   365  Check:  2876  Weight:  1.00
+ Name: A*3018           Len:   365  Check:  7892  Weight:  1.00
+ Name: A*3019           Len:   365  Check:  1938  Weight:  1.00
  Name: A*310102         Len:   365  Check:  3757  Weight:  1.00
  Name: A*3102           Len:   365  Check:  2149  Weight:  1.00
  Name: A*3103           Len:   365  Check:  2415  Weight:  1.00
@@ -344,6 +398,8 @@
  Name: A*3111           Len:   365  Check:  8480  Weight:  1.00
  Name: A*3112           Len:   365  Check:  2234  Weight:  1.00
  Name: A*3113           Len:   365  Check:  8622  Weight:  1.00
+ Name: A*3114N          Len:   220  Check:  5899  Weight:  1.00
+ Name: A*3115           Len:   365  Check:  2618  Weight:  1.00
  Name: A*3201           Len:   365  Check:  2318  Weight:  1.00
  Name: A*3202           Len:   365  Check:  2323  Weight:  1.00
  Name: A*3203           Len:   365  Check:  1468  Weight:  1.00
@@ -355,6 +411,9 @@
  Name: A*3209           Len:   365  Check:  1588  Weight:  1.00
  Name: A*3210           Len:   365  Check:  1662  Weight:  1.00
  Name: A*3211Q          Len:   365  Check:  7356  Weight:  1.00
+ Name: A*3212           Len:   365  Check:  1023  Weight:  1.00
+ Name: A*3213           Len:   365  Check:  1349  Weight:  1.00
+ Name: A*3214           Len:   365  Check:  2150  Weight:  1.00
  Name: A*3301           Len:   365  Check:  3668  Weight:  1.00
  Name: A*330301         Len:   365  Check:  3803  Weight:  1.00
  Name: A*330302         Len:   365  Check:  2294  Weight:  1.00
@@ -363,6 +422,7 @@
  Name: A*3306           Len:   365  Check:  1945  Weight:  1.00
  Name: A*3307           Len:   365  Check:  3692  Weight:  1.00
  Name: A*3308           Len:   365  Check:  8018  Weight:  1.00
+ Name: A*3309           Len:   365  Check:  7811  Weight:  1.00
  Name: A*3401           Len:   365  Check:  4381  Weight:  1.00
  Name: A*3402           Len:   365  Check:  4345  Weight:  1.00
  Name: A*3403           Len:   365  Check:  3274  Weight:  1.00
@@ -370,6 +430,7 @@
  Name: A*3405           Len:   365  Check:  3936  Weight:  1.00
  Name: A*3406           Len:   365  Check:  9142  Weight:  1.00
  Name: A*3407           Len:   365  Check:  3960  Weight:  1.00
+ Name: A*3408           Len:   365  Check:  2685  Weight:  1.00
  Name: A*3601           Len:   365  Check:  2322  Weight:  1.00
  Name: A*3602           Len:   365  Check:   883  Weight:  1.00
  Name: A*3603           Len:   365  Check:  6414  Weight:  1.00
@@ -380,11 +441,14 @@
  Name: A*6603           Len:   365  Check:  2661  Weight:  1.00
  Name: A*6604           Len:   365  Check:  2965  Weight:  1.00
  Name: A*6605           Len:   365  Check:  3040  Weight:  1.00
+ Name: A*6606           Len:   365  Check:  3359  Weight:  1.00
  Name: A*680101         Len:   365  Check:  4906  Weight:  1.00
  Name: A*680102         Len:   365  Check:  4906  Weight:  1.00
  Name: A*680103         Len:   365  Check:  2902  Weight:  1.00
  Name: A*680104         Len:   365  Check:  2902  Weight:  1.00
- Name: A*6802           Len:   365  Check:  4878  Weight:  1.00
+ Name: A*680105         Len:   365  Check:  2902  Weight:  1.00
+ Name: A*68020101       Len:   365  Check:  4878  Weight:  1.00
+ Name: A*68020102       Len:   365  Check:  4878  Weight:  1.00
  Name: A*680301         Len:   365  Check:  4573  Weight:  1.00
  Name: A*680302         Len:   365  Check:  2569  Weight:  1.00
  Name: A*6804           Len:   365  Check:  2129  Weight:  1.00
@@ -414,10 +478,16 @@
  Name: A*6828           Len:   365  Check:  2829  Weight:  1.00
  Name: A*6829           Len:   365  Check:  2737  Weight:  1.00
  Name: A*6830           Len:   365  Check:  2313  Weight:  1.00
+ Name: A*6831           Len:   365  Check:  2541  Weight:  1.00
+ Name: A*6832           Len:   365  Check:  2461  Weight:  1.00
+ Name: A*6833           Len:   365  Check:  8759  Weight:  1.00
+ Name: A*6834           Len:   365  Check:  2762  Weight:  1.00
+ Name: A*6835           Len:   365  Check:  8249  Weight:  1.00
+ Name: A*6836           Len:   365  Check:  4332  Weight:  1.00
  Name: A*6901           Len:   365  Check:  4624  Weight:  1.00
  Name: A*7401           Len:   365  Check:  2557  Weight:  1.00
  Name: A*7402           Len:   365  Check:  1736  Weight:  1.00
- Name: A*7403           Len:   365  Check:  1345  Weight:  1.00
+ Name: A*7403           Len:   365  Check:  7623  Weight:  1.00
  Name: A*7404           Len:   365  Check:  2278  Weight:  1.00
  Name: A*7405           Len:   365  Check:  1282  Weight:  1.00
  Name: A*7406           Len:   365  Check:  2206  Weight:  1.00
@@ -428,6 +498,14 @@
  Name: A*7411           Len:   365  Check:  2084  Weight:  1.00
  Name: A*7412N          Len:   365  Check:  1697  Weight:  1.00
  Name: A*8001           Len:   365  Check:  1910  Weight:  1.00
+ Name: A*9201           Len:   365  Check:  1965  Weight:  1.00
+ Name: A*9202           Len:   365  Check:  2046  Weight:  1.00
+ Name: A*9203           Len:   365  Check:  2521  Weight:  1.00
+ Name: A*9204           Len:   365  Check:  2385  Weight:  1.00
+ Name: A*9206           Len:   365  Check:  2750  Weight:  1.00
+ Name: A*9207           Len:   365  Check:  1929  Weight:  1.00
+ Name: A*9208           Len:   365  Check:  2368  Weight:  1.00
+ Name: A*9209           Len:   365  Check:  2187  Weight:  1.00
 
 //
 
@@ -435,6 +513,7 @@
     A*01010102N  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
        A*010102  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
        A*010103  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
+       A*010104  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*0102  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFSTSVSRPG SGEPRFIAVG
          A*0103  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
         A*0104N  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
@@ -450,6 +529,9 @@
         A*0115N  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
         A*0116N  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
          A*0117  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+        A*0118N  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0119  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0120  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFSTSVSRPG SGEPRFIAVG
      A*02010101  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
     A*02010102L  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
        A*020102  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
@@ -555,14 +637,24 @@
          A*0285  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*0286  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*0287  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+        A*0288N  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*0289  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
          A*0290  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0291  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*0292  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0293  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+        A*0294N  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0295  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0296  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0297  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0299  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
      A*03010101  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
     A*03010102N  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
      A*03010103  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
        A*030102  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
        A*030103  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
        A*030104  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+       A*030105  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*0302  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
         A*0303N  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
          A*0304  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
@@ -584,12 +676,18 @@
          A*0320  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
         A*0321N  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
          A*0322  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0323  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0324  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0325  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*0326  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
        A*110101  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
        A*110102  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
        A*110103  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
        A*110104  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
        A*110105  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
-         A*1102  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGKPRFIAVG
+       A*110106  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+       A*110201  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGKPRFIAVG
+       A*110202  .......... .......... .....SHSMR YFYTSVSRPG RGKPRFIAVG
          A*1103  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
          A*1104  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
          A*1105  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
@@ -611,6 +709,12 @@
         A*1121N  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
          A*1122  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
          A*1123  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*1124  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*1125  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
+         A*1126  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*1127  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*1128  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*1129  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
          A*2301  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFSTSVSRPG RGEPRFIAVG
          A*2302  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
          A*2303  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
@@ -636,6 +740,9 @@
        A*240208  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
        A*240209  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
        A*240210  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFSTSVSRPG RGEPRFIAVG
+       A*240211  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
+       A*240212  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
+       A*240213  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
        A*240301  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFSTSVSRPG RGEPRFIAVG
        A*240302  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
          A*2404  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFSTSVSRPG RGEPRFIAVG
@@ -691,11 +798,23 @@
          A*2456  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
          A*2457  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
          A*2458  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFSTSVSRPG RGEPRFIAVG
+         A*2459  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
+        A*2460N  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
+         A*2461  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFSTSVSRPG RGEPRFIAVG
+         A*2462  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
+         A*2463  .......... .......... .....SHSMR YFSTSVSRPG RGKPRFIAVG
+         A*2464  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
+         A*2465  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
+         A*2466  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
+         A*2467  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
+         A*2468  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
        A*250101  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
        A*250102  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
          A*2502  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
          A*2503  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*2504  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*2505  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*2506  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
        A*260101  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
        A*260102  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
        A*260103  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
@@ -727,6 +846,13 @@
         A*2625N  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
          A*2626  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
          A*2627  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*2628  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*2629  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*2630  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*2631  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
+         A*2632  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*2633  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*2634  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
      A*29010101  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFTTSVSRPG RGEPRFIAVG
     A*29010102N  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFTTSVSRPG RGEPRFIAVG
        A*290201  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFTTSVSRPG RGEPRFIAVG
@@ -744,6 +870,8 @@
          A*2912  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
          A*2913  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
          A*2914  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
+         A*2915  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
+         A*2916  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
        A*300101  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFSTSVSRPG SGEPRFIAVG
        A*300102  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFSTSVSRPG SGEPRFIAVG
        A*300201  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFSTSVSRPG SGEPRFIAVG
@@ -761,6 +889,10 @@
          A*3013  .......... .......... .....SHSMR YFSTSVSRPG SGEPRFIAVG
         A*3014L  .......... .......... .....SHSMR YFSTSVSRPG SGEPRFIAVG
          A*3015  .......... .......... .....SHSMR YFSTSVSRPG SGEPRFIAVG
+         A*3016  .......... .......... .....SHSMR YFSTSVSRPG SGEPRFIAVG
+         A*3017  .......... .......... .....SHSMR YFSTSVSRPG SGEPRFIAVG
+         A*3018  .......... .......... .....SHSMR YFSTSVSRPG RGEPRFIAVG
+         A*3019  .......... .......... .....SHSMR YFSTSVSRPG SGEPRFIAVG
        A*310102  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFTTSVSRPG RGEPRFIAVG
          A*3102  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
          A*3103  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
@@ -774,6 +906,8 @@
          A*3111  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
          A*3112  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
          A*3113  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
+        A*3114N  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFTTSVSRPG RGEPRFIAVG
+         A*3115  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
          A*3201  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
          A*3202  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
          A*3203  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
@@ -785,6 +919,9 @@
          A*3209  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*3210  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
         A*3211Q  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*3212  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*3213  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*3214  .......... .......... .....SHSMR YFFTSVSRPG RREPRFIAVG
          A*3301  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFTTSVSRPG RGEPRFIAVG
        A*330301  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFTTSVSRPG RGEPRFIAVG
        A*330302  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
@@ -793,6 +930,7 @@
          A*3306  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
          A*3307  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFTTSVSRPG RGEPRFIAVG
          A*3308  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
+         A*3309  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFTTSVSRPG RGEPRFIAVG
          A*3401  MAIMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
          A*3402  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
          A*3403  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
@@ -800,6 +938,7 @@
          A*3405  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
          A*3406  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
          A*3407  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*3408  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*3601  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
          A*3602  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*3603  MAVMAPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
@@ -810,11 +949,14 @@
          A*6603  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
          A*6604  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
          A*6605  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*6606  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
        A*680101  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
        A*680102  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
        A*680103  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
        A*680104  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
-         A*6802  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSMSRPG RGEPRFIAVG
+       A*680105  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+     A*68020101  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSMSRPG RGEPRFIAVG
+     A*68020102  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSMSRPG RGEPRFIAVG
        A*680301  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
        A*680302  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
          A*6804  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
@@ -844,10 +986,16 @@
          A*6828  .......... .......... .....SHSMR YFYTSMSRPG RGEPRFIAVG
          A*6829  .......... .......... .....SHSMR YFTTSVSRPG RGEPRFIAVG
          A*6830  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*6831  .......... .......... .....SHSMR YFYTSMSRPG RGEPRFIAVG
+         A*6832  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAMG
+         A*6833  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*6834  .......... .......... .....SHSMR YFYTSMSRPG RGEPRFIAVG
+         A*6835  .......... .......... .....SHSMR YFYTSVSRPG CGEPRFIAVG
+         A*6836  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
          A*6901  MAVMAPRTLV LLLSGALALT QTWAGSHSMR YFYTSVSRPG RGEPRFIAVG
          A*7401  MAVMAPRTLL LLLLGALALT QTRAGSHSMR YFFTSVSRPG RGEPRFIAVG
          A*7402  MAVMAPRTLL LLLLGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
-         A*7403  MAVMAPRTLL LLLLGALALT QTRAGSHSMR YFFTSVSRPG RGEPRFIAVG
+         A*7403  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*7404  .......... .......... ....GSHSMR YFFTSVSRPG RGEPRFIAVG
          A*7405  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*7406  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
@@ -858,11 +1006,20 @@
          A*7411  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
         A*7412N  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
          A*8001  MAVMPPRTLL LLLSGALALT QTWAGSHSMR YFFTSVSRPG RGEPRFIAVG
+         A*9201  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*9202  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*9203  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*9204  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*9206  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*9207  .......... .......... .....SHSMR YFFTSVSRPG RGEPRFIAVG
+         A*9208  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         A*9209  .......... .......... .....SHSMR YFFTSVSWPG RGEPRFIAVG
 
      A*01010101  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
     A*01010102N  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
        A*010102  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
        A*010103  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
+       A*010104  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
          A*0102  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
          A*0103  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
         A*0104N  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
@@ -878,6 +1035,9 @@
         A*0115N  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
         A*0116N  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
          A*0117  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAQSQTDRA
+        A*0118N  YVDDTQFVRF DSDAASQKME PPAPWIEQEG PEYWDQETRN MKAHSQTDRA
+         A*0119  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
+         A*0120  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
      A*02010101  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
     A*02010102L  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
        A*020102  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
@@ -983,14 +1143,24 @@
          A*0285  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
          A*0286  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
          A*0287  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTDRE
+        A*0288N  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
          A*0289  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
          A*0290  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTDRV
+         A*0291  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
+         A*0292  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETRK VKAHSQTHRV
+         A*0293  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
+        A*0294N  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
+         A*0295  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
+         A*0296  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
+         A*0297  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
+         A*0299  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
      A*03010101  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
     A*03010102N  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
      A*03010103  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
        A*030102  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
        A*030103  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
        A*030104  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+       A*030105  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
          A*0302  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
         A*0303N  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
          A*0304  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
@@ -1012,12 +1182,18 @@
          A*0320  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
         A*0321N  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
          A*0322  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+         A*0323  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAQSQTDRV
+         A*0324  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
+         A*0325  YVDDTQFVRC DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+         A*0326  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
        A*110101  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
        A*110102  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
        A*110103  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
        A*110104  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
        A*110105  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
-         A*1102  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+       A*110106  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+       A*110201  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+       A*110202  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
          A*1103  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
          A*1104  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
          A*1105  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
@@ -1039,6 +1215,12 @@
         A*1121N  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
          A*1122  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
          A*1123  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+         A*1124  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+         A*1125  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+         A*1126  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+         A*1127  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+         A*1128  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
+         A*1129  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTDRV
          A*2301  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
          A*2302  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
          A*2303  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
@@ -1064,6 +1246,9 @@
        A*240208  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
        A*240209  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
        A*240210  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
+       A*240211  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
+       A*240212  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
+       A*240213  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
        A*240301  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
        A*240302  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
          A*2404  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRA
@@ -1119,11 +1304,23 @@
          A*2456  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
          A*2457  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
          A*2458  YVDDTQFVRF DSDAASQRME PRALWIEQEG PEYWDEETGK VKAHSQTDRE
+         A*2459  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
+        A*2460N  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDX
+         A*2461  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
+         A*2462  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
+         A*2463  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
+         A*2464  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
+         A*2465  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
+         A*2466  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
+         A*2467  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRE
+         A*2468  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDEETGK VKAHSQTDRE
        A*250101  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRE
        A*250102  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRE
          A*2502  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRE
          A*2503  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRE
          A*2504  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRE
+         A*2505  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRE
+         A*2506  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRE
        A*260101  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRA
        A*260102  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRA
        A*260103  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRA
@@ -1155,6 +1352,13 @@
         A*2625N  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAPLTDX
          A*2626  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRA
          A*2627  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRA
+         A*2628  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRA
+         A*2629  YVDDTQFVRL DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRA
+         A*2630  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTHRV
+         A*2631  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDPNTRN VKAHSQTDRA
+         A*2632  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRA
+         A*2633  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQIHRA
+         A*2634  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRA
      A*29010101  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDLQTRN VKAQSQTDRA
     A*29010102N  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDLQTRN VKAQSQTDRA
        A*290201  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDLQTRN VKAQSQTDRA
@@ -1172,6 +1376,8 @@
          A*2912  YVDDTQFVRF DSDAASQRME PRALWIEQEG PEYWDLQTRN VKAQSQTDRA
          A*2913  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDLQTRN VKAQSQTDRE
          A*2914  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAQSQTDRA
+         A*2915  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDLQTRN VKAQSQTDRA
+         A*2916  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDLQTRN VKAQSQTDRA
        A*300101  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAQSQTDRV
        A*300102  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAQSQTDRV
        A*300201  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAHSQTDRE
@@ -1189,6 +1395,10 @@
          A*3013  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAHSQTHRV
         A*3014L  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAQSQTDRV
          A*3015  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAQSQTDRV
+         A*3016  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAQSQTHRV
+         A*3017  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAQSQTDRV
+         A*3018  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAQSQTDRV
+         A*3019  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAQSQTDRV
        A*310102  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAHSQIDRV
          A*3102  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRK VKAHSQIDRV
          A*3103  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAHSQIDRV
@@ -1202,6 +1412,8 @@
          A*3111  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAHSQIDRV
          A*3112  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAHSQIDRV
          A*3113  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAHSQIDRV
+        A*3114N  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKAHSQIDRV
+         A*3115  YVDDTQFVRF DSDAASQRME PRAPWIEQER PEYWDQETRN VKARSQIDRV
          A*3201  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRE
          A*3202  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRE
          A*3203  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRE
@@ -1213,6 +1425,9 @@
          A*3209  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRE
          A*3210  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRE
         A*3211Q  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRE
+         A*3212  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRE
+         A*3213  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRE
+         A*3214  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRE
          A*3301  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQIDRV
        A*330301  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQIDRV
        A*330302  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQIDRV
@@ -1221,6 +1436,7 @@
          A*3306  YVDDTQFVRF DSDAASQRME PRAPWMEQEG PEYWDRNTRN VKAHSQIDRV
          A*3307  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQIDRV
          A*3308  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQIDRV
+         A*3309  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRN VKAHSQIDRV
          A*3401  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRK VKAQSQTDRV
          A*3402  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
          A*3403  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
@@ -1228,6 +1444,7 @@
          A*3405  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRK VKAQSQTDRV
          A*3406  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
          A*3407  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKSQSQTDRV
+         A*3408  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
          A*3601  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
          A*3602  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
          A*3603  YVDDTQFVRF DSDAASQKME PRAPWIEQEG PEYWDQETRN MKAHSQTDRA
@@ -1238,11 +1455,14 @@
          A*6603  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRV
          A*6604  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
          A*6605  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRV
+         A*6606  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
        A*680101  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
        A*680102  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
        A*680103  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
        A*680104  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
-         A*6802  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
+       A*680105  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
+     A*68020101  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
+     A*68020102  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
        A*680301  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRV
        A*680302  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRV
          A*6804  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQIDRV
@@ -1271,6 +1491,12 @@
          A*6828  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
          A*6829  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
          A*6830  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRN VKAQSQTDRV
+         A*6831  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAHSQTDRV
+         A*6832  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
+         A*6833  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
+         A*6834  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
+         A*6835  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
+         A*6836  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRE
          A*6901  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDRNTRN VKAQSQTDRV
          A*7401  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRV
          A*7402  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRV
@@ -1285,11 +1511,20 @@
          A*7411  YVDDTQFVRF DSDAASQRME SRAPWIEQEG PEYWDQETRN VKAHSQTDRV
         A*7412N  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAHSQTDRV
          A*8001  YVDDSQFVQF DSDAASQRME PRAPWIEQEE PEYWDEETRN VKAHSQTNRA
+         A*9201  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
+         A*9202  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
+         A*9203  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDQETRN VKAQSQTHRV
+         A*9204  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
+         A*9206  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
+         A*9207  YVDDTQFVRF DSDAASQRME PRALWIEQEG PEYWDGETRK VKAHSQTHRV
+         A*9208  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
+         A*9209  YVDDTQFVRF DSDAASQRME PRAPWIEQEG PEYWDGETRK VKAHSQTHRV
 
      A*01010101  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
     A*01010102N  NLGTLRGYYN QSEDGDPGPG RRSRPLIPHG RARSPTVSGS EIHPEAAGLR
        A*010102  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
        A*010103  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+       A*010104  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
          A*0102  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
          A*0103  NLGTLRGYYN QSEDGSHTIQ MMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
         A*0104N  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
@@ -1305,6 +1540,9 @@
         A*0115N  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
         A*0116N  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
          A*0117  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+        A*0118N  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+         A*0119  NLGTLRGYYN QSEDGAHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+         A*0120  NLGTLRGYYN QSEDGSHTVQ RMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
      A*02010101  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
     A*02010102L  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
        A*020102  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
@@ -1410,14 +1648,24 @@
          A*0285  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
          A*0286  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
          A*0287  NLRIALRYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
+        A*0288N  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQX
          A*0289  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
          A*0290  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
+         A*0291  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYISL
+         A*0292  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
+         A*0293  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGPD GRFLRGYHQY AYDGKDYIAL
+        A*0294N  DLGTLRGYYN QSRPVLTPSR GCMAATWGRT GASSAGTTST PTTARITSPX
+         A*0295  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD GRFLRGYHQY AYDGKDYIAL
+         A*0296  DLGTLRGYYN QSEACSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
+         A*0297  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
+         A*0299  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
      A*03010101  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
     A*03010102N  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
      A*03010103  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
        A*030102  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
        A*030103  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
        A*030104  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+       A*030105  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
          A*0302  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
         A*0303N  DLGTLRGYYN QSEAGSHTIQ IMYG..VGSD GRFLRGYRQD AYDGKDYIAL
          A*0304  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
@@ -1439,12 +1687,18 @@
          A*0320  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
         A*0321N  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
          A*0322  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*0323  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*0324  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*0325  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*0326  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
        A*110101  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
        A*110102  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
        A*110103  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
        A*110104  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
        A*110105  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
-         A*1102  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+       A*110106  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+       A*110201  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+       A*110202  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
          A*1103  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
          A*1104  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
          A*1105  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
@@ -1466,6 +1720,12 @@
         A*1121N  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
          A*1122  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYPQD AYDGKDYIAL
          A*1123  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+         A*1124  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+         A*1125  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+         A*1126  DLGTLRGYYN QSEDGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*1127  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+         A*1128  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
+         A*1129  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
          A*2301  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
          A*2302  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
          A*2303  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
@@ -1490,6 +1750,9 @@
        A*240208  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
        A*240209  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
        A*240210  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
+       A*240211  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
+       A*240212  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
+       A*240213  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
        A*240301  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
        A*240302  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
          A*2404  NLGTLRGYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
@@ -1543,11 +1806,22 @@
          A*2456  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
          A*2457  NLRIALRYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYHQY AYDGKDYIAL
          A*2458  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
+         A*2459  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
+         A*2461  KLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
+         A*2462  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYQQD AYDGKDYIAL
+         A*2463  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
+         A*2464  NLRIALRYYN QSEAGSHTLQ WMIGCDVGSD GRFLRGYHQY AYDGKDYIAL
+         A*2465  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
+         A*2466  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYEQH AYDGKDYIAL
+         A*2467  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
+         A*2468  NLRIALRYYN QSEAGSHTLQ MMFGCDVGSD GRFLRGYHQY AYDGKDYIAL
        A*250101  SLRIALRYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
        A*250102  SLRIALRYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
          A*2502  SLRIALRYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
          A*2503  SLRIALRYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
          A*2504  SLRIALRYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
+         A*2505  SLRIALRYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
+         A*2506  SLRIALRYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
        A*260101  NLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
        A*260102  NLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
        A*260103  NLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
@@ -1578,6 +1852,13 @@
          A*2624  NLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
          A*2626  NLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
          A*2627  NLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
+         A*2628  NLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
+         A*2629  NLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
+         A*2630  DLGTLRGYYN QSEAGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
+         A*2631  NLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
+         A*2632  NLGTLRGYYN QSEDGSHTMQ VMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
+         A*2633  NLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
+         A*2634  NLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
      A*29010101  NLGTLRGYYN QSEAGSHTIQ MMYGCHVGSD GRFLRGYRQD AYDGKDYIAL
     A*29010102N  NLGTLRGYYN QSEAGSHTIQ MMYGCHVGSD GRFLRGYRQD AYDGKDYIAL
        A*290201  NLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
@@ -1594,6 +1875,8 @@
          A*2912  NLGTLRGYYN QSEAGSHTIQ MMYGCHVGSD GRFLRGYRQD AYDGKDYIAL
          A*2913  SLRIALRYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
          A*2914  NLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*2915  NLGTLRGYYN QSEAGSHTIQ MMYGCHVGSD GRFLRGYRQD AYDGKDYIAL
+         A*2916  NLGTLRGYYN QSEAGSHTIQ MMYGCHVGSD GRFLRGYRQD AYDGKDYIAL
        A*300101  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYEQH AYDGKDYIAL
        A*300102  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYEQH AYDGKDYIAL
        A*300201  NLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYEQH AYDGKDYIAL
@@ -1611,6 +1894,10 @@
          A*3013  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYEQH AYDGKDYIAL
         A*3014L  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYEQH AYDGKDYIAL
          A*3015  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYEQH AYDGKDYIAL
+         A*3016  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYEQH AYDGKDYIAL
+         A*3017  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYEQH AYDGKDYIAL
+         A*3018  DLGTLRGYYN QSEAGSHTIQ IMYGCDVGSD GRFLRGYEQH AYDGKDYIAL
+         A*3019  DLGTLRGYHN QSEAGSHTIQ IMYGCDVGSD GRFLRGYEQH AYDGKDYIAL
        A*310102  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
          A*3102  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
          A*3103  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
@@ -1624,6 +1911,8 @@
          A*3111  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
          A*3112  DLGTLRGYYN QSEAGSHTIQ KMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
          A*3113  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
+        A*3114N  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
+         A*3115  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
          A*3201  SLRIALRYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
          A*3202  SLRIALRYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
          A*3203  NLRIALRYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
@@ -1635,6 +1924,9 @@
          A*3209  SLRIALRYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
          A*3210  SLRIALRYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
         A*3211Q  SLRIALRYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
+         A*3212  SLRIALRYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
+         A*3213  SLRIALRYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
+         A*3214  SLRIALRYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
          A*3301  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
        A*330301  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
        A*330302  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
@@ -1643,6 +1935,7 @@
          A*3306  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
          A*3307  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
          A*3308  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
+         A*3309  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYQQD AYDGKDYIAL
          A*3401  DLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
          A*3402  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
          A*3403  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
@@ -1650,6 +1943,7 @@
          A*3405  DLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYISL
          A*3406  DLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
          A*3407  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*3408  DLGTLRGYYN QSEDGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
          A*3601  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
          A*3602  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
          A*3603  NLGTLRGYYN QSEDGSHTLQ MMYGCDVGPD GRFLRGYRQD AYDGKDYIAL
@@ -1660,11 +1954,14 @@
          A*6603  DLGTLRGYYN QSEAGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
          A*6604  DLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
          A*6605  DLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
+         A*6606  DLGTLRGYYN QSEDGSHTIQ RMYGCDVGPD GRFLRGYQQD AYDGKDYIAL
        A*680101  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
        A*680102  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
        A*680103  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
        A*680104  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
-         A*6802  DLGTLRGYYN QSEAGSHTIQ RMYGCDVGPD GRFLRGYHQY AYDGKDYIAL
+       A*680105  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+     A*68020101  DLGTLRGYYN QSEAGSHTIQ RMYGCDVGPD GRFLRGYHQY AYDGKDYIAL
+     A*68020102  DLGTLRGYYN QSEAGSHTIQ RMYGCDVGPD GRFLRGYHQY AYDGKDYIAL
        A*680301  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
        A*680302  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
          A*6804  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
@@ -1692,6 +1989,12 @@
          A*6828  DLGTLRGYYN QSEAGSHTIQ RMYGCDVGPD GRFLRGYHQY AYDGKDYIAL
          A*6829  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
          A*6830  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*6831  DLGTLRGYYN QSEAGSHTIQ RMYGCDVGPD GRFLRGYHQY AYDGKDYIAL
+         A*6832  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*6833  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*6834  DLGTLRGYYN QSEAGSHTIQ RMYGCDVGPD GRFLRGYHQY AYDGKDYIAL
+         A*6835  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*6836  NLRIALRYYN QSEAGSHTIQ MMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
          A*6901  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
          A*7401  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
          A*7402  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
@@ -1706,11 +2009,20 @@
          A*7411  DLGTLRGYYN QSEAGSHTIQ MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
         A*7412N  DLGTLRGYYN QSEAGSHT.. MMYGCDVGPD GRLLRGYQQD AYDGKDYIAL
          A*8001  NLGTLRGYYN QSEDGSHTIQ IMYGCDVGSD GRFLRGYRQD AYDGKDYIAL
+         A*9201  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
+         A*9202  DLGTLRGYYN QSEAGSHTLQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
+         A*9203  DLGTLRGYYN QSEAGSHTVQ RMCGCDVGSD WRFLRGYHQY AYDGKDYIAL
+         A*9204  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
+         A*9206  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
+         A*9207  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
+         A*9208  DLGTLRGYYN QSEAGSHTLQ MMFGCDVGSD WRFLRGYHQY AYDGKDYIAL
+         A*9209  DLGTLRGYYN QSEAGSHTVQ RMYGCDVGSD WRFLRGYHQY AYDGKDYIAL
 
      A*01010101  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGRCVD GLRRYLENGK
     A*01010102N  DPCPGRGPGA FTRFHFQFRP KIPPGWSGRG GARGTGLTAG SGPGSHTIQX
        A*010102  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGRCVD GLRRYLENGK
        A*010103  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGRCVD GLRRYLENGK
+       A*010104  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGRCVD GLRRYLENGK
          A*0102  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGRCVD GLRRYLENGK
          A*0103  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGRCVD GLRRYLENGK
         A*0104N  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGRCVD GLRRYLENGK
@@ -1726,6 +2038,9 @@
         A*0115N  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGGAWT GSADTWRTGR
         A*0116N  NEDLRSWTAA DMAAQITKRK WEAVHAAGAA ESLPGGPVRG RAPQIPGERE
          A*0117  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGRCVD GLRRYLENGK
+        A*0118N  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGRCVD GLRRYLENGK
+         A*0119  NEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
+         A*0120  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGRCVD GLRRYLENGK
      A*02010101  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
     A*02010102L  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
        A*020102  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
@@ -1832,12 +2147,20 @@
          A*0287  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
          A*0289  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
          A*0290  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
+         A*0291  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
+         A*0292  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
+         A*0293  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
+         A*0295  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
+         A*0296  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
+         A*0297  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
+         A*0299  KEDLRSWTAA DMAAQTTKHK WEAAHEAEQL RAYLEGTCVE WLRRYLENGK
      A*03010101  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
     A*03010102N  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
      A*03010103  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
        A*030102  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
        A*030103  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
        A*030104  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
+       A*030105  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
          A*0302  NEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLDGTCVE WLRRYLENGK
         A*0303N  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
          A*0304  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENRK
@@ -1858,12 +2181,18 @@
          A*0320  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
         A*0321N  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
          A*0322  NEDLRSWTAA DMAAQITQRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
+         A*0323  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
+         A*0324  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
+         A*0325  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
+         A*0326  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLDGTCVE WLRRYLENGK
        A*110101  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
        A*110102  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
        A*110103  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
        A*110104  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
        A*110105  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
-         A*1102  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
+       A*110106  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
+       A*110201  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
+       A*110202  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
          A*1103  NEDLRSWTAA DMAAQITKRK WEAAREAEQQ RAYLEGRCVE WLRRYLENGK
          A*1104  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGTCVE WLRRYLENGK
          A*1105  NEDLRSWTAA DMAAQITERK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
@@ -1885,6 +2214,12 @@
         A*1121N  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
          A*1122  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
          A*1123  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ TAYLEGRCVE WLRRYLENGK
+         A*1124  NEDLRSWTAA DMAAQITKRK WEAAHAAEQL RAYLEGRCVE WLRRYLENGK
+         A*1125  NEDLRSWTAA DMAAQITKRK WEAAHEAEQL RAYLEGRCVE WLRRYLENGK
+         A*1126  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYLENGK
+         A*1127  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGTCVD GLRRYLENGK
+         A*1128  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCLE WLRRYLENGK
+         A*1129  NEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGRCVE WLRRYQENGK
          A*2301  KEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVD GLRRYLENGK
          A*2302  KEDLRSWTAA DMAAQITQRK WEAARVAEQW RAYLEGTCVD GLRRYLENGK
          A*2303  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVD GLRRYLENGK
@@ -1909,6 +2244,9 @@
        A*240208  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
        A*240209  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
        A*240210  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
+       A*240211  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
+       A*240212  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
+       A*240213  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
        A*240301  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVE WLRRYLENGK
        A*240302  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVE WLRRYLENGK
          A*2404  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
@@ -1962,11 +2300,22 @@
          A*2456  KEDLRSWTAA DMAAQITKRK WEAAHEAEQQ RAYLEGTCVD GLRRYLENGK
          A*2457  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
          A*2458  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
+         A*2459  KEDLRSWTAA DMAAQITKRK WEAAHAAEQQ RAYLEGTCVD GLRRYLENGK
+         A*2461  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
+         A*2462  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
+         A*2463  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
+         A*2464  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
+         A*2465  KEDLRSWTAA DMAAQITKRK WEAAHVAEQL RAYLEGTCVD GLRRYLENGK
+         A*2466  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
+         A*2467  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRRYLENGK
+         A*2468  KEDLRSWTAA DMAAQITKRK WEAAHVAEQQ RAYLEGTCVD GLRSYLENGK
        A*250101  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
        A*250102  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
          A*2502  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
          A*2503  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
          A*2504  NEDLRSWTAA DMAAQITQRK WETAHEAEQQ RAYLEGRCVE WLRRYLENGK
+         A*2505  NEDLRSWTAA DMAAQITQHK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
+         A*2506  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGTCVE WLRRYLENGK
        A*260101  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
        A*260102  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
        A*260103  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
@@ -1997,6 +2346,13 @@
          A*2624  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
          A*2626  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
          A*2627  NEDLRSWTAA DMAAQITQRK WETAHEAEQW KAYLEGRCVE WLRRYLENGK
+         A*2628  NEDLRSWTAA DMAAQITQRK WEAAREAEQW RAYLEGRCVE WLRRYLENGK
+         A*2629  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVD GLRRYLENGK
+         A*2630  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
+         A*2631  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
+         A*2632  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
+         A*2633  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
+         A*2634  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGWCVE WLRRYLENGK
      A*29010101  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
     A*29010102N  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
        A*290201  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
@@ -2013,6 +2369,8 @@
          A*2912  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*2913  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*2914  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
+         A*2915  NEDLRSWTAA DVAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
+         A*2916  NQDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
        A*300101  NEDLRSWTAA DMAAQITQRK WEAARWAEQL RAYLEGTCVE WLRRYLENGK
        A*300102  NEDLRSWTAA DMAAQITQRK WEAARWAEQL RAYLEGTCVE WLRRYLENGK
        A*300201  NEDLRSWTAA DMAAQITQRK WEAARRAEQL RAYLEGTCVE WLRRYLENGK
@@ -2030,6 +2388,10 @@
          A*3013  NEDLRSWTAA DMAAQITQRK WEAARRAEQL RAYLEGTCVE WLRRYLENGK
         A*3014L  NEDLRSWTAA DMAAQITQRK WEAARWAEQL RAYLEGTSVE WLRRYLENGK
          A*3015  NEDLRSWTAA DMAAQITQRK WEAARWAEQL RAYLEGTCVE WLRRYVENGK
+         A*3016  NEDLRSWTAA DMAAQITQRK WEAARWAEQL RAYLEGTCVE WLRRYLENGK
+         A*3017  NEDLRSWTAA DMAAQITQRK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
+         A*3018  NEDLRSWTAA DMAAQITQRK WEAARWAEQL RAYLEGTCVE WLRRYLENGK
+         A*3019  NEDLRSWTAA DMAAQITQRK WEAARWAEQL RAYLEGTCVE WLRRYLENGK
        A*310102  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*3102  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*3103  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
@@ -2043,6 +2405,8 @@
          A*3111  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCLE WLRRYLENGK
          A*3112  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*3113  NDDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
+        A*3114N  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
+         A*3115  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*3201  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*3202  NEDLRSWTAA DMAAQITQRK WEAAHVAEQQ RAYLEGTCVE WLRRYLENGK
          A*3203  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
@@ -2054,6 +2418,9 @@
          A*3209  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE RLRRYLENGK
          A*3210  NEDLRSWTAA DMAAQITQRK WEAAHEAEQW RAYLEGTCVE WLRRYLENGK
         A*3211Q  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGEFVE WLRRYLENGK
+         A*3212  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
+         A*3213  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVD GLRRYLENGK
+         A*3214  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*3301  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRHLENGK
        A*330301  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
        A*330302  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
@@ -2062,6 +2429,7 @@
          A*3306  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*3307  NEDLRSWTAA DMAAQITQRK WEAARVEEQL RAYLEGTCVE WLRRHLENGK
          A*3308  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
+         A*3309  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*3401  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGTCVE WLRRYLENGK
          A*3402  NEDLRSWTAA DMAAQITQRK WETAHEAEQL RAYLEGTCVE WLRRYLENGK
          A*3403  NEDLRSWTAA DMAAQITQRK WEAAHEAEQL RAYLEGTCVE WLRRYLENGK
@@ -2069,6 +2437,7 @@
          A*3405  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGTCVE WLRRYLENGK
          A*3406  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*3407  NEDLRSWTAA DMAAQITQRK WETAHEAEQL RAYLEGTCVE WLRRYLENGK
+         A*3408  NEDLRSWTAA DMAAQITQRK WETAHEAEQL RAYLEGTCVE WLRRYLENGK
          A*3601  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGTCVE WLRRYLENGK
          A*3602  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RAYLDGTCVE WLRRYLENGK
          A*3603  NEDLRSWTAA DMAAQITKRK WEAVHAAEQR RVYLEGTCVE WLRRYLENGK
@@ -2079,11 +2448,14 @@
          A*6603  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGECVE WLRRYLENGK
          A*6604  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRHLENGK
          A*6605  NEDLRSWTAA DMAAQITQRK WETAHEAEQW RAYLEGRCVE WLRRYLENGK
+         A*6606  NEDLRSWTAA DMAAQITQRK WETAHVAEQL RAYLEGRCVE WLRRYLENGK
        A*680101  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
        A*680102  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
        A*680103  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
        A*680104  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
-         A*6802  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
+       A*680105  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
+     A*68020101  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
+     A*68020102  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
        A*680301  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
        A*680302  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
          A*6804  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
@@ -2111,6 +2483,12 @@
          A*6828  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQR RAYLEGTCVE WLRRYLENGK
          A*6829  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
          A*6830  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
+         A*6831  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
+         A*6832  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
+         A*6833  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
+         A*6834  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGMCVE WLRRYLENGK
+         A*6835  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
+         A*6836  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
          A*6901  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
          A*7401  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*7402  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
@@ -2125,10 +2503,19 @@
          A*7411  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
         A*7412N  NEDLRSWTAA DMAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          A*8001  NEDLRSWTAA DMAAQITKRK WEAARRAEQL RAYLEGECVD GLRRYLENGK
+         A*9201  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGRCVE WLRRYLENGK
+         A*9202  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
+         A*9203  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
+         A*9204  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQW RAYLEGTCVE WLRRYLENGK
+         A*9206  KEDLRSWTAA DMAAQTTKHK WEAAHVVEQL RAYLEGTCVE WLRRYLENGK
+         A*9207  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
+         A*9208  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
+         A*9209  KEDLRSWTAA DMAAQTTKHK WEAAHVAEQL RAYLEGTCVE WLRRYLENGK
 
      A*01010101  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*010102  ETLQRT.... .......... .......... .......... ..........
        A*010103  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+       A*010104  ETLQRT.... .......... .......... .......... ..........
          A*0102  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          A*0103  ETLQRT.... .......... .......... .......... ..........
         A*0104N  ETLQRTDPPQ DTYDPPPHLX
@@ -2144,6 +2531,9 @@
         A*0115N  RRCSARTPPR HIX
         A*0116N  GDAAAHGPPQ DTYDPPPHLX
          A*0117  ETLQRT.... .......... .......... .......... ..........
+        A*0118N  ETLQRT.... .......... .......... .......... ..........
+         A*0119  ETLQRT.... .......... .......... .......... ..........
+         A*0120  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
      A*02010101  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
     A*02010102L  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*020102  ETLQRT.... .......... .......... .......... ..........
@@ -2248,12 +2638,20 @@
          A*0287  ETLQRT.... .......... .......... .......... ..........
          A*0289  ETLQRTDAPK THMTHQAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*0290  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+         A*0291  ETLQRT.... .......... .......... .......... ..........
+         A*0292  ETLQRT.... .......... .......... .......... ..........
+         A*0293  ETLQRT.... .......... .......... .......... ..........
+         A*0295  ETLQRT.... .......... .......... .......... ..........
+         A*0296  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+         A*0297  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+         A*0299  ETLQRT.... .......... .......... .......... ..........
      A*03010101  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
     A*03010102N  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
      A*03010103  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*030102  ETLQRT.... .......... .......... .......... ..........
        A*030103  ETLQRT.... .......... .......... .......... ..........
        A*030104  ETLQRT.... .......... .......... .......... ..........
+       A*030105  ETLQRT.... .......... .......... .......... ..........
          A*0302  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
         A*0303N  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          A*0304  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -2274,12 +2672,18 @@
          A*0320  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
         A*0321N  ETLQRTDPPQ DTYDPPPHLX
          A*0322  ETLQRT.... .......... .......... .......... ..........
+         A*0323  ETLQRT.... .......... .......... .......... ..........
+         A*0324  ETLQRT.... .......... .......... .......... ..........
+         A*0325  ETLQRT.... .......... .......... .......... ..........
+         A*0326  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*110101  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*110102  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*110103  ETLQRT.... .......... .......... .......... ..........
        A*110104  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*110105  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
-         A*1102  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+       A*110106  ETLQRT.... .......... .......... .......... ..........
+       A*110201  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+       A*110202  ETLQRT.... .......... .......... .......... ..........
          A*1103  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          A*1104  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          A*1105  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -2301,6 +2705,12 @@
         A*1121N  ETLQRTDPPQ DTYDPPPHLX
          A*1122  ETLQRT.... .......... .......... .......... ..........
          A*1123  ETLQRT.... .......... .......... .......... ..........
+         A*1124  ETLQRT.... .......... .......... .......... ..........
+         A*1125  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         A*1126  ETLQRT.... .......... .......... .......... ..........
+         A*1127  ETLQRT.... .......... .......... .......... ..........
+         A*1128  ETLQRT.... .......... .......... .......... ..........
+         A*1129  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          A*2301  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          A*2302  ETLQRT.... .......... .......... .......... ..........
          A*2303  ETLQRT.... .......... .......... .......... ..........
@@ -2324,6 +2734,9 @@
        A*240208  ETLQRT.... .......... .......... .......... ..........
        A*240209  ETLQRT.... .......... .......... .......... ..........
        A*240210  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+       A*240211  ETLQRT.... .......... .......... .......... ..........
+       A*240212  ETLQRT.... .......... .......... .......... ..........
+       A*240213  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*240301  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*240302  ETLQRT.... .......... .......... .......... ..........
          A*2404  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -2348,7 +2761,7 @@
          A*2425  ETLQRT.... .......... .......... .......... ..........
          A*2426  ETLQRT.... .......... .......... .......... ..........
          A*2427  ETLQRT.... .......... .......... .......... ..........
-         A*2428  ETLQRT.... .......... .......... .......... ..........
+         A*2428  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          A*2429  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          A*2430  ETLQRT.... .......... .......... .......... ..........
          A*2431  ETLQRT.... .......... .......... .......... ..........
@@ -2359,7 +2772,7 @@
          A*2437  ETLQRT.... .......... .......... .......... ..........
          A*2438  ETLQRT.... .......... .......... .......... ..........
          A*2439  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
-        A*2440N  ETLQRTDPQ DTYDPPPHLX
+        A*2440N  ETLQRTDP.Q DTYDPPPHLX
          A*2441  ETLQRT.... .......... .......... .......... ..........
          A*2442  ETLQRT.... .......... .......... .......... ..........
          A*2443  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -2376,11 +2789,22 @@
          A*2456  ETLQRT.... .......... .......... .......... ..........
          A*2457  ETLQRT.... .......... .......... .......... ..........
          A*2458  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         A*2459  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         A*2461  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         A*2462  ETLQRT.... .......... .......... .......... ..........
+         A*2463  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         A*2464  ETLQRT.... .......... .......... .......... ..........
+         A*2465  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         A*2466  ETLQRT.... .......... .......... .......... ..........
+         A*2467  ETLQRT.... .......... .......... .......... ..........
+         A*2468  ETLQRT.... .......... .......... .......... ..........
        A*250101  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*250102  ETLQRT.... .......... .......... .......... ..........
          A*2502  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*2503  ETLQRT.... .......... .......... .......... ..........
          A*2504  ETLQRT.... .......... .......... .......... ..........
+         A*2505  ETLQRT.... .......... .......... .......... ..........
+         A*2506  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*260101  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*260102  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*260103  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
@@ -2389,7 +2813,7 @@
          A*2603  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*2604  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*2605  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
-         A*2606  ETLQRT.... .......... .......... .......... ..........
+         A*2606  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*260701  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*260702  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*2608  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
@@ -2411,6 +2835,13 @@
          A*2624  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQQDGEDQTQ
          A*2626  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*2627  ETLQRT.... .......... .......... .......... ..........
+         A*2628  ETLQRT.... .......... .......... .......... ..........
+         A*2629  ETLQRT.... .......... .......... .......... ..........
+         A*2630  ETLQRT.... .......... .......... .......... ..........
+         A*2631  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+         A*2632  ETLQRT.... .......... .......... .......... ..........
+         A*2633  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+         A*2634  ETLQRT.... .......... .......... .......... ..........
      A*29010101  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
     A*29010102N  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*290201  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
@@ -2427,13 +2858,15 @@
          A*2912  ETLQRT.... .......... .......... .......... ..........
          A*2913  ETLQRT.... .......... .......... .......... ..........
          A*2914  ETLQRT.... .......... .......... .......... ..........
+         A*2915  ETLQRT.... .......... .......... .......... ..........
+         A*2916  ETLQRT.... .......... .......... .......... ..........
        A*300101  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*300102  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*300201  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*300202  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        A*300203  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          A*3003  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
-         A*3004  ETLQRT.... .......... .......... .......... ..........
+         A*3004  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          A*3006  ETLQRT.... .......... .......... .......... ..........
          A*3007  ETLQRT.... .......... .......... .......... ..........
          A*3008  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -2444,6 +2877,10 @@
          A*3013  ETLQRT.... .......... .......... .......... ..........
         A*3014L  ETLQRT.... .......... .......... .......... ..........
          A*3015  ETLQRT.... .......... .......... .......... ..........
+         A*3016  ETLQRT.... .......... .......... .......... ..........
+         A*3017  ETLQRT.... .......... .......... .......... ..........
+         A*3018  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         A*3019  ETLQRT.... .......... .......... .......... ..........
        A*310102  ETLQRTDPPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*3102  ETLQRT.... .......... .......... .......... ..........
          A*3103  ETLQRT.... .......... .......... .......... ..........
@@ -2457,6 +2894,8 @@
          A*3111  ETLQRTDPPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*3112  ETLQRT.... .......... .......... .......... ..........
          A*3113  ETLQRTDPPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+        A*3114N  ETLQRTDPPQ DAYDSPRCLX
+         A*3115  ETLQRT.... .......... .......... .......... ..........
          A*3201  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*3202  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*3203  ETLQRT.... .......... .......... .......... ..........
@@ -2468,6 +2907,9 @@
          A*3209  ETLQRT.... .......... .......... .......... ..........
          A*3210  ETLQRT.... .......... .......... .......... ..........
         A*3211Q  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+         A*3212  ETLQRA.... .......... .......... .......... ..........
+         A*3213  ETLQRT.... .......... .......... .......... ..........
+         A*3214  ETLQRT.... .......... .......... .......... ..........
          A*3301  ETLQRTDPPR THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*330301  ETLQRTDPPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*330302  ETLQRT.... .......... .......... .......... ..........
@@ -2476,6 +2918,7 @@
          A*3306  ETLQRTDPPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*3307  ETLQRTDPPR THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*3308  ETLQRTDPPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+         A*3309  ETLQRTDPPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*3401  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*3402  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*3403  ETLQRT.... .......... .......... .......... ..........
@@ -2483,6 +2926,7 @@
          A*3405  ETLQRT.... .......... .......... .......... ..........
          A*3406  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*3407  ETLQRT.... .......... .......... .......... ..........
+         A*3408  ETLQRT.... .......... .......... .......... ..........
          A*3601  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          A*3602  ETLQRT.... .......... .......... .......... ..........
          A*3603  ETLQRTDPPK THMTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -2493,11 +2937,14 @@
          A*6603  ETLQRT.... .......... .......... .......... ..........
          A*6604  ETLQRT.... .......... .......... .......... ..........
          A*6605  ETLQRT.... .......... .......... .......... ..........
+         A*6606  ETLQRT.... .......... .......... .......... ..........
        A*680101  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*680102  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*680103  ETLQRT.... .......... .......... .......... ..........
        A*680104  ETLQRT.... .......... .......... .......... ..........
-         A*6802  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+       A*680105  ETLQRT.... .......... .......... .......... ..........
+     A*68020101  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+     A*68020102  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*680301  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
        A*680302  ETLQRT.... .......... .......... .......... ..........
          A*6804  ETLQRT.... .......... .......... .......... ..........
@@ -2525,10 +2972,16 @@
          A*6828  ETLQRT.... .......... .......... .......... ..........
          A*6829  ETLQRT.... .......... .......... .......... ..........
          A*6830  ETLQRT.... .......... .......... .......... ..........
+         A*6831  ETLQRT.... .......... .......... .......... ..........
+         A*6832  ETLQRT.... .......... .......... .......... ..........
+         A*6833  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+         A*6834  ETLQRT.... .......... .......... .......... ..........
+         A*6835  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+         A*6836  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*6901  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*7401  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*7402  ETLQRT.... .......... .......... .......... ..........
-         A*7403  ETLQRT.... .......... .......... .......... ..........
+         A*7403  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
          A*7404  ETLQRT.... .......... .......... .......... ..........
          A*7405  ETLQRT.... .......... .......... .......... ..........
          A*7406  ETLQRT.... .......... .......... .......... ..........
@@ -2539,10 +2992,19 @@
          A*7411  ETLQRT.... .......... .......... .......... ..........
         A*7412N  ETLQRT.... .......... .......... .......... ..........
          A*8001  ETLQRTDPPK THMTHHPISD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+         A*9201  ETLQRT.... .......... .......... .......... ..........
+         A*9202  ETLQRT.... .......... .......... .......... ..........
+         A*9203  ETLQRT.... .......... .......... .......... ..........
+         A*9204  ETLQRTDAPK THMTHHAVSD HEATLRCWAL SFYPAEITLT WQRDGEDQTQ
+         A*9206  ETLQRT.... .......... .......... .......... ..........
+         A*9207  ETLQRT.... .......... .......... .......... ..........
+         A*9208  ETLQRT.... .......... .......... .......... ..........
+         A*9209  ETLQRT.... .......... .......... .......... ..........
 
      A*01010101  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
        A*010102  .......... .......... .......... .......... ..........
        A*010103  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+       A*010104  .......... .......... .......... .......... ..........
          A*0102  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
          A*0103  .......... .......... .......... .......... ..........
          A*0106  .......... .......... .......... .......... ..........
@@ -2555,6 +3017,9 @@
          A*0113  .......... .......... .......... .......... ..........
          A*0114  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
          A*0117  .......... .......... .......... .......... ..........
+        A*0118N  .......... .......... .......... .......... ..........
+         A*0119  .......... .......... .......... .......... ..........
+         A*0120  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
      A*02010101  DTELVETRPA GDGTFQKWAA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
     A*02010102L  DTELVETRPA GDGTFQKWAA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*020102  .......... .......... .......... .......... ..........
@@ -2659,12 +3124,20 @@
          A*0287  .......... .......... .......... .......... ..........
          A*0289  DTELVETRPA GDGTFQKWAA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*0290  DTELVETRPA GDGTFQKWAA VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
+         A*0291  .......... .......... .......... .......... ..........
+         A*0292  .......... .......... .......... .......... ..........
+         A*0293  .......... .......... .......... .......... ..........
+         A*0295  .......... .......... .......... .......... ..........
+         A*0296  DTELVETRPA GDGTFQKWAA VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
+         A*0297  DTELVDTRPA GDGTFQKWAA VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
+         A*0299  .......... .......... .......... .......... ..........
      A*03010101  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
-    A*03010102N  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
+    A*03010102N  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWDK
      A*03010103  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
        A*030102  .......... .......... .......... .......... ..........
        A*030103  .......... .......... .......... .......... ..........
        A*030104  .......... .......... .......... .......... ..........
+       A*030105  .......... .......... .......... .......... ..........
          A*0302  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
         A*0303N  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
          A*0304  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
@@ -2684,12 +3157,18 @@
          A*0319  .......... .......... .......... .......... ..........
          A*0320  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLKW..
          A*0322  .......... .......... .......... .......... ..........
+         A*0323  .......... .......... .......... .......... ..........
+         A*0324  .......... .......... .......... .......... ..........
+         A*0325  .......... .......... .......... .......... ..........
+         A*0326  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PEPLTLRWEL
        A*110101  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
        A*110102  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
        A*110103  .......... .......... .......... .......... ..........
        A*110104  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
        A*110105  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
-         A*1102  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+       A*110106  .......... .......... .......... .......... ..........
+       A*110201  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+       A*110202  .......... .......... .......... .......... ..........
          A*1103  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
          A*1104  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
          A*1105  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
@@ -2710,6 +3189,12 @@
          A*1120  .......... .......... .......... .......... ..........
          A*1122  .......... .......... .......... .......... ..........
          A*1123  .......... .......... .......... .......... ..........
+         A*1124  .......... .......... .......... .......... ..........
+         A*1125  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
+         A*1126  .......... .......... .......... .......... ..........
+         A*1127  .......... .......... .......... .......... ..........
+         A*1128  .......... .......... .......... .......... ..........
+         A*1129  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          A*2301  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          A*2302  .......... .......... .......... .......... ..........
          A*2303  .......... .......... .......... .......... ..........
@@ -2732,6 +3217,9 @@
        A*240208  .......... .......... .......... .......... ..........
        A*240209  .......... .......... .......... .......... ..........
        A*240210  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+       A*240211  .......... .......... .......... .......... ..........
+       A*240212  .......... .......... .......... .......... ..........
+       A*240213  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        A*240301  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        A*240302  .......... .......... .......... .......... ..........
          A*2404  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
@@ -2754,7 +3242,7 @@
          A*2425  .......... .......... .......... .......... ..........
          A*2426  .......... .......... .......... .......... ..........
          A*2427  .......... .......... .......... .......... ..........
-         A*2428  .......... .......... .......... .......... ..........
+         A*2428  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          A*2429  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          A*2430  .......... .......... .......... .......... ..........
          A*2431  .......... .......... .......... .......... ..........
@@ -2781,11 +3269,22 @@
          A*2456  .......... .......... .......... .......... ..........
          A*2457  .......... .......... .......... .......... ..........
          A*2458  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         A*2459  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         A*2461  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         A*2462  .......... .......... .......... .......... ..........
+         A*2463  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         A*2464  .......... .......... .......... .......... ..........
+         A*2465  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         A*2466  .......... .......... .......... .......... ..........
+         A*2467  .......... .......... .......... .......... ..........
+         A*2468  .......... .......... .......... .......... ..........
        A*250101  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*250102  .......... .......... .......... .......... ..........
          A*2502  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*2503  .......... .......... .......... .......... ..........
          A*2504  .......... .......... .......... .......... ..........
+         A*2505  .......... .......... .......... .......... ..........
+         A*2506  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*260101  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*260102  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
        A*260103  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
@@ -2794,7 +3293,7 @@
          A*2603  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*2604  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*2605  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
-         A*2606  .......... .......... .......... .......... ..........
+         A*2606  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
        A*260701  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*260702  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
          A*2608  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
@@ -2815,8 +3314,15 @@
          A*2624  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
          A*2626  DTELVETRLA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
          A*2627  .......... .......... .......... .......... ..........
+         A*2628  .......... .......... .......... .......... ..........
+         A*2629  .......... .......... .......... .......... ..........
+         A*2630  .......... .......... .......... .......... ..........
+         A*2631  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
+         A*2632  .......... .......... .......... .......... ..........
+         A*2633  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
+         A*2634  .......... .......... .......... .......... ..........
      A*29010101  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
-    A*29010102N  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
+    A*29010102N  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWVK
        A*290201  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*290202  .......... .......... .......... .......... ..........
        A*290203  .......... .......... .......... .......... ..........
@@ -2831,13 +3337,15 @@
          A*2912  .......... .......... .......... .......... ..........
          A*2913  .......... .......... .......... .......... ..........
          A*2914  .......... .......... .......... .......... ..........
+         A*2915  .......... .......... .......... .......... ..........
+         A*2916  .......... .......... .......... .......... ..........
        A*300101  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
        A*300102  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
        A*300201  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
        A*300202  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
        A*300203  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          A*3003  DTELVETRPA GDGTFQKWAA VVVPSGEEQ. .......... ..........
-         A*3004  .......... .......... .......... .......... ..........
+         A*3004  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          A*3006  .......... .......... .......... .......... ..........
          A*3007  .......... .......... .......... .......... ..........
          A*3008  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
@@ -2848,6 +3356,10 @@
          A*3013  .......... .......... .......... .......... ..........
         A*3014L  .......... .......... .......... .......... ..........
          A*3015  .......... .......... .......... .......... ..........
+         A*3016  .......... .......... .......... .......... ..........
+         A*3017  .......... .......... .......... .......... ..........
+         A*3018  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         A*3019  .......... .......... .......... .......... ..........
        A*310102  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*3102  .......... .......... .......... .......... ..........
          A*3103  .......... .......... .......... .......... ..........
@@ -2861,6 +3373,7 @@
          A*3111  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
          A*3112  .......... .......... .......... .......... ..........
          A*3113  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
+         A*3115  .......... .......... .......... .......... ..........
          A*3201  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*3202  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*3203  .......... .......... .......... .......... ..........
@@ -2872,6 +3385,9 @@
          A*3209  .......... .......... .......... .......... ..........
          A*3210  .......... .......... .......... .......... ..........
         A*3211Q  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
+         A*3212  .......... .......... .......... .......... ..........
+         A*3213  .......... .......... .......... .......... ..........
+         A*3214  .......... .......... .......... .......... ..........
          A*3301  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*330301  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*330302  .......... .......... .......... .......... ..........
@@ -2880,6 +3396,7 @@
          A*3306  DTELVETRPA GDGTFQKWAS V......... .......... ..........
          A*3307  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*3308  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
+         A*3309  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
          A*3401  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*3402  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*3403  .......... .......... .......... .......... ..........
@@ -2887,6 +3404,7 @@
          A*3405  .......... .......... .......... .......... ..........
          A*3406  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
          A*3407  .......... .......... .......... .......... ..........
+         A*3408  .......... .......... .......... .......... ..........
          A*3601  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
          A*3602  .......... .......... .......... .......... ..........
          A*3603  DTELVETRPA GDGTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEL
@@ -2897,11 +3415,14 @@
          A*6603  .......... .......... .......... .......... ..........
          A*6604  .......... .......... .......... .......... ..........
          A*6605  .......... .......... .......... .......... ..........
+         A*6606  .......... .......... .......... .......... ..........
        A*680101  DTELVETRPA GDGTFQKWVA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*680102  DTELVETRPA GDGTFQKWVA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*680103  .......... .......... .......... .......... ..........
        A*680104  .......... .......... .......... .......... ..........
-         A*6802  DTELVETRPA GDGTFQKWVA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
+       A*680105  .......... .......... .......... .......... ..........
+     A*68020101  DTELVETRPA GDGTFQKWVA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
+     A*68020102  DTELVETRPA GDGTFQKWVA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*680301  DTELVETRPA GDGTFQKWVA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
        A*680302  .......... .......... .......... .......... ..........
          A*6804  .......... .......... .......... .......... ..........
@@ -2929,10 +3450,16 @@
          A*6828  .......... .......... .......... .......... ..........
          A*6829  .......... .......... .......... .......... ..........
          A*6830  .......... .......... .......... .......... ..........
+         A*6831  .......... .......... .......... .......... ..........
+         A*6832  .......... .......... .......... .......... ..........
+         A*6833  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
+         A*6834  .......... .......... .......... .......... ..........
+         A*6835  DTELVETRPA GDGTFQKWVA VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
+         A*6836  DTELVETRPA GDGTFQKWVA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*6901  DTELVETRPA GDGTFQKWAA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*7401  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
          A*7402  .......... .......... .......... .......... ..........
-         A*7403  .......... .......... .......... .......... ..........
+         A*7403  DTELVETRPA GDGTFQKWAS VVVPSGQEQR YTCHVQHEGL PKPLTLRW..
          A*7404  .......... .......... .......... .......... ..........
          A*7405  .......... .......... .......... .......... ..........
          A*7406  .......... .......... .......... .......... ..........
@@ -2943,10 +3470,19 @@
          A*7411  .......... .......... .......... .......... ..........
         A*7412N  .......... .......... .......... .......... ..........
          A*8001  DTELVETRPA GDGTFQKWAA VVVPSGKEKR YTCHVQHEGL PEPLTLRWEP
+         A*9201  .......... .......... .......... .......... ..........
+         A*9202  .......... .......... .......... .......... ..........
+         A*9203  .......... .......... .......... .......... ..........
+         A*9204  DTELVETRPA GDGNFQKWAA VVVPSGQEQR YTCHVQHEGL PKPLTLRWEP
+         A*9206  .......... .......... .......... .......... ..........
+         A*9207  .......... .......... .......... .......... ..........
+         A*9208  .......... .......... .......... .......... ..........
+         A*9209  .......... .......... .......... .......... ..........
 
      A*01010101  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
        A*010102  .......... .......... .......... .......... ..........
        A*010103  .......... .......... .......... .......... ..........
+       A*010104  .......... .......... .......... .......... ..........
          A*0102  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
          A*0103  .......... .......... .......... .......... ..........
          A*0106  .......... .......... .......... .......... ..........
@@ -2959,6 +3495,9 @@
          A*0113  .......... .......... .......... .......... ..........
          A*0114  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
          A*0117  .......... .......... .......... .......... ..........
+        A*0118N  .......... .......... .......... .......... ..........
+         A*0119  .......... .......... .......... .......... ..........
+         A*0120  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
      A*02010101  SSQPTIPIVG IIAGLVLFGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
     A*02010102L  SSQPTIPIVG IIAGLVLFGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
        A*020102  .......... .......... .......... .......... ..........
@@ -3060,12 +3599,20 @@
          A*0287  .......... .......... .......... .......... ..........
          A*0289  SSQPTIPIVG IIAGLVLFGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
          A*0290  .......... .......... .......... .......... ..........
+         A*0291  .......... .......... .......... .......... ..........
+         A*0292  .......... .......... .......... .......... ..........
+         A*0293  .......... .......... .......... .......... ..........
+         A*0295  .......... .......... .......... .......... ..........
+         A*0296  .......... .......... .......... .......... ..........
+         A*0297  .......... .......... .......... .......... ..........
+         A*0299  .......... .......... .......... .......... ..........
      A*03010101  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
-    A*03010102N  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
+    A*03010102N  EGDGGVMSLR ESRSLSGDLX
      A*03010103  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
        A*030102  .......... .......... .......... .......... ..........
        A*030103  .......... .......... .......... .......... ..........
        A*030104  .......... .......... .......... .......... ..........
+       A*030105  .......... .......... .......... .......... ..........
          A*0302  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
         A*0303N  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
          A*0304  SSQPTIPIVG IIAGLVLLAA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
@@ -3085,12 +3632,18 @@
          A*0319  .......... .......... .......... .......... ..........
          A*0320  .......... .......... .......... .......... ..........
          A*0322  .......... .......... .......... .......... ..........
+         A*0323  .......... .......... .......... .......... ..........
+         A*0324  .......... .......... .......... .......... ..........
+         A*0325  .......... .......... .......... .......... ..........
+         A*0326  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
        A*110101  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
        A*110102  .......... .......... .......... .......... ..........
        A*110103  .......... .......... .......... .......... ..........
        A*110104  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
        A*110105  .......... .......... .......... .......... ..........
-         A*1102  .......... .......... .......... .......... ..........
+       A*110106  .......... .......... .......... .......... ..........
+       A*110201  .......... .......... .......... .......... ..........
+       A*110202  .......... .......... .......... .......... ..........
          A*1103  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
          A*1104  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
          A*1105  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
@@ -3111,6 +3664,12 @@
          A*1120  .......... .......... .......... .......... ..........
          A*1122  .......... .......... .......... .......... ..........
          A*1123  .......... .......... .......... .......... ..........
+         A*1124  .......... .......... .......... .......... ..........
+         A*1125  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
+         A*1126  .......... .......... .......... .......... ..........
+         A*1127  .......... .......... .......... .......... ..........
+         A*1128  .......... .......... .......... .......... ..........
+         A*1129  .......... .......... .......... .......... ..........
          A*2301  SSQPTVHIVG IIAGLVLLGA VITGAVVAAV MWRRNSSDRK GGSYSQAASS
          A*2302  .......... .......... .......... .......... ..........
          A*2303  .......... .......... .......... .......... ..........
@@ -3133,6 +3692,9 @@
        A*240208  .......... .......... .......... .......... ..........
        A*240209  .......... .......... .......... .......... ..........
        A*240210  SSQPTVPIVG IIAGLVLLGA VITGAVVAAV MWRRNSSDRK GGSYSQAASS
+       A*240211  .......... .......... .......... .......... ..........
+       A*240212  .......... .......... .......... .......... ..........
+       A*240213  SSQPTVPIVG IIAGLVLLGA VI........ .......... ..........
        A*240301  SSQPTVPIVG IIAGLVLLGA VITGAVVAAV MWRRNSSDRK GGSYSQAASS
        A*240302  .......... .......... .......... .......... ..........
          A*2404  SSQPTVPIVG IIAGLVLLGA VITGAVVAAV MWRRNSSDRK GGSYSQAASS
@@ -3182,11 +3744,22 @@
          A*2456  .......... .......... .......... .......... ..........
          A*2457  .......... .......... .......... .......... ..........
          A*2458  .......... .......... .......... .......... ..........
+         A*2459  .......... .......... .......... .......... ..........
+         A*2461  SSQPTVPIVG IIAGLVLLGA VITGAVVAAV MWRRNSSDRK GGSYSQAASS
+         A*2462  .......... .......... .......... .......... ..........
+         A*2463  .......... .......... .......... .......... ..........
+         A*2464  .......... .......... .......... .......... ..........
+         A*2465  .......... .......... .......... .......... ..........
+         A*2466  .......... .......... .......... .......... ..........
+         A*2467  .......... .......... .......... .......... ..........
+         A*2468  .......... .......... .......... .......... ..........
        A*250101  SSQPTIPIVG IIAGLVLFGA VIAGAVVAAV MWRRKSSDRK GGSYSQAASS
        A*250102  .......... .......... .......... .......... ..........
          A*2502  SSQPTIPIVG IIAGLVLFGA VIAGAVVAAV MWRRKSSDRK GGSYSQAASS
          A*2503  .......... .......... .......... .......... ..........
          A*2504  .......... .......... .......... .......... ..........
+         A*2505  .......... .......... .......... .......... ..........
+         A*2506  S......... .......... .......... .......... ..........
        A*260101  SSQPTIPIVG IIAGLVLFGA VIAGAVVAAV MWRRKSSDRK GGSYSQAASS
        A*260102  .......... .......... .......... .......... ..........
        A*260103  .......... .......... .......... .......... ..........
@@ -3216,8 +3789,15 @@
          A*2624  .......... .......... .......... .......... ..........
          A*2626  .......... .......... .......... .......... ..........
          A*2627  .......... .......... .......... .......... ..........
+         A*2628  .......... .......... .......... .......... ..........
+         A*2629  .......... .......... .......... .......... ..........
+         A*2630  .......... .......... .......... .......... ..........
+         A*2631  .......... .......... .......... .......... ..........
+         A*2632  .......... .......... .......... .......... ..........
+         A*2633  .......... .......... .......... .......... ..........
+         A*2634  .......... .......... .......... .......... ..........
      A*29010101  SSQPTIPIVG IIAGLVLFGA VFAGAVVAAV RWRRKSSDRK GGSYSQAASS
-    A*29010102N  SSQPTIPIVG IIAGLVLFGA VFAGAVVAAV RWRRKSSDRK GGSYSQAASS
+    A*29010102N  EGDGGVMSFR ESRSLS.DLX
        A*290201  SSQPTIPIVG IIAGLVLFGA VFAGAVVAAV RWRRKSSDRK GGSYSQAASS
        A*290202  .......... .......... .......... .......... ..........
        A*290203  .......... .......... .......... .......... ..........
@@ -3232,6 +3812,8 @@
          A*2912  .......... .......... .......... .......... ..........
          A*2913  .......... .......... .......... .......... ..........
          A*2914  .......... .......... .......... .......... ..........
+         A*2915  .......... .......... .......... .......... ..........
+         A*2916  .......... .......... .......... .......... ..........
        A*300101  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
        A*300102  .......... .......... .......... .......... ..........
        A*300201  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
@@ -3249,6 +3831,10 @@
          A*3013  .......... .......... .......... .......... ..........
         A*3014L  .......... .......... .......... .......... ..........
          A*3015  .......... .......... .......... .......... ..........
+         A*3016  .......... .......... .......... .......... ..........
+         A*3017  .......... .......... .......... .......... ..........
+         A*3018  .......... .......... .......... .......... ..........
+         A*3019  .......... .......... .......... .......... ..........
        A*310102  SSQPTIPIVG IIAGLVLFGA VFAGAVVAAV RWRRKSSDRK GGSYSQAASS
          A*3102  .......... .......... .......... .......... ..........
          A*3103  .......... .......... .......... .......... ..........
@@ -3262,6 +3848,7 @@
          A*3111  .......... .......... .......... .......... ..........
          A*3112  .......... .......... .......... .......... ..........
          A*3113  .......... .......... .......... .......... ..........
+         A*3115  .......... .......... .......... .......... ..........
          A*3201  SSQPTIPIVG IIAGLVLFGA MFAGAVVAAV RWRRKSSDRK GGSYSQAASS
          A*3202  SSQPTIPIVG IIAGLVLFGA MFAGAVVAAV RWRRKSSDRK GGSYSQAASS
          A*3203  .......... .......... .......... .......... ..........
@@ -3273,6 +3860,9 @@
          A*3209  .......... .......... .......... .......... ..........
          A*3210  .......... .......... .......... .......... ..........
         A*3211Q  .......... .......... .......... .......... ..........
+         A*3212  .......... .......... .......... .......... ..........
+         A*3213  .......... .......... .......... .......... ..........
+         A*3214  .......... .......... .......... .......... ..........
          A*3301  SSQPTIPIVG IIAGLVLFGA VFAGAVVAAV RWRRKSSDRK GGSYSQAASS
        A*330301  SSQPTIPIVG IIAGLVLFGA VFAGAVVAAV RWRRKSSDRK GGSYSQAASS
        A*330302  .......... .......... .......... .......... ..........
@@ -3281,6 +3871,7 @@
          A*3306  .......... .......... .......... .......... ..........
          A*3307  SSQPTIPIVG IIAGLVLFGA VFAGAVVAAV RWRRKSSDRK GGSYSQAASS
          A*3308  .......... .......... .......... .......... ..........
+         A*3309  .......... .......... .......... .......... ..........
          A*3401  SSQPTIPIVG ILAGLVLFGA VIAGAVVAAV MWRRKSSDRK GGSYSQAASS
          A*3402  SSQPTIPIVG IIAGLVLFGA VIAGAVVAAV MWRRKSSDRK GGSYSQAASS
          A*3403  .......... .......... .......... .......... ..........
@@ -3288,6 +3879,7 @@
          A*3405  .......... .......... .......... .......... ..........
          A*3406  .......... .......... .......... .......... ..........
          A*3407  .......... .......... .......... .......... ..........
+         A*3408  .......... .......... .......... .......... ..........
          A*3601  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSSDRK GGSYTQAASS
          A*3602  .......... .......... .......... .......... ..........
          A*3603  SSQPTIPIVG IIAGLVLLGA VITGAVVAAV MWRRKSS... ..........
@@ -3298,11 +3890,14 @@
          A*6603  .......... .......... .......... .......... ..........
          A*6604  .......... .......... .......... .......... ..........
          A*6605  .......... .......... .......... .......... ..........
+         A*6606  .......... .......... .......... .......... ..........
        A*680101  SSQPTIPIVG IIAGLVLFGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
        A*680102  SSQPTIPIVG IIAGLVLFGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
        A*680103  .......... .......... .......... .......... ..........
        A*680104  .......... .......... .......... .......... ..........
-         A*6802  SSQPTIPIVG IIAGLVLFGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
+       A*680105  .......... .......... .......... .......... ..........
+     A*68020101  SSQPTIPIVG IIAGLVLFGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
+     A*68020102  SSQPTIPIVG IIAGLVLFGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
        A*680301  SSQPTIPIVG IIAGLVLFGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
        A*680302  .......... .......... .......... .......... ..........
          A*6804  .......... .......... .......... .......... ..........
@@ -3330,6 +3925,12 @@
          A*6828  .......... .......... .......... .......... ..........
          A*6829  .......... .......... .......... .......... ..........
          A*6830  .......... .......... .......... .......... ..........
+         A*6831  .......... .......... .......... .......... ..........
+         A*6832  .......... .......... .......... .......... ..........
+         A*6833  .......... .......... .......... .......... ..........
+         A*6834  .......... .......... .......... .......... ..........
+         A*6835  .......... .......... .......... .......... ..........
+         A*6836  SSQPTIPIVG IIAGLVLFGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
          A*6901  SSQPTIPIVG IIAGLVLFGA VITGAVVAAV MWRRKSSDRK GGSYSQAASS
          A*7401  SSQPTIPIVG IIAGLVLFGA MFAGAVVAAV RWRRKSSDRK GGSYSQAASS
          A*7402  .......... .......... .......... .......... ..........
@@ -3344,10 +3945,19 @@
          A*7411  .......... .......... .......... .......... ..........
         A*7412N  .......... .......... .......... .......... ..........
          A*8001  SSQPTIPIVG IIAGLVLLGA VIAGAVVAAV MWRKKSSVRK GGSYSQAASS
+         A*9201  .......... .......... .......... .......... ..........
+         A*9202  .......... .......... .......... .......... ..........
+         A*9203  .......... .......... .......... .......... ..........
+         A*9204  SSQPTIP... .......... .......... .......... ..........
+         A*9206  .......... .......... .......... .......... ..........
+         A*9207  .......... .......... .......... .......... ..........
+         A*9208  .......... .......... .......... .......... ..........
+         A*9209  .......... .......... .......... .......... ..........
 
      A*01010101  DSAQGSDVSL TACKV
        A*010102  .......... .....
        A*010103  .......... .....
+       A*010104  .......... .....
          A*0102  DSAQGSDVSL TACKV
          A*0103  .......... .....
          A*0106  .......... .....
@@ -3360,6 +3970,9 @@
          A*0113  .......... .....
          A*0114  DSAQGSDVSL TACKV
          A*0117  .......... .....
+        A*0118N  .......... .....
+         A*0119  .......... .....
+         A*0120  DSAQGSDVSL TACKV
      A*02010101  DSAQGSDVSL TACKV
     A*02010102L  DSAQGSDVSL TACKV
        A*020102  .......... .....
@@ -3461,12 +4074,19 @@
          A*0287  .......... .....
          A*0289  DSAQGSDVSL TACKV
          A*0290  .......... .....
+         A*0291  .......... .....
+         A*0292  .......... .....
+         A*0293  .......... .....
+         A*0295  .......... .....
+         A*0296  .......... .....
+         A*0297  .......... .....
+         A*0299  .......... .....
      A*03010101  DSAQGSDVSL TACKV
-    A*03010102N  DSAQGSDVSL TACKV
      A*03010103  DSAQGSDVSL TACKV
        A*030102  .......... .....
        A*030103  .......... .....
        A*030104  .......... .....
+       A*030105  .......... .....
          A*0302  DSAQGSDVSL TACKV
         A*0303N  DSAQGSDVSL TACKV
          A*0304  DSAQGSDVSL TACKV
@@ -3486,12 +4106,18 @@
          A*0319  .......... .....
          A*0320  .......... .....
          A*0322  .......... .....
+         A*0323  .......... .....
+         A*0324  .......... .....
+         A*0325  .......... .....
+         A*0326  DSAQGSDVSL TACKV
        A*110101  DSAQGSDVSL TACKV
        A*110102  .......... .....
        A*110103  .......... .....
        A*110104  DSAQGSDVSL TACKV
        A*110105  .......... .....
-         A*1102  .......... .....
+       A*110106  .......... .....
+       A*110201  .......... .....
+       A*110202  .......... .....
          A*1103  DSAQGSDVSL TACKV
          A*1104  DSAQGSDVSL TACKV
          A*1105  DSAQGSDVSL TACKV
@@ -3512,6 +4138,12 @@
          A*1120  .......... .....
          A*1122  .......... .....
          A*1123  .......... .....
+         A*1124  .......... .....
+         A*1125  DSAQGSDVSL TACKV
+         A*1126  .......... .....
+         A*1127  .......... .....
+         A*1128  .......... .....
+         A*1129  .......... .....
          A*2301  DSAQGSDVSL TACKV
          A*2302  .......... .....
          A*2303  .......... .....
@@ -3534,6 +4166,9 @@
        A*240208  .......... .....
        A*240209  .......... .....
        A*240210  DSAQGSDVSL TACKV
+       A*240211  .......... .....
+       A*240212  .......... .....
+       A*240213  .......... .....
        A*240301  DSAQGSDVSL TACKV
        A*240302  .......... .....
          A*2404  DSAQGSDVSL TACKV
@@ -3583,11 +4218,22 @@
          A*2456  .......... .....
          A*2457  .......... .....
          A*2458  .......... .....
+         A*2459  .......... .....
+         A*2461  DSAQGSDVSL TACKV
+         A*2462  .......... .....
+         A*2463  .......... .....
+         A*2464  .......... .....
+         A*2465  .......... .....
+         A*2466  .......... .....
+         A*2467  .......... .....
+         A*2468  .......... .....
        A*250101  DSAQGSDMSL TACKV
        A*250102  .......... .....
          A*2502  DSAQGSDMSL TACKV
          A*2503  .......... .....
          A*2504  .......... .....
+         A*2505  .......... .....
+         A*2506  .......... .....
        A*260101  DSAQGSDMSL TACKV
        A*260102  .......... .....
        A*260103  .......... .....
@@ -3617,8 +4263,14 @@
          A*2624  .......... .....
          A*2626  .......... .....
          A*2627  .......... .....
+         A*2628  .......... .....
+         A*2629  .......... .....
+         A*2630  .......... .....
+         A*2631  .......... .....
+         A*2632  .......... .....
+         A*2633  .......... .....
+         A*2634  .......... .....
      A*29010101  DSAQGSDMSL TACKV
-    A*29010102N  DSAQGSDMSL TACKV
        A*290201  DSAQGSDMSL TACKV
        A*290202  .......... .....
        A*290203  .......... .....
@@ -3633,6 +4285,8 @@
          A*2912  .......... .....
          A*2913  .......... .....
          A*2914  .......... .....
+         A*2915  .......... .....
+         A*2916  .......... .....
        A*300101  DSAQGSDVSL TACKV
        A*300102  .......... .....
        A*300201  DSAQGSDVSL TACKV
@@ -3650,6 +4304,10 @@
          A*3013  .......... .....
         A*3014L  .......... .....
          A*3015  .......... .....
+         A*3016  .......... .....
+         A*3017  .......... .....
+         A*3018  .......... .....
+         A*3019  .......... .....
        A*310102  DSAQGSDMSL TACKV
          A*3102  .......... .....
          A*3103  .......... .....
@@ -3663,6 +4321,7 @@
          A*3111  .......... .....
          A*3112  .......... .....
          A*3113  .......... .....
+         A*3115  .......... .....
          A*3201  DSAQGSDMSL TACKV
          A*3202  DSAQGSDMSL TACKV
          A*3203  .......... .....
@@ -3674,6 +4333,9 @@
          A*3209  .......... .....
          A*3210  .......... .....
         A*3211Q  .......... .....
+         A*3212  .......... .....
+         A*3213  .......... .....
+         A*3214  .......... .....
          A*3301  DSAQGSDMSL TACKV
        A*330301  DSAQGSDMSL TACKV
        A*330302  .......... .....
@@ -3682,6 +4344,7 @@
          A*3306  .......... .....
          A*3307  DSAQGSDMSL TACKV
          A*3308  .......... .....
+         A*3309  .......... .....
          A*3401  DSAQGSDMSL TACKV
          A*3402  DSAQGSDMSL TACKV
          A*3403  .......... .....
@@ -3689,6 +4352,7 @@
          A*3405  .......... .....
          A*3406  .......... .....
          A*3407  .......... .....
+         A*3408  .......... .....
          A*3601  DSAQGSDVSL TACKV
          A*3602  .......... .....
          A*3603  .......... .....
@@ -3699,11 +4363,14 @@
          A*6603  .......... .....
          A*6604  .......... .....
          A*6605  .......... .....
+         A*6606  .......... .....
        A*680101  DSAQGSDVSL TACKV
        A*680102  DSAQGSDVSL TACKV
        A*680103  .......... .....
        A*680104  .......... .....
-         A*6802  DSAQGSDVSL TACKV
+       A*680105  .......... .....
+     A*68020101  DSAQGSDVSL TACKV
+     A*68020102  DSAQGSDVSL TACKV
        A*680301  DSAQGSDVSL TACKV
        A*680302  .......... .....
          A*6804  .......... .....
@@ -3731,6 +4398,12 @@
          A*6828  .......... .....
          A*6829  .......... .....
          A*6830  .......... .....
+         A*6831  .......... .....
+         A*6832  .......... .....
+         A*6833  .......... .....
+         A*6834  .......... .....
+         A*6835  .......... .....
+         A*6836  DSAQGSDVSL TACKV
          A*6901  DSAQGSDVSL TACKV
          A*7401  DSAQGSDMSL TACKV
          A*7402  .......... .....
@@ -3745,4 +4418,12 @@
          A*7411  .......... .....
         A*7412N  .......... .....
          A*8001  DSAQGSDVSL TACKV
+         A*9201  .......... .....
+         A*9202  .......... .....
+         A*9203  .......... .....
+         A*9204  .......... .....
+         A*9206  .......... .....
+         A*9207  .......... .....
+         A*9208  .......... .....
+         A*9209  .......... .....
 
