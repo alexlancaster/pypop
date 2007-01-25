@@ -4,7 +4,7 @@
 	doesn't like QNames to start with a number.
 
 	* xslt/meta-to-r.xsl: Likewise, also change
-	'13th-header-line-start' to 'ihwg-header-line' start
+	'13th-header-line-start' to 'ihwg-header-line-start'.
 
 2006-07-31  Alex Lancaster  <alexl AT berkeley.edu>
 
