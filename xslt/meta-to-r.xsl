@@ -86,7 +86,7 @@ MODIFICATIONS.
   <regionname long="Other">11.Other</regionname>          
  </data:region-order>
 
- <xsl:param name="13ihwg-fmt" select="0"/>
+ <xsl:param name="ihwg-fmt" select="0"/>
 
  <xsl:param name="map-order" 
   select="document('')//data:map-order/locusname"/>
@@ -94,13 +94,13 @@ MODIFICATIONS.
  <xsl:param name="region-order" 
   select="document('')//data:region-order/regionname"/>
 
- <xsl:param name="13th-header-line-start">pop&#09;labcode&#09;method&#09;ethnic&#09;collect.site&#09;region&#09;latit&#09;longit&#09;complex&#09;</xsl:param>
+ <xsl:param name="ihwg-header-line-start">pop&#09;labcode&#09;method&#09;ethnic&#09;collect.site&#09;region&#09;latit&#09;longit&#09;complex&#09;</xsl:param>
 
  <xsl:template name="header-line-start">
   <xsl:param name="popnode"/>
   <xsl:choose>
-   <xsl:when test="$13ihwg-fmt">
-    <xsl:value-of select="$13th-header-line-start"/>
+   <xsl:when test="$ihwg-fmt">
+    <xsl:value-of select="$ihwg-header-line-start"/>
    </xsl:when>
    <xsl:otherwise>
     <xsl:for-each select="$popnode/*">
@@ -136,7 +136,7 @@ MODIFICATIONS.
   <xsl:param name="popnode"/>
 
   <xsl:choose>
-   <xsl:when test="$13ihwg-fmt">
+   <xsl:when test="$ihwg-fmt">
 
     <xsl:call-template name="output-field">
      <xsl:with-param name="node">

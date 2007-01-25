@@ -177,9 +177,9 @@ class Meta:
 
         # create XSLT parameters
         if ihwg_output:
-            xslt_params = {"13ihwg-fmt": "1"}
+            xslt_params = {"ihwg-fmt": "1"}
         else:
-            xslt_params = {"13ihwg-fmt": "0"}
+            xslt_params = {"ihwg-fmt": "0"}
 
         # parse arguments
         #files = args
