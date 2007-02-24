@@ -1,5 +1,9 @@
 2007-02-23  Alex Lancaster  <alexl AT berkeley.edu>
 
+	* Main.py (Main._doGenotypeFile): Add NoSectionError exception
+	handing to handle missing HardyWeinbergGuoThompson[MonteCarlo]
+	section(s).
+
 	* xslt/hardyweinberg.xsl (gen-genotype-pvals): Fixed first
 	<xsl:param>: 'pvals-diff -> 'pvals-chen'.
 
