@@ -826,7 +826,7 @@ MODIFICATIONS.
 
  <xsl:template name="gen-genotype-pvals">
   <xsl:param name="pvals-loop"/>
-  <xsl:param name="pvals-diff"/>
+  <xsl:param name="pvals-chen"/>
   <xsl:param name="pvals-diff"/>
   
   <xsl:for-each select="$pvals-loop">
