@@ -735,13 +735,13 @@ class Main:
             try:
                 alleleLump1=self.config.get("HardyWeinbergGuoThompson",
                                             "alleleLump")
-            except NoOptionError:
+            except (NoOptionError, NoSectionError):
                 alleleLump1=0
 
             try:
                 alleleLump2=self.config.get("HardyWeinbergGuoThompsonMonteCarlo",
                                             "alleleLump")
-            except NoOptionError:
+            except (NoOptionError, NoSectionError):
                 alleleLump2=0
 
             if alleleLump1 or alleleLump2:
