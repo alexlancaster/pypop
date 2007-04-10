@@ -1,3 +1,12 @@
+2007-04-10  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Main.py (Main._doGenotypeFile): Pass the logFile to the
+	AnthonyNolanFilter when running the sequence-based random binning
+	method.  This log file is just use to keep track of how it made
+	the bins.  Actual results to go STOUT.  This can be changed in the
+	future if we want a separate output file for the random binning
+	results.
+
 2007-02-23  Alex Lancaster  <alexl AT berkeley.edu>
 
 	* Main.py (Main._doGenotypeFile): Add NoSectionError exception
