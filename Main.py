@@ -942,12 +942,13 @@ class Main:
                                 print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
 
                         seqfilter = AnthonyNolanFilter(debug=self.debug,
-                                            directoryName=anthonynolanPath,
-                                            alleleFileFormat='msf',
-                                            alleleDesignator=self.alleleDesignator,
-                                            sequenceFileSuffix=sequenceFileSuffix,
-                                            untypedAllele=self.untypedAllele,
-                                            filename=self.fileName)
+                                                       directoryName=anthonynolanPath,
+                                                       alleleFileFormat='msf',
+                                                       alleleDesignator=self.alleleDesignator,
+                                                       sequenceFileSuffix=sequenceFileSuffix,
+                                                       untypedAllele=self.untypedAllele,
+                                                       filename=self.fileName,
+                                                       logFile=self.filterLogFile)
 
                         polyseq, polyseqpos = seqfilter.makeSeqDictionaries(matrix=(self.matrixHistory[self.binningStartPoint]).copy(),locus=locus)
 
