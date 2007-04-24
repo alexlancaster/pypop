@@ -2,7 +2,7 @@
 
 # This file is part of PyPop
 
-# Copyright (C) 2003-2005. The Regents of the University of California (Regents)
+# Copyright (C) 2003-2007. The Regents of the University of California (Regents)
 # All Rights Reserved.
 
 # This program is free software; you can redistribute it and/or modify
@@ -44,8 +44,8 @@ import sys, os, string, time
 
 # create system-level defaults relative to where python is
 # installed, e.g. if python is installed in sys.prefix='/usr'
-# we look in /usr/share/PyPop, /usr/bin/pypop etc.
-datapath = os.path.join(sys.prefix, 'share', 'PyPop')
+# we look in /usr/share/pypop, /usr/bin/pypop etc.
+datapath = os.path.join(sys.prefix, 'share', 'pypop')
 binpath = os.path.join(sys.prefix, 'bin')
 altpath = os.path.join(datapath, 'config.ini')
 systemversionpath = os.path.join(datapath, 'VERSION')

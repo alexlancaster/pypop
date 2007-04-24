@@ -2,7 +2,7 @@
 
 # This file is part of PyPop
 
-# Copyright (C) 2003-2005.
+# Copyright (C) 2003-2007.
 # The Regents of the University of California (Regents)
 # All Rights Reserved.
 
@@ -166,19 +166,17 @@ ext_Gthwe_files = ["gthwe/gthwe_wrap.i",
                    "gthwe/read_data.c",
                    "gthwe/select_index.c",
                    "gthwe/stamp_time.c",
-                   "gthwe/test_switch.c"]
+                   "gthwe/test_switch.c",
+                   "gthwe/statistics.c"]
 
 
 ext_Gthwe_macros = [('fprintf', 'pyfprintf'),
-                    ('_FORTIFY_SOURCE', '1'),
+##                    ('_FORTIFY_SOURCE', '1'),
                     ('DEBUG', '0'),
                     ('XML_OUTPUT', '1'),
-                    ('SUPPRESS_ALLELE_TABLE', '1')]
+                    ('SUPPRESS_ALLELE_TABLE', '1'),
+                    ('INDIVID_GENOTYPES', '1')] 
 
-if not(distrib_version):
-    ext_Gthwe_files.append("gthwe/statistics.c")
-    ext_Gthwe_macros.append(('INDIVID_GENOTYPES', '1'))
-    
 
 ext_Gthwe = Extension("_Gthwemodule",
                       ext_Gthwe_files,
@@ -269,26 +267,26 @@ xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'com
 data_file_paths.extend(xslt_files)
 
 
-setup (name = "PyPop",
+setup (name = "pypop",
        version = version,
        description = "Python for Population Genetics",
        long_description = \
        """PyPop is a framework for population genetics statistics
 particularly large-scale multilocus genotype data""",
-       url = "http://allele5.biol.berkeley.edu/",
+       url = "http://www.pypop.org/",
        maintainer = "Alex Lancaster",
-       maintainer_email = "alexl@berkeley.edu",
+       maintainer_email = "alexl@cal.berkeley.edu",
        license = "GNU GPL",
        platforms = ["GNU/Linux", "Windows"],
        
-       extra_path = 'PyPop',
+       extra_path = 'pypop',
 
        py_modules = ["Arlequin", "HardyWeinberg", "Utils", "Haplo",
                      "Homozygosity", "ParseFile", "Filter", "Main",
                      "DataTypes", "GUIApp", "RandomBinning", "Meta"],
        scripts= Ensure_Scripts(['pypop.py', 'popmeta.py']),
 
-       data_files=[('share/PyPop', data_file_paths)],
+       data_files=[('share/pypop', data_file_paths)],
 
 # compile SWIG module
 

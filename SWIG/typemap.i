@@ -1,6 +1,6 @@
 /* This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California
+  Copyright (C) 2003, 2007. The Regents of the University of California
   (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -35,7 +35,7 @@ MODIFICATIONS. */
 #include "cStringIO.h"
 %}
 
-%typemap(python,in) char [ANY][ANY][ANY] {
+%typemap(in) char [ANY][ANY][ANY] {
 #ifdef DEBUG
   fprintf(stderr,"Converting Python [['a']] ->  2d C array C of strings\n");
 #endif
@@ -102,12 +102,12 @@ MODIFICATIONS. */
 }
 
 /* This cleans up the char [][][] array we malloc'd before the function call */
-%typemap(python,freearg) char [ANY][ANY][ANY] {
+%typemap(freearg) char [ANY][ANY][ANY] {
   free(($ltype) $1);
 }
 
 /* Typemap to convert python file type(s) to C file pointer */
-%typemap(python,in) FILE * {
+%typemap(in) FILE * {
   PycString_IMPORT;
   /* if file is an actual file on the filesystem, then pass directly to C */
   if (PyFile_Check($input)) {
@@ -125,7 +125,7 @@ MODIFICATIONS. */
 }
 
 /* Typemap to convert a Python 1-d array of ints to int [] */
-%typemap(python, in) int [ANY] {
+%typemap( in) int [ANY] {
 #if DEBUG
   printf("converting from a 1-d array of ints\n");
 #endif
@@ -162,7 +162,7 @@ MODIFICATIONS. */
 }
 
 /* This cleans up the int[] array we malloc'd before the function call */
-%typemap(python,freearg) int [ANY] {
+%typemap(freearg) int [ANY] {
   if ($1)
     free($1);
 }
@@ -241,7 +241,7 @@ int pyfprintf(FILE *fp, const char *format, ...) {
 
 /* Typemap to convert a 1-d array of long doubles to a Python list of
    plain doubles */
-%typemap(python,out) long double*
+%typemap(out) long double*
 {
 	int len,i;
 	len = 0;
@@ -254,7 +254,7 @@ int pyfprintf(FILE *fp, const char *format, ...) {
 }
 
 /* This cleans up the long double array we malloc'd before the function call */
-%typemap(python,free) long double* {
+%typemap(free) long double* {
   if ($1)
     free($1);
 }

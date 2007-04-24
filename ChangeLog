@@ -1,3 +1,21 @@
+2007-04-24  Alex Lancaster  <alexl AT cal.berkeley.edu>
+
+	* SWIG/typemap.i: Remove 'python' from %typemap, now deprecated in SWIG.
+
+	* setup.py (ext_Gthwe_files): Distribute statistics.c file by default.
+	(ext_Gthwe_macros): Don't use FORTIFY_SOURCE = 1, done at top-level.
+	Compile with individual genotypes support by default.
+	(xslt_files): "PyPop" -> "pypop".
+	Update URL to http://www.pypop.org/
+
+	* pypop.py: Use /usr/share/pypop/ rather than /usr/share/PyPop/ as
+	name of shared directory.
+
+	* Makefile (NAME_SRC): Use lowercase 'pypop' for filename of
+	package.
+
+	* MANIFEST.in: Cleanup includes.
+
 2007-04-10  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Main.py (Main._doGenotypeFile): Pass the logFile to the

@@ -14,7 +14,7 @@ NAME_BIN=PyPopWin32-$(VERSION).zip
 endif
 
 # source distribution to create
-NAME_SRC=dist/PyPop-$(VERSION).tar.gz
+NAME_SRC=dist/pypop-$(VERSION).tar.gz
 
 all: FORCE $(NAME_BIN) $(NAME_SRC) 
 

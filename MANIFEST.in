@@ -12,7 +12,9 @@ include standalone.spec
 recursive-include xslt text.xsl html.xsl lib.xsl common.xsl filter.xsl hardyweinberg.xsl homozygosity.xsl emhaplofreq.xsl meta-to-r.xsl sort-by-locus.xsl allelelist-by-locus.xsl haplolist-by-group.xsl phylip-allele.xsl phylip-haplo.xsl
 include SWIG/typemap.i
 recursive-include emhaplofreq emhaplofreq.h Makefile
-recursive-include gthwe *.h Makefile README.1
-recursive-include slatkin-exact Makefile README
-recursive-include pval Makefile dpq.h nmath.h Rconfig.h Rmath.h
-recursive-include pval/R_ext Arith.h Boolean.h Error.h Mathlib.h RS.h
+include gthwe/*.h gthwe/Makefile gthwe/README.1
+include slatkin-exact/Makefile slatkin-exact/README
+include pval/Makefile pval/dpq.h pval/nmath.h pval/Rconfig.h pval/Rmath.h
+include pval/R_ext pval/R_ext/Arith.h pval/R_ext/Boolean.h pval/R_ext/Error.h pval/R_ext/Mathlib.h pval/R_ext/RS.h
+exclude setup.cfg
+global-exclude CVS
