@@ -1,3 +1,12 @@
+2007-05-01  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Filter.py (BinningFilter.doCustomBinning): Bug fix: Resolved
+	inconsistent behavior between "exact matches" and "close matches"
+	and the way the CustomBinning section is interpreted from the ini
+	file.  -- now, either case will assign the first allele name to
+	the matched allele (if preceeded by an *) or the entire hashed
+	0101/0102/0103 allele name (if there is no *).
+
 2007-04-24  Alex Lancaster  <alexl AT cal.berkeley.edu>
 
 	* SWIG/typemap.i: Remove 'python' from %typemap, now deprecated in SWIG.

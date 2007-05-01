@@ -885,54 +885,64 @@ class BinningFilter:
         allele = ['','']
         for locus in matrix.colList:
             individCount = 0
-            for individ in matrix[locus]:
-                for i in range(2):
-                    allele[i] = individ[i]
 
-                    exactMatches = []
-                    closeMatches = {}
-                    
-                    # see if allele exists in the binning rules (exact or close)
-                    for ruleSet in self.customBinningDict[locus.lower()]:
-                        ruleSetSplit = ruleSet.split('/')
-                        
-                        # check for exact match(es)
-                        if allele[i] in ruleSetSplit:
-                            if ruleSet[0] == '*':
-                                exactMatches.append(ruleSetSplit[0][1:])
-                            else:
-                                exactMatches.append(ruleSet)
-                            
-                        # check for close match(es)
-                        if len(allele[i]) > 2:
-                            ruleCounter = 0
-                            matchTracker = {}
-                            for potentialMatch in ruleSetSplit:
-                                for digitSlice in xrange(len(allele[i])-2):
-                                    if allele[i][:-digitSlice-1] == potentialMatch:
-                                        closeMatches[ruleSet] = digitSlice+1
-                                    
-                    if exactMatches != []:
-                        print "Exact rule match: " + locus + "*" + allele[i] + " is being replaced by " + exactMatches[0]
-                        allele[i] = exactMatches[0]
-                        if len(exactMatches) > 1:
-                            print "WARNING: other exact matches found"
-                            print exactMatches
-                    elif len(closeMatches) > 0:
-                        bestScore = 1000
-                        for match in closeMatches:
-                            if closeMatches[match] < bestScore:
-                                bestScore = closeMatches[match]
-                                finalMatch = match
-                        print "Close rule match: " + locus + "*" + allele[i] + " is being replaced by " + finalMatch
-                        allele[i] = finalMatch
-                        if len(closeMatches) > 1:
-                            print "WARNING: other close matches found"
-                            print closeMatches
-                            
-                matrix[individCount,locus] = (allele[0],allele[1])
-                individCount += 1
-                
+            if locus.lower() in self.customBinningDict.keys():
+            
+                for individ in matrix[locus]:
+                    for i in range(2):
+                        allele[i] = individ[i]
+                        exactMatches = []
+                        closeMatches = {}
+
+                        # see if allele exists in the binning rules (exact or close)
+                        for ruleSet in self.customBinningDict[locus.lower()]:
+                            ruleSetSplit = ruleSet.split('/')
+
+                            # check for exact match(es)
+                            if allele[i] in ruleSetSplit:
+                                if ruleSet[0] == '*':
+                                    exactMatches.append(ruleSetSplit[0][1:])
+                                else:
+                                    exactMatches.append(ruleSet)
+
+                            # check for close match(es)
+                            if len(allele[i]) > 2:
+                                ruleCounter = 0
+                                matchTracker = {}
+                                for potentialMatch in ruleSetSplit:
+                                    for digitSlice in xrange(len(allele[i])-2):
+                                        if allele[i][:-digitSlice-1] == potentialMatch:
+                                            if ruleSet[0] == '*':
+                                                closeMatches[ruleSetSplit[0][1:]] = digitSlice+1
+                                            else:
+                                                closeMatches[ruleSet] = digitSlice+1
+
+                        if exactMatches != []:
+                            print "Exact rule match: " + locus + "* " + allele[i] + " is being replaced by " + exactMatches[0]
+                            allele[i] = exactMatches[0]
+                            if len(exactMatches) > 1:
+                                print "WARNING: other exact matches found"
+                                print exactMatches
+                        elif len(closeMatches) > 0:
+                            bestScore = 1000
+                            for match in closeMatches:
+                                if closeMatches[match] < bestScore:
+                                    bestScore = closeMatches[match]
+                                    finalMatch = match
+                            print "Close rule match: " + locus + "* " + allele[i] + " is being replaced by " + finalMatch
+                            allele[i] = finalMatch
+                            if len(closeMatches) > 1:
+                                print "WARNING: other close matches found"
+                                print closeMatches
+                        else:
+                            print "WARNING: no match (exact or close) found, so no change to allele:" , locus + "* " + allele[i]
+
+                    matrix[individCount,locus] = (allele[0],allele[1])
+                    individCount += 1
+
+            else:
+                print "Skipping CustomBinning filter for locus " + locus + " because no rules found."
+            
         return matrix
 
 
