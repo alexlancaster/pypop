@@ -508,7 +508,7 @@ class Main:
                 try:
                     for option in self.config.options(filterCall):
                         customBinningDict[option] = string.split(self.config.get(filterCall, option),os.linesep)
-                    if 1:   #self.debug:
+                    if self.debug:
                         print customBinningDict
                 except:
                     sys.exit("Could not parse the CustomBinning rules.")

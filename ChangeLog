@@ -1,5 +1,15 @@
 2007-05-01  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
+	* Main.py (Main._runFilters): Don't print the customBinningDict
+	unless debug mode is on.
+
+	* Filter.py (BinningFilter.doCustomBinning): Made further
+	refinements to this method and also changed the logging so that it
+	now goes to the -filter.xml file in a CDATA block, rather than
+	just printing the binning results to standard out.
+
+2007-05-01  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
 	* Filter.py (BinningFilter.doCustomBinning): Bug fix: Resolved
 	inconsistent behavior between "exact matches" and "close matches"
 	and the way the CustomBinning section is interpreted from the ini

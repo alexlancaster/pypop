@@ -864,9 +864,10 @@ class BinningFilter:
         self.binningDigits = binningDigits
         self.untypedAllele = untypedAllele
         self.customBinningDict = customBinningDict
-        
+        self.logFile = logFile
     
     def doDigitBinning(self,matrix=None):
+
         allele = ['','']
         for locus in matrix.colList:
             individCount = 0
@@ -875,12 +876,18 @@ class BinningFilter:
                     allele[i] = individ[i]
                     if allele[i] != self.untypedAllele and len(allele[i]) > self.binningDigits:
                         allele[i] = allele[i][:self.binningDigits]
+                        
                 matrix[individCount,locus] = (allele[0],allele[1])
                 individCount += 1
+
         return matrix
                     
         
     def doCustomBinning(self, matrix=None):
+
+        self.logFile.opentag('CustomBinningFilter')
+        self.logFile.writeln('<![CDATA[')
+
         # go through each cell of the matrix and make necessary substitutions
         allele = ['','']
         for locus in matrix.colList:
@@ -896,12 +903,12 @@ class BinningFilter:
 
                         # see if allele exists in the binning rules (exact or close)
                         for ruleSet in self.customBinningDict[locus.lower()]:
-                            ruleSetSplit = ruleSet.split('/')
+                            ruleSetSplit = ruleSet.strip('*').split('/')
 
                             # check for exact match(es)
                             if allele[i] in ruleSetSplit:
                                 if ruleSet[0] == '*':
-                                    exactMatches.append(ruleSetSplit[0][1:])
+                                    exactMatches.append(ruleSetSplit[0])
                                 else:
                                     exactMatches.append(ruleSet)
 
@@ -913,36 +920,38 @@ class BinningFilter:
                                     for digitSlice in xrange(len(allele[i])-2):
                                         if allele[i][:-digitSlice-1] == potentialMatch:
                                             if ruleSet[0] == '*':
-                                                closeMatches[ruleSetSplit[0][1:]] = digitSlice+1
+                                                closeMatches[ruleSetSplit[0]] = digitSlice+1
                                             else:
                                                 closeMatches[ruleSet] = digitSlice+1
 
                         if exactMatches != []:
-                            print "Exact rule match: " + locus + "* " + allele[i] + " is being replaced by " + exactMatches[0]
+                            self.logFile.writeln("Exact rule match: " + locus + "* " + allele[i] + " is being replaced by " + exactMatches[0])
                             allele[i] = exactMatches[0]
                             if len(exactMatches) > 1:
-                                print "WARNING: other exact matches found"
-                                print exactMatches
+                                print "WARNING: other exact matches found: " + locus + "* " + allele[i] + exactMatches
                         elif len(closeMatches) > 0:
                             bestScore = 1000
                             for match in closeMatches:
                                 if closeMatches[match] < bestScore:
                                     bestScore = closeMatches[match]
                                     finalMatch = match
-                            print "Close rule match: " + locus + "* " + allele[i] + " is being replaced by " + finalMatch
+                            self.logFile.writeln("Close rule match: " + locus + "* " + allele[i] + " is being replaced by " + finalMatch)
                             allele[i] = finalMatch
                             if len(closeMatches) > 1:
-                                print "WARNING: other close matches found"
-                                print closeMatches
+                                print "WARNING: other close matches found: " + locus + "* " + allele[i] + closeMatches
                         else:
-                            print "WARNING: no match (exact or close) found, so no change to allele:" , locus + "* " + allele[i]
+                            self.logFile.writeln("No match (exact or close) found, so no change to allele:" + locus + "* " + allele[i])
 
                     matrix[individCount,locus] = (allele[0],allele[1])
                     individCount += 1
 
             else:
-                print "Skipping CustomBinning filter for locus " + locus + " because no rules found."
-            
+               self.logFile.writeln("Skipping CustomBinning filter for locus " + locus + " because no rules found.")
+
+        self.logFile.writeln(']]>')
+        self.logFile.closetag('CustomBinningFilter')
+        self.logFile.writeln()
+          
         return matrix
 
 
