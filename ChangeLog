@@ -1,3 +1,8 @@
+2007-05-03  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* config.ini (binningDigits): Better information about the
+	CustomBinning filter included in the default ini file.
+
 2007-05-01  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Main.py (Main._runFilters): Don't print the customBinningDict
