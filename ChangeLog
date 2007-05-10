@@ -1,3 +1,35 @@
+2007-05-10  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* RandomBinning.py (RandomBinsForHomozygosity.__init__): Log file
+	is instantiated to take the randomization output.
+	(RandomBinsForHomozygosity.randomMethod): changes to call the two
+	new internal functions.
+	(RandomBinsForHomozygosity.sequenceMethod): changes to call the
+	two new internal functions.
+	(RandomBinsForHomozygosity._updateCountDict): New internal
+	function to keep track of the binned allele counts, as a
+	dictionary.
+	(RandomBinsForHomozygosity._dumpResults): New internal function to
+	call the returnBulkHomozygosityStats function, and then dump the
+	random binning results all at once.  The output file is the same
+	as the filter log file, except with -[locus]-randomized.tsv as the
+	suffix.
+
+	* Main.py (Main._doGenotypeFile): Some small changes in the manner
+	that random binning is called, in accordance with the major
+	changes made to RandomBinning.py and the new function in
+	Homozygosity.py.
+
+	* Homozygosity.py (HomozygosityEWSlatkinExact.returnBulkHomozygosityStats): 
+	New function to work with the RandomBinning module.  It takes all
+	of the randomizations, computes the homozygosity statistics, and
+	then returns them all at once.  This is faster than looking them
+	up one randomization at a time.  Also, the randomizations are
+	given to this function as a dictionary, in which each key is a
+	tuple of the sorted allele counts and the definition is the number
+	of times that that allele count was observed among the
+	randomizations.  This saves additional time.
+
 2007-05-03  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* config.ini (binningDigits): Better information about the

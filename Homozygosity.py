@@ -411,6 +411,33 @@ class HomozygosityEWSlatkinExact(Homozygosity):
       # always end on a newline
       stream.writeln()
 
+
+
+    def returnBulkHomozygosityStats(self, alleleCountDict=None, binningMethod=None):
+      # this function is written to work with the RandomBinning module
+      
+      resultsDict = {}
+
+      for i in alleleCountDict:
+        if alleleCountDict[i] == "before" or alleleCountDict[i] == "after":
+          resultType = alleleCountDict[i]
+          multiplier = 1
+        else:
+          resultType = binningMethod
+          multiplier = alleleCountDict[i]
+
+        self.alleleData = list(i)
+        self.doCalcs(self.alleleData)
+        # calculate normalized deviate of homozygosity (F_nd)
+        sqrtVar = math.sqrt(math.fabs(self.EW.get_var_homozygosity()))
+        normDevHomozygosity = (self.getObservedHomozygosity() - self.EW.get_mean_homozygosity()) / sqrtVar
+
+        #package the results
+        resultsDict[(resultType, self.theta, self.prob_ewens, self.prob_homozygosity, self.mean_homozygosity, self.obsv_homozygosity, self.var_homozygosity, normDevHomozygosity)] = multiplier
+
+      return resultsDict
+
+
 class HomozygosityEWSlatkinExactPairwise:
   
     def __init__(self,

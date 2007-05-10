@@ -911,9 +911,14 @@ class Main:
                     print "alleleCountsInitial", len(alleleCountsInitial), alleleCountsInitial
                     print "alleleCounts", len(alleleCounts), alleleCounts
 
+                randomResultsFileName = self.defaultFilterLogPath[:-4]+"-" + locus + "-randomized.tsv"
+                
+                self.filterLogFile.opentag(self.binningMethod + 'Method', locus=locus)
+                self.filterLogFile.writeln('<![CDATA[')
+                
                 if len(alleleCountsInitial) <= len(alleleCounts):
-                    if self.debug:
-                        print 'skipping random binning because the initial allele count is not bigger than the target count'
+                    print 'FilterLog: Locus %s: Initial unique allele count is not bigger than the target count; skipping random binning.' %locus
+                    self.filterLogFile.writeln('Locus %s: Initial unique allele count is not bigger than the target count; skipping random binning.' %locus)
 
                 else:
                     # go ahead and do the random binning
@@ -923,8 +928,10 @@ class Main:
                                                         binningReplicates=self.binningReplicates,
                                                         locus=locus,
                                                         xmlfile=self.xmlStream,
-                                                        debug=self.debug)
-
+                                                        debug=self.debug,
+                                                        logFile=self.filterLogFile,
+                                                        randomResultsFileName=randomResultsFileName)
+                    
                     if self.binningMethod == "random":
                         randObj.randomMethod(alleleCountsBefore=alleleCountsInitial,
                                              alleleCountsAfter=alleleCounts)
@@ -960,7 +967,10 @@ class Main:
                     else:
                         sys.exit("Random binning method not recognized:" + self.binningMethod)
 
-
+                self.filterLogFile.writeln(']]>')
+                self.filterLogFile.closetag(self.binningMethod + 'Method')
+                self.filterLogFile.writeln()
+    
           self.xmlStream.closetag('locus')
           self.xmlStream.writeln()
           
