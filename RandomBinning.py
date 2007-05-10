@@ -55,7 +55,8 @@ class RandomBinsForHomozygosity:
                  binningReplicates=100,
                  locus=None,
                  xmlfile=None,
-                 debug=0):
+                 debug=0,
+                 randomResultsFileName=None):
 
         self.untypedAllele = untypedAllele
         self.binningReplicates = binningReplicates
@@ -66,18 +67,56 @@ class RandomBinsForHomozygosity:
         self.filename = string.split(self.filename, "/")[-1]
         self.xmlStream = xmlfile
         self.debug = debug
+        self.logFile = logFile
+        self.alleleCountDict = {}
+        self.randomResultsFile = open(randomResultsFileName, "w")
+        self.randomResultsFile.write( string.join("locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split(), "\t") + "\n" )
+        
+    def _dumpResults(self, alleleCountsBefore=None, alleleCountsAfter=None, randMethod=None):
+
+        # append the before and after allele counts to the dictionary
+        # so we can look up all of the stats en masse
+        self.alleleCountDict[tuple(alleleCountsBefore)] = "before"
+        self.alleleCountDict[tuple(alleleCountsAfter)] = "after"
+        
+        if self.debug:
+            print 'alleleCountsBefore', alleleCountsBefore
+            print 'alleleCountsAfter', alleleCountsAfter
+            print 'alleleCountDict', self.alleleCountDict
+
+        hzExactObj = HomozygosityEWSlatkinExact(numReplicates=self.numReplicates, debug=self.debug)
+        stats = hzExactObj.returnBulkHomozygosityStats(self.alleleCountDict, binningMethod=self.binningMethod)
+
+        for s in stats:
+            for m in xrange(stats[s]):
+                s = map(str, s)
+                self.randomResultsFile.write(string.join([self.locus] + s, "\t") + "\n")
+
+        self.randomResultsFile.close()
+
+    def _updateCountDict(self, alleleCounts=None):
+
+        alleleCounts.sort()
+        alleleCounts = tuple(alleleCounts)
+
+        if self.debug:
+            print alleleCounts
+            
+        if alleleCounts in self.alleleCountDict.keys():
+            self.alleleCountDict[alleleCounts] += 1
+        else:
+            self.alleleCountDict[alleleCounts] = 1
+        
 
     def randomMethod(self, alleleCountsBefore=None, alleleCountsAfter=None):
+
+        self.binningMethod = "random"
 
         # we don't need the dictionary in this case, just the counts
         alleleCountsBefore = alleleCountsBefore.values()
         alleleCountsAfter = alleleCountsAfter.values()
 
-        print "obsvHomozygosity\tlocus\tmethod\tpop"
-        #hzExactObj = HomozygosityEWSlatkinExact(alleleCountsBefore, numReplicates=self.numReplicates, debug=self.debug)
-        
         for i in range(self.binningReplicates):
-
             alleleCountsRand = copy(alleleCountsBefore)
 
             while len(alleleCountsRand) > len(alleleCountsAfter):
@@ -88,21 +127,9 @@ class RandomBinsForHomozygosity:
                     alleleCountsRand[bin1] += alleleCountsRand[bin2]
                     del alleleCountsRand[bin2]
 
-            #hzExactObj.doCalcs(alleleCountsRand)
-            #homozygosityResult = hzExactObj.getHomozygosity()[1]
+            self._updateCountDict(alleleCountsRand)
 
-            homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsRand)
-            print '%.5f\t%s\tr\t%s' %(homozygosityResult,self.locus,self.filename)
-
-        #hzExactObj.doCalcs(alleleCountsBefore)
-        #homozygosityResult = hzExactObj.getHomozygosity()[1]
-        homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsBefore)
-        print '%.5f\t%s\tb\t%s' %(homozygosityResult,self.locus,self.filename)
-
-        #hzExactObj.doCalcs(alleleCountsAfter)
-        #homozygosityResult = hzExactObj.getHomozygosity()[1]
-        homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsAfter)
-        print '%.5f\t%s\ta\t%s' %(homozygosityResult,self.locus,self.filename)
+        self._dumpResults(alleleCountsBefore, alleleCountsAfter)
 
 
     def sequenceMethod(self,
@@ -110,6 +137,9 @@ class RandomBinsForHomozygosity:
                        alleleCountsAfter=None,
                        polyseq=None,
                        polyseqpos=None):
+
+
+        self.binningMethod = "sequence"
 
         binningAttempts = 0
         binningAttemptsSuccessful = 0
@@ -125,8 +155,6 @@ class RandomBinsForHomozygosity:
             collapseHistory[pos] = 0
             weightedCollapseHistory[pos] = 0
 
-        print "obsvHomozygosity\tlocus\tmethod\tpop"
-        
         while binningAttemptsSuccessful < self.binningReplicates:
 
             alleleCountsRand = {}
@@ -199,45 +227,33 @@ class RandomBinsForHomozygosity:
             binningAttempts += 1
 
             if len(alleleCountsRand) == len(alleleCountsAfter):
-
-                homozygosityResult = getObservedHomozygosityFromAlleleData(alleleCountsRand.values())
-                print join([str(homozygosityResult),self.locus,'sequence',self.filename],'\t')
-
                 binningAttemptsSuccessful += 1
-                if self.debug:
-                    print "========================================================="
+                self._updateCountDict(alleleCountsRand.values())
 
             elif len(alleleCountsRand) < len(alleleCountsAfter):
+                if self.debug:
+                    print "=======================OVERSHOT TARGET!=================="
                 # restore counters to pre-overshoot counts
                 deleteHistory = copy(deleteHistorySaved)
                 collapseHistory = copy(collapseHistorySaved)
                 weightedCollapseHistory = copy(weightedCollapseHistorySaved)
                 
-                if self.debug:
-                    print "=======================OVERSHOT TARGET!=================="
-                if binningAttempts > (self.binningReplicates * 10):
-                    if self.debug:
-                        print "**********OVERSHOT TOO MANY TIMES, EXITING BINNING ***********"
-                    break
+            if binningAttempts > (self.binningReplicates * 100):
+                print "FilterLog: Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful)
+                self.logFile.writeln("Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful) )
+                break
 
 
-        print 'STATISTICS OF THE BINNING'
-        homozygosityResults = getObservedHomozygosityFromAlleleData(alleleCountsBefore.values())
-        print homozygosityResults,'\t',self.locus,'\tbefore\t',self.filename
-        homozygosityResults = getObservedHomozygosityFromAlleleData(alleleCountsAfter.values())
-        print homozygosityResults,'\t',self.locus,'\tafter\t',self.filename
+        self._dumpResults(alleleCountsBefore.values(), alleleCountsAfter.values())
 
-        print 'had to try %d times to get %d random binnings' % (binningAttempts, binningAttemptsSuccessful)
-
-        print 'locus\tposition\ttimesDeleted\ttimesDeletedAll\tcollapses\tcollapsesWeighted'
+        # THIS GOES IN FILTER LOG FILE
+        self.logFile.writeln('Tried %d times to get %d random binnings.' % (binningAttempts, binningAttemptsSuccessful))
+        self.logFile.writeln('locus\tposition\ttimesDeleted\ttimesDeletedAll\tcollapses\tcollapsesWeighted')
         for pos in polyseqpos:
-            print join([self.locus,
-                        str(pos),
-                        str(deleteHistory[pos]/float(binningAttemptsSuccessful)),
-                        str(deleteHistoryAll[pos]/float(binningAttemptsSuccessful)),
-                        str(collapseHistory[pos]/float(binningAttemptsSuccessful)),
-                        str(weightedCollapseHistory[pos]/float(binningAttemptsSuccessful))],'\t')
+            self.logFile.writeln( join([self.locus, str(pos),
+                                        str(deleteHistory[pos]/float(binningAttemptsSuccessful)),
+                                        str(deleteHistoryAll[pos]/float(binningAttemptsSuccessful)),
+                                        str(collapseHistory[pos]/float(binningAttemptsSuccessful)),
+                                        str(weightedCollapseHistory[pos]/float(binningAttemptsSuccessful))],'\t'))
 
-
-
-
+    
