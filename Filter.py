@@ -124,8 +124,9 @@ class AnthonyNolanFilter(Filter):
                  filename=None,
                  numDigits=4,
                  verboseFlag=1,
-                 debug=0):
-
+                 debug=0,
+                 sequenceFilterMethod="strict"):
+        
         self.directoryName = directoryName
         self.alleleFileFormat=alleleFileFormat
         self.numDigits = numDigits
@@ -134,6 +135,7 @@ class AnthonyNolanFilter(Filter):
         self.alleleDesignator = alleleDesignator
         self.untypedAllele = untypedAllele
         self.unsequencedSite = unsequencedSite
+        self.sequenceFilterMethod = sequenceFilterMethod
 
         if self.unsequencedSite == self.untypedAllele:
             sys.exit("Designator for unsequenced site and untyped allele cannot be the same!")
@@ -516,7 +518,7 @@ class AnthonyNolanFilter(Filter):
                             elif len(allele) == 7 and allele.isdigit():
                                 allele8digits = allele[:4] + '0' + allele[4:6]
                                 if self.debug:
-                                    print '%s NOT found in msf file (probably because it is five digits), trying %s' % (allele, allele8digits)
+                                    print '%s NOT found in msf file (probably because it is seven digits), trying %s' % (allele, allele8digits)
                                 if allele8digits in self.alleleLookupTable[locus]:
                                     self.sequences[allele] = self._getSequenceFromLines(locus, allele8digits)
                                 else:
@@ -607,6 +609,7 @@ class AnthonyNolanFilter(Filter):
         # log to the -filter.xml file
         self.logFile.opentag('sequence-summary')
         self.logFile.writeln()
+        self.logFile.writeln('Sequence consensus method: %s' % self.sequenceFilterMethod)
 
         for locus in self.matrix.colList:
             alleleTally = {}
@@ -824,12 +827,24 @@ class AnthonyNolanFilter(Filter):
 
                 for potentialMatch in closestMatches:
                     letter = closestMatches[potentialMatch][pos]
-                    ##if letter != '.' and letter != 'X' and letter != '*' and letter != self.unsequencedSite:
-                    ## treat unsequencedSite as a unique allele to make sure
+
+                    ## greedy method is to treat unsequencedSite as
+                    ## ignored, thus allowing a consensus letter (if
+                    ## same letter is otherwise present in 1 or more
+                    ## other seqs)
+                    if self.sequenceFilterMethod == 'greedy':
+                        if letter != '.' and letter != 'X' and letter != '*' and letter != self.unsequencedSite:
+                            uniqueCounter[letter] = 1
+                            letterOfTheLaw = letter
+                        else:
+                            pass
+
+                    ## default behavior (below) is to treat
+                    ## unsequencedSite as a unique allele to make sure
                     ## that those sites don't get treated as having a
-                    ## consensus sequence if only one of the sequences in the
-                    ## the set of matches is typed
-                    if letter != '*':
+                    ## consensus sequence if only one of the sequences
+                    ## in the the set of matches is typed
+                    elif letter != '*':
                         uniqueCounter[letter] = 1
                         letterOfTheLaw = letter
 
