@@ -537,6 +537,13 @@ class Main:
                     anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
                     if self.debug:
                         print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
+                try:
+                    sequenceFilterMethod = self.config.get(filterCall, "sequenceConsensusMethod")
+                    if sequenceFilterMethod != "greedy":
+                        sequenceFilterMethod = "strict-default"
+                except:
+                    sequenceFilterMethod = "strict-default"
+                    
                 filter = AnthonyNolanFilter(debug=self.debug,
                                             directoryName=anthonynolanPath,
                                             alleleFileFormat='msf',
@@ -545,7 +552,8 @@ class Main:
                                             untypedAllele=self.untypedAllele,
                                             unsequencedSite=self.unsequencedSite,
                                             filename=self.fileName,
-                                            logFile=self.filterLogFile)
+                                            logFile=self.filterLogFile,
+                                            sequenceFilterMethod=sequenceFilterMethod)
                 self.matrixHistory.append(filter.translateMatrix((self.matrixHistory[-1]).copy()))
 
             else:

@@ -1,3 +1,20 @@
+2007-05-11  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* Main.py (Main._runFilters): Checks for the
+	"sequenceConsensusMethod" option in the ini file, and passes the
+	setting on the Filter module.  If option is missing or set to
+	anything other than 'greedy' then the sequence filter should
+	function normally.
+
+	* Filter.py (AnthonyNolanFilter._getConsensusFromLines): New code
+	to deal with 'greedy' consensus sequence method.  If this option
+	is not specified in the ini file, pypop sequence filter should
+	function as it alwasy has (no change in default behavior.)
+
+	* config.ini : Added option for 'greedy' consensus sequence
+	method.  Also tidied up some of the syntax and formatting of this
+	default ini file.
+
 2007-05-10  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* RandomBinning.py (RandomBinsForHomozygosity.__init__): Log file
