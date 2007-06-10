@@ -1,3 +1,14 @@
+2007-06-09  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* RandomBinning.py (RandomBinsForHomozygosity._dumpResults):
+	Includes the POP filename as the first column of the output of the
+	RandomBinning.
+
+	* Filter.py (BinningFilter.doCustomBinning): Cleans up the logic
+	for CustomBinning, so that the filter output won't report that an
+	allele name was replaced _by itself_, which is how it was
+	behaving.
+
 2007-05-11  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* Main.py (Main._runFilters): Checks for the

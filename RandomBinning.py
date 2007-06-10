@@ -70,7 +70,7 @@ class RandomBinsForHomozygosity:
         self.logFile = logFile
         self.alleleCountDict = {}
         self.randomResultsFile = open(randomResultsFileName, "w")
-        self.randomResultsFile.write( string.join("locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split(), "\t") + "\n" )
+        self.randomResultsFile.write( string.join("filename locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split(), "\t") + "\n" )
         
     def _dumpResults(self, alleleCountsBefore=None, alleleCountsAfter=None, randMethod=None):
 
@@ -90,7 +90,7 @@ class RandomBinsForHomozygosity:
         for s in stats:
             for m in xrange(stats[s]):
                 s = map(str, s)
-                self.randomResultsFile.write(string.join([self.locus] + s, "\t") + "\n")
+                self.randomResultsFile.write(string.join([self.filename, self.locus] + s, "\t") + "\n")
 
         self.randomResultsFile.close()
 

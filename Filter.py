@@ -922,7 +922,7 @@ class BinningFilter:
 
                             # check for exact match(es)
                             if allele[i] in ruleSetSplit:
-                                if ruleSet[0] == '*':
+                                if ruleSet[0] == '*' and allele[i] in ruleSetSplit[1:]:
                                     exactMatches.append(ruleSetSplit[0])
                                 else:
                                     exactMatches.append(ruleSet)
@@ -954,8 +954,6 @@ class BinningFilter:
                             allele[i] = finalMatch
                             if len(closeMatches) > 1:
                                 print "WARNING: other close matches found: " + locus + "* " + allele[i] + closeMatches
-                        else:
-                            self.logFile.writeln("No match (exact or close) found, so no change to allele:" + locus + "* " + allele[i])
 
                     matrix[individCount,locus] = (allele[0],allele[1])
                     individCount += 1
