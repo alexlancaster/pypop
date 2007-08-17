@@ -2,24 +2,19 @@
 <!DOCTYPE bibliography PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN" 
    "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd"[
 
-<!ENTITY hla2004  '<biblioset relation="book">
+<!ENTITY hla2007  '<biblioset relation="book">
    <authorgroup>
     <editor>
      <firstname>JA</firstname>
      <surname>Hansen</surname>
     </editor>
-    <editor>
-     <firstname>B</firstname>
-     <surname>Dupont</surname>
-    </editor>
    </authorgroup>
-   <citetitle>HLA 2004: Immunobiology of the Human MHC</citetitle>
-   <confgroup><conftitle>Proceedings of the 13th International Histocompatibility Workshop and Conference</conftitle></confgroup>
+   <citetitle>Immunobiology of the Human MHC: Proceedings of the 13th International Histocompatibility Workshop and Conference</citetitle>
    <publisher>
     <publishername>IHWG Press</publishername>
-    <address><city>Seattle</city>, <state>WA</state></address>
+    <address><city>Seattle</city>, <state>Washington</state></address>
    </publisher>
-   <pubdate>2004</pubdate>
+   <!-- <pubdate>2007</pubdate> -->
   </biblioset>'>
 ]>
 <bibliography id="references">
@@ -121,25 +116,26 @@
 
    <citetitle>PyPop: a software framework for population genomics: analyzing
     large-scale multi-locus genotype data</citetitle>
-   <bibliomisc> [<ulink
-     url="http://allele5.biol.berkeley.edu/pypop/psb-pypop.pdf">PDF</ulink> 
-    (344 kB)]</bibliomisc>
 
   </biblioset>
 
   <biblioset relation="book">
-   <citetitle>Pacific Symposium on Biocomputing 2003</citetitle>
+   <citetitle>Pacific Symposium on Biocomputing</citetitle>
    <editor>
     <firstname>R</firstname>
     <othername>B</othername>
     <surname>Altman</surname>
    </editor>
    <bibliomisc>et al.</bibliomisc>
+   <volumenum>vol 8</volumenum>
+   <pagenums>514-525</pagenums>
   </biblioset>
-
+  <bibliomisc> [<ulink
+     url="http://www.pypop.org/psb-pypop.pdf">PDF</ulink> 
+    (344 kB)]</bibliomisc>
  </biblioentry>
 
- <biblioentry id="Lancaster:etal:2004">
+ <biblioentry id="Lancaster:etal:2007a">
   <biblioset relation="chapter">
    <authorgroup>
     <author role="uc">
@@ -170,17 +166,60 @@
    </author>
   </authorgroup>
    
-   <pubdate>2004</pubdate>
+   <pubdate>2007a</pubdate>
 
    <citetitle>Software framework for Biostatistics Core</citetitle>
 
   </biblioset>
 
-  &hla2004;
-
+  &hla2007;
+  <volumenum>I</volumenum>
+  <pagenums>510-517</pagenums>
  </biblioentry>
 
- <biblioentry id="Meyer:etal:2004">
+ <biblioentry id="Lancaster:etal:2007b">
+   <authorgroup>
+    <author role="uc">
+     <firstname>Alex</firstname>
+     <surname>Lancaster</surname>
+    </author>
+
+   <author role="uv">
+    <firstname>Richard</firstname>
+    <othername>M</othername>
+    <surname>Single</surname>
+   </author>
+
+   <author role="uc">
+    <firstname>Owen</firstname>
+     <othername>D</othername>
+    <surname>Solberg</surname>
+   </author>
+
+   <author role="uc">
+    <firstname>Mark</firstname>
+    <othername>P</othername>
+    <surname>Nelson</surname>
+   </author>
+
+   <author role="uc">
+    <firstname>Glenys</firstname>
+    <surname>Thomson</surname>
+   </author>
+  </authorgroup>
+   
+  <pubdate>2007b</pubdate>
+
+  <citetitle pubwork="article">PyPop update - a software pipeline for large-scale multilocus population genomics.</citetitle>
+  <citetitle pubwork="journal">Tissue Antigens</citetitle>
+  <volumenum>69 Suppl 1</volumenum>
+  <pagenums>192-197</pagenums>
+   <bibliomisc> [<ulink
+     url="http://www.pypop.org/tissue-antigens-lancaster-2007.pdf">PDF</ulink> 
+    (150 kB)]</bibliomisc>
+ </biblioentry>
+
+ <biblioentry id="Meyer:etal:2007">
   <biblioset relation="chapter">
    <authorgroup>
     <author role="uc">
@@ -219,13 +258,14 @@
      <surname>Thomson</surname>
     </author>
    </authorgroup>
-   <pubdate>2004</pubdate>
-   <citetitle>Haplotype  Frequencies and Linkage Disequilibrium  among
+   <pubdate>2007</pubdate>
+   <citetitle>Haplotype frequencies and linkage disequilibrium among
     classical HLA genes</citetitle>
   </biblioset>
 
-  &hla2004;
-
+  &hla2007;
+  <volumenum>I</volumenum>
+  <pagenums>705-746</pagenums>
  </biblioentry>
 
  <biblioentry id="Schneider:etal:2000">
@@ -1257,14 +1297,14 @@
      <surname>Marsh</surname>
     </author>
    </authorgroup>
-   <pubdate>2004</pubdate>
+   <pubdate>2007</pubdate>
    <citetitle>2003 IMGT/HLA and IMGT/MHC - Sequence Databases for the study of the Major Histocompatibility Complex</citetitle>
   </biblioset>
 
-  &hla2004;
+  &hla2007;
  </biblioentry>
 
- <biblioentry id="Single:etal:2004a">
+ <biblioentry id="Single:etal:2007a">
   <biblioset relation="chapter">
    <authorgroup>
     <author>
@@ -1280,15 +1320,16 @@
      <surname>Thomson</surname>
     </author>
    </authorgroup>
-   <pubdate>2004a</pubdate>
-   <citetitle>Statistical methods for analysis of population genetic data.</citetitle>
+   <pubdate>2007a</pubdate>
+   <citetitle>Statistical methods for analysis of population genetic data</citetitle>
   </biblioset>
 
-  &hla2004;
-
+  &hla2007;
+  <volumenum>I</volumenum>
+  <pagenums>518-522</pagenums>
  </biblioentry>
 
- <biblioentry id="Single:etal:2004b">
+ <biblioentry id="Single:etal:2007b">
   <biblioset relation="chapter">
    <authorgroup>
     <author>
@@ -1326,14 +1367,15 @@
      <surname>Thomson</surname>
     </author>
    </authorgroup>
-   <pubdate>2004b</pubdate>
+   <pubdate>2007b</pubdate>
    <citetitle>Single locus polymorphism of classical HLA
     genes.</citetitle>
 
   </biblioset>
 
-  &hla2004;
-
+  &hla2007;
+  <volumenum>I</volumenum>
+  <pagenums>653-704</pagenums>
  </biblioentry>
 
  <biblioentry id="Long:etal:1995">

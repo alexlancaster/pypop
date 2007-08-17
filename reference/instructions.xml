@@ -31,9 +31,9 @@
    <para>This document describes the output of the analyses carried
     out by <application>PyPop</application> (<citation
      role="citealt">Lancaster:etal:2003</citation>, <citation
-     role="citealt">Lancaster:etal:2004</citation>) and offers
+     role="citealt">Lancaster:etal:2007</citation>) and offers
     guidelines on how to interpret them
-    <citation>Single:etal:2004a</citation>.</para>
+    <citation>Single:etal:2007a</citation>.</para>
   </abstract>
  </articleinfo>
 
@@ -672,10 +672,13 @@ haplotype         frequency # copies  | haplotype         frequency # copies
    <xi:include href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Lancaster:etal:2003'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
 
    <xi:include
-   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Lancaster:etal:2004'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
+   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Lancaster:etal:2007a'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
 
    <xi:include
-   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Single:etal:2004a'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
+   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Lancaster:etal:2007b'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
+
+   <xi:include
+   href="biblio.xml#xpointer(/bibliography/biblioentry[@id='Single:etal:2007a'])" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
   </bibliodiv>
  </bibliography>
 

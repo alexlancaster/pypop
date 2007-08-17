@@ -125,7 +125,7 @@
   <xsl:call-template name="inline.italicseq"/>
  </xsl:template>
 
- <xsl:template match="application">
+ <xsl:template match="para//application">
   <xsl:call-template name="inline.monoseq"/>
  </xsl:template>
 

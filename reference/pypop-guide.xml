@@ -47,12 +47,14 @@
    </textobject>
   </mediaobject>
 
-  <releaseinfo>Version &VERSION;</releaseinfo>
+  <releaseinfo>Documenting version &VERSION; of PyPop</releaseinfo>
   <pubdate>&pubdate;</pubdate>
   <copyright>
    <year>2003</year>
    <year>2004</year>
    <year>2005</year>
+   <year>2006</year>
+   <year>2007</year>
    <holder>Regents of the University of California</holder>
   </copyright>
   <legalnotice>
@@ -115,13 +117,13 @@
     the analysis of data for <ulink
      url="http://www.ihwg.org/">International Histocompatiblity
      Workshop and Conference</ulink> held in Seattle, Washington in
-    2002 (<citation role="citealt">Meyer:etal:2004</citation>,
-    <citation role="citealt">Single:etal:2004a</citation>, <citation
-     role="citealt">Single:etal:2004a</citation>). For more details on
+    2002 (<citation role="citealt">Meyer:etal:2007</citation>,
+    <citation role="citealt">Single:etal:2007a</citation>, <citation
+     role="citealt">Single:etal:2007a</citation>). For more details on
     the design and technical details of
     <application>PyPop</application>, please consult <citation
-     role="citet">Lancaster:etal:2003</citation> and <citation
-     role="citet">Lancaster:etal:2004</citation>.</para>
+     role="citet">Lancaster:etal:2003</citation>, <citation
+     role="citet">Lancaster:etal:2007a</citation> and <citation role="citet">Lancaster:etal:2007b</citation>.</para>
    
   </section>
 
