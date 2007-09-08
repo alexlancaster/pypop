@@ -1,3 +1,9 @@
+2007-06-09  Alex Lancaster <alexl AT cal.berkeley.edu>
+
+	* standalone.spec: Don't strip binaries, Cygwin won't run the
+	resulting DLLs.
+	Don't use "-y" command to zip, removed from GNU zip.
+
 2007-06-09  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
 	* RandomBinning.py (RandomBinsForHomozygosity._dumpResults):
