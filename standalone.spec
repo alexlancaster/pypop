@@ -109,7 +109,7 @@ coll = COLLECT(pypop_exe,
                popmeta_exe,
                pypop.binaries,
                popmeta.binaries,
-               strip=1,
+               strip=0,
                name=bin_dir)
 
 # add these later
@@ -170,7 +170,7 @@ if compression == 'gzip':
     command = "tar zcf %s %s" % (package, dist_dir)
 elif compression == 'zip':
     # cheat and execute system command
-    command = "zip -y -r %s %s" % (package, dist_dir)
+	    command = "zip -r %s %s" % (package, dist_dir)
 
 print command
 # cheat and execute system command
