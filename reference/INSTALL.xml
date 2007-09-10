@@ -170,7 +170,7 @@
   <itemizedlist>
    <listitem>
     <para> <application><ulink
-       url="&downloadroot;PyPop-&VERSION;.tar.gz">&downloadroot;PyPop-&VERSION;.tar.gz</ulink></application></para>
+       url="&downloadroot;pypop-&VERSION;.tar.gz">&downloadroot;pypop-&VERSION;.tar.gz</ulink></application></para>
    </listitem>
    <listitem>
      <para>In addition, because the Windows binary distributes a copy
