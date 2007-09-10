@@ -9,7 +9,7 @@
  <variablelist>
   <title>PyPop</title>
   <varlistentry>
-   <term>Alex Lancaster <email>alexl@berkeley.edu</email></term>
+   <term>Alex Lancaster <email>alexl@users.sourceforge.net</email></term>
    <listitem>
     <para>Co-designer of Python framework: author of main engine, text
      file parser, Python extension module framework using SWIG, XML
@@ -19,7 +19,7 @@
   </varlistentry>
   
   <varlistentry>
-   <term>Mark P. Nelson <email>mpn@alleleb.biol.berkeley.edu</email></term>
+   <term>Mark P. Nelson</term>
    <listitem>
     <para> Co-designer of Python framework: implemented and maintained
      Python modules, particularly the module for Hardy-Weinberg
@@ -29,7 +29,7 @@
 
   <varlistentry>
    <term>Richard M. Single
-    <email>single@allele5.biol.berkeley.edu</email></term>
+    <email>Richard.Single@uvm.edu</email></term>
 
    <listitem>
     <para> Author of haplotype frequency and linkage disequilibrium
@@ -40,7 +40,7 @@
 
   <varlistentry>
    <term>Diogo Meyer
-    <email>diogo@allele5.biol.berkeley.edu</email></term>
+    <email>diogo@ib.usp.br</email></term>
    <listitem>
     <para>Contributed further statistical analysis code for the R programs.</para>
    </listitem>

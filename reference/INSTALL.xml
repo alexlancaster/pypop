@@ -34,12 +34,12 @@
    <sidebar>
     <formalpara>
      <title>System requirements</title>
-      <para>Your GNU/Linux system should contain at least 2.3.2 version
+      <para>Your GNU/Linux system should contain at least 2.6 version
      of <literal>glibc</literal> (the GNU C library).</para>
     </formalpara>
     <formalpara>
      <title>Systems tested</title>
-     <para>Red Hat 9, Fedora Core 2, Fedora Core 3, Slackware 9.1 (may work on other distributions but untested at present)</para>
+     <para>Fedora 7 (may work on other distributions but untested at present, earlier versions were tested on Red Hat 9 Fedora Core 2, 3, Slackware 9.1 but may now have out of date versions of glibc)</para>
     </formalpara>
    </sidebar>
 
@@ -102,8 +102,7 @@
      </formalpara>
      <formalpara>
       <title>Systems tested</title>
-       <para>Windows 2000, Windows XP (may work on other platform
-	but untested at present)</para>
+       <para>Windows 2000, Windows XP (may work on other platforms but untested at present)</para>
      </formalpara>
    </sidebar>
 
@@ -173,8 +172,24 @@
     <para> <application><ulink
        url="&downloadroot;PyPop-&VERSION;.tar.gz">&downloadroot;PyPop-&VERSION;.tar.gz</ulink></application></para>
    </listitem>
+   <listitem>
+     <para>In addition, because the Windows binary distributes a copy
+     of the <filename>cygwin1.dll</filename>, we are required under
+     the terms of the GNU GPL to provide a copy of the Cygwin source
+     which we compiled the binary from: <application><ulink
+     url="&downloadroot;cygwin-1.5.24-2.tar.bz2"/></application>.</para>
+     <note>
+       <para>
+	 Note that this only required for Windows and is
+	 <emphasis>not</emphasis> required for compilation even under
+	 Windows if you install within the Cygwin environment (because it
+	 already contains a copy <filename>cygwin1.dll</filename>) and is
+	 only provided for legal reasons.
+	 <!-- http://cygwin.elite-systems.org/release/cygwin/cygwin-1.5.24-2.tar.bz2 -->
+       </para>
+     </note>
+   </listitem>
   </itemizedlist>
-
 
   <section id="install-from-source-sysreq">
    <title>System requirements</title>
@@ -184,18 +199,18 @@
     <listitem>
      <para><ulink
        url="http://www.python.org/"><application>Python</application>
-       2.3</ulink> or later.</para>
+       2.4</ulink> or later.</para>
     </listitem>
     <listitem>
      <para><ulink url="http://numpy.sourceforge.net/">Numerical Python
-       (<application>Numpy</application>) 23.0</ulink> or later</para>
+       (<application>Numeric</application>) 24.0</ulink> or later (note that this is the old "Numeric" not the newer Numpy, on Fedora the package is known as <application>python-numeric</application>)</para>
     </listitem>
     
     <listitem>
      <para><ulink url="http://www.swig.org/">Simple Wrapper Interface
        Generator (<application>SWIG</application>)</ulink>: uses
       "development" version (should now be compatible with all recent
-       SWIG versions: last tested against SWIG 1.3.21).</para>
+       SWIG versions: last tested against SWIG 1.3.31).</para>
     </listitem>
     
     <listitem>
@@ -215,6 +230,12 @@
        url="http://www.4suite.org/"><application>4Suite</application></ulink> 
       a pure Python XML/XSLT parsing engine.)</para>
      
+    </listitem>
+    <listitem>
+      <para>The GNU Scientific Library (<ulink
+       url="http://www.gnu.org/software/gsl/"><application>GSL</application></ulink>)
+      On Fedora you will want to install the <application>gsl-devel</application> package.
+      </para>
     </listitem>
    </itemizedlist>
   </section>
@@ -254,7 +275,7 @@ python setup.py install</screen>
    <title>Contributions, bug reports</title>
 
    <para>Please send all bug reports and contributions to
-    <email>alexl@socrates.berkeley.edu</email></para>
+    <email>alexl@users.sourceforge.net</email></para>
    
   </section>
 
@@ -266,6 +287,7 @@ AUTHORS --      A list of people who have contributed.
 emhaplofreq/ -- LD and haplotype estimation extension module
 pval/ --        Modified code from R project for p-value calculation
 slatkin-exact/  Slatkin's code for Ewens-Watterson exact test
+gthwe/          Modified Guo and Thompson Hardy-Weinberg code
 SWIG/ --        Helper code for SWIG for generating C-Python wrappers
 xslt/ --        XSLT for generating text and other output from XML
 COPYING --      License information for this package
