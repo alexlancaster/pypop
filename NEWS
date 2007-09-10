@@ -1,7 +1,7 @@
 PyPop NEWS --- history of user-visible changes to PyPop.  -*- outline -*-
-Copyright (C) 2003, 2004, 2005 Regents of the University of California
+Copyright (C) 2003, 2004, 2005, 2006, 2007 Regents of the University of California
 
-* Release Notes since 0.6.0
+* Release Notes for PyPop 0.7.0
 ** New features
 *** 'makeNewPopFile' option has been changed.  This option allows user to 
     generate intermediate output of filtered files. Now option should
@@ -17,20 +17,49 @@ Copyright (C) 2003, 2004, 2005 Regents of the University of California
     files (aka "popmeta") directly from pypop without needing to run
     additional script.  Now output from pypop can be directly read
     into spreadsheet.
+*** New feature: add individual genotype tests to Hardy-Weinberg module 
+    (gthwe), now computes statistics based on individual genotypes in
+    the HWP table.
+*** Major improvements to custom and random binning filters (Owen Solberg).
+*** New feature: generate homozygosity values using the Ewens-Watterson test for
+    all pairwise loci, or all sites within a gene for sequence data
+    ([homozygosityEWSlatkinExactPairwise] in .ini file).  Note: this
+    really only works for sequence data where the phase for sites
+    within an allele are known.
 
 ** Bug fixes
 *** Support Python 2.4 on GCC 4.0 platforms.
 *** Add missing initialisation for non-sequence data when processing 
     haplotypes.  Thanks to Jill Hollenbach for the report.
+*** Fix memory leak in xslt translation.
+*** Various fixes relating to parsing XML output.
+*** Fixed an incorrect parameter name.
+*** Handle some missing sections in .ini better. Thanks to 
+    Owen Solberg for report.
+*** Various build and installation fixes (SWIG, compilation flags)
+*** Make name of source package be lowercase "pypop".
+*** Change data directory: /usr/share/pypop/ to /usr/share/PyPop/
 
 ** Other issues
-*** In the Sequence filter, add special case for Anthony Nolan HLA data:
-    mark null alleles ending in "N" (e.g. HLA-B*5127N) as "missing
-    data" (****).
-*** Add another special case for HLA data: test for 7 digits in allele names
-    (e.g. if 2402101 is not found insert a zero after the first 4
-    digits to form 24020101, and check for that).  This is to cope
-    with yet-another HLA nomenclature change.
+*** Sequence filter
+**** In the Sequence filter, add special case for Anthony Nolan HLA data:
+     mark null alleles ending in "N" (e.g. HLA-B*5127N) as "missing
+     data" (****).
+**** Also in Sequence, keep track of unsequenced sites separately   
+    (via unsequencedSites variable) from "untyped" (aka "missing
+    data"). Treat unsequencedSite as a unique allele to make sure that
+    those sites don't get treated as having a consensus sequence if
+    only one of the sequences in the the set of matches is typed.
+**** If no matching sequence is found in the MSF files, then return a
+     sequence of * symbols (ie, will be treated as truly missing data,
+     not untyped alleles.
+**** Add another special case for HLA data: test for 7 digits in allele names
+     (e.g. if 2402101 is not found insert a zero after the first 4
+     digits to form 24020101, and check for that).  This is to cope
+     with yet-another HLA nomenclature change.
+*** Change semantics of batchsize, make "0" (default) process files separately
+    if only R dat files is enabled.  If batchsize not set explicitly
+    (and therefore 0) set batchsize to '1' is PHYLIP mode is enabled.
 
 * Release Notes for PyPop 0.6.0
 ** New features
