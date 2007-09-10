@@ -1,4 +1,8 @@
-2007-06-09  Alex Lancaster <alexl AT cal.berkeley.edu>
+2007-09-09  Alex Lancaster <alexl AT users.sourceforge.net>
+
+	* NEWS: Note new features and fixes since 2005 for PyPop 0.7.0.
+
+2007-06-09  Alex Lancaster <alexl AT users.sourceforge.net>
 
 	* standalone.spec: Don't strip binaries, Cygwin won't run the
 	resulting DLLs.
@@ -88,7 +92,7 @@
 	the matched allele (if preceeded by an *) or the entire hashed
 	0101/0102/0103 allele name (if there is no *).
 
-2007-04-24  Alex Lancaster  <alexl AT cal.berkeley.edu>
+2007-04-24  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* SWIG/typemap.i: Remove 'python' from %typemap, now deprecated in SWIG.
 
