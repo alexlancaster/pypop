@@ -63,7 +63,7 @@ def _serializeAlleleCountDataAt(stream, alleleTable,
 
         stream.writeln()
         stream.tagContents('untypedindividuals', \
-                           "%d" % untypedIndividuals)
+                           "%.1f" % untypedIndividuals)
         stream.writeln()
         stream.tagContents('unsequencedsites', \
                            "%d" % unsequencedSites)
@@ -129,11 +129,10 @@ class Genotypes:
                     self.alleleTable[phase] = 1
                 self.total += 1
             else:
-                if self.debug:
-                    print self.unsequencedSite, phase, unsequencedSites
                 if (self.unsequencedSite == phase):
                     unsequencedSites += 1
-        
+                if self.debug:
+                    print self.unsequencedSite, phase, unsequencedSites
 
         
     def _genDataStructures(self):
@@ -193,6 +192,10 @@ class Genotypes:
 
                 if self.allowSemiTyped:
                     self._checkAllele(allele1, allele2, unsequencedSites)
+                    if (self.untypedAllele == allele1):
+                        untypedIndividuals += 0.5
+                    if (self.untypedAllele == allele2):
+                        untypedIndividuals += 0.5
                 else:
                     # ensure that *both* alleles are typed
                     if (self.untypedAllele != allele1) and \
@@ -230,7 +233,7 @@ class Genotypes:
             # if all individuals in a locus aren't untyped
             # then count this locus as having usable data
             if untypedIndividuals < self.totalIndivCount:
-                self.totalLociWithData += 1                
+                self.totalLociWithData += 1
 
     def getLocusList(self):
         """Returns the list of loci.

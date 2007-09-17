@@ -1,3 +1,13 @@
+2007-09-17  Alex Lancaster <alexl AT users.sourceforge.net>
+
+	* DataTypes.py (Genotypes._checkAllele): Reorder debug statement.
+	(Genotypes._genDataStructures): Keep track of untyped individuals
+	for semi-typed data. Because we allow missing alleles for
+	semityped data, we need to add 0.5 of an individual for each
+	untyped allele found for the bookkeeping to work.  Use one-decimal
+	point floating point number for the corresponding XML tag rather
+	than an integer.
+
 2007-09-09  Alex Lancaster <alexl AT users.sourceforge.net>
 
 	* NEWS: Note new features and fixes since 2005 for PyPop 0.7.0.
