@@ -116,6 +116,9 @@ class AnthonyNolanFilter(Filter):
     def __init__(self,
                  directoryName=None,
                  alleleFileFormat='msf',
+                 preserveAmbiguousFlag=0,
+                 preserveUnknownFlag=0,
+                 preserveLowresFlag=0,
                  alleleDesignator='*',
                  logFile=None,
                  untypedAllele='****',
@@ -129,6 +132,9 @@ class AnthonyNolanFilter(Filter):
         
         self.directoryName = directoryName
         self.alleleFileFormat=alleleFileFormat
+        self.preserveAmbiguousFlag=preserveAmbiguousFlag
+        self.preserveUnknownFlag=preserveUnknownFlag
+        self.preserveLowresFlag=preserveLowresFlag
         self.numDigits = numDigits
         self.verboseFlag = verboseFlag
         self.debug = debug
@@ -301,9 +307,16 @@ class AnthonyNolanFilter(Filter):
                     for li in lcdList:
                         self.logFile.write(" %s" % li)
                     self.logFile.write("]")
-            else:
-                #retval = self.untypedAllele
+            elif len(alleleName) < self.numDigits and self.preserveLowresFlag:
+                if self.verboseFlag:
+                    self.logFile.write("[%s short, low res allele name" % alleleInfo)
+                    self.logFile.write("]")
                 retval = alleleName
+            else:
+                if self.preserveUnknownFlag:
+                    retval = alleleName
+                else:
+                    retval = self.untypedAllele
                 if self.verboseFlag:
                     if alleleName == self.untypedAllele:
                         self.logFile.write("[%s untyped allele, do nothing]" % alleleInfo)
@@ -411,11 +424,27 @@ class AnthonyNolanFilter(Filter):
         self.logFile.writeln()
         
     def filterAllele(self, alleleName):
-        transl = self.translTable[alleleName]
-        if alleleName != transl:
-            self.logFile.emptytag('translate', input=alleleName, output=transl)
-            self.logFile.writeln()
-        return transl
+
+        if self.preserveAmbiguousFlag and len(alleleName.split("/")) > 1:
+            transl_collection = []
+            for subname in alleleName.split("/"):
+                transl = self.checkAlleleName(subname)
+                transl_collection += [transl]
+                if subname != transl:
+                    self.logFile.emptytag('translate', input=subname, output=transl)
+                    self.logFile.writeln()
+            transl = string.join(transl_collection,"/")
+            if alleleName != transl:
+                self.logFile.emptytag('translate', input=alleleName, output=transl)
+                self.logFile.writeln()
+            return transl
+                
+        else:
+            transl = self.translTable[alleleName]
+            if alleleName != transl:
+                self.logFile.emptytag('translate', input=alleleName, output=transl)
+                self.logFile.writeln()
+            return transl
 
     def endFiltering(self):
         self.logFile.closetag('translateTable')
@@ -896,7 +925,7 @@ class BinningFilter:
                 individCount += 1
 
         return matrix
-                    
+
         
     def doCustomBinning(self, matrix=None):
 
@@ -912,52 +941,22 @@ class BinningFilter:
             
                 for individ in matrix[locus]:
                     for i in range(2):
-                        allele[i] = individ[i]
-                        exactMatches = []
-                        closeMatches = {}
 
-                        # see if allele exists in the binning rules (exact or close)
-                        for ruleSet in self.customBinningDict[locus.lower()]:
-                            ruleSetSplit = ruleSet.strip('*').split('/')
+                        if len(individ[i].split("/")) > 1:
 
-                            # check for exact match(es)
-                            if allele[i] in ruleSetSplit:
-                                if ruleSet[0] == '*' and allele[i] in ruleSetSplit[1:]:
-                                    exactMatches.append(ruleSetSplit[0])
-                                else:
-                                    exactMatches.append(ruleSet)
+                            allele_collection = []
+                            for subname in individ[i].split("/"):
+                                allele_collection += [self.lookupCustomBinning(testAllele=subname, locus=locus)]
 
-                            # check for close match(es)
-                            if len(allele[i]) > 2:
-                                ruleCounter = 0
-                                matchTracker = {}
-                                for potentialMatch in ruleSetSplit:
-                                    for digitSlice in xrange(len(allele[i])-2):
-                                        if allele[i][:-digitSlice-1] == potentialMatch:
-                                            if ruleSet[0] == '*':
-                                                closeMatches[ruleSetSplit[0]] = digitSlice+1
-                                            else:
-                                                closeMatches[ruleSet] = digitSlice+1
+                            allele[i] = string.join(list(set(allele_collection)),"/")
 
-                        if exactMatches != []:
-                            self.logFile.writeln("Exact rule match: " + locus + "* " + allele[i] + " is being replaced by " + exactMatches[0])
-                            allele[i] = exactMatches[0]
-                            if len(exactMatches) > 1:
-                                print "WARNING: other exact matches found: " + locus + "* " + allele[i] + exactMatches
-                        elif len(closeMatches) > 0:
-                            bestScore = 1000
-                            for match in closeMatches:
-                                if closeMatches[match] < bestScore:
-                                    bestScore = closeMatches[match]
-                                    finalMatch = match
-                            self.logFile.writeln("Close rule match: " + locus + "* " + allele[i] + " is being replaced by " + finalMatch)
-                            allele[i] = finalMatch
-                            if len(closeMatches) > 1:
-                                print "WARNING: other close matches found: " + locus + "* " + allele[i] + closeMatches
+                        else:
+                            allele[i] = self.lookupCustomBinning(testAllele=individ[i], locus=locus)
 
+                    
                     matrix[individCount,locus] = (allele[0],allele[1])
                     individCount += 1
-
+                         
             else:
                self.logFile.writeln("Skipping CustomBinning filter for locus " + locus + " because no rules found.")
 
@@ -967,8 +966,57 @@ class BinningFilter:
           
         return matrix
 
+    def lookupCustomBinning(self, testAllele, locus):
 
+        exactMatches = []
+        closeMatches = {}
 
+        # see if allele exists in the binning rules (exact or close)
+        for ruleSet in self.customBinningDict[locus.lower()]:
+            ruleSetSplit = ruleSet.strip('*').split('/')
+
+            # check for exact match(es)
+            if testAllele in ruleSetSplit:
+                if ruleSet[0] == '*' and testAllele in ruleSetSplit[1:]:
+                    exactMatches.append(ruleSetSplit[0])
+                elif ruleSet[0] != '*':
+                    exactMatches.append(ruleSet)
+
+            # check for close match(es)
+            if len(testAllele) > 2:
+                ruleCounter = 0
+                matchTracker = {}
+                for potentialMatch in ruleSetSplit:
+                    for digitSlice in xrange(len(testAllele)-2):
+                        if testAllele[:-digitSlice-1] == potentialMatch:
+                            if ruleSet[0] == '*':
+                                closeMatches[ruleSetSplit[0]] = digitSlice+1
+                            else:
+                                closeMatches[ruleSet] = digitSlice+1
+
+        if exactMatches != []:
+            self.logFile.writeln("Exact rule match: " + locus + "* " + testAllele + " is being replaced by " + exactMatches[0])
+            if len(exactMatches) > 1:
+                print "WARNING: other exact matches found: " + locus + "* " + testAllele + exactMatches
+            return(exactMatches[0])
+
+        elif len(closeMatches) > 0:
+            bestScore = 1000
+            for match in closeMatches:
+                if closeMatches[match] < bestScore:
+                    bestScore = closeMatches[match]
+                    finalMatch = match
+            self.logFile.writeln("Close rule match: " + locus + "* " + testAllele + " is being replaced by " + finalMatch)
+            if len(closeMatches) > 1:
+                print "WARNING: other close matches found: " + locus + "* " + testAllele + closeMatches
+            return(finalMatch)
+
+        else:
+            #self.logFile.writeln("No match found for: " + locus + "* " + testAllele + "!!!!!!!!")
+            return(testAllele)
+
+                        
+ 
 class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
     """Filters data with an allelecount less than a threshold.
 

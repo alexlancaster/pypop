@@ -1,3 +1,38 @@
+2007-09-19  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
+
+	* ParseFile.py (ParseFile._mapFields): Only report exception in
+	the field headings if debug mode is turned on.  Also, change
+	"error" to "warning."
+
+	* Main.py (Main._runFilters): AnthonyNolan filter now looks for 3
+	optional flags, described in the new config.ini file, and passes
+	those flags to the Filter.py module.
+
+	* Filter.py (AnthonyNolanFilter.checkAlleleName): Logical
+	statement so that lowres alleles (alleles with short names) can be
+	retained optionally (see new config.ini file.)
+	(AnthonyNolanFilter.checkAlleleName): Logical statement so that
+	unknown alleles can be retained, or optionally discarded.
+	(AnthonyNolanFilter.__init__): Import three new variables to flag
+	for default/optional behavior with regards to dealing with allele
+	names.  Described in the config.ini file.
+	(AnthonyNolanFilter.filterAllele): If statement to deal with
+	ambiguous allele name designation (ie 0101/0102 etc).  If these
+	are found, the names are split up, checked independently, and then
+	the filtered names are put back together with the slashes.
+	(BinningFilter.doCustomBinning): Now the custom binning function
+	can take the ambiguous allele notation, and check each part
+	individually, and if they are all part of the same "custom
+	binning" -- it uses the custom binning rule.
+	(BinningFilter.lookupCustomBinning): New subroutine to do the
+	"looking up" of allele names -- necessary now that "simple" and
+	"ambiguous" case allele names have been dealt with separately in
+	the binning filter.
+
+	* config.ini (): More comprehensive set of custom binning rules
+	for dealing with heterogeneous 4-digit lit data.  Also new flags
+	for changing the behavior of the Anthony Nolan filter.
+
 2007-09-17  Alex Lancaster <alexl AT users.sourceforge.net>
 
 	* DataTypes.py (Genotypes._checkAllele): Reorder debug statement.

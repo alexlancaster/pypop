@@ -170,8 +170,8 @@ class ParseFile:
         fields = line.split(self.separator)
 
         # check to see if the correct number of fields found
-        if len(fields) != len(fieldList):
-            print "error: found", len(fields), "fields expected", \
+        if len(fields) != len(fieldList) and self.debug:
+            print "warning: found", len(fields), "fields expected", \
                   len(fieldList), "fields"
         
         i = 0
@@ -211,8 +211,8 @@ class ParseFile:
                 else:
                    assoc[key] = i
                     
-            else:
-                print "error: field name `%s' not valid" % field
+            elif self.debug:
+                print "warning: field name `%s' not valid" % field
 
             i = i + 1
 
