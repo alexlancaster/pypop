@@ -482,9 +482,25 @@ class Main:
                     alleleFileFormat = self.config.get(filterCall, "alleleFileFormat")
                 except:
                     alleleFileFormat = 'msf'
+                try:
+                    preserveAmbiguousFlag = self.config.getint(filterCall, "preserve-ambiguous")
+                except:
+                    preserveAmbiguousFlag = 0
+                try:
+                    preserveUnknownFlag = self.config.getint(filterCall, "preserve-unknown")
+                except:
+                    preserveUnknownFlag = 0
+                try:
+                    preserveLowresFlag = self.config.getint(filterCall, "preserve-lowres")
+                except:
+                    preserveLowresFlag = 0
+                    
                 filter = AnthonyNolanFilter(debug=self.debug,
                                             directoryName=anthonynolanPath,
                                             alleleFileFormat=alleleFileFormat,
+                                            preserveAmbiguousFlag=preserveAmbiguousFlag,
+                                            preserveUnknownFlag=preserveUnknownFlag,
+                                            preserveLowresFlag=preserveLowresFlag,
                                             alleleDesignator=self.alleleDesignator,
                                             untypedAllele=self.untypedAllele,
                                             filename=self.fileName,
