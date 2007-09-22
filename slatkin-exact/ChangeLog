@@ -1,9 +1,14 @@
-2004-12-23  Alex Lancaster  <alexl AT berkeley.edu>
+2007-09-22  Alex Lancaster  <alexl AT users.sourceforge.net>
+
+	* monte-carlo_wrap.i: Declare function prototypes in '%{ %}'
+	verbatim section.
+
+2004-12-23  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* monte-carlo_wrap.i: %module _EWSlatkinExact -> EWSlatkinExact
 	for compatibility with most recent SWIG.
 
-2004-11-12  Alex Lancaster  <alexl AT berkeley.edu>
+2004-11-12  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* monte-carlo.c (main_proc): Change calculation of Var_F to reduce
 	number of unstable numerical operations involving subtracting very
