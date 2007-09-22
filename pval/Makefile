@@ -5,7 +5,8 @@ ALL_CPPFLAGS=-DMATHLIB_STANDALONE -I.
 	$(CC) $(ALL_CPPFLAGS) $(ALL_CFLAGS) -c $< -o $@
 
 SOURCES_NMATH = mlutils.c fmin2.c ftrunc.c chebyshev.c lgammacor.c	\
-gamma.c lgamma.c pgamma.c pnorm.c pchisq.c pval.c
+gamma.c lgamma.c pgamma.c pnorm.c pchisq.c pval.c fmax2.c dnorm.c	\
+bd0.c stirlerr.c dpois.c
 
 SOURCES = $(SOURCES_NMATH)
 OBJECTS = $(SOURCES:.c=.o)

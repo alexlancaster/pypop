@@ -1,6 +1,6 @@
 /*
  *  Mathlib : A C Library of Special Functions
- *  Copyright (C) 1998-2000  The R Development Core Team
+ *  Copyright (C) 1998-2004  The R Development Core Team
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -13,23 +13,41 @@
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
- *
+ *  along with this program; if not, a copy is available at
+ *  http://www.r-project.org/Licenses/
  */
 
 /* Private header file for use during compilation of Mathlib */
 #ifndef MATHLIB_PRIVATE_H
 #define MATHLIB_PRIVATE_H
 
+#ifdef HAVE_CONFIG_H
+#  include <config.h>
+#endif
+
+#ifdef HAVE_LONG_DOUBLE
+#  define LDOUBLE long double
+#else
+#  define LDOUBLE double
+#endif
+
+#include <math.h>
+#include <float.h> /* DBL_MIN etc */
+
 #include <Rconfig.h>
-#define MATHLIB_PRIVATE
-#include <R_ext/Mathlib.h>
-#undef  MATHLIB_PRIVATE
+#include <Rmath.h>
+
+double  Rf_d1mach(int);
+#define gamma_cody	Rf_gamma_cody
+double	gamma_cody(double);
+
 #include <R_ext/RS.h>
 
+/* possibly needed for debugging */
+/*#include <R_ext/Print.h> */
+
+
 #ifndef MATHLIB_STANDALONE
-/* Mathlib in R */
 
 #include <R_ext/Error.h>
 # define MATHLIB_ERROR(fmt,x)		error(fmt,x);
@@ -43,54 +61,49 @@
 #define ML_NEGINF	R_NegInf
 #define ML_NAN		R_NaN
 
-#ifdef IEEE_754
-#define ML_ERROR(x)	/* nothing */
-#define ML_UNDERFLOW	(DBL_MIN * DBL_MIN)
-#define ML_VALID(x)	(!ISNAN(x))
+
+void R_CheckUserInterrupt(void);
+/* Ei-ji Nakama reported that AIX 5.2 has calloc as a macro and objected
+   to redefining it.  Tests added for 2.2.1 */
+#ifdef calloc
+# undef calloc
+#endif
+#define calloc R_chk_calloc
+#ifdef free
+# undef free
+#endif
+#define free R_chk_free
+
+#ifdef ENABLE_NLS
+#include <libintl.h>
+#define _(String) gettext (String)
 #else
-void ml_error(int n);
-#define ML_ERROR(x)	ml_error(x)
-#define ML_UNDERFLOW	0
-#define ML_VALID(x)	(errno == 0)
+#define _(String) (String)
 #endif
 
 #else
 /* Mathlib standalone */
 
 #include <stdio.h>
-# define MATHLIB_ERROR(fmt,x)	{ printf(fmt,x); exit(1); }
-# define MATHLIB_WARNING(fmt,x)		printf(fmt,x)
-# define MATHLIB_WARNING2(fmt,x,x2)	printf(fmt,x,x2)
-# define MATHLIB_WARNING3(fmt,x,x2,x3)	printf(fmt,x,x2,x3)
-# define MATHLIB_WARNING4(fmt,x,x2,x3,x4) printf(fmt,x,x2,x3,x4)
+#include <stdlib.h> /* for exit */
+#define MATHLIB_ERROR(fmt,x)	{ printf(fmt,x); exit(1); }
+#define MATHLIB_WARNING(fmt,x)		printf(fmt,x)
+#define MATHLIB_WARNING2(fmt,x,x2)	printf(fmt,x,x2)
+#define MATHLIB_WARNING3(fmt,x,x2,x3)	printf(fmt,x,x2,x3)
+#define MATHLIB_WARNING4(fmt,x,x2,x3,x4) printf(fmt,x,x2,x3,x4)
 
-#define ISNAN(x)       R_IsNaNorNA(x)
+#define ISNAN(x) (isnan(x)!=0)
 #define R_FINITE(x)    R_finite(x)
-int R_IsNaNorNA(double);
 int R_finite(double);
 
-#ifdef IEEE_754
 #define ML_POSINF	(1.0 / 0.0)
 #define ML_NEGINF	((-1.0) / 0.0)
 #define ML_NAN		(0.0 / 0.0)
-#else
-#define ML_POSINF	DBL_MAX
-#define ML_NEGINF	(-DBL_MAX)
-#define ML_NAN		(-DBL_MAX*(1-1e-15))
-#endif
 
+#define _(String) String
 #endif /* standalone */
 
-#ifdef IEEE_754
-#define ML_ERROR(x)	/* nothing */
-#define ML_UNDERFLOW	(DBL_MIN * DBL_MIN)
 #define ML_VALID(x)	(!ISNAN(x))
-#else/*--- NO IEEE: No +/-Inf, NAN,... ---*/
-void ml_error(int n);
-#define ML_ERROR(x)	ml_error(x)
-#define ML_UNDERFLOW	0
-#define ML_VALID(x)	(errno == 0)
-#endif
 
 #define ME_NONE		0
 /*	no error */
@@ -105,7 +118,35 @@ void ml_error(int n);
 #define ME_UNDERFLOW	16
 /*	and underflow occured (important for IEEE)*/
 
-#define ML_ERR_return_NAN { ML_ERROR(ME_DOMAIN); return ML_NAN; }
+#define ML_ERR_return_NAN { ML_ERROR(ME_DOMAIN, ""); return ML_NAN; }
+
+/* For a long time prior to R 2.3.0 ML_ERROR did nothing.
+   We don't report ME_DOMAIN errors as the callers collect ML_NANs into
+   a single warning.
+ */
+#define ML_ERROR(x, s) { \
+   if(x > ME_DOMAIN) { \
+       char *msg = ""; \
+       switch(x) { \
+       case ME_DOMAIN: \
+	   msg = "argument out of domain in '%s'\n"; \
+	   break; \
+       case ME_RANGE: \
+	   msg = "value out of range in '%s'\n"; \
+	   break; \
+       case ME_NOCONV: \
+	   msg = "convergence failed in '%s'\n"; \
+	   break; \
+       case ME_PRECISION: \
+	   msg = "full precision was not achieved in '%s'\n"; \
+	   break; \
+       case ME_UNDERFLOW: \
+	   msg = "underflow occurred in '%s'\n"; \
+	   break; \
+       } \
+       MATHLIB_WARNING(msg, s); \
+   } \
+}
 
 /* Wilcoxon Rank Sum Distribution */
 
@@ -115,41 +156,53 @@ void ml_error(int n);
 
 #define SIGNRANK_MAX 50
 
+#ifdef HAVE_VISIBILITY_ATTRIBUTE
+# define attribute_hidden __attribute__ ((visibility ("hidden")))
+#else
+# define attribute_hidden
+#endif
+
 /* Formerly private part of Mathlib.h */
 
 /* always remap internal functions */
 #define bd0       	Rf_bd0
 #define chebyshev_eval	Rf_chebyshev_eval
 #define chebyshev_init	Rf_chebyshev_init
-#define fastchoose	Rf_fastchoose
-#define i1mach		Rf_i1mach
 #define gammalims	Rf_gammalims
 #define lfastchoose	Rf_lfastchoose
 #define lgammacor	Rf_lgammacor
 #define stirlerr       	Rf_stirlerr
+/* in Rmath.h
+#define gamma_cody      Rf_gamma_cody
+*/
 
 	/* Chebyshev Series */
 
-int	chebyshev_init(double*, int, double);
-double	chebyshev_eval(double, const double *, const int);
+int	attribute_hidden chebyshev_init(double*, int, double);
+double	attribute_hidden chebyshev_eval(double, const double *, const int);
 
 	/* Gamma and Related Functions */
 
-void	gammalims(double*, double*);
-double	lgammacor(double); /* log(gamma) correction */
-double  stirlerr(double);  /* Stirling expansion "error" */
+void	attribute_hidden gammalims(double*, double*);
+double	attribute_hidden lgammacor(double); /* log(gamma) correction */
+double  attribute_hidden stirlerr(double);  /* Stirling expansion "error" */
 
-double	fastchoose(double, double);
-double	lfastchoose(double, double);
+double	attribute_hidden lfastchoose(double, double);
 
-double  bd0(double, double);
+double  attribute_hidden bd0(double, double);
 
-/* Consider adding these two to the API (Rmath.h): */
-double	dbinom_raw(double, double, double, double, int);
-double	dpois_raw (double, double, int);
-double  pnchisq_raw(double, double, double, double, int);
+double	attribute_hidden dbinom_raw(double, double, double, double, int);
+double	attribute_hidden dpois_raw (double, double, int);
+double  attribute_hidden pnchisq_raw(double, double, double, double, double, int, Rboolean);
+double  attribute_hidden pgamma_raw(double, double, int, int);
+double	attribute_hidden pbeta_raw(double, double, double, int, int);
+double  attribute_hidden qchisq_appr(double, double, double, int, int, double tol);
 
-int	i1mach(int);
+int	Rf_i1mach(int);
+
+/* From toms708.c */
+void attribute_hidden bratio(double a, double b, double x, double y,
+	    		     double *w, double *w1, int *ierr, int log_p);
 
 
 #endif /* MATHLIB_PRIVATE_H */
