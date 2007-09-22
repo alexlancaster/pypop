@@ -354,8 +354,8 @@ else:
   if interactiveFlag:
 
     print "PyPop run complete!"
-    print "XML output(s) can be found in: " + xmlOutPaths
-    print "Plain text output(s) can be found in: " +  txtOutPaths
+    print "XML output(s) can be found in: ",  xmlOutPaths
+    print "Plain text output(s) can be found in: ",  txtOutPaths
 
     # update .pypoprc file
 
