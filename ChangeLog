@@ -1,3 +1,8 @@
+2007-09-22  Alex Lancaster  <alexl AT users.sourceforge.net> 
+
+	* pval/pval_wrap.i: Declare function prototypes in '%{ %}'
+	verbatim section.
+
 2007-09-21  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* pypop.py (generateTSV): Use ',' rather than '+' for diagnostic

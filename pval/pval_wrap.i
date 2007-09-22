@@ -35,6 +35,9 @@ MODIFICATIONS. */
 %module Pvalue
 
 %include "typemap.i"
+%{
+extern double pval(double x, double df);
+%}
 
 extern double pval(double x, double df);
 
