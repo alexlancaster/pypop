@@ -69,6 +69,13 @@ unsigned long tausval, congrval;
 
 #define  EXPECT(a,b,c) ((double) a) / ((double) c) * ((double) b) / 2.0
 
+#ifdef __SWIG__
+int pyfprintf(FILE *fp, const char *format, ...);
+#define xmlfprintf pyfprintf
+#else
+#define xmlfprintf fprintf
+#endif
+
 typedef struct _Index
 {
   int i1;

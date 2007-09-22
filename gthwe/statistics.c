@@ -136,7 +136,7 @@ void init_stats(char *statistic_type,
 #ifndef XML_OUTPUT
       fprintf(outfile, "obs. teststat %s (%d,%d)[%d] = %f\n", statistic_type, i, j, genotypes[L(i,j)], obs_normdev[L(i,j)]);
 #else
-      fprintf(outfile, "<genotypeObservedStatistic statistic=\"%s\" row=\"%d\" col=\"%d\" id=\"%d\">%g</genotypeObservedStatistic>\n", statistic_type, i, j, L(i,j), obs_normdev[L(i,j)]);
+      xmlfprintf(outfile, "<genotypeObservedStatistic statistic=\"%s\" row=\"%d\" col=\"%d\" id=\"%d\">%g</genotypeObservedStatistic>\n", statistic_type, i, j, L(i,j), obs_normdev[L(i,j)]);
 #endif
 #endif
       fflush(stdout);
@@ -167,7 +167,7 @@ void store_stats(char *statistic_type, double (*statistic_func) (int, int, int, 
 
 #ifdef LOGGING
 #ifdef XML_OUTPUT
-      fprintf(outfile, "<genotypeSimulatedStatistic statistic=\"%s\" row=\"%d\" col=\"%d\" id=\"%d\">%g</genotypeSimulatedStatistic>\n", statistic_type, k, l, L(k,l), sim_normdev);
+      xmlfprintf(outfile, "<genotypeSimulatedStatistic statistic=\"%s\" row=\"%d\" col=\"%d\" id=\"%d\">%g</genotypeSimulatedStatistic>\n", statistic_type, k, l, L(k,l), sim_normdev);
 #else
       fprintf(outfile, "sim. test-stat %s (%d,%d) [%d]= %g (%g) [%s]\n", statistic_type, k, l, genotypes[L(k,l)], sim_normdev, obs_normdev[L(k,l)], comparison ? "YES": "NO"); 
 #endif
@@ -187,7 +187,7 @@ void print_stats(char *statistic_type, int *normdev_count,
 	      statistic_type, k, l, normdev_count[L(k,l)], 
 	      normdev_count[L(k,l)]/steps);
 #else
-      fprintf(outfile, "<pvalue type=\"genotype\" statistic=\"%s\" row=\"%d\" col=\"%d\">%g</pvalue>\n", statistic_type, k, l, normdev_count[L(k,l)]/steps);
+      xmlfprintf(outfile, "<pvalue type=\"genotype\" statistic=\"%s\" row=\"%d\" col=\"%d\">%g</pvalue>\n", statistic_type, k, l, normdev_count[L(k,l)]/steps);
 #endif
     }
 }

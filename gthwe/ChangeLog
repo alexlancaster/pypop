@@ -1,4 +1,23 @@
-2006-02-19  Alex Lancaster  <alexl AT berkeley.edu>
+2007-09-21  Alex Lancaster  <alexl AT users.sourceforge.net>
+
+	* hwe.h (xmlfprintf): Define new macro to be used for printing out
+	XML (or other) statements that should be returned back to the
+	external SWIG wrapper, expands to pyfprintf in SWIG context,
+	otherwise it defaults back to fprintf to maintain compatibility
+	with command-line version.  This was done because the
+	"-Dfprintf=pyfprintf" compiler directive no longer appears to work
+	with GCC 4.1.2 and because overwriting standard library functions
+	via preprocessor directives is deprecated.:
+
+	* hwe.c (run_data, run_randomization): Use it throughout.
+
+	* statistics.c (init_stats, store_stats, print_stats): Likewise
+
+	* stamp_time.c (stamp_time): Likewise.
+
+	* print_data.c (print_data): Likewise.
+
+2006-02-19  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* gthwe_wrap.i (run_data, run_randomization): New parameter for
 	the SWIG wrapper.
@@ -9,18 +28,18 @@
 	<hardyweinbergGuoThompson> tag, otherwise surpress it.
 	(run_randomization): Likewise new parameter.
 
-2005-05-05  Alex Lancaster  <alexl AT berkeley.edu>
+2005-05-05  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* hwe.c (init_rand): Don't use fixed seed, take from call to
 	time().
 
-2005-03-10  Alex Lancaster  <alexl AT berkeley.edu>
+2005-03-10  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* hwe.c (run_randomization): Use #ifdef INDIVID_GENOTYPES
 	selectively disable calculation of individual stats
 	in {init,store,print}_stats().
 
-2005-03-09  Alex Lancaster  <alexl AT berkeley.edu>
+2005-03-09  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* hwe.c (run_data): Remove old comment.
 
@@ -29,7 +48,7 @@
 	* gthwe_wrap.i (run_data, run_randomization): Remove hardcoded
 	MAX_ALLELES, LENGTH.
 
-2005-03-03  Alex Lancaster  <alexl AT berkeley.edu>
+2005-03-03  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* hwe.c: Move GSL includes to hwe.h.
 	(run_data): Use LESS_OR_EQUAL macro in place of '<=' when
@@ -55,7 +74,7 @@
 	when incrementing test statistic count, rather than just greater
 	than ('>') as noted by Richard Single.
 
-2005-03-01  Alex Lancaster  <alexl AT berkeley.edu>
+2005-03-01  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* Makefile (SRC, OBJS, REMOVABLE): Add statistics.{c,o}
 
@@ -76,21 +95,21 @@
 	* statistics.c: New file, split out individual genotype statistic
 	gathering related function from hwe.c.
 
-2004-12-23  Alex Lancaster  <alexl AT berkeley.edu>
+2004-12-23  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* gthwe_wrap.i: %module _Gthwe -> Gthw for compatibility with most
 	recent SWIG.
 
-2004-10-21  Alex Lancaster  <alexl AT berkeley.edu>
+2004-10-21  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* *.c, *.h: Add copyright for both Sun-Wei Guo (1992) and
 	UC (1999-2004) and GNU GPL license headers to all files.
 
-2004-09-19  Alex Lancaster  <alexl AT berkeley.edu>
+2004-09-19  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* hwe.c (run_data): Remove unused variables 'l', 'k'.
 
-2004-08-11  Alex Lancaster  <alexl AT berkeley.edu>
+2004-08-11  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* hwe.c (chen_statistic): Fixed numerical bug: using floating
 	point number in place of integer.
@@ -105,7 +124,7 @@
 
 	* cal_prob.c (cal_prob): Indentation changes only.
 
-2004-08-06  Alex Lancaster  <alexl AT berkeley.edu>
+2004-08-06  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* hwe.c (norm_dev): Rename to 'chen_statistic'.
 	(diff_statistic): New function to calculate simple test statistic
@@ -118,7 +137,7 @@
 	variable names to reflect new naming convention.
 	(run_randomization): Likewise.
 
-2004-07-12  Alex Lancaster  <alexl AT berkeley.edu>
+2004-07-12  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* gthwe_wrap.i (run_randomization): Add FILE * to SWIG wrapper.
 
@@ -128,7 +147,7 @@
 	(run_randomization): Pass in FILE pointer parameter to save to XML
 	stream.
 
-2004-07-09  Alex Lancaster  <alexl AT berkeley.edu>
+2004-07-09  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* hwe.c (norm_dev): Recoded to calculate Z_ij and Z_ii stats
 	according to Biometrics 55:1269-1272 (for heterozygote case) and
@@ -140,7 +159,7 @@
 	function, so they can be reused by run_randomization() function.
 	(run_randomization): Use them.  Obsoletes storage of histograms.
 
-2004-06-30  Alex Lancaster <alexl AT berkeley.edu>
+2004-06-30  Alex Lancaster <alexl AT users.sourceforge.net>
 
 	* gthwe_wrap.i (run_randomization): New prototype for SWIG export.
 
@@ -164,7 +183,7 @@
 
 	* do_switch.c (do_switch): Likewise.
 
-2004-06-29  Alex Lancaster  <alexl AT berkeley.edu>
+2004-06-29  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* hwe.c (norm_dev): New function to calculate normalized deviate
 	of genotype frequency.  This function is currently **broken**, a
@@ -176,7 +195,7 @@
 	chain.  Used to calculate p-value.  This p-value is also *broken*,
 	this is placeholder code only!
 
-2004-06-25  Alex Lancaster  <alexl AT berkeley.edu>
+2004-06-25  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* hwe.c (run_data): For both MCMC and straight MC versions, save
 	histograms of simulated genotype frequencies found during each
@@ -186,7 +205,7 @@
 	end of the function.  This is only enabled if PERMU_TEST is
 	#define'd.
 
-2004-06-23  Alex Lancaster  <alexl AT berkeley.edu>
+2004-06-23  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* ln_p_value.c (ln_p_value): #ifdef PERMU_DEBUG around debug
 	output.
@@ -205,7 +224,7 @@
 	Free() (c)alloced arrays, 's' and 'g'.
 	More debug tweakage throughout.
 
-2004-06-23    <alexl AT berkeley.edu>
+2004-06-23    <alexl AT users.sourceforge.net>
 
 	* ln_p_value.c (ln_p_value): Don't hardcode array lengths, make
 	them pointers.  Don't make the integers register variables.  More
@@ -219,11 +238,11 @@
 	* hwe.c (run_data): Add missing call to cal_n().  Tweak debug.
 	(run_data): More testing of straight Monte Carlo version.
 
-2004-06-15    <alexl AT berkeley.edu>
+2004-06-15    <alexl AT users.sourceforge.net>
 
 	* Makefile (CFLAGS): Add CFLAGSEXTRA for passing at command-line.
 
-2004-06-11 Alex Lancaster  <alexl berkeley.edu>
+2004-06-11 Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* read_data.c (read_data): Prevent test running only if less than
 	*two* alleles not three (i.e. only if locus is monomorphic).
