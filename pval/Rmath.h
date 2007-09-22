@@ -1,6 +1,7 @@
-/*
+/* -*- C -*-
  *  Mathlib : A C Library of Special Functions
- *  Copyright (C) 1998-2001  The R Development Core Team
+ *  Copyright (C) 1998-2003  The R Development Core Team
+ *  Copyright (C) 2004       The R Foundation
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU Lesser General Public License as published by
@@ -14,11 +15,11 @@
  *
  *  You should have received a copy of the GNU Lesser General Public License
  *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *  Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301  USA
  *
 
- * Mathlib.h  should contain ALL headers from R's C code in `src/nmath'
-   ---------  such that ``the Math library'' can be used by simply
+ * Rmath.h  should contain ALL headers from R's C code in `src/nmath'
+   -------  such that ``the Math library'' can be used by simply
 
    ``#include <Rmath.h> ''
 
@@ -27,14 +28,15 @@
 #ifndef RMATH_H
 #define RMATH_H
 
+#ifdef  __cplusplus
+extern "C" {
+#endif
+
 /*-- Mathlib as part of R --  define this for standalone : */
 /* #undef MATHLIB_STANDALONE */
 
-#ifdef MATHLIB_STANDALONE
-# define R_NO_REMAP 1
-#endif
+#define R_VERSION_STRING "2.5.1"
 
-#ifndef Macintosh
 #ifndef HAVE_LOG1P
 # define HAVE_LOG1P 1
 #endif
@@ -42,15 +44,24 @@
 #ifndef HAVE_EXPM1
 # define HAVE_EXPM1 1
 #endif
+
+#ifndef HAVE_WORKING_LOG1P
+# define HAVE_WORKING_LOG1P 1
+#endif
+
+#ifndef HAVE_WORKING_LOG
+# define HAVE_WORKING_LOG 1
 #endif
 
 #include <errno.h>
 #include <limits.h>
 #include <float.h>
-#ifdef Macintosh
-# include <fp.h>
-#else
-# include <math.h>
+#include <math.h>
+
+#if defined(HAVE_LOG1P) && !defined(HAVE_WORKING_LOG1P)
+/* remap to avoid problems with getting the right entry point */
+double  Rlog1p(double);
+#define log1p Rlog1p
 #endif
 
 #include <stdlib.h>
@@ -171,19 +182,17 @@
 #define M_LN_SQRT_PId2	0.225791352644727432363097614947	/* log(sqrt(pi/2)) */
 #endif
 
+
 #ifdef MATHLIB_STANDALONE
+ #undef FALSE
+ #undef TRUE
  typedef enum { FALSE = 0, TRUE } Rboolean;
 #else
 # include <R_ext/Boolean.h>
-
-/* for API back-compatibility -- DEPRECATED since R 1.2 -- */
-#define LTRUE  TRUE
-#define LFALSE FALSE
 #endif
 
 
-
-#ifndef R_NO_REMAP
+#ifndef MATHLIB_STANDALONE
 #define bessel_i	Rf_bessel_i
 #define bessel_j	Rf_bessel_j
 #define bessel_k	Rf_bessel_k
@@ -209,6 +218,7 @@
 #define dnorm4		Rf_dnorm4
 #define dnt		Rf_dnt
 #define dpois		Rf_dpois
+#define dpsifn		Rf_dpsifn
 #define dsignrank	Rf_dsignrank
 #define dt		Rf_dt
 #define dtukey		Rf_dtukey
@@ -227,6 +237,10 @@
 #define lbeta		Rf_lbeta
 #define lchoose		Rf_lchoose
 #define lgammafn	Rf_lgammafn
+#define lgamma1p	Rf_lgamma1p
+#define log1pmx		Rf_log1pmx
+#define logspace_add	Rf_logspace_add
+#define logspace_sub	Rf_logspace_sub
 #define pbeta		Rf_pbeta
 #define pbeta_raw	Rf_pbeta_raw
 #define pbinom		Rf_pbinom
@@ -249,6 +263,7 @@
 #define pnt		Rf_pnt
 #define ppois		Rf_ppois
 #define psignrank	Rf_psignrank
+#define psigamma	Rf_psigamma
 #define pt		Rf_pt
 #define ptukey		Rf_ptukey
 #define punif		Rf_punif
@@ -259,6 +274,7 @@
 #define qbinom		Rf_qbinom
 #define qcauchy		Rf_qcauchy
 #define qchisq		Rf_qchisq
+#define qchisq_appr	Rf_qchisq_appr
 #define qexp		Rf_qexp
 #define qf		Rf_qf
 #define qgamma		Rf_qgamma
@@ -313,13 +329,17 @@
 #undef trunc
 #define	trunc	ftrunc
 
-#ifdef  __cplusplus
-extern "C" {
-#endif
+
+/* log(1 - exp(x))  in stable form: */
+#define R_Log1_Exp(x)   ((x) > -M_LN2 ? log(-expm1(x)) : log1p(-exp(x)))
 
 	/* R's versions with !R_FINITE checks */
 
+#if defined(MATHLIB_STANDALONE) && defined(HAVE_WORKING_LOG)
+#define R_log log
+#else
 double R_log(double x);
+#endif
 double R_pow(double x, double y);
 double R_pow_di(double, int);
 
@@ -330,6 +350,7 @@ double	unif_rand(void);
 double	exp_rand(void);
 #ifdef MATHLIB_STANDALONE
 void	set_seed(unsigned int, unsigned int);
+void	get_seed(unsigned int *, unsigned int *);
 #endif
 
 	/* Normal Distribution */
@@ -358,13 +379,17 @@ double	pgamma(double, double, double, int, int);
 double	qgamma(double, double, double, int, int);
 double	rgamma(double, double);
 
+double  log1pmx(double);
+double  lgamma1p(double);
+double  logspace_add(double, double);
+double  logspace_sub(double, double);
+
 	/* Beta Distribution */
 
 double	dbeta(double, double, double, int);
 double	pbeta(double, double, double, int, int);
 double	qbeta(double, double, double, int, int);
 double	rbeta(double, double);
-double	pbeta_raw(double, double, double, int);
 
 	/* Lognormal Distribution */
 
@@ -407,6 +432,10 @@ double	dbinom(double, double, double, int);
 double	pbinom(double, double, double, int, int);
 double	qbinom(double, double, double, int, int);
 double	rbinom(double, double);
+
+	/* Multnomial Distribution */
+
+void	rmultinom(int, double*, int, int*);
 
 	/* Cauchy Distribution */
 
@@ -473,11 +502,13 @@ double	rnbeta(double, double, double);
 
 	/* Non-central F Distribution */
 
+double  dnf(double, double, double, double, int);
 double	pnf(double, double, double, double, int, int);
 double	qnf(double, double, double, double, int, int);
 
 	/* Non-central Student t Distribution */
 
+double	dnt(double, double, double, int);
 double	pnt(double, double, double, int, int);
 double	qnt(double, double, double, int, int);
 
@@ -503,6 +534,8 @@ double rsignrank(double);
 	/* Gamma and Related Functions */
 double	gammafn(double);
 double	lgammafn(double);
+void    dpsifn(double, int, int, int, double*, int*, int*);
+double	psigamma(double, double);
 double	digamma(double);
 double	trigamma(double);
 double	tetragamma(double);
@@ -541,6 +574,21 @@ double	fround(double, double);
 double	fsign(double, double);
 double	ftrunc(double);
 
+double  log1pmx(double); /* Accurate log(1+x) - x, {care for small x} */
+double  lgamma1p(double);/* accurate log(gamma(x+1)), small x (0 < x < 0.5) */
+
+/* Compute the log of a sum or difference from logs of terms, i.e.,
+ *
+ *     log (exp (logx) + exp (logy))
+ * or  log (exp (logx) - exp (logy))
+ *
+ * without causing overflows or throwing away too much accuracy:
+ */
+double  logspace_add(double logx, double logy);
+double  logspace_sub(double logx, double logy);
+
+
+
 
 /* ----------------- Private part of the header file ------------------- */
 
@@ -552,22 +600,34 @@ double	ftrunc(double);
 
 #ifdef MATHLIB_PRIVATE
 #define d1mach		Rf_d1mach
+#define i1mach          Rf_i1mach
 #define gamma_cody	Rf_gamma_cody
 
-double	d1mach(int);
-double	gamma_cody(double);
+double	gamma_cody(double); /* used in arithmetic.c */
 
 #endif /* MATHLIB_PRIVATE */
+
+double  Rf_d1mach(int); /* used in port.c in package stats */
+int     Rf_i1mach(int); /* used in port.c in package stats */
 
 #ifdef MATHLIB_STANDALONE
 #ifndef MATHLIB_PRIVATE_H
 
-#define ISNAN(x)       R_IsNaNorNA(x)
+/* If isnan is a macro, as C99 specifies, the C++
+   math header will undefine it. This happens on OS X */
+#ifdef __cplusplus
+  int R_isnancpp(double); /* in mlutils.c */
+#  define ISNAN(x)     R_isnancpp(x)
+#else
+#  define ISNAN(x)     (isnan(x)!=0)
+#endif
+
+
+/* We don't have config information available to do anything else */
 #define R_FINITE(x)    R_finite(x)
-int R_IsNaNorNA(double);
 int R_finite(double);
 
-#ifdef WIN32
+#ifdef WIN32  /* not Win32 as no config information */
 # define NA_REAL (*_imp__NA_REAL)
 # define R_NegInf (*_imp__R_NegInf)
 # define R_PosInf (*_imp__R_PosInf)
@@ -577,12 +637,8 @@ int R_finite(double);
 #endif /* not MATHLIB_PRIVATE_H */
 #endif /* MATHLIB_STANDALONE */
 
-#ifdef MATHLIB_STANDALONE
-# define REprintf fprintf(stderr,
-#else
-# ifndef PRTUTIL_H_
+#ifndef R_EXT_PRINT_H_
 void REprintf(char*, ...);
-# endif
 #endif
 
 #ifdef  __cplusplus

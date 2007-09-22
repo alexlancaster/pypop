@@ -2,6 +2,7 @@
  *  Mathlib : A C Library of Special Functions
  *  Copyright (C) 1998 Ross Ihaka
  *  Copyright (C) 2000-2001 The R Development Core Team
+ *  Copyright (C) 2002-2004 The R Foundation
  *
  *  This program is free software; you can redistribute it and/or modify
  *  it under the terms of the GNU General Public License as published by
@@ -14,15 +15,15 @@
  *  GNU General Public License for more details.
  *
  *  You should have received a copy of the GNU General Public License
- *  along with this program; if not, write to the Free Software
- *  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA.
+ *  along with this program; if not, a copy is available at
+ *  http://www.r-project.org/Licenses/
  *
  *  SYNOPSIS
  *
  *    #include <Rmath.h>
  *    double gammafn(double x);
  *
- *  DESCPIPTION
+ *  DESCRIPTION
  *
  *    This function computes the value of the gamma function.
  *
@@ -34,13 +35,15 @@
  *    The accuracy of this routine compares (very) favourably
  *    with those of the Sun Microsystems portable mathematical
  *    library.
+ *
+ *    MM specialized the case of  n!  for n < 50 - for even better precision
  */
 
 #include "nmath.h"
 
 double gammafn(double x)
 {
-    const double gamcs[42] = {
+    const static double gamcs[42] = {
 	+.8571195590989331421920062399942e-2,
 	+.4415381324841006757191315771652e-2,
 	+.5685043681599363378632664588789e-1,
@@ -104,8 +107,8 @@ double gammafn(double x)
     }
 #else
 /* For IEEE double precision DBL_EPSILON = 2^-52 = 2.220446049250313e-16 :
- * (xmin, xmax) are non-trivial, see ./gammalims.c 
- * xsml = exp(.01)*DBL_MIN 
+ * (xmin, xmax) are non-trivial, see ./gammalims.c
+ * xsml = exp(.01)*DBL_MIN
  * dxrel = sqrt(1/DBL_EPSILON) = 2 ^ 26
 */
 # define ngam 22
@@ -116,6 +119,13 @@ double gammafn(double x)
 #endif
 
     if(ISNAN(x)) return x;
+
+    /* If the argument is exactly zero or a negative integer
+     * then return NaN. */
+    if (x == 0 || (x < 0 && x == (long)x)) {
+	ML_ERROR(ME_DOMAIN, "gammafn");
+	return ML_NAN;
+    }
 
     y = fabs(x);
 
@@ -136,22 +146,17 @@ double gammafn(double x)
 	if (n < 0) {
 	    /* compute gamma(x) for -10 <= x < 1 */
 
-	    /* If the argument is exactly zero or a negative integer */
-	    /* then return NaN. */
-	    if (x == 0 || (x < 0 && x == n + 2)) {
-		ML_ERROR(ME_RANGE);
-		return ML_NAN;
-	    }
+	    /* exact 0 or "-n" checked already above */
 
 	    /* The answer is less than half precision */
 	    /* because x too near a negative integer. */
 	    if (x < -0.5 && fabs(x - (int)(x - 0.5) / x) < dxrel) {
-		ML_ERROR(ME_PRECISION);
+		ML_ERROR(ME_PRECISION, "gammafn");
 	    }
 
 	    /* The argument is so close to 0 that the result would overflow. */
 	    if (y < xsml) {
-		ML_ERROR(ME_RANGE);
+		ML_ERROR(ME_RANGE, "gammafn");
 		if(x > 0) return ML_POSINF;
 		else return ML_NEGINF;
 	    }
@@ -176,17 +181,23 @@ double gammafn(double x)
 	/* gamma(x) for	 y = |x| > 10. */
 
 	if (x > xmax) {			/* Overflow */
-	    ML_ERROR(ME_RANGE);
+	    ML_ERROR(ME_RANGE, "gammafn");
 	    return ML_POSINF;
 	}
 
 	if (x < xmin) {			/* Underflow */
-	    ML_ERROR(ME_UNDERFLOW);
-	    return ML_UNDERFLOW;
+	    ML_ERROR(ME_UNDERFLOW, "gammafn");
+	    return 0.;
 	}
 
-	value = exp((y - 0.5) * log(y) - y + M_LN_SQRT_2PI + lgammacor(y));
-
+	if(y <= 50 && y == (int)y) { /* compute (n - 1)! */
+	    value = 1.;
+	    for (i = 2; i < y; i++) value *= i;
+	}
+	else { /* normal case */
+	    value = exp((y - 0.5) * log(y) - y + M_LN_SQRT_2PI +
+			((2*y == (int)2*y)? stirlerr(y) : lgammacor(y)));
+	}
 	if (x > 0)
 	    return value;
 
@@ -195,12 +206,12 @@ double gammafn(double x)
 	    /* The answer is less than half precision because */
 	    /* the argument is too near a negative integer. */
 
-	    ML_ERROR(ME_PRECISION);
+	    ML_ERROR(ME_PRECISION, "gammafn");
 	}
 
 	sinpiy = sin(M_PI * y);
 	if (sinpiy == 0) {		/* Negative integer arg - overflow */
-	    ML_ERROR(ME_RANGE);
+	    ML_ERROR(ME_RANGE, "gammafn");
 	    return ML_POSINF;
 	}
 
