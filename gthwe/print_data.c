@@ -66,8 +66,8 @@ void print_data(a, no_allele, sample, outfile, title)
  	fprintf(*outfile, "Data set: %s\n\n", title);
 	fprintf(*outfile, "Observed genotype frequencies: \n\n");
 #else
- 	fprintf(*outfile, "<name>%s</name>\n", title);
-	fprintf(*outfile, "<frequencies kind=\"genotype\" type=\"observed\">\n");
+ 	xmlfprintf(*outfile, "<name>%s</name>\n", title);
+	xmlfprintf(*outfile, "<frequencies kind=\"genotype\" type=\"observed\">\n");
 #endif
 	
 	for (i = 0; i < no_allele; ++i)
@@ -90,13 +90,13 @@ void print_data(a, no_allele, sample, outfile, title)
 #ifndef XML_OUTPUT
 			fprintf(*outfile, "%4d|", a[l]);
 #else
-			fprintf(*outfile, "<count allele1=\"%d\" allele2=\"%d\">%d</count>\n", i, j, a[l]);
+			xmlfprintf(*outfile, "<count allele1=\"%d\" allele2=\"%d\">%d</count>\n", i, j, a[l]);
 #endif
 		}
 #ifndef XML_OUTPUT
 		fprintf(*outfile, "\n");
 #else
-		fprintf(*outfile, "\n");
+		xmlfprintf(*outfile, "\n");
 #endif
 	}
 
@@ -108,12 +108,12 @@ void print_data(a, no_allele, sample, outfile, title)
 	fprintf(*outfile, "Number of chunks: %d\n", sample.group);
 	fprintf(*outfile, "Size of each chunk: %d\n\n", sample.size);
 #else
-	fprintf(*outfile, "</frequencies>");
-	fprintf(*outfile, "<allelecount>%d</allelecount>\n", no_allele);
+	xmlfprintf(*outfile, "</frequencies>");
+	xmlfprintf(*outfile, "<allelecount>%d</allelecount>\n", no_allele);
 
-	fprintf(*outfile, "<initialsteps>%d</initialsteps>\n", sample.step);
-	fprintf(*outfile, "<chunks>%d</chunks>\n", sample.group);
-	fprintf(*outfile, "<chunksize>%d</chunksize>\n", sample.size);
+	xmlfprintf(*outfile, "<initialsteps>%d</initialsteps>\n", sample.step);
+	xmlfprintf(*outfile, "<chunks>%d</chunks>\n", sample.group);
+	xmlfprintf(*outfile, "<chunksize>%d</chunksize>\n", sample.size);
 #endif
 
 

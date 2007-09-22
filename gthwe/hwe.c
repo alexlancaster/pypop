@@ -167,11 +167,11 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
 
 #ifdef XML_OUTPUT
   if (header)
-    fprintf(outfile, "<hardyweinbergGuoThompson>\n");
-  fprintf(outfile, "<dememorizationSteps>%d</dememorizationSteps>\n", 
+    xmlfprintf(outfile, "<hardyweinbergGuoThompson>\n");
+  xmlfprintf(outfile, "<dememorizationSteps>%d</dememorizationSteps>\n", 
 	  sample.step);
-  fprintf(outfile, "<samplingNum>%d</samplingNum>\n", sample.group);
-  fprintf(outfile, "<samplingSize>%d</samplingSize>\n", sample.size);
+  xmlfprintf(outfile, "<samplingNum>%d</samplingNum>\n", sample.group);
+  xmlfprintf(outfile, "<samplingSize>%d</samplingSize>\n", sample.size);
 #endif
 
 #ifndef SUPPRESS_ALLELE_TABLE
@@ -282,16 +282,16 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
   fprintf(outfile, "Percentage of all switches: %6.2f \n",
 	  (result.swch_count[1] + result.swch_count[2]) / total_step * 100);
 #else
-  fprintf(outfile, "<pvalue type=\"overall\">%7.4g</pvalue><stderr>%7.4g</stderr>\n",
+  xmlfprintf(outfile, "<pvalue type=\"overall\">%7.4g</pvalue><stderr>%7.4g</stderr>\n",
 	  result.p_value, result.se);
-  fprintf(outfile, "<switches>\n");
-  fprintf(outfile, "<percent-partial>%6.2f</percent-partial>\n",
+  xmlfprintf(outfile, "<switches>\n");
+  xmlfprintf(outfile, "<percent-partial>%6.2f</percent-partial>\n",
 	  result.swch_count[1] / total_step * 100);
-  fprintf(outfile, "<percent-full>%6.2f</percent-full>\n",
+  xmlfprintf(outfile, "<percent-full>%6.2f</percent-full>\n",
 	  result.swch_count[2] / total_step * 100);
-  fprintf(outfile, "<percent-all>%6.2f</percent-all>\n",
+  xmlfprintf(outfile, "<percent-all>%6.2f</percent-all>\n",
 	  (result.swch_count[1] + result.swch_count[2]) / total_step * 100);
-  fprintf(outfile, "</switches>\n");
+  xmlfprintf(outfile, "</switches>\n");
 #endif
   
   stamp_time(t1, &outfile);
@@ -314,7 +314,7 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
 
 #ifdef XML_OUTPUT
   if (header)
-    fprintf(outfile, "</hardyweinbergGuoThompson>");
+    xmlfprintf(outfile, "</hardyweinbergGuoThompson>");
 #endif
 
   return (0);
@@ -340,7 +340,7 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
 
 #ifdef XML_OUTPUT
   if (header)
-    fprintf(outfile, 
+    xmlfprintf(outfile, 
 	    "\n<hardyweinbergGuoThompson type=\"monte-carlo\">\n");
 #else
   fprintf(outfile, "Constant: %e, Observed: %e\n", constant, ln_p_observed);
@@ -473,8 +473,8 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   double p_value = (double)K/iterations;
 
 #ifdef XML_OUTPUT
-  fprintf(outfile, "<steps>%d</steps>\n", iterations);
-  fprintf(outfile, "<pvalue type=\"overall\">%g</pvalue>\n", p_value);
+  xmlfprintf(outfile, "<steps>%d</steps>\n", iterations);
+  xmlfprintf(outfile, "<pvalue type=\"overall\">%g</pvalue>\n", p_value);
 #else
   fprintf(outfile, "K = %d, N = %d\n", K, iterations);
   fprintf(outfile, "pvalue = %g\n", p_value);
@@ -501,6 +501,6 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   free(s);
 
   if (header)
-    fprintf(outfile, "</hardyweinbergGuoThompson>\n");
+    xmlfprintf(outfile, "</hardyweinbergGuoThompson>\n");
   return (0);
 }
