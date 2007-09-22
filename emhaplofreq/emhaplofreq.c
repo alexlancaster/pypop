@@ -685,19 +685,19 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     if (permu == 0)
       {
 #ifdef XML_OUTPUT
-	fprintf(fp_out, "<uniquepheno>%d</uniquepheno>\n", n_unique_pheno);
+	xmlfprintf(fp_out, "<uniquepheno>%d</uniquepheno>\n", n_unique_pheno);
 #else
 	fprintf(fp_out, "n_unique_pheno: %d \n", n_unique_pheno);
 #endif
 
 #ifdef XML_OUTPUT
-	fprintf(fp_out, "<uniquegeno>%d</uniquegeno>\n", n_unique_geno);
+	xmlfprintf(fp_out, "<uniquegeno>%d</uniquegeno>\n", n_unique_geno);
 #else
 	fprintf(fp_out, "n_unique_geno: %d \n", n_unique_geno);
 #endif
 
 #ifdef XML_OUTPUT
-	fprintf(fp_out, "<haplocount>%d</haplocount>\n", n_haplo);
+	xmlfprintf(fp_out, "<haplocount>%d</haplocount>\n", n_haplo);
 #else
 	fprintf(fp_out, "n_haplo: %d \n\n", n_haplo);
 #endif
@@ -744,7 +744,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 				 n_unique_geno, n_unique_pheno, xhaplo, xgeno, permu, gp);
 
 #ifdef XML_OUTPUT
-	fprintf(fp_out, 
+	xmlfprintf(fp_out, 
 		"<loglikelihood role=\"no-ld\">%f</loglikelihood>\n", loglike0);
 #else
 	fprintf(fp_out, "Log likelihood under no LD: %f \n", loglike0);
@@ -764,10 +764,10 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     if (permu == 0)
       {
 #ifdef XML_OUTPUT
-	fprintf(fp_out, "<iterationsummary>\n<![CDATA[");
+	xmlfprintf(fp_out, "<iterationsummary>\n<![CDATA[");
 #endif
-	fprintf(fp_iter, "\n--- Iteration Summary for Original Data -------------------------------------------\n");
-	fprintf(fp_iter, "Init. condition   0: Log likelihood after %3d iterations: %f, error_flag: %d \n",
+	xmlfprintf(fp_iter, "\n--- Iteration Summary for Original Data -------------------------------------------\n");
+	xmlfprintf(fp_iter, "Init. condition   0: Log likelihood after %3d iterations: %f, error_flag: %d \n",
 		iter_count, loglike, error_flag);
 	if      (error_flag == 0) error_flag0_pct += 1;
 	else if (error_flag == 2) error_flag2_pct += 1;
@@ -805,7 +805,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
 	if (permu == 0)
 	  {
-	    fprintf(fp_iter, "Init. condition %3d: Log likelihood after %3d iterations: %f, error_flag: %d \n",
+	    xmlfprintf(fp_iter, "Init. condition %3d: Log likelihood after %3d iterations: %f, error_flag: %d \n",
 		    init_cond, iter_count, loglike, error_flag);
 	    if      (error_flag == 0) error_flag0_pct += 1;
 	    else if (error_flag == 2) error_flag2_pct += 1;
@@ -846,7 +846,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
 #ifdef XML_OUTPUT
     if (permu == 0)
-      fprintf(fp_out, "]]></iterationsummary>\n");
+      xmlfprintf(fp_out, "]]></iterationsummary>\n");
 #endif
 
     if (permu_flag == 1)
@@ -860,36 +860,36 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
       {
 
 #ifdef XML_OUTPUT
-	fprintf(fp_out, "<haplotypefreq>\n<loginfo><![CDATA[");
+	xmlfprintf(fp_out, "<haplotypefreq>\n<loginfo><![CDATA[");
 #endif
-	fprintf(fp_iter, "\n"); 
-	fprintf(fp_iter, "Percent of iterations with error_flag = 0: %7.3f\n", 100*error_flag0_pct/max_init_cond);
-	fprintf(fp_iter, "Percent of iterations with error_flag = 2: %7.3f\n", 100*error_flag2_pct/max_init_cond);
-	fprintf(fp_iter, "Percent of iterations with error_flag = 3: %7.3f\n", 100*error_flag3_pct/max_init_cond);
-	fprintf(fp_iter, "Percent of iterations with error_flag = 4: %7.3f\n", 100*error_flag4_pct/max_init_cond);
-	fprintf(fp_iter, "Percent of iterations with error_flag = 5: %7.3f\n", 100*error_flag5_pct/max_init_cond);
-	fprintf(fp_iter, "Percent of iterations with error_flag = 6: %7.3f\n", 100*error_flag6_pct/max_init_cond);
-	fprintf(fp_iter, "Percent of iterations with error_flag = 7: %7.3f\n", 100*error_flag7_pct/max_init_cond);
-	fprintf(fp_iter, "\n"); 
-	fprintf(fp_iter, "--- Codes for error_flag ----------------------------------------------------------\n"); 
-	fprintf(fp_iter, "0: Iterations Converged, no errors \n");
-	fprintf(fp_iter, "2: Normalization constant near zero. Est. HFs unstable \n");
-	fprintf(fp_iter, "3: Wrong # allocated for at least one phenotype based on est. HFs \n");
-	fprintf(fp_iter, "4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype \n");
-	fprintf(fp_iter, "5: Log likelihood has decreased for more than 5 iterations \n");
-	fprintf(fp_iter, "6: Est. HFs do not sum to 1.0 \n");
-	fprintf(fp_iter, "7: Log likelihood failed to converge in %d iterations \n", MAX_ITER);
-	fprintf(fp_iter, "-----------------------------------------------------------------------------------\n"); 
-	fprintf(fp_iter, "\n"); 
+	xmlfprintf(fp_iter, "\n"); 
+	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 0: %7.3f\n", 100*error_flag0_pct/max_init_cond);
+	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 2: %7.3f\n", 100*error_flag2_pct/max_init_cond);
+	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 3: %7.3f\n", 100*error_flag3_pct/max_init_cond);
+	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 4: %7.3f\n", 100*error_flag4_pct/max_init_cond);
+	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 5: %7.3f\n", 100*error_flag5_pct/max_init_cond);
+	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 6: %7.3f\n", 100*error_flag6_pct/max_init_cond);
+	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 7: %7.3f\n", 100*error_flag7_pct/max_init_cond);
+	xmlfprintf(fp_iter, "\n"); 
+	xmlfprintf(fp_iter, "--- Codes for error_flag ----------------------------------------------------------\n"); 
+	xmlfprintf(fp_iter, "0: Iterations Converged, no errors \n");
+	xmlfprintf(fp_iter, "2: Normalization constant near zero. Est. HFs unstable \n");
+	xmlfprintf(fp_iter, "3: Wrong # allocated for at least one phenotype based on est. HFs \n");
+	xmlfprintf(fp_iter, "4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype \n");
+	xmlfprintf(fp_iter, "5: Log likelihood has decreased for more than 5 iterations \n");
+	xmlfprintf(fp_iter, "6: Est. HFs do not sum to 1.0 \n");
+	xmlfprintf(fp_iter, "7: Log likelihood failed to converge in %d iterations \n", MAX_ITER);
+	xmlfprintf(fp_iter, "-----------------------------------------------------------------------------------\n"); 
+	xmlfprintf(fp_iter, "\n"); 
 
 #ifdef XML_OUTPUT
-	fprintf(fp_out, "]]></loginfo>\n<condition role=\"");
+	xmlfprintf(fp_out, "]]></loginfo>\n<condition role=\"");
 #endif
 
 	if (error_flag_best == 0) {
 #ifdef XML_OUTPUT
-	  fprintf(fp_out, "converged\"/>\n");
-	  fprintf(fp_out, "<iterConverged>%d</iterConverged><loglikelihood>%f</loglikelihood>\n", iter_count_best, loglike_best);
+	  xmlfprintf(fp_out, "converged\"/>\n");
+	  xmlfprintf(fp_out, "<iterConverged>%d</iterConverged><loglikelihood>%f</loglikelihood>\n", iter_count_best, loglike_best);
 #else
 	  fprintf(fp_out, "Log likelihood converged in %3d iterations to : %f\n",
 		  iter_count_best, loglike_best);
@@ -898,37 +898,37 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	}
 	else if (error_flag_best == 2)
 #ifdef XML_OUTPUT
-	  fprintf(fp_out, "norm-const-near-zero\"/>\n");
+	  xmlfprintf(fp_out, "norm-const-near-zero\"/>\n");
 #else
 	fprintf(fp_out, "Normalization constant near zero. Estimated HFs unstable.\n");
 #endif
 	else if (error_flag_best == 3)
 #ifdef XML_OUTPUT
-	  fprintf(fp_out, "wrong\"/>\n");
+	  xmlfprintf(fp_out, "wrong\"/>\n");
 #else
 	fprintf(fp_out, "Wrong # allocated for at least one phenotype based on estimated HFs.\n");
 #endif
 	else if (error_flag_best == 4)
 #ifdef XML_OUTPUT
-	  fprintf(fp_out, "zero-for-observed-pheno\"/>\n");
+	  xmlfprintf(fp_out, "zero-for-observed-pheno\"/>\n");
 #else
 	fprintf(fp_out, "Phenotype freq., based on estimated HFs, was 0 for an observed phenotype.\n");
 #endif
 	else if (error_flag_best == 5)
 #ifdef XML_OUTPUT
-	  fprintf(fp_out, "loglike-decreased\"/>\n");
+	  xmlfprintf(fp_out, "loglike-decreased\"/>\n");
 #else
 	fprintf(fp_out, "Log likelihood has decreased for more than 5 iterations.\n");
 #endif
 	else if (error_flag_best == 6)
 #ifdef XML_OUTPUT
-	  fprintf(fp_out, "hf-dont-sum-to-one\"/>\n");
+	  xmlfprintf(fp_out, "hf-dont-sum-to-one\"/>\n");
 #else
 	fprintf(fp_out, "Estimated HFs do not sum to 1. Sum = %.5g\n", haplo_freq_sum);
 #endif
 	else /* (error_flag_best == 7) */
 #ifdef XML_OUTPUT
-	  fprintf(fp_out, "loglike-failed-converge\"/>\n");
+	  xmlfprintf(fp_out, "loglike-failed-converge\"/>\n");
 #else
 	fprintf(fp_out, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
 #endif
@@ -938,7 +938,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
       ok_perm0 = 0;
       permu = max_permutations-1; // bail out of permutations
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "</haplotypefreq>\n"); // close this open tag
+    xmlfprintf(fp_out, "</haplotypefreq>\n"); // close this open tag
 #endif
     }
     else
@@ -965,15 +965,15 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	      {
 		j += 1;
 #ifdef XML_OUTPUT
-		fprintf(fp_out, "<haplotype name=\"%s\"><frequency>%.5f</frequency><numCopies>%.1f</numCopies></haplotype>\n", haplo[i], freq_zero[i], freq_zero[i]*2.0*n_recs);
+		xmlfprintf(fp_out, "<haplotype name=\"%s\"><frequency>%.5f</frequency><numCopies>%.1f</numCopies></haplotype>\n", haplo[i], freq_zero[i], freq_zero[i]*2.0*n_recs);
 #else
-		fprintf(fp_out, "%3d  %12.5f %8.1f    %s\n", j, freq_zero[i], freq_zero[i]*2.0*n_recs, haplo[i]);
+		xmlfprintf(fp_out, "%3d  %12.5f %8.1f    %s\n", j, freq_zero[i], freq_zero[i]*2.0*n_recs, haplo[i]);
 #endif
 	      }
 	  }
-	fprintf(fp_out, "\n");
+	xmlfprintf(fp_out, "\n");
 #ifdef XML_OUTPUT
-	fprintf(fp_out, "</haplotypefreq>\n");
+	xmlfprintf(fp_out, "</haplotypefreq>\n");
 #endif
 
 #ifndef XML_OUTPUT
@@ -992,7 +992,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #endif
 
 #ifdef XML_OUTPUT
-	fprintf(fp_out, "<linkagediseq>\n");
+	xmlfprintf(fp_out, "<linkagediseq>\n");
 #else
 	fprintf(fp_out, "Pairwise Linkage Disequilibrium\n");
 	fprintf(fp_out, "-------------------------------\n");
@@ -1016,7 +1016,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #endif
 
 #ifdef XML_OUTPUT
-	fprintf(fp_out, "</linkagediseq>\n");
+	xmlfprintf(fp_out, "</linkagediseq>\n");
 #endif
 
     } /* end: else [i.e., error_flag_best <=1] */
@@ -1052,7 +1052,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   {
 
 #ifdef XML_OUTPUT
-    fprintf(fp_permu, "<permutationSummary>");
+    xmlfprintf(fp_permu, "<permutationSummary>");
 #else
     fprintf(fp_permu, "permu   LR = -2*(LL_0 - LL_1)\n");
 #endif
@@ -1063,7 +1063,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
     if (permu_print == 1) {
 #ifdef XML_OUTPUT
-      fprintf(fp_permu, "<permutation iter=\"%d\">%f</permutation>", 0, like_ratio[0]);
+      xmlfprintf(fp_permu, "<permutation iter=\"%d\">%f</permutation>", 0, like_ratio[0]);
 #else
       fprintf(fp_permu, "%3d  %f \n", 0, like_ratio[0]); 
 #endif
@@ -1072,7 +1072,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     {
       if (permu_print == 1) {
 #ifdef XML_OUTPUT
-	fprintf(fp_permu, "<permutation iter=\"%d\">%f</permutation>", i, like_ratio[i]);
+	xmlfprintf(fp_permu, "<permutation iter=\"%d\">%f</permutation>", i, like_ratio[i]);
 #else
 	fprintf(fp_permu, "%3d  %f %d\n", i, like_ratio[i], error_flag_permu[i]); // RS 20031125
 #endif
@@ -1088,7 +1088,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     lr_mean = lr_mean/permu_count; // RS 20031125
 
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "\n<pvalue totalperm=\"%d\">%f</pvalue>\n", permu_count, pvalue); 
+    xmlfprintf(fp_out, "\n<pvalue totalperm=\"%d\">%f</pvalue>\n", permu_count, pvalue); 
 #else
     fprintf(fp_out, "Permutation LR Test for Overall LD based on %d permutations: pvalue = %f\n", permu_count, pvalue); 
     fprintf(fp_permu, "pvalue = %f \n", pvalue); 
@@ -1106,9 +1106,9 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     lr_z = ( sqrt(2.0*df_LRtest)/n_recs ) * ( (like_ratio[0] - lr_mean) / lr_sd ); 
 
 #ifdef XML_OUTPUT
-    fprintf(fp_out, "<lr>%f</lr>\n", lr_z); 
-    fprintf(fp_out, "<lr-mean>%f</lr-mean>\n", lr_mean); 
-    fprintf(fp_out, "<lr-sd>%f</lr-sd>\n", lr_sd); 
+    xmlfprintf(fp_out, "<lr>%f</lr>\n", lr_z); 
+    xmlfprintf(fp_out, "<lr-mean>%f</lr-mean>\n", lr_mean); 
+    xmlfprintf(fp_out, "<lr-sd>%f</lr-sd>\n", lr_sd); 
 #else
     fprintf(fp_out, "Standardized LR statistic = %f\n", lr_z); 
     fprintf(fp_out, "LR mean = %f\n", lr_mean); 
@@ -1116,7 +1116,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #endif
 
 #ifdef XML_OUTPUT
-    fprintf(fp_permu, "</permutationSummary>\n");
+    xmlfprintf(fp_permu, "</permutationSummary>\n");
 #endif
 
 #ifndef EXTERNAL_MODE
@@ -1419,7 +1419,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
     for (k = j+1; k < n_loci; k++)
     {
 #ifdef XML_OUTPUT
-      fprintf(fp_out, "<loci first=\"%d\" second=\"%d\">\n", j, k);
+      xmlfprintf(fp_out, "<loci first=\"%d\" second=\"%d\">\n", j, k);
 #else
       fprintf(fp_out,"--Loci:%2d\\%2d--\n", j, k);
       fprintf(fp_out," Haplo         Observed*  Expected**     d_ij      d'_ij      chisq (*estimated) (**under Ho:no LD)\n");
@@ -1451,7 +1451,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
 	  summary_d[coeff_count] += af[j][l] * af[k][m] * fabs(norm_dij) * dmax;
           summary_dprime[coeff_count] += af[j][l] * af[k][m] * fabs(norm_dij);
 #ifdef XML_OUTPUT
-	  fprintf(fp_out,"<allelepair first=\"%s\" second=\"%s\"><observed>%.5f</observed><expected>%.4f</expected><diseq>%.5f</diseq><norm_dij>%.5f</norm_dij><chisq>%.5f</chisq></allelepair>\n", 
+	  xmlfprintf(fp_out,"<allelepair first=\"%s\" second=\"%s\"><observed>%.5f</observed><expected>%.4f</expected><diseq>%.5f</diseq><norm_dij>%.5f</norm_dij><chisq>%.5f</chisq></allelepair>\n", 
             unique_allele[j][l], unique_allele[k][m], obs, exp, diseq, norm_dij, chisq);
 #else
           fprintf(fp_out,"%6s%6s %10.4f %10.4f %10.4f %10.4f %10.4f\n", 
@@ -1463,7 +1463,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
         ( 2*(double)n_recs * (min(n_unique_allele[j],n_unique_allele[k])-1) ) );
       coeff_count += 1;
 #ifdef XML_OUTPUT
-      fprintf(fp_out, "</loci>\n");   /* close <loci> tag */
+      xmlfprintf(fp_out, "</loci>\n");   /* close <loci> tag */
 #else
       fprintf(fp_out,"\n"); 
 #endif
@@ -1483,9 +1483,9 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
     for (k = j+1; k < n_loci; k++)
     {
 #ifdef XML_OUTPUT
-      fprintf(fp_out, "<summary first=\"%d\" second=\"%d\">\n", j, k);
-      fprintf(fp_out, "<wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>%.5f</dsummary><dprime>%.5f</dprime>\n", summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), summary_d[coeff_count], summary_dprime[coeff_count]);
-      fprintf(fp_out, "</summary>\n");
+      xmlfprintf(fp_out, "<summary first=\"%d\" second=\"%d\">\n", j, k);
+      xmlfprintf(fp_out, "<wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>%.5f</dsummary><dprime>%.5f</dprime>\n", summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), summary_d[coeff_count], summary_dprime[coeff_count]);
+      xmlfprintf(fp_out, "</summary>\n");
 #else
       fprintf(fp_out,"--Loci:%2d\\%2d--\n", j, k);
       fprintf(fp_out,"             Wn [Cohen, 1988]: %10.4f\n", summary_wn[coeff_count]);

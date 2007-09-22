@@ -1,10 +1,23 @@
-2005-06-15  Alex Lancaster  <alexl AT berkeley.edu>
+2007-09-21  Alex Lancaster  <alexl AT users.sourceforge.net>
+
+	* emhaplofreq.h (xmlfprintf): Define new macro to be used for
+	printing out XML (or other) statements that should be returned
+	back to the external SWIG wrapper, expands to pyfprintf in SWIG
+	context, otherwise it defaults back to fprintf to maintain
+	compatibility with command-line version.  This was done because
+	the "-Dfprintf=pyfprintf" compiler directive no longer appears to
+	work with GCC 4.1.2 and because overwriting standard library
+	functions via preprocessor directives is deprecated.
+
+	* emhaplofreq.c (main_proc, linkage_diseq): Use it throughout.
+
+2005-06-15  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* emhaplofreq.c: Change prototypes to match function calls
 	exactly, e.g. replace (*)[] invalid ANSI constructs with (*)[VAR]
 	constructs which is valid ANSI C and also to placate GCC 4.0.
 
-2004-12-23  Alex Lancaster  <alexl AT berkeley.edu>
+2004-12-23  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* emhaplofreq_wrap.i: %module _Emhaplofreq -> Emhaplofreq for
 	compatibility with most recent SWIG.
