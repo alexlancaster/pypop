@@ -38,15 +38,15 @@ import sys, os, string
 
 from distutils.core import setup, Extension
 from distutils.file_util import copy_file
-from distutils.sysconfig import PREFIX, get_config_vars
+from distutils.sysconfig import PREFIX, get_config_vars, get_config_var
 from distutils.command.build_ext import build_ext
 
 # Override the overzealous use of _FORTIFY_SOURCE CFLAGS flags that
 # are in /usr/lib/python2.4/config/Makefile used on Fedora Core 4
 # releases with Python 2.4.  Nasty hack to achieve this suggested on
 # http://mail.python.org/pipermail/distutils-sig/2002-December/003123.html
-cv = get_config_vars()
-cv["OPT"] = cv["OPT"].replace("-D_FORTIFY_SOURCE=2", "-D_FORTIFY_SOURCE=1")
+cv = get_config_var("OPT")
+cv = cv.replace("-D_FORTIFY_SOURCE=2", "-D_FORTIFY_SOURCE=1")
 
 # override implementation of swig_sources method in standard build_ext
 # class, so we can change the way SWIG is called by Python's default
@@ -125,7 +125,7 @@ ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
                             ["emhaplofreq/emhaplofreq_wrap.i",
                              "emhaplofreq/emhaplofreq.c"],
                             include_dirs=["emhaplofreq"],
-                            define_macros=[('fprintf', 'pyfprintf'),
+                            define_macros=[('__SWIG__', '1'),
                                            ('DEBUG', '0'),
                                            ('EXTERNAL_MODE', '1'),
                                            ('XML_OUTPUT', '1')]
@@ -145,7 +145,12 @@ ext_Pvalue = Extension("_Pvaluemodule",
                         "pval/mlutils.c",
                         "pval/pgamma.c",
                         "pval/fmin2.c",
+                        "pval/fmax2.c",
+                        "pval/dnorm.c",
+                        "pval/dpois.c",
                         "pval/gamma.c",
+                        "pval/bd0.c",
+                        "pval/stirlerr.c",
                         "pval/lgammacor.c",
                         "pval/pnorm.c"],
                        include_dirs=["pval"],
@@ -170,8 +175,7 @@ ext_Gthwe_files = ["gthwe/gthwe_wrap.i",
                    "gthwe/statistics.c"]
 
 
-ext_Gthwe_macros = [('fprintf', 'pyfprintf'),
-##                    ('_FORTIFY_SOURCE', '1'),
+ext_Gthwe_macros = [('__SWIG__', '1'),
                     ('DEBUG', '0'),
                     ('XML_OUTPUT', '1'),
                     ('SUPPRESS_ALLELE_TABLE', '1'),
@@ -213,9 +217,9 @@ ext_HweEnum = Extension("_HweEnum",
 # check to see if version of Python is > 2.1
 # if so,  use depends
 if sys.version_info[0] == 2 and sys.version_info[1] > 1:
-    ext_Emhaplofreq.depends=["emhaplofreq/emhaplofreq.h"]
-    ext_Pvalue.depends=['pval/Rconfig.h', 'pval/Rmath.h', 'pval/dpq.h', 'pval/nmath.h']
-    ext_Gthwe.depends=['gthwe/func.h', 'gthwe/hwe.h']
+    ext_Emhaplofreq.depends=['SWIG/typemap.i', "emhaplofreq/emhaplofreq.h"]
+    ext_Pvalue.depends=['SWIG/typemap.i', 'pval/Rconfig.h', 'pval/Rmath.h', 'pval/dpq.h', 'pval/nmath.h']
+    ext_Gthwe.depends=['SWIG/typemap.i', 'gthwe/func.h', 'gthwe/hwe.h']
     
 
 # default list of extensions to build
