@@ -63,6 +63,13 @@ MODIFICATIONS. */
 #define FP_PERMU NULL
 #endif
 
+#ifdef __SWIG__
+int pyfprintf(FILE *fp, const char *format, ...);
+#define xmlfprintf pyfprintf
+#else
+#define xmlfprintf fprintf
+#endif
+
 /* 
  * macros to initialize elements of a given static array to `zero'
  * make sure that functions are `re-entrant' (i.e. don't carry bogus
