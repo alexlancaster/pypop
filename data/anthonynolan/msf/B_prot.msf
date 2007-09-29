@@ -1,10 +1,11 @@
 
- temp.msf  MSF: 363  Type: N  January 01, 1776  12:00  Check: 8395 ..
+ temp.msf  MSF: 363  Type: N  January 01, 1776  12:00  Check: 8750 ..
 
  Name: B*070201         Len:   363  Check:  9108  Weight:  1.00
  Name: B*070202         Len:   363  Check:  4432  Weight:  1.00
  Name: B*070203         Len:   363  Check:  9958  Weight:  1.00
  Name: B*070204         Len:   363  Check:  9958  Weight:  1.00
+ Name: B*070205         Len:   363  Check:  5832  Weight:  1.00
  Name: B*0703           Len:   363  Check:   403  Weight:  1.00
  Name: B*0704           Len:   363  Check:  8982  Weight:  1.00
  Name: B*070501         Len:   363  Check:  9075  Weight:  1.00
@@ -56,9 +57,17 @@
  Name: B*0749N          Len:   298  Check:  3367  Weight:  1.00
  Name: B*0750           Len:   363  Check:  1060  Weight:  1.00
  Name: B*0751           Len:   363  Check:  9938  Weight:  1.00
+ Name: B*0752           Len:   363  Check:   189  Weight:  1.00
+ Name: B*0753           Len:   363  Check:   903  Weight:  1.00
+ Name: B*0754           Len:   363  Check:  9688  Weight:  1.00
+ Name: B*0755           Len:   363  Check:     3  Weight:  1.00
+ Name: B*0756           Len:   363  Check:  9706  Weight:  1.00
+ Name: B*0757           Len:   363  Check:  5093  Weight:  1.00
+ Name: B*0758           Len:   363  Check:  5648  Weight:  1.00
  Name: B*080101         Len:   363  Check:  8828  Weight:  1.00
  Name: B*080102         Len:   363  Check:  9678  Weight:  1.00
  Name: B*080103         Len:   363  Check:  9678  Weight:  1.00
+ Name: B*080104         Len:   363  Check:  9678  Weight:  1.00
  Name: B*0802           Len:   363  Check:  8618  Weight:  1.00
  Name: B*0803           Len:   363  Check:  3800  Weight:  1.00
  Name: B*0804           Len:   363  Check:   120  Weight:  1.00
@@ -89,10 +98,13 @@
  Name: B*0829           Len:   363  Check:  8338  Weight:  1.00
  Name: B*0830N          Len:   142  Check:  7582  Weight:  1.00
  Name: B*0831           Len:   363  Check:  9876  Weight:  1.00
+ Name: B*0832           Len:   363  Check:  5732  Weight:  1.00
+ Name: B*0833           Len:   363  Check:  8820  Weight:  1.00
  Name: B*1301           Len:   363  Check:   289  Weight:  1.00
  Name: B*130201         Len:   363  Check:   417  Weight:  1.00
  Name: B*130202         Len:   363  Check:  1001  Weight:  1.00
  Name: B*130203         Len:   363  Check:   417  Weight:  1.00
+ Name: B*130204         Len:   363  Check:  1001  Weight:  1.00
  Name: B*1303           Len:   363  Check:   859  Weight:  1.00
  Name: B*1304           Len:   363  Check:   801  Weight:  1.00
  Name: B*1306           Len:   363  Check:  1113  Weight:  1.00
@@ -107,6 +119,9 @@
  Name: B*1315           Len:   363  Check:     9  Weight:  1.00
  Name: B*1316           Len:   363  Check:   916  Weight:  1.00
  Name: B*1317           Len:   363  Check:  9961  Weight:  1.00
+ Name: B*1318           Len:   363  Check:  1055  Weight:  1.00
+ Name: B*1319           Len:   363  Check:  1430  Weight:  1.00
+ Name: B*1320           Len:   363  Check:   788  Weight:  1.00
  Name: B*1401           Len:   363  Check:   472  Weight:  1.00
  Name: B*140201         Len:   363  Check:  9842  Weight:  1.00
  Name: B*140202         Len:   363  Check:   207  Weight:  1.00
@@ -151,7 +166,7 @@
  Name: B*1527           Len:   363  Check:   435  Weight:  1.00
  Name: B*1528           Len:   363  Check:  5831  Weight:  1.00
  Name: B*1529           Len:   363  Check:  6721  Weight:  1.00
- Name: B*1530           Len:   363  Check:  6738  Weight:  1.00
+ Name: B*1530           Len:   363  Check:  1002  Weight:  1.00
  Name: B*1531           Len:   363  Check:  1253  Weight:  1.00
  Name: B*1532           Len:   363  Check:   552  Weight:  1.00
  Name: B*1533           Len:   363  Check:   133  Weight:  1.00
@@ -187,7 +202,7 @@
  Name: B*1565           Len:   363  Check:   561  Weight:  1.00
  Name: B*1566           Len:   363  Check:    52  Weight:  1.00
  Name: B*1567           Len:   363  Check:  7563  Weight:  1.00
- Name: B*1568           Len:   363  Check:  8261  Weight:  1.00
+ Name: B*1568           Len:   363  Check:  7823  Weight:  1.00
  Name: B*1569           Len:   363  Check:  1664  Weight:  1.00
  Name: B*1570           Len:   363  Check:  9745  Weight:  1.00
  Name: B*1571           Len:   363  Check:  6873  Weight:  1.00
@@ -244,6 +259,8 @@
  Name: B*1822           Len:   363  Check:  7829  Weight:  1.00
  Name: B*1823N          Len:   204  Check:  7545  Weight:  1.00
  Name: B*1824           Len:   363  Check:  2269  Weight:  1.00
+ Name: B*1825           Len:   363  Check:  3613  Weight:  1.00
+ Name: B*1826           Len:   363  Check:  2659  Weight:  1.00
  Name: B*2701           Len:   363  Check:  9259  Weight:  1.00
  Name: B*2702           Len:   363  Check:  7297  Weight:  1.00
  Name: B*2703           Len:   363  Check:  7460  Weight:  1.00
@@ -257,6 +274,7 @@
  Name: B*270507         Len:   363  Check:  8314  Weight:  1.00
  Name: B*270508         Len:   363  Check:  8486  Weight:  1.00
  Name: B*270509         Len:   363  Check:  8486  Weight:  1.00
+ Name: B*270510         Len:   363  Check:  8674  Weight:  1.00
  Name: B*2706           Len:   363  Check:  8969  Weight:  1.00
  Name: B*2707           Len:   363  Check:  8992  Weight:  1.00
  Name: B*2708           Len:   363  Check:  8024  Weight:  1.00
@@ -287,6 +305,8 @@
  Name: B*2734           Len:   363  Check:  8539  Weight:  1.00
  Name: B*2735           Len:   363  Check:  5383  Weight:  1.00
  Name: B*2736           Len:   363  Check:  9669  Weight:  1.00
+ Name: B*2737           Len:   363  Check:  9047  Weight:  1.00
+ Name: B*2738           Len:   363  Check:  4809  Weight:  1.00
  Name: B*350101         Len:   363  Check:  1194  Weight:  1.00
  Name: B*350102         Len:   363  Check:   367  Weight:  1.00
  Name: B*350103         Len:   363  Check:  6852  Weight:  1.00
@@ -369,6 +389,11 @@
  Name: B*3570           Len:   363  Check:  6842  Weight:  1.00
  Name: B*3571           Len:   363  Check:   287  Weight:  1.00
  Name: B*3572           Len:   363  Check:   875  Weight:  1.00
+ Name: B*3573           Len:   363  Check:   421  Weight:  1.00
+ Name: B*3574           Len:   363  Check:   760  Weight:  1.00
+ Name: B*3575           Len:   363  Check:    44  Weight:  1.00
+ Name: B*3576           Len:   363  Check:  5260  Weight:  1.00
+ Name: B*3577           Len:   363  Check:  9949  Weight:  1.00
  Name: B*370101         Len:   363  Check:  2269  Weight:  1.00
  Name: B*370102         Len:   363  Check:  2143  Weight:  1.00
  Name: B*370103         Len:   363  Check:  2143  Weight:  1.00
@@ -384,6 +409,7 @@
  Name: B*3710           Len:   363  Check:  7929  Weight:  1.00
  Name: B*3711           Len:   363  Check:  2265  Weight:  1.00
  Name: B*3712           Len:   363  Check:  2259  Weight:  1.00
+ Name: B*3713           Len:   363  Check:  2058  Weight:  1.00
  Name: B*380101         Len:   363  Check:   882  Weight:  1.00
  Name: B*380102         Len:   363  Check:  1604  Weight:  1.00
  Name: B*380201         Len:   363  Check:  1399  Weight:  1.00
@@ -401,6 +427,7 @@
  Name: B*3813           Len:   363  Check:  1352  Weight:  1.00
  Name: B*3814           Len:   363  Check:  3750  Weight:  1.00
  Name: B*3815           Len:   363  Check:  2115  Weight:  1.00
+ Name: B*3816           Len:   363  Check:  1652  Weight:  1.00
  Name: B*39010101       Len:   363  Check:   748  Weight:  1.00
  Name: B*39010102L      Len:   363  Check:   748  Weight:  1.00
  Name: B*390103         Len:   363  Check:   748  Weight:  1.00
@@ -447,6 +474,7 @@
  Name: B*3939           Len:   363  Check:  2014  Weight:  1.00
  Name: B*3940N          Len:   188  Check:   766  Weight:  1.00
  Name: B*3941           Len:   363  Check:  7534  Weight:  1.00
+ Name: B*3942           Len:   363  Check:  1411  Weight:  1.00
  Name: B*400101         Len:   363  Check:  8891  Weight:  1.00
  Name: B*400102         Len:   363  Check:  8891  Weight:  1.00
  Name: B*400103         Len:   363  Check:  5575  Weight:  1.00
@@ -524,9 +552,18 @@
  Name: B*4067           Len:   363  Check:  5531  Weight:  1.00
  Name: B*4068           Len:   363  Check:  7553  Weight:  1.00
  Name: B*4069           Len:   363  Check:  9360  Weight:  1.00
+ Name: B*4070           Len:   363  Check:  1807  Weight:  1.00
+ Name: B*4071           Len:   363  Check:  1862  Weight:  1.00
+ Name: B*4072           Len:   363  Check:  8944  Weight:  1.00
+ Name: B*4073           Len:   363  Check:  5908  Weight:  1.00
+ Name: B*4074           Len:   363  Check:   655  Weight:  1.00
+ Name: B*4075           Len:   363  Check:  1565  Weight:  1.00
+ Name: B*4076           Len:   363  Check:  9560  Weight:  1.00
+ Name: B*4077           Len:   363  Check:  8491  Weight:  1.00
  Name: B*4101           Len:   363  Check:    73  Weight:  1.00
  Name: B*4102           Len:   363  Check:    25  Weight:  1.00
- Name: B*4103           Len:   363  Check:   828  Weight:  1.00
+ Name: B*410301         Len:   363  Check:   828  Weight:  1.00
+ Name: B*410302         Len:   363  Check:   828  Weight:  1.00
  Name: B*4104           Len:   363  Check:   465  Weight:  1.00
  Name: B*4105           Len:   363  Check:   742  Weight:  1.00
  Name: B*4106           Len:   363  Check:  1279  Weight:  1.00
@@ -548,6 +585,7 @@
  Name: B*440204         Len:   363  Check:   984  Weight:  1.00
  Name: B*440301         Len:   363  Check:  1564  Weight:  1.00
  Name: B*440302         Len:   363  Check:  1564  Weight:  1.00
+ Name: B*440303         Len:   363  Check:  2336  Weight:  1.00
  Name: B*4404           Len:   363  Check:  1746  Weight:  1.00
  Name: B*4405           Len:   363  Check:  2038  Weight:  1.00
  Name: B*4406           Len:   363  Check:  9447  Weight:  1.00
@@ -596,6 +634,9 @@
  Name: B*4449           Len:   363  Check:   799  Weight:  1.00
  Name: B*4450           Len:   363  Check:   539  Weight:  1.00
  Name: B*4451           Len:   363  Check:  4874  Weight:  1.00
+ Name: B*4452N          Len:   215  Check:  5743  Weight:  1.00
+ Name: B*4453           Len:   363  Check:  7909  Weight:  1.00
+ Name: B*4454           Len:   363  Check:  1122  Weight:  1.00
  Name: B*4501           Len:   363  Check:   965  Weight:  1.00
  Name: B*4502           Len:   363  Check:   909  Weight:  1.00
  Name: B*4503           Len:   363  Check:  1090  Weight:  1.00
@@ -613,13 +654,16 @@
  Name: B*4607N          Len:   188  Check:  3834  Weight:  1.00
  Name: B*4608           Len:   363  Check:  5838  Weight:  1.00
  Name: B*4609           Len:   363  Check:   148  Weight:  1.00
+ Name: B*4610           Len:   363  Check:   975  Weight:  1.00
+ Name: B*4611           Len:   363  Check:  5612  Weight:  1.00
  Name: B*47010101       Len:   363  Check:   935  Weight:  1.00
  Name: B*47010102       Len:   363  Check:   935  Weight:  1.00
  Name: B*4702           Len:   363  Check:  8942  Weight:  1.00
  Name: B*4703           Len:   363  Check:  1474  Weight:  1.00
  Name: B*4704           Len:   363  Check:  1151  Weight:  1.00
  Name: B*4705           Len:   363  Check:  1239  Weight:  1.00
- Name: B*4801           Len:   363  Check:  1160  Weight:  1.00
+ Name: B*480101         Len:   363  Check:  1160  Weight:  1.00
+ Name: B*480102         Len:   363  Check:  6209  Weight:  1.00
  Name: B*4802           Len:   363  Check:  2648  Weight:  1.00
  Name: B*480301         Len:   363  Check:  1224  Weight:  1.00
  Name: B*480302         Len:   363  Check:  1224  Weight:  1.00
@@ -636,6 +680,8 @@
  Name: B*4814           Len:   363  Check:  1169  Weight:  1.00
  Name: B*4815           Len:   363  Check:  1146  Weight:  1.00
  Name: B*4816           Len:   363  Check:  1741  Weight:  1.00
+ Name: B*4817           Len:   363  Check:   932  Weight:  1.00
+ Name: B*4818           Len:   363  Check:   724  Weight:  1.00
  Name: B*4901           Len:   363  Check:   305  Weight:  1.00
  Name: B*4902           Len:   363  Check:  6796  Weight:  1.00
  Name: B*4903           Len:   363  Check:  9729  Weight:  1.00
@@ -651,8 +697,10 @@
  Name: B*510105         Len:   363  Check:  7785  Weight:  1.00
  Name: B*510106         Len:   363  Check:  9801  Weight:  1.00
  Name: B*510107         Len:   363  Check:   751  Weight:  1.00
+ Name: B*510108         Len:   363  Check:  9801  Weight:  1.00
  Name: B*510201         Len:   363  Check:  1036  Weight:  1.00
  Name: B*510202         Len:   363  Check:  1036  Weight:  1.00
+ Name: B*510203         Len:   363  Check:  6694  Weight:  1.00
  Name: B*5103           Len:   363  Check:   308  Weight:  1.00
  Name: B*5104           Len:   363  Check:   500  Weight:  1.00
  Name: B*5105           Len:   363  Check:  6833  Weight:  1.00
@@ -697,6 +745,9 @@
  Name: B*5144N          Len:    89  Check:  8713  Weight:  1.00
  Name: B*5145           Len:   363  Check:  9336  Weight:  1.00
  Name: B*5146           Len:   363  Check:  9687  Weight:  1.00
+ Name: B*5147           Len:   363  Check:  9886  Weight:  1.00
+ Name: B*5148           Len:   363  Check:  6394  Weight:  1.00
+ Name: B*5149           Len:   363  Check:  8161  Weight:  1.00
  Name: B*520101         Len:   363  Check:   800  Weight:  1.00
  Name: B*520102         Len:   363  Check:   425  Weight:  1.00
  Name: B*520103         Len:   363  Check:  9973  Weight:  1.00
@@ -710,6 +761,7 @@
  Name: B*5208           Len:   363  Check:  9861  Weight:  1.00
  Name: B*5209           Len:   363  Check:   193  Weight:  1.00
  Name: B*5210           Len:   363  Check:    58  Weight:  1.00
+ Name: B*5211           Len:   363  Check:   381  Weight:  1.00
  Name: B*530101         Len:   363  Check:   467  Weight:  1.00
  Name: B*530102         Len:   363  Check:  9640  Weight:  1.00
  Name: B*530103         Len:   363  Check:  9640  Weight:  1.00
@@ -725,6 +777,7 @@
  Name: B*5310           Len:   363  Check:  6035  Weight:  1.00
  Name: B*5311           Len:   363  Check:  1038  Weight:  1.00
  Name: B*5312           Len:   363  Check:   377  Weight:  1.00
+ Name: B*5313           Len:   363  Check:   157  Weight:  1.00
  Name: B*5401           Len:   363  Check:  9218  Weight:  1.00
  Name: B*5402           Len:   363  Check:  9655  Weight:  1.00
  Name: B*5403           Len:   363  Check:  9134  Weight:  1.00
@@ -735,6 +788,9 @@
  Name: B*5408N          Len:   185  Check:  9394  Weight:  1.00
  Name: B*5409           Len:   363  Check:  9265  Weight:  1.00
  Name: B*5410           Len:   363  Check:  9316  Weight:  1.00
+ Name: B*5411           Len:   363  Check:  9506  Weight:  1.00
+ Name: B*5412           Len:   363  Check:  8535  Weight:  1.00
+ Name: B*5413           Len:   363  Check:  8767  Weight:  1.00
  Name: B*550101         Len:   363  Check:  8862  Weight:  1.00
  Name: B*550102         Len:   363  Check:  8906  Weight:  1.00
  Name: B*550103         Len:   363  Check:  8862  Weight:  1.00
@@ -762,11 +818,14 @@
  Name: B*5522           Len:   363  Check:  4625  Weight:  1.00
  Name: B*5523           Len:   363  Check:  8933  Weight:  1.00
  Name: B*5524           Len:   363  Check:  8622  Weight:  1.00
+ Name: B*5525           Len:   363  Check:  9418  Weight:  1.00
+ Name: B*5526           Len:   363  Check:  9531  Weight:  1.00
+ Name: B*5527           Len:   363  Check:  9089  Weight:  1.00
  Name: B*5601           Len:   363  Check:  8819  Weight:  1.00
  Name: B*5602           Len:   363  Check:  8750  Weight:  1.00
  Name: B*5603           Len:   363  Check:  8836  Weight:  1.00
  Name: B*5604           Len:   363  Check:  8924  Weight:  1.00
- Name: B*560501         Len:   363  Check:  8838  Weight:  1.00
+ Name: B*560501         Len:   363  Check:  5323  Weight:  1.00
  Name: B*560502         Len:   363  Check:  8838  Weight:  1.00
  Name: B*5606           Len:   363  Check:  9018  Weight:  1.00
  Name: B*5607           Len:   363  Check:  8653  Weight:  1.00
@@ -782,6 +841,7 @@
  Name: B*5617           Len:   363  Check:  9474  Weight:  1.00
  Name: B*5618           Len:   363  Check:  4868  Weight:  1.00
  Name: B*5619N          Len:   188  Check:  2634  Weight:  1.00
+ Name: B*5620           Len:   363  Check:  4696  Weight:  1.00
  Name: B*570101         Len:   363  Check:  7793  Weight:  1.00
  Name: B*570102         Len:   363  Check:  8287  Weight:  1.00
  Name: B*570103         Len:   363  Check:  8287  Weight:  1.00
@@ -796,6 +856,8 @@
  Name: B*5709           Len:   363  Check:  8526  Weight:  1.00
  Name: B*5710           Len:   363  Check:  9241  Weight:  1.00
  Name: B*5711           Len:   363  Check:  7859  Weight:  1.00
+ Name: B*5712           Len:   363  Check:  9464  Weight:  1.00
+ Name: B*5713           Len:   363  Check:  8103  Weight:  1.00
  Name: B*5801           Len:   363  Check:  9092  Weight:  1.00
  Name: B*5802           Len:   363  Check:  9186  Weight:  1.00
  Name: B*5804           Len:   363  Check:  8125  Weight:  1.00
@@ -809,10 +871,11 @@
  Name: B*5812           Len:   363  Check:  9129  Weight:  1.00
  Name: B*5813           Len:   363  Check:  8493  Weight:  1.00
  Name: B*5814           Len:   363  Check:  8293  Weight:  1.00
+ Name: B*5815           Len:   363  Check:   661  Weight:  1.00
  Name: B*5901           Len:   363  Check:  9730  Weight:  1.00
  Name: B*5902           Len:   363  Check:  5945  Weight:  1.00
  Name: B*670101         Len:   363  Check:   201  Weight:  1.00
- Name: B*670102         Len:   363  Check:  9034  Weight:  1.00
+ Name: B*670102         Len:   363  Check:  6797  Weight:  1.00
  Name: B*6702           Len:   363  Check:   851  Weight:  1.00
  Name: B*7301           Len:   363  Check:   766  Weight:  1.00
  Name: B*7801           Len:   363  Check:   494  Weight:  1.00
@@ -848,6 +911,15 @@
  Name: B*9520           Len:   363  Check:  6450  Weight:  1.00
  Name: B*9521           Len:   363  Check:  1237  Weight:  1.00
  Name: B*9522           Len:   363  Check:   510  Weight:  1.00
+ Name: B*9523           Len:   363  Check:  1794  Weight:  1.00
+ Name: B*9524           Len:   363  Check:  6220  Weight:  1.00
+ Name: B*9525           Len:   363  Check:   930  Weight:  1.00
+ Name: B*9526           Len:   363  Check:  9997  Weight:  1.00
+ Name: B*9527           Len:   363  Check:  1610  Weight:  1.00
+ Name: B*9528           Len:   363  Check:  7165  Weight:  1.00
+ Name: B*9529           Len:   363  Check:  6452  Weight:  1.00
+ Name: B*9530           Len:   363  Check:   435  Weight:  1.00
+ Name: B*9532           Len:   363  Check:  1329  Weight:  1.00
 
 //
 
@@ -855,6 +927,7 @@
        B*070202  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
        B*070203  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
        B*070204  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
+       B*070205  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
          B*0703  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
          B*0704  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
        B*070501  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
@@ -906,9 +979,17 @@
         B*0749N  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
          B*0750  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
          B*0751  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
+         B*0752  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
+         B*0753  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
+         B*0754  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
+         B*0755  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
+         B*0756  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
+         B*0757  ....APRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
+         B*0758  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
        B*080101  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFDTAMSRPG RGEPRFISVG
        B*080102  .......... .......... .....SHSMR YFDTAMSRPG RGEPRFISVG
        B*080103  .......... .......... .....SHSMR YFDTAMSRPG RGEPRFISVG
+       B*080104  .......... .......... .....SHSMR YFDTAMSRPG RGEPRFISVG
          B*0802  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFDTAMSRPG RGEPRFISVG
          B*0803  .......... .......... .......... .FDTAMSRPG RGEPRFISVG
          B*0804  .......... .......... .....SHSMR YFDTAMSRPG RGEPRFISVG
@@ -939,10 +1020,13 @@
          B*0829  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFDTAMSRPG RGEPRFISVG
         B*0830N  .......... .......... .....SHSMR YFDTAMSRPG RGEPRFISVG
          B*0831  .......... .......... .....SHSMR YFDTAMSRPG RGEPRFISVG
+         B*0832  .......... .......... .....SHSMR YFDTAMSRPG RGEPRFISVG
+         B*0833  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFDTAMSRPG RGEPRFISVG
          B*1301  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
        B*130201  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
        B*130202  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
        B*130203  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
+       B*130204  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
          B*1303  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
          B*1304  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
          B*1306  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
@@ -957,6 +1041,9 @@
          B*1315  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
          B*1316  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
          B*1317  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*1318  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
+         B*1319  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
+         B*1320  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
          B*1401  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
        B*140201  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTAVSRPG RGEPRFISVG
        B*140202  .......... .....ALALT ETWAGSHSMR YFYTAVSRPG RGEPRFISVG
@@ -1001,7 +1088,7 @@
          B*1527  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*1528  MRVTAPRTVL LLLSGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*1529  MRVTAPRTVL LLLSGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFISVG
-         B*1530  .......... .......... .........R YFYTAMSRPG RGEPRFIAVG
+         B*1530  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*1531  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*1532  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*1533  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
@@ -1037,7 +1124,7 @@
          B*1565  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*1566  MRVTAPRTVL LLLSGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*1567  .......... .......... .....SHFMR YFYTAMSRPG RGEPRFIAVG
-         B*1568  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
+         B*1568  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
          B*1569  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFISVG
          B*1570  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*1571  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFIAVG
@@ -1094,6 +1181,8 @@
          B*1822  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFISVG
         B*1823N  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFISVG
          B*1824  .......... .......... .....SHSMR YFHTSVSRPG RGESRFISVG
+         B*1825  .........L LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFISVG
+         B*1826  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFHTSVSRPG RGEPRFISVG
          B*2701  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFITVG
          B*2702  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFHTSVSRPG RGEPRFITVG
          B*2703  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFHTSVSRPG RGEPRFITVG
@@ -1107,6 +1196,7 @@
        B*270507  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFHTSVSRPG RGEPRFITVG
        B*270508  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFITVG
        B*270509  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFITVG
+       B*270510  .......... ....GAVALT ETWAGSHSMR YFHTSVSRPG RGEPRFITVG
          B*2706  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFHTSVSRPG RGEPRFITVG
          B*2707  .......... .......... ....GSHSMR YFHTSVSRPG RGEPRFITVG
          B*2708  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFHTSVSRPG RGEPRFITVG
@@ -1137,6 +1227,8 @@
          B*2734  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFITVG
          B*2735  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFHTSVSRPG RGEPRFITVG
          B*2736  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFITVG
+         B*2737  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFITVG
+         B*2738  .....PRTLL LLLWGAVALT ETWAGSHSMR YFHTSVSRPG RGEPRFITVG
        B*350101  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
        B*350102  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
        B*350103  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
@@ -1219,6 +1311,11 @@
          B*3570  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*3571  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*3572  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*3573  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*3574  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*3575  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*3576  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
+         B*3577  .......... .......... .....SHSMR YFYTAMSGPG RGEPRFIAVG
        B*370101  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFHTSVSRPG RGEPRFISVG
        B*370102  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFISVG
        B*370103  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFISVG
@@ -1234,6 +1331,7 @@
          B*3710  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFISVG
          B*3711  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFISVG
          B*3712  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFISVG
+         B*3713  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFISVG
        B*380101  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
        B*380102  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
        B*380201  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
@@ -1251,6 +1349,7 @@
          B*3813  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
          B*3814  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
          B*3815  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
+         B*3816  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFITVG
      B*39010101  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
     B*39010102L  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
        B*390103  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
@@ -1297,6 +1396,7 @@
          B*3939  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
         B*3940N  .......... ......LALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
          B*3941  .......... .......... .....SHSMR YFYTSVSWPG RGEPRFISVG
+         B*3942  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
        B*400101  MRVTAPRTVL LLLSAALALT ETWAGSHSMR YFHTAMSRPG RGEPRFITVG
        B*400102  MRVTAPRTVL LLLSAALALT ETWAGSHSMR YFHTAMSRPG RGEPRFITVG
        B*400103  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
@@ -1374,9 +1474,18 @@
          B*4067  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
          B*4068  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFITVG
          B*4069  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
+         B*4070  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFHTSVSRPG RGEPRFITVG
+         B*4071  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFITVG
+         B*4072  MRVTAPRTVL LLLSAALALT ETWAGSHSMR YFHTAMSRPG RGEPRFITVG
+         B*4073  MRVTAPRTVL LLLSAALALT ETWAGSHSMR YFHTAMSRPG RGEPRFITVG
+         B*4074  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFITVG
+         B*4075  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFITVG
+         B*4076  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
+         B*4077  MRVTAPRTVL LLLSAALALT ETWAGSHSMR YFHTAMSRPG RGEPRFITVG
          B*4101  MRVTAPRTVL LLLSAALALT ETWAGSHSMR YFHTAMSRPG RGEPRFITVG
          B*4102  MRVTAPRTVL LLLSAALALT ETWAGSHSMR YFHTAMSRPG RGEPRFITVG
-         B*4103  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
+       B*410301  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
+       B*410302  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
          B*4104  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
          B*4105  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
          B*4106  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
@@ -1398,6 +1507,7 @@
        B*440204  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
        B*440301  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
        B*440302  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
+       B*440303  .......... ....GAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
          B*4404  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
          B*4405  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
          B*4406  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
@@ -1446,6 +1556,9 @@
          B*4449  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFDTAMSRPG RGEPRFITVG
          B*4450  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
          B*4451  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
+        B*4452N  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
+         B*4453  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
+         B*4454  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
          B*4501  MRVTAPRTVL LLLSAALALT ETWAGSHSMR YFHTAMSRPG RGEPRFITVG
          B*4502  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
          B*4503  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
@@ -1463,13 +1576,16 @@
         B*4607N  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*4608  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*4609  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*4610  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
+         B*4611  MRVTAPRTVL LLLSGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
      B*47010101  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
      B*47010102  MRVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
          B*4702  .RVTAPRTLL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFITVG
          B*4703  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
          B*4704  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
          B*4705  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFITVG
-         B*4801  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
+       B*480101  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
+       B*480102  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
          B*4802  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
        B*480301  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
        B*480302  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
@@ -1486,6 +1602,8 @@
          B*4814  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
          B*4815  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
          B*4816  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
+         B*4817  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
+         B*4818  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFISVG
          B*4901  MRVTAPRTVL LLLSAALALT ETWAGSHSMR YFHTAMSRPG RGEPRFITVG
          B*4902  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFITVG
          B*4903  .......... .......... .....SHSMR YFHTAMSRPG RGEPRFIAVG
@@ -1501,8 +1619,10 @@
        B*510105  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
        B*510106  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
        B*510107  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+       B*510108  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
        B*510201  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
        B*510202  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
+       B*510203  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5103  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*5104  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*5105  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
@@ -1547,6 +1667,9 @@
         B*5144N  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5145  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5146  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5147  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5148  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5149  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
        B*520101  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
        B*520102  ....APRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
        B*520103  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
@@ -1560,6 +1683,7 @@
          B*5208  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5209  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5210  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5211  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
        B*530101  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
        B*530102  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
        B*530103  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
@@ -1575,6 +1699,7 @@
          B*5310  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5311  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*5312  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5313  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5401  MRVTAPRTLL LLLWGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*5402  .......... .......... .....SHSMR YFHTSVSRPG RGEPRFIAVG
          B*5403  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
@@ -1585,6 +1710,9 @@
         B*5408N  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5409  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5410  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5411  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5412  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5413  .......... .......... .....SHSMR YFYTAMSRPG RGEPGFIAVG
        B*550101  MRVTAPRTLL LLLWGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
        B*550102  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
        B*550103  MRVTAPRTLL LLLWGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
@@ -1612,6 +1740,9 @@
          B*5522  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5523  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5524  MRVTAPRTLL LLLWGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5525  .......... .......... .....SHSMR YVYTAMSRPG RGEPRFIAVG
+         B*5526  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5527  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5601  MRVTAPRTLL LLLWGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*5602  MRVTAPRTLL LLLWGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*5603  MRVTAPRTLL LLLWGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
@@ -1632,6 +1763,7 @@
          B*5617  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5618  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
         B*5619N  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5620  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
        B*570101  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
        B*570102  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
        B*570103  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
@@ -1646,6 +1778,8 @@
          B*5709  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5710  .......... .......... .....SHSMR YFYTSVSRPG RGEPRFIAVG
          B*5711  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5712  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5713  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5801  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*5802  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*5804  MRVTAPRTVL LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
@@ -1659,6 +1793,7 @@
          B*5812  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFISVG
          B*5813  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*5814  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*5815  .........L LLLWGAVALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*5901  MRVTAPRTLL LLLWGALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
          B*5902  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
        B*670101  MLVMAPRTVL LLLSAALALT ETWAGSHSMR YFYTSVSRPG RGEPRFISVG
@@ -1698,11 +1833,21 @@
          B*9520  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*9521  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
          B*9522  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*9523  MRVTAPRTVL LLLSGVLALT ETWAGSHSMR YFYTAMSRPG RGEPRFISVG
+         B*9524  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFISVG
+         B*9525  .......... .......... .....SHSMR YFYTAVSRPG RGEPRFIAVG
+         B*9526  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*9527  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFISVG
+         B*9528  .......... .....ALALT ETWAGSHSMR YFYTAMSRPG RGEPRFIAVG
+         B*9529  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*9530  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFIAVG
+         B*9532  .......... .......... .....SHSMR YFYTAMSRPG RGEPRFISVG
 
        B*070201  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
        B*070202  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
        B*070203  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
        B*070204  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+       B*070205  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
          B*0703  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKTNTQTDRE
          B*0704  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
        B*070501  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
@@ -1754,9 +1899,17 @@
         B*0749N  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
          B*0750  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI SKTNTQTYRE
          B*0751  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+         B*0752  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+         B*0753  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+         B*0754  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI YKAQAQTDRE
+         B*0755  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+         B*0756  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+         B*0757  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+         B*0758  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
        B*080101  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTDRE
        B*080102  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTDRE
        B*080103  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTDRE
+       B*080104  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTDRE
          B*0802  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTDRE
          B*0803  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*0804  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI SKTNTQTDRE
@@ -1787,10 +1940,13 @@
          B*0829  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTDRE
         B*0830N  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTDRE
          B*0831  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTDRE
+         B*0832  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTDRE
+         B*0833  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTDRE
          B*1301  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*130201  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*130202  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*130203  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+       B*130204  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*1303  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*1304  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*1306  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
@@ -1805,6 +1961,9 @@
          B*1315  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*1316  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*1317  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*1318  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*1319  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQV SKTNTQTYRE
+         B*1320  YVDDTQFVRF DSDATSPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*1401  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTDRE
        B*140201  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTDRE
        B*140202  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTDRE
@@ -1941,6 +2100,8 @@
          B*1822  YVDGTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI SKTNTQTYRE
         B*1823N  YVDGTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI SKTNTQTYRE
          B*1824  YVDGTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI SKTNTQTYRE
+         B*1825  YVDGTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI SKTNTQTYRE
+         B*1826  YVDGTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI SKTNTQTYRE
          B*2701  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTYRE
          B*2702  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
          B*2703  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEHWDRETQI CKAKAQTDRE
@@ -1954,6 +2115,7 @@
        B*270507  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
        B*270508  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
        B*270509  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
+       B*270510  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
          B*2706  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
          B*2707  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
          B*2708  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
@@ -1984,6 +2146,8 @@
          B*2734  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
          B*2735  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
          B*2736  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
+         B*2737  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
+         B*2738  YVDDTLFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI CKAKAQTDRE
        B*350101  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
        B*350102  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
        B*350103  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
@@ -2066,6 +2230,11 @@
          B*3570  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*3571  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*3572  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI SKTNTQTYRE
+         B*3573  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
+         B*3574  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRV
+         B*3575  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
+         B*3576  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+         B*3577  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
        B*370101  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*370102  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*370103  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
@@ -2081,6 +2250,7 @@
          B*3710  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*3711  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*3712  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*3713  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*380101  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTYRE
        B*380102  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTYRE
        B*380201  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTYRE
@@ -2098,6 +2268,7 @@
          B*3813  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTYLE
          B*3814  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTDRE
          B*3815  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTYRE
+         B*3816  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTYRE
      B*39010101  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTDRE
     B*39010102L  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTDRE
        B*390103  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTDRE
@@ -2144,6 +2315,7 @@
          B*3939  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI SKTNTQTDRE
         B*3940N  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTDRE
          B*3941  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTDRE
+         B*3942  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTDRE
        B*400101  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*400102  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*400103  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
@@ -2221,9 +2393,18 @@
          B*4067  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4068  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*4069  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDREIQI SKTNTQTYRE
+         B*4070  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*4071  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*4072  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*4073  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRV
+         B*4074  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*4075  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI CKTNTQTYRE
+         B*4076  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*4077  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4101  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4102  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
-         B*4103  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+       B*410301  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+       B*410302  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4104  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4105  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4106  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
@@ -2245,6 +2426,7 @@
        B*440204  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*440301  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*440302  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+       B*440303  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4404  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4405  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4406  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
@@ -2292,6 +2474,9 @@
          B*4449  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4450  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4451  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+        B*4452N  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*4453  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*4454  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4501  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4502  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4503  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
@@ -2309,13 +2494,16 @@
         B*4607N  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRETQK YKRQAQTDRV
          B*4608  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRETQK YKRQAQTDRV
          B*4609  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRETQK YKRQAQTDRV
+         B*4610  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRETQK YKRQAQTDRV
+         B*4611  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRETQK YKRQAQTDRV
      B*47010101  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
      B*47010102  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4702  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4703  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4704  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4705  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
-         B*4801  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+       B*480101  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+       B*480102  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4802  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*480301  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*480302  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
@@ -2332,6 +2520,8 @@
          B*4814  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4815  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4816  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRVTQI SKTNTQTYRE
+         B*4817  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*4818  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4901  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4902  YVDDTLFVRF DSDATSPRKE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*4903  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
@@ -2347,8 +2537,10 @@
        B*510105  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
        B*510106  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
        B*510107  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
+       B*510108  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
        B*510201  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
        B*510202  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
+       B*510203  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*5103  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*5104  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*5105  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
@@ -2393,6 +2585,9 @@
         B*5144N  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTX
          B*5145  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*5146  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
+         B*5147  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
+         B*5148  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
+         B*5149  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
        B*520101  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*520102  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*520103  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
@@ -2406,6 +2601,7 @@
          B*5208  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*5209  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
          B*5210  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*5211  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
        B*530101  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
        B*530102  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
        B*530103  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
@@ -2421,6 +2617,7 @@
          B*5310  YVDDTQFVRF DSDAAIPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*5311  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*5312  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
+         B*5313  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*5401  YVDDTQFVRF DSDAASPRGE PRAPWVEQEG PEYWDRNTQI YKAQAQTDRE
          B*5402  YVDDTQFVRF DSDAASPRGE PRAPWVEQEG PEYWDRNTQI YKAQAQTDRE
          B*5403  YVDDTQFVRF DSDAASPRGE PRAPWVEQEG PEYWDRNTQI YKAQAQTDRE
@@ -2431,6 +2628,9 @@
         B*5408N  YVDDTQFVRF DSDAASPRGE PRAPWVEQEG PEYWDRNTQI YKAQAQTDRE
          B*5409  YVDDTQFVRF DSDAASPRGE PRAPWVEQEG PEYWDRNTQI YKAQAQTDRE
          B*5410  YVDDTQFVRF DSDAASPRGE PRAPWVEQEG PEYWDRNTQI YKAQAQTDRE
+         B*5411  YVDDTQFVRF DSDAASPRGE PRAPWVEQEG PEYWDRNTQI YKAQAQTDRE
+         B*5412  YVDDTQFVRF DSDAASPRGE PRAPWVEQEG PEYWDRNTQI YKAQAQTDRE
+         B*5413  YVDDTQFVRF DSDAASPRGE PRAPWVEQEG PEYWDRNTQI YKAQAQTDRE
        B*550101  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
        B*550102  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
        B*550103  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
@@ -2458,6 +2658,9 @@
          B*5522  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
          B*5523  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
          B*5524  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+         B*5525  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+         B*5526  YVDNTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+         B*5527  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
          B*5601  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
          B*5602  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
          B*5603  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
@@ -2478,6 +2681,7 @@
          B*5617  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKANTQTDRE
          B*5618  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
         B*5619N  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
+         B*5620  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
        B*570101  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDGETRN MKASAQTYRE
        B*570102  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDGETRN MKASAQTYRE
        B*570103  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDGETRN MKASAQTYRE
@@ -2492,6 +2696,8 @@
          B*5709  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDGETRN MKASAQTYRE
          B*5710  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDGETRN MKASAQTYRE
          B*5711  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDGETRN MKASAQTYRE
+         B*5712  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDGETRN MKASAQTYRE
+         B*5713  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDGETRN MKASAQTYRE
          B*5801  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDGETRN MKASAQTYRE
          B*5802  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDGETRN MKASAQTYRE
          B*5804  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDEETRN MKASAQTYRE
@@ -2505,6 +2711,7 @@
          B*5812  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDGETRN MKASAQTYRE
          B*5813  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDGETRN MKASAQTYRE
          B*5814  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDGETRN MKASAQTYRE
+         B*5815  YVDDTQFVRF DSDAASPRTE PRAPWIEQEG PEYWDGETRN MKASAQTYPE
          B*5901  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
          B*5902  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI FKTNTQTYRE
        B*670101  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI YKAQAQTDRE
@@ -2544,11 +2751,21 @@
          B*9520  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRDTQI SKTNTQTYRE
          B*9521  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRNTQI SKTNTQTYRE
          B*9522  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG LEYWDRETQI SKTNTQTYRE
+         B*9523  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*9524  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRNTQI CKTNTQTYRE
+         B*9525  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*9526  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*9527  YVDDTQFVRF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*9528  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*9529  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*9530  YVDDTQFVRF DSDAASPRMA PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
+         B*9532  YVDDTQFVSF DSDAASPREE PRAPWIEQEG PEYWDRETQI SKTNTQTYRE
 
        B*070201  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
        B*070202  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
        B*070203  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
        B*070204  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
+       B*070205  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
          B*0703  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
          B*0704  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
        B*070501  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
@@ -2600,9 +2817,17 @@
         B*0749N  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
          B*0750  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
          B*0751  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
+         B*0752  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
+         B*0753  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*0754  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
+         B*0755  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
+         B*0756  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
+         B*0757  NLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
+         B*0758  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
        B*080101  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*080102  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*080103  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+       B*080104  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*0802  NLRTALRYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*0803  NLRIALRYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*0804  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
@@ -2633,10 +2858,13 @@
          B*0829  SLRNLHGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
         B*0830N  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AX
          B*0831  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*0832  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*0833  SLRNLRGYYN QSEAGSHTLQ SLYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*1301  NLRTALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
        B*130201  NLRTALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
        B*130202  NLRTALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
        B*130203  NLRTALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
+       B*130204  NLRTALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*1303  NLRTALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*1304  NLRTALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
          B*1306  NLRTALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
@@ -2651,6 +2879,9 @@
          B*1315  NLRTALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*1316  NLRTALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*1317  NLRTALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
+         B*1318  NLRTALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
+         B*1319  NLRTALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
+         B*1320  NLRTALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*1401  SLRNLRGYYN QSEAGSHTLQ WMYGCDVGPD GRLLRGYNQF AYDGKDYIAL
        B*140201  SLRNLRGYYN QSEAGSHTLQ WMYGCDVGPD GRLLRGYNQF AYDGKDYIAL
        B*140202  SLRNLRGYYN QSEAGSHTLQ WMYGCDVGPD GRLLRGYNQF AYDGKDYIAL
@@ -2786,6 +3017,8 @@
          B*1822  SLRNLRGYYN QSEAGSHIIQ SMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
         B*1823N  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
          B*1824  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*1825  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*1826  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*2701  NLRTALRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
          B*2702  NLRIALRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
          B*2703  DLRTLLRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
@@ -2799,6 +3032,7 @@
        B*270507  DLRTLLRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
        B*270508  DLRTLLRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
        B*270509  DLRTLLRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
+       B*270510  DLRTLLRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
          B*2706  SLRTLLRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYDQY AYDGKDYIAL
          B*2707  DLRTLLRYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*2708  SLRNLRGYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
@@ -2829,6 +3063,8 @@
          B*2734  DLRTLLRYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQY AYDGKDYIAL
          B*2735  DLRTLLRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYNQF AYDGKDYIAL
          B*2736  SLRTLLRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
+         B*2737  DLRTLLRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
+         B*2738  DLRTLLRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
        B*350101  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
        B*350102  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
        B*350103  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
@@ -2911,6 +3147,11 @@
          B*3570  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQF AYDGKDYIAL
          B*3571  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
          B*3572  SLRNLRGYYN QSEAGSHTLQ SMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
+         B*3573  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
+         B*3574  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQF AYDGKDYIAL
+         B*3575  SLRNLRGYYN QSEAGSHILQ RMYGCDLGPD GRLLRGHDQF AYDGKDYIAL
+         B*3576  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
+         B*3577  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
        B*370101  DLRTLLRYYN QSEAGSHTIQ RMSGCDVGPD GRLLRGYNQF AYDGKDYIAL
        B*370102  DLRTLLRYYN QSEAGSHTIQ RMSGCDVGPD GRLLRGYNQF AYDGKDYIAL
        B*370103  DLRTLLRYYN QSEAGSHTIQ RMSGCDVGPD GRLLRGYNQF AYDGKDYIAL
@@ -2926,6 +3167,7 @@
          B*3710  NLRTALRYYN QSEAGSHTIQ RMSGCDVGPD GRLLRGYNQF AYDGKDYIAL
          B*3711  SLRNLRGYYN QSEAGSHTIQ RMSGCDVGPD GRLLRGYNQF AYDGKDYIAL
          B*3712  DLRTLLRYYN QSEAGSHTIQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*3713  DLRTLLRYYN QSEAGSHTIQ RMSGCDVGPD GRLLRGYNQF AYDGKDYIAL
        B*380101  NLRIALRYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
        B*380102  NLRIALRYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
        B*380201  NLRTALRYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
@@ -2943,6 +3185,7 @@
          B*3813  NLRIALRYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
          B*3814  NLRIALRYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
          B*3815  NLRTALRYYN QSEAGPHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
+         B*3816  NLRIALRYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
      B*39010101  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
     B*39010102L  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
        B*390103  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
@@ -2989,6 +3232,7 @@
          B*3939  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
         B*3940N  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
          B*3941  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
+         B*3942  SLRNLRGYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
        B*400101  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*400102  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*400103  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
@@ -3065,9 +3309,18 @@
          B*4067  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*4068  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHNQY AYDGKDYIAL
          B*4069  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*4070  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQY AYDGKDYIAL
+         B*4071  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQL AYDGKDYIAL
+         B*4072  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*4073  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*4074  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*4075  SLRNLRGYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*4076  SLRKLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*4077  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
          B*4101  SLRNLRGYYN QSEAGSHTWQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*4102  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
-         B*4103  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+       B*410301  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+       B*410302  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*4104  SLRNLRGYYN QSEAGSHTLQ SMYGCDLGPD GRLLRGHDQY AYDGKDYIAL
          B*4105  SLRKLRGYYN QSEAGSHTWQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*4106  SLRNLRGYYN QSEAGSHTWQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
@@ -3089,6 +3342,7 @@
        B*440204  NLRTALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQD AYDGKDYIAL
        B*440301  NLRTALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQD AYDGKDYIAL
        B*440302  NLRTALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQD AYDGKDYIAL
+       B*440303  NLRTALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQD AYDGKDYIAL
          B*4404  NLRTALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQD AYDGKDYIAL
          B*4405  NLRTALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQY AYDGKDYIAL
          B*4406  NLRIALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQD AYDGKDYIAL
@@ -3136,6 +3390,9 @@
          B*4449  NLRTALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQD AYDGKDYIAL
          B*4450  NLRIALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQD AYDGKDYIAL
          B*4451  NLRTALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGHDQD AYDGKDYIAL
+        B*4452N  NLRTALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQD AYDGKDYIAL
+         B*4453  NLRTALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQD AYDGKDYIAL
+         B*4454  NLRTALRYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGYDQD AYDGKDYIAL
          B*4501  SLRNLRGYYN QSEAGSHTWQ RMYGCDLGPD GRLLRGYNQL AYDGKDYIAL
          B*4502  SLRNLRGYYN QSEAGSHTWQ RMYGCDLGPD GRLLRGYNQF AYDGKDYIAL
          B*4503  SLRNLRGYYN QSEAGSHTWQ RMYGCDLGPD GRLLRGYNRL AYDGKDYIAL
@@ -3153,13 +3410,16 @@
         B*4607N  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
          B*4608  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
          B*4609  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*4610  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*4611  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
      B*47010101  DLRTLLRYYN QSEAGSHTLQ RMFGCDVGPD GRLLRGYHQD AYDGKDYIAL
      B*47010102  DLRTLLRYYN QSEAGSHTLQ RMFGCDVGPD GRLLRGYHQD AYDGKDYIAL
          B*4702  SLRNLRGYYN QSEAGSHTLQ RMFGCDVGPD GRLLRGYHQD AYDGKDYIAL
          B*4703  SLRNLLRYYN QSEAGSHTLQ RMFGCDVGPD GRLLRGYHQD AYDGKDYIAL
          B*4704  NLRTALRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
          B*4705  DLRTLLRYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGYHQD AYDGKDYIAL
-         B*4801  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+       B*480101  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+       B*480102  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*4802  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
        B*480301  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*480302  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
@@ -3176,6 +3436,8 @@
          B*4814  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQS AYDGKDYIAL
          B*4815  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*4816  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*4817  SLRNLRGYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGYNQF AYDGKDYIAL
+         B*4818  SLRIALRYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*4901  NLRIALRYYN QSEAGSHTWQ RMYGCDLGPD GRLLRGYNQL AYDGKDYIAL
          B*4902  NLRTALRYYN QSEAGSHTWQ RMYGCDLGPD GRLLRGYNQL AYDGKDYIAL
          B*4903  NLRIALRYYN QSEAGSHTWQ RMYGCDLGPD GRLLRGYNQL AYDGKDYIAL
@@ -3191,8 +3453,10 @@
        B*510105  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*510106  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*510107  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+       B*510108  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*510201  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*510202  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+       B*510203  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*5103  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*5104  NLRIALRYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*5105  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
@@ -3235,6 +3499,9 @@
          B*5143  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*5145  NLRIALRYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
          B*5146  NLRIALRYYN QSEAGSHIIQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*5147  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*5148  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*5149  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*520101  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*520102  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*520103  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
@@ -3248,6 +3515,7 @@
          B*5208  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*5209  SLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*5210  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*5211  NLRIALRYYN QSEAGSHTWQ TMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
        B*530101  NLRIALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
        B*530102  NLRIALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
        B*530103  NLRIALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
@@ -3263,6 +3531,7 @@
          B*5310  NLRIALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
          B*5311  NLRTALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
          B*5312  SLRTALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
+         B*5313  NLRTALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
          B*5401  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*5402  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*5403  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
@@ -3273,6 +3542,9 @@
         B*5408N  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*5409  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
          B*5410  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
+         B*5411  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQY AYDGKDYIAL
+         B*5412  NLRIALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
+         B*5413  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
        B*550101  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
        B*550102  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
        B*550103  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
@@ -3300,6 +3572,9 @@
          B*5522  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*5523  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
          B*5524  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
+         B*5525  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
+         B*5526  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
+         B*5527  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHDQY AYDGKDYIAL
          B*5601  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*5602  SLRNLRGYYN QSEAGSHTLQ RMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*5603  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
@@ -3320,6 +3595,7 @@
          B*5617  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*5618  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
         B*5619N  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
+         B*5620  SLRNLRGYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
        B*570101  NLRIALRYYN QSEAGSHIIQ VMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
        B*570102  NLRIALRYYN QSEAGSHIIQ VMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
        B*570103  NLRIALRYYN QSEAGSHIIQ VMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
@@ -3334,6 +3610,8 @@
          B*5709  NLRIALRYYN QSEAGSHIIQ VMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
          B*5710  NLRIALRYYN QSEAGSHIIQ VMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
          B*5711  NLRIALRYYN QSEAGSHTLQ WMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*5712  SLRNLRGYYN QSEAGSHIIQ VMYGCDVGPD GRLLRGHNQY AYDGKDYIAL
+         B*5713  NLRIALRYYN QSEAGSHIIQ VMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
          B*5801  NLRIALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
          B*5802  NLRIALRYYN QSEAGSHTLQ WMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
          B*5804  NLRIALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
@@ -3347,6 +3625,7 @@
          B*5812  NLRIALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
          B*5813  NLRIALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
          B*5814  NLRIALRYYN QSEAGSHIIQ VMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
+         B*5815  NLRIALRYYN QSEAGSHIIQ RMYGCDLGPD GRLLRGHDQS AYDGKDYIAL
          B*5901  NLRIALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQL AYDGKDYIAL
          B*5902  NLRIALRYYN QSEAGSHTWQ TMYGCDLGPD GRLLRGHNQY AYDGKDYIAL
        B*670101  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHNQF AYDGKDYIAL
@@ -3386,11 +3665,21 @@
          B*9520  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
          B*9521  SLRNLRGYYN QSEAGSHIIQ RMYGCDVGPD GRLLRGYDQS AYDGKDYIAL
          B*9522  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*9523  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*9524  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*9525  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*9526  SLRNLRGYYN QSEAGSHTLQ SMYGCDVGPD GRLLRGHDQS ACDGKDYIAL
+         B*9527  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*9528  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGYDQS AYDGKDYIAL
+         B*9529  SLRNLRGYYN QSEAGSHTLQ NMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*9530  SLRNLRGYYN QSEAGSHTLQ RMFGCDVGPD GRLLRGHDQS AYDGKDYIAL
+         B*9532  SLRNLRGYYN QSEAGSHTLQ RMYGCDVGPD GRLLRGHDQS AYDGKDYIAL
 
        B*070201  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
        B*070202  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
        B*070203  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
        B*070204  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
+       B*070205  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
          B*0703  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
          B*0704  NEDLRSWTAA DTAAQITQRK WEAAREAEQD RAYLEGECVE WLRRYLENGK
        B*070501  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
@@ -3442,9 +3731,17 @@
         B*0749N  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
          B*0750  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
          B*0751  NEDLRSWTAA DTAAQITQRK WEAARAAEQR RAYLEGECVE WLRRYLENGK
+         B*0752  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RVYLEGECVE WLRRYLENGK
+         B*0753  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
+         B*0754  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
+         B*0755  NEDLRSWTAA DTAAQITQRK WEAAREAEQW RAYLEGECVE WLRRYLENGK
+         B*0756  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
+         B*0757  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
+         B*0758  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
        B*080101  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
        B*080102  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
        B*080103  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
+       B*080104  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*0802  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*0803  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*0804  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
@@ -3474,10 +3771,13 @@
          B*0828  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*0829  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*0831  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
+         B*0832  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
+         B*0833  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*1301  NEDLSSWTAA DTAAQITQLK WEAARVAEQL RAYLEGECVE WLRRYLENGK
        B*130201  NEDLSSWTAA DTAAQITQLK WEAARVAEQL RAYLEGECVE WLRRYLENGK
        B*130202  NEDLSSWTAA DTAAQITQLK WEAARVAEQL RAYLEGECVE WLRRYLENGK
        B*130203  NEDLSSWTAA DTAAQITQLK WEAARVAEQL RAYLEGECVE WLRRYLENGK
+       B*130204  NEDLSSWTAA DTAAQITQLK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*1303  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*1304  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*1306  NEDLSSWTAA DTAAQITQLK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
@@ -3492,6 +3792,9 @@
          B*1315  NEDLSSWTAA DTAAQITQLK WEAARVAEQL RAYLEGECVE WLRRHLENGK
          B*1316  NEDLSSWTAA DTAAQITQLK WEAAREAEQL RAYLEGECVE WLRRYLENGK
          B*1317  NEDLSSWTAA DTAAQITQLK WEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*1318  NEDLSSWTAA DTAAQITQLK WEAARVAEQR RAYLEGECVE WLRRYLENGK
+         B*1319  NEDLSSWTAA DTAAQITQLK WEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*1320  NEDLSSWTAA DTAAQITQLK WEAAREAEQL RAYLEGECVE WLRRYLENGK
          B*1401  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGTCVE WLRRHLENGK
        B*140201  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGTCVE WLRRHLENGK
        B*140202  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGTCVE WLRRHLENGK
@@ -3626,6 +3929,8 @@
          B*1822  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRHLENGK
         B*1823N  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRHLENGK
          B*1824  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRHLENGK
+         B*1825  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRHLENGK
+         B*1826  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRHLENGK
          B*2701  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*2702  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*2703  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
@@ -3639,6 +3944,7 @@
        B*270507  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
        B*270508  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
        B*270509  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
+       B*270510  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*2706  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGECVE WLRRYLENGK
          B*2707  NEDLRSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*2708  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
@@ -3669,6 +3975,8 @@
          B*2734  NEDLRSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*2735  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*2736  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*2737  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*2738  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
        B*350101  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
        B*350102  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
        B*350103  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
@@ -3751,6 +4059,11 @@
          B*3570  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*3571  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE SLRRYLENGK
          B*3572  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
+         B*3573  NEDLSSWTAA DTAAQITQRK WEAARVAEQR RAYLEGLCVE WLRRYLENGK
+         B*3574  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
+         B*3575  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
+         B*3576  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
+         B*3577  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
        B*370101  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
        B*370102  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
        B*370103  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
@@ -3765,6 +4078,7 @@
          B*3710  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*3711  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*3712  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
+         B*3713  NEDLSSWTAA DTAAQITQRK WEAAREAEQD RAYLEGTCVE WLRRYLENGK
        B*380101  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
        B*380102  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
        B*380201  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
@@ -3782,6 +4096,7 @@
          B*3813  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
          B*3814  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
          B*3815  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
+         B*3816  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
      B*39010101  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
     B*39010102L  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
        B*390103  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
@@ -3827,6 +4142,7 @@
          B*3939  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
         B*3940N  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTX
          B*3941  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
+         B*3942  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
        B*400101  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
        B*400102  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
        B*400103  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
@@ -3903,9 +4219,18 @@
          B*4067  NEDLRSWTAA DTAAQISQRK LEAAGVAEQL RAYLEGECVE WLRRYLENGK
          B*4068  NEDLRSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*4069  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*4070  NEDLRSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*4071  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
+         B*4072  NEDLRSWTAA DTAAQITQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*4073  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*4074  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*4075  NEDLRSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*4076  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*4077  NEDLSSWTAA DTAAQITQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*4101  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*4102  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
-         B*4103  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
+       B*410301  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
+       B*410302  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*4104  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*4105  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
          B*4106  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGTCVE WLRRYLENGK
@@ -3927,6 +4252,7 @@
        B*440204  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGLCVE SLRRYLENGK
        B*440301  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE SLRRYLENGK
        B*440302  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE SLRRYLENGK
+       B*440303  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE SLRRYLENGK
          B*4404  NEDLSSWTAA DTAAQITQRK WEAARVAEQR RAYLEGTCVE SLRRYLENGK
          B*4405  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGLCVE SLRRYLENGK
          B*4406  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGLCVE SLRRYLENGK
@@ -3974,6 +4300,9 @@
          B*4449  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGLCVE SLRRYLENGK
          B*4450  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE SLRRYLENGK
          B*4451  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGLCVE SLRRYLENGK
+        B*4452N  NEDLSSWTAA DTAAQVGGGP CGGAGQSLPG GPVRGVAPQI PGEREGDAAA
+         B*4453  NEDLRSWTAA DTAAQITQRK WEAARVAEQD RAYLEGLCVE SLRRYLENGK
+         B*4454  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE SLRRYLENGK
          B*4501  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGLCVE SLRRYLENGK
          B*4502  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGLCVE SLRRYLENGK
          B*4503  NEDLSSWTAA DTAAQITQRK WEAARVAEQD RAYLEGLCVE SLRRYLENGK
@@ -3991,13 +4320,16 @@
         B*4607N  NEDLSSWTAA DTAAQITQRK WEAAREAEQW RAYLEGLX
          B*4608  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRYLENGK
          B*4609  NEDLSSWTAA DTAAQITQRK WEAARVAEQW RAYLEGLCVE WLRRYLENGK
+         B*4610  NEDLSSWTAA DTAAQITQRK WEAAREAEQW RAYLEGLCVE WLRRYLENGK
+         B*4611  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
      B*47010101  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
      B*47010102  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*4702  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*4703  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*4704  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*4705  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
-         B*4801  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
+       B*480101  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
+       B*480102  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*4802  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
        B*480301  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
        B*480302  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
@@ -4014,6 +4346,8 @@
          B*4814  NEDLSSWTAA DTAAQITQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*4815  NEDLRSWTAA DTAAQISQRK LEAAREAEQL RAYLEGECVE WLRRYLENGK
          B*4816  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*4817  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*4818  NEDLRSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*4901  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRYLENGK
          B*4902  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRYLENGK
          B*4903  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRYLENGK
@@ -4029,8 +4363,10 @@
        B*510105  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
        B*510106  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
        B*510107  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
+       B*510108  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
        B*510201  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRYLENGK
        B*510202  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRYLENGK
+       B*510203  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRYLENGK
          B*5103  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE GLRRHLENGK
          B*5104  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
          B*5105  NEDLSSWTAA DTAAQITQRK WEAARVAEQR RAYLEGLCVE WLRRYLENGK
@@ -4073,6 +4409,9 @@
          B*5143  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
          B*5145  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
          B*5146  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
+         B*5147  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRHLENGK
+         B*5148  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
+         B*5149  NEDLSSWTAA DTGAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
        B*520101  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
        B*520102  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
        B*520103  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
@@ -4086,6 +4425,7 @@
          B*5208  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGECVE WLRRHLENGK
          B*5209  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRHLENGK
          B*5210  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRHLENGK
+         B*5211  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRYLENGK
        B*530101  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
        B*530102  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
        B*530103  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
@@ -4101,6 +4441,7 @@
          B*5310  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*5311  NEDLSSWTAA DTAAQITQRK WEAARVAEQR RAYLEGLCVE WLRRYLENGK
          B*5312  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
+         B*5313  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*5401  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          B*5402  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          B*5403  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
@@ -4111,6 +4452,9 @@
         B*5408N  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLX
          B*5409  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          B*5410  NEDLSSWTAA DTAAQITQRK WEAARVAEQR RAYLEGTCVE WLRRYLENGK
+         B*5411  NEDLRSWTAA DTAAQISQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
+         B*5412  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
+         B*5413  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
        B*550101  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGTCVE WLRRYLENGK
        B*550102  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGTCVE WLRRYLENGK
        B*550103  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGTCVE WLRRYLENGK
@@ -4138,6 +4482,9 @@
          B*5522  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGECVE WLRRYLENGK
          B*5523  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          B*5524  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGECVE WLRRYLENGK
+         B*5525  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGTCVE WLRRYLENGK
+         B*5526  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
+         B*5527  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          B*5601  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*5602  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*5603  NEDLSSWTAA DTAAQITQRK WEAAREAEQW RAYLEGLCVE WLRRYLENGK
@@ -4158,6 +4505,7 @@
          B*5617  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*5618  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
         B*5619N  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLX
+         B*5620  NEDLRSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
        B*570101  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
        B*570102  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
        B*570103  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
@@ -4172,6 +4520,8 @@
          B*5709  NEDLSSWTAA DTAAQITQRK WEAAREAEQD RAYLEGLCVE WLRRYLENGK
          B*5710  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*5711  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
+         B*5712  NEDLSSWTAA DTAAQITQRK WEAARVAEQR RAYLEGLCVE WLRRYLENGK
+         B*5713  NEDLRSWTAA DTAAQITQRK WEAAREAEQR RAYLEGECVE WLRRYLENGK
          B*5801  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*5802  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*5804  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
@@ -4184,6 +4534,7 @@
          B*5812  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*5813  NKDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*5814  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
+         B*5815  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
          B*5901  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
          B*5902  NEDLRSWTAA DTAAQITQRK WEAARVAEQL RAYLEGTCVE WLRRYLENGK
        B*670101  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RTYLEGTCVE WLRRYLENGK
@@ -4223,11 +4574,21 @@
          B*9520  NEDLSSWTAA DTAAQITQRK WEAAREAEQW RAYLEGLCVE WLRRYLENGK
          B*9521  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGTCVE WLRRYLENGK
          B*9522  NEDLSSWTAA DTAAQITQRK WEAAREAEQW RAYLEGLCVE WLRRYLENGK
+         B*9523  NEDLSSWTAA DTAAQITQRK WEAARVAEQL RAYLEGLCVE WLRRYLENGK
+         B*9524  NEDLSSWTAA DTAAQISQRK LEAARVAEQL RAYLEGECVE WLRRYLENGK
+         B*9525  NEDLSSWTAA DTAAQITQRK WEAAREAEQW RAYLEGLCVE WLRRYLENGK
+         B*9526  NEDLSSWTAA DTAAQITQRK WEAAREAEQW RAYLEGLCVE WLRRYLENGK
+         B*9527  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLAGLCVE WLRRYLENGK
+         B*9528  NEDLSSWTAA DTAAQITQRK WEAAREAEQW RAYLEGLCVE WLRRYLENGK
+         B*9529  NEDLSSWTAA DTAAQITQRK WEAAREAEQW RAYLEGLCVE WLRRYLENGK
+         B*9530  NEDLSSWTAA DTAAQITQRK WEAAREAEQW RAYLEGLCVE WLRRYLENGK
+         B*9532  NEDLSSWTAA DTAAQITQRK WEAAREAEQL RAYLEGLCVE WLRRYLENGK
 
        B*070201  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*070202  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*070203  DKLERA.... .......... .......... .......... ..........
        B*070204  DKLERA.... .......... .......... .......... ..........
+       B*070205  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*0703  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*0704  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*070501  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -4279,9 +4640,17 @@
         B*0749N  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*0750  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*0751  DKLERA.... .......... .......... .......... ..........
+         B*0752  DKLERA.... .......... .......... .......... ..........
+         B*0753  ETLQRA.... .......... .......... .......... ..........
+         B*0754  DKLERA.... .......... .......... .......... ..........
+         B*0755  DKLERA.... .......... .......... .......... ..........
+         B*0756  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*0757  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*0758  DKLERADPPK THVTHHLISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*080101  DTLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*080102  DTLERA.... .......... .......... .......... ..........
        B*080103  DTLERA.... .......... .......... .......... ..........
+       B*080104  DTLERA.... .......... .......... .......... ..........
          B*0802  DTLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*0803  DTLERA.... .......... .......... .......... ..........
          B*0804  DTLERA.... .......... .......... .......... ..........
@@ -4311,10 +4680,13 @@
          B*0828  DTLERA.... .......... .......... .......... ..........
          B*0829  DTLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*0831  DTLKRA.... .......... .......... .......... ..........
+         B*0832  DTLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*0833  DTLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*1301  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*130201  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*130202  ETLQRA.... .......... .......... .......... ..........
        B*130203  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+       B*130204  ETLQRA.... .......... .......... .......... ..........
          B*1303  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*1304  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*1306  ETLQRA.... .......... .......... .......... ..........
@@ -4329,6 +4701,9 @@
          B*1315  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*1316  ETLQRA.... .......... .......... .......... ..........
          B*1317  ETLQRA.... .......... .......... .......... ..........
+         B*1318  ETLQRA.... .......... .......... .......... ..........
+         B*1319  ETLQRA.... .......... .......... .......... ..........
+         B*1320  ETLQRA.... .......... .......... .......... ..........
          B*1401  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*140201  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*140202  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -4371,7 +4746,7 @@
          B*1527  ETLQRA.... .......... .......... .......... ..........
          B*1528  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*1529  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
-         B*1530  ETLQR..... .......... .......... .......... ..........
+         B*1530  ETLQRA.... .......... .......... .......... ..........
          B*1531  ETLQRA.... .......... .......... .......... ..........
          B*1532  ETLQRA.... .......... .......... .......... ..........
          B*1533  ETLQRA.... .......... .......... .......... ..........
@@ -4461,6 +4836,8 @@
          B*1822  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
         B*1823N  ETLX
          B*1824  ETLQRA.... .......... .......... .......... ..........
+         B*1825  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*1826  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*2701  ETLQRA.... .......... .......... .......... ..........
          B*2702  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*2703  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -4474,6 +4851,7 @@
        B*270507  ETLQRA.... .......... .......... .......... ..........
        B*270508  ETLQRA.... .......... .......... .......... ..........
        B*270509  ETLQRA.... .......... .......... .......... ..........
+       B*270510  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*2706  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPGEITLT WQRDGEDQTQ
          B*2707  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*2708  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -4504,6 +4882,8 @@
          B*2734  ETLQRA.... .......... .......... .......... ..........
          B*2735  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*2736  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*2737  ETLQRA.... .......... .......... .......... ..........
+         B*2738  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*350101  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*350102  ETLQRA.... .......... .......... .......... ..........
        B*350103  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -4585,6 +4965,11 @@
          B*3570  ETLQRADPPK TRVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*3571  ETLQRA.... .......... .......... .......... ..........
          B*3572  ETLQRA.... .......... .......... .......... ..........
+         B*3573  ETLQRA.... .......... .......... .......... ..........
+         B*3574  ETLQRA.... .......... .......... .......... ..........
+         B*3575  ETLQRA.... .......... .......... .......... ..........
+         B*3576  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*3577  ETLQRA.... .......... .......... .......... ..........
        B*370101  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*370102  ETLQRA.... .......... .......... .......... ..........
        B*370103  ETLQRA.... .......... .......... .......... ..........
@@ -4599,6 +4984,7 @@
          B*3710  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*3711  ETLQRA.... .......... .......... .......... ..........
          B*3712  ETLQRA.... .......... .......... .......... ..........
+         B*3713  ETLQRA.... .......... .......... .......... ..........
        B*380101  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*380102  ETLQRA.... .......... .......... .......... ..........
        B*380201  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -4616,6 +5002,7 @@
          B*3813  ETLQRA.... .......... .......... .......... ..........
          B*3814  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*3815  ETLQRA.... .......... .......... .......... ..........
+         B*3816  ETLQRA.... .......... .......... .......... ..........
      B*39010101  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
     B*39010102L  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*390103  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -4660,6 +5047,7 @@
         B*3938Q  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*3939  ETLQRA.... .......... .......... .......... ..........
          B*3941  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*3942  ETLQRA.... .......... .......... .......... ..........
        B*400101  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*400102  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*400103  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -4736,9 +5124,18 @@
          B*4067  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4068  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4069  DKLERA.... .......... .......... .......... ..........
+         B*4070  ETLQRA.... .......... .......... .......... ..........
+         B*4071  ETLQRA.... .......... .......... .......... ..........
+         B*4072  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*4073  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*4074  DKLERA.... .......... .......... .......... ..........
+         B*4075  ETLQRA.... .......... .......... .......... ..........
+         B*4076  DKLERA.... .......... .......... .......... ..........
+         B*4077  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4101  DTLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4102  DTLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
-         B*4103  DTLERA.... .......... .......... .......... ..........
+       B*410301  DTLERA.... .......... .......... .......... ..........
+       B*410302  DTLERA.... .......... .......... .......... ..........
          B*4104  DTLERA.... .......... .......... .......... ..........
          B*4105  DTLERA.... .......... .......... .......... ..........
          B*4106  DTLQRA.... .......... .......... .......... ..........
@@ -4760,6 +5157,7 @@
        B*440204  ETLQRA.... .......... .......... .......... ..........
        B*440301  ETLQRADPPK THVTHHPISD HEVTLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*440302  ETLQRADPPK THVTHHPISD HEVTLRCWAL GFYPAEITLT WQRDGEDQTQ
+       B*440303  ETLQRADPPK THVTHHPISD HEVTLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4404  ETLQRADPPK THVTHHPISD HEVTLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4405  ETLQRADPPK THVTHHPISD HEVTLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4406  ETLQRA.... .......... .......... .......... ..........
@@ -4806,6 +5204,9 @@
          B*4449  ETLQRADPPK THVTHHPISD HEVTLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4450  ETLQRA.... .......... .......... .......... ..........
          B*4451  ETLQRADPPK THVTHHPISD HEVTLRCWAL GFYPAEITLT WQRDGEDQTQ
+        B*4452N  RGPPKDTCDP PPKLX
+         B*4453  ETLQRADPPK THVTHHPISD HEVTLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*4454  ETLQRA.... .......... .......... .......... ..........
          B*4501  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4502  ETLQRA.... .......... .......... .......... ..........
          B*4503  ETLQRA.... .......... .......... .......... ..........
@@ -4822,13 +5223,16 @@
          B*4606  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4608  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4609  ETLQRA.... .......... .......... .......... ..........
+         B*4610  ETLQRA.... .......... .......... .......... ..........
+         B*4611  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
      B*47010101  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
      B*47010102  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4702  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4703  ETLQRA.... .......... .......... .......... ..........
          B*4704  ETLQRA.... .......... .......... .......... ..........
          B*4705  ETLQRA.... .......... .......... .......... ..........
-         B*4801  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+       B*480101  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+       B*480102  DKLERADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4802  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*480301  DKLERA.... .......... .......... .......... ..........
        B*480302  DKLERA.... .......... .......... .......... ..........
@@ -4845,6 +5249,8 @@
          B*4814  DKLERA.... .......... .......... .......... ..........
          B*4815  DKLERA.... .......... .......... .......... ..........
          B*4816  DKLERA.... .......... .......... .......... ..........
+         B*4817  DKLERA.... .......... .......... .......... ..........
+         B*4818  DKLERA.... .......... .......... .......... ..........
          B*4901  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4902  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*4903  ETLQRA.... .......... .......... .......... ..........
@@ -4860,8 +5266,10 @@
        B*510105  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*510106  ETLQRA.... .......... .......... .......... ..........
        B*510107  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+       B*510108  ETLQRA.... .......... .......... .......... ..........
        B*510201  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*510202  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+       B*510203  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5103  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5104  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5105  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -4903,6 +5311,9 @@
          B*5143  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5145  ETLQRA.... .......... .......... .......... ..........
          B*5146  ETLQRA.... .......... .......... .......... ..........
+         B*5147  ETLQRA.... .......... .......... .......... ..........
+         B*5148  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGKDQTQ
+         B*5149  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*520101  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*520102  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*520103  ETLQRA.... .......... .......... .......... ..........
@@ -4916,6 +5327,7 @@
          B*5208  ETLQRA.... .......... .......... .......... ..........
          B*5209  ETLQRA.... .......... .......... .......... ..........
          B*5210  ETLQRA.... .......... .......... .......... ..........
+         B*5211  ETLQRA.... .......... .......... .......... ..........
        B*530101  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*530102  ETLQRA.... .......... .......... .......... ..........
        B*530103  ETLQRA.... .......... .......... .......... ..........
@@ -4931,6 +5343,7 @@
          B*5310  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5311  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5312  ETLQRA.... .......... .......... .......... ..........
+         B*5313  ETLQRA.... .......... .......... .......... ..........
          B*5401  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5402  ETLQRA.... .......... .......... .......... ..........
          B*5403  ETLQRA.... .......... .......... .......... ..........
@@ -4940,6 +5353,9 @@
          B*5407  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5409  ETLQRA.... .......... .......... .......... ..........
          B*5410  ETLQRA.... .......... .......... .......... ..........
+         B*5411  ETLQRA.... .......... .......... .......... ..........
+         B*5412  ETLQRA.... .......... .......... .......... ..........
+         B*5413  ETLQRA.... .......... .......... .......... ..........
        B*550101  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*550102  ETLQRA.... .......... .......... .......... ..........
        B*550103  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -4967,11 +5383,14 @@
          B*5522  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5523  ETLQRA.... .......... .......... .......... ..........
          B*5524  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*5525  ETLQRA.... .......... .......... .......... ..........
+         B*5526  ETLQRA.... .......... .......... .......... ..........
+         B*5527  ETLQRA.... .......... .......... .......... ..........
          B*5601  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5602  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5603  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5604  ETLQRA.... .......... .......... .......... ..........
-       B*560501  ETLQRA.... .......... .......... .......... ..........
+       B*560501  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*560502  ETLQRA.... .......... .......... .......... ..........
          B*5606  ETLQRA.... .......... .......... .......... ..........
          B*5607  ETLQRA.... .......... .......... .......... ..........
@@ -4986,6 +5405,7 @@
          B*5616  ETLQRA.... .......... .......... .......... ..........
          B*5617  ETLQRA.... .......... .......... .......... ..........
          B*5618  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*5620  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*570101  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*570102  ETLQRA.... .......... .......... .......... ..........
        B*570103  ETLQRA.... .......... .......... .......... ..........
@@ -5000,6 +5420,8 @@
          B*5709  ETLQRA.... .......... .......... .......... ..........
          B*5710  ETLQRA.... .......... .......... .......... ..........
          B*5711  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*5712  ETLQRA.... .......... .......... .......... ..........
+         B*5713  ETLQRA.... .......... .......... .......... ..........
          B*5801  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5802  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5804  ETLQRA.... .......... .......... .......... ..........
@@ -5012,10 +5434,11 @@
          B*5812  ETLQRA.... .......... .......... .......... ..........
          B*5813  ETLQRA.... .......... .......... .......... ..........
          B*5814  ETLQRA.... .......... .......... .......... ..........
+         B*5815  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5901  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*5902  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
        B*670101  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
-       B*670102  ETLQ...... .......... .......... .......... ..........
+       B*670102  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*6702  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*7301  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*7801  ETLQRADPPK THVTHHPVSD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
@@ -5051,11 +5474,21 @@
          B*9520  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
          B*9521  ETLQRA.... .......... .......... .......... ..........
          B*9522  ETLQRA.... .......... .......... .......... ..........
+         B*9523  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*9524  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*9525  ETLQRA.... .......... .......... .......... ..........
+         B*9526  ETLQRA.... .......... .......... .......... ..........
+         B*9527  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*9528  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*9529  ETLQRADPPK THVTHHPISD HEATLRCWAL GFYPAEITLT WQRDGEDQTQ
+         B*9530  ETLQRA.... .......... .......... .......... ..........
+         B*9532  ETLQRA.... .......... .......... .......... ..........
 
        B*070201  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*070202  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*070203  .......... .......... .......... .......... ..........
        B*070204  .......... .......... .......... .......... ..........
+       B*070205  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*0703  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*0704  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*070501  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
@@ -5107,9 +5540,17 @@
         B*0749N  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRX
          B*0750  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*0751  .......... .......... .......... .......... ..........
+         B*0752  .......... .......... .......... .......... ..........
+         B*0753  .......... .......... .......... .......... ..........
+         B*0754  .......... .......... .......... .......... ..........
+         B*0755  .......... .......... .......... .......... ..........
+         B*0756  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         B*0757  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         B*0758  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
        B*080101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*080102  .......... .......... .......... .......... ..........
        B*080103  .......... .......... .......... .......... ..........
+       B*080104  .......... .......... .......... .......... ..........
          B*0802  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*0803  .......... .......... .......... .......... ..........
          B*0804  .......... .......... .......... .......... ..........
@@ -5137,10 +5578,13 @@
          B*0828  .......... .......... .......... .......... ..........
          B*0829  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*0831  .......... .......... .......... .......... ..........
+         B*0832  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         B*0833  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*1301  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*130201  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*130202  .......... .......... .......... .......... ..........
        B*130203  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+       B*130204  .......... .......... .......... .......... ..........
          B*1303  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*1304  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*1306  .......... .......... .......... .......... ..........
@@ -5155,6 +5599,9 @@
          B*1315  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*1316  .......... .......... .......... .......... ..........
          B*1317  .......... .......... .......... .......... ..........
+         B*1318  .......... .......... .......... .......... ..........
+         B*1319  .......... .......... .......... .......... ..........
+         B*1320  .......... .......... .......... .......... ..........
          B*1401  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*140201  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*140202  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
@@ -5286,6 +5733,8 @@
          B*1821  .......... .......... .......... .......... ..........
          B*1822  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*1824  .......... .......... .......... .......... ..........
+         B*1825  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         B*1826  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*2701  .......... .......... .......... .......... ..........
          B*2702  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*2703  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
@@ -5299,6 +5748,7 @@
        B*270507  .......... .......... .......... .......... ..........
        B*270508  .......... .......... .......... .......... ..........
        B*270509  .......... .......... .......... .......... ..........
+       B*270510  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*2706  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*2707  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*2708  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
@@ -5329,6 +5779,8 @@
          B*2734  .......... .......... .......... .......... ..........
          B*2735  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*2736  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         B*2737  .......... .......... .......... .......... ..........
+         B*2738  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*350101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*350102  .......... .......... .......... .......... ..........
        B*350103  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
@@ -5410,6 +5862,11 @@
          B*3570  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*3571  .......... .......... .......... .......... ..........
          B*3572  .......... .......... .......... .......... ..........
+         B*3573  .......... .......... .......... .......... ..........
+         B*3574  .......... .......... .......... .......... ..........
+         B*3575  .......... .......... .......... .......... ..........
+         B*3576  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         B*3577  .......... .......... .......... .......... ..........
        B*370101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*370102  .......... .......... .......... .......... ..........
        B*370103  .......... .......... .......... .......... ..........
@@ -5424,6 +5881,7 @@
          B*3710  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*3711  .......... .......... .......... .......... ..........
          B*3712  .......... .......... .......... .......... ..........
+         B*3713  .......... .......... .......... .......... ..........
        B*380101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*380102  .......... .......... .......... .......... ..........
        B*380201  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
@@ -5441,6 +5899,7 @@
          B*3813  .......... .......... .......... .......... ..........
          B*3814  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*3815  .......... .......... .......... .......... ..........
+         B*3816  .......... .......... .......... .......... ..........
      B*39010101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
     B*39010102L  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*390103  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
@@ -5485,6 +5944,7 @@
         B*3938Q  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*3939  .......... .......... .......... .......... ..........
          B*3941  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         B*3942  .......... .......... .......... .......... ..........
        B*400101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*400102  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*400103  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
@@ -5561,9 +6021,18 @@
          B*4067  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*4068  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*4069  .......... .......... .......... .......... ..........
+         B*4070  .......... .......... .......... .......... ..........
+         B*4071  .......... .......... .......... .......... ..........
+         B*4072  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         B*4073  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         B*4074  .......... .......... .......... .......... ..........
+         B*4075  .......... .......... .......... .......... ..........
+         B*4076  .......... .......... .......... .......... ..........
+         B*4077  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*4101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*4102  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
-         B*4103  .......... .......... .......... .......... ..........
+       B*410301  .......... .......... .......... .......... ..........
+       B*410302  .......... .......... .......... .......... ..........
          B*4104  .......... .......... .......... .......... ..........
          B*4105  .......... .......... .......... .......... ..........
          B*4106  .......... .......... .......... .......... ..........
@@ -5585,6 +6054,7 @@
        B*440204  .......... .......... .......... .......... ..........
        B*440301  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*440302  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+       B*440303  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*4404  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*4405  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*4406  .......... .......... .......... .......... ..........
@@ -5631,6 +6101,8 @@
          B*4449  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*4450  .......... .......... .......... .......... ..........
          B*4451  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         B*4453  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         B*4454  .......... .......... .......... .......... ..........
          B*4501  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*4502  .......... .......... .......... .......... ..........
          B*4503  .......... .......... .......... .......... ..........
@@ -5647,13 +6119,16 @@
          B*4606  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*4608  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*4609  .......... .......... .......... .......... ..........
+         B*4610  .......... .......... .......... .......... ..........
+         B*4611  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
      B*47010101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
      B*47010102  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*4702  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*4703  .......... .......... .......... .......... ..........
          B*4704  .......... .......... .......... .......... ..........
          B*4705  .......... .......... .......... .......... ..........
-         B*4801  DTELVETRPA GDRTFQKWTA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+       B*480101  DTELVETRPA GDRTFQKWTA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+       B*480102  DTELVETRPA GDRTFQKWTA VVVPSGEEQR YTCHVQHEGL PKPL......
          B*4802  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*480301  .......... .......... .......... .......... ..........
        B*480302  .......... .......... .......... .......... ..........
@@ -5670,6 +6145,8 @@
          B*4814  .......... .......... .......... .......... ..........
          B*4815  .......... .......... .......... .......... ..........
          B*4816  .......... .......... .......... .......... ..........
+         B*4817  .......... .......... .......... .......... ..........
+         B*4818  .......... .......... .......... .......... ..........
          B*4901  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*4902  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*4903  .......... .......... .......... .......... ..........
@@ -5685,8 +6162,10 @@
        B*510105  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*510106  .......... .......... .......... .......... ..........
        B*510107  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+       B*510108  .......... .......... .......... .......... ..........
        B*510201  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*510202  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+       B*510203  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*5103  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5104  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5105  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
@@ -5727,6 +6206,9 @@
          B*5143  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5145  .......... .......... .......... .......... ..........
          B*5146  .......... .......... .......... .......... ..........
+         B*5147  .......... .......... .......... .......... ..........
+         B*5148  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         B*5149  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*520101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*520102  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*520103  .......... .......... .......... .......... ..........
@@ -5740,6 +6222,7 @@
          B*5208  .......... .......... .......... .......... ..........
          B*5209  .......... .......... .......... .......... ..........
          B*5210  .......... .......... .......... .......... ..........
+         B*5211  .......... .......... .......... .......... ..........
        B*530101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*530102  .......... .......... .......... .......... ..........
        B*530103  .......... .......... .......... .......... ..........
@@ -5755,6 +6238,7 @@
          B*5310  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*5311  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5312  .......... .......... .......... .......... ..........
+         B*5313  .......... .......... .......... .......... ..........
          B*5401  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5402  .......... .......... .......... .......... ..........
          B*5403  .......... .......... .......... .......... ..........
@@ -5764,6 +6248,9 @@
          B*5407  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*5409  .......... .......... .......... .......... ..........
          B*5410  .......... .......... .......... .......... ..........
+         B*5411  .......... .......... .......... .......... ..........
+         B*5412  .......... .......... .......... .......... ..........
+         B*5413  .......... .......... .......... .......... ..........
        B*550101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*550102  .......... .......... .......... .......... ..........
        B*550103  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
@@ -5791,11 +6278,14 @@
          B*5522  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*5523  .......... .......... .......... .......... ..........
          B*5524  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         B*5525  .......... .......... .......... .......... ..........
+         B*5526  .......... .......... .......... .......... ..........
+         B*5527  .......... .......... .......... .......... ..........
          B*5601  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5602  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5603  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5604  .......... .......... .......... .......... ..........
-       B*560501  .......... .......... .......... .......... ..........
+       B*560501  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
        B*560502  .......... .......... .......... .......... ..........
          B*5606  .......... .......... .......... .......... ..........
          B*5607  .......... .......... .......... .......... ..........
@@ -5810,6 +6300,7 @@
          B*5616  .......... .......... .......... .......... ..........
          B*5617  .......... .......... .......... .......... ..........
          B*5618  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         B*5620  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
        B*570101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
        B*570102  .......... .......... .......... .......... ..........
        B*570103  .......... .......... .......... .......... ..........
@@ -5824,6 +6315,8 @@
          B*5709  .......... .......... .......... .......... ..........
          B*5710  .......... .......... .......... .......... ..........
          B*5711  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         B*5712  .......... .......... .......... .......... ..........
+         B*5713  .......... .......... .......... .......... ..........
          B*5801  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5802  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5804  .......... .......... .......... .......... ..........
@@ -5836,10 +6329,11 @@
          B*5812  .......... .......... .......... .......... ..........
          B*5813  .......... .......... .......... .......... ..........
          B*5814  .......... .......... .......... .......... ..........
+         B*5815  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5901  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*5902  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
        B*670101  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
-       B*670102  .......... .......... .......... .......... ..........
+       B*670102  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*6702  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
          B*7301  DTELVETRPA GDGTFQKWAA VVVPSGQEQR YTCHVQHEGL QEPCTLRWKP
          B*7801  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
@@ -5874,11 +6368,21 @@
          B*9520  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
          B*9521  .......... .......... .......... .......... ..........
          B*9522  .......... .......... .......... .......... ..........
+         B*9523  DTELVGTRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         B*9524  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         B*9525  .......... .......... .......... .......... ..........
+         B*9526  .......... .......... .......... .......... ..........
+         B*9527  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         B*9528  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRWEP
+         B*9529  DTELVETRPA GDRTFQKWAA VVVPSGEEQR YTCHVQHEGL PKPLTLRW..
+         B*9530  .......... .......... .......... .......... ..........
+         B*9532  .......... .......... .......... .......... ..........
 
        B*070201  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
        B*070202  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKS... ..........
        B*070203  .......... .......... .......... .......... ..........
        B*070204  .......... .......... .......... .......... ..........
+       B*070205  .......... .......... .......... .......... ..........
          B*0703  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*0704  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
        B*070501  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
@@ -5929,9 +6433,17 @@
          B*0748  .......... .......... .......... .......... ..........
          B*0750  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*0751  .......... .......... .......... .......... ..........
+         B*0752  .......... .......... .......... .......... ..........
+         B*0753  .......... .......... .......... .......... ..........
+         B*0754  .......... .......... .......... .......... ..........
+         B*0755  .......... .......... .......... .......... ..........
+         B*0756  SSQSTVPIVG IVAGLAVL.. .......... .......... ..........
+         B*0757  SSQSTVPIVG IVA....... .......... .......... ..........
+         B*0758  .......... .......... .......... .......... ..........
        B*080101  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
        B*080102  .......... .......... .......... .......... ..........
        B*080103  .......... .......... .......... .......... ..........
+       B*080104  .......... .......... .......... .......... ..........
          B*0802  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*0803  .......... .......... .......... .......... ..........
          B*0804  .......... .......... .......... .......... ..........
@@ -5959,10 +6471,13 @@
          B*0828  .......... .......... .......... .......... ..........
          B*0829  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*0831  .......... .......... .......... .......... ..........
+         B*0832  .......... .......... .......... .......... ..........
+         B*0833  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*1301  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
        B*130201  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
        B*130202  .......... .......... .......... .......... ..........
        B*130203  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
+       B*130204  .......... .......... .......... .......... ..........
          B*1303  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*1304  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*1306  .......... .......... .......... .......... ..........
@@ -5977,6 +6492,9 @@
          B*1315  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*1316  .......... .......... .......... .......... ..........
          B*1317  .......... .......... .......... .......... ..........
+         B*1318  .......... .......... .......... .......... ..........
+         B*1319  .......... .......... .......... .......... ..........
+         B*1320  .......... .......... .......... .......... ..........
          B*1401  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAS
        B*140201  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAS
        B*140202  SSQSTVPIVG .......... .......... .......... ..........
@@ -6108,6 +6626,8 @@
          B*1821  .......... .......... .......... .......... ..........
          B*1822  .......... .......... .......... .......... ..........
          B*1824  .......... .......... .......... .......... ..........
+         B*1825  SSQSTIPIVG .......... .......... .......... ..........
+         B*1826  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*2701  .......... .......... .......... .......... ..........
          B*2702  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*2703  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
@@ -6121,6 +6641,7 @@
        B*270507  .......... .......... .......... .......... ..........
        B*270508  .......... .......... .......... .......... ..........
        B*270509  .......... .......... .......... .......... ..........
+       B*270510  SSQSTVPIVG .......... .......... .......... ..........
          B*2706  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*2707  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*2708  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
@@ -6151,6 +6672,8 @@
          B*2734  .......... .......... .......... .......... ..........
          B*2735  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSS.. ..........
          B*2736  SSQSTVPIVG IVAGLAVL.A VVVIGAVV.. .......... ..........
+         B*2737  .......... .......... .......... .......... ..........
+         B*2738  SSQSTVPIVG IVAG...... .......... .......... ..........
        B*350101  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
        B*350102  .......... .......... .......... .......... ..........
        B*350103  .......... .......... .......... .......... ..........
@@ -6231,6 +6754,11 @@
          B*3570  .......... .......... .......... .......... ..........
          B*3571  .......... .......... .......... .......... ..........
          B*3572  .......... .......... .......... .......... ..........
+         B*3573  .......... .......... .......... .......... ..........
+         B*3574  .......... .......... .......... .......... ..........
+         B*3575  .......... .......... .......... .......... ..........
+         B*3576  .......... .......... .......... .......... ..........
+         B*3577  .......... .......... .......... .......... ..........
        B*370101  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
        B*370102  .......... .......... .......... .......... ..........
        B*370103  .......... .......... .......... .......... ..........
@@ -6245,6 +6773,7 @@
          B*3710  .......... .......... .......... .......... ..........
          B*3711  .......... .......... .......... .......... ..........
          B*3712  .......... .......... .......... .......... ..........
+         B*3713  .......... .......... .......... .......... ..........
        B*380101  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAS
        B*380102  .......... .......... .......... .......... ..........
        B*380201  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAS
@@ -6262,6 +6791,7 @@
          B*3813  .......... .......... .......... .......... ..........
          B*3814  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAA.
          B*3815  .......... .......... .......... .......... ..........
+         B*3816  .......... .......... .......... .......... ..........
      B*39010101  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAS
     B*39010102L  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAS
        B*390103  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAS
@@ -6306,6 +6836,7 @@
         B*3938Q  .......... .......... .......... .......... ..........
          B*3939  .......... .......... .......... .......... ..........
          B*3941  .......... .......... .......... .......... ..........
+         B*3942  .......... .......... .......... .......... ..........
        B*400101  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
        B*400102  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
        B*400103  .......... .......... .......... .......... ..........
@@ -6382,9 +6913,18 @@
          B*4067  .......... .......... .......... .......... ..........
          B*4068  .......... .......... .......... .......... ..........
          B*4069  .......... .......... .......... .......... ..........
+         B*4070  .......... .......... .......... .......... ..........
+         B*4071  .......... .......... .......... .......... ..........
+         B*4072  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
+         B*4073  .......... .......... .......... .......... ..........
+         B*4074  .......... .......... .......... .......... ..........
+         B*4075  .......... .......... .......... .......... ..........
+         B*4076  .......... .......... .......... .......... ..........
+         B*4077  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*4101  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*4102  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
-         B*4103  .......... .......... .......... .......... ..........
+       B*410301  .......... .......... .......... .......... ..........
+       B*410302  .......... .......... .......... .......... ..........
          B*4104  .......... .......... .......... .......... ..........
          B*4105  .......... .......... .......... .......... ..........
          B*4106  .......... .......... .......... .......... ..........
@@ -6406,6 +6946,7 @@
        B*440204  .......... .......... .......... .......... ..........
        B*440301  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
        B*440302  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
+       B*440303  SSQSTVPIVG .......... .......... .......... ..........
          B*4404  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*4405  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*4406  .......... .......... .......... .......... ..........
@@ -6452,6 +6993,8 @@
          B*4449  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
          B*4450  .......... .......... .......... .......... ..........
          B*4451  SSQSTVPIV. .......... .......... .......... ..........
+         B*4453  .......... .......... .......... .......... ..........
+         B*4454  .......... .......... .......... .......... ..........
          B*4501  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*4502  .......... .......... .......... .......... ..........
          B*4503  .......... .......... .......... .......... ..........
@@ -6468,13 +7011,16 @@
          B*4606  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSS.. ..........
          B*4608  .......... .......... .......... .......... ..........
          B*4609  .......... .......... .......... .......... ..........
+         B*4610  .......... .......... .......... .......... ..........
+         B*4611  .......... .......... .......... .......... ..........
      B*47010101  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VVCRRKSSGG KGGSYSQAAC
      B*47010102  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VVCRRKSSGG KGGSYSQAAC
          B*4702  SS........ .......... .......... .......... ..........
          B*4703  .......... .......... .......... .......... ..........
          B*4704  .......... .......... .......... .......... ..........
          B*4705  .......... .......... .......... .......... ..........
-         B*4801  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
+       B*480101  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
+       B*480102  .......... .......... .......... .......... ..........
          B*4802  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
        B*480301  .......... .......... .......... .......... ..........
        B*480302  .......... .......... .......... .......... ..........
@@ -6491,6 +7037,8 @@
          B*4814  .......... .......... .......... .......... ..........
          B*4815  .......... .......... .......... .......... ..........
          B*4816  .......... .......... .......... .......... ..........
+         B*4817  .......... .......... .......... .......... ..........
+         B*4818  .......... .......... .......... .......... ..........
          B*4901  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*4902  .......... .......... .......... .......... ..........
          B*4903  .......... .......... .......... .......... ..........
@@ -6506,8 +7054,10 @@
        B*510105  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSS.. ..........
        B*510106  .......... .......... .......... .......... ..........
        B*510107  SSQSTIPIVG IVAGLAVL.. .......... .......... ..........
+       B*510108  .......... .......... .......... .......... ..........
        B*510201  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
        B*510202  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
+       B*510203  .......... .......... .......... .......... ..........
          B*5103  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*5104  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*5105  .......... .......... .......... .......... ..........
@@ -6548,6 +7098,9 @@
          B*5143  SSQSTIPIVG I......... .......... .......... ..........
          B*5145  .......... .......... .......... .......... ..........
          B*5146  .......... .......... .......... .......... ..........
+         B*5147  .......... .......... .......... .......... ..........
+         B*5148  .......... .......... .......... .......... ..........
+         B*5149  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSS.. ..........
        B*520101  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
        B*520102  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
        B*520103  .......... .......... .......... .......... ..........
@@ -6561,6 +7114,7 @@
          B*5208  .......... .......... .......... .......... ..........
          B*5209  .......... .......... .......... .......... ..........
          B*5210  .......... .......... .......... .......... ..........
+         B*5211  .......... .......... .......... .......... ..........
        B*530101  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
        B*530102  .......... .......... .......... .......... ..........
        B*530103  .......... .......... .......... .......... ..........
@@ -6576,6 +7130,7 @@
          B*5310  .......... .......... .......... .......... ..........
          B*5311  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*5312  .......... .......... .......... .......... ..........
+         B*5313  .......... .......... .......... .......... ..........
          B*5401  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*5402  .......... .......... .......... .......... ..........
          B*5403  .......... .......... .......... .......... ..........
@@ -6585,6 +7140,9 @@
          B*5407  .......... .......... .......... .......... ..........
          B*5409  .......... .......... .......... .......... ..........
          B*5410  .......... .......... .......... .......... ..........
+         B*5411  .......... .......... .......... .......... ..........
+         B*5412  .......... .......... .......... .......... ..........
+         B*5413  .......... .......... .......... .......... ..........
        B*550101  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
        B*550102  .......... .......... .......... .......... ..........
        B*550103  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
@@ -6612,6 +7170,9 @@
          B*5522  .......... .......... .......... .......... ..........
          B*5523  .......... .......... .......... .......... ..........
          B*5524  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
+         B*5525  .......... .......... .......... .......... ..........
+         B*5526  .......... .......... .......... .......... ..........
+         B*5527  .......... .......... .......... .......... ..........
          B*5601  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*5602  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*5603  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
@@ -6631,6 +7192,7 @@
          B*5616  .......... .......... .......... .......... ..........
          B*5617  .......... .......... .......... .......... ..........
          B*5618  .......... .......... .......... .......... ..........
+         B*5620  .......... .......... .......... .......... ..........
        B*570101  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
        B*570102  .......... .......... .......... .......... ..........
        B*570103  .......... .......... .......... .......... ..........
@@ -6645,6 +7207,8 @@
          B*5709  .......... .......... .......... .......... ..........
          B*5710  .......... .......... .......... .......... ..........
          B*5711  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAC
+         B*5712  .......... .......... .......... .......... ..........
+         B*5713  .......... .......... .......... .......... ..........
          B*5801  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*5802  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*5804  .......... .......... .......... .......... ..........
@@ -6657,6 +7221,7 @@
          B*5812  .......... .......... .......... .......... ..........
          B*5813  .......... .......... .......... .......... ..........
          B*5814  .......... .......... .......... .......... ..........
+         B*5815  SSQSTIPIVG .......... .......... .......... ..........
          B*5901  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
          B*5902  .......... .......... .......... .......... ..........
        B*670101  SSQSTVPIVG IVAGLAVL.A VVVIGAVVAA VMCRRKSSGG KGGSYSQAAS
@@ -6695,11 +7260,21 @@
          B*9520  .......... .......... .......... .......... ..........
          B*9521  .......... .......... .......... .......... ..........
          B*9522  .......... .......... .......... .......... ..........
+         B*9523  SSQSTIPIVG IVAGLAVL.A VVVIGAVVAT VMCRRKSSGG KGGSYSQAAS
+         B*9524  .......... .......... .......... .......... ..........
+         B*9525  .......... .......... .......... .......... ..........
+         B*9526  .......... .......... .......... .......... ..........
+         B*9527  SSQSTIPIVG IVAGLAVL.. .......... .......... ..........
+         B*9528  SSQSTIPIVG IVAGLAVL.. .......... .......... ..........
+         B*9529  .......... .......... .......... .......... ..........
+         B*9530  .......... .......... .......... .......... ..........
+         B*9532  .......... .......... .......... .......... ..........
 
        B*070201  SDSAQGSDVS LTA
        B*070202  .......... ...
        B*070203  .......... ...
        B*070204  .......... ...
+       B*070205  .......... ...
          B*0703  SDSAQGSDVS LTA
          B*0704  SDSAQGSDVS LTA
        B*070501  SDSAQGSDVS LTA
@@ -6750,9 +7325,17 @@
          B*0748  .......... ...
          B*0750  SDSAQGSDVS LTA
          B*0751  .......... ...
+         B*0752  .......... ...
+         B*0753  .......... ...
+         B*0754  .......... ...
+         B*0755  .......... ...
+         B*0756  .......... ...
+         B*0757  .......... ...
+         B*0758  .......... ...
        B*080101  SDSAQGSDVS LTA
        B*080102  .......... ...
        B*080103  .......... ...
+       B*080104  .......... ...
          B*0802  SDSAQGSDVS LTA
          B*0803  .......... ...
          B*0804  .......... ...
@@ -6780,10 +7363,13 @@
          B*0828  .......... ...
          B*0829  SDSAQGSDVS LTA
          B*0831  .......... ...
+         B*0832  .......... ...
+         B*0833  SDSAQGSDVS LTA
          B*1301  SDSAQGSDVS LTA
        B*130201  SDSAQGSDVS LTA
        B*130202  .......... ...
        B*130203  SDSAQGSDVS LTA
+       B*130204  .......... ...
          B*1303  SDSAQGSDVS LTA
          B*1304  SDSAQGSDVS LTA
          B*1306  .......... ...
@@ -6798,6 +7384,9 @@
          B*1315  SDSAQGSDVS LTA
          B*1316  .......... ...
          B*1317  .......... ...
+         B*1318  .......... ...
+         B*1319  .......... ...
+         B*1320  .......... ...
          B*1401  SDSAQGSDVS LTA
        B*140201  SDSAQGSDVS LTA
        B*140202  .......... ...
@@ -6929,6 +7518,8 @@
          B*1821  .......... ...
          B*1822  .......... ...
          B*1824  .......... ...
+         B*1825  .......... ...
+         B*1826  SDSAQGSDVS LTA
          B*2701  .......... ...
          B*2702  SDSAQGSDVS LTA
          B*2703  SDSAQGSDVS LTA
@@ -6942,6 +7533,7 @@
        B*270507  .......... ...
        B*270508  .......... ...
        B*270509  .......... ...
+       B*270510  .......... ...
          B*2706  SDSAQGSDVS LTA
          B*2707  SDSAQGSDVS LTA
          B*2708  SDSAQGSDVS LTA
@@ -6972,6 +7564,8 @@
          B*2734  .......... ...
          B*2735  .......... ...
          B*2736  .......... ...
+         B*2737  .......... ...
+         B*2738  .......... ...
        B*350101  SDSAQGSDVS LTA
        B*350102  .......... ...
        B*350103  .......... ...
@@ -7052,6 +7646,11 @@
          B*3570  .......... ...
          B*3571  .......... ...
          B*3572  .......... ...
+         B*3573  .......... ...
+         B*3574  .......... ...
+         B*3575  .......... ...
+         B*3576  .......... ...
+         B*3577  .......... ...
        B*370101  SDSAQGSDVS LTA
        B*370102  .......... ...
        B*370103  .......... ...
@@ -7066,6 +7665,7 @@
          B*3710  .......... ...
          B*3711  .......... ...
          B*3712  .......... ...
+         B*3713  .......... ...
        B*380101  SDSAQGSDVS LTA
        B*380102  .......... ...
        B*380201  SDSAQGSDVS LTA
@@ -7083,6 +7683,7 @@
          B*3813  .......... ...
          B*3814  .......... ...
          B*3815  .......... ...
+         B*3816  .......... ...
      B*39010101  SDSAQGSDVS LTA
     B*39010102L  SDSAQGSDVS LTA
        B*390103  SDSAQGSDVS LTA
@@ -7127,6 +7728,7 @@
         B*3938Q  .......... ...
          B*3939  .......... ...
          B*3941  .......... ...
+         B*3942  .......... ...
        B*400101  SDSAQGSDVS LTA
        B*400102  SDSAQGSDVS LTA
        B*400103  .......... ...
@@ -7203,9 +7805,18 @@
          B*4067  .......... ...
          B*4068  .......... ...
          B*4069  .......... ...
+         B*4070  .......... ...
+         B*4071  .......... ...
+         B*4072  SDSAQGSDVS LTA
+         B*4073  .......... ...
+         B*4074  .......... ...
+         B*4075  .......... ...
+         B*4076  .......... ...
+         B*4077  SDSAQGSDVS LTA
          B*4101  SDSAQGSDVS LTA
          B*4102  SDSAQGSDVS LTA
-         B*4103  .......... ...
+       B*410301  .......... ...
+       B*410302  .......... ...
          B*4104  .......... ...
          B*4105  .......... ...
          B*4106  .......... ...
@@ -7227,6 +7838,7 @@
        B*440204  .......... ...
        B*440301  SDSAQGSDVS LTA
        B*440302  SDSAQGSDVS LTA
+       B*440303  .......... ...
          B*4404  SDSAQGSDVS LTA
          B*4405  SDSAQGSDVS LTA
          B*4406  .......... ...
@@ -7273,6 +7885,8 @@
          B*4449  SDSAQGSDVS LTA
          B*4450  .......... ...
          B*4451  .......... ...
+         B*4453  .......... ...
+         B*4454  .......... ...
          B*4501  SDSAQGSDVS LTA
          B*4502  .......... ...
          B*4503  .......... ...
@@ -7289,13 +7903,16 @@
          B*4606  .......... ...
          B*4608  .......... ...
          B*4609  .......... ...
+         B*4610  .......... ...
+         B*4611  .......... ...
      B*47010101  SDSAQGSDVS LTA
      B*47010102  SDSAQGSDVS LTA
          B*4702  .......... ...
          B*4703  .......... ...
          B*4704  .......... ...
          B*4705  .......... ...
-         B*4801  SDSAQGSDVS LTA
+       B*480101  SDSAQGSDVS LTA
+       B*480102  .......... ...
          B*4802  SDSAQGSDVS LTA
        B*480301  .......... ...
        B*480302  .......... ...
@@ -7312,6 +7929,8 @@
          B*4814  .......... ...
          B*4815  .......... ...
          B*4816  .......... ...
+         B*4817  .......... ...
+         B*4818  .......... ...
          B*4901  SDSAQGSDVS LTA
          B*4902  .......... ...
          B*4903  .......... ...
@@ -7327,8 +7946,10 @@
        B*510105  .......... ...
        B*510106  .......... ...
        B*510107  .......... ...
+       B*510108  .......... ...
        B*510201  SDSAQGSDVS LTA
        B*510202  SDSAQGSDVS LTA
+       B*510203  .......... ...
          B*5103  SDSAQGSDVS LTA
          B*5104  SDSAQGSDVS LTA
          B*5105  .......... ...
@@ -7369,6 +7990,9 @@
          B*5143  .......... ...
          B*5145  .......... ...
          B*5146  .......... ...
+         B*5147  .......... ...
+         B*5148  .......... ...
+         B*5149  .......... ...
        B*520101  SDSAQGSDVS LTA
        B*520102  SDSAQGSDVS LTA
        B*520103  .......... ...
@@ -7382,6 +8006,7 @@
          B*5208  .......... ...
          B*5209  .......... ...
          B*5210  .......... ...
+         B*5211  .......... ...
        B*530101  SDSAQGSDVS LTA
        B*530102  .......... ...
        B*530103  .......... ...
@@ -7397,6 +8022,7 @@
          B*5310  .......... ...
          B*5311  SDSAQGSDVS LTA
          B*5312  .......... ...
+         B*5313  .......... ...
          B*5401  SDSAQGSDVS LTA
          B*5402  .......... ...
          B*5403  .......... ...
@@ -7406,6 +8032,9 @@
          B*5407  .......... ...
          B*5409  .......... ...
          B*5410  .......... ...
+         B*5411  .......... ...
+         B*5412  .......... ...
+         B*5413  .......... ...
        B*550101  SDSAQGSDVS LTA
        B*550102  .......... ...
        B*550103  SDSAQGSDVS LTA
@@ -7433,6 +8062,9 @@
          B*5522  .......... ...
          B*5523  .......... ...
          B*5524  SDSAQGSDVS LTA
+         B*5525  .......... ...
+         B*5526  .......... ...
+         B*5527  .......... ...
          B*5601  SDSAQGSDVS LTA
          B*5602  SDSAQGSDVS LTA
          B*5603  SDSAQGSDVS LTA
@@ -7452,6 +8084,7 @@
          B*5616  .......... ...
          B*5617  .......... ...
          B*5618  .......... ...
+         B*5620  .......... ...
        B*570101  SDSAQGSDVS LTA
        B*570102  .......... ...
        B*570103  .......... ...
@@ -7466,6 +8099,8 @@
          B*5709  .......... ...
          B*5710  .......... ...
          B*5711  SDSAQGSDVS LTA
+         B*5712  .......... ...
+         B*5713  .......... ...
          B*5801  SDSAQGSDVS LTA
          B*5802  SDSAQGSDVS LTA
          B*5804  .......... ...
@@ -7478,6 +8113,7 @@
          B*5812  .......... ...
          B*5813  .......... ...
          B*5814  .......... ...
+         B*5815  .......... ...
          B*5901  SDSAQGSDVS LTA
          B*5902  .......... ...
        B*670101  SDSAQGSDVS LTA
@@ -7516,4 +8152,13 @@
          B*9520  .......... ...
          B*9521  .......... ...
          B*9522  .......... ...
+         B*9523  SDSAQGSDVS LTA
+         B*9524  .......... ...
+         B*9525  .......... ...
+         B*9526  .......... ...
+         B*9527  .......... ...
+         B*9528  .......... ...
+         B*9529  .......... ...
+         B*9530  .......... ...
+         B*9532  .......... ...
 
