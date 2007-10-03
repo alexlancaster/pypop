@@ -973,13 +973,13 @@ class BinningFilter:
 
         # see if allele exists in the binning rules (exact or close)
         for ruleSet in self.customBinningDict[locus.lower()]:
-            ruleSetSplit = ruleSet.strip('*').split('/')
+            ruleSetSplit = ruleSet.strip('!').split('/')
 
             # check for exact match(es)
             if testAllele in ruleSetSplit:
-                if ruleSet[0] == '*' and testAllele in ruleSetSplit[1:]:
+                if ruleSet[0] == '!' and testAllele in ruleSetSplit[1:]:
                     exactMatches.append(ruleSetSplit[0])
-                elif ruleSet[0] != '*':
+                elif ruleSet[0] != '!':
                     exactMatches.append(ruleSet)
 
             # check for close match(es)
@@ -989,7 +989,7 @@ class BinningFilter:
                 for potentialMatch in ruleSetSplit:
                     for digitSlice in xrange(len(testAllele)-2):
                         if testAllele[:-digitSlice-1] == potentialMatch:
-                            if ruleSet[0] == '*':
+                            if ruleSet[0] == '!':
                                 closeMatches[ruleSetSplit[0]] = digitSlice+1
                             else:
                                 closeMatches[ruleSet] = digitSlice+1
