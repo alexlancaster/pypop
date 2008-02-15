@@ -78,6 +78,27 @@
   
  </biblioentry>
 
+ <biblioentry id="Cano:etal:2007">
+  <biblioset relation="article">
+   <author>
+    <firstname>Pedro</firstname>
+    <surname>Cano</surname>
+   </author>
+   <pubdate>2007</pubdate>
+   <citetitle>Common and well-documented HLA alleles: report of the
+    ad-hoc committee of the American Society for Histocompatiblity and
+    Immunogenetics</citetitle>
+   <volumenum>68</volumenum>
+   <issuenum>5</issuenum>
+   <pagenums>392-417</pagenums>
+  </biblioset>
+
+  <biblioset relation="journal">
+   <citetitle>Human Immunology</citetitle>
+  </biblioset>
+  
+ </biblioentry>
+
  <!-- merged from PyPop bibliography -->
 
 
@@ -267,6 +288,48 @@
   <volumenum>I</volumenum>
   <pagenums>705-746</pagenums>
  </biblioentry>
+
+ <biblioentry id="Mack:etal:2007">
+  <biblioset relation="chapter">
+   <authorgroup>
+    <author>
+     <firstname>Steven</firstname>
+     <othername>J.</othername>
+     <surname>Mack</surname>
+    </author>
+    <author>
+     <firstname>Alicia</firstname>
+     <surname>Sanchez-Mazas</surname>
+    </author>
+    <author role="uc">
+     <firstname>Diogo</firstname>
+     <surname>Meyer</surname>
+    </author>
+    <author role="uv">
+     <firstname>Richard</firstname>
+     <othername>M</othername>
+     <surname>Single</surname>
+    </author>
+    <author role="uc">
+     <firstname>Yingssu</firstname>
+     <surname>Tsai</surname>
+    </author>
+    <author>
+     <firstname>Henry</firstname>
+     <surname>Erlich</surname>
+    </author>
+   </authorgroup>
+   <pubdate>2007</pubdate>
+   <citetitle>Methods used in the generation and preparation of data
+    for analysis in the 13th International Histocompatibility
+    Workshop</citetitle>
+  </biblioset>
+
+  &hla2007;
+  <volumenum>I</volumenum>
+  <pagenums>564-579</pagenums>
+ </biblioentry>
+ 
 
  <biblioentry id="Schneider:etal:2000">
   <authorgroup>
@@ -781,14 +844,14 @@
    </authorgroup>
    <pubdate>1999</pubdate>
    
-   <citetitle>The variance for the disequilibrium coefficient in the
-   individual Hardy- Weinberg test.</citetitle>
+   <title>The variance for the disequilibrium coefficient in the
+   individual Hardy- Weinberg test.</title>
 
    <volumenum>55</volumenum>
    <pagenums>1269-72</pagenums>
   </biblioset>
   <biblioset relation="journal">
-   <citetitle>Biometrics</citetitle>
+   <title>Biometrics</title>
   </biblioset>
   
  </biblioentry>

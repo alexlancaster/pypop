@@ -1104,6 +1104,41 @@ allPairwiseLDWithPermu=0
 	 class="directory"><replaceable>prefix</replaceable>/share/PyPop/anthonynolan/msf/</filename>]</emphasis>.</para>
      </formalpara>
     </listitem>
+    <listitem>
+     <formalpara>
+      <title><literal>preserve-ambiguous</literal></title>
+      <para>The default behavior of the
+       <literal>AnthonyNolan</literal> filter is to ignore allele
+       ambiguity ("slash") notation.  This notation, common in the
+       literature, looks like: 010101/0102/010301.  The default
+       behavior will simply truncate this to 0101.  If you want to
+       preserve the notation, set the option to 1.  This will result
+       in a filtered allele "name" of 0101/0102/0103 in the above
+       hypothetical example.  <emphasis role="bold">[Default: <literal>0</literal>]</emphasis>.
+      </para>
+     </formalpara>
+    </listitem>
+    <listitem>
+     <formalpara>
+      <title><literal>preserve-unknown</literal></title>
+      <para>The default behavior of the <literal>AnthonyNolan</literal> filter is to
+       replace unknown alleles with the <literal>untypedAllele</literal> designator.
+       If you want the filter to keep allele names it does not
+       recognize, set the option to 1.  <emphasis role="bold">[Default: <literal>0</literal>]</emphasis>.
+      </para>
+     </formalpara>
+    </listitem>
+    <listitem>
+     <formalpara>
+      <title><literal>preserve-lowres</literal></title>
+      <para>This option is similar to <literal>preserve-unknown</literal>, but only
+       applies to lowres alleles.  If set to 1, PyPop will keep allele
+       names that are shorter than the default allele name length,
+       usually 4 digits long.  But if the preserve-unknown flag is
+       set, this one has no effect, because all unknown alleles are
+       preserved.  <emphasis role="bold">[Default: <literal>0</literal>]</emphasis>.</para>
+     </formalpara>
+    </listitem>
    </itemizedlist>
 
 
@@ -1157,17 +1192,49 @@ allPairwiseLDWithPermu=0
     filter sections, it will only be used if present in the 
     <literal>filtersToApply</literal> line specified above.</para>
 
-   <itemizedlist>
-    <listitem>
-     <formalpara>
-      <title><literal>customBinningFile</literal></title>
-      <para>Provides the name of the file that contains the custom binning rules.
-       The format of the custom binning file is provided in the default CustomBinning.ini
-       file provided with your installation.  
-       [Default: CustomBinning.ini].</para>
-     </formalpara>
-    </listitem>
-   </itemizedlist>
+    <para>You can provide a set of custom rules for replacing allele
+    names.  Allele names should be separated by <literal>/</literal> marks.  This filter
+    matches any allele names that are exactly the same as the ones you
+    list here, and will also find "close matches" (but only if there
+    are no exact matches.).  Here is an example:</para>
+
+     <programlisting>A=01/02/03
+ 04/05/0306
+ !06/1201/1301
+ !07/0805</programlisting>
+
+   <para>In the example above, <literal>A*03</literal> alleles will
+    match to <literal>01/02/03</literal>, except for
+    <literal>A*0306</literal>, which will match to
+    <literal>04/05/0306</literal>.  If you place a
+    <literal>!</literal> mark in front of the first allele name, that
+    first name will be used as the "new name" for the binned group
+    (for example, <literal>A*0805</literal> will be called
+    <literal>07</literal> in the custom-binned data.) Note that the
+    space at the beginning of the lines (following the first line of
+    each locus) is important. The above rules are just dummy examples,
+    provided to illustrate how the filter works.
+    <application>PyPop</application> is distributed with a
+    biologically relevant set of <literal>CustomBinning</literal>
+    rules that have been compiled from several sources<footnote>
+     <para>
+      <citation role="citet">Mack:etal:2007</citation>;
+      <citation role="citet">Cano:etal:2007</citation>; The Anthony Nolan list of
+      deleted allele names (<ulink
+       url="http://www.anthonynolan.com/HIG/lists/delnames.html"/>); and the
+      Ambiguous Allele Combinations, release 2.18.0 (<ulink url="http://www.ebi.ac.uk/imgt/hla/ambig.html"/>).</para>
+    </footnote>
+   </para>
+
+<!--
+   <itemizedlist><listitem><formalpara>
+       <title><literal>customBinningFile</literal></title>
+       <para>Provides the name of the file that contains the custom
+	binning rules. The format of the custom binning file is
+	provided in the default CustomBinning.ini file provided with
+	your installation. [Default: CustomBinning.ini].</para>
+      </formalpara></listitem></itemizedlist>
+-->
 
   </section>
 
