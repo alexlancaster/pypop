@@ -30,8 +30,8 @@ XSLFO += --param fop.extensions 1
 	Fop $< $@
 else
 XSLFO += --param passivetex.extensions 1
-%.pdf: %.fo
-	xmlto pdf $<
+#%.pdf: %.fo
+#	xmlto pdf $<
 endif
 
 # set default location of stylesheets
@@ -113,6 +113,9 @@ eqns: tex-math-equations.dvi
 
 %.txt: %-singlepage.html
 	w3m -dump $< > $@ 
+
+%.pdf: %.xml
+	dblatex -T db2latex  -p xslt/dblatex.xsl -o $@ $<
 
 # don't use profiling-highlighting right now
 #--param profiling-highlighting $(if $(findstring profile,$<),0,1)

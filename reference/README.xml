@@ -37,11 +37,10 @@
   <title>Introduction</title>
 
   <para>You may use <application>PyPop</application> to analyze many
-   different kinds of data, including allele-level genotypes (as in
-   <xref linkend="data-minimal-noheader-noids"/>) and allele-level
-   frequencies (as in <xref linkend="data-allelecount"/>) from the HLA
-   region (as well as regions from other chromosomes), microsatellite
-   data, SNPs, and nucleotide and amino acid sequence data.</para>
+   different kinds of data, including allele-level genotype data (as in
+   <xref linkend="data-minimal-noheader-noids"/>), allele-level
+   frequency data (as in <xref linkend="data-allelecount"/>), microsatellite
+   data, SNP data, and nucleotide and amino acid sequence data.</para>
 
   <para>There are two ways to run <application>PyPop</application>:
    <itemizedlist>
@@ -56,7 +55,7 @@
    </itemizedlist> For the most straightforward application of
    <application>PyPop</application>, where you wish to analyze a
    single population, the interactive mode is the simplest to use. We
-   will describe this mode first, then describe batch mode.</para>
+   will describe this mode first then describe batch mode.</para>
 
   <section>
    <title>Interactive mode</title>
@@ -137,8 +136,7 @@ current directory or in /usr/share/PyPop/config.ini.
     INPUTFILE   input text file</screen>
 
    <warning>
-    <para>Documentation for these options is currently
-     incomplete.</para>
+    <para>Documentation for these options is underway, but not currently available.</para>
    </warning>
 
   </section>
@@ -162,8 +160,8 @@ current directory or in /usr/share/PyPop/config.ini.
     successful run will produce two output files:
     <filename><replaceable>popfilename</replaceable>-out.xml</filename>, 
     <filename><replaceable>popfilename</replaceable>-out.txt</filename>. 
-    A third output file will be created if your data is HLA and you
-    are using the Anthony Nolan HLA filter option to check your input
+    A third output file will be created if you
+    are using the Anthony Nolan HLA filter option for HLA data to check your input
     for valid/known HLA alleles:
     <filename><replaceable>popfilename</replaceable>-filter.xml</filename>).</para>
 
@@ -205,9 +203,9 @@ current directory or in /usr/share/PyPop/config.ini.
     <filename>config.ini</filename> (see <xref
      linkend="validSampleFields"/>).  Although
     <application>PyPop</application> needs this distinction to be
-    made, phase is NOT assumed or inferred, and if present, is not
-    recognized.</para>
+    made, phase is NOT assumed, and if known it is ignored.</para>
 
+   <para><xref linkend="config-minimal-example" /> shows the relevant lines for the configuration to read in the data shown in <xref linkend="data-minimal-noheader-noids"/> to <xref linkend="data-allelecount"/>.</para>
 
    <example id="data-minimal-noheader-noids">
     <title>Multi-locus allele-level genotype data</title>
@@ -616,11 +614,10 @@ allPairwiseLDWithPermu=0
     <itemizedlist>
      <listitem>
       <formalpara>
-       <title><literal>validSampleFields=</literal></title>
+       <title><literal>validSampleFields</literal></title>
 
-       <para>This option should contain a colon-separated list of the
-	 loci that will be in the data files you intend to analyze, so
-	 that you don't have to change the <filename>.ini</filename>
+       <para>This option should contain either a single locus name or a colon-separated list of all
+	 loci that will be in the data files you intend to analyze using a specific <filename>.ini</filename> file.  The colon-separated list allows you to avoid changing the <filename>.ini</filename>
 	 file when running over a collection of data files containing
 	 different loci. e.g.,</para>
       </formalpara>
@@ -631,7 +628,7 @@ allPairwiseLDWithPermu=0
        <para>Note that each <filename>.pop</filename> file must
 	contain only one locus (see  <xref
 	linkend="data-allelecount-note"/> in <xref
-	 linkend="data-allelecount"/>), listing multiple loci simply
+	 linkend="data-allelecount"/>).  Listing multiple loci simply
 	permits the same <filename>.ini</filename> file to be reused
 	for each data file.</para>
      </listitem>
@@ -728,11 +725,9 @@ allPairwiseLDWithPermu=0
       <formalpara>
        <title><literal>numReplicates</literal></title>
 
-       <para>These values, provided as defaults, have proved to be
+       <para>The default values have proved to be
 	 optimal for us.  There is no reason to change them unless you
-	 are particularly curious. If you have a problem when you
-	 change them you <emphasis role="bold">must</emphasis> also
-	 let us know.</para>
+	 are particularly curious. If you change the default values and have problems, please let us know.</para>
       </formalpara>
      </listitem>
     </itemizedlist>
@@ -790,7 +785,7 @@ allPairwiseLDWithPermu=0
 	<title><literal>numPermuInitCond</literal></title>
    
 	<para>Set this to change the number of initial conditions used
-	 per permutation.   The default is 5 (<emphasis>Note: this
+	 per permutation. <emphasis role="bold">[Default: 5]</emphasis>. (<emphasis>Note: this
 	  parameter is only used if
 	  <literal>allPairwiseLDWithPermu</literal> is set and
 	  nonzero</emphasis>).</para>
@@ -830,10 +825,10 @@ allPairwiseLDWithPermu=0
    <itemizedlist>
     <listitem>
      <formalpara>
-      <title><literal>txtOutFilename</literal> and
-       <literal>xmlOutFilename</literal></title>
-      
-      <para>If you wish to specify a particular name for the output
+      <title><literal>txtOutFilename</literal></title>
+
+      <para> and <emphasis role="bold">
+       <literal>xmlOutFilename</literal></emphasis> If you wish to specify a particular name for the output
        file, which you want to remain identical over several runs, you
        can set these two items to particular values. The default is to
        have the program select the output filename, which can be
@@ -932,10 +927,9 @@ allPairwiseLDWithPermu=0
       <para>If you are analyzing data with an initial two line
        population header block information as in <xref
 	linkend="data-hla"/>, then you will need to set this option.
-       It should contain the field names in the first line of the
-       three lines of header information of your file, if it has
-       these.   <emphasis role="bold">[Default: required when
-	population data-block in data file]</emphasis>, e.g.:</para>
+       In this case, it should contain the field names in the first line of the
+       header information of your file.   <emphasis role="bold">[Default: required when
+       a population data-block is present in data file]</emphasis>, e.g.:</para>
      </formalpara>
 
      <programlisting>validPopFields=labcode
@@ -1066,9 +1060,9 @@ allPairwiseLDWithPermu=0
 
    <bridgehead><literal>[AnthonyNolan]</literal> filter section</bridgehead>
    <para>This section is <emphasis>only</emphasis> useful for HLA
-    data.  Like all filter sections, it will only will be used if present in the
+    data.  Like all filter sections, it will only be used if present in the
     <literal>filtersToApply</literal> line specified above.  If so
-    enabled, your data will be filtered through The Anthony Nolan
+    enabled, your data will be filtered through the Anthony Nolan
     database of known HLA allele names <!-- which version of the WHO
     nomenclature release? --> before processing.  The data files this
     filter relies on are <emphasis>not</emphasis> currently

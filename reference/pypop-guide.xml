@@ -55,6 +55,7 @@
    <year>2005</year>
    <year>2006</year>
    <year>2007</year>
+   <year>2008</year>
    <holder>Regents of the University of California</holder>
   </copyright>
   <legalnotice>
@@ -88,7 +89,7 @@
     </listitem>
     <listitem>
      <para> estimates of
-    haplotype frequencies (and their distributions) and measures and
+    haplotype frequencies and measures and
     tests of significance for linkage disequilibrium (LD).</para>
     </listitem>
    </itemizedlist>
@@ -107,14 +108,14 @@
     storing data). These output files can then be transformed using
     standard tools into many other data formats suitable for machine
     input (such as PHYLIP or input for spreadsheet programs such as
-    Excel or statistical packages, such as R, plain text, or HTML for
+    Excel or statistical packages, such as R), plain text, or HTML for
     human-readable format. Storing the output in XML allows the final
     viewable output format to be redesigned at will, without requiring
     the (often time-consuming) re-running of the analyses
     themselves.</para>
 
    <para><application>PyPop</application> was originally developed for
-    the analysis of data for <ulink
+    the analysis of data for the 13th <ulink
      url="http://www.ihwg.org/">International Histocompatiblity
      Workshop and Conference</ulink> held in Seattle, Washington in
     2002 (<citation role="citealt">Meyer:etal:2007</citation>,
@@ -149,8 +150,8 @@
 
     <listitem>
      <para><xref linkend="guide-chapter-instructions"/>  details the
-      population genetics methods and statistics that
-      <application>PyPop</application> performs.</para>
+      population genetic methods and statistics that
+      <application>PyPop</application> computes.</para>
 
     </listitem>
    </itemizedlist>
