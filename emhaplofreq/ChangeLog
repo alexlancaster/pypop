@@ -1,3 +1,37 @@
+2008-06-08  Richard M. Single <rsingle@uvm.edu>
+
+	* emhaplofreq.h: Changed MAX_ROWS from 1023 to a conservative
+	value of 5000.  Changed MAX_GENOS from 20000 to 40000.  Tests
+	based on NMDP data with 10000 individuals required ~30000 for
+	MAX_GENOS.
+
+	* emhaplofreq.c: Array genopheno[] was removed throughout. Space
+	was allocated for this array, but it was not used. genopheno[] was
+	used (at one point in time) to keep track of the geno-pheno
+	relationships for each permutation, thus it had been incremented
+	as "genopheno[i][0]=permu+1;" to avoid having to be initialized
+	with each permu. But, it is no longer used. The array gp[] stores
+	the genotype- phenotype relationships. The 1st dimension of the
+	gp[] array was changed from MAX_GENOS to MAX_GENOS_PER_PHENO
+	since, for a given phenotype, space only needs to be allocated for
+	each of the possible genotypes for that phenotype
+	[not all possible genotypes across all phenotypes].
+
+	(emalc): Some of the initialization loops (for ambig[] and
+	addto_ambig[]) were rearranged to avoid looping through these
+	arrays more than necessary.  This speeds up computations
+	especially for large files with a lot of phenotpyes.
+
+	Also in the emcalc() routine, the criterion for setting
+	error_flag=2 was changed from "if (expected_freq_sum < .00000001)"
+	to "if (expected_freq_sum < 1.e-16)". This is only an issue for
+	very large datasets. The check based on error_flag=3 is still a
+	safety measure for the condition that error_flag=2 is checking. It
+	may be possible to remove error_flag=2 altogether (setting
+	expected_freq_sum=1.e-16 if it is less than this value), but
+	additional testing with very large datasets is needed to determine
+	if that is ok.
+
 2007-09-21  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* emhaplofreq.h (xmlfprintf): Define new macro to be used for
