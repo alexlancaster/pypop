@@ -1,8 +1,25 @@
 <?xml version='1.0'?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version='1.0'>
-
+ 
  <xsl:param name="latex.biblio.output">cited</xsl:param>
  <xsl:param name="insert.xref.page.number">no</xsl:param>
+
+ <xsl:template match="chapterinfo/authorgroup">
+  <xsl:text>\emph{Written by: }</xsl:text>
+   <xsl:for-each select="*">
+    <xsl:apply-templates select="."/>
+   <xsl:text> </xsl:text>
+  </xsl:for-each>
+ </xsl:template>
+
+ <xsl:template match="chapterinfo/pubdate">
+  <xsl:text>&#10;&#10;\begin{sidebar}&#10;</xsl:text>
+  <xsl:text>\emph{</xsl:text>
+  <xsl:value-of select="substring(.,1,13)"/>
+  <xsl:text>} </xsl:text>
+  <xsl:value-of select="substring(.,22,10)"/>
+  <xsl:text>\end{sidebar}&#10;</xsl:text>
+ </xsl:template>
 
  <xsl:template match="biblioentry/title|biblioentry/citetitle">
   <xsl:choose>
