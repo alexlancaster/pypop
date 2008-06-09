@@ -442,9 +442,9 @@ p-value: 0.0518</programlisting>
     <emphasis>expected homozygosity</emphasis> which is computed by
     simulation under neutrality/equilibrium expectations, for the same
     sample size (<varname>2n</varname>) and number of unique alleles
-    (<varname>k</varname>). Note that the homozygosity F statistic,
-    <inlineequation> <alt
-    role="tex">$F_{nd}=\sum_{i=1}^{k}p_{i}^{2}$</alt> <graphic
+    (<varname>k</varname>). Note that the homozygosity
+    <varname>F</varname> statistic, <inlineequation> <alt
+    role="tex">$F=\sum_{i=1}^{k}p_{i}^{2}$</alt> <graphic
     fileref="fnd.jpg"/></inlineequation>, is often referred to as the
     <emphasis><emphasis role="underline">expected</emphasis>
     homozygosity</emphasis> (with <emphasis><emphasis
