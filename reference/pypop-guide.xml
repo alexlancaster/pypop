@@ -12,6 +12,7 @@
   <authorgroup>
    <author>
     <firstname>Alex</firstname>
+    <othername>K.</othername>
     <surname>Lancaster</surname>
     &affiliation-ucb;
    </author>
@@ -34,6 +35,7 @@
    </author>
    <author>
     <firstname>Owen</firstname>
+    <othername>D.</othername>
     <surname>Solberg</surname>
     &affiliation-ucb;
    </author>
@@ -181,7 +183,7 @@
 
  <chapter id="guide-chapter-install">
   <chapterinfo>
-   <xi:include href="INSTALL.xml#xpointer(//articleinfo/*)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <xi:include href="INSTALL.xml#xpointer(//articleinfo/pubdate)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   </chapterinfo>
   <xi:include href="INSTALL.xml#xpointer(//articleinfo/title)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   <xi:include href="INSTALL.xml#xpointer(/article/section)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
@@ -189,7 +191,7 @@
 
  <chapter id="guide-chapter-usage">
   <chapterinfo>
-   <xi:include href="README.xml#xpointer(//articleinfo/*)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <xi:include href="README.xml#xpointer(//articleinfo/pubdate)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   </chapterinfo>
   <xi:include href="README.xml#xpointer(//articleinfo/title)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   <xi:include href="README.xml#xpointer(/article/section)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
@@ -197,7 +199,7 @@
 
  <chapter id="guide-chapter-instructions">
   <chapterinfo>
-   <xi:include href="instructions.xml#xpointer(//articleinfo/authorgroup)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+   <!-- <xi:include href="instructions.xml#xpointer(//articleinfo/authorgroup)" xmlns:xi="http://www.w3.org/2001/XInclude"/> -->
    <xi:include href="instructions.xml#xpointer(//articleinfo/pubdate)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   </chapterinfo>
   <title>Interpreting <application>PyPop</application> output</title>

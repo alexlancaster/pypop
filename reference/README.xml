@@ -205,7 +205,7 @@ current directory or in /usr/share/PyPop/config.ini.
     <application>PyPop</application> needs this distinction to be
     made, phase is NOT assumed, and if known it is ignored.</para>
 
-   <para><xref linkend="config-minimal-example" /> shows the relevant lines for the configuration to read in the data shown in <xref linkend="data-minimal-noheader-noids"/> to <xref linkend="data-allelecount"/>.</para>
+   <para><xref linkend="config-minimal-example" /> shows the relevant lines for the configuration to read in the data shown in <xref linkend="data-minimal-noheader-noids"/> through to <xref linkend="data-allelecount"/>.</para>
 
    <example id="data-minimal-noheader-noids">
     <title>Multi-locus allele-level genotype data</title>
