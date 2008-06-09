@@ -433,29 +433,33 @@ p-value: 0.0518</programlisting>
 -->
 
    <para>For each locus, we implement the Ewens-Watterson homozygosity
-   test of neutrality (<citation role="citealt">Ewens:1972</citation>;
-   <citation role="citealt">Watterson:1978</citation>). We use the
-   term <emphasis>observed homozygosity</emphasis> to denote the
-   homozygosity statistic (<varname>F</varname>), computed as the sum
-   of the squared allele frequencies. This value is compared to the
-   <emphasis>expected homozygosity</emphasis> which is computed by
-   simulation under neutrality/equilibrium expectations, for the same
-   sample size (<varname>2n</varname>) and number of unique alleles
-   (<varname>k</varname>). Note that the homozygosity F statistic,
-   <inlineequation> <alt
-   role="tex">$F_{nd}=\sum_{i=1}^{k}p_{i}^{2}$</alt> <graphic
-   fileref="fnd.jpg"/></inlineequation>, is often referred to as the
-   <emphasis>_expected_ homozygosity</emphasis> (with _expectation_
-   referring to HWP) to distinguish it from the observed proportion of
-   homozygotes. We avoid referring to the observed
-   <varname>F</varname> statistic as the "<emphasis>observed expected
-   homozygosity</emphasis>" (to simplify and hopefully avoid
-   confusion) since the homozygosity test of neutrality is concerned
-   with comparisons of observed results to expectations under
-   neutrality. Both the <emphasis>observed</emphasis> statistic (based
-   on the actual data) and <emphasis>expected</emphasis> statistic
-   (based on simulations under neutrality) used in this test are
-   computed as the sum of the squared allele frequencies.</para>
+    test of neutrality (<citation
+    role="citealt">Ewens:1972</citation>; <citation
+    role="citealt">Watterson:1978</citation>). We use the term
+    <emphasis>observed homozygosity</emphasis> to denote the
+    homozygosity statistic (<varname>F</varname>), computed as the sum
+    of the squared allele frequencies. This value is compared to the
+    <emphasis>expected homozygosity</emphasis> which is computed by
+    simulation under neutrality/equilibrium expectations, for the same
+    sample size (<varname>2n</varname>) and number of unique alleles
+    (<varname>k</varname>). Note that the homozygosity F statistic,
+    <inlineequation> <alt
+    role="tex">$F_{nd}=\sum_{i=1}^{k}p_{i}^{2}$</alt> <graphic
+    fileref="fnd.jpg"/></inlineequation>, is often referred to as the
+    <emphasis><emphasis role="underline">expected</emphasis>
+    homozygosity</emphasis> (with <emphasis><emphasis
+    role="underline">expectation</emphasis></emphasis> referring to
+    HWP) to distinguish it from the observed proportion of
+    homozygotes. We avoid referring to the observed
+    <varname>F</varname> statistic as the "<emphasis>observed expected
+    homozygosity</emphasis>" (to simplify and hopefully avoid
+    confusion) since the homozygosity test of neutrality is concerned
+    with comparisons of observed results to expectations under
+    neutrality. Both the <emphasis>observed</emphasis> statistic
+    (based on the actual data) and <emphasis>expected</emphasis>
+    statistic (based on simulations under neutrality) used in this
+    test are computed as the sum of the squared allele
+    frequencies.</para>
 
    <para>The <emphasis>normalized deviate of the
    homozygosity</emphasis>
