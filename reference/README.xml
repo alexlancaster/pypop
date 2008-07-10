@@ -141,7 +141,7 @@ current directory or in /usr/share/PyPop/config.ini.
 
   </section>
 
-  <section>
+  <section id="guide-usage-intro-run-details">
    <title>What happens when you run <application>PyPop</application>?</title>
 
    <para>The most common types of analysis will involve the editing of
@@ -164,6 +164,24 @@ current directory or in /usr/share/PyPop/config.ini.
     are using the Anthony Nolan HLA filter option for HLA data to check your input
     for valid/known HLA alleles:
     <filename><replaceable>popfilename</replaceable>-filter.xml</filename>).</para>
+
+   <para>The <filename><replaceable>popfilename</replaceable>-out.xml</filename>
+    file is the primary output created by PyPop and the human-readable
+    <filename><replaceable>popfilename</replaceable>-out.txt</filename>
+    file is a summary of the complete XML output. It is generated from
+    the XML output via XSLT (eXtensible Stylesheet Language for
+    Transformations) using the default XSLT stylesheet <filename>text.xsl</filename>,
+    which is located in the xslt directory. The XML output can be
+    further transformed using customized XSLT stylesheets into other
+    formats for input to statistical software (e.g., R/Splus, SAS) or
+    other population genetic software (e.g., PHYLIP). The<command>popmeta</command>
+    script (<filename>popmeta.bat</filename> on Windows,
+    <filename>popmeta</filename> on GNU/Linux) calls on other XSLT
+    stylesheets to aggregate results from a number of output XML files
+    from individual populations into a set of tab-separated (TSV)
+    files containing summary statistics. These TSV files can be
+    directly imported into a spreadsheet or statistical software. This
+    script will be further documented in the next release.</para>
 
    <para>A typical <application>PyPop</application> run might take
     anywhere from a few of minutes to a few hours, depending on how
