@@ -203,7 +203,7 @@
    <xi:include href="instructions.xml#xpointer(//articleinfo/pubdate)" xmlns:xi="http://www.w3.org/2001/XInclude"/>
   </chapterinfo>
   <title>Interpreting <application>PyPop</application> output</title>
-  <xi:include href="instructions.xml#xpointer(//sect1)" xmlns:xi="http://www.w3.org/2001/XInclude"/>  
+  <xi:include href="instructions.xml#xpointer(/article/*[not(self::articleinfo|self::title|self::bibliography)])" xmlns:xi="http://www.w3.org/2001/XInclude"/>
  </chapter>
 
  <!-- XInclude appendix -->

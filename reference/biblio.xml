@@ -25,6 +25,20 @@
 
  <!-- merged from instructions.xml -->
 
+ <biblioentry id="Cramer:1946">
+   <author>
+    <firstname>H</firstname>
+    <surname>Cramer</surname>
+   </author>
+  <citetitle>Mathematical Models of Statistics</citetitle>
+  <pubdate>1946</pubdate>
+  <publisher>
+   <publishername>Princeton University Press</publishername>
+   <address><city>Princeton</city> <state>NJ</state></address>
+  </publisher>
+ </biblioentry>
+
+
  <biblioentry id="Hartl:Clark">
   <authorgroup>
    <author>

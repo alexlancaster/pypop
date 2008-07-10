@@ -37,16 +37,15 @@
   </abstract>
  </articleinfo>
 
- <sect1 id="instructions-pop-summary">
-  <title>Population summary</title>
-
-
   <para>As mentioned in <xref
     linkend="guide-usage-intro-run-details"/>, The XML file is the
    primary output created by PyPop and contains the complete set of
    results. The text output, generated from the XML file via XSLT,
    contains a human-readable summary of the XML results. Below we discuss
    the output contained in this text file.</para>
+
+ <sect1 id="instructions-pop-summary">
+  <title>Population summary</title>
 
   <para>A <literal>Population Summary</literal> is generated for each
    dataset analyzed.  This summary provides basic demographic
@@ -627,48 +626,69 @@ DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
      <varname>D'</varname> <citation>Hedrick:1987</citation> weights
      the contribution to LD of specific allele pairs by the product of
      their allele frequencies;
-     <varname>W</varname><subscript>n</subscript> (Cramer, 1946) is a
+    <varname>W</varname><subscript>n</subscript> <citation>Cramer:1946</citation> is a
      re-expression of the chi-square statistic for deviations between
      observed and expected haplotype frequencies. Both measures
      are normalized to lie between zero and one.</para>
 
-   <para>Overall LD, summing contributions
-    (<varname>D'</varname><subscript>ij</subscript>} =
-    <varname>D</varname><subscript>ij</subscript> /
-    <varname>D</varname><subscript>max</subscript>) of all the
-    haplotypes in a multi-allelic two-locus system, can be measured
-    using Hedrick's (1987) <varname>D'</varname> statistic, using the
-    products of allele frequencies at the loci,
-    <varname>p</varname><subscript>i</subscript> and
-    <subscript><varname>q</varname>j</subscript>, as weights.
-
+   <variablelist>
+    <varlistentry>
+    <term><varname>D'</varname></term>
+     <listitem>
+      <para>Overall LD, summing contributions
+       (<varname>D'</varname><subscript>ij</subscript> =
+       <varname>D</varname><subscript>ij</subscript> /
+       <varname>D</varname><subscript>max</subscript>) of all the
+       haplotypes in a multi-allelic two-locus system, can be measured
+       using Hedrick's <varname>D'</varname> statistic, using the
+       products of allele frequencies at the loci,
+       <varname>p</varname><subscript>i</subscript> and
+       <varname>q</varname><subscript>j</subscript>, as weights.
     <equation>
-     <alt role="tex">{D}' = \sum\limits_{i = 1}^I {\sum\limits_{j = 1}^J {p_i } } q_j \left|
-{{D}'_{ij} } \right</alt>
-     <graphic fileref="Dprime.jpg"/>
-    </equation>
+     <alt role="tex">\[
+{D}' = \sum\limits_{i = 1}^I {\sum\limits_{j = 1}^J {p_i } } q_j \left|
+{{D}'_{ij} } \right|
+\]
+</alt>
+     <graphic fileref="Dprime.jpg" />
+       </equation>
+      </para>
+     </listitem>
+    </varlistentry>
 
-$W_n$, also known as Cramer's V Statistic (Cramer, 1946), is a second
-overall
-measure of LD between two loci. It is a re-expression of the Chi-square
-statistic, $X_{LD}^2 $, normalized to be between zero and one.
-
-\[
+   <varlistentry>
+    <term><varname>W</varname><subscript>n</subscript></term>
+     <listitem>
+      <para>
+       Also known as Cramer's V Statistic
+       <citation>Cramer:1946</citation>,
+       <varname>W</varname><subscript>n</subscript>, is a second
+       overall measure of LD between two loci. It is a re-expression
+       of the Chi-square statistic, <varname>X</varname><subscript>LD</subscript><superscript>2</superscript>,
+       normalized to be between zero and one.
+       
+       <equation>
+	<alt role="tex">\[
 W_n = \left[ {\frac{\sum\limits_{i = 1}^I {\sum\limits_{j = 1}^J
 {D_{ij}^2 /
 p_i } q_j } }{\min (I - 1,J - 1)}} \right]^{\frac{1}{2}} = \left[
 {\frac{X_{LD}^2 / 2N}{\min (I - 1,J - 1)}} \right]^{\frac{1}{2}}
 \]
+	</alt>
+	<graphic fileref="Wn.jpg" />
+       </equation>
 
-When there are only two alleles per locus, $W_n$ is equivalent to the
-correlation
-coefficient between the two loci, defined as $r = \sqrt {D_{11} / p_1 p_2
-q_1 q_2 } $.
+       When there are only two alleles per locus,
+       <varname>W</varname><subscript>n</subscript> is equivalent to the
+       correlation coefficient between the two loci, defined as
+       <inlineequation> <alt role="tex">$r =\sqrt {D_{11} / p_1 p_2 q_1 q_2 } $</alt> 
+	<graphic fileref="r-correlation-coeff.jpg"/></inlineequation>.
+      </para>
+     </listitem>
+    </varlistentry>
+   </variablelist>
 
-
-</para>
-
-    <para>For each locus pair the log-likelihood of obtaining the
+   <para>For each locus pair the log-likelihood of obtaining the
      observed data given the inferred haplotype frequencies
      [<varname>ln(L_1)</varname>], and the likelihood of the data
      under the null hypothesis of linkage equilibrium
@@ -687,9 +707,12 @@ q_1 q_2 } $.
      &lt; 0.05 is indicative of overall significant LD. <!-- A
      significant result (e.g. <varname>p</varname>-value &lt; 0.05) is
      indicative of linkage disequilibrium. -->
-
     </para>
 
+   <para>Individual LD coefficients, <varname>D</varname><subscript>ij</subscript>, are stored
+    in the XML output file, but are not printed in the default text
+    output. They can be accessed in the summary text files created by
+    the <filename>popmeta</filename> script (see <xref linkend="guide-usage-intro-run-details"/>).</para>
 
   </sect2>
 
