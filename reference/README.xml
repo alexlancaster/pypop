@@ -174,7 +174,7 @@ current directory or in /usr/share/PyPop/config.ini.
     which is located in the xslt directory. The XML output can be
     further transformed using customized XSLT stylesheets into other
     formats for input to statistical software (e.g., R/Splus, SAS) or
-    other population genetic software (e.g., PHYLIP). The<command>popmeta</command>
+    other population genetic software (e.g., PHYLIP). The <command>popmeta</command>
     script (<filename>popmeta.bat</filename> on Windows,
     <filename>popmeta</filename> on GNU/Linux) calls on other XSLT
     stylesheets to aggregate results from a number of output XML files
