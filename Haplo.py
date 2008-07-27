@@ -441,6 +441,17 @@ class Emhaplofreq(Haplo):
                 else:
                     lociAttr = "loci=\"%s\"" % group
 
+                # check maximum length of allele
+                maxAlleleLength = 0
+                for line in range(0, len(subMatrix)):
+                    theline = subMatrix[line]
+                    for allelePos in range(0, len(theline)):
+                        allele = theline[allelePos]
+                        if len(allele) > maxAlleleLength:
+                            maxAlleleLength = len(allele)
+                        if len(allele) > (self._Emhaplofreq.NAME_LEN)-2:
+                            print "WARNING: '%s' (%d) exceeds max allele length (%d) for LD and haplo est in %s" % (allele, len(allele), self._Emhaplofreq.NAME_LEN-2, lociAttr)
+
                 if groupNumIndiv > self._Emhaplofreq.MAX_ROWS:
                     fp.write("<group %s role=\"too-many-lines\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
                     continue
@@ -448,7 +459,10 @@ class Emhaplofreq(Haplo):
                 elif groupNumIndiv == 0:
                     fp.write("<group %s role=\"no-data\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
                     continue
-
+                elif maxAlleleLength > (self._Emhaplofreq.NAME_LEN-2):
+                    fp.write("<group %s role=\"max-allele-length-exceeded\" %s %s>%d</group>%s" % (modeAttr, lociAttr, haploAttr, self._Emhaplofreq.NAME_LEN-2, os.linesep))
+                    continue
+                
                 if mode:
                     fp.write("<group %s %s %s>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
                 else:
