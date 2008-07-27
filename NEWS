@@ -44,6 +44,8 @@ Copyright (C) 2003, 2004, 2005, 2006, 2007 Regents of the University of Californ
 *** Various build and installation fixes (SWIG, compilation flags)
 *** Make name of source package be lowercase "pypop".
 *** Change data directory: /usr/share/pypop/ to /usr/share/PyPop/
+*** Print out warning when maximum length of allele exceeded, rather than
+    crashing.  Thanks to Steve Mack for report.
 
 ** Other issues
 *** Sequence filter

@@ -317,7 +317,6 @@ MODIFICATIONS.
   <xsl:call-template name="newline"/>
  </xsl:template>
  
- 
  <!-- next two  templates trap the conditions in which no data or too -->
  <!-- many lines were presented to emhaplofreq -->
  <xsl:template match="group[@role='no-data']">
@@ -335,6 +334,15 @@ MODIFICATIONS.
    <xsl:with-param name="level" select="3"/>
   </xsl:call-template>
  </xsl:template>
+
+ <xsl:template match="group[@role='max-allele-length-exceeded']">
+  <xsl:call-template name="section">
+   <xsl:with-param name="title">Allele name length exceeded maximum of <xsl:value-of select="."/> for loci <xsl:value-of select="@loci"/>
+   </xsl:with-param>
+   <xsl:with-param name="level" select="3"/>
+  </xsl:call-template>
+ </xsl:template>
+
 
  <!-- generate the haplotype frequency table -->
  <xsl:template match="haplotypefreq">

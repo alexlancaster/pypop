@@ -1,13 +1,22 @@
-2008-07-27  Alex Lancaster  <alexl AT users.sourceforge.net> 
+2008-07-27  Alex Lancaster  <alexl AT users.sourceforge.net>
+
+	* Haplo.py (Emhaplofreq._runEmhaplofreq): Ensure that allele
+	length doesn't exceed maximum length allowed by emhaplofreq
+	module.  Emit XML <group> tag in this case and also print out
+	warning to stdout.
+
+	* xslt/emhaplofreq.xsl: Emit corresponding warning in text output.
+
+2008-07-27  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* NEWS: Update with notes on emhaplofreq.
 
-2007-09-22  Alex Lancaster  <alexl AT users.sourceforge.net> 
+2007-09-22  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* pval/pval_wrap.i: Declare function prototypes in '%{ %}'
 	verbatim section.
 
-2007-09-21  Alex Lancaster  <alexl AT users.sourceforge.net>
+2007-09-21  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* pypop.py (generateTSV): Use ',' rather than '+' for diagnostic
 	print outputs because we are now dealing with a list rather than a
@@ -72,7 +81,7 @@
 	for dealing with heterogeneous 4-digit lit data.  Also new flags
 	for changing the behavior of the Anthony Nolan filter.
 
-2007-09-17  Alex Lancaster <alexl AT users.sourceforge.net>
+2007-09-17  Alex Lancaster <alexl AT users sourceforge net>
 
 	* DataTypes.py (Genotypes._checkAllele): Reorder debug statement.
 	(Genotypes._genDataStructures): Keep track of untyped individuals
@@ -82,11 +91,11 @@
 	point floating point number for the corresponding XML tag rather
 	than an integer.
 
-2007-09-09  Alex Lancaster <alexl AT users.sourceforge.net>
+2007-09-09  Alex Lancaster <alexl AT users sourceforge net>
 
 	* NEWS: Note new features and fixes since 2005 for PyPop 0.7.0.
 
-2007-06-09  Alex Lancaster <alexl AT users.sourceforge.net>
+2007-06-09  Alex Lancaster <alexl AT users sourceforge net>
 
 	* standalone.spec: Don't strip binaries, Cygwin won't run the
 	resulting DLLs.
@@ -176,7 +185,7 @@
 	the matched allele (if preceeded by an *) or the entire hashed
 	0101/0102/0103 allele name (if there is no *).
 
-2007-04-24  Alex Lancaster  <alexl AT users.sourceforge.net>
+2007-04-24  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* SWIG/typemap.i: Remove 'python' from %typemap, now deprecated in SWIG.
 
@@ -203,7 +212,7 @@
 	future if we want a separate output file for the random binning
 	results.
 
-2007-02-23  Alex Lancaster  <alexl AT users.sourceforge.net>
+2007-02-23  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Main.py (Main._doGenotypeFile): Add NoSectionError exception
 	handing to handle missing HardyWeinbergGuoThompson[MonteCarlo]
@@ -213,7 +222,7 @@
 	<xsl:param>: 'pvals-diff -> 'pvals-chen'.  Thanks to Owen Solberg
 	for the bug report.
 
-2007-01-24  Alex Lancaster  <alexl AT users.sourceforge.net>
+2007-01-24  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Meta.py (Meta.__init__): Change '13ihwg-fmt' to 'ihwg-fmt', xslt
 	doesn't like QNames to start with a number.
@@ -221,7 +230,7 @@
 	* xslt/meta-to-r.xsl: Likewise, also change
 	'13th-header-line-start' to 'ihwg-header-line-start'.
 
-2006-07-31  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-07-31  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Meta.py (Meta.__init__): Replace all spaces by '%20' to make the
 	system identifier a true RFC 3986 compliant URI.  Use '-' in place
@@ -236,7 +245,7 @@
 	* Meta.py (Meta.__init__): close each intermediate dat file
 	immediately upon finishing with it.
 
-2006-04-18  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-04-18  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* MANIFEST.in: Likewise add so that they are distributed
 
@@ -254,7 +263,7 @@
 	* HardyWeinberg.py (HardyWeinberg.__init__): Add: 'flagChenTest'
 	as a parameter, so that it can be set in config.ini.
 
-2006-04-06  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-04-06  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* DataTypes.py (Genotypes._checkAllele): Put debugging code into
 	self.debug clauses.
@@ -275,7 +284,7 @@
 	sequence of * symbols (ie, will be treated as truly missing data,
 	not untyped alleles.
 
-2006-04-04  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-04-04  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/meta-to-r.xsl (allelecounts/untypedindividuals,
 	allelecounts/unsequencedsites): New columns to keep track of
@@ -324,14 +333,14 @@
 	allele is not found, tag as unsequencedSite (FIXME: check this!)
 
 
-2006-04-03  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-04-03  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/sort-by-locus.xsl (sort-by-locus): Add two parameters
 	'two-en' and 'k', filters out populations with sample size (2n)
 	and number of distinct alleles (k) parameters less than these
 	values (default to '0').
 
-2006-03-08  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-03-08  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* popmeta.py (ihwg_output): Change semantics of batchsize, make
 	"0" (default) process files separately if only R dat files is
@@ -349,7 +358,7 @@
 	If transformation doesn't work, skip that file in the renaming and
 	emit a warning.
 
-2006-03-07  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-03-07  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Meta.py (Meta.__init__): Fix a nasty memory leak [by calling
 	freeDoc() on a DOM instance] with the libxml2 bindings (which
@@ -357,11 +366,11 @@
 	up all system resources bringing a machine to it's knees.
 	Added '1-locus-hardyweinberg.dat'
 
-2006-03-06  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-03-06  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* setup.py (py_modules): Add missing "Meta" module.
 
-2006-02-19  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-02-19  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/meta-to-r.xsl (gen-lines, /): Add new file
 	'1-locus-hardyweinberg.dat' for generating tables of p-values for
@@ -415,7 +424,7 @@
 	tuples with alleleCount and locusData lumped by different levels
 	specified as a list of integers.
 
-2006-02-10  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-02-10  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/emhaplofreq.xsl (haplotypefreq): Add a check, if the
 	maximum haplotype length is > 20, double the 21 character limit to
@@ -447,19 +456,19 @@
 	done, specify that we are using the "three-by-three", otherwise
 	specify it as "full".
 
-2006-01-11  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-01-11  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Meta.py (Meta.__init__): Add '1-locus-pairwise-fnd.dat' to list
 	of files to process when appending files.
 
-2006-01-05  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-01-05  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/meta-to-r.xsl (gen-lines): Add new section
 	1-locus-pairwise-fnd for dealing with pairwise fnd values.  Use
 	exsl:document extension to emit a new file:
 	"1-locus-pairwise-fnd.dat".
 
-2006-01-02  Alex Lancaster  <alexl AT users.sourceforge.net>
+2006-01-02  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/homozygosity.xsl (homozygosityEWSlatkinExactPairwise):
 	Process the section.
@@ -497,7 +506,7 @@
 	[[A01:B01, A02:B02], [A11:B11, A12:B12]].  Used for generating
 	haplotype "alleles" for sequence data.
 
-2005-11-08  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-11-08  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Note recent fixes.
 
@@ -505,7 +514,7 @@
 	sequenceData to 0, was not being properly initialised before being
 	used in other methods.
 
-2005-10-27  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-10-27  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Add another
 	special case for HLA data: test for 7 digits in allele
@@ -513,7 +522,7 @@
 	4 digits to form 24020101, and check for that).  This is to cope
 	with yet-another HLA nomenclature change.
 
-2005-10-26  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-10-26  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Note fix below.
 
@@ -524,7 +533,7 @@
 	polymorphic sequences for the moment.  Still need to deal with
 	converting 7-digit to 8-digit Anthony Nolan HLA data.
 
-2005-09-20  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-09-20  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/hardyweinberg.xsl (indiv-genotypes): Combine Chen and diff
 	statistics tables by putting Chen and diff statistics in adjacent
@@ -541,17 +550,17 @@
 	of metadata fields if a match in the list of standard fields is
 	not found.
 
-2005-07-26  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-07-26  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/meta-to-r.xsl: Use <filename> in pop field, if <popname>
 	not found.
 
-2005-07-15  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-07-15  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Haplo.py (Emhaplofreq._runEmhaplofreq): Sane initialisation of
 	metaLoci to 'None' in case when Sequence data is not used.
 
-2005-06-29  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-06-29  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/meta-to-r.xsl (l-locus-genotype, 1-locus-summary): Add the
 	Hardy-Weinberg enumeration p-values to output (both overall and
@@ -569,7 +578,7 @@
 	with locus names that include digits, e.g. DQA1_32. 
 	Make sequenceData an instance variable.
 
-2005-06-22  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-06-22  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Note new --generate-tsv option.
 
@@ -586,7 +595,7 @@
 	from popmeta.py to here, so code can be accessed from other parts
 	of pypop.
 
-2005-06-16  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-06-16  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* SWIG/typemap.i (typemap): Convert typemaps to convert a 1-d array
 	of (long doubles) rather than (doubles) to a 1-d Python list of
@@ -597,7 +606,7 @@
 
 	* setup.py (ext_HweEnum): Add external.c to extension.
 
-2005-06-15  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-06-15  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Add notes on GCC 4.0/Python 2.4.
 
@@ -607,12 +616,12 @@
 	this suggested on
 	http://mail.python.org/pipermail/distutils-sig/2002-December/003123.html
 
-2005-06-09  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-06-09  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/hardyweinberg.xsl (indiv-genotypes): Add observed/expected
 	to each individual p-value.
 
-2005-06-07  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-06-07  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* HardyWeinberg.py (HardyWeinbergEnumeration.__init__): Add
 	_HweEnum as an instance variable so it can be called from other
@@ -621,7 +630,7 @@
 	_HweEnum.cleanup_genotypes() after data has been written out.
 	Rearrange debugging.
 
-2005-05-20  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-05-20  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* config.ini: Document new section: '[HardyWeinbergEnumeration]'
 
@@ -655,12 +664,12 @@
 	(HardyWeinbergEnumeration.serializeTo): Serialize new lists to
 	XML.
 
-2005-05-16  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-05-16  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* setup.py (my_build_ext.swig_sources): Add "extension=None"
 	keyword parameter for forwards-compatibility with Python 2.4.
 
-2005-05-12  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-05-12  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Haplo.py (Emhaplofreq.allPairwise): A kludge to determine
 	whether we are analysing sequence data: use a regex to match loci
@@ -716,25 +725,25 @@
 	* config.ini (filtersToApply): Add commented-out sample of how to
 	use new 'makeNewPopFile' option.
 
-2005-05-09  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-05-09  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* setup.py (ext_Gthwe): Add PREFIX/include to include_dirs and
 	PREFIX/lib to library_dirs so that builds with prefixes that
 	aren't '/usr/' work.
 
-2005-05-03  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-05-03  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* HardyWeinberg.py (HardyWeinberg.serializeXMLTableTo): Fixed
 	logic in serialization:  make sure key always exists.
 
-2005-04-27  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-04-27  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Main.py (Main.__init__): Some more horrible hacks to make
 	population dumps surpress the trailing tab characters and a bug
 	fix to ensure that first locus is not skipped.  This eventually
 	needs to be migrated to the data structure itself.
 
-2005-04-18  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-04-18  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/meta-to-r.xsl (1-locus-genotype.dat): Support new
 	pval.chisq.chen field: p-value using Chen's chi-square statistic
@@ -749,11 +758,11 @@
 	(HardyWeinberg.serializeXMLTableTo): Output Chen's statistics to
 	XML in genotypeTable block.
 
-2005-04-13  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-04-13  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Official 0.6.0 release.
 
-2005-04-12  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-04-12  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Filter.py (AnthonyNolanFilter.translateMatrix): Use
 	_genOffsets() when creating position numbers for StringMatrix.
@@ -761,7 +770,7 @@
 	creates offsets for each locus so that number of amino acid sites
 	does not include the signal peptide region.
 
-2005-03-10  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-03-10  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Note new features/bug fixes since December 2004.
 
@@ -792,7 +801,7 @@
 	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): Don't print
 	out individual genotypes if none present.
 
-2005-03-03  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-03-03  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): If pvalue is
 	exactly one, don't suppress output, just print a note.
@@ -800,13 +809,13 @@
 	* setup.py (ext_HweEnum): Add "popt" to list of libraries to
 	compile _HweEnum against.
 
-2005-03-01  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-03-01  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* setup.py (ext_HweEnum): Set VERSION, PACKAGE_NAME macros to
 	substitute for automake doing this.
 	(ext_Gthwe): Add gthwe/statistics.c.
 
-2005-02-28  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-02-28  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* HardyWeinberg.py (HardyWeinbergEnumeration.serializeTo):
 	Standardize output of pvalue tags.
@@ -832,7 +841,7 @@
 	* setup.py (ext_HweEnum): Use SWIG wrapper pyfprintf function in
 	place of g_fprintf.
 
-2005-02-22  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-02-22  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* pypop.py (binpath): Make this refer to the *directory* the
 	'pypop' script is found in, not the actual file.
@@ -842,7 +851,7 @@
 	Currently only build it if we are running from CVS.
 	Fix e-mail address.
 
-2005-02-17  Alex Lancaster  <alexl AT users.sourceforge.net>
+2005-02-17  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* standalone.spec: Use .ini file from data/samples subdirectory.
 
@@ -873,7 +882,7 @@
 	pointless at the allele level, the user may want to estimate LD
 	for pairs of amino acid positions from allele count data.
 
-2004-12-23  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-12-23  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Now builds against recent versions of SWIG (no longer
 	stuck at version 1.3.9), should be compatible with versions of
@@ -886,7 +895,7 @@
 	$source, $target).  In input typemaps: $source -> $input; $target
 	-> $1.  In output typemaps: $source -> $1; $target -> $result.
 	
-2004-11-09  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-11-09  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Note feature.
 
@@ -921,13 +930,13 @@
 	the sequence filter module changes made in version 1.27, so that
 	once again, only polymorphic positions are analyzed.
 
-2004-10-29  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-10-29  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* popmeta.py (datfiles): Use readline() rather than next() for
 	file object.  Iterators only work for file objects in Python 2.3
 	or better.
 
-2004-10-28  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-10-28  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Utils.py (splitIntoNGroups): Backgrade to use regular slices,
 	rather than itertools to preserve backward-compatibility with
@@ -938,7 +947,7 @@
 	backward-compatibility with Python 2.2 (shutil.move was added in
 	2.3).
 
-2004-10-27  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-10-27  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Note new feature.
 
@@ -975,7 +984,7 @@
 	a corner-case test, just for when allele names are 0100,
 	essentially serological.  Functionality restored.
 
-2004-10-07  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-10-07  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Note new feature.
 
@@ -1018,7 +1027,7 @@
 	character, such as "filename.pop", there will be no change in
 	behaviour.
 
-2004-09-20  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-09-20  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/meta-to-r.xsl (output.genotype.distrib): New parameter to
 	selectively enable the generation of a separate file with full
@@ -1026,7 +1035,7 @@
 	By default, set to off ("0"), otherwise it generates too many
 	files.
 
-2004-09-17  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-09-17  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* ParseFile.py (ParseAlleleCountFile._genDataStructures): Bug fix:
 	check to see if key for allele already exists if it does,
@@ -1048,7 +1057,7 @@
 	like 0101/0102/0103.  We may want to make the split character
 	configurable.
 
-2004-09-16  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-09-16  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Add notes about new features.
 
@@ -1089,7 +1098,7 @@
 	the values of the allele dictionary, not the entire dictionary
 	itself.)
 
-2004-09-11  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-09-11  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Update with note on fixes related to monomorphic loci:
 	thanks to Steve Mack and Owen Solberg for the bug report(s).
@@ -1174,7 +1183,7 @@
 	they are propagated through and can be used later downstream
 	analyses.
 
-2004-07-22  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-07-22  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Don't
 	check self.maxMatrixSize, option is now deprecated as Gthwe
@@ -1214,7 +1223,7 @@
 	'loci').  Changes deal with creating logical names for the dump
 	files.  This subroutine needs to be reworked.
 
-2004-07-20  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-07-20  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/meta-to-r.xsl (1-locus-genotype.dat): Generate new file
 	'1-locus-genotype.dat', modelled on '1-locus-allele.dat', except
@@ -1250,13 +1259,13 @@
 	runPlainMCTest are now passed as flagged to
 	HardyWeinbergGuoThompson class instantiation.
 
-2004-07-16  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-07-16  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): Emit list of
 	p-values for individual genotypes, use order from
 	hardyweinberg/genotypetable to get names of genotypes.
 
-2004-07-12  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-07-12  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* xslt/hardyweinberg.xsl (hardyweinbergGuoThompson): Ensure that
 	overall pvalue is printed out in the appropriate location, by
@@ -1266,7 +1275,7 @@
 	cStringIO "file pointer" to _run_randomization() routine.
 	Serialize list of genotypes and names also to XML output.
 
-2004-07-07  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-07-07  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable):
 	Comment-out call to _Gthwe. run_randomization() for the moment.
@@ -1274,13 +1283,13 @@
 	* setup.py (ext_Gthwe): Make PERMU_TEST and DEBUG #defines be false
 	for the moment.
 
-2004-06-30  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-06-30  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Call new
 	SWIG function in _Gthwe module, _Gthwe.run_randomization(), now
 	split out from run_data MCMC code.  Still need to XML-ify output.
 
-2004-06-23  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-06-23  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* HardyWeinberg.py (HardyWeinbergGuoThompson.dumpTable): Fixed
 	erroneous value being passed to _Gthwe.run_data().  The total
@@ -1288,7 +1297,7 @@
 	parameter, rather than the total number of *gametes* (N).  This
 	has now been corrected.  This did not affect the MCMC results.
 
-2004-05-19  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-05-19  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* setup.py (ext_Gthwe): Add PERMU_TEST macro to be true ('1') for
 	the moment.
@@ -1299,7 +1308,7 @@
 	self.k (number of distinct alleles), rather than hardcoded at
 	35 (since that limitation has been removed in the actual module).
 
-2004-05-17  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-05-17  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* setup.py (my_build_ext.swig_sources): Comment out setting of
 	CFLAGS to -funroll-loops, causes floating-point number operation
@@ -1314,7 +1323,7 @@
 	debug message for sortedAlleles.  More debug information and
 	flush() sys.stdout.
 
-2004-03-09  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-03-09  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* Utils.py (getUserFilenameInput): Comment out test code for the
 	moment.
@@ -1326,14 +1335,14 @@
 
 	* NEWS: Update with fix. Release 0.5.2
 	
-2004-03-04  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-03-04  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* setup.py (py_modules): Add missing RandomBinning.py file.
 	Thanks to Hazael Maldonado Torres for the bug report.
 
 	* NEWS: Updated with this fix.
 
-2004-02-26  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-02-26  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* popmeta.py (popmetabinpath): Improve heuristics to find 'xslt'
 	subdirectory.
@@ -1346,7 +1355,7 @@
 	* standalone.spec (xslt_dir): Likewise.  Fix typo in batch file
         generation under Windows.
 
-2004-02-17  Alex Lancaster  <alexl AT users.sourceforge.net>
+2004-02-17  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* standalone.spec (createWrappers, createObjects):
 	Refactor/separate out common code to create scripts and wrappers.
