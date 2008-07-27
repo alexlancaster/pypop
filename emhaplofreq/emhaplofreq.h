@@ -1,6 +1,6 @@
 /* This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California
+  Copyright (C) 2003-2008. The Regents of the University of California
   (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -32,7 +32,7 @@ MODIFICATIONS. */
 
 /* a translation from Richard Single's awk programme */ 
  
-#define NAME_LEN    12       /* 10 chars for allele name, plus colon and null */ 
+#define NAME_LEN    22       /* 10 chars for allele name, plus colon and null */ 
 #define LINE_LEN    132      /* RS changed from 120 to 132=6*2*(10+1) */ 
 #define MAX_ROWS    5000     /* increased from 1023                   */ 
 #define MAX_ALLELES 100      /* increased from 80 for a large dataset */
