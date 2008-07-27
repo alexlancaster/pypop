@@ -1,3 +1,7 @@
+2008-07-27  Alex Lancaster  <alexl AT users.sourceforge.net> 
+
+	* NEWS: Update with notes on emhaplofreq.
+
 2007-09-22  Alex Lancaster  <alexl AT users.sourceforge.net> 
 
 	* pval/pval_wrap.i: Declare function prototypes in '%{ %}'

@@ -26,6 +26,11 @@ Copyright (C) 2003, 2004, 2005, 2006, 2007 Regents of the University of Californ
     ([homozygosityEWSlatkinExactPairwise] in .ini file).  Note: this
     really only works for sequence data where the phase for sites
     within an allele are known.
+*** Haplotype and LD estimation module 'emhaplofreq' improvements
+**** improved memory usage and speed for emhaplofreq module.
+**** maximum sample size for emhaplofreq module increased from 1023 to
+     5000 individuals.
+**** maximum length of allele names increased to 20
 
 ** Bug fixes
 *** Support Python 2.4 on GCC 4.0 platforms.
