@@ -19,7 +19,9 @@ Copyright (C) 2003, 2004, 2005, 2006, 2007 Regents of the University of Californ
     into spreadsheet.
 *** New feature: add individual genotype tests to Hardy-Weinberg module 
     (gthwe), now computes statistics based on individual genotypes in
-    the HWP table.
+    the HWP table. The [HardyWeinbergGuoThompson] or 
+    [HardyWeinbergGuoThompsonMonteCarlo] options must be enabled in the 
+    configuration ".ini" file in order for these tests to be carried out.
 *** Major improvements to custom and random binning filters (Owen Solberg).
 *** New feature: generate homozygosity values using the Ewens-Watterson test for
     all pairwise loci, or all sites within a gene for sequence data
