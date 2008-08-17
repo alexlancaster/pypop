@@ -39,7 +39,7 @@
     </formalpara>
     <formalpara>
      <title>Systems tested</title>
-     <para>Fedora 7 (may work on other distributions but untested at present, earlier versions were tested on Red Hat 9 Fedora Core 2, 3, Slackware 9.1 but may now have out of date versions of glibc)</para>
+     <para>Fedora 8 (may work on other distributions but untested at present, earlier versions were tested on Red Hat 9 Fedora Core 2, 3, 7, Slackware 9.1 but may now have out of date versions of glibc)</para>
     </formalpara>
    </sidebar>
 
