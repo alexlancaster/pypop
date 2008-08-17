@@ -324,14 +324,16 @@ Common genotypes                                                      <co id="hw
    <title>Exact test for deviation from HWP</title>
   
    <para>If enabled in the configuration file, the exact test for
-    deviations from HWP may be output.  The exact test uses the method
+    deviations from HWP will be output.  The exact test uses the method
     of <citation role="citet">Guo:Thompson:1992</citation>. The
     <varname>p</varname>-value provided describes how probable the
     observed set of genotypes is, with respect to a large sample of
     other genotypic configurations (conditioned on the same allele
     frequencies and <varname>2n</varname>).
     <varname>p</varname>-values lower than 0.05 can be interpreted as
-    evidence that the sample does not fit HWP.</para>
+    evidence that the sample does not fit HWP.  In addition, those
+    individual genotypes deviating significantly (<varname>p</varname>-values &lt; 0.05)
+    from expected HWP as computed with the Chen and "diff" measures are reported.</para>
 
 <!--   <para>The implementation of this test is via a module that
     makes an external call to <application>Arlequin</application>
