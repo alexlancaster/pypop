@@ -123,21 +123,23 @@ nofill programlisting screen literallayout?>
     --help</userinput>.  You should receive a screen resembling the
     following:</para>
 
-   <screen>Usage: pypop [OPTION] INPUTFILE Process and run population
-genetics statistics on an INPUTFILE.  Expects to find a configuration
-file called 'config.ini' in the current directory or in
-/usr/share/PyPop/config.ini.
+   <screen>Usage: pypop [OPTION] INPUTFILE
+Process and run population genetics statistics on an INPUTFILE.
+Expects to find a configuration file called 'config.ini' in the
+current directory or in /usr/share/PyPop/config.ini.
 
-  -l, --use-libxslt filter XML via XSLT using libxslt (default) s,
-  ---use-4suite filter XML via XSLT using 4Suite x, --xsl=FILE use
-  -XSLT translation file FILE h, --help show this message c,
-  ---config=FILE select alternative config file d, --debug enable
-  -debugging output (overrides config file setting) i, --interactive
-  -run in interactive mode, prompting user for file names g, --gui run
-  -GUI (currently disabled) o, --outputdir=DIR put output in directory
-  -DIR V, --version print version of PyPop
+  -l, --use-libxslt    filter XML via XSLT using libxslt (default)
+  -s, --use-4suite     filter XML via XSLT using 4Suite
+  -x, --xsl=FILE       use XSLT translation file FILE
+  -h, --help           show this message
+  -c, --config=FILE    select alternative config file
+  -d, --debug          enable debugging output (overrides config file setting)
+  -i, --interactive    run in interactive mode, prompting user for file names
+  -g, --gui            run GUI (currently disabled)
+  -o, --outputdir=DIR  put output in directory DIR
+  -V, --version        print version of PyPop
    
-    INPUTFILE input text file</screen>
+    INPUTFILE   input text file</screen>
 
    <warning>
     <para>Documentation for these options is underway, but not
@@ -238,10 +240,14 @@ file called 'config.ini' in the current directory or in
    <example id="data-minimal-noheader-noids">
     <title>Multi-locus allele-level genotype data</title>
 
-  <programlisting>a_1 a_2 c_1 c_2 b_1 b_2 **** **** 0102 02025 1301
-18012 0101 0201 0307 0605 1401 39021 0210 03012 0712 0102 1520 1301
-0101 0218 0804 1202 35091 4005 2501 0201 1507 0307 51013 1401 0210
-3204 1801 0102 78021 1301 03012 3204 1507 0605 51013 39021
+  <programlisting>a_1   a_2   c_1   c_2   b_1   b_2
+****  ****  0102  02025 1301  18012 
+0101  0201  0307  0605  1401  39021 
+0210  03012 0712  0102  1520  1301  
+0101  0218  0804  1202  35091 4005  
+2501  0201  1507  0307  51013 1401  
+0210  3204  1801  0102  78021 1301  
+03012 3204  1507  0605  51013 39021 
   </programlisting>
 
    <para>This is an example of the simplest kind of data file.</para>
@@ -252,12 +258,14 @@ file called 'config.ini' in the current directory or in
     <title>Multi-locus allele-level HLA genotype data with sample
     information</title>
 
-  <programlisting>populat id a_1 a_2 c_1 c_2 b_1 b_2 UchiTelle
-UT900-23 **** **** 0102 02025 1301 18012 UchiTelle UT900-24 0101 0201
-0307 0605 1401 39021 UchiTelle UT900-25 0210 03012 0712 0102 1520 1301
-UchiTelle UT900-26 0101 0218 0804 1202 35091 4005 UchiTelle UT910-01
-2501 0201 1507 0307 51013 1401 UchiTelle UT910-02 0210 3204 1801 0102
-78021 1301 UchiTelle UT910-03 03012 3204 1507 0605 51013 39021
+  <programlisting>populat    id        a_1   a_2   c_1   c_2   b_1   b_2
+UchiTelle  UT900-23  ****  ****  0102  02025 1301  18012 
+UchiTelle  UT900-24  0101  0201  0307  0605  1401  39021 
+UchiTelle  UT900-25  0210  03012 0712  0102  1520  1301  
+UchiTelle  UT900-26  0101  0218  0804  1202  35091 4005  
+UchiTelle  UT910-01  2501  0201  1507  0307  51013 1401  
+UchiTelle  UT910-02  0210  3204  1801  0102  78021 1301  
+UchiTelle  UT910-03  03012 3204  1507  0605  51013 39021 
   </programlisting>
    </example>
 
@@ -269,14 +277,16 @@ UchiTelle UT900-26 0101 0218 0804 1202 35091 4005 UchiTelle UT910-01
     <title>Multi-locus allele-level HLA genotype data with sample and
     header information</title>
 
-  <programlisting><![CDATA[labcode method ethnic contin collect latit
-longit USAFEL 12th Workshop SSOP Telle NW Asia Targen Village 41 deg
-12 min N 94 deg 7 min E populat id a_1 a_2 c_1 c_2 b_1 b_2 UchiTelle
-UT900-23 **** **** 0102 02025 1301 18012 UchiTelle UT900-24 0101 0201
-0307 0605 1401 39021 UchiTelle UT900-25 0210 03012 0712 0102 1520 1301
-UchiTelle UT900-26 0101 0218 0804 1202 35091 4005 UchiTelle UT910-01
-2501 0201 1507 0307 51013 1401 UchiTelle UT910-02 0210 3204 1801 0102
-78021 1301 UchiTelle UT910-03 03012 3204 1507 0605 51013 39021
+  <programlisting><![CDATA[labcode method              ethnic  contin  collect        latit           longit          
+USAFEL  12th Workshop SSOP  Telle   NW Asia Targen Village 41 deg 12 min N 94 deg 7 min E  
+populat     id         a_1     a_2     c_1     c_2     b_1     b_2     
+UchiTelle   UT900-23   ****    ****    0102    02025   1301    18012   
+UchiTelle   UT900-24   0101    0201    0307    0605    1401    39021   
+UchiTelle   UT900-25   0210    03012   0712    0102    1520    1301    
+UchiTelle   UT900-26   0101    0218    0804    1202    35091   4005    
+UchiTelle   UT910-01   2501    0201    1507    0307    51013   1401    
+UchiTelle   UT910-02   0210    3204    1801    0102    78021   1301    
+UchiTelle   UT910-03   03012   3204    1507    0605    51013   39021   
 ]]></programlisting>
 
    <para>This is an example of a data file which is identical to <xref
@@ -289,13 +299,17 @@ UchiTelle UT900-26 0101 0218 0804 1202 35091 4005 UchiTelle UT910-01
     <title>Multi-locus allele-level HLA genotype and microsatellite
     genotype data with header information</title>
 
-  <programlisting>labcode ethnic complex USAFEL **** 0 populat id
-drb1_1 drb1_2 dqb1_1 dqb1_2 d6s2222_1 d6s2222_2 UchiTelle HJK_2 01
-0301 0201 0501 249 249 UchiTelle HJK_1 0301 0301 0201 0201 249 249
-UchiTelle HJK_3 01 0301 0201 0501 249 249 UchiTelle HJK_4 01 0301 0201
-0501 249 249 UchiTelle MYU_2 02 0401 0302 0602 247 249 UchiTelle MYU_1
-0301 0301 0201 0201 247 249 UchiTelle MYU_3 0301 0401 0201 0302 249
-249 UchiTelle MYU_4 0301 0401 0201 0302 247 249</programlisting>
+  <programlisting>labcode ethnic  complex
+USAFEL  ****    0
+populat    id      drb1_1  drb1_2  dqb1_1  dqb1_2  d6s2222_1  d6s2222_2  
+UchiTelle  HJK_2   01      0301    0201     0501    249        249        
+UchiTelle  HJK_1   0301    0301    0201     0201    249        249        
+UchiTelle  HJK_3   01      0301    0201     0501    249        249        
+UchiTelle  HJK_4   01      0301    0201     0501    249        249        
+UchiTelle  MYU_2   02      0401    0302     0602    247        249        
+UchiTelle  MYU_1   0301    0301    0201     0201    247        249        
+UchiTelle  MYU_3   0301    0401    0201     0302    249        249        
+UchiTelle  MYU_4   0301    0401    0201     0302    247        249</programlisting>
 
     <para>This example mixes different kinds of data: HLA allele data
      (from DRB1 and DQB1 loci) with microsatellite data (locus
@@ -306,11 +320,19 @@ UchiTelle HJK_3 01 0301 0201 0501 249 249 UchiTelle HJK_4 01 0301 0201
    <example id="data-nucleotide">
     <title>Sequence genotype data with header information</title>
 
-  <programlisting>labcode file BLOGGS C_New popName ID TGFB1cdn10(1)
-TGFB1cdn10(2) TGFBhapl(1) TGFBhapl(2) Urboro XQ-1 C T CG TG Urboro
-XQ-2 C C CG CG Urboro XQ-5 C T CG TG Urboro XQ-21 C T CG TG Urboro
-XQ-7 C T CG TG Urboro XQ-20 C T CG TG Urboro XQ-6 T T TG TG Urboro
-XQ-8 C T CG TG Urboro XQ-9 T T TG TG Urboro XQ-10 C T CG TG
+  <programlisting>labcode file                                                
+BLOGGS  C_New
+popName ID       TGFB1cdn10(1) TGFB1cdn10(2) TGFBhapl(1) TGFBhapl(2) 
+Urboro  XQ-1     C             T             CG          TG     
+Urboro  XQ-2     C             C             CG          CG     
+Urboro  XQ-5     C             T             CG          TG     
+Urboro  XQ-21    C             T             CG          TG     
+Urboro  XQ-7     C             T             CG          TG     
+Urboro  XQ-20    C             T             CG          TG     
+Urboro  XQ-6     T             T             TG          TG     
+Urboro  XQ-8     C             T             CG          TG     
+Urboro  XQ-9     T             T             TG          TG     
+Urboro  XQ-10    C             T             CG          TG     
   </programlisting>
 
   <para>This example includes nucleotide sequence data: the TGFB1CDN10
@@ -324,9 +346,16 @@ XQ-8 C T CG TG Urboro XQ-9 T T TG TG Urboro XQ-10 C T CG TG
    <example id="data-allelecount">
     <title>Allele count data</title>
 
-  <programlisting>populat method ethnic country latit longit UchiTelle
-PCR-SSO Klingon QZ 052.81N 100.25E dqa1 count 0101 31 0102 37 0103 17
-0201 21 0301 32 0401 9 0501 35
+  <programlisting>populat    method  ethnic     country    latit   longit
+UchiTelle  PCR-SSO Klingon    QZ         052.81N 100.25E
+dqa1  count
+0101  31
+0102  37
+0103  17
+0201  21
+0301  32
+0401  9
+0501  35
   </programlisting>
 
    <para><application>PyPop</application> can also process allele
@@ -445,21 +474,34 @@ PCR-SSO Klingon QZ 052.81N 100.25E dqa1 count 0101 31 0102 37 0103 17
   <example id="config-minimal-example">
    <title>Minimal <filename>config.ini</filename> file</title>
   <programlisting>
-[General] <co id="general"/> debug=0
+[General]                  <co id="general"/>
+debug=0			   
 			   
-[ParseGenotypeFile] <co id="parsegenotype"/> untypedAllele=****
-alleleDesignator=* validSampleFields=*a_1 *a_2 *c_1 *c_2 *b_1 *b_2
+[ParseGenotypeFile]        <co id="parsegenotype"/>
+untypedAllele=****         
+alleleDesignator=*         
+validSampleFields=*a_1     
+ *a_2			   
+ *c_1			   
+ *c_2			   
+ *b_1			   
+ *b_2			   
 			   
-[HardyWeinberg] <co id="hardyweinberg"/> lumpBelow=5
+[HardyWeinberg]            <co id="hardyweinberg"/>
+lumpBelow=5                
 
 [HardyWeinbergGuoThompson] <co id="hardyweinbergGuoThompson"/>
-dememorizationSteps=2000 samplingNum=1000 samplingSize=1000
+dememorizationSteps=2000
+samplingNum=1000
+samplingSize=1000
 
 [HomozygosityEWSlatkinExact] <co id="homozygosityEWSlatkinExact"/>
 numReplicates=10000
 
-[Emhaplofreq] <co id="emhaplofreq"/> allPairwiseLD=1
-allPairwiseLDWithPermu=0 ;;numPermuInitCond=5</programlisting>
+[Emhaplofreq]              <co id="emhaplofreq"/>
+allPairwiseLD=1
+allPairwiseLDWithPermu=0
+;;numPermuInitCond=5</programlisting>
   </example>
    
   <calloutlist>
@@ -564,16 +606,25 @@ allPairwiseLDWithPermu=0 ;;numPermuInitCond=5</programlisting>
 
        <para>Here is an example:</para>
       
-       <programlisting>validSampleFields=*a_1 *a_2 *c_1 *c_2 *b_1 *b_2
- <lineannotation>Note initial space at start of
- line.</lineannotation></programlisting>
+       <programlisting>validSampleFields=*a_1
+ *a_2
+ *c_1
+ *c_2
+ *b_1
+ *b_2    <lineannotation>Note initial space at start of line.</lineannotation></programlisting>
 
        <para>Here is example that includes identifying (non-allele
 	data) information such as sample id (<literal>id</literal>)
 	and population name (<literal>populat</literal>):</para>
 
-       <programlisting>validSampleFields=populat id *a_1 *a_2 *c_1
- *c_2 *b_1 *b_2</programlisting>
+       <programlisting>validSampleFields=populat
+ id
+ *a_1
+ *a_2
+ *c_1
+ *c_2
+ *b_1
+ *b_2</programlisting>
 
      </listitem>
     </itemizedlist>
