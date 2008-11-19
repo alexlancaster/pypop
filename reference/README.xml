@@ -90,8 +90,7 @@ nofill programlisting screen literallayout?>
     change to the directory where you unpacked
     <application>PyPop</application> and type</para>
 
-   <screen><command>pypop-batch</command>
-   <filename>Guatemalan.pop</filename></screen>
+   <screen><command>pypop-batch</command> <filename>Guatemalan.pop</filename></screen>
 
    <note>
     <para>If your system administrator has installed
@@ -106,21 +105,17 @@ nofill programlisting screen literallayout?>
     <application>PyPop</application> to use, by supplying the
     <option>-c</option> option as follows:</para>
 
-   <screen><command>pypop-batch</command> <option>-c</option>
-   <filename>newconfig.ini</filename>
-   <filename>Guatemalan.pop</filename></screen>
+   <screen><command>pypop-batch</command> <option>-c</option> <filename>newconfig.ini</filename> <filename>Guatemalan.pop</filename></screen>
 
    <para>You may also redirect the output to a different directory
     (which must already exist) by using the <option>-o</option>
     option:</para>
 
-   <screen><command>pypop-batch</command> <option>-c</option>
-   <filename>newconfig.ini</filename> <option>-o altdir</option>
-   <filename>Guatemalan.pop</filename></screen>
+   <screen><command>pypop-batch</command> <option>-c</option> <filename>newconfig.ini</filename> <option>-o altdir</option> <filename>Guatemalan.pop</filename></screen>
 
    <para>For a full list of options supported by
-    <application>PyPop</application>, type <userinput>pypop-batch
-    --help</userinput>.  You should receive a screen resembling the
+    <application>PyPop</application>,  type <userinput>pypop-batch
+     --help</userinput>.   You should receive a screen resembling the
     following:</para>
 
    <screen>Usage: pypop [OPTION] INPUTFILE
