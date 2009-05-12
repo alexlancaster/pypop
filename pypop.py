@@ -111,7 +111,7 @@ current directory or in %s.
 version_message = """pypop %s
 %s""" % (version, copyright_message)
 
-interactive_message = """PyPop: Python for Population Genetics (%s)
+interactive_message = """PyPop: Python for Population Genomics (%s)
 %s
 
 You may redistribute copies of PyPop under the terms of the

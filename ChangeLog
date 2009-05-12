@@ -1,3 +1,8 @@
+2009-05-11  Alex Lancaster  <alexl AT users.sourceforge.net>
+
+	* pypop.py (interactive_message): "Python for Population Genetics"
+	-> "Python for Population Genomics" for consistency throughout.
+
 2008-07-27  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* Haplo.py (Emhaplofreq._runEmhaplofreq): Ensure that allele
