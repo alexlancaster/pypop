@@ -7,7 +7,7 @@
 <book status="beta" id="guide">
  <bookinfo>
   <title><application>PyPop</application> User Guide</title>
-  <subtitle>User Guide for Python for Population Genetics</subtitle>
+  <subtitle>User Guide for Python for Population Genomics</subtitle>
   
   <authorgroup>
    <author>
@@ -58,6 +58,7 @@
    <year>2006</year>
    <year>2007</year>
    <year>2008</year>
+   <year>2009</year>
    <holder>Regents of the University of California</holder>
   </copyright>
   <legalnotice>
@@ -78,7 +79,7 @@
    <title>Introduction</title>
 
    <para><application>PyPop</application>  (<firstterm>Python for
-     Population Genetics</firstterm>) is an environment developed at
+     Population Genomics</firstterm>) is an environment developed at
     UC Berkeley for doing large-scale population genetic analyses
     including:</para>
 
