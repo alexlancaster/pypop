@@ -3,7 +3,7 @@
 <html>
 
 <head>
-  <title>PyPop: Python for Population Genetics</title>
+  <title>PyPop: Python for Population Genomics</title>
   <meta name="generator" content="/usr/bin/emacs">
   <meta http-equiv="Content-type" content="text/html; charset=iso-8859-1">
 </head>
@@ -24,9 +24,10 @@
    <tr><td><a href="#ackno">Acknowlegments</a></td></tr>
   </table>
 
-  <h1 align="center">PyPop: <em>Py</em>thon for <em>Pop</em>ulation Genetics</h1>
+  <h1 align="center">PyPop: <em>Py</em>thon for <em>Pop</em>ulation Genomics</h1>
 
-  <h3 align="center">PyPop 0.7.0 (latest release) used in our recent <i>Human Immunology</i> paper is now available!</h3>
+  <h3 align="center">PyPop 0.7.0 (latest release) used in our recent <i>Human Immunology</i> paper is now available!  
+  Also available as an official <a href="#fedora">Fedora package</a></h3>
 
   <h4 align="center"><a href="#release">PyPop public beta available for download</a></h4>
 
@@ -36,7 +37,7 @@
 
   <p><strong>PyPop</strong>
    (<em>Py</em>thon for <em>Pop</em>ulation
-   Genetics) is an environment developed by the Thomson lab
+   Genomics) is an environment developed by the Thomson lab
     for doing large-scale population genetic
    analyses including: (1) conformity to Hardy-Weinberg expectations, (2) tests
     for balancing or directional selection; (3) estimates of haplotype
@@ -90,10 +91,12 @@
    
     <ul>
      <li><strong>GNU/Linux</strong> (the Linux binary needs a recent
-      distribution that uses
-      <em>at least</em> glibc 2.3.2: Red Hat 9, Fedora Core 1 and Slackware 9.1
-      are known to work, earlier versions of Red Hat such as the 7.x series
+      distribution that a recent glibc (2.8 has been tested): Fedora Core 9 is known to work, 
+      earlier versions of Red Hat such as the 7.x series
       and 8.0 are known to <em>not</em> work)</li>
+     <li><a name="fedora"/><strong>Official Fedora package available!</strong>  As of early 2009, pypop is also an official <a href="http://admin.fedoraproject.org/pkgdb/packages/name/pypop">Fedora package</a> which works with Fedora 9 and later.   (It is also available for Red Hat Enterprise Linux 5 (RHEL 5) if you install the optional <a href="http://fedoraproject.org/wiki/EPEL">EPEL</a> add-on repository).  You can install via yum using:
+     <pre><strong>yum install pypop</strong></pre>
+   </li>
      <li><strong>Windows</strong> (the binary has been tested on Windows 98, 
       2000 and XP)</li>
     </ul>
