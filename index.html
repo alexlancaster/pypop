@@ -1,53 +1,45 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <meta name="description" content="PyPop : Python for Population Genomics">
 
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>PyPop by alexlancaster</title>
+    <title>PyPop</title>
   </head>
 
   <body>
-    <header>
-      <div class="inner">
-        <h1>PyPop</h1>
-        <h2>Python for Population Genomics</h2>
-        <a href="https://github.com/alexlancaster/pypop" class="button"><small>View project on</small> GitHub</a>
-      </div>
-    </header>
 
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <p>Overview
-Download</p>
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/alexlancaster/pypop">View on GitHub</a>
+
+          <h1 id="project_title">PyPop</h1>
+          <h2 id="project_tagline">Python for Population Genomics</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/alexlancaster/pypop/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/alexlancaster/pypop/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>PyPop: Python for Population Genomics</p>
 
 <ul>
-<li>Binaries</li>
-<li>Source code</li>
-<li>Documentation
-Citing PyPop
-Data files
-ImmPort.org
-Acknowlegments</li>
+<li>PyPop 0.7.0 (latest release), used in the Solberg et al. Human Immunology meta-analysis paper, is available.
+Also available as an official Fedora package</li>
 </ul>
 
-<p>PyPop: Python for Population Genomics</p>
-
-<p>PyPop 0.7.0 (latest release), used in the Solberg et al. Human Immunology meta-analysis paper, is available.
-Also available as an official Fedora package</p>
-
-<p>PyPop public beta available for download
-Overview</p>
+<h3>
+<a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h3>
 
 <p>PyPop (Python for Population Genomics) is an environment developed by the Thomson lab for doing large-scale population genetic analyses including: (1) conformity to Hardy-Weinberg expectations, (2) tests for balancing or directional selection; (3) estimates of haplotype frequencies (and their distributions) and measures and tests of significance for linkage disequilibrium (LD).</p>
 
@@ -73,41 +65,54 @@ PyPop (beta) is available for download</p>
 
 <p>Beta binary versions of PyPop are now publicly available (see "Getting and installing PyPop" link below for links to the current binaries) for both:</p>
 
-<pre><code>GNU/Linux (the Linux binary needs a recent distribution that a recent glibc (2.8 has been tested): Fedora Core 9 is known to work, earlier versions of Red Hat such as the 7.x series and 8.0 are known to not work)
-Official Fedora package available! As of early 2009, pypop is also an official Fedora package which works with Fedora 9 and later. (It is also available for Red Hat Enterprise Linux 5 (RHEL 5) if you install the optional EPEL add-on repository). You can install via yum using:
+<ul>
+<li>GNU/Linux (the Linux binary needs a recent distribution that a recent glibc (2.8 has been tested): Fedora Core 9 is known to work, earlier versions of Red Hat such as the 7.x series and 8.0 are known to not work)</li>
+<li>Official Fedora package available! As of early 2009, pypop is also an official Fedora package which works with Fedora 9 and later. (It is also available for Red Hat Enterprise Linux 5 (RHEL 5) if you install the optional EPEL add-on repository). You can install via yum using:</li>
+</ul>
 
-yum install pypop
-
-Windows (the binary has been tested on Windows 98, 2000 and XP)
+<pre><code>yum install pypop
 </code></pre>
+
+<ul>
+<li>Windows (the binary has been tested on Windows 98, 2000 and XP)</li>
+</ul>
 
 <p>Both binary packages are approximately 5.5 Mb downloads.
 Source</p>
 
-<p>PyPop is free software (sometimes referred to as open source software) and the source code is released under the terms of the "copyleft" GNU General Public License, or GPL (<a href="http://www.gnu.org/licenses/gpl.html">http://www.gnu.org/licenses/gpl.html</a>). This means even if we haven't compiled a binary for your platform, it is possible for you to download the source code and compile it yourself.
-Documentation</p>
+<p>PyPop is free software (sometimes referred to as open source software) and the source code is released under the terms of the "copyleft" GNU General Public License, or GPL (<a href="http://www.gnu.org/licenses/gpl.html">http://www.gnu.org/licenses/gpl.html</a>). This means even if we haven't compiled a binary for your platform, it is possible for you to download the source code and compile it yourself.</p>
 
-<p>Documentation for PyPop is contained in the PyPop User Guide.</p>
+<h3>
+<a id="documentation" class="anchor" href="#documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Documentation</h3>
 
-<pre><code>PyPop User Guide includes:
-    Getting and installing PyPop (including links to the binaries and source code)
-    Getting started with PyPop (instructions on how to configure and run PyPop)
-    Interpreting PyPop output (a description of the output statistics)
-PyPop User Guide is also available as a PDF [220 kB]
-</code></pre>
+<p>Documentation for PyPop is contained in the ''PyPop User Guide''.</p>
 
-<p>Please be aware that this is a beta release so it is highly likely that there may be bugs and wrinkles to iron out. Please direct all questions to Alex Lancaster at the address below.
-How to cite PyPop</p>
+<ul>
+<li>(''PyPop User Guide'')[<a href="http://pypop.org/docs/">http://pypop.org/docs/</a>] includes:
+
+<ul>
+<li>Getting and installing PyPop (including links to the binaries and source code)</li>
+<li>Getting started with PyPop (instructions on how to configure and run PyPop)</li>
+<li>Interpreting PyPop output (a description of the output statistics)</li>
+</ul>
+</li>
+<li>PyPop User Guide is also available as a PDF [220 kB]</li>
+</ul>
+
+<p>Please be aware that this is a beta release so it is highly likely that there may be bugs and wrinkles to iron out. Please direct all questions to Alex Lancaster at the address below.</p>
+
+<h3>
+<a id="how-to-cite-pypop" class="anchor" href="#how-to-cite-pypop" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to cite PyPop</h3>
 
 <p>When citing PyPop, please cite our most recent (2007) paper from Tissue Antigens:</p>
 
-<pre><code>A. K. Lancaster, R. M. Single, O. D. Solberg, M. P. Nelson and G. Thomson (2007) "PyPop update - a software pipeline for large-scale multilocus population genomics" Tissue Antigens 69 (s1), 192-197. [journal page, preprint PDF (112 kB)].
-</code></pre>
+<p>*A. K. Lancaster, R. M. Single, O. D. Solberg, M. P. Nelson and G. Thomson (2007) "PyPop update - a software pipeline for large-scale multilocus population genomics" ''Tissue Antigens'' 69 (s1), 192-197. [journal page, preprint PDF (112 kB)].</p>
 
 <p>In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:</p>
 
-<pre><code>Alex Lancaster, Mark P. Nelson, Richard M. Single, Diogo Meyer, and Glenys Thomson (2003) "PyPop: a software framework for population genomics: analyzing large-scale multi-locus genotype data", in Pacific Symposium on Biocomputing vol. 8:514-525 (edited by R B Altman. et al., World Scientific, Singapore, 2003) [PubMed, PDF (344 kB)].
-</code></pre>
+<ul>
+<li>Alex Lancaster, Mark P. Nelson, Richard M. Single, Diogo Meyer, and Glenys Thomson (2003) "PyPop: a software framework for population genomics: analyzing large-scale multi-locus genotype data", in ''Pacific Symposium on Biocomputing'' vol. 8:514-525 (edited by R B Altman. et al., World Scientific, Singapore, 2003) [PubMed, PDF (344 kB)].</li>
+</ul>
 
 <h3>
 <a id="population-data-files" class="anchor" href="#population-data-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Population data files</h3>
@@ -117,29 +122,24 @@ How to cite PyPop</p>
 <h3>
 <a id="immportorg" class="anchor" href="#immportorg" aria-hidden="true"><span class="octicon octicon-link"></span></a>ImmPort.org</h3>
 
-<p>PyPop is affiliated with ImmPort.org, the Immunology Database and Analysis Portal. The ImmPort system provides advanced information technology support in the production, analysis, archiving, and exchange of scientific data for the diverse community of life science researchers supported by NIAID/DAIT. The development of the ImmPort system was supported by the NIH/NIAID Bioinformatics Integration Support Contract (BISC), Phase II.
-Acknowlegements</p>
+<p>PyPop is affiliated with ImmPort.org, the Immunology Database and Analysis Portal. The ImmPort system provides advanced information technology support in the production, analysis, archiving, and exchange of scientific data for the diverse community of life science researchers supported by NIAID/DAIT. The development of the ImmPort system was supported by the NIH/NIAID Bioinformatics Integration Support Contract (BISC), Phase II.</p>
+
+<h3>
+<a id="acknowlegements" class="anchor" href="#acknowlegements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Acknowlegements</h3>
 
 <p>This work has benefited from the support of NIH grant AI49213 (13th IHW) and NIH/NIAID Contract number HHSN266200400076C N01-AI-40076. Thanks to Steven J. Mack, Kristie A. Mather, Steve Marsh, Mark Grote and Leslie Louie for helpful comments and testing.</p>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/alexlancaster/pypop/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/alexlancaster/pypop/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/alexlancaster/pypop"></a> is maintained by <a href="https://github.com/alexlancaster">alexlancaster</a>.</p>
-
-          <p>This page was generated by <a href="https://pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
-        </aside>
-      </div>
+      </section>
     </div>
 
-  
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">PyPop maintained by <a href="https://github.com/alexlancaster">alexlancaster</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
   </body>
 </html>
