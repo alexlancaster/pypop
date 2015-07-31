@@ -1,3 +1,8 @@
+2015-07-31  Alex Lancaster  <alexl AT users.sourceforge.net>
+
+	* setup.py (ext_HweEnum): Add "/usr/lib64" to build enumeration
+	model on x86_64 arch.
+
 2009-05-11  Alex Lancaster  <alexl AT users.sourceforge.net>
 
 	* pypop.py (interactive_message): "Python for Population Genetics"
