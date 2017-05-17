@@ -18,7 +18,7 @@ PyPop is a framework for processing genotype and allele data and running analyse
   source pypopenv/bin/activate
   ```
 
-Note that throughout we use ```<ENV>``` to refer to the full path name to the 'env' directory created in the previous step, e.g. ```/home/username/tessgit.mit.edu/qlp/qlpenv```
+Note that throughout we use ```<ENV>``` to refer to the full path name to the 'env' directory created in the previous step, e.g. ```/home/username/pypop/pypopenv```
 
 ### 3. Install Python packages from PyPI
 
@@ -65,7 +65,7 @@ Please submit bug reports and feature requests
 
 ## Development
 
-The code for QLP is at
+The code for PyPop is at
 
     https://github.com/alexlancaster/pypop
 
