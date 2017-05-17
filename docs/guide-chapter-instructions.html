@@ -1,0 +1,28 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>Chapter 3. Interpreting PyPop output</title><link rel="stylesheet" href="style.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"><link rel="home" href="pypop-guide.html" title="PyPop User Guide"><link rel="up" href="pypop-guide.html" title="PyPop User Guide"><link rel="prev" href="guide-usage-configfile.html" title="2.3. The configuration file"><link rel="next" href="instructions-locus-info.html" title="3.2. Single locus analyses"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">Chapter 3. Interpreting PyPop output</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="guide-usage-configfile.html">Prev</a> </td><th width="60%" align="center"> </th><td width="20%" align="right"> <a accesskey="n" href="instructions-locus-info.html">Next</a></td></tr></table><hr></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a name="guide-chapter-instructions"></a>Chapter 3. Interpreting <code class="application">PyPop</code> output</h2></div><div><p class="pubdate">Last updated: $Date: 2008/08/17 08:51:35 $ by $Author: alancast $</p></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="sect1"><a href="guide-chapter-instructions.html#instructions-pop-summary">3.1. Population summary</a></span></dt><dt><span class="sect1"><a href="instructions-locus-info.html">3.2. Single locus analyses</a></span></dt><dd><dl><dt><span class="sect2"><a href="instructions-locus-info.html#instructions-allelecounts">3.2.1. Basic allele count information</a></span></dt><dt><span class="sect2"><a href="instructions-locus-info.html#instructions-hardyweinberg">3.2.2. Chi-square test for deviation from Hardy-Weinberg
+    proportions (HWP).</a></span></dt><dt><span class="sect2"><a href="instructions-locus-info.html#instructions-hardyweinberg-exact">3.2.3. Exact test for deviation from HWP</a></span></dt><dt><span class="sect2"><a href="instructions-locus-info.html#instructions-homozygosity">3.2.4. The Ewens-Watterson homozygosity test of neutrality</a></span></dt></dl></dd><dt><span class="sect1"><a href="instructions-haplo.html">3.3. Multi-locus analyses</a></span></dt><dd><dl><dt><span class="sect2"><a href="instructions-haplo.html#instructions-pairwise-ld">3.3.1. All pairwise LD</a></span></dt><dt><span class="sect2"><a href="instructions-haplo.html#instructions-haplotype-freqs">3.3.2. Haplotype frequency estimation</a></span></dt></dl></dd></dl></div><p>As mentioned in <a class="xref" href="guide-chapter-usage.html#guide-usage-intro-run-details" title="2.1.3. What happens when you run PyPop?">Section 2.1.3, “What happens when you run
+   PyPop?”</a>, The XML file is the
+   primary output created by PyPop and contains the complete set of
+   results. The text output, generated from the XML file via XSLT,
+   contains a human-readable summary of the XML results. Below we discuss
+   the output contained in this text file.</p><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="instructions-pop-summary"></a>3.1. Population summary</h2></div></div></div><p>A <code class="literal">Population Summary</code> is generated for each
+   dataset analyzed.  This summary provides basic demographic
+   information and summarizes information about the sample
+   size.</p><p>Sample output:</p><div class="example"><a name="id3174421"></a><p class="title"><b>Example 3.1. Population summary sample output</b></p><div class="example-contents"><pre class="programlisting">
+Population Summary
+==================
+Population Name: UchiTelle
+       Lab code: USAFEL
+  Typing method: 12th Workshop SSOP
+      Ethnicity: Telle
+      Continent: NW Asia
+Collection site: Targen Village
+       Latitude: 41 deg 12 min N
+      Longitude: 94 deg 7 min E
+
+Population Totals
+_________________
+Sample Size (n): 47
+Allele Count (2n): 94
+Total Loci in file: 9
+Total Loci with data: 8
+</pre></div></div><br class="example-break"></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="guide-usage-configfile.html">Prev</a> </td><td width="20%" align="center"> </td><td width="40%" align="right"> <a accesskey="n" href="instructions-locus-info.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.3. The configuration file </td><td width="20%" align="center"><a accesskey="h" href="pypop-guide.html">Home</a></td><td width="40%" align="right" valign="top"> 3.2. Single locus analyses</td></tr></table></div></body></html>
