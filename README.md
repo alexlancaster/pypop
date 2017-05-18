@@ -43,11 +43,12 @@ None required yet
 ### 5. Install external tool dependencies:
 
 
-#### 5.1 Install ```swig```
+#### 5.1 ```swig``` (Simple Wrapper Interface Generator) and ```gsl``` (GNU Scientific Library)
 
-* MacOS: ```sudo port install swig-python```
-* Linux/Fedora: ```sudo dnf install swig```
-* Linux/Debian: ```sudo apt-get install swig```
+* MacOS: ```sudo port install swig-python gsl```
+* Linux/Fedora: ```sudo dnf install swig gsl-devel```
+* Linux/Debian: ```sudo apt-get install swig gsl-devel```
+
 
 ### 6. Build
 
