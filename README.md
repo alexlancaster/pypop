@@ -22,12 +22,12 @@ curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacP
 sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
 ```
 
-* To let the builds know about the location of macports packages add the following to ```~/.bash_profile```
+* Set environment variables to use macports version of Python and other packages, packages add the following to ```~/.bash_profile```
 
 ```
-export PATH=$PATH:/opt/local/bin
-export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
-export CPATH=$CPATH:/opt/local/include
+export PATH=/opt/local/bin:$PATH
+export LIBRARY_PATH=/opt/local/lib/:$LIBRARY_PATH
+export CPATH=/opt/local/include:$CPATH
 ```
 
 ### 2. Clone the repository:
@@ -42,20 +42,21 @@ export CPATH=$CPATH:/opt/local/include
 
 Note that throughout we use ```<ENV>``` to refer to the full path name to the 'env' directory created in the previous step, e.g. ```/home/username/pypop/pypopenv```
 
-### 4. Install Python packages from PyPI
+### 4. Install external dependencies
 
-None required yet
+* ```swig``` (Simple Wrapper Interface Generator) 
+* ```gsl``` (GNU Scientific Library)
+* ```Numeric``` (Python Numeric)
+* ```libxml2/libxslt``` (Python bindings)
 
-### 5. Install external tool dependencies:
+* MacOS: 
+```sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt```
+* Linux/Fedora: 
+```sudo dnf install swig gsl-devel python-numeric python-libxml2 python-libxslt```
+* Linux/Debian: 
+```sudo apt-get install swig gsl-devel python-libxml2```
 
-
-#### 5.1 ```swig``` (Simple Wrapper Interface Generator) and ```gsl``` (GNU Scientific Library)
-
-* MacOS: ```sudo port install swig-python gsl```
-* Linux/Fedora: ```sudo dnf install swig gsl-devel```
-* Linux/Debian: ```sudo apt-get install swig gsl-devel```
-
-### 6. Build
+### 5. Build
 
     ./setup.py build
 
@@ -66,7 +67,7 @@ explanation of the options available.
 
 ### Run a minimal dataset:
 
-    ./pypop.py -c  data/samples/minimal-anthonynolan.ini data/samples/USAFEL-UchiTelle-small.pop
+    ./pypop.py -c  data/samples/minimal.ini data/samples/USAFEL-UchiTelle-small.pop
 
 This will generate the following three files, an XML output file, the plain text version and a filter information:
 
