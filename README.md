@@ -49,12 +49,17 @@ Note that throughout we use ```<ENV>``` to refer to the full path name to the 'e
 * ```Numeric``` (Python Numeric)
 * ```libxml2/libxslt``` (Python bindings)
 
-* MacOS: 
-```sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt```
+* MacOS:
+
+      sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt
+
 * Linux/Fedora: 
-```sudo dnf install swig gsl-devel python-numeric python-libxml2 python-libxslt```
+
+      sudo dnf install swig gsl-devel python-numeric python-libxml2 python-libxslt
+
 * Linux/Debian: 
-```sudo apt-get install swig gsl-devel python-libxml2```
+
+      sudo apt-get install swig gsl-devel python-libxml2
 
 ### 5. Build
 
