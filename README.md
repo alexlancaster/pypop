@@ -16,10 +16,12 @@ PyPop is a framework for processing genotype and allele data and running analyse
 OR
 
 * To install via the command-line you can run the following (substituting the current link):
-  
-    curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacPorts-2.4.1-10.12-Sierra.pkg' > MacPorts-2.4.1-10.12-Sierra.pkg
-    sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
-    
+
+```
+curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacPorts-2.4.1-10.12-Sierra.pkg' > MacPorts-2.4.1-10.12-Sierra.pkg
+sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
+```
+
 * Add ```/opt/local/bin``` to your ```$PATH``` variable (e.g. by editing ```~/.bash_profile```)
 
 ### 2. Clone the repository:
