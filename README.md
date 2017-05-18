@@ -22,7 +22,13 @@ curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacP
 sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
 ```
 
-* Add ```/opt/local/bin``` to your ```$PATH``` variable (e.g. by editing ```~/.bash_profile```)
+* To let the builds know about the location of macports packages add the following to ```~/.bash_profile```
+
+```
+export PATH=$PATH:/opt/local/bin
+export LIBRARY_PATH=$LIBRARY_PATH:/opt/local/lib
+export CPATH=$CPATH:/opt/local/include
+```
 
 ### 2. Clone the repository:
 
@@ -48,7 +54,6 @@ None required yet
 * MacOS: ```sudo port install swig-python gsl```
 * Linux/Fedora: ```sudo dnf install swig gsl-devel```
 * Linux/Debian: ```sudo apt-get install swig gsl-devel```
-
 
 ### 6. Build
 
