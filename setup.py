@@ -106,6 +106,15 @@ class my_build_ext(build_ext):
 # we set the environment to emulate that.
 #os.environ['CFLAGS'] = '-funroll-loops'
 
+# look for libraries in PREFIX
+library_dirs = [os.path.join(PREFIX, "lib")]
+include_dirs = [os.path.join(PREFIX, "include")]
+# also look in LIBRARY_PATH, CPATH (needed for macports etc.)
+if "LIBRARY_PATH" in os.environ:
+    library_dirs += os.environ["LIBRARY_PATH"].split(os.pathsep)
+if "CPATH" in os.environ:
+    include_dirs += os.environ["CPATH"].split(os.pathsep)
+
 # flag to determine whether or not we are using the CVS version
 if os.path.isdir("CVS"):
     cvs_version=1
@@ -124,7 +133,7 @@ else:
 ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
                             ["emhaplofreq/emhaplofreq_wrap.i",
                              "emhaplofreq/emhaplofreq.c"],
-                            include_dirs=["emhaplofreq"],
+                            include_dirs=include_dirs + ["emhaplofreq"],
                             define_macros=[('__SWIG__', '1'),
                                            ('DEBUG', '0'),
                                            ('EXTERNAL_MODE', '1'),
@@ -153,7 +162,7 @@ ext_Pvalue = Extension("_Pvaluemodule",
                         "pval/stirlerr.c",
                         "pval/lgammacor.c",
                         "pval/pnorm.c"],
-                       include_dirs=["pval"],
+                       include_dirs=include_dirs + ["pval"],
                        define_macros=[('MATHLIB_STANDALONE', '1')]
                        )
 
@@ -184,8 +193,8 @@ ext_Gthwe_macros = [('__SWIG__', '1'),
 
 ext_Gthwe = Extension("_Gthwemodule",
                       ext_Gthwe_files,
-                      include_dirs=["gthwe", os.path.join(PREFIX, "include")],
-                      library_dirs=[os.path.join(PREFIX, "lib")],
+                      include_dirs=include_dirs + ["gthwe"],
+                      library_dirs=library_dirs,
                       libraries=["gsl", "gslcblas"],
                       define_macros=ext_Gthwe_macros
                       )
@@ -199,7 +208,7 @@ ext_HweEnum = Extension("_HweEnum",
                         "hwe-enumeration/src/statistics.c",
                         "hwe-enumeration/src/external.c"
                         ],
-                      include_dirs=["hwe-enumeration/src/include",
+                      include_dirs=include_dirs + ["hwe-enumeration/src/include",
                                     "/usr/include/glib-2.0",
                                     "/usr/include/glib-2.0/include",
                                     "/usr/lib/glib-2.0/include",
@@ -215,12 +224,9 @@ ext_HweEnum = Extension("_HweEnum",
                                      ('HAVE_LIBGSL', '1')]
                       )
 
-# check to see if version of Python is > 2.1
-# if so,  use depends
-if sys.version_info[0] == 2 and sys.version_info[1] > 1:
-    ext_Emhaplofreq.depends=['SWIG/typemap.i', "emhaplofreq/emhaplofreq.h"]
-    ext_Pvalue.depends=['SWIG/typemap.i', 'pval/Rconfig.h', 'pval/Rmath.h', 'pval/dpq.h', 'pval/nmath.h']
-    ext_Gthwe.depends=['SWIG/typemap.i', 'gthwe/func.h', 'gthwe/hwe.h']
+ext_Emhaplofreq.depends=['SWIG/typemap.i', "emhaplofreq/emhaplofreq.h"]
+ext_Pvalue.depends=['SWIG/typemap.i', 'pval/Rconfig.h', 'pval/Rmath.h', 'pval/dpq.h', 'pval/nmath.h']
+ext_Gthwe.depends=['SWIG/typemap.i', 'gthwe/func.h', 'gthwe/hwe.h']
     
 
 # default list of extensions to build
