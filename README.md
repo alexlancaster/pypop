@@ -4,11 +4,29 @@ PyPop is a framework for processing genotype and allele data and running analyse
 
 ## Installation
 
-### 1. Clone the repository:
+### 1. Install OS-specific tools
+
+#### MacOS X
+
+1. install developer command-line tools: https://developer.apple.com/downloads/  (includes ```git```, ```gcc```)
+2. Visit http://macports.org to find the latest version for your version of MacOS X.
+
+* To install via the GUI follow the instructions 
+ 
+OR
+
+* To install via the command-line you can run the following (substituting the current link):
+  
+    curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacPorts-2.4.1-10.12-Sierra.pkg' > MacPorts-2.4.1-10.12-Sierra.pkg
+    sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
+    
+* Add ```/opt/local/bin``` to your ```$PATH``` variable (e.g. by editing ```~/.bash_profile```)
+
+### 2. Clone the repository:
 
     git clone https://github.com/alexlancaster/pypop.git
   
-### 2. (optional) Create a new virtual environment within the repository
+### 3. (optional) Create a new virtual environment within the repository
 
     cd pypop
     virtualenv pypopenv
@@ -16,19 +34,20 @@ PyPop is a framework for processing genotype and allele data and running analyse
 
 Note that throughout we use ```<ENV>``` to refer to the full path name to the 'env' directory created in the previous step, e.g. ```/home/username/pypop/pypopenv```
 
-### 3. Install Python packages from PyPI
+### 4. Install Python packages from PyPI
 
 None required yet
 
-### 4. Install external tool dependencies:
+### 5. Install external tool dependencies:
 
-We require a developer toolchain, e.g. ```gcc```
 
-#### 4.1 Install ```swig```
+#### 5.1 Install ```swig```
 
-TBD
+MacOS: ```sudo port install swig```
+Linux/Fedora: ```sudo dnf install swig```
+Linux/Debian: ```sudo apt-get install swig```
 
-### 5. Build
+### 6. Build
 
     ./setup.py build
 
