@@ -45,9 +45,9 @@ None required yet
 
 #### 5.1 Install ```swig```
 
-MacOS: ```sudo port install swig-python```
-Linux/Fedora: ```sudo dnf install swig```
-Linux/Debian: ```sudo apt-get install swig```
+* MacOS: ```sudo port install swig-python```
+* Linux/Fedora: ```sudo dnf install swig```
+* Linux/Debian: ```sudo apt-get install swig```
 
 ### 6. Build
 
