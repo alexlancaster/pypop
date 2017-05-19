@@ -9,19 +9,7 @@ PyPop is a framework for processing genotype and allele data and running analyse
 #### MacOS X
 
 1. install developer command-line tools: https://developer.apple.com/downloads/  (includes ```git```, ```gcc```)
-2. Visit http://macports.org to find the latest version for your version of MacOS X.
-
-* To install via the GUI follow the instructions 
- 
-OR
-
-* To install via the command-line you can run the following (substituting the current link):
-
-```
-curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacPorts-2.4.1-10.12-Sierra.pkg' > MacPorts-2.4.1-10.12-Sierra.pkg
-sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
-```
-
+2. Visit http://macports.org and follow the instructions there to install the latest version of MacPorts for your version of MacOS X.
 3. Set environment variables to use macports version of Python and other packages, packages add the following to ```~/.bash_profile```
 
 ```
