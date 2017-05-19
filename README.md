@@ -32,7 +32,9 @@ export CPATH=/opt/local/include:$CPATH
 
 * Rerun your bash shell login in order to make these new exports active in your environment. 
 
-At the command line type: ... exec bash -login
+At the command line type: 
+
+exec bash -login
      
 ### 3. Clone the repository:
 
