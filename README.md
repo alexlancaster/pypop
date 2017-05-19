@@ -49,8 +49,8 @@ Set MacPorts to use the just-installed 2.7 MacPorts version of Python:
 
 * Linux/Debian: 
 
-      sudo apt-get install swig gsl-devel python-libxml2
-
+      TBD
+     
 ### 5. Build
 
     ./setup.py build
