@@ -237,15 +237,13 @@ extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Gthwe]
 if sys.argv[1] == 'sdist':
     # first check to see if we are distributing from CVS
     if cvs_version:
-        # if yes, generate a "ChangeLog"
-        #print "creating ChangeLog from CVS entries"
-        #os.system("rcs2log -u \"single:Richard Single:single@allele5.biol.berkeley.edu\" -u \"mpn:Mark Nelson:mpn@alleleb.biol.berkeley.edu\" -u \"alex:Alex Lancaster:alexl@socrates.berkeley.edu\" -u \"diogo:Diogo Meyer:diogo@allele5.biol.berkeley.edu\" -c /dev/null > ChangeLog")
         if os.path.isfile('VERSION') == 0:
             sys.exit("before distributing, please create a VERSION file!")
 else:
     # if we are not distributing the version build HweEnum
     if not(distrib_version):
-        extensions.append(ext_HweEnum)
+	pass
+        #extensions.append(ext_HweEnum)
         
 # get version from the file VERSION
 if os.path.isfile('VERSION'):
