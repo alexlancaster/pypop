@@ -87,6 +87,18 @@ Please submit bug reports and feature requests
 
     https://github.com/alexlancaster/pypop/issues
 
+### Bug reporting
+
+When reporting bugs, please run the following and include the output:
+
+    echo $CPATH
+    echo $LIBRARY_PATH
+    echo $PATH
+
+If you are MacOS please also run and include the output of:
+
+    port installed
+
 ## Development
 
 The code for PyPop is at
