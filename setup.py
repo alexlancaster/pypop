@@ -111,9 +111,11 @@ library_dirs = [os.path.join(PREFIX, "lib")]
 include_dirs = [os.path.join(PREFIX, "include")]
 # also look in LIBRARY_PATH, CPATH (needed for macports etc.)
 if "LIBRARY_PATH" in os.environ:
-    library_dirs += os.environ["LIBRARY_PATH"].split(os.pathsep)
+    library_dirs += os.environ["LIBRARY_PATH"].rstrip(os.pathsep).split(os.pathsep)
 if "CPATH" in os.environ:
-    include_dirs += os.environ["CPATH"].split(os.pathsep)
+    include_dirs += os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
+
+print include_dirs
 
 # flag to determine whether or not we are using the CVS version
 if os.path.isdir("CVS"):
