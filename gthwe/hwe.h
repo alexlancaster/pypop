@@ -51,8 +51,6 @@ MODIFICATIONS. */
 #include <gsl/gsl_randist.h>
 #include <gsl/gsl_sys.h>
 
-unsigned long tausval, congrval;
-
 #define  EPSILON     1e-6
 #define  GREATER_OR_EQUAL(a,b) (gsl_fcmp(a,b,EPSILON)>=0)
 #define  LESS_OR_EQUAL(a,b)    (gsl_fcmp(a,b,EPSILON)<=0)

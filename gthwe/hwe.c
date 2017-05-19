@@ -50,6 +50,8 @@ MODIFICATIONS. */
 #include "func.h"
 #include <math.h>
 
+unsigned long tausval, congrval;
+
 /* correct execution of this program: gthwe infile outfile */
 int main(int argc, char *argv[])
 {
