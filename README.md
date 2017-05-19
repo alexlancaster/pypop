@@ -30,9 +30,9 @@ export LIBRARY_PATH=/opt/local/lib/:$LIBRARY_PATH
 export CPATH=/opt/local/include:$CPATH
 ```
 
-* Rerun your bash shell login in order to make these new exports active in your environment. 
+* Rerun your bash shell login in order to make these new exports active in your environment.  At the command line type: 
 
-At the command line type: ```exec bash -login```
+```exec bash -login```
      
 ### 3. Clone the repository:
 
@@ -78,12 +78,11 @@ explanation of the options available.
 
     ./pypop.py -c  data/samples/minimal.ini data/samples/USAFEL-UchiTelle-small.pop
 
-This will generate the following three files, an XML output file, the plain text version and a filter information:
+This will generate the following three files, an XML output file, the plain text version:
 
 
     USAFEL-UchiTelle-small-out.xml
     USAFEL-UchiTelle-small-out.txt
-    USAFEL-UchiTelle-small-filter.xml
 
 ## Support
 
