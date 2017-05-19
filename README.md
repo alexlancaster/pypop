@@ -47,7 +47,13 @@ export CPATH=/opt/local/include:$CPATH
 
 * MacOS:
 
+Install the MacPorts packages
+
       sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt
+      
+Set MacPorts to use just-installed 2.7 MacPorts version of Python:
+
+      sudo port select --set python python27
 
 * Linux/Fedora: 
 
