@@ -51,7 +51,7 @@ Install the MacPorts packages
 
       sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt
       
-Set MacPorts to use just-installed 2.7 MacPorts version of Python:
+Set MacPorts to use the just-installed 2.7 MacPorts version of Python:
 
       sudo port select --set python python27
 
@@ -76,7 +76,7 @@ explanation of the options available.
 
     ./pypop.py -c  data/samples/minimal.ini data/samples/USAFEL-UchiTelle-small.pop
 
-This will generate the following three files, an XML output file, the plain text version:
+This will generate the following two files, an XML output file and a plain text version:
 
     USAFEL-UchiTelle-small-out.xml
     USAFEL-UchiTelle-small-out.txt
@@ -89,13 +89,13 @@ Please submit bug reports and feature requests
 
 ### Bug reporting
 
-When reporting bugs, please run the following and include the output:
+When reporting bugs, especially during installation, please run the following and include the output:
 
     echo $CPATH
     echo $LIBRARY_PATH
     echo $PATH
 
-If you are MacOS please also run and include the output of:
+If you are running on MacOS please also run and include the output of:
 
     port installed
 
