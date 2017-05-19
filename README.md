@@ -30,11 +30,14 @@ export LIBRARY_PATH=/opt/local/lib/:$LIBRARY_PATH
 export CPATH=/opt/local/include:$CPATH
 ```
 
-### 2. Clone the repository:
+### 3. Rerun your bash shell login in order to make these new exports active in your environment. At the command line type:
+     exec bash -login
+     
+### 3. Clone the repository:
 
     git clone https://github.com/alexlancaster/pypop.git
   
-### 3. (optional) Create a new virtual environment within the repository
+### 4. (optional) Create a new virtual environment within the repository
 
     cd pypop
     virtualenv pypopenv
@@ -42,7 +45,7 @@ export CPATH=/opt/local/include:$CPATH
 
 Note that throughout we use ```<ENV>``` to refer to the full path name to the 'env' directory created in the previous step, e.g. ```/home/username/pypop/pypopenv```
 
-### 4. Install external dependencies
+### 5. Install external dependencies
 
 * ```swig``` (Simple Wrapper Interface Generator) 
 * ```gsl``` (GNU Scientific Library)
@@ -61,7 +64,7 @@ Note that throughout we use ```<ENV>``` to refer to the full path name to the 'e
 
       sudo apt-get install swig gsl-devel python-libxml2
 
-### 5. Build
+### 6. Build
 
     ./setup.py build
 
