@@ -22,7 +22,7 @@ curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacP
 sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
 ```
 
-* Set environment variables to use macports version of Python and other packages, packages add the following to ```~/.bash_profile```
+3. Set environment variables to use macports version of Python and other packages, packages add the following to ```~/.bash_profile```
 
 ```
 export PATH=/opt/local/bin:$PATH
@@ -30,7 +30,7 @@ export LIBRARY_PATH=/opt/local/lib/:$LIBRARY_PATH
 export CPATH=/opt/local/include:$CPATH
 ```
 
-* Rerun your bash shell login in order to make these new exports active in your environment.  At the command line type: 
+4. Rerun your bash shell login in order to make these new exports active in your environment.  At the command line type: 
 
 ```exec bash -login```
      
