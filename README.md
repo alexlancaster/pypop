@@ -30,7 +30,7 @@ export LIBRARY_PATH=/opt/local/lib/:$LIBRARY_PATH
 export CPATH=/opt/local/include:$CPATH
 ```
 
-### 3. Rerun your bash shell login in order to make these new exports active in your environment. 
+* Rerun your bash shell login in order to make these new exports active in your environment. 
 
 At the command line type:
      exec bash -login
