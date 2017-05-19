@@ -38,15 +38,7 @@ export CPATH=/opt/local/include:$CPATH
 
     git clone https://github.com/alexlancaster/pypop.git
   
-### 4. (optional) Create a new virtual environment within the repository
-
-    cd pypop
-    virtualenv pypopenv
-    source pypopenv/bin/activate
-
-Note that throughout we use ```<ENV>``` to refer to the full path name to the 'env' directory created in the previous step, e.g. ```/home/username/pypop/pypopenv```
-
-### 5. Install external dependencies
+### 4. Install external dependencies
 
 * ```swig``` (Simple Wrapper Interface Generator) 
 * ```gsl``` (GNU Scientific Library)
@@ -65,7 +57,7 @@ Note that throughout we use ```<ENV>``` to refer to the full path name to the 'e
 
       sudo apt-get install swig gsl-devel python-libxml2
 
-### 6. Build
+### 5. Build
 
     ./setup.py build
 
@@ -79,7 +71,6 @@ explanation of the options available.
     ./pypop.py -c  data/samples/minimal.ini data/samples/USAFEL-UchiTelle-small.pop
 
 This will generate the following three files, an XML output file, the plain text version:
-
 
     USAFEL-UchiTelle-small-out.xml
     USAFEL-UchiTelle-small-out.txt
