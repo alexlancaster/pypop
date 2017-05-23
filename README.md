@@ -33,7 +33,7 @@ export CPATH=/opt/local/include:$CPATH
 * ```Numeric``` (Python Numeric)
 * ```libxml2/libxslt``` (Python bindings)
 
-* MacOS:
+#### MacOS:
 
 Install the MacPorts packages
 
@@ -43,11 +43,11 @@ Set MacPorts to use the just-installed 2.7 MacPorts version of Python:
 
       sudo port select --set python python27
 
-* Linux/Fedora: 
+#### Linux/Fedora/Red Hat: 
 
       sudo dnf install swig gsl-devel python-numeric python-libxml2 python-libxslt
 
-* Linux/Debian: 
+#### Linux/Debian/Ubuntu: 
 
       TBD
      
