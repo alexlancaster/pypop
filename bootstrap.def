@@ -1,0 +1,24 @@
+# vim: ts=4 sw=4 noet
+
+BootStrap: yum
+OSVersion: 24
+MirrorURL: https://dl.fedoraproject.org/pub/fedora/linux/releases/24/Everything/x86_64/os/
+GPG: https://getfedora.org/static/81B46521.txt
+Include: swig gcc.x86_64 gsl-devel python-devel python-numeric python-libxml2 python-libxslt redhat-rpm-config yum rpm vim
+
+%setup
+	# Copy all files into a directory in the container
+	# (Make sure to exclude our Singularity image file)
+	# (We use -rlptD instead of -a because owner & group can be ignored.)
+	mkdir ${SINGULARITY_ROOTFS}/pypop-source
+	rsync -rlptD --exclude '*.img' . ${SINGULARITY_ROOTFS}/pypop-source/
+
+%post
+	# Inside the container, build pypop
+	# (to be clear, the installs pypop into the container Python)
+	cd /pypop-source
+	./setup.py build
+
+%runscript
+	#!/bin/bash
+	/usr/bin/env PYTHONPATH=/pypop-source /usr/bin/python2.7 /pypop-source/pypop.py $@
