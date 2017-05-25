@@ -22,3 +22,24 @@ Include: swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python-numeric pyt
 %runscript
 	#!/bin/bash
 	/usr/bin/env PYTHONPATH=/pypop-source /usr/bin/python2.7 /pypop-source/pypop.py $@
+
+%test
+	# Use the runscript to do a simple run
+	/singularity -d -c /pypop-source/data/samples/minimal.ini /pypop-source/data/samples/USAFEL-UchiTelle-small.pop
+
+	# The run output contains a date.  Strip it out.
+	sed -i -e 's|at: .*$|at: XXXXX|' USAFEL-UchiTelle-small-out.txt
+	sed -i -e 's|date=".*"|date="XXXXX"|' USAFEL-UchiTelle-small-out.xml
+
+	# Compare the output with our samples.  Exit if there are differences.
+	diff -u /pypop-source/singularity-test-data/USAFEL-UchiTelle-small-out.txt USAFEL-UchiTelle-small-out.txt
+	if [ $? -ne 0 ]; then
+		exit 1
+	fi
+	diff -u /pypop-source/singularity-test-data/USAFEL-UchiTelle-small-out.xml USAFEL-UchiTelle-small-out.xml
+	if [ $? -ne 0 ]; then
+		exit 1
+	fi
+
+	# Clean up!
+	rm USAFEL-UchiTelle-small-out.txt USAFEL-UchiTelle-small-out.xml
