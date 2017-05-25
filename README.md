@@ -43,11 +43,15 @@ Set MacPorts to use the just-installed 2.7 MacPorts version of Python:
 
       sudo port select --set python python27
 
-#### Linux/Fedora/Red Hat: 
+#### Linux (Fedora): 
 
-      sudo dnf install swig gsl-devel python-numeric python-libxml2 python-libxslt
+Need at least Fedora 25 for the appropriate dependencies:
 
-#### Linux/Debian/Ubuntu: 
+      sudo dnf install swig gsl-devel python-numeric python-libxml2 libxslt-python
+
+(see also [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install within a Centos/RHEL release)
+
+#### Linux (Debian/Ubuntu): 
 
       TBD
      
