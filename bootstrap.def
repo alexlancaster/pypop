@@ -1,10 +1,10 @@
 # vim: ts=4 sw=4 noet
 
 BootStrap: yum
-OSVersion: 24
-MirrorURL: https://dl.fedoraproject.org/pub/fedora/linux/releases/24/Everything/x86_64/os/
-GPG: https://getfedora.org/static/81B46521.txt
-Include: swig gcc.x86_64 gsl-devel python-devel python-numeric python-libxml2 python-libxslt redhat-rpm-config yum rpm vim
+OSVersion: 25
+MirrorURL: https://dl.fedoraproject.org/pub/fedora/linux/releases/%{OSVERSION}/Everything/x86_64/os/
+GPG: https://getfedora.org/static/FDB19C98.txt
+Include: swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python-numeric python-libxml2 libxslt-python redhat-rpm-config yum rpm.x86_64 vim
 
 %setup
 	# Copy all files into a directory in the container

@@ -1,6 +1,6 @@
 To make pypop more portable (given that some of its dependencies are currently
 obsolete), it is possible to build a Singularity container which contains a
-minimal Fedora 24 installation (minus the Kernel), pypop, pypop's dependencies,
+minimal Fedora 25 installation (minus the Kernel), pypop, pypop's dependencies,
 and some extra tools (`yum`, `rpm`, `less`, and `vim`) in case you need to do
 work inside the container.
 
@@ -34,7 +34,7 @@ you make it too small, the bootstrap might not have enough room to complete!
 The final command performs the bootstrap.  The bootstrap needs to be run as root, so you either need to use `sudo` (as shown in the example above) or you need to run the command in a root shell.  The bootstrap does a number of things:
 
 * Mount the container image read/write.
-* Download and install the Fedora 24 GPG key.
+* Download and install the Fedora 25 GPG key.
 * Create a temporary Yum repo file, pointing to the Fedora 24 package archive.
 * Install the `basesystem` package; GCC, SWIG, and GSL; Python (both the
 * executable and development packages); and the Python modules for Numeric,
