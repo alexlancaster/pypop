@@ -31,7 +31,7 @@ perform these three steps:
 
 1. `cd path/to/pypop/source`
 2. `singularity create -s 2048 image.img`
-3. `sudo singularity bootstrap image.img bootstrap.def`
+3. `sudo singularity bootstrap image.img Singularity`
 
 The above commands will give you a 2 GiB executable file named `image.img`.
 That is the container.
