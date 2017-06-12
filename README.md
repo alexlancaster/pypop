@@ -20,8 +20,16 @@ export CPATH=/opt/local/include:$CPATH
 
 4. Rerun your bash shell login in order to make these new exports active in your environment.  At the command line type: 
 
-```exec bash -login```
-     
+```
+exec bash -login
+```
+
+5. Check that the MacPorts version of Python is active by typing: ```which python```, if it is working correctly you should see the following:
+
+```
+/opt/local/bin/python
+````
+
 ### 3. Clone the repository:
 
     git clone https://github.com/alexlancaster/pypop.git
