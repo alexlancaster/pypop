@@ -37,6 +37,7 @@
 """
 
 import sys, os, string, time
+from pypop import __version__
 
 ######################################################################
 # BEGIN: CHECK PATHS and FILEs
@@ -53,27 +54,7 @@ systemversionpath = os.path.join(datapath, 'VERSION')
 # find our exactly where the current pypop is being run from
 pypopbinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-# look for 'VERSION' file in this directory
-localversionpath = os.path.join(pypopbinpath, 'VERSION')
-
-# first, check to see if we are running from the system-installed location
-# and not in the 'frozen' standalone state
-if pypopbinpath == binpath and not hasattr(sys, 'frozen'):
-  versionpath = systemversionpath
-# if not, assume VERSION is in the current directory as the script
-else:
-  versionpath = localversionpath
-
-noversion_message = """Could not find VERSION file in %s!
-Your PyPop installation may be broken.  Exiting...""" % versionpath
-
-# check to see if the VERSION file exists,
-# if not, exit with an error message
-if os.path.isfile(versionpath):
-  f = open(versionpath)
-  version = string.strip(f.readline())
-else:
-  sys.exit(noversion_message)
+version = __version__
   
 ######################################################################
 # END: CHECK PATHS and FILEs

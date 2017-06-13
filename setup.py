@@ -234,38 +234,19 @@ ext_Gthwe.depends=['SWIG/typemap.i', 'gthwe/func.h', 'gthwe/hwe.h']
 # default list of extensions to build
 extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Gthwe]
 
-# if and only if we are making a source distribution, then regenerate
-# ChangeLog
-if sys.argv[1] == 'sdist':
-    # first check to see if we are distributing from CVS
-    if cvs_version:
-        if os.path.isfile('VERSION') == 0:
-            sys.exit("before distributing, please create a VERSION file!")
-else:
-    # if we are not distributing the version build HweEnum
-    if not(distrib_version):
-	pass
-        #extensions.append(ext_HweEnum)
-        
-# get version from the file VERSION
-if os.path.isfile('VERSION'):
-  f = open('VERSION')
-  version = string.strip(f.readline())
-# check if it's a development version (i.e. in CVS tree, use this)
-elif os.path.isfile('DEVEL_VERSION'):
-  version = 'DEVEL_VERSION'
-else:
-  sys.exit("Could not find VERSION file!  Exiting...")
+# don't include HWE
+# extensions.append(ext_HweEnum)
+
+from pypop import __version__, __pkgname__
 
 # data files to install
-data_file_paths = ['config.ini', 'VERSION']
+data_file_paths = ['config.ini']
 # xslt files are in a subdirectory
 xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
 data_file_paths.extend(xslt_files)
 
-
-setup (name = "pypop",
-       version = version,
+setup (name = __pkgname__,
+       version = __version__,
        description = "Python for Population Genetics",
        long_description = \
        """PyPop is a framework for population genetics statistics
@@ -274,7 +255,7 @@ particularly large-scale multilocus genotype data""",
        maintainer = "Alex Lancaster",
        maintainer_email = "alexl@cal.berkeley.edu",
        license = "GNU GPL",
-       platforms = ["GNU/Linux", "Windows"],
+       platforms = ["GNU/Linux", "Windows", "MacOS"],
        packages = ["pypop"],
        install_requires = [
          'Numeric',
