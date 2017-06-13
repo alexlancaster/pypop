@@ -4,7 +4,7 @@ BootStrap: yum
 OSVersion: 25
 MirrorURL: https://mirrors.kernel.org/fedora/releases/%{OSVERSION}/Everything/x86_64/os/
 GPG: https://getfedora.org/static/FDB19C98.txt
-Include: swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python2-numpy python-libxml2 libxslt-python redhat-rpm-config yum rpm.x86_64 vim
+Include: swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python-numeric python-libxml2 libxslt-python redhat-rpm-config yum rpm.x86_64 vim findutils
 
 %setup
 	# Copy all files into a directory in the container
@@ -18,6 +18,11 @@ Include: swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python2-numpy pyth
 	# (to be clear, the installs pypop into the container Python)
 	cd /pypop-source
 	./setup.py build
+
+    # Make everything group- and world-readable
+    # Also make directories group and world-executable.
+    chmod -R go+r /pypop-source
+    find /pypop-source -type d -exec chmod go+x {} +
 
 %runscript
 	#!/bin/bash
