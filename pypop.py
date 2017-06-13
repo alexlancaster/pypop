@@ -37,7 +37,13 @@
 """
 
 import sys, os, string, time
-from pypop import __version__
+
+DIR = os.path.abspath(os.path.dirname(__file__))
+sys.path.insert(0, os.path.join(DIR, '..'))
+
+import pypop
+
+print dir(pypop)
 
 ######################################################################
 # BEGIN: CHECK PATHS and FILEs
@@ -54,7 +60,7 @@ systemversionpath = os.path.join(datapath, 'VERSION')
 # find our exactly where the current pypop is being run from
 pypopbinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-version = __version__
+version = pypop.__version__
   
 ######################################################################
 # END: CHECK PATHS and FILEs

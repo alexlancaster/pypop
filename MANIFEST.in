@@ -1,8 +1,5 @@
-include ChangeLog
-include AUTHORS
-include INSTALL
-include COPYING
-include VERSION
+include README.md
+include LICENSE
 include NEWS
 include pypop.py
 include popmeta.py
@@ -14,5 +11,5 @@ recursive-include emhaplofreq emhaplofreq.h Makefile
 include gthwe/*.h gthwe/Makefile gthwe/README.1
 include slatkin-exact/Makefile slatkin-exact/README
 include pval/Makefile pval/dpq.h pval/nmath.h pval/Rconfig.h pval/Rmath.h
-include pval/R_ext pval/R_ext/Arith.h pval/R_ext/Boolean.h pval/R_ext/Error.h pval/R_ext/Mathlib.h pval/R_ext/RS.h
+include pval/R_ext/Arith.h pval/R_ext/Boolean.h pval/R_ext/Error.h pval/R_ext/Mathlib.h pval/R_ext/RS.h
 exclude setup.cfg
