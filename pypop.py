@@ -293,7 +293,7 @@ else:
         fileNames.extend(globbedFiles)
 
   # parse config file
-  from Main import Main, getConfigInstance
+  from pypop.Main import Main, getConfigInstance
   config = getConfigInstance(configFilename, altpath, usage_message)
 
   xmlOutPaths = []
