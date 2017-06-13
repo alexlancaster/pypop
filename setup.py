@@ -257,20 +257,6 @@ elif os.path.isfile('DEVEL_VERSION'):
 else:
   sys.exit("Could not find VERSION file!  Exiting...")
 
-def Ensure_Scripts(scripts):
-    """Strips '.py' from installed scripts.
-
-    This is a hack and needs work.
-    """
-    for script in scripts:
-        suffix = script[-3:]
-        prefix = script[:-3]
-        if suffix == '.py':
-            #if sys.argv[1] == 'install':
-            copy_file(script,prefix,preserve_mode=0)
-            scripts[scripts.index(script)] = prefix
-    return scripts
-
 # data files to install
 data_file_paths = ['config.ini', 'VERSION']
 # xslt files are in a subdirectory
@@ -289,21 +275,18 @@ particularly large-scale multilocus genotype data""",
        maintainer_email = "alexl@cal.berkeley.edu",
        license = "GNU GPL",
        platforms = ["GNU/Linux", "Windows"],
-       
-       extra_path = 'pypop',
-
-       py_modules = ["Arlequin", "HardyWeinberg", "Utils", "Haplo",
-                     "Homozygosity", "ParseFile", "Filter", "Main",
-                     "DataTypes", "GUIApp", "RandomBinning", "Meta"],
-       scripts= Ensure_Scripts(['pypop.py', 'popmeta.py']),
-
+       packages = ["pypop"],
+       install_requires = [
+         'Numeric',
+         'libxml2'
+         'libxslt'
+         ],
+       #py_modules = ["Arlequin", "HardyWeinberg", "Utils", "Haplo",
+       #              "Homozygosity", "ParseFile", "Filter", "Main",
+       #              "DataTypes", "GUIApp", "RandomBinning", "Meta"],
+       scripts= ['pypop.py', 'popmeta.py'],
        data_files=[('share/pypop', data_file_paths)],
-
-# compile SWIG module
-
-       cmdclass = {'build_ext': my_build_ext,},
-       
+       cmdclass = {'build_ext': my_build_ext,},  # compile SWIG module
        ext_modules=extensions
-
        )
 

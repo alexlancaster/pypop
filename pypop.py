@@ -133,7 +133,7 @@ return for each prompt.
 from getopt import getopt, GetoptError
 from glob import glob
 from ConfigParser import ConfigParser
-from Main import getUserFilenameInput, checkXSLFile
+from pypop.Main import getUserFilenameInput, checkXSLFile
 
 try:
   opts, args =getopt(sys.argv[1:],"lsigc:hdx:f:o:V", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "filelist=", "outputdir=", "version", "generate-tsv"])
@@ -338,7 +338,7 @@ else:
     txtOutPaths.append(application.getTxtOutPath())
 
   if generateTSV:
-    from Meta import Meta
+    from pypop.Meta import Meta
     
     print "Generating TSV (.dat) files..."
     Meta(popmetabinpath=pypopbinpath,
