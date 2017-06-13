@@ -27,6 +27,11 @@ Include: swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python-numeric pyt
     chmod -R go+r /pypop-source
     find /pypop-source -type d -exec chmod go+x {} +
 
+    # Make everything group- and world-readable
+    # Also make directories group and world-executable.
+    chmod -R go+r /pypop-source
+    find /pypop-source -type d -exec chmod go+x {} +
+
 %runscript
 	#!/bin/bash
 	/usr/bin/env PYTHONPATH=/pypop-source /usr/bin/python2.7 /pypop-source/bin/pypop.py $@
