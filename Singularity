@@ -8,11 +8,10 @@ Include: swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python-numeric pyt
 
 %setup
 	# Copy all files into a directory in the container
-	# (Make sure to exclude our Singularity image file)
 	# (We use -rlptD instead of -a because owner & group can be ignored.)
 	mkdir ${SINGULARITY_ROOTFS}/pypop-source
 	echo $PWD > ${SINGULARITY_ROOTFS}/.pwd
-	rsync -v -rlptD --exclude '*.img' . ${SINGULARITY_ROOTFS}/pypop-source/ > ${SINGULARITY_ROOTFS}/.rsync_output
+	rsync -v -rlptD . ${SINGULARITY_ROOTFS}/pypop-source/ > ${SINGULARITY_ROOTFS}/.rsync_output
 	ls -lR . > ${SINGULARITY_ROOTFS}/.pypop_listing_from_host
 	ls -lR ${SINGULARITY_ROOTFS}/pypop-source > ${SINGULARITY_ROOTFS}/.pypop_listing_from_setup
 
