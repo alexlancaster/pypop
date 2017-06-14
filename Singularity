@@ -11,13 +11,17 @@ Include: swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python-numeric pyt
 	# (Make sure to exclude our Singularity image file)
 	# (We use -rlptD instead of -a because owner & group can be ignored.)
 	mkdir ${SINGULARITY_ROOTFS}/pypop-source
-	rsync -rlptD --exclude '*.img' . ${SINGULARITY_ROOTFS}/pypop-source/
+	echo $PWD > ${SINGULARITY_ROOTFS}/.pwd
+	rsync -v -rlptD --exclude '*.img' . ${SINGULARITY_ROOTFS}/pypop-source/ > ${SINGULARITY_ROOTFS}/.rsync_output
+	ls -lR . > ${SINGULARITY_ROOTFS}/.pypop_listing_from_host
+	ls -lR ${SINGULARITY_ROOTFS}/pypop-source > ${SINGULARITY_ROOTFS}/.pypop_listing_from_setup
 
 %post
 	# Inside the container, build pypop
 	# (to be clear, the installs pypop into the container Python)
+	ls -lR /pypop-source > /.pypop_listing_from_post
 	cd /pypop-source
-	./setup.py build
+	./setup.py build > /.pypop_build
 
     # Make everything group- and world-readable
     # Also make directories group and world-executable.
