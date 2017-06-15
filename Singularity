@@ -1,10 +1,7 @@
 # vim: ts=4 sw=4 noet
 
-BootStrap: yum
-OSVersion: 25
-MirrorURL: https://mirrors.kernel.org/fedora/releases/%{OSVERSION}/Everything/x86_64/os/
-GPG: https://getfedora.org/static/FDB19C98.txt
-Include: swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python-numeric python-libxml2 libxslt-python redhat-rpm-config yum rpm.x86_64 vim findutils
+BootStrap: docker
+From: fedora:25
 
 %setup
 	# Copy all files into a directory in the container
@@ -16,7 +13,10 @@ Include: swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python-numeric pyt
 	ls -lR ${SINGULARITY_ROOTFS}/pypop-source > ${SINGULARITY_ROOTFS}/.pypop_listing_from_setup
 
 %post
-	# Inside the container, build pypop
+	# Inside the container, install our required packages.
+	yum install -y swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python-numeric python-libxml2 libxslt-python redhat-rpm-config yum rpm.x86_64 vim findutils
+
+	# Now, build PyPop.
 	# (to be clear, the installs pypop into the container Python)
 	ls -lR /pypop-source > /.pypop_listing_from_post
 	cd /pypop-source
