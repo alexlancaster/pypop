@@ -5,11 +5,16 @@ From: fedora:25
 
 %setup
 	# Copy all files into a directory in the container
-	# (We use -rlptD instead of -a because owner & group can be ignored.)
+	# Make destination directories (code, and a place for logs)
 	mkdir ${SINGULARITY_ROOTFS}/pypop-source
 	mkdir ${SINGULARITY_ROOTFS}/.bootstrap_logs
 	echo $PWD > ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_pwd
+
+	# Use rsync to copy the files into the container
+	# (We use -rlptD instead of -a because owner & group can be ignored.)
 	rsync -v -rlptD . ${SINGULARITY_ROOTFS}/pypop-source/ 2>&1 | tee ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_rsync_output
+
+	# Output some debug file listings
 	ls -lR . 2>&1 | tee ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_pypop_listing_from_host
 	ls -lR ${SINGULARITY_ROOTFS}/pypop-source 2>&1 | tee ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_pypop_listing_in_rootfs
 
