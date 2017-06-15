@@ -8,9 +8,9 @@ From: fedora:25
 	# (We use -rlptD instead of -a because owner & group can be ignored.)
 	mkdir ${SINGULARITY_ROOTFS}/pypop-source
 	echo $PWD > ${SINGULARITY_ROOTFS}/.pwd
-	rsync -v -rlptD . ${SINGULARITY_ROOTFS}/pypop-source/ > ${SINGULARITY_ROOTFS}/.rsync_output
-	ls -lR . > ${SINGULARITY_ROOTFS}/.pypop_listing_from_host
-	ls -lR ${SINGULARITY_ROOTFS}/pypop-source > ${SINGULARITY_ROOTFS}/.pypop_listing_from_setup
+	rsync -v -rlptD . ${SINGULARITY_ROOTFS}/pypop-source/ > ${SINGULARITY_ROOTFS}/.rsync_output 2>&1
+	ls -lR . > ${SINGULARITY_ROOTFS}/.pypop_listing_from_host 2>&1
+	ls -lR ${SINGULARITY_ROOTFS}/pypop-source > ${SINGULARITY_ROOTFS}/.pypop_listing_from_setup 2>&1
 
 %post
 	# Inside the container, install our required packages.
@@ -18,9 +18,9 @@ From: fedora:25
 
 	# Now, build PyPop.
 	# (to be clear, the installs pypop into the container Python)
-	ls -lR /pypop-source > /.pypop_listing_from_post
+	ls -lR /pypop-source > /.pypop_listing_from_post 2>&1
 	cd /pypop-source
-	./setup.py build > /.pypop_build
+	./setup.py build > /.pypop_build 2>&1
 
     # Make everything group- and world-readable
     # Also make directories group and world-executable.
