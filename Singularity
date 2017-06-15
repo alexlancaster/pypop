@@ -14,7 +14,7 @@ From: fedora:25
 	# Use rsync to copy the files into the container
 	# (We use -rlptD instead of -a because owner & group can be ignored.)
 	echo 'BOOTSTRAP[SETUP]: Copying files'
-	rsync -v -rlptD . ${SINGULARITY_ROOTFS}/pypop-source/ 2>&1 | tee ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_rsync_output
+	rsync -v -rlptD --exclude image . ${SINGULARITY_ROOTFS}/pypop-source/ 2>&1 | tee ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_rsync_output
 
 	# Output some debug file listings
 	echo 'BOOTSTRAP[SETUP]: Source listing (from host)'
