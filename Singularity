@@ -7,20 +7,21 @@ From: fedora:25
 	# Copy all files into a directory in the container
 	# (We use -rlptD instead of -a because owner & group can be ignored.)
 	mkdir ${SINGULARITY_ROOTFS}/pypop-source
-	echo $PWD > ${SINGULARITY_ROOTFS}/.pwd
-	rsync -v -rlptD . ${SINGULARITY_ROOTFS}/pypop-source/ > ${SINGULARITY_ROOTFS}/.rsync_output 2>&1
-	ls -lR . > ${SINGULARITY_ROOTFS}/.pypop_listing_from_host 2>&1
-	ls -lR ${SINGULARITY_ROOTFS}/pypop-source > ${SINGULARITY_ROOTFS}/.pypop_listing_from_setup 2>&1
+	mkdir ${SINGULARITY_ROOTFS}/.bootstrap_logs
+	echo $PWD > ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_pwd
+	rsync -v -rlptD . ${SINGULARITY_ROOTFS}/pypop-source/ 2>&1 | tee ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_rsync_output
+	ls -lR . 2>&1 | tee ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_pypop_listing_from_host
+	ls -lR ${SINGULARITY_ROOTFS}/pypop-source 2>&1 | tee ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_pypop_listing_in_rootfs
 
 %post
 	# Inside the container, install our required packages.
-	dnf install -y python27 python-devel python-numeric python-libxml2 libxslt-python gcc redhat-rpm-config gsl-devel swig less findutils vim
+	dnf install -y python27 python-devel python-numeric python-libxml2 libxslt-python gcc redhat-rpm-config gsl-devel swig less findutils vim 2>&1 | tee /.bootstrap_logs/dnf_install
 
 	# Now, build PyPop.
 	# (to be clear, the installs pypop into the container Python)
-	ls -lR /pypop-source > /.pypop_listing_from_post 2>&1
+	ls -lR /pypop-source 2>&1 | tee /.bootstrap_logs/pypop_listing_from_post
 	cd /pypop-source
-	./setup.py build > /.pypop_build 2>&1
+	./setup.py build 2>&1 | tee /.bootstrap_logs/pypop_build
 
     # Make everything group- and world-readable
     # Also make directories group and world-executable.
