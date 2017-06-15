@@ -52,7 +52,11 @@ From: fedora:25
 
 %test
 	# Use the runscript to do a simple run
-	/singularity -m -c /pypop-source/data/samples/minimal.ini /pypop-source/data/samples/USAFEL-UchiTelle-small.pop
+	/singularity -d -c /pypop-source/data/samples/minimal.ini /pypop-source/data/samples/USAFEL-UchiTelle-small.pop
+
+	# The run output contains a date.  Strip it out.
+	#sed -i -e 's|at: .*$|at: XXXXX|' USAFEL-UchiTelle-small-out.txt
+	#sed -i -e 's|date=".*"|date="XXXXX"|' USAFEL-UchiTelle-small-out.xml
 
 	# Compare the output with our samples.  Exit if there are differences.
     # NOTE: Tests disabled because some output variance is apparently expected.
