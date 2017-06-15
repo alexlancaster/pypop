@@ -74,7 +74,7 @@ explanation of the options available.
 
 ### Run a minimal dataset:
 
-    ./pypop.py -c  data/samples/minimal.ini data/samples/USAFEL-UchiTelle-small.pop
+    ./bin/pypop.py -c  data/samples/minimal.ini data/samples/USAFEL-UchiTelle-small.pop
 
 This will generate the following two files, an XML output file and a plain text version:
 

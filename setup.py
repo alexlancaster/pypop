@@ -195,7 +195,7 @@ particularly large-scale multilocus genotype data""",
        #  'Numeric',
        #  'libxml2-python'
        #  ],
-       scripts= ['pypop.py', 'popmeta.py'],
+       scripts= ['bin/pypop.py', 'bin/popmeta.py'],
        data_files=[('share/pypop', data_file_paths)],
        ext_modules=extensions
        )

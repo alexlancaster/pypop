@@ -35,6 +35,10 @@
 
 import os, sys
 from getopt import getopt, GetoptError
+
+DIR = os.path.abspath(os.path.dirname(__file__))
+sys.path.insert(0, os.path.join(DIR, '..'))
+
 from PyPop.Meta import Meta
 
 datapath = os.path.join(sys.prefix, 'share', 'PyPop')
