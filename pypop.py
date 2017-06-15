@@ -41,9 +41,7 @@ import sys, os, string, time
 DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(DIR, '..'))
 
-import pypop
-
-print dir(pypop)
+import PyPop
 
 ######################################################################
 # BEGIN: CHECK PATHS and FILEs
@@ -55,12 +53,11 @@ print dir(pypop)
 datapath = os.path.join(sys.prefix, 'share', 'pypop')
 binpath = os.path.join(sys.prefix, 'bin')
 altpath = os.path.join(datapath, 'config.ini')
-systemversionpath = os.path.join(datapath, 'VERSION')
 
 # find our exactly where the current pypop is being run from
 pypopbinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-version = pypop.__version__
+version = PyPop.__version__
   
 ######################################################################
 # END: CHECK PATHS and FILEs
@@ -120,7 +117,7 @@ return for each prompt.
 from getopt import getopt, GetoptError
 from glob import glob
 from ConfigParser import ConfigParser
-from pypop.Main import getUserFilenameInput, checkXSLFile
+from PyPop.Main import getUserFilenameInput, checkXSLFile
 
 try:
   opts, args =getopt(sys.argv[1:],"lsigc:hdx:f:o:V", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "filelist=", "outputdir=", "version", "generate-tsv"])
@@ -190,6 +187,11 @@ else:
   # if not supplied, use heuristics to set a default, heuristics may
   # return a valid path or None (but the value found here is always
   # overriden by options in the .ini file)
+
+  if debugFlag:
+    print "pypopbinpath", pypopbinpath
+    print "binpath", binpath
+    print "datapath", datapath
 
   # check system if it run from sys.prefix and NOT in a 'frozen' state
   if pypopbinpath == binpath and not hasattr(sys, 'frozen'):
@@ -299,7 +301,7 @@ else:
         fileNames.extend(globbedFiles)
 
   # parse config file
-  from pypop.Main import Main, getConfigInstance
+  from PyPop.Main import Main, getConfigInstance
   config = getConfigInstance(configFilename, altpath, usage_message)
 
   xmlOutPaths = []
@@ -325,7 +327,7 @@ else:
     txtOutPaths.append(application.getTxtOutPath())
 
   if generateTSV:
-    from pypop.Meta import Meta
+    from PyPop.Meta import Meta
     
     print "Generating TSV (.dat) files..."
     Meta(popmetabinpath=pypopbinpath,

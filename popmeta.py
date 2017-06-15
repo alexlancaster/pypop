@@ -35,7 +35,7 @@
 
 import os, sys
 from getopt import getopt, GetoptError
-from Meta import Meta
+from PyPop.Meta import Meta
 
 datapath = os.path.join(sys.prefix, 'share', 'PyPop')
 
