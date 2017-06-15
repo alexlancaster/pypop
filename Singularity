@@ -14,7 +14,7 @@ From: fedora:25
 
 %post
 	# Inside the container, install our required packages.
-	yum install -y swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python-numeric python-libxml2 libxslt-python redhat-rpm-config yum rpm.x86_64 vim findutils
+	dnf install -y swig gcc.x86_64 gsl-devel.x86_64 python-devel.x86_64 python-numeric python-libxml2 libxslt-python redhat-rpm-config yum rpm.x86_64 vim findutils
 
 	# Now, build PyPop.
 	# (to be clear, the installs pypop into the container Python)
