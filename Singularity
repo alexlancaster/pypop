@@ -56,8 +56,8 @@ From: fedora:25
 
 	# Compare the output with our samples.  Exit if there are differences.
     # NOTE: Tests disabled because some output variance is apparently expected.
-	diff -u /pypop-source/data/singularity-test/USAFEL-UchiTelle-small-out.txt USAFEL-UchiTelle-small-out.txt || true
-	diff -u /pypop-source/data/singularity-test/USAFEL-UchiTelle-small-out.xml USAFEL-UchiTelle-small-out.xml || true
+	#diff -u /pypop-source/data/singularity-test/USAFEL-UchiTelle-small-out.txt USAFEL-UchiTelle-small-out.txt || true
+	#diff -u /pypop-source/data/singularity-test/USAFEL-UchiTelle-small-out.xml USAFEL-UchiTelle-small-out.xml || true
 
 	# Clean up!
 	rm USAFEL-UchiTelle-small-out.txt USAFEL-UchiTelle-small-out.xml
