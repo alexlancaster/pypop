@@ -679,7 +679,7 @@ def copyCustomPlatform(file, dist_dir, txt_ext=0):
 def checkXSLFile(xslFilename,
                  path='',
                  subdir='',
-                 abort=None,
+                 abort=False,
                  debug=None,
                  msg=''):
     if debug:

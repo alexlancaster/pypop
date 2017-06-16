@@ -50,6 +50,7 @@ import PyPop
 # create system-level defaults relative to where python is
 # installed, e.g. if python is installed in sys.prefix='/usr'
 # we look in /usr/share/pypop, /usr/bin/pypop etc.
+# FIXME: this should be removed
 datapath = os.path.join(sys.prefix, 'share', 'pypop')
 binpath = os.path.join(sys.prefix, 'bin')
 altpath = os.path.join(datapath, 'config.ini')
@@ -58,6 +59,7 @@ altpath = os.path.join(datapath, 'config.ini')
 pypopbinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
 
 version = PyPop.__version__
+pkgname = PyPop.__pkgname__
   
 ######################################################################
 # END: CHECK PATHS and FILEs
@@ -180,7 +182,7 @@ if not (use_libxsltmod or use_FourSuite):
 if xslFilename:
   # first, check the command supplied filename first, return canonical
   # location and abort if it is not found immediately
-  xslFilename = checkXSLFile(xslFilename, abort=1, debug=debugFlag)
+  xslFilename = checkXSLFile(xslFilename, abort=True, debug=debugFlag)
   xslFilenameDefault = None
 
 else:
@@ -193,11 +195,12 @@ else:
     print "binpath", binpath
     print "datapath", datapath
 
-  # check system if it run from sys.prefix and NOT in a 'frozen' state
-  if pypopbinpath == binpath and not hasattr(sys, 'frozen'):
-    xslFilenameDefault = checkXSLFile('text.xsl', datapath, \
-                                      abort=1, debug=debugFlag)
-  else:
+  from pkg_resources import  Requirement, resource_filename
+  mypath = resource_filename(Requirement.parse(pkgname), 'share/pypop')
+  
+  xslFilenameDefault = checkXSLFile('text.xsl', mypath, \
+                                    abort=False, debug=debugFlag)
+  if xslFilenameDefault == None:
     # otherwise use heuristics for XSLT transformation file 'text.xsl'
     # check child directory 'xslt/' first
     xslFilenameDefault = checkXSLFile('text.xsl', pypopbinpath, \
