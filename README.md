@@ -38,14 +38,14 @@ exec bash -login
 
 * ```swig``` (Simple Wrapper Interface Generator) 
 * ```gsl``` (GNU Scientific Library)
-* ```Numeric``` (Python Numeric)
+* ```Numpy``` (Python Numpy)
 * ```libxml2/libxslt``` (Python bindings)
 
 #### MacOS:
 
 Install the MacPorts packages
 
-      sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt
+      sudo port install swig-python gsl py-libxml2 py27-libxslt
       
 Set MacPorts to use the just-installed 2.7 MacPorts version of Python:
 
@@ -55,7 +55,7 @@ Set MacPorts to use the just-installed 2.7 MacPorts version of Python:
 
 Need at least Fedora 25 for the appropriate dependencies:
 
-      sudo dnf install swig gsl-devel python-numeric python-libxml2 libxslt-python
+      sudo dnf install swig gsl-devel python-numpy python-libxml2 libxslt-python
 
 (see also [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install within a Centos/RHEL release)
 
@@ -80,6 +80,20 @@ This will generate the following two files, an XML output file and a plain text 
 
     USAFEL-UchiTelle-small-out.xml
     USAFEL-UchiTelle-small-out.txt
+
+## Singularity Image
+If you want to use [singularity](https://singularity.lbl.gov) you can build an image as follows. First, [install singularity](https://singularity.lbl.gov/install-linux). Then, create your image
+
+```
+singularity create --size 3000 pypop.img
+```
+
+Bootstrap the image using the specification build file, which is called [Singularity](Singularity).
+
+```
+sudo singularity bootstrap pypop.img Singularity
+```
+
 
 ## Support
 

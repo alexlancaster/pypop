@@ -132,7 +132,7 @@ class Genotypes:
                 if (self.unsequencedSite == phase):
                     unsequencedSites += 1
                 if self.debug:
-                    print self.unsequencedSite, phase, unsequencedSites
+                    print(self.unsequencedSite, phase, unsequencedSites)
 
         
     def _genDataStructures(self):
@@ -156,8 +156,8 @@ class Genotypes:
 
         for locus in self.locusKeys:
             if self.debug:
-               print "locus name:", locus
-               print "column tuple:", self.matrix[locus]
+               print("locus name: %s" %locus)
+               print("column tuple: %s" %self.matrix[locus])
 
             # initialise blank dictionary
             self.alleleTable = {}
@@ -180,12 +180,12 @@ class Genotypes:
             for line in range(0, len(subMatrix)):
 
                 if self.debug:
-                    print rowCount, subMatrix[line],
+                    print(rowCount, subMatrix[line]),
 
                 allele1, allele2 = subMatrix[line]
 
                 if self.debug:
-                    print allele1, allele2
+                    print(allele1, allele2)
                 
                 # increment row count
                 rowCount += 1
@@ -210,7 +210,7 @@ class Genotypes:
                             if self.unsequencedSite == allele2:
                                 unsequencedSites += 1
                             if self.debug:
-                                print locus, allele1, allele2, unsequencedSites
+                                print(locus, allele1, allele2, unsequencedSites)
                             continue
                     # if either allele is untyped it is we throw out the
                     # entire individual and go to the next individual
@@ -225,7 +225,7 @@ class Genotypes:
                   self.locusTable[locus].append((allele1, allele2))
 
                 if self.debug:
-                    print allele1, allele2, self.total
+                    print(allele1, allele2, self.total)
 
             # assign frequency, counts
             self.freqcount[locus] = self.alleleTable, self.total, untypedIndividuals, unsequencedSites
@@ -492,7 +492,7 @@ class AlleleCounts:
         self.totalAlleleCount = total
         
         if self.debug:
-            print 'alleleTable', self.alleleTable
+            print('alleleTable', self.alleleTable)
 
         # simply reconstruct the 3-tuple as generated in
         # ParseGenotypeFile: alleleTable (a map of counts keyed by

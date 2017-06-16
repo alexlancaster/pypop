@@ -168,22 +168,22 @@ class Homozygosity:
             self.quantile.append((obsvHomo, pValue))
 
           if self.debug:
-            print self.count, self.expectedHomozygosity, self.varExpectedHomozygosity 
-            print self.sampleCount, self.numAlleles
+            print(self.count, self.expectedHomozygosity, self.varExpectedHomozygosity)
+            print(self.sampleCount, self.numAlleles)
 
           return 1
 
         else:
           if self.debug:
-            print self.sampleCount, self.numAlleles
-            print self.count, self.expectedHomozygosity, self.varExpectedHomozygosity 
-            print "Insufficient (", self.count, ") replicates observed for a valid analysis."
+            print(self.sampleCount, self.numAlleles)
+            print(self.count, self.expectedHomozygosity, self.varExpectedHomozygosity)
+            print("Insufficient (", self.count, ") replicates observed for a valid analysis.")
       else:
         if self.debug:
-          print self.numAlleles, " is out of range of valid k!"
+          print(self.numAlleles, " is out of range of valid k!")
     else:
       if self.debug:
-        print self.sampleCount, " is out of range of valid 2n!"
+        print(self.sampleCount, " is out of range of valid 2n!")
 
     return 0
 
@@ -201,7 +201,7 @@ class Homozygosity:
     for alleleCount in self.alleleData:
       freq = float(alleleCount/sampleCount)
       if self.debug:
-        print "allelecount = ", alleleCount, " freq = ", freq
+        print("allelecount = ", alleleCount, " freq = ", freq)
       sum += freq*freq
 
       self.observedHomozygosity = sum
@@ -226,12 +226,12 @@ class Homozygosity:
     
     upperBound = 999.0
     if self.debug:
-      print "quartiles"
-      print "homozyg  calcpVal pVal "
+      print("quartiles")
+      print("homozyg  calcpVal pVal ")
     for val in self.quantile:
       obsvHomo, pVal = val
       if self.debug:
-        print "%08f %08f" % (obsvHomo, pVal)
+        print("%08f %08f" % (obsvHomo, pVal))
       if self.observedHomozygosity > obsvHomo:
         lowerBound = pVal
         return lowerBound, upperBound
@@ -342,7 +342,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         li = [0] + self.alleleData + [0] 
 
         if self.debug:
-          print 'args to slatkin exact test:' , li, self.numAlleles, self.sampleCount, self.numReplicates
+          print('args to slatkin exact test:' , li, self.numAlleles, self.sampleCount, self.numReplicates)
 
         self.EW.main_proc(li, self.numAlleles, \
                           self.sampleCount, self.numReplicates)
@@ -464,8 +464,8 @@ class HomozygosityEWSlatkinExactPairwise:
         stream.opentag('group', locus=pair, metalocus=metaLocus)
         stream.writeln()
         subMat = self.matrix.getSuperType(pair)
-        ##print subMat
-        ##print subMat.colList
+        ##print(subMat
+        ##print(subMat.colList
 
         # StringMatrix can't use a colon (":") as part of an allele
         # identifier, so replace them with dash ("-")

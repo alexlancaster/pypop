@@ -34,7 +34,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-import sys, os, string
+import sys, os
 
 from distutils.core import setup, Extension
 from distutils.file_util import copy_file
@@ -115,7 +115,7 @@ if "LIBRARY_PATH" in os.environ:
 if "CPATH" in os.environ:
     include_dirs += os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
 
-print include_dirs
+print(include_dirs)
 
 # flag to determine whether or not we are using the CVS version
 if os.path.isdir("CVS"):
@@ -124,15 +124,15 @@ else:
     cvs_version=0
 
 # flag to determine whether we are generating a distribution version
-if os.environ.has_key('DISTRIB') and \
-   os.environ['DISTRIB'] == 'true':
-    distrib_version=1
+if "DISTRIB" in os.environ:
+    if os.environ['DISTRIB'] == 'true':
+        distrib_version=1
 else:
     distrib_version=0
 
 
 # define each extension
-ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
+ext_Emhaplofreq = Extension("_Emhaplofreq",
                             ["emhaplofreq/emhaplofreq_wrap.i",
                              "emhaplofreq/emhaplofreq.c"],
                             include_dirs=include_dirs + ["emhaplofreq"],
@@ -141,12 +141,12 @@ ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
                                            ('EXTERNAL_MODE', '1'),
                                            ('XML_OUTPUT', '1')]
                             )
-ext_EWSlatkinExact = Extension("_EWSlatkinExactmodule",
+ext_EWSlatkinExact = Extension("_EWSlatkinExact",
                                ["slatkin-exact/monte-carlo_wrap.i",
                                 "slatkin-exact/monte-carlo.c"],
                                )
 
-ext_Pvalue = Extension("_Pvaluemodule",
+ext_Pvalue = Extension("_Pvalue",
                        ["pval/pval_wrap.i",
                         "pval/pval.c",
                         "pval/pchisq.c",
@@ -210,14 +210,17 @@ ext_HweEnum = Extension("_HweEnum",
                         "hwe-enumeration/src/statistics.c",
                         "hwe-enumeration/src/external.c"
                         ],
-                      include_dirs=include_dirs + ["hwe-enumeration/src/include",
-                                    "/usr/include/glib-2.0",
-                                    "/usr/include/glib-2.0/include",
-                                    "/usr/lib/glib-2.0/include",
-                                    "/usr/lib64/glib-2.0/include/",
-                                    "/usr/include/libxml2"],
+                      include_dirs= include_dirs + ["hwe-enumeration/src/include",
+                                                   "/usr/include/glib-2.0",
+                                                   "/usr/include/glib-2.0/include",
+                                                   "/usr/lib/glib-2.0/include",
+                                                   "/usr/lib64/glib-2.0/include/",
+                                                   "/usr/include/libxml2",
+                                                   "/usr/local/include/gsl"],
+
                       libraries=["glib-2.0", "xml2", "popt",
                                  "m", "gsl", "gslcblas"],
+
                       define_macros=[('__SORT_TABLE__', '1'),
                                      ('g_fprintf', 'pyfprintf'),
                                      ('VERSION', '"internal"'),
@@ -244,13 +247,14 @@ if sys.argv[1] == 'sdist':
 else:
     # if we are not distributing the version build HweEnum
     if not(distrib_version):
-	pass
+        pass
         #extensions.append(ext_HweEnum)
         
 # get version from the file VERSION
 if os.path.isfile('VERSION'):
-  f = open('VERSION')
-  version = string.strip(f.readline())
+    with open('VERSION',"r") as f:
+        version = f.readline().strip('\n')
+
 # check if it's a development version (i.e. in CVS tree, use this)
 elif os.path.isfile('DEVEL_VERSION'):
   version = 'DEVEL_VERSION'

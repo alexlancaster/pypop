@@ -115,7 +115,7 @@ def _translate_file_to(xslFilename, inFile, outFile, params=None):
         doc.freeDoc()
 
     except:
-        print "Can't parse: %s, skipping" % inFile
+        print("Can't parse: %s, skipping" % inFile)
         success = 0
 
     return success
@@ -199,8 +199,8 @@ class Meta:
                 wellformed_files.append(f)
                 doc.freeDoc()
             except:
-                print "%s is not well-formed XML:" % f
-                print "  probably a problem with analysis not completing, skipping in meta analysis!"
+                print("%s is not well-formed XML:" % f)
+                print("  probably a problem with analysis not completing, skipping in meta analysis!")
 
         if batchsize:
             fileBatchList = splitIntoNGroups(wellformed_files, n=batchsize)
@@ -245,7 +245,7 @@ class Meta:
             meta_string += "</meta>"
 
             if dump_meta == 1:
-                print meta_string
+                print(meta_string)
             else:
                 f = open('meta.xml', 'w')
                 f.write(meta_string)
@@ -288,8 +288,8 @@ class Meta:
                         if success:
                             os.rename(dat, "%s.%d" % (dat, fileBatch))
                         else:
-                            print "problem with generating %s in batch %d" \
-                                  % (dat, fileBatch)
+                            print("problem with generating %s in batch %d"
+                                  % (dat, fileBatch))
 
         # at end of entire processing, need to cat files together
         # this is a bit hacky

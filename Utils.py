@@ -39,10 +39,9 @@
    files.
 """
 
-import os, sys, string, types, re, shutil, copy, operator
-import Numeric
-from Numeric import zeros, take, asarray, PyObject
-from UserArray import UserArray
+import os, sys, types, stat, re, shutil, copy, operator
+from numpy import zeros, take, asarray
+from numpy.lib.user_array import container
 
 class TextOutputStream:
     """Output stream for writing text files.
@@ -83,7 +82,7 @@ class XMLOutputStream(TextOutputStream):
         if attr == '':
             return '%s' % tagname
         else:
-            return '%s %s' % (tagname, string.strip(attr))
+            return '%s %s' % (tagname, attr.strip())
         
     def opentag(self, tagname, **kw):
         """Generate an open XML tag.
@@ -360,9 +359,9 @@ class Index:
     """
     self.i = i
 
-class StringMatrix(UserArray):
+class StringMatrix(container):
   """
-  StringMatrix is a subclass of the Numeric Python (NumPy)
+  StringMatrix is a subclass of NumPy (Numeric Python)
   UserArray class, and uses NumPy to store the data in an efficient
   array format, rather than internal Python lists.
   """
@@ -400,9 +399,9 @@ class StringMatrix(UserArray):
       self.headerLines = headerLines
 
       # initialising the internal NumPy array
-      self.array = zeros((self.rowCount, self.colCount*2+self.extraCount), PyObject)
+      self.array = zeros((self.rowCount, self.colCount*2+self.extraCount))
       self.shape = self.array.shape
-      self._typecode = self.array.typecode()
+      self._typecode = self.array.dtype # Numeric array.typecode()
       self.name = string.split(str(self.__class__))[0]
 
   def __repr__(self):
@@ -651,7 +650,7 @@ def convertLineEndings(file, mode):
 
 def fixForPlatform(filename, txt_ext=0):
     # make file read-writeable by everybody
-    os.chmod(filename, 0666)
+    os.chmod(filename, stat.S_IFCHR)
 
     # create as a DOS format file LF -> CRLF
     if sys.platform == 'cygwin':
@@ -659,20 +658,20 @@ def fixForPlatform(filename, txt_ext=0):
         # give it a .txt extension so that lame Windows realizes it's text
         if txt_ext:
             os.rename(filename, filename + '.txt')
-            print filename + '.txt'
+            print('%s.txt' %filename)
         else:
-            print filename
+            print(filename)
     else:
-        print filename
+        print(filename)
 
 def copyfileCustomPlatform(src, dest, txt_ext=0):
     shutil.copyfile(src, dest)
     fixForPlatform(dest, txt_ext=txt_ext)
-    print "copying %s to" % src,
+    print("copying %s to" % src),
     
 def copyCustomPlatform(file, dist_dir, txt_ext=0):
     new_filename=os.path.join(dist_dir, os.path.basename(file))
-    print "copying %s to" % file, 
+    print("copying %s to" % file)
     shutil.copy(file, dist_dir)
     fixForPlatform(new_filename, txt_ext=txt_ext)
 
@@ -683,7 +682,7 @@ def checkXSLFile(xslFilename,
                  debug=None,
                  msg=''):
     if debug:
-        print "path=%s, subdir=%s, xslFilename=%s xsl path" % (path, subdir, xslFilename)
+        print("path=%s, subdir=%s, xslFilename=%s xsl path" % (path, subdir, xslFilename))
 
     # generate a full path to check
     checkPath = os.path.realpath(os.path.join(path, subdir, xslFilename))
@@ -708,7 +707,7 @@ def getUserFilenameInput(prompt, filename):
           if os.path.isfile(filename):
               nofile = 0
           else:
-              print "File '%s' does not exist" % filename
+              print("File '%s' does not exist" % filename)
       else:
           # if we don't accept default, check that file exists and use
           # the user input as the filename
@@ -717,7 +716,7 @@ def getUserFilenameInput(prompt, filename):
               filename = tempFilename
           else:
               # otherwise return an error
-              print "File '%s' does not exist" % tempFilename
+              print("File '%s' does not exist" % tempFilename)
       
     return filename
 

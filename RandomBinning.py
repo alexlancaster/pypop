@@ -80,9 +80,9 @@ class RandomBinsForHomozygosity:
         self.alleleCountDict[tuple(alleleCountsAfter)] = "after"
         
         if self.debug:
-            print 'alleleCountsBefore', alleleCountsBefore
-            print 'alleleCountsAfter', alleleCountsAfter
-            print 'alleleCountDict', self.alleleCountDict
+            print('alleleCountsBefore', alleleCountsBefore)
+            print('alleleCountsAfter', alleleCountsAfter)
+            print('alleleCountDict', self.alleleCountDict)
 
         hzExactObj = HomozygosityEWSlatkinExact(numReplicates=self.numReplicates, debug=self.debug)
         stats = hzExactObj.returnBulkHomozygosityStats(self.alleleCountDict, binningMethod=self.binningMethod)
@@ -100,7 +100,7 @@ class RandomBinsForHomozygosity:
         alleleCounts = tuple(alleleCounts)
 
         if self.debug:
-            print alleleCounts
+            print(alleleCounts)
             
         if alleleCounts in self.alleleCountDict.keys():
             self.alleleCountDict[alleleCounts] += 1
@@ -171,7 +171,7 @@ class RandomBinsForHomozygosity:
                 del polyseqSliced[self.locus+"*"+self.untypedAllele]
             except:
                 if self.debug:
-                    print "no untyped allele in polyseq"
+                    print("no untyped allele in polyseq")
 
             while len(alleleCountsRand) > len(alleleCountsAfter):
 
@@ -183,10 +183,10 @@ class RandomBinsForHomozygosity:
                 allelesToBin = []
 
                 if self.debug:
-                    print "polyseq",polyseqSliced
-                    print "posToDelete",posToDelete
-                    print "length of polyseq before",seqLength
-                    print "alleles before binning",alleleCountsRand
+                    print("polyseq",polyseqSliced)
+                    print("posToDelete",posToDelete)
+                    print("length of polyseq before",seqLength)
+                    print("alleles before binning",alleleCountsRand)
 
                 # deletes the selected character from each sequence
                 for allele in polyseqSliced:
@@ -219,10 +219,10 @@ class RandomBinsForHomozygosity:
                     del polyseqSliced[allele]
 
                 if self.debug:
-                    print "length of polyseq after",len(polyseqSliced.values()[0])
-                    print "allelesToBin",allelesToBin
-                    print "alleles after binning",alleleCountsRand
-                    print "--------------------"
+                    print("length of polyseq after",len(polyseqSliced.values()[0]))
+                    print("allelesToBin",allelesToBin)
+                    print("alleles after binning",alleleCountsRand)
+                    print("--------------------")
 
             binningAttempts += 1
 
@@ -232,14 +232,14 @@ class RandomBinsForHomozygosity:
 
             elif len(alleleCountsRand) < len(alleleCountsAfter):
                 if self.debug:
-                    print "=======================OVERSHOT TARGET!=================="
+                    print("=======================OVERSHOT TARGET!==================")
                 # restore counters to pre-overshoot counts
                 deleteHistory = copy(deleteHistorySaved)
                 collapseHistory = copy(collapseHistorySaved)
                 weightedCollapseHistory = copy(weightedCollapseHistorySaved)
                 
             if binningAttempts > (self.binningReplicates * 100):
-                print "FilterLog: Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful)
+                print("FilterLog: Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful))
                 self.logFile.writeln("Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful) )
                 break
 
