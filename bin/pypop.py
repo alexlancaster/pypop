@@ -195,11 +195,15 @@ else:
     print "binpath", binpath
     print "datapath", datapath
 
-  from pkg_resources import  Requirement, resource_filename
-  mypath = resource_filename(Requirement.parse(pkgname), 'share/pypop')
-  
-  xslFilenameDefault = checkXSLFile('text.xsl', mypath, \
+  from pkg_resources import Requirement, resource_filename, DistributionNotFound
+
+  try:
+    mypath = resource_filename(Requirement.parse(pkgname), 'share/pypop')
+    xslFilenameDefault = checkXSLFile('text.xsl', mypath, \
                                     abort=False, debug=debugFlag)
+  except DistributionNotFound:
+    xslFilenameDefault = None
+
   if xslFilenameDefault == None:
     # otherwise use heuristics for XSLT transformation file 'text.xsl'
     # check child directory 'xslt/' first
