@@ -25,6 +25,7 @@ From: fedora:25
 %post
 	# Inside the container, install our required packages.
 	echo 'BOOTSTRAP[POST]: Installing packages'
+	echo 'deltarpm=0' >> /etc/dnf/dnf.conf
 	dnf install -y python27 python-devel python-numeric python-libxml2 libxslt-python gcc redhat-rpm-config gsl-devel swig less findutils vim 2>&1 | tee /.bootstrap_logs/dnf_install
 
 	# Now, build PyPop.
