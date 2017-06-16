@@ -1,0 +1,10 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_Japanese_1999.pop	DQA1	102	102	lit	Japanese_1999	Asian	08-NEA	Aichi	3	volunteers from members of the Aichi Blood Center staff	35.00N	137.25E	1	1	PCR-RFLP, PCR-SSP	{OTK+99}	Ohta	1999	Histocompatibility antigens and alleles in Japanese haemophilia A patients with or without factor VIII antibodies	Tissue Antigens	54	91-97	isaotaka@os.usen.ne.jp		JP	Takahashi	1301112	34	1	Nomura 1991, Ota 1991, 1992, Maeda 1990	N		Y	N	Y	haemophilia A				12th? - Checked, not evident	YT
+DQA1	count
+0101/0104	16
+0102	20
+0103	21
+0301/0302	32
+0401	1
+0501	10
+0601	2

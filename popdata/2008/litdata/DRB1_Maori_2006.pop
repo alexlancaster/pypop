@@ -1,0 +1,34 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_Maori_2006.pop	DRB1	400	400	lit	Maori_2006		06-OCE	New Zealand	2	New Zealand Maori population living in the Wellington region of the North Island	41.28S	174.77E	1	1			Tracey	2006	Class II HLA allele polymorphism: DRB1, DQB1 and DPB1 alleles and haplotypes in the New Zealand Maori population	Tissue Antigens	68	297-302																			ODS
+DRB1	count
+1201	86
+110101	56
+0403	45
+080302	37
+1408	25
+150101	21
+0701	21
+0401	20
+090102	15
+03011	14
+1401	13
+0101	12
+1302	5
+150201	4
+1301	4
+0307	3
+0404	2
+0410	2
+120201	2
+1305	2
+1601	1
+1602	1
+040501	1
+0801	1
+1111	1
+1102	1
+1103	1
+110401	1
+1310	1
+1407	1
+1423	1
