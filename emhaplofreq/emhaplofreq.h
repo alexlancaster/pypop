@@ -35,8 +35,8 @@ MODIFICATIONS. */
 #define NAME_LEN    22       /* 10 chars for allele name, plus colon and null */ 
 #define LINE_LEN    132      /* RS changed from 120 to 132=6*2*(10+1) */ 
 #define MAX_ROWS    5000     /* increased from 1023                   */ 
-#define MAX_ALLELES 100      /* increased from 80 for a large dataset */
-#define MAX_LOCI    7 
+#define MAX_ALLELES 200      /* increased from 80 for a large dataset */
+#define MAX_LOCI    20 
 #define MAX_COLS    MAX_LOCI * 2 
                              /* max genotypes:  2^max_loci*max_rows */ 
 #define MAX_GENOS   40000    /* RS changed from 64*MAX_ROWS and then 20000 */
