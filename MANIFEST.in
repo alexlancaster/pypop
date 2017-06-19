@@ -1,4 +1,5 @@
 include README.md
+include DEV_NOTES.md
 include LICENSE
 include NEWS
 include pypop.py
