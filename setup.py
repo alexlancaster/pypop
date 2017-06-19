@@ -36,10 +36,9 @@
 
 import sys, os, string
 
-from distutils.core import setup, Extension
-from distutils.file_util import copy_file
-from distutils.sysconfig import PREFIX, get_config_vars, get_config_var
-from distutils.command.build_ext import build_ext
+from setuptools import setup
+from setuptools.extension import Extension
+from sysconfig import _PREFIX, get_config_vars, get_config_var
 
 # Override the overzealous use of _FORTIFY_SOURCE CFLAGS flags that
 # are in /usr/lib/python2.4/config/Makefile used on Fedora Core 4
@@ -48,93 +47,25 @@ from distutils.command.build_ext import build_ext
 cv = get_config_var("OPT")
 cv = cv.replace("-D_FORTIFY_SOURCE=2", "-D_FORTIFY_SOURCE=1")
 
-# override implementation of swig_sources method in standard build_ext
-# class, so we can change the way SWIG is called by Python's default
-# configuration of distutils
-class my_build_ext(build_ext):
-
-    def swig_sources (self, sources, extension=None):
-
-        """Walk the list of source files in 'sources', looking for SWIG
-        interface (.i) files.  Run SWIG on all that are found, and
-        return a modified 'sources' list with SWIG source files replaced
-        by the generated C (or C++) files.
-        """
-
-        new_sources = []
-        swig_sources = []
-        swig_targets = {}
-
-        # XXX this drops generated C/C++ files into the source tree, which
-        # is fine for developers who want to distribute the generated
-        # source -- but there should be an option to put SWIG output in
-        # the temp dir.
-
-        if self.swig_cpp:
-            target_ext = '.cpp'
-        else:
-            target_ext = '.c'
-
-        for source in sources:
-            (base, ext) = os.path.splitext(source)
-            if ext == ".i":             # SWIG interface file
-                new_sources.append(base + target_ext)
-                swig_sources.append(source)
-                swig_targets[source] = new_sources[-1]
-            else:
-                new_sources.append(source)
-
-        if not swig_sources:
-            return new_sources
-
-        swig = self.find_swig()
-        swig_cmd = [swig, "-python", "-ISWIG"]
-        if self.swig_cpp:
-            swig_cmd.append("-c++")
-
-        for source in swig_sources:
-            target = swig_targets[source]
-            self.announce("swigging %s to %s" % (source, target))
-            self.spawn(swig_cmd + ["-o", target, source])
-
-        return new_sources
-
-    # swig_sources ()
-
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
 # we set the environment to emulate that.
 #os.environ['CFLAGS'] = '-funroll-loops'
 
-# look for libraries in PREFIX
-library_dirs = [os.path.join(PREFIX, "lib")]
-include_dirs = [os.path.join(PREFIX, "include")]
+# look for libraries in _PREFIX
+library_dirs = [os.path.join(_PREFIX, "lib")]
+include_dirs = [os.path.join(_PREFIX, "include")]
 # also look in LIBRARY_PATH, CPATH (needed for macports etc.)
 if "LIBRARY_PATH" in os.environ:
     library_dirs += os.environ["LIBRARY_PATH"].rstrip(os.pathsep).split(os.pathsep)
 if "CPATH" in os.environ:
     include_dirs += os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
 
-print include_dirs
-
-# flag to determine whether or not we are using the CVS version
-if os.path.isdir("CVS"):
-    cvs_version=1
-else:
-    cvs_version=0
-
-# flag to determine whether we are generating a distribution version
-if os.environ.has_key('DISTRIB') and \
-   os.environ['DISTRIB'] == 'true':
-    distrib_version=1
-else:
-    distrib_version=0
-
-
 # define each extension
 ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
                             ["emhaplofreq/emhaplofreq_wrap.i",
                              "emhaplofreq/emhaplofreq.c"],
+                            swig_opts = ["-ISWIG"],
                             include_dirs=include_dirs + ["emhaplofreq"],
                             define_macros=[('__SWIG__', '1'),
                                            ('DEBUG', '0'),
@@ -144,6 +75,7 @@ ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
 ext_EWSlatkinExact = Extension("_EWSlatkinExactmodule",
                                ["slatkin-exact/monte-carlo_wrap.i",
                                 "slatkin-exact/monte-carlo.c"],
+                               swig_opts = ["-ISWIG"],
                                )
 
 ext_Pvalue = Extension("_Pvaluemodule",
@@ -164,6 +96,7 @@ ext_Pvalue = Extension("_Pvaluemodule",
                         "pval/stirlerr.c",
                         "pval/lgammacor.c",
                         "pval/pnorm.c"],
+                       swig_opts = ["-ISWIG"],
                        include_dirs=include_dirs + ["pval"],
                        define_macros=[('MATHLIB_STANDALONE', '1')]
                        )
@@ -195,6 +128,7 @@ ext_Gthwe_macros = [('__SWIG__', '1'),
 
 ext_Gthwe = Extension("_Gthwemodule",
                       ext_Gthwe_files,
+                      swig_opts = ["-ISWIG"],
                       include_dirs=include_dirs + ["gthwe"],
                       library_dirs=library_dirs,
                       libraries=["gsl", "gslcblas"],
@@ -210,76 +144,43 @@ ext_HweEnum = Extension("_HweEnum",
                         "hwe-enumeration/src/statistics.c",
                         "hwe-enumeration/src/external.c"
                         ],
-                      include_dirs=include_dirs + ["hwe-enumeration/src/include",
-                                    "/usr/include/glib-2.0",
-                                    "/usr/include/glib-2.0/include",
-                                    "/usr/lib/glib-2.0/include",
-                                    "/usr/lib64/glib-2.0/include/",
-                                    "/usr/include/libxml2"],
-                      libraries=["glib-2.0", "xml2", "popt",
-                                 "m", "gsl", "gslcblas"],
-                      define_macros=[('__SORT_TABLE__', '1'),
-                                     ('g_fprintf', 'pyfprintf'),
-                                     ('VERSION', '"internal"'),
-                                     ('PACKAGE_NAME','"hwe-enumeration"'),
-                                     ('INDIVID_GENOTYPES', '1'),
-                                     ('HAVE_LIBGSL', '1')]
-                      )
+                        swig_opts = ["-ISWIG"],
+                        include_dirs=include_dirs + ["hwe-enumeration/src/include",
+                                                     "/usr/include/glib-2.0",
+                                                     "/usr/include/glib-2.0/include",
+                                                     "/usr/lib/glib-2.0/include",
+                                                     "/usr/lib64/glib-2.0/include/",
+                                                     "/usr/include/libxml2"],
+                        libraries=["glib-2.0", "xml2", "popt",
+                                   "m", "gsl", "gslcblas"],
+                        define_macros=[('__SORT_TABLE__', '1'),
+                                       ('g_fprintf', 'pyfprintf'),
+                                       ('VERSION', '"internal"'),
+                                       ('PACKAGE_NAME','"hwe-enumeration"'),
+                                       ('INDIVID_GENOTYPES', '1'),
+                                       ('HAVE_LIBGSL', '1')]
+                        )
 
 ext_Emhaplofreq.depends=['SWIG/typemap.i', "emhaplofreq/emhaplofreq.h"]
 ext_Pvalue.depends=['SWIG/typemap.i', 'pval/Rconfig.h', 'pval/Rmath.h', 'pval/dpq.h', 'pval/nmath.h']
 ext_Gthwe.depends=['SWIG/typemap.i', 'gthwe/func.h', 'gthwe/hwe.h']
     
-
 # default list of extensions to build
 extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Gthwe]
 
-# if and only if we are making a source distribution, then regenerate
-# ChangeLog
-if sys.argv[1] == 'sdist':
-    # first check to see if we are distributing from CVS
-    if cvs_version:
-        if os.path.isfile('VERSION') == 0:
-            sys.exit("before distributing, please create a VERSION file!")
-else:
-    # if we are not distributing the version build HweEnum
-    if not(distrib_version):
-	pass
-        #extensions.append(ext_HweEnum)
-        
-# get version from the file VERSION
-if os.path.isfile('VERSION'):
-  f = open('VERSION')
-  version = string.strip(f.readline())
-# check if it's a development version (i.e. in CVS tree, use this)
-elif os.path.isfile('DEVEL_VERSION'):
-  version = 'DEVEL_VERSION'
-else:
-  sys.exit("Could not find VERSION file!  Exiting...")
+# don't include HWE yet
+# extensions.append(ext_HweEnum)
 
-def Ensure_Scripts(scripts):
-    """Strips '.py' from installed scripts.
-
-    This is a hack and needs work.
-    """
-    for script in scripts:
-        suffix = script[-3:]
-        prefix = script[:-3]
-        if suffix == '.py':
-            #if sys.argv[1] == 'install':
-            copy_file(script,prefix,preserve_mode=0)
-            scripts[scripts.index(script)] = prefix
-    return scripts
+from PyPop import __version__, __pkgname__
 
 # data files to install
-data_file_paths = ['config.ini', 'VERSION']
+data_file_paths = ['config.ini']
 # xslt files are in a subdirectory
 xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
 data_file_paths.extend(xslt_files)
 
-
-setup (name = "pypop",
-       version = version,
+setup (name = __pkgname__,
+       version = __version__,
        description = "Python for Population Genetics",
        long_description = \
        """PyPop is a framework for population genetics statistics
@@ -288,22 +189,14 @@ particularly large-scale multilocus genotype data""",
        maintainer = "Alex Lancaster",
        maintainer_email = "alexl@cal.berkeley.edu",
        license = "GNU GPL",
-       platforms = ["GNU/Linux", "Windows"],
-       
-       extra_path = 'pypop',
-
-       py_modules = ["Arlequin", "HardyWeinberg", "Utils", "Haplo",
-                     "Homozygosity", "ParseFile", "Filter", "Main",
-                     "DataTypes", "GUIApp", "RandomBinning", "Meta"],
-       scripts= Ensure_Scripts(['pypop.py', 'popmeta.py']),
-
+       platforms = ["GNU/Linux", "Windows", "MacOS"],
+       packages = ["PyPop"],
+       # install_requires = [
+       #  'Numeric',
+       #  'libxml2-python'
+       #  ],
+       scripts= ['bin/pypop.py', 'bin/popmeta.py'],
        data_files=[('share/pypop', data_file_paths)],
-
-# compile SWIG module
-
-       cmdclass = {'build_ext': my_build_ext,},
-       
        ext_modules=extensions
-
        )
 

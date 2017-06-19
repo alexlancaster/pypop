@@ -1,6 +1,9 @@
 PyPop NEWS --- history of user-visible changes to PyPop.  -*- outline -*-
 Copyright (C) 2003, 2004, 2005, 2006, 2007 Regents of the University of California
 
+* Release Notes for PyPop 0.8.0+
+** Major overhaul: will add new notes
+
 * Release Notes for PyPop 0.7.0
 ** New features
 *** 'makeNewPopFile' option has been changed.  This option allows user to 

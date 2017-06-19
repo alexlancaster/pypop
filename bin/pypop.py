@@ -38,6 +38,11 @@
 
 import sys, os, string, time
 
+DIR = os.path.abspath(os.path.dirname(__file__))
+sys.path.insert(0, os.path.join(DIR, '..'))
+
+import PyPop
+
 ######################################################################
 # BEGIN: CHECK PATHS and FILEs
 ######################################################################
@@ -45,35 +50,16 @@ import sys, os, string, time
 # create system-level defaults relative to where python is
 # installed, e.g. if python is installed in sys.prefix='/usr'
 # we look in /usr/share/pypop, /usr/bin/pypop etc.
+# FIXME: this should be removed
 datapath = os.path.join(sys.prefix, 'share', 'pypop')
 binpath = os.path.join(sys.prefix, 'bin')
 altpath = os.path.join(datapath, 'config.ini')
-systemversionpath = os.path.join(datapath, 'VERSION')
 
 # find our exactly where the current pypop is being run from
 pypopbinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-# look for 'VERSION' file in this directory
-localversionpath = os.path.join(pypopbinpath, 'VERSION')
-
-# first, check to see if we are running from the system-installed location
-# and not in the 'frozen' standalone state
-if pypopbinpath == binpath and not hasattr(sys, 'frozen'):
-  versionpath = systemversionpath
-# if not, assume VERSION is in the current directory as the script
-else:
-  versionpath = localversionpath
-
-noversion_message = """Could not find VERSION file in %s!
-Your PyPop installation may be broken.  Exiting...""" % versionpath
-
-# check to see if the VERSION file exists,
-# if not, exit with an error message
-if os.path.isfile(versionpath):
-  f = open(versionpath)
-  version = string.strip(f.readline())
-else:
-  sys.exit(noversion_message)
+version = PyPop.__version__
+pkgname = PyPop.__pkgname__
   
 ######################################################################
 # END: CHECK PATHS and FILEs
@@ -133,7 +119,7 @@ return for each prompt.
 from getopt import getopt, GetoptError
 from glob import glob
 from ConfigParser import ConfigParser
-from Main import getUserFilenameInput, checkXSLFile
+from PyPop.Main import getUserFilenameInput, checkXSLFile
 
 try:
   opts, args =getopt(sys.argv[1:],"lsigc:hdx:f:o:V", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "filelist=", "outputdir=", "version", "generate-tsv"])
@@ -196,7 +182,7 @@ if not (use_libxsltmod or use_FourSuite):
 if xslFilename:
   # first, check the command supplied filename first, return canonical
   # location and abort if it is not found immediately
-  xslFilename = checkXSLFile(xslFilename, abort=1, debug=debugFlag)
+  xslFilename = checkXSLFile(xslFilename, abort=True, debug=debugFlag)
   xslFilenameDefault = None
 
 else:
@@ -204,11 +190,21 @@ else:
   # return a valid path or None (but the value found here is always
   # overriden by options in the .ini file)
 
-  # check system if it run from sys.prefix and NOT in a 'frozen' state
-  if pypopbinpath == binpath and not hasattr(sys, 'frozen'):
-    xslFilenameDefault = checkXSLFile('text.xsl', datapath, \
-                                      abort=1, debug=debugFlag)
-  else:
+  if debugFlag:
+    print "pypopbinpath", pypopbinpath
+    print "binpath", binpath
+    print "datapath", datapath
+
+  from pkg_resources import Requirement, resource_filename, DistributionNotFound
+
+  try:
+    mypath = resource_filename(Requirement.parse(pkgname), 'share/pypop')
+    xslFilenameDefault = checkXSLFile('text.xsl', mypath, \
+                                    abort=False, debug=debugFlag)
+  except DistributionNotFound:
+    xslFilenameDefault = None
+
+  if xslFilenameDefault == None:
     # otherwise use heuristics for XSLT transformation file 'text.xsl'
     # check child directory 'xslt/' first
     xslFilenameDefault = checkXSLFile('text.xsl', pypopbinpath, \
@@ -312,7 +308,7 @@ else:
         fileNames.extend(globbedFiles)
 
   # parse config file
-  from Main import Main, getConfigInstance
+  from PyPop.Main import Main, getConfigInstance
   config = getConfigInstance(configFilename, altpath, usage_message)
 
   xmlOutPaths = []
@@ -338,7 +334,7 @@ else:
     txtOutPaths.append(application.getTxtOutPath())
 
   if generateTSV:
-    from Meta import Meta
+    from PyPop.Meta import Meta
     
     print "Generating TSV (.dat) files..."
     Meta(popmetabinpath=pypopbinpath,

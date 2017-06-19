@@ -45,19 +45,19 @@ exec bash -login
 
 Install the MacPorts packages
 
-      sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt
+      sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt py-setuptools
       
 Set MacPorts to use the just-installed 2.7 MacPorts version of Python:
 
       sudo port select --set python python27
 
-#### Linux (Fedora): 
+#### Linux (Fedora/Centos/RHEL): 
 
 Need at least Fedora 25 for the appropriate dependencies:
 
-      sudo dnf install swig gsl-devel python-numeric python-libxml2 libxslt-python
+      sudo dnf install swig gsl-devel python-numeric python-libxml2 libxslt-python python-setuptools
 
-(see also [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install within a Centos/RHEL release)
+See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install on a Centos/RHEL release.
 
 #### Linux (Debian/Ubuntu): 
 
@@ -74,7 +74,7 @@ explanation of the options available.
 
 ### Run a minimal dataset:
 
-    ./pypop.py -c  data/samples/minimal.ini data/samples/USAFEL-UchiTelle-small.pop
+    ./bin/pypop.py -c  data/samples/minimal.ini data/samples/USAFEL-UchiTelle-small.pop
 
 This will generate the following two files, an XML output file and a plain text version:
 
