@@ -39,5 +39,6 @@ class TestAlleleColon(unittest.TestCase):
 
     def test_result_md5(self):
         # compare with md5sum of output file
+        # FIXME: this will not work currently because each file is given a unique timestamp in the txt output
         assert utils.file_md5sum('Test_Allele_Colon_HardyWeinberg-out.txt') == '3c4e98c7dd6d1d5876d9d077b762b9f0'
 
