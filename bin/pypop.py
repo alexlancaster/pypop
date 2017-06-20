@@ -91,6 +91,7 @@ current directory or in %s.
                         (mutually exclusive with supplying INPUTFILEs)
       --generate-tsv   generate TSV output files (aka run 'popmeta')
   -V, --version        print version of PyPop
+  -m, --testmode       run PyPop in test mode for unit testing
   
   INPUTFILE   input text file""" % altpath
 
@@ -122,7 +123,7 @@ from ConfigParser import ConfigParser
 from PyPop.Main import getUserFilenameInput, checkXSLFile
 
 try:
-  opts, args =getopt(sys.argv[1:],"lsigc:hdx:f:o:V", ["use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "filelist=", "outputdir=", "version", "generate-tsv"])
+  opts, args =getopt(sys.argv[1:],"mlsigc:hdx:f:o:V", ["testmode", "use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "filelist=", "outputdir=", "version", "generate-tsv"])
 except GetoptError:
   sys.exit(usage_message)
 
@@ -138,6 +139,7 @@ xslFilename = None
 outputDir = None
 fileList = None
 generateTSV = 0
+testMode = False
 
 # parse options
 for o, v in opts:
@@ -172,6 +174,8 @@ for o, v in opts:
       sys.exit("'%s' is not a directory, please supply a valid output directory" % v)
   elif o in ("-V", "--version"):
     sys.exit(version_message)
+  elif o in ("-m", "--testmode"):
+    testMode = True
     
 # if neither option is set explicitly, use libxslt python wrappers
 if not (use_libxsltmod or use_FourSuite):
@@ -328,7 +332,8 @@ else:
                        xslFilename=xslFilename,
                        xslFilenameDefault=xslFilenameDefault,
                        outputDir=outputDir,
-                       version=version)
+                       version=version,
+                       testMode=testMode)
 
     xmlOutPaths.append(application.getXmlOutPath())
     txtOutPaths.append(application.getTxtOutPath())
