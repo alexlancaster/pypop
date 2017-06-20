@@ -34,34 +34,32 @@ exec bash -login
 
     git clone https://github.com/alexlancaster/pypop.git
   
-### 4. Install external dependencies
-
-* ```swig``` (Simple Wrapper Interface Generator) 
-* ```gsl``` (GNU Scientific Library)
-* ```Numeric``` (Python Numeric)
-* ```libxml2/libxslt``` (Python bindings)
+### 4. Install dependencies
 
 #### MacOS:
 
 Install the MacPorts packages
 
-      sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt py-setuptools
+      sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt py-setuptools py27-pytest
       
-Set MacPorts to use the just-installed 2.7 MacPorts version of Python:
+Set MacPorts to use the just-installed 2.7 MacPorts version of Python and pip:
 
       sudo port select --set python python27
+      sudo port select --set pip pip27
 
 #### Linux (Fedora/Centos/RHEL): 
 
 Need at least Fedora 25 for the appropriate dependencies:
 
-      sudo dnf install swig gsl-devel python-numeric python-libxml2 libxslt-python python-setuptools
+      sudo dnf install swig gsl-devel python-numeric python-libxml2 libxslt-python python-setuptools python-pip
 
 See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install on a Centos/RHEL release.
 
-#### Linux (Debian/Ubuntu): 
+#### For all platforms
 
-      TBD
+Use pip to install ```pytest_pipeline```:
+
+      pip install --user pytest_pipeline
      
 ### 5. Build
 
