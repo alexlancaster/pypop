@@ -1,10 +1,10 @@
 ## Python for Population Genomics (PyPop)
 
-PyPop is a framework for processing genotype and allele data and running analyses.
+PyPop is a framework for processing genotype and allele data and running population genetic analyses.
 
 ## Installation
 
-### 1. Install OS-specific tools
+### 1. Install OS-specific development environment
 
 #### MacOS X
 
@@ -24,28 +24,28 @@ export CPATH=/opt/local/include:$CPATH
 exec bash -login
 ```
 
-5. Check that the MacPorts version of Python is active by typing: ```which python```, if it is working correctly you should see the following:
-
-```
-/opt/local/bin/python
-````
-
-### 3. Clone the repository:
+### 2. Clone the repository:
 
     git clone https://github.com/alexlancaster/pypop.git
   
-### 4. Install dependencies
+### 3. Install dependencies
 
 #### MacOS:
 
 Install the MacPorts packages
 
-      sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt py-setuptools
+      sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt py-setuptools py27-pip
       
 Set MacPorts to use the just-installed 2.7 MacPorts version of Python and pip:
 
       sudo port select --set python python27
       sudo port select --set pip pip27
+
+Check that the MacPorts version of Python is active by typing: ```which python```, if it is working correctly you should see the following:
+
+```
+/opt/local/bin/python
+````
 
 #### Linux (Fedora/Centos/RHEL): 
 
@@ -60,8 +60,8 @@ See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install 
 Use pip to install ```pytest```:
 
       pip install --user pytest
-     
-### 5. Build
+
+### 4. Build
 
     ./setup.py build
 
@@ -92,6 +92,7 @@ When reporting bugs, especially during installation, please run the following an
     echo $CPATH
     echo $LIBRARY_PATH
     echo $PATH
+    which python
 
 If you are running on MacOS please also run and include the output of:
 
