@@ -4,7 +4,7 @@ import pytest
 
 def test_AlleleColon():
     process=subprocess.Popen(
-        ['./bin/pypop.py', '-m', '-c', './data/ihiws2017/Test_Allele_Colon_HardyWeinberg.ini', './data/ihiws2017/Test_Allele_Colon_HardyWeinberg.pop'],
+        ['./bin/pypop.py', '-m', '-c', './tests/data/Test_Allele_Colon_HardyWeinberg.ini', './tests/data/Test_Allele_Colon_HardyWeinberg.pop'],
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT
         )
