@@ -40,7 +40,7 @@ exec bash -login
 
 Install the MacPorts packages
 
-      sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt py-setuptools py27-pytest
+      sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt py-setuptools
       
 Set MacPorts to use the just-installed 2.7 MacPorts version of Python and pip:
 
@@ -57,9 +57,9 @@ See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install 
 
 #### For all platforms
 
-Use pip to install ```pytest_pipeline```:
+Use pip to install ```pytest```:
 
-      pip install --user pytest_pipeline
+      pip install --user pytest
      
 ### 5. Build
 
