@@ -404,10 +404,19 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
 
   const gsl_rng_type * T;
   gsl_rng * r;
+  long seed;
   
   gsl_rng_env_setup();
   T = gsl_rng_default;
-  r = gsl_rng_alloc (T);
+  
+  if (testing) { 
+    seed = 1234; // fix seed if in testing mode
+  }  
+  else {
+    seed = time(NULL);
+  }
+  r = gsl_rng_alloc(T);
+  gsl_rng_set(r, seed);  // set seed
 
   /* create empty genotype array */
   int *g = (int *)calloc(num_genotypes, sizeof(int));
