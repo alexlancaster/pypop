@@ -7,7 +7,6 @@
 * ```Numeric``` (Python Numeric)
 * ```libxml2/libxslt``` (Python bindings)
 * ```pytest``` (Python test framework)
-* ```pytest_pipeline``` (extension of pytest for pipelines)
 
 ## Design notes
 

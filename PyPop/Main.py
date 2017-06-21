@@ -756,7 +756,8 @@ class Main:
                 samplingSize=samplingSize,
                 maxMatrixSize=maxMatrixSize,
                 monteCarloSteps=monteCarloSteps,
-                debug=self.debug)
+                debug=self.debug,
+                testing=self.testMode)
             
             hwObject.dumpTable(locus, self.xmlStream)
             self.xmlStream.writeln()
@@ -801,7 +802,8 @@ class Main:
                                samplingSize=samplingSize,
                                maxMatrixSize=maxMatrixSize,
                                monteCarloSteps=monteCarloSteps,
-                               debug=self.debug)
+                               debug=self.debug,
+                               testing=self.testMode)
                         
                         # serialize HardyWeinberg
                         hwObjectLump.dumpTable(locus, self.xmlStream,

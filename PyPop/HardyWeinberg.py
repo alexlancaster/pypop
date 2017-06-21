@@ -753,6 +753,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
                samplingSize=1000,
                maxMatrixSize=250,
                monteCarloSteps=1000000, # samplingNum*samplingSize (consistency)
+               testing=False,
                **kw):
 
     self.runMCMCTest=runMCMCTest
@@ -762,6 +763,10 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     self.samplingSize=samplingSize
     self.maxMatrixSize=maxMatrixSize
     self.monteCarloSteps=monteCarloSteps
+    if testing:
+      self.testing = 1
+    else:
+      self.testing = 0
 
     # call constructor of base class
     HardyWeinberg.__init__(self,
@@ -861,7 +866,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
       _Gthwe.run_data(self.flattenedMatrix, n, self.k, self.totalGametes,
                       self.dememorizationSteps, self.samplingNum,
-                      self.samplingSize, locusName, fp, 0)
+                      self.samplingSize, locusName, fp, 0, self.testing)
 
       # copy XML output to stream
       stream.write(fp.getvalue())
@@ -879,7 +884,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       
       _Gthwe.run_randomization(self.flattenedMatrix, n, self.k,
                                self.totalGametes, self.monteCarloSteps, fp,
-                               0)
+                               0, self.testing)
       # copy XML output to stream
       stream.write(fp.getvalue())
       fp.close()

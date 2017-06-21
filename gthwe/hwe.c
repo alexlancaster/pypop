@@ -96,7 +96,7 @@ int main(int argc, char *argv[])
 /* 
  * init_rand(): initializes random number generator 
  */
-long init_rand(void) 
+long init_rand(int testing) 
 {
   register int i, j;
   unsigned long xxx[12];
@@ -106,10 +106,14 @@ long init_rand(void)
   long t1;
   extern unsigned long congrval, tausval;
 
-  srand(time(NULL)); 
-  
-  /* for testing purposes only */
-  /* srand(1234);   */
+  if (!testing) 
+    {
+      srand(time(NULL)); 
+    }
+  else {
+    /* if invoked in testing mode, fix random number seed so output is deterministic */
+    srand(1234);  
+  }
 
   /* seeds selection for Splus type random number generator. */	
   for (i = 0; i < 12; i++) {
@@ -145,7 +149,7 @@ long init_rand(void)
  */
 int run_data(int *genotypes, int *allele_array, int no_allele, 
 	     int total_individuals, int thestep, int thegroup, int thesize,
-	     char *title, FILE *outfile, int header)
+	     char *title, FILE *outfile, int header, int testing)
 {
   int actual_switch, counter;
   Index index;
@@ -160,7 +164,7 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
   /* int *genotypes = (int *)calloc(genotypes, sizeof(int)); */
 
   /* do random number initialization */
-  t1 = init_rand(); 
+  t1 = init_rand(testing); 
 
   /* reassemble struct */
   sample.step = thestep;
@@ -324,7 +328,7 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
 
 int run_randomization(int *genotypes, int *allele_array, int no_allele, 
 		      int total_individuals, int iterations, FILE *outfile,
-		      int header)
+		      int header, int testing)
 {
   double ln_p_observed; 
   double constant;
