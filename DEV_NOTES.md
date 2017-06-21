@@ -1,5 +1,13 @@
 # Developer notes
 
+## External dependencies
+
+* ```swig``` (Simple Wrapper Interface Generator) 
+* ```gsl``` (GNU Scientific Library)
+* ```Numeric``` (Python Numeric)
+* ```libxml2/libxslt``` (Python bindings)
+* ```pytest``` (Python test framework)
+
 ## Design notes
 
 * 'Main' is the primary interface to the PyPop modules.  Given a

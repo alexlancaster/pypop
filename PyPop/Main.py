@@ -99,7 +99,8 @@ class Main:
                  use_FourSuite=0,
                  thread=None,
                  outputDir=None,
-                 version=None):
+                 version=None,
+                 testMode=False):
 
         self.config = config
         self.debugFlag = debugFlag
@@ -111,6 +112,7 @@ class Main:
         self.xslFilenameDefault = xslFilenameDefault
         self.outputDir = outputDir
         self.version = version
+        self.testMode = testMode
 
         # for threading to work
         self.thread = thread
@@ -379,8 +381,11 @@ class Main:
         # create XML stream
         self.xmlStream = XMLOutputStream(open(self.xmlOutPath, 'w'))
 
-        # opening tag
-        self.xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr), role=self.fileType)
+        # opening tag, don't include date if running in test mode
+        if not(testMode):
+            self.xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="%s-%s" % (datestr, timestr), role=self.fileType)
+        else:
+            self.xmlStream.opentag('dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"', date="", role=self.fileType)
         self.xmlStream.writeln()
 
 
@@ -751,7 +756,8 @@ class Main:
                 samplingSize=samplingSize,
                 maxMatrixSize=maxMatrixSize,
                 monteCarloSteps=monteCarloSteps,
-                debug=self.debug)
+                debug=self.debug,
+                testing=self.testMode)
             
             hwObject.dumpTable(locus, self.xmlStream)
             self.xmlStream.writeln()
@@ -796,7 +802,8 @@ class Main:
                                samplingSize=samplingSize,
                                maxMatrixSize=maxMatrixSize,
                                monteCarloSteps=monteCarloSteps,
-                               debug=self.debug)
+                               debug=self.debug,
+                               testing=self.testMode)
                         
                         # serialize HardyWeinberg
                         hwObjectLump.dumpTable(locus, self.xmlStream,

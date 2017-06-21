@@ -44,11 +44,13 @@ from math import pow, sqrt
 from Utils import getStreamType, TextOutputStream
 from Arlequin import ArlequinExactHWTest
 
+GENOTYPE_SEPARATOR = "~"
+
 def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
 
   total_indivs = total_gametes/2
 
-  allele1, allele2 = string.split(genotype, ':')
+  allele1, allele2 = string.split(genotype, GENOTYPE_SEPARATOR)
   p_i = alleleFreqs[allele1]
   p_j = alleleFreqs[allele2]
 
@@ -57,11 +59,11 @@ def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
 
   # get homozygous genotype frequencies, set to 0.0 if they aren't seen
   try:
-    p_ii = genotypes[allele1+':'+allele1]/float(total_indivs)
+    p_ii = genotypes[allele1+GENOTYPE_SEPARATOR+allele1]/float(total_indivs)
   except KeyError:
     p_ii = 0.0
   try:
-    p_jj = genotypes[allele2+':'+allele2]/float(total_indivs)
+    p_jj = genotypes[allele2+GENOTYPE_SEPARATOR+allele2]/float(total_indivs)
   except KeyError:
     p_jj = 0.0
     
@@ -172,7 +174,7 @@ class HardyWeinberg:
         else:
           self.hetsObservedByAllele[allele[1]] = 1
 
-      self.observedGenotypes.append(allele[0] + ":" + allele[1])
+      self.observedGenotypes.append(allele[0] + GENOTYPE_SEPARATOR + allele[1])
 
     for allele in self.alleleCounts.keys():
       """For each entry in the dictionary of allele counts
@@ -191,7 +193,7 @@ class HardyWeinberg:
       else:
         self.observedGenotypeCounts[genotype] = 1
 
-      temp = string.split(genotype, ':')
+      temp = string.split(genotype, GENOTYPE_SEPARATOR)
       if temp[0] == temp[1]:
         self.totalHomsObs += 1
       else:
@@ -208,9 +210,9 @@ class HardyWeinberg:
 
       for j in range(i, len(self.observedAlleles)):
           if self.observedAlleles[i] < self.observedAlleles[j]:
-            self.possibleGenotypes.append(self.observedAlleles[i] + ":" + self.observedAlleles[j])
+            self.possibleGenotypes.append(self.observedAlleles[i] + GENOTYPE_SEPARATOR + self.observedAlleles[j])
           else:
-            self.possibleGenotypes.append(self.observedAlleles[j] + ":" + self.observedAlleles[i])
+            self.possibleGenotypes.append(self.observedAlleles[j] + GENOTYPE_SEPARATOR + self.observedAlleles[i])
 
     for genotype in self.possibleGenotypes:
       """Calculate expected genotype counts under HWP
@@ -221,7 +223,7 @@ class HardyWeinberg:
 
       - and build table of observed genotypes for each allele"""
 
-      temp = string.split(genotype, ':')
+      temp = string.split(genotype, GENOTYPE_SEPARATOR)
       if temp[0] == temp[1]:         # homozygote, N * pi * pi
         self.expectedGenotypeCounts[genotype] = self.n * \
         self.alleleFrequencies[temp[0]] * self.alleleFrequencies[temp[1]]
@@ -353,7 +355,7 @@ class HardyWeinberg:
 
         # Count the common genotypes in categories by allele.
         # Used to determine DoF for common genotypes later.
-        temp = string.split(genotype, ':')
+        temp = string.split(genotype, GENOTYPE_SEPARATOR)
         if self.counterA.has_key(temp[0]):
           self.counterA[temp[0]] += 1
         else:
@@ -390,10 +392,10 @@ class HardyWeinberg:
 
         if self.debug:
           print 'Chi Squared value:'
-          print genotype, ':', self.chisq[genotype]
+          print genotype, GENOTYPE_SEPARATOR, self.chisq[genotype]
           # print "command %s returned %s" % (command, returnedValue)
           print 'P-value:'
-          print genotype, ':', self.chisqPval[genotype]
+          print genotype, GENOTYPE_SEPARATOR, self.chisqPval[genotype]
 
       else:
         """Expected genotype count for this genotype is less than lumpBelow"""
@@ -751,6 +753,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
                samplingSize=1000,
                maxMatrixSize=250,
                monteCarloSteps=1000000, # samplingNum*samplingSize (consistency)
+               testing=False,
                **kw):
 
     self.runMCMCTest=runMCMCTest
@@ -760,6 +763,10 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     self.samplingSize=samplingSize
     self.maxMatrixSize=maxMatrixSize
     self.monteCarloSteps=monteCarloSteps
+    if testing:
+      self.testing = 1
+    else:
+      self.testing = 0
 
     # call constructor of base class
     HardyWeinberg.__init__(self,
@@ -774,6 +781,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
     if self.debug:
       print "sortedAlleles: ", self.sortedAlleles
+      print "observedGenotypeCounts: ", self.observedGenotypeCounts
 
     # allele list
     self.flattenedMatrix = []
@@ -799,8 +807,8 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
           continue
 
         # need to check both permutations of key
-        key1 = "%s:%s" % (horiz, vert)
-        key2 = "%s:%s" % (vert, horiz)
+        key1 = "%s%s%s" % (horiz, GENOTYPE_SEPARATOR, vert)
+        key2 = "%s%s%s" % (vert, GENOTYPE_SEPARATOR, horiz)
         if self.observedGenotypeCounts.has_key(key1):
           output = "%2s " % self.observedGenotypeCounts[key1]
         elif self.observedGenotypeCounts.has_key(key2):
@@ -858,7 +866,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
       _Gthwe.run_data(self.flattenedMatrix, n, self.k, self.totalGametes,
                       self.dememorizationSteps, self.samplingNum,
-                      self.samplingSize, locusName, fp, 0)
+                      self.samplingSize, locusName, fp, 0, self.testing)
 
       # copy XML output to stream
       stream.write(fp.getvalue())
@@ -876,7 +884,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       
       _Gthwe.run_randomization(self.flattenedMatrix, n, self.k,
                                self.totalGametes, self.monteCarloSteps, fp,
-                               0)
+                               0, self.testing)
       # copy XML output to stream
       stream.write(fp.getvalue())
       fp.close()
