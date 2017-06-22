@@ -14,5 +14,5 @@ def test_AlleleColon():
     # check exit code
     assert exit_code == 0
     # compare with md5sum of output file
-    assert hashlib.md5(open("Test_Allele_Colon_HardyWeinberg-out.txt", 'rb').read()).hexdigest() == '59c5f520b7700ac4fde03aac93640460'
+    assert hashlib.md5(open("Test_Allele_Colon_HardyWeinberg-out.txt", 'rb').read()).hexdigest() == 'ba0cd73c8ccd28fed726b0825688d620'
 
