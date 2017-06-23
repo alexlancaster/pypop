@@ -2,7 +2,9 @@
 import base
 import sys
 import _Gthwe
+import pytest
 
+@pytest.mark.skip(reason="test is currently incomplete and doesn't run on all platforms")
 def test_gthwe():
     f = open('out.gthwe', 'w')
     a = [0, 3, 1 ,5, 18, 1, 3, 7, 5, 2]

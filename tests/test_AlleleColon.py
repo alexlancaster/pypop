@@ -1,3 +1,4 @@
+import base
 import subprocess
 import hashlib
 import pytest
