@@ -45,7 +45,7 @@ Check that the MacPorts version of Python is active by typing: ```which python``
 
 ```
 /opt/local/bin/python
-````
+```
 
 #### Linux (Fedora/Centos/RHEL): 
 
@@ -59,11 +59,13 @@ See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install 
 
 Install the following packages
 
-      apt install git swig libgsl-dev python-libxml2 python-libxslt1 python-setuptools python-pip
+      apt install git libgsl-dev python-libxml2 python-libxslt1 python-setuptools python-pip
 
-The ```python-numeric``` package is not included in the current version of Ubuntu, please see [DEV_NOTES.md](DEV_NOTES.md) for details of how to setup your repository to find python-numeric, once found, install using the following
+The ```python-numeric``` package is not included in the current version of Ubuntu, please see [DEV_NOTES.md](DEV_NOTES.md) for details of how to setup your repository to find ```python-numeric```, once setup, install using the following
 
       apt-get install python-numeric 
+
+The ```swig``` package in recent Ubuntu releases also has bugs, you will need to compile the most recent from source, see also [DEV_NOTES.md](DEV_NOTES.md) for details.
 
 ### 4. Build
 
