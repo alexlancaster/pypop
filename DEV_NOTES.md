@@ -31,9 +31,9 @@ There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on ```xenial`
 
 4. ```./configure```
 
-5.```make```
+5. ```make```
 
-6.```make install```
+6. ```make install```
 
 ## Design notes
 
