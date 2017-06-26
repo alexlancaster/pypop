@@ -11,6 +11,8 @@
 ## Installing ```python-numeric``` on recent Ubuntu releases
 
 ```python-numeric``` is not available in recent Ubuntu releases, for the time being you can temporarily add the distribution, ```natty``` with the last working version of python-numeric to your list of repositories.  To do this edit ```/etc/apt/sources.list``` and the following lines:
+ 
+    deb http://old-releases.ubuntu.com/ubuntu natty main restricted universe multiverse 
 
 then run:
 
