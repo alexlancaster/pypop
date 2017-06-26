@@ -23,11 +23,16 @@ then run:
 
 There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on ```xenial``` (which is version 3.0.8 of swig) working.  You will need to install the lastest version from source.
 
-1. download from swig.org
+1. Visit swig.org to get download link
+
 2. ```tar zxvf ~/swig-3.0.12.tar.gz```
+
 3. ```apt install libpcre3-dev```
+
 4 ```./configure```
+
 5.```make```
+
 6.```make install```
 
 ## Design notes
