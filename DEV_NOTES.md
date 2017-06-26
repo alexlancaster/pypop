@@ -29,7 +29,7 @@ There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on ```xenial`
 
 3. ```apt install libpcre3-dev```
 
-4 ```./configure```
+4. ```./configure```
 
 5.```make```
 
