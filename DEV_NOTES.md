@@ -8,6 +8,15 @@
 * ```libxml2/libxslt``` (Python bindings)
 * ```pytest``` (Python test framework)
 
+## Installing ```python-numeric``` on recent Ubuntu releases
+
+```python-numeric``` is not available in recent Ubuntu releases, for the time being you can temporarily add the distribution, ```natty``` with the last working version of python-numeric to your list of repositories.  To do this edit ```/etc/apt/sources.list``` and the following lines:
+
+then run:
+
+     sudo apt update
+     sudo apt install python-numeric
+
 ## Design notes
 
 * 'Main' is the primary interface to the PyPop modules.  Given a
