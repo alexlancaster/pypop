@@ -55,6 +55,16 @@ Need at least Fedora 25 for the appropriate dependencies:
 
 See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install on a Centos/RHEL release.
 
+#### Linux (Ubuntu)
+
+Install the following packages
+
+      apt install git swig libgsl-dev python-libxml2 python-libxslt1 python-setuptools python-pip
+
+The ```python-numeric``` package is not included in the current version of Ubuntu, please see [DEV_NOTES.md](DEV_NOTES.md) for details of how to setup your repository to find python-numeric, once found, install using the following
+
+      apt-get install python-numeric 
+
 ### 4. Build
 
     ./setup.py build
