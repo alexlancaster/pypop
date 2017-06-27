@@ -52,7 +52,7 @@ int read_infile(FILE *, char [MAX_ROWS][NAME_LEN], char [MAX_ROWS][MAX_COLS][NAM
 /* open filehandle for data, ref array, data array, number of records */
 /* returns number of loci */
 
-int main_proc(FILE *, char (*)[MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int);
+int main_proc(FILE *, char (*)[MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int, int);
 /* data array, number of loci, number of records */
 /* main procedure that handles memory allocation and creation of arrays, 
   * spawns the rest of the data preparation and processing functions, 
@@ -223,7 +223,7 @@ int main(int argc, char **argv)
      add getopt-parsed options for them */
   ret_val = main_proc(fp_out, data, num_loci, num_recs, permu_flag, 
 		      suppress_haplo_print_flag, MAX_INIT, MAX_PERMU, 
-		      MAX_INIT_FOR_PERMU, 1);
+		      MAX_INIT_FOR_PERMU, 1, 0);
 
   return (ret_val);
 }
@@ -312,7 +312,7 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
 int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, 
 	      int n_recs, int permu_flag, int suppress_haplo_print_flag, 
 	      int max_init_cond, int max_permu, int max_init_for_permu, 
-	      int permu_print)
+	      int permu_print, int testing)
 {
 
   
@@ -411,8 +411,11 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /******************* end: declarations ****************************/
 
-  //srand48(1234567); 
-  srand48(time (NULL));
+  if (testing) {
+    srand48(1234567);  /* fix seed if in testing mode to ensure deterministic output */
+  } else {
+    srand48(time (NULL));
+  }
 
   if (fp_iter == NULL)
     if ((fp_iter = fopen("summary_iter.out", "w")) == NULL)

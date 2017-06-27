@@ -297,7 +297,8 @@ class Emhaplofreq(Haplo):
     def __init__(self, locusData,
                  debug=0,
                  untypedAllele='****',
-                 stream=None):
+                 stream=None,
+                 testMode=False):
 
         # import the Python-to-C module wrapper
         # lazy importation of module only upon instantiation of class
@@ -322,6 +323,12 @@ class Emhaplofreq(Haplo):
 
         # initialize flag
         self.maxLociExceeded = 0
+
+        # set "testing" flag to "1" if testMode enabled
+        if testMode:
+            self.testing = 1
+        else:
+            self.testing = 0
 
         # must be passed a stream
         if stream:
@@ -353,7 +360,8 @@ class Emhaplofreq(Haplo):
                         numPermuInitCond=5,
                         haploSuppressFlag=None,
                         showHaplo=None,
-                        mode=None):
+                        mode=None,
+                        testing=0):
         
         """Internal method to call _Emhaplofreq shared library.
 
@@ -494,7 +502,8 @@ class Emhaplofreq(Haplo):
                                             numInitCond,
                                             numPermutations,
                                             numPermuInitCond,
-                                            permutationPrintFlag)
+                                            permutationPrintFlag,
+                                            testing)
 
                 fp.write("</group>")
 
@@ -538,7 +547,8 @@ class Emhaplofreq(Haplo):
                              permutationFlag=0,
                              haploSuppressFlag=0,
                              showHaplo='yes',
-                             mode='haplo')
+                             mode='haplo',
+                             testing=self.testing)
         
 
     def estLinkageDisequilibrium(self,
@@ -569,7 +579,8 @@ class Emhaplofreq(Haplo):
                              numPermuInitCond=numPermuInitCond,
                              haploSuppressFlag=1,
                              showHaplo='no',
-                             mode='LD')
+                             mode='LD',
+                             testing=self.testing)
 
     def allPairwise(self,
                     permutationPrintFlag=0,
@@ -621,7 +632,8 @@ class Emhaplofreq(Haplo):
                                  numPermuInitCond=numPermuInitCond,
                                  haploSuppressFlag=haploSuppressFlag,
                                  showHaplo=showHaplo,
-                                 mode=mode)
+                                 mode=mode,
+                                 testing=self.testing)
 
             # def allPairwiseLD(self, haplosToShow=None):
             #     """Estimate all pairwise LD and haplotype frequencies.
