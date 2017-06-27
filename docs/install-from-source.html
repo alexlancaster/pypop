@@ -1,0 +1,51 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>1.2. Installing from source</title><link rel="stylesheet" href="style.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"><link rel="home" href="pypop-guide.html" title="PyPop User Guide"><link rel="up" href="guide-chapter-install.html" title="Chapter 1. Installing PyPop"><link rel="prev" href="guide-chapter-install.html" title="Chapter 1. Installing PyPop"><link rel="next" href="guide-chapter-usage.html" title="Chapter 2. Getting started with PyPop"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">1.2. Installing from source</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="guide-chapter-install.html">Prev</a> </td><th width="60%" align="center">Chapter 1. Installing PyPop</th><td width="20%" align="right"> <a accesskey="n" href="guide-chapter-usage.html">Next</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="install-from-source"></a>1.2. Installing from source</h2></div></div></div><p>The source code for <code class="application">PyPop</code> can be
+   obtained here:</p><div class="itemizedlist"><ul type="disc"><li><p> <code class="application"><a class="ulink" href="http://www.pypop.org/pypop-0.7.0.tar.gz" target="_top">http://www.pypop.org/pypop-0.7.0.tar.gz</a></code></p></li><li><p>In addition, because the Windows binary distributes a copy
+     of the <code class="filename">cygwin1.dll</code>, we are required under
+     the terms of the GNU GPL to provide a copy of the Cygwin source
+     which we compiled the binary from: <code class="application"><a class="ulink" href="http://www.pypop.org/cygwin-1.5.24-2.tar.bz2" target="_top">http://www.pypop.org/cygwin-1.5.24-2.tar.bz2</a></code>.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p>
+	 Note that this only required for Windows and is
+	 <span class="emphasis"><em>not</em></span> required for compilation even under
+	 Windows if you install within the Cygwin environment (because it
+	 already contains a copy <code class="filename">cygwin1.dll</code>) and is
+	 only provided for legal reasons.
+	 
+       </p></td></tr></table></div></li></ul></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="install-from-source-sysreq"></a>1.2.1. System requirements</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p><a class="ulink" href="http://www.python.org/" target="_top"><code class="application">Python</code>
+       2.4</a> or later.</p></li><li><p><a class="ulink" href="http://numpy.sourceforge.net/" target="_top">Numerical Python
+       (<code class="application">Numeric</code>) 24.0</a> or later (note that this is the old "Numeric" not the newer Numpy, on Fedora the package is known as <code class="application">python-numeric</code>)</p></li><li><p><a class="ulink" href="http://www.swig.org/" target="_top">Simple Wrapper Interface
+       Generator (<code class="application">SWIG</code>)</a>: uses
+      "development" version (should now be compatible with all recent
+       SWIG versions: last tested against SWIG 1.3.31).</p></li><li><p><a class="ulink" href="http://xmlsoft.org/" target="_top"><code class="application">libxml2</code>/<code class="application">libxslt</code></a> 
+      including <a class="ulink" href="http://xmlsoft.org/XSLT/python.html" target="_top"><code class="application">libxml2-python</code></a>, 
+      a Python interface to the GNOME XML/XSLT parser (This is a fast
+      C library-based parser.  Most recent GNU/Linux distributions
+      will install
+      <code class="application">libxml2</code>/<code class="application">libxslt</code> 
+      as part of the base distribution, but you may need to install
+      <code class="application">libxml2-python</code> and
+      <code class="application">libxslt-python</code> separately).</p><p>(Untested recently: <a class="ulink" href="http://www.4suite.org/" target="_top"><code class="application">4Suite</code></a> 
+      a pure Python XML/XSLT parsing engine.)</p></li><li><p>The GNU Scientific Library (<a class="ulink" href="http://www.gnu.org/software/gsl/" target="_top"><code class="application">GSL</code></a>)
+      On Fedora you will want to install the <code class="application">gsl-devel</code> package.
+      </p></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="install-from-source-install"></a>1.2.2. Installation</h3></div></div></div><p><span class="emphasis"><em>Before starting, you must ensure you have installed
+    all the system requirements listed above.  In particular, make
+    sure Python is installed correctly.</em></span></p><p>Unzip and untar the above tar ball. Build and install
+    <code class="application">PyPop</code> by changing into the <code class="filename">PyPop-0.7.0</code>  directory, and
+    type:</p><pre class="screen">python setup.py build
+python setup.py install</pre><p>If you need to do additional configuration (e.g. changing the
+    base directory) please type <strong class="userinput"><code>python setup.py</code></strong>, 
+    or see the documentation for
+    Distutils.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="install-from-source-tests"></a>1.2.3. Test suite</h3></div></div></div><p>None as yet.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="install-from-source-bugs"></a>1.2.4. Contributions, bug reports</h3></div></div></div><p>Please send all bug reports and contributions to
+    <code class="email">(alexl at users.sourceforge.net)</code></p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="install-from-source-distribution"></a>1.2.5. Distribution structure</h3></div></div></div><pre class="literallayout">
+AUTHORS --      A list of people who have contributed.
+emhaplofreq/ -- LD and haplotype estimation extension module
+pval/ --        Modified code from R project for p-value calculation
+slatkin-exact/  Slatkin's code for Ewens-Watterson exact test
+gthwe/          Modified Guo and Thompson Hardy-Weinberg code
+SWIG/ --        Helper code for SWIG for generating C-Python wrappers
+xslt/ --        XSLT for generating text and other output from XML
+COPYING --      License information for this package
+MANIFEST.in --  Tells distutils what files to distribute
+NEWS --         Release notes and news
+README --       Information and TODO list.
+INSTALL --      This file
+setup.py --     Installation file.
+     </pre></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="guide-chapter-install.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="guide-chapter-install.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="guide-chapter-usage.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 1. Installing PyPop </td><td width="20%" align="center"><a accesskey="h" href="pypop-guide.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 2. Getting started with PyPop</td></tr></table></div></body></html>

@@ -1,0 +1,356 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2.3. The configuration file</title><link rel="stylesheet" href="style.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"><link rel="home" href="pypop-guide.html" title="PyPop User Guide"><link rel="up" href="guide-chapter-usage.html" title="Chapter 2. Getting started with PyPop"><link rel="prev" href="guide-usage-datafile.html" title="2.2. The data file"><link rel="next" href="guide-chapter-instructions.html" title="Chapter 3. Interpreting PyPop output"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.3. The configuration file</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="guide-usage-datafile.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Getting started with PyPop</th><td width="20%" align="right"> <a accesskey="n" href="guide-chapter-instructions.html">Next</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="guide-usage-configfile"></a>2.3. The configuration file</h2></div></div></div><p>The sets of population genetic analyses that are run on your
+   population data file and the manner in which the data file is
+   interpreted by <code class="application">PyPop</code> is controlled by a
+   configuration file, the default name for which is
+   <code class="filename">config.ini</code>. This is another plain text file
+   consisting of <em class="firstterm">comments</em> (which are lines that
+   start with a semi-colon), <em class="firstterm">sections</em> (which
+   are lines with labels in square brackets), and
+   <em class="firstterm">options</em> (which are lines specifying settings
+   relevant to that section in the
+   <code class="literal"><code class="option">option</code>=<em class="replaceable"><code>value</code></em></code>
+   format).</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p>If any option runs over one line (such as
+    <code class="literal">validSampleFields</code>) then the second and
+    subsequent lines must be indented by exactly <span class="strong"><strong>one space</strong></span>.</p></td></tr></table></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="config-minimal"></a>2.3.1. A minimal configuration file</h3></div></div></div><p>Here we present a minimal <code class="filename">.ini</code> file
+    corresponding to <a class="xref" href="guide-usage-datafile.html#data-minimal-noheader-noids" title="Example 2.1. Multi-locus allele-level genotype data">Example 2.1, “Multi-locus allele-level genotype data”</a> A
+    section by section review of this file follows.  (Note comment
+    lines have been omitted in the above example for clarity).  A
+    description of more advanced options is contained in <a class="xref" href="guide-usage-configfile.html#config-advanced" title="2.3.2. Advanced options">Section 2.3.2, “Advanced options”</a>.</p><div class="example"><a name="config-minimal-example"></a><p class="title"><b>Example 2.7. Minimal <code class="filename">config.ini</code> file</b></p><div class="example-contents"><pre class="programlisting">
+[General]                  <a name="general"></a><img src="images/callouts/1.png" alt="1" border="0">
+debug=0			   
+			   
+[ParseGenotypeFile]        <a name="parsegenotype"></a><img src="images/callouts/2.png" alt="2" border="0">
+untypedAllele=****         
+alleleDesignator=*         
+validSampleFields=*a_1     
+ *a_2			   
+ *c_1			   
+ *c_2			   
+ *b_1			   
+ *b_2			   
+			   
+[HardyWeinberg]            <a name="hardyweinberg"></a><img src="images/callouts/3.png" alt="3" border="0">
+lumpBelow=5                
+
+[HardyWeinbergGuoThompson] <a name="hardyweinbergGuoThompson"></a><img src="images/callouts/4.png" alt="4" border="0">
+dememorizationSteps=2000
+samplingNum=1000
+samplingSize=1000
+
+[HomozygosityEWSlatkinExact] <a name="homozygosityEWSlatkinExact"></a><img src="images/callouts/5.png" alt="5" border="0">
+numReplicates=10000
+
+[Emhaplofreq]              <a name="emhaplofreq"></a><img src="images/callouts/6.png" alt="6" border="0">
+allPairwiseLD=1
+allPairwiseLDWithPermu=0
+;;numPermuInitCond=5</pre></div></div><br class="example-break"><div class="calloutlist"><p class="title"><b>Configuration file sections</b></p><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#general"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td><td valign="top" align="left"><p class="strong"><code class="literal">[General]</code></p><p>This section contains variables that control the overall
+      behavior of <code class="application">PyPop</code>.</p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">debug=0</code>. </b>This setting is
+       for debugging.  Setting it to 1 will set off a large amount of
+       output of no interest to the general user.  It should not be
+       used unless you are running into trouble and need to
+       communicate with the <code class="application">PyPop</code>
+       developers about the problems.</p></li></ul></div></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#parsegenotype"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td><td valign="top" align="left"><p class="strong">Specifying data formats</p><p>There are two possible formats:
+      <code class="literal">[ParseGenotypeFile]</code> and
+      <code class="literal">[ParseAlleleCountFile]</code></p><p><b><code class="literal">[ParseGenotypeFile]</code>. </b>If
+      your data is genotype data, you will want a section labeled:
+      <code class="literal">[ParseGenotypeFile]</code>.</p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">alleleDesignator</code>. </b>This
+       option is used to tell <code class="application">PyPop</code> what is
+       allele data and what isn't. You must use this symbol in <a class="link" href="guide-usage-configfile.html#validSampleFields" title="validSampleFields"><code class="literal">validSampleFields</code>
+       </a> option.  The default is <code class="literal">*</code>.  In
+       general, you won't need to change it.  <span class="bold"><strong>[Default: <code class="literal">*</code>]</strong></span></p></li><li><p><b><code class="literal">untypedAllele</code>. </b>This option is used to tell
+	<code class="application">PyPop</code> what symbol you have used in
+	your data files to represent untyped or unknown data fields.
+	These fields MAY NOT BE LEFT BLANK.  You must use something
+	consistent that cannot be confused with real data here.
+	<span class="bold"><strong>[Default:
+	<code class="literal">****</code>]</strong></span></p></li><li><p><a name="validSampleFields"></a><b><code class="literal">validSampleFields</code>. </b>This option should contain the names of the loci
+	 immediately preceding your genotype data (if it has three
+	 header lines, this information will be on the third line,
+	 otherwise it will be the first line of the file).<span class="bold"><strong>[There is no default, this option must always be
+	 present]</strong></span></p><p>The format is as follows, for each sample field (which
+	may either be an identifying field for the sample such as
+	<code class="literal">populat</code>, or contain allele data) create a
+	new line where:
+	
+	</p><div class="itemizedlist"><ul type="circle"><li><p>The first line (<code class="literal">validSampleFields=</code>)
+	   consists of the name of your sample field (if it contains
+	   allele data, the name of the field should be preceded by
+	   the character designated in the
+	   <code class="literal">alleleDesignator</code> option above).</p></li><li><p>All subsequent lines after the first
+	   <span class="emphasis"><em>must</em></span> be preceded by <span class="emphasis"><em>one
+	   space</em></span> (again if it contains allele data, the
+	   name of the field should be preceded by the character
+	   designated in the <code class="literal">alleleDesignator</code>
+	   option above).
+	  </p></li></ul></div><p>
+	</p><p>Here is an example:</p><pre class="programlisting">validSampleFields=*a_1
+ *a_2
+ *c_1
+ *c_2
+ *b_1
+ *b_2    <em class="lineannotation"><span class="lineannotation">Note initial space at start of line.</span></em></pre><p>Here is example that includes identifying (non-allele
+	data) information such as sample id (<code class="literal">id</code>)
+	and population name (<code class="literal">populat</code>):</p><pre class="programlisting">validSampleFields=populat
+ id
+ *a_1
+ *a_2
+ *c_1
+ *c_2
+ *b_1
+ *b_2</pre></li></ul></div><p><b><code class="literal">[ParseAlleleCountFile]</code>. </b>If your data is not genotype data, but rather, data of the
+       allele-name count format, then you will want to use the
+       <code class="literal">[ParseAlleleCountFile]</code> section INSTEAD of
+       the <code class="literal">[ParseGenotypeFile]</code> section.  The
+       <code class="literal">alleleDesignator</code> and
+       <code class="literal">untypedAllele</code> options work identically to
+       that described for
+       <code class="literal">[ParseGenotypeFile]</code>.</p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">validSampleFields</code>. </b>This option should contain either a single locus name or
+	 a colon-separated list of all loci that will be in the data
+	 files you intend to analyze using a specific
+	 <code class="filename">.ini</code> file.  The colon-separated list
+	 allows you to avoid changing the <code class="filename">.ini</code>
+	 file when running over a collection of data files containing
+	 different loci. e.g.,</p><pre class="programlisting">validSampleFields=A:B:C:DQA1:DQB1:DRB1:DPB1:DPA1
+ count</pre><p>Note that each <code class="filename">.pop</code> file must
+	contain only one locus (see <a class="xref" href="guide-usage-datafile.html#data-allelecount-note" title="Note">Note</a> in <a class="xref" href="guide-usage-datafile.html#data-allelecount" title="Example 2.6. Allele count data">Example 2.6, “Allele count data”</a>).  Listing multiple loci simply
+	permits the same <code class="filename">.ini</code> file to be reused
+	for each data file.</p></li></ul></div></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#hardyweinberg"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td><td valign="top" align="left"><p class="strong"><code class="literal">[HardyWeinberg]</code></p><p>Hardy-Weinberg analysis is enabled by the presence of this
+       section.</p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">lumpBelow</code>. </b>This option value represents a cut-off value.  Alleles
+	 with an expected value equal to or less than
+	 <code class="literal">lumpBelow</code> will be lumped together into a
+	 single category for the purpose of calculating the degrees of
+	 freedom and overall <em class="varname"><code>p</code></em>-value for the
+	 chi-squared Hardy-Weinberg test.</p></li></ul></div></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#hardyweinbergGuoThompson"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td><td valign="top" align="left"><p class="strong"><code class="literal">[HardyWeinbergGuoThompson]</code></p><p>When this section is present, an implementation of the
+      Hardy-Weinberg exact test is run using the original
+      <a href="references.html#Guo:Thompson:1992">(Guo &amp; Thompson, 1992)</a> code, using a Monte-Carlo
+      Markov chain (MCMC).  In addition, two measures (Chen and Diff)
+      of the goodness of fit of individual genotypes are reported
+      under this option <a href="references.html#Chen:etal:1999">(Chen et al., 1999)</a> By default
+      this section is not enabled.  This is a different implementation
+      to the Arlequin version listed in
+      <a class="xref" href="guide-usage-configfile.html#config-advanced" title="2.3.2. Advanced options">Section 2.3.2, “Advanced options”</a>, below.</p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">dememorizationSteps</code>. </b>Number of steps of to “<span class="quote">burn-in</span>” the Markov
+	 chain before statistics are collected.<span class="bold"><strong>[Default: 2000]</strong></span></p></li><li><p><b><code class="literal">samplingNum</code>. </b>Number of Markov chain samples <span class="bold"><strong>[Default: 1000]</strong></span>.</p></li><li><p><b><code class="literal">samplingSize</code>. </b>Markov chain sample size<span class="bold"><strong>[Default: 1000]</strong></span>.</p></li></ul></div><p>Note that the <span class="bold"><strong>total</strong></span> number
+      of steps in the Monte-Carlo Markov chain is the product of
+      <code class="literal">samplingNum</code> and
+      <code class="literal">samplingSize</code>, so the default values described
+      above would contain 1,000,000 (= 1000 x 1000) steps in the MCMC
+      chain.</p><p>The default values for options described above have proved
+      to be optimal for us and if the options are not provided these
+      defaults will be used.  If you change the values and have
+      problems, please let us <span class="bold"><strong>know</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#homozygosityEWSlatkinExact"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td><td valign="top" align="left"><p class="strong">
+      <code class="literal">[HomozygosityEWSlatkinExact]</code></p><p>The presence of this section enables Slatkin's <a href="references.html#Slatkin:1994">(1994)</a> implementation of the
+      Ewens-Watterson exact test of neutrality.
+     </p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">numReplicates</code>. </b>The default values have proved to be
+	 optimal for us.  There is no reason to change them unless you
+	 are particularly curious. If you change the default values and have problems, please let us know.</p></li></ul></div></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#emhaplofreq"><img src="images/callouts/6.png" alt="6" border="0"></a> </p></td><td valign="top" align="left"><p class="strong"><code class="literal">[Emhaplofreq]</code></p><p>The presence of this section enables haplotype estimation
+      and calculation of linkage disequilibrium (LD) measures.</p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">lociToEstHaplo</code>. </b>In this option you can list the multi-locus haplotypes
+	 for which you wish the program to estimate and to calculate
+	 the LD. It should be a comma-separated list of colon-joined
+	 loci. e.g.,</p><pre class="programlisting">lociToEstHaplo=a:b:drb1,a:b:c,drb1:dqa1:dpb1,drb1:dqb1:dpb1</pre></li><li><p><b><code class="literal">allPairwiseLD</code>. </b>Set this to <code class="literal">1</code> (one) if you want the
+	 program to calculate all pairwise LD for your data, otherwise
+	 set this to <code class="literal">0</code> (zero).</p></li><li><p><b><code class="literal">allPairwiseLDWithPermu</code>. </b>Set this to a positive integer greater than 1 if you
+	 need to determine the significance of the pairwise LD
+	 measures in the previous section.  The number you use is the
+	 number of permutations that will be run to ascertain the
+	 significance (this should be at least 1000 or greater). (Note
+	 this is done via permutation testing performed after the
+	 pairwise LD test for all pairs of loci. Note also that this
+	 test can take <span class="emphasis"><em>DAYS</em></span> if your data is
+	 highly polymorphic.)</p></li><li><p><b><code class="literal">numPermuInitCond</code>. </b>Set this to change the number of initial conditions used
+	 per permutation. <span class="bold"><strong>[Default: 5]</strong></span>. (<span class="emphasis"><em>Note: this
+	  parameter is only used if
+	  <code class="literal">allPairwiseLDWithPermu</code> is set and
+	  nonzero</em></span>).</p></li></ul></div></td></tr></table></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="config-advanced"></a>2.3.2. Advanced options</h3></div></div></div><p>The following section describes additional options to
+    previously described sections.   Most of the time these options
+    can be omitted and <code class="application">PyPop</code> will choose
+    defaults, however these advanced options do offer greater control
+    over the application. In particular, customization will be
+    required for data that has sample identifiers as in <a class="xref" href="guide-usage-datafile.html#data-minimal-noheader" title="Example 2.2. Multi-locus allele-level HLA genotype data with sample information">Example 2.2, “Multi-locus allele-level HLA genotype data with sample
+    information”</a> or header data block as in
+    <a class="xref" href="guide-usage-datafile.html#data-hla" title="Example 2.3. Multi-locus allele-level HLA genotype data with sample and header information">Example 2.3, “Multi-locus allele-level HLA genotype data with sample and
+    header information”</a> and both
+    <code class="literal">validSampleFields</code> (described above) and
+    <code class="literal">validPopFields</code> (described below) will need to
+    be modified.
+   </p><p>It also describes two extra sections related to using
+    <code class="application">PyPop</code> in conjunction with
+    <code class="application">Arlequin</code>: <code class="literal">[Arlequin]</code>
+    and <code class="literal">[HardyWeinbergGuoThompsonArlequin]</code>.</p><h4><a name="id3144878"></a><code class="literal">[General]</code> advanced
+    options</h4><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">txtOutFilename</code>. </b> and <span class="bold"><strong>
+       <code class="literal">xmlOutFilename</code></strong></span> If you wish to specify a particular name for the output
+       file, which you want to remain identical over several runs, you
+       can set these two items to particular values. The default is to
+       have the program select the output filename, which can be
+       controlled by the next variable.  <span class="bold"><strong>[Default: not used]</strong></span></p></li><li><p><b><code class="literal">outFilePrefixType</code> . </b>This option can either be omitted entirely (in which case
+       the default will be <code class="literal">filename</code>) or be set in
+       several ways.  The default is set as
+       <code class="literal">filename</code>, which will result in three output
+       files named
+       <code class="filename"><em class="replaceable"><code>original-filename-minus-suffix</code></em>-out.xml</code>, 
+       <code class="filename"><em class="replaceable"><code>original-filename-minus-suffix</code></em>-out.txt</code>, 
+       and
+       <code class="filename"><em class="replaceable"><code>original-filename-minus-suffix</code></em>-filter.xml</code>. 
+       <span class="bold"><strong>[Default:
+	<code class="literal">filename</code>]</strong></span></p><p>If you set the value to <code class="literal">date</code> instead of
+      filename, you'll get the date incorporated in the filename as
+      follows:
+      <code class="filename"><em class="replaceable"><code>original-filename-minus-suffix</code></em>-YYYY-nn-dd-HH-MM-SS-out.{xml,txt}</code>. 
+      e.g., <code class="filename">USAFEL-UchiTelle-2003-09-21-01-29-35-out.xml</code>
+       (where Y, n, d, H, M, S refer to year, month, day, hour, minute
+       and second, respectively).</p></li><li><p><b><code class="literal">xslFilename</code>. </b>This option specifies where to find the XSLT file to use
+       for transforming <code class="application">PyPop</code>'s xml output
+       into human-readable form.  Most users will not normally need to
+       set this option, and the default is the system-installed
+       <code class="filename">text.xsl</code> file.</p></li></ul></div><h4><a name="id3145894"></a><code class="literal">[ParseGenotypeFile]</code> advanced
+    options</h4><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">fieldPairDesignator</code>. </b>This option allows you to override the coding for the
+       headers for each pair of alleles at each locus; it must match
+       the entry in the config file under
+       <code class="literal">validSampleFields</code> and the entries in your
+       population data file. If you want to use something other than
+       <code class="literal">_1</code> and <code class="literal">_2</code>, change this
+       option, for instance, to use letters and parentheses, change it
+       as follows: <code class="literal">fieldPairDesignator=(a):(b)</code>
+       <span class="bold"><strong>[Default:
+	<code class="literal">_1:_2</code>]</strong></span></p></li><li><p><b><code class="literal">popNameDesignator</code>. </b>There is a special designator to mark the population name
+       field, which is usually the first field in the data block.
+       <span class="bold"><strong>[Default:
+	<code class="literal">+</code>]</strong></span></p><p>If you are analyzing data that contains a population name
+      for each sample, then the first entry in your
+      <code class="literal">validSampleFields</code> section should have a
+      prefixed +, as below:</p><pre class="programlisting">validSampleFields=+populat
+ *a_1
+ *a_2
+ ...</pre></li><li><p><b><code class="literal">validPopFields</code>. </b>If you are analyzing data with an initial two line
+       population header block information as in <a class="xref" href="guide-usage-datafile.html#data-hla" title="Example 2.3. Multi-locus allele-level HLA genotype data with sample and header information">Example 2.3, “Multi-locus allele-level HLA genotype data with sample and
+    header information”</a>, then you will need to set this option.
+       In this case, it should contain the field names in the first line of the
+       header information of your file.   <span class="bold"><strong>[Default: required when
+       a population data-block is present in data file]</strong></span>, e.g.:</p><pre class="programlisting">validPopFields=labcode
+ method
+ ethnic
+ country
+ latit
+ longit</pre></li></ul></div><h4><a name="id3134977"></a><code class="literal">[Emhaplofreq]</code> advanced
+    options</h4><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">permutationPrintFlag</code>. </b>Determines whether the likelihood ratio for each
+       permutation will be logged to the XML output file, this is
+       disabled by default.  <span class="bold"><strong>[Default:
+	<code class="literal">0</code> (OFF)]</strong></span>.</p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>If this is enabled it can <span class="emphasis"><em>drastically</em></span>
+       increase the size of the output XML file on the order of the
+       product of the number of possible pairwise comparisons and
+       permutations. Machines with lower RAM and disk space may have
+       difficulty coping with this. </p></td></tr></table></div></li></ul></div><h4><a name="id3150294"></a><code class="literal">[Arlequin]</code> extra
+    section</h4><p>This section sets characteristics of the
+    <code class="application">Arlequin</code> application if it has been
+    installed (it must be installed separately from
+    <code class="application">PyPop</code> as we cannot distribute it). The
+    options in this section are only used when a test requiring
+    <code class="application">Arlequin</code>, such as it's implementation
+    of Guo and Thompson's <a href="references.html#Guo:Thompson:1992">(1992)</a> Hardy-Weinberg
+    exact test is invoked (see below).</p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">arlequinExec</code>. </b>This option specifies where to find the
+       <code class="application">Arlequin</code> executable on your system.
+       The default assumes it is on your system path. <span class="bold"><strong>[Default:
+	<code class="literal">arlecore.exe</code>]</strong></span></p></li></ul></div><h4><a name="id3144705"></a><code class="literal">[HardyWeinbergGuoThompsonArlequin]</code>
+    extra section</h4><p>When this section is present, Arlequin's implementation of
+    the Hardy-Weinberg exact test is run, using a Monte-Carlo Markov
+    Chain implementation.  By default this section is not
+    enabled.</p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">markovChainStepsHW</code>. </b>Length of steps in the Markov chain <span class="bold"><strong>[Default: 2500000]</strong></span>.</p></li><li><p><b><code class="literal">markovChainDememorisationStepsHW</code>. </b>Number of steps of to “<span class="quote">burn-in</span>” the Markov
+	chain before statistics are collected.<span class="bold"><strong>[Default: 5000]</strong></span></p></li></ul></div><p>The default values for options described above have proved
+    to be optimal for us and if the options are not provided these
+    defaults will be used.  If you change the values and have
+    problems, please let us <span class="bold"><strong>know</strong></span>.</p><h4><a name="id3134386"></a><code class="literal">[Filters]</code> extra section</h4><p>When this section is present, it allows you to specify
+    succesive filters to the data.</p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">filtersToApply</code>. </b>Here you specify which filters you want applied to the
+       data and the order in which you want them applied.  
+       Separate each filter name with a colon (<code class="literal">:</code>).  
+       Currently there are four predefined filter:
+       <code class="literal">AnthonyNolan</code>,
+       <code class="literal">Sequence</code>,
+       <code class="literal">DigitBinning</code>, and
+       <code class="literal">CustomBinning</code>.  If you specify one or more
+       of these filters, you will get the default behavior of the
+       filter.  If you wish to modify the default behavior, you should
+       add a section with the same name as the specified filter(s).
+       See next section for more on this.  Please note that, while you are
+       allowed to specify any ordering for the filters, some orderings may 
+       not make sense.  For example, the ordering Sequence:AnthonyNolan 
+       would not make sense (because as far as PyPop is concerned, your 
+       alleles are now amino acid residues.)  However, the reverse ordering,
+       AnthonyNolan:Sequence, would be logical and perhaps even advisable.
+      </p></li></ul></div><h4><a name="id3154416"></a><code class="literal">[AnthonyNolan]</code> filter section</h4><p>This section is <span class="emphasis"><em>only</em></span> useful for HLA
+    data.  Like all filter sections, it will only be used if present in the
+    <code class="literal">filtersToApply</code> line specified above.  If so
+    enabled, your data will be filtered through the Anthony Nolan
+    database of known HLA allele names  before processing.  The data files this
+    filter relies on are <span class="emphasis"><em>not</em></span> currently
+    distributed with <code class="application">PyPop</code> but can be
+    obtained via the <a class="ulink" href="ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/" target="_top">IMGT ftp
+     site</a>. Invocation of this filter will produce a
+    <code class="filename"><em class="replaceable"><code>popfile</code></em>-filter.xml</code>
+    file output showing what was resolved and what could not be
+    resolved. </p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">alleleFileFormat</code>. </b>This options specifies which of the formats the  Anthony
+       Nolan allele data will be used.  The option can be set to
+       either <code class="literal">txt</code> (for the plain free text format)
+       or <code class="literal">msf</code> (for the <a class="ulink" href="http://www.ebi.ac.uk/imgt/hla/download.html" target="_top">Multiple
+	Sequence Format</a>)  <span class="bold"><strong>[Default:
+	<code class="literal">msf</code>]</strong></span></p></li><li><p><b><code class="literal">directory</code>. </b>Specifies the path to the root of the sequence files.  For
+       <code class="literal">txt</code>: <span class="bold"><strong>[Default:
+	<code class="filename"><em class="replaceable"><code>prefix</code></em>/share/PyPop/anthonynolan/HIG-seq-pep-text/</code>]</strong></span>. 
+       For <code class="literal">msf</code> files <span class="bold"><strong>[Default: <code class="filename"><em class="replaceable"><code>prefix</code></em>/share/PyPop/anthonynolan/msf/</code>]</strong></span>.</p></li><li><p><b><code class="literal">preserve-ambiguous</code>. </b>The default behavior of the
+       <code class="literal">AnthonyNolan</code> filter is to ignore allele
+       ambiguity ("slash") notation.  This notation, common in the
+       literature, looks like: 010101/0102/010301.  The default
+       behavior will simply truncate this to 0101.  If you want to
+       preserve the notation, set the option to 1.  This will result
+       in a filtered allele "name" of 0101/0102/0103 in the above
+       hypothetical example.  <span class="bold"><strong>[Default: <code class="literal">0</code>]</strong></span>.
+      </p></li><li><p><b><code class="literal">preserve-unknown</code>. </b>The default behavior of the <code class="literal">AnthonyNolan</code> filter is to
+       replace unknown alleles with the <code class="literal">untypedAllele</code> designator.
+       If you want the filter to keep allele names it does not
+       recognize, set the option to 1.  <span class="bold"><strong>[Default: <code class="literal">0</code>]</strong></span>.
+      </p></li><li><p><b><code class="literal">preserve-lowres</code>. </b>This option is similar to <code class="literal">preserve-unknown</code>, but only
+       applies to lowres alleles.  If set to 1, PyPop will keep allele
+       names that are shorter than the default allele name length,
+       usually 4 digits long.  But if the preserve-unknown flag is
+       set, this one has no effect, because all unknown alleles are
+       preserved.  <span class="bold"><strong>[Default: <code class="literal">0</code>]</strong></span>.</p></li></ul></div><h4><a name="id3163944"></a><code class="literal">[Sequence]</code> filter section</h4><p>This section allows configuration of the sequence filter.  
+    Like all filter sections, it will only will be used if present in the
+    <code class="literal">filtersToApply</code> line specified above.  If so
+    enabled, your allele names will be translated into sequences, and all 
+    ensuing analyses will consider each position in the sequence to be a 
+    distinct locus.  This filter makes use of the same msf format alignment 
+    files as used above in the AnthonyNolan filter.  It does not work with 
+    the txt format alignment files.</p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">sequenceFileSuffix</code>. </b>Determines the files that will be examined in order to read in
+       a sequence for each allele.  (ie, if the file for locus A is 
+       A_prot.msf, the value would be _prot whereas if you wanted to use
+       the nucleotide sequence files, you might use _nuc.) [Default: _prot].</p></li><li><p><b><code class="literal">directory</code>. </b>Specifies the path to the root of the sequence files, in the same
+       manner as in the AnthonyNolan section, above.</p></li></ul></div><h4><a name="id3173023"></a><code class="literal">[DigitBinning]</code> filter section</h4><p>This section allows configuration of the DigitBinning filter.  Like
+    all filter sections, it will be used if present in the
+    <code class="literal">filtersToApply</code> line specified above.  If so
+    enabled, your allele names will be truncated after the nth digit. </p><div class="itemizedlist"><ul type="disc"><li><p><b><code class="literal">binningDigits</code>. </b>An integer that specifies how many digits to keep after the truncation.
+       [Default: 4].</p></li></ul></div><h4><a name="id3148977"></a><code class="literal">[CustomBinning]</code> filter section</h4><p>This section allows configuration of the CustomBinning filter.  Like all 
+    filter sections, it will only be used if present in the 
+    <code class="literal">filtersToApply</code> line specified above.</p><p>You can provide a set of custom rules for replacing allele
+    names.  Allele names should be separated by <code class="literal">/</code> marks.  This filter
+    matches any allele names that are exactly the same as the ones you
+    list here, and will also find "close matches" (but only if there
+    are no exact matches.).  Here is an example:</p><pre class="programlisting">A=01/02/03
+ 04/05/0306
+ !06/1201/1301
+ !07/0805</pre><p>In the example above, <code class="literal">A*03</code> alleles will
+    match to <code class="literal">01/02/03</code>, except for
+    <code class="literal">A*0306</code>, which will match to
+    <code class="literal">04/05/0306</code>.  If you place a
+    <code class="literal">!</code> mark in front of the first allele name, that
+    first name will be used as the "new name" for the binned group
+    (for example, <code class="literal">A*0805</code> will be called
+    <code class="literal">07</code> in the custom-binned data.) Note that the
+    space at the beginning of the lines (following the first line of
+    each locus) is important. The above rules are just dummy examples,
+    provided to illustrate how the filter works.
+    <code class="application">PyPop</code> is distributed with a
+    biologically relevant set of <code class="literal">CustomBinning</code>
+    rules that have been compiled from several sources<sup>[<a name="id3138894" href="#ftn.id3138894" class="footnote">2</a>]</sup>
+   </p></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id3138894" href="#id3138894" class="para">2</a>] </sup>
+      <a href="references.html#Mack:etal:2007">Mack et al. (2007)</a>;
+      <a href="references.html#Cano:etal:2007">Cano (2007)</a>; The Anthony Nolan list of
+      deleted allele names (<a class="ulink" href="http://www.anthonynolan.com/HIG/lists/delnames.html" target="_top">http://www.anthonynolan.com/HIG/lists/delnames.html</a>); and the
+      Ambiguous Allele Combinations, release 2.18.0 (<a class="ulink" href="http://www.ebi.ac.uk/imgt/hla/ambig.html" target="_top">http://www.ebi.ac.uk/imgt/hla/ambig.html</a>).</p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="guide-usage-datafile.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="guide-chapter-usage.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="guide-chapter-instructions.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2.2. The data file </td><td width="20%" align="center"><a accesskey="h" href="pypop-guide.html">Home</a></td><td width="40%" align="right" valign="top"> Chapter 3. Interpreting PyPop output</td></tr></table></div></body></html>

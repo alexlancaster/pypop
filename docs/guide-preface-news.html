@@ -1,0 +1,178 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>3. Recent changes to PyPop</title><link rel="stylesheet" href="style.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"><link rel="home" href="pypop-guide.html" title="PyPop User Guide"><link rel="up" href="guide-preface.html" title="Preface"><link rel="prev" href="guide-preface-howto.html" title="2. How to use this guide"><link rel="next" href="guide-preface-authors.html" title="4. Authors of software components"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3. Recent changes to PyPop</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="guide-preface-howto.html">Prev</a> </td><th width="60%" align="center">Preface</th><td width="20%" align="right"> <a accesskey="n" href="guide-preface-authors.html">Next</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="guide-preface-news"></a>3. Recent changes to <code class="application">PyPop</code></h2></div></div></div><div class="literallayout"><p>PyPop NEWS --- history of user-visible changes to PyPop.  -*- outline -*-<br>
+Copyright (C) 2003, 2004, 2005, 2006, 2007 Regents of the University of California<br>
+<br>
+* Release Notes for PyPop 0.7.0<br>
+** New features<br>
+*** 'makeNewPopFile' option has been changed.  This option allows user to <br>
+    generate intermediate output of filtered files. Now option should<br>
+    be of the format: 'type:order' where 'type' is one of<br>
+    'separate-loci' or 'all-loci' so that the user can specify whether<br>
+    a separate file should be generated for each locus<br>
+    ('separate-loci') or a single file with all loci ('all-loci').<br>
+    'order' should be the order in the filtering chain where the<br>
+    matrix is generated, there is no default, for example, for<br>
+    generating files after the first filter operation use '1'.<br>
+*** New command-line option '--generate-tsv', will generate the '.dat' <br>
+    tab-separated values (TSV) files on the the generated -out.xml<br>
+    files (aka "popmeta") directly from pypop without needing to run<br>
+    additional script.  Now output from pypop can be directly read<br>
+    into spreadsheet.<br>
+*** New feature: add individual genotype tests to Hardy-Weinberg module <br>
+    (gthwe), now computes statistics based on individual genotypes in<br>
+    the HWP table. The [HardyWeinbergGuoThompson] or <br>
+    [HardyWeinbergGuoThompsonMonteCarlo] options must be enabled in the <br>
+    configuration ".ini" file in order for these tests to be carried out.<br>
+*** Major improvements to custom and random binning filters (Owen Solberg).<br>
+*** New feature: generate homozygosity values using the Ewens-Watterson test for<br>
+    all pairwise loci, or all sites within a gene for sequence data<br>
+    ([homozygosityEWSlatkinExactPairwise] in .ini file).  Note: this<br>
+    really only works for sequence data where the phase for sites<br>
+    within an allele are known.<br>
+*** Haplotype and LD estimation module 'emhaplofreq' improvements<br>
+**** improved memory usage and speed for emhaplofreq module.<br>
+**** maximum sample size for emhaplofreq module increased from 1023 to<br>
+     5000 individuals.<br>
+**** maximum length of allele names increased to 20<br>
+<br>
+** Bug fixes<br>
+*** Support Python 2.4 on GCC 4.0 platforms.<br>
+*** Add missing initialisation for non-sequence data when processing <br>
+    haplotypes.  Thanks to Jill Hollenbach for the report.<br>
+*** Fix memory leak in xslt translation.<br>
+*** Various fixes relating to parsing XML output.<br>
+*** Fixed an incorrect parameter name.<br>
+*** Handle some missing sections in .ini better. Thanks to <br>
+    Owen Solberg for report.<br>
+*** Various build and installation fixes (SWIG, compilation flags)<br>
+*** Make name of source package be lowercase "pypop".<br>
+*** Change data directory: /usr/share/pypop/ to /usr/share/PyPop/<br>
+*** Print out warning when maximum length of allele exceeded, rather than<br>
+    crashing.  Thanks to Steve Mack for report.<br>
+<br>
+** Other issues<br>
+*** Sequence filter<br>
+**** In the Sequence filter, add special case for Anthony Nolan HLA data:<br>
+     mark null alleles ending in "N" (e.g. HLA-B*5127N) as "missing<br>
+     data" (****).<br>
+**** Also in Sequence, keep track of unsequenced sites separately   <br>
+    (via unsequencedSites variable) from "untyped" (aka "missing<br>
+    data"). Treat unsequencedSite as a unique allele to make sure that<br>
+    those sites don't get treated as having a consensus sequence if<br>
+    only one of the sequences in the the set of matches is typed.<br>
+**** If no matching sequence is found in the MSF files, then return a<br>
+     sequence of * symbols (ie, will be treated as truly missing data,<br>
+     not untyped alleles.<br>
+**** Add another special case for HLA data: test for 7 digits in allele names<br>
+     (e.g. if 2402101 is not found insert a zero after the first 4<br>
+     digits to form 24020101, and check for that).  This is to cope<br>
+     with yet-another HLA nomenclature change.<br>
+*** Change semantics of batchsize, make "0" (default) process files separately<br>
+    if only R dat files is enabled.  If batchsize not set explicitly<br>
+    (and therefore 0) set batchsize to '1' is PHYLIP mode is enabled.<br>
+<br>
+* Release Notes for PyPop 0.6.0<br>
+** New features<br>
+*** Allow for odd allele counts when processing an allele count data <br>
+    (i.e "semi"-typing).  When PyPop is dealing with data that is<br>
+    originally genotyped, the current default is preserved i.e.  we<br>
+    dis-allow individuals that are typed at only allele, and set<br>
+    allowSemiTyped to false.<br>
+*** New command-line option '-f' (long version '--filelist') which<br>
+    accepts a file containing a list of files (one per line) to<br>
+    process (note that this is mutually exclusive with supplying<br>
+    INPUTFILEs, and will abort with an error message if you supply<br>
+    both simultaneously).<br>
+*** In batch version, handle multiple INPUTFILEs supplied as command-line<br>
+    arguments and support Unix shell-globbing syntax (e.g. 'pypop.py<br>
+    -c config.ini *.pop'). (NOTE: This is supported *only* in<br>
+    batch version, not in the interactive version, which expects one<br>
+    and only one file supplied by user.<br>
+*** Allele count files can now be filtered through the filter apparatus<br>
+    (particularly the Sequence and AnthonyNolan) in the same was as<br>
+    genotype files transparently.  [This has been enabled via a code<br>
+    refactor that treats allele count files as pseudo-genotype files<br>
+    for the purpose of filtering].  This change also resulted in the<br>
+    removal of the obsolete lookup-table-based homozygosity test.<br>
+*** Add '--disable-ihwg' option to popmeta script to disable hardcoded <br>
+    generation of the IHWG header output, and use the output as<br>
+    defined in the header in the original .pop input text file.  This<br>
+    is disabled by default to preserve backwards compatibility.<br>
+*** Add '--batchsize' ('-b' short version) option  for popmeta.  Does the<br>
+    processing in "batches".  If set and greater than one, list of XML<br>
+    files is split into batchsize group.  For example, if there are 20<br>
+    XML files and option is via using ("-b 2" or "--batchsize=2") then<br>
+    the files will be processed in two batches, each consisting of 10<br>
+    files.  If the number does not divide evenly, the last list will<br>
+    contain all the "left-over" files.  This option is particularly<br>
+    useful with large XML files that may not fit in memory all at<br>
+    once.  Note this option is mutually exclusive with the<br>
+    '--enable-PHYLIP' option because the PHYLIP output needs to<br>
+    calculate allele frequencies across all populations before<br>
+    generating files.<br>
+*** New .ini file option: [HardyWeinbergGuoThompsonMonteCarlo]: add a plain<br>
+     Monte-Carlo (randomization, without the Markov chain test) test<br>
+    for the HardyWeinberg "exact test".  Add code for Guo &amp; Thompson<br>
+    test to distribution (now under GNU GPL).<br>
+** Bug fixes<br>
+*** HardyWeinbergGuoThompson overall p-value test was numerically unstable <br>
+    because it attempted to check for equality in greater than or<br>
+    equal to constructs ("&lt;=") which is not reliable in C.  Replaced<br>
+    this with a GNU Scientific Library (GSL) function gsl_fcmp() which<br>
+    compares floats to within an EPSILON (defaults to 1e-6).<br>
+*** Allow HardyWeinbergGuoThompson test to be run if at least two alleles<br>
+    present (test was originally failing with a 'too-few-alleles'<br>
+    message if there were not at least 3 alleles).  Thanks to Kristie<br>
+    Mather for the report.<br>
+*** Checks to see if a locus is monomorphic, if it is, it generates an <br>
+    allele summary report, but skips the rest of the single locus<br>
+    analyses which do not make sense for monomorphic locus.  Thanks to<br>
+    Steve Mack and Owen Solberg for the bug report(s).<br>
+*** Now builds against recent versions of SWIG (no longer stuck at version <br>
+    1.3.9), should be compatible with versions of SWIG &gt; 1.3.10.<br>
+    (Tested against SWIG 1.3.21).<br>
+*** Homozygosity module: Prevent math errors by in Slatkin's exact test by <br>
+    forcing the homozygosity to be positive (only a problem for rare<br>
+    cases, when the result is so close to zero that the floating point<br>
+    algorithms cause a negative result.)<br>
+<br>
+* Release Notes for PyPop 0.5.2 (public beta) 2004-03-09<br>
+** Bug fixes<br>
+*** Add missing RandomBinning.py file to source distribution<br>
+    Thanks to Hazael Maldonado Torres for the bug report.<br>
+*** Fixed line endings for .bat scripts for Win32 so they work under <br>
+    Windows 98 thanks to Wendy Hartogensis for the bug report.<br>
+<br>
+* Release Notes for PyPop 0.5.1 (public beta) 2004-02-26<br>
+** Changes<br>
+*** New parameter 'numInitCond', number of initial conditions by the<br>
+    haplotype estimation and LD algorithm used before performing<br>
+    permutations. Defaults to 50.<br>
+*** Remove some LOG messages/diagnostics that were erroneously implying<br>
+    an error to the user (if nothing is wrong, don't say anything).  Add<br>
+    some more useful messages for what is being done in haplo/LD <br>
+    estimation step.<br>
+*** Add popmeta.py to the distribution: this is undocumented and unsupported <br>
+    as yet, it is at alpha stage only, use at your own risk!<br>
+<br>
+** Bug fixes<br>
+*** Remember to output plaintext version of LD for specified loci.<br>
+<br>
+* Release Notes for PyPop 0.5 (public beta) 2003-12-31<br>
+** Changes<br>
+*** All Linux wrapper scripts no longer have .sh file suffixes for <br>
+    consistency with DOS (all DOS bat files can be executed without<br>
+    specifying the .bat extension).<br>
+<br>
+** Bug fixes<br>
+*** Add wrapper scripts for interactive and batch mode for <br>
+    both DOS and Linux so that correct shared libraries are called.<br>
+*** Pause and wait for user to press a key at end of DOS .bat file<br>
+    so that output can be viewed before window close.<br>
+*** Set PYTHONHOME in wrapper scripts to prevent messages about <br>
+    missing &lt;prefix&gt; being displayed.<br>
+<br>
+* Release Notes for PyPop 0.4.3beta<br>
+** Bug fixes<br>
+*** Fixed bug in processing of 'popname' field. <br>
+    Thanks to Richard Single for the report.<br>
+</p></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="guide-preface-howto.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="guide-preface.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="guide-preface-authors.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">2. How to use this guide </td><td width="20%" align="center"><a accesskey="h" href="pypop-guide.html">Home</a></td><td width="40%" align="right" valign="top"> 4. Authors of software components</td></tr></table></div></body></html>

@@ -1,0 +1,237 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>3.2. Single locus analyses</title><link rel="stylesheet" href="style.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"><link rel="home" href="pypop-guide.html" title="PyPop User Guide"><link rel="up" href="guide-chapter-instructions.html" title="Chapter 3. Interpreting PyPop output"><link rel="prev" href="guide-chapter-instructions.html" title="Chapter 3. Interpreting PyPop output"><link rel="next" href="instructions-haplo.html" title="3.3. Multi-locus analyses"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.2. Single locus analyses</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="guide-chapter-instructions.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Interpreting PyPop output</th><td width="20%" align="right"> <a accesskey="n" href="instructions-haplo.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="instructions-locus-info"></a>3.2. Single locus analyses</h2></div></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="instructions-allelecounts"></a>3.2.1. Basic allele count information</h3></div></div></div><p>Information relevant to individual loci is reported.  Sample
+    size and allele counts will differ among loci if not all
+    individuals were typed at each locus. Untyped individuals are
+    those for which one or two alleles were not reported. The alleles
+    are listed in descending frequency (and count) in the left hand
+    column, and are sorted numerically in the right column.  The
+    number of distinct alleles <em class="varname"><code>k</code></em> is
+    reported.</p><div class="example"><a name="id3174471"></a><p class="title"><b>Example 3.2. Basic locus information sample output</b></p><div class="example-contents"><pre class="programlisting">
+I. Single Locus Analyses
+========================
+
+1. Locus: A
+___________
+
+1.1. Allele Counts [A]
+----------------------
+Untyped individuals: 2
+Sample Size (n): 45
+Allele Count (2n): 90
+Distinct alleles (k): 10
+
+Counts ordered by frequency   | Counts ordered by name        
+Name      Frequency (Count)   | Name      Frequency (Count)   
+0201      0.21111   19        | 0101      0.13333   12        
+0301      0.15556   14        | 0201      0.21111   19        
+0101      0.13333   12        | 0210      0.10000   9         
+2501      0.12222   11        | 0218      0.10000   9         
+0210      0.10000   9         | 0301      0.15556   14        
+0218      0.10000   9         | 2501      0.12222   11        
+3204      0.08889   8         | 3204      0.08889   8         
+6901      0.04444   4         | 6814      0.03333   3         
+6814      0.03333   3         | 6901      0.04444   4         
+7403      0.01111   1         | 7403      0.01111   1         
+Total     1.00000   90        | Total     1.00000   90        
+</pre></div></div><br class="example-break"><p>In the cases where there is no information for a locus, a message is
+    displayed indicating lack of data. </p><p>Sample output:</p><pre class="programlisting">
+4. Locus: DRA
+_____________
+ No data for this locus!
+</pre></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="instructions-hardyweinberg"></a>3.2.2. Chi-square test for deviation from Hardy-Weinberg
+    proportions (HWP).</h3></div></div></div><p>For each locus, the observed genotype counts are compared to
+    those expected under Hardy Weinberg proportions (HWP). A
+    triangular matrix reports observed and expected genotype counts.
+    If the matrix is more than 80 characters, the output is split into
+    different sections. Each cell contains the observed and expected
+    number for a given genotype in the format
+    <code class="literal">observed/expected</code>.</p><div class="example"><a name="id3174542"></a><p class="title"><b>Example 3.3. Sample output of Hardy-Weinberg genotype table</b></p><div class="example-contents"><pre class="programlisting">
+6.2. HardyWeinberg [DQA1]
+-------------------------
+Table of genotypes, format of each cell is: observed/expected.
+
+0201 8/5.1
+0301 4/4.0 1/0.8
+0401 3/6.9 1/2.7 6/2.3
+0501 8/9.9 5/3.8 5/6.7 6/4.8
+      0201  0301  0401  0501
+                             [Cols: 1 to 4]
+     </pre></div></div><br class="example-break"><p>The values in this matrix are used to test hypotheses of
+    deviation from HWP. The output also includes the chi-square
+    statistic, the number of degrees of freedom and associated
+    <em class="varname"><code>p</code></em>-value for a number of classes of
+    genotypes and is summarized in the following table:</p><div class="example"><a name="id3174572"></a><p class="title"><b>Example 3.4. Sample output of HW genotype classes</b></p><div class="example-contents"><pre class="programlisting">
+                      Observed    Expected  Chi-square   DoF   p-value   
+------------------------------------------------------------------------------
+            Common         N/A         N/A        4.65     1  0.0310* <a name="hw-common"></a><img src="images/callouts/1.png" alt="1" border="0">  
+------------------------------------------------------------------------------
+  Lumped genotypes         N/A         N/A        1.17     1  0.2797  <a name="hw-lumped"></a><img src="images/callouts/2.png" alt="2" border="0">
+------------------------------------------------------------------------------
+   Common + lumped         N/A         N/A        5.82     1  0.0158* <a name="hw-common-lumped"></a><img src="images/callouts/3.png" alt="3" border="0">
+------------------------------------------------------------------------------
+   All homozygotes          21       13.01        4.91     1  0.0268* <a name="hw-all-homs"></a><img src="images/callouts/4.png" alt="4" border="0">
+------------------------------------------------------------------------------
+ All heterozygotes          26       33.99        1.88     1  0.1706  <a name="hw-all-hets"></a><img src="images/callouts/5.png" alt="5" border="0">
+------------------------------------------------------------------------------
+Common heterozygotes by allele                                        <a name="hw-common-hets"></a><img src="images/callouts/6.png" alt="6" border="0">
+              0201          15       20.78        1.61        0.2050      
+              0301          10       10.47        0.02        0.8850      
+              0401           9       16.31        3.28        0.0703      
+              0501          18       20.43        0.29        0.5915      
+
+------------------------------------------------------------------------------
+Common genotypes                                                      <a name="hw-common-geno"></a><img src="images/callouts/7.png" alt="7" border="0">
+         0201:0201           8        5.11        1.63        0.2014      
+         0201:0401           3        6.93        2.23        0.1358      
+         0201:0501           8        9.89        0.36        0.5472      
+         0401:0501           5        6.70        0.43        0.5109      
+             Total          24       28.63
+------------------------------------------------------------------------------
+     </pre></div></div><br class="example-break"><div class="calloutlist"><p class="title"><b>Explanation of each genotype class</b></p><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><a href="#hw-common"><img src="images/callouts/1.png" alt="1" border="0"></a> </p></td><td valign="top" align="left"><p><b>Common. </b>The result for goodness of fit to HWP using only the
+       genotypes with at least <code class="literal">lumpBelow</code> expected
+       counts (the common genotypes) (in the output shown throughout
+       this example <code class="literal">lumpBelow</code> is equal to 5).</p><p>If the dataset contains no genotypes with expected counts
+      equal or greater than <code class="literal">lumpBelow</code>, then there are
+      no common genotypes and the following message is reported: </p><pre class="programlisting">
+   No common genotypes; chi-square cannot be calculated
+   </pre><p>The analysis of common genotypes may lead to a situtation
+      where there are fewer classes (genotypes) than allele
+      frequencies to estimate.  This means that the
+      analysis cannot be performed (degrees of freedom &lt; 1). In
+      such a case the following message is reported, explaining why
+      the analysis could not be performed:</p><pre class="programlisting">
+   Too many parameters for chi-square test.
+   </pre><p>To obviate this as much as possible, only alleles which
+     occur in common genotypes are used in the calculation of degrees
+     of freedom.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#hw-lumped"><img src="images/callouts/2.png" alt="2" border="0"></a> </p></td><td valign="top" align="left"><p><b>Lumped genotypes. </b>The result for goodness of fit to HWP for the pooled set
+       of genotypes that individually have less than
+       <code class="literal">lumpBelow</code> expected counts.  </p><p>The pooling procedure is designed to avoid carrying out the
+      chi-square goodness of fit test in cases where there are low
+      expected counts, which could lead to spurious rejection of HWP.
+      However, in certain cases it may not be possible to carry out
+      this pooling approach.  The interpretation of results based on
+      lumped genotypes will depend on the particular genotypes that
+      are combined in this class.</p><p>If the sum of expected counts in the lumped class does not
+      add up to <code class="literal">lumpBelow</code>, then the test for the
+      lumped genotypes cannot be calculated and the following message
+      is reported:</p><pre class="programlisting">
+   The total number of expected genotypes is less than 5
+     </pre><p>This may by remedied by combining rare alleles and
+      recalculating overall chi-square value and degrees of freedom.
+      (This would require appropriate manipulation of the data set by
+      hand and is not a feature of
+      <code class="application">PyPop</code>).</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#hw-common-lumped"><img src="images/callouts/3.png" alt="3" border="0"></a> </p></td><td valign="top" align="left"><p><b>Common + lumped. </b>The result for goodness of
+       fit to HWP for both the common and the lumped genotypes.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#hw-all-homs"><img src="images/callouts/4.png" alt="4" border="0"></a> </p></td><td valign="top" align="left"><p><b>All homozygotes. </b>The result for goodness of fit to HWP for the pooled set
+       of homozygous genotypes.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#hw-all-hets"><img src="images/callouts/5.png" alt="5" border="0"></a> </p></td><td valign="top" align="left"><p><b>All heterozygotes. </b>The result for goodness of fit to HWP for the pooled set
+       of heterozygous genotypes.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#hw-common-hets"><img src="images/callouts/6.png" alt="6" border="0"></a> </p></td><td valign="top" align="left"><p><b>Common heterozygotes. </b>The common heterozygotes by allele section summarizes the
+       observed and expected number of counts of all heterozygotes
+       carrying a specific allele with expected value ≥
+       <code class="literal">lumpBelow</code>.</p></td></tr><tr><td width="5%" valign="top" align="left"><p><a href="#hw-common-geno"><img src="images/callouts/7.png" alt="7" border="0"></a> </p></td><td valign="top" align="left"><p><b>Common genotypes. </b>The common genotypes by genotype section lists observed,
+       expected, chi-square and <em class="varname"><code>p</code></em>-values for all
+       observed genotypes with expected values ≥
+       <code class="literal">lumpBelow</code>.</p></td></tr></table></div></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="instructions-hardyweinberg-exact"></a>3.2.3. Exact test for deviation from HWP</h3></div></div></div><p>If enabled in the configuration file, the exact test for
+    deviations from HWP will be output.  The exact test uses the method
+    of <a href="references.html#Guo:Thompson:1992">Guo &amp; Thompson (1992)</a>. The
+    <em class="varname"><code>p</code></em>-value provided describes how probable the
+    observed set of genotypes is, with respect to a large sample of
+    other genotypic configurations (conditioned on the same allele
+    frequencies and <em class="varname"><code>2n</code></em>).
+    <em class="varname"><code>p</code></em>-values lower than 0.05 can be interpreted as
+    evidence that the sample does not fit HWP.  In addition, those
+    individual genotypes deviating significantly (<em class="varname"><code>p</code></em>-values &lt; 0.05)
+    from expected HWP as computed with the Chen and "diff" measures are reported.</p><p>There are two implementations for this test, the first using
+    the <code class="application">gthwe</code> implementation originally due
+    to Guo &amp; Thompson, but modified by John Chen, the second being
+    <code class="application">Arlequin</code>'s
+    <a href="references.html#Schneider:etal:2000">(Schneider et al., 2000)</a> implementation.</p><div class="example"><a name="id3174982"></a><p class="title"><b>Example 3.5. Sample output for exact test using
+     <code class="application">gthwe</code></b></p><div class="example-contents"><pre class="programlisting">6.3. Guo and Thompson HardyWeinberg output [DQA1]
+-------------------------------------------------
+Total steps in MCMC: 1000000
+Dememorization steps: 2000
+Number of Markov chain samples: 1000
+Markov chain sample size: 1000
+Std. error: 0.0009431 
+p-value (overall): 0.0537</pre></div></div><br class="example-break"><div class="example"><a name="id3175013"></a><p class="title"><b>Example 3.6. Sample output for exact test using the
+     <code class="application">Arlequin</code> implementation</b></p><div class="example-contents"><pre class="programlisting">6.4. Guo and Thompson HardyWeinberg output(Arlequin's implementation) [DQA1]
+----------------------------------------------------------------------------- 
+Observed heterozygosity: 0.553190
+Expected heterozygosity: 0.763900
+Std. deviation: 0.000630
+Dememorization steps: 100172
+p-value: 0.0518</pre><p>Note that in the <code class="application">Arlequin</code>
+     implementation, the output is slightly different, and the
+     only directly comparable value between the two implementation is
+     the <em class="varname"><code>p</code></em>-value.  These
+     <em class="varname"><code>p</code></em>-values may be slightly different, but should
+     agree to within one significant figure.</p></div></div><br class="example-break"></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="instructions-homozygosity"></a>3.2.4. The Ewens-Watterson homozygosity test of neutrality</h3></div></div></div><p>For each locus, we implement the Ewens-Watterson homozygosity
+    test of neutrality (<a href="references.html#Ewens:1972">Ewens 1972</a>; <a href="references.html#Watterson:1978">Watterson 1978</a>). We use the term
+    <span class="emphasis"><em>observed homozygosity</em></span> to denote the
+    homozygosity statistic (<em class="varname"><code>F</code></em>), computed as the sum
+    of the squared allele frequencies. This value is compared to the
+    <span class="emphasis"><em>expected homozygosity</em></span> which is computed by
+    simulation under neutrality/equilibrium expectations, for the same
+    sample size (<em class="varname"><code>2n</code></em>) and number of unique alleles
+    (<em class="varname"><code>k</code></em>). Note that the homozygosity
+    <em class="varname"><code>F</code></em> statistic, <img src="fnd.jpg">, is often referred to as the
+    <span class="emphasis"><em><span class="underline">expected</span>
+    homozygosity</em></span> (with <span class="emphasis"><em><span class="underline">expectation</span></em></span> referring to
+    HWP) to distinguish it from the observed proportion of
+    homozygotes. We avoid referring to the observed
+    <em class="varname"><code>F</code></em> statistic as the "<span class="emphasis"><em>observed expected
+    homozygosity</em></span>" (to simplify and hopefully avoid
+    confusion) since the homozygosity test of neutrality is concerned
+    with comparisons of observed results to expectations under
+    neutrality. Both the <span class="emphasis"><em>observed</em></span> statistic
+    (based on the actual data) and <span class="emphasis"><em>expected</em></span>
+    statistic (based on simulations under neutrality) used in this
+    test are computed as the sum of the squared allele
+    frequencies.</p><p>The <span class="emphasis"><em>normalized deviate of the
+   homozygosity</em></span>
+   (<em class="varname"><code>F</code></em><sub>nd</sub>) is the difference
+   between the <span class="emphasis"><em>observed homozygosity</em></span> and
+   <span class="emphasis"><em>expected homozygosity</em></span>, divided by the square
+   root of the variance of the expected homozygosity (also obtained by
+   simulations; <a href="references.html#Salamon:etal:1999">Salamon et al. (1999)</a>). Significant negative
+   normalized deviates imply <span class="emphasis"><em>observed
+   homozygosity</em></span> values lower than <span class="emphasis"><em>expected
+   homozygosity</em></span>, in the direction of balancing
+   selection. Significant positive values are in the direction of
+   directional selection.</p><p>The <em class="varname"><code>p</code></em>-value in the last row of the output
+    is the probability of obtaining a homozygosity
+    <em class="varname"><code>F</code></em> statistic under neutral evolution that is
+    less than or equal to the observed <em class="varname"><code>F</code></em>
+    statistic. It is computed based on the null distribution of
+    homozygosity <em class="varname"><code>F</code></em> values simulated under
+    neutrality/equilibrium conditions for the same sample size
+    (<em class="varname"><code>2n</code></em>) and number of unique alleles
+    (<em class="varname"><code>k</code></em>). For a one-tailed test of the null
+    hypothesis of neutrality against the alternative of balancing
+    selection, <em class="varname"><code>p</code></em>-values less than 0.05 are
+    considered significant at the 0.05 level. For a two-tailed test
+    against the alternative of either balancing or directional
+    selection, <em class="varname"><code>p</code></em>-values less than 0.025 or greater
+    than 0.975 can be considered significant at the 0.05 level.</p><div class="example"><a name="id3175289"></a><p class="title"><b>Example 3.7. Sample output of homozygosity test from Monte-Carlo implementation</b></p><div class="example-contents"><p>The standard implementation of the test uses a Monte-Carlo
+     implementation of the exact test written by Slatkin (<a href="references.html#Slatkin:1994">Slatkin 1994</a>; <a href="references.html#Slatkin:1996">Slatkin 1996</a>). A Markov-chain Monte
+     Carlo method is used to obtain the null distribution of the
+     homozygosity statistic under neutrality. The reported
+     <em class="varname"><code>p</code></em>-values are one-tailed (against the
+     alternative of balancing selection), but can be interpreted for a
+     two-tailed test by considering either extreme of the distribution
+     (&lt; 0.025 or &gt; 0.975) at the 0.05 level.</p><pre class="programlisting">1.6. Slatkin's implementation of EW homozygosity test of neutrality [A]
+-----------------------------------------------------------------------
+Observed F: 0.1326, Expected F: 0.2654, Variance in F: 0.0083
+Normalized deviate of F (Fnd): -1.4603, p-value of F: 0.0029**
+</pre></div></div><br class="example-break"><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Warning</th></tr><tr><td align="left" valign="top"><p>The version of this test based on tables of simulated
+     percentiles of the Ewens-Watterson statistics 
+     is now disabled by default and its use is deprecated in
+     preference to the Slatkin exact test described above, however
+     some older <code class="application">PyPop</code> runs may include
+     output, so it is documented here for completeness.  This version
+     differs from the Monte-Carlo Markov Chain version described above
+     in that the data is simulated under neutrality to obtain the
+     required statistics.</p><div class="example"><a name="id3175358"></a><p class="title"><b>Example 3.8. Sample output of homozygosity test from simulation look-up
+      tables (disabled by default)</b></p><div class="example-contents"><pre class="programlisting">
+1.4. Ewens-Watterson homozygosity test of neutrality [A]
+--------------------------------------------------------
+Observed F: 0.1326, Expected F: 0.2651, Normalized deviate (Fnd): -1.4506
+p-value range: 0.0000 &lt; p &lt;= 0.0100 *
+</pre></div></div><br class="example-break"></td></tr></table></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="guide-chapter-instructions.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="guide-chapter-instructions.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="instructions-haplo.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 3. Interpreting PyPop output </td><td width="20%" align="center"><a accesskey="h" href="pypop-guide.html">Home</a></td><td width="40%" align="right" valign="top"> 3.3. Multi-locus analyses</td></tr></table></div></body></html>

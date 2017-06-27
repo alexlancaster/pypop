@@ -1,0 +1,140 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>3.3. Multi-locus analyses</title><link rel="stylesheet" href="style.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"><link rel="home" href="pypop-guide.html" title="PyPop User Guide"><link rel="up" href="guide-chapter-instructions.html" title="Chapter 3. Interpreting PyPop output"><link rel="prev" href="instructions-locus-info.html" title="3.2. Single locus analyses"><link rel="next" href="references.html" title="References"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">3.3. Multi-locus analyses</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="instructions-locus-info.html">Prev</a> </td><th width="60%" align="center">Chapter 3. Interpreting PyPop output</th><td width="20%" align="right"> <a accesskey="n" href="references.html">Next</a></td></tr></table><hr></div><div class="sect1" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="instructions-haplo"></a>3.3. Multi-locus analyses</h2></div></div></div><p>Haplotype frequencies are estimated using the iterative
+   Expectation-Maximization (EM) algorithm (<a href="references.html#Dempster:1977">Dempster et al. 1977</a>; <a href="references.html#Excoffier:Slatkin:1995">Excoffier &amp; Slatkin 1995</a>). Multiple
+   starting conditions are used to minimize the possibility of local
+   maxima being reached by the EM iterations. The haplotype
+   frequencies reported are those that correspond to the highest
+   logarithm of the sample likelihood found over the different
+   starting conditions and are labeled as the maximum likelihood
+   estimates (MLE).</p><p>The output provides the names of loci for which haplotype
+   frequencies were estimated, the number of individual genotypes in
+   the dataset (<code class="literal">before-filtering</code>), the number of
+   genotypes that have data for all loci for which haplotype
+   estimation will be performed (<code class="literal">after-filtering</code>),
+   the number of unique phenotypes (unphased genotypes), the number of
+   unique phased genotypes, the total number of possible haplotypes
+   that are compatible with the genotypic data (many of these will
+   have an estimated frequency of zero), and the log-likelihood of the
+   observed genotypes under the assumption of linkage
+   equilibrium.</p><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="instructions-pairwise-ld"></a>3.3.1. All pairwise LD</h3></div></div></div><p>A series of linkage disequilibrium (LD) measures are
+    provided for each pair of loci.</p><div class="example"><a name="id3175450"></a><p class="title"><b>Example 3.9. Sample output of all pairwise LD</b></p><div class="example-contents"><pre class="programlisting">
+II. Multi-locus Analyses
+========================
+
+Haplotype/ linkage disequlibrium (LD) statistics
+________________________________________________
+
+Pairwise LD estimates
+---------------------
+Locus pair        D'        Wn   ln(L_1)   ln(L_0)         S # permu p-value  
+A:C          0.49229   0.39472   -289.09   -326.81     75.44    1000 0.8510   
+A:B          0.50895   0.40145   -293.47   -330.83     74.73    1000 0.8730   
+A:DRB1       0.44304   0.37671   -282.00   -309.16     54.32    1000 0.7540   
+A:DQA1       0.29361   0.34239   -257.94   -269.88     23.88    1000 0.9020   
+A:DQB1       0.39266   0.37495   -275.58   -297.61     44.07    1000 0.8140   
+A:DPA1       0.31210   0.37987   -203.89   -206.99      6.21    1000 0.8840   
+A:DPB1       0.42241   0.40404   -237.84   -262.05     48.42    1000 0.5930   
+C:B          0.88739   0.85752   -210.36   -342.68    264.63    1000 0.0000***
+C:DRB1       0.48046   0.47513   -280.34   -317.65     74.62    1000 0.2140   
+C:DQA1       0.42257   0.49869   -250.36   -276.72     52.73    1000 0.0370*  
+C:DQB1       0.45793   0.49879   -269.54   -305.27     71.46    1000 0.0580   
+C:DPA1       0.37214   0.46870   -208.99   -215.36     12.74    1000 0.7450   
+C:DPB1       0.46436   0.36984   -242.45   -268.45     52.01    1000 0.6290   
+B:DRB1       0.50255   0.41712   -286.79   -320.50     67.42    1000 0.4140   
+B:DQA1       0.41441   0.42844   -259.86   -279.56     39.40    1000 0.3880   
+B:DQB1       0.49040   0.43654   -277.29   -308.12     61.65    1000 0.2870   
+B:DPA1       0.29272   0.38831   -213.43   -218.01      9.14    1000 0.8780   
+B:DPB1       0.46082   0.38001   -247.83   -272.77     49.86    1000 0.7320   
+DRB1:DQA1    0.91847   0.91468   -164.06   -254.54    180.96    1000 0.0000***
+DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
+
+...
+</pre></div></div><br class="example-break"><p>We report two measures of overall linkage disequilibrium.
+     <em class="varname"><code>D'</code></em> <a href="references.html#Hedrick:1987">(Hedrick, 1987)</a> weights
+     the contribution to LD of specific allele pairs by the product of
+     their allele frequencies;
+    <em class="varname"><code>W</code></em><sub>n</sub> <a href="references.html#Cramer:1946">(Cramer, 1946)</a> is a
+     re-expression of the chi-square statistic for deviations between
+     observed and expected haplotype frequencies. Both measures
+     are normalized to lie between zero and one.</p><div class="variablelist"><dl><dt><span class="term"><em class="varname"><code>D'</code></em></span></dt><dd><p>Overall LD, summing contributions
+       (<em class="varname"><code>D'</code></em><sub>ij</sub> =
+       <em class="varname"><code>D</code></em><sub>ij</sub> /
+       <em class="varname"><code>D</code></em><sub>max</sub>) of all the
+       haplotypes in a multi-allelic two-locus system, can be measured
+       using Hedrick's <em class="varname"><code>D'</code></em> statistic, using the
+       products of allele frequencies at the loci,
+       <em class="varname"><code>p</code></em><sub>i</sub> and
+       <em class="varname"><code>q</code></em><sub>j</sub>, as weights.
+    </p><div class="equation"><a name="id3175574"></a><p class="title"><b>Equation 3.0. </b></p><div class="equation-contents"><div><img src="Dprime.jpg"></div></div></div><p><br class="equation-break">
+      </p></dd><dt><span class="term"><em class="varname"><code>W</code></em><sub>n</sub></span></dt><dd><p>
+       Also known as Cramer's V Statistic
+       <a href="references.html#Cramer:1946">(Cramer, 1946)</a>,
+       <em class="varname"><code>W</code></em><sub>n</sub>, is a second
+       overall measure of LD between two loci. It is a re-expression
+       of the Chi-square statistic, <em class="varname"><code>X</code></em><sub>LD</sub><sup>2</sup>,
+       normalized to be between zero and one.
+       
+       </p><div class="equation"><a name="id3175631"></a><p class="title"><b>Equation 3.0. </b></p><div class="equation-contents"><div><img src="Wn.jpg"></div></div></div><p><br class="equation-break">
+
+       When there are only two alleles per locus,
+       <em class="varname"><code>W</code></em><sub>n</sub> is equivalent to the
+       correlation coefficient between the two loci, defined as
+       <img src="r-correlation-coeff.jpg">.
+      </p></dd></dl></div><p>For each locus pair the log-likelihood of obtaining the
+     observed data given the inferred haplotype frequencies
+     [<em class="varname"><code>ln(L_1)</code></em>], and the likelihood of the data
+     under the null hypothesis of linkage equilibrium
+     [<em class="varname"><code>ln(L_0)</code></em>] are given. The statistic
+     <em class="varname"><code>S</code></em> is defined as twice the difference between
+     these likelihoods.  <em class="varname"><code>S</code></em> has an asymptotic
+     chi-square distribution, but the null distribution of
+     <em class="varname"><code>S</code></em> is better approximated using a randomization
+     procedure.  The empirical distribution of <em class="varname"><code>S</code></em> is
+     generated by shuffling genotypes among individuals, separately
+     for each locus, thus creating linkage equilibrium (<code class="literal">#
+     permu</code> indicates how many permutations were carried
+     out). The <em class="varname"><code>p</code></em>-value is the fraction of
+     permutations that results in values of <em class="varname"><code>S</code></em>
+     greater or equal to that observed. A <em class="varname"><code>p</code></em>-value
+     &lt; 0.05 is indicative of overall significant LD. 
+    </p><p>Individual LD coefficients, <em class="varname"><code>D</code></em><sub>ij</sub>, are stored
+    in the XML output file, but are not printed in the default text
+    output. They can be accessed in the summary text files created by
+    the <code class="filename">popmeta</code> script (see <a class="xref" href="guide-chapter-usage.html#guide-usage-intro-run-details" title="2.1.3. What happens when you run PyPop?">Section 2.1.3, “What happens when you run
+   PyPop?”</a>).</p></div><div class="sect2" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="instructions-haplotype-freqs"></a>3.3.2. Haplotype frequency estimation</h3></div></div></div><div class="example"><a name="id3175772"></a><p class="title"><b>Example 3.10. Sample output of haplotype estimation parameters</b></p><div class="example-contents"><pre class="programlisting">
+Haplotype frequency est. for loci: A:B:DRB1
+-------------------------------------------
+Number of individuals: 47 (before-filtering)
+Number of individuals: 45 (after-filtering)
+Unique phenotypes: 45
+Unique genotypes: 113
+Number of haplotypes: 188
+Loglikelihood under linkage equilibrium [ln(L_0)]: -472.700542
+Loglikelihood obtained via the EM algorithm [ln(L_1)]: -340.676530
+Number of iterations before convergence: 67
+</pre></div></div><br class="example-break"><p> The estimated haplotype frequencies are sorted
+    alphanumerically by haplotype name (left side), or in decreasing
+    frequency (right side). Only haplotypes estimated at a frequency
+    of 0.00001 or larger are reported.  The first column gives the
+    allele names in each of the three loci, the second column provides
+    the maximum likelihood estimate for their frequencies,
+    (<code class="literal">frequency</code>), and the third column gives the
+    corresponding approximate number of haplotypes (<code class="literal"># copies</code>).</p><div class="example"><a name="id3175816"></a><p class="title"><b>Example 3.11. Sample output of estimated haplotype frequencies</b></p><div class="example-contents"><pre class="programlisting">
+Haplotypes sorted by name             | Haplotypes sorted by frequency     
+haplotype         frequency # copies  | haplotype         frequency # copies  
+0101:1301:0402:   0.02222   2.0       | 0201:1401:0402:   0.03335   3.0       
+0101:1301:1101:   0.01111   1.0       | 3204:1401:0802:   0.03333   3.0       
+0101:1401:0901:   0.01111   1.0       | 0301:1401:0407:   0.03333   3.0       
+0101:1520:0802:   0.01111   1.0       | 0301:1301:0402:   0.03333   3.0       
+0101:1801:0407:   0.01111   1.0       | 0201:1401:1101:   0.03332   3.0       
+0101:3902:0404:   0.01111   1.0       | 0301:1520:0802:   0.02222   2.0       
+0101:3902:1602:   0.01111   1.0       | 0101:4005:0802:   0.02222   2.0       
+0101:4005:0802:   0.02222   2.0       | 0301:3902:0402:   0.02222   2.0       
+0101:8101:0802:   0.01111   1.0       | 0201:1301:1602:   0.02222   2.0       
+0101:8101:1602:   0.01111   1.0       | 0218:1401:0404:   0.02222   2.0       
+0201:1301:1602:   0.02222   2.0       | 0210:5101:1602:   0.02222   2.0       
+0201:1401:0402:   0.03335   3.0       | 0218:1401:1602:   0.02222   2.0       
+0201:1401:0404:   0.01111   1.0       | 0101:1301:0402:   0.02222   2.0       
+0201:1401:0407:   0.02222   2.0       | 2501:4005:0802:   0.02222   2.0       
+0201:1401:0802:   0.01111   1.0       | 2501:1301:0802:   0.02222   2.0       
+
+...</pre></div></div><br class="example-break"></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="instructions-locus-info.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="guide-chapter-instructions.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="references.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">3.2. Single locus analyses </td><td width="20%" align="center"><a accesskey="h" href="pypop-guide.html">Home</a></td><td width="40%" align="right" valign="top"> References</td></tr></table></div></body></html>

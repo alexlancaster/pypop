@@ -1,0 +1,135 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><title>2.2. The data file</title><link rel="stylesheet" href="style.css" type="text/css"><meta name="generator" content="DocBook XSL Stylesheets V1.74.0"><link rel="home" href="pypop-guide.html" title="PyPop User Guide"><link rel="up" href="guide-chapter-usage.html" title="Chapter 2. Getting started with PyPop"><link rel="prev" href="guide-chapter-usage.html" title="Chapter 2. Getting started with PyPop"><link rel="next" href="guide-usage-configfile.html" title="2.3. The configuration file"></head><body bgcolor="white" text="black" link="#0000FF" vlink="#840084" alink="#0000FF"><div class="navheader"><table width="100%" summary="Navigation header"><tr><th colspan="3" align="center">2.2. The data file</th></tr><tr><td width="20%" align="left"><a accesskey="p" href="guide-chapter-usage.html">Prev</a> </td><th width="60%" align="center">Chapter 2. Getting started with PyPop</th><td width="20%" align="right"> <a accesskey="n" href="guide-usage-configfile.html">Next</a></td></tr></table><hr></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="guide-usage-datafile"></a>2.2. The data file</h2></div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id3155140"></a>2.2.1. Sample files</h3></div></div></div><p>Data can be input either as genotypes, or in an allele count
+    format, depending on the format of your data.</p><p>As you will see in the following examples, population files
+    begin with header information.  In the simplest case, the first
+    line contains the column headers for the genotype, allele count,
+    or, sequence information from the population.  If the file
+    contains a population data-block, then the first line consists of
+    headers identifying the data on the second line, and the third
+    line contains the column headers for the genotype or allele count
+    information. </p><p>Note that for genotype data, each locus corresponds to two
+    columns in the population file.  The locus name must repeated,
+    with a suffix such as <code class="literal">_1</code>, <code class="literal">_2</code>
+    (the default) or <code class="literal">_a</code>, <code class="literal">_b</code> and
+    must match the format defined in the
+    <code class="filename">config.ini</code> (see <a class="xref" href="guide-usage-configfile.html#validSampleFields" title="validSampleFields">validSampleFields</a>).  Although
+    <code class="application">PyPop</code> needs this distinction to be
+    made, phase is NOT assumed, and if known it is ignored.</p><p><a class="xref" href="guide-usage-configfile.html#config-minimal-example" title="Example 2.7. Minimal config.ini file">Example 2.7, “Minimal config.ini file”</a> shows the relevant
+   lines for the configuration to read in the data shown in <a class="xref" href="guide-usage-datafile.html#data-minimal-noheader-noids" title="Example 2.1. Multi-locus allele-level genotype data">Example 2.1, “Multi-locus allele-level genotype data”</a> through to <a class="xref" href="guide-usage-datafile.html#data-allelecount" title="Example 2.6. Allele count data">Example 2.6, “Allele count data”</a>.</p><div class="example"><a name="data-minimal-noheader-noids"></a><p class="title"><b>Example 2.1. Multi-locus allele-level genotype data</b></p><div class="example-contents"><pre class="programlisting">a_1   a_2   c_1   c_2   b_1   b_2
+****  ****  0102  02025 1301  18012 
+0101  0201  0307  0605  1401  39021 
+0210  03012 0712  0102  1520  1301  
+0101  0218  0804  1202  35091 4005  
+2501  0201  1507  0307  51013 1401  
+0210  3204  1801  0102  78021 1301  
+03012 3204  1507  0605  51013 39021 
+  </pre><p>This is an example of the simplest kind of data file.</p></div></div><br class="example-break"><div class="example"><a name="data-minimal-noheader"></a><p class="title"><b>Example 2.2. Multi-locus allele-level HLA genotype data with sample
+    information</b></p><div class="example-contents"><pre class="programlisting">populat    id        a_1   a_2   c_1   c_2   b_1   b_2
+UchiTelle  UT900-23  ****  ****  0102  02025 1301  18012 
+UchiTelle  UT900-24  0101  0201  0307  0605  1401  39021 
+UchiTelle  UT900-25  0210  03012 0712  0102  1520  1301  
+UchiTelle  UT900-26  0101  0218  0804  1202  35091 4005  
+UchiTelle  UT910-01  2501  0201  1507  0307  51013 1401  
+UchiTelle  UT910-02  0210  3204  1801  0102  78021 1301  
+UchiTelle  UT910-03  03012 3204  1507  0605  51013 39021 
+  </pre></div></div><br class="example-break"><p>This example shows a data file which has non-allele data in
+    some columns, here we have population (<code class="literal">populat</code>)
+    and sample identifiers (<code class="literal">id</code>).</p><div class="example"><a name="data-hla"></a><p class="title"><b>Example 2.3. Multi-locus allele-level HLA genotype data with sample and
+    header information</b></p><div class="example-contents"><pre class="programlisting">labcode method              ethnic  contin  collect        latit           longit          
+USAFEL  12th Workshop SSOP  Telle   NW Asia Targen Village 41 deg 12 min N 94 deg 7 min E  
+populat     id         a_1     a_2     c_1     c_2     b_1     b_2     
+UchiTelle   UT900-23   ****    ****    0102    02025   1301    18012   
+UchiTelle   UT900-24   0101    0201    0307    0605    1401    39021   
+UchiTelle   UT900-25   0210    03012   0712    0102    1520    1301    
+UchiTelle   UT900-26   0101    0218    0804    1202    35091   4005    
+UchiTelle   UT910-01   2501    0201    1507    0307    51013   1401    
+UchiTelle   UT910-02   0210    3204    1801    0102    78021   1301    
+UchiTelle   UT910-03   03012   3204    1507    0605    51013   39021   
+</pre><p>This is an example of a data file which is identical to <a class="xref" href="guide-usage-datafile.html#data-minimal-noheader" title="Example 2.2. Multi-locus allele-level HLA genotype data with sample information">Example 2.2, “Multi-locus allele-level HLA genotype data with sample
+    information”</a>, but which includes population
+     level information.</p></div></div><br class="example-break"><div class="example"><a name="data-hla-microsat"></a><p class="title"><b>Example 2.4. Multi-locus allele-level HLA genotype and microsatellite
+    genotype data with header information</b></p><div class="example-contents"><pre class="programlisting">labcode ethnic  complex
+USAFEL  ****    0
+populat    id      drb1_1  drb1_2  dqb1_1  dqb1_2  d6s2222_1  d6s2222_2  
+UchiTelle  HJK_2   01      0301    0201     0501    249        249        
+UchiTelle  HJK_1   0301    0301    0201     0201    249        249        
+UchiTelle  HJK_3   01      0301    0201     0501    249        249        
+UchiTelle  HJK_4   01      0301    0201     0501    249        249        
+UchiTelle  MYU_2   02      0401    0302     0602    247        249        
+UchiTelle  MYU_1   0301    0301    0201     0201    247        249        
+UchiTelle  MYU_3   0301    0401    0201     0302    249        249        
+UchiTelle  MYU_4   0301    0401    0201     0302    247        249</pre><p>This example mixes different kinds of data: HLA allele data
+     (from DRB1 and DQB1 loci) with microsatellite data (locus
+     D6S2222).</p></div></div><br class="example-break"><div class="example"><a name="data-nucleotide"></a><p class="title"><b>Example 2.5. Sequence genotype data with header information</b></p><div class="example-contents"><pre class="programlisting">labcode file                                                
+BLOGGS  C_New
+popName ID       TGFB1cdn10(1) TGFB1cdn10(2) TGFBhapl(1) TGFBhapl(2) 
+Urboro  XQ-1     C             T             CG          TG     
+Urboro  XQ-2     C             C             CG          CG     
+Urboro  XQ-5     C             T             CG          TG     
+Urboro  XQ-21    C             T             CG          TG     
+Urboro  XQ-7     C             T             CG          TG     
+Urboro  XQ-20    C             T             CG          TG     
+Urboro  XQ-6     T             T             TG          TG     
+Urboro  XQ-8     C             T             CG          TG     
+Urboro  XQ-9     T             T             TG          TG     
+Urboro  XQ-10    C             T             CG          TG     
+  </pre><p>This example includes nucleotide sequence data: the TGFB1CDN10
+     locus consists of one nucleotide, the TGFBhapl locus is actually
+     haplotype data, but <code class="application">PyPop</code> simply
+     treats each combination as a separate "allele" for subsequent
+     analysis.</p></div></div><br class="example-break"><div class="example"><a name="data-allelecount"></a><p class="title"><b>Example 2.6. Allele count data</b></p><div class="example-contents"><pre class="programlisting">populat    method  ethnic     country    latit   longit
+UchiTelle  PCR-SSO Klingon    QZ         052.81N 100.25E
+dqa1  count
+0101  31
+0102  37
+0103  17
+0201  21
+0301  32
+0401  9
+0501  35
+  </pre><p><code class="application">PyPop</code> can also process allele
+     count data.  However, you cannot mix allele count data and
+     genotype data together in the one file.
+     </p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="images/note.png"></td><th align="left"><a name="data-allelecount-note"></a>Note</th></tr><tr><td align="left" valign="top"><p>Currently each <code class="filename">.pop</code> file can only
+       contain allele count data for <span class="emphasis"><em>one locus</em></span>.
+       In order to process multiple loci for one population you must
+       create a separate <code class="filename">.pop</code> for each
+       locus.</p></td></tr></table></div><p>
+    </p></div></div><br class="example-break"><p>These population files are plain text files, such as you
+    might save out of the <code class="application">Notepad</code>
+    application on Windows (or <code class="application">Emacs</code>).  The
+    columns are all tab-delimited, so you can include spaces in your
+    labels.  If you have your data in a spreadsheet application, such
+    as <code class="application">Excel</code> or
+    <code class="application">OpenOffice.org</code>, export the file as
+    tab-delimited text, in order to use it as
+    <code class="application">PyPop</code> data file.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a name="id3135827"></a>2.2.2. Missing data</h3></div></div></div><p>Untyped or missing data may be represented in a variety of
+    ways.  The default value for untyped or missing data is a series
+    of four asterisks (<code class="literal">****</code>) as specified by the
+    <code class="filename">config.ini</code>.  You may not "represent" untyped
+    data by leaving a column blank, nor may you represent a homozygote
+    by leaving the second column blank.  All cells for which you have
+    data must include data, and all cells for which you do not have
+    data must also be filled in, using a missing data value.</p><p>For individuals who were not typed at all loci, the data in
+    loci for which they are typed will be used on all single-locus
+    analyses for that individual and locus, so that you see the value
+    of the number of individuals (<em class="varname"><code>n</code></em>) vary from
+    locus to locus in the output.  These individuals' data will also
+    be used for multi-locus analyses.  Only the loci that contain no
+    missing data will be included in any multi-locus analysis.</p><p>If an individual is only partially typed at a locus, it will
+    be treated as if it were completely untyped, and data for that
+    individual for that locus will be dropped from ALL
+    analyses.</p><div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Warning: Current limitations of
+    PyPop"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Warning]" src="images/warning.png"></td><th align="left">Current limitations of
+    PyPop</th></tr><tr><td align="left" valign="top"><div class="itemizedlist"><ul type="disc"><li><p>Do not leave trailing blank lines at the end of your data
+       file, as this currently causes <code class="application">PyPop</code>
+       to terminate with an error message that takes experience to
+       diagnose.</p></li><li><p>For haplotype estimation and linkage disequilibrium
+       calculations (i.e., the emhaplofreq part of the program) you
+       are currently restricted to a maximum of seven loci per
+       haplotype request.  For haplotype estimation there is a limit
+       of 5000 for the number of individuals
+       (<em class="varname"><code>n</code></em>)<sup>[<a name="id3134991" href="#ftn.id3134991" class="footnote">1</a>]</sup></p></li></ul></div></td></tr></table></div></div><div class="footnotes"><br><hr width="100" align="left"><div class="footnote"><p><sup>[<a name="ftn.id3134991" href="#id3134991" class="para">1</a>] </sup>These hardcoded numbers
+       can be changed if you obtain the source code yourself and
+       change the appropriate <code class="systemitem">#define</code>
+       <code class="filename"> emhaplofreq.h</code> and
+       recompile the program.</p></div></div></div><div class="navfooter"><hr><table width="100%" summary="Navigation footer"><tr><td width="40%" align="left"><a accesskey="p" href="guide-chapter-usage.html">Prev</a> </td><td width="20%" align="center"><a accesskey="u" href="guide-chapter-usage.html">Up</a></td><td width="40%" align="right"> <a accesskey="n" href="guide-usage-configfile.html">Next</a></td></tr><tr><td width="40%" align="left" valign="top">Chapter 2. Getting started with PyPop </td><td width="20%" align="center"><a accesskey="h" href="pypop-guide.html">Home</a></td><td width="40%" align="right" valign="top"> 2.3. The configuration file</td></tr></table></div></body></html>
