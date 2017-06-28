@@ -376,7 +376,7 @@ MODIFICATIONS.
    <xsl:sort select="@col" data-type="text"/>
    <!-- generate genotype name -->
    <xsl:variable name="name">
-    <xsl:value-of select="@col"/>:<xsl:value-of select="@row"/> 
+    <xsl:value-of select="@col"/><xsl:value-of select="$GL-unphased-genotype-separator"/><xsl:value-of select="@row"/> 
    </xsl:variable>
 
   <!-- indent table with name of the genotype -->
