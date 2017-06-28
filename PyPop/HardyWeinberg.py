@@ -41,6 +41,8 @@
 import string, sys, os, popen2
 import _Pvalue
 from math import pow, sqrt
+# FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
+# this can clash with a character within an allele identifier too easily
 from Utils import getStreamType, TextOutputStream, GENOTYPE_SEPARATOR
 from Arlequin import ArlequinExactHWTest
 
