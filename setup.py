@@ -135,6 +135,15 @@ ext_Gthwe = Extension("_Gthwemodule",
                       define_macros=ext_Gthwe_macros
                       )
 
+ext_Haplostats = Extension("_Haplostatsmodule",
+                       ["haplo-stats/haplo_em_pin_wrap.i",
+                        "haplo-stats/haplo_em_pin.c",],
+                       swig_opts = ["-ISWIG"],
+                       include_dirs=include_dirs + ["haplo-stats", "pval"],
+                           
+                       define_macros=[('MATHLIB_STANDALONE', '1')]
+                       )
+
 ext_HweEnum = Extension("_HweEnum",
                       [ "hwe-enumeration/src/hwe_enum_wrap.i",
                         "hwe-enumeration/src/hwe_enum.c",
@@ -164,9 +173,10 @@ ext_HweEnum = Extension("_HweEnum",
 ext_Emhaplofreq.depends=['SWIG/typemap.i', "emhaplofreq/emhaplofreq.h"]
 ext_Pvalue.depends=['SWIG/typemap.i', 'pval/Rconfig.h', 'pval/Rmath.h', 'pval/dpq.h', 'pval/nmath.h']
 ext_Gthwe.depends=['SWIG/typemap.i', 'gthwe/func.h', 'gthwe/hwe.h']
+ext_Haplostats.depends=['SWIG/typemap.i', "haplo-stats/haplo_em_pin.h"]
     
 # default list of extensions to build
-extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Gthwe]
+extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Gthwe, ext_Haplostats]
 
 # don't include HWE yet
 # extensions.append(ext_HweEnum)
