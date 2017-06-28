@@ -173,8 +173,20 @@ extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Gthwe]
 
 from PyPop import __version__, __pkgname__
 
-# data files to install
-data_file_paths = ['config.ini']
+from distutils.command import clean
+
+class CleanCommand(clean.clean):
+    """Customized clean command - removes in_place extension files if they exist"""
+    def run(self):
+        DIR = os.path.dirname(__file__)
+        ext_files = [os.path.join(DIR, ext.name + (".pyd" if sys.platform == "win32" else ".so")) for ext in extensions]
+        for ext_file in ext_files:
+            if os.path.exists(ext_file):
+                print("Removing in-place extension {}".format(ext_file))
+                os.unlink(ext_file)
+        clean.clean.run(self)
+
+data_file_paths = []
 # xslt files are in a subdirectory
 xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
 data_file_paths.extend(xslt_files)
@@ -197,6 +209,7 @@ particularly large-scale multilocus genotype data""",
        #  ],
        scripts= ['bin/pypop.py', 'bin/popmeta.py'],
        data_files=[('share/pypop', data_file_paths)],
-       ext_modules=extensions
+       ext_modules=extensions,
+       cmdclass={'clean': CleanCommand,}
        )
 
