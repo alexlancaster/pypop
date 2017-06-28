@@ -1174,14 +1174,14 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
     }
   }
 
-  //#if DEBUG == 1
+#if DEBUG == 1
 
   for (k = 0; k < num_loci; k++) 
   {
     fprintf(stdout, "haplo_ar[0]: %s temp_array[%d]: %s \n", 
             haplo_ar[0], k, temp_array[k]); 
   }
-  //#endif
+#endif
 
   /* identify allele# at lth locus for 0th haplotype */
   for (l = 0; l < num_loci; l++) 
