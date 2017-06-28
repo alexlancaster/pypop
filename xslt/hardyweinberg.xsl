@@ -838,9 +838,8 @@ MODIFICATIONS.
     <xsl:variable name="indiv-genotype" 
      select="../genotypetable/genotype[$offset]"/>
     <xsl:value-of select="$indiv-genotype/@row"/>
-    <xsl:text>:</xsl:text>
+    <xsl:value-of select="$GL-unphased-genotype-separator"/>
     <xsl:value-of select="$indiv-genotype/@col"/>
-    <xsl:text>: </xsl:text>
     <xsl:text> (</xsl:text>
     <xsl:value-of select="$indiv-genotype/observed"/>
     <xsl:text>/</xsl:text>
