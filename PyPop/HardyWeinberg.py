@@ -41,10 +41,8 @@
 import string, sys, os, popen2
 import _Pvalue
 from math import pow, sqrt
-from Utils import getStreamType, TextOutputStream
+from Utils import getStreamType, TextOutputStream, GENOTYPE_SEPARATOR
 from Arlequin import ArlequinExactHWTest
-
-GENOTYPE_SEPARATOR = "~"
 
 def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
 

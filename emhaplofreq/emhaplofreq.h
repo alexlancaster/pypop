@@ -31,6 +31,9 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS. */
 
 /* a translation from Richard Single's awk programme */ 
+
+/* #define GENOTYPE_SEPARATOR "~"
+   #define GENOTYPE_TERMINATOR "|" */
  
 #define NAME_LEN    22       /* 10 chars for allele name, plus colon and null */ 
 #define LINE_LEN    132      /* RS changed from 120 to 132=6*2*(10+1) */ 
