@@ -87,9 +87,9 @@ This will generate the following two files, an XML output file and a plain text 
 
 ## Running test suite
 
-Use pip to install ```pytest```:
+Install ```pytest``` and ```pusutil```:
 
-      pip install --user pytest
+      pip install --user pytest psutil
 
 (Ensure that the local user path is in ```PATH```, you may need to modify ```~/.bash_profile``` accordingly.  On MacOS e.g. ```export PATH=$HOME/Library/Python/2.7/bin:$PATH```, on Linux ```export PATH=$HOME/.local/bin:$PATH```.)  Verify that py.test is in your ```PATH``` by running ```which py.test```.
 
