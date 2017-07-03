@@ -48,11 +48,11 @@ FILE *parse_args(int, char **, int *);
 /* argc, argv */
 /* returns open filehandle of input file */
 
-int read_infile(FILE *, char [MAX_ROWS][NAME_LEN], char [MAX_ROWS][MAX_COLS][NAME_LEN], int *);
+int read_infile(FILE *, char [MAX_ROWS][NAME_LEN], char [MAX_ROWS][MAX_COLS][NAME_LEN], int *, char [1], char [1]);
 /* open filehandle for data, ref array, data array, number of records */
 /* returns number of loci */
 
-int main_proc(FILE *, char (*)[MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int, int);
+int main_proc(FILE *, char (*)[MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int, int, char [1], char [1]);
 /* data array, number of loci, number of records */
 /* main procedure that handles memory allocation and creation of arrays, 
   * spawns the rest of the data preparation and processing functions, 
@@ -60,7 +60,7 @@ int main_proc(FILE *, char (*)[MAX_COLS][NAME_LEN], int, int, int, int, int, int
   * we only return from it to exit. 
 */
 
-int count_unique_haplos(char (*)[2][LINE_LEN / 2], char (*)[LINE_LEN / 2], int (*)[MAX_LOCI], char (*)[MAX_ALLELES][NAME_LEN], int *, int, int, int (*)[2], int *);
+int count_unique_haplos(char (*)[2][LINE_LEN / 2], char (*)[LINE_LEN / 2], int (*)[MAX_LOCI], char (*)[MAX_ALLELES][NAME_LEN], int *, int, int, int (*)[2], int *, char [1], char [1]);
 /* geno, haplo, haplocus, unique_allele, n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo */
 /* returns number of haplotypes */
 /* 
@@ -208,7 +208,7 @@ int main(int argc, char **argv)
   /* set output to stdout by default */
   fp_out = stdout;
 
-  num_loci = read_infile(if_handle, ref, data, &num_recs);
+  num_loci = read_infile(if_handle, ref, data, &num_recs, "~", "|");
   fprintf(fp_out, "num_loci: %d\n", num_loci);
   fprintf(fp_out, "Sample Size (n): %d\n", num_recs);
   if (num_loci > MAX_LOCI) 
@@ -223,7 +223,7 @@ int main(int argc, char **argv)
      add getopt-parsed options for them */
   ret_val = main_proc(fp_out, data, num_loci, num_recs, permu_flag, 
 		      suppress_haplo_print_flag, MAX_INIT, MAX_PERMU, 
-		      MAX_INIT_FOR_PERMU, 1, 0);
+		      MAX_INIT_FOR_PERMU, 1, 0, "~", "|");
 
   return (ret_val);
 }
@@ -250,7 +250,7 @@ void print_usage(void)
 /************************************************************************/
 
 int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
-    char (*data_ar)[MAX_COLS][NAME_LEN], int *records)
+		char (*data_ar)[MAX_COLS][NAME_LEN], int *records, char GENOTYPE_SEPARATOR[1], char GENOTYPE_TERMINATOR[1])
 {
   /* first line is ignored--should be labels or comments */
   /* subsequent lines contain an identifying label of up to 10 characters */
@@ -275,7 +275,7 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
   while ((buff_ptr = strtok(NULL, "\t \n")) != NULL)
   {
     strcpy(data_ar[i][num_cols], buff_ptr);
-    strcat(data_ar[i][num_cols++], ":");
+    strcat(data_ar[i][num_cols++], GENOTYPE_SEPARATOR);
   }
 
   /* now read the rest */
@@ -291,7 +291,7 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
     {
       buff_ptr = strtok(NULL, "\t \n");
       strcpy(data_ar[i][j], buff_ptr);
-      strcat(data_ar[i][j], ":");
+      strcat(data_ar[i][j], GENOTYPE_SEPARATOR);
     }
     /* check value of i is not greater than MAX_ROWS */
     if(!(i < MAX_ROWS))
@@ -312,7 +312,7 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
 int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, 
 	      int n_recs, int permu_flag, int suppress_haplo_print_flag, 
 	      int max_init_cond, int max_permu, int max_init_for_permu, 
-	      int permu_print, int testing)
+	      int permu_print, int testing, char GENOTYPE_SEPARATOR[1], char GENOTYPE_TERMINATOR[1])
 {
 
   
@@ -679,7 +679,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     }
 
     n_haplo = count_unique_haplos(geno, haplo, haplocus, unique_allele, 
-				  n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo);
+				  n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR);
 
     if (permu == 0)
       {
@@ -1135,7 +1135,7 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
       char (*haplo_ar)[LINE_LEN / 2], int (*haplocus)[MAX_LOCI], 
       char (*unique_allele)[MAX_ALLELES][NAME_LEN],
       int *n_unique_allele, int num_genos, int num_loci,
-      int (*xgeno)[2], int *xhaplo)
+			int (*xgeno)[2], int *xhaplo, char GENOTYPE_SEPARATOR[1], char GENOTYPE_TERMINATOR[1])
 /* 
   * run through the array of possible genotypes 
   * create an array of possible haplotypes 
@@ -1156,32 +1156,31 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
   xhaplo[0] = 0;
   xgeno[0][0] = 0;
 
-  /* split haplo_ar[0] into temp_array on ":" and add trailing ":" */
+  /* split haplo_ar[0] into temp_array on GENOTYPE_SEPARATOR and add trailing GENOTYPE_TERMINATOR */
   strcpy(temp_buff, haplo_ar[0]);
-  temp_ptr = strtok(temp_buff,":");
+  temp_ptr = strtok(temp_buff, GENOTYPE_SEPARATOR);
   if (temp_ptr) 
   {
     strcpy(temp_array[0], temp_ptr);
-    strcat(temp_array[0], ":");
+    strcat(temp_array[0], GENOTYPE_TERMINATOR);
     for (k = 1; k < num_loci; k++) /* start at 1 since 0th is done */
     {
-      temp_ptr = strtok(NULL,":");
+      temp_ptr = strtok(NULL, GENOTYPE_SEPARATOR);
       if (temp_ptr) 
       {  
         strcpy(temp_array[k], temp_ptr);
-        strcat(temp_array[k], ":");
+        strcat(temp_array[k], GENOTYPE_TERMINATOR);
       }  
     }
   }
 
 #if DEBUG == 1
-/*
+
   for (k = 0; k < num_loci; k++) 
   {
     fprintf(stdout, "haplo_ar[0]: %s temp_array[%d]: %s \n", 
             haplo_ar[0], k, temp_array[k]); 
   }
-*/
 #endif
 
   /* identify allele# at lth locus for 0th haplotype */
@@ -1219,18 +1218,18 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
 
         /* split haplo_ar[unique_haplo_count] into temp_array ... */
         strcpy(temp_buff, haplo_ar[unique_haplo_count]);
-        temp_ptr = strtok(temp_buff,":");
+        temp_ptr = strtok(temp_buff, GENOTYPE_TERMINATOR);
         if (temp_ptr) 
         {
           strcpy(temp_array[0], temp_ptr);
-          strcat(temp_array[0], ":");
+          strcat(temp_array[0], GENOTYPE_TERMINATOR);
           for (k = 1; k < num_loci; k++) /* start at 1 since 0th is done */
           {
-            temp_ptr = strtok(NULL,":");
+            temp_ptr = strtok(NULL, GENOTYPE_SEPARATOR);
             if (temp_ptr) 
             {  
               strcpy(temp_array[k], temp_ptr);
-              strcat(temp_array[k], ":");
+              strcat(temp_array[k], GENOTYPE_TERMINATOR);
             }  
           }
         }

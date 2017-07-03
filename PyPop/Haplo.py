@@ -40,7 +40,7 @@
 import sys, string, os, re, cStringIO
 
 from Arlequin import ArlequinBatch
-from Utils import getStreamType, appendTo2dList
+from Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR
 from DataTypes import checkIfSequenceData, getLocusPairs
 
 class Haplo:
@@ -417,7 +417,8 @@ class Emhaplofreq(Haplo):
             if lociCount <= self._Emhaplofreq.MAX_LOCI:
 
                 # filter-out all individual untyped at any position
-                subMatrix = appendTo2dList(self.matrix.filterOut(group, self.untypedAllele), ':')
+                #subMatrix = appendTo2dList(self.matrix.filterOut(group, self.untypedAllele), ':')
+                subMatrix = appendTo2dList(self.matrix.filterOut(group, self.untypedAllele), GENOTYPE_SEPARATOR)
 
                 # calculate the new number of individuals emhaplofreq is
                 # being run on
@@ -503,7 +504,9 @@ class Emhaplofreq(Haplo):
                                             numPermutations,
                                             numPermuInitCond,
                                             permutationPrintFlag,
-                                            testing)
+                                            testing,
+                                            GENOTYPE_SEPARATOR,
+                                            GENOTYPE_TERMINATOR)
 
                 fp.write("</group>")
 
