@@ -47,7 +47,7 @@ MODIFICATIONS. */
  * of strings into the appropriate C data structure.
  */
 
-extern int main_proc(FILE *fp, char [MAX_ROWS][MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int);
+extern int main_proc(FILE *fp, char [MAX_ROWS][MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int, int, char [1], char [1]);
 
 /* 
  * Local variables:

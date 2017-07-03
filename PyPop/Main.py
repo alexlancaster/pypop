@@ -1027,7 +1027,8 @@ class Main:
           haplo = Emhaplofreq(self.input.getIndividualsData(),
                               debug=self.debug,
                               untypedAllele=self.untypedAllele,
-                              stream=self.xmlStream)
+                              stream=self.xmlStream,
+                              testMode=self.testMode)
 
           # before running emhaplofreq, flush the current buffered
           # output to file

@@ -41,10 +41,10 @@
 import string, sys, os, popen2
 import _Pvalue
 from math import pow, sqrt
-from Utils import getStreamType, TextOutputStream
+# FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
+# this can clash with a character within an allele identifier too easily
+from Utils import getStreamType, TextOutputStream, GENOTYPE_SEPARATOR
 from Arlequin import ArlequinExactHWTest
-
-GENOTYPE_SEPARATOR = "~"
 
 def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
 

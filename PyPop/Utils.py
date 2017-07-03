@@ -44,6 +44,9 @@ import Numeric
 from Numeric import zeros, take, asarray, PyObject
 from UserArray import UserArray
 
+GENOTYPE_SEPARATOR = "~"
+GENOTYPE_TERMINATOR= "|"
+
 class TextOutputStream:
     """Output stream for writing text files.
     """

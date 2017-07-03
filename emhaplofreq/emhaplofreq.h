@@ -31,7 +31,7 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS. */
 
 /* a translation from Richard Single's awk programme */ 
- 
+
 #define NAME_LEN    22       /* 10 chars for allele name, plus colon and null */ 
 #define LINE_LEN    132      /* RS changed from 120 to 132=6*2*(10+1) */ 
 #define MAX_ROWS    100000     /* increased from 1023                   */ 
