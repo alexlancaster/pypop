@@ -63,6 +63,9 @@ MODIFICATIONS.
 
  <xsl:param name="page-width" select="80"/>
 
+ <xsl:variable name="GL-unphased-genotype-separator" select="'+'"/>
+ <xsl:variable name="GL-phased-genotype-separator" select="'~'"/>
+
  <xsl:template match="/">
   <xsl:apply-templates/> 
  </xsl:template>
