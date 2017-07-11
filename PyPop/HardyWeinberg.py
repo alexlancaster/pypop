@@ -650,8 +650,8 @@ class HardyWeinberg:
         genotypeId += 1
 
         # need to check both permutations of key
-        key1 = "%s:%s" % (horiz, vert)
-        key2 = "%s:%s" % (vert, horiz)
+        key1 = "%s%s%s" % (horiz, GENOTYPE_SEPARATOR, vert)
+        key2 = "%s%s%s" % (vert, GENOTYPE_SEPARATOR, horiz)
 
         # get observed value
         if self.observedGenotypeCounts.has_key(key1):
