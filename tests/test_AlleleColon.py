@@ -16,4 +16,4 @@ def test_AlleleColon_Emhaplofreq():
     # check exit code
     assert exit_code == 0
     # compare with md5sum of output file
-    assert hashlib.md5(open("Test_Allele_Colon_Emhaplofreq-out.txt", 'rb').read()).hexdigest() == '6a82d1ebfdec37e63082572a0fa94c39'
+    assert hashlib.md5(open("Test_Allele_Colon_Emhaplofreq-out.txt", 'rb').read()).hexdigest() == 'c262cf621f18e53895d3522e90c3804b'
