@@ -35,6 +35,17 @@
 
 import os.path
 import sys
+import subprocess
 
 DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(DIR, '..'))
+
+def run_pypop_process(inifile, popfile):
+    process=subprocess.Popen(
+        ['./bin/pypop.py', '-m', '-c', inifile, popfile],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT
+        )
+    process.communicate()
+    exit_code = process.wait()  # wait until script completed
+    return exit_code

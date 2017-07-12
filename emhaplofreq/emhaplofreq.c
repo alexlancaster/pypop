@@ -946,10 +946,12 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	    if (freq_zero[i] > .00001)
 	      {
 		j += 1;
+		/* remove the trailing haplotype separator character in haplotype */
+		/* FIXME: the need for a trailing character should be removed when creating haplotype */
 #ifdef XML_OUTPUT
-		xmlfprintf(fp_out, "<haplotype name=\"%s\"><frequency>%.5f</frequency><numCopies>%.1f</numCopies></haplotype>\n", haplo[i], freq_zero[i], freq_zero[i]*2.0*n_recs);
+		xmlfprintf(fp_out, "<haplotype name=\"%.*s\"><frequency>%.5f</frequency><numCopies>%.1f</numCopies></haplotype>\n", (strlen(haplo[i]) - 1), haplo[i], freq_zero[i], freq_zero[i]*2.0*n_recs);
 #else
-		xmlfprintf(fp_out, "%3d  %12.5f %8.1f    %s\n", j, freq_zero[i], freq_zero[i]*2.0*n_recs, haplo[i]);
+		xmlfprintf(fp_out, "%3d  %12.5f %8.1f    %.*s\n", j, freq_zero[i], freq_zero[i]*2.0*n_recs, (strlen(haplo[i]) - 1), haplo[i]);
 #endif
 	      }
 	  }
