@@ -369,7 +369,7 @@ MODIFICATIONS.
    <!-- sort by allele name -->
    <xsl:sort select="@name" data-type="text"/>
    <!-- indent table with name of the allele -->
-   <xsl:call-template name="prepend-pad">
+   <xsl:call-template name="append-pad">
     <xsl:with-param name="length" select="$hardyweinberg-first-col-width"/>
     <xsl:with-param name="padVar" select="@name"/>
    </xsl:call-template>
@@ -399,7 +399,7 @@ MODIFICATIONS.
    </xsl:variable>
 
   <!-- indent table with name of the genotype -->
-   <xsl:call-template name="prepend-pad">
+   <xsl:call-template name="append-pad">
     <xsl:with-param name="length" select="$hardyweinberg-first-col-width"/>
     <xsl:with-param name="padVar" select="$name"/>
    </xsl:call-template>
