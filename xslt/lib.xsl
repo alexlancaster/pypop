@@ -227,6 +227,27 @@ MODIFICATIONS.
   </xsl:for-each>
  </xsl:template>
 
+<!-- get the length to pad strings from a 'path' or from a fixed 'header', whichever is bigger -->
+ <xsl:template name="pad-string-len">
+  <xsl:param name="path" select="."/>
+  <xsl:param name="header" select="."/>
+  <xsl:variable name="path-len-max">
+    <xsl:call-template name="max-string-len">
+      <xsl:with-param name="path" select="$path"/>
+    </xsl:call-template>
+  </xsl:variable>
+
+  <xsl:choose>
+    <xsl:when test="$path-len-max > string-length($header)">
+      <xsl:value-of select="$path-len-max + 1"/>
+    </xsl:when>
+    <xsl:otherwise>
+      <xsl:value-of select="string-length($header) + 1"/>
+    </xsl:otherwise>
+  </xsl:choose>
+ </xsl:template>
+
+
  <!-- finds the maximum length of an XML element (tag), found in 'path' -->
  <xsl:template name="max-tag-len">
   <xsl:param name="path" select="."/>
