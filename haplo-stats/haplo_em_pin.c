@@ -133,27 +133,27 @@ static int ret_n_hap, ret_n_u_hap, ret_max_haps;
 
    xresult = 
        haplo_em_pin(
-         xn_loci,              
-         xn_subject,          
-         xweight,            
-         xgeno_vec,          
-         xn_alleles,         
-         xmax_haps,          
-         xmax_iter,          
-         xloci_insert_order, 
-         xmin_prior,         
-         xmin_posterior,     
-         xtol,               
-         xinsert_batch_size, 
-         xconverge,          
-         xS_lnlike,          
-         xS_n_u_hap,         
-         xn_hap_pairs,       
-         xrandom_start,      
-         xiseed1,            
-         xiseed2,
-         xiseed3,
-         xverbose
+         &xn_loci,              
+         &xn_subject,          
+         &xweight,            
+         &xgeno_vec,          
+         &xn_alleles,         
+         &xmax_haps,          
+         &xmax_iter,          
+         &xloci_insert_order, 
+         &xmin_prior,         
+         &xmin_posterior,     
+         &xtol,               
+         &xinsert_batch_size, 
+         &xconverge,          
+         &xS_lnlike,          
+         &xS_n_u_hap,         
+         &xn_hap_pairs,       
+         &xrandom_start,      
+         &xiseed1,            
+         &xiseed2,
+         &xiseed3,
+         &xverbose
        );         
 
   } /* END MAIN */
