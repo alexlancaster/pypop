@@ -117,15 +117,17 @@ static int ret_n_hap, ret_n_u_hap, ret_max_haps;
        int xiseed1 = 123;
        int xiseed2 = 234;
        int xiseed3 = 345;
-       int xverbose = 1;
+       int xverbose = 0;
        int xgeno_vec[ ] = { 2,1,2,1,2,1,10,9,10,6,2,10,11,10,6,6,2,10,10,2,2,1,6,5,12,6,11,12,2,2,2,11,6,1,2,11,6,11,2,11,10,1,1,3,2,1,1,6,10,8,6,12,2,6,2,11,11,11,6,1,9,1,3,1,2,11,1,1,8,1,1,8,10,2,7,1,6,2,1,2,1,6,2,1,1,10,2,1,11,1,1,1,1,1,6,1,11,6,3,2,11,10,12,3,1,1,3,1,1,2,2,6,4,6,4,10,2,3,6,1,1,6,2,3,4,1,10,1,6,1,10,1,2,2,3,1,6,1,1,6,1,6,6,6,3,9,1,2,9,6,11,2,6,9,6,6,3,9,10,7,3,2,10,9,10,2,1,6,1,1,6,2,10,1,6,1,6,6,1,2,2,1,2,2,1,11,2,2,1,1,1,2,2,1,1,11,6,2,11,2,1,11,3,6,6,1,2,11,1,12,6,11,1,11,2,6,8,10,3,10,11,2,5,1,12,2,11,6,3,3,11,3,11,10,11,2,5,12,7,1,1,5,3,12,2,10,1,10,4,3,10,10,2,3,10,2,2,1,10,4,1,10,3,10,1,1,1,2,1,1,2,1,2,1,10,3,1,3,9,2,10,2,12,1,4,3,4,2,12,10,8,10,2,1,12,2,1,1,4,6,2,11,3,2,2,2,3,3,1,4,2,3,3,3,1,2,11,10,4,12,10,10,1,1,10,8,10,6,10,6,10,4,10,6,10,10,6,12,3,10,3,3,12,2,1,3,2,2,11,8,2,10,3,12,8,2,12,11,2,1,4,3,8,2,10,3,2,1,2,3,2,2,2,3,3,9,3,7,3,2,10,2,10,3,2,1,1,1,6,3,10,6,11,2,7,11,3,12,10,1,3,12,1,11,3,3,12,3,3,2,7,3,3,2,3,3,3,10,7,1,6,10,6,3,10,11,1,10,11,7,11,10,12,1,1,6,4,2,1,5,6,3,2,10,2,1,4,2,10,2,1,1,5,2,2,4,2,3,1,4,2,1,9,2,3,2,5,4,1,3,9,4,2,4,4,3,2,5,3,2,4,2,3,1,2,4,1,3,6,1,9,3,2,2,1,4,2,3,2,3,10,5,5,3,7,4,5,2,2,2,2,3,1,4,5,4,7,1,4,2,4,9,9,5,4,3,3,5,3,3,4,2,2,1,4,2,10,2,9,2,3,3,2,5,2,1,9,1,2,5,2,1,4,2,1,3,4,2,4,2,8,5,2,1,1,3,2,6,6,2,4,5,1,3,3,2,3,3,1,1,4,2,2,4,9,1,1,9,1,6,1,1,1,2,2,2,6,2,2,2,2,5,6,1,3,5,1,6,2,3,1,4,1,1,3,9,6,6,4,10,4,6,4,5,5,4,3,3,6,4,4,9,1,4,4,2,2,8,1,1,1,4,4,2,2,2,8,2,2,2,4,1,3,1,9,5,10,5,9,5,10,9,2,1,4,4,10,4,10,10,10,11,6,10,4,3,3,6,4,10,10,10,9,9,11,10,2,6,9,10,8,10,4,10,2,5,3,4,6,5,3,3,3,11,5,10,10,5,9,10,6,4,5,3,4,9,4,9,10,10,3,4,11,5,10,7,11,4,2,5,10,4,3,3,7,1,3,3,5,2,9,9,10,4,5,7,9,4,8,4,3,9,10,4,7,10,10,7,5,5,4,11,3,9,4,6,7,8,7,2,11,4,11,10,5,8,4,4,10,9,3,3,10,9,10,3,6,9,3,10,11,10,10,2,9,4,5,4,11,9,3,6,10,1,10,4,9,9,4,5,4,2,4,4,4,4,5,4,8,6,10,3,5,5,1,9,2,6,4,5,2,10,5,9,6,3,8,10,4,10,9,9,10,3,3,9,9,3,5,10,5,4,10,4,3,10,4,2,8,5,9,8,3,10,10,10,3,10,10,3,11,2,28,1,6,1,20,2,1,13,1,6,13,22,13,1,20,20,22,1,1,26,13,2,2,7,20,1,28,24,2,1,1,9,5,2,7,26,1,13,13,13,1,3,2,13,28,13,2,2,2,13,13,2,7,3,5,2,5,13,28,2,21,13,26,2,1,13,2,2,7,13,1,20,6,7,13,2,2,13,2,2,20,6,2,1,1,13,18,13,28,1,2,19,2,1,1,5,1,20,2,1,1,1,22,20,1,1,13,13,1,20,1,1,1,24,13,1,20,1,13,2,28,5,3,13,20,24,2,2,7,1,1,2,14,13,1,13,9,2,2,20,20,6,1,7,20,6,1,21,9,2,13,13,13,13,13,10,28,28,1,10,1,4,1,13,20,1,2,2,14,1,2,1,2,1,13,1,28,1,24,20,10,2,6,2,28,13,28,24,28,2,20,2,7,4,4,20,13,1,1,3,28,2,5,20,6,13,14,1,1,1,1,9,1,1,1,2,2,1,27,13,28,13,22,13,29,13,7,7,26,6,28,26,1,7,27,29,5,27,6,13,26,26,1,7,8,7,6,18,25,26,7,7,8,22,8,13,13,30,13,24,2,14,26,5,2,25,5,22,3,13,11,13,23,26,5,28,16,26,27,7,26,26,4,26,24,2,26,3,26,5,22,7,23,13,4,7,7,13,2,7,13,2,13,13,9,28,26,2,3,26,7,2,28,26,2,28,13,13,17,29,7,1,2,5,28,9,2,6,7,10,15,8,26,7,26,28,23,20,19,5,20,1,1,9,2,7,11,2,1,24,26,28,7,7,7,24,7,1,2,7,7,26,26,26,2,26,10,7,6,26,6,7,6,4,1,27,7,23,28,24,24,13,7,13,29,7,5,28,13,7,5,2,17,11,6,13,24,9,8,5,10,4,28,25,27,5,29,13,2,7,26,18,5,1,10,26,7,26,7,13,26,1,4,26,8,13,2,26,7,12,2,9,6,17,13,7 };
 
 /* GUESSING AT HOW TO INITIALIZE THESE */
    double  xmin_prior = 0.00001;      /* trim haplo's with prior < min_prior            */
    int     xconverge = 0;             /* convergence indicator for EM                   */
    double  xS_lnlike = -2151.0;       /* lnlike from final EM                           */
-   int     xS_n_u_hap = 0;            /* number of unique haplotypes                    */
+   int     xS_n_u_hap = 3;            /* number of unique haplotypes                    */
    int     xn_hap_pairs = 1;          /* total number of pairs of haplotypes over all   */
+
+   int     tmp1 = 1;
 
 /* PRINT FIRST 5 ENTRIES OF xgeno_vec (index < 1308 for full set) */
 	        for( index = 0; index < 5; index++ )
@@ -155,6 +157,61 @@ static int ret_n_hap, ret_n_u_hap, ret_max_haps;
          &xiseed3,
          &xverbose
        );         
+
+    printf("...TESTING0:\n"); //RS added
+/******************************************FROM haplo.em.fitter.q
+tmp1 <- .C("haplo_em_pin",
+           n.loci=as.integer(n.loci),
+           n.subject=as.integer(n.subject),
+           weight=as.double(weight),
+           geno.vec=as.integer(geno.vec),
+           n.alleles = as.integer(n.alleles),
+           max.haps = as.integer(max.haps),
+           max.iter=as.integer(max.iter),
+           loci.insert.order=as.integer(loci.insert.order),
+           min.prior=as.double(min.prior),
+           min.posterior=as.double(min.posterior),
+           tol=as.double(tol),
+           insert.batch.size=as.integer(insert.batch.size),
+           converge=as.integer(converge),
+           lnlike=as.double(lnlike),
+           n.u.hap=as.integer(n.u.hap),
+           n.hap.pairs=as.integer(n.hap.pairs),
+           random.start=as.integer(random.start),            
+           iseed1=as.integer(iseed1),          
+           iseed2=as.integer(iseed2),
+           iseed3=as.integer(iseed3),
+           verbose=as.integer(verbose),
+           PACKAGE="haplo.stats")
+tmp2 <- .C("haplo_em_ret_info",
+           n.u.hap=as.integer(tmp1$n.u.hap),
+           n.loci=as.integer(tmp1$n.loci),
+           n.pairs=as.integer(tmp1$n.hap.pairs),
+           hap.prob=as.double(numeric(tmp1$n.u.hap)),
+           u.hap=as.integer(numeric(tmp1$n.u.hap*tmp1$n.loci)),
+           u.hap.code=as.integer(numeric(tmp1$n.u.hap)),
+           indx.subj=as.integer(numeric(tmp1$n.hap.pairs)),
+           post=as.double(numeric(tmp1$n.hap.pairs)),
+           hap1code=as.integer(numeric(tmp1$n.hap.pairs)),
+           hap2code=as.integer(numeric(tmp1$n.hap.pairs)),
+           PACKAGE="haplo.stats")
+*/
+   tmp1 = xS_n_u_hap * xn_loci;
+    printf("...TEST0.1 (xS_n_u_hap , xn_loci, tmp1): %i %i %i\n", xS_n_u_hap , xn_loci, tmp1); //RS added
+   xresult = 
+    haplo_em_ret_info(
+       &xS_n_u_hap,   // number of unique hapoltypes                           
+       &xn_loci,     // number of loci                                        
+       &xn_hap_pairs, // number of pairs of loci over all subjects             
+       &xS_n_u_hap,   // probabilities for unique haplotypes, length= n_u_hap  
+       &tmp1, // unique haplotype, length=n_u_hap * n_loci             
+       &xS_n_u_hap,   // code for unique haplotypes, length=n_u_hap            
+       &xn_hap_pairs,    // subject id = index of subject                         
+       &xn_hap_pairs,    // posterior probability of pair of haplotypes           
+       &xn_hap_pairs,    // code for haplotype-1 of a pair, length=n_pairs        
+       &xn_hap_pairs     // code for haplotype-2 of a pair, length=n_pairs        
+     );
+    printf("...TEST0.2:\n"); //RS added
 
   } /* END MAIN */
 
@@ -213,12 +270,13 @@ int haplo_em_pin(
   /* convert from S vecs to  C structures */
 
     printf("...TESTING1:\n"); //RS added
-//  n_loci = *S_n_loci;       //RS commented
+  n_loci = *S_n_loci;       //RS commented
     printf("...TESTING2:\n"); //RS added
-  geno = int_vec_to_mat(geno_vec, 218, 2*3); //RS added
-//  geno = int_vec_to_mat(geno_vec, *n_subject, 2*n_loci); //RS commented
+//  geno = int_vec_to_mat(geno_vec, 218, 2*3); //RS added
+  geno = int_vec_to_mat(geno_vec, *n_subject, 2*n_loci); //RS commented
     printf("...TESTING3:\n"); //RS added
 
+// RS added
     REprintf("geno matrix (first 10 lines):\n");
     for(i=0;i< 10;i++){
       for (j=0; j< (2*3); j++) {
@@ -1175,6 +1233,16 @@ void haplo_em_ret_info(
     h++;
   }
 
+//RS added
+    printf("...TESTING(\n haplo_em_ret_info):\n"); //RS added
+    printf("TEST u_hap  %i \n", *u_hap );
+    printf("TEST n_u_hap  %i \n", *n_u_hap );
+//  for(i=0;i<*n_u_hap;i++){
+  for(i=0;i<5;i++){
+    printf("...TESTING(haplo_em_ret_info):\n"); //RS added
+    printf("%8.5f \n", hap_prob[i]);
+  }
+//RS added
 
   return;
 }
