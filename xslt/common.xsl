@@ -58,8 +58,6 @@ MODIFICATIONS.
  </data:pop-col-headers>
 
  <xsl:param name="hardyweinberg-col-width" select="12"/>
- <xsl:param name="hardyweinberg-first-col-width"
- select="$hardyweinberg-col-width + 6"/>
 
  <xsl:param name="page-width" select="80"/>
 

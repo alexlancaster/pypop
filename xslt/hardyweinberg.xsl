@@ -80,7 +80,26 @@ MODIFICATIONS.
 
  <!-- ################  HARDY-WEINBERG STATISTICS ###################### --> 
 
- <xsl:template match="hardyweinberg">
+ <!-- find the maximum possible genotype length across the whole input file 
+      use this as the column width -->
+ <xsl:variable name="hardyweinberg-first-col-width">
+   <xsl:variable name="max-row-len">
+     <xsl:call-template name="max-string-len">
+       <xsl:with-param name="path" select="//genotypetable/genotype/@row"/>
+     </xsl:call-template>
+   </xsl:variable>
+   <xsl:variable name="max-col-len">
+     <xsl:call-template name="max-string-len">
+       <xsl:with-param name="path" select="//genotypetable/genotype/@col"/>
+     </xsl:call-template>
+   </xsl:variable>
+   <xsl:value-of select="$max-row-len + $max-col-len + 1"/>
+ </xsl:variable>
+ 
+<!-- old hardcoded version -->
+<!-- <xsl:param name="hardyweinberg-first-col-width" select="$hardyweinberg-col-width + 6"/> -->
+
+<xsl:template match="hardyweinberg">
   <xsl:call-template name="section">
    <xsl:with-param name="title">
     <xsl:call-template name="locus-header">
@@ -100,11 +119,11 @@ MODIFICATIONS.
    <xsl:with-param name="level" select="3"/>
    <xsl:with-param name="text">
 
-    <!-- do genotype table -->
+     <!-- do genotype table -->
     <xsl:apply-templates select="genotypetable"/>
     
     <xsl:call-template name="newline"/>
-    
+
     <!-- indent first line of table -->
     <xsl:call-template name="prepend-pad">
      <xsl:with-param name="length" select="$hardyweinberg-first-col-width"/>
@@ -350,7 +369,7 @@ MODIFICATIONS.
    <!-- sort by allele name -->
    <xsl:sort select="@name" data-type="text"/>
    <!-- indent table with name of the allele -->
-   <xsl:call-template name="prepend-pad">
+   <xsl:call-template name="append-pad">
     <xsl:with-param name="length" select="$hardyweinberg-first-col-width"/>
     <xsl:with-param name="padVar" select="@name"/>
    </xsl:call-template>
@@ -380,7 +399,7 @@ MODIFICATIONS.
    </xsl:variable>
 
   <!-- indent table with name of the genotype -->
-   <xsl:call-template name="prepend-pad">
+   <xsl:call-template name="append-pad">
     <xsl:with-param name="length" select="$hardyweinberg-first-col-width"/>
     <xsl:with-param name="padVar" select="$name"/>
    </xsl:call-template>

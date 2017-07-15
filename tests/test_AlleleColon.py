@@ -8,7 +8,7 @@ def test_AlleleColon_HardyWeinberg():
     # check exit code
     assert exit_code == 0
     # compare with md5sum of output file
-    assert hashlib.md5(open("Test_Allele_Colon_HardyWeinberg-out.txt", 'rb').read()).hexdigest() == '3b4fef611f7a5897cc649b6bb5bbbcda'
+    assert hashlib.md5(open("Test_Allele_Colon_HardyWeinberg-out.txt", 'rb').read()).hexdigest() == '4010f4fa7598163803b6c5abd78fcfd1'
 
 def test_AlleleColon_Emhaplofreq():
     
@@ -16,4 +16,4 @@ def test_AlleleColon_Emhaplofreq():
     # check exit code
     assert exit_code == 0
     # compare with md5sum of output file
-    assert hashlib.md5(open("Test_Allele_Colon_Emhaplofreq-out.txt", 'rb').read()).hexdigest() == 'c262cf621f18e53895d3522e90c3804b'
+    assert hashlib.md5(open("Test_Allele_Colon_Emhaplofreq-out.txt", 'rb').read()).hexdigest() == '598954bfe301d5dea44ccd4d443905d1'
