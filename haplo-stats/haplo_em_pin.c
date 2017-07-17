@@ -90,6 +90,16 @@ static int ret_n_hap, ret_n_u_hap, ret_max_haps;
 
 /* A MAIN FUNTION THAT CALLS haplo_em_pin() */
    int main( void ) {
+
+     double xhap_prob;    /* probabilities for unique haplotypes, length= n_u_hap  */
+     int   xu_hap;        /* unique haplotype, length=n_u_hap * n_loci             */
+     int   xu_hap_code;   /* code for unique haplotypes, length=n_u_hap            */
+     int   xsubj_id;     /* subject id = index of subject                         */
+     double xpost;         /* posterior probability of pair of haplotypes           */
+     int   xhap1_code;    /* code for haplotype-1 of a pair, length=n_pairs        */
+     int   xhap2_code;     /* code for haplotype-2 of a pair, length=n_pairs        */
+
+
        int index;
        int xresult1, xresult2;
 
@@ -204,13 +214,13 @@ tmp2 <- .C("haplo_em_ret_info",
        &xS_n_u_hap,   // number of unique hapoltypes                           
        &xn_loci,     // number of loci                                        
        &xn_hap_pairs, // number of pairs of loci over all subjects             
-       &xS_n_u_hap,   // probabilities for unique haplotypes, length= n_u_hap  
-       &xprod1, // unique haplotype, length=n_u_hap * n_loci             
-       &xS_n_u_hap,   // code for unique haplotypes, length=n_u_hap            
-       &xn_hap_pairs,    // subject id = index of subject                         
-       &xn_hap_pairs,    // posterior probability of pair of haplotypes           
-       &xn_hap_pairs,    // code for haplotype-1 of a pair, length=n_pairs        
-       &xn_hap_pairs     // code for haplotype-2 of a pair, length=n_pairs        
+       &xhap_prob,   // probabilities for unique haplotypes, length= n_u_hap  
+       &xu_hap, // unique haplotype, length=n_u_hap * n_loci             
+       &xu_hap_code,   // code for unique haplotypes, length=n_u_hap            
+       &xsubj_id,    // subject id = index of subject                         
+       &xpost,    // posterior probability of pair of haplotypes           
+       &xhap1_code,    // code for haplotype-1 of a pair, length=n_pairs        
+       &xhap2_code     // code for haplotype-2 of a pair, length=n_pairs        
      );
     printf("...TEST0.3:\n"); //RS added
 
