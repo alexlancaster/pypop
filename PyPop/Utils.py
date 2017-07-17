@@ -40,9 +40,8 @@
 """
 
 import os, sys, string, types, re, shutil, copy, operator
-import Numeric
-from Numeric import zeros, take, asarray, PyObject
-from UserArray import UserArray
+from numpy import zeros, take, asarray
+from numpy.lib import user_array
 
 GENOTYPE_SEPARATOR = "~"
 GENOTYPE_TERMINATOR= "|"
@@ -363,11 +362,15 @@ class Index:
     """
     self.i = i
 
-class StringMatrix(UserArray):
+class StringMatrix(user_array.container):
+
   """
-  StringMatrix is a subclass of the Numeric Python (NumPy)
-  UserArray class, and uses NumPy to store the data in an efficient
-  array format, rather than internal Python lists.
+  StringMatrix is a subclass of the numpy (NumPy) user_array
+  container, and uses the ndarray internally to store the data in an
+  efficient array format, rather than internal Python lists.
+
+  For more details see:
+  https://docs.scipy.org/doc/numpy/reference/arrays.classes.html
   """
 
   def __init__(self,
@@ -403,9 +406,10 @@ class StringMatrix(UserArray):
       self.headerLines = headerLines
 
       # initialising the internal NumPy array
-      self.array = zeros((self.rowCount, self.colCount*2+self.extraCount), PyObject)
+      #self.array = zeros((self.rowCount, self.colCount*2+self.extraCount), PyObject)
+      self.array = zeros((self.rowCount, self.colCount*2+self.extraCount), dtype='O')
       self.shape = self.array.shape
-      self._typecode = self.array.typecode()
+      self._dtype = self.array.dtype
       self.name = string.split(str(self.__class__))[0]
 
   def __repr__(self):
@@ -415,9 +419,9 @@ class StringMatrix(UserArray):
       a = StringMatrix(10, [1,2])
      print a"""
       if len(self.array.shape) > 0:
-          return (self.__class__.__name__)[6:12]+repr(self.array)[len("array"):]
+          return (self.__class__.__name__)+repr(self.array)[len("array"):]
       else:
-          return (self.__class__.__name__)[6:12]+"("+repr(self.array)+")"
+          return (self.__class__.__name__)+"("+repr(self.array)+")"
 
   def dump(self, locus=None, stream=sys.stdout):
       # write out file in original format
@@ -546,12 +550,12 @@ class StringMatrix(UserArray):
           col1 = col * 2
           col2 = col1 + 1
           # store each element in turn
-          self.array[(row,col1+self.extraCount)] = asarray(value1,self._typecode)
-          self.array[(row,col2+self.extraCount)] = asarray(value2,self._typecode)
+          self.array[(row,col1+self.extraCount)] = asarray(value1,self._dtype)
+          self.array[(row,col2+self.extraCount)] = asarray(value2,self._dtype)
 
       elif colName in self.extraList:
           col = self.extraList.index(colName)
-          self.array[(row,col)] = asarray(value,self._typecode)
+          self.array[(row,col)] = asarray(value,self._dtype)
       else:
           raise KeyError("can't find %s column" % col)
 

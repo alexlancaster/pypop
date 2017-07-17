@@ -123,6 +123,11 @@ class Genotypes:
     def _checkAllele(self, allele1, allele2, unsequencedSites):
         for phase in [allele1, allele2]:
             if (self.untypedAllele != phase and self.unsequencedSite != phase):
+                if self.debug:
+                    print "alleleTable:", self.alleleTable
+                    print "alleleTable type:", type(self.alleleTable)
+                    print "phase:", phase
+                    print "phase type:", type(phase)
                 if self.alleleTable.has_key(phase):
                     self.alleleTable[phase] += 1
                 else:
@@ -182,7 +187,7 @@ class Genotypes:
                 if self.debug:
                     print rowCount, subMatrix[line],
 
-                allele1, allele2 = subMatrix[line]
+                allele1, allele2 = [str(i) for i in subMatrix[line]]
 
                 if self.debug:
                     print allele1, allele2
