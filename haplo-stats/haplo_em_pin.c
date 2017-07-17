@@ -91,7 +91,7 @@ static int ret_n_hap, ret_n_u_hap, ret_max_haps;
 /* A MAIN FUNTION THAT CALLS haplo_em_pin() */
    int main( void ) {
        int index;
-       int xresult;
+       int xresult1, xresult2;
 
     /* EXAMPLE FROM HAPLO.STATS: hla.demo[,c(17,18,21:24)]; label <-c("DQB","DRB","B") */
        int xn_loci = 3;
@@ -127,13 +127,13 @@ static int ret_n_hap, ret_n_u_hap, ret_max_haps;
    int     xS_n_u_hap = 3;            /* number of unique haplotypes                    */
    int     xn_hap_pairs = 1;          /* total number of pairs of haplotypes over all   */
 
-   int     tmp1 = 1;
+   int     xprod1 = 1;
 
 /* PRINT FIRST 5 ENTRIES OF xgeno_vec (index < 1308 for full set) */
 	        for( index = 0; index < 5; index++ )
                 printf( "xgeno_vec[ %d ] = %d\n", index, xgeno_vec[ index ] );
 
-   xresult = 
+   xresult1 = 
        haplo_em_pin(
          &xn_loci,              
          &xn_subject,          
@@ -196,15 +196,15 @@ tmp2 <- .C("haplo_em_ret_info",
            hap2code=as.integer(numeric(tmp1$n.hap.pairs)),
            PACKAGE="haplo.stats")
 */
-   tmp1 = xS_n_u_hap * xn_loci;
-    printf("...TEST0.1 (xS_n_u_hap , xn_loci, tmp1): %i %i %i\n", xS_n_u_hap , xn_loci, tmp1); //RS added
-   xresult = 
+    xprod1 = xS_n_u_hap * xn_loci;
+    printf("...TEST0.1 (xS_n_u_hap , xn_loci, xprod1): %i %i %i\n", xS_n_u_hap , xn_loci, xprod1); //RS added
+   xresult2 = 
     haplo_em_ret_info(
        &xS_n_u_hap,   // number of unique hapoltypes                           
        &xn_loci,     // number of loci                                        
        &xn_hap_pairs, // number of pairs of loci over all subjects             
        &xS_n_u_hap,   // probabilities for unique haplotypes, length= n_u_hap  
-       &tmp1, // unique haplotype, length=n_u_hap * n_loci             
+       &xprod1, // unique haplotype, length=n_u_hap * n_loci             
        &xS_n_u_hap,   // code for unique haplotypes, length=n_u_hap            
        &xn_hap_pairs,    // subject id = index of subject                         
        &xn_hap_pairs,    // posterior probability of pair of haplotypes           
