@@ -406,7 +406,6 @@ class StringMatrix(user_array.container):
       self.headerLines = headerLines
 
       # initialising the internal NumPy array
-      #self.array = zeros((self.rowCount, self.colCount*2+self.extraCount), PyObject)
       self.array = zeros((self.rowCount, self.colCount*2+self.extraCount), dtype='O')
       self.shape = self.array.shape
       self._dtype = self.array.dtype
