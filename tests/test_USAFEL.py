@@ -8,4 +8,4 @@ def test_USAFEL():
     # check exit code
     assert exit_code == 0
     # compare with md5sum of output file
-    assert hashlib.md5(open("USAFEL-UchiTelle-small-out.txt", 'rb').read()).hexdigest() == 'a6fd79971ea8910656af4e5787912b3a'
+    assert hashlib.md5(open("USAFEL-UchiTelle-small-out.txt", 'rb').read()).hexdigest() == '97f06318478f8faa6b4a17397ca0edfe'
