@@ -176,10 +176,11 @@ ext_Gthwe.depends=['SWIG/typemap.i', 'gthwe/func.h', 'gthwe/hwe.h']
 ext_Haplostats.depends=['SWIG/typemap.i', "haplo-stats/haplo_em_pin.h"]
     
 # default list of extensions to build
-extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Gthwe, ext_Haplostats]
+extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Gthwe]
 
-# don't include HWE yet
+# don't include HWEEnum or haplostats yet
 # extensions.append(ext_HweEnum)
+# extensions.append(ext_Haplostats)
 
 from PyPop import __version__, __pkgname__
 

@@ -4,7 +4,7 @@ import hashlib
 import pytest
 import psutil
 
-memory_in_gb = 10  # memory needed for this test in GB
+memory_in_gb = 2  # memory needed for this test in GB
 memory_in_bytes = memory_in_gb * (1024 * 1024 * 1024)
 
 @pytest.mark.skipif(psutil.virtual_memory().available <= memory_in_bytes, reason="test can only be run if there is sufficient memory on the machine")
