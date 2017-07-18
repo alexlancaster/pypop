@@ -57,7 +57,9 @@ MODIFICATIONS.
   <text col="longit">Longitude</text>
  </data:pop-col-headers>
 
- <xsl:param name="hardyweinberg-col-width" select="12"/>
+ <!-- set to the length of the longest label in the overall HW stats table
+     in this case it is "All heterozygotes" -->
+ <xsl:param name="hardyweinberg-col-width" select="17"/>
 
  <xsl:param name="page-width" select="80"/>
 
