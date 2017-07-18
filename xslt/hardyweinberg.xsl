@@ -93,11 +93,15 @@ MODIFICATIONS.
        <xsl:with-param name="path" select="//genotypetable/genotype/@col"/>
      </xsl:call-template>
    </xsl:variable>
-   <xsl:value-of select="$max-row-len + $max-col-len + 1"/>
+   <xsl:choose>
+     <xsl:when test="$max-row-len + $max-col-len + 1 &lt; $hardyweinberg-col-width">
+       <xsl:value-of select="$hardyweinberg-col-width"/>
+     </xsl:when>
+     <xsl:otherwise>
+       <xsl:value-of select="$max-row-len + $max-col-len + 1"/>
+     </xsl:otherwise>
+   </xsl:choose>
  </xsl:variable>
- 
-<!-- old hardcoded version -->
-<!-- <xsl:param name="hardyweinberg-first-col-width" select="$hardyweinberg-col-width + 6"/> -->
 
 <xsl:template match="hardyweinberg">
   <xsl:call-template name="section">

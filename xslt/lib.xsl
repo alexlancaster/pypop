@@ -199,10 +199,12 @@ MODIFICATIONS.
 
  <!-- separator -->
  <xsl:template name="separator">
-  <xsl:call-template name="append-pad">
-   <xsl:with-param name="padChar" select="'-'"/>
-   <xsl:with-param name="length" select="78"/>
-  </xsl:call-template>
+   <!-- set to 90 by default -->
+   <xsl:param name="length" select="90"/>
+   <xsl:call-template name="append-pad">
+     <xsl:with-param name="padChar" select="'-'"/>
+     <xsl:with-param name="length" select="$length"/>
+   </xsl:call-template>
  </xsl:template>
 
  <!-- finds the maximum value of a set of numeric elements, found in
