@@ -34,7 +34,7 @@ exec bash -login
 
 Install the MacPorts packages
 
-      sudo port install swig-python gsl py27-numeric py-libxml2 py27-libxslt py-setuptools py27-pip
+      sudo port install swig-python gsl py27-numpy py-libxml2 py27-libxslt py-setuptools py27-pip
       
 Set MacPorts to use the just-installed 2.7 MacPorts version of Python and pip:
 
@@ -51,7 +51,7 @@ Check that the MacPorts version of Python is active by typing: ```which python``
 
 Need at least Fedora 25 for the appropriate dependencies:
 
-      sudo dnf install swig gsl-devel python-numeric python-libxml2 libxslt-python python-setuptools python-pip
+      sudo dnf install swig gsl-devel python2-numpy python-libxml2 libxslt-python python-setuptools python-pip
 
 See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install on a Centos/RHEL release.
 
@@ -59,13 +59,9 @@ See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install 
 
 Install the following packages
 
-      sudo apt install git libgsl-dev python-libxml2 python-libxslt1 python-setuptools python-pip
+      sudo apt install git libgsl-dev python-numpy python-libxml2 python-libxslt1 python-setuptools python-pip
 
-The ```python-numeric``` package is not included in the current version of Ubuntu, please see [DEV_NOTES.md](DEV_NOTES.md) for details of how to setup your repository to find ```python-numeric```, once setup, install using the following
-
-      sudo apt-get install python-numeric 
-
-The ```swig``` package in recent Ubuntu releases also has bugs, you will need to compile the most recent from source, see also [DEV_NOTES.md](DEV_NOTES.md) for details.
+The ```swig``` package in recent Ubuntu releases has bugs, you will need to compile the most recent from source, see also [DEV_NOTES.md](DEV_NOTES.md) for details.
 
 ### 4. Build
 

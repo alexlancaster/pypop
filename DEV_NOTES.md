@@ -8,17 +8,6 @@
 * ```libxml2/libxslt``` (Python bindings)
 * ```pytest``` (Python test framework)
 
-## Installing ```python-numeric``` on recent Ubuntu releases
-
-```python-numeric``` is not available in recent Ubuntu releases, for the time being you can temporarily add the distribution, ```natty``` with the last working version of python-numeric to your list of repositories.  To do this edit ```/etc/apt/sources.list``` and the following lines:
- 
-    deb http://old-releases.ubuntu.com/ubuntu natty main restricted universe multiverse 
-
-then run:
-
-     sudo apt update
-     sudo apt install python-numeric
-
 ## Installing ```swig``` on recent Ubuntu releases
 
 There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on ```xenial``` (which is version 3.0.8 of swig) working.  You will need to install the lastest version from source.

@@ -214,7 +214,7 @@ particularly large-scale multilocus genotype data""",
        platforms = ["GNU/Linux", "Windows", "MacOS"],
        packages = ["PyPop"],
        # install_requires = [
-       #  'Numeric',
+       #  'numpy',
        #  'libxml2-python'
        #  ],
        scripts= ['bin/pypop.py', 'bin/popmeta.py'],
