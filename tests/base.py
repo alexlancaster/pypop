@@ -40,9 +40,10 @@ import subprocess
 DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(DIR, '..'))
 
-def run_pypop_process(inifile, popfile):
+def run_pypop_process(inifile, popfile, args=[]):
+    cmd_line = ['./bin/pypop.py', '-m'] + args + ['-c', inifile, popfile]
     process=subprocess.Popen(
-        ['./bin/pypop.py', '-m', '-c', inifile, popfile],
+        cmd_line,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT
         )
