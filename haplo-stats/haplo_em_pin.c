@@ -119,7 +119,8 @@ static int ret_n_hap, ret_n_u_hap, ret_max_haps;
        int xiseed2 = 16090.08;
        int xiseed3 = 14502.41;
        int xverbose = 1;
-       int xgeno_vec[ ] = { 3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5 };
+//     int xgeno_vec[ ] = { 3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5 };
+       int xgeno_vec[ ] = { 4, 2, 1, 7, 8,11, 7,13, 7,11,62, 7,27, 7,51,61,44,62,44,55 };
 
 /* GUESSING AT HOW TO INITIALIZE THESE */
    double  xmin_prior = 0.0;          /* trim haplo's with prior < min_prior            */
