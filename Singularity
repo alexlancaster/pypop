@@ -49,7 +49,32 @@ From: fedora:25
 
 %runscript
 	#!/bin/bash
-	/usr/bin/env PYTHONPATH=/pypop-source /usr/bin/python2.7 /pypop-source/bin/pypop.py $@
+	if [ "$#" = '0' ]; then
+		echo 'You did not choose a program to run!'
+		echo 'Please re-run this command, but add the word...'
+		echo '    "pypop"   (to run PyPop), or'
+		echo '    "popmeta" (to run PopMeta).'
+		echo 'Then add your normal command-line arguments.'
+		echo 'Thanks!'
+		exit 1
+	fi
+	case $1 in
+	pypop)
+		shift
+		exec /usr/bin/env PYTHONPATH=/pypop-source /usr/bin/python2.7 /pypop-source/bin/pypop.py $@
+		;;
+	popmeta)
+		shift
+		exec /usr/bin/env PYTHONPATH=/pypop-source /usr/bin/python2.7 /pypop-source/bin/popmeta.py $@
+		;;
+	*)
+		echo "I'm sorry, I did not recognize what program you wanted to run!"
+		echo "Please place 'pypop' or 'popmeta' at the start of your argument list,"
+		echo 'followed by the normal pypop or popmeta arguments.'
+		echo 'Thanks!'
+		exit 1
+		;;
+	esac
 
 %test
 	# Use the runscript to do a simple run
