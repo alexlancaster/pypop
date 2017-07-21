@@ -1,7 +1,7 @@
 # vim: ts=4 sw=4 noet
 
 BootStrap: docker
-From: fedora:25
+From: ubuntu:17.04
 
 %setup
 	# Copy all files into a directory in the container
@@ -16,6 +16,9 @@ From: fedora:25
 	echo 'BOOTSTRAP[SETUP]: Copying files'
 	rsync -v -rlptD --exclude image . ${SINGULARITY_ROOTFS}/pypop-source/ 2>&1 | tee ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_rsync_output
 
+	# Download swig
+	curl -L -o ${SINGULARITY_ROOTFS}/swig-3.0.12.tar.gz http://prdownloads.sourceforge.net/swig/swig-3.0.12.tar.gz
+
 	# Output some debug file listings
 	echo 'BOOTSTRAP[SETUP]: Source listing (from host)'
 	ls -lR . 2>&1 | tee ${SINGULARITY_ROOTFS}/.bootstrap_logs/setup_pypop_listing_from_host
@@ -24,9 +27,15 @@ From: fedora:25
 
 %post
 	# Inside the container, install our required packages.
-	echo 'BOOTSTRAP[POST]: Installing packages'
-	echo 'deltarpm=0' >> /etc/dnf/dnf.conf
-	dnf install -y python27 python-devel python-numeric python-libxml2 libxslt-python gcc redhat-rpm-config gsl-devel swig less findutils vim 2>&1 | tee /.bootstrap_logs/dnf_install
+	apt update
+	apt install --no-install-recommends -y build-essential libgsl2 libgsl-dev libpcre3 libpcre3-dev python2.7-dev python-numpy python-libxml2 python-libxslt1 python-pip python-pytest python-setuptools
+
+	# Build and install SWIG 3.0.12
+	tar -xzvf /swig-3.0.12.tar.gz
+	cd /swig-3.0.12
+	./configure --without-alllang --with-python
+	make
+	make install
 
 	# Now, build PyPop.
 	# (to be clear, the installs pypop into the container Python)
@@ -35,6 +44,13 @@ From: fedora:25
 	echo 'BOOTSTRAP[POST]: Building PyPop'
 	cd /pypop-source
 	./setup.py build 2>&1 | tee /.bootstrap_logs/pypop_build
+
+	# Do some cleanup
+	cd /
+	rm -rf swig-3.0.12 swig-3.0.12.tar.gz
+	apt purge -y build-essential libgsl-dev libpcre3-dev python2.7-dev
+	apt autoremove -y
+	apt clean
 
     # Make everything group- and world-readable
     # Also make directories group and world-executable.
@@ -77,17 +93,6 @@ From: fedora:25
 	esac
 
 %test
-	# Use the runscript to do a simple run
-	/singularity -d -c /pypop-source/data/samples/minimal.ini /pypop-source/data/samples/USAFEL-UchiTelle-small.pop
-
-	# The run output contains a date.  Strip it out.
-	#sed -i -e 's|at: .*$|at: XXXXX|' USAFEL-UchiTelle-small-out.txt
-	#sed -i -e 's|date=".*"|date="XXXXX"|' USAFEL-UchiTelle-small-out.xml
-
-	# Compare the output with our samples.  Exit if there are differences.
-    # NOTE: Tests disabled because some output variance is apparently expected.
-	#diff -u /pypop-source/data/singularity-test/USAFEL-UchiTelle-small-out.txt USAFEL-UchiTelle-small-out.txt || true
-	#diff -u /pypop-source/data/singularity-test/USAFEL-UchiTelle-small-out.xml USAFEL-UchiTelle-small-out.xml || true
-
-	# Clean up!
-	rm USAFEL-UchiTelle-small-out.txt USAFEL-UchiTelle-small-out.xml
+	# Use py.test
+	cd /pypop-source
+	/usr/bin/py.test -s -v
