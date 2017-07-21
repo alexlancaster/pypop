@@ -1209,6 +1209,10 @@ void haplo_em_ret_info(
 
   int i,j,k;
   HAP **h;
+
+  printf("...haplo_em_ret_info  \n"); //RS added
+  printf("...first: *n_u_hap: %i , *S_n_loci: %i \n", *n_u_hap, *S_n_loci);
+
   k= -1;
   for(i=0;i<*n_u_hap;i++){
     hap_prob[i] = ret_u_hap_list[i]->prior;
@@ -1229,8 +1233,7 @@ void haplo_em_ret_info(
     h++;
   }
 
-  printf("...haplo_em_ret_info  \n"); //RS added
-  printf("... *n_u_hap: %i , *S_n_loci: %i \n", *n_u_hap, *S_n_loci);
+  printf("...second *n_u_hap: %i , *S_n_loci: %i \n", *n_u_hap, *S_n_loci);
 
 // RS added
   k= -1;
