@@ -199,6 +199,7 @@ tmp2 <- .C("haplo_em_ret_info",
 */
     xprod1 = xS_n_u_hap * xn_loci;
     printf("...TEST0.2 (xS_n_u_hap , xn_loci, xprod1): %i %i %i\n", xS_n_u_hap , xn_loci, xprod1); //RS added
+    printf("...TEST0.2 (xS_n_u_hap , xn_loci, xprod1): ALL CORRECT, but values not passed correctly to haplo_em_ret_info() \n");
    xresult2 = 
     haplo_em_ret_info(
        &xS_n_u_hap,   // number of unique hapoltypes                           
@@ -509,6 +510,7 @@ int haplo_em_pin(
 
   unique_haps(n_hap, hap_list, u_hap_list, prior);
 
+//RS comment: Final Haplo Freqs printed here (if verbose=1)
   if(*verbose){
     REprintf("\nn_u_hap = %ld\n",n_u_hap);
     REprintf("\nunique haps\n\n"); 
@@ -1226,6 +1228,22 @@ void haplo_em_ret_info(
     h++;
   }
 
+  printf("...haplo_em_ret_info  \n"); //RS added
+  printf("... *n_u_hap: %i , *S_n_loci: %i \n", *n_u_hap, *S_n_loci);
+
+// RS added
+  k= -1;
+  for(i=0;i<*n_u_hap;i++){
+//for(i=0;i<14;i++){
+    printf("i:%i hap_prob[i]: %8.5f u_hap_code[i]: %i ", i, hap_prob[i], u_hap_code[i] );
+    printf(" u_hap[k]: " );
+    for(j=0;j<*S_n_loci;j++){
+      k++;
+      u_hap[k] = ret_u_hap_list[i]->loci[j];
+      printf(" %i ", u_hap[k] );
+    }
+    printf("\n");
+  }
 /* RS added
     printf("...TESTING(\n haplo_em_ret_info):\n"); //RS added
     printf("TEST u_hap  %i \n", *u_hap );
