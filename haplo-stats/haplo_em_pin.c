@@ -119,8 +119,8 @@ static int ret_n_hap, ret_n_u_hap, ret_max_haps;
        int xiseed2 = 16090.08;
        int xiseed3 = 14502.41;
        int xverbose = 1;
-//     int xgeno_vec[ ] = { 3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5 };
-       int xgeno_vec[ ] = { 4, 2, 1, 7, 8,11, 7,13, 7,11,62, 7,27, 7,51,61,44,62,44,55 };
+       int xgeno_vec[ ] = { 3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5 };
+//     int xgeno_vec[ ] = { 4, 2, 1, 7, 8,11, 7,13, 7,11,62, 7,27, 7,51,61,44,62,44,55 };
 
 /* GUESSING AT HOW TO INITIALIZE THESE */
    double  xmin_prior = 0.0;          /* trim haplo's with prior < min_prior            */
@@ -1223,6 +1223,7 @@ void haplo_em_ret_info(
     }
   }
 
+  printf("...second: *n_u_hap: %i , *S_n_loci: %i \n", *n_u_hap, *S_n_loci);
   h = ret_hap_list;
   for(i=0; i<*n_pairs; i++){
     subj_id[i] = (*h)->id;
@@ -1233,7 +1234,7 @@ void haplo_em_ret_info(
     h++;
   }
 
-  printf("...second *n_u_hap: %i , *S_n_loci: %i \n", *n_u_hap, *S_n_loci);
+  printf("...third: *n_u_hap: %i , *S_n_loci: %i \n", *n_u_hap, *S_n_loci);
 
 // RS added
   k= -1;
