@@ -1,7 +1,8 @@
 CC=gcc
 EXTRACFLAGS=
+# -funroll-loops -Wall
 
-CFLAGS=-O3 -g -funroll-loops -Wall -DMATHLIB_STANDALONE=1 -I../pval $(EXTRACFLAGS) 
+CFLAGS=-O3 -g -DMATHLIB_STANDALONE=1 -I../pval $(EXTRACFLAGS) 
 LIBS=-lm
 
 OBJS=haplo_em_pin.o
