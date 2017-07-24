@@ -1064,8 +1064,9 @@ static int **int_vec_to_mat(int *Yvec, int nrow, int ncol){
 /***********************************************************************************/
 
 void haplo_em_ret_info(
-   int   *n_u_hap,      /* number of unique hapoltypes                           */
-   int   *S_n_loci,     /* number of loci                                        */
+   int   n_u_hap,      /* number of unique hapoltypes                           */
+		       //int   *n_u_hap,      /* number of unique hapoltypes                           */
+   int   S_n_loci,     /* number of loci                                        */
    int   *n_pairs,      /* number of pairs of loci over all subjects             */
    double *hap_prob,     /* probabilities for unique haplotypes, length= n_u_hap  */
    int   *u_hap,        /* unique haplotype, length=n_u_hap * n_loci             */
@@ -1077,24 +1078,23 @@ void haplo_em_ret_info(
   )
 {
 
-
   int i,j,k;
   HAP **h;
 
   printf("...haplo_em_ret_info  \n"); //RS added
-  printf("...first: *n_u_hap: %i , *S_n_loci: %i \n", *n_u_hap, *S_n_loci);
+  printf("...first: n_u_hap: %d , S_n_loci: %i \n", n_u_hap, S_n_loci);
 
   k= -1;
-  for(i=0;i<*n_u_hap;i++){
+  for(i=0;i<n_u_hap;i++){
     hap_prob[i] = ret_u_hap_list[i]->prior;
     u_hap_code[i] = ret_u_hap_list[i]->code;
-    for(j=0;j<*S_n_loci;j++){
+    for(j=0;j<S_n_loci;j++){
       k++;
       u_hap[k] = ret_u_hap_list[i]->loci[j];
     }
   }
 
-  printf("...second: *n_u_hap: %i , *S_n_loci: %i \n", *n_u_hap, *S_n_loci);
+  printf("...second: n_u_hap: %d, S_n_loci: %i \n", n_u_hap, S_n_loci);
   h = ret_hap_list;
   for(i=0; i<*n_pairs; i++){
     subj_id[i] = (*h)->id;
@@ -1105,30 +1105,20 @@ void haplo_em_ret_info(
     h++;
   }
 
-  printf("...third: *n_u_hap: %i , *S_n_loci: %i \n", *n_u_hap, *S_n_loci);
+  printf("...third: n_u_hap: %i , S_n_loci: %i \n", n_u_hap, S_n_loci);
 
-// RS added
+  // RS added
   k= -1;
-  for(i=0;i<*n_u_hap;i++){
-//for(i=0;i<14;i++){
+  for(i=0;i<n_u_hap;i++){
     printf("i:%i hap_prob[i]: %8.5f u_hap_code[i]: %i ", i, hap_prob[i], u_hap_code[i] );
     printf(" u_hap[k]: " );
-    for(j=0;j<*S_n_loci;j++){
+    for(j=0;j<S_n_loci;j++){
       k++;
       u_hap[k] = ret_u_hap_list[i]->loci[j];
       printf(" %i ", u_hap[k] );
     }
     printf("\n");
   }
-/* RS added
-    printf("...TESTING(\n haplo_em_ret_info):\n"); //RS added
-    printf("TEST u_hap  %i \n", *u_hap );
-    printf("TEST n_u_hap  %i \n", *n_u_hap );
-//  for(i=0;i<*n_u_hap;i++){
-    for(i=0;i<5;i++){
-    printf("%8.5f \n", hap_prob[i]);
-  }
-*/
 
   return;
 }
@@ -1510,8 +1500,8 @@ tmp2 <- .C("haplo_em_ret_info",
     printf("...TEST0.2 (xS_n_u_hap , xn_loci, xprod1): ALL CORRECT, but values not passed correctly to haplo_em_ret_info() \n");
    
     haplo_em_ret_info(
-       &xS_n_u_hap,   // number of unique hapoltypes                           
-       &xn_loci,     // number of loci                                        
+       xS_n_u_hap,   // number of unique hapoltypes                           
+       xn_loci,     // number of loci                                        
        &xn_hap_pairs, // number of pairs of loci over all subjects             
        &xhap_prob,   // probabilities for unique haplotypes, length= n_u_hap  
        &xu_hap, // unique haplotype, length=n_u_hap * n_loci             
