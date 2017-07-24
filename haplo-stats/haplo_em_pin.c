@@ -60,38 +60,6 @@ static int ret_n_hap, ret_n_u_hap, ret_max_haps;
 
 /**********************************************************************************/
 
-/*=== ADDITIONS BETWEEN DOUBLE DASHED LINES ================================*/
-/* FUNCTION PROTOTYPE FOR haplo_em_pin() FUNCTION ?? */
-
-/*
-  int haplo_em_pin(
-    int    *,	     // xn_loci            
-    int    *,	     // xn_subject         
-    double (*)[],    // xweight            
-    int    (*)[],    // xgeno_vec          
-    int    (*)[],    // xn_alleles         
-    int    *,	     // xmax_haps          
-    int    *,	     // xmax_iter          
-    int    *,	     // xloci_insert_order 
-    double *,	     // xmin_prior         
-    double *,	     // xmin_posterior     
-    double *,	     // xtol               
-    int    *,	     // xinsert_batch_size 
-    int    *,	     // xconverge          
-    double *,	     // xS_lnlike          
-    int    *,	     // xS_n_u_hap         
-    int    *,	     // xn_hap_pairs       
-    int    *,	     // xrandom_start      
-    int    *,	     // xiseed1            
-    int    *,	     // xiseed2            
-    int    *,	     // xiseed3            
-    int    *);	     // xverbose           
-*/
-
-
-/*=== ADDITIONS BETWEEN DOUBLE DASHED LINES ================================*/
-
-
 void haplo_em_pin( 
    int    *S_n_loci,             /* number of loci                                 */
    int    *n_subject,            /* number of subjects                             */
@@ -423,7 +391,6 @@ void haplo_em_pin(
   Free(geno);
   geno = NULL;
 
-  //return (0); //RS added
 }
 
 /***********************************************************************************/
@@ -1094,7 +1061,6 @@ void haplo_em_ret_info(
     }
   }
 
-  printf("...second: n_u_hap: %d, S_n_loci: %i \n", n_u_hap, S_n_loci);
   h = ret_hap_list;
   for(i=0; i<n_pairs; i++){
     subj_id[i] = (*h)->id;
@@ -1105,22 +1071,22 @@ void haplo_em_ret_info(
     h++;
   }
 
-  printf("...third: n_u_hap: %i , S_n_loci: %i \n", n_u_hap, S_n_loci);
-
   // RS added
+/*
   k= -1;
+  printf("i hap_prob[i]   u_hap_code[i]   k   u_hap[k]\n");
   for(i=0;i<n_u_hap;i++){
-    printf("i:%i hap_prob[i]: %8.5f u_hap_code[i]: %i ", i, hap_prob[i], u_hap_code[i] );
-    printf(" u_hap[k]: " );
+    printf("%i  %8.5f  %d ", i, hap_prob[i], u_hap_code[i]);
+    printf(" %d ", k+1 );
     for(j=0;j<S_n_loci;j++){
       k++;
       u_hap[k] = ret_u_hap_list[i]->loci[j];
-      printf(" %i ", u_hap[k] );
+      printf(" %d ", u_hap[k]);
     }
     printf("\n");
   }
+*/
 
-  printf("...fourth: n_u_hap: %i , S_n_loci: %i \n", n_u_hap, S_n_loci);
   return;
 }
 
@@ -1402,7 +1368,6 @@ void checkIntMax(int *intMax) {
      int index;
 
      /* EXAMPLE FROM HAPLO.STATS: hla.demo[,c(17,18,21:24)]; label <-c("DQB","DRB","B") */
-/*
      int xn_loci = 2;
      int xn_subject = 5;
      double xweight[ ] = { 1, 1, 1, 1, 1 }; 
@@ -1417,10 +1382,11 @@ void checkIntMax(int *intMax) {
      int xiseed1 = 18717.63;
      int xiseed2 = 16090.08;
      int xiseed3 = 14502.41;
-     int xverbose = 1;
+     int xverbose = 0;
      int xgeno_vec[ ] = { 3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5 };
      //     int xgeno_vec[ ] = { 4, 2, 1, 7, 8,11, 7,13, 7,11,62, 7,27, 7,51,61,44,62,44,55 };
-*/
+
+/* Larger example with n=50 & 3 loci
      int xn_loci = 3;
      int xn_subject = 50;
      double xweight[ ] = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 };
@@ -1435,8 +1401,9 @@ void checkIntMax(int *intMax) {
      int xiseed1 = 18717.63;
      int xiseed2 = 16090.08;
      int xiseed3 = 14502.41;
-     int xverbose = 1;
+     int xverbose = 0;
      int xgeno_vec[ ] = { 2,1,2,1,2,1,10,9,10,6,2,10,11,10,6,6,2,10,10,2,2,1,6,5,12,6,11,12,2,2,2,11,6,1,2,11,6,11,2,11,10,1,1,3,2,1,1,6,10,8,3,10,11,2,5,1,12,2,11,6,3,3,11,3,11,10,11,2,5,12,7,1,1,5,3,12,2,10,1,10,4,3,10,10,2,3,10,2,2,1,10,4,1,10,3,10,1,1,1,2,4,2,1,5,6,3,2,9,2,1,4,2,9,2,1,1,5,2,2,4,2,3,1,4,2,1,8,2,3,2,5,4,1,3,8,4,2,4,4,3,2,5,3,2,4,2,3,1,2,4,8,5,9,5,8,5,9,8,2,1,4,4,9,4,9,9,9,10,6,9,4,3,3,6,4,9,9,9,8,8,10,9,2,6,8,9,7,9,4,9,2,5,3,4,6,5,3,3,3,10,18,1,5,1,12,2,1,9,1,5,9,13,9,1,12,12,13,1,1,16,9,2,2,6,12,1,18,14,2,1,1,8,4,2,6,16,1,9,9,9,1,3,2,9,18,9,2,2,2,9,17,9,18,9,13,9,19,9,6,6,16,5,18,16,1,6,17,19,4,17,5,9,16,16,1,6,7,6,5,11,15,16,6,6,7,13,7,9,9,20,9,14,2,10,16,4,2,15,4,13 };
+*/
 
      /* GUESSING AT HOW TO INITIALIZE THESE */
      double  xmin_prior = 0.0;          /* trim haplo's with prior < min_prior            */
@@ -1476,46 +1443,8 @@ void checkIntMax(int *intMax) {
        );         
 
     printf("...TEST0.1 (xS_lnlike , xconverge): %14.5f %i\n", xS_lnlike , xconverge); //RS added
-/******************************************FROM haplo.em.fitter.q
-tmp1 <- .C("haplo_em_pin",
-           n.loci=as.integer(n.loci),
-           n.subject=as.integer(n.subject),
-           weight=as.double(weight),
-           geno.vec=as.integer(geno.vec),
-           n.alleles = as.integer(n.alleles),
-           max.haps = as.integer(max.haps),
-           max.iter=as.integer(max.iter),
-           loci.insert.order=as.integer(loci.insert.order),
-           min.prior=as.double(min.prior),
-           min.posterior=as.double(min.posterior),
-           tol=as.double(tol),
-           insert.batch.size=as.integer(insert.batch.size),
-           converge=as.integer(converge),
-           lnlike=as.double(lnlike),
-           n.u.hap=as.integer(n.u.hap),
-           n.hap.pairs=as.integer(n.hap.pairs),
-           random.start=as.integer(random.start),            
-           iseed1=as.integer(iseed1),          
-           iseed2=as.integer(iseed2),
-           iseed3=as.integer(iseed3),
-           verbose=as.integer(verbose),
-           PACKAGE="haplo.stats")
-tmp2 <- .C("haplo_em_ret_info",
-           n.u.hap=as.integer(tmp1$n.u.hap),
-           n.loci=as.integer(tmp1$n.loci),
-           n.pairs=as.integer(tmp1$n.hap.pairs),
-           hap.prob=as.double(numeric(tmp1$n.u.hap)),
-           u.hap=as.integer(numeric(tmp1$n.u.hap*tmp1$n.loci)),
-           u.hap.code=as.integer(numeric(tmp1$n.u.hap)),
-           indx.subj=as.integer(numeric(tmp1$n.hap.pairs)),
-           post=as.double(numeric(tmp1$n.hap.pairs)),
-           hap1code=as.integer(numeric(tmp1$n.hap.pairs)),
-           hap2code=as.integer(numeric(tmp1$n.hap.pairs)),
-           PACKAGE="haplo.stats")
-*/
     xprod1 = xS_n_u_hap * xn_loci;
     printf("...TEST0.2 (xS_n_u_hap , xn_loci, xprod1): %i %i %i\n", xS_n_u_hap , xn_loci, xprod1); //RS added
-    printf("...TEST0.2 (xS_n_u_hap , xn_loci, xprod1): ALL CORRECT, but values not passed correctly to haplo_em_ret_info() \n");
 
     xhap_prob = (double *) Calloc(xS_n_u_hap, double);
     xu_hap = (int *) Calloc(xS_n_u_hap * xn_loci, int);
@@ -1541,9 +1470,10 @@ tmp2 <- .C("haplo_em_ret_info",
     printf("inside main():\n");
     printf("xn_loci: %d\n", xn_loci);
     k = -1;
+    printf("i xhap_prob[i]   u_hap_code[i]   k   xu_hap[k]\n");
     for(i=0;i<xS_n_u_hap;i++){
-      printf("i:%i xhap_prob[i]: %8.5f u_hap_code[i]: %d ", i, xhap_prob[i], xu_hap_code[i]);
-      printf(" xu_hap[%d]: ", k );
+      printf("%i  %8.5f  %d ", i, xhap_prob[i], xu_hap_code[i]);
+      printf(" %d ", k+1 );
       for(j=0;j<xn_loci;j++){
 	k++;
 	printf(" %d ", xu_hap[k]);
