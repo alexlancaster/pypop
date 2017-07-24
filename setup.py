@@ -203,13 +203,13 @@ particularly large-scale multilocus genotype data""",
        license = "GNU GPL",
        platforms = ["GNU/Linux", "Windows", "MacOS"],
        packages = ["PyPop"],
-       # install_requires = [
-       #  'numpy',
-       #  'libxml2-python'
+       #install_requires = [
+       #  'numpy'
        #  ],
        scripts= ['bin/pypop.py', 'bin/popmeta.py'],
        data_files=[('share/pypop', data_file_paths)],
        ext_modules=extensions,
-       cmdclass={'clean': CleanCommand,}
+       cmdclass={'clean': CleanCommand,},
+       setup_requires=['pytest-runner'],
+       tests_require=['pytest'],
        )
-
