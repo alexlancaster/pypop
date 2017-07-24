@@ -1408,37 +1408,36 @@ void checkIntMax(int *intMax) {
      int   xhap1_code;    /* code for haplotype-1 of a pair, length=n_pairs        */
      int   xhap2_code;     /* code for haplotype-2 of a pair, length=n_pairs        */
 
+     int index;
+     //int xresult1, xresult2;
 
-       int index;
-       //int xresult1, xresult2;
+     /* EXAMPLE FROM HAPLO.STATS: hla.demo[,c(17,18,21:24)]; label <-c("DQB","DRB","B") */
+     int xn_loci = 2;
+     int xn_subject = 5;
+     double xweight[ ] = { 1, 1, 1, 1, 1 }; 
+     //double *xweight;
+     int xn_alleles[ ] = { 7, 7 };
+     int xmax_haps = 18;
+     int xmax_iter = 5000;
+     int xloci_insert_order[ ] = { 0, 1 };
+     double xmin_posterior = 0.000000001;
+     double xtol = 0.00001;
+     int xinsert_batch_size = 2;
+     int xrandom_start = 0;
+     int xiseed1 = 18717.63;
+     int xiseed2 = 16090.08;
+     int xiseed3 = 14502.41;
+     int xverbose = 1;
+     int xgeno_vec[ ] = { 3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5 };
+     //     int xgeno_vec[ ] = { 4, 2, 1, 7, 8,11, 7,13, 7,11,62, 7,27, 7,51,61,44,62,44,55 };
 
-    /* EXAMPLE FROM HAPLO.STATS: hla.demo[,c(17,18,21:24)]; label <-c("DQB","DRB","B") */
-       int xn_loci = 2;
-       int xn_subject = 5;
-       double xweight[ ] = { 1, 1, 1, 1, 1 }; 
-       int xn_alleles[ ] = { 7, 7 };
-       int xmax_haps = 18;
-       int xmax_iter = 5000;
-       int xloci_insert_order[ ] = { 0, 1 };
-       double xmin_posterior = 0.000000001;
-       double xtol = 0.00001;
-       int xinsert_batch_size = 2;
-       int xrandom_start = 0;
-       int xiseed1 = 18717.63;
-       int xiseed2 = 16090.08;
-       int xiseed3 = 14502.41;
-       int xverbose = 1;
-       int xgeno_vec[ ] = { 3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5 };
-//     int xgeno_vec[ ] = { 4, 2, 1, 7, 8,11, 7,13, 7,11,62, 7,27, 7,51,61,44,62,44,55 };
-
-/* GUESSING AT HOW TO INITIALIZE THESE */
-   double  xmin_prior = 0.0;          /* trim haplo's with prior < min_prior            */
-   int     xconverge = 0;             /* convergence indicator for EM                   */
-   double  xS_lnlike = -9.9;          /* lnlike from final EM                           */
-   int     xS_n_u_hap = 3;            /* number of unique haplotypes                    */
-   int     xn_hap_pairs = 1;          /* total number of pairs of haplotypes over all   */
-
-   int     xprod1 = 1;
+     /* GUESSING AT HOW TO INITIALIZE THESE */
+     double  xmin_prior = 0.0;          /* trim haplo's with prior < min_prior            */
+     int     xconverge = 0;             /* convergence indicator for EM                   */
+     double  xS_lnlike = -9.9;          /* lnlike from final EM                           */
+     int     xS_n_u_hap = 3;            /* number of unique haplotypes                    */
+     int     xn_hap_pairs = 1;          /* total number of pairs of haplotypes over all   */
+     int     xprod1 = 1;
 
 /* PRINT FIRST 5 ENTRIES OF xgeno_vec (index < 1308 for full set) */
    for( index = 0; index < 5; index++ )
@@ -1447,12 +1446,12 @@ void checkIntMax(int *intMax) {
    haplo_em_pin(
 	 &xn_loci,              
          &xn_subject,          
-         &xweight,            
-         &xgeno_vec,          
-         &xn_alleles,         
+         xweight,            
+         xgeno_vec,          
+         xn_alleles,         
          &xmax_haps,          
          &xmax_iter,          
-         &xloci_insert_order, 
+         xloci_insert_order, 
          &xmin_prior,         
          &xmin_posterior,     
          &xtol,               
