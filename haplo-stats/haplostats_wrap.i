@@ -34,28 +34,46 @@ MODIFICATIONS. */
 %module Haplostats
 
 %include "typemap.i"
-extern int main_proc(int xn_loci, 
-		     int xn_subject, 
-		     double xweight[],
-		     int xn_alleles[], 
-		     int xmax_haps,
-		     int xmax_iter,
-		     int xloci_insert_order[],
-		     double xmin_prior,
-		     double xmin_posterior,
-		     double xtol,
-		     int xinsert_batch_size,
-		     int xrandom_start,
-		     int xiseed1,
-		     int xiseed2,
-		     int xiseed3,
-		     int xverbose,
-		     int xgeno_vec[],
 
-		     int *OutValue,
-		     double *OutValue,
-		     int *OutValue,
-		     int *OutValue);
+
+extern int haplo_em_pin_wrap(int xn_loci, 
+			     int xn_subject, 
+			     double xweight[],
+			     int xn_alleles[], 
+			     int xmax_haps,
+			     int xmax_iter,
+			     int xloci_insert_order[],
+			     double xmin_prior,
+			     double xmin_posterior,
+			     double xtol,
+			     int xinsert_batch_size,
+			     int xrandom_start,
+			     int xiseed1,
+			     int xiseed2,
+			     int xiseed3,
+			     int xverbose,
+			     int xgeno_vec[],
+			     
+			     int *OutValue,
+			     double *OutValue,
+			     int *OutValue,
+			     int *OutValue);
+
+extern int haplo_em_ret_info_wrap(
+				  double xS_n_u_hap,   // number of unique hapoltypes                           
+				  int xn_loci,     // number of loci                                        
+				  int xn_hap_pairs // number of pairs of loci over all subjects             
+				  /*
+				  double *xhap_prob,   // probabilities for unique haplotypes, length= n_u_hap  
+				  int *xu_hap, // unique haplotype, length=n_u_hap * n_loci             
+				  int *xu_hap_code,   // code for unique haplotypes, length=n_u_hap            
+				  double *xsubj_id,    // subject id = index of subject                         
+				  double *xpost,    // posterior probability of pair of haplotypes           
+				  int *xhap1_code,    // code for haplotype-1 of a pair, length=n_pairs        
+				  int *xhap2_code     // code for haplotype-2 of a pair, length=n_pairs        
+				  */
+				  );
+
 
 /*
  * Local variables:

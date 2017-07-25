@@ -136,7 +136,7 @@ ext_Gthwe = Extension("_Gthwemodule",
                       )
 
 ext_Haplostats = Extension("_Haplostatsmodule",
-                       ["haplo-stats/haplo_em_pin_wrap.i",
+                       ["haplo-stats/haplostats_wrap.i",
                         "haplo-stats/haplo_em_pin.c",],
                        swig_opts = ["-ISWIG"],
                        include_dirs=include_dirs + ["haplo-stats", "pval"],

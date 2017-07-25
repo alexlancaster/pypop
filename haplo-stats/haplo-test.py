@@ -6,7 +6,9 @@ sys.path.insert(0, os.path.join(DIR, '..'))
 
 import _Haplostats
 
-ret_val = _Haplostats.main_proc(2, 5, [1.0, 1.0, 1.0, 1.0, 1.0], [7, 7], 18, 5000, [0, 1], 0.0, 0.000000001, 0.00001, 2, 0, 18717, 16090, 14502, 0, [3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5 ])
+n_loci = 2
+
+ret_val = _Haplostats.haplo_em_pin_wrap(n_loci, 5, [1.0, 1.0, 1.0, 1.0, 1.0], [7, 7], 18, 5000, [0, 1], 0.0, 0.000000001, 0.00001, 2, 0, 18717, 16090, 14502, 0, [3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5 ])
 
 status, converge, S_lnlike, S_n_u_hap, n_hap_pairs = ret_val
 
@@ -15,3 +17,7 @@ print "converge:", converge
 print "S_lnlike:", S_lnlike
 print "S_n_u_hap:", S_n_u_hap
 print "n_hap_pairs:", n_hap_pairs
+
+ret_val = _Haplostats.haplo_em_ret_info_wrap(S_n_u_hap, n_loci, n_hap_pairs)
+
+print ret_val
