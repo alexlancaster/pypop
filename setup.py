@@ -140,8 +140,10 @@ ext_Haplostats = Extension("_Haplostatsmodule",
                         "haplo-stats/haplo_em_pin.c",],
                        swig_opts = ["-ISWIG"],
                        include_dirs=include_dirs + ["haplo-stats", "pval"],
-                           
-                       define_macros=[('MATHLIB_STANDALONE', '1')]
+                       define_macros=[('MATHLIB_STANDALONE', '1'),
+                                      ('__SWIG__', '1'),
+                                      ('DEBUG', '1'),
+                                      ('R_NO_REMAP', '1')]
                        )
 
 ext_HweEnum = Extension("_HweEnum",
@@ -180,7 +182,7 @@ extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Gthwe]
 
 # don't include HWEEnum or haplostats yet
 # extensions.append(ext_HweEnum)
-# extensions.append(ext_Haplostats)
+extensions.append(ext_Haplostats)
 
 from PyPop import __version__, __pkgname__
 

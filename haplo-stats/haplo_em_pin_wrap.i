@@ -34,85 +34,28 @@ MODIFICATIONS. */
 %module Haplostats
 
 %include "typemap.i"
+extern int main_proc(int xn_loci, 
+		     int xn_subject, 
+		     double xweight[],
+		     int xn_alleles[], 
+		     int xmax_haps,
+		     int xmax_iter,
+		     int xloci_insert_order[],
+		     double xmin_prior,
+		     double xmin_posterior,
+		     double xtol,
+		     int xinsert_batch_size,
+		     int xrandom_start,
+		     int xiseed1,
+		     int xiseed2,
+		     int xiseed3,
+		     int xverbose,
+		     int xgeno_vec[],
 
-%{
-extern void haplo_em_pin(
-   int    [], /* *S_n_loci,             number of loci                                 */
-   int    [], /* *n_subject,            number of subjects                             */
-   double  [], /*weight,               weight per subject                             */
-   int    [], /*geno_vec,             vector of genotypes,  col-major from           */
-                                  /* n_subject x 2*n_loci matrix                    */
-   int    [], /*n_alleles,            vector of number alleles per locus,            */
-				  /* length=n_loci                                  */
-   int    [], /*max_haps,             number of maximum haplotypes over all subjects */
-				  /*  - CRITICAL for memory alloc                   */
-   int    [], /*max_iter,             max num. iters for each EM loop                */
-   int    [], /*loci_insert_order,    vector for order of insert of loci for         */
-                                  /* progressive insertion; length = n_loci         */
-   double  [], /*min_prior,            trim haplo's with prior < min_prior            */
-   double  [], /*min_posterior,        trim subject's pair of haplos if               */
-				  /* post < min_posterior                           */
-   double  [], /*tol,                  convergence tolerance for change in lnlike in  */ 
-				  /*  EM loop                                       */
-   int    [], /*insert_batch_size,    number of loci to insert in a batch before     */
-                                  /*  each EM loop; order of inserted               */
-                                  /* loci determined by loci_insert_order           */
-   int    [], /*converge,             convergence indicator for EM                   */
-   double  [], /*S_lnlike,             lnlike from final EM                           */
-   int    [], /*S_n_u_hap,            number of unique haplotypes                    */
-   int    [], /*n_hap_pairs,          total number of pairs of haplotypes over all   */
-                                  /* subjects                                       */
-   int    [], /*random_start,         indicator of random posteriors should be       */
-				  /* generated at the start of each EM loop.        */
-                                  /* 1 = Yes, 0 = No                                */
-   int    [], /*iseed1,               seeds for AS183 random unif                    */
-   int    [], /*iseed2,	 */
-   int    [], /* iseed3, */
-   int    [] /*verbose)              indicator if verbose pringing during  run,     */
-                                  /* for debugging. verbose=0 means no printing     */
-                                  /* verbose=1 means lots of printing to screen     */
-			 );
-
-
-%}
-
-extern void haplo_em_pin(
-   int    [], /* *S_n_loci,             number of loci                                 */
-   int    [], /* *n_subject,            number of subjects                             */
-   double  [], /*weight,               weight per subject                             */
-   int    [], /*geno_vec,             vector of genotypes,  col-major from           */
-                                  /* n_subject x 2*n_loci matrix                    */
-   int    [], /*n_alleles,            vector of number alleles per locus,            */
-				  /* length=n_loci                                  */
-   int    [], /*max_haps,             number of maximum haplotypes over all subjects */
-				  /*  - CRITICAL for memory alloc                   */
-   int    [], /*max_iter,             max num. iters for each EM loop                */
-   int    [], /*loci_insert_order,    vector for order of insert of loci for         */
-                                  /* progressive insertion; length = n_loci         */
-   double  [], /*min_prior,            trim haplo's with prior < min_prior            */
-   double  [], /*min_posterior,        trim subject's pair of haplos if               */
-				  /* post < min_posterior                           */
-   double  [], /*tol,                  convergence tolerance for change in lnlike in  */ 
-				  /*  EM loop                                       */
-   int    [], /*insert_batch_size,    number of loci to insert in a batch before     */
-                                  /*  each EM loop; order of inserted               */
-                                  /* loci determined by loci_insert_order           */
-   int    [], /*converge,             convergence indicator for EM                   */
-   double  [], /*S_lnlike,             lnlike from final EM                           */
-   int    [], /*S_n_u_hap,            number of unique haplotypes                    */
-   int    [], /*n_hap_pairs,          total number of pairs of haplotypes over all   */
-                                  /* subjects                                       */
-   int    [], /*random_start,         indicator of random posteriors should be       */
-				  /* generated at the start of each EM loop.        */
-                                  /* 1 = Yes, 0 = No                                */
-   int    [], /*iseed1,               seeds for AS183 random unif                    */
-   int    [], /*iseed2,	 */
-   int    [], /* iseed3, */
-   int    [] /*verbose)              indicator if verbose pringing during  run,     */
-                                  /* for debugging. verbose=0 means no printing     */
-                                  /* verbose=1 means lots of printing to screen     */
-			 );
-
+		     int *OutValue,
+		     double *OutValue,
+		     int *OutValue,
+		     int *OutValue);
 
 /*
  * Local variables:

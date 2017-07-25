@@ -1354,16 +1354,124 @@ void checkIntMax(int *intMax) {
   return ;
 }
 
-/* A MAIN FUNTION THAT CALLS haplo_em_pin() */
-   int main( void ) {
+int main_proc(int xn_loci, 
+	      int xn_subject,
+	      double xweight[],
+	      int xn_alleles[], 
+	      int xmax_haps,
+	      int xmax_iter,
+	      int xloci_insert_order[],
+	      double xmin_prior,         /* trim haplo's with prior < min_prior            */
+	      double xmin_posterior,
+	      double xtol,
+	      int xinsert_batch_size,
+	      int xrandom_start,
+	      int xiseed1,
+	      int xiseed2,
+	      int xiseed3,
+	      int xverbose,
+	      int xgeno_vec[],
 
-     double *xhap_prob;    /* probabilities for unique haplotypes, length= n_u_hap  */
-     int   *xu_hap;        /* unique haplotype, length=n_u_hap * n_loci             */
-     int   *xu_hap_code;   /* code for unique haplotypes, length=n_u_hap            */
-     int   *xsubj_id;     /* subject id = index of subject                         */
-     double *xpost;         /* posterior probability of pair of haplotypes           */
-     int   *xhap1_code;    /* code for haplotype-1 of a pair, length=n_pairs        */
-     int   *xhap2_code;     /* code for haplotype-2 of a pair, length=n_pairs        */
+	      /* the following are returned values */	      
+	      int *xconverge,             /* convergence indicator for EM                   */
+	      double *xS_lnlike,          /* lnlike from final EM                           */
+	      int *xS_n_u_hap,            /* number of unique haplotypes                    */
+	      int *xn_hap_pairs           /* total number of pairs of haplotypes over all   */
+)
+
+{
+  int index;
+
+  // FIXME: other stuff that gets returned
+  double *xhap_prob;    /* probabilities for unique haplotypes, length= n_u_hap  */
+  int   *xu_hap;        /* unique haplotype, length=n_u_hap * n_loci             */
+  int   *xu_hap_code;   /* code for unique haplotypes, length=n_u_hap            */
+  int   *xsubj_id;     /* subject id = index of subject                         */
+  double *xpost;         /* posterior probability of pair of haplotypes           */
+  int   *xhap1_code;    /* code for haplotype-1 of a pair, length=n_pairs        */
+  int   *xhap2_code;     /* code for haplotype-2 of a pair, length=n_pairs        */
+  int i, j, k;
+  
+  printf("xn_loci: %d\n", xn_loci);
+  for( index = 0; index < 5; index++ )
+     printf( "xgeno_vec[ %d ] = %d\n", index, xgeno_vec[ index ] );
+
+  for( index = 0; index < 5; index++ )
+     printf( "xweight[ %d ] = %g\n", index, xweight[ index ] );
+
+  haplo_em_pin(
+	 &xn_loci,              
+         &xn_subject,          
+         xweight,            
+         xgeno_vec,          
+         xn_alleles,         
+         &xmax_haps,          
+         &xmax_iter,          
+         xloci_insert_order, 
+         &xmin_prior,         
+         &xmin_posterior,     
+         &xtol,               
+         &xinsert_batch_size, 
+         xconverge,          
+         xS_lnlike,          
+         xS_n_u_hap,         
+         xn_hap_pairs,       
+         &xrandom_start,      
+         &xiseed1,            
+         &xiseed2,
+         &xiseed3,
+         &xverbose
+	 );   
+
+    xhap_prob = (double *) Calloc(*xS_n_u_hap, double);
+    xu_hap = (int *) Calloc(*xS_n_u_hap * xn_loci, int);
+    xu_hap_code = (int *) Calloc(*xS_n_u_hap, int);
+    xsubj_id = (double *) Calloc(*xn_hap_pairs, double);
+    xpost = (double *) Calloc(*xn_hap_pairs, double);
+    xhap1_code = (int *) Calloc(*xn_hap_pairs, int);
+    xhap2_code = (int *) Calloc(*xn_hap_pairs, int);
+   
+    haplo_em_ret_info(
+       *xS_n_u_hap,   // number of unique hapoltypes                           
+       xn_loci,     // number of loci                                        
+       *xn_hap_pairs, // number of pairs of loci over all subjects             
+       xhap_prob,   // probabilities for unique haplotypes, length= n_u_hap  
+       xu_hap, // unique haplotype, length=n_u_hap * n_loci             
+       xu_hap_code,   // code for unique haplotypes, length=n_u_hap            
+       xsubj_id,    // subject id = index of subject                         
+       xpost,    // posterior probability of pair of haplotypes           
+       xhap1_code,    // code for haplotype-1 of a pair, length=n_pairs        
+       xhap2_code     // code for haplotype-2 of a pair, length=n_pairs        
+     );
+
+    printf("inside main():\n");
+    printf("xn_loci: %d\n", xn_loci);
+    k = -1;
+    printf("i xhap_prob[i]   u_hap_code[i]   k   xu_hap[k]\n");
+    for(i=0;i < *xS_n_u_hap;i++){
+      printf("%i  %8.5f  %d ", i, xhap_prob[i], xu_hap_code[i]);
+      printf(" %d ", k+1 );
+      for(j=0;j<xn_loci;j++){
+	k++;
+	printf(" %d ", xu_hap[k]);
+      }
+      printf("\n");
+    }
+
+    Free(xhap_prob);
+    Free(xu_hap);
+    Free(xu_hap_code);
+    Free(xsubj_id);
+    Free(xpost);
+    Free(xhap1_code);
+    Free(xhap2_code);
+    haplo_free_memory();
+
+  return 0;
+}
+
+/* A MAIN FUNCTION THAT CALLS haplo_em_pin() */
+int main( void ) {
 
      int index;
 
@@ -1385,6 +1493,15 @@ void checkIntMax(int *intMax) {
      int xverbose = 0;
      int xgeno_vec[ ] = { 3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5 };
      //     int xgeno_vec[ ] = { 4, 2, 1, 7, 8,11, 7,13, 7,11,62, 7,27, 7,51,61,44,62,44,55 };
+
+     // stuff that gets returned
+     double *xhap_prob;    /* probabilities for unique haplotypes, length= n_u_hap  */
+     int   *xu_hap;        /* unique haplotype, length=n_u_hap * n_loci             */
+     int   *xu_hap_code;   /* code for unique haplotypes, length=n_u_hap            */
+     int   *xsubj_id;     /* subject id = index of subject                         */
+     double *xpost;         /* posterior probability of pair of haplotypes           */
+     int   *xhap1_code;    /* code for haplotype-1 of a pair, length=n_pairs        */
+     int   *xhap2_code;     /* code for haplotype-2 of a pair, length=n_pairs        */
 
 /* Larger example with n=50 & 3 loci
      int xn_loci = 3;
