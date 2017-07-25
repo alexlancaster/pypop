@@ -24,10 +24,10 @@ ret_val = _Haplostats.haplo_em_ret_info_wrap(S_n_u_hap, n_loci, n_hap_pairs,
                                              n_hap_pairs # length of xpost
                                              )
 
-status, hap_prob, xpost = ret_val
+status, hap_prob, post = ret_val
 
 print "status:", status
 print "hap_prob:", hap_prob
-print "xpost:", xpost
+print "post:", post
 
 _Haplostats.haplo_free_memory()
