@@ -360,22 +360,56 @@ int pyfprintf(FILE *fp, const char *format, ...) {
 
 // returning an array 
 
-/*
-%typemap(argout) double[ANY] {
-  // "argout" goes here:
-  PyObject *list = PyList_New($1_dim0);
-  for (size_t i = 0; i < $1_dim0; ++i) {
-    PyList_SetItem(list, i, PyFloat_FromDouble(temp$argnum[i]));
+%typemap(argout) (int len, double *OutList) {
+  PyObject *o, *o2, *o3;
+  size_t i;
+  long array_size = PyInt_AsLong($input);
+
+#ifdef DEBUG
+  printf("preparing to return the new double OutList of size: %ld\n", array_size);
+#endif
+
+  PyObject *list = PyList_New(array_size);
+  for (i = 0; i < array_size; ++i) {
+    PyList_SetItem(list, i, PyFloat_FromDouble($2[i]));
   }
-  $result = list;
+
+  /* push the new Python list on the tuple */
+  o = list;
+  if ((!$result) || ($result == Py_None)) {
+    $result = o;
+  } else {
+    if (!PyTuple_Check($result)) {
+      PyObject *o2 = $result;
+      $result = PyTuple_New(1);
+      PyTuple_SetItem($result, 0, o2);
+    }
+    o3 = PyTuple_New(1);
+    PyTuple_SetItem(o3, 0, o);
+    o2 = $result;
+    $result = PySequence_Concat(o2, o3);
+    Py_DECREF(o2);
+    Py_DECREF(o3);
+  }
+ }
+
+%typemap(in, numinputs=1) (int len, double *OutList) {
+#ifdef DEBUG
+  printf("mallocing the new double OutList of size: %ld\n", PyInt_AsLong($input));
+#endif
+  $2 = (double*) malloc(PyInt_AsLong($input)*sizeof(double));
 }
 
-%typemap(in, numinputs=0) double OutValue[ANY] (int temp[$1_dim0]) {
-  // "In" typemap goes here:
-  memset(temp, 0, sizeof temp);
-  $1 = temp;
-}
-*/
+%typemap(freearg) (int len, double *OutList) {
+
+#ifdef DEBUG
+  printf("preparing to free the double OutList\n")
+#endif
+
+  if ($2) {
+    free((void*) $2);
+  }
+ }
 
 /* 
  * Local variables:

@@ -1410,33 +1410,38 @@ int haplo_em_pin_wrap(int xn_loci,
 int haplo_em_ret_info_wrap(
        double xS_n_u_hap,   // number of unique hapoltypes                           
        int xn_loci,     // number of loci                                        
-       int xn_hap_pairs // number of pairs of loci over all subjects             
+       int xn_hap_pairs, // number of pairs of loci over all subjects             
 
-       /*       double *xhap_prob,   // probabilities for unique haplotypes, length= n_u_hap  
+       int  xhap_prob_len,
+       double *xhap_prob,   // probabilities for unique haplotypes, length= n_u_hap  
+       /*
        int *xu_hap, // unique haplotype, length=n_u_hap * n_loci             
        int *xu_hap_code,   // code for unique haplotypes, length=n_u_hap            
        double *xsubj_id,    // subject id = index of subject                         
-       double *xpost,    // posterior probability of pair of haplotypes           
-       int *xhap1_code,    // code for haplotype-1 of a pair, length=n_pairs        
+       */
+       int xpost_len,
+       double *xpost    // posterior probability of pair of haplotypes           
+       /*
+	 int *xhap1_code,    // code for haplotype-1 of a pair, length=n_pairs        
        int *xhap2_code     // code for haplotype-2 of a pair, length=n_pairs         */
 			   )
 {
   // FIXME: these should be defined in the typemap
-  double *xhap_prob;    /* probabilities for unique haplotypes, length= n_u_hap  */
+  //double *xhap_prob;    /* probabilities for unique haplotypes, length= n_u_hap  */
   int   *xu_hap;        /* unique haplotype, length=n_u_hap * n_loci             */
   int   *xu_hap_code;   /* code for unique haplotypes, length=n_u_hap            */
   int   *xsubj_id;     /* subject id = index of subject                         */
-  double *xpost;         /* posterior probability of pair of haplotypes           */
+  //double *xpost;         /* posterior probability of pair of haplotypes           */
   int   *xhap1_code;    /* code for haplotype-1 of a pair, length=n_pairs        */
   int   *xhap2_code;     /* code for haplotype-2 of a pair, length=n_pairs        */
   int i, j, k;
   
 
-    xhap_prob = (double *) Calloc(xS_n_u_hap, double);
+  //xhap_prob = (double *) Calloc(xS_n_u_hap, double);
     xu_hap = (int *) Calloc(xS_n_u_hap * xn_loci, int);
     xu_hap_code = (int *) Calloc(xS_n_u_hap, int);
     xsubj_id = (double *) Calloc(xn_hap_pairs, double);
-    xpost = (double *) Calloc(xn_hap_pairs, double);
+    //xpost = (double *) Calloc(xn_hap_pairs, double);
     xhap1_code = (int *) Calloc(xn_hap_pairs, int);
     xhap2_code = (int *) Calloc(xn_hap_pairs, int);
    
@@ -1467,14 +1472,14 @@ int haplo_em_ret_info_wrap(
       printf("\n");
     }
 
-    Free(xhap_prob);
+    //Free(xhap_prob);
     Free(xu_hap);
     Free(xu_hap_code);
     Free(xsubj_id);
-    Free(xpost);
+    //Free(xpost);
     Free(xhap1_code);
     Free(xhap2_code);
-    haplo_free_memory();
+    //haplo_free_memory();
 
   return 0;
 }

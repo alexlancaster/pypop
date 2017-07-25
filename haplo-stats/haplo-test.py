@@ -18,6 +18,16 @@ print "S_lnlike:", S_lnlike
 print "S_n_u_hap:", S_n_u_hap
 print "n_hap_pairs:", n_hap_pairs
 
-ret_val = _Haplostats.haplo_em_ret_info_wrap(S_n_u_hap, n_loci, n_hap_pairs)
+#ret_val = _Haplostats.haplo_em_ret_info_wrap(S_n_u_hap, n_loci, n_hap_pairs)
+ret_val = _Haplostats.haplo_em_ret_info_wrap(S_n_u_hap, n_loci, n_hap_pairs,
+                                             S_n_u_hap,  # length of hap_prob
+                                             n_hap_pairs # length of xpost
+                                             )
 
-print ret_val
+status, hap_prob, xpost = ret_val
+
+print "status:", status
+print "hap_prob:", hap_prob
+print "xpost:", xpost
+
+_Haplostats.haplo_free_memory()
