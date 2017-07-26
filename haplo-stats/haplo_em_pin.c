@@ -1432,6 +1432,11 @@ int haplo_em_ret_info_wrap(
       }
       printf("\n");
     }
+    printf("hap1   hap2\n");
+    for(i=0;i < n_hap_pairs;i++) {
+      printf("%3d  %3d\n", hap1_code[i], hap2_code[i]);
+    }
+
     printf("END inside C program\n");
   }
 #endif
