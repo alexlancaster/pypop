@@ -26,6 +26,14 @@ There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on ```xenial`
        make
        sudo make install
 
+## More details on pytest
+
+If for some reason ```./setup.py test``` doesn't work, you can  use pip to manually install ```pytest```:
+
+      pip install --user pytest
+
+(Ensure that the local user path is in ```PATH```, you may need to modify ```~/.bash_profile``` accordingly.  On MacOS e.g. ```export PATH=$HOME/Library/Python/2.7/bin:$PATH```, on Linux ```export PATH=$HOME/.local/bin:$PATH```.)  Verify that py.test is in your ```PATH``` by running ```which py.test```.
+
 ## Design notes
 
 * 'Main' is the primary interface to the PyPop modules.  Given a
