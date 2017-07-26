@@ -83,19 +83,13 @@ This will generate the following two files, an XML output file and a plain text 
 
 ## Running test suite
 
-Use pip to install ```pytest```:
+      ./setup.py test
 
-      pip install --user pytest
-
-(Ensure that the local user path is in ```PATH```, you may need to modify ```~/.bash_profile``` accordingly.  On MacOS e.g. ```export PATH=$HOME/Library/Python/2.7/bin:$PATH```, on Linux ```export PATH=$HOME/.local/bin:$PATH```.)  Verify that py.test is in your ```PATH``` by running ```which py.test```.
-
-Run the test suite:
-
-      py.test
-
-If you run into errors, file a bug (as per Support, below), include the output of ```py.test``` run in verbose mode and capturing the output:
+If you run into errors, file a bug (as per Support, below), include the output of ```py.test``` run in verbose mode and capturing the output
 
       py.test -s -v
+
+(See DEV_NOTES.md for more details on installing or running ```py.test``` outside the context of setuptools.)
 
 ## Support
 
