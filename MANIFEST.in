@@ -13,5 +13,5 @@ include pval/Makefile pval/dpq.h pval/nmath.h pval/Rconfig.h pval/Rmath.h
 include pval/R_ext/Arith.h pval/R_ext/Boolean.h pval/R_ext/Error.h pval/R_ext/Mathlib.h pval/R_ext/RS.h
 recursive-include tests *.py
 recursive-include tests/data *.ini *.pop *.txt
-recursive-include tests/data/output *.dat *.pop *.txt *.xml
+recursive-include tests/data/output *.dat *.txt *.xml
 exclude setup.cfg
