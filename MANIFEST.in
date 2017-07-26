@@ -2,8 +2,6 @@ include README.md
 include DEV_NOTES.md
 include LICENSE
 include NEWS
-include pypop.py
-include popmeta.py
 include MANIFEST.in
 include data/config-canonical.ini
 recursive-include xslt text.xsl html.xsl lib.xsl common.xsl filter.xsl hardyweinberg.xsl homozygosity.xsl emhaplofreq.xsl meta-to-r.xsl sort-by-locus.xsl allelelist-by-locus.xsl haplolist-by-group.xsl phylip-allele.xsl phylip-haplo.xsl
@@ -13,4 +11,7 @@ include gthwe/*.h gthwe/Makefile gthwe/README.1
 include slatkin-exact/Makefile slatkin-exact/README
 include pval/Makefile pval/dpq.h pval/nmath.h pval/Rconfig.h pval/Rmath.h
 include pval/R_ext/Arith.h pval/R_ext/Boolean.h pval/R_ext/Error.h pval/R_ext/Mathlib.h pval/R_ext/RS.h
+recursive-include tests *.py
+recursive-include tests/data *.ini *.pop *.txt
+recursive-include tests/data/output *.dat *.pop *.txt *.xml
 exclude setup.cfg
