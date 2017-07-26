@@ -1032,7 +1032,6 @@ static int **int_vec_to_mat(int *Yvec, int nrow, int ncol){
 
 void haplo_em_ret_info(
    int   n_u_hap,      /* number of unique hapoltypes                           */
-		       //int   *n_u_hap,      /* number of unique hapoltypes                           */
    int   S_n_loci,     /* number of loci                                        */
    int   n_pairs,      /* number of pairs of loci over all subjects             */
    double *hap_prob,     /* probabilities for unique haplotypes, length= n_u_hap  */
@@ -1047,9 +1046,6 @@ void haplo_em_ret_info(
 
   int i,j,k;
   HAP **h;
-
-  printf("...haplo_em_ret_info  \n"); //RS added
-  printf("...first: n_u_hap: %d , S_n_loci: %i \n", n_u_hap, S_n_loci);
 
   k= -1;
   for(i=0;i<n_u_hap;i++){
@@ -1070,22 +1066,6 @@ void haplo_em_ret_info(
     hap2_code[i] = (*h)->code;
     h++;
   }
-
-  // RS added
-/*
-  k= -1;
-  printf("i hap_prob[i]   u_hap_code[i]   k   u_hap[k]\n");
-  for(i=0;i<n_u_hap;i++){
-    printf("%i  %8.5f  %d ", i, hap_prob[i], u_hap_code[i]);
-    printf(" %d ", k+1 );
-    for(j=0;j<S_n_loci;j++){
-      k++;
-      u_hap[k] = ret_u_hap_list[i]->loci[j];
-      printf(" %d ", u_hap[k]);
-    }
-    printf("\n");
-  }
-*/
 
   return;
 }
@@ -1412,48 +1392,54 @@ int haplo_em_ret_info_wrap(
        int n_hap_pairs,    // number of pairs of loci over all subjects             
 
        /* all the following arguments are returned arrays */
-       int hap_prob_len, double *hap_prob,  // probabilities for unique haplotypes, length= n_u_hap  
-       int u_hap_len, int *u_hap,           // unique haplotype, length=n_u_hap * n_loci             
-       int u_hap_code_len, int *u_hap_code, // code for unique haplotypes, length=n_u_hap            
-       int subj_id_len, int *subj_id,    // subject id = index of subject                         
-       int post_len, double *post,          // posterior probability of pair of haplotypes           
-       int hap1_code_len, int *hap1_code,   // code for haplotype-1 of a pair, length=n_pairs        
-       int hap2_code_len, int *hap2_code    // code for haplotype-2 of a pair, length=n_pairs
+       /* each array is prepended by the length of the array passed in from Python */
+       /* all memory allocation is done in Python typemaps before body of function */
+       int hap_prob_len,   double *hap_prob, // probabilities for unique haplotypes, length= n_u_hap  
+       int u_hap_len,      int *u_hap,       // unique haplotype, length=n_u_hap * n_loci             
+       int u_hap_code_len, int *u_hap_code,  // code for unique haplotypes, length=n_u_hap            
+       int subj_id_len,    int *subj_id,     // subject id = index of subject                         
+       int post_len,       double *post,     // posterior probability of pair of haplotypes           
+       int hap1_code_len,  int *hap1_code,   // code for haplotype-1 of a pair, length=n_pairs        
+       int hap2_code_len,  int *hap2_code    // code for haplotype-2 of a pair, length=n_pairs
 			   )
 {
-  int i, j, k;
   haplo_em_ret_info(
-       S_n_u_hap,   // number of unique hapoltypes                           
-       n_loci,     // number of loci                                        
-       n_hap_pairs, // number of pairs of loci over all subjects             
-       hap_prob,   // probabilities for unique haplotypes, length= n_u_hap  
-       u_hap, // unique haplotype, length=n_u_hap * n_loci             
-       u_hap_code,   // code for unique haplotypes, length=n_u_hap            
-       subj_id,    // subject id = index of subject                         
-       post,    // posterior probability of pair of haplotypes           
-       hap1_code,    // code for haplotype-1 of a pair, length=n_pairs        
-       hap2_code     // code for haplotype-2 of a pair, length=n_pairs        
+       S_n_u_hap,   
+       n_loci,     
+       n_hap_pairs, 
+       hap_prob,   
+       u_hap, 
+       u_hap_code, 
+       subj_id,    
+       post,    
+       hap1_code, 
+       hap2_code  
      );
 
-  printf("inside main():\n");
-  printf("n_loci: %d\n", n_loci);
-  k = -1;
-  printf("i hap_prob[i]   u_hap_code[i]   k   u_hap[k]\n");
-  for(i=0;i < S_n_u_hap;i++){
-    printf("%i  %8.5f  %d ", i, hap_prob[i], u_hap_code[i]);
-    printf(" %d ", k+1 );
-    for(j=0;j<n_loci;j++){
-      k++;
-      printf(" %d ", u_hap[k]);
-    }
+#ifdef DEBUG
+  {
+    int i, j, k;
+    printf("inside main():\n");
+    printf("n_loci: %d\n", n_loci);
+    k = -1;
+    printf("i hap_prob[i]   u_hap_code[i]   k   u_hap[k]\n");
+    for(i=0;i < S_n_u_hap;i++){
+      printf("%i  %8.5f  %d ", i, hap_prob[i], u_hap_code[i]);
+      printf(" %d ", k+1 );
+      for(j=0;j<n_loci;j++){
+	k++;
+	printf(" %d ", u_hap[k]);
+      }
     printf("\n");
+    }
   }
+#endif
+
   return 0;
 }
 
 /* A MAIN FUNCTION THAT CALLS haplo_em_pin() */
 int main( void ) {
-
      int index;
 
      /* EXAMPLE FROM HAPLO.STATS: hla.demo[,c(17,18,21:24)]; label <-c("DQB","DRB","B") */
@@ -1475,7 +1461,7 @@ int main( void ) {
      int geno_vec[ ] = { 3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5 };
      //     int geno_vec[ ] = { 4, 2, 1, 7, 8,11, 7,13, 7,11,62, 7,27, 7,51,61,44,62,44,55 };
 
-     // stuff that gets returned
+     // data structures that are returned
      double *hap_prob;    /* probabilities for unique haplotypes, length= n_u_hap  */
      int   *u_hap;        /* unique haplotype, length=n_u_hap * n_loci             */
      int   *u_hap_code;   /* code for unique haplotypes, length=n_u_hap            */
