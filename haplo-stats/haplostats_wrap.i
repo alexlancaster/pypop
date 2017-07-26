@@ -32,9 +32,7 @@ MODIFICATIONS. */
 /* interface definition file for SWIG */
 
 %module Haplostats
-
 %include "typemap.i"
-
 
 extern int haplo_em_pin_wrap(int xn_loci, 
 			     int xn_subject, 
