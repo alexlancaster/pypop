@@ -1419,19 +1419,20 @@ int haplo_em_ret_info_wrap(
 #ifdef DEBUG
   {
     int i, j, k;
-    printf("inside main():\n");
+    printf("START inside C program\n");
     printf("n_loci: %d\n", n_loci);
     k = -1;
     printf("i hap_prob[i]   u_hap_code[i]   k   u_hap[k]\n");
     for(i=0;i < S_n_u_hap;i++){
-      printf("%i  %8.5f  %d ", i, hap_prob[i], u_hap_code[i]);
-      printf(" %d ", k+1 );
+      printf("%2i  %8.5f       %3d       ", i, hap_prob[i], u_hap_code[i]);
+      printf(" %3d ", k+1 );
       for(j=0;j<n_loci;j++){
 	k++;
-	printf(" %d ", u_hap[k]);
+	printf(" %3d ", u_hap[k]);
       }
-    printf("\n");
+      printf("\n");
     }
+    printf("END inside C program\n");
   }
 #endif
 

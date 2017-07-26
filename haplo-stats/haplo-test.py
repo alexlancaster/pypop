@@ -39,13 +39,15 @@ ret_val = _Haplostats.haplo_em_pin_wrap(\
     verbose,
     geno_vec)
 
+# values returned from haplo_em_pin
 status, converge, S_lnlike, S_n_u_hap, n_hap_pairs = ret_val
 
-print "status:", status
-print "converge:", converge
-print "S_lnlike:", S_lnlike
-print "S_n_u_hap:", S_n_u_hap
-print "n_hap_pairs:", n_hap_pairs
+print "inside Python:"
+print " status:", status
+print " converge:", converge
+print " S_lnlike:", S_lnlike
+print " S_n_u_hap:", S_n_u_hap
+print " n_hap_pairs:", n_hap_pairs
 
 ret_val = _Haplostats.haplo_em_ret_info_wrap(\
     # input parameters
@@ -60,15 +62,17 @@ ret_val = _Haplostats.haplo_em_ret_info_wrap(\
     n_hap_pairs,        # hap2_code
     )
 
+# values returned from haplo_em_ret_info
 status, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = ret_val
 
-print "status:", status
-print "hap_prob:", hap_prob
-print "u_hap:", u_hap
-print "u_hap_code:", u_hap_code
-print "subj_id:", subj_id
-print "post:", post
-print "hap1_code:", hap1_code
-print "hap2_code:", hap2_code
+print "inside Python:"
+print " status:", status
+print " hap_prob:", hap_prob
+print " u_hap:", u_hap
+print " u_hap_code:", u_hap_code
+print " subj_id:", subj_id
+print " post:", post
+print " hap1_code:", hap1_code
+print " hap2_code:", hap2_code
 
 _Haplostats.haplo_free_memory()
