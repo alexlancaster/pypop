@@ -65,9 +65,12 @@ extern int haplo_em_ret_info_wrap(
 				  int xn_hap_pairs, // number of pairs of loci over all subjects             
 				  
 				  int len,
-				  double *OutList,   // probabilities for unique haplotypes, length= n_u_hap  
+				  double *OutList,   // hap_prob probabilities for unique haplotypes, length= n_u_hap  
+
+				  int len,
+				  int *OutList, // u_hap, unique haplotype, length=n_u_hap * n_loci             
+
 				  /*
-				  int *xu_hap, // unique haplotype, length=n_u_hap * n_loci             
 				  int *xu_hap_code,   // code for unique haplotypes, length=n_u_hap            
 				  double *xsubj_id,    // subject id = index of subject                         
 				  */

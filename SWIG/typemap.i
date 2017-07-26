@@ -358,8 +358,7 @@ int pyfprintf(FILE *fp, const char *format, ...) {
   $1 = &temp;
 }
 
-// returning an array 
-
+// returning an double array as part of return tuple
 %typemap(argout) (int len, double *OutList) {
   PyObject *o, *o2, *o3;
   size_t i;
@@ -401,11 +400,59 @@ int pyfprintf(FILE *fp, const char *format, ...) {
 }
 
 %typemap(freearg) (int len, double *OutList) {
-
 #ifdef DEBUG
   printf("preparing to free the double OutList\n")
 #endif
+  if ($2) {
+    free((void*) $2);
+  }
+ }
 
+// returning an int array as part of return tuple
+%typemap(argout) (int len, int *OutList) {
+  PyObject *o, *o2, *o3;
+  size_t i;
+  long array_size = PyInt_AsLong($input);
+
+#ifdef DEBUG
+  printf("preparing to return the new int OutList of size: %ld\n", array_size);
+#endif
+
+  PyObject *list = PyList_New(array_size);
+  for (i = 0; i < array_size; ++i) {
+    PyList_SetItem(list, i, PyInt_FromLong($2[i]));
+  }
+
+  /* push the new Python list on the tuple */
+  o = list;
+  if ((!$result) || ($result == Py_None)) {
+    $result = o;
+  } else {
+    if (!PyTuple_Check($result)) {
+      PyObject *o2 = $result;
+      $result = PyTuple_New(1);
+      PyTuple_SetItem($result, 0, o2);
+    }
+    o3 = PyTuple_New(1);
+    PyTuple_SetItem(o3, 0, o);
+    o2 = $result;
+    $result = PySequence_Concat(o2, o3);
+    Py_DECREF(o2);
+    Py_DECREF(o3);
+  }
+ }
+
+%typemap(in, numinputs=1) (int len, int *OutList) {
+#ifdef DEBUG
+  printf("mallocing the new int OutList of size: %ld\n", PyInt_AsLong($input));
+#endif
+  $2 = (int*) malloc(PyInt_AsLong($input)*sizeof(int));
+}
+
+%typemap(freearg) (int len, int *OutList) {
+#ifdef DEBUG
+  printf("preparing to free the int OutList\n")
+#endif
   if ($2) {
     free((void*) $2);
   }

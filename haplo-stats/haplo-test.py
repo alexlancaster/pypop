@@ -21,13 +21,15 @@ print "n_hap_pairs:", n_hap_pairs
 #ret_val = _Haplostats.haplo_em_ret_info_wrap(S_n_u_hap, n_loci, n_hap_pairs)
 ret_val = _Haplostats.haplo_em_ret_info_wrap(S_n_u_hap, n_loci, n_hap_pairs,
                                              S_n_u_hap,  # length of hap_prob
-                                             n_hap_pairs # length of xpost
+                                             S_n_u_hap * n_loci, # length of u_hap
+                                             n_hap_pairs # length of post
                                              )
 
-status, hap_prob, post = ret_val
+status, hap_prob, u_hap, post = ret_val
 
 print "status:", status
 print "hap_prob:", hap_prob
+print "u_hap:", u_hap
 print "post:", post
 
 _Haplostats.haplo_free_memory()
