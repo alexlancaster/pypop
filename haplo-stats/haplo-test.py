@@ -20,16 +20,24 @@ print "n_hap_pairs:", n_hap_pairs
 
 #ret_val = _Haplostats.haplo_em_ret_info_wrap(S_n_u_hap, n_loci, n_hap_pairs)
 ret_val = _Haplostats.haplo_em_ret_info_wrap(S_n_u_hap, n_loci, n_hap_pairs,
-                                             S_n_u_hap,  # length of hap_prob
-                                             S_n_u_hap * n_loci, # length of u_hap
-                                             n_hap_pairs # length of post
+                                             S_n_u_hap,          # hap_prob
+                                             S_n_u_hap * n_loci, # u_hap
+                                             S_n_u_hap,          # u_hap_code
+                                             n_hap_pairs,        # subj_id
+                                             n_hap_pairs,        # post
+                                             n_hap_pairs,        # hap1_code
+                                             n_hap_pairs,        # hap2_code
                                              )
 
-status, hap_prob, u_hap, post = ret_val
+status, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = ret_val
 
 print "status:", status
 print "hap_prob:", hap_prob
 print "u_hap:", u_hap
+print "u_hap_code:", u_hap_code
+print "subj_id:", subj_id
 print "post:", post
+print "hap1_code:", hap1_code
+print "hap2_code:", hap2_code
 
 _Haplostats.haplo_free_memory()

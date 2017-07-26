@@ -60,27 +60,18 @@ extern int haplo_em_pin_wrap(int xn_loci,
 			     int *OutValue);
 
 extern int haplo_em_ret_info_wrap(
-				  double xS_n_u_hap,   // number of unique hapoltypes                           
-				  int xn_loci,     // number of loci                                        
-				  int xn_hap_pairs, // number of pairs of loci over all subjects             
-				  
-				  int len,
-				  double *OutList,   // hap_prob probabilities for unique haplotypes, length= n_u_hap  
-
-				  int len,
-				  int *OutList, // u_hap, unique haplotype, length=n_u_hap * n_loci             
-
-				  /*
-				  int *xu_hap_code,   // code for unique haplotypes, length=n_u_hap            
-				  double *xsubj_id,    // subject id = index of subject                         
-				  */
-				  int len,
-				  double *OutList    // posterior probability of pair of haplotypes           
-				  /*
-				  int *xhap1_code,    // code for haplotype-1 of a pair, length=n_pairs        
-				  int *xhap2_code     // code for haplotype-2 of a pair, length=n_pairs        
-				  */
-				  );
+	  double xS_n_u_hap,   // number of unique hapoltypes                           
+	  int xn_loci,         // number of loci                                        
+	  int xn_hap_pairs,     // number of pairs of loci over all subjects             
+	  
+	  int len, double *OutList, // hap_prob: probabilities for unique haplotypes, length= n_u_hap  
+	  int len, int *OutList,    // u_hap: unique haplotype, length=n_u_hap * n_loci             
+	  int len, int *OutList,    // u_hap_code: code for unique haplotypes, length=n_u_hap            
+	  int len, int *OutList,    // subj_id: subject id = index of subject, length=                         
+	  int len, double *OutList, // post: posterior probability of pair of haplotypes           
+	  int len, int *OutList,    // hap1_code: code for haplotype-1 of a pair, length=n_pairs        
+	  int len, int *OutList     // hap2_code: code for haplotype-2 of a pair, length=n_pairs        
+	  );
 
 void haplo_free_memory();
 
