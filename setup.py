@@ -224,5 +224,5 @@ particularly large-scale multilocus genotype data""",
        ext_modules=extensions,
        cmdclass={'clean': CleanCommand,},
        setup_requires=['pytest-runner'],
-       tests_require=['pytest'],
+       tests_require=['pytest', 'psutil'],
        )
