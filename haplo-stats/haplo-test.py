@@ -170,6 +170,17 @@ def haplo_em(geno,
     print " hap1_code:", hap1_code
     print " hap2_code:", hap2_code
 
+#Print columns side-by-side for easier checking
+#NB: u_hap is trickier since it has n.loci entries per haplo
+    import numpy
+    print 'hap_prob  u_hap_code u_hap(needs to be split for printing)'
+    print numpy.c_[hap_prob,u_hap_code]
+    print 'subj_id  hap1_code  hap2_code'
+    print numpy.c_[subj_id,hap1_code,hap2_code]
+#   for x1,x2,x3 in zip(hap_prob,u_hap,u_hap_code):
+#       print x1 + '\t\t' + x2 + '\t\t' + x3
+
+
     # FIXME: add loop here
 
 
