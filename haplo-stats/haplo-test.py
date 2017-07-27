@@ -63,6 +63,16 @@ def haplo_em(geno,
              weight=None, 
              control=None):
 
+    # match this haplo.stats example
+    #
+    # control = haplo.em.control(n.try=1)
+    # data(hla.demo)
+    # attach(hla.demo)
+    # geno = hla.demo[1:5,c(17,18,21:24)]
+    # label <-c("DQB","DRB","B")
+    # keep <- !apply(is.na(geno) | geno==0, 1, any)
+    # save.em.keep <- haplo.em(geno=geno[keep,], locus.label=label, control=control)
+
     # FIXME: geno data structure needs to be generated from PyPop's StringMatrix class
 
     # FIXME: hardcode, should be taken from geno
@@ -170,7 +180,6 @@ control = {'max_iter': 5000,
            'insert_batch_size': 2,
            'random_start': 0,
            'verbose': 0,
-           'max_haps_limit': 10000
-           }
+           'max_haps_limit': 10000 }
 
 haplo_em(geno, locus_label=["A", "B"], weight=None, control=control)
