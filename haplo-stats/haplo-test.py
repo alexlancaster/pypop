@@ -54,11 +54,7 @@ def haplo_em_fitter(n_loci,
     # values returned from haplo_em_ret_info
     status2, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = tmp2
 
-    print "hap_prob:", hap_prob
-    
     _Haplostats.haplo_free_memory()
-
-    print "fitter:", converge, lnlike
 
     return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code
 
