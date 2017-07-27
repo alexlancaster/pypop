@@ -67,15 +67,6 @@ def haplo_em(geno,
              weight=None, 
              control=None):
 
-    # FIXME: "control", set in control datastructure
-    # hardcode here
-    max_iter = 5000
-    min_posterior = 0.000000001
-    tol = 0.00001
-    insert_batch_size = 2
-    random_start = 0
-    verbose = 0
-
     # FIXME: geno data structure needs to be generated from PyPop's StringMatrix class
 
     # FIXME: hardcode, should be taken from geno
@@ -116,18 +107,19 @@ def haplo_em(geno,
     max_haps = 18
 
     # FIXME: do we need this?
-    # if(max.haps > control$max.haps.limit) max.haps <- control$max.haps.limit
+    if max_haps > control['max_haps_limit']:
+        max_haps = control['max_haps_limit']
 
     # FIXME: hardcode
     geno_vec = [3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5]
 
-    # FIXME: need PyPop equivalent
+    # FIXME: need to add a method to PyPop's StringMatrix
     # allele.labels <- attr(temp.geno, "unique.alleles")
 
     # FIXME: hardcode for the time being
     n_alleles = [7, 7]
 
-    # FIXME: not (yet) using a.freq, so don't calculte
+    # FIXME: not (yet) using a.freq, so don't calculate
     # also too complicated to translate right now
     # for(i in 1:n_loci){
     #  n.alleles[i] <- length(allele.labels[[i]])
@@ -149,16 +141,16 @@ def haplo_em(geno,
                               geno_vec,
                               n_alleles,
                               max_haps,
-                              max_iter,
+                              control['max_iter'],
                               loci_insert_order,
-                              min_posterior,
-                              tol,
-                              insert_batch_size,
-                              random_start,
+                              control['min_posterior'],
+                              control['tol'],
+                              control['insert_batch_size'],
+                              control['random_start'],
                               iseed1,
                               iseed2,
                               iseed3,
-                              verbose)
+                              control['verbose'])
 
     print " converge:", converge
     print " lnlike:", lnlike
@@ -176,5 +168,13 @@ def haplo_em(geno,
 
 
 geno = None
+control = {'max_iter': 5000,
+           'min_posterior': 0.000000001,
+           'tol': 0.00001,
+           'insert_batch_size': 2,
+           'random_start': 0,
+           'verbose': 0,
+           'max_haps_limit': 10000
+           }
 
-haplo_em(geno, locus_label=["A", "B"], weight=None, control=None)
+haplo_em(geno, locus_label=["A", "B"], weight=None, control=control)
