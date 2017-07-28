@@ -94,5 +94,8 @@ class StringMatrixTest(unittest.TestCase):
         A_matrix[0, 'A'] = ('A0', 'A0')
         A_matrix[1, 'A'] = ('A1', 'A2')
 
-        # remember that 'C' column has no data, so '0' is also an element!
-        assert A_matrix.getUniqueAlleles() == set(['A0', 'A1', 'A2', 'B0', 'B1', '0'])
+        unique_dict = A_matrix.getUniqueAlleles()
+        # remember that some columns have no data, so '0' is also an element!
+        assert unique_dict['A'] == set(['A0', 'A1', 'A2', '0'])
+        assert unique_dict['B'] == set(['B0', 'B1', '0'])
+        assert unique_dict['C'] == set(['0'])
