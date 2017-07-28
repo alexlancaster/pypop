@@ -222,10 +222,13 @@ matrix[2, 'B'] = ('27', '62')
 matrix[3, 'B'] = ('7', '44')
 matrix[4, 'B'] = ('51', '55')
 
+
 # FIXME: goal will be to transform the above data structure into the geno_vec used in haplo_em
 # I think the best way to do this is to add a method to the StringMatrix class
-# that transforms a StringMatrix into the geno_vec
-# also we should add a similar method to get unique alleles
-# in other words the work of setupGeno etc. should be put into StringMatrix
+# that transforms a StringMatrix into the geno_vec and so with other functionality
+# currently in the R haplo.stats
+
+# for example I have added a method to get all the unique alleles
+print matrix.getUniqueAlleles()
 
 haplo_em(geno, locus_label=["A", "B"], weight=None, control=control)
