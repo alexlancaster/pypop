@@ -28,7 +28,7 @@ From: ubuntu:17.04
 %post
     # Inside the container, install our required packages.
     apt update
-    apt install --no-install-recommends -y build-essential libgsl2 libgsl-dev libpcre3 libpcre3-dev python2.7-dev python-numpy python-libxml2 python-libxslt1 python-pip python-pytest python-setuptools
+    apt install --no-install-recommends -y build-essential libboost-dev libgsl2 libgsl-dev libpcre3 libpcre3-dev python2.7-dev python-numpy python-libxml2 python-libxslt1 python-pip python-pytest python-setuptools
 
     # Build and install SWIG 3.0.12
     tar -xzvf /swig-3.0.12.tar.gz
