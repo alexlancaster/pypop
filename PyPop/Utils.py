@@ -405,6 +405,9 @@ class StringMatrix(user_array.container):
       self.colSep = colSep
       self.headerLines = headerLines
 
+      # add unique alleles
+      self.uniqueAlleles = set()
+
       # initialising the internal NumPy array
       self.array = zeros((self.rowCount, self.colCount*2+self.extraCount), dtype='O')
       self.shape = self.array.shape
@@ -557,6 +560,14 @@ class StringMatrix(user_array.container):
           self.array[(row,col)] = asarray(value,self._dtype)
       else:
           raise KeyError("can't find %s column" % col)
+
+  def getUniqueAlleles(self):
+      for colName in self.colList:
+          for genotype in self.__getitem__(colName):
+              for allele in genotype:
+                  self.uniqueAlleles.add(str(allele))
+
+      return self.uniqueAlleles
 
   def filterOut(self, key, blankDesignator):
       """Returns a filtered matrix.

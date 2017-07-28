@@ -86,3 +86,13 @@ class StringMatrixTest(unittest.TestCase):
         assert A_matrix['A'] == [['A0', 'A0'], ['A1', 'A2'], [0, 0]]
         assert A_matrix['B'] == [['B0', 'B0'], ['B1', 'B1'], [0, 0]]
         assert A_matrix['C'] == [[0, 0], [0, 0], [0, 0]]
+
+    def test_GetUniqueAlleles(self):
+        A_matrix = new_matrix()
+        A_matrix[0, 'B'] = ('B0', 'B0')
+        A_matrix[1, 'B'] = ('B1', 'B1')
+        A_matrix[0, 'A'] = ('A0', 'A0')
+        A_matrix[1, 'A'] = ('A1', 'A2')
+
+        # remember that 'C' column has no data, so '0' is also an element!
+        assert A_matrix.getUniqueAlleles() == set(['A0', 'A1', 'A2', 'B0', 'B1', '0'])
