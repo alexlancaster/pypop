@@ -4,6 +4,7 @@ import os.path, sys
 DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(DIR, '..'))
 
+from PyPop.Utils import StringMatrix
 import _Haplostats
 
 def haplo_em_fitter(n_loci,
@@ -62,16 +63,6 @@ def haplo_em(geno,
              locus_label=None,
              weight=None, 
              control=None):
-
-    # match this haplo.stats example
-    #
-    # control = haplo.em.control(n.try=1)
-    # data(hla.demo)
-    # attach(hla.demo)
-    # geno = hla.demo[1:5,c(17,18,21:24)]
-    # label <-c("DQB","DRB","B")
-    # keep <- !apply(is.na(geno) | geno==0, 1, any)
-    # save.em.keep <- haplo.em(geno=geno[keep,], locus.label=label, control=control)
 
     # FIXME: geno data structure needs to be generated from PyPop's StringMatrix class
 
@@ -192,5 +183,45 @@ control = {'max_iter': 5000,
            'random_start': 0,
            'verbose': 0,
            'max_haps_limit': 10000 }
+
+# match this haplo.stats example
+#
+# control = haplo.em.control(n.try=1)
+# data(hla.demo)
+# attach(hla.demo)
+# geno = hla.demo[1:5,c(17,18,21:24)]
+# label <-c("DQB","DRB","B")
+# keep <- !apply(is.na(geno) | geno==0, 1, any)
+# save.em.keep <- haplo.em(geno=geno[keep,], locus.label=label, control=control)
+
+# R geno matrix looks like this:
+#
+#  DQB.a1 DQB.a2 DRB.a1 DRB.a2 B.a1 B.a2
+# 1     31     32      4     11   62   61
+# 2     21     62      2      7    7   44
+# 3     31     63      1     13   27   62
+# 4     21     31      7      7    7   44
+# 5     31     42      8     11   51   55
+
+# translating this into a PyPop StringMatrix looks like this:
+
+matrix = StringMatrix(5, ["DQB", "DRB", "B"])
+matrix[0, 'DQB'] = ('31', '32')
+matrix[1, 'DQB'] = ('21', '62')
+matrix[2, 'DQB'] = ('31', '63')
+matrix[3, 'DQB'] = ('21', '31')
+matrix[4, 'DQB'] = ('31', '42')
+matrix[0, 'DRB'] = ('4', '11')
+matrix[1, 'DRB'] = ('2', '7')
+matrix[2, 'DRB'] = ('1', '13')
+matrix[3, 'DRB'] = ('7', '7')
+matrix[4, 'DRB'] = ('8', '11')
+matrix[0, 'B'] = ('62', '61')
+matrix[1, 'B'] = ('7', '44')
+matrix[2, 'B'] = ('27', '62')
+matrix[3, 'B'] = ('7', '44')
+matrix[4, 'B'] = ('51', '55')
+
+# FIXME: goal will be to transform the above data structure into the geno_vec used in haplo_em
 
 haplo_em(geno, locus_label=["A", "B"], weight=None, control=control)
