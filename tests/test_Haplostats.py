@@ -2,6 +2,7 @@ import base
 import unittest
 import _Haplostats
 from numpy.testing import assert_array_almost_equal
+from operator import add
 
 def call_Haplostats(n_loci, n_subject, weight, n_alleles,
                     max_haps, max_iter, loci_insert_order,
@@ -64,7 +65,6 @@ def test_Haplostats_Simple():
     assert S_n_u_hap == 16
     assert n_hap_pairs == 9
 
-    from operator import add
     sum_hap_codes = map(add, hap1_code, hap2_code)
 #   print "sum_hap_codes: ", sum_hap_codes
 
@@ -110,7 +110,6 @@ def test_Haplostats_Simple3():
 #   print "subj_id  hap1_code  hap2_code"
 #   print numpy.c_[subj_id,hap1_code,hap2_code]
 
-    from operator import add #NB: not sure why this needs to be imported again
     sum_hap_codes = map(add, hap1_code, hap2_code)
 #   print "sum_hap_codes: ", sum_hap_codes
     assert status1 == 0
