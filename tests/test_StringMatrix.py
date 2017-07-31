@@ -94,8 +94,29 @@ class StringMatrixTest(unittest.TestCase):
         A_matrix[0, 'A'] = ('A0', 'A0')
         A_matrix[1, 'A'] = ('A1', 'A2')
 
-        unique_dict = A_matrix.getUniqueAlleles()
+        print A_matrix.getUniqueAlleles('A')
+
         # remember that some columns have no data, so '0' is also an element!
-        assert unique_dict['A'] == ['0', 'A0', 'A1', 'A2']
-        assert unique_dict['B'] == ['0', 'B0', 'B1']
-        assert unique_dict['C'] == ['0']
+        assert A_matrix.getUniqueAlleles('A') == ['0', 'A0', 'A1', 'A2']
+        assert A_matrix.getUniqueAlleles('B') == ['0', 'B0', 'B1']
+        assert A_matrix.getUniqueAlleles('C') == ['0']
+
+    def test_ConvertToInts(self):
+        A_matrix = new_matrix()
+        A_matrix[0, 'B'] = ('B0', 'B0')
+        A_matrix[1, 'B'] = ('B1', 'B1')
+        A_matrix[0, 'A'] = ('A0', 'A0')
+        A_matrix[1, 'A'] = ('A1', 'A2')
+
+        B_matrix = A_matrix.convertToInts()
+
+        # check that original matrix remains unchanged
+        assert A_matrix['A'] == [['A0', 'A0'], ['A1', 'A2'], [0, 0]]
+        assert A_matrix['B'] == [['B0', 'B0'], ['B1', 'B1'], [0, 0]]
+        assert A_matrix['C'] == [[0, 0], [0, 0], [0, 0]]
+
+        # check new matrix
+        assert B_matrix['A'] == [[2, 2], [3, 4], [1, 1]]
+        assert B_matrix['B'] == [[2, 2], [3, 3], [1, 1]]
+        assert B_matrix['C'] == [[1, 1], [1, 1], [1, 1]]
+

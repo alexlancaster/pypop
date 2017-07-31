@@ -558,20 +558,37 @@ class StringMatrix(user_array.container):
       else:
           raise KeyError("can't find %s column" % col)
 
-  def getUniqueAlleles(self):
+  def getUniqueAlleles(self, key):
       """
       Return a dictionary containing unique alleles keyed by column name
       and sorted by allele name
       """
-      uniqueAlleles = {colName: [] for colName in self.colList}
-      for colName in self.colList:
-          for genotype in self.__getitem__(colName):
-              for allele in genotype:
-                  str_allele = str(allele)
-                  if str_allele not in uniqueAlleles[colName]:
-                      uniqueAlleles[colName].append(str_allele)
-          uniqueAlleles[colName].sort() # sort the list of alleles
+
+      uniqueAlleles = []
+      for genotype in self.__getitem__(key):
+          for allele in genotype:
+              str_allele = str(allele)
+              if str_allele not in uniqueAlleles:
+                  uniqueAlleles.append(str_allele)
+      uniqueAlleles.sort(key=natural_sort_key) # natural sort
       return uniqueAlleles
+
+  def convertToInts(self):
+
+      # create a new copy
+      newMatrix = self.copy()
+      for colName in self.colList:
+          uniqueAlleles = self.getUniqueAlleles(colName)
+          row = 0
+          for genotype in self.__getitem__(colName):
+              factor_genotype = []
+              for allele in genotype:
+                  pos = uniqueAlleles.index(str(allele)) + 1
+                  factor_genotype.append(pos)
+              newMatrix[row, colName] = tuple(factor_genotype)
+              row += 1
+
+      return newMatrix
 
   def filterOut(self, key, blankDesignator):
       """Returns a filtered matrix.
@@ -632,6 +649,9 @@ class Group:
 
 ### global FUNCTIONS start here
 
+def natural_sort_key(s, _nsre=re.compile('([0-9]+)')):
+    return [int(text) if text.isdigit() else text.lower()
+            for text in re.split(_nsre, s)]
 
 def unique_elements(l):
     """Gets the unique elements in a list"""

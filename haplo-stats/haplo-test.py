@@ -229,6 +229,8 @@ matrix[4, 'B'] = ('51', '55')
 # currently in the R haplo.stats
 
 # for example I have added a method to get all the unique alleles
-print matrix.getUniqueAlleles()
+print matrix.getUniqueAlleles("B")
 
-haplo_em(geno, locus_label=["A", "B"], weight=None, control=control)
+print matrix.convertToInts()["B"]
+
+#haplo_em(geno, locus_label=["B"], weight=None, control=control)
