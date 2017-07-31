@@ -561,12 +561,16 @@ class StringMatrix(user_array.container):
   def getUniqueAlleles(self):
       """
       Return a dictionary containing unique alleles keyed by column name
+      and sorted by allele name
       """
-      uniqueAlleles = { colName: set() for colName in self.colList }
+      uniqueAlleles = {colName: [] for colName in self.colList}
       for colName in self.colList:
           for genotype in self.__getitem__(colName):
               for allele in genotype:
-                  uniqueAlleles[colName].add(str(allele))
+                  str_allele = str(allele)
+                  if str_allele not in uniqueAlleles[colName]:
+                      uniqueAlleles[colName].append(str_allele)
+          uniqueAlleles[colName].sort() # sort the list of alleles
       return uniqueAlleles
 
   def filterOut(self, key, blankDesignator):
