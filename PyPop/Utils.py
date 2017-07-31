@@ -560,10 +560,8 @@ class StringMatrix(user_array.container):
 
   def getUniqueAlleles(self, key):
       """
-      Return a dictionary containing unique alleles keyed by column name
-      and sorted by allele name
+      Return a list of unique integers for given key sorted by allele name using natural sort
       """
-
       uniqueAlleles = []
       for genotype in self.__getitem__(key):
           for allele in genotype:
@@ -574,7 +572,12 @@ class StringMatrix(user_array.container):
       return uniqueAlleles
 
   def convertToInts(self):
+      """
+      Convert matrix to integers: needed for haplo-stats
 
+      FIXME: check whether we need to release memory
+      """
+      
       # create a new copy
       newMatrix = self.copy()
       for colName in self.colList:
