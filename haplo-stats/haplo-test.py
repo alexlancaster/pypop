@@ -1,5 +1,7 @@
 #!/usr/bin/env python
-import os.path, sys
+import os.path
+import sys
+import string
 
 DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(DIR, '..'))
@@ -64,16 +66,10 @@ def haplo_em(geno,
              weight=None, 
              control=None):
 
-    # FIXME: geno data structure needs to be generated from PyPop's StringMatrix class
+    n_loci = geno.colCount
+    n_subject = geno.rowCount
 
-    # FIXME: hardcode, should be taken from geno
-    ncols = 4
-    nrows = 5
-    
-    n_loci = ncols / 2
-    n_subject = nrows
     subj_id = range(1, n_subject + 1)
-    
     if n_loci < 2:
         print "Must have at least 2 loci for haplotype estimation!"
         exit(-1)
@@ -81,21 +77,9 @@ def haplo_em(geno,
     # set up weight
     if not weight:
         weight = [1.0]*n_subject
-
     if len(weight) != n_subject:
         print "Length of weight != number of subjects (nrow of geno)"
         exit(-1)
-
-    # Create locus label if not included
-    if not locus_label:
-        locus_label = ["loc-%d" % i for i in range(n_loci+1)]
-    
-    if len(locus_label)!= n_loci:
-        print "length of locus.label != n_loci"
-        exit(-1)
-
-    # FIXME: we hardcode not yet translated, need to use PyPop's StringMatrix here
-    # temp.geno <- setupGeno(geno, miss.val=miss.val, locus.label=locus.label)
 
     # Compute the max number of pairs of haplotypes over all subjects
     # FIXME: hardcode again, not yet translated, again need to use/modify StringMatrix
@@ -107,19 +91,17 @@ def haplo_em(geno,
     if max_haps > control['max_haps_limit']:
         max_haps = control['max_haps_limit']
 
-    # FIXME: hardcode
-    geno_vec = [3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5]
+    temp_geno = geno.convertToInts()  # simulates setupGeno
+    geno_vec = temp_geno.flattenCols()  # gets the columns as integers
 
-    # FIXME: need to add a method to PyPop's StringMatrix
-    # allele.labels <- attr(temp.geno, "unique.alleles")
-
-    # FIXME: hardcode for the time being
-    n_alleles = [7, 7]
+    n_alleles = []
+    for locus in geno.colList:
+        allele_labels = temp_geno.getUniqueAlleles(locus)
+        n_alleles.append(len(allele_labels))
 
     # FIXME: not (yet) using a.freq, so don't calculate
     # also too complicated to translate right now
     # for(i in 1:n_loci){
-    #  n.alleles[i] <- length(allele.labels[[i]])
     #  j <- (i-1)*2 + 1
     #  p <- table(temp.geno[,c(j, (j+1))], exclude=NA)
     #  p <- p/sum(p)
@@ -175,7 +157,6 @@ def haplo_em(geno,
     # FIXME: add loop here
 
 
-geno = None
 control = {'max_iter': 5000,
            'min_posterior': 0.000000001,
            'tol': 0.00001,
@@ -184,7 +165,7 @@ control = {'max_iter': 5000,
            'verbose': 0,
            'max_haps_limit': 10000 }
 
-# match this haplo.stats example
+# here we try to match this haplo.stats example
 #
 # control = haplo.em.control(n.try=1)
 # data(hla.demo)
@@ -203,34 +184,26 @@ control = {'max_iter': 5000,
 # 4     21     31      7      7    7   44
 # 5     31     42      8     11   51   55
 
-# translating this into a PyPop StringMatrix looks like this:
+# we set StringMatrix to be:
 
-matrix = StringMatrix(5, ["DQB", "DRB", "B"])
-matrix[0, 'DQB'] = ('31', '32')
-matrix[1, 'DQB'] = ('21', '62')
-matrix[2, 'DQB'] = ('31', '63')
-matrix[3, 'DQB'] = ('21', '31')
-matrix[4, 'DQB'] = ('31', '42')
-matrix[0, 'DRB'] = ('4', '11')
-matrix[1, 'DRB'] = ('2', '7')
-matrix[2, 'DRB'] = ('1', '13')
-matrix[3, 'DRB'] = ('7', '7')
-matrix[4, 'DRB'] = ('8', '11')
-matrix[0, 'B'] = ('62', '61')
-matrix[1, 'B'] = ('7', '44')
-matrix[2, 'B'] = ('27', '62')
-matrix[3, 'B'] = ('7', '44')
-matrix[4, 'B'] = ('51', '55')
+## geno = StringMatrix(5, ["DQB", "DRB", "B"])
+geno = StringMatrix(5, ["DRB", "B"])
+#geno[0, 'DQB'] = ('31', '32')
+#geno[1, 'DQB'] = ('21', '62')
+#geno[2, 'DQB'] = ('31', '63')
+#geno[3, 'DQB'] = ('21', '31')
+#geno[4, 'DQB'] = ('31', '42')
+geno[0, 'DRB'] = ('4', '11')
+geno[1, 'DRB'] = ('2', '7')
+geno[2, 'DRB'] = ('1', '13')
+geno[3, 'DRB'] = ('7', '7')
+geno[4, 'DRB'] = ('8', '11')
+geno[0, 'B'] = ('62', '61')
+geno[1, 'B'] = ('7', '44')
+geno[2, 'B'] = ('27', '62')
+geno[3, 'B'] = ('7', '44')
+geno[4, 'B'] = ('51', '55')
 
-
-# FIXME: goal will be to transform the above data structure into the geno_vec used in haplo_em
-# I think the best way to do this is to add a method to the StringMatrix class
-# that transforms a StringMatrix into the geno_vec and so with other functionality
-# currently in the R haplo.stats
-
-# for example I have added a method to get all the unique alleles
-print matrix.getUniqueAlleles("B")
-
-print matrix.convertToInts()["B"]
-
-#haplo_em(geno, locus_label=["B"], weight=None, control=control)
+# FIXME: currently this assumes that geno StringMatrix contains only the loci required
+# need to make sure that this works with subMatrices
+haplo_em(geno, weight=None, control=control)

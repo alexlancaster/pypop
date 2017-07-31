@@ -593,6 +593,14 @@ class StringMatrix(user_array.container):
 
       return newMatrix
 
+  def flattenCols(self):
+      """flatten columns
+      FIXME: assumes entries are integers
+      """
+      key = string.join(self.colList, ':')  # FIXME: currently assume we want whole matrix
+      flattened_matrix = [int(x) for sublist in self.__getitem__(key) for x in sublist]
+      return flattened_matrix
+
   def filterOut(self, key, blankDesignator):
       """Returns a filtered matrix.
 
