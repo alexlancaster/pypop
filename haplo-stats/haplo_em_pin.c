@@ -1162,8 +1162,8 @@ static void errmsg(char *string){
 
   /* Function to emulate "stop" of S+ - see page 134, S Programing, by
      Venables and Ripley */
-
-   PROBLEM "%s", string RECOVER(NULL_ENTRY);
+  REprintf("%s");
+  // PROBLEM "%s", string RECOVER(NULL_ENTRY);
 }
 
 
