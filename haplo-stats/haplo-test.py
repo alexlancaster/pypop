@@ -94,6 +94,8 @@ def haplo_em(geno,
     temp_geno = geno.convertToInts()  # simulates setupGeno
     geno_vec = temp_geno.flattenCols()  # gets the columns as integers
 
+    print "geno_vec:", geno_vec
+
     n_alleles = []
     for locus in geno.colList:
         allele_labels = temp_geno.getUniqueAlleles(locus)
@@ -186,13 +188,12 @@ control = {'max_iter': 5000,
 
 # we set StringMatrix to be:
 
-## geno = StringMatrix(5, ["DQB", "DRB", "B"])
 geno = StringMatrix(5, ["DRB", "B"])
-#geno[0, 'DQB'] = ('31', '32')
-#geno[1, 'DQB'] = ('21', '62')
-#geno[2, 'DQB'] = ('31', '63')
-#geno[3, 'DQB'] = ('21', '31')
-#geno[4, 'DQB'] = ('31', '42')
+# geno[0, 'DQB'] = ('31', '32')
+# geno[1, 'DQB'] = ('21', '62')
+# geno[2, 'DQB'] = ('31', '63')
+# geno[3, 'DQB'] = ('21', '31')
+# geno[4, 'DQB'] = ('31', '42')
 geno[0, 'DRB'] = ('4', '11')
 geno[1, 'DRB'] = ('2', '7')
 geno[2, 'DRB'] = ('1', '13')

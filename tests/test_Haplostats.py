@@ -126,3 +126,49 @@ def test_Haplostats_Simple3():
     assert_array_almost_equal(post, [1.0,1.0,1.0,1.0,0.25,0.25,0.25,0.25,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,8.567844e-09,1.0,1.0,1.0,1.0,0.5,0.5,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.9999999,1.326529e-07,1.0,0.5,0.5,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0])
     assert sum_hap_codes == [134, 168, 241, 61, 162, 170, 162, 170, 26, 381, 208, 343, 239, 125, 239, 423, 237, 326, 304, 257, 222, 258, 259, 270, 173, 18, 130, 219, 217, 304, 347, 269, 382, 60, 206, 145, 296, 271, 184, 109, 299, 281, 246, 74, 223, 226, 304, 117, 119, 14, 240, 138, 170, 14, 129, 158, 180]
 
+def test_Haplostats_PyPopStringMatrix():
+    """
+    This is the same numerical example as test_Haplostats_Simple()
+    except we are setting up via PyPop StringMatrix, and letting the class
+    handle all the translation into the low-level variables for the wrapper
+    """
+
+    from PyPop.Utils import StringMatrix
+    from PyPop.Haplo import Haplostats
+
+    control = {'max_iter': 5000,
+               'min_posterior': 0.000000001,
+               'tol': 0.00001,
+               'insert_batch_size': 2,
+               'random_start': 0,
+               'verbose': 0,
+               'max_haps_limit': 10000 }
+
+    geno = StringMatrix(5, ["DRB", "B"])
+    geno[0, 'DRB'] = ('4', '11')
+    geno[1, 'DRB'] = ('2', '7')
+    geno[2, 'DRB'] = ('1', '13')
+    geno[3, 'DRB'] = ('7', '7')
+    geno[4, 'DRB'] = ('8', '11')
+    geno[0, 'B'] = ('62', '61')
+    geno[1, 'B'] = ('7', '44')
+    geno[2, 'B'] = ('27', '62')
+    geno[3, 'B'] = ('7', '44')
+    geno[4, 'B'] = ('51', '55')
+
+    haplo = Haplostats(geno)
+    converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = \
+              haplo.estHaplotypes(weight=None, control=control)
+
+    assert converge == 1
+    assert lnlike == -20.42316124449607
+    assert n_u_hap == 16
+    assert n_hap_pairs == 9
+
+    assert hap_prob == [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.15, 0.15, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
+    assert u_hap == [1, 2, 1, 7, 2, 1, 2, 3, 3, 6, 3, 7, 4, 1, 4, 3, 5, 4, 5, 5, 6, 4, 6, 5, 6, 6, 6, 7, 7, 2, 7, 7]
+    assert u_hap_code == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    assert subj_id == [0, 0, 1, 1, 2, 2, 3, 4, 4]
+    assert post == [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1.0, 0.5, 0.5]
+
+        

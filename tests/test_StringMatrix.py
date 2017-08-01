@@ -94,8 +94,6 @@ class StringMatrixTest(unittest.TestCase):
         A_matrix[0, 'A'] = ('A0', 'A0')
         A_matrix[1, 'A'] = ('A1', 'A2')
 
-        print A_matrix.getUniqueAlleles('A')
-
         # remember that some columns have no data, so '0' is also an element!
         assert A_matrix.getUniqueAlleles('A') == ['0', 'A0', 'A1', 'A2']
         assert A_matrix.getUniqueAlleles('B') == ['0', 'B0', 'B1']
@@ -120,3 +118,21 @@ class StringMatrixTest(unittest.TestCase):
         assert B_matrix['B'] == [[2, 2], [3, 3], [1, 1]]
         assert B_matrix['C'] == [[1, 1], [1, 1], [1, 1]]
 
+
+    def test_ConvertToInt_FlattenCols(self):
+        geno = StringMatrix(5, ["DRB", "B"])
+        geno[0, 'DRB'] = ('4', '11')
+        geno[1, 'DRB'] = ('2', '7')
+        geno[2, 'DRB'] = ('1', '13')
+        geno[3, 'DRB'] = ('7', '7')
+        geno[4, 'DRB'] = ('8', '11')
+        geno[0, 'B'] = ('62', '61')
+        geno[1, 'B'] = ('7', '44')
+        geno[2, 'B'] = ('27', '62')
+        geno[3, 'B'] = ('7', '44')
+        geno[4, 'B'] = ('51', '55')
+
+        new_geno = geno.convertToInts()
+        flattened_list = new_geno.flattenCols()
+
+        assert flattened_list == [3, 2, 1, 4, 5, 6, 4, 7, 4, 6, 7, 1, 2, 1, 4, 6, 3, 7, 3, 5]

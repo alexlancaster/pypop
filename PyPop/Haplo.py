@@ -38,6 +38,7 @@
 
 """
 import sys, string, os, re, cStringIO
+import numpy
 
 from Arlequin import ArlequinBatch
 from Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR
@@ -658,6 +659,196 @@ class Emhaplofreq(Haplo):
             #                      haploSuppressFlag=0,
             #                      mode='all-pairwise-ld-with-permu')
 
+
+
+class Haplostats(Haplo):
+    """Haplotype and LD estimation implemented via haplo-stats.
+
+    This is a wrapper to a portion of the 'haplo.stats' R package
+    
+    """
+    def __init__(self, locusData,
+                 debug=0,
+                 untypedAllele='****',
+                 stream=None,
+                 testMode=False):
+
+        # import the Python-to-C module wrapper
+        # lazy importation of module only upon instantiation of class
+        # to save startup costs of invoking dynamic library loader
+        import _Haplostats
+
+        # assign module to an instance variable so it is available to
+        # other methods in class
+        self._Haplostats = _Haplostats
+
+        # FIXME: by default assume we are not dealing sequence data
+        self.sequenceData = 0
+        
+        self.matrix = locusData
+        self.untypedAllele = untypedAllele
+        
+        rows, cols = self.matrix.shape
+        self.totalNumIndiv = rows
+        self.totalLociCount = cols / 2
+        
+        self.debug = debug
+
+    def estHaplotypes(self,
+                      # locusKeys=None,
+                      weight=None,
+                      control=None,
+                      numInitCond=None):
+        """Estimate haplotypes for whole matrix
+
+        FIXME: eventually extend to cover submatrices like Emhaplofreq
+        """
+
+        geno = self.matrix
+        n_loci = geno.colCount
+        n_subject = geno.rowCount
+
+        subj_id = range(1, n_subject + 1)
+        if n_loci < 2:
+            print "Must have at least 2 loci for haplotype estimation!"
+            exit(-1)
+
+        # set up weight
+        if not weight:
+            weight = [1.0]*n_subject
+        if len(weight) != n_subject:
+            print "Length of weight != number of subjects (nrow of geno)"
+            exit(-1)
+
+        # Compute the max number of pairs of haplotypes over all subjects
+        # FIXME: hardcode again, not yet translated, again need to use/modify StringMatrix
+        # max_pairs = geno.count.pairs(temp_geno)
+        # max_haps = 2*sum(max_pairs)
+        max_haps = 18
+
+        # FIXME: do we need this?
+        if max_haps > control['max_haps_limit']:
+            max_haps = control['max_haps_limit']
+
+        temp_geno = geno.convertToInts()  # simulates setupGeno
+        geno_vec = temp_geno.flattenCols()  # gets the columns as integers
+
+        n_alleles = []
+        for locus in geno.colList:
+            allele_labels = temp_geno.getUniqueAlleles(locus)
+            n_alleles.append(len(allele_labels))
+
+        # FIXME: not (yet) using a.freq, so don't calculate
+        # also too complicated to translate right now
+        # for(i in 1:n_loci){
+        #  j <- (i-1)*2 + 1
+        #  p <- table(temp.geno[,c(j, (j+1))], exclude=NA)
+        #  p <- p/sum(p)
+        #  a.freq[[i]] <- list(p=p)
+        # }
+
+        loci_insert_order = range(0, n_loci)
+
+        # FIXME: hardcode
+        iseed1 = 18717; iseed2= 16090; iseed3=14502
+
+        converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = \
+                  self._haplo_em_fitter(n_loci,
+                                        n_subject,
+                                        weight,
+                                        geno_vec,
+                                        n_alleles,
+                                        max_haps,
+                                        control['max_iter'],
+                                        loci_insert_order,
+                                        control['min_posterior'],
+                                        control['tol'],
+                                        control['insert_batch_size'],
+                                        control['random_start'],
+                                        iseed1,
+                                        iseed2,
+                                        iseed3,
+                                        control['verbose'])
+
+        if self.debug:
+            print " converge:", converge
+            print " lnlike:", lnlike
+            print " n_u_hap:", n_u_hap
+            print " n_hap_pairs:", n_hap_pairs
+            print " hap_prob:", hap_prob
+            print " u_hap:", u_hap
+            print " u_hap_code:", u_hap_code
+            print " subj_id:", subj_id
+            print " post:", post
+            print " hap1_code:", hap1_code
+            print " hap2_code:", hap2_code
+
+            # Print columns side-by-side for easier checking
+            # NB: u_hap is trickier since it has n.loci entries per haplo
+            print 'hap_prob  u_hap_code u_hap(needs to be split for printing)'
+            print numpy.c_[hap_prob,u_hap_code]
+            print 'subj_id  hap1_code  hap2_code'
+            print numpy.c_[subj_id,hap1_code,hap2_code]
+            #   for x1,x2,x3 in zip(hap_prob,u_hap,u_hap_code):
+            #       print x1 + '\t\t' + x2 + '\t\t' + x3
+
+            # FIXME: add loop here
+        return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code
+
+    def _haplo_em_fitter(self,
+                         n_loci,
+                         n_subject,
+                         weight,
+                         geno_vec,
+                         n_alleles,
+                         max_haps,
+                         max_iter,
+                         loci_insert_order,
+                         min_posterior,
+                         tol,
+                         insert_batch_size,
+                         random_start,
+                         iseed1,
+                         iseed2,
+                         iseed3,
+                         verbose):
+
+        _Haplostats = self._Haplostats
+
+        converge = 0
+        min_prior = 0.0
+        n_unique = 0
+        lnlike = 0.0
+        n_u_hap = 0
+        n_hap_pairs = 0
+
+        tmp1 = _Haplostats.haplo_em_pin_wrap(n_loci, n_subject, weight, n_alleles,
+                                             max_haps, max_iter, loci_insert_order,
+                                             min_prior, min_posterior, tol, insert_batch_size,
+                                             random_start, iseed1, iseed2, iseed3, verbose, geno_vec)
+
+        # values returned from haplo_em_pin
+        status1, converge, lnlike, n_u_hap, n_hap_pairs = tmp1
+
+        tmp2 = _Haplostats.haplo_em_ret_info_wrap(\
+            # input parameters
+            n_u_hap, n_loci, n_hap_pairs,
+            # output parameters: declaring array sizes for ret_val
+            n_u_hap,          # hap_prob
+            n_u_hap * n_loci, # u_hap
+            n_u_hap,          # u_hap_code
+            n_hap_pairs,        # subj_id
+            n_hap_pairs,        # post
+            n_hap_pairs,        # hap1_code
+            n_hap_pairs,        # hap2_code
+            )
+
+        # values returned from haplo_em_ret_info
+        status2, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = tmp2
+
+        _Haplostats.haplo_free_memory()
+
+        return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code
 
         
 

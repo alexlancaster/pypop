@@ -1504,33 +1504,35 @@ int main( void ) {
      int     prod1 = 1;
      int i, j, k;
 
-/* PRINT FIRST 5 ENTRIES OF geno_vec (index < 1308 for full set) */
-   for( index = 0; index < 5; index++ )
-     printf( "geno_vec[ %d ] = %d\n", index, geno_vec[ index ] );
+     /* PRINT geno_vec */
+     printf("geno_vec = [");
+     for(index = 0; index < 20; index++)
+       printf( "%d, ", geno_vec[index]);
+     printf("]\n");
 
-   haplo_em_pin(
-	 &n_loci,              
-         &n_subject,          
-         weight,            
-         geno_vec,          
-         n_alleles,         
-         &max_haps,          
-         &max_iter,          
-         loci_insert_order, 
-         &min_prior,         
-         &min_posterior,     
-         &tol,               
-         &insert_batch_size, 
-         &converge,          
-         &S_lnlike,          
-         &S_n_u_hap,         
-         &n_hap_pairs,       
-         &random_start,      
-         &iseed1,            
-         &iseed2,
-         &iseed3,
-         &verbose
-       );         
+     haplo_em_pin(
+		  &n_loci,              
+		  &n_subject,          
+		  weight,            
+		  geno_vec,          
+		  n_alleles,         
+		  &max_haps,          
+		  &max_iter,          
+		  loci_insert_order, 
+		  &min_prior,         
+		  &min_posterior,     
+		  &tol,               
+		  &insert_batch_size, 
+		  &converge,          
+		  &S_lnlike,          
+		  &S_n_u_hap,         
+		  &n_hap_pairs,       
+		  &random_start,      
+		  &iseed1,            
+		  &iseed2,
+		  &iseed3,
+		  &verbose
+		  );         
 
     printf("...TEST0.1 (S_lnlike , converge): %14.5f %i\n", S_lnlike , converge); //RS added
     prod1 = S_n_u_hap * n_loci;

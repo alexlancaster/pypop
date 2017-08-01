@@ -574,7 +574,6 @@ class StringMatrix(user_array.container):
   def convertToInts(self):
       """
       Convert matrix to integers: needed for haplo-stats
-
       FIXME: check whether we need to release memory
       """
       
@@ -597,8 +596,18 @@ class StringMatrix(user_array.container):
       """flatten columns
       FIXME: assumes entries are integers
       """
-      key = string.join(self.colList, ':')  # FIXME: currently assume we want whole matrix
-      flattened_matrix = [int(x) for sublist in self.__getitem__(key) for x in sublist]
+      flattened_matrix = []
+
+      for col in self.colList:  # FIXME: currently assume we want whole matrix
+          # FIXME: possibly refactor extracting column logic with __getitem__
+          relativeLoc = self.colList.index(col)
+          col1 = relativeLoc * 2 + self.extraCount
+          col2 = col1 + 1
+          first_col = [int(x) for x in self.array[:,col1]]
+          flattened_matrix.extend(first_col)
+          second_col = [int(x) for x in self.array[:,col2]]
+          flattened_matrix.extend(second_col)
+
       return flattened_matrix
 
   def filterOut(self, key, blankDesignator):
