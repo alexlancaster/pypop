@@ -38,6 +38,7 @@
 
 """
 import sys, string, os, re, cStringIO
+import numpy
 
 from Arlequin import ArlequinBatch
 from Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR
@@ -697,13 +698,14 @@ class Haplostats(Haplo):
                       # locusKeys=None,
                       weight=None,
                       control=None,
-                      numInitCond=None):
+                      numInitCond=1):
         """Estimate haplotypes for whole matrix
 
         FIXME: eventually extend to cover submatrices like Emhaplofreq
         """
 
         geno = self.matrix
+        
         n_loci = geno.colCount
         n_subject = geno.rowCount
 
@@ -720,7 +722,7 @@ class Haplostats(Haplo):
             exit(-1)
 
         # Compute the max number of pairs of haplotypes over all subjects
-        # FIXME: hardcode again, not yet translated, again need to use/modify StringMatrix
+        # FIXME: hardcode, not yet translated, need to use/modify StringMatrix
         # max_pairs = geno.count.pairs(temp_geno)
         # max_haps = 2*sum(max_pairs)
         max_haps = 18
@@ -769,7 +771,81 @@ class Haplostats(Haplo):
                                         iseed3,
                                         control['verbose'])
 
-            # FIXME: add loop here
+        if numInitCond > 1:
+            for i in range(1, numInitCond):
+                # seed_array = runif(3)
+                seed_array = numpy.random.random(3)
+
+                iseed1 = int(10000 + 20000*seed_array[0])
+                iseed2 = int(10000 + 20000*seed_array[1])
+                iseed3 = int(10000 + 20000*seed_array[2])
+
+                print iseed1, iseed2, iseed3
+
+                converge_new, lnlike_new, n_u_hap_new, n_hap_pairs_new, hap_prob_new, \
+                              u_hap_new, u_hap_code_new, subj_id_new, post_new, hap1_code_new, \
+                              hap2_code = \
+                              self._haplo_em_fitter(n_loci,
+                                                    n_subject,
+                                                    weight,
+                                                    geno_vec,
+                                                    n_alleles,
+                                                    max_haps,
+                                                    control['max_iter'],
+                                                    loci_insert_order,
+                                                    control['min_posterior'],
+                                                    control['tol'],
+                                                    control['insert_batch_size'],
+                                                    1,  # set random.start to 1
+                                                    iseed1,
+                                                    iseed2,
+                                                    iseed3,
+                                                    control['verbose'])
+
+                if lnlike_new > lnlike:
+                    print "found a better lnlikelihood!", lnlike_new
+                    # FIXME: need more elegant data structure
+                    converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, \
+                              u_hap, u_hap_code, subj_id, post, hap1_code, \
+                              hap2_code = \
+                              converge_new, lnlike_new, n_u_hap_new, n_hap_pairs_new, hap_prob_new, \
+                              u_hap_new, u_hap_code_new, subj_id_new, post_new, hap1_code_new, \
+                              hap2_code 
+
+        # FIXME: convert back into haplotype data structures here
+        # here is the R code for reference
+
+        # u.hap <- matrix(tmp2$u.hap,nrow=tmp2$n.u.hap,byrow=TRUE)
+        # # code alleles for haplotpes with original labels
+        # # use I() to keep char vectors to factors in making a data.frame
+        # haplotype <- data.frame(I(allele.labels[[1]][u.hap[,1]]))
+        # for(j in 2:n.loci){
+        #     haplotype <- cbind(haplotype, I(allele.labels[[j]][u.hap[,j]]))
+        #     }
+        # 
+        # # haplotype <- data.frame(haplotype)
+        # names(haplotype) <- locus.label
+
+        # # convert from 0-offset in C to 1-offset in S, and recode hap codes
+        # # to 1,2,..., n_uhap
+        # 
+        # hap1code  <- tmp2$hap1code  + 1
+        # hap2code  <- tmp2$hap2code  + 1
+        # uhapcode  <- tmp2$u.hap.code + 1
+        # 
+        # n1 <- length(uhapcode)
+        # n2 <- length(hap1code)
+        # 
+        # tmp <- as.numeric(factor(c(uhapcode, hap1code, hap2code)))
+        # uhapcode <- tmp[1:n1]
+        # hap1code <- tmp[(n1+1):(n1+n2)]
+        # hap2code <- tmp[(n1+n2+1):(n1+2*n2)]
+        # 
+        # uhap.df <- data.frame(uhapcode, tmp2$hap.prob, u.hap)
+        # 
+        # names(uhap.df) <- c("hap.code","hap.prob",locus.label)
+        # 
+        # indx.subj = tmp2$indx.subj + 1
 
         return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code
 

@@ -59,7 +59,7 @@ control = {'max_iter': 5000,
 
 haplo = Haplostats(geno)
 converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = \
-          haplo.estHaplotypes(weight=None, control=control)
+          haplo.estHaplotypes(weight=None, control=control, numInitCond=1)
 
 print " converge:", converge
 print " lnlike:", lnlike
