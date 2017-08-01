@@ -54,7 +54,6 @@ control = {'max_iter': 5000,
            'verbose': 0,
            'max_haps_limit': 10000 }
 
-
 # FIXME: currently this assumes that geno StringMatrix contains only the loci required
 # need to make sure that this works with subMatrices
 
