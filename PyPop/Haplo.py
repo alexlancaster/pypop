@@ -784,7 +784,7 @@ class Haplostats(Haplo):
 
                 converge_new, lnlike_new, n_u_hap_new, n_hap_pairs_new, hap_prob_new, \
                               u_hap_new, u_hap_code_new, subj_id_new, post_new, hap1_code_new, \
-                              hap2_code = \
+                              hap2_code_new = \
                               self._haplo_em_fitter(n_loci,
                                                     n_subject,
                                                     weight,
@@ -810,7 +810,7 @@ class Haplostats(Haplo):
                               hap2_code = \
                               converge_new, lnlike_new, n_u_hap_new, n_hap_pairs_new, hap_prob_new, \
                               u_hap_new, u_hap_code_new, subj_id_new, post_new, hap1_code_new, \
-                              hap2_code 
+                              hap2_code_new 
 
         # FIXME: convert back into haplotype data structures here
         # here is the R code for reference
