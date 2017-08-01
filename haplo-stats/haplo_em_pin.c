@@ -294,8 +294,10 @@ void haplo_em_pin(
      } /* end of EM loop */
 
       if( (*converge)==0){
-        PROBLEM "failed to converge for batch %i after %i iterations", n_batch, n_iter
-	  RECOVER(NULL_ENTRY);
+	/* FIXME: had to remove the PROBLEM macro to get to compile on MacOS */
+	REprintf("failed to converge for batch %i after %i iterations", n_batch, n_iter);
+        // PROBLEM "failed to converge for batch %i after %i iterations", n_batch, n_iter
+	//  RECOVER(NULL_ENTRY);
       }
 
 
