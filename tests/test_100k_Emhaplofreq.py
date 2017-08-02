@@ -7,7 +7,8 @@ import psutil
 memory_in_gb = 2  # memory needed for this test in GB
 memory_in_bytes = memory_in_gb * (1024 * 1024 * 1024)
 
-@pytest.mark.skipif(psutil.virtual_memory().available <= memory_in_bytes, reason="test can only be run if there is sufficient memory on the machine")
+@pytest.mark.skip(reason="module deprecated")
+##@pytest.mark.skipif(psutil.virtual_memory().available <= memory_in_bytes, reason="test can only be run if there is sufficient memory on the machine")
 def test_100k_Emhaplofreq():
     exit_code = base.run_pypop_process('./tests/data/Test_100k_20loci_Dataset.ini', './tests/data/Test_100k_20loci_Dataset.pop')
     # check exit code
