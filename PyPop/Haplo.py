@@ -821,7 +821,6 @@ class Haplostats(Haplo):
             for i in range(0, n_u_hap):
                 allele_offset = haplotype[i,j] - 1 #  integers are offset by 1
                 allele_id = allele_labels[j][allele_offset]
-                print i, j, allele_id
                 haplotype[i,j] = allele_id
 
         # convert back to offset by 1 for R compatibility check
