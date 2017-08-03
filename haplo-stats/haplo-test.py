@@ -10,26 +10,25 @@ sys.path.insert(0, os.path.join(DIR, '..'))
 from PyPop.Utils import StringMatrix
 from PyPop.Haplo import Haplostats
 
-
 # here we try to match this haplo.stats example
-#
+
 # control = haplo.em.control(n.try=1)
 # data(hla.demo)
 # attach(hla.demo)
 # geno = hla.demo[1:5,c(21:24)]
 # label <-c("DRB","B")
-# save.em.keep <- haplo.em(geno=geno, locus.label=label, control=control)
+# save.em <- haplo.em(geno=geno, locus.label=label, control=control)
 
 # R geno matrix looks like this:
-#
-#  DQB.a1 DQB.a2 DRB.a1 DRB.a2 B.a1 B.a2
-# 1     31     32      4     11   62   61
-# 2     21     62      2      7    7   44
-# 3     31     63      1     13   27   62
-# 4     21     31      7      7    7   44
-# 5     31     42      8     11   51   55
 
-# we set StringMatrix to be:
+# DRB.a1 DRB.a2 B.a1 B.a2
+#       4     11   62   61
+#       2      7    7   44
+#       1     13   27   62
+#       7      7    7   44
+#       8     11   51   55
+
+# so we set StringMatrix to be:
 
 geno = StringMatrix(5, ["DRB", "B"])
 geno[0, 'DRB'] = ('4', '11')
