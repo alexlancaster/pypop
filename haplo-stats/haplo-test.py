@@ -16,10 +16,9 @@ from PyPop.Haplo import Haplostats
 # control = haplo.em.control(n.try=1)
 # data(hla.demo)
 # attach(hla.demo)
-# geno = hla.demo[1:5,c(17,18,21:24)]
-# label <-c("DQB","DRB","B")
-# keep <- !apply(is.na(geno) | geno==0, 1, any)
-# save.em.keep <- haplo.em(geno=geno[keep,], locus.label=label, control=control)
+# geno = hla.demo[1:5,c(21:24)]
+# label <-c("DRB","B")
+# save.em.keep <- haplo.em(geno=geno, locus.label=label, control=control)
 
 # R geno matrix looks like this:
 #
@@ -58,7 +57,7 @@ control = {'max_iter': 5000,
 # need to make sure that this works with subMatrices
 
 haplo = Haplostats(geno)
-converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = \
+converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype = \
           haplo.estHaplotypes(weight=None, control=control, numInitCond=1)
 
 print " converge:", converge
@@ -81,5 +80,4 @@ print 'subj_id  hap1_code  hap2_code'
 print numpy.c_[subj_id,hap1_code,hap2_code]
 #   for x1,x2,x3 in zip(hap_prob,u_hap,u_hap_code):
 #       print x1 + '\t\t' + x2 + '\t\t' + x3
-
 

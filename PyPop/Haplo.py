@@ -731,13 +731,16 @@ class Haplostats(Haplo):
         if max_haps > control['max_haps_limit']:
             max_haps = control['max_haps_limit']
 
+        n_alleles = []
+        allele_labels = []
+        for locus in geno.colList:
+            unique_alleles = geno.getUniqueAlleles(locus)
+            print "unique_alleles:", unique_alleles
+            allele_labels.append(unique_alleles)
+            n_alleles.append(len(unique_alleles))
+
         temp_geno = geno.convertToInts()  # simulates setupGeno
         geno_vec = temp_geno.flattenCols()  # gets the columns as integers
-
-        n_alleles = []
-        for locus in geno.colList:
-            allele_labels = temp_geno.getUniqueAlleles(locus)
-            n_alleles.append(len(allele_labels))
 
         # FIXME: not (yet) using a.freq, so don't calculate
         # also too complicated to translate right now
@@ -812,42 +815,30 @@ class Haplostats(Haplo):
                               u_hap_new, u_hap_code_new, subj_id_new, post_new, hap1_code_new, \
                               hap2_code_new 
 
-        # FIXME: convert back into haplotype data structures here
-        # here is the R code for reference
+        # convert u_hap back into original allele names
+        haplotype = numpy.array(u_hap, dtype='O').reshape(n_u_hap, -1)
+        for j in range(0, n_loci):
+            for i in range(0, n_u_hap):
+                allele_offset = haplotype[i,j] - 1 #  integers are offset by 1
+                allele_id = allele_labels[j][allele_offset]
+                print i, j, allele_id
+                haplotype[i,j] = allele_id
 
-        # u.hap <- matrix(tmp2$u.hap,nrow=tmp2$n.u.hap,byrow=TRUE)
-        # # code alleles for haplotpes with original labels
-        # # use I() to keep char vectors to factors in making a data.frame
-        # haplotype <- data.frame(I(allele.labels[[1]][u.hap[,1]]))
-        # for(j in 2:n.loci){
-        #     haplotype <- cbind(haplotype, I(allele.labels[[j]][u.hap[,j]]))
-        #     }
-        # 
-        # # haplotype <- data.frame(haplotype)
-        # names(haplotype) <- locus.label
+        # convert back to offset by 1 for R compatibility check
+        hap1_code = [i+1 for i in hap1_code]
+        hap2_code = [i+1 for i in hap2_code]
+        u_hap_code = [i+1 for i in u_hap_code]
+        subj_id = [i+1 for i in subj_id]
 
-        # # convert from 0-offset in C to 1-offset in S, and recode hap codes
-        # # to 1,2,..., n_uhap
-        # 
-        # hap1code  <- tmp2$hap1code  + 1
-        # hap2code  <- tmp2$hap2code  + 1
-        # uhapcode  <- tmp2$u.hap.code + 1
-        # 
-        # n1 <- length(uhapcode)
-        # n2 <- length(hap1code)
-        # 
-        # tmp <- as.numeric(factor(c(uhapcode, hap1code, hap2code)))
-        # uhapcode <- tmp[1:n1]
-        # hap1code <- tmp[(n1+1):(n1+n2)]
-        # hap2code <- tmp[(n1+n2+1):(n1+2*n2)]
-        # 
-        # uhap.df <- data.frame(uhapcode, tmp2$hap.prob, u.hap)
-        # 
-        # names(uhap.df) <- c("hap.code","hap.prob",locus.label)
-        # 
-        # indx.subj = tmp2$indx.subj + 1
+        # FIXME: are these, strictly speaking, necessary in Python context?
+        # these arrays can be regenerated from the vectors at any time
+        uhap_df = numpy.c_[u_hap_code, hap_prob]
+        subj_df = numpy.c_[subj_id, hap1_code, hap2_code]
 
-        return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code
+        print haplotype
+        print subj_df
+        
+        return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype
 
     def _haplo_em_fitter(self,
                          n_loci,

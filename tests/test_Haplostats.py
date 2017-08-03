@@ -135,6 +135,8 @@ def test_Haplostats_PyPopStringMatrix():
 
     from PyPop.Utils import StringMatrix
     from PyPop.Haplo import Haplostats
+    import numpy
+    import numpy.testing
 
     control = {'max_iter': 5000,
                'min_posterior': 0.000000001,
@@ -157,7 +159,7 @@ def test_Haplostats_PyPopStringMatrix():
     geno[4, 'B'] = ('51', '55')
 
     haplo = Haplostats(geno)
-    converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = \
+    converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype = \
               haplo.estHaplotypes(weight=None, control=control)
 
     assert converge == 1
@@ -167,8 +169,10 @@ def test_Haplostats_PyPopStringMatrix():
 
     assert hap_prob == [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.15, 0.15, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
     assert u_hap == [1, 2, 1, 7, 2, 1, 2, 3, 3, 6, 3, 7, 4, 1, 4, 3, 5, 4, 5, 5, 6, 4, 6, 5, 6, 6, 6, 7, 7, 2, 7, 7]
-    assert u_hap_code == [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
-    assert subj_id == [0, 0, 1, 1, 2, 2, 3, 4, 4]
+    assert u_hap_code == [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    assert subj_id == [1, 1, 2, 2, 3, 3, 4, 5, 5]
     assert post == [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 1.0, 0.5, 0.5]
-
+    assert hap1_code == [6, 5, 3, 4, 1, 2, 7, 9, 10]
+    assert hap2_code == [13, 14, 8, 7, 16, 15, 8, 12, 11]
+    numpy.testing.assert_array_equal(haplotype, numpy.array([['1','27'], ['1','62'], ['2','7'], ['2','44'], ['4','61'], ['4','62'], ['7','7'], ['7','44'], ['8','51'], ['8','55'], ['11','51'], ['11','55'], ['11','61'], ['11','62'], ['13','27'], ['13','62']]))
         

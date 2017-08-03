@@ -574,6 +574,7 @@ class StringMatrix(user_array.container):
   def convertToInts(self):
       """
       Convert matrix to integers: needed for haplo-stats
+      Note that integers start at 1 for compatibility with haplo-stats module
       FIXME: check whether we need to release memory
       """
       
