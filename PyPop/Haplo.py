@@ -37,11 +37,11 @@
 """Module for estimating haplotypes.
 
 """
-import sys, string, os, re, cStringIO
+import sys, string, os, re, cStringIO, StringIO
 import numpy
 
 from Arlequin import ArlequinBatch
-from Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR
+from Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR, XMLOutputStream
 from DataTypes import checkIfSequenceData, getLocusPairs
 
 class Haplo:
@@ -691,11 +691,25 @@ class Haplostats(Haplo):
         rows, cols = self.matrix.shape
         self.totalNumIndiv = rows
         self.totalLociCount = cols / 2
-        
         self.debug = debug
 
+        if stream:
+            self.stream = stream
+        else:  # create a stream if none given
+            self.stream = XMLOutputStream(StringIO.StringIO())            
+
+    def serializeStart(self):
+        """Serialize start of XML output to XML stream"""
+        self.stream.opentag('haplostats')
+        self.stream.writeln()
+
+    def serializeEnd(self):
+        """Serialize end of XML output to XML stream"""
+        self.stream.closetag('haplostats')
+        self.stream.writeln()
+
     def estHaplotypes(self,
-                      # locusKeys=None,
+                      locusKeys=None,
                       weight=None,
                       control=None,
                       numInitCond=1):
@@ -705,6 +719,11 @@ class Haplostats(Haplo):
         """
 
         geno = self.matrix
+
+        # do fo all
+        if locusKeys == None:
+            # create key for entire matrix
+            locusKeys = ':'.join(self.matrix.colList)
         
         n_loci = geno.colCount
         n_subject = geno.rowCount
@@ -836,6 +855,39 @@ class Haplostats(Haplo):
 
         print haplotype
         print subj_df
+
+        # start on the XML output here
+
+        self.stream.opentag('group', mode="all-pairwise-ld-no-permu", loci=locusKeys, showHaplo="yes")
+        self.stream.writeln()
+        self.stream.tagContents('haplocount', "%d" % n_u_hap)
+        self.stream.writeln()
+        self.stream.opentag('loglikelihood', role="no-ld")
+        self.stream.write(lnlike)
+        self.stream.closetag('loglikelihood')
+        self.stream.writeln()
+        self.stream.opentag('haplotypefreq')
+        self.stream.writeln()
+        self.stream.tagContents('condition', "", role='converged')
+        self.stream.writeln()
+
+        for i in range(0, n_u_hap):
+            hapname = ""
+            for j in range(0, n_loci):
+                hapname += "%s" % haplotype[i, j]
+                if j < n_loci - 1:
+                    hapname += GENOTYPE_SEPARATOR
+
+            self.stream.opentag('haplotype', name=hapname)
+            self.stream.tagContents('frequency', str(hap_prob[i]))
+            # FIXME: check computation of numCopies
+            # self.stream.tagContents('numCopies', str(hap_prob[i] * n_u_hap))
+            self.stream.closetag('haplotype')
+            self.stream.writeln()
+
+        self.stream.closetag('haplotypefreq')
+        self.stream.writeln()
+        self.stream.closetag('group')
         
         return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype
 
