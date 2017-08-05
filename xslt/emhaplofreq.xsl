@@ -49,8 +49,9 @@ MODIFICATIONS.
  </data:haplo-fields>
 
  <xsl:template match="emhaplofreq/group"/> 
+ <xsl:template match="haplostats/group"/> 
 
- <xsl:template match="emhaplofreq">
+ <xsl:template match="emhaplofreq|haplostats">
   <xsl:call-template name="section">
    <xsl:with-param name="level" select="2"/>
    <xsl:with-param name="title">Haplotype / linkage disequilibrium (LD) statistics</xsl:with-param>

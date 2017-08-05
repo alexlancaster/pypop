@@ -328,6 +328,23 @@ MODIFICATIONS.
    
   </xsl:if>
 
+  <xsl:if test="haplostats">
+
+   <!-- only if multi-locus analyses have been performed, print out -->
+   <!-- multi-locus population stats: estimation of haplotypes and LD -->
+  
+   <xsl:call-template name="section">
+    <xsl:with-param name="title">Multi-locus Analyses [haplo-stats]</xsl:with-param>
+    <xsl:with-param name="level" select="1" />
+    <xsl:with-param name="number" select="'II'"/>
+    <xsl:with-param name="text">
+     <xsl:apply-templates select="haplostats"/>
+    </xsl:with-param>
+   </xsl:call-template>
+   
+  </xsl:if>
+
+
  </xsl:template>
  
  <!-- leave filename blank, this is output in a different context  -->

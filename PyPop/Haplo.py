@@ -862,9 +862,7 @@ class Haplostats(Haplo):
         self.stream.writeln()
         self.stream.tagContents('haplocount', "%d" % n_u_hap)
         self.stream.writeln()
-        self.stream.opentag('loglikelihood', role="no-ld")
-        self.stream.write(lnlike)
-        self.stream.closetag('loglikelihood')
+        self.stream.tagContents('loglikelihood', "%g" % lnlike, role="no-ld")
         self.stream.writeln()
         self.stream.opentag('haplotypefreq')
         self.stream.writeln()
@@ -888,6 +886,7 @@ class Haplostats(Haplo):
         self.stream.closetag('haplotypefreq')
         self.stream.writeln()
         self.stream.closetag('group')
+        self.stream.writeln()
         
         return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype
 

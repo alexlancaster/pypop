@@ -41,7 +41,7 @@ import sys, os, string, time
 from ParseFile import ParseGenotypeFile, ParseAlleleCountFile
 from DataTypes import Genotypes, AlleleCounts, getLumpedDataLevels
 from Arlequin import ArlequinExactHWTest
-from Haplo import Emhaplofreq, HaploArlequin
+from Haplo import Emhaplofreq, HaploArlequin, Haplostats
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin, HardyWeinbergEnumeration
 from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact, HomozygosityEWSlatkinExactPairwise
 from ConfigParser import ConfigParser, NoOptionError, NoSectionError
@@ -1015,6 +1015,41 @@ class Main:
                 untypedAllele=self.untypedAllele,
                 debug=self.debug)
             hz.serializeTo(self.xmlStream)
+
+        # Parse [Haplostats] section to estimate haplotypes and LD
+        # skip if not a genotype file, only makes sense for genotype
+        # files.
+
+        if self.config.has_section("Haplostats"):
+
+            # set all the control parameters
+            # FIXME: possibly move this into the .ini file eventually?
+            control = {'max_iter': 5000,
+                       'min_posterior': 0.000000001,
+                       'tol': 0.00001,
+                       'insert_batch_size': 2,
+                       'random_start': 0,
+                       'verbose': 0,
+                       'max_haps_limit': 10000 }
+
+            # FIXME: currently this assumes that geno StringMatrix contains only the loci required
+            # need to make sure that this works with subMatrices
+            haplostats = Haplostats(self.input.getIndividualsData(),
+                                    debug=self.debug,
+                                    untypedAllele=self.untypedAllele,
+                                    stream=self.xmlStream,
+                                    testMode=self.testMode)
+
+            print "MATRIX:", self.input.getIndividualsData()
+
+            # start by serializing the start of the XML block
+            haplostats.serializeStart()
+
+            # do estimation
+            haplostats.estHaplotypes(weight=None, control=control, numInitCond=1)
+            # serialize end to XML
+            haplostats.serializeEnd()
+
 
         # Parse [Emhaplofreq] section to estimate haplotypes and LD
         # skip if not a genotype file, only makes sense for genotype
