@@ -860,6 +860,11 @@ class Haplostats(Haplo):
 
         self.stream.opentag('group', mode="all-pairwise-ld-no-permu", loci=locusKeys, showHaplo="yes")
         self.stream.writeln()
+        # FIXME: implement
+        # self.stream.tagContents('uniquepheno', ...)
+        # self.stream.writeln()
+        self.stream.tagContents('uniquegeno', "%d" % n_hap_pairs)
+        self.stream.writeln()
         self.stream.tagContents('haplocount', "%d" % n_u_hap)
         self.stream.writeln()
         self.stream.tagContents('loglikelihood', "%g" % lnlike, role="no-ld")
