@@ -126,6 +126,40 @@ def test_Haplostats_Simple3():
     assert_array_almost_equal(post, [1.0,1.0,1.0,1.0,0.25,0.25,0.25,0.25,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,8.567844e-09,1.0,1.0,1.0,1.0,0.5,0.5,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,0.9999999,1.326529e-07,1.0,0.5,0.5,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0])
     assert sum_hap_codes == [134, 168, 241, 61, 162, 170, 162, 170, 26, 381, 208, 343, 239, 125, 239, 423, 237, 326, 304, 257, 222, 258, 259, 270, 173, 18, 130, 219, 217, 304, 347, 269, 382, 60, 206, 145, 296, 271, 184, 109, 299, 281, 246, 74, 223, 226, 304, 117, 119, 14, 240, 138, 170, 14, 129, 158, 180]
 
+def test_Haplostats_UchiTelleClassI():
+    n_loci = 3
+    n_subject = 45
+    weight = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+    n_alleles = [10, 14, 12]
+    max_haps = 236
+    max_iter = 5000
+    loci_insert_order =[0, 1, 2]
+    min_prior = 0.0
+    min_posterior = 0.000000001
+    tol = 0.00001
+    insert_batch_size = 3
+    random_start = 0
+    iseed1 = 18717; iseed2= 16090; iseed3=14502
+    verbose = 0
+    geno_vec = [1,3,1,5,3,6,5,8,2,7,9,3,1,1,3,1,1,5,2,6,4,2,7,4,6,1,1,3,1,7,2,2,1,3,6,4,1,10,5,2,6,7,2,6,9,2,6,4,2,7,7,7,2,2,1,3,6,4,2,6,4,4,2,2,5,8,2,5,4,6,5,3,6,5,8,2,7,9,3,9,5,5,2,6,2,6,5,2,6,4,2,7,8,11,12,11,2,1,9,2,1,9,2,1,11,2,1,9,2,1,2,10,2,1,6,6,9,2,1,6,2,7,13,6,14,6,5,6,7,3,2,6,2,1,1,6,1,9,2,1,6,2,7,13,6,1,9,2,1,2,7,1,11,2,1,2,2,1,2,2,6,11,2,1,9,2,1,1,1,6,6,4,2,14,2,6,9,2,1,2,2,3,8,10,12,10,2,1,4,2,1,4,2,1,10,2,1,4,9,3,5,2,1,4,9,9,4,2,1,9,2,3,7,9,11,9,11,9,3,5,2,9,2,1,1,9,1,4,2,1,9,2,3,7,6,1,4,2,1,2,3,1,10,2,1,2,2,1,2,2,9,10,2,1,4,2,2,3,8,10,2,6,2,5,2,9,4,2,1,2]
+
+    ret_val = call_Haplostats(n_loci, n_subject, weight, n_alleles,
+                              max_haps, max_iter, loci_insert_order,
+                              min_prior, min_posterior, tol, insert_batch_size,
+                              random_start, iseed1, iseed2, iseed3, verbose, geno_vec)
+    status1, converge, S_lnlike, S_n_u_hap, n_hap_pairs, status2, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = ret_val
+
+    sum_hap_codes = map(add, hap1_code, hap2_code)
+#   print "sum_hap_codes: ", sum_hap_codes
+    assert status1 == 0
+    assert converge == 1
+    assert S_lnlike == -311.6829460557762
+    assert S_n_u_hap == 70
+    assert n_hap_pairs == 54
+
+    assert status2 == 0
+
+
 def test_Haplostats_PyPopStringMatrix():
     """
     This is the same numerical example as test_Haplostats_Simple()
