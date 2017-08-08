@@ -718,13 +718,13 @@ class Haplostats(Haplo):
         FIXME: eventually extend to cover submatrices like Emhaplofreq
         """
 
-        geno = self.matrix
-
         # do for all
         if locusKeys == None:
             # create key for entire matrix
             locusKeys = ':'.join(self.matrix.colList)
-        
+
+        geno = self.matrix
+
         n_loci = geno.colCount
         n_subject = geno.rowCount
 

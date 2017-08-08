@@ -595,7 +595,6 @@ class StringMatrix(user_array.container):
       return newMatrix
 
   def countPairs(self):
-
       """Given a matrix of genotypes (pairs of columns for each
       locus), compute number of possible pairs of haplotypes for each
       subject (the rows of the geno matrix)
@@ -622,7 +621,7 @@ class StringMatrix(user_array.container):
       return n_pairs.tolist()
 
   def flattenCols(self):
-      """flatten columns
+      """Flatten columns into a single list
       FIXME: assumes entries are integers
       """
       flattened_matrix = []
