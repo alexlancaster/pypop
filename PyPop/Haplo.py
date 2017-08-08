@@ -720,7 +720,7 @@ class Haplostats(Haplo):
 
         geno = self.matrix
 
-        # do fo all
+        # do for all
         if locusKeys == None:
             # create key for entire matrix
             locusKeys = ':'.join(self.matrix.colList)
@@ -740,26 +740,23 @@ class Haplostats(Haplo):
             print "Length of weight != number of subjects (nrow of geno)"
             exit(-1)
 
-        # Compute the max number of pairs of haplotypes over all subjects
-        # FIXME: hardcode, not yet translated, need to use/modify StringMatrix
-        # max_pairs = geno.count.pairs(temp_geno)
-        # max_haps = 2*sum(max_pairs)
-        max_haps = 18
-
-        # FIXME: do we need this?
-        if max_haps > control['max_haps_limit']:
-            max_haps = control['max_haps_limit']
-
         n_alleles = []
         allele_labels = []
         for locus in geno.colList:
             unique_alleles = geno.getUniqueAlleles(locus)
-            print "unique_alleles:", unique_alleles
             allele_labels.append(unique_alleles)
             n_alleles.append(len(unique_alleles))
 
-        temp_geno = geno.convertToInts()  # simulates setupGeno
-        geno_vec = temp_geno.flattenCols()  # gets the columns as integers
+        temp_geno = geno.convertToInts()   # simulates setupGeno
+        geno_vec = temp_geno.flattenCols() # gets the columns as integers
+
+        # Compute the max number of pairs of haplotypes over all subjects
+        max_pairs = temp_geno.countPairs()
+        max_haps = 2*sum(max_pairs)
+
+        # FIXME: do we need this?
+        if max_haps > control['max_haps_limit']:
+            max_haps = control['max_haps_limit']
 
         # FIXME: not (yet) using a.freq, so don't calculate
         # also too complicated to translate right now
@@ -853,8 +850,8 @@ class Haplostats(Haplo):
         uhap_df = numpy.c_[u_hap_code, hap_prob]
         subj_df = numpy.c_[subj_id, hap1_code, hap2_code]
 
-        print haplotype
-        print subj_df
+        # print haplotype
+        # print subj_df
 
         # start on the XML output here
 
