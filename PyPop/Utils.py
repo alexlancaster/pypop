@@ -40,6 +40,7 @@
 """
 
 import os, sys, string, types, re, shutil, copy, operator
+import numpy as np
 from numpy import zeros, take, asarray
 from numpy.lib import user_array
 
@@ -592,6 +593,33 @@ class StringMatrix(user_array.container):
               row += 1
 
       return newMatrix
+
+  def countPairs(self):
+
+      """Given a matrix of genotypes (pairs of columns for each
+      locus), compute number of possible pairs of haplotypes for each
+      subject (the rows of the geno matrix)
+
+      FIXME: this does *not* do any involved handling of missing data
+      as per geno.count.pairs from haplo.stats
+
+      FIXME: should these methods eventually be moved to Genotype class?
+      """
+
+      # count number of unique alleles at each loci
+      n_alleles = {}
+      for colName in self.colList:
+          n_alleles[colName] = len(self.getUniqueAlleles(colName))
+
+      # count pairs of haplotypes for subjects without any missing alleles
+      # FIXME: maybe convert to it's own method as per getUniqueAlleles 
+      h1 = self.array[:, 0::2]  # get "_1" allele (odd cols)
+      h2 = self.array[:, 1::2]  # get "_2" allele (even cols)
+      n_het = np.sum(np.not_equal(h1, h2), 1)  # equivalent of: apply(h1!=h2,1,sum)
+      n_het = np.where(n_het == 0, 1, n_het)      # equivalent of: ifelse(n.het==0,1,n.het)
+      n_pairs = 2 ** (n_het - 1)   # equivalent of: n.pairs = 2^(n.het-1)
+
+      return n_pairs.tolist()
 
   def flattenCols(self):
       """flatten columns
