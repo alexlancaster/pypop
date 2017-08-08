@@ -39,6 +39,7 @@
 """
 import sys, string, os, re, cStringIO, StringIO
 import numpy
+from collections import Counter
 
 from Arlequin import ArlequinBatch
 from Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR, XMLOutputStream
@@ -740,15 +741,25 @@ class Haplostats(Haplo):
             print "Length of weight != number of subjects (nrow of geno)"
             exit(-1)
 
+        temp_geno = geno.convertToInts()   # simulates setupGeno
+        geno_vec = temp_geno.flattenCols() # gets the columns as integers
+
         n_alleles = []
         allele_labels = []
+        a_freq = {}  # make a_freq a dictionary
+        
         for locus in geno.colList:
             unique_alleles = geno.getUniqueAlleles(locus)
             allele_labels.append(unique_alleles)
             n_alleles.append(len(unique_alleles))
 
-        temp_geno = geno.convertToInts()   # simulates setupGeno
-        geno_vec = temp_geno.flattenCols() # gets the columns as integers
+            # flatten list and then count to get frequency
+            # FIXME: should probably integrate this with Genotype class
+            counts = Counter([int(item) for sublist in temp_geno[locus] for item in sublist])
+            total = sum(counts.values(), 0.0)
+            for key in counts:
+                counts[key] /= total
+            a_freq[locus] = counts
 
         # Compute the max number of pairs of haplotypes over all subjects
         max_pairs = temp_geno.countPairs()
@@ -757,15 +768,6 @@ class Haplostats(Haplo):
         # FIXME: do we need this?
         if max_haps > control['max_haps_limit']:
             max_haps = control['max_haps_limit']
-
-        # FIXME: not (yet) using a.freq, so don't calculate
-        # also too complicated to translate right now
-        # for(i in 1:n_loci){
-        #  j <- (i-1)*2 + 1
-        #  p <- table(temp.geno[,c(j, (j+1))], exclude=NA)
-        #  p <- p/sum(p)
-        #  a.freq[[i]] <- list(p=p)
-        # }
 
         loci_insert_order = range(0, n_loci)
 
@@ -849,6 +851,9 @@ class Haplostats(Haplo):
         # these arrays can be regenerated from the vectors at any time
         uhap_df = numpy.c_[u_hap_code, hap_prob]
         subj_df = numpy.c_[subj_id, hap1_code, hap2_code]
+
+        # print allele frequencies
+        print a_freq
 
         # print haplotype
         # print subj_df
