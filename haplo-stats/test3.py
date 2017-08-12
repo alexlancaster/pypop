@@ -64,4 +64,32 @@ print "Wn: ", wn
 print
 print "NOTE: OVERALL D' & Wn ARE ONLY CORRECT IF ALL COMBOS OF ALLELES ARE LISTED (EVEN IF ZERO HF)"
 
+# R VERSION OF ADDING ZERO FREQ FOR MISSING HAPLOS
+#   # add zero frequency haplotypes
+#   a1.list <- sort(unique(as.character(dat$allele1)))
+#   a2.list <- sort(unique(as.character(dat$allele2)))
+#   tmp <- expand.grid(a1.list,a2.list) #create all possible combos of allele1 & allele2
+#   names(tmp)[1] <- "allele1"
+#   names(tmp)[2] <- "allele2"
+#   dat1 <- unique( dat[dat$allele1 %in% unique(dat$allele1),c("allele1","allele.freq1")] )
+#   dat2 <- unique( dat[dat$allele2 %in% unique(dat$allele2),c("allele2","allele.freq2")] )
+#   tmp1 <- merge(tmp, dat1, by="allele1", all.x=T, all.y=T)
+#   tmp  <- merge(tmp1, dat2, by="allele2", all.x=T, all.y=T)
+#   dat$allele.freq1 <- NULL
+#   dat$allele.freq2 <- NULL
+#   tmp1 <- merge(tmp, dat, by=c("allele1","allele2"), all.x=T, all.y=T)
+#   tmp1$haplo.freq[is.na(tmp1$haplo.freq)] <- 0
 
+#EMULATE R's expand.grid()
+#https://gist.github.com/trcook/a60ef43d44dc7ef197601b9ff72dd9d8
+import itertools as it
+#[i for i in it.product(["a","b","c"],[1,2,3])]
+for i in it.product(["a","b","c"],[1,2,3]):
+  print i
+
+
+##############################
+#NB: rpy IS NOT PRESENT
+#import rpy
+#from rpy import *
+#r("expand.grid(alleles1,alleles2)")
