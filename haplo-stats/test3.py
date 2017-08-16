@@ -87,6 +87,28 @@ import itertools as it
 for i in it.product(["a","b","c"],[1,2,3]):
   print i
 
+# FIXME: below not yet working
+import numpy.lib.recfunctions as rfn
+
+dat1 = numpy.array([('A1', 0.4), ('A2', 0.6)], dtype=[('allele1', 'O'), ('freq', float)])
+print dat1
+
+dat2 = numpy.array([('B1', 0.3), ('B2', 0.7)], dtype=[('allele2', 'O'), ('freq', float)])
+print dat2
+
+grid = list(it.product(alleles1,alleles2))
+print grid
+
+tmp = numpy.array(grid, dtype=[('allele1', 'O'), ('allele2', 'O')])
+print tmp
+
+tmp1 = rfn.join_by('allele1', tmp, dat1, jointype='outer', usemask=True)
+print tmp1
+
+tmp =  rfn.join_by('allele2', tmp1, dat2, jointype='inner', usemask=False)
+print tmp
+
+
 
 ##############################
 #NB: rpy IS NOT PRESENT
