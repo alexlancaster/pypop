@@ -92,21 +92,26 @@ import numpy.lib.recfunctions as rfn
 
 dat1 = numpy.array([('A1', 0.4), ('A2', 0.6)], dtype=[('allele1', 'O'), ('freq', float)])
 print dat1
+print dat1.dtype.names
 
 dat2 = numpy.array([('B1', 0.3), ('B2', 0.7)], dtype=[('allele2', 'O'), ('freq', float)])
 print dat2
+print dat2.dtype.names
 
 grid = list(it.product(alleles1,alleles2))
 print grid
 
 tmp = numpy.array(grid, dtype=[('allele1', 'O'), ('allele2', 'O')])
 print tmp
+print tmp.dtype.names
 
-tmp1 = rfn.join_by('allele1', tmp, dat1, jointype='outer', usemask=True)
+tmp1 = rfn.join_by('allele1', tmp, dat1, jointype='inner', usemask=False)
 print tmp1
+print tmp1.dtype.names
 
 tmp =  rfn.join_by('allele2', tmp1, dat2, jointype='inner', usemask=False)
 print tmp
+print tmp.dtype.names
 
 
 
