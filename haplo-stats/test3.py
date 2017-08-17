@@ -16,4 +16,3 @@ haplos = numpy.array([['A1', 'B1'], ['A2', 'B1'], ['A1', 'B2'], ['A2', 'B2']],dt
 freqs = numpy.array([0.3, 0.1, 0.1, 0.5]) 
 
 _compute_LD(haplos, freqs, compute_ALD=True, debug=True)
-
