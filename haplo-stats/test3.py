@@ -8,8 +8,8 @@ import itertools as it
 haplos = numpy.array([['A1', 'B1'], ['A2', 'B1'], ['A1', 'B2'], ['A2', 'B2']],dtype='O')
 freqs = numpy.array([0.3, 0.1, 0.1, 0.5]) 
 
-alleles1 = ['A1','A2']
-alleles2 = ['B1','B2']
+uniq_alleles1 = ['A1','A2']
+uniq_alleles2 = ['B1','B2']
 
 freq1_dict = {'A1': 0.4, 'A2': 0.6}
 freq2_dict = {'B1': 0.4, 'B2': 0.6}
@@ -17,7 +17,7 @@ freq2_dict = {'B1': 0.4, 'B2': 0.6}
 # create an equivalent of a data frame with all haplotypes
 # initially as a list
 allhaplos = []
-for row in list(it.product(alleles1, alleles2)):
+for row in list(it.product(uniq_alleles1, uniq_alleles2)):
     # get current alleles
     allele1, allele2 = row
     # loop through the haplotype frequency to get the haplotype frequency
