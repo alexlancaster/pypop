@@ -1,8 +1,11 @@
 import base
 import unittest
 import _Haplostats
+from py.test import approx
+from numpy import array
 from numpy.testing import assert_array_almost_equal
 from operator import add
+from PyPop.Haplo import _compute_LD
 
 def call_Haplostats(n_loci, n_subject, weight, n_alleles,
                     max_haps, max_iter, loci_insert_order,
@@ -211,3 +214,31 @@ def test_Haplostats_PyPopStringMatrix():
     # assert hap2_code == [13, 14, 8, 7, 16, 15, 8, 12, 11]
     numpy.testing.assert_array_equal(haplotype, numpy.array([['1','27'], ['1','62'], ['2','7'], ['2','44'], ['4','61'], ['4','62'], ['7','7'], ['7','44'], ['8','51'], ['8','55'], ['11','51'], ['11','55'], ['11','61'], ['11','62'], ['13','27'], ['13','62']]))
         
+def test_Haplostats_compute_LD_sym():
+    """
+    Test LD computations in a standalone mode
+    FIXME: if used standalone from Haplostats, move to another test module
+    """
+    haplos = array([['A1', 'B1'], ['A2', 'B1'], ['A1', 'B2'], ['A2', 'B2']],dtype='O')
+    freqs = array([0.3, 0.1, 0.1, 0.5]) 
+    dprime, wn, ALD_1_2, ALD_2_1 = _compute_LD(haplos, freqs, compute_ALD=True)
+
+    assert dprime == approx(0.58333333333333326)
+    assert wn == approx(0.583333333333)
+    assert ALD_1_2 == approx(0.583333333333)
+    assert ALD_2_1 == approx(0.583333333333)
+
+def test_Haplostats_compute_LD_assym():
+    """
+    Test LD computations in a standalone mode.
+    Note that in this example standard Dprime doesn't match the ALD values
+    """
+    haplos = array([['A1', 'B1'], ['A2', 'B1'], ['A1', 'B2'], ['A2', 'B2'], ['A1', 'B3'], ['A2', 'B3']],dtype='O')
+    freqs = array([0.3, 0.0, 0.0, 0.5, 0.0, 0.2]) 
+
+    dprime, wn, ALD_1_2, ALD_2_1 = _compute_LD(haplos, freqs, compute_ALD=True)
+
+    assert dprime == approx(1.0)
+    assert wn == approx(1.0)
+    assert ALD_1_2 == approx(1.0)
+    assert ALD_2_1 == approx(0.734282307367)
