@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import numpy
+import numpy, math
 
 # NB: haplotype[i, j] contains allele for ith haplo at jth locus 
 # two locus haplotypes array
@@ -21,12 +21,42 @@ for i in range(0, rows):
         print haplotype[i, j],
     print
 
-alleles1 = numpy.array(['A1','A2'])
-alleles2 = numpy.array(['B1','B2'])
+alleles1 = numpy.array(['A1','A2','A1','A2'])
+alleles2 = numpy.array(['B1','B1','B2','B2'])
 hap_prob = numpy.array([0.3, 0.1, 0.1, 0.5])
 a_freq1 = numpy.array([0.4, 0.6, 0.4, 0.6])  #FIXME: HARD CODED, WILL NEED TO COMPUTE FROM hap_prob
 a_freq2 = numpy.array([0.4, 0.4, 0.6, 0.6])
 
+## compute ALD
+F_1 = 0.0
+F_2_1 = 0.0
+F_2 = 0.0
+F_1_2 = 0.0
+for i in numpy.unique(alleles1):
+   af_1 = numpy.unique(a_freq1[alleles1==i])
+   F_1 = F_1 + af_1**2
+   F_2_1 = F_2_1 + ((hap_prob[alleles1==i]**2)/af_1).sum()
+for i in numpy.unique(alleles2):
+   af_2 = numpy.unique(a_freq2[alleles2==i])
+   F_2 = F_2 + af_2**2
+   F_1_2 = F_1_2 + ((hap_prob[alleles2==i]**2)/af_2).sum()
+if F_2 == 1.0:
+   F_2_1_prime = nan  
+   ALD_2_1 = nan
+else:
+   F_2_1_prime = (F_2_1 - F_2)/(1 - F_2)
+   ALD_2_1 = math.sqrt(F_2_1_prime)
+if F_1 == 1:
+   F_1_2_prime =nan
+   ALD_1_2 = nan
+else:
+   F_1_2_prime = (F_1_2 - F_1)/(1 - F_1)
+   ALD_1_2 = math.sqrt(F_1_2_prime)
+print "ALD_1_2:", ALD_1_2
+print "ALD_2_1:", ALD_2_1
+print "FIXME: NOT SURE YOU CAN ASSIGN nan IN ABOVE if()"
+
+## compute Wn & Dprime
 zero = numpy.array([0.0])
 dprime_den = zero.repeat(rows)
 d_ij = hap_prob - a_freq1 * a_freq2
@@ -46,8 +76,8 @@ for i in range(0, rows):
 
 print "  alleles1:", alleles1 , "CURRENTLY HARD CODED"
 print "  alleles2:", alleles2
-print "  length(alleles1):", numpy.unique(alleles1).size*1.0 , "MAY BE A BETTER WAY TO GET"
-print "  length(alleles2):", numpy.unique(alleles2).size*1.0
+print "  length(unique(alleles1)):", numpy.unique(alleles1).size*1.0 , "MAY BE A BETTER WAY TO GET"
+print "  length(unique(alleles2)):", numpy.unique(alleles2).size*1.0
 
 dp_temp = abs(dprime_ij)*a_freq1*a_freq2
 dprime = dp_temp.sum()
