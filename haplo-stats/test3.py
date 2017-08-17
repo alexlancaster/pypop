@@ -1,34 +1,53 @@
 #!/usr/bin/env python
 import numpy
+import itertools as it
+import numpy.lib.recfunctions as rfn
+from numpy.lib.recfunctions import append_fields
 
-# NB: haplotype[i, j] contains allele for ith haplo at jth locus 
-# two locus haplotypes array
-haplotype = numpy.array([['A1', 'B1'], ['A2', 'B1'], ['A1', 'B2'], ['A2', 'B2']],dtype='O')
+# FIXME: these arrays have to be in same order
+# this is fragile and probably needs changing in main code
+haplos = numpy.array([['A1', 'B1'], ['A2', 'B1'], ['A1', 'B2'], ['A2', 'B2']],dtype='O')
+freqs = numpy.array([0.3, 0.1, 0.1, 0.5]) 
 
-# get "shape" of array, in this case, 2d, so rows and cols as a "tuple"
-rows, cols = haplotype.shape
+alleles1 = ['A1','A2']
+alleles2 = ['B1','B2']
 
-for j in range(0, cols):
-    for i in range(0, rows):
-        print i, j, haplotype[i, j]
+freq1_dict = {'A1': 0.4, 'A2': 0.6}
+freq2_dict = {'B1': 0.3, 'B2': 0.7}
 
-# print haplo table with 1 row per haplo
-print "NB: haplotype[i, j] contains allele for ith haplo at jth locus"
-print "i haplo"
-for i in range(0, rows):
-    print i,  
-    for j in range(0, cols):
-        print haplotype[i, j],
-    print
+allhaplos = []
 
-alleles1 = numpy.array(['A1','A2'])
-alleles2 = numpy.array(['B1','B2'])
-hap_prob = numpy.array([0.3, 0.1, 0.1, 0.5])
-a_freq1 = numpy.array([0.4, 0.6, 0.4, 0.6])  #FIXME: HARD CODED, WILL NEED TO COMPUTE FROM hap_prob
-a_freq2 = numpy.array([0.4, 0.4, 0.6, 0.6])
+for row in list(it.product(alleles1, alleles2)):
+    # get current alleles
+    allele1, allele2 = row
+    # loop through the haplotype frequency to get the haplotype frequency
+    # if it exists for this allele1, allele2 pair
+    i = 0
+    hap_freq = 0.0
+    for hap in haplos:
+        if hap[0] == allele1 and hap[1] == allele2:
+            hap_freq = freqs[i]
+        i += 1
+    
+    # add the hap and allele frequencies
+    newrow = (allele1, allele2, freq1_dict[allele1], freq2_dict[allele2], hap_freq)
+    allhaplos.append(newrow)
+
+# convert to numpy structured array
+allhaplos = numpy.array(allhaplos, dtype=[('allele1', 'O'), ('allele2', 'O'), ('allele.freq1', float), ('allele.freq2', float), ('haplo.freq', float)])
+
+# now we extract the columns we need for the computations
+hap_prob = allhaplos['haplo.freq']
+a_freq1 = allhaplos['allele.freq1']
+a_freq2 = allhaplos['allele.freq2']
+alleles1 = allhaplos['allele1']
+alleles2 = allhaplos['allele2']
+
+# get the maximum size of array
+num_allpossible_haplos = len(allhaplos)
 
 zero = numpy.array([0.0])
-dprime_den = zero.repeat(rows)
+dprime_den = zero.repeat(num_allpossible_haplos)
 d_ij = hap_prob - a_freq1 * a_freq2
 den_lt0 = numpy.minimum( a_freq1*a_freq2, (1-a_freq1)*(1-a_freq2) )
 den_ge0 = numpy.minimum( (1-a_freq1)*a_freq2, a_freq1*(1-a_freq2) )
@@ -38,15 +57,12 @@ dprime_ij = d_ij/dprime_den
 print "dprime_den:", dprime_den
 
 print "i a_freq1 a_freq2 d_ij dprime hap_prob haplo"
-for i in range(0, rows):
-    print i, a_freq1[i], a_freq2[i], d_ij[i], dprime_ij[i], hap_prob[i], 
-    for j in range(0, cols):
-        print haplotype[i, j],
-    print
+for i in range(num_allpossible_haplos):
+    print i, a_freq1[i], a_freq2[i], d_ij[i], dprime_ij[i], hap_prob[i], "%s:%s" % (alleles1[i], alleles2[i])
 
-print "  alleles1:", alleles1 , "CURRENTLY HARD CODED"
+print "  alleles1:", alleles1 , 
 print "  alleles2:", alleles2
-print "  length(alleles1):", numpy.unique(alleles1).size*1.0 , "MAY BE A BETTER WAY TO GET"
+print "  length(alleles1):", numpy.unique(alleles1).size*1.0 , 
 print "  length(alleles2):", numpy.unique(alleles2).size*1.0
 
 dp_temp = abs(dprime_ij)*a_freq1*a_freq2
@@ -79,44 +95,3 @@ print "NOTE: OVERALL D' & Wn ARE ONLY CORRECT IF ALL COMBOS OF ALLELES ARE LISTE
 #   dat$allele.freq2 <- NULL
 #   tmp1 <- merge(tmp, dat, by=c("allele1","allele2"), all.x=T, all.y=T)
 #   tmp1$haplo.freq[is.na(tmp1$haplo.freq)] <- 0
-
-#EMULATE R's expand.grid()
-#https://gist.github.com/trcook/a60ef43d44dc7ef197601b9ff72dd9d8
-import itertools as it
-#[i for i in it.product(["a","b","c"],[1,2,3])]
-for i in it.product(["a","b","c"],[1,2,3]):
-  print i
-
-# FIXME: below not yet working
-import numpy.lib.recfunctions as rfn
-
-dat1 = numpy.array([('A1', 0.4), ('A2', 0.6)], dtype=[('allele1', 'O'), ('freq', float)])
-print dat1
-print dat1.dtype.names
-
-dat2 = numpy.array([('B1', 0.3), ('B2', 0.7)], dtype=[('allele2', 'O'), ('freq', float)])
-print dat2
-print dat2.dtype.names
-
-grid = list(it.product(alleles1,alleles2))
-print grid
-
-tmp = numpy.array(grid, dtype=[('allele1', 'O'), ('allele2', 'O')])
-print tmp
-print tmp.dtype.names
-
-tmp1 = rfn.join_by('allele1', tmp, dat1, jointype='inner', usemask=False)
-print tmp1
-print tmp1.dtype.names
-
-tmp =  rfn.join_by('allele2', tmp1, dat2, jointype='inner', usemask=False)
-print tmp
-print tmp.dtype.names
-
-
-
-##############################
-#NB: rpy IS NOT PRESENT
-#import rpy
-#from rpy import *
-#r("expand.grid(alleles1,alleles2)")
