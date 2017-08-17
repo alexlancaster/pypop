@@ -2,8 +2,6 @@
 import numpy
 import math
 import itertools as it
-import numpy.lib.recfunctions as rfn
-from numpy.lib.recfunctions import append_fields
 
 # FIXME: these arrays have to be in same order
 # this is fragile and probably needs changing in main code
