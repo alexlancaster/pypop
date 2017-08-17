@@ -3,16 +3,24 @@ import numpy
 import math
 import itertools as it
 
+#pop locus1 allele1 locus2 allele2 haplo.freq 
+#ex1      A      01      B      01        0.3 
+#ex1      A      02      B      01        0.0 
+#ex1      A      01      B      02        0.0  
+#ex1      A      02      B      02        0.5 
+#ex1      A      01      B      03        0.0 
+#ex1      A      02      B      03        0.2  
+
 # FIXME: these arrays have to be in same order
 # this is fragile and probably needs changing in main code
-haplos = numpy.array([['A1', 'B1'], ['A2', 'B1'], ['A1', 'B2'], ['A2', 'B2']],dtype='O')
-freqs = numpy.array([0.3, 0.1, 0.1, 0.5]) 
+haplos = numpy.array([['A1', 'B1'], ['A2', 'B1'], ['A1', 'B2'], ['A2', 'B2'], ['A1', 'B3'], ['A2', 'B3']],dtype='O')
+freqs = numpy.array([0.3, 0.0, 0.0, 0.5, 0.0, 0.2]) 
 
 alleles1 = ['A1','A2']
-alleles2 = ['B1','B2']
+alleles2 = ['B1','B2','B3']
 
-freq1_dict = {'A1': 0.4, 'A2': 0.6}
-freq2_dict = {'B1': 0.4, 'B2': 0.6}
+freq1_dict = {'A1': 0.3, 'A2': 0.7}
+freq2_dict = {'B1': 0.3, 'B2': 0.5, 'B3': 0.2}
 
 # create an equivalent of a data frame with all haplotypes
 # initially as a list
@@ -73,6 +81,7 @@ else:
    ALD_1_2 = math.sqrt(F_1_2_prime)
 print "ALD_1_2:", ALD_1_2
 print "ALD_2_1:", ALD_2_1
+print "FIXME: NOT SURE YOU CAN ASSIGN nan IN ABOVE if()"
 
 ## compute Wn & Dprime
 zero = numpy.array([0.0])
