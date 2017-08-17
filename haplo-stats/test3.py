@@ -16,8 +16,9 @@ alleles2 = ['B1','B2']
 freq1_dict = {'A1': 0.4, 'A2': 0.6}
 freq2_dict = {'B1': 0.3, 'B2': 0.7}
 
+# create an equivalent of a data frame with all haplotypes
+# initially as a list
 allhaplos = []
-
 for row in list(it.product(alleles1, alleles2)):
     # get current alleles
     allele1, allele2 = row
