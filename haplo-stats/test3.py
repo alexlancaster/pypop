@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import numpy
+import math
 import itertools as it
 import numpy.lib.recfunctions as rfn
 from numpy.lib.recfunctions import append_fields
@@ -46,6 +47,36 @@ alleles2 = allhaplos['allele2']
 # get the maximum size of array
 num_allpossible_haplos = len(allhaplos)
 
+## compute ALD
+F_1 = 0.0
+F_2_1 = 0.0
+F_2 = 0.0
+F_1_2 = 0.0
+for i in numpy.unique(alleles1):
+   af_1 = numpy.unique(a_freq1[alleles1==i])
+   F_1 = F_1 + af_1**2
+   F_2_1 = F_2_1 + ((hap_prob[alleles1==i]**2)/af_1).sum()
+for i in numpy.unique(alleles2):
+   af_2 = numpy.unique(a_freq2[alleles2==i])
+   F_2 = F_2 + af_2**2
+   F_1_2 = F_1_2 + ((hap_prob[alleles2==i]**2)/af_2).sum()
+if F_2 == 1.0:
+   F_2_1_prime = nan  
+   ALD_2_1 = nan
+else:
+   F_2_1_prime = (F_2_1 - F_2)/(1 - F_2)
+   ALD_2_1 = math.sqrt(F_2_1_prime)
+if F_1 == 1:
+   F_1_2_prime =nan
+   ALD_1_2 = nan
+else:
+   F_1_2_prime = (F_1_2 - F_1)/(1 - F_1)
+   ALD_1_2 = math.sqrt(F_1_2_prime)
+print "ALD_1_2:", ALD_1_2
+print "ALD_2_1:", ALD_2_1
+print "FIXME: NOT SURE YOU CAN ASSIGN nan IN ABOVE if()"
+
+## compute Wn & Dprime
 zero = numpy.array([0.0])
 dprime_den = zero.repeat(num_allpossible_haplos)
 d_ij = hap_prob - a_freq1 * a_freq2
