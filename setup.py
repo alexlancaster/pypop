@@ -142,7 +142,7 @@ ext_Haplostats = Extension("_Haplostatsmodule",
                        include_dirs=include_dirs + ["haplo-stats", "pval"],
                        define_macros=[('MATHLIB_STANDALONE', '1'),
                                       ('__SWIG__', '1'),
-                                      ('DEBUG', '1'),
+                                      ('DEBUG', '0'),
                                       ('R_NO_REMAP', '1')]
                        )
 

@@ -1418,7 +1418,7 @@ int haplo_em_ret_info_wrap(
        hap2_code  
      );
 
-#ifdef DEBUG
+#if DEBUG
   {
     int i, j, k;
     printf("START inside C program\n");

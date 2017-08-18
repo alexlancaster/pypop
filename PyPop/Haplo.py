@@ -841,6 +841,8 @@ class Haplostats(Haplo):
         locusKeys is None, assume entire matrix
         
         LD is estimated if there are locusKeys consists of only two loci
+
+        FIXME: this does *not* yet remove missing data before haplotype estimations
         """
 
         # if wildcard, or not set, do all matrix
