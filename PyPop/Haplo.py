@@ -965,18 +965,10 @@ class Haplostats(Haplo):
         uhap_df = numpy.c_[u_hap_code, hap_prob]
         subj_df = numpy.c_[subj_id, hap1_code, hap2_code]
 
-        # LD calculations, only do if pairwise
-        if n_loci == 2:
-            # FIXME, debug flag should be inherited from self.debug, but set to True for the moment
-            dprime, Wn, ALD_1_2, ALD_2_1 = _compute_LD(haplotype, hap_prob, compute_ALD=True, debug=True)  
-
-        # start on the XML output here
-
+        # XML output for group here
         self.stream.opentag('group', mode="all-pairwise-ld-no-permu", loci=locusKeys, showHaplo="yes")
         self.stream.writeln()
-        # FIXME: implement
-        # self.stream.tagContents('uniquepheno', ...)
-        # self.stream.writeln()
+        # FIXME: implement ('uniquepheno') ?
         self.stream.tagContents('uniquegeno', "%d" % n_hap_pairs)
         self.stream.writeln()
         self.stream.tagContents('haplocount', "%d" % n_u_hap)
@@ -1004,11 +996,37 @@ class Haplostats(Haplo):
 
         self.stream.closetag('haplotypefreq')
         self.stream.writeln()
+
+        # LD calculations, and only do and output to XML for two locus haplotypes
+        if n_loci == 2:
+            # FIXME, debug flag should be inherited from self.debug, but set to True for the moment
+            dprime, Wn, ALD_1_2, ALD_2_1 = _compute_LD(haplotype, hap_prob, compute_ALD=True, debug=self.debug)  
+
+            # output LD to XML
+            # FIXME just summary stats for the moment
+            self.stream.opentag('linkagediseq')
+            self.stream.writeln()
+            # hardcode 0 and 1, because we are only ever doing pairwise (for now)
+            self.stream.opentag('summary', first="0", second="1")
+            self.stream.tagContents('wn', "%g" % Wn)
+            self.stream.writeln()
+            # FIXME have no chisq test here for the moment
+            self.stream.writeln()
+            self.stream.tagContents('dprime', "%g" % dprime)
+            self.stream.writeln()
+            self.stream.tagContents('ALD_1_2', "%g" % ALD_1_2)
+            self.stream.writeln()
+            self.stream.tagContents('ALD_2_1', "%g" % ALD_2_1)
+            self.stream.writeln()
+            self.stream.closetag('summary')
+            self.stream.writeln()
+            self.stream.closetag('linkagediseq')
+            self.stream.writeln()
+        
         self.stream.closetag('group')
         self.stream.writeln()
         
         return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype
-
         
     def _haplo_em_fitter(self,
                          n_loci,
