@@ -1022,6 +1022,14 @@ class Main:
 
         if self.config.has_section("Haplostats"):
 
+            try:
+                numInitCond = self.config.getint("Haplostats",
+                                                 "numInitCond")
+            except NoOptionError:
+                numInitCond=10
+            except ValueError:
+                sys.exit("numInitCond: option requires an positive integer greater than 1")
+
             # set all the control parameters
             # FIXME: possibly move this into the .ini file eventually?
             control = {'max_iter': 5000,
@@ -1050,7 +1058,7 @@ class Main:
                 locusKeys='*'
 
             # do haplotype (and LD if two locus) estimation
-            haplostats.estHaplotypes(locusKeys=locusKeys, weight=None, control=control, numInitCond=1)
+            haplostats.estHaplotypes(locusKeys=locusKeys, weight=None, control=control, numInitCond=numInitCond)
 
             try:
                 allPairwise = self.config.getboolean("Haplostats", "allPairwise")
@@ -1061,7 +1069,7 @@ class Main:
                 
             if allPairwise:
                 # do all pairwise statistics, which always includes LD
-                haplostats.allPairwise(weight=None, control=control, numInitCond=1)
+                haplostats.allPairwise(weight=None, control=control, numInitCond=numInitCond)
 
             # serialize end to XML
             haplostats.serializeEnd()

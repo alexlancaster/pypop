@@ -835,7 +835,7 @@ class Haplostats(Haplo):
                       locusKeys=None,
                       weight=None,
                       control=None,
-                      numInitCond=1,
+                      numInitCond=10,
                       testMode=False):
         """Estimate haplotypes for the submatrix given in locusKeys, if
         locusKeys is None, assume entire matrix
@@ -976,9 +976,11 @@ class Haplostats(Haplo):
         self.stream.writeln()
         self.stream.tagContents('haplocount', "%d" % n_u_hap)
         self.stream.writeln()
+        self.stream.opentag('haplotypefreq')
+        self.stream.tagContents('iterConverged', "%d" % numInitCond)
+        self.stream.writeln()
         self.stream.tagContents('loglikelihood', "%g" % lnlike, role="no-ld")
         self.stream.writeln()
-        self.stream.opentag('haplotypefreq')
         self.stream.writeln()
         self.stream.tagContents('condition', "", role='converged')
         self.stream.writeln()
@@ -1034,7 +1036,7 @@ class Haplostats(Haplo):
     def allPairwise(self,
                     weight=None,
                     control=None,
-                    numInitCond=1,
+                    numInitCond=10,
                     mode=None):
         """Estimate pairwise statistics for all pairs of loci."""
 
