@@ -1073,6 +1073,9 @@ class Main:
 
         if self.config.has_section("Emhaplofreq"):
 
+          print "WARNING: The [Emhaplofreq] module is officially DEPRECATED and may be removed in coming releases."
+          print "Please transition to using the new [Haplostats] module."""
+
           # create object to generate haplotype and LD statistics
           # a wrapper around the emhaplofreq module
           haplo = Emhaplofreq(self.input.getIndividualsData(),
