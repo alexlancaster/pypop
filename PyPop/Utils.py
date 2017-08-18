@@ -525,6 +525,51 @@ class StringMatrix(user_array.container):
       else:
           raise KeyError("keys must be a string or tuple")
 
+  def getNewStringMatrix(self, key):
+      """Create an entirely new StringMatrix using only the columns supplied
+      in the keys.
+
+      The format of the keys is identical to __getitem__ except that
+      it in this case returns a full StringMatrix instance which
+      includes all metadata
+      """
+      
+      if type(key) == types.StringType:
+          colNames = string.split(key, ":")
+
+          # need both column position and names to reconstruct matrix
+          newColPos = [];   newColList = []
+          newExtraPos = []; newExtraList = []
+          for col in colNames:
+              # check first in list of alleles
+              if col in self.colList:
+                  # get relative location in list
+                  relativeLoc = self.colList.index(col)
+                  # calculate real locations in array
+                  col1 = relativeLoc * 2 + self.extraCount
+                  col2 = col1 + 1
+                  newColPos.append(col1)
+                  newColPos.append(col2)
+                  newColList.append(col)
+              # now check in non-allele metadata
+              elif col in self.extraList:
+                  newExtraPos.append(self.extraList.index(col))
+                  newExtraList.append(col)
+              else:
+                  raise KeyError("can't find %s column" % col)
+
+      # build a new matrix using the parameters from the current
+      newMatrix = StringMatrix(rowCount=self.rowCount,
+                               colList=newColList,
+                               extraList=newExtraList,
+                               colSep=self.colSep,
+                               headerLines=self.headerLines)
+
+      # copy just the columns we requested, both loci cols + extras
+      newExtraPos.extend(newColPos)
+      newMatrix.array = self.array[:,newExtraPos]
+      return newMatrix
+
   def __setitem__(self, index, value):
       """Override built in.
 

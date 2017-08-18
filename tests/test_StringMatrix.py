@@ -118,6 +118,38 @@ class StringMatrixTest(unittest.TestCase):
         assert B_matrix['B'] == [[2, 2], [3, 3], [1, 1]]
         assert B_matrix['C'] == [[1, 1], [1, 1], [1, 1]]
 
+    def test_GetNewStringMatrix(self):
+
+        # create StringMatrix with 3 loci + 1 non-locus keys
+        A_matrix = StringMatrix(3, ['A', 'B', 'C'], ['foo'])
+        A_matrix[0, 'B'] = ('B0', 'B0')
+        A_matrix[1, 'B'] = ('B1', 'B1')
+        A_matrix[2, 'B'] = ('B3', 'B1')
+        A_matrix[0, 'A'] = ('A0', 'A0')
+        A_matrix[1, 'A'] = ('A1', 'A2')
+        A_matrix[2, 'A'] = ('A0', 'A2')
+        A_matrix[0, 'C'] = ('C0', 'C0')
+        A_matrix[1, 'C'] = ('C1', 'C2')
+        A_matrix[2, 'C'] = ('C2', 'C1')
+        A_matrix[0, 'foo'] = "bar"
+        A_matrix[1, 'foo'] = "baz"
+        A_matrix[2, 'foo'] = "frum"
+
+        # get matrix subset
+        B_matrix = A_matrix.getNewStringMatrix("A:C:foo")
+
+        # check new and original matrix columns
+        assert A_matrix.colList == ['A', 'B', 'C']
+        assert B_matrix.colList == ['A', 'C']
+
+        # check new and original matrix shapes
+        # note number of cols is twice number of loci + extra column
+        assert A_matrix.shape == (3, 7)
+        assert B_matrix.shape == (3, 5)
+
+        assert B_matrix['A'] == [['A0', 'A0'], ['A1', 'A2'], ['A0', 'A2']]
+        assert B_matrix['C'] == [['C0', 'C0'], ['C1', 'C2'], ['C2', 'C1']]
+        assert B_matrix['foo'] == [['bar'], ['baz'], ['frum']]
 
     def test_ConvertToInt_FlattenCols(self):
         geno = StringMatrix(5, ["DRB", "B"])
