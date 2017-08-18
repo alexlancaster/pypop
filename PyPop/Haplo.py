@@ -815,7 +815,7 @@ class Haplostats(Haplo):
         self.totalNumIndiv = rows
         self.totalLociCount = cols / 2
         self.debug = debug
-
+        self.testMode = testMode
         if stream:
             self.stream = stream
         else:  # create a stream if none given
@@ -835,18 +835,19 @@ class Haplostats(Haplo):
                       locusKeys=None,
                       weight=None,
                       control=None,
-                      numInitCond=1):
-        """Estimate haplotypes for whole matrix
-
-        FIXME: eventually extend to cover submatrices like Emhaplofreq
+                      numInitCond=1,
+                      testMode=False):
+        """Estimate haplotypes for the submatrix given in locusKeys, if
+        locusKeys is None, assume entire matrix
+        
+        LD is estimated if there are locusKeys consists of only two loci
         """
 
-        # do for all
-        if locusKeys == None:
-            # create key for entire matrix
-            locusKeys = ':'.join(self.matrix.colList)
+        # if wildcard, or not set, do all matrix
+        if locusKeys == '*' or locusKeys == None:
+            locusKeys=string.join(self.matrix.colList,':')
 
-        geno = self.matrix
+        geno = self.matrix.getNewStringMatrix(locusKeys)
 
         n_loci = geno.colCount
         n_subject = geno.rowCount
@@ -1027,6 +1028,23 @@ class Haplostats(Haplo):
         self.stream.writeln()
         
         return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype
+
+    def allPairwise(self,
+                    weight=None,
+                    control=None,
+                    numInitCond=1,
+                    mode=None):
+        """Estimate pairwise statistics for all pairs of loci."""
+
+        # FIXME: sequence data *not* currently supported for haplostats
+        locusPairs = getLocusPairs(self.matrix, False)
+        if self.debug: print locusPairs, len(locusPairs)
+        for pair in locusPairs:
+            self.estHaplotypes(locusKeys=pair,
+                               weight=weight,
+                               control=control,
+                               numInitCond=numInitCond,
+                               testMode=self.testMode)
         
     def _haplo_em_fitter(self,
                          n_loci,

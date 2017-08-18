@@ -1040,13 +1040,29 @@ class Main:
                                     stream=self.xmlStream,
                                     testMode=self.testMode)
 
-            print "MATRIX:", self.input.getIndividualsData()
-
             # start by serializing the start of the XML block
             haplostats.serializeStart()
 
-            # do estimation
-            haplostats.estHaplotypes(weight=None, control=control, numInitCond=1)
+            try:
+                locusKeys=self.config.get("Haplostats", "lociToEstHaplo")
+            except NoOptionError:
+                # or if no option given, use wildcard, which assumes all loci
+                locusKeys='*'
+
+            # do haplotype (and LD if two locus) estimation
+            haplostats.estHaplotypes(locusKeys=locusKeys, weight=None, control=control, numInitCond=1)
+
+            try:
+                allPairwise = self.config.getboolean("Haplostats", "allPairwise")
+            except NoOptionError:
+                allPairwise=0
+            except ValueError:
+                sys.exit("require a 0 or 1 as a flag")
+                
+            if allPairwise:
+                # do all pairwise statistics, which always includes LD
+                haplostats.allPairwise(weight=None, control=control, numInitCond=1)
+
             # serialize end to XML
             haplostats.serializeEnd()
 
