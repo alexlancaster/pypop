@@ -917,7 +917,8 @@ class Haplostats(Haplo):
                 iseed2 = int(10000 + 20000*seed_array[1])
                 iseed3 = int(10000 + 20000*seed_array[2])
 
-                print iseed1, iseed2, iseed3
+                if self.debug:
+                    print "random seeds for initial condition", i, ":", iseed1, iseed2, iseed3
 
                 converge_new, lnlike_new, n_u_hap_new, n_hap_pairs_new, hap_prob_new, \
                               u_hap_new, u_hap_code_new, subj_id_new, post_new, hap1_code_new, \
@@ -940,7 +941,8 @@ class Haplostats(Haplo):
                                                     control['verbose'])
 
                 if lnlike_new > lnlike:
-                    print "found a better lnlikelihood!", lnlike_new
+                    if self.debug:
+                        print "found a better lnlikelihood!", lnlike_new
                     # FIXME: need more elegant data structure
                     converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, \
                               u_hap, u_hap_code, subj_id, post, hap1_code, \
@@ -1004,7 +1006,6 @@ class Haplostats(Haplo):
 
         # LD calculations, and only do and output to XML for two locus haplotypes
         if n_loci == 2:
-            # FIXME, debug flag should be inherited from self.debug, but set to True for the moment
             dprime, Wn, ALD_1_2, ALD_2_1 = _compute_LD(haplotype, hap_prob, compute_ALD=True, debug=self.debug)  
 
             # output LD to XML
