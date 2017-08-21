@@ -888,7 +888,15 @@ class Haplostats(Haplo):
         loci_insert_order = range(0, n_loci)
 
         # FIXME: hardcode
-        iseed1 = 18717; iseed2= 16090; iseed3=14502
+        if testMode:
+            iseed1 = 18717; iseed2= 16090; iseed3=14502
+            random_start = 0
+        else:
+            seed_array = numpy.random.random(3)
+            iseed1 = int(10000 + 20000*seed_array[0])
+            iseed2 = int(10000 + 20000*seed_array[1])
+            iseed3 = int(10000 + 20000*seed_array[2])
+            random_start = control['random_start']
 
         converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = \
                   self._haplo_em_fitter(n_loci,
@@ -902,7 +910,7 @@ class Haplostats(Haplo):
                                         control['min_posterior'],
                                         control['tol'],
                                         control['insert_batch_size'],
-                                        control['random_start'],
+                                        random_start,
                                         iseed1,
                                         iseed2,
                                         iseed3,
@@ -910,12 +918,21 @@ class Haplostats(Haplo):
 
         if numInitCond > 1:
             for i in range(1, numInitCond):
-                # seed_array = runif(3)
-                seed_array = numpy.random.random(3)
 
-                iseed1 = int(10000 + 20000*seed_array[0])
-                iseed2 = int(10000 + 20000*seed_array[1])
-                iseed3 = int(10000 + 20000*seed_array[2])
+                if testMode:
+                    iseed1 = iseed1 + i*300
+                    iseed2 = iseed2 + i*200
+                    iseed3 = iseed3 + i*100
+                    random_start = 0
+                else:
+                    seed_array = numpy.random.random(3)
+                    iseed1 = int(10000 + 20000*seed_array[0])
+                    iseed2 = int(10000 + 20000*seed_array[1])
+                    iseed3 = int(10000 + 20000*seed_array[2])
+                    # FIXME: check why this is the case
+                    # original R code always uses random_start on second and subsequent
+                    # initial conditions, regardless of how the control['random_start'] is set
+                    random_start = 1   
 
                 if self.debug:
                     print "random seeds for initial condition", i, ":", iseed1, iseed2, iseed3
@@ -934,7 +951,7 @@ class Haplostats(Haplo):
                                                     control['min_posterior'],
                                                     control['tol'],
                                                     control['insert_batch_size'],
-                                                    1,  # set random.start to 1
+                                                    random_start,
                                                     iseed1,
                                                     iseed2,
                                                     iseed3,
@@ -979,7 +996,7 @@ class Haplostats(Haplo):
         self.stream.tagContents('haplocount', "%d" % n_u_hap)
         self.stream.writeln()
         self.stream.opentag('haplotypefreq')
-        self.stream.tagContents('iterConverged', "%d" % numInitCond)
+        self.stream.tagContents('numInitCond', "%d" % numInitCond)
         self.stream.writeln()
         self.stream.tagContents('loglikelihood', "%g" % lnlike, role="no-ld")
         self.stream.writeln()

@@ -197,7 +197,7 @@ def test_Haplostats_PyPopStringMatrix():
 
     haplo = Haplostats(geno)
     converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype = \
-              haplo.estHaplotypes(weight=None, control=control)
+              haplo.estHaplotypes(weight=None, control=control, numInitCond=1, testMode=True)
 
     assert converge == 1
     assert lnlike == -20.42316124449607
