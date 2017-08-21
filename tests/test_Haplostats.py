@@ -196,7 +196,7 @@ def test_Haplostats_PyPopStringMatrix():
     geno[4, 'B'] = ('51', '55')
 
     haplo = Haplostats(geno)
-    converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype = \
+    converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype, dprime, Wn, ALD_1_2, ALD_2_1 = \
               haplo.estHaplotypes(weight=None, control=control, numInitCond=1, testMode=True)
 
     assert converge == 1
@@ -214,9 +214,15 @@ def test_Haplostats_PyPopStringMatrix():
     # assert hap2_code == [13, 14, 8, 7, 16, 15, 8, 12, 11]
     numpy.testing.assert_array_equal(haplotype, numpy.array([['1','27'], ['1','62'], ['2','7'], ['2','44'], ['4','61'], ['4','62'], ['7','7'], ['7','44'], ['8','51'], ['8','55'], ['11','51'], ['11','55'], ['11','61'], ['11','62'], ['13','27'], ['13','62']]))
 
+    # FIXME: check!
+    assert dprime == approx(0.791865079365)
+    assert Wn == approx(0.586301969978)
+    assert ALD_1_2 == approx(0.624695047554)
+    assert ALD_2_1 == approx(0.587569651393)
+
     # try again with same input data, but running with more iterations, to test whether the loop is behaving deterministically
     # this gives a different loglikelihood and completely different set of haplotypes
-    converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype = \
+    converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype, dprime, Wn, ALD_1_2, ALD_2_1 = \
               haplo.estHaplotypes(weight=None, control=control, numInitCond=10, testMode=True)
 
     assert converge == 1
@@ -229,6 +235,12 @@ def test_Haplostats_PyPopStringMatrix():
     assert subj_id == [1, 2, 2, 3, 4, 5]
     assert_array_almost_equal(post, [1.0, 5.862016163766862e-06, 0.9999941379838362, 1.0, 1.0, 1.0])
     numpy.testing.assert_array_equal(haplotype, numpy.array([['1','27'], ['2','7'], ['2','44'], ['4','61'], ['7','7'], ['7','44'], ['8','55'], ['11','51'], ['11','62'], ['13','62']]))
+
+    # FIXME: check!
+    assert dprime == approx(0.932142124391)
+    assert Wn == approx(0.874006628251)
+    assert ALD_1_2 == approx(0.86953788372)
+    assert ALD_2_1 == approx(0.849835490713)
         
 def test_Haplostats_compute_LD_sym():
     """
