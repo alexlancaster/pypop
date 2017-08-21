@@ -918,12 +918,11 @@ class Haplostats(Haplo):
 
         if numInitCond > 1:
             for i in range(1, numInitCond):
-
                 if testMode:
                     iseed1 = iseed1 + i*300
                     iseed2 = iseed2 + i*200
                     iseed3 = iseed3 + i*100
-                    random_start = 0
+                    random_start = 1   # need this in testMode too, apparently
                 else:
                     seed_array = numpy.random.random(3)
                     iseed1 = int(10000 + 20000*seed_array[0])

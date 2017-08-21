@@ -213,6 +213,22 @@ def test_Haplostats_PyPopStringMatrix():
     # assert hap1_code == [6, 5, 3, 4, 1, 2, 7, 9, 10]
     # assert hap2_code == [13, 14, 8, 7, 16, 15, 8, 12, 11]
     numpy.testing.assert_array_equal(haplotype, numpy.array([['1','27'], ['1','62'], ['2','7'], ['2','44'], ['4','61'], ['4','62'], ['7','7'], ['7','44'], ['8','51'], ['8','55'], ['11','51'], ['11','55'], ['11','61'], ['11','62'], ['13','27'], ['13','62']]))
+
+    # try again with same input data, but running with more iterations, to test whether the loop is behaving deterministically
+    # this gives a different loglikelihood and completely different set of haplotypes
+    converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype = \
+              haplo.estHaplotypes(weight=None, control=control, numInitCond=10, testMode=True)
+
+    assert converge == 1
+    assert lnlike == -18.173826527916734
+    assert n_u_hap == 10
+    assert n_hap_pairs == 6
+    assert_array_almost_equal(hap_prob, [0.1, 5.862016163766863e-07, 0.09999941379838362, 0.1, 0.19999941379838362, 0.10000058620161638, 0.1, 0.1, 0.1, 0.1])
+    assert u_hap == [1, 2, 2, 1, 2, 3, 3, 6, 4, 1, 4, 3, 5, 5, 6, 4, 6, 7, 7, 7]
+    assert u_hap_code == [1, 3, 4, 5, 7, 8, 10, 11, 14, 16]
+    assert subj_id == [1, 2, 2, 3, 4, 5]
+    assert_array_almost_equal(post, [1.0, 5.862016163766862e-06, 0.9999941379838362, 1.0, 1.0, 1.0])
+    numpy.testing.assert_array_equal(haplotype, numpy.array([['1','27'], ['2','7'], ['2','44'], ['4','61'], ['7','7'], ['7','44'], ['8','55'], ['11','51'], ['11','62'], ['13','62']]))
         
 def test_Haplostats_compute_LD_sym():
     """
