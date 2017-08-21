@@ -1044,11 +1044,13 @@ class Haplostats(Haplo):
             self.stream.writeln()
             self.stream.closetag('linkagediseq')
             self.stream.writeln()
+        else:
+            dprime, Wn, ALD_1_2, ALD_2_1 = None, None, None, None
         
         self.stream.closetag('group')
         self.stream.writeln()
         
-        return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype
+        return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype, dprime, Wn, ALD_1_2, ALD_2_1
 
     def allPairwise(self,
                     weight=None,
