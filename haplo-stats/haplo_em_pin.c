@@ -60,7 +60,7 @@ static int ret_n_hap, ret_n_u_hap, ret_max_haps;
 
 /**********************************************************************************/
 
-void haplo_em_pin( 
+void haplo_em_pin(
    int    *S_n_loci,             /* number of loci                                 */
    int    *n_subject,            /* number of subjects                             */
    double  *weight,               /* weight per subject                             */
@@ -97,6 +97,7 @@ void haplo_em_pin(
                                   /* verbose=1 means lots of printing to screen     */
 {
 
+
   int i, j, k, iter, n_iter, insert_loc;
   int is, ie, n_batch;
   int n_u_hap, n_hap, n_trim, pair_id, len_hap_list, indx1, indx2;
@@ -113,16 +114,8 @@ void haplo_em_pin(
   n_loci = *S_n_loci;
   geno = int_vec_to_mat(geno_vec, *n_subject, 2*n_loci);
 
-/* RS added and commented
-    REprintf("geno matrix (first 5 lines):\n");
-    for(i=0;i< 5;i++){
-      for (j=0; j< (2*3); j++) {
-        REprintf("%i ",geno[i][j]);
-      }
-      REprintf("\n");
-    }
-*/
-  if(*verbose){ 
+
+  if(*verbose){
     REprintf("geno matrix:\n");
     for(i=0;i< *n_subject;i++){
       for (j=0; j< (2*n_loci); j++) {
@@ -130,7 +123,7 @@ void haplo_em_pin(
       }
       REprintf("\n");
     }
-  } 
+  }
 
   prior = (double *) Calloc(*max_haps, double);
  
@@ -150,6 +143,7 @@ void haplo_em_pin(
     errmsg("could not alloc mem for hap_list");
   }
 
+
   /* put geno data into haplo list */
   
   pair_id = - 1;
@@ -165,7 +159,7 @@ void haplo_em_pin(
     n_hap++;
 
     hap_list[indx1] = new_hap(i, pair_id, weight[i], 0.0, 1.0);
-
+ 
     hap_list[indx2]  = new_hap(i, pair_id, weight[i], 0.0, 1.0);
 
     k=0;
@@ -352,7 +346,6 @@ void haplo_em_pin(
 
   unique_haps(n_hap, hap_list, u_hap_list, prior);
 
-//RS comment: Final Haplo Freqs printed here (if verbose=1)
   if(*verbose){
     REprintf("\nn_u_hap = %d\n",n_u_hap);
     REprintf("\nunique haps\n\n"); 
@@ -1046,9 +1039,9 @@ void haplo_em_ret_info(
   )
 {
 
+
   int i,j,k;
   HAP **h;
-
   k= -1;
   for(i=0;i<n_u_hap;i++){
     hap_prob[i] = ret_u_hap_list[i]->prior;
@@ -1068,6 +1061,7 @@ void haplo_em_ret_info(
     hap2_code[i] = (*h)->code;
     h++;
   }
+
 
   return;
 }
@@ -1446,11 +1440,11 @@ int haplo_em_ret_info_wrap(
   return 0;
 }
 
-/* A MAIN FUNCTION THAT CALLS haplo_em_pin() */
+/* a main function that calls haplo_em_pin() */
 int main( void ) {
      int index;
 
-     /* EXAMPLE FROM HAPLO.STATS: hla.demo[,c(17,18,21:24)]; label <-c("DQB","DRB","B") */
+     /* example from haplo.stats: hla.demo[,c(17,18,21:24)]; label <-c("DQB","DRB","B") */
      int n_loci = 2;
      int n_subject = 5;
      double weight[ ] = { 1, 1, 1, 1, 1 }; 
@@ -1497,7 +1491,7 @@ int main( void ) {
      int geno_vec[ ] = { 2,1,2,1,2,1,10,9,10,6,2,10,11,10,6,6,2,10,10,2,2,1,6,5,12,6,11,12,2,2,2,11,6,1,2,11,6,11,2,11,10,1,1,3,2,1,1,6,10,8,3,10,11,2,5,1,12,2,11,6,3,3,11,3,11,10,11,2,5,12,7,1,1,5,3,12,2,10,1,10,4,3,10,10,2,3,10,2,2,1,10,4,1,10,3,10,1,1,1,2,4,2,1,5,6,3,2,9,2,1,4,2,9,2,1,1,5,2,2,4,2,3,1,4,2,1,8,2,3,2,5,4,1,3,8,4,2,4,4,3,2,5,3,2,4,2,3,1,2,4,8,5,9,5,8,5,9,8,2,1,4,4,9,4,9,9,9,10,6,9,4,3,3,6,4,9,9,9,8,8,10,9,2,6,8,9,7,9,4,9,2,5,3,4,6,5,3,3,3,10,18,1,5,1,12,2,1,9,1,5,9,13,9,1,12,12,13,1,1,16,9,2,2,6,12,1,18,14,2,1,1,8,4,2,6,16,1,9,9,9,1,3,2,9,18,9,2,2,2,9,17,9,18,9,13,9,19,9,6,6,16,5,18,16,1,6,17,19,4,17,5,9,16,16,1,6,7,6,5,11,15,16,6,6,7,13,7,9,9,20,9,14,2,10,16,4,2,15,4,13 };
 */
 
-     /* GUESSING AT HOW TO INITIALIZE THESE */
+     /* guessing at how to initialize these */
      double  min_prior = 0.0;          /* trim haplo's with prior < min_prior            */
      int     converge = 0;             /* convergence indicator for EM                   */
      double  S_lnlike = -9.9;          /* lnlike from final EM                           */
@@ -1506,7 +1500,7 @@ int main( void ) {
      int     prod1 = 1;
      int i, j, k;
 
-     /* PRINT geno_vec */
+     /* print geno_vec */
      printf("geno_vec = [");
      for(index = 0; index < 20; index++)
        printf( "%d, ", geno_vec[index]);
@@ -1585,4 +1579,4 @@ int main( void ) {
     haplo_free_memory();
 
     return 0;
-  } /* END MAIN */
+  } /* end main */
