@@ -40,6 +40,7 @@
 """
 
 import os, sys, string, types, re, shutil, copy, operator
+import numpy as np
 from numpy import zeros, take, asarray
 from numpy.lib import user_array
 
@@ -524,6 +525,51 @@ class StringMatrix(user_array.container):
       else:
           raise KeyError("keys must be a string or tuple")
 
+  def getNewStringMatrix(self, key):
+      """Create an entirely new StringMatrix using only the columns supplied
+      in the keys.
+
+      The format of the keys is identical to __getitem__ except that
+      it in this case returns a full StringMatrix instance which
+      includes all metadata
+      """
+      
+      if type(key) == types.StringType:
+          colNames = string.split(key, ":")
+
+          # need both column position and names to reconstruct matrix
+          newColPos = [];   newColList = []
+          newExtraPos = []; newExtraList = []
+          for col in colNames:
+              # check first in list of alleles
+              if col in self.colList:
+                  # get relative location in list
+                  relativeLoc = self.colList.index(col)
+                  # calculate real locations in array
+                  col1 = relativeLoc * 2 + self.extraCount
+                  col2 = col1 + 1
+                  newColPos.append(col1)
+                  newColPos.append(col2)
+                  newColList.append(col)
+              # now check in non-allele metadata
+              elif col in self.extraList:
+                  newExtraPos.append(self.extraList.index(col))
+                  newExtraList.append(col)
+              else:
+                  raise KeyError("can't find %s column" % col)
+
+      # build a new matrix using the parameters from the current
+      newMatrix = StringMatrix(rowCount=self.rowCount,
+                               colList=newColList,
+                               extraList=newExtraList,
+                               colSep=self.colSep,
+                               headerLines=self.headerLines)
+
+      # copy just the columns we requested, both loci cols + extras
+      newExtraPos.extend(newColPos)
+      newMatrix.array = self.array[:,newExtraPos]
+      return newMatrix
+
   def __setitem__(self, index, value):
       """Override built in.
 
@@ -557,6 +603,85 @@ class StringMatrix(user_array.container):
           self.array[(row,col)] = asarray(value,self._dtype)
       else:
           raise KeyError("can't find %s column" % col)
+
+  def getUniqueAlleles(self, key):
+      """
+      Return a list of unique integers for given key sorted by allele name using natural sort
+      """
+      uniqueAlleles = []
+      for genotype in self.__getitem__(key):
+          for allele in genotype:
+              str_allele = str(allele)
+              if str_allele not in uniqueAlleles:
+                  uniqueAlleles.append(str_allele)
+      uniqueAlleles.sort(key=natural_sort_key) # natural sort
+      return uniqueAlleles
+
+  def convertToInts(self):
+      """
+      Convert matrix to integers: needed for haplo-stats
+      Note that integers start at 1 for compatibility with haplo-stats module
+      FIXME: check whether we need to release memory
+      """
+      
+      # create a new copy
+      newMatrix = self.copy()
+      for colName in self.colList:
+          uniqueAlleles = self.getUniqueAlleles(colName)
+          row = 0
+          for genotype in self.__getitem__(colName):
+              factor_genotype = []
+              for allele in genotype:
+                  pos = uniqueAlleles.index(str(allele)) + 1
+                  factor_genotype.append(pos)
+              newMatrix[row, colName] = tuple(factor_genotype)
+              row += 1
+
+      return newMatrix
+
+  def countPairs(self):
+      """Given a matrix of genotypes (pairs of columns for each
+      locus), compute number of possible pairs of haplotypes for each
+      subject (the rows of the geno matrix)
+
+      FIXME: this does *not* do any involved handling of missing data
+      as per geno.count.pairs from haplo.stats
+
+      FIXME: should these methods eventually be moved to Genotype class?
+      """
+
+      # count number of unique alleles at each loci
+      n_alleles = {}
+      for colName in self.colList:
+          n_alleles[colName] = len(self.getUniqueAlleles(colName))
+
+      # count pairs of haplotypes for subjects without any missing alleles
+      # FIXME: maybe convert to it's own method as per getUniqueAlleles 
+      h1 = self.array[:, 0::2]  # get "_1" allele (odd cols)
+      h2 = self.array[:, 1::2]  # get "_2" allele (even cols)
+      n_het = np.sum(np.not_equal(h1, h2), 1)  # equivalent of: apply(h1!=h2,1,sum)
+      n_het = np.where(n_het == 0, 1, n_het)      # equivalent of: ifelse(n.het==0,1,n.het)
+      n_pairs = 2 ** (n_het - 1)   # equivalent of: n.pairs = 2^(n.het-1)
+
+      return n_pairs.tolist()
+
+  def flattenCols(self):
+      """Flatten columns into a single list
+      FIXME: assumes entries are integers
+      """
+      flattened_matrix = []
+
+      for col in self.colList:  # FIXME: currently assume we want whole matrix
+          # FIXME: possibly refactor extracting column logic with __getitem__
+          relativeLoc = self.colList.index(col)
+          col1 = relativeLoc * 2 + self.extraCount
+          col2 = col1 + 1
+          first_col = [int(x) for x in self.array[:,col1]]
+          flattened_matrix.extend(first_col)
+          second_col = [int(x) for x in self.array[:,col2]]
+          flattened_matrix.extend(second_col)
+
+      return flattened_matrix
 
   def filterOut(self, key, blankDesignator):
       """Returns a filtered matrix.
@@ -617,6 +742,9 @@ class Group:
 
 ### global FUNCTIONS start here
 
+def natural_sort_key(s, _nsre=re.compile('([0-9]+)')):
+    return [int(text) if text.isdigit() else text.lower()
+            for text in re.split(_nsre, s)]
 
 def unique_elements(l):
     """Gets the unique elements in a list"""

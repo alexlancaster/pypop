@@ -41,7 +41,7 @@ import sys, os, string, time
 from ParseFile import ParseGenotypeFile, ParseAlleleCountFile
 from DataTypes import Genotypes, AlleleCounts, getLumpedDataLevels
 from Arlequin import ArlequinExactHWTest
-from Haplo import Emhaplofreq, HaploArlequin
+from Haplo import Emhaplofreq, HaploArlequin, Haplostats
 from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin, HardyWeinbergEnumeration
 from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact, HomozygosityEWSlatkinExactPairwise
 from ConfigParser import ConfigParser, NoOptionError, NoSectionError
@@ -1016,11 +1016,73 @@ class Main:
                 debug=self.debug)
             hz.serializeTo(self.xmlStream)
 
+        # Parse [Haplostats] section to estimate haplotypes and LD
+        # skip if not a genotype file, only makes sense for genotype
+        # files.
+
+        if self.config.has_section("Haplostats"):
+
+            try:
+                numInitCond = self.config.getint("Haplostats",
+                                                 "numInitCond")
+            except NoOptionError:
+                numInitCond=10
+            except ValueError:
+                sys.exit("numInitCond: option requires an positive integer greater than 1")
+
+            # set all the control parameters
+            # FIXME: possibly move this into the .ini file eventually?
+            control = {'max_iter': 5000,
+                       'min_posterior': 0.000000001,
+                       'tol': 0.00001,
+                       'insert_batch_size': 2,
+                       'random_start': 0,
+                       'verbose': 0,
+                       'max_haps_limit': 10000 }
+
+            # FIXME: currently this assumes that geno StringMatrix contains only the loci required
+            # need to make sure that this works with subMatrices
+            haplostats = Haplostats(self.input.getIndividualsData(),
+                                    debug=self.debug,
+                                    untypedAllele=self.untypedAllele,
+                                    stream=self.xmlStream,
+                                    testMode=self.testMode)
+
+            # start by serializing the start of the XML block
+            haplostats.serializeStart()
+
+            try:
+                locusKeys=self.config.get("Haplostats", "lociToEstHaplo")
+            except NoOptionError:
+                # or if no option given, use wildcard, which assumes all loci
+                locusKeys='*'
+
+            # do haplotype (and LD if two locus) estimation
+            haplostats.estHaplotypes(locusKeys=locusKeys, weight=None, control=control, numInitCond=numInitCond)
+
+            try:
+                allPairwise = self.config.getboolean("Haplostats", "allPairwise")
+            except NoOptionError:
+                allPairwise=0
+            except ValueError:
+                sys.exit("require a 0 or 1 as a flag")
+                
+            if allPairwise:
+                # do all pairwise statistics, which always includes LD
+                haplostats.allPairwise(weight=None, control=control, numInitCond=numInitCond)
+
+            # serialize end to XML
+            haplostats.serializeEnd()
+
+
         # Parse [Emhaplofreq] section to estimate haplotypes and LD
         # skip if not a genotype file, only makes sense for genotype
         # files.
 
         if self.config.has_section("Emhaplofreq"):
+
+          print "WARNING: The [Emhaplofreq] module is officially DEPRECATED and may be removed in coming releases."
+          print "Please transition to using the new [Haplostats] module."""
 
           # create object to generate haplotype and LD statistics
           # a wrapper around the emhaplofreq module

@@ -37,10 +37,13 @@
 """Module for estimating haplotypes.
 
 """
-import sys, string, os, re, cStringIO
+import sys, string, os, re, cStringIO, StringIO
+import numpy
+import math
+import itertools as it
 
 from Arlequin import ArlequinBatch
-from Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR
+from Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR, XMLOutputStream
 from DataTypes import checkIfSequenceData, getLocusPairs
 
 class Haplo:
@@ -658,6 +661,468 @@ class Emhaplofreq(Haplo):
             #                      haploSuppressFlag=0,
             #                      mode='all-pairwise-ld-with-permu')
 
+
+def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
+    """Compute LD for pairwise haplotypes from haplotype names and frequencies
+
+    Make standalone so it can be used by any class
+    """
+
+    unique_alleles1 = numpy.unique(haplos[:,0])
+    unique_alleles2 = numpy.unique(haplos[:,1])
+
+    # FIXME: should merge the two into one loop
+    freq1_dict = {}
+    for item, allele in enumerate(haplos[:,0]):
+        if allele in freq1_dict:
+            freq1_dict[allele] += freqs[item]
+        else:
+            freq1_dict[allele] = freqs[item]
+
+    freq2_dict = {}
+    for item, allele in enumerate(haplos[:,1]):
+        if allele in freq2_dict:
+            freq2_dict[allele] += freqs[item]
+        else:
+            freq2_dict[allele] = freqs[item]
+
+    # create an equivalent of a data frame with all haplotypes
+    # initially as a list
+    allhaplos = []
+    for row in list(it.product(unique_alleles1, unique_alleles2)):
+        # get current alleles
+        allele1, allele2 = row
+        # loop through the haplotype frequency to get the haplotype frequency
+        # if it exists for this allele1, allele2 pair
+        i = 0
+        hap_freq = 0.0
+        for hap in haplos:
+            if hap[0] == allele1 and hap[1] == allele2:
+                hap_freq = freqs[i]
+            i += 1
+
+        # add the hap and allele frequencies
+        newrow = (allele1, allele2, freq1_dict[allele1], freq2_dict[allele2], hap_freq)
+        allhaplos.append(newrow)
+
+    # convert to numpy structured array
+    allhaplos = numpy.array(allhaplos, dtype=[('allele1', 'O'), ('allele2', 'O'), ('allele.freq1', float), ('allele.freq2', float), ('haplo.freq', float)])
+
+    # now we extract the columns we need for the computations
+    hap_prob = allhaplos['haplo.freq']
+    a_freq1 = allhaplos['allele.freq1']
+    a_freq2 = allhaplos['allele.freq2']
+    alleles1 = allhaplos['allele1']
+    alleles2 = allhaplos['allele2']
+
+    # get the maximum size of array
+    num_allpossible_haplos = len(allhaplos)
+
+    ## compute Wn & Dprime
+    zero = numpy.array([0.0])
+    dprime_den = zero.repeat(num_allpossible_haplos)
+    d_ij = hap_prob - a_freq1 * a_freq2
+    den_lt0 = numpy.minimum( a_freq1*a_freq2, (1-a_freq1)*(1-a_freq2) )
+    den_ge0 = numpy.minimum( (1-a_freq1)*a_freq2, a_freq1*(1-a_freq2) )
+    dprime_den[d_ij < 0] = den_lt0[d_ij < 0]
+    dprime_den[d_ij >=0] = den_ge0[d_ij >=0]
+    dprime_ij = d_ij/dprime_den
+
+    if debug:
+        print "dprime_den:", dprime_den
+
+        print "i a_freq1 a_freq2 d_ij dprime hap_prob haplo"
+        for i in range(num_allpossible_haplos):
+            print i, a_freq1[i], a_freq2[i], d_ij[i], dprime_ij[i], hap_prob[i], "%s:%s" % (alleles1[i], alleles2[i])
+
+    dp_temp = abs(dprime_ij)*a_freq1*a_freq2
+    dprime = dp_temp.sum()
+    if debug: print "Dprime: ", dprime
+
+    w_ij = (d_ij*d_ij) / (a_freq1*a_freq2)
+    w = w_ij.sum()
+    # FIXME: NOT SURE THIS SYNTAX FOR 'min' IS CORRECT (OR GOOD)
+    # WANT:  wn <- sqrt( w / (min( length(unique(alleles1)), length(unique(alleles2)) ) - 1.0) )
+    w_den = numpy.minimum(numpy.unique(alleles1).size*1.0, numpy.unique(alleles2).size*1.0) - 1.0
+    wn = numpy.sqrt( w / w_den )
+    if debug: print "Wn: ", wn
+
+    if compute_ALD:
+        ## compute ALD
+        F_1 = 0.0
+        F_2_1 = 0.0
+        F_2 = 0.0
+        F_1_2 = 0.0
+        for i in numpy.unique(alleles1):
+           af_1 = numpy.unique(a_freq1[alleles1==i])
+           F_1 = F_1 + af_1**2
+           F_2_1 = F_2_1 + ((hap_prob[alleles1==i]**2)/af_1).sum()
+        for i in numpy.unique(alleles2):
+           af_2 = numpy.unique(a_freq2[alleles2==i])
+           F_2 = F_2 + af_2**2
+           F_1_2 = F_1_2 + ((hap_prob[alleles2==i]**2)/af_2).sum()
+        if F_2 == 1.0:
+           F_2_1_prime = numpy.nan  
+           ALD_2_1 = numpy.nan
+        else:
+           F_2_1_prime = (F_2_1 - F_2)/(1 - F_2)
+           ALD_2_1 = math.sqrt(F_2_1_prime)
+        if F_1 == 1:
+           F_1_2_prime = numpy.nan
+           ALD_1_2 = numpy.nan
+        else:
+           F_1_2_prime = (F_1_2 - F_1)/(1 - F_1)
+           ALD_1_2 = math.sqrt(F_1_2_prime)
+        if debug:
+            print "ALD_1_2:", ALD_1_2
+            print "ALD_2_1:", ALD_2_1
+            # FIXME: NOT SURE YOU CAN ASSIGN nan IN ABOVE if()
+    else:
+        ALD_1_2 = None
+        ALD_2_1 = None
+
+    # FIXME: eventually need to add return of dprime_ij etc.
+    return dprime, wn, ALD_1_2, ALD_2_1
+
+class Haplostats(Haplo):
+    """Haplotype and LD estimation implemented via haplo-stats.
+
+    This is a wrapper to a portion of the 'haplo.stats' R package
+    
+    """
+    def __init__(self, locusData,
+                 debug=0,
+                 untypedAllele='****',
+                 stream=None,
+                 testMode=False):
+
+        # import the Python-to-C module wrapper
+        # lazy importation of module only upon instantiation of class
+        # to save startup costs of invoking dynamic library loader
+        import _Haplostats
+
+        # assign module to an instance variable so it is available to
+        # other methods in class
+        self._Haplostats = _Haplostats
+
+        # FIXME: by default assume we are not dealing sequence data
+        self.sequenceData = 0
+        
+        self.matrix = locusData
+        self.untypedAllele = untypedAllele
+        
+        rows, cols = self.matrix.shape
+        self.totalNumIndiv = rows
+        self.totalLociCount = cols / 2
+        self.debug = debug
+        self.testMode = testMode
+        if stream:
+            self.stream = stream
+        else:  # create a stream if none given
+            self.stream = XMLOutputStream(StringIO.StringIO())            
+
+    def serializeStart(self):
+        """Serialize start of XML output to XML stream"""
+        self.stream.opentag('haplostats')
+        self.stream.writeln()
+
+    def serializeEnd(self):
+        """Serialize end of XML output to XML stream"""
+        self.stream.closetag('haplostats')
+        self.stream.writeln()
+
+    def estHaplotypes(self,
+                      locusKeys=None,
+                      weight=None,
+                      control=None,
+                      numInitCond=10,
+                      testMode=False):
+        """Estimate haplotypes for the submatrix given in locusKeys, if
+        locusKeys is None, assume entire matrix
+        
+        LD is estimated if there are locusKeys consists of only two loci
+
+        FIXME: this does *not* yet remove missing data before haplotype estimations
+        """
+
+        # if wildcard, or not set, do all matrix
+        if locusKeys == '*' or locusKeys == None:
+            locusKeys=string.join(self.matrix.colList,':')
+
+        geno = self.matrix.getNewStringMatrix(locusKeys)
+
+        n_loci = geno.colCount
+        n_subject = geno.rowCount
+
+        subj_id = range(1, n_subject + 1)
+        if n_loci < 2:
+            print "Must have at least 2 loci for haplotype estimation!"
+            exit(-1)
+
+        # set up weight
+        if not weight:
+            weight = [1.0]*n_subject
+        if len(weight) != n_subject:
+            print "Length of weight != number of subjects (nrow of geno)"
+            exit(-1)
+
+        temp_geno = geno.convertToInts()   # simulates setupGeno
+        geno_vec = temp_geno.flattenCols() # gets the columns as integers
+
+        n_alleles = []
+        allele_labels = []
+
+        for locus in geno.colList:
+            unique_alleles = geno.getUniqueAlleles(locus)
+            allele_labels.append(unique_alleles)
+            n_alleles.append(len(unique_alleles))
+
+        # Compute the max number of pairs of haplotypes over all subjects
+        max_pairs = temp_geno.countPairs()
+        max_haps = 2*sum(max_pairs)
+
+        # FIXME: do we need this?
+        if max_haps > control['max_haps_limit']:
+            max_haps = control['max_haps_limit']
+
+        loci_insert_order = range(0, n_loci)
+
+        # FIXME: hardcode
+        if testMode:
+            iseed1 = 18717; iseed2= 16090; iseed3=14502
+            random_start = 0
+        else:
+            seed_array = numpy.random.random(3)
+            iseed1 = int(10000 + 20000*seed_array[0])
+            iseed2 = int(10000 + 20000*seed_array[1])
+            iseed3 = int(10000 + 20000*seed_array[2])
+            random_start = control['random_start']
+
+        converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = \
+                  self._haplo_em_fitter(n_loci,
+                                        n_subject,
+                                        weight,
+                                        geno_vec,
+                                        n_alleles,
+                                        max_haps,
+                                        control['max_iter'],
+                                        loci_insert_order,
+                                        control['min_posterior'],
+                                        control['tol'],
+                                        control['insert_batch_size'],
+                                        random_start,
+                                        iseed1,
+                                        iseed2,
+                                        iseed3,
+                                        control['verbose'])
+
+        if numInitCond > 1:
+            for i in range(1, numInitCond):
+                if testMode:
+                    iseed1 = iseed1 + i*300
+                    iseed2 = iseed2 + i*200
+                    iseed3 = iseed3 + i*100
+                    random_start = 1   # need this in testMode too, apparently
+                else:
+                    seed_array = numpy.random.random(3)
+                    iseed1 = int(10000 + 20000*seed_array[0])
+                    iseed2 = int(10000 + 20000*seed_array[1])
+                    iseed3 = int(10000 + 20000*seed_array[2])
+                    # FIXME: check why this is the case
+                    # original R code always uses random_start on second and subsequent
+                    # initial conditions, regardless of how the control['random_start'] is set
+                    random_start = 1   
+
+                if self.debug:
+                    print "random seeds for initial condition", i, ":", iseed1, iseed2, iseed3
+
+                converge_new, lnlike_new, n_u_hap_new, n_hap_pairs_new, hap_prob_new, \
+                              u_hap_new, u_hap_code_new, subj_id_new, post_new, hap1_code_new, \
+                              hap2_code_new = \
+                              self._haplo_em_fitter(n_loci,
+                                                    n_subject,
+                                                    weight,
+                                                    geno_vec,
+                                                    n_alleles,
+                                                    max_haps,
+                                                    control['max_iter'],
+                                                    loci_insert_order,
+                                                    control['min_posterior'],
+                                                    control['tol'],
+                                                    control['insert_batch_size'],
+                                                    random_start,
+                                                    iseed1,
+                                                    iseed2,
+                                                    iseed3,
+                                                    control['verbose'])
+
+                if lnlike_new > lnlike:
+                    if self.debug:
+                        print "found a better lnlikelihood!", lnlike_new
+                    # FIXME: need more elegant data structure
+                    converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, \
+                              u_hap, u_hap_code, subj_id, post, hap1_code, \
+                              hap2_code = \
+                              converge_new, lnlike_new, n_u_hap_new, n_hap_pairs_new, hap_prob_new, \
+                              u_hap_new, u_hap_code_new, subj_id_new, post_new, hap1_code_new, \
+                              hap2_code_new 
+
+        # convert u_hap back into original allele names
+        haplotype = numpy.array(u_hap, dtype='O').reshape(n_u_hap, -1)
+        for j in range(0, n_loci):
+            for i in range(0, n_u_hap):
+                allele_offset = haplotype[i,j] - 1 #  integers are offset by 1
+                allele_id = allele_labels[j][allele_offset]
+                haplotype[i,j] = allele_id
+
+        # convert back to offset by 1 for R compatibility check
+        hap1_code = [i+1 for i in hap1_code]
+        hap2_code = [i+1 for i in hap2_code]
+        u_hap_code = [i+1 for i in u_hap_code]
+        subj_id = [i+1 for i in subj_id]
+
+        # FIXME: are these, strictly speaking, necessary in Python context?
+        # these arrays can be regenerated from the vectors at any time
+        uhap_df = numpy.c_[u_hap_code, hap_prob]
+        subj_df = numpy.c_[subj_id, hap1_code, hap2_code]
+
+        # XML output for group here
+        self.stream.opentag('group', mode="all-pairwise-ld-no-permu", loci=locusKeys, showHaplo="yes")
+        self.stream.writeln()
+        # FIXME: implement ('uniquepheno') ?
+        self.stream.tagContents('uniquegeno', "%d" % n_hap_pairs)
+        self.stream.writeln()
+        self.stream.tagContents('haplocount', "%d" % n_u_hap)
+        self.stream.writeln()
+        self.stream.opentag('haplotypefreq')
+        self.stream.tagContents('numInitCond', "%d" % numInitCond)
+        self.stream.writeln()
+        self.stream.tagContents('loglikelihood', "%g" % lnlike, role="no-ld")
+        self.stream.writeln()
+        self.stream.writeln()
+        self.stream.tagContents('condition', "", role='converged')
+        self.stream.writeln()
+
+        for i in range(0, n_u_hap):
+            hapname = ""
+            for j in range(0, n_loci):
+                hapname += "%s" % haplotype[i, j]
+                if j < n_loci - 1:
+                    hapname += GENOTYPE_SEPARATOR
+
+            self.stream.opentag('haplotype', name=hapname)
+            self.stream.tagContents('frequency', str(hap_prob[i]))
+            # FIXME: check computation of numCopies
+            # self.stream.tagContents('numCopies', str(hap_prob[i] * n_u_hap))
+            self.stream.closetag('haplotype')
+            self.stream.writeln()
+
+        self.stream.closetag('haplotypefreq')
+        self.stream.writeln()
+
+        # LD calculations, and only do and output to XML for two locus haplotypes
+        if n_loci == 2:
+            dprime, Wn, ALD_1_2, ALD_2_1 = _compute_LD(haplotype, hap_prob, compute_ALD=True, debug=self.debug)  
+
+            # output LD to XML
+            # FIXME just summary stats for the moment
+            self.stream.opentag('linkagediseq')
+            self.stream.writeln()
+            # hardcode 0 and 1, because we are only ever doing pairwise (for now)
+            self.stream.opentag('summary', first="0", second="1")
+            self.stream.tagContents('wn', "%g" % Wn)
+            self.stream.writeln()
+            # FIXME have no chisq test here for the moment
+            self.stream.writeln()
+            self.stream.tagContents('dprime', "%g" % dprime)
+            self.stream.writeln()
+            self.stream.tagContents('ALD_1_2', "%g" % ALD_1_2)
+            self.stream.writeln()
+            self.stream.tagContents('ALD_2_1', "%g" % ALD_2_1)
+            self.stream.writeln()
+            self.stream.closetag('summary')
+            self.stream.writeln()
+            self.stream.closetag('linkagediseq')
+            self.stream.writeln()
+        else:
+            dprime, Wn, ALD_1_2, ALD_2_1 = None, None, None, None
+        
+        self.stream.closetag('group')
+        self.stream.writeln()
+        
+        return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype, dprime, Wn, ALD_1_2, ALD_2_1
+
+    def allPairwise(self,
+                    weight=None,
+                    control=None,
+                    numInitCond=10,
+                    mode=None):
+        """Estimate pairwise statistics for all pairs of loci."""
+
+        # FIXME: sequence data *not* currently supported for haplostats
+        locusPairs = getLocusPairs(self.matrix, False)
+        if self.debug: print locusPairs, len(locusPairs)
+        for pair in locusPairs:
+            self.estHaplotypes(locusKeys=pair,
+                               weight=weight,
+                               control=control,
+                               numInitCond=numInitCond,
+                               testMode=self.testMode)
+        
+    def _haplo_em_fitter(self,
+                         n_loci,
+                         n_subject,
+                         weight,
+                         geno_vec,
+                         n_alleles,
+                         max_haps,
+                         max_iter,
+                         loci_insert_order,
+                         min_posterior,
+                         tol,
+                         insert_batch_size,
+                         random_start,
+                         iseed1,
+                         iseed2,
+                         iseed3,
+                         verbose):
+
+        _Haplostats = self._Haplostats
+
+        converge = 0
+        min_prior = 0.0
+        n_unique = 0
+        lnlike = 0.0
+        n_u_hap = 0
+        n_hap_pairs = 0
+
+        tmp1 = _Haplostats.haplo_em_pin_wrap(n_loci, n_subject, weight, n_alleles,
+                                             max_haps, max_iter, loci_insert_order,
+                                             min_prior, min_posterior, tol, insert_batch_size,
+                                             random_start, iseed1, iseed2, iseed3, verbose, geno_vec)
+
+        # values returned from haplo_em_pin
+        status1, converge, lnlike, n_u_hap, n_hap_pairs = tmp1
+
+        tmp2 = _Haplostats.haplo_em_ret_info_wrap(\
+            # input parameters
+            n_u_hap, n_loci, n_hap_pairs,
+            # output parameters: declaring array sizes for ret_val
+            n_u_hap,          # hap_prob
+            n_u_hap * n_loci, # u_hap
+            n_u_hap,          # u_hap_code
+            n_hap_pairs,        # subj_id
+            n_hap_pairs,        # post
+            n_hap_pairs,        # hap1_code
+            n_hap_pairs,        # hap2_code
+            )
+
+        # values returned from haplo_em_ret_info
+        status2, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = tmp2
+
+        _Haplostats.haplo_free_memory()
+
+        return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code
 
         
 
