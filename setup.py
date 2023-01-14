@@ -61,8 +61,11 @@ if "LIBRARY_PATH" in os.environ:
 if "CPATH" in os.environ:
     include_dirs += os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
 
+# add local SWIG directory for cStringIO.h
+include_dirs += ["SWIG"]
+    
 # define each extension
-ext_Emhaplofreq = Extension("_Emhaplofreq",
+ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
                             ["emhaplofreq/emhaplofreq_wrap.i",
                              "emhaplofreq/emhaplofreq.c"],
                             swig_opts = ["-ISWIG"],
@@ -72,13 +75,14 @@ ext_Emhaplofreq = Extension("_Emhaplofreq",
                                            ('EXTERNAL_MODE', '1'),
                                            ('XML_OUTPUT', '1')]
                             )
-ext_EWSlatkinExact = Extension("_EWSlatkinExact",
+ext_EWSlatkinExact = Extension("_EWSlatkinExactmodule",
                                ["slatkin-exact/monte-carlo_wrap.i",
                                 "slatkin-exact/monte-carlo.c"],
                                swig_opts = ["-ISWIG"],
+                               include_dirs=include_dirs,
                                )
 
-ext_Pvalue = Extension("_Pvalue",
+ext_Pvalue = Extension("_Pvaluemodule",
                        ["pval/pval_wrap.i",
                         "pval/pval.c",
                         "pval/pchisq.c",
