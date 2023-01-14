@@ -41,6 +41,8 @@
 
 import os, sys, types, stat, re, shutil, copy, operator
 from numpy import zeros, take, asarray
+GENOTYPE_SEPARATOR = "~"
+GENOTYPE_TERMINATOR= "|"
 from numpy.lib.user_array import container
 
 class TextOutputStream:
@@ -402,7 +404,7 @@ class StringMatrix(container):
       self.array = zeros((self.rowCount, self.colCount*2+self.extraCount))
       self.shape = self.array.shape
       self._typecode = self.array.dtype # Numeric array.typecode()
-      self.name = string.split(str(self.__class__))[0]
+      self.name = str(self.__class__).split()[0]
 
   def __repr__(self):
       """Override default representation.
@@ -430,16 +432,16 @@ class StringMatrix(container):
       if locus:
           locusList = locus
       else:
-          locusList = string.join(self.colList,':')
+          locusList = (self.colList).join(':')
 
       # next write out the allele column headers
-      for elem in string.split(locusList, ':'):
+      for elem in locusList.split(':'):
           stream.write(elem + '_1' + self.colSep)
           stream.write(elem + '_2' + self.colSep,)
       stream.write(os.linesep)
 
       # finally the matrix itself
-      for row in self.__getitem__(string.join(self.extraList,':')+ ':' + \
+      for row in self.__getitem__(self.extraList.join(':')+ ':' + \
                                   locusList):
           for elem in row:
               stream.write(elem + self.colSep)
@@ -488,7 +490,7 @@ class StringMatrix(container):
               raise KeyError("can't find %s column" % colName)
           return self.array[(row,col)]
       elif type(key) == types.StringType:
-          colNames = string.split(key, ":")
+          colNames = key.split(":")
           li = []
           for col in colNames:
               # check first in list of alleles
@@ -527,7 +529,7 @@ class StringMatrix(container):
       """
       
       if type(key) == types.StringType:
-          colNames = string.split(key, ":")
+          colNames = key.split(":")
 
           # need both column position and names to reconstruct matrix
           newColPos = [];   newColList = []
@@ -700,7 +702,7 @@ class StringMatrix(container):
       """
       li = self.__getitem__(key)
 
-      colName = string.replace(key, ":", "-")
+      colName = key.replace(":", "-")
       newMatrix = StringMatrix(rowCount=copy.deepcopy(self.rowCount), \
                                colList=copy.deepcopy([colName]),
                                extraList=copy.deepcopy(self.extraList),
@@ -709,8 +711,8 @@ class StringMatrix(container):
 
       pos = 0
       for i in li:
-          newMatrix[pos, colName] = (string.join(i[0::2], ":"),
-                                     string.join(i[1::2],":"))
+          newMatrix[pos, colName] = (i[0::2].join(":"),
+                                     i[1::2].join(":"))
           pos += 1
 
       return newMatrix

@@ -50,7 +50,7 @@ def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
 
   total_indivs = total_gametes/2
 
-  allele1, allele2 = string.split(genotype, GENOTYPE_SEPARATOR)
+  allele1, allele2 = genotype.split(GENOTYPE_SEPARATOR)
   p_i = alleleFreqs[allele1]
   p_j = alleleFreqs[allele2]
 
@@ -193,7 +193,7 @@ class HardyWeinberg:
       else:
         self.observedGenotypeCounts[genotype] = 1
 
-      temp = string.split(genotype, GENOTYPE_SEPARATOR)
+      temp = genotype.split(GENOTYPE_SEPARATOR)
       if temp[0] == temp[1]:
         self.totalHomsObs += 1
       else:
@@ -223,7 +223,7 @@ class HardyWeinberg:
 
       - and build table of observed genotypes for each allele"""
 
-      temp = string.split(genotype, GENOTYPE_SEPARATOR)
+      temp = genotype.split(GENOTYPE_SEPARATOR)
       if temp[0] == temp[1]:         # homozygote, N * pi * pi
         self.expectedGenotypeCounts[genotype] = self.n * \
         self.alleleFrequencies[temp[0]] * self.alleleFrequencies[temp[1]]
@@ -355,7 +355,7 @@ class HardyWeinberg:
 
         # Count the common genotypes in categories by allele.
         # Used to determine DoF for common genotypes later.
-        temp = string.split(genotype, GENOTYPE_SEPARATOR)
+        temp = genotype.split(GENOTYPE_SEPARATOR)
         if self.counterA.has_key(temp[0]):
           self.counterA[temp[0]] += 1
         else:
@@ -780,8 +780,8 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     self.sortedAlleles.sort()
 
     if self.debug:
-      print "sortedAlleles: ", self.sortedAlleles
-      print "observedGenotypeCounts: ", self.observedGenotypeCounts
+      print ("sortedAlleles: ", self.sortedAlleles)
+      print ("observedGenotypeCounts: ", self.observedGenotypeCounts)
 
     # allele list
     self.flattenedMatrix = []
