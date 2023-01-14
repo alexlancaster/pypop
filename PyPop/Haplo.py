@@ -37,7 +37,7 @@
 """Module for estimating haplotypes.
 
 """
-import sys, string, os, re, cStringIO, StringIO
+import sys, os, re, cStringIO, StringIO
 import numpy
 import math
 import itertools as it
@@ -261,16 +261,16 @@ KeepNullDistrib=0""")
                 sampleCount = matchobj.group(2)
                 liststr = matchobj.group(3)
                 # convert into list of loci
-                lociList = map(int, string.split(liststr, ','))
+                lociList = map(int, liststr.split(','))
                 freqs = {}
                 
             if dataFound:
                 if line != os.linesep:
                     if self.debug:
-                        print string.rstrip(line)
+                        print(line.rstrip())
                     matchobj = re.search(patt3, line)
                     if matchobj:
-                        cols = string.split(matchobj.group(1))
+                        cols = matchobj.group(1).split()
                         haplotype = cols[2]
                         for i in windowRange:
                             haplotype = haplotype + "_" + cols[2+i]
@@ -393,13 +393,13 @@ class Emhaplofreq(Haplo):
 
         # create an in-memory file instance for the C program to write
         # to; this remains in effect until end of method
-        fp = cStringIO.StringIO()
+        fp = io.StringIO()
 
         if (permutationFlag == None) or (haploSuppressFlag == None):
             sys.exit("must pass a permutation or haploSuppressFlag to _runEmhaplofreq!")
-	
-	# make all locus keys uppercase
-	locusKeys = string.upper(locusKeys)
+
+        # make all locus keys uppercase
+        locusKeys = locusKeys.uppercase()
 
         # if no locus list passed, assume calculation of entire data
         # set
@@ -407,15 +407,15 @@ class Emhaplofreq(Haplo):
             # create key for entire matrix
             locusKeys = ':'.join(self.matrix.colList)
 
-        for group in string.split(locusKeys, ','):
-            
+        for group in locusKeys.split(','):
+           
             # get the actual number of loci being estimated
-            lociCount = len(string.split(group,':'))
+            lociCount = len(group.split(':'))
 
             if self.debug:
-                print "number of loci for haplotype est:", lociCount
+                print("number of loci for haplotype est:", lociCount)
 
-                print lociCount, self._Emhaplofreq.MAX_LOCI
+                print(lociCount, self._Emhaplofreq.MAX_LOCI)
 
             if lociCount <= self._Emhaplofreq.MAX_LOCI:
 
@@ -428,20 +428,20 @@ class Emhaplofreq(Haplo):
                 groupNumIndiv = len(subMatrix)
 
                 if self.debug:
-                    print "debug: key for matrix:", group
-                    print "debug: subMatrix:", subMatrix
-                    print "debug: dump matrix in form for command-line input"
+                    print("debug: key for matrix:", group)
+                    print("debug: subMatrix:", subMatrix)
+                    print("debug: dump matrix in form for command-line input")
                     for line in range(0, len(subMatrix)):
                         theline = subMatrix[line]
-                        print "dummyid",
+                        print("dummyid"),
                         for allele in range(0, len(theline)):
-                            print theline[allele], " ",
-                        print
+                            print(theline[allele], " "),
+                        print()
                     
                 fp.write(os.linesep)
 
                 if self.sequenceData:
-                    metaLoci = string.split(string.split(group, ':')[0],'_')[0]
+                    metaLoci = group.split(':')[0].split('_')[0]
                 else:
                     metaLoci = None
 
@@ -462,7 +462,7 @@ class Emhaplofreq(Haplo):
                         if len(allele) > maxAlleleLength:
                             maxAlleleLength = len(allele)
                         if len(allele) > (self._Emhaplofreq.NAME_LEN)-2:
-                            print "WARNING: '%s' (%d) exceeds max allele length (%d) for LD and haplo est in %s" % (allele, len(allele), self._Emhaplofreq.NAME_LEN-2, lociAttr)
+                            print("WARNING: '%s' (%d) exceeds max allele length (%d) for LD and haplo est in %s" % (allele, len(allele), self._Emhaplofreq.NAME_LEN-2, lociAttr))
 
                 if groupNumIndiv > self._Emhaplofreq.MAX_ROWS:
                     fp.write("<group %s role=\"too-many-lines\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
@@ -515,9 +515,9 @@ class Emhaplofreq(Haplo):
 
                 if self.debug:
                     # in debug mode, print the in-memory file to sys.stdout
-                    lines = string.split(fp.getvalue(), os.linesep)
+                    lines = fp.getvalue().split(os.linesep)
                     for i in lines:
-                        print "debug:", i
+                        print("debug:", i)
 
             else:
                 fp.write("Couldn't estimate haplotypes for %s, num loci: %d exceeded max loci: %d" % (group, lociCount, self._Emhaplofreq.MAX_LOCI))
@@ -617,12 +617,12 @@ class Emhaplofreq(Haplo):
         li = getLocusPairs(self.matrix, self.sequenceData)
 
         if self.debug:
-            print li, len(li)
+            print(li, len(li))
 
         for pair in li:
             # generate the reversed order in case user
             # specified it in the opposite sense
-            sp = string.split(pair,':')
+            sp = pair.split(':')
             reversedPair =  sp[1] + ':' + sp[0]
 
             if (pair in haplosToShow) or (reversedPair in haplosToShow):

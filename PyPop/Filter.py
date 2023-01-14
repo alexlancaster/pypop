@@ -193,7 +193,7 @@ class AnthonyNolanFilter(Filter):
                         self.alleleLookupTable[name].append(allele)
 
         if self.debug:
-            print self.alleleLookupTable
+            print(self.alleleLookupTable)
 
 
     def doFiltering(self, matrix=None):
@@ -205,7 +205,7 @@ class AnthonyNolanFilter(Filter):
 
         for locus in self.matrix.colList:
             if self.debug:
-               print "locus name:", locus
+               print("locus name:", locus)
 
             # first pass runs generates the counts need for final
             # reassignment
@@ -239,7 +239,7 @@ class AnthonyNolanFilter(Filter):
                 self.matrix[rowCount,locus] = (allele1, allele2)
 
                 if self.debug:
-                    print rowCount, self.matrix[rowCount,locus]
+                    print(rowCount, self.matrix[rowCount,locus])
 
                 # increment row count
                 rowCount += 1
@@ -347,8 +347,8 @@ class AnthonyNolanFilter(Filter):
     def endFirstPass(self):
 
         if self.debug:
-            print "translation table:", self.translTable
-            print "count table:", self.countTable
+            print("translation table:", self.translTable)
+            print("count table:", self.countTable)
 
         translKeys =  self.translTable.keys()
 
@@ -417,7 +417,7 @@ class AnthonyNolanFilter(Filter):
         self.logFile.closetag('firstpass')
         self.logFile.writeln()
         if self.debug:
-            print "after filtering:", self.translTable
+            print("after filtering:", self.translTable
 
     def startFiltering(self):
         self.logFile.opentag('translateTable', locus=self.locus)
@@ -480,7 +480,7 @@ class AnthonyNolanFilter(Filter):
         for locus in locusList:
 
             if self.debug:
-               print "------> beginning sequence translation of locus: %s <------" % locus
+               print("------> beginning sequence translation of locus: %s <------" % locus
 
             # self.sequences is a dictionary, keyed on allele, used to
             # temporarily store full sequences
@@ -537,7 +537,7 @@ class AnthonyNolanFilter(Filter):
                             elif len(allele) == 5 and allele.isdigit():
                                 allele6digits = allele[:4] + '0' + allele[4:5]
                                 if self.debug:
-                                    print '%s NOT found in msf file (probably because it is five digits), trying %s' % (allele, allele6digits)
+                                    print('%s NOT found in msf file (probably because it is five digits), trying %s' % (allele, allele6digits)
                                 if allele6digits in self.alleleLookupTable[locus]:
                                     self.sequences[allele] = self._getSequenceFromLines(locus, allele6digits)
                                 else:
@@ -547,7 +547,7 @@ class AnthonyNolanFilter(Filter):
                             elif len(allele) == 7 and allele.isdigit():
                                 allele8digits = allele[:4] + '0' + allele[4:6]
                                 if self.debug:
-                                    print '%s NOT found in msf file (probably because it is seven digits), trying %s' % (allele, allele8digits)
+                                    print('%s NOT found in msf file (probably because it is seven digits), trying %s' % (allele, allele8digits)
                                 if allele8digits in self.alleleLookupTable[locus]:
                                     self.sequences[allele] = self._getSequenceFromLines(locus, allele8digits)
                                 else:
@@ -557,7 +557,7 @@ class AnthonyNolanFilter(Filter):
                                 self.sequences[allele] = self._getConsensusFromLines(locus, allele)
 
             if self.debug:
-                print 'full sequence for locus', locus, self.sequences
+                print('full sequence for locus', locus, self.sequences
 
             # Make the self.unsequenedSite (normally '#') the standard null placeholder
             for allele in self.sequences:
@@ -625,8 +625,8 @@ class AnthonyNolanFilter(Filter):
 
 
         if self.debug:
-            print self.polyseq
-            print self.polyseqpos
+            print(self.polyseq
+            print(self.polyseqpos
 
         return self.polyseq, self.polyseqpos
 
@@ -704,8 +704,8 @@ class AnthonyNolanFilter(Filter):
         rowCount = len(self.matrix[locus])
 
         if self.debug:
-            print rowCount
-            print colList
+            print(rowCount
+            print(colList
         
         seqMatrix = StringMatrix(rowCount, colList)
 
@@ -743,7 +743,7 @@ class AnthonyNolanFilter(Filter):
                 individCount += 1
 
         if self.debug:
-            print seqMatrix
+            print(seqMatrix
 
         return seqMatrix
 
@@ -794,18 +794,18 @@ class AnthonyNolanFilter(Filter):
         if len(seq) < self.length:
             # pad with X's if the length is too short 
             if self.debug:
-                print '%s is found, PADDED with %d Xs so it equals alignment length (%d).' % (allele,self.length-len(seq),self.length)
+                print('%s is found, PADDED with %d Xs so it equals alignment length (%d).' % (allele,self.length-len(seq),self.length)
             seq += 'X'*(self.length-len(seq))
 
         elif len(seq) > self.length:
             # truncate if length is too long (FIXME: this should at least raise a warning)
             if self.debug:
-                print '%s is found, TRUNCATED by %d so it equals alignment length (%d).' % (allele,len(seq)-self.length,self.length)
+                print('%s is found, TRUNCATED by %d so it equals alignment length (%d).' % (allele,len(seq)-self.length,self.length)
             seq = seq[:self.length-len(seq)]
 
         else:
             if self.debug:
-                print '%s is found, length okay.' % (allele)
+                print('%s is found, length okay.' % (allele)
 
         return seq
 
@@ -839,12 +839,12 @@ class AnthonyNolanFilter(Filter):
         
         if len(closestMatches) == 0:
             if self.debug:
-                print '%s NOT found in the msf file, no close matches found.' % allele
+                print('%s NOT found in the msf file, no close matches found.' % allele
             seq = '*' * self.length
 
         elif len(closestMatches) == 1:
             if self.debug:
-                print '%s NOT found in the msf file, %s is only close match, so using that.' % (allele,closestMatches.keys()[0])
+                print('%s NOT found in the msf file, %s is only close match, so using that.' % (allele,closestMatches.keys()[0])
             seq = closestMatches.values()[0]
 
         else:
@@ -878,7 +878,7 @@ class AnthonyNolanFilter(Filter):
                         letterOfTheLaw = letter
 
                 if self.debug:
-                    print uniqueCounter
+                    print(uniqueCounter
                 uniqueCount = len(uniqueCounter)
 
                 if uniqueCount == 1:
@@ -887,8 +887,8 @@ class AnthonyNolanFilter(Filter):
                     seq += self.unsequencedSite
 
             if self.debug:
-                print seq
-                print '%s NOT found in the msf file, so we use a consensus of ' % allele, closestMatches.keys()
+                print(seq
+                print('%s NOT found in the msf file, so we use a consensus of ' % allele, closestMatches.keys()
 
         return seq
 
@@ -997,7 +997,7 @@ class BinningFilter:
         if exactMatches != []:
             self.logFile.writeln("Exact rule match: " + locus + "* " + testAllele + " is being replaced by " + exactMatches[0])
             if len(exactMatches) > 1:
-                print "WARNING: other exact matches found: " + locus + "* " + testAllele + exactMatches
+                print("WARNING: other exact matches found: " + locus + "* " + testAllele + exactMatches
             return(exactMatches[0])
 
         elif len(closeMatches) > 0:
@@ -1008,7 +1008,7 @@ class BinningFilter:
                     finalMatch = match
             self.logFile.writeln("Close rule match: " + locus + "* " + testAllele + " is being replaced by " + finalMatch)
             if len(closeMatches) > 1:
-                print "WARNING: other close matches found: " + locus + "* " + testAllele + closeMatches
+                print("WARNING: other close matches found: " + locus + "* " + testAllele + closeMatches
             return(finalMatch)
 
         else:
@@ -1046,7 +1046,7 @@ class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
             filteredAllele = self.translTable[allele]
 
             if self.debug:
-                print allele, "translates to", filteredAllele, "and has count", self.countTable[filteredAllele]
+                print(allele, "translates to", filteredAllele, "and has count", self.countTable[filteredAllele]
 
             # if below the threshold, make allele 'lump
             if self.countTable[filteredAllele] <= self.lumpThreshold:

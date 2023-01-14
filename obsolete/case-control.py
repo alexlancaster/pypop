@@ -12,16 +12,16 @@ def stripSuffix(filename):
 
 def lociListSuffix(lociList):
     suffix = ""
-    print lociList, len(lociList)
+    print(lociList, len(lociList)
     for i in lociList:
-        print "locus:", i
+        print("locus:", i)
         extra = "%02d" % i
-        print "formatting:", extra
+        print("formatting:", extra)
         if suffix == "":
             suffix = extra
         else:
             suffix = suffix + "-" + extra
-        print "new suffix:", suffix
+        print("new suffix:", suffix)
     return suffix
 
 def genArpFilename(prefix, lociList):
@@ -46,7 +46,7 @@ def outputHaploFiles(filename, haplotypes):
         freqs, popName, sampleCount, lociList = window
         f = open(genArpFilename(filename, lociList), 'w')
         for haplotype in freqs.keys():
-            # print haplotype, freqs[haplotype]
+            # print(haplotype, freqs[haplotype]
             f.write("%s %s %s" % (haplotype, freqs[haplotype], os.linesep))
         f.close()
 
@@ -79,7 +79,7 @@ def recordSummary(data, popName, lociList):
     pop = popName[:-(len("-cases")+1)]
     chrom = popName[-(len("-cases")+1)]
     
-    print pop, chrom, mostsigsofar, totalsig
+    print(pop, chrom, mostsigsofar, totalsig)
 
     datatuple = (totalsig, mostsigsofar)
     # generate haplotype locus name
@@ -88,7 +88,7 @@ def recordSummary(data, popName, lociList):
     if summaryTable.has_key(chrom):
         if summaryTable[chrom].has_key(locus):
             if summaryTable[chrom][locus].has_key(pop):
-                print "has pop key"
+                print("has pop key")
             else:
                 summaryTable[chrom][locus][pop] = datatuple
         else:
@@ -103,8 +103,8 @@ def printSummary():
     chroms = summaryTable.keys()
     chroms.sort()
     for chrom in chroms:
-        print "Chromosome %s" % chrom
-        print
+        print("Chromosome %s" % chrom)
+        print()
 
         # don't sort() loci, haplotypes are not necessarily in lexical
         # order
@@ -113,20 +113,20 @@ def printSummary():
         # get the list of keys from the first loci
         pops = summaryTable[chrom][loci[0]].keys()
         pops.sort()
-        # print the column header
-        print "       ",
+        # print(the column header
+        print("       "),
         for pop in pops:
-            print "%9s" % pop,
-        print
+            print("%9s" % pop),
+        print()
         for locus in loci:
-            print "%7s  " % locus,
+            print("%7s  " % locus),
             pops = summaryTable[chrom][locus].keys()
             pops.sort()
             for pop in pops:
                 totalsig, mostsig = summaryTable[chrom][locus][pop]
-                print "%3s %3s  " % (totalsig, mostsig),
-            print
-        print
+                print("%3s %3s  " % (totalsig, mostsig)),
+            print()
+        print()
 
 def genContingency(casesFilename, controlsFilename, ws, mapOrder, debug):
 
@@ -151,7 +151,7 @@ def genContingency(casesFilename, controlsFilename, ws, mapOrder, debug):
     for window in casesHaplotypes:
         freqs, popName, sampleCount, lociList = window
         contingFilename = popName + "-" + lociListSuffix(lociList) + ".conting"
-        print "running contingency: " + contingFilename
+        print("running contingency: " + contingFilename)
         f = open(contingFilename, 'w')
         f.write("Contingency table" + os.linesep)
         f.write("Population: %s" % popName + os.linesep)
@@ -175,14 +175,14 @@ if len(sys.argv) >= 5:
     if sys.argv[4] == '1':
         debug = 1
     if len(sys.argv) == 6:
-        print sys.argv[5]
+        print(sys.argv[5])
         mapOrder = map(int, string.split(sys.argv[5], ','))
-        print mapOrder
+        print(mapOrder)
 
 if len(listcases) == len(listcontrols):
     for i in range(0, len(listcases)):
-        print "generating contingency for (%s, %s)" % \
-              (os.path.basename(listcases[i]), os.path.basename(listcontrols[i]))
+        print("generating contingency for (%s, %s)" %
+              (os.path.basename(listcases[i]), os.path.basename(listcontrols[i])))
         genContingency(listcases[i], listcontrols[i], windowsize,
                        mapOrder,debug)
 else:

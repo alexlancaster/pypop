@@ -195,15 +195,21 @@ class Main:
 
         # prepend directory to all files if one was supplied
         if self.outputDir:
-            [self.txtOutPath, \
-             self.xmlOutPath, \
-             self.defaultFilterLogPath, \
-             self.defaultPopDumpPath] = \
-             [os.path.join(self.outputDir, x) \
-              for x in self.txtOutFilename, \
-              self.xmlOutFilename, \
-              self.defaultFilterLogFilename, \
-              self.defaultPopDumpFilename]
+            print("Please look in Main.py to fix this.")
+            self.txtOutPath = self.txtOutFilename
+            self.xmlOutPath = self.xmlOutFilename
+            self.defaultFilterLogPath = self.defaultFilterLogFilename
+            self.defaultPopDumpPath = self.defaultPopDumpFilename
+            # I have no idea what you were going for here...
+            #[self.txtOutPath, \
+            # self.xmlOutPath, \
+            # self.defaultFilterLogPath, \
+            # self.defaultPopDumpPath,
+            # [os.path.join(self.outputDir, x) \
+            #  for x in self.txtOutFilename, \
+            #  self.xmlOutFilename, \
+            #  self.defaultFilterLogFilename, \
+            #  self.defaultPopDumpFilename]
         else:
             self.txtOutPath = self.txtOutFilename
             self.xmlOutPath = self.xmlOutFilename
@@ -212,9 +218,9 @@ class Main:
 
         if self.debug:
           for section in self.config.sections():
-            print section
+            print(section)
             for option in self.config.options(section):
-              print " ", option, "=", self.config.get(section, option)
+              print(" ", option, "=", self.config.get(section, option))
 
         # if not provided on command line or provided check .ini
         # options, and use that location, if provided
@@ -222,13 +228,13 @@ class Main:
             try:
                 self.xslFilename = self.config.get("General", "xslFilename")
                 if self.debug:
-                    print "using .ini option for xslFilename:", self.xslFilename
-                checkXSLFile(self.xslFilename, abort=1, \
+                    print("using .ini option for xslFilename:", self.xslFilename)
+                checkXSLFile(self.xslFilename, abort=1,
                              debug=self.debug, msg='specified in .ini file')
             except NoOptionError:
                 # otherwise fall back to xslFilenameDefault
                 if self.debug:
-                    print "xslFilename .ini option not set"
+                    print("xslFilename .ini option not set")
                 if self.xslFilenameDefault:
                     self.xslFilename = self.xslFilenameDefault
                 else:
@@ -236,7 +242,7 @@ class Main:
 
         else:
             if self.debug:
-                print "using user supplied version in: ", self.xslFilename
+                print("using user supplied version in: ", self.xslFilename)
 
         # check to see what kind of file we are parsing
 
@@ -255,7 +261,7 @@ class Main:
             validPopFields = self.config.get(self.fileType, "validPopFields")
         except NoOptionError:
             validPopFields = None
-            print "LOG: Data file has no header data block"
+            print("LOG: Data file has no header data block")
             #sys.exit("No valid population fields defined")
 
         try:
@@ -482,7 +488,7 @@ class Main:
                 except:
                     anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
                     if self.debug:
-                        print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
+                        print("LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath)
                 try:
                     alleleFileFormat = self.config.get(filterCall, "alleleFileFormat")
                 except:
@@ -530,7 +536,7 @@ class Main:
                     for option in self.config.options(filterCall):
                         customBinningDict[option] = string.split(self.config.get(filterCall, option),os.linesep)
                     if self.debug:
-                        print customBinningDict
+                        print(customBinningDict)
                 except:
                     sys.exit("Could not parse the CustomBinning rules.")
                 filter = BinningFilter(debug=self.debug,
@@ -557,7 +563,7 @@ class Main:
                 except:
                     anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
                     if self.debug:
-                        print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
+                        print("LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath)
                 try:
                     sequenceFilterMethod = self.config.get(filterCall, "sequenceConsensusMethod")
                     if sequenceFilterMethod != "greedy":
@@ -581,8 +587,8 @@ class Main:
                 sys.exit("The filter type '" + filterType + "' specified under filter heading '" + filterCall + "' is not recognized.")
 
         if self.debug:
-            print "matrixHistory"
-            print self.matrixHistory
+            print("matrixHistory")
+            print(self.matrixHistory)
 
         # outputs pop file(s)
         if self.popDump:
@@ -873,7 +879,7 @@ class Main:
               try:
                 arlequinExec = self.config.get("Arlequin", "arlequinExec")
               except NoOptionError:
-                print "LOG: Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
+                print("LOG: Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH")
 
             try:
               markovChainStepsHW = self.config.getint("HardyWeinbergGuoThompsonArlequin", \
@@ -908,7 +914,7 @@ class Main:
           if self.config.has_section("HomozygosityEWSlatkinExact"):
             
             try:
-              numReplicates=self.config.getint("HomozygosityEWSlatkinExact", \
+              numReplicates=self.config.getint("HomozygosityEWSlatkinExact",
                                           "numReplicates")
             except NoOptionError:
               numReplicates=10000
@@ -939,8 +945,8 @@ class Main:
                 alleleCountsInitial = inputInitial.getAlleleCountAt(locus)[0]
 
                 if self.debug:
-                    print "alleleCountsInitial", len(alleleCountsInitial), alleleCountsInitial
-                    print "alleleCounts", len(alleleCounts), alleleCounts
+                    print("alleleCountsInitial", len(alleleCountsInitial), alleleCountsInitial)
+                    print("alleleCounts", len(alleleCounts), alleleCounts)
 
                 randomResultsFileName = self.defaultFilterLogPath[:-4]+"-" + locus + "-randomized.tsv"
                 
@@ -948,7 +954,7 @@ class Main:
                 self.filterLogFile.writeln('<![CDATA[')
                 
                 if len(alleleCountsInitial) <= len(alleleCounts):
-                    print 'FilterLog: Locus %s: Initial unique allele count is not bigger than the target count; skipping random binning.' %locus
+                    print('FilterLog: Locus %s: Initial unique allele count is not bigger than the target count; skipping random binning.' %locus)
                     self.filterLogFile.writeln('Locus %s: Initial unique allele count is not bigger than the target count; skipping random binning.' %locus)
 
                 else:
@@ -977,7 +983,7 @@ class Main:
                         except:
                             anthonynolanPath = os.path.join(self.datapath, "anthonynolan", "msf")
                             if self.debug:
-                                print "LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath
+                                print("LOG: Defaulting to system datapath %s for anthonynolanPath data" % anthonynolanPath)
 
                         seqfilter = AnthonyNolanFilter(debug=self.debug,
                                                        directoryName=anthonynolanPath,
@@ -1153,15 +1159,15 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
 
 
           if allPairwiseLD:
-            print "LOG: estimating all pairwise LD:",
+            print("LOG: estimating all pairwise LD:"),
             if allPairwiseLDWithPermu:
-              print "with %d permutations and %d initial conditions for each permutation" % (allPairwiseLDWithPermu, numPermuInitCond),
+              print("with %d permutations and %d initial conditions for each permutation" % (allPairwiseLDWithPermu, numPermuInitCond)),
               if permutationPrintFlag:
-                  print "and each permutation output will be logged to XML"
+                  print("and each permutation output will be logged to XML")
               else:
-                  print
+                  print()
             else:
-              print "with no permutation test"
+              print("with no permutation test")
 
 
           # first set the list of 2-locus haplotypes to show to empty
@@ -1171,15 +1177,15 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             locusKeys=self.config.get("Emhaplofreq", "lociToEstHaplo")
 
             if locusKeys == '*':
-              print "wildcard '*' given for lociToEstHaplo, assume entire data set"
+              print("wildcard '*' given for lociToEstHaplo, assume entire data set")
               locusKeys=string.join(self.input.getIndividualsData().colList,':')
-            print "LOG: estimating haplotype frequencies for",
+            print("LOG: estimating haplotype frequencies for"),
 
             # if we will be running allPairwise*, then exclude any two-locus
             # haplotypes, since we will estimate them as part of 'all pairwise'
             if allPairwiseLD:
 
-              print "all two locus haplotypes,",
+              print("all two locus haplotypes,"),
               modLocusKeys = []
               for group in string.split(locusKeys, ','):
 
@@ -1199,7 +1205,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             if locusKeys:
                 haplo.estHaplotypes(locusKeys=locusKeys,
                                     numInitCond=numInitCond)
-                print "specific haplotypes: [%s]" % locusKeys
+                print("specific haplotypes: [%s]" % locusKeys)
 
           except NoOptionError:
               pass
@@ -1208,7 +1214,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             locusKeysLD=self.config.get("Emhaplofreq", "lociToEstLD")
 
             if locusKeysLD == '*':
-              print "LOG: wildcard '*' given for lociToEstLD, assume entire data set"
+              print("LOG: wildcard '*' given for lociToEstLD, assume entire data set")
               locusKeysLD=string.join(self.input.getIndividualsData().colList,':')
 
             # estimate LD for the specified loci
@@ -1216,7 +1222,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                                            numInitCond=numInitCond,
                                            numPermutations=1001,
                                            numPermuInitCond=numPermuInitCond)
-            print "LOG: estimating LD for specific loci: [%s]" % locusKeysLD
+            print("LOG: estimating LD for specific loci: [%s]" % locusKeysLD)
 
           except NoOptionError:
               pass

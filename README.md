@@ -28,7 +28,12 @@ exec bash -login
 
     git clone https://github.com/alexlancaster/pypop.git
   
-### 3. Install dependencies
+### 4. Install external dependencies
+
+* ```swig``` (Simple Wrapper Interface Generator) 
+* ```gsl``` (GNU Scientific Library)
+* ```Numpy``` (Python Numpy)
+* ```libxml2/libxslt``` (Python bindings)
 
 #### MacOS:
 

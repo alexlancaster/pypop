@@ -36,7 +36,7 @@
 """Python population genetics statistics.
 """
 
-import sys, os, string, time
+import sys, os, time
 
 DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(DIR, '..'))
@@ -119,8 +119,8 @@ return for each prompt.
 
 from getopt import getopt, GetoptError
 from glob import glob
-from ConfigParser import ConfigParser
-from PyPop.Main import getUserFilenameInput, checkXSLFile
+from configparser import ConfigParser
+from Main import getUserFilenameInput, checkXSLFile
 
 try:
   opts, args =getopt(sys.argv[1:],"mlsigc:hdx:f:o:V", ["testmode", "use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "filelist=", "outputdir=", "version", "generate-tsv"])
@@ -274,13 +274,13 @@ else:
       configFilename = 'config.ini'
       fileName = 'no default'
 
-    print interactive_message
+    print(interactive_message)
     
     # read user input for both filenames
     configFilename = getUserFilenameInput("config", configFilename)
     fileNames.append(getUserFilenameInput("population", fileName))
 
-    print "PyPop is processing %s ..." % fileNames[0]
+    print("PyPop is processing %s ..." % fileNames[0])
     
   else:   
     # non-interactive mode: run in 'batch' mode
@@ -290,7 +290,7 @@ else:
     elif fileList:
       # if we are providing the filelist, don't check number of args
       # use list from file as list to check
-      li = [string.strip(f) for f in open(fileList).readlines()]
+      li = [f.strip('\n') for f in open(fileList).readlines()]
     elif len(args) > 0:
       # check number of arguments, must be at least one, but can be more
       # use args as list to check
@@ -341,7 +341,7 @@ else:
   if generateTSV:
     from PyPop.Meta import Meta
     
-    print "Generating TSV (.dat) files..."
+    print("Generating TSV (.dat) files...")
     Meta(popmetabinpath=pypopbinpath,
          datapath=datapath,
          metaXSLTDirectory=None,
@@ -354,9 +354,9 @@ else:
 
   if interactiveFlag:
 
-    print "PyPop run complete!"
-    print "XML output(s) can be found in: ",  xmlOutPaths
-    print "Plain text output(s) can be found in: ",  txtOutPaths
+    print("PyPop run complete!")
+    print("XML output(s) can be found in: ",  xmlOutPaths)
+    print("Plain text output(s) can be found in: ",  txtOutPaths)
 
     # update .pypoprc file
 
