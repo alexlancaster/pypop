@@ -40,6 +40,7 @@
 """
 
 import os, sys, types, stat, re, shutil, copy, operator
+import numpy as np
 from numpy import zeros, take, asarray
 GENOTYPE_SEPARATOR = "~"
 GENOTYPE_TERMINATOR= "|"
@@ -401,7 +402,7 @@ class StringMatrix(container):
       self.headerLines = headerLines
 
       # initialising the internal NumPy array
-      self.array = zeros((self.rowCount, self.colCount*2+self.extraCount))
+      self.array = zeros((self.rowCount, self.colCount*2+self.extraCount), dtype='O')
       self.shape = self.array.shape
       self._typecode = self.array.dtype # Numeric array.typecode()
       self.name = str(self.__class__).split()[0]
@@ -482,14 +483,14 @@ class StringMatrix(container):
       returns a list (a single column vector if only one position
       specified), or list of lists: (a set of column vectors if
       several positions specified) of tuples for that position"""
-      if type(key) == types.TupleType:
+      if type(key) == tuple:
           row,colName= key
           if colName in self.colList:
               col = self.extraCount+self.colList.index(colName)
           else:
               raise KeyError("can't find %s column" % colName)
           return self.array[(row,col)]
-      elif type(key) == types.StringType:
+      elif type(key) == str:
           colNames = key.split(":")
           li = []
           for col in colNames:
@@ -528,7 +529,7 @@ class StringMatrix(container):
       includes all metadata
       """
       
-      if type(key) == types.StringType:
+      if type(key) == str:
           colNames = key.split(":")
 
           # need both column position and names to reconstruct matrix
@@ -571,13 +572,13 @@ class StringMatrix(container):
       e.g.:
 
       matrix[3, 'A'] = (entry1, entry2)"""
-      if type(index) == types.TupleType:
+      if type(index) == tuple:
           row, colName = index
       else:
           raise IndexError("index is not a tuple")
-      if type(value) == types.TupleType:
+      if type(value) == tuple:
           value1, value2 = value
-      elif type(value) == types.StringType:
+      elif type(value) == str:
           value = value
       else:
           raise ValueError("value being assigned is not a tuple")
@@ -589,12 +590,12 @@ class StringMatrix(container):
           col1 = col * 2
           col2 = col1 + 1
           # store each element in turn
-          self.array[(row,col1+self.extraCount)] = asarray(value1,self._dtype)
-          self.array[(row,col2+self.extraCount)] = asarray(value2,self._dtype)
+          self.array[(row,col1+self.extraCount)] = asarray(value1, dtype=self.dtype)
+          self.array[(row,col2+self.extraCount)] = asarray(value2, dtype=self.dtype)
 
       elif colName in self.extraList:
           col = self.extraList.index(colName)
-          self.array[(row,col)] = asarray(value,self._dtype)
+          self.array[(row,col)] = asarray(value, self.dtype)
       else:
           raise KeyError("can't find %s column" % col)
 
@@ -688,7 +689,8 @@ class StringMatrix(container):
                   return 0
           return 1
 
-      return (filter(f, self.__getitem__(key)))[:]
+      filtered_list = list(filter(f, self.__getitem__(key)))
+      return filtered_list[:]
 
   def getSuperType(self, key):
       """Returns a matrix grouped by columns.
