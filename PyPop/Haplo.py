@@ -399,7 +399,7 @@ class Emhaplofreq(Haplo):
             sys.exit("must pass a permutation or haploSuppressFlag to _runEmhaplofreq!")
 
         # make all locus keys uppercase
-        locusKeys = locusKeys.uppercase()
+        locusKeys = locusKeys.upper()
 
         # if no locus list passed, assume calculation of entire data
         # set

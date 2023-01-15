@@ -39,6 +39,7 @@
 
 import string, sys, os, math
 from operator import add
+from functools import reduce
 from PyPop.Utils import getStreamType
 from PyPop.DataTypes import Genotypes, getLocusPairs, checkIfSequenceData, getMetaLocus
 
@@ -339,7 +340,11 @@ class HomozygosityEWSlatkinExact(Homozygosity):
 
         # create the correct array that module expect,
         # by pre- and appending zeroes to the list
-        li = [0] + self.alleleData + [0] 
+        if self.debug:
+          print(list(self.alleleData))
+          print(type(self.alleleData))
+          
+        li = [0] + list(self.alleleData) + [0] 
 
         if self.debug:
           print('args to slatkin exact test:' , li, self.numAlleles, self.sampleCount, self.numReplicates)
