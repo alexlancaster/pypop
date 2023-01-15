@@ -43,8 +43,8 @@ import _Pvalue
 from math import pow, sqrt
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
 # this can clash with a character within an allele identifier too easily
-from Utils import getStreamType, TextOutputStream, GENOTYPE_SEPARATOR
-from Arlequin import ArlequinExactHWTest
+from PyPop.Utils import getStreamType, TextOutputStream, GENOTYPE_SEPARATOR
+from PyPop.Arlequin import ArlequinExactHWTest
 
 def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
 
@@ -165,11 +165,11 @@ class HardyWeinberg:
         self.observedAlleles.append(allele[1])
 
       if allele[0] != allele[1]:
-        if self.hetsObservedByAllele.has_key(allele[0]):
+        if allele[0] in self.hetsObservedByAllele:
           self.hetsObservedByAllele[allele[0]] += 1
         else:
           self.hetsObservedByAllele[allele[0]] = 1
-        if self.hetsObservedByAllele.has_key(allele[1]):
+        if allele[1] in self.hetsObservedByAllele:
           self.hetsObservedByAllele[allele[1]] += 1
         else:
           self.hetsObservedByAllele[allele[1]] = 1
@@ -188,7 +188,7 @@ class HardyWeinberg:
 
       - and accumulate totals for homozygotes and heterozygotes"""
 
-      if self.observedGenotypeCounts.has_key(genotype):
+      if genotype in self.observedGenotypeCounts:
         self.observedGenotypeCounts[genotype] += 1
       else:
         self.observedGenotypeCounts[genotype] = 1
@@ -235,12 +235,12 @@ class HardyWeinberg:
 
         for allele in self.observedAlleles:
           if allele == temp[0]:
-            if self.hetsExpectedByAllele.has_key(allele):
+            if allele in self.hetsExpectedByAllele:
               self.hetsExpectedByAllele[allele] += self.expectedGenotypeCounts[genotype]
             else:
               self.hetsExpectedByAllele[allele] = self.expectedGenotypeCounts[genotype]
           elif allele == temp[1]:
-            if self.hetsExpectedByAllele.has_key(allele):
+            if allele in self.hetsExpectedByAllele:
               self.hetsExpectedByAllele[allele] += self.expectedGenotypeCounts[genotype]
             else:
               self.hetsExpectedByAllele[allele] = self.expectedGenotypeCounts[genotype]
@@ -313,7 +313,7 @@ class HardyWeinberg:
     for allele in self.observedAlleles:
       if self.hetsExpectedByAllele:
         if self.hetsExpectedByAllele[allele] >= self.lumpBelow:
-          if not self.hetsObservedByAllele.has_key(allele):
+          if not (allele in self.hetsObservedByAllele):
             self.hetsObservedByAllele[allele] = 0
 
           squareMe = self.hetsObservedByAllele[allele] - self.hetsExpectedByAllele[allele]
@@ -336,7 +336,7 @@ class HardyWeinberg:
     for genotype in self.expectedGenotypeCounts.keys():
 
       if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
-        if not self.observedGenotypeCounts.has_key(genotype):
+        if not (genotype in self.observedGenotypeCounts):
           self.observedGenotypeCounts[genotype] = 0
 
         squareMe = self.observedGenotypeCounts[genotype] - self.expectedGenotypeCounts[genotype]
@@ -356,11 +356,11 @@ class HardyWeinberg:
         # Count the common genotypes in categories by allele.
         # Used to determine DoF for common genotypes later.
         temp = genotype.split(GENOTYPE_SEPARATOR)
-        if self.counterA.has_key(temp[0]):
+        if temp[0] in self.counterA:
           self.counterA[temp[0]] += 1
         else:
           self.counterA[temp[0]] = 1
-        if self.counterA.has_key(temp[1]):
+        if temp[1] in self.counterA:
           self.counterA[temp[1]] += 1
         else:
           self.counterA[temp[1]] = 1
@@ -368,7 +368,7 @@ class HardyWeinberg:
         if self.debug:
           print('Expected:')
           print(genotype, self.expectedGenotypeCounts[genotype])
-          if self.observedGenotypeCounts.has_key(genotype):
+          if genotype in self.observedGenotypeCounts:
             print('Observed:', self.observedGenotypeCounts[genotype])
           else:
             print('Observed: 0')
@@ -376,7 +376,7 @@ class HardyWeinberg:
         # calculate the contribution of each genotype to it
         # and tot up the cumulative chi-square 
         self.commonGenotypeCounter += 1
-        if self.observedGenotypeCounts.has_key(genotype):
+        if genotype in self.observedGenotypeCounts:
           observedCount = self.observedGenotypeCounts[genotype]
         else:
           observedCount = 0.0
@@ -404,7 +404,7 @@ class HardyWeinberg:
 
         self.lumpedExpectedGenotypes += self.expectedGenotypeCounts[genotype]
 
-        if self.observedGenotypeCounts.has_key(genotype):
+        if genotype in self.observedGenotypeCounts:
           self.lumpedObservedGenotypes += self.observedGenotypeCounts[genotype]
     # End of loop for genotype in self.expectedGenotypeCounts.keys():
 
@@ -654,17 +654,17 @@ class HardyWeinberg:
         key2 = "%s%s%s" % (vert, GENOTYPE_SEPARATOR, horiz)
 
         # get observed value
-        if self.observedGenotypeCounts.has_key(key1):
+        if key1 in self.observedGenotypeCounts:
           obs = self.observedGenotypeCounts[key1]
-        elif self.observedGenotypeCounts.has_key(key2):
+        elif key2 in self.observedGenotypeCounts:
           obs = self.observedGenotypeCounts[key2]
         else:
           obs = 0
 
         # get expected value
-        if self.expectedGenotypeCounts.has_key(key1):
+        if key1 in self.expectedGenotypeCounts:
           exp = self.expectedGenotypeCounts[key1]
-        elif self.expectedGenotypeCounts.has_key(key2):
+        elif key2 in self.expectedGenotypeCounts:
           exp = self.expectedGenotypeCounts[key2]
         else:
           exp = 0.0
@@ -676,11 +676,11 @@ class HardyWeinberg:
         stream.writeln()
 
         # get and tag chisq and pvalue (if they exist)
-        if self.chisqByGenotype.has_key(key1):
+        if key1 in self.chisqByGenotype:
           stream.tagContents("chisq", "%4f" % self.chisqByGenotype[key1])
           stream.writeln()
           stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[key1])
-        elif self.chisqByGenotype.has_key(key2):
+        elif key2 in self.chisqByGenotype:
           stream.tagContents("chisq", "%4f" % self.chisqByGenotype[key2])
           stream.writeln()
           stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[key2])
@@ -691,10 +691,10 @@ class HardyWeinberg:
         stream.writeln()
 
         if self.flagChenTest:
-          if self.chenPvalByGenotype.has_key(key1):
+          if key1 in self.chenPvalByGenotype:
             stream.tagContents("chenPvalue", "%4f" % \
                              self.chenPvalByGenotype[key1])
-          elif self.chenPvalByGenotype.has_key(key2):
+          elif key2 in self.chenPvalByGenotype:
             stream.tagContents("chenPvalue", "%4f" % \
                                self.chenPvalByGenotype[key2])
           else:
@@ -809,9 +809,9 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
         # need to check both permutations of key
         key1 = "%s%s%s" % (horiz, GENOTYPE_SEPARATOR, vert)
         key2 = "%s%s%s" % (vert, GENOTYPE_SEPARATOR, horiz)
-        if self.observedGenotypeCounts.has_key(key1):
+        if key1 in self.observedGenotypeCounts:
           output = "%2s " % self.observedGenotypeCounts[key1]
-        elif self.observedGenotypeCounts.has_key(key2):
+        elif key2 in self.observedGenotypeCounts:
           output = "%2s " % self.observedGenotypeCounts[key2]
         else:
           output = "%2s " % "0"

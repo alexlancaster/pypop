@@ -37,7 +37,7 @@
 
 import sys, os, string, types, re
 
-from Utils import getStreamType, StringMatrix, OrderedDict, TextOutputStream
+from PyPop.Utils import getStreamType, StringMatrix, OrderedDict, TextOutputStream
 
 def _serializeAlleleCountDataAt(stream, alleleTable,
                                 total, untypedIndividuals,
@@ -47,7 +47,7 @@ def _serializeAlleleCountDataAt(stream, alleleTable,
 
     totalFreq = 0
     alleles = alleleTable.keys()
-    alleles.sort()
+    sorted(alleles)
 
     # if all individuals are untyped then supress itemized output
     if len(alleles) == 0:
@@ -124,11 +124,11 @@ class Genotypes:
         for phase in [allele1, allele2]:
             if (self.untypedAllele != phase and self.unsequencedSite != phase):
                 if self.debug:
-                    print "alleleTable:", self.alleleTable
-                    print "alleleTable type:", type(self.alleleTable)
-                    print "phase:", phase
-                    print "phase type:", type(phase)
-                if self.alleleTable.has_key(phase):
+                    print("alleleTable:", self.alleleTable)
+                    print("alleleTable type:", type(self.alleleTable))
+                    print("phase:", phase)
+                    print("phase type:", type(phase))
+                if phase in self.alleleTable:
                     self.alleleTable[phase] += 1
                 else:
                     self.alleleTable[phase] = 1
@@ -282,7 +282,7 @@ class Genotypes:
             for allele in alleles.keys():
                 count = alleles[allele]
                 if count <= lumpValue:
-                    if lumpedAlleles.has_key('lump'):
+                    if 'lump' in lumpedAlleles:
                         lumpedAlleles['lump'] += count
                     else:
                         lumpedAlleles['lump'] = count
@@ -361,7 +361,7 @@ class Genotypes:
                 count = alleles[allele]
                 if count <= lumpValue:
                     listLumped.append(allele)
-                    if lumpedAlleles.has_key('lump'):
+                    if 'lump' in lumpedAlleles:
                         lumpedAlleles['lump'] += count
                     else:
                         lumpedAlleles['lump'] = count

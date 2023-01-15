@@ -37,14 +37,14 @@
 """Module for estimating haplotypes.
 
 """
-import sys, os, re, cStringIO, StringIO
+import sys, os, re, io
 import numpy
 import math
 import itertools as it
 
-from Arlequin import ArlequinBatch
-from Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR, XMLOutputStream
-from DataTypes import checkIfSequenceData, getLocusPairs
+from PyPop.Arlequin import ArlequinBatch
+from PyPop.Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR, XMLOutputStream
+from PyPop.DataTypes import checkIfSequenceData, getLocusPairs
 
 class Haplo:
     """*Abstract* base class for haplotype parsing/output.
@@ -729,15 +729,15 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     dprime_ij = d_ij/dprime_den
 
     if debug:
-        print "dprime_den:", dprime_den
+        print ("dprime_den:", dprime_den)
 
-        print "i a_freq1 a_freq2 d_ij dprime hap_prob haplo"
+        print ("i a_freq1 a_freq2 d_ij dprime hap_prob haplo")
         for i in range(num_allpossible_haplos):
-            print i, a_freq1[i], a_freq2[i], d_ij[i], dprime_ij[i], hap_prob[i], "%s:%s" % (alleles1[i], alleles2[i])
+            print (i, a_freq1[i], a_freq2[i], d_ij[i], dprime_ij[i], hap_prob[i], "%s:%s" % (alleles1[i], alleles2[i]))
 
     dp_temp = abs(dprime_ij)*a_freq1*a_freq2
     dprime = dp_temp.sum()
-    if debug: print "Dprime: ", dprime
+    if debug: print ("Dprime: ", dprime)
 
     w_ij = (d_ij*d_ij) / (a_freq1*a_freq2)
     w = w_ij.sum()
@@ -745,7 +745,7 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     # WANT:  wn <- sqrt( w / (min( length(unique(alleles1)), length(unique(alleles2)) ) - 1.0) )
     w_den = numpy.minimum(numpy.unique(alleles1).size*1.0, numpy.unique(alleles2).size*1.0) - 1.0
     wn = numpy.sqrt( w / w_den )
-    if debug: print "Wn: ", wn
+    if debug: print ("Wn: ", wn)
 
     if compute_ALD:
         ## compute ALD
@@ -774,8 +774,8 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
            F_1_2_prime = (F_1_2 - F_1)/(1 - F_1)
            ALD_1_2 = math.sqrt(F_1_2_prime)
         if debug:
-            print "ALD_1_2:", ALD_1_2
-            print "ALD_2_1:", ALD_2_1
+            print ("ALD_1_2:", ALD_1_2)
+            print ("ALD_2_1:", ALD_2_1)
             # FIXME: NOT SURE YOU CAN ASSIGN nan IN ABOVE if()
     else:
         ALD_1_2 = None
@@ -819,7 +819,7 @@ class Haplostats(Haplo):
         if stream:
             self.stream = stream
         else:  # create a stream if none given
-            self.stream = XMLOutputStream(StringIO.StringIO())            
+            self.stream = XMLOutputStream(io.StringIO())            
 
     def serializeStart(self):
         """Serialize start of XML output to XML stream"""
@@ -847,7 +847,7 @@ class Haplostats(Haplo):
 
         # if wildcard, or not set, do all matrix
         if locusKeys == '*' or locusKeys == None:
-            locusKeys=string.join(self.matrix.colList,':')
+            locusKeys=':'.join(self.matrix.colList)
 
         geno = self.matrix.getNewStringMatrix(locusKeys)
 
@@ -856,14 +856,14 @@ class Haplostats(Haplo):
 
         subj_id = range(1, n_subject + 1)
         if n_loci < 2:
-            print "Must have at least 2 loci for haplotype estimation!"
+            print ("Must have at least 2 loci for haplotype estimation!")
             exit(-1)
 
         # set up weight
         if not weight:
             weight = [1.0]*n_subject
         if len(weight) != n_subject:
-            print "Length of weight != number of subjects (nrow of geno)"
+            print ("Length of weight != number of subjects (nrow of geno)")
             exit(-1)
 
         temp_geno = geno.convertToInts()   # simulates setupGeno
@@ -934,7 +934,7 @@ class Haplostats(Haplo):
                     random_start = 1   
 
                 if self.debug:
-                    print "random seeds for initial condition", i, ":", iseed1, iseed2, iseed3
+                    print ("random seeds for initial condition", i, ":", iseed1, iseed2, iseed3)
 
                 converge_new, lnlike_new, n_u_hap_new, n_hap_pairs_new, hap_prob_new, \
                               u_hap_new, u_hap_code_new, subj_id_new, post_new, hap1_code_new, \
@@ -958,7 +958,7 @@ class Haplostats(Haplo):
 
                 if lnlike_new > lnlike:
                     if self.debug:
-                        print "found a better lnlikelihood!", lnlike_new
+                        print ("found a better lnlikelihood!", lnlike_new)
                     # FIXME: need more elegant data structure
                     converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, \
                               u_hap, u_hap_code, subj_id, post, hap1_code, \
@@ -1061,7 +1061,7 @@ class Haplostats(Haplo):
 
         # FIXME: sequence data *not* currently supported for haplostats
         locusPairs = getLocusPairs(self.matrix, False)
-        if self.debug: print locusPairs, len(locusPairs)
+        if self.debug: print (locusPairs, len(locusPairs))
         for pair in locusPairs:
             self.estHaplotypes(locusKeys=pair,
                                weight=weight,

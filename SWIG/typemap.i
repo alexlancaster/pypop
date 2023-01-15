@@ -33,6 +33,7 @@ MODIFICATIONS. */
 /* Convert a Python list of list of strings into a 2d array C of strings */
 %{
 #include "cStringIO.h"
+#include "py3c/fileshim.h"
 %}
 
 %typemap(in) char [ANY][ANY][ANY] {
@@ -110,8 +111,10 @@ MODIFICATIONS. */
 %typemap(in) FILE * {
   PycString_IMPORT;
   /* if file is an actual file on the filesystem, then pass directly to C */
-  if (PyFile_Check($input)) {
-    $1 = PyFile_AsFile($input);
+  //if (PyFile_Check($input)) {
+  int temp = PyObject_AsFileDescriptor($input);
+  if (temp != -1) {
+    $1 = py3c_PyFile_AsFileWithMode($input, 'r');
   }
   /* if file is a "cStringIO" in-memory "file" then cast to FILE type */
   else if (PycStringIO_OutputCheck($input)) {
@@ -224,7 +227,7 @@ pywrite(char *name, FILE *fp, const char *format, va_list va)
 
 	PyErr_Fetch(&error_type, &error_value, &error_traceback);
 	file = PySys_GetObject(name);
-	if (file == NULL || PyFile_AsFile(file) == fp)
+	if (file == NULL || py3c_PyFile_AsFileWithMode(file, 'w') == fp)
 		vfprintf(fp, format, va);
 	else {
 		char buffer[1001];

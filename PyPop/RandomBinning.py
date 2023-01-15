@@ -39,10 +39,9 @@
 import string
 from copy import copy
 from random import randrange
-from string import join
 
-from Filter import AnthonyNolanFilter
-from Homozygosity import getObservedHomozygosityFromAlleleData, HomozygosityEWSlatkinExact
+from PyPop.Filter import AnthonyNolanFilter
+from PyPop.Homozygosity import getObservedHomozygosityFromAlleleData, HomozygosityEWSlatkinExact
 
 class RandomBinsForHomozygosity:
 
@@ -70,7 +69,7 @@ class RandomBinsForHomozygosity:
         self.logFile = logFile
         self.alleleCountDict = {}
         self.randomResultsFile = open(randomResultsFileName, "w")
-        self.randomResultsFile.write( string.join("filename locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split(), "\t") + "\n" )
+        self.randomResultsFile.write("\t".join("filename locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split()) + "\n" )
         
     def _dumpResults(self, alleleCountsBefore=None, alleleCountsAfter=None, randMethod=None):
 
@@ -90,7 +89,7 @@ class RandomBinsForHomozygosity:
         for s in stats:
             for m in xrange(stats[s]):
                 s = map(str, s)
-                self.randomResultsFile.write(string.join([self.filename, self.locus] + s, "\t") + "\n")
+                self.randomResultsFile.write("\t".join([self.filename, self.locus] + s) + "\n")
 
         self.randomResultsFile.close()
 
@@ -250,10 +249,10 @@ class RandomBinsForHomozygosity:
         self.logFile.writeln('Tried %d times to get %d random binnings.' % (binningAttempts, binningAttemptsSuccessful))
         self.logFile.writeln('locus\tposition\ttimesDeleted\ttimesDeletedAll\tcollapses\tcollapsesWeighted')
         for pos in polyseqpos:
-            self.logFile.writeln( join([self.locus, str(pos),
-                                        str(deleteHistory[pos]/float(binningAttemptsSuccessful)),
-                                        str(deleteHistoryAll[pos]/float(binningAttemptsSuccessful)),
-                                        str(collapseHistory[pos]/float(binningAttemptsSuccessful)),
-                                        str(weightedCollapseHistory[pos]/float(binningAttemptsSuccessful))],'\t'))
+            self.logFile.writeln('\t'.join([self.locus, str(pos),
+                                            str(deleteHistory[pos]/float(binningAttemptsSuccessful)),
+                                            str(deleteHistoryAll[pos]/float(binningAttemptsSuccessful)),
+                                            str(collapseHistory[pos]/float(binningAttemptsSuccessful)),
+                                            str(weightedCollapseHistory[pos]/float(binningAttemptsSuccessful))]))
 
     

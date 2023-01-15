@@ -242,7 +242,7 @@ class OrderedDict:
     Inserts a key-value pair at a given index
     """
     InsertError = "Duplicate key entry"
-    if self.__hash.has_key(key):
+    if key in self.__hash:
       raise InsertError
     else:
       self.KEYS.insert(i,key)
@@ -313,7 +313,7 @@ class OrderedDict:
     """
     Looks for existance of key in dict
     """
-    return self.__hash.has_key(key)
+    return key in self.__hash
 
 
   def update(self,dict):
@@ -327,7 +327,7 @@ class OrderedDict:
     """
     Finds occurances of a key in a dict (0/1)
     """
-    return self.__hash.has_key(key)
+    return key in self.__hash
 
 
   def __getslice__(self,i,j):

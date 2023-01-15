@@ -41,7 +41,7 @@
 
 import sys, os, string, types, re, operator
 
-from Utils import getStreamType, StringMatrix, OrderedDict, TextOutputStream
+from PyPop.Utils import getStreamType, StringMatrix, OrderedDict, TextOutputStream
 
 class ParseFile:
     """*Abstract* class for parsing a datafile.
@@ -113,17 +113,18 @@ class ParseFile:
             self.sampleFirstLine = 3
 
             # gets the .ini file information for metadata
-            self.popFields = ParseFile._dbFieldsRead(self,self.validPopFields)
+            self.popFields = ParseFile._dbFieldsRead(self, self.validPopFields)
             if self.debug:
                 # debugging only
-                print(self.popFields)
+                print("validPopFields:", self.validPopFields)
+                print("popFields:", self.popFields)
 
             # parse the metadata
             self._mapPopHeaders()
 
 
         # gets the .ini file information for samples
-        self.sampleFields = ParseFile._dbFieldsRead(self,self.validSampleFields)
+        self.sampleFields = ParseFile._dbFieldsRead(self, self.validSampleFields)
         if self.debug:
             print(self.sampleFields)
 
@@ -140,7 +141,7 @@ class ParseFile:
 
         *For internal use only.*"""
         li = []
-        for line in data.strip(os.linesep):
+        for line in data.split(os.linesep):
             if self.debug:
                 print(line.rstrip())
             li.append(line.rstrip())
@@ -421,7 +422,7 @@ class ParseGenotypeFile(ParseFile):
                 # remove allele designator, only necessary
                 # for initial splitting out of locus keys from
                 # other fields, and also make uppercase
-                locusKey = key[len(self.alleleDesignator):].uppercase()
+                locusKey = key[len(self.alleleDesignator):].upper()
                 self.alleleMap[locusKey] = self.sampleMap[key]
             elif key[0] == self.popNameDesignator:
                 popNameCol = self.sampleMap[key]

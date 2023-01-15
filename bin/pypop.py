@@ -120,7 +120,7 @@ return for each prompt.
 from getopt import getopt, GetoptError
 from glob import glob
 from configparser import ConfigParser
-from Main import getUserFilenameInput, checkXSLFile
+from PyPop.Main import getUserFilenameInput, checkXSLFile
 
 try:
   opts, args =getopt(sys.argv[1:],"mlsigc:hdx:f:o:V", ["testmode", "use-libxslt", "use-4suite", "interactive", "gui", "config=", "help", "debug", "xsl=", "filelist=", "outputdir=", "version", "generate-tsv"])
@@ -195,9 +195,9 @@ else:
   # overriden by options in the .ini file)
 
   if debugFlag:
-    print "pypopbinpath", pypopbinpath
-    print "binpath", binpath
-    print "datapath", datapath
+    print("pypopbinpath", pypopbinpath)
+    print("binpath", binpath)
+    print("datapath", datapath)
 
   from pkg_resources import Requirement, resource_filename, DistributionNotFound
 

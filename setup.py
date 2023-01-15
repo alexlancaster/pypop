@@ -65,7 +65,7 @@ if "CPATH" in os.environ:
 include_dirs += ["SWIG"]
     
 # define each extension
-ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
+ext_Emhaplofreq = Extension("_Emhaplofreq",
                             ["emhaplofreq/emhaplofreq_wrap.i",
                              "emhaplofreq/emhaplofreq.c"],
                             swig_opts = ["-ISWIG"],
@@ -75,14 +75,14 @@ ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
                                            ('EXTERNAL_MODE', '1'),
                                            ('XML_OUTPUT', '1')]
                             )
-ext_EWSlatkinExact = Extension("_EWSlatkinExactmodule",
+ext_EWSlatkinExact = Extension("_EWSlatkinExact",
                                ["slatkin-exact/monte-carlo_wrap.i",
                                 "slatkin-exact/monte-carlo.c"],
                                swig_opts = ["-ISWIG"],
                                include_dirs=include_dirs,
                                )
 
-ext_Pvalue = Extension("_Pvaluemodule",
+ext_Pvalue = Extension("_Pvalue",
                        ["pval/pval_wrap.i",
                         "pval/pval.c",
                         "pval/pchisq.c",
@@ -130,7 +130,7 @@ ext_Gthwe_macros = [('__SWIG__', '1'),
                     ('INDIVID_GENOTYPES', '1')] 
 
 
-ext_Gthwe = Extension("_Gthwemodule",
+ext_Gthwe = Extension("_Gthwe",
                       ext_Gthwe_files,
                       swig_opts = ["-ISWIG"],
                       include_dirs=include_dirs + ["gthwe"],
@@ -139,7 +139,7 @@ ext_Gthwe = Extension("_Gthwemodule",
                       define_macros=ext_Gthwe_macros
                       )
 
-ext_Haplostats = Extension("_Haplostatsmodule",
+ext_Haplostats = Extension("_Haplostats",
                        ["haplo-stats/haplostats_wrap.i",
                         "haplo-stats/haplo_em_pin.c",],
                        swig_opts = ["-ISWIG"],

@@ -30,14 +30,14 @@ exec bash -login
   
 #### MacOS:
 
-Install the MacPorts packages
+Install the MacPorts packages (FIXME: currently untested!)
 
-      sudo port install swig-python gsl py27-numpy py-libxml2 py27-libxslt py-setuptools py27-pip
+      sudo port install swig-python gsl py39-numpy py29-lxml py39-setuptools py39-pip
       
 Set MacPorts to use the just-installed 2.7 MacPorts version of Python and pip:
 
-      sudo port select --set python python27
-      sudo port select --set pip pip27
+      sudo port select --set python python39
+      sudo port select --set pip pip39
 
 Check that the MacPorts version of Python is active by typing: ```which python```, if it is working correctly you should see the following:
 
@@ -49,7 +49,7 @@ Check that the MacPorts version of Python is active by typing: ```which python``
 
 Need at least Fedora 25 for the appropriate dependencies:
 
-      sudo dnf install swig gsl-devel python2-numpy python-libxml2 libxslt-python python-setuptools python-pip
+      sudo dnf install swig gsl-devel python3-numpy python3-lxml python3-setuptools python3-pip
 
 See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install on a Centos/RHEL release.
 
@@ -57,7 +57,7 @@ See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install 
 
 Install the following packages
 
-      sudo apt install git libgsl-dev python-numpy python-libxml2 python-libxslt1 python-setuptools python-pip
+      sudo apt install git libgsl-dev python3-numpy python3-lxml python3-setuptools python3-pip
 
 The ```swig``` package in recent Ubuntu releases has bugs, you will need to compile the most recent from source, see also [DEV_NOTES.md](DEV_NOTES.md) for details.
 

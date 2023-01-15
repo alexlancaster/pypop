@@ -38,7 +38,7 @@ MODIFICATIONS.
  <xsl:import href="common.xsl"/>
 
  <!-- select "text" as output method -->
- <xsl:output method="text" omit-xml-declaration="yes"/>
+ <xsl:output method="text" encoding="utf8" omit-xml-declaration="yes"/>
 
 </xsl:stylesheet>
 

@@ -36,18 +36,18 @@
 """Python population genetics statistics.
 """
 
-import sys, os, string, time
+import sys, os, time
+from configparser import ConfigParser, NoOptionError, NoSectionError
 
-from ParseFile import ParseGenotypeFile, ParseAlleleCountFile
-from DataTypes import Genotypes, AlleleCounts, getLumpedDataLevels
-from Arlequin import ArlequinExactHWTest
-from Haplo import Emhaplofreq, HaploArlequin, Haplostats
-from HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin, HardyWeinbergEnumeration
-from Homozygosity import Homozygosity, HomozygosityEWSlatkinExact, HomozygosityEWSlatkinExactPairwise
-from ConfigParser import ConfigParser, NoOptionError, NoSectionError
-from Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix, checkXSLFile, getUserFilenameInput, unique_elements
-from Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
-from RandomBinning import RandomBinsForHomozygosity
+from PyPop.ParseFile import ParseGenotypeFile, ParseAlleleCountFile
+from PyPop.DataTypes import Genotypes, AlleleCounts, getLumpedDataLevels
+from PyPop.Arlequin import ArlequinExactHWTest
+from PyPop.Haplo import Emhaplofreq, HaploArlequin, Haplostats
+from PyPop.HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin, HardyWeinbergEnumeration
+from PyPop.Homozygosity import Homozygosity, HomozygosityEWSlatkinExact, HomozygosityEWSlatkinExactPairwise
+from PyPop.Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix, checkXSLFile, getUserFilenameInput, unique_elements
+from PyPop.Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
+from PyPop.RandomBinning import RandomBinsForHomozygosity
 
 
 def getConfigInstance(configFilename = None,
@@ -123,8 +123,8 @@ class Main:
 
         # parse out the parts of the filename
         baseFileName = os.path.basename(self.fileName)
-        prefixFileName = string.join(string.split(baseFileName, ".")[:-1],'.')
-
+        prefixFileName = '.'.join(baseFileName.split(".")[:-1])
+        
         # generate date and time
 
         now = time.time()
@@ -195,21 +195,12 @@ class Main:
 
         # prepend directory to all files if one was supplied
         if self.outputDir:
-            print("Please look in Main.py to fix this.")
-            self.txtOutPath = self.txtOutFilename
-            self.xmlOutPath = self.xmlOutFilename
-            self.defaultFilterLogPath = self.defaultFilterLogFilename
-            self.defaultPopDumpPath = self.defaultPopDumpFilename
-            # I have no idea what you were going for here...
-            #[self.txtOutPath, \
-            # self.xmlOutPath, \
-            # self.defaultFilterLogPath, \
-            # self.defaultPopDumpPath,
-            # [os.path.join(self.outputDir, x) \
-            #  for x in self.txtOutFilename, \
-            #  self.xmlOutFilename, \
-            #  self.defaultFilterLogFilename, \
-            #  self.defaultPopDumpFilename]
+            [self.txtOutPath, \
+             self.xmlOutPath, \
+             self.defaultFilterLogPath, \
+             self.defaultPopDumpPath] = \
+                 [os.path.join(self.outputDir, x) \
+                  for x in [self.txtOutFilename, self.xmlOutFilename,self.defaultFilterLogFilename, self.defaultPopDumpFilename]]
         else:
             self.txtOutPath = self.txtOutFilename
             self.xmlOutPath = self.xmlOutFilename
@@ -345,12 +336,12 @@ class Main:
 
             try:
                 self.filtersToApply = self.config.get("Filters", "filtersToApply")
-                self.filtersToApply = string.split(self.filtersToApply, ':')
+                self.filtersToApply = self.filtersToApply.split(':')
             except NoOptionError:
                 self.filtersToApply = []
             try:
                 self.popDump = self.config.get("Filters","makeNewPopFile")
-                self.dumpType, self.dumpOrder = string.split(self.popDump, ':')
+                self.dumpType, self.dumpOrder = self.popDump.split(':')
 
                 if self.dumpType in ['separate-loci', 'all-loci']:
                     self.dumpOrder = int(self.dumpOrder)
@@ -463,7 +454,7 @@ class Main:
                 self.binningReplicates = 10000
             try:
                 self.binningLoci = self.config.get("RandomAlleleBinning", "binningLoci")
-                self.binningLoci = string.split(self.binningLoci, ',')
+                self.binningLoci = self.binningLoci.split(',')
             except:
                 self.binningLoci = []
             if len(self.binningLoci) > 0:
@@ -534,7 +525,7 @@ class Main:
                 customBinningDict = {}
                 try:
                     for option in self.config.options(filterCall):
-                        customBinningDict[option] = string.split(self.config.get(filterCall, option),os.linesep)
+                        customBinningDict[option] = (self.config.get(filterCall, option)).split(os.linesep)
                     if self.debug:
                         print(customBinningDict)
                 except:
@@ -676,7 +667,7 @@ class Main:
 
             try:
               alleleLump =  self.config.get("HardyWeinberg", "alleleLump")
-              li = [int(i) for i in string.split(alleleLump, ",")]
+              li = [int(i) for i in alleleLump.split(",")]
               lumpData = getLumpedDataLevels(self.input,
                                              locus,
                                              li)
@@ -784,11 +775,11 @@ class Main:
                 try:
                     ## get the unique maximal number of possible lumpings
                     if alleleLump1:
-                        li1 = [int(i) for i in string.split(alleleLump1, ",")]
+                        li1 = [int(i) for i in alleleLump1.split(",")]
                     else:
                         li1=[]
                     if alleleLump2:
-                        li2 = [int(i) for i in string.split(alleleLump2, ",")]
+                        li2 = [int(i) for i in alleleLump2.split(",")]
                     else:
                         li2=[]
                     li1.extend(li2)
@@ -847,7 +838,7 @@ class Main:
               try:
                   alleleLump =  self.config.get("HardyWeinbergEnumeration",
                                                 "alleleLump")
-                  li = [int(i) for i in string.split(alleleLump, ",")]
+                  li = [int(i) for i in alleleLump.split(",")]
                   lumpData = getLumpedDataLevels(self.input,
                                                  locus,
                                                  li)
@@ -933,7 +924,7 @@ class Main:
             hzExactObj.serializeHomozygosityTo(self.xmlStream)
 
             # random binning for the homozygosity test begins here
-            if self.randomBinningFlag and locus in map(string.upper,self.binningLoci):
+            if self.randomBinningFlag and locus in map(str.upper,self.binningLoci):
 
                 inputInitial = Genotypes(matrix=self.matrixHistory[self.binningStartPoint],
                                          untypedAllele=self.untypedAllele,
@@ -1087,8 +1078,8 @@ class Main:
 
         if self.config.has_section("Emhaplofreq"):
 
-          print "WARNING: The [Emhaplofreq] module is officially DEPRECATED and may be removed in coming releases."
-          print "Please transition to using the new [Haplostats] module."""
+          print ("WARNING: The [Emhaplofreq] module is officially DEPRECATED and may be removed in coming releases.")
+          print ("Please transition to using the new [Haplostats] module.")
 
           # create object to generate haplotype and LD statistics
           # a wrapper around the emhaplofreq module
@@ -1178,7 +1169,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
 
             if locusKeys == '*':
               print("wildcard '*' given for lociToEstHaplo, assume entire data set")
-              locusKeys=string.join(self.input.getIndividualsData().colList,':')
+              locusKeys=":".join(self.input.getIndividualsData().colList)
             print("LOG: estimating haplotype frequencies for"),
 
             # if we will be running allPairwise*, then exclude any two-locus
@@ -1187,18 +1178,18 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
 
               print("all two locus haplotypes,"),
               modLocusKeys = []
-              for group in string.split(locusKeys, ','):
+              for group in locusKeys.split(','):
 
                 # if a two-locus haplo, add it to the list that allPairwise
                 # will use
-                if len(string.split(group, ':')) == 2:
-                  twoLocusHaplosToShow.append(string.upper(group))
+                if len(group.split(':')) == 2:
+                  twoLocusHaplosToShow.append(group.upper())
 
                 # otherwise add it to the regular output
                 else:
                   modLocusKeys.append(group)
 
-              locusKeys = string.join(modLocusKeys, ',')
+              locusKeys = ','.join(modLocusKeys)
 
             # estimate haplotypes on set of locusKeys *only* if there are
             # locus groups that remain after excluding two locus haplotypes
@@ -1215,7 +1206,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
 
             if locusKeysLD == '*':
               print("LOG: wildcard '*' given for lociToEstLD, assume entire data set")
-              locusKeysLD=string.join(self.input.getIndividualsData().colList,':')
+              locusKeysLD=':'.join(self.input.getIndividualsData().colList)
 
             # estimate LD for the specified loci
             haplo.estLinkageDisequilibrium(locusKeys=locusKeysLD,
@@ -1244,31 +1235,23 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
 
         if self.use_libxsltmod:
 
-          # now use bindings that are part of libxml2/libxslt 
-          import libxml2
-          import libxslt
-
+          # now use python3-lxml
+          from lxml import etree
+            
           # read and parse stylesheet
-          styledoc = libxml2.parseFile(self.xslFilename)
-          style = libxslt.parseStylesheetDoc(styledoc)
+          styledoc = etree.parse(self.xslFilename)
+          style = etree.XSLT(styledoc)
 
           # read output XML file
-          doc = libxml2.parseFile(self.xmlOutPath)
+          doc = etree.parse(self.xmlOutPath)
 
-          # resolve and perform any XIncludes the document may have
-          doc.xincludeProcess()
-
+          # FIXME: params is not yet enabled
           params = {"new-hardyweinberg-format": "1"}
           # process via stylesheet
-          result = style.applyStylesheet(doc, params)
+          result = style(doc)
 
           # save result to file
-          style.saveResultToFilename(self.txtOutPath, result, 0)
-
-          # cleanup
-          style.freeStylesheet()
-          doc.freeDoc()
-          result.freeDoc()
+          result.write_output(self.txtOutPath)
 
           # if running under Windows, convert output files
           # to use appropriate physical lineendings so that

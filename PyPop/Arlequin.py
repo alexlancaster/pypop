@@ -38,7 +38,7 @@
 
 """
 import sys, string, os, re, shutil, stat
-from Utils import Group
+from PyPop.Utils import Group
 
 class ArlequinWrapper:
     """New wrapper for Arlequin"""

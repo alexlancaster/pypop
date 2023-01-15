@@ -39,8 +39,8 @@
 
 import string, sys, os, math
 from operator import add
-from Utils import getStreamType
-from DataTypes import Genotypes, getLocusPairs, checkIfSequenceData, getMetaLocus
+from PyPop.Utils import getStreamType
+from PyPop.DataTypes import Genotypes, getLocusPairs, checkIfSequenceData, getMetaLocus
 
 def getObservedHomozygosityFromAlleleData(alleleData):
   sum = 0.0
