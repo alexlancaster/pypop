@@ -1082,7 +1082,7 @@ class Main:
         if self.config.has_section("Emhaplofreq"):
 
           print "WARNING: The [Emhaplofreq] module is officially DEPRECATED and may be removed in coming releases."
-          print "Please transition to using the new [Haplostats] module."""
+          print "Please transition to using the new [Haplostats] module."
 
           # create object to generate haplotype and LD statistics
           # a wrapper around the emhaplofreq module
@@ -1238,31 +1238,21 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
 
         if self.use_libxsltmod:
 
-          # now use bindings that are part of libxml2/libxslt 
-          import libxml2
-          import libxslt
-
+          # now use python3-lxml
+          from lxml import etree
+            
           # read and parse stylesheet
-          styledoc = libxml2.parseFile(self.xslFilename)
-          style = libxslt.parseStylesheetDoc(styledoc)
+          styledoc = etree.parse(self.xslFilename)
+          style = etree.XSLT(styledoc)
 
           # read output XML file
-          doc = libxml2.parseFile(self.xmlOutPath)
+          doc = etree.parse(self.xmlOutPath)
 
-          # resolve and perform any XIncludes the document may have
-          doc.xincludeProcess()
-
-          params = {"new-hardyweinberg-format": "1"}
           # process via stylesheet
-          result = style.applyStylesheet(doc, params)
+          result = style(doc, **{"new-hardyweinberg-format": "1"})
 
           # save result to file
-          style.saveResultToFilename(self.txtOutPath, result, 0)
-
-          # cleanup
-          style.freeStylesheet()
-          doc.freeDoc()
-          result.freeDoc()
+          result.write_output(self.txtOutPath)
 
           # if running under Windows, convert output files
           # to use appropriate physical lineendings so that

@@ -47,21 +47,38 @@ Check that the MacPorts version of Python is active by typing: ```which python``
 /opt/local/bin/python
 ```
 
-#### Linux (Fedora/Centos/RHEL): 
+#### Unix/Linux: install pip
 
-Need at least Fedora 25 for the appropriate dependencies:
+Python 2 is deprecated, and we are currently porting to Python 3. To get this working under Python 2, most distributions have removed pip2
+which will be required to install some packages, so you will need to manually install it using the following (should work on most, if not
+all distributions):
 
-      sudo dnf install swig gsl-devel python2-numpy python-libxml2 libxslt-python python-setuptools python-pip
+      python2 -m ensurepip --user --no-default-pip
+
+Note the use of the `python2` - this will be necessary on systems which parallel-install both Python 2 and 3, which is currently the case.
+
+##### Linux (Fedora/Centos/RHEL): 
+
+Install the following base packages from the Fedora system (tested on Fedora 33), to install system-wide:
+
+      sudo dnf install swig gsl-devel python2-numpy python2-setuptools
+
+Use `pip2` to install remaining packages (see above for `pip2` installation), install for the current user:
+
+      pip2 install --user lxml pytest psutil
 
 See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install on a Centos/RHEL release.
 
-#### Linux (Ubuntu)
+##### Linux (Ubuntu)
 
-Install the following packages
+Install the following base packages from the system (Ubuntu LTS > 22 has removed Python 2 packages like numpy from the repository,
+so you will need to install them by `pip`).  (Note you may need to enable the `universe` Ubuntu repository to get all dependencies).
 
-      sudo apt install git libgsl-dev python-numpy python-libxml2 python-libxslt1 python-setuptools python-pip
+      sudo apt install git libgsl-dev python-setuptools
 
-The ```swig``` package in recent Ubuntu releases has bugs, you will need to compile the most recent from source, see also [DEV_NOTES.md](DEV_NOTES.md) for details.
+Use `pip2` to install remaining packages (see above for `pip2` installation), install for the current user:
+
+      pip2 install --user numeric lxml pytest psutil
 
 ### 4. Build
 
