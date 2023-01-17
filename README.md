@@ -76,7 +76,7 @@ so you will need to install them by `pip`).  (Note you may need to enable the `u
 
 Use `pip2` to install remaining packages (see above for `pip2` installation), install for the current user:
 
-      pip2 install --user numeric lxml pytest psutil
+      pip2 install --user numpy lxml pytest psutil
 
 ### 3. Clone the repository:
 
