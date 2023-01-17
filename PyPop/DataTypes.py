@@ -46,8 +46,8 @@ def _serializeAlleleCountDataAt(stream, alleleTable,
     """Function to actually do the output"""
 
     totalFreq = 0
-    alleles = alleleTable.keys()
-    sorted(alleles)
+    alleles = list(alleleTable.keys())
+    alleles.sort()
 
     # if all individuals are untyped then supress itemized output
     if len(alleles) == 0:
