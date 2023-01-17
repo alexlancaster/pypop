@@ -1245,10 +1245,8 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
           # read output XML file
           doc = etree.parse(self.xmlOutPath)
 
-          # FIXME: params is not yet enabled
-          params = {"new-hardyweinberg-format": "1"}
           # process via stylesheet
-          result = style(doc)
+          result = style(doc, **{"new-hardyweinberg-format": "1"})
 
           # save result to file
           result.write_output(self.txtOutPath)
