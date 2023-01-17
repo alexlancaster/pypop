@@ -261,7 +261,7 @@ KeepNullDistrib=0""")
                 sampleCount = matchobj.group(2)
                 liststr = matchobj.group(3)
                 # convert into list of loci
-                lociList = map(int, liststr.split(','))
+                lociList = list(map(int, liststr.split(',')))
                 freqs = {}
                 
             if dataFound:
@@ -854,7 +854,7 @@ class Haplostats(Haplo):
         n_loci = geno.colCount
         n_subject = geno.rowCount
 
-        subj_id = range(1, n_subject + 1)
+        subj_id = list(range(1, n_subject + 1))
         if n_loci < 2:
             print ("Must have at least 2 loci for haplotype estimation!")
             exit(-1)
@@ -885,7 +885,7 @@ class Haplostats(Haplo):
         if max_haps > control['max_haps_limit']:
             max_haps = control['max_haps_limit']
 
-        loci_insert_order = range(0, n_loci)
+        loci_insert_order = list(range(0, n_loci))
 
         # FIXME: hardcode
         if testMode:

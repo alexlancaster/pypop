@@ -68,7 +68,7 @@ def test_Haplostats_Simple():
     assert S_n_u_hap == 16
     assert n_hap_pairs == 9
 
-    sum_hap_codes = map(add, hap1_code, hap2_code)
+    sum_hap_codes = list(map(add, hap1_code, hap2_code))
 #   print ("sum_hap_codes: ", sum_hap_codes)
 
     assert status2 == 0
@@ -113,7 +113,7 @@ def test_Haplostats_Simple3():
 #   print ("subj_id  hap1_code  hap2_code")
 #   print (numpy.c_[subj_id,hap1_code,hap2_code])
 
-    sum_hap_codes = map(add, hap1_code, hap2_code)
+    sum_hap_codes = list(map(add, hap1_code, hap2_code))
 #   print ("sum_hap_codes: ", sum_hap_codes)
     assert status1 == 0
     assert converge == 1
@@ -152,7 +152,7 @@ def test_Haplostats_UchiTelleClassI():
                               random_start, iseed1, iseed2, iseed3, verbose, geno_vec)
     status1, converge, S_lnlike, S_n_u_hap, n_hap_pairs, status2, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = ret_val
 
-    sum_hap_codes = map(add, hap1_code, hap2_code)
+    sum_hap_codes = list(map(add, hap1_code, hap2_code))
 #   print ("sum_hap_codes: ", sum_hap_codes)
     assert status1 == 0
     assert converge == 1
