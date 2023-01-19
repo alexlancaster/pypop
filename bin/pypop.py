@@ -199,8 +199,14 @@ else:
     print("binpath", binpath)
     print("datapath", datapath)
 
-  from importlib.resources import files
-  mypath = files('PyPop.xslt')
+  
+  try:
+    from importlib.resources import files
+    mypath = files('PyPop.xslt')
+  except ModuleNotFoundError:  # fallback to using backport if not found
+    from importlib_resources import files
+    mypath = files('PyPop.xslt').joinpath('')
+
   xslFilenameDefault = checkXSLFile('text.xsl', mypath, \
                                     abort=False, debug=debugFlag)
 
