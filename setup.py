@@ -36,7 +36,7 @@
 
 import sys, os
 
-from setuptools import setup, find_namespace_packages
+from setuptools import setup
 from setuptools.extension import Extension
 from sysconfig import _PREFIX, get_config_vars, get_config_var
 
