@@ -1,6 +1,6 @@
 import base
 import unittest
-import _Haplostats
+from PyPop import _Haplostats
 from py.test import approx
 from numpy import array
 from numpy.testing import assert_array_almost_equal

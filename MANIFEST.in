@@ -4,7 +4,7 @@ include LICENSE
 include NEWS
 include MANIFEST.in
 include data/config-canonical.ini
-recursive-include xslt text.xsl html.xsl lib.xsl common.xsl filter.xsl hardyweinberg.xsl homozygosity.xsl emhaplofreq.xsl meta-to-r.xsl sort-by-locus.xsl allelelist-by-locus.xsl haplolist-by-group.xsl phylip-allele.xsl phylip-haplo.xsl
+recursive-include PyPop/xslt text.xsl html.xsl lib.xsl common.xsl filter.xsl hardyweinberg.xsl homozygosity.xsl emhaplofreq.xsl meta-to-r.xsl sort-by-locus.xsl allelelist-by-locus.xsl haplolist-by-group.xsl phylip-allele.xsl phylip-haplo.xsl
 include SWIG/typemap.i
 recursive-include emhaplofreq emhaplofreq.h Makefile
 include gthwe/*.h gthwe/Makefile gthwe/README.1
