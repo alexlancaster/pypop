@@ -38,8 +38,8 @@
 
 """
 
-import sys, os, subprocess
-import _Pvalue
+import sys, os, subprocess, io
+from PyPop import _Pvalue
 from math import pow, sqrt
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
 # this can clash with a character within an allele identifier too easily
@@ -644,7 +644,7 @@ class HardyWeinberg:
           continue
 
         # start tag
-        stream.opentag("genotype", row=horiz, col=vert, id=("%d" % genotypeId))
+        stream.opentag("genotype", row=horiz, id=("%d" % genotypeId), col=vert)
 
         # increment id
         genotypeId += 1
@@ -855,7 +855,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     import io
 
     # import library only when necessary
-    import _Gthwe
+    from PyPop import _Gthwe
 
     if self.runMCMCTest:
       fp = io.StringIO()
@@ -904,7 +904,7 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
                alleleCount=None,
                doOverall=0,
                **kw):
-    import _HweEnum
+    from PyPop import _HweEnum
 
     self.HweEnumProcess = _HweEnum
     

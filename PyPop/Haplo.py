@@ -306,7 +306,7 @@ class Emhaplofreq(Haplo):
         # import the Python-to-C module wrapper
         # lazy importation of module only upon instantiation of class
         # to save startup costs of invoking dynamic library loader
-        import _Emhaplofreq
+        from PyPop import _Emhaplofreq
 
         # assign module to an instance variable so it is available to
         # other methods in class
@@ -799,7 +799,7 @@ class Haplostats(Haplo):
         # import the Python-to-C module wrapper
         # lazy importation of module only upon instantiation of class
         # to save startup costs of invoking dynamic library loader
-        import _Haplostats
+        from PyPop import _Haplostats
 
         # assign module to an instance variable so it is available to
         # other methods in class

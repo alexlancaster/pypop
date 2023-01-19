@@ -334,7 +334,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
       
       if self.sampleCount > 0:
 
-        import _EWSlatkinExact
+        from PyPop import _EWSlatkinExact
         
         self.EW = _EWSlatkinExact
 
