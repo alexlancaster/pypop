@@ -8,9 +8,9 @@ PyPop is a framework for processing genotype and allele data and running populat
 
 #### MacOS X
 
-1. install developer command-line tools: https://developer.apple.com/downloads/  (includes ```git```, ```gcc```)
+1. Install developer command-line tools: https://developer.apple.com/downloads/  (includes `git`, `gcc`)
 2. Visit http://macports.org and follow the instructions there to install the latest version of MacPorts for your version of MacOS X.
-3. Set environment variables to use macports version of Python and other packages, packages add the following to ```~/.bash_profile```
+3. Set environment variables to use macports version of Python and other packages, packages add the following to `~/.bash_profile`
 
 ```
 export PATH=/opt/local/bin:$PATH
@@ -24,10 +24,8 @@ export CPATH=/opt/local/include:$CPATH
 exec bash -login
 ```
 
-### 2. Clone the repository:
+### 2. Install dependencies
 
-    git clone https://github.com/alexlancaster/pypop.git
-  
 #### MacOS:
 
 Install the MacPorts packages (FIXME: currently untested!)
@@ -39,28 +37,52 @@ Set MacPorts to use the just-installed 2.7 MacPorts version of Python and pip:
       sudo port select --set python python39
       sudo port select --set pip pip39
 
-Check that the MacPorts version of Python is active by typing: ```which python```, if it is working correctly you should see the following:
+Check that the MacPorts version of Python is active by typing: `which python`, if it is working correctly you should see the following:
 
 ```
 /opt/local/bin/python
 ```
 
-#### Linux (Fedora/Centos/RHEL): 
+#### Unix/Linux:
 
-Need at least Fedora 25 for the appropriate dependencies:
+##### On all distributions: install `pip`
 
-      sudo dnf install swig gsl-devel python3-numpy python3-lxml python3-setuptools python3-pip
+Python 2 is deprecated, and we are currently porting to Python 3. To get this working under Python 2, most distributions have removed pip2
+which will be required to install some packages, so you will need to manually install it using the following (should work on most, if not
+all distributions):
+
+      python3 -m ensurepip --user --no-default-pip
+
+Note the use of the `python3` - you may find this to be necessary on systems which parallel-install both Python 2 and 3, which is typically
+the case. On newer systems you may find that `python` and `pip` are, by default, the Python 3 version of those tools.  Therefore you may
+use `pip` may also be `pip3`, in which case just replace `pip3` with `pip`.
+
+##### Linux (Fedora/Centos/RHEL): 
+
+Install the following base packages from the Fedora system (tested on Fedora 33), to install system-wide:
+
+      sudo dnf install gsl-devel python3-devel
 
 See [DEV_NOTES.md](DEV_NOTES.md) for instructions on containerizing the install on a Centos/RHEL release.
 
-#### Linux (Ubuntu)
+##### Linux (Ubuntu)
 
-Install the following packages
+Install the following base packages from the system. (Note you may need to enable the `universe` Ubuntu repository to get all dependencies).
 
-      sudo apt install git libgsl-dev python3-numpy python3-lxml python3-setuptools python3-pip
+      sudo apt install git libgsl-dev python-setuptools
 
-The ```swig``` package in recent Ubuntu releases has bugs, you will need to compile the most recent from source, see also [DEV_NOTES.md](DEV_NOTES.md) for details.
+#### On all Unix distributions
 
+Use `pip` to install remaining packages (see above for `pip` installation), install for the current user:
+
+      pip3 install --user swig numpy lxml pytest psutil
+
+If you are running on Python < 3.7, you may need to also add `importlib-resources` to the list of packages, above.
+
+### 3. Clone the repository:
+
+    git clone https://github.com/alexlancaster/pypop.git
+  
 ### 4. Build
 
     ./setup.py build
@@ -83,11 +105,11 @@ This will generate the following two files, an XML output file and a plain text 
 
       ./setup.py test
 
-If you run into errors, file a bug (as per Support, below), include the output of ```py.test``` run in verbose mode and capturing the output
+If you run into errors, file a bug (as per Support, below), include the output of `py.test` run in verbose mode and capturing the output
 
       py.test -s -v
 
-(See DEV_NOTES.md for more details on installing or running ```py.test``` outside the context of setuptools.)
+(See DEV_NOTES.md for more details on installing or running `py.test` outside the context of setuptools.)
 
 ## Support
 
