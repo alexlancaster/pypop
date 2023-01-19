@@ -1,7 +1,7 @@
 import base
 import unittest
 from PyPop import _Haplostats
-from py.test import approx
+from pytest import approx
 from numpy import array
 from numpy.testing import assert_array_almost_equal
 from operator import add
