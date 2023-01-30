@@ -11,7 +11,7 @@ def test_USAFEL():
     assert exit_code == 0
 
     out_filename = "USAFEL-UchiTelle-small-out.txt"
-    gold_out_filename = os.path.join('./tests/data/output', "USAFEL-UchiTelle-small-out-no-emhaplofreq.txt")
+    gold_out_filename = base.abspath_test_data(os.path.join('./tests/data/output', "USAFEL-UchiTelle-small-out-no-emhaplofreq.txt"))
     assert filecmp.cmp(out_filename, gold_out_filename)
 
 @pytest.mark.skip(reason="emhaplofreq not functional in Python 3")
@@ -21,5 +21,5 @@ def test_USAFEL_emhaplofreq():
     assert exit_code == 0
 
     out_filename = "USAFEL-UchiTelle-small-out.txt"
-    gold_out_filename = os.path.join('./tests/data/output', out_filename)
+    gold_out_filename = base.abspath_test_data(os.path.join('./tests/data/output', out_filename))
     assert filecmp.cmp(out_filename, gold_out_filename)
