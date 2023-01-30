@@ -212,7 +212,7 @@ data_file_paths = []
 xslt_files = [f + '.xsl' for f in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
 data_file_paths.extend(xslt_files)
 
-setup (name = __pkgname__,
+setup (name = 'pypop',
        version = __version__,
        description = "Python for Population Genetics",
        long_description = \
@@ -225,10 +225,11 @@ particularly large-scale multilocus genotype data""",
        platforms = ["GNU/Linux", "Windows", "MacOS"],
        packages = ["PyPop", "PyPop.xslt"],
        package_data={"PyPop.xslt": data_file_paths},
-       install_requires = ["swig", "numpy", "lxml", "importlib-resources; python_version < '3.7'"],
+       install_requires = ["numpy", "lxml", "psutil", "importlib-resources; python_version <= '3.7'"],
+       extras_require={
+           "test": ['pytest']
+           },
        scripts= ['bin/pypop.py', 'bin/popmeta.py'],
        ext_modules=extensions,
        cmdclass={'clean': CleanCommand,},
-       setup_requires=['pytest-runner'],
-       tests_require=['pytest', 'psutil'],
        )
