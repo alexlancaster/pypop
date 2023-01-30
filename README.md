@@ -3,18 +3,17 @@
 PyPop is a framework for processing genotype and allele data and
 running population genetic analyses.
 
-This README describes the installation steps for `python3` branch, for
-the port of PyPop to Python 3.
+This README describes the installation steps of `python3` branch that
+ports PyPop to Python 3.
 
 # Installation (end user)
 
-TBA.
-
-For the end-user, we are currently working on making PyPop installable
-via `pip` from adownloadable package (including pre-compiled binary
-extensions), and eventually from [PyPi](https://pypi.org/).  However,
-for the time being, you will need to use one of the developer
-installation modes, below.
+TBA.  For the end-user, we are currently working on making PyPop installable
+via `pip` from downloadable packages (that will include pre-compiled
+binary extensions, to avoid the need to download development
+tools). Eventually we will make it available on
+[PyPi](https://pypi.org/).  However, for the time being, you will need
+to follow the developer installation instructions, below.
 
 # Installation (developer)
 
@@ -24,7 +23,7 @@ There are four main steps to the installation:
 3. build
 4. run tests
 
-For most causual users and developers, we recommend using the
+For most casual users and developers, we recommend using the
 miniconda approach in each of the steps below.
 
 ## 1. Install the build environment
@@ -33,9 +32,9 @@ miniconda approach in each of the steps below.
 
 1. Visit https://docs.conda.io/en/latest/miniconda.html to download
 the miniconda installer for your platform, and follow the instructions
-to install (theoretically the rest of the PyPop installation process
-should work on any platform that is supported by miniconda, but only
-Linux has been tested at this time).
+to install (theoretically the rest of the PyPop miniconda installation
+process should work on any platform that is supported by miniconda,
+but only Linux has been tested at this time).
 
 2. Once miniconda is installed, create a new conda environment, using
 the following commands:
