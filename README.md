@@ -6,8 +6,6 @@ running population genetic analyses.
 This README describes the installation steps for `python3` branch, for
 the port of PyPop to Python 3.
 
-[TOC]
-
 # Installation (end user)
 
 TBA.
@@ -253,6 +251,9 @@ port installed
 The code for PyPop is at
 
     https://github.com/alexlancaster/pypop
+
+More detailed notes and background relevant for maintainers, packagers
+and developers are maintained in [DEV_NOTES.md](DEV_NOTES.md)
 
 # Copyright and License
 

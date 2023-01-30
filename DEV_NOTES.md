@@ -2,13 +2,13 @@
 
 ## External dependencies
 
-* ```swig``` (Simple Wrapper Interface Generator) 
-* ```gsl``` (GNU Scientific Library)
-* ```Numeric``` (Python Numeric)
-* ```libxml2/libxslt``` (Python bindings)
+* ```swig``` (Simple Wrapper Interface Generator) (build-time only)
+* ```gsl``` (GNU Scientific Library) (build-time only)
+* ```Numpy``` (Numpy)
+* ```lxml``` (Python bindings)
 * ```pytest``` (Python test framework)
 
-## Installing ```swig``` on recent Ubuntu releases
+## Installing ```swig``` on certain Ubuntu releases (obsoleted by newer Ubuntu releases)
 
 There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on ```xenial``` (which is version 3.0.8 of swig) working.  You will need to install the lastest version from source.
 
@@ -26,13 +26,6 @@ There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on ```xenial`
        make
        sudo make install
 
-## More details on pytest
-
-If for some reason ```./setup.py test``` doesn't work, you can  use pip to manually install ```pytest```:
-
-      pip install --user pytest
-
-(Ensure that the local user path is in ```PATH```, you may need to modify ```~/.bash_profile``` accordingly.  On MacOS e.g. ```export PATH=$HOME/Library/Python/2.7/bin:$PATH```, on Linux ```export PATH=$HOME/.local/bin:$PATH```.)  Verify that py.test is in your ```PATH``` by running ```which py.test```.
 
 ## Design notes
 
@@ -106,7 +99,7 @@ curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacP
 sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
 ```
 
-## Containerizing
+## Containerizing (WARNING: these instructions are likely obsolete with python3 port) 
 
 To make pypop more portable (given that some of its dependencies are currently
 obsolete), it is possible to build a Singularity container which contains a
