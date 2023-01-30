@@ -225,7 +225,7 @@ particularly large-scale multilocus genotype data""",
        platforms = ["GNU/Linux", "Windows", "MacOS"],
        packages = ["PyPop", "PyPop.xslt"],
        package_data={"PyPop.xslt": data_file_paths},
-       install_requires = ["numpy", "lxml", "psutil", "importlib-resources; python_version <= '3.7'"],
+       install_requires = ["numpy", "lxml", "psutil", "importlib-resources; python_version <= '3.8'"],
        extras_require={
            "test": ['pytest']
            },

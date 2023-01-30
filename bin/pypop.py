@@ -203,7 +203,7 @@ else:
   try:
     from importlib.resources import files
     mypath = files('PyPop.xslt')
-  except ModuleNotFoundError:  # fallback to using backport if not found
+  except (ModuleNotFoundError, ImportError):  # fallback to using backport if not found
     from importlib_resources import files
     mypath = files('PyPop.xslt').joinpath('')
 

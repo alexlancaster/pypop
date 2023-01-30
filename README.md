@@ -3,8 +3,7 @@
 PyPop is a framework for processing genotype and allele data and
 running population genetic analyses.
 
-This README describes the installation steps of `python3` branch that
-ports PyPop to Python 3.
+This README is for the `python3` branch that has ported PyPop to Python 3.
 
 # Installation (end user)
 
@@ -168,8 +167,8 @@ than the conda environment:
 ### Build-and-run-from-checkout (for developers)
 
 1. First manually install the dependencies via `pip`, note that if you
-are running on Python < 3.7, you may need to also add
-`importlib-resources` to the list of packages, above.
+are running on Python <= 3.8, you will need to also add
+`importlib-resources` to the list of packages, below.
 
    1. conda
       ```
