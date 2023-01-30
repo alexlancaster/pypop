@@ -3,7 +3,7 @@
 ## External dependencies
 
 * ```swig``` (Simple Wrapper Interface Generator) (build-time only)
-* ```gsl``` (GNU Scientific Library) (build-time only)
+* ```gsl``` (GNU Scientific Library)
 * ```Numpy``` (Numpy)
 * ```lxml``` (Python bindings)
 * ```pytest``` (Python test framework)
