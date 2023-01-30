@@ -114,13 +114,13 @@ by default, the Python 3 version of those tools.
 
 2. Install packages system-wide:
    1. Fedora/Centos/RHEL
-   ```
-   sudo dnf install git swig gsl-devel python3-devel
-   ``` 
+      ```
+      sudo dnf install git swig gsl-devel python3-devel
+      ``` 
    2. Ubuntu
-   ```
-   sudo apt install git swig libgsl-dev python-setuptools
-   ```
+      ```
+      sudo apt install git swig libgsl-dev python-setuptools
+      ```
 
 ## 2. Clone the repository
 
@@ -141,22 +141,27 @@ the following one-liner to examine the `setup.py` and pull all the
 required dependencies from `pypi.org` and build and install the
 package.  Note that if you use this method and install the package, it
 will be available to run anywhere on your system, by running
-`pypop.py`.  **However, changes you make to the code, locally, or via
+`pypop.py`.
+
+_**However, changes you make to the code, locally, or via
 subsequent `git pull` requests will not be available in the installed
-version until you repeat the `pip install` command.**
+version until you repeat the `pip install` command.**_
 
-1. if you installed the conda development environment, use
+1. if you installed the conda development environment, use:
 
    ```
-   pip install .
+   pip install .[test]
    ```
+   
+   (the `[test]` keyword is included to make sure that any package
+requirements for the test suite are installed as well).
 
 2. if you installed a system-wide environment, the process is slightly
 different, because we install into the user's `$HOME/.local` rather
-than the conda environment
+than the conda environment:
 
    ```
-   pip install --user .
+   pip install --user .[test]
    ```
 
 3. PyPop is ready-to-use, skip to [Run the test suite](#4-run-the-test-suite)
@@ -169,12 +174,12 @@ are running on Python < 3.7, you may need to also add
 
    1. conda
       ```
-      pip install numpy lxml psutil
+      pip install numpy lxml psutil pytest
       ```
 
    2. system-wide
       ```
-      pip install --user numpy lxml psutil
+      pip install --user numpy lxml psutil pytest
       ```
 
 2. Run the build
