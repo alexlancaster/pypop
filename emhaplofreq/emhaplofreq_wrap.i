@@ -38,6 +38,11 @@ MODIFICATIONS. */
 
 %include "emhaplofreq/emhaplofreq.h"
 
+/* prototype for internal inclusion */
+%{
+extern int main_proc(FILE *, char *, int, int, int, int, int, int, int, int, int, char [], char []);  
+%}
+
 /* 
  * Python entry point to program.
  *
