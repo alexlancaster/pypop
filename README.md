@@ -33,7 +33,7 @@ miniconda approach in each of the steps below.
 the miniconda installer for your platform, and follow the instructions
 to install (theoretically the rest of the PyPop miniconda installation
 process should work on any platform that is supported by miniconda,
-but only Linux has been tested at this time).
+but only Linux and MacOS has been tested at this time).
 
 2. Once miniconda is installed, create a new conda environment, using
 the following commands:
@@ -47,6 +47,15 @@ uses of Python to the system-installed one, along with other
 requirements. You will need to use this this environment for the
 build, installation and running of PyPop. The conda environment name,
 above, `pypop3`, can be replaced with your own name.
+
+   > When installing on MacOS, before installing `conda`, you should
+   > first to ensure that the Apple Command Line Developer Tools
+   > (XCode) are
+   > [installed](https://mac.install.guide/commandlinetools/4.html),
+   > so you have the compiler (`clang`, the drop-in replacement for
+   > `gcc`), `git` etc. `conda` is unable to include the full
+   > development environment for `clang` as a conda package for legal
+   > reasons.
 
 3. Activate the environment, and set environments variables needed for
 compilation:
@@ -105,7 +114,7 @@ environment:
    ```
    python3 -m ensurepip --user --no-default-pip
    ```
-   Note the use of the `python3` - you may find this to be necessary on
+   > Note the use of the `python3` - you may find this to be necessary on
 systems which parallel-install both Python 2 and 3, which is typically
 the case. On newer systems you may find that `python` and `pip` are,
 by default, the Python 3 version of those tools.
@@ -141,9 +150,10 @@ package.  Note that if you use this method and install the package, it
 will be available to run anywhere on your system, by running
 `pypop.py`.
 
-_**However, changes you make to the code, locally, or via
-subsequent `git pull` requests will not be available in the installed
-version until you repeat the `pip install` command.**_
+> _**If you use this installation method, changes you make to the
+code, locally, or via subsequent `git pull` requests will not be
+available in the installed version until you repeat the `pip install`
+command.**_
 
 1. if you installed the conda development environment, use:
 
@@ -151,7 +161,7 @@ version until you repeat the `pip install` command.**_
    pip install .[test]
    ```
    
-   (the `[test]` keyword is included to make sure that any package
+   > (the `[test]` keyword is included to make sure that any package
 requirements for the test suite are installed as well).
 
 2. if you installed a system-wide environment, the process is slightly

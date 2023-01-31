@@ -89,6 +89,12 @@ headers for the samples (sample metadata) followed by the sample data
 itself (either individuals in the genotyped case, or alleles in the
 allele count case).
 
+## SWIG notes
+
+* Note that within ".i" wrappers, need to include function prototypes
+and SWIG wrappers, so functions are duplicated, see this
+[StackOverflow
+post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-python)
 
 ## macports.org
 
