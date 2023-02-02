@@ -35,7 +35,7 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 import sys, os
-
+from glob import glob
 from setuptools import setup
 from setuptools.extension import Extension
 from sysconfig import _PREFIX, get_config_vars, get_config_var
@@ -200,11 +200,13 @@ class CleanCommand(clean.clean):
     """Customized clean command - removes in_place extension files if they exist"""
     def run(self):
         DIR = os.path.dirname(__file__)
-        ext_files = [os.path.join(DIR, ext.name + (".pyd" if sys.platform == "win32" else ".so")) for ext in extensions]
+        # generate glob pattern from extension name and suffix
+        ext_files = [os.path.join(DIR, __pkgname__, ext.name.split(__pkgname__ + '.').pop() + ("*.pyd" if sys.platform == "win32" else "*.so")) for ext in extensions]
         for ext_file in ext_files:
-            if os.path.exists(ext_file):
-                print("Removing in-place extension {}".format(ext_file))
-                os.unlink(ext_file)
+            for ext_file in glob(ext_file):
+                if os.path.exists(ext_file):
+                    print("Removing in-place extension {}".format(ext_file))
+                    os.unlink(ext_file)
         clean.clean.run(self)
 
 data_file_paths = []
