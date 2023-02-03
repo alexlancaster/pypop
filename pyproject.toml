@@ -10,7 +10,7 @@ before-all="yum install -y swig gsl-devel"
 # GitHub runners use Ubuntu
 #before-all="apt install swig libgsl-dev"
 
-#[tool.cibuildwheel.macos]
-#before-all = "brew install swig gsl"
+[tool.cibuildwheel.macos]
+before-all = "brew install swig gsl"
 # FIXME: on MacOS, cibuildwheel team suggests building these from
 # source within the container, rather than using 'brew'
