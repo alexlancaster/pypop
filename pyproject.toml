@@ -4,10 +4,11 @@ test-extras = ["test"]
 test-command = "pytest -s -v {package}/tests"
 
 [tool.cibuildwheel.linux]
+# for CentOS-based runners, local cibuildwheel docker
+before-all="yum install -y swig gsl-devel"
+
 # GitHub runners use Ubuntu
-before-all="apt install swig libgsl-dev"
-# for CentOS-based runners
-#before-all="yum install -y swig gsl-devel"
+#before-all="apt install swig libgsl-dev"
 
 #[tool.cibuildwheel.macos]
 #before-all = "brew install swig gsl"
