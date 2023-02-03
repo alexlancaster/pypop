@@ -17,8 +17,8 @@ jobs:
         uses: pypa/cibuildwheel@v2.12.0
         env:
            CIBW_BEFORE_ALL_LINUX: >
-             apt-get update
-             apt-get install -y swig libgsl-dev
+             sudo apt-get update
+             sudo apt-get install -y swig libgsl-dev
         with:
           package-dir: .
           output-dir: wheelhouse
