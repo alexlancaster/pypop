@@ -149,7 +149,13 @@ long init_rand(int testing)
  */
 int run_data(int *genotypes, int *allele_array, int no_allele, 
 	     int total_individuals, int thestep, int thegroup, int thesize,
-	     char *title, FILE *outfile, int header, int testing)
+	     char *title,
+#ifdef XML_OUTPUT
+	     char *outfilename,
+#else
+	     FILE *outfile,
+#endif
+	     int header, int testing)
 {
   int actual_switch, counter;
   Index index;
@@ -161,6 +167,11 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
   long t1;
   int num_genotypes = no_allele * (no_allele + 1) / 2;
 
+#ifdef XML_OUTPUT
+  FILE *outfile;
+  outfile = fopen(outfilename, "w");
+#endif
+  
   /* int *genotypes = (int *)calloc(genotypes, sizeof(int)); */
 
   /* do random number initialization */
@@ -319,15 +330,20 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
 #endif
 
 #ifdef XML_OUTPUT
+  fclose(outfile);
   if (header)
     xmlfprintf(outfile, "</hardyweinbergGuoThompson>");
 #endif
-
   return (0);
 }
 
 int run_randomization(int *genotypes, int *allele_array, int no_allele, 
-		      int total_individuals, int iterations, FILE *outfile,
+		      int total_individuals, int iterations,
+#ifdef XML_OUTPUT
+		      char *outfilename,
+#else
+		      FILE *outfile,
+#endif
 		      int header, int testing)
 {
   double ln_p_observed; 
@@ -335,6 +351,11 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   register int i, j, l;
   int num_genotypes = no_allele * (no_allele + 1) / 2;
 
+#ifdef XML_OUTPUT
+  FILE *outfile;
+  outfile = fopen(outfilename, "w");
+#endif
+  
   /* calculate number of alleles of each gamete */
   cal_n(no_allele, genotypes, allele_array); 
 
@@ -345,9 +366,13 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   ln_p_observed = ln_p_value(genotypes, no_allele, constant);   
 
 #ifdef XML_OUTPUT
+  if (outfile == NULL) {
+    printf("problem with opening file!\n");
+  }
   if (header)
     xmlfprintf(outfile, 
 	    "\n<hardyweinbergGuoThompson type=\"monte-carlo\">\n");
+
 #else
   fprintf(outfile, "Constant: %e, Observed: %e\n", constant, ln_p_observed);
 #endif
@@ -506,7 +531,10 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   free(g);
   free(s);
 
+#ifdef XML_OUTPUT
+  fclose(outfile);
   if (header)
     xmlfprintf(outfile, "</hardyweinbergGuoThompson>\n");
+#endif
   return (0);
 }

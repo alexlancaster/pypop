@@ -41,6 +41,7 @@
 import sys, os, subprocess, io
 from PyPop import _Pvalue
 from math import pow, sqrt
+from tempfile import TemporaryDirectory
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
 # this can clash with a character within an allele identifier too easily
 from PyPop.Utils import getStreamType, TextOutputStream, GENOTYPE_SEPARATOR
@@ -851,43 +852,55 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
       # flush stdout before running the G&T step
       sys.stdout.flush()
 
-    # create string "file" buffer
-    import io
-
     # import library only when necessary
     from PyPop import _Gthwe
 
     if self.runMCMCTest:
-      fp = io.StringIO()
+
       stream.opentag('hardyweinbergGuoThompson',
                       allelelump=("%d" % allelelump))
 
       self.serializeXMLTableTo(stream)
 
-      _Gthwe.run_data(self.flattenedMatrix, n, self.k, self.totalGametes,
-                      self.dememorizationSteps, self.samplingNum,
-                      self.samplingSize, locusName, fp, 0, self.testing)
+      with TemporaryDirectory() as tmp:
+        # generates temporary directory and filename, and cleans-up after block ends
+        xml_tmp_filename=os.path.join(tmp, 'gthwe.out.xml')
 
-      # copy XML output to stream
-      stream.write(fp.getvalue())
-      fp.close()
+        _Gthwe.run_data(self.flattenedMatrix, n, self.k, self.totalGametes,
+                        self.dememorizationSteps, self.samplingNum,
+                        self.samplingSize, locusName, xml_tmp_filename, 0, self.testing)
+
+        # read the generated contents of the temporary XML file
+        fp = open(xml_tmp_filename)
+        # copy XML output to stream
+        stream.write(fp.read())
+        fp.close()
+
       stream.closetag('hardyweinbergGuoThompson')
       stream.writeln()
 
 
     if self.runPlainMCTest:
-      fp = io.StringIO()
       stream.opentag('hardyweinbergGuoThompson',
                       type='monte-carlo',
                       allelelump=("%d" % allelelump))
       self.serializeXMLTableTo(stream)
+
       
-      _Gthwe.run_randomization(self.flattenedMatrix, n, self.k,
-                               self.totalGametes, self.monteCarloSteps, fp,
-                               0, self.testing)
-      # copy XML output to stream
-      stream.write(fp.getvalue())
-      fp.close()
+      with TemporaryDirectory() as tmp:
+        # generates temporary directory and filename, and cleans-up after block ends
+        xml_tmp_filename=os.path.join(tmp, 'gthwe.out.xml')
+
+        _Gthwe.run_randomization(self.flattenedMatrix, n, self.k,
+                                 self.totalGametes, self.monteCarloSteps,
+                                 xml_tmp_filename, 0, self.testing)
+
+        # read the generated contents of the temporary XML file
+        fp = open(xml_tmp_filename)
+        # copy XML output to stream
+        stream.write(fp.read())
+        fp.close()
+        
       stream.closetag('hardyweinbergGuoThompson')
       stream.writeln()
 

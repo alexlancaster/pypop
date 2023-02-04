@@ -14,8 +14,6 @@ def test_USAFEL():
     gold_out_filename = base.abspath_test_data(os.path.join('./tests/data/output', "USAFEL-UchiTelle-small-out-no-emhaplofreq-noguothompson.txt"))
     assert filecmp.cmp(out_filename, gold_out_filename)
 
-
-@pytest.mark.xfail(reason="GuoThompson not yet functional in Python 3")
 def test_USAFEL_guothompson():
     exit_code = base.run_pypop_process('./tests/data/minimal-no-emhaplofreq.ini', './tests/data/USAFEL-UchiTelle-small.pop')
     # check exit code

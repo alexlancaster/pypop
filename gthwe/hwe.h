@@ -69,7 +69,7 @@ MODIFICATIONS. */
 
 #ifdef __SWIG__
 int pyfprintf(FILE *fp, const char *format, ...);
-#define xmlfprintf pyfprintf
+#define xmlfprintf fprintf
 #else
 #define xmlfprintf fprintf
 #endif

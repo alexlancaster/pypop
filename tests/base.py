@@ -55,7 +55,7 @@ def run_pypop_process(inifile, popfile, args=[]):
     default_pypop = shutil.which("pypop.py")
     if not default_pypop:
         default_pypop = shutil.which("./bin/pypop.py")
-        print ("using local pypop:", default_pypop)
+        #print ("using local pypop:", default_pypop)
     
     cmd_line = [default_pypop, '-m'] + args + ['-c', inifile, popfile]
     process=subprocess.Popen(

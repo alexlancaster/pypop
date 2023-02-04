@@ -3,7 +3,6 @@ import subprocess
 import hashlib
 import pytest
 
-@pytest.mark.xfail(reason="HardyWeinbergGuoThompson module currently broken")
 def test_GenotypeCommon_HardyWeinberg():
     exit_code = base.run_pypop_process('./tests/data/WS_BDCtrl_Test_HW.ini', './tests/data/BIGDAWG_SynthControl_Data.pop')
     # check exit code
@@ -11,7 +10,6 @@ def test_GenotypeCommon_HardyWeinberg():
     # compare with md5sum of output file
     assert hashlib.md5(open("BIGDAWG_SynthControl_Data-out.txt", 'rb').read()).hexdigest() == 'db4bc1113e9eab337561f7510e73381f'
 
-@pytest.mark.xfail(reason="HardyWeinbergGuoThompson module currently broken")    
 def test_GenotypeCommonDash_HardyWeinberg():
     exit_code = base.run_pypop_process('./tests/data/WS_BDCtrl_Test_HW.ini', './tests/data/BIGDAWG_SynthControl_Data_dash.pop')
     # check exit code

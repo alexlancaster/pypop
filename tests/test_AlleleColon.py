@@ -3,7 +3,6 @@ import subprocess
 import hashlib
 import pytest
 
-@pytest.mark.xfail(reason="HardyWeinbergGuoThompson module currently broken")
 def test_AlleleColon_HardyWeinberg():
     exit_code = base.run_pypop_process('./tests/data/Test_Allele_Colon_HardyWeinberg.ini', './tests/data/Test_Allele_Colon_HardyWeinberg.pop')
     # check exit code
