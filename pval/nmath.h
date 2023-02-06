@@ -98,7 +98,12 @@ int R_finite(double);
 
 #define ML_POSINF	(1.0 / 0.0)
 #define ML_NEGINF	((-1.0) / 0.0)
+
+#if defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__WIN64__)
+#define ML_NAN          NAN
+#else
 #define ML_NAN		(0.0 / 0.0)
+#endif
 
 #define _(String) String
 #endif /* standalone */
