@@ -84,7 +84,7 @@ void id_unique_alleles(char (*)[MAX_COLS][NAME_LEN], char (*)[MAX_ALLELES][NAME_
   * Creates allele_freq[i][j]:  freq for jth allele at the ith locus 
 */
 
-//double min(double, double);
+double emh_min(double, double);
 /*
   * return minimum argument
 */
@@ -1378,7 +1378,7 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
 }
 
 /************************************************************************/
-double min(double a, double b)
+double emh_min(double a, double b)
 {
   if (a < b)
     return (a);
@@ -1455,12 +1455,12 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
             pow(dij[coeff_count][l][m], 2) / ( af[j][l] * af[k][m] ) ;
           if (dij[coeff_count][l][m] > 0)
           {
-            dmax = min( af[j][l]*(1-af[k][m]), (1-af[j][l])*af[k][m] );
+            dmax = emh_min( af[j][l]*(1-af[k][m]), (1-af[j][l])*af[k][m] );
             norm_dij = dij[coeff_count][l][m] / dmax;
           }
           else if (dij[coeff_count][l][m] < 0)
           {
-            dmax = min( af[j][l]*af[k][m], (1-af[j][l])*(1-af[k][m]) );
+            dmax = emh_min( af[j][l]*af[k][m], (1-af[j][l])*(1-af[k][m]) );
             norm_dij = dij[coeff_count][l][m] / dmax;
           }
           else
@@ -1477,7 +1477,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
         }
       }
       summary_wn[coeff_count]  = sqrt( summary_q[coeff_count] /
-        ( 2*(double)n_recs * (min(n_unique_allele[j],n_unique_allele[k])-1) ) );
+        ( 2*(double)n_recs * (emh_min(n_unique_allele[j],n_unique_allele[k])-1) ) );
       coeff_count += 1;
 #ifdef XML_OUTPUT
       xmlfprintf(fp_out, "</loci>\n");   /* close <loci> tag */
