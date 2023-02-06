@@ -128,9 +128,6 @@ double loglikelihood(int *, double *, int *, int, int, int, int *, int (*)[], in
   * compute log likelihood for a given set of haplotype frequencies
 */
 
-void srand48(long int seedval);
-
-double drand48(void);
 
 void permute_alleles(char (*)[MAX_COLS][NAME_LEN], int, int);
 /* data array, number of loci, number of records */
