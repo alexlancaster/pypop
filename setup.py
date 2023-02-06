@@ -42,13 +42,6 @@ from sysconfig import _PREFIX, get_config_vars, get_config_var
 
 from PyPop import __version__, __pkgname__
 
-# Override the overzealous use of _FORTIFY_SOURCE CFLAGS flags that
-# are in /usr/lib/python2.4/config/Makefile used on Fedora Core 4
-# releases with Python 2.4.  Nasty hack to achieve this suggested on
-# http://mail.python.org/pipermail/distutils-sig/2002-December/003123.html
-cv = get_config_var("OPT")
-cv = cv.replace("-D_FORTIFY_SOURCE=2", "-D_FORTIFY_SOURCE=1")
-
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
 # we set the environment to emulate that.
