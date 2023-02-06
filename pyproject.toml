@@ -14,3 +14,6 @@ before-all="yum install -y swig gsl-devel"
 before-all = "brew install swig gsl"
 # FIXME: on MacOS, cibuildwheel team suggests building these from
 # source within the container, rather than using 'brew'
+
+[tool.cibuildwheel.windows]
+before-all = "nuget install gsl-msvc-x86"
