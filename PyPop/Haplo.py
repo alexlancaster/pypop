@@ -41,6 +41,7 @@ import sys, os, re, io
 import numpy
 import math
 import itertools as it
+from tempfile import TemporaryDirectory
 
 from PyPop.Arlequin import ArlequinBatch
 from PyPop.Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR, XMLOutputStream
@@ -391,7 +392,7 @@ class Emhaplofreq(Haplo):
 
         """
 
-        # create an in-memory file instance for the C program to write
+        # create an in-memory file instance to append output to
         # to; this remains in effect until end of method
         fp = io.StringIO()
 
@@ -495,21 +496,18 @@ class Emhaplofreq(Haplo):
                 
                 fp.write("<individcount role=\"after-filtering\">%d</individcount>" % groupNumIndiv)
                 fp.write(os.linesep)
-                
-                # pass this submatrix to the SWIG-ed C function
-                self._Emhaplofreq.main_proc(fp,
-                                            subMatrix,
-                                            lociCount,
-                                            groupNumIndiv,
-                                            permutationFlag,
-                                            haploSuppressFlag,
-                                            numInitCond,
-                                            numPermutations,
-                                            numPermuInitCond,
-                                            permutationPrintFlag,
-                                            testing,
-                                            GENOTYPE_SEPARATOR,
-                                            GENOTYPE_TERMINATOR)
+
+                with TemporaryDirectory() as tmp:
+                    # generates temporary directory and filename, and cleans-up after block ends
+                    xml_tmp_filename=os.path.join(tmp, 'emhaplofreq.out.xml')
+
+                    # pass this submatrix to the SWIG-ed C function
+                    self._Emhaplofreq.main_proc(xml_tmp_filename, subMatrix, lociCount, groupNumIndiv, permutationFlag, haploSuppressFlag, numInitCond, numPermutations, numPermuInitCond, permutationPrintFlag, testing, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR)
+
+                    # read the generated contents of the temporary XML file
+                    with open(xml_tmp_filename, 'r') as tmp_fp:
+                        # copy XML output file to our StringIO
+                        fp.write(tmp_fp.read())
 
                 fp.write("</group>")
 
@@ -524,7 +522,7 @@ class Emhaplofreq(Haplo):
                 fp.write(os.linesep)
 
         # writing to file must be called *after* all output has been
-        # generated to cStringIO instance "fp"
+        # collected in the StringIO instance "fp"
 
         self.stream.write(fp.getvalue())
         fp.close()

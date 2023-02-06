@@ -65,7 +65,7 @@ if "CPATH" in os.environ:
 
 # add local SWIG directory for cStringIO.h
 include_dirs += ["SWIG"]
-swig_opts = ["-ISWIG", "-py3"]
+swig_opts = ["-ISWIG"]
 
 # define each extension
 ext_Emhaplofreq = Extension("PyPop._Emhaplofreq",

@@ -52,7 +52,13 @@ int read_infile(FILE *, char [MAX_ROWS][NAME_LEN], char [MAX_ROWS][MAX_COLS][NAM
 /* open filehandle for data, ref array, data array, number of records */
 /* returns number of loci */
 
-int main_proc(FILE *, char (*)[MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int, int, char [1], char [1]);
+int main_proc(
+#ifdef XML_OUTPUT
+	      char *fp_filename,
+#else
+	      FILE *fp_out,
+#endif
+	      char [MAX_ROWS][MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int, int, char [1], char [1]);
 /* data array, number of loci, number of records */
 /* main procedure that handles memory allocation and creation of arrays, 
   * spawns the rest of the data preparation and processing functions, 
@@ -221,9 +227,16 @@ int main(int argc, char **argv)
   /* hard-code MAX_INIT, MAX_PERMU, MAX_INIT_FOR_PERMU and set
      permu_print to "1" (true) for command-line invocation, until we
      add getopt-parsed options for them */
-  ret_val = main_proc(fp_out, data, num_loci, num_recs, permu_flag, 
-		      suppress_haplo_print_flag, MAX_INIT, MAX_PERMU, 
-		      MAX_INIT_FOR_PERMU, 1, 0, "~", "|");
+  ret_val = main_proc(
+#ifdef XML_OUTPUT
+		      "dummy.out",
+#else
+		      fp_out,
+#endif
+		      data, num_loci, num_recs, permu_flag, 
+  		      suppress_haplo_print_flag, MAX_INIT, MAX_PERMU, 
+  		      MAX_INIT_FOR_PERMU, 1, 0, "~", "|");
+
 
   return (ret_val);
 }
@@ -309,7 +322,13 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
 
 /************************************************************************/
 
-int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, 
+int main_proc(
+#ifdef XML_OUTPUT
+	      char *fp_filename,
+#else
+	      FILE *fp_out,
+#endif
+	      char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, 
 	      int n_recs, int permu_flag, int suppress_haplo_print_flag, 
 	      int max_init_cond, int max_permu, int max_init_for_permu, 
 	      int permu_print, int testing, char GENOTYPE_SEPARATOR[1], char GENOTYPE_TERMINATOR[1])
@@ -320,6 +339,10 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   int i, j, obs, locus, col_0, col_1 = 0;
   int unique_pheno_flag, unique_geno_flag = 0;
 
+#ifdef XML_OUTPUT
+  FILE *fp_out = fopen(fp_filename, "w");
+#endif
+  
   CALLOC_ARRAY_DIM1(char, buff, NAME_LEN);
 
   /* heterozygous sites through current and previous locus loop */
@@ -1107,9 +1130,16 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     fclose(fp_permu);
     fclose(fp_iter);
 #endif
+
+    
   }
   /*** end: post-processing for permutations ***/
 
+#ifdef XML_OUTPUT
+    fflush(fp_out);
+    fclose(fp_out);
+#endif
+  
   /* free calloc'ed space */
   free(buff);
   free(pheno);
