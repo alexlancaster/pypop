@@ -105,6 +105,7 @@ int R_finite(double);
 #define ML_POSINF	(1.0 / 0.0)
 #define ML_NEGINF	((-1.0) / 0.0)
 #define ML_NAN		(0.0 / 0.0)
+#endif
 
 #define _(String) String
 #endif /* standalone */
