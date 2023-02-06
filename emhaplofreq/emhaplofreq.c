@@ -30,7 +30,10 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS. */
 
+#ifndef XML_OUTPUT
 #include <getopt.h>  /* needed for GNU getopt */
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -137,6 +140,9 @@ void permute_alleles(char (*)[MAX_COLS][NAME_LEN], int, int);
 
 /******************* end: function prototypes ****************************/
 
+#ifndef XML_OUTPUT
+
+/* only need main if used outside SWIG */
 int main(int argc, char **argv)
 {
   FILE *if_handle, *fp_out;
@@ -228,11 +234,7 @@ int main(int argc, char **argv)
      permu_print to "1" (true) for command-line invocation, until we
      add getopt-parsed options for them */
   ret_val = main_proc(
-#ifdef XML_OUTPUT
-		      "dummy.out",
-#else
 		      fp_out,
-#endif
 		      data, num_loci, num_recs, permu_flag, 
   		      suppress_haplo_print_flag, MAX_INIT, MAX_PERMU, 
   		      MAX_INIT_FOR_PERMU, 1, 0, "~", "|");
@@ -240,6 +242,8 @@ int main(int argc, char **argv)
 
   return (ret_val);
 }
+#endif
+
 
 /************************************************************************/
 
