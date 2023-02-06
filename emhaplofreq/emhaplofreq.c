@@ -84,7 +84,7 @@ void id_unique_alleles(char (*)[MAX_COLS][NAME_LEN], char (*)[MAX_ALLELES][NAME_
   * Creates allele_freq[i][j]:  freq for jth allele at the ith locus 
 */
 
-double min(double, double);
+//double min(double, double);
 /*
   * return minimum argument
 */
