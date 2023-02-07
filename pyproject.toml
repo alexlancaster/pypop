@@ -17,4 +17,4 @@ before-all = "brew install swig gsl"
 
 [tool.cibuildwheel.windows]
 before-all = ["nuget install gsl-msvc-x86",
-	   "ls build"]
+	   "ls"]
