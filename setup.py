@@ -124,7 +124,7 @@ ext_Gthwe_macros = [('__SWIG__', '1'),
                     ('INDIVID_GENOTYPES', '1')] 
 
 if sys.platform == "win32":
-    cblas_libname = "cblas"
+    cblas_libname = "gslcblas"
 else:
     cblas_libname = "gslcblas"
     

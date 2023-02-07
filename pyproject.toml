@@ -6,7 +6,6 @@ test-command = "pytest -s -v {package}/tests"
 [tool.cibuildwheel.linux]
 # for CentOS-based runners, local cibuildwheel docker
 before-all="yum install -y swig gsl-devel"
-
 # GitHub runners use Ubuntu
 #before-all="apt install swig libgsl-dev"
 
@@ -16,6 +15,7 @@ before-all = "brew install swig gsl"
 # source within the container, rather than using 'brew'
 
 [tool.cibuildwheel.windows]
-before-all = ["nuget install gsl-msvc-x86",
-	   "ls -R gsl-msvc-x86.2.4.0.8788"]
-environment = { CPATH="gsl-msvc-x86.2.4.0.8788\\\\build\\\\native", LIBRARY_PATH="gsl-msvc-x86.2.4.0.8788\\\\build\\\\native\\\\lib\\\\Win32\\\\Release" }
+# use nuget to install gsl on Windows, and manually supply paths
+before-all = ["nuget install gsl-msvc-x86 -Version 2.3.0.2779",
+	   "ls -R gsl-msvc-x86.2.3.0.2779"]
+environment = { CPATH="gsl-msvc-x86.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc-x86.2.3.0.2779\\\\build\\\\native\\\\lib\\\\Win32\\\\Release" }
