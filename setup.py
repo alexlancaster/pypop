@@ -56,8 +56,6 @@ if "LIBRARY_PATH" in os.environ:
 if "CPATH" in os.environ:
     include_dirs += os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
 
-# add local SWIG directory for cStringIO.h
-include_dirs += ["SWIG"]
 swig_opts = ["-ISWIG"]
 
 # define each extension
@@ -126,10 +124,16 @@ ext_Gthwe_macros = [('__SWIG__', '1'),
                     ('INDIVID_GENOTYPES', '1')] 
 
 
+# add local directory for win32 builds
+if sys.platform == "win32":
+    include_gsl_dir = ["gsl-msvc-x86.2.4.0.8788/build/native/gsl"]
+else:
+    include_gsl_dir = []
+
 ext_Gthwe = Extension("PyPop._Gthwe",
                       ext_Gthwe_files,
                       swig_opts = swig_opts,
-                      include_dirs=include_dirs + ["gthwe"],
+                      include_dirs=include_dirs + ["gthwe"] + include_gsl_dir,
                       library_dirs=library_dirs,
                       libraries=["gsl", "gslcblas"],
                       define_macros=ext_Gthwe_macros
