@@ -123,13 +123,17 @@ ext_Gthwe_macros = [('__SWIG__', '1'),
                     ('SUPPRESS_ALLELE_TABLE', '1'),
                     ('INDIVID_GENOTYPES', '1')] 
 
-
+if sys.platform == "win32":
+    cblas_libname = "cblas"
+else:
+    cblas_libname = "gslcblas"
+    
 ext_Gthwe = Extension("PyPop._Gthwe",
                       ext_Gthwe_files,
                       swig_opts = swig_opts,
                       include_dirs=include_dirs + ["gthwe"],
                       library_dirs=library_dirs,
-                      libraries=["gsl", "gslcblas"],
+                      libraries=["gsl", cblas_libname],
                       define_macros=ext_Gthwe_macros
                       )
 
