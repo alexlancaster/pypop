@@ -126,7 +126,7 @@ ext_Gthwe_macros = [('__SWIG__', '1'),
 
 # add local directory for win32 builds
 if sys.platform == "win32":
-    include_gsl_dir = ["gsl-msvc-x86.2.4.0.8788/build/native/gsl"]
+    include_gsl_dir = ["gsl-msvc-x86.2.4.0.8788\build\native\gsl"]
 else:
     include_gsl_dir = []
 
