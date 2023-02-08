@@ -37,14 +37,15 @@
 """Module for estimating haplotypes.
 
 """
-import sys, string, os, re, cStringIO, StringIO
+import sys, os, re, io
 import numpy
 import math
 import itertools as it
+from tempfile import TemporaryDirectory
 
-from Arlequin import ArlequinBatch
-from Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR, XMLOutputStream
-from DataTypes import checkIfSequenceData, getLocusPairs
+from PyPop.Arlequin import ArlequinBatch
+from PyPop.Utils import getStreamType, appendTo2dList, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR, XMLOutputStream
+from PyPop.DataTypes import checkIfSequenceData, getLocusPairs
 
 class Haplo:
     """*Abstract* base class for haplotype parsing/output.
@@ -261,16 +262,16 @@ KeepNullDistrib=0""")
                 sampleCount = matchobj.group(2)
                 liststr = matchobj.group(3)
                 # convert into list of loci
-                lociList = map(int, string.split(liststr, ','))
+                lociList = list(map(int, liststr.split(',')))
                 freqs = {}
                 
             if dataFound:
                 if line != os.linesep:
                     if self.debug:
-                        print string.rstrip(line)
+                        print(line.rstrip())
                     matchobj = re.search(patt3, line)
                     if matchobj:
-                        cols = string.split(matchobj.group(1))
+                        cols = matchobj.group(1).split()
                         haplotype = cols[2]
                         for i in windowRange:
                             haplotype = haplotype + "_" + cols[2+i]
@@ -306,7 +307,7 @@ class Emhaplofreq(Haplo):
         # import the Python-to-C module wrapper
         # lazy importation of module only upon instantiation of class
         # to save startup costs of invoking dynamic library loader
-        import _Emhaplofreq
+        from PyPop import _Emhaplofreq
 
         # assign module to an instance variable so it is available to
         # other methods in class
@@ -391,15 +392,15 @@ class Emhaplofreq(Haplo):
 
         """
 
-        # create an in-memory file instance for the C program to write
+        # create an in-memory file instance to append output to
         # to; this remains in effect until end of method
-        fp = cStringIO.StringIO()
+        fp = io.StringIO()
 
         if (permutationFlag == None) or (haploSuppressFlag == None):
             sys.exit("must pass a permutation or haploSuppressFlag to _runEmhaplofreq!")
-	
-	# make all locus keys uppercase
-	locusKeys = string.upper(locusKeys)
+
+        # make all locus keys uppercase
+        locusKeys = locusKeys.upper()
 
         # if no locus list passed, assume calculation of entire data
         # set
@@ -407,15 +408,15 @@ class Emhaplofreq(Haplo):
             # create key for entire matrix
             locusKeys = ':'.join(self.matrix.colList)
 
-        for group in string.split(locusKeys, ','):
-            
+        for group in locusKeys.split(','):
+           
             # get the actual number of loci being estimated
-            lociCount = len(string.split(group,':'))
+            lociCount = len(group.split(':'))
 
             if self.debug:
-                print "number of loci for haplotype est:", lociCount
+                print("number of loci for haplotype est:", lociCount)
 
-                print lociCount, self._Emhaplofreq.MAX_LOCI
+                print(lociCount, self._Emhaplofreq.MAX_LOCI)
 
             if lociCount <= self._Emhaplofreq.MAX_LOCI:
 
@@ -428,20 +429,20 @@ class Emhaplofreq(Haplo):
                 groupNumIndiv = len(subMatrix)
 
                 if self.debug:
-                    print "debug: key for matrix:", group
-                    print "debug: subMatrix:", subMatrix
-                    print "debug: dump matrix in form for command-line input"
+                    print("debug: key for matrix:", group)
+                    print("debug: subMatrix:", subMatrix)
+                    print("debug: dump matrix in form for command-line input")
                     for line in range(0, len(subMatrix)):
                         theline = subMatrix[line]
-                        print "dummyid",
+                        print("dummyid"),
                         for allele in range(0, len(theline)):
-                            print theline[allele], " ",
-                        print
+                            print(theline[allele], " "),
+                        print()
                     
                 fp.write(os.linesep)
 
                 if self.sequenceData:
-                    metaLoci = string.split(string.split(group, ':')[0],'_')[0]
+                    metaLoci = group.split(':')[0].split('_')[0]
                 else:
                     metaLoci = None
 
@@ -462,7 +463,7 @@ class Emhaplofreq(Haplo):
                         if len(allele) > maxAlleleLength:
                             maxAlleleLength = len(allele)
                         if len(allele) > (self._Emhaplofreq.NAME_LEN)-2:
-                            print "WARNING: '%s' (%d) exceeds max allele length (%d) for LD and haplo est in %s" % (allele, len(allele), self._Emhaplofreq.NAME_LEN-2, lociAttr)
+                            print("WARNING: '%s' (%d) exceeds max allele length (%d) for LD and haplo est in %s" % (allele, len(allele), self._Emhaplofreq.NAME_LEN-2, lociAttr))
 
                 if groupNumIndiv > self._Emhaplofreq.MAX_ROWS:
                     fp.write("<group %s role=\"too-many-lines\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
@@ -495,36 +496,33 @@ class Emhaplofreq(Haplo):
                 
                 fp.write("<individcount role=\"after-filtering\">%d</individcount>" % groupNumIndiv)
                 fp.write(os.linesep)
-                
-                # pass this submatrix to the SWIG-ed C function
-                self._Emhaplofreq.main_proc(fp,
-                                            subMatrix,
-                                            lociCount,
-                                            groupNumIndiv,
-                                            permutationFlag,
-                                            haploSuppressFlag,
-                                            numInitCond,
-                                            numPermutations,
-                                            numPermuInitCond,
-                                            permutationPrintFlag,
-                                            testing,
-                                            GENOTYPE_SEPARATOR,
-                                            GENOTYPE_TERMINATOR)
+
+                with TemporaryDirectory() as tmp:
+                    # generates temporary directory and filename, and cleans-up after block ends
+                    xml_tmp_filename=os.path.join(tmp, 'emhaplofreq.out.xml')
+
+                    # pass this submatrix to the SWIG-ed C function
+                    self._Emhaplofreq.main_proc(xml_tmp_filename, subMatrix, lociCount, groupNumIndiv, permutationFlag, haploSuppressFlag, numInitCond, numPermutations, numPermuInitCond, permutationPrintFlag, testing, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR)
+
+                    # read the generated contents of the temporary XML file
+                    with open(xml_tmp_filename, 'r') as tmp_fp:
+                        # copy XML output file to our StringIO
+                        fp.write(tmp_fp.read())
 
                 fp.write("</group>")
 
                 if self.debug:
                     # in debug mode, print the in-memory file to sys.stdout
-                    lines = string.split(fp.getvalue(), os.linesep)
+                    lines = fp.getvalue().split(os.linesep)
                     for i in lines:
-                        print "debug:", i
+                        print("debug:", i)
 
             else:
                 fp.write("Couldn't estimate haplotypes for %s, num loci: %d exceeded max loci: %d" % (group, lociCount, self._Emhaplofreq.MAX_LOCI))
                 fp.write(os.linesep)
 
         # writing to file must be called *after* all output has been
-        # generated to cStringIO instance "fp"
+        # collected in the StringIO instance "fp"
 
         self.stream.write(fp.getvalue())
         fp.close()
@@ -617,12 +615,12 @@ class Emhaplofreq(Haplo):
         li = getLocusPairs(self.matrix, self.sequenceData)
 
         if self.debug:
-            print li, len(li)
+            print(li, len(li))
 
         for pair in li:
             # generate the reversed order in case user
             # specified it in the opposite sense
-            sp = string.split(pair,':')
+            sp = pair.split(':')
             reversedPair =  sp[1] + ':' + sp[0]
 
             if (pair in haplosToShow) or (reversedPair in haplosToShow):
@@ -729,15 +727,15 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     dprime_ij = d_ij/dprime_den
 
     if debug:
-        print "dprime_den:", dprime_den
+        print ("dprime_den:", dprime_den)
 
-        print "i a_freq1 a_freq2 d_ij dprime hap_prob haplo"
+        print ("i a_freq1 a_freq2 d_ij dprime hap_prob haplo")
         for i in range(num_allpossible_haplos):
-            print i, a_freq1[i], a_freq2[i], d_ij[i], dprime_ij[i], hap_prob[i], "%s:%s" % (alleles1[i], alleles2[i])
+            print (i, a_freq1[i], a_freq2[i], d_ij[i], dprime_ij[i], hap_prob[i], "%s:%s" % (alleles1[i], alleles2[i]))
 
     dp_temp = abs(dprime_ij)*a_freq1*a_freq2
     dprime = dp_temp.sum()
-    if debug: print "Dprime: ", dprime
+    if debug: print ("Dprime: ", dprime)
 
     w_ij = (d_ij*d_ij) / (a_freq1*a_freq2)
     w = w_ij.sum()
@@ -745,7 +743,7 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     # WANT:  wn <- sqrt( w / (min( length(unique(alleles1)), length(unique(alleles2)) ) - 1.0) )
     w_den = numpy.minimum(numpy.unique(alleles1).size*1.0, numpy.unique(alleles2).size*1.0) - 1.0
     wn = numpy.sqrt( w / w_den )
-    if debug: print "Wn: ", wn
+    if debug: print ("Wn: ", wn)
 
     if compute_ALD:
         ## compute ALD
@@ -774,8 +772,8 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
            F_1_2_prime = (F_1_2 - F_1)/(1 - F_1)
            ALD_1_2 = math.sqrt(F_1_2_prime)
         if debug:
-            print "ALD_1_2:", ALD_1_2
-            print "ALD_2_1:", ALD_2_1
+            print ("ALD_1_2:", ALD_1_2)
+            print ("ALD_2_1:", ALD_2_1)
             # FIXME: NOT SURE YOU CAN ASSIGN nan IN ABOVE if()
     else:
         ALD_1_2 = None
@@ -799,7 +797,7 @@ class Haplostats(Haplo):
         # import the Python-to-C module wrapper
         # lazy importation of module only upon instantiation of class
         # to save startup costs of invoking dynamic library loader
-        import _Haplostats
+        from PyPop import _Haplostats
 
         # assign module to an instance variable so it is available to
         # other methods in class
@@ -819,7 +817,7 @@ class Haplostats(Haplo):
         if stream:
             self.stream = stream
         else:  # create a stream if none given
-            self.stream = XMLOutputStream(StringIO.StringIO())            
+            self.stream = XMLOutputStream(io.StringIO())            
 
     def serializeStart(self):
         """Serialize start of XML output to XML stream"""
@@ -847,23 +845,23 @@ class Haplostats(Haplo):
 
         # if wildcard, or not set, do all matrix
         if locusKeys == '*' or locusKeys == None:
-            locusKeys=string.join(self.matrix.colList,':')
+            locusKeys=':'.join(self.matrix.colList)
 
         geno = self.matrix.getNewStringMatrix(locusKeys)
 
         n_loci = geno.colCount
         n_subject = geno.rowCount
 
-        subj_id = range(1, n_subject + 1)
+        subj_id = list(range(1, n_subject + 1))
         if n_loci < 2:
-            print "Must have at least 2 loci for haplotype estimation!"
+            print ("Must have at least 2 loci for haplotype estimation!")
             exit(-1)
 
         # set up weight
         if not weight:
             weight = [1.0]*n_subject
         if len(weight) != n_subject:
-            print "Length of weight != number of subjects (nrow of geno)"
+            print ("Length of weight != number of subjects (nrow of geno)")
             exit(-1)
 
         temp_geno = geno.convertToInts()   # simulates setupGeno
@@ -885,7 +883,7 @@ class Haplostats(Haplo):
         if max_haps > control['max_haps_limit']:
             max_haps = control['max_haps_limit']
 
-        loci_insert_order = range(0, n_loci)
+        loci_insert_order = list(range(0, n_loci))
 
         # FIXME: hardcode
         if testMode:
@@ -934,7 +932,7 @@ class Haplostats(Haplo):
                     random_start = 1   
 
                 if self.debug:
-                    print "random seeds for initial condition", i, ":", iseed1, iseed2, iseed3
+                    print ("random seeds for initial condition", i, ":", iseed1, iseed2, iseed3)
 
                 converge_new, lnlike_new, n_u_hap_new, n_hap_pairs_new, hap_prob_new, \
                               u_hap_new, u_hap_code_new, subj_id_new, post_new, hap1_code_new, \
@@ -958,7 +956,7 @@ class Haplostats(Haplo):
 
                 if lnlike_new > lnlike:
                     if self.debug:
-                        print "found a better lnlikelihood!", lnlike_new
+                        print ("found a better lnlikelihood!", lnlike_new)
                     # FIXME: need more elegant data structure
                     converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, \
                               u_hap, u_hap_code, subj_id, post, hap1_code, \
@@ -1061,7 +1059,7 @@ class Haplostats(Haplo):
 
         # FIXME: sequence data *not* currently supported for haplostats
         locusPairs = getLocusPairs(self.matrix, False)
-        if self.debug: print locusPairs, len(locusPairs)
+        if self.debug: print (locusPairs, len(locusPairs))
         for pair in locusPairs:
             self.estHaplotypes(locusKeys=pair,
                                weight=weight,

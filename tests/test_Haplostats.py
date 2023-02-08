@@ -1,7 +1,7 @@
 import base
 import unittest
-import _Haplostats
-from py.test import approx
+from PyPop import _Haplostats
+from pytest import approx
 from numpy import array
 from numpy.testing import assert_array_almost_equal
 from operator import add
@@ -68,8 +68,8 @@ def test_Haplostats_Simple():
     assert S_n_u_hap == 16
     assert n_hap_pairs == 9
 
-    sum_hap_codes = map(add, hap1_code, hap2_code)
-#   print "sum_hap_codes: ", sum_hap_codes
+    sum_hap_codes = list(map(add, hap1_code, hap2_code))
+#   print ("sum_hap_codes: ", sum_hap_codes)
 
     assert status2 == 0
     assert hap_prob == [0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.15, 0.15, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05, 0.05]
@@ -107,14 +107,14 @@ def test_Haplostats_Simple3():
     status1, converge, S_lnlike, S_n_u_hap, n_hap_pairs, status2, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = ret_val
 
 #   import numpy
-#   print "u_hap: " u_hap
-#   print "hap_prob  u_hap_code u_hap(needs to be split for printing)"
-#   print numpy.c_[hap_prob,u_hap_code]
-#   print "subj_id  hap1_code  hap2_code"
-#   print numpy.c_[subj_id,hap1_code,hap2_code]
+#   print ("u_hap: " u_hap)
+#   print ("hap_prob  u_hap_code u_hap(needs to be split for printing)")
+#   print (numpy.c_[hap_prob,u_hap_code])
+#   print ("subj_id  hap1_code  hap2_code")
+#   print (numpy.c_[subj_id,hap1_code,hap2_code])
 
-    sum_hap_codes = map(add, hap1_code, hap2_code)
-#   print "sum_hap_codes: ", sum_hap_codes
+    sum_hap_codes = list(map(add, hap1_code, hap2_code))
+#   print ("sum_hap_codes: ", sum_hap_codes)
     assert status1 == 0
     assert converge == 1
     assert S_lnlike == -337.8527372502544
@@ -152,8 +152,8 @@ def test_Haplostats_UchiTelleClassI():
                               random_start, iseed1, iseed2, iseed3, verbose, geno_vec)
     status1, converge, S_lnlike, S_n_u_hap, n_hap_pairs, status2, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = ret_val
 
-    sum_hap_codes = map(add, hap1_code, hap2_code)
-#   print "sum_hap_codes: ", sum_hap_codes
+    sum_hap_codes = list(map(add, hap1_code, hap2_code))
+#   print ("sum_hap_codes: ", sum_hap_codes)
     assert status1 == 0
     assert converge == 1
     assert S_lnlike == -311.6829460557762

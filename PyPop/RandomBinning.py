@@ -39,10 +39,9 @@
 import string
 from copy import copy
 from random import randrange
-from string import join
 
-from Filter import AnthonyNolanFilter
-from Homozygosity import getObservedHomozygosityFromAlleleData, HomozygosityEWSlatkinExact
+from PyPop.Filter import AnthonyNolanFilter
+from PyPop.Homozygosity import getObservedHomozygosityFromAlleleData, HomozygosityEWSlatkinExact
 
 class RandomBinsForHomozygosity:
 
@@ -70,7 +69,7 @@ class RandomBinsForHomozygosity:
         self.logFile = logFile
         self.alleleCountDict = {}
         self.randomResultsFile = open(randomResultsFileName, "w")
-        self.randomResultsFile.write( string.join("filename locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split(), "\t") + "\n" )
+        self.randomResultsFile.write("\t".join("filename locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split()) + "\n" )
         
     def _dumpResults(self, alleleCountsBefore=None, alleleCountsAfter=None, randMethod=None):
 
@@ -80,9 +79,9 @@ class RandomBinsForHomozygosity:
         self.alleleCountDict[tuple(alleleCountsAfter)] = "after"
         
         if self.debug:
-            print 'alleleCountsBefore', alleleCountsBefore
-            print 'alleleCountsAfter', alleleCountsAfter
-            print 'alleleCountDict', self.alleleCountDict
+            print('alleleCountsBefore', alleleCountsBefore)
+            print('alleleCountsAfter', alleleCountsAfter)
+            print('alleleCountDict', self.alleleCountDict)
 
         hzExactObj = HomozygosityEWSlatkinExact(numReplicates=self.numReplicates, debug=self.debug)
         stats = hzExactObj.returnBulkHomozygosityStats(self.alleleCountDict, binningMethod=self.binningMethod)
@@ -90,7 +89,7 @@ class RandomBinsForHomozygosity:
         for s in stats:
             for m in xrange(stats[s]):
                 s = map(str, s)
-                self.randomResultsFile.write(string.join([self.filename, self.locus] + s, "\t") + "\n")
+                self.randomResultsFile.write("\t".join([self.filename, self.locus] + s) + "\n")
 
         self.randomResultsFile.close()
 
@@ -100,7 +99,7 @@ class RandomBinsForHomozygosity:
         alleleCounts = tuple(alleleCounts)
 
         if self.debug:
-            print alleleCounts
+            print(alleleCounts)
             
         if alleleCounts in self.alleleCountDict.keys():
             self.alleleCountDict[alleleCounts] += 1
@@ -171,7 +170,7 @@ class RandomBinsForHomozygosity:
                 del polyseqSliced[self.locus+"*"+self.untypedAllele]
             except:
                 if self.debug:
-                    print "no untyped allele in polyseq"
+                    print("no untyped allele in polyseq")
 
             while len(alleleCountsRand) > len(alleleCountsAfter):
 
@@ -183,10 +182,10 @@ class RandomBinsForHomozygosity:
                 allelesToBin = []
 
                 if self.debug:
-                    print "polyseq",polyseqSliced
-                    print "posToDelete",posToDelete
-                    print "length of polyseq before",seqLength
-                    print "alleles before binning",alleleCountsRand
+                    print("polyseq",polyseqSliced)
+                    print("posToDelete",posToDelete)
+                    print("length of polyseq before",seqLength)
+                    print("alleles before binning",alleleCountsRand)
 
                 # deletes the selected character from each sequence
                 for allele in polyseqSliced:
@@ -219,10 +218,10 @@ class RandomBinsForHomozygosity:
                     del polyseqSliced[allele]
 
                 if self.debug:
-                    print "length of polyseq after",len(polyseqSliced.values()[0])
-                    print "allelesToBin",allelesToBin
-                    print "alleles after binning",alleleCountsRand
-                    print "--------------------"
+                    print("length of polyseq after",len(polyseqSliced.values()[0]))
+                    print("allelesToBin",allelesToBin)
+                    print("alleles after binning",alleleCountsRand)
+                    print("--------------------")
 
             binningAttempts += 1
 
@@ -232,14 +231,14 @@ class RandomBinsForHomozygosity:
 
             elif len(alleleCountsRand) < len(alleleCountsAfter):
                 if self.debug:
-                    print "=======================OVERSHOT TARGET!=================="
+                    print("=======================OVERSHOT TARGET!==================")
                 # restore counters to pre-overshoot counts
                 deleteHistory = copy(deleteHistorySaved)
                 collapseHistory = copy(collapseHistorySaved)
                 weightedCollapseHistory = copy(weightedCollapseHistorySaved)
                 
             if binningAttempts > (self.binningReplicates * 100):
-                print "FilterLog: Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful)
+                print("FilterLog: Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful))
                 self.logFile.writeln("Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful) )
                 break
 
@@ -250,10 +249,10 @@ class RandomBinsForHomozygosity:
         self.logFile.writeln('Tried %d times to get %d random binnings.' % (binningAttempts, binningAttemptsSuccessful))
         self.logFile.writeln('locus\tposition\ttimesDeleted\ttimesDeletedAll\tcollapses\tcollapsesWeighted')
         for pos in polyseqpos:
-            self.logFile.writeln( join([self.locus, str(pos),
-                                        str(deleteHistory[pos]/float(binningAttemptsSuccessful)),
-                                        str(deleteHistoryAll[pos]/float(binningAttemptsSuccessful)),
-                                        str(collapseHistory[pos]/float(binningAttemptsSuccessful)),
-                                        str(weightedCollapseHistory[pos]/float(binningAttemptsSuccessful))],'\t'))
+            self.logFile.writeln('\t'.join([self.locus, str(pos),
+                                            str(deleteHistory[pos]/float(binningAttemptsSuccessful)),
+                                            str(deleteHistoryAll[pos]/float(binningAttemptsSuccessful)),
+                                            str(collapseHistory[pos]/float(binningAttemptsSuccessful)),
+                                            str(weightedCollapseHistory[pos]/float(binningAttemptsSuccessful))]))
 
     

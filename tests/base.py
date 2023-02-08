@@ -36,12 +36,36 @@
 import os.path
 import sys
 import subprocess
+import shutil
+from pathlib import PurePath
 
-DIR = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(DIR, '..'))
+CUR_DIR = os.path.abspath(os.path.dirname(__file__))
+PARENT_DIR = os.path.join(CUR_DIR, '..')
+sys.path.append(PARENT_DIR)
+
+def abspath_test_data(filename):
+    parent_path = PurePath(PARENT_DIR)
+    suffix_path = PurePath(filename)
+    return str (parent_path / suffix_path)
 
 def run_pypop_process(inifile, popfile, args=[]):
-    cmd_line = ['./bin/pypop.py', '-m'] + args + ['-c', inifile, popfile]
+
+    # convert relative data files to absolute
+    inifile = abspath_test_data(inifile)
+    popfile = abspath_test_data(popfile)
+
+    # first try pypop.py in current PATH
+    default_pypop = shutil.which("pypop.py")
+    if not default_pypop:
+        # then in local subdirectory
+        default_pypop = shutil.which(PurePath("./bin/pypop.py"))
+        if not default_pypop:
+            # finally just default to the name
+            default_pypop = "pypop.py" 
+
+    print ("using pypop: [", default_pypop, end="] ")
+    
+    cmd_line = [default_pypop, '-m'] + args + ['-c', inifile, popfile]
     process=subprocess.Popen(
         cmd_line,
         stdout=subprocess.PIPE,

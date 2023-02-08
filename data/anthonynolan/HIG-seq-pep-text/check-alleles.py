@@ -1,6 +1,5 @@
 #!/usr/bin/env python
-import sys, glob, re, os, string
-
+import sys, glob, re, os
 verbose = 0
 
 patt = re.compile("^([0-9a-zA-Z]+)\*([0-9a-zA-Z]+)")
@@ -41,8 +40,8 @@ for file in sortedXML:
     stdout = os.popen("xsltproc %s %s" % (xslFilename, file), 'r').readlines()
 
     for line in stdout:
-        locus, unparsed_alleles = string.split(line, ":")
-        locus = string.upper(string.strip(locus))
+        locus, unparsed_alleles = line.split(":")
+        locus = locus.strip().uppercase()
         if unparsed_alleles == " \n":
             continue
 
@@ -50,11 +49,11 @@ for file in sortedXML:
             print "{%s: " % locus,
             print
 
-        alleles = string.split(unparsed_alleles)
+        alleles = unparsed_alleles.split()
 
         for allele in alleles:
-            allele = string.strip(allele)
-	    alleleName, alleleCount = string.split(allele, '/')
+            allele = allele.strip()
+	    alleleName, alleleCount = allele.split('/')
 	    alleleInfo = "%s (%s)" % (alleleName, alleleCount)
 	    #print alleleName, alleleCount
             if alleleName in dict[locus]:

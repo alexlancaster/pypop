@@ -202,8 +202,8 @@
        2.4</ulink> or later.</para>
     </listitem>
     <listitem>
-     <para><ulink url="http://numpy.sourceforge.net/">Numerical Python
-       (<application>Numeric</application>) 24.0</ulink> or later (note that this is the old "Numeric" not the newer Numpy, on Fedora the package is known as <application>python-numeric</application>)</para>
+     <para><ulink url="http://numpy.sourceforge.net/">Numerical Python (Numpy)
+       (<application>Numpy</application>) 24.0</ulink></para>
     </listitem>
     
     <listitem>

@@ -11,7 +11,6 @@ def test_AlleleColon_HardyWeinberg():
     assert hashlib.md5(open("Test_Allele_Colon_HardyWeinberg-out.txt", 'rb').read()).hexdigest() == '245a8a8493506c0b65ba9a3469173b13'
 
 def test_AlleleColon_Emhaplofreq():
-    
     exit_code = base.run_pypop_process('./tests/data/Test_Allele_Colon_Emhaplofreq.ini', './tests/data/Test_Allele_Colon_Emhaplofreq.pop')
     # check exit code
     assert exit_code == 0

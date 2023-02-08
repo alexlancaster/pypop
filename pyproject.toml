@@ -1,0 +1,23 @@
+[tool.cibuildwheel]
+skip = ["*-win32", "*_i686", "*-musllinux_*"]  # skip 32-bit builds and musllinux
+test-extras = ["test"]
+test-command = "pytest -s -v {package}/tests"
+
+[tool.cibuildwheel.linux]
+# for CentOS-based runners, local cibuildwheel docker
+before-all="yum install -y swig gsl-devel"
+# GitHub runners use Ubuntu
+#before-all="apt install swig libgsl-dev"
+
+[tool.cibuildwheel.macos]
+before-all = "brew install swig gsl"
+# FIXME: on MacOS, cibuildwheel team suggests building these from
+# source within the container, rather than using 'brew'
+
+[tool.cibuildwheel.windows]
+# use nuget to install gsl on Windows, and manually supply paths
+# FIXME: this nuget package doesn't seem to work because of binary incompatibility
+# with the version of MSVC on the runners, probably need to build gsl from source *sigh*
+before-all = ["nuget install gsl-msvc14-x64 -Version 2.3.0.2779",
+	   "ls -R gsl-msvc14-x64.2.3.0.2779"]
+environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static" }

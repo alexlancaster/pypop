@@ -45,7 +45,6 @@ MODIFICATIONS. */
 #include  <stdio.h>
 #include  <stdlib.h> 
 #include  <math.h>
-#include  <strings.h>
 
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
@@ -69,7 +68,7 @@ MODIFICATIONS. */
 
 #ifdef __SWIG__
 int pyfprintf(FILE *fp, const char *format, ...);
-#define xmlfprintf pyfprintf
+#define xmlfprintf fprintf
 #else
 #define xmlfprintf fprintf
 #endif

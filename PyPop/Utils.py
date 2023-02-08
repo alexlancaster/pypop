@@ -39,13 +39,12 @@
    files.
 """
 
-import os, sys, string, types, re, shutil, copy, operator
+import os, sys, types, stat, re, shutil, copy, operator
 import numpy as np
 from numpy import zeros, take, asarray
-from numpy.lib import user_array
-
 GENOTYPE_SEPARATOR = "~"
 GENOTYPE_TERMINATOR= "|"
+from numpy.lib.user_array import container
 
 class TextOutputStream:
     """Output stream for writing text files.
@@ -86,7 +85,7 @@ class XMLOutputStream(TextOutputStream):
         if attr == '':
             return '%s' % tagname
         else:
-            return '%s %s' % (tagname, string.strip(attr))
+            return '%s %s' % (tagname, attr.strip())
         
     def opentag(self, tagname, **kw):
         """Generate an open XML tag.
@@ -243,7 +242,7 @@ class OrderedDict:
     Inserts a key-value pair at a given index
     """
     InsertError = "Duplicate key entry"
-    if self.__hash.has_key(key):
+    if key in self.__hash:
       raise InsertError
     else:
       self.KEYS.insert(i,key)
@@ -314,7 +313,7 @@ class OrderedDict:
     """
     Looks for existance of key in dict
     """
-    return self.__hash.has_key(key)
+    return key in self.__hash
 
 
   def update(self,dict):
@@ -328,7 +327,7 @@ class OrderedDict:
     """
     Finds occurances of a key in a dict (0/1)
     """
-    return self.__hash.has_key(key)
+    return key in self.__hash
 
 
   def __getslice__(self,i,j):
@@ -363,15 +362,11 @@ class Index:
     """
     self.i = i
 
-class StringMatrix(user_array.container):
-
+class StringMatrix(container):
   """
-  StringMatrix is a subclass of the numpy (NumPy) user_array
-  container, and uses the ndarray internally to store the data in an
-  efficient array format, rather than internal Python lists.
-
-  For more details see:
-  https://docs.scipy.org/doc/numpy/reference/arrays.classes.html
+  StringMatrix is a subclass of NumPy (Numeric Python)
+  UserArray class, and uses NumPy to store the data in an efficient
+  array format, rather than internal Python lists.
   """
 
   def __init__(self,
@@ -409,8 +404,8 @@ class StringMatrix(user_array.container):
       # initialising the internal NumPy array
       self.array = zeros((self.rowCount, self.colCount*2+self.extraCount), dtype='O')
       self.shape = self.array.shape
-      self._dtype = self.array.dtype
-      self.name = string.split(str(self.__class__))[0]
+      self._typecode = self.array.dtype # Numeric array.typecode()
+      self.name = str(self.__class__).split()[0]
 
   def __repr__(self):
       """Override default representation.
@@ -438,16 +433,16 @@ class StringMatrix(user_array.container):
       if locus:
           locusList = locus
       else:
-          locusList = string.join(self.colList,':')
+          locusList = (self.colList).join(':')
 
       # next write out the allele column headers
-      for elem in string.split(locusList, ':'):
+      for elem in locusList.split(':'):
           stream.write(elem + '_1' + self.colSep)
           stream.write(elem + '_2' + self.colSep,)
       stream.write(os.linesep)
 
       # finally the matrix itself
-      for row in self.__getitem__(string.join(self.extraList,':')+ ':' + \
+      for row in self.__getitem__(self.extraList.join(':')+ ':' + \
                                   locusList):
           for elem in row:
               stream.write(elem + self.colSep)
@@ -488,15 +483,15 @@ class StringMatrix(user_array.container):
       returns a list (a single column vector if only one position
       specified), or list of lists: (a set of column vectors if
       several positions specified) of tuples for that position"""
-      if type(key) == types.TupleType:
+      if type(key) == tuple:
           row,colName= key
           if colName in self.colList:
               col = self.extraCount+self.colList.index(colName)
           else:
               raise KeyError("can't find %s column" % colName)
           return self.array[(row,col)]
-      elif type(key) == types.StringType:
-          colNames = string.split(key, ":")
+      elif type(key) == str:
+          colNames = key.split(":")
           li = []
           for col in colNames:
               # check first in list of alleles
@@ -534,8 +529,8 @@ class StringMatrix(user_array.container):
       includes all metadata
       """
       
-      if type(key) == types.StringType:
-          colNames = string.split(key, ":")
+      if type(key) == str:
+          colNames = key.split(":")
 
           # need both column position and names to reconstruct matrix
           newColPos = [];   newColList = []
@@ -577,13 +572,13 @@ class StringMatrix(user_array.container):
       e.g.:
 
       matrix[3, 'A'] = (entry1, entry2)"""
-      if type(index) == types.TupleType:
+      if type(index) == tuple:
           row, colName = index
       else:
           raise IndexError("index is not a tuple")
-      if type(value) == types.TupleType:
+      if type(value) == tuple:
           value1, value2 = value
-      elif type(value) == types.StringType:
+      elif type(value) == str:
           value = value
       else:
           raise ValueError("value being assigned is not a tuple")
@@ -595,12 +590,12 @@ class StringMatrix(user_array.container):
           col1 = col * 2
           col2 = col1 + 1
           # store each element in turn
-          self.array[(row,col1+self.extraCount)] = asarray(value1,self._dtype)
-          self.array[(row,col2+self.extraCount)] = asarray(value2,self._dtype)
+          self.array[(row,col1+self.extraCount)] = asarray(value1, dtype=self.dtype)
+          self.array[(row,col2+self.extraCount)] = asarray(value2, dtype=self.dtype)
 
       elif colName in self.extraList:
           col = self.extraList.index(colName)
-          self.array[(row,col)] = asarray(value,self._dtype)
+          self.array[(row,col)] = asarray(value, self.dtype)
       else:
           raise KeyError("can't find %s column" % col)
 
@@ -694,7 +689,8 @@ class StringMatrix(user_array.container):
                   return 0
           return 1
 
-      return (filter(f, self.__getitem__(key)))[:]
+      filtered_list = list(filter(f, self.__getitem__(key)))
+      return filtered_list[:]
 
   def getSuperType(self, key):
       """Returns a matrix grouped by columns.
@@ -708,7 +704,7 @@ class StringMatrix(user_array.container):
       """
       li = self.__getitem__(key)
 
-      colName = string.replace(key, ":", "-")
+      colName = key.replace(":", "-")
       newMatrix = StringMatrix(rowCount=copy.deepcopy(self.rowCount), \
                                colList=copy.deepcopy([colName]),
                                extraList=copy.deepcopy(self.extraList),
@@ -717,8 +713,8 @@ class StringMatrix(user_array.container):
 
       pos = 0
       for i in li:
-          newMatrix[pos, colName] = (string.join(i[0::2], ":"),
-                                     string.join(i[1::2],":"))
+          newMatrix[pos, colName] = (i[0::2].join(":"),
+                                     i[1::2].join(":"))
           pos += 1
 
       return newMatrix
@@ -785,7 +781,7 @@ def convertLineEndings(file, mode):
 
 def fixForPlatform(filename, txt_ext=0):
     # make file read-writeable by everybody
-    os.chmod(filename, 0666)
+    os.chmod(filename, stat.S_IFCHR)
 
     # create as a DOS format file LF -> CRLF
     if sys.platform == 'cygwin':
@@ -793,20 +789,20 @@ def fixForPlatform(filename, txt_ext=0):
         # give it a .txt extension so that lame Windows realizes it's text
         if txt_ext:
             os.rename(filename, filename + '.txt')
-            print filename + '.txt'
+            print('%s.txt' %filename)
         else:
-            print filename
+            print(filename)
     else:
-        print filename
+        print(filename)
 
 def copyfileCustomPlatform(src, dest, txt_ext=0):
     shutil.copyfile(src, dest)
     fixForPlatform(dest, txt_ext=txt_ext)
-    print "copying %s to" % src,
+    print("copying %s to" % src),
     
 def copyCustomPlatform(file, dist_dir, txt_ext=0):
     new_filename=os.path.join(dist_dir, os.path.basename(file))
-    print "copying %s to" % file, 
+    print("copying %s to" % file)
     shutil.copy(file, dist_dir)
     fixForPlatform(new_filename, txt_ext=txt_ext)
 
@@ -817,7 +813,7 @@ def checkXSLFile(xslFilename,
                  debug=None,
                  msg=''):
     if debug:
-        print "path=%s, subdir=%s, xslFilename=%s xsl path" % (path, subdir, xslFilename)
+        print("path=%s, subdir=%s, xslFilename=%s xsl path" % (path, subdir, xslFilename))
 
     # generate a full path to check
     checkPath = os.path.realpath(os.path.join(path, subdir, xslFilename))
@@ -842,7 +838,7 @@ def getUserFilenameInput(prompt, filename):
           if os.path.isfile(filename):
               nofile = 0
           else:
-              print "File '%s' does not exist" % filename
+              print("File '%s' does not exist" % filename)
       else:
           # if we don't accept default, check that file exists and use
           # the user input as the filename
@@ -851,7 +847,7 @@ def getUserFilenameInput(prompt, filename):
               filename = tempFilename
           else:
               # otherwise return an error
-              print "File '%s' does not exist" % tempFilename
+              print("File '%s' does not exist" % tempFilename)
       
     return filename
 

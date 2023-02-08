@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 # This file is part of PyPop
 
@@ -36,7 +36,7 @@
 """Python population genetics statistics.
 """
 
-import sys, os, string, time
+import sys, os, time
 
 DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(DIR, '..'))
@@ -119,7 +119,7 @@ return for each prompt.
 
 from getopt import getopt, GetoptError
 from glob import glob
-from ConfigParser import ConfigParser
+from configparser import ConfigParser
 from PyPop.Main import getUserFilenameInput, checkXSLFile
 
 try:
@@ -195,30 +195,32 @@ else:
   # overriden by options in the .ini file)
 
   if debugFlag:
-    print "pypopbinpath", pypopbinpath
-    print "binpath", binpath
-    print "datapath", datapath
+    print("pypopbinpath", pypopbinpath)
+    print("binpath", binpath)
+    print("datapath", datapath)
 
-  from pkg_resources import Requirement, resource_filename, DistributionNotFound
-
+  
   try:
-    mypath = resource_filename(Requirement.parse(pkgname), 'share/pypop')
-    xslFilenameDefault = checkXSLFile('text.xsl', mypath, \
+    from importlib.resources import files
+    mypath = files('PyPop.xslt')
+  except (ModuleNotFoundError, ImportError):  # fallback to using backport if not found
+    from importlib_resources import files
+    mypath = files('PyPop.xslt').joinpath('')
+
+  xslFilenameDefault = checkXSLFile('text.xsl', mypath, \
                                     abort=False, debug=debugFlag)
-  except DistributionNotFound:
-    xslFilenameDefault = None
 
   if xslFilenameDefault == None:
     # otherwise use heuristics for XSLT transformation file 'text.xsl'
     # check child directory 'xslt/' first
     xslFilenameDefault = checkXSLFile('text.xsl', pypopbinpath, \
                                       'xslt', debug=debugFlag)
-    # if not found  check sibling directory '../xslt/'
+    # if not found  check sibling directory '../PyPop/xslt/'
     if xslFilenameDefault == None:
       xslFilenameDefault = checkXSLFile('text.xsl', pypopbinpath, \
-                                 '../xslt', debug=debugFlag)
+                                        '../PyPop/xslt', debug=debugFlag)
 
-######################################################################
+      ######################################################################
 # END: parse command line options
 ######################################################################
 
@@ -274,13 +276,13 @@ else:
       configFilename = 'config.ini'
       fileName = 'no default'
 
-    print interactive_message
+    print(interactive_message)
     
     # read user input for both filenames
     configFilename = getUserFilenameInput("config", configFilename)
     fileNames.append(getUserFilenameInput("population", fileName))
 
-    print "PyPop is processing %s ..." % fileNames[0]
+    print("PyPop is processing %s ..." % fileNames[0])
     
   else:   
     # non-interactive mode: run in 'batch' mode
@@ -290,7 +292,7 @@ else:
     elif fileList:
       # if we are providing the filelist, don't check number of args
       # use list from file as list to check
-      li = [string.strip(f) for f in open(fileList).readlines()]
+      li = [f.strip('\n') for f in open(fileList).readlines()]
     elif len(args) > 0:
       # check number of arguments, must be at least one, but can be more
       # use args as list to check
@@ -341,7 +343,7 @@ else:
   if generateTSV:
     from PyPop.Meta import Meta
     
-    print "Generating TSV (.dat) files..."
+    print("Generating TSV (.dat) files...")
     Meta(popmetabinpath=pypopbinpath,
          datapath=datapath,
          metaXSLTDirectory=None,
@@ -354,9 +356,9 @@ else:
 
   if interactiveFlag:
 
-    print "PyPop run complete!"
-    print "XML output(s) can be found in: ",  xmlOutPaths
-    print "Plain text output(s) can be found in: ",  txtOutPaths
+    print("PyPop run complete!")
+    print("XML output(s) can be found in: ",  xmlOutPaths)
+    print("Plain text output(s) can be found in: ",  txtOutPaths)
 
     # update .pypoprc file
 

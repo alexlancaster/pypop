@@ -96,9 +96,16 @@ void R_CheckUserInterrupt(void);
 #define R_FINITE(x)    R_finite(x)
 int R_finite(double);
 
+
+#if defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__WIN64__)
+#define ML_NAN          NAN
+#define ML_POSINF	INFINITY
+#define ML_NEGINF	-INFINITY
+#else
 #define ML_POSINF	(1.0 / 0.0)
 #define ML_NEGINF	((-1.0) / 0.0)
 #define ML_NAN		(0.0 / 0.0)
+#endif
 
 #define _(String) String
 #endif /* standalone */

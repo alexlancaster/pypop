@@ -31,9 +31,6 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS. */
 
 /* Convert a Python list of list of strings into a 2d array C of strings */
-%{
-#include "cStringIO.h"
-%}
 
 %typemap(in) char [ANY][ANY][ANY] {
 #ifdef DEBUG
@@ -64,11 +61,11 @@ MODIFICATIONS. */
 #ifdef DEBUG
 	    fprintf(stderr,"inner index: %d\n", j); 
 #endif
-	    if (PyString_Check(p)) {
+	    if (PyUnicode_Check(p)) {
 #ifdef DEBUG
-	      fprintf(stderr,"before assigning string: %s\n", PyString_AsString(p));
+	      fprintf(stderr,"before assigning string: %s\n", PyUnicode_AsUTF8(p));
 #endif
-	      strcpy($1[i][j], PyString_AsString(p));
+	      strcpy($1[i][j], PyUnicode_AsUTF8(p));
 #ifdef DEBUG
 	      fprintf(stderr,"after assigning string\n");
 	      fprintf(stderr,"[%d, %d]: %s\n", i, j, $1[i][j]);
@@ -106,23 +103,6 @@ MODIFICATIONS. */
   free(($ltype) $1);
 }
 
-/* Typemap to convert python file type(s) to C file pointer */
-%typemap(in) FILE * {
-  PycString_IMPORT;
-  /* if file is an actual file on the filesystem, then pass directly to C */
-  if (PyFile_Check($input)) {
-    $1 = PyFile_AsFile($input);
-  }
-  /* if file is a "cStringIO" in-memory "file" then cast to FILE type */
-  else if (PycStringIO_OutputCheck($input)) {
-    $1 = (FILE *)$input;
-  }
-  /* otherwise raise an error */
-  else {
-    PyErr_SetString(PyExc_TypeError, "Need a file or file-like object!");
-    return NULL;
-  }
-}
 
 /* Typemap to convert a Python 1-d array of ints to int [] */
 %typemap( in) int [ANY] {
@@ -144,9 +124,9 @@ MODIFICATIONS. */
 #endif
 	if (PyInt_Check(p)){
 #if DEBUG
-	  printf("$1[%d] = %d\n", i, (int)PyInt_AS_LONG(p));
+	  printf("$1[%d] = %d\n", i, (int)PyInt_AsLong(p));
 #endif
-	  $1[i] = (int)PyInt_AS_LONG(p);
+	  $1[i] = (int)PyInt_AsLong(p);
 	} else {	      
 	  PyErr_SetString(PyExc_TypeError, "list must contain ints");
 	}
@@ -210,78 +190,6 @@ MODIFICATIONS. */
     free($1);
 }
 
-
-%{
-/* 
- * pywrite, internal function nabbed from sysmodule.c to implement
- * access to sys.{stdout,stderr}
- */
-static void
-pywrite(char *name, FILE *fp, const char *format, va_list va)
-{
-	PyObject *file;
-	PyObject *error_type, *error_value, *error_traceback;
-
-	PyErr_Fetch(&error_type, &error_value, &error_traceback);
-	file = PySys_GetObject(name);
-	if (file == NULL || PyFile_AsFile(file) == fp)
-		vfprintf(fp, format, va);
-	else {
-		char buffer[1001];
-		if (vsprintf(buffer, format, va) >= sizeof(buffer))
-		    Py_FatalError("PySys_WriteStdout/err: buffer overrun");
-		if (PyFile_WriteString(buffer, file) != 0) {
-			PyErr_Clear();
-			fputs(buffer, fp);
-		}
-	}
-	PyErr_Restore(error_type, error_value, error_traceback);
-}
-
-/* 
- * pyfprintf
- *
- * redefined fprintf, if file pointer is either stdout or stderr,
- * redirect to Python sys.stdout and sys.stderr, respectively, or if
- * an in-memory "cStringIO" instance, write to that instance;
- * otherwise retain usual file pointer
- */
-
-int pyfprintf(FILE *fp, const char *format, ...) {
-  va_list va;
-  PycString_IMPORT;
-  va_start(va, format);
-
-  /* redirect stdout */
-  if (fp == stdout) {
-    pywrite("stdout", stdout, format, va); 
-  }
-  /* redirect stderr */
-  else if (fp == stderr) {
-    pywrite("stderr", stderr, format, va); 
-  }
-  /* if file pointer is a cStringIO instance, then use the cStringIO
-     API "cwrite" to write to string */
-  else if (PycStringIO_InputCheck((PyObject *)fp)
-	     || PycStringIO_OutputCheck((PyObject *)fp)) {
-    /* generate a buffer for the text */
-    char buffer[1001];
-    
-    /* check for buffer overrun */
-    if (vsprintf(buffer, format, va) >= sizeof(buffer))
-      Py_FatalError("pyfprintf: buffer overrun");
-
-    /* calculate length of buffer, and use in call to cwrite */
-    PycStringIO->cwrite((PyObject *)fp, buffer, strlen(buffer));
-  } 
-  /* otherwise just treat as normal C file pointer */
-  else {
-    vfprintf(fp, format, va);
-  }
-  va_end(va);
-  return 0;
-}
-%}
 
 /* Typemap to convert a 1-d array of long doubles to a Python list of
    plain doubles */

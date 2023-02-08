@@ -37,8 +37,8 @@
 """Module for exposing Arlequin functionality in Python.
 
 """
-import sys, string, os, re, shutil
-from Utils import Group
+import sys, string, os, re, shutil, stat
+from PyPop.Utils import Group
 
 class ArlequinWrapper:
     """New wrapper for Arlequin"""
@@ -216,11 +216,11 @@ end""" % (os.path.join(os.getcwd(), self.arlSubdir), \
         stdout = os.popen(self.arlequinExec, 'r').readlines()
 
         if self.debug:
-            print "Arlequin stdout", stdout
+            print("Arlequin stdout", stdout)
 
         # fix permissions on result directory because Arlequin is
         # brain-dead with respect to file permissions on Unix
-        os.chmod(self.arlResPrefix + ".res", 0755)
+        os.chmod(self.arlResPrefix + ".res", stat.S_IXGRP)
 
         # restore original directory
         os.chdir(cwd)
@@ -386,7 +386,7 @@ KeepNullDistrib=0"""
                 # look for values
                 if matchobj3:
                     if self.debug:
-                        print matchobj3.groups()
+                        print(matchobj3.groups())
                     locus, numGeno, obsHet, expHet, pval, sd, steps \
                            = matchobj3.groups()
                     hwExact[locus] = (int(numGeno), float(obsHet), \
@@ -398,7 +398,7 @@ KeepNullDistrib=0"""
                     if matchobj4:
                         locus = matchobj4.group(1)
                         if self.debug:
-                            print "locus", locus, "is monomorphic"
+                            print("locus", locus, "is monomorphic")
                         hwExact[locus] = 'monomorphic'
                         
         return hwExact
@@ -511,7 +511,7 @@ class ArlequinBatch:
         
 
         if self.debug:
-            print "_outputSample:chunk:", chunk
+            print("_outputSample:chunk:", chunk)
         for line in data:
             words = string.split(line)
             unphase1 = "%10s 1 " % words[self.idCol]
@@ -521,8 +521,8 @@ class ArlequinBatch:
                 # don't output individual if *any* loci is untyped
                 if allele == self.untypedAllele:
                     if self.debug:
-                        print "untyped allele %s in (%s), (%s)" \
-                              % (allele, unphase1, unphase2)
+                        print("untyped allele %s in (%s), (%s)"
+                              % (allele, unphase1, unphase2))
                     break
                 if ((chunk.index(i) + 1) % 2): unphase1 = unphase1 + " " + allele
                 else: unphase2 = unphase2 + " " + allele
@@ -581,7 +581,7 @@ class ArlequinBatch:
         """
         
         if self.debug:
-            print "Counted", len(data), "lines."
+            print("Counted", len(data), "lines.")
         firstLine = data[0]
 
         # calculate the number of loci from the number of columns
@@ -617,9 +617,9 @@ class ArlequinBatch:
                         
             
         if self.debug:
-            print "First line", firstLine, "has", cols, "columns and", \
-                  locusCount, "allele pairs"
-            print "Map order:", self.mapOrder
+            print("First line", firstLine, "has", cols, "columns and",
+                  locusCount, "allele pairs")
+            print("Map order:", self.mapOrder)
 
         # if windowSize is set to zero, the default to using
         # locusCount as windowSize
@@ -642,7 +642,7 @@ class ArlequinBatch:
                                                   self.windowSize,
                                                   self.mapOrder)
             if self.debug:
-                print locus, colChunk, locusSlice
+                print(locus, colChunk, locusSlice)
 
             # generate the sample
             sampleLines, validSample = self._outputSample(data,
@@ -654,7 +654,7 @@ class ArlequinBatch:
         headerLines = self._outputHeader(sampleCount)
 
         if self.debug:
-            print "sample count", sampleCount
+            print("sample count", sampleCount)
             
         # open specified arp
         self.arpFile = open(self.arpFilename, 'w')
@@ -699,7 +699,7 @@ end""" % (os.getcwd(), os.getcwd(), os.sep, arpFilename))
 
         # fix permissions on result directory because Arlequin is
         # brain-dead with respect to file permissions on Unix
-        os.chmod(self.arlResPrefix + ".res", 0755)
+        os.chmod(self.arlResPrefix + ".res", stat.S_IXGRP)
 
 # this is called if this module is executed standalone
 if __name__ == "__main__":
@@ -757,7 +757,7 @@ genetics program.
             prefixCols, suffixCols = map(int, string.split(v, ','))
         elif o in ("-k", "--sort"):
             mapOrder = map(int, string.split(v, ','))
-            print mapOrder
+            print(mapOrder)
         elif o in ("-t", "--trailcols"):
             suffixCols = int(v)
         elif o in ("-w", "--windowsize"):

@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 
 # This file is part of PyPop
 
@@ -34,18 +34,13 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-import sys, os, string
-
+import sys, os
+from glob import glob
 from setuptools import setup
 from setuptools.extension import Extension
 from sysconfig import _PREFIX, get_config_vars, get_config_var
 
-# Override the overzealous use of _FORTIFY_SOURCE CFLAGS flags that
-# are in /usr/lib/python2.4/config/Makefile used on Fedora Core 4
-# releases with Python 2.4.  Nasty hack to achieve this suggested on
-# http://mail.python.org/pipermail/distutils-sig/2002-December/003123.html
-cv = get_config_var("OPT")
-cv = cv.replace("-D_FORTIFY_SOURCE=2", "-D_FORTIFY_SOURCE=1")
+from PyPop import __version__, __pkgname__
 
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
@@ -61,24 +56,27 @@ if "LIBRARY_PATH" in os.environ:
 if "CPATH" in os.environ:
     include_dirs += os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
 
+swig_opts = ["-ISWIG"]
+
 # define each extension
-ext_Emhaplofreq = Extension("_Emhaplofreqmodule",
+ext_Emhaplofreq = Extension("PyPop._Emhaplofreq",
                             ["emhaplofreq/emhaplofreq_wrap.i",
                              "emhaplofreq/emhaplofreq.c"],
-                            swig_opts = ["-ISWIG"],
+                            swig_opts = swig_opts,
                             include_dirs=include_dirs + ["emhaplofreq"],
                             define_macros=[('__SWIG__', '1'),
                                            ('DEBUG', '0'),
                                            ('EXTERNAL_MODE', '1'),
                                            ('XML_OUTPUT', '1')]
                             )
-ext_EWSlatkinExact = Extension("_EWSlatkinExactmodule",
+ext_EWSlatkinExact = Extension("PyPop._EWSlatkinExact",
                                ["slatkin-exact/monte-carlo_wrap.i",
                                 "slatkin-exact/monte-carlo.c"],
-                               swig_opts = ["-ISWIG"],
+                               swig_opts = swig_opts,
+                               include_dirs=include_dirs,
                                )
 
-ext_Pvalue = Extension("_Pvaluemodule",
+ext_Pvalue = Extension("PyPop._Pvalue",
                        ["pval/pval_wrap.i",
                         "pval/pval.c",
                         "pval/pchisq.c",
@@ -96,7 +94,7 @@ ext_Pvalue = Extension("_Pvaluemodule",
                         "pval/stirlerr.c",
                         "pval/lgammacor.c",
                         "pval/pnorm.c"],
-                       swig_opts = ["-ISWIG"],
+                       swig_opts = swig_opts,
                        include_dirs=include_dirs + ["pval"],
                        define_macros=[('MATHLIB_STANDALONE', '1')]
                        )
@@ -125,20 +123,24 @@ ext_Gthwe_macros = [('__SWIG__', '1'),
                     ('SUPPRESS_ALLELE_TABLE', '1'),
                     ('INDIVID_GENOTYPES', '1')] 
 
-
-ext_Gthwe = Extension("_Gthwemodule",
+if sys.platform == "win32":
+    cblas_libname = "gslcblas"
+else:
+    cblas_libname = "gslcblas"
+    
+ext_Gthwe = Extension("PyPop._Gthwe",
                       ext_Gthwe_files,
-                      swig_opts = ["-ISWIG"],
+                      swig_opts = swig_opts,
                       include_dirs=include_dirs + ["gthwe"],
                       library_dirs=library_dirs,
-                      libraries=["gsl", "gslcblas"],
+                      libraries=["gsl", cblas_libname],
                       define_macros=ext_Gthwe_macros
                       )
 
-ext_Haplostats = Extension("_Haplostatsmodule",
+ext_Haplostats = Extension("PyPop._Haplostats",
                        ["haplo-stats/haplostats_wrap.i",
                         "haplo-stats/haplo_em_pin.c",],
-                       swig_opts = ["-ISWIG"],
+                       swig_opts = swig_opts,
                        include_dirs=include_dirs + ["haplo-stats", "pval"],
                        define_macros=[('MATHLIB_STANDALONE', '1'),
                                       ('__SWIG__', '1'),
@@ -146,7 +148,7 @@ ext_Haplostats = Extension("_Haplostatsmodule",
                                       ('R_NO_REMAP', '1')]
                        )
 
-ext_HweEnum = Extension("_HweEnum",
+ext_HweEnum = Extension("PyPop._HweEnum",
                       [ "hwe-enumeration/src/hwe_enum_wrap.i",
                         "hwe-enumeration/src/hwe_enum.c",
                         "hwe-enumeration/src/factorial.c",
@@ -155,13 +157,15 @@ ext_HweEnum = Extension("_HweEnum",
                         "hwe-enumeration/src/statistics.c",
                         "hwe-enumeration/src/external.c"
                         ],
-                        swig_opts = ["-ISWIG"],
+                        swig_opts = swig_opts,
                         include_dirs=include_dirs + ["hwe-enumeration/src/include",
                                                      "/usr/include/glib-2.0",
                                                      "/usr/include/glib-2.0/include",
                                                      "/usr/lib/glib-2.0/include",
                                                      "/usr/lib64/glib-2.0/include/",
-                                                     "/usr/include/libxml2"],
+                                                     "/usr/include/libxml2",
+                                                     "/usr/include/gsl",
+                                                     ],
                         libraries=["glib-2.0", "xml2", "popt",
                                    "m", "gsl", "gslcblas"],
                         define_macros=[('__SORT_TABLE__', '1'),
@@ -178,13 +182,11 @@ ext_Gthwe.depends=['SWIG/typemap.i', 'gthwe/func.h', 'gthwe/hwe.h']
 ext_Haplostats.depends=['SWIG/typemap.i', "haplo-stats/haplo_em_pin.h"]
     
 # default list of extensions to build
-extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Gthwe]
+extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Haplostats, ext_Gthwe]
 
-# don't include HWEEnum or haplostats yet
+# don't include HWEEnum 
 # extensions.append(ext_HweEnum)
-extensions.append(ext_Haplostats)
 
-from PyPop import __version__, __pkgname__
 
 from distutils.command import clean
 
@@ -192,19 +194,21 @@ class CleanCommand(clean.clean):
     """Customized clean command - removes in_place extension files if they exist"""
     def run(self):
         DIR = os.path.dirname(__file__)
-        ext_files = [os.path.join(DIR, ext.name + (".pyd" if sys.platform == "win32" else ".so")) for ext in extensions]
+        # generate glob pattern from extension name and suffix
+        ext_files = [os.path.join(DIR, __pkgname__, ext.name.split(__pkgname__ + '.').pop() + ("*.pyd" if sys.platform == "win32" else "*.so")) for ext in extensions]
         for ext_file in ext_files:
-            if os.path.exists(ext_file):
-                print("Removing in-place extension {}".format(ext_file))
-                os.unlink(ext_file)
+            for ext_file in glob(ext_file):
+                if os.path.exists(ext_file):
+                    print("Removing in-place extension {}".format(ext_file))
+                    os.unlink(ext_file)
         clean.clean.run(self)
 
 data_file_paths = []
 # xslt files are in a subdirectory
-xslt_files = ['xslt' + os.sep + i + '.xsl' for i in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
+xslt_files = [f + '.xsl' for f in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
 data_file_paths.extend(xslt_files)
 
-setup (name = __pkgname__,
+setup (name = 'pypop',
        version = __version__,
        description = "Python for Population Genetics",
        long_description = \
@@ -215,14 +219,13 @@ particularly large-scale multilocus genotype data""",
        maintainer_email = "alexl@cal.berkeley.edu",
        license = "GNU GPL",
        platforms = ["GNU/Linux", "Windows", "MacOS"],
-       packages = ["PyPop"],
-       #install_requires = [
-       #  'numpy'
-       #  ],
+       packages = ["PyPop", "PyPop.xslt"],
+       package_data={"PyPop.xslt": data_file_paths},
+       install_requires = ["numpy", "lxml", "psutil", "importlib-resources; python_version <= '3.8'"],
+       extras_require={
+           "test": ['pytest']
+           },
        scripts= ['bin/pypop.py', 'bin/popmeta.py'],
-       data_files=[('share/pypop', data_file_paths)],
        ext_modules=extensions,
        cmdclass={'clean': CleanCommand,},
-       setup_requires=['pytest-runner'],
-       tests_require=['pytest', 'psutil'],
        )
