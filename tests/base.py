@@ -57,7 +57,11 @@ def run_pypop_process(inifile, popfile, args=[]):
     # first try pypop.py in current PATH
     default_pypop = shutil.which("pypop.py")
     if not default_pypop:
+        # then in local subdirectory
         default_pypop = shutil.which(PurePath("./bin/pypop.py"))
+        if not default_pypop:
+            # finally just default to the name
+            default_pypop = "pypop.py" 
 
     print ("using pypop: [", default_pypop, end="] ")
     
