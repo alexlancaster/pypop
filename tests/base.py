@@ -46,7 +46,6 @@ sys.path.append(PARENT_DIR)
 def abspath_test_data(filename):
     parent_path = PurePath(PARENT_DIR)
     suffix_path = PurePath(filename)
-    
     return str (parent_path / suffix_path)
 
 def run_pypop_process(inifile, popfile, args=[]):
@@ -58,8 +57,9 @@ def run_pypop_process(inifile, popfile, args=[]):
     # first try pypop.py in current PATH
     default_pypop = shutil.which("pypop.py")
     if not default_pypop:
-        default_pypop = shutil.which("./bin/pypop.py")
-        #print ("using local pypop:", default_pypop)
+        default_pypop = shutil.which(PurePath("./bin/pypop.py"))
+
+    print ("using pypop: [", default_pypop, end="] ")
     
     cmd_line = [default_pypop, '-m'] + args + ['-c', inifile, popfile]
     process=subprocess.Popen(
