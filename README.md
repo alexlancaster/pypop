@@ -3,8 +3,6 @@
 PyPop is a framework for processing genotype and allele data and
 running population genetic analyses.
 
-This README is for the `python3` branch that has ported PyPop to Python 3.
-
 # Installation (end user)
 
 TBA.  For the end-user, we are currently working on making PyPop installable
@@ -131,12 +129,9 @@ by default, the Python 3 version of those tools.
 
 ## 2. Clone the repository
 
-Clone and switch to the `python3` branch
-
 ```shell
 git clone https://github.com/alexlancaster/pypop.git
 cd pypop
-git checkout python3
 ```
 
 ## 3. Build PyPop
