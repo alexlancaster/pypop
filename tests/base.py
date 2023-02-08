@@ -37,13 +37,17 @@ import os.path
 import sys
 import subprocess
 import shutil
+from pathlib import PurePath
 
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 PARENT_DIR = os.path.join(CUR_DIR, '..')
 sys.path.append(PARENT_DIR)
 
 def abspath_test_data(filename):
-    return os.path.join(PARENT_DIR, filename)
+    parent_path = PurePath(PARENT_DIR)
+    suffix_path = PurePath(filename)
+    
+    return str (parent_path / suffix_path)
 
 def run_pypop_process(inifile, popfile, args=[]):
 
