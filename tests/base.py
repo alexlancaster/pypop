@@ -61,7 +61,7 @@ def run_pypop_process(inifile, popfile, args=[]):
 
     if not default_pypop:
         # then in local subdirectory
-        default_pypop = str(shutil.which(PurePath("./bin/pypop.py")))
+        default_pypop = shutil.which(PurePath("./bin/pypop.py"))
         print('checking ./bin/pypop.py', default_pypop)
 
         if not default_pypop:
