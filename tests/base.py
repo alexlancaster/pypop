@@ -110,8 +110,6 @@ def run_pypop_process(inifile, popfile, args=[]):
         stderr=subprocess.STDOUT
         )
     output, err = process.communicate()
-
-    print(output.decode("utf-8"))
     exit_code = process.wait()  # wait until script completed
 
     return exit_code
