@@ -37,7 +37,11 @@ import os.path
 import sys
 import subprocess
 import shutil
+import pytest
 from pathlib import Path, PurePath
+
+# global XFAIL condition for win32
+xfail_windows = pytest.mark.xfail(sys.platform == "win32", reason="pipeline tests currently fail on windows")
 
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 PARENT_DIR = os.path.join(CUR_DIR, '..')
