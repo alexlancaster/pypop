@@ -3,7 +3,6 @@ import hashlib
 import pytest
 from base import abspath_test_data, run_pypop_process, xfail_windows
 
-@xfail_windows
 def test_AlleleColon_HardyWeinberg():
     exit_code = run_pypop_process('./tests/data/Test_Allele_Colon_HardyWeinberg.ini', './tests/data/Test_Allele_Colon_HardyWeinberg.pop')
     # check exit code
