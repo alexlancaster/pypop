@@ -9,7 +9,7 @@ from base import abspath_test_data, run_pypop_process, xfail_windows
 
 #@xfail_windows
 def test_USAFEL():
-    exit_code = run_pypop_process('./tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini', './tests/data/USAFEL-UchiTelle-small.pop')
+    exit_code = run_pypop_process('./tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini', './tests/data/USAFEL-UchiTelle-small.pop', args=['-d'])
     # check exit code
     assert exit_code == 0
 
