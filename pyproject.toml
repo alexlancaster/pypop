@@ -16,8 +16,5 @@ before-all = "brew install swig gsl"
 
 [tool.cibuildwheel.windows]
 # use nuget to install gsl on Windows, and manually supply paths
-# FIXME: this nuget package doesn't seem to work because of binary incompatibility
-# with the version of MSVC on the runners, probably need to build gsl from source *sigh*
-before-all = ["nuget install gsl-msvc14-x64 -Version 2.3.0.2779",
-	   "ls -R gsl-msvc14-x64.2.3.0.2779"]
+before-all = "nuget install gsl-msvc14-x64 -Version 2.3.0.2779"
 environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static" }

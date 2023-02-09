@@ -25,7 +25,6 @@ def test_USAFEL_slatkin():
 
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
-@xfail_windows    
 def test_USAFEL_slatkin_guothompson():
     exit_code = run_pypop_process('./tests/data/minimal-no-emhaplofreq.ini', './tests/data/USAFEL-UchiTelle-small.pop')
     # check exit code
@@ -35,7 +34,7 @@ def test_USAFEL_slatkin_guothompson():
     gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', "USAFEL-UchiTelle-small-out-no-emhaplofreq.txt"))
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
-@xfail_windows    
+#@xfail_windows    
 def test_USAFEL_slatkin_guothompson_emhaplofreq():
     exit_code = run_pypop_process('./tests/data/minimal.ini', './tests/data/USAFEL-UchiTelle-small.pop')
     # check exit code
