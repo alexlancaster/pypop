@@ -141,7 +141,7 @@ class ParseFile:
 
         *For internal use only.*"""
         li = []
-        for line in data.split(os.linesep):
+        for line in data.split():
             if self.debug:
                 print(line.rstrip())
             li.append(line.rstrip())
