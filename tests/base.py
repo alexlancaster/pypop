@@ -62,7 +62,6 @@ def run_pypop_process(inifile, popfile, args=[]):
     if not default_pypop:
         # then in local subdirectory
         default_pypop = shutil.which(PurePath("./bin/pypop.py"))
-        print('checking ./bin/pypop.py', default_pypop)
 
         if not default_pypop:
             # otherwise, check location the python interpreter in a
@@ -73,7 +72,6 @@ def run_pypop_process(inifile, popfile, args=[]):
             python_exe = shutil.which('python')
             parent_dir = Path(python_exe).parent
             default_pypop = str(parent_dir / 'pypop.py')
-            print("variables:", python_exe, parent_dir, default_pypop, shutil.which('python.exe'))
 
     # if we need to include the Python executable, we prepend it before the script
     if python_exe:
