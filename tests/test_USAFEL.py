@@ -8,7 +8,7 @@ import difflib
 from base import abspath_test_data, run_pypop_process, xfail_windows
 
 def test_USAFEL():
-    exit_code = run_pypop_process('./tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini', './tests/data/USAFEL-UchiTelle-small.pop', args=['-d'])
+    exit_code = run_pypop_process('./tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini', './tests/data/USAFEL-UchiTelle-small.pop')
     # check exit code
     assert exit_code == 0
 
@@ -18,9 +18,11 @@ def test_USAFEL():
     if sys.platform == "win32":
         diff = difflib.unified_diff(open(out_filename, 'r').readlines(), open(gold_out_filename, 'r').readlines())
         delta = ''.join(diff)
+        print("diff start")
         print (delta)
+        print("diff end")
 
-        print(open("USAFEL-UchiTelle-small-out.xml").read())
+        #print(open("USAFEL-UchiTelle-small-out.xml").read())
     
     assert filecmp.cmp(out_filename, gold_out_filename)
 
