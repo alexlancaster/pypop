@@ -62,6 +62,8 @@ def filecmp_ignore_newlines(out_filename, gold_out_filename):
             l1 = f1.readline()
             l2 = f2.readline()
             if l1 != l2:
+                print("generated:", l1)
+                print("gold:", l2)
                 return False
     return True
     
