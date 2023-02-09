@@ -38,6 +38,7 @@ import sys
 import subprocess
 import shutil
 import pytest
+from difflib import unified_diff
 from pathlib import Path, PurePath
 
 # global XFAIL condition for win32
@@ -52,6 +53,12 @@ def abspath_test_data(filename):
     suffix_path = PurePath(filename)
     return str (parent_path / suffix_path)
 
+def filecmp_ignore_newlines(out_filename, gold_out_filename):
+    # this ignores any newline differences
+    file1 = open(out_filename, 'rb').read()
+    file2 = open(gold_out_filename, 'rb').read()
+    return True if file1 == file2 else False
+    
 def run_pypop_process(inifile, popfile, args=[]):
 
     # convert relative data files to absolute

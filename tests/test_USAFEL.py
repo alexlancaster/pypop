@@ -3,9 +3,7 @@ import subprocess
 import hashlib
 import pytest
 import os.path
-import filecmp
-import difflib
-from base import abspath_test_data, run_pypop_process, xfail_windows
+from base import abspath_test_data, run_pypop_process, xfail_windows, filecmp_ignore_newlines
 
 def test_USAFEL():
     exit_code = run_pypop_process('./tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini', './tests/data/USAFEL-UchiTelle-small.pop')
@@ -15,18 +13,8 @@ def test_USAFEL():
     out_filename = "USAFEL-UchiTelle-small-out.txt"
     gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', "USAFEL-UchiTelle-small-out-no-emhaplofreq-noguothompson-no-slatkin.txt"))
 
-    if sys.platform == "win32":
-        diff = difflib.unified_diff(open(out_filename, 'r').readlines(), open(gold_out_filename, 'r').readlines())
-        delta = ''.join(diff)
-        print("diff start")
-        print (delta)
-        print("diff end")
+    assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
-        #print(open("USAFEL-UchiTelle-small-out.xml").read())
-    
-    assert filecmp.cmp(out_filename, gold_out_filename)
-
-@xfail_windows
 def test_USAFEL_slatkin():
     exit_code = run_pypop_process('./tests/data/minimal-no-emhaplofreq-no-guothompson.ini', './tests/data/USAFEL-UchiTelle-small.pop')
     # check exit code
@@ -35,12 +23,7 @@ def test_USAFEL_slatkin():
     out_filename = "USAFEL-UchiTelle-small-out.txt"
     gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', "USAFEL-UchiTelle-small-out-no-emhaplofreq-noguothompson.txt"))
 
-    if sys.platform == "win32":
-        diff = difflib.unified_diff(open(out_filename, 'r').readlines(), open(gold_out_filename, 'r').readlines())
-        delta = ''.join(diff)
-        print (delta)
-
-    assert filecmp.cmp(out_filename, gold_out_filename)
+    assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
 @xfail_windows    
 def test_USAFEL_slatkin_guothompson():
@@ -50,7 +33,7 @@ def test_USAFEL_slatkin_guothompson():
 
     out_filename = "USAFEL-UchiTelle-small-out.txt"
     gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', "USAFEL-UchiTelle-small-out-no-emhaplofreq.txt"))
-    assert filecmp.cmp(out_filename, gold_out_filename)
+    assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
 @xfail_windows    
 def test_USAFEL_slatkin_guothompson_emhaplofreq():
@@ -60,4 +43,4 @@ def test_USAFEL_slatkin_guothompson_emhaplofreq():
 
     out_filename = "USAFEL-UchiTelle-small-out.txt"
     gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', out_filename))
-    assert filecmp.cmp(out_filename, gold_out_filename)
+    assert filecmp_ignore_newlines(out_filename, gold_out_filename)

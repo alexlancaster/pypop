@@ -2,8 +2,7 @@ import subprocess
 import hashlib
 import pytest
 import os.path
-import filecmp
-from base import run_pypop_process
+from base import run_pypop_process, filecmp_ignore_newlines
 
 @pytest.mark.skip(reason="not yet implemented")
 def test_GenerateTSV():
@@ -14,4 +13,4 @@ def test_GenerateTSV():
     # compare with output files
     for out_filename in ['1-locus-allele.dat', '1-locus-pairwise-fnd.dat', '3-locus-summary.dat', '1-locus-genotype.dat', '1-locus-summary.dat', '4-locus-haplo.dat', '1-locus-hardyweinberg.dat', '3-locus-haplo.dat', '4-locus-summary.dat', 'BIGDAWG_SynthControl_Data-out.txt']:
         gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', out_filename))
-        assert filecmp.cmp(out_filename, gold_out_filename)
+        assert filecmp_ignore_newlines(out_filename, gold_out_filename)
