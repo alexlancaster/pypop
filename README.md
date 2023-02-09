@@ -138,8 +138,8 @@ cd pypop
 
 You should choose *either* of the following two approaches.  Don't try
 to mix-and-match the two.  The build-and-install approach is
-recommended end-users, or you don't plan to make
-any modifications to the code, locally.
+recommended for end-users, or you if don't plan to make any
+modifications to the code, locally.
 
 ### 3.1 Build-and-install (recommended for end-users)
 
@@ -225,14 +225,14 @@ pytest -s -v tests
 If you installed using the end-user approach in section 3.1, above, you can
 remove the installed version:
 
-1. if you're using conda :
-      ```
-      pip uninstall pypop
-      ``` 
-   2. system-wide:
-      ```
-      pip uninstall --user pypop
-      ```
+1. conda:
+   ```
+   pip uninstall pypop
+   ``` 
+2. system-wide:
+   ```
+   pip uninstall --user pypop
+   ```
 
 To clean-up any compiled files and force a recompilation from scratch,
 run the `clean` command:
@@ -252,14 +252,14 @@ explanation of the options available.
 pypop.py -c  tests/data/minimal.ini tests/data/USAFEL-UchiTelle-small.pop
 ```
 
-(replace `pypop.py`, by `./bin/pypop.py` if you are running from an
-uninstalled checkout)
+> replace `pypop.py`, by `./bin/pypop.py` if you installed using
+section 3.2, i.e running locally from within the uninstalled checkout
+of the repository
 
 This will generate the following two files, an XML output file and a plain text version:
 
     USAFEL-UchiTelle-small-out.xml
     USAFEL-UchiTelle-small-out.txt
-
 
 # Support
 
