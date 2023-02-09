@@ -54,10 +54,16 @@ def abspath_test_data(filename):
     return str (parent_path / suffix_path)
 
 def filecmp_ignore_newlines(out_filename, gold_out_filename):
-    # this ignores any newline differences
-    file1 = open(out_filename, 'rb').read()
-    file2 = open(gold_out_filename, 'rb').read()
-    return True if file1 == file2 else False
+
+    l1 = l2 = True
+    # opening up files defaults to 'universal newlines' this ignores OS-specific newline differences
+    with open(out_filename, 'r') as f1, open(gold_out_filename, 'r') as f2:
+        while l1 and l2:
+            l1 = f1.readline()
+            l2 = f2.readline()
+            if l1 != l2:
+                return False
+    return True
     
 def run_pypop_process(inifile, popfile, args=[]):
 
