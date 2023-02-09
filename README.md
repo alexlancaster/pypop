@@ -136,14 +136,20 @@ cd pypop
 
 ## 3. Build PyPop
 
-### Build-and-install (recommended)
+You should choose *either* of the following two approaches.  Don't try
+to mix-and-match the two.  The build-and-install approach is
+recommended end-users, or you don't plan to make
+any modifications to the code, locally.
+
+### 3.1 Build-and-install (recommended for end-users)
 
 Once you have setup your environment and cloned the repo, you can use
 the following one-liner to examine the `setup.py` and pull all the
 required dependencies from `pypi.org` and build and install the
-package.  Note that if you use this method and install the package, it
-will be available to run anywhere on your system, by running
-`pypop.py`.
+package.
+
+> Note that if you use this method and install the package, it will be
+available to run anywhere on your system, by running `pypop.py`.
 
 > _**If you use this installation method, changes you make to the
 code, locally, or via subsequent `git pull` requests will not be
@@ -169,7 +175,11 @@ than the conda environment:
 
 3. PyPop is ready-to-use, skip to [Run the test suite](#4-run-the-test-suite)
 
-### Build-and-run-from-checkout (for developers)
+4. if you later decide you want to switch to using the developer
+approach, below, follow the [uninstallation
+instructions](#5-uninstalling-pypop-and-cleaning-up) before starting.
+
+### 3.2 Build-and-run-from-checkout (recommended for developers)
 
 1. First manually install the dependencies via `pip`, note that if you
 are running on Python <= 3.8, you will need to also add
@@ -209,6 +219,27 @@ mode and capturing the output
 ```
 pytest -s -v tests
 ```
+
+## 5. Uninstalling PyPop and cleaning up
+
+If you installed using the end-user approach in section 3.1, above, you can
+remove the installed version:
+
+1. if you're using conda :
+      ```
+      pip uninstall pypop
+      ``` 
+   2. system-wide:
+      ```
+      pip uninstall --user pypop
+      ```
+
+To clean-up any compiled files and force a recompilation from scratch,
+run the `clean` command:
+
+```
+./setup clean --all
+````
 
 # Examples
 
