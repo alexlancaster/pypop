@@ -37,7 +37,7 @@ import os.path
 import sys
 import subprocess
 import shutil
-from pathlib import PurePath
+from pathlib import Path, PurePath
 
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 PARENT_DIR = os.path.join(CUR_DIR, '..')
@@ -54,18 +54,34 @@ def run_pypop_process(inifile, popfile, args=[]):
     inifile = abspath_test_data(inifile)
     popfile = abspath_test_data(popfile)
 
-    # first try pypop.py in current PATH
+    # first search for pypop.py in current PATH
     default_pypop = shutil.which("pypop.py")
+    # no Python executable needed, by default
+    python_exe = None  
+
     if not default_pypop:
         # then in local subdirectory
-        default_pypop = shutil.which(PurePath("./bin/pypop.py"))
-        if not default_pypop:
-            # finally just default to the name
-            default_pypop = "pypop.py" 
+        default_pypop = str(shutil.which(PurePath("./bin/pypop.py")))
 
-    print ("using pypop: [", default_pypop, end="] ")
+        if not default_pypop:
+            # otherwise, check location the python interpreter in a
+            # virtual environment, and assume pypop has been installed
+            # in same PATH this handles the Windows case on
+            # cibuildwheels
+            # FIXME: not a super-robust solution
+            python_exe = shutil.which('python')
+            parent_dir = Path(python_exe).parent
+            default_pypop = str(parent_dir / 'pypop.py')
+
+    # if we need to include the Python executable, we prepend it before the script
+    if python_exe:
+        exe_cmd = [python_exe, default_pypop]
+    else:
+        exe_cmd = [default_pypop]
     
-    cmd_line = [default_pypop, '-m'] + args + ['-c', inifile, popfile]
+    print ("pypop_exe: ", exe_cmd, end=" ")
+    
+    cmd_line = exe_cmd + ['-m'] + args + ['-c', inifile, popfile]
     process=subprocess.Popen(
         cmd_line,
         stdout=subprocess.PIPE,
