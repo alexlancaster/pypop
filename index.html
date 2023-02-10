@@ -33,17 +33,20 @@
       <section id="main_content" class="inner">
         <p>PyPop: Python for Population Genomics</p>
 
+       
+        
 <blockquote>
 <ul>
-<li>PyPop 0.7.0 (latest release), used in the Solberg et al. <em>Human Immunology</em> meta-analysis paper, is available.</li>
-<li>Also available as an official Fedora package</li>
+<li><strong>PyPop development is now on GitHub.  The current binary releases described below are very outdated and only work on Python 2 which is also no longer maintained.  
+  We are working on a new Python 3-compatible v1.0.0 release to be made available as PyPi.org package, but for the time being, there are instructions 
+  on the GitHub <a href="https://github.com/alexlancaster/pypop#readme">README.md</a> for how to build PyPop from source on a modern Python 3 system.<</strong>/li>
 </ul>
 </blockquote>
 
 <h3>
 <a id="overview" class="anchor" href="#overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Overview</h3>
 
-<p>PyPop (Python for Population Genomics) is an environment developed by the Thomson lab for doing large-scale population genetic analyses including: (1) conformity to Hardy-Weinberg expectations, (2) tests for balancing or directional selection; (3) estimates of haplotype frequencies (and their distributions) and measures and tests of significance for linkage disequilibrium (LD).</p>
+<p>PyPop (Python for Population Genomics) is an environment for doing large-scale population genetic analyses including: (1) conformity to Hardy-Weinberg expectations, (2) tests for balancing or directional selection; (3) estimates of haplotype frequencies (and their distributions) and measures and tests of significance for linkage disequilibrium (LD).</p>
 
 <p>It is an object-oriented framework implemented in <a href="http://www.pypop.org/">Python</a>, a language with powerful features for interfacing with other languages, such as C (in which we have already implemented many routines and which is particularly suited to computationally intensive tasks).</p>
 
@@ -54,6 +57,7 @@
 PyPop is available for download</p>
 
 <ul>
+<li>2023: ported to Python 3, developer can compile from source, working towards a v1.0.0 release - no official release date yet.</li>
 <li>2017: all new development is now in GitHub, no official release yet</li>
 <li>2008-09-09: 0.7.0 release (many new features and bug fixes) ← Most recent</li>
 <li>2005-04-13: 0.6.0 released (new features and bug fixes)</li>
@@ -65,17 +69,14 @@ PyPop is available for download</p>
 <p>(Please note that links and documentation below always refer to the most recent release).</p>
 
 <h3>
-<a id="binaries" class="anchor" href="#binaries" aria-hidden="true"><span class="octicon octicon-link"></span></a>Binaries</h3>
+<a id="binaries" class="anchor" href="#binaries" aria-hidden="true"><span class="octicon octicon-link"></span></a>
+  Binaries [please note these binaries are obsolete and may or may not work]</h3>
 
 <p>Beta binary versions of PyPop are now publicly available (see "Getting and installing PyPop" link below for links to the current binaries) for both:</p>
 
 <ul>
 <li>GNU/Linux (the Linux binary needs a recent distribution that a recent glibc (2.8 has been tested): Fedora Core 9 is known to work, earlier versions of Red Hat such as the 7.x series and 8.0 are known to not work)</li>
-<li>Official Fedora package available! As of early 2009, pypop is also an official Fedora package which works with Fedora 9 and later. (It is also available for Red Hat Enterprise Linux 5 (RHEL 5) if you install the optional EPEL add-on repository). You can install via yum using:</li>
-</ul>
-
-<pre><code>yum install pypop
-</code></pre>
+<li>As of early 2023, pypop is no longer an official Fedora package.  Future releases will be made available via PyPi.org</ul>
 
 <ul>
 <li>Windows (the binary has been tested on Windows 98, 2000 and XP)</li>
