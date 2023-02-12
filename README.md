@@ -5,10 +5,10 @@ running population genetic analyses.
 
 # Installation (end user)
 
-TBA.  For the end-user, we are currently working on making PyPop installable
-via `pip` from downloadable packages (that will include pre-compiled
-binary extensions, to avoid the need to download development
-tools). Eventually we will make it available on
+TBA.  For the end-user, we are currently working on making PyPop
+installable via `pip` from downloadable packages (that will include
+pre-compiled binary extensions, to avoid the need to download
+development tools). Eventually it will be available on
 [PyPi](https://pypi.org/).  However, for the time being, you will need
 to follow the developer installation instructions, below.
 
@@ -21,7 +21,7 @@ There are four main steps to the installation:
 4. run tests
 
 For most casual users and developers, we recommend using the miniconda
-approach, described below.
+approach described below.
 
 ## 1. Install the build environment
 
@@ -148,10 +148,10 @@ cd pypop
 
 ## 3. Build PyPop
 
-You should choose *either* of the following two approaches.  Don't try
-to mix-and-match the two.  The build-and-install approach is
+You should choose *either* of the following two approaches. Don't try
+to mix-and-match the two. The build-and-install approach is
 recommended for end-users, or you if don't plan to make any
-modifications to the code, locally.
+modifications to the code locally.
 
 ### 3.1 Build-and-install (recommended for end-users)
 
