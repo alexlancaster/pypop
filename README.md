@@ -25,18 +25,21 @@ approach, described below.
 
 ## 1. Install the build environment
 
-To install the build environment, you should choose one of the options
-below, either via `conda` or system packages. Once you have chosen and
-installed the build environment, you should follow the that option
-in all subsequent steps.
+To install the build environment, you should choose either `conda` or
+system packages. Once you have chosen and installed the build
+environment, you should follow the instructions related to the option
+you chose here in all subsequent steps.
 
 ### 1.1 Install build environment via miniconda (recommended)
 
 1. Visit https://docs.conda.io/en/latest/miniconda.html to download
 the miniconda installer for your platform, and follow the instructions
-to install (theoretically the rest of the PyPop miniconda installation
-process should work on any platform that is supported by miniconda,
-but only Linux and MacOS has been tested at this time).
+to install.
+
+   > In principle, the rest of the PyPop miniconda installation
+   > process should work on any platform that is supported by
+   > miniconda, but only Linux and MacOS have been tested in
+   > standalone mode, at this time.
 
 2. Once miniconda is installed, create a new conda environment, using
 the following commands:
@@ -81,6 +84,27 @@ environment:
 
 ### 1.2 Install build environment via system packages (advanced)
 
+#### Unix/Linux:
+
+1. Ensure Python 3 version of `pip` is installed:
+   ```
+   python3 -m ensurepip --user --no-default-pip
+   ```
+   > Note the use of the `python3` - you may find this to be necessary on
+systems which parallel-install both Python 2 and 3, which is typically
+the case. On newer systems you may find that `python` and `pip` are,
+by default, the Python 3 version of those tools.
+
+2. Install packages system-wide:
+   1. Fedora/Centos/RHEL
+      ```
+      sudo dnf install git swig gsl-devel python3-devel
+      ``` 
+   2. Ubuntu
+      ```
+      sudo apt install git swig libgsl-dev python-setuptools
+      ```
+
 #### MacOS X
 
 1. Install developer command-line tools: https://developer.apple.com/downloads/  (includes `git`, `gcc`)
@@ -111,26 +135,9 @@ environment:
 `which python`, if it is working correctly you should see
 `/opt/local/bin/python`.
 
-#### Unix/Linux:
+### Windows
 
-1. Ensure Python 3 version of `pip` is installed:
-   ```
-   python3 -m ensurepip --user --no-default-pip
-   ```
-   > Note the use of the `python3` - you may find this to be necessary on
-systems which parallel-install both Python 2 and 3, which is typically
-the case. On newer systems you may find that `python` and `pip` are,
-by default, the Python 3 version of those tools.
-
-2. Install packages system-wide:
-   1. Fedora/Centos/RHEL
-      ```
-      sudo dnf install git swig gsl-devel python3-devel
-      ``` 
-   2. Ubuntu
-      ```
-      sudo apt install git swig libgsl-dev python-setuptools
-      ```
+(Currently untested in standalone-mode)
 
 ## 2. Clone the repository
 
