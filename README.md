@@ -20,12 +20,17 @@ There are four main steps to the installation:
 3. build
 4. run tests
 
-For most casual users and developers, we recommend using the
-miniconda approach in each of the steps below.
+For most casual users and developers, we recommend using the miniconda
+approach, described below.
 
 ## 1. Install the build environment
 
-### via miniconda (recommended)
+To install the build environment, you should choose one of the options
+below, either via `conda` or system packages. Once you have chosen and
+installed the build environment, you should follow the that option
+in all subsequent steps.
+
+### 1.1 Install build environment via miniconda (recommended)
 
 1. Visit https://docs.conda.io/en/latest/miniconda.html to download
 the miniconda installer for your platform, and follow the instructions
@@ -74,7 +79,7 @@ environment:
 
 5. Skip ahead to [Clone the repository](#2-clone-the-repository).
 
-### OR via system packages (advanced)
+### 1.2 Install build environment via system packages (advanced)
 
 #### MacOS X
 
