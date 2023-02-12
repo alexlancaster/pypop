@@ -217,7 +217,7 @@ int main(int argc, char **argv)
   /* set output to stdout by default */
   fp_out = stdout;
 
-  num_loci = read_infile(if_handle, ref, data, &num_recs, "~", "|");
+  num_loci = read_infile(if_handle, ref, data, &num_recs, "~", "~");
   fprintf(fp_out, "num_loci: %d\n", num_loci);
   fprintf(fp_out, "Sample Size (n): %d\n", num_recs);
   if (num_loci > MAX_LOCI) 
@@ -234,7 +234,7 @@ int main(int argc, char **argv)
 		      fp_out,
 		      data, num_loci, num_recs, permu_flag, 
   		      suppress_haplo_print_flag, MAX_INIT, MAX_PERMU, 
-  		      MAX_INIT_FOR_PERMU, 1, 0, "~", "|");
+  		      MAX_INIT_FOR_PERMU, 1, 0, "~", "~");
 
 
   return (ret_val);
