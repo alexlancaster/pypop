@@ -228,7 +228,7 @@ Number of individuals: 8 (after-filtering)
 Unique phenotypes: 8
 Unique genotypes: 14
 Number of haplotypes: 26
-Loglikelihood under linkage equilibrium [ln(L_0)]: -50.350627
+Loglikelihood under linkage equilibrium [ln(L_0)]: -55.268324
 Loglikelihood obtained via the EM algorithm [ln(L_1)]: -36.043653
 Number of iterations before convergence: 22
 
