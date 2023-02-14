@@ -43,7 +43,7 @@ import os, sys, types, stat, re, shutil, copy, operator
 import numpy as np
 from numpy import zeros, take, asarray
 GENOTYPE_SEPARATOR = "~"
-GENOTYPE_TERMINATOR= "|"
+GENOTYPE_TERMINATOR= "~"
 from numpy.lib.user_array import container
 
 class TextOutputStream:

@@ -217,7 +217,7 @@ int main(int argc, char **argv)
   /* set output to stdout by default */
   fp_out = stdout;
 
-  num_loci = read_infile(if_handle, ref, data, &num_recs, "~", "|");
+  num_loci = read_infile(if_handle, ref, data, &num_recs, "~", "~");
   fprintf(fp_out, "num_loci: %d\n", num_loci);
   fprintf(fp_out, "Sample Size (n): %d\n", num_recs);
   if (num_loci > MAX_LOCI) 
@@ -234,7 +234,7 @@ int main(int argc, char **argv)
 		      fp_out,
 		      data, num_loci, num_recs, permu_flag, 
   		      suppress_haplo_print_flag, MAX_INIT, MAX_PERMU, 
-  		      MAX_INIT_FOR_PERMU, 1, 0, "~", "|");
+  		      MAX_INIT_FOR_PERMU, 1, 0, "~", "~");
 
 
   return (ret_val);
@@ -1498,7 +1498,11 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
     {
 #ifdef XML_OUTPUT
       xmlfprintf(fp_out, "<summary first=\"%d\" second=\"%d\">\n", j, k);
-      xmlfprintf(fp_out, "<wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>%.5f</dsummary><dprime>%.5f</dprime>\n", summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), fabs(summary_d[coeff_count]), fabs(summary_dprime[coeff_count]));
+      if (n_unique_allele[j]==1 || n_unique_allele[k]==1) {
+        xmlfprintf(fp_out, "<wn>NA</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>\n", summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1));
+      } else {
+        xmlfprintf(fp_out, "<wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>%.5f</dsummary><dprime>%.5f</dprime>\n", summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), fabs(summary_d[coeff_count]), fabs(summary_dprime[coeff_count]));
+      }
       xmlfprintf(fp_out, "</summary>\n");
 #else
       fprintf(fp_out,"--Loci:%2d\\%2d--\n", j, k);
