@@ -217,8 +217,8 @@ Pairwise LD estimates
 ---------------------
 Locus pair            D      D'        Wn   ln(L_1)   ln(L_0)         S   ALD_1_2   ALD_2_1
 A:C             0.02579 0.86447   0.78174    -36.04    -55.27     38.45         *         *
-A:B             0.00000 0.00000      -nan    -26.51    -26.51      0.00         *         *
-C:B             0.00000 0.00000      -nan    -32.10    -32.10      0.00         *         *
+A:B                  NA      NA        NA    -26.51    -26.51      0.00         *         *
+C:B                  NA      NA        NA    -32.10    -32.10      0.00         *         *
 
 
 Haplotype frequency est. for loci: A:C:B
