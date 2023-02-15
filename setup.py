@@ -38,6 +38,7 @@ import sys, os
 from glob import glob
 from setuptools import setup
 from setuptools.extension import Extension
+from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
 
 from src.PyPop import __version__, __pkgname__
@@ -46,6 +47,19 @@ from src.PyPop import __version__, __pkgname__
 # it takes CFLAGS from the environment variable of the same name, so
 # we set the environment to emulate that.
 #os.environ['CFLAGS'] = '-funroll-loops'
+
+class CleanCommand(clean.clean):
+    """Customized clean command - removes in_place extension files if they exist"""
+    def run(self):
+        DIR = os.path.dirname(__file__)
+        # generate glob pattern from extension name and suffix
+        ext_files = [os.path.join(DIR, __pkgname__, ext.name.split(__pkgname__ + '.').pop() + ("*.pyd" if sys.platform == "win32" else "*.so")) for ext in extensions]
+        for ext_file in ext_files:
+            for ext_file in glob(ext_file):
+                if os.path.exists(ext_file):
+                    print("Removing in-place extension {}".format(ext_file))
+                    os.unlink(ext_file)
+        clean.clean.run(self)
 
 # look for libraries in _PREFIX
 library_dirs = [os.path.join(_PREFIX, "lib")]
@@ -56,65 +70,77 @@ if "LIBRARY_PATH" in os.environ:
 if "CPATH" in os.environ:
     include_dirs += os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
 
-swig_opts = ["-Isrc/SWIG", "-Isrc"]
+src_dir = "src"
+# generate the appropriate relative path to source directory, given
+# paths within that source directory (this means we need to define
+# this directory in just one place
+def path_to_src(source_path_list):
+    new_source_list = []
+    for file_path in source_path_list:
+        new_source_list.append(os.path.join(src_dir, file_path))
+    return new_source_list
+
+    
+swig_opts = ["-I%s" % os.path.join(src_dir, "SWIG"), "-I%s" % os.path.join(src_dir)]
 
 # define each extension
 ext_Emhaplofreq = Extension("PyPop._Emhaplofreq",
-                            ["src/emhaplofreq/emhaplofreq_wrap.i",
-                             "src/emhaplofreq/emhaplofreq.c"],
+                            path_to_src(["emhaplofreq/emhaplofreq_wrap.i",
+                             "emhaplofreq/emhaplofreq.c"]),
                             swig_opts = swig_opts,
-                            include_dirs=include_dirs + ["src/emhaplofreq"],
+                            include_dirs=include_dirs + path_to_src(["emhaplofreq"]),
                             define_macros=[('__SWIG__', '1'),
                                            ('DEBUG', '0'),
                                            ('EXTERNAL_MODE', '1'),
                                            ('XML_OUTPUT', '1')]
                             )
 ext_EWSlatkinExact = Extension("PyPop._EWSlatkinExact",
-                               ["src/slatkin-exact/monte-carlo_wrap.i",
-                                "src/slatkin-exact/monte-carlo.c"],
+                               path_to_src(["slatkin-exact/monte-carlo_wrap.i",
+                                "slatkin-exact/monte-carlo.c"]),
                                swig_opts = swig_opts,
                                include_dirs=include_dirs,
                                )
 
 ext_Pvalue = Extension("PyPop._Pvalue",
-                       ["src/pval/pval_wrap.i",
-                        "src/pval/pval.c",
-                        "src/pval/pchisq.c",
-                        "src/pval/chebyshev.c",
-                        "src/pval/ftrunc.c",
-                        "src/pval/lgamma.c",
-                        "src/pval/mlutils.c",
-                        "src/pval/pgamma.c",
-                        "src/pval/fmin2.c",
-                        "src/pval/fmax2.c",
-                        "src/pval/dnorm.c",
-                        "src/pval/dpois.c",
-                        "src/pval/gamma.c",
-                        "src/pval/bd0.c",
-                        "src/pval/stirlerr.c",
-                        "src/pval/lgammacor.c",
-                        "src/pval/pnorm.c"],
+                       path_to_src(["pval/pval_wrap.i",
+                        "pval/pval.c",
+                        "pval/pchisq.c",
+                        "pval/chebyshev.c",
+                        "pval/ftrunc.c",
+                        "pval/lgamma.c",
+                        "pval/mlutils.c",
+                        "pval/pgamma.c",
+                        "pval/fmin2.c",
+                        "pval/fmax2.c",
+                        "pval/dnorm.c",
+                        "pval/dpois.c",
+                        "pval/gamma.c",
+                        "pval/bd0.c",
+                        "pval/stirlerr.c",
+                        "pval/lgammacor.c",
+                        "pval/pnorm.c"]),
                        swig_opts = swig_opts,
-                       include_dirs=include_dirs + ["src/pval"],
+                       include_dirs=include_dirs + path_to_src(["pval"]),
                        define_macros=[('MATHLIB_STANDALONE', '1')]
                        )
 
-ext_Gthwe_files = ["src/gthwe/gthwe_wrap.i",
-                   "src/gthwe/hwe.c",
-                   "src/gthwe/cal_const.c",
-                   "src/gthwe/cal_n.c", "src/gthwe/cal_prob.c",
-                   "src/gthwe/check_file.c",
-                   "src/gthwe/do_switch.c", 
-                   "src/gthwe/new_rand.c",
-                   "src/gthwe/ln_p_value.c",
-                   "src/gthwe/to_calculate_log.c",
-                   "src/gthwe/print_data.c",
-                   "src/gthwe/random_choose.c",
-                   "src/gthwe/read_data.c",
-                   "src/gthwe/select_index.c",
-                   "src/gthwe/stamp_time.c",
-                   "src/gthwe/test_switch.c",
-                   "src/gthwe/statistics.c"]
+ext_Gthwe_files = path_to_src(["gthwe/gthwe_wrap.i",
+                   "gthwe/hwe.c",
+                   "gthwe/cal_const.c",
+                   "gthwe/cal_n.c",
+                   "gthwe/cal_prob.c",
+                   "gthwe/check_file.c",
+                   "gthwe/do_switch.c", 
+                   "gthwe/new_rand.c",
+                   "gthwe/ln_p_value.c",
+                   "gthwe/to_calculate_log.c",
+                   "gthwe/print_data.c",
+                   "gthwe/random_choose.c",
+                   "gthwe/read_data.c",
+                   "gthwe/select_index.c",
+                   "gthwe/stamp_time.c",
+                   "gthwe/test_switch.c",
+                   "gthwe/statistics.c"])
 
 
 ext_Gthwe_macros = [('__SWIG__', '1'),
@@ -123,25 +149,20 @@ ext_Gthwe_macros = [('__SWIG__', '1'),
                     ('SUPPRESS_ALLELE_TABLE', '1'),
                     ('INDIVID_GENOTYPES', '1')] 
 
-if sys.platform == "win32":
-    cblas_libname = "gslcblas"
-else:
-    cblas_libname = "gslcblas"
-    
 ext_Gthwe = Extension("PyPop._Gthwe",
                       ext_Gthwe_files,
                       swig_opts = swig_opts,
-                      include_dirs=include_dirs + ["src/gthwe"],
+                      include_dirs=include_dirs + path_to_src(["gthwe"]),
                       library_dirs=library_dirs,
-                      libraries=["gsl", cblas_libname],
+                      libraries=["gsl", "gslcblas"],
                       define_macros=ext_Gthwe_macros
                       )
 
 ext_Haplostats = Extension("PyPop._Haplostats",
-                       ["src/haplo-stats/haplostats_wrap.i",
-                        "src/haplo-stats/haplo_em_pin.c",],
+                       path_to_src(["haplo-stats/haplostats_wrap.i",
+                        "haplo-stats/haplo_em_pin.c"]),
                        swig_opts = swig_opts,
-                       include_dirs=include_dirs + ["src/haplo-stats", "src/pval"],
+                       include_dirs=include_dirs + path_to_src(["haplo-stats", "pval"]),
                        define_macros=[('MATHLIB_STANDALONE', '1'),
                                       ('__SWIG__', '1'),
                                       ('DEBUG', '0'),
@@ -149,16 +170,16 @@ ext_Haplostats = Extension("PyPop._Haplostats",
                        )
 
 ext_HweEnum = Extension("PyPop._HweEnum",
-                      [ "src/hwe-enumeration/src/hwe_enum_wrap.i",
-                        "src/hwe-enumeration/src/hwe_enum.c",
-                        "src/hwe-enumeration/src/factorial.c",
-                        "src/hwe-enumeration/src/main.c",
-                        "src/hwe-enumeration/src/common.c",
-                        "src/hwe-enumeration/src/statistics.c",
-                        "src/hwe-enumeration/src/external.c"
-                        ],
+                      path_to_src(["hwe-enumeration/src/hwe_enum_wrap.i",
+                        "hwe-enumeration/src/hwe_enum.c",
+                        "hwe-enumeration/src/factorial.c",
+                        "hwe-enumeration/src/main.c",
+                        "hwe-enumeration/src/common.c",
+                        "hwe-enumeration/src/statistics.c",
+                        "hwe-enumeration/src/external.c"
+                        ]),
                         swig_opts = swig_opts,
-                        include_dirs=include_dirs + ["hwe-enumeration/src/include",
+                        include_dirs=include_dirs + [path_to_src(["hwe-enumeration/src/include"]),
                                                      "/usr/include/glib-2.0",
                                                      "/usr/include/glib-2.0/include",
                                                      "/usr/lib/glib-2.0/include",
@@ -176,32 +197,16 @@ ext_HweEnum = Extension("PyPop._HweEnum",
                                        ('HAVE_LIBGSL', '1')]
                         )
 
-ext_Emhaplofreq.depends=['src/SWIG/typemap.i', "src/emhaplofreq/emhaplofreq.h"]
-ext_Pvalue.depends=['src/SWIG/typemap.i', 'src/pval/Rconfig.h', 'src/pval/Rmath.h', 'src/pval/dpq.h', 'src/pval/nmath.h']
-ext_Gthwe.depends=['src/SWIG/typemap.i', 'src/gthwe/func.h', 'src/gthwe/hwe.h']
-ext_Haplostats.depends=['src/SWIG/typemap.i', "src/haplo-stats/haplo_em_pin.h"]
+ext_Emhaplofreq.depends=path_to_src(["SWIG/typemap.i", "emhaplofreq/emhaplofreq.h"])
+ext_Pvalue.depends=path_to_src(["SWIG/typemap.i", "pval/Rconfig.h", "pval/Rmath.h", "pval/dpq.h", "pval/nmath.h"])
+ext_Gthwe.depends=path_to_src(["SWIG/typemap.i", "gthwe/func.h", "gthwe/hwe.h"])
+ext_Haplostats.depends=path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pin.h"])
     
 # default list of extensions to build
 extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Haplostats, ext_Gthwe]
 
 # don't include HWEEnum 
 # extensions.append(ext_HweEnum)
-
-
-from distutils.command import clean
-
-class CleanCommand(clean.clean):
-    """Customized clean command - removes in_place extension files if they exist"""
-    def run(self):
-        DIR = os.path.dirname(__file__)
-        # generate glob pattern from extension name and suffix
-        ext_files = [os.path.join(DIR, __pkgname__, ext.name.split(__pkgname__ + '.').pop() + ("*.pyd" if sys.platform == "win32" else "*.so")) for ext in extensions]
-        for ext_file in ext_files:
-            for ext_file in glob(ext_file):
-                if os.path.exists(ext_file):
-                    print("Removing in-place extension {}".format(ext_file))
-                    os.unlink(ext_file)
-        clean.clean.run(self)
 
 data_file_paths = []
 # xslt files are in a subdirectory
@@ -219,7 +224,7 @@ particularly large-scale multilocus genotype data""",
        maintainer_email = "alexl@cal.berkeley.edu",
        license = "GNU GPL",
        platforms = ["GNU/Linux", "Windows", "MacOS"],
-       package_dir = {"": "src"},
+       package_dir = {"": src_dir},
        packages = ["PyPop", "PyPop.xslt"],
        package_data={"PyPop.xslt": data_file_paths},
        install_requires = ["numpy", "lxml", "psutil", "importlib-resources; python_version <= '3.8'"],
