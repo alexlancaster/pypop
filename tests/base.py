@@ -47,6 +47,8 @@ xfail_windows = pytest.mark.xfail(sys.platform == "win32", reason="pipeline test
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 PARENT_DIR = os.path.join(CUR_DIR, '..')
 sys.path.append(PARENT_DIR)
+SRC_DIR=os.path.join(CUR_DIR, '../src')
+sys.path.append(SRC_DIR)
 
 def abspath_test_data(filename):
     parent_path = PurePath(PARENT_DIR)
