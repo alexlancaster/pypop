@@ -212,7 +212,7 @@ are running on Python <= 3.8, you will need to also add
    ./setup.py build
    ```
 
-3. You will run PyPop, directly out of the `bin` subdirectory (e.g. `./src/bin/pypop.py`).
+3. You will run PyPop, directly out of the `src/bin` subdirectory (e.g. `./src/bin/pypop.py`).
 
 ## 4. Run the test suite
 
