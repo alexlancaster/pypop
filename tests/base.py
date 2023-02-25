@@ -47,6 +47,8 @@ xfail_windows = pytest.mark.xfail(sys.platform == "win32", reason="pipeline test
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 PARENT_DIR = os.path.join(CUR_DIR, '..')
 sys.path.append(PARENT_DIR)
+SRC_DIR=os.path.join(CUR_DIR, '../src')
+sys.path.append(SRC_DIR)
 
 def abspath_test_data(filename):
     parent_path = PurePath(PARENT_DIR)
@@ -83,7 +85,7 @@ def run_pypop_process(inifile, popfile, args=[]):
 
     if not default_pypop:
         # then in local subdirectory
-        default_pypop = shutil.which(PurePath("./bin/pypop.py"))
+        default_pypop = shutil.which(PurePath("./src/bin/pypop.py"))
 
         if not default_pypop:
             # otherwise, check location the python interpreter in a
@@ -98,10 +100,10 @@ def run_pypop_process(inifile, popfile, args=[]):
     # if we need to include the Python executable, we prepend it before the script
     if python_exe:
         exe_cmd = [python_exe, default_pypop]
+        print ("pypop_exe: ", python_exe, str(default_pypop), end=" ")
     else:
         exe_cmd = [default_pypop]
-    
-    print ("pypop_exe: ", exe_cmd, end=" ")
+        print (str(default_pypop), end=" ")
     
     cmd_line = exe_cmd + ['-m'] + args + ['-c', inifile, popfile]
     process=subprocess.Popen(

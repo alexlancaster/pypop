@@ -212,7 +212,7 @@ are running on Python <= 3.8, you will need to also add
    ./setup.py build
    ```
 
-3. You will run PyPop, directly out of the `bin` subdirectory (e.g. `./bin/pypop.py`).
+3. You will run PyPop, directly out of the `src/bin` subdirectory (e.g. `./src/bin/pypop.py`).
 
 ## 4. Run the test suite
 
@@ -264,7 +264,7 @@ explanation of the options available.
 pypop.py -c  tests/data/minimal.ini tests/data/USAFEL-UchiTelle-small.pop
 ```
 
-> replace `pypop.py`, by `./bin/pypop.py` if you installed using
+> replace `pypop.py`, by `./src/bin/pypop.py` if you installed using
 section 3.2, i.e running locally from within the uninstalled checkout
 of the repository
 

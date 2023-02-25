@@ -40,6 +40,8 @@ import sys, os, time
 
 DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(DIR, '..'))
+sys.path.insert(0, os.path.join(DIR, '../src'))
+
 
 import PyPop
 
