@@ -1,0 +1,50 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Lancaster"
+  given-names: "Alexander"
+  orcid: "https://orcid.org/0000-0002-0002-9263
+- family-names: "Single"
+  given-names: "Richard"
+  orcid: "https://orcid.org/0000-0001-6054-6505"
+- family-names: "Solberg"
+  given-names: "Owen"
+  orcid: "https://orcid.org/0000-0003-3060-9709"
+- family-names: "Nelson"
+  given-names: "Mark P."
+- family-names: "Mack
+  given-names: "Steven J."
+  orcid: "https://orcid.org/0000-0001-9820-9547"
+- family-names: "Thomson"
+  given-names: "Glenys"
+  orcid: "https://orcid.org/0000-0001-5235-4159"
+title: "PyPop: Python for Population Genomics"
+url: "https://github.com/alexlancaster/pypop"
+preferred-citation:
+  type: article
+  authors:
+  - family-names: "Lancaster"
+    given-names: "Alexander"
+    orcid: "https://orcid.org/0000-0002-0002-9263
+  - family-names: "Single"
+    given-names: "Richard"
+    orcid: "https://orcid.org/0000-0001-6054-6505"
+  - family-names: "Solberg"
+    given-names: "Owen"
+    orcid: "https://orcid.org/0000-0003-3060-9709"
+  - family-names: "Nelson"
+    given-names: "Mark P."
+   - family-names: "Thomson"
+    given-names: "Glenys"
+    orcid: "https://orcid.org/0000-0001-5235-4159"
+  doi: "10.1111/j.1399-0039.2006.00769.x"
+  journal: "Tissue Antigens"
+  start: 192 # First page number
+  end: 197 # Last page number
+  title: "PyPop update – a software pipeline for large-scale multilocus population genomics"
+  url: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/
+  issue: 1
+  volume: 69
+  year: 2007
+  
+  
