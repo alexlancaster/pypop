@@ -20,6 +20,8 @@ authors:
   orcid: "https://orcid.org/0000-0001-5235-4159"
 title: "PyPop: Python for Population Genomics"
 url: "https://github.com/alexlancaster/pypop"
+version: 0.99-pre
+date-released: 2023-04-13
 preferred-citation:
   type: article
   authors:
