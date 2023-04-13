@@ -44,7 +44,7 @@ preferred-citation:
   start: 192 # First page number
   end: 197 # Last page number
   title: "PyPop update – a software pipeline for large-scale multilocus population genomics"
-  url: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/
+  url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/"
   issue: 1
   volume: 69
   year: 2007
