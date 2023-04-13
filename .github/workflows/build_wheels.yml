@@ -4,11 +4,11 @@ on:
   pull_request:
     paths-ignore:
       - '**.md'
-      - CITATION.cff
+      - 'CITATION.cff'
   push:
     paths-ignore:
       - '**.md'
-      - CITATION.cff
+      - 'CITATION.cff'
 
 jobs:
   build_wheels:
