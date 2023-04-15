@@ -1518,10 +1518,9 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
 #ifdef XML_OUTPUT
       xmlfprintf(fp_out, "<summary first=\"%d\" second=\"%d\">\n", j, k);
       if (n_unique_allele[j]==1 || n_unique_allele[k]==1) {
-        xmlfprintf(fp_out, "<wab>NA</wab><wba>NA</wba><wn>NA</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>\n", summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1));
+        xmlfprintf(fp_out, "<ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>\n", summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1));
       } else {
-        xmlfprintf(fp_out, "<wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>%.5f</dsummary><dprime>%.5f</dprime>\n", summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), fabs(summary_d[coeff_count]), fabs(summary_dprime[coeff_count]));
-        xmlfprintf(fp_out, "<wab>%.5f</wab><wba>%.5f</wba><wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>%.5f</dsummary><dprime>%.5f</dprime>\n", summary_wab[coeff_count], summary_wba[coeff_count], summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), fabs(summary_d[coeff_count]), fabs(summary_dprime[coeff_count]));	      
+        xmlfprintf(fp_out, "<ALD_1_2>%.5f</ALD_1_2><ALD_2_1>%.5f</ALD_2_1><wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>%.5f</dsummary><dprime>%.5f</dprime>\n", summary_wab[coeff_count], summary_wba[coeff_count], summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), fabs(summary_d[coeff_count]), fabs(summary_dprime[coeff_count]));	      
       }
       xmlfprintf(fp_out, "</summary>\n");
 #else
