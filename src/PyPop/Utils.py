@@ -831,7 +831,7 @@ def getUserFilenameInput(prompt, filename):
 
     nofile = 1
     while nofile:
-      tempFilename = raw_input("Please enter %s filename [%s]: " % (prompt, filename))
+      tempFilename = input("Please enter %s filename [%s]: " % (prompt, filename))
 
       # if we accept default, still check that file still exists
       if tempFilename == '':
