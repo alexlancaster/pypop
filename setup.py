@@ -42,7 +42,7 @@ from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
 
 from src.PyPop import __version__, __pkgname__
-#from src.PyPop.Utils import convertLineEndings
+from src.PyPop.Utils import convertLineEndings
 
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
