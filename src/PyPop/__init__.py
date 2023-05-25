@@ -41,6 +41,7 @@ import logging
 import platform
 import sys
 import os
+import re
 
 def setup_logging(debug=False, filename=None):
     """Provide defaults for logging."""
