@@ -40,6 +40,7 @@ import locale
 import logging
 import platform
 import sys
+import os
 
 def setup_logging(debug=False, filename=None):
     """Provide defaults for logging."""
