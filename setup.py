@@ -42,6 +42,7 @@ from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
 
 from src.PyPop import __version__, __pkgname__
+#from src.PyPop.Utils import convertLineEndings
 
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
@@ -213,6 +214,77 @@ data_file_paths = []
 xslt_files = [f + '.xsl' for f in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
 data_file_paths.extend(xslt_files)
 
+def create_wrappers(script=None, platform=None, bin_dir=None, dist_dir=None):
+
+    wrapper_filenames = []  # record the list of wrappers we create
+    basename = os.path.splitext(os.path.basename(script))[0]
+    if platform == 'win32':
+        exec_name = basename + '.exe'
+        wrapper_common = """@echo off
+set PYTHONHOME="."
+%s\%s""" % (bin_dir, exec_name)
+        wrapper_name = basename + '.bat'
+        wrapper_contents = wrapper_common + """ -i
+pause"""
+        batch_wrapper = basename + '-batch.bat'
+        batch_wrapper_contents = wrapper_common + ' %*'
+    #elif platform == 'Linux':
+    else:
+        exec_name = basename + '.py'
+        wrapper_common = """#!/bin/sh
+dir=$(dirname $0)
+$dir/%s/%s""" % (bin_dir, exec_name)
+        wrapper_name = basename
+        wrapper_contents = wrapper_common + ' -i'
+        batch_wrapper = basename + '-batch'
+        batch_wrapper_contents = wrapper_common + ' $@'
+
+    # create an interactive wrapper script
+    filename = os.path.join(dist_dir, wrapper_name)
+    wrapper = open(filename, 'w')
+    wrapper.write(wrapper_contents)
+    wrapper.close()
+    os.chmod(filename, 0o755)
+
+    wrapper_filenames.append(filename)
+
+    # apply line ending fixes for Win32
+    if platform == 'win32':
+        convertLineEndings(filename, 2)
+        
+    # create batch-file wrapper script
+    # disable
+    if False:
+        filename = os.path.join(dist_dir, batch_wrapper)
+        batch = open(filename, 'w')
+        batch.write(batch_wrapper_contents)
+        batch.close()
+        os.chmod(filename, 0o755)
+
+        wrapper_filenames.append(filename)
+        
+        # apply line ending fixes for Win32
+        if platform == 'win32':
+            convertLineEndings(filename, 2)
+
+    return wrapper_filenames
+
+# generate paths to scripts and interactive wrappers for those scripts
+
+bin_dir = os.path.join(src_dir, 'bin')
+scripts_files = [os.path.join(bin_dir, s) for s in ['pypop.py', 'popmeta.py']]
+
+# create wrappers
+scripts_wrappers = []
+for script in scripts_files:
+    scripts_wrappers.extend(create_wrappers(script=script, platform=sys.platform, \
+                                            bin_dir=".", dist_dir=bin_dir))
+    
+# add the file wrappers to the list of scripts to install
+scripts_files.extend(scripts_wrappers)
+
+print(scripts_files)
+
 setup (name = 'pypop',
        version = __version__,
        description = "Python for Population Genetics",
@@ -231,7 +303,7 @@ particularly large-scale multilocus genotype data""",
        extras_require={
            "test": ['pytest']
            },
-       scripts= ['src/bin/pypop.py', 'src/bin/popmeta.py'],
+       scripts=scripts_files,
        ext_modules=extensions,
        cmdclass={'clean': CleanCommand,},
        )
