@@ -45,6 +45,7 @@ from numpy import zeros, take, asarray
 GENOTYPE_SEPARATOR = "~"
 GENOTYPE_TERMINATOR= "~"
 from numpy.lib.user_array import container
+from PyPop import convert_line_endings
 
 class TextOutputStream:
     """Output stream for writing text files.
@@ -754,38 +755,13 @@ def appendTo2dList(aList, appendStr=':'):
     return [["%s%s" % (cell, appendStr) \
              for cell in row] for row in aList]
 
-def convertLineEndings(file, mode):
-    # 1 - Unix to Mac, 2 - Unix to DOS
-    if mode == 1:
-        if os.path.isdir(file):
-            sys.exit(file + "Directory!")
-        data = open(file, "r").read()
-        if '\0' in data:
-            sys.exit(file + "Binary!")
-        newdata = re.sub("\r?\n", "\r", data)
-        if newdata != data:
-            f = open(file, "w")
-            f.write(newdata)
-            f.close()
-    elif mode == 2:
-        if os.path.isdir(file):
-            sys.exit(file + "Directory!")
-        data = open(file, "r").read()
-        if '\0' in data:
-            sys.exit(file + "Binary!")
-        newdata = re.sub("\r(?!\n)|(?<!\r)\n", "\r\n", data)
-        if newdata != data:
-            f = open(file, "w")
-            f.write(newdata)
-            f.close()
-
 def fixForPlatform(filename, txt_ext=0):
     # make file read-writeable by everybody
     os.chmod(filename, stat.S_IFCHR)
 
     # create as a DOS format file LF -> CRLF
     if sys.platform == 'cygwin':
-        convertLineEndings(filename, 2)
+        convert_line_endings(filename, 2)
         # give it a .txt extension so that lame Windows realizes it's text
         if txt_ext:
             os.rename(filename, filename + '.txt')

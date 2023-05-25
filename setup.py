@@ -41,8 +41,7 @@ from setuptools.extension import Extension
 from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
 
-from src.PyPop import __version__, __pkgname__
-from src.PyPop.Utils import convertLineEndings
+from src.PyPop import __version__, __pkgname__, convert_line_endings
 
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
@@ -250,7 +249,7 @@ $dir/%s/%s""" % (bin_dir, exec_name)
 
     # apply line ending fixes for Win32
     if platform == 'win32':
-        convertLineEndings(filename, 2)
+        convert_line_endings(filename, 2)
         
     # create batch-file wrapper script
     # disable
@@ -265,7 +264,7 @@ $dir/%s/%s""" % (bin_dir, exec_name)
         
         # apply line ending fixes for Win32
         if platform == 'win32':
-            convertLineEndings(filename, 2)
+            convert_line_endings(filename, 2)
 
     return wrapper_filenames
 

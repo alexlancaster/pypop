@@ -45,10 +45,10 @@ from PyPop.Arlequin import ArlequinExactHWTest
 from PyPop.Haplo import Emhaplofreq, HaploArlequin, Haplostats
 from PyPop.HardyWeinberg import HardyWeinberg, HardyWeinbergGuoThompson, HardyWeinbergGuoThompsonArlequin, HardyWeinbergEnumeration
 from PyPop.Homozygosity import Homozygosity, HomozygosityEWSlatkinExact, HomozygosityEWSlatkinExactPairwise
-from PyPop.Utils import XMLOutputStream, TextOutputStream, convertLineEndings, StringMatrix, checkXSLFile, getUserFilenameInput, unique_elements
+from PyPop.Utils import XMLOutputStream, TextOutputStream, StringMatrix, checkXSLFile, getUserFilenameInput, unique_elements
 from PyPop.Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
 from PyPop.RandomBinning import RandomBinsForHomozygosity
-
+from PyPop import convert_line_endings
 
 def getConfigInstance(configFilename = None,
                       altpath = None,
@@ -1255,8 +1255,8 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
           # to use appropriate physical lineendings so that
           # lame Windoze editors like Notepad don't get confused
           if sys.platform == 'cygwin':
-              convertLineEndings(self.xmlOutPath, 2)
-              convertLineEndings(self.txtOutPath, 2)
+              convert_line_endings(self.xmlOutPath, 2)
+              convert_line_endings(self.txtOutPath, 2)
 
         # use of 4Suite is currently UNTESTED and DEPRECATED!!!
         if self.use_FourSuite:

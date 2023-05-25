@@ -65,3 +65,29 @@ def setup_logging(debug=False, filename=None):
     logging.debug('Python: %s' % sys.version.replace('\n', ' '))
     logging.debug('Platform: %s' % platform.platform())
     logging.debug('Locale: %s' % locale.setlocale(locale.LC_ALL))
+
+def convert_line_endings(file, mode):
+    # 1 - Unix to Mac, 2 - Unix to DOS
+    if mode == 1:
+        if os.path.isdir(file):
+            sys.exit(file + "Directory!")
+        data = open(file, "r").read()
+        if '\0' in data:
+            sys.exit(file + "Binary!")
+        newdata = re.sub("\r?\n", "\r", data)
+        if newdata != data:
+            f = open(file, "w")
+            f.write(newdata)
+            f.close()
+    elif mode == 2:
+        if os.path.isdir(file):
+            sys.exit(file + "Directory!")
+        data = open(file, "r").read()
+        if '\0' in data:
+            sys.exit(file + "Binary!")
+        newdata = re.sub("\r(?!\n)|(?<!\r)\n", "\r\n", data)
+        if newdata != data:
+            f = open(file, "w")
+            f.write(newdata)
+            f.close()
+    
