@@ -48,7 +48,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'PyPop: Python for Population Genomics'
-copyright = '2020, UC Regents and others'
+copyright = '2020, PyPop contributors'
 author = "Alexander K. Lancaster\\and Mark P. Nelson\\and Diogo Meyer\\and Richard M. Single\\and Owen D. Solberg"
 
 guide_prefix = 'pypop-guide'
@@ -79,7 +79,7 @@ numfig = True
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ['_build', 'README.md', 'Thumbs.db', '.DS_Store']
+exclude_patterns = ['_build', 'README.md', 'reference', 'Thumbs.db', '.DS_Store']
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = 'sphinx'
