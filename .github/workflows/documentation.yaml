@@ -1,0 +1,60 @@
+name: Build pypop.org website and docs
+on:
+  push:
+    paths:
+      - 'README.rst'
+      - 'website/**'
+      - '!website/README.md'
+      - '.github/workflows/documentation.yaml'
+  pull_request:
+    paths:
+      - 'README.rst'
+      - 'website/**'
+      - '!website/README.md'
+      - '.github/workflows/documentation.yaml'
+  workflow_dispatch:
+    paths:
+      - 'README.rst'
+      - 'website/**'
+      - '!website/README.md'
+      - '.github/workflows/documentation.yaml'
+    
+permissions:
+    contents: write
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v3
+      - name: Install dependencies
+        run: |
+          pip install sphinx piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton
+          sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
+      - name: Sphinx build
+        run: |
+          # latex build in separate directory
+          # it generates a lot of files we don't need to keep
+          sphinx-build -b latex website _latexbuild
+          make -C _latexbuild
+          # create _build directory and move the PDF there
+          mkdir _build
+          cp _latexbuild/*.pdf _build/
+          # now build the HTML
+          sphinx-build website _build
+      - name: Deploy to production
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _build/
+          force_orphan: true
+      - name: Deploy to beta site
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          external_repository: alexlancaster/beta.pypop.org
+          publish_branch: gh-pages  # default: gh-pages
+          publish_dir: _build/
+          force_orphan: true

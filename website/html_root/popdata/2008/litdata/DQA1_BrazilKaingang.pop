@@ -1,0 +1,8 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+DQA1_BrazilKaingang.pop	DQA1	470	455	mid	BrazilKaingang	Amerindian	10-SAM	BRAZIL	2	..	24.5S	51.7W	0.968	1	SSOP		Tsuneto LT, Probst CM, Hutz MH, Salzano FM, Rodriguez-Delfin LA, Z   ago MA, Hill K, Hurtado AM, Ribeiro-dos-Santos AKC, Petzl-Erler ML	2000	HLA class II diversity in seven Amerindian populations.Clues ab   out the origins of the Ache tribeTISSUE ANTIGENS 2003:62, 512-526				perler@ufpr.br		235	Not Known	ANTHROPOLOGY STUDY	DM
+DQA1	count
+0103	1
+0201	1
+03	127
+0401	241
+0501	85

@@ -1,0 +1,24 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+A_Japanese_2005.pop	A	2036	2036	lit	Japanese_2005	Asian	08-NEA	Japan	3	1018 unrelated Japanese healthy volunteers	36.35N	138.34E	1	1	PCR-SSOP-Luminex		Itoh	2005	High-throughput DNA typing of HLA-A, -B, -C, and -DRB1 loci by a PCR-SSOP-Luminex method in the Japanese population	Immunogenetics	57	717-729																			ODS
+A	count
+2402	737
+0201	237
+1101	208
+3101	186
+0206	178
+2601	156
+3303	136
+0207	69
+2602	47
+2603	30
+2420	17
+0210	9
+0101	5
+0301	5
+1102	5
+2404	3
+0203	2
+0302	2
+3001	2
+0218	1
+2605	1
