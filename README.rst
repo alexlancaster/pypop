@@ -365,7 +365,7 @@ The development of the code for PyPop is via our GitHub project:
 .. _guide-include-end:
 
 More detailed notes and background relevant for maintainers, packagers
-and developers are maintained in `DEV_NOTES.md <DEV_NOTES.md>`__
+and developers are maintained in `DEV_NOTES.md <DEV_NOTES.md>`__. Source for website and the documentation is located in the `website <website>`__ subdirectory.
 
 Copyright and License
 =====================
