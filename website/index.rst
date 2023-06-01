@@ -9,7 +9,7 @@ PyPop: Python for Population Genomics
     releases are outdated and no longer maintained. We are working on a new
     Python 3-compatible v1.0 release to be made available as
     PyPi.org package, but for the time being, please follow the instructions
-    on the GitHub** `README.md
+    on the GitHub** `README.rst
     <https://github.com/alexlancaster/pypop#readme>`__ **for how to
     build PyPop from source on a modern Python 3 system.**
 
