@@ -8,7 +8,7 @@ Here are ways to help.
 All the documentation (including the website homepage) are maintained
 in this directory (and subdirectories) as
 [reStructuredText](https://docutils.sourceforge.io/rst.html) (`.rst`)
-documents.  RestructuredText is very similar to GitHub markdown
+documents.  reStructuredText is very similar to GitHub markdown
 (`.md`) and should be fairly self-explanatory to edit (especially for
 pure text changes). From the .rst "source" files which are maintained
 here on github, we use [sphinx](https://www.sphinx-doc.org/en/master/)
@@ -28,14 +28,20 @@ Here's an overview of the process:
 This means that any changes to the source will automatically update
 both website home page the documentation.
 
+Once any changes are pushed to a branch (as described below), the
+GitHub action will automatically rebuild the website, and the results
+will be synced to a "staging" version of the website at:
+
+* https://alexlancaster.github.io/beta.pypop.org/
+
 ## Structure:
 
 Here's an overview of the source files for the website/documentation at the time of writing:
 
 - `index.rst` (this is the source for the homepage at http://pypop.org/)
 - `README.md` (this is file you're reading right now - about the documentation process *not* included in the documentation itself)
+- `conf.py` (Sphinx configuration file - project name and other global settings are stored here)
 - `docs` (directory containing the source for the _PyPop User Guide_, which will eventually live at http://pypop.org/docs)
-   - `conf.py` (Sphinx configuration file - project name and other global settings are stored here)
    - `index.rst` (source for the top-level of the _PyPop User Guide_)
    - `guide-chapter-install.rst` (individual chapters of the _Guide_)
    - `guide-chapter-usage.rst`
@@ -50,6 +56,8 @@ Here's an overview of the source files for the website/documentation at the time
    - `PyPopLinux-0.7.0.tar.gz` (old binaries - will be removed soon)
    - `PyPopWin32-0.7.0.zip`
    - `popdata` (directory - Suppl. data for Solberg et. al 2018 - https://pypop.org/popdata/)
+- `reference` (directory containing the old DocBook-based documentation, preserved to allow for unconverted files to be
+  converted later, this directory is ignored by the build process)
 
 ## Modifying documentation
 
@@ -143,5 +151,4 @@ you will need to have various TeX packages installed.
    ```
 
 3. the user guide will be generated in `_latexbuild/pypop-guide.pdf`
-
 
