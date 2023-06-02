@@ -33,6 +33,7 @@ jobs:
       - name: Install dependencies
         run: |
           pip install sphinx piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton
+          sudo apt-get update
           sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
       - name: Sphinx build
         run: |
