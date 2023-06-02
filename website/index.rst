@@ -111,7 +111,14 @@ Marsh, Mark Grote and Leslie Louie for helpful comments and testing.
 Documentation, including instructions on :doc:`installing
 <docs/guide-chapter-install>`, :doc:`using <docs/guide-chapter-usage>`
 and :doc:`interpreting output of <docs/guide-chapter-instructions>`
-PyPop, is contained in the :ref:`PyPop User Guide <user-guide>`.
+PyPop, is contained in the :ref:`PyPop User Guide
+<user-guide>`.
+
+.. admonition:: Contact and questions
+
+   Please file all questions, support requests, and bug reports via
+   our `GitHub issue tracker
+   <https://github.com/alexlancaster/pypop/issues>`__.
 
 .. _source-code:
 
@@ -121,7 +128,9 @@ PyPop is `free software
 <http://www.gnu.org/philosophy/free-sw.html>`__ (sometimes referred to
 as `open source <http://www.opensource.org/>`__ software) and the
 source code is released under the terms of the "copyleft" GNU General
-Public License, or GPL (http://www.gnu.org/licenses/gpl.html).
+Public License, or GPL (http://www.gnu.org/licenses/gpl.html).  All
+source code is available and maintained on our `GitHub website
+<https://github.com/alexlancaster/pypop>`__.
 
 .. _popdata-files:
 
