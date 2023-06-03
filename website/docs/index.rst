@@ -6,9 +6,6 @@ PyPop User Guide
 
 .. only:: latex or pdf
 
-   Preface
-   -------
-   
    .. include:: ../index.rst
       :start-after: guide-preface-start:
       :end-before: guide-preface-end:
