@@ -4,11 +4,17 @@ on:
   pull_request:
     paths-ignore:
       - '**.md'
+      - '**.rst'
       - 'CITATION.cff'
+      - 'website/**'
+      - '.github/workflows/documentation.yaml'
   push:
     paths-ignore:
       - '**.md'
+      - '**.rst'
       - 'CITATION.cff'
+      - 'website/**'
+      - '.github/workflows/documentation.yaml'
 
 jobs:
   build_wheels:

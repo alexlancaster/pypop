@@ -1,0 +1,22 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Martinique_2001.pop	DPB1	200	200	lit	Martinique_2001	African	11-OTH	Martinique	2mig	unrelated healthy blood donors from the island	14.40N	61.00W	1	1	INNO-LINA	{BCQ+01}	Bera	2001	HLA class I and class II allele and haplotype diversity in Martinicans	Tissue Antigens	57	200-207	gilbert.semana@univ-rennes1.fr		MQ	Semana		23	2	Innogenetics	Y	Caucasian	N	N	N		LD				YT
+DPB1	count
+0101	58
+0201	32
+0202	4
+0301	10
+0401	20
+0402	20
+0501	2
+0601	2
+1001	2
+1101	4
+1301	2
+1401	2
+1501	2
+1701	9
+1801	9
+2001	2
+2701	4
+3901	12
+4001	4

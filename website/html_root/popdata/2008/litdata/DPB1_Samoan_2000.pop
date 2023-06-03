@@ -1,0 +1,9 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Samoan_2000.pop	DPB1	58	58	lit	Samoan_2000	South Pacific Islanders	06-OCE	American Samoa	2	either from the Independent State of Samoa or American Samoa (from Mack by communication), unrelated individuals	14.00S	171.00W	1	1	PCR-SSOP	{MBM+00}	Mack	2000	Evolution of Pacific/Asian populations inferred from HLA class II allele frequency distributions	Tissue Antigens	55	383-400			WS	Erlich	1301203	38	1	Begovich 1992	N		Y	N	N		F, HW, neighbor joining trees				YT
+DPB1	count
+0201	13
+0401	6
+0402	1
+0501	36
+1301	1
+1401	1

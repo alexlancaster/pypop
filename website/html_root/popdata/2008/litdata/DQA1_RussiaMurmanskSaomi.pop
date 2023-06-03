@@ -1,0 +1,11 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+DQA1_RussiaMurmanskSaomi.pop	DQA1	140	140	mid	RussiaMurmanskSaomi	Mixed	03-EUR	RUSSIA	2	..	72	33	1	1	SSP		Northern State Medical University, Arkhangelsk, Institute of Immun   ology, Moscow (Rusia), University of Tromso, Institute of Immunology, Na   tional Hospital of Oslo (Norway)	1997	Evseeva I. HLA profile of three ethnic groups living in the Nor   th-Western region of Russia. Tissue Antigens 2002:59:38-43				irina.evseeva@clinpharm.ox.ac.uk		70	Grandparents live at same location	ANTHROPOLOGY STUDY	DM
+DQA1	count
+0101	22
+0102	17
+0103	7
+0201	5
+0301	54
+0401	9
+0501	25
+0601	1
