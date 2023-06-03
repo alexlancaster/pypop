@@ -53,6 +53,8 @@ author = "Alexander K. Lancaster\\and Mark P. Nelson\\and Diogo Meyer\\and Richa
 
 guide_prefix = 'pypop-guide'
 guide_name = 'PyPop User Guide'
+guide_subtitle = 'User Guide for Python for Population Genomics'
+guide_name_with_subtitle = "%s \\\\{\\LARGE %s}" % (guide_name, guide_subtitle)
 
 # enable author directives
 show_authors = True
@@ -149,13 +151,19 @@ latex_elements = {
 
     # Additional stuff for the LaTeX preamble.
     #
-    # 'preamble': '',
+    'preamble': r'''\DeclareRobustCommand{\and}{%
+\end{tabular}\kern-\tabcolsep\\\begin{tabular}[t]{c}%
+}%''',
 
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
 
-    'maketitle': r'\newcommand\sphinxbackoftitlepage{\sphinxstrong{%s}\\ \\Copyright © 2003-2009 Regents of the University of California.\\Copyright © %s \\ \\Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A copy of the license is included in the Appendix.\\}\sphinxmaketitle' % (guide_name, copyright),
+    'maketitle': r'\newcommand\sphinxbackoftitlepage{\sphinxstrong{%s}\\ \\Copyright © 2003-2009 Regents of the University of California.\\Copyright © %s \\ \\Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A copy of the license is included in the License chapter.\\}\sphinxmaketitle' % (guide_name, copyright),
+
+    # margins
+    'sphinxsetup': 'hmargin=0.8in, vmargin={1in,0.9in}',
+
 }
 
 # Grouping the document tree into LaTeX files. List of tuples
