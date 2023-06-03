@@ -48,7 +48,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'PyPop: Python for Population Genomics'
-copyright = '2020, PyPop contributors'
+copyright = '2023 PyPop contributors'
 author = "Alexander K. Lancaster\\and Mark P. Nelson\\and Diogo Meyer\\and Richard M. Single\\and Owen D. Solberg"
 
 guide_prefix = 'pypop-guide'
@@ -154,6 +154,8 @@ latex_elements = {
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
+
+    'maketitle': r'\newcommand\sphinxbackoftitlepage{\sphinxstrong{%s}\\ \\Copyright © 2003-2009 Regents of the University of California.\\Copyright © %s \\ \\Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A copy of the license is included in the Appendix.\\}\sphinxmaketitle' % (guide_name, copyright),
 }
 
 # Grouping the document tree into LaTeX files. List of tuples

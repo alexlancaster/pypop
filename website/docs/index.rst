@@ -32,15 +32,16 @@ This guide to PyPop contains three parts:
 
    This guide is also available as a `PDF <../pypop-guide.pdf>`__.
 
-**License terms**
+   **License terms**
 
-Copyright © 2003-2009 Regents of the University of California
+   Copyright © 2003-2009 Regents of the University of California
+   Copyright © 2009-2023 PyPop team
 
-Permission is granted to copy, distribute and/or modify this document
-under the terms of the GNU Free Documentation License, Version 1.2 or
-any later version published by the Free Software Foundation; with no
-Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A
-copy of the license is included in: :ref:`gfdl`.
+   Permission is granted to copy, distribute and/or modify this document
+   under the terms of the GNU Free Documentation License, Version 1.2 or
+   any later version published by the Free Software Foundation; with no
+   Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A
+   copy of the license is included in: :ref:`gfdl`.
 
 .. _user-guide-toc:
 
