@@ -36,7 +36,7 @@ PyPop: Python for Population Genomics
 
   
 
-.. _guide-preface-start:
+.. _guide-preface-1-start:
 
 **PyPop (Python for Population Genomics)** is an environment for doing
 large-scale population genetic analyses including:
@@ -66,7 +66,37 @@ analyses themselves.
 An outline of PyPop can be found in our 2007 *Tissue Antigens* and
 2003 *PSB* :ref:`papers <citing-pypop>`.
 
+.. _guide-preface-1-end:
+
+**Installation and documentation**
+
+Documentation, including instructions on :doc:`installing
+<docs/guide-chapter-install>`, :doc:`using <docs/guide-chapter-usage>`
+and :doc:`interpreting output of <docs/guide-chapter-instructions>`
+PyPop, is contained in the :ref:`PyPop User Guide
+<user-guide>`.
+
+.. admonition:: Contact and questions
+
+   Please file all questions, support requests, and bug reports via
+   our `GitHub issue tracker
+   <https://github.com/alexlancaster/pypop/issues>`__.
+
+.. _source-code:
+
+**Source code**
+
+PyPop is `free software
+<http://www.gnu.org/philosophy/free-sw.html>`__ (sometimes referred to
+as `open source <http://www.opensource.org/>`__ software) and the
+source code is released under the terms of the "copyleft" GNU General
+Public License, or GPL (http://www.gnu.org/licenses/gpl.html).  All
+source code is available and maintained on our `GitHub website
+<https://github.com/alexlancaster/pypop>`__.
+
 .. _citing-pypop:
+
+.. _guide-preface-2-start:
 
 **How to cite PyPop**
 
@@ -104,33 +134,8 @@ IHW) and NIH/NIAID Contract number HHSN266200400076C
 N01-AI-40076. Thanks to Steven J. Mack, Kristie A. Mather, Steve G.E.
 Marsh, Mark Grote and Leslie Louie for helpful comments and testing.
 
-.. _guide-preface-end:
+.. _guide-preface-2-end:
 
-**Installation and documentation**
-
-Documentation, including instructions on :doc:`installing
-<docs/guide-chapter-install>`, :doc:`using <docs/guide-chapter-usage>`
-and :doc:`interpreting output of <docs/guide-chapter-instructions>`
-PyPop, is contained in the :ref:`PyPop User Guide
-<user-guide>`.
-
-.. admonition:: Contact and questions
-
-   Please file all questions, support requests, and bug reports via
-   our `GitHub issue tracker
-   <https://github.com/alexlancaster/pypop/issues>`__.
-
-.. _source-code:
-
-**Source code**
-
-PyPop is `free software
-<http://www.gnu.org/philosophy/free-sw.html>`__ (sometimes referred to
-as `open source <http://www.opensource.org/>`__ software) and the
-source code is released under the terms of the "copyleft" GNU General
-Public License, or GPL (http://www.gnu.org/licenses/gpl.html).  All
-source code is available and maintained on our `GitHub website
-<https://github.com/alexlancaster/pypop>`__.
 
 .. _popdata-files:
 

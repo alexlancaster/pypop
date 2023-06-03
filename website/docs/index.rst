@@ -7,8 +7,13 @@ PyPop User Guide
 .. only:: latex or pdf
 
    .. include:: ../index.rst
-      :start-after: guide-preface-start:
-      :end-before: guide-preface-end:
+      :start-after: guide-preface-1-start:
+      :end-before: guide-preface-1-end:
+		   
+   .. include:: ../index.rst
+      :start-after: guide-preface-2-start:
+      :end-before: guide-preface-2-end:
+		   
 
 **How to use this guide**
 
