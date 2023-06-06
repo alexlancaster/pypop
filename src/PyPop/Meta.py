@@ -173,7 +173,7 @@ class Meta:
                 metaXSLTDirectory= datapath
 
         if (batchsize > 1) and PHYLIP_output:
-            sys.exit("processing in batches and enabling PHYLIP are mutually exclusive options\n" + usage_message)
+            sys.exit("processing in batches and enabling PHYLIP are mutually exclusive options\n")
 
         # create XSLT parameters
         if ihwg_output:
@@ -184,9 +184,8 @@ class Meta:
         # parse arguments
         #files = args
 
-        # report usage message if no file arguments given
-        #if not(files):
-        #    sys.exit(usage_message)
+        # FIXME
+        # report error if no file arguments given
 
         wellformed_files = []
 
