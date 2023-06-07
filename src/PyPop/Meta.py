@@ -173,8 +173,6 @@ class Meta:
         else:
             xslt_params['outputDir'] = "'./'" # otherwise chose current directory
 
-        print(xslt_params)
-            
         # FIXME
         # report error if no file arguments given
 
@@ -197,13 +195,20 @@ class Meta:
             fileBatchList = splitIntoNGroups(wellformed_files, \
                                              n=len(wellformed_files))
 
-        datfiles= ['1-locus-allele.dat', '1-locus-genotype.dat',
-                   '1-locus-summary.dat', '1-locus-pairwise-fnd.dat',
-                   '1-locus-hardyweinberg.dat',
-                   '2-locus-haplo.dat', '2-locus-summary.dat',
-                   '3-locus-summary.dat', '3-locus-haplo.dat',
-                   '4-locus-summary.dat', '4-locus-haplo.dat',]
+        datfiles_default = ['1-locus-allele.dat', '1-locus-genotype.dat',
+                            '1-locus-summary.dat', '1-locus-pairwise-fnd.dat',
+                            '1-locus-hardyweinberg.dat',
+                            '2-locus-haplo.dat', '2-locus-summary.dat',
+                            '3-locus-summary.dat', '3-locus-haplo.dat',
+                            '4-locus-summary.dat', '4-locus-haplo.dat',]
 
+        # prepend directory name, if supplied
+        if outputDir:
+            datfiles = [os.path.join(outputDir, d) for d in datfiles_default]
+        else:
+            datfiles = datfiles_default
+
+        
         for fileBatch in range(len(fileBatchList)):
 
             # generate a metafile XML wrapper
@@ -218,8 +223,9 @@ class Meta:
 
             for f in fileBatchList[fileBatch]:
                 base = os.path.basename(f)
+                abs_path = os.path.abspath(f)
                 ent = "ENT" + base.replace(' ', '-')
-                entities += "<!ENTITY %s SYSTEM \"%s\">\n" % (ent, f.replace(' ', '%20'))
+                entities += "<!ENTITY %s SYSTEM \"%s\">\n" % (ent, abs_path.replace(' ', '%20'))
                 includes += "&%s;\n" % ent
 
             # put entities after doctype
@@ -278,8 +284,8 @@ class Meta:
                 # after processing, move files if necessary
                 if len(fileBatchList) > 1:
                     for dat in datfiles:
-                        # print "moving", dat, "to %s.%d" % (dat, fileBatch)
                         if success:
+                            #print("renaming:", dat, "to:", "%s.%d" % (dat, fileBatch))
                             os.rename(dat, "%s.%d" % (dat, fileBatch))
                         else:
                             print("problem with generating %s in batch %d"
@@ -290,18 +296,19 @@ class Meta:
         if len(fileBatchList) > 1:
             for dat in datfiles:
                 # create final file to concatenate to
-                outdat = file(dat, 'w')
+                outdat = open(dat, 'w')
                 # now concatenate them
                 for i in range(len(fileBatchList)):
                     # write temp file to outdat
                     catFilename = "%s.%d" % (dat, i)
-                    catFile = file(catFilename)
+                    catFile = open(catFilename)
                     # drop the first line, iff we are past first file
-                    if i > 0:
-                        catFile.readline() # skip this line
-                        #catFile.next() <- this only works in Python 2.3 or better
-                    for line in catFile:
-                        outdat.write(line)
+                    for linenum, line in enumerate(catFile):
+                        if i > 0:
+                            if linenum > 0:
+                                outdat.write(line)
+                        else:
+                            outdat.write(line)
                     # then remove it
                     catFile.close()
                     os.remove(catFilename)
