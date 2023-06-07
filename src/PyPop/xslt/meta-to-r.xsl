@@ -1,4 +1,4 @@
-n<!--
+<!--
 This file is part of PyPop
 
   Copyright (C) 2003, 2004. The Regents of the University of California
@@ -60,16 +60,16 @@ MODIFICATIONS.
   <locusname order="10">D6S273</locusname>
   <locusname order="11">DRA</locusname>
   <locusname order="12">DRB1</locusname>
-  <locusname order="13">DQA1</locusname>
-  <locusname order="14">DQIV</locusname>
-  <locusname order="15">DQCARII</locusname>
-  <locusname order="16">DQCAR</locusname>
-  <locusname order="17">DQB1</locusname>
-  <locusname order="18">G51152</locusname>
-  <locusname order="19">DPA1</locusname>
-
-  <locusname order="20">DPB1</locusname>
-  <locusname order="21">D6S291</locusname>
+  <locusname order="13">DRB3</locusname>
+  <locusname order="14">DQA1</locusname>
+  <locusname order="15">DQIV</locusname>
+  <locusname order="16">DQCARII</locusname>
+  <locusname order="17">DQCAR</locusname>
+  <locusname order="18">DQB1</locusname>
+  <locusname order="19">G51152</locusname>
+  <locusname order="20">DPA1</locusname>
+  <locusname order="21">DPB1</locusname>
+  <locusname order="22">D6S291</locusname>
  </data:map-order>
 
  <data:region-order>
