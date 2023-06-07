@@ -2,7 +2,7 @@ import subprocess
 import hashlib
 import pytest
 import os.path
-from base import run_pypop_process, filecmp_ignore_newlines
+from base import run_pypop_process, filecmp_ignore_newlines, abspath_test_data
 
 @pytest.mark.skip(reason="not yet implemented")
 def test_GenerateTSV():

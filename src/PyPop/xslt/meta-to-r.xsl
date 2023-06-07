@@ -1,4 +1,4 @@
-<!--
+n<!--
 This file is part of PyPop
 
   Copyright (C) 2003, 2004. The Regents of the University of California
@@ -43,7 +43,7 @@ MODIFICATIONS.
  <xsl:import href="lib.xsl"/>
 
  <!-- select "text" as output method -->
- <xsl:output method="text" omit-xml-declaration="yes" indent="no"/>
+ <xsl:output method="text" omit-xml-declaration="yes" indent="no" encoding="UTF-8"/>
 
  <xsl:param name="output.genotype.distrib" select="0"/>
 

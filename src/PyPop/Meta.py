@@ -40,46 +40,31 @@
 """
 import os, sys
 from getopt import getopt, GetoptError
-from Utils import checkXSLFile, splitIntoNGroups
-
-import libxml2
-import libxslt
-
-libxslt.registerAllExtras()
-    
-## force the libxml2 processor to generate DOM trees compliant with
-## the XPath data model.
-libxml2.lineNumbersDefault(1)
-
-## set libxml2 to substitute the entities in the document by default...
-libxml2.substituteEntitiesDefault(1)
+from PyPop.Utils import checkXSLFile, splitIntoNGroups
+from lxml import etree
 
 def _translate_string_to(xslFilename, inString, outFile, params=None):
     # do the transformation
     
     # parse the stylesheet file
-    styledoc = libxml2.parseFile(xslFilename)
+    styledoc = etree.parse(xslFilename)
 
     # setup the stylesheet instance
-    style = libxslt.parseStylesheetDoc(styledoc)
+    style = etree.XSLT(styledoc)
 
     # parse the inline generated XML file
-    doc = libxml2.parseDoc(inString)
+    doc = etree.fromstring(inString)
 
     # apply the stylesheet instance to the document instance
-    result = style.applyStylesheet(doc, params)
+    result = style(doc, params)
     
-    style.saveResultToFilename(outFile, result, 0)
+    result.write_output(outFile)
 
     # use to dump directly to a string, problem is that it insists on
     # outputting an XML declaration "<?xml ...?>", can't seem to
     # suppress this
     # outString = result.serialize()
 
-    # free instances
-    result.freeDoc()
-    style.freeStylesheet()
-    doc.freeDoc()
     #return outString
     
 def translate_string_to_stdout(xslFilename, inString, params=None):
@@ -92,29 +77,29 @@ def translate_string_to_file(xslFilename, inString, outFile, params=None):
 def _translate_file_to(xslFilename, inFile, outFile, params=None):
     
     # parse the stylesheet file
-    styledoc = libxml2.parseFile(xslFilename)
+    styledoc = etree.parse(xslFilename)
 
     # setup the stylesheet instance
-    style = libxslt.parseStylesheetDoc(styledoc)
+    style = etree.XSLT(styledoc)
 
     try:
         # parse the inline generated XML file
-        doc = libxml2.parseFile(inFile)
+        doc = etree.parse(inFile)
 
         # apply the stylesheet instance to the document instance
-        result = style.applyStylesheet(doc, params)
-    
-        style.saveResultToFilename(outFile, result, 0)
+        result = style(doc, **params)
+
+        #style.saveResultToFilename(outFile, result, 0)
+        if outFile == '-': # this is stdout
+            if len(str(result)) > 0: # only write something if none-empty
+                result.write_output(sys.stdout)
+        else:
+            result.write_output(outFile)
 
         success = 1
-    
-    
-        # free instances
-        result.freeDoc()
-        style.freeStylesheet()
-        doc.freeDoc()
 
-    except:
+    except Exception as e:
+        print(e.args)
         print("Can't parse: %s, skipping" % inFile)
         success = 0
 
@@ -167,8 +152,8 @@ class Meta:
         if not(metaXSLTDirectory):
             if checkXSLFile('meta-to-r.xsl', popmetabinpath, 'xslt'):
                 metaXSLTDirectory = os.path.join(popmetabinpath, 'xslt')
-            elif checkXSLFile('meta-to-r.xsl', popmetabinpath, os.path.join('..', 'xslt')):
-                metaXSLTDirectory = os.path.join(popmetabinpath, '..', 'xslt')
+            elif checkXSLFile('meta-to-r.xsl', popmetabinpath, os.path.join('..', 'PyPop/xslt')):
+                metaXSLTDirectory = os.path.join(popmetabinpath, '..', 'PyPop/xslt')
             else:
                 metaXSLTDirectory= datapath
 
@@ -181,22 +166,18 @@ class Meta:
         else:
             xslt_params = {"ihwg-fmt": "0"}
 
-        # parse arguments
-        #files = args
-
         # FIXME
         # report error if no file arguments given
 
         wellformed_files = []
 
-        # check each file for "well-formedness" using libxml2.parseFile()
-        # libxml2 package, if not well-formed report an error on this file,
+        # check each file for "well-formedness" using etree.parse()
+        # if not well-formed report an error on this file,
         # and skip this file in the meta analysis
         for f in files:
             try:
-                doc = libxml2.parseFile(f)
+                doc = etree.parse(f)
                 wellformed_files.append(f)
-                doc.freeDoc()
             except:
                 print("%s is not well-formed XML:" % f)
                 print("  probably a problem with analysis not completing, skipping in meta analysis!")
