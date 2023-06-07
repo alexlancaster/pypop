@@ -51,8 +51,7 @@ from PyPop.RandomBinning import RandomBinsForHomozygosity
 from PyPop import convert_line_endings
 
 def getConfigInstance(configFilename = None,
-                      altpath = None,
-                      usage_message = None):
+                      altpath = None):
     """Create and return ConfigParser instance.
 
     Taken a specific .ini filename and an alternative path to search
@@ -67,7 +66,7 @@ def getConfigInstance(configFilename = None,
           config.read(altpath)
         else:
           sys.exit("Could not find config file either in current directory or " +
-                     altpath + os.linesep + usage_message)
+                     altpath + os.linesep)
 
     if len(config.sections()) == 0:
         sys.exit("No output defined!  Exiting...")
@@ -95,8 +94,6 @@ class Main:
                  debugFlag=0,
                  fileName=None,
                  datapath=None,
-                 use_libxsltmod=1,
-                 use_FourSuite=0,
                  thread=None,
                  outputDir=None,
                  version=None,
@@ -106,8 +103,6 @@ class Main:
         self.debugFlag = debugFlag
         self.fileName = fileName
         self.datapath = datapath
-        self.use_libxsltmod = use_libxsltmod
-        self.use_FourSuite = use_FourSuite
         self.xslFilename = xslFilename
         self.xslFilenameDefault = xslFilenameDefault
         self.outputDir = outputDir
@@ -1233,57 +1228,27 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
 
     def _genTextOutput(self):
 
-        if self.use_libxsltmod:
+        # now use python3-lxml
+        from lxml import etree
 
-          # now use python3-lxml
-          from lxml import etree
-            
-          # read and parse stylesheet
-          styledoc = etree.parse(self.xslFilename)
-          style = etree.XSLT(styledoc)
+        # read and parse stylesheet
+        styledoc = etree.parse(self.xslFilename)
+        style = etree.XSLT(styledoc)
 
-          # read output XML file
-          doc = etree.parse(self.xmlOutPath)
+        # read output XML file
+        doc = etree.parse(self.xmlOutPath)
 
-          # process via stylesheet
-          result = style(doc, **{"new-hardyweinberg-format": "1"})
+        # process via stylesheet
+        result = style(doc, **{"new-hardyweinberg-format": "1"})
 
-          # save result to file
-          result.write_output(self.txtOutPath)
+        # save result to file
+        result.write_output(self.txtOutPath)
 
-          # if running under Windows, convert output files
-          # to use appropriate physical lineendings so that
-          # lame Windoze editors like Notepad don't get confused
-          if sys.platform == 'cygwin':
-              convert_line_endings(self.xmlOutPath, 2)
-              convert_line_endings(self.txtOutPath, 2)
-
-        # use of 4Suite is currently UNTESTED and DEPRECATED!!!
-        if self.use_FourSuite:
-        
-          from xml.xslt.Processor import Processor
-
-          # open XSLT stylesheet
-          styleSheet = open(self.xslFilename, 'r')
-
-          # re-open text stream
-          self.xmlStream = open(self.xmlOutFilename, 'r')
-
-          # open new txt output
-          newOut = TextOutputStream(open(self.txtOutPath, 'w'))
-
-          # create xsl process
-          p = Processor()
-
-          # attach the stylesheet
-          p.appendStylesheetStream(styleSheet)
-
-          # run the stylesheet on the XML output
-          p.runStream(self.xmlStream, outputStream=newOut)
-
-          # close streams
-          newOut.close()
-          styleSheet.close()
+        # if running under Windows, convert output files
+        # to use appropriate physical lineendings
+        if sys.platform == 'cygwin':
+            convert_line_endings(self.xmlOutPath, 2)
+            convert_line_endings(self.txtOutPath, 2)
 
     def getXmlOutPath(self):
         # return the name of the generated XML file
