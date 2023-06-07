@@ -128,6 +128,7 @@ class Meta:
                  PHYLIP_output = 0,
                  ihwg_output = 1,
                  batchsize = 0,
+                 outputDir = None,
                  files = None):
         """Transform a specified list of XML output files to *.dat
         tab-separated values (TSV) form.
@@ -166,6 +167,14 @@ class Meta:
         else:
             xslt_params = {"ihwg-fmt": "0"}
 
+        # pass in subdirectory if it's given
+        if outputDir:
+            xslt_params['outputDir'] = "'" + str(outputDir) + "/'" # make sure to include slash
+        else:
+            xslt_params['outputDir'] = "'./'" # otherwise chose current directory
+
+        print(xslt_params)
+            
         # FIXME
         # report error if no file arguments given
 
@@ -227,13 +236,18 @@ class Meta:
             if dump_meta == 1:
                 print(meta_string)
             else:
-                f = open('meta.xml', 'w')
+                if outputDir:
+                    meta_xml_path = outputDir / 'meta.xml'
+                else:
+                    meta_xml_path = 'meta.xml'
+                
+                f = open(meta_xml_path, 'w')
                 f.write(meta_string)
                 f.close()
 
                 if R_output:
                     # generate all data output in formats for R
-                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), 'meta.xml', xslt_params)
+                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), meta_xml_path, xslt_params)
 
                 if PHYLIP_output:
                     # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:
@@ -246,7 +260,7 @@ class Meta:
 
                     # similarly, generate a unique list of haplotypes
                     # 'haplolist-by-locus.xml'
-                    success = translate_file_to_file(os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), 'meta.xml', 'haplolist-by-group.xml')
+                    success = translate_file_to_file(os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), meta_xml_path, 'haplolist-by-group.xml')
 
                     # generate Phylip allele data
 
@@ -259,7 +273,7 @@ class Meta:
 
                     # generate Phylip haplotype data
                     for haplo in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-                        success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), 'meta.xml', params={'loci': '"' + haplo + '"'})
+                        success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), meta_xml_path, params={'loci': '"' + haplo + '"'})
 
                 # after processing, move files if necessary
                 if len(fileBatchList) > 1:

@@ -294,6 +294,7 @@ if generateTSV:
        PHYLIP_output=0,
        ihwg_output=1,
        batchsize=len(xmlOutPaths),
+       outputDir=outputDir,
        files=xmlOutPaths)
 
 if interactiveFlag:

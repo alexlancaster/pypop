@@ -45,6 +45,9 @@ MODIFICATIONS.
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes" indent="no" encoding="UTF-8"/>
 
+ <!-- specifiy a default directory for the output .dat files that can be overriden -->
+ <xsl:param name="outputDir" select="'./'"/>
+ 
  <xsl:param name="output.genotype.distrib" select="0"/>
 
  <data:map-order>
@@ -1000,7 +1003,6 @@ MODIFICATIONS.
   </xsl:for-each>
  </xsl:template>
 
-
  <xsl:template match="/">
 
 
@@ -1008,7 +1010,7 @@ MODIFICATIONS.
 
    <xsl:when test="element-available('exsl:document')">
 
-    <exsl:document href="1-locus-hardyweinberg.dat"
+    <exsl:document href="{$outputDir}1-locus-hardyweinberg.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="header-line-start">
@@ -1023,7 +1025,7 @@ MODIFICATIONS.
     </exsl:document>
 
 
-    <exsl:document href="1-locus-summary.dat"
+    <exsl:document href="{$outputDir}1-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="header-line-start">
@@ -1037,7 +1039,7 @@ MODIFICATIONS.
      </xsl:call-template>
     </exsl:document>
 
-    <exsl:document href="1-locus-allele.dat"
+    <exsl:document href="{$outputDir}1-locus-allele.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="header-line-start">
@@ -1051,7 +1053,7 @@ MODIFICATIONS.
      </xsl:call-template>
     </exsl:document>
 
-    <exsl:document href="1-locus-genotype.dat"
+    <exsl:document href="{$outputDir}1-locus-genotype.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="header-line-start">
@@ -1066,7 +1068,7 @@ MODIFICATIONS.
      </xsl:call-template>
     </exsl:document>
 
-    <exsl:document href="1-locus-pairwise-fnd.dat"
+    <exsl:document href="{$outputDir}1-locus-pairwise-fnd.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="header-line-start">
@@ -1082,7 +1084,7 @@ MODIFICATIONS.
      </xsl:call-template>
     </exsl:document>
 
-    <exsl:document href="2-locus-summary.dat"
+    <exsl:document href="{$outputDir}2-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="header-line-start">
@@ -1097,7 +1099,7 @@ MODIFICATIONS.
      </xsl:call-template>
     </exsl:document>
 
-    <exsl:document href="2-locus-haplo.dat"
+    <exsl:document href="{$outputDir}2-locus-haplo.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="header-line-start">
@@ -1112,7 +1114,7 @@ MODIFICATIONS.
      </xsl:call-template>
     </exsl:document>
 
-    <exsl:document href="3-locus-summary.dat"
+    <exsl:document href="{$outputDir}3-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:value-of select="header-line-start"/><xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3</xsl:text>
@@ -1125,7 +1127,7 @@ MODIFICATIONS.
      </xsl:call-template>
     </exsl:document>
 
-    <exsl:document href="3-locus-haplo.dat"
+    <exsl:document href="{$outputDir}3-locus-haplo.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="header-line-start">
@@ -1141,7 +1143,7 @@ MODIFICATIONS.
      </xsl:call-template>
     </exsl:document>
 
-    <exsl:document href="4-locus-summary.dat"
+    <exsl:document href="{$outputDir}4-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="header-line-start">
@@ -1157,7 +1159,7 @@ MODIFICATIONS.
      </xsl:call-template>
     </exsl:document>
 
-    <exsl:document href="4-locus-haplo.dat"
+    <exsl:document href="{$outputDir}4-locus-haplo.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="header-line-start">
