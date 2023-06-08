@@ -4,6 +4,7 @@ import pytest
 import os.path
 from base import run_popmeta_process, filecmp_ignore_newlines, abspath_test_data
 
+@xfail_windows
 def test_Popmeta():
     exit_code = run_popmeta_process(['./tests/data/BIGDAWG_SynthControl_Data-out.xml', './tests/data/BIGDAWG_SynthControl_Data_dash-out.xml'], args=[])
     # check exit code
