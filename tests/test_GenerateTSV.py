@@ -4,7 +4,6 @@ import pytest
 import os.path
 from base import run_pypop_process, filecmp_ignore_newlines, abspath_test_data, xfail_windows
 
-@xfail_windows
 def test_GenerateTSV():
     exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_EM.ini', './tests/data/BIGDAWG_SynthControl_Data.pop', args=['--generate-tsv'])
     # check exit code

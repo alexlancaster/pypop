@@ -110,9 +110,6 @@ def run_script_process(script_name, args):
     output, err = process.communicate()
     exit_code = process.wait()  # wait until script completed
 
-    print(err)
-    print(output)
-    
     return exit_code
 
 def run_pypop_process(inifile, popfile, args=[]):
