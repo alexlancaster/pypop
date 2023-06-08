@@ -2,7 +2,7 @@ import subprocess
 import hashlib
 import pytest
 import os.path
-from base import run_pypop_process, filecmp_ignore_newlines, abspath_test_data
+from base import run_pypop_process, filecmp_ignore_newlines, abspath_test_data, xfail_windows
 
 @xfail_windows
 def test_GenerateTSV():
