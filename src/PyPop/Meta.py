@@ -39,9 +39,9 @@
 
 """
 import os, sys
-from getopt import getopt, GetoptError
-from PyPop.Utils import checkXSLFile, splitIntoNGroups
+from pathlib import Path
 from lxml import etree
+from PyPop.Utils import checkXSLFile, splitIntoNGroups
 
 def _translate_string_to(xslFilename, inString, outFile, outputDir=None, params=None):
     # do the transformation
@@ -257,9 +257,9 @@ class Meta:
 
             for f in fileBatchList[fileBatch]:
                 base = os.path.basename(f)
-                abs_path = os.path.abspath(f)
+                uri = Path(os.path.abspath(f)).as_uri()
                 ent = "ENT" + base.replace(' ', '-')
-                entities += "<!ENTITY %s SYSTEM \"%s\">\n" % (ent, abs_path.replace(' ', '%20'))
+                entities += "<!ENTITY %s SYSTEM \"%s\">\n" % (ent, uri)
                 includes += "&%s;\n" % ent
 
             # put entities after doctype
