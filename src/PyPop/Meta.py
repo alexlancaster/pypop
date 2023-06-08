@@ -43,7 +43,7 @@ from getopt import getopt, GetoptError
 from PyPop.Utils import checkXSLFile, splitIntoNGroups
 from lxml import etree
 
-def _translate_string_to(xslFilename, inString, outFile, params=None):
+def _translate_string_to(xslFilename, inString, outFile, outputDir=None, params=None):
     # do the transformation
     
     # parse the stylesheet file
@@ -56,9 +56,18 @@ def _translate_string_to(xslFilename, inString, outFile, params=None):
     doc = etree.fromstring(inString)
 
     # apply the stylesheet instance to the document instance
-    result = style(doc, params)
-    
-    result.write_output(outFile)
+    if params:
+        result = style(doc, **params)
+    else:
+        result = style(doc)
+
+    # generate output path
+    if outputDir:
+        outPath = outputDir / outFile
+    else:
+        outPath = outFile
+
+    result.write_output(outPath)
 
     # use to dump directly to a string, problem is that it insists on
     # outputting an XML declaration "<?xml ...?>", can't seem to
@@ -67,14 +76,14 @@ def _translate_string_to(xslFilename, inString, outFile, params=None):
 
     #return outString
     
-def translate_string_to_stdout(xslFilename, inString, params=None):
+def translate_string_to_stdout(xslFilename, inString, outputDir=None, params=None):
     # save result to stdout "-"
-    _translate_string_to(xslFilename, inString, "-", params)
+    _translate_string_to(xslFilename, inString, "-", outputDir=outputDir, params=params)
 
-def translate_string_to_file(xslFilename, inString, outFile, params=None):
-    _translate_string_to(xslFilename, inString, outFile, params)
+def translate_string_to_file(xslFilename, inString, outFile, outputDir=None, params=None):
+    _translate_string_to(xslFilename, inString, outFile, outputDir=outputDir, params=params)
 
-def _translate_file_to(xslFilename, inFile, outFile, params=None):
+def _translate_file_to(xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None):
     
     # parse the stylesheet file
     styledoc = etree.parse(xslFilename)
@@ -83,35 +92,50 @@ def _translate_file_to(xslFilename, inFile, outFile, params=None):
     style = etree.XSLT(styledoc)
 
     try:
+        # generate output path
+        if inputDir:
+            inputPath = inputDir / inFile
+        else:
+            inputPath = inFile
+
         # parse the inline generated XML file
-        doc = etree.parse(inFile)
+        doc = etree.parse(inputPath)
 
         # apply the stylesheet instance to the document instance
-        result = style(doc, **params)
-
+        if params:
+            result = style(doc, **params)
+        else:
+            result = style(doc)
+            
         #style.saveResultToFilename(outFile, result, 0)
         if outFile == '-': # this is stdout
             if len(str(result)) > 0: # only write something if none-empty
                 result.write_output(sys.stdout)
         else:
-            result.write_output(outFile)
+            # generate output path
+            if outputDir:
+                outPath = outputDir / outFile
+            else:
+                outPath = outFile
+            
+            result.write_output(outPath)
 
         success = 1
 
     except Exception as e:
         print(e.args)
-        print("Can't parse: %s, skipping" % inFile)
+        print("Can't process: %s with stylesheet: %s, skipping" % (inFile, xslFilename))
         success = 0
 
     return success
 
 
-def translate_file_to_stdout(xslFilename, inFile, params=None):
-    retval = _translate_file_to(xslFilename, inFile, "-", params)
+def translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None):
+    retval = _translate_file_to(xslFilename, inFile, "-", inputDir=inputDir, params=params)
     return retval
 
-def translate_file_to_file(xslFilename, inFile, outFile, params=None):
-    retval = _translate_file_to(xslFilename, inFile, outFile, params)
+def translate_file_to_file(xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None):
+    retval = _translate_file_to(xslFilename, inFile, outFile, inputDir=inputDir, outputDir=outputDir, params=params)
     return retval
 
 
@@ -253,33 +277,38 @@ class Meta:
 
                 if R_output:
                     # generate all data output in formats for R
-                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), meta_xml_path, xslt_params)
+                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), "meta.xml", inputDir=outputDir, params=xslt_params)
 
                 if PHYLIP_output:
                     # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:
-                    success = translate_string_to_file(os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), meta_string, 'sorted-by-locus.xml')
+                    success = translate_string_to_file(os.path.join(metaXSLTDirectory, 'sort-by-locus.xsl'), meta_string, 'sorted-by-locus.xml', outputDir=outputDir)
 
                     # use 'sorted-by-locus.xml' to generate a list of unique alleles
                     # 'allelelist-by-locus.xml' for each locus across all the
                     # populations in the set of XML files passed
-                    success = translate_file_to_file(os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'), 'sorted-by-locus.xml', 'allelelist-by-locus.xml')
+                    success = translate_file_to_file(os.path.join(metaXSLTDirectory, 'allelelist-by-locus.xsl'),
+                                                     'sorted-by-locus.xml', 'allelelist-by-locus.xml', inputDir=outputDir, outputDir=outputDir)
 
                     # similarly, generate a unique list of haplotypes
                     # 'haplolist-by-locus.xml'
-                    success = translate_file_to_file(os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), meta_xml_path, 'haplolist-by-group.xml')
+                    success = translate_file_to_file(os.path.join(metaXSLTDirectory, 'haplolist-by-group.xsl'), "meta.xml", 'haplolist-by-group.xml',
+                                                     inputDir=outputDir, outputDir=outputDir)
 
                     # generate Phylip allele data
 
                     # generate individual locus files (don't use loci parameter)
-                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml')
+                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml',
+                                                       inputDir=outputDir, params={'outputDir': xslt_params['outputDir']})
 
                     # generate locus group files
                     for locus in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-                        success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml', params={'loci': '"' + locus + '"'})
+                        success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml',
+                                                           inputDir=outputDir, params={'loci': '"' + locus + '"', 'outputDir': xslt_params['outputDir']})
 
                     # generate Phylip haplotype data
                     for haplo in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-                        success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), meta_xml_path, params={'loci': '"' + haplo + '"'})
+                        success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), "meta.xml",
+                                                           inputDir=outputDir, params={'loci': '"' + haplo + '"', 'outputDir': xslt_params['outputDir']})
 
                 # after processing, move files if necessary
                 if len(fileBatchList) > 1:

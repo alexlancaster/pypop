@@ -9,8 +9,11 @@
  <xsl:import href="lib.xsl"/>
 
  <!-- select "text" as output method -->
- <xsl:output method="text" omit-xml-declaration="yes"/>
+ <xsl:output method="text" encoding="utf8" omit-xml-declaration="yes"/>
 
+ <!-- specifiy a default directory for the output .dat files that can be overriden -->
+ <xsl:param name="outputDir" select="'./'"/>
+ 
  <data:phylip-loci>
   <loci><locus>A</locus><locus>B</locus></loci>
   <loci><locus>B</locus><locus>C</locus></loci>
@@ -159,7 +162,7 @@
    <xsl:when test="$loci">
     <!-- a parameter is passed in, do those specified loci -->
 
-    <exslt:document href="{$filename}"
+    <exslt:document href="{$outputDir}{$filename}"
      omit-xml-declaration="yes"
      method="text">
      <xsl:call-template name="phylip-alleles">
@@ -175,7 +178,7 @@
      <xsl:variable name="locusname" select="@name"/>
      <xsl:if test="count($all-allele-list/locus[@name=$locusname]/allele)!=0">
       <xsl:variable name="pair-filename" select="concat($locusname, '.allele.phy')"/>
-      <exslt:document href="{$pair-filename}"
+      <exslt:document href="{$outputDir}{$pair-filename}"
        omit-xml-declaration="yes"
        method="text">
        <xsl:call-template name="phylip-alleles">
@@ -185,7 +188,7 @@
      </xsl:if>
     </xsl:for-each>
     
-    <exslt:document href="2n-by-locus.dat"
+    <exslt:document href="{$outputDir}2n-by-locus.dat"
      omit-xml-declaration="yes"
      method="text">
      <xsl:for-each select="output/locus">

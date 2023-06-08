@@ -71,23 +71,27 @@ def filecmp_ignore_newlines(out_filename, gold_out_filename):
                 
                 return False
     return True
-    
-def run_pypop_process(inifile, popfile, args=[]):
+
+#def run_pypop_process(inifile, popfile, args=[]):
+
+def run_script_process(script_name, args):
 
     # convert relative data files to absolute
-    inifile = abspath_test_data(inifile)
-    popfile = abspath_test_data(popfile)
+    #inifile = abspath_test_data(inifile)
+    #popfile = abspath_test_data(popfile)
 
     # first search for pypop.py in current PATH
-    default_pypop = shutil.which("pypop.py")
+    #default_pypop = shutil.which("pypop.py")
+    default_script = shutil.which(script_name)
     # no Python executable needed, by default
     python_exe = None  
 
-    if not default_pypop:
+    if not default_script:
         # then in local subdirectory
-        default_pypop = shutil.which(PurePath("./src/bin/pypop.py"))
+        #default_pypop = shutil.which(PurePath("./src/bin/pypop.py"))
+        default_script = shutil.which(PurePath(Path("./src/bin") / script_name))
 
-        if not default_pypop:
+        if not default_script:
             # otherwise, check location the python interpreter in a
             # virtual environment, and assume pypop has been installed
             # in same PATH this handles the Windows case on
@@ -95,17 +99,20 @@ def run_pypop_process(inifile, popfile, args=[]):
             # FIXME: not a super-robust solution
             python_exe = shutil.which('python')
             parent_dir = Path(python_exe).parent
-            default_pypop = str(parent_dir / 'pypop.py')
+            #default_pypop = str(parent_dir / 'pypop.py')
+            default_script = str(parent_dir / script_name)
 
     # if we need to include the Python executable, we prepend it before the script
     if python_exe:
-        exe_cmd = [python_exe, default_pypop]
-        print ("pypop_exe: ", python_exe, str(default_pypop), end=" ")
+        #exe_cmd = [python_exe, default_pypop]
+        exe_cmd = [python_exe, default_script]
+        print ("script_exe: ", python_exe, str(default_script), end=" ")
     else:
-        exe_cmd = [default_pypop]
-        print (str(default_pypop), end=" ")
+        exe_cmd = [default_script]
+        print (str(default_script), end=" ")
     
-    cmd_line = exe_cmd + ['-m'] + args + ['-c', inifile, popfile]
+    #cmd_line = exe_cmd + ['-m'] + args + ['-c', inifile, popfile]
+    cmd_line = exe_cmd + args
     process=subprocess.Popen(
         cmd_line,
         stdout=subprocess.PIPE,
@@ -114,4 +121,23 @@ def run_pypop_process(inifile, popfile, args=[]):
     output, err = process.communicate()
     exit_code = process.wait()  # wait until script completed
 
+    return exit_code
+
+def run_pypop_process(inifile, popfile, args=[]):
+
+    # convert relative data files to absolute
+    inifile = abspath_test_data(inifile)
+    popfile = abspath_test_data(popfile)
+    pypop_args = ['-m'] + args + ['-c', inifile, popfile]
+    exit_code = run_script_process('pypop.py', pypop_args)
+    return exit_code
+
+def run_popmeta_process(xmlfiles, args=[]):
+
+    # convert relative data files to absolute
+    input_files = []
+    for xml in xmlfiles:
+        input_files.append(abspath_test_data(xml))
+    popmeta_args = args + input_files
+    exit_code = run_script_process('popmeta.py', popmeta_args)
     return exit_code
