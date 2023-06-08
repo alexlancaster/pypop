@@ -295,7 +295,7 @@ if generateTSV:
        ihwg_output=1,
        batchsize=len(xmlOutPaths),
        outputDir=outputDir,
-       files=xmlOutPaths)
+       xml_files=xmlOutPaths)
 
 if interactiveFlag:
 

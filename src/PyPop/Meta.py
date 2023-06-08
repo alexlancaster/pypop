@@ -153,7 +153,7 @@ class Meta:
                  ihwg_output = 1,
                  batchsize = 0,
                  outputDir = None,
-                 files = None):
+                 xml_files = None):
         """Transform a specified list of XML output files to *.dat
         tab-separated values (TSV) form.
 
@@ -175,7 +175,17 @@ class Meta:
         # not supplied by the command-line option
 
         if not(metaXSLTDirectory):
-            if checkXSLFile('meta-to-r.xsl', popmetabinpath, 'xslt'):
+
+            try:
+                from importlib.resources import files
+                introspection_path = files('PyPop.xslt')
+            except (ModuleNotFoundError, ImportError):  # fallback to using backport if not found
+                from importlib_resources import files
+                introspection_path = files('PyPop.xslt').joinpath('')
+
+            if checkXSLFile('meta-to-r.xsl', introspection_path):  # first check installed path
+                metaXSLTDirectory = introspection_path
+            elif checkXSLFile('meta-to-r.xsl', popmetabinpath, 'xslt'):  # next, heuristics
                 metaXSLTDirectory = os.path.join(popmetabinpath, 'xslt')
             elif checkXSLFile('meta-to-r.xsl', popmetabinpath, os.path.join('..', 'PyPop/xslt')):
                 metaXSLTDirectory = os.path.join(popmetabinpath, '..', 'PyPop/xslt')
@@ -205,10 +215,10 @@ class Meta:
         # check each file for "well-formedness" using etree.parse()
         # if not well-formed report an error on this file,
         # and skip this file in the meta analysis
-        for f in files:
+        for xml_file in xml_files:
             try:
-                doc = etree.parse(f)
-                wellformed_files.append(f)
+                doc = etree.parse(xml_file)
+                wellformed_files.append(xml_file)
             except:
                 print("%s is not well-formed XML:" % f)
                 print("  probably a problem with analysis not completing, skipping in meta analysis!")

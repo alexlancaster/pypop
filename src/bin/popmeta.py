@@ -88,7 +88,7 @@ if outputDir:
       sys.exit("'%s' is not a directory, please supply a valid output directory" % outputDir)
   
 # parse arguments
-files = args.xmlfiles
+xml_files = args.xmlfiles
 
 Meta(popmetabinpath=popmetabinpath,
      datapath=datapath,
@@ -99,4 +99,4 @@ Meta(popmetabinpath=popmetabinpath,
      ihwg_output=ihwg_output,
      batchsize=batchsize,
      outputDir=outputDir,
-     files=files)
+     xml_files=xml_files)
