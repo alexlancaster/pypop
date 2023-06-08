@@ -150,7 +150,7 @@ class Meta:
                  dump_meta = False,
                  R_output = True,
                  PHYLIP_output = False,
-                 ihwg_output = True,
+                 ihwg_output = False,
                  batchsize = 0,
                  outputDir = None,
                  xml_files = None):
@@ -159,13 +159,13 @@ class Meta:
 
         Defaults:
         # output R tables by default
-        R_output=1
+        R_output=True
 
         # don't output PHYLIP by default
-        PHYLIP_output=0
+        PHYLIP_output=False
 
-        # by default, enable the 13th IHWG format headers
-        ihwg_output = 1
+        # by default, don't enable the 13th IHWG format headers
+        ihwg_output = False
 
         # by default process separately (batchsize=0)
         batchsize = 0
