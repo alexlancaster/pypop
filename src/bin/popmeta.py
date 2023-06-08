@@ -44,8 +44,6 @@ from PyPop.Meta import Meta
 
 datapath = os.path.join(sys.prefix, 'share', 'PyPop')
 
-
-
 parser = ArgumentParser(prog="popmeta.py", description="""Processes XMLFILEs and generates 'meta'-analyses. XMLFILE are
 expected to be the XML output files taken from runs of 'pypop'.  Will
 skip any XML files that are not well-formed XML.""", formatter_class=ArgumentDefaultsHelpFormatter)
