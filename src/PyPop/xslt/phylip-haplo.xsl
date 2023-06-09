@@ -8,7 +8,10 @@
  <xsl:import href="lib.xsl"/>
 
  <!-- select "text" as output method -->
- <xsl:output method="text" omit-xml-declaration="yes"/>
+ <xsl:output method="text" encoding="utf8" omit-xml-declaration="yes"/>
+
+ <!-- specify a default directory for the output .dat files that can be overriden -->
+ <xsl:param name="outputDir" select="'./'"/>
 
  <data:phylip-loci>
   <loci><locus>A</locus><locus>B</locus></loci>
@@ -99,7 +102,7 @@
   <xsl:param name="filename"/>
   <xsl:param name="loci"/>
   
-  <exslt:document href="{$filename}"
+  <exslt:document href="{$outputDir}{$filename}"
    omit-xml-declaration="yes"
    method="text">
    <xsl:call-template name="phylip-haplos">
@@ -151,7 +154,7 @@
 
   <xsl:variable name="filename" select="concat(translate($loci, ':', '-'), '.haplo.phy')"/>
 
-  <exslt:document href="{$filename}"
+  <exslt:document href="{$outputDir}{$filename}"
    omit-xml-declaration="yes"
    method="text">
     <xsl:call-template name="phylip-haplos">
