@@ -37,7 +37,7 @@ MODIFICATIONS.
 
  <xsl:import href="lib.xsl"/>
  <!-- select "text" as output method -->
- <xsl:output method="xml" omit-xml-declaration="yes"/>
+ <xsl:output method="xml" encoding="utf8" omit-xml-declaration="yes"/>
 
  <xsl:param name="two-en" select="0"/>
  <xsl:param name="k" select="0"/>

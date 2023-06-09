@@ -836,8 +836,8 @@ def splitIntoNGroups(alist, n=1):
     #from itertools import islice    
     #it = iter(alist)
     
-    x = len(alist)/n    # note: don't just drop the last len(alist) % n items
-    y = len(alist)%n
+    x = len(alist) // n    # note: don't just drop the last len(alist) % n items
+    y = len(alist) % n
     
     # initialize an empty list
     retval = []

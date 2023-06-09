@@ -112,6 +112,8 @@ parser.add_argument("-d", "--debug", help="enable debugging output (overrides co
                     action='store_true', required=False, default=False)
 parser.add_argument("-t", "--generate-tsv", help="generate TSV output files (aka run 'popmeta')",
                     action='store_true', required=False, default=False)
+parser.add_argument("--enable-ihwg", help="enable 13th IWHG workshop populationdata default headers",
+                    action='store_true', required=False, default=False)
 parser.add_argument("-x", "--xsl", help="override the default XSLT translation with XSLFILE", 
                     metavar="XSLFILE", required=False, default=None)
 parser.add_argument("-o", "--outputdir", help="put output in directory DIR",
@@ -137,6 +139,7 @@ testMode = args.testmode
 fileList = args.filelist
 outputDir = args.outputdir
 popFilenames = args.popfiles      
+ihwg_output = args.enable_ihwg
 
 if outputDir:
     if not outputDir.is_dir():
@@ -289,12 +292,13 @@ if generateTSV:
   Meta(popmetabinpath=pypopbinpath,
        datapath=datapath,
        metaXSLTDirectory=None,
-       dump_meta=0,
-       R_output=1,
-       PHYLIP_output=0,
-       ihwg_output=1,
+       dump_meta=False,
+       R_output=True,
+       PHYLIP_output=False,
+       ihwg_output=ihwg_output,
        batchsize=len(xmlOutPaths),
-       files=xmlOutPaths)
+       outputDir=outputDir,
+       xml_files=xmlOutPaths)
 
 if interactiveFlag:
 
