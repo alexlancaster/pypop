@@ -49,7 +49,6 @@ from PyPop.Utils import XMLOutputStream, TextOutputStream, convertLineEndings, S
 from PyPop.Filter import PassThroughFilter, AnthonyNolanFilter, AlleleCountAnthonyNolanFilter, BinningFilter
 from PyPop.RandomBinning import RandomBinsForHomozygosity
 
-
 def getConfigInstance(configFilename = None,
                       altpath = None):
     """Create and return ConfigParser instance.

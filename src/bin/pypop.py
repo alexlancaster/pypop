@@ -37,12 +37,17 @@
 """
 
 import sys, os, time
+from glob import glob
+from configparser import ConfigParser
 
 DIR = os.path.abspath(os.path.dirname(__file__))
 sys.path.insert(0, os.path.join(DIR, '..'))
 sys.path.insert(0, os.path.join(DIR, '../src'))
 
-import PyPop
+from PyPop.CommandLineInterface import get_pypop_cli
+from PyPop import copyright_message, __version__ as version
+from PyPop.Main import Main, getConfigInstance, getUserFilenameInput, checkXSLFile
+from PyPop.Meta import Meta
 
 ######################################################################
 # BEGIN: CHECK PATHS and FILEs
@@ -59,9 +64,7 @@ altpath = os.path.join(datapath, 'config.ini')
 # find our exactly where the current pypop is being run from
 pypopbinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-version = PyPop.__version__
-pkgname = PyPop.__pkgname__
-  
+
 ######################################################################
 # END: CHECK PATHS and FILEs
 ######################################################################
@@ -69,11 +72,6 @@ pkgname = PyPop.__pkgname__
 ######################################################################
 # BEGIN: generate message texts
 ######################################################################
-
-copyright_message = """Copyright (C) 2003-2006 Regents of the University of California.
-Copyright (C) 2007-2023 PyPop team.
-This is free software.  There is NO warranty; not even for
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
 
 interactive_message = """PyPop: Python for Population Genomics (%s)
 %s
@@ -94,57 +92,29 @@ return for each prompt.
 # BEGIN: parse command line options
 ######################################################################
 
-from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, FileType
-from pathlib import Path
-from glob import glob
-from configparser import ConfigParser
-from PyPop.Main import getUserFilenameInput, checkXSLFile
-
-
-parser = ArgumentParser(prog="pypop.py", description="""Process and run population genetics statistics on one or more INPUTFILEs.\n
-Expects to find a configuration file called 'config.ini' in the\n
-current directory""", epilog=copyright_message, formatter_class=ArgumentDefaultsHelpFormatter)
-
-parser.add_argument("-c", "--config", help="select config file",
-                    required=False, default='config.ini')
-parser.add_argument("-m", "--testmode", help="run PyPop in test mode for unit testing", action='store_true', required=False, default=False)
-parser.add_argument("-d", "--debug", help="enable debugging output (overrides config file setting)",
-                    action='store_true', required=False, default=False)
-parser.add_argument("-t", "--generate-tsv", help="generate TSV output files (aka run 'popmeta')",
-                    action='store_true', required=False, default=False)
-parser.add_argument("--enable-ihwg", help="enable 13th IWHG workshop populationdata default headers",
-                    action='store_true', required=False, default=False)
-parser.add_argument("-x", "--xsl", help="override the default XSLT translation with XSLFILE", 
-                    metavar="XSLFILE", required=False, default=None)
-parser.add_argument("-o", "--outputdir", help="put output in directory DIR",
-                    required=False, type=Path, default=None)
-parser.add_argument("-V", "--version", action='version', version="%(prog)s {version} {copyright}".format(version=version, copyright=copyright_message))
-
-gp = parser.add_argument_group('Mutually exclusive input options')
-gpm = gp.add_mutually_exclusive_group(required=True)
-gpm.add_argument("-i", "--interactive", help="run in interactive mode, prompting user for file names",
-                 action='store_true', default=False)
-gpm.add_argument("-f", "--filelist", help="file containing list of files (one per line) to process\n(mutually exclusive with supplying POPFILEs)",
-                 type=FileType('r'), default=None)
-gpm.add_argument("popfiles", metavar="POPFILE", help="input population ('.pop') file(s)", nargs='*', default=[])
-
+parser = get_pypop_cli(version=version, copyright_message=copyright_message)
 args = parser.parse_args()
-                    
+
+# IHWG and PHYLIP output only make sense if '-t' also supplied
+if (args.enable_ihwg or args.enable_phylip) and (not args.enable_tsv):
+    parser.error('--enable-iwhg or --enable-phylip can only be used if --generate-tsv also supplied')
+
+if args.outputdir:
+    if not args.outputdir.is_dir():
+      parser.error("'%s' is not a directory, please supply a valid output directory" % args.outputdir)
+    
 configFilename = args.config
 xslFilename = args.xsl
 debugFlag = args.debug
 interactiveFlag = args.interactive
-generateTSV = args.generate_tsv
+generateTSV = args.enable_tsv
 testMode = args.testmode
 fileList = args.filelist
 outputDir = args.outputdir
 popFilenames = args.popfiles      
 ihwg_output = args.enable_ihwg
+PHYLIP_output = args.enable_phylip
 
-if outputDir:
-    if not outputDir.is_dir():
-      sys.exit("'%s' is not a directory, please supply a valid output directory" % outputDir)
-    
 # heuristics for default 'text.xsl' XML -> text file
 
 if xslFilename:
@@ -261,7 +231,6 @@ else:
       fileNames.extend(globbedFiles)
 
 # parse config file
-from PyPop.Main import Main, getConfigInstance
 config = getConfigInstance(configFilename, altpath)
 
 xmlOutPaths = []
@@ -286,17 +255,23 @@ for fileName in fileNames:
   txtOutPaths.append(application.getTxtOutPath())
 
 if generateTSV:
-  from PyPop.Meta import Meta
-  
+
+  if PHYLIP_output:
+    # if we're doing PHYLIP output, need to process all XML at once
+    batchsize = 1
+  else:
+    # otherwise we can do them one-by-one
+    batchsize = len(xmlOutPaths)
+    
   print("Generating TSV (.dat) files...")
   Meta(popmetabinpath=pypopbinpath,
        datapath=datapath,
        metaXSLTDirectory=None,
        dump_meta=False,
        R_output=True,
-       PHYLIP_output=False,
+       PHYLIP_output=PHYLIP_output,
        ihwg_output=ihwg_output,
-       batchsize=len(xmlOutPaths),
+       batchsize=batchsize,
        outputDir=outputDir,
        xml_files=xmlOutPaths)
 

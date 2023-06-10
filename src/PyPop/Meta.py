@@ -120,12 +120,12 @@ def _translate_file_to(xslFilename, inFile, outFile, inputDir=None, outputDir=No
             
             result.write_output(outPath)
 
-        success = 1
+        success = True
 
     except Exception as e:
         print(e.args)
         print("Can't process: %s with stylesheet: %s, skipping" % (inFile, xslFilename))
-        success = 0
+        success = False
 
     return success
 
