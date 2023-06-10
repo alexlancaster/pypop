@@ -34,11 +34,15 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 import os, sys
-from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, FileType
+from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter, FileType
 from pathlib import Path
 
 """Command-line interface for PyPop scripts
 """
+
+# combine both kinds of formats
+class PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter):
+    pass
 
 def get_parent_cli(version="", copyright_message=""):
     # options common to both scripts
@@ -54,9 +58,9 @@ def get_pypop_cli(version="", copyright_message=""):
 
     parent_parser = get_parent_cli(version=version, copyright_message=copyright_message)
     pypop_parser = ArgumentParser(prog="pypop.py", parents=[parent_parser],
-                            description="""Process and run population genetics statistics on one or more INPUTFILEs.\n
-                            Expects to find a configuration file called 'config.ini' in the\n
-                            current directory""", epilog=copyright_message, formatter_class=ArgumentDefaultsHelpFormatter)
+                            description="""Process and run population genetics statistics on one or more INPUTFILEs.
+Expects to find a configuration file called 'config.ini' in the
+current directory""", epilog=copyright_message, formatter_class=PyPopFormatter)
 
     pypop_parser.add_argument("-c", "--config", help="select config file",
                         required=False, default='config.ini')
@@ -82,9 +86,9 @@ def get_popmeta_cli(version="", copyright_message=""):
 
     parent_parser = get_parent_cli(version=version, copyright_message=copyright_message)
     popmeta_parser = ArgumentParser(prog="popmeta.py", parents=[parent_parser],
-                            description="""Processes XMLFILEs and generates 'meta'-analyses. XMLFILE are
-    expected to be the XML output files taken from runs of 'pypop'.  Will
-    skip any XML files that are not well-formed XML.""", formatter_class=ArgumentDefaultsHelpFormatter)
+                                    epilog=copyright_message, description="""Processes XMLFILEs and generates 'meta'-analyses. XMLFILE are
+expected to be the XML output files taken from runs of 'pypop'.  Will
+skip any XML files that are not well-formed XML.""", formatter_class=PyPopFormatter)
 
     popmeta_parser.add_argument("--disable-dat", help="disable generation of *.dat files",
                         action='store_false', dest="generate_dat", required=False, default=True)
