@@ -1,10 +1,10 @@
-include README.md
+include README.rst
 include DEV_NOTES.md
 include LICENSE
 include NEWS
 include MANIFEST.in
 include data/config-canonical.ini
-recursive-include src/SWIG typemap.i *.h
+recursive-include src/SWIG typemap.i
 recursive-include src/emhaplofreq emhaplofreq.h Makefile
 recursive-include src/gthwe *.h Makefile README.1
 recursive-include src/slatkin-exact Makefile README
