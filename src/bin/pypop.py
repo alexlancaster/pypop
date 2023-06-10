@@ -94,7 +94,15 @@ return for each prompt.
 
 parser = get_pypop_cli(version=version, copyright_message=copyright_message)
 args = parser.parse_args()
-                    
+
+# IHWG and PHYLIP output only make sense if '-t' also supplied
+if (args.enable_ihwg or args.enable_phylip) and (not args.generate_tsv):
+    parser.error('--enable-iwhg or --enable-phylip can only be used if --generate-tsv also supplied')
+
+if args.outputdir:
+    if not args.outputdir.is_dir():
+      parser.error("'%s' is not a directory, please supply a valid output directory" % args.outputdir)
+    
 configFilename = args.config
 xslFilename = args.xsl
 debugFlag = args.debug
@@ -105,11 +113,8 @@ fileList = args.filelist
 outputDir = args.outputdir
 popFilenames = args.popfiles      
 ihwg_output = args.enable_ihwg
+PHYLIP_output = args.enable_phylip
 
-if outputDir:
-    if not outputDir.is_dir():
-      sys.exit("'%s' is not a directory, please supply a valid output directory" % outputDir)
-    
 # heuristics for default 'text.xsl' XML -> text file
 
 if xslFilename:
@@ -250,16 +255,23 @@ for fileName in fileNames:
   txtOutPaths.append(application.getTxtOutPath())
 
 if generateTSV:
-  
+
+  if PHYLIP_output:
+    # if we're doing PHYLIP output, need to process all XML at once
+    batchsize = 1
+  else:
+    # otherwise we can do them one-by-one
+    batchsize = len(xmlOutPaths)
+    
   print("Generating TSV (.dat) files...")
   Meta(popmetabinpath=pypopbinpath,
        datapath=datapath,
        metaXSLTDirectory=None,
        dump_meta=False,
        R_output=True,
-       PHYLIP_output=False,
+       PHYLIP_output=PHYLIP_output,
        ihwg_output=ihwg_output,
-       batchsize=len(xmlOutPaths),
+       batchsize=batchsize,
        outputDir=outputDir,
        xml_files=xmlOutPaths)
 
