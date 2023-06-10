@@ -5,7 +5,7 @@ import os.path
 from base import run_pypop_process, filecmp_ignore_newlines, abspath_test_data, xfail_windows
 
 def test_GenerateTSV():
-    exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_EM.ini', './tests/data/BIGDAWG_SynthControl_Data.pop', args=['--generate-tsv', '--enable-ihwg'])
+    exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_EM.ini', './tests/data/BIGDAWG_SynthControl_Data.pop', args=['--enable-tsv', '--enable-ihwg'])
     # check exit code
     assert exit_code == 0
 

@@ -96,7 +96,7 @@ parser = get_pypop_cli(version=version, copyright_message=copyright_message)
 args = parser.parse_args()
 
 # IHWG and PHYLIP output only make sense if '-t' also supplied
-if (args.enable_ihwg or args.enable_phylip) and (not args.generate_tsv):
+if (args.enable_ihwg or args.enable_phylip) and (not args.enable_tsv):
     parser.error('--enable-iwhg or --enable-phylip can only be used if --generate-tsv also supplied')
 
 if args.outputdir:
@@ -107,7 +107,7 @@ configFilename = args.config
 xslFilename = args.xsl
 debugFlag = args.debug
 interactiveFlag = args.interactive
-generateTSV = args.generate_tsv
+generateTSV = args.enable_tsv
 testMode = args.testmode
 fileList = args.filelist
 outputDir = args.outputdir
