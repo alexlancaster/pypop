@@ -161,8 +161,8 @@ This will generate a number of ``.dat`` files, including
 .. note::
 
    It's highly recommended to use the ``-o`` option to save the output
-   in a separate subdirectory, since the output ``.dat`` files have
-   fixed names, so will overwrite files in the local direcory with the
+   in a separate subdirectory, as the output ``.dat`` files have
+   fixed names, and will overwrite any files in the local directory with the
    same name).  See :ref:`guide-popmeta-cli` for the full list of
    options.
       
@@ -179,10 +179,9 @@ run (assuming that the configuration file can be used for both
 Command-line interfaces
 =======================
 
-Here is the usage for both the ``pypop`` and ``popmeta`` programs,
-including a full list of the currently accepted command-line options
-and arguments.  Note that you can also view this full list of options
-by typing ``pypop-batch --help``, or ``popmeta-batch --help``,
+Described below is the usage for both programs,
+including a full list of the current command-line options
+and arguments.  Note that you can also view this full list of options from the program itself by supplying the ``--help`` option, i.e. ``pypop-batch --help``, or ``popmeta-batch --help``,
 respectively.
 
 .. _guide-pypop-cli:
