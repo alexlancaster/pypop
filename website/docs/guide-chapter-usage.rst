@@ -96,33 +96,8 @@ already exist) by using the ``-o`` option:
 
    pypop-batch -c newconfig.ini -o altdir Guatemalan.pop
 
-For a full list of options supported by PyPop, type ``pypop-batch
---help``. You should receive a screen resembling the following:
-
-.. code-block:: text
-
-   Usage: pypop [OPTION] INPUTFILE
-   Process and run population genetics statistics on an INPUTFILE.
-   Expects to find a configuration file called 'config.ini' in the
-   current directory or in /usr/share/PyPop/config.ini.
-
-     -l, --use-libxslt    filter XML via XSLT using libxslt (default)
-     -s, --use-4suite     filter XML via XSLT using 4Suite
-     -x, --xsl=FILE       use XSLT translation file FILE
-     -h, --help           show this message
-     -c, --config=FILE    select alternative config file
-     -d, --debug          enable debugging output (overrides config file setting)
-     -i, --interactive    run in interactive mode, prompting user for file names
-     -g, --gui            run GUI (currently disabled)
-     -o, --outputdir=DIR  put output in directory DIR
-     -V, --version        print version of PyPop
-      
-       INPUTFILE   input text file
-
-.. warning::
-
-   Documentation for these options is underway, but not currently
-   available.
+Please see :ref:`guide-pypop-cli` for the full list of command-line
+options.
 
 .. _guide-usage-intro-run-details:
 
@@ -144,19 +119,12 @@ input for valid/known HLA alleles: :file:`popfilename-filter.xml`).
 
 The :file:`popfilename-out.xml` file is the primary output created by
 PyPop and the human-readable :file:`popfilename-out.txt` file is a
-summary of the complete XML output. It is generated from the XML
-output via XSLT (eXtensible Stylesheet Language for Transformations)
-using the default XSLT stylesheet :file:`text.xsl`, which is located
-in the ``xslt`` directory.  The XML output can be further transformed
-using customized XSLT stylesheets into other formats for input to
-statistical software (e.g., :program:`R`, :program:`SAS`) or other
-population genetic software (e.g., :program:`PHYLIP`). The ``popmeta``
-script (``popmeta.bat`` on Windows, ``popmeta`` on GNU/Linux) calls on
-other XSLT stylesheets to aggregate results from a number of output
-XML files from individual populations into a set of tab-separated
-(TSV) files containing summary statistics. These TSV files can be
-directly imported into a spreadsheet or statistical software.  This
-script will be further documented in the next release.
+summary of the complete XML output. The XML output can be further
+transformed into plain text TSV files, either directly via ``pypop``
+if invoked on multiple input files (using the ``--enable-tsv`` option,
+see :ref:`guide-pypop-cli`), or via the ``popmeta`` tool that
+aggregates results from different ``pypop`` runs (see
+:ref:`guide-usage-popmeta`).
 
 A typical PyPop run might take anywhere from a few of minutes to a few
 hours, depending on how large your data set is and who else is using the
@@ -164,6 +132,84 @@ system at the same time. Note that performing the
 ``allPairwiseLDWithPermu`` test may take several **days** if you have
 highly polymorphic loci in your data set.
 
+
+.. _guide-usage-popmeta:
+      
+Using ``popmeta`` to aggregate results
+======================================
+
+The ``popmeta`` script (``popmeta.bat`` on Windows, ``popmeta`` on
+GNU/Linux) can aggregate results from a number of output XML files
+from individual populations into a set of tab-separated (TSV) files
+containing summary statistics via customized XSLT (eXtensible
+Stylesheet Language for Transformations) stylesheets.  These TSV files
+can be directly imported into a spreadsheet or statistical software
+(e.g., :program:`R`, :program:`SAS`).  In addition, there is some
+preliminary support for export into other formats, such as the
+population genetic software (e.g., :program:`PHYLIP`).
+
+Here is an example of a ``popmeta`` run, following on from the XML outputs
+generated in similar fashion in the previous ``pypop`` runs:
+
+.. code-block:: text
+
+   popmeta-batch -o altdir Guatemalan-out.xml NorthAmerican-out.xml
+
+This will generate a number of ``.dat`` files, including
+:file:`1-locus-allele.dat`.
+
+.. note::
+
+   It's highly recommended to use the ``-o`` option to save the output
+   in a separate subdirectory, as the output ``.dat`` files have
+   fixed names, and will overwrite any files in the local directory with the
+   same name).  See :ref:`guide-popmeta-cli` for the full list of
+   options.
+      
+Note that a similar effect can be achieved directly from a ``pypop``
+run (assuming that the configuration file can be used for both
+``.pop`` population files), by invoking ``pypop`` with the
+``--enable-tsv`` option:
+
+.. code-block:: text
+
+   pypop-batch -c newconfig.ini -o altdir Guatemalan.pop NorthAmerican.pop --enable-tsv
+
+
+Command-line interfaces
+=======================
+
+Described below is the usage for both programs,
+including a full list of the current command-line options
+and arguments.  Note that you can also view this full list of options from the program itself by supplying the ``--help`` option, i.e. ``pypop-batch --help``, or ``popmeta-batch --help``,
+respectively.
+
+.. _guide-pypop-cli:
+
+``pypop`` usage
+---------------
+	
+.. argparse::
+   :filename: src/PyPop/CommandLineInterface.py
+   :func: get_pypop_cli
+   :prog: pypop.py
+   :nodescription:
+   :noepilog:
+   :nodefaultconst:
+      
+.. _guide-popmeta-cli:
+
+``popmeta`` usage
+-----------------
+
+.. argparse::
+   :filename: src/PyPop/CommandLineInterface.py
+   :func: get_popmeta_cli
+   :prog: popmeta.py
+   :nodescription:
+   :noepilog:
+   :nodefaultconst:
+      
 .. _guide-usage-datafile:
 
 The data file

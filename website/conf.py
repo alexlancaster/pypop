@@ -30,7 +30,7 @@ sys.path.insert(0, os.path.abspath('../source'))
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel', 'myst_parser', 'rst2pdf.pdfbuilder', 'sphinx_togglebutton']
+extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel', 'myst_parser', 'rst2pdf.pdfbuilder', 'sphinx_togglebutton', 'sphinxarg.ext']
 
 #autosectionlabel_prefix_document = True
 
