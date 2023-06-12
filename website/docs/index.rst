@@ -4,6 +4,11 @@
 PyPop User Guide
 ################
 
+.. only:: html
+
+   *Documenting release*  |release|  *of PyPop*.
+   This guide is also available as a `PDF <../pypop-guide.pdf>`__.
+
 .. only:: latex or pdf
 
    .. include:: ../index.rst
@@ -31,8 +36,6 @@ This guide to PyPop contains three parts:
    population genetic methods and statistics that PyPop computes.
 
 .. only:: html
-
-   This guide is also available as a `PDF <../pypop-guide.pdf>`__.
 
    **License terms**
 
