@@ -40,7 +40,7 @@ from setuptools import setup
 from setuptools.extension import Extension
 from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
-from src.PyPop import __version__, __pkgname__
+from src.PyPop import __pkgname__
 
 src_dir = "src"
 
