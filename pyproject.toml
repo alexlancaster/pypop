@@ -20,7 +20,11 @@ before-all = "nuget install gsl-msvc14-x64 -Version 2.3.0.2779"
 environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static" }
 
 [build-system]
-requires = ["setuptools>=42", "setuptools_scm[toml]>=6.2", "wheel", "importlib-metadata; python_version <= '3.8'"]
+build-backend = "setuptools.build_meta:__legacy__"
+requires = ["setuptools>=42",
+	    "setuptools_scm[toml]>=6.2",
+	    "importlib-metadata; python_version <= '3.8'"
+	    ]
 
 [tool.setuptools_scm]
 
