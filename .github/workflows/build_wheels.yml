@@ -52,3 +52,26 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           path: dist/*.tar.gz 
+
+  upload_gh_release:
+    name: Upload binary wheels and sdist to GH release page
+    needs: [build_wheels, build_sdist]
+    runs-on: ubuntu-latest
+    # upload to gh on every tag starting with 'v'
+    #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    # alternatively, to publish when a GitHub Release is created, use the following rule:
+    if: github.event_name == 'release' && github.event.action == 'published'
+    steps:
+      - name: Download generated artifacts
+      - uses: actions/download-artifact@v3
+        with:
+          # unpacks default artifact into dist/
+          # if `name: artifact` is omitted, the action will create extra parent dir
+          name: artifact
+          path: dist
+      - name: Upload the artifacts
+        uses: skx/github-action-publish-binaries@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: 'dist/*'
