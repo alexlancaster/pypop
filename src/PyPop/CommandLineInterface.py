@@ -49,7 +49,7 @@ def get_parent_cli(version="", copyright_message=""):
     parent_parser = ArgumentParser(add_help=False)
     parent_parser.add_argument("-o", "--outputdir", help="put output in directory OUTPUTDIR",
                                required=False, type=Path, default=None)
-    parent_parser.add_argument("-V", "--version", action='version', version="%(prog)s {version} {copyright}".format(version=version, copyright=copyright_message))
+    parent_parser.add_argument("-V", "--version", action='version', version="%(prog)s {version}\n{copyright}".format(version=version, copyright=copyright_message))
 
     # define function arguments as signatures - need to be added in child parser as part of the selection logic
     ihwg_args = ("--enable-ihwg", {'help':"enable 13th IWHG workshop populationdata default headers",

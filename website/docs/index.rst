@@ -6,7 +6,7 @@ PyPop User Guide
 
 .. only:: html
 
-   *Documenting release*  |release|  *of PyPop*.
+   *Documenting release*  |version|  *of PyPop*.
    This guide is also available as a `PDF <../pypop-guide.pdf>`__.
 
 .. only:: latex or pdf

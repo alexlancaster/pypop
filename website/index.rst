@@ -10,8 +10,8 @@ PyPop: Python for Population Genomics
     maintained. We are working making PyPop available via `pypi.org
     <https://pypi.org>`__, but for the time being, please follow
     the instructions on the GitHub** `README.rst
-    <https://github.com/alexlancaster/pypop#readme>`__ for how to
-    build the new Python 3-compatible |release| PyPop from source on
+    <https://github.com/alexlancaster/pypop#readme>`__ ** for how to
+    build the new Python 3-compatible| PyPop from source on
     a modern Python 3 system.
 
 .. _news:
@@ -19,8 +19,8 @@ PyPop: Python for Population Genomics
 .. admonition:: Release history and news
   :class: dropdown	
 
-  - 2023: ported to Python 3, developer can compile the v1.0.0-alpha
-    version - no formal release yet.
+  - 2023: ported to Python 3, developer can compile the pre-release
+    alpha versions of v1.0.0 - no formal release yet.
   - 2022: v0.7.0 binaries are now officially deprecated.
   - 2020: pypop is no longer an official Fedora package. Future releases
     will be made available via PyPi.org
