@@ -1,8 +1,7 @@
 [tool.cibuildwheel]
-skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*", "cp36*", "cp37*"]  # skip 32-bit builds and musllinux
+skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*"]  # skip 32-bit builds and musllinux
 test-extras = ["test"]
 test-command = "pytest -s -v {package}/tests"
-before-build = "pip install importlib-metadata"
 
 [tool.cibuildwheel.linux]
 # for CentOS-based runners, local cibuildwheel docker
