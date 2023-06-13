@@ -70,8 +70,8 @@ numfig = True
 # contents of docs/conf.py
 from setuptools_scm import get_version
 
-# The full version, including alpha/beta/rc tags.
-release = get_version('..')
+# The full version, including alpha/beta/rc tags, don't normalize for documentation
+release = get_version('..', normalize=False)
 # The short X.Y version.
 # for example take major/minor
 version = release.split('.dev')[0]
