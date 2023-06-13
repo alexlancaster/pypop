@@ -43,7 +43,8 @@ jobs:
           pwd
           # check git tag status
           git status
-          git describe --tags
+          git tags --list
+          #git describe --tags
           # latex build in separate directory
           # it generates a lot of files we don't need to keep
           sphinx-build -b latex website _latexbuild
