@@ -36,7 +36,7 @@
 try: 
     import importlib.metadata as metadata_lib # look for built-in
 except (ModuleNotFoundError, ImportError):
-    import import_metadata as metadata_lib  # otherwise need the backport
+    import importlib_metadata as metadata_lib  # otherwise need the backport
 
 try:
     __version__ = metadata_lib.version("pypop") # use the installed version first
