@@ -1,4 +1,4 @@
-name: Build pypop.org website and docs
+name: pypop.org website and docs generation
 on:
   push:
     paths:
