@@ -40,8 +40,9 @@ from setuptools import setup
 from setuptools.extension import Extension
 from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
-
 from src.PyPop import __version__, __pkgname__
+
+src_dir = "src"
 
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
@@ -51,7 +52,7 @@ from src.PyPop import __version__, __pkgname__
 class CleanCommand(clean.clean):
     """Customized clean command - removes in_place extension files if they exist"""
     def run(self):
-        DIR = os.path.dirname(__file__)
+        DIR = os.path.join(os.path.dirname(__file__), src_dir)
         # generate glob pattern from extension name and suffix
         ext_files = [os.path.join(DIR, __pkgname__, ext.name.split(__pkgname__ + '.').pop() + ("*.pyd" if sys.platform == "win32" else "*.so")) for ext in extensions]
         for ext_file in ext_files:
@@ -70,7 +71,6 @@ if "LIBRARY_PATH" in os.environ:
 if "CPATH" in os.environ:
     include_dirs += os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
 
-src_dir = "src"
 # generate the appropriate relative path to source directory, given
 # paths within that source directory (this means we need to define
 # this directory in just one place
