@@ -43,7 +43,7 @@ jobs:
           pwd
           # check git tag status
           git status
-          git tags --list
+          git tag --list
           #git describe --tags
           # latex build in separate directory
           # it generates a lot of files we don't need to keep
