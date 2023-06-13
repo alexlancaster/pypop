@@ -214,14 +214,17 @@ xslt_files = [f + '.xsl' for f in ['text', 'html', 'lib', 'common', 'filter', 'h
 data_file_paths.extend(xslt_files)
 
 setup (name = 'pypop',
-       version = __version__,
+       use_scm_version={
+           'write_to': "src/PyPop/_version.py",
+           'version_scheme': 'guess-next-dev',
+           'write_to_template': "# -*- coding: utf-8 -*-\n\n__version__ = '{version}'\n",
+       },
        description = "Python for Population Genetics",
        long_description = \
        """PyPop is a framework for population genetics statistics
 particularly large-scale multilocus genotype data""",
        url = "http://www.pypop.org/",
-       maintainer = "Alex Lancaster",
-       maintainer_email = "alexl@cal.berkeley.edu",
+       maintainer = "PyPop team",
        license = "GNU GPL",
        platforms = ["GNU/Linux", "Windows", "MacOS"],
        package_dir = {"": src_dir},

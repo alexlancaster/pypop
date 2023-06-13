@@ -33,7 +33,14 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-__version__ = '1.0.0-alpha'
+from importlib.metadata import version, PackageNotFoundError
+
+try:  # use the installed version first
+    __version__ = version("pypop")
+except PackageNotFoundError:
+    from setuptools_scm import get_version
+    __version__ = get_version()  # next try the version in repo
+    
 __pkgname__ = 'PyPop'
 
 copyright_message = """Copyright (C) 2003-2006 Regents of the University of California.
