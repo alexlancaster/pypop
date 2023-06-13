@@ -42,11 +42,6 @@ jobs:
           sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
       - name: Sphinx build
         run: |
-          pwd
-          # check git tag status
-          git status
-          git tag --list
-          #git describe --tags
           # latex build in separate directory
           # it generates a lot of files we don't need to keep
           sphinx-build -b latex website _latexbuild
