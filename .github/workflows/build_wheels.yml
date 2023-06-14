@@ -15,6 +15,9 @@ on:
       - 'CITATION.cff'
       - 'website/**'
       - '.github/workflows/documentation.yaml'
+  release: 
+     types: 
+      - published
 
 jobs:
   build_wheels:
