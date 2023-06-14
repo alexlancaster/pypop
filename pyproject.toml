@@ -26,5 +26,3 @@ requires = ["setuptools>=42",
 	    "importlib-metadata; python_version <= '3.8'"
 	    ]
 
-[tool.setuptools_scm]
-
