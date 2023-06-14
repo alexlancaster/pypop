@@ -24,7 +24,11 @@ on:
       - '!website/README.md'
       - '!reference/**'
       - '.github/workflows/documentation.yaml'
-    
+  release: 
+     types: 
+      - published
+
+      
 permissions:
     contents: write
 jobs:
@@ -51,14 +55,6 @@ jobs:
           cp _latexbuild/*.pdf _build/
           # now build the HTML
           sphinx-build website _build
-      - name: Deploy to production
-        uses: peaceiris/actions-gh-pages@v3
-        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
-        with:
-          publish_branch: gh-pages
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: _build/
-          force_orphan: true
       - name: Deploy to beta site
         uses: peaceiris/actions-gh-pages@v3
         with:
@@ -67,3 +63,22 @@ jobs:
           publish_branch: gh-pages  # default: gh-pages
           publish_dir: _build/
           force_orphan: true
+      - name: Deploy to production
+        uses: peaceiris/actions-gh-pages@v3
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+        with:
+          publish_branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: _build/
+          force_orphan: true
+
+  upload_gh_release:
+    name: Test uploading assets to a release
+    needs: [docs]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'published'
+    steps:
+        - uses: softprops/action-gh-release@v1
+          name: uploading test PDF
+          with:
+            files: _build/*.pdf
