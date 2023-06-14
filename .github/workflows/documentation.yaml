@@ -71,6 +71,13 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: _build/
           force_orphan: true
+      - uses: actions/upload-artifact@v3
+        with:
+          path: |
+            _build/*.pdf
+            _build/*.zip
+            _build/*.tar.gz
+            _build/popdata/2008/*.zip
 
   upload_gh_release:
     name: Test uploading assets to a release
@@ -78,7 +85,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published'
     steps:
-        - uses: softprops/action-gh-release@v1
-          name: uploading test PDF
-          with:
-            files: _build/*.pdf
+      - uses: actions/download-artifact@v3
+        with:
+          # unpacks default artifact into dist/
+          name: artifact
+          path: dist
+      - uses: softprops/action-gh-release@v1
+        name: uploading test files
+        with:
+          files: dist/*
