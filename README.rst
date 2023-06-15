@@ -1,20 +1,83 @@
 Python for Population Genomics (PyPop)
 ======================================
 
-PyPop is a framework for processing genotype and allele data and running
-population genetic analyses.
+PyPop is a framework for processing genotype and allele data and
+running population genetic analyses.  See the `PyPop User Guide
+<http://pypop.org/docs>`__ for a full description.
 
 .. _guide-include-start:
 
 Installation (end user)
 =======================
 
-TBA. For the end-user, we are currently working on making PyPop
-installable via ``pip`` from downloadable packages (that will include
-pre-compiled binary extensions, to avoid the need to download
-development tools). Eventually it will be available on
-`PyPi <https://pypi.org/>`__. However, for the time being, you will need
-to follow the developer installation instructions, below.
+Install Python 3 and ``pip``
+----------------------------
+
+A full description of installing Python and ``pip`` on your system is
+beyond the scope of this guide, we recommend starting here:
+
+   https://wiki.python.org/moin/BeginnersGuide/Download
+
+Note that many systems (mostly Linux distributions) come with Python 3
+preinstalled. Note that macOS 10.9 (Jaguar) up until 12.3 (Catalina),
+used to ship with Python 2 pre-installed, but it now has to be
+manually installed.  There are quick-start guides for `MacOS
+<https://docs.python.org/3/using/mac.html>`__ and `Windows
+<https://docs.python.org/3/using/windows.html>`__ in the official
+documentation.
+
+
+Installing from GitHub Releases
+-------------------------------
+
+Once you have both python and ``pip`` installed, you can use ``pip``
+to install pre-compiled binary "wheels" of our pre-releases, the list
+is available from our GitHub release page:
+
+   https://github.com/alexlancaster/pypop/releases
+
+.. warning::
+
+   These pre-release versions are being made available for initial
+   testing, **they are not intended to be used for production
+   applications or analysis**
+
+You can have ``pip`` install the wheel for your platform
+automatically, by first visiting the release page, choosing the
+release version you wish to install (usually the most recent), noting
+the release tag (e.g. ``v1.0.0-alpha.8``), and then running a command
+of the form:
+
+.. code-block:: bash
+   
+   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>' --user --no-index  pypop
+
+e.g. with the specific example tag, ``v1.0.0-alpha.8``, given above you would run:
+   
+.. code-block:: bash
+   
+   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-alpha.8' --user --no-index pypop
+   
+If you know which version you need, you can manually download the
+specific wheel from the github release webpage and install directly,
+e.g.:
+
+.. code-block:: bash
+   
+   pip install --user pypop-1.0.0a8-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+   
+   
+Installing from PyPi
+--------------------
+
+TBA.  Eventually, we will be making PyPop available directly on `PyPi
+<https://pypi.org/>`__.
+
+.. note::
+
+   If whatever reason, you cannot use the these binaries (e.g. the
+   pre-compiled binaries are not available for your platform), you may
+   need to follow the developer installation instructions, below.
 
 Installation (developer)
 ========================
@@ -52,7 +115,7 @@ Install build environment via miniconda (recommended)
 2. Once miniconda is installed, create a new conda environment, using
    the following commands:
 
-   ::
+   .. code-block:: shell
 
       conda create -n pypop3 gsl swig python=3
 
@@ -74,7 +137,7 @@ Install build environment via miniconda (recommended)
 3. Activate the environment, and set environments variables needed for
    compilation:
 
-   ::
+   .. code-block:: shell
 
       conda activate pypop3
       conda env config vars set CPATH=${CONDA_PREFIX}/include:${CPATH}
@@ -84,7 +147,7 @@ Install build environment via miniconda (recommended)
 4. To ensure that the environment variables are saved, reactivate the
    environment:
 
-   ::
+   .. code-block:: shell
 
       conda activate pypop3
 
