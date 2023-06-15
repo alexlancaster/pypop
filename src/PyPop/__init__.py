@@ -39,7 +39,7 @@ except (ModuleNotFoundError, ImportError):
     import importlib_metadata as metadata_lib  # otherwise need the backport
 
 try:
-    __version__ = metadata_lib.version("pypop") # use the installed version first
+    __version__ = metadata_lib.version("pypopgen") # use the installed version first
 except metadata_lib.PackageNotFoundError:
     from setuptools_scm import get_version
     __version__ = get_version()  # next try the version in repo

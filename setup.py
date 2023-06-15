@@ -213,7 +213,7 @@ data_file_paths = []
 xslt_files = [f + '.xsl' for f in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
 data_file_paths.extend(xslt_files)
 
-setup (name = 'pypop',
+setup (name = 'pypopgen',
        use_scm_version={
            'write_to': "src/PyPop/_version.py",
            'version_scheme': 'guess-next-dev',
