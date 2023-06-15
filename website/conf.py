@@ -113,7 +113,7 @@ html_short_title = "PyPop"
 #
 html_theme_options = { # these are both piccolo theme-specific
     "source_url": 'https://github.com/alexlancaster/pypop/',
-    "banner_text": 'PyPop v0.7.0 binaries are deprecated, please check the <a href="https://github.com/alexlancaster/pypop#readme">README</a> for compiling from source'
+    "banner_text": 'PyPop v0.7.0 binaries are deprecated, please check the <a href="https://github.com/alexlancaster/pypop#readme">README</a> for installing pre-releases or for compiling from source'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
