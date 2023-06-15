@@ -3,7 +3,7 @@ Python for Population Genomics (PyPop)
 
 PyPop is a framework for processing genotype and allele data and
 running population genetic analyses.  See the `PyPop User Guide
-<http://pypop.org/docs>`__ for a full description.
+<http://pypop.org/docs>`__ for a more detailed description.
 
 .. _guide-include-start:
 
@@ -26,13 +26,12 @@ manually installed.  There are quick-start guides for `MacOS
 <https://docs.python.org/3/using/windows.html>`__ in the official
 documentation.
 
-
 Installing from GitHub Releases
 -------------------------------
 
 Once you have both python and ``pip`` installed, you can use ``pip``
-to install pre-compiled binary "wheels" of our pre-releases, the list
-is available from our GitHub release page:
+to install pre-compiled binary "wheels" of our pre-releases, available
+from the GitHub release page:
 
    https://github.com/alexlancaster/pypop/releases
 
@@ -42,17 +41,18 @@ is available from our GitHub release page:
    testing, **they are not intended to be used for production
    applications or analysis**
 
-You can have ``pip`` install the wheel for your platform
-automatically, by first visiting the release page, choosing the
-release version you wish to install (usually the most recent), noting
-the release tag (e.g. ``v1.0.0-alpha.8``), and then running a command
-of the form:
+First, visit the release page, and choose the release version you wish
+to install (usually the most recent), and note the release tag
+(e.g. ``v1.0.0-alpha.8``). Next, use ``pip`` to install the correct
+wheel for your platform automatically, by running a command of the
+form:
 
 .. code-block:: bash
    
    pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>' --user --no-index  pypop
 
-e.g. with the specific example tag, ``v1.0.0-alpha.8``, given above you would run:
+where `<TAG_NAME>` is replaced with a specific tag, e.g. for the
+specific example, ``v1.0.0-alpha.8``, given above, you would run:
    
 .. code-block:: bash
    
@@ -259,10 +259,10 @@ package.
 
 ..
 
-   **If you use this installation method, changes you make to the code,
+   If you use this installation method, changes you make to the code,
    locally, or via subsequent ``git pull`` requests will not be
    available in the installed version until you repeat the
-   ``pip install`` command.**
+   ``pip install`` command.
 
 1. if you installed the conda development environment, use:
 
