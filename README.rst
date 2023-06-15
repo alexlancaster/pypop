@@ -51,7 +51,7 @@ form:
    
    pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>' --user --no-index  pypop
 
-where `<TAG_NAME>` is replaced with a specific tag, e.g. for the
+where *<TAG_NAME>* is replaced with a specific tag, e.g. for the
 specific example, ``v1.0.0-alpha.8``, given above, you would run:
    
 .. code-block:: bash
