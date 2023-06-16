@@ -43,6 +43,7 @@ from sysconfig import _PREFIX, get_config_vars, get_config_var
 from src.PyPop import __pkgname__
 
 src_dir = "src"
+pkg_dir = "PyPop"
 
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
@@ -54,7 +55,7 @@ class CleanCommand(clean.clean):
     def run(self):
         DIR = os.path.join(os.path.dirname(__file__), src_dir)
         # generate glob pattern from extension name and suffix
-        ext_files = [os.path.join(DIR, __pkgname__, ext.name.split(__pkgname__ + '.').pop() + ("*.pyd" if sys.platform == "win32" else "*.so")) for ext in extensions]
+        ext_files = [os.path.join(DIR, pkg_dir, ext.name.split(pkg_dir + '.').pop() + ("*.pyd" if sys.platform == "win32" else "*.so")) for ext in extensions]
         for ext_file in ext_files:
             for ext_file in glob(ext_file):
                 if os.path.exists(ext_file):
@@ -213,9 +214,9 @@ data_file_paths = []
 xslt_files = [f + '.xsl' for f in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
 data_file_paths.extend(xslt_files)
 
-setup (name = 'pypopgen',
+setup (name = __pkgname__,
        use_scm_version={
-           'write_to': "src/PyPop/_version.py",
+           'write_to': os.path.join(src_dir, pkg_dir, "_version.py"),
            'version_scheme': 'guess-next-dev',
            'write_to_template': "# -*- coding: utf-8 -*-\n\n__version__ = '{version}'\n",
        },
@@ -234,7 +235,7 @@ particularly large-scale multilocus genotype data""",
        extras_require={
            "test": ['pytest']
            },
-       scripts= ['src/bin/pypop.py', 'src/bin/popmeta.py'],
+       scripts=path_to_src(['bin/pypop.py', 'bin/popmeta.py']),
        ext_modules=extensions,
        cmdclass={'clean': CleanCommand,},
        )
