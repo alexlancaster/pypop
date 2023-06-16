@@ -5,10 +5,19 @@ PyPop is a framework for processing genotype and allele data and
 running population genetic analyses.  See the `PyPop User Guide
 <http://pypop.org/docs>`__ for a more detailed description.
 
+.. |pkgname| replace:: ``pypopgen``
+
 .. _guide-include-start:
 
 Installation (end user)
 =======================
+
+.. note::
+
+   The package name for installation purposes is ``pypopgen`` - to
+   avoid conflicting with an unrelated package with the name ``pypop``
+   already on PyPI. 
+
 
 Install Python 3 and ``pip``
 ----------------------------
@@ -19,65 +28,67 @@ beyond the scope of this guide, we recommend starting here:
    https://wiki.python.org/moin/BeginnersGuide/Download
 
 Note that many systems (mostly Linux distributions) come with Python 3
-preinstalled. Note that macOS 10.9 (Jaguar) up until 12.3 (Catalina),
-used to ship with Python 2 pre-installed, but it now has to be
-manually installed.  There are quick-start guides for `MacOS
+preinstalled. MacOS 10.9 (Jaguar) up until 12.3 (Catalina), used to
+ship with Python 2 pre-installed, but it now has to be manually
+installed.  There are quick-start guides for `MacOS
 <https://docs.python.org/3/using/mac.html>`__ and `Windows
 <https://docs.python.org/3/using/windows.html>`__ in the official
 documentation.
 
-Installing from GitHub Releases
--------------------------------
+Install package from GitHub Releases
+------------------------------------
 
 Once you have both python and ``pip`` installed, you can use ``pip``
-to install pre-compiled binary "wheels" of our pre-releases, available
-from the GitHub release page:
+to install pre-compiled binary "wheels" of ``pypopgen`` pre-releases,
+available from the GitHub release page:
 
    https://github.com/alexlancaster/pypop/releases
 
 .. warning::
 
-   These pre-release versions are being made available for initial
-   testing, **they are not intended to be used for production
+   **These pre-release versions are being made available for initial
+   testing, they are not intended to be used for production
    applications or analysis**
-
+   
 First, visit the release page, and choose the release version you wish
 to install (usually the most recent), and note the release tag
 (e.g. ``v1.0.0-alpha.8``). Next, use ``pip`` to install the correct
 wheel for your platform automatically, by running a command of the
 form:
 
-.. code-block:: bash
-   
-   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>' --user --no-index  pypop
+.. code-block:: shell
+      
+   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>' --user --no-index pypopgen
 
 where *<TAG_NAME>* is replaced with a specific tag, e.g. for the
 specific example, ``v1.0.0-alpha.8``, given above, you would run:
+
+.. code-block:: shell
    
-.. code-block:: bash
-   
-   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-alpha.8' --user --no-index pypop
-   
+   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-alpha.8' --user --no-index pypopgen
+
+
 If you know which version you need, you can manually download the
 specific wheel from the github release webpage and install directly,
 e.g.:
 
-.. code-block:: bash
+.. code-block:: shell
    
-   pip install --user pypop-1.0.0a8-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+   pip install --user pypopgen-1.0.0a8-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
    
    
-Installing from PyPi
---------------------
+Install package from PyPI
+-------------------------
 
-TBA.  Eventually, we will be making PyPop available directly on `PyPi
+TBA.  Eventually, we will be making PyPop available directly on `PyPI
 <https://pypi.org/>`__.
 
 .. note::
 
-   If whatever reason, you cannot use the these binaries (e.g. the
-   pre-compiled binaries are not available for your platform), you may
-   need to follow the developer installation instructions, below.
+   If, for whatever reason, you cannot use the these binaries
+   (e.g. the pre-compiled binaries are not available for your
+   platform), you may need to follow the developer installation
+   instructions, below.
 
 Installation (developer)
 ========================
