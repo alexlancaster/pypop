@@ -58,13 +58,13 @@ wheel for your Python version and operating system automatically):
 
 .. code-block:: shell
       
-   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>' --user --no-index pypopgen
+   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>' --user pypopgen
 
 where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
 
 .. code-block:: shell
    
-   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-alpha.8' --user --no-index pypopgen
+   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-alpha.8' --user pypopgen
 
 
 You can also manually download the
