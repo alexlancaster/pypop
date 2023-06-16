@@ -76,7 +76,13 @@ e.g.:
    
    pip install --user pypopgen-1.0.0a8-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
    
-   
+**Updating an existing PyPop installation**
+
+To update an existing installation to a newer version, use the same
+command as above, but add the ``--update`` (short version: ``-U``)
+flag, i.e. ``pip install -U --user -f ...``.
+
+		
 Install package from PyPI
 -------------------------
 
