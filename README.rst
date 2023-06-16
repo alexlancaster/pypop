@@ -52,23 +52,22 @@ available from the GitHub release page:
    
 First, visit the release page, and choose the release version you wish
 to install (usually the most recent), and note the release tag
-(e.g. ``v1.0.0-alpha.8``). Next, use ``pip`` to install the correct
-wheel for your platform automatically, by running a command of the
-form:
+(e.g. ``v1.0.0-alpha.8``). Next, use ``pip`` to install the package by running a command of the
+form (this will select and install the correct
+wheel for your Python version and operating system automatically):
 
 .. code-block:: shell
       
    pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>' --user --no-index pypopgen
 
-where *<TAG_NAME>* is replaced with a specific tag, e.g. for the
-specific example, ``v1.0.0-alpha.8``, given above, you would run:
+where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
 
 .. code-block:: shell
    
    pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-alpha.8' --user --no-index pypopgen
 
 
-If you know which version you need, you can manually download the
+You can also manually download the
 specific wheel from the github release webpage and install directly,
 e.g.:
 
