@@ -96,6 +96,9 @@ TBA.  Eventually, we will be making PyPop available directly on `PyPI
    platform), you may need to follow the developer installation
    instructions, below.
 
+Once you have installed the package, you can skip ahead to the
+`section on Examples <Examples_>`_
+
 Installation (developer)
 ========================
 
@@ -332,7 +335,7 @@ Build-and-run-from-checkout (recommended for developers)
       ./setup.py build
 
 3. You will run PyPop, directly out of the ``src/bin`` subdirectory
-   (e.g. ``./src/bin/pypop.py``).
+   (e.g. ``./src/bin/pypop.py``).
 
 Run the test suite
 ------------------
@@ -359,17 +362,9 @@ Uninstalling PyPop and cleaning up
 If you installed using the end-user approach in `Build-and-install (recommended for end-users)`_, above, you
 can remove the installed version:
 
-1. conda:
+::
 
-   ::
-
-      pip uninstall pypop
-
-2. system-wide:
-
-   ::
-
-      pip uninstall --user pypop
+   pip uninstall pypopgen
 
 To clean-up any compiled files and force a recompilation from scratch,
 run the ``clean`` command:
