@@ -52,24 +52,24 @@ available from the GitHub release page:
    
 First, visit the release page, and choose the release version you wish
 to install (usually the most recent), and note the release tag
-(e.g. ``v1.0.0-alpha.8``). Next, use ``pip`` to install the package by running a command of the
-form (this will select and install the correct
-wheel for your Python version and operating system automatically):
+(e.g. ``v1.0.0-alpha.8``). Next, use ``pip`` to install the package by
+running a command of the form (this will select and install the
+correct wheel for your Python version and operating system
+automatically):
 
 .. code-block:: shell
       
-   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>' --user pypopgen
+   pip install --user pypopgen -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>' 
 
 where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
 
 .. code-block:: shell
    
-   pip install -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-alpha.8' --user pypopgen
+   pip install --user pypopgen -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-alpha.8'
 
 
-You can also manually download the
-specific wheel from the github release webpage and install directly,
-e.g.:
+You can also manually download the specific wheel from the github
+release webpage and install directly, e.g.:
 
 .. code-block:: shell
    
@@ -79,7 +79,7 @@ e.g.:
 
 To update an existing installation to a newer version, use the same
 command as above, but add the ``--upgrade`` (short version: ``-U``)
-flag, i.e. ``pip install -U --user -f ...``.
+flag, i.e. ``pip install -U --user pypopgen -f ...``.
 
 		
 Install package from PyPI
