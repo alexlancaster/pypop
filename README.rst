@@ -279,7 +279,7 @@ required dependencies from ``pypi.org`` and build and install the
 package.
 
    Note that if you use this method and install the package, it will be
-   available to run anywhere on your system, by running ``pypop.py``.
+   available to run anywhere on your system, by running ``pypop``.
 
 ..
 
@@ -338,8 +338,10 @@ Build-and-run-from-checkout (recommended for developers)
 
       ./setup.py build
 
-3. You will run PyPop, directly out of the ``src/bin`` subdirectory
-   (e.g. ``./src/bin/pypop.py``).
+3. You will run PyPop, directly out of the ``src/PyPop`` subdirectory
+   (e.g. ``./src/PyPop/pypop.py``). Note that you have to include the
+   ``.py`` extension when you run from an uninstalled checkout,
+   because the script is not installed.
 
 Run the test suite
 ------------------
@@ -394,7 +396,7 @@ You can then run them
 
 .. code-block:: shell
 
-   pypop.py -c  minimal.ini USAFEL-UchiTelle-small.pop
+   pypop -c  minimal.ini USAFEL-UchiTelle-small.pop
 
 If you installed from source and your working directory is already the
 git repository as described in `clone the repository <Clone the
@@ -402,11 +404,11 @@ repository_>`_, you can simply run
 
 .. code-block:: shell
 
-   pypop.py -c  tests/data/minimal.ini tests/data/USAFEL-UchiTelle-small.pop
+   pypop -c  tests/data/minimal.ini tests/data/USAFEL-UchiTelle-small.pop
 
 ..
 
-   replace ``pypop.py``, by ``./src/bin/pypop.py`` if you installed
+   replace ``pypop``, by ``./src/PyPop/pypop.py`` if you installed
    using `Build-and-run-from-checkout (recommended for developers)`_,
    i.e running locally from within the uninstalled checkout of the repository
 

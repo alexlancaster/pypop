@@ -26,10 +26,11 @@ use. We will describe this mode first then describe batch mode.
 Interactive mode
 ----------------
 
-To run PyPop, click the ``pypop.bat`` file (Windows) or type ``./pypop``
-at the command prompt (GNU/Linux). You should see something like the
-following output (this is also described in detail in the instructions
-in the installation guide):
+To run PyPop in interactive mode, click the ``pypop-interactive.exe``
+file (Windows) or type ``pypop-interactive`` at the command prompt
+(GNU/Linux). You should see something like the following output (this
+is also described in detail in the instructions in the installation
+guide):
 
 .. code-block:: text
 
@@ -66,13 +67,14 @@ are described in the sections on the :ref:`data file
 Batch mode
 ----------
 
-To run PyPop in batch mode, you can start PyPop from the command line
-(in Windows: open a DOS shell, GNU/Linux: open a terminal window),
-change to the directory where you unpacked PyPop and type
+To run PyPop in the more common "batch mode", you can start PyPop from
+the command line (in Windows: open a DOS shell, GNU/Linux: open a
+terminal window), change to the directory where you unpacked PyPop and
+type
 
 .. code-block:: text
 
-   pypop-batch Guatemalan.pop
+   pypop Guatemalan.pop
 
 .. note::
 
@@ -87,14 +89,14 @@ follows:
 
 .. code-block:: text
 
-   pypop-batch -c newconfig.ini Guatemalan.pop
+   pypop -c newconfig.ini Guatemalan.pop
 
 You may also redirect the output to a different directory (which must
 already exist) by using the ``-o`` option:
 
 .. code-block:: text
 
-   pypop-batch -c newconfig.ini -o altdir Guatemalan.pop
+   pypop -c newconfig.ini -o altdir Guatemalan.pop
 
 Please see :ref:`guide-pypop-cli` for the full list of command-line
 options.
@@ -153,7 +155,7 @@ generated in similar fashion in the previous ``pypop`` runs:
 
 .. code-block:: text
 
-   popmeta-batch -o altdir Guatemalan-out.xml NorthAmerican-out.xml
+   popmeta -o altdir Guatemalan-out.xml NorthAmerican-out.xml
 
 This will generate a number of ``.dat`` files, including
 :file:`1-locus-allele.dat`.
@@ -173,7 +175,7 @@ run (assuming that the configuration file can be used for both
 
 .. code-block:: text
 
-   pypop-batch -c newconfig.ini -o altdir Guatemalan.pop NorthAmerican.pop --enable-tsv
+   pypop -c newconfig.ini -o altdir Guatemalan.pop NorthAmerican.pop --enable-tsv
 
 
 Command-line interfaces
@@ -181,7 +183,7 @@ Command-line interfaces
 
 Described below is the usage for both programs,
 including a full list of the current command-line options
-and arguments.  Note that you can also view this full list of options from the program itself by supplying the ``--help`` option, i.e. ``pypop-batch --help``, or ``popmeta-batch --help``,
+and arguments.  Note that you can also view this full list of options from the program itself by supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta --help``,
 respectively.
 
 .. _guide-pypop-cli:
@@ -192,7 +194,7 @@ respectively.
 .. argparse::
    :filename: src/PyPop/CommandLineInterface.py
    :func: get_pypop_cli
-   :prog: pypop.py
+   :prog: pypop
    :nodescription:
    :noepilog:
    :nodefaultconst:
@@ -205,7 +207,7 @@ respectively.
 .. argparse::
    :filename: src/PyPop/CommandLineInterface.py
    :func: get_popmeta_cli
-   :prog: popmeta.py
+   :prog: popmeta
    :nodescription:
    :noepilog:
    :nodefaultconst:
