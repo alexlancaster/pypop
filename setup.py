@@ -40,7 +40,7 @@ from setuptools import setup
 from setuptools.extension import Extension
 from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
-from src.PyPop import __pkgname__
+from src.PyPop import __pkgname__, __version_scheme__
 
 src_dir = "src"
 pkg_dir = "PyPop"
@@ -217,8 +217,7 @@ data_file_paths.extend(xslt_files)
 setup (name = __pkgname__,
        use_scm_version={
            'write_to': os.path.join(src_dir, pkg_dir, "_version.py"),
-           'version_scheme': 'guess-next-dev',
-           'write_to_template': "# -*- coding: utf-8 -*-\n\n__version__ = '{version}'\n",
+           'version_scheme': __version_scheme__,
        },
        description = "Python for Population Genetics",
        long_description = \

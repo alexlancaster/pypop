@@ -6,6 +6,8 @@ PyPop User Guide
 
 .. only:: html
 
+   |htmlauthor|
+   
    *Documenting release*  |version|  *of PyPop*.
    This guide is also available as a `PDF <../pypop-guide.pdf>`__.
 
@@ -25,8 +27,7 @@ PyPop User Guide
 This guide to PyPop contains three parts:
 
 - :doc:`guide-chapter-install` describes how to install PyPop,
-  including, eventually, binaries from pypi.org (currently only
-  installable from source). (:doc:`guide-chapter-install-obsolete` has
+  including pre-release binaries. (:doc:`guide-chapter-install-obsolete` has
   instructions for how to install the now, obsolete, v0.7.0 binaries,
   and is included on temporary basis)
 
