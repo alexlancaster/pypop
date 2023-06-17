@@ -74,7 +74,12 @@ release webpage and install directly, e.g.:
 .. code-block:: shell
    
    pip install --user pypopgen-1.0.0a8-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-   
+
+(Note that Python uses a normalized and abbreviated version string in
+the distributed packages, so the release tagged as ``v1.0.0-alpha.8``
+is represented as ``1.0.0a8`` in the wheel files and in the ``pip``
+version).
+		
 **Upgrade an existing PyPop installation**
 
 To update an existing installation to a newer version, use the same
