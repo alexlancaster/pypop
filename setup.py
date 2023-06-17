@@ -234,7 +234,12 @@ particularly large-scale multilocus genotype data""",
        extras_require={
            "test": ['pytest']
            },
-       scripts=path_to_src(['bin/pypop.py', 'bin/popmeta.py']),
+       entry_points = {
+           'console_scripts': ['pypop=PyPop.pypop:main',
+                               'pypop-interactive=PyPop.pypop:main_interactive',
+                               'popmeta=PyPop.popmeta:main'],
+       },
        ext_modules=extensions,
        cmdclass={'clean': CleanCommand,},
        )
+
