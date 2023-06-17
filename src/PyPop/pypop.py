@@ -176,7 +176,7 @@ def main(argv=sys.argv):
       # exist.  The format of this file is identical to the ConfigParser
       # format (i.e. the .ini file format).
 
-      if os.environ['HOME']:
+      if 'HOME' in os.environ:
         pypoprcFilename = os.path.join(os.environ['HOME'],'.pypoprc')
       else:
         pypoprcFilename = '.pypoprc'
