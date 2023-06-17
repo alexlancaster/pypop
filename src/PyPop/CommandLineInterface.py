@@ -61,7 +61,7 @@ def get_parent_cli(version="", copyright_message=""):
 def get_pypop_cli(version="", copyright_message=""):
 
     parent_parser, ihwg_args, phylip_args = get_parent_cli(version=version, copyright_message=copyright_message)
-    pypop_parser = ArgumentParser(prog="pypop.py", parents=[parent_parser],
+    pypop_parser = ArgumentParser(prog="pypop", parents=[parent_parser],
                             description="""Process and run population genetics statistics on one or more POPFILEs.
 Expects to find a configuration file called 'config.ini' in the
 current directory""", epilog=copyright_message, formatter_class=PyPopFormatter)
@@ -94,7 +94,7 @@ current directory""", epilog=copyright_message, formatter_class=PyPopFormatter)
 def get_popmeta_cli(version="", copyright_message=""):
 
     parent_parser, ihwg_args, phylip_args = get_parent_cli(version=version, copyright_message=copyright_message)
-    popmeta_parser = ArgumentParser(prog="popmeta.py", parents=[parent_parser],
+    popmeta_parser = ArgumentParser(prog="popmeta", parents=[parent_parser],
                                     epilog=copyright_message, description="""Processes XMLFILEs and generates 'meta'-analyses. XMLFILE are
 expected to be the XML output files taken from runs of 'pypop'.  Will
 skip any XML files that are not well-formed XML.""", formatter_class=PyPopFormatter)
