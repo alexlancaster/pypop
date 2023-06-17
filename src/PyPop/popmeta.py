@@ -35,46 +35,52 @@
 
 import os, sys
 
-DIR = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(DIR, '..'))
+def main(argv=sys.argv):
 
-from PyPop import copyright_message, __version__ as version
-from PyPop.Meta import Meta
-from PyPop.CommandLineInterface import get_popmeta_cli
+  from PyPop import copyright_message, __version__ as version
+  from PyPop.Meta import Meta
+  from PyPop.CommandLineInterface import get_popmeta_cli
 
-datapath = os.path.join(sys.prefix, 'share', 'PyPop')
+  datapath = os.path.join(sys.prefix, 'share', 'PyPop')
 
-parser = get_popmeta_cli(version=version, copyright_message=copyright_message)
-args = parser.parse_args()
+  parser = get_popmeta_cli(version=version, copyright_message=copyright_message)
+  args = parser.parse_args(argv[1:])
 
-# find our exactly where the current executable is being run from
-popmetabinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
+  # find our exactly where the current executable is being run from
+  popmetabinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
 
-metaXSLTDirectory = args.xsldir
-dump_meta = args.output_meta
-R_output = args.generate_dat
-PHYLIP_output = args.enable_phylip
-ihwg_output = args.enable_ihwg
-batchsize = args.batchsize
-outputDir = args.outputdir
+  metaXSLTDirectory = args.xsldir
+  dump_meta = args.output_meta
+  R_output = args.generate_dat
+  PHYLIP_output = args.enable_phylip
+  ihwg_output = args.enable_ihwg
+  batchsize = args.batchsize
+  outputDir = args.outputdir
 
-if PHYLIP_output:
-  batchsize = 1   #  set batch size to 1
+  if PHYLIP_output:
+    batchsize = 1   #  set batch size to 1
 
-if outputDir:
-    if not outputDir.is_dir():
-      sys.exit("'%s' is not a directory, please supply a valid output directory" % outputDir)
-  
-# parse arguments
-xml_files = args.xmlfiles
+  if outputDir:
+      if not outputDir.is_dir():
+        sys.exit("'%s' is not a directory, please supply a valid output directory" % outputDir)
 
-Meta(popmetabinpath=popmetabinpath,
-     datapath=datapath,
-     metaXSLTDirectory=metaXSLTDirectory,
-     dump_meta=dump_meta,
-     R_output=R_output,
-     PHYLIP_output=PHYLIP_output,
-     ihwg_output=ihwg_output,
-     batchsize=batchsize,
-     outputDir=outputDir,
-     xml_files=xml_files)
+  # parse arguments
+  xml_files = args.xmlfiles
+
+  Meta(popmetabinpath=popmetabinpath,
+       datapath=datapath,
+       metaXSLTDirectory=metaXSLTDirectory,
+       dump_meta=dump_meta,
+       R_output=R_output,
+       PHYLIP_output=PHYLIP_output,
+       ihwg_output=ihwg_output,
+       batchsize=batchsize,
+       outputDir=outputDir,
+       xml_files=xml_files)
+
+if __name__ == "__main__":
+
+  DIR = os.path.abspath(os.path.dirname(__file__))
+  sys.path.insert(0, os.path.join(DIR, '..'))
+
+  main()
