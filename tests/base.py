@@ -72,7 +72,7 @@ def filecmp_ignore_newlines(out_filename, gold_out_filename):
                 return False
     return True
 
-def run_script_process(script_name, args):
+def run_script_process_shell(script_name, args):
 
     # first search for script in current PATH
     default_script = shutil.which(script_name)
@@ -80,8 +80,8 @@ def run_script_process(script_name, args):
     python_exe = None  
 
     if not default_script:
-        # then in local subdirectory
-        default_script = shutil.which(PurePath(Path("./src/bin") / script_name))
+        # then check for uninstalled version in local subdirectory
+        default_script = shutil.which(PurePath(Path("./src/PyPop") / (script_name + '.py')))
 
         if not default_script:
             # otherwise, check location the python interpreter in a
@@ -112,13 +112,32 @@ def run_script_process(script_name, args):
 
     return exit_code
 
+def run_script_process_entry_point(script_name, args):
+    argv = [script_name] + args
+    print(argv)
+
+    if script_name == 'pypop':
+        from PyPop.pypop import main
+        ret_val = main(argv=argv)
+    elif script_name == 'popmeta':
+        from PyPop.popmeta import main
+        ret_val = main(argv=argv)
+    else:
+        exit("script:", script_name, "doesn't exist")
+
+    if ret_val:
+        exit_code = 1
+    else:
+        exit_code = 0
+    return exit_code
+
 def run_pypop_process(inifile, popfile, args=[]):
 
     # convert relative data files to absolute
     inifile = abspath_test_data(inifile)
     popfile = abspath_test_data(popfile)
     pypop_args = ['-m'] + args + ['-c', inifile, popfile]
-    exit_code = run_script_process('pypop.py', pypop_args)
+    exit_code = run_script_process_entry_point('pypop', pypop_args)
     return exit_code
 
 def run_popmeta_process(xmlfiles, args=[]):
@@ -128,5 +147,5 @@ def run_popmeta_process(xmlfiles, args=[]):
     for xml in xmlfiles:
         input_files.append(abspath_test_data(xml))
     popmeta_args = args + input_files
-    exit_code = run_script_process('popmeta.py', popmeta_args)
+    exit_code = run_script_process_entry_point('popmeta', popmeta_args)
     return exit_code
