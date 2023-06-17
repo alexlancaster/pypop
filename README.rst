@@ -386,7 +386,21 @@ see an explanation of the options available.
 Run a minimal dataset:
 ----------------------
 
-::
+Download test ``.ini`` and ``.pop`` files: `minimal.ini
+<https://github.com/alexlancaster/pypop/blob/main/tests/data/minimal.ini>`_
+and `USAFEL-UchiTelle-small.pop
+<https://github.com/alexlancaster/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`_.
+You can then run them
+
+.. code-block:: shell
+
+   pypop.py -c  minimal.ini USAFEL-UchiTelle-small.pop
+
+If you installed from source and your working directory is already the
+git repository as described in `clone the repository <Clone the
+repository_>`_, you can simply run
+
+.. code-block:: shell
 
    pypop.py -c  tests/data/minimal.ini tests/data/USAFEL-UchiTelle-small.pop
 
