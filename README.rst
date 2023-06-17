@@ -59,13 +59,13 @@ automatically):
 
 .. code-block:: shell
       
-   pip install --user pypopgen -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>' 
+   pip install --user pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
 
 where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
 
 .. code-block:: shell
    
-   pip install --user pypopgen -f 'https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-alpha.8'
+   pip install --user pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-alpha.8
 
 
 You can also manually download the specific wheel from the github
