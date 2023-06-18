@@ -100,6 +100,30 @@ TBA.  Eventually, we will be making PyPop available directly on `PyPI
    platform), you may need to follow the developer installation
    instructions, below.
 
+Post-install ``PATH`` adjustments
+---------------------------------
+   
+It's often likely, especially on Windows, that you may need to adjust
+the ``PATH`` settings for the ``pypop`` scripts to be visible when run
+from your console application, without having to supply the full path
+to the file.
+
+.. warning::
+
+   Pay close attention to the "WARNINGS" that are shown during the
+   ``pip`` installation, they will often note which directories need to
+   be added to the ``PATH``.
+
+- On Linux and MacOS, systems this is normally fairly simple and only
+  requires edit of the shell ``.profile``, or similar and addition of
+  the ``$HOME/.local/bin`` to the ``PATH`` variable, followed by a
+  restart of the terminal.
+
+- For Windows, however, as noted in most online `instructions
+  <https://www.computerhope.com/issues/ch000549.htm>`_, this may need
+  additional help from your system administrator if your user doesn't
+  have the right permissions, and also require a system reboot.
+   
 Once you have installed the package, you can skip ahead to the
 `section on Examples <Examples_>`_
 
@@ -379,11 +403,35 @@ run the ``clean`` command:
 
    ./setup clean --all
 
+.. _guide_readme_examples:
+
 Examples
 ========
 
-These are examples of how to use PyPop. Specify the ``--help`` option to
-see an explanation of the options available.
+These are examples of how to check that the program is installed and
+some minimal use cases.
+
+Checking version and installation
+---------------------------------
+
+.. code-block:: shell
+
+   pypop --version
+
+This simply reports the version number and other information about
+PyPop, and indirectly checks that the program is installed. If all is
+well, you should see something like:
+
+.. code-block:: text
+
+   pypop 1.0.0a8
+   Copyright (C) 2003-2006 Regents of the University of California.
+   Copyright (C) 2007-2023 PyPop team.
+   This is free software.  There is NO warranty; not even for
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+You can also run ``pypop --help`` to see a full list and explanation
+of all the options available.
 
 Run a minimal dataset:
 ----------------------

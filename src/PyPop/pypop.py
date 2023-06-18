@@ -72,14 +72,14 @@ def main(argv=sys.argv):
     ######################################################################
 
     interactive_message = """PyPop: Python for Population Genomics (%s)
-    %s
+%s
 
-    You may redistribute copies of PyPop under the terms of the
-    GNU General Public License.  For more information about these
-    matters, see the file named COPYING.
+You may redistribute copies of PyPop under the terms of the
+GNU General Public License.  For more information about these
+matters, see the file named COPYING.
 
-    To accept the default in brackets for each filename, simply press
-    return for each prompt.
+To accept the default in brackets for each filename, simply press
+return for each prompt.
     """ % (version, copyright_message)
 
     ######################################################################
@@ -291,6 +291,7 @@ def main(argv=sys.argv):
 def main_interactive(argv=sys.argv):
     argv.append("-i")
     main(argv)
+    input("Press Enter to exit...")
       
 if __name__ == "__main__":
 
