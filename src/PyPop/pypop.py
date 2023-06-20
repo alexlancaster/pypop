@@ -188,9 +188,23 @@ return for each prompt.
 
       print(interactive_message)
 
+      from tkinter import Tk
+      from tkinter.filedialog import askopenfilename
+
+      Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+      
       # read user input for both filenames
-      configFilename = getUserFilenameInput("config", configFilename)
-      fileNames.append(getUserFilenameInput("population", fileName))
+      #configFilename = getUserFilenameInput("config", configFilename)
+      configFilename = askopenfilename(title="Please select a configuration file",
+                                       initialfile=str(Path(configFilename).name),
+                                       initialdir=str(Path(configFilename).parent),
+                                       filetypes=[(".ini files", "*.ini"), ("All Files", "*.*")])
+      
+      #fileNames.append(getUserFilenameInput("population", fileName))
+      fileNames.append(askopenfilename(title="Please select a population file",
+                                       initialfile=str(Path(fileName).name),
+                                       initialdir=str(Path(fileName).parent),
+                                       filetypes=[(".pop files", "*.pop"), ("All Files", "*.*")]))
 
       print("PyPop is processing %s ..." % fileNames[0])
 
