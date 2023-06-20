@@ -9,15 +9,14 @@ running population genetic analyses.  See the `PyPop User Guide
 
 .. _guide-include-start:
 
-Installation (end user)
-=======================
-
 .. note::
 
    The package name for installation purposes is ``pypopgen`` - to
    avoid conflicting with an unrelated package with the name ``pypop``
    already on PyPI. 
 
+Installation (end user)
+=======================
 
 Install Python 3 and ``pip``
 ----------------------------
@@ -43,7 +42,7 @@ Here are some additional platform-specific notes that may be helpful:
 
 - For Windows, see also the `Windows quick-start guide
   <https://docs.python.org/3/using/windows.html>`__ in the official
-  documentation. Running ```python`` in the Windows command terminal
+  documentation. Running ``python`` in the Windows command terminal
   in Windows 11 and later will launch the installer for the
   Microsoft-maintained Windows package of Python 3.
 
@@ -85,7 +84,7 @@ release webpage and install directly, e.g.:
 
 .. code-block:: shell
    
-   pip install --user pypopgen-1.0.0a8-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+   pip install --user pypopgen-1.0.0a15-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 
 (Note that Python uses a normalized and abbreviated version string in
 the distributed packages, so the release tagged in git as
@@ -115,10 +114,10 @@ TBA.  Eventually, we will be making PyPop available directly on `PyPI
 Post-install ``PATH`` adjustments
 ---------------------------------
    
-It's often likely, especially on Windows, that you may need to adjust
-the ``PATH`` settings for the ``pypop`` scripts to be visible when run
-from your console application, without having to supply the full path
-to the file.
+You may need to adjust the ``PATH`` settings (especially on Windows)
+for the ``pypop`` scripts to be visible when run from your console
+application, without having to supply the full path to the ``pypop``
+executable file.
 
 .. warning::
 
