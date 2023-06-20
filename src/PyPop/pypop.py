@@ -78,9 +78,6 @@ def main(argv=sys.argv):
 You may redistribute copies of PyPop under the terms of the
 GNU General Public License.  For more information about these
 matters, see the file named COPYING.
-
-To accept the default in brackets for each filename, simply press
-return for each prompt.
     """ % (version, copyright_message)
 
     ######################################################################
@@ -190,22 +187,34 @@ return for each prompt.
 
       from tkinter import Tk
       from tkinter.filedialog import askopenfilename
+      from _tkinter import TclError
 
-      Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
-      
       # read user input for both filenames
-      #configFilename = getUserFilenameInput("config", configFilename)
-      configFilename = askopenfilename(title="Please select a configuration file",
-                                       initialfile=str(Path(configFilename).name),
-                                       initialdir=str(Path(configFilename).parent),
-                                       filetypes=[(".ini files", "*.ini"), ("All Files", "*.*")])
-      
-      #fileNames.append(getUserFilenameInput("population", fileName))
-      fileNames.append(askopenfilename(title="Please select a population file",
-                                       initialfile=str(Path(fileName).name),
-                                       initialdir=str(Path(fileName).parent),
-                                       filetypes=[(".pop files", "*.pop"), ("All Files", "*.*")]))
+      try:
+          Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
 
+          print("""Select both an '.ini' configuration file and a '.pop' file via the
+system file dialog.""")
+
+          
+          configFilename = askopenfilename(title="Please select a PyPop configuration file",
+                                           initialfile=str(Path(configFilename).name),
+                                           initialdir=str(Path(configFilename).parent),
+                                           filetypes=[(".ini files", "*.ini"), ("All Files", "*.*")])
+
+          fileNames.append(askopenfilename(title="Please select a population (.pop) file",
+                                           initialfile=str(Path(fileName).name),
+                                           initialdir=str(Path(fileName).parent),
+                                           filetypes=[(".pop files", "*.pop"), ("All Files", "*.*")]))
+
+      except TclError:  # if GUI failed, fallback to command-line
+
+          print("""To accept the default in brackets for each filename, simply press
+return for each prompt.""")
+
+          configFilename = getUserFilenameInput("config", configFilename)
+          fileNames.append(getUserFilenameInput("population", fileName))
+      
       print("PyPop is processing %s ..." % fileNames[0])
 
     else:   
