@@ -39,6 +39,7 @@
 import sys, os, time
 from glob import glob
 from configparser import ConfigParser
+from pathlib import Path
 
 def main(argv=sys.argv):
 
@@ -169,18 +170,12 @@ return for each prompt.
       # (i.e. $HOME/.pypoprc) so that in subsequent invocations of the
       # script it will use the previous choices as defaults.
 
-      # For systems without a concept of a $HOME directory (i.e.
-      # Windows), it will look for .pypoprc in the current directory.
-
       # The '.pypoprc' file will be created if it does not previously
       # exist.  The format of this file is identical to the ConfigParser
       # format (i.e. the .ini file format).
 
-      if 'HOME' in os.environ:
-        pypoprcFilename = os.path.join(os.environ['HOME'],'.pypoprc')
-      else:
-        pypoprcFilename = '.pypoprc'
-
+      pypoprcFilename = Path.home() / '.pypoprc'
+        
       pypoprc = ConfigParser()
 
       if os.path.isfile(pypoprcFilename):
@@ -211,11 +206,11 @@ return for each prompt.
       elif popFilenames:
         # check number of arguments, must be at least one, but can be more
         # use args as list to check
-        #li = args
         li = popFilenames
       # otherwise bail out with error
-      #else:
-
+      else:
+        sys.exit("ERROR: neither a list of files, nor a file containing a list was provided")
+          
       # loop through all arguments in li, appending to list of files to
       # process, ensuring we expand any Unix-shell globbing-style
       # arguments
