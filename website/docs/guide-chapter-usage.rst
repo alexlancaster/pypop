@@ -34,17 +34,63 @@ will describe this mode first then describe batch mode.
 Interactive mode
 ----------------
 
-To run PyPop in interactive mode, you can type ``pypop-interactive``
-after starting a console application (on MacOS and GNU/Linux, this is
-normally the :program:`Terminal` program, on Windows, it's
-:program:`Command prompt`). On Windows, you also have the option of
-directly clicking on the ``pypop-interactive.exe`` file in the
-directory where the scripts are installed. In all cases, you should
-see something like the following output:
+To run PyPop in interactive mode, with a minimal "GUI", on Windows or
+MacOS, you can directly click on the ``pypop-interactive`` file in the
+directory where the scripts were installed (see :ref:`post-install
+adjustments <Post-install \`\`PATH\`\` adjustments>`).
+
+You can also type ``pypop-interactive`` after starting a console
+application on all platforms (on MacOS and GNU/Linux, this is normally
+the :program:`Terminal` program, on Windows, it's :program:`Command
+prompt`).
+
+In most cases, this will launch a console showing the following:
 
 .. code-block:: text
 
-   PyPop: Python for Population Genomics (1.0.0a9)
+   PyPop: Python for Population Genomics (1.0.0a15)
+   Copyright (C) 2003-2006 Regents of the University of California
+   Copyright (C) 2007-2023 PyPop team.
+   This is free software.  There is NO warranty; not even for
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+    
+   You may redistribute copies of PyPop under the terms of the GNU
+   General Public License.  For more information about these
+   matters, see the file named COPYING.
+
+   Select both an '.ini' configuration file and a '.pop' file via the
+   system file dialog.
+
+This will be immediately followed by these steps:
+
+1. an appearance of a system file dialog prompting a selection for the
+   ``.ini`` file. Once the ``.ini`` file is selected:
+
+2. this will be followed by the appearance of a second system file
+   dialog for the ``.pop`` file.
+
+3. then after both files are selected, it will return to the console
+   to display the processing of the file (below).
+
+4. when the run is completed, the last line will prompt you to press
+   ``Enter`` to leave the console window.
+
+.. code-block:: text
+
+   PyPop is processing sample.pop ...
+   PyPop run complete!
+   XML output(s) can be found in: ['sample-out.xml']
+   Plain text output(s) can be found in: ['sample-out.txt']
+   Press Enter to continue...
+
+If the system file GUI dialog does not appear (e.g. if you are running
+on a terminal without a display), it will fall-back to a text-mode,
+where you need to type the full (either relative or absolute) paths to
+the files. The output should resemble:
+
+.. code-block:: text
+
+   PyPop: Python for Population Genomics (1.0.0a15)
    Copyright (C) 2003-2006 Regents of the University of California
    Copyright (C) 2007-2023 PyPop team.
    This is free software.  There is NO warranty; not even for
@@ -60,16 +106,17 @@ see something like the following output:
    Please enter config filename [config.ini]: sample.ini
    Please enter population filename [no default]: sample.pop
    PyPop is processing sample.pop ...
-
-   (Note: some messages with the prefix "LOG:" may appear here.  They
-   are informational only and do not indicate improper operation of
-   the program)
-
    PyPop run complete!
    XML output(s) can be found in: ['sample-out.xml']
    Plain text output(s) can be found in: ['sample-out.txt']
    Press Enter to continue...
 
+.. note::		
+
+   Some messages with the prefix "LOG:" may appear during the console
+   operation.  They are informational only and do not indicate
+   improper operation of the program.
+   
 You should substitute the names of your own configuration (e.g.,
 :file:`config.ini`) and population file (e.g., :file:`Guatemalan.pop`) for
 :file:`sample.ini` and :file:`sample.pop`. The formats for these files
