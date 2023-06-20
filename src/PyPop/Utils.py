@@ -831,7 +831,7 @@ def getUserFilenameInput(prompt, filename):
 
     nofile = 1
     while nofile:
-      tempFilename = raw_input("Please enter %s filename [%s]: " % (prompt, filename))
+      tempFilename = input("Please enter %s filename [%s]: " % (prompt, filename))
 
       # if we accept default, still check that file still exists
       if tempFilename == '':
@@ -860,8 +860,8 @@ def splitIntoNGroups(alist, n=1):
     #from itertools import islice    
     #it = iter(alist)
     
-    x = len(alist)/n    # note: don't just drop the last len(alist) % n items
-    y = len(alist)%n
+    x = len(alist) // n    # note: don't just drop the last len(alist) % n items
+    y = len(alist) % n
     
     # initialize an empty list
     retval = []

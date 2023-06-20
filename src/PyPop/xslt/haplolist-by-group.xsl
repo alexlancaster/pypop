@@ -7,7 +7,7 @@
  <xsl:import href="lib.xsl"/>
 
  <!-- select "text" as output method -->
- <xsl:output method="xml" omit-xml-declaration="yes"/>
+ <xsl:output method="xml" encoding="utf8" omit-xml-declaration="yes"/>
 
  <!-- suppress output of random text -->
  <xsl:template match="text()"/>

@@ -33,8 +33,13 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-__version__ = '0.8'
+__version__ = '1.0.0-alpha'
 __pkgname__ = 'PyPop'
+
+copyright_message = """Copyright (C) 2003-2006 Regents of the University of California.
+Copyright (C) 2007-2023 PyPop team.
+This is free software.  There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
 
 import locale
 import logging
