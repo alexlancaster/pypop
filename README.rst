@@ -27,13 +27,25 @@ beyond the scope of this guide, we recommend starting here:
 
    https://wiki.python.org/moin/BeginnersGuide/Download
 
-Note that many systems (mostly Linux distributions) come with Python 3
-preinstalled. MacOS 10.9 (Jaguar) up until 12.3 (Catalina), used to
-ship with Python 2 pre-installed, but it now has to be manually
-installed.  There are quick-start guides for `MacOS
-<https://docs.python.org/3/using/mac.html>`__ and `Windows
-<https://docs.python.org/3/using/windows.html>`__ in the official
-documentation.
+Here are some additional platform-specific notes that may be helpful:
+   
+- Most Linux distributions come with Python 3 preinstalled. On most
+  modern systems, ``pip`` and ``python`` will default to Python 3.
+
+- MacOS 10.9 (Jaguar) up until 12.3 (Catalina), used to ship with
+  Python 2 pre-installed, but it now has to be manually installed.
+  See the `MacOS quick-start guide
+  <https://docs.python.org/3/using/mac.html>`__ in the official
+  documentation for how to install Python 3. (Note that if Python is
+  installed on Mac via the MacOS developer tools, it may include the
+  version ``3`` suffix on commands, e.g. ``python3`` and ``pip3``, so
+  modify the below, accordingly).
+
+- For Windows, see also the `Windows quick-start guide
+  <https://docs.python.org/3/using/windows.html>`__ in the official
+  documentation. Running ```python`` in the Windows command terminal
+  in Windows 11 and later will launch the installer for the
+  Microsoft-maintained Windows package of Python 3.
 
 Install package from GitHub Releases
 ------------------------------------
@@ -52,7 +64,7 @@ available from the GitHub release page:
    
 First, visit the release page, and choose the release version you wish
 to install (usually the most recent), and note the release tag
-(e.g. ``v1.0.0-alpha.8``). Next, use ``pip`` to install the package by
+(e.g. ``v1.0.0-a15``). Next, use ``pip`` to install the package by
 running a command of the form (this will select and install the
 correct wheel for your Python version and operating system
 automatically):
@@ -65,7 +77,7 @@ where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given a
 
 .. code-block:: shell
    
-   pip install --user pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-alpha.8
+   pip install --user pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-a15
 
 
 You can also manually download the specific wheel from the github
@@ -76,9 +88,9 @@ release webpage and install directly, e.g.:
    pip install --user pypopgen-1.0.0a8-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 
 (Note that Python uses a normalized and abbreviated version string in
-the distributed packages, so the release tagged as ``v1.0.0-alpha.8``
-is represented as ``1.0.0a8`` in the wheel files and in the ``pip``
-version).
+the distributed packages, so the release tagged in git as
+``v1.0.0-a15`` is represented as ``1.0.0a15`` in the wheel files and
+in the ``pip`` version).
 		
 **Upgrade an existing PyPop installation**
 
