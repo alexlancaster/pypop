@@ -1,7 +1,7 @@
 include README.rst
 include DEV_NOTES.md
 include LICENSE
-include NEWS
+include NEWS.rst
 include MANIFEST.in
 prune .github
 prune website 
