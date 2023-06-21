@@ -1396,10 +1396,13 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
 
   static double dij[MAX_LOCI*(MAX_LOCI - 1)/2][MAX_ALLELES][MAX_ALLELES];
 
+  CALLOC_ARRAY_DIM1(double, homz_f, MAX_LOCI); /* RS-ALD */	
   CALLOC_ARRAY_DIM1(double, summary_d, MAX_LOCI*(MAX_LOCI - 1)/2);
   CALLOC_ARRAY_DIM1(double, summary_dprime, MAX_LOCI*(MAX_LOCI - 1)/2);
   CALLOC_ARRAY_DIM1(double, summary_q, MAX_LOCI*(MAX_LOCI - 1)/2);
   CALLOC_ARRAY_DIM1(double, summary_wn, MAX_LOCI*(MAX_LOCI - 1)/2);
+  CALLOC_ARRAY_DIM1(double, summary_wab, MAX_LOCI*(MAX_LOCI - 1)/2); /* RS-ALD */
+  CALLOC_ARRAY_DIM1(double, summary_wba, MAX_LOCI*(MAX_LOCI - 1)/2); /* RS-ALD */
 
   double obs = 0.0; 
   double exp = 0.0; 
@@ -1450,6 +1453,8 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
             ( af[j][l]*(1-af[j][l])*af[k][m]*(1-af[k][m]) );
           summary_q[coeff_count] += 2 * (double)n_recs *
             pow(dij[coeff_count][l][m], 2) / ( af[j][l] * af[k][m] ) ;
+          summary_wab[coeff_count] += pow(dij[coeff_count][l][m], 2) / ( af[k][m] ) ;
+          summary_wba[coeff_count] += pow(dij[coeff_count][l][m], 2) / ( af[j][l] ) ;		
           if (dij[coeff_count][l][m] > 0)
           {
             dmax = emh_min( af[j][l]*(1-af[k][m]), (1-af[j][l])*af[k][m] );
@@ -1484,6 +1489,18 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
     }
     
   }
+  
+  /* RS-ALD j=locus */
+  for (j = 0; j < n_loci; j++)
+  {
+    homz_f[j] = 0;
+    for(k = 0; k < n_unique_allele[j]; k++)
+    {
+      homz_f[j]+= pow(af[j][k], 2);
+    }
+   /* fprintf(fp_out,"Locus:%2d\n", j);              */
+   /* fprintf(fp_out,"homz_f: %10.4f\n", homz_f[j]); */
+  }
 
   /* print   summary measures */
 
@@ -1496,16 +1513,20 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
   {
     for (k = j+1; k < n_loci; k++)
     {
+      summary_wab[coeff_count] = sqrt( summary_wab[coeff_count] / (1-homz_f[j]) );
+      summary_wba[coeff_count] = sqrt( summary_wba[coeff_count] / (1-homz_f[k]) );	    
 #ifdef XML_OUTPUT
       xmlfprintf(fp_out, "<summary first=\"%d\" second=\"%d\">\n", j, k);
       if (n_unique_allele[j]==1 || n_unique_allele[k]==1) {
-        xmlfprintf(fp_out, "<wn>NA</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>\n", summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1));
+        xmlfprintf(fp_out, "<ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>\n", summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1));
       } else {
-        xmlfprintf(fp_out, "<wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>%.5f</dsummary><dprime>%.5f</dprime>\n", summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), fabs(summary_d[coeff_count]), fabs(summary_dprime[coeff_count]));
+        xmlfprintf(fp_out, "<ALD_1_2>%.5f</ALD_1_2><ALD_2_1>%.5f</ALD_2_1><wn>%.5f</wn><q><chisq>%.5f</chisq><dof>%d</dof></q><dsummary>%.5f</dsummary><dprime>%.5f</dprime>\n", summary_wab[coeff_count], summary_wba[coeff_count], summary_wn[coeff_count], summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1), fabs(summary_d[coeff_count]), fabs(summary_dprime[coeff_count]));	      
       }
       xmlfprintf(fp_out, "</summary>\n");
 #else
       fprintf(fp_out,"--Loci:%2d\\%2d--\n", j, k);
+      fprintf(fp_out,"             W_ab [T&S, 2014]: %10.4f\n", summary_wab[coeff_count]);
+      fprintf(fp_out,"             W_ba [T&S, 2014]: %10.4f\n", summary_wba[coeff_count]);	    
       fprintf(fp_out,"             Wn [Cohen, 1988]: %10.4f\n", summary_wn[coeff_count]);
       fprintf(fp_out,"               Q [Hill, 1975]: %10.4f (approx. Chi-square %d)\n", 
         summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1) );
