@@ -52,7 +52,7 @@ This guide to PyPop contains three parts:
 .. _user-guide-toc:
 
 .. toctree::
-   :numbered:
+   :numbered: 3
    :maxdepth: 3
 
    guide-chapter-install
