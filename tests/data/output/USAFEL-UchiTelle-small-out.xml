@@ -1309,7 +1309,7 @@
 <uniquepheno>8</uniquepheno>
 <uniquegeno>14</uniquegeno>
 <haplocount>26</haplocount>
-<loglikelihood role="no-ld">-55.268324</loglikelihood>
+<loglikelihood role="no-ld">-50.350627</loglikelihood>
 <iterationsummary>
 <![CDATA[
 --- Iteration Summary for Original Data -------------------------------------------
@@ -1405,7 +1405,7 @@ Percent of iterations with error_flag = 7:   0.000
 </haplotypefreq>
 <linkagediseq>
 <loci first="0" second="1">
-<allelepair first="0210~" second="0102~"><observed>2.00000</observed><expected>0.3750</expected><diseq>0.10156</diseq><norm_dij>1.00000</norm_dij><chisq>9.90476</chisq></allelepair>
+<allelepair first="0210~" second="0102~"><observed>16.00000</observed><expected>0.3750</expected><diseq>0.97656</diseq><norm_dij>9.61538</norm_dij><chisq>915.75092</chisq></allelepair>
 <allelepair first="0210~" second="0712~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="0210~" second="0804~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0210~" second="1202~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
@@ -1415,17 +1415,17 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="0210~" second="0605~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0210~" second="02025~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="03012~" second="0102~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
-<allelepair first="03012~" second="0712~"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>0.42857</norm_dij><chisq>2.93878</chisq></allelepair>
+<allelepair first="03012~" second="0712~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="03012~" second="0804~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="03012~" second="1202~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="03012~" second="0307~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="03012~" second="1507~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="03012~" second="1801~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="03012~" second="0605~"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="03012~" second="0605~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="03012~" second="02025~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0101~" second="0102~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="0101~" second="0712~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="0101~" second="0804~"><observed>1.00000</observed><expected>0.0625</expected><diseq>0.05859</diseq><norm_dij>1.00000</norm_dij><chisq>16.00000</chisq></allelepair>
+<allelepair first="0101~" second="0804~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="0101~" second="1202~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0101~" second="0307~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="0101~" second="1507~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
@@ -1435,26 +1435,26 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="0218~" second="0102~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="0218~" second="0712~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0218~" second="0804~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
-<allelepair first="0218~" second="1202~"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="0218~" second="1202~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0218~" second="0307~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="0218~" second="1507~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0218~" second="1801~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="0218~" second="0605~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="0218~" second="02025~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
-<allelepair first="0201~" second="0102~"><observed>1.00000</observed><expected>0.7500</expected><diseq>0.01562</diseq><norm_dij>0.11111</norm_dij><chisq>0.13675</chisq></allelepair>
+<allelepair first="0201~" second="0102~"><observed>0.00000</observed><expected>0.7500</expected><diseq>-0.04688</diseq><norm_dij>-1.00000</norm_dij><chisq>1.23077</chisq></allelepair>
 <allelepair first="0201~" second="0712~"><observed>0.00000</observed><expected>0.5000</expected><diseq>-0.03125</diseq><norm_dij>-1.00000</norm_dij><chisq>0.76190</chisq></allelepair>
 <allelepair first="0201~" second="0804~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
-<allelepair first="0201~" second="1202~"><observed>1.00000</observed><expected>0.5000</expected><diseq>0.03125</diseq><norm_dij>0.33333</norm_dij><chisq>0.76190</chisq></allelepair>
+<allelepair first="0201~" second="1202~"><observed>0.00000</observed><expected>0.5000</expected><diseq>-0.03125</diseq><norm_dij>-1.00000</norm_dij><chisq>0.76190</chisq></allelepair>
 <allelepair first="0201~" second="0307~"><observed>0.00000</observed><expected>0.7500</expected><diseq>-0.04688</diseq><norm_dij>-1.00000</norm_dij><chisq>1.23077</chisq></allelepair>
-<allelepair first="0201~" second="1507~"><observed>1.00000</observed><expected>0.5000</expected><diseq>0.03125</diseq><norm_dij>0.33333</norm_dij><chisq>0.76190</chisq></allelepair>
+<allelepair first="0201~" second="1507~"><observed>0.00000</observed><expected>0.5000</expected><diseq>-0.03125</diseq><norm_dij>-1.00000</norm_dij><chisq>0.76190</chisq></allelepair>
 <allelepair first="0201~" second="1801~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
 <allelepair first="0201~" second="0605~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
-<allelepair first="0201~" second="02025~"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>1.00000</norm_dij><chisq>3.20000</chisq></allelepair>
+<allelepair first="0201~" second="02025~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
 <allelepair first="2501~" second="0102~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="2501~" second="0712~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="2501~" second="0804~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="2501~" second="1202~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
-<allelepair first="2501~" second="0307~"><observed>2.00000</observed><expected>0.3750</expected><diseq>0.10156</diseq><norm_dij>1.00000</norm_dij><chisq>9.90476</chisq></allelepair>
+<allelepair first="2501~" second="0307~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="2501~" second="1507~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="2501~" second="1801~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="2501~" second="0605~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
@@ -1463,13 +1463,13 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="3204~" second="0712~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="3204~" second="0804~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="3204~" second="1202~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
-<allelepair first="3204~" second="0307~"><observed>1.00000</observed><expected>0.5625</expected><diseq>0.02734</diseq><norm_dij>0.17949</norm_dij><chisq>0.51545</chisq></allelepair>
-<allelepair first="3204~" second="1507~"><observed>1.00000</observed><expected>0.3750</expected><diseq>0.03906</diseq><norm_dij>0.38462</norm_dij><chisq>1.46520</chisq></allelepair>
-<allelepair first="3204~" second="1801~"><observed>1.00000</observed><expected>0.1875</expected><diseq>0.05078</diseq><norm_dij>1.00000</norm_dij><chisq>4.62222</chisq></allelepair>
+<allelepair first="3204~" second="0307~"><observed>0.00000</observed><expected>0.5625</expected><diseq>-0.03516</diseq><norm_dij>-1.00000</norm_dij><chisq>0.85207</chisq></allelepair>
+<allelepair first="3204~" second="1507~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="3204~" second="1801~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="3204~" second="0605~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="3204~" second="02025~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="6814~" second="0102~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
-<allelepair first="6814~" second="0712~"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="6814~" second="0712~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="6814~" second="0804~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="6814~" second="1202~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="6814~" second="0307~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
@@ -1479,34 +1479,34 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="6814~" second="02025~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 </loci>
 <loci first="0" second="2">
-<allelepair first="0210~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="03012~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0101~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0218~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0201~" second="1301~"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="2501~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="3204~" second="1301~"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="6814~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="0210~" second="1301~"><observed>16.00000</observed><expected>2.0000</expected><diseq>0.87500</diseq><norm_dij>inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="03012~" second="1301~"><observed>0.00000</observed><expected>2.0000</expected><diseq>-0.12500</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0101~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.06250</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0218~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.06250</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0201~" second="1301~"><observed>0.00000</observed><expected>4.0000</expected><diseq>-0.25000</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="2501~" second="1301~"><observed>0.00000</observed><expected>2.0000</expected><diseq>-0.12500</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="3204~" second="1301~"><observed>0.00000</observed><expected>3.0000</expected><diseq>-0.18750</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="6814~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.06250</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
 </loci>
 <loci first="1" second="2">
-<allelepair first="0102~" second="1301~"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0712~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0804~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="1202~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0307~" second="1301~"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="1507~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="1801~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0605~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="02025~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="0102~" second="1301~"><observed>16.00000</observed><expected>3.0000</expected><diseq>0.81250</diseq><norm_dij>inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0712~" second="1301~"><observed>0.00000</observed><expected>2.0000</expected><diseq>-0.12500</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0804~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.06250</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="1202~" second="1301~"><observed>0.00000</observed><expected>2.0000</expected><diseq>-0.12500</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0307~" second="1301~"><observed>0.00000</observed><expected>3.0000</expected><diseq>-0.18750</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="1507~" second="1301~"><observed>0.00000</observed><expected>2.0000</expected><diseq>-0.12500</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="1801~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.06250</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0605~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.06250</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="02025~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.06250</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
 </loci>
 <summary first="0" second="1">
-<ALD_1_2>0.76174</ALD_1_2><ALD_2_1>0.75337</ALD_2_1><wn>0.78174</wn><q><chisq>68.44444</chisq><dof>56</dof></q><dsummary>0.02579</dsummary><dprime>0.86447</dprime>
+<wn>2.43975</wn><q><chisq>666.66667</chisq><dof>56</dof></q><dsummary>0.04309</dsummary><dprime>1.20192</dprime>
 </summary>
 <summary first="0" second="2">
-<ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>0.00000</chisq><dof>0</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>
+<wn>inf</wn><q><chisq>112.00000</chisq><dof>0</dof></q><dsummary>nan</dsummary><dprime>inf</dprime>
 </summary>
 <summary first="1" second="2">
-<ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>0.00000</chisq><dof>0</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>
+<wn>inf</wn><q><chisq>69.33333</chisq><dof>0</dof></q><dsummary>nan</dsummary><dprime>inf</dprime>
 </summary>
 </linkagediseq>
 </group>
@@ -1517,7 +1517,7 @@ Percent of iterations with error_flag = 7:   0.000
 <uniquepheno>8</uniquepheno>
 <uniquegeno>14</uniquegeno>
 <haplocount>26</haplocount>
-<loglikelihood role="no-ld">-55.268324</loglikelihood>
+<loglikelihood role="no-ld">-50.350627</loglikelihood>
 <iterationsummary>
 <![CDATA[
 --- Iteration Summary for Original Data -------------------------------------------
@@ -1613,7 +1613,7 @@ Percent of iterations with error_flag = 7:   0.000
 </haplotypefreq>
 <linkagediseq>
 <loci first="0" second="1">
-<allelepair first="0210~" second="0102~"><observed>2.00000</observed><expected>0.3750</expected><diseq>0.10156</diseq><norm_dij>1.00000</norm_dij><chisq>9.90476</chisq></allelepair>
+<allelepair first="0210~" second="0102~"><observed>16.00000</observed><expected>0.3750</expected><diseq>0.97656</diseq><norm_dij>9.61538</norm_dij><chisq>915.75092</chisq></allelepair>
 <allelepair first="0210~" second="0712~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="0210~" second="0804~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0210~" second="1202~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
@@ -1623,17 +1623,17 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="0210~" second="0605~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0210~" second="02025~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="03012~" second="0102~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
-<allelepair first="03012~" second="0712~"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>0.42857</norm_dij><chisq>2.93878</chisq></allelepair>
+<allelepair first="03012~" second="0712~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="03012~" second="0804~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="03012~" second="1202~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="03012~" second="0307~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="03012~" second="1507~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="03012~" second="1801~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="03012~" second="0605~"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="03012~" second="0605~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="03012~" second="02025~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0101~" second="0102~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="0101~" second="0712~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="0101~" second="0804~"><observed>1.00000</observed><expected>0.0625</expected><diseq>0.05859</diseq><norm_dij>1.00000</norm_dij><chisq>16.00000</chisq></allelepair>
+<allelepair first="0101~" second="0804~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="0101~" second="1202~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0101~" second="0307~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="0101~" second="1507~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
@@ -1643,26 +1643,26 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="0218~" second="0102~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="0218~" second="0712~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0218~" second="0804~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
-<allelepair first="0218~" second="1202~"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="0218~" second="1202~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0218~" second="0307~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="0218~" second="1507~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="0218~" second="1801~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="0218~" second="0605~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="0218~" second="02025~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
-<allelepair first="0201~" second="0102~"><observed>1.00000</observed><expected>0.7500</expected><diseq>0.01562</diseq><norm_dij>0.11111</norm_dij><chisq>0.13675</chisq></allelepair>
+<allelepair first="0201~" second="0102~"><observed>0.00000</observed><expected>0.7500</expected><diseq>-0.04688</diseq><norm_dij>-1.00000</norm_dij><chisq>1.23077</chisq></allelepair>
 <allelepair first="0201~" second="0712~"><observed>0.00000</observed><expected>0.5000</expected><diseq>-0.03125</diseq><norm_dij>-1.00000</norm_dij><chisq>0.76190</chisq></allelepair>
 <allelepair first="0201~" second="0804~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
-<allelepair first="0201~" second="1202~"><observed>1.00000</observed><expected>0.5000</expected><diseq>0.03125</diseq><norm_dij>0.33333</norm_dij><chisq>0.76190</chisq></allelepair>
+<allelepair first="0201~" second="1202~"><observed>0.00000</observed><expected>0.5000</expected><diseq>-0.03125</diseq><norm_dij>-1.00000</norm_dij><chisq>0.76190</chisq></allelepair>
 <allelepair first="0201~" second="0307~"><observed>0.00000</observed><expected>0.7500</expected><diseq>-0.04688</diseq><norm_dij>-1.00000</norm_dij><chisq>1.23077</chisq></allelepair>
-<allelepair first="0201~" second="1507~"><observed>1.00000</observed><expected>0.5000</expected><diseq>0.03125</diseq><norm_dij>0.33333</norm_dij><chisq>0.76190</chisq></allelepair>
+<allelepair first="0201~" second="1507~"><observed>0.00000</observed><expected>0.5000</expected><diseq>-0.03125</diseq><norm_dij>-1.00000</norm_dij><chisq>0.76190</chisq></allelepair>
 <allelepair first="0201~" second="1801~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
 <allelepair first="0201~" second="0605~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
-<allelepair first="0201~" second="02025~"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>1.00000</norm_dij><chisq>3.20000</chisq></allelepair>
+<allelepair first="0201~" second="02025~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
 <allelepair first="2501~" second="0102~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="2501~" second="0712~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="2501~" second="0804~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="2501~" second="1202~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
-<allelepair first="2501~" second="0307~"><observed>2.00000</observed><expected>0.3750</expected><diseq>0.10156</diseq><norm_dij>1.00000</norm_dij><chisq>9.90476</chisq></allelepair>
+<allelepair first="2501~" second="0307~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="2501~" second="1507~"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="2501~" second="1801~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="2501~" second="0605~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
@@ -1671,13 +1671,13 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="3204~" second="0712~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="3204~" second="0804~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="3204~" second="1202~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
-<allelepair first="3204~" second="0307~"><observed>1.00000</observed><expected>0.5625</expected><diseq>0.02734</diseq><norm_dij>0.17949</norm_dij><chisq>0.51545</chisq></allelepair>
-<allelepair first="3204~" second="1507~"><observed>1.00000</observed><expected>0.3750</expected><diseq>0.03906</diseq><norm_dij>0.38462</norm_dij><chisq>1.46520</chisq></allelepair>
-<allelepair first="3204~" second="1801~"><observed>1.00000</observed><expected>0.1875</expected><diseq>0.05078</diseq><norm_dij>1.00000</norm_dij><chisq>4.62222</chisq></allelepair>
+<allelepair first="3204~" second="0307~"><observed>0.00000</observed><expected>0.5625</expected><diseq>-0.03516</diseq><norm_dij>-1.00000</norm_dij><chisq>0.85207</chisq></allelepair>
+<allelepair first="3204~" second="1507~"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="3204~" second="1801~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="3204~" second="0605~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="3204~" second="02025~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="6814~" second="0102~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
-<allelepair first="6814~" second="0712~"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="6814~" second="0712~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="6814~" second="0804~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="6814~" second="1202~"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="6814~" second="0307~"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
@@ -1687,7 +1687,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="6814~" second="02025~"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 </loci>
 <summary first="0" second="1">
-<ALD_1_2>0.76174</ALD_1_2><ALD_2_1>0.75337</ALD_2_1><wn>0.78174</wn><q><chisq>68.44444</chisq><dof>56</dof></q><dsummary>0.02579</dsummary><dprime>0.86447</dprime>
+<wn>2.43975</wn><q><chisq>666.66667</chisq><dof>56</dof></q><dsummary>0.04309</dsummary><dprime>1.20192</dprime>
 </summary>
 </linkagediseq>
 </group>
@@ -1698,7 +1698,7 @@ Percent of iterations with error_flag = 7:   0.000
 <uniquepheno>8</uniquepheno>
 <uniquegeno>8</uniquegeno>
 <haplocount>8</haplocount>
-<loglikelihood role="no-ld">-26.509492</loglikelihood>
+<loglikelihood role="no-ld">-28.419034</loglikelihood>
 <iterationsummary>
 <![CDATA[
 --- Iteration Summary for Original Data -------------------------------------------
@@ -1788,17 +1788,17 @@ Percent of iterations with error_flag = 7:   0.000
 </haplotypefreq>
 <linkagediseq>
 <loci first="0" second="1">
-<allelepair first="0210~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="03012~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0101~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0218~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0201~" second="1301~"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="2501~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="3204~" second="1301~"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="6814~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="0210~" second="1301~"><observed>16.00000</observed><expected>2.0000</expected><diseq>0.87500</diseq><norm_dij>inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="03012~" second="1301~"><observed>0.00000</observed><expected>2.0000</expected><diseq>-0.12500</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0101~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.06250</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0218~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.06250</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0201~" second="1301~"><observed>0.00000</observed><expected>4.0000</expected><diseq>-0.25000</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="2501~" second="1301~"><observed>0.00000</observed><expected>2.0000</expected><diseq>-0.12500</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="3204~" second="1301~"><observed>0.00000</observed><expected>3.0000</expected><diseq>-0.18750</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="6814~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.06250</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
 </loci>
 <summary first="0" second="1">
-<ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>0.00000</chisq><dof>0</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>
+<wn>inf</wn><q><chisq>112.00000</chisq><dof>0</dof></q><dsummary>nan</dsummary><dprime>inf</dprime>
 </summary>
 </linkagediseq>
 </group>
@@ -1809,7 +1809,7 @@ Percent of iterations with error_flag = 7:   0.000
 <uniquepheno>8</uniquepheno>
 <uniquegeno>8</uniquegeno>
 <haplocount>9</haplocount>
-<loglikelihood role="no-ld">-32.095322</loglikelihood>
+<loglikelihood role="no-ld">-21.528216</loglikelihood>
 <iterationsummary>
 <![CDATA[
 --- Iteration Summary for Original Data -------------------------------------------
@@ -1900,18 +1900,18 @@ Percent of iterations with error_flag = 7:   0.000
 </haplotypefreq>
 <linkagediseq>
 <loci first="0" second="1">
-<allelepair first="0307~" second="1301~"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0605~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0102~" second="1301~"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0712~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="0804~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="1202~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="1507~" second="1301~"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="1801~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="02025~" second="1301~"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="0307~" second="1301~"><observed>18.00000</observed><expected>4.0000</expected><diseq>0.77778</diseq><norm_dij>inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0605~" second="1301~"><observed>0.00000</observed><expected>2.0000</expected><diseq>-0.11111</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0102~" second="1301~"><observed>0.00000</observed><expected>3.0000</expected><diseq>-0.16667</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0712~" second="1301~"><observed>0.00000</observed><expected>2.0000</expected><diseq>-0.11111</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="0804~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.05556</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="1202~" second="1301~"><observed>0.00000</observed><expected>2.0000</expected><diseq>-0.11111</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="1507~" second="1301~"><observed>0.00000</observed><expected>2.0000</expected><diseq>-0.11111</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="1801~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.05556</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
+<allelepair first="02025~" second="1301~"><observed>0.00000</observed><expected>1.0000</expected><diseq>-0.05556</diseq><norm_dij>-inf</norm_dij><chisq>inf</chisq></allelepair>
 </loci>
 <summary first="0" second="1">
-<ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>0.00000</chisq><dof>0</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>
+<wn>inf</wn><q><chisq>63.00000</chisq><dof>0</dof></q><dsummary>nan</dsummary><dprime>inf</dprime>
 </summary>
 </linkagediseq>
 </group></emhaplofreq>
