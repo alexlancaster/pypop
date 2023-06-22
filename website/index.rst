@@ -10,8 +10,8 @@ PyPop: Python for Population Genomics
     and will no install or work on many platforms. Please follow the
     instructions on the GitHub `README.rst
     <https://github.com/alexlancaster/pypop#readme>`__ for how to
-    build PyPop from source on a modern Python 3 system, install one
-    of the pre-releases when they become available.
+    build PyPop from source on a modern Python 3 system, or install
+    one of the pre-releases when they become available.
 
 .. _news:
 
