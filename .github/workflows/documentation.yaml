@@ -24,7 +24,11 @@ on:
       - '!website/README.md'
       - '!reference/**'
       - '.github/workflows/documentation.yaml'
-    
+  release: 
+     types: 
+      - published
+
+      
 permissions:
     contents: write
 jobs:
