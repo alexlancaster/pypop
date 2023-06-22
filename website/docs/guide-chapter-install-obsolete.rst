@@ -1,25 +1,16 @@
-*************************************************
-Installation instructions for old v0.7.0 binaries
-*************************************************
+************************************************
+Installation instructions for old 0.7.0 binaries
+************************************************
 
 .. danger::
 
-   These instructions refer to the now out-of-date v0.7.0 binaries for
+   These instructions refer to the now out-of-date 0.7.0 binaries for
    the Python 2 version of PyPop and will likely not work on newer
    systems. They are provided only for historical purposes, and will
-   soon be removed once v1.0 binaries for the new Python 3-based
-   version are available via https://pypi.org/.  Please refer to the
-   newer instructions in :doc:`guide-chapter-install` for how to
-   compile and install the pre-release v1.0 version.
-
-.. note::
-
-   * GNU/Linux (the Linux binary needs a recent distribution that a
-     recent glibc (2.8 has been tested): Fedora Core 9 is known to
-     work, earlier versions of Red Hat such as the 7.x series and 8.0
-     are known to not work).
-   * Windows (originally tested on Windows 98, 2000 and XP)   
-
+   soon be removed once 1.0.0 binaries for the new Python 3-based
+   version are available via `PyPI <https://pypi.org/>`__.  Please
+   refer to the newer instructions in :doc:`guide-chapter-install` for
+   how to compile and install pre-release version(s).
    
 .. _install-standalone:
 
@@ -31,6 +22,15 @@ assumptions about external software installed on your system, and for
 the majority of users, will be the simplest way to install PyPop. We
 have only tested them on a subset of the possible operating systems and
 have noted them in the relevant section below.
+
+.. note::
+
+   * GNU/Linux (the Linux binary needs a recent distribution that a
+     recent glibc (2.8 has been tested): Fedora Core 9 is known to
+     work, earlier versions of Red Hat such as the 7.x series and 8.0
+     are known to not work).
+   * Windows (originally tested on Windows 98, 2000 and XP)   
+
 
 .. _install-standalone-linux:
 

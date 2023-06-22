@@ -19,43 +19,104 @@ There are two ways to run PyPop:
 -  batch mode (where you supply all the command line options the program
    needs).
 
-For the most straightforward application of PyPop, where you wish to
-analyze a single population, the interactive mode is the simplest to
-use. We will describe this mode first then describe batch mode.
+For the most simplest application of PyPop, where you wish to analyze
+a single population, the interactive mode is the simplest to use. We
+will describe this mode first then describe batch mode.
+
+.. note::
+
+   The following assumes you have already :ref:`installed PyPop
+   <Installing PyPop>`, done any :ref:`post-install adjustments
+   <Post-install \`\`PATH\`\` adjustments>` needed for your platform, and
+   verified that you can run the main commands (see the
+   :ref:`Examples` section).
 
 Interactive mode
 ----------------
 
-To run PyPop, click the ``pypop.bat`` file (Windows) or type ``./pypop``
-at the command prompt (GNU/Linux). You should see something like the
-following output (this is also described in detail in the instructions
-in the installation guide):
+To run PyPop in interactive mode, with a minimal "GUI", on Windows or
+MacOS, you can directly click on the ``pypop-interactive`` file in the
+directory where the scripts were installed (see :ref:`post-install
+adjustments <Post-install \`\`PATH\`\` adjustments>`).
+
+You can also type ``pypop-interactive`` after starting a console
+application on all platforms (on MacOS and GNU/Linux, this is normally
+the :program:`Terminal` program, on Windows, it's :program:`Command
+prompt`).
+
+In most cases, this will launch a console showing the following:
 
 .. code-block:: text
 
-   PyPop: Python for Population Genomics (0.4.3)
-   Copyright (C) 2003 Regents of the University of California
+   PyPop: Python for Population Genomics (1.0.0a15)
+   Copyright (C) 2003-2006 Regents of the University of California
+   Copyright (C) 2007-2023 PyPop team.
    This is free software.  There is NO warranty; not even for
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
     
-   You may redistribute copies of PyPop under the terms of the
-   GNU General Public License.  For more information about these
+   You may redistribute copies of PyPop under the terms of the GNU
+   General Public License.  For more information about these
    matters, see the file named COPYING.
+
+   Select both an '.ini' configuration file and a '.pop' file via the
+   system file dialog.
+
+This will be immediately followed by these steps:
+
+1. an appearance of a system file dialog prompting a selection for the
+   ``.ini`` file. Once the ``.ini`` file is selected:
+
+2. this will be followed by the appearance of a second system file
+   dialog for the ``.pop`` file.
+
+3. then after both files are selected, it will return to the console
+   to display the processing of the file (below).
+
+4. when the run is completed, the last line will prompt you to press
+   ``Enter`` to leave the console window.
+
+.. code-block:: text
+
+   PyPop is processing sample.pop ...
+   PyPop run complete!
+   XML output(s) can be found in: ['sample-out.xml']
+   Plain text output(s) can be found in: ['sample-out.txt']
+   Press Enter to continue...
+
+If the system file GUI dialog does not appear (e.g. if you are running
+on a terminal without a display), it will fall-back to a text-mode,
+where you need to type the full (either relative or absolute) paths to
+the files. The output should resemble:
+
+.. code-block:: text
+
+   PyPop: Python for Population Genomics (1.0.0a15)
+   Copyright (C) 2003-2006 Regents of the University of California
+   Copyright (C) 2007-2023 PyPop team.
+   This is free software.  There is NO warranty; not even for
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
     
+   You may redistribute copies of PyPop under the terms of the GNU
+   General Public License.  For more information about these
+   matters, see the file named COPYING.
+   
    To accept the default in brackets for each filename, simply press
    return for each prompt.
+      
    Please enter config filename [config.ini]: sample.ini
    Please enter population filename [no default]: sample.pop
-   PyPop is processing sample.pop 
-
-   (Note: some messages with the prefix "LOG:" may appear here.
-   They are informational only and do not indicate improper operation 
-   of the program)
-
+   PyPop is processing sample.pop ...
    PyPop run complete!
-   XML output can be found in: sample-out.xml
-   Plain text output can be found in: sample-out.txt
+   XML output(s) can be found in: ['sample-out.xml']
+   Plain text output(s) can be found in: ['sample-out.txt']
+   Press Enter to continue...
 
+.. note::		
+
+   Some messages with the prefix "LOG:" may appear during the console
+   operation.  They are informational only and do not indicate
+   improper operation of the program.
+   
 You should substitute the names of your own configuration (e.g.,
 :file:`config.ini`) and population file (e.g., :file:`Guatemalan.pop`) for
 :file:`sample.ini` and :file:`sample.pop`. The formats for these files
@@ -66,13 +127,15 @@ are described in the sections on the :ref:`data file
 Batch mode
 ----------
 
-To run PyPop in batch mode, you can start PyPop from the command line
-(in Windows: open a DOS shell, GNU/Linux: open a terminal window),
-change to the directory where you unpacked PyPop and type
+To run PyPop in the more common "batch mode", you can run PyPop from
+the console (as noted above, on Windows: open :program:`Command
+prompt`, aka a "DOS shell"; on MacOS or GNU/Linux: open the
+:program:`Terminal` application). Change to a directory where your
+``.pop`` file is located, and type the command:
 
 .. code-block:: text
 
-   pypop-batch Guatemalan.pop
+   pypop Guatemalan.pop
 
 .. note::
 
@@ -81,20 +144,21 @@ change to the directory where you unpacked PyPop and type
 
 Batch mode assumes two things: that you have a file called
 :file:`config.ini` in your current folder and that you also have your
-population file also in the current folder. You can specify a particular
+population file is in the current folder, otherwise you will need to
+supply the full path to the file. You can specify a particular
 configuration file for PyPop to use, by supplying the ``-c`` option as
 follows:
 
 .. code-block:: text
 
-   pypop-batch -c newconfig.ini Guatemalan.pop
+   pypop -c newconfig.ini Guatemalan.pop
 
 You may also redirect the output to a different directory (which must
 already exist) by using the ``-o`` option:
 
 .. code-block:: text
 
-   pypop-batch -c newconfig.ini -o altdir Guatemalan.pop
+   pypop -c newconfig.ini -o altdir Guatemalan.pop
 
 Please see :ref:`guide-pypop-cli` for the full list of command-line
 options.
@@ -153,7 +217,7 @@ generated in similar fashion in the previous ``pypop`` runs:
 
 .. code-block:: text
 
-   popmeta-batch -o altdir Guatemalan-out.xml NorthAmerican-out.xml
+   popmeta -o altdir Guatemalan-out.xml NorthAmerican-out.xml
 
 This will generate a number of ``.dat`` files, including
 :file:`1-locus-allele.dat`.
@@ -173,16 +237,17 @@ run (assuming that the configuration file can be used for both
 
 .. code-block:: text
 
-   pypop-batch -c newconfig.ini -o altdir Guatemalan.pop NorthAmerican.pop --enable-tsv
+   pypop -c newconfig.ini -o altdir Guatemalan.pop NorthAmerican.pop --enable-tsv
 
 
 Command-line interfaces
 =======================
 
-Described below is the usage for both programs,
-including a full list of the current command-line options
-and arguments.  Note that you can also view this full list of options from the program itself by supplying the ``--help`` option, i.e. ``pypop-batch --help``, or ``popmeta-batch --help``,
-respectively.
+Described below is the usage for both programs, including a full list
+of the current command-line options and arguments.  Note that you can
+also view this full list of options from the program itself by
+supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
+--help``, respectively.
 
 .. _guide-pypop-cli:
 
@@ -192,7 +257,7 @@ respectively.
 .. argparse::
    :filename: src/PyPop/CommandLineInterface.py
    :func: get_pypop_cli
-   :prog: pypop.py
+   :prog: pypop
    :nodescription:
    :noepilog:
    :nodefaultconst:
@@ -205,7 +270,7 @@ respectively.
 .. argparse::
    :filename: src/PyPop/CommandLineInterface.py
    :func: get_popmeta_cli
-   :prog: popmeta.py
+   :prog: popmeta
    :nodescription:
    :noepilog:
    :nodefaultconst:

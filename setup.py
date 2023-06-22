@@ -40,8 +40,10 @@ from setuptools import setup
 from setuptools.extension import Extension
 from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
+from src.PyPop import __pkgname__, __version_scheme__
 
-from src.PyPop import __version__, __pkgname__
+src_dir = "src"
+pkg_dir = "PyPop"
 
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
@@ -51,9 +53,9 @@ from src.PyPop import __version__, __pkgname__
 class CleanCommand(clean.clean):
     """Customized clean command - removes in_place extension files if they exist"""
     def run(self):
-        DIR = os.path.dirname(__file__)
+        DIR = os.path.join(os.path.dirname(__file__), src_dir)
         # generate glob pattern from extension name and suffix
-        ext_files = [os.path.join(DIR, __pkgname__, ext.name.split(__pkgname__ + '.').pop() + ("*.pyd" if sys.platform == "win32" else "*.so")) for ext in extensions]
+        ext_files = [os.path.join(DIR, pkg_dir, ext.name.split(pkg_dir + '.').pop() + ("*.pyd" if sys.platform == "win32" else "*.so")) for ext in extensions]
         for ext_file in ext_files:
             for ext_file in glob(ext_file):
                 if os.path.exists(ext_file):
@@ -70,7 +72,6 @@ if "LIBRARY_PATH" in os.environ:
 if "CPATH" in os.environ:
     include_dirs += os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
 
-src_dir = "src"
 # generate the appropriate relative path to source directory, given
 # paths within that source directory (this means we need to define
 # this directory in just one place
@@ -213,25 +214,32 @@ data_file_paths = []
 xslt_files = [f + '.xsl' for f in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
 data_file_paths.extend(xslt_files)
 
-setup (name = 'pypop',
-       version = __version__,
+setup (name = __pkgname__,
+       use_scm_version={
+           'write_to': os.path.join(src_dir, pkg_dir, "_version.py"),
+           'version_scheme': __version_scheme__,
+       },
        description = "Python for Population Genetics",
        long_description = \
        """PyPop is a framework for population genetics statistics
 particularly large-scale multilocus genotype data""",
        url = "http://www.pypop.org/",
-       maintainer = "Alex Lancaster",
-       maintainer_email = "alexl@cal.berkeley.edu",
+       maintainer = "PyPop team",
        license = "GNU GPL",
        platforms = ["GNU/Linux", "Windows", "MacOS"],
        package_dir = {"": src_dir},
        packages = ["PyPop", "PyPop.xslt"],
        package_data={"PyPop.xslt": data_file_paths},
-       install_requires = ["numpy", "lxml", "psutil", "importlib-resources; python_version <= '3.8'"],
+       install_requires = ["numpy", "lxml", "psutil", "importlib-resources; python_version <= '3.8'", "importlib-metadata; python_version <= '3.8'"],
        extras_require={
            "test": ['pytest']
            },
-       scripts= ['src/bin/pypop.py', 'src/bin/popmeta.py'],
+       entry_points = {
+           'console_scripts': ['pypop=PyPop.pypop:main',
+                               'popmeta=PyPop.popmeta:main',
+                               'pypop-interactive=PyPop.pypop:main_interactive']
+       },
        ext_modules=extensions,
        cmdclass={'clean': CleanCommand,},
        )
+

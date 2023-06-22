@@ -6,34 +6,28 @@ PyPop: Python for Population Genomics
 
 .. warning::
    
-    The old Python 2 binary releases are deprecated and no longer
-    maintained. We are working making PyPop available via `pypi.org
-    <https://pypi.org>`__, but for the time being, please follow
-    the instructions on the GitHub** `README.rst
+    The old 0.7.0 binary releases based on Python 2, are deprecated
+    and will no install or work on many platforms. Please follow the
+    instructions on the GitHub `README.rst
     <https://github.com/alexlancaster/pypop#readme>`__ for how to
-    build the new Python 3-compatible |release| PyPop from source on
-    a modern Python 3 system.
+    build PyPop from source on a modern Python 3 system, or install
+    one of the pre-releases when they become available.
 
 .. _news:
 
-.. admonition:: Release history and news
+.. admonition:: Release summary and news
   :class: dropdown	
 
-  - 2023: ported to Python 3, developer can compile the v1.0.0-alpha
-    version - no formal release yet.
-  - 2022: v0.7.0 binaries are now officially deprecated.
-  - 2020: pypop is no longer an official Fedora package. Future releases
-    will be made available via PyPi.org
-  - 2017: all new development is now in GitHub, no official release
-    yet
+  - 2023: ported to Python 3, pre-release alpha versions of 1.0.0
+    under development - no formal release yet. Eventually future
+    releases will be delivered via `PyPI <https://pypi.org>`__.
+  - 2022: 0.7.0 binaries deprecated.
+  - 2020: pypop is no longer a Fedora package
+  - 2017: all new development is now in GitHub
   - 2008-09-09: 0.7.0 release (many new features and bug fixes)
-  - 2005-04-13: 0.6.0 released (new features and bug fixes)
-  - 2004-03-09: 0.5.2 released (bug fix release, fixes Windows 98
-    .bat file problems)
-  - 2004-02-26: 0.5.1 released (mainly a bug fix and maintainance
-    release)
-  - 2003-12-31: 0.5 released (first public beta)
 
+  See the :ref:`PyPop Release History` in the `Python User Guide` for
+  earlier history and full release notes.
 
 .. _guide-preface-1-start:
 

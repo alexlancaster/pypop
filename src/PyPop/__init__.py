@@ -33,9 +33,20 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-__version__ = '1.0.0-alpha'
-__pkgname__ = 'PyPop'
+__pkgname__ = 'pypopgen'
+__version_scheme__ = 'post-release'
 
+try: 
+    import importlib.metadata as metadata_lib # look for built-in
+except (ModuleNotFoundError, ImportError):
+    import importlib_metadata as metadata_lib  # otherwise need the backport
+
+try:
+    __version__ = metadata_lib.version(__pkgname__) # use the installed version first
+except metadata_lib.PackageNotFoundError:
+    from setuptools_scm import get_version
+    __version__ = get_version(version_scheme=__version_scheme__)  # next try the version in repo
+    
 copyright_message = """Copyright (C) 2003-2006 Regents of the University of California.
 Copyright (C) 2007-2023 PyPop team.
 This is free software.  There is NO warranty; not even for

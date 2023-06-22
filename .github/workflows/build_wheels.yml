@@ -15,6 +15,9 @@ on:
       - 'CITATION.cff'
       - 'website/**'
       - '.github/workflows/documentation.yaml'
+  release: 
+     types: 
+      - published
 
 jobs:
   build_wheels:
@@ -26,6 +29,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Build and test wheels
         uses: pypa/cibuildwheel@v2.13.1
@@ -50,3 +55,23 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           path: dist/*.tar.gz 
+
+  upload_gh_release:
+    name: Upload binary wheels and sdist to GH release page
+    needs: [build_wheels, build_sdist]
+    runs-on: ubuntu-latest
+    # upload to gh on every tag starting with 'v'
+    #if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    # alternatively, to publish when a GitHub Release is created, use the following rule:
+    if: github.event_name == 'release' && github.event.action == 'published'
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          # unpacks default artifact into dist/
+          # if `name: artifact` is omitted, the action will create extra parent dir
+          name: artifact
+          path: dist
+      - uses: softprops/action-gh-release@v1
+        name: Uploading binaries to release page
+        with:
+          files: dist/*

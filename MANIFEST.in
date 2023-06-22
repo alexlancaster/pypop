@@ -1,17 +1,10 @@
 include README.rst
 include DEV_NOTES.md
 include LICENSE
-include NEWS
+include NEWS.rst
 include MANIFEST.in
-include data/config-canonical.ini
-recursive-include src/SWIG typemap.i
-recursive-include src/emhaplofreq emhaplofreq.h Makefile
-recursive-include src/gthwe *.h Makefile README.1
-recursive-include src/slatkin-exact Makefile README
-recursive-include src/pval Makefile dpq.h nmath.h Rconfig.h Rmath.h
-recursive-include src/pval/R_ext Arith.h Boolean.h Error.h Mathlib.h RS.h
-recursive-include src/haplo-stats haplo_em_pin.h Makefile README.md test*.py
-recursive-include tests *.py
-recursive-include tests/data *.ini *.pop *.txt
-recursive-include tests/data/output *.dat *.txt *.xml
+prune .github
+prune website 
+prune data/*
+prune src/obsolete
 exclude setup.cfg
