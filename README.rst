@@ -9,11 +9,13 @@ running population genetic analyses.  See the `PyPop User Guide
 
 .. _guide-include-start:
 
-.. note::
+.. ATTENTION:: 
 
-   The package name for installation purposes is ``pypopgen`` - to
-   avoid conflicting with an unrelated package with the name ``pypop``
-   already on PyPI. 
+   The working package name for installation purposes is
+   ``pypopgen`` - to avoid conflicting with an unrelated package with
+   the name ``pypop`` already on `PyPI <https://pypi.org>`__. This may
+   change and is not yet the final package name until the package is
+   released to PyPI.
 
 Installation (end user)
 =======================
