@@ -60,7 +60,7 @@ This guide to PyPop contains three parts:
    guide-chapter-instructions
    guide-chapter-install-obsolete
    guide-chapter-changes
-   COPYING
+   licenses
    biblio
 
 

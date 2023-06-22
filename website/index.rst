@@ -6,32 +6,28 @@ PyPop: Python for Population Genomics
 
 .. warning::
    
-    The old Python 2 binary releases are deprecated and no longer
-    maintained. Please follow the instructions on the GitHub
-    `README.rst <https://github.com/alexlancaster/pypop#readme>`__ for
-    how install one of the pre-releases built for Python 3, or to
-    build PyPop from source on a modern Python 3 system.
+    The old 0.7.0 binary releases based on Python 2, are deprecated
+    and will no install or work on many platforms. Please follow the
+    instructions on the GitHub `README.rst
+    <https://github.com/alexlancaster/pypop#readme>`__ for how to
+    build PyPop from source on a modern Python 3 system, install one
+    of the pre-releases when they become available.
 
 .. _news:
 
 .. admonition:: Release summary and news
   :class: dropdown	
 
-  - 2023: ported to Python 3, pre-release alpha versions of 1.0.0 made
-    available - no formal release yet.
-  - 2022: 0.7.0 binaries officially deprecated.
-  - 2020: pypop is no longer an official Fedora package. Planning
-    starts for future releases to be made available via https://pypi.org
-  - 2017: all new development is now in GitHub, no official release
+  - 2023: ported to Python 3, pre-release alpha versions of 1.0.0
+    under development - no formal release yet. Eventually future
+    releases will be delivered via `PyPI <https://pypi.org>`__.
+  - 2022: 0.7.0 binaries deprecated.
+  - 2020: pypop is no longer a Fedora package
+  - 2017: all new development is now in GitHub
   - 2008-09-09: 0.7.0 release (many new features and bug fixes)
-  - 2005-04-13: 0.6.0 released (new features and bug fixes)
-  - 2004-03-09: 0.5.2 released (bug fix release)
-  - 2004-02-26: 0.5.1 released (bug fix and maintainance
-    release)
-  - 2003-12-31: 0.5 released (first public beta)
 
-  See full :ref:`PyPop Release History` in the documentation
-  
+  See the :ref:`PyPop Release History` in the `Python User Guide` for
+  earlier history and full release notes.
 
 .. _guide-preface-1-start:
 
