@@ -44,7 +44,7 @@ application on all platforms (on MacOS and GNU/Linux, this is normally
 the :program:`Terminal` program, on Windows, it's :program:`Command
 prompt`).
 
-In most cases, this will launch a console showing the following:
+In most cases, this will launch a console with the following:
 
 .. code-block:: text
 
@@ -61,34 +61,36 @@ In most cases, this will launch a console showing the following:
    Select both an '.ini' configuration file and a '.pop' file via the
    system file dialog.
 
-This will be immediately followed by these steps:
+Following this:
 
-1. an appearance of a system file dialog prompting a selection for the
-   ``.ini`` file. Once the ``.ini`` file is selected:
+1. the system file dialog will appear prompting you to select an
+   ``.ini`` :ref:`configuration file <guide-usage-configfile>`. 
 
-2. this will be followed by the appearance of a second system file
-   dialog for the ``.pop`` file.
+2. a second system file dialog will prompt you for a ``.pop``
+   :ref:`data file <guide-usage-datafile>`.
 
-3. then after both files are selected, it will return to the console
-   to display the processing of the file (below).
+3. after both files are selected the console will display the
+   processing of the file:
+
+   .. code-block:: text
+      :emphasize-lines: 5
+		
+      PyPop is processing sample.pop ...
+      PyPop run complete!
+      XML output(s) can be found in: ['sample-out.xml']
+      Plain text output(s) can be found in: ['sample-out.txt']
+      Press Enter to continue...
 
 4. when the run is completed, the last line will prompt you to press
-   ``Enter`` to leave the console window.
-
-.. code-block:: text
-
-   PyPop is processing sample.pop ...
-   PyPop run complete!
-   XML output(s) can be found in: ['sample-out.xml']
-   Plain text output(s) can be found in: ['sample-out.txt']
-   Press Enter to continue...
-
+   ``Enter`` to leave the console window (highlighted above).
+		
 If the system file GUI dialog does not appear (e.g. if you are running
-on a terminal without a display), it will fall-back to a text-mode,
-where you need to type the full (either relative or absolute) paths to
-the files. The output should resemble:
+on a terminal without a display), it will fall-back to text-mode entry
+for the files, where you need to type the full (either relative or
+absolute) paths to the files. The output should resemble:
 
 .. code-block:: text
+   :emphasize-lines: 14,15
 
    PyPop: Python for Population Genomics (1.0.0a15)
    Copyright (C) 2003-2006 Regents of the University of California
@@ -117,12 +119,12 @@ the files. The output should resemble:
    operation.  They are informational only and do not indicate
    improper operation of the program.
    
-You should substitute the names of your own configuration (e.g.,
-:file:`config.ini`) and population file (e.g., :file:`Guatemalan.pop`) for
-:file:`sample.ini` and :file:`sample.pop`. The formats for these files
-are described in the sections on the :ref:`data file
-<guide-usage-datafile>` and :ref:`configuration file
-<guide-usage-configfile>`, below.
+In both cases you should substitute the names of your own
+configuration (e.g., :file:`config.ini`) and population file (e.g.,
+:file:`Guatemalan.pop`) for :file:`sample.ini` and :file:`sample.pop`
+(highlighted above). The formats for these files are described in the
+sections on the :ref:`data file <guide-usage-datafile>` and
+:ref:`configuration file <guide-usage-configfile>`, below.
 
 Batch mode
 ----------
