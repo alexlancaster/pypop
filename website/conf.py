@@ -164,6 +164,8 @@ latex_elements = {
     #
     # 'pointsize': '10pt',
 
+    # make PDF shorter by allowing chapters to start immediately
+    'extraclassoptions': 'openany,oneside',
     # Additional stuff for the LaTeX preamble.
     #
     'preamble': r'''\DeclareRobustCommand{\and}{%
