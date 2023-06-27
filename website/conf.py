@@ -74,7 +74,7 @@ numfig = True
 from setuptools_scm import get_version
 
 # The full version, including alpha/beta/rc tags, don't normalize for documentation
-full_release = get_version('..', normalize=False, version_scheme="post-release")
+full_release = get_version('..', normalize=True, version_scheme="post-release")
 # The version without the .post or .dev variants
 version = full_release.split('.post')[0]
 release = version # make the release and version be the same

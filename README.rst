@@ -63,41 +63,49 @@ available from the GitHub release page:
    testing, they are not intended to be used for production
    applications or analysis**
    
-First, visit the release page, and choose the release version you wish
-to install (usually the most recent), and note the release tag
-(e.g. ``v1.0.0-a15``). Next, use ``pip`` to install the package by
-running a command of the form (this will select and install the
-correct wheel for your Python version and operating system
-automatically):
+1. First, visit the release page, and choose the release version you
+   wish to install (usually the most recent), and note the release tag
+   (e.g. ``v1.0.0-a15``).
 
-.. code-block:: shell
+   .. admonition:: Release version numbers
+
+      Note that version of the release is slightly different to the
+      ``git`` tag.  This is because the ``git`` tag follows `Semantic
+      Versioning <https://semver.org/>`__, which Python internally
+      normalizes and abbreviates.  So the release with the ``git`` tag
+      ``v1.0.0-a15`` is actually version ``1.0.0a15`` of the
+      ``pypopgen`` package, and the version that ``pip`` "sees".
+
+2. Next, use ``pip`` to install the package by running a command of
+   the form (this will select and install the correct wheel for your
+   Python version and operating system automatically):
+
+   .. code-block:: shell
       
-   pip install --user pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
+      pip install --user pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
 
-where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
+   where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
 
-.. code-block:: shell
+   .. code-block:: shell
    
-   pip install --user pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-a15
+      pip install --user pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-a15
 
+   You can also manually download the specific wheel from the github
+   release webpage and install directly, e.g.:
 
-You can also manually download the specific wheel from the github
-release webpage and install directly, e.g.:
-
-.. code-block:: shell
+   .. code-block:: shell
    
-   pip install --user pypopgen-1.0.0a15-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-
-(Note that Python uses a normalized and abbreviated version string in
-the distributed packages, so the release tagged in git as
-``v1.0.0-a15`` is represented as ``1.0.0a15`` in the wheel files and
-in the ``pip`` version).
+      pip install --user pypopgen-1.0.0a15-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 		
 **Upgrade an existing PyPop installation**
 
 To update an existing installation to a newer version, use the same
 command as above, but add the ``--upgrade`` (short version: ``-U``)
-flag, i.e. ``pip install -U --user pypopgen -f ...``.
+flag, i.e.
+
+.. code-block:: shell
+
+   pip install -U --user pypopgen -f ...
 
 		
 Install package from PyPI
