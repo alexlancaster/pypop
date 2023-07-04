@@ -135,18 +135,18 @@ When ``pip install`` cannot install in a read-only system-wide
 location , ``pip`` will gracefully "fall-back" to installing just for
 you in your home directory (typically ``~/.local/lib/python<VER>``
 where ``<VER>`` is the version number of your current Python), so
-there is no need to do anything special.
+there is no need to supply an additional command-line option.
 
-However, you can also explicitly force installation to be in the user
-directory, by adding the ``--user`` option to the ``pip install``
-command, i.e.:
+However, you can also explicitly set installation to be in the user
+directory, by adding the ``--user`` command-line option to the ``pip
+install`` command, i.e.:
 
 .. code-block:: shell
 
    pip install pypopgen --user ...
 
-This may be necessary in certain cases where the fallback doesn't
-work.
+This may be necessary in certain cases where ``pip install`` doesn't
+install into the expected user directory.
    
 .. admonition:: Installing within a ``conda`` environment
 
