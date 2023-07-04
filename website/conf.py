@@ -32,7 +32,7 @@ sys.path.insert(0, os.path.abspath('../src'))
 # ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel',
               'myst_parser', 'rst2pdf.pdfbuilder',
-              'sphinx_togglebutton', 'sphinxarg.ext']
+              'sphinx_togglebutton', 'sphinxarg.ext', 'sphinx_copybutton']
 
 #autosectionlabel_prefix_document = True
 
@@ -153,6 +153,16 @@ html_extra_path = ['html_root']
 
 
 # -- Options for LaTeX output ---------------------------------------------
+
+from sphinx.highlighting import PygmentsBridge
+from pygments.formatters.latex import LatexFormatter
+
+class CustomLatexFormatter(LatexFormatter):
+    def __init__(self, **options):
+        super(CustomLatexFormatter, self).__init__(**options)
+        self.verboptions = r"formatcom=\footnotesize"
+
+PygmentsBridge.latex_formatter = CustomLatexFormatter
 
 latex_show_urls = 'inline'
 

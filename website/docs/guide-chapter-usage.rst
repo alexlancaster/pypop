@@ -293,6 +293,16 @@ Sample files
 Data can be input either as genotypes, or in an allele count format,
 depending on the format of your data.
 
+.. admonition:: Data files are tab-delimited
+
+   These population files are plain text files, such as you might save
+   out of the :program:`Notepad` application on Windows (or
+   :program:`Emacs`). The columns are all tab-delimited, so you can
+   include spaces in your labels. If you have your data in a
+   spreadsheet application, such as :program:`Excel` or
+   :program:`LibreOffice`, export the file as tab-delimited text, in
+   order to use it as PyPop data file.
+
 As you will see in the following examples, population files begin with
 header information. In the simplest case, the first line contains the
 column headers for the genotype, allele count, or, sequence information
@@ -311,120 +321,56 @@ ignored.
 
 :numref:`config-minimal-example` shows the relevant lines for the
 configuration to read in the data shown in
-:numref:`data-minimal-noheader-noids` through to :numref:`data-allelecount`.
+:numref:`data-minimal-noheader-noids` and :numref:`data-minimal-noheader`.
 
-.. code-block:: text
+.. literalinclude:: ../../tests/data/doc-examples/data-minimal-noheader-noids.pop
    :name: data-minimal-noheader-noids
    :caption: Multi-locus allele-level genotype data
+   :language: text
 
-   a_1   a_2   c_1   c_2   b_1   b_2
-   ****  ****  0102  02025 1301  18012 
-   0101  0201  0307  0605  1401  39021 
-   0210  03012 0712  0102  1520  1301  
-   0101  0218  0804  1202  35091 4005  
-   2501  0201  1507  0307  51013 1401  
-   0210  3204  1801  0102  78021 1301  
-   03012 3204  1507  0605  51013 39021 
-     
-   
 This is an example of the simplest kind of data file.
 
-.. code-block:: text
+.. literalinclude:: ../../tests/data/doc-examples/data-minimal-noheader.pop
    :name: data-minimal-noheader
    :caption: Multi-locus allele-level HLA genotype data with sample information
-
-   populat    id        a_1   a_2   c_1   c_2   b_1   b_2
-   UchiTelle  UT900-23  ****  ****  0102  02025 1301  18012 
-   UchiTelle  UT900-24  0101  0201  0307  0605  1401  39021 
-   UchiTelle  UT900-25  0210  03012 0712  0102  1520  1301  
-   UchiTelle  UT900-26  0101  0218  0804  1202  35091 4005  
-   UchiTelle  UT910-01  2501  0201  1507  0307  51013 1401  
-   UchiTelle  UT910-02  0210  3204  1801  0102  78021 1301  
-   UchiTelle  UT910-03  03012 3204  1507  0605  51013 39021 
-     
+   :language: text
 
 This example shows a data file which has non-allele data in some
 columns, here we have population (``populat``) and sample identifiers
 (``id``).
 
-.. code-block:: text
+.. literalinclude:: ../../tests/data/doc-examples/data-hla.pop
    :name: data-hla
    :caption: Multi-locus allele-level HLA genotype data with sample and header information
-
-   labcode method              ethnic  contin  collect        latit           longit          
-   USAFEL  12th Workshop SSOP  Telle   NW Asia Targen Village 41 deg 12 min N 94 deg 7 min E  
-   populat     id         a_1     a_2     c_1     c_2     b_1     b_2     
-   UchiTelle   UT900-23   ****    ****    0102    02025   1301    18012   
-   UchiTelle   UT900-24   0101    0201    0307    0605    1401    39021   
-   UchiTelle   UT900-25   0210    03012   0712    0102    1520    1301    
-   UchiTelle   UT900-26   0101    0218    0804    1202    35091   4005    
-   UchiTelle   UT910-01   2501    0201    1507    0307    51013   1401    
-   UchiTelle   UT910-02   0210    3204    1801    0102    78021   1301    
-   UchiTelle   UT910-03   03012   3204    1507    0605    51013   39021   
+   :language: text
 
 This is an example of a data file which is identical to
 :numref:`data-minimal-noheader`, but which includes population level
 information.
 
-.. code-block:: text
+.. literalinclude:: ../../tests/data/doc-examples/data-hla-microsat.pop
    :name: data-hla-microsat
    :caption: Multi-locus allele-level HLA genotype and microsatellite genotype data with header information
-
-   labcode ethnic  complex
-   USAFEL  ****    0
-   populat    id      drb1_1  drb1_2  dqb1_1  dqb1_2  d6s2222_1  d6s2222_2  
-   UchiTelle  HJK_2   01      0301    0201     0501    249        249        
-   UchiTelle  HJK_1   0301    0301    0201     0201    249        249        
-   UchiTelle  HJK_3   01      0301    0201     0501    249        249        
-   UchiTelle  HJK_4   01      0301    0201     0501    249        249        
-   UchiTelle  MYU_2   02      0401    0302     0602    247        249        
-   UchiTelle  MYU_1   0301    0301    0201     0201    247        249        
-   UchiTelle  MYU_3   0301    0401    0201     0302    249        249        
-   UchiTelle  MYU_4   0301    0401    0201     0302    247        249
+   :language: text
 
 This example mixes different kinds of data: HLA allele data (from DRB1
 and DQB1 loci) with microsatellite data (locus D6S2222).
 
-.. code-block:: text
+.. literalinclude:: ../../tests/data/doc-examples/data-nucleotide.pop
    :name: data-nucleotide
    :caption: Sequence genotype data with header information
-
-   labcode file                                                
-   BLOGGS  C_New
-   popName ID       TGFB1cdn10(1) TGFB1cdn10(2) TGFBhapl(1) TGFBhapl(2) 
-   Urboro  XQ-1     C             T             CG          TG     
-   Urboro  XQ-2     C             C             CG          CG     
-   Urboro  XQ-5     C             T             CG          TG     
-   Urboro  XQ-21    C             T             CG          TG     
-   Urboro  XQ-7     C             T             CG          TG     
-   Urboro  XQ-20    C             T             CG          TG     
-   Urboro  XQ-6     T             T             TG          TG     
-   Urboro  XQ-8     C             T             CG          TG     
-   Urboro  XQ-9     T             T             TG          TG     
-   Urboro  XQ-10    C             T             CG          TG     
+   :language: text
      
-
 This example includes nucleotide sequence data: the TGFB1CDN10 locus
 consists of one nucleotide, the TGFBhapl locus is actually haplotype
 data, but PyPop simply treats each combination as a separate "allele"
 for subsequent analysis.
 
-.. code-block:: text
+.. literalinclude:: ../../tests/data/doc-examples/data-allelecount.pop
    :name: data-allelecount
    :caption: Allele count data
-
-   populat    method  ethnic     country    latit   longit
-   UchiTelle  PCR-SSO Klingon    QZ         052.81N 100.25E
-   dqa1  count
-   0101  31
-   0102  37
-   0103  17
-   0201  21
-   0301  32
-   0401  9
-   0501  35
+   :language: text
      
-
 PyPop can also process allele count data. However, you cannot mix allele
 count data and genotype data together in the one file.
 
@@ -435,12 +381,6 @@ count data and genotype data together in the one file.
    *one locus*. In order to process multiple loci for one population you
    must create a separate ``.pop`` for each locus.
 
-These population files are plain text files, such as you might save
-out of the :program:`Notepad` application on Windows (or
-:program:`Emacs`). The columns are all tab-delimited, so you can
-include spaces in your labels. If you have your data in a spreadsheet
-application, such as :program:`Excel` or :program:`LibreOffice`, export the file as
-tab-delimited text, in order to use it as PyPop data file.
 
 Missing data
 ------------
@@ -513,40 +453,11 @@ is contained in :ref:`config-advanced`.
 .. Minimal ``config.ini`` file
 .. ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block:: ini
+.. literalinclude:: ../../tests/data/doc-examples/config-minimal-example.ini
    :name: config-minimal-example
    :caption: Minimal config.ini file
    :emphasize-lines: 1,4,14,17,22,25
-
-   [General]                  
-   debug=0            
-                  
-   [ParseGenotypeFile]        
-   untypedAllele=****         
-   alleleDesignator=*         
-   validSampleFields=*a_1     
-    *a_2              
-    *c_1              
-    *c_2              
-    *b_1              
-    *b_2              
-                  
-   [HardyWeinberg]            
-   lumpBelow=5                
-
-   [HardyWeinbergGuoThompson] 
-   dememorizationSteps=2000
-   samplingNum=1000
-   samplingSize=1000
-
-   [HomozygosityEWSlatkinExact] 
-   numReplicates=10000
-
-   [Emhaplofreq]              
-   allPairwiseLD=1
-   allPairwiseLDWithPermu=0
-   ;;numPermuInitCond=5
-
+   :language: ini		    
 
 **Configuration file sections** (highlighted above)
    
