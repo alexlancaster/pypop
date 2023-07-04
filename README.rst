@@ -134,8 +134,9 @@ on Windows and MacOS.)
 When ``pip install`` cannot install in a read-only system-wide
 location , ``pip`` will gracefully "fall-back" to installing just for
 you in your home directory (typically ``~/.local/lib/python<VER>``
-where ``<VER>`` is the version number of your current Python), so
-there is no need to supply an additional command-line option.
+where ``<VER>`` is the version number of your current Python). In
+general, this is what is wanted, so the above instructions are
+normally sufficient.
 
 However, you can also explicitly set installation to be in the user
 directory, by adding the ``--user`` command-line option to the ``pip
