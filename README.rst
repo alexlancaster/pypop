@@ -122,28 +122,39 @@ flag, i.e.
 
 **Issues with installation permission**
 
-By default, ``pip`` will attempt to install a package "system-wide"
-(i.e. wherever the current Python installation is installed), but
-generally when using ``pip`` you will be installing for a
-single-user. In most cases, a ``pip install`` will gracefully
-"fall-back" to installing it in your home directory (typically
-``~/.local/lib/python<VER>`` where ``<VER>`` is the version number of
-your current Python).
+By default, ``pip`` will attempt to install the ``pypopgen`` package
+wherever the current Python installation is installed.  This location
+may be a user-specific virtual environment (like ``conda``, see
+below), or a system-wide installation. On many Unix-based systems,
+Python will generally already be pre-installed in a "system-wide"
+location (e.g. under ``/usr/lib``) which is read-only for regular
+users. (This can also be true for system-installed versions of Python
+on Windows and MacOS.)
 
-If you are still having issues with installation, and this fallback
-doesn't work, you can invoke explicitly by adding the ``--user``
-option to the ``pip install``, i.e.:
+When ``pip install`` cannot install in a read-only system-wide
+location , ``pip`` will gracefully "fall-back" to installing just for
+you in your home directory (typically ``~/.local/lib/python<VER>``
+where ``<VER>`` is the version number of your current Python), so
+there is no need to do anything special.
+
+However, you can also explicitly force installation to be in the user
+directory, by adding the ``--user`` option to the ``pip install``
+command, i.e.:
 
 .. code-block:: shell
 
-   pip install --user pypopgen...
+   pip install pypopgen --user ...
 
+This may be necessary in certain cases where the fallback doesn't
+work.
+   
 .. admonition:: Installing within a ``conda`` environment
 
-   In the special case that you are installing using a Python from
-   within a ``conda`` virtual environment, then you should not need to
-   add the ``--user`` option because the virtual environment is
-   user-specific.
+   In the special case that you installing from within an activated
+   user-specific ``conda`` virtual environment that provides Python,
+   then you should **not** add the ``--user`` because it will install
+   it in ``~/.local/lib/`` rather than under the user-specific conda
+   virtual environment in ``~/.conda/envs/``.
 		
 Install package from PyPI [not yet available]
 ---------------------------------------------
@@ -475,7 +486,7 @@ well, you should see something like:
 
 .. code-block:: text
 
-   pypop 1.0.0a8
+   pypop 1.0.0a23
    Copyright (C) 2003-2006 Regents of the University of California.
    Copyright (C) 2007-2023 PyPop team.
    This is free software.  There is NO warranty; not even for
