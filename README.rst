@@ -20,6 +20,12 @@ running population genetic analyses.  See the `PyPop User Guide
 Installation (end user)
 =======================
 
+There are two steps to the end-user installation:
+
+1. install Python and ``pip``
+2. install package from Github release
+
+
 Install Python 3 and ``pip``
 ----------------------------
 
@@ -62,10 +68,17 @@ available from the GitHub release page:
    **These pre-release versions are being made available for initial
    testing, they are not intended to be used for production
    applications or analysis**
+
+.. note::
+
+   If, for whatever reason, you cannot use the these binaries
+   (e.g. the pre-compiled binaries are not available for your
+   platform), you may need to follow the `developer installation
+   instructions <Installation (developer)_>`_, below.
    
 1. First, visit the release page, and choose the release version you
    wish to install (usually the most recent), and note the release tag
-   (e.g. ``v1.0.0-a15``).
+   (e.g. ``v1.0.0-a23``).
 
    .. admonition:: Release version numbers
 
@@ -73,7 +86,7 @@ available from the GitHub release page:
       ``git`` tag.  This is because the ``git`` tag follows `Semantic
       Versioning <https://semver.org/>`__, which Python internally
       normalizes and abbreviates.  So the release with the ``git`` tag
-      ``v1.0.0-a15`` is actually version ``1.0.0a15`` of the
+      ``v1.0.0-a23`` is actually version ``1.0.0a23`` of the
       ``pypopgen`` package, and the version that ``pip`` "sees".
 
 2. Next, use ``pip`` to install the package by running a command of
@@ -82,20 +95,20 @@ available from the GitHub release page:
 
    .. code-block:: shell
       
-      pip install --user pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
+      pip install pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
 
    where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
 
    .. code-block:: shell
    
-      pip install --user pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-a15
+      pip install pypopgen -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-a23
 
    You can also manually download the specific wheel from the github
    release webpage and install directly, e.g.:
 
    .. code-block:: shell
    
-      pip install --user pypopgen-1.0.0a15-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+      pip install pypopgen-1.0.0a23-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 		
 **Upgrade an existing PyPop installation**
 
@@ -105,21 +118,50 @@ flag, i.e.
 
 .. code-block:: shell
 
-   pip install -U --user pypopgen -f ...
+   pip install -U pypopgen -f ...
 
+**Issues with installation permission**
+
+By default, ``pip`` will attempt to install the ``pypopgen`` package
+wherever the current Python installation is installed.  This location
+may be a user-specific virtual environment (like ``conda``, see
+below), or a system-wide installation. On many Unix-based systems,
+Python will generally already be pre-installed in a "system-wide"
+location (e.g. under ``/usr/lib``) which is read-only for regular
+users. (This can also be true for system-installed versions of Python
+on Windows and MacOS.)
+
+When ``pip install`` cannot install in a read-only system-wide
+location , ``pip`` will gracefully "fall-back" to installing just for
+you in your home directory (typically ``~/.local/lib/python<VER>``
+where ``<VER>`` is the version number of your current Python). In
+general, this is what is wanted, so the above instructions are
+normally sufficient.
+
+However, you can also explicitly set installation to be in the user
+directory, by adding the ``--user`` command-line option to the ``pip
+install`` command, i.e.:
+
+.. code-block:: shell
+
+   pip install pypopgen --user ...
+
+This may be necessary in certain cases where ``pip install`` doesn't
+install into the expected user directory.
+   
+.. admonition:: Installing within a ``conda`` environment
+
+   In the special case that you installing from within an activated
+   user-specific ``conda`` virtual environment that provides Python,
+   then you should **not** add the ``--user`` because it will install
+   it in ``~/.local/lib/`` rather than under the user-specific conda
+   virtual environment in ``~/.conda/envs/``.
 		
-Install package from PyPI
--------------------------
+Install package from PyPI [not yet available]
+---------------------------------------------
 
 TBA.  Eventually, we will be making PyPop available directly on `PyPI
 <https://pypi.org/>`__.
-
-.. note::
-
-   If, for whatever reason, you cannot use the these binaries
-   (e.g. the pre-compiled binaries are not available for your
-   platform), you may need to follow the developer installation
-   instructions, below.
 
 Post-install ``PATH`` adjustments
 ---------------------------------
@@ -445,7 +487,7 @@ well, you should see something like:
 
 .. code-block:: text
 
-   pypop 1.0.0a8
+   pypop 1.0.0a23
    Copyright (C) 2003-2006 Regents of the University of California.
    Copyright (C) 2007-2023 PyPop team.
    This is free software.  There is NO warranty; not even for
