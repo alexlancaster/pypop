@@ -214,23 +214,37 @@ data_file_paths = []
 xslt_files = [f + '.xsl' for f in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-r', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
 data_file_paths.extend(xslt_files)
 
+# read the contents of your README file
+from pathlib import Path
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.rst").read_text()
+
 setup (name = __pkgname__,
        use_scm_version={
            'write_to': os.path.join(src_dir, pkg_dir, "_version.py"),
            'version_scheme': __version_scheme__,
        },
        description = "Python for Population Genetics",
-       long_description = \
-       """PyPop is a framework for population genetics statistics
-particularly large-scale multilocus genotype data""",
+       long_description=long_description,
+       long_description_content_type='text/x-rst',
        url = "http://www.pypop.org/",
+       author = "Alex Lancaster",
        maintainer = "PyPop team",
        license = "GNU GPL",
        platforms = ["GNU/Linux", "Windows", "MacOS"],
+       keywords = ["bioinformatics", "population-genomics", "evolutionary-biology", "population-genetics"],
+       classifiers = ["Programming Language :: Python :: 3",
+                      "Intended Audience :: Science/Research",
+                      "Topic :: Scientific/Engineering :: Bio-Informatics",
+                      "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+                      "Operating System :: MacOS :: MacOS X",
+                      "Operating System :: Microsoft :: Windows",
+                      "Operating System :: POSIX :: Linux",
+                      ],
        package_dir = {"": src_dir},
        packages = ["PyPop", "PyPop.xslt"],
        package_data={"PyPop.xslt": data_file_paths},
-       install_requires = ["numpy", "lxml", "psutil", "importlib-resources; python_version <= '3.8'", "importlib-metadata; python_version <= '3.8'"],
+       install_requires = ["numpy", "lxml <= 4.9.2", "psutil", "importlib-resources; python_version <= '3.8'", "importlib-metadata; python_version <= '3.8'"],
        extras_require={
            "test": ['pytest']
            },
