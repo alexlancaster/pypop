@@ -5,14 +5,14 @@ PyPop is a framework for processing genotype and allele data and
 running population genetic analyses.  See the `PyPop User Guide
 <http://pypop.org/docs>`__ for a more detailed description.
 
-.. |pkgname| replace:: ``pypopgenomics``
+.. |pkgname| replace:: ``pypop-genomics``
 
 .. _guide-include-start:
 
 .. ATTENTION:: 
 
    The working package name for installation purposes is
-   ``pypopgenomics`` - to avoid conflicting with an unrelated package with
+   ``pypop-genomics`` - to avoid conflicting with an unrelated package with
    the name ``pypop`` already on `PyPI <https://pypi.org>`__. This may
    change and is not yet the final package name until the package is
    released to PyPI.
@@ -58,7 +58,7 @@ Install package from GitHub Releases
 ------------------------------------
 
 Once you have both python and ``pip`` installed, you can use ``pip``
-to install pre-compiled binary "wheels" of ``pypopgenomics`` pre-releases,
+to install pre-compiled binary "wheels" of ``pypop-genomics`` pre-releases,
 available from the GitHub release page:
 
    https://github.com/alexlancaster/pypop/releases
@@ -87,7 +87,7 @@ available from the GitHub release page:
       Versioning <https://semver.org/>`__, which Python internally
       normalizes and abbreviates.  So the release with the ``git`` tag
       ``v1.0.0-a23`` is actually version ``1.0.0a23`` of the
-      ``pypopgenomics`` package, and the version that ``pip`` "sees".
+      ``pypop-genomics`` package, and the version that ``pip`` "sees".
 
 2. Next, use ``pip`` to install the package by running a command of
    the form (this will select and install the correct wheel for your
@@ -95,20 +95,20 @@ available from the GitHub release page:
 
    .. code-block:: shell
       
-      pip install pypopgenomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
+      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
 
    where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
 
    .. code-block:: shell
    
-      pip install pypopgenomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-a23
+      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-a23
 
    You can also manually download the specific wheel from the github
    release webpage and install directly, e.g.:
 
    .. code-block:: shell
    
-      pip install pypopgenomics-1.0.0a23-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+      pip install pypop-genomics-1.0.0a23-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 		
 **Upgrade an existing PyPop installation**
 
@@ -118,11 +118,11 @@ flag, i.e.
 
 .. code-block:: shell
 
-   pip install -U pypopgenomics -f ...
+   pip install -U pypop-genomics -f ...
 
 **Issues with installation permission**
 
-By default, ``pip`` will attempt to install the ``pypopgenomics`` package
+By default, ``pip`` will attempt to install the ``pypop-genomics`` package
 wherever the current Python installation is installed.  This location
 may be a user-specific virtual environment (like ``conda``, see
 below), or a system-wide installation. On many Unix-based systems,
@@ -144,7 +144,7 @@ install`` command, i.e.:
 
 .. code-block:: shell
 
-   pip install pypopgenomics --user ...
+   pip install pypop-genomics --user ...
 
 This may be necessary in certain cases where ``pip install`` doesn't
 install into the expected user directory.
@@ -457,7 +457,7 @@ can remove the installed version:
 
 ::
 
-   pip uninstall pypopgenomics
+   pip uninstall pypop-genomics
 
 To clean-up any compiled files and force a recompilation from scratch,
 run the ``clean`` command:
