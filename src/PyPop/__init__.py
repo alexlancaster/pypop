@@ -33,7 +33,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-__pkgname__ = 'pypopgenomics'
+__pkgname__ = 'pypop-genomics'
 __version_scheme__ = 'post-release'
 
 try: 
