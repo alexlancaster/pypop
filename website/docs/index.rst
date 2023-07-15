@@ -57,6 +57,7 @@ This guide to PyPop contains three parts:
    guide-chapter-install
    guide-chapter-usage
    guide-chapter-instructions
+   guide-chapter-contributing
    guide-chapter-install-obsolete
    guide-chapter-changes
    licenses
