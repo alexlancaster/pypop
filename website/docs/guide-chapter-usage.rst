@@ -11,11 +11,10 @@ frequency data (as in :numref:`data-allelecount`),
 microsatellite data, SNP data, and nucleotide and amino acid sequence
 data.
 
-As mentioned in the installation chapter, a minimal working example of a config file (.ini.) and
-a population file (.pop) can be found by clicking the respective links. 
-
-``.ini`` :ref:`configuration file <https://github.com/mmariani123/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`. 
-``.ini`` :ref:`configuration file <https://github.com/mmariani123/pypop/blob/main/tests/data/minimal.ini>`. 
+As mentioned in the installation chapter, a minimal working example 
+of a :ref:`configuration file (.ini) <https://github.com/mmariani123/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`, 
+and a :ref:`population file (.pop) <https://github.com/mmariani123/pypop/blob/main/tests/data/minimal.ini>`, 
+can be found by clicking the respective links. 
 
 There are two ways to run PyPop:
 
