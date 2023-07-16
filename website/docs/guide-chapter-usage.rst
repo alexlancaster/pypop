@@ -11,6 +11,9 @@ frequency data (as in :numref:`data-allelecount`),
 microsatellite data, SNP data, and nucleotide and amino acid sequence
 data.
 
+*As mentioned in the installation chapter, a minimal working example of a config file (.ini.) and
+a population file (.pop) can be found by clicking the respective links. 
+
 There are two ways to run PyPop:
 
 -  interactive mode (where the program will prompt you to directly type
