@@ -47,10 +47,11 @@ In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
 Installation
 ============
 
-There are two steps to install PyPop:
+Here are the steps to install PyPop:
 
 1. install Python and ``pip``
 2. install package from Test PyPI
+3. adjusting your ``PATH`` variable after installation
 
 Install Python 3 and ``pip``
 ----------------------------
