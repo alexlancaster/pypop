@@ -2,8 +2,11 @@ Python for Population Genomics (PyPop)
 ======================================
 
 PyPop is a framework for processing genotype and allele data and
-running population genetic analyses.  See the `PyPop User Guide
-<http://pypop.org/docs>`__ for a more detailed description.
+running population genetic analyses, including conformity to
+Hardy-Weinberg expectations; tests for balancing or directional
+selection; estimates of haplotype frequencies and measures and tests
+of significance for linkage disequilibrium (LD).  .  See the `PyPop
+User Guide <http://pypop.org/docs>`__ for a more detailed description.
 
 .. |pkgname| replace:: ``pypop-genomics``
 
@@ -23,7 +26,7 @@ Installation
 There are two steps to install PyPop:
 
 1. install Python and ``pip``
-2. install package from Github release
+2. install package from Test PyPI
 
 Install Python 3 and ``pip``
 ----------------------------
@@ -53,20 +56,24 @@ Here are some additional platform-specific notes that may be helpful:
   in Windows 11 and later will launch the installer for the
   Microsoft-maintained Windows package of Python 3.
 
-Install package from GitHub Releases
-------------------------------------
+Install package from PyPI
+-------------------------
 
 Once you have both python and ``pip`` installed, you can use ``pip``
-to install pre-compiled binary "wheels" of ``pypop-genomics`` pre-releases,
-available from the GitHub release page:
-
-   https://github.com/alexlancaster/pypop/releases
+to install pre-compiled binary "wheels" of ``pypop-genomics``
+pre-releases, test packages for PyPop available directly on the `Test
+PyPI <https://test.pypi.org/>`__.
 
 .. warning::
 
    **These pre-release versions are being made available for initial
    testing, they are not intended to be used for production
-   applications or analysis**
+   applications or analysis, and are not yet included in the main
+   pypi.org index**
+
+.. code-block:: shell
+
+   pip install pypop-genomics --extra-index-url https://test.pypi.org/simple/ 
 
 .. note::
 
@@ -75,6 +82,64 @@ available from the GitHub release page:
    platform), you may need to follow the :ref:`developer installation
    instructions <Installation for developers>` in the contributors
    guide.
+		
+**Upgrade an existing PyPop installation**
+
+To update an existing installation to a newer version, use the same
+command as above, but add the ``--upgrade`` (short version: ``-U``)
+flag, i.e.
+
+.. code-block:: shell
+
+   pip install -U pypop-genomics --extra-index-url https://test.pypi.org/simple/ 
+
+**Issues with installation permission**
+
+By default, ``pip`` will attempt to install the ``pypop-genomics``
+package wherever the current Python installation is installed.  This
+location may be a user-specific virtual environment (like ``conda``,
+see below), or a system-wide installation. On many Unix-based systems,
+Python will generally already be pre-installed in a "system-wide"
+location (e.g. under ``/usr/lib``) which is read-only for regular
+users. (This can also be true for system-installed versions of Python
+on Windows and MacOS.)
+
+When ``pip install`` cannot install in a read-only system-wide
+location , ``pip`` will gracefully "fall-back" to installing just for
+you in your home directory (typically ``~/.local/lib/python<VER>``
+where ``<VER>`` is the version number of your current Python). In
+general, this is what is wanted, so the above instructions are
+normally sufficient.
+
+However, you can also explicitly set installation to be in the user
+directory, by adding the ``--user`` command-line option to the ``pip
+install`` command, i.e.:
+
+.. code-block:: shell
+
+   pip install pypop-genomics --user ...
+
+This may be necessary in certain cases where ``pip install`` doesn't
+install into the expected user directory.
+   
+.. admonition:: Installing within a ``conda`` environment
+
+   In the special case that you installing from within an activated
+   user-specific ``conda`` virtual environment that provides Python,
+   then you should **not** add the ``--user`` because it will install
+   it in ``~/.local/lib/`` rather than under the user-specific conda
+   virtual environment in ``~/.conda/envs/``.
+  
+Install package from GitHub Releases (advanced)
+-----------------------------------------------
+
+We also sometimes make binary packages also available from the GitHub
+release page:
+
+   https://github.com/alexlancaster/pypop/releases
+
+To install these is similar to installing via PyPI above, except that
+you need to explicitly provide a URL to the release page.
    
 1. First, visit the release page, and choose the release version you
    wish to install (usually the most recent), and note the release tag
@@ -110,59 +175,6 @@ available from the GitHub release page:
    
       pip install pypop-genomics-1.0.0a23-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 		
-**Upgrade an existing PyPop installation**
-
-To update an existing installation to a newer version, use the same
-command as above, but add the ``--upgrade`` (short version: ``-U``)
-flag, i.e.
-
-.. code-block:: shell
-
-   pip install -U pypop-genomics -f ...
-
-**Issues with installation permission**
-
-By default, ``pip`` will attempt to install the ``pypop-genomics`` package
-wherever the current Python installation is installed.  This location
-may be a user-specific virtual environment (like ``conda``, see
-below), or a system-wide installation. On many Unix-based systems,
-Python will generally already be pre-installed in a "system-wide"
-location (e.g. under ``/usr/lib``) which is read-only for regular
-users. (This can also be true for system-installed versions of Python
-on Windows and MacOS.)
-
-When ``pip install`` cannot install in a read-only system-wide
-location , ``pip`` will gracefully "fall-back" to installing just for
-you in your home directory (typically ``~/.local/lib/python<VER>``
-where ``<VER>`` is the version number of your current Python). In
-general, this is what is wanted, so the above instructions are
-normally sufficient.
-
-However, you can also explicitly set installation to be in the user
-directory, by adding the ``--user`` command-line option to the ``pip
-install`` command, i.e.:
-
-.. code-block:: shell
-
-   pip install pypop-genomics --user ...
-
-This may be necessary in certain cases where ``pip install`` doesn't
-install into the expected user directory.
-   
-.. admonition:: Installing within a ``conda`` environment
-
-   In the special case that you installing from within an activated
-   user-specific ``conda`` virtual environment that provides Python,
-   then you should **not** add the ``--user`` because it will install
-   it in ``~/.local/lib/`` rather than under the user-specific conda
-   virtual environment in ``~/.conda/envs/``.
-		
-Install package from PyPI [not yet available]
----------------------------------------------
-
-TBA.  Eventually, we will be making PyPop available directly on `PyPI
-<https://pypi.org/>`__.
-
 Post-install ``PATH`` adjustments
 ---------------------------------
    
@@ -258,38 +270,17 @@ plain text version:
    USAFEL-UchiTelle-small-out.xml
    USAFEL-UchiTelle-small-out.txt
 
-Support
-=======
+Support and development
+=======================
 
-Please submit any bug reports,feature requests or questions, via our GitHub issue tracker:
-
+Please submit any bug reports, feature requests or questions, via our
+GitHub issue tracker (see our :ref:`bug reporting guidelines
+<reporting and requesting>` for more details on how to file a good bug
+report):
 
    https://github.com/alexlancaster/pypop/issues
-
-Please **do not** report via private email to developers.
-
-Bug reporting
--------------
-
-When reporting bugs, especially during installation, please run the
-following and include the output:
-
-.. code:: shell
-
-   echo $CPATH
-   echo $LIBRARY_PATH
-   echo $PATH
-   which python
-
-If you are running on MacOS, and you used the MacPorts installation
-method, please also run and include the output of:
-
-::
-
-   port installed
-
-Development
------------
+   
+**Please do not report bugs via private email to developers.**
 
 The development of the code for PyPop is via our GitHub project:
 
@@ -297,13 +288,18 @@ The development of the code for PyPop is via our GitHub project:
 
 .. _guide-include-end:
 
-More detailed notes and background relevant for maintainers, packagers
-and developers are maintained in `DEV_NOTES.md <DEV_NOTES.md>`__. Source for website and the documentation is located in the `website <website>`__ subdirectory.
+For a detailed description on bug reporting as well as how to
+contribute to PyPop, please consult our `CONTRIBUTING.rst
+<CONTRIBUTING.rst#reporting-and-requesting>`_ guide. We also have
+additional notes and background relevant for developers in
+`DEV_NOTES.md <DEV_NOTES.md>`__. Source for the website and the
+documentation is located in the `website <website>`__ subdirectory.
 
 Copyright and License
 =====================
 
-PyPop is Copyright (C) 2003-2015. The Regents of the University of
+PyPop is Copyright (C) 2003-2006. The Regents of the University of
 California (Regents)
+Copyright (C) 2007-2023 PyPop team.
 
 PyPop is distributed under the terms of GPLv2

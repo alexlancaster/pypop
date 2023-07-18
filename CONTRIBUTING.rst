@@ -8,7 +8,7 @@ Contributions are welcome, and they are greatly appreciated! Every
 little bit helps, and credit will always be given. You can contribute
 from the scope of an user or as a core Python developer.
 
-Reporting and Requesting
+Reporting and requesting
 ========================
 
 Did you find a bug?
@@ -29,6 +29,24 @@ blank issue and describe your situation.
 
 * If possible, use the relevant bug report templates to create the issue.
 
+* When reporting bugs, especially during installation, please run the
+  following and include the output:
+
+  .. code:: shell
+
+     echo $CPATH
+     echo $LIBRARY_PATH
+     echo $PATH
+     which python
+
+  If you are running on MacOS, and you used the MacPorts installation
+  method, please also run and include the output of:
+
+  ::
+
+    port installed
+
+  
 Documentation improvements
 --------------------------
 
@@ -62,7 +80,7 @@ steps are:
 2. cloning the main repo on to your local machine
 3. making a new branch
 4. `installing a development version <Installation for developers_>`_ on your machine
-5. updating your branch when "upstream" (the main repository has changes) to include those changes in your local branch
+5. updating your branch when "upstream" (the main repository) has changes to include those changes in your local branch
 6. updating the changelog in ``NEWS.rst``
 7. checking unit tests pass
 8. making a pull request
@@ -110,7 +128,7 @@ Build locally
 Now you are ready to make your changes.  First, you need to build
 ``pypop`` locally on your machine, and ensure it works, see the
 separate section on `building and installing a development version
-<Installation for developers>`_.
+<Installation for developers_>`_.
 
 Once you have done the installation and have verified that it works
 you can start to develop the feature, or make the bug fix, and keep
