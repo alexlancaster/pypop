@@ -34,14 +34,16 @@ Documentation improvements
 
 **pypop** could always use more documentation, whether as part of the
 official docs, in docstrings, or even on the web in blog posts,
-articles, and such. Write us a `documentation issue <https://github.com/alexlancaster/pypop/issues/new?assignees=joaomcteixeira&labels=documentation&template=documentation.md&title=%5BDOCUMENTATION%5D>`_ describing what you
+articles, and such. Write us a `documentation issue <https://github.com/alexlancaster/pypop/issues/new>`_ describing what you
 would like to see improved in here, and, if you can do
 it, just `Pull Request <https://github.com/alexlancaster/pypop/pulls>`_ your proposed updates ``:-)``.
 
 Feature requests and feedback
 -----------------------------
 
-The best way to send feedback is to file an issue using the `feature template <https://github.com/alexlancaster/pypop/issues/new?assignees=joaomcteixeira&labels=enhancement&template=feature_request.md&title=%5BFEATURE%5D>`_.
+The best way to send feedback is to file an issue using the `feature
+template
+<https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=&projects=&template=feature_request.md>`_.
 
 If you are proposing a feature:
 
@@ -49,24 +51,213 @@ If you are proposing a feature:
 * Keep the scope as narrow as possible, to make it easier to implement.
 * Remember that this is a volunteer-driven project, and that code contributions are welcome 
 
-Code Development
-================
+Making a code contribution
+==========================
 
-General instructions
+To contribute new code that implement a feature, or fix a bug, this
+section provides a step-by-step guide to getting you set-up.  The main
+steps are:
+
+1. forking the repository (or "repo")
+2. cloning the main repo on to your local machine
+3. making a new branch
+4. `installing a development version <Installation for developers_>`_ on your machine
+5. updating your branch when "upstream" (the main repository has changes) to include those changes in your local branch
+6. updating the changelog in ``NEWS.rst``
+7. checking unit tests pass
+8. making a pull request
+
+
+Fork this repository
 --------------------
+
+`Fork this repository before contributing`_. Forks creates a cleaner representation of the `contributions to the
+project`_.
+
+Clone the main repository
+-------------------------
+
+Next, clone the main repository to your local machine:
+
+::
+
+    git clone https://github.com/alexlancaster/pypop.git
+    cd pypop
+
+Add your fork as an upstream repository:
+
+::
+
+    git remote add myfork git://github.com/YOUR-USERNAME/pypop.git
+    git fetch myfork
+
+Make a new branch
+-----------------
+
+From the ``main`` branch create a new branch where to develop the new code.
+
+::
+
+    git checkout main
+    git checkout -b new_branch
+
+
+**Note** the ``main`` branch is from the main repository.
+
+Build locally
+-------------
+
+Now you are ready to make your changes.  First, you need to build
+``pypop`` locally on your machine, and ensure it works, see the
+separate section on `building and installing a development version
+<Installation for developers>`_.
+
+Once you have done the installation and have verified that it works
+you can start to develop the feature, or make the bug fix, and keep
+regular pushes to your fork with comprehensible commit messages.
+
+::
+
+    git status
+    git add # (the files you want)
+    git commit # (add a nice commit message)
+    git push myfork new_branch
+
+While you are developing, you can execute ``pytest`` as needed to run
+your unit tests. See `run unit tests with pytest`_.
+
+Keep your branch in sync with upstream
+--------------------------------------
+
+You should keep your branch in sync with the upstream ``main``
+branch. For that:
+
+::
+
+    git checkout main  # return to the main branch
+    git pull  # retrieve the latest source from the main repository
+    git checkout new_branch  # return to your devel branch
+    git merge --no-ff main  # merge the new code to your branch
+
+At this point you may need to solve merge conflicts if they exist. If you don't
+know how to do this, I suggest you start by reading the `official docs
+<https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-on-github>`_
+
+You can push to your fork now if you wish:
+
+::
+
+    git push myfork new_branch
+
+And, continue doing your developments are previously discussed.
+
+Update NEWS.rst
+---------------
+
+Update the changelog file under :code:`NEWS.rst` with an explanatory
+bullet list of your contribution. Add that list under the "Notes
+towards the next release" under the appropriate category, e.g. for a
+new feature you would add something like:
+
+.. code-block:: text
+
+    Notes towards next release
+    --------------------------
+    (unreleased)
+
+    New features
+    ^^^^^^^^^^^^
+    
+    * here goes my new additions
+    * explain them shortly and well
+
+
+Also add your name to the authors list at :code:`website/docs/AUTHORS.rst`.
+
+Run unit tests with ``pytest``
+------------------------------
+
+Once you have done your initial installation, you should first check
+that the build worked, by running the test suite, via ``pytest``:
+
+::
+
+   pytest tests
+
+If ``pytest`` is not already installed, you can install via:
+
+::
+
+    pip install pytest
+   
+If you run into errors during your initial installationg, please first
+carefully repeat and/or check your installation. If you still get
+errors, file a bug, and include the output of ``pytest`` run in
+verbose mode and capturing the output
+
+::
+
+   pytest -s -v tests
+   
+   
+You should also continuously run ``pytest`` as you are developing your
+code, to ensure that you don't inadvertently break anything.
+
+Also before creating a Pull Request from your branch, check that all
+the tests pass correctly, using the above.
+
+These are exactly the same tests that will be performed online via
+Github Actions continuous integration (CI).  This project follows CI
+good practices (let us know if something can be improved).
+
+Make a Pull Request
+-------------------
+
+Once you are finished, you can create a pull request to the main
+repository and engage with the developers.  If you need some code
+review or feedback while you're developing the code just make a pull
+request.
+
+**However, before submitting a Pull Request, verify your development branch passes all
+tests as** `described above <run unit tests with pytest_>`_ **. If you are
+developing new code you should also implement new test cases.**
+
+**Pull Request checklist**
+
+Before requesting a finale merge, you should:
+
+1. Make sure your PR passes all ``pytest`` tests.
+2. Add unit tests if you are developing new features
+3. Update documentation when there's new API, functionality etc.
+4. Add a note to ``NEWS.rst`` about the changes.
+5. Add yourself to ``website/docs/AUTHORS.rst``.
+
 
 Installation for developers
 ===========================
 
-There are four main steps to the developer installation:
+Once you have setup your branch as described in `making a code
+contribution`_, above, you are ready for the four main steps of the
+developer installation:
 
 1. install a build environment
-2. clone the repository
-3. build
-4. run tests
+2. build
+3. run tests
 
-For most casual users and developers, we recommend using the miniconda
-approach described below.
+.. note::
+
+   Note that you if you need to install PyPop from source, but do not
+   intend to contribute code, you can skip creating your own forking
+   and making an additional branch, and clone the main upstream
+   repository directly:
+
+   .. code:: shell
+
+      git clone https://github.com/alexlancaster/pypop.git
+      cd pypop
+   
+For most developers, we recommend using the miniconda approach
+described below.
 
 Install the build environment
 -----------------------------
@@ -127,7 +318,7 @@ Install build environment via miniconda (recommended)
 
       conda activate pypop3
 
-5. Skip ahead to `Clone the repository <Clone the repository_>`_
+5. Skip ahead to `Build PyPop`_.
 
 Install build environment via system packages (advanced)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -206,24 +397,17 @@ Windows
 
 (Currently untested in standalone-mode)
 
-Clone the repository
---------------------
-
-.. code:: shell
-
-   git clone https://github.com/alexlancaster/pypop.git
-   cd pypop
 
 Build PyPop
 -----------
 
-You should choose *either* of the following two approaches. Don’t try to
-mix-and-match the two. The build-and-install approach is recommended for
-end-users, or you if don’t plan to make any modifications to the code
+You should choose *either* of the following two approaches. Don’t try
+to mix-and-match the two. The build-and-install approach is only
+recommended if don’t plan to make any modifications to the code
 locally.
 
-Build-and-install (recommended for end-users)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Build-and-install (not recommended for developers)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Once you have setup your environment and cloned the repo, you can use
 the following one-liner to examine the ``setup.py`` and pull all the
@@ -259,14 +443,14 @@ package.
 
       pip install --user .[test]
 
-3. PyPop is ready-to-use, skip to `Run the test suite`_.
+3. PyPop is ready-to-use, you should `run unit tests with pytest`_.
 
 4. if you later decide you want to switch to using the developer
-   approach, below, follow the `Uninstalling PyPop and cleaning up`_ before
+   approach, below, follow the `cleaning up build`_ before
    starting.
 
 Build-and-run-from-checkout (recommended for developers)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. First manually install the dependencies via ``pip``, note that if you
    are running on Python <= 3.8, you will need to also add
@@ -290,84 +474,28 @@ Build-and-run-from-checkout (recommended for developers)
 
       ./setup.py build
 
-3. You will run PyPop, directly out of the ``src/PyPop`` subdirectory
-   (e.g. ``./src/PyPop/pypop.py``). Note that you have to include the
+3. You will be runnning PyPop, directly out of the ``src/PyPop``
+   subdirectory (e.g. ``./src/PyPop/pypop.py`` and
+   ``./src/PyPop/popmeta.py``). Note that you have to include the
    ``.py`` extension when you run from an uninstalled checkout,
    because the script is not installed.
 
-Run the test suite
-------------------
+Cleaning up build
+~~~~~~~~~~~~~~~~~
 
-You should first check that the build worked, by running the test suite,
-via ``pytest``:
-
-::
-
-   pytest tests
-
-If you run into errors, please first carefully repeat and/or check your
-installation steps above. If you still get errors, file a bug (as per
-Support, below), and include the output of ``pytest`` run in verbose
-mode and capturing the output
+If you installed using the approach in `Build-and-install (not recommended
+for developers)`_, above, follow the end-user instructions on
+:ref:`uninstalling PyPop`.  In addition, to clean-up any compiled
+files and force a recompilation from scratch, run the ``clean``
+command:
 
 ::
 
-   pytest -s -v tests
+   ./setup clean --all
 
 
-
-.. this is end of original README.rst info   
-
-1. Create a new environment with the *pypop* dependencies, **only its dependencies**, running the following 3 commands::
-
-    curl https://raw.githubusercontent.com/alexlancaster/pypop/master/requirements-dev.yml -o pypopdev.yml
-    conda env create -f pypopenv.yml
-    # Activate the conda pypopdev environment
-    conda activate pypopdev
-
-2. Fork `pypop <https://github.com/alexlancaster/pypop>`_ (look for the "Fork" button on the top right corner of `our repository <https://github.com/alexlancaster/pypop>`_).
-
-3. `Clone <https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository>`_ your forked repository to your local machine::
-
-    git clone https://github.com/YOUR-USER-NAME/pypop.git <destination folder>
-
-4. Navigate to the fork folder and create a branch for local development::
-
-    git checkout -b name-of-your-bugfix-or-feature
-
-5. Install a development version of your development branch, remember to active the ``pypopdev`` environment beforehand::
-
-    python setup.py develop
-
-Now you can make your changes locally.
-
-6. When you're done making changes run all the checks and docs builder with **pytest** one command::
-
-    pytest
-
-7. Commit your changes and push your branch to your *pypop fork* on GitHub::
-
-    git add .
-    git commit -m "Your detailed description of your changes."
-    git push origin name-of-your-bugfix-or-feature
-
-8. `Submit a pull request through the GitHub website <https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request>`_.
-
-Pull Request guidelines
------------------------
-
-If you need some code review or feedback while you're developing the code just make a pull request.
-
-For merging, you should:
-
-1. Make sure your PR passes all ``pytest`` tests.
-2. Update documentation when there's new API, functionality etc.
-3. Add a note to ``NEWS.rst`` about the changes.
-4. Add yourself to ``website/docs/AUTHORS.rst``.
-
-
-Continuous integration
-======================
-
-This project follows Continuous Integration (CI) good practices
-(let us know if something can be improved). 
+.. _Fork this repository before contributing: https://github.com/alexlancaster/pypop/network/members
+.. _up to date with the upstream: https://gist.github.com/CristinaSolana/1885435
+.. _contributions to the project: https://github.com/alexlancaster/pypop/network
+.. _Gitflow Workflow: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+.. _Pull Request: https://github.com/alexlancaster/pypop/pulls

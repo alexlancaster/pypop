@@ -17,14 +17,13 @@ running population genetic analyses.  See the `PyPop User Guide
    change and is not yet the final package name until the package is
    released to PyPI.
 
-Installation (end user)
-=======================
+Installation
+============
 
-There are two steps to the end-user installation:
+There are two steps to install PyPop:
 
 1. install Python and ``pip``
 2. install package from Github release
-
 
 Install Python 3 and ``pip``
 ----------------------------
@@ -73,8 +72,9 @@ available from the GitHub release page:
 
    If, for whatever reason, you cannot use the these binaries
    (e.g. the pre-compiled binaries are not available for your
-   platform), you may need to follow the `developer installation
-   instructions <Installation (developer)_>`_, below.
+   platform), you may need to follow the :ref:`developer installation
+   instructions <Installation for developers>` in the contributors
+   guide.
    
 1. First, visit the release page, and choose the release version you
    wish to install (usually the most recent), and note the release tag
@@ -190,23 +190,14 @@ executable file.
 Once you have installed the package, you can skip ahead to the
 `section on Examples <Examples_>`_
 
+Uninstalling PyPop
+------------------
 
-Uninstalling PyPop and cleaning up
-----------------------------------
-
-If you installed using the end-user approach in `Build-and-install (recommended for end-users)`_, above, you
-can remove the installed version:
+To remove the currently installed version of pypop do the following:
 
 ::
 
    pip uninstall pypop-genomics
-
-To clean-up any compiled files and force a recompilation from scratch,
-run the ``clean`` command:
-
-::
-
-   ./setup clean --all
 
 .. _guide_readme_examples:
 
@@ -251,19 +242,13 @@ You can then run them
 
    pypop -c  minimal.ini USAFEL-UchiTelle-small.pop
 
-If you installed from source and your working directory is already the
-git repository as described in `clone the repository <Clone the
-repository_>`_, you can simply run
+If you have already cloned the git repository and it is your working
+directory, you can simply run
 
 .. code-block:: shell
 
    pypop -c  tests/data/minimal.ini tests/data/USAFEL-UchiTelle-small.pop
 
-..
-
-   replace ``pypop``, by ``./src/PyPop/pypop.py`` if you installed
-   using `Build-and-run-from-checkout (recommended for developers)`_,
-   i.e running locally from within the uninstalled checkout of the repository
 
 This will generate the following two files, an XML output file and a
 plain text version:
