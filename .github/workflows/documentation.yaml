@@ -65,7 +65,7 @@ jobs:
       - name: Deploy to beta site
         uses: peaceiris/actions-gh-pages@v3
         # only update beta site if run by main upstream repo owner
-        if: ${{ github.actor == "alexlancaster" }}
+        if: ${{ github.actor == 'alexlancaster' }}
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: alexlancaster/beta.pypop.org
