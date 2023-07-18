@@ -4,9 +4,8 @@ Contributing
 
 .. _guide-contributing-start:
 
-Contributions are welcome, and they are greatly appreciated! Every
-little bit helps, and credit will always be given. You can contribute
-from the scope of an user or as a core Python developer.
+Contributions to PyPop are welcome, and they are greatly appreciated!
+Every little bit helps, and credit will always be given.
 
 Reporting and requesting
 ========================

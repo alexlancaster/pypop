@@ -89,27 +89,11 @@ source code is available and maintained on our `GitHub website
 
 .. _citing-pypop:
 
+.. include:: ../README.rst
+   :start-after: guide-include-pypop-cite-start:
+   :end-before: guide-include-pypop-cite-end:
+
 .. _guide-preface-2-start:
-
-**How to cite PyPop**
-
-When citing PyPop, please cite the (2007) paper from *Tissue Antigens*:
-
--  A. K. Lancaster, R. M. Single, O. D. Solberg, M. P. Nelson and
-   G. Thomson (2007) "PyPop update - a software pipeline for
-   large-scale multilocus population genomics" *Tissue Antigens* 69 (s1), 192-197.
-   [`journal page <http://dx.doi.org/10.1111/j.1399-0039.2006.00769.x>`__,
-   `preprint PDF (112 kB) <tissue-antigens-lancaster-2007.pdf>`__].
-
-In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
-
-- Alex Lancaster, Mark P. Nelson, Richard M. Single, Diogo Meyer, and
-  Glenys Thomson (2003) "PyPop: a software framework for population
-  genomics: analyzing large-scale multi-locus genotype data", in
-  *Pacific Symposium on Biocomputing* vol. 8:514-525 (edited by R B
-  Altman. et al., World Scientific, Singapore, 2003) [`PubMed
-  Central <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/>`__,
-  `PDF (344 kB) <psb-pypop.pdf>`__].
 
 PyPop was originally developed for the analysis of data for the 13th
 `International Histocompatiblity Workshop and
@@ -128,7 +112,6 @@ N01-AI-40076. Thanks to Steven J. Mack, Kristie A. Mather, Steve G.E.
 Marsh, Mark Grote and Leslie Louie for helpful comments and testing.
 
 .. _guide-preface-2-end:
-
 
 .. _popdata-files:
 

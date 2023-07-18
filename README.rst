@@ -10,12 +10,36 @@ User Guide <http://pypop.org/docs>`__ for a more detailed description.
 
 .. |pkgname| replace:: ``pypop-genomics``
 
+.. _guide-include-pypop-cite-start:
+		       
+**How to cite PyPop**
+
+When citing PyPop, please cite the (2007) paper from *Tissue Antigens*:
+
+-  A. K. Lancaster, R. M. Single, O. D. Solberg, M. P. Nelson and
+   G. Thomson (2007) "PyPop update - a software pipeline for
+   large-scale multilocus population genomics" *Tissue Antigens* 69 (s1), 192-197.
+   [`journal page <http://dx.doi.org/10.1111/j.1399-0039.2006.00769.x>`__,
+   `preprint PDF (112 kB) <tissue-antigens-lancaster-2007.pdf>`__].
+
+In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
+
+- Alex Lancaster, Mark P. Nelson, Richard M. Single, Diogo Meyer, and
+  Glenys Thomson (2003) "PyPop: a software framework for population
+  genomics: analyzing large-scale multi-locus genotype data", in
+  *Pacific Symposium on Biocomputing* vol. 8:514-525 (edited by R B
+  Altman. et al., World Scientific, Singapore, 2003) [`PubMed
+  Central <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/>`__,
+  `PDF (344 kB) <psb-pypop.pdf>`__].
+
+.. _guide-include-pypop-cite-end:
+
 .. _guide-include-start:
 
 .. ATTENTION:: 
 
    The working package name for installation purposes is
-   ``pypop-genomics`` - to avoid conflicting with an unrelated package with
+   |pkgname| - to avoid conflicting with an unrelated package with
    the name ``pypop`` already on `PyPI <https://pypi.org>`__. This may
    change and is not yet the final package name until the package is
    released to PyPI.
@@ -60,7 +84,7 @@ Install package from PyPI
 -------------------------
 
 Once you have both python and ``pip`` installed, you can use ``pip``
-to install pre-compiled binary "wheels" of ``pypop-genomics``
+to install pre-compiled binary "wheels" of |pkgname|
 pre-releases, test packages for PyPop available directly on the `Test
 PyPI <https://test.pypi.org/>`__.
 
@@ -95,7 +119,7 @@ flag, i.e.
 
 **Issues with installation permission**
 
-By default, ``pip`` will attempt to install the ``pypop-genomics``
+By default, ``pip`` will attempt to install the |pkgname|
 package wherever the current Python installation is installed.  This
 location may be a user-specific virtual environment (like ``conda``,
 see below), or a system-wide installation. On many Unix-based systems,
@@ -117,7 +141,7 @@ install`` command, i.e.:
 
 .. code-block:: shell
 
-   pip install pypop-genomics --user ...
+   pip install pypop-genomics --user --extra-index-url https://test.pypi.org/simple/ 
 
 This may be necessary in certain cases where ``pip install`` doesn't
 install into the expected user directory.
@@ -152,7 +176,7 @@ you need to explicitly provide a URL to the release page.
       Versioning <https://semver.org/>`__, which Python internally
       normalizes and abbreviates.  So the release with the ``git`` tag
       ``v1.0.0-a23`` is actually version ``1.0.0a23`` of the
-      ``pypop-genomics`` package, and the version that ``pip`` "sees".
+      |pkgname| package, and the version that ``pip`` "sees".
 
 2. Next, use ``pip`` to install the package by running a command of
    the form (this will select and install the correct wheel for your
