@@ -10,6 +10,8 @@ Every little bit helps, and credit will always be given.
 Reporting and requesting
 ========================
 
+.. _guide-contributing-bug-report:
+
 Did you find a bug?
 -------------------
 

@@ -38,20 +38,122 @@ In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
 
 .. ATTENTION:: 
 
-   The working package name for installation purposes is
-   |pkgname| - to avoid conflicting with an unrelated package with
-   the name ``pypop`` already on `PyPI <https://pypi.org>`__. This may
-   change and is not yet the final package name until the package is
-   released to PyPI.
+   The package name for installation purposes is |pkgname| - to avoid
+   conflicting with an unrelated package with the name ``pypop``
+   already on `PyPI <https://pypi.org>`__. This is a working name and
+   may change and is not yet the final package name until the package
+   is released to PyPI.
 
-Installation
-============
+Quickstart
+==========
 
-Here are the steps to install PyPop:
+**Installing** |pkgname|
+
+If you already have Python and ``pip`` `installed <Install Python 3
+and pip_>`_, install a test pre-releases using the following:
+
+.. code-block:: shell
+
+   pip install pypop-genomics --extra-index-url https://test.pypi.org/simple/
+   
+.. warning::
+
+   **These pre-release versions are being made available for initial
+   testing, they are not intended to be used for production
+   applications or analysis, and are not yet included in the main
+   pypi.org index**
+
+Once |pkgname| is installed, depending on your platform, you may also
+need to `adjust <Post-install PATH adjustments_>`_ your ``PATH``
+environment variable.  
+
+**Upgrading** |pkgname|
+
+.. code-block:: shell
+
+   pip install -U pypop-genomics --extra-index-url https://test.pypi.org/simple/ 
+
+**Uninstalling** |pkgname|
+
+.. code-block:: shell
+
+   pip uninstall pypop-genomics
+
+**For more, including handling common installation issues, see the** `full installation instructions`_ **.**
+   
+Once you have installed |pkgname|, you can move on to try some
+`example runs <Examples_>`__.
+   
+   
+.. _guide_readme_examples:
+
+Examples
+========
+
+These are examples of how to check that the program is installed and
+some minimal use cases.
+
+Checking version and installation
+---------------------------------
+
+.. code-block:: shell
+
+   pypop --version
+
+This simply reports the version number and other information about
+PyPop, and indirectly checks that the program is installed. If all is
+well, you should see something like:
+
+.. code-block:: text
+
+   pypop 1.0.0a23
+   Copyright (C) 2003-2006 Regents of the University of California.
+   Copyright (C) 2007-2023 PyPop team.
+   This is free software.  There is NO warranty; not even for
+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+You can also run ``pypop --help`` to see a full list and explanation
+of all the options available.
+
+Run a minimal dataset:
+----------------------
+
+Download test ``.ini`` and ``.pop`` files: `minimal.ini
+<https://github.com/alexlancaster/pypop/blob/main/tests/data/minimal.ini>`_
+and `USAFEL-UchiTelle-small.pop
+<https://github.com/alexlancaster/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`_.
+You can then run them
+
+.. code-block:: shell
+
+   pypop -c  minimal.ini USAFEL-UchiTelle-small.pop
+
+If you have already cloned the git repository and it is your working
+directory, you can simply run
+
+.. code-block:: shell
+
+   pypop -c  tests/data/minimal.ini tests/data/USAFEL-UchiTelle-small.pop
+
+
+This will generate the following two files, an XML output file and a
+plain text version:
+
+::
+
+   USAFEL-UchiTelle-small-out.xml
+   USAFEL-UchiTelle-small-out.txt
+
+
+Full installation instructions
+==============================
+
+There are three main steps:
 
 1. install Python and ``pip``
 2. install package from Test PyPI
 3. adjusting your ``PATH`` variable after installation
+
 
 Install Python 3 and ``pip``
 ----------------------------
@@ -224,77 +326,17 @@ executable file.
   additional help from your system administrator if your user doesn't
   have the right permissions, and also require a system reboot.
    
-Once you have installed the package, you can skip ahead to the
-`section on Examples <Examples_>`_
-
 Uninstalling PyPop
 ------------------
 
-To remove the currently installed version of pypop do the following:
+To uninstall the current version of |pkgname|:
 
-::
+.. code-block:: shell
 
    pip uninstall pypop-genomics
 
-.. _guide_readme_examples:
-
-Examples
-========
-
-These are examples of how to check that the program is installed and
-some minimal use cases.
-
-Checking version and installation
----------------------------------
-
-.. code-block:: shell
-
-   pypop --version
-
-This simply reports the version number and other information about
-PyPop, and indirectly checks that the program is installed. If all is
-well, you should see something like:
-
-.. code-block:: text
-
-   pypop 1.0.0a23
-   Copyright (C) 2003-2006 Regents of the University of California.
-   Copyright (C) 2007-2023 PyPop team.
-   This is free software.  There is NO warranty; not even for
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-You can also run ``pypop --help`` to see a full list and explanation
-of all the options available.
-
-Run a minimal dataset:
-----------------------
-
-Download test ``.ini`` and ``.pop`` files: `minimal.ini
-<https://github.com/alexlancaster/pypop/blob/main/tests/data/minimal.ini>`_
-and `USAFEL-UchiTelle-small.pop
-<https://github.com/alexlancaster/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`_.
-You can then run them
-
-.. code-block:: shell
-
-   pypop -c  minimal.ini USAFEL-UchiTelle-small.pop
-
-If you have already cloned the git repository and it is your working
-directory, you can simply run
-
-.. code-block:: shell
-
-   pypop -c  tests/data/minimal.ini tests/data/USAFEL-UchiTelle-small.pop
-
-
-This will generate the following two files, an XML output file and a
-plain text version:
-
-::
-
-   USAFEL-UchiTelle-small-out.xml
-   USAFEL-UchiTelle-small-out.txt
-
+  
+   
 Support and development
 =======================
 
