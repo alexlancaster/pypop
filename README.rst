@@ -104,8 +104,8 @@ PyPI <https://test.pypi.org/>`__.
 
    If, for whatever reason, you cannot use the these binaries
    (e.g. the pre-compiled binaries are not available for your
-   platform), you may need to follow the :ref:`developer installation
-   instructions <Installation for developers>` in the contributors
+   platform), you may need to follow the `developer installation
+   instructions <http://pypop.org/docs/guide-chapter-contributing.html#installation-for-developers>`_ in the contributors
    guide.
 		
 **Upgrade an existing PyPop installation**
@@ -299,9 +299,9 @@ Support and development
 =======================
 
 Please submit any bug reports, feature requests or questions, via our
-GitHub issue tracker (see our :ref:`bug reporting guidelines
-<reporting and requesting>` for more details on how to file a good bug
-report):
+GitHub issue tracker (see our `bug reporting guidelines
+<http://pypop.org/docs/guide-chapter-contributing.html#reporting-and-requesting>`_
+for more details on how to file a good bug report):
 
    https://github.com/alexlancaster/pypop/issues
    
