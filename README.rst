@@ -2,470 +2,89 @@ Python for Population Genomics (PyPop)
 ======================================
 
 PyPop is a framework for processing genotype and allele data and
-running population genetic analyses.  See the `PyPop User Guide
-<http://pypop.org/docs>`__ for a more detailed description.
+running population genetic analyses, including conformity to
+Hardy-Weinberg expectations; tests for balancing or directional
+selection; estimates of haplotype frequencies and measures and tests
+of significance for linkage disequilibrium (LD).  .  See the `PyPop
+User Guide <http://pypop.org/docs>`__ for a more detailed description.
 
-.. |pkgname| replace:: ``pypopgenomics``
+.. |pkgname| replace:: ``pypop-genomics``
+
+.. _guide-include-pypop-cite-start:
+		       
+**How to cite PyPop**
+
+When citing PyPop, please cite the (2007) paper from *Tissue Antigens*:
+
+-  A. K. Lancaster, R. M. Single, O. D. Solberg, M. P. Nelson and
+   G. Thomson (2007) "PyPop update - a software pipeline for
+   large-scale multilocus population genomics" *Tissue Antigens* 69 (s1), 192-197.
+   [`journal page <http://dx.doi.org/10.1111/j.1399-0039.2006.00769.x>`__,
+   `preprint PDF (112 kB) <tissue-antigens-lancaster-2007.pdf>`__].
+
+In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
+
+- Alex Lancaster, Mark P. Nelson, Richard M. Single, Diogo Meyer, and
+  Glenys Thomson (2003) "PyPop: a software framework for population
+  genomics: analyzing large-scale multi-locus genotype data", in
+  *Pacific Symposium on Biocomputing* vol. 8:514-525 (edited by R B
+  Altman. et al., World Scientific, Singapore, 2003) [`PubMed
+  Central <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/>`__,
+  `PDF (344 kB) <psb-pypop.pdf>`__].
+
+.. _guide-include-pypop-cite-end:
 
 .. _guide-include-start:
 
 .. ATTENTION:: 
 
-   The working package name for installation purposes is
-   ``pypopgenomics`` - to avoid conflicting with an unrelated package with
-   the name ``pypop`` already on `PyPI <https://pypi.org>`__. This may
-   change and is not yet the final package name until the package is
-   released to PyPI.
+   The package name for installation purposes is |pkgname| - to avoid
+   conflicting with an unrelated package with the name ``pypop``
+   already on `PyPI <https://pypi.org>`__. This is a working name and
+   may change and is not yet the final package name until the package
+   is released to PyPI.
 
-Installation (end user)
-=======================
+Quickstart
+==========
 
-There are two steps to the end-user installation:
+**Installing** |pkgname|
 
-1. install Python and ``pip``
-2. install package from Github release
+If you already have Python and ``pip`` `installed <Install Python 3
+and pip_>`_, install a test pre-releases using the following:
 
+.. code-block:: shell
 
-Install Python 3 and ``pip``
-----------------------------
-
-A full description of installing Python and ``pip`` on your system is
-beyond the scope of this guide, we recommend starting here:
-
-   https://wiki.python.org/moin/BeginnersGuide/Download
-
-Here are some additional platform-specific notes that may be helpful:
+   pip install pypop-genomics --extra-index-url https://test.pypi.org/simple/
    
-- Most Linux distributions come with Python 3 preinstalled. On most
-  modern systems, ``pip`` and ``python`` will default to Python 3.
-
-- MacOS 10.9 (Jaguar) up until 12.3 (Catalina), used to ship with
-  Python 2 pre-installed, but it now has to be manually installed.
-  See the `MacOS quick-start guide
-  <https://docs.python.org/3/using/mac.html>`__ in the official
-  documentation for how to install Python 3. (Note that if Python is
-  installed on Mac via the MacOS developer tools, it may include the
-  version ``3`` suffix on commands, e.g. ``python3`` and ``pip3``, so
-  modify the below, accordingly).
-
-- For Windows, see also the `Windows quick-start guide
-  <https://docs.python.org/3/using/windows.html>`__ in the official
-  documentation. Running ``python`` in the Windows command terminal
-  in Windows 11 and later will launch the installer for the
-  Microsoft-maintained Windows package of Python 3.
-
-Install package from GitHub Releases
-------------------------------------
-
-Once you have both python and ``pip`` installed, you can use ``pip``
-to install pre-compiled binary "wheels" of ``pypopgenomics`` pre-releases,
-available from the GitHub release page:
-
-   https://github.com/alexlancaster/pypop/releases
-
 .. warning::
 
    **These pre-release versions are being made available for initial
    testing, they are not intended to be used for production
-   applications or analysis**
+   applications or analysis, and are not yet included in the main
+   pypi.org index**
 
-.. note::
+Once |pkgname| is installed, depending on your platform, you may also
+need to `adjust <Post-install PATH adjustments_>`_ your ``PATH``
+environment variable.  
 
-   If, for whatever reason, you cannot use the these binaries
-   (e.g. the pre-compiled binaries are not available for your
-   platform), you may need to follow the `developer installation
-   instructions <Installation (developer)_>`_, below.
-   
-1. First, visit the release page, and choose the release version you
-   wish to install (usually the most recent), and note the release tag
-   (e.g. ``v1.0.0-a23``).
-
-   .. admonition:: Release version numbers
-
-      Note that version of the release is slightly different to the
-      ``git`` tag.  This is because the ``git`` tag follows `Semantic
-      Versioning <https://semver.org/>`__, which Python internally
-      normalizes and abbreviates.  So the release with the ``git`` tag
-      ``v1.0.0-a23`` is actually version ``1.0.0a23`` of the
-      ``pypopgenomics`` package, and the version that ``pip`` "sees".
-
-2. Next, use ``pip`` to install the package by running a command of
-   the form (this will select and install the correct wheel for your
-   Python version and operating system automatically):
-
-   .. code-block:: shell
-      
-      pip install pypopgenomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
-
-   where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
-
-   .. code-block:: shell
-   
-      pip install pypopgenomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-a23
-
-   You can also manually download the specific wheel from the github
-   release webpage and install directly, e.g.:
-
-   .. code-block:: shell
-   
-      pip install pypopgenomics-1.0.0a23-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-		
-**Upgrade an existing PyPop installation**
-
-To update an existing installation to a newer version, use the same
-command as above, but add the ``--upgrade`` (short version: ``-U``)
-flag, i.e.
+**Upgrading** |pkgname|
 
 .. code-block:: shell
 
-   pip install -U pypopgenomics -f ...
+   pip install -U pypop-genomics --extra-index-url https://test.pypi.org/simple/ 
 
-**Issues with installation permission**
-
-By default, ``pip`` will attempt to install the ``pypopgenomics`` package
-wherever the current Python installation is installed.  This location
-may be a user-specific virtual environment (like ``conda``, see
-below), or a system-wide installation. On many Unix-based systems,
-Python will generally already be pre-installed in a "system-wide"
-location (e.g. under ``/usr/lib``) which is read-only for regular
-users. (This can also be true for system-installed versions of Python
-on Windows and MacOS.)
-
-When ``pip install`` cannot install in a read-only system-wide
-location , ``pip`` will gracefully "fall-back" to installing just for
-you in your home directory (typically ``~/.local/lib/python<VER>``
-where ``<VER>`` is the version number of your current Python). In
-general, this is what is wanted, so the above instructions are
-normally sufficient.
-
-However, you can also explicitly set installation to be in the user
-directory, by adding the ``--user`` command-line option to the ``pip
-install`` command, i.e.:
+**Uninstalling** |pkgname|
 
 .. code-block:: shell
 
-   pip install pypopgenomics --user ...
+   pip uninstall pypop-genomics
 
-This may be necessary in certain cases where ``pip install`` doesn't
-install into the expected user directory.
+**For more, including handling common installation issues, see the** `full installation instructions`_ **.**
    
-.. admonition:: Installing within a ``conda`` environment
-
-   In the special case that you installing from within an activated
-   user-specific ``conda`` virtual environment that provides Python,
-   then you should **not** add the ``--user`` because it will install
-   it in ``~/.local/lib/`` rather than under the user-specific conda
-   virtual environment in ``~/.conda/envs/``.
-		
-Install package from PyPI [not yet available]
----------------------------------------------
-
-TBA.  Eventually, we will be making PyPop available directly on `PyPI
-<https://pypi.org/>`__.
-
-Post-install ``PATH`` adjustments
----------------------------------
+Once you have installed |pkgname|, you can move on to try some
+`example runs <Examples_>`__.
    
-You may need to adjust the ``PATH`` settings (especially on Windows)
-for the ``pypop`` scripts to be visible when run from your console
-application, without having to supply the full path to the ``pypop``
-executable file.
-
-.. warning::
-
-   Pay close attention to the "WARNINGS" that are shown during the
-   ``pip`` installation, they will often note which directories need to
-   be added to the ``PATH``.
-
-- On Linux and MacOS, systems this is normally fairly simple and only
-  requires edit of the shell ``.profile``, or similar and addition of
-  the ``$HOME/.local/bin`` to the ``PATH`` variable, followed by a
-  restart of the terminal.
-
-- For Windows, however, as noted in most online `instructions
-  <https://www.computerhope.com/issues/ch000549.htm>`_, this may need
-  additional help from your system administrator if your user doesn't
-  have the right permissions, and also require a system reboot.
    
-Once you have installed the package, you can skip ahead to the
-`section on Examples <Examples_>`_
-
-Installation (developer)
-========================
-
-There are four main steps to the developer installation:
-
-1. install a build environment
-2. clone the repository
-3. build
-4. run tests
-
-For most casual users and developers, we recommend using the miniconda
-approach described below.
-
-Install the build environment
------------------------------
-
-To install the build environment, you should choose either ``conda`` or
-system packages. Once you have chosen and installed the build
-environment, you should follow the instructions related to the option
-you chose here in all subsequent steps.
-
-Install build environment via miniconda (recommended)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-1. Visit https://docs.conda.io/en/latest/miniconda.html to download the
-   miniconda installer for your platform, and follow the instructions to
-   install.
-
-      In principle, the rest of the PyPop miniconda installation process
-      should work on any platform that is supported by miniconda, but
-      only Linux and MacOS have been tested in standalone mode, at this
-      time.
-
-2. Once miniconda is installed, create a new conda environment, using
-   the following commands:
-
-   .. code-block:: shell
-
-      conda create -n pypop3 gsl swig python=3
-
-   This will download and create a self-contained build-environment that
-   uses of Python to the system-installed one, along with other
-   requirements. You will need to use this this environment for the
-   build, installation and running of PyPop. The conda environment name,
-   above, ``pypop3``, can be replaced with your own name.
-
-      When installing on MacOS, before installing ``conda``, you should
-      first to ensure that the Apple Command Line Developer Tools
-      (XCode) are
-      `installed <https://mac.install.guide/commandlinetools/4.html>`__,
-      so you have the compiler (``clang``, the drop-in replacement for
-      ``gcc``), ``git`` etc. ``conda`` is unable to include the full
-      development environment for ``clang`` as a conda package for legal
-      reasons.
-
-3. Activate the environment, and set environments variables needed for
-   compilation:
-
-   .. code-block:: shell
-
-      conda activate pypop3
-      conda env config vars set CPATH=${CONDA_PREFIX}/include:${CPATH}
-      conda env config vars set LIBRARY_PATH=${CONDA_PREFIX}/lib:${LIBRARY_PATH}
-      conda env config vars set LD_LIBRARY_PATH=${CONDA_PREFIX}/lib:${LD_LIBRARY_PATH}
-
-4. To ensure that the environment variables are saved, reactivate the
-   environment:
-
-   .. code-block:: shell
-
-      conda activate pypop3
-
-5. Skip ahead to `Clone the repository <Clone the repository_>`_
-
-Install build environment via system packages (advanced)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Unix/Linux:
-^^^^^^^^^^^
-
-1. Ensure Python 3 version of ``pip`` is installed:
-
-   ::
-
-      python3 -m ensurepip --user --no-default-pip
-
-   ..
-
-      Note the use of the ``python3`` - you may find this to be
-      necessary on systems which parallel-install both Python 2 and 3,
-      which is typically the case. On newer systems you may find that
-      ``python`` and ``pip`` are, by default, the Python 3 version of
-      those tools.
-
-2. Install packages system-wide:
-
-   1. Fedora/Centos/RHEL
-
-      ::
-
-         sudo dnf install git swig gsl-devel python3-devel
-
-   2. Ubuntu
-
-      ::
-
-         sudo apt install git swig libgsl-dev python-setuptools
-
-MacOS X
-^^^^^^^
-
-1. Install developer command-line tools:
-   https://developer.apple.com/downloads/ (includes ``git``, ``gcc``)
-
-2. Visit http://macports.org and follow the instructions there to
-   install the latest version of MacPorts for your version of MacOS X.
-
-3. Set environment variables to use macports version of Python and other
-   packages, packages add the following to ``~/.bash_profile``
-
-   .. code:: shell
-
-      export PATH=/opt/local/bin:$PATH
-      export LIBRARY_PATH=/opt/local/lib/:$LIBRARY_PATH
-      export CPATH=/opt/local/include:$CPATH
-
-4. Rerun your bash shell login in order to make these new exports active
-   in your environment. At the command line type:
-
-   .. code:: shell
-
-      exec bash -login
-
-5. Install dependencies via MacPorts and set Python version to use
-   (FIXME: currently untested!)
-
-   .. code:: shell
-
-      sudo port install swig-python gsl py39-numpy py39-lxml py39-setuptools py39-pip py39-pytest
-      sudo port select --set python python39
-      sudo port select --set pip pip39
-
-6. Check that the MacPorts version of Python is active by typing:
-   ``which python``, if it is working correctly you should see
-   ``/opt/local/bin/python``.
-
-Windows
-~~~~~~~
-
-(Currently untested in standalone-mode)
-
-Clone the repository
---------------------
-
-.. code:: shell
-
-   git clone https://github.com/alexlancaster/pypop.git
-   cd pypop
-
-Build PyPop
------------
-
-You should choose *either* of the following two approaches. Don’t try to
-mix-and-match the two. The build-and-install approach is recommended for
-end-users, or you if don’t plan to make any modifications to the code
-locally.
-
-Build-and-install (recommended for end-users)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-Once you have setup your environment and cloned the repo, you can use
-the following one-liner to examine the ``setup.py`` and pull all the
-required dependencies from ``pypi.org`` and build and install the
-package.
-
-   Note that if you use this method and install the package, it will be
-   available to run anywhere on your system, by running ``pypop``.
-
-..
-
-   If you use this installation method, changes you make to the code,
-   locally, or via subsequent ``git pull`` requests will not be
-   available in the installed version until you repeat the
-   ``pip install`` command.
-
-1. if you installed the conda development environment, use:
-
-   ::
-
-      pip install .[test]
-
-   ..
-
-      (the ``[test]`` keyword is included to make sure that any package
-      requirements for the test suite are installed as well).
-
-2. if you installed a system-wide environment, the process is slightly
-   different, because we install into the user’s ``$HOME/.local`` rather
-   than the conda environment:
-
-   ::
-
-      pip install --user .[test]
-
-3. PyPop is ready-to-use, skip to `Run the test suite`_.
-
-4. if you later decide you want to switch to using the developer
-   approach, below, follow the `Uninstalling PyPop and cleaning up`_ before
-   starting.
-
-Build-and-run-from-checkout (recommended for developers)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-1. First manually install the dependencies via ``pip``, note that if you
-   are running on Python <= 3.8, you will need to also add
-   ``importlib-resources`` to the list of packages, below.
-
-   1. conda
-
-      ::
-
-         pip install numpy lxml psutil pytest
-
-   2. system-wide
-
-      ::
-
-         pip install --user numpy lxml psutil pytest
-
-2. Run the build
-
-   ::
-
-      ./setup.py build
-
-3. You will run PyPop, directly out of the ``src/PyPop`` subdirectory
-   (e.g. ``./src/PyPop/pypop.py``). Note that you have to include the
-   ``.py`` extension when you run from an uninstalled checkout,
-   because the script is not installed.
-
-Run the test suite
-------------------
-
-You should first check that the build worked, by running the test suite,
-via ``pytest``:
-
-::
-
-   pytest tests
-
-If you run into errors, please first carefully repeat and/or check your
-installation steps above. If you still get errors, file a bug (as per
-Support, below), and include the output of ``pytest`` run in verbose
-mode and capturing the output
-
-::
-
-   pytest -s -v tests
-
-Uninstalling PyPop and cleaning up
-----------------------------------
-
-If you installed using the end-user approach in `Build-and-install (recommended for end-users)`_, above, you
-can remove the installed version:
-
-::
-
-   pip uninstall pypopgenomics
-
-To clean-up any compiled files and force a recompilation from scratch,
-run the ``clean`` command:
-
-::
-
-   ./setup clean --all
-
 .. _guide_readme_examples:
 
 Examples
@@ -509,19 +128,13 @@ You can then run them
 
    pypop -c  minimal.ini USAFEL-UchiTelle-small.pop
 
-If you installed from source and your working directory is already the
-git repository as described in `clone the repository <Clone the
-repository_>`_, you can simply run
+If you have already cloned the git repository and it is your working
+directory, you can simply run
 
 .. code-block:: shell
 
    pypop -c  tests/data/minimal.ini tests/data/USAFEL-UchiTelle-small.pop
 
-..
-
-   replace ``pypop``, by ``./src/PyPop/pypop.py`` if you installed
-   using `Build-and-run-from-checkout (recommended for developers)`_,
-   i.e running locally from within the uninstalled checkout of the repository
 
 This will generate the following two files, an XML output file and a
 plain text version:
@@ -531,38 +144,210 @@ plain text version:
    USAFEL-UchiTelle-small-out.xml
    USAFEL-UchiTelle-small-out.txt
 
-Support
-=======
 
-Please submit any bug reports,feature requests or questions, via our GitHub issue tracker:
+Full installation instructions
+==============================
 
+There are three main steps:
+
+1. install Python and ``pip``
+2. install package from Test PyPI
+3. adjusting your ``PATH`` variable after installation
+
+
+Install Python 3 and ``pip``
+----------------------------
+
+A full description of installing Python and ``pip`` on your system is
+beyond the scope of this guide, we recommend starting here:
+
+   https://wiki.python.org/moin/BeginnersGuide/Download
+
+Here are some additional platform-specific notes that may be helpful:
+   
+- Most Linux distributions come with Python 3 preinstalled. On most
+  modern systems, ``pip`` and ``python`` will default to Python 3.
+
+- MacOS 10.9 (Jaguar) up until 12.3 (Catalina), used to ship with
+  Python 2 pre-installed, but it now has to be manually installed.
+  See the `MacOS quick-start guide
+  <https://docs.python.org/3/using/mac.html>`__ in the official
+  documentation for how to install Python 3. (Note that if Python is
+  installed on Mac via the MacOS developer tools, it may include the
+  version ``3`` suffix on commands, e.g. ``python3`` and ``pip3``, so
+  modify the below, accordingly).
+
+- For Windows, see also the `Windows quick-start guide
+  <https://docs.python.org/3/using/windows.html>`__ in the official
+  documentation. Running ``python`` in the Windows command terminal
+  in Windows 11 and later will launch the installer for the
+  Microsoft-maintained Windows package of Python 3.
+
+Install package from PyPI
+-------------------------
+
+Once you have both python and ``pip`` installed, you can use ``pip``
+to install pre-compiled binary "wheels" of |pkgname|
+pre-releases, test packages for PyPop available directly on the `Test
+PyPI <https://test.pypi.org/>`__.
+
+.. warning::
+
+   **These pre-release versions are being made available for initial
+   testing, they are not intended to be used for production
+   applications or analysis, and are not yet included in the main
+   pypi.org index**
+
+.. code-block:: shell
+
+   pip install pypop-genomics --extra-index-url https://test.pypi.org/simple/ 
+
+.. note::
+
+   If, for whatever reason, you cannot use the these binaries
+   (e.g. the pre-compiled binaries are not available for your
+   platform), you may need to follow the `developer installation
+   instructions <http://pypop.org/docs/guide-chapter-contributing.html#installation-for-developers>`_ in the contributors
+   guide.
+		
+**Upgrade an existing PyPop installation**
+
+To update an existing installation to a newer version, use the same
+command as above, but add the ``--upgrade`` (short version: ``-U``)
+flag, i.e.
+
+.. code-block:: shell
+
+   pip install -U pypop-genomics --extra-index-url https://test.pypi.org/simple/ 
+
+**Issues with installation permission**
+
+By default, ``pip`` will attempt to install the |pkgname|
+package wherever the current Python installation is installed.  This
+location may be a user-specific virtual environment (like ``conda``,
+see below), or a system-wide installation. On many Unix-based systems,
+Python will generally already be pre-installed in a "system-wide"
+location (e.g. under ``/usr/lib``) which is read-only for regular
+users. (This can also be true for system-installed versions of Python
+on Windows and MacOS.)
+
+When ``pip install`` cannot install in a read-only system-wide
+location , ``pip`` will gracefully "fall-back" to installing just for
+you in your home directory (typically ``~/.local/lib/python<VER>``
+where ``<VER>`` is the version number of your current Python). In
+general, this is what is wanted, so the above instructions are
+normally sufficient.
+
+However, you can also explicitly set installation to be in the user
+directory, by adding the ``--user`` command-line option to the ``pip
+install`` command, i.e.:
+
+.. code-block:: shell
+
+   pip install pypop-genomics --user --extra-index-url https://test.pypi.org/simple/ 
+
+This may be necessary in certain cases where ``pip install`` doesn't
+install into the expected user directory.
+   
+.. admonition:: Installing within a ``conda`` environment
+
+   In the special case that you installing from within an activated
+   user-specific ``conda`` virtual environment that provides Python,
+   then you should **not** add the ``--user`` because it will install
+   it in ``~/.local/lib/`` rather than under the user-specific conda
+   virtual environment in ``~/.conda/envs/``.
+  
+Install package from GitHub Releases (advanced)
+-----------------------------------------------
+
+We also sometimes make binary packages also available from the GitHub
+release page:
+
+   https://github.com/alexlancaster/pypop/releases
+
+To install these is similar to installing via PyPI above, except that
+you need to explicitly provide a URL to the release page.
+   
+1. First, visit the release page, and choose the release version you
+   wish to install (usually the most recent), and note the release tag
+   (e.g. ``v1.0.0-a23``).
+
+   .. admonition:: Release version numbers
+
+      Note that version of the release is slightly different to the
+      ``git`` tag.  This is because the ``git`` tag follows `Semantic
+      Versioning <https://semver.org/>`__, which Python internally
+      normalizes and abbreviates.  So the release with the ``git`` tag
+      ``v1.0.0-a23`` is actually version ``1.0.0a23`` of the
+      |pkgname| package, and the version that ``pip`` "sees".
+
+2. Next, use ``pip`` to install the package by running a command of
+   the form (this will select and install the correct wheel for your
+   Python version and operating system automatically):
+
+   .. code-block:: shell
+      
+      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
+
+   where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
+
+   .. code-block:: shell
+   
+      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-a23
+
+   You can also manually download the specific wheel from the github
+   release webpage and install directly, e.g.:
+
+   .. code-block:: shell
+   
+      pip install pypop-genomics-1.0.0a23-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+		
+Post-install ``PATH`` adjustments
+---------------------------------
+   
+You may need to adjust the ``PATH`` settings (especially on Windows)
+for the ``pypop`` scripts to be visible when run from your console
+application, without having to supply the full path to the ``pypop``
+executable file.
+
+.. warning::
+
+   Pay close attention to the "WARNINGS" that are shown during the
+   ``pip`` installation, they will often note which directories need to
+   be added to the ``PATH``.
+
+- On Linux and MacOS, systems this is normally fairly simple and only
+  requires edit of the shell ``.profile``, or similar and addition of
+  the ``$HOME/.local/bin`` to the ``PATH`` variable, followed by a
+  restart of the terminal.
+
+- For Windows, however, as noted in most online `instructions
+  <https://www.computerhope.com/issues/ch000549.htm>`_, this may need
+  additional help from your system administrator if your user doesn't
+  have the right permissions, and also require a system reboot.
+   
+Uninstalling PyPop
+------------------
+
+To uninstall the current version of |pkgname|:
+
+.. code-block:: shell
+
+   pip uninstall pypop-genomics
+
+  
+   
+Support and development
+=======================
+
+Please submit any bug reports, feature requests or questions, via our
+GitHub issue tracker (see our `bug reporting guidelines
+<http://pypop.org/docs/guide-chapter-contributing.html#reporting-and-requesting>`_
+for more details on how to file a good bug report):
 
    https://github.com/alexlancaster/pypop/issues
-
-Please **do not** report via private email to developers.
-
-Bug reporting
--------------
-
-When reporting bugs, especially during installation, please run the
-following and include the output:
-
-.. code:: shell
-
-   echo $CPATH
-   echo $LIBRARY_PATH
-   echo $PATH
-   which python
-
-If you are running on MacOS, and you used the MacPorts installation
-method, please also run and include the output of:
-
-::
-
-   port installed
-
-Development
------------
+   
+**Please do not report bugs via private email to developers.**
 
 The development of the code for PyPop is via our GitHub project:
 
@@ -570,13 +355,18 @@ The development of the code for PyPop is via our GitHub project:
 
 .. _guide-include-end:
 
-More detailed notes and background relevant for maintainers, packagers
-and developers are maintained in `DEV_NOTES.md <DEV_NOTES.md>`__. Source for website and the documentation is located in the `website <website>`__ subdirectory.
+For a detailed description on bug reporting as well as how to
+contribute to PyPop, please consult our `CONTRIBUTING.rst
+<CONTRIBUTING.rst#reporting-and-requesting>`_ guide. We also have
+additional notes and background relevant for developers in
+`DEV_NOTES.md <DEV_NOTES.md>`__. Source for the website and the
+documentation is located in the `website <website>`__ subdirectory.
 
 Copyright and License
 =====================
 
-PyPop is Copyright (C) 2003-2015. The Regents of the University of
+PyPop is Copyright (C) 2003-2006. The Regents of the University of
 California (Regents)
+Copyright (C) 2007-2023 PyPop team.
 
 PyPop is distributed under the terms of GPLv2

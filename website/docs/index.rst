@@ -16,7 +16,11 @@ PyPop User Guide
    .. include:: ../index.rst
       :start-after: guide-preface-1-start:
       :end-before: guide-preface-1-end:
-		   
+
+   .. include:: ../../README.rst
+      :start-after: guide-include-pypop-cite-start:
+      :end-before: guide-include-pypop-cite-end:
+	 
    .. include:: ../index.rst
       :start-after: guide-preface-2-start:
       :end-before: guide-preface-2-end:
@@ -24,16 +28,18 @@ PyPop User Guide
 
 **How to use this guide**
 
-This guide to PyPop contains three parts:
+This guide to PyPop contains four main parts:
 
 - :doc:`guide-chapter-install` describes how to install PyPop,
-  including pre-release binaries. (:doc:`guide-chapter-install-obsolete` 
-  are included on temporary basis, and will be removed soon.)
+  including pre-release binaries.
 
--  :doc:`guide-chapter-usage` describes how to run PyPop.
+- :doc:`guide-chapter-usage` describes how to run PyPop.
 
--  :doc:`guide-chapter-instructions` details the
-   population genetic methods and statistics that PyPop computes.
+- :doc:`guide-chapter-instructions` details the population genetic
+  methods and statistics that PyPop computes.
+
+- :doc:`guide-chapter-contributing` details how to contribute to
+  ongoing PyPop code and documentation.
 
 .. only:: html
 
@@ -57,7 +63,7 @@ This guide to PyPop contains three parts:
    guide-chapter-install
    guide-chapter-usage
    guide-chapter-instructions
-   guide-chapter-install-obsolete
+   guide-chapter-contributing
    guide-chapter-changes
    licenses
    biblio
