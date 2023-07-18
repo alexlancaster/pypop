@@ -43,6 +43,8 @@ jobs:
           echo "github.actor:  ${{ toJson(github.actor) }}"
           echo "github.triggering_actor:  ${{ toJson(github.triggering_actor) }}"
           echo "github.repository_owner:  ${{ toJson(github.repository_owner) }}"
+          echo "github.repository_owner:  ${{ toJson(github.repository_owner) }}"
+          echo "github context: ${{ toJson(github) }}"
       - uses: actions/setup-python@v4
       - name: Install dependencies
         run: |
