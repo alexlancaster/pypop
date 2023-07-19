@@ -108,7 +108,11 @@ References
 .. [Solberg:etal:2008] Owen D. Solberg, Steven J. Mack, Alex K. Lancaster,
 		       Richard M. Single, Yingssu Tsai, Alicia Sanchez-Mazas, and Glenys
 		       Thomson Hum Immunol (2008), doi: 10.1016/j.humimm.2008.05.001
-		      
+
+.. [Thomson:Single:2014] Glenys Thomson and Richard M. Single. 2014.
+                         “Conditional Asymmetric Linkage Disequilibrium (ALD): Extending the 
+                         Biallelic r2 Measure” \ *Genetics*, 198, 321–331.
+
 .. [Watterson:1978] G Watterson. 1978. “The homozygosity test of
 		    neutrality”. \ *Genetics*. 88. 405-417.
 
