@@ -69,9 +69,9 @@ jobs:
 
       - name: Deploy to beta site
         uses: peaceiris/actions-gh-pages@v3
-        # only update beta site if base and head branches match, or via owner, not for forks
+        # only update beta site if base and head branches match, not for forks
         # forks cannot access secrets to deploy, see: https://github.com/orgs/community/discussions/26829
-        if: ${{ (github.actor == 'alexlancaster') || (github.event.pull_request.base.repo.full_name == github.event.pull_request.head.repo.full_name) }}
+        if: ${{ (github.event.pull_request.base.repo.full_name == github.event.pull_request.head.repo.full_name) }}
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: alexlancaster/beta.pypop.org
