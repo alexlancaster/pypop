@@ -47,7 +47,6 @@ jobs:
           echo "github.repository: ${{ toJson(github.repository) }}"
           echo "github.event.pull_request.base.repo.full_name: ${{ toJson(github.event.pull_request.base.repo.full_name) }}"
           echo "github.event.pull_request.head.repo.full_name: ${{ toJson(github.event.pull_request.head.repo.full_name) }}"
-          echo "github context: ${{ toJson(github) }}"
       - uses: actions/setup-python@v4
       - name: Install dependencies
         run: |
