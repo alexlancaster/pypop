@@ -464,6 +464,27 @@ When there are only two alleles per locus, :math:`W_n` is equivalent
 to the correlation coefficient between the two loci, defined as
 :math:`r =\sqrt {D_{11} / p_1 p_2 q_1 q_2 }`.
 
+:math:`W_{A/B}` and `W_{B/A}`
+ 
+When there are different numbers of alleles at the two loci,
+the direct correlation property for the :math:`r` correlation 
+measure is not retained by :math:`W_n`, its multi-allelic extension. 
+The complementary pair of conditional asymmetric LD (ALD) measures, 
+`W_{A/B}` and `W_{B/A}`, were developed to extend the `W_n` measure 
+(Thomson and Single, 2014). `W_{A/B}` is (inversely) related to the 
+degree of variaation of A locus alleles on haplotypes conditioned 
+on B locus alleles. If there is no variation of A locus alleles 
+on haplotypes conditioned on B locus alleles, then `W_{A/B} = 1`
+`W_{A/B} = W_{B/A} = `W_n` when there is symmetry in the data and 
+thus for bi-allelic SNPs.
+
+.. math::
+
+W_{A/B} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / q_j } } }{ 1 - F_A } \right]^{\frac{1}{2}} 
+
+.. math::
+
+W_{B/A} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / p_i } } }{ 1 - F_B } \right]^{\frac{1}{2}} 
    
 For each locus pair the log-likelihood of obtaining the observed data
 given the inferred haplotype frequencies [``ln(L_1)``], and the
