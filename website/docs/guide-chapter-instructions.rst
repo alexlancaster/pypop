@@ -485,7 +485,7 @@ differs at two loci [Thomson:Single:2014]_. Each measure is normalized to lie be
 
 .. math::
 
-   W_{B/A} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / p_i } } }{ 1 - F_B } \right]^{\frac{1}{2}} 
+   W_{B/A} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / p_i } } }{ 1 - F_B }} \right]^{\frac{1}{2}} 
    
 For each locus pair the log-likelihood of obtaining the observed data
 given the inferred haplotype frequencies [``ln(L_1)``], and the
