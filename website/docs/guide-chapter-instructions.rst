@@ -481,7 +481,7 @@ differs at two loci [Thomson:Single:2014]_. Each measure is normalized to lie be
 
 .. math::
 
-   W_{A/B} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / q_j } } }{ 1 - F_A } \right]^{\frac{1}{2}} 
+   W_{A/B} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / q_j } } }{ 1 - F_A }} \right]^{\frac{1}{2}} 
 
 .. math::
 
