@@ -12,8 +12,8 @@ microsatellite data, SNP data, and nucleotide and amino acid sequence
 data.
 
 As mentioned in the installation chapter, a minimal working example 
-of a :ref:`configuration file (.ini) <https://github.com/mmariani123/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`, 
-and a :ref:`population file (.pop) <https://github.com/mmariani123/pypop/blob/main/tests/data/minimal.ini>`, 
+of a `configuration file (.ini) <https://github.com/alexlancaster/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`, 
+and a `population file (.pop) <https://github.com/alexlancaster/pypop/blob/main/tests/data/minimal.ini>`, 
 can be found by clicking the respective links. 
 
 There are two ways to run PyPop:
