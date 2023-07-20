@@ -406,36 +406,37 @@ pair of loci.
 
    Pairwise LD estimates
    ---------------------
-   Locus pair        D'        Wn   ln(L_1)   ln(L_0)         S # permu p-value  
-   A:C          0.49229   0.39472   -289.09   -326.81     75.44    1000 0.8510   
-   A:B          0.50895   0.40145   -293.47   -330.83     74.73    1000 0.8730   
-   A:DRB1       0.44304   0.37671   -282.00   -309.16     54.32    1000 0.7540   
-   A:DQA1       0.29361   0.34239   -257.94   -269.88     23.88    1000 0.9020   
-   A:DQB1       0.39266   0.37495   -275.58   -297.61     44.07    1000 0.8140   
-   A:DPA1       0.31210   0.37987   -203.89   -206.99      6.21    1000 0.8840   
-   A:DPB1       0.42241   0.40404   -237.84   -262.05     48.42    1000 0.5930   
-   C:B          0.88739   0.85752   -210.36   -342.68    264.63    1000 0.0000***
-   C:DRB1       0.48046   0.47513   -280.34   -317.65     74.62    1000 0.2140   
-   C:DQA1       0.42257   0.49869   -250.36   -276.72     52.73    1000 0.0370*  
-   C:DQB1       0.45793   0.49879   -269.54   -305.27     71.46    1000 0.0580   
-   C:DPA1       0.37214   0.46870   -208.99   -215.36     12.74    1000 0.7450   
-   C:DPB1       0.46436   0.36984   -242.45   -268.45     52.01    1000 0.6290   
-   B:DRB1       0.50255   0.41712   -286.79   -320.50     67.42    1000 0.4140   
-   B:DQA1       0.41441   0.42844   -259.86   -279.56     39.40    1000 0.3880   
-   B:DQB1       0.49040   0.43654   -277.29   -308.12     61.65    1000 0.2870   
-   B:DPA1       0.29272   0.38831   -213.43   -218.01      9.14    1000 0.8780   
-   B:DPB1       0.46082   0.38001   -247.83   -272.77     49.86    1000 0.7320   
-   DRB1:DQA1    0.91847   0.91468   -164.06   -254.54    180.96    1000 0.0000***
-   DRB1:DQB1    1.00000   1.00000   -147.73   -283.09    270.72    1000 0.0000***
+   Locus pair        D      D'      Wn  ln(L_1) ln(L_0)      S  ALD_1_2  ALD_2_1
+   A:C         0.01465 0.49229 0.39472  -289.09 -326.81  75.44  0.41435  0.37525
+   A:B         0.01491 0.50895 0.40145  -293.47 -330.84  74.73  0.40726  0.39512
+   A:DRB1      0.01299 0.42896 0.38416  -282.00 -309.16  54.32  0.32934  0.38370
+   A:DQA1      0.01219 0.33413 0.36466  -269.57 -286.08  33.02  0.25803  0.34897
+   A:DQB1      0.01356 0.39266 0.37495  -275.58 -297.62  44.07  0.29931  0.37489
+   A:DPA1      0.01681 0.32397 0.36666  -219.78 -226.97  14.38  0.19446  0.35360
+   A:DPB1      0.01362 0.42240 0.40404  -237.85 -262.06  48.42  0.33848  0.41739
+   C:B         0.04125 0.88739 0.85752  -210.37 -342.68 264.63  0.84781  0.86104
+   C:DRB1      0.01698 0.48046 0.47513  -280.34 -317.66  74.62  0.32308  0.47691
+   C:DQA1      0.02072 0.47797 0.49368  -263.23 -293.74  61.01  0.31386  0.50338
+   C:DQB1      0.01766 0.45793 0.49879  -269.55 -305.28  71.46  0.30479  0.50122
+   C:DPA1      0.02039 0.41030 0.46438  -224.72 -236.52  23.61  0.21172  0.46433
+   C:DPB1      0.01898 0.46453 0.37002  -242.45 -268.46  52.01  0.33462  0.45327
+   B:DRB1      0.01723 0.50254 0.41712  -286.79 -320.50  67.42  0.32654  0.43913
+   B:DQA1      0.01845 0.44225 0.43582  -271.36 -296.59  50.45  0.28877  0.44993
+   B:DQB1      0.01958 0.49040 0.43654  -277.30 -308.13  61.65  0.31328  0.45679
+   B:DPA1      0.01875 0.37441 0.40117  -229.76 -239.16  18.80  0.20689  0.40443
+   B:DPB1      0.01898 0.46082 0.38001  -247.84 -272.77  49.86  0.32227  0.45680
+   DRB1:DQA1   0.06138 0.92556 0.92465  -164.06 -271.56 214.99  0.82051  0.93006
+   DRB1:DQB1   0.06058 1.00000 1.00000  -147.74 -283.10 270.72  0.93302  1.00000
 
    ...
 
-We report two measures of overall linkage disequilibrium. :math:`D'`
+We report three measures of overall linkage disequilibrium. :math:`D'`
 [Hedrick:1987]_ weights the contribution to LD of specific allele pairs by
 the product of their allele frequencies; :math:`W_n` [Cramer:1946]_ is
 a re-expression of the chi-square statistic for deviations between
-observed and expected haplotype frequencies. Both measures are
-normalized to lie between zero and one.
+observed and expected haplotype frequencies. :math:`W_{A/B}` and :math:`W_{B/A}` 
+are extensions of :math:`W_n` that account for asymmetry when the number of alleles 
+differs at two loci [Thomson:Single:2014]_. Each measure is normalized to lie between zero and one.
 
 :math:`D'`
    Overall LD, summing contributions (:math:`D'_{ij}=D_{ij} /D_{max}`) of all the haplotypes in a
@@ -460,10 +461,32 @@ normalized to lie between zero and one.
    W_n = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / p_i } q_j } }{\min (I - 1,J - 1)}} \right]^{\frac{1}{2}} = \left[ {\frac{X_{LD}^2 / 2N}{\min (I - 1,J - 1)}}\right]^{\frac{1}{2}}
 
 
-When there are only two alleles per locus, :math:`W_n` is equivalent
-to the correlation coefficient between the two loci, defined as
-:math:`r =\sqrt {D_{11} / p_1 p_2 q_1 q_2 }`.
+two alleles case
+   When there are only two alleles per locus, :math:`W_n` is equivalent
+   to the correlation coefficient between the two loci, defined as
+   :math:`r =\sqrt {D_{11} / p_1 p_2 q_1 q_2 }`.
 
+:math:`W_{A/B}` and :math:`W_{B/A}`
+ 
+   When there are different numbers of alleles at the two loci,
+   the direct correlation property for the :math:`r` correlation 
+   measure is not retained by :math:`W_n`, its multi-allelic extension. 
+   The complementary pair of conditional asymmetric LD (ALD) measures, 
+   :math:`W_{A/B}` and :math:`W_{B/A}`, were developed to extend the :math:`W_n` measure. 
+   :math:`W_{A/B}` is (inversely) related to the 
+   degree of variation of A locus alleles on haplotypes conditioned 
+   on B locus alleles. If there is no variation of A locus alleles 
+   on haplotypes conditioned on B locus alleles, then :math:`W_{A/B} = 1`
+   :math:`W_{A/B} = W_{B/A} = W_n` when there is symmetry in the data and 
+   thus for bi-allelic SNPs.
+
+.. math::
+
+   W_{A/B} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / q_j } } }{ 1 - F_A }} \right]^{\frac{1}{2}} 
+
+.. math::
+
+   W_{B/A} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / p_i } } }{ 1 - F_B }} \right]^{\frac{1}{2}} 
    
 For each locus pair the log-likelihood of obtaining the observed data
 given the inferred haplotype frequencies [``ln(L_1)``], and the
