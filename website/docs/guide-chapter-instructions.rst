@@ -436,11 +436,11 @@ LD of specific allele pairs by the product of their allele frequencies
 (``D'`` in the output); :math:`W_n` [Cramer:1946]_ is a re-expression
 of the chi-square statistic for deviations between observed and
 expected haplotype frequencies (``W_n`` in the
-output)). :math:`W_{A/B}` (``ALD_1_2``) and :math:`W_{B/A}`
-(``ALD_2_1``) are extensions of :math:`W_n` that account for asymmetry
-when the number of alleles differs at two loci
-[Thomson:Single:2014]_. Below we describe the measures, each of which
-is normalized to lie between zero and one.
+output)). :math:`W_{A/B}` and :math:`W_{B/A}` (``ALD_1_2`` and
+``ALD_2_1``, respectively in the output) are extensions of :math:`W_n`
+that account for asymmetry when the number of alleles differs at two
+loci [Thomson:Single:2014]_. Below we describe the measures, each of
+which is normalized to lie between zero and one.
 
 :math:`D'` 
    Overall LD, summing contributions (:math:`D'_{ij}=D_{ij} /D_{max}`) of all the haplotypes in a
@@ -500,7 +500,7 @@ that are displayed in the output above:
    haplotype frequencies (``ln(L_1)`` in the output)
 
 :math:`\ln(L_0)`   
-   the likelihood of the data under the null hypothesis of linkage
+   the log-likelihood of the data under the null hypothesis of linkage
    equilibrium (``ln(L_0)`` in the output)
 
 :math:`S`
