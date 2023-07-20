@@ -461,6 +461,7 @@ differs at two loci [Thomson:Single:2014]_. Each measure is normalized to lie be
    W_n = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / p_i } q_j } }{\min (I - 1,J - 1)}} \right]^{\frac{1}{2}} = \left[ {\frac{X_{LD}^2 / 2N}{\min (I - 1,J - 1)}}\right]^{\frac{1}{2}}
 
 
+two alleles case
    When there are only two alleles per locus, :math:`W_n` is equivalent
    to the correlation coefficient between the two loci, defined as
    :math:`r =\sqrt {D_{11} / p_1 p_2 q_1 q_2 }`.
