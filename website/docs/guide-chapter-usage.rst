@@ -13,7 +13,7 @@ data.
 
 As mentioned in the installation chapter, a minimal working example 
 of a `configuration file (.ini) <https://github.com/alexlancaster/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`, 
-and a `population file (.pop) <https://github.com/alexlancaster/pypop/blob/main/tests/data/minimal.ini>`, 
+and a `population file (.pop) <https://github.com/alexlancaster/pypop/blob/main/tests/data/minimal.ini>`_, 
 can be found by clicking the respective links. 
 
 There are two ways to run PyPop:
