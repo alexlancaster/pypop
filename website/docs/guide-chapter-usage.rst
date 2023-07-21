@@ -738,6 +738,8 @@ is contained in :ref:`config-advanced`.
       Set this to ``1`` (one) if you want the program to calculate all
       pairwise LD for your data, otherwise set this to ``0`` (zero).
 
+.. _config-allPairwiseLDWithPermu:
+
    -  ``allPairwiseLDWithPermu``.
 
       Set this to a positive integer greater than 1 if you need to
@@ -753,7 +755,7 @@ is contained in :ref:`config-advanced`.
 
       Set this to change the number of initial conditions used per
       permutation. **[Default:** ``5`` **]**. (*Note: this parameter is only used
-      if ``allPairwiseLDWithPermu`` is set and nonzero*).
+      if* ``allPairwiseLDWithPermu`` *is set and nonzero*).
 
 .. _config-advanced:
 
