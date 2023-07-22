@@ -367,6 +367,7 @@ Copyright and License
 
 PyPop is Copyright (C) 2003-2006. The Regents of the University of
 California (Regents)
+
 Copyright (C) 2007-2023 PyPop team.
 
 PyPop is distributed under the terms of GPLv2
