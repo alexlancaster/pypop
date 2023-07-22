@@ -121,7 +121,7 @@ documentation locally. Here's an overview of how to do that:
 5. build the HTML documentation:
 
    ```
-   sphinx-build docs _build
+   sphinx-build website _build
    ```
 
 6. view the local documention: you can open up browser and navigate to
@@ -146,7 +146,7 @@ you will need to have various TeX packages installed.
 2. build the LaTeX and then compile the PDF:
 
    ```
-   sphinx-build -b latex docs _latexbuild
+   sphinx-build -b latex website _latexbuild
    make -C _latexbuild
    ```
 
