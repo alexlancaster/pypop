@@ -567,8 +567,7 @@ outside ``website`` like ``README.rst`` and ``CONTRIBUTING.rst``:
 -  ``conf.py`` (Sphinx configuration file - project name and other
    global settings are stored here)
    
-- ``docs`` (directory containing the source for the *PyPop User
-   Guide*, which will eventually live at http://pypop.org/docs). 
+- ``docs`` (directory containing the source for the *PyPop User Guide*, which will eventually live at http://pypop.org/docs). 
 
    -  ``index.rst`` (source for the top-level of the *PyPop User Guide*)
    -  ``guide-chapter-install.rst`` (pulls in parts of the top-level ``README.rst``)
