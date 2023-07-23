@@ -101,14 +101,14 @@ Clone the main repository
 
 Next, clone the main repository to your local machine:
 
-::
+.. code-block:: shell
 
     git clone https://github.com/alexlancaster/pypop.git
     cd pypop
 
 Add your fork as an upstream repository:
 
-::
+.. code-block:: shell
 
     git remote add myfork git://github.com/YOUR-USERNAME/pypop.git
     git fetch myfork
@@ -118,7 +118,7 @@ Make a new branch
 
 From the ``main`` branch create a new branch where to develop the new code.
 
-::
+.. code-block:: shell
 
     git checkout main
     git checkout -b new_branch
@@ -138,7 +138,7 @@ Once you have done the installation and have verified that it works,
 you can start to develop the feature, or make the bug fix, and keep
 regular pushes to your fork with comprehensible commit messages.
 
-::
+.. code-block:: shell
 
     git status
     git add # (the files you want)
@@ -154,7 +154,7 @@ Keep your branch in sync with upstream
 You should keep your branch in sync with the upstream ``main``
 branch. For that:
 
-::
+.. code-block:: shell
 
     git checkout main  # return to the main branch
     git pull  # retrieve the latest source from the main repository
@@ -167,7 +167,7 @@ know how to do this, I suggest you start by reading the `official docs
 
 You can push to your fork now if you wish:
 
-::
+.. code-block:: shell
 
     git push myfork new_branch
 
@@ -202,13 +202,13 @@ Run unit tests with ``pytest``
 Once you have done your initial installation, you should first check
 that the build worked, by running the test suite, via ``pytest``:
 
-::
+.. code-block:: shell
 
    pytest tests
 
 If ``pytest`` is not already installed, you can install via:
 
-::
+.. code-block:: shell
 
     pip install pytest
    
@@ -217,7 +217,7 @@ carefully repeat and/or check your installation. If you still get
 errors, file a bug, and include the output of ``pytest`` run in
 verbose mode and capturing the output
 
-::
+.. code-block:: shell
 
    pytest -s -v tests
    
@@ -350,7 +350,7 @@ Unix/Linux:
 
 1. Ensure Python 3 version of ``pip`` is installed:
 
-   ::
+   .. code-block:: shell
 
       python3 -m ensurepip --user --no-default-pip
 
@@ -366,13 +366,13 @@ Unix/Linux:
 
    1. Fedora/Centos/RHEL
 
-      ::
+      .. code-block:: shell
 
          sudo dnf install git swig gsl-devel python3-devel
 
    2. Ubuntu
 
-      ::
+      .. code-block:: shell
 
          sudo apt install git swig libgsl-dev python-setuptools
 
@@ -448,7 +448,7 @@ package.
 
 1. if you installed the conda development environment, use:
 
-   ::
+   .. code-block:: shell
 
       pip install .[test]
 
@@ -461,7 +461,7 @@ package.
    different, because we install into the user’s ``$HOME/.local`` rather
    than the conda environment:
 
-   ::
+   .. code-block:: shell
 
       pip install --user .[test]
 
@@ -480,19 +480,19 @@ Build-and-run-from-checkout (recommended for developers)
 
    1. conda
 
-      ::
+      .. code-block:: shell
 
          pip install numpy lxml psutil pytest
 
    2. system-wide
 
-      ::
+      .. code-block:: shell
 
          pip install --user numpy lxml psutil pytest
 
 2. Run the build
 
-   ::
+   .. code-block:: shell
 
       ./setup.py build
 
@@ -511,7 +511,7 @@ for developers)`_, above, follow the end-user instructions on
 files and force a recompilation from scratch, run the ``clean``
 command:
 
-::
+.. code-block:: shell
 
    ./setup clean --all
 
@@ -650,9 +650,9 @@ documentation locally. Here’s an overview of how to do that:
 
 1. install sphinx and sphinx extensions
 
-   ::
+   .. code-block:: shell
 
-      pip install --user setuptools_scm sphinx piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton sphinx-argparse
+      pip install setuptools_scm sphinx piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton sphinx-argparse
 
 2. make a fork of pypop if you haven't already (see `previous section <Fork this repository_>`_)
 
@@ -664,7 +664,7 @@ documentation locally. Here’s an overview of how to do that:
 
 5. build the HTML documentation:
 
-   ::
+   .. code-block:: shell
 
       sphinx-build website _build
 
@@ -682,13 +682,13 @@ you will need to have various TeX packages installed.
 1. install the LaTeX packages (these are packages needed for Ubuntu,
    they may be different on your distribution):
 
-   ::
+   .. code-block:: shell
 
       sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
 
 2. build the LaTeX and then compile the PDF:
 
-   ::
+   .. code-block:: shell
 
       sphinx-build -b latex website _latexbuild
       make -C _latexbuild
