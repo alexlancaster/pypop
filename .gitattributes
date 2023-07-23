@@ -1,5 +1,5 @@
 # exclude obsolete code
-src/obsolete linguist-documentation
+src/obsolete/** linguist-documentation
 # exclude some documentation
 website/html_root/** linguist-documentation
 website/reference/** linguist-documentation
