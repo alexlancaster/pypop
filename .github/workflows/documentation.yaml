@@ -8,9 +8,9 @@ on:
       - 'LICENSE'
       - 'website/**'
       - 'src/PyPop/CommandLineInterface.py'
+      - '.github/workflows/documentation.yaml'
       - '!website/README.md'
       - '!reference/**'
-      - '.github/workflows/documentation.yaml'
   pull_request:
     paths:
       - 'README.rst'
@@ -19,9 +19,9 @@ on:
       - 'LICENSE'
       - 'website/**'
       - 'src/PyPop/CommandLineInterface.py'
+      - '.github/workflows/documentation.yaml'
       - '!website/README.md'
       - '!reference/**'
-      - '.github/workflows/documentation.yaml'
   workflow_dispatch:
     paths:
       - 'README.rst'
@@ -30,9 +30,9 @@ on:
       - 'LICENSE'
       - 'website/**'
       - 'src/PyPop/CommandLineInterface.py'
+      - '.github/workflows/documentation.yaml'
       - '!website/README.md'
       - '!reference/**'
-      - '.github/workflows/documentation.yaml'
   release: 
      types: 
       - published
