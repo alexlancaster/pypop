@@ -9,7 +9,7 @@ on:
       - 'CITATION.cff'
       - 'website/**'
       - '.github/workflows/documentation.yaml'
-      - '.gitattributes
+      - '.gitattributes'
   push:
     paths-ignore:
       - '**.md'
@@ -17,7 +17,7 @@ on:
       - 'CITATION.cff'
       - 'website/**'
       - '.github/workflows/documentation.yaml'
-      - '.gitattributes      
+      - '.gitattributes'      
   release: 
      types: 
       - published
