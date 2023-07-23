@@ -1,5 +1,6 @@
 # exclude HTML in root
-website/html_root linguist-documentation
+website/html_root/** linguist-documentation
+website/reference/** linguist-documentation
 # exclude generated HTML on gh-pages
 *.html  linguist-generated
 popdata/** linguist-generated
