@@ -1,1 +1,4 @@
+# exclude HTML in root
 website/html_root linguist-documentation
+# exclude generated HTML on gh-pages
+index.html  linguist-generated
