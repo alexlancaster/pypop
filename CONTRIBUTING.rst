@@ -567,17 +567,17 @@ outside ``website`` like ``README.rst`` and ``CONTRIBUTING.rst``:
 -  ``conf.py`` (Sphinx configuration file - project name and other
    global settings are stored here)
    
-- ``docs`` (directory containing the source for the *PyPop User Guide*, which will eventually live at http://pypop.org/docs). 
+-  ``docs`` (directory containing the source for the *PyPop User Guide*, which will eventually live at http://pypop.org/docs). 
 
    -  ``index.rst`` (source for the top-level of the *PyPop User Guide*)
    -  ``guide-chapter-install.rst`` (pulls in parts of the top-level ``README.rst``)
    -  ``guide-chapter-usage.rst``
    -  ``guide-chapter-instructions.rst``
-   -  ``guide-chapter-contributing.rst`` (includes the top-level
-      ``.rst`` file ``CONTRIBUTING.rst`` that contains the source of
-      the text that you are reading right now)
-   -  ``guide-chapter-changes.rst`` (includes top-level ``NEWS.rst`` and ``AUTHORS.rst``, which is local to ``website``)
-   -  ``licenses.rst`` (includes top-level ``LICENSE``)
+   -  ``guide-chapter-contributing.rst`` (pulls in top-level
+      ``CONTRIBUTING.rst`` that contains the source of the text that you are reading right now)
+   -  ``guide-chapter-changes.rst`` (pulls in top-level ``NEWS.rst`` and ``AUTHORS.rst``, which is local to ``website``)
+   -  ``AUTHORS.rst``
+   -  ``licenses.rst`` (pulls in top-level ``LICENSE``)
    -  ``biblio.rst``
 
 -  ``html_root`` (any files or directories commited in this directory
@@ -641,18 +641,18 @@ recommended** that you should make all changes in your own local fork,
 by cloning the repository on your computer and then building the
 documentation locally. Here’s an overview of how to do that:
 
-   The commands in
-   ```.github/workflows/documentation.yaml`` `</.github/workflows/documentation.yaml>`_
+   The commands in the "Sphinx build" section of the workflow
+   `.github/workflows/documentation.yaml <https://github.com/alexlancaster/pypop/blob/main/.github/workflows/documentation.yaml>`_
    which are used to run the GitHub Action that builds the documentation
    when it it deployed, is the best source for the most update-to-date
    commands to run, and should be consulted if the instructions in this
-   README become out of date.
+   document become out of date.
 
 1. install sphinx and sphinx extensions
 
    ::
 
-      pip install --user sphinx piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton
+      pip install --user setuptools_scm sphinx piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton sphinx-argparse
 
 2. make a fork of pypop if you haven't already (see `previous section <Fork this repository_>`_)
 
