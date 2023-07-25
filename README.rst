@@ -363,7 +363,7 @@ guide. We also have additional notes and background relevant for
 developers in `DEV_NOTES.md
 <https://github.com/alexlancaster/pypop/blob/main/DEV_NOTES.md>`__. Source
 for the website and the documentation is located in the `website
-<website>`__ subdirectory.
+<https://github.com/alexlancaster/pypop/blob/main/website>`__ subdirectory.
 
 Copyright and License
 =====================
