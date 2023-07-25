@@ -10,7 +10,7 @@
 .. image:: https://img.shields.io/github/issues/alexlancaster/pypop.svg
     :target: https://github.com/alexlancaster/pypop/issues
 
-.. image:: https://api.juleskreuer.eu/citation-badge.php?shield&doi=10.1111/j.1399-0039.2006.00769.x
+.. image:: https://api.juleskreuer.eu/citation-badge.php?doi=10.1111/j.1399-0039.2006.00769.x
    :target: https://juleskreuer.eu/projekte/citation-badge/
 
 |DOI Citations|
