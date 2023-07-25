@@ -1,25 +1,20 @@
 |GitHub release|
-
 .. |GitHub release| image:: https://img.shields.io/github/release/alexlancaster/pypop.svg
    :target: https://github.com/alexlancaster/pypop/releases/
 
 |Build Status|	    
-	    
 .. |Build Status| image:: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml/badge.svg?branch=main
     :target: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml
 
 |GitHub license|
-	     
 .. |GitHub license| image:: https://img.shields.io/github/license/alexlancaster/pypop.svg
    :target: https://github.com/alexlancaster/pypop/blob/master/LICENSE	     
 
 |GitHub issues|
-
 .. |GitHub issues| image:: https://img.shields.io/github/issues/alexlancaster/pypop.svg
     :target: https://github.com/alexlancaster/pypop/issues
 
 |Citations|	     
-	     
 .. |Citations| image:: https://api.juleskreuer.eu/citation-badge.php?doi=10.1111/j.1399-0039.2006.00769.x
    :target: https://juleskreuer.eu/projekte/citation-badge/
 	    
