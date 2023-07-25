@@ -391,5 +391,5 @@ PyPop is distributed under the terms of GPLv2
 .. |Citations| image:: https://api.juleskreuer.eu/citation-badge.php?doi=10.1111/j.1399-0039.2006.00769.x
    :target: https://juleskreuer.eu/projekte/citation-badge/
 	    
-.. |GitHub version| image:: https://badge.fury.io/gh/Naereen%2FStrapDown.js.svg
-   :target: https://github.com/Naereen/StrapDown.js
+.. |GitHub version| image:: https://badge.fury.io/gh/alexlancaster%2Fpypop.svg
+   :target: https://github.com/alexlancaster/pypop/
