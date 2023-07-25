@@ -1,8 +1,8 @@
 |Build status| |Website pypop.org| |GitHub license| |Citations|
 
 
-Python for Population Genomics (PyPop)
-======================================
+PyPop: Python for Population Genomics
+=====================================
 
 PyPop is a framework for processing genotype and allele data and
 running population genetic analyses, including conformity to
