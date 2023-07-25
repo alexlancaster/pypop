@@ -385,7 +385,7 @@ PyPop is distributed under the terms of GPLv2
     :target: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml
 
 .. |GitHub license| image:: https://img.shields.io/github/license/alexlancaster/pypop.svg
-   :target: https://github.com/alexlancaster/pypop/blob/master/LICENSE	     
+   :target: https://github.com/alexlancaster/pypop/blob/main/LICENSE	     
 
 .. |GitHub issues| image:: https://img.shields.io/github/issues/alexlancaster/pypop.svg
     :target: https://github.com/alexlancaster/pypop/issues
