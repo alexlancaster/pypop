@@ -1,5 +1,5 @@
 .. image:: https://img.shields.io/pypi/pyversions/pypop-genomics.svg
-   :target: https://test.pypi.org/pypi/pypop-genomics/
+   :target: https://test.pypi.org/project/pypop-genomics/
 	     
 .. image:: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml/badge.svg?branch=main
     :target: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml
@@ -12,11 +12,6 @@
 
 .. image:: https://api.juleskreuer.eu/citation-badge.php?doi=10.1111/j.1399-0039.2006.00769.x
    :target: https://juleskreuer.eu/projekte/citation-badge/
-
-|DOI Citations|
-
-.. |DOI Citations| image:: https://api.juleskreuer.eu/citation-badge.php?doi=10.1126/science.1058040
-   :target: https://juleskreuer.eu/projekte/citation-badge/	    
 	    
 
 Python for Population Genomics (PyPop)
