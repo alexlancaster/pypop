@@ -1,3 +1,22 @@
+.. image:: https://img.shields.io/pypi/pyversions/pypop-genomics.svg
+   :target: https://test.pypi.org/pypi/pypop-genomics/
+	     
+.. image:: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml/badge.svg?branch=main
+    :target: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml
+
+.. image:: https://img.shields.io/github/license/alexlancaster/pypop.svg
+   :target: https://github.com/alexlancaster/pypop/blob/master/LICENSE	     
+	     
+.. image::  https://img.shields.io/github/issues/alexlancaster/pypop.svg
+    :target:  https://github.com/alexlancaster/pypop/issues
+
+.. image:: https://anaconda.org/bioconda/pypop/badges/downloads.svg
+    :target: https://github.com/alexlancaster/pypop/releases
+
+.. image:: https://api.juleskreuer.eu/citation-badge.php?shield&doi=10.1111
+   :target: https://juleskreuer.eu/projekte/citation-badge/
+
+
 Python for Population Genomics (PyPop)
 ======================================
 
@@ -5,8 +24,9 @@ PyPop is a framework for processing genotype and allele data and
 running population genetic analyses, including conformity to
 Hardy-Weinberg expectations; tests for balancing or directional
 selection; estimates of haplotype frequencies and measures and tests
-of significance for linkage disequilibrium (LD).  .  See the `PyPop
+of significance for linkage disequilibrium (LD). See the `PyPop
 User Guide <http://pypop.org/docs>`__ for a more detailed description.
+
 
 .. |pkgname| replace:: ``pypop-genomics``
 
@@ -20,7 +40,7 @@ When citing PyPop, please cite the (2007) paper from *Tissue Antigens*:
    G. Thomson (2007) "PyPop update - a software pipeline for
    large-scale multilocus population genomics" *Tissue Antigens* 69 (s1), 192-197.
    [`journal page <http://dx.doi.org/10.1111/j.1399-0039.2006.00769.x>`__,
-   `preprint PDF (112 kB) <tissue-antigens-lancaster-2007.pdf>`__].
+   `preprint PDF (112 kB) <http://pypop.org/tissue-antigens-lancaster-2007.pdf>`__].
 
 In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
 
@@ -30,7 +50,7 @@ In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
   *Pacific Symposium on Biocomputing* vol. 8:514-525 (edited by R B
   Altman. et al., World Scientific, Singapore, 2003) [`PubMed
   Central <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/>`__,
-  `PDF (344 kB) <psb-pypop.pdf>`__].
+  `PDF (344 kB) <http://pypop.org/psb-pypop.pdf>`__].
 
 .. _guide-include-pypop-cite-end:
 
@@ -44,8 +64,8 @@ In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
    may change and is not yet the final package name until the package
    is released to PyPI.
 
-Quickstart
-==========
+Quickstart Guide
+================
 
 **Installing** |pkgname|
 
