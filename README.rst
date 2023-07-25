@@ -80,7 +80,7 @@ environment variable.
 
    pip uninstall pypop-genomics
 
-**For more, including handling common installation issues, see the** `full installation instructions`_ **.**
+**For more, including handling common installation issues, see the** `detailed installation instructions`_ **.**
    
 Once you have installed |pkgname|, you can move on to try some
 `example runs <Examples_>`__.
@@ -146,8 +146,8 @@ plain text version:
    USAFEL-UchiTelle-small-out.txt
 
 
-Full installation instructions
-==============================
+Detailed installation instructions
+==================================
 
 There are three main steps:
 
