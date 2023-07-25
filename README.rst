@@ -13,7 +13,7 @@
 .. image:: https://anaconda.org/bioconda/pypop/badges/downloads.svg
     :target: https://github.com/alexlancaster/pypop/releases
 
-.. image:: https://api.juleskreuer.eu/citation-badge.php?shield&doi=10.1111
+.. image:: https://api.juleskreuer.eu/citation-badge.php?shield&doi=10.1111/j.1399-0039.2006.00769.x
    :target: https://juleskreuer.eu/projekte/citation-badge/
 
 
