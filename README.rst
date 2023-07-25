@@ -11,9 +11,6 @@ selection; estimates of haplotype frequencies and measures and tests
 of significance for linkage disequilibrium (LD). See the `PyPop
 User Guide <http://pypop.org/docs>`__ for a more detailed description.
 
-
-.. |pkgname| replace:: ``pypop-genomics``
-
 .. _guide-include-pypop-cite-start:
 		       
 **How to cite PyPop**
@@ -375,6 +372,9 @@ California (Regents)
 Copyright (C) 2007-2023 PyPop team.
 
 PyPop is distributed under the terms of GPLv2
+
+
+.. |pkgname| replace:: ``pypop-genomics``
 
 .. |GitHub release| image:: https://img.shields.io/github/release/alexlancaster/pypop.svg
    :target: https://github.com/alexlancaster/pypop/releases/
