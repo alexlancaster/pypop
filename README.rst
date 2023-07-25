@@ -1,4 +1,4 @@
-|GitHub version| |Build status| |GitHub license| |Citations|
+|GitHub tag| |Build status| |GitHub license| |Citations|
 
 
 Python for Population Genomics (PyPop)
@@ -393,3 +393,6 @@ PyPop is distributed under the terms of GPLv2
 	    
 .. |GitHub version| image:: https://badge.fury.io/gh/alexlancaster%2Fpypop.svg
    :target: https://github.com/alexlancaster/pypop/
+
+.. |GitHub tag| image:: https://img.shields.io/github/tag/alexlancaster/pypop.svg
+   :target: https://GitHub.com/alexlancaster/pypop/tags/	    
