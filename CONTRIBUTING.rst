@@ -18,20 +18,58 @@ Did you find a bug?
 When `reporting a bug
 <https://github.com/alexlancaster/pypop/issues>`_ please use one of
 the provided issue templates if applicable, otherwise just start a
-blank issue and describe your situation.
+blank issue and describe your situation.  Here is a checklist:
 
-* Ensure the bug was not already reported by searching on GitHub under
-  `Issues <https://github.com/alexlancaster/pypop/issues>`_.
+* **Check previous issues**.  Ensure the bug was not already reported
+  by searching on GitHub under `Issues
+  <https://github.com/alexlancaster/pypop/issues>`_.
 
-* If you're unable to find an open issue addressing the problem, open
-  a new one. Be sure to include a title and clear description, as much
-  relevant information as possible, and a code sample or an executable
-  test case demonstrating the expected behavior that is not occurring.
+* **Provide complete self-contained examples**. If you're unable to
+  find an open issue addressing the problem, open a new one. Be sure
+  to include a title and clear description, as much relevant
+  information as possible, and a code sample or an executable test
+  case (including any input files) demonstrating the expected behavior
+  that is not occurring.
 
-* If possible, use the relevant bug report templates to create the issue.
+* **Use templates**. If possible, use the relevant bug report templates
+  to create the issue.
 
-* When reporting bugs, especially during installation, please run the
-  following and include the output:
+* **Provide full commands and errors as plaintext, not screenshots**.
+  When you are including the output of an error in your bug report
+  (whether an installation error, a build error, an error running
+  ``pypop`` or an error building docs), please cut-and-paste from your
+  console application or terminal, the entire set of commands leading
+  up to the error, along with the **complete** error output as a
+  **single plaintext** output. E.g. here is an example error from
+  running ``pypop`` on a badly formed ``.ini`` file:
+
+  .. code:: 
+	    
+     $ pypop -c minimal.ini USAFEL-UchiTelle-small.pop 
+     Traceback (most recent call last):
+       File "/home/user/.conda/envs/pypop/bin/pypop", line 8, in <module>
+         sys.exit(main())
+       File "/home/user/.conda/envs/pypop/lib/python3.10/site-packages/PyPop/pypop.py", line 250, in main
+         config = getConfigInstance(configFilename, altpath)
+       File "/home/user/.conda/envs/pypop/lib/python3.10/site-packages/PyPop/Main.py", line 62, in getConfigInstance
+         config.read(configFilename)
+       File "/home/user/.conda/envs/pypop/lib/python3.10/configparser.py", line 698, in read
+         self._read(fp, filename)
+       File "/home/user/.conda/envs/pypop/lib/python3.10/configparser.py", line 1086, in _read
+         raise MissingSectionHeaderError(fpname, lineno, line)
+     configparser.MissingSectionHeaderError: File contains no section headers.
+     file: 'minimal.ini', line: 4
+     '   j[General]\n'
+
+  **Please do not just post screenshots of commands and error
+  output**. It's OK if you want to also include a screenshot as
+  supplement, but be sure you also include the commands and output as
+  plaintext as well. (If the output is too long for including inline
+  as a comment on the issue, you can save it in a file, and
+  drag-and-drop it into an issue comment).
+
+* **Include environment**. When reporting bugs, especially during
+  installation, please run the following and include the output of:
 
   .. code:: shell
 
@@ -47,6 +85,13 @@ blank issue and describe your situation.
 
     port installed
 
+* **Keep each issue focused on one specific problem**. Each issue
+  should be focused on one problem. Don't use an issue for open-ended
+  discussion, or as a place to collect all issues with pypop you run
+  into. If, during the comments, you discover another bug, unrelated
+  to the current issue, please open up a new issue and reference it in
+  the current issue.
+  
   
 Documentation improvements
 --------------------------
