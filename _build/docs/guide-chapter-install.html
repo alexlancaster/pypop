@@ -1,0 +1,609 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>1. Installing PyPop &#8212; PyPop: Python for Population Genomics 0.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic_mod.css?v=0.7.0-1" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <script src="../_static/js/petite-vue.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. Getting started with PyPop" href="guide-chapter-usage.html" />
+    <link rel="prev" title="PyPop User Guide" href="index.html" /> 
+  </head><body data-dark_mode_code_blocks="true">
+
+<div id="top_nav">
+    
+        <div id="notification_banner" data-banner-hiding="temporary" v-show="!permanentlyHidden">
+    <p v-if="visible" id="content">PyPop 0.7.0 binaries are deprecated, please check the <a href="https://github.com/alexlancaster/pypop#readme">README</a> for installing pre-releases or for compiling from source</p>
+    <a class="close" href="#" @click.prevent="toggleVisible()">[[ visible ? '&#x25B2; HIDE' : '&#x25BC; SHOW BANNER' ]]</a>
+</div>
+
+<script>
+(function() {
+    const topNav = document.querySelector('#top_nav')
+    const notificationContent = document.querySelector('#notification_banner p#content').innerText
+    const localStorageKey = 'readNotification'
+    const bannerHiding = document.querySelector('#notification_banner').dataset['bannerHiding']
+    const cssVariableName = '--navbarHeight'
+    const rootElement = document.documentElement
+
+    /*************************************************************************/
+    // Local storage for remembering if the user has read the notification.
+
+    function checkAlreadyRead() {
+        return localStorage.getItem(localStorageKey) == notificationContent
+    }
+
+    function setRead() {
+        localStorage.setItem(localStorageKey, notificationContent)
+    }
+
+    function clearRead() {
+        localStorage.removeItem(localStorageKey)
+    }
+
+    const alreadyRead = checkAlreadyRead()
+    const permanentlyHidden = alreadyRead && bannerHiding == 'permanent'
+
+    /*************************************************************************/
+    // Updating a CSS variable so other elements adjust to the nav bar height.
+
+    function updateNavbarHeight() {
+        // Only update it if the delta is significant. Otherwise it causes
+        // unnecessary browser repaints.
+        const documentStyles = getComputedStyle(rootElement)
+        // We store the value in REM, so need to convert to pixels
+        const currentValue = parseFloat(
+            documentStyles.getPropertyValue(cssVariableName)
+        ) * parseFloat(documentStyles.fontSize)
+
+        const newValue = topNav.clientHeight
+
+        if (newValue - 5 > currentValue) {
+            console.log(`Updating ${cssVariableName} - overlapping`)
+            rootElement.style.setProperty(
+                cssVariableName, newValue + "px"
+            );
+        } else if (currentValue - newValue >= 30) {
+            console.log(`Updating ${cssVariableName} - gap too large`)
+            rootElement.style.setProperty(
+                cssVariableName, newValue + "px"
+            );
+        }
+    }
+
+    /*************************************************************************/
+    // After loading the page, and resizing the window, recalculate the nav bar
+    // height.
+
+    if (!permanentlyHidden) {
+        // This height is approximately correct when there's a banner, so
+        // shouldn't require any page reflow:
+        rootElement.style.setProperty(
+            '--navbarHeight', "5.5rem"
+        );
+
+        document.addEventListener("DOMContentLoaded", function() {
+            updateNavbarHeight()
+        });
+
+        var interval = undefined
+
+        window.addEventListener('resize', () => {
+            if (interval) {
+                clearTimeout(interval)
+            }
+            interval = setTimeout(() => {
+                console.log("Finished resizing")
+                updateNavbarHeight()
+            }, 100)
+        })
+    }
+
+    /*************************************************************************/
+
+    PetiteVue.createApp({
+        visible: !alreadyRead,
+        permanentlyHidden: permanentlyHidden,
+        bannerHiding: bannerHiding,
+        $delimiters: ['[[', ']]'],
+        toggleVisible() {
+            this.visible = !this.visible
+
+            if (this.visible) {
+                clearRead()
+            } else {
+                setRead()
+            }
+
+            if (!this.visible && bannerHiding == 'permanent') {
+                this.permanentlyHidden = true
+            }
+
+            // Run this after Vue has had time to update the DOM:
+            setTimeout(
+                updateNavbarHeight,
+                0
+            )
+        }
+    }).mount('#notification_banner')
+})()
+</script>
+    
+
+    <nav>
+        
+            
+        
+
+        <p id="toggle_sidebar">
+            <a href="#" title="Toggle sidebar">|||</a>
+        </p>
+        <h1><a href="../index.html" title="Go to homepage">PyPop</a></h1>
+            <a id="source_link" href="https://github.com/alexlancaster/pypop/">
+    
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+            <path fill="white" d="M 244.8,8 C 106.1,8 0,113.3 0,252 c 0,110.9 69.8,205.8 169.5,239.2 12.8,2.3 17.3,-5.6 17.3,-12.1 0,-6.2 -0.3,-40.4 -0.3,-61.4 0,0 -70,15 -84.7,-29.8 0,0 -11.4,-29.1 -27.8,-36.6 0,0 -22.9,-15.7 1.6,-15.4 0,0 24.9,2 38.6,25.8 21.9,38.6 58.6,27.5 72.9,20.9 2.3,-16 8.8,-27.1 16,-33.7 -55.9,-6.2 -112.3,-14.3 -112.3,-110.5 0,-27.5 7.6,-41.3 23.6,-58.9 -2.6,-6.5 -11.1,-33.3 2.6,-67.9 20.9,-6.5 69,27 69,27 20,-5.6 41.5,-8.5 62.8,-8.5 21.3,0 42.8,2.9 62.8,8.5 0,0 48.1,-33.6 69,-27 13.7,34.7 5.2,61.4 2.6,67.9 16,17.7 25.8,31.5 25.8,58.9 0,96.5 -58.9,104.2 -114.8,110.5 9.2,7.9 17,22.9 17,46.4 0,33.7 -0.3,75.4 -0.3,83.6 0,6.5 4.6,14.4 17.3,12.1 C 428.2,457.8 496,362.9 496,252 496,113.3 383.5,8 244.8,8 Z"/>
+        </svg>
+    
+</a>
+        
+
+        <a id="mode_toggle" href="#" @click.prevent="handleClick" :title="mode">
+    <template v-if="mode == 'light'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_light"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M67.48,18.073c1.913,-1.912 1.913,-5.018 0,-6.931c-1.912,-1.912 -5.018,-1.912 -6.931,0l-6.798,6.799c-1.912,1.912 -1.912,5.018 0,6.931c1.913,1.912 5.018,1.912 6.931,-0l6.798,-6.799Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.728,61.108c1.912,-1.913 1.912,-5.018 -0,-6.931c-1.913,-1.913 -5.019,-1.913 -6.931,-0l-6.799,6.798c-1.912,1.913 -1.912,5.019 0,6.931c1.913,1.913 5.019,1.913 6.931,0l6.799,-6.798Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.682,54.177c-1.913,-1.913 -5.018,-1.913 -6.931,-0c-1.912,1.913 -1.912,5.018 0,6.931l6.798,6.798c1.913,1.913 5.019,1.913 6.931,0c1.913,-1.912 1.913,-5.018 0,-6.931l-6.798,-6.798Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M4.901,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,-0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M18.929,11.142c-1.912,-1.912 -5.018,-1.912 -6.931,0c-1.912,1.913 -1.912,5.019 0,6.931l6.799,6.799c1.912,1.912 5.018,1.912 6.931,-0c1.912,-1.913 1.912,-5.019 -0,-6.931l-6.799,-6.799Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.108,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c-0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c-0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'dark'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_dark"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.901,2.196 -4.901,4.901c0,2.705 2.197,4.901 4.901,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.662,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.989,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.732,61.103c1.91,-1.91 1.91,-5.011 0,-6.921l-0.009,-0.01c-1.91,-1.91 -5.012,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.909,1.91 5.011,1.91 6.92,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.672,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.52,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l-0,-0.01c-0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.901,2.196 -4.901,4.901c0,2.704 2.197,4.9 4.901,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.73,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 -0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.098,34.623c-2.699,0 -4.891,2.192 -4.891,4.892l-0,0.019c-0,2.699 2.192,4.891 4.891,4.891c2.7,0 4.892,-2.192 4.892,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.892,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'darkest'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_darkest"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><path d="M39.315,23.791c8.684,-0 15.734,7.05 15.734,15.733c0,8.684 -7.05,15.734 -15.734,15.734c-8.683,0 -15.733,-7.05 -15.733,-15.734c-0,-8.683 7.05,-15.733 15.733,-15.733Zm0,4.737c6.069,0 10.997,4.927 10.997,10.996c-0,6.069 -4.928,10.996 -10.997,10.996c-6.068,0 -10.996,-4.927 -10.996,-10.996c0,-6.069 4.928,-10.996 10.996,-10.996Z" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.216,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.9,2.196 -4.9,4.901c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.666,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.99,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.737,61.103c1.909,-1.91 1.909,-5.011 -0,-6.921l-0.01,-0.01c-1.91,-1.91 -5.011,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.91,1.91 5.011,1.91 6.921,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.676,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.524,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l0,-0.01c0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.216,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901c-0,2.704 2.196,4.9 4.9,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.734,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.103,34.623c-2.7,0 -4.892,2.192 -4.892,4.892l-0,0.019c-0,2.699 2.192,4.891 4.892,4.891c2.699,0 4.891,-2.192 4.891,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.891,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+</a>
+
+<script>
+(function() {
+    const LOCAL_STORAGE_KEY = 'piccoloThemeMode'
+
+    var initialMode = localStorage.getItem(LOCAL_STORAGE_KEY)
+
+    if (initialMode) {
+        // Make sure the value in local storage is valid
+        if (['light', 'dark', 'darkest'].indexOf(initialMode) == -1) {
+            initialMode = 'light'
+            localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+        }
+    } else {
+        // Check if the client prefers dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            initialMode = 'dark'
+        } else {
+            initialMode = 'light'
+        }
+        localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+    }
+
+    document.documentElement.dataset.mode = initialMode
+
+    PetiteVue.createApp({
+        'mode': initialMode,
+        handleClick() {
+            let currentMode = this.mode
+
+            if (currentMode == 'light') {
+                this.mode = 'dark'
+            } else if (currentMode == 'dark') {
+                this.mode = 'darkest'
+            } else if (currentMode == 'darkest') {
+                this.mode = 'light'
+            }
+
+            document.documentElement.dataset.mode = this.mode
+            localStorage.setItem(LOCAL_STORAGE_KEY, this.mode)
+
+            console.log(this.mode)
+        }
+    }).mount('#mode_toggle')
+})()
+</script>
+            <p class="mobile_search_link">
+                <a href="../search.html" title="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 64" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+                        <path d="M14.873 40.009c-2.315-3.943-3.642-8.532-3.642-13.429C11.231 11.91 23.141 0 37.811 0s26.58 11.91 26.58 26.58-11.91 26.58-26.58 26.58a26.44 26.44 0 0 1-14.277-4.161L9.739 62.794a3.12 3.12 0 0 1-4.413 0L.913 58.382c-1.217-1.218-1.217-3.196 0-4.413l13.96-13.96zM37.811 8.054c10.225 0 18.526 8.301 18.526 18.526s-8.301 18.526-18.526 18.526-18.526-8.301-18.526-18.526S27.586 8.054 37.811 8.054z" fill="#fff" />
+                    </svg>
+                </a>
+            </p>
+        
+
+        <div class="searchbox_wrapper">
+            
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">PyPop User Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">1. Installing PyPop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-usage.html">2. Getting started with PyPop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-instructions.html">3. Interpreting PyPop output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-contributing.html">4. Contributing to PyPop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-changes.html">5. Authors and history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="licenses.html">6. Licenses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biblio.html">7. References</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary data sets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="http://pypop.org/popdata/">Solberg et al. (2008)</a></li>
+</ul>
+
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="installing-pypop">
+<h1><span class="section-number">1. </span>Installing PyPop<a class="headerlink" href="#installing-pypop" title="Permalink to this heading">¶</a></h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The package name for installation purposes is <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code> - to avoid
+conflicting with an unrelated package with the name <code class="docutils literal notranslate"><span class="pre">pypop</span></code>
+already on <a class="reference external" href="https://pypi.org">PyPI</a>. This is a working name and
+may change and is not yet the final package name until the package
+is released to PyPI.</p>
+</div>
+<section id="quickstart-guide">
+<h2><span class="section-number">1.1. </span>Quickstart Guide<a class="headerlink" href="#quickstart-guide" title="Permalink to this heading">¶</a></h2>
+<p><strong>Installing</strong> <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code></p>
+<p>If you already have Python and <code class="docutils literal notranslate"><span class="pre">pip</span></code> <a class="reference internal" href="#install-python-3-and-pip">installed</a>, install a test pre-releases using the following:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pypop-genomics<span class="w"> </span>--extra-index-url<span class="w"> </span>https://test.pypi.org/simple/
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>These pre-release versions are being made available for initial
+testing, they are not intended to be used for production
+applications or analysis, and are not yet included in the main
+pypi.org index</strong></p>
+</div>
+<p>Once <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code> is installed, depending on your platform, you may also
+need to <a class="reference internal" href="#post-install-path-adjustments">adjust</a> your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>
+environment variable.</p>
+<p><strong>Upgrading</strong> <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pypop-genomics<span class="w"> </span>--extra-index-url<span class="w"> </span>https://test.pypi.org/simple/
+</pre></div>
+</div>
+<p><strong>Uninstalling</strong> <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>pypop-genomics
+</pre></div>
+</div>
+<p><strong>For more, including handling common installation issues, see the</strong> <a class="reference internal" href="#detailed-installation-instructions">detailed installation instructions</a> <strong>.</strong></p>
+<p>Once you have installed <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code>, you can move on to try some
+<a class="reference internal" href="#examples">example runs</a>.</p>
+</section>
+<section id="examples">
+<span id="guide-readme-examples"></span><h2><span class="section-number">1.2. </span>Examples<a class="headerlink" href="#examples" title="Permalink to this heading">¶</a></h2>
+<p>These are examples of how to check that the program is installed and
+some minimal use cases.</p>
+<section id="checking-version-and-installation">
+<h3><span class="section-number">1.2.1. </span>Checking version and installation<a class="headerlink" href="#checking-version-and-installation" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>--version
+</pre></div>
+</div>
+<p>This simply reports the version number and other information about
+PyPop, and indirectly checks that the program is installed. If all is
+well, you should see something like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pypop 1.0.0a23
+Copyright (C) 2003-2006 Regents of the University of California.
+Copyright (C) 2007-2023 PyPop team.
+This is free software.  There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre></div>
+</div>
+<p>You can also run <code class="docutils literal notranslate"><span class="pre">pypop</span> <span class="pre">--help</span></code> to see a full list and explanation
+of all the options available.</p>
+</section>
+<section id="run-a-minimal-dataset">
+<h3><span class="section-number">1.2.2. </span>Run a minimal dataset:<a class="headerlink" href="#run-a-minimal-dataset" title="Permalink to this heading">¶</a></h3>
+<p>Download test <code class="docutils literal notranslate"><span class="pre">.ini</span></code> and <code class="docutils literal notranslate"><span class="pre">.pop</span></code> files: <a class="reference external" href="https://github.com/alexlancaster/pypop/blob/main/tests/data/minimal.ini">minimal.ini</a>
+and <a class="reference external" href="https://github.com/alexlancaster/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop">USAFEL-UchiTelle-small.pop</a>.
+You can then run them</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>-c<span class="w">  </span>minimal.ini<span class="w"> </span>USAFEL-UchiTelle-small.pop
+</pre></div>
+</div>
+<p>If you have already cloned the git repository and it is your working
+directory, you can simply run</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>-c<span class="w">  </span>tests/data/minimal.ini<span class="w"> </span>tests/data/USAFEL-UchiTelle-small.pop
+</pre></div>
+</div>
+<p>This will generate the following two files, an XML output file and a
+plain text version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">USAFEL</span><span class="o">-</span><span class="n">UchiTelle</span><span class="o">-</span><span class="n">small</span><span class="o">-</span><span class="n">out</span><span class="o">.</span><span class="n">xml</span>
+<span class="n">USAFEL</span><span class="o">-</span><span class="n">UchiTelle</span><span class="o">-</span><span class="n">small</span><span class="o">-</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="detailed-installation-instructions">
+<h2><span class="section-number">1.3. </span>Detailed installation instructions<a class="headerlink" href="#detailed-installation-instructions" title="Permalink to this heading">¶</a></h2>
+<p>There are three main steps:</p>
+<ol class="arabic simple">
+<li><p>install Python and <code class="docutils literal notranslate"><span class="pre">pip</span></code></p></li>
+<li><p>install package from Test PyPI</p></li>
+<li><p>adjusting your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable after installation</p></li>
+</ol>
+<section id="install-python-3-and-pip">
+<h3><span class="section-number">1.3.1. </span>Install Python 3 and <code class="docutils literal notranslate"><span class="pre">pip</span></code><a class="headerlink" href="#install-python-3-and-pip" title="Permalink to this heading">¶</a></h3>
+<p>A full description of installing Python and <code class="docutils literal notranslate"><span class="pre">pip</span></code> on your system is
+beyond the scope of this guide, we recommend starting here:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://wiki.python.org/moin/BeginnersGuide/Download">https://wiki.python.org/moin/BeginnersGuide/Download</a></p>
+</div></blockquote>
+<p>Here are some additional platform-specific notes that may be helpful:</p>
+<ul class="simple">
+<li><p>Most Linux distributions come with Python 3 preinstalled. On most
+modern systems, <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">python</span></code> will default to Python 3.</p></li>
+<li><p>MacOS 10.9 (Jaguar) up until 12.3 (Catalina), used to ship with
+Python 2 pre-installed, but it now has to be manually installed.
+See the <a class="reference external" href="https://docs.python.org/3/using/mac.html">MacOS quick-start guide</a> in the official
+documentation for how to install Python 3. (Note that if Python is
+installed on Mac via the MacOS developer tools, it may include the
+version <code class="docutils literal notranslate"><span class="pre">3</span></code> suffix on commands, e.g. <code class="docutils literal notranslate"><span class="pre">python3</span></code> and <code class="docutils literal notranslate"><span class="pre">pip3</span></code>, so
+modify the below, accordingly).</p></li>
+<li><p>For Windows, see also the <a class="reference external" href="https://docs.python.org/3/using/windows.html">Windows quick-start guide</a> in the official
+documentation. Running <code class="docutils literal notranslate"><span class="pre">python</span></code> in the Windows command terminal
+in Windows 11 and later will launch the installer for the
+Microsoft-maintained Windows package of Python 3.</p></li>
+</ul>
+</section>
+<section id="install-package-from-pypi">
+<h3><span class="section-number">1.3.2. </span>Install package from PyPI<a class="headerlink" href="#install-package-from-pypi" title="Permalink to this heading">¶</a></h3>
+<p>Once you have both python and <code class="docutils literal notranslate"><span class="pre">pip</span></code> installed, you can use <code class="docutils literal notranslate"><span class="pre">pip</span></code>
+to install pre-compiled binary “wheels” of <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code>
+pre-releases, test packages for PyPop available directly on the <a class="reference external" href="https://test.pypi.org/">Test
+PyPI</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>These pre-release versions are being made available for initial
+testing, they are not intended to be used for production
+applications or analysis, and are not yet included in the main
+pypi.org index</strong></p>
+</div>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pypop-genomics<span class="w"> </span>--extra-index-url<span class="w"> </span>https://test.pypi.org/simple/
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If, for whatever reason, you cannot use the these binaries
+(e.g. the pre-compiled binaries are not available for your
+platform), you may need to follow the <a class="reference external" href="http://pypop.org/docs/guide-chapter-contributing.html#installation-for-developers">developer installation
+instructions</a> in the contributors
+guide.</p>
+</div>
+<p><strong>Upgrade an existing PyPop installation</strong></p>
+<p>To update an existing installation to a newer version, use the same
+command as above, but add the <code class="docutils literal notranslate"><span class="pre">--upgrade</span></code> (short version: <code class="docutils literal notranslate"><span class="pre">-U</span></code>)
+flag, i.e.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pypop-genomics<span class="w"> </span>--extra-index-url<span class="w"> </span>https://test.pypi.org/simple/
+</pre></div>
+</div>
+<p><strong>Issues with installation permission</strong></p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">pip</span></code> will attempt to install the <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code>
+package wherever the current Python installation is installed.  This
+location may be a user-specific virtual environment (like <code class="docutils literal notranslate"><span class="pre">conda</span></code>,
+see below), or a system-wide installation. On many Unix-based systems,
+Python will generally already be pre-installed in a “system-wide”
+location (e.g. under <code class="docutils literal notranslate"><span class="pre">/usr/lib</span></code>) which is read-only for regular
+users. (This can also be true for system-installed versions of Python
+on Windows and MacOS.)</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> cannot install in a read-only system-wide
+location , <code class="docutils literal notranslate"><span class="pre">pip</span></code> will gracefully “fall-back” to installing just for
+you in your home directory (typically <code class="docutils literal notranslate"><span class="pre">~/.local/lib/python&lt;VER&gt;</span></code>
+where <code class="docutils literal notranslate"><span class="pre">&lt;VER&gt;</span></code> is the version number of your current Python). In
+general, this is what is wanted, so the above instructions are
+normally sufficient.</p>
+<p>However, you can also explicitly set installation to be in the user
+directory, by adding the <code class="docutils literal notranslate"><span class="pre">--user</span></code> command-line option to the <code class="docutils literal notranslate"><span class="pre">pip</span>
+<span class="pre">install</span></code> command, i.e.:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pypop-genomics<span class="w"> </span>--user<span class="w"> </span>--extra-index-url<span class="w"> </span>https://test.pypi.org/simple/
+</pre></div>
+</div>
+<p>This may be necessary in certain cases where <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> doesn’t
+install into the expected user directory.</p>
+<div class="admonition-installing-within-a-conda-environment admonition">
+<p class="admonition-title">Installing within a <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment</p>
+<p>In the special case that you installing from within an activated
+user-specific <code class="docutils literal notranslate"><span class="pre">conda</span></code> virtual environment that provides Python,
+then you should <strong>not</strong> add the <code class="docutils literal notranslate"><span class="pre">--user</span></code> because it will install
+it in <code class="docutils literal notranslate"><span class="pre">~/.local/lib/</span></code> rather than under the user-specific conda
+virtual environment in <code class="docutils literal notranslate"><span class="pre">~/.conda/envs/</span></code>.</p>
+</div>
+</section>
+<section id="install-package-from-github-releases-advanced">
+<h3><span class="section-number">1.3.3. </span>Install package from GitHub Releases (advanced)<a class="headerlink" href="#install-package-from-github-releases-advanced" title="Permalink to this heading">¶</a></h3>
+<p>We also sometimes make binary packages also available from the GitHub
+release page:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/alexlancaster/pypop/releases">https://github.com/alexlancaster/pypop/releases</a></p>
+</div></blockquote>
+<p>To install these is similar to installing via PyPI above, except that
+you need to explicitly provide a URL to the release page.</p>
+<ol class="arabic">
+<li><p>First, visit the release page, and choose the release version you
+wish to install (usually the most recent), and note the release tag
+(e.g. <code class="docutils literal notranslate"><span class="pre">v1.0.0-a23</span></code>).</p>
+<div class="admonition-release-version-numbers admonition">
+<p class="admonition-title">Release version numbers</p>
+<p>Note that version of the release is slightly different to the
+<code class="docutils literal notranslate"><span class="pre">git</span></code> tag.  This is because the <code class="docutils literal notranslate"><span class="pre">git</span></code> tag follows <a class="reference external" href="https://semver.org/">Semantic
+Versioning</a>, which Python internally
+normalizes and abbreviates.  So the release with the <code class="docutils literal notranslate"><span class="pre">git</span></code> tag
+<code class="docutils literal notranslate"><span class="pre">v1.0.0-a23</span></code> is actually version <code class="docutils literal notranslate"><span class="pre">1.0.0a23</span></code> of the
+<code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code> package, and the version that <code class="docutils literal notranslate"><span class="pre">pip</span></code> “sees”.</p>
+</div>
+</li>
+<li><p>Next, use <code class="docutils literal notranslate"><span class="pre">pip</span></code> to install the package by running a command of
+the form (this will select and install the correct wheel for your
+Python version and operating system automatically):</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pypop-genomics<span class="w"> </span>-f<span class="w"> </span>https://github.com/alexlancaster/pypop/releases/expanded_assets/&lt;TAG_NAME&gt;
+</pre></div>
+</div>
+<p>where <em>&lt;TAG_NAME&gt;</em> is replaced with a specific tag, e.g. for the example given above, you would run:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pypop-genomics<span class="w"> </span>-f<span class="w"> </span>https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-a23
+</pre></div>
+</div>
+<p>You can also manually download the specific wheel from the github
+release webpage and install directly, e.g.:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pypop-genomics-1.0.0a23-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="post-install-path-adjustments">
+<h3><span class="section-number">1.3.4. </span>Post-install <code class="docutils literal notranslate"><span class="pre">PATH</span></code> adjustments<a class="headerlink" href="#post-install-path-adjustments" title="Permalink to this heading">¶</a></h3>
+<p>You may need to adjust the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> settings (especially on Windows)
+for the <code class="docutils literal notranslate"><span class="pre">pypop</span></code> scripts to be visible when run from your console
+application, without having to supply the full path to the <code class="docutils literal notranslate"><span class="pre">pypop</span></code>
+executable file.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Pay close attention to the “WARNINGS” that are shown during the
+<code class="docutils literal notranslate"><span class="pre">pip</span></code> installation, they will often note which directories need to
+be added to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+</div>
+<ul class="simple">
+<li><p>On Linux and MacOS, systems this is normally fairly simple and only
+requires edit of the shell <code class="docutils literal notranslate"><span class="pre">.profile</span></code>, or similar and addition of
+the <code class="docutils literal notranslate"><span class="pre">$HOME/.local/bin</span></code> to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable, followed by a
+restart of the terminal.</p></li>
+<li><p>For Windows, however, as noted in most online <a class="reference external" href="https://www.computerhope.com/issues/ch000549.htm">instructions</a>, this may need
+additional help from your system administrator if your user doesn’t
+have the right permissions, and also require a system reboot.</p></li>
+</ul>
+</section>
+<section id="uninstalling-pypop">
+<h3><span class="section-number">1.3.5. </span>Uninstalling PyPop<a class="headerlink" href="#uninstalling-pypop" title="Permalink to this heading">¶</a></h3>
+<p>To uninstall the current version of <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>pypop-genomics
+</pre></div>
+</div>
+</section>
+</section>
+<section id="support-and-development">
+<h2><span class="section-number">1.4. </span>Support and development<a class="headerlink" href="#support-and-development" title="Permalink to this heading">¶</a></h2>
+<p>Please submit any bug reports, feature requests or questions, via our
+GitHub issue tracker (see our <a class="reference external" href="http://pypop.org/docs/guide-chapter-contributing.html#reporting-and-requesting">bug reporting guidelines</a>
+for more details on how to file a good bug report):</p>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/alexlancaster/pypop/issues">https://github.com/alexlancaster/pypop/issues</a></p>
+</div></blockquote>
+<p><strong>Please do not report bugs via private email to developers.</strong></p>
+<p>The development of the code for PyPop is via our GitHub project:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/alexlancaster/pypop">https://github.com/alexlancaster/pypop</a></p>
+</div></blockquote>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+    
+        <div id="show_right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&lt;</span><span>Page contents<span></a></p>
+        </div>
+
+        <div id="right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&gt;</span><span>Page contents:<span></a></p>
+            <div class="page_toc">
+                <ul>
+<li><a class="reference internal" href="#">1. Installing PyPop</a><ul>
+<li><a class="reference internal" href="#quickstart-guide">1.1. Quickstart Guide</a></li>
+<li><a class="reference internal" href="#examples">1.2. Examples</a><ul>
+<li><a class="reference internal" href="#checking-version-and-installation">1.2.1. Checking version and installation</a></li>
+<li><a class="reference internal" href="#run-a-minimal-dataset">1.2.2. Run a minimal dataset:</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#detailed-installation-instructions">1.3. Detailed installation instructions</a><ul>
+<li><a class="reference internal" href="#install-python-3-and-pip">1.3.1. Install Python 3 and <code class="docutils literal notranslate"><span class="pre">pip</span></code></a></li>
+<li><a class="reference internal" href="#install-package-from-pypi">1.3.2. Install package from PyPI</a></li>
+<li><a class="reference internal" href="#install-package-from-github-releases-advanced">1.3.3. Install package from GitHub Releases (advanced)</a></li>
+<li><a class="reference internal" href="#post-install-path-adjustments">1.3.4. Post-install <code class="docutils literal notranslate"><span class="pre">PATH</span></code> adjustments</a></li>
+<li><a class="reference internal" href="#uninstalling-pypop">1.3.5. Uninstalling PyPop</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#support-and-development">1.4. Support and development</a></li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+    
+
+      <div class="clearer"></div>
+    </div>
+    <div class="button_nav_wrapper">
+        <div class="button_nav">
+            <div class="left">
+                
+                <a href="index.html">
+                    <span class="icon">&lt;</span><span>PyPop User Guide</span></a>
+                
+            </div>
+
+            <div class="right">
+                
+                    <a href="guide-chapter-usage.html"><span><span class="section-number">2. </span>Getting started with PyPop</span><span class="icon">&gt;</span></a>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2023 PyPop contributors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 6.2.1.
+    </div>
+
+<p id="theme_credit">Styled using the <a href="https://github.com/piccolo-orm/piccolo_theme">Piccolo Theme</a></p>
+  </body>
+</html>

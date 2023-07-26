@@ -1,0 +1,103 @@
+\babel@toc {english}{}
+\contentsline {chapter}{\numberline {1}Installing PyPop}{2}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Quickstart Guide}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Examples}{3}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Checking version and installation}{3}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}Run a minimal dataset:}{3}{subsection.1.2.2}%
+\contentsline {section}{\numberline {1.3}Detailed installation instructions}{3}{section.1.3}%
+\contentsline {subsection}{\numberline {1.3.1}Install Python 3 and \sphinxstyleliteralintitle {\sphinxupquote {pip}}}{4}{subsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3.2}Install package from PyPI}{4}{subsection.1.3.2}%
+\contentsline {subsection}{\numberline {1.3.3}Install package from GitHub Releases (advanced)}{5}{subsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.3.4}Post\sphinxhyphen {}install \sphinxstyleliteralintitle {\sphinxupquote {PATH}} adjustments}{6}{subsection.1.3.4}%
+\contentsline {subsection}{\numberline {1.3.5}Uninstalling PyPop}{6}{subsection.1.3.5}%
+\contentsline {section}{\numberline {1.4}Support and development}{6}{section.1.4}%
+\contentsline {chapter}{\numberline {2}Getting started with PyPop}{7}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Introduction}{7}{section.2.1}%
+\contentsline {subsection}{\numberline {2.1.1}Interactive mode}{7}{subsection.2.1.1}%
+\contentsline {subsection}{\numberline {2.1.2}Batch mode}{9}{subsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.1.3}What happens when you run PyPop?}{9}{subsection.2.1.3}%
+\contentsline {section}{\numberline {2.2}Using \sphinxstyleliteralintitle {\sphinxupquote {popmeta}} to aggregate results}{9}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Command\sphinxhyphen {}line interfaces}{10}{section.2.3}%
+\contentsline {subsection}{\numberline {2.3.1}\sphinxstyleliteralintitle {\sphinxupquote {pypop}} usage}{10}{subsection.2.3.1}%
+\contentsline {subsubsection}{Options for pypop}{10}{subsubsection*.5}%
+\contentsline {subsubsection}{TSV output options}{10}{subsubsection*.6}%
+\contentsline {subsubsection}{Mutually exclusive input options}{11}{subsubsection*.7}%
+\contentsline {subsection}{\numberline {2.3.2}\sphinxstyleliteralintitle {\sphinxupquote {popmeta}} usage}{11}{subsection.2.3.2}%
+\contentsline {subsubsection}{Positional Arguments}{11}{subsubsection*.8}%
+\contentsline {subsubsection}{Options for popmeta}{11}{subsubsection*.9}%
+\contentsline {subsubsection}{Mutually exclusive popmeta options}{11}{subsubsection*.10}%
+\contentsline {section}{\numberline {2.4}The data file}{12}{section.2.4}%
+\contentsline {subsection}{\numberline {2.4.1}Sample files}{12}{subsection.2.4.1}%
+\contentsline {subsection}{\numberline {2.4.2}Missing data}{14}{subsection.2.4.2}%
+\contentsline {section}{\numberline {2.5}The configuration file}{14}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}A minimal configuration file}{15}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Advanced options}{18}{subsection.2.5.2}%
+\contentsline {chapter}{\numberline {3}Interpreting PyPop output}{22}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Population summary}{22}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Single locus analyses}{22}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Basic allele count information}{22}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Chi\sphinxhyphen {}square test for deviation from Hardy\sphinxhyphen {}Weinberg proportions (HWP).}{23}{subsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.2.3}Exact test for deviation from HWP}{25}{subsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.2.4}The Ewens\sphinxhyphen {}Watterson homozygosity test of neutrality}{26}{subsection.3.2.4}%
+\contentsline {section}{\numberline {3.3}Multi\sphinxhyphen {}locus analyses}{27}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}All pairwise LD}{27}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Haplotype frequency estimation}{29}{subsection.3.3.2}%
+\contentsline {chapter}{\numberline {4}Contributing to PyPop}{30}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Reporting and requesting}{30}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Did you find a bug?}{30}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Documentation improvements}{30}{subsection.4.1.2}%
+\contentsline {subsection}{\numberline {4.1.3}Feature requests and feedback}{31}{subsection.4.1.3}%
+\contentsline {section}{\numberline {4.2}Making a code contribution}{31}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Fork this repository}{31}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Clone the main repository}{31}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Make a new branch}{32}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Build locally and make your changes}{32}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Keep your branch in sync with upstream}{32}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.2.6}Update \sphinxstyleliteralintitle {\sphinxupquote {NEWS.rst}}}{32}{subsection.4.2.6}%
+\contentsline {subsection}{\numberline {4.2.7}Run unit tests with \sphinxstyleliteralintitle {\sphinxupquote {pytest}}}{33}{subsection.4.2.7}%
+\contentsline {subsection}{\numberline {4.2.8}Make a Pull Request}{33}{subsection.4.2.8}%
+\contentsline {section}{\numberline {4.3}Installation for developers}{34}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Install the build environment}{34}{subsection.4.3.1}%
+\contentsline {subsubsection}{Install build environment via miniconda (recommended)}{34}{subsubsection*.15}%
+\contentsline {subsubsection}{Install build environment via system packages (advanced)}{35}{subsubsection*.16}%
+\contentsline {paragraph}{Unix/Linux:}{35}{paragraph*.17}%
+\contentsline {paragraph}{MacOS X}{35}{paragraph*.18}%
+\contentsline {subsubsection}{Windows}{36}{subsubsection*.19}%
+\contentsline {subsection}{\numberline {4.3.2}Build PyPop}{36}{subsection.4.3.2}%
+\contentsline {subsubsection}{Build\sphinxhyphen {}and\sphinxhyphen {}install (not recommended for developers)}{36}{subsubsection*.20}%
+\contentsline {subsubsection}{Build\sphinxhyphen {}and\sphinxhyphen {}run\sphinxhyphen {}from\sphinxhyphen {}checkout (recommended for developers)}{36}{subsubsection*.21}%
+\contentsline {subsubsection}{Cleaning up build}{37}{subsubsection*.22}%
+\contentsline {section}{\numberline {4.4}Making a documentation or website contribution}{37}{section.4.4}%
+\contentsline {subsection}{\numberline {4.4.1}Overview}{37}{subsection.4.4.1}%
+\contentsline {subsection}{\numberline {4.4.2}Structure}{37}{subsection.4.4.2}%
+\contentsline {subsection}{\numberline {4.4.3}Modifying documentation}{38}{subsection.4.4.3}%
+\contentsline {subsubsection}{Minor modifications}{38}{subsubsection*.23}%
+\contentsline {subsubsection}{Major modifications}{38}{subsubsection*.24}%
+\contentsline {chapter}{\numberline {5}Authors and history}{40}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Authors of software components}{40}{section.5.1}%
+\contentsline {section}{\numberline {5.2}PyPop Release History}{41}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Notes towards next release}{41}{subsection.5.2.1}%
+\contentsline {subsubsection}{New features}{41}{subsubsection*.25}%
+\contentsline {subsection}{\numberline {5.2.2}Release Notes for PyPop 0.7.0}{41}{subsection.5.2.2}%
+\contentsline {subsubsection}{New features}{41}{subsubsection*.26}%
+\contentsline {subsubsection}{Bug fixes}{42}{subsubsection*.27}%
+\contentsline {subsubsection}{Other issues}{42}{subsubsection*.28}%
+\contentsline {subsection}{\numberline {5.2.3}Release Notes for PyPop 0.6.0}{42}{subsection.5.2.3}%
+\contentsline {subsubsection}{New features}{42}{subsubsection*.29}%
+\contentsline {subsubsection}{Bug fixes}{43}{subsubsection*.30}%
+\contentsline {subsection}{\numberline {5.2.4}Release Notes for PyPop 0.5.2 (public beta)}{43}{subsection.5.2.4}%
+\contentsline {subsubsection}{Bug fixes}{43}{subsubsection*.31}%
+\contentsline {subsection}{\numberline {5.2.5}Release Notes for PyPop 0.5.1 (public beta)}{44}{subsection.5.2.5}%
+\contentsline {subsubsection}{Changes}{44}{subsubsection*.32}%
+\contentsline {subsubsection}{Bug fixes}{44}{subsubsection*.33}%
+\contentsline {subsection}{\numberline {5.2.6}Release Notes for PyPop 0.5 (public beta)}{44}{subsection.5.2.6}%
+\contentsline {subsubsection}{Changes}{44}{subsubsection*.34}%
+\contentsline {subsubsection}{Bug fixes}{44}{subsubsection*.35}%
+\contentsline {subsection}{\numberline {5.2.7}Release Notes for PyPop 0.4.3beta}{44}{subsection.5.2.7}%
+\contentsline {subsubsection}{Bug fixes}{44}{subsubsection*.36}%
+\contentsline {chapter}{\numberline {6}Licenses}{45}{chapter.6}%
+\contentsline {section}{\numberline {6.1}License terms for PyPop}{45}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}GNU General Public License}{45}{subsection.6.1.1}%
+\contentsline {section}{\numberline {6.2}License for PyPop documentation}{50}{section.6.2}%
+\contentsline {subsection}{\numberline {6.2.1}GNU Free Documentation License}{50}{subsection.6.2.1}%
+\contentsline {chapter}{Bibliography}{54}{chapter*.38}%

@@ -658,7 +658,8 @@ documentation locally. Here’s an overview of how to do that:
 
 3. `clone the fork and add your fork as an upstream repository <Clone
    the main repository_>`_ on your local computer, and `make a new
-   branch`_.
+   branch`_. Note that you shouldn't have to build the pypop package
+   itself in order to edit and build the docs. 
 
 4. make your changes to your ``.rst`` files and/or ``conf.py``
 

@@ -1,0 +1,150 @@
+.. _guide-preface-intro:
+
+=====================================   
+PyPop: Python for Population Genomics
+=====================================
+
+.. warning::
+   
+    The old 0.7.0 binary releases based on Python 2, are deprecated
+    and will no install or work on many platforms. Please follow the
+    instructions on the GitHub `README.rst
+    <https://github.com/alexlancaster/pypop#readme>`__ for how to
+    install one of the Python 3-based pre-releases, or build PyPop
+    from source on a modern Python 3 system.
+
+.. _news:
+
+.. admonition:: Release summary and news
+  :class: dropdown	
+
+  - 2023: ported to Python 3, pre-release alpha versions of 1.0.0
+    under development - no formal release yet. Eventually future
+    releases will be delivered via `PyPI <https://pypi.org>`__.
+  - 2022: 0.7.0 binaries deprecated.
+  - 2020: pypop is no longer a Fedora package
+  - 2017: all new development is now in GitHub
+  - 2008-09-09: 0.7.0 release (many new features and bug fixes)
+
+  See the :ref:`PyPop Release History` in the `Python User Guide` for
+  earlier history and full release notes.
+
+.. _guide-preface-1-start:
+
+**PyPop (Python for Population Genomics)** is an environment for doing
+large-scale population genetic analyses including:
+
+-  conformity to Hardy-Weinberg expectations
+
+-  tests for balancing or directional selection
+
+-  estimates of haplotype frequencies and measures and tests of
+   significance for linkage disequilibrium (LD).
+
+It is an object-oriented framework implemented in `Python
+<http://www.pypop.org/>`__, a language with powerful features for
+interfacing with other languages, such as C (in which we have already
+implemented many routines and which is particularly suited to
+computationally intensive tasks).
+
+The output of the analyses are stored in XML. These output files can
+then be transformed using standard tools into many other data formats
+suitable for machine input (such as PHYLIP or input for spreadsheet
+programs such as Excel or statistical packages, such as R), plain
+text, or HTML for human-readable format. Storing the output in XML
+allows the final viewable output format to be redesigned at will,
+without requiring the (often time-consuming) re-running of the
+analyses themselves.
+
+An outline of PyPop can be found in our 2007 *Tissue Antigens* and
+2003 *PSB* :ref:`papers <citing-pypop>`.
+
+.. _guide-preface-1-end:
+
+**Installation and documentation**
+
+Documentation, including instructions on :doc:`installing
+<docs/guide-chapter-install>`, :doc:`using <docs/guide-chapter-usage>`
+and :doc:`interpreting output of <docs/guide-chapter-instructions>`
+PyPop, is contained in the :ref:`PyPop User Guide
+<user-guide>`.
+
+.. admonition:: Contact and questions
+
+   Please file all questions, support requests, and bug reports via
+   our `GitHub issue tracker
+   <https://github.com/alexlancaster/pypop/issues>`__. More details on
+   how to file bug reports can be found in our :ref:`contributors
+   chapter <guide-contributing-bug-report>` of the *User Guide*.
+
+.. _source-code:
+
+**Source code**
+
+PyPop is `free software
+<http://www.gnu.org/philosophy/free-sw.html>`__ (sometimes referred to
+as `open source <http://www.opensource.org/>`__ software) and the
+source code is released under the terms of the "copyleft" GNU General
+Public License, or GPL (http://www.gnu.org/licenses/gpl.html).  All
+source code is available and maintained on our `GitHub website
+<https://github.com/alexlancaster/pypop>`__.
+
+.. _citing-pypop:
+
+.. include:: ../README.rst
+   :start-after: guide-include-pypop-cite-start:
+   :end-before: guide-include-pypop-cite-end:
+
+.. _guide-preface-2-start:
+
+PyPop was originally developed for the analysis of data for the 13th
+`International Histocompatiblity Workshop and
+Conference <http://www.ihwg.org/>`__ held in Seattle, Washington in 2002
+([Meyer:etal:2007]_, [Single:etal:2007a]_, [Single:etal:2007a]_). For more
+details on the design and technical details of PyPop, please consult
+[Lancaster:etal:2003]_, [Lancaster:etal:2007a]_ and [Lancaster:etal:2007b]_.
+
+.. _acknowlegements:
+
+**Acknowlegements**
+
+This work has benefited from the support of NIH grant AI49213 (13th
+IHW) and NIH/NIAID Contract number HHSN266200400076C
+N01-AI-40076. Thanks to Steven J. Mack, Kristie A. Mather, Steve G.E.
+Marsh, Mark Grote and Leslie Louie for helpful comments and testing.
+
+.. _guide-preface-2-end:
+
+.. _popdata-files:
+
+**Supplementary data files**
+
+`Population data files and online supporting materials <popdata/>`__ for
+published studies listed in the [Solberg:etal:2008]_ meta-analysis paper.
+
+.. _immport-org:
+
+**ImmPort.org**
+
+PyPop is affiliated with https://ImmPort.org, the Immunology Database and
+Analysis Portal. The ImmPort system provides advanced information
+technology support in the production, analysis, archiving, and
+exchange of scientific data for the diverse community of life science
+researchers supported by NIAID/DAIT. The development of the ImmPort
+system was supported by the NIH/NIAID Bioinformatics Integration
+Support Contract (BISC), Phase II.
+
+
+.. toctree::
+   :caption: Documentation
+   :maxdepth: 3
+   :hidden:
+
+   docs/index
+
+.. toctree::
+   :maxdepth: 1
+   :hidden:
+   :caption: Supplementary data sets
+
+   Solberg et al. (2008) <http://pypop.org/popdata/>

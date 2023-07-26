@@ -1,0 +1,24 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+Cw_MetalsaBerber_2004.pop	Cw	126	126	lit	MetalsaBerber_2004	African	02-NAF	Rural village of Driouch, in the Nador area, localized in the Rif mountains.	1	Metalsa is a Berber population living in North Morocco.  Berber population has ancient origin (since Neolithic period), and represents the autochthonous basis of the Moroccan population which has been successively driven back by the urban civilizations and by Arabinization.  73 blood samples from healthy unrelated Caucasian Moroccan individuals, 31 males and 42 females, aged 19-83.  Cw*020204 changed to Cw*0210 the preferred name	35.167	2.9167	1	1	SBT	{PCA+04}	Piancatelli	2004	Human Leukocyte Antigen-A, -B, and -Cw polymorphism in a Berber population from North Morocco using sequence-based typing.	Tissue Antigens	63	158-172	d.adorno@itoi.cnr.it		MA	Adorno	1301028	12	1	Followed protocol for HLACw SBT based on PCR amplification of a 915 kb fragment from genomic DNA (exons 2-3), followed by direct sequencing.	N - otherwise		Y	N	N		HW, F, LD			13th? - Checked, ITAADO-Metalsa.pop does not contain C	JN
+C	count
+020202	12
+0210	2
+040101	20
+0501	10
+0503	1
+0602	23
+070101	21
+070102	1
+070201	4
+070401/0711	2
+0706	1
+0802	7
+120201/120202	1
+120301	1
+140201	1
+150201	2
+150501/150502	2
+1601	4
+1602	2
+1701	1
+1703	8
