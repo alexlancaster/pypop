@@ -7,10 +7,12 @@ PyPop User Guide
 .. only:: html
 
    |htmlauthor|
-   
-   *Documenting release*  |version|  *of PyPop*.
-   This guide is also available as a `PDF <../pypop-guide.pdf>`__.
 
+   .. admonition:: *Documenting release*  |version|  *of PyPop*.
+
+      This guide is also available as a `PDF <../pypop-guide.pdf>`__. |br|
+      *Document revision:* |full_release|
+   
 .. only:: latex or pdf
 
    .. include:: ../index.rst
@@ -69,3 +71,6 @@ This guide to PyPop contains four main parts:
    biblio
 
 
+.. |br| raw:: html
+
+   <br/>
