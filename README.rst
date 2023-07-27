@@ -1,14 +1,15 @@
-Python for Population Genomics (PyPop)
-======================================
+|Build status| |Website pypop.org| |GitHub license| |Citations|
+
+
+PyPop: Python for Population Genomics
+=====================================
 
 PyPop is a framework for processing genotype and allele data and
 running population genetic analyses, including conformity to
 Hardy-Weinberg expectations; tests for balancing or directional
 selection; estimates of haplotype frequencies and measures and tests
-of significance for linkage disequilibrium (LD).  .  See the `PyPop
+of significance for linkage disequilibrium (LD). See the `PyPop
 User Guide <http://pypop.org/docs>`__ for a more detailed description.
-
-.. |pkgname| replace:: ``pypop-genomics``
 
 .. _guide-include-pypop-cite-start:
 		       
@@ -20,7 +21,7 @@ When citing PyPop, please cite the (2007) paper from *Tissue Antigens*:
    G. Thomson (2007) "PyPop update - a software pipeline for
    large-scale multilocus population genomics" *Tissue Antigens* 69 (s1), 192-197.
    [`journal page <http://dx.doi.org/10.1111/j.1399-0039.2006.00769.x>`__,
-   `preprint PDF (112 kB) <tissue-antigens-lancaster-2007.pdf>`__].
+   `preprint PDF (112 kB) <http://pypop.org/tissue-antigens-lancaster-2007.pdf>`__].
 
 In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
 
@@ -30,7 +31,7 @@ In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
   *Pacific Symposium on Biocomputing* vol. 8:514-525 (edited by R B
   Altman. et al., World Scientific, Singapore, 2003) [`PubMed
   Central <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/>`__,
-  `PDF (344 kB) <psb-pypop.pdf>`__].
+  `PDF (344 kB) <http://pypop.org/psb-pypop.pdf>`__].
 
 .. _guide-include-pypop-cite-end:
 
@@ -44,8 +45,8 @@ In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
    may change and is not yet the final package name until the package
    is released to PyPI.
 
-Quickstart
-==========
+Quickstart Guide
+================
 
 **Installing** |pkgname|
 
@@ -79,7 +80,7 @@ environment variable.
 
    pip uninstall pypop-genomics
 
-**For more, including handling common installation issues, see the** `full installation instructions`_ **.**
+**For more, including handling common installation issues, see the** `detailed installation instructions`_ **.**
    
 Once you have installed |pkgname|, you can move on to try some
 `example runs <Examples_>`__.
@@ -145,8 +146,8 @@ plain text version:
    USAFEL-UchiTelle-small-out.txt
 
 
-Full installation instructions
-==============================
+Detailed installation instructions
+==================================
 
 There are three main steps:
 
@@ -357,16 +358,46 @@ The development of the code for PyPop is via our GitHub project:
 
 For a detailed description on bug reporting as well as how to
 contribute to PyPop, please consult our `CONTRIBUTING.rst
-<CONTRIBUTING.rst#reporting-and-requesting>`_ guide. We also have
-additional notes and background relevant for developers in
-`DEV_NOTES.md <DEV_NOTES.md>`__. Source for the website and the
-documentation is located in the `website <website>`__ subdirectory.
+<https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst>`_
+guide. We also have additional notes and background relevant for
+developers in `DEV_NOTES.md
+<https://github.com/alexlancaster/pypop/blob/main/DEV_NOTES.md>`__. Source
+for the website and the documentation is located in the `website
+<https://github.com/alexlancaster/pypop/blob/main/website>`__ subdirectory.
 
 Copyright and License
 =====================
 
 PyPop is Copyright (C) 2003-2006. The Regents of the University of
 California (Regents)
+
 Copyright (C) 2007-2023 PyPop team.
 
 PyPop is distributed under the terms of GPLv2
+
+
+.. |pkgname| replace:: ``pypop-genomics``
+
+.. |GitHub release| image:: https://img.shields.io/github/release/alexlancaster/pypop.svg
+   :target: https://github.com/alexlancaster/pypop/releases/
+
+.. |Build status| image:: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml/badge.svg?branch=main
+    :target: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml
+
+.. |GitHub license| image:: https://img.shields.io/github/license/alexlancaster/pypop.svg
+   :target: https://github.com/alexlancaster/pypop/blob/main/LICENSE	     
+
+.. |GitHub issues| image:: https://img.shields.io/github/issues/alexlancaster/pypop.svg
+    :target: https://github.com/alexlancaster/pypop/issues
+
+.. |Citations| image:: https://api.juleskreuer.eu/citation-badge.php?doi=10.1111/j.1399-0039.2006.00769.x
+   :target: https://juleskreuer.eu/projekte/citation-badge/
+	    
+.. |GitHub version| image:: https://badge.fury.io/gh/alexlancaster%2Fpypop.svg
+   :target: https://github.com/alexlancaster/pypop/
+
+.. |GitHub tag| image:: https://img.shields.io/github/tag/alexlancaster/pypop.svg
+   :target: https://github.com/alexlancaster/pypop/tags/	    
+
+.. |Website pypop.org| image:: https://img.shields.io/website-up-down-green-red/http/pypop.org.svg
+   :target: http://pypop.org/	    

@@ -1,0 +1,12 @@
+# use https://github.com/github-linguist/linguist/blob/master/docs/overrides.md
+# to exclude generated and docs from being included in language stats
+# exclude obsolete code
+src/obsolete/* linguist-documentation
+# exclude some documentation
+website/html_root/** linguist-documentation
+website/reference/** linguist-documentation
+# exclude generated HTML on gh-pages
+*.html  linguist-generated
+popdata/** linguist-generated
+docs/** linguist-generated
+_static/** linguist-generated
