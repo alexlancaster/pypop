@@ -399,7 +399,12 @@ MODIFICATIONS.
       </xsl:call-template>
       
       <xsl:call-template name="append-pad">
-       <xsl:with-param name="padVar" select="frequency"/>
+	<xsl:with-param name="padVar">
+	<xsl:call-template name="round-to">
+	 <xsl:with-param name="node" select="frequency"/>
+	 <xsl:with-param name="places" select="5"/>
+	</xsl:call-template>
+	</xsl:with-param>
        <xsl:with-param name="length">9</xsl:with-param>
       </xsl:call-template>
       
@@ -438,7 +443,12 @@ MODIFICATIONS.
       </xsl:call-template>
       
       <xsl:call-template name="append-pad">
-       <xsl:with-param name="padVar" select="frequency"/>
+	<xsl:with-param name="padVar">
+	  <xsl:call-template name="round-to">
+	    <xsl:with-param name="node" select="frequency"/>
+	    <xsl:with-param name="places" select="5"/>
+	  </xsl:call-template>
+	</xsl:with-param>
        <xsl:with-param name="length">9</xsl:with-param>
       </xsl:call-template>
       
