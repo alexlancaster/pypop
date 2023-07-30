@@ -4,12 +4,15 @@ import pytest
 import os.path
 from base import run_pypop_process, filecmp_ignore_newlines, abspath_test_data, xfail_windows
 
-def test_GenerateTSV():
+filenames = ['1-locus-allele.dat', '1-locus-pairwise-fnd.dat', '3-locus-summary.dat', '1-locus-genotype.dat', '1-locus-summary.dat', '4-locus-haplo.dat', '1-locus-hardyweinberg.dat', '3-locus-haplo.dat', '4-locus-summary.dat']
+
+def test_GenerateTSV_3_locus():
     exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_EM.ini', './tests/data/BIGDAWG_SynthControl_Data.pop', args=['--enable-tsv', '--enable-ihwg'])
     # check exit code
     assert exit_code == 0
 
     # compare with output files
-    for out_filename in ['1-locus-allele.dat', '1-locus-pairwise-fnd.dat', '3-locus-summary.dat', '1-locus-genotype.dat', '1-locus-summary.dat', '4-locus-haplo.dat', '1-locus-hardyweinberg.dat', '3-locus-haplo.dat', '4-locus-summary.dat']:
+    for out_filename in filenames:
         gold_out_filename = abspath_test_data(os.path.join('./tests/data/output/generate_tsv_3_locus', out_filename))
         assert filecmp_ignore_newlines(out_filename, gold_out_filename)
+        
