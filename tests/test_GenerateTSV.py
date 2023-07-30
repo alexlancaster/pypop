@@ -15,4 +15,13 @@ def test_GenerateTSV_3_locus():
     for out_filename in filenames:
         gold_out_filename = abspath_test_data(os.path.join('./tests/data/output/generate_tsv_3_locus', out_filename))
         assert filecmp_ignore_newlines(out_filename, gold_out_filename)
-        
+
+def test_GenerateTSV_4_locus():
+    exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_EM_4_locus.ini', './tests/data/BIGDAWG_SynthControl_Data.pop', args=['--enable-tsv', '--enable-ihwg'])
+    # check exit code
+    assert exit_code == 0
+
+    # compare with output files
+    for out_filename in filenames:
+        gold_out_filename = abspath_test_data(os.path.join('./tests/data/output/generate_tsv_4_locus', out_filename))
+        assert filecmp_ignore_newlines(out_filename, gold_out_filename)
