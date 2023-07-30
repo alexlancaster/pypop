@@ -11,5 +11,5 @@ def test_GenerateTSV():
 
     # compare with output files
     for out_filename in ['1-locus-allele.dat', '1-locus-pairwise-fnd.dat', '3-locus-summary.dat', '1-locus-genotype.dat', '1-locus-summary.dat', '4-locus-haplo.dat', '1-locus-hardyweinberg.dat', '3-locus-haplo.dat', '4-locus-summary.dat']:
-        gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', out_filename))
+        gold_out_filename = abspath_test_data(os.path.join('./tests/data/output/generate_tsv_3_locus', out_filename))
         assert filecmp_ignore_newlines(out_filename, gold_out_filename)
