@@ -1093,8 +1093,9 @@ MODIFICATIONS.
      <xsl:text>n.gametes&#09;locus1&#09;locus2&#09;metaloci&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
+      <!-- either explicitly set as an all-pairwise mode, or 'haplo' mode with 2 loci -->
       <xsl:with-param name="nodes"
-       select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu' or @mode='haplo') and not(@role='no-data')]"/>
+       select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu' or (@mode='haplo' and (string-length(@loci) - string-length(translate(@loci, ':', '')))=1)) and not(@role='no-data')]"/>
       <xsl:with-param name="type" select="'multi-locus-summary'"/>
      </xsl:call-template>
     </exsl:document>
@@ -1108,8 +1109,9 @@ MODIFICATIONS.
      <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count&#09;ld.d&#09;ld.dprime&#09;ld.chisq&#09;obs&#09;obs.freq&#09;exp</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
+      <!-- either explicitly set as an all-pairwise mode, or 'haplo' mode with 2 loci -->
       <xsl:with-param name="nodes"
-      select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu' or @mode='haplo') and not(@role='no-data')]"/>
+      select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu' or (@mode='haplo' and (string-length(@loci) - string-length(translate(@loci, ':', '')))=1)) and not(@role='no-data')]"/>
       <xsl:with-param name="type" select="'multi-locus-haplo'"/>
      </xsl:call-template>
     </exsl:document>
