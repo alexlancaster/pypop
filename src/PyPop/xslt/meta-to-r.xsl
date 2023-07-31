@@ -1117,7 +1117,10 @@ MODIFICATIONS.
     <exsl:document href="{$outputDir}3-locus-summary.dat"
      omit-xml-declaration="yes"
      method="text">
-     <xsl:value-of select="header-line-start"/><xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3</xsl:text>
+     <xsl:call-template name="header-line-start">
+       <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+     </xsl:call-template>
+     <xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3&#09;metaloci</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
@@ -1149,7 +1152,7 @@ MODIFICATIONS.
      <xsl:call-template name="header-line-start">
       <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
      </xsl:call-template>
-     <xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3&#09;locus4</xsl:text>
+     <xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3&#09;locus4&#09;metaloci</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
