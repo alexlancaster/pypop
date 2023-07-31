@@ -1,0 +1,6 @@
+<!DOCTYPE meta [
+<!ENTITY ENTBIGDAWG_SynthControl_Data-out.xml SYSTEM "file:///home/alex/shared/pypop/pypop-master/2-locus/BIGDAWG_SynthControl_Data-out.xml">
+]>
+<meta>
+&ENTBIGDAWG_SynthControl_Data-out.xml;
+</meta>
