@@ -1094,7 +1094,7 @@ MODIFICATIONS.
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
-       select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu') and not(@role='no-data')]"/>
+       select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu' or @mode='haplo') and not(@role='no-data')]"/>
       <xsl:with-param name="type" select="'multi-locus-summary'"/>
      </xsl:call-template>
     </exsl:document>
@@ -1109,7 +1109,7 @@ MODIFICATIONS.
      <xsl:call-template name="newline"/>
      <xsl:call-template name="gen-lines">
       <xsl:with-param name="nodes"
-      select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu') and not(@role='no-data')]"/>
+      select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu' or @mode='haplo') and not(@role='no-data')]"/>
       <xsl:with-param name="type" select="'multi-locus-haplo'"/>
      </xsl:call-template>
     </exsl:document>
