@@ -917,7 +917,7 @@ class BinningFilter:
             individCount = 0
             for individ in matrix[locus]:
                 for i in range(2):
-                    allele[i] = individ[i]
+                    allele[i] = str(individ[i])  # FIXME: matrix type is `ndarray`
                     if allele[i] != self.untypedAllele and len(allele[i]) > self.binningDigits:
                         allele[i] = allele[i][:self.binningDigits]
                         
@@ -941,9 +941,8 @@ class BinningFilter:
             
                 for individ in matrix[locus]:
                     for i in range(2):
-
+                        individ[i] = str(individ[i])  # FIXME: matrix type is `ndarray` needs to be string for len() and other string operations
                         if len(individ[i].split("/")) > 1:
-
                             allele_collection = []
                             for subname in individ[i].split("/"):
                                 allele_collection += [self.lookupCustomBinning(testAllele=subname, locus=locus)]
@@ -987,7 +986,7 @@ class BinningFilter:
                 ruleCounter = 0
                 matchTracker = {}
                 for potentialMatch in ruleSetSplit:
-                    for digitSlice in xrange(len(testAllele)-2):
+                    for digitSlice in range(len(testAllele)-2):
                         if testAllele[:-digitSlice-1] == potentialMatch:
                             if ruleSet[0] == '!':
                                 closeMatches[ruleSetSplit[0]] = digitSlice+1
