@@ -351,7 +351,11 @@ class Main:
                 # get filtering options and open log file for
                 # filter in append mode
                 self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogPath, 'w'))
-                self.filterLogFile.opentag('filterlog', filename=self.fileName)
+
+                if self.testMode: 
+                    self.filterLogFile.opentag('filterlog')  # don't write path in test mode
+                else:
+                    self.filterLogFile.opentag('filterlog', filename=self.fileName)
                 self.filterLogFile.writeln()
                 self.filteringFlag = 1
 

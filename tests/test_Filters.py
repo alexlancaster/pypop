@@ -33,8 +33,8 @@ def test_Filters_CustomBinning_HLANomen2010():
     # check exit code
     assert exit_code == 0
 
-    out_filename = "HLANomen2010_Filter-test-out.txt"
-    gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', out_filename))
-
-    assert filecmp_ignore_newlines(out_filename, gold_out_filename)
+    # check filter log output as well
+    for out_filename in ["HLANomen2010_Filter-test-out.txt", "HLANomen2010_Filter-test-filter.xml"]: 
+        gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', out_filename))
+        assert filecmp_ignore_newlines(out_filename, gold_out_filename)
     
