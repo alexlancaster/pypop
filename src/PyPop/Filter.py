@@ -912,6 +912,9 @@ class BinningFilter:
     
     def doDigitBinning(self,matrix=None):
 
+        self.logFile.opentag('DigitBinningFilter')
+        self.logFile.writeln('<![CDATA[')
+        
         allele = ['','']
         for locus in matrix.colList:
             individCount = 0
@@ -919,11 +922,17 @@ class BinningFilter:
                 for i in range(2):
                     allele[i] = str(individ[i])  # FIXME: matrix type is `ndarray`
                     if allele[i] != self.untypedAllele and len(allele[i]) > self.binningDigits:
+                        self.logFile.write("DigitBinning: " + locus + "* " + allele[i])
                         allele[i] = allele[i][:self.binningDigits]
+                        self.logFile.writeln(" is being truncated to " + allele[i])
                         
                 matrix[individCount,locus] = (allele[0],allele[1])
                 individCount += 1
 
+        self.logFile.writeln(']]>')
+        self.logFile.closetag('CustomBinningFilter')
+        self.logFile.writeln()
+                
         return matrix
 
         
