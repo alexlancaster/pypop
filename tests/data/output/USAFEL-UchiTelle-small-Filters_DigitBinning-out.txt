@@ -1,0 +1,175 @@
+Results of data analysis
+Performed on the 'USAFEL-UchiTelle-small.pop' file at: 
+
+
+Population Summary
+==================
+Population Name: UchiTelle
+       Lab code: USAFEL
+  Typing method: 12th Workshop SSOP
+      Ethnicity: Telle
+      Continent: NW Asia
+Collection site: Targen Village
+       Latitude: 41 deg 12 min N
+      Longitude: 94 deg 7 min E
+        complex: 1
+
+
+Population Totals
+_________________
+Sample Size (n): 10
+Allele Count (2n): 20
+Total loci in file: 3 [A, C, B]
+Total loci with data: 3 [A, C, B]
+
+
+Legend for all analyses
+_______________________
+
+    * = significant at the 5% level
+   ** = significant at the 1% level
+  *** = significant at the 0.1% level
+ **** = significant at the 0.01% level
+***** = significant at the 0.001% level
+   
+
+I. Single Locus Analyses
+========================
+
+1. Locus: A
+___________
+
+1.1. Allele Counts [A]
+----------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 6
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+02   0.43750   7       | 01   0.06250   1       
+32   0.18750   3       | 02   0.43750   7       
+03   0.12500   2       | 03   0.12500   2       
+25   0.12500   2       | 25   0.12500   2       
+01   0.06250   1       | 32   0.18750   3       
+68   0.06250   1       | 68   0.06250   1       
+Total1.00000   16      | Total1.00000   16      
+
+
+1.2. HardyWeinberg [A]
+----------------------
+Table of genotypes, format of each cell is: observed/expected.
+
+01 0/0.0
+02 1/0.4 1/1.5
+03 0/0.1 1/0.9 0/0.1
+25 0/0.1 1/0.9 0/0.3 0/0.1
+32 0/0.2 1/1.3 1/0.4 1/0.4 0/0.3
+68 0/0.1 1/0.4 0/0.1 0/0.1 0/0.2 0/0.0
+      01    02    03    25    32    68
+                             [Cols: 1 to 6]
+
+                          Observed         Expected       Chi-square   DoF   p-value        
+------------------------------------------------------------------------------------------
+           Common No commmon genotypes; chi-square cannot be calculated
+
+------------------------------------------------------------------------------------------
+ Lumped genotypes Value not calculated.
+
+------------------------------------------------------------------------------------------
+  Common + lumped Value not calculated.
+
+------------------------------------------------------------------------------------------
+All heterozygotes                7             5.88             0.22     1  0.6425           
+------------------------------------------------------------------------------------------
+Common heterozygotes by allele
+
+------------------------------------------------------------------------------------------
+Common genotypes
+            Total                0             0.00
+------------------------------------------------------------------------------------------
+
+
+
+2. Locus: C
+___________
+
+2.1. Allele Counts [C]
+----------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 9
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+01   0.20000   4       | 01   0.20000   4       
+03   0.20000   4       | 02   0.10000   2       
+02   0.10000   2       | 03   0.20000   4       
+06   0.10000   2       | 06   0.10000   2       
+07   0.10000   2       | 07   0.10000   2       
+12   0.10000   2       | 08   0.05000   1       
+15   0.10000   2       | 12   0.10000   2       
+08   0.05000   1       | 15   0.10000   2       
+18   0.05000   1       | 18   0.05000   1       
+Total1.00000   20      | Total1.00000   20      
+
+
+2.2. HardyWeinberg [C]
+----------------------
+Table of genotypes, format of each cell is: observed/expected.
+
+01 0/0.4
+02 1/0.4 0/0.1
+03 0/0.8 0/0.4 1/0.4
+06 0/0.4 0/0.2 1/0.4 0/0.1
+07 2/0.4 0/0.2 0/0.4 0/0.2 0/0.1
+08 0/0.2 0/0.1 0/0.2 0/0.1 0/0.1 0/0.0
+12 0/0.4 1/0.2 0/0.4 0/0.2 0/0.2 1/0.1 0/0.1
+15 0/0.4 0/0.2 1/0.4 1/0.2 0/0.2 0/0.1 0/0.2 0/0.1
+18 1/0.2 0/0.1 0/0.2 0/0.1 0/0.1 0/0.1 0/0.1 0/0.1 0/0.0
+      01    02    03    06    07    08    12    15    18
+                             [Cols: 1 to 9]
+
+                          Observed         Expected       Chi-square   DoF   p-value        
+------------------------------------------------------------------------------------------
+           Common No commmon genotypes; chi-square cannot be calculated
+
+------------------------------------------------------------------------------------------
+ Lumped genotypes Value not calculated.
+
+------------------------------------------------------------------------------------------
+  Common + lumped Value not calculated.
+
+------------------------------------------------------------------------------------------
+All heterozygotes                9             8.65             0.01     1  0.9053           
+------------------------------------------------------------------------------------------
+Common heterozygotes by allele
+
+------------------------------------------------------------------------------------------
+Common genotypes
+            Total                0             0.00
+------------------------------------------------------------------------------------------
+
+
+
+3. Locus: B
+___________
+
+3.1. Allele Counts [B]
+----------------------
+Untyped individuals: 1.0
+Sample Size (n): 9.0
+Allele Count (2n): 18
+Distinct alleles (k): 1
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+13   1.00000   18      | 13   1.00000   18      
+Total1.00000   18      | Total1.00000   18      
+
+[Locus is monomorphic, so no further analyses performed]
+
+
+

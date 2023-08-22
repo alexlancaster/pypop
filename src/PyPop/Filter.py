@@ -912,18 +912,27 @@ class BinningFilter:
     
     def doDigitBinning(self,matrix=None):
 
+        self.logFile.opentag('DigitBinningFilter')
+        self.logFile.writeln('<![CDATA[')
+        
         allele = ['','']
         for locus in matrix.colList:
             individCount = 0
             for individ in matrix[locus]:
                 for i in range(2):
-                    allele[i] = individ[i]
+                    allele[i] = str(individ[i])  # FIXME: matrix type is `ndarray`
                     if allele[i] != self.untypedAllele and len(allele[i]) > self.binningDigits:
+                        self.logFile.write("DigitBinning: " + locus + "* " + allele[i])
                         allele[i] = allele[i][:self.binningDigits]
+                        self.logFile.writeln(" is being truncated to " + allele[i])
                         
                 matrix[individCount,locus] = (allele[0],allele[1])
                 individCount += 1
 
+        self.logFile.writeln(']]>')
+        self.logFile.closetag('CustomBinningFilter')
+        self.logFile.writeln()
+                
         return matrix
 
         
@@ -941,9 +950,8 @@ class BinningFilter:
             
                 for individ in matrix[locus]:
                     for i in range(2):
-
+                        individ[i] = str(individ[i])  # FIXME: matrix type is `ndarray` needs to be string for len() and other string operations
                         if len(individ[i].split("/")) > 1:
-
                             allele_collection = []
                             for subname in individ[i].split("/"):
                                 allele_collection += [self.lookupCustomBinning(testAllele=subname, locus=locus)]
@@ -987,7 +995,7 @@ class BinningFilter:
                 ruleCounter = 0
                 matchTracker = {}
                 for potentialMatch in ruleSetSplit:
-                    for digitSlice in xrange(len(testAllele)-2):
+                    for digitSlice in range(len(testAllele)-2):
                         if testAllele[:-digitSlice-1] == potentialMatch:
                             if ruleSet[0] == '!':
                                 closeMatches[ruleSetSplit[0]] = digitSlice+1

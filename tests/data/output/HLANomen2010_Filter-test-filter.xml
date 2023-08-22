@@ -1,4 +1,4 @@
-<filterlog filename="HLANomen2010_Filter-test.pop">
+<filterlog>
 <CustomBinningFilter><![CDATA[
 Exact rule match: A* 92 is being replaced by 02
 Exact rule match: A* 0134N is being replaced by 01:34N
