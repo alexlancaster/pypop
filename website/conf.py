@@ -32,7 +32,7 @@ sys.path.insert(0, os.path.abspath('../src'))
 # ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel',
               'myst_parser', 'rst2pdf.pdfbuilder',
-              'sphinx_togglebutton', 'sphinxarg.ext']
+              'sphinx_togglebutton', 'sphinxarg.ext', 'sphinx_copybutton']
 
 #autosectionlabel_prefix_document = True
 
@@ -154,6 +154,17 @@ html_extra_path = ['html_root']
 
 # -- Options for LaTeX output ---------------------------------------------
 
+from sphinx.highlighting import PygmentsBridge
+from pygments.formatters.latex import LatexFormatter
+
+# set size of code output in LaTeX backend
+class CustomLatexFormatter(LatexFormatter):
+    def __init__(self, **options):
+        super(CustomLatexFormatter, self).__init__(**options)
+        self.verboptions = r"formatcom=\footnotesize"
+
+PygmentsBridge.latex_formatter = CustomLatexFormatter
+
 latex_show_urls = 'inline'
 
 latex_elements = {
@@ -190,3 +201,25 @@ latex_elements = {
 
 latex_documents = [('docs/index', guide_prefix+'.tex', guide_name, author, 'manual'),]
 pdf_documents = [('docs/index', guide_prefix, guide_name, author),]
+
+# override the default literalinclude directive
+# this sets the tab width only in LaTeX mode to make sure tab stops stay aligned
+# not needed in HTML case, because we want to preserve the tabs for cut-and-paste
+
+from sphinx.directives.code import LiteralInclude
+class MyLiteralInclude(LiteralInclude):
+
+    def run(self):
+        if 'builder_latex' in tags.tags.keys():
+            self.options['tab-width'] = 15  # set default tab-width only in LaTeX mode
+            print("LaTeX literalinclude options:", self.options)
+
+        node = LiteralInclude.run(self)[0]  # run original directive
+        return [node]
+
+def setup(app):
+    app.add_directive('literalinclude', MyLiteralInclude, override=True)
+
+        
+
+        
