@@ -36,21 +36,21 @@ MODIFICATIONS. */
 #define LINE_LEN    132      /* RS changed from 120 to 132=6*2*(10+1) */ 
 #define MAX_ROWS    10000     /* increased from 1023                   */ 
 #define MAX_ALLELES 200      /* increased from 80 for a large dataset */
-#define MAX_LOCI    2 
+#define MAX_LOCI    4
 #define MAX_COLS    MAX_LOCI * 2 
                              /* max genotypes:  2^max_loci*max_rows */ 
 #define MAX_GENOS   300000    /* RS changed from 64*MAX_ROWS and then 20000 */
 #define MAX_HAPLOS  30000    /* RS added and changed declaration in main_proc */
  
-#define CRITERION   0.0001 
-#define MAX_ITER    600      /* RS changed from 200 */
+#define CRITERION   0.000001 
+#define MAX_ITER    400      /* RS changed from 200 */
  
 #define FALSE 0 
 #define TRUE  1 
  
-#define MAX_INIT 10 
+#define MAX_INIT 50 
 
-#define MAX_GENOS_PER_PHENO 2 /* 2^(max_loci - 1) */
+#define MAX_GENOS_PER_PHENO 64 /* 2^(max_loci - 1) */
 
 #define MAX_PERMU 1001
 #define MAX_INIT_FOR_PERMU 5 
