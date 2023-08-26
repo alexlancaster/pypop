@@ -764,13 +764,13 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
            ALD_2_1 = numpy.nan
         else:
            F_2_1_prime = (F_2_1 - F_2)/(1 - F_2)
-           ALD_2_1 = math.sqrt(F_2_1_prime)
+           ALD_2_1 = math.sqrt(F_2_1_prime[0])
         if F_1 == 1:
            F_1_2_prime = numpy.nan
            ALD_1_2 = numpy.nan
         else:
            F_1_2_prime = (F_1_2 - F_1)/(1 - F_1)
-           ALD_1_2 = math.sqrt(F_1_2_prime)
+           ALD_1_2 = math.sqrt(F_1_2_prime[0])
         if debug:
             print ("ALD_1_2:", ALD_1_2)
             print ("ALD_2_1:", ALD_2_1)
