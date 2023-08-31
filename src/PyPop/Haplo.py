@@ -249,9 +249,9 @@ KeepNullDistrib=0""")
 
         haplotypes = []
         
-        patt1 = re.compile("== Sample :[\t ]*(\S+) pop with (\d+) individuals from loci \[([^]]+)\]")
-        patt2 = re.compile("    #   Haplotype     Freq.      s.d.")
-        patt3 = re.compile("^\s+\d+\s+UNKNOWN(.*)")
+        patt1 = re.compile(r"== Sample :[\t ]*(\S+) pop with (\d+) individuals from loci \[([^]]+)\]")
+        patt2 = re.compile(r"    #   Haplotype     Freq.      s.d.")
+        patt3 = re.compile(r"^\s+\d+\s+UNKNOWN(.*)")
         windowRange = range(1, self.windowSize)
         
         for line in open(outFile, 'r').readlines():
