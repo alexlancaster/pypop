@@ -328,7 +328,9 @@ configuration to read in the data shown in
    :caption: Multi-locus allele-level genotype data
    :language: text
 
-This is an example of the simplest kind of data file.
+This is an example of the simplest kind of data file. Note that the columns in the header 
+do not appear to align, but that is due to tab separation. You can copy and paste the data
+into a text editor to see the tabs.
 
 .. literalinclude:: ../../tests/data/doc-examples/data-minimal-noheader.pop
    :name: data-minimal-noheader
