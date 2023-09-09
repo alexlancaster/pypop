@@ -249,9 +249,9 @@ KeepNullDistrib=0""")
 
         haplotypes = []
         
-        patt1 = re.compile("== Sample :[\t ]*(\S+) pop with (\d+) individuals from loci \[([^]]+)\]")
-        patt2 = re.compile("    #   Haplotype     Freq.      s.d.")
-        patt3 = re.compile("^\s+\d+\s+UNKNOWN(.*)")
+        patt1 = re.compile(r"== Sample :[\t ]*(\S+) pop with (\d+) individuals from loci \[([^]]+)\]")
+        patt2 = re.compile(r"    #   Haplotype     Freq.      s.d.")
+        patt3 = re.compile(r"^\s+\d+\s+UNKNOWN(.*)")
         windowRange = range(1, self.windowSize)
         
         for line in open(outFile, 'r').readlines():
@@ -752,11 +752,11 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
         F_2 = 0.0
         F_1_2 = 0.0
         for i in numpy.unique(alleles1):
-           af_1 = numpy.unique(a_freq1[alleles1==i])
+           af_1 = numpy.unique(a_freq1[alleles1==i])[0]  # take the first element of ndarray (default behaviour)
            F_1 = F_1 + af_1**2
            F_2_1 = F_2_1 + ((hap_prob[alleles1==i]**2)/af_1).sum()
         for i in numpy.unique(alleles2):
-           af_2 = numpy.unique(a_freq2[alleles2==i])
+           af_2 = numpy.unique(a_freq2[alleles2==i])[0]
            F_2 = F_2 + af_2**2
            F_1_2 = F_1_2 + ((hap_prob[alleles2==i]**2)/af_2).sum()
         if F_2 == 1.0:

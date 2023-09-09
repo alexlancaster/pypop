@@ -368,10 +368,10 @@ KeepNullDistrib=0"""
         dataFound = 0
         headerFound = 0
 
-        patt1 = re.compile("Exact test using a Markov chain")
-        patt2 = re.compile("Locus  #Genot     Obs.Heter.   Exp.Heter.  P. value     s.d.  Steps done")
-        patt3 = re.compile("^\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+)")
-        patt4 = re.compile("^\s+(\d+)\s+This locus is monomorphic: no test done.")
+        patt1 = re.compile(r"Exact test using a Markov chain")
+        patt2 = re.compile(r"Locus  #Genot     Obs.Heter.   Exp.Heter.  P. value     s.d.  Steps done")
+        patt3 = re.compile(r"^\s+(\d+)\s+(\d+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\S+)\s+(\d+)")
+        patt4 = re.compile(r"^\s+(\d+)\s+This locus is monomorphic: no test done.")
 
         hwExact = {}
         
