@@ -752,7 +752,7 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
         F_2 = 0.0
         F_1_2 = 0.0
         for i in numpy.unique(alleles1):
-           af_1 = numpy.unique(a_freq1[alleles1==i])[0]  # take the first element of ndarray
+           af_1 = numpy.unique(a_freq1[alleles1==i])[0]  # take the first element of ndarray (default behaviour)
            F_1 = F_1 + af_1**2
            F_2_1 = F_2_1 + ((hap_prob[alleles1==i]**2)/af_1).sum()
         for i in numpy.unique(alleles2):
