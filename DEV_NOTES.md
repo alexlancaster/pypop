@@ -1,5 +1,12 @@
 # Developer notes
 
+## Release notes for in-progress features not yet officially documented or supported
+
+* New wrapper module `Haplostats`. This wraps a portion of the
+  `haplo.stats` R package `haplo-stats` for haplotype
+  estimation. [Implementation in alpha-phase].
+
+
 ## External dependencies
 
 * ```swig``` (Simple Wrapper Interface Generator) (build-time only)
@@ -40,8 +47,8 @@ the) it then runs the specified modules (outlined below).
 "wxPython":http://www.wxpython.org GUI toolkit.  wxPython is a set of
 Python bindings to "wxWindows":http://www.wxwindows.org, which is an
 open-source cross-platform GUI widget toolkit which has a native look
-under GNU/Linux (GTK), Windows (MFC) and MacOS X (Aqua).  [as of 2017,
-this is deprecated]
+under GNU/Linux (GTK), Windows (MFC) and MacOS X (Aqua).  [as of 2023,
+this was removed]
 
 * 'ParseFile' is a base class which has most of the common functionality
 for reading files.
