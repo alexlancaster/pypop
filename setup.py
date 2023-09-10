@@ -230,6 +230,7 @@ setup (name = __pkgname__,
        url = "http://www.pypop.org/",
        project_urls={
            'Documentation': 'http://pypop.org/docs/',
+           'Changelog': 'https://github.com/alexlancaster/pypop/blob/main/NEWS.rst',
            'Source': 'https://github.com/alexlancaster/pypop/',
            'Tracker': 'https://github.com/alexlancaster/pypop/issues',
        },
