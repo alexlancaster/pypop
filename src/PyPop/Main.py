@@ -1017,6 +1017,9 @@ class Main:
 
         if self.config.has_section("Haplostats"):
 
+            print ("WARNING: The [Haplostats] module is still currently in ALPHA-MODE ONLY and and should not be used in production.")
+            print ("Please use the [Emhaplofreq] module in the meantime.")
+            
             try:
                 numInitCond = self.config.getint("Haplostats",
                                                  "numInitCond")
@@ -1075,9 +1078,6 @@ class Main:
         # files.
 
         if self.config.has_section("Emhaplofreq"):
-
-          print ("WARNING: The [Emhaplofreq] module is officially DEPRECATED and may be removed in coming releases.")
-          print ("Please transition to using the new [Haplostats] module.")
 
           # create object to generate haplotype and LD statistics
           # a wrapper around the emhaplofreq module
@@ -1148,11 +1148,11 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
 
 
           if allPairwiseLD:
-            print("LOG: estimating all pairwise LD:"),
+            print("LOG: estimating all pairwise LD:", end=" "),
             if allPairwiseLDWithPermu:
-              print("with %d permutations and %d initial conditions for each permutation" % (allPairwiseLDWithPermu, numPermuInitCond)),
+              print("with %d permutations and %d initial conditions for each permutation" % (allPairwiseLDWithPermu, numPermuInitCond), end=" "),
               if permutationPrintFlag:
-                  print("and each permutation output will be logged to XML")
+                  print("and each permutation output will be logged to XML", end=" ")
               else:
                   print()
             else:
@@ -1166,15 +1166,15 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             locusKeys=self.config.get("Emhaplofreq", "lociToEstHaplo")
 
             if locusKeys == '*':
-              print("wildcard '*' given for lociToEstHaplo, assume entire data set")
+              print("LOG: wildcard '*' given for lociToEstHaplo, assume entire data set")
               locusKeys=":".join(self.input.getIndividualsData().colList)
-            print("LOG: estimating haplotype frequencies for"),
+            print("LOG: estimating haplotype frequencies for", end=" "),
 
             # if we will be running allPairwise*, then exclude any two-locus
             # haplotypes, since we will estimate them as part of 'all pairwise'
             if allPairwiseLD:
 
-              print("all two locus haplotypes,"),
+              print("all two locus haplotypes,", end=" "),
               modLocusKeys = []
               for group in locusKeys.split(','):
 

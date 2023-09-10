@@ -11,9 +11,6 @@ New features
 ^^^^^^^^^^^^^^
 * Updated to Python 3
 * Implement new assymetric LD (ALD) measure
-* New wrapper module ``Haplostats``. This wraps a portion of the
-  ``haplo.stats`` R package ``haplo-stats`` for haplotype
-  estimation. [Implementation in alpha-phase].
 * ``popmeta``: now accepts the ``-o``/``--outputdir`` option for saving
   generated files.
 * ``pypop``: renamed ``--generate-tsv`` to ``--enable-tsv``
