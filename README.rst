@@ -1,4 +1,4 @@
-|PyPI version fury.io| |PyPI pyversions| |Build status| |Website pypop.org| |GitHub license| |Citations|
+|PyPI version fury.io| |Build status| |Website pypop.org| |GitHub license| |Citations|
 
 
 PyPop: Python for Population Genomics
