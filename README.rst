@@ -50,13 +50,14 @@ Quickstart Guide
 
 **Installing** |pkgname|
 
-If you already have Python and ``pip`` `installed <Install Python 3
-and pip_>`_, install a test pre-releases using the following:
+If you already have Python and ``pip`` installed, install a test pre-releases using the following:
 
 .. code-block:: shell
 
    pip install pypop-genomics --extra-index-url https://test.pypi.org/simple/
-   
+
+Otherwise, follow `these instructions <Install Python 3 and pip_>`_ to install Python 3 and pip.
+
 .. warning::
 
    **These pre-release versions are being made available for initial
