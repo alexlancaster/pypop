@@ -1,4 +1,4 @@
-|Build status| |Website pypop.org| |GitHub license| |Citations|
+|PyPI version fury.io| |Build status| |Website pypop.org| |GitHub license| |Citations|
 
 
 PyPop: Python for Population Genomics
@@ -41,9 +41,7 @@ In addition, you can also cite our 2003 Pacific Symposium on Biocomputing paper:
 
    The package name for installation purposes is |pkgname| - to avoid
    conflicting with an unrelated package with the name ``pypop``
-   already on `PyPI <https://pypi.org>`__. This is a working name and
-   may change and is not yet the final package name until the package
-   is released to PyPI.
+   already on `PyPI <https://pypi.org>`__.
 
 Quickstart Guide
 ================
@@ -54,7 +52,7 @@ If you already have Python and ``pip`` installed, install a test pre-releases us
 
 .. code-block:: shell
 
-   pip install pypop-genomics --extra-index-url https://test.pypi.org/simple/
+   pip install pypop-genomics
 
 Otherwise, follow `these instructions <Install Python 3 and pip_>`_ to install Python 3 and pip.
 
@@ -62,8 +60,7 @@ Otherwise, follow `these instructions <Install Python 3 and pip_>`_ to install P
 
    **These pre-release versions are being made available for initial
    testing, they are not intended to be used for production
-   applications or analysis, and are not yet included in the main
-   pypi.org index**
+   applications or analysis**
 
 Once |pkgname| is installed, depending on your platform, you may also
 need to `adjust <Post-install PATH adjustments_>`_ your ``PATH``
@@ -73,7 +70,7 @@ environment variable.
 
 .. code-block:: shell
 
-   pip install -U pypop-genomics --extra-index-url https://test.pypi.org/simple/ 
+   pip install -U pypop-genomics
 
 **Uninstalling** |pkgname|
 
@@ -190,19 +187,17 @@ Install package from PyPI
 
 Once you have both python and ``pip`` installed, you can use ``pip``
 to install pre-compiled binary "wheels" of |pkgname|
-pre-releases, test packages for PyPop available directly on the `Test
-PyPI <https://test.pypi.org/>`__.
+pre-releases, directly from  `PyPI <https://pypi.org/>`__.
 
 .. warning::
 
    **These pre-release versions are being made available for initial
    testing, they are not intended to be used for production
-   applications or analysis, and are not yet included in the main
-   pypi.org index**
+   applications or analysis**
 
 .. code-block:: shell
 
-   pip install pypop-genomics --extra-index-url https://test.pypi.org/simple/ 
+   pip install pypop-genomics
 
 .. note::
 
@@ -220,8 +215,22 @@ flag, i.e.
 
 .. code-block:: shell
 
-   pip install -U pypop-genomics --extra-index-url https://test.pypi.org/simple/ 
+   pip install -U pypop-genomics
 
+**Installing from Test PyPI**
+
+From time to time, we may make available packages on the `Test PyPI
+<https://test.pypi.org/>`__ instance, rather than the through the main
+instance. The above installation and updating instructions can be
+used, by appending the following:
+
+.. code-block:: shell
+
+   --extra-index-url https://test.pypi.org/simple/
+
+to the above ``pip`` commands.
+
+   
 **Issues with installation permission**
 
 By default, ``pip`` will attempt to install the |pkgname|
@@ -246,7 +255,7 @@ install`` command, i.e.:
 
 .. code-block:: shell
 
-   pip install pypop-genomics --user --extra-index-url https://test.pypi.org/simple/ 
+   pip install pypop-genomics --user
 
 This may be necessary in certain cases where ``pip install`` doesn't
 install into the expected user directory.
@@ -302,7 +311,7 @@ you need to explicitly provide a URL to the release page.
 
    .. code-block:: shell
    
-      pip install pypop-genomics-1.0.0a23-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+      pip install pypop_genomics-1.0.0a23-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 		
 Post-install ``PATH`` adjustments
 ---------------------------------
@@ -379,6 +388,12 @@ PyPop is distributed under the terms of GPLv2
 
 .. |pkgname| replace:: ``pypop-genomics``
 
+.. |PyPI version fury.io| image:: https://badge.fury.io/py/pypop-genomics.svg
+   :target: https://pypi.python.org/pypi/pypop-genomics/		       
+
+.. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/pypop-genomics.svg
+   :target: https://pypi.python.org/pypi/pypop-genomics/	    
+	    
 .. |GitHub release| image:: https://img.shields.io/github/release/alexlancaster/pypop.svg
    :target: https://github.com/alexlancaster/pypop/releases/
 
