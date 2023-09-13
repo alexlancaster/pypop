@@ -180,8 +180,8 @@ matters, see the file named COPYING.
         configFilename = pypoprc.get('Files', 'config')
         fileName = pypoprc.get('Files', 'pop')
       else:
-        configFilename = 'config.ini'
-        fileName = 'no default'
+        configFilename = 'Choose your .ini file (no default)'
+        fileName = 'Choose your .pop file (no default)'          
 
       print(interactive_message)
 
