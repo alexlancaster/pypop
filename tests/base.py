@@ -149,3 +149,33 @@ def run_popmeta_process(xmlfiles, args=[]):
     popmeta_args = args + input_files
     exit_code = run_script_process_entry_point('popmeta', popmeta_args)
     return exit_code
+
+import contextlib
+import tempfile
+import inspect
+
+@contextlib.contextmanager
+def run_in_temp_dir():
+    curr_dir = os.getcwd() # save current directory
+
+    # get test case name for temporary directory
+    test_case_name = inspect.stack()[2].function
+    print(test_case_name)
+    
+    # create the new temporary directory
+    #test_dir = tempfile.TemporaryDirectory(
+    test_dir = tempfile.mkdtemp(    
+        dir = '.',
+        prefix = 'run_'+ test_case_name + '_',
+        suffix = ''
+    )
+    print(test_dir)
+    os.chdir(test_dir) # change current directory to temp
+
+    try:
+        yield
+    finally:
+        # restore original directory
+        os.chdir(curr_dir)
+        # Cleaning up the temporary directory
+        shutil.rmtree(test_dir)
