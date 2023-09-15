@@ -323,7 +323,7 @@ class Meta:
                 # after processing, move files if necessary
                 if len(fileBatchList) > 1:
                     for dat in datfiles:
-                        if success:
+                        if success and os.path.exists(dat):
                             #print("renaming:", dat, "to:", "%s.%d" % (dat, fileBatch))
                             os.rename(dat, "%s.%d" % (dat, fileBatch))
                         else:
@@ -340,6 +340,8 @@ class Meta:
                 for i in range(len(fileBatchList)):
                     # write temp file to outdat
                     catFilename = "%s.%d" % (dat, i)
+                    if not(os.path.exists(catFilename)):  # if the file is not generated, we skip
+                        continue
                     catFile = open(catFilename)
                     # drop the first line, iff we are past first file
                     for linenum, line in enumerate(catFile):
@@ -351,6 +353,9 @@ class Meta:
                     # then remove it
                     catFile.close()
                     os.remove(catFilename)
-                # finally, close the ultimate output file
+                # close the ultimate output file
                 outdat.close()
+                # if the file is empty, we remove it
+                if os.path.getsize(dat) == 0:
+                    os.remove(dat)
 

@@ -160,7 +160,6 @@ def run_in_temp_dir():
 
     # get test case name for temporary directory
     test_case_name = inspect.stack()[2].function
-    print(test_case_name)
     
     # create the new temporary directory
     #test_dir = tempfile.TemporaryDirectory(
@@ -169,7 +168,6 @@ def run_in_temp_dir():
         prefix = 'run_'+ test_case_name + '_',
         suffix = ''
     )
-    print(test_dir)
     os.chdir(test_dir) # change current directory to temp
 
     try:
@@ -178,4 +176,4 @@ def run_in_temp_dir():
         # restore original directory
         os.chdir(curr_dir)
         # Cleaning up the temporary directory
-        shutil.rmtree(test_dir)
+        # shutil.rmtree(test_dir)
