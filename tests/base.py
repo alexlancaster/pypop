@@ -174,6 +174,11 @@ def in_temp_dir(request):
     finally:
         # restore original directory
         os.chdir(curr_dir)
-        # Cleaning up the temporary directory
-        # shutil.rmtree(test_dir)
+        verbose_level = request.config.getoption('verbose')
+
+        # by default (verbosity level == 0), we delete the temporary
+        # directory, otherwise we skip it
+        if verbose_level == 0:
+            # cleaning up the temporary directory
+            shutil.rmtree(test_dir)
         
