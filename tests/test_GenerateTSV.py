@@ -18,8 +18,7 @@ def test_GenerateTSV_2_locus():
         assert exit_code == 0
 
         # compare with output files
-        filenames.extend(['2-locus-summary.dat', '2-locus-haplo.dat'])
-        for out_filename in filenames:  # add 2 locus files
+        for out_filename in filenames + ['2-locus-summary.dat', '2-locus-haplo.dat']:  # add 2 locus files
             gold_out_filename = abspath_test_data(os.path.join('./tests/data/output/generate_tsv_2_locus', out_filename))
             assert filecmp_ignore_newlines(out_filename, gold_out_filename)
         
@@ -31,8 +30,7 @@ def test_GenerateTSV_3_locus():
         assert exit_code == 0
 
         # compare with output files
-        filenames.extend(['3-locus-haplo.dat','3-locus-summary.dat'])
-        for out_filename in filenames:
+        for out_filename in filenames + ['3-locus-haplo.dat','3-locus-summary.dat']:
             gold_out_filename = abspath_test_data(os.path.join('./tests/data/output/generate_tsv_3_locus', out_filename))
             assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
@@ -44,7 +42,6 @@ def test_GenerateTSV_4_locus():
         assert exit_code == 0
 
         # compare with output files
-        filenames.extend(['4-locus-haplo.dat','4-locus-summary.dat'])
-        for out_filename in filenames:
+        for out_filename in filenames + ['4-locus-haplo.dat','4-locus-summary.dat']:
             gold_out_filename = abspath_test_data(os.path.join('./tests/data/output/generate_tsv_4_locus', out_filename))
             assert filecmp_ignore_newlines(out_filename, gold_out_filename)
