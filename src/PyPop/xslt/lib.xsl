@@ -407,6 +407,25 @@ MODIFICATIONS.
   </xsl:if>
  </xsl:template>
 
+ <xsl:template name="generate-n-headers">
+  <!-- output: PREFIX_1 SUFFIX...PREFIX_MAX SUFFIX -->
+  <xsl:param name="i" />
+  <xsl:param name="max" />
+  <xsl:param name="prefix"/>
+  <xsl:param name="suffix"/>  
+
+  <xsl:if test="$i &lt;= $max">
+    <xsl:value-of select="$prefix"/><xsl:value-of select="$i"/><xsl:value-of select="$suffix"/>
+    <!-- recursive step -->
+    <xsl:call-template name="generate-n-headers">
+      <xsl:with-param name="i" select="$i + 1" />
+      <xsl:with-param name="max" select="$max" />
+      <xsl:with-param name="prefix" select="$prefix"/>
+      <xsl:with-param name="suffix" select="$suffix"/>      
+    </xsl:call-template>
+  </xsl:if>
+</xsl:template>
+ 
 </xsl:stylesheet>
 
 <!-- 

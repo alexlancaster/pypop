@@ -1010,175 +1010,188 @@ MODIFICATIONS.
 
    <xsl:when test="element-available('exsl:document')">
 
-    <exsl:document href="{$outputDir}1-locus-hardyweinberg.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="header-line-start">
-      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
-     </xsl:call-template>
-<xsl:text>locus&#09;lump&#09;k&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.enum.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig&#09;</xsl:text>
-     <xsl:call-template name="newline"/>
-     <xsl:call-template name="gen-lines">
-      <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
-      <xsl:with-param name="type" select="'1-locus-hardyweinberg'"/>
-     </xsl:call-template>
-    </exsl:document>
+    <xsl:variable name="nodes-1-locus-hardyweinberg" select="/meta/dataanalysis/locus/hardyweinberg | /meta/dataanalysis/locus/hardyweinbergGuoThompson | /meta/dataanalysis/locus/hardyweinbergEnumeration"/>    
+    <xsl:if test="count($nodes-1-locus-hardyweinberg) &gt;0">
+      <exsl:document href="{$outputDir}1-locus-hardyweinberg.dat"
+		     omit-xml-declaration="yes"
+		     method="text">
+	<xsl:call-template name="header-line-start">
+	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+	</xsl:call-template>
+	<xsl:text>locus&#09;lump&#09;k&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.enum.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig&#09;</xsl:text>
+	<xsl:call-template name="newline"/>
+	<xsl:call-template name="gen-lines">
+	  <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
+	  <xsl:with-param name="type" select="'1-locus-hardyweinberg'"/>
+	</xsl:call-template>
+      </exsl:document>
+    </xsl:if>
 
+    <xsl:variable name="nodes-1-locus-summary" select="/meta/dataanalysis/locus"/>    
+    <xsl:if test="count($nodes-1-locus-summary) &gt;0">
+      <exsl:document href="{$outputDir}1-locus-summary.dat"
+		     omit-xml-declaration="yes"
+		     method="text">
+	<xsl:call-template name="header-line-start">
+	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+	</xsl:call-template>
+	<xsl:text>locus&#09;n.gametes&#09;untyped&#09;unsequenced&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.enum.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.obs&#09;f.slatkin.exp&#09;f.slatkin.fnd&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig&#09;</xsl:text>
+	<xsl:call-template name="newline"/>
+	<xsl:call-template name="gen-lines">
+	  <xsl:with-param name="nodes" select="$nodes-1-locus-summary"/>
+	  <xsl:with-param name="type" select="'1-locus-summary'"/>
+	</xsl:call-template>
+      </exsl:document>
+    </xsl:if>
 
-    <exsl:document href="{$outputDir}1-locus-summary.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="header-line-start">
-      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
-     </xsl:call-template>
-<xsl:text>locus&#09;n.gametes&#09;untyped&#09;unsequenced&#09;k&#09;f.pval.lower&#09;f.pval.upper&#09;fnd.lookup&#09;gt.pval&#09;gt.monte-carlo.pval&#09;hw.enum.pval&#09;hw.chisq.pval&#09;hw.homo.chisq.pval&#09;hw.het.chisq.pval&#09;gt.arl.pval&#09;gt.arl.pval.sd&#09;gt.arl.exp.het&#09;gt.arl.obs.het&#09;f.slatkin.obs&#09;f.slatkin.exp&#09;f.slatkin.fnd&#09;f.slatkin.pval&#09;f.slatkin.var&#09;ewens.pval&#09;n.common.genos&#09;n.common.genos.sig&#09;n.common.heteros&#09;n.common.heteros.sig&#09;</xsl:text>
-     <xsl:call-template name="newline"/>
-     <xsl:call-template name="gen-lines">
-      <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
-      <xsl:with-param name="type" select="'1-locus-summary'"/>
-     </xsl:call-template>
-    </exsl:document>
+    <xsl:variable name="nodes-1-locus-allele" select="/meta/dataanalysis/locus/allelecounts/allele"/>    
+    <xsl:if test="count($nodes-1-locus-allele) &gt;0">
+      <exsl:document href="{$outputDir}1-locus-allele.dat"
+		     omit-xml-declaration="yes"
+		     method="text">
+	<xsl:call-template name="header-line-start">
+	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+	</xsl:call-template>
+	<xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
+	<xsl:call-template name="newline"/>
+	<xsl:call-template name="gen-lines">
+	  <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
+	  <xsl:with-param name="type" select="'1-locus-allele'"/>
+	</xsl:call-template>
+      </exsl:document>
+    </xsl:if>
 
-    <exsl:document href="{$outputDir}1-locus-allele.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="header-line-start">
-      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
-     </xsl:call-template>
-     <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
-     <xsl:call-template name="newline"/>
-     <xsl:call-template name="gen-lines">
-      <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
-      <xsl:with-param name="type" select="'1-locus-allele'"/>
-     </xsl:call-template>
-    </exsl:document>
+    <xsl:variable name="nodes-1-locus-genotype" select="/meta/dataanalysis/locus/hardyweinberg/genotypetable/genotype"/>    
+    <xsl:if test="count($nodes-1-locus-genotype) &gt;0">
+      <exsl:document href="{$outputDir}1-locus-genotype.dat"
+		     omit-xml-declaration="yes"
+		     method="text">
+	<xsl:call-template name="header-line-start">
+	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+	</xsl:call-template>
+	<xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chisq.chen&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;pval.diff.enum&#09;pval.diff.enum.three&#09;pval.chen.enum&#09;pval.chen.enum.three&#09;steps.mcmc&#09;steps.monte.carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
+	
+	<xsl:call-template name="newline"/>
+	<xsl:call-template name="gen-lines">
+	  <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
+	  <xsl:with-param name="type" select="'1-locus-genotype'"/>
+	</xsl:call-template>
+      </exsl:document>
+    </xsl:if>
 
-    <exsl:document href="{$outputDir}1-locus-genotype.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="header-line-start">
-      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
-     </xsl:call-template>
-     <xsl:text>locus&#09;genotype&#09;observed&#09;expected&#09;pval.chisq&#09;pval.chisq.chen&#09;pval.chen.mcmc&#09;pval.chen.monte-carlo&#09;pval.diff.mcmc&#09;pval.diff.monte-carlo&#09;pval.diff.enum&#09;pval.diff.enum.three&#09;pval.chen.enum&#09;pval.chen.enum.three&#09;steps.mcmc&#09;steps.monte.carlo&#09;stat.chen.mc&#09;stat.diff.mc&#09;stat.chen.mcmc&#09;stat.diff.mcmc</xsl:text>
+    <xsl:variable name="nodes-1-locus-pairwise-fnd" select="/meta/dataanalysis/homozygosityEWSlatkinExactPairwise/group"/>    
+    <xsl:if test="count($nodes-1-locus-pairwise-fnd) &gt;0">
+      <exsl:document href="{$outputDir}1-locus-pairwise-fnd.dat"
+		     omit-xml-declaration="yes"
+		     method="text">
+	<xsl:call-template name="header-line-start">
+	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+	</xsl:call-template>
+	<xsl:text>locus1&#09;locus2&#09;metaloci&#09;f.slatkin.fnd</xsl:text>
+	<xsl:call-template name="newline"/>
+	
+	<xsl:call-template name="gen-lines">
+	  <xsl:with-param name="nodes" select="$nodes-1-locus-pairwise-fnd"/>
+	  <xsl:with-param name="type" select="'1-locus-pairwise-fnd'"/>
+	</xsl:call-template>
+      </exsl:document>
+    </xsl:if>
 
-     <xsl:call-template name="newline"/>
-     <xsl:call-template name="gen-lines">
-      <xsl:with-param name="nodes" select="/meta/dataanalysis/locus"/>
-      <xsl:with-param name="type" select="'1-locus-genotype'"/>
-     </xsl:call-template>
-    </exsl:document>
+    <xsl:variable name="nodes-2-locus" select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu' or (@mode='haplo' and (string-length(@loci) - string-length(translate(@loci, ':', '')))=1)) and not(@role='no-data')]"/>
+    <xsl:if test="count($nodes-2-locus) &gt;0">
+      <exsl:document href="{$outputDir}2-locus-summary.dat"
+		     omit-xml-declaration="yes"
+		     method="text">
+	<xsl:call-template name="header-line-start">
+	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+	</xsl:call-template>
+	<xsl:text>n.gametes&#09;locus1&#09;locus2&#09;metaloci&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
+	<xsl:call-template name="newline"/>
+	<xsl:call-template name="gen-lines">
+	  <!-- either explicitly set as an all-pairwise mode, or 'haplo' mode with 2 loci -->
+	  <xsl:with-param name="nodes" select="$nodes-2-locus"/>
+	  <xsl:with-param name="type" select="'multi-locus-summary'"/>
+	</xsl:call-template>
+      </exsl:document>
+      
+      <exsl:document href="{$outputDir}2-locus-haplo.dat"
+		     omit-xml-declaration="yes"
+		     method="text">
+	<xsl:call-template name="header-line-start">
+	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+	</xsl:call-template>
+	<xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count&#09;ld.d&#09;ld.dprime&#09;ld.chisq&#09;obs&#09;obs.freq&#09;exp</xsl:text>
+	<xsl:call-template name="newline"/>
+	<xsl:call-template name="gen-lines">
+	  <!-- either explicitly set as an all-pairwise mode, or 'haplo' mode with 2 loci -->
+	  <xsl:with-param name="nodes" select="$nodes-2-locus"/>
+	  <xsl:with-param name="type" select="'multi-locus-haplo'"/>
+	</xsl:call-template>
+      </exsl:document>
+    </xsl:if>
 
-    <exsl:document href="{$outputDir}1-locus-pairwise-fnd.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="header-line-start">
-      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
-     </xsl:call-template>
-     <xsl:text>locus1&#09;locus2&#09;metaloci&#09;f.slatkin.fnd</xsl:text>
-     <xsl:call-template name="newline"/>
+    <!-- deal with all output groups WITH 3 OR MORE LOCI -->
+    
+    <xsl:variable name="nodes-3-or-greater-loci" select="/meta/dataanalysis/emhaplofreq/group[not(@role='no-data')]"/>
+    <xsl:variable name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
+    
+    <xsl:variable name="loci-counts">
+      <xsl:for-each select="$nodes-3-or-greater-loci/@loci">
+	<locus_count><xsl:value-of select="string-length(.) - string-length(translate(., ':', '')) + 1"/></locus_count>
+      </xsl:for-each>
+    </xsl:variable>
 
-     <xsl:call-template name="gen-lines">
-      <xsl:with-param name="nodes"
-       select="/meta/dataanalysis/homozygosityEWSlatkinExactPairwise/group"/>
-      <xsl:with-param name="type" select="'1-locus-pairwise-fnd'"/>
-     </xsl:call-template>
-    </exsl:document>
+    <!-- get unique haplotype lengths across all output -->
+    <!-- dynamically generate files, rather than hardcoding -->
+    <xsl:variable name="unique-loci-counts" select="set:distinct(exsl:node-set($loci-counts)/locus_count)"/>
+    
+    <xsl:for-each select="$unique-loci-counts">
+      <xsl:variable name="loci_count" select="."/>
 
-    <exsl:document href="{$outputDir}2-locus-summary.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="header-line-start">
-      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
-     </xsl:call-template>
-     <xsl:text>n.gametes&#09;locus1&#09;locus2&#09;metaloci&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
-     <xsl:call-template name="newline"/>
-     <xsl:call-template name="gen-lines">
-      <!-- either explicitly set as an all-pairwise mode, or 'haplo' mode with 2 loci -->
-      <xsl:with-param name="nodes"
-       select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu' or (@mode='haplo' and (string-length(@loci) - string-length(translate(@loci, ':', '')))=1)) and not(@role='no-data')]"/>
-      <xsl:with-param name="type" select="'multi-locus-summary'"/>
-     </xsl:call-template>
-    </exsl:document>
+      <xsl:if test="$loci_count &gt; 2">  <!-- only for 3 haplotypes or longer -->
+      
+	<exsl:document href="{$outputDir}{$loci_count}-locus-summary.dat"
+		     omit-xml-declaration="yes"
+		     method="text">
+	  <xsl:call-template name="header-line-start">
+	    <xsl:with-param name="popnode" select="$popnode"/>
+	  </xsl:call-template>
+	  <xsl:text>n.gametes&#09;</xsl:text>
+	  <!-- dynamically generate headers -->
+	  <xsl:call-template name="generate-n-headers">  
+	    <xsl:with-param name="i" select="1"/>
+	    <xsl:with-param name="max" select="$loci_count"/>
+	    <xsl:with-param name="prefix" select="'locus'"/>
+	    <xsl:with-param name="suffix" select="'&#09;'"/>      
+	  </xsl:call-template>
+	  <xsl:text>metaloci</xsl:text>	
+	  
+	  <xsl:call-template name="newline"/>
+	  <xsl:call-template name="gen-lines">
+	    <xsl:with-param name="nodes"
+			    select="$nodes-3-or-greater-loci[(string-length(@loci) - string-length(translate(@loci, ':', '')) + 1)=$loci_count]"/>
+	    <xsl:with-param name="type" select="'multi-locus-summary'"/>
+	    <xsl:with-param name="pairwise" select="0"/>
+	  </xsl:call-template>
+	</exsl:document>
 
-    <exsl:document href="{$outputDir}2-locus-haplo.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="header-line-start">
-      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
-     </xsl:call-template>
-     <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count&#09;ld.d&#09;ld.dprime&#09;ld.chisq&#09;obs&#09;obs.freq&#09;exp</xsl:text>
-     <xsl:call-template name="newline"/>
-     <xsl:call-template name="gen-lines">
-      <!-- either explicitly set as an all-pairwise mode, or 'haplo' mode with 2 loci -->
-      <xsl:with-param name="nodes"
-      select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu' or (@mode='haplo' and (string-length(@loci) - string-length(translate(@loci, ':', '')))=1)) and not(@role='no-data')]"/>
-      <xsl:with-param name="type" select="'multi-locus-haplo'"/>
-     </xsl:call-template>
-    </exsl:document>
-
-    <exsl:document href="{$outputDir}3-locus-summary.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="header-line-start">
-       <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
-     </xsl:call-template>
-     <xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3&#09;metaloci</xsl:text>
-     <xsl:call-template name="newline"/>
-     <xsl:call-template name="gen-lines">
-      <xsl:with-param name="nodes"
-       select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=2 and not(@role='no-data')]"/>
-      <xsl:with-param name="type" select="'multi-locus-summary'"/>
-      <xsl:with-param name="pairwise" select="0"/>
-     </xsl:call-template>
-    </exsl:document>
-
-    <exsl:document href="{$outputDir}3-locus-haplo.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="header-line-start">
-      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
-     </xsl:call-template>
-     <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
-     <xsl:call-template name="newline"/>
-     <xsl:call-template name="gen-lines">
-      <xsl:with-param name="nodes"
-      select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=2 and not(@role='no-data')]"/>
-      <xsl:with-param name="type" select="'multi-locus-haplo'"/>
-      <xsl:with-param name="pairwise" select="0"/>
-     </xsl:call-template>
-    </exsl:document>
-
-    <exsl:document href="{$outputDir}4-locus-summary.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="header-line-start">
-      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
-     </xsl:call-template>
-     <xsl:text>n.gametes&#09;locus1&#09;locus2&#09;locus3&#09;locus4&#09;metaloci</xsl:text>
-     <xsl:call-template name="newline"/>
-     <xsl:call-template name="gen-lines">
-      <xsl:with-param name="nodes"
-       select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=3 and not(@role='no-data')]"/>
-      <xsl:with-param name="type" select="'multi-locus-summary'"/>
-      <xsl:with-param name="pairwise" select="0"/>
-     </xsl:call-template>
-    </exsl:document>
-
-    <exsl:document href="{$outputDir}4-locus-haplo.dat"
-     omit-xml-declaration="yes"
-     method="text">
-     <xsl:call-template name="header-line-start">
-      <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
-     </xsl:call-template>
-     <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
-     <xsl:call-template name="newline"/>
-     <xsl:call-template name="gen-lines">
-      <xsl:with-param name="nodes"
-      select="/meta/dataanalysis/emhaplofreq/group[(string-length(@loci) - string-length(translate(@loci, ':', '')))=3 and not(@role='no-data')]"/>
-      <xsl:with-param name="type" select="'multi-locus-haplo'"/>
-      <xsl:with-param name="pairwise" select="0"/>
-     </xsl:call-template>
-    </exsl:document>
+	<exsl:document href="{$outputDir}{$loci_count}-locus-haplo.dat"
+		       omit-xml-declaration="yes"
+		       method="text">
+	  <xsl:call-template name="header-line-start">
+	    <xsl:with-param name="popnode" select="$popnode"/>
+	  </xsl:call-template>
+	  <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
+	  <xsl:call-template name="newline"/>
+	  <xsl:call-template name="gen-lines">
+	    <xsl:with-param name="nodes" select="$nodes-3-or-greater-loci[(string-length(@loci) - string-length(translate(@loci, ':', '')) + 1)=$loci_count]"/>
+	    <xsl:with-param name="type" select="'multi-locus-haplo'"/>
+	    <xsl:with-param name="pairwise" select="0"/>
+	  </xsl:call-template>
+	</exsl:document>
+	
+      </xsl:if>
+    </xsl:for-each>
 
     </xsl:when>
 
