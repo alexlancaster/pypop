@@ -11,7 +11,6 @@ filenames = ['1-locus-allele.dat',
 # FIXME: not quite sure why 2 locus fails on Windows, but 3, 4 locus pass
 @xfail_windows
 def test_GenerateTSV_2_locus():
-
     exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_EM_2_locus.ini', './tests/data/BIGDAWG_SynthControl_Data.pop', args=['--enable-tsv', '--enable-ihwg'])
     # check exit code
     assert exit_code == 0
