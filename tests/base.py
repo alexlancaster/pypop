@@ -38,6 +38,8 @@ import sys
 import subprocess
 import shutil
 import pytest
+import tempfile
+
 from difflib import unified_diff
 from pathlib import Path, PurePath
 
@@ -150,19 +152,16 @@ def run_popmeta_process(xmlfiles, args=[]):
     exit_code = run_script_process_entry_point('popmeta', popmeta_args)
     return exit_code
 
-import contextlib
-import tempfile
-import inspect
+@pytest.fixture(scope="function", autouse=True)
+def in_temp_dir(request):
 
-@contextlib.contextmanager
-def run_in_temp_dir():
     curr_dir = os.getcwd() # save current directory
 
     # get test case name for temporary directory
-    test_case_name = inspect.stack()[2].function
+    test_case_name = request.function.__name__
     
     # create the new temporary directory
-    #test_dir = tempfile.TemporaryDirectory(
+    
     test_dir = tempfile.mkdtemp(    
         dir = '.',
         prefix = 'run_'+ test_case_name + '_',
@@ -177,3 +176,4 @@ def run_in_temp_dir():
         os.chdir(curr_dir)
         # Cleaning up the temporary directory
         # shutil.rmtree(test_dir)
+        
