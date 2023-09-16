@@ -74,6 +74,18 @@ def filecmp_ignore_newlines(out_filename, gold_out_filename):
                 return False
     return True
 
+def filecmp_list_of_files(filename_list, gold_out_directory):
+
+    retval = True  # assume true by defualt
+    
+    for out_filename in filename_list:
+        gold_out_filename = abspath_test_data(os.path.join(gold_out_directory, out_filename))
+        if not filecmp_ignore_newlines(out_filename, gold_out_filename):
+            retval = False
+            return retval  # once a file fails, return
+
+    return retval
+
 def run_script_process_shell(script_name, args):
 
     # first search for script in current PATH
