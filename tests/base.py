@@ -38,6 +38,8 @@ import sys
 import subprocess
 import shutil
 import pytest
+import tempfile
+
 from difflib import unified_diff
 from pathlib import Path, PurePath
 
@@ -71,6 +73,18 @@ def filecmp_ignore_newlines(out_filename, gold_out_filename):
                 
                 return False
     return True
+
+def filecmp_list_of_files(filename_list, gold_out_directory):
+
+    retval = True  # assume true by defualt
+    
+    for out_filename in filename_list:
+        gold_out_filename = abspath_test_data(os.path.join(gold_out_directory, out_filename))
+        if not filecmp_ignore_newlines(out_filename, gold_out_filename):
+            retval = False
+            return retval  # once a file fails, return
+
+    return retval
 
 def run_script_process_shell(script_name, args):
 
@@ -149,3 +163,34 @@ def run_popmeta_process(xmlfiles, args=[]):
     popmeta_args = args + input_files
     exit_code = run_script_process_entry_point('popmeta', popmeta_args)
     return exit_code
+
+@pytest.fixture(scope="function", autouse=True)
+def in_temp_dir(request):
+
+    curr_dir = os.getcwd() # save current directory
+
+    # get test case name for temporary directory
+    test_case_name = request.function.__name__
+    
+    # create the new temporary directory
+    
+    test_dir = tempfile.mkdtemp(    
+        dir = '.',
+        prefix = 'run_'+ test_case_name + '_',
+        suffix = ''
+    )
+    os.chdir(test_dir) # change current directory to temp
+
+    try:
+        yield
+    finally:
+        # restore original directory
+        os.chdir(curr_dir)
+        verbose_level = request.config.getoption('verbose')
+
+        # by default (verbosity level == 0), we delete the temporary
+        # directory, otherwise we skip it
+        if verbose_level == 0:
+            # cleaning up the temporary directory
+            shutil.rmtree(test_dir)
+        

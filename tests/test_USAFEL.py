@@ -3,7 +3,7 @@ import subprocess
 import hashlib
 import pytest
 import os.path
-from base import abspath_test_data, run_pypop_process, xfail_windows, filecmp_ignore_newlines
+from base import abspath_test_data, run_pypop_process, xfail_windows, filecmp_ignore_newlines, in_temp_dir
 
 def test_USAFEL():
     exit_code = run_pypop_process('./tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini', './tests/data/USAFEL-UchiTelle-small.pop')
