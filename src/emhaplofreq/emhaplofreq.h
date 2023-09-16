@@ -36,7 +36,7 @@ MODIFICATIONS. */
 #define LINE_LEN    132      /* RS changed from 120 to 132=6*2*(10+1) */ 
 #define MAX_ROWS    10000     /* increased from 1023                   */ 
 #define MAX_ALLELES 200      /* increased from 80 for a large dataset */
-#define MAX_LOCI    4
+#define MAX_LOCI    5
 #define MAX_COLS    MAX_LOCI * 2 
                              /* max genotypes:  2^max_loci*max_rows */ 
 #define MAX_GENOS   300000    /* RS changed from 64*MAX_ROWS and then 20000 */
