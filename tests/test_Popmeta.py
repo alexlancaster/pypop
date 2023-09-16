@@ -11,5 +11,11 @@ def test_Popmeta():
     # check exit code
     assert exit_code == 0
 
+    checked_filenames = ['1-locus-allele.dat', '1-locus-summary.dat', '3-locus-summary.dat', '3-locus-haplo.dat']
+    
     # compare with output files list
-    assert filecmp_list_of_files(['1-locus-allele.dat', '1-locus-summary.dat', '3-locus-summary.dat', '3-locus-haplo.dat'], './tests/data/output/popmeta/')
+    assert filecmp_list_of_files(checked_filenames, './tests/data/output/popmeta/')
+
+    # make sure only expected generated files exist
+    assert set(os.listdir()) ==  set(checked_filenames + ['meta.xml'])
+
