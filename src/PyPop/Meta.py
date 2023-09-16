@@ -323,9 +323,13 @@ class Meta:
                 # after processing, move files if necessary
                 if len(fileBatchList) > 1:
                     for dat in datfiles:
-                        if success and os.path.exists(dat):
-                            #print("renaming:", dat, "to:", "%s.%d" % (dat, fileBatch))
-                            os.rename(dat, "%s.%d" % (dat, fileBatch))
+                        if success:
+                            if os.path.exists(dat):
+                                #print("renaming:", dat, "to:", "%s.%d" % (dat, fileBatch))
+                                os.rename(dat, "%s.%d" % (dat, fileBatch))
+                            else:
+                                print("%s in batch %d doesn't exist - skipping"
+                                  % (dat, fileBatch))
                         else:
                             print("problem with generating %s in batch %d"
                                   % (dat, fileBatch))
