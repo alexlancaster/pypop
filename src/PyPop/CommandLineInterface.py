@@ -85,7 +85,7 @@ current directory""", epilog=copyright_message, formatter_class=PyPopFormatter)
     add_pypop("-x", "--xsl", help="override the default XSLT translation with XSLFILE", 
                         metavar="XSLFILE", required=False, default=None)
 
-    add_tsv = pypop_parser.add_argument_group('TSV output options', 'Note that ``--enable-`` flags only valid if ``--enable-tsv``/``-t`` selected').add_argument
+    add_tsv = pypop_parser.add_argument_group('TSV output options', 'Note that ``--enable-*`` and ``--prefix-tsv`` options are only valid if ``--enable-tsv``/``-t`` is also supplied').add_argument
     add_tsv("-t", "--enable-tsv", help="generate TSV output files (aka run 'popmeta')",
                         action='store_true', required=False, default=False)
     add_tsv(ihwg_args[0], **ihwg_args[1])

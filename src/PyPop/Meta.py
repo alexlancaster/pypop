@@ -172,6 +172,9 @@ class Meta:
         batchsize = 0
         """
 
+        # the name of the XSLT file for transformation
+        meta_to_tsv_xsl = 'meta-to-tsv.xsl'
+        
         # heuristics to find default location of 'xslt/' subdirectory, if it is
         # not supplied by the command-line option
 
@@ -184,11 +187,11 @@ class Meta:
                 from importlib_resources import files
                 introspection_path = files('PyPop.xslt').joinpath('')
 
-            if checkXSLFile('meta-to-r.xsl', introspection_path):  # first check installed path
+            if checkXSLFile(meta_to_tsv_xsl, introspection_path):  # first check installed path
                 metaXSLTDirectory = introspection_path
-            elif checkXSLFile('meta-to-r.xsl', popmetabinpath, 'xslt'):  # next, heuristics
+            elif checkXSLFile(meta_to_tsv_xsl, popmetabinpath, 'xslt'):  # next, heuristics
                 metaXSLTDirectory = os.path.join(popmetabinpath, 'xslt')
-            elif checkXSLFile('meta-to-r.xsl', popmetabinpath, os.path.join('..', 'PyPop/xslt')):
+            elif checkXSLFile(meta_to_tsv_xsl, popmetabinpath, os.path.join('..', 'PyPop/xslt')):
                 metaXSLTDirectory = os.path.join(popmetabinpath, '..', 'PyPop/xslt')
             else:
                 metaXSLTDirectory= datapath
@@ -294,7 +297,7 @@ class Meta:
 
                 if TSV_output:
                     # generate all data output in formats for R
-                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), "meta.xml", inputDir=outputDir, params=xslt_params)
+                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, meta_to_tsv_xsl), "meta.xml", inputDir=outputDir, params=xslt_params)
 
                 if PHYLIP_output:
                     # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:

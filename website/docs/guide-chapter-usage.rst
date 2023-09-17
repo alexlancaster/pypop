@@ -226,16 +226,25 @@ generated in similar fashion in the previous ``pypop`` runs:
 
    popmeta -o altdir Guatemalan-out.xml NorthAmerican-out.xml
 
-This will generate a number of ``.dat`` files, including
-:file:`1-locus-allele.dat`.
+This will generate a number of ``.tsv`` files, in the output directory
+``altdir``, of the form :file:`1-locus-allele.tsv`,
+:file:`1-locus-summary.tsv`, etc.
+
+You can also supply a prefix to the command-line option
+``--prefix-tsv`` so that all ``.tsv`` files are given a prefix, e.g.,
+
+.. code-block:: text
+
+   popmeta -o altdir --prefix-tsv myoutput Guatemalan-out.xml NorthAmerican-out.xml
+
+Will result in files with a prefix, e.g. :file:`myoutput-1-locus-allele.tsv`.
 
 .. note::
 
    It's highly recommended to use the ``-o`` option to save the output
-   in a separate subdirectory, as the output ``.dat`` files have
+   in a separate subdirectory, as the output ``.tsv`` files have
    fixed names, and will overwrite any files in the local directory with the
-   same name).  See :ref:`guide-popmeta-cli` for the full list of
-   options.
+   same name.  See :ref:`guide-popmeta-cli` for the full list of options.
       
 Note that a similar effect can be achieved directly from a ``pypop``
 run (assuming that the configuration file can be used for both
