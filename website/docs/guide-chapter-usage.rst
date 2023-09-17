@@ -209,15 +209,15 @@ highly polymorphic loci in your data set.
 Using ``popmeta`` to aggregate results
 ======================================
 
-The ``popmeta`` script (``popmeta.bat`` on Windows, ``popmeta`` on
-GNU/Linux) can aggregate results from a number of output XML files
-from individual populations into a set of tab-separated (TSV) files
-containing summary statistics via customized XSLT (eXtensible
-Stylesheet Language for Transformations) stylesheets.  These TSV files
-can be directly imported into a spreadsheet or statistical software
-(e.g., :program:`R`, :program:`SAS`).  In addition, there is some
-preliminary support for export into other formats, such as the
-population genetic software (e.g., :program:`PHYLIP`).
+The ``popmeta`` script can aggregate results from a number of output
+XML files from individual populations into a set of tab-separated
+(TSV) files containing summary statistics via customized XSLT
+(eXtensible Stylesheet Language for Transformations) stylesheets.
+These TSV files can be directly imported into a spreadsheet or
+statistical software (e.g., :program:`R`, :program:`SAS`).  In
+addition, there is some preliminary support for export into other
+formats, such as the population genetic software (e.g.,
+:program:`PHYLIP`).
 
 Here is an example of a ``popmeta`` run, following on from the XML outputs
 generated in similar fashion in the previous ``pypop`` runs:
