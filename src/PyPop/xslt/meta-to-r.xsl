@@ -45,9 +45,12 @@ MODIFICATIONS.
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes" indent="no" encoding="UTF-8"/>
 
- <!-- specifiy a default directory for the output .dat files that can be overriden -->
+ <!-- specifiy a default directory for the output .tsv files that can be overriden -->
  <xsl:param name="outputDir" select="'./'"/>
- 
+
+ <!-- specifiy a default prefix for all .tsv files that can be overriden -->
+ <xsl:param name="prefixTSV" select="''"/>
+  
  <xsl:param name="output.genotype.distrib" select="0"/>
 
  <data:map-order>
@@ -772,7 +775,7 @@ MODIFICATIONS.
 	<xsl:value-of select="@row"/>
 	<xsl:text>-</xsl:text>
 	<xsl:value-of select="@col"/>
-	<xsl:text>.dat</xsl:text>
+	<xsl:text>.tsv</xsl:text>
        </xsl:variable>
        
        <exsl:document href="{$genotype-filename}"
@@ -1012,7 +1015,7 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-1-locus-hardyweinberg" select="/meta/dataanalysis/locus/hardyweinberg | /meta/dataanalysis/locus/hardyweinbergGuoThompson | /meta/dataanalysis/locus/hardyweinbergEnumeration"/>    
     <xsl:if test="count($nodes-1-locus-hardyweinberg) &gt;0">
-      <exsl:document href="{$outputDir}1-locus-hardyweinberg.dat"
+      <exsl:document href="{$outputDir}{$prefixTSV}1-locus-hardyweinberg.tsv"
 		     omit-xml-declaration="yes"
 		     method="text">
 	<xsl:call-template name="header-line-start">
@@ -1029,7 +1032,7 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-1-locus-summary" select="/meta/dataanalysis/locus"/>    
     <xsl:if test="count($nodes-1-locus-summary) &gt;0">
-      <exsl:document href="{$outputDir}1-locus-summary.dat"
+      <exsl:document href="{$outputDir}{$prefixTSV}1-locus-summary.tsv"
 		     omit-xml-declaration="yes"
 		     method="text">
 	<xsl:call-template name="header-line-start">
@@ -1046,7 +1049,7 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-1-locus-allele" select="/meta/dataanalysis/locus/allelecounts/allele"/>    
     <xsl:if test="count($nodes-1-locus-allele) &gt;0">
-      <exsl:document href="{$outputDir}1-locus-allele.dat"
+      <exsl:document href="{$outputDir}{$prefixTSV}1-locus-allele.tsv"
 		     omit-xml-declaration="yes"
 		     method="text">
 	<xsl:call-template name="header-line-start">
@@ -1063,7 +1066,7 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-1-locus-genotype" select="/meta/dataanalysis/locus/hardyweinberg/genotypetable/genotype"/>    
     <xsl:if test="count($nodes-1-locus-genotype) &gt;0">
-      <exsl:document href="{$outputDir}1-locus-genotype.dat"
+      <exsl:document href="{$outputDir}{$prefixTSV}1-locus-genotype.tsv"
 		     omit-xml-declaration="yes"
 		     method="text">
 	<xsl:call-template name="header-line-start">
@@ -1081,7 +1084,7 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-1-locus-pairwise-fnd" select="/meta/dataanalysis/homozygosityEWSlatkinExactPairwise/group"/>    
     <xsl:if test="count($nodes-1-locus-pairwise-fnd) &gt;0">
-      <exsl:document href="{$outputDir}1-locus-pairwise-fnd.dat"
+      <exsl:document href="{$outputDir}{$prefixTSV}1-locus-pairwise-fnd.tsv"
 		     omit-xml-declaration="yes"
 		     method="text">
 	<xsl:call-template name="header-line-start">
@@ -1099,7 +1102,7 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-2-locus" select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu' or (@mode='haplo' and (string-length(@loci) - string-length(translate(@loci, ':', '')))=1)) and not(@role='no-data')]"/>
     <xsl:if test="count($nodes-2-locus) &gt;0">
-      <exsl:document href="{$outputDir}2-locus-summary.dat"
+      <exsl:document href="{$outputDir}{$prefixTSV}2-locus-summary.tsv"
 		     omit-xml-declaration="yes"
 		     method="text">
 	<xsl:call-template name="header-line-start">
@@ -1114,7 +1117,7 @@ MODIFICATIONS.
 	</xsl:call-template>
       </exsl:document>
       
-      <exsl:document href="{$outputDir}2-locus-haplo.dat"
+      <exsl:document href="{$outputDir}{$prefixTSV}2-locus-haplo.tsv"
 		     omit-xml-declaration="yes"
 		     method="text">
 	<xsl:call-template name="header-line-start">
@@ -1150,7 +1153,7 @@ MODIFICATIONS.
 
       <xsl:if test="$loci_count &gt; 2">  <!-- only for 3 haplotypes or longer -->
       
-	<exsl:document href="{$outputDir}{$loci_count}-locus-summary.dat"
+	<exsl:document href="{$outputDir}{$prefixTSV}{$loci_count}-locus-summary.tsv"
 		     omit-xml-declaration="yes"
 		     method="text">
 	  <xsl:call-template name="header-line-start">
@@ -1175,7 +1178,7 @@ MODIFICATIONS.
 	  </xsl:call-template>
 	</exsl:document>
 
-	<exsl:document href="{$outputDir}{$loci_count}-locus-haplo.dat"
+	<exsl:document href="{$outputDir}{$prefixTSV}{$loci_count}-locus-haplo.tsv"
 		       omit-xml-declaration="yes"
 		       method="text">
 	  <xsl:call-template name="header-line-start">

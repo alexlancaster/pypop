@@ -92,8 +92,8 @@ matters, see the file named COPYING.
     args = parser.parse_args(argv[1:])
 
     # IHWG and PHYLIP output only make sense if '-t' also supplied
-    if (args.enable_ihwg or args.enable_phylip) and (not args.enable_tsv):
-        parser.error('--enable-iwhg or --enable-phylip can only be used if --generate-tsv also supplied')
+    if (args.enable_ihwg or args.enable_phylip or args.prefix_tsv) and (not args.enable_tsv):
+        parser.error('--enable-iwhg, --enable-phylip or --prefix_tsv can only be used if --generate-tsv also supplied')
 
     if args.outputdir:
         if not args.outputdir.is_dir():
@@ -104,6 +104,7 @@ matters, see the file named COPYING.
     debugFlag = args.debug
     interactiveFlag = args.interactive
     generateTSV = args.enable_tsv
+    prefixTSV = args.prefix_tsv
     testMode = args.testmode
     fileList = args.filelist
     outputDir = args.outputdir
@@ -284,7 +285,8 @@ return for each prompt.""")
            datapath=datapath,
            metaXSLTDirectory=None,
            dump_meta=False,
-           R_output=True,
+           TSV_output=True,
+           prefixTSV=prefixTSV,
            PHYLIP_output=PHYLIP_output,
            ihwg_output=ihwg_output,
            batchsize=batchsize,

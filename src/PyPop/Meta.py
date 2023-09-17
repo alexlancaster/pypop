@@ -148,18 +148,19 @@ class Meta:
                  datapath = None,
                  metaXSLTDirectory = None,
                  dump_meta = False,
-                 R_output = True,
+                 TSV_output = True,
+                 prefixTSV = None,
                  PHYLIP_output = False,
                  ihwg_output = False,
                  batchsize = 0,
                  outputDir = None,
                  xml_files = None):
-        """Transform a specified list of XML output files to *.dat
+        """Transform a specified list of XML output files to *.tsv
         tab-separated values (TSV) form.
 
         Defaults:
-        # output R tables by default
-        R_output=True
+        # output .tsv tables by default (can be used by R)
+        TSV_output=True
 
         # don't output PHYLIP by default
         PHYLIP_output=False
@@ -207,6 +208,12 @@ class Meta:
         else:
             xslt_params['outputDir'] = "'./'" # otherwise chose current directory
 
+        # use a prefix for all TSV if given
+        if prefixTSV:
+            xslt_params['prefixTSV'] = "'" + prefixTSV + "-'" # make sure to include dash
+        else:
+            xslt_params['prefixTSV'] = "''" # otherwise use empty string
+            
         # FIXME
         # report error if no file arguments given
 
@@ -229,12 +236,12 @@ class Meta:
             fileBatchList = splitIntoNGroups(wellformed_files, \
                                              n=len(wellformed_files))
 
-        datfiles_default = ['1-locus-allele.dat', '1-locus-genotype.dat',
-                            '1-locus-summary.dat', '1-locus-pairwise-fnd.dat',
-                            '1-locus-hardyweinberg.dat',
-                            '2-locus-haplo.dat', '2-locus-summary.dat',
-                            '3-locus-summary.dat', '3-locus-haplo.dat',
-                            '4-locus-summary.dat', '4-locus-haplo.dat',]
+        datfiles_default = ['1-locus-allele.tsv', '1-locus-genotype.tsv',
+                            '1-locus-summary.tsv', '1-locus-pairwise-fnd.tsv',
+                            '1-locus-hardyweinberg.tsv',
+                            '2-locus-haplo.tsv', '2-locus-summary.tsv',
+                            '3-locus-summary.tsv', '3-locus-haplo.tsv',
+                            '4-locus-summary.tsv', '4-locus-haplo.tsv',]
 
         # prepend directory name, if supplied
         if outputDir:
@@ -285,7 +292,7 @@ class Meta:
                 f.write(meta_string)
                 f.close()
 
-                if R_output:
+                if TSV_output:
                     # generate all data output in formats for R
                     success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), "meta.xml", inputDir=outputDir, params=xslt_params)
 
