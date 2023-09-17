@@ -17,7 +17,6 @@ def test_Popmeta():
     # make sure only expected generated files exist
     assert set(os.listdir()) ==  set(checked_filenames + ['meta.xml'])
 
-@pytest.mark.xfail(reason="more elegant post-processing of .tsv files needed")
 def test_Popmeta_Prefix():
     exit_code = run_popmeta_process(['./tests/data/BIGDAWG_SynthControl_Data-out.xml', './tests/data/BIGDAWG_SynthControl_Data_dash-out.xml'], args=['--prefix-tsv', 'prefix'])
     # check exit code

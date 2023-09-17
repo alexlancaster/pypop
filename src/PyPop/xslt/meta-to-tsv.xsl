@@ -45,12 +45,17 @@ MODIFICATIONS.
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes" indent="no" encoding="UTF-8"/>
 
- <!-- specifiy a default directory for the output .tsv files that can be overriden -->
+ <!-- specify a default directory for the output .tsv files that can be overriden -->
  <xsl:param name="outputDir" select="'./'"/>
 
- <!-- specifiy a default prefix for all .tsv files that can be overriden -->
+ <!-- specify a default prefix for all .tsv files that can be overriden -->
  <xsl:param name="prefixTSV" select="''"/>
-  
+
+ <!-- generate overall file prefix -->
+ <xsl:variable name="filePrefix">
+   <xsl:value-of select="$outputDir"/><xsl:value-of select="$prefixTSV"/>
+ </xsl:variable>
+ 
  <xsl:param name="output.genotype.distrib" select="0"/>
 
  <data:map-order>
@@ -1015,9 +1020,12 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-1-locus-hardyweinberg" select="/meta/dataanalysis/locus/hardyweinberg | /meta/dataanalysis/locus/hardyweinbergGuoThompson | /meta/dataanalysis/locus/hardyweinbergEnumeration"/>    
     <xsl:if test="count($nodes-1-locus-hardyweinberg) &gt;0">
-      <exsl:document href="{$outputDir}{$prefixTSV}1-locus-hardyweinberg.tsv"
-		     omit-xml-declaration="yes"
-		     method="text">
+      <xsl:variable name="outputFile">
+	<xsl:value-of select="$filePrefix"/><xsl:text>-locus-hardyweinberg.tsv</xsl:text>
+      </xsl:variable>
+      <xsl:value-of select="$outputFile"/><xsl:call-template name="newline"/>  <!-- pass through to stdout -->
+      
+      <exsl:document href="{$outputFile}" omit-xml-declaration="yes" method="text">
 	<xsl:call-template name="header-line-start">
 	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
 	</xsl:call-template>
@@ -1032,9 +1040,12 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-1-locus-summary" select="/meta/dataanalysis/locus"/>    
     <xsl:if test="count($nodes-1-locus-summary) &gt;0">
-      <exsl:document href="{$outputDir}{$prefixTSV}1-locus-summary.tsv"
-		     omit-xml-declaration="yes"
-		     method="text">
+      <xsl:variable name="outputFile">
+	<xsl:value-of select="$filePrefix"/><xsl:text>1-locus-summary.tsv</xsl:text>
+      </xsl:variable>
+      <xsl:value-of select="$outputFile"/><xsl:call-template name="newline"/>  <!-- pass through to stdout -->
+      
+      <exsl:document href="{$outputFile}" omit-xml-declaration="yes" method="text">
 	<xsl:call-template name="header-line-start">
 	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
 	</xsl:call-template>
@@ -1049,9 +1060,14 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-1-locus-allele" select="/meta/dataanalysis/locus/allelecounts/allele"/>    
     <xsl:if test="count($nodes-1-locus-allele) &gt;0">
-      <exsl:document href="{$outputDir}{$prefixTSV}1-locus-allele.tsv"
-		     omit-xml-declaration="yes"
-		     method="text">
+
+      <xsl:variable name="outputFile">
+	<xsl:value-of select="$filePrefix"/><xsl:text>1-locus-allele.tsv</xsl:text>
+      </xsl:variable>
+
+      <xsl:value-of select="$outputFile"/><xsl:call-template name="newline"/>  <!-- pass through to stdout -->
+      
+      <exsl:document href="{$outputFile}" omit-xml-declaration="yes" method="text">
 	<xsl:call-template name="header-line-start">
 	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
 	</xsl:call-template>
@@ -1066,9 +1082,13 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-1-locus-genotype" select="/meta/dataanalysis/locus/hardyweinberg/genotypetable/genotype"/>    
     <xsl:if test="count($nodes-1-locus-genotype) &gt;0">
-      <exsl:document href="{$outputDir}{$prefixTSV}1-locus-genotype.tsv"
-		     omit-xml-declaration="yes"
-		     method="text">
+      
+      <xsl:variable name="outputFile">
+	<xsl:value-of select="$filePrefix"/><xsl:text>1-locus-genotype.tsv</xsl:text>
+      </xsl:variable>
+      <xsl:value-of select="$outputFile"/><xsl:call-template name="newline"/>  <!-- pass through to stdout -->
+      
+      <exsl:document href="{$outputFile}" omit-xml-declaration="yes" method="text">
 	<xsl:call-template name="header-line-start">
 	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
 	</xsl:call-template>
@@ -1084,9 +1104,12 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-1-locus-pairwise-fnd" select="/meta/dataanalysis/homozygosityEWSlatkinExactPairwise/group"/>    
     <xsl:if test="count($nodes-1-locus-pairwise-fnd) &gt;0">
-      <exsl:document href="{$outputDir}{$prefixTSV}1-locus-pairwise-fnd.tsv"
-		     omit-xml-declaration="yes"
-		     method="text">
+      <xsl:variable name="outputFile">
+	<xsl:value-of select="$filePrefix"/><xsl:text>1-locus-pairwise-fnd.tsv</xsl:text>
+      </xsl:variable>
+      <xsl:value-of select="$outputFile"/><xsl:call-template name="newline"/>  <!-- pass through to stdout -->
+
+      <exsl:document href="{$outputFile}" omit-xml-declaration="yes" method="text">
 	<xsl:call-template name="header-line-start">
 	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
 	</xsl:call-template>
@@ -1102,9 +1125,12 @@ MODIFICATIONS.
 
     <xsl:variable name="nodes-2-locus" select="/meta/dataanalysis/emhaplofreq/group[(@mode='all-pairwise-ld-with-permu' or @mode='all-pairwise-ld-no-permu' or (@mode='haplo' and (string-length(@loci) - string-length(translate(@loci, ':', '')))=1)) and not(@role='no-data')]"/>
     <xsl:if test="count($nodes-2-locus) &gt;0">
-      <exsl:document href="{$outputDir}{$prefixTSV}2-locus-summary.tsv"
-		     omit-xml-declaration="yes"
-		     method="text">
+      <xsl:variable name="outputFile">
+	<xsl:value-of select="$filePrefix"/><xsl:text>2-locus-summary.tsv</xsl:text>
+      </xsl:variable>
+      <xsl:value-of select="$outputFile"/><xsl:call-template name="newline"/>  <!-- pass through to stdout -->
+
+      <exsl:document href="{$outputFile}" omit-xml-declaration="yes" method="text">
 	<xsl:call-template name="header-line-start">
 	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
 	</xsl:call-template>
@@ -1116,10 +1142,13 @@ MODIFICATIONS.
 	  <xsl:with-param name="type" select="'multi-locus-summary'"/>
 	</xsl:call-template>
       </exsl:document>
-      
-      <exsl:document href="{$outputDir}{$prefixTSV}2-locus-haplo.tsv"
-		     omit-xml-declaration="yes"
-		     method="text">
+
+      <xsl:variable name="outputFile2">
+	<xsl:value-of select="$filePrefix"/><xsl:text>2-locus-haplo.tsv</xsl:text>
+      </xsl:variable>
+      <xsl:value-of select="$outputFile2"/><xsl:call-template name="newline"/> <!-- pass through to stdout -->
+
+      <exsl:document href="{$outputFile2}" omit-xml-declaration="yes" method="text">
 	<xsl:call-template name="header-line-start">
 	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
 	</xsl:call-template>
@@ -1152,10 +1181,13 @@ MODIFICATIONS.
       <xsl:variable name="loci_count" select="."/>
 
       <xsl:if test="$loci_count &gt; 2">  <!-- only for 3 haplotypes or longer -->
-      
-	<exsl:document href="{$outputDir}{$prefixTSV}{$loci_count}-locus-summary.tsv"
-		     omit-xml-declaration="yes"
-		     method="text">
+
+	<xsl:variable name="outputFile">
+	  <xsl:value-of select="$filePrefix"/><xsl:value-of select="$loci_count"/><xsl:text>-locus-summary.tsv</xsl:text>
+	</xsl:variable>
+	<xsl:value-of select="$outputFile"/><xsl:call-template name="newline"/>  <!-- pass through to stdout -->
+	
+	<exsl:document href="{$outputFile}" omit-xml-declaration="yes" method="text">
 	  <xsl:call-template name="header-line-start">
 	    <xsl:with-param name="popnode" select="$popnode"/>
 	  </xsl:call-template>
@@ -1178,9 +1210,12 @@ MODIFICATIONS.
 	  </xsl:call-template>
 	</exsl:document>
 
-	<exsl:document href="{$outputDir}{$prefixTSV}{$loci_count}-locus-haplo.tsv"
-		       omit-xml-declaration="yes"
-		       method="text">
+	<xsl:variable name="outputFile2">
+	  <xsl:value-of select="$filePrefix"/><xsl:value-of select="$loci_count"/><xsl:text>-locus-haplo.tsv</xsl:text>
+	</xsl:variable>
+	<xsl:value-of select="$outputFile2"/><xsl:call-template name="newline"/>  <!-- pass through to stdout -->
+	
+	<exsl:document href="{$outputFile2}" omit-xml-declaration="yes" method="text">
 	  <xsl:call-template name="header-line-start">
 	    <xsl:with-param name="popnode" select="$popnode"/>
 	  </xsl:call-template>
