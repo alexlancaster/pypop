@@ -1,12 +1,15 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite both the article from preferred-citation and the software itself."
+abstract: PyPop is a framework for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD)
 authors:
 - family-names: "Lancaster"
   given-names: "Alexander"
   orcid: "https://orcid.org/0000-0002-0002-9263"
+  affiliation: "Amber Biology LLC and Ronin Institute"
 - family-names: "Single"
   given-names: "Richard"
   orcid: "https://orcid.org/0000-0001-6054-6505"
+  affiliation: "University of Vermont"
 - family-names: "Solberg"
   given-names: "Owen"
   orcid: "https://orcid.org/0000-0003-3060-9709"
@@ -15,11 +18,31 @@ authors:
 - family-names: "Mack"
   given-names: "Steven J."
   orcid: "https://orcid.org/0000-0001-9820-9547"
+  affiliation: "University of California, Santa Cruz"
 - family-names: "Thomson"
   given-names: "Glenys"
   orcid: "https://orcid.org/0000-0001-5235-4159"
+  affiliation: "University of California, Berkeley"
+- family-names: "Webster"
+  given-names: "Gordon"
+  affiliation: "Amber Biology LLC"
+- family-names: "Mariani"
+  given-names: "Michael"
+  orcid: "https://orcid.org/0000-0001-5235-4159"
+  affiliation: "University of Vermont"
 title: "PyPop: Python for Population Genomics"
 url: "https://github.com/alexlancaster/pypop"
+repository-code: "https://github.com/alexlancaster/pypop"
+keywords:
+  - "population genetics"
+  - "population genomics"
+  - "bioinformatics"
+  - "evolutionary biology"
+  - "Human leukocyte antigen"
+  - "Major histocompatibility complex"
+  - "HLA"
+  - "MHC"
+license: GPL-2.0-or-later
 preferred-citation:
   authors:
   - family-names: "Lancaster"
