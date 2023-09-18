@@ -28,37 +28,46 @@ New features
   ``Numpy``, and ``lxml`` in place of ``libxml_mod``
 * Preliminary support for Genotype List (GL) String
   (https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3715123/)
-* Added a new assymetric linkage disequilibrium (ALD) calculations
-  (thanks to Richard Single)
+* Added new assymetric linkage disequilibrium (ALD) calculations
+  (thanks to Richard Single), see [Thomson:Single:2014]_ for more
+  details.
 * Improved tab-separated values (TSV) output file handling:
 
-  * old IHWG headers are disabled by default use ``--enable-ihwg`` to
-    enable them
+  * old IHWG headers are disabled by default, so the ``-disable-ihwg``
+    option has been replaced by the ``--enable-ihwg`` option, which
+    will re-enable them.
   * ``popmeta``: allow TSV files to be put in separate directory with
     ``-o``/ ``--outputdir`` command-lineoption for saving generated
     files.
   * ``pypop``: renamed ``--generate-tsv`` to ``--enable-tsv``
-  * dynamic generation specific TSV files based on XML input not
-    hard-coded (thanks to Steve Mack for suggestion)
+  * dynamic generation of TSV files based on XML input, so the list of
+    files is no longer hard-coded (thanks to Steve Mack for
+    suggestion), this also adds support for haplotypes involving more
+    than 4 loci
 
 * Added unit-tests using ``pytest`` testing framework.
-* New documentation systems:
+* New documentation system using ``sphinx``, replacing the old DocBook
+  XML, to generate both the website and the *PyPop User Guide* (HTML
+  and PDF):
 
-  * sphinx-based documentation in ReStructuredText (``.rst``)
-  * improve ``popmeta`` and other command-line documentation
+  * sphinx-based documentation is now written in ReStructuredText
+    (``.rst``)
+  * improve ``popmeta`` and other documentation for command-line
+    programs
   * documentation additions and improvements from Richard Single,
     Michael Mariani, Gordon Webster and Steve Mack
-  * Overhaul release process and add a contribution-guide to the
+  * overhaul release process and add a contribution-guide to the
     *PyPop User Guide*.
 
 Bug fixes
 ^^^^^^^^^
 * Fix issues with using colons in alleles, and other separation
   isssues (thanks to Steve Mack)
-* Make GENOTYPE_TERMINATOR to ``~`` rather than ``|``
+* Use ``~`` as the genotype terminator rather than ``|`` (fixes some
+  haplotype estimation bugs)
 * Round all haplotype frequencies to 5 decimal places to avoid
   truncation issues (thanks to Steve Mack for report)
-* Tab-separated values (TSV) file fixes:
+* TSV file fixes:
 
   * fix missing columns in TSV files (thanks to Steve Mack for report)
   * fix headers in 3 and 4 locus TSV files
