@@ -75,7 +75,8 @@ Internal
 * Replace old ``getopt`` with ``argparse`` library
 * Major code refactoring, including moving code into ``src``
   directory, and using packages in ``setup.py``
-* Implementation continuous integration via GitHub Actions
+* Added continuous integration via GitHub Actions for releases and
+  website updates
 * Prepare package for inclusion in ``PyPI``
 * Add code examples used in documentation as unit tests
 
