@@ -7,14 +7,16 @@ Release Notes in preparation for PyPop 1.0.0
 --------------------------------------------
 (not-yet-released)
 
-PyPop 1.0.0 is the first official release of PyPop using Python 3. In
-addition to using modern libraries and being released on PyPI, there
-are some new features, such as the new assymetric LD measures, and
-better handling of TSV files, along with the typical slew of bug
-fixes. Many more changes are of an "under the hood" nature, such as a
-new unit testing and documentation framework, and are detailed below.
-Many people contributed to this latest release, which has been a while
-in coming. Thanks especially to all new contributors including Vanessa
+PyPop 1.0.0 is the first official release of PyPop using Python 3, and
+the first release to be included on `PyPI
+<https://pypi.org/project/pypop-genomics/>`__. In addition to using
+modern libraries and being released on PyPI, there are some new
+features, such as the new assymetric LD measures, and better handling
+of TSV files, along with the typical slew of bug fixes. Many more
+changes are of an "under the hood" nature, such as a new unit testing
+and documentation framework, and are detailed below.  Many people
+contributed to this latest release, which has been a while in
+coming. Thanks especially to all new contributors including Vanessa
 Sochat, Gordon Webster, Karl Kornel and Michael Mariani.  Thanks also
 to ongoing contributors and bug reporters, Richard Single and Steve
 Mack.
