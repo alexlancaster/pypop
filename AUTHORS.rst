@@ -36,12 +36,13 @@ Owen Solberg  | `0000-0003-3060-9709 <https://orcid.org/0000-0003-3060-9709>`__
 Glenys Thomson | `0000-0001-5235-4159 <https://orcid.org/0000-0001-5235-4159>`__ | University of California, Berkeley
    Principal investigator
 
-Gordon Webster | Amber Biology LLC
-   Contributed documentation and testing framework.
-
 Yingssu Tsai
    Implemented prototype of the allele names to sequence conversion
    filter module.
+   
+Gordon Webster | Amber Biology LLC
+   Contributed documentation and testing framework.
+
 
 Third-party modules
 -------------------
