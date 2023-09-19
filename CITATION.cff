@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite both the article from preferred-citation and the software itself."
-abstract: "PyPop for Population Genomics (PyPop) is a framework for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD)."
+abstract: "PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD). Main website: http://pypop.org/"
 authors:
 - family-names: "Lancaster"
-  given-names: "Alexander"
+  given-names: "Alexander K."
   orcid: "https://orcid.org/0000-0002-0002-9263"
   affiliation: "Amber Biology LLC and Ronin Institute"
 - family-names: "Nelson"
@@ -26,7 +26,7 @@ authors:
   given-names: "Gordon"
   affiliation: "Amber Biology LLC"
 - family-names: "Mariani"
-  given-names: "Michael"
+  given-names: "Michael P."
   orcid: "https://orcid.org/0000-0001-5235-4159"
   affiliation: "University of Vermont"
 - family-names: "Mack"
