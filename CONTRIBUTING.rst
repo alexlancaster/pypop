@@ -5,7 +5,8 @@ Contributing
 .. _guide-contributing-start:
 
 Contributions to PyPop are welcome, and they are greatly appreciated!
-Every little bit helps, and credit will always be given.
+Every little bit helps, and `credit will always be given <Crediting
+contributors_>`__.
 
 Reporting and requesting
 ========================
@@ -743,8 +744,8 @@ you will need to have various TeX packages installed.
 3. the user guide will be generated in ``_latexbuild/pypop-guide.pdf``
 
 
-Crediting contributions
-=======================
+Crediting contributors
+======================
 
 .. note::
 
@@ -752,10 +753,9 @@ Crediting contributions
    <https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORSHIP.md>`__
    in the ``PyGMT`` project.
 
-Thank you to everyone who has helped contribute to PyPop, we define
-*contributions* in a broad way: including both writing code as well as
-documentation, and reviewing issues and PRs etc. Here are some ways we
-credit contributions:
+We define *contributions* in a broad way: including both writing code
+as well as documentation, and reviewing issues and PRs etc. Here are
+some ways we credit contributors:
 
 ``AUTHORS.rst``, ``NEWS.rst`` and GitHub Release Notes
 ------------------------------------------------------
