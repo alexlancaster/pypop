@@ -754,18 +754,15 @@ Crediting contributions
 
 Thank you to everyone who has helped contribute to PyPop, we define
 *contributions* in a broad way: including both writing code as well as
-documentation, and reviewing issues and PRs etc. Here are some ways we hope 
+documentation, and reviewing issues and PRs etc. Here are some ways we
+credit contributions:
 
-``AUTHORS.rst`` file
---------------------
+``AUTHORS.rst``, ``NEWS.rst`` and GitHub Release Notes
+------------------------------------------------------
 
 Anyone who has contributed a pull request to the project is welcome to
 add themselves (or request to be added) to ``AUTHORS.rst``, which is
-part of the repository and included with with distributions. This is
-an optional process.
-
-``NEWS.rst`` and/or GitHub Release Notes
-----------------------------------------
+part of the repository and included with with distributions.
 
 Every time we make a release, everyone who has made a commit to the
 repository since the previous release will be mentioned in either the
@@ -787,10 +784,9 @@ file of the repository:
 
 The order of authors is generally defined by the number of commits to
 the repository (`git shortlog -sne`). The order can also be changed on
-a case-by-case basis.  The most common reasons are contributions to
-PyPop project that due not relate to commit numbers, such as writing
-grants/proposals, and other programming efforts (including reviewing
-PRs).
+a case-by-case basis, such as contributions to PyPop project that due
+not relate to commit numbers, such as writing grants/proposals, and
+other programming efforts (including reviewing PRs).
 
 If you have contributed and *do not* wish to be included in Zenodo
 archives, either don't add yourself to ``AUTHORS.rst``, or open an issue
