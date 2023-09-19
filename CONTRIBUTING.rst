@@ -811,9 +811,9 @@ To be included as an author on the paper, you *must* have
 
 1. either made multiple and regular contributions to the PyPop
    repository; or, have made other non-coding contributions (or both);
-3. have participated in the writing and reviewing of the paper.
-4. added your full name, affiliation, and (optionally) ORCID to the paper. 
-5. written and/or read and review the manuscript in a timely manner and provide
+2. have participated in the writing and reviewing of the paper.
+3. added your full name, affiliation, and (optionally) ORCID to the paper. 
+4. written and/or read and review the manuscript in a timely manner and provide
    comments on the paper
 
 .. _Fork this repository before contributing: https://github.com/alexlancaster/pypop/network/members
