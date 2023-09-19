@@ -778,8 +778,8 @@ log`) will be invited to be an author on the `Zenodo
 To be included as an author, you *must* add the following to the `AUTHORS.rst`
 file of the repository:
 
-1. Full name (and a link to your website or GitHub page)
-2. [ORCID](https://orcid.org) (optional)
+1. Full name (and optional link to your website or GitHub page)
+2. `ORCID <https://orcid.org>`__ (optional)
 3. Affiliation (optional)
 
 The order of authors is generally defined by the number of commits to
