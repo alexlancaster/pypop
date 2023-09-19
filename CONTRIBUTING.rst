@@ -771,11 +771,11 @@ repository since the previous release will be mentioned in either the
 Authorship on Zenodo archives of releases
 -----------------------------------------
 
-Anyone who has contributed to the repository (i.e., appears on `git
-log`) will be invited to be an author on the `Zenodo
+Anyone who has contributed to the repository (i.e., appears on ``git
+log``) will be invited to be an author on the `Zenodo
 <https://zenodo.org/>`__ archive of new releases.
 
-To be included as an author, you *must* add the following to the `AUTHORS.rst`
+To be included as an author, you *must* add the following to the ``AUTHORS.rst``
 file of the repository:
 
 1. Full name (and optional link to your website or GitHub page)
@@ -783,10 +783,10 @@ file of the repository:
 3. Affiliation (optional)
 
 The order of authors is generally defined by the number of commits to
-the repository (`git shortlog -sne`). The order can also be changed on
-a case-by-case basis, such as contributions to PyPop project that due
-not relate to commit numbers, such as writing grants/proposals, and
-other programming efforts (including reviewing PRs).
+the repository (``git shortlog -sne``). The order can also be changed
+on a case-by-case basis, such as contributions to PyPop project that
+due not relate to commit numbers, such as writing grants/proposals,
+and other programming efforts (including reviewing PRs).
 
 If you have contributed and *do not* wish to be included in Zenodo
 archives, either don't add yourself to ``AUTHORS.rst``, or open an issue
