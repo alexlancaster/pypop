@@ -4,7 +4,7 @@
 Authors and history 
 *******************
 
-.. include:: AUTHORS.rst
+.. include:: ../../AUTHORS.rst
    
 .. include:: ../../NEWS.rst
 
