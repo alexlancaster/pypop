@@ -6,7 +6,7 @@ Contributing
 
 Contributions to PyPop are welcome, and they are greatly appreciated!
 Every little bit helps, and `credit will always be given <Crediting
-contributors_>`__.
+contributors_>_.
 
 Reporting and requesting
 ========================
@@ -771,8 +771,7 @@ repository since the previous release will be mentioned in either the
 Authorship on Zenodo archives of releases
 -----------------------------------------
 
-Anyone who has contributed to the repository (i.e., appears on ``git
-log``) will be invited to be an author on the `Zenodo
+Anyone who has contributed to the repository (i.e., appears on ``git log``) will be invited to be an author on the `Zenodo
 <https://zenodo.org/>`__ archive of new releases.
 
 To be included as an author, you *must* add the following to the ``AUTHORS.rst``
