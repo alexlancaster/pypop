@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite both the article from preferred-citation and the software itself."
+message: "If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) 'PyPop update – a software pipeline for large-scale multilocus population genomics' Tissue Antigens 69(1):192-197 10.1111/j.1399-0039.2006.00769.x https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/"
 abstract: "PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD). Main website: http://pypop.org/"
 authors:
 - family-names: "Lancaster"
@@ -52,29 +52,29 @@ keywords:
   - "HLA"
   - "MHC"
 license: GPL-2.0-or-later
-preferred-citation:
-  authors:
-  - family-names: "Lancaster"
-    given-names: "Alexander"
-    orcid: "https://orcid.org/0000-0002-0002-9263"
-  - family-names: "Single"
-    given-names: "Richard"
-    orcid: "https://orcid.org/0000-0001-6054-6505"
-  - family-names: "Solberg"
-    given-names: "Owen"
-    orcid: "https://orcid.org/0000-0003-3060-9709"
-  - family-names: "Nelson"
-    given-names: "Mark P."
-  - family-names: "Thomson"
-    given-names: "Glenys"
-    orcid: "https://orcid.org/0000-0001-5235-4159"
-  type: article
-  doi: "10.1111/j.1399-0039.2006.00769.x"
-  journal: "Tissue Antigens"
-  start: 192 # First page number
-  end: 197 # Last page number
-  title: "PyPop update – a software pipeline for large-scale multilocus population genomics"
-  url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/"
-  issue: 1
-  volume: 69
-  year: 2007
+# preferred-citation:
+#   authors:
+#   - family-names: "Lancaster"
+#     given-names: "Alexander"
+#     orcid: "https://orcid.org/0000-0002-0002-9263"
+#   - family-names: "Single"
+#     given-names: "Richard"
+#     orcid: "https://orcid.org/0000-0001-6054-6505"
+#   - family-names: "Solberg"
+#     given-names: "Owen"
+#     orcid: "https://orcid.org/0000-0003-3060-9709"
+#   - family-names: "Nelson"
+#     given-names: "Mark P."
+#   - family-names: "Thomson"
+#     given-names: "Glenys"
+#     orcid: "https://orcid.org/0000-0001-5235-4159"
+#   type: article
+#   doi: "10.1111/j.1399-0039.2006.00769.x"
+#   journal: "Tissue Antigens"
+#   start: 192 # First page number
+#   end: 197 # Last page number
+#   title: "PyPop update – a software pipeline for large-scale multilocus population genomics"
+#   url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/"
+#   issue: 1
+#   volume: 69
+#   year: 2007
