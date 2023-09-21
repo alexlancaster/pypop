@@ -60,11 +60,13 @@ def get_parent_cli(version="", copyright_message=""):
                                    'action':'store_true', 'required':False, 'default':False})
     phylip_args = ("--enable-phylip", {'help':"enable generation of PHYLIP ``.phy`` files",
                                        'action':'store_true', 'required':False, 'default':False})
-    return parent_parser, ihwg_args, phylip_args, common_args
+    prefix_tsv_args = (["-p", "--prefix-tsv"], {'help': "append PREFIX_TSV to the output TSV files", 'metavar':"PREFIX_TSV", 'required':False, "default":None})
+
+    return parent_parser, ihwg_args, phylip_args, common_args, prefix_tsv_args
 
 def get_pypop_cli(version="", copyright_message=""):
 
-    parent_parser, ihwg_args, phylip_args, common_args = get_parent_cli(version=version, copyright_message=copyright_message)
+    parent_parser, ihwg_args, phylip_args, common_args, prefix_tsv_args = get_parent_cli(version=version, copyright_message=copyright_message)
     pypop_parser = ArgumentParser(prog="pypop", parents=[parent_parser], add_help=False,
                             description="""Process and run population genetics statistics on one or more POPFILEs.
 Expects to find a configuration file called 'config.ini' in the
@@ -83,11 +85,12 @@ current directory""", epilog=copyright_message, formatter_class=PyPopFormatter)
     add_pypop("-x", "--xsl", help="override the default XSLT translation with XSLFILE", 
                         metavar="XSLFILE", required=False, default=None)
 
-    add_tsv = pypop_parser.add_argument_group('TSV output options', 'Note that ``--enable-`` flags only valid if ``--enable-tsv``/``-t`` selected').add_argument
+    add_tsv = pypop_parser.add_argument_group('TSV output options', 'Note that ``--enable-*`` and ``--prefix-tsv`` options are only valid if ``--enable-tsv``/``-t`` is also supplied').add_argument
     add_tsv("-t", "--enable-tsv", help="generate TSV output files (aka run 'popmeta')",
                         action='store_true', required=False, default=False)
     add_tsv(ihwg_args[0], **ihwg_args[1])
     add_tsv(phylip_args[0], **phylip_args[1])
+    add_tsv(*prefix_tsv_args[0], **prefix_tsv_args[1])
 
     gp_input = pypop_parser.add_argument_group('Mutually exclusive input options')
     add_input = gp_input.add_mutually_exclusive_group(required=True).add_argument
@@ -101,7 +104,7 @@ current directory""", epilog=copyright_message, formatter_class=PyPopFormatter)
 
 def get_popmeta_cli(version="", copyright_message=""):
 
-    parent_parser, ihwg_args, phylip_args, common_args = get_parent_cli(version=version, copyright_message=copyright_message)
+    parent_parser, ihwg_args, phylip_args, common_args, prefix_tsv_args = get_parent_cli(version=version, copyright_message=copyright_message)
     popmeta_parser = ArgumentParser(prog="popmeta", parents=[parent_parser], add_help=False,
                                     epilog=copyright_message, description="""Processes XMLFILEs and generates 'meta'-analyses. XMLFILE are
 expected to be the XML output files taken from runs of 'pypop'.  Will
@@ -112,14 +115,17 @@ skip any XML files that are not well-formed XML.""", formatter_class=PyPopFormat
     add_popmeta = popmeta_parser.add_argument_group('Options for popmeta').add_argument
     for arg in common_args:
         add_popmeta(*arg[0], **arg[1])
-    add_popmeta("--disable-tsv", help="disable generation of ``.dat`` TSV files",
-                                    action='store_false', dest="generate_dat", required=False, default=True)
+
+    add_popmeta(*prefix_tsv_args[0], **prefix_tsv_args[1])
+        
+    add_popmeta("--disable-tsv", help="disable generation of ``.tsv`` TSV files",
+                                    action='store_false', dest="generate_tsv", required=False, default=True)
     add_popmeta("--output-meta", help="dump the meta output file to stdout, ignore xslt file",
                                     action='store_true', required=False, default=False)
     add_popmeta("-x", "--xsldir", help="use specified directory to find meta XSLT", 
                                     metavar="XSLDIR", required=False, default=None)
     add_popmeta(ihwg_args[0], **ihwg_args[1])
-
+    
     xor_options = popmeta_parser.add_argument_group('Mutually exclusive popmeta options')
     add_xor_arg = xor_options.add_mutually_exclusive_group(required=False).add_argument
     add_xor_arg(phylip_args[0], **phylip_args[1])

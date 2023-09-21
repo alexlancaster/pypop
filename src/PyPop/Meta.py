@@ -84,6 +84,9 @@ def translate_string_to_file(xslFilename, inString, outFile, outputDir=None, par
     _translate_string_to(xslFilename, inString, outFile, outputDir=outputDir, params=params)
 
 def _translate_file_to(xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None):
+
+    # assuming empty output
+    output = None
     
     # parse the stylesheet file
     styledoc = etree.parse(xslFilename)
@@ -106,11 +109,13 @@ def _translate_file_to(xslFilename, inFile, outFile, inputDir=None, outputDir=No
             result = style(doc, **params)
         else:
             result = style(doc)
-            
-        #style.saveResultToFilename(outFile, result, 0)
+
         if outFile == '-': # this is stdout
-            if len(str(result)) > 0: # only write something if none-empty
-                result.write_output(sys.stdout)
+            text_output = str(result)
+            if len(text_output) > 0: # only write something if none-empty
+                print(text_output)   # print it to screen
+                output = text_output # but also pass it back
+
         else:
             # generate output path
             if outputDir:
@@ -127,16 +132,15 @@ def _translate_file_to(xslFilename, inFile, outFile, inputDir=None, outputDir=No
         print("Can't process: %s with stylesheet: %s, skipping" % (inFile, xslFilename))
         success = False
 
-    return success
-
+    return success, output
 
 def translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None):
-    retval = _translate_file_to(xslFilename, inFile, "-", inputDir=inputDir, params=params)
-    return retval
+    retval, stdout = _translate_file_to(xslFilename, inFile, "-", inputDir=inputDir, params=params)
+    return retval, stdout
 
 def translate_file_to_file(xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None):
-    retval = _translate_file_to(xslFilename, inFile, outFile, inputDir=inputDir, outputDir=outputDir, params=params)
-    return retval
+    retval, output = _translate_file_to(xslFilename, inFile, outFile, inputDir=inputDir, outputDir=outputDir, params=params)
+    return retval  # FIXME: don't use the output from a file->file transformation currently
 
 
 class Meta:
@@ -148,18 +152,19 @@ class Meta:
                  datapath = None,
                  metaXSLTDirectory = None,
                  dump_meta = False,
-                 R_output = True,
+                 TSV_output = True,
+                 prefixTSV = None,
                  PHYLIP_output = False,
                  ihwg_output = False,
                  batchsize = 0,
                  outputDir = None,
                  xml_files = None):
-        """Transform a specified list of XML output files to *.dat
+        """Transform a specified list of XML output files to *.tsv
         tab-separated values (TSV) form.
 
         Defaults:
-        # output R tables by default
-        R_output=True
+        # output .tsv tables by default (can be used by R)
+        TSV_output=True
 
         # don't output PHYLIP by default
         PHYLIP_output=False
@@ -171,6 +176,9 @@ class Meta:
         batchsize = 0
         """
 
+        # the name of the XSLT file for transformation
+        meta_to_tsv_xsl = 'meta-to-tsv.xsl'
+        
         # heuristics to find default location of 'xslt/' subdirectory, if it is
         # not supplied by the command-line option
 
@@ -183,11 +191,11 @@ class Meta:
                 from importlib_resources import files
                 introspection_path = files('PyPop.xslt').joinpath('')
 
-            if checkXSLFile('meta-to-r.xsl', introspection_path):  # first check installed path
+            if checkXSLFile(meta_to_tsv_xsl, introspection_path):  # first check installed path
                 metaXSLTDirectory = introspection_path
-            elif checkXSLFile('meta-to-r.xsl', popmetabinpath, 'xslt'):  # next, heuristics
+            elif checkXSLFile(meta_to_tsv_xsl, popmetabinpath, 'xslt'):  # next, heuristics
                 metaXSLTDirectory = os.path.join(popmetabinpath, 'xslt')
-            elif checkXSLFile('meta-to-r.xsl', popmetabinpath, os.path.join('..', 'PyPop/xslt')):
+            elif checkXSLFile(meta_to_tsv_xsl, popmetabinpath, os.path.join('..', 'PyPop/xslt')):
                 metaXSLTDirectory = os.path.join(popmetabinpath, '..', 'PyPop/xslt')
             else:
                 metaXSLTDirectory= datapath
@@ -207,6 +215,12 @@ class Meta:
         else:
             xslt_params['outputDir'] = "'./'" # otherwise chose current directory
 
+        # use a prefix for all TSV if given
+        if prefixTSV:
+            xslt_params['prefixTSV'] = "'" + prefixTSV + "-'" # make sure to include dash
+        else:
+            xslt_params['prefixTSV'] = "''" # otherwise use empty string
+            
         # FIXME
         # report error if no file arguments given
 
@@ -229,20 +243,6 @@ class Meta:
             fileBatchList = splitIntoNGroups(wellformed_files, \
                                              n=len(wellformed_files))
 
-        datfiles_default = ['1-locus-allele.dat', '1-locus-genotype.dat',
-                            '1-locus-summary.dat', '1-locus-pairwise-fnd.dat',
-                            '1-locus-hardyweinberg.dat',
-                            '2-locus-haplo.dat', '2-locus-summary.dat',
-                            '3-locus-summary.dat', '3-locus-haplo.dat',
-                            '4-locus-summary.dat', '4-locus-haplo.dat',]
-
-        # prepend directory name, if supplied
-        if outputDir:
-            datfiles = [os.path.join(outputDir, d) for d in datfiles_default]
-        else:
-            datfiles = datfiles_default
-
-        
         for fileBatch in range(len(fileBatchList)):
 
             # generate a metafile XML wrapper
@@ -285,9 +285,13 @@ class Meta:
                 f.write(meta_string)
                 f.close()
 
-                if R_output:
-                    # generate all data output in formats for R
-                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'meta-to-r.xsl'), "meta.xml", inputDir=outputDir, params=xslt_params)
+                if TSV_output:
+                    # generate all data output in formats for programs that read TSV files
+                    # stdout records the files generated by the XML -> TSV transformation
+                    success, stdout = translate_file_to_stdout(os.path.join(metaXSLTDirectory, meta_to_tsv_xsl), "meta.xml", inputDir=outputDir, params=xslt_params)
+                    # transform stdout into a list of tsv files
+                    tsv_files = stdout.strip().split("\n")
+                    
 
                 if PHYLIP_output:
                     # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:
@@ -307,22 +311,22 @@ class Meta:
                     # generate Phylip allele data
 
                     # generate individual locus files (don't use loci parameter)
-                    success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml',
+                    success, stdout = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml',
                                                        inputDir=outputDir, params={'outputDir': xslt_params['outputDir']})
 
                     # generate locus group files
                     for locus in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-                        success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml',
+                        success, stdout = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-allele.xsl'), 'sorted-by-locus.xml',
                                                            inputDir=outputDir, params={'loci': '"' + locus + '"', 'outputDir': xslt_params['outputDir']})
 
                     # generate Phylip haplotype data
                     for haplo in ['A:B','C:B','DRB1:DQB1','A:B:DRB1','DRB1:DPB1','A:DPA1']:
-                        success = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), "meta.xml",
+                        success, stdout = translate_file_to_stdout(os.path.join(metaXSLTDirectory, 'phylip-haplo.xsl'), "meta.xml",
                                                            inputDir=outputDir, params={'loci': '"' + haplo + '"', 'outputDir': xslt_params['outputDir']})
 
                 # after processing, move files if necessary
                 if len(fileBatchList) > 1:
-                    for dat in datfiles:
+                    for dat in tsv_files:
                         if success:
                             if os.path.exists(dat):
                                 #print("renaming:", dat, "to:", "%s.%d" % (dat, fileBatch))
@@ -337,7 +341,7 @@ class Meta:
         # at end of entire processing, need to cat files together
         # this is a bit hacky
         if len(fileBatchList) > 1:
-            for dat in datfiles:
+            for dat in tsv_files:
                 # create final file to concatenate to
                 outdat = open(dat, 'w')
                 # now concatenate them
