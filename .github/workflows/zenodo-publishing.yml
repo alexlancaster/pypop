@@ -23,3 +23,6 @@ jobs:
             metadata: .zenodo.json
             publish: false
             sandbox: true
+            upsert-doi: true
+            upsert-location: doi
+            verbose: true

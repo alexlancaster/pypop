@@ -1,0 +1,65 @@
+{
+  "creators": [
+    {
+      "affiliation": "Amber Biology LLC and Ronin Institute",
+      "name": "Lancaster, Alexander K.",
+      "orcid": "0000-0002-0002-9263"
+    },
+    {
+      "affiliation": "University of California, Berkeley",
+      "name": "Nelson, Mark P."
+    },
+    {
+      "affiliation": "University of Vermont",
+      "name": "Single, Richard",
+      "orcid": "0000-0001-6054-6505"
+    },
+    {
+      "name": "Solberg, Owen",
+      "orcid": "0000-0003-3060-9709"
+    },
+    {
+      "name": "Tsai, Yingsu"
+    },
+    {
+      "affiliation": "University of São Paulo",
+      "name": "Meyer, Diogo",
+      "orcid": "0000-0002-7155-5674"
+    },
+    {
+      "affiliation": "Amber Biology LLC",
+      "name": "Webster, Gordon"
+    },
+    {
+      "affiliation": "University of Vermont",
+      "name": "Mariani, Michael P.",
+      "orcid": "0000-0001-5235-4159"
+    },
+    {
+      "affiliation": "University of California, San Francisco",
+      "name": "Mack, Steven J.",
+      "orcid": "0000-0001-9820-9547"
+    },
+    {
+      "affiliation": "University of California, Berkeley",
+      "name": "Thomson, Glenys",
+      "orcid": "0000-0001-5235-4159"
+    }
+  ],
+  "description": "PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD). Main website: http://pypop.org/",
+  "keywords": [
+    "population genetics",
+    "population genomics",
+    "bioinformatics",
+    "computational biology",
+    "evolutionary biology",
+    "Human leukocyte antigen",
+    "Major histocompatibility complex",
+    "HLA",
+    "MHC"
+  ],
+  "license": {
+    "id": "GPL-2.0-or-later"
+  },
+  "title": "PyPop: Python for Population Genomics"
+}
