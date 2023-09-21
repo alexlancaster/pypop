@@ -402,7 +402,7 @@ PyPop is distributed under the terms of GPLv2
 .. |pkgname| replace:: ``pypop-genomics``
 
 .. |PyPI version fury.io| image:: https://badge.fury.io/py/pypop-genomics.svg
-   :target: https://pypi.python.org/pypi/pypop-genomics/		       
+    :target: https://badge.fury.io/py/pypop-genomics
 
 .. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/pypop-genomics.svg
    :target: https://pypi.python.org/pypi/pypop-genomics/	    
