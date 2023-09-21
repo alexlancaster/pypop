@@ -1,81 +1,65 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) 'PyPop update – a software pipeline for large-scale multilocus population genomics' Tissue Antigens 69(1):192-197 10.1111/j.1399-0039.2006.00769.x https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/"
-abstract: "PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD). Main website: http://pypop.org/"
+message: >-
+  If you use this software, please cite both the software itself, as well as the
+  the article Lancaster AK et al. (2007) 'PyPop update – a software pipeline for
+  large-scale multilocus population genomics' Tissue Antigens 69(1):192-197
+  10.1111/j.1399-0039.2006.00769.x
+  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/
+abstract: >-
+  PyPop for Population Genomics (PyPop) is a Python program for processing
+  genotype and allele data and running population genetic analyses, including
+  conformity to Hardy-Weinberg expectations; tests for balancing or directional
+  selection; estimates of haplotype frequencies and measures and tests of
+  significance for linkage disequilibrium (LD). Main website: http://pypop.org/
 authors:
-- family-names: "Lancaster"
-  given-names: "Alexander K."
-  orcid: "https://orcid.org/0000-0002-0002-9263"
-  affiliation: "Amber Biology LLC and Ronin Institute"
-- family-names: "Nelson"
-  given-names: "Mark P."
-  affiliation: "University of California, Berkeley"
-- family-names: "Single"
-  given-names: "Richard"
-  orcid: "https://orcid.org/0000-0001-6054-6505"
-  affiliation: "University of Vermont"
-- family-names: "Solberg"
-  given-names: "Owen"
-  orcid: "https://orcid.org/0000-0003-3060-9709"
-- family-names: "Tsai"
-  given-names: "Yingsu"
-- family-names: "Meyer"
-  given-names: "Diogo"
-  orcid: "https://orcid.org/0000-0002-7155-5674"
-  affiliation: "University of São Paulo"
-- family-names: "Webster"
-  given-names: "Gordon"
-  affiliation: "Amber Biology LLC"
-- family-names: "Mariani"
-  given-names: "Michael P."
-  orcid: "https://orcid.org/0000-0001-5235-4159"
-  affiliation: "University of Vermont"
-- family-names: "Mack"
-  given-names: "Steven J."
-  orcid: "https://orcid.org/0000-0001-9820-9547"
-  affiliation: "University of California, San Francisco"
-- family-names: "Thomson"
-  given-names: "Glenys"
-  orcid: "https://orcid.org/0000-0001-5235-4159"
-  affiliation: "University of California, Berkeley"
-title: "PyPop: Python for Population Genomics"
-url: "http://pypop.org/"
-repository-code: "https://github.com/alexlancaster/pypop"
+  - family-names: Lancaster
+    given-names: Alexander K.
+    orcid: https://orcid.org/0000-0002-0002-9263
+    affiliation: Amber Biology LLC and Ronin Institute
+  - family-names: Nelson
+    given-names: Mark P.
+    affiliation: University of California, Berkeley
+  - family-names: Single
+    given-names: Richard
+    orcid: https://orcid.org/0000-0001-6054-6505
+    affiliation: University of Vermont
+  - family-names: Solberg
+    given-names: Owen
+    orcid: https://orcid.org/0000-0003-3060-9709
+  - family-names: Tsai
+    given-names: Yingsu
+  - family-names: Meyer
+    given-names: Diogo
+    orcid: https://orcid.org/0000-0002-7155-5674
+    affiliation: University of São Paulo
+  - family-names: Webster
+    given-names: Gordon
+    affiliation: Amber Biology LLC
+  - family-names: Mariani
+    given-names: Michael P.
+    orcid: https://orcid.org/0000-0001-5235-4159
+    affiliation: University of Vermont
+  - family-names: Mack
+    given-names: Steven J.
+    orcid: https://orcid.org/0000-0001-9820-9547
+    affiliation: University of California, San Francisco
+  - family-names: Thomson
+    given-names: Glenys
+    orcid: https://orcid.org/0000-0001-5235-4159
+    affiliation: University of California, Berkeley
+title: 'PyPop: Python for Population Genomics'
+url: http://pypop.org/
+repository-code: https://github.com/alexlancaster/pypop
 type: software
 keywords:
-  - "population genetics"
-  - "population genomics"
-  - "bioinformatics"
-  - "computational biology"
-  - "evolutionary biology"
-  - "Human leukocyte antigen"
-  - "Major histocompatibility complex"
-  - "HLA"
-  - "MHC"
+  - population genetics
+  - population genomics
+  - bioinformatics
+  - computational biology
+  - evolutionary biology
+  - Human leukocyte antigen
+  - Major histocompatibility complex
+  - HLA
+  - MHC
 license: GPL-2.0-or-later
-doi: ""
-# preferred-citation:
-#   authors:
-#   - family-names: "Lancaster"
-#     given-names: "Alexander"
-#     orcid: "https://orcid.org/0000-0002-0002-9263"
-#   - family-names: "Single"
-#     given-names: "Richard"
-#     orcid: "https://orcid.org/0000-0001-6054-6505"
-#   - family-names: "Solberg"
-#     given-names: "Owen"
-#     orcid: "https://orcid.org/0000-0003-3060-9709"
-#   - family-names: "Nelson"
-#     given-names: "Mark P."
-#   - family-names: "Thomson"
-#     given-names: "Glenys"
-#     orcid: "https://orcid.org/0000-0001-5235-4159"
-#   type: article
-#   doi: "10.1111/j.1399-0039.2006.00769.x"
-#   journal: "Tissue Antigens"
-#   start: 192 # First page number
-#   end: 197 # Last page number
-#   title: "PyPop update – a software pipeline for large-scale multilocus population genomics"
-#   url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/"
-#   issue: 1
-#   volume: 69
-#   year: 2007
+doi: 10.5072/zenodo.1243454
