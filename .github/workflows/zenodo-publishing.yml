@@ -19,9 +19,9 @@ jobs:
             ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
           uses: zenodraft/action@0.10.0
           with:
-            #collection: 1234567
+            collection: 1243453
             metadata: .zenodo.json
-            publish: false
+            publish: true
             sandbox: true
             upsert-doi: true
             upsert-location: doi
