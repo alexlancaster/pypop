@@ -1,4 +1,4 @@
-name: Zenodo publication preparing release
+name: Zenodo release publication
 on:
   # Trigger when you publish a release via GitHub's release page
   release:
