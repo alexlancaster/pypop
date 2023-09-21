@@ -97,6 +97,17 @@ source code is available and maintained on our `GitHub website
 
 .. _guide-preface-2-start:
 
+Also available (but not necessary to cite), is our 2003 *Pacific
+Symposium on Biocomputing* paper:
+
+- Alex Lancaster, Mark P. Nelson, Richard M. Single, Diogo Meyer, and
+  Glenys Thomson (2003) "PyPop: a software framework for population
+  genomics: analyzing large-scale multi-locus genotype data", in
+  *Pacific Symposium on Biocomputing* vol. 8:514-525 (edited by R B
+  Altman. et al., World Scientific, Singapore, 2003) [`PubMed
+  Central <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/>`__,
+  `PDF (344 kB) <http://pypop.org/psb-pypop.pdf>`__].
+		
 PyPop was originally developed for the analysis of data for the 13th
 `International Histocompatiblity Workshop and
 Conference <http://www.ihwg.org/>`__ held in Seattle, Washington in 2002
