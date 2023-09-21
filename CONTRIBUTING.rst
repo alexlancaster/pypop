@@ -6,7 +6,7 @@ Contributing
 
 Contributions to PyPop are welcome, and they are greatly appreciated!
 Every little bit helps, and `credit will always be given <Crediting
-contributors_>_.
+contributors_>`_.
 
 Reporting and requesting
 ========================
