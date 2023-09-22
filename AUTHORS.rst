@@ -40,7 +40,7 @@ Yingssu Tsai
    Implemented prototype of the allele names to sequence conversion
    filter module.
    
-Gordon Webster | Amber Biology LLC
+Gordon Webster | `0009-0009-2862-0467 <https://orcid.org/0009-0009-2862-0467>`__ | Amber Biology LLC
    Contributed documentation and testing framework.
 
 
