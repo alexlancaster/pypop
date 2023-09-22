@@ -61,5 +61,7 @@
   "license": {
     "id": "GPL-2.0-or-later"
   },
-  "title": "PyPop: Python for Population Genomics"
+  "title": "PyPop: Python for Population Genomics",
+  "upload_type": "software",
+  "version": "",  
 }
