@@ -148,7 +148,7 @@ jobs:
             node-version: 16
         - name: Upload to Zenodo
           id: release
-          uses: megasanjay/upload-to-zenodo@v2.0.1
+          uses: megasanjay/upload-to-zenodo@b1e39a4d96ae36e6a100a764a7db405b5e1ea0eb
           with:
             github_token: ${{ secrets.GITHUB_TOKEN }}
             zenodo_token: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
