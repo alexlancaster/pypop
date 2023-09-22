@@ -67,3 +67,4 @@ identifiers:
   - description: DOI for this application's record on Zenodo
     type: doi
     value: https://doi.org/10.5072/zenodo.1243484
+version: 0.9.19
