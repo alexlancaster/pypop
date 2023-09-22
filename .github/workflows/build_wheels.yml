@@ -123,7 +123,7 @@ publish_zenodo:
     needs: [build_sdist]  # eventually make this upload_pypi
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease'
-     steps:
+    steps:
        - name: Checkout the contents of your repository
          uses: actions/checkout@v4
        - name: Create a draft snapshot of your repository contents as a new
