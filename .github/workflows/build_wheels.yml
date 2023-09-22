@@ -118,4 +118,28 @@ jobs:
   #     - name: Publish package distributions to PyPI
   #       uses: pypa/gh-action-pypi-publish@release/v1
 
+  publish_zenodo:
+      name: Publish to zenodo on production releases only
+      needs: [build_wheels, build_sdist]  # eventually make this upload_pypi
+      runs-on: ubuntu-latest
+      if: github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease'
+      steps:
+        - name: Checkout the contents of your repository
+          uses: actions/checkout@v4
+        - name: Create a draft snapshot of your repository contents as a new
+                version in collection 1234567 on Zenodo Sandbox using metadata
+                from repository file .zenodo.json
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+          uses: zenodraft/action@0.10.0
+          with:
+            collection: 1243453
+            metadata: .zenodo.json
+            publish: true
+            sandbox: true
+            upsert-doi: true
+            upsert-location: doi
+            verbose: true
+
           
