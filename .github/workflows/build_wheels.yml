@@ -118,7 +118,7 @@ jobs:
   #     - name: Publish package distributions to PyPI
   #       uses: pypa/gh-action-pypi-publish@release/v1
 
-publish_zenodo:
+  publish_zenodo:
     name: Publish to zenodo on production releases only
     needs: [build_sdist]  # eventually make this upload_pypi
     runs-on: ubuntu-latest
