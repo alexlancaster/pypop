@@ -28,8 +28,8 @@
     },
     {
       "affiliation": "Amber Biology LLC",
-      "name": "Webster, Gordon"
-      "orcid": "0009-0009-2862-0467",
+      "name": "Webster, Gordon",
+      "orcid": "0009-0009-2862-0467"
     },
     {
       "affiliation": "University of Vermont",
@@ -64,5 +64,5 @@
   },
   "title": "PyPop: Python for Population Genomics",
   "upload_type": "software",
-  "version": "0.9.22",
+  "version": "0.9.23",
 }
