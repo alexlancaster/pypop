@@ -140,6 +140,7 @@ jobs:
            metadata: .zenodo.json
            publish: true
            sandbox: true
+           compression: tar.gz
            upsert-doi: true
            upsert-location: doi
       # steps:
