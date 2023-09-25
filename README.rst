@@ -14,9 +14,9 @@ User Guide <http://pypop.org/docs>`__ for a more detailed description.
 		       
 **How to cite PyPop**
 
-To cite PyPop, please cite **both**:
+If you write a paper that uses PyPop in your analysis, please cite **both**:
 
-1. the (2007) paper from *Tissue Antigens*:
+1. our 2007 paper from *Tissue Antigens*:
 
    .. admonition:: *Tissue Antigens*
    
@@ -29,7 +29,7 @@ To cite PyPop, please cite **both**:
       <http://pypop.org/tissue-antigens-lancaster-2007.pdf>`__].
 
 2. **and** the Zenodo record for the specific version of the software
-   (which has version-specific DOI).  First visit the main `Zenodo
+   (which has a version-specific DOI).  First visit the main `Zenodo
    record <https://doi.org/10.5281/zenodo.2580173>`__ and use the DOI
    of the specific version of the software you used.  It will be of
    the form:
