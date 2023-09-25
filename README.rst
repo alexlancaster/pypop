@@ -30,7 +30,7 @@ If you write a paper that uses PyPop in your analysis, please cite **both**:
 
 2. **and** the Zenodo record for the specific version of the software
    (which has a version-specific DOI).  First visit the main `Zenodo
-   record <https://doi.org/10.5281/zenodo.2580173>`__ and use the DOI
+   record <https://doi.org/10.5072/zenodo.1243488>`__ and use the DOI
    of the specific version of the software you used.  It will be of
    the form:
 

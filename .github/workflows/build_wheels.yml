@@ -136,7 +136,7 @@ jobs:
            ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
          uses: zenodraft/action@0.10.0
          with:
-           # collection: 1243453
+           collection: 1243488
            metadata: .zenodo.json
            publish: true
            sandbox: true
