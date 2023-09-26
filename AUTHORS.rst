@@ -5,6 +5,9 @@ PyPop contributors
 
 (Listed in alphabetical order)
 
+Karl Kornel | `0000-0001-5847-5330 <https://orcid.org/0000-0001-5847-5330>`__ | Stanford Research Computing Center
+   Contributed containerization
+
 Alex Lancaster | `0000-0002-0002-9263 <https://orcid.org/0000-0002-0002-9263>`_ | Amber Biology LLC, Ronin Institute
    Lead developer. Co-designer of Python framework: author of main engine, text file
    parser, Python extension module framework using SWIG, XML output and
@@ -28,7 +31,10 @@ Mark P. Nelson | University of California, Berkeley
 Richard M. Single | `0000-0001-6054-6505 <https://orcid.org/0000-0001-6054-6505>`__ | University of Vermont
    Author of haplotype frequency and linkage disequilibrium analysis
    module ``emhaplofreq``.  Contributed documentation and testing/reviewing PRs.
-   
+
+Vanessa Sochat | `0000-0002-4387-3819 <https://orcid.org/0000-0002-4387-3819>`__ | Lawrence Livermore National Lab
+   Contributed to the Python 3 port. 
+
 Owen Solberg  | `0000-0003-3060-9709 <https://orcid.org/0000-0003-3060-9709>`__ 
    Implemented filter modules, including conversion to allele name
    information to sequence data.
