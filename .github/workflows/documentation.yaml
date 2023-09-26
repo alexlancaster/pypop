@@ -2,37 +2,31 @@ name: pypop.org website and docs generation
 on:
   push:
     paths:
-      - 'README.rst'
-      - 'CONTRIBUTING.rst'
-      - 'NEWS.rst'
+      - '*.rst'
       - 'LICENSE'
       - 'website/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
       - '!website/README.md'
-      - '!reference/**'
+      - '!website/reference/**'
   pull_request:
     paths:
-      - 'README.rst'
-      - 'CONTRIBUTING.rst'
-      - 'NEWS.rst'
+      - '*.rst'
       - 'LICENSE'
       - 'website/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
       - '!website/README.md'
-      - '!reference/**'
+      - '!website/reference/**'
   workflow_dispatch:
     paths:
-      - 'README.rst'
-      - 'CONTRIBUTING.rst'
-      - 'NEWS.rst'
+      - '*.rst'
       - 'LICENSE'
       - 'website/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
       - '!website/README.md'
-      - '!reference/**'
+      - '!website/reference/**'
   release: 
      types: 
       - published
