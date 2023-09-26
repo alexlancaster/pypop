@@ -81,68 +81,68 @@ jobs:
         with:
           files: dist/*
 
-  upload_test_pypi:
-    name: Upload to Test_PyPI
-    needs: [build_wheels, build_sdist]
-    runs-on: ubuntu-latest
-    environment: test_pypi
-    permissions:
-      id-token: write
-    if: github.event_name == 'release' && github.event.action == 'published'
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          # unpacks default artifact into dist/
-          # if `name: artifact` is omitted, the action will create extra parent dir
-          name: artifact
-          path: dist
-
-      - uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository_url: https://test.pypi.org/legacy/
-
-  upload_pypi:
-    name: Upload to PyPI
-    needs: [build_wheels, build_sdist]
-    runs-on: ubuntu-latest
-    environment: pypi
-    permissions:
-      id-token: write
-    if: github.event_name == 'release' && github.event.action == 'published'
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          # unpacks default artifact into dist/
-          # if `name: artifact` is omitted, the action will create extra parent dir
-          name: artifact
-          path: dist
-
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-
-  # publish_zenodo:
-  #   name: Publish to zenodo on production releases only
-  #   needs: [build_sdist]  # eventually make this upload_pypi
+  # upload_test_pypi:
+  #   name: Upload to Test_PyPI
+  #   needs: [build_wheels, build_sdist]
   #   runs-on: ubuntu-latest
-  #   if: github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease'
+  #   environment: test_pypi
+  #   permissions:
+  #     id-token: write
+  #   if: github.event_name == 'release' && github.event.action == 'published'
   #   steps:
-  #      - name: Checkout the contents of your repository
-  #        uses: actions/checkout@v4
-  #      - name: Create a draft snapshot of your repository contents as a new
-  #              version in collection 1234567 on Zenodo Sandbox using metadata
-  #              from repository file .zenodo.json
-  #        env:
-  #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #          ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
-  #        uses: zenodraft/action@0.10.0
-  #        with:
-  #          collection: 1243488
-  #          metadata: .zenodo.json
-  #          publish: true
-  #          sandbox: true
-  #          compression: tar.gz
-  #          upsert-doi: true
-  #          upsert-location: doi
+  #     - uses: actions/download-artifact@v3
+  #       with:
+  #         # unpacks default artifact into dist/
+  #         # if `name: artifact` is omitted, the action will create extra parent dir
+  #         name: artifact
+  #         path: dist
+
+  #     - uses: pypa/gh-action-pypi-publish@release/v1
+  #       with:
+  #         repository_url: https://test.pypi.org/legacy/
+
+  # upload_pypi:
+  #   name: Upload to PyPI
+  #   needs: [build_wheels, build_sdist]
+  #   runs-on: ubuntu-latest
+  #   environment: pypi
+  #   permissions:
+  #     id-token: write
+  #   if: github.event_name == 'release' && github.event.action == 'published'
+  #   steps:
+  #     - uses: actions/download-artifact@v3
+  #       with:
+  #         # unpacks default artifact into dist/
+  #         # if `name: artifact` is omitted, the action will create extra parent dir
+  #         name: artifact
+  #         path: dist
+
+  #     - name: Publish package distributions to PyPI
+  #       uses: pypa/gh-action-pypi-publish@release/v1
+
+  publish_zenodo:
+    name: Publish to zenodo on production releases only
+    needs: [build_sdist]  # eventually make this upload_pypi
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease'
+    steps:
+       - name: Checkout the contents of your repository
+         uses: actions/checkout@v4
+       - name: Create a draft snapshot of your repository contents as a new
+               version in collection 1234567 on Zenodo Sandbox using metadata
+               from repository file .zenodo.json
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+           ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+         uses: zenodraft/action@0.10.0
+         with:
+           collection: 1243488
+           metadata: .zenodo.json
+           publish: true
+           sandbox: true
+           compression: tar.gz
+           upsert-doi: true
+           upsert-location: doi
       # steps:
       #   # This step is not needed at the moment but might decide to add on more steps in the future
       #   - name: Set up Node.js
