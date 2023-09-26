@@ -1,7 +1,7 @@
 [tool.cibuildwheel]
 skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*", "pp310*", "cp312-*linux*"]  # skip certain builds, including 32-bit, musllinux and others
 test-extras = ["test"]
-test-command = "pytest -s -v {package}/tests"
+test-command = "pytest -v {package}/tests"
 
 [tool.cibuildwheel.linux]
 # for CentOS-based runners, local cibuildwheel docker

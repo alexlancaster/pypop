@@ -5,7 +5,8 @@ Contributing
 .. _guide-contributing-start:
 
 Contributions to PyPop are welcome, and they are greatly appreciated!
-Every little bit helps, and credit will always be given.
+Every little bit helps, and `credit will always be given <Crediting
+contributors_>`_.
 
 Reporting and requesting
 ========================
@@ -238,8 +239,9 @@ new feature you would add something like:
     * here goes my new additions
     * explain them shortly and well
 
-
-Also add your name to the authors list at :code:`website/docs/AUTHORS.rst`.
+Also add your name to the authors list at :code:`AUTHORS.rst`, so you
+will also be included in the periodic Zenodo software releases (see
+also the section on `Crediting contributions`__)
 
 Run unit tests with ``pytest``
 ------------------------------
@@ -742,6 +744,76 @@ you will need to have various TeX packages installed.
 3. the user guide will be generated in ``_latexbuild/pypop-guide.pdf``
 
 
+Crediting contributors
+======================
+
+.. note::
+
+   These guidelines were heavily adapted from `similar guidelines
+   <https://github.com/GenericMappingTools/pygmt/blob/main/AUTHORSHIP.md>`__
+   in the ``PyGMT`` project.
+
+We define *contributions* in a broad way: including both writing code
+as well as documentation, and reviewing issues and PRs etc. Here are
+some ways we credit contributors:
+
+``AUTHORS.rst``, ``NEWS.rst`` and GitHub Release Notes
+------------------------------------------------------
+
+Anyone who has contributed a pull request to the project is welcome to
+add themselves (or request to be added) to ``AUTHORS.rst``, which is
+part of the repository and included with with distributions.
+
+Every time we make a release, everyone who has made a commit to the
+repository since the previous release will be mentioned in either the
+``NEWS.rst`` or in the GitHub Release Notes.
+
+Authorship on Zenodo archives of releases
+-----------------------------------------
+
+Anyone who has contributed to the repository (i.e., appears on ``git log``) will be invited to be an author on the `Zenodo
+<https://zenodo.org/>`__ archive of new releases.
+
+To be included as an author, you *must* add the following to the ``AUTHORS.rst``
+file of the repository:
+
+1. Full name (and optional link to your website or GitHub page)
+2. `ORCID <https://orcid.org>`__ (optional)
+3. Affiliation (optional)
+
+The order of authors is generally defined by the number of commits to
+the repository (``git shortlog -sne``). The order can also be changed
+on a case-by-case basis, such as contributions to PyPop project that
+due not relate to commit numbers, such as writing grants/proposals,
+and other programming efforts (including reviewing PRs).
+
+If you have contributed and *do not* wish to be included in Zenodo
+archives, either don't add yourself to ``AUTHORS.rst``, or open an issue
+or file a PR that:
+
+1. Removes yourself from ``AUTHORS.rst``, or;
+2. Indicates next to your name on ``AUTHORS.rst`` that you do not wish to be
+   included with something like ``(not included in Zenodo)``.
+
+Note that authors included in the Zenodo archive will also have their
+name listed in the ``CITATION.cff`` file. This is a machine (and
+human) readable file that enables citation of PyPop
+easily.
+
+Scientific publications (papers)
+--------------------------------
+
+From time to time we may write academic papers for PyPop, e.g., for
+major changes or significant new components of the package.
+
+To be included as an author on the paper, you *must* have
+
+1. either made multiple and regular contributions to the PyPop
+   repository; or, have made other non-coding contributions (or both);
+2. have participated in the writing and reviewing of the paper.
+3. added your full name, affiliation, and (optionally) ORCID to the paper. 
+4. written and/or read and review the manuscript in a timely manner and provide
+   comments on the paper
 
 .. _Fork this repository before contributing: https://github.com/alexlancaster/pypop/network/members
 .. _up to date with the upstream: https://gist.github.com/CristinaSolana/1885435

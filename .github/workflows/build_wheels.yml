@@ -7,6 +7,7 @@ on:
       - '**.md'
       - '**.rst'
       - 'CITATION.cff'
+      - '.zenodo.json'      
       - 'website/**'
       - '.github/workflows/documentation.yaml'
       - '.gitattributes'
@@ -15,6 +16,7 @@ on:
       - '**.md'
       - '**.rst'
       - 'CITATION.cff'
+      - '.zenodo.json'      
       - 'website/**'
       - '.github/workflows/documentation.yaml'
       - '.gitattributes'      
@@ -118,4 +120,50 @@ jobs:
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
 
-          
+  # publish_zenodo:
+  #   name: Publish to zenodo on production releases only
+  #   needs: [build_sdist]  # eventually make this upload_pypi
+  #   runs-on: ubuntu-latest
+  #   if: github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease'
+  #   steps:
+  #      - name: Checkout the contents of your repository
+  #        uses: actions/checkout@v4
+  #      - name: Create a draft snapshot of your repository contents as a new
+  #              version in collection 1234567 on Zenodo Sandbox using metadata
+  #              from repository file .zenodo.json
+  #        env:
+  #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #          ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+  #        uses: zenodraft/action@0.10.0
+  #        with:
+  #          collection: 1243488
+  #          metadata: .zenodo.json
+  #          publish: true
+  #          sandbox: true
+  #          compression: tar.gz
+  #          upsert-doi: true
+  #          upsert-location: doi
+      # steps:
+      #   # This step is not needed at the moment but might decide to add on more steps in the future
+      #   - name: Set up Node.js
+      #     uses: actions/setup-node@v3
+      #     with:
+      #       node-version: 16
+      #   - name: Upload to Zenodo
+      #     id: release
+      #     uses: alexlancaster/upload-to-zenodo@main
+      #     with:
+      #       github_token: ${{ secrets.GITHUB_TOKEN }}
+      #       zenodo_token: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+      #       zenodo_deposition_id: 1243453
+      #       zenodo_publish: true
+      #       zenodo_sandbox: true
+      #       commit_message: 'chore: update ${file_name} for Zenodo release'
+      #       update_metadata_files: true
+      #       codemeta_json: false
+      #       citation_cff: true
+      #       zenodo_json: true
+
+      #   # Get the doi from the `release` step
+      #   - name: Get the output doi
+      #     run: echo "The released doi was ${{ steps.release.outputs.doi }}"

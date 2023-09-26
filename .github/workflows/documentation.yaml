@@ -2,37 +2,31 @@ name: pypop.org website and docs generation
 on:
   push:
     paths:
-      - 'README.rst'
-      - 'CONTRIBUTING.rst'
-      - 'NEWS.rst'
+      - '*.rst'
       - 'LICENSE'
       - 'website/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
       - '!website/README.md'
-      - '!reference/**'
+      - '!website/reference/**'
   pull_request:
     paths:
-      - 'README.rst'
-      - 'CONTRIBUTING.rst'
-      - 'NEWS.rst'
+      - '*.rst'
       - 'LICENSE'
       - 'website/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
       - '!website/README.md'
-      - '!reference/**'
+      - '!website/reference/**'
   workflow_dispatch:
     paths:
-      - 'README.rst'
-      - 'CONTRIBUTING.rst'
-      - 'NEWS.rst'
+      - '*.rst'
       - 'LICENSE'
       - 'website/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
       - '!website/README.md'
-      - '!reference/**'
+      - '!website/reference/**'
   release: 
      types: 
       - published
@@ -90,7 +84,7 @@ jobs:
       - name: Deploy to production
         uses: peaceiris/actions-gh-pages@v3
         # only update on either a push, or published release on the main branch
-        if: ${{ ( github.event_name == 'push' && github.ref == 'refs/heads/main') || (github.event_name == 'release' && github.event.action == 'published') }}
+        if: ${{ (github.event_name == 'push') && ((github.ref == 'refs/heads/main') || (github.event_name == 'release' && github.event.action == 'published')) }}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
