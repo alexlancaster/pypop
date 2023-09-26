@@ -32,7 +32,7 @@ Richard M. Single | `0000-0001-6054-6505 <https://orcid.org/0000-0001-6054-6505>
    Author of haplotype frequency and linkage disequilibrium analysis
    module ``emhaplofreq``.  Contributed documentation and testing/reviewing PRs.
 
-Vanessa Sochat | `0000-0002-4387-3819 <https://orcid.org/0000-0002-4387-3819>`__ | Lawrence Livermore National Lab
+Vanessa Sochat | `0000-0002-4387-3819 <https://orcid.org/0000-0002-4387-3819>`__ | Lawrence Livermore National Laboratory
    Contributed to the Python 3 port. 
 
 Owen Solberg  | `0000-0003-3060-9709 <https://orcid.org/0000-0003-3060-9709>`__ 
