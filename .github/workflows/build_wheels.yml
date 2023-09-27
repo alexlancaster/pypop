@@ -16,7 +16,7 @@ jobs:
          uses: actions/checkout@v4
        - name: print env var
          run: |
-           echo "$env:GITHUB_REF"
+           echo "$GITHUB_REF"
        - name: Upsert the version in the metadata in .zenodo.json
          run: |
            cp .zenodo.json .zenodo.orig.json
