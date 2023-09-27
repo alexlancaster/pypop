@@ -73,5 +73,5 @@ keywords:
   - HLA
   - MHC
 license: GPL-2.0-or-later
-version: $GITHUB_REF_NAME
-doi: 10.5281/zenodo.8384079
+version: 1.0.0a56
+doi: 10.5281/zenodo.8384127
