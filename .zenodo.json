@@ -74,5 +74,6 @@
     "id": "GPL-2.0-or-later"
   },
   "title": "PyPop: Python for Population Genomics",
-  "upload_type": "software"
+  "upload_type": "software",
+  "version": "1.0.0a99"
 }
