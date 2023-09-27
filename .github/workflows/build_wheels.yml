@@ -1,7 +1,7 @@
 name: Build PyPop
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:
   pull_request:
     paths-ignore:
       - '**.md'
@@ -19,7 +19,7 @@ on:
       - '.zenodo.json'      
       - 'website/**'
       - '.github/workflows/documentation.yaml'
-      - '.gitattributes'      
+      - '.gitattributes'     
   release: 
      types: 
       - published
@@ -119,15 +119,29 @@ jobs:
 
   #     - name: Publish package distributions to PyPI
   #       uses: pypa/gh-action-pypi-publish@release/v1
-
+  
   publish_zenodo:
     name: Publish to zenodo on production releases only
-    needs: [build_sdist]  # eventually make this upload_pypi
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease'
     steps:
        - name: Checkout the contents of your repository
          uses: actions/checkout@v4
+       - name: Upsert the version in the metadata in .zenodo.json
+         run: |
+           cp .zenodo.json .zenodo.orig.json
+           echo "{\"version\": \"$GITHUB_REF_NAME\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
+           rm .zenodo.orig.json
+       - name: Upsert the version in the metadata in CITATION.cff
+         run: |
+           yq -i ".version = \"$GITHUB_REF_NAME\"" CITATION.cff
+       - name: Push changes back to repo files
+         run: |
+           git config --global user.name ci
+           git config --global user.email "username@users.noreply.github.com"
+           git add .zenodo.json CITATION.cff
+           git commit -m "Upserted version into CITATION.cff and into .zenodo.json"
+           git push origin $GITHUB_REF_NAME
        - name: Create a draft snapshot of your repository contents as a new
                version in collection 1234567 on Zenodo Sandbox using metadata
                from repository file .zenodo.json
@@ -138,11 +152,12 @@ jobs:
          with:
            collection: 1243488
            metadata: .zenodo.json
-           publish: true
+           publish: false
            sandbox: true
            compression: tar.gz
            upsert-doi: true
            upsert-location: doi
+           verbose: true
       # steps:
       #   # This step is not needed at the moment but might decide to add on more steps in the future
       #   - name: Set up Node.js
