@@ -14,9 +14,10 @@ jobs:
     steps:
        - name: Checkout the contents of your repository
          uses: actions/checkout@v4
-       - run: |
+       - name: Append the version to the metadata
+         run: |
            cp .zenodo.json .zenodo.orig.json
-           echo "{\"version\": \"1.0.0a40\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
+           echo "{\"version\": \"1.0.0a41\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
            rm .zenodo.orig.json
        - name: Create a draft snapshot of your repository contents as a new
                version in collection 8383807 on Zenodo using metadata
