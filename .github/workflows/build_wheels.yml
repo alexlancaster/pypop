@@ -24,7 +24,7 @@ jobs:
            rm .zenodo.orig.json
        - name: Upsert the version in the metadata in CITATION.cff
          run: |
-           yq -i '.version = "$GITHUB_REF_NAME"' CITATION.cff
+           yq -i ".version = \"$GITHUB_REF_NAME\"" CITATION.cff
        - name: Create a draft snapshot of your repository contents as a new
                version in collection 8383807 on Zenodo using metadata
                from repository file .zenodo.json
