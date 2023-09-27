@@ -14,9 +14,6 @@ jobs:
     steps:
        - name: Checkout the contents of your repository
          uses: actions/checkout@v4
-       - name: print env var
-         run: |
-           echo "$GITHUB_REF_NAME"
        - name: Upsert the version in the metadata in .zenodo.json
          run: |
            cp .zenodo.json .zenodo.orig.json
@@ -25,6 +22,13 @@ jobs:
        - name: Upsert the version in the metadata in CITATION.cff
          run: |
            yq -i ".version = \"$GITHUB_REF_NAME\"" CITATION.cff
+       - name: Push changes back to repo files
+         run: |
+           git config --global user.name ci
+           git config --global user.email "username@users.noreply.github.com"
+           git add .zenodo.json CITATION.cff
+           git commit -m "Upserted version into CITATION.cff and into .zenodo.json"
+           git push
        - name: Create a draft snapshot of your repository contents as a new
                version in collection 8383807 on Zenodo using metadata
                from repository file .zenodo.json
