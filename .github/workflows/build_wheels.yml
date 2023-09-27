@@ -18,7 +18,7 @@ jobs:
            echo "{\"version\": \"1.0.0a40\"}" | cat .zenodo.json - | jq -s add > .zenodo.json
            cat .zenodo.json
        - name: Create a draft snapshot of your repository contents as a new
-               version in collection 1234567 on Zenodo Sandbox using metadata
+               version in collection 8383807 on Zenodo using metadata
                from repository file .zenodo.json
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -32,3 +32,4 @@ jobs:
            compression: tar.gz
            upsert-doi: true
            upsert-location: doi
+           verbose: true
