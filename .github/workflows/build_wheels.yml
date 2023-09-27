@@ -15,7 +15,7 @@ jobs:
        - name: Checkout the contents of your repository
          uses: actions/checkout@v4
        - run: |
-           echo "{\"version\": \"1.0.0a40\"}" | cat .zenodo.json - | jq -s add
+           echo "{\"version\": \"1.0.0a40\"}" | cat .zenodo.json - | jq -s add > .zenodo.json
        - name: Create a draft snapshot of your repository contents as a new
                version in collection 8383807 on Zenodo using metadata
                from repository file .zenodo.json
