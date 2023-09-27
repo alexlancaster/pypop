@@ -19,7 +19,7 @@ on:
       - '.zenodo.json'      
       - 'website/**'
       - '.github/workflows/documentation.yaml'
-      - '.gitattributes'     
+      - '.gitattributes'
   release: 
      types: 
       - published
@@ -122,6 +122,7 @@ jobs:
   
   publish_zenodo:
     name: Publish to zenodo on production releases only
+    needs: [build_sdist]  # eventually make this upload_pypi    
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease'
     steps:
