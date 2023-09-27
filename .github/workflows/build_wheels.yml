@@ -16,15 +16,15 @@ jobs:
          uses: actions/checkout@v4
        - name: print env var
          run: |
-           echo "$GITHUB_REF"
+           echo "$GITHUB_REF_NAME"
        - name: Upsert the version in the metadata in .zenodo.json
          run: |
            cp .zenodo.json .zenodo.orig.json
-           echo "{\"version\": \"1.0.0a42\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
+           echo "{\"version\": \"$GITHUB_REF_NAME\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
            rm .zenodo.orig.json
        - name: Upsert the version in the metadata in CITATION.cff
          run: |
-           yq -i '.version = "1.0.0a42"' CITATION.cff
+           yq -i '.version = "$GITHUB_REF_NAME"' CITATION.cff
        - name: Create a draft snapshot of your repository contents as a new
                version in collection 8383807 on Zenodo using metadata
                from repository file .zenodo.json
