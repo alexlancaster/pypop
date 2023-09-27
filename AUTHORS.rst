@@ -42,7 +42,7 @@ Owen Solberg  | `0000-0003-3060-9709 <https://orcid.org/0000-0003-3060-9709>`__
 Glenys Thomson | `0000-0001-5235-4159 <https://orcid.org/0000-0001-5235-4159>`__ | University of California, Berkeley
    Principal investigator
 
-Yingssu Tsai | University of California, Berkeley
+`Yingssu Tsai <https://github.com/ystsai>`__ | University of California, Berkeley
    Implemented prototype of the allele names to sequence conversion
    filter module.
    
