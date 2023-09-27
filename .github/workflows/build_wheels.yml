@@ -14,16 +14,17 @@ jobs:
     steps:
        - name: Checkout the contents of your repository
          uses: actions/checkout@v4
+       - name: print env var
+         run: |
+           echo "$env:GITHUB_REF"
        - name: Upsert the version in the metadata in .zenodo.json
          run: |
            cp .zenodo.json .zenodo.orig.json
-           echo "{\"version\": \"1.0.0a41\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
+           echo "{\"version\": \"1.0.0a42\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
            rm .zenodo.orig.json
        - name: Upsert the version in the metadata in CITATION.cff
          run: |
-           cp CITATION.cff CITATION.orig.cff
-           echo "version: 1.0.0a41" | cat CITATION.orig.cff - | yq -s add --yaml-roundtrip
-           rm CITATION.orig.cff
+           yq -i '.version = "1.0.0a42"' CITATION.cff
        - name: Create a draft snapshot of your repository contents as a new
                version in collection 8383807 on Zenodo using metadata
                from repository file .zenodo.json
