@@ -16,6 +16,7 @@ jobs:
          uses: actions/checkout@v4
        - run: |
            echo "{\"version\": \"1.2.3\"}" | cat .zenodo.json - | jq -s add > .zenodo.json
+           cat .zenodo.json
        - name: Create a draft snapshot of your repository contents as a new
                version in collection 1234567 on Zenodo Sandbox using metadata
                from repository file .zenodo.json
