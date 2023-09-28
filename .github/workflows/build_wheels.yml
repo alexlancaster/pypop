@@ -151,6 +151,8 @@ jobs:
            git push origin ${{ github.event.release.target_commitish }}
            git tag -d $GITHUB_REF_NAME
            git push --follow-tags origin :$GITHUB_REF
+           git tag $GITHUB_REF_NAME
+           git push origin --tags
          # - name: Create a draft snapshot of your repository contents as a new
        #         version in collection 1234567 on Zenodo Sandbox using metadata
        #         from repository file .zenodo.json
