@@ -144,22 +144,22 @@ jobs:
            git add .zenodo.json CITATION.cff
            git commit -m "Upserted version into CITATION.cff and into .zenodo.json"
            git push origin $GITHUB_REF_NAME
-       - name: Create a draft snapshot of your repository contents as a new
-               version in collection 1234567 on Zenodo Sandbox using metadata
-               from repository file .zenodo.json
-         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-           ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
-         uses: zenodraft/action@0.10.0
-         with:
-           collection: 1243488
-           metadata: .zenodo.json
-           publish: false
-           sandbox: true
-           compression: tar.gz
-           upsert-doi: true
-           upsert-location: doi
-           verbose: true
+       # - name: Create a draft snapshot of your repository contents as a new
+       #         version in collection 1234567 on Zenodo Sandbox using metadata
+       #         from repository file .zenodo.json
+       #   env:
+       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       #     ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+       #   uses: zenodraft/action@0.10.0
+       #   with:
+       #     collection: 1243488
+       #     metadata: .zenodo.json
+       #     publish: false
+       #     sandbox: true
+       #     compression: tar.gz
+       #     upsert-doi: true
+       #     upsert-location: doi
+       #     verbose: true
       # steps:
       #   # This step is not needed at the moment but might decide to add on more steps in the future
       #   - name: Set up Node.js
