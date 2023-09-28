@@ -130,7 +130,7 @@ jobs:
          uses: actions/checkout@v4
        - name: Upsert the version in the metadata in .zenodo.json
          run: |
-           echo "$GITHUB_REF_NAME"
+           echo "GITHUB_REF_NAME = $GITHUB_REF_NAME | GITHUB_REF = $GITHUB_REF"
            cp .zenodo.json .zenodo.orig.json
            echo "{\"version\": \"$GITHUB_REF_NAME\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
            rm .zenodo.orig.json
