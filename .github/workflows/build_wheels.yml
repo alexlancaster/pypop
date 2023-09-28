@@ -149,7 +149,7 @@ jobs:
            git checkout ${{ github.event.release.target_commitish }}
            git merge $GITHUB_REF_NAME-with-upserting-changes
            git push origin ${{ github.event.release.target_commitish }}
-           git tag -d $GIT_REF
+           git tag -d $GITHUB_REF_NAME
            git push origin $GITHUB_REF_NAME
            git fetch --tags
        # - name: Create a draft snapshot of your repository contents as a new
