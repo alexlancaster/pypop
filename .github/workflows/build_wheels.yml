@@ -130,7 +130,8 @@ jobs:
          uses: actions/checkout@v4
        - name: Upsert the version in the metadata in .zenodo.json
          run: |
-           echo "GITHUB_REF_NAME = $GITHUB_REF_NAME | GITHUB_REF = $GITHUB_REF"
+           echo "GITHUB_REF_NAME = $GITHUB_REF_NAME | GITHUB_REF = $GITHUB_REF | GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
+           echo "github.event.release.target_commitish = ${{ github.event.release.target_commitish }}"
            cp .zenodo.json .zenodo.orig.json
            echo "{\"version\": \"$GITHUB_REF_NAME\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
            rm .zenodo.orig.json
