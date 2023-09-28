@@ -1,7 +1,7 @@
 name: Build PyPop
 
 on:
-  workflow_dispatch:
+  workflow_dispatch:  
   pull_request:
     paths-ignore:
       - '**.md'
@@ -19,7 +19,7 @@ on:
       - '.zenodo.json'      
       - 'website/**'
       - '.github/workflows/documentation.yaml'
-      - '.gitattributes'
+      - '.gitattributes'      
   release: 
      types: 
       - published
