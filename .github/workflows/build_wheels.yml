@@ -150,9 +150,8 @@ jobs:
            git merge $GITHUB_REF_NAME-with-upserting-changes
            git push origin ${{ github.event.release.target_commitish }}
            git tag -d $GITHUB_REF_NAME
-           git push origin $GITHUB_REF_NAME
-           git fetch --tags
-       # - name: Create a draft snapshot of your repository contents as a new
+           git push origin $GITHUB_REF_NAME:$GITHUB_REF_NAME
+         # - name: Create a draft snapshot of your repository contents as a new
        #         version in collection 1234567 on Zenodo Sandbox using metadata
        #         from repository file .zenodo.json
        #   env:
