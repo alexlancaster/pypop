@@ -29,7 +29,7 @@ jobs:
     name: Build wheels on ${{ matrix.os }}
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
     # this only results in changes upon production releases
-    needs: publish_zenodo
+    needs: [publish_zenodo, skip_publish_zenodo]
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -54,7 +54,7 @@ jobs:
   build_sdist:
     name: Build source distribution
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
-    needs: publish_zenodo
+    needs: [publish_zenodo, skip_publish_zenodo]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -153,17 +153,17 @@ jobs:
            git checkout ${{ github.event.release.target_commitish }}
            git merge $GITHUB_REF_NAME-with-upserting-changes
            git push origin ${{ github.event.release.target_commitish }}
-#           git tag -d $GITHUB_REF_NAME
-#           git push --follow-tags origin :$GITHUB_REF
-#           git tag $GITHUB_REF_NAME
-#           git push origin --tags
+           #           git tag -d $GITHUB_REF_NAME
+           #           git push --follow-tags origin :$GITHUB_REF
+           #           git tag $GITHUB_REF_NAME
+           #           git push origin --tags
        - name: Create a draft snapshot of your repository contents as a new
                version in test collection on Zenodo using metadata
                from repository file .zenodo.json
          env:
            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
            # FIXME: use main one until sandbox is working
-           #ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+           # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
            ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
          uses: zenodraft/action@0.10.0
          with:
@@ -177,13 +177,14 @@ jobs:
            upsert-doi: true
            upsert-location: doi
            verbose: true
-    if: github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease'
+    # "else" we aren't publishing anything, still need some event
+    # do the logical inverse of the above "if"
+  skip_publish_zenodo:
+    name: Skip Zenodo step unless publishing release
+    if: (github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease') == false
     steps:
       - name: Skip Zenodo step unless publishing release
         run: echo "Not a publication release, skipping Zenodo"
-
-    # "else" we aren't publishing anything, still need some event
-    # do the logical inverse of the above "if"
         
         
       # steps:
