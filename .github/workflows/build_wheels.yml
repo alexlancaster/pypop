@@ -177,6 +177,13 @@ jobs:
            upsert-doi: true
            upsert-location: doi
            verbose: true
+    # "else" we aren't publishing anything, still need some event
+    # do the logical inverse of the above "if"
+    if: ${{ ! (github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease') }}
+    steps:
+      - name: Skip Zenodo step unless publishing release
+        run: echo "Not a publication release, skipping Zenodo"
+    
       # steps:
       #   # This step is not needed at the moment but might decide to add on more steps in the future
       #   - name: Set up Node.js
