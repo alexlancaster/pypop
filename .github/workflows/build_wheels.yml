@@ -179,7 +179,7 @@ jobs:
            verbose: true
     # "else" we aren't publishing anything, still need some event
     # do the logical inverse of the above "if"
-    if: ${{ (github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false) == false }}
+    if: ${{ (github.event_name == 'release' && github.event.action == 'published' && !github.event.release.prerelease) != 'true' }}
     steps:
       - name: Skip Zenodo step unless publishing release
         run: echo "Not a publication release, skipping Zenodo"
