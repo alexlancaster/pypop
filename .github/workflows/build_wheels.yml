@@ -30,6 +30,9 @@ jobs:
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
     # this only results in changes upon production releases
     needs: [publish_zenodo, skip_publish_zenodo]
+    # trying solution here: https://github.com/actions/runner/issues/491#issuecomment-1507495166
+    # so that it works if either job in "needs" completes
+    if: always() && !cancelled() && !failure()
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -55,6 +58,7 @@ jobs:
     name: Build source distribution
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
     needs: [publish_zenodo, skip_publish_zenodo]
+    if: always() && !cancelled() && !failure()
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
