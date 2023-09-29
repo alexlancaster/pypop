@@ -27,6 +27,9 @@ on:
 jobs:
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
+    # depend on zenodo, to make sure updated CITATION.cff gets into builds
+    # this only results in changes upon production releases
+    needs: [publish_zenodo]      
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -50,6 +53,7 @@ jobs:
 
   build_sdist:
     name: Build source distribution
+    # depend on zenodo, to make sure updated CITATION.cff gets into builds
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -121,8 +125,7 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
   
   publish_zenodo:
-    name: Publish to zenodo on production releases only
-    needs: [build_sdist]  # eventually make this upload_pypi    
+    name: Publish to zenodo on production releases only, otherwise no-op
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease'
     steps:
