@@ -181,6 +181,7 @@ jobs:
     # do the logical inverse of the above "if"
   skip_publish_zenodo:
     name: Skip Zenodo step unless publishing release
+    runs-on: ubuntu-latest
     if: (github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease') == false
     steps:
       - name: Skip Zenodo step unless publishing release
