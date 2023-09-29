@@ -157,10 +157,10 @@ jobs:
            git checkout ${{ github.event.release.target_commitish }}
            git merge $GITHUB_REF_NAME-with-upserting-changes
            git push origin ${{ github.event.release.target_commitish }}
-           #           git tag -d $GITHUB_REF_NAME
-           #           git push --follow-tags origin :$GITHUB_REF
-           #           git tag $GITHUB_REF_NAME
-           #           git push origin --tags
+           git tag -d $GITHUB_REF_NAME
+           git push --follow-tags origin :$GITHUB_REF
+           git tag $GITHUB_REF_NAME
+           git push origin --tags
        # - name: Create a draft snapshot of your repository contents as a new
        #         version in test collection on Zenodo using metadata
        #         from repository file .zenodo.json
