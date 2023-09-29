@@ -132,7 +132,7 @@ jobs:
   publish_zenodo:
     name: Publish to zenodo on production releases only, otherwise no-op
     runs-on: ubuntu-latest
-    if: github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease'
+    if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
     steps:
        - name: Checkout the contents of your repository
          uses: actions/checkout@v4
@@ -187,7 +187,7 @@ jobs:
     # "else" we aren't publishing anything, still need some event
     # do the logical inverse of the above "if" in publish_zenodo
     # FIXME: a bit hacky, but it works
-    if: (github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease') == false
+    if: (github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false) == false
     steps:
       - name: Skip Zenodo step unless publishing release
         run: echo "Not a publication release, skipping Zenodo"
