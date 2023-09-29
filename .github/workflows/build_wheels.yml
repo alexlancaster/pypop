@@ -161,31 +161,32 @@ jobs:
            #           git push --follow-tags origin :$GITHUB_REF
            #           git tag $GITHUB_REF_NAME
            #           git push origin --tags
-       - name: Create a draft snapshot of your repository contents as a new
-               version in test collection on Zenodo using metadata
-               from repository file .zenodo.json
-         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-           # FIXME: use main one until sandbox is working
-           # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
-           ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
-         uses: zenodraft/action@0.10.0
-         with:
-           collection: 8387711
-           metadata: .zenodo.json
-           publish: false
-           # FIXME: use main one until sandbox working
-           # sandbox: true
-           sandbox: false
-           compression: tar.gz
-           upsert-doi: true
-           upsert-location: doi
-           verbose: true
-    # "else" we aren't publishing anything, still need some event
-    # do the logical inverse of the above "if"
+       # - name: Create a draft snapshot of your repository contents as a new
+       #         version in test collection on Zenodo using metadata
+       #         from repository file .zenodo.json
+       #   env:
+       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       #     # FIXME: use main one until sandbox is working
+       #     # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+       #     ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
+       #   uses: zenodraft/action@0.10.0
+       #   with:
+       #     collection: 8387711
+       #     metadata: .zenodo.json
+       #     publish: false
+       #     # FIXME: use main one until sandbox working
+       #     # sandbox: true
+       #     sandbox: false
+       #     compression: tar.gz
+       #     upsert-doi: true
+       #     upsert-location: doi
+       #     verbose: true
   skip_publish_zenodo:
     name: Skip Zenodo step unless publishing release
     runs-on: ubuntu-latest
+    # "else" we aren't publishing anything, still need some event
+    # do the logical inverse of the above "if" in publish_zenodo
+    # FIXME: a bit hacky, but it works
     if: (github.event_name == 'release' && github.event.action == 'published' && '!github.event.release.prerelease') == false
     steps:
       - name: Skip Zenodo step unless publishing release
