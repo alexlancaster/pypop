@@ -29,7 +29,7 @@ jobs:
     name: Build wheels on ${{ matrix.os }}
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
     # this only results in changes upon production releases
-    needs: [publish_zenodo]      
+    needs: publish_zenodo
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -54,6 +54,7 @@ jobs:
   build_sdist:
     name: Build source distribution
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
+    needs: publish_zenodo
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
