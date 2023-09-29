@@ -160,7 +160,8 @@ jobs:
            git tag -d $GITHUB_REF_NAME
            git push --follow-tags origin :$GITHUB_REF
            git tag $GITHUB_REF_NAME
-           git push origin --tags
+           git push origin $GITHUB_REF
+           git ls-remote origin v0.9.40
        # - name: Create a draft snapshot of your repository contents as a new
        #         version in test collection on Zenodo using metadata
        #         from repository file .zenodo.json
