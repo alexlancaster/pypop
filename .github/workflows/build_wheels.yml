@@ -200,11 +200,11 @@ jobs:
         uses: joutvhu/create-release@v1
         with:
           tag_name: $GITHUB_REF_NAME
-          name: ${{ steps.get_current_release.outputs.name }}
-          body: ${{ steps.get_current_release.outputs.body }}
-          draft: ${{ steps.get_current_release.outputs.draft }}
-          prerelease: ${{ steps.get_current_release.outputs.draft }}
-          target_commitish: ${{ steps.get_current_release.outputs.target_commitish }}
+          name: ${{ steps.get_existing_release.outputs.name }}
+          body: ${{ steps.get_existing_release.outputs.body }}
+          draft: ${{ steps.get_existing_release.outputs.draft }}
+          prerelease: ${{ steps.get_existing_release.outputs.draft }}
+          target_commitish: ${{ steps.get_existing_release.outputs.target_commitish }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
