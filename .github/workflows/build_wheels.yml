@@ -96,12 +96,14 @@ jobs:
 
   upload_test_pypi:
     name: Upload to Test_PyPI
-    needs: [build_wheels, build_sdist]
+    #needs: [build_wheels, build_sdist]
+    needs: build_sdist
     runs-on: ubuntu-latest
     environment: test_pypi
     permissions:
       id-token: write
-    if: ${{ (github.ref == 'refs/heads/main') && (github.event_name == 'release' && github.event.action == 'published') }} 
+    # drop requirement of 'main', release to test_pypi to test releases
+    if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
       - uses: actions/download-artifact@v3
         with:
