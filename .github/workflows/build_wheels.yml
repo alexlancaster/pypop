@@ -1,13 +1,13 @@
 name: Build PyPop
 
 on:
-  workflow_dispatch:  
+  workflow_dispatch:
   pull_request:
     paths-ignore:
       - '**.md'
       - '**.rst'
       - 'CITATION.cff'
-      - '.zenodo.json'      
+      - '.zenodo.json'
       - 'website/**'
       - '.github/workflows/documentation.yaml'
       - '.gitattributes'
@@ -16,12 +16,12 @@ on:
       - '**.md'
       - '**.rst'
       - 'CITATION.cff'
-      - '.zenodo.json'      
+      - '.zenodo.json'
       - 'website/**'
       - '.github/workflows/documentation.yaml'
-      - '.gitattributes'      
-  release: 
-     types: 
+      - '.gitattributes'
+  release:
+    types:
       - published
 
 jobs:
@@ -73,7 +73,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          path: dist/*.tar.gz 
+          path: dist/*.tar.gz
 
   upload_gh_release:
     name: Upload binary wheels and sdist to GH release page
@@ -134,40 +134,40 @@ jobs:
 
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-  
+
   publish_zenodo:
     name: Publish to zenodo on production releases only, otherwise no-op
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
     steps:
-       - name: Checkout the contents of your repository
-         uses: actions/checkout@v4
-       - name: Upsert the version in the metadata in .zenodo.json
-         run: |
-           echo "GITHUB_REF_NAME = $GITHUB_REF_NAME | GITHUB_REF = $GITHUB_REF | GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
-           echo "github.event.release.target_commitish = ${{ github.event.release.target_commitish }}"
-           cp .zenodo.json .zenodo.orig.json
-           echo "{\"version\": \"$GITHUB_REF_NAME\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
-           rm .zenodo.orig.json
-       - name: Upsert the version in the metadata in CITATION.cff
-         run: |
-           yq -i ".version = \"$GITHUB_REF_NAME\"" CITATION.cff
-       - name: Push changes back to repo files
-         run: |
-           git fetch origin
-           git config --global user.name ci
-           git config --global user.email "username@users.noreply.github.com"
-           git checkout -b $GITHUB_REF_NAME-with-upserting-changes
-           git add .zenodo.json CITATION.cff
-           git commit -m "Upserted version into CITATION.cff and into .zenodo.json"
-           git checkout ${{ github.event.release.target_commitish }}
-           git merge $GITHUB_REF_NAME-with-upserting-changes
-           git push origin ${{ github.event.release.target_commitish }}
-           git tag -d $GITHUB_REF_NAME
-           git push --follow-tags origin :$GITHUB_REF
-           git tag $GITHUB_REF_NAME
-           git push origin $GITHUB_REF
-           git ls-remote origin $GITHUB_REF
+      - name: Checkout the contents of your repository
+        uses: actions/checkout@v4
+      - name: Upsert the version in the metadata in .zenodo.json
+        run: |
+          echo "GITHUB_REF_NAME = $GITHUB_REF_NAME | GITHUB_REF = $GITHUB_REF | GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
+          echo "github.event.release.target_commitish = ${{ github.event.release.target_commitish }}"
+          cp .zenodo.json .zenodo.orig.json
+          echo "{\"version\": \"$GITHUB_REF_NAME\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
+          rm .zenodo.orig.json
+      - name: Upsert the version in the metadata in CITATION.cff
+        run: |
+          yq -i ".version = \"$GITHUB_REF_NAME\"" CITATION.cff
+      - name: Push changes back to repo files
+        run: |
+          git fetch origin
+          git config --global user.name ci
+          git config --global user.email "username@users.noreply.github.com"
+          git checkout -b $GITHUB_REF_NAME-with-upserting-changes
+          git add .zenodo.json CITATION.cff
+          git commit -m "Upserted version into CITATION.cff and into .zenodo.json"
+          git checkout ${{ github.event.release.target_commitish }}
+          git merge $GITHUB_REF_NAME-with-upserting-changes
+          git push origin ${{ github.event.release.target_commitish }}
+          git tag -d $GITHUB_REF_NAME
+          git push --follow-tags origin :$GITHUB_REF
+          git tag $GITHUB_REF_NAME
+          git push origin $GITHUB_REF
+          git ls-remote origin $GITHUB_REF
        # - name: Create a draft snapshot of your repository contents as a new
        #         version in test collection on Zenodo using metadata
        #         from repository file .zenodo.json
@@ -188,6 +188,26 @@ jobs:
        #     upsert-doi: true
        #     upsert-location: doi
        #     verbose: true
+      - name: Get existing release
+        id: get_existing_release
+        uses: cardinalby/git-get-release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          with:
+            releaseId: ${{ github.event.release.id }}
+      - name: Recreate release with new tag
+        id: recreate_release
+        uses: joutvhu/create-release@v1
+        with:
+          tag_name: $GITHUB_REF_NAME
+          name: ${{ steps.get_current_release.outputs.name }}
+          body: ${{ steps.get_current_release.outputs.body }}
+          draft: ${{ steps.get_current_release.outputs.draft }}
+          prerelease: ${{ steps.get_current_release.outputs.draft }}
+          target_commitish: ${{ steps.get_current_release.outputs.target_commitish }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   skip_publish_zenodo:
     name: Skip Zenodo step unless publishing release
     runs-on: ubuntu-latest
@@ -198,8 +218,8 @@ jobs:
     steps:
       - name: Skip Zenodo step unless publishing release
         run: echo "Not a publication release, skipping Zenodo"
-        
-        
+
+
       # steps:
       #   # This step is not needed at the moment but might decide to add on more steps in the future
       #   - name: Set up Node.js
