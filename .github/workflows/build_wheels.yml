@@ -26,8 +26,8 @@ on:
 
 jobs:
 
-    publish_zenodo:
-    name: Production release: Zenodo publication
+  publish_zenodo:
+    name: Production release, Zenodo publication
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
     steps:
@@ -79,7 +79,7 @@ jobs:
        #     upsert-doi: true
        #     upsert-location: doi
        #     verbose: true
-       
+
       # FIXME: this partially emulates the release updating that is
       # internal to zenodraft
       - name: Get existing release
@@ -114,7 +114,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   skip_publish_zenodo:
-    name: Non publication: Zenodo skip
+    name: Non publication, Zenodo skip
     runs-on: ubuntu-latest
     # "else" we aren't publishing anything, still need some event
     # do the logical inverse of the above "if" in publish_zenodo
@@ -123,7 +123,7 @@ jobs:
     steps:
       - name: Skip Zenodo step unless publishing release
         run: echo "Not a publication release, skipping Zenodo"
-  
+
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
