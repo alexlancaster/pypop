@@ -193,8 +193,8 @@ jobs:
         uses: cardinalby/git-get-release-action@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          with:
-            releaseId: ${{ github.event.release.id }}
+        with:
+          releaseId: ${{ github.event.release.id }}
       - name: Recreate release with new tag
         id: recreate_release
         uses: joutvhu/create-release@v1
