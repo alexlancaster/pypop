@@ -32,7 +32,8 @@ jobs:
     needs: [publish_zenodo, skip_publish_zenodo]
     # trying solution here: https://github.com/actions/runner/issues/491#issuecomment-1507495166
     # so that it works if either job in "needs" completes
-    if: always() && !cancelled() && !failure()
+    if: false()
+    #if: always() && !cancelled() && !failure()
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -42,6 +43,8 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
+          ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
 
       - name: Build and test wheels
         uses: pypa/cibuildwheel@v2.16.0
@@ -62,7 +65,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:  # FIXME: use the refname, not the sha for published releases
+        with:  # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
 
       - name: Build sdist
