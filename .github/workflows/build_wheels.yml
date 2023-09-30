@@ -63,7 +63,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:  # FIXME: use the refname, not the sha for published releases
-          ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || 'false' }}
+          ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name ||  }}
 
       - name: Build sdist
         run: pipx run build --sdist
