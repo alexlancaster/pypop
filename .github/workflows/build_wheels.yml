@@ -195,6 +195,10 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           releaseId: ${{ github.event.release.id }}
+      - name: Delete old release
+        uses: liudonghua123/delete-release-action@v1
+        with:
+          release_id: ${{ github.event.release.id }}
       - name: Recreate release with new tag
         id: recreate_release
         uses: joutvhu/create-release@v1
