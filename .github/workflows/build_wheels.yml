@@ -25,10 +25,20 @@ on:
       - published
 
 jobs:
+  skip_publish_zenodo:
+    name: Non publication, Zenodo skip
+    runs-on: ubuntu-latest
+    # FIXME: this is the default action, the logical inverse of the
+    # below "if" in publish_zenodo: a bit hacky, but it works
+    if: (github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false) == false
+    steps:
+      - name: Skip Zenodo step unless publishing release
+        run: echo "Not a publication release, skipping Zenodo"
 
   publish_zenodo:
     name: Production release, Zenodo publication
     runs-on: ubuntu-latest
+    # "else" we *are* publishing something
     if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
     steps:
       - name: Checkout the contents of your repository
@@ -59,29 +69,34 @@ jobs:
           git tag $GITHUB_REF_NAME
           git push origin $GITHUB_REF
           git ls-remote origin $GITHUB_REF
-       # - name: Create a draft snapshot of your repository contents as a new
-       #         version in test collection on Zenodo using metadata
-       #         from repository file .zenodo.json
-       #   env:
-       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       #     # FIXME: use main one until sandbox is working
-       #     # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
-       #     ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
-       #   uses: zenodraft/action@0.10.0
-       #   with:
-       #     collection: 8387711
-       #     metadata: .zenodo.json
-       #     publish: false
-       #     # FIXME: use main one until sandbox working
-       #     # sandbox: true
-       #     sandbox: false
-       #     compression: tar.gz
-       #     upsert-doi: true
-       #     upsert-location: doi
-       #     verbose: true
-
-      # FIXME: this partially emulates the release updating that is
-      # internal to zenodraft
+      - name: Create a draft snapshot of your repository contents as a new
+              version in test collection on Zenodo using metadata
+              from repository file .zenodo.json
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # FIXME: use main one until sandbox is working
+          # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+          ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
+        uses: zenodraft/action@0.10.0
+        #
+        # DISABLE THIS STEP CURRENTLY
+        #
+        if: false
+        with:
+          collection: 8387711
+          metadata: .zenodo.json
+          publish: false
+          # FIXME: use main one until sandbox working
+          # sandbox: true
+          sandbox: false
+          compression: tar.gz
+          upsert-doi: true
+          upsert-location: doi
+          verbose: true
+      #
+      # FIXME: until zenodraft working, this partially emulates the
+      # release updating that is internal to zenodraft
+      #
       - name: Get existing release
         id: get_existing_release
         uses: cardinalby/git-get-release-action@v1
@@ -113,17 +128,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.PYPOP_RELEASE_TOKEN }}
 
-  skip_publish_zenodo:
-    name: Non publication, Zenodo skip
-    runs-on: ubuntu-latest
-    # "else" we aren't publishing anything, still need some event
-    # do the logical inverse of the above "if" in publish_zenodo
-    # FIXME: a bit hacky, but it works
-    if: (github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false) == false
-    steps:
-      - name: Skip Zenodo step unless publishing release
-        run: echo "Not a publication release, skipping Zenodo"
-
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
@@ -136,21 +140,18 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-20.04, macos-11, windows-2019]
-
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
-
       - name: Build and test wheels
         uses: pypa/cibuildwheel@v2.16.0
         with:
           package-dir: .
           output-dir: wheelhouse
           config-file: "{package}/pyproject.toml"
-
       - uses: actions/upload-artifact@v3
         with:
           path: ./wheelhouse/*.whl
@@ -165,10 +166,8 @@ jobs:
       - uses: actions/checkout@v4
         with:  # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
-
       - name: Build sdist
         run: pipx run build --sdist
-
       - uses: actions/upload-artifact@v3
         with:
           path: dist/*.tar.gz
@@ -207,7 +206,6 @@ jobs:
           # if `name: artifact` is omitted, the action will create extra parent dir
           name: artifact
           path: dist
-
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository_url: https://test.pypi.org/legacy/
@@ -227,10 +225,8 @@ jobs:
           # if `name: artifact` is omitted, the action will create extra parent dir
           name: artifact
           path: dist
-
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-
 
       # steps:
       #   # This step is not needed at the moment but might decide to add on more steps in the future
