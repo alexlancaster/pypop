@@ -208,8 +208,10 @@ jobs:
           tag_name: ${{ github.event.release.tag_name }}
           name: ${{ steps.get_existing_release.outputs.name }}
           body: ${{ steps.get_existing_release.outputs.body }}
-          draft: ${{ steps.get_existing_release.outputs.draft }}
-          prerelease: ${{ steps.get_existing_release.outputs.draft }}
+          #draft: ${{ steps.get_existing_release.outputs.draft }}
+          draft: false
+          #prerelease: ${{ steps.get_existing_release.outputs.draft }}
+          prerelease: false
           target_commitish: ${{ steps.get_existing_release.outputs.target_commitish }}
           on_release_exists: update
         env:
