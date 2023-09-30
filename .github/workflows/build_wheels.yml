@@ -188,6 +188,9 @@ jobs:
        #     upsert-doi: true
        #     upsert-location: doi
        #     verbose: true
+       
+      # FIXME: this partially emulates the release updating that is
+      # internal to zenodraft
       - name: Get existing release
         id: get_existing_release
         uses: cardinalby/git-get-release-action@v1
@@ -208,9 +211,11 @@ jobs:
           tag_name: ${{ github.event.release.tag_name }}
           name: ${{ steps.get_existing_release.outputs.name }}
           body: ${{ steps.get_existing_release.outputs.body }}
-          #draft: ${{ steps.get_existing_release.outputs.draft }}
+          # FIXME: have to set these both to false, because not copied
+          # from the original release properly
+          # draft: ${{ steps.get_existing_release.outputs.draft }}
+          # prerelease: ${{ steps.get_existing_release.outputs.draft }}
           draft: false
-          #prerelease: ${{ steps.get_existing_release.outputs.draft }}
           prerelease: false
           target_commitish: ${{ steps.get_existing_release.outputs.target_commitish }}
           on_release_exists: update
