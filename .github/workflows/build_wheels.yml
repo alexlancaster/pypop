@@ -81,7 +81,7 @@ jobs:
     needs: build_sdist
     runs-on: ubuntu-latest
     # alternatively, to publish when a GitHub Release is created, use the following rule:
-    if: github.event_name == 'release' && github.event.action == 'published'
+    if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
       - uses: actions/download-artifact@v3
         with:
@@ -101,7 +101,7 @@ jobs:
     environment: test_pypi
     permissions:
       id-token: write
-    if: ${{ (github.ref == 'refs/heads/main') && (github.event_name == 'release' && github.event.action == 'published') }}
+    if: ${{ (github.ref == 'refs/heads/main') && (github.event_name == 'release' && github.event.action == 'published') }} 
     steps:
       - uses: actions/download-artifact@v3
         with:
