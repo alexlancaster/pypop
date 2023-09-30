@@ -25,118 +25,9 @@ on:
       - published
 
 jobs:
-  build_wheels:
-    name: Build wheels on ${{ matrix.os }}
-    # depend on zenodo, to make sure updated CITATION.cff gets into builds
-    # this only results in changes upon production releases
-    needs: [publish_zenodo, skip_publish_zenodo]
-    # trying solution here: https://github.com/actions/runner/issues/491#issuecomment-1507495166
-    # so that it works if either job in "needs" completes
-    if: false
-    #if: always() && !cancelled() && !failure()
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-20.04, macos-11, windows-2019]
 
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
-          ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
-
-      - name: Build and test wheels
-        uses: pypa/cibuildwheel@v2.16.0
-        with:
-          package-dir: .
-          output-dir: wheelhouse
-          config-file: "{package}/pyproject.toml"
-
-      - uses: actions/upload-artifact@v3
-        with:
-          path: ./wheelhouse/*.whl
-
-  build_sdist:
-    name: Build source distribution
-    # depend on zenodo, to make sure updated CITATION.cff gets into builds
-    needs: [publish_zenodo, skip_publish_zenodo]
-    if: always() && !cancelled() && !failure()
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with:  # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
-          ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
-
-      - name: Build sdist
-        run: pipx run build --sdist
-
-      - uses: actions/upload-artifact@v3
-        with:
-          path: dist/*.tar.gz
-
-  upload_gh_release:
-    name: Upload binary wheels and sdist to GH release page
-    #needs: [build_wheels, build_sdist]
-    needs: build_sdist
-    runs-on: ubuntu-latest
-    # alternatively, to publish when a GitHub Release is created, use the following rule:
-    if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          # unpacks default artifact into dist/
-          # if `name: artifact` is omitted, the action will create extra parent dir
-          name: artifact
-          path: dist
-      - uses: softprops/action-gh-release@v1
-        name: Uploading binaries to release page
-        with:
-          files: dist/*
-
-  upload_test_pypi:
-    name: Upload to Test_PyPI
-    #needs: [build_wheels, build_sdist]
-    needs: build_sdist
-    runs-on: ubuntu-latest
-    environment: test_pypi
-    permissions:
-      id-token: write
-    # drop requirement of 'main', release to test_pypi to test releases
-    if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          # unpacks default artifact into dist/
-          # if `name: artifact` is omitted, the action will create extra parent dir
-          name: artifact
-          path: dist
-
-      - uses: pypa/gh-action-pypi-publish@release/v1
-        with:
-          repository_url: https://test.pypi.org/legacy/
-
-  upload_pypi:
-    name: Upload to PyPI
-    needs: [build_wheels, build_sdist]
-    runs-on: ubuntu-latest
-    environment: pypi
-    permissions:
-      id-token: write
-    if: ${{ (github.ref == 'refs/heads/main') && (github.event_name == 'release' && github.event.action == 'published') && always()  && !cancelled() && !failure() }}
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          # unpacks default artifact into dist/
-          # if `name: artifact` is omitted, the action will create extra parent dir
-          name: artifact
-          path: dist
-
-      - name: Publish package distributions to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
-
-  publish_zenodo:
-    name: Publish to zenodo on production releases only, otherwise no-op
+    publish_zenodo:
+    name: Production release: Zenodo publication
     runs-on: ubuntu-latest
     if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
     steps:
@@ -223,7 +114,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   skip_publish_zenodo:
-    name: Skip Zenodo step unless publishing release
+    name: Non publication: Zenodo skip
     runs-on: ubuntu-latest
     # "else" we aren't publishing anything, still need some event
     # do the logical inverse of the above "if" in publish_zenodo
@@ -232,6 +123,113 @@ jobs:
     steps:
       - name: Skip Zenodo step unless publishing release
         run: echo "Not a publication release, skipping Zenodo"
+  
+  build_wheels:
+    name: Build wheels on ${{ matrix.os }}
+    # depend on zenodo, to make sure updated CITATION.cff gets into builds
+    # this only results in changes upon production releases
+    needs: [publish_zenodo, skip_publish_zenodo]
+    # trying solution here: https://github.com/actions/runner/issues/491#issuecomment-1507495166
+    # so that it works if either job in "needs" completes
+    if: always() && !cancelled() && !failure()
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04, macos-11, windows-2019]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
+          ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
+
+      - name: Build and test wheels
+        uses: pypa/cibuildwheel@v2.16.0
+        with:
+          package-dir: .
+          output-dir: wheelhouse
+          config-file: "{package}/pyproject.toml"
+
+      - uses: actions/upload-artifact@v3
+        with:
+          path: ./wheelhouse/*.whl
+
+  build_sdist:
+    name: Build source distribution
+    # depend on zenodo, to make sure updated CITATION.cff gets into builds
+    needs: [publish_zenodo, skip_publish_zenodo]
+    if: always() && !cancelled() && !failure()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:  # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
+          ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
+
+      - name: Build sdist
+        run: pipx run build --sdist
+
+      - uses: actions/upload-artifact@v3
+        with:
+          path: dist/*.tar.gz
+
+  upload_gh_release:
+    name: Upload binary wheels and sdist to GH release page
+    needs: [build_wheels, build_sdist]
+    runs-on: ubuntu-latest
+    # alternatively, to publish when a GitHub Release is created, use the following rule:
+    if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          # unpacks default artifact into dist/
+          # if `name: artifact` is omitted, the action will create extra parent dir
+          name: artifact
+          path: dist
+      - uses: softprops/action-gh-release@v1
+        name: Uploading binaries to release page
+        with:
+          files: dist/*
+
+  upload_test_pypi:
+    name: Upload to Test_PyPI
+    needs: [build_wheels, build_sdist]
+    runs-on: ubuntu-latest
+    environment: test_pypi
+    permissions:
+      id-token: write
+    # drop requirement of 'main', release to test_pypi to test releases
+    if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          # unpacks default artifact into dist/
+          # if `name: artifact` is omitted, the action will create extra parent dir
+          name: artifact
+          path: dist
+
+      - uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          repository_url: https://test.pypi.org/legacy/
+
+  upload_pypi:
+    name: Upload to PyPI
+    needs: [build_wheels, build_sdist]
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    if: ${{ (github.ref == 'refs/heads/main') && (github.event_name == 'release' && github.event.action == 'published') && always()  && !cancelled() && !failure() }}
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          # unpacks default artifact into dist/
+          # if `name: artifact` is omitted, the action will create extra parent dir
+          name: artifact
+          path: dist
+
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
 
 
       # steps:
