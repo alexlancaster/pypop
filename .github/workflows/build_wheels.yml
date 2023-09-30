@@ -32,7 +32,7 @@ jobs:
     needs: [publish_zenodo, skip_publish_zenodo]
     # trying solution here: https://github.com/actions/runner/issues/491#issuecomment-1507495166
     # so that it works if either job in "needs" completes
-    if: false()
+    if: false
     #if: always() && !cancelled() && !failure()
     runs-on: ${{ matrix.os }}
     strategy:
