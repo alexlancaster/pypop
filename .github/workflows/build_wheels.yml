@@ -72,16 +72,16 @@ jobs:
       - name: Create a draft snapshot of your repository contents as a new
               version in test collection on Zenodo using metadata
               from repository file .zenodo.json
+        #
+        # DISABLE uploading via zenodraft action, currently
+        #
+        if: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # FIXME: use main one until sandbox is working
           # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
           ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
         uses: zenodraft/action@0.10.0
-        #
-        # DISABLE THIS STEP CURRENTLY
-        #
-        if: false
         with:
           collection: 8387711
           metadata: .zenodo.json
@@ -126,8 +126,8 @@ jobs:
           target_commitish: ${{ steps.get_existing_release.outputs.target_commitish }}
           on_release_exists: update
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # GITHUB_TOKEN: ${{ secrets.PYPOP_RELEASE_TOKEN }}
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.PYPOP_RELEASE_TOKEN }}
 
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
