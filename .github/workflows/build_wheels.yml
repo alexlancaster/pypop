@@ -126,7 +126,8 @@ jobs:
           target_commitish: ${{ steps.get_existing_release.outputs.target_commitish }}
           on_release_exists: update
         env:
-          GITHUB_TOKEN: ${{ secrets.PYPOP_RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITHUB_TOKEN: ${{ secrets.PYPOP_RELEASE_TOKEN }}
 
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
