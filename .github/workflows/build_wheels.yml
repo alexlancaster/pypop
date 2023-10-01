@@ -43,9 +43,8 @@ jobs:
     steps:
       - name: Checkout the contents of your repository
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PYPOP_RELEASE_TOKEN }}
-
+        # with:
+        #  token: ${{ secrets.PYPOP_RELEASE_TOKEN }}
       - name: Upsert the version in the metadata in .zenodo.json
         run: |
           echo "GITHUB_REF_NAME = $GITHUB_REF_NAME | GITHUB_REF = $GITHUB_REF | GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
@@ -129,8 +128,8 @@ jobs:
           target_commitish: ${{ steps.get_existing_release.outputs.target_commitish }}
           on_release_exists: update
         env:
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.PYPOP_RELEASE_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITHUB_TOKEN: ${{ secrets.PYPOP_RELEASE_TOKEN }}
 
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
