@@ -39,7 +39,8 @@ jobs:
     name: Production release, Zenodo publication
     runs-on: ubuntu-latest
     # "else" we *are* publishing something
-    if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
+    # if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
+    if: false  # FIXME: disable until completely ready for a release
     steps:
       - name: Checkout the contents of your repository
         uses: actions/checkout@v4
@@ -96,8 +97,7 @@ jobs:
           upsert-location: doi
           verbose: true
       #
-      # FIXME: until zenodraft working, this partially emulates the
-      # release updating that is internal to zenodraft
+      # FIXME: disabled the rest of these steps (already done by zenodraft)
       #
       - name: Get existing release
         if: false

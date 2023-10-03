@@ -74,5 +74,5 @@ keywords:
   - HLA
   - MHC
 license: GPL-2.0-or-later
-version: v0.9.75
-doi: 10.5072/zenodo.1244745
+version: v1.0.0-b1
+
