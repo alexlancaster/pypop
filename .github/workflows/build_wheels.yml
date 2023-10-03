@@ -67,6 +67,10 @@ jobs:
           git checkout ${{ github.event.release.target_commitish }}
           git merge $GITHUB_REF_NAME-with-upserting-changes-pre-upload
           git push origin ${{ github.event.release.target_commitish }}
+          # FIXME: removing files marked with 'export-ignore' 'set' in .gitattributes
+          # before zenodraft creates the zipball using https://stackoverflow.com/a/30573319
+          # to ensure that we handle filenames with potential ':' or newlines
+          git ls-files -z|git check-attr --stdin -z export-ignore |sed -zne 'x;n;n;s/^set$//;t print;b;:print;x;p'|xargs --null rm
           # git tag -d $GITHUB_REF_NAME
           # git push --follow-tags origin :$GITHUB_REF
           # git tag $GITHUB_REF_NAME
@@ -92,7 +96,7 @@ jobs:
           # FIXME: use main one until sandbox working
           sandbox: true
           # sandbox: false
-          compression: tar.gz
+          compression: zip
           upsert-doi: true
           upsert-location: doi
           verbose: true
