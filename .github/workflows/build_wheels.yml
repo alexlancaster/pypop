@@ -71,6 +71,8 @@ jobs:
           # before zenodraft creates the zipball using https://stackoverflow.com/a/30573319
           # to ensure that we handle filenames with potential ':' or newlines
           git ls-files -z|git check-attr --stdin -z export-ignore |sed -zne 'x;n;n;s/^set$//;t print;b;:print;x;p'|xargs --null rm
+          # FIXME: need to also remove orphaned empty directories resulting from above
+          find . -empty -type d -delete
           # git tag -d $GITHUB_REF_NAME
           # git push --follow-tags origin :$GITHUB_REF
           # git tag $GITHUB_REF_NAME
