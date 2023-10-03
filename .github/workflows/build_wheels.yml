@@ -66,31 +66,31 @@ jobs:
           git checkout ${{ github.event.release.target_commitish }}
           git merge $GITHUB_REF_NAME-with-upserting-changes
           git push origin ${{ github.event.release.target_commitish }}
-          git tag -d $GITHUB_REF_NAME
-          git push --follow-tags origin :$GITHUB_REF
-          git tag $GITHUB_REF_NAME
-          git push origin $GITHUB_REF
-          git ls-remote origin $GITHUB_REF
+          # git tag -d $GITHUB_REF_NAME
+          # git push --follow-tags origin :$GITHUB_REF
+          # git tag $GITHUB_REF_NAME
+          # git push origin $GITHUB_REF
+          # git ls-remote origin $GITHUB_REF
       - name: Create a draft snapshot of your repository contents as a new
               version in test collection on Zenodo using metadata
               from repository file .zenodo.json
         #
         # DISABLE uploading via zenodraft action, currently
         #
-        if: false
+        # if: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # FIXME: use main one until sandbox is working
-          # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
-          ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
+          ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+          # ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
         uses: zenodraft/action@0.10.0
         with:
           collection: 8387711
           metadata: .zenodo.json
           publish: false
           # FIXME: use main one until sandbox working
-          # sandbox: true
-          sandbox: false
+          sandbox: true
+          # sandbox: false
           compression: tar.gz
           upsert-doi: true
           upsert-location: doi
@@ -100,6 +100,7 @@ jobs:
       # release updating that is internal to zenodraft
       #
       - name: Get existing release
+        if: false
         id: get_existing_release
         uses: cardinalby/git-get-release-action@v1
         env:
@@ -107,12 +108,14 @@ jobs:
         with:
           releaseId: ${{ github.event.release.id }}
       - name: Delete old release
+        if: false
         uses: liudonghua123/delete-release-action@v1
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
           release_id: ${{ github.event.release.id }}
       - name: Recreate release with new tag
+        if: false
         id: recreate_release
         uses: joutvhu/create-release@v1
         with:
