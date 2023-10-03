@@ -14,9 +14,10 @@ User Guide <http://pypop.org/docs>`__ for a more detailed description.
 		       
 **How to cite PyPop**
 
-If you write a paper that uses PyPop in your analysis, please cite:
+If you write a paper that uses PyPop in your analysis, please cite
+**both**:
 
-* our 2007 paper from *Tissue Antigens*:
+1. our 2007 paper from *Tissue Antigens*:
 
    .. admonition:: *Tissue Antigens*
    
@@ -28,23 +29,22 @@ If you write a paper that uses PyPop in your analysis, please cite:
       `preprint PDF (112 kB)
       <http://pypop.org/tissue-antigens-lancaster-2007.pdf>`__].
 
-..
-   2. **and** the Zenodo record for the specific version of the software
-      (which has a version-specific DOI).  First visit the main `Zenodo
-      record <https://doi.org/10.5072/zenodo.1243488>`__ and use the DOI
-      of the specific version of the software you used.  It will be of
-      the form:
+2. **and** the Zenodo record for the specific version of the software
+   (which has a version-specific DOI).  First visit the main `Zenodo
+   record <https://doi.org/10.5072/zenodo.1243488>`__ and use the DOI
+   of the specific version of the software you used.  It will be of
+   the form:
 
-      .. admonition:: Zenodo
+   .. admonition:: Zenodo
 
-	 Lancaster, AK et al. (2023) "PyPop: Python for Population
-	 Genomics" (Version 1.0.0) [Computer
-	 software]. https://doi.org/10.5281/zenodo.XXXXX
+      Lancaster, AK et al. (2023) "PyPop: Python for Population
+      Genomics" (Version 1.0.0) [Computer
+      software]. https://doi.org/10.5281/zenodo.XXXXX
 
-      Human and machine-readable citation metadata for the Zenodo record
-      is stored in the `CITATION.cff
-      <https://github.com/alexlancaster/pypop/blob/main/CITATION.cff>`__
-      in the GitHub repository.
+   Human and machine-readable citation metadata for the Zenodo record
+   is stored in the `CITATION.cff
+   <https://github.com/alexlancaster/pypop/blob/main/CITATION.cff>`__
+   in the GitHub repository.
   
 .. _guide-include-pypop-cite-end:
 
