@@ -12,8 +12,8 @@ docs/** linguist-generated
 _static/** linguist-generated
 # also exclude certain files from the zip archive
 .gitattributes export-ignore
-/.github/ export-ignore
-/website/ export-ignore
+/.github/** export-ignore
+/website/** export-ignore
 # not part of the software
-/data/ export-ignore
-/src/obsolete/ export-ignore
+/data/** export-ignore
+/src/obsolete/** export-ignore
