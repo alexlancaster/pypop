@@ -90,33 +90,40 @@
   ],
   "related_identifiers": [
     {
-      "identifier": "http://pypop.org/",
-      "relation": "isSupplementedBy",
-      "scheme": "url"
-    },
+      "scheme": "url", 
+      "identifier": "http://pypop.org/", 
+      "relation": "isSupplementedBy", 
+      "resource_type": "other"
+    }, 
     {
-      "identifier": "http://pypop.org/docs",
-      "relation": "isDocumentedBy",
-      "resource_type": "publication-softwaredocumentation",
-      "scheme": "url"
-    },
+      "scheme": "url", 
+      "identifier": "http://pypop.org/docs", 
+      "relation": "isDocumentedBy", 
+      "resource_type": "publication-softwaredocumentation"
+    }, 
     {
-      "identifier": "https://github.com/alexlancaster/pypop",
-      "relation": "isSupplementTo",
-      "resource_type": "software",
-      "scheme": "url"
-    },
+      "scheme": "url", 
+      "identifier": "https://github.com/alexlancaster/pypop", 
+      "relation": "isDerivedFrom", 
+      "resource_type": "software"
+    }, 
     {
-      "identifier": "https://pypi.org/project/pypop-genomics",
-      "relation": "isSupplementedBy",
-      "resource_type": "software",
-      "scheme": "url"
-    },
+      "scheme": "url", 
+      "identifier": "https://pypi.org/project/pypop-genomics", 
+      "relation": "isSourceOf", 
+      "resource_type": "software"
+    }, 
     {
-      "identifier": "PMC4369784",
-      "relation": "isPublishedIn",
-      "resource_type": "publication-preprint",
-      "scheme": "pmcid"
+      "scheme": "pmcid", 
+      "identifier": "PMC4369784", 
+      "relation": "continues", 
+      "resource_type": "publication-preprint"
+    }, 
+    {
+      "scheme": "doi", 
+      "identifier": "10.1111/j.1399-0039.2006.00769.x", 
+      "relation": "continues", 
+      "resource_type": "publication-article"
     }
   ],
   "notes": "  If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) 'PyPop update – a software pipeline for large-scale multilocus population genomics' Tissue Antigens 69(1):192-197 10.1111/j.1399-0039.2006.00769.x https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/",
