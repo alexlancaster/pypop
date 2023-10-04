@@ -88,43 +88,6 @@
       "_comment": "Population genetics of the HLA region - RO1 grant"
     }
   ],
-  "related_identifiers": [
-    {
-      "identifier": "http://pypop.org/",
-      "relation": "isSupplementedBy",
-      "scheme": "url"
-    },
-    {
-      "identifier": "http://pypop.org/docs",
-      "relation": "isDocumentedBy",
-      "resource_type": "publication-softwaredocumentation",
-      "scheme": "url"
-    },
-    {
-      "identifier": "https://github.com/alexlancaster/pypop",
-      "relation": "isSupplementTo",
-      "resource_type": "software",
-      "scheme": "url"
-    },
-    {
-      "identifier": "https://pypi.org/project/pypop-genomics",
-      "relation": "isSupplementedBy",
-      "resource_type": "software",
-      "scheme": "url"
-    },
-    {
-      "identifier": "https://doi.org/10.1111/j.1399-0039.2006.00769.x",
-      "relation": "isPublishedIn",
-      "resource_type": "publication-milesone",
-      "scheme": "url"
-    },
-    {
-      "identifier": "PMC4369784",
-      "relation": "isPublishedIn",
-      "resource_type": "publication-preprint",
-      "scheme": "pmcid"
-    }
-  ],
   "notes": "  If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) 'PyPop update – a software pipeline for large-scale multilocus population genomics' Tissue Antigens 69(1):192-197 10.1111/j.1399-0039.2006.00769.x https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/",
   "title": "PyPop: Python for Population Genomics",
   "upload_type": "software",
