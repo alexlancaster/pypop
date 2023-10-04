@@ -113,10 +113,10 @@
       "scheme": "url"
     },
     {
-      "identifier": "10.1111/j.1399-0039.2006.00769.x",
+      "identifier": "https://doi.org/10.1111/j.1399-0039.2006.00769.x",
       "relation": "isPublishedIn",
       "resource_type": "publication-milesone",
-      "scheme": "doi"
+      "scheme": "url"
     },
     {
       "identifier": "PMC4369784",
