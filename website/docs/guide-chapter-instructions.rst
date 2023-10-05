@@ -13,7 +13,7 @@ contained in this text file.
    In contrast to the sample files shown in  :doc:`guide-chapter-usage`, 
    the example outputs below were all generated from an input ``.pop`` file that
    encodes the alleles using the 
-  `new HLA nomenclature <https://hla.alleles.org/nomenclature/naming.html>`__.
+   `new HLA nomenclature <https://hla.alleles.org/nomenclature/naming.html>`__.
 
 .. _instructions-pop-summary:
 
