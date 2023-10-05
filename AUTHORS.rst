@@ -17,7 +17,7 @@ Alex Lancaster | `0000-0002-0002-9263 <https://orcid.org/0000-0002-0002-9263>`_ 
 Steven J. Mack | `0000-0001-9820-9547 <https://orcid.org/0000-0001-9820-9547>`__ | University of California, San Francisco
    Contributed bug reports, documentation, reviewed PRs.
 
-Michael P. Mariani | `0000-0001-5235-4159 <https://orcid.org/0000-0001-5235-4159>`__ | University of Vermont
+Michael P. Mariani | `0000-0001-5852-0517 <https://orcid.org/0000-0001-5852-0517>`__ | University of Vermont
    Contributed bug reports, documentation, reviewed PRs.
 
 Diogo Meyer | `0000-0002-7155-5674 <https://orcid.org/0000-0002-7155-5674>`__ | University of São Paulo
