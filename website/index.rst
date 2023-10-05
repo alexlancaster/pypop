@@ -16,7 +16,7 @@ PyPop: Python for Population Genomics
 .. _news:
 
 .. admonition:: Release summary and news
-  :class: dropdown	
+  :class: dropdown, toggle-shown
 
   - 2023-09-26: first beta pre-release 1.0.0b1, available on `PyPI
     <https://pypi.org/project/pypop-genomics/>`__
