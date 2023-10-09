@@ -964,7 +964,9 @@ an example:
     !07/0805
 
 In the example above, ``A*03`` alleles will match to ``01/02/03``,
-except for ``A*0306``, which will match to ``04/05/0306``. If you place
+except for ``A*0306``, which will match to ``04/05/0306``. In the output file, 
+``A*0306`` will be replaced with ``04/05/0306`` and other ``A*03`` alleles will
+be replaced with ``01/02/03``. If you place
 a ``!`` mark in front of the first allele name, that first name will be
 used as the "new name" for the binned group (for example, ``A*0805``
 will be called ``07`` in the custom-binned data.) Note that the space at
