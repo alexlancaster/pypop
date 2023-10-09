@@ -159,7 +159,7 @@ jobs:
           # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
       - name: Build and test wheels
-        uses: pypa/cibuildwheel@v2.16.1
+        uses: pypa/cibuildwheel@v2.16.2
         with:
           package-dir: .
           output-dir: wheelhouse
