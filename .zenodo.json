@@ -20,7 +20,8 @@
     },
     {
       "affiliation": "University of California, Berkeley",
-      "name": "Tsai, Yingsu"
+      "name": "Tsai, Yingsu",
+      "orcid": "0009-0006-0162-6066"
     },
     {
       "affiliation": "University of São Paulo",
@@ -35,7 +36,7 @@
     {
       "affiliation": "University of Vermont",
       "name": "Mariani, Michael P.",
-      "orcid": "0000-0001-5235-4159"
+      "orcid": "0000-0001-5852-0517"
     },
     {
       "affiliation": "Lawrence Livermore National Laboratory",
@@ -73,6 +74,60 @@
   "license": {
     "id": "GPL-2.0-or-later"
   },
+  "grants": [
+    {
+      "id": "10.13039/100000002::5U24AI049213-05",
+      "_comment": "13th IHWG workshop (5th year?)"
+    },
+    {
+      "id": "10.13039/100000002::1R13AI066863-01",
+      "_comment": "14th IHWG workshop"
+    },
+    {
+      "id": "10.13039/100000002::2R01GM035326-13A1",
+      "_comment": "Population genetics of the HLA region - RO1 grant"
+    }
+  ],
+  "related_identifiers": [
+    {
+      "scheme": "url",
+      "identifier": "http://pypop.org/",
+      "relation": "isSupplementedBy",
+      "resource_type": "other"
+    },
+    {
+      "scheme": "url",
+      "identifier": "http://pypop.org/docs",
+      "relation": "isDocumentedBy",
+      "resource_type": "publication-softwaredocumentation"
+    },
+    {
+      "scheme": "url",
+      "identifier": "https://github.com/alexlancaster/pypop",
+      "relation": "isDerivedFrom",
+      "resource_type": "software"
+    },
+    {
+      "scheme": "url",
+      "identifier": "https://pypi.org/project/pypop-genomics",
+      "relation": "isSourceOf",
+      "resource_type": "software"
+    },
+    {
+      "scheme": "pmcid",
+      "identifier": "PMC4369784",
+      "relation": "continues",
+      "resource_type": "publication-preprint"
+    },
+    {
+      "scheme": "doi",
+      "identifier": "10.1111/j.1399-0039.2006.00769.x",
+      "relation": "continues",
+      "resource_type": "publication-article"
+    }
+  ],
+  "notes": "  If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) 'PyPop update – a software pipeline for large-scale multilocus population genomics' Tissue Antigens 69(1):192-197 10.1111/j.1399-0039.2006.00769.x https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/",
   "title": "PyPop: Python for Population Genomics",
   "upload_type": "software",
+  "version": "v1.0.0-b1"
 }

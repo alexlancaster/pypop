@@ -29,6 +29,7 @@ authors:
   - family-names: Tsai
     given-names: Yingsu
     affiliation: University of California, Berkeley
+    orcid: https://orcid.org/0009-0006-0162-6066
   - family-names: Meyer
     given-names: Diogo
     orcid: https://orcid.org/0000-0002-7155-5674
@@ -39,7 +40,7 @@ authors:
     orcid: https://orcid.org/0009-0009-2862-0467
   - family-names: Mariani
     given-names: Michael P.
-    orcid: https://orcid.org/0000-0001-5235-4159
+    orcid: https://orcid.org/0000-0001-5852-0517
     affiliation: University of Vermont
   - family-names: Sochat
     given-names: Vanessa
@@ -73,4 +74,5 @@ keywords:
   - HLA
   - MHC
 license: GPL-2.0-or-later
-version: 1.0.0a40
+version: v1.0.0-b1
+

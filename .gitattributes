@@ -11,9 +11,15 @@ popdata/** linguist-generated
 docs/** linguist-generated
 _static/** linguist-generated
 # also exclude certain files from the zip archive
+# FIXME: for directories, need two patterns, one for the contents, one
+# for the directory itself
 .gitattributes export-ignore
-/.github/ export-ignore
-/website/ export-ignore
+/.github export-ignore
+/.github/** export-ignore
+/website export-ignore
+/website/** export-ignore
 # not part of the software
-/data/ export-ignore
-/src/obsolete/ export-ignore
+/data export-ignore
+/data/** export-ignore
+/src/obsolete export-ignore
+/src/obsolete/** export-ignore

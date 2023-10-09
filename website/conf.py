@@ -67,6 +67,10 @@ show_authors = True
 # figures
 numfig = True
 
+# override default text on toggle buttons (sphinx_togglebutton extension)
+togglebutton_hint = "Click to show"
+togglebutton_hint_hide = "Click to hide"
+
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
