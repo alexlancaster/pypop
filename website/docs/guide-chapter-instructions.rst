@@ -8,13 +8,6 @@ results. The text output, generated from the XML file via XSLT, contains
 a human-readable summary of the XML results. Below we discuss the output
 contained in this text file.
 
-.. note::
-
-   In contrast to the sample files shown in  :doc:`guide-chapter-usage`, 
-   the example outputs below were all generated from an input ``.pop`` file that
-   encodes the alleles using the 
-   `new HLA nomenclature <https://hla.alleles.org/nomenclature/naming.html>`__.
-
 .. _instructions-pop-summary:
 
 Population summary
