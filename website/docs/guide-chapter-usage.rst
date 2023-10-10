@@ -959,16 +959,16 @@ an example:
 .. code-block:: text
 
    A=01/02/03
-    04/05/0306
-    !06/1201/1301
-    !07/0805
+    04/05/03:06
+    !06/12:01/13:01
+    !07/08:05
 
 In the example above, ``A*03`` alleles will match to ``01/02/03``,
-except for ``A*0306``, which will match to ``04/05/0306``. In the output file, 
-``A*0306`` will be replaced with ``04/05/0306`` and other ``A*03`` alleles will
+except for ``A*03:06``, which will match to ``04/05/03:06``. In the output file, 
+``A*03:06`` will be replaced with ``04/05/03:06`` and other ``A*03`` alleles will
 be replaced with ``01/02/03``. If you place
 a ``!`` mark in front of the first allele name, that first name will be
-used as the "new name" for the binned group (for example, ``A*0805``
+used as the "new name" for the binned group (for example, ``A*08:05``
 will be called ``07`` in the custom-binned data.) Note that the space at
 the beginning of the lines (following the first line of each locus) is
 important. The above rules are just dummy examples, provided to
