@@ -34,7 +34,7 @@
       "orcid": "0009-0009-2862-0467"
     },
     {
-      "affiliation": "University of Vermont",
+      "affiliation": "Mariani Systems LLC and University of Vermont",
       "name": "Mariani, Michael P.",
       "orcid": "0000-0001-5852-0517"
     },
@@ -86,7 +86,20 @@
     {
       "id": "10.13039/100000002::2R01GM035326-13A1",
       "_comment": "Population genetics of the HLA region - RO1 grant"
-    }
+    },
+    {
+      "id": "10.13039/100000002::N01AI40076-11-0-2",
+      "_comment": "BISC Support Contract HHSN266200400076C"
+    },
+    {
+      "code": "",
+      "title": "University of Vermont REACH 2014", 
+      "acronym": "REACH", 
+      "program": "REACH", 
+        "funder": {
+          "name": "University of Vermont", 
+       }
+    }      
   ],
   "related_identifiers": [
     {
@@ -129,5 +142,5 @@
   "notes": "  If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) 'PyPop update – a software pipeline for large-scale multilocus population genomics' Tissue Antigens 69(1):192-197 10.1111/j.1399-0039.2006.00769.x https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/",
   "title": "PyPop: Python for Population Genomics",
   "upload_type": "software",
-  "version": "v1.0.0-b1"
+  "version": "v1.0.0-b2"
 }
