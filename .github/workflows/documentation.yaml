@@ -30,13 +30,13 @@ on:
       - '.github/workflows/documentation.yaml'
       - '!website/README.md'
       - '!website/reference/**'
-  release: 
-     types: 
+  release:
+    types:
       - published
 
-      
+
 permissions:
-    contents: write
+  contents: write
 jobs:
   docs:
     runs-on: ubuntu-latest
@@ -53,6 +53,10 @@ jobs:
           echo "github.repository: ${{ toJson(github.repository) }}"
           echo "github.event.pull_request.base.repo.full_name: ${{ toJson(github.event.pull_request.base.repo.full_name) }}"
           echo "github.event.pull_request.head.repo.full_name: ${{ toJson(github.event.pull_request.head.repo.full_name) }}"
+          echo "github.ref: ${{ toJson(github.ref) }}"
+          echo "github.event_name: ${{ toJson(github.event_name) }}"
+          echo "github.event.action: ${{ toJson(github.event.action) }}"
+
       - uses: actions/setup-python@v4
       - name: Install dependencies
         run: |
@@ -83,11 +87,11 @@ jobs:
           publish_branch: gh-pages  # default: gh-pages
           publish_dir: _build/
           force_orphan: true
-          
+
       - name: Deploy to production
         uses: peaceiris/actions-gh-pages@v3
         # only update on either a push, or published release on the main branch
-        if: ${{ (github.ref == 'refs/heads/main') && ( (github.event_name == 'push') || (github.event_name == 'release' && github.event.action == 'published')) }}
+        if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'release' && github.event.action == 'published')) }}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}

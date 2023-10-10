@@ -33,7 +33,11 @@ jobs:
     if: (github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false) == false
     steps:
       - name: Skip Zenodo step unless publishing release
-        run: echo "Not a publication release, skipping Zenodo"
+        run: |
+          echo "Not a publication release, skipping Zenodo"
+          echo "github.ref: ${{ toJson(github.ref) }}"
+          echo "github.event_name: ${{ toJson(github.event_name) }}"
+          echo "github.event.action: ${{ toJson(github.event.action) }}"
 
   publish_zenodo:
     name: Production release, Zenodo publication
@@ -229,7 +233,7 @@ jobs:
     environment: pypi
     permissions:
       id-token: write
-    if: ${{ (github.ref == 'refs/heads/main') && (github.event_name == 'release' && github.event.action == 'published') && always()  && !cancelled() && !failure() }}
+    if: (github.ref == 'refs/heads/main') && (github.event_name == 'release' && github.event.action == 'published') && always()  && !cancelled() && !failure()
     steps:
       - uses: actions/download-artifact@v3
         with:
@@ -239,28 +243,3 @@ jobs:
           path: dist
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
-
-      # steps:
-      #   # This step is not needed at the moment but might decide to add on more steps in the future
-      #   - name: Set up Node.js
-      #     uses: actions/setup-node@v3
-      #     with:
-      #       node-version: 16
-      #   - name: Upload to Zenodo
-      #     id: release
-      #     uses: alexlancaster/upload-to-zenodo@main
-      #     with:
-      #       github_token: ${{ secrets.GITHUB_TOKEN }}
-      #       zenodo_token: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
-      #       zenodo_deposition_id: 1243453
-      #       zenodo_publish: true
-      #       zenodo_sandbox: true
-      #       commit_message: 'chore: update ${file_name} for Zenodo release'
-      #       update_metadata_files: true
-      #       codemeta_json: false
-      #       citation_cff: true
-      #       zenodo_json: true
-
-      #   # Get the doi from the `release` step
-      #   - name: Get the output doi
-      #     run: echo "The released doi was ${{ steps.release.outputs.doi }}"
