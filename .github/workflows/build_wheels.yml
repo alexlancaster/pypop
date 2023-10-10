@@ -233,7 +233,7 @@ jobs:
     environment: pypi
     permissions:
       id-token: write
-    if: (github.ref == 'refs/heads/main') && (github.event_name == 'release' && github.event.action == 'published') && always()  && !cancelled() && !failure()
+    if: github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published' && always()  && !cancelled() && !failure()
     steps:
       - uses: actions/download-artifact@v3
         with:

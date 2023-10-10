@@ -56,6 +56,7 @@ jobs:
           echo "github.ref: ${{ toJson(github.ref) }}"
           echo "github.event_name: ${{ toJson(github.event_name) }}"
           echo "github.event.action: ${{ toJson(github.event.action) }}"
+          echo "github.event.release.target_commitish: ${{ toJson(github.event.release.target_commitish) }}"
 
       - uses: actions/setup-python@v4
       - name: Install dependencies
@@ -90,8 +91,8 @@ jobs:
 
       - name: Deploy to production
         uses: peaceiris/actions-gh-pages@v3
-        # only update on either a push, or published release on the main branch
-        if: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || (github.event_name == 'release' && github.event.action == 'published')) }}
+        # only update on either a push on main, or published release on the main
+        if: ${{ (github.ref == 'refs/heads/main' && github.event_name == 'push') || (github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published') }}
         with:
           publish_branch: gh-pages
           github_token: ${{ secrets.GITHUB_TOKEN }}
