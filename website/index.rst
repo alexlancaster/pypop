@@ -4,14 +4,15 @@
 PyPop: Python for Population Genomics
 =====================================
 
-.. warning::
+.. note::
    
-    The old 0.7.0 binary releases based on Python 2, are deprecated
-    and will no install or work on many platforms. Please follow the
-    instructions on the GitHub `README.rst
+    Please follow the instructions on the GitHub `README.rst
     <https://github.com/alexlancaster/pypop#readme>`__ for how to
-    install one of the Python 3-based pre-releases, or build PyPop
-    from source on a modern Python 3 system.
+    install one of the 1.0.0 pre-releases from PyPI (or build PyPop
+    from source on a modern Python 3 system).  A formal 1.0.0 release
+    will be made soon. (**Note: The old 0.7.0 binary releases based on
+    Python 2, are deprecated and will no install or work on many
+    platforms.** )
 
 .. _news:
 
