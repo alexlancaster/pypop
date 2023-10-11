@@ -16,9 +16,9 @@ the typical slew of bug fixes. Many more changes are of an "under the
 hood" nature, such as a new unit testing and documentation framework,
 and are detailed below.  Many people contributed to this latest
 release, which has been a while in coming. Thanks especially to all
-new contributors including Vanessa Sochat, Gordon Webster, Karl Kornel
-and Michael Mariani.  Thanks also to ongoing contributors and bug
-reporters, Richard Single and Steve Mack.
+new contributors including Vanessa Sochat, Gordon Webster,
+Jurriaan H. Spaaks, Karl Kornel and Michael Mariani.  Thanks also to
+ongoing contributors and bug reporters, Richard Single and Steve Mack.
 
 
 New features
@@ -57,6 +57,7 @@ New features
     Michael Mariani, Gordon Webster and Steve Mack
   * overhaul release process and add a contribution-guide to the
     *PyPop User Guide*.
+  * update documentation to use new HLA nomenclature throughout
 
 * PyPop now uses ``numpy`` in place of the old ``Numeric`` library
   ``Numpy``, and ``lxml`` in place of ``libxml_mod``
@@ -92,6 +93,8 @@ Internal
   website updates
 * Prepare package for inclusion in ``PyPI``
 * Add code examples used in documentation as unit tests
+* Create GitHub action for upload to Zenodo (thanks to
+  Jurriaan H. Spaaks)
 
 Release Notes for PyPop 0.7.0
 -----------------------------
