@@ -35,12 +35,12 @@ Richard M. Single | `0000-0001-6054-6505 <https://orcid.org/0000-0001-6054-6505>
 Vanessa Sochat | `0000-0002-4387-3819 <https://orcid.org/0000-0002-4387-3819>`__ | Lawrence Livermore National Laboratory
    Contributed to the Python 3 port.
 
-Jurriaan H. Spaaks | `0000-0002-7064-4069 <https://orcid.org/0000-0002-7064-4069>`__ | Netherlands eScience Center
-   Contributed to Zenodo upload GitHub action 
-
 Owen Solberg  | `0000-0003-3060-9709 <https://orcid.org/0000-0003-3060-9709>`__ 
    Implemented filter modules, including conversion to allele name
    information to sequence data.
+
+Jurriaan H. Spaaks | `0000-0002-7064-4069 <https://orcid.org/0000-0002-7064-4069>`__ | Netherlands eScience Center
+   Contributed to Zenodo upload GitHub action 
 
 Glenys Thomson | `0000-0001-5235-4159 <https://orcid.org/0000-0001-5235-4159>`__ | University of California, Berkeley
    Principal investigator

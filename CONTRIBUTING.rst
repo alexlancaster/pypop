@@ -241,7 +241,7 @@ new feature you would add something like:
 
 Also add your name to the authors list at :code:`AUTHORS.rst`, so you
 will also be included in the periodic Zenodo software releases (see
-also the section on `Crediting contributions`__)
+also the section on `Crediting contributors`_)
 
 Run unit tests with ``pytest``
 ------------------------------
