@@ -4,7 +4,7 @@
 
 * New wrapper module `Haplostats`. This wraps a portion of the
   `haplo.stats` R package `haplo-stats` for haplotype
-  estimation. [Implementation in alpha-phase].
+  estimation. [Implementation in alpha-phase - still working on this].
 
 
 ## External dependencies
