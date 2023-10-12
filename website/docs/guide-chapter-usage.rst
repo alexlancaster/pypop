@@ -984,6 +984,6 @@ compiled from several sources [2]_
 .. [2]
    [Mack:etal:2007]_; [Cano:etal:2007]_; The Anthony Nolan list of deleted
    allele names
-   (` <http://www.anthonynolan.com/HIG/lists/delnames.html>`__); and the
+   (` <http://github.com/ANHIG/IMGTHLA/blob/Latest/Deleted_alleles.txt>`__); and the
    Ambiguous Allele Combinations, release 2.18.0
-   (` <http://www.ebi.ac.uk/imgt/hla/ambig.html>`__).
+   (` <https://www.ebi.ac.uk/ipd/imgt/hla/ambiguity>`__).
