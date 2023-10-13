@@ -17,7 +17,7 @@ before-all="yum install -y swig gsl-devel"
 # cross-compiling (https://stackoverflow.com/a/75488269)
 before-build = [
   "echo ARCHFLAGS = $ARCHFLAGS", # gets the arch at build-time
-  "if [[ $ARCHFLAGS == *arm64 ]]; then brew fetch --force --bottle-tag=arm64_big_sur gsl; brew install $(brew --cache --bottle-tag=arm64_big_sur gsl); else brew install gsl; fi"
+  "if [[ $ARCHFLAGS == *arm64 ]]; then brew fetch --force --bottle-tag=arm64_big_sur gsl; brew reinstall $(brew --cache --bottle-tag=arm64_big_sur gsl); else brew reinstall gsl; fi"
  ]
 # note that SWIG is already present on runners, no 'brew' installation neeeded
 
