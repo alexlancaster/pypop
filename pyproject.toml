@@ -14,12 +14,15 @@ before-all="yum install -y swig gsl-devel"
 #before-all="apt install swig libgsl-dev"
 
 [tool.cibuildwheel.macos]
-before-all = "brew install swig gsl"
+# before-all = "brew install swig gsl"
 # FIXME: on MacOS, cibuildwheel team suggests building these from
 # source within the container, rather than using 'brew'
+# SWIG is already present
+# install gsl for each environment
+before-build = "brew install gsl"
 
 # support cross-compilation on Apple Silicon
-archs = ["arm64", "x86_64"]
+archs = ["arm64"] #, "x86_64"]
 #archs = ["universal2"]
 
 # Increase pip debugging output
