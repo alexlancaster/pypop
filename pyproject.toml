@@ -19,8 +19,8 @@ before-all = "brew install swig gsl"
 # source within the container, rather than using 'brew'
 
 # support cross-compilation on Apple Silicon
-#archs = ["x86_64", "arm64"]
-archs = ["universal2"]
+archs = ["x86_64", "arm64"]
+#archs = ["universal2"]
 
 [tool.cibuildwheel.windows]
 # use nuget to install gsl on Windows, and manually supply paths
