@@ -13,12 +13,16 @@ before-all="yum install -y swig gsl-devel"
 #before-all="apt install swig libgsl-dev"
 
 [tool.cibuildwheel.macos]
-before-all = "brew install swig gsl"
-# FIXME: on MacOS, cibuildwheel team suggests building these from
-# source within the container, rather than using 'brew'
+# do a per-build 'gsl' installation to force correct architecture when
+# cross-compiling (https://stackoverflow.com/a/75488269)
+before-build = [
+  "echo ARCHFLAGS = $ARCHFLAGS", # gets the arch at build-time
+  "if [[ $ARCHFLAGS == *arm64 ]]; then brew fetch --force --bottle-tag=arm64_big_sur gsl; brew reinstall $(brew --cache --bottle-tag=arm64_big_sur gsl); else brew reinstall gsl; fi"
+ ]
+# note that SWIG is already present on runners, no 'brew' installation neeeded
 
 # support cross-compilation on Apple Silicon
-archs = ["x86_64", "arm64"]  
+archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 
 [tool.cibuildwheel.windows]
 # use nuget to install gsl on Windows, and manually supply paths
