@@ -131,9 +131,9 @@ Run a minimal dataset:
 ----------------------
 
 Download test ``.ini`` and ``.pop`` files: `minimal.ini
-<https://github.com/alexlancaster/pypop/blob/main/tests/data/minimal.ini>`_
+<https://raw.githubusercontent.com/alexlancaster/pypop/main/tests/data/minimal.ini>`_
 and `USAFEL-UchiTelle-small.pop
-<https://github.com/alexlancaster/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`_.
+<https://raw.githubusercontent.com/alexlancaster/pypop/main/tests/data/USAFEL-UchiTelle-small.pop>`_.
 You can then run them
 
 .. code-block:: shell
