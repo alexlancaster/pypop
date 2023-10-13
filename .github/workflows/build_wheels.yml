@@ -96,7 +96,7 @@ jobs:
           # ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
         uses: zenodraft/action@0.10.0
         with:
-          collection: 1244743
+          # collection: 1244743
           metadata: .zenodo.json
           publish: false
           # FIXME: use main one until sandbox working
