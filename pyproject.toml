@@ -19,7 +19,9 @@ before-all="yum install -y swig gsl-devel"
 # source within the container, rather than using 'brew'
 # SWIG is already present
 # install gsl for each environment
-before-build = "brew install gsl"
+before-build = [
+  "brew fetch --force --bottle-tag=arm64_big_sur gsl",
+  "brew install $(brew --cache --bottle-tag=arm64_big_sur gsl)"]
 
 # support cross-compilation on Apple Silicon
 archs = ["arm64"] #, "x86_64"]
