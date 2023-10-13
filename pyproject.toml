@@ -20,7 +20,10 @@ before-all="yum install -y swig gsl-devel"
 # SWIG is already present
 # force correct architecture on cross-compilations (https://stackoverflow.com/a/75488269)
 before-build = [
-  "echo pwd= $(pwd)",
+  "echo _PYTHON_HOST_PLATFORM = $_PYTHON_HOST_PLATFORM",
+  "echo ARCHFLAGS = $ARCHFLAGS",
+  "echo SDKROOT = $SDKROOT",
+  "echo pwd = $(pwd)",
   "echo wheel = {wheel}",
   "echo dest_dir = {dest_dir}",
   "echo delocate_wheel = {delocate_wheel}",  
