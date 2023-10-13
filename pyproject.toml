@@ -5,7 +5,7 @@ test-extras = ["test"]
 test-command = "pytest -v {package}/tests"
 # Skip trying to test arm64 builds on Intel Macs as per
 # https://cibuildwheel.readthedocs.io/en/stable/faq/#apple-silicon
-#test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
+test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
 
 [tool.cibuildwheel.linux]
 # for CentOS-based runners, local cibuildwheel docker
@@ -18,8 +18,12 @@ before-all="yum install -y swig gsl-devel"
 # FIXME: on MacOS, cibuildwheel team suggests building these from
 # source within the container, rather than using 'brew'
 # SWIG is already present
-# install gsl for each environment
+# force correct architecture on cross-compilations (https://stackoverflow.com/a/75488269)
 before-build = [
+  "echo pwd= $(pwd)",
+  "echo wheel = {wheel}",
+  "echo dest_dir = {dest_dir}",
+  "echo delocate_wheel = {delocate_wheel}",  
   "brew fetch --force --bottle-tag=arm64_big_sur gsl",
   "brew install $(brew --cache --bottle-tag=arm64_big_sur gsl)"]
 
