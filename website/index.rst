@@ -19,16 +19,16 @@ PyPop: Python for Population Genomics
 .. admonition:: Release summary and news
   :class: dropdown, toggle-shown
 
-  - 2023-10-10: second beta pre-release 1.0.0b2, available on `PyPI
+  - 2023-10-13: fourth beta pre-release 1.0.0b4, enables support for
+    arm64/M1, available on `PyPI
     <https://pypi.org/project/pypop-genomics/>`__
-  - 2023-09-26: first beta pre-release 1.0.0b1, available on `PyPI
-    <https://pypi.org/project/pypop-genomics/>`__
+  - 2023-10-10: second beta pre-release 1.0.0b2
+  - 2023-09-26: first beta pre-release 1.0.0b1
   - 2023: ported to Python 3, pre-release alpha versions of 1.0.0
     under development - no formal release yet.
   - 2022: 0.7.0 binaries deprecated.
   - 2020: pypop is no longer a Fedora package (to be replaced by PyPI package)
   - 2017: all new development is now in GitHub
-  - 2008-09-09: 0.7.0 release (many new features and bug fixes)
 
   See the :ref:`PyPop Release History` in the `Python User Guide` for
   earlier history and full release notes.

@@ -3,8 +3,8 @@ PyPop Release History
 
 .. _news-start:
 
-Release Notes in preparation for PyPop 1.0.0
---------------------------------------------
+Release Notes for PyPop 1.0.0
+-----------------------------
 (not-yet-released)
 
 PyPop 1.0.0 is the first official release of PyPop using Python 3, and
@@ -18,7 +18,8 @@ and are detailed below.  Many people contributed to this latest
 release, which has been a while in coming. Thanks especially to all
 new contributors including Vanessa Sochat, Gordon Webster,
 Jurriaan H. Spaaks, Karl Kornel and Michael Mariani.  Thanks also to
-ongoing contributors and bug reporters, Richard Single and Steve Mack.
+ongoing contributors and bug reporters, Richard Single, Owen Solberg
+and Steve Mack.
 
 
 New features
@@ -95,6 +96,8 @@ Internal
 * Add code examples used in documentation as unit tests
 * Create GitHub action for upload to Zenodo (thanks to
   Jurriaan H. Spaaks)
+* Support for arm64 builds on MacOS, e.g. M1-based Macs (thanks to
+  Owen Solberg for report and testing)
 
 Release Notes for PyPop 0.7.0
 -----------------------------
