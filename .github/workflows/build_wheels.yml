@@ -92,18 +92,17 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # FIXME: use main one until sandbox is working
-          ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
-          # ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
+          # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+          ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
         uses: zenodraft/action@0.10.0
         with:
           # collection: 1244743
           metadata: .zenodo.json
           publish: false
           # FIXME: use main one until sandbox working
-          sandbox: true
-          # sandbox: false
-          # compression: zip
-          compression: tar.gz
+          # sandbox: true
+          sandbox: false
+          compression: zip
           upsert-doi: true
           upsert-location: doi
           verbose: true
