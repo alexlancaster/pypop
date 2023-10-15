@@ -147,5 +147,5 @@
   "notes": "  If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) 'PyPop update – a software pipeline for large-scale multilocus population genomics' Tissue Antigens 69(1):192-197 10.1111/j.1399-0039.2006.00769.x https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/",
   "title": "PyPop: Python for Population Genomics",
   "upload_type": "software",
-  "version": "v0.9.108"
+  "version": "v0.9.109"
 }
