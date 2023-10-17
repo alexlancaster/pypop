@@ -95,7 +95,7 @@ jobs:
           # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
           ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
         #uses: zenodraft/action@0.10.0
-        uses: alexlancaster/alexlancaster-zenodo-pub@0.12.0
+        uses: alexlancaster/zenodraft-action@0.12.0
         with:
           # collection: 1244743
           metadata: .zenodo.json
