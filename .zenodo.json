@@ -107,18 +107,6 @@
     {
       "id": "10.13039/100000002::N01AI40076-11-0-2",
       "_comment": "BISC Support Contract HHSN266200400076C"
-<<<<<<< HEAD
-    },
-    {
-      "code": "",
-      "title": "University of Vermont REACH 2014",
-      "acronym": "UVM",
-      "program": "REACH",
-      "funder": {
-        "name": "University of Vermont"
-      }
-=======
->>>>>>> origin/main
     }
   ],
   "related_identifiers": [
