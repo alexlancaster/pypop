@@ -1,7 +1,8 @@
 import subprocess
 import hashlib
 import pytest
-import psutil
+# FIXME: psutil currently not used, unit test disabled
+# import psutil
 from base import run_pypop_process
 
 memory_in_gb = 2  # memory needed for this test in GB
