@@ -47,7 +47,12 @@
       "orcid": "0009-0006-0162-6066"
     },
     {
-      "affiliation": "University of São Paulo",
+      "affiliations": [
+        {
+          "id": "036rp1748",
+          "name": "Universidade de S\u00e3o Paulo"
+        }
+      ],
       "name": "Meyer, Diogo",
       "orcid": "0000-0002-7155-5674"
     },
