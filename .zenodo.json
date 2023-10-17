@@ -1,16 +1,34 @@
 {
   "creators": [
     {
-      "affiliation": "Amber Biology LLC and Ronin Institute",
+     "affiliations": [
+         {
+            "name": "Amber Biology LLC"
+         },
+         {
+            "id": "04awze035",
+            "name": "Ronin Institute"
+         }
+     ],	
       "name": "Lancaster, Alexander K.",
       "orcid": "0000-0002-0002-9263"
     },
     {
-      "affiliation": "University of California, Berkeley",
+      "affiliations": [
+          {
+            "id": "01an7q238",
+            "name": "University of California, Berkeley"
+          }
+        ],
       "name": "Nelson, Mark P."
     },
     {
-      "affiliation": "University of Vermont",
+       "affiliations": [
+	   {
+	      "id": "0155zta11",
+	      "name": "University of Vermont"
+	    }
+	],
       "name": "Single, Richard",
       "orcid": "0000-0001-6054-6505"
     },
@@ -19,7 +37,12 @@
       "orcid": "0000-0003-3060-9709"
     },
     {
-      "affiliation": "University of California, Berkeley",
+      "affiliations": [
+          {
+            "id": "01an7q238",
+            "name": "University of California, Berkeley"
+          }
+       ],
       "name": "Tsai, Yingsu",
       "orcid": "0009-0006-0162-6066"
     },
@@ -34,12 +57,25 @@
       "orcid": "0009-0009-2862-0467"
     },
     {
-      "affiliation": "Mariani Systems LLC and University of Vermont",
+       "affiliations":[
+           {
+	      "name": "Michael Mariani LLC"
+	   },
+           {
+	     "id": "0155zta11",
+	     "name": "University of Vermont"
+	   }
+        ],
       "name": "Mariani, Michael P.",
       "orcid": "0000-0001-5852-0517"
     },
     {
-      "affiliation": "Lawrence Livermore National Laboratory",
+      "affiliations": [
+          {
+            "id": "041nk4h53",
+            "name": "Lawrence Livermore National Laboratory"
+          }
+       ],
       "name": "Sochat, Vanessa",
       "orcid": "0000-0002-4387-3819"
     },
@@ -49,17 +85,32 @@
       "orcid": "0000-0001-5847-5330"
     },
     {
-      "affiliation": "Netherlands eScience Center",
+        "affiliations": [
+          {
+            "id": "00rbjv475",
+            "name": "Netherlands eScience Center"
+          }
+        ],
       "name": "Spaaks, Jurriaan H.",
       "orcid": "0000-0002-7064-4069"
     },
     {
-      "affiliation": "University of California, San Francisco",
+      "affiliations": [
+        {
+          "id": "043mz5j54",
+          "name": "University of California, San Francisco"
+        }
+       ],
       "name": "Mack, Steven J.",
       "orcid": "0000-0001-9820-9547"
     },
     {
-      "affiliation": "University of California, Berkeley",
+      "affiliations": [
+        {
+          "id": "01an7q238",
+          "name": "University of California, Berkeley"
+        }
+       ],
       "name": "Thomson, Glenys",
       "orcid": "0000-0001-5235-4159"
     }
