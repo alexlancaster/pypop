@@ -64,7 +64,7 @@
       "orcid": "0000-0001-5235-4159"
     }
   ],
-  "description": "PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD). Main website: http://pypop.org/",
+  "description": "<p>PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;</p><p>Main website: <a href=\"http://pypop.org/\">http://pypop.org/</a></p>",
   "keywords": [
     "population genetics",
     "population genomics",
@@ -76,9 +76,21 @@
     "HLA",
     "MHC"
   ],
-  "license": {
-    "id": "GPL-2.0-or-later"
-  },
+  "rights": [
+    {
+     "description": {
+         "en": ""
+    },
+    "id": "gpl-2.0-or-later",
+    "props": {
+    "scheme": "spdx",
+    "url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html"
+    },
+    "title": {
+     "en": "GNU General Public License v2.0 or later"
+    }
+   }
+  ],
   "grants": [
     {
       "id": "10.13039/100000002::5U24AI049213-05",
@@ -95,15 +107,6 @@
     {
       "id": "10.13039/100000002::N01AI40076-11-0-2",
       "_comment": "BISC Support Contract HHSN266200400076C"
-    },
-    {
-      "code": "",
-      "title": "University of Vermont REACH 2014", 
-      "acronym": "UVM", 
-      "program": "REACH", 
-      "funder": {
-          "name": "University of Vermont"
-      }
     }
   ],
   "related_identifiers": [
@@ -132,8 +135,8 @@
       "resource_type": "software"
     },
     {
-      "scheme": "pmcid",
-      "identifier": "PMC4369784",
+      "scheme": "url",
+      "identifier": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784",
       "relation": "continues",
       "resource_type": "publication-preprint"
     },
@@ -144,8 +147,13 @@
       "resource_type": "publication-article"
     }
   ],
-  "notes": "  If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) 'PyPop update – a software pipeline for large-scale multilocus population genomics' Tissue Antigens 69(1):192-197 10.1111/j.1399-0039.2006.00769.x https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/",
+  "additional_descriptions": [
+  { 
+    "description": "If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) <a href=\"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/\">\"PyPop update – a software pipeline for large-scale multilocus population genomics\"</a> Tissue Antigens 69(1):192-197 DOI: 10.1111/j.1399-0039.2006.00769.x",
+    "type": { "id": "notes" }
+  }
+  ],	
   "title": "PyPop: Python for Population Genomics",
   "upload_type": "software",
-  "version": "v1.0.0-b2"
+  "version": "v1.0.0-b4"
 }
