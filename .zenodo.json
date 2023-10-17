@@ -120,7 +120,7 @@
       "orcid": "0000-0001-5235-4159"
     }
   ],
-  "description": "<p>PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;</p><p>Main website: <a href=\"http://pypop.org/\">http://pypop.org/</a></p>",
+  "description": "<p>PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream flexibility. PyPop also has an internal facility for additionally aggregating the output XML and generating output tab-separated (TSV) files, as well as default plain text files for each population. Although it can be run on any kind of genotype data, it has additional support for analyzing population genotype with allelic nomenclature from the human leukocyte antigen (HLA) region. </p>",
   "keywords": [
     "population genetics",
     "population genomics",
@@ -132,20 +132,12 @@
     "HLA",
     "MHC"
   ],
-  "rights": [
+    "rights": [
     {
-     "description": {
-         "en": ""
-    },
-    "id": "gpl-2.0-or-later",
-    "props": {
-    "scheme": "spdx",
-    "url": "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html"
-    },
-    "title": {
-     "en": "GNU General Public License v2.0 or later"
+      "description": { "en": "GNU GPL 2.0" },
+      "id": "gpl-2.0-or-later",
+      "link": "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html"
     }
-   }
   ],
   "grants": [
     {
@@ -204,11 +196,19 @@
     }
   ],
   "additional_descriptions": [
-  { 
-    "description": "If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) <a href=\"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/\">\"PyPop update – a software pipeline for large-scale multilocus population genomics\"</a> Tissue Antigens 69(1):192-197 DOI: 10.1111/j.1399-0039.2006.00769.x",
-    "type": { "id": "notes" }
-  }
-  ],	
+    {
+      "description": "If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) <a href=\"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/\">\"PyPop update – a software pipeline for large-scale multilocus population genomics\"</a> Tissue Antigens 69(1):192-197 DOI: 10.1111/j.1399-0039.2006.00769.x",
+      "type": {
+        "id": "notes"
+      }
+    },
+    {
+   "description": "<p>Main website: <a href=\"http://pypop.org/\">http://pypop.org/</a>.  Development is on GitHub: <a href=\"https://github.com/alexlancaster/pypop\">https://github.com/alexlancaster/pypop</a></p><p>Binary packages for this software are available on PyPI as package <a href=\"https://pypi.org/project/pypop-genomics/\"><code>pypop-genomics</code></a>.&nbsp;</p>",
+      "type": {
+        "id": "technical-info"
+      }
+    }
+  ],
   "title": "PyPop: Python for Population Genomics",
   "upload_type": "software",
   "version": "v1.0.0-b4"
