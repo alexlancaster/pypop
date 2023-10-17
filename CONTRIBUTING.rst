@@ -529,13 +529,13 @@ Build-and-run-from-checkout (recommended for developers)
 
       .. code-block:: shell
 
-         pip install numpy lxml psutil pytest setuptools_scm
+         pip install numpy lxml pytest setuptools_scm
 
    2. system-wide
 
       .. code-block:: shell
 
-         pip install --user numpy lxml psutil pytest setuptools_scm
+         pip install --user numpy lxml pytest setuptools_scm
 
 2. Run the build
 
