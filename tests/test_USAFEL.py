@@ -3,7 +3,7 @@ import subprocess
 import hashlib
 import pytest
 import os.path
-from base import abspath_test_data, run_pypop_process, xfail_windows, filecmp_ignore_newlines, in_temp_dir
+from base import abspath_test_data, run_pypop_process, xfail_windows, filecmp_ignore_newlines, in_temp_dir, DEFAULT_GOLD_OUTPUT_DIR
 
 def test_USAFEL():
     exit_code = run_pypop_process('./tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini', './tests/data/USAFEL-UchiTelle-small.pop')
@@ -11,7 +11,7 @@ def test_USAFEL():
     assert exit_code == 0
 
     out_filename = "USAFEL-UchiTelle-small-out.txt"
-    gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', "USAFEL-UchiTelle-small-out-no-emhaplofreq-noguothompson-no-slatkin.txt"))
+    gold_out_filename = abspath_test_data(os.path.join(DEFAULT_GOLD_OUTPUT_DIR, "USAFEL-UchiTelle-small-out-no-emhaplofreq-noguothompson-no-slatkin.txt"))
 
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
@@ -21,7 +21,7 @@ def test_USAFEL_slatkin():
     assert exit_code == 0
 
     out_filename = "USAFEL-UchiTelle-small-out.txt"
-    gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', "USAFEL-UchiTelle-small-out-no-emhaplofreq-noguothompson.txt"))
+    gold_out_filename = abspath_test_data(os.path.join(DEFAULT_GOLD_OUTPUT_DIR, "USAFEL-UchiTelle-small-out-no-emhaplofreq-noguothompson.txt"))
 
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
@@ -31,7 +31,7 @@ def test_USAFEL_slatkin_guothompson():
     assert exit_code == 0
 
     out_filename = "USAFEL-UchiTelle-small-out.txt"
-    gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', "USAFEL-UchiTelle-small-out-no-emhaplofreq.txt"))
+    gold_out_filename = abspath_test_data(os.path.join(DEFAULT_GOLD_OUTPUT_DIR, "USAFEL-UchiTelle-small-out-no-emhaplofreq.txt"))
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
 @xfail_windows    
@@ -41,5 +41,5 @@ def test_USAFEL_slatkin_guothompson_emhaplofreq():
     assert exit_code == 0
 
     out_filename = "USAFEL-UchiTelle-small-out.txt"
-    gold_out_filename = abspath_test_data(os.path.join('./tests/data/output', out_filename))
+    gold_out_filename = abspath_test_data(os.path.join(DEFAULT_GOLD_OUTPUT_DIR, out_filename))
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)

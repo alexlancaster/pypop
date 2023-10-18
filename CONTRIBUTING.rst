@@ -32,8 +32,11 @@ blank issue and describe your situation.  Here is a checklist:
   case (including any input files) demonstrating the expected behavior
   that is not occurring.
 
-* **Use templates**. If possible, use the relevant bug report templates
-  to create the issue.
+* **Use templates**. If possible, use the relevant bug report
+  templates to create the issue.  For a standard bug report (including
+  installation issues), please use this: `bug report template
+  <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.md>`__,
+  for feature requests or documentation issues, see below.
 
 * **Provide full commands and errors as plaintext, not screenshots**.
   When you are including the output of an error in your bug report
@@ -92,6 +95,16 @@ blank issue and describe your situation.  Here is a checklist:
   into. If, during the comments, you discover another bug, unrelated
   to the current issue, please open up a new issue and reference it in
   the current issue.
+
+* **Run the test suite**. In many cases, especially if you are
+  investigating a new platform (e.g. new architecture) developers may
+  ask you run the full test suite via ``pytest``, see `run unit tests
+  with pytest`_.  in "verbose" mode (i.e. ``pytest -v``).  If you do
+  this, please supply the output of the resulting temporary
+  directories on your issue (see the unit test section for more
+  details). Note that you will likely need to `<clone the main
+  repository_>`_ as the unit tests are not distributed with the binary
+  wheels.
   
   
 Documentation improvements
@@ -100,8 +113,8 @@ Documentation improvements
 **pypop** could always use more documentation, whether as part of the
 official docs, in docstrings, or even on the web in blog posts,
 articles, and such. Write us a `documentation issue
-<https://github.com/alexlancaster/pypop/issues/new>`_ describing what
-you would like to see improved in here.
+<https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=documentation&projects=&template=documentation.md>`_
+describing what you would like to see improved in here.
 
 If you are able to contribute directly (e.g., via a pull request), please read
 our `website contribution guide <Making a documentation or website contribution_>`_.
@@ -111,7 +124,7 @@ Feature requests and feedback
 
 The best way to send feedback is to file an issue using the `feature
 template
-<https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=&projects=&template=feature_request.md>`_.
+<https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.md>`_.
 
 If you are proposing a feature:
 
@@ -267,8 +280,22 @@ verbose mode and capturing the output
 .. code-block:: shell
 
    pytest -s -v tests
-   
-   
+
+.. admonition:: Preserving output from unit tests
+		
+   Supplying the ``-v`` verbose option will preserve the run-time
+   output of unit tests that write files to disk in temporary
+   directories unique for each run (by default these directories are
+   created for the duration of the unit tests and then are deleted
+   after the test is run).  The format of the output directories is
+   ```run_test_<test-name>_<unique_id>``, e.g. the directories created
+   will look similar to the following:
+
+   .. code-block:: 
+
+      run_test_AlleleColon_HardyWeinberg_u3dnf99y
+      run_test_USAFEL_49h_exhg
+		
 You should also continuously run ``pytest`` as you are developing your
 code, to ensure that you don't inadvertently break anything.
 
