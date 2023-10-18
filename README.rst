@@ -3,6 +3,10 @@
 PyPop: Python for Population Genomics
 =====================================
 
+**Support for arm64 architecture such as used by MacOS M1 machines is
+in a very early alpha stage. If you install PyPop on M1 machines,
+please do not use for production analyses**
+
 PyPop is a framework for processing genotype and allele data and
 running population genetic analyses, including conformity to
 Hardy-Weinberg expectations; tests for balancing or directional
