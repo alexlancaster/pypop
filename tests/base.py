@@ -52,6 +52,8 @@ sys.path.append(PARENT_DIR)
 SRC_DIR=os.path.join(CUR_DIR, '../src')
 sys.path.append(SRC_DIR)
 
+DEFAULT_GOLD_OUTPUT_DIR = './tests/data/gold-output'
+
 def abspath_test_data(filename):
     parent_path = PurePath(PARENT_DIR)
     suffix_path = PurePath(filename)
