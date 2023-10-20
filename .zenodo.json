@@ -132,13 +132,9 @@
     "HLA",
     "MHC"
   ],
-    "rights": [
-    {
-      "description": { "en": "GNU GPL 2.0" },
-      "id": "gpl-2.0-or-later",
-      "link": "https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html"
-    }
-  ],
+  "license": {
+    "id": "gpl-2.0-or-later"
+  },
   "grants": [
     {
       "id": "10.13039/100000002::5U24AI049213-05",
