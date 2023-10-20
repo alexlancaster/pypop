@@ -97,7 +97,7 @@ jobs:
         #uses: zenodraft/action@0.10.0
         uses: alexlancaster/zenodraft-action@0.10.1
         with:
-          collection: 10012036
+          # collection: 10012036
           metadata: .zenodo.json
           publish: false
           # FIXME: use main one until sandbox working
