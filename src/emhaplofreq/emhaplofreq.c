@@ -1537,9 +1537,13 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
   }
 
   /* free calloc'ed space */
+  free(homz_f);
+  free(summary_d);
   free(summary_dprime);
   free(summary_q);
   free(summary_wn);
+  free(summary_wab);
+  free(summary_wba);
 }
 
 /************************************************************************/
