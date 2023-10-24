@@ -102,29 +102,6 @@ ext_EWSlatkinExact = Extension("PyPop._EWSlatkinExact",
                                include_dirs=include_dirs,
                                )
 
-ext_Pvalue = Extension("PyPop._Pvalue",
-                       path_to_src(["pval/pval_wrap.i",
-                        "pval/pval.c",
-                        "pval/pchisq.c",
-                        "pval/chebyshev.c",
-                        "pval/ftrunc.c",
-                        "pval/lgamma.c",
-                        "pval/mlutils.c",
-                        "pval/pgamma.c",
-                        "pval/fmin2.c",
-                        "pval/fmax2.c",
-                        "pval/dnorm.c",
-                        "pval/dpois.c",
-                        "pval/gamma.c",
-                        "pval/bd0.c",
-                        "pval/stirlerr.c",
-                        "pval/lgammacor.c",
-                        "pval/pnorm.c"]),
-                       swig_opts = swig_opts,
-                       include_dirs=include_dirs + path_to_src(["pval"]),
-                       define_macros=[('MATHLIB_STANDALONE', '1')]
-                       )
-
 ext_Gthwe_files = path_to_src(["gthwe/gthwe_wrap.i",
                    "gthwe/hwe.c",
                    "gthwe/cal_const.c",
@@ -163,7 +140,7 @@ ext_Haplostats = Extension("PyPop._Haplostats",
                        path_to_src(["haplo-stats/haplostats_wrap.i",
                         "haplo-stats/haplo_em_pin.c"]),
                        swig_opts = swig_opts,
-                       include_dirs=include_dirs + path_to_src(["haplo-stats", "pval"]),
+                       include_dirs=include_dirs + path_to_src(["haplo-stats"]),
                        define_macros=[('MATHLIB_STANDALONE', '1'),
                                       ('__SWIG__', '1'),
                                       ('DEBUG', '0'),
@@ -199,12 +176,11 @@ ext_HweEnum = Extension("PyPop._HweEnum",
                         )
 
 ext_Emhaplofreq.depends=path_to_src(["SWIG/typemap.i", "emhaplofreq/emhaplofreq.h"])
-ext_Pvalue.depends=path_to_src(["SWIG/typemap.i", "pval/Rconfig.h", "pval/Rmath.h", "pval/dpq.h", "pval/nmath.h"])
 ext_Gthwe.depends=path_to_src(["SWIG/typemap.i", "gthwe/func.h", "gthwe/hwe.h"])
-ext_Haplostats.depends=path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pin.h"])
+ext_Haplostats.depends=path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pin.h", "haplo-stats/Rconfig.h", "haplo-stats/Rmath.h", "haplo-stats/nmath.h"])
     
 # default list of extensions to build
-extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Haplostats, ext_Gthwe]
+extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Haplostats, ext_Gthwe]
 
 # don't include HWEEnum 
 # extensions.append(ext_HweEnum)
