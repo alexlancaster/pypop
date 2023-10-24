@@ -39,13 +39,21 @@
 """
 
 import sys, os, subprocess, io
-from PyPop import _Pvalue
+# from PyPop import _Pvalue
 from math import pow, sqrt
+from scipy import stats
 from tempfile import TemporaryDirectory
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
 # this can clash with a character within an allele identifier too easily
 from PyPop.Utils import getStreamType, TextOutputStream, GENOTYPE_SEPARATOR
 from PyPop.Arlequin import ArlequinExactHWTest
+
+class _Pvalue:
+
+  def pval(chisq, dof):
+    p_value = 1 - stats.chi2.cdf(chisq, dof)
+    print("scipy, pvalue:", p_value)
+    return p_value
 
 def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
 
