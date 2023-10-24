@@ -72,11 +72,13 @@ Included with permission, or via GPL-compatible licenses.
    [Slatkin:1996]_). Original code can be found at:
    http://ib.berkeley.edu/labs/slatkin/monty/Ewens_exact.program.
 
-``pval``
-   The code in the '``pval``' directory (with the exception of
-   '``pval.c``' the SWIG wrapper, ``'pval_wrap.i``' and the Makefile) is
-   part of the R project's '``nmath``' numerical library
-   http://www.r-project.org/ and is also licensed under the GNU General
-   Public License (GPL). Minor modifications have been made to allow the
-   module to build correctly.
+``haplo-stats``
+   The code in the '``haplo-stats``' directory (with the exception of
+   the SWIG wrapper, ``'haplostats_wrap.i``' and the ``Makefile``) is
+   part of ``haplo.stats``' R package. In addition the headers
+   ``nmath.h``, that are not part of ``haplo.stats`` are part of the R
+   project's http://www.r-project.org/ numerical library. Both are
+   also licensed under the GNU General Public License (GPL). Minor
+   modifications have been made to allow the module to build
+   correctly.
 
