@@ -900,7 +900,7 @@ int main_proc(
 	  fprintf(fp_out, "Log likelihood converged in %3d iterations to : %f\n",
 		  iter_count_best, loglike_best);
 	  fprintf(fp_out, "Sum of haplotype frequencies = %f\n", haplo_freq_sum);
-#endifo
+#endif
 	}
 	else if (error_flag_best == 2)
 #ifdef XML_OUTPUT
