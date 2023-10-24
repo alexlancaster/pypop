@@ -42,6 +42,8 @@
 import os, sys, types, stat, re, shutil, copy, operator
 import numpy as np
 from numpy import zeros, take, asarray
+from scipy import stats
+
 GENOTYPE_SEPARATOR = "~"
 GENOTYPE_TERMINATOR= "~"
 from numpy.lib.user_array import container
@@ -737,6 +739,10 @@ class Group:
     return self.l[idx:idx+self.size]
 
 ### global FUNCTIONS start here
+
+def pval(chisq, dof):
+    p_value = 1 - stats.chi2.cdf(chisq, dof)
+    return p_value
 
 def natural_sort_key(s, _nsre=re.compile(r'([0-9]+)')):
     return [int(text) if text.isdigit() else text.lower()
