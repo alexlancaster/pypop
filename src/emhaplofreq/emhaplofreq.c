@@ -900,7 +900,7 @@ int main_proc(
 	  fprintf(fp_out, "Log likelihood converged in %3d iterations to : %f\n",
 		  iter_count_best, loglike_best);
 	  fprintf(fp_out, "Sum of haplotype frequencies = %f\n", haplo_freq_sum);
-#endif
+#endifo
 	}
 	else if (error_flag_best == 2)
 #ifdef XML_OUTPUT
@@ -1423,12 +1423,16 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
     {
       for (k = j+1; k < n_loci; k++)
       {
+	/* FIXME: temporary debugging */
+	printf("dij[%d, %d, %d]=%g, mle[%d]=%g\n", coeff_count, hl[i][j], hl[i][k], dij[coeff_count][ hl[i][j] ][ hl[i][k] ], i, mle[i]);
+
         dij[coeff_count][ hl[i][j] ][ hl[i][k] ] = 
           dij[coeff_count][ hl[i][j] ][ hl[i][k] ] + mle[i];
         coeff_count += 1;
       }
     }
   }
+  printf("***\n"); 	/* FIXME: temporary debugging */
 
   coeff_count = 0;
   for (j = 0; j < n_loci; j++)
