@@ -1006,6 +1006,15 @@ int main_proc(
 	fprintf(fp_out, "-------------------------------\n");
 #endif
 
+	/* FIXME temporary debugging */
+	int q, r;
+	for (q = 0; q < n_haplo; q++) {
+	  for (r = 0; r < n_loci; r++)  {
+	    printf("before linkage_diseq: haplocus[%d][%d]=%d\n", q, r, haplocus[q][r]);
+	  }
+	}
+	/* END temp debugging */
+	      
 	linkage_diseq(fp_out, mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
 		      n_loci, n_haplo, n_recs);
 
@@ -1221,8 +1230,10 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
   {
     for (m = 0; m < n_unique_allele[l]; m++) 
     {
-      if (!strcmp(temp_array[l], unique_allele[l][m])) 
+      if (!strcmp(temp_array[l], unique_allele[l][m]))  {
         haplocus[0][l] = m;
+	printf("inside count_unique_haplos: haplocus[0][%d]=%d\n", l, haplocus[0][l]);
+      }
     }
   }
 
@@ -1280,8 +1291,12 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
         {
           for (m = 0; m < n_unique_allele[l]; m++) 
           {
-            if (!strcmp(temp_array[l], unique_allele[l][m])) 
+            if (!strcmp(temp_array[l], unique_allele[l][m])) {
               haplocus[unique_haplo_count][l] = m;
+	      printf("inside count_unique_haplos: haplocus[%d][%d]=%d\n", unique_haplo_count, l, haplocus[unique_haplo_count][l]);
+	    /* FIXME temporary debugging */
+	    }
+	    
           }
         }
 
