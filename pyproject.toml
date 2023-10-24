@@ -1,5 +1,5 @@
 [tool.cibuildwheel]
-skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*", "pp310*", "cp312-*linux*"]  # skip certain builds, including 32-bit, musllinux and others
+skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37*", "pp310*", "cp312-*linux*"]  # skip certain builds, including 32-bit, musllinux and others
 test-extras = ["test"]
 test-command = "pytest -v {package}/tests"
 # Skip trying to test arm64 builds on Intel Macs as per
