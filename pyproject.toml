@@ -1,5 +1,5 @@
 [tool.cibuildwheel]
-skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*", "pp37-macosx_*", "pp310*linux*"]  # skip certain builds, including 32-bit, musllinux and others 
+skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*", "pp37-macosx_*", "pp310-win_*", "pp310-macosx_*"]  # skip certain builds, including 32-bit, musllinux and others 
 test-extras = ["test"]
 test-command = "pytest -v {package}/tests"
 # Skip trying to test arm64 builds on Intel Macs as per
@@ -11,6 +11,11 @@ environment = { PIP_ONLY_BINARY=":all:" }
 [[tool.cibuildwheel.overrides]]
 # for latest Python use newer manylinux image
 select = "cp312-*linux*"
+manylinux-x86_64-image = "manylinux_2_28"
+
+[[tool.cibuildwheel.overrides]]
+# for latest Python use newer manylinux image
+select = "pp310-*linux*"
 manylinux-x86_64-image = "manylinux_2_28"
 
 [tool.cibuildwheel.linux]
