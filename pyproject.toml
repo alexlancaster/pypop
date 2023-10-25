@@ -1,5 +1,5 @@
 [tool.cibuildwheel]
-skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*", "pp37-macosx_*", "pp310-win_*", "pp310-macosx_*"]  # skip certain builds, including 32-bit, musllinux and others 
+skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*", "pp37-macosx_*", "pp310-win_*", "pp310-macosx_*", "pp310-*linux*"]  # skip certain builds, including 32-bit, musllinux and others 
 test-extras = ["test"]
 test-command = "pytest -v {package}/tests"
 # Skip trying to test arm64 builds on Intel Macs as per
@@ -9,12 +9,12 @@ test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
 environment = { PIP_ONLY_BINARY=":all:" }
 
 [[tool.cibuildwheel.overrides]]
-# for latest Python use newer manylinux image
+# for latest CPython use newer manylinux image
 select = "cp312-*linux*"
 manylinux-x86_64-image = "manylinux_2_28"
 
 [[tool.cibuildwheel.overrides]]
-# for latest Python use newer manylinux image
+# for latest PyPy use newer manylinux image
 select = "pp310-*linux*"
 manylinux-x86_64-image = "manylinux_2_28"
 
@@ -38,8 +38,8 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 
 [tool.cibuildwheel.windows]
 # use nuget to install gsl on Windows, and manually supply paths
-# note that we have to repeat the global PIP_ONLY_BINARY config, because this variables overwrites previous defines
 before-all = "nuget install gsl-msvc14-x64 -Version 2.3.0.2779"
+# note that we have to repeat the global PIP_ONLY_BINARY config, because this variables overwrites previous defines
 environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static", PIP_ONLY_BINARY=":all:" }
 
 [build-system]
