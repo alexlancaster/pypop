@@ -1234,6 +1234,9 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
         haplocus[0][l] = m;
 	printf("inside count_unique_haplos: haplocus[0][%d]=%d\n", l, haplocus[0][l]);
       }
+      else {
+	printf("inside count_unique_haplos: l=%d, m=%d\n", l, m);
+      }
     }
   }
 

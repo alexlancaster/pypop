@@ -91,7 +91,7 @@ ext_Emhaplofreq = Extension("PyPop._Emhaplofreq",
                             swig_opts = swig_opts,
                             include_dirs=include_dirs + path_to_src(["emhaplofreq"]),
                             define_macros=[('__SWIG__', '1'),
-                                           ('DEBUG', '0'),
+                                           ('DEBUG', '1'),
                                            ('EXTERNAL_MODE', '1'),
                                            ('XML_OUTPUT', '1')]
                             )
