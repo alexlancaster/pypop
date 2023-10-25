@@ -35,9 +35,7 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 # use nuget to install gsl on Windows, and manually supply paths
 # note that we have to repeat the global PIP_ONLY_BINARY config, because this variables overwrites previous defines
 before-all = "nuget install gsl-msvc14-x64 -Version 2.3.0.2779"
-environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native",
-	        LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static",
-		PIP_ONLY_BINARY=":all:" }
+environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static", PIP_ONLY_BINARY=":all:" }
 
 [build-system]
 build-backend = "setuptools.build_meta:__legacy__"
