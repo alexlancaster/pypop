@@ -5,6 +5,8 @@ test-command = "pytest -v {package}/tests"
 # Skip trying to test arm64 builds on Intel Macs as per
 # https://cibuildwheel.readthedocs.io/en/stable/faq/#apple-silicon
 test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
+# don't try and install pypi packages and build from source
+environment = { PIP_ONLY_BINARY=":all:" }
 
 [tool.cibuildwheel.linux]
 # for CentOS-based runners, local cibuildwheel docker
