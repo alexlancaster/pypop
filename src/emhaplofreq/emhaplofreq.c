@@ -1232,10 +1232,10 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
     {
       if (!strcmp(temp_array[l], unique_allele[l][m]))  {
         haplocus[0][l] = m;
-	printf("inside count_unique_haplos: haplocus[0][%d]=%d\n", l, haplocus[0][l]);
+	printf("inside count_unique_haplos: haplocus[0][%d]=%d, temp_array=%s, unique_allele=%s\n", l, haplocus[0][l], temp_array[l], unique_allele[l][m]);
       }
       else {
-	printf("inside count_unique_haplos: l=%d, m=%d\n", l, m);
+	printf("inside count_unique_haplos: l=%d, m=%d, temp_array=%s, unique_allele=%s\n", l, m, temp_array[l], unique_allele[l][m]);
       }
     }
   }
@@ -1296,10 +1296,14 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
           {
             if (!strcmp(temp_array[l], unique_allele[l][m])) {
               haplocus[unique_haplo_count][l] = m;
-	      printf("inside count_unique_haplos: haplocus[%d][%d]=%d\n", unique_haplo_count, l, haplocus[unique_haplo_count][l]);
+	      printf("inside count_unique_haplos: haplocus[%d][%d]=%d, temp_array=%s, unique_allele=%s\n",
+		     unique_haplo_count, l, haplocus[unique_haplo_count][l], temp_array[l], unique_allele[l][m]);
 	    /* FIXME temporary debugging */
 	    }
-	    
+	    else {
+	      printf("inside count_unique_haplos: l=%d, m=%d, unique_haplo_count=%d, temp_array=%s, unique_allele=%s\n",
+		     l, m, unique_haplo_count, temp_array[l], unique_allele[l][m]);
+	    }
           }
         }
 
