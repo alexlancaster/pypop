@@ -6,7 +6,7 @@ on:
 jobs:
   build_wheels:
     name: Build wheels on buildjet-4vcpu-ubuntu-2204
-    runs-on: buildjet-4vcpu-ubuntu-2204
+    runs-on: buildjet-2vcpu-ubuntu-2204
     steps:
       - uses: actions/checkout@v4
         with:
@@ -16,7 +16,7 @@ jobs:
         with:
           package-dir: .
           output-dir: wheelhouse
-          config-file: "{package}/pyproject.toml"
+          config-file: "{package}/pyproject-arm64.toml"
       - uses: actions/upload-artifact@v3
         with:
           path: ./wheelhouse/*.whl
