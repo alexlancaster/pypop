@@ -332,7 +332,7 @@ int main_proc(
 	      char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, 
 	      int n_recs, int permu_flag, int suppress_haplo_print_flag, 
 	      int max_init_cond, int max_permu, int max_init_for_permu, 
-	      int permu_print, int testing, char GENOTYPE_SEPARATOR[1], char GENOTYPE_TERMINATOR[1])
+	      int permu_print, int testing, char GENOTYPE_SEPARATOR[], char GENOTYPE_TERMINATOR[])
 {
 
   
