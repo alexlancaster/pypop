@@ -435,10 +435,6 @@ int main_proc(
 
   /******************* end: declarations ****************************/
 
-  printf("start of main_proc: GENOTYPE_SEPARATOR=%s\n", GENOTYPE_SEPARATOR);
-  printf("start of main_proc: GENOTYPE_TERMINATOR=%s\n", GENOTYPE_TERMINATOR);
-  
-  
   if (testing) {
     srand48(1234567);  /* fix seed if in testing mode to ensure deterministic output */
   } else {
@@ -706,9 +702,6 @@ int main_proc(
   		        n_loci, n_recs);
     }
 
-    printf("BEFORE count_unique_haplos: GENOTYPE_SEPARATOR=%s\n", GENOTYPE_SEPARATOR);
-    printf("BEFORE count_unique_haplos: GENOTYPE_TERMINATOR=%s\n", GENOTYPE_TERMINATOR);
-    
     n_haplo = count_unique_haplos(geno, haplo, haplocus, unique_allele, 
 				  n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR);
 
@@ -1013,15 +1006,6 @@ int main_proc(
 	fprintf(fp_out, "-------------------------------\n");
 #endif
 
-	/* FIXME temporary debugging */
-	int q, r;
-	for (q = 0; q < n_haplo; q++) {
-	  for (r = 0; r < n_loci; r++)  {
-	    printf("before linkage_diseq: haplocus[%d][%d]=%d\n", q, r, haplocus[q][r]);
-	  }
-	}
-	/* END temp debugging */
-	      
 	linkage_diseq(fp_out, mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
 		      n_loci, n_haplo, n_recs);
 
@@ -1205,9 +1189,6 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
   xhaplo[0] = 0;
   xgeno[0][0] = 0;
 
-  printf("INSIDE count_unique_haplos: GENOTYPE_SEPARATOR=%s\n", GENOTYPE_SEPARATOR);
-  printf("INSIDE count_unique_haplos: GENOTYPE_TERMINATOR=%s\n", GENOTYPE_TERMINATOR);
-  
   /* split haplo_ar[0] into temp_array on GENOTYPE_SEPARATOR and add trailing GENOTYPE_TERMINATOR */
   strcpy(temp_buff, haplo_ar[0]);
   temp_ptr = strtok(temp_buff, GENOTYPE_SEPARATOR);
@@ -1215,7 +1196,6 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
   {
     strcpy(temp_array[0], temp_ptr);
     strcat(temp_array[0], GENOTYPE_TERMINATOR);
-    printf("temp_array[0] = %s\n", temp_array[0]);
     for (k = 1; k < num_loci; k++) /* start at 1 since 0th is done */
     {
       temp_ptr = strtok(NULL, GENOTYPE_SEPARATOR);
@@ -1223,7 +1203,6 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
       {  
         strcpy(temp_array[k], temp_ptr);
         strcat(temp_array[k], GENOTYPE_TERMINATOR);
-	printf("temp_array[%d] = %s\n", k, temp_array[k]);
       }  
     }
   }
@@ -1242,13 +1221,8 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
   {
     for (m = 0; m < n_unique_allele[l]; m++) 
     {
-      if (strcmp(temp_array[l], unique_allele[l][m]) == 0)  {
+      if (strcmp(temp_array[l], unique_allele[l][m]) == 0)
         haplocus[0][l] = m;
-	printf("inside count_unique_haplos: haplocus[0][%d]=%d, temp_array=%s, unique_allele=%s\n", l, haplocus[0][l], temp_array[l], unique_allele[l][m]);
-      }
-      else {
-	printf("inside count_unique_haplos: l=%d, m=%d, temp_array=%s, unique_allele=%s\n", l, m, temp_array[l], unique_allele[l][m]);
-      }
     }
   }
 
@@ -1306,16 +1280,8 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
         {
           for (m = 0; m < n_unique_allele[l]; m++) 
           {
-            if (strcmp(temp_array[l], unique_allele[l][m]) == 0) {
+            if (strcmp(temp_array[l], unique_allele[l][m]) == 0)
               haplocus[unique_haplo_count][l] = m;
-	      printf("inside count_unique_haplos: haplocus[%d][%d]=%d, temp_array=%s, unique_allele=%s\n",
-		     unique_haplo_count, l, haplocus[unique_haplo_count][l], temp_array[l], unique_allele[l][m]);
-	    /* FIXME temporary debugging */
-	    }
-	    else {
-	      printf("inside count_unique_haplos: l=%d, m=%d, unique_haplo_count=%d, temp_array=%s, unique_allele=%s\n",
-		     l, m, unique_haplo_count, temp_array[l], unique_allele[l][m]);
-	    }
           }
         }
 
@@ -1457,16 +1423,12 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
     {
       for (k = j+1; k < n_loci; k++)
       {
-	/* FIXME: temporary debugging */
-	printf("dij[%d, %d, %d]=%g, mle[%d]=%g\n", coeff_count, hl[i][j], hl[i][k], dij[coeff_count][ hl[i][j] ][ hl[i][k] ], i, mle[i]);
-
         dij[coeff_count][ hl[i][j] ][ hl[i][k] ] = 
           dij[coeff_count][ hl[i][j] ][ hl[i][k] ] + mle[i];
         coeff_count += 1;
       }
     }
   }
-  printf("***\n"); 	/* FIXME: temporary debugging */
 
   coeff_count = 0;
   for (j = 0; j < n_loci; j++)

@@ -502,9 +502,6 @@ class Emhaplofreq(Haplo):
                     xml_tmp_filename=os.path.join(tmp, 'emhaplofreq.out.xml')
 
                     # pass this submatrix to the SWIG-ed C function
-                    print("in Python: GENOTYPE_SEPARATOR:", GENOTYPE_SEPARATOR)
-                    print("in Python: GENOTYPE_TERMINATOR:", GENOTYPE_TERMINATOR)
-                    
                     self._Emhaplofreq.main_proc(xml_tmp_filename, subMatrix, lociCount, groupNumIndiv, permutationFlag, haploSuppressFlag, numInitCond, numPermutations, numPermuInitCond, permutationPrintFlag, testing, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR)
 
                     # read the generated contents of the temporary XML file
