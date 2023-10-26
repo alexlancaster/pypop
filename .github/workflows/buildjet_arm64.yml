@@ -5,8 +5,8 @@ on:
 
 jobs:
   build_wheels:
-    name: Build wheels on buildjet-2vcpu-ubuntu-2204
-    runs-on: buildjet-2vcpu-ubuntu-2204
+    name: Build wheels on buildjet-2vcpu-ubuntu-2204-arm
+    runs-on: buildjet-2vcpu-ubuntu-2204-arm
     steps:
       - uses: actions/checkout@v4
         with:
