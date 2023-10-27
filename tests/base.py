@@ -183,7 +183,8 @@ def in_temp_dir(request):
     )
     os.chdir(test_dir) # change current directory to temp
     print("curr_dir:", Path(curr_dir).resolve())
-    print("test_dir:", Path(test_dir).resolve())
+    print("test_dir1:", Path(test_dir))
+    print("test_dir2:", Path(test_dir).resolve())
     
     try:
         yield
