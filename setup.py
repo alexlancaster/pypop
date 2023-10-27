@@ -226,7 +226,11 @@ setup (name = __pkgname__,
        package_dir = {"": src_dir},
        packages = ["PyPop", "PyPop.xslt"],
        package_data={"PyPop.xslt": data_file_paths},
+<<<<<<< HEAD
        install_requires = ["numpy <= 1.26.1", "lxml <= 4.9.3", "scipy <= 1.11.3",
+=======
+       install_requires = ["numpy <= 1.26.1", "lxml <= 4.9.3", "scipy <= 1.11.3", 
+>>>>>>> refs/remotes/origin/replace_pval_extension_with_scipyl
                            "importlib-resources; python_version <= '3.8'", "importlib-metadata; python_version <= '3.8'"],
        extras_require={
            "test": ['pytest']
