@@ -10,18 +10,18 @@ PyPop: Python for Population Genomics
     <https://github.com/alexlancaster/pypop#readme>`__ for how to
     install one of the 1.0.0 pre-releases from PyPI (or build PyPop
     from source on a modern Python 3 system).  A formal 1.0.0 release
-    will be made soon. (**Note: support for arm64 architecture such as
-    used by MacOS M1 machines is in a very early alpha stage.  If you
-    install PyPop on M1 machines, please do not use for production
-    analyses .** )
+    will be made soon.
 
 .. _news:
 
 .. admonition:: Release summary and news
   :class: dropdown, toggle-shown
 
-  - 2023-10-13: fourth beta pre-release 1.0.0b4, available on `PyPI
-    <https://pypi.org/project/pypop-genomics/>`__. Although this
+  - 2023-10-27: seventh beta pre-release 1.0.0b7, available on `PyPI
+    <https://pypi.org/project/pypop-genomics/>`__. Previous ``arm64``
+    issues have been resolved. Thanks to Owen Solberg for extensive
+    testing and debugging.
+  - 2023-10-13: fourth beta pre-release 1.0.0b4, . Although this
     release contains packages that will install on ``arm64``/M1
     machines, these ``arm64`` packages should be considered as
     **alpha**-only and are strictly for testing only. Please do not

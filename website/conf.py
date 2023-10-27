@@ -128,7 +128,7 @@ html_short_title = "PyPop"
 #
 html_theme_options = { # these are both piccolo theme-specific
     "source_url": 'https://github.com/alexlancaster/pypop/',
-    "banner_text": 'PyPop 1.0.0 is now in beta testing! Pre-releases are available on PyPI as package <code>pypop-genomics</code>. See <a href="https://github.com/alexlancaster/pypop#readme">README</a> for more detailed instructions.<br/> <b>Support for arm64 architecture such as  used by MacOS M1 machines is in a very early alpha stage. If you install PyPop on M1 machines, please do not use for production analyses</b>'
+    "banner_text": 'PyPop 1.0.0 is now in beta testing! Pre-releases are available on PyPI as package <code>pypop-genomics</code>. See <a href="https://github.com/alexlancaster/pypop#readme">README</a> for more detailed instructions.<br/>'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
