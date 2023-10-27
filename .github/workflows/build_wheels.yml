@@ -171,8 +171,10 @@ jobs:
           config-file: "{package}/pyproject.toml"
       - name: Store unit tests output
         run: |
+          pwd
+          ls
           tar zcvf unit_tests_output.tar.gz run_test_*
-          cp unit_tests_output.tar.gz ./wheelhouse/
+          cp unit_tests_output.tar.gz wheelhouse
       - uses: actions/upload-artifact@v3
         with:
           path: ./wheelhouse/*.whl
