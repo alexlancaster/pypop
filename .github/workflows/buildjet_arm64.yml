@@ -1,0 +1,28 @@
+name: Build ARM64 PyPop
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_wheels:
+    name: Build wheels on buildjet-2vcpu-ubuntu-2204-arm
+    runs-on: buildjet-2vcpu-ubuntu-2204-arm
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: buildjet/setup-python@v4
+      - name: Build wheel
+        run: |
+          apt install swig libgsl-dev
+          python -m pip install --upgrade pip
+          python -m pip install build pytest
+          python -m build
+      - name: Test with pytest
+        run: |
+          pip install dist/pypop_genomics*.whl
+          pytest -s -v tests
+      - uses: actions/upload-artifact@v3
+        with:
+          path: dist/*
+

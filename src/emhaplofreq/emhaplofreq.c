@@ -332,7 +332,7 @@ int main_proc(
 	      char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, 
 	      int n_recs, int permu_flag, int suppress_haplo_print_flag, 
 	      int max_init_cond, int max_permu, int max_init_for_permu, 
-	      int permu_print, int testing, char GENOTYPE_SEPARATOR[1], char GENOTYPE_TERMINATOR[1])
+	      int permu_print, int testing, char GENOTYPE_SEPARATOR[], char GENOTYPE_TERMINATOR[])
 {
 
   
@@ -587,7 +587,7 @@ int main_proc(
 	unique_pheno_flag = TRUE;
 	for (i = 0; i <= unique_pheno_count; i++)  /* RS changed from < to <= */
 	  {
-	    if (!strcmp(temp_pheno, pheno[i]))
+	    if (strcmp(temp_pheno, pheno[i]) == 0)
 	      {
 		unique_pheno_flag = FALSE;
 		obspheno[i] += 1;
@@ -670,10 +670,10 @@ int main_proc(
 
 		for (j = 0; j <= unique_geno_count; j++)  /* RS changed from < to <= */
 		  {
-		    if (((!strcmp(temp_geno[i][0], geno[j][0])) &&
-			 (!strcmp(temp_geno[i][1], geno[j][1]))) ||
-			((!strcmp(temp_geno[i][0], geno[j][1])) &&
-			 (!strcmp(temp_geno[i][1], geno[j][0]))))
+		    if (((strcmp(temp_geno[i][0], geno[j][0]) == 0) &&
+			 (strcmp(temp_geno[i][1], geno[j][1]) == 0)) ||
+			((strcmp(temp_geno[i][0], geno[j][1]) == 0) &&
+			 (strcmp(temp_geno[i][1], geno[j][0]) == 0)))
 		      {
 			unique_geno_flag = FALSE;
 		        gp[i][unique_pheno_count] = j;
@@ -1221,7 +1221,7 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
   {
     for (m = 0; m < n_unique_allele[l]; m++) 
     {
-      if (!strcmp(temp_array[l], unique_allele[l][m])) 
+      if (strcmp(temp_array[l], unique_allele[l][m]) == 0)
         haplocus[0][l] = m;
     }
   }
@@ -1233,7 +1233,7 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
       unique_haplo_flag = TRUE;
       for (k = 0; k <= unique_haplo_count && unique_haplo_flag == TRUE; k++)
       {
-        if (!strcmp(geno_ar[i][j], haplo_ar[k]))
+        if (strcmp(geno_ar[i][j], haplo_ar[k]) == 0)
         {  
           unique_haplo_flag = FALSE;
           xgeno[i][j] = k;
@@ -1280,7 +1280,7 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
         {
           for (m = 0; m < n_unique_allele[l]; m++) 
           {
-            if (!strcmp(temp_array[l], unique_allele[l][m])) 
+            if (strcmp(temp_array[l], unique_allele[l][m]) == 0)
               haplocus[unique_haplo_count][l] = m;
           }
         }
@@ -1333,7 +1333,7 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
       unique_allele_flag = TRUE;
       for (j = 0; j <= unique_allele_count; j++)
       {
-        if (!strcmp(data_ar[i][col_0], unique_allele[locus][j]))
+        if (strcmp(data_ar[i][col_0], unique_allele[locus][j]) == 0)
         {
           unique_allele_flag = FALSE;
           allele_freq[locus][j] += 1;
@@ -1351,7 +1351,7 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
       unique_allele_flag = TRUE;
       for (j = 0; j <= unique_allele_count; j++)
       {
-        if (!strcmp(data_ar[i][col_1], unique_allele[locus][j]))
+        if (strcmp(data_ar[i][col_1], unique_allele[locus][j]) == 0)
         {
           unique_allele_flag = FALSE;
           allele_freq[locus][j] += 1;
@@ -1537,9 +1537,13 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
   }
 
   /* free calloc'ed space */
+  free(homz_f);
+  free(summary_d);
   free(summary_dprime);
   free(summary_q);
   free(summary_wn);
+  free(summary_wab);
+  free(summary_wba);
 }
 
 /************************************************************************/
