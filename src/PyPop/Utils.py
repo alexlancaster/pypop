@@ -55,11 +55,11 @@ class TextOutputStream:
     def write(self, str):
         self.f.write(str)
 
-    def writeln(self, str=os.linesep):
-        if str == os.linesep:
-            self.f.write(os.linesep)
+    def writeln(self, str='\n'):
+        if str == '\n':
+            self.f.write('\n')
         else:
-            self.f.write(str + os.linesep)
+            self.f.write(str + '\n')
             
     def close(self):
         self.f.close()
@@ -439,14 +439,14 @@ class StringMatrix(container):
       for elem in locusList.split(':'):
           stream.write(elem + '_1' + self.colSep)
           stream.write(elem + '_2' + self.colSep,)
-      stream.write(os.linesep)
+      stream.write('\n')
 
       # finally the matrix itself
       for row in self.__getitem__(self.extraList.join(':')+ ':' + \
                                   locusList):
           for elem in row:
               stream.write(elem + self.colSep)
-          stream.write(os.linesep)
+          stream.write('\n')
 
   def copy(self):
       """Make a (deep) copy of the StringMatrix

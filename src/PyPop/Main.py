@@ -523,7 +523,7 @@ class Main:
                 customBinningDict = {}
                 try:
                     for option in self.config.options(filterCall):
-                        customBinningDict[option] = (self.config.get(filterCall, option)).split(os.linesep)
+                        customBinningDict[option] = (self.config.get(filterCall, option)).split()
                     if self.debug:
                         print(customBinningDict)
                 except:
