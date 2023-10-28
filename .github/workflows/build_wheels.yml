@@ -94,8 +94,8 @@ jobs:
           # FIXME: use main one until sandbox is working
           # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
           ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
-        uses: zenodraft/action@0.10.0
-        #uses: alexlancaster/zenodraft-action@0.10.1
+        #uses: zenodraft/action@0.10.0
+        uses: alexlancaster/zenodraft-action@0.10.1
         with:
           # collection: 10012036
           metadata: .zenodo.json
