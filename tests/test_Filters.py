@@ -25,7 +25,6 @@ def test_Filters_CustomBinning_USAFEL():
 
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
-@xfail_windows
 def test_Filters_CustomBinning_HLANomen2010():
     exit_code = run_pypop_process('./tests/data/HLANomen2010_hap.ini', './tests/data/HLANomen2010_Filter-test.pop')
     # check exit code
