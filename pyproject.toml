@@ -2,7 +2,8 @@
 build = ["cp310-win_amd64"]
 #skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*", "pp37-macosx_*", "pp310-win_*", "pp310-macosx_*", "pp310-*linux*"]  # skip certain builds, including 32-bit, musllinux and others 
 test-extras = ["test"]
-test-command = "pytest -s -v {package}/tests"
+test-command = "pytest -s -v {package}/tests && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz wheelhouse"
+
 # Skip trying to test arm64 builds on Intel Macs as per
 # https://cibuildwheel.readthedocs.io/en/stable/faq/#apple-silicon
 test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
