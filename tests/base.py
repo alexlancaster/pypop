@@ -182,7 +182,6 @@ def in_temp_dir(request):
         suffix = ''
     )
     os.chdir(test_dir) # change current directory to temp
-    
     try:
         yield
     finally:
