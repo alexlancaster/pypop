@@ -450,7 +450,7 @@ class AnthonyNolanFilter(Filter):
         self.logFile.closetag('translateTable')
         self.logFile.writeln()
 
-    def writeToLog(self, logstring=os.linesep):
+    def writeToLog(self, logstring='\n'):
         self.logFile.writeln(logstring)
 
     def cleanup(self):
