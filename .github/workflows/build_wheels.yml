@@ -177,7 +177,7 @@ jobs:
       #     cp unit_tests_output.tar.gz wheelhouse
       - uses: actions/upload-artifact@v3
         with:
-          path: ./wheelhouse/*.whl
+          path: ./wheelhouse/*
 
   build_sdist:
     name: Build source distribution
