@@ -18,7 +18,7 @@ def test_Filters_DigitBinning_USAFEL():
 # FIXME: for some reason CustomBinning filters don't work on Windows, XFAIL test for the moment on Windows
 @xfail_windows
 def test_Filters_CustomBinning_USAFEL():
-    exit_code = run_pypop_process('./tests/data/Filters_CustomBinning_USAFEL.ini', './tests/data/USAFEL-UchiTelle-small.pop')
+    exit_code = run_pypop_process('./tests/data/Filters_CustomBinning_USAFEL.ini', './tests/data/USAFEL-UchiTelle-small.pop', args=['-d'])
     # check exit code
     assert exit_code == 0
 
