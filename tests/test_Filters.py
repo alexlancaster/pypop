@@ -25,10 +25,8 @@ def test_Filters_CustomBinning_USAFEL():
 
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
-# FIXME: some numerical issues with HLA nomenclature test on Windows, XFAIL test for the moment on Windows
-@xfail_windows
 def test_Filters_CustomBinning_HLANomen2010():
-    exit_code = run_pypop_process('./tests/data/HLANomen2010_hap.ini', './tests/data/HLANomen2010_Filter-test.pop', args=['-d'])
+    exit_code = run_pypop_process('./tests/data/HLANomen2010_hap.ini', './tests/data/HLANomen2010_Filter-test.pop')
     # check exit code
     assert exit_code == 0
 
