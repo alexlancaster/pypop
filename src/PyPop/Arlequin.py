@@ -151,8 +151,8 @@ class ArlequinWrapper:
             # sampleId 1 allele1-locus1 allele1-locus2
             #            allele2-locus1 allele2-locus2
 
-            self.arpFile.write("%10d 1 %s" % (sampleNum, even) + os.linesep)
-            self.arpFile.write("%13s%s" % (" ", odd) + os.linesep)
+            self.arpFile.write("%10d 1 %s" % (sampleNum, even) + '\n')
+            self.arpFile.write("%13s%s" % (" ", odd) + '\n')
             sampleNum += 1
 
         self.arpFile.write("}")
@@ -528,8 +528,8 @@ class ArlequinBatch:
                 else: unphase2 = unphase2 + " " + allele
             else:
                 # store formatted output samples
-                samples.append(unphase1 + os.linesep)
-                samples.append(unphase2 + os.linesep)
+                samples.append(unphase1 + '\n')
+                samples.append(unphase2 + '\n')
 
         # adjust the output count of samples for the `SamplesSize'
         # metadata field
@@ -541,7 +541,7 @@ class ArlequinBatch:
             SampleSize= %s
             SampleData={"""  % (self.arlResPrefix, len(samples)/2, str(slice), len(samples)/2))
 
-            sampleLines.append(os.linesep)
+            sampleLines.append('\n')
 
             # output previously-stored samples to stream only after
             # calculation of number of samples is made

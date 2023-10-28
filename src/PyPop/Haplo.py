@@ -439,7 +439,7 @@ class Emhaplofreq(Haplo):
                             print(theline[allele], " "),
                         print()
                     
-                fp.write(os.linesep)
+                fp.write('\n')
 
                 if self.sequenceData:
                     metaLoci = group.split(':')[0].split('_')[0]
@@ -466,36 +466,36 @@ class Emhaplofreq(Haplo):
                             print("WARNING: '%s' (%d) exceeds max allele length (%d) for LD and haplo est in %s" % (allele, len(allele), self._Emhaplofreq.NAME_LEN-2, lociAttr))
 
                 if groupNumIndiv > self._Emhaplofreq.MAX_ROWS:
-                    fp.write("<group %s role=\"too-many-lines\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
+                    fp.write("<group %s role=\"too-many-lines\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, '\n'))
                     continue
                 # if nothing left after filtering, simply continue
                 elif groupNumIndiv == 0:
-                    fp.write("<group %s role=\"no-data\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
+                    fp.write("<group %s role=\"no-data\" %s %s/>%s" % (modeAttr, lociAttr, haploAttr, '\n'))
                     continue
                 elif maxAlleleLength > (self._Emhaplofreq.NAME_LEN-2):
-                    fp.write("<group %s role=\"max-allele-length-exceeded\" %s %s>%d</group>%s" % (modeAttr, lociAttr, haploAttr, self._Emhaplofreq.NAME_LEN-2, os.linesep))
+                    fp.write("<group %s role=\"max-allele-length-exceeded\" %s %s>%d</group>%s" % (modeAttr, lociAttr, haploAttr, self._Emhaplofreq.NAME_LEN-2, '\n'))
                     continue
                 
                 if mode:
-                    fp.write("<group %s %s %s>%s" % (modeAttr, lociAttr, haploAttr, os.linesep))
+                    fp.write("<group %s %s %s>%s" % (modeAttr, lociAttr, haploAttr, '\n'))
                 else:
                     sys.exit("A 'mode' for emhaplofreq must be specified")
                 
 ##                 if permutationFlag and haploSuppressFlag:
-##                     fp.write("<group mode=\"LD\" loci=\"%s\">%s" % (group, os.linesep))
+##                     fp.write("<group mode=\"LD\" loci=\"%s\">%s" % (group, '\n'))
 ##                 elif permutationFlag == 0 and haploSuppressFlag == 0:
-##                     fp.write("<group mode=\"haplo\" loci=\"%s\">%s" % (group, os.linesep))
+##                     fp.write("<group mode=\"haplo\" loci=\"%s\">%s" % (group, '\n'))
 ##                 elif permutationFlag and haploSuppressFlag == 0:
-##                     fp.write("<group mode=\"haplo-LD\" loci=\"%s\">%s" % (group, os.linesep))
+##                     fp.write("<group mode=\"haplo-LD\" loci=\"%s\">%s" % (group, '\n'))
 ##                 else:
 ##                     sys.exit("Unknown combination of permutationFlag and haploSuppressFlag")
-                fp.write(os.linesep)
+                fp.write('\n')
 
                 fp.write("<individcount role=\"before-filtering\">%d</individcount>" % self.totalNumIndiv)
-                fp.write(os.linesep)
+                fp.write('\n')
                 
                 fp.write("<individcount role=\"after-filtering\">%d</individcount>" % groupNumIndiv)
-                fp.write(os.linesep)
+                fp.write('\n')
 
                 with TemporaryDirectory() as tmp:
                     # generates temporary directory and filename, and cleans-up after block ends
@@ -519,7 +519,7 @@ class Emhaplofreq(Haplo):
 
             else:
                 fp.write("Couldn't estimate haplotypes for %s, num loci: %d exceeded max loci: %d" % (group, lociCount, self._Emhaplofreq.MAX_LOCI))
-                fp.write(os.linesep)
+                fp.write('\n')
 
         # writing to file must be called *after* all output has been
         # collected in the StringIO instance "fp"

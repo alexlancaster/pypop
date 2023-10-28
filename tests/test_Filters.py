@@ -15,8 +15,6 @@ def test_Filters_DigitBinning_USAFEL():
 
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
-# FIXME: for some reason CustomBinning filters don't work on Windows, XFAIL test for the moment on Windows
-@xfail_windows
 def test_Filters_CustomBinning_USAFEL():
     exit_code = run_pypop_process('./tests/data/Filters_CustomBinning_USAFEL.ini', './tests/data/USAFEL-UchiTelle-small.pop')
     # check exit code
@@ -26,8 +24,7 @@ def test_Filters_CustomBinning_USAFEL():
     gold_out_filename = abspath_test_data(os.path.join(DEFAULT_GOLD_OUTPUT_DIR, out_filename))
 
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
-    
-@xfail_windows
+
 def test_Filters_CustomBinning_HLANomen2010():
     exit_code = run_pypop_process('./tests/data/HLANomen2010_hap.ini', './tests/data/HLANomen2010_Filter-test.pop')
     # check exit code

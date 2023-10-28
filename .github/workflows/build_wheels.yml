@@ -172,6 +172,7 @@ jobs:
       - uses: actions/upload-artifact@v3
         with:
           path: ./wheelhouse/*.whl
+          # path: ./wheelhouse/*  use if more than wheels are wanted
 
   build_sdist:
     name: Build source distribution
