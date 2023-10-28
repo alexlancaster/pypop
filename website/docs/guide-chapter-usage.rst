@@ -648,7 +648,7 @@ is contained in :ref:`config-advanced`.
 -  ``[Emhaplofreq]``
 
    The presence of this section enables haplotype estimation and
-   calculation of linkage disequilibrium (LD) measures. *It's important that
+   calculation of linkage disequilibrium (LD) measures. *It's important to know that
    PyPop will treat the data as if it is completely* **unphased** *when estimating
    haplotype frequencies and LD measures, even if the phase was known at the
    point of collection, and they were entered in the phased order.*
