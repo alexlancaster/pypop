@@ -33,33 +33,42 @@ body:
       placeholder: |
         I expected value `foo` to be `bar`
     validations:
-      required: true    
+      required: true
   - type: textarea
     id: version
     attributes:
       label: Version
       description: What version and platform are you running on? Please use `pypop --version` to report this and copy the first two lines and include below, which should include all relevant information. If you can't run this command, please provide the information manually.
-      placeholder:
-      value: |
+      placeholder: |
         pypop.py --version
         PyPop: Python for Population Genomics (1.0.0)
         [Python 3.10.9 | Linux-5.14.18-100.fc38.x86_64-x86_64-with-glibc2.32 | x86_64]
+    validations:
+      required: true
+  - type: dropdown
+    id: download
+    attributes:
+      label: How did you download the software?
+      options:
+        - Install via `pip install pypop-genomics`
+        - Installed a pre-built wheel manually
+        - Built from source
+      default: 0
     validations:
       required: true
   - type: textarea
     id: additional-info
     attributes:
       label: Additional context
-      placeholder:
-      value: |
+      placeholder: |
         Add any other context about the problem here.
   - type: checkboxes
     id: terms
     attributes:
-      label: Data agreement
-      description: Please make sure you include files relevant to the bug report and you have permission to do so.
+      label: Data upload
+      description: Please make sure you include files or data relevant to the bug report and you have permission to do so.
       options:
-        - label: If error happened at run-time, I have included `.ini` and `.pop` file sufficient to reproduce the bug
-          required: true      
+        - label: If error happened at run-time, I have included `.ini` and `.pop` files sufficient to reproduce the bug.
+          required: true
         - label: I agree that any information submitted in this issue, does not contain sensitive data such as passwords, and I have permission to upload data.
           required: true
