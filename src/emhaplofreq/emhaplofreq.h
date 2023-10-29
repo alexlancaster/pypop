@@ -69,12 +69,8 @@ MODIFICATIONS. */
 #define xmlfprintf fprintf
 #endif
 
-/* need to redefine in terms of srand/rand on Windows */
+/* include re-implemented drand48() on Windows */
 #if defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__WIN64__)
-#include "drand48.c"
-#define srand48(x) srand48_windows(x)
-#define drand48(x) drand48_windows(x)
-#else
 #include "drand48.c"
 #define srand48(x) srand48_windows(x)
 #define drand48(x) drand48_windows(x)

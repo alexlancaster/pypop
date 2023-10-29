@@ -1,8 +1,8 @@
 [tool.cibuildwheel]
-build = ["cp311-win_*"]
+build = ["*-win_*"]
 #skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*", "pp37-macosx_*", "pp310-win_*", "pp310-macosx_*", "pp310-*linux*"]  # skip certain builds, including 32-bit, musllinux and others 
 test-extras = ["test"]
-test-command = "pytest -s -v {package}/tests"
+test-command = "pytest -v {package}/tests"
 # FIXME: add below test-command unit tests need to be saved
 # "&& echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
 
