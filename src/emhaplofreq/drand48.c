@@ -61,7 +61,6 @@ double drand48_windows(){
 }
 
 void srand48_windows(long seed){
-  printf("\n srand48_windows(): seed=%ld!\n", seed);
   _rand48_seed[0] = RAND48_SEED_0;
   _rand48_seed[1] = (unsigned short)seed;
   _rand48_seed[2] = (unsigned short)(seed >> 16);
