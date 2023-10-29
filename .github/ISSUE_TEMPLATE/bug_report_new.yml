@@ -1,0 +1,55 @@
+name: Bug Report (new style)
+description: File a bug report
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report!
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      placeholder: 
+      value: "Can't do X"
+    validations:
+      required: true
+  - type: textarea
+    id: to-reproduce
+    attributes:
+      label: To Reproduce
+      description: List the steps to reproduce the behavior.
+      placeholder: 
+      value: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+  - type: text
+    id: version
+    attributes:
+      label: Version
+      description: What version of our software are you running? Use pypop --version
+      placeholder:
+      value: |
+        pypop.py --version
+        PyPop: Python for Population Genomics (1.0.0)
+        [Python 3.10.9 | Linux-5.14.18-100.fc38.x86_64-x86_64-with-glibc2.32 | x86_64]
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
+      render: shell
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Sensitive data
+      description: By submitting this issue, you agree that it does not contain sensitive information, and you have permission to share
+      options:
+        - label: I agree that any information submitted in this issue, does not contain sensitive data such as passwords
+          required: true
