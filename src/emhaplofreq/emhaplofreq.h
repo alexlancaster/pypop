@@ -69,12 +69,12 @@ MODIFICATIONS. */
 #define xmlfprintf fprintf
 #endif
 
-/* need to redefine in terms of srand/rand on Windows */
+/* include re-implemented drand48() on Windows */
 #if defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__WIN64__)
-#define drand48(x) rand(x)/(RAND_MAX + 1.0)
-#define srand48(x) srand(x)
+#include "drand48.c"
+#define drand48(x) drand48_windows(x)
+#define srand48(x) srand48_windows(x)
 #endif
-
 
 /* 
  * macros to initialize elements of a given static array to `zero'

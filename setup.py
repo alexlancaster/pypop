@@ -87,7 +87,8 @@ swig_opts = ["-I%s" % os.path.join(src_dir, "SWIG"), "-I%s" % os.path.join(src_d
 # define each extension
 ext_Emhaplofreq = Extension("PyPop._Emhaplofreq",
                             path_to_src(["emhaplofreq/emhaplofreq_wrap.i",
-                             "emhaplofreq/emhaplofreq.c"]),
+                                         "emhaplofreq/emhaplofreq.c"
+                                         ]),
                             swig_opts = swig_opts,
                             include_dirs=include_dirs + path_to_src(["emhaplofreq"]),
                             define_macros=[('__SWIG__', '1'),
@@ -175,7 +176,7 @@ ext_HweEnum = Extension("PyPop._HweEnum",
                                        ('HAVE_LIBGSL', '1')]
                         )
 
-ext_Emhaplofreq.depends=path_to_src(["SWIG/typemap.i", "emhaplofreq/emhaplofreq.h"])
+ext_Emhaplofreq.depends=path_to_src(["SWIG/typemap.i", "emhaplofreq/emhaplofreq.h", "emhaplofreq/drand48.c"])
 ext_Gthwe.depends=path_to_src(["SWIG/typemap.i", "gthwe/func.h", "gthwe/hwe.h"])
 ext_Haplostats.depends=path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pin.h", "haplo-stats/Rconfig.h", "haplo-stats/Rmath.h", "haplo-stats/nmath.h"])
     
