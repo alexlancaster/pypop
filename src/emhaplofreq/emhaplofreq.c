@@ -797,7 +797,7 @@ int main_proc(
 	freq_sum = 0;
 	for (i = 0; i < n_haplo; i++)
 	  { 
-	    freq_zero[i] = drand48();
+	    freq_zero[i] = drand48(); 
 	    freq_sum += freq_zero[i];
 	  }
 	for (i = 0; i < n_haplo; i++)
