@@ -2,7 +2,7 @@
 build = ["cp311-win_*"]
 #skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*", "pp37-macosx_*", "pp310-win_*", "pp310-macosx_*", "pp310-*linux*"]  # skip certain builds, including 32-bit, musllinux and others 
 test-extras = ["test"]
-test-command = "pytest -s -v -k test_USAFEL_slatkin_guothompson_emhaplofreq {package}/tests/test_USAFEL.py"
+test-command = "pytest -s -v {package}/tests"
 # FIXME: add below test-command unit tests need to be saved
 # "&& echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
 
