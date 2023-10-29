@@ -51,7 +51,7 @@ body:
       description: A clear and concise description of what the problem with the documentation, or suggested change.  Be specific as possible. If you have suggested wording changes, provide them here. If you are able to file a pull-request that fixes the issue, please mention that you will do so here.
       placeholder: |
         on the section about LD, I think this value is wrong, it should be...
-    validates:
+    validations:
       required: true
   - type: textarea
     id: additional-info
