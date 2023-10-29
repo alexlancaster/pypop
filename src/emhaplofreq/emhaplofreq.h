@@ -71,8 +71,13 @@ MODIFICATIONS. */
 
 /* need to redefine in terms of srand/rand on Windows */
 #if defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__WIN64__)
-#define drand48(x) rand(x)*(1./(RAND_MAX))
-#define srand48(x) srand(x)
+#include "drand48.c"
+#define srand48(x) srand48_windows(x)
+#define drand48(x) drand48_windows(x)
+#else
+#include "drand48.c"
+#define srand48(x) srand48_windows(x)
+#define drand48(x) drand48_windows(x)
 #endif
 
 /* 
