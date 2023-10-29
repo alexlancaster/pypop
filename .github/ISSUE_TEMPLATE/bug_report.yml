@@ -1,4 +1,4 @@
-name: Bug Report (new style)
+name: Bug Report
 description: File a bug report
 title: "[Bug]: Please replace this with a clear and concise description of your bug"
 labels: ["bug"]
