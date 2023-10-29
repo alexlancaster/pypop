@@ -33,6 +33,8 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
+import platform
+
 __pkgname__ = 'pypop-genomics'
 __version_scheme__ = 'post-release'
 
@@ -51,6 +53,8 @@ copyright_message = """Copyright (C) 2003-2006 Regents of the University of Cali
 Copyright (C) 2007-2023 PyPop team.
 This is free software.  There is NO warranty; not even for
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
+
+platform_info="[Python {python_version}|{system}|{arch}]".format(python_version=platform.python_version(), system=platform.system(), arch=platform.processor())
 
 import locale
 import logging

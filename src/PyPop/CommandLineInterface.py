@@ -36,6 +36,7 @@
 import os, sys
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter, FileType
 from pathlib import Path
+from PyPop import platform_info  # global info
 
 """Command-line interface for PyPop scripts
 """
@@ -44,17 +45,21 @@ from pathlib import Path
 class PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter):
     pass
 
+
 def get_parent_cli(version="", copyright_message=""):
     # options common to both scripts
     parent_parser = ArgumentParser(add_help=False)
 
+    
     # define function arguments as signatures - need to be added in child parser as part of the selection logic
     common_args = [
         (["-h", "--help"], {'action': "help", 'help': "show this help message and exit"}),
         (["-o", "--outputdir"], {'help':"put output in directory OUTPUTDIR",
                                  'required':False, 'type':Path, 'default':None}),
         (["-V", "--version"], {'action':'version',
-                               'version':"%(prog)s {version}\n{copyright}".format(version=version, copyright=copyright_message)})
+                               'version':"%(prog)s {version}\n{platform_info}\n{copyright}".format(version=version,
+                                                                                                   platform_info=platform_info,
+                                                                                                   copyright=copyright_message)})
     ]
     ihwg_args = ("--enable-ihwg", {'help':"enable 13th IWHG workshop populationdata default headers",
                                    'action':'store_true', 'required':False, 'default':False})
