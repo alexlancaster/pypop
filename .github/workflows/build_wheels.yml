@@ -10,6 +10,8 @@ on:
       - '.zenodo.json'
       - 'website/**'
       - '.github/workflows/documentation.yaml'
+      - '.github/dependabot.yml'
+      - '.github/ISSUE_TEMPLATE/**'
       - '.gitattributes'
   push:
     paths-ignore:
@@ -18,6 +20,8 @@ on:
       - 'CITATION.cff'
       - '.zenodo.json'
       - 'website/**'
+      - '.github/dependabot.yml'
+      - '.github/ISSUE_TEMPLATE/**'
       - '.github/workflows/documentation.yaml'
       - '.gitattributes'
   release:
