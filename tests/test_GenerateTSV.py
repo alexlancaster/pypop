@@ -8,8 +8,6 @@ checked_filenames_common = ['1-locus-allele.tsv', '1-locus-summary.tsv']
 generated_filenames_common = ['BIGDAWG_SynthControl_Data-out.txt', 'BIGDAWG_SynthControl_Data-out.xml', 'meta.xml']
 args_common = ['--enable-tsv', '--enable-ihwg']
 
-# FIXME: not quite sure why 2 locus fails on Windows, but 3, 4 locus pass
-@xfail_windows
 def test_GenerateTSV_2_locus():
     exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_EM_2_locus.ini', './tests/data/BIGDAWG_SynthControl_Data.pop', args=args_common)
     # check exit code
@@ -64,8 +62,6 @@ def test_GenerateTSV_3_and_4_locus():
     # make sure only expected generated files exist
     assert set(os.listdir()) ==  set(checked_filenames + generated_filenames_common)
     
-# FIXME: not quite sure why 5 locus also fails on Windows (slightly different numbers)
-@xfail_windows
 def test_GenerateTSV_5_locus():
     exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_EM_5_locus.ini', './tests/data/BIGDAWG_SynthControl_Data.pop', args=args_common)
     # check exit code
