@@ -1,46 +1,66 @@
 name: Bug Report (new style)
 description: File a bug report
-title: "[Bug]: Please replace this with a clear and concise description of the bug"
+title: "[Bug]: Please replace this with a clear and concise description of your bug"
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report! 
-        Please visit our [contributors guide](https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst#did-you-find-a-bug)
-        for how to file a useful bug report that is likely to be acted on.    
+        Thanks for taking the time to fill out this bug report!  Please visit our [contributors guide](https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst#did-you-find-a-bug) for how to file a useful bug report that is likely to be acted on.
   - type: textarea
     id: to-reproduce
     attributes:
       label: To reproduce the issue
-      description: List the steps to reproduce the behavior.
-      placeholder: 
-      value: |
-        1. Go to '...'
-        2. Click on '....'
-        3. Scroll down to '....'
-        4. See error
+      description: List the steps to reproduce the behavior, including the full command-line. If your problem happens at run-time, please attach an include an `.ini` and `.pop` file that reproduces the problem. If it is not possible to include the full data set, please include a minimal `.ini` and `.pop` that is sufficient to reproduce the bug  
+      placeholder:  |
+        1. pip install pypop-genomics
+        2. Download files `X.ini` and `Y.pop`
+        3. pypop -c X.ini Y.pop
+        4. See error in log below
     validations:
       required: true
-  - type: textarea
-    id: version
-    attributes:
-      label: Version
-      description: What version of our software are you running? Please use `pypop --version` to report this
-      placeholder: Foo
-      value: |
-        pypop.py --version
-        PyPop: Python for Population Genomics (1.0.0)
-        [Python 3.10.9 | Linux-5.14.18-100.fc38.x86_64-x86_64-with-glibc2.32 | x86_64]
   - type: textarea
     id: logs
     attributes:
       label: Relevant log output
       description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render: shell
+ - type: textarea
+    id: expected-behavior
+    attributes:
+      label: Expected behavior
+      description:  A clear and concise description of what you expected to happen.
+      placeholder: |
+        I expected value `foo` to be `bar`
+    validations:
+      required: true    
+  - type: textarea
+    id: version
+    attributes:
+      label: Version
+      description: What version and platform are you running on? Please use `pypop --version` to report this and copy the first two lines and include below, which should include all relevant information. If you can't run this command, please provide the information manually.
+      placeholder:
+      value: |
+        pypop.py --version
+        PyPop: Python for Population Genomics (1.0.0)
+        [Python 3.10.9 | Linux-5.14.18-100.fc38.x86_64-x86_64-with-glibc2.32 | x86_64]
+    validations:
+      required: true
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional context
+      placeholder:
+      value: |
+        Add any other context about the problem here.
   - type: checkboxes
     id: terms
     attributes:
+      label: Input files
+      description: Include input files
+      options:
+        - label: If error happened at run-time, I have included `.ini` and `.pop` file sufficient to reproduce the bug
+          required: true
       label: Sensitive data
       description: By submitting this issue, you agree that it does not contain sensitive information, and you have permission to share
       options:
