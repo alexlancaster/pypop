@@ -35,7 +35,7 @@ blank issue and describe your situation.  Here is a checklist:
 * **Use templates**. If possible, use the relevant bug report
   templates to create the issue.  For a standard bug report (including
   installation issues), please use this: `bug report template
-  <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.md>`__,
+  <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml>`__,
   for feature requests or documentation issues, see below.
 
 * **Provide full commands and errors as plaintext, not screenshots**.
@@ -113,7 +113,7 @@ Documentation improvements
 **pypop** could always use more documentation, whether as part of the
 official docs, in docstrings, or even on the web in blog posts,
 articles, and such. Write us a `documentation issue
-<https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=documentation&projects=&template=documentation.md>`_
+<https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=documentation&projects=&template=documentation.yml>`_
 describing what you would like to see improved in here.
 
 If you are able to contribute directly (e.g., via a pull request), please read
@@ -124,7 +124,7 @@ Feature requests and feedback
 
 The best way to send feedback is to file an issue using the `feature
 template
-<https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.md>`_.
+<https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=enhancement&projects=&template=feature_request.yml>`_.
 
 If you are proposing a feature:
 
