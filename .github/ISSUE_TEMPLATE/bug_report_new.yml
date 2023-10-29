@@ -1,25 +1,18 @@
 name: Bug Report (new style)
 description: File a bug report
-title: "[Bug]: "
+title: "[Bug]: Please replace this with a clear and concise description of the bug"
 labels: ["bug"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this bug report!
-  - type: input
-    id: what-happened
-    attributes:
-      label: Describe the bug
-      description: A clear and concise description of what the bug is.
-      placeholder: 
-      value: "Can't do X"
-    validations:
-      required: true
+        Thanks for taking the time to fill out this bug report! 
+        Please visit our [contributors guide](https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst#did-you-find-a-bug)
+        for how to file a useful bug report that is likely to be acted on.    
   - type: textarea
     id: to-reproduce
     attributes:
-      label: To Reproduce
+      label: To reproduce the issue
       description: List the steps to reproduce the behavior.
       placeholder: 
       value: |
@@ -29,12 +22,12 @@ body:
         4. See error
     validations:
       required: true
-  - type: input
+  - type: textarea
     id: version
     attributes:
       label: Version
-      description: What version of our software are you running? Use pypop --version
-      placeholder:
+      description: What version of our software are you running? Please use `pypop --version` to report this
+      placeholder: Foo
       value: |
         pypop.py --version
         PyPop: Python for Population Genomics (1.0.0)
