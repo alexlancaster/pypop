@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this documentation issue!  Please visit the  [documentation section](https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst#documentation-improvements) in our contributors guide.
+        Thanks for taking the time to fill out this documentation issue!  Please visit the  [documentation section](https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst#documentation-improvements) in our contributors guide for more background on filing documentation issues.
   - type: dropdown
     id: website
     attributes:
