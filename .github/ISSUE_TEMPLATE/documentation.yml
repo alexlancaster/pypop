@@ -12,8 +12,8 @@ body:
     attributes:
       label: Is your issue related to the main website? This is part of http://pypop.org/ that is not part of the  _PyPop User Guide_
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true
   - type: dropdown
@@ -21,8 +21,8 @@ body:
     attributes:
       label: Is your issue related to documentation, such as the _PyPop User Guide_  (living under http://pypop.org/docs/)
       options:
-        - Yes
-        - No
+        - "Yes"
+        - "No"
     validations:
       required: true
   - type: dropdown
@@ -30,8 +30,8 @@ body:
     attributes:
       label: Is your issue related to other parts of the documentation? (Any parts of the documentation not included above, e.g. `DEV_NOTES.md`)
       options:
-        - Yes
-        - No 
+        - "Yes"
+        - "No" 
     validations:
       required: true
   - type: dropdown
