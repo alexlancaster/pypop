@@ -54,7 +54,7 @@ Copyright (C) 2007-2023 PyPop team.
 This is free software.  There is NO warranty; not even for
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
 
-platform_info="[Python {python_version}|{system}|{arch}]".format(python_version=platform.python_version(), system=platform.system(), arch=platform.processor())
+platform_info="[Python {python_version} | {system} | {arch}]".format(python_version=platform.python_version(), system=platform.platform(), arch=platform.processor())
 
 import locale
 import logging
