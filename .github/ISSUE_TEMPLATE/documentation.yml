@@ -1,0 +1,63 @@
+name: Documentation issue
+description: Report problems or suggest improvements to documentation and/or website
+title: "[Bug]: Please replace this with a clear and concise description of documentation issue"
+labels: ["documentation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this documentation issue!  Please visit the  [documentation section](https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst#documentation-improvements) in our contributors guide.
+  - type: dropdown
+    id: website
+    attributes:
+      label: Is your issue related to the main website? This is part of http://pypop.org/ that is not part of the  _PyPop User Guide_
+      options:
+        - Yes
+        - No
+    validations:
+      required: true
+  - type: dropdown
+    id: user-guide
+    attributes:
+      label: Is your issue related to documentation, such as the _PyPop User Guide_  (living under http://pypop.org/docs/)
+      options:
+        - Yes
+        - No
+    validations:
+      required: true
+  - type: dropdown
+    id: docs-other
+    attributes:
+      label: Is your issue related to other parts of the documentation? (Any parts of the documentation not included above, e.g. `DEV_NOTES.md`)
+      options:
+        - Yes
+        - No 
+    validations:
+      required: true
+  - type: dropdown
+    id: docs-type
+    attributes:
+      label: Is your documentation issue an error, or a suggested improvement?
+      options:
+        - reporting an error
+        - proposing an improvement
+        - both
+    validations:
+      required: true
+  - type: textarea
+    id: documentation-issue
+    attributes:
+      label: Describe documentation issue
+      description: A clear and concise description of what the problem with the documentation, or suggested change.  Be specific as possible. If you have suggested wording changes, provide them here. If you are able to file a pull-request that fixes the issue, please mention that you will do so here.
+      placeholder: |
+        on the section about LD, I think this value is wrong, it should be...
+    validates:
+      required: true
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the documentation here.
+      placeholder: |
+        Add any other context about the problem here.
+
