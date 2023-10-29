@@ -25,7 +25,7 @@ body:
       label: Relevant log output
       description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render: shell
- - type: textarea
+  - type: textarea
     id: expected-behavior
     attributes:
       label: Expected behavior
@@ -56,11 +56,10 @@ body:
   - type: checkboxes
     id: terms
     attributes:
-      label: Agreements on files
+      label: Data agreement
       description: Please make sure you include files relevant to the bug report and you have permission to do so.
       options:
         - label: If error happened at run-time, I have included `.ini` and `.pop` file sufficient to reproduce the bug
           required: true      
-        - label: I agree that any information submitted in this issue, does not contain sensitive data such as passwords, and I have permission to upload data
+        - label: I agree that any information submitted in this issue, does not contain sensitive data such as passwords, and I have permission to upload data.
           required: true
-
