@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         Thanks for taking the time to fill out this bug report!
-  - type: textarea
+  - type: input
     id: what-happened
     attributes:
       label: Describe the bug
@@ -29,7 +29,7 @@ body:
         4. See error
     validations:
       required: true
-  - type: text
+  - type: input
     id: version
     attributes:
       label: Version
