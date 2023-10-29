@@ -1,6 +1,9 @@
 ---
 name: Documentation issue
 about: Report problems or suggest improvements to documentation and/or website
+title: ''
+labels: documentation
+assignees: ''
 
 ---
 
