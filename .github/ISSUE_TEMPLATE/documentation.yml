@@ -1,6 +1,6 @@
 name: Documentation issue
 description: Report problems or suggest improvements to documentation and/or website
-title: "[Bug]: Please replace this with a clear and concise description of documentation issue"
+title: "[Documentation]: Please replace this with a clear and concise description of documentation issue"
 labels: ["documentation"]
 body:
   - type: markdown
