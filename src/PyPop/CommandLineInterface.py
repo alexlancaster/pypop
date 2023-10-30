@@ -48,7 +48,7 @@ class PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter)
 def get_parent_cli(version="", copyright_message=""):
     # options common to both scripts
     parent_parser = ArgumentParser(add_help=False)
-    
+
     # define function arguments as signatures - need to be added in child parser as part of the selection logic
     common_args = [
         (["-h", "--help"], {'action': "help", 'help': "show this help message and exit"}),
