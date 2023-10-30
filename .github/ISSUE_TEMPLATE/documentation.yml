@@ -6,42 +6,45 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to fill out this documentation issue!  Please visit the  [documentation section](https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst#documentation-improvements) in our contributors guide for more background on filing documentation issues.
+        Thanks for taking the time to fill out a documentation or website issue!  Please visit the  [documentation section](https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst#documentation-improvements) in our contributors guide for more background on filing documentation issues.
   - type: dropdown
     id: website
     attributes:
-      label: Is your issue related to the main website? This is part of http://pypop.org/ that is not part of the  _PyPop User Guide_
+      label: Is your issue related to the main website?
+      description: This is part of http://pypop.org/ that is not part of the  _PyPop User Guide_
       options:
-        - "Yes"
         - "No"
+        - "Yes"
     validations:
       required: true
   - type: dropdown
     id: user-guide
     attributes:
-      label: Is your issue related to documentation, such as the _PyPop User Guide_  (living under http://pypop.org/docs/)
+      label: Is your issue related to documentation?
+      description: For example, the _PyPop User Guide_ (living under http://pypop.org/docs/)
       options:
-        - "Yes"
         - "No"
+        - "Yes"
     validations:
       required: true
   - type: dropdown
     id: docs-other
     attributes:
-      label: Is your issue related to other parts of the documentation? (Any parts of the documentation not included above, e.g. `DEV_NOTES.md`)
+      label: Is your issue related to other parts of the documentation?
+      description: E.g., any parts of the documentation not included above, e.g. `DEV_NOTES.md`
       options:
-        - "Yes"
         - "No" 
+        - "Yes"
     validations:
       required: true
   - type: dropdown
     id: docs-type
     attributes:
-      label: Is your documentation issue an error, or a suggested improvement?
+      label: Is your documentation issue...?
       options:
         - reporting an error
-        - proposing an improvement
-        - both
+        - a proposal for an improvement
+        - both reporting an error and a making a proposed improvement
     validations:
       required: true
   - type: textarea
