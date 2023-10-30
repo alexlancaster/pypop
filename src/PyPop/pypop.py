@@ -43,6 +43,7 @@ from pathlib import Path
 
 def main(argv=sys.argv):
 
+    from PyPop import platform_info
     from PyPop.CommandLineInterface import get_pypop_cli
     from PyPop import copyright_message, __version__ as version
     from PyPop.Main import Main, getConfigInstance, getUserFilenameInput, checkXSLFile
@@ -74,11 +75,12 @@ def main(argv=sys.argv):
 
     interactive_message = """PyPop: Python for Population Genomics (%s)
 %s
+%s
 
 You may redistribute copies of PyPop under the terms of the
 GNU General Public License.  For more information about these
 matters, see the file named COPYING.
-    """ % (version, copyright_message)
+    """ % (version, platform_info, copyright_message)
 
     ######################################################################
     # END: generate message texts
