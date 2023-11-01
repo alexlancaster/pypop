@@ -46,8 +46,8 @@ jobs:
   publish_zenodo:
     name: Production release, Zenodo publication
     runs-on: ubuntu-latest
-    # "else" we *are* publishing something
-    if: github.event.release.target_commitish == 'zenodo_testing' && github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
+    # "else" we *are* publishing something, only works for non-pre-releases on the main branch
+    if: github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
     steps:
       - name: Checkout the contents of your repository
         uses: actions/checkout@v4

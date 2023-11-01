@@ -168,13 +168,13 @@
     },
     {
       "scheme": "url",
-      "identifier": "https://github.com/alexlancaster/pypop/tree/v0.9.133",
+      "identifier": "https://github.com/alexlancaster/pypop/",
       "relation": "isDerivedFrom",
       "resource_type": "software"
     },
     {
       "scheme": "url",
-      "identifier": "https://pypi.org/project/pypop-genomics/0.9.133",
+      "identifier": "https://pypi.org/project/pypop-genomics/",
       "relation": "isSourceOf",
       "resource_type": "software"
     },
