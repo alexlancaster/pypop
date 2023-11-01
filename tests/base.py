@@ -84,6 +84,7 @@ def filecmp_list_of_files(filename_list, gold_out_directory):
         gold_out_filename = abspath_test_data(os.path.join(gold_out_directory, out_filename))
         if not filecmp_ignore_newlines(out_filename, gold_out_filename):
             retval = False
+            print ("failed file:", out_filename)
             return retval  # once a file fails, return
 
     return retval
