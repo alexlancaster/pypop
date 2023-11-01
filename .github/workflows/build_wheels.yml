@@ -72,8 +72,8 @@ jobs:
       - name: Push changes back to repo files
         run: |
           git fetch origin
-          git config --global user.name ci
-          git config --global user.email username@users.noreply.github.com"
+          git config --global user.name "ci-pypop"
+          git config --global user.email "pypop@users.noreply.github.com"
           git checkout -b $GITHUB_REF_NAME-with-upserting-changes-pre-upload
           git add .zenodo.json CITATION.cff
           git commit -m "Upserted version into CITATION.cff and into .zenodo.json"
