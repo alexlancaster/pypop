@@ -1021,7 +1021,7 @@ MODIFICATIONS.
     <xsl:variable name="nodes-1-locus-hardyweinberg" select="/meta/dataanalysis/locus/hardyweinberg | /meta/dataanalysis/locus/hardyweinbergGuoThompson | /meta/dataanalysis/locus/hardyweinbergEnumeration"/>    
     <xsl:if test="count($nodes-1-locus-hardyweinberg) &gt;0">
       <xsl:variable name="outputFile">
-	<xsl:value-of select="$filePrefix"/><xsl:text>-locus-hardyweinberg.tsv</xsl:text>
+	<xsl:value-of select="$filePrefix"/><xsl:text>1-locus-hardyweinberg.tsv</xsl:text>
       </xsl:variable>
       <xsl:value-of select="$outputFile"/><xsl:call-template name="newline"/>  <!-- pass through to stdout -->
       
