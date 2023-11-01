@@ -199,7 +199,7 @@
       }
     },
     {
-      "description": "<p>Main website: <a href=\"http://pypop.org/\">http://pypop.org/</a>.  Development is on GitHub: <a href=\"https://github.com/alexlancaster/pypop\">https://github.com/alexlancaster/pypop</a></p><p>Binary packages for this software are available on PyPI as package <a href=\"https://pypi.org/project/pypop-genomics/\"><code>pypop-genomics</code></a>.&nbsp;</p>",
+      "description": "<p>Main website: <a href=\"http://pypop.org/\">http://pypop.org/</a>.</p><p>Development is on GitHub: <a href=\"https://github.com/alexlancaster/pypop\">https://github.com/alexlancaster/pypop</a></p><p>Binary packages are available on PyPI: <a href=\"https://pypi.org/project/pypop-genomics/\">https://pypi.org/project/pypop-genomics/</a>.&nbsp;</p>",
       "type": {
         "id": "technical-info"
       }
