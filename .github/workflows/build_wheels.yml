@@ -46,28 +46,33 @@ jobs:
   publish_zenodo:
     name: Production release, Zenodo publication
     runs-on: ubuntu-latest
-    # "else" we *are* publishing something
-    # if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
-    if: false  # FIXME: disable until completely ready for a release
+    # "else" we *are* publishing something, only works for non-pre-releases on the main branch
+    if: github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
     steps:
       - name: Checkout the contents of your repository
         uses: actions/checkout@v4
-        # with:
-        #  token: ${{ secrets.PYPOP_RELEASE_TOKEN }}
-      - name: Upsert the version in the metadata in .zenodo.json
+      - name: Upsert the version and related ids in the metadata in .zenodo.json
         run: |
           echo "GITHUB_REF_NAME = $GITHUB_REF_NAME | GITHUB_REF = $GITHUB_REF | GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
           echo "github.event.release.target_commitish = ${{ github.event.release.target_commitish }}"
-          cp .zenodo.json .zenodo.orig.json
-          echo "{\"version\": \"$GITHUB_REF_NAME\"}" | cat .zenodo.orig.json - | jq -s add > .zenodo.json
-          rm .zenodo.orig.json
+          # convert semver to Python-style version
+          VERSION_PYTHON_STYLE=$(GITHUB_REF_NAME=$GITHUB_REF_NAME python -c 'import os; from  packaging import version; print(str(version.Version(os.getenv("GITHUB_REF_NAME"))))')
+          echo "VERSION_PYTHON_STYLE = $VERSION_PYTHON_STYLE"
+          # cp .zenodo.json .zenodo.orig.json
+          # update the 'related_identifiers' to use exact tree and pypi packaage
+          cat .zenodo.json | jq "(.related_identifiers[] | (select (.relation == \"isSourceOf\" and .resource_type == \"software\")) | select (.identifier | startswith(\"https://pypi.org/project/pypop-genomics\")).identifier) |= \"https://pypi.org/project/pypop-genomics/$VERSION_PYTHON_STYLE\""  |  jq "(.related_identifiers[] | (select (.relation == \"isDerivedFrom\" and .resource_type == \"software\")) | select (.identifier | startswith(\"https://github.com/alexlancaster/pypop\")).identifier) |= \"https://github.com/alexlancaster/pypop/tree/$GITHUB_REF_NAME\"" > .zenodo.mod.json
+          # update the version number
+          echo "{\"version\": \"$GITHUB_REF_NAME\"}" | cat .zenodo.mod.json - | jq -s add > .zenodo.json
+          # debugging only
+          cat .zenodo.json 
+          rm .zenodo.mod.json
       - name: Upsert the version in the metadata in CITATION.cff
         run: |
           yq -i ".version = \"$GITHUB_REF_NAME\"" CITATION.cff
       - name: Push changes back to repo files
         run: |
           git fetch origin
-          git config --global user.name ci
+          git config --global user.name "ci-pypop"
           git config --global user.email "username@users.noreply.github.com"
           git checkout -b $GITHUB_REF_NAME-with-upserting-changes-pre-upload
           git add .zenodo.json CITATION.cff
@@ -89,23 +94,16 @@ jobs:
       - name: Create a draft snapshot of your repository contents as a new
               version in test collection on Zenodo using metadata
               from repository file .zenodo.json
-        #
-        # DISABLE uploading via zenodraft action, currently
-        #
-        # if: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # FIXME: use main one until sandbox is working
-          ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
-          # ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
-        uses: zenodraft/action@0.10.0
+          ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
+        # uses: zenodraft/action@0.10.0
+        uses: alexlancaster/zenodraft-action@0.10.1
         with:
-          collection: 1244743
+          # collection: TBD
           metadata: .zenodo.json
           publish: false
-          # FIXME: use main one until sandbox working
-          sandbox: true
-          # sandbox: false
+          sandbox: false
           compression: zip
           upsert-doi: true
           upsert-location: doi
