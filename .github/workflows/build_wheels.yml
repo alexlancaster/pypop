@@ -47,13 +47,10 @@ jobs:
     name: Production release, Zenodo publication
     runs-on: ubuntu-latest
     # "else" we *are* publishing something
-    if: github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
-    # if: false  # FIXME: disable until completely ready for a release
+    if: github.event.release.target_commitish == 'zenodo_testing' && github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
     steps:
       - name: Checkout the contents of your repository
         uses: actions/checkout@v4
-        # with:
-        #  token: ${{ secrets.PYPOP_RELEASE_TOKEN }}
       - name: Upsert the version in the metadata in .zenodo.json
         run: |
           echo "GITHUB_REF_NAME = $GITHUB_REF_NAME | GITHUB_REF = $GITHUB_REF | GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
@@ -89,23 +86,15 @@ jobs:
       - name: Create a draft snapshot of your repository contents as a new
               version in test collection on Zenodo using metadata
               from repository file .zenodo.json
-        #
-        # DISABLE uploading via zenodraft action, currently
-        #
-        # if: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # FIXME: use main one until sandbox is working
-          # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
           ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
-        #uses: zenodraft/action@0.10.0
+        # uses: zenodraft/action@0.10.0
         uses: alexlancaster/zenodraft-action@0.10.1
         with:
-          # collection: 10012036
+          # collection: TBD
           metadata: .zenodo.json
           publish: false
-          # FIXME: use main one until sandbox working
-          # sandbox: true
           sandbox: false
           compression: zip
           upsert-doi: true
