@@ -19,8 +19,6 @@ If you write a paper that uses PyPop in your analysis, please cite
 
 1. our 2007 paper from *Tissue Antigens*:
 
-   .. note::
-   
       Lancaster AK, Single RM, Solberg OD, Nelson MP and G
       Thomson (2007) "PyPop update - a software pipeline for
       large-scale multilocus population genomics" *Tissue Antigens* 69
@@ -33,8 +31,6 @@ If you write a paper that uses PyPop in your analysis, please cite
    the current Zenodo record is stored in `CITATION.cff
    <https://github.com/alexlancaster/pypop/blob/main/CITATION.cff>`__
    It will be of the form and contain link to the DOI:
-
-   .. note::
 
       Lancaster, AK et al. (2023) "PyPop: Python for Population
       Genomics" (Version 1.0.0) [Computer
