@@ -168,13 +168,13 @@
     },
     {
       "scheme": "url",
-      "identifier": "https://github.com/alexlancaster/pypop",
+      "identifier": "https://github.com/alexlancaster/pypop/tree/v0.9.132",
       "relation": "isDerivedFrom",
       "resource_type": "software"
     },
     {
       "scheme": "url",
-      "identifier": "https://pypi.org/project/pypop-genomics",
+      "identifier": "https://pypi.org/project/pypop-genomics/0.9.132",
       "relation": "isSourceOf",
       "resource_type": "software"
     },
@@ -207,5 +207,5 @@
   ],
   "title": "PyPop: Python for Population Genomics",
   "upload_type": "software",
-  "version": "v0.9.128"
+  "version": "v0.9.132"
 }
