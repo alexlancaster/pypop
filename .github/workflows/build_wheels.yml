@@ -60,7 +60,7 @@ jobs:
           echo "PYVER = $PYVER"
           # cp .zenodo.json .zenodo.orig.json
           # update the 'related_identifiers' to use exact tree and pypi packaage
-          cat .zenodo.json | jq "(.related_identifiers[] | (select (.relation == \"isSourceOf\" and .resource_type == \"software\")) | select (.identifier | startswith(\"https://pypi.org/project/pypop-genomics\")).identifier) |= \"https://pypi.org/project/pypop-genomics/$PYVER\""  |  jq "(.related_identifiers[] | (select (.relation == \"isDerivedFrom\" and .resource_type == \"software\")) | select (.identifier | startswith(\"https://github.com/alexlancaster/pypop\")).identifier) |= \"https://github.com/alexlancaster/pypop/tree/$GIT_REF\"" > .zenodo.mod.json
+          cat .zenodo.json | jq "(.related_identifiers[] | (select (.relation == \"isSourceOf\" and .resource_type == \"software\")) | select (.identifier | startswith(\"https://pypi.org/project/pypop-genomics\")).identifier) |= \"https://pypi.org/project/pypop-genomics/$PYVER\""  |  jq "(.related_identifiers[] | (select (.relation == \"isDerivedFrom\" and .resource_type == \"software\")) | select (.identifier | startswith(\"https://github.com/alexlancaster/pypop\")).identifier) |= \"https://github.com/alexlancaster/pypop/tree/$GITHUB_REF_NAME\"" > .zenodo.mod.json
           # update the version number
           echo "{\"version\": \"$GITHUB_REF_NAME\"}" | cat .zenodo.mod.json - | jq -s add > .zenodo.json
           # debugging only
