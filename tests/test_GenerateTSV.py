@@ -21,6 +21,19 @@ def test_GenerateTSV_2_locus():
     # make sure only expected generated files exist
     assert set(os.listdir()) ==  set(checked_filenames + generated_filenames_common)
 
+def test_GenerateTSV_2_locus_with_HW():
+    exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_EM_plus_HW_2_locus.ini', './tests/data/BIGDAWG_SynthControl_Data.pop', args=args_common)
+    # check exit code
+    assert exit_code == 0
+
+    checked_filenames = checked_filenames_common + ['1-locus-genotype.tsv', '1-locus-hardyweinberg.tsv', '2-locus-summary.tsv', '2-locus-haplo.tsv']
+
+    # compare specific files
+    assert filecmp_list_of_files(checked_filenames, os.path.join(DEFAULT_GOLD_OUTPUT_DIR, 'generate_tsv_2_locus_with_HW'))
+
+    # make sure only expected generated files exist
+    assert set(os.listdir()) ==  set(checked_filenames + generated_filenames_common)
+    
         
 def test_GenerateTSV_3_locus():
     exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_EM.ini', './tests/data/BIGDAWG_SynthControl_Data.pop', args=args_common)
