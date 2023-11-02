@@ -961,11 +961,10 @@ MODIFICATIONS.
        <xsl:if test="$pairwise=1">
 	
 	<xsl:variable name="first">
-	 <xsl:value-of select="substring-before(@name, ':')"/>
-	 <xsl:text>:</xsl:text>
+	 <xsl:value-of select="substring-before(@name, '~')"/>	  
 	</xsl:variable>
 	<xsl:variable name="second">
-	 <xsl:value-of select="substring-after(@name, ':')"/>
+	  <xsl:value-of select="substring-after(@name, '~')"/>
 	</xsl:variable>
        
 	<xsl:variable name="pair"

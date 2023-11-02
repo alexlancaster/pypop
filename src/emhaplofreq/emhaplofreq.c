@@ -90,7 +90,7 @@ double emh_min(double, double);
 */
 
 void linkage_diseq(FILE *, double *, int (*)[MAX_LOCI], double (*)[MAX_ALLELES],
-		   char (*)[MAX_ALLELES][NAME_LEN], int *, int, int, int); 
+		   char (*)[MAX_ALLELES][NAME_LEN], int *, int, int, int, char[1], char[1]); 
 /* mle, haplocus, allele_freq, unique_allele, n_unique_allele, n_loci, n_haplo, n_recs */
 /*
   * compute LD coefficients
@@ -1007,7 +1007,7 @@ int main_proc(
 #endif
 
 	linkage_diseq(fp_out, mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
-		      n_loci, n_haplo, n_recs);
+		      n_loci, n_haplo, n_recs, GENOTYPE_SEPARATOR, GENOTYPE_TERMINATOR);
 
 	/* compute df_LRtest */
 	j = 0;
@@ -1385,9 +1385,10 @@ double emh_min(double a, double b)
 
 /************************************************************************/
 void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
-       double (*af)[MAX_ALLELES], 
-       char (*unique_allele)[MAX_ALLELES][NAME_LEN],
-       int *n_unique_allele, int n_loci, int n_haplo, int n_recs)
+		   double (*af)[MAX_ALLELES], 
+		   char (*unique_allele)[MAX_ALLELES][NAME_LEN],
+		   int *n_unique_allele, int n_loci, int n_haplo, int n_recs,
+		   char GENOTYPE_SEPARATOR[1], char GENOTYPE_TERMINATOR[1])
        /* hl: haplocus array           */
        /* af: allele_frequencies array */
 {
@@ -1409,6 +1410,9 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
   double diseq = 0.0; 
   double chisq = 0.0; 
 
+  char *allelepair_first;
+  char *allelepair_second;
+  
   /* zero out static array before each run to make code re-entrant */
   INIT_STATIC_DIM3(double, dij, (MAX_LOCI*(MAX_LOCI-1)/2), \
 		   MAX_ALLELES, MAX_ALLELES);
@@ -1469,12 +1473,17 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
             norm_dij = 0;
 	  summary_d[coeff_count] += af[j][l] * af[k][m] * fabs(norm_dij) * dmax;
           summary_dprime[coeff_count] += af[j][l] * af[k][m] * fabs(norm_dij);
+
+	  /* strip off the terminator character before printing to the output or saving in XML */
+	  allelepair_first = strtok(unique_allele[j][l], GENOTYPE_TERMINATOR);
+	  allelepair_second = strtok(unique_allele[k][m], GENOTYPE_TERMINATOR);
+	  
 #ifdef XML_OUTPUT
 	  xmlfprintf(fp_out,"<allelepair first=\"%s\" second=\"%s\"><observed>%.5f</observed><expected>%.4f</expected><diseq>%.5f</diseq><norm_dij>%.5f</norm_dij><chisq>%.5f</chisq></allelepair>\n", 
-            unique_allele[j][l], unique_allele[k][m], obs, exp, diseq, norm_dij, chisq);
+		     allelepair_first, allelepair_second, obs, exp, diseq, norm_dij, chisq);
 #else
           fprintf(fp_out,"%6s%6s %10.4f %10.4f %10.4f %10.4f %10.4f\n", 
-            unique_allele[j][l], unique_allele[k][m], obs, exp, diseq, norm_dij, chisq); 
+            allelepair_first, allelepair_second, obs, exp, diseq, norm_dij, chisq); 
 #endif
         }
       }
