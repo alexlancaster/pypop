@@ -86,8 +86,8 @@ Bug fixes
 * Windows fixes:
 
   * ``Emhaplofreq`` will now give identical results on Windows as all
-  other platform (needed to port POSIX-version of ``drand48()`` to
-  Windows).
+    other platform (needed to port POSIX-version of ``drand48()`` to
+    Windows).
   * Fixed ``CustomBinning`` filters that were failing on Windows.
   * Enable all unit tests for Windows.
 
