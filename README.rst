@@ -7,8 +7,8 @@ PyPop is a framework for processing genotype and allele data and
 running population genetic analyses, including conformity to
 Hardy-Weinberg expectations; tests for balancing or directional
 selection; estimates of haplotype frequencies and measures and tests
-of significance for linkage disequilibrium (LD). See the `PyPop
-User Guide <http://pypop.org/docs>`__ for a more detailed description.
+of significance for linkage disequilibrium (LD). Full documentation is
+available in the `PyPop User Guide <http://pypop.org/docs>`__.
 
 .. _guide-include-pypop-cite-start:
 		       
