@@ -2,7 +2,7 @@ import subprocess
 import hashlib
 import pytest
 import os.path
-from base import run_pypop_process, filecmp_ignore_newlines, filecmp_list_of_files, abspath_test_data, xfail_windows, in_temp_dir, DEFAULT_GOLD_OUTPUT_DIR
+from base import run_pypop_process, filecmp_ignore_newlines, filecmp_list_of_files, abspath_test_data, in_temp_dir, DEFAULT_GOLD_OUTPUT_DIR
 
 checked_filenames_common = ['1-locus-allele.tsv', '1-locus-summary.tsv']
 generated_filenames_common = ['BIGDAWG_SynthControl_Data-out.txt', 'BIGDAWG_SynthControl_Data-out.xml', 'meta.xml']

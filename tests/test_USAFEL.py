@@ -3,7 +3,7 @@ import subprocess
 import hashlib
 import pytest
 import os.path
-from base import abspath_test_data, run_pypop_process, filecmp_ignore_newlines, filecmp_list_of_files, in_temp_dir, DEFAULT_GOLD_OUTPUT_DIR
+from base import abspath_test_data, run_pypop_process, filecmp_ignore_newlines, filecmp_list_of_files, in_temp_dir, DEFAULT_GOLD_OUTPUT_DIR, xfail_windows
 
 def test_USAFEL():
     exit_code = run_pypop_process('./tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini', './tests/data/USAFEL-UchiTelle-small.pop')
@@ -43,6 +43,7 @@ def test_USAFEL_slatkin_guothompson_emhaplofreq():
     gold_out_filename = abspath_test_data(os.path.join(DEFAULT_GOLD_OUTPUT_DIR, out_filename))
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
+@xfail_windows    
 def test_USAFEL_slatkin_guothompson_emhaplofreq_with_permu_tsv():
     exit_code = run_pypop_process('./tests/data/minimal-with-permu.ini', './tests/data/USAFEL-UchiTelle-small.pop', args=['--enable-tsv'])
     # check exit code

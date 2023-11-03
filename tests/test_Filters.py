@@ -3,7 +3,7 @@ import subprocess
 import hashlib
 import pytest
 import os.path
-from base import abspath_test_data, run_pypop_process, xfail_windows, filecmp_ignore_newlines, in_temp_dir, DEFAULT_GOLD_OUTPUT_DIR
+from base import abspath_test_data, run_pypop_process, filecmp_ignore_newlines, in_temp_dir, DEFAULT_GOLD_OUTPUT_DIR
 
 def test_Filters_DigitBinning_USAFEL():
     exit_code = run_pypop_process('./tests/data/Filters_DigitBinning_USAFEL.ini', './tests/data/USAFEL-UchiTelle-small.pop')
