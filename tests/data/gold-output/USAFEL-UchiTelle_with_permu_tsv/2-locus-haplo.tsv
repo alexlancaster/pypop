@@ -1,4 +1,4 @@
-labcode	method	ethnic	contin	collect	latit	longit	complex	popname	loci	haplotype	haplotype.freq	haplotype.count	ld.d	ld.dprime	ld.chisq	haplotype.no-ld.count
+labcode	method	ethnic	contin	collect	latit	longit	complex	popname	locus	allele	allele.freq	allele.count	ld.d	ld.dprime	ld.chisq	obs	obs.freq	exp
 USAFEL	12th Workshop SSOP	Telle	NW Asia	Targen Village	41 deg 12 min N	94 deg 7 min E	1	UchiTelle	A:C	02:10~01:02	0.12500	2.0	0.10156	1.00000	9.90476	2.00000	0.12500	0.3750	
 USAFEL	12th Workshop SSOP	Telle	NW Asia	Targen Village	41 deg 12 min N	94 deg 7 min E	1	UchiTelle	A:C	25:01~03:07	0.12500	2.0	0.10156	1.00000	9.90476	2.00000	0.12500	0.3750	
 USAFEL	12th Workshop SSOP	Telle	NW Asia	Targen Village	41 deg 12 min N	94 deg 7 min E	1	UchiTelle	A:C	03:012~07:12	0.06250	1.0	0.04688	0.42857	2.93878	1.00000	0.06250	0.2500	
