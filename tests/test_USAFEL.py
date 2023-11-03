@@ -43,6 +43,8 @@ def test_USAFEL_slatkin_guothompson_emhaplofreq():
     gold_out_filename = abspath_test_data(os.path.join(DEFAULT_GOLD_OUTPUT_DIR, out_filename))
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
+# FIXME: error in one-line of 2-locus-haplo.tsv on Windows
+# ld.d is 0.01563 rather than 0.01562
 @xfail_windows    
 def test_USAFEL_slatkin_guothompson_emhaplofreq_with_permu_tsv():
     exit_code = run_pypop_process('./tests/data/minimal-with-permu.ini', './tests/data/USAFEL-UchiTelle-small.pop', args=['--enable-tsv'])
