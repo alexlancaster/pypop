@@ -1455,6 +1455,12 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
           diseq = dij[coeff_count][l][m];
           chisq = pow(dij[coeff_count][l][m], 2) * 2 * (double)n_recs / 
             ( af[j][l]*(1-af[j][l])*af[k][m]*(1-af[k][m]) );
+
+	  /* normalize 'nan', '-nan' -> nan to be platform-independent */
+	  if (isnan(chisq)) {
+	    chisq = nan("");
+	  }
+	  
           summary_q[coeff_count] += 2 * (double)n_recs *
             pow(dij[coeff_count][l][m], 2) / ( af[j][l] * af[k][m] ) ;
           summary_wab[coeff_count] += pow(dij[coeff_count][l][m], 2) / ( af[k][m] ) ;
