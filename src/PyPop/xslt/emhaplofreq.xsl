@@ -187,6 +187,22 @@ MODIFICATIONS.
      <xsl:with-param name="length" select="10"/>
      <xsl:with-param name="type" select="'right'"/>
     </xsl:call-template>
+
+    <xsl:choose>
+      <xsl:when test="$loci/@mode='all-pairwise-ld-with-permu'">
+	<xsl:call-template name="justified-cell">
+	  <xsl:with-param name="padVar">permus</xsl:with-param>
+	  <xsl:with-param name="length" select="8"/>
+	  <xsl:with-param name="type" select="'right'"/>
+	</xsl:call-template>
+
+	<xsl:call-template name="justified-cell">
+	  <xsl:with-param name="padVar"> p-value</xsl:with-param>
+	  <xsl:with-param name="length" select="9"/>
+	  <xsl:with-param name="type" select="'left'"/>
+	</xsl:call-template>	
+      </xsl:when>
+    </xsl:choose>
     
     <xsl:call-template name="newline"/>
     
@@ -272,6 +288,38 @@ MODIFICATIONS.
        <xsl:with-param name="type" select="'right'"/>
       </xsl:call-template>
 
+      <xsl:choose>
+	<xsl:when test="$loci/@mode='all-pairwise-ld-with-permu'">
+
+	  <xsl:call-template name="justified-cell">
+	    <xsl:with-param name="padVar">
+	      <xsl:choose>
+		<xsl:when test="permutationSummary/pvalue">
+		  <xsl:value-of select="permutationSummary/pvalue/@totalperm"/>
+		</xsl:when>
+		<xsl:otherwise>-</xsl:otherwise>
+	      </xsl:choose>
+	    </xsl:with-param>
+	    <xsl:with-param name="length" select="8"/>
+	    <xsl:with-param name="type" select="'right'"/>
+	  </xsl:call-template>
+	  
+	  <xsl:call-template name="justified-cell">
+	    <xsl:with-param name="padVar">
+	      <xsl:text> </xsl:text>
+	      <xsl:choose>
+		<xsl:when test="permutationSummary/pvalue">
+		  <xsl:apply-templates select="permutationSummary/pvalue"/>
+		</xsl:when>
+		<xsl:otherwise>-</xsl:otherwise>
+	      </xsl:choose>
+	    </xsl:with-param>
+	    <xsl:with-param name="length" select="8"/>
+	    <xsl:with-param name="type" select="'left'"/>
+	  </xsl:call-template>
+	</xsl:when>
+      </xsl:choose>
+      
       <xsl:call-template name="newline"/>
      </xsl:if>
      
