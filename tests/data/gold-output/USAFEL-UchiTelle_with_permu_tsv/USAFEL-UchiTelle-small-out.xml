@@ -1,0 +1,1936 @@
+<dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude" date="" role="ParseGenotypeFile">
+<filename>USAFEL-UchiTelle-small.pop</filename>
+<pypop-version>1.0.0b7.post25+geed1b00</pypop-version>
+<populationdata>
+<labcode>USAFEL</labcode>
+<method>12th Workshop SSOP</method>
+<ethnic>Telle</ethnic>
+<contin>NW Asia</contin>
+<collect>Targen Village</collect>
+<latit>41 deg 12 min N</latit>
+<longit>94 deg 7 min E</longit>
+<complex>1</complex>
+<popname>UchiTelle</popname>
+</populationdata>
+<summaryinfo>
+<indivcount>10</indivcount>
+<allelecount>20</allelecount>
+<locuscount>3</locuscount>
+<lociWithDataCount>3</lociWithDataCount>
+</summaryinfo>
+<locus name="A">
+<allelecounts>
+<untypedindividuals>2.0</untypedindividuals>
+<unsequencedsites>0</unsequencedsites>
+<indivcount>8.0</indivcount>
+<allelecount>16</allelecount>
+<distinctalleles>8</distinctalleles>
+<allele name="01:01">
+<frequency>0.06250 </frequency><count>1</count>
+</allele>
+<allele name="02:01">
+<frequency>0.25000 </frequency><count>4</count>
+</allele>
+<allele name="02:10">
+<frequency>0.12500 </frequency><count>2</count>
+</allele>
+<allele name="02:18">
+<frequency>0.06250 </frequency><count>1</count>
+</allele>
+<allele name="03:012">
+<frequency>0.12500 </frequency><count>2</count>
+</allele>
+<allele name="25:01">
+<frequency>0.12500 </frequency><count>2</count>
+</allele>
+<allele name="32:04">
+<frequency>0.18750 </frequency><count>3</count>
+</allele>
+<allele name="68:14">
+<frequency>0.06250 </frequency><count>1</count>
+</allele>
+<totalfrequency>1.00000</totalfrequency>
+<totalcount>16</totalcount></allelecounts>
+<hardyweinberg allelelump="0">
+<samplesize>8</samplesize>
+<lumpBelow>5</lumpBelow>
+<genotypetable>
+<genotype row="01:01" id="0" col="01:01">
+<observed>0</observed>
+<expected>0.031250</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:01" id="1" col="01:01">
+<observed>0</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:01" id="2" col="02:01">
+<observed>1</observed>
+<expected>0.500000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:10" id="3" col="01:01">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:10" id="4" col="02:01">
+<observed>0</observed>
+<expected>0.500000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:10" id="5" col="02:10">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:18" id="6" col="01:01">
+<observed>1</observed>
+<expected>0.062500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:18" id="7" col="02:01">
+<observed>0</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:18" id="8" col="02:10">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:18" id="9" col="02:18">
+<observed>0</observed>
+<expected>0.031250</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:012" id="10" col="01:01">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:012" id="11" col="02:01">
+<observed>0</observed>
+<expected>0.500000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:012" id="12" col="02:10">
+<observed>1</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:012" id="13" col="02:18">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:012" id="14" col="03:012">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="15" col="01:01">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="16" col="02:01">
+<observed>1</observed>
+<expected>0.500000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="17" col="02:10">
+<observed>0</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="18" col="02:18">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="19" col="03:012">
+<observed>0</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="20" col="25:01">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="21" col="01:01">
+<observed>0</observed>
+<expected>0.187500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="22" col="02:01">
+<observed>0</observed>
+<expected>0.750000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="23" col="02:10">
+<observed>1</observed>
+<expected>0.375000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="24" col="02:18">
+<observed>0</observed>
+<expected>0.187500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="25" col="03:012">
+<observed>1</observed>
+<expected>0.375000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="26" col="25:01">
+<observed>1</observed>
+<expected>0.375000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="27" col="32:04">
+<observed>0</observed>
+<expected>0.281250</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="28" col="01:01">
+<observed>0</observed>
+<expected>0.062500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="29" col="02:01">
+<observed>1</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="30" col="02:10">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="31" col="02:18">
+<observed>0</observed>
+<expected>0.062500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="32" col="03:012">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="33" col="25:01">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="34" col="32:04">
+<observed>0</observed>
+<expected>0.187500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="35" col="68:14">
+<observed>0</observed>
+<expected>0.031250</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+</genotypetable>
+<heterozygotes>
+<observed>7</observed>
+<expected>6.750000</expected>
+<chisq>0.009259</chisq>
+<pvalue>0.923342</pvalue>
+<chisqdf>1</chisqdf>
+</heterozygotes>
+<heterozygotesByAllele>
+</heterozygotesByAllele>
+<lumped role="not-calculated"/><common role="no-common-genotypes"/>
+<commonpluslumped role="not-calculated"/>
+</hardyweinberg>
+<hardyweinbergGuoThompson type="monte-carlo" allelelump="0"><genotypetable>
+<genotype row="01:01" id="0" col="01:01">
+<observed>0</observed>
+<expected>0.031250</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:01" id="1" col="01:01">
+<observed>0</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:01" id="2" col="02:01">
+<observed>1</observed>
+<expected>0.500000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:10" id="3" col="01:01">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:10" id="4" col="02:01">
+<observed>0</observed>
+<expected>0.500000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:10" id="5" col="02:10">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:18" id="6" col="01:01">
+<observed>1</observed>
+<expected>0.062500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:18" id="7" col="02:01">
+<observed>0</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:18" id="8" col="02:10">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:18" id="9" col="02:18">
+<observed>0</observed>
+<expected>0.031250</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:012" id="10" col="01:01">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:012" id="11" col="02:01">
+<observed>0</observed>
+<expected>0.500000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:012" id="12" col="02:10">
+<observed>1</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:012" id="13" col="02:18">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:012" id="14" col="03:012">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="15" col="01:01">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="16" col="02:01">
+<observed>1</observed>
+<expected>0.500000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="17" col="02:10">
+<observed>0</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="18" col="02:18">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="19" col="03:012">
+<observed>0</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01" id="20" col="25:01">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="21" col="01:01">
+<observed>0</observed>
+<expected>0.187500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="22" col="02:01">
+<observed>0</observed>
+<expected>0.750000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="23" col="02:10">
+<observed>1</observed>
+<expected>0.375000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="24" col="02:18">
+<observed>0</observed>
+<expected>0.187500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="25" col="03:012">
+<observed>1</observed>
+<expected>0.375000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="26" col="25:01">
+<observed>1</observed>
+<expected>0.375000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:04" id="27" col="32:04">
+<observed>0</observed>
+<expected>0.281250</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="28" col="01:01">
+<observed>0</observed>
+<expected>0.062500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="29" col="02:01">
+<observed>1</observed>
+<expected>0.250000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="30" col="02:10">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="31" col="02:18">
+<observed>0</observed>
+<expected>0.062500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="32" col="03:012">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="33" col="25:01">
+<observed>0</observed>
+<expected>0.125000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="34" col="32:04">
+<observed>0</observed>
+<expected>0.187500</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:14" id="35" col="68:14">
+<observed>0</observed>
+<expected>0.031250</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+</genotypetable>
+<steps>100000</steps>
+<pvalue type="overall">0.81149</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="0" col="0">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="1" col="0">0.98451</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="1" col="1">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="2" col="0">0.93463</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="2" col="1">0.92043</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="2" col="2">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="3" col="0">0.06817</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="3" col="1">0.98451</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="3" col="2">0.93463</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="3" col="3">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="4" col="0">0.93498</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="4" col="1">0.92069</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="4" col="2">0.25765</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="4" col="3">0.93498</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="4" col="4">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="0">0.93401</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="1">0.92</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="2">0.87372</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="3">0.93401</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="4">0.87389</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="5">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="0">0.81372</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="1">0.38256</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="2">0.33681</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="3">0.81333</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="4">0.33781</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="5">0.33919</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="6">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="0">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="1">0.26742</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="2">0.93463</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="3">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="4">0.93498</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="5">0.93401</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="6">0.81377</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="7">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="0" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="1" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="1" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="2" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="2" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="2" col="2">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="3" col="0">0.06817</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="3" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="3" col="2">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="3" col="3">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="4" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="4" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="4" col="2">0.25765</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="4" col="3">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="4" col="4">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="2">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="3">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="4">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="5">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="1">0.53281</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="2">0.36739</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="3">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="4">0.36944</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="5">0.36954</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="6">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="1">0.26742</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="2">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="3">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="4">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="5">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="6">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="7">1</pvalue>
+</hardyweinbergGuoThompson>
+
+<homozygosityEWSlatkinExact>
+<theta>5.6961</theta>
+<probEwens>0.2037</probEwens>
+<probHomozygosity>0.2121</probHomozygosity>
+<meanHomozygosity>0.1886</meanHomozygosity>
+<observedHomozygosity>0.1562</observedHomozygosity>
+<varHomozygosity>0.0013</varHomozygosity>
+<normDevHomozygosity>-0.9076</normDevHomozygosity>
+</homozygosityEWSlatkinExact>
+</locus>
+<locus name="C">
+<allelecounts>
+<untypedindividuals>0.0</untypedindividuals>
+<unsequencedsites>0</unsequencedsites>
+<indivcount>10.0</indivcount>
+<allelecount>20</allelecount>
+<distinctalleles>9</distinctalleles>
+<allele name="01:02">
+<frequency>0.20000 </frequency><count>4</count>
+</allele>
+<allele name="02:025">
+<frequency>0.10000 </frequency><count>2</count>
+</allele>
+<allele name="03:07">
+<frequency>0.20000 </frequency><count>4</count>
+</allele>
+<allele name="06:05">
+<frequency>0.10000 </frequency><count>2</count>
+</allele>
+<allele name="07:12">
+<frequency>0.10000 </frequency><count>2</count>
+</allele>
+<allele name="08:04">
+<frequency>0.05000 </frequency><count>1</count>
+</allele>
+<allele name="12:02">
+<frequency>0.10000 </frequency><count>2</count>
+</allele>
+<allele name="15:07">
+<frequency>0.10000 </frequency><count>2</count>
+</allele>
+<allele name="18:01">
+<frequency>0.05000 </frequency><count>1</count>
+</allele>
+<totalfrequency>1.00000</totalfrequency>
+<totalcount>20</totalcount></allelecounts>
+<hardyweinberg allelelump="0">
+<samplesize>10</samplesize>
+<lumpBelow>5</lumpBelow>
+<genotypetable>
+<genotype row="01:02" id="0" col="01:02">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:025" id="1" col="01:02">
+<observed>1</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:025" id="2" col="02:025">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:07" id="3" col="01:02">
+<observed>0</observed>
+<expected>0.800000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:07" id="4" col="02:025">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:07" id="5" col="03:07">
+<observed>1</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:05" id="6" col="01:02">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:05" id="7" col="02:025">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:05" id="8" col="03:07">
+<observed>1</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:05" id="9" col="06:05">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:12" id="10" col="01:02">
+<observed>2</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:12" id="11" col="02:025">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:12" id="12" col="03:07">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:12" id="13" col="06:05">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:12" id="14" col="07:12">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="15" col="01:02">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="16" col="02:025">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="17" col="03:07">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="18" col="06:05">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="19" col="07:12">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="20" col="08:04">
+<observed>0</observed>
+<expected>0.025000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="21" col="01:02">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="22" col="02:025">
+<observed>1</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="23" col="03:07">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="24" col="06:05">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="25" col="07:12">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="26" col="08:04">
+<observed>1</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="27" col="12:02">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="28" col="01:02">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="29" col="02:025">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="30" col="03:07">
+<observed>1</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="31" col="06:05">
+<observed>1</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="32" col="07:12">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="33" col="08:04">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="34" col="12:02">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="35" col="15:07">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="36" col="01:02">
+<observed>1</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="37" col="02:025">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="38" col="03:07">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="39" col="06:05">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="40" col="07:12">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="41" col="08:04">
+<observed>0</observed>
+<expected>0.050000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="42" col="12:02">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="43" col="15:07">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="44" col="18:01">
+<observed>0</observed>
+<expected>0.025000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+</genotypetable>
+<heterozygotes>
+<observed>9</observed>
+<expected>8.650000</expected>
+<chisq>0.014162</chisq>
+<pvalue>0.905273</pvalue>
+<chisqdf>1</chisqdf>
+</heterozygotes>
+<heterozygotesByAllele>
+</heterozygotesByAllele>
+<lumped role="not-calculated"/><common role="no-common-genotypes"/>
+<commonpluslumped role="not-calculated"/>
+</hardyweinberg>
+<hardyweinbergGuoThompson type="monte-carlo" allelelump="0"><genotypetable>
+<genotype row="01:02" id="0" col="01:02">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:025" id="1" col="01:02">
+<observed>1</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:025" id="2" col="02:025">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:07" id="3" col="01:02">
+<observed>0</observed>
+<expected>0.800000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:07" id="4" col="02:025">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:07" id="5" col="03:07">
+<observed>1</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:05" id="6" col="01:02">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:05" id="7" col="02:025">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:05" id="8" col="03:07">
+<observed>1</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:05" id="9" col="06:05">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:12" id="10" col="01:02">
+<observed>2</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:12" id="11" col="02:025">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:12" id="12" col="03:07">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:12" id="13" col="06:05">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:12" id="14" col="07:12">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="15" col="01:02">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="16" col="02:025">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="17" col="03:07">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="18" col="06:05">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="19" col="07:12">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:04" id="20" col="08:04">
+<observed>0</observed>
+<expected>0.025000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="21" col="01:02">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="22" col="02:025">
+<observed>1</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="23" col="03:07">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="24" col="06:05">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="25" col="07:12">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="26" col="08:04">
+<observed>1</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="12:02" id="27" col="12:02">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="28" col="01:02">
+<observed>0</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="29" col="02:025">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="30" col="03:07">
+<observed>1</observed>
+<expected>0.400000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="31" col="06:05">
+<observed>1</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="32" col="07:12">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="33" col="08:04">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="34" col="12:02">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:07" id="35" col="15:07">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="36" col="01:02">
+<observed>1</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="37" col="02:025">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="38" col="03:07">
+<observed>0</observed>
+<expected>0.200000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="39" col="06:05">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="40" col="07:12">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="41" col="08:04">
+<observed>0</observed>
+<expected>0.050000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="42" col="12:02">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="43" col="15:07">
+<observed>0</observed>
+<expected>0.100000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="18:01" id="44" col="18:01">
+<observed>0</observed>
+<expected>0.025000</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+</genotypetable>
+<steps>100000</steps>
+<pvalue type="overall">0.47789</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="0" col="0">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="1" col="0">0.31444</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="1" col="1">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="2" col="0">0.45494</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="2" col="1">0.93733</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="2" col="2">0.30816</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="3" col="0">0.73053</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="3" col="1">0.89749</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="3" col="2">0.38385</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="3" col="3">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="4" col="0">0.03474</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="4" col="1">0.8969</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="4" col="2">0.93907</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="4" col="3">0.8995</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="4" col="4">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="0">0.72831</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="1">0.94593</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="2">0.99068</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="3">0.94832</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="4">0.94787</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="5" col="5">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="0">0.7294</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="1">0.20373</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="2">0.93903</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="3">0.89879</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="4">0.89858</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="5">0.10689</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="6" col="6">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="0">0.72928</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="1">0.89683</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="2">0.38152</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="3">0.20451</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="4">0.89853</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="5">0.94788</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="6">0.89869</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="7" col="7">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="8" col="0">0.17441</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="8" col="1">0.94593</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="8" col="2">0.99068</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="8" col="3">0.94832</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="8" col="4">0.94787</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="8" col="5">1</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="8" col="6">0.94766</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="8" col="7">0.94788</pvalue>
+<pvalue type="genotype" statistic="chen_statistic" row="8" col="8">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="0" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="1" col="0">0.38312</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="1" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="2" col="0">0.54348</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="2" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="2" col="2">0.30816</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="3" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="3" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="3" col="2">0.38385</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="3" col="3">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="4" col="0">0.03755</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="4" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="4" col="2">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="4" col="3">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="4" col="4">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="2">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="3">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="4">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="5" col="5">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="1">0.20373</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="2">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="3">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="4">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="5">0.10689</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="6" col="6">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="0">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="2">0.38152</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="3">0.20451</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="4">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="5">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="6">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="7" col="7">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="8" col="0">0.21152</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="8" col="1">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="8" col="2">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="8" col="3">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="8" col="4">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="8" col="5">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="8" col="6">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="8" col="7">1</pvalue>
+<pvalue type="genotype" statistic="diff_statistic" row="8" col="8">1</pvalue>
+</hardyweinbergGuoThompson>
+
+<homozygosityEWSlatkinExact>
+<theta>5.7179</theta>
+<probEwens>0.0300</probEwens>
+<probHomozygosity>0.0668</probHomozygosity>
+<meanHomozygosity>0.1789</meanHomozygosity>
+<observedHomozygosity>0.1350</observedHomozygosity>
+<varHomozygosity>0.0014</varHomozygosity>
+<normDevHomozygosity>-1.1641</normDevHomozygosity>
+</homozygosityEWSlatkinExact>
+</locus>
+<locus name="B">
+<allelecounts role="monomorphic">
+<untypedindividuals>1.0</untypedindividuals>
+<unsequencedsites>0</unsequencedsites>
+<indivcount>9.0</indivcount>
+<allelecount>18</allelecount>
+<distinctalleles>1</distinctalleles>
+<allele name="13:01">
+<frequency>1.00000 </frequency><count>18</count>
+</allele>
+<totalfrequency>1.00000</totalfrequency>
+<totalcount>18</totalcount></allelecounts>
+</locus>
+<emhaplofreq>
+
+<group mode="haplo" loci="A:C:B" showHaplo="yes">
+
+<individcount role="before-filtering">10</individcount>
+<individcount role="after-filtering">8</individcount>
+<uniquepheno>8</uniquepheno>
+<uniquegeno>14</uniquegeno>
+<haplocount>26</haplocount>
+<loglikelihood role="no-ld">-55.268324</loglikelihood>
+<iterationsummary>
+<![CDATA[
+--- Iteration Summary for Original Data -------------------------------------------
+Init. condition   0: Log likelihood after   8 iterations: -38.123095, error_flag: 0 
+Init. condition   1: Log likelihood after  25 iterations: -36.043653, error_flag: 0 
+Init. condition   2: Log likelihood after  22 iterations: -36.043653, error_flag: 0 
+Init. condition   3: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition   4: Log likelihood after  13 iterations: -36.043653, error_flag: 0 
+Init. condition   5: Log likelihood after  51 iterations: -36.043653, error_flag: 0 
+Init. condition   6: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition   7: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition   8: Log likelihood after   9 iterations: -37.429948, error_flag: 0 
+Init. condition   9: Log likelihood after  12 iterations: -37.429948, error_flag: 0 
+Init. condition  10: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  11: Log likelihood after  53 iterations: -36.043653, error_flag: 0 
+Init. condition  12: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  13: Log likelihood after   9 iterations: -37.429948, error_flag: 0 
+Init. condition  14: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  15: Log likelihood after  10 iterations: -37.429948, error_flag: 0 
+Init. condition  16: Log likelihood after  10 iterations: -36.043653, error_flag: 0 
+Init. condition  17: Log likelihood after  11 iterations: -36.043653, error_flag: 0 
+Init. condition  18: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  19: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  20: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  21: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  22: Log likelihood after  19 iterations: -36.043653, error_flag: 0 
+Init. condition  23: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  24: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  25: Log likelihood after  10 iterations: -37.429948, error_flag: 0 
+Init. condition  26: Log likelihood after  18 iterations: -36.043653, error_flag: 0 
+Init. condition  27: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  28: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  29: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  30: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  31: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  32: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  33: Log likelihood after  12 iterations: -37.429948, error_flag: 0 
+Init. condition  34: Log likelihood after  10 iterations: -36.043653, error_flag: 0 
+Init. condition  35: Log likelihood after  10 iterations: -36.043653, error_flag: 0 
+Init. condition  36: Log likelihood after  11 iterations: -36.043653, error_flag: 0 
+Init. condition  37: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  38: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  39: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  40: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  41: Log likelihood after  11 iterations: -36.043653, error_flag: 0 
+Init. condition  42: Log likelihood after  13 iterations: -37.429948, error_flag: 0 
+Init. condition  43: Log likelihood after  10 iterations: -36.043653, error_flag: 0 
+Init. condition  44: Log likelihood after  10 iterations: -37.429948, error_flag: 0 
+Init. condition  45: Log likelihood after  20 iterations: -36.043653, error_flag: 0 
+Init. condition  46: Log likelihood after  11 iterations: -36.043653, error_flag: 0 
+Init. condition  47: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  48: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  49: Log likelihood after  11 iterations: -36.043653, error_flag: 0 
+]]></iterationsummary>
+<haplotypefreq>
+<loginfo><![CDATA[
+Percent of iterations with error_flag = 0: 100.000
+Percent of iterations with error_flag = 2:   0.000
+Percent of iterations with error_flag = 3:   0.000
+Percent of iterations with error_flag = 4:   0.000
+Percent of iterations with error_flag = 5:   0.000
+Percent of iterations with error_flag = 6:   0.000
+Percent of iterations with error_flag = 7:   0.000
+
+--- Codes for error_flag ----------------------------------------------------------
+0: Iterations Converged, no errors 
+2: Normalization constant near zero. Est. HFs unstable 
+3: Wrong # allocated for at least one phenotype based on est. HFs 
+4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype 
+5: Log likelihood has decreased for more than 5 iterations 
+6: Est. HFs do not sum to 1.0 
+7: Log likelihood failed to converge in 400 iterations 
+-----------------------------------------------------------------------------------
+
+]]></loginfo>
+<condition role="converged"/>
+<iterConverged>22</iterConverged><loglikelihood>-36.043653</loglikelihood>
+<haplotype name="02:10~01:02~13:01"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="25:01~03:07~13:01"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="03:012~07:12~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="01:01~08:04~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:18~12:02~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:01~15:07~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="32:04~18:01~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="03:012~06:05~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="32:04~15:07~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="32:04~03:07~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:01~01:02~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="68:14~07:12~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:01~02:025~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:01~12:02~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+
+</haplotypefreq>
+<linkagediseq>
+<loci first="0" second="1">
+<allelepair first="02:10" second="01:02"><observed>2.00000</observed><expected>0.3750</expected><diseq>0.10156</diseq><norm_dij>1.00000</norm_dij><chisq>9.90476</chisq></allelepair>
+<allelepair first="02:10" second="07:12"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="02:10" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:10" second="12:02"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="02:10" second="03:07"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="02:10" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="02:10" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:10" second="06:05"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:10" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:012" second="01:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="03:012" second="07:12"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>0.42857</norm_dij><chisq>2.93878</chisq></allelepair>
+<allelepair first="03:012" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:012" second="12:02"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="03:012" second="03:07"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="03:012" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="03:012" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:012" second="06:05"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="03:012" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="01:01" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="01:01" second="07:12"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="01:01" second="08:04"><observed>1.00000</observed><expected>0.0625</expected><diseq>0.05859</diseq><norm_dij>1.00000</norm_dij><chisq>16.00000</chisq></allelepair>
+<allelepair first="01:01" second="12:02"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="01:01" second="03:07"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="01:01" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="01:01" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="01:01" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="01:01" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:18" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="02:18" second="07:12"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:18" second="08:04"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:18" second="12:02"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="02:18" second="03:07"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="02:18" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:18" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:18" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:18" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:01" second="01:02"><observed>1.00000</observed><expected>0.7500</expected><diseq>0.01562</diseq><norm_dij>0.11111</norm_dij><chisq>0.13675</chisq></allelepair>
+<allelepair first="02:01" second="07:12"><observed>0.00000</observed><expected>0.5000</expected><diseq>-0.03125</diseq><norm_dij>-1.00000</norm_dij><chisq>0.76190</chisq></allelepair>
+<allelepair first="02:01" second="08:04"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
+<allelepair first="02:01" second="12:02"><observed>1.00000</observed><expected>0.5000</expected><diseq>0.03125</diseq><norm_dij>0.33333</norm_dij><chisq>0.76190</chisq></allelepair>
+<allelepair first="02:01" second="03:07"><observed>0.00000</observed><expected>0.7500</expected><diseq>-0.04688</diseq><norm_dij>-1.00000</norm_dij><chisq>1.23077</chisq></allelepair>
+<allelepair first="02:01" second="15:07"><observed>1.00000</observed><expected>0.5000</expected><diseq>0.03125</diseq><norm_dij>0.33333</norm_dij><chisq>0.76190</chisq></allelepair>
+<allelepair first="02:01" second="18:01"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
+<allelepair first="02:01" second="06:05"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
+<allelepair first="02:01" second="02:025"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>1.00000</norm_dij><chisq>3.20000</chisq></allelepair>
+<allelepair first="25:01" second="01:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="25:01" second="07:12"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="25:01" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="25:01" second="12:02"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="25:01" second="03:07"><observed>2.00000</observed><expected>0.3750</expected><diseq>0.10156</diseq><norm_dij>1.00000</norm_dij><chisq>9.90476</chisq></allelepair>
+<allelepair first="25:01" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="25:01" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="25:01" second="06:05"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="25:01" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="32:04" second="01:02"><observed>0.00000</observed><expected>0.5625</expected><diseq>-0.03516</diseq><norm_dij>-1.00000</norm_dij><chisq>0.85207</chisq></allelepair>
+<allelepair first="32:04" second="07:12"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="32:04" second="08:04"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="32:04" second="12:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="32:04" second="03:07"><observed>1.00000</observed><expected>0.5625</expected><diseq>0.02734</diseq><norm_dij>0.17949</norm_dij><chisq>0.51545</chisq></allelepair>
+<allelepair first="32:04" second="15:07"><observed>1.00000</observed><expected>0.3750</expected><diseq>0.03906</diseq><norm_dij>0.38462</norm_dij><chisq>1.46520</chisq></allelepair>
+<allelepair first="32:04" second="18:01"><observed>1.00000</observed><expected>0.1875</expected><diseq>0.05078</diseq><norm_dij>1.00000</norm_dij><chisq>4.62222</chisq></allelepair>
+<allelepair first="32:04" second="06:05"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="32:04" second="02:025"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="68:14" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="68:14" second="07:12"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="68:14" second="08:04"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="68:14" second="12:02"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="68:14" second="03:07"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="68:14" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="68:14" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="68:14" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="68:14" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+</loci>
+<loci first="0" second="2">
+<allelepair first="02:10" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="03:012" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="01:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="02:18" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="02:01" second="13:01"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="25:01" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="32:04" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="68:14" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+</loci>
+<loci first="1" second="2">
+<allelepair first="01:02" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="07:12" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="08:04" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="12:02" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="03:07" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="15:07" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="18:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="06:05" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="02:025" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+</loci>
+<summary first="0" second="1">
+<ALD_1_2>0.76174</ALD_1_2><ALD_2_1>0.75337</ALD_2_1><wn>0.78174</wn><q><chisq>68.44444</chisq><dof>56</dof></q><dsummary>0.02579</dsummary><dprime>0.86447</dprime>
+</summary>
+<summary first="0" second="2">
+<ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>0.00000</chisq><dof>0</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>
+</summary>
+<summary first="1" second="2">
+<ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>0.00000</chisq><dof>0</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>
+</summary>
+</linkagediseq>
+</group>
+<group mode="all-pairwise-ld-with-permu" loci="A:C" showHaplo="no">
+
+<individcount role="before-filtering">10</individcount>
+<individcount role="after-filtering">8</individcount>
+<uniquepheno>8</uniquepheno>
+<uniquegeno>14</uniquegeno>
+<haplocount>26</haplocount>
+<loglikelihood role="no-ld">-55.268324</loglikelihood>
+<iterationsummary>
+<![CDATA[
+--- Iteration Summary for Original Data -------------------------------------------
+Init. condition   0: Log likelihood after   8 iterations: -38.123095, error_flag: 0 
+Init. condition   1: Log likelihood after  25 iterations: -36.043653, error_flag: 0 
+Init. condition   2: Log likelihood after  22 iterations: -36.043653, error_flag: 0 
+Init. condition   3: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition   4: Log likelihood after  13 iterations: -36.043653, error_flag: 0 
+Init. condition   5: Log likelihood after  51 iterations: -36.043653, error_flag: 0 
+Init. condition   6: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition   7: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition   8: Log likelihood after   9 iterations: -37.429948, error_flag: 0 
+Init. condition   9: Log likelihood after  12 iterations: -37.429948, error_flag: 0 
+Init. condition  10: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  11: Log likelihood after  53 iterations: -36.043653, error_flag: 0 
+Init. condition  12: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  13: Log likelihood after   9 iterations: -37.429948, error_flag: 0 
+Init. condition  14: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  15: Log likelihood after  10 iterations: -37.429948, error_flag: 0 
+Init. condition  16: Log likelihood after  10 iterations: -36.043653, error_flag: 0 
+Init. condition  17: Log likelihood after  11 iterations: -36.043653, error_flag: 0 
+Init. condition  18: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  19: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  20: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  21: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  22: Log likelihood after  19 iterations: -36.043653, error_flag: 0 
+Init. condition  23: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  24: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  25: Log likelihood after  10 iterations: -37.429948, error_flag: 0 
+Init. condition  26: Log likelihood after  18 iterations: -36.043653, error_flag: 0 
+Init. condition  27: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  28: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  29: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  30: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  31: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  32: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  33: Log likelihood after  12 iterations: -37.429948, error_flag: 0 
+Init. condition  34: Log likelihood after  10 iterations: -36.043653, error_flag: 0 
+Init. condition  35: Log likelihood after  10 iterations: -36.043653, error_flag: 0 
+Init. condition  36: Log likelihood after  11 iterations: -36.043653, error_flag: 0 
+Init. condition  37: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  38: Log likelihood after  12 iterations: -36.043653, error_flag: 0 
+Init. condition  39: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  40: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  41: Log likelihood after  11 iterations: -36.043653, error_flag: 0 
+Init. condition  42: Log likelihood after  13 iterations: -37.429948, error_flag: 0 
+Init. condition  43: Log likelihood after  10 iterations: -36.043653, error_flag: 0 
+Init. condition  44: Log likelihood after  10 iterations: -37.429948, error_flag: 0 
+Init. condition  45: Log likelihood after  20 iterations: -36.043653, error_flag: 0 
+Init. condition  46: Log likelihood after  11 iterations: -36.043653, error_flag: 0 
+Init. condition  47: Log likelihood after   9 iterations: -36.043653, error_flag: 0 
+Init. condition  48: Log likelihood after   8 iterations: -36.043653, error_flag: 0 
+Init. condition  49: Log likelihood after  11 iterations: -36.043653, error_flag: 0 
+]]></iterationsummary>
+<haplotypefreq>
+<loginfo><![CDATA[
+Percent of iterations with error_flag = 0: 100.000
+Percent of iterations with error_flag = 2:   0.000
+Percent of iterations with error_flag = 3:   0.000
+Percent of iterations with error_flag = 4:   0.000
+Percent of iterations with error_flag = 5:   0.000
+Percent of iterations with error_flag = 6:   0.000
+Percent of iterations with error_flag = 7:   0.000
+
+--- Codes for error_flag ----------------------------------------------------------
+0: Iterations Converged, no errors 
+2: Normalization constant near zero. Est. HFs unstable 
+3: Wrong # allocated for at least one phenotype based on est. HFs 
+4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype 
+5: Log likelihood has decreased for more than 5 iterations 
+6: Est. HFs do not sum to 1.0 
+7: Log likelihood failed to converge in 400 iterations 
+-----------------------------------------------------------------------------------
+
+]]></loginfo>
+<condition role="converged"/>
+<iterConverged>22</iterConverged><loglikelihood>-36.043653</loglikelihood>
+<haplotype name="02:10~01:02"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="25:01~03:07"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="03:012~07:12"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="01:01~08:04"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:18~12:02"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:01~15:07"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="32:04~18:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="03:012~06:05"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="32:04~15:07"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="32:04~03:07"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:01~01:02"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="68:14~07:12"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:01~02:025"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:01~12:02"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+
+</haplotypefreq>
+<linkagediseq>
+<loci first="0" second="1">
+<allelepair first="02:10" second="01:02"><observed>2.00000</observed><expected>0.3750</expected><diseq>0.10156</diseq><norm_dij>1.00000</norm_dij><chisq>9.90476</chisq></allelepair>
+<allelepair first="02:10" second="07:12"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="02:10" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:10" second="12:02"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="02:10" second="03:07"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="02:10" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="02:10" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:10" second="06:05"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:10" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:012" second="01:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="03:012" second="07:12"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>0.42857</norm_dij><chisq>2.93878</chisq></allelepair>
+<allelepair first="03:012" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:012" second="12:02"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="03:012" second="03:07"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="03:012" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="03:012" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:012" second="06:05"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="03:012" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="01:01" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="01:01" second="07:12"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="01:01" second="08:04"><observed>1.00000</observed><expected>0.0625</expected><diseq>0.05859</diseq><norm_dij>1.00000</norm_dij><chisq>16.00000</chisq></allelepair>
+<allelepair first="01:01" second="12:02"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="01:01" second="03:07"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="01:01" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="01:01" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="01:01" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="01:01" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:18" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="02:18" second="07:12"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:18" second="08:04"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:18" second="12:02"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="02:18" second="03:07"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="02:18" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:18" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:18" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:18" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:01" second="01:02"><observed>1.00000</observed><expected>0.7500</expected><diseq>0.01562</diseq><norm_dij>0.11111</norm_dij><chisq>0.13675</chisq></allelepair>
+<allelepair first="02:01" second="07:12"><observed>0.00000</observed><expected>0.5000</expected><diseq>-0.03125</diseq><norm_dij>-1.00000</norm_dij><chisq>0.76190</chisq></allelepair>
+<allelepair first="02:01" second="08:04"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
+<allelepair first="02:01" second="12:02"><observed>1.00000</observed><expected>0.5000</expected><diseq>0.03125</diseq><norm_dij>0.33333</norm_dij><chisq>0.76190</chisq></allelepair>
+<allelepair first="02:01" second="03:07"><observed>0.00000</observed><expected>0.7500</expected><diseq>-0.04688</diseq><norm_dij>-1.00000</norm_dij><chisq>1.23077</chisq></allelepair>
+<allelepair first="02:01" second="15:07"><observed>1.00000</observed><expected>0.5000</expected><diseq>0.03125</diseq><norm_dij>0.33333</norm_dij><chisq>0.76190</chisq></allelepair>
+<allelepair first="02:01" second="18:01"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
+<allelepair first="02:01" second="06:05"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
+<allelepair first="02:01" second="02:025"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>1.00000</norm_dij><chisq>3.20000</chisq></allelepair>
+<allelepair first="25:01" second="01:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="25:01" second="07:12"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="25:01" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="25:01" second="12:02"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="25:01" second="03:07"><observed>2.00000</observed><expected>0.3750</expected><diseq>0.10156</diseq><norm_dij>1.00000</norm_dij><chisq>9.90476</chisq></allelepair>
+<allelepair first="25:01" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="25:01" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="25:01" second="06:05"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="25:01" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="32:04" second="01:02"><observed>0.00000</observed><expected>0.5625</expected><diseq>-0.03516</diseq><norm_dij>-1.00000</norm_dij><chisq>0.85207</chisq></allelepair>
+<allelepair first="32:04" second="07:12"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="32:04" second="08:04"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="32:04" second="12:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="32:04" second="03:07"><observed>1.00000</observed><expected>0.5625</expected><diseq>0.02734</diseq><norm_dij>0.17949</norm_dij><chisq>0.51545</chisq></allelepair>
+<allelepair first="32:04" second="15:07"><observed>1.00000</observed><expected>0.3750</expected><diseq>0.03906</diseq><norm_dij>0.38462</norm_dij><chisq>1.46520</chisq></allelepair>
+<allelepair first="32:04" second="18:01"><observed>1.00000</observed><expected>0.1875</expected><diseq>0.05078</diseq><norm_dij>1.00000</norm_dij><chisq>4.62222</chisq></allelepair>
+<allelepair first="32:04" second="06:05"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="32:04" second="02:025"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="68:14" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="68:14" second="07:12"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="68:14" second="08:04"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="68:14" second="12:02"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="68:14" second="03:07"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="68:14" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="68:14" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="68:14" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="68:14" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+</loci>
+<summary first="0" second="1">
+<ALD_1_2>0.76174</ALD_1_2><ALD_2_1>0.75337</ALD_2_1><wn>0.78174</wn><q><chisq>68.44444</chisq><dof>56</dof></q><dsummary>0.02579</dsummary><dprime>0.86447</dprime>
+</summary>
+</linkagediseq>
+<permutationSummary>
+<pvalue totalperm="99">0.222222</pvalue>
+<lr>0.331880</lr>
+<lr-mean>37.816050</lr-mean>
+<lr-sd>2.524304</lr-sd>
+</permutationSummary>
+</group>
+<group mode="all-pairwise-ld-with-permu" loci="A:B" showHaplo="no">
+
+<individcount role="before-filtering">10</individcount>
+<individcount role="after-filtering">8</individcount>
+<uniquepheno>8</uniquepheno>
+<uniquegeno>8</uniquegeno>
+<haplocount>8</haplocount>
+<loglikelihood role="no-ld">-26.509492</loglikelihood>
+<iterationsummary>
+<![CDATA[
+--- Iteration Summary for Original Data -------------------------------------------
+Init. condition   0: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition   1: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition   2: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition   3: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition   4: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition   5: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition   6: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition   7: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition   8: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition   9: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  10: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  11: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  12: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  13: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  14: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  15: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  16: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  17: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  18: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  19: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  20: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  21: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  22: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  23: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  24: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  25: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  26: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  27: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  28: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  29: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  30: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  31: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  32: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  33: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  34: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  35: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  36: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  37: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  38: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  39: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  40: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  41: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  42: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  43: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  44: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  45: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  46: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  47: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  48: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition  49: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+]]></iterationsummary>
+<haplotypefreq>
+<loginfo><![CDATA[
+Percent of iterations with error_flag = 0: 100.000
+Percent of iterations with error_flag = 2:   0.000
+Percent of iterations with error_flag = 3:   0.000
+Percent of iterations with error_flag = 4:   0.000
+Percent of iterations with error_flag = 5:   0.000
+Percent of iterations with error_flag = 6:   0.000
+Percent of iterations with error_flag = 7:   0.000
+
+--- Codes for error_flag ----------------------------------------------------------
+0: Iterations Converged, no errors 
+2: Normalization constant near zero. Est. HFs unstable 
+3: Wrong # allocated for at least one phenotype based on est. HFs 
+4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype 
+5: Log likelihood has decreased for more than 5 iterations 
+6: Est. HFs do not sum to 1.0 
+7: Log likelihood failed to converge in 400 iterations 
+-----------------------------------------------------------------------------------
+
+]]></loginfo>
+<condition role="converged"/>
+<iterConverged>32763</iterConverged><loglikelihood>-26.509492</loglikelihood>
+<haplotype name="02:01~13:01"><frequency>0.25000</frequency><numCopies>4.0</numCopies></haplotype>
+<haplotype name="32:04~13:01"><frequency>0.18750</frequency><numCopies>3.0</numCopies></haplotype>
+<haplotype name="02:10~13:01"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="03:012~13:01"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="25:01~13:01"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="01:01~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:18~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="68:14~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+
+</haplotypefreq>
+<linkagediseq>
+<loci first="0" second="1">
+<allelepair first="02:10" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="03:012" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="01:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="02:18" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="02:01" second="13:01"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="25:01" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="32:04" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="68:14" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+</loci>
+<summary first="0" second="1">
+<ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>0.00000</chisq><dof>0</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>
+</summary>
+</linkagediseq>
+<permutationSummary>
+<pvalue totalperm="99">0.121212</pvalue>
+<lr>-0.000000</lr>
+<lr-mean>0.000000</lr-mean>
+<lr-sd>0.000000</lr-sd>
+</permutationSummary>
+</group>
+<group mode="all-pairwise-ld-with-permu" loci="C:B" showHaplo="no">
+
+<individcount role="before-filtering">10</individcount>
+<individcount role="after-filtering">9</individcount>
+<uniquepheno>8</uniquepheno>
+<uniquegeno>8</uniquegeno>
+<haplocount>9</haplocount>
+<loglikelihood role="no-ld">-32.095322</loglikelihood>
+<iterationsummary>
+<![CDATA[
+--- Iteration Summary for Original Data -------------------------------------------
+Init. condition   0: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition   1: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition   2: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition   3: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition   4: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition   5: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition   6: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition   7: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition   8: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition   9: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  10: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  11: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  12: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  13: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  14: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  15: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  16: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  17: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  18: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  19: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  20: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  21: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  22: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  23: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  24: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  25: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  26: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  27: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  28: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  29: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  30: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  31: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  32: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  33: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  34: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  35: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  36: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  37: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  38: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  39: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  40: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  41: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  42: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  43: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  44: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  45: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  46: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  47: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  48: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition  49: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+]]></iterationsummary>
+<haplotypefreq>
+<loginfo><![CDATA[
+Percent of iterations with error_flag = 0: 100.000
+Percent of iterations with error_flag = 2:   0.000
+Percent of iterations with error_flag = 3:   0.000
+Percent of iterations with error_flag = 4:   0.000
+Percent of iterations with error_flag = 5:   0.000
+Percent of iterations with error_flag = 6:   0.000
+Percent of iterations with error_flag = 7:   0.000
+
+--- Codes for error_flag ----------------------------------------------------------
+0: Iterations Converged, no errors 
+2: Normalization constant near zero. Est. HFs unstable 
+3: Wrong # allocated for at least one phenotype based on est. HFs 
+4: Phenotype freq., based on est. HFs, is 0 for an observed phenotype 
+5: Log likelihood has decreased for more than 5 iterations 
+6: Est. HFs do not sum to 1.0 
+7: Log likelihood failed to converge in 400 iterations 
+-----------------------------------------------------------------------------------
+
+]]></loginfo>
+<condition role="converged"/>
+<iterConverged>32763</iterConverged><loglikelihood>-32.095322</loglikelihood>
+<haplotype name="03:07~13:01"><frequency>0.22222</frequency><numCopies>4.0</numCopies></haplotype>
+<haplotype name="01:02~13:01"><frequency>0.16667</frequency><numCopies>3.0</numCopies></haplotype>
+<haplotype name="06:05~13:01"><frequency>0.11111</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="07:12~13:01"><frequency>0.11111</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="12:02~13:01"><frequency>0.11111</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="15:07~13:01"><frequency>0.11111</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="08:04~13:01"><frequency>0.05556</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="18:01~13:01"><frequency>0.05556</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:025~13:01"><frequency>0.05556</frequency><numCopies>1.0</numCopies></haplotype>
+
+</haplotypefreq>
+<linkagediseq>
+<loci first="0" second="1">
+<allelepair first="03:07" second="13:01"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="06:05" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="01:02" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="07:12" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="08:04" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="12:02" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="15:07" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="18:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="02:025" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+</loci>
+<summary first="0" second="1">
+<ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>0.00000</chisq><dof>0</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>
+</summary>
+</linkagediseq>
+<permutationSummary>
+<pvalue totalperm="99">0.010101</pvalue>
+<lr>0.000000</lr>
+<lr-mean>-0.000000</lr-mean>
+<lr-sd>0.000000</lr-sd>
+</permutationSummary>
+</group></emhaplofreq>
+</dataanalysis>
