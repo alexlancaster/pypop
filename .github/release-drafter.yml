@@ -1,0 +1,45 @@
+name-template: 'PyPop v$NEXT_PATCH_VERSION'
+tag-template: 'v$NEXT_PATCH_VERSION'
+include-pre-releases: true
+categories:
+  - title: 'Features'
+    labels:
+      - 'feature'
+      - 'enhancement'
+  - title: 'Bug Fixes'
+    labels:
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+  - title: 'Documentation'
+    labels:
+      - 'documentation'
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+version-resolver:
+  major:
+    labels:
+      - 'major'
+  minor:
+    labels:
+      - 'minor'
+  patch:
+    labels:
+      - 'patch'
+  default: patch
+template: |
+  ## Installation via PyPI
+  ```
+  pip install -U pypop-genomics
+  ```
+  
+  ## Changes
+
+  A full history of changes is available via
+  [`NEWS.rst`](https://github.com/alexlancaster/pypop/blob/main/NEWS.rst).
+  
+  $CHANGES
+
+  ## Contributors
+
+  $CONTRIBUTORS

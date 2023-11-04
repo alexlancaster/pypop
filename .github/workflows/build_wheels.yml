@@ -9,9 +9,11 @@ on:
       - 'CITATION.cff'
       - '.zenodo.json'
       - 'website/**'
-      - '.github/workflows/documentation.yaml'
       - '.github/dependabot.yml'
+      - '.github/release-drafter.yml'
       - '.github/ISSUE_TEMPLATE/**'
+      - '.github/workflows/documentation.yaml'
+      - '.github/workflows/release-drafter.yml'
       - '.gitattributes'
   push:
     paths-ignore:
@@ -21,8 +23,10 @@ on:
       - '.zenodo.json'
       - 'website/**'
       - '.github/dependabot.yml'
+      - '.github/release-drafter.yml'
       - '.github/ISSUE_TEMPLATE/**'
       - '.github/workflows/documentation.yaml'
+      - '.github/workflows/release-drafter.yml'
       - '.gitattributes'
   release:
     types:
