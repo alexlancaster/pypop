@@ -1,6 +1,8 @@
-name-template: 'PyPop v$NEXT_PATCH_VERSION'
+name-template: 'PyPop $NEXT_PATCH_VERSION'
 tag-template: 'v$NEXT_PATCH_VERSION'
 include-pre-releases: true
+prerelease-identifier: 'rc'
+version-template: '$COMPLETE'
 categories:
   - title: 'Features'
     labels:
@@ -11,6 +13,9 @@ categories:
       - 'fix'
       - 'bugfix'
       - 'bug'
+  - title: 'Internal'
+    labels:
+      - 'github-actions'
   - title: 'Documentation'
     labels:
       - 'documentation'
