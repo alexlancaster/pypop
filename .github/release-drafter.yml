@@ -13,9 +13,11 @@ categories:
       - 'fix'
       - 'bugfix'
       - 'bug'
+      - 'installation'
   - title: 'Internal'
     labels:
-      - 'github-actions'
+      - 'github_actions'
+      - 'dependencies'
   - title: 'Documentation'
     labels:
       - 'documentation'
