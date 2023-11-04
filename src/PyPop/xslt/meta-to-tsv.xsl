@@ -1222,7 +1222,7 @@ MODIFICATIONS.
 	  <xsl:call-template name="header-line-start">
 	    <xsl:with-param name="popnode" select="$popnode"/>
 	  </xsl:call-template>
-	  <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
+	  <xsl:text>loci&#09;haplotype&#09;haplotype.freq&#09;haplotype.count</xsl:text>
 	  <xsl:call-template name="newline"/>
 	  <xsl:call-template name="gen-lines">
 	    <xsl:with-param name="nodes" select="$nodes-3-or-greater-loci[(string-length(@loci) - string-length(translate(@loci, ':', '')) + 1)=$loci_count]"/>

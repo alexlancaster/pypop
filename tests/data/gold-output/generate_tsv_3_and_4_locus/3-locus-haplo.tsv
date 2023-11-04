@@ -1,4 +1,4 @@
-pop	labcode	method	ethnic	collect.site	region	latit	longit	complex	locus	allele	allele.freq	allele.count
+pop	labcode	method	ethnic	collect.site	region	latit	longit	complex	loci	haplotype	haplotype.freq	haplotype.count
 0	****	****	****	****	****	****	****	****	A:DRB1:DRB3	01:01:01:01~01:01:01~00:00	0.08110	160.7	
 0	****	****	****	****	****	****	****	****	A:DRB1:DRB3	24:02:01:01~07:01:01:01~00:00	0.07921	157.0	
 0	****	****	****	****	****	****	****	****	A:DRB1:DRB3	32:02~03:01:02~01:01:02:01	0.05701	113.0	
