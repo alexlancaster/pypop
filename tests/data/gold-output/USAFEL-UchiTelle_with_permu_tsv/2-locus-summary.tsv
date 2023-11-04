@@ -1,0 +1,4 @@
+labcode	method	ethnic	contin	collect	latit	longit	complex	popname	n.gametes	locus1	locus2	metaloci	ld.dprime	ld.wn	ald.1_2	ald.2_1	q.chisq	q.df	lrt.pval	lrt.z
+USAFEL	12th Workshop SSOP	Telle	NW Asia	Targen Village	41 deg 12 min N	94 deg 7 min E	1	UchiTelle	16	A	C	****	0.86447	0.78174	0.76174	0.75337	68.44444	56	0.222222	0.331880	
+USAFEL	12th Workshop SSOP	Telle	NW Asia	Targen Village	41 deg 12 min N	94 deg 7 min E	1	UchiTelle	16	A	B	****	NA	NA	NA	NA	0.00000	0	0.121212	-0.000000	
+USAFEL	12th Workshop SSOP	Telle	NW Asia	Targen Village	41 deg 12 min N	94 deg 7 min E	1	UchiTelle	18	C	B	****	NA	NA	NA	NA	0.00000	0	0.010101	0.000000	

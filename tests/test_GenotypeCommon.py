@@ -1,7 +1,7 @@
 import subprocess
 import hashlib
 import pytest
-from base import abspath_test_data, run_pypop_process, xfail_windows, in_temp_dir
+from base import abspath_test_data, run_pypop_process, in_temp_dir
 
 def test_GenotypeCommon_HardyWeinberg():
     exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_HW.ini', './tests/data/BIGDAWG_SynthControl_Data.pop')

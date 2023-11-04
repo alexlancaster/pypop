@@ -3,7 +3,7 @@ import hashlib
 import pytest
 import os.path
 import tempfile
-from base import run_popmeta_process, filecmp_list_of_files, abspath_test_data, xfail_windows, in_temp_dir, DEFAULT_GOLD_OUTPUT_DIR
+from base import run_popmeta_process, filecmp_list_of_files, abspath_test_data, in_temp_dir, DEFAULT_GOLD_OUTPUT_DIR
 
 def test_Popmeta():
     exit_code = run_popmeta_process(['./tests/data/BIGDAWG_SynthControl_Data-out.xml', './tests/data/BIGDAWG_SynthControl_Data_dash-out.xml'], args=[])
