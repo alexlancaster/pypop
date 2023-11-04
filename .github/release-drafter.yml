@@ -40,8 +40,7 @@ template: |
   
   ## Changes
 
-  A full history of changes is available via
-  [`NEWS.rst`](https://github.com/alexlancaster/pypop/blob/main/NEWS.rst).
+  A full history of changes is available in [`NEWS.rst`](https://github.com/alexlancaster/pypop/blob/main/NEWS.rst).
   
   $CHANGES
 
