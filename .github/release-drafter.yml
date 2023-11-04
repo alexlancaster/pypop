@@ -47,9 +47,5 @@ template: |
   
   $CHANGES
 
-  ## Contributors
-
-  $CONTRIBUTORS
-
 footer: |
   $PREVIOUS_TAG
