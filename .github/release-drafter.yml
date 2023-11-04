@@ -1,9 +1,9 @@
 name-template: 'PyPop $NEXT_PATCH_VERSION'
 tag-template: 'v$NEXT_PATCH_VERSION'
 prerelease: true
-include-pre-releases: true
+include-prereleases: true
 prerelease-identifier: 'rc'
-version-template: '$COMPLETE'
+#version-template: '$COMPLETE'
 categories:
   - title: 'Features'
     labels:
