@@ -1,5 +1,6 @@
 name-template: 'PyPop $NEXT_PATCH_VERSION'
 tag-template: 'v$NEXT_PATCH_VERSION'
+prerelease: true
 include-pre-releases: true
 prerelease-identifier: 'rc'
 version-template: '$COMPLETE'
@@ -22,7 +23,7 @@ categories:
     labels:
       - 'documentation'
 category-template: '### $TITLE'      
-change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+change-template: '- $TITLE by @$AUTHOR (#$NUMBER)'
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
 version-resolver:
   major:
