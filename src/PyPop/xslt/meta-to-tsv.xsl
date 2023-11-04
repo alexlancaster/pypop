@@ -881,6 +881,14 @@ MODIFICATIONS.
        <xsl:call-template name="output-field">
 	<xsl:with-param name="node" select="linkagediseq/summary/wn"/>
        </xsl:call-template>
+
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="linkagediseq/summary/ALD_1_2"/>
+       </xsl:call-template>
+
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="linkagediseq/summary/ALD_2_1"/>
+       </xsl:call-template>
        
        <xsl:call-template name="output-field">
 	<xsl:with-param name="node" select="linkagediseq/summary/q/chisq"/>
@@ -961,11 +969,10 @@ MODIFICATIONS.
        <xsl:if test="$pairwise=1">
 	
 	<xsl:variable name="first">
-	 <xsl:value-of select="substring-before(@name, ':')"/>
-	 <xsl:text>:</xsl:text>
+	 <xsl:value-of select="substring-before(@name, '~')"/>	  
 	</xsl:variable>
 	<xsl:variable name="second">
-	 <xsl:value-of select="substring-after(@name, ':')"/>
+	  <xsl:value-of select="substring-after(@name, '~')"/>
 	</xsl:variable>
        
 	<xsl:variable name="pair"
@@ -983,7 +990,10 @@ MODIFICATIONS.
   	<xsl:call-template name="output-field">
 	 <xsl:with-param name="node" select="$pair/chisq"/>
 	</xsl:call-template>
-         
+
+        <!-- not neeeded: repeats the existing 'haplotype.count' and
+             'haplotype.freq' columns
+
         <xsl:call-template name="output-field">
           <xsl:with-param name="node" select="$pair/observed"/>
         </xsl:call-template>
@@ -991,7 +1001,8 @@ MODIFICATIONS.
         <xsl:call-template name="output-field">
           <xsl:with-param name="node" select="frequency"/>
         </xsl:call-template>
-
+	-->
+	
         <xsl:call-template name="output-field">
           <xsl:with-param name="node" select="$pair/expected"/>
         </xsl:call-template>
@@ -1134,7 +1145,7 @@ MODIFICATIONS.
 	<xsl:call-template name="header-line-start">
 	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
 	</xsl:call-template>
-	<xsl:text>n.gametes&#09;locus1&#09;locus2&#09;metaloci&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
+	<xsl:text>n.gametes&#09;locus1&#09;locus2&#09;metaloci&#09;ld.dprime&#09;ld.wn&#09;ald.1_2&#09;ald.2_1&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
 	<xsl:call-template name="newline"/>
 	<xsl:call-template name="gen-lines">
 	  <!-- either explicitly set as an all-pairwise mode, or 'haplo' mode with 2 loci -->
@@ -1152,7 +1163,7 @@ MODIFICATIONS.
 	<xsl:call-template name="header-line-start">
 	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
 	</xsl:call-template>
-	<xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count&#09;ld.d&#09;ld.dprime&#09;ld.chisq&#09;obs&#09;obs.freq&#09;exp</xsl:text>
+	<xsl:text>loci&#09;haplotype&#09;haplotype.freq&#09;haplotype.count&#09;ld.d&#09;ld.dprime&#09;ld.chisq&#09;haplotype.no-ld.count</xsl:text>
 	<xsl:call-template name="newline"/>
 	<xsl:call-template name="gen-lines">
 	  <!-- either explicitly set as an all-pairwise mode, or 'haplo' mode with 2 loci -->
@@ -1219,7 +1230,7 @@ MODIFICATIONS.
 	  <xsl:call-template name="header-line-start">
 	    <xsl:with-param name="popnode" select="$popnode"/>
 	  </xsl:call-template>
-	  <xsl:text>locus&#09;allele&#09;allele.freq&#09;allele.count</xsl:text>
+	  <xsl:text>loci&#09;haplotype&#09;haplotype.freq&#09;haplotype.count</xsl:text>
 	  <xsl:call-template name="newline"/>
 	  <xsl:call-template name="gen-lines">
 	    <xsl:with-param name="nodes" select="$nodes-3-or-greater-loci[(string-length(@loci) - string-length(translate(@loci, ':', '')) + 1)=$loci_count]"/>

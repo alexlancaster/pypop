@@ -44,7 +44,7 @@ from difflib import unified_diff
 from pathlib import Path, PurePath
 
 # global XFAIL condition for win32
-xfail_windows = pytest.mark.xfail(sys.platform == "win32", reason="pipeline tests currently fail on windows")
+xfail_windows = pytest.mark.xfail(sys.platform == "win32", reason="certain tests currently fail on windows due to minor numerical issues")
 
 CUR_DIR = os.path.abspath(os.path.dirname(__file__))
 PARENT_DIR = os.path.join(CUR_DIR, '..')
