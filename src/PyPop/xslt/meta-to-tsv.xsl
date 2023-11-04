@@ -881,6 +881,14 @@ MODIFICATIONS.
        <xsl:call-template name="output-field">
 	<xsl:with-param name="node" select="linkagediseq/summary/wn"/>
        </xsl:call-template>
+
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="linkagediseq/summary/ALD_1_2"/>
+       </xsl:call-template>
+
+       <xsl:call-template name="output-field">
+	<xsl:with-param name="node" select="linkagediseq/summary/ALD_2_1"/>
+       </xsl:call-template>
        
        <xsl:call-template name="output-field">
 	<xsl:with-param name="node" select="linkagediseq/summary/q/chisq"/>
@@ -1137,7 +1145,7 @@ MODIFICATIONS.
 	<xsl:call-template name="header-line-start">
 	  <xsl:with-param name="popnode" select="/meta/dataanalysis[1]/populationdata"/>
 	</xsl:call-template>
-	<xsl:text>n.gametes&#09;locus1&#09;locus2&#09;metaloci&#09;ld.dprime&#09;ld.wn&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
+	<xsl:text>n.gametes&#09;locus1&#09;locus2&#09;metaloci&#09;ld.dprime&#09;ld.wn&#09;ald.1_2&#09;ald.2_1&#09;q.chisq&#09;q.df&#09;lrt.pval&#09;lrt.z</xsl:text>
 	<xsl:call-template name="newline"/>
 	<xsl:call-template name="gen-lines">
 	  <!-- either explicitly set as an all-pairwise mode, or 'haplo' mode with 2 loci -->
