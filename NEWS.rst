@@ -3,9 +3,9 @@ PyPop Release History
 
 .. _news-start:
 
-Release Notes for PyPop 1.0.0rc1
+Release Notes for PyPop 1.0.0rc2
 --------------------------------
-(2023-11-01)
+(2023-11-04)
 
 PyPop 1.0.0 is the first official release of PyPop using Python 3, and
 the first release to be included on `PyPI
@@ -18,8 +18,8 @@ and are detailed below.  Many people contributed to this latest
 release, which has been a while in coming. Thanks especially to all
 new contributors including Vanessa Sochat, Gordon Webster,
 Jurriaan H. Spaaks, Karl Kornel and Michael Mariani.  Thanks also to
-ongoing contributors and bug reporters, Richard Single, Owen Solberg
-and Steve Mack.
+all of our bug reporters, and ongoing contributors, especially Richard
+Single, Owen Solberg and Steve Mack.
 
 
 New features
@@ -28,7 +28,8 @@ New features
   Sochat for major patch)
 * Added new assymetric linkage disequilibrium (ALD) calculations
   (thanks to Richard Single), see [Thomson:Single:2014]_ for more
-  details.
+  details. Added in both the plain text (``.txt``) as well as the
+  ``2-locus-summary.tsv`` TSV file outputs.
 * Improved tab-separated values (TSV) output file handling:
 
   * old IHWG headers are disabled by default, so the ``-disable-ihwg``
@@ -71,6 +72,22 @@ Bug fixes
   * fix headers in 3 and 4 locus TSV files
   * output 2 locus haplotypes in TSV if they are explicitly specified
     (thanks to Steve Mack)
+  * ``2-locus-haplo.tsv``: fixed missing output in ``ld.d``,
+    ``ld.dprime``, ``ld.chisq``, and ``exp`` columns (thanks to Nabil
+    M for the report)
+  * rename, remove and add some columns headers, including the new
+    ``ALD`` measures:
+
+    * ``2-locus-haplo.tsv``: rename columns: ``allele`` ->
+      ``haplotype``, ``exp`` -> ``haplotype.no-ld.count``
+    * ``2-locus-haplo.tsv``: remove ``obs`` and ``obs.freq`` columns
+      which were duplicative of ``haplotype.count`` and
+      ``haplotype.freq``, respectively
+    * ``2-locus-summary.tsv``: add two new ALD measure columns:
+      ``ald.1_2`` and ``ald.2_1``
+    * ``*-locus-summary.tsv``: rename columns for multilocus
+      haplotypes for 3 or more loci, ``allele`` -> ``haplotype`` and
+      ``locus`` -> ``loci``
     
 * Fix ``DigitBinning`` and ``CustomBinning`` filters ``[Filters]``
   (report from Steve Mack)
@@ -240,7 +257,7 @@ Bug fixes
   equal to constructs ("<=") which is not reliable in C.  Replaced
   this with a GNU Scientific Library (GSL) function gsl_fcmp() which
   compares floats to within an EPSILON (defaults to 1e-6).
-* Allow ``HardyWeinbergGuoThompson` test to be run if at least two alleles
+* Allow ``HardyWeinbergGuoThompson`` test to be run if at least two alleles
   present (test was originally failing with a ``too-few-alleles``
   message if there were not at least 3 alleles).  Thanks to Kristie
   Mather for the report.

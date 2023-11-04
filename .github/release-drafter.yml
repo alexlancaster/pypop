@@ -1,5 +1,5 @@
-name-template: 'PyPop $RESOLVED_VERSION'
-tag-template: 'v$RESOLVED_VERSION'
+name-template: 'PyPop 1.0.0rc3'
+tag-template: 'v1.0.0-rc3'
 prerelease: true
 include-pre-releases: true
 prerelease-identifier: 'rc'

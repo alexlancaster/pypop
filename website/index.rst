@@ -8,8 +8,7 @@ PyPop: Python for Population Genomics
    
     Please follow the instructions on the GitHub `README.rst
     <https://github.com/alexlancaster/pypop#readme>`__ for how to
-    install 1.0.0 release candidate 1 from PyPI (or build PyPop from
-    source on a modern Python 3 system).  A formal 1.0.0 release will
+    install a 1.0.0 release candidate from PyPI. A formal 1.0.0 release will
     be made soon.
 
 .. _news:
@@ -17,8 +16,9 @@ PyPop: Python for Population Genomics
 .. admonition:: Release summary and news
   :class: dropdown, toggle-shown
 
-  - 2023-11-01: release candidate 1 (1.0.0rc1) is now available on
-    `PyPI <https://pypi.org/project/pypop-genomics/>`__.
+  - 2023-11-04: release candidate 2 (1.0.0rc2) is now available on
+    `PyPI <https://pypi.org/project/pypop-genomics/>`__. Fixes some missing TSV output.
+  - 2023-11-01: release candidate 1 (1.0.0rc1) released.
   - 2023-10-27: seventh beta pre-release 1.0.0b7,  Previous ``arm64``
     issues have been resolved. Thanks to Owen Solberg for extensive
     testing and debugging.
