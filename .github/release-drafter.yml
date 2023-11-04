@@ -1,7 +1,7 @@
-name-template: 'PyPop $NEXT_PATCH_VERSION'
-tag-template: 'v$NEXT_PATCH_VERSION'
+name-template: 'PyPop $RESOLVED_VERSION'
+tag-template: 'v$RESOLVED_VERSION'
 prerelease: true
-include-prereleases: true
+include-pre-releases: true
 prerelease-identifier: 'rc'
 #version-template: '$COMPLETE'
 categories:
@@ -47,6 +47,3 @@ template: |
   A full history of changes is available in [`NEWS.rst`](https://github.com/alexlancaster/pypop/blob/main/NEWS.rst).
   
   $CHANGES
-
-footer: |
-  $PREVIOUS_TAG
