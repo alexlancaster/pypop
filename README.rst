@@ -56,19 +56,13 @@ Quickstart Guide
 
 **Installing** |pkgname|
 
-If you already have Python and ``pip`` installed, install a test pre-releases using the following:
+If you already have Python and ``pip`` installed, install using the following:
 
 .. code-block:: shell
 
    pip install pypop-genomics
 
 Otherwise, follow `these instructions <Install Python 3 and pip_>`_ to install Python 3 and pip.
-
-.. warning::
-
-   **These pre-release versions are being made available for initial
-   testing, they are not intended to be used for production
-   applications or analysis**
 
 Once |pkgname| is installed, depending on your platform, you may also
 need to `adjust <Post-install PATH adjustments_>`_ your ``PATH``
@@ -113,7 +107,8 @@ well, you should see something like:
 
 .. code-block:: text
 
-   pypop 1.0.0a23
+   pypop 1.0.0
+   [Python 3.10.9 | Linux-5.14.18-100.fc33.x86_64-x86_64-with-glibc2.32 | x86_64]
    Copyright (C) 2003-2006 Regents of the University of California.
    Copyright (C) 2007-2023 PyPop team.
    This is free software.  There is NO warranty; not even for
@@ -195,13 +190,7 @@ Install package from PyPI
 
 Once you have both python and ``pip`` installed, you can use ``pip``
 to install pre-compiled binary "wheels" of |pkgname|
-pre-releases, directly from  `PyPI <https://pypi.org/>`__.
-
-.. warning::
-
-   **These pre-release versions are being made available for initial
-   testing, they are not intended to be used for production
-   applications or analysis**
+directly from  `PyPI <https://pypi.org/>`__.
 
 .. code-block:: shell
 
@@ -289,7 +278,7 @@ you need to explicitly provide a URL to the release page.
    
 1. First, visit the release page, and choose the release version you
    wish to install (usually the most recent), and note the release tag
-   (e.g. ``v1.0.0-a23``).
+   (e.g. ``v1.0.0``).
 
    .. admonition:: Release version numbers
 
@@ -297,8 +286,10 @@ you need to explicitly provide a URL to the release page.
       ``git`` tag.  This is because the ``git`` tag follows `Semantic
       Versioning <https://semver.org/>`__, which Python internally
       normalizes and abbreviates.  So the release with the ``git`` tag
-      ``v1.0.0-a23`` is actually version ``1.0.0a23`` of the
-      |pkgname| package, and the version that ``pip`` "sees".
+      ``v1.0.0`` is actually version ``1.0.0`` of the |pkgname|
+      package, and the version that ``pip`` "sees" (the difference is
+      more notable with prereleases which might have a ``git`` tag of
+      ``v1.0.0-rc2`` but the PyPI version will be ``1.0.0rc2``).
 
 2. Next, use ``pip`` to install the package by running a command of
    the form (this will select and install the correct wheel for your
@@ -312,14 +303,14 @@ you need to explicitly provide a URL to the release page.
 
    .. code-block:: shell
    
-      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0-a23
+      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0
 
    You can also manually download the specific wheel from the github
    release webpage and install directly, e.g.:
 
    .. code-block:: shell
    
-      pip install pypop_genomics-1.0.0a23-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+      pip install pypop_genomics-1.0.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 		
 Post-install ``PATH`` adjustments
 ---------------------------------
