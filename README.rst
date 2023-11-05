@@ -108,7 +108,7 @@ well, you should see something like:
 .. code-block:: text
 
    pypop 1.0.0
-   [Python 3.10.9 | Linux-5.14.18-100.fc33.x86_64-x86_64-with-glibc2.32 | x86_64]
+   [Python 3.10.9 | Linux.x86_64-x86_64 | x86_64]
    Copyright (C) 2003-2006 Regents of the University of California.
    Copyright (C) 2007-2023 PyPop team.
    This is free software.  There is NO warranty; not even for
