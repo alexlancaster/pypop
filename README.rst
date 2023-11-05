@@ -247,8 +247,8 @@ general, this is what is wanted, so the above instructions are
 normally sufficient.
 
 However, you can also explicitly set installation to be in the user
-directory, by adding the ``--user`` command-line option to the ``pip
-install`` command, i.e.:
+directory, by adding the ``--user`` command-line option to the ``pip install``
+command, i.e.:
 
 .. code-block:: shell
 
