@@ -23,7 +23,7 @@ large-scale population genetic analyses including:
 .. admonition:: Release summary and news
   :class: dropdown
 
-  - 2023-11-06: PyPop 1.0.0 is now available on
+  - 2023-11-07: PyPop 1.0.0 is now available on
     `PyPI <https://pypi.org/project/pypop-genomics/>`__
   - 2023-11-04: release candidate 2 (1.0.0rc2) released. Fixes some
     missing TSV output.
