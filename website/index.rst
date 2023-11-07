@@ -4,20 +4,29 @@
 PyPop: Python for Population Genomics
 =====================================
 
-.. note::
-   
-    Please follow the instructions on the GitHub `README.rst
-    <https://github.com/alexlancaster/pypop#readme>`__ for how to
-    install a 1.0.0 release candidate from PyPI. A formal 1.0.0 release will
-    be made soon.
-
 .. _news:
 
-.. admonition:: Release summary and news
-  :class: dropdown, toggle-shown
+.. _guide-preface-1-start:
 
-  - 2023-11-04: release candidate 2 (1.0.0rc2) is now available on
-    `PyPI <https://pypi.org/project/pypop-genomics/>`__. Fixes some missing TSV output.
+**PyPop (Python for Population Genomics)** is an environment for doing
+large-scale population genetic analyses including:
+
+-  conformity to Hardy-Weinberg expectations
+
+-  tests for balancing or directional selection
+
+-  estimates of haplotype frequencies and measures and tests of
+   significance for linkage disequilibrium (LD).
+
+.. _guide-preface-1-end:
+   
+.. admonition:: Release summary and news
+  :class: dropdown
+
+  - 2023-11-07: PyPop 1.0.0 is now available on
+    `PyPI <https://pypi.org/project/pypop-genomics/>`__
+  - 2023-11-04: release candidate 2 (1.0.0rc2) released. Fixes some
+    missing TSV output.
   - 2023-11-01: release candidate 1 (1.0.0rc1) released.
   - 2023-10-27: seventh beta pre-release 1.0.0b7,  Previous ``arm64``
     issues have been resolved. Thanks to Owen Solberg for extensive
@@ -39,37 +48,24 @@ PyPop: Python for Population Genomics
   See the :ref:`PyPop Release History` in the `Python User Guide` for
   earlier history and full release notes.
 
-.. _guide-preface-1-start:
+.. _guide-preface-2-start:  
+   
+PyPop is an object-oriented framework implemented in `Python
+<http://www.pypop.org/>`__, but also contains C extensions for some
+computationally intensive tasks. Output of analyses are stored in XML
+format for maximum downstream flexibility. PyPop also has an internal
+facility for additionally aggregating the output XML and generating
+output tab-separated (TSV) files, as well as well as generating a
+default plain text file summary for each population.
 
-**PyPop (Python for Population Genomics)** is an environment for doing
-large-scale population genetic analyses including:
-
--  conformity to Hardy-Weinberg expectations
-
--  tests for balancing or directional selection
-
--  estimates of haplotype frequencies and measures and tests of
-   significance for linkage disequilibrium (LD).
-
-It is an object-oriented framework implemented in `Python
-<http://www.pypop.org/>`__, a language with powerful features for
-interfacing with other languages, such as C (in which we have already
-implemented many routines and which is particularly suited to
-computationally intensive tasks).
-
-The output of the analyses are stored in XML. These output files can
-then be transformed using standard tools into many other data formats
-suitable for machine input (such as PHYLIP or input for spreadsheet
-programs such as Excel or statistical packages, such as R), plain
-text, or HTML for human-readable format. Storing the output in XML
-allows the final viewable output format to be redesigned at will,
-without requiring the (often time-consuming) re-running of the
-analyses themselves.
+Although it can be run on any kind of genotype data, it has additional
+support for analyzing population genotype with allelic nomenclature
+from the human leukocyte antigen (HLA) region.
 
 An outline of PyPop can be found in our 2007 *Tissue Antigens* and
 2003 *PSB* :ref:`papers <citing-pypop>`.
 
-.. _guide-preface-1-end:
+.. _guide-preface-2-end:
 
 **Installation and documentation**
 
@@ -86,6 +82,7 @@ PyPop, is contained in the :ref:`PyPop User Guide
    <https://github.com/alexlancaster/pypop/issues>`__. More details on
    how to file bug reports can be found in our :ref:`contributors
    chapter <guide-contributing-bug-report>` of the *User Guide*.
+   Please don't email developers individually.
 
 .. _source-code:
 
@@ -105,7 +102,7 @@ source code is available and maintained on our `GitHub website
    :start-after: guide-include-pypop-cite-start:
    :end-before: guide-include-pypop-cite-end:
 
-.. _guide-preface-2-start:
+.. _guide-preface-3-start:
 
 Also available (but not necessary to cite), is our 2003 *Pacific
 Symposium on Biocomputing* paper:
@@ -134,7 +131,7 @@ IHW) and NIH/NIAID Contract number HHSN266200400076C
 N01-AI-40076. Thanks to Steven J. Mack, Kristie A. Mather, Steve G.E.
 Marsh, Mark Grote and Leslie Louie for helpful comments and testing.
 
-.. _guide-preface-2-end:
+.. _guide-preface-3-end:
 
 .. _popdata-files:
 
