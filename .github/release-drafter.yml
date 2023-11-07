@@ -48,4 +48,4 @@ template: |
   
   $CHANGES
 
-  **Full Changelog:** [$PREVIOUS_TAG..v$NEXT_PATCH_VERSION](https://github.com/alexlancaster/pypop/compare/$PREVIOUS_TAG...v$NEXT_PATCH_VERSION)
+  **Full Changelog:** [`$PREVIOUS_TAG..v$NEXT_PATCH_VERSION`](https://github.com/alexlancaster/pypop/compare/$PREVIOUS_TAG...v$NEXT_PATCH_VERSION)
