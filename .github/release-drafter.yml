@@ -1,8 +1,8 @@
-name-template: 'PyPop 1.0.0rc3'
-tag-template: 'v1.0.0-rc3'
-prerelease: true
+name-template: 'PyPop $NEXT_PATCH_VERSION'
+tag-template: '$NEXT_PATCH_VERSION'
+#prerelease: true
 include-pre-releases: true
-prerelease-identifier: 'rc'
+#prerelease-identifier: 'rc'
 #version-template: '$COMPLETE'
 categories:
   - title: 'Features'
@@ -37,7 +37,7 @@ version-resolver:
       - 'patch'
   default: patch
 template: |
-  ## Installation via PyPI
+  ## Install via PyPI
   ```
   pip install -U pypop-genomics
   ```
@@ -47,3 +47,5 @@ template: |
   A full history of changes is available in [`NEWS.rst`](https://github.com/alexlancaster/pypop/blob/main/NEWS.rst).
   
   $CHANGES
+
+  **Full Changelog:** [`$PREVIOUS_TAG..v$NEXT_PATCH_VERSION`](https://github.com/alexlancaster/pypop/compare/$PREVIOUS_TAG...v$NEXT_PATCH_VERSION)
