@@ -9,8 +9,6 @@ jobs:
     runs-on: buildjet-2vcpu-ubuntu-2204-arm
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: buildjet/setup-python@v4
       - name: Build wheel
         run: |
