@@ -1,9 +1,10 @@
 name-template: 'PyPop $NEXT_PATCH_VERSION'
-tag-template: '$NEXT_PATCH_VERSION'
+tag-template: 'v$NEXT_PATCH_VERSION'
 #prerelease: true
 include-pre-releases: true
 #prerelease-identifier: 'rc'
 #version-template: '$COMPLETE'
+commitish: 'main'
 categories:
   - title: 'Features'
     labels:
@@ -48,4 +49,4 @@ template: |
   
   $CHANGES
 
-  **Full Changelog:** [`$PREVIOUS_TAG..v$NEXT_PATCH_VERSION`](https://github.com/alexlancaster/pypop/compare/$PREVIOUS_TAG...v$NEXT_PATCH_VERSION)
+  **Full Changelog:** https://github.com/alexlancaster/pypop/compare/$PREVIOUS_TAG...v$NEXT_PATCH_VERSION

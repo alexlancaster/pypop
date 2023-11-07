@@ -84,5 +84,10 @@ keywords:
   - HLA
   - MHC
 license: GPL-2.0-or-later
+<<<<<<< HEAD
 version: v0.9.134
 doi: 10.5281/zenodo.10076854
+=======
+version: v1.0.0
+doi: 10.5281/zenodo.10080668
+>>>>>>> origin/main

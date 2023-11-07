@@ -19,13 +19,17 @@ PyPop User Guide
       :start-after: guide-preface-1-start:
       :end-before: guide-preface-1-end:
 
+   .. include:: ../index.rst
+      :start-after: guide-preface-2-start:
+      :end-before: guide-preface-2-end:
+		   
    .. include:: ../../README.rst
       :start-after: guide-include-pypop-cite-start:
       :end-before: guide-include-pypop-cite-end:
 	 
    .. include:: ../index.rst
-      :start-after: guide-preface-2-start:
-      :end-before: guide-preface-2-end:
+      :start-after: guide-preface-3-start:
+      :end-before: guide-preface-3-end:
 		   
 
 **How to use this guide**
