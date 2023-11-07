@@ -106,7 +106,7 @@ jobs:
         # uses: zenodraft/action@0.10.0
         uses: alexlancaster/zenodraft-action@0.10.1
         with:
-          # collection: TBD
+          collection: 10080667
           metadata: .zenodo.json
           publish: false
           sandbox: false
