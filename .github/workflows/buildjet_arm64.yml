@@ -20,7 +20,7 @@ jobs:
           python -m build
       - name: Test with pytest
         run: |
-          pip install dist/pypop_genomics*.whl
+          pip install --only-binary :all: dist/pypop_genomics*.whl
           pytest -s -v tests
       - uses: actions/upload-artifact@v3
         with:
