@@ -53,7 +53,8 @@ In most cases, this will launch a console with the following:
 
 .. code-block:: text
 
-   PyPop: Python for Population Genomics (1.0.0a15)
+   PyPop: Python for Population Genomics (1.0.0)
+   [Python 3.10.9 | Linux.x86_64-x86_64 | x86_64]
    Copyright (C) 2003-2006 Regents of the University of California
    Copyright (C) 2007-2023 PyPop team.
    This is free software.  There is NO warranty; not even for
@@ -97,7 +98,8 @@ absolute) paths to the files. The output should resemble:
 .. code-block:: text
    :emphasize-lines: 14,15
 
-   PyPop: Python for Population Genomics (1.0.0a15)
+   PyPop: Python for Population Genomics (1.0.0)
+   [Python 3.10.9 | Linux.x86_64-x86_64 | x86_64]
    Copyright (C) 2003-2006 Regents of the University of California
    Copyright (C) 2007-2023 PyPop team.
    This is free software.  There is NO warranty; not even for

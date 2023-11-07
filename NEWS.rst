@@ -3,9 +3,9 @@ PyPop Release History
 
 .. _news-start:
 
-Release Notes for PyPop 1.0.0rc2
---------------------------------
-(2023-11-04)
+Release Notes for PyPop 1.0.0
+-----------------------------
+(2023-11-07)
 
 PyPop 1.0.0 is the first official release of PyPop using Python 3, and
 the first release to be included on `PyPI
