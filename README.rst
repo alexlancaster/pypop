@@ -1,4 +1,4 @@
-|PyPI version shields.io| |Build status| |Website pypop.org| |GitHub license| |Citations|
+|PyPI version shields.io| |Build status| |Website pypop.org| |GitHub license| |Citations| |DOI|
 
 PyPop: Python for Population Genomics
 =====================================
@@ -410,7 +410,10 @@ PyPop is distributed under the terms of GPLv2
 
 .. |Citations| image:: https://api.juleskreuer.eu/citation-badge.php?doi=10.1111/j.1399-0039.2006.00769.x
    :target: https://juleskreuer.eu/projekte/citation-badge/
-	    
+
+.. |DOI| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.10080667.svg
+   :target: https://doi.org/10.5281/zenodo.10080667
+      
 .. |GitHub version| image:: https://badge.fury.io/gh/alexlancaster%2Fpypop.svg
    :target: https://github.com/alexlancaster/pypop/
 
