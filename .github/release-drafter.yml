@@ -4,6 +4,7 @@ tag-template: 'v$NEXT_PATCH_VERSION'
 include-pre-releases: true
 #prerelease-identifier: 'rc'
 #version-template: '$COMPLETE'
+commitish: 'main'
 categories:
   - title: 'Features'
     labels:
