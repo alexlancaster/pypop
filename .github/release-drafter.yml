@@ -37,7 +37,7 @@ version-resolver:
       - 'patch'
   default: patch
 template: |
-  ## Installation via PyPI
+  ## Install via PyPI
   ```
   pip install -U pypop-genomics
   ```
