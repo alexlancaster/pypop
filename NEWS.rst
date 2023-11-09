@@ -11,7 +11,7 @@ PyPop 1.0.0 is the first official release of PyPop using Python 3, and
 the first release to be included on `PyPI
 <https://pypi.org/project/pypop-genomics/>`__. In addition to using
 modern libraries, there are some new features, such as the new
-assymetric LD measures, and better handling of TSV files, along with
+asymmetric LD measures, and better handling of TSV files, along with
 the typical slew of bug fixes. Many more changes are of an "under the
 hood" nature, such as a new unit testing and documentation framework,
 and are detailed below.  Many people contributed to this latest
@@ -26,7 +26,7 @@ New features
 ^^^^^^^^^^^^
 * PyPop now fully ported to run under Python 3 (thanks to Vanessa
   Sochat for major patch)
-* Added new assymetric linkage disequilibrium (ALD) calculations
+* Added new asymmetric linkage disequilibrium (ALD) calculations
   (thanks to Richard Single), see [Thomson:Single:2014]_ for more
   details. Added in both the plain text (``.txt``) as well as the
   ``2-locus-summary.tsv`` TSV file outputs.
