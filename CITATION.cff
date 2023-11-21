@@ -1,22 +1,8 @@
 cff-version: 1.2.0
 message: >-
-  If you use this software, please cite both the software itself, as well as the
-  the article Lancaster AK et al. (2007) 'PyPop update – a software pipeline for
-  large-scale multilocus population genomics' Tissue Antigens 69(1):192-197
-  10.1111/j.1399-0039.2006.00769.x
-  https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/
+  If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) 'PyPop update – a software pipeline for large-scale multilocus population genomics' Tissue Antigens 69(1):192-197 10.1111/j.1399-0039.2006.00769.x https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/
 abstract: >-
-  PyPop for Population Genomics (PyPop) is a Python program for processing
-  genotype and allele data and running population genetic analyses, including
-  conformity to Hardy-Weinberg expectations; tests for balancing or directional
-  selection; estimates of haplotype frequencies and measures and tests of
-  significance for linkage disequilibrium (LD).&nbsp;Output of analyses are
-  stored in XML format for maximum downstream flexibility. PyPop also has an
-  internal facility for additionally aggregating the output XML and generating
-  output tab-separated (TSV) files, as well as default plain text files for each
-  population. Although it can be run on any kind of genotype data, it has
-  additional support for analyzing population genotype with allelic nomenclature
-  from the human leukocyte antigen (HLA) region.
+  PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream flexibility. PyPop also has an internal facility for additionally aggregating the output XML and generating output tab-separated (TSV) files, as well as default plain text files for each population. Although it can be run on any kind of genotype data, it has additional support for analyzing population genotype with allelic nomenclature from the human leukocyte antigen (HLA) region.
 authors:
   - family-names: Lancaster
     given-names: Alexander K.
@@ -84,5 +70,5 @@ keywords:
   - HLA
   - MHC
 license: GPL-2.0-or-later
-version: v0.9.137
+version: v0.9.138
 doi: 10.5281/zenodo.520
