@@ -19,34 +19,52 @@ large-scale population genetic analyses including:
    significance for linkage disequilibrium (LD).
 
 .. _guide-preface-1-end:
+
+.. admonition:: PyPop News
+  :class: dropdown, toggle-shown
+
+  * 2023-11-07: `PyPop 1.0.0
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.0.0>`__
+    released and available on `PyPI
+    <https://pypi.org/project/pypop-genomics/>`__, highlights include:
+    
+    - PyPop now fully ported to Python 3.
+    - New asymmetric linkage disequilibrium (ALD) computations
+      ([Thomson:Single:2014]_):.
+    - Improved tab-separated values (TSV) output file handling.
+    - Preliminary support for `Genotype List (GL) String
+      <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3715123/>`__.
+    - Unit tests, new documentation system, continuous integration
+      framework and PyPI package
+    - and even more minor features and bug fixes... (see
+      `NEWS.rst
+      <https://github.com/alexlancaster/pypop/blob/main/NEWS.rst#release-notes-for-pypop-100>`__).
+
+  * Recent previous releases:
+   .. toggle:: 
+      
+    - 2023-11-04: release candidate 2 (1.0.0rc2) released. Fixes some
+      missing TSV output.
+    - 2023-11-01: release candidate 1 (1.0.0rc1) released.
+    - 2023-10-27: seventh beta pre-release 1.0.0b7, Previous ``arm64``
+      issues have been resolved. Thanks to Owen Solberg for extensive
+      testing and debugging.
+    - 2023-10-13: fourth beta pre-release 1.0.0b4, . Although this
+      release contains packages that will install on ``arm64``/M1
+      machines, these ``arm64`` packages should be considered as
+      **alpha**-only and are strictly for testing only. Please do not
+      use PyPop on M1 machines for any production analyses, until we
+      fix some underlying ``arm64`` numerical issues.
+    - 2023-10-10: second beta pre-release 1.0.0b2
+    - 2023-09-26: first beta pre-release 1.0.0b1
+    - 2023: ported to Python 3, pre-release alpha versions of 1.0.0
+      under development - no formal release yet.
+    - 2022: 0.7.0 binaries deprecated.
+    - 2020: pypop is no longer a Fedora package (to be replaced by PyPI package)
+    - 2017: all new development is now in GitHub
    
-.. admonition:: Release summary and news
-  :class: dropdown
-
-  - 2023-11-07: PyPop 1.0.0 is now available on
-    `PyPI <https://pypi.org/project/pypop-genomics/>`__
-  - 2023-11-04: release candidate 2 (1.0.0rc2) released. Fixes some
-    missing TSV output.
-  - 2023-11-01: release candidate 1 (1.0.0rc1) released.
-  - 2023-10-27: seventh beta pre-release 1.0.0b7,  Previous ``arm64``
-    issues have been resolved. Thanks to Owen Solberg for extensive
-    testing and debugging.
-  - 2023-10-13: fourth beta pre-release 1.0.0b4, . Although this
-    release contains packages that will install on ``arm64``/M1
-    machines, these ``arm64`` packages should be considered as
-    **alpha**-only and are strictly for testing only. Please do not
-    use PyPop on M1 machines for any production analyses, until we fix
-    some underlying ``arm64`` numerical issues.
-  - 2023-10-10: second beta pre-release 1.0.0b2
-  - 2023-09-26: first beta pre-release 1.0.0b1
-  - 2023: ported to Python 3, pre-release alpha versions of 1.0.0
-    under development - no formal release yet.
-  - 2022: 0.7.0 binaries deprecated.
-  - 2020: pypop is no longer a Fedora package (to be replaced by PyPI package)
-  - 2017: all new development is now in GitHub
-
-  See the :ref:`PyPop Release History` in the `Python User Guide` for
-  earlier history and full release notes.
+  * See the :ref:`PyPop Release History` in the `Python User Guide`
+    for even earlier history and full release notes.
 
 .. _guide-preface-2-start:  
    
