@@ -169,7 +169,7 @@
     {
       "scheme": "url",
       "identifier": "https://github.com/alexlancaster/pypop/tree/v0.9.139",
-      "relation": "isDerivedFrom",
+      "relation": "isSupplementTo",
       "resource_type": "software"
     },
     {
