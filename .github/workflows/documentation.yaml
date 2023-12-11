@@ -58,7 +58,7 @@ jobs:
           echo "github.event.action: ${{ toJson(github.event.action) }}"
           echo "github.event.release.target_commitish: ${{ toJson(github.event.release.target_commitish) }}"
 
-      - uses: actions/setup-python@v4
+      - uses: actions/setup-python@v5
       - name: Install dependencies
         run: |
           pip install setuptools_scm sphinx==7.2.5 piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton sphinx-argparse sphinx_copybutton
