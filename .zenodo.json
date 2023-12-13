@@ -174,7 +174,7 @@
     },
     {
       "scheme": "url",
-      "identifier": "https://pypi.org/project/pypop-genomics/0.9.139",
+      "identifier": "https://pypi.org/project/pypop-genomics/0.9.142",
       "relation": "isSourceOf",
       "resource_type": "software"
     },
@@ -207,5 +207,5 @@
   ],
   "title": "PyPop: Python for Population Genomics",
   "upload_type": "software",
-  "version": "v0.9.139"
+  "version": "v0.9.142"
 }
