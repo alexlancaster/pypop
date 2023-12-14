@@ -545,45 +545,47 @@ package.
    approach, below, follow the `cleaning up build`_ before
    starting.
 
-Build-and-run-from-checkout (recommended for developers)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Build-and-install developer-mode (recommended for developers)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. First manually install the dependencies via ``pip``, note that if you
-   are running on Python <= 3.8, you will need to also add
-   ``importlib-resources`` to the list of packages, below.
+Installing in `"developer" or "edit" mode
+<https://setuptools.pypa.io/en/latest/userguide/development_mode.html>`__
+should be used by developers, or anyone who wants to make changes to
+PyPop code. It is almost identical to the regular installation above
+(e.g. it will pull down all required dependencies automatically), but
+instead you will add the ``--editable`` option (``-e`` is the short
+version) to the ``pip install`` command. In edit mode, any changes you
+make in your local code will be reflected in the installed version.
 
-   1. conda
-
-      .. code-block:: shell
-
-         pip install numpy lxml pytest setuptools_scm
-
-   2. system-wide
-
-      .. code-block:: shell
-
-         pip install --user numpy lxml pytest setuptools_scm
-
-2. Run the build
+1. conda
 
    .. code-block:: shell
 
-      ./setup.py build
+      pip install --editable .[test]
 
-3. You will be runnning PyPop, directly out of the ``src/PyPop``
-   subdirectory (e.g. ``./src/PyPop/pypop.py`` and
-   ``./src/PyPop/popmeta.py``). Note that you have to include the
-   ``.py`` extension when you run from an uninstalled checkout,
-   because the script is not installed.
+2. system-wide
+
+   .. code-block:: shell
+
+      pip install --user --editable .[test]
+
+3. The scripts ``pypop`` and ``popmeta`` will operate the same way,
+   and any changes in the underlying Python ``.py`` files will be
+   picked up by the scripts.
+   
 
 Cleaning up build
 ~~~~~~~~~~~~~~~~~
 
-If you installed using the approach in `Build-and-install (not recommended
-for developers)`_, above, follow the end-user instructions on
-:ref:`uninstalling PyPop`.  In addition, to clean-up any compiled
-files and force a recompilation from scratch, run the ``clean``
-command:
+To clean up, first uninstall PyPop (whether you installed in editable
+mode or not):
+
+.. code-block:: shell
+  		
+   pip uninstall pypop-genomics
+
+In addition, to clean-up any compiled files and force a recompilation
+from scratch, run the ``clean`` command:
 
 .. code-block:: shell
 
