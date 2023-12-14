@@ -577,10 +577,14 @@ make in your local code will be reflected in the installed version.
 Cleaning up build
 ~~~~~~~~~~~~~~~~~
 
-If you installed using the approach in `Build-and-install (not
-recommended for developers)`_, above, follow the end-user instructions
-in `uninstalling PyPop <README.rst#uninstalling-pypop>`__.  In
-addition, to clean-up any compiled files and force a recompilation
+To clean up, first uninstall PyPop (whether you installed in editable
+mode or not):
+
+.. code-block:: shell
+  		
+   pip uninstall pypop-genomics
+
+In addition, to clean-up any compiled files and force a recompilation
 from scratch, run the ``clean`` command:
 
 .. code-block:: shell
