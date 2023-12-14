@@ -102,15 +102,17 @@ jobs:
               from repository file .zenodo.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
-          ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
+          ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
+          # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
         # uses: zenodraft/action@0.10.0
         uses: alexlancaster/zenodraft-action@0.10.2
         with:
-          collection: 521
+          collection: 10080667
+          # collection: 521
           metadata: .zenodo.json
           publish: false
-          sandbox: true
+          sandbox: false
+          # sandbox: true          
           compression: zip
           upsert-doi: true
           upsert-location: doi
