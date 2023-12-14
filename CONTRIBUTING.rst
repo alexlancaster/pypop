@@ -579,7 +579,7 @@ Cleaning up build
 
 If you installed using the approach in `Build-and-install (not
 recommended for developers)`_, above, follow the end-user instructions
-in `uninstalling PyPop <README.md#uninstalling-pypop>`__.  In
+in `uninstalling PyPop <README.rst#uninstalling-pypop>`__.  In
 addition, to clean-up any compiled files and force a recompilation
 from scratch, run the ``clean`` command:
 
