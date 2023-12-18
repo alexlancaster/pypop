@@ -176,7 +176,7 @@ jobs:
           package-dir: .
           output-dir: wheelhouse
           config-file: "{package}/pyproject.toml"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: ./wheelhouse/*.whl
           # path: ./wheelhouse/*  use if more than wheels are wanted
@@ -193,7 +193,7 @@ jobs:
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
       - name: Build sdist
         run: pipx run build --sdist
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: dist/*.tar.gz
 
