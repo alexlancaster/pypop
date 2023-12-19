@@ -176,8 +176,9 @@ jobs:
           package-dir: .
           output-dir: wheelhouse
           config-file: "{package}/pyproject.toml"
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
+          name: wheels-${{ matrix.os }}
           path: ./wheelhouse/*.whl
           # path: ./wheelhouse/*  use if more than wheels are wanted
 
@@ -193,8 +194,9 @@ jobs:
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
       - name: Build sdist
         run: pipx run build --sdist
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
+          name: sdist
           path: dist/*.tar.gz
 
   upload_gh_release:
@@ -204,12 +206,13 @@ jobs:
     # alternatively, to publish when a GitHub Release is created, use the following rule:
     if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           # unpacks default artifact into dist/
           # if `name: artifact` is omitted, the action will create extra parent dir
-          name: artifact
+          # name: artifact
           path: dist
+          merge-multiple: true
       - uses: softprops/action-gh-release@v1
         name: Uploading binaries to release page
         with:
@@ -225,12 +228,13 @@ jobs:
     # drop requirement of 'main', release to test_pypi to test releases
     if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           # unpacks default artifact into dist/
           # if `name: artifact` is omitted, the action will create extra parent dir
-          name: artifact
+          #name: artifact
           path: dist
+          merge-multiple: true          
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository_url: https://test.pypi.org/legacy/
@@ -244,11 +248,12 @@ jobs:
       id-token: write
     if: github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published' && always()  && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
           # unpacks default artifact into dist/
           # if `name: artifact` is omitted, the action will create extra parent dir
-          name: artifact
+          # name: artifact
           path: dist
+          merge-multiple: true          
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
