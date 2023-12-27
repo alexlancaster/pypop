@@ -227,7 +227,7 @@ setup (name = __pkgname__,
        package_dir = {"": src_dir},
        packages = ["PyPop", "PyPop.xslt"],
        package_data={"PyPop.xslt": data_file_paths},
-       install_requires = ["numpy <= 1.26.2", "lxml <= 4.9.3", "scipy <= 1.11.3",
+       install_requires = ["numpy <= 1.26.2", "lxml <= 4.9.4", "scipy <= 1.11.3",
                            "importlib-resources; python_version <= '3.8'", "importlib-metadata; python_version <= '3.8'"],
        extras_require={
            "test": ['pytest']
