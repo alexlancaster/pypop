@@ -26,9 +26,9 @@ Single, Owen Solberg and Steve Mack.
   Sochat for major patch)
 
 - Added new asymmetric linkage disequilibrium (ALD) calculations
-  (thanks to Richard Single), see [^cite_thomson:single:2014] for more
-  details. Added in both the plain text (`.txt`) as well as the
-  `2-locus-summary.tsv` TSV file outputs.
+  (thanks to Richard Single), see [Thomson & Single, 2014](https://doi.org/10.1534/genetics.114.165266)
+  for more details. Added in both the plain text (`.txt`) as well as
+  the `2-locus-summary.tsv` TSV file outputs.
 
 - Improved tab-separated values (TSV) output file handling:
 
