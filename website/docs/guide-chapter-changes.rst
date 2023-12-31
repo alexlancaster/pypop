@@ -11,7 +11,7 @@ PyPop Release History
 	     
 .. include:: ../../NEWS.md
    :parser: myst_parser.sphinx_
-   :start-after: Changelog
+   :start-after: https://semver.org).
 
 
 
