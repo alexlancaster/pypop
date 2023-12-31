@@ -728,7 +728,7 @@ documentation locally. Here’s an overview of how to do that:
 
    .. code-block:: shell
 
-      pip install setuptools_scm sphinx piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton sphinx-argparse
+      pip install setuptools_scm sphinx piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton sphinx-argparse sphinx_copybutton
 
 2. make a fork of pypop if you haven't already (see `previous section <Fork this repository_>`_)
 
