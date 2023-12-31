@@ -218,7 +218,7 @@ Single, Owen Solberg and Steve Mack.
   if only R dat files is enabled.  If batchsize not set explicitly
   (and therefore 0) set batchsize to `1` is PHYLIP mode is enabled.
 
-## [0.6.0] - 2005-04-13
+## 0.6.0 - 2005-04-13
 
 ### New features
 
@@ -287,7 +287,7 @@ Single, Owen Solberg and Steve Mack.
   cases, when the result is so close to zero that the floating point
   algorithms cause a negative result.)
 
-## [0.5.2] (public beta) - 2004-03-09
+## 0.5.2 (public beta) - 2004-03-09
 
 ### Bug fixes
 
@@ -296,7 +296,7 @@ Single, Owen Solberg and Steve Mack.
 - Fixed line endings for .bat scripts for Win32 so they work under
   Windows 98 thanks to Wendy Hartogensis for the bug report.
 
-## [0.5.1] (public beta) - 2004-02-26
+## 0.5.1 (public beta) - 2004-02-26
 
 ### Changes
 
@@ -314,7 +314,7 @@ Single, Owen Solberg and Steve Mack.
 
 - Remember to output plaintext version of LD for specified loci.
 
-## [0.5] (public beta) - 2003-12-31
+## 0.5 (public beta) - 2003-12-31
 
 ### Changes
 
@@ -331,9 +331,12 @@ Single, Owen Solberg and Steve Mack.
 - Set PYTHONHOME in wrapper scripts to prevent messages about
   missing \<prefix> being displayed.
 
-## [0.4.3beta]
+## 0.4.3beta
 
 ### Bug fixes
 
 - Fixed bug in processing of `popname` field.
   Thanks to Richard Single for the report.
+
+[1.0.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.0
+[0.7.0]: https://github.com/alexlancaster/pypop/releases/tag/PYPOP_SRC-0_7_0
