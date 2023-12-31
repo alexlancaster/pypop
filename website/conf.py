@@ -186,7 +186,8 @@ latex_elements = {
     #
     'preamble': r'''\DeclareRobustCommand{\and}{%
 \end{tabular}\kern-\tabcolsep\\\begin{tabular}[t]{c}%
-}%''',
+}%
+\setcounter{secnumdepth}{1}%''',
 
     # Latex figure (float) alignment
     #
