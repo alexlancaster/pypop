@@ -20,7 +20,7 @@ PyPop Release History
    .. include:: ../../NEWS.md
       :parser: myst_parser.sphinx_
       :start-after: https://semver.org).
-      :end-before: [1.0.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.0
+      :end-before: <!-- END NEWS.md -->
 
 ..
    the above `end-before` ensures that the links don't get passed into the PDF end, which clutters titles

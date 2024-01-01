@@ -137,6 +137,8 @@ Single, Owen Solberg and Steve Mack.
 - Only build wheels on platforms for which binary wheels are available
   for all dependencies.
 
+[1.0.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.0
+
 ## [0.7.0] - 2008-09-09
 
 ### New features
@@ -217,6 +219,8 @@ Single, Owen Solberg and Steve Mack.
 - Change semantics of batchsize, make "0" (default) process files separately
   if only R dat files is enabled.  If batchsize not set explicitly
   (and therefore 0) set batchsize to `1` is PHYLIP mode is enabled.
+
+[0.7.0]: https://github.com/alexlancaster/pypop/releases/tag/PYPOP_SRC-0_7_0
 
 ## 0.6.0 - 2005-04-13
 
@@ -338,5 +342,4 @@ Single, Owen Solberg and Steve Mack.
 - Fixed bug in processing of `popname` field.
   Thanks to Richard Single for the report.
 
-[1.0.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.0
-[0.7.0]: https://github.com/alexlancaster/pypop/releases/tag/PYPOP_SRC-0_7_0
+<!-- END NEWS.md -->

@@ -44,6 +44,7 @@ template: |
   ```
   pip install -U pypop-genomics
   ```
+  Repository: $REPOSITORY
 
   <!-- START cut-and-paste to NEWS.md -->
 
