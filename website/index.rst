@@ -37,8 +37,8 @@ large-scale population genetic analyses including:
     - Unit tests, new documentation system, continuous integration
       framework and PyPI package
     - and even more minor features and bug fixes... (see
-      `NEWS.rst
-      <https://github.com/alexlancaster/pypop/blob/main/NEWS.rst#release-notes-for-pypop-100>`__).
+      `NEWS.md
+      <https://github.com/alexlancaster/pypop/blob/main/NEWS.md#release-notes-for-pypop-100>`__).
 
   * Recent previous releases:
    .. toggle:: 
