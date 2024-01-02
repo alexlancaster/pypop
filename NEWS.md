@@ -343,5 +343,3 @@ Single, Owen Solberg and Steve Mack.
 
 - Fixed bug in processing of `popname` field.
   Thanks to Richard Single for the report.
-
-<!-- END NEWS.md -->

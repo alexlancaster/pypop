@@ -6,7 +6,7 @@ PyPop contributors
 (Listed in alphabetical order)
 
 .. list-table:: 
-   :widths: 20 20 30 25
+   :widths: 18 22 28 30
    :header-rows: 1
    :class: longtable
 
@@ -15,12 +15,13 @@ PyPop contributors
      - Affiliation
      - Contribution
    * - Karl Kornel
-     - `0000-0001-5847-5330 <https://orcid.org/0000-0001-5847-5330>`__
+     - `0000-0001-5847-5330 <https://orcid.org/0000-0001-5847-5330>`_
      - Stanford Research Computing Center
      - Contributed containerization
    * - Alex Lancaster
      - `0000-0002-0002-9263 <https://orcid.org/0000-0002-0002-9263>`_
-     - Amber Biology LLC, Ronin Institute
+     - Amber Biology LLC,
+       Ronin Institute
      - Lead developer. Co-designer of Python framework: author of main
        engine, text file parser, Python extension module framework
        using SWIG, XML output and XSLT post-processing framework (to

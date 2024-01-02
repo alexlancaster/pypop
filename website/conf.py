@@ -169,7 +169,8 @@ class CustomLatexFormatter(LatexFormatter):
 
 PygmentsBridge.latex_formatter = CustomLatexFormatter
 
-latex_show_urls = 'inline'
+#latex_show_urls = 'inline'
+latex_show_urls = 'footnote'
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
@@ -187,7 +188,26 @@ latex_elements = {
     'preamble': r'''\DeclareRobustCommand{\and}{%
 \end{tabular}\kern-\tabcolsep\\\begin{tabular}[t]{c}%
 }%
-\setcounter{secnumdepth}{1}%''',
+\setcounter{secnumdepth}{1}%
+
+\usepackage{pagenote}
+\makepagenote
+\renewcommand*{\notesname}{End Notes}    
+% \renewcommand*{\notedivision}{\chapter*{\notesname}}
+
+\DeclareRobustCommand{\pagenotesubhead}[2]{%
+ \subparagraph*{\chaptername\ #1 #2}}
+    
+\usepackage{environ}% http://ctan.org/pkg/environ
+
+\newcommand{\OverwriteEnviron}[1]{%
+  \expandafter\let\csname #1\endcsname\relax%
+  \expandafter\let\csname end#1\endcsname\relax%
+  \expandafter\let\csname env@#1@parse\endcsname\relax%
+  \expandafter\let\csname env@#1@save@env\endcsname\relax%
+  \expandafter\let\csname env@#1@process\endcsname\relax%
+  \NewEnviron{#1}%
+}''',
 
     # Latex figure (float) alignment
     #
