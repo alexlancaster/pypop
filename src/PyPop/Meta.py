@@ -176,6 +176,11 @@ class Meta:
         batchsize = 0
         """
 
+        # set default parser to resolve the SYSTEM file entities, now
+        # that the lxml > 5.0.0 default is to disable resolution.  but
+        # disallow network access
+        etree.set_default_parser(etree.XMLParser(resolve_entities=True, no_network=True))
+        
         # the name of the XSLT file for transformation
         meta_to_tsv_xsl = 'meta-to-tsv.xsl'
         
