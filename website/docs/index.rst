@@ -84,7 +84,7 @@ This guide to PyPop contains four main parts:
 .. raw:: latex
 
    \begingroup
-   \footnotesize
+   \scriptsize
    \linespread{0.5} %regulate line spacing
    \printnotes
    \vfill
