@@ -15,6 +15,14 @@ PyPop User Guide
    
 .. only:: latex or pdf
 
+   .. raw:: latex
+
+      % Place contents of footnote in a \pagenote
+      \OverwriteEnviron{footnote}[4]{\pagenote{\BODY}}
+      % FIXME: disable footnotetext, don't play nice with pagenote
+      \OverwriteEnviron{footnotetext}[4]{\relax}
+      \renewcommand{\sphinxfootnotemark}[4]{\relax}
+
    .. include:: ../index.rst
       :start-after: guide-preface-1-start:
       :end-before: guide-preface-1-end:
@@ -63,7 +71,7 @@ This guide to PyPop contains four main parts:
 .. _user-guide-toc:
 
 .. toctree::
-   :numbered: 3
+   :numbered: 2
    :maxdepth: 3
 
    guide-chapter-install
@@ -72,8 +80,19 @@ This guide to PyPop contains four main parts:
    guide-chapter-contributing
    guide-chapter-changes
    licenses
-   biblio
 
+.. raw:: latex
+
+   \begingroup
+   \scriptsize
+   \linespread{0.5} %regulate line spacing
+   \printnotes
+   \vfill
+   \endgroup
+
+.. toctree::
+
+   biblio
 
 .. |br| raw:: html
 

@@ -144,9 +144,10 @@ steps are:
 3. making a new branch
 4. `installing a development version <Installation for developers_>`_ on your machine
 5. updating your branch when "upstream" (the main repository) has changes to include those changes in your local branch
-6. updating the changelog in ``NEWS.rst``
+6. updating ``AUTHORS.rst``
 7. checking unit tests pass
-8. making a pull request
+8. making a pull request (including a description of your changes
+   suitable for inclusion in ``NEWS.md``)
 
 
 Fork this repository
@@ -232,29 +233,13 @@ You can push to your fork now if you wish:
 
 And, continue doing your developments are previously discussed.
 
-Update ``NEWS.rst``
--------------------
+Update ``AUTHORS.rst``
+----------------------
 
-Update the changelog file under :code:`NEWS.rst` with an explanatory
-bullet list of your contribution. Add that list under the "Notes
-towards the next release" under the appropriate category, e.g. for a
-new feature you would add something like:
-
-.. code-block:: text
-
-    Notes towards next release
-    --------------------------
-    (unreleased)
-
-    New features
-    ^^^^^^^^^^^^
-    
-    * here goes my new additions
-    * explain them shortly and well
-
-Also add your name to the authors list at :code:`AUTHORS.rst`, so you
+Also add your name to the author table at :code:`AUTHORS.rst`, so you
 will also be included in the periodic Zenodo software releases (see
-also the section on `Crediting contributors`_)
+also the section on `Crediting contributors`_).
+
 
 Run unit tests with ``pytest``
 ------------------------------
@@ -309,10 +294,29 @@ good practices (let us know if something can be improved).
 Make a Pull Request
 -------------------
 
-Once you are finished, you can create a pull request to the main
-repository and engage with the developers.  If you need some code
-review or feedback while you're developing the code just make a pull
-request.
+Once you are finished, create a pull request to the main repository
+and engage with the developers.
+
+When you create the pull request in the initial submission box, you
+should create a description of your changes with an explanatory bullet
+list of the contributions. Please note if any of your changes will
+break existing behaviour or anything else that would be important for
+an end-user to know. This description should be in Markdown format.
+Here is an example:
+
+.. code-block:: markdown
+
+    ### New features
+    
+    - here goes my new additions, explain them shortly and well
+    - this feature will require an an update to your `.ini` file
+
+This will be used to populate the Release Notes and eventually be
+included in the :code:`NEWS.md` file.
+
+If you need some code review or feedback while you're developing the
+code, you can also make a pull request, even if you're not fully
+finished.
 
 **However, before submitting a Pull Request, verify your development branch passes all
 tests as** `described above <run unit tests with pytest_>`_ **. If you are
@@ -325,7 +329,8 @@ Before requesting a finale merge, you should:
 1. Make sure your PR passes all ``pytest`` tests.
 2. Add unit tests if you are developing new features
 3. Update documentation when there's new API, functionality etc.
-4. Add a note to ``NEWS.rst`` about the changes.
+4. In the submission for the PR, include a description of the changes,
+   in markdown format, suitable for eventual inclusion in ``NEWS.md``.
 5. Add yourself to ``website/docs/AUTHORS.rst``.
 
 
@@ -651,7 +656,7 @@ outside ``website`` like ``README.rst`` and ``CONTRIBUTING.rst``:
    -  ``guide-chapter-instructions.rst``
    -  ``guide-chapter-contributing.rst`` (pulls in top-level
       ``CONTRIBUTING.rst`` that contains the source of the text that you are reading right now)
-   -  ``guide-chapter-changes.rst`` (pulls in top-level ``NEWS.rst`` and ``AUTHORS.rst``, which is local to ``website``)
+   -  ``guide-chapter-changes.rst`` (pulls in top-level ``NEWS.md`` and ``AUTHORS.rst``, which is local to ``website``)
    -  ``AUTHORS.rst``
    -  ``licenses.rst`` (pulls in top-level ``LICENSE``)
    -  ``biblio.rst``
@@ -728,7 +733,7 @@ documentation locally. Here’s an overview of how to do that:
 
    .. code-block:: shell
 
-      pip install setuptools_scm sphinx piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton sphinx-argparse
+      pip install setuptools_scm sphinx piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton sphinx-argparse sphinx_copybutton
 
 2. make a fork of pypop if you haven't already (see `previous section <Fork this repository_>`_)
 
@@ -786,7 +791,7 @@ We define *contributions* in a broad way: including both writing code
 as well as documentation, and reviewing issues and PRs etc. Here are
 some ways we credit contributors:
 
-``AUTHORS.rst``, ``NEWS.rst`` and GitHub Release Notes
+``AUTHORS.rst``, ``NEWS.md`` and GitHub Release Notes
 ------------------------------------------------------
 
 Anyone who has contributed a pull request to the project is welcome to
@@ -795,7 +800,7 @@ part of the repository and included with with distributions.
 
 Every time we make a release, everyone who has made a commit to the
 repository since the previous release will be mentioned in either the
-``NEWS.rst`` or in the GitHub Release Notes.
+``NEWS.md`` or in the GitHub Release Notes.
 
 Authorship on Zenodo archives of releases
 -----------------------------------------

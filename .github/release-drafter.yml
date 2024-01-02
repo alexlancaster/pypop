@@ -44,11 +44,18 @@ template: |
   ```
   pip install -U pypop-genomics
   ```
-  
-  ## Changes
+  Repository: $REPOSITORY
 
-  A full history of changes is available in [`NEWS.rst`](https://github.com/alexlancaster/pypop/blob/main/NEWS.rst).
+  <!-- START cut-and-paste to NEWS.md -->
+
+  ## $NEXT_PATCH_VERSION - YYYY-MM-DD
   
   $CHANGES
+
+  [$NEXT_PATCH_VERSION]: https://github.com/alexlancaster/pypop/releases/tag/v$NEXT_PATCH_VERSION
+
+  <!-- END cut-and-paste to NEWS.md -->
+
+  A full history of changes is available in [`NEWS.md`](https://github.com/alexlancaster/pypop/blob/main/NEWS.md).
 
   **Full Changelog:** https://github.com/alexlancaster/pypop/compare/$PREVIOUS_TAG...v$NEXT_PATCH_VERSION
