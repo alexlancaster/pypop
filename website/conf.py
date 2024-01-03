@@ -192,11 +192,9 @@ latex_elements = {
 
 \usepackage{pagenote}
 \makepagenote
-\renewcommand*{\notesname}{End Notes}    
-% \renewcommand*{\notedivision}{\chapter*{\notesname}}
-
-\DeclareRobustCommand{\pagenotesubhead}[2]{%
- \subparagraph*{\chaptername\ #1 #2}}
+% \renewcommand*{\notesname}{End Notes}    
+\renewcommand*{\notedivision}{\subsubsection*{\notesname}}
+\renewcommand*{\pagenotesubhead}[2]{}
     
 \usepackage{environ}% http://ctan.org/pkg/environ
 
@@ -207,7 +205,20 @@ latex_elements = {
   \expandafter\let\csname env@#1@save@env\endcsname\relax%
   \expandafter\let\csname env@#1@process\endcsname\relax%
   \NewEnviron{#1}%
-}''',
+}
+
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+\pretocmd{\chapter}{%
+  % only print chapter endnotes if there is at least one footnote
+  \ifnumcomp{\thepagenote}{>}{0}{ 
+   \begingroup
+   \scriptsize
+   \linespread{0.5} %regulate line spacing
+   \printnotes*
+   \vfill
+   \endgroup
+  }{}
+}{}{}''',
 
     # Latex figure (float) alignment
     #
