@@ -84,16 +84,17 @@ Included with permission, or via GPL-compatible licenses.
 
 ``gthwe``
    The Hardy-Weinberg "exact test" implementation is a modified version
-   of Guo & Thompson's [Guo:Thompson:1992]_ code. Dr. Sun-Wei Guo has
+   of Guo & Thompson's :cite:p:`guo_performing_1992` code. Dr. Sun-Wei Guo has
    kindly allowed us to release the code under the `GNU General Public
    License <http://www.gnu.org/licenses/gpl.html>`__. Original code
    available at
    http://www.stat.washington.edu/thompson/Genepi/Hardy.shtml.
 
 ``slatkin-exact/monte-carlo.c``
-   Montgomery Slatkin's implementation of a Monte Carlo approximation of
-   the Ewens-Watterson exact test of neutrality ([Slatkin:1994]_,
-   [Slatkin:1996]_). Original code can be found at:
+   Montgomery Slatkin's implementation of a Monte Carlo approximation
+   of the Ewens-Watterson exact test of neutrality
+   :cite:p:`slatkin_exact_1994,slatkin_correction_1996`. Original code
+   can be found at:
    http://ib.berkeley.edu/labs/slatkin/monty/Ewens_exact.program.
 
 ``pval``
