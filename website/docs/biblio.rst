@@ -11,6 +11,11 @@
 References
 **********
 
+.. bibliography::
+
+
+   
+
 .. [Cano:etal:2007] Pedro Cano. 2007. “Common and well-documented HLA
 		    alleles: report of the ad-hoc committee of the American Society
 		    for Histocompatiblity and Immunogenetics”. 68. 5. 392-417.

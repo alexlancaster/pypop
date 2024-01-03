@@ -32,7 +32,13 @@ sys.path.insert(0, os.path.abspath('../src'))
 # ones.
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel',
               'myst_parser', 'rst2pdf.pdfbuilder',
-              'sphinx_togglebutton', 'sphinxarg.ext', 'sphinx_copybutton']
+              'sphinx_togglebutton', 'sphinxarg.ext', 'sphinx_copybutton',
+              'sphinxcontrib.bibtex']
+
+bibtex_bibfiles = ['pypop.bib']
+
+#bibtex_default_style = 'plain'
+bibtex_reference_style = 'author_year'
 
 #autosectionlabel_prefix_document = True
 

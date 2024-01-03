@@ -134,11 +134,12 @@ Symposium on Biocomputing* paper:
   `PDF (344 kB) <http://pypop.org/psb-pypop.pdf>`__].
 		
 PyPop was originally developed for the analysis of data for the 13th
-`International Histocompatiblity Workshop and
-Conference <http://www.ihwg.org/>`__ held in Seattle, Washington in 2002
-([Meyer:etal:2007]_, [Single:etal:2007a]_, [Single:etal:2007a]_). For more
-details on the design and technical details of PyPop, please consult
-[Lancaster:etal:2003]_, [Lancaster:etal:2007a]_ and [Lancaster:etal:2007b]_.
+`International Histocompatiblity Workshop and Conference
+<http://www.ihwg.org/>`__ held in Seattle, Washington in 2002
+([Meyer:etal:2007]_, [Single:etal:2007a]_, [Single:etal:2007a]_). For
+more details on the design and technical details of PyPop, please
+consult :cite:t:`lancaster_pypop_2003`,
+:cite:t:`lancaster_pypop_2007`, and [Lancaster:etal:2007b]_.
 
 .. _acknowlegements:
 
