@@ -606,12 +606,13 @@ is contained in :ref:`config-advanced`.
 
    When this section is present, an implementation of the
    Hardy-Weinberg exact test is run using the original
-   [Guo:Thompson:1992]_ code, using a Monte-Carlo Markov chain (MCMC). In
-   addition, two measures (Chen and Diff) of the goodness of it of
-   individual genotypes are reported under this option [Chen:etal:1999]_
-   By default this section is not enabled. This is a different
-   implementation to the :program:`Arlequin` version listed in
-   :ref:`config-advanced`, below.
+   :cite:t:`guo_performing_1992` code, using a Monte-Carlo Markov
+   chain (MCMC). In addition, two measures (Chen and Diff) of the
+   goodness of it of individual genotypes are reported under this
+   option :cite:p:`chen_hardy-weinberg_1999`.  By default this section
+   is not enabled. This is a different implementation to the
+   :program:`Arlequin` version listed in :ref:`config-advanced`,
+   below.
 
    -  ``dememorizationSteps``.
 
@@ -638,7 +639,7 @@ is contained in :ref:`config-advanced`.
 
 -  ``[HomozygosityEWSlatkinExact]``
 
-   The presence of this section enables Slatkin's [Slatkin:1994]_ 
+   The presence of this section enables Slatkin's :cite:p:`slatkin_exact_1994` 
    implementation of the Ewens-Watterson exact test of neutrality.
 
    -  ``numReplicates``.
@@ -809,8 +810,8 @@ This section sets characteristics of the :program:`Arlequin`
 application if it has been installed (it must be installed separately
 from PyPop as we cannot distribute it). The options in this section
 are only used when a test requiring :program:`Arlequin`, such as it's
-implementation of Guo and Thompson's [Guo:Thompson:1992]_ Hardy-Weinberg
-exact test is invoked (see below).
+implementation of Guo and Thompson's :cite:p:`guo_performing_1992`
+Hardy-Weinberg exact test is invoked (see below).
 
 -  ``arlequinExec``.
 
@@ -978,7 +979,7 @@ the beginning of the lines (following the first line of each locus) is
 important. The above rules are just dummy examples, provided to
 illustrate how the filter works. PyPop is distributed with a
 biologically relevant set of ``CustomBinning`` rules that have been
-compiled from several sources [2]_
+compiled from several :cite:p:`mack_methods_2007,cano_common_2007` sources [2]_
 
 .. [1]
    These hardcoded numbers can be changed if you obtain the source code
@@ -986,6 +987,6 @@ compiled from several sources [2]_
    recompile the program.
 
 .. [2]
-   [Mack:etal:2007]_; [Cano:etal:2007]_; The Anthony Nolan list of deleted
-   allele names (http://github.com/ANHIG/IMGTHLA/blob/Latest/Deleted_alleles.txt); and the
+   The Anthony Nolan list of deleted allele names
+   (http://github.com/ANHIG/IMGTHLA/blob/Latest/Deleted_alleles.txt); and the
    Ambiguous Allele Combinations, release 2.18.0 (https://www.ebi.ac.uk/ipd/imgt/hla/ambiguity).
