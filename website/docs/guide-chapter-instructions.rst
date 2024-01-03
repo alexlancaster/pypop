@@ -335,7 +335,7 @@ or directional selection, :math:`p`-values less than 0.025 or greater than
 
 The standard implementation of the test uses a Monte-Carlo
 implementation of the exact test written by Slatkin
-:cite:p:`slatkin_exact_1994,slatkin_correction_1996`. A Markov-chain
+:cite:yearpar:`slatkin_exact_1994,slatkin_correction_1996`. A Markov-chain
 Monte Carlo method is used to obtain the null distribution of the
 homozygosity statistic under neutrality. The reported :math:`p`-values
 are one-tailed (against the alternative of balancing selection), but
