@@ -30,7 +30,7 @@ large-scale population genetic analyses including:
     
     - PyPop now fully ported to Python 3.
     - New asymmetric linkage disequilibrium (ALD) computations
-      ([Thomson:Single:2014]_):.
+      :cite:p:`thomson_conditional_2014`:.
     - Improved tab-separated values (TSV) output file handling.
     - Preliminary support for `Genotype List (GL) String
       <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3715123/>`__.
@@ -136,10 +136,10 @@ Symposium on Biocomputing* paper:
 PyPop was originally developed for the analysis of data for the 13th
 `International Histocompatiblity Workshop and Conference
 <http://www.ihwg.org/>`__ held in Seattle, Washington in 2002
-([Meyer:etal:2007]_, [Single:etal:2007a]_, [Single:etal:2007a]_). For
+:cite:p:`meyer_single_2007,single_haplotype_2007,single_statistical_2007`. For
 more details on the design and technical details of PyPop, please
-consult :cite:t:`lancaster_pypop_2003`,
-:cite:t:`lancaster_pypop_2007`, and [Lancaster:etal:2007b]_.
+consult :cite:t:`lancaster_pypop:_2003`,
+:cite:t:`lancaster_pypop_2007`, and :cite:t:`lancaster_software_2007`.
 
 .. _acknowlegements:
 
@@ -157,7 +157,7 @@ Marsh, Mark Grote and Leslie Louie for helpful comments and testing.
 **Supplementary data files**
 
 `Population data files and online supporting materials <popdata/>`__ for
-published studies listed in the [Solberg:etal:2008]_ meta-analysis paper.
+published studies listed in the :cite:t:`solberg_balancing_2008` meta-analysis paper.
 
 .. _immport-org:
 
