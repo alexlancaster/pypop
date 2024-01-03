@@ -316,7 +316,7 @@ The *normalized deviate of the homozygosity* (:math:`F_{nd}`) is the
 difference between the *observed homozygosity* and *expected
 homozygosity*, divided by the square root of the variance of the
 expected homozygosity (also obtained by simulations;
-:cite:p:`salamon_evolution_1999`.  Significant negative normalized
+:cite:p:`salamon_evolution_1999`).  Significant negative normalized
 deviates imply *observed homozygosity* values lower than *expected
 homozygosity*, in the direction of balancing selection. Significant
 positive values are in the direction of directional selection.
