@@ -639,7 +639,7 @@ is contained in :ref:`config-advanced`.
 
 -  ``[HomozygosityEWSlatkinExact]``
 
-   The presence of this section enables Slatkin's :cite:p:`slatkin_exact_1994` 
+   The presence of this section enables Slatkin's :cite:yearpar:`slatkin_exact_1994` 
    implementation of the Ewens-Watterson exact test of neutrality.
 
    -  ``numReplicates``.
@@ -810,7 +810,7 @@ This section sets characteristics of the :program:`Arlequin`
 application if it has been installed (it must be installed separately
 from PyPop as we cannot distribute it). The options in this section
 are only used when a test requiring :program:`Arlequin`, such as it's
-implementation of Guo and Thompson's :cite:p:`guo_performing_1992`
+implementation of Guo and Thompson's :cite:yearpar:`guo_performing_1992`
 Hardy-Weinberg exact test is invoked (see below).
 
 -  ``arlequinExec``.
