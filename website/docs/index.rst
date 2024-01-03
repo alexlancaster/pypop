@@ -81,15 +81,6 @@ This guide to PyPop contains four main parts:
    guide-chapter-changes
    licenses
 
-.. raw:: latex
-
-   \begingroup
-   \scriptsize
-   \linespread{0.5} %regulate line spacing
-   \printnotes
-   \vfill
-   \endgroup
-
 .. toctree::
 
    biblio
