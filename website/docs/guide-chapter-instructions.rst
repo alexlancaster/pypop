@@ -259,7 +259,8 @@ addition, those individual genotypes deviating significantly
 
 There are two implementations for this test, the first using the gthwe
 implementation originally due to Guo & Thompson, but modified by John
-Chen, the second being Arlequin's :cite:p:`schneider_arlequin:_2000`
+Chen, the second being Arlequin's
+:cite:p:`schneider_arlequin_2000,excoffier_arlequin_2010`
 implementation.
 
 .. code-block:: text
