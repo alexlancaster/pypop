@@ -246,19 +246,22 @@ genotypes and is summarized in the following table:
 Exact test for deviation from HWP
 ---------------------------------
 
-If enabled in the configuration file, the exact test for deviations from
-HWP will be output. The exact test uses the method of [Guo:Thompson:1992]_.
-The :math:`p`-value provided describes how probable the observed set of
-genotypes is, with respect to a large sample of other genotypic
-configurations (conditioned on the same allele frequencies and :math:`2n`).
-:math:`p`-values lower than 0.05 can be interpreted as evidence that the
-sample does not fit HWP. In addition, those individual genotypes
-deviating significantly (:math:`p< 0.05`) from expected HWP as
-computed with the Chen and "diff" measures are reported.
+If enabled in the configuration file, the exact test for deviations
+from HWP will be output. The exact test uses the method of
+:cite:t:`guo_performing_1992`. The :math:`p`-value provided describes
+how probable the observed set of genotypes is, with respect to a large
+sample of other genotypic configurations (conditioned on the same
+allele frequencies and :math:`2n`).  :math:`p`-values lower than 0.05
+can be interpreted as evidence that the sample does not fit HWP. In
+addition, those individual genotypes deviating significantly
+(:math:`p< 0.05`) from expected HWP as computed with the Chen and
+"diff" measures are reported.
 
 There are two implementations for this test, the first using the gthwe
 implementation originally due to Guo & Thompson, but modified by John
-Chen, the second being Arlequin's [Schneider:etal:2000]_ implementation.
+Chen, the second being Arlequin's
+:cite:p:`schneider_arlequin_2000,excoffier_arlequin_2010`
+implementation.
 
 .. code-block:: text
 
@@ -292,7 +295,7 @@ The Ewens-Watterson homozygosity test of neutrality
 ---------------------------------------------------
 
 For each locus, we implement the Ewens-Watterson homozygosity test of
-neutrality ([Ewens:1972]_; [Watterson:1978]_). We use the term
+neutrality :cite:p:`ewens_sampling_1972,watterson_homozygosity_1978`. We use the term
 *observed homozygosity* to denote the homozygosity statistic
 (:math:`F`), computed as the sum of the squared allele
 frequencies. This value is compared to the *expected homozygosity*
@@ -313,11 +316,11 @@ are computed as the sum of the squared allele frequencies.
 The *normalized deviate of the homozygosity* (:math:`F_{nd}`) is the
 difference between the *observed homozygosity* and *expected
 homozygosity*, divided by the square root of the variance of the
-expected homozygosity (also obtained by simulations; [Salamon:etal:1999]_).
-Significant negative normalized deviates imply *observed homozygosity*
-values lower than *expected homozygosity*, in the direction of balancing
-selection. Significant positive values are in the direction of
-directional selection.
+expected homozygosity (also obtained by simulations;
+:cite:p:`salamon_evolution_1999`).  Significant negative normalized
+deviates imply *observed homozygosity* values lower than *expected
+homozygosity*, in the direction of balancing selection. Significant
+positive values are in the direction of directional selection.
 
 The :math:`p`-value in the last row of the output is the probability of
 obtaining a homozygosity :math:`F` statistic under neutral evolution that is
@@ -332,13 +335,13 @@ or directional selection, :math:`p`-values less than 0.025 or greater than
 0.975 can be considered significant at the 0.05 level.
 
 The standard implementation of the test uses a Monte-Carlo
-implementation of the exact test written by Slatkin ([Slatkin:1994]_;
-[Slatkin:1996]_). A Markov-chain Monte Carlo method is used to obtain the
-null distribution of the homozygosity statistic under neutrality. The
-reported :math:`p`-values are one-tailed (against the alternative of
-balancing selection), but can be interpreted for a two-tailed test by
-considering either extreme of the distribution (< 0.025 or > 0.975) at
-the 0.05 level.
+implementation of the exact test written by Slatkin
+:cite:yearpar:`slatkin_exact_1994,slatkin_correction_1996`. A Markov-chain
+Monte Carlo method is used to obtain the null distribution of the
+homozygosity statistic under neutrality. The reported :math:`p`-values
+are one-tailed (against the alternative of balancing selection), but
+can be interpreted for a two-tailed test by considering either extreme
+of the distribution (< 0.025 or > 0.975) at the 0.05 level.
 
 .. code-block:: text
 
@@ -370,13 +373,13 @@ Multi-locus analyses
 ====================
 
 Haplotype frequencies are estimated using the iterative
-Expectation-Maximization (EM) algorithm ([Dempster:1977]_;
-[Excoffier:Slatkin:1995]_). Multiple starting conditions are used to
-minimize the possibility of local maxima being reached by the EM
-iterations. The haplotype frequencies reported are those that correspond
-to the highest logarithm of the sample likelihood found over the
-different starting conditions and are labeled as the maximum likelihood
-estimates (MLE).
+Expectation-Maximization (EM) algorithm
+:cite:p:`dempster_maximum_1977,excoffier_maximum-likelihood_1995`. Multiple
+starting conditions are used to minimize the possibility of local
+maxima being reached by the EM iterations. The haplotype frequencies
+reported are those that correspond to the highest logarithm of the
+sample likelihood found over the different starting conditions and are
+labeled as the maximum likelihood estimates (MLE).
 
 The output provides the names of loci for which haplotype frequencies
 were estimated, the number of individual genotypes in the dataset
@@ -431,15 +434,15 @@ pair of loci, as shown in the sample output below.
    ...
 
 For each locus pair, we report three measures of overall linkage
-disequilibrium. :math:`D'` [Hedrick:1987]_ weights the contribution to
+disequilibrium. :math:`D'`  :cite:p:`hedrick_gametic_1987` weights the contribution to
 LD of specific allele pairs by the product of their allele frequencies
-(``D'`` in the output); :math:`W_n` [Cramer:1946]_ is a re-expression
+(``D'`` in the output); :math:`W_n`  :cite:p:`cramer_mathematical_1946` is a re-expression
 of the chi-square statistic for deviations between observed and
 expected haplotype frequencies (``W_n`` in the
 output)). :math:`W_{A/B}` and :math:`W_{B/A}` (``ALD_1_2`` and
 ``ALD_2_1``, respectively in the output) are extensions of :math:`W_n`
 that account for asymmetry when the number of alleles differs at two
-loci [Thomson:Single:2014]_. Below we describe the measures, each of
+loci :cite:p:`thomson_conditional_2014`. Below we describe the measures, each of
 which is normalized to lie between zero and one.
 
 :math:`D'` 
@@ -453,7 +456,7 @@ which is normalized to lie between zero and one.
    {D}' = \sum_{i=1}^{I} {\sum_{j=1}^{J} {p_i } } q_j \left|{{D}'_{ij} } \right|
 
 :math:`W_n`
-   Also known as Cramer's V Statistic [Cramer:1946]_, :math:`W_n`, is a
+   Also known as Cramer's V Statistic :cite:p:`cramer_mathematical_1946`, :math:`W_n`, is a
    second overall measure of LD between two loci. It is a re-expression
    of the Chi-square statistic, :math:`X^2_{LD}`, normalized
    to be between zero and one. When there are only two alleles per

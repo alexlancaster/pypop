@@ -11,111 +11,114 @@
 References
 **********
 
-.. [Cano:etal:2007] Pedro Cano. 2007. “Common and well-documented HLA
-		    alleles: report of the ad-hoc committee of the American Society
-		    for Histocompatiblity and Immunogenetics”. 68. 5. 392-417.
-		    \ *Human Immunology*.
+.. bibliography::
 
-.. [Chen:etal:1999] JJ Chen, JA Hollenbach, EA Trachtenberg, JJ Just,
-		    M Carrington, KS Ronningen, A Begovich, MC King, SK McWeeney, SJ
-		    Mack, HA Erlich, and G Thomson. 1999. “Hardy-Weinberg testing for
-		    HLA class II (DRB1, DQA1, DQB1 and DPB1) loci in 26 human ethnic
-		    groups”. 54. 533-542. \ *Tissue Antigens*.
-
-.. [Cramer:1946] H Cramer. \ *Mathematical Models of Statistics*.
-		 1946. Princeton University Press. Princeton NJ.
-
-.. [Dempster:1977] A Dempster, N Laird, and D Rubin. 1977. “Maximum
-		   likelihood estimation from incomplete data using the EM
-		   algorithm”. 39. 1-38. \ *J Royal Stat Soc*.
-
-.. [Ewens:1972] W Ewens. 1972. “The sampling theory of selectively
-		neutral alleles.”. \ *Theor. Pop. Biol*. 3. 87-112.
-
-.. [Excoffier:Slatkin:1995] Laurent Excoffier and Montgomery Slatkin.
-			    1995. “Maximum-likelihood estimation of molecular haplotype
-			    frequencies in a diploid population”. \ *Molecular Biology and
-			    Evolution*. 12. 5. 921-927.
-
-.. [Guo:Thompson:1992] S W Guo and E A Thompson. 1992. “Performing
-		       the exact test of Hardy-Weinberg proportion for multiple alleles”.
-		       \ *Biometrics*. 48. 361-72.
-
-.. [Hedrick:1987] P W Hedrick. 1987. “Gametic disequilibrium
-		  measures: proceed with caution”. 117. 2. 331-41. \ *Genetics*.
-
-.. [Lancaster:etal:2003] Alex Lancaster, Mark P Nelson, Richard M
-			 Single, Diogo Meyer, and Glenys Thomson. 2003. “PyPop: a software
-			 framework for population genomics: analyzing large-scale
-			 multi-locus genotype data”. \ *Pacific Symposium on Biocomputing*.
-			 R B Altman. et al.. vol 8. 514-525. \ 
-			 .. [:download:`PDF </html_root/psb-pypop.pdf>` (344 kB)].
-
-.. [Lancaster:etal:2007a] Alex Lancaster, Mark P Nelson, Richard M
-			  Single, Diogo Meyer, and Glenys Thomson. 2007a. \ *Software
-			  framework for Biostatistics Core*. JA Hansen. \ *Immunobiology of
-			  the Human MHC: Proceedings of the 13th International
-			  Histocompatibility Workshop and Conference*. IHWG Press. Seattle,
-			  Washington. I. 510-517.
-
-.. [Lancaster:etal:2007b] Alex Lancaster, Richard M Single, Owen D
-			  Solberg, Mark P Nelson, and Glenys Thomson. 2007b. “PyPop update -
-			  a software pipeline for large-scale multilocus population
-			  genomics.”. \ *Tissue Antigens*. 69 Suppl 1. 192-197.
-			  .. [:download:`PDF </html_root/tissue-antigens-lancaster-2007.pdf>`
-			  (150 kB)].
-
-.. [Mack:etal:2007] Steven J. Mack, Alicia Sanchez-Mazas, Diogo
-		    Meyer, Richard M Single, Yingssu Tsai, and Henry Erlich. 2007.
-		    \ *Methods used in the generation and preparation of data for
-		    analysis in the 13th International Histocompatibility Workshop*.
-		    JA Hansen. \ *Immunobiology of the Human MHC: Proceedings of the
-		    13th International Histocompatibility Workshop and Conference*.
-		    IHWG Press. Seattle, Washington. I. 564-579.
-
-.. [Meyer:etal:2007] Diogo Meyer, Richard M Single, Steven J. Mack,
-		     Alex Lancaster, Mark P Nelson, M. Fernánndez-Viñaa, Henry Erlich,
-		     and Glenys Thomson. 2007. \ *Haplotype frequencies and linkage
-		     disequilibrium among classical HLA genes*. JA Hansen.
-		     \ *Immunobiology of the Human MHC: Proceedings of the 13th
-		     International Histocompatibility Workshop and Conference*. IHWG
-		     Press. Seattle, Washington. I. 705-746.
-
-.. [Salamon:etal:1999] H Salamon, W Klitz, S Easteal, X Gao, HA
-		       Erlich, M Fernandez-Vina, and EA Trachtenberg. 1999. “Evolution of
-		       HLA class II molecules: Allelic and amino acid site variability
-		       across populations”. 152. 393-400. \ *Genetics*.
-
-.. [Schneider:etal:2000] S Schneider, D Roessli, and L Excoffier.
-			 2000. “Arlequin: A software for population genetics data analysis.
-			 http://lgb.unige.ch/arlequin/”. Ver 2.000. Genetics and Biometry
-			 Lab, Dept. of Anthropology, University of Geneva.
-
-.. [Single:etal:2007a] RM Single, D Meyer, and G Thomson. 2007a.
-		       \ *Statistical methods for analysis of population genetic data*.
-		       JA Hansen. \ *Immunobiology of the Human MHC: Proceedings of the
-		       13th International Histocompatibility Workshop and Conference*.
-		       IHWG Press. Seattle, Washington. I. 518-522.
-
-.. [Slatkin:1994] M Slatkin. 1994. “An exact test for neutrality
-		  based on the Ewens sampling distribution”. \ *Genetical Research*.
-		  64. 71-74.
-
-.. [Slatkin:1996] M Slatkin. 1996. “A correction to the exact test
-		  based on the Ewens sampling distribution”. \ *Genetical Research*.
-		  68. 259-260.
-
-.. [Solberg:etal:2008] Owen D. Solberg, Steven J. Mack, Alex K. Lancaster,
-		       Richard M. Single, Yingssu Tsai, Alicia Sanchez-Mazas, and Glenys
-		       Thomson Hum Immunol (2008), doi: 10.1016/j.humimm.2008.05.001
-
-.. [Thomson:Single:2014] Glenys Thomson and Richard M. Single. 2014.
+..
+   [Cano:etal:2007] Pedro Cano. 2007. “Common and well-documented HLA
+   		    alleles: report of the ad-hoc committee of the American Society
+   		    for Histocompatiblity and Immunogenetics”. 68. 5. 392-417.
+   		    \ *Human Immunology*.
+   
+   [Chen:etal:1999] JJ Chen, JA Hollenbach, EA Trachtenberg, JJ Just,
+   		    M Carrington, KS Ronningen, A Begovich, MC King, SK McWeeney, SJ
+   		    Mack, HA Erlich, and G Thomson. 1999. “Hardy-Weinberg testing for
+   		    HLA class II (DRB1, DQA1, DQB1 and DPB1) loci in 26 human ethnic
+   		    groups”. 54. 533-542. \ *Tissue Antigens*.
+   
+   [Cramer:1946] H Cramer. \ *Mathematical Models of Statistics*.
+   		 1946. Princeton University Press. Princeton NJ.
+   
+   [Dempster:1977] A Dempster, N Laird, and D Rubin. 1977. “Maximum
+   		   likelihood estimation from incomplete data using the EM
+   		   algorithm”. 39. 1-38. \ *J Royal Stat Soc*.
+   
+   [Ewens:1972] W Ewens. 1972. “The sampling theory of selectively
+   		neutral alleles.”. \ *Theor. Pop. Biol*. 3. 87-112.
+   
+   [Excoffier:Slatkin:1995] Laurent Excoffier and Montgomery Slatkin.
+   			    1995. “Maximum-likelihood estimation of molecular haplotype
+   			    frequencies in a diploid population”. \ *Molecular Biology and
+   			    Evolution*. 12. 5. 921-927.
+   
+   [Guo:Thompson:1992] S W Guo and E A Thompson. 1992. “Performing
+   		       the exact test of Hardy-Weinberg proportion for multiple alleles”.
+   		       \ *Biometrics*. 48. 361-72.
+   
+   [Hedrick:1987] P W Hedrick. 1987. “Gametic disequilibrium
+   		  measures: proceed with caution”. 117. 2. 331-41. \ *Genetics*.
+   
+   [Lancaster:etal:2003] Alex Lancaster, Mark P Nelson, Richard M
+   			 Single, Diogo Meyer, and Glenys Thomson. 2003. “PyPop: a software
+   			 framework for population genomics: analyzing large-scale
+   			 multi-locus genotype data”. \ *Pacific Symposium on Biocomputing*.
+   			 R B Altman. et al.. vol 8. 514-525. \ 
+   			 .. [:download:`PDF </html_root/psb-pypop.pdf>` (344 kB)].
+   
+   [Lancaster:etal:2007a] Alex Lancaster, Mark P Nelson, Richard M
+   			  Single, Diogo Meyer, and Glenys Thomson. 2007a. \ *Software
+   			  framework for Biostatistics Core*. JA Hansen. \ *Immunobiology of
+   			  the Human MHC: Proceedings of the 13th International
+   			  Histocompatibility Workshop and Conference*. IHWG Press. Seattle,
+   			  Washington. I. 510-517.
+   
+   [Lancaster:etal:2007b] Alex Lancaster, Richard M Single, Owen D
+   			  Solberg, Mark P Nelson, and Glenys Thomson. 2007b. “PyPop update -
+   			  a software pipeline for large-scale multilocus population
+   			  genomics.”. \ *Tissue Antigens*. 69 Suppl 1. 192-197.
+   			  .. [:download:`PDF </html_root/tissue-antigens-lancaster-2007.pdf>`
+   			  (150 kB)].
+   
+   [Mack:etal:2007] Steven J. Mack, Alicia Sanchez-Mazas, Diogo
+   		    Meyer, Richard M Single, Yingssu Tsai, and Henry Erlich. 2007.
+   		    \ *Methods used in the generation and preparation of data for
+   		    analysis in the 13th International Histocompatibility Workshop*.
+   		    JA Hansen. \ *Immunobiology of the Human MHC: Proceedings of the
+   		    13th International Histocompatibility Workshop and Conference*.
+   		    IHWG Press. Seattle, Washington. I. 564-579.
+   
+   [Meyer:etal:2007] Diogo Meyer, Richard M Single, Steven J. Mack,
+   		     Alex Lancaster, Mark P Nelson, M. Fernánndez-Viñaa, Henry Erlich,
+   		     and Glenys Thomson. 2007. \ *Haplotype frequencies and linkage
+   		     disequilibrium among classical HLA genes*. JA Hansen.
+   		     \ *Immunobiology of the Human MHC: Proceedings of the 13th
+   		     International Histocompatibility Workshop and Conference*. IHWG
+   		     Press. Seattle, Washington. I. 705-746.
+   
+   [Salamon:etal:1999] H Salamon, W Klitz, S Easteal, X Gao, HA
+   		       Erlich, M Fernandez-Vina, and EA Trachtenberg. 1999. “Evolution of
+   		       HLA class II molecules: Allelic and amino acid site variability
+   		       across populations”. 152. 393-400. \ *Genetics*.
+   
+   [Schneider:etal:2000] S Schneider, D Roessli, and L Excoffier.
+   			 2000. “Arlequin: A software for population genetics data analysis.
+   			 http://lgb.unige.ch/arlequin/”. Ver 2.000. Genetics and Biometry
+   			 Lab, Dept. of Anthropology, University of Geneva.
+   
+   [Single:etal:2007a] RM Single, D Meyer, and G Thomson. 2007a.
+   		       \ *Statistical methods for analysis of population genetic data*.
+   		       JA Hansen. \ *Immunobiology of the Human MHC: Proceedings of the
+   		       13th International Histocompatibility Workshop and Conference*.
+   		       IHWG Press. Seattle, Washington. I. 518-522.
+   
+   [Slatkin:1994] M Slatkin. 1994. “An exact test for neutrality
+   		  based on the Ewens sampling distribution”. \ *Genetical Research*.
+   		  64. 71-74.
+   
+   [Slatkin:1996] M Slatkin. 1996. “A correction to the exact test
+   		  based on the Ewens sampling distribution”. \ *Genetical Research*.
+   		  68. 259-260.
+   
+   [Solberg:etal:2008] Owen D. Solberg, Steven J. Mack, Alex K. Lancaster,
+   		       Richard M. Single, Yingssu Tsai, Alicia Sanchez-Mazas, and Glenys
+   		       Thomson Hum Immunol (2008), doi: 10.1016/j.humimm.2008.05.001
+   
+   [Thomson:Single:2014] Glenys Thomson and Richard M. Single. 2014.
                          “Conditional Asymmetric Linkage Disequilibrium (ALD): Extending the 
                          Biallelic r2 Measure” \ *Genetics*, 198, 321–331.
-
-.. [Watterson:1978] G Watterson. 1978. “The homozygosity test of
-		    neutrality”. \ *Genetics*. 88. 405-417.
-
+   
+   [Watterson:1978] G Watterson. 1978. “The homozygosity test of
+   		    neutrality”. \ *Genetics*. 88. 405-417.
+   
 .. 		    
    AB Begovich GR McClure VC Suraj RC Helmuth N Fildes TL Bugawan HA Erlich 1992 Polymorphism, recombination, and linkage disequilibrium within the HLA class II region. 148 249-58 J Immunol
    AM Valdes G Thomson 1997 Detecting disease-predisposing variants: The haplotype method 60 703-716 American Journal of Human Genetics
