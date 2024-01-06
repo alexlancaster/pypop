@@ -42,7 +42,7 @@ large-scale population genetic analyses including:
 
   * Recent previous releases:
    .. toggle:: 
-      
+
     - 2023-11-04: release candidate 2 (1.0.0rc2) released. Fixes some
       missing TSV output.
     - 2023-11-01: release candidate 1 (1.0.0rc1) released.

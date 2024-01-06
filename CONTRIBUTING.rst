@@ -331,7 +331,7 @@ Before requesting a finale merge, you should:
 3. Update documentation when there's new API, functionality etc.
 4. In the submission for the PR, include a description of the changes,
    in markdown format, suitable for eventual inclusion in ``NEWS.md``.
-5. Add yourself to ``website/docs/AUTHORS.rst``.
+5. Add yourself to ``AUTHORS.rst``.
 
 
 Installation for developers
@@ -656,10 +656,10 @@ outside ``website`` like ``README.rst`` and ``CONTRIBUTING.rst``:
    -  ``guide-chapter-instructions.rst``
    -  ``guide-chapter-contributing.rst`` (pulls in top-level
       ``CONTRIBUTING.rst`` that contains the source of the text that you are reading right now)
-   -  ``guide-chapter-changes.rst`` (pulls in top-level ``NEWS.md`` and ``AUTHORS.rst``, which is local to ``website``)
-   -  ``AUTHORS.rst``
+   -  ``guide-chapter-changes.rst`` (pulls in top-level ``NEWS.md`` and ``AUTHORS.rst``)
    -  ``licenses.rst`` (pulls in top-level ``LICENSE``)
    -  ``biblio.rst``
+   -  ``pypop.bib`` (BibTeX source file for bibliography)
 
 -  ``html_root`` (any files or directories commited in this directory
    will appear at the top-level of the website)
