@@ -35,38 +35,6 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel',
               'sphinx_togglebutton', 'sphinxarg.ext', 'sphinx_copybutton',
               'sphinxcontrib.bibtex']
 
-bibtex_bibfiles = ['pypop.bib']
-
-## overwrite the default square brackets with round-brackets style
-
-from dataclasses import dataclass, field
-import sphinxcontrib.bibtex.plugin
-
-from sphinxcontrib.bibtex.style.referencing import BracketStyle
-from sphinxcontrib.bibtex.style.referencing.author_year \
-    import AuthorYearReferenceStyle
-
-
-def bracket_style() -> BracketStyle:
-    return BracketStyle(
-        left='(',
-        right=')',
-    )
-
-@dataclass
-class MyReferenceStyle(AuthorYearReferenceStyle):
-    bracket_parenthetical: BracketStyle = field(default_factory=bracket_style)
-    bracket_textual: BracketStyle = field(default_factory=bracket_style)
-    bracket_author: BracketStyle = field(default_factory=bracket_style)
-    bracket_label: BracketStyle = field(default_factory=bracket_style)
-    bracket_year: BracketStyle = field(default_factory=bracket_style)
-
-sphinxcontrib.bibtex.plugin.register_plugin(
-    'sphinxcontrib.bibtex.style.referencing',
-    'author_year_round', MyReferenceStyle)
-
-#bibtex_default_style = 'plain'
-bibtex_reference_style = 'author_year_round'
 
 #autosectionlabel_prefix_document = True
 
@@ -142,6 +110,76 @@ pygments_style = 'sphinx'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
+
+# -- Bibligraphy output using sphinxcontrib-bibtex --------------------------------------
+
+bibtex_bibfiles = ['pypop.bib']
+
+## custom citation styles
+## overwrite the default square brackets with round-brackets style
+
+from dataclasses import dataclass, field
+import sphinxcontrib.bibtex.plugin
+
+from sphinxcontrib.bibtex.style.referencing import BracketStyle
+from sphinxcontrib.bibtex.style.referencing.author_year \
+    import AuthorYearReferenceStyle
+
+
+def bracket_style() -> BracketStyle:
+    return BracketStyle(
+        left='(',
+        right=')',
+    )
+
+@dataclass
+class MyReferenceStyle(AuthorYearReferenceStyle):
+    bracket_parenthetical: BracketStyle = field(default_factory=bracket_style)
+    bracket_textual: BracketStyle = field(default_factory=bracket_style)
+    bracket_author: BracketStyle = field(default_factory=bracket_style)
+    bracket_label: BracketStyle = field(default_factory=bracket_style)
+    bracket_year: BracketStyle = field(default_factory=bracket_style)
+
+sphinxcontrib.bibtex.plugin.register_plugin(
+    'sphinxcontrib.bibtex.style.referencing',
+    'author_year_round', MyReferenceStyle)
+
+bibtex_reference_style = 'author_year_round'
+
+## custom bibligraphy style
+
+
+import pybtex.plugin
+from pybtex.style.formatting.alpha import Style as AlphaStyle
+from pybtex.style.names import lastfirst
+from pybtex.style.template import sentence, optional, field, words, first_of
+
+class AlphaInitialsStyle(AlphaStyle):
+
+    name = 'alpha-initials'
+    default_name_style = 'lastfirst' # put the lastname first
+    default_label_style = 'alpha' # 'number' or 'alpha'
+    default_sorting_style = 'author_year_title'
+    
+    def __init__(self, **kwargs):
+        super().__init__(abbreviate_names=True, **kwargs) # abbreviate initials
+
+    def format_web_refs(self, e):
+        # try for DOI, PubMed or EPrint first, only include URL if not present
+        return first_of [
+            sentence [
+                optional [ self.format_eprint(e) ],
+                optional [ self.format_pubmed(e) ],
+                optional [ self.format_doi(e) ],
+            ],
+            optional [ self.format_url(e),
+                       optional [ ' (accessed on ', field('urldate'), ')' ] ],
+            ]
+        
+pybtex.plugin.register_plugin('pybtex.style.formatting', 'alpha-initials', AlphaInitialsStyle)
+
+bibtex_default_style = 'alpha-initials'
+
 
 # -- Options for HTML output ----------------------------------------------
 
