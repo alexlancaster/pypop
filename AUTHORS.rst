@@ -88,7 +88,7 @@ Included with permission, or via GPL-compatible licenses.
    kindly allowed us to release the code under the `GNU General Public
    License <http://www.gnu.org/licenses/gpl.html>`__. Original code
    available at
-   http://www.stat.washington.edu/thompson/Genepi/Hardy.shtml.
+   https://sites.stat.washington.edu/thompson/Genepi/Hardy.shtml
 
 ``slatkin-exact/monte-carlo.c``
    Montgomery Slatkin's implementation of a Monte Carlo approximation

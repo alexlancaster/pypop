@@ -38,9 +38,10 @@ large-scale population genetic analyses including:
       framework and PyPI package
     - and even more minor features and bug fixes... (see
       `NEWS.md
-      <https://github.com/alexlancaster/pypop/blob/main/NEWS.md#release-notes-for-pypop-100>`__).
+      <https://github.com/alexlancaster/pypop/blob/main/NEWS.md#100---2023-11-07>`__).
 
   * Recent previous releases:
+
    .. toggle:: 
 
     - 2023-11-04: release candidate 2 (1.0.0rc2) released. Fixes some
@@ -69,7 +70,7 @@ large-scale population genetic analyses including:
 .. _guide-preface-2-start:  
    
 PyPop is an object-oriented framework implemented in `Python
-<http://www.pypop.org/>`__, but also contains C extensions for some
+<https://www.python.org/>`__, but also contains C extensions for some
 computationally intensive tasks. Output of analyses are stored in XML
 format for maximum downstream flexibility. PyPop also has an internal
 facility for additionally aggregating the output XML and generating
@@ -108,10 +109,11 @@ PyPop, is contained in the :ref:`PyPop User Guide
 
 PyPop is `free software
 <http://www.gnu.org/philosophy/free-sw.html>`__ (sometimes referred to
-as `open source <http://www.opensource.org/>`__ software) and the
+as `open source <https://opensource.org/>`__ software) and the
 source code is released under the terms of the "copyleft" GNU General
-Public License, or GPL (http://www.gnu.org/licenses/gpl.html).  All
-source code is available and maintained on our `GitHub website
+Public License, or GPL (https://www.gnu.org/licenses/gpl.html)
+(specifically GPLv2, but any later version applies).  All source code is
+available and maintained on our `GitHub website
 <https://github.com/alexlancaster/pypop>`__.
 
 .. _citing-pypop:

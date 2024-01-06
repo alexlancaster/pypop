@@ -154,8 +154,8 @@ References
    M Raymond F Rousset 1995 GENEPOP (version 1.2): population genetics software for exact tests and ecumenicism, available from ftp://ftp.cefe.cnrs-mop.fr/genepop J. Hered 86 248-249
    M.J Daly J.D Rioux S.E Schaeffer T.J Hudson E.S Lander 2001 High-resolution haplotype structure in the human genome 29 229-232 Nature Genetics
    N Metropolis R AW AH Teller T E 1953 Equations of state calculations by fast computing machines. 21 1087-1092 Journal of Chemical Physics
-   Open Source Initiative http://www.opensource.org/
-   P F Dubois K Hinsen J Hugunin 1996 Numerical Python, available at http://numpy.sf.net/ Computers in Physics 10 3 262-267
+   Open Source Initiative https://opensource.org/
+   P F Dubois K Hinsen J Hugunin 1996 Numerical Python, available at https://numpy.sf.net/ Computers in Physics 10 3 262-267
    P Hedrick G Thomson 1983 Evidence for balancing selection at HLA 104 449-456 Genetics
    P Hedrick Genetics of Populations 1999 Second Edition Jones and Bartlett Sunbury MA
    PV Moonsamy W Klitz MG Tilanus AB Begovich 1997 Genetic variability and
@@ -163,10 +163,10 @@ References
    R M Single D Meyer J A Hollenbach M P Nelson J A Noble H A Erich G Thomson 2002 Haplotype frequency estimation in patient populations: the effect of departures from Hardy-Weinberg proportions and collapsing over a locus in the HLA region 22 186-195 Genetic Epidemiology
    RF Schipper J D'Amaro P de Lange GM Schreuder JJ van Rood M Oudshoorn 1998 Validation of haplotype frequency estimation methods 59 518-523 Hum Immunol
    RM Single D Meyer Steven J. Mack Alex Lancaster Mark P Nelson M. Fernánndez-Viñaa Henry Erlich G Thomson 2007b Single locus polymorphism of classical HLA genes. HLA2007 I 653-704
-   Ross Ihaka Robert Gentleman R: A Language for Data Analysis and Graphics http://www.r-project.org/ 1996 Journal of Computational and Graphical Statistics 5 3 299-314
+   Ross Ihaka Robert Gentleman R: A Language for Data Analysis and Graphics https://www.r-project.org/ 1996 Journal of Computational and Graphical Statistics 5 3 299-314
    T Emigh 1980 A comparison of tests for Hardy-Weinberg equilibrium 36 627-642 Biometrics
    W Cochran 1954 Some methods for strengthening the common Chi-Squared tests 10 417-451 Biometrics
    WP Robinson MA Asmussen G Thomson 1991 Three-locus systems impose additional constraints on pairwise disequilibria Genetics 129 925-30
-   dbMHC http://www.ncbi.nlm.nih.gov/IEB/Research/GVWG/MHC/
-   libxslt, XSLT C library for GNOME http://xmlsoft.org/
+   dbMHC https://www.ncbi.nlm.nih.gov/IEB/Research/GVWG/MHC/
+   libxslt, XSLT C library for GNOME https://xmlsoft.org/
    linkage disequilibrium within the DP region in the CEPH families 58 112-121 Hum Immunol

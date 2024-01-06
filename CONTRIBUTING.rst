@@ -458,10 +458,17 @@ Unix/Linux:
 MacOS X
 ^^^^^^^
 
-1. Install developer command-line tools:
-   https://developer.apple.com/downloads/ (includes ``git``, ``gcc``)
+1. Install the developer command-line tools:
+   https://developer.apple.com/downloads/ (includes ``git``,
+   ``gcc``). (Note that you may have to sign-in/create a developer
+   account with Apple using your Apple ID to access this link.).  You
+   may also be able to install via the terminal and skip the above
+   step by running ``xcode-select –-install`` (but first check to see
+   if you already have a version installed, see
+   https://mac.install.guide/commandlinetools/4.html for more
+   details).
 
-2. Visit http://macports.org and follow the instructions there to
+2. Visit https://www.macports.org and follow the instructions there to
    install the latest version of MacPorts for your version of MacOS X.
 
 3. Set environment variables to use macports version of Python and other
@@ -670,7 +677,7 @@ outside ``website`` like ``README.rst`` and ``CONTRIBUTING.rst``:
    -  ``PyPopLinux-0.7.0.tar.gz`` (old binaries - will be removed soon)
    -  ``PyPopWin32-0.7.0.zip``
    -  ``popdata`` (directory - Suppl. data for Solberg et. al 2018 -
-      https://pypop.org/popdata/)
+      http://pypop.org/popdata/)
 
 -  ``reference`` (directory containing the old DocBook-based
    documentation, preserved to allow for unconverted files to be

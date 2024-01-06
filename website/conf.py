@@ -35,6 +35,9 @@ extensions = ['sphinx.ext.autodoc', 'sphinx.ext.autosectionlabel',
               'sphinx_togglebutton', 'sphinxarg.ext', 'sphinx_copybutton',
               'sphinxcontrib.bibtex']
 
+# override user-agent so that linkcheck works
+# FIXME: disabled, doesn't currently have an effect
+#user_agent= "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:121.0) Gecko/20100101 Firefox/121.0"
 
 #autosectionlabel_prefix_document = True
 

@@ -178,17 +178,18 @@ What happens when you run PyPop?
 --------------------------------
 
 The most common types of analysis will involve the editing of your
-:file:`config.ini` file to suit your data (see `The configuration
-file <guide-usage-configfile>`__) followed by the selection of either
+:file:`config.ini` file to suit your data (see :ref:`the configuration
+file <guide-usage-configfile>`) followed by the selection of either
 the interactive or batch mode described above. If your input
-configuration file is :file:`{configfilename}` and your population file name
-is :file:`{popfilename}.txt` the initial output will be generated quickly, but
-your the PyPop execution will not be finished until the text output file
-named :file:`{popfilename}-out.txt` has been created. A successful run will
-produce two output files: :file:`{popfilename}-out.xml`,
-:file:`{popfilename}-out.txt`. A third output file will be created if you are
-using the Anthony Nolan HLA filter option for HLA data to check your
-input for valid/known HLA alleles: :file:`popfilename-filter.xml`).
+configuration file is :file:`{configfilename}` and your population
+file name is :file:`{popfilename}.txt` the initial output will be
+generated quickly, but your the PyPop execution will not be finished
+until the text output file named :file:`{popfilename}-out.txt` has
+been created. A successful run will produce two output files:
+:file:`{popfilename}-out.xml`, :file:`{popfilename}-out.txt`. A third
+output file will be created if you are using the Anthony Nolan HLA
+filter option for HLA data to check your input for valid/known HLA
+alleles: :file:`popfilename-filter.xml`).
 
 The :file:`popfilename-out.xml` file is the primary output created by
 PyPop and the human-readable :file:`popfilename-out.txt` file is a
@@ -585,10 +586,9 @@ is contained in :ref:`config-advanced`.
           count
 
       Note that each ``.pop`` file must contain only one locus (see
-      `note_title <data-allelecount-note>`__ in
-      :numref:`data-allelecount`). Listing multiple loci
-      simply permits the same ``.ini`` file to be reused for each data
-      file.
+      :ref:`the note <data-allelecount-note>` in
+      :numref:`data-allelecount`). Listing multiple loci simply
+      permits the same ``.ini`` file to be reused for each data file.
 
 -  ``[HardyWeinberg]``
 
@@ -877,7 +877,7 @@ what was resolved and what could not be resolved.
    This options specifies which of the formats the Anthony Nolan
    allele data will be used. The option can be set to either ``txt``
    (for the plain free text format) or ``msf`` (for the `Multiple
-   Sequence Format <http://www.ebi.ac.uk/imgt/hla/download.html>`__)
+   Sequence Format <https://www.ebi.ac.uk/ipd/imgt/hla/download/>`__)
    **[Default:** ``msf`` **]**
 
 -  ``directory``.
@@ -988,5 +988,5 @@ compiled from several :cite:p:`mack_methods_2007,cano_common_2007` sources [2]_
 
 .. [2]
    The Anthony Nolan list of deleted allele names
-   (http://github.com/ANHIG/IMGTHLA/blob/Latest/Deleted_alleles.txt); and the
+   (https://github.com/ANHIG/IMGTHLA/blob/Latest/Deleted_alleles.txt); and the
    Ambiguous Allele Combinations, release 2.18.0 (https://www.ebi.ac.uk/ipd/imgt/hla/ambiguity).
