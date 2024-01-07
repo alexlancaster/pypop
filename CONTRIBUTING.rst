@@ -331,7 +331,7 @@ Before requesting a finale merge, you should:
 3. Update documentation when there's new API, functionality etc.
 4. In the submission for the PR, include a description of the changes,
    in markdown format, suitable for eventual inclusion in ``NEWS.md``.
-5. Add yourself to ``website/docs/AUTHORS.rst``.
+5. Add yourself to ``AUTHORS.rst``.
 
 
 Installation for developers
@@ -458,10 +458,17 @@ Unix/Linux:
 MacOS X
 ^^^^^^^
 
-1. Install developer command-line tools:
-   https://developer.apple.com/downloads/ (includes ``git``, ``gcc``)
+1. Install the developer command-line tools:
+   https://developer.apple.com/downloads/ (includes ``git``,
+   ``gcc``). (Note that you may have to sign-in/create a developer
+   account with Apple using your Apple ID to access this link.).  You
+   may also be able to install via the terminal and skip the above
+   step by running ``xcode-select –-install`` (but first check to see
+   if you already have a version installed, see
+   https://mac.install.guide/commandlinetools/4.html for more
+   details).
 
-2. Visit http://macports.org and follow the instructions there to
+2. Visit https://www.macports.org and follow the instructions there to
    install the latest version of MacPorts for your version of MacOS X.
 
 3. Set environment variables to use macports version of Python and other
@@ -656,10 +663,10 @@ outside ``website`` like ``README.rst`` and ``CONTRIBUTING.rst``:
    -  ``guide-chapter-instructions.rst``
    -  ``guide-chapter-contributing.rst`` (pulls in top-level
       ``CONTRIBUTING.rst`` that contains the source of the text that you are reading right now)
-   -  ``guide-chapter-changes.rst`` (pulls in top-level ``NEWS.md`` and ``AUTHORS.rst``, which is local to ``website``)
-   -  ``AUTHORS.rst``
+   -  ``guide-chapter-changes.rst`` (pulls in top-level ``NEWS.md`` and ``AUTHORS.rst``)
    -  ``licenses.rst`` (pulls in top-level ``LICENSE``)
    -  ``biblio.rst``
+   -  ``pypop.bib`` (BibTeX source file for bibliography)
 
 -  ``html_root`` (any files or directories commited in this directory
    will appear at the top-level of the website)
@@ -670,7 +677,7 @@ outside ``website`` like ``README.rst`` and ``CONTRIBUTING.rst``:
    -  ``PyPopLinux-0.7.0.tar.gz`` (old binaries - will be removed soon)
    -  ``PyPopWin32-0.7.0.zip``
    -  ``popdata`` (directory - Suppl. data for Solberg et. al 2018 -
-      https://pypop.org/popdata/)
+      http://pypop.org/popdata/)
 
 -  ``reference`` (directory containing the old DocBook-based
    documentation, preserved to allow for unconverted files to be
