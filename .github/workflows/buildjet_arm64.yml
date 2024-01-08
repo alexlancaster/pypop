@@ -9,9 +9,12 @@ jobs:
     runs-on: buildjet-2vcpu-ubuntu-2204-arm
     steps:
       - uses: actions/checkout@v4
-      - uses: buildjet/setup-python@v4
+
+      - uses: buildjet/setup-python@v5
         with:
           python-version: '3.8'         
+
+
       - name: Build wheel
         run: |
           apt install swig libgsl-dev
