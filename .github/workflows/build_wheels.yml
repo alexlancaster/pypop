@@ -170,14 +170,15 @@ jobs:
           MATRIX=$(
             {
               cibuildwheel --print-build-identifiers --platform linux \
-              | jq -nRc '{"only": inputs, "os": "ubuntu-20.04}' \
+              | jq -nRc '{"only": inputs, "os": "ubuntu-20.04"}' \
               && cibuildwheel --print-build-identifiers --platform macos \
-              | jq -nRc '{"only": inputs, "os": "macos-11}' \
+              | jq -nRc '{"only": inputs, "os": "macos-11"}' \
               && cibuildwheel --print-build-identifiers --platform windows \
               | jq -nRc '{"only": inputs, "os": "windows-2019"}'
             } | jq -sc
           )
-          echo "include=$MATRIX" >> $GITHUB_OUTPUT          
+          echo "include=$MATRIX" >> $GITHUB_OUTPUT
+          echo "debugging:" $MATRIX
           
   build_wheels:
     name: Build wheels on ${{ matrix.only }}
