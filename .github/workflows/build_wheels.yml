@@ -196,6 +196,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          only: ${{ matrix.only }}
           fetch-depth: 0
           # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
