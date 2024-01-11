@@ -227,8 +227,11 @@ setup (name = __pkgname__,
        package_dir = {"": src_dir},
        packages = ["PyPop", "PyPop.xslt"],
        package_data={"PyPop.xslt": data_file_paths},
-       install_requires = ["numpy <= 1.26.2", "lxml <= 5.0.0", "scipy <= 1.11.3",
-                           "importlib-resources; python_version <= '3.8'", "importlib-metadata; python_version <= '3.8'"],
+       install_requires = ["numpy <= 1.26.3",
+                           "lxml <= 5.1.0",
+                           "scipy <= 1.11.3",
+                           "importlib-resources; python_version <= '3.8'",
+                           "importlib-metadata; python_version <= '3.8'"],
        extras_require={
            "test": ['pytest']
            # FIXME:  "psutil <= 5.9.5", not currently used, 5.9.6 and later had problems with building on Windows PyPy
