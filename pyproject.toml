@@ -28,9 +28,7 @@ before-all="yum install -y swig gsl-devel"
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
 select = "*musllinux*"
-before-all = [
-  "apk add swig gsl",
-]
+before-all = "apk add swig gsl-dev"
 
 [tool.cibuildwheel.macos]
 # do a per-build 'gsl' installation to force correct architecture when
