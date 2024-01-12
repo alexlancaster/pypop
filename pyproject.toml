@@ -1,5 +1,7 @@
 [tool.cibuildwheel]
-skip = ["*-win32", "*_i686", "pp37-*linux*", "pp37-win_*", "pp37-macosx_*", "pp310-win_*", "pp310-macosx_*", "pp310-*linux*"]  # skip certain builds, including 32-bit, musllinux and others "*-musllinux_*", 
+skip = ["*-win32", "*_i686",  # skip 32-bit builds
+        "pp37-*linux*", "pp37-win_*", "pp37-macosx_*", "pp310-win_*", "pp310-macosx_*", "pp310-*linux*",  # skip certain PyPy configurations
+        "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"]  # skip older musllinux versions (missing numpy wheels)
 test-extras = ["test"]
 test-command = "pytest -v {package}/tests"
 # FIXME: add below test-command unit tests need to be saved
