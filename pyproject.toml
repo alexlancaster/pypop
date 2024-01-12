@@ -29,7 +29,7 @@ before-all="yum install -y swig gsl-devel"
 # musl uses apk/apt
 select = "*musllinux*"
 before-all = [
-  "apk add swig libgsl-dev",
+  "apk add swig gsl",
 ]
 
 [tool.cibuildwheel.macos]
