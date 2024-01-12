@@ -22,10 +22,15 @@ select = "pp310-*linux*"
 manylinux-x86_64-image = "manylinux_2_28"
 
 [tool.cibuildwheel.linux]
-# for CentOS-based runners, local cibuildwheel docker
+# default linux wheels use CentOS-based runners, local cibuildwheel docker
 before-all="yum install -y swig gsl-devel"
-# GitHub runners use Ubuntu
-#before-all="apt install swig libgsl-dev"
+
+[[tool.cibuildwheel.overrides]]
+# musl uses apk/apt
+select = "*musllinux*"
+before-all = [
+  "apk add swig libgsl-dev",
+]
 
 [tool.cibuildwheel.macos]
 # do a per-build 'gsl' installation to force correct architecture when
