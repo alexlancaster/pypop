@@ -92,11 +92,6 @@ jobs:
           git ls-files -z|git check-attr --stdin -z export-ignore |sed -zne 'x;n;n;s/^set$//;t print;b;:print;x;p'|xargs --null rm
           # FIXME: need to also remove orphaned empty directories resulting from above
           find . -empty -type d -delete
-          # git tag -d $GITHUB_REF_NAME
-          # git push --follow-tags origin :$GITHUB_REF
-          # git tag $GITHUB_REF_NAME
-          # git push origin $GITHUB_REF
-          # git ls-remote origin $GITHUB_REF
       - name: Create a draft snapshot of your repository contents as a new
               version in test collection on Zenodo using metadata
               from repository file .zenodo.json
@@ -114,43 +109,6 @@ jobs:
           upsert-doi: true
           upsert-location: doi
           verbose: true
-      #
-      # FIXME: disabled the rest of these steps (already done by zenodraft)
-      #
-      - name: Get existing release
-        if: false
-        id: get_existing_release
-        uses: cardinalby/git-get-release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          releaseId: ${{ github.event.release.id }}
-      - name: Delete old release
-        if: false
-        uses: liudonghua123/delete-release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          release_id: ${{ github.event.release.id }}
-      - name: Recreate release with new tag
-        if: false
-        id: recreate_release
-        uses: joutvhu/create-release@v1
-        with:
-          tag_name: ${{ github.event.release.tag_name }}
-          name: ${{ steps.get_existing_release.outputs.name }}
-          body: ${{ steps.get_existing_release.outputs.body }}
-          # FIXME: have to set these both to false, because not copied
-          # from the original release properly
-          # draft: ${{ steps.get_existing_release.outputs.draft }}
-          # prerelease: ${{ steps.get_existing_release.outputs.draft }}
-          draft: false
-          prerelease: false
-          target_commitish: ${{ steps.get_existing_release.outputs.target_commitish }}
-          on_release_exists: update
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # GITHUB_TOKEN: ${{ secrets.PYPOP_RELEASE_TOKEN }}
 
   generate-wheels-matrix:
     # Create a matrix of all architectures & versions to build.
@@ -185,6 +143,8 @@ jobs:
           echo "include=$MATRIX" >> $GITHUB_OUTPUT
           echo "debugging:" $MATRIX
         env:
+           # only generate all wheels on releases, pull requests or commits to the main branch
+           # otherwise just generate a test wheel Python 3.12 on Ubuntu
            CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref != 'main' }}
           
   build_wheels:
