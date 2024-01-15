@@ -183,11 +183,9 @@ jobs:
             )
             echo "include=$MATRIX" >> $GITHUB_OUTPUT
           fi
-          echo "debugging:" $MATRIX
+          echo "debugging:" $GITHUB_OUTPUT
         env:
-           CI_ONLY: ${{ github.event_name != 'release' || github.event_name != 'pull_request' || github.ref != 'main' }}
-
-# 
+           CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref != 'main' }}
           
   build_wheels:
     name: Build wheels on ${{ matrix.only }}
