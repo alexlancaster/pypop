@@ -24,6 +24,8 @@ select = "pp310-*linux*"
 manylinux-x86_64-image = "manylinux_2_28"
 
 [tool.cibuildwheel.linux]
+# add aarch64 to default architectures
+archs = ["auto", "aarch64"]
 # default linux wheels use CentOS-based runners, local cibuildwheel docker
 before-all="yum install -y swig gsl-devel"
 
