@@ -6,18 +6,175 @@
   `haplo.stats` R package `haplo-stats` for haplotype
   estimation. [Implementation in alpha-phase - still working on this].
 
+## Build-time notes
 
-## External dependencies
+### External dependencies
 
 * ```swig``` (Simple Wrapper Interface Generator) (build-time only)
-* ```gsl``` (GNU Scientific Library)
+* ```gsl``` (GNU Scientific Library) (build-time only)
 * ```Numpy``` (Numpy)
 * ```lxml``` (Python bindings)
 * ```pytest``` (Python test framework)
 
-## Installing ```swig``` on certain Ubuntu releases (obsoleted by newer Ubuntu releases)
+### SWIG notes
 
-There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on ```xenial``` (which is version 3.0.8 of swig) working.  You will need to install the lastest version from source.
+* Note that within ".i" wrappers, need to include function prototypes
+and SWIG wrappers, so functions are duplicated, see this
+[StackOverflow
+post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-python)
+
+### macports.org
+
+* To install macports via the command-line you can run the following (substituting the current link):
+
+```
+curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacPorts-2.4.1-10.12-Sierra.pkg' > MacPorts-2.4.1-10.12-Sierra.pkg
+sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
+```
+
+## GitHub notes
+
+Unused stanzas in `build_wheels.yml` workflow to manually regenerate a
+GitHub release based on re-tagging (e.g. after a Zenodo deposition).
+They have been disabled for the time being because they are done
+internally by the `zenodraft` action.
+
+This first part is needed just after `find -empty type d -delete` in
+the `run` part of the "Pubsh changes back to repo files"
+`publish_zenodo` job:
+
+```
+          git tag -d $GITHUB_REF_NAME
+          git push --follow-tags origin :$GITHUB_REF
+          git tag $GITHUB_REF_NAME
+          git push origin $GITHUB_REF
+          git ls-remote origin $GITHUB_REF
+```
+
+This second part would be the last step in the same `publish_zenodo`
+job:
+
+```
+      #
+      # FIXME: disabled the rest of these steps (already done by zenodraft)
+      #
+      - name: Get existing release
+        if: false
+        id: get_existing_release
+        uses: cardinalby/git-get-release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          releaseId: ${{ github.event.release.id }}
+      - name: Delete old release
+        if: false
+        uses: liudonghua123/delete-release-action@v1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        with:
+          release_id: ${{ github.event.release.id }}
+      - name: Recreate release with new tag
+        if: false
+        id: recreate_release
+        uses: joutvhu/create-release@v1
+        with:
+          tag_name: ${{ github.event.release.tag_name }}
+          name: ${{ steps.get_existing_release.outputs.name }}
+          body: ${{ steps.get_existing_release.outputs.body }}
+          # FIXME: have to set these both to false, because not copied
+          # from the original release properly
+          # draft: ${{ steps.get_existing_release.outputs.draft }}
+          # prerelease: ${{ steps.get_existing_release.outputs.draft }}
+          draft: false
+          prerelease: false
+          target_commitish: ${{ steps.get_existing_release.outputs.target_commitish }}
+          on_release_exists: update
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITHUB_TOKEN: ${{ secrets.PYPOP_RELEASE_TOKEN }}
+```
+
+## Design notes
+
+(These should eventually be migrated back in the source code, so that,
+if and when we generate API docs, they will appear there.  They would
+need updating as part of that migration to make sure they are still
+accurate.)
+
+* `Main` is the primary interface to the PyPop modules.  Given a
+ConfigParser instance, which can be (1) created from a filename passed
+from command-line argument or (2) from values populated by the GUI
+(currently selected from an .ini file, but can ultimately be set
+directly from the GUI or values based from a form to a web server or
+the) it then runs the specified modules (outlined below).
+
+* `GUIApp` is the graphical front-end to PyPop which uses the
+"wxPython":http://www.wxpython.org GUI toolkit.  wxPython is a set of
+Python bindings to "wxWindows":http://www.wxwindows.org, which is an
+open-source cross-platform GUI widget toolkit which has a native look
+under GNU/Linux (GTK), Windows (MFC) and MacOS X (Aqua).  [as of 2023,
+this was removed]
+
+* `ParseFile` is a base class which has most of the common functionality
+for reading files.
+
+* `ParseGenotypeFile` is a subclass of `ParseFile` that deals with
+files that consist specifically of data with individual genotyped for
+one or more loci.
+
+* `ParseAlleleCount` is another subclass of `ParseFile` that deals
+with files consisting of allele counts across a whole population.
+
+* `HardyWeinberg` is a class that calculates Hardy-Weinberg
+statistics given genotype data for a single locus.
+
+* `HardyWeinbergGuoThompson` a subclass of `HardyWeinberg` that uses the
+Guo & Thompson algorithm for calculating statistics.
+
+* `HardyWeinbergGuoThompsonArlequin` a subclass of `HardyWeinberg`
+that uses the Arlequin implementation of the Guo & Thompson algorithm
+for calculating statistics.
+
+* `Haplo` is an abstract base class for estimating haplotypes given
+genotype data.
+
+- `HaploArlequin` is a subclass of `Haplo` that uses Arlequin for
+estimation of haplotypes (obsolete).
+
+* `Emhaplofreq` is a subclass of `Haplo` that uses `emhaplofreq` (Rich
+Single`s program) for the estimation of haplotypes and linkage
+disequilibrium values.
+
+* `ArlequinWrapper` the underlying class that "wraps" the
+functionality of the "Arlequin":http://lgb.unige.ch/arlequin/ program
+(obsolete: this class, in turn, supplies `HaploArlequin` with required
+information).
+
+* `Homozygosity` Calculates homozygosity statistics for a given locus,
+calculates the observed homozygosity and returns the approximate
+expected homozygosity statistics taken from previous simulation runs.
+
+Both file formats are assumed to have a population header information
+with, consisting of a line of column headers (population metadata)
+followed by a line with the actual data, followed by the column
+headers for the samples (sample metadata) followed by the sample data
+itself (either individuals in the genotyped case, or alleles in the
+allele count case).
+
+## Obsolete notes
+
+These are either obsoleted by new versions of dependencies or
+platforms, or no longer work, and need to be updated. Keeping around
+in case of either old platforms or if there is interest in reviving
+the feature(s) in question.
+
+### Installing ```swig``` on certain Ubuntu releases
+
+(obsoleted by newer Ubuntu releases)
+
+There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on
+```xenial``` (which is version 3.0.8 of swig) working.  You will need
+to install the lastest version from source.
 
 1. Get swig dependency: 
 
@@ -33,86 +190,9 @@ There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on ```xenial`
        make
        sudo make install
 
+### Containerizing
 
-## Design notes
-
-* 'Main' is the primary interface to the PyPop modules.  Given a
-ConfigParser instance, which can be (1) created from a filename passed
-from command-line argument or (2) from values populated by the GUI
-(currently selected from an .ini file, but can ultimately be set
-directly from the GUI or values based from a form to a web server or
-the) it then runs the specified modules (outlined below).
-
-* 'GUIApp' is the graphical front-end to PyPop which uses the
-"wxPython":http://www.wxpython.org GUI toolkit.  wxPython is a set of
-Python bindings to "wxWindows":http://www.wxwindows.org, which is an
-open-source cross-platform GUI widget toolkit which has a native look
-under GNU/Linux (GTK), Windows (MFC) and MacOS X (Aqua).  [as of 2023,
-this was removed]
-
-* 'ParseFile' is a base class which has most of the common functionality
-for reading files.
-
-* 'ParseGenotypeFile' is a subclass of 'ParseFile' that deals with
-files that consist specifically of data with individual genotyped for
-one or more loci.
-
-* 'ParseAlleleCount' is another subclass of 'ParseFile' that deals
-with files consisting of allele counts across a whole population.
-
-* 'HardyWeinberg' is a class that calculates Hardy-Weinberg
-statistics given genotype data for a single locus.
-
-* 'HardyWeinbergGuoThompson' a subclass of 'HardyWeinberg' that uses the
-Guo & Thompson algorithm for calculating statistics.
-
-* 'HardyWeinbergGuoThompsonArlequin' a subclass of 'HardyWeinberg'
-that uses the Arlequin implementation of the Guo & Thompson algorithm
-for calculating statistics.
-
-* 'Haplo' is an abstract base class for estimating haplotypes given
-genotype data.
-
-- 'HaploArlequin' is a subclass of 'Haplo' that uses Arlequin for
-estimation of haplotypes (obsolete).
-
-* 'Emhaplofreq' is a subclass of 'Haplo' that uses 'emhaplofreq' (Rich
-Single's program) for the estimation of haplotypes and linkage
-disequilibrium values.
-
-* 'ArlequinWrapper' the underlying class that `wraps' the
-functionality of the "Arlequin":http://lgb.unige.ch/arlequin/ program
-(obsolete: this class, in turn, supplies 'HaploArlequin' with required
-information).
-
-* 'Homozygosity' Calculates homozygosity statistics for a given locus,
-calculates the observed homozygosity and returns the approximate
-expected homozygosity statistics taken from previous simulation runs.
-
-Both file formats are assumed to have a population header information
-with, consisting of a line of column headers (population metadata)
-followed by a line with the actual data, followed by the column
-headers for the samples (sample metadata) followed by the sample data
-itself (either individuals in the genotyped case, or alleles in the
-allele count case).
-
-## SWIG notes
-
-* Note that within ".i" wrappers, need to include function prototypes
-and SWIG wrappers, so functions are duplicated, see this
-[StackOverflow
-post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-python)
-
-## macports.org
-
-* To install macports via the command-line you can run the following (substituting the current link):
-
-```
-curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacPorts-2.4.1-10.12-Sierra.pkg' > MacPorts-2.4.1-10.12-Sierra.pkg
-sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
-```
-
-## Containerizing (WARNING: these instructions are likely obsolete with python3 port) 
+(WARNING: instructions are obsolete with the Python 3 port) 
 
 To make pypop more portable (given that some of its dependencies are currently
 obsolete), it is possible to build a Singularity container which contains a
