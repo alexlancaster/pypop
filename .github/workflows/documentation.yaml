@@ -1,8 +1,10 @@
 name: pypop.org website and docs generation
 on:
+  workflow_dispatch:
   push:
     paths:
       - '*.rst'
+      - 'NEWS.md'
       - 'LICENSE'
       - 'website/**'
       - 'tests/data/doc-examples/**'
@@ -13,16 +15,7 @@ on:
   pull_request:
     paths:
       - '*.rst'
-      - 'LICENSE'
-      - 'website/**'
-      - 'tests/data/doc-examples/**'
-      - 'src/PyPop/CommandLineInterface.py'
-      - '.github/workflows/documentation.yaml'
-      - '!website/README.md'
-      - '!website/reference/**'
-  workflow_dispatch:
-    paths:
-      - '*.rst'
+      - 'NEWS.md'
       - 'LICENSE'
       - 'website/**'
       - 'tests/data/doc-examples/**'
