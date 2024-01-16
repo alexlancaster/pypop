@@ -1,5 +1,9 @@
 name: Build PyPop
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
+  cancel-in-progress: true
+
 on:
   workflow_dispatch:
   pull_request:
@@ -92,11 +96,6 @@ jobs:
           git ls-files -z|git check-attr --stdin -z export-ignore |sed -zne 'x;n;n;s/^set$//;t print;b;:print;x;p'|xargs --null rm
           # FIXME: need to also remove orphaned empty directories resulting from above
           find . -empty -type d -delete
-          # git tag -d $GITHUB_REF_NAME
-          # git push --follow-tags origin :$GITHUB_REF
-          # git tag $GITHUB_REF_NAME
-          # git push origin $GITHUB_REF
-          # git ls-remote origin $GITHUB_REF
       - name: Create a draft snapshot of your repository contents as a new
               version in test collection on Zenodo using metadata
               from repository file .zenodo.json
@@ -114,56 +113,57 @@ jobs:
           upsert-doi: true
           upsert-location: doi
           verbose: true
-      #
-      # FIXME: disabled the rest of these steps (already done by zenodraft)
-      #
-      - name: Get existing release
-        if: false
-        id: get_existing_release
-        uses: cardinalby/git-get-release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          releaseId: ${{ github.event.release.id }}
-      - name: Delete old release
-        if: false
-        uses: liudonghua123/delete-release-action@v1
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        with:
-          release_id: ${{ github.event.release.id }}
-      - name: Recreate release with new tag
-        if: false
-        id: recreate_release
-        uses: joutvhu/create-release@v1
-        with:
-          tag_name: ${{ github.event.release.tag_name }}
-          name: ${{ steps.get_existing_release.outputs.name }}
-          body: ${{ steps.get_existing_release.outputs.body }}
-          # FIXME: have to set these both to false, because not copied
-          # from the original release properly
-          # draft: ${{ steps.get_existing_release.outputs.draft }}
-          # prerelease: ${{ steps.get_existing_release.outputs.draft }}
-          draft: false
-          prerelease: false
-          target_commitish: ${{ steps.get_existing_release.outputs.target_commitish }}
-          on_release_exists: update
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # GITHUB_TOKEN: ${{ secrets.PYPOP_RELEASE_TOKEN }}
 
+  generate-wheels-matrix:
+    # Create a matrix of all architectures & versions to build.
+    # This enables the next step to run cibuildwheel in parallel.
+    # From https://iscinumpy.dev/post/cibuildwheel-2-10-0/#only-210
+    name: Generate wheels matrix
+    runs-on: ubuntu-latest
+    outputs:
+      include: ${{ steps.set-matrix.outputs.include }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install cibuildwheel
+        # Nb. keep cibuildwheel version pin consistent with job below
+        run: pipx install cibuildwheel==2.16.2
+      - id: set-matrix
+        run: |
+          echo "CI_ONLY" $CI_ONLY
+          if [ "$CI_ONLY" == "true" ]; then
+            MATRIX="[{'only':'cp312-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp312-win_amd64','os':'windows-2019'}, {'only':'cp312-macosx_x86_64','os':'macos-11'}, {'only':'cp312-macosx_arm64','os':'macos-11'}]"
+          else
+            MATRIX=$(
+              {
+              cibuildwheel --print-build-identifiers --platform linux \
+              | jq -nRc '{"only": inputs, "os": "ubuntu-20.04"}' \
+              && cibuildwheel --print-build-identifiers --platform macos \
+              | jq -nRc '{"only": inputs, "os": "macos-11"}' \
+              && cibuildwheel --print-build-identifiers --platform windows \
+              | jq -nRc '{"only": inputs, "os": "windows-2019"}'
+            } | jq -sc
+            )
+          fi
+          echo "include=$MATRIX" >> $GITHUB_OUTPUT
+          echo "platform matrix:" $MATRIX
+        env:
+           # only generate all wheels on releases, pull requests or commits to the main branch
+           # otherwise just generate a test wheel Python 3.12 for 4 platform
+           CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' }}
+          
   build_wheels:
-    name: Build wheels on ${{ matrix.os }}
+    name: Build wheels on ${{ matrix.only }}
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
     # this only results in changes upon production releases
-    needs: [publish_zenodo, skip_publish_zenodo]
+    needs: [publish_zenodo, skip_publish_zenodo, generate-wheels-matrix]
     # trying solution here: https://github.com/actions/runner/issues/491#issuecomment-1507495166
     # so that it works if either job in "needs" completes
     if: always() && !cancelled() && !failure()
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-20.04, macos-11, windows-2019]
+        include: ${{ fromJson(needs.generate-wheels-matrix.outputs.include) }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -173,12 +173,13 @@ jobs:
       - name: Build and test wheels
         uses: pypa/cibuildwheel@v2.16.2
         with:
+          only: ${{ matrix.only }}
           package-dir: .
           output-dir: wheelhouse
           config-file: "{package}/pyproject.toml"
       - uses: actions/upload-artifact@v4
         with:
-          name: wheels-${{ matrix.os }}
+          name: wheels-${{ matrix.only }}
           path: ./wheelhouse/*.whl
           # path: ./wheelhouse/*  use if more than wheels are wanted
 

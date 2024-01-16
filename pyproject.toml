@@ -1,5 +1,7 @@
 [tool.cibuildwheel]
-skip = ["*-win32", "*_i686", "*-musllinux_*", "pp37-win_*", "pp37-macosx_*", "pp310-win_*", "pp310-macosx_*", "pp310-*linux*"]  # skip certain builds, including 32-bit, musllinux and others 
+skip = ["*-win32", "*_i686",  # skip 32-bit builds
+        "pp37-*linux*", "pp37-win_*", "pp37-macosx_*", "pp310-win_*", "pp310-macosx_*", "pp310-*linux*",  # skip certain PyPy configurations
+        "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"]  # skip older musllinux versions (missing numpy wheels)
 test-extras = ["test"]
 test-command = "pytest -v {package}/tests"
 # FIXME: add below test-command unit tests need to be saved
@@ -22,10 +24,13 @@ select = "pp310-*linux*"
 manylinux-x86_64-image = "manylinux_2_28"
 
 [tool.cibuildwheel.linux]
-# for CentOS-based runners, local cibuildwheel docker
+# default linux wheels use CentOS-based runners, local cibuildwheel docker
 before-all="yum install -y swig gsl-devel"
-# GitHub runners use Ubuntu
-#before-all="apt install swig libgsl-dev"
+
+[[tool.cibuildwheel.overrides]]
+# musl uses apk/apt
+select = "*musllinux*"
+before-all = "apk add swig gsl-dev"
 
 [tool.cibuildwheel.macos]
 # do a per-build 'gsl' installation to force correct architecture when

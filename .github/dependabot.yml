@@ -5,6 +5,10 @@ updates:
   directory: "/"
   schedule:
     interval: weekly
+  groups:
+    actions:
+      patterns:
+        - "*"
 
 # for pinned Python packages
 - package-ecosystem: "pip"
