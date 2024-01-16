@@ -22,7 +22,7 @@ jobs:
         run: |
           pip install --only-binary :all: dist/pypop_genomics*.whl
           pytest -s -v tests
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           path: dist/*
 
