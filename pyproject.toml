@@ -1,7 +1,8 @@
 [tool.cibuildwheel]
 skip = ["*-win32", "*_i686",  # skip 32-bit builds
-        "pp37-*linux*", "pp37-win_*", "pp37-macosx_*", "pp310-win_*", "pp310-macosx_*", "pp310-*linux*",  # skip certain PyPy configurations
-        "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"]  # skip older musllinux versions (missing numpy wheels)
+        "pp37-*", "pp310-*",  # skip certain PyPy configurations
+	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
+        "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"]  # older musllinux missing numpy wheels
 test-extras = ["test"]
 test-command = "pytest -v {package}/tests"
 # FIXME: add below test-command unit tests need to be saved
@@ -24,7 +25,7 @@ select = "pp310-*linux*"
 manylinux-x86_64-image = "manylinux_2_28"
 
 [tool.cibuildwheel.linux]
-# add aarch64 to default architectures
+# add aarch64 to default ("auto") architectures
 archs = ["auto", "aarch64"]
 # default linux wheels use CentOS-based runners, local cibuildwheel docker
 before-all="yum install -y swig gsl-devel"
