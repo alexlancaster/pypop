@@ -3,7 +3,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "pp*",                # skip all PyPy (no scipy available)
         # "pp37-*", "pp310-*", # skip certain PyPy configurations
 	# "pp*_aarch64",       # no numpy wheels for aarch64 on PyPy
-	"*-musllinux_aarch64", # skip musllinuxx compilation on aarch65
+	"*-musllinux_aarch64", # skip musllinuxx compilation on aarch64
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"]  # older musllinux missing numpy wheels
 test-extras = ["test"]
 test-command = "pytest -v {package}/tests"
