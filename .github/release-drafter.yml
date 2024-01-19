@@ -48,14 +48,14 @@ template: |
   ```
   <!-- START cut-and-paste to NEWS.md -->
 
-  ## $NEXT_PATCH_VERSION - YYYY-MM-DD
+  ## $RESOLVED_VERSION - YYYY-MM-DD
   
   $CHANGES
 
-  [$NEXT_PATCH_VERSION]: https://github.com/$OWNER/$REPOSITORY/releases/tag/v$NEXT_PATCH_VERSION
+  [$RESOLVED_VERSION]: https://github.com/$OWNER/$REPOSITORY/releases/tag/v$RESOLVED_VERSION
 
   <!-- END cut-and-paste to NEWS.md -->
 
   A full history of changes is available in [`NEWS.md`](https://github.com/$OWNER/$REPOSITORY/blob/main/NEWS.md).
 
-  **Full Changelog:** https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$NEXT_PATCH_VERSION
+  **Full Changelog:** https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
