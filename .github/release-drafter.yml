@@ -3,7 +3,7 @@ name-template: 'PyPop $RESOLVED_VERSION'
 #tag-template: 'v$NEXT_PATCH_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
 prerelease: false
-prerelease-identifier: 'rc'
+#prerelease-identifier: 'rc'
 include-pre-releases: false
 version-template: '$COMPLETE'
 commitish: 'main'
