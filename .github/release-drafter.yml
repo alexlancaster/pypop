@@ -2,7 +2,7 @@
 name-template: 'PyPop $RESOLVED_VERSION'
 #tag-template: 'v$NEXT_PATCH_VERSION'
 tag-template: 'v$RESOLVED_VERSION'
-prerelease: false
+prerelease: true
 #prerelease-identifier: 'rc'
 include-pre-releases: true
 version-template: '$COMPLETE'
