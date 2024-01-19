@@ -1,5 +1,7 @@
-name-template: 'PyPop $NEXT_PATCH_VERSION'
-tag-template: 'v$NEXT_PATCH_VERSION'
+#name-template: 'PyPop $NEXT_PATCH_VERSION'
+name-template: 'PyPop $COMPLETE'
+#tag-template: 'v$NEXT_PATCH_VERSION'
+tag-template: 'v$COMPLETE
 prerelease: true
 #include-pre-releases: true
 prerelease-identifier: 'rc'
