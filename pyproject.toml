@@ -48,6 +48,7 @@ before-build = [
 archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 
 [tool.cibuildwheel.windows]
+archs = ["auto", "ARM64"]
 # use nuget to install gsl on Windows, and manually supply paths
 before-all = "nuget install gsl-msvc14-x64 -Version 2.3.0.2779"
 # note that we have to repeat the global PIP_ONLY_BINARY config, because this variables overwrites previous defines
