@@ -35,3 +35,23 @@ def test_Filters_CustomBinning_HLANomen2010():
         gold_out_filename = abspath_test_data(os.path.join(DEFAULT_GOLD_OUTPUT_DIR, out_filename))
         assert filecmp_ignore_newlines(out_filename, gold_out_filename)
     
+def test_Filters_CustomBinning_G_Filter():
+    exit_code = run_pypop_process('./tests/data/custom-binning-examples/G-Filter_config.ini', './tests/data/BIGDAWG_SynthControl_Data.pop')
+    # check exit code
+    assert exit_code == 0
+
+    # check filter log output as well
+    for out_filename in ["BIGDAWG_SynthControl_Data-filter.xml", "BIGDAWG_SynthControl_Data-out.txt"]:
+        gold_out_filename = abspath_test_data(os.path.join(DEFAULT_GOLD_OUTPUT_DIR, "custom-binning-G-Filter", out_filename))
+        assert filecmp_ignore_newlines(out_filename, gold_out_filename)
+
+def test_Filters_CustomBinning_P_Filter():
+    exit_code = run_pypop_process('./tests/data/custom-binning-examples/P-Filter_config.ini', './tests/data/BIGDAWG_SynthControl_Data.pop')
+    # check exit code
+    assert exit_code == 0
+
+    # check filter log output as well
+    for out_filename in ["BIGDAWG_SynthControl_Data-filter.xml", "BIGDAWG_SynthControl_Data-out.txt"]:
+        gold_out_filename = abspath_test_data(os.path.join(DEFAULT_GOLD_OUTPUT_DIR, "custom-binning-P-Filter", out_filename))
+        assert filecmp_ignore_newlines(out_filename, gold_out_filename)
+        
