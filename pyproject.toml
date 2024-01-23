@@ -2,7 +2,9 @@
 minversion = "6.0"
 addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
 xfail_strict = true
-filterwarnings = ["error"]
+# convert warnings to errors, except for ImportWarnings in numpy (needed for pp38)
+# FIXME: eventually we should be able to remove the numpy exception
+filterwarnings = ["error", "default::ImportWarning:numpy*:"]
 log_cli_level = "info"
 testpaths = [
   "tests",
