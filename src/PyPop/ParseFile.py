@@ -226,8 +226,8 @@ class ParseFile:
 
         *For internal use only*.
         """
-        f = open(filename, 'r')
-        self.fileData = f.readlines()
+        with open(filename, 'r') as f:
+            self.fileData = f.readlines()
 
     def _mapPopHeaders(self):
 
