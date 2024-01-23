@@ -38,9 +38,9 @@
 
 """
 import sys, os, re, io
+import numpy
 import math
 import itertools as it
-from numpy import unique, array, minimum, sqrt, random, nan, c_
 from tempfile import TemporaryDirectory
 
 from PyPop.Arlequin import ArlequinBatch
@@ -666,8 +666,8 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     Make standalone so it can be used by any class
     """
 
-    unique_alleles1 = unique(haplos[:,0])
-    unique_alleles2 = unique(haplos[:,1])
+    unique_alleles1 = numpy.unique(haplos[:,0])
+    unique_alleles2 = numpy.unique(haplos[:,1])
 
     # FIXME: should merge the two into one loop
     freq1_dict = {}
@@ -704,7 +704,7 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
         allhaplos.append(newrow)
 
     # convert to numpy structured array
-    allhaplos = array(allhaplos, dtype=[('allele1', 'O'), ('allele2', 'O'), ('allele.freq1', float), ('allele.freq2', float), ('haplo.freq', float)])
+    allhaplos = numpy.array(allhaplos, dtype=[('allele1', 'O'), ('allele2', 'O'), ('allele.freq1', float), ('allele.freq2', float), ('haplo.freq', float)])
 
     # now we extract the columns we need for the computations
     hap_prob = allhaplos['haplo.freq']
@@ -717,11 +717,11 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     num_allpossible_haplos = len(allhaplos)
 
     ## compute Wn & Dprime
-    zero = array([0.0])
+    zero = numpy.array([0.0])
     dprime_den = zero.repeat(num_allpossible_haplos)
     d_ij = hap_prob - a_freq1 * a_freq2
-    den_lt0 = minimum( a_freq1*a_freq2, (1-a_freq1)*(1-a_freq2) )
-    den_ge0 = minimum( (1-a_freq1)*a_freq2, a_freq1*(1-a_freq2) )
+    den_lt0 = numpy.minimum( a_freq1*a_freq2, (1-a_freq1)*(1-a_freq2) )
+    den_ge0 = numpy.minimum( (1-a_freq1)*a_freq2, a_freq1*(1-a_freq2) )
     dprime_den[d_ij < 0] = den_lt0[d_ij < 0]
     dprime_den[d_ij >=0] = den_ge0[d_ij >=0]
     dprime_ij = d_ij/dprime_den
@@ -741,8 +741,8 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     w = w_ij.sum()
     # FIXME: NOT SURE THIS SYNTAX FOR 'min' IS CORRECT (OR GOOD)
     # WANT:  wn <- sqrt( w / (min( length(unique(alleles1)), length(unique(alleles2)) ) - 1.0) )
-    w_den = minimum(unique(alleles1).size*1.0, unique(alleles2).size*1.0) - 1.0
-    wn = sqrt( w / w_den )
+    w_den = numpy.minimum(numpy.unique(alleles1).size*1.0, numpy.unique(alleles2).size*1.0) - 1.0
+    wn = numpy.sqrt( w / w_den )
     if debug: print ("Wn: ", wn)
 
     if compute_ALD:
@@ -751,23 +751,23 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
         F_2_1 = 0.0
         F_2 = 0.0
         F_1_2 = 0.0
-        for i in unique(alleles1):
-           af_1 = unique(a_freq1[alleles1==i])[0]  # take the first element of ndarray (default behaviour)
+        for i in numpy.unique(alleles1):
+           af_1 = numpy.unique(a_freq1[alleles1==i])[0]  # take the first element of ndarray (default behaviour)
            F_1 = F_1 + af_1**2
            F_2_1 = F_2_1 + ((hap_prob[alleles1==i]**2)/af_1).sum()
-        for i in unique(alleles2):
-           af_2 = unique(a_freq2[alleles2==i])[0]
+        for i in numpy.unique(alleles2):
+           af_2 = numpy.unique(a_freq2[alleles2==i])[0]
            F_2 = F_2 + af_2**2
            F_1_2 = F_1_2 + ((hap_prob[alleles2==i]**2)/af_2).sum()
         if F_2 == 1.0:
-           F_2_1_prime = nan  
-           ALD_2_1 = nan
+           F_2_1_prime = numpy.nan  
+           ALD_2_1 = numpy.nan
         else:
            F_2_1_prime = (F_2_1 - F_2)/(1 - F_2)
            ALD_2_1 = math.sqrt(F_2_1_prime)
         if F_1 == 1:
-           F_1_2_prime = nan
-           ALD_1_2 = nan
+           F_1_2_prime = numpy.nan
+           ALD_1_2 = numpy.nan
         else:
            F_1_2_prime = (F_1_2 - F_1)/(1 - F_1)
            ALD_1_2 = math.sqrt(F_1_2_prime)
@@ -890,7 +890,7 @@ class Haplostats(Haplo):
             iseed1 = 18717; iseed2= 16090; iseed3=14502
             random_start = 0
         else:
-            seed_array = random.random(3)
+            seed_array = numpy.random.random(3)
             iseed1 = int(10000 + 20000*seed_array[0])
             iseed2 = int(10000 + 20000*seed_array[1])
             iseed3 = int(10000 + 20000*seed_array[2])
@@ -922,7 +922,7 @@ class Haplostats(Haplo):
                     iseed3 = iseed3 + i*100
                     random_start = 1   # need this in testMode too, apparently
                 else:
-                    seed_array = random.random(3)
+                    seed_array = numpy.random.random(3)
                     iseed1 = int(10000 + 20000*seed_array[0])
                     iseed2 = int(10000 + 20000*seed_array[1])
                     iseed3 = int(10000 + 20000*seed_array[2])
@@ -966,7 +966,7 @@ class Haplostats(Haplo):
                               hap2_code_new 
 
         # convert u_hap back into original allele names
-        haplotype = array(u_hap, dtype='O').reshape(n_u_hap, -1)
+        haplotype = numpy.array(u_hap, dtype='O').reshape(n_u_hap, -1)
         for j in range(0, n_loci):
             for i in range(0, n_u_hap):
                 allele_offset = haplotype[i,j] - 1 #  integers are offset by 1
@@ -981,8 +981,8 @@ class Haplostats(Haplo):
 
         # FIXME: are these, strictly speaking, necessary in Python context?
         # these arrays can be regenerated from the vectors at any time
-        uhap_df = c_[u_hap_code, hap_prob]
-        subj_df = c_[subj_id, hap1_code, hap2_code]
+        uhap_df = numpy.c_[u_hap_code, hap_prob]
+        subj_df = numpy.c_[subj_id, hap1_code, hap2_code]
 
         # XML output for group here
         self.stream.opentag('group', mode="all-pairwise-ld-no-permu", loci=locusKeys, showHaplo="yes")
