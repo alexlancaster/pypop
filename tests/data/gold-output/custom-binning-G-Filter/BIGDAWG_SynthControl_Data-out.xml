@@ -1,0 +1,3411 @@
+<dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude" date="" role="ParseGenotypeFile">
+<xi:include href="BIGDAWG_SynthControl_Data-filter.xml" parse="xml">
+<xi:fallback/>
+</xi:include>
+<filename>BIGDAWG_SynthControl_Data.pop</filename>
+<pypop-version>1.0.1rc1.post8+gfafd6b5</pypop-version>
+<populationdata>
+</populationdata>
+<summaryinfo>
+<indivcount>1002</indivcount>
+<allelecount>2004</allelecount>
+<locuscount>3</locuscount>
+<lociWithDataCount>3</lociWithDataCount>
+</summaryinfo>
+<locus name="A">
+<allelecounts>
+<untypedindividuals>0.0</untypedindividuals>
+<unsequencedsites>0</unsequencedsites>
+<indivcount>1002.0</indivcount>
+<allelecount>2004</allelecount>
+<distinctalleles>20</distinctalleles>
+<allele name="01:01:01G">
+<frequency>0.08283 </frequency><count>166</count>
+</allele>
+<allele name="02:01:01G">
+<frequency>0.02894 </frequency><count>58</count>
+</allele>
+<allele name="02:05:01G">
+<frequency>0.07086 </frequency><count>142</count>
+</allele>
+<allele name="03:01:01G">
+<frequency>0.07236 </frequency><count>145</count>
+</allele>
+<allele name="03:01:03">
+<frequency>0.05389 </frequency><count>108</count>
+</allele>
+<allele name="11:01:01G">
+<frequency>0.05888 </frequency><count>118</count>
+</allele>
+<allele name="23:01:01G">
+<frequency>0.02246 </frequency><count>45</count>
+</allele>
+<allele name="24:02:01G">
+<frequency>0.07834 </frequency><count>157</count>
+</allele>
+<allele name="24:02:04">
+<frequency>0.02894 </frequency><count>58</count>
+</allele>
+<allele name="25:01:01G">
+<frequency>0.01896 </frequency><count>38</count>
+</allele>
+<allele name="26:01:01G">
+<frequency>0.04790 </frequency><count>96</count>
+</allele>
+<allele name="26:08">
+<frequency>0.05539 </frequency><count>111</count>
+</allele>
+<allele name="29:01:01G">
+<frequency>0.02894 </frequency><count>58</count>
+</allele>
+<allele name="29:02:01:02">
+<frequency>0.05389 </frequency><count>108</count>
+</allele>
+<allele name="31:01:02G">
+<frequency>0.05240 </frequency><count>105</count>
+</allele>
+<allele name="32:01:01G">
+<frequency>0.01497 </frequency><count>30</count>
+</allele>
+<allele name="32:02">
+<frequency>0.10130 </frequency><count>203</count>
+</allele>
+<allele name="33:01:01">
+<frequency>0.00449 </frequency><count>9</count>
+</allele>
+<allele name="68:01:01G">
+<frequency>0.03992 </frequency><count>80</count>
+</allele>
+<allele name="68:06">
+<frequency>0.08433 </frequency><count>169</count>
+</allele>
+<totalfrequency>1.00000</totalfrequency>
+<totalcount>2004</totalcount></allelecounts>
+<hardyweinberg allelelump="0">
+<samplesize>1002</samplesize>
+<lumpBelow>5</lumpBelow>
+<genotypetable>
+<genotype row="01:01:01G" id="0" col="01:01:01G">
+<observed>7</observed>
+<expected>6.875250</expected>
+<chisq>0.002264</chisq>
+<pvalue>0.962053</pvalue>
+</genotype>
+<genotype row="02:01:01G" id="1" col="01:01:01G">
+<observed>5</observed>
+<expected>4.804391</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:01:01G" id="2" col="02:01:01G">
+<observed>1</observed>
+<expected>0.839321</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:05:01G" id="3" col="01:01:01G">
+<observed>11</observed>
+<expected>11.762475</expected>
+<chisq>0.049426</chisq>
+<pvalue>0.824066</pvalue>
+</genotype>
+<genotype row="02:05:01G" id="4" col="02:01:01G">
+<observed>4</observed>
+<expected>4.109780</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="02:05:01G" id="5" col="02:05:01G">
+<observed>5</observed>
+<expected>5.030938</expected>
+<chisq>0.000190</chisq>
+<pvalue>0.988995</pvalue>
+</genotype>
+<genotype row="03:01:01G" id="6" col="01:01:01G">
+<observed>12</observed>
+<expected>12.010978</expected>
+<chisq>0.000010</chisq>
+<pvalue>0.997473</pvalue>
+</genotype>
+<genotype row="03:01:01G" id="7" col="02:01:01G">
+<observed>4</observed>
+<expected>4.196607</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:01:01G" id="8" col="02:05:01G">
+<observed>10</observed>
+<expected>10.274451</expected>
+<chisq>0.007331</chisq>
+<pvalue>0.931767</pvalue>
+</genotype>
+<genotype row="03:01:01G" id="9" col="03:01:01G">
+<observed>5</observed>
+<expected>5.245758</expected>
+<chisq>0.011514</chisq>
+<pvalue>0.914550</pvalue>
+</genotype>
+<genotype row="03:01:03" id="10" col="01:01:01G">
+<observed>9</observed>
+<expected>8.946108</expected>
+<chisq>0.000325</chisq>
+<pvalue>0.985624</pvalue>
+</genotype>
+<genotype row="03:01:03" id="11" col="02:01:01G">
+<observed>3</observed>
+<expected>3.125749</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:01:03" id="12" col="02:05:01G">
+<observed>8</observed>
+<expected>7.652695</expected>
+<chisq>0.015762</chisq>
+<pvalue>0.900091</pvalue>
+</genotype>
+<genotype row="03:01:03" id="13" col="03:01:01G">
+<observed>8</observed>
+<expected>7.814371</expected>
+<chisq>0.004410</chisq>
+<pvalue>0.947056</pvalue>
+</genotype>
+<genotype row="03:01:03" id="14" col="03:01:03">
+<observed>3</observed>
+<expected>2.910180</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:01:01G" id="15" col="01:01:01G">
+<observed>10</observed>
+<expected>9.774451</expected>
+<chisq>0.005205</chisq>
+<pvalue>0.942488</pvalue>
+</genotype>
+<genotype row="11:01:01G" id="16" col="02:01:01G">
+<observed>4</observed>
+<expected>3.415170</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:01:01G" id="17" col="02:05:01G">
+<observed>8</observed>
+<expected>8.361277</expected>
+<chisq>0.015610</chisq>
+<pvalue>0.900570</pvalue>
+</genotype>
+<genotype row="11:01:01G" id="18" col="03:01:01G">
+<observed>8</observed>
+<expected>8.537924</expected>
+<chisq>0.033891</chisq>
+<pvalue>0.853938</pvalue>
+</genotype>
+<genotype row="11:01:01G" id="19" col="03:01:03">
+<observed>6</observed>
+<expected>6.359281</expected>
+<chisq>0.020298</chisq>
+<pvalue>0.886707</pvalue>
+</genotype>
+<genotype row="11:01:01G" id="20" col="11:01:01G">
+<observed>4</observed>
+<expected>3.474052</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="23:01:01G" id="21" col="01:01:01G">
+<observed>4</observed>
+<expected>3.727545</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="23:01:01G" id="22" col="02:01:01G">
+<observed>1</observed>
+<expected>1.302395</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="23:01:01G" id="23" col="02:05:01G">
+<observed>3</observed>
+<expected>3.188623</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="23:01:01G" id="24" col="03:01:01G">
+<observed>3</observed>
+<expected>3.255988</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="23:01:01G" id="25" col="03:01:03">
+<observed>2</observed>
+<expected>2.425150</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="23:01:01G" id="26" col="11:01:01G">
+<observed>2</observed>
+<expected>2.649701</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="23:01:01G" id="27" col="23:01:01G">
+<observed>1</observed>
+<expected>0.505240</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="24:02:01G" id="28" col="01:01:01G">
+<observed>13</observed>
+<expected>13.004990</expected>
+<chisq>0.000002</chisq>
+<pvalue>0.998896</pvalue>
+</genotype>
+<genotype row="24:02:01G" id="29" col="02:01:01G">
+<observed>4</observed>
+<expected>4.543912</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="24:02:01G" id="30" col="02:05:01G">
+<observed>11</observed>
+<expected>11.124750</expected>
+<chisq>0.001399</chisq>
+<pvalue>0.970164</pvalue>
+</genotype>
+<genotype row="24:02:01G" id="31" col="03:01:01G">
+<observed>12</observed>
+<expected>11.359780</expected>
+<chisq>0.036082</chisq>
+<pvalue>0.849347</pvalue>
+</genotype>
+<genotype row="24:02:01G" id="32" col="03:01:03">
+<observed>8</observed>
+<expected>8.461078</expected>
+<chisq>0.025126</chisq>
+<pvalue>0.874054</pvalue>
+</genotype>
+<genotype row="24:02:01G" id="33" col="11:01:01G">
+<observed>10</observed>
+<expected>9.244511</expected>
+<chisq>0.061741</chisq>
+<pvalue>0.803765</pvalue>
+</genotype>
+<genotype row="24:02:01G" id="34" col="23:01:01G">
+<observed>4</observed>
+<expected>3.525449</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="24:02:01G" id="35" col="24:02:01G">
+<observed>6</observed>
+<expected>6.149950</expected>
+<chisq>0.003656</chisq>
+<pvalue>0.951785</pvalue>
+</genotype>
+<genotype row="24:02:04" id="36" col="01:01:01G">
+<observed>5</observed>
+<expected>4.804391</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="24:02:04" id="37" col="02:01:01G">
+<observed>2</observed>
+<expected>1.678643</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="24:02:04" id="38" col="02:05:01G">
+<observed>4</observed>
+<expected>4.109780</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="24:02:04" id="39" col="03:01:01G">
+<observed>4</observed>
+<expected>4.196607</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="24:02:04" id="40" col="03:01:03">
+<observed>3</observed>
+<expected>3.125749</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="24:02:04" id="41" col="11:01:01G">
+<observed>4</observed>
+<expected>3.415170</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="24:02:04" id="42" col="23:01:01G">
+<observed>1</observed>
+<expected>1.302395</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="24:02:04" id="43" col="24:02:01G">
+<observed>4</observed>
+<expected>4.543912</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="24:02:04" id="44" col="24:02:04">
+<observed>1</observed>
+<expected>0.839321</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01:01G" id="45" col="01:01:01G">
+<observed>3</observed>
+<expected>3.147705</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01:01G" id="46" col="02:01:01G">
+<observed>1</observed>
+<expected>1.099800</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01:01G" id="47" col="02:05:01G">
+<observed>3</observed>
+<expected>2.692615</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01:01G" id="48" col="03:01:01G">
+<observed>3</observed>
+<expected>2.749501</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01:01G" id="49" col="03:01:03">
+<observed>2</observed>
+<expected>2.047904</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01:01G" id="50" col="11:01:01G">
+<observed>2</observed>
+<expected>2.237525</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01:01G" id="51" col="23:01:01G">
+<observed>1</observed>
+<expected>0.853293</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01:01G" id="52" col="24:02:01G">
+<observed>3</observed>
+<expected>2.977046</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01:01G" id="53" col="24:02:04">
+<observed>1</observed>
+<expected>1.099800</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="25:01:01G" id="54" col="25:01:01G">
+<observed>0</observed>
+<expected>0.360279</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="26:01:01G" id="55" col="01:01:01G">
+<observed>8</observed>
+<expected>7.952096</expected>
+<chisq>0.000289</chisq>
+<pvalue>0.986446</pvalue>
+</genotype>
+<genotype row="26:01:01G" id="56" col="02:01:01G">
+<observed>3</observed>
+<expected>2.778443</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="26:01:01G" id="57" col="02:05:01G">
+<observed>7</observed>
+<expected>6.802395</expected>
+<chisq>0.005740</chisq>
+<pvalue>0.939606</pvalue>
+</genotype>
+<genotype row="26:01:01G" id="58" col="03:01:01G">
+<observed>7</observed>
+<expected>6.946108</expected>
+<chisq>0.000418</chisq>
+<pvalue>0.983686</pvalue>
+</genotype>
+<genotype row="26:01:01G" id="59" col="03:01:03">
+<observed>5</observed>
+<expected>5.173653</expected>
+<chisq>0.005829</chisq>
+<pvalue>0.939144</pvalue>
+</genotype>
+<genotype row="26:01:01G" id="60" col="11:01:01G">
+<observed>6</observed>
+<expected>5.652695</expected>
+<chisq>0.021339</chisq>
+<pvalue>0.883860</pvalue>
+</genotype>
+<genotype row="26:01:01G" id="61" col="23:01:01G">
+<observed>2</observed>
+<expected>2.155689</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="26:01:01G" id="62" col="24:02:01G">
+<observed>8</observed>
+<expected>7.520958</expected>
+<chisq>0.030512</chisq>
+<pvalue>0.861333</pvalue>
+</genotype>
+<genotype row="26:01:01G" id="63" col="24:02:04">
+<observed>3</observed>
+<expected>2.778443</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="26:01:01G" id="64" col="25:01:01G">
+<observed>2</observed>
+<expected>1.820359</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="26:01:01G" id="65" col="26:01:01G">
+<observed>2</observed>
+<expected>2.299401</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="26:08" id="66" col="01:01:01G">
+<observed>9</observed>
+<expected>9.194611</expected>
+<chisq>0.004119</chisq>
+<pvalue>0.948827</pvalue>
+</genotype>
+<genotype row="26:08" id="67" col="02:01:01G">
+<observed>3</observed>
+<expected>3.212575</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="26:08" id="68" col="02:05:01G">
+<observed>8</observed>
+<expected>7.865269</expected>
+<chisq>0.002308</chisq>
+<pvalue>0.961684</pvalue>
+</genotype>
+<genotype row="26:08" id="69" col="03:01:01G">
+<observed>8</observed>
+<expected>8.031437</expected>
+<chisq>0.000123</chisq>
+<pvalue>0.991149</pvalue>
+</genotype>
+<genotype row="26:08" id="70" col="03:01:03">
+<observed>6</observed>
+<expected>5.982036</expected>
+<chisq>0.000054</chisq>
+<pvalue>0.994140</pvalue>
+</genotype>
+<genotype row="26:08" id="71" col="11:01:01G">
+<observed>6</observed>
+<expected>6.535928</expected>
+<chisq>0.043945</chisq>
+<pvalue>0.833957</pvalue>
+</genotype>
+<genotype row="26:08" id="72" col="23:01:01G">
+<observed>3</observed>
+<expected>2.492515</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="26:08" id="73" col="24:02:01G">
+<observed>9</observed>
+<expected>8.696108</expected>
+<chisq>0.010620</chisq>
+<pvalue>0.917922</pvalue>
+</genotype>
+<genotype row="26:08" id="74" col="24:02:04">
+<observed>3</observed>
+<expected>3.212575</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="26:08" id="75" col="25:01:01G">
+<observed>2</observed>
+<expected>2.104790</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="26:08" id="76" col="26:01:01G">
+<observed>5</observed>
+<expected>5.317365</expected>
+<chisq>0.018942</chisq>
+<pvalue>0.890533</pvalue>
+</genotype>
+<genotype row="26:08" id="77" col="26:08">
+<observed>3</observed>
+<expected>3.074102</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="78" col="01:01:01G">
+<observed>5</observed>
+<expected>4.804391</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="79" col="02:01:01G">
+<observed>2</observed>
+<expected>1.678643</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="80" col="02:05:01G">
+<observed>4</observed>
+<expected>4.109780</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="81" col="03:01:01G">
+<observed>4</observed>
+<expected>4.196607</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="82" col="03:01:03">
+<observed>3</observed>
+<expected>3.125749</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="83" col="11:01:01G">
+<observed>4</observed>
+<expected>3.415170</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="84" col="23:01:01G">
+<observed>1</observed>
+<expected>1.302395</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="85" col="24:02:01G">
+<observed>4</observed>
+<expected>4.543912</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="86" col="24:02:04">
+<observed>2</observed>
+<expected>1.678643</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="87" col="25:01:01G">
+<observed>1</observed>
+<expected>1.099800</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="88" col="26:01:01G">
+<observed>3</observed>
+<expected>2.778443</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="89" col="26:08">
+<observed>3</observed>
+<expected>3.212575</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:01:01G" id="90" col="29:01:01G">
+<observed>1</observed>
+<expected>0.839321</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:02:01:02" id="91" col="01:01:01G">
+<observed>9</observed>
+<expected>8.946108</expected>
+<chisq>0.000325</chisq>
+<pvalue>0.985624</pvalue>
+</genotype>
+<genotype row="29:02:01:02" id="92" col="02:01:01G">
+<observed>3</observed>
+<expected>3.125749</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:02:01:02" id="93" col="02:05:01G">
+<observed>8</observed>
+<expected>7.652695</expected>
+<chisq>0.015762</chisq>
+<pvalue>0.900091</pvalue>
+</genotype>
+<genotype row="29:02:01:02" id="94" col="03:01:01G">
+<observed>8</observed>
+<expected>7.814371</expected>
+<chisq>0.004410</chisq>
+<pvalue>0.947056</pvalue>
+</genotype>
+<genotype row="29:02:01:02" id="95" col="03:01:03">
+<observed>6</observed>
+<expected>5.820359</expected>
+<chisq>0.005544</chisq>
+<pvalue>0.940643</pvalue>
+</genotype>
+<genotype row="29:02:01:02" id="96" col="11:01:01G">
+<observed>6</observed>
+<expected>6.359281</expected>
+<chisq>0.020298</chisq>
+<pvalue>0.886707</pvalue>
+</genotype>
+<genotype row="29:02:01:02" id="97" col="23:01:01G">
+<observed>2</observed>
+<expected>2.425150</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:02:01:02" id="98" col="24:02:01G">
+<observed>8</observed>
+<expected>8.461078</expected>
+<chisq>0.025126</chisq>
+<pvalue>0.874054</pvalue>
+</genotype>
+<genotype row="29:02:01:02" id="99" col="24:02:04">
+<observed>3</observed>
+<expected>3.125749</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:02:01:02" id="100" col="25:01:01G">
+<observed>2</observed>
+<expected>2.047904</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:02:01:02" id="101" col="26:01:01G">
+<observed>5</observed>
+<expected>5.173653</expected>
+<chisq>0.005829</chisq>
+<pvalue>0.939144</pvalue>
+</genotype>
+<genotype row="29:02:01:02" id="102" col="26:08">
+<observed>6</observed>
+<expected>5.982036</expected>
+<chisq>0.000054</chisq>
+<pvalue>0.994140</pvalue>
+</genotype>
+<genotype row="29:02:01:02" id="103" col="29:01:01G">
+<observed>3</observed>
+<expected>3.125749</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="29:02:01:02" id="104" col="29:02:01:02">
+<observed>3</observed>
+<expected>2.910180</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="31:01:02G" id="105" col="01:01:01G">
+<observed>9</observed>
+<expected>8.697605</expected>
+<chisq>0.010514</chisq>
+<pvalue>0.918331</pvalue>
+</genotype>
+<genotype row="31:01:02G" id="106" col="02:01:01G">
+<observed>3</observed>
+<expected>3.038922</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="31:01:02G" id="107" col="02:05:01G">
+<observed>8</observed>
+<expected>7.440120</expected>
+<chisq>0.042132</chisq>
+<pvalue>0.837369</pvalue>
+</genotype>
+<genotype row="31:01:02G" id="108" col="03:01:01G">
+<observed>8</observed>
+<expected>7.597305</expected>
+<chisq>0.021345</chisq>
+<pvalue>0.883844</pvalue>
+</genotype>
+<genotype row="31:01:02G" id="109" col="03:01:03">
+<observed>6</observed>
+<expected>5.658683</expected>
+<chisq>0.020587</chisq>
+<pvalue>0.885909</pvalue>
+</genotype>
+<genotype row="31:01:02G" id="110" col="11:01:01G">
+<observed>6</observed>
+<expected>6.182635</expected>
+<chisq>0.005395</chisq>
+<pvalue>0.941447</pvalue>
+</genotype>
+<genotype row="31:01:02G" id="111" col="23:01:01G">
+<observed>2</observed>
+<expected>2.357784</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="31:01:02G" id="112" col="24:02:01G">
+<observed>9</observed>
+<expected>8.226048</expected>
+<chisq>0.072818</chisq>
+<pvalue>0.787278</pvalue>
+</genotype>
+<genotype row="31:01:02G" id="113" col="24:02:04">
+<observed>3</observed>
+<expected>3.038922</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="31:01:02G" id="114" col="25:01:01G">
+<observed>2</observed>
+<expected>1.991018</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="31:01:02G" id="115" col="26:01:01G">
+<observed>5</observed>
+<expected>5.029940</expected>
+<chisq>0.000178</chisq>
+<pvalue>0.989349</pvalue>
+</genotype>
+<genotype row="31:01:02G" id="116" col="26:08">
+<observed>6</observed>
+<expected>5.815868</expected>
+<chisq>0.005830</chisq>
+<pvalue>0.939139</pvalue>
+</genotype>
+<genotype row="31:01:02G" id="117" col="29:01:01G">
+<observed>3</observed>
+<expected>3.038922</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="31:01:02G" id="118" col="29:02:01:02">
+<observed>6</observed>
+<expected>5.658683</expected>
+<chisq>0.020587</chisq>
+<pvalue>0.885909</pvalue>
+</genotype>
+<genotype row="31:01:02G" id="119" col="31:01:02G">
+<observed>2</observed>
+<expected>2.750749</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="120" col="01:01:01G">
+<observed>2</observed>
+<expected>2.485030</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="121" col="02:01:01G">
+<observed>1</observed>
+<expected>0.868263</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="122" col="02:05:01G">
+<observed>2</observed>
+<expected>2.125749</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="123" col="03:01:01G">
+<observed>2</observed>
+<expected>2.170659</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="124" col="03:01:03">
+<observed>2</observed>
+<expected>1.616766</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="125" col="11:01:01G">
+<observed>2</observed>
+<expected>1.766467</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="126" col="23:01:01G">
+<observed>1</observed>
+<expected>0.673653</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="127" col="24:02:01G">
+<observed>2</observed>
+<expected>2.350299</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="128" col="24:02:04">
+<observed>1</observed>
+<expected>0.868263</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="129" col="25:01:01G">
+<observed>1</observed>
+<expected>0.568862</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="130" col="26:01:01G">
+<observed>1</observed>
+<expected>1.437126</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="131" col="26:08">
+<observed>2</observed>
+<expected>1.661677</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="132" col="29:01:01G">
+<observed>1</observed>
+<expected>0.868263</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="133" col="29:02:01:02">
+<observed>2</observed>
+<expected>1.616766</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="134" col="31:01:02G">
+<observed>1</observed>
+<expected>1.571856</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:01:01G" id="135" col="32:01:01G">
+<observed>0</observed>
+<expected>0.224551</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:02" id="136" col="01:01:01G">
+<observed>16</observed>
+<expected>16.815369</expected>
+<chisq>0.039537</chisq>
+<pvalue>0.842389</pvalue>
+</genotype>
+<genotype row="32:02" id="137" col="02:01:01G">
+<observed>6</observed>
+<expected>5.875250</expected>
+<chisq>0.002649</chisq>
+<pvalue>0.958953</pvalue>
+</genotype>
+<genotype row="32:02" id="138" col="02:05:01G">
+<observed>14</observed>
+<expected>14.384232</expected>
+<chisq>0.010264</chisq>
+<pvalue>0.919305</pvalue>
+</genotype>
+<genotype row="32:02" id="139" col="03:01:01G">
+<observed>15</observed>
+<expected>14.688124</expected>
+<chisq>0.006622</chisq>
+<pvalue>0.935143</pvalue>
+</genotype>
+<genotype row="32:02" id="140" col="03:01:03">
+<observed>11</observed>
+<expected>10.940120</expected>
+<chisq>0.000328</chisq>
+<pvalue>0.985556</pvalue>
+</genotype>
+<genotype row="32:02" id="141" col="11:01:01G">
+<observed>12</observed>
+<expected>11.953094</expected>
+<chisq>0.000184</chisq>
+<pvalue>0.989175</pvalue>
+</genotype>
+<genotype row="32:02" id="142" col="23:01:01G">
+<observed>5</observed>
+<expected>4.558383</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:02" id="143" col="24:02:01G">
+<observed>16</observed>
+<expected>15.903693</expected>
+<chisq>0.000583</chisq>
+<pvalue>0.980733</pvalue>
+</genotype>
+<genotype row="32:02" id="144" col="24:02:04">
+<observed>6</observed>
+<expected>5.875250</expected>
+<chisq>0.002649</chisq>
+<pvalue>0.958953</pvalue>
+</genotype>
+<genotype row="32:02" id="145" col="25:01:01G">
+<observed>4</observed>
+<expected>3.849301</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:02" id="146" col="26:01:01G">
+<observed>10</observed>
+<expected>9.724551</expected>
+<chisq>0.007802</chisq>
+<pvalue>0.929615</pvalue>
+</genotype>
+<genotype row="32:02" id="147" col="26:08">
+<observed>11</observed>
+<expected>11.244012</expected>
+<chisq>0.005295</chisq>
+<pvalue>0.941989</pvalue>
+</genotype>
+<genotype row="32:02" id="148" col="29:01:01G">
+<observed>6</observed>
+<expected>5.875250</expected>
+<chisq>0.002649</chisq>
+<pvalue>0.958953</pvalue>
+</genotype>
+<genotype row="32:02" id="149" col="29:02:01:02">
+<observed>11</observed>
+<expected>10.940120</expected>
+<chisq>0.000328</chisq>
+<pvalue>0.985556</pvalue>
+</genotype>
+<genotype row="32:02" id="150" col="31:01:02G">
+<observed>11</observed>
+<expected>10.636228</expected>
+<chisq>0.012441</chisq>
+<pvalue>0.911187</pvalue>
+</genotype>
+<genotype row="32:02" id="151" col="32:01:01G">
+<observed>3</observed>
+<expected>3.038922</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="32:02" id="152" col="32:02">
+<observed>10</observed>
+<expected>10.281687</expected>
+<chisq>0.007717</chisq>
+<pvalue>0.929997</pvalue>
+</genotype>
+<genotype row="33:01:01" id="153" col="01:01:01G">
+<observed>1</observed>
+<expected>0.745509</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="154" col="02:01:01G">
+<observed>0</observed>
+<expected>0.260479</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="155" col="02:05:01G">
+<observed>1</observed>
+<expected>0.637725</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="156" col="03:01:01G">
+<observed>1</observed>
+<expected>0.651198</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="157" col="03:01:03">
+<observed>1</observed>
+<expected>0.485030</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="158" col="11:01:01G">
+<observed>0</observed>
+<expected>0.529940</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="159" col="23:01:01G">
+<observed>0</observed>
+<expected>0.202096</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="160" col="24:02:01G">
+<observed>1</observed>
+<expected>0.705090</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="161" col="24:02:04">
+<observed>0</observed>
+<expected>0.260479</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="162" col="25:01:01G">
+<observed>0</observed>
+<expected>0.170659</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="163" col="26:01:01G">
+<observed>0</observed>
+<expected>0.431138</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="164" col="26:08">
+<observed>1</observed>
+<expected>0.498503</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="165" col="29:01:01G">
+<observed>0</observed>
+<expected>0.260479</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="166" col="29:02:01:02">
+<observed>1</observed>
+<expected>0.485030</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="167" col="31:01:02G">
+<observed>0</observed>
+<expected>0.471557</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="168" col="32:01:01G">
+<observed>0</observed>
+<expected>0.134731</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="169" col="32:02">
+<observed>1</observed>
+<expected>0.911677</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="33:01:01" id="170" col="33:01:01">
+<observed>0</observed>
+<expected>0.020210</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="171" col="01:01:01G">
+<observed>7</observed>
+<expected>6.626747</expected>
+<chisq>0.021024</chisq>
+<pvalue>0.884715</pvalue>
+</genotype>
+<genotype row="68:01:01G" id="172" col="02:01:01G">
+<observed>2</observed>
+<expected>2.315369</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="173" col="02:05:01G">
+<observed>6</observed>
+<expected>5.668663</expected>
+<chisq>0.019367</chisq>
+<pvalue>0.889320</pvalue>
+</genotype>
+<genotype row="68:01:01G" id="174" col="03:01:01G">
+<observed>6</observed>
+<expected>5.788423</expected>
+<chisq>0.007733</chisq>
+<pvalue>0.929924</pvalue>
+</genotype>
+<genotype row="68:01:01G" id="175" col="03:01:03">
+<observed>4</observed>
+<expected>4.311377</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="176" col="11:01:01G">
+<observed>4</observed>
+<expected>4.710579</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="177" col="23:01:01G">
+<observed>2</observed>
+<expected>1.796407</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="178" col="24:02:01G">
+<observed>6</observed>
+<expected>6.267465</expected>
+<chisq>0.011414</chisq>
+<pvalue>0.914918</pvalue>
+</genotype>
+<genotype row="68:01:01G" id="179" col="24:02:04">
+<observed>2</observed>
+<expected>2.315369</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="180" col="25:01:01G">
+<observed>2</observed>
+<expected>1.516966</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="181" col="26:01:01G">
+<observed>4</observed>
+<expected>3.832335</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="182" col="26:08">
+<observed>5</observed>
+<expected>4.431138</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="183" col="29:01:01G">
+<observed>2</observed>
+<expected>2.315369</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="184" col="29:02:01:02">
+<observed>4</observed>
+<expected>4.311377</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="185" col="31:01:02G">
+<observed>4</observed>
+<expected>4.191617</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="186" col="32:01:01G">
+<observed>1</observed>
+<expected>1.197605</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="187" col="32:02">
+<observed>8</observed>
+<expected>8.103792</expected>
+<chisq>0.001329</chisq>
+<pvalue>0.970915</pvalue>
+</genotype>
+<genotype row="68:01:01G" id="188" col="33:01:01">
+<observed>0</observed>
+<expected>0.359281</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:01:01G" id="189" col="68:01:01G">
+<observed>2</observed>
+<expected>1.596806</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:06" id="190" col="01:01:01G">
+<observed>14</observed>
+<expected>13.999002</expected>
+<chisq>0.000000</chisq>
+<pvalue>0.999787</pvalue>
+</genotype>
+<genotype row="68:06" id="191" col="02:01:01G">
+<observed>5</observed>
+<expected>4.891218</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:06" id="192" col="02:05:01G">
+<observed>12</observed>
+<expected>11.975050</expected>
+<chisq>0.000052</chisq>
+<pvalue>0.994247</pvalue>
+</genotype>
+<genotype row="68:06" id="193" col="03:01:01G">
+<observed>12</observed>
+<expected>12.228044</expected>
+<chisq>0.004253</chisq>
+<pvalue>0.948004</pvalue>
+</genotype>
+<genotype row="68:06" id="194" col="03:01:03">
+<observed>9</observed>
+<expected>9.107784</expected>
+<chisq>0.001276</chisq>
+<pvalue>0.971510</pvalue>
+</genotype>
+<genotype row="68:06" id="195" col="11:01:01G">
+<observed>10</observed>
+<expected>9.951098</expected>
+<chisq>0.000240</chisq>
+<pvalue>0.987632</pvalue>
+</genotype>
+<genotype row="68:06" id="196" col="23:01:01G">
+<observed>4</observed>
+<expected>3.794910</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:06" id="197" col="24:02:01G">
+<observed>13</observed>
+<expected>13.240020</expected>
+<chisq>0.004351</chisq>
+<pvalue>0.947407</pvalue>
+</genotype>
+<genotype row="68:06" id="198" col="24:02:04">
+<observed>5</observed>
+<expected>4.891218</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:06" id="199" col="25:01:01G">
+<observed>3</observed>
+<expected>3.204591</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:06" id="200" col="26:01:01G">
+<observed>8</observed>
+<expected>8.095808</expected>
+<chisq>0.001134</chisq>
+<pvalue>0.973138</pvalue>
+</genotype>
+<genotype row="68:06" id="201" col="26:08">
+<observed>9</observed>
+<expected>9.360778</expected>
+<chisq>0.013905</chisq>
+<pvalue>0.906132</pvalue>
+</genotype>
+<genotype row="68:06" id="202" col="29:01:01G">
+<observed>5</observed>
+<expected>4.891218</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:06" id="203" col="29:02:01:02">
+<observed>9</observed>
+<expected>9.107784</expected>
+<chisq>0.001276</chisq>
+<pvalue>0.971510</pvalue>
+</genotype>
+<genotype row="68:06" id="204" col="31:01:02G">
+<observed>9</observed>
+<expected>8.854790</expected>
+<chisq>0.002381</chisq>
+<pvalue>0.961080</pvalue>
+</genotype>
+<genotype row="68:06" id="205" col="32:01:01G">
+<observed>3</observed>
+<expected>2.529940</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:06" id="206" col="32:02">
+<observed>17</observed>
+<expected>17.119261</expected>
+<chisq>0.000831</chisq>
+<pvalue>0.977005</pvalue>
+</genotype>
+<genotype row="68:06" id="207" col="33:01:01">
+<observed>1</observed>
+<expected>0.758982</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="68:06" id="208" col="68:01:01G">
+<observed>7</observed>
+<expected>6.746507</expected>
+<chisq>0.009525</chisq>
+<pvalue>0.922254</pvalue>
+</genotype>
+<genotype row="68:06" id="209" col="68:06">
+<observed>7</observed>
+<expected>7.125998</expected>
+<chisq>0.002228</chisq>
+<pvalue>0.962354</pvalue>
+</genotype>
+</genotypetable>
+<homozygotes>
+<observed>63</observed>
+<expected>63.353293</expected>
+<chisq>0.001970</chisq>
+<pvalue>0.964596</pvalue>
+<chisqdf>1</chisqdf>
+</homozygotes>
+<heterozygotes>
+<observed>939</observed>
+<expected>938.646707</expected>
+<chisq>0.000133</chisq>
+<pvalue>0.990799</pvalue>
+<chisqdf>1</chisqdf>
+</heterozygotes>
+<heterozygotesByAllele>
+<allele name="01:01:01G">
+<observed>152</observed>
+<expected>152.249501</expected>
+<chisq>0.000409</chisq>
+<pvalue>0.983867</pvalue>
+</allele>
+<allele name="03:01:01G">
+<observed>135</observed>
+<expected>134.508483</expected>
+<chisq>0.001796</chisq>
+<pvalue>0.966196</pvalue>
+</allele>
+<allele name="68:06">
+<observed>155</observed>
+<expected>154.748004</expected>
+<chisq>0.000410</chisq>
+<pvalue>0.983838</pvalue>
+</allele>
+<allele name="26:08">
+<observed>105</observed>
+<expected>104.851796</expected>
+<chisq>0.000209</chisq>
+<pvalue>0.988452</pvalue>
+</allele>
+<allele name="32:02">
+<observed>183</observed>
+<expected>182.436627</expected>
+<chisq>0.001740</chisq>
+<pvalue>0.966730</pvalue>
+</allele>
+<allele name="32:01:01G">
+<observed>30</observed>
+<expected>29.550898</expected>
+<chisq>0.006825</chisq>
+<pvalue>0.934158</pvalue>
+</allele>
+<allele name="26:01:01G">
+<observed>92</observed>
+<expected>91.401198</expected>
+<chisq>0.003923</chisq>
+<pvalue>0.950058</pvalue>
+</allele>
+<allele name="29:02:01:02">
+<observed>102</observed>
+<expected>102.179641</expected>
+<chisq>0.000316</chisq>
+<pvalue>0.985821</pvalue>
+</allele>
+<allele name="24:02:01G">
+<observed>145</observed>
+<expected>144.700100</expected>
+<chisq>0.000622</chisq>
+<pvalue>0.980110</pvalue>
+</allele>
+<allele name="31:01:02G">
+<observed>101</observed>
+<expected>99.498503</expected>
+<chisq>0.022659</chisq>
+<pvalue>0.880348</pvalue>
+</allele>
+<allele name="11:01:01G">
+<observed>110</observed>
+<expected>111.051896</expected>
+<chisq>0.009964</chisq>
+<pvalue>0.920489</pvalue>
+</allele>
+<allele name="02:01:01G">
+<observed>56</observed>
+<expected>56.321357</expected>
+<chisq>0.001834</chisq>
+<pvalue>0.965845</pvalue>
+</allele>
+<allele name="25:01:01G">
+<observed>38</observed>
+<expected>37.279441</expected>
+<chisq>0.013927</chisq>
+<pvalue>0.906056</pvalue>
+</allele>
+<allele name="03:01:03">
+<observed>102</observed>
+<expected>102.179641</expected>
+<chisq>0.000316</chisq>
+<pvalue>0.985821</pvalue>
+</allele>
+<allele name="02:05:01G">
+<observed>132</observed>
+<expected>131.938124</expected>
+<chisq>0.000029</chisq>
+<pvalue>0.995702</pvalue>
+</allele>
+<allele name="29:01:01G">
+<observed>56</observed>
+<expected>56.321357</expected>
+<chisq>0.001834</chisq>
+<pvalue>0.965845</pvalue>
+</allele>
+<allele name="24:02:04">
+<observed>56</observed>
+<expected>56.321357</expected>
+<chisq>0.001834</chisq>
+<pvalue>0.965845</pvalue>
+</allele>
+<allele name="23:01:01G">
+<observed>43</observed>
+<expected>43.989521</expected>
+<chisq>0.022259</chisq>
+<pvalue>0.881401</pvalue>
+</allele>
+<allele name="68:01:01G">
+<observed>76</observed>
+<expected>76.806387</expected>
+<chisq>0.008466</chisq>
+<pvalue>0.926688</pvalue>
+</allele>
+<allele name="33:01:01">
+<observed>9</observed>
+<expected>8.959581</expected>
+<chisq>0.000182</chisq>
+<pvalue>0.989226</pvalue>
+</allele>
+</heterozygotesByAllele>
+<lumped>
+<observed>300</observed>
+<expected>301.317864</expected>
+<chisq>0.005764</chisq>
+<pvalue>0.939482</pvalue>
+<chisqdf>1</chisqdf>
+</lumped>
+<common>
+<observed>702</observed>
+<expected>700.682136</expected>
+<chisq>0.916577</chisq>
+<pvalue>1.000000</pvalue>
+<chisqdf>65</chisqdf>
+</common>
+<commonpluslumped>
+<observed>1002</observed>
+<expected>1002.000000</expected>
+<chisq>0.922341</chisq>
+<pvalue>1.000000</pvalue>
+<chisqdf>65</chisqdf>
+</commonpluslumped>
+</hardyweinberg>
+</locus>
+<locus name="DRB1">
+<allelecounts>
+<untypedindividuals>11.0</untypedindividuals>
+<unsequencedsites>0</unsequencedsites>
+<indivcount>991.0</indivcount>
+<allelecount>1982</allelecount>
+<distinctalleles>16</distinctalleles>
+<allele name="01:01:01G">
+<frequency>0.13017 </frequency><count>258</count>
+</allele>
+<allele name="03:01:01G">
+<frequency>0.06155 </frequency><count>122</count>
+</allele>
+<allele name="03:01:02">
+<frequency>0.05752 </frequency><count>114</count>
+</allele>
+<allele name="04:01:01">
+<frequency>0.07921 </frequency><count>157</count>
+</allele>
+<allele name="04:03:01G">
+<frequency>0.00252 </frequency><count>5</count>
+</allele>
+<allele name="04:04:01">
+<frequency>0.00252 </frequency><count>5</count>
+</allele>
+<allele name="07:01:01G">
+<frequency>0.14682 </frequency><count>291</count>
+</allele>
+<allele name="08:01:01G">
+<frequency>0.14934 </frequency><count>296</count>
+</allele>
+<allele name="11:01:01G">
+<frequency>0.07064 </frequency><count>140</count>
+</allele>
+<allele name="11:03">
+<frequency>0.01009 </frequency><count>20</count>
+</allele>
+<allele name="11:04:01G">
+<frequency>0.03380 </frequency><count>67</count>
+</allele>
+<allele name="13:01:01">
+<frequency>0.02422 </frequency><count>48</count>
+</allele>
+<allele name="13:02:01">
+<frequency>0.00656 </frequency><count>13</count>
+</allele>
+<allele name="13:03:01G">
+<frequency>0.00252 </frequency><count>5</count>
+</allele>
+<allele name="14:01:01G">
+<frequency>0.04137 </frequency><count>82</count>
+</allele>
+<allele name="15:01:01G">
+<frequency>0.18113 </frequency><count>359</count>
+</allele>
+<totalfrequency>1.00000</totalfrequency>
+<totalcount>1982</totalcount></allelecounts>
+<hardyweinberg allelelump="0">
+<samplesize>991</samplesize>
+<lumpBelow>5</lumpBelow>
+<genotypetable>
+<genotype row="01:01:01G" id="0" col="01:01:01G">
+<observed>17</observed>
+<expected>16.792129</expected>
+<chisq>0.002573</chisq>
+<pvalue>0.959543</pvalue>
+</genotype>
+<genotype row="03:01:01G" id="1" col="01:01:01G">
+<observed>16</observed>
+<expected>15.880928</expected>
+<chisq>0.000893</chisq>
+<pvalue>0.976163</pvalue>
+</genotype>
+<genotype row="03:01:01G" id="2" col="03:01:01G">
+<observed>4</observed>
+<expected>3.754793</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:01:02" id="3" col="01:01:01G">
+<observed>15</observed>
+<expected>14.839556</expected>
+<chisq>0.001735</chisq>
+<pvalue>0.966778</pvalue>
+</genotype>
+<genotype row="03:01:02" id="4" col="03:01:01G">
+<observed>7</observed>
+<expected>7.017154</expected>
+<chisq>0.000042</chisq>
+<pvalue>0.994833</pvalue>
+</genotype>
+<genotype row="03:01:02" id="5" col="03:01:02">
+<observed>3</observed>
+<expected>3.278507</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:01:01" id="6" col="01:01:01G">
+<observed>20</observed>
+<expected>20.436932</expected>
+<chisq>0.009341</chisq>
+<pvalue>0.923004</pvalue>
+</genotype>
+<genotype row="04:01:01" id="7" col="03:01:01G">
+<observed>10</observed>
+<expected>9.663976</expected>
+<chisq>0.011684</chisq>
+<pvalue>0.913923</pvalue>
+</genotype>
+<genotype row="04:01:01" id="8" col="03:01:02">
+<observed>9</observed>
+<expected>9.030272</expected>
+<chisq>0.000101</chisq>
+<pvalue>0.991962</pvalue>
+</genotype>
+<genotype row="04:01:01" id="9" col="04:01:01">
+<observed>6</observed>
+<expected>6.218214</expected>
+<chisq>0.007658</chisq>
+<pvalue>0.930267</pvalue>
+</genotype>
+<genotype row="04:03:01G" id="10" col="01:01:01G">
+<observed>1</observed>
+<expected>0.650858</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:03:01G" id="11" col="03:01:01G">
+<observed>0</observed>
+<expected>0.307770</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:03:01G" id="12" col="03:01:02">
+<observed>0</observed>
+<expected>0.287588</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:03:01G" id="13" col="04:01:01">
+<observed>1</observed>
+<expected>0.396065</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:03:01G" id="14" col="04:03:01G">
+<observed>0</observed>
+<expected>0.006307</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:04:01" id="15" col="01:01:01G">
+<observed>1</observed>
+<expected>0.650858</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:04:01" id="16" col="03:01:01G">
+<observed>0</observed>
+<expected>0.307770</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:04:01" id="17" col="03:01:02">
+<observed>0</observed>
+<expected>0.287588</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:04:01" id="18" col="04:01:01">
+<observed>1</observed>
+<expected>0.396065</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:04:01" id="19" col="04:03:01G">
+<observed>0</observed>
+<expected>0.012614</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:04:01" id="20" col="04:04:01">
+<observed>0</observed>
+<expected>0.006307</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:01:01G" id="21" col="01:01:01G">
+<observed>38</observed>
+<expected>37.879919</expected>
+<chisq>0.000381</chisq>
+<pvalue>0.984434</pvalue>
+</genotype>
+<genotype row="07:01:01G" id="22" col="03:01:01G">
+<observed>18</observed>
+<expected>17.912210</expected>
+<chisq>0.000430</chisq>
+<pvalue>0.983451</pvalue>
+</genotype>
+<genotype row="07:01:01G" id="23" col="03:01:02">
+<observed>17</observed>
+<expected>16.737639</expected>
+<chisq>0.004112</chisq>
+<pvalue>0.948868</pvalue>
+</genotype>
+<genotype row="07:01:01G" id="24" col="04:01:01">
+<observed>23</observed>
+<expected>23.050959</expected>
+<chisq>0.000113</chisq>
+<pvalue>0.991532</pvalue>
+</genotype>
+<genotype row="07:01:01G" id="25" col="04:03:01G">
+<observed>1</observed>
+<expected>0.734107</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:01:01G" id="26" col="04:04:01">
+<observed>1</observed>
+<expected>0.734107</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="07:01:01G" id="27" col="07:01:01G">
+<observed>21</observed>
+<expected>21.362513</expected>
+<chisq>0.006152</chisq>
+<pvalue>0.937484</pvalue>
+</genotype>
+<genotype row="08:01:01G" id="28" col="01:01:01G">
+<observed>38</observed>
+<expected>38.530777</expected>
+<chisq>0.007312</chisq>
+<pvalue>0.931857</pvalue>
+</genotype>
+<genotype row="08:01:01G" id="29" col="03:01:01G">
+<observed>18</observed>
+<expected>18.219980</expected>
+<chisq>0.002656</chisq>
+<pvalue>0.958899</pvalue>
+</genotype>
+<genotype row="08:01:01G" id="30" col="03:01:02">
+<observed>17</observed>
+<expected>17.025227</expected>
+<chisq>0.000037</chisq>
+<pvalue>0.995122</pvalue>
+</genotype>
+<genotype row="08:01:01G" id="31" col="04:01:01">
+<observed>23</observed>
+<expected>23.447023</expected>
+<chisq>0.008523</chisq>
+<pvalue>0.926445</pvalue>
+</genotype>
+<genotype row="08:01:01G" id="32" col="04:03:01G">
+<observed>1</observed>
+<expected>0.746720</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:01:01G" id="33" col="04:04:01">
+<observed>1</observed>
+<expected>0.746720</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="08:01:01G" id="34" col="07:01:01G">
+<observed>43</observed>
+<expected>43.459132</expected>
+<chisq>0.004851</chisq>
+<pvalue>0.944475</pvalue>
+</genotype>
+<genotype row="08:01:01G" id="35" col="08:01:01G">
+<observed>22</observed>
+<expected>22.102926</expected>
+<chisq>0.000479</chisq>
+<pvalue>0.982533</pvalue>
+</genotype>
+<genotype row="11:01:01G" id="36" col="01:01:01G">
+<observed>18</observed>
+<expected>18.224016</expected>
+<chisq>0.002754</chisq>
+<pvalue>0.958150</pvalue>
+</genotype>
+<genotype row="11:01:01G" id="37" col="03:01:01G">
+<observed>9</observed>
+<expected>8.617558</expected>
+<chisq>0.016973</chisq>
+<pvalue>0.896346</pvalue>
+</genotype>
+<genotype row="11:01:01G" id="38" col="03:01:02">
+<observed>8</observed>
+<expected>8.052472</expected>
+<chisq>0.000342</chisq>
+<pvalue>0.985247</pvalue>
+</genotype>
+<genotype row="11:01:01G" id="39" col="04:01:01">
+<observed>11</observed>
+<expected>11.089808</expected>
+<chisq>0.000727</chisq>
+<pvalue>0.978485</pvalue>
+</genotype>
+<genotype row="11:01:01G" id="40" col="04:03:01G">
+<observed>0</observed>
+<expected>0.353179</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:01:01G" id="41" col="04:04:01">
+<observed>0</observed>
+<expected>0.353179</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:01:01G" id="42" col="07:01:01G">
+<observed>21</observed>
+<expected>20.554995</expected>
+<chisq>0.009634</chisq>
+<pvalue>0.921810</pvalue>
+</genotype>
+<genotype row="11:01:01G" id="43" col="08:01:01G">
+<observed>21</observed>
+<expected>20.908174</expected>
+<chisq>0.000403</chisq>
+<pvalue>0.983978</pvalue>
+</genotype>
+<genotype row="11:01:01G" id="44" col="11:01:01G">
+<observed>5</observed>
+<expected>4.944501</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:03" id="45" col="01:01:01G">
+<observed>3</observed>
+<expected>2.603431</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:03" id="46" col="03:01:01G">
+<observed>1</observed>
+<expected>1.231080</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:03" id="47" col="03:01:02">
+<observed>1</observed>
+<expected>1.150353</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:03" id="48" col="04:01:01">
+<observed>2</observed>
+<expected>1.584258</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:03" id="49" col="04:03:01G">
+<observed>0</observed>
+<expected>0.050454</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:03" id="50" col="04:04:01">
+<observed>0</observed>
+<expected>0.050454</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:03" id="51" col="07:01:01G">
+<observed>3</observed>
+<expected>2.936428</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:03" id="52" col="08:01:01G">
+<observed>3</observed>
+<expected>2.986882</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:03" id="53" col="11:01:01G">
+<observed>1</observed>
+<expected>1.412714</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:03" id="54" col="11:03">
+<observed>0</observed>
+<expected>0.100908</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:04:01G" id="55" col="01:01:01G">
+<observed>9</observed>
+<expected>8.721493</expected>
+<chisq>0.008894</chisq>
+<pvalue>0.924866</pvalue>
+</genotype>
+<genotype row="11:04:01G" id="56" col="03:01:01G">
+<observed>4</observed>
+<expected>4.124117</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:04:01G" id="57" col="03:01:02">
+<observed>4</observed>
+<expected>3.853683</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:04:01G" id="58" col="04:01:01">
+<observed>5</observed>
+<expected>5.307265</expected>
+<chisq>0.017789</chisq>
+<pvalue>0.893896</pvalue>
+</genotype>
+<genotype row="11:04:01G" id="59" col="04:03:01G">
+<observed>0</observed>
+<expected>0.169021</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:04:01G" id="60" col="04:04:01">
+<observed>0</observed>
+<expected>0.169021</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:04:01G" id="61" col="07:01:01G">
+<observed>10</observed>
+<expected>9.837033</expected>
+<chisq>0.002700</chisq>
+<pvalue>0.958561</pvalue>
+</genotype>
+<genotype row="11:04:01G" id="62" col="08:01:01G">
+<observed>10</observed>
+<expected>10.006054</expected>
+<chisq>0.000004</chisq>
+<pvalue>0.998473</pvalue>
+</genotype>
+<genotype row="11:04:01G" id="63" col="11:01:01G">
+<observed>5</observed>
+<expected>4.732593</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:04:01G" id="64" col="11:03">
+<observed>1</observed>
+<expected>0.676085</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="11:04:01G" id="65" col="11:04:01G">
+<observed>1</observed>
+<expected>1.132442</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:01:01" id="66" col="01:01:01G">
+<observed>6</observed>
+<expected>6.248234</expected>
+<chisq>0.009862</chisq>
+<pvalue>0.920894</pvalue>
+</genotype>
+<genotype row="13:01:01" id="67" col="03:01:01G">
+<observed>3</observed>
+<expected>2.954591</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:01:01" id="68" col="03:01:02">
+<observed>3</observed>
+<expected>2.760848</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:01:01" id="69" col="04:01:01">
+<observed>4</observed>
+<expected>3.802220</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:01:01" id="70" col="04:03:01G">
+<observed>0</observed>
+<expected>0.121090</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:01:01" id="71" col="04:04:01">
+<observed>0</observed>
+<expected>0.121090</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:01:01" id="72" col="07:01:01G">
+<observed>7</observed>
+<expected>7.047427</expected>
+<chisq>0.000319</chisq>
+<pvalue>0.985746</pvalue>
+</genotype>
+<genotype row="13:01:01" id="73" col="08:01:01G">
+<observed>7</observed>
+<expected>7.168517</expected>
+<chisq>0.003961</chisq>
+<pvalue>0.949814</pvalue>
+</genotype>
+<genotype row="13:01:01" id="74" col="11:01:01G">
+<observed>3</observed>
+<expected>3.390515</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:01:01" id="75" col="11:03">
+<observed>0</observed>
+<expected>0.484359</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:01:01" id="76" col="11:04:01G">
+<observed>2</observed>
+<expected>1.622603</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:01:01" id="77" col="13:01:01">
+<observed>1</observed>
+<expected>0.581231</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="78" col="01:01:01G">
+<observed>2</observed>
+<expected>1.692230</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="79" col="03:01:01G">
+<observed>1</observed>
+<expected>0.800202</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="80" col="03:01:02">
+<observed>1</observed>
+<expected>0.747730</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="81" col="04:01:01">
+<observed>1</observed>
+<expected>1.029768</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="82" col="04:03:01G">
+<observed>0</observed>
+<expected>0.032795</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="83" col="04:04:01">
+<observed>0</observed>
+<expected>0.032795</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="84" col="07:01:01G">
+<observed>2</observed>
+<expected>1.908678</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="85" col="08:01:01G">
+<observed>2</observed>
+<expected>1.941473</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="86" col="11:01:01G">
+<observed>1</observed>
+<expected>0.918264</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="87" col="11:03">
+<observed>0</observed>
+<expected>0.131181</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="88" col="11:04:01G">
+<observed>0</observed>
+<expected>0.439455</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="89" col="13:01:01">
+<observed>0</observed>
+<expected>0.314834</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:02:01" id="90" col="13:02:01">
+<observed>0</observed>
+<expected>0.042634</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="91" col="01:01:01G">
+<observed>1</observed>
+<expected>0.650858</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="92" col="03:01:01G">
+<observed>0</observed>
+<expected>0.307770</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="93" col="03:01:02">
+<observed>0</observed>
+<expected>0.287588</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="94" col="04:01:01">
+<observed>1</observed>
+<expected>0.396065</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="95" col="04:03:01G">
+<observed>0</observed>
+<expected>0.012614</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="96" col="04:04:01">
+<observed>0</observed>
+<expected>0.012614</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="97" col="07:01:01G">
+<observed>1</observed>
+<expected>0.734107</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="98" col="08:01:01G">
+<observed>1</observed>
+<expected>0.746720</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="99" col="11:01:01G">
+<observed>0</observed>
+<expected>0.353179</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="100" col="11:03">
+<observed>0</observed>
+<expected>0.050454</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="101" col="11:04:01G">
+<observed>0</observed>
+<expected>0.169021</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="102" col="13:01:01">
+<observed>0</observed>
+<expected>0.121090</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="103" col="13:02:01">
+<observed>0</observed>
+<expected>0.032795</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="13:03:01G" id="104" col="13:03:01G">
+<observed>0</observed>
+<expected>0.006307</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="14:01:01G" id="105" col="01:01:01G">
+<observed>10</observed>
+<expected>10.674067</expected>
+<chisq>0.042567</chisq>
+<pvalue>0.836542</pvalue>
+</genotype>
+<genotype row="14:01:01G" id="106" col="03:01:01G">
+<observed>5</observed>
+<expected>5.047427</expected>
+<chisq>0.000446</chisq>
+<pvalue>0.983158</pvalue>
+</genotype>
+<genotype row="14:01:01G" id="107" col="03:01:02">
+<observed>5</observed>
+<expected>4.716448</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="14:01:01G" id="108" col="04:01:01">
+<observed>6</observed>
+<expected>6.495459</expected>
+<chisq>0.037793</chisq>
+<pvalue>0.845860</pvalue>
+</genotype>
+<genotype row="14:01:01G" id="109" col="04:03:01G">
+<observed>0</observed>
+<expected>0.206862</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="14:01:01G" id="110" col="04:04:01">
+<observed>0</observed>
+<expected>0.206862</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="14:01:01G" id="111" col="07:01:01G">
+<observed>12</observed>
+<expected>12.039354</expected>
+<chisq>0.000129</chisq>
+<pvalue>0.990951</pvalue>
+</genotype>
+<genotype row="14:01:01G" id="112" col="08:01:01G">
+<observed>12</observed>
+<expected>12.246216</expected>
+<chisq>0.004950</chisq>
+<pvalue>0.943908</pvalue>
+</genotype>
+<genotype row="14:01:01G" id="113" col="11:01:01G">
+<observed>6</observed>
+<expected>5.792129</expected>
+<chisq>0.007460</chisq>
+<pvalue>0.931170</pvalue>
+</genotype>
+<genotype row="14:01:01G" id="114" col="11:03">
+<observed>1</observed>
+<expected>0.827447</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="14:01:01G" id="115" col="11:04:01G">
+<observed>3</observed>
+<expected>2.771948</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="14:01:01G" id="116" col="13:01:01">
+<observed>2</observed>
+<expected>1.985873</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="14:01:01G" id="117" col="13:02:01">
+<observed>1</observed>
+<expected>0.537841</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="14:01:01G" id="118" col="13:03:01G">
+<observed>0</observed>
+<expected>0.206862</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="14:01:01G" id="119" col="14:01:01G">
+<observed>2</observed>
+<expected>1.696266</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:01:01G" id="120" col="01:01:01G">
+<observed>46</observed>
+<expected>46.731584</expected>
+<chisq>0.011453</chisq>
+<pvalue>0.914774</pvalue>
+</genotype>
+<genotype row="15:01:01G" id="121" col="03:01:01G">
+<observed>22</observed>
+<expected>22.097881</expected>
+<chisq>0.000434</chisq>
+<pvalue>0.983388</pvalue>
+</genotype>
+<genotype row="15:01:01G" id="122" col="03:01:02">
+<observed>21</observed>
+<expected>20.648840</expected>
+<chisq>0.005972</chisq>
+<pvalue>0.938402</pvalue>
+</genotype>
+<genotype row="15:01:01G" id="123" col="04:01:01">
+<observed>28</observed>
+<expected>28.437437</expected>
+<chisq>0.006729</chisq>
+<pvalue>0.934623</pvalue>
+</genotype>
+<genotype row="15:01:01G" id="124" col="04:03:01G">
+<observed>1</observed>
+<expected>0.905651</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:01:01G" id="125" col="04:04:01">
+<observed>1</observed>
+<expected>0.905651</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:01:01G" id="126" col="07:01:01G">
+<observed>52</observed>
+<expected>52.708880</expected>
+<chisq>0.009534</chisq>
+<pvalue>0.922218</pvalue>
+</genotype>
+<genotype row="15:01:01G" id="127" col="08:01:01G">
+<observed>55</observed>
+<expected>53.614531</expected>
+<chisq>0.035802</chisq>
+<pvalue>0.849924</pvalue>
+</genotype>
+<genotype row="15:01:01G" id="128" col="11:01:01G">
+<observed>26</observed>
+<expected>25.358224</expected>
+<chisq>0.016242</chisq>
+<pvalue>0.898588</pvalue>
+</genotype>
+<genotype row="15:01:01G" id="129" col="11:03">
+<observed>4</observed>
+<expected>3.622603</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:01:01G" id="130" col="11:04:01G">
+<observed>12</observed>
+<expected>12.135721</expected>
+<chisq>0.001518</chisq>
+<pvalue>0.968923</pvalue>
+</genotype>
+<genotype row="15:01:01G" id="131" col="13:01:01">
+<observed>9</observed>
+<expected>8.694248</expected>
+<chisq>0.010752</chisq>
+<pvalue>0.917412</pvalue>
+</genotype>
+<genotype row="15:01:01G" id="132" col="13:02:01">
+<observed>2</observed>
+<expected>2.354692</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:01:01G" id="133" col="13:03:01G">
+<observed>1</observed>
+<expected>0.905651</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="15:01:01G" id="134" col="14:01:01G">
+<observed>15</observed>
+<expected>14.852674</expected>
+<chisq>0.001461</chisq>
+<pvalue>0.969506</pvalue>
+</genotype>
+<genotype row="15:01:01G" id="135" col="15:01:01G">
+<observed>32</observed>
+<expected>32.512866</expected>
+<chisq>0.008090</chisq>
+<pvalue>0.928331</pvalue>
+</genotype>
+</genotypetable>
+<homozygotes>
+<observed>114</observed>
+<expected>114.538850</expected>
+<chisq>0.002535</chisq>
+<pvalue>0.959844</pvalue>
+<chisqdf>1</chisqdf>
+</homozygotes>
+<heterozygotes>
+<observed>877</observed>
+<expected>876.461150</expected>
+<chisq>0.000331</chisq>
+<pvalue>0.985478</pvalue>
+<chisqdf>1</chisqdf>
+</heterozygotes>
+<heterozygotesByAllele>
+<allele name="01:01:01G">
+<observed>224</observed>
+<expected>224.415742</expected>
+<chisq>0.000770</chisq>
+<pvalue>0.977860</pvalue>
+</allele>
+<allele name="08:01:01G">
+<observed>252</observed>
+<expected>251.794147</expected>
+<chisq>0.000168</chisq>
+<pvalue>0.989649</pvalue>
+</allele>
+<allele name="15:01:01G">
+<observed>295</observed>
+<expected>293.974268</expected>
+<chisq>0.003579</chisq>
+<pvalue>0.952295</pvalue>
+</allele>
+<allele name="07:01:01G">
+<observed>249</observed>
+<expected>248.274975</expected>
+<chisq>0.002117</chisq>
+<pvalue>0.963299</pvalue>
+</allele>
+<allele name="11:04:01G">
+<observed>65</observed>
+<expected>64.735116</expected>
+<chisq>0.001084</chisq>
+<pvalue>0.973737</pvalue>
+</allele>
+<allele name="14:01:01G">
+<observed>78</observed>
+<expected>78.607467</expected>
+<chisq>0.004694</chisq>
+<pvalue>0.945375</pvalue>
+</allele>
+<allele name="03:01:01G">
+<observed>114</observed>
+<expected>114.490414</expected>
+<chisq>0.002101</chisq>
+<pvalue>0.963443</pvalue>
+</allele>
+<allele name="04:01:01">
+<observed>145</observed>
+<expected>144.563572</expected>
+<chisq>0.001318</chisq>
+<pvalue>0.971045</pvalue>
+</allele>
+<allele name="03:01:02">
+<observed>108</observed>
+<expected>107.442987</expected>
+<chisq>0.002888</chisq>
+<pvalue>0.957144</pvalue>
+</allele>
+<allele name="11:03">
+<observed>20</observed>
+<expected>19.798184</expected>
+<chisq>0.002057</chisq>
+<pvalue>0.963823</pvalue>
+</allele>
+<allele name="11:01:01G">
+<observed>130</observed>
+<expected>130.110999</expected>
+<chisq>0.000095</chisq>
+<pvalue>0.992236</pvalue>
+</allele>
+<allele name="13:02:01">
+<observed>13</observed>
+<expected>12.914733</expected>
+<chisq>0.000563</chisq>
+<pvalue>0.981070</pvalue>
+</allele>
+<allele name="13:01:01">
+<observed>46</observed>
+<expected>46.837538</expected>
+<chisq>0.014977</chisq>
+<pvalue>0.902599</pvalue>
+</allele>
+</heterozygotesByAllele>
+<lumped>
+<observed>102</observed>
+<expected>99.521948</expected>
+<chisq>0.061702</chisq>
+<pvalue>0.803825</pvalue>
+<chisqdf>1</chisqdf>
+</lumped>
+<common>
+<observed>889</observed>
+<expected>891.478052</expected>
+<chisq>0.344766</chisq>
+<pvalue>1.000000</pvalue>
+<chisqdf>38</chisqdf>
+</common>
+<commonpluslumped>
+<observed>991</observed>
+<expected>991.000000</expected>
+<chisq>0.406468</chisq>
+<pvalue>1.000000</pvalue>
+<chisqdf>38</chisqdf>
+</commonpluslumped>
+</hardyweinberg>
+</locus>
+<locus name="DQB1">
+<allelecounts>
+<untypedindividuals>0.0</untypedindividuals>
+<unsequencedsites>0</unsequencedsites>
+<indivcount>1002.0</indivcount>
+<allelecount>2004</allelecount>
+<distinctalleles>15</distinctalleles>
+<allele name="02:01:01G">
+<frequency>0.11527 </frequency><count>231</count>
+</allele>
+<allele name="03:01:01G">
+<frequency>0.10978 </frequency><count>220</count>
+</allele>
+<allele name="03:02:01">
+<frequency>0.06487 </frequency><count>130</count>
+</allele>
+<allele name="03:02:12">
+<frequency>0.09381 </frequency><count>188</count>
+</allele>
+<allele name="03:03:02:03">
+<frequency>0.08982 </frequency><count>180</count>
+</allele>
+<allele name="04:01:01">
+<frequency>0.03992 </frequency><count>80</count>
+</allele>
+<allele name="04:02:01">
+<frequency>0.00399 </frequency><count>8</count>
+</allele>
+<allele name="05:01:01:01">
+<frequency>0.05739 </frequency><count>115</count>
+</allele>
+<allele name="05:01:01:03">
+<frequency>0.03643 </frequency><count>73</count>
+</allele>
+<allele name="05:02:01">
+<frequency>0.03643 </frequency><count>73</count>
+</allele>
+<allele name="05:03:01:01">
+<frequency>0.09631 </frequency><count>193</count>
+</allele>
+<allele name="06:01:01G">
+<frequency>0.00449 </frequency><count>9</count>
+</allele>
+<allele name="06:02:01">
+<frequency>0.12176 </frequency><count>244</count>
+</allele>
+<allele name="06:03:01">
+<frequency>0.03593 </frequency><count>72</count>
+</allele>
+<allele name="06:05:01">
+<frequency>0.09381 </frequency><count>188</count>
+</allele>
+<totalfrequency>1.00000</totalfrequency>
+<totalcount>2004</totalcount></allelecounts>
+<hardyweinberg allelelump="0">
+<samplesize>1002</samplesize>
+<lumpBelow>5</lumpBelow>
+<genotypetable>
+<genotype row="02:01:01G" id="0" col="02:01:01G">
+<observed>13</observed>
+<expected>13.313623</expected>
+<chisq>0.007388</chisq>
+<pvalue>0.931504</pvalue>
+</genotype>
+<genotype row="03:01:01G" id="1" col="02:01:01G">
+<observed>26</observed>
+<expected>25.359281</expected>
+<chisq>0.016188</chisq>
+<pvalue>0.898756</pvalue>
+</genotype>
+<genotype row="03:01:01G" id="2" col="03:01:01G">
+<observed>12</observed>
+<expected>12.075848</expected>
+<chisq>0.000476</chisq>
+<pvalue>0.982586</pvalue>
+</genotype>
+<genotype row="03:02:01" id="3" col="02:01:01G">
+<observed>15</observed>
+<expected>14.985030</expected>
+<chisq>0.000015</chisq>
+<pvalue>0.996914</pvalue>
+</genotype>
+<genotype row="03:02:01" id="4" col="03:01:01G">
+<observed>14</observed>
+<expected>14.271457</expected>
+<chisq>0.005163</chisq>
+<pvalue>0.942716</pvalue>
+</genotype>
+<genotype row="03:02:01" id="5" col="03:02:01">
+<observed>4</observed>
+<expected>4.216567</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="03:02:12" id="6" col="02:01:01G">
+<observed>22</observed>
+<expected>21.670659</expected>
+<chisq>0.005005</chisq>
+<pvalue>0.943599</pvalue>
+</genotype>
+<genotype row="03:02:12" id="7" col="03:01:01G">
+<observed>21</observed>
+<expected>20.638723</expected>
+<chisq>0.006324</chisq>
+<pvalue>0.936616</pvalue>
+</genotype>
+<genotype row="03:02:12" id="8" col="03:02:01">
+<observed>12</observed>
+<expected>12.195609</expected>
+<chisq>0.003137</chisq>
+<pvalue>0.955332</pvalue>
+</genotype>
+<genotype row="03:02:12" id="9" col="03:02:12">
+<observed>18</observed>
+<expected>8.818363</expected>
+<chisq>9.559875</chisq>
+<pvalue>0.001989</pvalue>
+</genotype>
+<genotype row="03:03:02:03" id="10" col="02:01:01G">
+<observed>20</observed>
+<expected>20.748503</expected>
+<chisq>0.027002</chisq>
+<pvalue>0.869476</pvalue>
+</genotype>
+<genotype row="03:03:02:03" id="11" col="03:01:01G">
+<observed>20</observed>
+<expected>19.760479</expected>
+<chisq>0.002903</chisq>
+<pvalue>0.957029</pvalue>
+</genotype>
+<genotype row="03:03:02:03" id="12" col="03:02:01">
+<observed>12</observed>
+<expected>11.676647</expected>
+<chisq>0.008954</chisq>
+<pvalue>0.924611</pvalue>
+</genotype>
+<genotype row="03:03:02:03" id="13" col="03:02:12">
+<observed>17</observed>
+<expected>16.886228</expected>
+<chisq>0.000767</chisq>
+<pvalue>0.977912</pvalue>
+</genotype>
+<genotype row="03:03:02:03" id="14" col="03:03:02:03">
+<observed>8</observed>
+<expected>8.083832</expected>
+<chisq>0.000869</chisq>
+<pvalue>0.976478</pvalue>
+</genotype>
+<genotype row="04:01:01" id="15" col="02:01:01G">
+<observed>9</observed>
+<expected>9.221557</expected>
+<chisq>0.005323</chisq>
+<pvalue>0.941838</pvalue>
+</genotype>
+<genotype row="04:01:01" id="16" col="03:01:01G">
+<observed>9</observed>
+<expected>8.782435</expected>
+<chisq>0.005390</chisq>
+<pvalue>0.941476</pvalue>
+</genotype>
+<genotype row="04:01:01" id="17" col="03:02:01">
+<observed>5</observed>
+<expected>5.189621</expected>
+<chisq>0.006928</chisq>
+<pvalue>0.933663</pvalue>
+</genotype>
+<genotype row="04:01:01" id="18" col="03:02:12">
+<observed>7</observed>
+<expected>7.504990</expected>
+<chisq>0.033979</chisq>
+<pvalue>0.853751</pvalue>
+</genotype>
+<genotype row="04:01:01" id="19" col="03:03:02:03">
+<observed>7</observed>
+<expected>7.185629</expected>
+<chisq>0.004795</chisq>
+<pvalue>0.944792</pvalue>
+</genotype>
+<genotype row="04:01:01" id="20" col="04:01:01">
+<observed>2</observed>
+<expected>1.596806</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:02:01" id="21" col="02:01:01G">
+<observed>0</observed>
+<expected>0.922156</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:02:01" id="22" col="03:01:01G">
+<observed>0</observed>
+<expected>0.878244</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:02:01" id="23" col="03:02:01">
+<observed>0</observed>
+<expected>0.518962</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:02:01" id="24" col="03:02:12">
+<observed>0</observed>
+<expected>0.750499</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:02:01" id="25" col="03:03:02:03">
+<observed>0</observed>
+<expected>0.718563</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:02:01" id="26" col="04:01:01">
+<observed>0</observed>
+<expected>0.319361</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="04:02:01" id="27" col="04:02:01">
+<observed>0</observed>
+<expected>0.015968</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:01:01:01" id="28" col="02:01:01G">
+<observed>13</observed>
+<expected>13.255988</expected>
+<chisq>0.004943</chisq>
+<pvalue>0.943947</pvalue>
+</genotype>
+<genotype row="05:01:01:01" id="29" col="03:01:01G">
+<observed>13</observed>
+<expected>12.624750</expected>
+<chisq>0.011154</chisq>
+<pvalue>0.915891</pvalue>
+</genotype>
+<genotype row="05:01:01:01" id="30" col="03:02:01">
+<observed>8</observed>
+<expected>7.460080</expected>
+<chisq>0.039076</chisq>
+<pvalue>0.843297</pvalue>
+</genotype>
+<genotype row="05:01:01:01" id="31" col="03:02:12">
+<observed>11</observed>
+<expected>10.788423</expected>
+<chisq>0.004149</chisq>
+<pvalue>0.948640</pvalue>
+</genotype>
+<genotype row="05:01:01:01" id="32" col="03:03:02:03">
+<observed>10</observed>
+<expected>10.329341</expected>
+<chisq>0.010501</chisq>
+<pvalue>0.918381</pvalue>
+</genotype>
+<genotype row="05:01:01:01" id="33" col="04:01:01">
+<observed>5</observed>
+<expected>4.590818</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:01:01:01" id="34" col="04:02:01">
+<observed>0</observed>
+<expected>0.459082</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:01:01:01" id="35" col="05:01:01:01">
+<observed>3</observed>
+<expected>3.299651</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:01:01:03" id="36" col="02:01:01G">
+<observed>9</observed>
+<expected>8.414671</expected>
+<chisq>0.040716</chisq>
+<pvalue>0.840087</pvalue>
+</genotype>
+<genotype row="05:01:01:03" id="37" col="03:01:01G">
+<observed>8</observed>
+<expected>8.013972</expected>
+<chisq>0.000024</chisq>
+<pvalue>0.996062</pvalue>
+</genotype>
+<genotype row="05:01:01:03" id="38" col="03:02:01">
+<observed>5</observed>
+<expected>4.735529</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:01:01:03" id="39" col="03:02:12">
+<observed>7</observed>
+<expected>6.848303</expected>
+<chisq>0.003360</chisq>
+<pvalue>0.953775</pvalue>
+</genotype>
+<genotype row="05:01:01:03" id="40" col="03:03:02:03">
+<observed>7</observed>
+<expected>6.556886</expected>
+<chisq>0.029946</chisq>
+<pvalue>0.862614</pvalue>
+</genotype>
+<genotype row="05:01:01:03" id="41" col="04:01:01">
+<observed>3</observed>
+<expected>2.914172</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:01:01:03" id="42" col="04:02:01">
+<observed>0</observed>
+<expected>0.291417</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:01:01:03" id="43" col="05:01:01:01">
+<observed>4</observed>
+<expected>4.189122</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:01:01:03" id="44" col="05:01:01:03">
+<observed>1</observed>
+<expected>1.329591</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:02:01" id="45" col="02:01:01G">
+<observed>9</observed>
+<expected>8.414671</expected>
+<chisq>0.040716</chisq>
+<pvalue>0.840087</pvalue>
+</genotype>
+<genotype row="05:02:01" id="46" col="03:01:01G">
+<observed>8</observed>
+<expected>8.013972</expected>
+<chisq>0.000024</chisq>
+<pvalue>0.996062</pvalue>
+</genotype>
+<genotype row="05:02:01" id="47" col="03:02:01">
+<observed>5</observed>
+<expected>4.735529</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:02:01" id="48" col="03:02:12">
+<observed>7</observed>
+<expected>6.848303</expected>
+<chisq>0.003360</chisq>
+<pvalue>0.953775</pvalue>
+</genotype>
+<genotype row="05:02:01" id="49" col="03:03:02:03">
+<observed>7</observed>
+<expected>6.556886</expected>
+<chisq>0.029946</chisq>
+<pvalue>0.862614</pvalue>
+</genotype>
+<genotype row="05:02:01" id="50" col="04:01:01">
+<observed>3</observed>
+<expected>2.914172</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:02:01" id="51" col="04:02:01">
+<observed>0</observed>
+<expected>0.291417</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:02:01" id="52" col="05:01:01:01">
+<observed>4</observed>
+<expected>4.189122</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:02:01" id="53" col="05:01:01:03">
+<observed>3</observed>
+<expected>2.659182</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:02:01" id="54" col="05:02:01">
+<observed>1</observed>
+<expected>1.329591</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:03:01:01" id="55" col="02:01:01G">
+<observed>23</observed>
+<expected>22.247006</expected>
+<chisq>0.025487</chisq>
+<pvalue>0.873161</pvalue>
+</genotype>
+<genotype row="05:03:01:01" id="56" col="03:01:01G">
+<observed>21</observed>
+<expected>21.187625</expected>
+<chisq>0.001661</chisq>
+<pvalue>0.967486</pvalue>
+</genotype>
+<genotype row="05:03:01:01" id="57" col="03:02:01">
+<observed>13</observed>
+<expected>12.519960</expected>
+<chisq>0.018406</chisq>
+<pvalue>0.892084</pvalue>
+</genotype>
+<genotype row="05:03:01:01" id="58" col="03:02:12">
+<observed>0</observed>
+<expected>18.105788</expected>
+<chisq>18.105788</chisq>
+<pvalue>0.000021</pvalue>
+</genotype>
+<genotype row="05:03:01:01" id="59" col="03:03:02:03">
+<observed>18</observed>
+<expected>17.335329</expected>
+<chisq>0.025485</chisq>
+<pvalue>0.873165</pvalue>
+</genotype>
+<genotype row="05:03:01:01" id="60" col="04:01:01">
+<observed>8</observed>
+<expected>7.704591</expected>
+<chisq>0.011327</chisq>
+<pvalue>0.915244</pvalue>
+</genotype>
+<genotype row="05:03:01:01" id="61" col="04:02:01">
+<observed>0</observed>
+<expected>0.770459</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="05:03:01:01" id="62" col="05:01:01:01">
+<observed>11</observed>
+<expected>11.075349</expected>
+<chisq>0.000513</chisq>
+<pvalue>0.981936</pvalue>
+</genotype>
+<genotype row="05:03:01:01" id="63" col="05:01:01:03">
+<observed>7</observed>
+<expected>7.030439</expected>
+<chisq>0.000132</chisq>
+<pvalue>0.990841</pvalue>
+</genotype>
+<genotype row="05:03:01:01" id="64" col="05:02:01">
+<observed>7</observed>
+<expected>7.030439</expected>
+<chisq>0.000132</chisq>
+<pvalue>0.990841</pvalue>
+</genotype>
+<genotype row="05:03:01:01" id="65" col="05:03:01:01">
+<observed>39</observed>
+<expected>9.293663</expected>
+<chisq>94.953573</chisq>
+<pvalue>0.000000</pvalue>
+</genotype>
+<genotype row="06:01:01G" id="66" col="02:01:01G">
+<observed>1</observed>
+<expected>1.037425</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:01:01G" id="67" col="03:01:01G">
+<observed>1</observed>
+<expected>0.988024</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:01:01G" id="68" col="03:02:01">
+<observed>1</observed>
+<expected>0.583832</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:01:01G" id="69" col="03:02:12">
+<observed>1</observed>
+<expected>0.844311</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:01:01G" id="70" col="03:03:02:03">
+<observed>1</observed>
+<expected>0.808383</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:01:01G" id="71" col="04:01:01">
+<observed>0</observed>
+<expected>0.359281</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:01:01G" id="72" col="04:02:01">
+<observed>0</observed>
+<expected>0.035928</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:01:01G" id="73" col="05:01:01:01">
+<observed>1</observed>
+<expected>0.516467</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:01:01G" id="74" col="05:01:01:03">
+<observed>0</observed>
+<expected>0.327844</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:01:01G" id="75" col="05:02:01">
+<observed>0</observed>
+<expected>0.327844</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:01:01G" id="76" col="05:03:01:01">
+<observed>1</observed>
+<expected>0.866766</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:01:01G" id="77" col="06:01:01G">
+<observed>0</observed>
+<expected>0.020210</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:02:01" id="78" col="02:01:01G">
+<observed>28</observed>
+<expected>28.125749</expected>
+<chisq>0.000562</chisq>
+<pvalue>0.981083</pvalue>
+</genotype>
+<genotype row="06:02:01" id="79" col="03:01:01G">
+<observed>27</observed>
+<expected>26.786427</expected>
+<chisq>0.001703</chisq>
+<pvalue>0.967084</pvalue>
+</genotype>
+<genotype row="06:02:01" id="80" col="03:02:01">
+<observed>16</observed>
+<expected>15.828343</expected>
+<chisq>0.001862</chisq>
+<pvalue>0.965585</pvalue>
+</genotype>
+<genotype row="06:02:01" id="81" col="03:02:12">
+<observed>23</observed>
+<expected>22.890220</expected>
+<chisq>0.000527</chisq>
+<pvalue>0.981694</pvalue>
+</genotype>
+<genotype row="06:02:01" id="82" col="03:03:02:03">
+<observed>22</observed>
+<expected>21.916168</expected>
+<chisq>0.000321</chisq>
+<pvalue>0.985713</pvalue>
+</genotype>
+<genotype row="06:02:01" id="83" col="04:01:01">
+<observed>10</observed>
+<expected>9.740519</expected>
+<chisq>0.006912</chisq>
+<pvalue>0.933740</pvalue>
+</genotype>
+<genotype row="06:02:01" id="84" col="04:02:01">
+<observed>0</observed>
+<expected>0.974052</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:02:01" id="85" col="05:01:01:01">
+<observed>14</observed>
+<expected>14.001996</expected>
+<chisq>0.000000</chisq>
+<pvalue>0.999574</pvalue>
+</genotype>
+<genotype row="06:02:01" id="86" col="05:01:01:03">
+<observed>9</observed>
+<expected>8.888224</expected>
+<chisq>0.001406</chisq>
+<pvalue>0.970092</pvalue>
+</genotype>
+<genotype row="06:02:01" id="87" col="05:02:01">
+<observed>9</observed>
+<expected>8.888224</expected>
+<chisq>0.001406</chisq>
+<pvalue>0.970092</pvalue>
+</genotype>
+<genotype row="06:02:01" id="88" col="05:03:01:01">
+<observed>0</observed>
+<expected>23.499002</expected>
+<chisq>23.499002</chisq>
+<pvalue>0.000001</pvalue>
+</genotype>
+<genotype row="06:02:01" id="89" col="06:01:01G">
+<observed>1</observed>
+<expected>1.095808</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:02:01" id="90" col="06:02:01">
+<observed>27</observed>
+<expected>14.854291</expected>
+<chisq>9.931018</chisq>
+<pvalue>0.001625</pvalue>
+</genotype>
+<genotype row="06:03:01" id="91" col="02:01:01G">
+<observed>8</observed>
+<expected>8.299401</expected>
+<chisq>0.010801</chisq>
+<pvalue>0.917227</pvalue>
+</genotype>
+<genotype row="06:03:01" id="92" col="03:01:01G">
+<observed>7</observed>
+<expected>7.904192</expected>
+<chisq>0.103434</chisq>
+<pvalue>0.747747</pvalue>
+</genotype>
+<genotype row="06:03:01" id="93" col="03:02:01">
+<observed>4</observed>
+<expected>4.670659</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:03:01" id="94" col="03:02:12">
+<observed>6</observed>
+<expected>6.754491</expected>
+<chisq>0.084278</chisq>
+<pvalue>0.771581</pvalue>
+</genotype>
+<genotype row="06:03:01" id="95" col="03:03:02:03">
+<observed>6</observed>
+<expected>6.467066</expected>
+<chisq>0.033733</chisq>
+<pvalue>0.854277</pvalue>
+</genotype>
+<genotype row="06:03:01" id="96" col="04:01:01">
+<observed>3</observed>
+<expected>2.874251</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:03:01" id="97" col="04:02:01">
+<observed>8</observed>
+<expected>0.287425</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:03:01" id="98" col="05:01:01:01">
+<observed>4</observed>
+<expected>4.131737</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:03:01" id="99" col="05:01:01:03">
+<observed>2</observed>
+<expected>2.622754</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:03:01" id="100" col="05:02:01">
+<observed>2</observed>
+<expected>2.622754</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:03:01" id="101" col="05:03:01:01">
+<observed>6</observed>
+<expected>6.934132</expected>
+<chisq>0.125842</chisq>
+<pvalue>0.722783</pvalue>
+</genotype>
+<genotype row="06:03:01" id="102" col="06:01:01G">
+<observed>0</observed>
+<expected>0.323353</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:03:01" id="103" col="06:02:01">
+<observed>8</observed>
+<expected>8.766467</expected>
+<chisq>0.067014</chisq>
+<pvalue>0.795736</pvalue>
+</genotype>
+<genotype row="06:03:01" id="104" col="06:03:01">
+<observed>1</observed>
+<expected>1.293413</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:05:01" id="105" col="02:01:01G">
+<observed>22</observed>
+<expected>21.670659</expected>
+<chisq>0.005005</chisq>
+<pvalue>0.943599</pvalue>
+</genotype>
+<genotype row="06:05:01" id="106" col="03:01:01G">
+<observed>21</observed>
+<expected>20.638723</expected>
+<chisq>0.006324</chisq>
+<pvalue>0.936616</pvalue>
+</genotype>
+<genotype row="06:05:01" id="107" col="03:02:01">
+<observed>12</observed>
+<expected>12.195609</expected>
+<chisq>0.003137</chisq>
+<pvalue>0.955332</pvalue>
+</genotype>
+<genotype row="06:05:01" id="108" col="03:02:12">
+<observed>18</observed>
+<expected>17.636727</expected>
+<chisq>0.007483</chisq>
+<pvalue>0.931068</pvalue>
+</genotype>
+<genotype row="06:05:01" id="109" col="03:03:02:03">
+<observed>17</observed>
+<expected>16.886228</expected>
+<chisq>0.000767</chisq>
+<pvalue>0.977912</pvalue>
+</genotype>
+<genotype row="06:05:01" id="110" col="04:01:01">
+<observed>7</observed>
+<expected>7.504990</expected>
+<chisq>0.033979</chisq>
+<pvalue>0.853751</pvalue>
+</genotype>
+<genotype row="06:05:01" id="111" col="04:02:01">
+<observed>0</observed>
+<expected>0.750499</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:05:01" id="112" col="05:01:01:01">
+<observed>11</observed>
+<expected>10.788423</expected>
+<chisq>0.004149</chisq>
+<pvalue>0.948640</pvalue>
+</genotype>
+<genotype row="06:05:01" id="113" col="05:01:01:03">
+<observed>7</observed>
+<expected>6.848303</expected>
+<chisq>0.003360</chisq>
+<pvalue>0.953775</pvalue>
+</genotype>
+<genotype row="06:05:01" id="114" col="05:02:01">
+<observed>7</observed>
+<expected>6.848303</expected>
+<chisq>0.003360</chisq>
+<pvalue>0.953775</pvalue>
+</genotype>
+<genotype row="06:05:01" id="115" col="05:03:01:01">
+<observed>0</observed>
+<expected>18.105788</expected>
+<chisq>18.105788</chisq>
+<pvalue>0.000021</pvalue>
+</genotype>
+<genotype row="06:05:01" id="116" col="06:01:01G">
+<observed>1</observed>
+<expected>0.844311</expected>
+<chisq role="not-calculated"/>
+<pvalue role="not-calculated"/>
+</genotype>
+<genotype row="06:05:01" id="117" col="06:02:01">
+<observed>23</observed>
+<expected>22.890220</expected>
+<chisq>0.000527</chisq>
+<pvalue>0.981694</pvalue>
+</genotype>
+<genotype row="06:05:01" id="118" col="06:03:01">
+<observed>6</observed>
+<expected>6.754491</expected>
+<chisq>0.084278</chisq>
+<pvalue>0.771581</pvalue>
+</genotype>
+<genotype row="06:05:01" id="119" col="06:05:01">
+<observed>18</observed>
+<expected>8.818363</expected>
+<chisq>9.559875</chisq>
+<pvalue>0.001989</pvalue>
+</genotype>
+</genotypetable>
+<homozygotes>
+<observed>147</observed>
+<expected>88.359780</expected>
+<chisq>38.916748</chisq>
+<pvalue>0.000000</pvalue>
+<chisqdf>1</chisqdf>
+</homozygotes>
+<heterozygotes>
+<observed>855</observed>
+<expected>913.640220</expected>
+<chisq>3.763708</chisq>
+<pvalue>0.052376</pvalue>
+<chisqdf>1</chisqdf>
+</heterozygotes>
+<heterozygotesByAllele>
+<allele name="05:03:01:01">
+<observed>115</observed>
+<expected>174.412675</expected>
+<chisq>20.238586</chisq>
+<pvalue>0.000007</pvalue>
+</allele>
+<allele name="03:01:01G">
+<observed>196</observed>
+<expected>195.848303</expected>
+<chisq>0.000117</chisq>
+<pvalue>0.991351</pvalue>
+</allele>
+<allele name="03:02:12">
+<observed>152</observed>
+<expected>170.363273</expected>
+<chisq>1.979357</chisq>
+<pvalue>0.159458</pvalue>
+</allele>
+<allele name="03:02:01">
+<observed>122</observed>
+<expected>121.566866</expected>
+<chisq>0.001543</chisq>
+<pvalue>0.968664</pvalue>
+</allele>
+<allele name="02:01:01G">
+<observed>205</observed>
+<expected>204.372754</expected>
+<chisq>0.001925</chisq>
+<pvalue>0.965003</pvalue>
+</allele>
+<allele name="06:05:01">
+<observed>152</observed>
+<expected>170.363273</expected>
+<chisq>1.979357</chisq>
+<pvalue>0.159458</pvalue>
+</allele>
+<allele name="05:01:01:03">
+<observed>71</observed>
+<expected>70.340818</expected>
+<chisq>0.006177</chisq>
+<pvalue>0.937354</pvalue>
+</allele>
+<allele name="03:03:02:03">
+<observed>164</observed>
+<expected>163.832335</expected>
+<chisq>0.000172</chisq>
+<pvalue>0.989549</pvalue>
+</allele>
+<allele name="06:01:01G">
+<observed>9</observed>
+<expected>8.959581</expected>
+<chisq>0.000182</chisq>
+<pvalue>0.989226</pvalue>
+</allele>
+<allele name="05:02:01">
+<observed>71</observed>
+<expected>70.340818</expected>
+<chisq>0.006177</chisq>
+<pvalue>0.937354</pvalue>
+</allele>
+<allele name="05:01:01:01">
+<observed>109</observed>
+<expected>108.400699</expected>
+<chisq>0.003313</chisq>
+<pvalue>0.954098</pvalue>
+</allele>
+<allele name="06:02:01">
+<observed>190</observed>
+<expected>214.291417</expected>
+<chisq>2.753600</chisq>
+<pvalue>0.097036</pvalue>
+</allele>
+<allele name="06:03:01">
+<observed>70</observed>
+<expected>69.413174</expected>
+<chisq>0.004961</chisq>
+<pvalue>0.943847</pvalue>
+</allele>
+<allele name="04:01:01">
+<observed>76</observed>
+<expected>76.806387</expected>
+<chisq>0.008466</chisq>
+<pvalue>0.926688</pvalue>
+</allele>
+<allele name="04:02:01">
+<observed>8</observed>
+<expected>7.968064</expected>
+<chisq>0.000128</chisq>
+<pvalue>0.990973</pvalue>
+</allele>
+</heterozygotesByAllele>
+<lumped>
+<observed>76</observed>
+<expected>77.843313</expected>
+<chisq>0.043649</chisq>
+<pvalue>0.834507</pvalue>
+<chisqdf>1</chisqdf>
+</lumped>
+<common>
+<observed>926</observed>
+<expected>924.156687</expected>
+<chisq>184.748755</chisq>
+<pvalue>0.000000</pvalue>
+<chisqdf>59</chisqdf>
+</common>
+<commonpluslumped>
+<observed>1002</observed>
+<expected>1002.000000</expected>
+<chisq>184.792405</chisq>
+<pvalue>0.000000</pvalue>
+<chisqdf>59</chisqdf>
+</commonpluslumped>
+</hardyweinberg>
+</locus>
+</dataanalysis>
