@@ -40,7 +40,9 @@
 """
 
 import os, sys, types, stat, re, shutil, copy, operator
-import numpy as np
+from numpy import sum as np_sum
+from numpy import where as np_where
+from numpy import not_equal as np_not_equal
 from numpy import zeros, take, asarray
 GENOTYPE_SEPARATOR = "~"
 GENOTYPE_TERMINATOR= "~"
@@ -654,8 +656,8 @@ class StringMatrix(container):
       # FIXME: maybe convert to it's own method as per getUniqueAlleles 
       h1 = self.array[:, 0::2]  # get "_1" allele (odd cols)
       h2 = self.array[:, 1::2]  # get "_2" allele (even cols)
-      n_het = np.sum(np.not_equal(h1, h2), 1)  # equivalent of: apply(h1!=h2,1,sum)
-      n_het = np.where(n_het == 0, 1, n_het)      # equivalent of: ifelse(n.het==0,1,n.het)
+      n_het = np_sum(np_not_equal(h1, h2), 1)  # equivalent of: apply(h1!=h2,1,sum)
+      n_het = np_where(n_het == 0, 1, n_het)      # equivalent of: ifelse(n.het==0,1,n.het)
       n_pairs = 2 ** (n_het - 1)   # equivalent of: n.pairs = 2^(n.het-1)
 
       return n_pairs.tolist()
