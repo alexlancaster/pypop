@@ -22,6 +22,7 @@ categories:
     labels:
       - 'github_actions'
       - 'dependencies'
+      - 'internal'
   - title: 'Documentation'
     labels:
       - 'documentation'
