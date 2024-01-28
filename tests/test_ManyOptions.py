@@ -5,6 +5,7 @@ import pytest
 import os.path
 from base import abspath_test_data, run_pypop_process, filecmp_ignore_newlines, in_temp_dir, DEFAULT_GOLD_OUTPUT_DIR
 
+@pytest.mark.slow
 def test_ManyOptions():
 
     generated_filenames = ['BIGDAWG_SynthControl_Data_with_metadata-' + suffix \
