@@ -177,6 +177,9 @@ jobs:
           platforms: all          
       - name: Build and test wheels
         uses: pypa/cibuildwheel@v2.16.2
+        env:
+          # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
+          CIBW_TEST_COMMAND: "pytest -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
         with:
           only: ${{ matrix.only }}
           package-dir: .
