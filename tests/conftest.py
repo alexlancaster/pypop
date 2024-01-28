@@ -1,6 +1,9 @@
 # add command-line option to pytest to skip certain slow tests
 # provide an override to run them
 
+# adapted from pytest documentation
+# https://docs.pytest.org/en/latest/example/simple.html#control-skipping-of-tests-according-to-command-line-option
+
 import pytest
 
 def pytest_addoption(parser):
