@@ -179,6 +179,12 @@
       "resource_type": "software"
     },
     {
+      "scheme": "doi",
+      "identifier": "10.5281/zenodo.10602939",
+      "relation": "isDescribedBy",
+      "resource_type": "publication-preprint"
+    },
+    {
       "scheme": "url",
       "identifier": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784",
       "relation": "continues",
