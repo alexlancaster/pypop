@@ -60,7 +60,7 @@ This guide to PyPop contains four main parts:
    **License terms**
 
    Copyright © 2003-2009 Regents of the University of California
-   Copyright © 2009-2023 PyPop team
+   Copyright © 2009-2024 PyPop team
 
    Permission is granted to copy, distribute and/or modify this document
    under the terms of the GNU Free Documentation License, Version 1.2 or

@@ -23,6 +23,9 @@ large-scale population genetic analyses including:
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
+	  
+  * 2024-02-01: `Preprint <https://zenodo.org/records/10602940>`__
+    describing 1.0.0 released on Zenodo.
   * 2023-11-07: `PyPop 1.0.0
     <https://github.com/alexlancaster/pypop/releases/tag/v1.0.0>`__
     released and available on `PyPI
@@ -81,8 +84,8 @@ Although it can be run on any kind of genotype data, it has additional
 support for analyzing population genotype with allelic nomenclature
 from the human leukocyte antigen (HLA) region.
 
-An outline of PyPop can be found in our 2007 *Tissue Antigens* and
-2003 *PSB* :ref:`papers <citing-pypop>`.
+An outline of PyPop can be found in our 2024 preprint, and two
+previous :ref:`papers <citing-pypop>`.
 
 .. _guide-preface-2-end:
 
@@ -124,16 +127,22 @@ available and maintained on our `GitHub website
 
 .. _guide-preface-3-start:
 
-Also available (but not necessary to cite), is our 2003 *Pacific
-Symposium on Biocomputing* paper:
+Two previous papers are also available (but not necessary to cite):
 
-- Alex Lancaster, Mark P. Nelson, Richard M. Single, Diogo Meyer, and
-  Glenys Thomson (2003) "PyPop: a software framework for population
-  genomics: analyzing large-scale multi-locus genotype data", in
-  *Pacific Symposium on Biocomputing* vol. 8:514-525 (edited by R B
-  Altman. et al., World Scientific, Singapore, 2003) [`PubMed
-  Central <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/>`__,
-  `PDF (344 kB) <http://pypop.org/psb-pypop.pdf>`__].
+- Lancaster AK, Single RM, Solberg OD, Nelson MP, Thomson G (2007)
+  "PyPop update - a software pipeline for large-scale multilocus
+  population genomics" *Tissue Antigens* 69 (s1), 192-197.  [`journal
+  page <http://dx.doi.org/10.1111/j.1399-0039.2006.00769.x>`__,
+  `preprint PDF (112 kB)
+  <http://pypop.org/tissue-antigens-lancaster-2007.pdf>`__].
+
+- Lancaster A, Nelson MP, Single RM, Meyer D, Thomson G (2003)
+  "PyPop: a software framework for population genomics: analyzing
+  large-scale multi-locus genotype data", in *Pacific Symposium on
+  Biocomputing* vol. 8:514-525 (edited by R B Altman. et al., World
+  Scientific, Singapore, 2003) [`PubMed Central
+  <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/>`__, `PDF
+  (344 kB) <http://pypop.org/psb-pypop.pdf>`__].
 		
 PyPop was originally developed for the analysis of data for the 13th
 `International Histocompatiblity Workshop and Conference
