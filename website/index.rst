@@ -84,8 +84,8 @@ Although it can be run on any kind of genotype data, it has additional
 support for analyzing population genotype with allelic nomenclature
 from the human leukocyte antigen (HLA) region.
 
-An outline of PyPop can be found in our 2007 *Tissue Antigens* and
-2003 *PSB* :ref:`papers <citing-pypop>`.
+An outline of PyPop can be found in our 2024 preprint, and two
+previous :ref:`papers <citing-pypop>`.
 
 .. _guide-preface-2-end:
 
