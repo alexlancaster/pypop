@@ -17,15 +17,14 @@ available in the `PyPop User Guide <http://pypop.org/docs>`__.
 If you write a paper that uses PyPop in your analysis, please cite
 **both**:
 
-1. our 2007 paper from *Tissue Antigens*:
+1. our 2024 article, currently in review, available as a Zenodo
+   preprint:
 
-      Lancaster AK, Single RM, Solberg OD, Nelson MP and G
-      Thomson (2007) "PyPop update - a software pipeline for
-      large-scale multilocus population genomics" *Tissue Antigens* 69
-      (s1), 192-197.  [`journal page
-      <http://dx.doi.org/10.1111/j.1399-0039.2006.00769.x>`__,
-      `preprint PDF (112 kB)
-      <http://pypop.org/tissue-antigens-lancaster-2007.pdf>`__].
+      Lancaster AK, Single RM, Mack SJ, Sochat V, Mariani MP, Webster
+      GD. (2024) "PyPop: A mature open-source software pipeline for
+      population genomics" (Preprint v1). Zenodo.
+      DOI:`10.5281/zenodo.10602940
+      <https://doi.org/10.5281/zenodo.10602940>`__.
 
 2. **and** the Zenodo record for the software.  Citation metadata for
    the current Zenodo record is stored in `CITATION.cff

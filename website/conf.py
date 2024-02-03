@@ -55,7 +55,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = 'PyPop: Python for Population Genomics'
-copyright = '2023 PyPop contributors'
+copyright = '2024 PyPop contributors'
 
 author_list = ["Alexander K. Lancaster", "Mark P. Nelson", "Diogo Meyer", "Richard M. Single", "Owen D. Solberg"]
 author = "\\and ".join(author_list)
