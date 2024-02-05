@@ -48,22 +48,29 @@ def num_zeros(decimal):
     return inf if decimal == 0 else -floor(log10(abs(decimal))) - 1
 
 @ns
-def convert_to_scientific(context, a):
-    a = float(a)
-    if num_zeros(a) >= 4:
-        retval = "{:.1E}".format(a)
+def format_number_fixed_width(context, *args):
+
+    num = float(args[0])
+    places = int(args[1])
+    # print(num, places)
+
+    # need to reserve 4 characters for exponent
+    precision = places - 4 if places >= 4 else 1
+    
+    if num_zeros(num) >= places:
+        retval = "{0:.{1}E}".format(num, precision)
     else:
-        retval = "{:g}".format(a)
+        retval = "{0:.{1}f}".format(num, places)
     return retval
 
 if __name__ == "__main__":
 
     # some tests
     
-    ns['convert_to_scientific'] = convert_to_scientific
+    ns['format_number_fixed_width'] = format_number_fixed_width
     
     root = etree.XML('<a><b>0.0000043</b></a>')
-    print(root.xpath("es:convert_to_scientific('0.032')"))
+    print(root.xpath("es:format_number_fixed_width('0.032')"))
     doc = etree.ElementTree(root)
 
     xslt = etree.XSLT(etree.XML('''
@@ -73,7 +80,7 @@ if __name__ == "__main__":
      <output method="text" encoding="ASCII"/>
      <template match="/">
        <text>Yep [</text>
-       <value-of select="es:convert_to_scientific(string(/a/b))"/>
+       <value-of select="es:format_number_fixed_width(string(/a/b))"/>
        <text>]</text>
      </template>
       </stylesheet>
