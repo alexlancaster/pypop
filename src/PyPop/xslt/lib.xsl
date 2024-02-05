@@ -33,7 +33,8 @@ MODIFICATIONS.
 -->
 <xsl:stylesheet 
  version='1.0'
- xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+ xmlns:es="http://pypop.org/lxml/functions">
 
  <!-- contains a library of named templates not specific to any DTD or
  XML schema -->
