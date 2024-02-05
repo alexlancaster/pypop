@@ -40,6 +40,7 @@ Python XSLT extensions for handling things outside the scope of XSLT 1.0
 
 from lxml import etree
 from math import floor, log10, inf
+from numpy import format_float_scientific
 
 ns = etree.FunctionNamespace('http://pypop.org/lxml/functions')
 ns.prefix = 'es'
@@ -52,11 +53,13 @@ def format_number_fixed_width(context, *args):
 
     num = float(args[0])
     places = int(args[1])
-
+    zeros_before_sig_figs = num_zeros(num)
+    
     # need to reserve 4 characters for exponent
-    precision = places - 4 if places >= 4 else 1
-    if num_zeros(num) >= places:
-        retval = "{0:.{1}E}".format(num, precision)
+    precision = places - 4 if places >= 4 else 0
+    if zeros_before_sig_figs >= places and zeros_before_sig_figs != inf:
+        #retval = "{0:.{1}E}".format(num, precision)
+        retval = format_float_scientific(num, exp_digits=1, precision=precision, trim='-')
     else:
         retval = "{0:.{1}f}".format(num, places)
     return retval
@@ -77,7 +80,7 @@ if __name__ == "__main__":
      <output method="text" encoding="ASCII"/>
      <template match="/">
        <text>Yep [</text>
-       <value-of select="es:format_number_fixed_width(string(/a/b))"/>
+       <value-of select="es:format_number_fixed_width(string(/a/b), 5)"/>
        <text>]</text>
      </template>
       </stylesheet>

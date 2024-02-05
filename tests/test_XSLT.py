@@ -19,7 +19,7 @@ def test_format_number_fixed_width():
     # converts to scientific notation to fit in the 5 character ('places') limit
     output = str(root.xpath("es:format_number_fixed_width('0.00000433', 5)"))
     print(output)
-    assert output == '4.3E-06'
+    assert output == '4.3e-6'
 
     # does not convert to scientific notation, because we have 6 characters
     output = str(root.xpath("es:format_number_fixed_width('0.00000433', 6)"))
@@ -34,8 +34,14 @@ def test_format_number_fixed_width():
     # again need scientific notation to fit
     output = str(root.xpath("es:format_number_fixed_width('0.000000433', 6)"))
     print(output)
-    assert output == '4.33E-07'
+    assert output == '4.33e-7'
 
+    # handle zero as float, not sci notation
+    output = str(root.xpath("es:format_number_fixed_width('0.000000', 4)"))
+    print(output)
+    assert output == '0.0000'
+
+    
 def test_formatting_with_XML_doc():
 
     # read and parse stylesheet
