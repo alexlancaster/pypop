@@ -52,11 +52,9 @@ def format_number_fixed_width(context, *args):
 
     num = float(args[0])
     places = int(args[1])
-    # print(num, places)
 
     # need to reserve 4 characters for exponent
     precision = places - 4 if places >= 4 else 1
-    
     if num_zeros(num) >= places:
         retval = "{0:.{1}E}".format(num, precision)
     else:
@@ -70,7 +68,6 @@ if __name__ == "__main__":
     ns['format_number_fixed_width'] = format_number_fixed_width
     
     root = etree.XML('<a><b>0.0000043</b></a>')
-    print(root.xpath("es:format_number_fixed_width('0.032')"))
     doc = etree.ElementTree(root)
 
     xslt = etree.XSLT(etree.XML('''
