@@ -7,40 +7,33 @@ from lxml import etree
 from base import abspath_test_data, in_temp_dir
 from PyPop.xslt import format_number_fixed_width
 
+def _run_format_function(root, num, places):
+    xpath_str = "es:format_number_fixed_width('%s', %d)" % (num, places)
+    output = str(root.xpath(xpath_str))
+    # print(num, output)
+    return output
+
 def test_format_number_fixed_width():
+
+    test_cases = [
+        # in_str            # out_str   #places
+        ('0.032',           '0.03200',  5), # pad out with leading zeros
+        ('0.0433',          '0.04330',  5),
+        ('0.04333',         '0.04333',  5),
+        ('0.000004333',     '4.33e-6',  5), # converts to scientific notation to fit in the 5 character ('places') limit
+        ('0.0000000004333', '4.3e-10',  5),
+        ('0.00000433',      '0.000004', 6), # does not convert to scientific notation, because we have 6 characters
+        ('0.00000491',      '0.000005', 6), # check rounding! 
+        ('0.000000433',     '4.33e-7',  6), # again need scientific notation to fit
+        ('0.000000',        '0.0000',   4), # handle zero as float, not sci notation
+        ]
 
     # empty XML to test against
     root = etree.XML('<a/>')
 
-    # pad out with leading zeros
-    output = str(root.xpath("es:format_number_fixed_width('0.032', 5)"))
-    assert output == '0.03200'
-
-    # converts to scientific notation to fit in the 5 character ('places') limit
-    output = str(root.xpath("es:format_number_fixed_width('0.00000433', 5)"))
-    print(output)
-    assert output == '4.3e-6'
-
-    # does not convert to scientific notation, because we have 6 characters
-    output = str(root.xpath("es:format_number_fixed_width('0.00000433', 6)"))
-    print(output)
-    assert output == '0.000004'
-
-    # check rounding! 
-    output = str(root.xpath("es:format_number_fixed_width('0.00000491', 6)"))
-    print(output)
-    assert output == '0.000005'
-
-    # again need scientific notation to fit
-    output = str(root.xpath("es:format_number_fixed_width('0.000000433', 6)"))
-    print(output)
-    assert output == '4.33e-7'
-
-    # handle zero as float, not sci notation
-    output = str(root.xpath("es:format_number_fixed_width('0.000000', 4)"))
-    print(output)
-    assert output == '0.0000'
-
+    for test_case in test_cases:
+        in_str, out_str, places = test_case
+        assert out_str == _run_format_function(root, in_str, places)
     
 def test_formatting_with_XML_doc():
 

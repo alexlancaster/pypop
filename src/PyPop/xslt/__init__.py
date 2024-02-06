@@ -48,6 +48,12 @@ ns.prefix = 'es'
 def num_zeros(decimal):
     return inf if decimal == 0 else -floor(log10(abs(decimal))) - 1
 
+def exponent_len(num):
+    # length of exponent, e.g.
+    # "e-3', would be two characters ('-3')
+    # "e-10" would be 3, ('-10')
+    return len(str(floor(log10(num)))) 
+
 @ns
 def format_number_fixed_width(context, *args):
 
@@ -55,10 +61,14 @@ def format_number_fixed_width(context, *args):
     places = int(args[1])
     zeros_before_sig_figs = num_zeros(num)
     
-    # need to reserve 4 characters for exponent
-    precision = places - 4 if places >= 4 else 0
     if zeros_before_sig_figs >= places and zeros_before_sig_figs != inf:
-        #retval = "{0:.{1}E}".format(num, precision)
+        # get exponent size
+        exponent_size = exponent_len(num)
+        # need to reserve space for 'e', plus exponent characters
+        total_exponent_size = 1 + exponent_size
+        # use all remaining characters for precision
+        precision = places - total_exponent_size if places >= total_exponent_size else 0
+        # now format it
         retval = format_float_scientific(num, exp_digits=1, precision=precision, trim='-')
     else:
         retval = "{0:.{1}f}".format(num, places)
