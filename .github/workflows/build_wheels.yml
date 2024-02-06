@@ -102,12 +102,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
-          # ZENODO_SANDBOX_ACCESS_TOKEN: ${{ secrets.ZENODO_SANDBOX_ACCESS_TOKEN }}
         uses: zenodraft/action@0.13.3
         # uses: alexlancaster/zenodraft-action@0.10.2
         with:
           concept: 10080667
-          # collection: 521
           metadata: .zenodo.json
           publish: false
           sandbox: false
