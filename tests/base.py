@@ -62,6 +62,7 @@ def abspath_test_data(filename):
 def filecmp_ignore_newlines(out_filename, gold_out_filename):
 
     l1 = l2 = True
+    retval = True   # default to match, unless there is a diff
     # opening up files defaults to 'universal newlines' this ignores OS-specific newline differences
     with open(out_filename, 'r') as f1, open(gold_out_filename, 'r') as f2:
         while l1 and l2:
@@ -73,8 +74,10 @@ def filecmp_ignore_newlines(out_filename, gold_out_filename):
                 delta = ''.join(diff)
                 print (delta)
                 
-                return False
-    return True
+                retval = False # mismatch
+                break
+            
+    return retval
 
 def filecmp_list_of_files(filename_list, gold_out_directory):
 
