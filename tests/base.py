@@ -69,7 +69,7 @@ def filecmp_ignore_newlines(out_filename, gold_out_filename):
             l2 = f2.readline()
             if l1 != l2:
                 # generate the full-diff
-                diff = unified_diff(open(out_filename, 'r').readlines(), open(gold_out_filename, 'r').readlines())
+                diff = unified_diff(open(gold_out_filename, 'r').readlines(), open(out_filename, 'r').readlines())
                 delta = ''.join(diff)
                 print (delta)
                 
