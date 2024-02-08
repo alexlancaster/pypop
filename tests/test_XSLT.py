@@ -26,6 +26,8 @@ def test_format_number_fixed_width():
         ('0.00000491',      '0.000005', 6), # check rounding! 
         ('0.000000433',     '4.33e-7',  6), # again need scientific notation to fit
         ('0.000000',        '0.0000',   4), # handle zero as float, not sci notation
+        ('0.02726',         '0.0273',   4), # rounding test 
+        ('0.02725',         '0.0272',   4), # note that is somewhat unexpected: Python rounding for '5' can be weird, see: https://docs.python.org/3/library/functions.html#round
         ]
 
     # empty XML to test against

@@ -36,7 +36,7 @@ MODIFICATIONS.
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:es="http://pypop.org/lxml/functions">
 
- <xsl:param name="use-python-extensions" select="0"/>  
+ <xsl:param name="use-python-extensions" select="1"/>
   
  <!-- contains a library of named templates not specific to any DTD or
  XML schema -->
