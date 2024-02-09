@@ -482,9 +482,11 @@ MODIFICATIONS.
   </xsl:variable>
 
   <!-- calculate the  width required for each cell, this twice the maximum -->
-  <!-- length of the "observed" cell 'XXX'  plus space needed for chars  -->
+  <!-- length of the "observed" cell 'XXX'  plus a space for scientific notation in expected -->
+  <!-- plus space needed for chars  -->
   <!-- e.g.:  XXX/XXX.0 and a padding space  -->
-  <xsl:variable name="cell-width-max" select="$observed-max * 2 + 4"/>
+  <!-- FIXME: this is a big kludgy, really should also compute the expected-max including sci notation -->
+  <xsl:variable name="cell-width-max" select="$observed-max * 2 + 1 + 4"/>
 
   <!-- choose the greater of the allele name or cell-width-max for the -->
   <!-- standard width -->
