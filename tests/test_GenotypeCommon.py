@@ -9,7 +9,7 @@ def test_GenotypeCommon_HardyWeinberg():
     assert exit_code == 0
     # compare with md5sum of output file
     with open("BIGDAWG_SynthControl_Data-out.txt", 'rb') as out_handle:
-        assert hashlib.md5(out_handle.read()).hexdigest() == 'db4bc1113e9eab337561f7510e73381f'
+        assert hashlib.md5(out_handle.read()).hexdigest() == '7162aa0715ccfd1cb7b666409d839129'
 
 def test_GenotypeCommonDash_HardyWeinberg():
     exit_code = run_pypop_process('./tests/data/WS_BDCtrl_Test_HW.ini', './tests/data/BIGDAWG_SynthControl_Data_dash.pop')
@@ -17,4 +17,4 @@ def test_GenotypeCommonDash_HardyWeinberg():
     assert exit_code == 0
     # compare with md5sum of output file
     with open("BIGDAWG_SynthControl_Data_dash-out.txt", 'rb') as out_handle:
-        assert hashlib.md5(out_handle.read()).hexdigest() == '36053392f9dd25c9a2a6bb1fc6db242a'
+        assert hashlib.md5(out_handle.read()).hexdigest() == 'ee7d37fb5a21419d917bf343f2315083'

@@ -476,7 +476,7 @@ MODIFICATIONS.
 
      <xsl:value-of select="$haplos-header"/>
 
-     <!-- loop through each haplotype by name -->
+     <!-- loop through each haplotype by frequency -->
      <xsl:for-each select="haplotype">
       <xsl:sort select="frequency" data-type="number" order="descending"/>
       
