@@ -203,7 +203,7 @@ html_short_title = "PyPop"
 #
 html_theme_options = { # these are both piccolo theme-specific
     "source_url": 'https://github.com/alexlancaster/pypop/',
-    "banner_text": 'PyPop 1.0.0 is released! Install via PyPI: <b><code>pip install pypop-genomics</code></b>.<br/>See <a href="https://github.com/alexlancaster/pypop#readme">README</a> for more detailed installation instructions.<br/>'
+    "banner_text": 'PyPop 1.0.1 is released! Install via PyPI: <b><code>pip install pypop-genomics</code></b>.<br/>See <a href="https://github.com/alexlancaster/pypop#readme">README</a> for more detailed installation instructions.<br/>'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
