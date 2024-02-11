@@ -7,6 +7,43 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## 1.0.1 - 2024-02-11
+
+### Features
+
+- Add  `[CustomBinning]` filtering unit tests for G and P-codes by @alexlancaster (#186)
+
+### Bug Fixes
+
+- switch to scientific notation when frequencies can't be displayed as decimals by @alexlancaster (#192)
+- Port `[RandomBinningFilter]` to Python 3, include more complex filtering tests by @alexlancaster (#187)
+
+### Internal
+
+- Bump the `cibuildwheel` version from `2.16.4` to `2.16.5`: fixes Windows CI builds by @dependabot (#189)
+- Bump the version of `cibuildwheel` from 2.16.2 to 2.16.4 by @dependabot (#188)
+- increase test strictness: make test warnings into errors by @alexlancaster (#185)
+- Enable wheels on `aarch64` architecture by @alexlancaster (#184)
+- Update `actions/upload-artifact` from 3 to 4 in Build on ARM64 by @dependabot (#183)
+- Streamline continuous integration: reduce number of wheels, concurrency by @alexlancaster (#182)
+- Parallelize wheel builds, re-enable `musllinux` wheels for Python 3.9+ by @alexlancaster (#181)
+- Update lxml requirement from \<=5.0.0 to \<=5.1.0; disable PyPy 3.7 on Linux by @dependabot (#178)
+- Update numpy requirement from \<=1.26.2 to \<=1.26.3 by @dependabot (#177)
+- Update lxml requirement from \<=4.9.4 to \<=5.0.0 by @dependabot (#174)
+- Update lxml requirement from \<=4.9.3 to \<=4.9.4 by @dependabot (#173)
+- update to `v4` of `download-artifact` / `upload-artifact` by @alexlancaster (#172)
+- Bump actions/setup-python from 4 to 5 by @dependabot (#168)
+- Update numpy requirement from \<=1.26.1 to \<=1.26.2 by @dependabot (#167)
+
+### Documentation
+
+- Link to new preprint in docs by @alexlancaster (#190)
+- Convert bibliography to bibtex by @alexlancaster (#176)
+- Convert `NEWS.rst` to `NEWS.md`, improve PDF documentation output by @alexlancaster (#175)
+
+[1.0.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.1
+
+
 ## [1.0.0] - 2023-11-07
 
 PyPop 1.0.0 is the first official release of PyPop using Python 3, and
