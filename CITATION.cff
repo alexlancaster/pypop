@@ -1,9 +1,9 @@
 cff-version: 1.2.0
 message: >-
-  If you use this software, please cite both the software itself, as well as
-  the article Lancaster AK et al. (2024) 'PyPop: A mature open-source software
-  pipeline for population genomics (Preprint v1). Zenodo. DOI:10.5281/zenodo.10602940
-  https://doi.org/10.5281/zenodo.10602940
+  If you use this software, please cite both the software itself, as well as the
+  article Lancaster AK et al. (2024) 'PyPop: A mature open-source software
+  pipeline for population genomics (Preprint v1). Zenodo.
+  DOI:10.5281/zenodo.10602940 https://doi.org/10.5281/zenodo.10602940
 abstract: >-
   PyPop for Population Genomics (PyPop) is a Python program for processing
   genotype and allele data and running population genetic analyses, including
@@ -83,5 +83,5 @@ keywords:
   - HLA
   - MHC
 license: GPL-2.0-or-later
-version: v1.0.0
-doi: 10.5281/zenodo.10080668
+version: v1.0.1
+doi: 10.5281/zenodo.10648000

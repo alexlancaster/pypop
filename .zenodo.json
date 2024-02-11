@@ -168,13 +168,13 @@
     },
     {
       "scheme": "url",
-      "identifier": "https://github.com/alexlancaster/pypop/tree/v1.0.0",
+      "identifier": "https://github.com/alexlancaster/pypop/tree/v1.0.1",
       "relation": "isSupplementTo",
       "resource_type": "software"
     },
     {
       "scheme": "url",
-      "identifier": "https://pypi.org/project/pypop-genomics/1.0.0",
+      "identifier": "https://pypi.org/project/pypop-genomics/1.0.1",
       "relation": "isSourceOf",
       "resource_type": "software"
     },
@@ -199,7 +199,7 @@
   ],
   "additional_descriptions": [
     {
-	"description": "If you use this software, please cite both the software itself, as well as the article Lancaster AK et al. (2024) <a href=\"https://doi.org/10.5281/zenodo.10602940\">PyPop: A mature open-source software pipeline for population genomics</a> (Preprint v1). Zenodo. DOI:10.5281/zenodo.10602940",
+      "description": "If you use this software, please cite both the software itself, as well as the article Lancaster AK et al. (2024) <a href=\"https://doi.org/10.5281/zenodo.10602940\">PyPop: A mature open-source software pipeline for population genomics</a> (Preprint v1). Zenodo. DOI:10.5281/zenodo.10602940",
       "type": {
         "id": "notes"
       }
@@ -213,5 +213,5 @@
   ],
   "title": "PyPop: Python for Population Genomics",
   "upload_type": "software",
-  "version": "v1.0.0"
+  "version": "v1.0.1"
 }
