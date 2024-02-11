@@ -1,8 +1,21 @@
 cff-version: 1.2.0
 message: >-
-  If you use this software, please cite both the software itself, as well as the article Lancaster AK et al. (2024) 'PyPop: A mature open-source software pipeline for population genomics (Preprint v1). Zenodo. DOI:10.5281/zenodo.10602940 https://doi.org/10.5281/zenodo.10602940
+  If you use this software, please cite both the software itself, as well as the
+  article Lancaster AK et al. (2024) 'PyPop: A mature open-source software
+  pipeline for population genomics (Preprint v1). Zenodo.
+  DOI:10.5281/zenodo.10602940 https://doi.org/10.5281/zenodo.10602940
 abstract: >-
-  PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream flexibility. PyPop also has an internal facility for additionally aggregating the output XML and generating output tab-separated (TSV) files, as well as default plain text files for each population. Although it can be run on any kind of genotype data, it has additional support for analyzing population genotype with allelic nomenclature from the human leukocyte antigen (HLA) region.
+  PyPop for Population Genomics (PyPop) is a Python program for processing
+  genotype and allele data and running population genetic analyses, including
+  conformity to Hardy-Weinberg expectations; tests for balancing or directional
+  selection; estimates of haplotype frequencies and measures and tests of
+  significance for linkage disequilibrium (LD).&nbsp;Output of analyses are
+  stored in XML format for maximum downstream flexibility. PyPop also has an
+  internal facility for additionally aggregating the output XML and generating
+  output tab-separated (TSV) files, as well as default plain text files for each
+  population. Although it can be run on any kind of genotype data, it has
+  additional support for analyzing population genotype with allelic nomenclature
+  from the human leukocyte antigen (HLA) region.
 authors:
   - family-names: Lancaster
     given-names: Alexander K.
@@ -71,4 +84,4 @@ keywords:
   - MHC
 license: GPL-2.0-or-later
 version: v1.0.1
-doi: 10.5281/zenodo.10080668
+doi: 10.5281/zenodo.10648000
