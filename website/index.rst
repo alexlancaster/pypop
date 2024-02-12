@@ -24,29 +24,39 @@ large-scale population genetic analyses including:
   :class: dropdown, toggle-shown
 
 	  
+  * 2024-02-11: `PyPop 1.0.1
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.0.1>`__
+    released and available on `PyPI
+    <https://pypi.org/project/pypop-genomics/>`__.
+
+    - Adds support for more platforms: ``ARM64`` for Windows and Linux,
+      and also ``muslinux`` wheels
+    - Better support for scientific notation in text output
+     
   * 2024-02-01: `Preprint <https://zenodo.org/records/10602940>`__
     describing 1.0.0 released on Zenodo.
   * 2023-11-07: `PyPop 1.0.0
     <https://github.com/alexlancaster/pypop/releases/tag/v1.0.0>`__
-    released and available on `PyPI
-    <https://pypi.org/project/pypop-genomics/>`__, highlights include:
+    released, highlights include:
     
     - PyPop now fully ported to Python 3.
     - New asymmetric linkage disequilibrium (ALD) computations
       :cite:p:`thomson_conditional_2014`:.
-    - Improved tab-separated values (TSV) output file handling.
-    - Preliminary support for `Genotype List (GL) String
-      <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3715123/>`__.
-    - Unit tests, new documentation system, continuous integration
-      framework and PyPI package
-    - and even more minor features and bug fixes... (see
-      `NEWS.md
-      <https://github.com/alexlancaster/pypop/blob/main/NEWS.md#100---2023-11-07>`__).
 
-  * Recent previous releases:
+  * More details, including recent previous releases:
 
    .. toggle:: 
 
+    - More PyPop 1.0.0 features:
+
+      * Improved tab-separated values (TSV) output file handling.
+      * Preliminary support for `Genotype List (GL) String
+        <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3715123/>`__.
+      * Unit tests, new documentation system, continuous integration
+        framework and PyPI package
+      * and even more minor features and bug fixes... (see
+        `NEWS.md <https://github.com/alexlancaster/pypop/blob/main/NEWS.md#100---2023-11-07>`__).
+      
     - 2023-11-04: release candidate 2 (1.0.0rc2) released. Fixes some
       missing TSV output.
     - 2023-11-01: release candidate 1 (1.0.0rc1) released.
