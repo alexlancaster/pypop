@@ -17,8 +17,8 @@ available in the `PyPop User Guide <http://pypop.org/docs>`__.
 If you write a paper that uses PyPop in your analysis, please cite
 **both**:
 
-1. our 2024 article, currently in review, available as a Zenodo
-   preprint:
+* our 2024 article, currently in review, available as a `Zenodo
+  preprint <https://doi.org/10.5281/zenodo.10602940>`__:
 
       Lancaster AK, Single RM, Mack SJ, Sochat V, Mariani MP, Webster
       GD. (2024) "PyPop: A mature open-source software pipeline for
@@ -26,20 +26,36 @@ If you write a paper that uses PyPop in your analysis, please cite
       DOI:`10.5281/zenodo.10602940
       <https://doi.org/10.5281/zenodo.10602940>`__.
 
-2. **and** the Zenodo record for the software.  Citation metadata for
-   the current Zenodo record is stored in `CITATION.cff
-   <https://github.com/alexlancaster/pypop/blob/main/CITATION.cff>`__
-   It will be of the form and contain link to the DOI:
+* **and** the `Zenodo record <https://zenodo.org/records/10080667>`__
+  for the software. To cite the correct version, follow these steps:
 
-      Lancaster, AK et al. (2023) "PyPop: Python for Population
-      Genomics" (Version 1.0.0) [Computer
-      software]. https://doi.org/10.5281/zenodo.XXXXX
+  1) First visit the DOI for the overall Zenodo record:
+     `10.5281/zenodo.10080667
+     <https://zenodo.org/doi/10.5281/zenodo.10080667>`__. This DOI
+     represents **all versions**, and will always resolve to the
+     latest one.
 
-   When you follow the DOI link to the Zenodo record, you will see all
-   the versions listed on the right, make sure you choose the
-   version-specific DOI that matches the specific version of PyPop in
-   your citation.
-      
+  2) When you are viewing the record, look for the **Versions** box
+     in the right-sidebar. Here are listed all versions (including
+     older versions).
+
+  3) Select and click the version-specific DOI that matches the
+     specific version of PyPop that you used for your analysis.
+
+  4) Once you are visiting the Zenodo record for the specific version,
+     under the **Citation** box in the right-sidebar, select the
+     citation format you wish to use and click to copy the citation.
+     It will contain link to the version-specific DOI, and be of the
+     form:
+
+       Lancaster, AK et al. (YYYY) "PyPop: Python for Population
+       Genomics" (Version X.Y.Z) [Computer
+       software]. Zenodo. https://doi.org/10.5281/zenodo.XXXXX
+
+  Note that citation metadata for the current Zenodo record is also
+  stored in `CITATION.cff
+  <https://github.com/alexlancaster/pypop/blob/main/CITATION.cff>`__
+   
 .. _guide-include-pypop-cite-end:
 
 .. _guide-include-start:
