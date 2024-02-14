@@ -56,8 +56,8 @@ authors:
     affiliation: University of California, Berkeley
 title: 'PyPop: Python for Population Genomics'
 url: http://pypop.org/
-repository-artifact: https://pypi.org/project/pypop-genomics/0.9.156
-repository-code: https://github.com/alexlancaster/pypop/tree/v0.9.156
+repository-artifact: https://pypi.org/project/pypop-genomics/0.9.158
+repository-code: https://github.com/alexlancaster/pypop/tree/v0.9.158
 type: software
 keywords:
   - population genetics
@@ -70,4 +70,4 @@ keywords:
   - HLA
   - MHC
 license: GPL-2.0-or-later
-version: v0.9.156
+version: v0.9.158
