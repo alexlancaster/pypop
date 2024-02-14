@@ -77,8 +77,9 @@ jobs:
           # temporarily remove DOI
           yq -i eval "del(.doi)" CITATION.cff  
 
+          # use pre-prelease of cffconvert 3.0.0
+          pip install git+https://github.com/citation-file-format/cffconvert.git@5295f87#egg=cffconvert
           # don't use authors in CITATION.cff until semantics supports multiple affilation and `ror`
-          pip install cffconvert
           cffconvert --format zenodo --infile CITATION.cff | jq 'del(.creators)' > .zenodo.citation.json
 
           # need to do a "deep merge" to make sure 'related_identifiers' get merged properly
