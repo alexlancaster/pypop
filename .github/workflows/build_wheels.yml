@@ -78,7 +78,8 @@ jobs:
           yq -i eval "del(.doi)" CITATION.cff  
 
           # use pre-prelease of cffconvert 3.0.0
-          pip install git+https://github.com/citation-file-format/cffconvert.git@5295f87#egg=cffconvert
+          pip install -U pip
+          pip install 'git+https://github.com/citation-file-format/cffconvert.git@5295f87#egg=cffconvert'
           # don't use authors in CITATION.cff until semantics supports multiple affilation and `ror`
           cffconvert --format zenodo --infile CITATION.cff | jq 'del(.creators)' > .zenodo.citation.json
 
