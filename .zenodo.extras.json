@@ -120,21 +120,6 @@
       "orcid": "0000-0001-5235-4159"
     }
   ],
-  "description": "<p>PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream flexibility. PyPop also has an internal facility for additionally aggregating the output XML and generating output tab-separated (TSV) files, as well as default plain text files for each population. Although it can be run on any kind of genotype data, it has additional support for analyzing population genotype with allelic nomenclature from the human leukocyte antigen (HLA) region. </p>",
-  "keywords": [
-    "population genetics",
-    "population genomics",
-    "bioinformatics",
-    "computational biology",
-    "evolutionary biology",
-    "Human leukocyte antigen",
-    "Major histocompatibility complex",
-    "HLA",
-    "MHC"
-  ],
-  "license": {
-    "id": "gpl-2.0-or-later"
-  },
   "grants": [
     {
       "id": "10.13039/100000002::5U24AI049213-05",
@@ -156,27 +141,9 @@
   "related_identifiers": [
     {
       "scheme": "url",
-      "identifier": "http://pypop.org/",
-      "relation": "isSupplementedBy",
-      "resource_type": "other"
-    },
-    {
-      "scheme": "url",
       "identifier": "http://pypop.org/docs",
       "relation": "isDocumentedBy",
       "resource_type": "publication-softwaredocumentation"
-    },
-    {
-      "scheme": "url",
-      "identifier": "https://github.com/alexlancaster/pypop/tree/v1.0.1",
-      "relation": "isSupplementTo",
-      "resource_type": "software"
-    },
-    {
-      "scheme": "url",
-      "identifier": "https://pypi.org/project/pypop-genomics/1.0.1",
-      "relation": "isSourceOf",
-      "resource_type": "software"
     },
     {
       "scheme": "doi",
@@ -210,8 +177,5 @@
         "id": "technical-info"
       }
     }
-  ],
-  "title": "PyPop: Python for Population Genomics",
-  "upload_type": "software",
-  "version": "v1.0.1"
+  ]
 }
