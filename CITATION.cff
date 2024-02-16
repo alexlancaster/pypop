@@ -1,4 +1,4 @@
-cff-version: 1.2.0
+cff-version: 1.3.0
 message: >-
   If you use this software, please cite both the software itself, as well as the article Lancaster AK et al. (2024) 'PyPop: A mature open-source software pipeline for population genomics (Preprint v1). Zenodo. DOI:10.5281/zenodo.10602940 https://doi.org/10.5281/zenodo.10602940
 abstract: >-
@@ -58,6 +58,19 @@ title: 'PyPop: Python for Population Genomics'
 url: http://pypop.org/
 repository-artifact: https://pypi.org/project/pypop-genomics/0.9.158
 repository-code: https://github.com/alexlancaster/pypop/tree/v0.9.158
+identifiers:
+  - description: PyPop documentation
+    type: url
+    value: "http://pypop.org/docs"
+    relation: "IsDocumentedBy"
+  - description: Previous Tissue Antigens (2007) publication
+    type: doi
+    value: "10.1111/j.1399-0039.2006.00769.x"
+    relation: "Continues"
+  - description: Preprint version of TA (2007) publication
+    type: url
+    value: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784"
+    relation: "Continues"
 type: software
 keywords:
   - population genetics

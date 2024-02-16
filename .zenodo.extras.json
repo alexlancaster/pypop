@@ -140,37 +140,13 @@
   ],
   "related_identifiers": [
     {
-      "scheme": "url",
-      "identifier": "http://pypop.org/docs",
-      "relation": "isDocumentedBy",
-      "resource_type": "publication-softwaredocumentation"
-    },
-    {
       "scheme": "doi",
       "identifier": "10.5281/zenodo.10602939",
       "relation": "isDescribedBy",
       "resource_type": "publication-preprint"
-    },
-    {
-      "scheme": "url",
-      "identifier": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784",
-      "relation": "continues",
-      "resource_type": "publication-preprint"
-    },
-    {
-      "scheme": "doi",
-      "identifier": "10.1111/j.1399-0039.2006.00769.x",
-      "relation": "continues",
-      "resource_type": "publication-article"
     }
   ],
   "additional_descriptions": [
-    {
-      "description": "If you use this software, please cite both the software itself, as well as the article Lancaster AK et al. (2024) <a href=\"https://doi.org/10.5281/zenodo.10602940\">PyPop: A mature open-source software pipeline for population genomics</a> (Preprint v1). Zenodo. DOI:10.5281/zenodo.10602940",
-      "type": {
-        "id": "notes"
-      }
-    },
     {
       "description": "<p>Main website: <a href=\"http://pypop.org/\">http://pypop.org/</a>.</p><p>Development is on GitHub: <a href=\"https://github.com/alexlancaster/pypop\">https://github.com/alexlancaster/pypop</a></p><p>Binary packages are available on PyPI: <a href=\"https://pypi.org/project/pypop-genomics/\">https://pypi.org/project/pypop-genomics/</a>.&nbsp;</p>",
       "type": {
