@@ -79,6 +79,10 @@ identifiers:
     type: url
     value: https://pypi.org/project/pypop-genomics/0.9.158
     relation: "IsSourceOf"
+  - description: DOI concept identifier for all versions of pypop
+    type: doi
+    value: "10.5281/zenodo.10080667"
+    relation: "IsVersionOf"
 type: software
 keywords:
   - population genetics
