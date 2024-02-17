@@ -56,8 +56,8 @@ authors:
     affiliation: University of California, Berkeley
 title: 'PyPop: Python for Population Genomics'
 url: http://pypop.org/
-repository-artifact: https://pypi.org/project/pypop-genomics/0.9.158
-repository-code: https://github.com/alexlancaster/pypop/tree/v0.9.158
+repository-artifact: https://pypi.org/project/pypop-genomics/
+repository-code: https://github.com/alexlancaster/pypop/
 identifiers:
   - description: PyPop documentation
     type: url
@@ -71,6 +71,14 @@ identifiers:
     type: url
     value: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784"
     relation: "Continues"
+  - description: GitHub tag for repository
+    type: url
+    value: https://github.com/alexlancaster/pypop/tree/v0.9.158
+    relation: "IsSupplementTo"
+  - description: PyPI package
+    type: url
+    value: https://pypi.org/project/pypop-genomics/0.9.158
+    relation: "IsSourceOf"
 type: software
 keywords:
   - population genetics
