@@ -620,8 +620,8 @@ releases on the GitHub release page:
    unavailable, you may want to install directly from the GitHub
    release.  These instructions will help you do that.
 
-Installing these packages is similar to installing via PyPI above,
-except that you need to explicitly provide a URL to the release page.
+Installing these packages is similar to installing via PyPI, except
+that you need to explicitly provide a URL to the release page.
    
 1. First, visit the release page, and choose the release version you
    wish to install (usually the most recent), and note the release tag
