@@ -128,7 +128,6 @@ jobs:
       - name: Create a draft snapshot of your repository contents as a new
               version in test collection on Zenodo using metadata
               from repository file .zenodo.json
-        if: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
