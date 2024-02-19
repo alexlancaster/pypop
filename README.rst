@@ -241,7 +241,6 @@ used, by appending the following:
    --extra-index-url https://test.pypi.org/simple/
 
 to the above ``pip`` commands.
-
    
 **Issues with installation permission**
 
@@ -279,53 +278,6 @@ install into the expected user directory.
    then you should **not** add the ``--user`` because it will install
    it in ``~/.local/lib/`` rather than under the user-specific conda
    virtual environment in ``~/.conda/envs/``.
-  
-Install package from GitHub Releases (advanced)
------------------------------------------------
-
-We also sometimes make binary packages also available from the GitHub
-release page:
-
-   https://github.com/alexlancaster/pypop/releases
-
-To install these is similar to installing via PyPI above, except that
-you need to explicitly provide a URL to the release page.
-   
-1. First, visit the release page, and choose the release version you
-   wish to install (usually the most recent), and note the release tag
-   (e.g. ``v1.0.0``).
-
-   .. admonition:: Release version numbers
-
-      Note that version of the release is slightly different to the
-      ``git`` tag.  This is because the ``git`` tag follows `Semantic
-      Versioning <https://semver.org/>`__, which Python internally
-      normalizes and abbreviates.  So the release with the ``git`` tag
-      ``v1.0.0`` is actually version ``1.0.0`` of the |pkgname|
-      package, and the version that ``pip`` "sees" (the difference is
-      more notable with prereleases which might have a ``git`` tag of
-      ``v1.0.0-rc2`` but the PyPI version will be ``1.0.0rc2``).
-
-2. Next, use ``pip`` to install the package by running a command of
-   the form (this will select and install the correct wheel for your
-   Python version and operating system automatically):
-
-   .. code-block:: shell
-      
-      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
-
-   where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
-
-   .. code-block:: shell
-   
-      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0
-
-   You can also manually download the specific wheel from the github
-   release webpage and install directly, e.g.:
-
-   .. code-block:: shell
-   
-      pip install pypop_genomics-1.0.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 		
 Post-install ``PATH`` adjustments
 ---------------------------------
@@ -383,11 +335,15 @@ The development of the code for PyPop is via our GitHub project:
 For a detailed description on bug reporting as well as how to
 contribute to PyPop, please consult our `CONTRIBUTING.rst
 <https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst>`_
-guide. We also have additional notes and background relevant for
-developers in `DEV_NOTES.md
+guide. For reporting security vulnerabilities visit `SECURITY.md
+<https://github.com/alexlancaster/pypop/blob/main/SECURITY.md>`__.
+
+We also have additional notes and background relevant for developers
+in `DEV_NOTES.md
 <https://github.com/alexlancaster/pypop/blob/main/DEV_NOTES.md>`__. Source
 for the website and the documentation is located in the `website
-<https://github.com/alexlancaster/pypop/blob/main/website>`__ subdirectory.
+<https://github.com/alexlancaster/pypop/blob/main/website>`__
+subdirectory.
 
 Copyright and License
 =====================
