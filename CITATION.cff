@@ -1,8 +1,21 @@
 cff-version: 1.3.0
 message: >-
-  If you use this software, please cite both the software itself, as well as the article Lancaster AK et al. (2024) 'PyPop: A mature open-source software pipeline for population genomics (Preprint v1). Zenodo. DOI:10.5281/zenodo.10602940 https://doi.org/10.5281/zenodo.10602940
+  If you use this software, please cite both the software itself, as well as the
+  article Lancaster AK et al. (2024) 'PyPop: A mature open-source software
+  pipeline for population genomics (Preprint v1). Zenodo.
+  DOI:10.5281/zenodo.10602940 https://doi.org/10.5281/zenodo.10602940
 abstract: >-
-  <p>PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream flexibility. PyPop also has an internal facility for additionally aggregating the output XML and generating output tab-separated values (TSV) files, as well as default plain text files for each population. Although it can be run on any kind of genotype data, it has additional support for analyzing population genotype with allelic nomenclature from the human leukocyte antigen (HLA) region.</p>
+  <p>PyPop for Population Genomics (PyPop) is a Python program for processing
+  genotype and allele data and running population genetic analyses, including
+  conformity to Hardy-Weinberg expectations; tests for balancing or directional
+  selection; estimates of haplotype frequencies and measures and tests of
+  significance for linkage disequilibrium (LD).&nbsp;Output of analyses are
+  stored in XML format for maximum downstream flexibility. PyPop also has an
+  internal facility for additionally aggregating the output XML and generating
+  output tab-separated values (TSV) files, as well as default plain text files
+  for each population. Although it can be run on any kind of genotype data, it
+  has additional support for analyzing population genotype with allelic
+  nomenclature from the human leukocyte antigen (HLA) region.</p>
 authors:
   - family-names: Lancaster
     given-names: Alexander K.
@@ -86,28 +99,28 @@ repository-code: https://github.com/alexlancaster/pypop/
 identifiers:
   - description: PyPop documentation
     type: url
-    value: "http://pypop.org/docs"
-    relation: "IsDocumentedBy"
+    value: http://pypop.org/docs
+    relation: IsDocumentedBy
   - description: Previous Tissue Antigens (2007) publication
     type: doi
-    value: "10.1111/j.1399-0039.2006.00769.x"
-    relation: "Continues"
+    value: 10.1111/j.1399-0039.2006.00769.x
+    relation: Continues
   - description: Preprint version of TA (2007) publication
     type: url
-    value: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784"
-    relation: "Continues"
+    value: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784
+    relation: Continues
   - description: GitHub tag for repository
     type: url
     value: https://github.com/alexlancaster/pypop/tree/v0.9.160
-    relation: "IsSupplementTo"
+    relation: IsSupplementTo
   - description: PyPI package
     type: url
     value: https://pypi.org/project/pypop-genomics/0.9.160
-    relation: "IsSourceOf"
+    relation: IsSourceOf
   - description: DOI concept identifier for all versions of pypop
     type: doi
-    value: "10.5281/zenodo.10080667"
-    relation: "IsVersionOf"
+    value: 10.5281/zenodo.10080667
+    relation: IsVersionOf
 type: software
 keywords:
   - population genetics
@@ -121,3 +134,4 @@ keywords:
   - MHC
 license: GPL-2.0-or-later
 version: v0.9.160
+doi: 10.5281/zenodo.10677075
