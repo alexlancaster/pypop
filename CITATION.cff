@@ -98,11 +98,11 @@ identifiers:
     relation: "Continues"
   - description: GitHub tag for repository
     type: url
-    value: https://github.com/alexlancaster/pypop/tree/v0.9.159
+    value: https://github.com/alexlancaster/pypop/tree/v0.9.160
     relation: "IsSupplementTo"
   - description: PyPI package
     type: url
-    value: https://pypi.org/project/pypop-genomics/0.9.159
+    value: https://pypi.org/project/pypop-genomics/0.9.160
     relation: "IsSourceOf"
   - description: DOI concept identifier for all versions of pypop
     type: doi
@@ -120,4 +120,4 @@ keywords:
   - HLA
   - MHC
 license: GPL-2.0-or-later
-version: v0.9.159
+version: v0.9.160
