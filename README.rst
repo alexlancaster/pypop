@@ -383,11 +383,14 @@ The development of the code for PyPop is via our GitHub project:
 For a detailed description on bug reporting as well as how to
 contribute to PyPop, please consult our `CONTRIBUTING.rst
 <https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst>`_
-guide. We also have additional notes and background relevant for
-developers in `DEV_NOTES.md
+guide. For reporting security vulnerabilities visit `SECURITY.md
+<https://github.com/alexlancaster/pypop/blob/main/SECURITY.md>`__ We
+also have additional notes and background relevant for developers in
+`DEV_NOTES.md
 <https://github.com/alexlancaster/pypop/blob/main/DEV_NOTES.md>`__. Source
 for the website and the documentation is located in the `website
-<https://github.com/alexlancaster/pypop/blob/main/website>`__ subdirectory.
+<https://github.com/alexlancaster/pypop/blob/main/website>`__
+subdirectory.
 
 Copyright and License
 =====================
