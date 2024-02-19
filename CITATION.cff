@@ -7,37 +7,56 @@ authors:
   - family-names: Lancaster
     given-names: Alexander K.
     orcid: https://orcid.org/0000-0002-0002-9263
-    affiliation: Amber Biology LLC and Ronin Institute
+    affiliation:
+      - Amber Biology LLC
+      - name: Ronin Institute
+        ror: https://ror.org/04awze035
   - family-names: Nelson
     given-names: Mark P.
-    affiliation: University of California, Berkeley
+    affiliation:
+      - name: University of California, Berkeley
+        ror: https://ror.org/01an7q238
   - family-names: Single
     given-names: Richard
     orcid: https://orcid.org/0000-0001-6054-6505
-    affiliation: University of Vermont
+    affiliation:
+      - name: University of Vermont
+        ror: https://ror.org/0155zta11
   - family-names: Solberg
     given-names: Owen
     orcid: https://orcid.org/0000-0003-3060-9709
   - family-names: Tsai
     given-names: Yingsu
-    affiliation: University of California, Berkeley
+    affiliation:
+      - name: University of California, Berkeley
+        ror: https://ror.org/01an7q238
     orcid: https://orcid.org/0009-0006-0162-6066
   - family-names: Meyer
     given-names: Diogo
     orcid: https://orcid.org/0000-0002-7155-5674
-    affiliation: University of São Paulo
+    affiliation:
+      - name: University of São Paulo
+        ror: https://ror.org/036rp1748
   - family-names: Webster
     given-names: Gordon
-    affiliation: Amber Biology LLC
+    affiliation:
+      - name: Amber Biology LLC
+      - name: Ronin Institute
+        ror: https://ror.org/04awze035
     orcid: https://orcid.org/0009-0009-2862-0467
   - family-names: Mariani
     given-names: Michael P.
     orcid: https://orcid.org/0000-0001-5852-0517
-    affiliation: Mariani Systems LLC and University of Vermont
+    affiliation:
+      - name: Mariani Systems LLC
+      - name: University of Vermont
+        ror: https://ror.org/0155zta11
   - family-names: Sochat
     given-names: Vanessa
     orcid: https://orcid.org/0000-0002-4387-3819
-    affiliation: Lawrence Livermore National Laboratory
+    affiliation:
+      - name: Lawrence Livermore National Laboratory
+        ror: https://ror.org/041nk4h53
   - family-names: Kornel
     given-names: Karl
     orcid: https://orcid.org/0000-0001-5847-5330
@@ -45,15 +64,21 @@ authors:
   - family-names: Spaaks
     given-names: Jurriaan H.
     orcid: https://orcid.org/0000-0002-7064-4069
-    affiliation: Netherlands eScience Center
+    affiliation:
+      - name: Netherlands eScience Center
+        ror: https://ror.org/00rbjv475
   - family-names: Mack
     given-names: Steven J.
     orcid: https://orcid.org/0000-0001-9820-9547
-    affiliation: University of California, San Francisco
+    affiliation:
+      - name: University of California, San Francisco
+        ror: https://ror.org/043mz5j54
   - family-names: Thomson
     given-names: Glenys
     orcid: https://orcid.org/0000-0001-5235-4159
-    affiliation: University of California, Berkeley
+    affiliation:
+      - name: University of California, Berkeley
+        ror: https://ror.org/01an7q238
 title: 'PyPop: Python for Population Genomics'
 url: http://pypop.org/
 repository-artifact: https://pypi.org/project/pypop-genomics/

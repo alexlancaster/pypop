@@ -72,19 +72,21 @@ jobs:
           # insert version
           yq -i ".version = \"$GITHUB_REF_NAME\"" CITATION.cff
           # update the 'related_identifiers' to use exact tree and pypi packaage
-          yq -i ".repository-code = \"https://github.com/alexlancaster/pypop/tree/$GITHUB_REF_NAME\"" CITATION.cff
-          yq -i ".repository-artifact = \"https://pypi.org/project/pypop-genomics/$VERSION_PYTHON_STYLE\"" CITATION.cff
+          yq -i "(.identifiers[] | select(.value == \"https://github.com/alexlancaster/pypop/tree*\") | .value) |= \"https://github.com/alexlancaster/pypop/tree/$GITHUB_REF_NAME\"" CITATION.cff
+          yq -i "(.identifiers[] | select(.value == \"https://pypi.org/project/pypop-genomics/*\") | .value) |= \"https://pypi.org/project/pypop-genomics/$VERSION_PYTHON_STYLE\"" CITATION.cff 
           # temporarily remove DOI
           yq -i eval "del(.doi)" CITATION.cff  
 
           # use pre-prelease of cffconvert 3.0.0
           pip install -U pip
-          pip install 'git+https://github.com/citation-file-format/cffconvert.git@5295f87#egg=cffconvert'
-          # don't use authors in CITATION.cff until semantics supports multiple affilation and `ror`
+          pip install 'git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert'
+          # convert to json, but remove creators
           cffconvert --format zenodo --infile CITATION.cff | jq 'del(.creators)' > .zenodo.citation.json
-
+          # save creators separately, so that it can be added back at the end
+          cffconvert --format zenodo --infile CITATION.cff | jq '{creators, creators}' > .zenodo.creators.json
+          
           # need to do a "deep merge" to make sure 'related_identifiers' get merged properly
-          # including updating the version number
+          # including updating the version number, exclude creators, sorting isn't preserved
           cat .zenodo.citation.json .zenodo.extras.json |jq -s 'def deepmerge(a;b):
             reduce b[] as $item (a;
               reduce ($item | keys_unsorted[]) as $key (.;
@@ -96,12 +98,16 @@ jobs:
                   $val
                 end)
               );
-            deepmerge({}; .)' -S --indent 4 > .zenodo.json
+            deepmerge({}; .)' -S --indent 4 > .zenodo.partial.json
 
+          # finally add back creators
+          cat .zenodo.creators.json .zenodo.partial.json | jq -s add --indent 4 > .zenodo.json
+            
           # debugging only
           cat .zenodo.citation.json
+          cat .zenodo.creators.json
           cat .zenodo.json 
-          rm .zenodo.citation.json
+          rm .zenodo.citation.json .zenodo.partial.json
       - name: Push changes back to repo files
         run: |
           git fetch origin
