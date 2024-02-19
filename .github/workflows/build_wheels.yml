@@ -107,7 +107,7 @@ jobs:
           cat .zenodo.citation.json
           cat .zenodo.creators.json
           cat .zenodo.json 
-          rm .zenodo.citation.json .zenodo.partial.json
+          rm .zenodo.citation.json .zenodo.partial.json .zenodo.creators.json
       - name: Push changes back to repo files
         run: |
           git fetch origin
