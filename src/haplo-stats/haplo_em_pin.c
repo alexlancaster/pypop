@@ -1152,7 +1152,8 @@ static void errmsg(char *string){
   /* PROBLEM "%s", string RECOVER(NULL_ENTRY);
      Replace with call to Rf_error for R 4.1.x 
   */
-  Rf_error(string, "%s");
+  //Rf_error(string, "%s");
+  REprintf("%s", string);
 }
 
 
