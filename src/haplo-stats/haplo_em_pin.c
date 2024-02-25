@@ -1,11 +1,5 @@
 /* $Author: sinnwell $ */
-/* $Date: 2013/01/14 19:10:42 $ */
-/* $Header: /projects/genetics/cvs/cvsroot/haplo.stats/src/haplo_em_pin.c,v 1.18 2013/01/14 19:10:42 sinnwell Exp $ */
-/* $Locker:  $ */
-/*
- * $Log:
-*/
-/*
+/* $Date: 2013/01/14 19:10:42 $ 
 *License: 
 *
 *Copyright 2003 Mayo Foundation for Medical Education and Research. 
@@ -27,7 +21,7 @@
 *
 *Daniel J. Schaid, Ph.D.
 *Division of Biostatistics
-*Harwick Building û Room 775
+*Harwick Building Room 775
 *Mayo Clinic
 *200 First St., SW
 *Rochester, MN 55905
@@ -47,9 +41,7 @@
 #include <nmath.h>
 #include "haplo_em_pin.h"
 
-
 /* Progressive insertion of loci into haplotypes with EM algorithm */
-
 
 /*************** Global vars ******************************************************/
 
@@ -107,7 +99,6 @@ void haplo_em_pin(
 
   HAP **hap_list;     /* List of all haplotypes = array of pointers to hap structs */
   HAPUNIQUE **u_hap_list;   /* List of unique haplotypes */
-  HAP *h1, *h2;
 
   /* convert from S vecs to  C structures */
 
@@ -227,7 +218,7 @@ void haplo_em_pin(
 
   
     if(*verbose){
-      REprintf("\nhap_list after insert batch %d & set_post, before code haplo\n\n",n_batch);
+      REprintf("\nhap_list after insert batch %i & set_post, before code haplo\n\n",n_batch);
       write_hap_list(hap_list, n_hap);
     }
 
@@ -243,7 +234,7 @@ void haplo_em_pin(
      qsort(hap_list, n_hap, sizeof(HAP *), cmp_subId_hapPairId);
 
     if(*verbose){
-      REprintf("\nhap_list after code haplo, before EM: %d\n\n",n_batch);
+      REprintf("\nhap_list: %4i after code haplo, before EM\n",n_batch);
       write_hap_list(hap_list, n_hap);
     }
 
@@ -287,31 +278,32 @@ void haplo_em_pin(
 
      } /* end of EM loop */
 
-      if( (*converge)==0){
-	/* FIXME: had to remove the PROBLEM macro to get to compile on MacOS */
-	REprintf("failed to converge for batch %i after %i iterations", n_batch, n_iter);
-        // PROBLEM "failed to converge for batch %i after %i iterations", n_batch, n_iter
-	//  RECOVER(NULL_ENTRY);
-      }
+    if( (*converge)==0){        
+      /* Replaced with call to REprintf for 4.1.x  
+	 PROBLEM "failed to converge for batch %i after %i iterations", n_batch, n_iter
+	 RECOVER(NULL_ENTRY);
+      */
+      REprintf("failed to converge for batch %i after %i iterations", n_batch, n_iter);
+    }
 
 
-       divideKeep(hap_list, n_hap, &len_hap_list);
-       n_hap = len_hap_list;
+    divideKeep(hap_list, n_hap, &len_hap_list);
+    n_hap = len_hap_list;
 
 
-       if(*verbose){
-	 REprintf("\nhap_list after EM and after divideKeep: %d \n\n",n_trim);
-	 write_hap_list(hap_list, n_hap);
-       }
+    if(*verbose){
+      /*REprintf("\nhap_list after EM and after divideKeep \n\n",n_trim);*/
+      write_hap_list(hap_list, n_hap);
+    }
      
    
-      /* update priors, in case haplos were trimmed during posteior calculations */
-
-      hap_prior(n_hap, hap_list, prior, n_u_hap, *min_prior); 
-
-      if(*verbose){
-        if( (*converge)==1){
-          REprintf("\n\nConverged after batch insertion, lnlike = %8.5f, n_iter = %i\n\n", lnlike, n_iter);
+    /* update priors, in case haplos were trimmed during posteior calculations */
+    
+    hap_prior(n_hap, hap_list, prior, n_u_hap, *min_prior); 
+    
+    if(*verbose){
+      if( (*converge)==1){
+	REprintf("\n\nConverged after batch insertion, lnlike = %8.5f, n_iter = %i\n\n", lnlike, n_iter);
         }
       }
 
@@ -385,7 +377,7 @@ void haplo_em_pin(
   }
   Free(geno);
   geno = NULL;
-
+ 
 }
 
 /***********************************************************************************/
@@ -1140,7 +1132,7 @@ static int ranAS183_seed(int iseed1, int iseed2, int iseed3)
 
 /***********************************************************************************/
 
-static double ranAS183()
+static double ranAS183(void)
 {
    double u;
 
@@ -1156,8 +1148,11 @@ static void errmsg(char *string){
 
   /* Function to emulate "stop" of S+ - see page 134, S Programing, by
      Venables and Ripley */
-  REprintf("%s");
-  // PROBLEM "%s", string RECOVER(NULL_ENTRY);
+
+  /* PROBLEM "%s", string RECOVER(NULL_ENTRY);
+     Replace with call to Rf_error for R 4.1.x 
+  */
+  Rf_error(string, "%s");
 }
 
 
@@ -1199,7 +1194,7 @@ static void add_more_memory(HAP ***hap_list, double **prior,int *max_haps){
 
 
   /* check that max_haps will not exceed max limit for an int on a 32-bit processor */
-
+  
 
   if(*max_haps ==  INT_MAX)
     {
@@ -1216,16 +1211,18 @@ static void add_more_memory(HAP ***hap_list, double **prior,int *max_haps){
     }
 
 
-  *prior =  (double *) Realloc(*prior, *max_haps, double);
-  if(prior==NULL){
+  double *new_prior =  (double *) Realloc(*prior, *max_haps, double);
+  if(new_prior==NULL){
     errmsg("could not realloc mem for prior");
   }
-
-  *hap_list = (HAP **) Realloc(*hap_list, *max_haps, HAP* );
-  if(hap_list==NULL){
+  *prior = new_prior;
+  
+  HAP **new_hap_list = (HAP **) Realloc(*hap_list, *max_haps, HAP* );
+  if(new_hap_list==NULL){
     errmsg("could not realloc mem for hap_list");
   }
-
+  *hap_list = new_hap_list;
+  
   return;
 }
 
