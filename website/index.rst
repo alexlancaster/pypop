@@ -30,7 +30,7 @@ large-scale population genetic analyses including:
     <https://pypi.org/project/pypop-genomics/>`__.
 
     - Cleanups as a result of code scanning.
-    - Update `numpy` to 1.26.4
+    - Update ``numpy`` to 1.26.4
 
   * 2024-02-11: `PyPop 1.0.1
     <https://github.com/alexlancaster/pypop/releases/tag/v1.0.1>`__
