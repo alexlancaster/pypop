@@ -37,7 +37,7 @@
 """Module for exposing Arlequin functionality in Python.
 
 """
-import sys, string, os, re, shutil, stat
+import sys, os, re, shutil, stat
 from PyPop.Utils import Group
 
 class ArlequinWrapper:
@@ -91,7 +91,7 @@ class ArlequinWrapper:
         if len(dataLoci) == 1:
             keys = dataLoci[0]
         else:
-            keys = string.join(dataLoci,':')
+            keys = ':'.join(dataLoci)
 
         self.arpFile = open(os.path.join(self.arlSubdir, self.arpFilename), 'w')
         
@@ -138,12 +138,12 @@ class ArlequinWrapper:
             # get all even alleles (first phase of genotype data)
             # then filter them through the function to convert any
             # missing data into the form that Arlequin expects
-            even = string.join([self._fixData(sample[i]) \
-                                for i in range(0,len(sample),2)], ' ')
+            even = ' '.join([self._fixData(sample[i]) \
+                                for i in range(0,len(sample),2)])
 
             # do the same for the odd alleles
-            odd = string.join([self._fixData(sample[i]) \
-                               for i in range(1,len(sample),2)], ' ')
+            odd = ' '.join([self._fixData(sample[i]) \
+                               for i in range(1,len(sample),2)])
 
             # output them on adjacent lines so that the alleles for
             # each locus are paired up like so:
@@ -513,10 +513,11 @@ class ArlequinBatch:
         if self.debug:
             print("_outputSample:chunk:", chunk)
         for line in data:
-            words = string.split(line)
+            words = line.split()
             unphase1 = "%10s 1 " % words[self.idCol]
             unphase2 = "%13s" % " "
             for i in chunk:
+                print(chunk, i)
                 allele = words[i]
                 # don't output individual if *any* loci is untyped
                 if allele == self.untypedAllele:
@@ -586,7 +587,7 @@ class ArlequinBatch:
 
         # calculate the number of loci from the number of columns
         # and the prefix and suffix columns which can be ignored  
-        cols = len(string.split(firstLine))
+        cols = len(firstLine.split())
         colCount = cols - (self.prefixCols + self.suffixCols)
 
         # sanity check to ensure column number is even (2 alleles for
@@ -594,7 +595,7 @@ class ArlequinBatch:
         if colCount % 2 != 0:
             sys.exit ("Error: col count (%d) is not even" % colCount)
         else:
-            locusCount = (colCount)/2
+            locusCount = int((colCount)/2)
 
         # create default map order if none given
         if self.mapOrder == None:
@@ -628,7 +629,7 @@ class ArlequinBatch:
             self.windowSize = locusCount
 
         #chunk = xrange(0, locusCount - self.windowSize + 1)
-        chunk = xrange(0, len(self.mapOrder) - self.windowSize + 1)
+        chunk = range(0, len(self.mapOrder) - self.windowSize + 1)
 
         sampleCount = 0
         totalSamples = []
@@ -754,9 +755,9 @@ genetics program.
         elif o in ("-l", "--ignorelines"):
             ignoreLines = int(v)
         elif o in ("-c", "--cols"):
-            prefixCols, suffixCols = map(int, string.split(v, ','))
+            prefixCols, suffixCols = map(int, v.split(','))
         elif o in ("-k", "--sort"):
-            mapOrder = map(int, string.split(v, ','))
+            mapOrder = map(int, v.split(','))
             print(mapOrder)
         elif o in ("-t", "--trailcols"):
             suffixCols = int(v)
