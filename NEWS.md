@@ -7,6 +7,23 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.0.2] - 2024-02-24
+
+### Bug Fixes
+
+- Synchronize with upstream `haplo.stats`, fix some redundant checks by @alexlancaster (#196)
+
+### Internal
+
+- customize code security scanning for C extensions by @alexlancaster (#195)
+- Update numpy requirement from \<=1.26.3 to \<=1.26.4 by @dependabot (#193)
+
+### Documentation
+
+- Documentation updates including security policy by @alexlancaster (#194)
+
+[1.0.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.2
+
 ## [1.0.1] - 2024-02-11
 
 ### Features
