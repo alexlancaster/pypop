@@ -25,7 +25,7 @@
 *
 *Daniel J. Schaid, Ph.D.
 *Division of Biostatistics
-*Harwick Building û Room 775
+*Harwick Building Ã» Room 775
 *Mayo Clinic
 *200 First St., SW
 *Rochester, MN 55905
@@ -109,11 +109,9 @@ static void set_posterior(int n_hap, HAP **hap_list, int *random_start);
 
 static int ranAS183_seed(int iseed1, int iseed2, int iseed3);
 
-static double ranAS183();
+static double ranAS183(void);
 
 static void errmsg(char *string);
-
-static void compact(HAP **hap_list, int n, int *nReturn);
 
 static HAPUNIQUE* copy_hap_unique(HAP *old, double *prior);
 

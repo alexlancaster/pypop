@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
   size = sample.size;
 
   /* pass the parsed variables to do the main processing */
-  run_data(genotypes, allele_array, no_allele, total, step, group, size, title, outfile, 1);
+  run_data(genotypes, allele_array, no_allele, total, step, group, size, title, outfile, 1, 0);
 
   free(genotypes);
   free(allele_array);
