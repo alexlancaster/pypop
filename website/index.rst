@@ -24,10 +24,17 @@ large-scale population genetic analyses including:
   :class: dropdown, toggle-shown
 
 	  
-  * 2024-02-11: `PyPop 1.0.1
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.0.1>`__
+  * 2024-02-24: `PyPop 1.0.2
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.0.2>`__
     released and available on `PyPI
     <https://pypi.org/project/pypop-genomics/>`__.
+
+    - Cleanups as a result of code scanning.
+    - Update `numpy` to 1.26.4
+
+  * 2024-02-11: `PyPop 1.0.1
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.0.1>`__
+    released.
 
     - Adds support for more platforms: ``ARM64`` for Windows and Linux,
       and also ``muslinux`` wheels
