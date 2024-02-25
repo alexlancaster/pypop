@@ -13,9 +13,9 @@ name: "CodeQL"
 
 on:
   push:
-    branches: [ "main", "update_haplo_pin" ]
+    branches: [ "main", ]
   pull_request:
-    branches: [ "main", "update_haplo_pin" ]
+    branches: [ "main" ]
   schedule:
     - cron: '25 21 * * 1'
 
