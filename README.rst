@@ -17,14 +17,18 @@ available in the `PyPop User Guide <http://pypop.org/docs>`__.
 If you write a paper that uses PyPop in your analysis, please cite
 **both**:
 
-* our 2024 article, currently in review, available as a `Zenodo
-  preprint <https://doi.org/10.5281/zenodo.10602940>`__:
+* our 2024 article, `provisionally accepted
+  <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/abstract>`__
+  in *Frontiers in Immunology*:
 
       Lancaster AK, Single RM, Mack SJ, Sochat V, Mariani MP, Webster
       GD. (2024) "PyPop: A mature open-source software pipeline for
-      population genomics" (Preprint v1). Zenodo.
-      DOI:`10.5281/zenodo.10602940
-      <https://doi.org/10.5281/zenodo.10602940>`__.
+      population genomics."  *Front Immunol* **15**: doi:
+      `10.3389/fimmu.2024.1378512
+      <https://doi.org/10.3389/fimmu.2024.1378512>`__
+
+  (while it is being typeset, the accepted manuscript can be
+  downloaded via `Zenodo <https://doi.org/10.5281/zenodo.10799312>`__)
 
 * **and** the `Zenodo record <https://zenodo.org/records/10080667>`__
   for the software. To cite the correct version, follow these steps:
