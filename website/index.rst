@@ -23,7 +23,11 @@ large-scale population genetic analyses including:
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
-	  
+
+  * 2024-03-08: Latest PyPop paper, `provisionally accepted
+    <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/abstract>`__
+    in *Frontiers in Immunology*, :ref:`see citing PyPop
+    <citing-pypop>` for details.
   * 2024-02-24: `PyPop 1.0.2
     <https://github.com/alexlancaster/pypop/releases/tag/v1.0.2>`__
     released and available on `PyPI
@@ -101,7 +105,7 @@ Although it can be run on any kind of genotype data, it has additional
 support for analyzing population genotype with allelic nomenclature
 from the human leukocyte antigen (HLA) region.
 
-An outline of PyPop can be found in our 2024 preprint, and two
+An outline of PyPop can be found in our 2024 paper, and two
 previous :ref:`papers <citing-pypop>`.
 
 .. _guide-preface-2-end:
