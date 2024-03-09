@@ -21,9 +21,10 @@ If you write a paper that uses PyPop in your analysis, please cite
   <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/abstract>`__
   in *Frontiers in Immunology*:
 
-      Lancaster AK, Single RM, Mack SJ, Mariani MP. (2024) "PyPop: A
-      mature open-source software pipeline for population genomics."
-      *Front Immunol* **15**: doi: `10.3389/fimmu.2024.1378512
+      Lancaster AK, Single RM, Mack SJ, Sochat V, Mariani MP, Webster
+      GD. (2024) "PyPop: A mature open-source software pipeline for
+      population genomics."  *Front Immunol* **15**: doi:
+      `10.3389/fimmu.2024.1378512
       <https://doi.org/10.3389/fimmu.2024.1378512>`__
 
   (while it is being typeset, the accepted manuscript can be
