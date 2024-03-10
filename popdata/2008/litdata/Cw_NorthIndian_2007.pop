@@ -1,0 +1,28 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+Cw_NorthIndian_2007.pop	Cw	162	162	lit	NorthIndian_2007	Caucasian	04-SWA	India	3	normal healthy individuals residing in Delhi and originating from the neighbouring states of Uttar Pradesh Haryana and Punjab	28.66N	77.22E	1	1			Rani	2007	Molecular diversity of HLA-A, -B and -C alleles in a North Indian population as determined by PCR-SSOP	International Journal of Immunogenetics	34	201-208																			ODS
+C	count
+0602	22
+0401	19
+0702	16
+0302	13
+0701	13
+1202	13
+1203	13
+1502	10
+1503	6
+0102	5
+0704	5
+1602	4
+0304	3
+1505	3
+0202	2
+0402	2
+0501	2
+0801	2
+1402	2
+1504	2
+0303	1
+0803	1
+1403	1
+1601	1
+1701	1
