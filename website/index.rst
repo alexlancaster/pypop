@@ -48,18 +48,17 @@ large-scale population genetic analyses including:
     describing 1.0.0 released on Zenodo.
   * 2023-11-07: `PyPop 1.0.0
     <https://github.com/alexlancaster/pypop/releases/tag/v1.0.0>`__
-    released, highlights include:
-    
-    - PyPop now fully ported to Python 3.
-    - New asymmetric linkage disequilibrium (ALD) computations
-      :cite:p:`thomson_conditional_2014`:.
+    released
 
   * More details, including recent previous releases:
 
    .. toggle:: 
 
-    - More PyPop 1.0.0 features:
+    - Highlights of PyPop 1.0.0 include:
 
+      * PyPop now fully ported to Python 3.
+      * New asymmetric linkage disequilibrium (ALD) computations
+        :cite:p:`thomson_conditional_2014`:.
       * Improved tab-separated values (TSV) output file handling.
       * Preliminary support for `Genotype List (GL) String
         <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3715123/>`__.
