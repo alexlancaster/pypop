@@ -22,7 +22,7 @@ test-command = "pytest -v {package}/tests"
 
 # Skip trying to test arm64 builds on Intel Macs as per
 # https://cibuildwheel.readthedocs.io/en/stable/faq/#apple-silicon
-test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
+# test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
 # don't try and install pypi packages and build from source
 environment = { PIP_ONLY_BINARY=":all:" }
 
@@ -47,17 +47,17 @@ before-all="yum install -y swig gsl-devel"
 select = "*musllinux*"
 before-all = "apk add swig gsl-dev"
 
-[tool.cibuildwheel.macos]
+#[tool.cibuildwheel.macos]
 # do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
-before-build = [
-  "echo ARCHFLAGS = $ARCHFLAGS", # gets the arch at build-time
-  "if [[ $ARCHFLAGS == *arm64 ]]; then brew fetch --force --bottle-tag=arm64_big_sur gsl; brew reinstall $(brew --cache --bottle-tag=arm64_big_sur gsl); else brew reinstall gsl; fi"
- ]
+# before-build = [
+#  "echo ARCHFLAGS = $ARCHFLAGS", # gets the arch at build-time
+#  "if [[ $ARCHFLAGS == *arm64 ]]; then brew fetch --force --bottle-tag=arm64_big_sur gsl; brew reinstall $(brew --cache --bottle-tag=arm64_big_sur gsl); else brew reinstall gsl; fi"
+# ]
 # note that SWIG is already present on runners, no 'brew' installation neeeded
 
 # support cross-compilation on Apple Silicon
-archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
+#archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 
 [tool.cibuildwheel.windows]
 # use nuget to install gsl on Windows, and manually supply paths
