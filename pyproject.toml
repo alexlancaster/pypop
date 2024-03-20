@@ -51,7 +51,7 @@ before-all = "apk add swig gsl-dev"
 # do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
 before-build = "brew install swig gsl"
-environment = { CPATH="/opt/homebrew/Cellar" }
+environment = { CPATH="/opt/homebrew/include" }
 
 # before-build = [
 #  "echo ARCHFLAGS = $ARCHFLAGS", # gets the arch at build-time
