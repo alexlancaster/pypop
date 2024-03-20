@@ -58,9 +58,9 @@ environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib" 
 #  "if [[ $ARCHFLAGS == *arm64 ]]; then brew fetch --force --bottle-tag=arm64_big_sur gsl; brew reinstall $(brew --cache --bottle-tag=arm64_big_sur gsl); else brew reinstall gsl; fi"
 # ]
 # note that SWIG is already present on runners, no 'brew' installation neeeded
-
 # support cross-compilation on Apple Silicon
-#archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
+
+archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 
 [tool.cibuildwheel.windows]
 # use nuget to install gsl on Windows, and manually supply paths
