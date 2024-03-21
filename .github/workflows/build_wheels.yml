@@ -137,9 +137,7 @@ jobs:
           else
             MATRIX=$(
               {
-              echo '{"only": "pp38-macosx_arm64", "os": "macos-14"}' \
-              && echo '{"only": "pp39-macosx_arm64", "os": "macos-14"}' \
-              && cibuildwheel --print-build-identifiers --platform linux \
+              cibuildwheel --print-build-identifiers --platform linux \
               | jq -nRc '{"only": inputs, "os": "ubuntu-20.04"}' \
               && cibuildwheel --print-build-identifiers --platform macos --archs x86_64 \
               | jq -nRc '{"only": inputs, "os": "macos-11"}' \
