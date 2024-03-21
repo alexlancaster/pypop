@@ -50,7 +50,8 @@ before-all = "apk add swig gsl-dev"
 [tool.cibuildwheel.macos]
 # do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
-before-build = "brew install swig gsl"
+before-all = "brew install swig gsl"
+inherit.environment="append"
 environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib" }
 
 # before-build = [
@@ -65,8 +66,9 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 [tool.cibuildwheel.windows]
 # use nuget to install gsl on Windows, and manually supply paths
 before-all = "nuget install gsl-msvc14-x64 -Version 2.3.0.2779"
-# note that we have to repeat the global PIP_ONLY_BINARY config, because this variables overwrites previous defines
-environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static", PIP_ONLY_BINARY=":all:" }
+# no need to repeat the global PIP_ONLY_BINARY config, it is inherited from earlier config
+inherit.environment="append"
+environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static" }
 
 [build-system]
 build-backend = "setuptools.build_meta:__legacy__"
