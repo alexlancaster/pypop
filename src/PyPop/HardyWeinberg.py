@@ -39,13 +39,25 @@
 """
 
 import sys, os, subprocess, io
-from PyPop import _Pvalue
 from math import pow, sqrt
 from tempfile import TemporaryDirectory
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
 # this can clash with a character within an allele identifier too easily
 from PyPop.Utils import getStreamType, TextOutputStream, GENOTYPE_SEPARATOR
 from PyPop.Arlequin import ArlequinExactHWTest
+
+use_scipy = False
+
+def pval(chisq, dof):
+
+  if use_scipy:
+    from scipy.stats import chi2
+    p_value = 1 - chi2.cdf(chisq, dof)
+  else:
+    from PyPop import _Pvalue
+    p_value  = _Pvalue.pval(chisq, dof)
+
+  return p_value
 
 def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
 
@@ -299,7 +311,7 @@ class HardyWeinberg:
       squareMe = self.totalHomsObs - self.totalHomsExp
       self.totalChisqHoms = (squareMe * squareMe) / self.totalHomsExp
 
-      self.chisqHomsPval = _Pvalue.pval(self.totalChisqHoms, 1)
+      self.chisqHomsPval = pval(self.totalChisqHoms, 1)
       self.flagHoms = 1
 
     # next all the heterozygotes
@@ -307,7 +319,7 @@ class HardyWeinberg:
       squareMe = self.totalHetsObs - self.totalHetsExp
       self.totalChisqHets = (squareMe * squareMe) / self.totalHetsExp
 
-      self.chisqHetsPval = _Pvalue.pval(self.totalChisqHets, 1)
+      self.chisqHetsPval = pval(self.totalChisqHets, 1)
       self.flagHets = 1
 
     # now the values for heterozygoous genotypes by allele
@@ -320,7 +332,7 @@ class HardyWeinberg:
           squareMe = self.hetsObservedByAllele[allele] - self.hetsExpectedByAllele[allele]
           self.hetsChisqByAllele[allele] = (squareMe * squareMe) / self.hetsExpectedByAllele[allele]
 
-          self.hetsPvalByAllele[allele] = _Pvalue.pval(self.hetsChisqByAllele[allele], 1)
+          self.hetsPvalByAllele[allele] = pval(self.hetsChisqByAllele[allele], 1)
 
           if self.debug:
             print('By Allele:    obs exp   chi        p')
@@ -331,7 +343,7 @@ class HardyWeinberg:
       for genotype in self.observedGenotypeCounts.keys():
         chenChiSquare = _chen_statistic(genotype, self.alleleFrequencies,
                             self.observedGenotypeCounts, self.alleleTotal)
-        self.chenPvalByGenotype[genotype] = _Pvalue.pval(chenChiSquare,1)
+        self.chenPvalByGenotype[genotype] = pval(chenChiSquare,1)
 
     # the list for all genotypes by genotype
     for genotype in self.expectedGenotypeCounts.keys():
@@ -343,7 +355,7 @@ class HardyWeinberg:
         squareMe = self.observedGenotypeCounts[genotype] - self.expectedGenotypeCounts[genotype]
 
         self.chisqByGenotype[genotype] = (squareMe * squareMe) / self.expectedGenotypeCounts[genotype]
-        self.pvalByGenotype[genotype] = _Pvalue.pval(self.chisqByGenotype[genotype],1)
+        self.pvalByGenotype[genotype] = pval(self.chisqByGenotype[genotype],1)
         
         if self.debug:
           print('By Genotype:  obs exp   chi        p')
@@ -385,7 +397,7 @@ class HardyWeinberg:
         squareMe = observedCount - self.expectedGenotypeCounts[genotype]
         self.chisq[genotype] = (squareMe * squareMe) / self.expectedGenotypeCounts[genotype]
 
-        self.chisqPval[genotype] = _Pvalue.pval(self.chisq[genotype], 1)
+        self.chisqPval[genotype] = pval(self.chisq[genotype], 1)
         
         self.commonChisqAccumulator += self.chisq[genotype]
         self.commonObservedAccumulator += observedCount
@@ -420,7 +432,7 @@ class HardyWeinberg:
       self.HWChisq = self.commonChisqAccumulator
 
       self.HWChisqDf = (float(self.k) * (float(self.k - 1.0))) / 2.0
-      self.HWChisqPval = _Pvalue.pval(self.commonChisqAccumulator, self.HWChisqDf)
+      self.HWChisqPval = pval(self.commonChisqAccumulator, self.HWChisqDf)
 
       self.flagCommons = 1
       self.flagNoRareGenotypes = 1
@@ -455,7 +467,7 @@ class HardyWeinberg:
           squareMe = self.lumpedObservedGenotypes - self.lumpedExpectedGenotypes
           self.lumpedChisq = (squareMe * squareMe) / self.lumpedExpectedGenotypes
 
-          self.lumpedChisqPval = _Pvalue.pval(self.lumpedChisq, 1)
+          self.lumpedChisqPval = pval(self.lumpedChisq, 1)
             
           self.flagLumps = 1
 
@@ -469,7 +481,7 @@ class HardyWeinberg:
         # Do commons by themselves first
         self.HWChisq = self.commonChisqAccumulator
         self.HWChisqDf = self.commonDf
-        self.HWChisqPval = _Pvalue.pval(self.HWChisq, self.HWChisqDf)
+        self.HWChisqPval = pval(self.HWChisq, self.HWChisqDf)
         self.flagCommons = 1
 
         if self.flagLumps == 1:
@@ -478,7 +490,7 @@ class HardyWeinberg:
           self.commonPlusLumpedObserved = self.commonObservedAccumulator + self.lumpedObservedGenotypes
           self.commonPlusLumpedExpected = self.commonExpectedAccumulator + self.lumpedExpectedGenotypes
           self.commonPlusLumpedChisqDf = self.commonDf
-          self.commonPlusLumpedChisqPval = _Pvalue.pval(self.commonPlusLumpedChisq, self.commonPlusLumpedChisqDf)
+          self.commonPlusLumpedChisqPval = pval(self.commonPlusLumpedChisq, self.commonPlusLumpedChisqDf)
           
           self.flagCommonPlusLumped = 1
 

@@ -256,7 +256,7 @@ setup (name = __pkgname__,
                            "importlib-resources; python_version <= '3.8'",
                            "importlib-metadata; python_version <= '3.8'"],
        extras_require={
-           "test": ['pytest']
+           "test": ['pytest', 'pytest-benchmark[histogram]', 'scipy']
            # FIXME:  "psutil <= 5.9.5", not currently used, 5.9.6 and later had problems with building on Windows PyPy
            },
        entry_points = {
