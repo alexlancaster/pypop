@@ -46,17 +46,16 @@ from tempfile import TemporaryDirectory
 from PyPop.Utils import getStreamType, TextOutputStream, GENOTYPE_SEPARATOR
 from PyPop.Arlequin import ArlequinExactHWTest
 
+from scipy.stats import chi2
+from PyPop import _Pvalue
+
 use_scipy = False
 
 def pval(chisq, dof):
-
   if use_scipy:
-    from scipy.stats import chi2
     p_value = 1 - chi2.cdf(chisq, dof)
   else:
-    from PyPop import _Pvalue
     p_value  = _Pvalue.pval(chisq, dof)
-
   return p_value
 
 def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
