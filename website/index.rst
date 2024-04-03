@@ -24,10 +24,10 @@ large-scale population genetic analyses including:
   :class: dropdown, toggle-shown
 
 
-  * 2024-03-08: Latest PyPop paper, `provisionally accepted
-    <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/abstract>`__
-    in *Frontiers in Immunology*, :ref:`see citing PyPop
-    <citing-pypop>` for details.
+  * 2024-04-01: PyPop paper `published
+    <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
+    in *Frontiers in Immunology*, :ref:`see citing PyPop <citing-pypop>` for details.
+  * 2024-03-08: PyPop paper, provisionally accepted.
   * 2024-02-24: `PyPop 1.0.2
     <https://github.com/alexlancaster/pypop/releases/tag/v1.0.2>`__
     released and available on `PyPI
