@@ -1,9 +1,6 @@
 cff-version: 1.2.0
 message: >-
-  If you use this software, please cite both the software itself, as well as the
-  article Lancaster AK et al. (2024) 'PyPop: A mature open-source software
-  pipeline for population genomics (Preprint v1). Zenodo.
-  DOI:10.5281/zenodo.10602940 https://doi.org/10.5281/zenodo.10602940
+  If you use this software, please cite both the software itself, as well as the article Lancaster AK et al. (2024) <a href=\"https://doi.org/10.3389/fimmu.2024.1378512\">PyPop: A mature open-source software pipeline for population genomics</a>. <i>Front. Immunol.</i> <b>15</b>:1378512. doi: 10.3389/fimmu.2024.1378512
 abstract: >-
   PyPop for Population Genomics (PyPop) is a Python program for processing
   genotype and allele data and running population genetic analyses, including
