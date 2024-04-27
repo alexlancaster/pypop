@@ -76,7 +76,7 @@ jobs:
           sphinx-build website _build
 
       - name: Deploy to beta site
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         # only update beta site if base and head branches match, not for forks
         # forks cannot access secrets to deploy, see: https://github.com/orgs/community/discussions/26829
         if: ${{ (github.event.pull_request.base.repo.full_name == github.event.pull_request.head.repo.full_name) }}
@@ -88,7 +88,7 @@ jobs:
           force_orphan: true
 
       - name: Deploy to production
-        uses: peaceiris/actions-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v4
         # only update on either a push on main, or published release on the main
         if: ${{ (github.ref == 'refs/heads/main' && github.event_name == 'push') || (github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published') }}
         with:
