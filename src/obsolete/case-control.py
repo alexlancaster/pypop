@@ -1,18 +1,18 @@
-#! /usr/bin/env python
+#!/usr/bin/env python
 
-import sys, os, string, glob, re
-from Haplo import HaploArlequin
-from Utils import OrderedDict
+import sys, os, glob, re
+from PyPop.Haplo import HaploArlequin
+from PyPop.Utils import OrderedDict
 
 # global summary table
 summaryTable = OrderedDict()
 
 def stripSuffix(filename):
-    return string.split(os.path.basename(filename), '.')[0]
+    return os.path.basename(filename).split('.')[0]
 
 def lociListSuffix(lociList):
     suffix = ""
-    print(lociList, len(lociList)
+    print(lociList, len(lociList))
     for i in lociList:
         print("locus:", i)
         extra = "%02d" % i
@@ -64,9 +64,9 @@ def recordSummary(data, popName, lociList):
         elif re.search(pattSep, line):
             startrecording = 0
         elif re.search(pattTotal, line):
-            totalsig = (string.split(line)[6])[8:]
+            totalsig = (line.split()[6])[8:]
         elif startrecording:
-            sig = (string.split(line)[6])[8:]
+            sig = (line.split()[6])[8:]
             if len(sig) > len(mostsigsofar):
                 mostsigsofar = sig
 
@@ -176,7 +176,7 @@ if len(sys.argv) >= 5:
         debug = 1
     if len(sys.argv) == 6:
         print(sys.argv[5])
-        mapOrder = map(int, string.split(sys.argv[5], ','))
+        mapOrder = map(int, sys.argv[5].split(','))
         print(mapOrder)
 
 if len(listcases) == len(listcontrols):

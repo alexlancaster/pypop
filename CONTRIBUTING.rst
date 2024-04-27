@@ -603,6 +603,63 @@ from scratch, run the ``clean`` command:
 
    ./setup clean --all
 
+Install package from GitHub Releases
+====================================
+
+Packages that are released to PyPI, are also available via the
+releases on the GitHub release page:
+
+   https://github.com/alexlancaster/pypop/releases
+
+.. warning::
+
+   We recommend installing binary packages using the main PyPI
+   repository, **not** via the GitHub release packages. However from
+   time to time, we also sometimes make binary packages that are not
+   necessarily also released via PyPI. In addition, if PyPI is
+   unavailable, you may want to install directly from the GitHub
+   release.  These instructions will help you do that.
+
+Installing these packages is similar to installing via PyPI, except
+that you need to explicitly provide a URL to the release page.
+   
+1. First, visit the release page, and choose the release version you
+   wish to install (usually the most recent), and note the release tag
+   (e.g. ``v1.0.0``).
+
+   .. admonition:: Release version numbers
+
+      Note that version of the release is slightly different to the
+      ``git`` tag.  This is because the ``git`` tag follows `Semantic
+      Versioning <https://semver.org/>`__, which Python internally
+      normalizes and abbreviates.  So the release with the ``git`` tag
+      ``v1.0.0`` is actually version ``1.0.0`` of the |pkgname|
+      package, and the version that ``pip`` "sees" (the difference is
+      more notable with prereleases which might have a ``git`` tag of
+      ``v1.0.0-rc2`` but the PyPI version will be ``1.0.0rc2``).
+
+2. Next, use ``pip`` to install the package by running a command of
+   the form (this will select and install the correct wheel for your
+   Python version and operating system automatically):
+
+   .. code-block:: shell
+      
+      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
+
+   where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
+
+   .. code-block:: shell
+   
+      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0
+
+   You can also manually download the specific wheel from the github
+   release webpage and install directly, e.g.:
+
+   .. code-block:: shell
+   
+      pip install pypop_genomics-1.0.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
+   
+   
 Making a documentation or website contribution
 ==============================================
 

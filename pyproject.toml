@@ -22,7 +22,7 @@ test-command = "pytest -v {package}/tests"
 
 # Skip trying to test arm64 builds on Intel Macs as per
 # https://cibuildwheel.readthedocs.io/en/stable/faq/#apple-silicon
-test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
+# test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
 # don't try and install pypi packages and build from source
 environment = { PIP_ONLY_BINARY=":all:" }
 
@@ -50,21 +50,29 @@ before-all = "apk add swig gsl-dev"
 [tool.cibuildwheel.macos]
 # do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
-before-build = [
-  "echo ARCHFLAGS = $ARCHFLAGS", # gets the arch at build-time
-  "if [[ $ARCHFLAGS == *arm64 ]]; then brew fetch --force --bottle-tag=arm64_big_sur gsl; brew reinstall $(brew --cache --bottle-tag=arm64_big_sur gsl); else brew reinstall gsl; fi"
- ]
+before-all = "brew install swig gsl"
+# before-build = [
+#  "echo ARCHFLAGS = $ARCHFLAGS", # gets the arch at build-time
+#  "if [[ $ARCHFLAGS == *arm64 ]]; then brew fetch --force --bottle-tag=arm64_big_sur gsl; brew reinstall $(brew --cache --bottle-tag=arm64_big_sur gsl); else brew reinstall gsl; fi"
+# ]
 # note that SWIG is already present on runners, no 'brew' installation neeeded
-
 # support cross-compilation on Apple Silicon
 archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
+
+[[tool.cibuildwheel.overrides]]
+select = "*-macosx_*"
+inherit.environment="append"
+environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib" }
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
 # use nuget to install gsl on Windows, and manually supply paths
 before-all = "nuget install gsl-msvc14-x64 -Version 2.3.0.2779"
-# note that we have to repeat the global PIP_ONLY_BINARY config, because this variables overwrites previous defines
-environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static", PIP_ONLY_BINARY=":all:" }
+
+[[tool.cibuildwheel.overrides]]
+select ="*-win_*"
+inherit.environment="append"
+environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static" }
 
 [build-system]
 build-backend = "setuptools.build_meta:__legacy__"

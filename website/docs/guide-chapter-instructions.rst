@@ -8,6 +8,21 @@ results. The text output, generated from the XML file via XSLT, contains
 a human-readable summary of the XML results. Below we discuss the output
 contained in this text file.
 
+.. warning::
+
+   The text output we discuss below is strictly intended for
+   consumption by an end-user, or incorporation into a paper. You
+   should never extract information from this text file output to
+   perform any downstream analyses (e.g. don't take the values in the
+   output and paste them into another program).  This is because the
+   results are rounded for space, and you may lose a lot of precision
+   if you use any floating-point output in further analyses.
+
+   You should use the :ref:`TSV outputs <guide-usage-popmeta>` for
+   maximum precision (which, in turn, are derived from the raw XML
+   output) for such analyses.
+
+
 .. _instructions-pop-summary:
 
 Population summary

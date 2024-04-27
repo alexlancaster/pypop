@@ -17,30 +17,46 @@ available in the `PyPop User Guide <http://pypop.org/docs>`__.
 If you write a paper that uses PyPop in your analysis, please cite
 **both**:
 
-1. our 2007 paper from *Tissue Antigens*:
+* our `2024 article
+  <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
+  in *Frontiers in Immunology*:
 
-      Lancaster AK, Single RM, Solberg OD, Nelson MP and G
-      Thomson (2007) "PyPop update - a software pipeline for
-      large-scale multilocus population genomics" *Tissue Antigens* 69
-      (s1), 192-197.  [`journal page
-      <http://dx.doi.org/10.1111/j.1399-0039.2006.00769.x>`__,
-      `preprint PDF (112 kB)
-      <http://pypop.org/tissue-antigens-lancaster-2007.pdf>`__].
+      Lancaster AK, Single RM, Mack SJ, Sochat V, Mariani MP, Webster
+      GD. (2024) "PyPop: A mature open-source software pipeline for
+      population genomics."  *Front. Immunol.* **15**:1378512 doi:
+      `10.3389/fimmu.2024.1378512
+      <https://doi.org/10.3389/fimmu.2024.1378512>`__
 
-2. **and** the Zenodo record for the software.  Citation metadata for
-   the current Zenodo record is stored in `CITATION.cff
-   <https://github.com/alexlancaster/pypop/blob/main/CITATION.cff>`__
-   It will be of the form and contain link to the DOI:
+* **and** the `Zenodo record <https://zenodo.org/records/10080667>`__
+  for the software. To cite the correct version, follow these steps:
 
-      Lancaster, AK et al. (2023) "PyPop: Python for Population
-      Genomics" (Version 1.0.0) [Computer
-      software]. https://doi.org/10.5281/zenodo.XXXXX
+  1) First visit the DOI for the overall Zenodo record:
+     `10.5281/zenodo.10080667
+     <https://zenodo.org/doi/10.5281/zenodo.10080667>`__. This DOI
+     represents **all versions**, and will always resolve to the
+     latest one.
 
-   When you follow the DOI link to the Zenodo record, you will see all
-   the versions listed on the right, make sure you choose the
-   version-specific DOI that matches the specific version of PyPop in
-   your citation.
-      
+  2) When you are viewing the record, look for the **Versions** box
+     in the right-sidebar. Here are listed all versions (including
+     older versions).
+
+  3) Select and click the version-specific DOI that matches the
+     specific version of PyPop that you used for your analysis.
+
+  4) Once you are visiting the Zenodo record for the specific version,
+     under the **Citation** box in the right-sidebar, select the
+     citation format you wish to use and click to copy the citation.
+     It will contain link to the version-specific DOI, and be of the
+     form:
+
+       Lancaster, AK et al. (YYYY) "PyPop: Python for Population
+       Genomics" (Version X.Y.Z) [Computer
+       software]. Zenodo. https://doi.org/10.5281/zenodo.XXXXX
+
+  Note that citation metadata for the current Zenodo record is also
+  stored in `CITATION.cff
+  <https://github.com/alexlancaster/pypop/blob/main/CITATION.cff>`__
+   
 .. _guide-include-pypop-cite-end:
 
 .. _guide-include-start:
@@ -226,7 +242,6 @@ used, by appending the following:
    --extra-index-url https://test.pypi.org/simple/
 
 to the above ``pip`` commands.
-
    
 **Issues with installation permission**
 
@@ -264,53 +279,6 @@ install into the expected user directory.
    then you should **not** add the ``--user`` because it will install
    it in ``~/.local/lib/`` rather than under the user-specific conda
    virtual environment in ``~/.conda/envs/``.
-  
-Install package from GitHub Releases (advanced)
------------------------------------------------
-
-We also sometimes make binary packages also available from the GitHub
-release page:
-
-   https://github.com/alexlancaster/pypop/releases
-
-To install these is similar to installing via PyPI above, except that
-you need to explicitly provide a URL to the release page.
-   
-1. First, visit the release page, and choose the release version you
-   wish to install (usually the most recent), and note the release tag
-   (e.g. ``v1.0.0``).
-
-   .. admonition:: Release version numbers
-
-      Note that version of the release is slightly different to the
-      ``git`` tag.  This is because the ``git`` tag follows `Semantic
-      Versioning <https://semver.org/>`__, which Python internally
-      normalizes and abbreviates.  So the release with the ``git`` tag
-      ``v1.0.0`` is actually version ``1.0.0`` of the |pkgname|
-      package, and the version that ``pip`` "sees" (the difference is
-      more notable with prereleases which might have a ``git`` tag of
-      ``v1.0.0-rc2`` but the PyPI version will be ``1.0.0rc2``).
-
-2. Next, use ``pip`` to install the package by running a command of
-   the form (this will select and install the correct wheel for your
-   Python version and operating system automatically):
-
-   .. code-block:: shell
-      
-      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
-
-   where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
-
-   .. code-block:: shell
-   
-      pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0
-
-   You can also manually download the specific wheel from the github
-   release webpage and install directly, e.g.:
-
-   .. code-block:: shell
-   
-      pip install pypop_genomics-1.0.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
 		
 Post-install ``PATH`` adjustments
 ---------------------------------
@@ -368,11 +336,15 @@ The development of the code for PyPop is via our GitHub project:
 For a detailed description on bug reporting as well as how to
 contribute to PyPop, please consult our `CONTRIBUTING.rst
 <https://github.com/alexlancaster/pypop/blob/main/CONTRIBUTING.rst>`_
-guide. We also have additional notes and background relevant for
-developers in `DEV_NOTES.md
+guide. For reporting security vulnerabilities visit `SECURITY.md
+<https://github.com/alexlancaster/pypop/blob/main/SECURITY.md>`__.
+
+We also have additional notes and background relevant for developers
+in `DEV_NOTES.md
 <https://github.com/alexlancaster/pypop/blob/main/DEV_NOTES.md>`__. Source
 for the website and the documentation is located in the `website
-<https://github.com/alexlancaster/pypop/blob/main/website>`__ subdirectory.
+<https://github.com/alexlancaster/pypop/blob/main/website>`__
+subdirectory.
 
 Copyright and License
 =====================
