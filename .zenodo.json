@@ -64,7 +64,7 @@
     {
       "affiliations": [
         {
-          "name": "Michael Mariani LLC"
+          "name": "Mariani Systems LLC"
         },
         {
           "id": "0155zta11",
@@ -168,15 +168,21 @@
     },
     {
       "scheme": "url",
-      "identifier": "https://github.com/alexlancaster/pypop/tree/v1.0.0",
+      "identifier": "https://github.com/alexlancaster/pypop/tree/v1.0.2",
       "relation": "isSupplementTo",
       "resource_type": "software"
     },
     {
       "scheme": "url",
-      "identifier": "https://pypi.org/project/pypop-genomics/1.0.0",
+      "identifier": "https://pypi.org/project/pypop-genomics/1.0.2",
       "relation": "isSourceOf",
       "resource_type": "software"
+    },
+    {
+      "scheme": "doi",
+      "identifier": "10.5281/zenodo.10602939",
+      "relation": "isDescribedBy",
+      "resource_type": "publication-preprint"
     },
     {
       "scheme": "url",
@@ -193,7 +199,7 @@
   ],
   "additional_descriptions": [
     {
-      "description": "If you use this software, please cite both the software itself, as well as the the article Lancaster AK et al. (2007) <a href=\"https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784/\">\"PyPop update – a software pipeline for large-scale multilocus population genomics\"</a> Tissue Antigens 69(1):192-197 DOI: 10.1111/j.1399-0039.2006.00769.x",
+      "description": "If you use this software, please cite both the software itself, as well as the article Lancaster AK et al. (2024) <a href=\"https://doi.org/10.3389/fimmu.2024.1378512\">PyPop: A mature open-source software pipeline for population genomics</a>. <i>Front. Immunol.</i> <b>15</b>:1378512. doi: 10.3389/fimmu.2024.1378512",
       "type": {
         "id": "notes"
       }
@@ -207,5 +213,5 @@
   ],
   "title": "PyPop: Python for Population Genomics",
   "upload_type": "software",
-  "version": "v1.0.0"
+  "version": "v1.0.2"
 }

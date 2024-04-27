@@ -33,8 +33,11 @@ MODIFICATIONS.
 -->
 <xsl:stylesheet 
  version='1.0'
- xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+ xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+ xmlns:es="http://pypop.org/lxml/functions">
 
+ <xsl:param name="use-python-extensions" select="1"/>
+  
  <!-- contains a library of named templates not specific to any DTD or
  XML schema -->
 
@@ -100,9 +103,18 @@ MODIFICATIONS.
       <xsl:with-param name="length" select="$places + 2"/>
      </xsl:call-template>
     </xsl:variable>
-    <xsl:value-of 
-     select="format-number((round($factor * $node) div $factor),
-     $format)"/>
+
+    <xsl:choose>
+      <xsl:when test="$use-python-extensions = 1">
+	<!-- if enabled, use Python extension to use scientific notation if necessary -->
+	<xsl:value-of select="es:format_number_fixed_width(string($node), $places)"/>
+      </xsl:when>
+      <xsl:otherwise>
+	<!-- otherwise, as a fallback, just round it (doesn't do the scientific notation) -->
+	<xsl:value-of 
+	    select="format-number((round($factor * $node) div $factor),$format)"/>
+      </xsl:otherwise>
+    </xsl:choose>
    </xsl:when>
    <!-- if not a number (NaN) return as text -->
    <xsl:otherwise><xsl:value-of select="$node"/></xsl:otherwise>

@@ -22,6 +22,7 @@ categories:
     labels:
       - 'github_actions'
       - 'dependencies'
+      - 'internal'
   - title: 'Documentation'
     labels:
       - 'documentation'
@@ -48,7 +49,7 @@ template: |
   ```
   <!-- START cut-and-paste to NEWS.md -->
 
-  ## $RESOLVED_VERSION - YYYY-MM-DD
+  ## [$RESOLVED_VERSION] - YYYY-MM-DD
   
   $CHANGES
 
