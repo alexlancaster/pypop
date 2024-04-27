@@ -433,7 +433,7 @@ class StringMatrix(container):
       if locus:
           locusList = locus
       else:
-          locusList = (self.colList).join(':')
+          locusList = ':'.join(self.colList)
 
       # next write out the allele column headers
       for elem in locusList.split(':'):
@@ -442,7 +442,7 @@ class StringMatrix(container):
       stream.write('\n')
 
       # finally the matrix itself
-      for row in self.__getitem__(self.extraList.join(':')+ ':' + \
+      for row in self.__getitem__(':'.join(self.extraList)+ ':' + \
                                   locusList):
           for elem in row:
               stream.write(elem + self.colSep)

@@ -16,5 +16,6 @@ def test_100k_Emhaplofreq():
     assert exit_code == 0
     # compare with md5sum of output file
     # FIXME: disable for the moment
-    # assert hashlib.md5(open("Test_100k_20loci_Dataset-out.txt", 'rb').read()).hexdigest() == 'd899396e90d99ad9eb2002506e699091'
+    # with open("Test_100k_20loci_Dataset-out.txt", 'rb') as out_handle:
+    #    assert hashlib.md5(out_handle.read()).hexdigest() == 'd899396e90d99ad9eb2002506e699091'
 

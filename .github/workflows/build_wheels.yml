@@ -19,6 +19,7 @@ on:
       - '.github/workflows/documentation.yaml'
       - '.github/workflows/buildjet_arm64.yml'
       - '.github/workflows/release-drafter.yml'
+      - '.github/workflows/codeql.yml'      
       - '.gitattributes'
   push:
     paths-ignore:
@@ -33,6 +34,7 @@ on:
       - '.github/workflows/documentation.yaml'
       - '.github/workflows/buildjet_arm64.yml'      
       - '.github/workflows/release-drafter.yml'
+      - '.github/workflows/codeql.yml'      
       - '.gitattributes'
   release:
     types:
@@ -102,10 +104,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
-        # uses: zenodraft/action@0.10.0
-        uses: alexlancaster/zenodraft-action@0.10.2
+        uses: zenodraft/action@0.13.3
+        # uses: alexlancaster/zenodraft-action@0.10.2
         with:
-          collection: 10080667
+          concept: 10080667
           metadata: .zenodo.json
           publish: false
           sandbox: false
@@ -126,19 +128,21 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install cibuildwheel
         # Nb. keep cibuildwheel version pin consistent with job below
-        run: pipx install cibuildwheel==2.16.2
+        run: pipx install cibuildwheel==2.17.0
       - id: set-matrix
         run: |
           echo "CI_ONLY" $CI_ONLY
           if [ "$CI_ONLY" == "true" ]; then
-            MATRIX="[{'only':'cp312-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp312-win_amd64','os':'windows-2019'}, {'only':'cp312-macosx_x86_64','os':'macos-11'}, {'only':'cp312-macosx_arm64','os':'macos-11'}]"
+            MATRIX="[{'only':'cp312-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp312-win_amd64','os':'windows-2019'}, {'only':'cp312-macosx_x86_64','os':'macos-11'}, {'only':'cp312-macosx_arm64','os':'macos-14'}]"
           else
             MATRIX=$(
               {
               cibuildwheel --print-build-identifiers --platform linux \
               | jq -nRc '{"only": inputs, "os": "ubuntu-20.04"}' \
-              && cibuildwheel --print-build-identifiers --platform macos \
+              && cibuildwheel --print-build-identifiers --platform macos --archs x86_64 \
               | jq -nRc '{"only": inputs, "os": "macos-11"}' \
+              && cibuildwheel --print-build-identifiers --platform macos --archs arm64 \
+              | jq -nRc '{"only": inputs, "os": "macos-14"}' \
               && cibuildwheel --print-build-identifiers --platform windows \
               | jq -nRc '{"only": inputs, "os": "windows-2019"}'
             } | jq -sc
@@ -149,7 +153,7 @@ jobs:
         env:
            # only generate all wheels on releases, pull requests or commits to the main branch
            # otherwise just generate a test wheel Python 3.12 for 4 platform
-           CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' }}
+           CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
           
   build_wheels:
     name: Build wheels on ${{ matrix.only }}
@@ -170,8 +174,16 @@ jobs:
           fetch-depth: 0
           # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
+      - name: Set up QEMU
+        if: runner.os == 'Linux'
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: all          
       - name: Build and test wheels
-        uses: pypa/cibuildwheel@v2.16.2
+        uses: pypa/cibuildwheel@v2.17.0
+        env:
+          # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
+          CIBW_TEST_COMMAND: "pytest -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
         with:
           only: ${{ matrix.only }}
           package-dir: .
@@ -212,7 +224,7 @@ jobs:
           # unpacks default artifact into dist/
           path: dist
           merge-multiple: true
-      - uses: softprops/action-gh-release@v1
+      - uses: softprops/action-gh-release@v2
         name: Uploading binaries to release page
         with:
           files: dist/*

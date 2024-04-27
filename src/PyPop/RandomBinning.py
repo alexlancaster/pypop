@@ -62,8 +62,8 @@ class RandomBinsForHomozygosity:
         self.numReplicates = numReplicates
         self.debug = debug
         self.locus = locus
-        self.filename = string.split(filename, ".")[-2]
-        self.filename = string.split(self.filename, "/")[-1]
+        self.filename = filename.split(".")[-2]
+        self.filename = self.filename.split("/")[-1]
         self.xmlStream = xmlfile
         self.debug = debug
         self.logFile = logFile
@@ -87,8 +87,8 @@ class RandomBinsForHomozygosity:
         stats = hzExactObj.returnBulkHomozygosityStats(self.alleleCountDict, binningMethod=self.binningMethod)
 
         for s in stats:
-            for m in xrange(stats[s]):
-                s = map(str, s)
+            for m in range(stats[s]):
+                s = list(map(str, s))
                 self.randomResultsFile.write("\t".join([self.filename, self.locus] + s) + "\n")
 
         self.randomResultsFile.close()
@@ -116,7 +116,7 @@ class RandomBinsForHomozygosity:
         alleleCountsAfter = alleleCountsAfter.values()
 
         for i in range(self.binningReplicates):
-            alleleCountsRand = copy(alleleCountsBefore)
+            alleleCountsRand = copy(list(alleleCountsBefore))
 
             while len(alleleCountsRand) > len(alleleCountsAfter):
                 bin1 = randrange(0,len(alleleCountsRand),1)

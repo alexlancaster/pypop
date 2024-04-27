@@ -23,27 +23,50 @@ large-scale population genetic analyses including:
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
+
+  * 2024-04-01: PyPop paper `published
+    <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
+    in *Frontiers in Immunology*, :ref:`see citing PyPop <citing-pypop>` for details.
+  * 2024-03-08: PyPop paper, provisionally accepted.
+  * 2024-02-24: `PyPop 1.0.2
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.0.2>`__
+    released and available on `PyPI
+    <https://pypi.org/project/pypop-genomics/>`__.
+
+    - Cleanups as a result of code scanning.
+    - Update ``numpy`` to 1.26.4
+
+  * 2024-02-11: `PyPop 1.0.1
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.0.1>`__
+    released.
+
+    - Adds support for more platforms: ``ARM64`` for Windows and Linux,
+      and also ``muslinux`` wheels
+    - Better support for scientific notation in text output
+     
+  * 2024-02-01: `Preprint <https://zenodo.org/records/10602940>`__
+    describing 1.0.0 released on Zenodo.
   * 2023-11-07: `PyPop 1.0.0
     <https://github.com/alexlancaster/pypop/releases/tag/v1.0.0>`__
-    released and available on `PyPI
-    <https://pypi.org/project/pypop-genomics/>`__, highlights include:
-    
-    - PyPop now fully ported to Python 3.
-    - New asymmetric linkage disequilibrium (ALD) computations
-      :cite:p:`thomson_conditional_2014`:.
-    - Improved tab-separated values (TSV) output file handling.
-    - Preliminary support for `Genotype List (GL) String
-      <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3715123/>`__.
-    - Unit tests, new documentation system, continuous integration
-      framework and PyPI package
-    - and even more minor features and bug fixes... (see
-      `NEWS.md
-      <https://github.com/alexlancaster/pypop/blob/main/NEWS.md#100---2023-11-07>`__).
+    released
 
-  * Recent previous releases:
+  * More details, including recent previous releases:
 
    .. toggle:: 
 
+    - Highlights of PyPop 1.0.0 include:
+
+      * PyPop now fully ported to Python 3.
+      * New asymmetric linkage disequilibrium (ALD) computations
+        :cite:p:`thomson_conditional_2014`:.
+      * Improved tab-separated values (TSV) output file handling.
+      * Preliminary support for `Genotype List (GL) String
+        <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3715123/>`__.
+      * Unit tests, new documentation system, continuous integration
+        framework and PyPI package
+      * and even more minor features and bug fixes... (see
+        `NEWS.md <https://github.com/alexlancaster/pypop/blob/main/NEWS.md#100---2023-11-07>`__).
+      
     - 2023-11-04: release candidate 2 (1.0.0rc2) released. Fixes some
       missing TSV output.
     - 2023-11-01: release candidate 1 (1.0.0rc1) released.
@@ -81,8 +104,8 @@ Although it can be run on any kind of genotype data, it has additional
 support for analyzing population genotype with allelic nomenclature
 from the human leukocyte antigen (HLA) region.
 
-An outline of PyPop can be found in our 2007 *Tissue Antigens* and
-2003 *PSB* :ref:`papers <citing-pypop>`.
+An outline of PyPop can be found in our 2024 paper, and two
+previous :ref:`papers <citing-pypop>`.
 
 .. _guide-preface-2-end:
 
@@ -124,16 +147,22 @@ available and maintained on our `GitHub website
 
 .. _guide-preface-3-start:
 
-Also available (but not necessary to cite), is our 2003 *Pacific
-Symposium on Biocomputing* paper:
+Two previous papers are also available (but not necessary to cite):
 
-- Alex Lancaster, Mark P. Nelson, Richard M. Single, Diogo Meyer, and
-  Glenys Thomson (2003) "PyPop: a software framework for population
-  genomics: analyzing large-scale multi-locus genotype data", in
-  *Pacific Symposium on Biocomputing* vol. 8:514-525 (edited by R B
-  Altman. et al., World Scientific, Singapore, 2003) [`PubMed
-  Central <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/>`__,
-  `PDF (344 kB) <http://pypop.org/psb-pypop.pdf>`__].
+- Lancaster AK, Single RM, Solberg OD, Nelson MP, Thomson G (2007)
+  "PyPop update - a software pipeline for large-scale multilocus
+  population genomics" *Tissue Antigens* 69 (s1), 192-197.  [`journal
+  page <http://dx.doi.org/10.1111/j.1399-0039.2006.00769.x>`__,
+  `preprint PDF (112 kB)
+  <http://pypop.org/tissue-antigens-lancaster-2007.pdf>`__].
+
+- Lancaster A, Nelson MP, Single RM, Meyer D, Thomson G (2003)
+  "PyPop: a software framework for population genomics: analyzing
+  large-scale multi-locus genotype data", in *Pacific Symposium on
+  Biocomputing* vol. 8:514-525 (edited by R B Altman. et al., World
+  Scientific, Singapore, 2003) [`PubMed Central
+  <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/>`__, `PDF
+  (344 kB) <http://pypop.org/psb-pypop.pdf>`__].
 		
 PyPop was originally developed for the analysis of data for the 13th
 `International Histocompatiblity Workshop and Conference
