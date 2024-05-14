@@ -46,6 +46,8 @@ before-all="yum install -y swig gsl-devel"
 # musl uses apk/apt
 select = "*musllinux*"
 before-all = "apk add swig gsl-dev"
+# restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)
+musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
 before-all = "brew install swig"
