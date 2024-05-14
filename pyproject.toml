@@ -68,9 +68,8 @@ select = "*-macosx_x86_64"
 inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # 10.15 is Catalina the minimum version of gsl supported by 'brew' 
 inherit.before-all="append"
-before-all = "brew install gsl"  # since Big Sur x86_64 version exists, it should install that version
-# install the catalina version of `gsl`
-# before-all = "brew fetch --force --bottle-tag=catalina gsl; brew reinstall $(brew --cache --bottle-tag=catalina gsl)"
+# install the catalina version of `gsl` to match
+before-all = "brew fetch --force --bottle-tag=catalina gsl; brew reinstall $(brew --cache --bottle-tag=catalina gsl)"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
