@@ -133,7 +133,7 @@ jobs:
         run: |
           echo "CI_ONLY" $CI_ONLY
           if [ "$CI_ONLY" == "true" ]; then
-            MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp312-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp312-win_amd64','os':'windows-2019'}, {'only':'cp312-macosx_x86_64','os':'macos-12'}, {'only':'cp312-macosx_arm64','os':'macos-14'}]"
+            MATRIX="[{'only':'cp312-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp312-win_amd64','os':'windows-2019'}, {'only':'cp312-macosx_x86_64','os':'macos-12'}, {'only':'cp312-macosx_arm64','os':'macos-14'}]"
           else
             MATRIX=$(
               {
