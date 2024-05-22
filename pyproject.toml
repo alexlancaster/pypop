@@ -46,23 +46,38 @@ before-all="yum install -y swig gsl-devel"
 # musl uses apk/apt
 select = "*musllinux*"
 before-all = "apk add swig gsl-dev"
+# restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)
+musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
-# do a per-build 'gsl' installation to force correct architecture when
+before-all = "brew install swig"
+# re-enable if we need to  do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
-before-all = "brew install swig gsl"
 # before-build = [
 #  "echo ARCHFLAGS = $ARCHFLAGS", # gets the arch at build-time
-#  "if [[ $ARCHFLAGS == *arm64 ]]; then brew fetch --force --bottle-tag=arm64_big_sur gsl; brew reinstall $(brew --cache --bottle-tag=arm64_big_sur gsl); else brew reinstall gsl; fi"
-# ]
-# note that SWIG is already present on runners, no 'brew' installation neeeded
-# support cross-compilation on Apple Silicon
+#  "if [[ $ARCHFLAGS == *arm64 ]]; then BOTTLE_TAG=arm64_big_sur gsl; else BOTTLE_TAG=x86_64_linux; fi",
+#  "echo BOTTLE_TAG = $BOTTLE_TAG",
+#]
 archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_*"
 inherit.environment="append"
 environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib" }
+
+[[tool.cibuildwheel.overrides]]
+select = "*-macosx_x86_64"
+inherit.environment="append"
+environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # 10.15 is Catalina the minimum version of gsl supported by 'brew' 
+inherit.before-all="append"
+# install the catalina version of `gsl` to match
+before-all = "brew fetch --force --bottle-tag=catalina gsl; brew reinstall $(brew --cache --bottle-tag=catalina gsl)"
+
+[[tool.cibuildwheel.overrides]]
+select = "*-macosx_arm64"
+inherit.before-all="append"
+# need to force the Big Sur (MacOS 11.0) version of `gsl` to match the wheel tag, otherwise it will attempt to install MacOS 14 version
+before-all = "brew fetch --force --bottle-tag=arm64_big_sur gsl; brew reinstall $(brew --cache --bottle-tag=arm64_big_sur gsl)"
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]

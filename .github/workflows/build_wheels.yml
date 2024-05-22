@@ -128,19 +128,19 @@ jobs:
       - uses: actions/checkout@v4
       - name: Install cibuildwheel
         # Nb. keep cibuildwheel version pin consistent with job below
-        run: pipx install cibuildwheel==2.17.0
+        run: pipx install cibuildwheel==2.18.1
       - id: set-matrix
         run: |
           echo "CI_ONLY" $CI_ONLY
           if [ "$CI_ONLY" == "true" ]; then
-            MATRIX="[{'only':'cp312-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp312-win_amd64','os':'windows-2019'}, {'only':'cp312-macosx_x86_64','os':'macos-11'}, {'only':'cp312-macosx_arm64','os':'macos-14'}]"
+            MATRIX="[{'only':'cp312-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp312-win_amd64','os':'windows-2019'}, {'only':'cp312-macosx_x86_64','os':'macos-12'}, {'only':'cp312-macosx_arm64','os':'macos-14'}]"
           else
             MATRIX=$(
               {
               cibuildwheel --print-build-identifiers --platform linux \
               | jq -nRc '{"only": inputs, "os": "ubuntu-20.04"}' \
               && cibuildwheel --print-build-identifiers --platform macos --archs x86_64 \
-              | jq -nRc '{"only": inputs, "os": "macos-11"}' \
+              | jq -nRc '{"only": inputs, "os": "macos-12"}' \
               && cibuildwheel --print-build-identifiers --platform macos --archs arm64 \
               | jq -nRc '{"only": inputs, "os": "macos-14"}' \
               && cibuildwheel --print-build-identifiers --platform windows \
@@ -180,7 +180,7 @@ jobs:
         with:
           platforms: all          
       - name: Build and test wheels
-        uses: pypa/cibuildwheel@v2.17.0
+        uses: pypa/cibuildwheel@v2.18.1
         env:
           # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
           CIBW_TEST_COMMAND: "pytest -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
