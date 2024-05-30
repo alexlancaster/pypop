@@ -12,7 +12,7 @@ PyPop User Guide
 
    .. admonition:: *Documenting release*  |version|  *of PyPop*.
 
-      This guide is also available as a `PDF <../pypop-guide.pdf>`__. |br|
+      This guide is also available as a |guide_pdf_link|  |br|
       *Document revision:* |full_release|
    
 .. only:: latex or pdf
