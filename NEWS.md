@@ -11,16 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Bug Fixes
 
-- Synchronize with upstream `haplo.stats`, fix some redundant checks by @alexlancaster (#196)
+- Synchronize with upstream `haplo.stats`, fix some redundant checks by @alexlancaster ([#196](https://github.com/alexlancaster/pypop/pull/196))
 
 ### Internal
 
-- customize code security scanning for C extensions by @alexlancaster (#195)
-- Update numpy requirement from \<=1.26.3 to \<=1.26.4 by @dependabot (#193)
+- customize code security scanning for C extensions by @alexlancaster ([#195](https://github.com/alexlancaster/pypop/pull/195))
+- Update numpy requirement from \<=1.26.3 to \<=1.26.4 by @dependabot ([#193](https://github.com/alexlancaster/pypop/pull/193))
 
 ### Documentation
 
-- Documentation updates including security policy by @alexlancaster (#194)
+- Documentation updates including security policy by @alexlancaster ([#194](https://github.com/alexlancaster/pypop/pull/194))
 
 [1.0.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.2
 
@@ -28,35 +28,35 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Features
 
-- Add  `[CustomBinning]` filtering unit tests for G and P-codes by @alexlancaster (#186)
+- Add  `[CustomBinning]` filtering unit tests for G and P-codes by @alexlancaster ([#186](https://github.com/alexlancaster/pypop/pull/186))
 
 ### Bug Fixes
 
-- switch to scientific notation when frequencies can't be displayed as decimals by @alexlancaster (#192)
-- Port `[RandomBinningFilter]` to Python 3, include more complex filtering tests by @alexlancaster (#187)
+- switch to scientific notation when frequencies can't be displayed as decimals by @alexlancaster ([#192](https://github.com/alexlancaster/pypop/pull/192))
+- Port `[RandomBinningFilter]` to Python 3, include more complex filtering tests by @alexlancaster ([#187](https://github.com/alexlancaster/pypop/pull/187))
 
 ### Internal
 
-- Bump the `cibuildwheel` version from `2.16.4` to `2.16.5`: fixes Windows CI builds by @dependabot (#189)
-- Bump the version of `cibuildwheel` from 2.16.2 to 2.16.4 by @dependabot (#188)
-- increase test strictness: make test warnings into errors by @alexlancaster (#185)
-- Enable wheels on `aarch64` architecture by @alexlancaster (#184)
-- Update `actions/upload-artifact` from 3 to 4 in Build on ARM64 by @dependabot (#183)
-- Streamline continuous integration: reduce number of wheels, concurrency by @alexlancaster (#182)
-- Parallelize wheel builds, re-enable `musllinux` wheels for Python 3.9+ by @alexlancaster (#181)
-- Update lxml requirement from \<=5.0.0 to \<=5.1.0; disable PyPy 3.7 on Linux by @dependabot (#178)
-- Update numpy requirement from \<=1.26.2 to \<=1.26.3 by @dependabot (#177)
-- Update lxml requirement from \<=4.9.4 to \<=5.0.0 by @dependabot (#174)
-- Update lxml requirement from \<=4.9.3 to \<=4.9.4 by @dependabot (#173)
-- update to `v4` of `download-artifact` / `upload-artifact` by @alexlancaster (#172)
-- Bump actions/setup-python from 4 to 5 by @dependabot (#168)
-- Update numpy requirement from \<=1.26.1 to \<=1.26.2 by @dependabot (#167)
+- Bump the `cibuildwheel` version from `2.16.4` to `2.16.5`: fixes Windows CI builds by @dependabot ([#189](https://github.com/alexlancaster/pypop/pull/189))
+- Bump the version of `cibuildwheel` from 2.16.2 to 2.16.4 by @dependabot ([#188](https://github.com/alexlancaster/pypop/pull/188))
+- increase test strictness: make test warnings into errors by @alexlancaster ([#185](https://github.com/alexlancaster/pypop/pull/185))
+- Enable wheels on `aarch64` architecture by @alexlancaster ([#184](https://github.com/alexlancaster/pypop/pull/184))
+- Update `actions/upload-artifact` from 3 to 4 in Build on ARM64 by @dependabot ([#183](https://github.com/alexlancaster/pypop/pull/183))
+- Streamline continuous integration: reduce number of wheels, concurrency by @alexlancaster ([#182](https://github.com/alexlancaster/pypop/pull/182))
+- Parallelize wheel builds, re-enable `musllinux` wheels for Python 3.9+ by @alexlancaster ([#181](https://github.com/alexlancaster/pypop/pull/181))
+- Update lxml requirement from \<=5.0.0 to \<=5.1.0; disable PyPy 3.7 on Linux by @dependabot ([#178](https://github.com/alexlancaster/pypop/pull/178))
+- Update numpy requirement from \<=1.26.2 to \<=1.26.3 by @dependabot ([#177](https://github.com/alexlancaster/pypop/pull/177))
+- Update lxml requirement from \<=4.9.4 to \<=5.0.0 by @dependabot ([#174](https://github.com/alexlancaster/pypop/pull/174))
+- Update lxml requirement from \<=4.9.3 to \<=4.9.4 by @dependabot ([#173](https://github.com/alexlancaster/pypop/pull/173))
+- update to `v4` of `download-artifact` / `upload-artifact` by @alexlancaster ([#172](https://github.com/alexlancaster/pypop/pull/172))
+- Bump actions/setup-python from 4 to 5 by @dependabot ([#168](https://github.com/alexlancaster/pypop/pull/168))
+- Update numpy requirement from \<=1.26.1 to \<=1.26.2 by @dependabot ([#167](https://github.com/alexlancaster/pypop/pull/167))
 
 ### Documentation
 
-- Link to new preprint in docs by @alexlancaster (#190)
-- Convert bibliography to bibtex by @alexlancaster (#176)
-- Convert `NEWS.rst` to `NEWS.md`, improve PDF documentation output by @alexlancaster (#175)
+- Link to new preprint in docs by @alexlancaster ([#190](https://github.com/alexlancaster/pypop/pull/190))
+- Convert bibliography to bibtex by @alexlancaster ([#176](https://github.com/alexlancaster/pypop/pull/176))
+- Convert `NEWS.rst` to `NEWS.md`, improve PDF documentation output by @alexlancaster ([#175](https://github.com/alexlancaster/pypop/pull/175))
 
 [1.0.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.1
 
