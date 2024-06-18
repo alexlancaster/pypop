@@ -7,6 +7,27 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.1.0] - 2024-05-30
+
+This release increases the minimum macOS requirements to Catalina (Intel) and Big Sur (Silicon) to ensure binary compatibility with the GNU Scientific Library (`gsl`) on those platforms. Thanks to @sjmack for testing.
+
+### Internal
+
+- Bump `cibuildwheel` from 2.17.0 to 2.18.1, increase minimum macOS requirements by @dependabot ([#206](https://github.com/alexlancaster/pypop/pull/206))
+- Update lxml requirement from \<=5.2.1 to \<=5.2.2 by @dependabot ([#205](https://github.com/alexlancaster/pypop/pull/205))
+- Bump peaceiris/actions-gh-pages from 3 to 4 in the actions group by @dependabot ([#201](https://github.com/alexlancaster/pypop/pull/201))
+- Update lxml requirement from \<=5.2.0 to \<=5.2.1 by @dependabot ([#202](https://github.com/alexlancaster/pypop/pull/202))
+- Update lxml requirement from \<=5.1.0 to \<=5.2.0 by @dependabot ([#200](https://github.com/alexlancaster/pypop/pull/200))
+- Enable native MacOS Apple Silicon runners by @alexlancaster ([#199](https://github.com/alexlancaster/pypop/pull/199))
+- Update `cibuildwheel` GitHub action to 2.17.0 by @dependabot ([#198](https://github.com/alexlancaster/pypop/pull/198))
+- Update `softprops/action-gh-release` github action that uploads builds to releases by @dependabot ([#197](https://github.com/alexlancaster/pypop/pull/197))
+
+### Documentation
+
+- fix reversed links (#203) by @alexlancaster ([#204](https://github.com/alexlancaster/pypop/pull/204))
+
+[1.1.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.0
+
 ## [1.0.2] - 2024-02-24
 
 ### Bug Fixes

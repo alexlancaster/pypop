@@ -169,7 +169,7 @@ Detailed installation instructions
 There are three main steps:
 
 1. install Python and ``pip``
-2. install package from Test PyPI
+2. install package from PyPI
 3. adjusting your ``PATH`` variable after installation
 
 
