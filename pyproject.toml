@@ -63,21 +63,22 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_*"
 inherit.environment="append"
-environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib" }
-
-[[tool.cibuildwheel.overrides]]
-select = "*-macosx_x86_64"
-inherit.environment="append"
-environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # 10.15 is Catalina the minimum version of gsl supported by 'brew' 
+environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", MACOSX_DEPLOYMENT_TARGET="12" } # 12 / Monterey the minimum version of gsl supported by 'brew'
 inherit.before-all="append"
-# install the catalina version of `gsl` to match
-before-all = "brew fetch --force --bottle-tag=catalina gsl; brew reinstall $(brew --cache --bottle-tag=catalina gsl)"
+before-all = "brew install gsl"
 
-[[tool.cibuildwheel.overrides]]
-select = "*-macosx_arm64"
-inherit.before-all="append"
-# need to force the Big Sur (MacOS 11.0) version of `gsl` to match the wheel tag, otherwise it will attempt to install MacOS 14 version
-before-all = "brew fetch --force --bottle-tag=arm64_big_sur gsl; brew reinstall $(brew --cache --bottle-tag=arm64_big_sur gsl)"
+# [[tool.cibuildwheel.overrides]]
+# select = "*-macosx_x86_64"
+# inherit.environment="append"
+# inherit.before-all="append"
+# # install the catalina version of `gsl` to match
+# before-all = "brew fetch --force --bottle-tag=catalina gsl; brew reinstall $(brew --cache --bottle-tag=catalina gsl)"
+
+# [[tool.cibuildwheel.overrides]]
+# select = "*-macosx_arm64"
+# inherit.before-all="append"
+# # need to force the Big Sur (MacOS 11.0) version of `gsl` to match the wheel tag, otherwise it will attempt to install MacOS 14 version
+#before-all = "brew fetch --force --bottle-tag=arm64_big_sur gsl; brew reinstall $(brew --cache --bottle-tag=arm64_big_sur gsl)"
 
 [tool.cibuildwheel.windows]
 # use nuget to install gsl on Windows, and manually supply paths
