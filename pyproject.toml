@@ -28,7 +28,7 @@ environment = { PIP_ONLY_BINARY=":all:" }
 
 [[tool.cibuildwheel.overrides]]
 # for latest CPython use newer manylinux image
-select = "cp-*linux*"
+select = "cp*-*linux*"
 manylinux-x86_64-image = "manylinux_2_28"
 
 [[tool.cibuildwheel.overrides]]
