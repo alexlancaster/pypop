@@ -63,12 +63,11 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_*"
 inherit.environment="append"
-environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib" }
+environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", MACOSX_DEPLOYMENT_TARGET="12.0" }
+# 12 / Monterey the minimum version of gsl supported by 'brew'
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
-inherit.environment="append"
-environment = { MACOSX_DEPLOYMENT_TARGET="12.0" } # 12 / Monterey the minimum version of gsl supported by 'brew'
 inherit.before-all="append"
 before-all = "brew install gsl"
 # # install the catalina version of `gsl` to match
