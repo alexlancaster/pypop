@@ -72,7 +72,7 @@ select = "*-macosx_x86_64"
 inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15 for brew rebuild
 inherit.before-all="append"
-before-all = "brew install ./gsl--2.7.1.catalina.bottle.tar.gz"]
+before-all = "brew install ./gsl--2.7.1.catalina.bottle.tar.gz"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
