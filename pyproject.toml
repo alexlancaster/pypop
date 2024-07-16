@@ -69,11 +69,15 @@ environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib"}
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
+inherit.environment="append"
+environment = { MACOSX_DEPLOYMENT_TARGET="10.9" } # target 10.9 for brew rebuild
 inherit.before-all="append"
 before-all = "brew install --build-from-source gsl"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
+inherit.environment="append"
+environment = { MACOSX_DEPLOYMENT_TARGET="11.0" } # target for 11.0 for brew rebuild
 inherit.before-all="append"
 # need to force the Monterey (MacOS 12.0) version of `gsl` to match the wheel tag, otherwise it will attempt to install MacOS 14 version
 
