@@ -51,7 +51,7 @@ musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
 before-all = ["brew install swig oras",
-	      "oras ghcr.io/homebrew/core/gsl:2.7.1"]
+	      "oras pull ghcr.io/homebrew/core/gsl:2.7.1"]
 # re-enable if we need to  do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
 # before-build = [
