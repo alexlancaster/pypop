@@ -64,18 +64,21 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 select = "*-macosx_*"
 inherit.environment="append"
 # 12 / Monterey the minimum version of gsl supported by 'brew'
-environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", MACOSX_DEPLOYMENT_TARGET="12.0" }
+environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib"}
+#, MACOSX_DEPLOYMENT_TARGET="12.0" }
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
 inherit.before-all="append"
-before-all = "brew install gsl"
+before-all = "brew install --build-from-source gsl"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
 inherit.before-all="append"
 # need to force the Monterey (MacOS 12.0) version of `gsl` to match the wheel tag, otherwise it will attempt to install MacOS 14 version
-before-all = "brew fetch --force --bottle-tag=arm64_monterey gsl; brew reinstall $(brew --cache --bottle-tag=arm64_monterey gsl)"
+
+before-all: "brew install --build-from-source"
+#before-all = "brew fetch --force --bottle-tag=arm64_monterey gsl; brew reinstall $(brew --cache --bottle-tag=arm64_monterey gsl)"
 
 [[tool.cibuildwheel.overrides]]
 select = "cp3[67]*-macosx_x86_64"
