@@ -1,0 +1,22 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Naxi_2003.pop	DPB1	192	192	lit	Naxi_2003	Asian	05-SEA	Yunan Province China	3	unrelated healthy volunteers living in Lijian Naxi Autonomous County in Yunan Province	26.80N	100.3E	1	1	SBT	{FLL+03}	Fu	2003	HLA-DRB1, DQB1 and DPB1 polymorphism in the Naxi ethnic group of South-western China	Tissue Antigens	61	179-183	ls36@zsu.edu.cn		CN	Xu		37	1	Kotsch 1999, Jia 2002, van der Zwan, Versluis 1993	N		Y	N	N		F, phylogenetic tree, LD				YT
+DPB1	count
+02012	23
+0202	11
+03011	12
+0401	19
+0402	28
+0501	49
+1301	14
+1401	5
+1901	1
+2101	8
+2301	2
+2801	8
+3801	1
+4801	4
+5101	2
+5601	1
+6201	1
+6301	2
+8001	1

@@ -1,0 +1,10 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_Nentsy_2002.pop	DQA1	110	109	lit	Nentsy_2002	Siberia	08-NEA	north east Russia	1	aboriginal residents of North-Eastern Russia, total 35000	60.00N	100.00E	0.991	1	PCR-SSP	{EST+02}	Evseeva	2002	HLA profile of three ethnic groups living in the North-Western region of Russia	Tissue Antigens	59	38-43	irinae@sanet.ru		RU	Evseeva		38s	3	12th IHW	N		Y	N	N						YT
+DQA1	count
+0101	3
+0102	6
+0103	10
+0201	12
+0301	45
+0401	5
+0501	28
