@@ -59,7 +59,7 @@ This guide to PyPop contains four main parts:
 
    **License terms**
 
-   Copyright © 2003-2009 Regents of the University of California
+   Copyright © 2003-2009 Regents of the University of California |br|
    Copyright © 2009-2024 PyPop team
 
    Permission is granted to copy, distribute and/or modify this document
