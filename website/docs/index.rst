@@ -61,14 +61,10 @@ This guide to PyPop contains four main parts:
 
    **License terms**
 
-   Copyright © 2003-2009 Regents of the University of California
-   Copyright © 2009-2024 PyPop team
+   |uc_copyright| |br|
+   Copyright © |copyright|
 
-   Permission is granted to copy, distribute and/or modify this document
-   under the terms of the GNU Free Documentation License, Version 1.2 or
-   any later version published by the Free Software Foundation; with no
-   Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A
-   copy of the license is included in: :ref:`gfdl`.
+   |gfdl_license_text| (:ref:`gfdl`).
 
 .. _user-guide-toc:
 
