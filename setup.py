@@ -252,7 +252,7 @@ setup (name = __pkgname__,
        packages = ["PyPop", "PyPop.xslt"],
        package_data={"PyPop.xslt": data_file_paths},
        install_requires = ["numpy <= 2.0.1",
-                           "lxml <= 5.2.2",
+                           "lxml <= 5.3.0",
                            "importlib-resources; python_version <= '3.8'",
                            "importlib-metadata; python_version <= '3.8'"],
        extras_require={
