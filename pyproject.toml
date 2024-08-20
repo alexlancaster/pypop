@@ -14,8 +14,8 @@ testpaths = [
 skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "pp37-*", "pp310-*",  # skip certain PyPy configurations
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
-        "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*",  # older musllinux missing numpy wheels
-	"cp313-*"]            # numpy dep not yet available for Python 3.13
+        "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] #,  # older musllinux missing numpy wheels
+	# "cp313-*"]            # numpy dep not yet available for Python 3.13
 test-extras = ["test"]
 test-command = "pytest -v {package}/tests"
 # FIXME: add below test-command unit tests need to be saved
