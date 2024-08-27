@@ -14,6 +14,7 @@ testpaths = [
 skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "pp37-*", "pp310-*",  # skip certain PyPy configurations
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
+        "cp313-musllinux_x86_64", # problem with this version
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-extras = ["test"]
 test-command = "pytest -v {package}/tests"
@@ -47,7 +48,7 @@ before-all="yum install -y swig gsl-devel"
 select = "*musllinux*"
 before-all = "apk add swig gsl-dev"
 # restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)
-# musllinux-x86_64-image="musllinux_1_1"
+musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
 # use oras to get archived 2.7.1 bottles of `gsl` that has 10.15 (on x86) / 11.0 (on arm64) builds
