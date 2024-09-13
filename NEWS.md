@@ -7,6 +7,29 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.1.1] - 2024-09-10
+
+### Features
+
+- Enable support for Python 3.13 by @alexlancaster ([#217](https://github.com/alexlancaster/pypop/pull/217))
+
+### Bug Fixes
+
+- Pin `gsl` bottles to 2.7.1 on macOS to preserve 10.15/Catalina on x86 and 11.0/Big Sur compatibility + update `cibuildwheels` by @alexlancaster ([#212](https://github.com/alexlancaster/pypop/pull/212))
+
+### Internal
+
+- Update numpy requirement from \<=2.1.0 to \<=2.1.1 by @dependabot ([#218](https://github.com/alexlancaster/pypop/pull/218))
+- Update numpy requirement from \<=2.0.1 to \<=2.1.0 by @dependabot ([#216](https://github.com/alexlancaster/pypop/pull/216))
+- Update lxml requirement from \<=5.2.2 to \<=5.3.0 by @dependabot ([#215](https://github.com/alexlancaster/pypop/pull/215))
+- Bump pypa/cibuildwheel from 2.19.2 to 2.20.0 in the actions group by @dependabot ([#214](https://github.com/alexlancaster/pypop/pull/214))
+- Update numpy requirement from \<=2.0.0 to \<=2.0.1 by @dependabot ([#213](https://github.com/alexlancaster/pypop/pull/213))
+- Update numpy requirement from \<=1.26.4 to \<=2.0.0 by @dependabot ([#209](https://github.com/alexlancaster/pypop/pull/209))
+- Bump pypa/cibuildwheel from 2.19.0 to 2.19.1 in the actions group by @dependabot ([#210](https://github.com/alexlancaster/pypop/pull/210))
+- Bump pypa/cibuildwheel from 2.18.1 to 2.19.0 in the actions group by @dependabot ([#208](https://github.com/alexlancaster/pypop/pull/208))
+
+[1.1.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.1
+
 ## [1.1.0] - 2024-05-30
 
 This release increases the minimum macOS requirements to Catalina (Intel) and Big Sur (Silicon) to ensure binary compatibility with the GNU Scientific Library (`gsl`) on those platforms. Thanks to @sjmack for testing.
