@@ -12,7 +12,7 @@ testpaths = [
 
 [tool.cibuildwheel]
 skip = ["*-win32", "*_i686",  # skip 32-bit builds
-        "pp37-*", "pp310-*",  # skip certain PyPy configurations
+        "pp37-*",             # skip certain PyPy configurations
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
         "cp313-musllinux_x86_64", # problem with this version
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
@@ -30,11 +30,6 @@ environment = { PIP_ONLY_BINARY=":all:" }
 [[tool.cibuildwheel.overrides]]
 # for latest CPython use newer manylinux image
 select = "cp312-*linux*"
-manylinux-x86_64-image = "manylinux_2_28"
-
-[[tool.cibuildwheel.overrides]]
-# for latest PyPy use newer manylinux image
-select = "pp310-*linux*"
 manylinux-x86_64-image = "manylinux_2_28"
 
 [tool.cibuildwheel.linux]
