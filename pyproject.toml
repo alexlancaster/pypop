@@ -32,11 +32,6 @@ environment = { PIP_ONLY_BINARY=":all:" }
 select = "cp312-*linux*"
 manylinux-x86_64-image = "manylinux_2_28"
 
-# [[tool.cibuildwheel.overrides]]
-# for latest PyPy use newer manylinux image
-# select = "pp310-*linux*"
-# manylinux-x86_64-image = "manylinux_2_28"
-
 [tool.cibuildwheel.linux]
 # add aarch64 to default ("auto") architectures
 archs = ["auto", "aarch64"]
