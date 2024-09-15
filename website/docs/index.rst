@@ -6,6 +6,8 @@ PyPop User Guide
 
 .. only:: html
 
+   |guide_subtitle|
+
    |htmlauthor|
 
    .. admonition:: *Documenting release*  |version|  *of PyPop*.
