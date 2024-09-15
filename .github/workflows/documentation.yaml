@@ -59,7 +59,7 @@ jobs:
       - uses: actions/setup-python@v5
       - name: Install dependencies
         run: |
-          pip install setuptools_scm sphinx==7.2.5 piccolo-theme sphinx_rtd_theme myst_parser rst2pdf sphinx_togglebutton sphinx-argparse sphinx_copybutton sphinxcontrib-bibtex
+          pip install setuptools_scm sphinx==8.0.2 piccolo-theme myst_parser rst2pdf sphinx_togglebutton sphinx-argparse sphinx_copybutton sphinxcontrib-bibtex
           sudo apt clean
           sudo apt-get update
           sudo apt-get install --fix-missing -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
