@@ -67,7 +67,7 @@ environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib" 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
 inherit.environment="append"
-environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15/Catalina
+environment = { MACOSX_DEPLOYMENT_TARGET="11.0" } # target 10.15/Catalina
 inherit.before-all="append"
 # install the catalina version of `gsl` to match
 before-all = "brew install ./gsl--2.7.1.catalina.bottle.tar.gz"
