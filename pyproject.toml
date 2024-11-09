@@ -75,10 +75,11 @@ before-all = "brew install ./gsl--2.7.1.catalina.bottle.tar.gz"
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
 inherit.environment="append"
-environment = { MACOSX_DEPLOYMENT_TARGET="11.0" } # target for 11.0/Big Sur
+environment = { MACOSX_DEPLOYMENT_TARGET="12.0" } # target for 11.0/Big Sur
 inherit.before-all="append"
 # install the Big Sur version of `gsl` to match
-before-all = "brew install ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"
+#before-all = "brew install ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"
+before-all = "brew fetch --force --bottle-tag=arm64_monterey gsl; brew reinstall $(brew --cache --bottle-tag=arm64_monterey gsl)"
 
 [tool.cibuildwheel.windows]
 # use nuget to install gsl on Windows, and manually supply paths
