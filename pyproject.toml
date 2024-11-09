@@ -67,10 +67,11 @@ environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib",
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
 inherit.environment="append"
-environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 11.0/Big Sur
+environment = { MACOSX_DEPLOYMENT_TARGET="12.0" } # target 11.0/Big Sur
 inherit.before-all="append"
 # install the Big Sur version of `gsl` to match
-before-all = "brew install ./gsl--2.7.1.catalina.bottle.tar.gz"
+#before-all = "brew install ./gsl--2.7.1.catalina.bottle.tar.gz"
+before-all = "brew fetch --force --bottle-tag=monterey gsl; brew reinstall $(brew --cache --bottle-tag=monterey gsl)"
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
