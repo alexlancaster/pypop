@@ -47,8 +47,10 @@ musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
 # use oras to get archived 2.7.1 bottles of `gsl` that has 10.15 (on x86) / 11.0 (on arm64) builds
-before-all = ["brew install swig@4.2.1 oras",
-	      "oras pull ghcr.io/homebrew/core/gsl:2.7.1"] 
+before-all = ["brew install oras",
+              "oras pull ghcr.io/homebrew/core/swig:4.2.1",
+	      "oras pull ghcr.io/homebrew/core/gsl:2.7.1",
+	      "brew install ./swig--4.2.1.monterey.bottle.tar.gz"] 
 # re-enable if we need to  do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
 # before-build = [
