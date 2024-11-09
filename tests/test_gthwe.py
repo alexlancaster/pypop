@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import base
 import sys
-#from PyPop import _Gthwe
+from PyPop import _Gthwe
 import pytest
 
 @pytest.mark.skip(reason="test is currently incomplete and doesn't run on all platforms")
