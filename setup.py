@@ -35,9 +35,12 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 import sys, os
+import shutil
 from glob import glob
 from setuptools import setup
 from setuptools.extension import Extension
+from setuptools.command.build_py import build_py as _build_py
+from setuptools.command.install import install as _install
 from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
 from src.PyPop import __pkgname__, __version_scheme__
@@ -63,6 +66,19 @@ class CleanCommand(clean.clean):
                     os.unlink(ext_file)
         clean.clean.run(self)
 
+class CustomBuildPy(_build_py):
+    def run(self):
+        # do standard build process
+        super().run()
+
+        # then copy CITATION.cff to temp build directory
+        # use setuptools' temp build directory
+        build_lib = self.get_finalized_command('build').build_lib
+        
+        # target directory for the CITATION file within the build directory
+        target_dir = os.path.join(build_lib, "PyPop")
+        shutil.copy("CITATION.cff", target_dir)
+            
 # look for libraries in _PREFIX
 library_dirs = [os.path.join(_PREFIX, "lib")]
 include_dirs = [os.path.join(_PREFIX, "include")]
@@ -250,7 +266,8 @@ setup (name = __pkgname__,
                       ],
        package_dir = {"": src_dir},
        packages = ["PyPop", "PyPop.xslt"],
-       package_data={"PyPop.xslt": data_file_paths},
+       package_data = {"PyPop.xslt": data_file_paths,
+                       "PyPop": ["CITATION.cff"]},
        install_requires = ["numpy <= 2.1.3",
                            "lxml <= 5.3.0",
                            "importlib-resources; python_version <= '3.8'",
@@ -265,6 +282,7 @@ setup (name = __pkgname__,
                                'pypop-interactive=PyPop.pypop:main_interactive']
        },
        ext_modules=extensions,
-       cmdclass={'clean': CleanCommand,},
+       cmdclass={'clean': CleanCommand,
+                 'build_py': CustomBuildPy,
+                 },
        )
-

@@ -34,7 +34,7 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 import os, sys
-from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter, FileType
+from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter, FileType, Action
 from pathlib import Path
 from PyPop import platform_info  # global info
 
@@ -45,6 +45,29 @@ from PyPop import platform_info  # global info
 class PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter):
     pass
 
+class CitationAction(Action):
+    def __init__(self, option_strings, dest, **kwargs):
+        # Ensure nargs is set to 0 (no argument expected) by default
+        kwargs['nargs'] = 0
+        super().__init__(option_strings, dest, **kwargs)
+        
+    def __call__(self, parser, values, namespace, option_string=None):
+
+        try:  # looking in installed package
+            from importlib.resources import files
+            citation_file = files('PyPop').joinpath('CITATION.cff')
+            citation_text = citation_file.read_text()
+        except (ModuleNotFoundError, ImportError):  # fallback to using backport if not found
+            from importlib_resources import files
+            citation_file = files('PyPop').joinpath('CITATION.cff')
+            citation_text = citation_file.read_text()
+        except FileNotFoundError:  # fallback to looking in current directory if running from repo
+            with open("CITATION.cff", 'r') as citation_file:
+                citation_text = ''.join(citation_file.readlines())
+            
+        print(citation_text)
+        parser.exit()  # exit after printing the file
+
 def get_parent_cli(version="", copyright_message=""):
     # options common to both scripts
     parent_parser = ArgumentParser(add_help=False)
@@ -52,6 +75,8 @@ def get_parent_cli(version="", copyright_message=""):
     # define function arguments as signatures - need to be added in child parser as part of the selection logic
     common_args = [
         (["-h", "--help"], {'action': "help", 'help': "show this help message and exit"}),
+        (["--citation"], {'help': "output citation in CFF formaat for this version of PyPop",
+                          'action': CitationAction, 'required':False}),
         (["-o", "--outputdir"], {'help':"put output in directory OUTPUTDIR",
                                  'required':False, 'type':Path, 'default':None}),
         (["-V", "--version"], {'action':'version',

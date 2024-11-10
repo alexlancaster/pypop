@@ -93,6 +93,9 @@ select ="*-win_*"
 inherit.environment="append"
 environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static" }
 
+[tool.setuptools_scm]
+write_to = "src/PyPop/_version.py"  # matches the path where version will be written
+
 [build-system]
 build-backend = "setuptools.build_meta:__legacy__"
 requires = ["setuptools>=42",
