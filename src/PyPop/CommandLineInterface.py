@@ -46,10 +46,6 @@ class PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter)
     pass
 
 class CitationAction(Action):
-    #def __init__(self, option_strings, dest, **kwargs):
-    #    # Ensure nargs is set to 0 (no argument expected) by default
-    #    #kwargs['nargs'] = 0
-    #    super().__init__(option_strings, dest, **kwargs)
         
     def __call__(self, parser, namespace, values, option_string=None):
 
