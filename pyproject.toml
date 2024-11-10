@@ -100,6 +100,7 @@ write_to = "src/PyPop/_version.py"  # matches the path where version will be wri
 build-backend = "setuptools.build_meta:__legacy__"
 requires = ["setuptools>=42",
 	    "setuptools_scm[toml]>=6.2",
+	    "cffconvert",
 	    "importlib-metadata; python_version <= '3.8'"
 	    ]
 

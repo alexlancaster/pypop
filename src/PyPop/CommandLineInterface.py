@@ -36,7 +36,7 @@
 import os, sys
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter, FileType, Action
 from pathlib import Path
-from PyPop import platform_info  # global info
+from PyPop import platform_info, citation_output_formats  # global info and citation formats
 
 """Command-line interface for PyPop scripts
 """
@@ -46,22 +46,25 @@ class PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter)
     pass
 
 class CitationAction(Action):
-    def __init__(self, option_strings, dest, **kwargs):
-        # Ensure nargs is set to 0 (no argument expected) by default
-        kwargs['nargs'] = 0
-        super().__init__(option_strings, dest, **kwargs)
+    #def __init__(self, option_strings, dest, **kwargs):
+    #    # Ensure nargs is set to 0 (no argument expected) by default
+    #    #kwargs['nargs'] = 0
+    #    super().__init__(option_strings, dest, **kwargs)
         
-    def __call__(self, parser, values, namespace, option_string=None):
+    def __call__(self, parser, namespace, values, option_string=None):
 
+        citation_format = values or 'apalike'
+        
         try:  # looking in installed package
             from importlib.resources import files
-            citation_file = files('PyPop').joinpath('CITATION.cff')
+            citation_file = files('PyPop').joinpath('citation/CITATION.' + citation_format)
             citation_text = citation_file.read_text()
         except (ModuleNotFoundError, ImportError):  # fallback to using backport if not found
             from importlib_resources import files
-            citation_file = files('PyPop').joinpath('CITATION.cff')
+            citation_file = files('PyPop').joinpath('citation/CITATION.' + citation_format)
             citation_text = citation_file.read_text()
         except FileNotFoundError:  # fallback to looking in current directory if running from repo
+            print("when running from uninstalled package, we only output CITATION.cff\n")
             with open("CITATION.cff", 'r') as citation_file:
                 citation_text = ''.join(citation_file.readlines())
             
@@ -75,8 +78,8 @@ def get_parent_cli(version="", copyright_message=""):
     # define function arguments as signatures - need to be added in child parser as part of the selection logic
     common_args = [
         (["-h", "--help"], {'action': "help", 'help': "show this help message and exit"}),
-        (["--citation"], {'help': "output citation in CFF formaat for this version of PyPop",
-                          'action': CitationAction, 'required':False}),
+        (["--citation"], {'help': "generate citation to PyPop for this version of PyPop",
+                          'action': CitationAction, 'nargs':'?', 'choices': citation_output_formats, 'default':'apalike'}),
         (["-o", "--outputdir"], {'help':"put output in directory OUTPUTDIR",
                                  'required':False, 'type':Path, 'default':None}),
         (["-V", "--version"], {'action':'version',

@@ -43,6 +43,7 @@ from setuptools.command.build_py import build_py as _build_py
 from setuptools.command.install import install as _install
 from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
+from cffconvert import Citation
 from src.PyPop import __pkgname__, __version_scheme__
 
 src_dir = "src"
@@ -66,18 +67,6 @@ class CleanCommand(clean.clean):
                     os.unlink(ext_file)
         clean.clean.run(self)
 
-class CustomBuildPy(_build_py):
-    def run(self):
-        # do standard build process
-        super().run()
-
-        # then copy CITATION.cff to temp build directory
-        # use setuptools' temp build directory
-        build_lib = self.get_finalized_command('build').build_lib
-        
-        # target directory for the CITATION file within the build directory
-        target_dir = os.path.join(build_lib, "PyPop")
-        shutil.copy("CITATION.cff", target_dir)
             
 # look for libraries in _PREFIX
 library_dirs = [os.path.join(_PREFIX, "lib")]
@@ -226,10 +215,53 @@ extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Haplostats, e
 # don't include HWEEnum 
 # extensions.append(ext_HweEnum)
 
-data_file_paths = []
+xslt_data_file_paths = []
 # xslt files are in a subdirectory
 xslt_files = [f + '.xsl' for f in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-tsv', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
-data_file_paths.extend(xslt_files)
+xslt_data_file_paths.extend(xslt_files)
+
+citation_data_file_paths = []
+# citation files are in a subdirectory of PyPop, but not a separate module
+from src.PyPop import citation_output_formats
+citation_files = [os.path.join("citation", 'CITATION.' + suffix) for suffix in citation_output_formats]
+citation_data_file_paths.extend(citation_files)
+
+class CustomBuildPy(_build_py):
+    def run(self):
+        # do standard build process
+        super().run()
+
+        # source citation path (single-source of truth)
+        citation_path = "CITATION.cff"
+        
+        # then copy CITATION.cff to temp build directory
+        # use setuptools' temp build directory
+        build_lib = self.get_finalized_command('build').build_lib
+
+        # target directory for the CITATION file within the build directory
+        target_dir = os.path.join(build_lib, "PyPop", "citation")
+        
+        # create the citation directory if it doesn’t exist
+        os.makedirs(target_dir, exist_ok=True)
+        shutil.copy(citation_path, target_dir)
+
+        # load the CITATION.cff content
+        cff = Citation(cffstr=open(citation_path).read())
+
+        # remove 'cff' from generated list - since we don't generate that
+        citation_output_formats.remove('cff')
+        
+        for fmt in citation_output_formats:
+            # use getattr to get the method based on the format string
+            convert_method = getattr(cff, f"as_{fmt}", None)
+            if callable(convert_method):
+                converted_content = convert_method()
+            else:
+                print(f"Conversion format '{fmt}' not supported.")
+
+            # save the converted output (e.g., as CITATION.json)
+            with open(os.path.join(target_dir, "CITATION." + fmt), "w") as f:
+                f.write(converted_content)
 
 # read the contents of your README file
 from pathlib import Path
@@ -266,8 +298,8 @@ setup (name = __pkgname__,
                       ],
        package_dir = {"": src_dir},
        packages = ["PyPop", "PyPop.xslt"],
-       package_data = {"PyPop.xslt": data_file_paths,
-                       "PyPop": ["CITATION.cff"]},
+       package_data = {"PyPop.xslt": xslt_data_file_paths,
+                       "PyPop": citation_data_file_paths},
        install_requires = ["numpy <= 2.1.3",
                            "lxml <= 5.3.0",
                            "importlib-resources; python_version <= '3.8'",

@@ -56,6 +56,8 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
 
 platform_info="[Python {python_version} | {system} | {arch}]".format(python_version=platform.python_version(), system=platform.platform(), arch=platform.machine())
 
+citation_output_formats = ['apalike', 'bibtex', 'endnote', 'ris', 'codemeta', 'cff']
+
 import locale
 import logging
 import platform
