@@ -47,7 +47,9 @@ musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
 # use oras to get archived 2.7.1 bottles of `gsl` that has 10.15 (on x86) / 11.0 (on arm64) builds
-before-all = ["brew install swig oras",
+# and archived 4.2.1 bottles of `swig` (swig 4.3.0 creates extensions that segfault)
+before-all = ["brew install oras",
+              "oras pull ghcr.io/homebrew/core/swig:4.2.1",
 	      "oras pull ghcr.io/homebrew/core/gsl:2.7.1"] 
 # re-enable if we need to  do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
@@ -62,23 +64,25 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_*"
 inherit.environment="append"
-environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib" }
+environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", PYTHONFAULTHANDLER="1" }
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
 inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15/Catalina
 inherit.before-all="append"
-# install the catalina version of `gsl` to match
-before-all = "brew install ./gsl--2.7.1.catalina.bottle.tar.gz"
+# install `swig` and the Catalina version of `gsl` to match
+before-all = ["brew install ./swig--4.2.1.monterey.bottle.tar.gz",
+	   "brew install ./gsl--2.7.1.catalina.bottle.tar.gz"]
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
 inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="11.0" } # target for 11.0/Big Sur
-inherit.before-all="append"
-# install the Big Sur version of `gsl` to match
-before-all = "brew install ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"
+inherit.before-all="append"			
+# install `swig` and the Big Sur version of `gsl` to match
+before-all = ["brew install ./swig--4.2.1.arm64_ventura.bottle.tar.gz",
+	   "brew install ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"]
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
