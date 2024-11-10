@@ -159,14 +159,14 @@ jobs:
         run: |
           echo "CI_ONLY" $CI_ONLY
           if [ "$CI_ONLY" == "true" ]; then
-            MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp313-win_amd64','os':'windows-2019'}, {'only':'cp313-macosx_x86_64','os':'macos-12'}, {'only':'cp313-macosx_arm64','os':'macos-14'}]"
+            MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp313-win_amd64','os':'windows-2019'}, {'only':'cp313-macosx_x86_64','os':'macos-13'}, {'only':'cp313-macosx_arm64','os':'macos-14'}]"
           else
             MATRIX=$(
               {
               cibuildwheel --print-build-identifiers --platform linux \
               | jq -nRc '{"only": inputs, "os": "ubuntu-20.04"}' \
               && cibuildwheel --print-build-identifiers --platform macos --archs x86_64 \
-              | jq -nRc '{"only": inputs, "os": "macos-12"}' \
+              | jq -nRc '{"only": inputs, "os": "macos-13"}' \
               && cibuildwheel --print-build-identifiers --platform macos --archs arm64 \
               | jq -nRc '{"only": inputs, "os": "macos-14"}' \
               && cibuildwheel --print-build-identifiers --platform windows \
