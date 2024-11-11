@@ -28,7 +28,7 @@ test-command = "pytest -v {package}/tests"
 environment = { PIP_ONLY_BINARY=":all:" }
 
 [tool.cibuildwheel.config-settings]
---build-option = "--no-binary docopt"
+--no-binary = "docopt"
 
 [[tool.cibuildwheel.overrides]]
 # for latest CPython use newer manylinux image
