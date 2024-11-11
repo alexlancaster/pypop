@@ -17,7 +17,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "cp313-musllinux_x86_64", # problem with this version
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-extras = ["test"]
-test-command = "pytest -v {package}/tests"
+test-command = "PIP_ONLY_BINARY=':all:' pytest -v {package}/tests"
 # FIXME: add below test-command unit tests need to be saved
 # "&& echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
 
@@ -25,7 +25,7 @@ test-command = "pytest -v {package}/tests"
 # https://cibuildwheel.readthedocs.io/en/stable/faq/#apple-silicon
 # test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
 # don't try and install pypi packages and build from source
-environment = { PIP_ONLY_BINARY=":all:", PIP_REQUIREMENT="cffconvert-requirements.txt" }
+# environment = { PIP_ONLY_BINARY=":all:", PIP_REQUIREMENT="cffconvert-requirements.txt" }
 
 [[tool.cibuildwheel.overrides]]
 # for latest CPython use newer manylinux image
