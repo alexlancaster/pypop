@@ -26,8 +26,9 @@ test-command = "pytest -v {package}/tests"
 # test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
 # don't try and install pypi packages and build from source
 environment = { PIP_ONLY_BINARY=":all:" }
-# force installation of "docopt" for cffconvert, using PIP_NO_BINARY="docopt" does not appear to be working
-before-build = "pip install --no-binary docopt docopt"
+
+[tool.cibuildwheel.config-settings]
+--build-option = "--no-binary docopt"
 
 [[tool.cibuildwheel.overrides]]
 # for latest CPython use newer manylinux image
