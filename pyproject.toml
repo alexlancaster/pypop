@@ -26,9 +26,7 @@ test-command = "pytest -v {package}/tests"
 # test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
 # don't try and install pypi packages and build from source
 environment = { PIP_ONLY_BINARY=":all:" }
-
-[tool.cibuildwheel.config-settings]
---no-binary = "docopt"
+build-frontend = { name = "pip", args = ["--no-binary=docopt"] }
 
 [[tool.cibuildwheel.overrides]]
 # for latest CPython use newer manylinux image
