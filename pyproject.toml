@@ -25,7 +25,9 @@ test-command = "pytest -v {package}/tests"
 # https://cibuildwheel.readthedocs.io/en/stable/faq/#apple-silicon
 # test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
 # don't try and install pypi packages and build from source
-environment = { PIP_ONLY_BINARY=":all:", PIP_NO_BINARY="docopt" }
+environment = { PIP_ONLY_BINARY=":all:" }
+# force installation of "docopt" for cffconvert, using PIP_NO_BINARY="docopt" does not appear to be working
+before-build = "pip install --no-binary docopt docopt"
 
 [[tool.cibuildwheel.overrides]]
 # for latest CPython use newer manylinux image
@@ -101,7 +103,6 @@ build-backend = "setuptools.build_meta:__legacy__"
 requires = ["setuptools>=42",
 	    "setuptools_scm[toml]>=6.2",
 	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
-	    "docopt>=0.6.2",
 	    "importlib-metadata; python_version <= '3.8'"
 	    ]
 
