@@ -25,7 +25,7 @@ test-command = "pytest -v {package}/tests"
 # https://cibuildwheel.readthedocs.io/en/stable/faq/#apple-silicon
 # test-skip = "*-macosx_arm64 *-macosx_universal2:arm64"
 # don't try and install pypi packages and build from source
-environment = { PIP_ONLY_BINARY=":all:" }
+environment = { PIP_ONLY_BINARY=":all:", PIP_REQUIREMENTS="cffconvert-requirements.txt" }
 
 [[tool.cibuildwheel.overrides]]
 # for latest CPython use newer manylinux image
@@ -103,5 +103,5 @@ requires = ["setuptools>=42",
 	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
 	    "importlib-metadata; python_version <= '3.8'"
 	    ]
-config-settings="--no-binary=docopt"
+
 
