@@ -1,2 +1,2 @@
 docopt
---no-binary docopt
+--no-binary
