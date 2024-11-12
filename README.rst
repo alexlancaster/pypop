@@ -36,9 +36,11 @@ If you write a paper that uses PyPop in your analysis, please cite
 
        pypop --citation
 
-    which output the Zenodo record citation in the simple "APA" format
-    (you can also choose from BibTeX, EndNote, RIS and other formats,
-    see :ref:`Command-line interfaces` for more details).
+    which outputs the Zenodo record citation in the simple "APA"
+    format (you can also choose from BibTeX, EndNote, RIS and other
+    formats, see the section on `Command-line interfaces
+    <http://pypop.org/docs/guide-chapter-usage.html#command-line-interfaces>`_
+    in the *User Guide* for more details).
 
   * If you do not have it installed, or otherwise want to check
     specific versions follow these steps:
