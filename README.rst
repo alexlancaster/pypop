@@ -27,8 +27,15 @@ If you write a paper that uses PyPop in your analysis, please cite
       `10.3389/fimmu.2024.1378512
       <https://doi.org/10.3389/fimmu.2024.1378512>`__
 
-* **and** the `Zenodo record <https://zenodo.org/records/10080667>`__
-  for the software. To cite the correct version:
+* **and** a citation to the `Zenodo record
+  <https://zenodo.org/records/10080667>`__ which includes a DOI for
+  the version of the software you used in your analyses. Citing this
+  record and DOI supports reproducibility by allowing researchers to
+  to determine the exact version of PyPop used in any particular
+  analysis. In addition, it allows retrieval of long-term software
+  source-code archives, independent of the original developers.
+
+  Here's how to cite the correct version:
 
   * If you have PyPop currently installed simply run:
 
@@ -42,8 +49,8 @@ If you write a paper that uses PyPop in your analysis, please cite
     <http://pypop.org/docs/guide-chapter-usage.html#command-line-interfaces>`_
     in the *User Guide* for more details).
 
-  * If you do not have it installed, or otherwise want to check
-    specific versions follow these steps:
+  * If you do not have PyPop installed, or otherwise want to obtain
+    the DOI and citation for specific versions, follow these steps:
 
     1) First visit the DOI for the overall Zenodo record:
        `10.5281/zenodo.10080667
