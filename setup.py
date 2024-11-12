@@ -43,7 +43,6 @@ from setuptools.command.build_py import build_py as _build_py
 from setuptools.command.install import install as _install
 from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
-from cffconvert import Citation
 from src.PyPop import __pkgname__, __version_scheme__
 
 src_dir = "src"
@@ -228,6 +227,9 @@ citation_data_file_paths.extend(citation_files)
 
 class CustomBuildPy(_build_py):
     def run(self):
+
+        from cffconvert import Citation
+        
         # do standard build process
         super().run()
 
