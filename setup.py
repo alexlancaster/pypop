@@ -302,7 +302,7 @@ setup (name = __pkgname__,
                        "PyPop": citation_data_file_paths},
        install_requires = ["numpy <= 2.1.3",
                            "lxml <= 5.3.0",
-                           "bibtexparser",
+                           "docopt",
                            "importlib-resources; python_version <= '3.8'",
                            "importlib-metadata; python_version <= '3.8'"],
        extras_require={
