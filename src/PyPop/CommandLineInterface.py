@@ -50,20 +50,27 @@ class CitationAction(Action):
     def __call__(self, parser, namespace, values, option_string=None):
 
         citation_format = values or 'apalike'
-        
+
         try:  # looking in installed package
             from importlib.resources import files
-            citation_file = files('PyPop').joinpath('citation/CITATION.' + citation_format)
+            citation_file = files('PyPop').joinpath(f'citation/CITATION.{citation_format}')
             citation_text = citation_file.read_text()
-        except (ModuleNotFoundError, ImportError):  # fallback to using backport if not found
-            from importlib_resources import files
-            citation_file = files('PyPop').joinpath('citation/CITATION.' + citation_format)
-            citation_text = citation_file.read_text()
-        except FileNotFoundError:  # fallback to looking in current directory if running from repo
-            print("when running from uninstalled package, we only output CITATION.cff\n")
-            with open("CITATION.cff", 'r') as citation_file:
-                citation_text = ''.join(citation_file.readlines())
-            
+        except (ModuleNotFoundError, ImportError, FileNotFoundError):  # fallback to using backport if not found
+            try:
+                from importlib_resources import files
+                citation_file = files('PyPop').joinpath(f'citation/CITATION.{citation_format}')
+                citation_text = citation_file.read_text()
+            except (ModuleNotFoundError, ImportError, FileNotFoundError):  # fallback to looking in current directory if running from repo
+                top_level_dir = Path(__file__).resolve().parent.parent.parent
+                citation_file = top_level_dir / 'CITATION.cff'
+
+                print("if package is not installed or is an editable package, only CITATION.cff will be available\n")
+                if citation_file.exists():
+                    citation_text = citation_file.read_text()
+                else:
+                    print("could not locate the specified citation format.")
+                    parser.exit()
+                
         print(citation_text)
         parser.exit()  # exit after printing the file
 
