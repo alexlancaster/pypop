@@ -18,7 +18,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-extras = ["test"]
 # use pip and exclude docopt from the overall only-binary rule
-build-frontend = { name = "pip", args = ["--no-binary=docopt"] }
+build-frontend = { name = "pip", args = ["--only-binary=:none:"] }
 # test-command = "pytest -v {package}/tests"
 # FIXME: add below test-command unit tests need to be saved
 # "&& echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
