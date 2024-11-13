@@ -1,0 +1,46 @@
+name: Update citation files
+
+on:
+  workflow_call: # This allows the workflow to be triggered by another workflow
+    inputs:
+      CITATION_DIR:
+        description: 'Directory for citations'
+        required: true
+        default: 'src/PyPop/citation'
+      INIT_FILE:
+        description: 'Path to the init file'
+        required: true
+        default: 'src/PyPop/__init__.py'
+
+jobs:
+  update-citation:
+    steps:
+      - name: Extract citation formats
+        id: extract_formats
+        run: |
+          python -c "
+import ast
+with open('${{ inputs.INIT_FILE }}) as f:
+    contents = f.read()
+citation_output_formats = next((node.value.elts for node in ast.walk(ast.parse(contents)) if isinstance(node, ast.Assign) and node.targets[0].id == 'citation_output_formats'), [])
+formats = ','.join([str(elem.value) for elem in citation_output_formats])
+print(f'::set-output name=formats::{formats}')
+        "
+
+      - name: Copy CITATION.cff to citation directory
+        run: |
+          cp CITATION.cff ${{ inputs.CITATION_DIR }}/CITATION.cff
+
+      - name: Generate citation files
+        run: |
+          formats="${{ steps.extract_formats.outputs.formats }}"
+          IFS=',' read -r -a formats_array <<< "$formats"
+          for format in "${formats_array[@]}"; do
+            cffconvert --infile CITATION.cff --outfile "${{ inputs.CITATION_DIR }}/citation.${format}" --format "$format"
+          done
+
+      - name: Commit and push changes
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: "Auto-update citation files based on CITATION.cff"
+          add: "${{ inputs.CITATION_DIR }}/*"
