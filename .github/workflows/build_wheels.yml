@@ -183,11 +183,21 @@ jobs:
         uses: docker/setup-qemu-action@v3
         with:
           platforms: all
-      - name: Remove cffconvert from build-system requires in pyproject.toml
+      - name: Install toml and remove cffconvert from pyproject.toml
         run: |
-          sed -i '/^\[build-system\]/,/^\[/ { 
-            /"cffconvert\( @[^"]*\)\?"/d 
-          }' pyproject.toml
+          python -m pip install toml
+          python -c "
+          import toml
+          with open('pyproject.toml', 'r') as f:
+             config = toml.load(f)
+          if 'build-system' in config and 'requires' in config['build-system']:
+             config['build-system']['requires'] = [
+                 dep for dep in config['build-system']['requires'] if 'cffconvert' not in dep.lower()
+             ]
+          with open('pyproject.toml', 'w') as f:
+             toml.dump(config, f)
+          "
+          cat pyproject.toml
       - name: Build and test wheels
         uses: pypa/cibuildwheel@v2.21.3
         env:
