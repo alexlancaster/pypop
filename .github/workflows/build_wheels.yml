@@ -128,9 +128,14 @@ jobs:
           git ls-files -z|git check-attr --stdin -z export-ignore |sed -zne 'x;n;n;s/^set$//;t print;b;:print;x;p'|xargs --null rm
           # FIXME: need to also remove orphaned empty directories resulting from above
           find . -empty -type d -delete
+      - name: Update generated citation files based on changed CITATION.cff file
+        uses: ./.github/actions/update_citations
+        with:
+          CITATION_DIR: 'src/PyPop/citation'
+          INIT_FILE: 'src/PyPop/__init__.py'
+          PUSH: "origin ${{ github.event.release.target_commitish }}"
       - name: Create a draft snapshot of your repository contents as a new
-              version in test collection on Zenodo using metadata
-              from repository file .zenodo.json
+              version using metadata from generated .zenodo.json
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}

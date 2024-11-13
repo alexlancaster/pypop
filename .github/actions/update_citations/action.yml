@@ -9,6 +9,10 @@ inputs:
     description: 'Path to the init file'
     required: true
     default: 'src/PyPop/__init__.py'
+  PUSH:
+    description: 'Behavior of push'
+    required: false
+    default: true
 
 runs:
   using: "composite"
@@ -38,6 +42,7 @@ runs:
         for format in "${formats_array[@]}"; do
           cffconvert --infile CITATION.cff --outfile "${{ inputs.CITATION_DIR }}/CITATION.${format}" --format "$format"
         done
+        echo "pushing to ${{ inputs.PUSH }}"
       shell: bash        
 
     - name: Commit and push changes
@@ -45,3 +50,4 @@ runs:
       with:
         message: "Auto-update citation files based on CITATION.cff"
         add: "${{ inputs.CITATION_DIR }}/*"
+        push: "${{ inputs.PUSH }}"
