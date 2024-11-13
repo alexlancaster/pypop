@@ -4,13 +4,15 @@ on:
   workflow_call: # This allows the workflow to be triggered by another workflow
     inputs:
       CITATION_DIR:
-        description: 'Directory for citations'
+        #description: 'Directory for citations'
         required: true
         default: 'src/PyPop/citation'
+        type: string
       INIT_FILE:
-        description: 'Path to the init file'
+        #description: 'Path to the init file'
         required: true
         default: 'src/PyPop/__init__.py'
+        type: string
 
 jobs:
   do-citation-updates:
@@ -22,9 +24,10 @@ jobs:
           import ast
           with open("${{ inputs.INIT_FILE }}") as f:
             contents = f.read()
-          citation_output_formats = next((node.value.elts for node in ast.walk(ast.parse(contents)) if isinstance(node, ast.Assign) and node.targets[0].id == 'citation_output_formats'), [])
-          formats = ','.join([str(elem.value) for elem in citation_output_formats])
-          print(f'::set-output name=formats::{formats}')
+          citation_output_formats = next((node.value.elts for node in ast.walk(ast.parse(contents)) if isinstance(node, ast.Assign) and node.targets[0].id == "citation_output_formats"), [])
+          formats = ",".join([str(elem.value) for elem in citation_output_formats])
+          with open("${{ steps.extract_formats.outputs.formats_file }}", "w") as f:
+            f.write(formats)
           '
 
       - name: Copy CITATION.cff to citation directory
