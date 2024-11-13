@@ -5,7 +5,7 @@ on:
     paths:
       - CITATION.cff
       - '.github/workflows/run_citations.yml'
-      - '.github/workflows/update_citations.yml'
+      - '.github/actions/update_citations/action.yml'
 
 jobs:
   update-citations:
