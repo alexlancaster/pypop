@@ -26,8 +26,8 @@ jobs:
           # use customized version of cffconvert
           pip install git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert
 
-      - name: Trigger citation update workflow
-        uses: ./.github/workflows/update_citations.yml@output-citation  # reference the current branch dynamically
-        with:
-          CITATION_DIR: 'src/PyPop/citation'
-          INIT_FILE: 'src/PyPop/__init__.py'
+  call-citation-workflow:  
+    - uses: ./.github/workflows/update_citations.yml@output-citation  # reference the current branch dynamically
+      with:
+        CITATION_DIR: 'src/PyPop/citation'
+        INIT_FILE: 'src/PyPop/__init__.py'
