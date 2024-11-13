@@ -84,7 +84,7 @@ url: http://pypop.org/
 repository-artifact: https://pypi.org/project/pypop-genomics/
 repository-code: https://github.com/alexlancaster/pypop/
 license: GPL-2.0-or-later
-version: v0.9.164
+version: v0.9.165
 type: software
 identifiers:
   - description: PyPop documentation
@@ -101,11 +101,11 @@ identifiers:
     relation: Continues
   - description: GitHub tag for repository
     type: url
-    value: https://github.com/alexlancaster/pypop/tree/v0.9.164
+    value: https://github.com/alexlancaster/pypop/tree/v0.9.165
     relation: IsSupplementTo
   - description: PyPI package
     type: url
-    value: https://pypi.org/project/pypop-genomics/0.9.164
+    value: https://pypi.org/project/pypop-genomics/0.9.165
     relation: IsSourceOf
   - description: DOI concept identifier for all versions of pypop
     type: doi
