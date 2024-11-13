@@ -27,7 +27,7 @@ jobs:
           pip install git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert
 
       - name: Runs composite action
-        uses: ./.github/actions/update_citations.yml
+        uses: ./.github/actions/update_citations
         with:
           CITATION_DIR: 'src/PyPop/citation'
           INIT_FILE: 'src/PyPop/__init__.py'
