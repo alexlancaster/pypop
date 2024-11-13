@@ -18,14 +18,14 @@ jobs:
       - name: Extract citation formats
         id: extract_formats
         run: |
-          python -c "
-import ast
-with open('${{ inputs.INIT_FILE }}) as f:
-    contents = f.read()
-citation_output_formats = next((node.value.elts for node in ast.walk(ast.parse(contents)) if isinstance(node, ast.Assign) and node.targets[0].id == 'citation_output_formats'), [])
-formats = ','.join([str(elem.value) for elem in citation_output_formats])
-print(f'::set-output name=formats::{formats}')
-        "
+          python -c '
+          import ast
+          with open("${{ inputs.INIT_FILE }}") as f:
+            contents = f.read()
+          citation_output_formats = next((node.value.elts for node in ast.walk(ast.parse(contents)) if isinstance(node, ast.Assign) and node.targets[0].id == 'citation_output_formats'), [])
+          formats = ','.join([str(elem.value) for elem in citation_output_formats])
+          print(f'::set-output name=formats::{formats}')
+          '
 
       - name: Copy CITATION.cff to citation directory
         run: |
