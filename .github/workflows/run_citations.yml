@@ -4,6 +4,8 @@ on:
   push:
     paths:
       - CITATION.cff
+      - '.github/workflows/run_citations.yml'
+      - '.github/workflows/update_citations.yml'      
 
 jobs:
   update-citations:
