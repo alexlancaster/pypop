@@ -12,7 +12,6 @@ inputs:
 
 runs:
   using: "composite"
-  shell: bash  # This is the default shell for all steps
   steps:
     - name: Extract citation formats
       id: extract_formats
@@ -26,10 +25,12 @@ runs:
         with open("${{ steps.extract_formats.outputs.formats_file }}", "w") as f:
           f.write(formats)
         '
+      shell: bash
 
     - name: Copy CITATION.cff to citation directory
       run: |
         cp CITATION.cff ${{ inputs.CITATION_DIR }}/CITATION.cff
+      shell: bash        
 
     - name: Generate citation files
       run: |
@@ -38,6 +39,7 @@ runs:
         for format in "${formats_array[@]}"; do
           cffconvert --infile CITATION.cff --outfile "${{ inputs.CITATION_DIR }}/citation.${format}" --format "$format"
         done
+      shell: bash        
 
     - name: Commit and push changes
       uses: EndBug/add-and-commit@v9
