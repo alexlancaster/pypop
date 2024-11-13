@@ -16,6 +16,8 @@ on:
 
 jobs:
   do-citation-updates:
+    runs-on: ubuntu-latest
+    
     steps:
       - name: Extract citation formats
         id: extract_formats
