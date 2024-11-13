@@ -5,7 +5,7 @@ on:
     paths:
       - CITATION.cff
       - '.github/workflows/run_citations.yml'
-      - '.github/workflows/update_citations.yml'      
+      - '.github/workflows/update_citations.yml'
 
 jobs:
   update-citations:
@@ -25,10 +25,9 @@ jobs:
           python -m pip install --upgrade pip
           # use customized version of cffconvert
           pip install git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert
-          
+
       - name: Trigger citation update workflow
-        uses: {{ github.repository }}.github/workflows/update_citations.yml@${{ github.ref_name }}  # reference the current branch dynamically
+        uses: ./.github/workflows/update_citations.yml@${{ github.ref_name }}  # reference the current branch dynamically
         with:
           CITATION_DIR: 'src/PyPop/citation'
           INIT_FILE: 'src/PyPop/__init__.py'
-
