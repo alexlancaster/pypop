@@ -12,6 +12,7 @@ inputs:
 
 runs:
   using: "composite"
+  shell: bash  # This is the default shell for all steps
   steps:
     - name: Extract citation formats
       id: extract_formats
