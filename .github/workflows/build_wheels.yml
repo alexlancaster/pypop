@@ -21,7 +21,7 @@ on:
       - '.github/workflows/release-drafter.yml'
       - '.github/workflows/codeql.yml'
       - '.github/workflows/run_citations.yml'
-      - '.github/workflows/update_citations.yml'      
+      - '.github/actions/update_citations/action.yml'      
       - '.gitattributes'
   push:
     paths-ignore:
@@ -38,7 +38,7 @@ on:
       - '.github/workflows/release-drafter.yml'
       - '.github/workflows/codeql.yml'
       - '.github/workflows/run_citations.yml'
-      - '.github/workflows/update_citations.yml'      
+      - '.github/actions/update_citations/action.yml'      
       - '.gitattributes'
   release:
     types:
