@@ -207,5 +207,5 @@
   "license": "https://spdx.org/licenses/GPL-2.0-or-later",
   "name": "PyPop: Python for Population Genomics",
   "url": "http://pypop.org/docs",
-  "version": "v0.9.163"
+  "version": "v0.9.165"
 }
