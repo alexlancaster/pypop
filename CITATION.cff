@@ -6,7 +6,7 @@ message: >-
   open-source software pipeline for population genomics</a>. <i>Front.
   Immunol.</i> <b>15</b>:1378512. doi: 10.3389/fimmu.2024.1378512
 abstract: >-
-  <p>PyPop for Population Genomics (<a href="http://pypop.org/>PyPop</a>) is a
+  <p>PyPop for Population Genomics (<a href=\"http://pypop.org/\">PyPop</a>) is a
   Python program for processing genotype and allele data and running population
   genetic analyses, including conformity to Hardy-Weinberg expectations; tests
   for balancing or directional selection; estimates of haplotype frequencies and
@@ -98,6 +98,10 @@ title: 'PyPop: Python for Population Genomics'
 url: http://pypop.org/
 repository-artifact: https://pypi.org/project/pypop-genomics/
 repository-code: https://github.com/alexlancaster/pypop/
+license: GPL-2.0-or-later
+version: v0.9.162
+doi: 10.5281/zenodo.14119011
+type: software
 identifiers:
   - description: PyPop documentation
     type: url
@@ -123,7 +127,6 @@ identifiers:
     type: doi
     value: 10.5281/zenodo.10080667
     relation: IsVersionOf
-type: software
 keywords:
   - population genetics
   - population genomics
@@ -134,6 +137,3 @@ keywords:
   - Major histocompatibility complex
   - HLA
   - MHC
-license: GPL-2.0-or-later
-version: v0.9.162
-doi: 10.5281/zenodo.14119011
