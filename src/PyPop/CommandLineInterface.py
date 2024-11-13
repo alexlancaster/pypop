@@ -50,21 +50,21 @@ class CitationAction(Action):
     def __call__(self, parser, namespace, values, option_string=None):
 
         citation_format = values or 'apalike'
+        citation_file_name = f'citation/CITATION.{citation_format}'
 
         try:  # looking in installed package
             from importlib.resources import files
-            citation_file = files('PyPop').joinpath(f'citation/CITATION.{citation_format}')
+            citation_file = files('PyPop').joinpath(citation_file_name)
             citation_text = citation_file.read_text()
         except (ModuleNotFoundError, ImportError, FileNotFoundError):  # fallback to using backport if not found
             try:
                 from importlib_resources import files
-                citation_file = files('PyPop').joinpath(f'citation/CITATION.{citation_format}')
+                citation_file = files('PyPop').joinpath(citation_file_name)
                 citation_text = citation_file.read_text()
             except (ModuleNotFoundError, ImportError, FileNotFoundError):  # fallback to looking in current directory if running from repo
-                top_level_dir = Path(__file__).resolve().parent.parent.parent
-                citation_file = top_level_dir / 'CITATION.cff'
+                pypop_dir = Path(__file__).resolve().parent
+                citation_file = pypop_dir / citation_file_name
 
-                print("if package is not installed or is an editable package, only CITATION.cff will be available\n")
                 if citation_file.exists():
                     citation_text = citation_file.read_text()
                 else:

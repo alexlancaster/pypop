@@ -225,6 +225,7 @@ from src.PyPop import citation_output_formats
 citation_files = [os.path.join("citation", 'CITATION.' + suffix) for suffix in citation_output_formats]
 citation_data_file_paths.extend(citation_files)
 
+# currently disabled (these are built in a github action)
 class CustomBuildPy(_build_py):
     def run(self):
 
@@ -317,6 +318,7 @@ setup (name = __pkgname__,
        },
        ext_modules=extensions,
        cmdclass={'clean': CleanCommand,
-                 'build_py': CustomBuildPy,
+                 # disable the custom build
+                 # 'build_py': CustomBuildPy,
                  },
        )
