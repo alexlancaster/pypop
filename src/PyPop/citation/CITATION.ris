@@ -1,5 +1,5 @@
 TY  - GEN
-AB  - PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream flexibility. PyPop also has an internal facility for additionally aggregating the output XML and generating output tab-separated (TSV) files, as well as default plain text files for each population. Although it can be run on any kind of genotype data, it has additional support for analyzing population genotype with allelic nomenclature from the human leukocyte antigen (HLA) region.
+AB  - <p>PyPop for Population Genomics (<a href=\"http://pypop.org/\">PyPop</a>) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream flexibility. PyPop also has an internal facility for additionally aggregating the output XML and generating output tab-separated values (TSV) files, as well as default plain text files for each population. Although it can be run on any kind of genotype data, it has additional support for analyzing population genotype with allelic nomenclature from the human leukocyte antigen (HLA) region.</p>
 AU  - Lancaster, Alexander K.
 AU  - Nelson, Mark P.
 AU  - Single, Richard
@@ -13,7 +13,7 @@ AU  - Kornel, Karl
 AU  - Spaaks, Jurriaan H.
 AU  - Mack, Steven J.
 AU  - Thomson, Glenys
-DO  - 10.5281/zenodo.13742984
+DO  - 10.1111/j.1399-0039.2006.00769.x
 KW  - population genetics
 KW  - population genomics
 KW  - bioinformatics
@@ -24,5 +24,5 @@ KW  - Major histocompatibility complex
 KW  - HLA
 KW  - MHC
 TI  - PyPop: Python for Population Genomics
-UR  - http://pypop.org/
+UR  - http://pypop.org/docs
 ER

@@ -7,7 +7,13 @@
       "@type": "Person",
       "affiliation": {
         "@type": "Organization",
-        "name": "Amber Biology LLC and Ronin Institute"
+        "name": [
+          "Amber Biology LLC",
+          {
+            "name": "Ronin Institute",
+            "ror": "https://ror.org/04awze035"
+          }
+        ]
       },
       "familyName": "Lancaster",
       "givenName": "Alexander K."
@@ -16,7 +22,12 @@
       "@type": "Person",
       "affiliation": {
         "@type": "Organization",
-        "name": "University of California, Berkeley"
+        "name": [
+          {
+            "name": "University of California, Berkeley",
+            "ror": "https://ror.org/01an7q238"
+          }
+        ]
       },
       "familyName": "Nelson",
       "givenName": "Mark P."
@@ -26,7 +37,12 @@
       "@type": "Person",
       "affiliation": {
         "@type": "Organization",
-        "name": "University of Vermont"
+        "name": [
+          {
+            "name": "University of Vermont",
+            "ror": "https://ror.org/0155zta11"
+          }
+        ]
       },
       "familyName": "Single",
       "givenName": "Richard"
@@ -42,7 +58,12 @@
       "@type": "Person",
       "affiliation": {
         "@type": "Organization",
-        "name": "University of California, Berkeley"
+        "name": [
+          {
+            "name": "University of California, Berkeley",
+            "ror": "https://ror.org/01an7q238"
+          }
+        ]
       },
       "familyName": "Tsai",
       "givenName": "Yingsu"
@@ -52,7 +73,12 @@
       "@type": "Person",
       "affiliation": {
         "@type": "Organization",
-        "name": "University of São Paulo"
+        "name": [
+          {
+            "name": "University of São Paulo",
+            "ror": "https://ror.org/036rp1748"
+          }
+        ]
       },
       "familyName": "Meyer",
       "givenName": "Diogo"
@@ -62,7 +88,15 @@
       "@type": "Person",
       "affiliation": {
         "@type": "Organization",
-        "name": "Amber Biology LLC"
+        "name": [
+          {
+            "name": "Amber Biology LLC"
+          },
+          {
+            "name": "Ronin Institute",
+            "ror": "https://ror.org/04awze035"
+          }
+        ]
       },
       "familyName": "Webster",
       "givenName": "Gordon"
@@ -72,7 +106,15 @@
       "@type": "Person",
       "affiliation": {
         "@type": "Organization",
-        "name": "Mariani Systems LLC and University of Vermont"
+        "name": [
+          {
+            "name": "Mariani Systems LLC"
+          },
+          {
+            "name": "University of Vermont",
+            "ror": "https://ror.org/0155zta11"
+          }
+        ]
       },
       "familyName": "Mariani",
       "givenName": "Michael P."
@@ -82,7 +124,12 @@
       "@type": "Person",
       "affiliation": {
         "@type": "Organization",
-        "name": "Lawrence Livermore National Laboratory"
+        "name": [
+          {
+            "name": "Lawrence Livermore National Laboratory",
+            "ror": "https://ror.org/041nk4h53"
+          }
+        ]
       },
       "familyName": "Sochat",
       "givenName": "Vanessa"
@@ -102,7 +149,12 @@
       "@type": "Person",
       "affiliation": {
         "@type": "Organization",
-        "name": "Netherlands eScience Center"
+        "name": [
+          {
+            "name": "Netherlands eScience Center",
+            "ror": "https://ror.org/00rbjv475"
+          }
+        ]
       },
       "familyName": "Spaaks",
       "givenName": "Jurriaan H."
@@ -112,7 +164,12 @@
       "@type": "Person",
       "affiliation": {
         "@type": "Organization",
-        "name": "University of California, San Francisco"
+        "name": [
+          {
+            "name": "University of California, San Francisco",
+            "ror": "https://ror.org/043mz5j54"
+          }
+        ]
       },
       "familyName": "Mack",
       "givenName": "Steven J."
@@ -122,15 +179,20 @@
       "@type": "Person",
       "affiliation": {
         "@type": "Organization",
-        "name": "University of California, Berkeley"
+        "name": [
+          {
+            "name": "University of California, Berkeley",
+            "ror": "https://ror.org/01an7q238"
+          }
+        ]
       },
       "familyName": "Thomson",
       "givenName": "Glenys"
     }
   ],
-  "codeRepository": "https://github.com/alexlancaster/pypop",
-  "description": "PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream flexibility. PyPop also has an internal facility for additionally aggregating the output XML and generating output tab-separated (TSV) files, as well as default plain text files for each population. Although it can be run on any kind of genotype data, it has additional support for analyzing population genotype with allelic nomenclature from the human leukocyte antigen (HLA) region.",
-  "identifier": "https://doi.org/10.5281/zenodo.13742984",
+  "codeRepository": "https://github.com/alexlancaster/pypop/",
+  "description": "<p>PyPop for Population Genomics (<a href=\\\"http://pypop.org/\\\">PyPop</a>) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream flexibility. PyPop also has an internal facility for additionally aggregating the output XML and generating output tab-separated values (TSV) files, as well as default plain text files for each population. Although it can be run on any kind of genotype data, it has additional support for analyzing population genotype with allelic nomenclature from the human leukocyte antigen (HLA) region.</p>",
+  "identifier": "https://doi.org/10.1111/j.1399-0039.2006.00769.x",
   "keywords": [
     "population genetics",
     "population genomics",
@@ -144,6 +206,6 @@
   ],
   "license": "https://spdx.org/licenses/GPL-2.0-or-later",
   "name": "PyPop: Python for Population Genomics",
-  "url": "http://pypop.org/",
-  "version": "v1.1.1"
+  "url": "http://pypop.org/docs",
+  "version": "v0.9.163"
 }
