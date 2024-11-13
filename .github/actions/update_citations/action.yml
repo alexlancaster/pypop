@@ -22,8 +22,7 @@ runs:
           contents = f.read()
         citation_output_formats = next((node.value.elts for node in ast.walk(ast.parse(contents)) if isinstance(node, ast.Assign) and node.targets[0].id == "citation_output_formats"), [])
         formats = ",".join([str(elem.value) for elem in citation_output_formats])
-        with open("${{ steps.extract_formats.outputs.formats_file }}", "w") as f:
-          f.write(formats)
+        print(f"::set-output name=formats::{formats}")        
         '
       shell: bash
 
