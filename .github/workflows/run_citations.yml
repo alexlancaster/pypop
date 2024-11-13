@@ -22,7 +22,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           # use customized version of cffconvert
-          pip install git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
+          pip install git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert
 
       - name: Trigger citation update workflow
         uses: ./.github/workflows/update_citations.yml  # reference the reusable workflow
