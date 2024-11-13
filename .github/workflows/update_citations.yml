@@ -13,7 +13,7 @@ on:
         default: 'src/PyPop/__init__.py'
 
 jobs:
-  update-citation:
+  do-citation-updates:
     steps:
       - name: Extract citation formats
         id: extract_formats
