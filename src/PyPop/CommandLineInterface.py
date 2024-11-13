@@ -36,7 +36,8 @@
 import os, sys
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter, FileType, Action
 from pathlib import Path
-from PyPop import platform_info, citation_output_formats  # global info and citation formats
+from PyPop import platform_info            # global info
+from PyPop.citation import citation_output_formats  # and citation formats
 
 """Command-line interface for PyPop scripts
 """

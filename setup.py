@@ -35,7 +35,6 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 import sys, os
-import shutil
 from glob import glob
 from setuptools import setup
 from setuptools.extension import Extension
@@ -221,7 +220,7 @@ xslt_data_file_paths.extend(xslt_files)
 
 citation_data_file_paths = []
 # citation files are in a subdirectory of PyPop, but not a separate module
-from src.PyPop import citation_output_formats
+from src.PyPop.citation import citation_output_formats, convert_citation_formats
 citation_files = [os.path.join("citation", 'CITATION.' + suffix) for suffix in citation_output_formats]
 citation_data_file_paths.extend(citation_files)
 
@@ -229,42 +228,21 @@ citation_data_file_paths.extend(citation_files)
 class CustomBuildPy(_build_py):
     def run(self):
 
-        from cffconvert import Citation
-        
         # do standard build process
         super().run()
 
-        # source citation path (single-source of truth)
-        citation_path = "CITATION.cff"
+        # if not running from a CIBUILDWHEEL environment variable
+        # we need to create the citations
+        if os.environ.get('CIBUILDWHEEL') != '1':
+            
+            # source citation path (single-source of truth)
+            citation_path = "CITATION.cff"
         
-        # then copy CITATION.cff to temp build directory
-        # use setuptools' temp build directory
-        build_lib = self.get_finalized_command('build').build_lib
+            # then copy CITATION.cff to temp build directory
+            # use setuptools' temp build directory
+            build_lib = self.get_finalized_command('build').build_lib
 
-        # target directory for the CITATION file within the build directory
-        target_dir = os.path.join(build_lib, "PyPop", "citation")
-        
-        # create the citation directory if it doesn’t exist
-        os.makedirs(target_dir, exist_ok=True)
-        shutil.copy(citation_path, target_dir)
-
-        # load the CITATION.cff content
-        cff = Citation(cffstr=open(citation_path).read())
-
-        # remove 'cff' from generated list - since we don't generate that
-        citation_output_formats.remove('cff')
-        
-        for fmt in citation_output_formats:
-            # use getattr to get the method based on the format string
-            convert_method = getattr(cff, f"as_{fmt}", None)
-            if callable(convert_method):
-                converted_content = convert_method()
-            else:
-                print(f"Conversion format '{fmt}' not supported.")
-
-            # save the converted output (e.g., as CITATION.json)
-            with open(os.path.join(target_dir, "CITATION." + fmt), "w") as f:
-                f.write(converted_content)
+            convert_citation_formats(build_lib, citation_path)
 
 # read the contents of your README file
 from pathlib import Path
@@ -318,7 +296,8 @@ setup (name = __pkgname__,
        },
        ext_modules=extensions,
        cmdclass={'clean': CleanCommand,
-                 # disable the custom build
-                 # 'build_py': CustomBuildPy,
+                 # enable the custom build
+                 'build_py': CustomBuildPy,
                  },
+
        )
