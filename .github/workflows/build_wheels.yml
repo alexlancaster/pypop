@@ -111,7 +111,7 @@ jobs:
           cat .zenodo.creators.json
           cat .zenodo.json 
           rm .zenodo.citation.json .zenodo.creators.json
-      - name: Push changes back to repo files
+      - name: Push changes back to repo
         run: |
           git fetch origin
           git config --global user.name "ci-pypop"
@@ -122,18 +122,20 @@ jobs:
           git checkout ${{ github.event.release.target_commitish }}
           git merge $GITHUB_REF_NAME-with-upserting-changes-pre-upload
           git push origin ${{ github.event.release.target_commitish }}
+      - name: Push generated citation files from CITATION.cff to repo
+        uses: ./.github/actions/update_citations
+        with:
+          CITATION_DIR: 'src/PyPop/citation'
+          INIT_FILE: 'src/PyPop/__init__.py'
+          PUSH: "origin ${{ github.event.release.target_commitish }}"
+      - name: Clean-up and remove files not for export
+        run: |
           # FIXME: removing files marked with 'export-ignore' 'set' in .gitattributes
           # before zenodraft creates the zipball using https://stackoverflow.com/a/30573319
           # to ensure that we handle filenames with potential ':' or newlines
           git ls-files -z|git check-attr --stdin -z export-ignore |sed -zne 'x;n;n;s/^set$//;t print;b;:print;x;p'|xargs --null rm
           # FIXME: need to also remove orphaned empty directories resulting from above
           find . -empty -type d -delete
-      - name: Update generated citation files based on changed CITATION.cff file
-        uses: ./.github/actions/update_citations
-        with:
-          CITATION_DIR: 'src/PyPop/citation'
-          INIT_FILE: 'src/PyPop/__init__.py'
-          PUSH: "origin ${{ github.event.release.target_commitish }}"
       - name: Create a draft snapshot of your repository contents as a new
               version using metadata from generated .zenodo.json
         env:
