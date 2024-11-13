@@ -70,8 +70,8 @@ authors:
     affiliation: University of California, Berkeley
 title: 'PyPop: Python for Population Genomics'
 url: http://pypop.org/
-repository-artifact: https://pypi.org/project/pypop-genomics/
 repository-code: https://github.com/alexlancaster/pypop
+repository-artifact: https://pypi.org/project/pypop-genomics/
 type: software
 license: GPL-2.0-or-later
 version: v1.1.1
