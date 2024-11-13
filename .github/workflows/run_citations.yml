@@ -26,8 +26,11 @@ jobs:
           # use customized version of cffconvert
           pip install git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert
 
-  call-citation-workflow:  
+  call-citation-workflow:
+    needs: update-citations
     uses: ./.github/workflows/update_citations.yml
     with:
       CITATION_DIR: 'src/PyPop/citation'
       INIT_FILE: 'src/PyPop/__init__.py'
+    secrets: inherit  # if any secrets need to be inherited from the calling workflow
+      
