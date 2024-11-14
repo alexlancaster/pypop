@@ -118,12 +118,6 @@ jobs:
           git checkout ${{ github.event.release.target_commitish }}
           git merge $GITHUB_REF_NAME-with-upserting-changes-pre-upload
           git push origin ${{ github.event.release.target_commitish }}
-      - name: Push generated citation files from CITATION.cff to repo
-        uses: ./.github/actions/update_citations
-        with:
-          CITATION_DIR: 'src/PyPop/citation'
-          INIT_FILE: 'src/PyPop/__init__.py'
-          PUSH: "origin ${{ github.event.release.target_commitish }}"
       - name: Clean-up and remove files not for export
         run: |
           # FIXME: removing files marked with 'export-ignore' 'set' in .gitattributes
