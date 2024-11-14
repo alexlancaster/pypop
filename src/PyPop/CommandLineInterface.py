@@ -36,7 +36,8 @@
 import os, sys
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter, FileType, Action
 from pathlib import Path
-from PyPop import platform_info, citation_output_formats  # global info and citation formats
+from PyPop import platform_info            # global info
+from PyPop.citation import citation_output_formats  # and citation formats
 
 """Command-line interface for PyPop scripts
 """
@@ -61,16 +62,18 @@ class CitationAction(Action):
                 from importlib_resources import files
                 citation_file = files('PyPop').joinpath(citation_file_name)
                 citation_text = citation_file.read_text()
-            except (ModuleNotFoundError, ImportError, FileNotFoundError):  # fallback to looking in current directory if running from repo
-                pypop_dir = Path(__file__).resolve().parent
-                citation_file = pypop_dir / citation_file_name
+            except (ModuleNotFoundError, ImportError, FileNotFoundError):  # fallback to looking in top-level directory if running from repo
+                top_level_dir = Path(__file__).resolve().parent.parent.parent
+                citation_file = top_level_dir / 'CITATION.cff'  # only output CFF 
 
                 if citation_file.exists():
+                    print("only CITATION.cff is available")
+                    print()
                     citation_text = citation_file.read_text()
                 else:
                     print("could not locate the specified citation format.")
                     parser.exit()
-                
+                    
         print(citation_text)
         parser.exit()  # exit after printing the file
 

@@ -20,8 +20,6 @@ on:
       - '.github/workflows/buildjet_arm64.yml'
       - '.github/workflows/release-drafter.yml'
       - '.github/workflows/codeql.yml'
-      - '.github/workflows/run_citations.yml'
-      - '.github/actions/update_citations/action.yml'      
       - '.gitattributes'
   push:
     paths-ignore:
@@ -37,8 +35,6 @@ on:
       - '.github/workflows/buildjet_arm64.yml'      
       - '.github/workflows/release-drafter.yml'
       - '.github/workflows/codeql.yml'
-      - '.github/workflows/run_citations.yml'
-      - '.github/actions/update_citations/action.yml'      
       - '.gitattributes'
   release:
     types:
@@ -215,7 +211,30 @@ jobs:
         if: runner.os == 'Linux'
         uses: docker/setup-qemu-action@v3
         with:
-          platforms: all          
+          platforms: all
+      - name: Install toml and remove cffconvert from pyproject.toml
+        run: |
+          python -m pip install toml
+          python -c "
+          import toml
+          with open('pyproject.toml', 'r') as f:
+             config = toml.load(f)
+          if 'build-system' in config and 'requires' in config['build-system']:
+             config['build-system']['requires'] = [
+                 dep for dep in config['build-system']['requires'] if 'cffconvert' not in dep.lower()
+             ]
+          with open('pyproject.toml', 'w') as f:
+             toml.dump(config, f)
+          "
+      - name: Install a recent stable Python to handle cffconvert
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
+      - name: Generate citation formats
+        run: |
+          python --version
+          python -m pip install git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert
+          python src/PyPop/citation.py
       - name: Build and test wheels
         uses: pypa/cibuildwheel@v2.21.3
         env:
