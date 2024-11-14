@@ -122,7 +122,7 @@ identifiers:
     type: url
     value: https://pypi.org/project/pypop-genomics/0.9.165
     relation: IsSourceOf
-  - description: DOI concept identifier for all versions of pypop
+  - description: DOI concept identifier for all versions of PyPop
     type: doi
     value: 10.5281/zenodo.10080667
     relation: IsVersionOf
