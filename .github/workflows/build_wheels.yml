@@ -197,8 +197,10 @@ jobs:
           with open('pyproject.toml', 'w') as f:
              toml.dump(config, f)
           "
-      - name: Install most Python stable to handle cffconvert
+      - name: Install a recent stable Python to handle cffconvert
         uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
       - name: Generate citation formats
         run: |
           python --version
