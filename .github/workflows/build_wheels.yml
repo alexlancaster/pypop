@@ -197,9 +197,9 @@ jobs:
           with open('pyproject.toml', 'w') as f:
              toml.dump(config, f)
           "
-          cat pyproject.toml
       - name: Generate citation formats
         run: |
+          python --version
           python -m pip install git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert
           python src/PyPop/citation.py
       - name: Build and test wheels
