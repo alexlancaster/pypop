@@ -179,6 +179,10 @@ jobs:
         uses: docker/setup-qemu-action@v3
         with:
           platforms: all
+      - name: Install a recent stable Python to handle Python deps
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.12
       - name: Query version with setuptools_scm
         id: version
         shell: bash
@@ -201,10 +205,6 @@ jobs:
           with open('pyproject.toml', 'w') as f:
              toml.dump(config, f)
           "
-      - name: Install a recent stable Python to handle cffconvert
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.12
       - name: Generate citation formats
         run: |
           python --version
