@@ -179,6 +179,12 @@ jobs:
         uses: docker/setup-qemu-action@v3
         with:
           platforms: all
+      - name: Query version with setuptools_scm
+        id: version
+        run: |
+          python -m pip install setuptools_scm
+          VERSION=$(python -c "import setuptools_scm; print(setuptools_scm.get_version())")
+          echo "VERSION=${VERSION}" >> $GITHUB_ENV
       - name: Install toml and remove cffconvert from pyproject.toml
         run: |
           python -m pip install toml
@@ -207,7 +213,7 @@ jobs:
         env:
           # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
           CIBW_TEST_COMMAND: "pytest -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
-          CIBW_ENVIRONMENT: SETUPTOOLS_SCM_PRETEND_VERSION=${{ github.ref_name }}
+          CIBW_ENVIRONMENT: SETUPTOOLS_SCM_PRETEND_VERSION=${{ env.VERSION }}
         with:
           only: ${{ matrix.only }}
           package-dir: .
