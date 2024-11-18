@@ -1,0 +1,217 @@
+{
+  "creators": [
+    {
+      "affiliations": [
+        {
+          "name": "Amber Biology LLC"
+        },
+        {
+          "id": "04awze035",
+          "name": "Ronin Institute"
+        }
+      ],
+      "name": "Lancaster, Alexander K.",
+      "orcid": "0000-0002-0002-9263"
+    },
+    {
+      "affiliations": [
+        {
+          "id": "01an7q238",
+          "name": "University of California, Berkeley"
+        }
+      ],
+      "name": "Nelson, Mark P."
+    },
+    {
+      "affiliations": [
+        {
+          "id": "0155zta11",
+          "name": "University of Vermont"
+        }
+      ],
+      "name": "Single, Richard",
+      "orcid": "0000-0001-6054-6505"
+    },
+    {
+      "name": "Solberg, Owen",
+      "orcid": "0000-0003-3060-9709"
+    },
+    {
+      "affiliations": [
+        {
+          "id": "01an7q238",
+          "name": "University of California, Berkeley"
+        }
+      ],
+      "name": "Tsai, Yingsu",
+      "orcid": "0009-0006-0162-6066"
+    },
+    {
+      "affiliations": [
+        {
+          "id": "036rp1748",
+          "name": "Universidade de São Paulo"
+        }
+      ],
+      "name": "Meyer, Diogo",
+      "orcid": "0000-0002-7155-5674"
+    },
+    {
+      "affiliation": "Amber Biology LLC",
+      "name": "Webster, Gordon",
+      "orcid": "0009-0009-2862-0467"
+    },
+    {
+      "affiliations": [
+        {
+          "name": "Mariani Systems LLC"
+        },
+        {
+          "id": "0155zta11",
+          "name": "University of Vermont"
+        }
+      ],
+      "name": "Mariani, Michael P.",
+      "orcid": "0000-0001-5852-0517"
+    },
+    {
+      "affiliations": [
+        {
+          "id": "041nk4h53",
+          "name": "Lawrence Livermore National Laboratory"
+        }
+      ],
+      "name": "Sochat, Vanessa",
+      "orcid": "0000-0002-4387-3819"
+    },
+    {
+      "affiliation": "Stanford Research Computing Center",
+      "name": "Kornel, Karl",
+      "orcid": "0000-0001-5847-5330"
+    },
+    {
+      "affiliations": [
+        {
+          "id": "00rbjv475",
+          "name": "Netherlands eScience Center"
+        }
+      ],
+      "name": "Spaaks, Jurriaan H.",
+      "orcid": "0000-0002-7064-4069"
+    },
+    {
+      "affiliations": [
+        {
+          "id": "043mz5j54",
+          "name": "University of California, San Francisco"
+        }
+      ],
+      "name": "Mack, Steven J.",
+      "orcid": "0000-0001-9820-9547"
+    },
+    {
+      "affiliations": [
+        {
+          "id": "01an7q238",
+          "name": "University of California, Berkeley"
+        }
+      ],
+      "name": "Thomson, Glenys",
+      "orcid": "0000-0001-5235-4159"
+    }
+  ],
+  "description": "<p>PyPop for Population Genomics (PyPop) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream flexibility. PyPop also has an internal facility for additionally aggregating the output XML and generating output tab-separated (TSV) files, as well as default plain text files for each population. Although it can be run on any kind of genotype data, it has additional support for analyzing population genotype with allelic nomenclature from the human leukocyte antigen (HLA) region. </p>",
+  "keywords": [
+    "population genetics",
+    "population genomics",
+    "bioinformatics",
+    "computational biology",
+    "evolutionary biology",
+    "Human leukocyte antigen",
+    "Major histocompatibility complex",
+    "HLA",
+    "MHC"
+  ],
+  "license": {
+    "id": "gpl-2.0-or-later"
+  },
+  "grants": [
+    {
+      "id": "10.13039/100000002::5U24AI049213-05",
+      "_comment": "13th IHWG workshop (5th year?)"
+    },
+    {
+      "id": "10.13039/100000002::1R13AI066863-01",
+      "_comment": "14th IHWG workshop"
+    },
+    {
+      "id": "10.13039/100000002::2R01GM035326-13A1",
+      "_comment": "Population genetics of the HLA region - RO1 grant"
+    },
+    {
+      "id": "10.13039/100000002::N01AI40076-11-0-2",
+      "_comment": "BISC Support Contract HHSN266200400076C"
+    }
+  ],
+  "related_identifiers": [
+    {
+      "scheme": "url",
+      "identifier": "http://pypop.org/",
+      "relation": "isSupplementedBy",
+      "resource_type": "other"
+    },
+    {
+      "scheme": "url",
+      "identifier": "http://pypop.org/docs",
+      "relation": "isDocumentedBy",
+      "resource_type": "publication-softwaredocumentation"
+    },
+    {
+      "scheme": "url",
+      "identifier": "https://github.com/alexlancaster/pypop/tree/v1.1.2",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    },
+    {
+      "scheme": "url",
+      "identifier": "https://pypi.org/project/pypop-genomics/1.1.2",
+      "relation": "isSourceOf",
+      "resource_type": "software"
+    },
+    {
+      "scheme": "doi",
+      "identifier": "10.5281/zenodo.10602939",
+      "relation": "isDescribedBy",
+      "resource_type": "publication-preprint"
+    },
+    {
+      "scheme": "url",
+      "identifier": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4369784",
+      "relation": "continues",
+      "resource_type": "publication-preprint"
+    },
+    {
+      "scheme": "doi",
+      "identifier": "10.1111/j.1399-0039.2006.00769.x",
+      "relation": "continues",
+      "resource_type": "publication-article"
+    }
+  ],
+  "additional_descriptions": [
+    {
+      "description": "If you use this software, please cite both the software itself, as well as the article Lancaster AK et al. (2024) <a href=\"https://doi.org/10.3389/fimmu.2024.1378512\">PyPop: A mature open-source software pipeline for population genomics</a>. <i>Front. Immunol.</i> <b>15</b>:1378512. doi: 10.3389/fimmu.2024.1378512",
+      "type": {
+        "id": "notes"
+      }
+    },
+    {
+      "description": "<p>Main website: <a href=\"http://pypop.org/\">http://pypop.org/</a>.</p><p>Development is on GitHub: <a href=\"https://github.com/alexlancaster/pypop\">https://github.com/alexlancaster/pypop</a></p><p>Binary packages are available on PyPI: <a href=\"https://pypi.org/project/pypop-genomics/\">https://pypi.org/project/pypop-genomics/</a>.&nbsp;</p>",
+      "type": {
+        "id": "technical-info"
+      }
+    }
+  ],
+  "title": "PyPop: Python for Population Genomics",
+  "upload_type": "software",
+  "version": "v1.1.2"
+}
