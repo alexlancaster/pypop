@@ -2,7 +2,7 @@
 
 # This file is part of PyPop
 
-# Copyright (C) 2017. 
+# Copyright (C) 2024.
 # All Rights Reserved.
 
 # This program is free software; you can redistribute it and/or modify
