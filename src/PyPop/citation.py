@@ -36,7 +36,7 @@
 import os
 import shutil
 
-citation_output_formats = ['apalike', 'bibtex', 'endnote', 'ris', 'codemeta', 'cff']
+citation_output_formats = ['apalike', 'bibtex', 'endnote', 'ris', 'codemeta', 'cff', 'schema.org', 'zenodo']
 
 def convert_citation_formats(build_lib, citation_path):
 

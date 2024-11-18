@@ -37,7 +37,8 @@ If you write a paper that uses PyPop in your analysis, please cite
 
   Here's how to cite the correct version:
 
-  * If you have PyPop currently installed simply run:
+  * If you have PyPop version 1.1.2 or later, currently installed, you
+    can run:
 
     .. code-block:: shell
 
@@ -49,8 +50,9 @@ If you write a paper that uses PyPop in your analysis, please cite
     <http://pypop.org/docs/guide-chapter-usage.html#command-line-interfaces>`_
     in the *User Guide* for more details).
 
-  * If you do not have PyPop installed, or otherwise want to obtain
-    the DOI and citation for specific versions, follow these steps:
+  * If you do not have PyPop installed, have a release of PyPop
+    earlier than 1.1.2, or otherwise want to obtain the DOI and
+    citation for specific versions, follow these steps:
 
     1) First visit the DOI for the overall Zenodo record:
        `10.5281/zenodo.10080667
