@@ -7,6 +7,30 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.1.2] - 2024-10-18
+
+### Features
+
+- Add new command-line option `--citation` for installed version by @alexlancaster ([#228](https://github.com/alexlancaster/pypop/pull/228))
+- enable PyPy 3.10 as numpy wheels now exist by @alexlancaster ([#219](https://github.com/alexlancaster/pypop/pull/219))
+
+### Internal
+
+- Update numpy requirement from \<=2.1.2 to \<=2.1.3 by @dependabot ([#226](https://github.com/alexlancaster/pypop/pull/226))
+- update x86 runner to `macos-13`, pin `swig` version by @alexlancaster ([#227](https://github.com/alexlancaster/pypop/pull/227))
+- Bump pypa/cibuildwheel from 2.21.2 to 2.21.3 in the actions group by @dependabot ([#225](https://github.com/alexlancaster/pypop/pull/225))
+- Bump pypa/cibuildwheel from 2.21.1 to 2.21.2 in the actions group by @dependabot ([#224](https://github.com/alexlancaster/pypop/pull/224))
+- Update numpy requirement from \<=2.1.1 to \<=2.1.2 by @dependabot ([#223](https://github.com/alexlancaster/pypop/pull/223))
+- Bump pypa/cibuildwheel from 2.20.0 to 2.21.1 in the actions group across 1 directory by @dependabot ([#222](https://github.com/alexlancaster/pypop/pull/222))
+
+### Documentation
+
+- Add new command-line option `--citation` for installed version by @alexlancaster ([#228](https://github.com/alexlancaster/pypop/pull/228))
+- Update to latest `sphinx` and add subtitle by @alexlancaster ([#220](https://github.com/alexlancaster/pypop/pull/220))
+
+[1.1.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.2
+
+
 ## [1.1.1] - 2024-09-10
 
 ### Features
