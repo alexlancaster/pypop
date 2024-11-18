@@ -34,9 +34,10 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 import os, sys
-from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter, FileType
+from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter, FileType, Action
 from pathlib import Path
-from PyPop import platform_info  # global info
+from PyPop import platform_info            # global info
+from PyPop.citation import citation_output_formats  # and citation formats
 
 """Command-line interface for PyPop scripts
 """
@@ -45,6 +46,37 @@ from PyPop import platform_info  # global info
 class PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter):
     pass
 
+class CitationAction(Action):
+        
+    def __call__(self, parser, namespace, values, option_string=None):
+
+        citation_format = values or 'apalike'
+        citation_file_name = f'citation/CITATION.{citation_format}'
+
+        try:  # looking in installed package
+            from importlib.resources import files
+            citation_file = files('PyPop').joinpath(citation_file_name)
+            citation_text = citation_file.read_text()
+        except (ModuleNotFoundError, ImportError, FileNotFoundError):  # fallback to using backport if not found
+            try:
+                from importlib_resources import files
+                citation_file = files('PyPop').joinpath(citation_file_name)
+                citation_text = citation_file.read_text()
+            except (ModuleNotFoundError, ImportError, FileNotFoundError):  # fallback to looking in top-level directory if running from repo
+                top_level_dir = Path(__file__).resolve().parent.parent.parent
+                citation_file = top_level_dir / 'CITATION.cff'  # only output CFF 
+
+                if citation_file.exists():
+                    print("only CITATION.cff is available")
+                    print()
+                    citation_text = citation_file.read_text()
+                else:
+                    print("could not locate the specified citation format.")
+                    parser.exit()
+                    
+        print(citation_text)
+        parser.exit()  # exit after printing the file
+
 def get_parent_cli(version="", copyright_message=""):
     # options common to both scripts
     parent_parser = ArgumentParser(add_help=False)
@@ -52,6 +84,8 @@ def get_parent_cli(version="", copyright_message=""):
     # define function arguments as signatures - need to be added in child parser as part of the selection logic
     common_args = [
         (["-h", "--help"], {'action': "help", 'help': "show this help message and exit"}),
+        (["--citation"], {'help': "generate citation to PyPop for this version of PyPop",
+                          'action': CitationAction, 'nargs':'?', 'choices': citation_output_formats, 'default':'apalike'}),
         (["-o", "--outputdir"], {'help':"put output in directory OUTPUTDIR",
                                  'required':False, 'type':Path, 'default':None}),
         (["-V", "--version"], {'action':'version',
