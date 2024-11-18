@@ -207,7 +207,7 @@ jobs:
         with:
           platforms: all
       - name: Install a recent stable Python to handle Python deps
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: 3.12
       - name: Query version with setuptools_scm
