@@ -65,7 +65,6 @@ class CleanCommand(clean.clean):
                     os.unlink(ext_file)
         clean.clean.run(self)
 
-            
 # look for libraries in _PREFIX
 library_dirs = [os.path.join(_PREFIX, "lib")]
 include_dirs = [os.path.join(_PREFIX, "include")]
@@ -299,5 +298,4 @@ setup (name = __pkgname__,
                  # enable the custom build
                  'build_py': CustomBuildPy,
                  },
-
        )

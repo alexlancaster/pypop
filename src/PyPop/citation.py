@@ -2,7 +2,7 @@
 
 # This file is part of PyPop
 
-# Copyright (C) 2017. 
+# Copyright (C) 2024.
 # All Rights Reserved.
 
 # This program is free software; you can redistribute it and/or modify
@@ -70,4 +70,3 @@ def convert_citation_formats(build_lib, citation_path):
 if __name__ == "__main__":
 
     convert_citation_formats("src", "CITATION.cff")
-
