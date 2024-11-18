@@ -113,6 +113,9 @@ identifiers:
     value: 10.5281/zenodo.10080667
     relation: IsVersionOf
 type: software
+license: GPL-2.0-or-later
+version: v1.1.1
+doi: 10.5281/zenodo.13742984
 keywords:
   - population genetics
   - population genomics
@@ -123,6 +126,3 @@ keywords:
   - Major histocompatibility complex
   - HLA
   - MHC
-license: GPL-2.0-or-later
-version: v1.1.1
-doi: 10.5281/zenodo.13742984
