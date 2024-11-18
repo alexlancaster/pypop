@@ -70,4 +70,3 @@ def convert_citation_formats(build_lib, citation_path):
 if __name__ == "__main__":
 
     convert_citation_formats("src", "CITATION.cff")
-
