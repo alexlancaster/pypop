@@ -23,12 +23,18 @@ large-scale population genetic analyses including:
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
-  * 2024-09-10: `PyPop 1.1.1
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.1>`__
+  * 2024-11-18: `PyPop 1.1.2
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.2>`__
     released and available on `PyPI
     <https://pypi.org/project/pypop-genomics/>`__.
 
-    - Enable support for Python 3.13 and build Python 3.13 wheels
+    - Add ``--citation`` command-line option to print citation
+      information for the installed release.
+    - ``numpy`` dependency update to 2.1.3
+	  
+  * 2024-09-10: `PyPop 1.1.1
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.1>`__
+    released, enables support for Python 3.13 and build Python 3.13 wheels.
 	  
   * 2024-05-30: `PyPop 1.1.0
     <https://github.com/alexlancaster/pypop/releases/tag/v1.1.0>`__
@@ -43,18 +49,12 @@ large-scale population genetic analyses including:
   * 2024-03-08: PyPop paper, provisionally accepted.
   * 2024-02-24: `PyPop 1.0.2
     <https://github.com/alexlancaster/pypop/releases/tag/v1.0.2>`__
-    released.
-
-    - Cleanups as a result of code scanning.
-    - Update ``numpy`` to 1.26.4
+    released. Code scanning updates and updated ``numpy`` to 1.26.4
 
   * 2024-02-11: `PyPop 1.0.1
     <https://github.com/alexlancaster/pypop/releases/tag/v1.0.1>`__
-    released.
-
-    - Adds support for more platforms: ``ARM64`` for Windows and Linux,
-      and also ``muslinux`` wheels
-    - Better support for scientific notation in text output
+    released. Added support for ``ARM64`` for Windows and Linux, and
+    also ``muslinux`` wheels. Improved support for scientific notation.
      
   * 2024-02-01: `Preprint <https://zenodo.org/records/10602940>`__
     describing 1.0.0 released on Zenodo.
