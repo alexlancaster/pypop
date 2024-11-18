@@ -38,6 +38,8 @@ import sys, os
 from glob import glob
 from setuptools import setup
 from setuptools.extension import Extension
+from setuptools.command.build_py import build_py as _build_py
+from setuptools.command.install import install as _install
 from distutils.command import clean
 from sysconfig import _PREFIX, get_config_vars, get_config_var
 from src.PyPop import __pkgname__, __version_scheme__
@@ -210,10 +212,36 @@ extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Haplostats, e
 # don't include HWEEnum 
 # extensions.append(ext_HweEnum)
 
-data_file_paths = []
+xslt_data_file_paths = []
 # xslt files are in a subdirectory
 xslt_files = [f + '.xsl' for f in ['text', 'html', 'lib', 'common', 'filter', 'hardyweinberg', 'homozygosity', 'emhaplofreq', 'meta-to-tsv', 'sort-by-locus', 'haplolist-by-group', 'phylip-allele', 'phylip-haplo']]
-data_file_paths.extend(xslt_files)
+xslt_data_file_paths.extend(xslt_files)
+
+citation_data_file_paths = []
+# citation files are in a subdirectory of PyPop, but not a separate module
+from src.PyPop.citation import citation_output_formats, convert_citation_formats
+citation_files = [os.path.join("citation", 'CITATION.' + suffix) for suffix in citation_output_formats]
+citation_data_file_paths.extend(citation_files)
+
+# currently disabled (these are built in a github action)
+class CustomBuildPy(_build_py):
+    def run(self):
+
+        # do standard build process
+        super().run()
+
+        # if not running from a CIBUILDWHEEL environment variable
+        # we need to create the citations
+        if os.environ.get('CIBUILDWHEEL') != '1':
+            
+            # source citation path (single-source of truth)
+            citation_path = "CITATION.cff"
+        
+            # then copy CITATION.cff to temp build directory
+            # use setuptools' temp build directory
+            build_lib = self.get_finalized_command('build').build_lib
+
+            convert_citation_formats(build_lib, citation_path)
 
 # read the contents of your README file
 from pathlib import Path
@@ -250,7 +278,8 @@ setup (name = __pkgname__,
                       ],
        package_dir = {"": src_dir},
        packages = ["PyPop", "PyPop.xslt"],
-       package_data={"PyPop.xslt": data_file_paths},
+       package_data = {"PyPop.xslt": xslt_data_file_paths,
+                       "PyPop": citation_data_file_paths},
        install_requires = ["numpy <= 2.1.3",
                            "lxml <= 5.3.0",
                            "importlib-resources; python_version <= '3.8'",
@@ -265,6 +294,8 @@ setup (name = __pkgname__,
                                'pypop-interactive=PyPop.pypop:main_interactive']
        },
        ext_modules=extensions,
-       cmdclass={'clean': CleanCommand,},
+       cmdclass={'clean': CleanCommand,
+                 # enable the custom build
+                 'build_py': CustomBuildPy,
+                 },
        )
-
