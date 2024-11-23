@@ -95,7 +95,6 @@ authors:
       - name: University of California, Berkeley
         ror: https://ror.org/01an7q238
 title: 'PyPop: Python for Population Genomics'
-url: http://pypop.org/
 repository-artifact: https://pypi.org/project/pypop-genomics/
 repository-code: https://github.com/alexlancaster/pypop/
 license: GPL-2.0-or-later
@@ -105,6 +104,9 @@ identifiers:
   - description: Zenodo software archive
     type: doi
     value: 10.5281/zenodo.14182367
+  - description: PyPop website
+    type: url
+    value: http://pypop.org/
   - description: PyPop documentation
     type: url
     value: http://pypop.org/docs
