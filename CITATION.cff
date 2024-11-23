@@ -100,15 +100,9 @@ repository-code: https://github.com/alexlancaster/pypop/
 license: GPL-2.0-or-later
 version: v0.9.167
 type: software
+url: http://pypop.org/
+doi: 10.5281/zenodo.14182367
 identifiers:
-  - description: Zenodo software archive
-    type: doi
-    value: 10.5281/zenodo.14182367
-    relation: IsIdenticalTo
-  - description: PyPop website
-    type: url
-    value: http://pypop.org/
-    relation: Describes
   - description: PyPop documentation
     type: url
     value: http://pypop.org/docs
