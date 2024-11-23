@@ -104,9 +104,11 @@ identifiers:
   - description: Zenodo software archive
     type: doi
     value: 10.5281/zenodo.14182367
+    relation: IsIdenticalTo
   - description: PyPop website
     type: url
     value: http://pypop.org/
+    relation: Describes
   - description: PyPop documentation
     type: url
     value: http://pypop.org/docs
