@@ -41,7 +41,7 @@ from setuptools.extension import Extension
 from setuptools.command.build_py import build_py as _build_py
 from setuptools.command.install import install as _install
 from distutils.command import clean
-from sysconfig import _PREFIX, get_config_vars, get_config_var
+from sysconfig import get_config_vars, get_config_var
 from src.PyPop import __pkgname__, __version_scheme__
 
 src_dir = "src"
@@ -66,8 +66,9 @@ class CleanCommand(clean.clean):
         clean.clean.run(self)
 
 # look for libraries in _PREFIX
-library_dirs = [os.path.join(_PREFIX, "lib")]
-include_dirs = [os.path.join(_PREFIX, "include")]
+prefix = get_config_var('prefix')
+library_dirs = [os.path.join(prefix, "lib")]
+include_dirs = [os.path.join(prefix, "include")]
 # also look in LIBRARY_PATH, CPATH (needed for macports etc.)
 if "LIBRARY_PATH" in os.environ:
     library_dirs += os.environ["LIBRARY_PATH"].rstrip(os.pathsep).split(os.pathsep)
@@ -256,7 +257,7 @@ setup (name = __pkgname__,
        packages = ["PyPop", "PyPop.xslt"],
        package_data = {"PyPop.xslt": xslt_data_file_paths,
                        "PyPop": citation_data_file_paths},
-       install_requires = ["numpy <= 2.2.0",
+       install_requires = ["numpy <= 2.2.1",
                            "SciPy <= 1.14.1",                           
                            "lxml <= 5.3.0",
                            "importlib-resources; python_version <= '3.8'",
