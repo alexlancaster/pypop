@@ -51,7 +51,8 @@ jobs:
              <description>Release GSL for ARM64 as NuGet package.</description>
            </metadata>
            <files>
-            <file src="gsl\\build\\install\\**\\*" target="*" />
+            <!-- Package contents from build/install directory -->
+            <file src="gsl\\build\\install\\**\\*" target="build\\native\\" />           
             </files>
           </package>
           EOF
