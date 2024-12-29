@@ -98,9 +98,9 @@ environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PA
 [[tool.cibuildwheel.overrides]]
 # Overrides for ARM64
 select ="*-win_arm64*"
-before-all = ["echo 'GH_TOKEN:' $env:GH_TOKEN",
-	      "gh auth status; $RUN_ID = gh run list --workflow 'Create GSL ARM64 GitHub Package' --json databaseId -q '.[0].databaseId'",
-	      "gh run download $RUN_ID gsl-nuget-package",
+before-all = [#"echo 'GH_TOKEN:' $env:GH_TOKEN",
+	      #"gh auth status; $RUN_ID = gh run list --workflow 'Create GSL ARM64 GitHub Package' --json databaseId -q '.[0].databaseId'",
+	      #"gh run download $RUN_ID gsl-nuget-package",
 	      "nuget install gsl-msvc14-arm64 -Source gsl-msvc14-arm64.2.3.0.2779.nupkg"]
 #before-all = "nuget install gsl-msvc14-arm64 -Version 2.3.0.2779 -source https://nuget.pkg.github.com/alexlancaster/index.json -ApiKey ${GITHUB_TOKEN}"
 
