@@ -17,12 +17,12 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "cp313-musllinux_x86_64", # problem with this version
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-extras = ["test"]
-
 # FIXME: can add "test-command" that would allow unit test output to be saved
 # "pytest -v {package}/tests && echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
 
 # don't try and install pypi packages that need build from source
 # this is mainly import during the testing phase
+inherit.environment="append"
 environment = { PIP_ONLY_BINARY=":all:" }
 
 # use pip and override the PIP_ONLY_BINARY=:all: during wheel generation
@@ -100,6 +100,7 @@ environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PA
 # Overrides for ARM64
 select ="*-win_arm64*"
 before-all = ["echo 'GH_TOKEN:' $GH_TOKEN",
+	      "gh auth status",
 	      "gh run download gsl-nuget-package",
 	      "unzip gsl-nuget-package.zip",
 	      "nuget install gsl-msvc14-arm64 -Source gsl-msvc14-arm64.2.3.0.2779.nupkg"]
