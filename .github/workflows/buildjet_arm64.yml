@@ -21,7 +21,7 @@ jobs:
       - name: Test with pytest
         run: |
           pip install --only-binary :all: dist/pypop_genomics*.whl
-          pytest -s -v tests
+          pytest -s -v tests --runslow
       - uses: actions/upload-artifact@v4
         with:
           path: dist/*
