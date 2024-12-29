@@ -14,11 +14,11 @@ name: "CodeQL"
 on:
   workflow_dispatch:
   push:
-    branches: [ "main", "codeql_latest_ubuntu" ]
+    branches: [ "main" ]
     paths:
       - '.github/workflows/codeql.yml'
   pull_request:
-    branches: [ "main", "codeql_latest_ubuntu" ]
+    branches: [ "main" ]
     paths:
       - '.github/workflows/codeql.yml'
   schedule:
