@@ -100,7 +100,7 @@ environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PA
 # Overrides for ARM64
 select ="*-win_arm64*"
 before-all = """
-    git clone --branch v2.3 https://github.com/ampl/gsl.git
+    git clone --branch v2.3.0 https://github.com/ampl/gsl.git
     cd gsl
     cmake -B build -G "Ninja" -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=%cd%\\gsl\\build\\install
     cmake --build build --target install
