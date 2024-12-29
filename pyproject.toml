@@ -102,10 +102,10 @@ select ="*-win_arm64*"
 # build GSL from source
 before-all = ["git clone --branch v2.3.0 https://github.com/ampl/gsl.git",
     	      "cd gsl",
-	      "cmake -B build -G  \"Visual Studio 16 2019\" -A ARM64 -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=%cd%\\gsl\\build\\install",
+	      "cmake -B build -G  \"Visual Studio 16 2019\" -A ARM64 -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=gsl\\build\\install",
               "cmake --build build --target install"]
 inherit.environment = "append"
-environment = { CPATH="%cd%\\gsl\\build\\install\\include", LIBRARY_PATH="%cd%\\gsl\\build\\install\\lib" }
+environment = { CPATH="gsl\\build\\install\\include", LIBRARY_PATH="gsl\\build\\install\\lib" }
 
 
 [tool.setuptools_scm]
