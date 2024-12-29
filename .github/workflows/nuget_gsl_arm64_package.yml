@@ -58,11 +58,15 @@ jobs:
         run: |
           nuget pack GSL.nuspec -OutputDirectory $(pwd)  # Adjust the path to match the actual output location
 
-      # Step 6: Publish the NuGet package to GitHub Packages
-      - name: Publish NuGet package to GitHub Packages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          dotnet nuget push *.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ GITHUB_TOKEN }} --skip-duplicate
+      # Step 7: Upload nupkg as an artifact
+      - name: Upload NuGet artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: gsl-nuget-package
+          path: ./*.nupkg
+
+      #- name: Publish NuGet package to GitHub Packages
+      #  run: |
+      #   dotnet nuget push *.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ GITHUB_TOKEN }} --skip-duplicate
           #dotnet nuget push *.nupkg --source "https://nuget.pkg.github.com/alexlancaster/index.json" --api-key ${{ secrets.PACKAGES_TOKEN }}
           # nuget push *.nupkg -Verbosity detailed -Source https://nuget.pkg.github.com/alexlancaster/index.json -ApiKey ${{ secrets.PACKAGES_TOKEN }}
