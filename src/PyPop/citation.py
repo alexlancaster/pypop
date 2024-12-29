@@ -56,16 +56,17 @@ def convert_citation_formats(build_lib, citation_path):
     citation_output_formats.remove('cff')
 
     for fmt in citation_output_formats:
-        # use getattr to get the method based on the format string
-        convert_method = getattr(cff, f"as_{fmt}", None)
+        # use getattr to get the method based on the format string, remove periods in methods
+        convert_method = getattr(cff, f"as_{fmt.replace('.', '')}", None)
         if callable(convert_method):
             converted_content = convert_method()
+
+            # save the converted output (e.g., as CITATION.json)
+            with open(os.path.join(target_dir, "CITATION." + fmt), "w") as f:
+                f.write(converted_content)
         else:
             print(f"Conversion format '{fmt}' not supported.")
 
-        # save the converted output (e.g., as CITATION.json)
-        with open(os.path.join(target_dir, "CITATION." + fmt), "w") as f:
-            f.write(converted_content)
 
 if __name__ == "__main__":
 
