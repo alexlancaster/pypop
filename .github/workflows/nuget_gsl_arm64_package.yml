@@ -39,7 +39,9 @@ jobs:
       # Step 5: Generate .nuspec file (if not already available)
       - name: Generate .nuspec file
         run: |
-          nuget spec gsl\\build\\install\\lib\\GSL.dll
+          nuget spec gsl\\build\\install\\lib
+          # Display the contents of the generated .nuspec file
+          Get-Content gsl\\build\\install\\lib\\*.nuspec          
           
       # Step 5: Package the build output as a NuGet package
       - name: Package the build output
