@@ -27,7 +27,6 @@ jobs:
       - name: Clone GSL repository
         run: |
           git clone --branch v2.3.0 https://github.com/ampl/gsl.git
-          cd gsl
 
       # Step 4: Build the package for ARM64
       - name: Build GSL for ARM64
@@ -68,4 +67,5 @@ jobs:
       # Step 7: Publish the NuGet package to GitHub Packages
       - name: Publish NuGet package to GitHub Packages
         run: |
-          nuget push *.nupkg -Verbosity detailed -Source https://nuget.pkg.github.com/alexlancaster/index.json -ApiKey ${{ secrets.PACKAGES_TOKEN }}
+          dotnet nuget push *.nupkg --source "https://nuget.pkg.github.com/alexlancaster/index.json" --api-key ${{ secrets.PACKAGES_TOKEN }}
+          # nuget push *.nupkg -Verbosity detailed -Source https://nuget.pkg.github.com/alexlancaster/index.json -ApiKey ${{ secrets.PACKAGES_TOKEN }}
