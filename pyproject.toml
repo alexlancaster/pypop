@@ -88,13 +88,26 @@ before-all = ["brew install ./swig--4.2.1.arm64_ventura.bottle.tar.gz",
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
-# use nuget to install gsl on Windows, and manually supply paths
-before-all = "nuget install gsl-msvc14-x64 -Version 2.3.0.2779"
 
 [[tool.cibuildwheel.overrides]]
-select ="*-win_*"
+select ="*-win_amd64*"
+# use nuget to install gsl on Windows, and manually supply paths
+before-all = "nuget install gsl-msvc14-x64 -Version 2.3.0.2779"
 inherit.environment="append"
 environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static" }
+
+[[tool.cibuildwheel.overrides]]
+# Overrides for ARM64
+select ="*-win_arm64*"
+before-all = """
+    git clone --branch v2.3 https://github.com/ampl/gsl.git
+    cd gsl
+    cmake -B build -G "Ninja" -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=%cd%\\gsl\\build\\install
+    cmake --build build --target install
+"""
+inherit.environment = "append"
+environment = { CPATH="%cd%\\gsl\\build\\install\\include", LIBRARY_PATH="%cd%\\gsl\\build\\install\\lib" }
+
 
 [tool.setuptools_scm]
 write_to = "src/PyPop/_version.py"  # matches the path where version will be written
