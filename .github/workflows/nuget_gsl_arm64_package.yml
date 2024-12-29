@@ -36,12 +36,28 @@ jobs:
           cmake -B build -G "Visual Studio 16 2019" -A ARM64 -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=build\\install
           cmake --build build --target install
 
-      # Step 5: Generate .nuspec file (if not already available)
-      - name: Generate .nuspec file
+      # Step 5: Create .nuspec file for GSL (ARM64)
+      - name: Create .nuspec file for GSL ARM64
+        shell: bash
         run: |
-          nuget spec gsl\\build\\install\\lib
+          cat <<EOF > gsl/build/install/lib/GSL.nuspec
+          <?xml version="1.0" encoding="utf-8"?>
+          <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+           <metadata>
+             <id>gsl-msvc14-arm64</id>
+             <version>2.3.0.2779</version>
+             <authors>PyPop team</authors>
+             <requireLicenseAcceptance>false</requireLicenseAcceptance>
+             <description>Release GSL for ARM64 as NuGet package.</description>
+           </metadata>
+           <files>
+            <file src="gsl\\build\\install\\**\\*" target="*" />
+            </files>
+          </package>
+          EOF
+          
           # Display the contents of the generated .nuspec file
-          Get-Content gsl\\build\\install\\lib\\*.nuspec          
+          cat gsl/build/install/lib/*.nuspec          
           
       # Step 5: Package the build output as a NuGet package
       - name: Package the build output
