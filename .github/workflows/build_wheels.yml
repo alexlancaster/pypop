@@ -189,7 +189,7 @@ jobs:
       - name: Download GSL artifact on Windows
         if: runner.os == 'Windows'  # Only runs on Windows
         env:
-        GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           #gh auth login --with-token <<< "${{ secrets.GH_TOKEN }}"
           RUN_ID=$(gh run list --workflow 'Create GSL ARM64 GitHub Package' --json databaseId -q '.[0].databaseId')
