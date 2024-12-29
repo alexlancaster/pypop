@@ -191,10 +191,11 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          #gh auth login --with-token <<< "${{ secrets.GH_TOKEN }}"
           RUN_ID=$(gh run list --workflow 'Create GSL ARM64 GitHub Package' --json databaseId -q '.[0].databaseId')
           echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV  # Set RUN_ID as environment variable
-          gh run download $RUN_ID -n gsl-nuget-package
+          mkdir nuget-packages
+          gh run download $RUN_ID -n gsl-nuget-package --dir nuget-packages
+          ls nuget-packages/*.nupkg
         shell: bash  # Ensure shell is bash for compatibility
       - name: Query version with setuptools_scm
         id: version
