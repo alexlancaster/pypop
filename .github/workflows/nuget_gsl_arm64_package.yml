@@ -61,6 +61,6 @@ jobs:
       # Step 6: Publish the NuGet package to GitHub Packages
       - name: Publish NuGet package to GitHub Packages
         run: |
-          dotnet nuget push *.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --skip-duplicate
+          dotnet nuget push *.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ secrets.GITHUB_TOKEN }} --skip-duplicate
           #dotnet nuget push *.nupkg --source "https://nuget.pkg.github.com/alexlancaster/index.json" --api-key ${{ secrets.PACKAGES_TOKEN }}
           # nuget push *.nupkg -Verbosity detailed -Source https://nuget.pkg.github.com/alexlancaster/index.json -ApiKey ${{ secrets.PACKAGES_TOKEN }}
