@@ -68,4 +68,4 @@ jobs:
       # Step 7: Publish the NuGet package to GitHub Packages
       - name: Publish NuGet package to GitHub Packages
         run: |
-          nuget push *.nupkg -Verbosity detailed -Source https://nuget.pkg.github.com/alexlancaster/index.json --api-key ${{ secrets.PACKAGES_TOKEN }}
+          nuget push *.nupkg -Verbosity detailed -Source https://nuget.pkg.github.com/alexlancaster/index.json -ApiKey ${{ secrets.PACKAGES_TOKEN }}
