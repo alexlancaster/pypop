@@ -40,7 +40,7 @@ jobs:
       - name: Generate .nuspec file
         run: |
           cd gsl
-          nuget spec gsl\\build\\install\\lib\\GSL.dll -OutputDirectory .
+          nuget spec gsl\\build\\install\\lib\\GSL.dll
           
       # Step 5: Package the build output as a NuGet package
       - name: Package the build output
