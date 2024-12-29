@@ -20,6 +20,7 @@ on:
       - '.github/workflows/buildjet_arm64.yml'
       - '.github/workflows/release-drafter.yml'
       - '.github/workflows/codeql.yml'
+      - '.github/workflows/nuget_gsl_arm64_package.yml'      
       - '.gitattributes'
   push:
     paths-ignore:
@@ -35,6 +36,7 @@ on:
       - '.github/workflows/buildjet_arm64.yml'      
       - '.github/workflows/release-drafter.yml'
       - '.github/workflows/codeql.yml'
+      - '.github/workflows/nuget_gsl_arm64_package.yml'      
       - '.gitattributes'
   release:
     types:
