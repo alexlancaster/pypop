@@ -1,0 +1,53 @@
+name: Create GSL ARM64 GitHub Package
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      # Trigger on change to this yml
+      - '.github/workflows/nuget_gsl_arm64_package.yml'
+
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+
+      # Step 1: Set up GitHub Packages Authentication
+      - name: Set up GitHub Packages authentication
+        run: |
+          echo "//npm.pkg.github.com/:_authToken=${{ secrets.PACKAGES_TOKEN }}" > ~/.npmrc
+        shell: bash
+
+      # Step 2: Install required tools
+      - name: Install NuGet
+        run: |
+          choco install nuget.commandline
+
+      # Step 3: Clone GSL repository
+      - name: Clone GSL repository
+        run: |
+          git clone --branch v2.3.0 https://github.com/ampl/gsl.git
+          cd gsl
+
+      # Step 4: Build the package for ARM64
+      - name: Build GSL for ARM64
+        run: |
+          cd gsl
+          cmake -B build -G "Visual Studio 16 2019" -A ARM64 -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=build\\install
+          cmake --build build --target install
+
+      # Step 5: Generate .nuspec file (if not already available)
+      - name: Generate .nuspec file
+        run: |
+          cd gsl
+          nuget spec gsl\\build\\install\\lib\\GSL.dll -OutputDirectory .
+          
+      # Step 5: Package the build output as a NuGet package
+      - name: Package the build output
+        run: |
+          nuget pack gsl\\build\\install\\lib\\GSL.nuspec -OutputDirectory $(pwd)  # Adjust the path to match the actual output location
+
+      # Step 7: Publish the NuGet package to GitHub Packages
+      - name: Publish NuGet package to GitHub Packages
+        run: |
+          nuget push *.nupkg -Source https://nuget.pkg.github.com/alexlancaster/index.json -ApiKey ${{ secrets.PACKAGES_TOKEN }}
