@@ -40,7 +40,7 @@ jobs:
       - name: Create .nuspec file for GSL ARM64
         shell: bash
         run: |
-          cat <<EOF > gsl/build/install/lib/GSL.nuspec
+          cat <<EOF > GSL.nuspec
           <?xml version="1.0" encoding="utf-8"?>
           <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
            <metadata>
@@ -52,18 +52,18 @@ jobs:
            </metadata>
            <files>
             <!-- Package contents from build/install directory -->
-            <file src="gsl\\build\\install\\**\\*" target="build\\native\\" />           
+            <file src="gsl\\build\\install\\**\\*" target="build\\native" />           
             </files>
           </package>
           EOF
           
           # Display the contents of the generated .nuspec file
-          cat gsl/build/install/lib/*.nuspec          
+          cat GSL.nuspec          
           
       # Step 5: Package the build output as a NuGet package
       - name: Package the build output
         run: |
-          nuget pack gsl\\build\\install\\lib\\GSL.nuspec -OutputDirectory $(pwd)  # Adjust the path to match the actual output location
+          nuget pack GSL.nuspec -OutputDirectory $(pwd)  # Adjust the path to match the actual output location
 
       # Step 7: Publish the NuGet package to GitHub Packages
       - name: Publish NuGet package to GitHub Packages
