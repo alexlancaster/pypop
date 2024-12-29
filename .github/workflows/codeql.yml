@@ -83,7 +83,6 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y libgsl-dev        
         echo "Build PyPop extensions using script"
-        apt install lib
         pipx install -v -e .
 
     - name: Perform CodeQL Analysis
