@@ -12,6 +12,7 @@
 name: "CodeQL"
 
 on:
+  workflow_dispatch:
   push:
     branches: [ "main", ]
   pull_request:
@@ -27,7 +28,7 @@ jobs:
     #   - https://gh.io/supported-runners-and-hardware-resources
     #   - https://gh.io/using-larger-runners
     # Consider using larger runners for possible analysis time improvements.
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-22.04' }}
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
     timeout-minutes: ${{ (matrix.language == 'swift' && 120) || 360 }}
     permissions:
       # required for all workflows
@@ -74,7 +75,11 @@ jobs:
       # ℹ️ Command-line programs to run using the OS shell.
       # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
       run: |
+        echo "Installing GNU Scientific Library (GSL)..."
+        sudo apt-get update
+        sudo apt-get install -y libgsl-dev        
         echo "Build PyPop extensions using script"
+        apt install lib
         pipx install -v -e .
 
     - name: Perform CodeQL Analysis
