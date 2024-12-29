@@ -22,7 +22,6 @@ test-extras = ["test"]
 
 # don't try and install pypi packages that need build from source
 # this is mainly import during the testing phase
-inherit.environment="append"
 environment = { PIP_ONLY_BINARY=":all:" }
 
 # use pip and override the PIP_ONLY_BINARY=:all: during wheel generation
@@ -99,7 +98,7 @@ environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PA
 [[tool.cibuildwheel.overrides]]
 # Overrides for ARM64
 select ="*-win_arm64*"
-before-all = ["echo 'GH_TOKEN:' $GH_TOKEN",
+before-all = ["echo 'GH_TOKEN:' ${GH_TOKEN}",
 	      "gh auth status",
 	      "gh run download gsl-nuget-package",
 	      "unzip gsl-nuget-package.zip",
