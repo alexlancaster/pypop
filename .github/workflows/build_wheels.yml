@@ -217,8 +217,8 @@ jobs:
           # check if artifact exists
           if [ ! -f ${NUGET_PACKAGE_DIR}/${GSL_PACKAGE_FILE} ]; then
             echo "Artifact not found. Triggering new build..."
-            gh workflow run nuget_gsl_arm64_package.yml
-            echo "New build triggered. Please wait for completion before retrying."
+            gh workflow run nuget_gsl_arm64_package.yml --ref windows_arm64 -f reason="Artifact expired or missing"
+            echo "New build triggered. Please wait for completion before retrying."            
             exit 1  # exit with failure to indicate the need to rerun the workflow
           else
             ls ${NUGET_PACKAGE_DIR}/*.nupkg
