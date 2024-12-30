@@ -114,5 +114,3 @@ requires = ["setuptools>=42",
 	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
 	    "importlib-metadata; python_version <= '3.8'"
 	    ]
-
-
