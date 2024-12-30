@@ -187,7 +187,7 @@ jobs:
         with:
           python-version: 3.12
       - name: Download GSL artifact on Windows
-        if: runner.os == 'Windows'  # Only runs on Windows
+        if: runner.os == 'Windows' && runner.arch == 'ARM64' # Only runs on Windows ARM64
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -196,6 +196,8 @@ jobs:
           mkdir nuget-packages
           gh run download $RUN_ID -n gsl-nuget-package --dir nuget-packages
           ls nuget-packages/*.nupkg
+          echo $(pwd)
+          nuget install gsl-msvc14-arm64 -Source $(pwd)/nuget-packages
         shell: bash  # Ensure shell is bash for compatibility
       - name: Query version with setuptools_scm
         id: version
