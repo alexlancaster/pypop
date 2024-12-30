@@ -17,28 +17,28 @@ jobs:
     runs-on: windows-2019
     steps:
 
-      # Step 1: Checkout repo
+      # Step 1: checkout repo
       - name: Checkout repo
         uses: actions/checkout@v4
       
-      # Step 2: Install required tools
+      # Step 2: install required tools
       - name: Install NuGet
         run: |
           choco install nuget.commandline
 
-      # Step 3: Clone GSL repository
+      # Step 3: clone GSL repository
       - name: Clone GSL repository
         run: |
           git clone --branch v2.3.0 https://github.com/ampl/gsl.git
 
-      # Step 4: Build the package for ARM64
+      # Step 4: build the package for ARM64
       - name: Build GSL for ARM64
         run: |
           cd gsl
           cmake -B build -G "Visual Studio 16 2019" -A ARM64 -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=build\\install
           cmake --build build --target install
 
-      # Step 5: Create .nuspec file for GSL (ARM64)
+      # Step 5: create .nuspec file for GSL (ARM64)
       - name: Create .nuspec file for GSL ARM64
         shell: bash
         run: |
@@ -62,13 +62,13 @@ jobs:
           # Display the contents of the generated .nuspec file
           cat GSL.nuspec          
           
-      # Step 6: Package the build output as a NuGet package
+      # Step 6: package the build output as a NuGet package
       - name: Package the build output
         run: |
           mkdir -p vendor-binaries
           nuget pack GSL.nuspec -OutputDirectory vendor-binaries  # Adjust the path to match the actual output location
 
-      # Step 7: Commit the nupkg file to vendor-binaries
+      # Step 7: commit the nupkg file to vendor-binaries
       - name: Commit nupkg to vendor-binaries
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
