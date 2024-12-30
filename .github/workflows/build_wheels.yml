@@ -191,8 +191,9 @@ jobs:
       - name: Download GSL artifact on Windows
         # no pre-compiled Windows ARM64 version of GNU Scientific Library (GSL)
         # so we install our own build 
-        # only runs on Windows when cross-compiling for ARM64        
-        if: runner.os == 'Windows' && contains(matrix.only, 'win_arm64') 
+        # only runs on Windows when cross-compiling for ARM64
+        if: false
+        #if: runner.os == 'Windows' && contains(matrix.only, 'win_arm64')
         env:
           GH_TOKEN: ${{ github.token }}
         shell: bash  # ensure shell is bash for compatibility
