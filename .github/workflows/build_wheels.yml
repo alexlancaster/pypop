@@ -197,7 +197,6 @@ jobs:
           mkdir nuget-packages
           gh run download $RUN_ID -n gsl-nuget-package --dir nuget-packages
           ls nuget-packages/*.nupkg
-          echo $(pwd)
           nuget install gsl-msvc14-arm64 -Source $(pwd)/nuget-packages
         shell: bash  # Ensure shell is bash for compatibility
       - name: Query version with setuptools_scm
@@ -234,7 +233,6 @@ jobs:
           # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
           CIBW_TEST_COMMAND: "pytest -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
           SETUPTOOLS_SCM_PRETEND_VERSION: ${{ env.VERSION }}
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION
         with:
           only: ${{ matrix.only }}
