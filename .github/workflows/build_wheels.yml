@@ -177,28 +177,57 @@ jobs:
           fetch-depth: 0
           # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
+
       - name: Set up QEMU
         if: runner.os == 'Linux'
         uses: docker/setup-qemu-action@v3
         with:
           platforms: all
+
       - name: Install a recent stable Python to handle Python deps
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
+
       - name: Download GSL artifact on Windows
         # only runs on Windows when cross-compiling for ARM64        
         if: runner.os == 'Windows' && contains(matrix.only, 'win_arm64') 
         env:
           GH_TOKEN: ${{ github.token }}
-        run: |
-          RUN_ID=$(gh run list --workflow 'Create GSL ARM64 GitHub Package' --json databaseId -q '.[0].databaseId')
-          echo "RUN_ID=$RUN_ID" >> $GITHUB_ENV  # Set RUN_ID as environment variable
-          mkdir nuget-packages
-          gh run download $RUN_ID -n gsl-nuget-package --dir nuget-packages
-          ls nuget-packages/*.nupkg
-          nuget install gsl-msvc14-arm64 -Source $(pwd)/nuget-packages
         shell: bash  # Ensure shell is bash for compatibility
+        run: |
+          set -e
+          echo "Attempting to download artifact for GSL ARM64 package..."
+
+          # get the latest workflow run ID for 'Create GSL ARM64 GitHub Package'
+          RUN_ID=$(gh run list --workflow "Create GSL ARM64 GitHub Package" --json databaseId -q ".[0].databaseId" || echo "")
+
+          GSL_PACKAGE_NAME=gsl-msvc14-arm64
+          GSL_PACKAGE_FILE=${GSL_PACKAGE_NAME}.2.3.0.2779.nupkg
+          NUGET_PACKAGE_DIR=nuget-packages
+          
+          # attempt to download artifact if RUN_ID exists
+          if [ -n "$RUN_ID" ]; then
+            mkdir ${NUGET_PACKAGE_DIR}
+            gh run download "$RUN_ID" -n gsl-nuget-package --dir ${NUGET_PACKAGE_DIR} || echo "Artifact download failed."
+            ls ${NUGET_PACKAGE_DIR}/*.nupkg
+          else
+            echo "No previous workflow run found for GSL ARM64 package."
+          fi
+
+          # check if artifact exists
+          if [ ! -f ${NUGET_PACKAGE_DIR}/${GSL_PACKAGE_FILE} ]; then
+            echo "Artifact not found. Triggering new build..."
+            gh workflow run nuget_gsl_arm64_package.yml
+            echo "New build triggered. Please wait for completion before retrying."
+            exit 1  # exit with failure to indicate the need to rerun the workflow
+          else
+            echo "Artifact found. Proceeding with installation."
+          fi
+
+          # install the nupkg
+          nuget install ${GSL_PACKAGE_NAME} -Source $(pwd)/${NUGET_PACKAGE_DIR}
+        
       - name: Query version with setuptools_scm
         id: version
         shell: bash
@@ -207,6 +236,7 @@ jobs:
           VERSION=$(python -c "from src.PyPop import __version_scheme__; import setuptools_scm; print(setuptools_scm.get_version(version_scheme=__version_scheme__))")
           echo "VERSION=${VERSION}"
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
       - name: Install toml and remove cffconvert from pyproject.toml
         run: |
           python -m pip install toml
@@ -239,6 +269,7 @@ jobs:
           package-dir: .
           output-dir: wheelhouse
           config-file: "{package}/pyproject.toml"
+
       - uses: actions/upload-artifact@v4
         with:
           name: wheels-${{ matrix.only }}
