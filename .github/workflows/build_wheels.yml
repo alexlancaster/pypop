@@ -187,7 +187,8 @@ jobs:
         with:
           python-version: 3.12
       - name: Download GSL artifact on Windows
-        if: runner.os == 'Windows' && runner.arch == 'ARM64' # Only runs on Windows ARM64
+        # only runs on Windows when cross-compiling for ARM64        
+        if: runner.os == 'Windows' && contains(matrix.only, 'win_arm64') 
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
