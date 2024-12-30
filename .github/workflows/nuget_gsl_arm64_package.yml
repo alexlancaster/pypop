@@ -2,11 +2,16 @@ name: Create GSL ARM64 GitHub Package
 
 on:
   workflow_dispatch:
+    inputs:
+      reason:
+        description: "Reason for triggering this workflow"
+        required: false
+        default: "Triggered by dependent workflow"
   push:
     paths:
       # Trigger on change to this yml
       - '.github/workflows/nuget_gsl_arm64_package.yml'
-
+      
 jobs:
   build:
     runs-on: windows-2019
