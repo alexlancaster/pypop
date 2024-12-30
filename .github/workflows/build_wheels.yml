@@ -194,7 +194,7 @@ jobs:
         if: runner.os == 'Windows' && contains(matrix.only, 'win_arm64') 
         env:
           GH_TOKEN: ${{ github.token }}
-        shell: bash  # Ensure shell is bash for compatibility
+        shell: bash  # ensure shell is bash for compatibility
         run: |
           set -e
           echo "Attempting to download artifact for GSL ARM64 package..."
