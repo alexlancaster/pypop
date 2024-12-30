@@ -65,7 +65,6 @@ jobs:
       # Step 6: package the build output as a NuGet package
       - name: Package the build output
         run: |
-          mkdir -p vendor-binaries
           nuget pack GSL.nuspec -OutputDirectory vendor-binaries  # Adjust the path to match the actual output location
 
       # Step 7: commit the nupkg file to vendor-binaries
