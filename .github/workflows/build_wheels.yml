@@ -210,7 +210,6 @@ jobs:
           if [ -n "$RUN_ID" ]; then
             mkdir ${NUGET_PACKAGE_DIR}
             gh run download "$RUN_ID" -n gsl-nuget-package --dir ${NUGET_PACKAGE_DIR} || echo "Artifact download failed."
-            ls ${NUGET_PACKAGE_DIR}/*.nupkg
           else
             echo "No previous workflow run found for GSL ARM64 package."
           fi
@@ -222,6 +221,7 @@ jobs:
             echo "New build triggered. Please wait for completion before retrying."
             exit 1  # exit with failure to indicate the need to rerun the workflow
           else
+            ls ${NUGET_PACKAGE_DIR}/*.nupkg
             echo "Artifact found. Proceeding with installation."
           fi
 
