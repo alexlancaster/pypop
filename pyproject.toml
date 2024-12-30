@@ -99,8 +99,7 @@ environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PA
 [[tool.cibuildwheel.overrides]]
 # Overrides for ARM64
 select ="*-win_arm64*"
-before-all = 'echo %COMSPEC%; echo %CD%; nuget install gsl-msvc14-arm64 -Source "%CD%\vendor-binaries"
-'
+before-all = 'echo %CD%; nuget install gsl-msvc14-arm64 -Source "%CD%\vendor-binaries"'
 
 inherit.environment = "append"
 environment = { CPATH="gsl-msvc14-arm64.2.3.0.2779\\\\build\\\\native\\\\include", LIBRARY_PATH="gsl-msvc14-arm64.2.3.0.2779\\\\build\\\\native\\\\lib" }
