@@ -1,4 +1,4 @@
-name: Create GSL ARM64 GitHub Package
+name: Create GSL ARM64 NuGet Package
 
 on:
   workflow_dispatch:
@@ -61,17 +61,19 @@ jobs:
       # Step 5: Package the build output as a NuGet package
       - name: Package the build output
         run: |
-          nuget pack GSL.nuspec -OutputDirectory $(pwd)  # Adjust the path to match the actual output location
+          mkdir -p vendor-binaries
+          nuget pack GSL.nuspec -OutputDirectory vendor-binaries  # Adjust the path to match the actual output location
 
-      # Step 7: Upload nupkg as an artifact
-      - name: Upload NuGet artifact
-        uses: actions/upload-artifact@v4
+      # Step 6: Commit the nupkg file to vendor-binaries
+      - name: Commit nupkg to vendor-binaries
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          name: gsl-nuget-package
-          path: ./*.nupkg
+          commit_message: "Update GSL ARM64 NuGet package: ${{ github.event.inputs.reason }}"
+          file_pattern: "vendor-binaries/*.nupkg"
 
-      #- name: Publish NuGet package to GitHub Packages
-      #  run: |
-      #   dotnet nuget push *.nupkg --source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json" --api-key ${{ GITHUB_TOKEN }} --skip-duplicate
-          #dotnet nuget push *.nupkg --source "https://nuget.pkg.github.com/alexlancaster/index.json" --api-key ${{ secrets.PACKAGES_TOKEN }}
-          # nuget push *.nupkg -Verbosity detailed -Source https://nuget.pkg.github.com/alexlancaster/index.json -ApiKey ${{ secrets.PACKAGES_TOKEN }}
+      # Optional: Upload nupkg as an artifact
+      #- name: Upload NuGet artifact
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: gsl-nuget-package
+      #    path: ./*.nupkg
