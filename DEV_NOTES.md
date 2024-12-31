@@ -52,10 +52,10 @@ post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-py
 
 * To install macports via the command-line you can run the following (substituting the current link):
 
-```
-curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacPorts-2.4.1-10.12-Sierra.pkg' > MacPorts-2.4.1-10.12-Sierra.pkg
-sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
-```
+  ```shell
+  curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacPorts-2.4.1-10.12-Sierra.pkg' > MacPorts-2.4.1-10.12-Sierra.pkg
+  sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
+  ```
 
 ## GitHub notes
 
@@ -63,7 +63,7 @@ sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
 
 #### Downloading GSL NuGet artifact from other workflow
 
-```
+```yaml
       - name: Download GSL artifact on Windows
         # no pre-compiled Windows ARM64 version of GNU Scientific Library (GSL)
         # so we install our own build 
@@ -117,7 +117,7 @@ This first part is needed just after `find -empty type d -delete` in
 the `run` part of the "Push changes back to repo files"
 `publish_zenodo` job:
 
-```
+```shell
           git tag -d $GITHUB_REF_NAME
           git push --follow-tags origin :$GITHUB_REF
           git tag $GITHUB_REF_NAME
@@ -128,7 +128,7 @@ the `run` part of the "Push changes back to repo files"
 This second part would be the last step in the same `publish_zenodo`
 job:
 
-```
+```yaml
       #
       # FIXME: disabled the rest of these steps (already done by zenodraft)
       #
@@ -252,17 +252,21 @@ to install the lastest version from source.
 
 1. Get swig dependency: 
 
-```sudo apt install libpcre3-dev```
+   ```shell
+   sudo apt install libpcre3-dev
+   ```
 
 2. Visit [swig.org](swig.org) to get download link
 
 3. Do the installation:
 
-       tar zxvf ~/swig-3.0.12.tar.gz
-       cd swig-3.0.12
-       ./configure
-       make
-       sudo make install
+   ```shell
+   tar zxvf ~/swig-3.0.12.tar.gz
+   cd swig-3.0.12
+   ./configure
+   make
+   sudo make install
+   ```
 
 ### Containerizing
 
