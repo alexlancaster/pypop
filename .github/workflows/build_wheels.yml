@@ -188,48 +188,6 @@ jobs:
         with:
           python-version: 3.12
 
-      - name: Download GSL artifact on Windows
-        # no pre-compiled Windows ARM64 version of GNU Scientific Library (GSL)
-        # so we install our own build 
-        # only runs on Windows when cross-compiling for ARM64
-        if: false
-        #if: runner.os == 'Windows' && contains(matrix.only, 'win_arm64')
-        env:
-          GH_TOKEN: ${{ github.token }}
-        shell: bash  # ensure shell is bash for compatibility
-        run: |
-          set -e
-          echo "Attempting to download artifact for GSL ARM64 package..."
-
-          # get the latest workflow run ID for 'Create GSL ARM64 GitHub Package'
-          RUN_ID=$(gh run list --workflow "Create GSL ARM64 GitHub Package" --json databaseId -q ".[0].databaseId" || echo "")
-
-          GSL_PACKAGE_NAME=gsl-msvc14-arm64
-          GSL_PACKAGE_FILE=${GSL_PACKAGE_NAME}.2.3.0.2779.nupkg
-          NUGET_PACKAGE_DIR=nuget-packages
-          
-          # attempt to download artifact if RUN_ID exists
-          if [ -n "$RUN_ID" ]; then
-            mkdir ${NUGET_PACKAGE_DIR}
-            gh run download "$RUN_ID" -n gsl-nuget-package --dir ${NUGET_PACKAGE_DIR} || echo "Artifact download failed."
-          else
-            echo "No previous workflow run found for GSL ARM64 package."
-          fi
-
-          # check if artifact exists
-          if [ ! -f ${NUGET_PACKAGE_DIR}/${GSL_PACKAGE_FILE} ]; then
-            echo "Artifact not found. Triggering new build..."
-            gh workflow run nuget_gsl_arm64_package.yml --ref windows_arm64 -f reason="Artifact expired or missing"
-            echo "New build triggered. Please wait for completion before retrying."            
-            exit 1  # exit with failure to indicate the need to rerun the workflow
-          else
-            ls ${NUGET_PACKAGE_DIR}/*.nupkg
-            echo "Artifact found. Proceeding with installation."
-          fi
-
-          # install the nupkg
-          nuget install ${GSL_PACKAGE_NAME} -Source $(pwd)/${NUGET_PACKAGE_DIR}
-        
       - name: Query version with setuptools_scm
         id: version
         shell: bash
