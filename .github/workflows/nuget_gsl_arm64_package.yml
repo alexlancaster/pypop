@@ -8,6 +8,8 @@ on:
         required: false
         default: "Triggered by dependent workflow"
   push:
+    branches:
+      - main
     paths:
       # Trigger on change to this yml
       - '.github/workflows/nuget_gsl_arm64_package.yml'
