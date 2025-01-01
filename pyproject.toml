@@ -75,8 +75,8 @@ inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15/Catalina
 inherit.before-all="append"
 # install `swig` and the Catalina version of `gsl` to match
-before-all = ["echo 'class Swig < Formula\n  url \"file://$(pwd)/swig--4.2.1.monterey.bottle.tar.gz\"\n  sha256 \"eb3bb9b187414f8e0a095c89373cc85559b9e84cbb8ae77e90fcc0ccdde8ed71\"\nend' > /tmp/swig.rb",
-  "brew install /tmp/swig.rb",
+before-all = ['echo -e "class Swig < Formula\n  url \"file://$(pwd)/swig--4.2.1.monterey.bottle.tar.gz\"\n  sha256 \"eb3bb9b187414f8e0a095c89373cc85559b9e84cbb8ae77e90fcc0ccdde8ed71\"\nend" > /tmp/swig.rb',
+  "brew install --formula /tmp/swig.rb"
 	   "brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz"]
 
 [[tool.cibuildwheel.overrides]]
