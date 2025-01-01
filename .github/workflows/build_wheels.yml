@@ -20,6 +20,7 @@ on:
       - '.github/workflows/buildjet_arm64.yml'
       - '.github/workflows/release-drafter.yml'
       - '.github/workflows/codeql.yml'
+      - '.github/workflows/nuget_gsl_arm64_package.yml'      
       - '.gitattributes'
   push:
     paths-ignore:
@@ -35,6 +36,7 @@ on:
       - '.github/workflows/buildjet_arm64.yml'      
       - '.github/workflows/release-drafter.yml'
       - '.github/workflows/codeql.yml'
+      - '.github/workflows/nuget_gsl_arm64_package.yml'      
       - '.gitattributes'
   release:
     types:
@@ -159,7 +161,7 @@ jobs:
         run: |
           echo "CI_ONLY" $CI_ONLY
           if [ "$CI_ONLY" == "true" ]; then
-            MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp313-win_amd64','os':'windows-2019'}, {'only':'cp313-macosx_x86_64','os':'macos-13'}, {'only':'cp313-macosx_arm64','os':'macos-14'}]"
+            MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp313-win_amd64','os':'windows-2019'},{'only':'cp313-win_arm64','os':'windows-2019'},{'only':'cp313-macosx_x86_64','os':'macos-13'}, {'only':'cp313-macosx_arm64','os':'macos-14'}]"
           else
             MATRIX=$(
               {
@@ -200,15 +202,18 @@ jobs:
           fetch-depth: 0
           # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
+
       - name: Set up QEMU
         if: runner.os == 'Linux'
         uses: docker/setup-qemu-action@v3
         with:
           platforms: all
+
       - name: Install a recent stable Python to handle Python deps
         uses: actions/setup-python@v5
         with:
           python-version: 3.12
+
       - name: Query version with setuptools_scm
         id: version
         shell: bash
@@ -217,6 +222,7 @@ jobs:
           VERSION=$(python -c "from src.PyPop import __version_scheme__; import setuptools_scm; print(setuptools_scm.get_version(version_scheme=__version_scheme__))")
           echo "VERSION=${VERSION}"
           echo "VERSION=${VERSION}" >> $GITHUB_ENV
+
       - name: Install toml and remove cffconvert from pyproject.toml
         run: |
           python -m pip install toml
@@ -236,6 +242,7 @@ jobs:
           python --version
           python -m pip install git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert
           python src/PyPop/citation.py
+
       - name: Build and test wheels
         uses: pypa/cibuildwheel@v2.22.0
         env:
@@ -248,6 +255,7 @@ jobs:
           package-dir: .
           output-dir: wheelhouse
           config-file: "{package}/pyproject.toml"
+
       - uses: actions/upload-artifact@v4
         with:
           name: wheels-${{ matrix.only }}

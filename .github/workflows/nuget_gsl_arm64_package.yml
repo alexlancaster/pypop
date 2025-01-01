@@ -1,0 +1,82 @@
+name: Create GSL ARM64 NuGet Package
+
+on:
+  workflow_dispatch:
+    inputs:
+      reason:
+        description: "Reason for triggering this workflow"
+        required: false
+        default: "Triggered by dependent workflow"
+  push:
+    paths:
+      # Trigger on change to this yml
+      - '.github/workflows/nuget_gsl_arm64_package.yml'
+      
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+
+      # Step 1: checkout repo
+      - name: Checkout repo
+        uses: actions/checkout@v4
+      
+      # Step 2: install required tools
+      - name: Install NuGet
+        run: |
+          choco install nuget.commandline
+
+      # Step 3: clone GSL repository
+      - name: Clone GSL repository
+        run: |
+          git clone --branch v2.3.0 https://github.com/ampl/gsl.git
+
+      # Step 4: build the package for ARM64
+      - name: Build GSL for ARM64
+        run: |
+          cd gsl
+          cmake -B build -G "Visual Studio 16 2019" -A ARM64 -D CMAKE_BUILD_TYPE=Release -D CMAKE_INSTALL_PREFIX=build\\install
+          cmake --build build --target install
+
+      # Step 5: create .nuspec file for GSL (ARM64)
+      - name: Create .nuspec file for GSL ARM64
+        shell: bash
+        run: |
+          cat <<EOF > GSL.nuspec
+          <?xml version="1.0" encoding="utf-8"?>
+          <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+           <metadata>
+             <id>gsl-msvc14-arm64</id>
+             <version>2.3.0.2779</version>
+             <authors>PyPop team</authors>
+             <requireLicenseAcceptance>false</requireLicenseAcceptance>
+             <description>Release GSL for ARM64 as NuGet package.</description>
+           </metadata>
+           <files>
+            <!-- Package contents from build/install directory -->
+            <file src="gsl\\build\\install\\**\\*" target="build\\native" />           
+            </files>
+          </package>
+          EOF
+          
+          # Display the contents of the generated .nuspec file
+          cat GSL.nuspec          
+          
+      # Step 6: package the build output as a NuGet package
+      - name: Package the build output
+        run: |
+          nuget pack GSL.nuspec -OutputDirectory vendor-binaries  # Adjust the path to match the actual output location
+
+      # Step 7: commit the nupkg file to vendor-binaries
+      - name: Commit nupkg to vendor-binaries
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: "Update GSL ARM64 NuGet package: ${{ github.event.inputs.reason }}"
+          file_pattern: "vendor-binaries/*.nupkg"
+
+      # Optional: Upload nupkg as an artifact
+      #- name: Upload NuGet artifact
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: gsl-nuget-package
+      #    path: ./*.nupkg
