@@ -501,9 +501,61 @@ MacOS X
    ``/opt/local/bin/python``.
 
 Windows
-~~~~~~~
+^^^^^^^
 
-(Currently untested in standalone-mode)
+You will need a compiler installed, the GitHub Action is tested using
+`Microsoft Visual Studio 16 2019
+<https://visualstudio.microsoft.com/vs/older-downloads/>`_.  We also
+recommend that you setup the `NuGet package repository
+<https://www.nuget.org/packages>`__ to install following build-time
+dependencies.
+
+.. note::
+
+   Please note that we have not directly tested building on standalone
+   Windows machines, only via the GitHub runner workflows. In
+   addition, the ARM64 wheels are cross-compiled on the GitHub runner,
+   which cannot run the resulting wheels, therefore all unit tests are
+   skipped.
+
+1. Install ``swig``: when compiled on a GitHub runner, the ``swig``
+   package is part of the default image. If compiled on a
+   standalone-mode Windows machine, ``swig`` may be available as NuGet
+   package, and installable (untested):
+
+   .. code:: shell
+	     
+      nuget install swig
+
+2. Install ``gsl``.
+
+   * ``X64``: install the ``gsl`` package:
+
+     .. code:: shell
+	     
+        nuget install gsl-msvc14-x64 -Version 2.3.0.2779
+
+   * ``ARM64``: The NuGet repository doesn't have an ARM64 version of
+     ``gsl``, it is necessary to build a ``.nupkg`` from source (see
+     details in `DEV_NOTES.md
+     <https://github.com/alexlancaster/pypop/blob/main/DEV_NOTES.md>`__). We
+     have made this available in `vendor-binaries
+     <https://github.com/alexlancaster/pypop/tree/main/vendor-binaries>`__
+     directory of the repo. To install the package from top-level
+     repository run:
+
+     .. code:: shell
+     
+        nuget install gsl-msvc14-arm64 -Source "%CD%\\vendor-binaries
+
+3.  Before starting the build process, you  need to modify the environment
+    variables ``CPATH`` and ``LIBRARY_PATH`` to point to the installed
+    ``gsl`` package, e.g. for ``X64``:
+
+    .. code:: shell
+    
+       CPATH="gsl-msvc14-x64.2.3.0.2779\\build\\native"
+       LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\build\\native\\static"
 
 
 Build PyPop
