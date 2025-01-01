@@ -75,7 +75,7 @@ inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15/Catalina
 inherit.before-all="append"
 # install `swig` and the Catalina version of `gsl` to match
-before-all = ["brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2>&1 | ${HOMEBREW_GREP_WARNINGS}"
+before-all = ["brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2>&1 | ${HOMEBREW_GREP_WARNINGS}",
 	      "brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz 2>&1 | ${HOMEBREW_GREP_WARNINGS}"]
 
 [[tool.cibuildwheel.overrides]]
