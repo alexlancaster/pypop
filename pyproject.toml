@@ -67,7 +67,7 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_*"
 inherit.environment="append"
-environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", PYTHONFAULTHANDLER="1" }
+environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", PYTHONFAULTHANDLER="1", HOMEBREW_NO_ANALYTICS="1"}
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
