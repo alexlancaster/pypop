@@ -75,7 +75,14 @@ inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15/Catalina
 inherit.before-all="append"
 # install `swig` and the Catalina version of `gsl` to match
-before-all = ["brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz",
+before-all = ["cat > /tmp/swig.rb <<EOF
+class Swig < Formula
+  url \"file://$(pwd)/swig--4.2.1.monterey.bottle.tar.gz\"
+  sha256 \"eb3bb9b187414f8e0a095c89373cc85559b9e84cbb8ae77e90fcc0ccdde8ed71\"
+end
+EOF
+  ",
+  "brew install /tmp/swig.rb",
 	   "brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz"]
 
 [[tool.cibuildwheel.overrides]]
@@ -84,13 +91,7 @@ inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="11.0" } # target for 11.0/Big Sur
 inherit.before-all="append"			
 # install `swig` and the Big Sur version of `gsl` to match
-before-all = ["cat > /tmp/swig.rb <<EOF
-class Swig < Formula
-  url \"file://$(pwd)/swig--4.2.1.monterey.bottle.tar.gz\"
-  sha256 \"eb3bb9b187414f8e0a095c89373cc85559b9e84cbb8ae77e90fcc0ccdde8ed71\"
-end
-EOF",
-  "brew install /tmp/swig.rb",
+before-all = ["brew install --quiet ./swig--4.2.1.arm64_ventura.bottle.tar.gz",
 	   "brew install --quiet ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"]
 	   
 [tool.cibuildwheel.windows]
