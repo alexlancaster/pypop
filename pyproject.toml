@@ -75,7 +75,7 @@ inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15/Catalina
 inherit.before-all="append"
 # install `swig` and the Catalina version of `gsl` to match
-before-all = ["sh -c 'echo \"$HOMEBREW_GREP_WARNINGS\" && brew install --quiet ./swig--4.2.1.arm64_ventura.bottle.tar.gz 2>&1 | grep -v -e \"is available and more recent than version\" -e \"Cannot verify the integrity of\"'",
+before-all = ["sh -c 'echo \"$HOMEBREW_GREP_WARNINGS\" && brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2>&1 | grep -v \'is available and more recent than version\''",
               #"brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2>&1 | grep -v $HOMEBREW_GREP_WARNINGS",
 	      "sh -c 'brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz 2>&1 | grep -v \"$HOMEBREW_GREP_WARNINGS\"'"]
 
