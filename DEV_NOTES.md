@@ -10,11 +10,36 @@
 
 ### External dependencies
 
-* ```swig``` (Simple Wrapper Interface Generator) (build-time only)
-* ```gsl``` (GNU Scientific Library) (build-time only)
-* ```Numpy``` (Numpy)
-* ```lxml``` (Python bindings)
-* ```pytest``` (Python test framework)
+#### Build-time packages
+* `swig` (Simple Wrapper Interface Generator), this is packaged on all
+  platforms, and is either installed during the `build_wheels.yml`
+  GitHub Action by the platform's package manager, `RPM` (for Linux),
+  `brew` (MacOS), or is part of the default runner image (Windows).
+
+* `gsl` (GNU Scientific Library), this is a library used by some C
+  extensions that needs to be available during compilation,
+  specifically:
+  
+  * Linux: the `gsl-devel` CentOS package is installed at build time
+	and the dynamic library distributed with the generated wheel.
+  
+  * MacOS: the `gsl` package is installed via Homebrew, dynamic
+    library is also distributed with the wheel.
+  
+  * Windows: on X64 (AMD64) the `gsl-msvc14-x64` package is installed
+    via the NuGet package repository, this includes a static version
+    that is compiled into the final extension. Since the NuGet
+    repository doesn't have an ARM64 version of `gsl`, we build a
+    `.nupkg` from source using the `nuget_gsl_arm64_package.yml`
+    workflow. Triggering this workflow will build the package and also
+    copy the `.nupkg` into the repo in the `vendor-binaries` folder so
+    it is available at build-time.
+  
+#### Install-time packagess (available on PyPI)
+
+* `Numpy` (Numpy)
+* `lxml` (Python bindings)
+* `pytest` (Python test framework)
 
 ### SWIG notes
 
@@ -27,23 +52,72 @@ post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-py
 
 * To install macports via the command-line you can run the following (substituting the current link):
 
-```
-curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacPorts-2.4.1-10.12-Sierra.pkg' > MacPorts-2.4.1-10.12-Sierra.pkg
-sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
-```
+  ```shell
+  curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacPorts-2.4.1-10.12-Sierra.pkg' > MacPorts-2.4.1-10.12-Sierra.pkg
+  sudo installer -pkg MacPorts-2.4.1-10.12-Sierra.pkg  -target /
+  ```
 
 ## GitHub notes
 
-Unused stanzas in `build_wheels.yml` workflow to manually regenerate a
-GitHub release based on re-tagging (e.g. after a Zenodo deposition).
-They have been disabled for the time being because they are done
-internally by the `zenodraft` action.
+### Unused stanzas in `build_wheels.yml` workflow.
+
+#### Downloading GSL NuGet artifact from other workflow
+
+```yaml
+      - name: Download GSL artifact on Windows
+        # no pre-compiled Windows ARM64 version of GNU Scientific Library (GSL)
+        # so we install our own build 
+        # only runs on Windows when cross-compiling for ARM64
+        if: false
+        #if: runner.os == 'Windows' && contains(matrix.only, 'win_arm64')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash  # ensure shell is bash for compatibility
+        run: |
+          set -e
+          echo "Attempting to download artifact for GSL ARM64 package..."
+
+          # get the latest workflow run ID for 'Create GSL ARM64 GitHub Package'
+          RUN_ID=$(gh run list --workflow "Create GSL ARM64 GitHub Package" --json databaseId -q ".[0].databaseId" || echo "")
+
+          GSL_PACKAGE_NAME=gsl-msvc14-arm64
+          GSL_PACKAGE_FILE=${GSL_PACKAGE_NAME}.2.3.0.2779.nupkg
+          NUGET_PACKAGE_DIR=nuget-packages
+          
+          # attempt to download artifact if RUN_ID exists
+          if [ -n "$RUN_ID" ]; then
+            mkdir ${NUGET_PACKAGE_DIR}
+            gh run download "$RUN_ID" -n gsl-nuget-package --dir ${NUGET_PACKAGE_DIR} || echo "Artifact download failed."
+          else
+            echo "No previous workflow run found for GSL ARM64 package."
+          fi
+
+          # check if artifact exists
+          if [ ! -f ${NUGET_PACKAGE_DIR}/${GSL_PACKAGE_FILE} ]; then
+            echo "Artifact not found. Triggering new build..."
+            gh workflow run nuget_gsl_arm64_package.yml --ref windows_arm64 -f reason="Artifact expired or missing"
+            echo "New build triggered. Please wait for completion before retrying."            
+            exit 1  # exit with failure to indicate the need to rerun the workflow
+          else
+            ls ${NUGET_PACKAGE_DIR}/*.nupkg
+            echo "Artifact found. Proceeding with installation."
+          fi
+
+          # install the nupkg
+          nuget install ${GSL_PACKAGE_NAME} -Source $(pwd)/${NUGET_PACKAGE_DIR}
+```
+
+#### Manually regenerate a GitHub release 
+
+This can occur based on re-tagging after a change (e.g. after a Zenodo
+deposition). These has been disabled because they are done internally
+by the `zenodraft` action.
 
 This first part is needed just after `find -empty type d -delete` in
-the `run` part of the "Pubsh changes back to repo files"
+the `run` part of the "Push changes back to repo files"
 `publish_zenodo` job:
 
-```
+```shell
           git tag -d $GITHUB_REF_NAME
           git push --follow-tags origin :$GITHUB_REF
           git tag $GITHUB_REF_NAME
@@ -54,7 +128,7 @@ the `run` part of the "Pubsh changes back to repo files"
 This second part would be the last step in the same `publish_zenodo`
 job:
 
-```
+```yaml
       #
       # FIXME: disabled the rest of these steps (already done by zenodraft)
       #
@@ -178,17 +252,21 @@ to install the lastest version from source.
 
 1. Get swig dependency: 
 
-```sudo apt install libpcre3-dev```
+   ```shell
+   sudo apt install libpcre3-dev
+   ```
 
 2. Visit [swig.org](swig.org) to get download link
 
 3. Do the installation:
 
-       tar zxvf ~/swig-3.0.12.tar.gz
-       cd swig-3.0.12
-       ./configure
-       make
-       sudo make install
+   ```shell
+   tar zxvf ~/swig-3.0.12.tar.gz
+   cd swig-3.0.12
+   ./configure
+   make
+   sudo make install
+   ```
 
 ### Containerizing
 

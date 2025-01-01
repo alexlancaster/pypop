@@ -18,6 +18,9 @@ _static/** linguist-generated
 /.github/** export-ignore
 /website export-ignore
 /website/** export-ignore
+# don't distribute the vendor-binaries
+/vendor-binaries export-ignore
+/vendor-binaries/** export-ignore
 # not part of the software
 /data export-ignore
 /data/** export-ignore
