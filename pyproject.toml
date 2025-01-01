@@ -67,7 +67,7 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_*"
 inherit.environment="append"
-environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", PYTHONFAULTHANDLER="1", HOMEBREW_GREP_WARNINGS="grep -v -e 'is available and more recent than version' -e 'No checksum was provided. For your reference, the checksum is'" }
+environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", PYTHONFAULTHANDLER="1", HOMEBREW_GREP_WARNINGS="-e 'is available and more recent than version' -e 'No checksum was provided. For your reference, the checksum is'" }
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
@@ -75,8 +75,9 @@ inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15/Catalina
 inherit.before-all="append"
 # install `swig` and the Catalina version of `gsl` to match
-before-all = ["brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2>&1 | ${HOMEBREW_GREP_WARNINGS}",
-	      "brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz 2>&1 | ${HOMEBREW_GREP_WARNINGS}"]
+before-all = ["echo ${HOMEBREW_GREP_WARNINGS}",
+              "brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2>&1 | grep -v $HOMEBREW_GREP_WARNINGS",
+	      "brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz 2>&1 | grep -v $HOMEBREW_GREP_WARNINGS"]
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
@@ -84,8 +85,8 @@ inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="11.0" } # target for 11.0/Big Sur
 inherit.before-all="append"			
 # install `swig` and the Big Sur version of `gsl` to match
-before-all = ["brew install --quiet ./swig--4.2.1.arm64_ventura.bottle.tar.gz 2>&1 | ${HOMEBREW_GREP_WARNINGS}",
-	   "brew install --quiet ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz 2>&1 | ${HOMEBREW_GREP_WARNINGS}"]
+before-all = ["brew install --quiet ./swig--4.2.1.arm64_ventura.bottle.tar.gz 2>&1 | grep -v $HOMEBREW_GREP_WARNINGS",
+	   "brew install --quiet ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz 2>&1 | grep -v $HOMEBREW_GREP_WARNINGS"]
 	   
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
