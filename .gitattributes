@@ -14,6 +14,7 @@ _static/** linguist-generated
 # FIXME: for directories, need two patterns, one for the contents, one
 # for the directory itself
 .gitattributes export-ignore
+.pre-commit-config.yaml export-ignore
 /.github export-ignore
 /.github/** export-ignore
 /website export-ignore
