@@ -1,5 +1,5 @@
 /* This file is part of PyPop
-  
+
   Copyright (C) 1999
   The Regents of the University of California (Regents) All Rights Reserved.
 

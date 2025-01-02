@@ -2,7 +2,7 @@
 
 # This file is part of PyPop
 
-# Copyright (C) 2017. 
+# Copyright (C) 2017.
 # All Rights Reserved.
 
 # This program is free software; you can redistribute it and/or modify
@@ -38,7 +38,7 @@ import platform
 __pkgname__ = 'pypop-genomics'
 __version_scheme__ = 'post-release'
 
-try: 
+try:
     import importlib.metadata as metadata_lib # look for built-in
 except (ModuleNotFoundError, ImportError):
     import importlib_metadata as metadata_lib  # otherwise need the backport
@@ -48,7 +48,7 @@ try:
 except metadata_lib.PackageNotFoundError:
     from setuptools_scm import get_version
     __version__ = get_version(version_scheme=__version_scheme__, root="../..", relative_to=__file__)  # next try the version in repo
-    
+
 copyright_message = """Copyright (C) 2003-2006 Regents of the University of California.
 Copyright (C) 2007-2023 PyPop team.
 This is free software.  There is NO warranty; not even for

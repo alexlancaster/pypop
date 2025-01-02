@@ -41,7 +41,7 @@ citation_output_formats = ['apalike', 'bibtex', 'endnote', 'ris', 'codemeta', 'c
 def convert_citation_formats(build_lib, citation_path):
 
     from cffconvert import Citation
-    
+
     # target directory for the CITATION file within the build directory
     target_dir = os.path.join(build_lib, "PyPop", "citation")
 

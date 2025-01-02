@@ -70,14 +70,14 @@ class RandomBinsForHomozygosity:
         self.alleleCountDict = {}
         self.randomResultsFile = open(randomResultsFileName, "w")
         self.randomResultsFile.write("\t".join("filename locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split()) + "\n" )
-        
+
     def _dumpResults(self, alleleCountsBefore=None, alleleCountsAfter=None, randMethod=None):
 
         # append the before and after allele counts to the dictionary
         # so we can look up all of the stats en masse
         self.alleleCountDict[tuple(alleleCountsBefore)] = "before"
         self.alleleCountDict[tuple(alleleCountsAfter)] = "after"
-        
+
         if self.debug:
             print('alleleCountsBefore', alleleCountsBefore)
             print('alleleCountsAfter', alleleCountsAfter)
@@ -100,12 +100,12 @@ class RandomBinsForHomozygosity:
 
         if self.debug:
             print(alleleCounts)
-            
+
         if alleleCounts in self.alleleCountDict.keys():
             self.alleleCountDict[alleleCounts] += 1
         else:
             self.alleleCountDict[alleleCounts] = 1
-        
+
 
     def randomMethod(self, alleleCountsBefore=None, alleleCountsAfter=None):
 
@@ -143,7 +143,7 @@ class RandomBinsForHomozygosity:
         binningAttempts = 0
         binningAttemptsSuccessful = 0
         polyseqpos = polyseqpos[self.locus]
-        
+
         deleteHistory = {}
         deleteHistoryAll = {}
         collapseHistory = {}
@@ -189,7 +189,7 @@ class RandomBinsForHomozygosity:
 
                 # deletes the selected character from each sequence
                 for allele in polyseqSliced:
-                    polyseqSliced[allele] = polyseqSliced[allele][:posToDelete] + polyseqSliced[allele][posToDelete+1:] 
+                    polyseqSliced[allele] = polyseqSliced[allele][:posToDelete] + polyseqSliced[allele][posToDelete+1:]
                 del polyseqposDeletes[posToDelete]
 
                 # go thru again to check to see what we have collapsed
@@ -236,7 +236,7 @@ class RandomBinsForHomozygosity:
                 deleteHistory = copy(deleteHistorySaved)
                 collapseHistory = copy(collapseHistorySaved)
                 weightedCollapseHistory = copy(weightedCollapseHistorySaved)
-                
+
             if binningAttempts > (self.binningReplicates * 100):
                 print("FilterLog: Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful))
                 self.logFile.writeln("Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful) )
@@ -254,5 +254,3 @@ class RandomBinsForHomozygosity:
                                             str(deleteHistoryAll[pos]/float(binningAttemptsSuccessful)),
                                             str(collapseHistory[pos]/float(binningAttemptsSuccessful)),
                                             str(weightedCollapseHistory[pos]/float(binningAttemptsSuccessful))]))
-
-    

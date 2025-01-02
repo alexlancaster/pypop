@@ -5,7 +5,7 @@ include NEWS.rst
 include MANIFEST.in
 include CITATION.cff
 prune .github
-prune website 
+prune website
 prune data/*
 prune src/obsolete
 exclude setup.cfg

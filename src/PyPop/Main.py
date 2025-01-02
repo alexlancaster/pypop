@@ -83,7 +83,7 @@ class Main:
     - from values populated by the GUI (currently selected from an
       .ini file, but can ultimately be set directly from the GUI or
       values based from a form to a web server or the).
-      
+
     runs the specified modules.
     """
     def __init__(self,
@@ -118,7 +118,7 @@ class Main:
         # parse out the parts of the filename
         baseFileName = os.path.basename(self.fileName)
         prefixFileName = '.'.join(baseFileName.split(".")[:-1])
-        
+
         # generate date and time
 
         now = time.time()
@@ -146,7 +146,7 @@ class Main:
           if outFilePrefixType == 'filename':
             uniquePrefix = prefixFileName
           elif outFilePrefixType == 'date':
-            uniquePrefix = "%s-%s-%s" % (prefixFileName, datestr, timestr)  
+            uniquePrefix = "%s-%s-%s" % (prefixFileName, datestr, timestr)
           else:
             sys.exit("outFilePrefixType: %s must be 'filename' or 'date'" % outFilePrefixType)
         except NoOptionError:
@@ -237,8 +237,8 @@ class Main:
             self.fileType = "ParseAlleleCountFile"
         else:
             sys.exit("File type is not recognised.  Exiting")
-            
-        
+
+
         # Parse self.fileType section
 
         # do fields common to both types of files
@@ -287,7 +287,7 @@ class Main:
             self.parsed = ParseGenotypeFile(self.fileName,
                                 validPopFields=validPopFields,
                                 validSampleFields=validSampleFields,
-                                alleleDesignator=self.alleleDesignator, 
+                                alleleDesignator=self.alleleDesignator,
                                 untypedAllele=self.untypedAllele,
                                 popNameDesignator=popNameDesignator,
                                 fieldPairDesignator=fieldPairDesignator,
@@ -308,7 +308,7 @@ class Main:
                              validSampleFields=validSampleFields,
                              separator='\t',
                              debug=self.debug)
-            
+
             # if we are dealing with data that is originally simply
             # allele count data, we allow for typing at only allele
             # because the matrix is not a true set of individuals, and
@@ -316,7 +316,7 @@ class Main:
             allowSemiTyped = 1
 
         # END PARSE: allelecount file (ParseAlleleCountFile)
-        
+
         else:
             sys.exit("Unrecognised file type")
 
@@ -341,7 +341,7 @@ class Main:
                     self.dumpOrder = int(self.dumpOrder)
                 else:
                     sys.exit("%s is not a valid keyword for population dump: must be either 'separate-loci' or 'all-loci'" % self.dumpType )
-                
+
             except NoOptionError:
                 self.popDump = 0
 
@@ -352,7 +352,7 @@ class Main:
                 # filter in append mode
                 self.filterLogFile = XMLOutputStream(open(self.defaultFilterLogPath, 'w'))
 
-                if self.testMode: 
+                if self.testMode:
                     self.filterLogFile.opentag('filterlog')  # don't write path in test mode
                 else:
                     self.filterLogFile.opentag('filterlog', filename=self.fileName)
@@ -372,7 +372,7 @@ class Main:
                                debug=self.debug)
 
         # BEGIN common XML output section
-        
+
         # create XML stream
         self.xmlStream = XMLOutputStream(open(self.xmlOutPath, 'w'))
 
@@ -388,7 +388,7 @@ class Main:
         # file output reference, to include
         # <popfilename>-filter.log
         if self.filteringFlag:
-            
+
             self.xmlStream.opentag('xi:include', href=self.defaultFilterLogFilename, parse="xml")
             self.xmlStream.writeln()
             self.xmlStream.emptytag('xi:fallback')
@@ -494,7 +494,7 @@ class Main:
                     preserveLowresFlag = self.config.getint(filterCall, "preserve-lowres")
                 except:
                     preserveLowresFlag = 0
-                    
+
                 filter = AnthonyNolanFilter(debug=self.debug,
                                             directoryName=anthonynolanPath,
                                             alleleFileFormat=alleleFileFormat,
@@ -506,7 +506,7 @@ class Main:
                                             filename=self.fileName,
                                             logFile=self.filterLogFile)
                 self.matrixHistory.append(filter.doFiltering((self.matrixHistory[-1]).copy()))
-                
+
             elif filterType == 'DigitBinning':
                 try:
                     binningDigits = self.config.getint(filterCall, "binningDigits")
@@ -536,7 +536,7 @@ class Main:
                 self.matrixHistory.append(filter.doCustomBinning((self.matrixHistory[-1]).copy()))
 
             elif filterType == 'Sequence':
-                
+
                 ## set the unsequencedSite
                 ## FIXME: do more sanity checking make sure different symbol from untypedAllele
                 try:
@@ -559,7 +559,7 @@ class Main:
                         sequenceFilterMethod = "strict-default"
                 except:
                     sequenceFilterMethod = "strict-default"
-                    
+
                 filter = AnthonyNolanFilter(debug=self.debug,
                                             directoryName=anthonynolanPath,
                                             alleleFileFormat='msf',
@@ -597,7 +597,7 @@ class Main:
                     dumpMatrix = self.matrixHistory[self.dumpOrder]
                     dumpMatrix.dump(stream=dumpFile)
                     dumpFile.close()
-                
+
 
     def _doGenotypeFile(self):
 
@@ -613,7 +613,7 @@ class Main:
 ##             # a separate event type)
 ##             wxPostEvent(self.thread._notify_window,ResultEvent(None))
 ##             return
-            
+
           self.xmlStream.opentag('locus', name=locus)
           self.xmlStream.writeln()
 
@@ -624,7 +624,7 @@ class Main:
           alleleTable, totalAlleles, untypedIndividuals, unsequencedIndividuals =\
                        self.input.getAlleleCountAt(locus)
           numDistinctAlleles = len(alleleTable.keys())
-          
+
           if numDistinctAlleles == 1:
               # emit closing tags and go to the next locus
               self.xmlStream.closetag('locus')
@@ -654,8 +654,8 @@ class Main:
             except ValueError:
               sys.exit("require a 0 or 1 as a Boolean flag")
 
-            hwObject = HardyWeinberg(self.input.getLocusDataAt(locus), 
-                                     self.input.getAlleleCountAt(locus), 
+            hwObject = HardyWeinberg(self.input.getLocusDataAt(locus),
+                                     self.input.getAlleleCountAt(locus),
                                      lumpBelow=lumpBelow,
                                      flagChenTest=flagChenTest,
                                      debug=self.debug)
@@ -669,7 +669,7 @@ class Main:
               lumpData = getLumpedDataLevels(self.input,
                                              locus,
                                              li)
-            
+
               for level in lumpData.keys():
                   locusData, alleleData = lumpData[level]
                   hwObjectLump = HardyWeinberg(locusData,
@@ -742,7 +742,7 @@ class Main:
 
             # Guo & Thompson implementation
             hwObject= HardyWeinbergGuoThompson(\
-                locusData=self.input.getLocusDataAt(locus), 
+                locusData=self.input.getLocusDataAt(locus),
                 alleleCount=self.input.getAlleleCountAt(locus),
                 runMCMCTest=runMCMCTest,
                 runPlainMCTest=runPlainMCTest,
@@ -753,7 +753,7 @@ class Main:
                 monteCarloSteps=monteCarloSteps,
                 debug=self.debug,
                 testing=self.testMode)
-            
+
             hwObject.dumpTable(locus, self.xmlStream)
             self.xmlStream.writeln()
 
@@ -788,7 +788,7 @@ class Main:
                         locusData, alleleData = lumpData[level]
 
                         hwObjectLump = HardyWeinbergGuoThompson(\
-                               locusData=locusData, 
+                               locusData=locusData,
                                alleleCount=alleleData,
                                runMCMCTest=runMCMCTest,
                                runPlainMCTest=runPlainMCTest,
@@ -799,7 +799,7 @@ class Main:
                                monteCarloSteps=monteCarloSteps,
                                debug=self.debug,
                                testing=self.testMode)
-                        
+
                         # serialize HardyWeinberg
                         hwObjectLump.dumpTable(locus, self.xmlStream,
                                                allelelump=level)
@@ -824,9 +824,9 @@ class Main:
                   doOverall=0
               except ValueError:
                   sys.exit("doOverall: requires 0 or 1 as a boolean flag")
-              
+
               hwEnum = HardyWeinbergEnumeration(\
-                     locusData=self.input.getLocusDataAt(locus), 
+                     locusData=self.input.getLocusDataAt(locus),
                      alleleCount=self.input.getAlleleCountAt(locus),
                      doOverall=doOverall,
                      debug=self.debug)
@@ -840,16 +840,16 @@ class Main:
                   lumpData = getLumpedDataLevels(self.input,
                                                  locus,
                                                  li)
-            
+
                   for level in lumpData.keys():
                       locusData, alleleData = lumpData[level]
-                      
+
                       hwEnumLump = HardyWeinbergEnumeration(\
                                     locusData=locusData,
                                     alleleCount=alleleData,
                                     doOverall=doOverall,
                                     debug=self.debug)
-                      
+
                       # serialize HardyWeinberg
                       hwEnumLump.serializeTo(self.xmlStream, allelelump=level)
 
@@ -857,7 +857,7 @@ class Main:
                   pass
               except ValueError:
                   sys.exit("alleleLump: require comma-separated list of integers")
-            
+
           if self.config.has_section("HardyWeinbergGuoThompsonArlequin"):
 
             # default location for Arlequin executable
@@ -899,9 +899,9 @@ class Main:
 
           # parse [HomozygosityEWSlatkinExact] section: this makes
           # sense for both genotype *and* allele count data.
-          
+
           if self.config.has_section("HomozygosityEWSlatkinExact"):
-            
+
             try:
               numReplicates=self.config.getint("HomozygosityEWSlatkinExact",
                                           "numReplicates")
@@ -909,7 +909,7 @@ class Main:
               numReplicates=10000
 
             # make a dictionary of allele counts (don't need the last
-            # two elements that are returned by this method)            
+            # two elements that are returned by this method)
             alleleCounts = self.input.getAlleleCountAt(locus)[0]
 
             # notice we pass just the alleleCount values.  But the
@@ -938,10 +938,10 @@ class Main:
                     print("alleleCounts", len(alleleCounts), alleleCounts)
 
                 randomResultsFileName = self.defaultFilterLogPath[:-4]+"-" + locus + "-randomized.tsv"
-                
+
                 self.filterLogFile.opentag(self.binningMethod + 'Method', locus=locus)
                 self.filterLogFile.writeln('<![CDATA[')
-                
+
                 if len(alleleCountsInitial) <= len(alleleCounts):
                     print('FilterLog: Locus %s: Initial unique allele count is not bigger than the target count; skipping random binning.' %locus)
                     self.filterLogFile.writeln('Locus %s: Initial unique allele count is not bigger than the target count; skipping random binning.' %locus)
@@ -957,7 +957,7 @@ class Main:
                                                         debug=self.debug,
                                                         logFile=self.filterLogFile,
                                                         randomResultsFileName=randomResultsFileName)
-                    
+
                     if self.binningMethod == "random":
                         randObj.randomMethod(alleleCountsBefore=alleleCountsInitial,
                                              alleleCountsAfter=alleleCounts)
@@ -996,13 +996,13 @@ class Main:
                 self.filterLogFile.writeln(']]>')
                 self.filterLogFile.closetag(self.binningMethod + 'Method')
                 self.filterLogFile.writeln()
-    
+
           self.xmlStream.closetag('locus')
           self.xmlStream.writeln()
-          
+
 
         # Do pairwise Ewens-Watterson test
-        
+
         if self.config.has_section("HomozygosityEWSlatkinExactPairwise"):
             hz = HomozygosityEWSlatkinExactPairwise(\
                 matrix=self.input.getIndividualsData(),
@@ -1019,7 +1019,7 @@ class Main:
 
             print ("WARNING: The [Haplostats] module is still currently in ALPHA-MODE ONLY and and should not be used in production.")
             print ("Please use the [Emhaplofreq] module in the meantime.")
-            
+
             try:
                 numInitCond = self.config.getint("Haplostats",
                                                  "numInitCond")
@@ -1064,7 +1064,7 @@ class Main:
                 allPairwise=0
             except ValueError:
                 sys.exit("require a 0 or 1 as a flag")
-                
+
             if allPairwise:
                 # do all pairwise statistics, which always includes LD
                 haplostats.allPairwise(weight=None, control=control, numInitCond=numInitCond)
@@ -1260,4 +1260,3 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
     def getTxtOutPath(self):
         # return the name of the generated plain text (.txt) file
         return self.txtOutPath
-

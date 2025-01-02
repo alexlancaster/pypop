@@ -60,7 +60,7 @@ class TextOutputStream:
             self.f.write('\n')
         else:
             self.f.write(str + '\n')
-            
+
     def close(self):
         self.f.close()
 
@@ -86,7 +86,7 @@ class XMLOutputStream(TextOutputStream):
             return '%s' % tagname
         else:
             return '%s %s' % (tagname, attr.strip())
-        
+
     def opentag(self, tagname, **kw):
         """Generate an open XML tag.
 
@@ -95,9 +95,9 @@ class XMLOutputStream(TextOutputStream):
         role=something, id=else) will produce the result '<tagname
         role="something" id="else"> Note that the attribute and values
         are optional and if omitted produce '<tagname>'.  """
-        
+
         self.f.write("<%s>" % self._gentag(tagname, **kw))
-        
+
     def emptytag(self, tagname, **kw):
         """Generate an empty XML tag.
 
@@ -106,11 +106,11 @@ class XMLOutputStream(TextOutputStream):
         '<tagname attr="val"/>'.
         """
         self.f.write("<%s/>" % self._gentag(tagname, **kw))
-            
+
     def closetag(self, tagname):
         """Generate a closing XML tag.
 
-        Generate a tag in the form: '</tagname>'. 
+        Generate a tag in the form: '</tagname>'.
         """
         self.f.write('</%s>' % self._gentag(tagname))
 
@@ -265,7 +265,7 @@ class OrderedDict:
       i = Index(self.KEYS.index(i))
     del self.__hash[self.KEYS[i.i]]
     del self.KEYS[i.i]
-      
+
 
   def reverse(self):
     """
@@ -385,9 +385,9 @@ class StringMatrix(container):
       file order, and we don't want this tampered with by the `callee'
       function (i.e. effectively override the Python 'pass by
       reference' default and 'pass by value')."""
-      
+
       self.colList = colList[:]
-      
+
       self.colCount = len(self.colList)
       self.rowCount = rowCount
 
@@ -467,7 +467,7 @@ class StringMatrix(container):
       This simply calls self.copy() to allow
       copy.deepcopy(matrixInstance) to Do The Right Thing"""
       return self.copy()
-      
+
   def __getslice__(self, i, j):
       raise Exception("slices not currently supported")
       #return self._rc(self.array[i:j])
@@ -528,7 +528,7 @@ class StringMatrix(container):
       it in this case returns a full StringMatrix instance which
       includes all metadata
       """
-      
+
       if type(key) == str:
           colNames = key.split(":")
 
@@ -618,7 +618,7 @@ class StringMatrix(container):
       Note that integers start at 1 for compatibility with haplo-stats module
       FIXME: check whether we need to release memory
       """
-      
+
       # create a new copy
       newMatrix = self.copy()
       for colName in self.colList:
@@ -651,7 +651,7 @@ class StringMatrix(container):
           n_alleles[colName] = len(self.getUniqueAlleles(colName))
 
       # count pairs of haplotypes for subjects without any missing alleles
-      # FIXME: maybe convert to it's own method as per getUniqueAlleles 
+      # FIXME: maybe convert to it's own method as per getUniqueAlleles
       h1 = self.array[:, 0::2]  # get "_1" allele (odd cols)
       h2 = self.array[:, 1::2]  # get "_2" allele (even cols)
       n_het = np.sum(np.not_equal(h1, h2), 1)  # equivalent of: apply(h1!=h2,1,sum)
@@ -699,7 +699,7 @@ class StringMatrix(container):
 
       then getSuperType('A:B') will return the matrix with the column
       vector:
-      
+
       [[A01:B01, A02:B02], [A11:B11, A12:B12]]
       """
       li = self.__getitem__(key)
@@ -718,21 +718,21 @@ class StringMatrix(container):
           pos += 1
 
       return newMatrix
-      
-      
+
+
 class Group:
   # group a list or sequence by a given size
   # example usage:
   # for pair in Group('aabbccddee',2):
   #   do something with pair.
-  
+
   def __init__(self, l, size):
     self.size=size
     self.l = l
 
   def __getitem__(self, group):
     idx = group * self.size
-    if idx > len(self.l): 
+    if idx > len(self.l):
       raise IndexError("Out of range")
     return self.l[idx:idx+self.size]
 
@@ -799,7 +799,7 @@ def copyfileCustomPlatform(src, dest, txt_ext=0):
     shutil.copyfile(src, dest)
     fixForPlatform(dest, txt_ext=txt_ext)
     print("copying %s to" % src),
-    
+
 def copyCustomPlatform(file, dist_dir, txt_ext=0):
     new_filename=os.path.join(dist_dir, os.path.basename(file))
     print("copying %s to" % file)
@@ -848,7 +848,7 @@ def getUserFilenameInput(prompt, filename):
           else:
               # otherwise return an error
               print("File '%s' does not exist" % tempFilename)
-      
+
     return filename
 
 
@@ -857,12 +857,12 @@ def splitIntoNGroups(alist, n=1):
 
     This class currently works with Python 2.2, but will eventually
     use iterators, so ultimately will need least Python 2.3!  """
-    #from itertools import islice    
+    #from itertools import islice
     #it = iter(alist)
-    
+
     x = len(alist) // n    # note: don't just drop the last len(alist) % n items
     y = len(alist) % n
-    
+
     # initialize an empty list
     retval = []
 
@@ -878,4 +878,3 @@ def splitIntoNGroups(alist, n=1):
         retval.append(extra)
 
     return retval
-

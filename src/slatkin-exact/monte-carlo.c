@@ -1,19 +1,19 @@
-/*  
-This program implements a Monte Carlo algorithm to perform both the 
-homozygosity and exact tests on a sampling of alleles.  It uses an 
-algorithm devised by Frank Stewart to generate random configurations 
+/*
+This program implements a Monte Carlo algorithm to perform both the
+homozygosity and exact tests on a sampling of alleles.  It uses an
+algorithm devised by Frank Stewart to generate random configurations
 from the Ewens sampling distribution.
 
-To use the program, you need to list the number of copies of each allele as 
-elements of the vector r_obs listed just below the beginning of the main 
-program below.  The data do not have to be in decreasing order, as they 
+To use the program, you need to list the number of copies of each allele as
+elements of the vector r_obs listed just below the beginning of the main
+program below.  The data do not have to be in decreasing order, as they
 do for the program that enumerates all configurations.
 
 Two sample data sets are included.  The first is the sample data set used in
-the 1994 paper in Genetical Research (64: 71-74).  This data set can also be 
-analyzed using ENUMERATE.  The second data set contains the numbers of the 
-24 most frequent cystic fibrosis alleles in a sample of CF cases in northern 
-Europe.  This data set is much too large to be analyzed using the other 
+the 1994 paper in Genetical Research (64: 71-74).  This data set can also be
+analyzed using ENUMERATE.  The second data set contains the numbers of the
+24 most frequent cystic fibrosis alleles in a sample of CF cases in northern
+Europe.  This data set is much too large to be analyzed using the other
 program.  The second data set should produce the output
 
 n = 16975, k = 24, theta = 2.681168, F = 0.768561, maxrep = 100000
@@ -22,24 +22,24 @@ P_H(approx) = 0.99802
 
 It took about 25 minutes on a 100 mhz HP workstation for 100,000 replicates.
 
-To use a data set, remove the / and * symbols that indicate a comment 
+To use a data set, remove the / and * symbols that indicate a comment
 from one of the r_obs.
 
-The program produces two output values.  The first is the value of P_H, 
-the tail probability for the Ewens-Watterson test using homozygosity as 
-a test statistic.  The second is P_E, the tail probability for the exact 
-test.  For small data sets, including the first sample data set, the two 
-values are the same.  The 1994 paper was wrong in claiming otherwise and 
-that error was corrected in the 1996 paper in Genetical Research 
-{68: 259-260).  For larger data sets, the P values can differ, sometimes 
+The program produces two output values.  The first is the value of P_H,
+the tail probability for the Ewens-Watterson test using homozygosity as
+a test statistic.  The second is P_E, the tail probability for the exact
+test.  For small data sets, including the first sample data set, the two
+values are the same.  The 1994 paper was wrong in claiming otherwise and
+that error was corrected in the 1996 paper in Genetical Research
+{68: 259-260).  For larger data sets, the P values can differ, sometimes
 substantially, as in the second sample data set.
 
-MONTE CARLO requires a random number seed (initseed), which you can change 
-by editing the file.  If you change initseed or the data set, you have 
-to recompile the program.  Once the program is compiled, you run it by 
-specifying the number of replicates on the command line.  Usually, 100,000 
-replicates is more than sufficient but you can try different values to 
-find out for yourself. 
+MONTE CARLO requires a random number seed (initseed), which you can change
+by editing the file.  If you change initseed or the data set, you have
+to recompile the program.  Once the program is compiled, you run it by
+specifying the number of replicates on the command line.  Usually, 100,000
+replicates is more than sufficient but you can try different values to
+find out for yourself.
 */
 
 #include <stdio.h>
@@ -84,15 +84,15 @@ int main(int argc, char **argv)
 
   /* = {0, 40, 3, 3, 1, 0}; */
 
-  /*  Rwandan DRB1 data  
+  /*  Rwandan DRB1 data
      int r_obs[] = {0, 95, 87, 81, 52, 44, 32, 32, 31, 27, 24, 23, 20, 19, 12, 6, 6, 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}; */
 
-  /*  Bedouin DRB1 data 
+  /*  Bedouin DRB1 data
      int r_obs[] = {0, 32, 32, 30, 18, 15, 14, 13, 11, 10, 7, 6, 6, 5, 4, 4, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0};  */
 
   /*  int r_obs[] = {0, YOUR DATA HERE, 0};  */
-  /*  int r_obs[] = {0, 30, 62, 97, 15, 53, 18, 55, 35, 57, 14866, 
-     160, 439, 18, 356, 165, 40, 41, 14, 27, 36, 39, 23, 120, 209, 0};  
+  /*  int r_obs[] = {0, 30, 62, 97, 15, 53, 18, 55, 35, 57, 14866,
+     160, 439, 18, 356, 165, 40, 41, 14, 27, 36, 39, 23, 120, 209, 0};
      //  CF alleles from North Europe: P_H = 0.9977   */
 
   if (argc < 2)
@@ -392,7 +392,7 @@ double *vector(long nl, long nh)
   v = (double *)malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(double)));
   if (!v)
     nrerror("allocation failure in vector()");
-  return v - nl + NR_END; 
+  return v - nl + NR_END;
 }
 
 /* free memory for double vector */
@@ -412,7 +412,7 @@ int *ivector(long nl, long nh)
   v = (int *)malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(int)));
   if (!v)
     nrerror("allocation failure in ivector()");
-  return v - nl + NR_END; 
+  return v - nl + NR_END;
 }
 
 /* free memory for integer vector */
@@ -525,4 +525,3 @@ double get_var_homozygosity(void)
 {
   return Var_F;
 }
-

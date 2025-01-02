@@ -84,7 +84,7 @@ def path_to_src(source_path_list):
         new_source_list.append(os.path.join(src_dir, file_path))
     return new_source_list
 
-    
+
 swig_opts = ["-I%s" % os.path.join(src_dir, "SWIG"), "-I%s" % os.path.join(src_dir)]
 
 # define each extension
@@ -135,7 +135,7 @@ ext_Gthwe_files = path_to_src(["gthwe/gthwe_wrap.i",
                    "gthwe/cal_n.c",
                    "gthwe/cal_prob.c",
                    "gthwe/check_file.c",
-                   "gthwe/do_switch.c", 
+                   "gthwe/do_switch.c",
                    "gthwe/new_rand.c",
                    "gthwe/ln_p_value.c",
                    "gthwe/to_calculate_log.c",
@@ -152,7 +152,7 @@ ext_Gthwe_macros = [('__SWIG__', '1'),
                     ('DEBUG', '0'),
                     ('XML_OUTPUT', '1'),
                     ('SUPPRESS_ALLELE_TABLE', '1'),
-                    ('INDIVID_GENOTYPES', '1')] 
+                    ('INDIVID_GENOTYPES', '1')]
 
 ext_Gthwe = Extension("PyPop._Gthwe",
                       ext_Gthwe_files,
@@ -206,11 +206,11 @@ ext_Emhaplofreq.depends=path_to_src(["SWIG/typemap.i", "emhaplofreq/emhaplofreq.
 ext_Pvalue.depends=path_to_src(["SWIG/typemap.i", "pval/Rconfig.h", "pval/Rmath.h", "pval/dpq.h", "pval/nmath.h"])
 ext_Gthwe.depends=path_to_src(["SWIG/typemap.i", "gthwe/func.h", "gthwe/hwe.h"])
 ext_Haplostats.depends=path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pin.h"])
-    
+
 # default list of extensions to build
 extensions = [ext_Emhaplofreq, ext_EWSlatkinExact, ext_Pvalue, ext_Haplostats, ext_Gthwe]
 
-# don't include HWEEnum 
+# don't include HWEEnum
 # extensions.append(ext_HweEnum)
 
 xslt_data_file_paths = []
@@ -234,10 +234,10 @@ class CustomBuildPy(_build_py):
         # if not running from a CIBUILDWHEEL environment variable
         # we need to create the citations
         if os.environ.get('CIBUILDWHEEL') != '1':
-            
+
             # source citation path (single-source of truth)
             citation_path = "CITATION.cff"
-        
+
             # then copy CITATION.cff to temp build directory
             # use setuptools' temp build directory
             build_lib = self.get_finalized_command('build').build_lib

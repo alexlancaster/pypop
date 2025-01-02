@@ -51,7 +51,7 @@ class ResultEvent(wxPyEvent):
     wxPyEvent.__init__(self)
     self.SetEventType(EVT_RESULT_ID)
     self.data = data
-    
+
 # Thread class that executes processing
 class WorkerThread(Thread):
 
@@ -74,7 +74,7 @@ class WorkerThread(Thread):
     config = getConfigInstance(self._notify_window.configFilename,
                                altpath = self._notify_window.altpath,
                                usage_message = "none")
-    
+
     application = Main(config=config,
                        debugFlag = self._notify_window.debugFlag,
                        fileName = self._notify_window.popFilename,
@@ -104,20 +104,20 @@ class MainWindow(wxFrame):
     self.datapath = datapath
     self.altpath = altpath
     self.debugFlag = debugFlag
-    
+
     # default directory to start looking in
     self.dirname="."
-    
+
     self.popFilename = None
     self.configFilename = os.path.join(self.dirname, 'config.ini')
-    
+
     wxFrame.__init__(self,parent,-4, title, size = (400,200),
                      style=wxDEFAULT_FRAME_STYLE|
                      wxNO_FULL_REPAINT_ON_RESIZE)
-    
+
     self.control = wxTextCtrl(self, 1, style=wxTE_MULTILINE)
     self.CreateStatusBar() # A Statusbar in the bottom of the window
-    
+
     # Setting up the menu.
     filemenu= wxMenu()
     filemenu.Append(ID_ABOUT, "&About"," Information about this program")
@@ -125,43 +125,43 @@ class MainWindow(wxFrame):
     filemenu.Append(ID_OPEN_POP, "&Population"," Select population file")
     filemenu.AppendSeparator()
     filemenu.Append(ID_EXIT,"E&xit"," Terminate the program")
-    
+
     # Creating the menubar.
     menuBar = wxMenuBar()
     menuBar.Append(filemenu,"&File") # Adding the "filemenu" to the MenuBar
     self.SetMenuBar(menuBar)  # Adding the MenuBar to the Frame content.
-    
+
     # attach the menu-event ID_ABOUT to the method self.OnAbout
     EVT_MENU(self, ID_ABOUT, self.OnAbout)
-    
+
     # attach the menu-event ID_OPEN_CONFIG to the method self.OnConfig
     EVT_MENU(self, ID_OPEN_CONFIG, self.OnConfig)
-    
+
     # attach the menu-event ID_OPEN_POP to the method self.OnPop
     EVT_MENU(self, ID_OPEN_POP, self.OnPop)
-    
+
     # attach the menu-event ID_EXIT to the method self.OnExit
-    EVT_MENU(self, ID_EXIT, self.OnExit)   
-    
+    EVT_MENU(self, ID_EXIT, self.OnExit)
+
     # create "go" button
     b = wxButton(self, 10, "Run population...", wxPoint(20, 20))
     EVT_BUTTON(self, 10, self.OnRun)
     #b.SetBackgroundColour(wxBLUE)
     #b.SetForegroundColour(wxWHITE)
     b.SetDefault()
-    
+
     # create "stop" button
     stop = wxButton(self, 20, 'Stop', wxPoint(20,60))
     EVT_BUTTON(self, 20, self.OnStop)
-    
+
     # Set up event handler for any worker thread results
     EVT_RESULT(self,self.OnResult)
-    
+
     # And indicate we don't have a worker thread yet
     self.worker = None
-    
+
     self.Show(true)
-    
+
   def OnAbout(self, event):
     d= wxMessageDialog(self, "PyPop: "
                        "PYthon for POPulation Genetics",
@@ -180,25 +180,25 @@ class MainWindow(wxFrame):
     if dlg.ShowModal() == wxID_OK:
       filename=dlg.GetFilename()
       dirname=dlg.GetDirectory()
-      
+
       fullpath = os.path.join(dirname,filename)
-      
+
       #f=open(os.path.join(self.dirname,self.filename),'r')
       #self.control.SetValue(f.read())
       #f.close()
     dlg.Destroy()
     return fullpath
-      
+
   def OnConfig(self, event):
     """ Select config file"""
     wildcard = "Configuration files (*.ini)|*.ini|" \
                "All files (*.*)|*.*"
     fullpath = self._onOpen(event,type=wildcard)
-    
+
     if fullpath:
       self.configFilename = fullpath
       self.SetStatusText("config file:" + self.configFilename, 0)
-          
+
   def OnPop(self, event):
     """ Select pop file"""
     wildcard = "Population files (*.pop)|*.pop|" \

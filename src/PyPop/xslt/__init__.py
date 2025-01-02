@@ -52,7 +52,7 @@ def exponent_len(num):
     # length of exponent, e.g.
     # "e-3', would be two characters ('-3')
     # "e-10" would be 3, ('-10')
-    return len(str(floor(log10(num)))) 
+    return len(str(floor(log10(num))))
 
 @ns
 def format_number_fixed_width(context, *args):
@@ -60,7 +60,7 @@ def format_number_fixed_width(context, *args):
     num = float(args[0])
     places = int(args[1])
     zeros_before_sig_figs = num_zeros(num)
-    
+
     if zeros_before_sig_figs >= places and zeros_before_sig_figs != inf:
         # get exponent size
         exponent_size = exponent_len(num)
@@ -77,9 +77,9 @@ def format_number_fixed_width(context, *args):
 if __name__ == "__main__":
 
     # some tests
-    
+
     ns['format_number_fixed_width'] = format_number_fixed_width
-    
+
     root = etree.XML('<a><b>0.0000043</b></a>')
     doc = etree.ElementTree(root)
 
@@ -97,5 +97,3 @@ if __name__ == "__main__":
     '''))
 
     print(xslt(doc))
-    
-

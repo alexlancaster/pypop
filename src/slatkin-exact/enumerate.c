@@ -1,6 +1,6 @@
-/*  
+/*
 I have added code to estimate the expected homozygosity and the variance
-of the expected homozygosity, under neutrality.  
+of the expected homozygosity, under neutrality.
 Diogo Meyer 2002-08-23
 */
 
@@ -78,7 +78,7 @@ void main(int argc, char *argv[]) {
 	printf(":  P_E = %g, ", sig_sum / tot_sum);
 	printf("P_H = %g\n", F_sig_sum / tot_sum);
 /* begin  my new line */
-	printf("Expected F = %g\t, Var (F) = %g\n", F_all / tot_sum, 
+	printf("Expected F = %g\t, Var (F) = %g\n", F_all / tot_sum,
     ( Fsq_all / tot_sum ) - ( (F_all / tot_sum) * (F_all / tot_sum) )  );
 /* begin  my new line */
 	finish_time = time(NULL);
@@ -87,7 +87,7 @@ void main(int argc, char *argv[]) {
 		printf("Program took %ld seconds\n", net_time);
 	else
 		printf("Program took %4.2f minutes\n", net_time / 60.0);
-  }  
+  }
 /********************   end main ***********************************/
 
 /********************   begin config *******************************/
@@ -106,8 +106,8 @@ void config(int rt, int rmax, int ic)  {
     tot_sum += multiplicity * test_value;
     F_test = F(r);
     /* begin  my new line */
-    F_all += F_test * (multiplicity * test_value); 
-    Fsq_all += F_test * F_test * (multiplicity * test_value); 
+    F_all += F_test * (multiplicity * test_value);
+    Fsq_all += F_test * F_test * (multiplicity * test_value);
     /* end my new line */
     if (test_value <= obs_value)
       sig_sum += multiplicity * test_value;
@@ -115,13 +115,13 @@ void config(int rt, int rmax, int ic)  {
       F_sig_sum += multiplicity * test_value;
     }
     else  {
-      for(r1=((rt%k)?rt/k+1:rt/k);r1<=(min(rmax,rt-k+ic+1));r1++)  { 
+      for(r1=((rt%k)?rt/k+1:rt/k);r1<=(min(rmax,rt-k+ic+1));r1++)  {
         if (ic == 1) r_top = r1;
         r[ic] = r1;
         config(rt-r1, r1, ic+1);
         }
       }
-  } 
+  }
 
 /********************   end, config *******************************/
 
@@ -145,7 +145,7 @@ void print_config(int *r) {
 	for (i=1; i<k; i++)
 		printf("%d,", r[i]);
 	printf("%d)", r[k]);
-	}  
+	}
 /*  **************** end, print_config  **********************************/
 
 
@@ -168,7 +168,7 @@ double ewens_form(int *r, int r_top, double *mpt)  {
     		*mpt /= factors[alpha[i]];
 			}
 	return coef;
-	}  
+	}
 
 /*  ***************** end, ewens_form  **********************************/
 
@@ -178,7 +178,7 @@ double theta_est(int k_obs, int n)  {
 	double kval(double theta, int n);
 	double xlow, xhigh, xmid;
 	double eps;
-	
+
 	eps = 0.00001;
 	xlow = 0.1;
 	while (kval(xlow, n) > k_obs)
@@ -194,7 +194,7 @@ double theta_est(int k_obs, int n)  {
 			xlow = xmid;
 		}
 	return xmid;
-	}  
+	}
 
 /*************************  end, theta_est  ************************/
 
@@ -204,7 +204,7 @@ double theta_est(int k_obs, int n)  {
 double kval(double x, int n)  {
 	int i;
 	double sum;
-	
+
 	sum = 0.0;
 	for (i=0; i<n; i++)
 		sum += x / (i + x);
@@ -221,4 +221,3 @@ double F(int *r)  {
   }
 
 /*******************************************************************/
-

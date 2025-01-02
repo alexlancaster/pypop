@@ -45,7 +45,7 @@ from PyPop.Utils import checkXSLFile, splitIntoNGroups
 
 def _translate_string_to(xslFilename, inString, outFile, outputDir=None, params=None):
     # do the transformation
-    
+
     # parse the stylesheet file
     styledoc = etree.parse(xslFilename)
 
@@ -75,7 +75,7 @@ def _translate_string_to(xslFilename, inString, outFile, outputDir=None, params=
     # outString = result.serialize()
 
     #return outString
-    
+
 def translate_string_to_stdout(xslFilename, inString, outputDir=None, params=None):
     # save result to stdout "-"
     _translate_string_to(xslFilename, inString, "-", outputDir=outputDir, params=params)
@@ -87,7 +87,7 @@ def _translate_file_to(xslFilename, inFile, outFile, inputDir=None, outputDir=No
 
     # assuming empty output
     output = None
-    
+
     # parse the stylesheet file
     styledoc = etree.parse(xslFilename)
 
@@ -122,7 +122,7 @@ def _translate_file_to(xslFilename, inFile, outFile, inputDir=None, outputDir=No
                 outPath = outputDir / outFile
             else:
                 outPath = outFile
-            
+
             result.write_output(outPath)
 
         success = True
@@ -180,10 +180,10 @@ class Meta:
         # that the lxml > 5.0.0 default is to disable resolution.  but
         # disallow network access
         etree.set_default_parser(etree.XMLParser(resolve_entities=True, no_network=True))
-        
+
         # the name of the XSLT file for transformation
         meta_to_tsv_xsl = 'meta-to-tsv.xsl'
-        
+
         # heuristics to find default location of 'xslt/' subdirectory, if it is
         # not supplied by the command-line option
 
@@ -225,7 +225,7 @@ class Meta:
             xslt_params['prefixTSV'] = "'" + prefixTSV + "-'" # make sure to include dash
         else:
             xslt_params['prefixTSV'] = "''" # otherwise use empty string
-            
+
         # FIXME
         # report error if no file arguments given
 
@@ -285,7 +285,7 @@ class Meta:
                     meta_xml_path = outputDir / 'meta.xml'
                 else:
                     meta_xml_path = 'meta.xml'
-                
+
                 f = open(meta_xml_path, 'w')
                 f.write(meta_string)
                 f.close()
@@ -296,7 +296,7 @@ class Meta:
                     success, stdout = translate_file_to_stdout(os.path.join(metaXSLTDirectory, meta_to_tsv_xsl), "meta.xml", inputDir=outputDir, params=xslt_params)
                     # transform stdout into a list of tsv files
                     tsv_files = stdout.strip().split("\n")
-                    
+
 
                 if PHYLIP_output:
                     # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:
@@ -371,4 +371,3 @@ class Meta:
                 # if the file is empty, we remove it
                 if os.path.getsize(dat) == 0:
                     os.remove(dat)
-

@@ -1,5 +1,5 @@
 Results of comparison between pval implementation based on R GPL-ed code
-(listed first), and pval implementation on numerical recipies code 
+(listed first), and pval implementation on numerical recipies code
 (listed second) on 2003-07-30 on home laptop (Fujitsu S-4542).
 
 Here is the command run and the terminal output:
@@ -225,4 +225,3 @@ N. rec: 0.001250
 dof=5, chisq=25.0
 R code: 0.000139334
 N. rec: 0.000139
-

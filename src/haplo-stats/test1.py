@@ -88,4 +88,3 @@ print(numpy.c_[subj_id,hap1_code,hap2_code])
 
 print("sample XML output")
 print(xmlOutput.f.getvalue())
-

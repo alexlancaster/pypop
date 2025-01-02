@@ -1,4 +1,4 @@
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:exslt="http://exslt.org/common"
@@ -30,12 +30,12 @@
     </locus>
    </xsl:for-each>
   </xsl:variable>
-  
+
   <xsl:variable name="pops" select="/meta/dataanalysis"/>
-  
+
   <xsl:value-of select="count($pops)"/>
   <xsl:text>     </xsl:text>
-  
+
   <xsl:call-template name="newline"/>
 
   <xsl:for-each select="exslt:node-set($all-alleles)/locus">
@@ -44,11 +44,11 @@
    </xsl:if>
    <xsl:text> </xsl:text>
   </xsl:for-each>
-  
+
   <xsl:call-template name="newline"/>
 
   <xsl:for-each select="$pops">
-   
+
    <xsl:call-template name="append-pad">
     <xsl:with-param name="padVar">
      <xsl:value-of select="populationdata/popname"/>
@@ -61,7 +61,7 @@
     <xsl:variable name="curlocus" select="@name"/>
 
     <xsl:variable name="allele-list" select="allelecounts/allele"/>
-   
+
     <xsl:for-each select="exslt:node-set($all-alleles)/locus[@name=$curlocus]/allele">
      <xsl:variable name="allelename" select="."/>
      <xsl:choose>
@@ -74,13 +74,13 @@
     </xsl:for-each>
    </xsl:for-each>
    <xsl:call-template name="newline"/>
-  </xsl:for-each>  
-  
+  </xsl:for-each>
+
  </xsl:template>
- 
+
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"

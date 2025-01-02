@@ -47,7 +47,7 @@ class PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter)
     pass
 
 class CitationAction(Action):
-        
+
     def __call__(self, parser, namespace, values, option_string=None):
 
         citation_format = values or 'apalike'
@@ -64,7 +64,7 @@ class CitationAction(Action):
                 citation_text = citation_file.read_text()
             except (ModuleNotFoundError, ImportError, FileNotFoundError):  # fallback to looking in top-level directory if running from repo
                 top_level_dir = Path(__file__).resolve().parent.parent.parent
-                citation_file = top_level_dir / 'CITATION.cff'  # only output CFF 
+                citation_file = top_level_dir / 'CITATION.cff'  # only output CFF
 
                 if citation_file.exists():
                     print("only CITATION.cff is available")
@@ -73,7 +73,7 @@ class CitationAction(Action):
                 else:
                     print("could not locate the specified citation format.")
                     parser.exit()
-                    
+
         print(citation_text)
         parser.exit()  # exit after printing the file
 
@@ -113,13 +113,13 @@ current directory""", epilog=copyright_message, formatter_class=PyPopFormatter)
     add_pypop = pypop_parser.add_argument_group('Options for pypop').add_argument
     for arg in common_args:
         add_pypop(*arg[0], **arg[1])
-    
+
     add_pypop("-c", "--config", help="select config file",
                         required=False, default='config.ini')
     add_pypop("-m", "--testmode", help="run PyPop in test mode for unit testing", action='store_true', required=False, default=False)
     add_pypop("-d", "--debug", help="enable debugging output (overrides config file setting)",
                         action='store_true', required=False, default=False)
-    add_pypop("-x", "--xsl", help="override the default XSLT translation with XSLFILE", 
+    add_pypop("-x", "--xsl", help="override the default XSLT translation with XSLFILE",
                         metavar="XSLFILE", required=False, default=None)
 
     add_tsv = pypop_parser.add_argument_group('TSV output options', 'Note that ``--enable-*`` and ``--prefix-tsv`` options are only valid if ``--enable-tsv``/``-t`` is also supplied').add_argument
@@ -136,7 +136,7 @@ current directory""", epilog=copyright_message, formatter_class=PyPopFormatter)
     add_input("-f", "--filelist", help="file containing list of files (one per line) to process\n(mutually exclusive with supplying POPFILEs)",
                      type=FileType('r'), default=None)
     add_input("popfiles", metavar="POPFILE", help="input population (``.pop``) file(s)", nargs='*', default=[])
-    
+
     return pypop_parser
 
 def get_popmeta_cli(version="", copyright_message=""):
@@ -154,15 +154,15 @@ skip any XML files that are not well-formed XML.""", formatter_class=PyPopFormat
         add_popmeta(*arg[0], **arg[1])
 
     add_popmeta(*prefix_tsv_args[0], **prefix_tsv_args[1])
-        
+
     add_popmeta("--disable-tsv", help="disable generation of ``.tsv`` TSV files",
                                     action='store_false', dest="generate_tsv", required=False, default=True)
     add_popmeta("--output-meta", help="dump the meta output file to stdout, ignore xslt file",
                                     action='store_true', required=False, default=False)
-    add_popmeta("-x", "--xsldir", help="use specified directory to find meta XSLT", 
+    add_popmeta("-x", "--xsldir", help="use specified directory to find meta XSLT",
                                     metavar="XSLDIR", required=False, default=None)
     add_popmeta(ihwg_args[0], **ihwg_args[1])
-    
+
     xor_options = popmeta_parser.add_argument_group('Mutually exclusive popmeta options')
     add_xor_arg = xor_options.add_mutually_exclusive_group(required=False).add_argument
     add_xor_arg(phylip_args[0], **phylip_args[1])

@@ -56,14 +56,14 @@ class Haplo:
 
 class HaploArlequin(Haplo):
     """Haplotype estimation implemented via Arlequin
-    
+
     Outputs Arlequin format data files and runtime info, also runs and
     parses the resulting Arlequin data so it can be made available
     programatically to rest of Python framework.
 
     Delegates all calls Arlequin to an internally instantiated
     ArlequinBatch Python object called 'batch'.  """
-    
+
     def __init__(self,
                  arpFilename,
                  idCol,
@@ -81,27 +81,27 @@ class HaploArlequin(Haplo):
 
         - arpFilename: Arlequin filename (must have '.arp' file
           extension)
-        
+
         - idCol: column in input file that contains the individual id.
-        
+
         - prefixCols: number of columns to ignore before allele data
           starts
-        
+
         - suffixCols: number of columns to ignore after allele data
           stops
-        
+
         - windowSize: size of sliding window
 
         - mapOrder: list order of columns if different to column order in file
           (defaults to order in file)
 
         - untypedAllele:  (defaults to '0')
-        
+
         - arlequinPrefix: prefix for all Arlequin run-time files
         (defaults to 'arl_run').
 
         - debug: (defaults to 0)
-        
+
         """
 
         self.arpFilename = arpFilename
@@ -114,7 +114,7 @@ class HaploArlequin(Haplo):
         self.mapOrder = mapOrder
         self.untypedAllele = untypedAllele
         self.debug = debug
-        
+
         # arsFilename is default because we generate it
         self.batch = ArlequinBatch(arpFilename = self.arpFilename,
                               arsFilename = self.arsFilename,
@@ -222,10 +222,10 @@ KeepNullDistrib=0""")
         self.batch._outputArlRunTxt(self.arlequinPrefix + ".txt", self.arpFilename)
         # generate a customized settings file for haplotype estimation
         self._outputArlRunArs(self.arlequinPrefix + ".ars")
-        
+
         # spawn external Arlequin process
         self.batch.runArlequin()
-        
+
     def genHaplotypes(self):
         """Gets the haplotype estimates back from Arlequin.
 
@@ -248,12 +248,12 @@ KeepNullDistrib=0""")
         headerFound = 0
 
         haplotypes = []
-        
+
         patt1 = re.compile(r"== Sample :[\t ]*(\S+) pop with (\d+) individuals from loci \[([^]]+)\]")
         patt2 = re.compile(r"    #   Haplotype     Freq.      s.d.")
         patt3 = re.compile(r"^\s+\d+\s+UNKNOWN(.*)")
         windowRange = range(1, self.windowSize)
-        
+
         for line in open(outFile, 'r').readlines():
             matchobj = re.search(patt1, line)
             if matchobj:
@@ -264,7 +264,7 @@ KeepNullDistrib=0""")
                 # convert into list of loci
                 lociList = list(map(int, liststr.split(',')))
                 freqs = {}
-                
+
             if dataFound:
                 if line != os.linesep:
                     if self.debug:
@@ -296,7 +296,7 @@ class Emhaplofreq(Haplo):
 
     Will refuse to estimate haplotypes longer than that defined by
     'emhaplofreq'.
-    
+
     """
     def __init__(self, locusData,
                  debug=0,
@@ -315,14 +315,14 @@ class Emhaplofreq(Haplo):
 
         # FIXME: by default assume we are not dealing sequence data
         self.sequenceData = 0
-        
+
         self.matrix = locusData
         self.untypedAllele = untypedAllele
-        
+
         rows, cols = self.matrix.shape
         self.totalNumIndiv = rows
         self.totalLociCount = cols / 2
-        
+
         self.debug = debug
 
         # initialize flag
@@ -339,10 +339,10 @@ class Emhaplofreq(Haplo):
             self.stream = stream
         else:
             sys.exit("Emhaplofreq constructor must be passed a stream, output is only available in stream form")
-                
+
         # create an in-memory file instance for the C program to write
         # to; this remains in effect until a call to 'serializeTo()'.
-        
+
         #import cStringIO
         #self.fp = cStringIO.StringIO()
 
@@ -366,7 +366,7 @@ class Emhaplofreq(Haplo):
                         showHaplo=None,
                         mode=None,
                         testing=0):
-        
+
         """Internal method to call _Emhaplofreq shared library.
 
         Format of 'locusKeys' is a string as per estHaplotypes():
@@ -409,7 +409,7 @@ class Emhaplofreq(Haplo):
             locusKeys = ':'.join(self.matrix.colList)
 
         for group in locusKeys.split(','):
-           
+
             # get the actual number of loci being estimated
             lociCount = len(group.split(':'))
 
@@ -438,7 +438,7 @@ class Emhaplofreq(Haplo):
                         for allele in range(0, len(theline)):
                             print(theline[allele], " "),
                         print()
-                    
+
                 fp.write('\n')
 
                 if self.sequenceData:
@@ -475,12 +475,12 @@ class Emhaplofreq(Haplo):
                 elif maxAlleleLength > (self._Emhaplofreq.NAME_LEN-2):
                     fp.write("<group %s role=\"max-allele-length-exceeded\" %s %s>%d</group>%s" % (modeAttr, lociAttr, haploAttr, self._Emhaplofreq.NAME_LEN-2, '\n'))
                     continue
-                
+
                 if mode:
                     fp.write("<group %s %s %s>%s" % (modeAttr, lociAttr, haploAttr, '\n'))
                 else:
                     sys.exit("A 'mode' for emhaplofreq must be specified")
-                
+
 ##                 if permutationFlag and haploSuppressFlag:
 ##                     fp.write("<group mode=\"LD\" loci=\"%s\">%s" % (group, '\n'))
 ##                 elif permutationFlag == 0 and haploSuppressFlag == 0:
@@ -493,7 +493,7 @@ class Emhaplofreq(Haplo):
 
                 fp.write("<individcount role=\"before-filtering\">%d</individcount>" % self.totalNumIndiv)
                 fp.write('\n')
-                
+
                 fp.write("<individcount role=\"after-filtering\">%d</individcount>" % groupNumIndiv)
                 fp.write('\n')
 
@@ -553,7 +553,7 @@ class Emhaplofreq(Haplo):
                              showHaplo='yes',
                              mode='haplo',
                              testing=self.testing)
-        
+
 
     def estLinkageDisequilibrium(self,
                                  locusKeys=None,
@@ -641,17 +641,17 @@ class Emhaplofreq(Haplo):
 
             # def allPairwiseLD(self, haplosToShow=None):
             #     """Estimate all pairwise LD and haplotype frequencies.
-            
+
             #     Estimate the LD (linkage disequilibrium)for each pairwise set
             #     of loci.
             #     """
             #     self.allPairwise(permutationFlag=0,
             #                      haploSuppressFlag=0,
             #                      mode='all-pairwise-ld-no-permu')
-            
+
             # def allPairwiseLDWithPermu(self, haplosToShow=None):
             #     """Estimate all pairwise LD.
-            
+
             #     Estimate the LD (linkage disequilibrium)for each pairwise set
             #     of loci.
             #     """
@@ -760,7 +760,7 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
            F_2 = F_2 + af_2**2
            F_1_2 = F_1_2 + ((hap_prob[alleles2==i]**2)/af_2).sum()
         if F_2 == 1.0:
-           F_2_1_prime = numpy.nan  
+           F_2_1_prime = numpy.nan
            ALD_2_1 = numpy.nan
         else:
            F_2_1_prime = (F_2_1 - F_2)/(1 - F_2)
@@ -786,7 +786,7 @@ class Haplostats(Haplo):
     """Haplotype and LD estimation implemented via haplo-stats.
 
     This is a wrapper to a portion of the 'haplo.stats' R package
-    
+
     """
     def __init__(self, locusData,
                  debug=0,
@@ -805,10 +805,10 @@ class Haplostats(Haplo):
 
         # FIXME: by default assume we are not dealing sequence data
         self.sequenceData = 0
-        
+
         self.matrix = locusData
         self.untypedAllele = untypedAllele
-        
+
         rows, cols = self.matrix.shape
         self.totalNumIndiv = rows
         self.totalLociCount = cols / 2
@@ -817,7 +817,7 @@ class Haplostats(Haplo):
         if stream:
             self.stream = stream
         else:  # create a stream if none given
-            self.stream = XMLOutputStream(io.StringIO())            
+            self.stream = XMLOutputStream(io.StringIO())
 
     def serializeStart(self):
         """Serialize start of XML output to XML stream"""
@@ -837,7 +837,7 @@ class Haplostats(Haplo):
                       testMode=False):
         """Estimate haplotypes for the submatrix given in locusKeys, if
         locusKeys is None, assume entire matrix
-        
+
         LD is estimated if there are locusKeys consists of only two loci
 
         FIXME: this does *not* yet remove missing data before haplotype estimations
@@ -929,7 +929,7 @@ class Haplostats(Haplo):
                     # FIXME: check why this is the case
                     # original R code always uses random_start on second and subsequent
                     # initial conditions, regardless of how the control['random_start'] is set
-                    random_start = 1   
+                    random_start = 1
 
                 if self.debug:
                     print ("random seeds for initial condition", i, ":", iseed1, iseed2, iseed3)
@@ -963,7 +963,7 @@ class Haplostats(Haplo):
                               hap2_code = \
                               converge_new, lnlike_new, n_u_hap_new, n_hap_pairs_new, hap_prob_new, \
                               u_hap_new, u_hap_code_new, subj_id_new, post_new, hap1_code_new, \
-                              hap2_code_new 
+                              hap2_code_new
 
         # convert u_hap back into original allele names
         haplotype = numpy.array(u_hap, dtype='O').reshape(n_u_hap, -1)
@@ -1020,7 +1020,7 @@ class Haplostats(Haplo):
 
         # LD calculations, and only do and output to XML for two locus haplotypes
         if n_loci == 2:
-            dprime, Wn, ALD_1_2, ALD_2_1 = _compute_LD(haplotype, hap_prob, compute_ALD=True, debug=self.debug)  
+            dprime, Wn, ALD_1_2, ALD_2_1 = _compute_LD(haplotype, hap_prob, compute_ALD=True, debug=self.debug)
 
             # output LD to XML
             # FIXME just summary stats for the moment
@@ -1044,10 +1044,10 @@ class Haplostats(Haplo):
             self.stream.writeln()
         else:
             dprime, Wn, ALD_1_2, ALD_2_1 = None, None, None, None
-        
+
         self.stream.closetag('group')
         self.stream.writeln()
-        
+
         return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code, haplotype, dprime, Wn, ALD_1_2, ALD_2_1
 
     def allPairwise(self,
@@ -1066,7 +1066,7 @@ class Haplostats(Haplo):
                                control=control,
                                numInitCond=numInitCond,
                                testMode=self.testMode)
-        
+
     def _haplo_em_fitter(self,
                          n_loci,
                          n_subject,
@@ -1121,6 +1121,3 @@ class Haplostats(Haplo):
         _Haplostats.haplo_free_memory()
 
         return converge, lnlike, n_u_hap, n_hap_pairs, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code
-
-        
-

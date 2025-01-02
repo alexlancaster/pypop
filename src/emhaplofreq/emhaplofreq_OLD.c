@@ -54,25 +54,25 @@ int read_infile(FILE *, char [MAX_ROWS][NAME_LEN], char [MAX_ROWS][MAX_COLS][NAM
 
 int main_proc(FILE *, char (*)[MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int);
 /* data array, number of loci, number of records */
-/* main procedure that handles memory allocation and creation of arrays, 
-  * spawns the rest of the data preparation and processing functions, 
-  * performs the EM calculation, and prints out the results. 
-  * we only return from it to exit. 
+/* main procedure that handles memory allocation and creation of arrays,
+  * spawns the rest of the data preparation and processing functions,
+  * performs the EM calculation, and prints out the results.
+  * we only return from it to exit.
 */
 
 int count_unique_haplos(char (*)[2][LINE_LEN / 2], char (*)[LINE_LEN / 2], int (*)[MAX_LOCI], char (*)[MAX_ALLELES][NAME_LEN], int *, int, int, int (*)[2], int *);
 /* geno, haplo, haplocus, unique_allele, n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo */
 /* returns number of haplotypes */
-/* 
-  * creates array of possible haplotypes from array of possibly observed genotypes 
+/*
+  * creates array of possible haplotypes from array of possibly observed genotypes
   * create haplocus[i][j]: a 2-dim array of allele# at jth locus of ith haplotype
 */
 
 void id_unique_alleles(char (*)[MAX_COLS][NAME_LEN], char (*)[MAX_ALLELES][NAME_LEN], int *, double (*)[MAX_ALLELES], int, int);
 /* data array, unique_allele array, no. of unique alleles array, allele_freq, no. of loci, no. of records */
-/* 
-  * creates array of alleles unique to each locus 
-  * Creates allele_freq[i][j]:  freq for jth allele at the ith locus 
+/*
+  * creates array of alleles unique to each locus
+  * Creates allele_freq[i][j]:  freq for jth allele at the ith locus
 */
 
 double min(double, double);
@@ -81,7 +81,7 @@ double min(double, double);
 */
 
 void linkage_diseq(FILE *, double *, int (*)[MAX_LOCI], double (*)[MAX_ALLELES],
-		   char (*)[MAX_ALLELES][NAME_LEN], int *, int, int, int); 
+		   char (*)[MAX_ALLELES][NAME_LEN], int *, int, int, int);
 /* mle, haplocus, allele_freq, unique_allele, n_unique_allele, n_loci, n_haplo, n_recs */
 /*
   * compute LD coefficients
@@ -99,9 +99,9 @@ void sort2byfloat(char (*)[], double *, int);
   * insertion sort in ascending order for 2nd array also applied to 1st array
 */
 
-void emcalc(int *, int *, double *, double *, int, int, int, int, 
+void emcalc(int *, int *, double *, double *, int, int, int, int,
        int *, int (*)[], int *, int *, double *, double *, int, int (*)[]);
-/* numgeno, obspheno, freq_zero, mle, n_haplo, n_unique_geno, 
+/* numgeno, obspheno, freq_zero, mle, n_haplo, n_unique_geno,
    n_unique_pheno, n_recs, xhaplo, xgeno, error_flag, iter_count, loglike, permu, gp */
 /*
   * perform EM iterations with results in the mle array
@@ -110,7 +110,7 @@ void emcalc(int *, int *, double *, double *, int, int, int, int,
 void haplo_freqs_no_ld(double *, double (*)[], int (*)[], int *, int, int);
 /* freqs, allele_freq, haplocus, n_unique_allele, n_loci, n_haplo */
 /*
-  * compute haplotype frequencies under no LD as products of allele frequencies 
+  * compute haplotype frequencies under no LD as products of allele frequencies
 */
 
 double loglikelihood(int *, double *, int *, int, int, int, int *, int (*)[], int, int (*)[]);
@@ -125,7 +125,7 @@ double drand48(void);
 
 void permute_alleles(char (*)[MAX_COLS][NAME_LEN], int, int);
 /* data array, number of loci, number of records */
-/* 
+/*
   * permutes the alleles at all but the last locus
 */
 
@@ -142,14 +142,14 @@ int main(int argc, char **argv)
   /* initialize default options or 'switches' to program */
   int permu_flag = 0;
   int suppress_haplo_print_flag = 0;
-  
+
   /* specifically required for getopt */
   int num_args;
   char c;
 
   /* parse command-line using GNU getopt */
   opterr = 0;
-     
+
   /* first check values for short options (i.e. the options or
      'switches' provided before command line arguments */
   while ((c = getopt (argc, argv, "psh?")) != -1)
@@ -163,7 +163,7 @@ int main(int argc, char **argv)
     case 'h':
     case '?':
       print_usage();  /* print usage message */
-      exit(EXIT_SUCCESS);      
+      exit(EXIT_SUCCESS);
     default:
       print_usage();
       exit(EXIT_FAILURE);
@@ -189,17 +189,17 @@ int main(int argc, char **argv)
 	exit(EXIT_FAILURE);
       }
     /* skip this until we're through testing */
-    /* 
-       else 
-       { 
-       fprintf(stdout, "\nOpened file %s\n", arg_buff[1]); 
-       fprintf(stdout, "\nN.B. The first line is expected to contain comments, "); 
-       fprintf(stdout, "and will not be parsed.\n\n"); 
-       } 
+    /*
+       else
+       {
+       fprintf(stdout, "\nOpened file %s\n", arg_buff[1]);
+       fprintf(stdout, "\nN.B. The first line is expected to contain comments, ");
+       fprintf(stdout, "and will not be parsed.\n\n");
+       }
     */
 
     break;
-  default:                
+  default:
     fprintf(stderr, "Too many arguments given\n");
     print_usage();        /* more than one arg given, print usage and quit */
     exit(EXIT_FAILURE);
@@ -211,7 +211,7 @@ int main(int argc, char **argv)
   num_loci = read_infile(if_handle, ref, data, &num_recs);
   fprintf(fp_out, "num_loci: %d\n", num_loci);
   fprintf(fp_out, "Sample Size (n): %d\n", num_recs);
-  if (num_loci > MAX_LOCI) 
+  if (num_loci > MAX_LOCI)
   {
     fprintf(stderr, "Error: number of loci: %d, exceeds maximum of: %d\n",
       num_loci, MAX_LOCI);
@@ -221,8 +221,8 @@ int main(int argc, char **argv)
   /* hard-code MAX_INIT, MAX_PERMU, MAX_INIT_FOR_PERMU and set
      permu_print to "1" (true) for command-line invocation, until we
      add getopt-parsed options for them */
-  ret_val = main_proc(fp_out, data, num_loci, num_recs, permu_flag, 
-		      suppress_haplo_print_flag, MAX_INIT, MAX_PERMU, 
+  ret_val = main_proc(fp_out, data, num_loci, num_recs, permu_flag,
+		      suppress_haplo_print_flag, MAX_INIT, MAX_PERMU,
 		      MAX_INIT_FOR_PERMU, 1);
 
   return (ret_val);
@@ -232,17 +232,17 @@ int main(int argc, char **argv)
 
 void print_usage(void)
 {
-  fprintf(stderr, 
+  fprintf(stderr,
 	  "Usage: emhaplofreq [-psh?] [INPUTFILENAME].\n\n");
-  fprintf(stderr, 
+  fprintf(stderr,
 	  "If no INPUTFILENAME is provided use standard input.\n");
-  fprintf(stderr, 
+  fprintf(stderr,
 	  "OPTIONS:\n\n");
-  fprintf(stderr, 
+  fprintf(stderr,
 	  "  `-p':       a permutation test for overall LD is done.\n");
-  fprintf(stderr, 
+  fprintf(stderr,
 	  "  `-s':       printing of the table of haplotypes is suppressed\n");
-  fprintf(stderr, 
+  fprintf(stderr,
 	  "  `-h', `-?': this message\n");
 }
 
@@ -309,13 +309,13 @@ int read_infile(FILE * in_file, char (*reference_ar)[NAME_LEN],
 
 /************************************************************************/
 
-int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, 
-	      int n_recs, int permu_flag, int suppress_haplo_print_flag, 
-	      int max_init_cond, int max_permu, int max_init_for_permu, 
+int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
+	      int n_recs, int permu_flag, int suppress_haplo_print_flag,
+	      int max_init_cond, int max_permu, int max_init_for_permu,
 	      int permu_print)
 {
 
-  
+
   /******************* begin: declarations ****************************/
   int i, j, obs, locus, col_0, col_1 = 0;
   int unique_pheno_flag, unique_geno_flag = 0;
@@ -323,19 +323,19 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   CALLOC_ARRAY_DIM1(char, buff, NAME_LEN);
 
   /* heterozygous sites through current and previous locus loop */
-  int n_hetero, n_hetero_prev = 0;  
+  int n_hetero, n_hetero_prev = 0;
 
   /* distinct genotypes through current and previous locus loop */
-  int n_geno, n_geno_prev = 0;  
+  int n_geno, n_geno_prev = 0;
   int unique_pheno_count, n_unique_pheno, unique_geno_count, n_unique_geno = 0;
 
   /* needed for checking, but not currently used*/
-  /* int count = 0;      
+  /* int count = 0;
      double temp = 0.0; */
 
   /* these should be calloc'ed, but the stack will experience
      meltdown: we initialize them with macro call after declarations
-     for re-entrancy */ 
+     for re-entrancy */
   static char geno[MAX_GENOS][2][LINE_LEN / 2];
   static int gp[MAX_GENOS_PER_PHENO][MAX_ROWS];
   /* gp[] stores the genotype-phenotype relationships, removed unused genopheno[] */
@@ -349,7 +349,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /* needed for the count_unique_haplotypes function */
   int n_haplo = 0;
-  
+
   /* RS changed to MAX_HAPLOS from 2*MAX_ROWS */
   CALLOC_ARRAY_DIM2(char, haplo, MAX_HAPLOS, LINE_LEN / 2);
 
@@ -396,7 +396,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
   double error_flag0_pct = 0.0;
   double error_flag2_pct = 0.0;
   double error_flag3_pct = 0.0;
-  double error_flag4_pct = 0.0; 
+  double error_flag4_pct = 0.0;
   double error_flag5_pct = 0.0;
   double error_flag6_pct = 0.0;
   double error_flag7_pct = 0.0;
@@ -406,12 +406,12 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
   /* initialize elements of geno static arrays to make
      function reentrant when used in a shared library */
-  
+
   INIT_STATIC_DIM3(char, geno, MAX_GENOS, 2, (LINE_LEN/2));
 
   /******************* end: declarations ****************************/
 
-  //srand48(1234567); 
+  //srand48(1234567);
   srand48(time (NULL));
 
   if (fp_iter == NULL)
@@ -439,19 +439,19 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
     /*** begin: pre-processing for permutations ***/
     if (permu > 0)  {
-      max_init_cond = max_init_for_permu; 
+      max_init_cond = max_init_for_permu;
 
 #ifndef XML_OUTPUT
-      if (permu == 1) 
+      if (permu == 1)
 	fprintf(fp_out, "\nComputing LD permutations...\n\n");
 #endif
 
-      permute_alleles(data_ar, n_loci, n_recs); 
-    
+      permute_alleles(data_ar, n_loci, n_recs);
+
       /* initialize values for first obs from last permu */
       /* values for subsequent obs do not need inititialization */
-      strcpy(pheno[0], "\0"); 
-      for (i = 0; i < (int)pow(2, n_loci - 1); i++) 
+      strcpy(pheno[0], "\0");
+      for (i = 0; i < (int)pow(2, n_loci - 1); i++)
 	{
 	  strcpy(geno[i][0], "\0");
 	  strcpy(geno[i][1], "\0");
@@ -574,7 +574,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	    n_hetero_prev = n_hetero = 0;
 	    n_geno_prev = n_geno = 1;
 
-	    for (i = 0; i < (int)pow(2, n_loci - 1); i++) 
+	    for (i = 0; i < (int)pow(2, n_loci - 1); i++)
 	      {
 		strcpy(temp_geno[i][0], "\0");
 		strcpy(temp_geno[i][1], "\0");
@@ -671,11 +671,11 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
     if (permu == 0)
     {
-      id_unique_alleles(data_ar, unique_allele, n_unique_allele, allele_freq, 
+      id_unique_alleles(data_ar, unique_allele, n_unique_allele, allele_freq,
   		        n_loci, n_recs);
     }
 
-    n_haplo = count_unique_haplos(geno, haplo, haplocus, unique_allele, 
+    n_haplo = count_unique_haplos(geno, haplo, haplocus, unique_allele,
 				  n_unique_allele, n_unique_geno, n_loci, xgeno, xhaplo);
 
     if (permu == 0)
@@ -715,15 +715,15 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     if (permu == 0)
       {
 	/* Compute haplotype freqs under no LD and store them temporarily in freq_zero */
-	haplo_freqs_no_ld(freq_zero, allele_freq, haplocus, n_unique_allele, 
+	haplo_freqs_no_ld(freq_zero, allele_freq, haplocus, n_unique_allele,
 			  n_loci, n_haplo);
 
 	/* Compute log likelihood under no LD */
-	loglike0 = loglikelihood(numgeno, freq_zero, obspheno, n_haplo, 
+	loglike0 = loglikelihood(numgeno, freq_zero, obspheno, n_haplo,
 				 n_unique_geno, n_unique_pheno, xhaplo, xgeno, permu, gp);
 
 #ifdef XML_OUTPUT
-	xmlfprintf(fp_out, 
+	xmlfprintf(fp_out,
 		"<loglikelihood role=\"no-ld\">%f</loglikelihood>\n", loglike0);
 #else
 	fprintf(fp_out, "Log likelihood under no LD: %f \n", loglike0);
@@ -737,7 +737,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
       }
 
     emcalc(numgeno, obspheno, freq_zero, mle, n_haplo,
-	   n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
+	   n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno,
 	   &error_flag, &iter_count, &loglike, &haplo_freq_sum, permu, gp);
 
     if (permu == 0)
@@ -761,25 +761,25 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     iter_count_best = iter_count;
     error_flag_best = error_flag;
     for (i = 0; i < n_haplo; i++)
-      { 
-	mle_best[i] = mle[i]; 
-      } 
+      {
+	mle_best[i] = mle[i];
+      }
 
     for (init_cond = 1; init_cond < max_init_cond; init_cond++)
       {
 	freq_sum = 0;
 	for (i = 0; i < n_haplo; i++)
-	  { 
-	    freq_zero[i] = drand48(); 
+	  {
+	    freq_zero[i] = drand48();
 	    freq_sum += freq_zero[i];
 	  }
 	for (i = 0; i < n_haplo; i++)
-	  { 
-	    freq_zero[i] = freq_zero[i] / freq_sum; 
+	  {
+	    freq_zero[i] = freq_zero[i] / freq_sum;
 	  }
-  
+
 	emcalc(numgeno, obspheno, freq_zero, mle, n_haplo,
-	       n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno, 
+	       n_unique_geno, n_unique_pheno, n_recs, xhaplo, xgeno,
 	       &error_flag, &iter_count, &loglike, &haplo_freq_sum, permu, gp);
 
 	if (permu == 0)
@@ -803,12 +803,12 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 		iter_count_best = iter_count;
 		error_flag_best = error_flag;
 		for (i = 0; i < n_haplo; i++)
-		  { 
-		    mle_best[i] = mle[i]; 
-		  } 
+		  {
+		    mle_best[i] = mle[i];
+		  }
 	      }
 	  }
-	else /* (error_flag_best != 0) */ 
+	else /* (error_flag_best != 0) */
 	  {
 	    if (error_flag == 0)
 	      {
@@ -816,9 +816,9 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 		iter_count_best = iter_count;
 		error_flag_best = error_flag;
 		for (i = 0; i < n_haplo; i++)
-		  { 
-		    mle_best[i] = mle[i]; 
-		  } 
+		  {
+		    mle_best[i] = mle[i];
+		  }
 	      }
 	  }
       } /* end: for (init_cond) */
@@ -830,10 +830,10 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
     if (permu_flag == 1)
       {
-	/* moved XML output into section after printing haplotypes 
+	/* moved XML output into section after printing haplotypes
 	   other code in this sections  */
       }
-  
+
     /* suppress printing of haplotypes if '-s' flag set */
     if ((permu == 0) && (suppress_haplo_print_flag != 1))
       {
@@ -841,7 +841,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #ifdef XML_OUTPUT
 	xmlfprintf(fp_out, "<haplotypefreq>\n<loginfo><![CDATA[");
 #endif
-	xmlfprintf(fp_iter, "\n"); 
+	xmlfprintf(fp_iter, "\n");
 	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 0: %7.3f\n", 100*error_flag0_pct/max_init_cond);
 	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 2: %7.3f\n", 100*error_flag2_pct/max_init_cond);
 	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 3: %7.3f\n", 100*error_flag3_pct/max_init_cond);
@@ -849,8 +849,8 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 5: %7.3f\n", 100*error_flag5_pct/max_init_cond);
 	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 6: %7.3f\n", 100*error_flag6_pct/max_init_cond);
 	xmlfprintf(fp_iter, "Percent of iterations with error_flag = 7: %7.3f\n", 100*error_flag7_pct/max_init_cond);
-	xmlfprintf(fp_iter, "\n"); 
-	xmlfprintf(fp_iter, "--- Codes for error_flag ----------------------------------------------------------\n"); 
+	xmlfprintf(fp_iter, "\n");
+	xmlfprintf(fp_iter, "--- Codes for error_flag ----------------------------------------------------------\n");
 	xmlfprintf(fp_iter, "0: Iterations Converged, no errors \n");
 	xmlfprintf(fp_iter, "2: Normalization constant near zero. Est. HFs unstable \n");
 	xmlfprintf(fp_iter, "3: Wrong # allocated for at least one phenotype based on est. HFs \n");
@@ -858,8 +858,8 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	xmlfprintf(fp_iter, "5: Log likelihood has decreased for more than 5 iterations \n");
 	xmlfprintf(fp_iter, "6: Est. HFs do not sum to 1.0 \n");
 	xmlfprintf(fp_iter, "7: Log likelihood failed to converge in %d iterations \n", MAX_ITER);
-	xmlfprintf(fp_iter, "-----------------------------------------------------------------------------------\n"); 
-	xmlfprintf(fp_iter, "\n"); 
+	xmlfprintf(fp_iter, "-----------------------------------------------------------------------------------\n");
+	xmlfprintf(fp_iter, "\n");
 
 #ifdef XML_OUTPUT
 	xmlfprintf(fp_out, "]]></loginfo>\n<condition role=\"");
@@ -912,7 +912,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	fprintf(fp_out, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
 #endif
 
-    if (error_flag_best > 1) 
+    if (error_flag_best > 1)
     {
       ok_perm0 = 0;
       permu = max_permutations-1; // bail out of permutations
@@ -922,11 +922,11 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     }
     else
     {
-    ok_perm0 = 1; 
-        
+    ok_perm0 = 1;
+
 	/* copy mle_best to freq_zero so that sort does not interfere with info needed in LD calcs */
 	/* Note: haplo[] is no longer linked to mle_best after the sort, but is not used subsequently */
-	for (i = 0; i < n_haplo; i++) 
+	for (i = 0; i < n_haplo; i++)
 	  {
 	    freq_zero[i] = mle_best[i];
 	  }
@@ -963,7 +963,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	  {
 	    for (j = 0; j < n_unique_allele[i]; j++)
 	      {
-		fprintf(fp_out, "%3d %12.5f %5d  %s \n", j+1, allele_freq[i][j], i, 
+		fprintf(fp_out, "%3d %12.5f %5d  %s \n", j+1, allele_freq[i][j], i,
 			unique_allele[i][j]);
 	      }
 	  }
@@ -977,7 +977,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	fprintf(fp_out, "-------------------------------\n");
 #endif
 
-	linkage_diseq(fp_out, mle_best, haplocus, allele_freq, unique_allele, n_unique_allele, 
+	linkage_diseq(fp_out, mle_best, haplocus, allele_freq, unique_allele, n_unique_allele,
 		      n_loci, n_haplo, n_recs);
 
 	/* compute df_LRtest */
@@ -990,7 +990,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	df_LRtest = df_LRtest - j + (n_loci - 1);
 
 #ifndef XML_OUTPUT
-	fprintf(fp_out, "Asymptotic LR Test for Overall LD [-2*(LL_0 - LL_1)]: %f, df = %d\n",  
+	fprintf(fp_out, "Asymptotic LR Test for Overall LD [-2*(LL_0 - LL_1)]: %f, df = %d\n",
 		-2.0 * (loglike0 - loglike_best), df_LRtest);
 #endif
 
@@ -1004,7 +1004,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #if 0
     if (permu_flag == 1) {
       if (error_flag_best == 0)
-	fprintf(fp_permu, "Log likelihood converged in %3d iterations to : %f \n", 
+	fprintf(fp_permu, "Log likelihood converged in %3d iterations to : %f \n",
 		iter_count_best, loglike_best);
       else if (error_flag_best == 2)
 	fprintf(fp_permu, "Normalization constant near zero. Estimated HFs unstable.\n");
@@ -1016,7 +1016,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 	fprintf(fp_permu, "Log likelihood has decreased for more than 5 iterations.\n");
       else if (error_flag_best == 6)
 	fprintf(fp_permu, "Estimated HFs do not sum to 1.\n");
-      else // (error_flag_best == 7) 
+      else // (error_flag_best == 7)
 	fprintf(fp_permu, "Log likelihood failed to converge in %d iterations \n", MAX_ITER);
     }
 #endif
@@ -1025,7 +1025,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
     error_flag_permu[permu] = error_flag_best; // RS 20031125
 
   } /* end for (permu) */
-  
+
   /*** begin: post-processing for permutations ***/
   if (permu_flag == 1 && ok_perm0 == 1)
   {
@@ -1035,7 +1035,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #else
     fprintf(fp_permu, "permu   LR = -2*(LL_0 - LL_1)\n");
 #endif
-    
+
     pvalue = 0.0;
     lr_mean = 0.0;
     permu_count = 0; // RS 20031125
@@ -1044,7 +1044,7 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #ifdef XML_OUTPUT
       xmlfprintf(fp_permu, "<permutation iter=\"%d\">%f</permutation>", 0, like_ratio[0]);
 #else
-      fprintf(fp_permu, "%3d  %f \n", 0, like_ratio[0]); 
+      fprintf(fp_permu, "%3d  %f \n", 0, like_ratio[0]);
 #endif
     }
     for (i = 1; i < max_permutations; i++)
@@ -1057,41 +1057,41 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 #endif
       }
       if (error_flag_permu[i]==0) // RS 20031125
-      { 
+      {
         permu_count += 1;
         if (like_ratio[i] > like_ratio[0]) pvalue += 1;
         lr_mean += like_ratio[i];
-      } 
+      }
     }
     pvalue = pvalue/permu_count;   // RS 20031125
     lr_mean = lr_mean/permu_count; // RS 20031125
 
 #ifdef XML_OUTPUT
-    xmlfprintf(fp_out, "\n<pvalue totalperm=\"%d\">%f</pvalue>\n", permu_count, pvalue); 
+    xmlfprintf(fp_out, "\n<pvalue totalperm=\"%d\">%f</pvalue>\n", permu_count, pvalue);
 #else
-    fprintf(fp_out, "Permutation LR Test for Overall LD based on %d permutations: pvalue = %f\n", permu_count, pvalue); 
-    fprintf(fp_permu, "pvalue = %f \n", pvalue); 
+    fprintf(fp_out, "Permutation LR Test for Overall LD based on %d permutations: pvalue = %f\n", permu_count, pvalue);
+    fprintf(fp_permu, "pvalue = %f \n", pvalue);
 #endif
 
     lr_sd = 0.0;
     for (i = 1; i < max_permutations; i++)
     {
-      if (error_flag_permu[i]==0) // RS 20031125 
-      { 
+      if (error_flag_permu[i]==0) // RS 20031125
+      {
         lr_sd += pow((like_ratio[i] - lr_mean),2);
-      } 
+      }
     }
     lr_sd = sqrt( lr_sd / ((permu_count) - 1) ); // RS 20031125
-    lr_z = ( sqrt(2.0*df_LRtest)/n_recs ) * ( (like_ratio[0] - lr_mean) / lr_sd ); 
+    lr_z = ( sqrt(2.0*df_LRtest)/n_recs ) * ( (like_ratio[0] - lr_mean) / lr_sd );
 
 #ifdef XML_OUTPUT
-    xmlfprintf(fp_out, "<lr>%f</lr>\n", lr_z); 
-    xmlfprintf(fp_out, "<lr-mean>%f</lr-mean>\n", lr_mean); 
-    xmlfprintf(fp_out, "<lr-sd>%f</lr-sd>\n", lr_sd); 
+    xmlfprintf(fp_out, "<lr>%f</lr>\n", lr_z);
+    xmlfprintf(fp_out, "<lr-mean>%f</lr-mean>\n", lr_mean);
+    xmlfprintf(fp_out, "<lr-sd>%f</lr-sd>\n", lr_sd);
 #else
-    fprintf(fp_out, "Standardized LR statistic = %f\n", lr_z); 
-    fprintf(fp_out, "LR mean = %f\n", lr_mean); 
-    fprintf(fp_out, "LR SD = %f\n", lr_sd); 
+    fprintf(fp_out, "Standardized LR statistic = %f\n", lr_z);
+    fprintf(fp_out, "LR mean = %f\n", lr_mean);
+    fprintf(fp_out, "LR SD = %f\n", lr_sd);
 #endif
 
 #ifdef XML_OUTPUT
@@ -1129,13 +1129,13 @@ int main_proc(FILE * fp_out, char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci,
 
 /************************************************************************/
 int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
-      char (*haplo_ar)[LINE_LEN / 2], int (*haplocus)[MAX_LOCI], 
+      char (*haplo_ar)[LINE_LEN / 2], int (*haplocus)[MAX_LOCI],
       char (*unique_allele)[MAX_ALLELES][NAME_LEN],
       int *n_unique_allele, int num_genos, int num_loci,
       int (*xgeno)[2], int *xhaplo)
-/* 
-  * run through the array of possible genotypes 
-  * create an array of possible haplotypes 
+/*
+  * run through the array of possible genotypes
+  * create an array of possible haplotypes
   * create haplocus[i][j]: a 2-dim array of allele# at jth locus of ith haplotype
 */
 {
@@ -1156,37 +1156,37 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
   /* split haplo_ar[0] into temp_array on ":" and add trailing ":" */
   strcpy(temp_buff, haplo_ar[0]);
   temp_ptr = strtok(temp_buff,":");
-  if (temp_ptr) 
+  if (temp_ptr)
   {
     strcpy(temp_array[0], temp_ptr);
     strcat(temp_array[0], ":");
     for (k = 1; k < num_loci; k++) /* start at 1 since 0th is done */
     {
       temp_ptr = strtok(NULL,":");
-      if (temp_ptr) 
-      {  
+      if (temp_ptr)
+      {
         strcpy(temp_array[k], temp_ptr);
         strcat(temp_array[k], ":");
-      }  
+      }
     }
   }
 
 #if DEBUG == 1
 /*
-  for (k = 0; k < num_loci; k++) 
+  for (k = 0; k < num_loci; k++)
   {
-    fprintf(stdout, "haplo_ar[0]: %s temp_array[%d]: %s \n", 
-            haplo_ar[0], k, temp_array[k]); 
+    fprintf(stdout, "haplo_ar[0]: %s temp_array[%d]: %s \n",
+            haplo_ar[0], k, temp_array[k]);
   }
 */
 #endif
 
   /* identify allele# at lth locus for 0th haplotype */
-  for (l = 0; l < num_loci; l++) 
+  for (l = 0; l < num_loci; l++)
   {
-    for (m = 0; m < n_unique_allele[l]; m++) 
+    for (m = 0; m < n_unique_allele[l]; m++)
     {
-      if (!strcmp(temp_array[l], unique_allele[l][m])) 
+      if (!strcmp(temp_array[l], unique_allele[l][m]))
         haplocus[0][l] = m;
     }
   }
@@ -1199,15 +1199,15 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
       for (k = 0; k <= unique_haplo_count && unique_haplo_flag == TRUE; k++)
       {
         if (!strcmp(geno_ar[i][j], haplo_ar[k]))
-        {  
+        {
           unique_haplo_flag = FALSE;
           xgeno[i][j] = k;
-        }  
+        }
       }
       if (unique_haplo_flag == TRUE)
       {
         strcpy(haplo_ar[++unique_haplo_count], geno_ar[i][j]);
-        xhaplo[unique_haplo_count] = unique_haplo_count; 
+        xhaplo[unique_haplo_count] = unique_haplo_count;
         xgeno[i][j] = unique_haplo_count;
 
 #if DEBUG == 1
@@ -1217,35 +1217,35 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
         /* split haplo_ar[unique_haplo_count] into temp_array ... */
         strcpy(temp_buff, haplo_ar[unique_haplo_count]);
         temp_ptr = strtok(temp_buff,":");
-        if (temp_ptr) 
+        if (temp_ptr)
         {
           strcpy(temp_array[0], temp_ptr);
           strcat(temp_array[0], ":");
           for (k = 1; k < num_loci; k++) /* start at 1 since 0th is done */
           {
             temp_ptr = strtok(NULL,":");
-            if (temp_ptr) 
-            {  
+            if (temp_ptr)
+            {
               strcpy(temp_array[k], temp_ptr);
               strcat(temp_array[k], ":");
-            }  
+            }
           }
         }
 #if DEBUG == 1
-/*	
-        for (k = 0; k < num_loci; k++) 
-	  fprintf(stdout, "haplo_ar[%d]: %s temp_array[%d]: %s \n", 
-		  unique_haplo_count, haplo_ar[unique_haplo_count], 
-		  k, temp_array[k]); 
+/*
+        for (k = 0; k < num_loci; k++)
+	  fprintf(stdout, "haplo_ar[%d]: %s temp_array[%d]: %s \n",
+		  unique_haplo_count, haplo_ar[unique_haplo_count],
+		  k, temp_array[k]);
 */
 #endif
 
         /* identify allele# at lth locus for unique_haplo_count haplotype */
-        for (l = 0; l < num_loci; l++) 
+        for (l = 0; l < num_loci; l++)
         {
-          for (m = 0; m < n_unique_allele[l]; m++) 
+          for (m = 0; m < n_unique_allele[l]; m++)
           {
-            if (!strcmp(temp_array[l], unique_allele[l][m])) 
+            if (!strcmp(temp_array[l], unique_allele[l][m]))
               haplocus[unique_haplo_count][l] = m;
           }
         }
@@ -1253,7 +1253,7 @@ int count_unique_haplos(char (*geno_ar)[2][LINE_LEN / 2],
       }
     }
   }
-  
+
   /* free calloc'ed space */
   free(temp_array);
   free(temp_buff);
@@ -1266,10 +1266,10 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
            char (*unique_allele)[MAX_ALLELES][NAME_LEN],
            int *n_unique_allele, double (*allele_freq)[MAX_ALLELES],
            int n_loci, int n_recs)
-/* 
-   * Creates unique_allele[i][j]: jth unique allele for the ith locus        
-   * Creates n_unique_allele[i]: number of unique alleles for the ith locus 
-   * Creates allele_freq[i][j]:  freq for jth allele at the ith locus 
+/*
+   * Creates unique_allele[i][j]: jth unique allele for the ith locus
+   * Creates n_unique_allele[i]: number of unique alleles for the ith locus
+   * Creates allele_freq[i][j]:  freq for jth allele at the ith locus
 */
 {
   int i, j, locus, col_0, col_1 = 0;
@@ -1279,9 +1279,9 @@ void id_unique_alleles(char (*data_ar)[MAX_COLS][NAME_LEN],
 /*
   for (i = 0; i < n_recs; i++)
   for (j = 0; j < 2*n_loci; j++)
-  fprintf(stdout, "data[%d][%d]: %s\n", i, j, data_ar[i][j]); 
-  fprintf(stdout, "data0[%d][%d]: %s, uniq[%d][%d]:\n", i, col_0, 
-    data_ar[i][j], locus, j, unique_allele[locus][j]); 
+  fprintf(stdout, "data[%d][%d]: %s\n", i, j, data_ar[i][j]);
+  fprintf(stdout, "data0[%d][%d]: %s, uniq[%d][%d]:\n", i, col_0,
+    data_ar[i][j], locus, j, unique_allele[locus][j]);
 */
 #endif
 
@@ -1350,14 +1350,14 @@ double min(double a, double b)
 
 /************************************************************************/
 void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
-       double (*af)[MAX_ALLELES], 
+       double (*af)[MAX_ALLELES],
        char (*unique_allele)[MAX_ALLELES][NAME_LEN],
        int *n_unique_allele, int n_loci, int n_haplo, int n_recs)
        /* hl: haplocus array           */
        /* af: allele_frequencies array */
 {
   int i, j, k, l, m, coeff_count = 0;
-  double dmax, norm_dij = 0.0; 
+  double dmax, norm_dij = 0.0;
 
   static double dij[MAX_LOCI*(MAX_LOCI - 1)/2][MAX_ALLELES][MAX_ALLELES];
 
@@ -1366,10 +1366,10 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
   CALLOC_ARRAY_DIM1(double, summary_q, MAX_LOCI*(MAX_LOCI - 1)/2);
   CALLOC_ARRAY_DIM1(double, summary_wn, MAX_LOCI*(MAX_LOCI - 1)/2);
 
-  double obs = 0.0; 
-  double exp = 0.0; 
-  double diseq = 0.0; 
-  double chisq = 0.0; 
+  double obs = 0.0;
+  double exp = 0.0;
+  double diseq = 0.0;
+  double chisq = 0.0;
 
   /* zero out static array before each run to make code re-entrant */
   INIT_STATIC_DIM3(double, dij, (MAX_LOCI*(MAX_LOCI-1)/2), \
@@ -1377,7 +1377,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
 
   /* After 1st pass dij[coeff_count][locusA_allele#][locusB_allele#] */
   /*   contains Estimated 2-locus HFs based on full MLE HFs          */
-  /*   coeff_count runs from 0 to nCr(n_loci,2)                      */                     
+  /*   coeff_count runs from 0 to nCr(n_loci,2)                      */
   for (i = 0; i < n_haplo; i++)
   {
     coeff_count = 0;
@@ -1385,7 +1385,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
     {
       for (k = j+1; k < n_loci; k++)
       {
-        dij[coeff_count][ hl[i][j] ][ hl[i][k] ] = 
+        dij[coeff_count][ hl[i][j] ][ hl[i][k] ] =
           dij[coeff_count][ hl[i][j] ][ hl[i][k] ] + mle[i];
         coeff_count += 1;
       }
@@ -1411,7 +1411,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
           exp = 2 * (double)n_recs * af[j][l] * af[k][m];
           dij[coeff_count][l][m] -= af[j][l] * af[k][m];
           diseq = dij[coeff_count][l][m];
-          chisq = pow(dij[coeff_count][l][m], 2) * 2 * (double)n_recs / 
+          chisq = pow(dij[coeff_count][l][m], 2) * 2 * (double)n_recs /
             ( af[j][l]*(1-af[j][l])*af[k][m]*(1-af[k][m]) );
           summary_q[coeff_count] += 2 * (double)n_recs *
             pow(dij[coeff_count][l][m], 2) / ( af[j][l] * af[k][m] ) ;
@@ -1430,11 +1430,11 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
 	  summary_d[coeff_count] += af[j][l] * af[k][m] * fabs(norm_dij) * dmax;
           summary_dprime[coeff_count] += af[j][l] * af[k][m] * fabs(norm_dij);
 #ifdef XML_OUTPUT
-	  xmlfprintf(fp_out,"<allelepair first=\"%s\" second=\"%s\"><observed>%.5f</observed><expected>%.4f</expected><diseq>%.5f</diseq><norm_dij>%.5f</norm_dij><chisq>%.5f</chisq></allelepair>\n", 
+	  xmlfprintf(fp_out,"<allelepair first=\"%s\" second=\"%s\"><observed>%.5f</observed><expected>%.4f</expected><diseq>%.5f</diseq><norm_dij>%.5f</norm_dij><chisq>%.5f</chisq></allelepair>\n",
             unique_allele[j][l], unique_allele[k][m], obs, exp, diseq, norm_dij, chisq);
 #else
-          fprintf(fp_out,"%6s%6s %10.4f %10.4f %10.4f %10.4f %10.4f\n", 
-            unique_allele[j][l], unique_allele[k][m], obs, exp, diseq, norm_dij, chisq); 
+          fprintf(fp_out,"%6s%6s %10.4f %10.4f %10.4f %10.4f %10.4f\n",
+            unique_allele[j][l], unique_allele[k][m], obs, exp, diseq, norm_dij, chisq);
 #endif
         }
       }
@@ -1444,10 +1444,10 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
 #ifdef XML_OUTPUT
       xmlfprintf(fp_out, "</loci>\n");   /* close <loci> tag */
 #else
-      fprintf(fp_out,"\n"); 
+      fprintf(fp_out,"\n");
 #endif
     }
-    
+
   }
 
   /* print   summary measures */
@@ -1468,7 +1468,7 @@ void linkage_diseq(FILE * fp_out, double (*mle), int (*hl)[MAX_LOCI],
 #else
       fprintf(fp_out,"--Loci:%2d\\%2d--\n", j, k);
       fprintf(fp_out,"             Wn [Cohen, 1988]: %10.4f\n", summary_wn[coeff_count]);
-      fprintf(fp_out,"               Q [Hill, 1975]: %10.4f (approx. Chi-square %d)\n", 
+      fprintf(fp_out,"               Q [Hill, 1975]: %10.4f (approx. Chi-square %d)\n",
         summary_q[coeff_count], (n_unique_allele[j]-1)*(n_unique_allele[k]-1) );
       fprintf(fp_out,"       Dprime [Hedrick, 1987]: %10.4f\n\n", summary_dprime[coeff_count]);
 #endif
@@ -1539,8 +1539,8 @@ void sort2byfloat(char (*array1)[LINE_LEN / 2], double *array2, int n_haplo)
 /************************************************************************/
 void emcalc(int *numgeno, int *obspheno,
 	    double *hap_freq, double *mle, int n_haplo, int n_unique_geno,
-	    int n_unique_pheno, int n_recs, int *xhaplo, int (*xgeno)[2], 
-	    int *error_flag, int *iter_count, double *loglike, 
+	    int n_unique_pheno, int n_recs, int *xhaplo, int (*xgeno)[2],
+	    int *error_flag, int *iter_count, double *loglike,
 	    double *haplo_freq_sum, int permu, int (*gp)[MAX_ROWS])
 {
   int i, j, k = 0;
@@ -1554,7 +1554,7 @@ void emcalc(int *numgeno, int *obspheno,
 
   CALLOC_ARRAY_DIM1(double, addto_ambig, MAX_HAPLOS);
 
-  double expected_freq, expected_freq_sum, normed_addto_ambig_sum, diff = 0.0; 
+  double expected_freq, expected_freq_sum, normed_addto_ambig_sum, diff = 0.0;
 
   CALLOC_ARRAY_DIM1(double, geno_freq, MAX_GENOS);
   CALLOC_ARRAY_DIM1(double, pheno_freq, MAX_ROWS);
@@ -1569,7 +1569,7 @@ void emcalc(int *numgeno, int *obspheno,
      costly).  the function itself appears to overwrite any old data
      from previous invocations, so it doesn't seem to be necessary
      here  */
-#endif 
+#endif
 
   done = FALSE;
   decr_loglike_count = 0;
@@ -1588,14 +1588,14 @@ void emcalc(int *numgeno, int *obspheno,
     for (j = 0; j < numgeno[i]; j++)
     {
       j_geno = gp[j][i];
-      i_haplo = xgeno[j_geno][0]; 
-      j_haplo = xgeno[j_geno][1]; 
+      i_haplo = xgeno[j_geno][0];
+      j_haplo = xgeno[j_geno][1];
       if (numgeno[i] == 1)
       {
         unambig[i_haplo] += (double)obspheno[i];
         unambig[j_haplo] += (double)obspheno[i];
       }
-      else // (numgeno[i] > 1) 
+      else // (numgeno[i] > 1)
       {
         ambig[i_haplo] += (double)obspheno[i] / (double)numgeno[i];
         ambig[j_haplo] += (double)obspheno[i] / (double)numgeno[i];
@@ -1667,7 +1667,7 @@ void emcalc(int *numgeno, int *obspheno,
           /* Normalize addto_ambig[] for the current pheno */
           /* Add normalized amount to ambiguous count      */
         //if (expected_freq_sum < .00000001)
-          if (expected_freq_sum < 1.e-16) 
+          if (expected_freq_sum < 1.e-16)
           {
             done = TRUE;
             *error_flag = 2;
@@ -1772,7 +1772,7 @@ void emcalc(int *numgeno, int *obspheno,
 	  *haplo_freq_sum = freqsum;
         }
       }
-      *iter_count = iter + 1; 
+      *iter_count = iter + 1;
     }      /* end of loop for iter */
     if (*iter_count >= MAX_ITER) *error_flag = 7;
   }        /* end of else if ( ambig_sum > 0 ) */
@@ -1791,8 +1791,8 @@ void haplo_freqs_no_ld(double *hap_freq, double (*allele_freq)[MAX_ALLELES],
 {
   int i, j, k = 0;
 
-  for (k = 0; k < n_haplo; k++) 
-  { 
+  for (k = 0; k < n_haplo; k++)
+  {
     hap_freq[k] = 1.0;
   }
 
@@ -1810,8 +1810,8 @@ void haplo_freqs_no_ld(double *hap_freq, double (*allele_freq)[MAX_ALLELES],
 }
 
 /************************************************************************/
-double loglikelihood(int *numgeno, double (*hap_freq), 
-         int *obspheno, int n_haplo, int n_unique_geno, int n_unique_pheno, 
+double loglikelihood(int *numgeno, double (*hap_freq),
+         int *obspheno, int n_haplo, int n_unique_geno, int n_unique_pheno,
          int *xhaplo, int (*xgeno)[2], int permu, int (*gp)[MAX_ROWS])
 
 {
@@ -1821,7 +1821,7 @@ double loglikelihood(int *numgeno, double (*hap_freq),
   CALLOC_ARRAY_DIM1(double, geno_freq, MAX_GENOS);
   CALLOC_ARRAY_DIM1(double, pheno_freq, MAX_ROWS);
 
-  double loglike = 0.0; 
+  double loglike = 0.0;
 
   /* Calculate geno freqs from current estimate of haplo freqs */
   for (i = 0; i < n_unique_geno; i++)
@@ -1871,7 +1871,7 @@ void permute_alleles(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs
   CALLOC_ARRAY_DIM1(char, buff, NAME_LEN);
 
   /* last locus not permuted */
-  for (locus = 0; locus < n_loci-1; locus ++) 
+  for (locus = 0; locus < n_loci-1; locus ++)
   {
     col_0 = locus * 2;
     col_1 = col_0 + 1;
@@ -1881,7 +1881,7 @@ void permute_alleles(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs
       strcpy(buff, data_ar[drawn][col_0]);
       strcpy(data_ar[drawn][col_0], data_ar[j][col_0]);
       strcpy(data_ar[j][col_0], buff);
-  
+
       strcpy(buff, data_ar[drawn][col_1]);
       strcpy(data_ar[drawn][col_1], data_ar[j][col_1]);
       strcpy(data_ar[j][col_1], buff);
@@ -1891,4 +1891,3 @@ void permute_alleles(char (*data_ar)[MAX_COLS][NAME_LEN], int n_loci, int n_recs
   /* free calloc'ed space */
   free(buff);
 }
-

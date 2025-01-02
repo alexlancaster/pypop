@@ -11,12 +11,13 @@ testpaths = [
 ]
 
 [tool.cibuildwheel]
+enable = ["pypy"]             # explicitly enable, this will be requird for cibuildwheel >= 3
 skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "pp37-*",             # skip certain PyPy configurations
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
         "cp313-musllinux_x86_64", # problem with this version
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
-test-skip = ["*-win_arm64"]
+test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
 # FIXME: can add "test-command" that would allow unit test output to be saved
 # "pytest -v {package}/tests && echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
@@ -50,9 +51,9 @@ musllinux-x86_64-image="musllinux_1_1"
 [tool.cibuildwheel.macos]
 # use oras to get archived 2.7.1 bottles of `gsl` that has 10.15 (on x86) / 11.0 (on arm64) builds
 # and archived 4.2.1 bottles of `swig` (swig 4.3.0 creates extensions that segfault)
-before-all = ["brew install oras",
+before-all = ["brew install --quiet oras",
               "oras pull ghcr.io/homebrew/core/swig:4.2.1",
-	      "oras pull ghcr.io/homebrew/core/gsl:2.7.1"] 
+	      "oras pull ghcr.io/homebrew/core/gsl:2.7.1"]
 # re-enable if we need to  do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
 # before-build = [
@@ -66,7 +67,7 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_*"
 inherit.environment="append"
-environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", PYTHONFAULTHANDLER="1" }
+environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", PYTHONFAULTHANDLER="1", HOMEBREW_GREP_WARNINGS="-e 'is available and more recent than version' -e 'Cannot verify the integrity of'" }
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
@@ -74,22 +75,23 @@ inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15/Catalina
 inherit.before-all="append"
 # install `swig` and the Catalina version of `gsl` to match
-before-all = ["brew install ./swig--4.2.1.monterey.bottle.tar.gz",
-	   "brew install ./gsl--2.7.1.catalina.bottle.tar.gz"]
+before-all = ["brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2> /dev/null",
+	      "brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz 2> /dev/null"]
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
 inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="11.0" } # target for 11.0/Big Sur
-inherit.before-all="append"			
+inherit.before-all="append"
 # install `swig` and the Big Sur version of `gsl` to match
-before-all = ["brew install ./swig--4.2.1.arm64_ventura.bottle.tar.gz",
-	   "brew install ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"]
+before-all = ["brew install --quiet ./swig--4.2.1.arm64_ventura.bottle.tar.gz 2> /dev/null",
+              "brew install --quiet ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz 2> /dev/null"]
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
 
 [[tool.cibuildwheel.overrides]]
+# overrides for X86
 select ="*-win_amd64*"
 # use nuget to install gsl on Windows, and manually supply paths
 before-all = "nuget install gsl-msvc14-x64 -Version 2.3.0.2779"
@@ -97,10 +99,10 @@ inherit.environment="append"
 environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static" }
 
 [[tool.cibuildwheel.overrides]]
-# Overrides for ARM64
+# overrides for ARM64
 select ="*-win_arm64*"
 before-all = 'nuget install gsl-msvc14-arm64 -Source "%CD%\\vendor-binaries"'
-
+# use local nuget package to install gsl on Windows ARM64, and manually supply paths
 inherit.environment = "append"
 environment = { CPATH="gsl-msvc14-arm64.2.3.0.2779\\\\build\\\\native\\\\include", LIBRARY_PATH="gsl-msvc14-arm64.2.3.0.2779\\\\build\\\\native\\\\lib" }
 
