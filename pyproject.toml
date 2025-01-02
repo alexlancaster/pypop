@@ -76,8 +76,7 @@ environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15/Catalina
 inherit.before-all="append"
 # install `swig` and the Catalina version of `gsl` to match
 before-all = ["brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2> /dev/null",
-	      "brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz 2> /dev/null"
-	      ]
+	      "brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz 2> /dev/null"]
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
@@ -92,6 +91,7 @@ before-all = ["brew install --quiet ./swig--4.2.1.arm64_ventura.bottle.tar.gz 2>
 archs = ["auto", "ARM64"]
 
 [[tool.cibuildwheel.overrides]]
+# overrides for X86
 select ="*-win_amd64*"
 # use nuget to install gsl on Windows, and manually supply paths
 before-all = "nuget install gsl-msvc14-x64 -Version 2.3.0.2779"
@@ -99,10 +99,10 @@ inherit.environment="append"
 environment = { CPATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native", LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\\\build\\\\native\\\\static" }
 
 [[tool.cibuildwheel.overrides]]
-# Overrides for ARM64
+# overrides for ARM64
 select ="*-win_arm64*"
 before-all = 'nuget install gsl-msvc14-arm64 -Source "%CD%\\vendor-binaries"'
-
+# use local nuget package to install gsl on Windows ARM64, and manually supply paths
 inherit.environment = "append"
 environment = { CPATH="gsl-msvc14-arm64.2.3.0.2779\\\\build\\\\native\\\\include", LIBRARY_PATH="gsl-msvc14-arm64.2.3.0.2779\\\\build\\\\native\\\\lib" }
 
