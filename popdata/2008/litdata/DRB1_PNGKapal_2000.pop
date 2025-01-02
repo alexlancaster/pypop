@@ -1,0 +1,13 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_PNGKapal_2000.pop	DRB1	130	130	lit	PNGKapal_2000	South Pacific Islanders	06-OCE	Kapal	1	from Kapal, population size of 172 in 1989, southern lowlands of PNG, isolated from other groups because of linguistic boundary	008.63S	142.85E	1	1	PCR-MPH	{OYO+00}	Ohashi	2000	Analysis of HLA-DRB1 Polymorphism in the Gidra of Papua New Guinea	Human Biology	72	337-347	tokunaga@m.u-tokyo.ac.jp		PG	Tokunaga		38	1	Kawai et al. 1994, 1996. Confirmed using PCR-SSCP	N		N	N	N		Nei's fixation indexes, modified Cavalli-Sforza distance, phylogenetic tree				YT
+DRB1	count
+0405	25
+0802	1
+0803	24
+1201	6
+1401	2
+1407	1
+1408	6
+1501	28
+1502	23
+1602	14
