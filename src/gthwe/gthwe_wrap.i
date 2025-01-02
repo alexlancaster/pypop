@@ -1,6 +1,6 @@
 /* This file is part of PyPop
-  
-  Copyright (C) 2003, 2004. 
+
+  Copyright (C) 2003, 2004.
   The Regents of the University of California (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -36,7 +36,7 @@ MODIFICATIONS. */
 
 %include "typemap.i"
 
-/* 
+/*
  * Python entry point to program.
  */
 %{
@@ -47,7 +47,7 @@ extern int run_data(int [], int [], int, int, int, int, int, char *, char *, int
 extern int run_data(int [], int [], int, int, int, int, int, char *, char *, int, int);
 extern int run_randomization(int [], int [], int, int, int, char *, int, int);
 
-/* 
+/*
  * Local variables:
  * mode: c
  * End:

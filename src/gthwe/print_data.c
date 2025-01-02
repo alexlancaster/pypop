@@ -1,7 +1,7 @@
 /* This file is part of PyPop
-  
+
   Copyright (C) 1992. Sun-Wei Guo.
-  Modifications Copyright (C) 1999, 2003, 2004. 
+  Modifications Copyright (C) 1999, 2003, 2004.
   The Regents of the University of California (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -61,7 +61,7 @@ void print_data(a, no_allele, sample, outfile, title)
 	line[0] = '-';
 
 	k = 1;
-	
+
 #ifndef XML_OUTPUT
  	fprintf(*outfile, "Data set: %s\n\n", title);
 	fprintf(*outfile, "Observed genotype frequencies: \n\n");
@@ -69,7 +69,7 @@ void print_data(a, no_allele, sample, outfile, title)
  	xmlfprintf(*outfile, "<name>%s</name>\n", title);
 	xmlfprintf(*outfile, "<frequencies kind=\"genotype\" type=\"observed\">\n");
 #endif
-	
+
 	for (i = 0; i < no_allele; ++i)
 	{
 

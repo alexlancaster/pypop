@@ -1,5 +1,5 @@
 2008-07-27  Alex Lancaster <alexl AT users sourceforge net>
-	
+
 	* emhaplofreq.h (NAME_LEN): Increase maximum size of allele name to 20.
 
 2008-06-08  Richard M. Single <rsingle@uvm.edu>
@@ -110,4 +110,3 @@
 	getopt-parsed options for them.
 
 	* Start ChangeLog.
-

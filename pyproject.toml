@@ -53,7 +53,7 @@ musllinux-x86_64-image="musllinux_1_1"
 # and archived 4.2.1 bottles of `swig` (swig 4.3.0 creates extensions that segfault)
 before-all = ["brew install --quiet oras",
               "oras pull ghcr.io/homebrew/core/swig:4.2.1",
-	      "oras pull ghcr.io/homebrew/core/gsl:2.7.1"] 
+	      "oras pull ghcr.io/homebrew/core/gsl:2.7.1"]
 # re-enable if we need to  do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
 # before-build = [
@@ -82,11 +82,11 @@ before-all = ["brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2> /dev
 select = "*-macosx_arm64"
 inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="11.0" } # target for 11.0/Big Sur
-inherit.before-all="append"			
+inherit.before-all="append"
 # install `swig` and the Big Sur version of `gsl` to match
 before-all = ["brew install --quiet ./swig--4.2.1.arm64_ventura.bottle.tar.gz 2> /dev/null",
               "brew install --quiet ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz 2> /dev/null"]
- 	   
+
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
 

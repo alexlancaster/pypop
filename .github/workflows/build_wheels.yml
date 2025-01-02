@@ -20,7 +20,7 @@ on:
       - '.github/workflows/buildjet_arm64.yml'
       - '.github/workflows/release-drafter.yml'
       - '.github/workflows/codeql.yml'
-      - '.github/workflows/nuget_gsl_arm64_package.yml'      
+      - '.github/workflows/nuget_gsl_arm64_package.yml'
       - '.gitattributes'
   push:
     paths-ignore:
@@ -33,10 +33,10 @@ on:
       - '.github/release-drafter.yml'
       - '.github/ISSUE_TEMPLATE/**'
       - '.github/workflows/documentation.yaml'
-      - '.github/workflows/buildjet_arm64.yml'      
+      - '.github/workflows/buildjet_arm64.yml'
       - '.github/workflows/release-drafter.yml'
       - '.github/workflows/codeql.yml'
-      - '.github/workflows/nuget_gsl_arm64_package.yml'      
+      - '.github/workflows/nuget_gsl_arm64_package.yml'
       - '.gitattributes'
   release:
     types:
@@ -78,7 +78,7 @@ jobs:
           # update the version number
           echo "{\"version\": \"$GITHUB_REF_NAME\"}" | cat .zenodo.mod.json - | jq -s add > .zenodo.json
           # debugging only
-          cat .zenodo.json 
+          cat .zenodo.json
           rm .zenodo.mod.json
       - name: Upsert the version in the metadata in CITATION.cff
         run: |
@@ -156,7 +156,7 @@ jobs:
            # only generate all wheels on releases, pull requests or commits to the main branch
            # otherwise just generate a test wheel Python 3.12 for 4 platform
            CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
-          
+
   build_wheels:
     name: Build wheels on ${{ matrix.only }}
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
@@ -284,7 +284,7 @@ jobs:
         with:
           # unpacks default artifact into dist/
           path: dist
-          merge-multiple: true          
+          merge-multiple: true
       - uses: pypa/gh-action-pypi-publish@release/v1
         with:
           repository_url: https://test.pypi.org/legacy/
@@ -302,6 +302,6 @@ jobs:
         with:
           # unpacks default artifact into dist/
           path: dist
-          merge-multiple: true          
+          merge-multiple: true
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1

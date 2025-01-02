@@ -216,7 +216,7 @@
 	output.
 
 	* hwe.c (run_data): New num_genotypes variable, initialize just
-	once. 
+	once.
 	More fixes in permutation test, don't recalculate ln_p_observed,
 	because it will be based on a changed matrix.
 	Use num_genotypes in places where total was being used
@@ -263,7 +263,7 @@
 2004-05-17  Alex Lancaster  <alex at berkeley dot edu>
 
 	* hwe.c (run_data): Don't hardcode length of a[] and n[] arrays,
-	make them simply be pointers.  
+	make them simply be pointers.
 	(run_data): After DEBUG, fflush() stdout.
 
 	sample.group and sample.size initializations were switched, switch
@@ -379,6 +379,3 @@
 	gthwe, hwe.c, hwe.h, ln_p_value.c, new_rand.c, print_data.c,
 	random_choose.c, read_data.c, select_index.c, stamp_time.c,
 	test_switch.c, to_calculate_log.c: New files.
-
-	
-

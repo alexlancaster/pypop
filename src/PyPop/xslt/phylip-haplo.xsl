@@ -1,4 +1,4 @@
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:exslt="http://exslt.org/common"
@@ -23,7 +23,7 @@
 
  <!-- suppress output of random text -->
  <xsl:template match="text()"/>
-  
+
  <xsl:variable name="all-haplo-list" select="document('haplolist-by-group.xml', .)/haplolist-by-group"/>
 
  <xsl:template name="phylip-haplos">
@@ -56,18 +56,18 @@
     <xsl:text> </xsl:text>
     <xsl:text>1</xsl:text>
     <xsl:call-template name="newline"/>
-    
+
     <xsl:variable name="haplolist-curlocus"
      select="$all-haplo-list/group[@loci=$loci-to-output]"/>
-    <xsl:value-of select="count($haplolist-curlocus/haplotype)"/>   
+    <xsl:value-of select="count($haplolist-curlocus/haplotype)"/>
     <xsl:text> </xsl:text>
-    
+
     <xsl:call-template name="newline"/>
-    
+
     <xsl:for-each select="$node">
-     
+
      <xsl:sort select="populationdata/popname"/>
-     
+
      <xsl:call-template name="append-pad">
       <xsl:with-param name="padVar">
        <xsl:value-of select="populationdata/popname"/>
@@ -75,9 +75,9 @@
       <xsl:with-param name="length" select="9"/>
      </xsl:call-template>
      <xsl:text> </xsl:text>
-     
+
      <xsl:variable name="cur-haplo-list" select="emhaplofreq/group[@loci=$loci-to-output]/haplotypefreq/haplotype"/>
-     
+
      <xsl:for-each select="$haplolist-curlocus/haplotype">
       <xsl:variable name="haplotype" select="."/>
       <xsl:choose>
@@ -88,11 +88,11 @@
       </xsl:choose>
       <xsl:text> </xsl:text>
      </xsl:for-each>
-     
+
      <xsl:call-template name="newline"/>
-     
+
     </xsl:for-each>
-   
+
    </xsl:otherwise>
   </xsl:choose>
 
@@ -101,7 +101,7 @@
  <xsl:template name="genfile">
   <xsl:param name="filename"/>
   <xsl:param name="loci"/>
-  
+
   <exslt:document href="{$outputDir}{$filename}"
    omit-xml-declaration="yes"
    method="text">
@@ -115,7 +115,7 @@
 
  <!-- loci to do haplos for, no default -->
  <xsl:param name="loci"/>
- 
+
  <xsl:template match="/">
 
 <!--
@@ -162,12 +162,12 @@
     <xsl:with-param name="loci-to-output" select="$loci"/>
    </xsl:call-template>
   </exslt:document>
-  
+
  </xsl:template>
 
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"

@@ -51,16 +51,16 @@ def getObservedHomozygosityFromAlleleData(alleleData):
     sum += freq*freq
 
   return sum
-  
+
 
 class Homozygosity:
   """Calculate homozygosity statistics.
-  
+
   Given allele count data for a given locus, calculates the observed
   homozygosity and returns the approximate expected homozygosity
   statistics taken from previous simulation runs.
   """
-  
+
   def __init__(self, alleleData, rootPath=".", debug=0):
     """Constructor for homozygosity statistics.
 
@@ -92,7 +92,7 @@ class Homozygosity:
     If 2n > 2000, use 2000 anyway.
 
     *Internal use only*"""
-    
+
     decade, rem = divmod(sampleCount, 10)
     if rem >= 5:
       decade = decade + 1
@@ -144,7 +144,7 @@ class Homozygosity:
     Returns a boolean.
 
     *Internal use only*"""
-    
+
     if self._checkCountRange(self.sampleCount):
       if self._checkAlleleRange(self.numAlleles):
 
@@ -153,7 +153,7 @@ class Homozygosity:
 
         # open file with full path name created in-line
         lines = open(self.rootPath + os.sep + path, 'r').readlines()
-        
+
         self.count = int(lines[0].split(':')[1])
         self.expectedHomozygosity = float(lines[1].split(':')[1])
         self.varExpectedHomozygosity = float(lines[2].split(':')[1])
@@ -198,7 +198,7 @@ class Homozygosity:
     # cache floating point value
     sampleCount = float(self.sampleCount)
     self.observedHomozygosity = 0.0
-    
+
     for alleleCount in self.alleleData:
       freq = float(alleleCount/sampleCount)
       if self.debug:
@@ -215,7 +215,7 @@ class Homozygosity:
     Returns true if expected homozygosity statistics can be
     calculated.  Should be called before attempting to get any
     expected homozygosity statistics."""
-    
+
     return self.expectedStatsFlag
 
   def getPValueRange(self):
@@ -224,7 +224,7 @@ class Homozygosity:
     Returns a tuple of (lower, upper) bounds.
 
     Only meaningful if 'canGenerateExpectedStats()' returns true."""
-    
+
     upperBound = 999.0
     if self.debug:
       print("quartiles")
@@ -242,7 +242,7 @@ class Homozygosity:
     # if out of range (i.e. off the bottom of the scale)
     # return a zero as the lower bound
     return 0.0, upperBound
-  
+
   def getCount(self):
     """Number of runs used to calculate statistics.
 
@@ -253,7 +253,7 @@ class Homozygosity:
     """Gets mean of expected homozygosity.
 
     This is the estimate of the *expected* homozygosity.
-    
+
     Only meaningful if 'canGenerateExpectedStats()' returns true."""
     return self.expectedHomozygosity
 
@@ -261,7 +261,7 @@ class Homozygosity:
     """Gets variance of expected homozygosity.
 
     This is the estimate of the variance *expected* homozygosity.
-    
+
     Only meaningful if 'canGenerateExpectedStats()' returns true."""
     return self.varExpectedHomozygosity
 
@@ -277,17 +277,17 @@ class Homozygosity:
 
   def serializeHomozygosityTo(self, stream):
     type = getStreamType(stream)
-    
+
     if self.expectedStatsFlag:
       stream.opentag('homozygosity')
-      stream.writeln()        
+      stream.writeln()
       stream.tagContents('observed', "%.4f" % self.getObservedHomozygosity())
       stream.writeln()
       stream.tagContents('expected', "%.4f" % self.getExpectedHomozygosity())
       stream.writeln()
       stream.tagContents('normdev', "%.4f" % self.getNormDevHomozygosity())
       stream.writeln()
-      
+
       #stream.tagContents('expectedVariance', "%.4f" % self.getVarExpectedHomozygosity())
       #stream.writeln()
       #stream.tagContents('expectedStdErr', "%.4f" % self.getSemExpectedHomozygosity())
@@ -303,11 +303,11 @@ class Homozygosity:
       stream.emptytag('homozygosity', role='no-data')
     else:
       stream.opentag('homozygosity', role='out-of-range')
-      stream.writeln()        
+      stream.writeln()
       stream.tagContents('observed', "%.4f" % self.getObservedHomozygosity())
       stream.writeln()
       stream.closetag('homozygosity')
-      
+
     # always end on a newline
     stream.writeln()
 
@@ -319,7 +319,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
                  debug=0):
 
       self.alleleData = alleleData
-      
+
       self.numReplicates = numReplicates
       self.debug = debug
 
@@ -331,11 +331,11 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         self.sampleCount = reduce(add,self.alleleData)
       else:
         self.sampleCount = 0
-      
+
       if self.sampleCount > 0:
 
         from PyPop import _EWSlatkinExact
-        
+
         self.EW = _EWSlatkinExact
 
         # create the correct array that module expect,
@@ -343,8 +343,8 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         if self.debug:
           print(list(self.alleleData))
           print(type(self.alleleData))
-          
-        li = [0] + list(self.alleleData) + [0] 
+
+        li = [0] + list(self.alleleData) + [0]
 
         if self.debug:
           print('args to slatkin exact test:' , li, self.numAlleles, self.sampleCount, self.numReplicates)
@@ -373,7 +373,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
       if self.getObservedHomozygosity() >= 1.0:
         stream.emptytag('homozygosityEWSlatkinExact', role='monomorphic')
       elif self.sampleCount > 0:
-      
+
         stream.opentag('homozygosityEWSlatkinExact')
         stream.writeln()
 
@@ -405,7 +405,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         except:
           normDevStr = '****'
         stream.tagContents('normDevHomozygosity', normDevStr)
-          
+
         stream.writeln()
 
         stream.closetag('homozygosityEWSlatkinExact')
@@ -420,7 +420,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
 
     def returnBulkHomozygosityStats(self, alleleCountDict=None, binningMethod=None):
       # this function is written to work with the RandomBinning module
-      
+
       resultsDict = {}
 
       for i in alleleCountDict:
@@ -444,7 +444,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
 
 
 class HomozygosityEWSlatkinExactPairwise:
-  
+
     def __init__(self,
                  matrix=None,
                  numReplicates=10000,
@@ -459,13 +459,13 @@ class HomozygosityEWSlatkinExactPairwise:
       self.pairs = getLocusPairs(self.matrix, self.sequenceData)
 
     def serializeTo(self, stream):
-    
+
       stream.opentag('homozygosityEWSlatkinExactPairwise')
       stream.writeln()
-      
+
       for pair in self.pairs:
         metaLocus = getMetaLocus(pair, self.sequenceData)
-        
+
         stream.opentag('group', locus=pair, metalocus=metaLocus)
         stream.writeln()
         subMat = self.matrix.getSuperType(pair)
@@ -491,8 +491,6 @@ class HomozygosityEWSlatkinExactPairwise:
         hz.serializeHomozygosityTo(stream)
         stream.closetag('group')
         stream.writeln()
-                
+
       stream.closetag('homozygosityEWSlatkinExactPairwise')
       stream.writeln()
-
-        

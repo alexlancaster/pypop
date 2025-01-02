@@ -13,7 +13,7 @@ on:
     paths:
       # Trigger on change to this yml
       - '.github/workflows/nuget_gsl_arm64_package.yml'
-      
+
 jobs:
   build:
     runs-on: windows-2019
@@ -22,7 +22,7 @@ jobs:
       # Step 1: checkout repo
       - name: Checkout repo
         uses: actions/checkout@v4
-      
+
       # Step 2: install required tools
       - name: Install NuGet
         run: |
@@ -56,14 +56,14 @@ jobs:
            </metadata>
            <files>
             <!-- Package contents from build/install directory -->
-            <file src="gsl\\build\\install\\**\\*" target="build\\native" />           
+            <file src="gsl\\build\\install\\**\\*" target="build\\native" />
             </files>
           </package>
           EOF
-          
+
           # Display the contents of the generated .nuspec file
-          cat GSL.nuspec          
-          
+          cat GSL.nuspec
+
       # Step 6: package the build output as a NuGet package
       - name: Package the build output
         run: |

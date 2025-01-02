@@ -19,13 +19,13 @@
 * `gsl` (GNU Scientific Library), this is a library used by some C
   extensions that needs to be available during compilation,
   specifically:
-  
+
   * Linux: the `gsl-devel` CentOS package is installed at build time
 	and the dynamic library distributed with the generated wheel.
-  
+
   * MacOS: the `gsl` package is installed via Homebrew, dynamic
     library is also distributed with the wheel.
-  
+
   * Windows: on X64 (AMD64) the `gsl-msvc14-x64` package is installed
     via the NuGet package repository, this includes a static version
     that is compiled into the final extension. Since the NuGet
@@ -34,7 +34,7 @@
     workflow. Triggering this workflow will build the package and also
     copy the `.nupkg` into the repo in the `vendor-binaries` folder so
     it is available at build-time.
-  
+
 #### Install-time packagess (available on PyPI)
 
 * `Numpy` (Numpy)
@@ -66,7 +66,7 @@ post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-py
 ```yaml
       - name: Download GSL artifact on Windows
         # no pre-compiled Windows ARM64 version of GNU Scientific Library (GSL)
-        # so we install our own build 
+        # so we install our own build
         # only runs on Windows when cross-compiling for ARM64
         if: false
         #if: runner.os == 'Windows' && contains(matrix.only, 'win_arm64')
@@ -83,7 +83,7 @@ post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-py
           GSL_PACKAGE_NAME=gsl-msvc14-arm64
           GSL_PACKAGE_FILE=${GSL_PACKAGE_NAME}.2.3.0.2779.nupkg
           NUGET_PACKAGE_DIR=nuget-packages
-          
+
           # attempt to download artifact if RUN_ID exists
           if [ -n "$RUN_ID" ]; then
             mkdir ${NUGET_PACKAGE_DIR}
@@ -96,7 +96,7 @@ post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-py
           if [ ! -f ${NUGET_PACKAGE_DIR}/${GSL_PACKAGE_FILE} ]; then
             echo "Artifact not found. Triggering new build..."
             gh workflow run nuget_gsl_arm64_package.yml --ref windows_arm64 -f reason="Artifact expired or missing"
-            echo "New build triggered. Please wait for completion before retrying."            
+            echo "New build triggered. Please wait for completion before retrying."
             exit 1  # exit with failure to indicate the need to rerun the workflow
           else
             ls ${NUGET_PACKAGE_DIR}/*.nupkg
@@ -107,7 +107,7 @@ post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-py
           nuget install ${GSL_PACKAGE_NAME} -Source $(pwd)/${NUGET_PACKAGE_DIR}
 ```
 
-#### Manually regenerate a GitHub release 
+#### Manually regenerate a GitHub release
 
 This can occur based on re-tagging after a change (e.g. after a Zenodo
 deposition). These has been disabled because they are done internally
@@ -250,7 +250,7 @@ There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on
 ```xenial``` (which is version 3.0.8 of swig) working.  You will need
 to install the lastest version from source.
 
-1. Get swig dependency: 
+1. Get swig dependency:
 
    ```shell
    sudo apt install libpcre3-dev
@@ -270,7 +270,7 @@ to install the lastest version from source.
 
 ### Containerizing
 
-(WARNING: instructions are obsolete with the Python 3 port) 
+(WARNING: instructions are obsolete with the Python 3 port)
 
 To make pypop more portable (given that some of its dependencies are currently
 obsolete), it is possible to build a Singularity container which contains a
@@ -324,13 +324,13 @@ Once you have the container image, running it is as simple as executing
     Copyright (C) 2003-2005 Regents of the University of California
     This is free software.  There is NO warranty; not even for
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    
+
     akkornel@blargh-yakkety-typical:~/pypop$ ./image.img -h
     Usage: pypop [OPTION]... [INPUTFILE]...
     Process and run population genetics statistics on one or more INPUTFILEs.
     Expects to find a configuration file called 'config.ini' in the
     current directory or in /usr/share/pypop/config.ini.
-    
+
       -l, --use-libxslt    filter XML via XSLT using libxslt (default)
       -s, --use-4suite     filter XML via XSLT using 4Suite
       -x, --xsl=FILE       use XSLT translation file FILE
@@ -344,9 +344,8 @@ Once you have the container image, running it is as simple as executing
                             (mutually exclusive with supplying INPUTFILEs)
           --generate-tsv   generate TSV output files (aka run 'popmeta')
       -V, --version        print version of PyPop
-      
+
       INPUTFILE   input text file
 
 Once built, the container image can be transferred to any other system which is
 running Linux x86\_64, and which has the same version of Singularity (or newer).
-

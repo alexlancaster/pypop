@@ -1,6 +1,6 @@
-/* 
-   this re-implementation of drand48() based on version from FreeBSD 
-   http://fxr.watson.org/fxr/ident?v=FREEBSD-LIBC;im=bigexcerpts;i=_dorand48 
+/*
+   this re-implementation of drand48() based on version from FreeBSD
+   http://fxr.watson.org/fxr/ident?v=FREEBSD-LIBC;im=bigexcerpts;i=_dorand48
    used in the absence of a Windows version
 
    source: https://gist.github.com/mortennobel/8665258
@@ -33,7 +33,7 @@ void _dorand48(unsigned short xseed[3])
  {
    unsigned long accu;
    unsigned short temp[2];
-   
+
    accu = (unsigned long)_rand48_mult[0] * (unsigned long)xseed[0] +
      (unsigned long)_rand48_add;
    temp[0] = (unsigned short)accu;        /* lower 16 bits */

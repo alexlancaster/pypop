@@ -161,7 +161,7 @@
 	changes made to RandomBinning.py and the new function in
 	Homozygosity.py.
 
-	* Homozygosity.py (HomozygosityEWSlatkinExact.returnBulkHomozygosityStats): 
+	* Homozygosity.py (HomozygosityEWSlatkinExact.returnBulkHomozygosityStats):
 	New function to work with the RandomBinning module.  It takes all
 	of the randomizations, computes the homozygosity statistics, and
 	then returns them all at once.  This is faster than looking them
@@ -300,7 +300,7 @@
 	allelecounts/unsequencedsites): New columns to keep track of
 	number of untyped and unsequenced individuals. for
 	'1-locus-summary.dat' output.
-	
+
 	* xslt/common.xsl (unsequencedsites): New template to output total
 	number of unsequencedSites per locus.
 
@@ -362,7 +362,7 @@
 	(translate_file_to_stdout, translate_file_to_file): Return success
 	flag.
 	(Meta.__init__): Change semantics of batchsize, make "0" (default)
-	process files separately if only R dat files is enabled.  
+	process files separately if only R dat files is enabled.
 	Put freeDoc() call inside try.
 	If batchsize=0, do each file separately.
 	If transformation doesn't work, skip that file in the renaming and
@@ -422,7 +422,7 @@
 	Call HardyWeinberg.serializeXMLTableTo() here so that there is a
 	record of the genotype matrix for each different HW analysis.
 	Note this breaks compatibility with previous stylesheets.
-	
+
 	(HardyWeinbergEnumeration.serializeTo): Likewise specify output
 	allelelump attribute and call HardyWeinberg.serializeXMLTableTo().
 
@@ -498,17 +498,17 @@
 
 	* Main.py (Main._doGenotypeFile): Handle a new section in the .ini
 	file: [homozygosityEWSlatkinExactPairwise], use new class.
-	
+
 	* DataTypes.py (checkIfSequenceData): New function: hack to
 	determine whether we are analysing sequence: we use a regex to
-	match anything in the form A_32 or A_-32.  
+	match anything in the form A_32 or A_-32.
 	(getMetaLocus): Get the name of the gene if dealing with sequence
-	data. 
+	data.
 	(getLocusPairs): New function, generates all pairs of loci. It
 	returns all pairs within a given gene if dealing with sequence
 	data.
 	All relocated from Haplo.py.
-	
+
 	* Utils.py (StringMatrix.getSuperType): New method.  Returns a
 	matrix grouped by columns.  e.g if matrix is [[A01, A02, B01,
 	B02], [A11, A12, B11, B12]] then getSuperType('A:B') will return
@@ -538,7 +538,7 @@
 
 	* Filter.py (AnthonyNolanFilter.makeSeqDictionaries): Make another
 	special case, specific to HLA data, if a "null alleles" (ending in
-	"N") is found, mark it as missing data.  
+	"N") is found, mark it as missing data.
 	Some comment cleanups, uncomment generation of matrix of
 	polymorphic sequences for the moment.  Still need to deal with
 	converting 7-digit to 8-digit Anthony Nolan HLA data.
@@ -585,7 +585,7 @@
 	to XML <group> tag if using sequence data to indicate which
 	gene-level locus this LD/haplotype group belongs to.
 	(Emhaplofreq.allPairwise): Fix regex for HLA sequenceData to deal
-	with locus names that include digits, e.g. DQA1_32. 
+	with locus names that include digits, e.g. DQA1_32.
 	Make sequenceData an instance variable.
 
 2005-06-22  Alex Lancaster  <alexl AT users sourceforge net>
@@ -610,7 +610,7 @@
 	* SWIG/typemap.i (typemap): Convert typemaps to convert a 1-d array
 	of (long doubles) rather than (doubles) to a 1-d Python list of
 	plain doubles.
-	
+
 	* HardyWeinberg.py (HardyWeinbergEnumeration.serializeTo): API
 	change cleanup_genotypes() -> cleanup().
 
@@ -904,7 +904,7 @@
 	* SWIG/typemap.i: Update syntax for typemaps (remove deprecated
 	$source, $target).  In input typemaps: $source -> $input; $target
 	-> $1.  In output typemaps: $source -> $1; $target -> $result.
-	
+
 2004-11-09  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* NEWS: Note feature.
@@ -976,7 +976,7 @@
 	Also, only generate the 'sorted-by-locus.xml' file and other
 	auxilary XML generation in the PHYLIP case (not needed for pure
 	.dat file generation).
-	
+
 	* Utils.py (splitIntoNGroups): New function, divides a list up
 	into n parcels (plus whatever is left over).  This uses iterators,
 	so requires at least Python 2.3!
@@ -1007,11 +1007,11 @@
 	format.
 	(line-start, /): Use it and in the top-level template for
 	generation at the top of each file.
-	
+
 	* popmeta.py (usage_message): Add support for disabling the IHWG
 	standard header output, and use as is.  This is only enabled if
 	--disable-ihwg flag is enabled.  This is passed to the libxslt
-	Python bindings which in turn passes it to the stylesheets. 
+	Python bindings which in turn passes it to the stylesheets.
 
 2004-09-29  Owen Solberg  <solberg@mws11.biol.berkeley.edu>
 
@@ -1207,7 +1207,7 @@
 	accepts a file containing a list of files (one per line) to
 	process (note that this is mutually exclusive with supplying
 	INPUTFILEs, and will abort with an error message if you supply
-	both simultaneously).   
+	both simultaneously).
 	In batch version, handle multiple INPUTFILEs supplied as
 	command-line arguments and support Unix shell-globbing
 	syntax (e.g. pypop.py *.pop).  Supported through use of a loop
@@ -1344,7 +1344,7 @@
 	scripts when running on Win32.
 
 	* NEWS: Update with fix. Release 0.5.2
-	
+
 2004-03-04  Alex Lancaster  <alexl AT users sourceforge net>
 
 	* setup.py (py_modules): Add missing RandomBinning.py file.
@@ -1410,9 +1410,9 @@
 
 	* xslt/emhaplofreq.xsl: (emhaplofreq): Don't forget to output the
 	<group mode="LD"/> output, for specified LD estimates.
-	
+
 	* NEWS: Start collecting Release Notes for version 0.5.1.
-	
+
 	* config.ini [Emhaplofreq]: New parameter 'numInitCond': number of
 	initial conditions used before performing permutations. Default to
 	50.
@@ -1459,7 +1459,7 @@
 
 	* NEWS (PyPop 0.5): Start adding release notes for public release.
 	Note new wrapper changes.
-	
+
 	* standalone.spec (pypop-batch.bat): Mirror Linux batch wrapper
 	script for DOS [Win9*,2k,NT,XP] binary.
 	(pypop.bat): Add a "pause" statement in DOS .bat file so that DOS
@@ -1467,7 +1467,7 @@
 	now wait for user to press a key.
 	Remove '.sh' prefix from all Linux wrapper scripts, now use
 	'#!/bin/sh' to indicate to file(1) that it is a shell-script.
-	
+
 	* Makefile (NAME_BIN): Make uname test for "CYGWIN_NT" work for
 	both 5.0 [Win2k] and XP [5.1].
 
@@ -1488,7 +1488,7 @@
 	and "file" rather than "path."
 	Change the way CustomBinning is called to account for changes in
 	that method.
-	
+
 	* Filter.py (BinningFilter.__init__): Receive the binningPath when
 	this object is instantiated.
 	(BinningFilter.doCustomBinning): Modularized this method so that
@@ -1521,7 +1521,7 @@
 	* RandomBinning.py (RandomBinsForHomozygosity.sequenceMethod):
 	Major retooling enables this method to keep track of each position
 	in the sequence.  This is useful for debugging and may be useful
-	in later applications of this method.  
+	in later applications of this method.
 	Variable names changed and comments added to improve readablity of
 	code.
 
@@ -1552,7 +1552,7 @@
 	* Main.py (Main._doGenotypeFile): API for Emhaplofreq has changed,
 	constructor now expects XML stream to be passed to it since
 	serialization is now done periodically from within class to avoid
-	memory overhead of in-memory string.  
+	memory overhead of in-memory string.
 	Call Emhaplofreq.serializeStart() to generate start tag after
 	instantiation.  flush() current XML buffer before commencing
 	calculations to make sure they are written to disk in case of
@@ -1619,7 +1619,7 @@
 	installation in sys.prefix and NOT in a 'frozen' state.  2) check
 	child directory 'xslt/' of script location first.  3) if not found
 	here check sibling directory '../xslt/'
-	Pass in xslFilenameDefault to Main() contructor call. 
+	Pass in xslFilenameDefault to Main() contructor call.
 
 	* Main.py (checkXSLFile): New function to check existence of xsl
 	file, given a path, subdirectory, and filename, generate the
@@ -1640,7 +1640,7 @@
 	'allPairwiseLDWithPerm' option. It is no longer a boolean variable
 	to enable the permutation test.  It should now contain the NUMBER
 	of permutations desired.  Exit with an error message.
-	
+
 2003-12-12  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
 	* config.ini ([allPairwiseLDWithPermu]): Change semantics of
@@ -1653,7 +1653,7 @@
 	conditions used if permutation test is run default is to 5 (this
 	parameter is only used if 'allPairwiseLDWithPermu' is set and
 	nonzero).
-	
+
 	* Main.py (Main._doGenotypeFile): Parse 'allePairwiseLDWithPermu'
 	as an integer, rather than a boolean.  If set to zero, then this
 	has the effect of the old permutationFlag=0, but the number is now
@@ -1680,7 +1680,7 @@
 
 2003-12-10  Alex Lancaster  <alexl AT socrates.berkeley.edu>
 
-	* standalone.spec: When generating standalone version, VERSION file 
+	* standalone.spec: When generating standalone version, VERSION file
 	is now placed in dist_dir/bin where pypop script now looks for it.
 
 	* pypop.py: Relocated and streamlined 'VERSION' finding code.  The
@@ -1693,7 +1693,7 @@
 	Pass the version variable to the Main() class instance.
 	Add new command line option "-V", long version "--version" to
 	report the current version.  When passed simply exit with the
-	version_message.  
+	version_message.
 	(usage_message): Mention it.
 	(copyright_message): Copyright boilerplate.
 	(interactive_message, version_message): New messages, version
@@ -1711,7 +1711,7 @@
 
 	* RandomBinning.py: Changed import to use copy instead of
 	deepcopy. Copy should be sufficient and is probably less
-	intensive.  
+	intensive.
 	Importing Homozygosity module so we can use the new classless
 	method contained therein.
 	(RandomBinsForHomozygosity): Removed 'Exact' from name of class.
@@ -1793,7 +1793,7 @@
 	through to invocation of Main. If directory does not exist, exit
 	with an error.  Replace getXmlOutFilename -> getXmlPath and
 	likewise for getTxtOutFilename -> getTxtOutPath.
-	
+
 	* Main.py (Main.__init__): Add new parameter outputDir for
 	allowing different output directories and set as instance
 	variable.  If set, prepend outputDir
@@ -1850,7 +1850,7 @@
 	(__main__): Modify test harness slightly.
 
 2003-11-25 Owen Solberg  <solberg AT socrates.berkeley.edu>
-	
+
 	* Homozygosity.py: Import add from operator.
 	(Homozygosity.getObservedHomozygosity): Change to reflect new data
 	structure above.
@@ -1880,7 +1880,7 @@
 	([RandomAlleleBinning]): New section to configure behaviour of
 	random binning.
 
-	* RandomBinning.py: New file.  
+	* RandomBinning.py: New file.
 	(RandomAlleleBinning): New class to handle creation of random
 	binning code in modular fashion.
 
@@ -1924,7 +1924,7 @@
 	translate in a nucleotide or amino-acid sequence).
 	(Main._doGenotypeFile): Handle the change to the interface for
 	Homozygosity object, currently only requires the list of count
-	values, not the whole dictionary.  
+	values, not the whole dictionary.
 	Implement preliminary code for doing randomized "binning": both in
 	the truly random and "phylogenetically informed" way.
 	FIXME: Close the filterLog file here (currently broken if no

@@ -1,7 +1,7 @@
 /* This file is part of PyPop
-  
+
   Copyright (C) 1992. Sun-Wei Guo.
-  Modifications Copyright (C) 1999, 2003, 2004. 
+  Modifications Copyright (C) 1999, 2003, 2004.
   The Regents of the University of California (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,7 +43,7 @@ MODIFICATIONS. */
 ***************************************************************************/
 
 #include  <stdio.h>
-#include  <stdlib.h> 
+#include  <stdlib.h>
 #include  <math.h>
 
 #include <gsl/gsl_rng.h>
@@ -58,7 +58,7 @@ MODIFICATIONS. */
 #define  MAXRAND       RAND_MAX
 
 #define  MIN(x, y)     ((x) < (y)) ? (x) : (y)
-#define  RATIO(u, v)   ( (double) (u) ) / ( 1.0 + (double) (v) ) 
+#define  RATIO(u, v)   ( (double) (u) ) / ( 1.0 + (double) (v) )
 #define  TRANS(x)     (MIN(1.0, x))/2.0  /* transition probability */
 
 #define  LL(a, b)      a * ( a + 1 ) / 2  + b
@@ -83,18 +83,16 @@ typedef struct _Index
   double cst;
 } Index;
 
-struct outcome 
+struct outcome
 {
   double p_value;  /* mean p-value */
   double se;       /* standard error of the p-value */
   int swch_count[3];  /* switch counts for partial and full switch */
 };
 
-struct randomization 
+struct randomization
 {
   int group; /* total number of chunks */
   int size;  /* size of a chunk */
   int step;  /* number of steps to de-memerization */
 };
-
-

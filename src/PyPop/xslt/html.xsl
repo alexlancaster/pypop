@@ -1,7 +1,7 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California (Regents) 
+  Copyright (C) 2003. The Regents of the University of California (Regents)
   All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -31,7 +31,7 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS.
 -->
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
@@ -47,7 +47,7 @@ MODIFICATIONS.
    </head>
    <body>
    <pre>
-    <xsl:apply-templates/> 
+    <xsl:apply-templates/>
    </pre>
    </body>
   </html>
@@ -80,7 +80,7 @@ MODIFICATIONS.
   <xsl:choose>
    <xsl:when test="$level=1">
     <h2><xsl:value-of select="$header-text"/></h2>
-   </xsl:when> 
+   </xsl:when>
    <xsl:when test="$level=2">
     <h3><xsl:value-of select="$header-text"/></h3>
    </xsl:when>
@@ -104,19 +104,19 @@ MODIFICATIONS.
    <xsl:value-of select="name(.)"/>
    <xsl:text>: </xsl:text>
    </strong>
- 
+
    <xsl:choose>
     <xsl:when test="name(.)='pvalue'">
      <xsl:apply-templates select="."/>
     </xsl:when>
     <xsl:otherwise>
-     <xsl:value-of select="."/> 
+     <xsl:value-of select="."/>
     </xsl:otherwise>
    </xsl:choose>
 
   <!-- if field has any attribute, print them out in brackets
    separated by commas -->
-   
+
    <xsl:if test="@*!=''">
     <em>
     <xsl:text> (</xsl:text>
@@ -130,9 +130,9 @@ MODIFICATIONS.
     </em>
    </xsl:if>
    <xsl:call-template name="newline"/>
-   
+
   </xsl:for-each>
- </xsl:template> 
+ </xsl:template>
 
  <xsl:template name="separator">
   <hr/>
@@ -140,7 +140,7 @@ MODIFICATIONS.
 
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"

@@ -76,7 +76,7 @@ class Filter:
         raise SubclassError()
     def cleanup(self):
         raise SubclassError()
-    
+
 class PassThroughFilter(Filter):
     """A filter that doesn't change input data.
     """
@@ -129,7 +129,7 @@ class AnthonyNolanFilter(Filter):
                  verboseFlag=1,
                  debug=0,
                  sequenceFilterMethod="strict"):
-        
+
         self.directoryName = directoryName
         self.alleleFileFormat=alleleFileFormat
         self.preserveAmbiguousFlag=preserveAmbiguousFlag
@@ -145,7 +145,7 @@ class AnthonyNolanFilter(Filter):
 
         if self.unsequencedSite == self.untypedAllele:
             sys.exit("Designator for unsequenced site and untyped allele cannot be the same!")
-            
+
         self.sequenceFileSuffix = sequenceFileSuffix
         self.filename = filename
         self.logFile = logFile
@@ -166,9 +166,9 @@ class AnthonyNolanFilter(Filter):
                               re.escape(self.alleleDesignator) + \
                               "([0-9a-zA-Z]+)")
             loci = ['a', 'b', 'c', 'dqa', 'dqb', 'dra', 'drb', 'dpb', 'dpa']
-        
+
         self.alleleLookupTable = {}
-        
+
         for locus in loci:
 
             if self.alleleFileFormat == 'msf':
@@ -276,7 +276,7 @@ class AnthonyNolanFilter(Filter):
         if alleleName in self.alleleLookupTable[self.locus]:
             if self.verboseFlag:
                 self.logFile.write("[%s exact match: ]" % alleleInfo)
-                    
+
         else:
             expandedList = []
             extraList = []
@@ -357,13 +357,13 @@ class AnthonyNolanFilter(Filter):
             # XXX00 (i.e. it ends in zeros)
 
             alleleInfo = self.locus + ":" + allele
-            
+
             prefix = allele[:-2]
             suffix = allele[-2:]
             if suffix == '00':
-                
+
                 self.logFile.write("[%s unresolved allele] " % alleleInfo)
-                
+
                 # first check to see if a variant XXX0n exists in the
                 # population and choose the one with the highest
                 # count
@@ -382,7 +382,7 @@ class AnthonyNolanFilter(Filter):
                 # if none with given prefix are found in population,
                 # then check database and find the first one with the
                 # lowest number of the form XXX0n
-                
+
                 else:
                     for i in xrange(1,9):
                         testAllele = "%s0%d" % (prefix, i)
@@ -395,7 +395,7 @@ class AnthonyNolanFilter(Filter):
                         # series
 
                         foundMatch = 0
-                        
+
                         for dbAllele in self.alleleLookupTable[self.locus]:
 
                             if dbAllele == testAllele:
@@ -422,7 +422,7 @@ class AnthonyNolanFilter(Filter):
     def startFiltering(self):
         self.logFile.opentag('translateTable', locus=self.locus)
         self.logFile.writeln()
-        
+
     def filterAllele(self, alleleName):
 
         if self.preserveAmbiguousFlag and len(alleleName.split("/")) > 1:
@@ -438,7 +438,7 @@ class AnthonyNolanFilter(Filter):
                 self.logFile.emptytag('translate', input=alleleName, output=transl)
                 self.logFile.writeln()
             return transl
-                
+
         else:
             transl = self.translTable[alleleName]
             if alleleName != transl:
@@ -458,7 +458,7 @@ class AnthonyNolanFilter(Filter):
 
 ################# translation methods begin here
     def makeSeqDictionaries(self, matrix=None, locus=None):
-        
+
         self.matrix = matrix
 
         # polyseq is a dictionary, keyed on 'locus*allele', of all
@@ -466,7 +466,7 @@ class AnthonyNolanFilter(Filter):
         # polyseqpos is a dictionary, keyed on 'locus', of the
         # positions of the polymorphic residues which you find in
         # polyseq.
-        
+
         self.polyseqpos = {}
         self.polyseq = {}
 
@@ -565,7 +565,7 @@ class AnthonyNolanFilter(Filter):
                 self.sequences[allele] = string.replace(self.sequences[allele],'.',self.unsequencedSite)
                 ##self.sequences[allele] = string.replace(self.sequences[allele],'X','*')
                 self.sequences[allele] = string.replace(self.sequences[allele],'X',self.unsequencedSite)
-                
+
             # pre-populates the polyseq dictionary with empty strings,
             # so we can then build the polymorphic sequences
             # letter-by-letter.  keyed on 'locus*allele'
@@ -706,7 +706,7 @@ class AnthonyNolanFilter(Filter):
         if self.debug:
             print(rowCount)
             print(colList)
-        
+
         seqMatrix = StringMatrix(rowCount, colList)
 
         for locus in self.matrix.colList:
@@ -727,7 +727,7 @@ class AnthonyNolanFilter(Filter):
                         letter1 = self.untypedAllele
                     if letter2 == '*':
                         letter2 = self.untypedAllele
-                    
+
                     ##if letter1 == '.' or letter1 == 'X' or letter1 == '*':
                         ##letter1 = self.untypedAllele
                     ##    letter1 = self.unsequencedSite
@@ -739,7 +739,7 @@ class AnthonyNolanFilter(Filter):
                               self._genOffsets(locus, pos)] = (letter1,letter2)
 
                     posCount += 1
-                    
+
                 individCount += 1
 
         if self.debug:
@@ -769,7 +769,7 @@ class AnthonyNolanFilter(Filter):
 
         # FIXME:  make the file name configurable
         self.filename = locus + self.sequenceFileSuffix + '.msf'
-        
+
         self.lines = open(os.path.join(self.directoryName, self.filename), 'r').readlines()
 
 
@@ -792,7 +792,7 @@ class AnthonyNolanFilter(Filter):
 
         # check length of seq against what we expected from the msf header
         if len(seq) < self.length:
-            # pad with X's if the length is too short 
+            # pad with X's if the length is too short
             if self.debug:
                 print('%s is found, PADDED with %d Xs so it equals alignment length (%d).' % (allele,self.length-len(seq),self.length))
             seq += 'X'*(self.length-len(seq))
@@ -811,7 +811,7 @@ class AnthonyNolanFilter(Filter):
 
 
     def _getConsensusFromLines(self, locus=None, allele=None):
-        
+
         # dictionary to store all the good matches we come up with.
         # this will be used to make the consensus
         closestMatches = {}
@@ -822,7 +822,7 @@ class AnthonyNolanFilter(Filter):
             # this is HLA specific!)
             if len(alleleSplit) == 5 and alleleSplit.isdigit():
                 alleleSplit = alleleSplit[:4] + '0' + alleleSplit[4:5]
-                
+
             # if the allele is 4 dig, ending in 00, we can safely chop
             # this off, as it won't be found in the seq dict
             if len(alleleSplit) == 4 and alleleSplit[2:4] == '00':
@@ -836,7 +836,7 @@ class AnthonyNolanFilter(Filter):
                         closestMatches[potentialMatch] = self._getSequenceFromLines(locus, potentialMatch)
 
         seq = ''
-        
+
         if len(closestMatches) == 0:
             if self.debug:
                 print('%s NOT found in the msf file, no close matches found.' % allele)
@@ -909,12 +909,12 @@ class BinningFilter:
         self.untypedAllele = untypedAllele
         self.customBinningDict = customBinningDict
         self.logFile = logFile
-    
+
     def doDigitBinning(self,matrix=None):
 
         self.logFile.opentag('DigitBinningFilter')
         self.logFile.writeln('<![CDATA[')
-        
+
         allele = ['','']
         for locus in matrix.colList:
             individCount = 0
@@ -925,17 +925,17 @@ class BinningFilter:
                         self.logFile.write("DigitBinning: " + locus + "* " + allele[i])
                         allele[i] = allele[i][:self.binningDigits]
                         self.logFile.writeln(" is being truncated to " + allele[i])
-                        
+
                 matrix[individCount,locus] = (allele[0],allele[1])
                 individCount += 1
 
         self.logFile.writeln(']]>')
         self.logFile.closetag('CustomBinningFilter')
         self.logFile.writeln()
-                
+
         return matrix
 
-        
+
     def doCustomBinning(self, matrix=None):
 
         self.logFile.opentag('CustomBinningFilter')
@@ -947,7 +947,7 @@ class BinningFilter:
             individCount = 0
 
             if locus.lower() in self.customBinningDict.keys():
-            
+
                 for individ in matrix[locus]:
                     for i in range(2):
                         individ[i] = str(individ[i])  # FIXME: matrix type is `ndarray` needs to be string for len() and other string operations
@@ -961,17 +961,17 @@ class BinningFilter:
                         else:
                             allele[i] = self.lookupCustomBinning(testAllele=individ[i], locus=locus)
 
-                    
+
                     matrix[individCount,locus] = (allele[0],allele[1])
                     individCount += 1
-                         
+
             else:
                self.logFile.writeln("Skipping CustomBinning filter for locus " + locus + " because no rules found.")
 
         self.logFile.writeln(']]>')
         self.logFile.closetag('CustomBinningFilter')
         self.logFile.writeln()
-          
+
         return matrix
 
     def lookupCustomBinning(self, testAllele, locus):
@@ -1023,8 +1023,8 @@ class BinningFilter:
             #self.logFile.writeln("No match found for: " + locus + "* " + testAllele + "!!!!!!!!")
             return(testAllele)
 
-                        
- 
+
+
 class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
     """Filters data with an allelecount less than a threshold.
 
@@ -1048,7 +1048,7 @@ class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
         # now, translate alleles with count < lumpThreshold to "lump"
 
         translKeys = self.translTable.keys()
-        
+
         for allele in translKeys:
 
             filteredAllele = self.translTable[allele]
@@ -1059,7 +1059,3 @@ class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
             # if below the threshold, make allele 'lump
             if self.countTable[filteredAllele] <= self.lumpThreshold:
                 self.translTable[allele] = 'lump'
-
-
-        
-

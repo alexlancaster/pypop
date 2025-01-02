@@ -110,7 +110,7 @@ matters, see the file named COPYING.
     testMode = args.testmode
     fileList = args.filelist
     outputDir = args.outputdir
-    popFilenames = args.popfiles      
+    popFilenames = args.popfiles
     ihwg_output = args.enable_ihwg
     PHYLIP_output = args.enable_phylip
 
@@ -175,7 +175,7 @@ matters, see the file named COPYING.
       # format (i.e. the .ini file format).
 
       pypoprcFilename = Path.home() / '.pypoprc'
-        
+
       pypoprc = ConfigParser()
 
       if os.path.isfile(pypoprcFilename):
@@ -184,7 +184,7 @@ matters, see the file named COPYING.
         fileName = pypoprc.get('Files', 'pop')
       else:
         configFilename = 'Choose your .ini file (no default)'
-        fileName = 'Choose your .pop file (no default)'          
+        fileName = 'Choose your .pop file (no default)'
 
       print(interactive_message)
 
@@ -199,7 +199,7 @@ matters, see the file named COPYING.
           print("""Select both an '.ini' configuration file and a '.pop' file via the
 system file dialog.""")
 
-          
+
           configFilename = askopenfilename(title="Please select a PyPop configuration file",
                                            initialfile=str(Path(configFilename).name),
                                            initialdir=str(Path(configFilename).parent),
@@ -217,10 +217,10 @@ return for each prompt.""")
 
           configFilename = getUserFilenameInput("config", configFilename)
           fileNames.append(getUserFilenameInput("population", fileName))
-      
+
       print("PyPop is processing %s ..." % fileNames[0])
 
-    else:   
+    else:
       # non-interactive mode: run in 'batch' mode
 
       if fileList:
@@ -236,7 +236,7 @@ return for each prompt.""")
       # otherwise bail out with error
       else:
         sys.exit("ERROR: neither a list of files, nor a file containing a list was provided")
-          
+
       # loop through all arguments in li, appending to list of files to
       # process, ensuring we expand any Unix-shell globbing-style
       # arguments
@@ -314,7 +314,7 @@ def main_interactive(argv=sys.argv):
     argv.append("-i")
     main(argv)
     input("Press Enter to exit...")
-      
+
 if __name__ == "__main__":
 
     DIR = os.path.abspath(os.path.dirname(__file__))

@@ -67,16 +67,16 @@ def _chen_statistic (genotype, alleleFreqs, genotypes,  total_gametes):
     p_jj = genotypes[allele2+GENOTYPE_SEPARATOR+allele2]/float(total_indivs)
   except KeyError:
     p_jj = 0.0
-    
+
   if (allele1 != allele2):
     # heterozygote case
 
     d = p_i*p_j - (0.5)*p_ij
     var = (1.0/float(total_gametes))*(p_i*p_j*((1-p_i)*(1-p_j) + p_i*p_j)
-                                      + p_i*p_i*(p_jj - p_j*p_j) 
+                                      + p_i*p_i*(p_jj - p_j*p_j)
                                       + p_j*p_j*(p_ii - p_i*p_i))
   else:
-    # homozygote case 
+    # homozygote case
     d = p_i*p_i - p_ii
     var = (1.0/float(total_indivs))*(pow(p_i, 4.0)-(2*pow(p_i,3.0))+(p_i*p_i))
 
@@ -123,7 +123,7 @@ class HardyWeinberg:
     self.k = len(self.alleleCounts)
 
     self.flagChenTest = flagChenTest
-    
+
     self._generateTables()
     self._calcChisq()
 
@@ -150,7 +150,7 @@ class HardyWeinberg:
     self.totalHetsObs = 0
     self.totalHomsExp = 0.0
     self.totalHetsExp = 0.0
-    
+
     # self.alleleTotal = 0
 
     if self.flagChenTest:
@@ -344,7 +344,7 @@ class HardyWeinberg:
 
         self.chisqByGenotype[genotype] = (squareMe * squareMe) / self.expectedGenotypeCounts[genotype]
         self.pvalByGenotype[genotype] = _Pvalue.pval(self.chisqByGenotype[genotype],1)
-        
+
         if self.debug:
           print('By Genotype:  obs exp   chi        p')
           print('          ', genotype, self.observedGenotypeCounts[genotype], self.expectedGenotypeCounts[genotype], self.chisqByGenotype[genotype], self.pvalByGenotype[genotype])
@@ -375,7 +375,7 @@ class HardyWeinberg:
             print('Observed: 0')
 
         # calculate the contribution of each genotype to it
-        # and tot up the cumulative chi-square 
+        # and tot up the cumulative chi-square
         self.commonGenotypeCounter += 1
         if genotype in self.observedGenotypeCounts:
           observedCount = self.observedGenotypeCounts[genotype]
@@ -386,7 +386,7 @@ class HardyWeinberg:
         self.chisq[genotype] = (squareMe * squareMe) / self.expectedGenotypeCounts[genotype]
 
         self.chisqPval[genotype] = _Pvalue.pval(self.chisq[genotype], 1)
-        
+
         self.commonChisqAccumulator += self.chisq[genotype]
         self.commonObservedAccumulator += observedCount
         self.commonExpectedAccumulator += self.expectedGenotypeCounts[genotype]
@@ -456,7 +456,7 @@ class HardyWeinberg:
           self.lumpedChisq = (squareMe * squareMe) / self.lumpedExpectedGenotypes
 
           self.lumpedChisqPval = _Pvalue.pval(self.lumpedChisq, 1)
-            
+
           self.flagLumps = 1
 
           if self.debug:
@@ -479,7 +479,7 @@ class HardyWeinberg:
           self.commonPlusLumpedExpected = self.commonExpectedAccumulator + self.lumpedExpectedGenotypes
           self.commonPlusLumpedChisqDf = self.commonDf
           self.commonPlusLumpedChisqPval = _Pvalue.pval(self.commonPlusLumpedChisq, self.commonPlusLumpedChisqDf)
-          
+
           self.flagCommonPlusLumped = 1
 
       else:
@@ -702,7 +702,7 @@ class HardyWeinberg:
             stream.emptytag("chenPvalue", role='not-calculated')
           stream.writeln()
 
-          
+
         stream.closetag("genotype")
         stream.writeln()
 
@@ -712,17 +712,17 @@ class HardyWeinberg:
 class HardyWeinbergGuoThompson(HardyWeinberg):
   """Wrapper class for 'gthwe'
 
-  A wrapper for the Guo & Thompson program 'gthwe'. 
+  A wrapper for the Guo & Thompson program 'gthwe'.
 
   - 'locusData', 'alleleCount':  As per base class.
-  
+
   In addition to the arguments for the base class, this class
   accepts the following additional keywords:
 
   - 'runMCMCTest': If enabled run the Monte Carlo-Markov chain (MCMC)
     version of the test (what is normally referred to as "Guo &
     Thompson")
-  
+
   - 'runPlainMCTest': If enabled run a plain Monte Carlo/randomization
     without the Markov-chain version of the test (this is also
     described in the original "Guo & Thompson" Biometrics paper, but
@@ -820,7 +820,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
         self.flattenedMatrix.append(int(output))
         self.flattenedMatrixNames.append(key2)
         self.totalGametes += int(output)
-               
+
   def dumpTable(self, locusName, stream, allelelump=0):
 
     if locusName[0] == '*':
@@ -886,7 +886,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
                       allelelump=("%d" % allelelump))
       self.serializeXMLTableTo(stream)
 
-      
+
       with TemporaryDirectory() as tmp:
         # generates temporary directory and filename, and cleans-up after block ends
         xml_tmp_filename=os.path.join(tmp, 'gthwe.out.xml')
@@ -900,7 +900,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
         # copy XML output to stream
         stream.write(fp.read())
         fp.close()
-        
+
       stream.closetag('hardyweinbergGuoThompson')
       stream.writeln()
 
@@ -920,7 +920,7 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
     from PyPop import _HweEnum
 
     self.HweEnumProcess = _HweEnum
-    
+
     HardyWeinbergGuoThompson.__init__(self,
                                       locusData=locusData,
                                       alleleCount=alleleCount,
@@ -940,14 +940,14 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
     else:
       self.diffPvals =  self.HweEnumProcess.get_diff_statistic_pvalue_ext()
       self.chenPvals =  self.HweEnumProcess.get_chen_statistic_pvalue_ext()
-      
-    
+
+
   def serializeTo(self, stream, allelelump=0):
     stream.opentag('hardyweinbergEnumeration',
                    allelelump=("%d" % allelelump))
 
     self.serializeXMLTableTo(stream)
-    
+
     stream.writeln()
     if self.doOverall:
       stream.tagContents("pvalue", "%f" % self.exactPValue, type="overall")
@@ -964,7 +964,7 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
       method="full"
     else:
       method="three-by-three"
-      
+
     for i in range(0, self.k):
       for j in range(0, i+1):
 
@@ -984,7 +984,7 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
         stream.writeln()
     stream.closetag('hardyweinbergEnumeration')
     self.HweEnumProcess.cleanup()
-    
+
 class HardyWeinbergGuoThompsonArlequin:
   """Wrapper class for 'Arlequin'.
 
@@ -1031,7 +1031,7 @@ class HardyWeinbergGuoThompsonArlequin:
 
     self.untypedAllele = untypedAllele
     self.noDataFlag = 0
-    
+
     # if no data, don't run analysis
     if len(self.matrix.filterOut(self.locusName, self.untypedAllele)) > 0:
 
@@ -1044,10 +1044,10 @@ class HardyWeinbergGuoThompsonArlequin:
                                      self.markovChainDememorisationStepsHW,
                                      untypedAllele = self.untypedAllele,
                                      debug=self.debug)
-      
+
       self.output = arlequin.getHWExactTest()
       arlequin.cleanup()
-      
+
     else:
       self.noDataFlag = 1
 
@@ -1063,13 +1063,13 @@ class HardyWeinbergGuoThompsonArlequin:
 
       # if this is monomorphic locus, can't do HW exact testwith
       # Arlequin, return an empty tag with role='monomorphic'
-      
+
       if self.output['1'] == 'monomorphic':
         stream.emptytag('hardyweinbergGuoThompsonArlequin', role='monomorphic')
         stream.writeln()
 
       else:
-        
+
         # only one locus done at a time from output
         genos, obsHet, expHet, pvalue, stddev, steps = self.output['1']
 
@@ -1088,5 +1088,3 @@ class HardyWeinbergGuoThompsonArlequin:
         stream.writeln()
         stream.closetag('hardyweinbergGuoThompsonArlequin')
         stream.writeln()
-      
-    

@@ -1,7 +1,7 @@
 /* This file is part of PyPop
-  
+
   Copyright (C) 1992. Sun-Wei Guo.
-  Modifications Copyright (C) 1999, 2003, 2004. 
+  Modifications Copyright (C) 1999, 2003, 2004.
   The Regents of the University of California (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -43,36 +43,36 @@ MODIFICATIONS. */
 *************************************************************************/
 #include "hwe.h"
 
-int read_data(int **genotypes, int **allele_array, int *no_allele, 
-	      int *total, struct randomization *sample, FILE **infile, 
+int read_data(int **genotypes, int **allele_array, int *no_allele,
+	      int *total, struct randomization *sample, FILE **infile,
 	      char *title)
 {
   register int i, j, l, err = 1;
 
   *total = 0;
-  
+
   if (fscanf(*infile, "%s", title) != 1)
     {
       fprintf(stderr, "Please supply title\n");
       printf("title %s", title);
       return (err);
     }
-  
+
   if (fscanf(*infile, "%d", no_allele) != 1)
     {
       fprintf(stderr, "Please supply number of alleles\n");
       return (err);
     }
-  
+
   if (*no_allele < 2)
     {
       fprintf(stderr, "***Error! Number of alleles less than 2. \n");
       return (err);
     }
-  
+
   /* now we know how big genotype array is calloc memory for it */
   *genotypes = calloc((*no_allele * (*no_allele + 1) / 2), sizeof(int));
-  
+
   /* likewise for allele_array */
   *allele_array = calloc(*no_allele, sizeof(int));
 
@@ -89,7 +89,7 @@ int read_data(int **genotypes, int **allele_array, int *no_allele,
 #endif
 	}
     }
-  
+
   if (fscanf(*infile, "%d %d %d \n", &sample->step,
 	     &sample->group, &sample->size) != 3)
     {
@@ -101,8 +101,7 @@ int read_data(int **genotypes, int **allele_array, int *no_allele,
       fprintf(stderr, "***Error in parameter specification.\n");
       return (err);
     }
-  
+
   return (0);
 
 }
-
