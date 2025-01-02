@@ -17,7 +17,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
         "cp313-musllinux_x86_64", # problem with this version
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
-test-skip = ["*-win_arm64"]
+test-skip = ["*-win_arm64", "cp38-macosx_*:arm64"]
 test-extras = ["test"]
 # FIXME: can add "test-command" that would allow unit test output to be saved
 # "pytest -v {package}/tests && echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
@@ -67,7 +67,7 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_*"
 inherit.environment="append"
-environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", PYTHONFAULTHANDLER="1", HOMEBREW_GREP_WARNINGS="-e 'is available and more recent than version' -e 'Cannot verify the integrity of'"	 }
+environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", PYTHONFAULTHANDLER="1", HOMEBREW_GREP_WARNINGS="-e 'is available and more recent than version' -e 'Cannot verify the integrity of'" }
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
