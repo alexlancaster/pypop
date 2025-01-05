@@ -303,5 +303,8 @@ jobs:
           # unpacks default artifact into dist/
           path: dist
           merge-multiple: true
+      - name: Exclude win_arm64 wheels
+        run: |
+          find dist -name '*win_arm64*.whl' -exec rm {} +
       - name: Publish package distributions to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1
