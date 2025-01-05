@@ -37,8 +37,6 @@
 
 """Module for collecting multiple population outputs."""
 
-from __future__ import annotations
-
 import os
 import sys
 from pathlib import Path

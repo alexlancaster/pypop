@@ -36,8 +36,6 @@
 
 """Module for exposing Arlequin functionality in Python."""
 
-from __future__ import annotations
-
 import os
 import re
 import shutil

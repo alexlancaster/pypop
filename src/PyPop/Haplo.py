@@ -36,8 +36,6 @@
 
 """Module for estimating haplotypes."""
 
-from __future__ import annotations
-
 import io
 import itertools as it
 import math

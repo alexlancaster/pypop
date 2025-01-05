@@ -32,10 +32,9 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-from __future__ import annotations
 
-import os
 import shutil
+from pathlib import Path
 
 citation_output_formats = [
     "apalike",
@@ -53,10 +52,10 @@ def convert_citation_formats(build_lib, citation_path):
     from cffconvert import Citation
 
     # target directory for the CITATION file within the build directory
-    target_dir = os.path.join(build_lib, "PyPop", "citation")
+    target_dir = Path(build_lib) / "PyPop" / "citation"
 
-    # create the citation directory if it doesn’t exist
-    os.makedirs(target_dir, exist_ok=True)
+    # create the citation directory if it doesn't exist
+    target_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy(citation_path, target_dir)
 
     # load the CITATION.cff content
@@ -72,7 +71,7 @@ def convert_citation_formats(build_lib, citation_path):
             converted_content = convert_method()
 
             # save the converted output (e.g., as CITATION.json)
-            with open(os.path.join(target_dir, "CITATION." + fmt), "w") as f:
+            with open(target_dir / f"CITATION.{fmt}", "w") as f:
                 f.write(converted_content)
         else:
             print(f"Conversion format '{fmt}' not supported.")

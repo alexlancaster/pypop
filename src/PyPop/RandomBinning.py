@@ -35,8 +35,6 @@
 
 """Python population genetics statistics."""
 
-from __future__ import annotations
-
 from copy import copy
 from random import randrange
 

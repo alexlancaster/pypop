@@ -39,8 +39,6 @@ Contains convenience classes for output of text and XML
 files.
 """
 
-from __future__ import annotations
-
 import copy
 import operator
 import os

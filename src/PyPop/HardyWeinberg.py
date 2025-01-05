@@ -36,8 +36,6 @@
 
 """Module for calculating Hardy-Weinberg statistics."""
 
-from __future__ import annotations
-
 import os
 import sys
 from math import pow

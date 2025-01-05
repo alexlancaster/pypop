@@ -39,8 +39,6 @@ Includes classes for parsing individuals genotyped at multiple loci
 and classes for parsing literature data which only includes allele
 counts."""
 
-from __future__ import annotations
-
 import operator
 
 from PyPop.Utils import OrderedDict, StringMatrix, getStreamType

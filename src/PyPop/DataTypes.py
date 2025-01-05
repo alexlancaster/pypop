@@ -35,8 +35,6 @@
 
 """Module for storing genotype and allele count data."""
 
-from __future__ import annotations
-
 import re
 import string
 

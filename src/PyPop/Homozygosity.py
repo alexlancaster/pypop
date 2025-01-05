@@ -35,8 +35,6 @@
 
 """Module for calculating homozygosity statistics."""
 
-from __future__ import annotations
-
 import math
 import os
 import string

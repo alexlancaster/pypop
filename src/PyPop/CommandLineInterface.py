@@ -32,8 +32,6 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". CONTRIBUTORS HAVE NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-from __future__ import annotations
-
 from argparse import (
     Action,
     ArgumentDefaultsHelpFormatter,
