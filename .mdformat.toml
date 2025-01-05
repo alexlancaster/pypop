@@ -1,5 +1,5 @@
 number = true
-exclude = [
-	"CHANGELOG.md",
-	"paper/**"
-	]
+#exclude = [
+#	"CHANGELOG.md",
+#	"paper/**"
+#	]

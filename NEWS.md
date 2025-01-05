@@ -1,7 +1,7 @@
 # NEWS
 
 All notable changes to this project (especially user-visible ones)
-will be documented in this file.  It mostly consists of the
+will be documented in this file. It mostly consists of the
 concatenated release notes.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
@@ -28,9 +28,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Add new command-line option `--citation` for installed version by @alexlancaster ([#228](https://github.com/alexlancaster/pypop/pull/228))
 - Update to latest `sphinx` and add subtitle by @alexlancaster ([#220](https://github.com/alexlancaster/pypop/pull/220))
 
-[1.1.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.2
-
-
 ## [1.1.1] - 2024-09-10
 
 ### Features
@@ -52,8 +49,6 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Bump pypa/cibuildwheel from 2.19.0 to 2.19.1 in the actions group by @dependabot ([#210](https://github.com/alexlancaster/pypop/pull/210))
 - Bump pypa/cibuildwheel from 2.18.1 to 2.19.0 in the actions group by @dependabot ([#208](https://github.com/alexlancaster/pypop/pull/208))
 
-[1.1.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.1
-
 ## [1.1.0] - 2024-05-30
 
 This release increases the minimum macOS requirements to Catalina (Intel) and Big Sur (Silicon) to ensure binary compatibility with the GNU Scientific Library (`gsl`) on those platforms. Thanks to @sjmack for testing.
@@ -73,8 +68,6 @@ This release increases the minimum macOS requirements to Catalina (Intel) and Bi
 
 - fix reversed links (#203) by @alexlancaster ([#204](https://github.com/alexlancaster/pypop/pull/204))
 
-[1.1.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.0
-
 ## [1.0.2] - 2024-02-24
 
 ### Bug Fixes
@@ -90,13 +83,11 @@ This release increases the minimum macOS requirements to Catalina (Intel) and Bi
 
 - Documentation updates including security policy by @alexlancaster ([#194](https://github.com/alexlancaster/pypop/pull/194))
 
-[1.0.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.2
-
 ## [1.0.1] - 2024-02-11
 
 ### Features
 
-- Add  `[CustomBinning]` filtering unit tests for G and P-codes by @alexlancaster ([#186](https://github.com/alexlancaster/pypop/pull/186))
+- Add `[CustomBinning]` filtering unit tests for G and P-codes by @alexlancaster ([#186](https://github.com/alexlancaster/pypop/pull/186))
 
 ### Bug Fixes
 
@@ -126,9 +117,6 @@ This release increases the minimum macOS requirements to Catalina (Intel) and Bi
 - Convert bibliography to bibtex by @alexlancaster ([#176](https://github.com/alexlancaster/pypop/pull/176))
 - Convert `NEWS.rst` to `NEWS.md`, improve PDF documentation output by @alexlancaster ([#175](https://github.com/alexlancaster/pypop/pull/175))
 
-[1.0.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.1
-
-
 ## [1.0.0] - 2023-11-07
 
 PyPop 1.0.0 is the first official release of PyPop using Python 3, and
@@ -137,10 +125,10 @@ modern libraries, there are some new features, such as the new
 asymmetric LD measures, and better handling of TSV files, along with
 the typical slew of bug fixes. Many more changes are of an "under the
 hood" nature, such as a new unit testing and documentation framework,
-and are detailed below.  Many people contributed to this latest
+and are detailed below. Many people contributed to this latest
 release, which has been a while in coming. Thanks especially to all
 new contributors including Vanessa Sochat, Gordon Webster,
-Jurriaan H. Spaaks, Karl Kornel and Michael Mariani.  Thanks also to
+Jurriaan H. Spaaks, Karl Kornel and Michael Mariani. Thanks also to
 all of our bug reporters, and ongoing contributors, especially Richard
 Single, Owen Solberg and Steve Mack.
 
@@ -223,7 +211,7 @@ Single, Owen Solberg and Steve Mack.
   (report from Steve Mack)
 
 - Fix issues with using colons in alleles, and other separation
-  isssues (thanks to Steve Mack)
+  issues (thanks to Steve Mack)
 
 - Use `~` as the genotype terminator rather than `|` (fixes some
   haplotype estimation bugs)
@@ -261,13 +249,11 @@ Single, Owen Solberg and Steve Mack.
 - Only build wheels on platforms for which binary wheels are available
   for all dependencies.
 
-[1.0.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.0
-
 ## [0.7.0] - 2008-09-09
 
 ### New features
 
-- `makeNewPopFile` option has been changed.  This option allows user to
+- `makeNewPopFile` option has been changed. This option allows user to
   generate intermediate output of filtered files. Now option should
   be of the format: `type:order` where `type` is one of
   `separate-loci` or `all-loci` so that the user can specify whether
@@ -280,7 +266,7 @@ Single, Owen Solberg and Steve Mack.
 - New command-line option `--generate-tsv`, will generate the `.dat`
   tab-separated values (TSV) files on the the generated -out.xml
   files (aka "popmeta") directly from pypop without needing to run
-  additional script.  Now output from pypop can be directly read
+  additional script. Now output from pypop can be directly read
   into spreadsheet.
 
 - New feature: add individual genotype tests to Hardy-Weinberg module
@@ -293,7 +279,7 @@ Single, Owen Solberg and Steve Mack.
 
 - New feature: generate homozygosity values using the Ewens-Watterson test for
   all pairwise loci, or all sites within a gene for sequence data
-  (`[homozygosityEWSlatkinExactPairwise]` in .ini file).  Note: this
+  (`[homozygosityEWSlatkinExactPairwise]` in .ini file). Note: this
   really only works for sequence data where the phase for sites
   within an allele are known.
 
@@ -308,7 +294,7 @@ Single, Owen Solberg and Steve Mack.
 
 - Support Python 2.4 on GCC 4.0 platforms.
 - Add missing initialisation for non-sequence data when processing
-  haplotypes.  Thanks to Jill Hollenbach for the report.
+  haplotypes. Thanks to Jill Hollenbach for the report.
 - Fix memory leak in xslt translation.
 - Various fixes relating to parsing XML output.
 - Fixed an incorrect parameter name.
@@ -318,7 +304,7 @@ Single, Owen Solberg and Steve Mack.
 - Make name of source package be lowercase "pypop".
 - Change data directory: /usr/share/pypop/ to /usr/share/PyPop/
 - Print out warning when maximum length of allele exceeded, rather than
-  crashing.  Thanks to Steve Mack for report.
+  crashing. Thanks to Steve Mack for report.
 
 ### Other issues
 
@@ -337,22 +323,20 @@ Single, Owen Solberg and Steve Mack.
     not untyped alleles.
   - Add another special case for HLA data: test for 7 digits in allele names
     (e.g. if 2402101 is not found insert a zero after the first 4
-    digits to form 24020101, and check for that).  This is to cope
+    digits to form 24020101, and check for that). This is to cope
     with yet-another HLA nomenclature change.
 
 - Change semantics of batchsize, make "0" (default) process files separately
-  if only R dat files is enabled.  If batchsize not set explicitly
+  if only R dat files is enabled. If batchsize not set explicitly
   (and therefore 0) set batchsize to `1` is PHYLIP mode is enabled.
-
-[0.7.0]: https://github.com/alexlancaster/pypop/releases/tag/PYPOP_SRC-0_7_0
 
 ## 0.6.0 - 2005-04-13
 
 ### New features
 
 - Allow for odd allele counts when processing an allele count data
-  (i.e "semi"-typing).  When PyPop is dealing with data that is
-  originally genotyped, the current default is preserved i.e.  we
+  (i.e "semi"-typing). When PyPop is dealing with data that is
+  originally genotyped, the current default is preserved i.e. we
   dis-allow individuals that are typed at only allele, and set
   allowSemiTyped to false.
 - New command-line option `-f` (long version `--filelist`) which
@@ -361,51 +345,50 @@ Single, Owen Solberg and Steve Mack.
   INPUTFILEs, and will abort with an error message if you supply
   both simultaneously).
 - In batch version, handle multiple INPUTFILEs supplied as command-line
-  arguments and support Unix shell-globbing syntax (e.g. `pypop.py
-  -c config.ini *.pop`). (NOTE: This is supported *only* in
+  arguments and support Unix shell-globbing syntax (e.g. `pypop.py -c config.ini *.pop`). (NOTE: This is supported *only* in
   batch version, not in the interactive version, which expects one
   and only one file supplied by user.
 - Allele count files can now be filtered through the filter apparatus
   (particularly the Sequence and AnthonyNolan) in the same was as
-  genotype files transparently.  \[This has been enabled via a code
+  genotype files transparently. \[This has been enabled via a code
   refactor that treats allele count files as pseudo-genotype files
-  for the purpose of filtering\].  This change also resulted in the
+  for the purpose of filtering\]. This change also resulted in the
   removal of the obsolete lookup-table-based homozygosity test.
 - Add `--disable-ihwg` option to popmeta script to disable hardcoded
   generation of the IHWG header output, and use the output as
-  defined in the header in the original .pop input text file.  This
+  defined in the header in the original .pop input text file. This
   is disabled by default to preserve backwards compatibility.
-- Add `--batchsize` (`-b` short version) option  for popmeta.  Does the
-  processing in "batches".  If set and greater than one, list of XML
-  files is split into batchsize group.  For example, if there are 20
+- Add `--batchsize` (`-b` short version) option for popmeta. Does the
+  processing in "batches". If set and greater than one, list of XML
+  files is split into batchsize group. For example, if there are 20
   XML files and option is via using ("-b 2" or "--batchsize=2") then
   the files will be processed in two batches, each consisting of 10
-  files.  If the number does not divide evenly, the last list will
-  contain all the "left-over" files.  This option is particularly
+  files. If the number does not divide evenly, the last list will
+  contain all the "left-over" files. This option is particularly
   useful with large XML files that may not fit in memory all at
-  once.  Note this option is mutually exclusive with the
+  once. Note this option is mutually exclusive with the
   `--enable-PHYLIP` option because the PHYLIP output needs to
   calculate allele frequencies across all populations before
   generating files.
 - New .ini file option: `[HardyWeinbergGuoThompsonMonteCarlo]`: add a plain
   Monte-Carlo (randomization, without the Markov chain test) test
-  for the HardyWeinberg "exact test".  Add code for Guo & Thompson
+  for the HardyWeinberg "exact test". Add code for Guo & Thompson
   test to distribution (now under GNU GPL).
 
 ### Bug fixes
 
 - HardyWeinbergGuoThompson overall p-value test was numerically unstable
   because it attempted to check for equality in greater than or
-  equal to constructs ("\<=") which is not reliable in C.  Replaced
+  equal to constructs ("\<=") which is not reliable in C. Replaced
   this with a GNU Scientific Library (GSL) function gsl_fcmp() which
   compares floats to within an EPSILON (defaults to 1e-6).
 - Allow `HardyWeinbergGuoThompson` test to be run if at least two alleles
   present (test was originally failing with a `too-few-alleles`
-  message if there were not at least 3 alleles).  Thanks to Kristie
+  message if there were not at least 3 alleles). Thanks to Kristie
   Mather for the report.
 - Checks to see if a locus is monomorphic, if it is, it generates an
   allele summary report, but skips the rest of the single locus
-  analyses which do not make sense for monomorphic locus.  Thanks to
+  analyses which do not make sense for monomorphic locus. Thanks to
   Steve Mack and Owen Solberg for the bug report(s).
 - Now builds against recent versions of SWIG (no longer stuck at version
   1.3.9), should be compatible with versions of SWIG > 1.3.10.
@@ -432,7 +415,7 @@ Single, Owen Solberg and Steve Mack.
   haplotype estimation and LD algorithm used before performing
   permutations. Defaults to 50.
 - Remove some LOG messages/diagnostics that were erroneously implying
-  an error to the user (if nothing is wrong, don't say anything).  Add
+  an error to the user (if nothing is wrong, don't say anything). Add
   some more useful messages for what is being done in haplo/LD
   estimation step.
 - Add popmeta.py to the distribution: this is undocumented and unsupported
@@ -465,3 +448,11 @@ Single, Owen Solberg and Steve Mack.
 
 - Fixed bug in processing of `popname` field.
   Thanks to Richard Single for the report.
+
+[0.7.0]: https://github.com/alexlancaster/pypop/releases/tag/PYPOP_SRC-0_7_0
+[1.0.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.0
+[1.0.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.1
+[1.0.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.0.2
+[1.1.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.0
+[1.1.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.1
+[1.1.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.2
