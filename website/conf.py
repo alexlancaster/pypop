@@ -96,7 +96,7 @@ guide_pdf_link = "`PDF <../%s.pdf>`__" % guide_prefix
 rst_epilog = """
 .. |pkgname| replace:: %s
 .. |guide_subtitle| replace:: **%s**
-.. |htmlauthor| replace:: %s 
+.. |htmlauthor| replace:: %s
 .. |full_release| replace:: %s
 .. |uc_copyright| replace:: %s
 .. |copyright| replace:: %s
@@ -171,7 +171,7 @@ class AlphaInitialsStyle(AlphaStyle):
     default_name_style = 'lastfirst' # put the lastname first
     default_label_style = 'alpha' # 'number' or 'alpha'
     default_sorting_style = 'author_year_title'
-    
+
     def __init__(self, **kwargs):
         super().__init__(abbreviate_names=True, **kwargs) # abbreviate initials
 
@@ -186,7 +186,7 @@ class AlphaInitialsStyle(AlphaStyle):
             optional [ self.format_url(e),
                        optional [ ' (accessed on ', field('urldate'), ')' ] ],
             ]
-        
+
 pybtex.plugin.register_plugin('pybtex.style.formatting', 'alpha-initials', AlphaInitialsStyle)
 
 bibtex_default_style = 'alpha-initials'
@@ -211,7 +211,7 @@ html_short_title = "PyPop"
 #
 html_theme_options = { # these are both piccolo theme-specific
     "source_url": 'https://github.com/alexlancaster/pypop/',
-    "banner_text": 'Our new paper on PyPop has been published!<br/>Read it in <em><a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full">Frontiers in Immunology</a></em>.<br/>'
+    "banner_text": 'Experimental Windows ARM64 wheels are available on Test PyPI<br/>See PyPop News on the <a href="http:/pypop.org/">home page</a> for installation details<br/>'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -236,7 +236,7 @@ html_extra_path = ['html_root']
 #    ]
 #}
 
-#html_sidebars = { 'index': [], '**': ['localtoc.html'] } 
+#html_sidebars = { 'index': [], '**': ['localtoc.html'] }
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -264,10 +264,10 @@ my_latex_preamble_template = r'''\DeclareRobustCommand{\and}{%
 
 \usepackage{pagenote}
 \makepagenote
-% \renewcommand*{\notesname}{End Notes}    
+% \renewcommand*{\notesname}{End Notes}
 \renewcommand*{\notedivision}{\subsubsection*{\notesname}}
 \renewcommand*{\pagenotesubhead}[2]{}
-    
+
 \usepackage{environ}% http://ctan.org/pkg/environ
 
 \newcommand{\OverwriteEnviron}[1]{%
@@ -282,7 +282,7 @@ my_latex_preamble_template = r'''\DeclareRobustCommand{\and}{%
 \usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
 \pretocmd{\chapter}{%
   % only print chapter endnotes if there is at least one footnote
-  \ifnumcomp{\thepagenote}{>}{0}{ 
+  \ifnumcomp{\thepagenote}{>}{0}{
    \begingroup
    \scriptsize
    \linespread{0.5} %regulate line spacing
@@ -390,7 +390,3 @@ class MyLiteralInclude(LiteralInclude):
 
 def setup(app):
     app.add_directive('literalinclude', MyLiteralInclude, override=True)
-
-        
-
-        
