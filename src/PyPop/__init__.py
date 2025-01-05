@@ -32,48 +32,57 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+from __future__ import annotations
 
 import platform
 
-__pkgname__ = 'pypop-genomics'
-__version_scheme__ = 'post-release'
+__pkgname__ = "pypop-genomics"
+__version_scheme__ = "post-release"
 
 try:
-    import importlib.metadata as metadata_lib # look for built-in
+    import importlib.metadata as metadata_lib  # look for built-in
 except (ModuleNotFoundError, ImportError):
     import importlib_metadata as metadata_lib  # otherwise need the backport
 
 try:
-    __version__ = metadata_lib.version(__pkgname__) # use the installed version first
+    __version__ = metadata_lib.version(__pkgname__)  # use the installed version first
 except metadata_lib.PackageNotFoundError:
     from setuptools_scm import get_version
-    __version__ = get_version(version_scheme=__version_scheme__, root="../..", relative_to=__file__)  # next try the version in repo
+
+    __version__ = get_version(
+        version_scheme=__version_scheme__, root="../..", relative_to=__file__
+    )  # next try the version in repo
 
 copyright_message = """Copyright (C) 2003-2006 Regents of the University of California.
 Copyright (C) 2007-2023 PyPop team.
 This is free software.  There is NO warranty; not even for
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
 
-platform_info="[Python {python_version} | {system} | {arch}]".format(python_version=platform.python_version(), system=platform.platform(), arch=platform.machine())
+platform_info = f"[Python {platform.python_version()} | {platform.platform()} | {platform.machine()}]"
 
 import locale
 import logging
 import platform
 import sys
 
+
 def setup_logging(debug=False, filename=None):
     """Provide defaults for logging."""
     level = logging.DEBUG if debug else logging.INFO
     if filename is None:
-        filename = '-'
+        filename = "-"
 
-    if filename == '-':
+    if filename == "-":
         hand = logging.StreamHandler()
     else:
         hand = logging.FileHandler(filename)
 
-    fmt = '%(asctime)s %(levelname)s %(funcName)s: %(message)s' if level == logging.DEBUG else '%(asctime)s %(message)s'
-    datefmt = '%Y.%m.%d %H:%M:%S'
+    fmt = (
+        "%(asctime)s %(levelname)s %(funcName)s: %(message)s"
+        if level == logging.DEBUG
+        else "%(asctime)s %(message)s"
+    )
+    datefmt = "%Y.%m.%d %H:%M:%S"
     hand.setFormatter(logging.Formatter(fmt, datefmt))
 
     root_logger = logging.getLogger()
@@ -81,7 +90,7 @@ def setup_logging(debug=False, filename=None):
     root_logger.handlers = []
     root_logger.addHandler(hand)
 
-    logging.debug('PyPop: %s' % __version__)
-    logging.debug('Python: %s' % sys.version.replace('\n', ' '))
-    logging.debug('Platform: %s' % platform.platform())
-    logging.debug('Locale: %s' % locale.setlocale(locale.LC_ALL))
+    logging.debug("PyPop: %s" % __version__)
+    logging.debug("Python: %s" % sys.version.replace("\n", " "))
+    logging.debug("Platform: %s" % platform.platform())
+    logging.debug("Locale: %s" % locale.setlocale(locale.LC_ALL))

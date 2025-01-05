@@ -33,30 +33,32 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Python population genetics statistics.
-"""
+"""Python population genetics statistics."""
 
-import string
+from __future__ import annotations
+
 from copy import copy
 from random import randrange
 
-from PyPop.Filter import AnthonyNolanFilter
-from PyPop.Homozygosity import getObservedHomozygosityFromAlleleData, HomozygosityEWSlatkinExact
+from PyPop.Homozygosity import (
+    HomozygosityEWSlatkinExact,
+)
+
 
 class RandomBinsForHomozygosity:
-
-    def __init__(self,
-                 directoryName=None,
-                 logFile=None,
-                 untypedAllele='****',
-                 filename=None,
-                 numReplicates=10000,
-                 binningReplicates=100,
-                 locus=None,
-                 xmlfile=None,
-                 debug=0,
-                 randomResultsFileName=None):
-
+    def __init__(
+        self,
+        directoryName=None,
+        logFile=None,
+        untypedAllele="****",
+        filename=None,
+        numReplicates=10000,
+        binningReplicates=100,
+        locus=None,
+        xmlfile=None,
+        debug=0,
+        randomResultsFileName=None,
+    ):
         self.untypedAllele = untypedAllele
         self.binningReplicates = binningReplicates
         self.numReplicates = numReplicates
@@ -69,32 +71,43 @@ class RandomBinsForHomozygosity:
         self.logFile = logFile
         self.alleleCountDict = {}
         self.randomResultsFile = open(randomResultsFileName, "w")
-        self.randomResultsFile.write("\t".join("filename locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split()) + "\n" )
+        self.randomResultsFile.write(
+            "\t".join(
+                "filename locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split()
+            )
+            + "\n"
+        )
 
-    def _dumpResults(self, alleleCountsBefore=None, alleleCountsAfter=None, randMethod=None):
-
+    def _dumpResults(
+        self, alleleCountsBefore=None, alleleCountsAfter=None, randMethod=None
+    ):
         # append the before and after allele counts to the dictionary
         # so we can look up all of the stats en masse
         self.alleleCountDict[tuple(alleleCountsBefore)] = "before"
         self.alleleCountDict[tuple(alleleCountsAfter)] = "after"
 
         if self.debug:
-            print('alleleCountsBefore', alleleCountsBefore)
-            print('alleleCountsAfter', alleleCountsAfter)
-            print('alleleCountDict', self.alleleCountDict)
+            print("alleleCountsBefore", alleleCountsBefore)
+            print("alleleCountsAfter", alleleCountsAfter)
+            print("alleleCountDict", self.alleleCountDict)
 
-        hzExactObj = HomozygosityEWSlatkinExact(numReplicates=self.numReplicates, debug=self.debug)
-        stats = hzExactObj.returnBulkHomozygosityStats(self.alleleCountDict, binningMethod=self.binningMethod)
+        hzExactObj = HomozygosityEWSlatkinExact(
+            numReplicates=self.numReplicates, debug=self.debug
+        )
+        stats = hzExactObj.returnBulkHomozygosityStats(
+            self.alleleCountDict, binningMethod=self.binningMethod
+        )
 
         for s in stats:
             for m in range(stats[s]):
                 s = list(map(str, s))
-                self.randomResultsFile.write("\t".join([self.filename, self.locus] + s) + "\n")
+                self.randomResultsFile.write(
+                    "\t".join([self.filename, self.locus] + s) + "\n"
+                )
 
         self.randomResultsFile.close()
 
     def _updateCountDict(self, alleleCounts=None):
-
         alleleCounts.sort()
         alleleCounts = tuple(alleleCounts)
 
@@ -106,9 +119,7 @@ class RandomBinsForHomozygosity:
         else:
             self.alleleCountDict[alleleCounts] = 1
 
-
     def randomMethod(self, alleleCountsBefore=None, alleleCountsAfter=None):
-
         self.binningMethod = "random"
 
         # we don't need the dictionary in this case, just the counts
@@ -119,8 +130,8 @@ class RandomBinsForHomozygosity:
             alleleCountsRand = copy(list(alleleCountsBefore))
 
             while len(alleleCountsRand) > len(alleleCountsAfter):
-                bin1 = randrange(0,len(alleleCountsRand),1)
-                bin2 = randrange(0,len(alleleCountsRand),1)
+                bin1 = randrange(0, len(alleleCountsRand), 1)
+                bin2 = randrange(0, len(alleleCountsRand), 1)
 
                 if bin1 != bin2:
                     alleleCountsRand[bin1] += alleleCountsRand[bin2]
@@ -130,14 +141,13 @@ class RandomBinsForHomozygosity:
 
         self._dumpResults(alleleCountsBefore, alleleCountsAfter)
 
-
-    def sequenceMethod(self,
-                       alleleCountsBefore=None,
-                       alleleCountsAfter=None,
-                       polyseq=None,
-                       polyseqpos=None):
-
-
+    def sequenceMethod(
+        self,
+        alleleCountsBefore=None,
+        alleleCountsAfter=None,
+        polyseq=None,
+        polyseqpos=None,
+    ):
         self.binningMethod = "sequence"
 
         binningAttempts = 0
@@ -155,10 +165,9 @@ class RandomBinsForHomozygosity:
             weightedCollapseHistory[pos] = 0
 
         while binningAttemptsSuccessful < self.binningReplicates:
-
             alleleCountsRand = {}
             for allele in alleleCountsBefore:
-                alleleCountsRand[self.locus+"*"+allele] = alleleCountsBefore[allele]
+                alleleCountsRand[self.locus + "*" + allele] = alleleCountsBefore[allele]
 
             polyseqSliced = copy(polyseq)
             polyseqposDeletes = copy(polyseqpos)
@@ -167,35 +176,40 @@ class RandomBinsForHomozygosity:
             weightedCollapseHistorySaved = copy(weightedCollapseHistory)
 
             try:
-                del polyseqSliced[self.locus+"*"+self.untypedAllele]
+                del polyseqSliced[self.locus + "*" + self.untypedAllele]
             except:
                 if self.debug:
                     print("no untyped allele in polyseq")
 
             while len(alleleCountsRand) > len(alleleCountsAfter):
-
                 seqLength = len(polyseqSliced.values()[0])
-                posToDelete = randrange(0,seqLength,1)
+                posToDelete = randrange(0, seqLength, 1)
                 absolutePosToDelete = polyseqposDeletes[posToDelete]
                 deleteHistory[absolutePosToDelete] += 1
                 deleteHistoryAll[absolutePosToDelete] += 1
                 allelesToBin = []
 
                 if self.debug:
-                    print("polyseq",polyseqSliced)
-                    print("posToDelete",posToDelete)
-                    print("length of polyseq before",seqLength)
-                    print("alleles before binning",alleleCountsRand)
+                    print("polyseq", polyseqSliced)
+                    print("posToDelete", posToDelete)
+                    print("length of polyseq before", seqLength)
+                    print("alleles before binning", alleleCountsRand)
 
                 # deletes the selected character from each sequence
                 for allele in polyseqSliced:
-                    polyseqSliced[allele] = polyseqSliced[allele][:posToDelete] + polyseqSliced[allele][posToDelete+1:]
+                    polyseqSliced[allele] = (
+                        polyseqSliced[allele][:posToDelete]
+                        + polyseqSliced[allele][posToDelete + 1 :]
+                    )
                 del polyseqposDeletes[posToDelete]
 
                 # go thru again to check to see what we have collapsed
                 for allele in polyseqSliced:
                     for allele2 in polyseqSliced:
-                        if polyseqSliced[allele] == polyseqSliced[allele2] and allele != allele2:
+                        if (
+                            polyseqSliced[allele] == polyseqSliced[allele2]
+                            and allele != allele2
+                        ):
                             if allele not in allelesToBin:
                                 allelesToBin.append(allele)
                             if allele2 not in allelesToBin:
@@ -210,7 +224,9 @@ class RandomBinsForHomozygosity:
                 # to thru again and tally up the statistics
                 for allele in allelesToBin:
                     collapseHistory[absolutePosToDelete] += 1
-                    weightedCollapseHistory[absolutePosToDelete] += alleleCountsRand[allele]
+                    weightedCollapseHistory[absolutePosToDelete] += alleleCountsRand[
+                        allele
+                    ]
 
                 # go thru one more time to delete the collapse-ees
                 for allele in allelesToBin[1:]:
@@ -218,9 +234,9 @@ class RandomBinsForHomozygosity:
                     del polyseqSliced[allele]
 
                 if self.debug:
-                    print("length of polyseq after",len(polyseqSliced.values()[0]))
-                    print("allelesToBin",allelesToBin)
-                    print("alleles after binning",alleleCountsRand)
+                    print("length of polyseq after", len(polyseqSliced.values()[0]))
+                    print("allelesToBin", allelesToBin)
+                    print("alleles after binning", alleleCountsRand)
                     print("--------------------")
 
             binningAttempts += 1
@@ -238,19 +254,39 @@ class RandomBinsForHomozygosity:
                 weightedCollapseHistory = copy(weightedCollapseHistorySaved)
 
             if binningAttempts > (self.binningReplicates * 100):
-                print("FilterLog: Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful))
-                self.logFile.writeln("Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates." % (self.locus, self.binningReplicates, binningAttemptsSuccessful) )
+                print(
+                    "FilterLog: Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates."
+                    % (self.locus, self.binningReplicates, binningAttemptsSuccessful)
+                )
+                self.logFile.writeln(
+                    "Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates."
+                    % (self.locus, self.binningReplicates, binningAttemptsSuccessful)
+                )
                 break
-
 
         self._dumpResults(alleleCountsBefore.values(), alleleCountsAfter.values())
 
         # THIS GOES IN FILTER LOG FILE
-        self.logFile.writeln('Tried %d times to get %d random binnings.' % (binningAttempts, binningAttemptsSuccessful))
-        self.logFile.writeln('locus\tposition\ttimesDeleted\ttimesDeletedAll\tcollapses\tcollapsesWeighted')
+        self.logFile.writeln(
+            "Tried %d times to get %d random binnings."
+            % (binningAttempts, binningAttemptsSuccessful)
+        )
+        self.logFile.writeln(
+            "locus\tposition\ttimesDeleted\ttimesDeletedAll\tcollapses\tcollapsesWeighted"
+        )
         for pos in polyseqpos:
-            self.logFile.writeln('\t'.join([self.locus, str(pos),
-                                            str(deleteHistory[pos]/float(binningAttemptsSuccessful)),
-                                            str(deleteHistoryAll[pos]/float(binningAttemptsSuccessful)),
-                                            str(collapseHistory[pos]/float(binningAttemptsSuccessful)),
-                                            str(weightedCollapseHistory[pos]/float(binningAttemptsSuccessful))]))
+            self.logFile.writeln(
+                "\t".join(
+                    [
+                        self.locus,
+                        str(pos),
+                        str(deleteHistory[pos] / float(binningAttemptsSuccessful)),
+                        str(deleteHistoryAll[pos] / float(binningAttemptsSuccessful)),
+                        str(collapseHistory[pos] / float(binningAttemptsSuccessful)),
+                        str(
+                            weightedCollapseHistory[pos]
+                            / float(binningAttemptsSuccessful)
+                        ),
+                    ]
+                )
+            )

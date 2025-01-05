@@ -33,21 +33,24 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Python population genetics statistics.
-"""
+"""Python population genetics statistics."""
 
-import sys, os, time
-from glob import glob
+from __future__ import annotations
+
+import os
+import sys
 from configparser import ConfigParser
+from glob import glob
 from pathlib import Path
 
-def main(argv=sys.argv):
 
-    from PyPop import platform_info
+def main(argv=sys.argv):
+    from PyPop import __version__ as version
+    from PyPop import copyright_message, platform_info
     from PyPop.CommandLineInterface import get_pypop_cli
-    from PyPop import copyright_message, __version__ as version
-    from PyPop.Main import Main, getConfigInstance, getUserFilenameInput, checkXSLFile
+    from PyPop.Main import Main, checkXSLFile, getConfigInstance
     from PyPop.Meta import Meta
+    from PyPop.Utils import getUserFilenameInput
 
     ######################################################################
     # BEGIN: CHECK PATHS and FILEs
@@ -57,13 +60,12 @@ def main(argv=sys.argv):
     # installed, e.g. if python is installed in sys.prefix='/usr'
     # we look in /usr/share/pypop, /usr/bin/pypop etc.
     # FIXME: this should be removed
-    datapath = os.path.join(sys.prefix, 'share', 'pypop')
-    binpath = os.path.join(sys.prefix, 'bin')
-    altpath = os.path.join(datapath, 'config.ini')
+    datapath = os.path.join(sys.prefix, "share", "pypop")
+    binpath = os.path.join(sys.prefix, "bin")
+    altpath = os.path.join(datapath, "config.ini")
 
     # find our exactly where the current pypop is being run from
     pypopbinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
-
 
     ######################################################################
     # END: CHECK PATHS and FILEs
@@ -94,12 +96,19 @@ matters, see the file named COPYING.
     args = parser.parse_args(argv[1:])
 
     # IHWG and PHYLIP output only make sense if '-t' also supplied
-    if (args.enable_ihwg or args.enable_phylip or args.prefix_tsv) and (not args.enable_tsv):
-        parser.error('--enable-iwhg, --enable-phylip or --prefix_tsv can only be used if --generate-tsv also supplied')
+    if (args.enable_ihwg or args.enable_phylip or args.prefix_tsv) and (
+        not args.enable_tsv
+    ):
+        parser.error(
+            "--enable-iwhg, --enable-phylip or --prefix_tsv can only be used if --generate-tsv also supplied"
+        )
 
     if args.outputdir:
         if not args.outputdir.is_dir():
-          parser.error("'%s' is not a directory, please supply a valid output directory" % args.outputdir)
+            parser.error(
+                "'%s' is not a directory, please supply a valid output directory"
+                % args.outputdir
+            )
 
     configFilename = args.config
     xslFilename = args.xsl
@@ -117,41 +126,48 @@ matters, see the file named COPYING.
     # heuristics for default 'text.xsl' XML -> text file
 
     if xslFilename:
-      # first, check the command supplied filename first, return canonical
-      # location and abort if it is not found immediately
-      xslFilename = checkXSLFile(xslFilename, abort=True, debug=debugFlag)
-      xslFilenameDefault = None
+        # first, check the command supplied filename first, return canonical
+        # location and abort if it is not found immediately
+        xslFilename = checkXSLFile(xslFilename, abort=True, debug=debugFlag)
+        xslFilenameDefault = None
 
     else:
-      # if not supplied, use heuristics to set a default, heuristics may
-      # return a valid path or None (but the value found here is always
-      # overriden by options in the .ini file)
+        # if not supplied, use heuristics to set a default, heuristics may
+        # return a valid path or None (but the value found here is always
+        # overridden by options in the .ini file)
 
-      if debugFlag:
-        print("pypopbinpath", pypopbinpath)
-        print("binpath", binpath)
-        print("datapath", datapath)
+        if debugFlag:
+            print("pypopbinpath", pypopbinpath)
+            print("binpath", binpath)
+            print("datapath", datapath)
 
+        try:
+            from importlib.resources import files
 
-      try:
-        from importlib.resources import files
-        mypath = files('PyPop.xslt')
-      except (ModuleNotFoundError, ImportError):  # fallback to using backport if not found
-        from importlib_resources import files
-        mypath = files('PyPop.xslt').joinpath('')
+            mypath = files("PyPop.xslt")
+        except (
+            ModuleNotFoundError,
+            ImportError,
+        ):  # fallback to using backport if not found
+            from importlib_resources import files
 
-      xslFilenameDefault = checkXSLFile('text.xsl', mypath, \
-                                        abort=False, debug=debugFlag)
+            mypath = files("PyPop.xslt").joinpath("")
 
-      if xslFilenameDefault == None:
-        # otherwise use heuristics for XSLT transformation file 'text.xsl'
-        # check child directory 'xslt/' first
-        xslFilenameDefault = checkXSLFile('text.xsl', pypopbinpath, \
-                                          'xslt', debug=debugFlag)
-        # if not found  check sibling directory '../PyPop/xslt/'
+        xslFilenameDefault = checkXSLFile(
+            "text.xsl", mypath, abort=False, debug=debugFlag
+        )
+
         if xslFilenameDefault == None:
-          xslFilenameDefault = checkXSLFile('text.xsl', pypopbinpath, \
-                                            '../PyPop/xslt', debug=debugFlag)
+            # otherwise use heuristics for XSLT transformation file 'text.xsl'
+            # check child directory 'xslt/' first
+            xslFilenameDefault = checkXSLFile(
+                "text.xsl", pypopbinpath, "xslt", debug=debugFlag
+            )
+            # if not found  check sibling directory '../PyPop/xslt/'
+            if xslFilenameDefault == None:
+                xslFilenameDefault = checkXSLFile(
+                    "text.xsl", pypopbinpath, "../PyPop/xslt", debug=debugFlag
+                )
 
     ######################################################################
     # END: parse command line options
@@ -163,91 +179,97 @@ matters, see the file named COPYING.
     fileNames = []
 
     if interactiveFlag:
-      # run in interactive mode, requesting input from user
+        # run in interactive mode, requesting input from user
 
-      # Choices made in previous runs of PyPop will be stored in a file
-      # called '.pypoprc', stored the user's home directory
-      # (i.e. $HOME/.pypoprc) so that in subsequent invocations of the
-      # script it will use the previous choices as defaults.
+        # Choices made in previous runs of PyPop will be stored in a file
+        # called '.pypoprc', stored the user's home directory
+        # (i.e. $HOME/.pypoprc) so that in subsequent invocations of the
+        # script it will use the previous choices as defaults.
 
-      # The '.pypoprc' file will be created if it does not previously
-      # exist.  The format of this file is identical to the ConfigParser
-      # format (i.e. the .ini file format).
+        # The '.pypoprc' file will be created if it does not previously
+        # exist.  The format of this file is identical to the ConfigParser
+        # format (i.e. the .ini file format).
 
-      pypoprcFilename = Path.home() / '.pypoprc'
+        pypoprcFilename = Path.home() / ".pypoprc"
 
-      pypoprc = ConfigParser()
+        pypoprc = ConfigParser()
 
-      if os.path.isfile(pypoprcFilename):
-        pypoprc.read(pypoprcFilename)
-        configFilename = pypoprc.get('Files', 'config')
-        fileName = pypoprc.get('Files', 'pop')
-      else:
-        configFilename = 'Choose your .ini file (no default)'
-        fileName = 'Choose your .pop file (no default)'
+        if os.path.isfile(pypoprcFilename):
+            pypoprc.read(pypoprcFilename)
+            configFilename = pypoprc.get("Files", "config")
+            fileName = pypoprc.get("Files", "pop")
+        else:
+            configFilename = "Choose your .ini file (no default)"
+            fileName = "Choose your .pop file (no default)"
 
-      print(interactive_message)
+        print(interactive_message)
 
-      from tkinter import Tk
-      from tkinter.filedialog import askopenfilename
-      from _tkinter import TclError
+        from _tkinter import TclError
+        from tkinter import Tk
+        from tkinter.filedialog import askopenfilename
 
-      # read user input for both filenames
-      try:
-          Tk().withdraw() # we don't want a full GUI, so keep the root window from appearing
+        # read user input for both filenames
+        try:
+            Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
 
-          print("""Select both an '.ini' configuration file and a '.pop' file via the
+            print("""Select both an '.ini' configuration file and a '.pop' file via the
 system file dialog.""")
 
+            configFilename = askopenfilename(
+                title="Please select a PyPop configuration file",
+                initialfile=str(Path(configFilename).name),
+                initialdir=str(Path(configFilename).parent),
+                filetypes=[(".ini files", "*.ini"), ("All Files", "*.*")],
+            )
 
-          configFilename = askopenfilename(title="Please select a PyPop configuration file",
-                                           initialfile=str(Path(configFilename).name),
-                                           initialdir=str(Path(configFilename).parent),
-                                           filetypes=[(".ini files", "*.ini"), ("All Files", "*.*")])
+            fileNames.append(
+                askopenfilename(
+                    title="Please select a population (.pop) file",
+                    initialfile=str(Path(fileName).name),
+                    initialdir=str(Path(fileName).parent),
+                    filetypes=[(".pop files", "*.pop"), ("All Files", "*.*")],
+                )
+            )
 
-          fileNames.append(askopenfilename(title="Please select a population (.pop) file",
-                                           initialfile=str(Path(fileName).name),
-                                           initialdir=str(Path(fileName).parent),
-                                           filetypes=[(".pop files", "*.pop"), ("All Files", "*.*")]))
-
-      except TclError:  # if GUI failed, fallback to command-line
-
-          print("""To accept the default in brackets for each filename, simply press
+        except TclError:  # if GUI failed, fallback to command-line
+            print("""To accept the default in brackets for each filename, simply press
 return for each prompt.""")
 
-          configFilename = getUserFilenameInput("config", configFilename)
-          fileNames.append(getUserFilenameInput("population", fileName))
+            configFilename = getUserFilenameInput("config", configFilename)
+            fileNames.append(getUserFilenameInput("population", fileName))
 
-      print("PyPop is processing %s ..." % fileNames[0])
+        print("PyPop is processing %s ..." % fileNames[0])
 
     else:
-      # non-interactive mode: run in 'batch' mode
+        # non-interactive mode: run in 'batch' mode
 
-      if fileList:
-        # if we are providing the filelist
-        # use list from file as list to check
-        #li = [f.strip('\n') for f in open(fileList).readlines()]
-        li = [f.strip('\n') for f in fileList.readlines()]
-        fileList.close() # make sure we close it
-      elif popFilenames:
-        # check number of arguments, must be at least one, but can be more
-        # use args as list to check
-        li = popFilenames
-      # otherwise bail out with error
-      else:
-        sys.exit("ERROR: neither a list of files, nor a file containing a list was provided")
-
-      # loop through all arguments in li, appending to list of files to
-      # process, ensuring we expand any Unix-shell globbing-style
-      # arguments
-      for fileName in li:
-        globbedFiles = glob(fileName)
-        if len(globbedFiles) == 0:
-          # if no files were found for that glob, please exit and warn
-          # the user
-          sys.exit("Couldn't find file(s): %s" % fileName)
+        if fileList:
+            # if we are providing the filelist
+            # use list from file as list to check
+            # li = [f.strip('\n') for f in open(fileList).readlines()]
+            li = [f.strip("\n") for f in fileList.readlines()]
+            fileList.close()  # make sure we close it
+        elif popFilenames:
+            # check number of arguments, must be at least one, but can be more
+            # use args as list to check
+            li = popFilenames
+        # otherwise bail out with error
         else:
-          fileNames.extend(globbedFiles)
+            sys.exit(
+                "ERROR: neither a list of files, nor a file containing a list was provided"
+            )
+
+        # loop through all arguments in li, appending to list of files to
+        # process, ensuring we expand any Unix-shell globbing-style
+        # arguments
+        for fileName in li:
+            globbedFiles = glob(fileName)
+            if len(globbedFiles) == 0:
+                # if no files were found for that glob, please exit and warn
+                # the user
+                sys.exit("Couldn't find file(s): %s" % fileName)
+            else:
+                fileNames.extend(globbedFiles)
 
     # parse config file
     config = getConfigInstance(configFilename, altpath)
@@ -256,69 +278,71 @@ return for each prompt.""")
     txtOutPaths = []
     # loop through list of filenames passed, processing each in turn
     for fileName in fileNames:
+        # parse out the parts of the filename
+        # baseFileName = os.path.basename(fileName)
 
-      # parse out the parts of the filename
-      #baseFileName = os.path.basename(fileName)
+        application = Main(
+            config=config,
+            debugFlag=debugFlag,
+            fileName=fileName,
+            datapath=datapath,
+            xslFilename=xslFilename,
+            xslFilenameDefault=xslFilenameDefault,
+            outputDir=outputDir,
+            version=version,
+            testMode=testMode,
+        )
 
-      application = Main(config=config,
-                         debugFlag=debugFlag,
-                         fileName=fileName,
-                         datapath=datapath,
-                         xslFilename=xslFilename,
-                         xslFilenameDefault=xslFilenameDefault,
-                         outputDir=outputDir,
-                         version=version,
-                         testMode=testMode)
-
-      xmlOutPaths.append(application.getXmlOutPath())
-      txtOutPaths.append(application.getTxtOutPath())
+        xmlOutPaths.append(application.getXmlOutPath())
+        txtOutPaths.append(application.getTxtOutPath())
 
     if generateTSV:
+        if PHYLIP_output:
+            # if we're doing PHYLIP output, need to process all XML at once
+            batchsize = 1
+        else:
+            # otherwise we can do them one-by-one
+            batchsize = len(xmlOutPaths)
 
-      if PHYLIP_output:
-        # if we're doing PHYLIP output, need to process all XML at once
-        batchsize = 1
-      else:
-        # otherwise we can do them one-by-one
-        batchsize = len(xmlOutPaths)
-
-      print("Generating TSV (.dat) files...")
-      Meta(popmetabinpath=pypopbinpath,
-           datapath=datapath,
-           metaXSLTDirectory=None,
-           dump_meta=False,
-           TSV_output=True,
-           prefixTSV=prefixTSV,
-           PHYLIP_output=PHYLIP_output,
-           ihwg_output=ihwg_output,
-           batchsize=batchsize,
-           outputDir=outputDir,
-           xml_files=xmlOutPaths)
+        print("Generating TSV (.dat) files...")
+        Meta(
+            popmetabinpath=pypopbinpath,
+            datapath=datapath,
+            metaXSLTDirectory=None,
+            dump_meta=False,
+            TSV_output=True,
+            prefixTSV=prefixTSV,
+            PHYLIP_output=PHYLIP_output,
+            ihwg_output=ihwg_output,
+            batchsize=batchsize,
+            outputDir=outputDir,
+            xml_files=xmlOutPaths,
+        )
 
     if interactiveFlag:
+        print("PyPop run complete!")
+        print("XML output(s) can be found in: ", xmlOutPaths)
+        print("Plain text output(s) can be found in: ", txtOutPaths)
 
-      print("PyPop run complete!")
-      print("XML output(s) can be found in: ",  xmlOutPaths)
-      print("Plain text output(s) can be found in: ",  txtOutPaths)
+        # update .pypoprc file
 
-      # update .pypoprc file
+        if pypoprc.has_section("Files") != 1:
+            pypoprc.add_section("Files")
 
-      if pypoprc.has_section('Files') != 1:
-        pypoprc.add_section('Files')
+        pypoprc.set("Files", "config", os.path.abspath(configFilename))
+        pypoprc.set("Files", "pop", os.path.abspath(fileNames[0]))
+        pypoprc.write(open(pypoprcFilename, "w"))
 
-      pypoprc.set('Files', 'config', os.path.abspath(configFilename))
-      pypoprc.set('Files', 'pop', os.path.abspath(fileNames[0]))
-      pypoprc.write(open(pypoprcFilename, 'w'))
 
 def main_interactive(argv=sys.argv):
     argv.append("-i")
     main(argv)
     input("Press Enter to exit...")
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     DIR = os.path.abspath(os.path.dirname(__file__))
-    sys.path.insert(0, os.path.join(DIR, '..'))
-    sys.path.insert(0, os.path.join(DIR, '../src'))
+    sys.path.insert(0, os.path.join(DIR, ".."))
+    sys.path.insert(0, os.path.join(DIR, "../src"))
 
     main()

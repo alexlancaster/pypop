@@ -32,14 +32,24 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+from __future__ import annotations
 
 import os
 import shutil
 
-citation_output_formats = ['apalike', 'bibtex', 'endnote', 'ris', 'codemeta', 'cff', 'schema.org', 'zenodo']
+citation_output_formats = [
+    "apalike",
+    "bibtex",
+    "endnote",
+    "ris",
+    "codemeta",
+    "cff",
+    "schema.org",
+    "zenodo",
+]
+
 
 def convert_citation_formats(build_lib, citation_path):
-
     from cffconvert import Citation
 
     # target directory for the CITATION file within the build directory
@@ -53,7 +63,7 @@ def convert_citation_formats(build_lib, citation_path):
     cff = Citation(cffstr=open(citation_path).read())
 
     # remove 'cff' from generated list - since we don't generate that
-    citation_output_formats.remove('cff')
+    citation_output_formats.remove("cff")
 
     for fmt in citation_output_formats:
         # use getattr to get the method based on the format string, remove periods in methods
@@ -69,5 +79,4 @@ def convert_citation_formats(build_lib, citation_path):
 
 
 if __name__ == "__main__":
-
     convert_citation_formats("src", "CITATION.cff")
