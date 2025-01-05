@@ -38,8 +38,6 @@ Python XSLT extensions for handling things outside the scope of XSLT 1.0
 
 """
 
-from __future__ import annotations
-
 from math import floor, inf, log10
 
 from lxml import etree

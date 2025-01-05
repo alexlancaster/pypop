@@ -59,7 +59,8 @@ def convert_citation_formats(build_lib, citation_path):
     shutil.copy(citation_path, target_dir)
 
     # load the CITATION.cff content
-    cff = Citation(cffstr=open(citation_path).read())
+    with open(citation_path) as f:
+        cff = Citation(cffstr=f.read())
 
     # remove 'cff' from generated list - since we don't generate that
     citation_output_formats.remove("cff")
