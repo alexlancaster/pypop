@@ -34,6 +34,7 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 import os
 import sys
+from pathlib import Path
 
 
 def main(argv=sys.argv):
@@ -42,13 +43,13 @@ def main(argv=sys.argv):
     from PyPop.CommandLineInterface import get_popmeta_cli
     from PyPop.Meta import Meta
 
-    datapath = os.path.join(sys.prefix, "share", "PyPop")
+    datapath = Path(sys.prefix) / "share" / "PyPop"
 
     parser = get_popmeta_cli(version=version, copyright_message=copyright_message)
     args = parser.parse_args(argv[1:])
 
     # find our exactly where the current executable is being run from
-    popmetabinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
+    popmetabinpath = Path(os.path.realpath(sys.argv[0])).parent
 
     metaXSLTDirectory = args.xsldir
     dump_meta = args.output_meta
@@ -62,12 +63,10 @@ def main(argv=sys.argv):
     if PHYLIP_output:
         batchsize = 1  #  set batch size to 1
 
-    if outputDir:
-        if not outputDir.is_dir():
-            sys.exit(
-                "'%s' is not a directory, please supply a valid output directory"
-                % outputDir
-            )
+    if outputDir and not outputDir.is_dir():
+        sys.exit(
+            f"'{outputDir}' is not a directory, please supply a valid output directory"
+        )
 
     # parse arguments
     xml_files = args.xmlfiles
@@ -88,7 +87,7 @@ def main(argv=sys.argv):
 
 
 if __name__ == "__main__":
-    DIR = os.path.abspath(os.path.dirname(__file__))
-    sys.path.insert(0, os.path.join(DIR, ".."))
+    DIR = Path(__file__).parent.resolve()
+    sys.path.insert(0, Path(DIR) / "..")
 
     main()
