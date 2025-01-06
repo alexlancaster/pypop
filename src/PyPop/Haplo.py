@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2003-2005. The Regents of the University of California (Regents)
@@ -42,9 +40,10 @@ import math
 import os
 import re
 import sys
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
-import numpy
+import numpy as np
 
 from PyPop.Arlequin import ArlequinBatch
 from PyPop.DataTypes import checkIfSequenceData, getLocusPairs
@@ -143,8 +142,8 @@ class HaploArlequin(Haplo):
 
     def _outputArlRunArs(self, arsFilename):
         """Outputs the run-time Arlequin setting file."""
-        file = open(arsFilename, "w")
-        file.write("""[Setting for Calculations]
+        with open(arsFilename, "w") as file:
+            file.write("""[Setting for Calculations]
 TaskNumber=8
 DeletionWeight=1.0
 TransitionWeight=1.0
@@ -217,7 +216,6 @@ UnequalPopSizeDiv=0
 PrintMinSpannNetworkPop=0
 PrintMinSpannNetworkGlob=0
 KeepNullDistrib=0""")
-        file.close()
 
     def runArlequin(self):
         """Run the Arlequin haplotyping program.
@@ -256,7 +254,6 @@ KeepNullDistrib=0""")
             self.batch.arlResPrefix + ".res" + os.sep + self.batch.arlResPrefix + ".htm"
         )
         dataFound = 0
-        headerFound = 0
 
         haplotypes = []
 
@@ -267,37 +264,36 @@ KeepNullDistrib=0""")
         patt3 = re.compile(r"^\s+\d+\s+UNKNOWN(.*)")
         windowRange = range(1, self.windowSize)
 
-        for line in open(outFile).readlines():
-            matchobj = re.search(patt1, line)
-            if matchobj:
-                headerFound = 1
-                popName = matchobj.group(1)
-                sampleCount = matchobj.group(2)
-                liststr = matchobj.group(3)
-                # convert into list of loci
-                lociList = list(map(int, liststr.split(",")))
-                freqs = {}
+        with open(outFile) as f:
+            for line in f:
+                matchobj = re.search(patt1, line)
+                if matchobj:
+                    popName = matchobj.group(1)
+                    sampleCount = matchobj.group(2)
+                    liststr = matchobj.group(3)
+                    # convert into list of loci
+                    lociList = list(map(int, liststr.split(",")))
+                    freqs = {}
 
-            if dataFound:
-                if line != os.linesep:
-                    if self.debug:
-                        print(line.rstrip())
-                    matchobj = re.search(patt3, line)
-                    if matchobj:
-                        cols = matchobj.group(1).split()
-                        haplotype = cols[2]
-                        for i in windowRange:
-                            haplotype = haplotype + "_" + cols[2 + i]
-                        freq = float(cols[0]) * float(sampleCount)
-                        freqs[haplotype] = freq
+                if dataFound:
+                    if line != os.linesep:
+                        if self.debug:
+                            print(line.rstrip())
+                        matchobj = re.search(patt3, line)
+                        if matchobj:
+                            cols = matchobj.group(1).split()
+                            haplotype = cols[2]
+                            for i in windowRange:
+                                haplotype = haplotype + "_" + cols[2 + i]
+                            freq = float(cols[0]) * float(sampleCount)
+                            freqs[haplotype] = freq
+                        else:
+                            sys.exit(f"Error: unknown output in arlequin line: {line}")
                     else:
-                        sys.exit("Error: unknown output in arlequin line: %s" % line)
-                else:
-                    headerFound = 0
-                    dataFound = 0
-                    haplotypes.append((freqs, popName, sampleCount, lociList))
-            if re.match(patt2, line):
-                dataFound = 1
+                        dataFound = 0
+                        haplotypes.append((freqs, popName, sampleCount, lociList))
+                if re.match(patt2, line):
+                    dataFound = 1
 
         return haplotypes
 
@@ -412,7 +408,7 @@ class Emhaplofreq(Haplo):
         # to; this remains in effect until end of method
         fp = io.StringIO()
 
-        if (permutationFlag == None) or (haploSuppressFlag == None):
+        if (permutationFlag is None) or (haploSuppressFlag is None):
             sys.exit("must pass a permutation or haploSuppressFlag to _runEmhaplofreq!")
 
         # make all locus keys uppercase
@@ -420,7 +416,7 @@ class Emhaplofreq(Haplo):
 
         # if no locus list passed, assume calculation of entire data
         # set
-        if locusKeys == None:
+        if locusKeys is None:
             # create key for entire matrix
             locusKeys = ":".join(self.matrix.colList)
 
@@ -462,13 +458,13 @@ class Emhaplofreq(Haplo):
                 else:
                     metaLoci = None
 
-                modeAttr = 'mode="%s"' % mode
-                haploAttr = 'showHaplo="%s"' % showHaplo
+                modeAttr = f'mode="{mode}"'
+                haploAttr = f'showHaplo="{showHaplo}"'
 
                 if metaLoci:
-                    lociAttr = 'loci="%s" metaloci="%s"' % (group, metaLoci)
+                    lociAttr = f'loci="{group}" metaloci="{metaLoci}"'
                 else:
-                    lociAttr = 'loci="%s"' % group
+                    lociAttr = f'loci="{group}"'
 
                 # check maximum length of allele
                 maxAlleleLength = 0
@@ -479,32 +475,27 @@ class Emhaplofreq(Haplo):
                         maxAlleleLength = max(len(allele), maxAlleleLength)
                         if len(allele) > (self._Emhaplofreq.NAME_LEN) - 2:
                             print(
-                                "WARNING: '%s' (%d) exceeds max allele length (%d) for LD and haplo est in %s"
-                                % (
-                                    allele,
-                                    len(allele),
-                                    self._Emhaplofreq.NAME_LEN - 2,
-                                    lociAttr,
-                                )
+                                f"WARNING: '{allele}' ({len(allele)}) exceeds max allele length ({self._Emhaplofreq.NAME_LEN - 2}) for LD and haplo est in {lociAttr}"
                             )
 
                 if groupNumIndiv > self._Emhaplofreq.MAX_ROWS:
                     fp.write(
-                        '<group %s role="too-many-lines" %s %s/>%s'
-                        % (modeAttr, lociAttr, haploAttr, "\n")
+                        '<group {} role="too-many-lines" {} {}/>{}'.format(
+                            modeAttr, lociAttr, haploAttr, "\n"
+                        )
                     )
                     continue
                 # if nothing left after filtering, simply continue
                 if groupNumIndiv == 0:
                     fp.write(
-                        '<group %s role="no-data" %s %s/>%s'
-                        % (modeAttr, lociAttr, haploAttr, "\n")
+                        '<group {} role="no-data" {} {}/>{}'.format(
+                            modeAttr, lociAttr, haploAttr, "\n"
+                        )
                     )
                     continue
                 if maxAlleleLength > (self._Emhaplofreq.NAME_LEN - 2):
                     fp.write(
-                        '<group %s role="max-allele-length-exceeded" %s %s>%d</group>%s'
-                        % (
+                        '<group {} role="max-allele-length-exceeded" {} {}>{}</group>{}'.format(
                             modeAttr,
                             lociAttr,
                             haploAttr,
@@ -516,7 +507,7 @@ class Emhaplofreq(Haplo):
 
                 if mode:
                     fp.write(
-                        "<group %s %s %s>%s" % (modeAttr, lociAttr, haploAttr, "\n")
+                        "<group {} {} {}>{}".format(modeAttr, lociAttr, haploAttr, "\n")
                     )
                 else:
                     sys.exit("A 'mode' for emhaplofreq must be specified")
@@ -532,24 +523,24 @@ class Emhaplofreq(Haplo):
                 fp.write("\n")
 
                 fp.write(
-                    '<individcount role="before-filtering">%d</individcount>'
-                    % self.totalNumIndiv
+                    f'<individcount role="before-filtering">{self.totalNumIndiv}</individcount>'
                 )
                 fp.write("\n")
 
                 fp.write(
-                    '<individcount role="after-filtering">%d</individcount>'
-                    % groupNumIndiv
+                    f'<individcount role="after-filtering">{groupNumIndiv}</individcount>'
                 )
                 fp.write("\n")
 
                 with TemporaryDirectory() as tmp:
                     # generates temporary directory and filename, and cleans-up after block ends
-                    xml_tmp_filename = os.path.join(tmp, "emhaplofreq.out.xml")
+                    xml_tmp_filename = Path(tmp) / "emhaplofreq.out.xml"
 
                     # pass this submatrix to the SWIG-ed C function
                     self._Emhaplofreq.main_proc(
-                        xml_tmp_filename,
+                        str(
+                            xml_tmp_filename
+                        ),  # need to convert from pathlib to string for C function
                         subMatrix,
                         lociCount,
                         groupNumIndiv,
@@ -579,8 +570,7 @@ class Emhaplofreq(Haplo):
 
             else:
                 fp.write(
-                    "Couldn't estimate haplotypes for %s, num loci: %d exceeded max loci: %d"
-                    % (group, lociCount, self._Emhaplofreq.MAX_LOCI)
+                    f"Couldn't estimate haplotypes for {group}, num loci: {lociCount} exceeded max loci: {self._Emhaplofreq.MAX_LOCI}"
                 )
                 fp.write("\n")
 
@@ -676,7 +666,7 @@ class Emhaplofreq(Haplo):
             permuMode = "no-permu"
             permutationFlag = 0
 
-        if mode == None:
+        if mode is None:
             mode = "all-pairwise-ld-" + permuMode
 
         self.sequenceData = checkIfSequenceData(self.matrix)
@@ -736,8 +726,8 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     Make standalone so it can be used by any class
     """
 
-    unique_alleles1 = numpy.unique(haplos[:, 0])
-    unique_alleles2 = numpy.unique(haplos[:, 1])
+    unique_alleles1 = np.unique(haplos[:, 0])
+    unique_alleles2 = np.unique(haplos[:, 1])
 
     # FIXME: should merge the two into one loop
     freq1_dict = {}
@@ -774,7 +764,7 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
         allhaplos.append(newrow)
 
     # convert to numpy structured array
-    allhaplos = numpy.array(
+    allhaplos = np.array(
         allhaplos,
         dtype=[
             ("allele1", "O"),
@@ -796,11 +786,11 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     num_allpossible_haplos = len(allhaplos)
 
     ## compute Wn & Dprime
-    zero = numpy.array([0.0])
+    zero = np.array([0.0])
     dprime_den = zero.repeat(num_allpossible_haplos)
     d_ij = hap_prob - a_freq1 * a_freq2
-    den_lt0 = numpy.minimum(a_freq1 * a_freq2, (1 - a_freq1) * (1 - a_freq2))
-    den_ge0 = numpy.minimum((1 - a_freq1) * a_freq2, a_freq1 * (1 - a_freq2))
+    den_lt0 = np.minimum(a_freq1 * a_freq2, (1 - a_freq1) * (1 - a_freq2))
+    den_ge0 = np.minimum((1 - a_freq1) * a_freq2, a_freq1 * (1 - a_freq2))
     dprime_den[d_ij < 0] = den_lt0[d_ij < 0]
     dprime_den[d_ij >= 0] = den_ge0[d_ij >= 0]
     dprime_ij = d_ij / dprime_den
@@ -817,7 +807,7 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
                 d_ij[i],
                 dprime_ij[i],
                 hap_prob[i],
-                "%s:%s" % (alleles1[i], alleles2[i]),
+                f"{alleles1[i]}:{alleles2[i]}",
             )
 
     dp_temp = abs(dprime_ij) * a_freq1 * a_freq2
@@ -830,12 +820,9 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     # FIXME: NOT SURE THIS SYNTAX FOR 'min' IS CORRECT (OR GOOD)
     # WANT:  wn <- sqrt( w / (min( length(unique(alleles1)), length(unique(alleles2)) ) - 1.0) )
     w_den = (
-        numpy.minimum(
-            numpy.unique(alleles1).size * 1.0, numpy.unique(alleles2).size * 1.0
-        )
-        - 1.0
+        np.minimum(np.unique(alleles1).size * 1.0, np.unique(alleles2).size * 1.0) - 1.0
     )
-    wn = numpy.sqrt(w / w_den)
+    wn = np.sqrt(w / w_den)
     if debug:
         print("Wn: ", wn)
 
@@ -845,25 +832,25 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
         F_2_1 = 0.0
         F_2 = 0.0
         F_1_2 = 0.0
-        for i in numpy.unique(alleles1):
-            af_1 = numpy.unique(a_freq1[alleles1 == i])[
+        for i in np.unique(alleles1):
+            af_1 = np.unique(a_freq1[alleles1 == i])[
                 0
             ]  # take the first element of ndarray (default behaviour)
             F_1 = F_1 + af_1**2
             F_2_1 = F_2_1 + ((hap_prob[alleles1 == i] ** 2) / af_1).sum()
-        for i in numpy.unique(alleles2):
-            af_2 = numpy.unique(a_freq2[alleles2 == i])[0]
+        for i in np.unique(alleles2):
+            af_2 = np.unique(a_freq2[alleles2 == i])[0]
             F_2 = F_2 + af_2**2
             F_1_2 = F_1_2 + ((hap_prob[alleles2 == i] ** 2) / af_2).sum()
         if F_2 == 1.0:
-            F_2_1_prime = numpy.nan
-            ALD_2_1 = numpy.nan
+            F_2_1_prime = np.nan
+            ALD_2_1 = np.nan
         else:
             F_2_1_prime = (F_2_1 - F_2) / (1 - F_2)
             ALD_2_1 = math.sqrt(F_2_1_prime)
         if F_1 == 1:
-            F_1_2_prime = numpy.nan
-            ALD_1_2 = numpy.nan
+            F_1_2_prime = np.nan
+            ALD_1_2 = np.nan
         else:
             F_1_2_prime = (F_1_2 - F_1) / (1 - F_1)
             ALD_1_2 = math.sqrt(F_1_2_prime)
@@ -936,7 +923,7 @@ class Haplostats(Haplo):
         """
 
         # if wildcard, or not set, do all matrix
-        if locusKeys == "*" or locusKeys == None:
+        if locusKeys in ("*", None):
             locusKeys = ":".join(self.matrix.colList)
 
         geno = self.matrix.getNewStringMatrix(locusKeys)
@@ -947,14 +934,14 @@ class Haplostats(Haplo):
         subj_id = list(range(1, n_subject + 1))
         if n_loci < 2:
             print("Must have at least 2 loci for haplotype estimation!")
-            exit(-1)
+            sys.exit(-1)
 
         # set up weight
         if not weight:
             weight = [1.0] * n_subject
         if len(weight) != n_subject:
             print("Length of weight != number of subjects (nrow of geno)")
-            exit(-1)
+            sys.exit(-1)
 
         temp_geno = geno.convertToInts()  # simulates setupGeno
         geno_vec = temp_geno.flattenCols()  # gets the columns as integers
@@ -983,7 +970,7 @@ class Haplostats(Haplo):
             iseed3 = 14502
             random_start = 0
         else:
-            seed_array = numpy.random.random(3)
+            seed_array = np.random.random(3)
             iseed1 = int(10000 + 20000 * seed_array[0])
             iseed2 = int(10000 + 20000 * seed_array[1])
             iseed3 = int(10000 + 20000 * seed_array[2])
@@ -1028,7 +1015,7 @@ class Haplostats(Haplo):
                     iseed3 = iseed3 + i * 100
                     random_start = 1  # need this in testMode too, apparently
                 else:
-                    seed_array = numpy.random.random(3)
+                    seed_array = np.random.random(3)
                     iseed1 = int(10000 + 20000 * seed_array[0])
                     iseed2 = int(10000 + 20000 * seed_array[1])
                     iseed3 = int(10000 + 20000 * seed_array[2])
@@ -1109,7 +1096,7 @@ class Haplostats(Haplo):
                     )
 
         # convert u_hap back into original allele names
-        haplotype = numpy.array(u_hap, dtype="O").reshape(n_u_hap, -1)
+        haplotype = np.array(u_hap, dtype="O").reshape(n_u_hap, -1)
         for j in range(n_loci):
             for i in range(n_u_hap):
                 allele_offset = haplotype[i, j] - 1  #  integers are offset by 1
@@ -1124,8 +1111,8 @@ class Haplostats(Haplo):
 
         # FIXME: are these, strictly speaking, necessary in Python context?
         # these arrays can be regenerated from the vectors at any time
-        uhap_df = numpy.c_[u_hap_code, hap_prob]
-        subj_df = numpy.c_[subj_id, hap1_code, hap2_code]
+        np.c_[u_hap_code, hap_prob]
+        np.c_[subj_id, hap1_code, hap2_code]
 
         # XML output for group here
         self.stream.opentag(
@@ -1133,14 +1120,14 @@ class Haplostats(Haplo):
         )
         self.stream.writeln()
         # FIXME: implement ('uniquepheno') ?
-        self.stream.tagContents("uniquegeno", "%d" % n_hap_pairs)
+        self.stream.tagContents("uniquegeno", f"{n_hap_pairs}")
         self.stream.writeln()
-        self.stream.tagContents("haplocount", "%d" % n_u_hap)
+        self.stream.tagContents("haplocount", f"{n_u_hap}")
         self.stream.writeln()
         self.stream.opentag("haplotypefreq")
-        self.stream.tagContents("numInitCond", "%d" % numInitCond)
+        self.stream.tagContents("numInitCond", f"{numInitCond}")
         self.stream.writeln()
-        self.stream.tagContents("loglikelihood", "%g" % lnlike, role="no-ld")
+        self.stream.tagContents("loglikelihood", f"{lnlike:g}", role="no-ld")
         self.stream.writeln()
         self.stream.writeln()
         self.stream.tagContents("condition", "", role="converged")
@@ -1149,7 +1136,7 @@ class Haplostats(Haplo):
         for i in range(n_u_hap):
             hapname = ""
             for j in range(n_loci):
-                hapname += "%s" % haplotype[i, j]
+                hapname += f"{haplotype[i, j]}"
                 if j < n_loci - 1:
                     hapname += GENOTYPE_SEPARATOR
 
@@ -1175,15 +1162,15 @@ class Haplostats(Haplo):
             self.stream.writeln()
             # hardcode 0 and 1, because we are only ever doing pairwise (for now)
             self.stream.opentag("summary", first="0", second="1")
-            self.stream.tagContents("wn", "%g" % Wn)
+            self.stream.tagContents("wn", f"{Wn:g}")
             self.stream.writeln()
             # FIXME have no chisq test here for the moment
             self.stream.writeln()
-            self.stream.tagContents("dprime", "%g" % dprime)
+            self.stream.tagContents("dprime", f"{dprime:g}")
             self.stream.writeln()
-            self.stream.tagContents("ALD_1_2", "%g" % ALD_1_2)
+            self.stream.tagContents("ALD_1_2", f"{ALD_1_2:g}")
             self.stream.writeln()
-            self.stream.tagContents("ALD_2_1", "%g" % ALD_2_1)
+            self.stream.tagContents("ALD_2_1", f"{ALD_2_1:g}")
             self.stream.writeln()
             self.stream.closetag("summary")
             self.stream.writeln()
@@ -1253,7 +1240,6 @@ class Haplostats(Haplo):
 
         converge = 0
         min_prior = 0.0
-        n_unique = 0
         lnlike = 0.0
         n_u_hap = 0
         n_hap_pairs = 0
