@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2003-2006.
@@ -85,9 +83,7 @@ def _chen_statistic(genotype, alleleFreqs, genotypes, total_gametes):
             pow(p_i, 4.0) - (2 * pow(p_i, 3.0)) + (p_i * p_i)
         )
 
-    chiSquare = abs(d) * abs(d) / var
-
-    return chiSquare
+    return abs(d) * abs(d) / var
 
 
 class HardyWeinberg:
@@ -180,7 +176,7 @@ class HardyWeinberg:
 
             self.observedGenotypes.append(allele[0] + GENOTYPE_SEPARATOR + allele[1])
 
-        for allele in self.alleleCounts.keys():
+        for allele in self.alleleCounts:
             """For each entry in the dictionary of allele counts
       generate a corresponding entry in a dictionary of frequencies"""
 
@@ -334,37 +330,39 @@ class HardyWeinberg:
 
         # now the values for heterozygoous genotypes by allele
         for allele in self.observedAlleles:
-            if self.hetsExpectedByAllele:
-                if self.hetsExpectedByAllele[allele] >= self.lumpBelow:
-                    if allele not in self.hetsObservedByAllele:
-                        self.hetsObservedByAllele[allele] = 0
+            if (
+                self.hetsExpectedByAllele
+                and self.hetsExpectedByAllele[allele] >= self.lumpBelow
+            ):
+                if allele not in self.hetsObservedByAllele:
+                    self.hetsObservedByAllele[allele] = 0
 
-                    squareMe = (
-                        self.hetsObservedByAllele[allele]
-                        - self.hetsExpectedByAllele[allele]
+                squareMe = (
+                    self.hetsObservedByAllele[allele]
+                    - self.hetsExpectedByAllele[allele]
+                )
+                self.hetsChisqByAllele[allele] = (
+                    squareMe * squareMe
+                ) / self.hetsExpectedByAllele[allele]
+
+                self.hetsPvalByAllele[allele] = _Pvalue.pval(
+                    self.hetsChisqByAllele[allele], 1
+                )
+
+                if self.debug:
+                    print("By Allele:    obs exp   chi        p")
+                    print(
+                        "          ",
+                        allele,
+                        self.hetsObservedByAllele[allele],
+                        self.hetsExpectedByAllele[allele],
+                        self.hetsChisqByAllele[allele],
+                        self.hetsPvalByAllele[allele],
                     )
-                    self.hetsChisqByAllele[allele] = (
-                        squareMe * squareMe
-                    ) / self.hetsExpectedByAllele[allele]
-
-                    self.hetsPvalByAllele[allele] = _Pvalue.pval(
-                        self.hetsChisqByAllele[allele], 1
-                    )
-
-                    if self.debug:
-                        print("By Allele:    obs exp   chi        p")
-                        print(
-                            "          ",
-                            allele,
-                            self.hetsObservedByAllele[allele],
-                            self.hetsExpectedByAllele[allele],
-                            self.hetsChisqByAllele[allele],
-                            self.hetsPvalByAllele[allele],
-                        )
 
         # do Chen's statistic
         if self.flagChenTest:
-            for genotype in self.observedGenotypeCounts.keys():
+            for genotype in self.observedGenotypeCounts:
                 chenChiSquare = _chen_statistic(
                     genotype,
                     self.alleleFrequencies,
@@ -374,7 +372,7 @@ class HardyWeinberg:
                 self.chenPvalByGenotype[genotype] = _Pvalue.pval(chenChiSquare, 1)
 
         # the list for all genotypes by genotype
-        for genotype in self.expectedGenotypeCounts.keys():
+        for genotype in self.expectedGenotypeCounts:
             if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
                 if genotype not in self.observedGenotypeCounts:
                     self.observedGenotypeCounts[genotype] = 0
@@ -403,7 +401,7 @@ class HardyWeinberg:
                     )
 
         # and now the hard stuff
-        for genotype in self.expectedGenotypeCounts.keys():
+        for genotype in self.expectedGenotypeCounts:
             if self.expectedGenotypeCounts[genotype] >= self.lumpBelow:
                 # Count the common genotypes in categories by allele.
                 # Used to determine DoF for common genotypes later.
@@ -428,10 +426,7 @@ class HardyWeinberg:
                 # calculate the contribution of each genotype to it
                 # and tot up the cumulative chi-square
                 self.commonGenotypeCounter += 1
-                if genotype in self.observedGenotypeCounts:
-                    observedCount = self.observedGenotypeCounts[genotype]
-                else:
-                    observedCount = 0.0
+                observedCount = self.observedGenotypeCounts.get(genotype, 0.0)
 
                 squareMe = observedCount - self.expectedGenotypeCounts[genotype]
                 self.chisq[genotype] = (
@@ -486,7 +481,7 @@ class HardyWeinberg:
             # first calculate the degrees of freedom for the common genotypes
             self.counterAllelesCommon = 0
 
-            for allele in self.counterA.keys():
+            for allele in self.counterA:
                 if self.counterA[allele] > 0:
                     self.counterAllelesCommon += 1
 
@@ -528,16 +523,10 @@ class HardyWeinberg:
 
                     if self.debug:
                         print(
-                            "Lumped %d for a total of %d observed and %f expected"
-                            % (
-                                self.rareGenotypeCounter,
-                                self.lumpedObservedGenotypes,
-                                self.lumpedExpectedGenotypes,
-                            )
+                            f"Lumped {self.rareGenotypeCounter} for a total of {self.lumpedObservedGenotypes} observed and {self.lumpedExpectedGenotypes} expected"
                         )
                         print(
-                            "Chisq: %f, P-Value (dof = 1): %s"
-                            % (self.lumpedChisq, self.lumpedChisqPval)
+                            f"Chisq: {self.lumpedChisq:f}, P-Value (dof = 1): {self.lumpedChisqPval}"
                         )  # doesn't work if I claim Pval is a float?
 
                 else:
@@ -573,18 +562,18 @@ class HardyWeinberg:
     ################################################################################
 
     def serializeTo(self, stream, allelelump=0):
-        type = getStreamType(stream)
+        getStreamType(stream)
 
         # stream serialization goes here
 
-        stream.opentag("hardyweinberg", allelelump=("%d" % allelelump))
+        stream.opentag("hardyweinberg", allelelump=(f"{allelelump}"))
         stream.writeln()
-        stream.tagContents("samplesize", "%d" % self.n)
+        stream.tagContents("samplesize", f"{self.n}")
         stream.writeln()
         # don't print(out, already printed out in <allelecounts> tag in ParseFile
         # stream.tagContents("distinctalleles", "%d" % self.k)
         # stream.writeln()
-        stream.tagContents("lumpBelow", "%d" % self.lumpBelow)
+        stream.tagContents("lumpBelow", f"{self.lumpBelow}")
         stream.writeln()
 
         self.serializeXMLTableTo(stream)
@@ -592,13 +581,13 @@ class HardyWeinberg:
         if self.flagHoms == 1:
             stream.opentag("homozygotes")
             stream.writeln()
-            stream.tagContents("observed", "%d" % self.totalHomsObs)
+            stream.tagContents("observed", f"{self.totalHomsObs}")
             stream.writeln()
-            stream.tagContents("expected", "%4f" % self.totalHomsExp)
+            stream.tagContents("expected", f"{self.totalHomsExp:4f}")
             stream.writeln()
-            stream.tagContents("chisq", "%4f" % self.totalChisqHoms)
+            stream.tagContents("chisq", f"{self.totalChisqHoms:4f}")
             stream.writeln()
-            stream.tagContents("pvalue", "%4f" % self.chisqHomsPval)
+            stream.tagContents("pvalue", f"{self.chisqHomsPval:4f}")
             stream.writeln()
             stream.tagContents("chisqdf", "1")
             stream.writeln()
@@ -608,13 +597,13 @@ class HardyWeinberg:
         if self.flagHets == 1:
             stream.opentag("heterozygotes")
             stream.writeln()
-            stream.tagContents("observed", "%d" % self.totalHetsObs)
+            stream.tagContents("observed", f"{self.totalHetsObs}")
             stream.writeln()
-            stream.tagContents("expected", "%4f" % self.totalHetsExp)
+            stream.tagContents("expected", f"{self.totalHetsExp:4f}")
             stream.writeln()
-            stream.tagContents("chisq", "%4f" % self.totalChisqHets)
+            stream.tagContents("chisq", f"{self.totalChisqHets:4f}")
             stream.writeln()
-            stream.tagContents("pvalue", "%4f" % self.chisqHetsPval)
+            stream.tagContents("pvalue", f"{self.chisqHetsPval:4f}")
             stream.writeln()
             stream.tagContents("chisqdf", "1")
             stream.writeln()
@@ -624,16 +613,16 @@ class HardyWeinberg:
         # loop for heterozygotes by allele
         stream.opentag("heterozygotesByAllele")
         stream.writeln()
-        for allele in self.hetsChisqByAllele.keys():
+        for allele in self.hetsChisqByAllele:
             stream.opentag("allele", name=allele)
             stream.writeln()
-            stream.tagContents("observed", "%d" % self.hetsObservedByAllele[allele])
+            stream.tagContents("observed", f"{self.hetsObservedByAllele[allele]}")
             stream.writeln()
-            stream.tagContents("expected", "%4f" % self.hetsExpectedByAllele[allele])
+            stream.tagContents("expected", f"{self.hetsExpectedByAllele[allele]:4f}")
             stream.writeln()
-            stream.tagContents("chisq", "%4f" % self.hetsChisqByAllele[allele])
+            stream.tagContents("chisq", f"{self.hetsChisqByAllele[allele]:4f}")
             stream.writeln()
-            stream.tagContents("pvalue", "%4f" % self.hetsPvalByAllele[allele])
+            stream.tagContents("pvalue", f"{self.hetsPvalByAllele[allele]:4f}")
             stream.writeln()
             stream.closetag("allele")
             stream.writeln()
@@ -644,13 +633,13 @@ class HardyWeinberg:
         if self.flagLumps == 1:
             stream.opentag("lumped")
             stream.writeln()
-            stream.tagContents("observed", "%d" % self.lumpedObservedGenotypes)
+            stream.tagContents("observed", f"{self.lumpedObservedGenotypes}")
             stream.writeln()
-            stream.tagContents("expected", "%4f" % self.lumpedExpectedGenotypes)
+            stream.tagContents("expected", f"{self.lumpedExpectedGenotypes:4f}")
             stream.writeln()
-            stream.tagContents("chisq", "%4f" % self.lumpedChisq)
+            stream.tagContents("chisq", f"{self.lumpedChisq:4f}")
             stream.writeln()
-            stream.tagContents("pvalue", "%4f" % self.lumpedChisqPval)
+            stream.tagContents("pvalue", f"{self.lumpedChisqPval:4f}")
             stream.writeln()
             stream.tagContents("chisqdf", "1")
             stream.writeln()
@@ -666,15 +655,15 @@ class HardyWeinberg:
         if self.flagCommons == 1:
             stream.opentag("common")
             stream.writeln()
-            stream.tagContents("observed", "%d" % self.commonObservedAccumulator)
+            stream.tagContents("observed", f"{self.commonObservedAccumulator}")
             stream.writeln()
-            stream.tagContents("expected", "%4f" % self.commonExpectedAccumulator)
+            stream.tagContents("expected", f"{self.commonExpectedAccumulator:4f}")
             stream.writeln()
-            stream.tagContents("chisq", "%4f" % self.HWChisq)
+            stream.tagContents("chisq", f"{self.HWChisq:4f}")
             stream.writeln()
-            stream.tagContents("pvalue", "%4f" % self.HWChisqPval)
+            stream.tagContents("pvalue", f"{self.HWChisqPval:4f}")
             stream.writeln()
-            stream.tagContents("chisqdf", "%d" % int(self.HWChisqDf))
+            stream.tagContents("chisqdf", f"{int(self.HWChisqDf)}")
             stream.writeln()
             stream.closetag("common")
             stream.writeln()
@@ -690,15 +679,15 @@ class HardyWeinberg:
         if self.flagCommonPlusLumped == 1:
             stream.opentag("commonpluslumped")
             stream.writeln()
-            stream.tagContents("observed", "%d" % self.commonPlusLumpedObserved)
+            stream.tagContents("observed", f"{self.commonPlusLumpedObserved}")
             stream.writeln()
-            stream.tagContents("expected", "%4f" % self.commonPlusLumpedExpected)
+            stream.tagContents("expected", f"{self.commonPlusLumpedExpected:4f}")
             stream.writeln()
-            stream.tagContents("chisq", "%4f" % self.commonPlusLumpedChisq)
+            stream.tagContents("chisq", f"{self.commonPlusLumpedChisq:4f}")
             stream.writeln()
-            stream.tagContents("pvalue", "%4f" % self.commonPlusLumpedChisqPval)
+            stream.tagContents("pvalue", f"{self.commonPlusLumpedChisqPval:4f}")
             stream.writeln()
-            stream.tagContents("chisqdf", "%d" % int(self.commonPlusLumpedChisqDf))
+            stream.tagContents("chisqdf", f"{int(self.commonPlusLumpedChisqDf)}")
             stream.writeln()
             stream.closetag("commonpluslumped")
             stream.writeln()
@@ -727,14 +716,14 @@ class HardyWeinberg:
                     continue
 
                 # start tag
-                stream.opentag("genotype", row=horiz, id=("%d" % genotypeId), col=vert)
+                stream.opentag("genotype", row=horiz, id=(f"{genotypeId}"), col=vert)
 
                 # increment id
                 genotypeId += 1
 
                 # need to check both permutations of key
-                key1 = "%s%s%s" % (horiz, GENOTYPE_SEPARATOR, vert)
-                key2 = "%s%s%s" % (vert, GENOTYPE_SEPARATOR, horiz)
+                key1 = f"{horiz}{GENOTYPE_SEPARATOR}{vert}"
+                key2 = f"{vert}{GENOTYPE_SEPARATOR}{horiz}"
 
                 # get observed value
                 if key1 in self.observedGenotypeCounts:
@@ -753,20 +742,20 @@ class HardyWeinberg:
                     exp = 0.0
 
                 stream.writeln()
-                stream.tagContents("observed", "%d" % obs)
+                stream.tagContents("observed", f"{obs}")
                 stream.writeln()
-                stream.tagContents("expected", "%4f" % exp)
+                stream.tagContents("expected", f"{exp:4f}")
                 stream.writeln()
 
                 # get and tag chisq and pvalue (if they exist)
                 if key1 in self.chisqByGenotype:
-                    stream.tagContents("chisq", "%4f" % self.chisqByGenotype[key1])
+                    stream.tagContents("chisq", f"{self.chisqByGenotype[key1]:4f}")
                     stream.writeln()
-                    stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[key1])
+                    stream.tagContents("pvalue", f"{self.pvalByGenotype[key1]:4f}")
                 elif key2 in self.chisqByGenotype:
-                    stream.tagContents("chisq", "%4f" % self.chisqByGenotype[key2])
+                    stream.tagContents("chisq", f"{self.chisqByGenotype[key2]:4f}")
                     stream.writeln()
-                    stream.tagContents("pvalue", "%4f" % self.pvalByGenotype[key2])
+                    stream.tagContents("pvalue", f"{self.pvalByGenotype[key2]:4f}")
                 else:
                     stream.emptytag("chisq", role="not-calculated")
                     stream.writeln()
@@ -776,11 +765,11 @@ class HardyWeinberg:
                 if self.flagChenTest:
                     if key1 in self.chenPvalByGenotype:
                         stream.tagContents(
-                            "chenPvalue", "%4f" % self.chenPvalByGenotype[key1]
+                            "chenPvalue", f"{self.chenPvalByGenotype[key1]:4f}"
                         )
                     elif key2 in self.chenPvalByGenotype:
                         stream.tagContents(
-                            "chenPvalue", "%4f" % self.chenPvalByGenotype[key2]
+                            "chenPvalue", f"{self.chenPvalByGenotype[key2]:4f}"
                         )
                     else:
                         stream.emptytag("chenPvalue", role="not-calculated")
@@ -889,14 +878,17 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
                     continue
 
                 # need to check both permutations of key
-                key1 = "%s%s%s" % (horiz, GENOTYPE_SEPARATOR, vert)
-                key2 = "%s%s%s" % (vert, GENOTYPE_SEPARATOR, horiz)
+                key1 = f"{horiz}{GENOTYPE_SEPARATOR}{vert}"
+                key2 = f"{vert}{GENOTYPE_SEPARATOR}{horiz}"
                 if key1 in self.observedGenotypeCounts:
-                    output = "%2s " % self.observedGenotypeCounts[key1]
+                    output = f"{self.observedGenotypeCounts[key1]:>2} "
+                    # output = "%2s " % self.observedGenotypeCounts[key1]
                 elif key2 in self.observedGenotypeCounts:
-                    output = "%2s " % self.observedGenotypeCounts[key2]
+                    output = f"{self.observedGenotypeCounts[key2]:>2} "
+                    # output = "%2s " % self.observedGenotypeCounts[key2]
                 else:
-                    output = "%2s " % "0"
+                    output = f"{'0':>2} "
+                    # output = "%2s " % "0"
 
                 self.flattenedMatrix.append(int(output))
                 self.flattenedMatrixNames.append(key2)
@@ -910,7 +902,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
             stream.emptytag("hardyweinbergGuoThompson", role="too-few-alleles")
             return
 
-        matrixElemCount = (self.k * (self.k + 1)) / 2
+        (self.k * (self.k + 1)) / 2
 
         # generate a flattened matrix
         self.generateFlattenedMatrix()
@@ -941,7 +933,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
         from PyPop import _Gthwe
 
         if self.runMCMCTest:
-            stream.opentag("hardyweinbergGuoThompson", allelelump=("%d" % allelelump))
+            stream.opentag("hardyweinbergGuoThompson", allelelump=(f"{allelelump}"))
 
             self.serializeXMLTableTo(stream)
 
@@ -1041,20 +1033,17 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
 
         stream.writeln()
         if self.doOverall:
-            stream.tagContents("pvalue", "%f" % self.exactPValue, type="overall")
+            stream.tagContents("pvalue", f"{self.exactPValue:f}", type="overall")
         else:
             stream.emptytag("pvalue", type="overall", role="not-calculated")
         stream.writeln()
         if self.doOverall:
-            stream.tagContents("pvalue", "%f" % self.observedPValue, type="observed")
+            stream.tagContents("pvalue", f"{self.observedPValue:f}", type="observed")
         else:
             stream.emptytag("pvalue", type="observed", role="not-calculated")
         stream.writeln()
 
-        if self.doOverall:
-            method = "full"
-        else:
-            method = "three-by-three"
+        method = "full" if self.doOverall else "three-by-three"
 
         for i in range(self.k):
             for j in range(i + 1):
@@ -1062,27 +1051,27 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
                     print(
                         "genotype count: %4d"
                         % self.flattenedMatrix[(i * (i + 1) / 2) + j],
-                        "diff pval: %.4f" % self.diffPvals[(i * (i + 1) / 2) + j],
-                        "chen pval: %.4f" % self.chenPvals[(i * (i + 1) / 2) + j],
+                        f"diff pval: {self.diffPvals[(i * (i + 1) / 2) + j]:.4f}",
+                        f"chen pval: {self.chenPvals[(i * (i + 1) / 2) + j]:.4f}",
                     )
 
                 stream.tagContents(
                     "pvalue",
-                    "%f" % self.diffPvals[(i * (i + 1) / 2) + j],
+                    f"{self.diffPvals[(i * (i + 1) / 2) + j]:f}",
                     type="genotype",
                     statistic="diff_statistic",
-                    row=("%d" % i),
-                    col=("%d" % j),
+                    row=(f"{i}"),
+                    col=(f"{j}"),
                     method=method,
                 )
 
                 stream.tagContents(
                     "pvalue",
-                    "%f" % self.chenPvals[(i * (i + 1) / 2) + j],
+                    f"{self.chenPvals[(i * (i + 1) / 2) + j]:f}",
                     type="genotype",
                     statistic="chen_statistic",
-                    row=("%d" % i),
-                    col=("%d" % j),
+                    row=(f"{i}"),
+                    col=(f"{j}"),
                     method=method,
                 )
 
@@ -1181,15 +1170,15 @@ class HardyWeinbergGuoThompsonArlequin:
                 # generate output section
                 stream.opentag("hardyweinbergGuoThompsonArlequin")
                 stream.writeln()
-                stream.tagContents("obs-hetero", "%4f" % obsHet)
+                stream.tagContents("obs-hetero", f"{obsHet:4f}")
                 stream.writeln()
-                stream.tagContents("exp-hetero", "%4f" % expHet)
+                stream.tagContents("exp-hetero", f"{expHet:4f}")
                 stream.writeln()
-                stream.tagContents("pvalue", "%4f" % pvalue)
+                stream.tagContents("pvalue", f"{pvalue:4f}")
                 stream.writeln()
-                stream.tagContents("stddev", "%4f" % stddev)
+                stream.tagContents("stddev", f"{stddev:4f}")
                 stream.writeln()
-                stream.tagContents("steps", "%d" % steps)
+                stream.tagContents("steps", f"{steps}")
                 stream.writeln()
                 stream.closetag("hardyweinbergGuoThompsonArlequin")
                 stream.writeln()
