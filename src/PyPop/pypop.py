@@ -38,7 +38,6 @@
 import os
 import sys
 from configparser import ConfigParser
-from glob import glob
 from pathlib import Path
 
 
@@ -48,7 +47,7 @@ def main(argv=sys.argv):
     from PyPop.CommandLineInterface import get_pypop_cli
     from PyPop.Main import Main, checkXSLFile, getConfigInstance
     from PyPop.Meta import Meta
-    from PyPop.Utils import getUserFilenameInput
+    from PyPop.Utils import getUserFilenameInput, glob_with_pathlib
 
     ######################################################################
     # BEGIN: CHECK PATHS and FILEs
@@ -58,12 +57,12 @@ def main(argv=sys.argv):
     # installed, e.g. if python is installed in sys.prefix='/usr'
     # we look in /usr/share/pypop, /usr/bin/pypop etc.
     # FIXME: this should be removed
-    datapath = os.path.join(sys.prefix, "share", "pypop")
-    binpath = os.path.join(sys.prefix, "bin")
-    altpath = os.path.join(datapath, "config.ini")
+    datapath = Path(sys.prefix) / "share" / "pypop"
+    binpath = Path(sys.prefix) / "bin"
+    altpath = datapath / "config.ini"
 
     # find our exactly where the current pypop is being run from
-    pypopbinpath = os.path.dirname(os.path.realpath(sys.argv[0]))
+    pypopbinpath = Path(os.path.realpath(sys.argv[0])).parent
 
     ######################################################################
     # END: CHECK PATHS and FILEs
@@ -73,14 +72,14 @@ def main(argv=sys.argv):
     # BEGIN: generate message texts
     ######################################################################
 
-    interactive_message = """PyPop: Python for Population Genomics (%s)
-%s
-%s
+    interactive_message = f"""PyPop: Python for Population Genomics ({version})
+{platform_info}
+{copyright_message}
 
 You may redistribute copies of PyPop under the terms of the
 GNU General Public License.  For more information about these
 matters, see the file named COPYING.
-    """ % (version, platform_info, copyright_message)
+    """
 
     ######################################################################
     # END: generate message texts
@@ -101,12 +100,10 @@ matters, see the file named COPYING.
             "--enable-iwhg, --enable-phylip or --prefix_tsv can only be used if --generate-tsv also supplied"
         )
 
-    if args.outputdir:
-        if not args.outputdir.is_dir():
-            parser.error(
-                "'%s' is not a directory, please supply a valid output directory"
-                % args.outputdir
-            )
+    if args.outputdir and not args.outputdir.is_dir():
+        parser.error(
+            f"'{args.outputdir}' is not a directory, please supply a valid output directory"
+        )
 
     configFilename = args.config
     xslFilename = args.xsl
@@ -155,14 +152,14 @@ matters, see the file named COPYING.
             "text.xsl", mypath, abort=False, debug=debugFlag
         )
 
-        if xslFilenameDefault == None:
+        if xslFilenameDefault is None:
             # otherwise use heuristics for XSLT transformation file 'text.xsl'
             # check child directory 'xslt/' first
             xslFilenameDefault = checkXSLFile(
                 "text.xsl", pypopbinpath, "xslt", debug=debugFlag
             )
             # if not found  check sibling directory '../PyPop/xslt/'
-            if xslFilenameDefault == None:
+            if xslFilenameDefault is None:
                 xslFilenameDefault = checkXSLFile(
                     "text.xsl", pypopbinpath, "../PyPop/xslt", debug=debugFlag
                 )
@@ -192,7 +189,7 @@ matters, see the file named COPYING.
 
         pypoprc = ConfigParser()
 
-        if os.path.isfile(pypoprcFilename):
+        if Path(pypoprcFilename).is_file():
             pypoprc.read(pypoprcFilename)
             configFilename = pypoprc.get("Files", "config")
             fileName = pypoprc.get("Files", "pop")
@@ -236,7 +233,7 @@ return for each prompt.""")
             configFilename = getUserFilenameInput("config", configFilename)
             fileNames.append(getUserFilenameInput("population", fileName))
 
-        print("PyPop is processing %s ..." % fileNames[0])
+        print(f"PyPop is processing {fileNames[0]} ...")
 
     else:
         # non-interactive mode: run in 'batch' mode
@@ -261,11 +258,11 @@ return for each prompt.""")
         # process, ensuring we expand any Unix-shell globbing-style
         # arguments
         for fileName in li:
-            globbedFiles = glob(fileName)
+            globbedFiles = glob_with_pathlib(fileName)
             if len(globbedFiles) == 0:
                 # if no files were found for that glob, please exit and warn
                 # the user
-                sys.exit("Couldn't find file(s): %s" % fileName)
+                sys.exit(f"Couldn't find file(s): {fileName}")
             else:
                 fileNames.extend(globbedFiles)
 
@@ -282,7 +279,7 @@ return for each prompt.""")
         application = Main(
             config=config,
             debugFlag=debugFlag,
-            fileName=fileName,
+            fileName=str(fileName),
             datapath=datapath,
             xslFilename=xslFilename,
             xslFilenameDefault=xslFilenameDefault,
@@ -295,12 +292,9 @@ return for each prompt.""")
         txtOutPaths.append(application.getTxtOutPath())
 
     if generateTSV:
-        if PHYLIP_output:
-            # if we're doing PHYLIP output, need to process all XML at once
-            batchsize = 1
-        else:
-            # otherwise we can do them one-by-one
-            batchsize = len(xmlOutPaths)
+        # if we're doing PHYLIP output, need to process all XML at once
+        # otherwise we can do them one-by-one
+        batchsize = 1 if PHYLIP_output else len(xmlOutPaths)
 
         print("Generating TSV (.dat) files...")
         Meta(
@@ -327,9 +321,10 @@ return for each prompt.""")
         if pypoprc.has_section("Files") != 1:
             pypoprc.add_section("Files")
 
-        pypoprc.set("Files", "config", os.path.abspath(configFilename))
-        pypoprc.set("Files", "pop", os.path.abspath(fileNames[0]))
-        pypoprc.write(open(pypoprcFilename, "w"))
+        pypoprc.set("Files", "config", str(Path(configFilename).resolve()))
+        pypoprc.set("Files", "pop", str(Path(fileNames[0]).resolve()))
+        with open(pypoprcFilename, "w") as fp:
+            pypoprc.write(fp)
 
 
 def main_interactive(argv=sys.argv):
@@ -339,8 +334,8 @@ def main_interactive(argv=sys.argv):
 
 
 if __name__ == "__main__":
-    DIR = os.path.abspath(os.path.dirname(__file__))
-    sys.path.insert(0, os.path.join(DIR, ".."))
-    sys.path.insert(0, os.path.join(DIR, "../src"))
+    DIR = Path(__file__).parent.resolve()
+    sys.path.insert(0, Path(DIR) / "..")
+    sys.path.insert(0, Path(DIR) / "../src")
 
     main()

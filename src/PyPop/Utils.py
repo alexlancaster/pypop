@@ -46,6 +46,7 @@ import re
 import shutil
 import stat
 import sys
+from pathlib import Path
 
 import numpy as np
 from numpy import asarray, take, zeros
@@ -53,6 +54,11 @@ from numpy import asarray, take, zeros
 GENOTYPE_SEPARATOR = "~"
 GENOTYPE_TERMINATOR = "~"
 from numpy.lib.user_array import container
+
+
+def glob_with_pathlib(pattern):
+    path = Path(pattern).resolve()
+    return list(path.parent.glob(path.name))
 
 
 class TextOutputStream:
