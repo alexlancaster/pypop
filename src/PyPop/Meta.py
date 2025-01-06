@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 # $Id$
 
@@ -59,16 +57,10 @@ def _translate_string_to(xslFilename, inString, outFile, outputDir=None, params=
     doc = etree.fromstring(inString)
 
     # apply the stylesheet instance to the document instance
-    if params:
-        result = style(doc, **params)
-    else:
-        result = style(doc)
+    result = style(doc, **params) if params else style(doc)
 
     # generate output path
-    if outputDir:
-        outPath = outputDir / outFile
-    else:
-        outPath = outFile
+    outPath = outputDir / outFile if outputDir else outFile
 
     result.write_output(outPath)
 
@@ -107,19 +99,13 @@ def _translate_file_to(
 
     try:
         # generate output path
-        if inputDir:
-            inputPath = inputDir / inFile
-        else:
-            inputPath = inFile
+        inputPath = inputDir / inFile if inputDir else inFile
 
         # parse the inline generated XML file
         doc = etree.parse(inputPath)
 
         # apply the stylesheet instance to the document instance
-        if params:
-            result = style(doc, **params)
-        else:
-            result = style(doc)
+        result = style(doc, **params) if params else style(doc)
 
         if outFile == "-":  # this is stdout
             text_output = str(result)
@@ -129,10 +115,7 @@ def _translate_file_to(
 
         else:
             # generate output path
-            if outputDir:
-                outPath = outputDir / outFile
-            else:
-                outPath = outFile
+            outPath = outputDir / outFile if outputDir else outFile
 
             result.write_output(outPath)
 
@@ -140,7 +123,7 @@ def _translate_file_to(
 
     except Exception as e:
         print(e.args)
-        print("Can't process: %s with stylesheet: %s, skipping" % (inFile, xslFilename))
+        print(f"Can't process: {inFile} with stylesheet: {xslFilename}, skipping")
         success = False
 
     return success, output
@@ -236,11 +219,11 @@ class Meta:
             elif checkXSLFile(
                 meta_to_tsv_xsl, popmetabinpath, "xslt"
             ):  # next, heuristics
-                metaXSLTDirectory = os.path.join(popmetabinpath, "xslt")
+                metaXSLTDirectory = Path(popmetabinpath) / "xslt"
             elif checkXSLFile(
-                meta_to_tsv_xsl, popmetabinpath, os.path.join("..", "PyPop/xslt")
+                meta_to_tsv_xsl, popmetabinpath, Path("..") / "PyPop/xslt"
             ):
-                metaXSLTDirectory = os.path.join(popmetabinpath, "..", "PyPop/xslt")
+                metaXSLTDirectory = Path(popmetabinpath) / ".." / "PyPop/xslt"
             else:
                 metaXSLTDirectory = datapath
 
@@ -250,10 +233,7 @@ class Meta:
             )
 
         # create XSLT parameters
-        if ihwg_output:
-            xslt_params = {"ihwg-fmt": "1"}
-        else:
-            xslt_params = {"ihwg-fmt": "0"}
+        xslt_params = {"ihwg-fmt": "1"} if ihwg_output else {"ihwg-fmt": "0"}
 
         # pass in subdirectory if it's given
         if outputDir:
@@ -281,10 +261,10 @@ class Meta:
         # and skip this file in the meta analysis
         for xml_file in xml_files:
             try:
-                doc = etree.parse(xml_file)
+                etree.parse(xml_file)
                 wellformed_files.append(xml_file)
-            except:
-                print("%s is not well-formed XML:" % f)
+            except Exception:
+                print(f"{xml_file} is not well-formed XML:")
                 print(
                     "  probably a problem with analysis not completing, skipping in meta analysis!"
                 )
@@ -306,11 +286,11 @@ class Meta:
             # XML files
 
             for f in fileBatchList[fileBatch]:
-                base = os.path.basename(f)
-                uri = Path(os.path.abspath(f)).as_uri()
+                base = Path(f).name
+                uri = Path(Path(f).resolve()).as_uri()
                 ent = "ENT" + base.replace(" ", "-")
-                entities += '<!ENTITY %s SYSTEM "%s">\n' % (ent, uri)
-                includes += "&%s;\n" % ent
+                entities += f'<!ENTITY {ent} SYSTEM "{uri}">\n'
+                includes += f"&{ent};\n"
 
             # put entities after doctype
             meta_string += entities
@@ -326,20 +306,16 @@ class Meta:
             if dump_meta == 1:
                 print(meta_string)
             else:
-                if outputDir:
-                    meta_xml_path = outputDir / "meta.xml"
-                else:
-                    meta_xml_path = "meta.xml"
+                meta_xml_path = outputDir / "meta.xml" if outputDir else "meta.xml"
 
-                f = open(meta_xml_path, "w")
-                f.write(meta_string)
-                f.close()
+                with open(meta_xml_path, "w") as f:
+                    f.write(meta_string)
 
                 if TSV_output:
                     # generate all data output in formats for programs that read TSV files
                     # stdout records the files generated by the XML -> TSV transformation
                     success, stdout = translate_file_to_stdout(
-                        os.path.join(metaXSLTDirectory, meta_to_tsv_xsl),
+                        Path(metaXSLTDirectory) / meta_to_tsv_xsl,
                         "meta.xml",
                         inputDir=outputDir,
                         params=xslt_params,
@@ -350,7 +326,7 @@ class Meta:
                 if PHYLIP_output:
                     # using the '{allele,haplo}list-by-{locus,group}.xml' files implicitly:
                     success = translate_string_to_file(
-                        os.path.join(metaXSLTDirectory, "sort-by-locus.xsl"),
+                        Path(metaXSLTDirectory) / "sort-by-locus.xsl",
                         meta_string,
                         "sorted-by-locus.xml",
                         outputDir=outputDir,
@@ -360,7 +336,7 @@ class Meta:
                     # 'allelelist-by-locus.xml' for each locus across all the
                     # populations in the set of XML files passed
                     success = translate_file_to_file(
-                        os.path.join(metaXSLTDirectory, "allelelist-by-locus.xsl"),
+                        Path(metaXSLTDirectory) / "allelelist-by-locus.xsl",
                         "sorted-by-locus.xml",
                         "allelelist-by-locus.xml",
                         inputDir=outputDir,
@@ -370,7 +346,7 @@ class Meta:
                     # similarly, generate a unique list of haplotypes
                     # 'haplolist-by-locus.xml'
                     success = translate_file_to_file(
-                        os.path.join(metaXSLTDirectory, "haplolist-by-group.xsl"),
+                        Path(metaXSLTDirectory) / "haplolist-by-group.xsl",
                         "meta.xml",
                         "haplolist-by-group.xml",
                         inputDir=outputDir,
@@ -381,7 +357,7 @@ class Meta:
 
                     # generate individual locus files (don't use loci parameter)
                     success, stdout = translate_file_to_stdout(
-                        os.path.join(metaXSLTDirectory, "phylip-allele.xsl"),
+                        Path(metaXSLTDirectory) / "phylip-allele.xsl",
                         "sorted-by-locus.xml",
                         inputDir=outputDir,
                         params={"outputDir": xslt_params["outputDir"]},
@@ -397,7 +373,7 @@ class Meta:
                         "A:DPA1",
                     ]:
                         success, stdout = translate_file_to_stdout(
-                            os.path.join(metaXSLTDirectory, "phylip-allele.xsl"),
+                            Path(metaXSLTDirectory) / "phylip-allele.xsl",
                             "sorted-by-locus.xml",
                             inputDir=outputDir,
                             params={
@@ -416,7 +392,8 @@ class Meta:
                         "A:DPA1",
                     ]:
                         success, stdout = translate_file_to_stdout(
-                            os.path.join(metaXSLTDirectory, "phylip-haplo.xsl"),
+                            Path(metaXSLTDirectory),
+                            "phylip-haplo.xsl",
                             "meta.xml",
                             inputDir=outputDir,
                             params={
@@ -429,47 +406,40 @@ class Meta:
                 if len(fileBatchList) > 1:
                     for dat in tsv_files:
                         if success:
-                            if os.path.exists(dat):
-                                # print("renaming:", dat, "to:", "%s.%d" % (dat, fileBatch))
-                                os.rename(dat, "%s.%d" % (dat, fileBatch))
+                            if Path(dat).exists():
+                                Path(dat).rename(f"{dat}.{fileBatch}")
                             else:
                                 print(
-                                    "%s in batch %d doesn't exist - skipping"
-                                    % (dat, fileBatch)
+                                    "%{dat} in batch {fileBatch} doesn't exist - skipping"
                                 )
                         else:
-                            print(
-                                "problem with generating %s in batch %d"
-                                % (dat, fileBatch)
-                            )
+                            print("problem with generating {dat} in batch {fileBatch}")
 
         # at end of entire processing, need to cat files together
         # this is a bit hacky
         if len(fileBatchList) > 1:
             for dat in tsv_files:
                 # create final file to concatenate to
-                outdat = open(dat, "w")
-                # now concatenate them
-                for i in range(len(fileBatchList)):
-                    # write temp file to outdat
-                    catFilename = "%s.%d" % (dat, i)
-                    if not (
-                        os.path.exists(catFilename)
-                    ):  # if the file is not generated, we skip
-                        continue
-                    catFile = open(catFilename)
-                    # drop the first line, iff we are past first file
-                    for linenum, line in enumerate(catFile):
-                        if i > 0:
-                            if linenum > 0:
-                                outdat.write(line)
-                        else:
-                            outdat.write(line)
-                    # then remove it
-                    catFile.close()
-                    os.remove(catFilename)
-                # close the ultimate output file
-                outdat.close()
+                with open(dat, "w") as outdat:
+                    # now concatenate them
+                    for i in range(len(fileBatchList)):
+                        # write temp file to outdat
+                        catFilename = f"{dat}.{i}"
+                        if not (
+                            Path(catFilename).exists()
+                        ):  # if the file is not generated, we skip
+                            continue
+                        with open(catFilename) as catFile:
+                            # drop the first line, iff we are past first file
+                            for linenum, line in enumerate(catFile):
+                                if i > 0:
+                                    if linenum > 0:
+                                        outdat.write(line)
+                                else:
+                                    outdat.write(line)
+                            # then remove it
+                            catFile.close()
+                            os.remove(catFilename)
                 # if the file is empty, we remove it
-                if os.path.getsize(dat) == 0:
+                if Path(dat).stat().st_size == 0:
                     os.remove(dat)
