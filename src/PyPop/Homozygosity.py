@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2003. The Regents of the University of California (Regents)
@@ -40,6 +38,7 @@ import os
 import string
 from functools import reduce
 from operator import add
+from pathlib import Path
 
 from PyPop.DataTypes import Genotypes, checkIfSequenceData, getLocusPairs, getMetaLocus
 from PyPop.Utils import getStreamType
@@ -83,7 +82,7 @@ class Homozygosity:
         else:
             self.sampleCount = 0
 
-        self.rootPath = rootPath
+        self.rootPath = Path(rootPath)
         self.debug = debug
 
         self.expectedStatsFlag = self._parseFile()
@@ -104,10 +103,9 @@ class Homozygosity:
         # hack because we only have simulated data for 2n <= 2000
         twoEn = min(twoEn, 2000)
 
-        dir = "2n%s" % twoEn
-        file = "%s_%s.out" % (numAlleles, twoEn)
-        path = os.path.join(dir, file)
-        return path
+        dir = f"2n{twoEn}"
+        file = f"{numAlleles}_{twoEn}.out"
+        return Path(dir) / file
 
     def _checkCountRange(self, sampleCount):
         """Check range of total allele count is valid.
@@ -150,44 +148,45 @@ class Homozygosity:
                 path = self._genPathName(self.sampleCount, self.numAlleles)
 
                 # open file with full path name created in-line
-                lines = open(self.rootPath + os.sep + path).readlines()
+                with open(self.rootPath / path) as fp:
+                    lines = fp.readlines()
 
-                self.count = int(lines[0].split(":")[1])
-                self.expectedHomozygosity = float(lines[1].split(":")[1])
-                self.varExpectedHomozygosity = float(lines[2].split(":")[1])
+                    self.count = int(lines[0].split(":")[1])
+                    self.expectedHomozygosity = float(lines[1].split(":")[1])
+                    self.varExpectedHomozygosity = float(lines[2].split(":")[1])
 
-                if self.count > 1999:
-                    self.quantile = []
-                    # read until we've reached the end of lines or a blank line
-                    for i in range(4, len(lines)):
-                        # stop reading quantiles if blank encountered
-                        if lines[i] == os.linesep:
-                            break
-                        obsvHomo, pValue = [float(val) for val in lines[i].split()]
-                        self.quantile.append((obsvHomo, pValue))
+                    if self.count > 1999:
+                        self.quantile = []
+                        # read until we've reached the end of lines or a blank line
+                        for i in range(4, len(lines)):
+                            # stop reading quantiles if blank encountered
+                            if lines[i] == os.linesep:
+                                break
+                            obsvHomo, pValue = [float(val) for val in lines[i].split()]
+                            self.quantile.append((obsvHomo, pValue))
+
+                        if self.debug:
+                            print(
+                                self.count,
+                                self.expectedHomozygosity,
+                                self.varExpectedHomozygosity,
+                            )
+                            print(self.sampleCount, self.numAlleles)
+
+                        return 1
 
                     if self.debug:
+                        print(self.sampleCount, self.numAlleles)
                         print(
                             self.count,
                             self.expectedHomozygosity,
                             self.varExpectedHomozygosity,
                         )
-                        print(self.sampleCount, self.numAlleles)
-
-                    return 1
-
-                if self.debug:
-                    print(self.sampleCount, self.numAlleles)
-                    print(
-                        self.count,
-                        self.expectedHomozygosity,
-                        self.varExpectedHomozygosity,
-                    )
-                    print(
-                        "Insufficient (",
-                        self.count,
-                        ") replicates observed for a valid analysis.",
-                    )
+                        print(
+                            "Insufficient (",
+                            self.count,
+                            ") replicates observed for a valid analysis.",
+                        )
             elif self.debug:
                 print(self.numAlleles, " is out of range of valid k!")
         elif self.debug:
@@ -239,7 +238,7 @@ class Homozygosity:
         for val in self.quantile:
             obsvHomo, pVal = val
             if self.debug:
-                print("%08f %08f" % (obsvHomo, pVal))
+                print(f"{obsvHomo:08f} {pVal:08f}")
             if self.observedHomozygosity > obsvHomo:
                 lowerBound = pVal
                 return lowerBound, upperBound
@@ -283,16 +282,16 @@ class Homozygosity:
         return self.normDevHomozygosity
 
     def serializeHomozygosityTo(self, stream):
-        type = getStreamType(stream)
+        getStreamType(stream)
 
         if self.expectedStatsFlag:
             stream.opentag("homozygosity")
             stream.writeln()
-            stream.tagContents("observed", "%.4f" % self.getObservedHomozygosity())
+            stream.tagContents("observed", f"{self.getObservedHomozygosity():.4f}")
             stream.writeln()
-            stream.tagContents("expected", "%.4f" % self.getExpectedHomozygosity())
+            stream.tagContents("expected", f"{self.getExpectedHomozygosity():.4f}")
             stream.writeln()
-            stream.tagContents("normdev", "%.4f" % self.getNormDevHomozygosity())
+            stream.tagContents("normdev", f"{self.getNormDevHomozygosity():.4f}")
             stream.writeln()
 
             # stream.tagContents('expectedVariance', "%.4f" % self.getVarExpectedHomozygosity())
@@ -301,8 +300,8 @@ class Homozygosity:
             # stream.writeln()
             stream.opentag("pvalue")
             lb, up = self.getPValueRange()
-            stream.tagContents("lower", "%.4f" % lb)
-            stream.tagContents("upper", "%.4f" % up)
+            stream.tagContents("lower", f"{lb:.4f}")
+            stream.tagContents("upper", f"{up:.4f}")
             stream.closetag("pvalue")
             stream.writeln()
             stream.closetag("homozygosity")
@@ -311,7 +310,7 @@ class Homozygosity:
         else:
             stream.opentag("homozygosity", role="out-of-range")
             stream.writeln()
-            stream.tagContents("observed", "%.4f" % self.getObservedHomozygosity())
+            stream.tagContents("observed", f"{self.getObservedHomozygosity():.4f}")
             stream.writeln()
             stream.closetag("homozygosity")
 
@@ -345,7 +344,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
                 print(list(self.alleleData))
                 print(type(self.alleleData))
 
-            li = [0] + list(self.alleleData) + [0]
+            li = [0, *list(self.alleleData), 0]
 
             if self.debug:
                 print(
@@ -384,22 +383,22 @@ class HomozygosityEWSlatkinExact(Homozygosity):
             stream.opentag("homozygosityEWSlatkinExact")
             stream.writeln()
 
-            stream.tagContents("theta", "%.4f" % self.theta)
+            stream.tagContents("theta", f"{self.theta:.4f}")
             stream.writeln()
 
-            stream.tagContents("probEwens", "%.4f" % self.prob_ewens)
+            stream.tagContents("probEwens", f"{self.prob_ewens:.4f}")
             stream.writeln()
 
-            stream.tagContents("probHomozygosity", "%.4f" % self.prob_homozygosity)
+            stream.tagContents("probHomozygosity", f"{self.prob_homozygosity:.4f}")
             stream.writeln()
 
-            stream.tagContents("meanHomozygosity", "%.4f" % self.mean_homozygosity)
+            stream.tagContents("meanHomozygosity", f"{self.mean_homozygosity:.4f}")
             stream.writeln()
 
-            stream.tagContents("observedHomozygosity", "%.4f" % self.obsv_homozygosity)
+            stream.tagContents("observedHomozygosity", f"{self.obsv_homozygosity:.4f}")
             stream.writeln()
 
-            stream.tagContents("varHomozygosity", "%.4f" % self.var_homozygosity)
+            stream.tagContents("varHomozygosity", f"{self.var_homozygosity:.4f}")
             stream.writeln()
 
             # calculate normalized deviate of homozygosity (F_nd)
@@ -409,8 +408,8 @@ class HomozygosityEWSlatkinExact(Homozygosity):
                 normDevHomozygosity = (
                     self.getObservedHomozygosity() - self.EW.get_mean_homozygosity()
                 ) / sqrtVar
-                normDevStr = "%.4f" % normDevHomozygosity
-            except:
+                normDevStr = f"{normDevHomozygosity:.4f}"
+            except Exception:
                 normDevStr = "****"
             stream.tagContents("normDevHomozygosity", normDevStr)
 
