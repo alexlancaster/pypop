@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2003, 2004, 2005, 2006.
@@ -35,10 +33,10 @@
 
 """Python population genetics statistics."""
 
-import os
 import sys
 import time
 from configparser import ConfigParser, NoOptionError, NoSectionError
+from pathlib import Path
 
 from PyPop.DataTypes import Genotypes, getLumpedDataLevels
 from PyPop.Filter import AnthonyNolanFilter, BinningFilter
@@ -72,16 +70,12 @@ def getConfigInstance(configFilename=None, altpath=None):
     """
     config = ConfigParser()
 
-    if os.path.isfile(configFilename):
+    if Path(configFilename).is_file():
         config.read(configFilename)
-    elif os.path.isfile(altpath):
+    elif Path(altpath).is_file():
         config.read(altpath)
     else:
-        sys.exit(
-            "Could not find config file either in current directory or "
-            + altpath
-            + os.linesep
-        )
+        sys.exit("Could not find config file either in current directory or " + altpath)
 
     if len(config.sections()) == 0:
         sys.exit("No output defined!  Exiting...")
@@ -134,7 +128,7 @@ class Main:
         self.randomBinningFlag = 0
 
         # parse out the parts of the filename
-        baseFileName = os.path.basename(self.fileName)
+        baseFileName = Path(self.fileName).name
         prefixFileName = ".".join(baseFileName.split(".")[:-1])
 
         # generate date and time
@@ -164,11 +158,10 @@ class Main:
             if outFilePrefixType == "filename":
                 uniquePrefix = prefixFileName
             elif outFilePrefixType == "date":
-                uniquePrefix = "%s-%s-%s" % (prefixFileName, datestr, timestr)
+                uniquePrefix = f"{prefixFileName}-{datestr}-{timestr}"
             else:
                 sys.exit(
-                    "outFilePrefixType: %s must be 'filename' or 'date'"
-                    % outFilePrefixType
+                    f"outFilePrefixType: {outFilePrefixType} must be 'filename' or 'date'"
                 )
         except NoOptionError:
             # just use default prefix
@@ -216,7 +209,7 @@ class Main:
                 self.defaultFilterLogPath,
                 self.defaultPopDumpPath,
             ] = [
-                os.path.join(self.outputDir, x)
+                Path(self.outputDir) / x
                 for x in [
                     self.txtOutFilename,
                     self.xmlOutFilename,
@@ -238,7 +231,7 @@ class Main:
 
         # if not provided on command line or provided check .ini
         # options, and use that location, if provided
-        if self.xslFilename == None:
+        if self.xslFilename is None:
             try:
                 self.xslFilename = self.config.get("General", "xslFilename")
                 if self.debug:
@@ -375,8 +368,7 @@ class Main:
                     self.dumpOrder = int(self.dumpOrder)
                 else:
                     sys.exit(
-                        "%s is not a valid keyword for population dump: must be either 'separate-loci' or 'all-loci'"
-                        % self.dumpType
+                        f"{self.dumpType} is not a valid keyword for population dump: must be either 'separate-loci' or 'all-loci'"
                     )
 
             except NoOptionError:
@@ -386,9 +378,11 @@ class Main:
             if len(self.filtersToApply) > 0 and len(self.filtersToApply[0]) > 0:
                 # get filtering options and open log file for
                 # filter in append mode
+
+                # FIXME: need a better way that uses context manager
                 self.filterLogFile = XMLOutputStream(
                     open(self.defaultFilterLogPath, "w")
-                )
+                )  # noqa: SIM115
 
                 if self.testMode:
                     self.filterLogFile.opentag(
@@ -416,13 +410,14 @@ class Main:
         # BEGIN common XML output section
 
         # create XML stream
-        self.xmlStream = XMLOutputStream(open(self.xmlOutPath, "w"))
+        # FIXME: need a better way that uses context manager
+        self.xmlStream = XMLOutputStream(open(self.xmlOutPath, "w"))  # noqa: SIM115
 
         # opening tag, don't include date if running in test mode
         if not (testMode):
             self.xmlStream.opentag(
                 'dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude"',
-                date="%s-%s" % (datestr, timestr),
+                date=f"{datestr}-{timestr}",
                 role=self.fileType,
             )
         else:
@@ -459,10 +454,7 @@ class Main:
         self.input.serializeSubclassMetadataTo(self.xmlStream)
 
         # process the file depending on type
-        if (
-            self.fileType == "ParseAlleleCountFile"
-            or self.fileType == "ParseGenotypeFile"
-        ):
+        if self.fileType in ("ParseAlleleCountFile", "ParseGenotypeFile"):
             self._doGenotypeFile()
         else:
             pass
@@ -491,13 +483,13 @@ class Main:
                 self.binningMethod = self.config.get(
                     "RandomAlleleBinning", "binningMethod"
                 )
-            except:
+            except Exception:
                 self.binningMethod = "random"
             try:
                 self.binningStartPoint = self.config.getint(
                     "RandomAlleleBinning", "binningStartPoint"
                 )
-            except:
+            except Exception:
                 self.binningStartPoint = 0
             try:
                 self.binningReplicates = self.config.getint(
@@ -508,23 +500,23 @@ class Main:
             try:
                 self.binningLoci = self.config.get("RandomAlleleBinning", "binningLoci")
                 self.binningLoci = self.binningLoci.split(",")
-            except:
+            except Exception:
                 self.binningLoci = []
             if len(self.binningLoci) > 0:
                 self.randomBinningFlag = 1
 
         for filterCall in self.filtersToApply:
-            if (
-                filterCall == "AnthonyNolan"
-                or filterCall == "DigitBinning"
-                or filterCall == "CustomBinning"
-                or filterCall == "Sequence"
+            if filterCall in (
+                "AnthonyNolan",
+                "DigitBinning",
+                "CustomBinning",
+                "Sequence",
             ):
                 filterType = filterCall
             else:
                 try:
                     filterType = self.config.get(filterCall, "filterType")
-                except:
+                except Exception:
                     sys.exit(
                         "No valid filter type specified under filter heading "
                         + filterCall
@@ -533,36 +525,33 @@ class Main:
             if filterType == "AnthonyNolan":
                 try:
                     anthonynolanPath = self.config.get(filterCall, "directory")
-                except:
-                    anthonynolanPath = os.path.join(
-                        self.datapath, "anthonynolan", "msf"
-                    )
+                except Exception:
+                    anthonynolanPath = Path(self.datapath) / "anthonynolan" / "msf"
                     if self.debug:
                         print(
-                            "LOG: Defaulting to system datapath %s for anthonynolanPath data"
-                            % anthonynolanPath
+                            f"LOG: Defaulting to system datapath {anthonynolanPath} for anthonynolanPath data"
                         )
                 try:
                     alleleFileFormat = self.config.get(filterCall, "alleleFileFormat")
-                except:
+                except Exception:
                     alleleFileFormat = "msf"
                 try:
                     preserveAmbiguousFlag = self.config.getint(
                         filterCall, "preserve-ambiguous"
                     )
-                except:
+                except Exception:
                     preserveAmbiguousFlag = 0
                 try:
                     preserveUnknownFlag = self.config.getint(
                         filterCall, "preserve-unknown"
                     )
-                except:
+                except Exception:
                     preserveUnknownFlag = 0
                 try:
                     preserveLowresFlag = self.config.getint(
                         filterCall, "preserve-lowres"
                     )
-                except:
+                except Exception:
                     preserveLowresFlag = 0
 
                 filter = AnthonyNolanFilter(
@@ -584,7 +573,7 @@ class Main:
             elif filterType == "DigitBinning":
                 try:
                     binningDigits = self.config.getint(filterCall, "binningDigits")
-                except:
+                except Exception:
                     binningDigits = 4
                 filter = BinningFilter(
                     debug=self.debug,
@@ -606,7 +595,7 @@ class Main:
                         ).split()
                     if self.debug:
                         print(customBinningDict)
-                except:
+                except Exception:
                     sys.exit("Could not parse the CustomBinning rules.")
                 filter = BinningFilter(
                     debug=self.debug,
@@ -626,24 +615,21 @@ class Main:
                     self.unsequencedSite = self.config.get(
                         filterCall, "unsequencedSite"
                     )
-                except:
+                except Exception:
                     self.unsequencedSite = "#"
                 try:
                     sequenceFileSuffix = self.config.get(
                         filterCall, "sequenceFileSuffix"
                     )
-                except:
+                except Exception:
                     sequenceFileSuffix = "_prot"
                 try:
                     anthonynolanPath = self.config.get(filterCall, "directory")
-                except:
-                    anthonynolanPath = os.path.join(
-                        self.datapath, "anthonynolan", "msf"
-                    )
+                except Exception:
+                    anthonynolanPath = Path(self.datapath) / "anthonynolan" / "msf"
                     if self.debug:
                         print(
-                            "LOG: Defaulting to system datapath %s for anthonynolanPath data"
-                            % anthonynolanPath
+                            f"LOG: Defaulting to system datapath {anthonynolanPath} for anthonynolanPath data"
                         )
                 try:
                     sequenceFilterMethod = self.config.get(
@@ -651,7 +637,7 @@ class Main:
                     )
                     if sequenceFilterMethod != "greedy":
                         sequenceFilterMethod = "strict-default"
-                except:
+                except Exception:
                     sequenceFilterMethod = "strict-default"
 
                 filter = AnthonyNolanFilter(
@@ -692,13 +678,14 @@ class Main:
                     popDumpPath = (
                         self.defaultPopDumpPath + "-" + locus + "-filtered.pop"
                     )
-                    dumpFile = TextOutputStream(open(popDumpPath, "w"))
+                    dumpFile = TextOutputStream(open(popDumpPath, "w"))  # noqa: SIM115
                     dumpMatrix = self.matrixHistory[self.dumpOrder]
                     dumpMatrix.dump(locus=locus, stream=dumpFile)
                     dumpFile.close()
             elif self.dumpType == "all-loci":
                 popDumpPath = self.defaultPopDumpPath + "-filtered.pop"
-                dumpFile = TextOutputStream(open(popDumpPath, "w"))
+                # FIXME: need a better way that uses context manager
+                dumpFile = TextOutputStream(open(popDumpPath, "w"))  # noqa: SIM115
                 dumpMatrix = self.matrixHistory[self.dumpOrder]
                 dumpMatrix.dump(stream=dumpFile)
                 dumpFile.close()
@@ -774,7 +761,7 @@ class Main:
                     li = [int(i) for i in alleleLump.split(",")]
                     lumpData = getLumpedDataLevels(self.input, locus, li)
 
-                    for level in lumpData.keys():
+                    for level in lumpData:
                         locusData, alleleData = lumpData[level]
                         hwObjectLump = HardyWeinberg(
                             locusData, alleleData, lumpBelow=lumpBelow, debug=self.debug
@@ -901,7 +888,7 @@ class Main:
                         li = unique_elements(li1)
 
                         lumpData = getLumpedDataLevels(self.input, locus, li)
-                        for level in lumpData.keys():
+                        for level in lumpData:
                             locusData, alleleData = lumpData[level]
 
                             hwObjectLump = HardyWeinbergGuoThompson(
@@ -959,7 +946,7 @@ class Main:
                     li = [int(i) for i in alleleLump.split(",")]
                     lumpData = getLumpedDataLevels(self.input, locus, li)
 
-                    for level in lumpData.keys():
+                    for level in lumpData:
                         locusData, alleleData = lumpData[level]
 
                         hwEnumLump = HardyWeinbergEnumeration(
@@ -1075,12 +1062,10 @@ class Main:
 
                     if len(alleleCountsInitial) <= len(alleleCounts):
                         print(
-                            "FilterLog: Locus %s: Initial unique allele count is not bigger than the target count; skipping random binning."
-                            % locus
+                            f"FilterLog: Locus {locus}: Initial unique allele count is not bigger than the target count; skipping random binning."
                         )
                         self.filterLogFile.writeln(
-                            "Locus %s: Initial unique allele count is not bigger than the target count; skipping random binning."
-                            % locus
+                            f"Locus {locus}: Initial unique allele count is not bigger than the target count; skipping random binning."
                         )
 
                     else:
@@ -1108,20 +1093,19 @@ class Main:
                                 sequenceFileSuffix = self.config.get(
                                     "Sequence", "sequenceFileSuffix"
                                 )
-                            except:
+                            except Exception:
                                 sequenceFileSuffix = "_nuc"
                             try:
                                 anthonynolanPath = self.config.get(
                                     "Sequence", "directory"
                                 )
-                            except:
-                                anthonynolanPath = os.path.join(
-                                    self.datapath, "anthonynolan", "msf"
+                            except Exception:
+                                anthonynolanPath = (
+                                    Path(self.datapath) / "anthonynolan" / "msf"
                                 )
                                 if self.debug:
                                     print(
-                                        "LOG: Defaulting to system datapath %s for anthonynolanPath data"
-                                        % anthonynolanPath
+                                        f"LOG: Defaulting to system datapath {anthonynolanPath} for anthonynolanPath data"
                                     )
 
                             seqfilter = AnthonyNolanFilter(
@@ -1325,8 +1309,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                 if allPairwiseLDWithPermu:
                     (
                         print(
-                            "with %d permutations and %d initial conditions for each permutation"
-                            % (allPairwiseLDWithPermu, numPermuInitCond),
+                            f"with {allPairwiseLDWithPermu} permutations and {numPermuInitCond} initial conditions for each permutation",
                             end=" ",
                         ),
                     )
@@ -1373,7 +1356,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                 # locus groups that remain after excluding two locus haplotypes
                 if locusKeys:
                     haplo.estHaplotypes(locusKeys=locusKeys, numInitCond=numInitCond)
-                    print("specific haplotypes: [%s]" % locusKeys)
+                    print(f"specific haplotypes: [{locusKeys}]")
 
             except NoOptionError:
                 pass
@@ -1394,7 +1377,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                     numPermutations=1001,
                     numPermuInitCond=numPermuInitCond,
                 )
-                print("LOG: estimating LD for specific loci: [%s]" % locusKeysLD)
+                print(f"LOG: estimating LD for specific loci: [{locusKeysLD}]")
 
             except NoOptionError:
                 pass
