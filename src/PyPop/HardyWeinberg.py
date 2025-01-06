@@ -34,9 +34,9 @@
 
 """Module for calculating Hardy-Weinberg statistics."""
 
-import os
 import sys
 from math import pow
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
 from PyPop import _Pvalue
@@ -939,7 +939,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
             with TemporaryDirectory() as tmp:
                 # generates temporary directory and filename, and cleans-up after block ends
-                xml_tmp_filename = os.path.join(tmp, "gthwe.out.xml")
+                xml_tmp_filename = Path(tmp) / "gthwe.out.xml"
 
                 _Gthwe.run_data(
                     self.flattenedMatrix,
@@ -950,16 +950,17 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
                     self.samplingNum,
                     self.samplingSize,
                     locusName,
-                    xml_tmp_filename,
+                    str(
+                        xml_tmp_filename
+                    ),  # convert fileame from pathlib.Path to string for C wrapper
                     0,
                     self.testing,
                 )
 
                 # read the generated contents of the temporary XML file
-                fp = open(xml_tmp_filename)
-                # copy XML output to stream
-                stream.write(fp.read())
-                fp.close()
+                with open(xml_tmp_filename) as fp:
+                    # copy XML output to stream
+                    stream.write(fp.read())
 
             stream.closetag("hardyweinbergGuoThompson")
             stream.writeln()
@@ -968,13 +969,13 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
             stream.opentag(
                 "hardyweinbergGuoThompson",
                 type="monte-carlo",
-                allelelump=("%d" % allelelump),
+                allelelump=(f"{allelelump}"),
             )
             self.serializeXMLTableTo(stream)
 
             with TemporaryDirectory() as tmp:
                 # generates temporary directory and filename, and cleans-up after block ends
-                xml_tmp_filename = os.path.join(tmp, "gthwe.out.xml")
+                xml_tmp_filename = Path(tmp) / "gthwe.out.xml"
 
                 _Gthwe.run_randomization(
                     self.flattenedMatrix,
@@ -982,16 +983,15 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
                     self.k,
                     self.totalGametes,
                     self.monteCarloSteps,
-                    xml_tmp_filename,
+                    str(xml_tmp_filename),
                     0,
                     self.testing,
                 )
 
                 # read the generated contents of the temporary XML file
-                fp = open(xml_tmp_filename)
-                # copy XML output to stream
-                stream.write(fp.read())
-                fp.close()
+                with open(xml_tmp_filename) as fp:
+                    # copy XML output to stream
+                    stream.write(fp.read())
 
             stream.closetag("hardyweinbergGuoThompson")
             stream.writeln()
@@ -1027,7 +1027,7 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
             self.chenPvals = self.HweEnumProcess.get_chen_statistic_pvalue_ext()
 
     def serializeTo(self, stream, allelelump=0):
-        stream.opentag("hardyweinbergEnumeration", allelelump=("%d" % allelelump))
+        stream.opentag("hardyweinbergEnumeration", allelelump=(f"{allelelump}"))
 
         self.serializeXMLTableTo(stream)
 
@@ -1049,8 +1049,7 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
             for j in range(i + 1):
                 if self.debug:
                     print(
-                        "genotype count: %4d"
-                        % self.flattenedMatrix[(i * (i + 1) / 2) + j],
+                        f"genotype count: {self.flattenedMatrix[(i * (i + 1) / 2) + j]:4d}",
                         f"diff pval: {self.diffPvals[(i * (i + 1) / 2) + j]:.4f}",
                         f"chen pval: {self.chenPvals[(i * (i + 1) / 2) + j]:.4f}",
                     )
