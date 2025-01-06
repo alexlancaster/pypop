@@ -36,8 +36,6 @@
 import re
 import string
 
-from PyPop.Utils import getStreamType
-
 
 def _serializeAlleleCountDataAt(
     stream, alleleTable, total, untypedIndividuals, unsequencedSites
@@ -61,22 +59,22 @@ def _serializeAlleleCountDataAt(
             stream.opentag("allelecounts")
 
         stream.writeln()
-        stream.tagContents("untypedindividuals", "%.1f" % untypedIndividuals)
+        stream.tagContents("untypedindividuals", f"{untypedIndividuals:.1f}")
         stream.writeln()
-        stream.tagContents("unsequencedsites", "%d" % unsequencedSites)
+        stream.tagContents("unsequencedsites", f"{unsequencedSites}")
         stream.writeln()
-        stream.tagContents("indivcount", "%.1f" % (total / 2.0))
+        stream.tagContents("indivcount", f"{total / 2.0:.1f}")
         stream.writeln()
-        stream.tagContents("allelecount", "%d" % total)
+        stream.tagContents("allelecount", f"{total}")
         stream.writeln()
-        stream.tagContents("distinctalleles", "%d" % len(alleleTable))
+        stream.tagContents("distinctalleles", f"{len(alleleTable)}")
         stream.writeln()
 
         for allele in alleles:
             freq = float(alleleTable[allele]) / float(total)
             totalFreq += freq
-            strFreq = "%0.5f " % freq
-            strCount = "%d" % alleleTable[allele]
+            strFreq = f"{freq:0.5f} "
+            strCount = f"{alleleTable[allele]}"
 
             stream.opentag("allele", name=allele)
             stream.writeln()
@@ -87,8 +85,8 @@ def _serializeAlleleCountDataAt(
 
             stream.writeln()
 
-        strTotalFreq = "%0.5f" % totalFreq
-        strTotal = "%d" % total
+        strTotalFreq = f"{totalFreq:0.5f}"
+        strTotal = f"{total}"
 
         stream.tagContents("totalfrequency", strTotalFreq)
         stream.writeln()
@@ -118,7 +116,7 @@ class Genotypes:
 
     def _checkAllele(self, allele1, allele2, unsequencedSites):
         for phase in [allele1, allele2]:
-            if self.untypedAllele != phase and self.unsequencedSite != phase:
+            if phase not in {self.untypedAllele, self.unsequencedSite}:
                 if self.debug:
                     print("alleleTable:", self.alleleTable)
                     print("alleleTable type:", type(self.alleleTable))
@@ -156,8 +154,8 @@ class Genotypes:
 
         for locus in self.locusKeys:
             if self.debug:
-                print("locus name: %s" % locus)
-                print("column tuple: %s" % self.matrix[locus])
+                print(f"locus name: {locus}")
+                print(f"column tuple: {self.matrix[locus]}")
 
             # initialise blank dictionary
             self.alleleTable = {}
@@ -196,13 +194,9 @@ class Genotypes:
                     if self.untypedAllele == allele2:
                         untypedIndividuals += 0.5
                 # ensure that *both* alleles are typed
-                elif (self.untypedAllele != allele1) and (
-                    self.untypedAllele != allele2
-                ):
+                elif self.untypedAllele not in (allele1, allele2):
                     # check to see if the "allele" isn't a missing sequence site
-                    if (self.unsequencedSite != allele1) and (
-                        self.unsequencedSite != allele2
-                    ):
+                    if self.unsequencedSite not in (allele1, allele2):
                         self._checkAllele(allele1, allele2, unsequencedSites)
                     else:
                         if self.unsequencedSite == allele1:
@@ -278,7 +272,7 @@ class Genotypes:
             alleles, totalAlleles, untyped, unsequenced = self.freqcount[locus]
 
             lumpedAlleles = {}
-            for allele in alleles.keys():
+            for allele in alleles:
                 count = alleles[allele]
                 if count <= lumpValue:
                     if "lump" in lumpedAlleles:
@@ -287,10 +281,7 @@ class Genotypes:
                         lumpedAlleles["lump"] = count
                 else:
                     lumpedAlleles[allele] = count
-            lumpedTuple = lumpedAlleles, totalAlleles, untyped, unsequenced
-            ## print lumpedTuple
-
-            return lumpedTuple
+            return lumpedAlleles, totalAlleles, untyped, unsequenced
         return self.freqcount[locus]
 
     def serializeSubclassMetadataTo(self, stream):
@@ -301,13 +292,13 @@ class Genotypes:
 
         stream.opentag("summaryinfo")
         stream.writeln()
-        stream.tagContents("indivcount", "%d" % self.totalIndivCount)
+        stream.tagContents("indivcount", f"{self.totalIndivCount}")
         stream.writeln()
-        stream.tagContents("allelecount", "%d" % (self.totalIndivCount * 2))
+        stream.tagContents("allelecount", f"{self.totalIndivCount * 2}")
         stream.writeln()
-        stream.tagContents("locuscount", "%d" % self.totalLocusCount)
+        stream.tagContents("locuscount", f"{self.totalLocusCount}")
         stream.writeln()
-        stream.tagContents("lociWithDataCount", "%d" % self.totalLociWithData)
+        stream.tagContents("lociWithDataCount", f"{self.totalLociWithData}")
         stream.writeln()
         stream.closetag("summaryinfo")
         stream.writeln()
@@ -323,11 +314,9 @@ class Genotypes:
         )
 
     def serializeAlleleCountDataTo(self, stream):
-        type = getStreamType(stream)
-
         stream.opentag("allelecounts")
 
-        for locus in self.freqcount.keys():
+        for locus in self.freqcount:
             stream.writeln()
             stream.opentag("locus", name=locus)
 
@@ -356,7 +345,7 @@ class Genotypes:
 
             lumpedAlleles = {}
             listLumped = []
-            for allele in alleles.keys():
+            for allele in alleles:
                 count = alleles[allele]
                 if count <= lumpValue:
                     listLumped.append(allele)
@@ -371,14 +360,8 @@ class Genotypes:
             newTable = []
             for li in copyTable:
                 allele1, allele2 = li
-                if allele1 in listLumped:
-                    newAllele1 = "lump"
-                else:
-                    newAllele1 = allele1
-                if allele2 in listLumped:
-                    newAllele2 = "lump"
-                else:
-                    newAllele2 = allele2
+                newAllele1 = "lump" if allele1 in listLumped else allele1
+                newAllele2 = "lump" if allele2 in listLumped else allele2
                 newTable.append((newAllele1, newAllele2))
 
             ##print copyTable
@@ -411,12 +394,7 @@ def checkIfSequenceData(matrix):
     # we use a regex to match anything in the form A_32 or A_-32
     # this should be passed as a parameter
     locus = matrix.colList[0]
-    if re.search("[a-zA-Z0-9]+_[-]?[0-9]+", locus):
-        sequenceData = 1
-    else:
-        sequenceData = 0
-
-    return sequenceData
+    return 1 if re.search("[a-zA-Z0-9]+_[-]?[0-9]+", locus) else 0
 
 
 def getMetaLocus(locus, isSequenceData):
@@ -424,7 +402,6 @@ def getMetaLocus(locus, isSequenceData):
         metaLocus = string.split(string.split(locus, ":")[0], "_")[0]
     else:
         metaLocus = None
-
     return metaLocus
 
 
@@ -485,7 +462,7 @@ class AlleleCounts:
         total = 0
         self.freqcount = {}
 
-        for allele in self.alleleTable.keys():
+        for allele in self.alleleTable:
             total += self.alleleTable[allele]
 
         # store in an iVar for the moment
@@ -513,9 +490,9 @@ class AlleleCounts:
 
         stream.opentag("summaryinfo")
         stream.writeln()
-        stream.tagContents("allelecount", "%d" % self.totalAlleleCount)
+        stream.tagContents("allelecount", f"{self.totalAlleleCount}")
         stream.writeln()
-        stream.tagContents("locuscount", "%d" % 1)
+        stream.tagContents("locuscount", f"{1}")
         stream.writeln()
         stream.closetag("summaryinfo")
         stream.writeln()
