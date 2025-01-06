@@ -752,12 +752,10 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
         allele1, allele2 = row
         # loop through the haplotype frequency to get the haplotype frequency
         # if it exists for this allele1, allele2 pair
-        i = 0
         hap_freq = 0.0
-        for hap in haplos:
+        for i, hap in enumerate(haplos):
             if hap[0] == allele1 and hap[1] == allele2:
                 hap_freq = freqs[i]
-            i += 1
 
         # add the hap and allele frequencies
         newrow = (allele1, allele2, freq1_dict[allele1], freq2_dict[allele2], hap_freq)
@@ -970,7 +968,8 @@ class Haplostats(Haplo):
             iseed3 = 14502
             random_start = 0
         else:
-            seed_array = np.random.random(3)
+            # FIXME: using legacy NumPy random API for compatibility with older code
+            seed_array = np.random.random(3)  # noqa: NPY002
             iseed1 = int(10000 + 20000 * seed_array[0])
             iseed2 = int(10000 + 20000 * seed_array[1])
             iseed3 = int(10000 + 20000 * seed_array[2])
@@ -1015,7 +1014,8 @@ class Haplostats(Haplo):
                     iseed3 = iseed3 + i * 100
                     random_start = 1  # need this in testMode too, apparently
                 else:
-                    seed_array = np.random.random(3)
+                    # FIXME: using legacy NumPy random API for compatibility with older code
+                    seed_array = np.random.random(3)  # noqa: NPY002
                     iseed1 = int(10000 + 20000 * seed_array[0])
                     iseed2 = int(10000 + 20000 * seed_array[1])
                     iseed3 = int(10000 + 20000 * seed_array[2])
@@ -1201,7 +1201,7 @@ class Haplostats(Haplo):
             ALD_2_1,
         )
 
-    def allPairwise(self, weight=None, control=None, numInitCond=10, mode=None):
+    def allPairwise(self, weight=None, control=None, numInitCond=10):
         """Estimate pairwise statistics for all pairs of loci."""
 
         # FIXME: sequence data *not* currently supported for haplostats
