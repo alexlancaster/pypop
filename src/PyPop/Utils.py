@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2003. The Regents of the University of California (Regents)
@@ -50,10 +48,10 @@ from pathlib import Path
 
 import numpy as np
 from numpy import asarray, take, zeros
+from numpy.lib.user_array import container
 
 GENOTYPE_SEPARATOR = "~"
 GENOTYPE_TERMINATOR = "~"
-from numpy.lib.user_array import container
 
 
 def glob_with_pathlib(pattern):
@@ -95,11 +93,11 @@ class XMLOutputStream(TextOutputStream):
         attr = ""
         tagname = tagname.replace("?", "")
         # loop through keywords turning each into an attr,key pair
-        for i in kw:
-            attr = attr + i + "=" + '"' + kw[i] + '"' + " "
+        for key, val in kw.items():
+            attr = attr + key + "=" + '"' + val + '"' + " "
         if attr == "":
-            return "%s" % tagname
-        return "%s %s" % (tagname, attr.strip())
+            return f"{tagname}"
+        return f"{tagname} {attr.strip()}"
 
     def opentag(self, tagname, **kw):
         """Generate an open XML tag.
@@ -110,7 +108,7 @@ class XMLOutputStream(TextOutputStream):
         role="something" id="else"> Note that the attribute and values
         are optional and if omitted produce '<tagname>'."""
 
-        self.f.write("<%s>" % self._gentag(tagname, **kw))
+        self.f.write(f"<{self._gentag(tagname, **kw)}>")
 
     def emptytag(self, tagname, **kw):
         """Generate an empty XML tag.
@@ -119,14 +117,14 @@ class XMLOutputStream(TextOutputStream):
 
         '<tagname attr="val"/>'.
         """
-        self.f.write("<%s/>" % self._gentag(tagname, **kw))
+        self.f.write(f"<{self._gentag(tagname, **kw)}/>")
 
     def closetag(self, tagname):
         """Generate a closing XML tag.
 
         Generate a tag in the form: '</tagname>'.
         """
-        self.f.write("</%s>" % self._gentag(tagname))
+        self.f.write(f"</{self._gentag(tagname)}>")
 
     def tagContents(self, tagname, content, **kw):
         """Generate open and closing XML tags around contents.
@@ -149,11 +147,7 @@ def getStreamType(stream):
 
     Returns either 'xml' or 'text'.
     """
-    if isinstance(stream, XMLOutputStream) == 1:
-        type = "xml"
-    else:
-        type = "text"
-    return type
+    return "xml" if isinstance(stream, XMLOutputStream) == 1 else "text"
 
 
 class OrderedDict:
@@ -163,10 +157,12 @@ class OrderedDict:
 
     __version__ = "1.1"
 
-    def __init__(self, hash=[]):
+    def __init__(self, hash=None):
         """
         Creates an ordered dict
         """
+        if hash is None:
+            hash = []
         self.__hash = {}
         self.KEYS = []
 
@@ -180,8 +176,8 @@ class OrderedDict:
         Internal function to add/change key-value pair (at end)
         """
         try:
-            i = self.KEYS.index(key)
-        except:
+            self.KEYS.index(key)
+        except Exception:
             self.__hash[key] = value
             self.KEYS.append(key)
         else:
@@ -191,7 +187,7 @@ class OrderedDict:
         """
         Adds key-value pairs (existing keys not moved)
         """
-        if type(i) == type(Index()):
+        if type(i) is type(Index()):
             del self.__hash[self.KEYS[i.i]]
             if len(hash) != 1:
                 self.KEYS[i.i], hash = hash[0], hash[1:]
@@ -203,7 +199,7 @@ class OrderedDict:
         """
         Returns value of given key
         """
-        if type(key) == type(Index()):
+        if type(key) is type(Index()):
             key = self.KEYS[key.i]
             return [key, self.__hash[key]]
         return self.__hash[key]
@@ -265,7 +261,7 @@ class OrderedDict:
         """
         Removes a key-value pair from the dict
         """
-        if type(i) != type(Index()):
+        if type(i) is not type(Index()):
             i = Index(self.KEYS.index(i))
         del self.__hash[self.KEYS[i.i]]
         del self.KEYS[i.i]
@@ -423,10 +419,7 @@ class StringMatrix(container):
             for elem in self.extraList:
                 stream.write(elem + self.colSep)
 
-        if locus:
-            locusList = locus
-        else:
-            locusList = ":".join(self.colList)
+        locusList = locus if locus else ":".join(self.colList)
 
         # next write out the allele column headers
         for elem in locusList.split(":"):
@@ -465,7 +458,8 @@ class StringMatrix(container):
         return self.copy()
 
     def __getslice__(self, i, j):
-        raise Exception("slices not currently supported")
+        msg = "slices not currently supported"
+        raise Exception(msg)
         # return self._rc(self.array[i:j])
 
     def __getitem__(self, key):
@@ -479,14 +473,15 @@ class StringMatrix(container):
         returns a list (a single column vector if only one position
         specified), or list of lists: (a set of column vectors if
         several positions specified) of tuples for that position"""
-        if type(key) == tuple:
+        if type(key) is tuple:
             row, colName = key
             if colName in self.colList:
                 col = self.extraCount + self.colList.index(colName)
             else:
-                raise KeyError("can't find %s column" % colName)
+                msg = f"can't find {colName} column"
+                raise KeyError(msg)
             return self.array[(row, col)]
-        if type(key) == str:
+        if type(key) is str:
             colNames = key.split(":")
             li = []
             for col in colNames:
@@ -503,7 +498,8 @@ class StringMatrix(container):
                 elif col in self.extraList:
                     li.append(self.extraList.index(col))
                 else:
-                    raise KeyError("can't find %s column" % col)
+                    msg = f"can't find {col} column"
+                    raise KeyError(msg)
 
             if len(colNames) == 1:
                 # return simply the pair of columns at that location as
@@ -512,7 +508,8 @@ class StringMatrix(container):
             # return the matrix consisting of column vectors
             # of the designated keys
             return take(self.array, tuple(li), 1).tolist()
-        raise KeyError("keys must be a string or tuple")
+        msg = "keys must be a string or tuple"
+        raise KeyError(msg)
 
     def getNewStringMatrix(self, key):
         """Create an entirely new StringMatrix using only the columns supplied
@@ -523,7 +520,7 @@ class StringMatrix(container):
         includes all metadata
         """
 
-        if type(key) == str:
+        if type(key) is str:
             colNames = key.split(":")
 
             # need both column position and names to reconstruct matrix
@@ -547,7 +544,8 @@ class StringMatrix(container):
                     newExtraPos.append(self.extraList.index(col))
                     newExtraList.append(col)
                 else:
-                    raise KeyError("can't find %s column" % col)
+                    msg = f"can't find {col} column"
+                    raise KeyError(msg)
 
         # build a new matrix using the parameters from the current
         newMatrix = StringMatrix(
@@ -570,16 +568,19 @@ class StringMatrix(container):
         e.g.:
 
         matrix[3, 'A'] = (entry1, entry2)"""
-        if type(index) == tuple:
+        if type(index) is tuple:
             row, colName = index
         else:
-            raise IndexError("index is not a tuple")
-        if type(value) == tuple:
+            msg = "index is not a tuple"
+            raise IndexError(msg)
+        if type(value) is tuple:
             value1, value2 = value
-        elif type(value) == str:
-            value = value
+        elif type(value) is str:
+            # don't need to do anything
+            pass
         else:
-            raise ValueError("value being assigned is not a tuple")
+            msg = "value being assigned is not a tuple"
+            raise ValueError(msg)
 
         if colName in self.colList:
             # find the location in order in the array
@@ -599,7 +600,8 @@ class StringMatrix(container):
             col = self.extraList.index(colName)
             self.array[(row, col)] = asarray(value, self.dtype)
         else:
-            raise KeyError("can't find %s column" % col)
+            msg = f"can't find {col} column"
+            raise KeyError(msg)
 
     def getUniqueAlleles(self, key):
         """
@@ -625,14 +627,12 @@ class StringMatrix(container):
         newMatrix = self.copy()
         for colName in self.colList:
             uniqueAlleles = self.getUniqueAlleles(colName)
-            row = 0
-            for genotype in self.__getitem__(colName):
+            for row, genotype in enumerate(self.__getitem__(colName)):
                 factor_genotype = []
                 for allele in genotype:
                     pos = uniqueAlleles.index(str(allele)) + 1
                     factor_genotype.append(pos)
                 newMatrix[row, colName] = tuple(factor_genotype)
-                row += 1
 
         return newMatrix
 
@@ -718,10 +718,8 @@ class StringMatrix(container):
             headerLines=self.headerLines,
         )
 
-        pos = 0
-        for i in li:
+        for pos, i in enumerate(li):
             newMatrix[pos, colName] = (i[0::2].join(":"), i[1::2].join(":"))
-            pos += 1
 
         return newMatrix
 
@@ -732,15 +730,16 @@ class Group:
     # for pair in Group('aabbccddee',2):
     #   do something with pair.
 
-    def __init__(self, l, size):
+    def __init__(self, li, size):
         self.size = size
-        self.l = l
+        self.li = li
 
     def __getitem__(self, group):
         idx = group * self.size
-        if idx > len(self.l):
-            raise IndexError("Out of range")
-        return self.l[idx : idx + self.size]
+        if idx > len(self.li):
+            msg = "Out of range"
+            raise IndexError(msg)
+        return self.li[idx : idx + self.size]
 
 
 ### global FUNCTIONS start here
@@ -752,55 +751,55 @@ def natural_sort_key(s, _nsre=re.compile(r"([0-9]+)")):
     ]
 
 
-def unique_elements(l):
+def unique_elements(li):
     """Gets the unique elements in a list"""
     d = {}
-    length = len(l)
-    map(operator.setitem, length * [d], l, length * [None])
+    length = len(li)
+    map(operator.setitem, length * [d], li, length * [None])
     return d.keys()
 
 
 def appendTo2dList(aList, appendStr=":"):
-    return [["%s%s" % (cell, appendStr) for cell in row] for row in aList]
+    return [[f"{cell}{appendStr}" for cell in row] for row in aList]
 
 
 def convertLineEndings(file, mode):
     # 1 - Unix to Mac, 2 - Unix to DOS
     if mode == 1:
-        if os.path.isdir(file):
+        if Path(file).is_dir():
             sys.exit(file + "Directory!")
-        data = open(file).read()
-        if "\0" in data:
-            sys.exit(file + "Binary!")
-        newdata = re.sub("\r?\n", "\r", data)
+        with open(file) as fp:
+            data = fp.read()
+            if "\0" in data:
+                sys.exit(file + "Binary!")
+            newdata = re.sub("\r?\n", "\r", data)
         if newdata != data:
-            f = open(file, "w")
-            f.write(newdata)
-            f.close()
+            with open(file, "w") as f:
+                f.write(newdata)
     elif mode == 2:
-        if os.path.isdir(file):
+        if Path(file).is_dir():
             sys.exit(file + "Directory!")
-        data = open(file).read()
-        if "\0" in data:
-            sys.exit(file + "Binary!")
-        newdata = re.sub("\r(?!\n)|(?<!\r)\n", "\r\n", data)
+        with open(file) as fp:
+            data = fp.read()
+            if "\0" in data:
+                sys.exit(file + "Binary!")
+            newdata = re.sub("\r(?!\n)|(?<!\r)\n", "\r\n", data)
         if newdata != data:
-            f = open(file, "w")
-            f.write(newdata)
-            f.close()
+            with open(file, "w") as f:
+                f.write(newdata)
 
 
 def fixForPlatform(filename, txt_ext=0):
     # make file read-writeable by everybody
-    os.chmod(filename, stat.S_IFCHR)
+    Path(filename).chmod(stat.S_IFCHR)
 
     # create as a DOS format file LF -> CRLF
     if sys.platform == "cygwin":
         convertLineEndings(filename, 2)
         # give it a .txt extension so that lame Windows realizes it's text
         if txt_ext:
-            os.rename(filename, filename + ".txt")
-            print("%s.txt" % filename)
+            Path(filename).rename(filename + ".txt")
+            print(f"{filename}.txt")
         else:
             print(filename)
     else:
@@ -810,28 +809,26 @@ def fixForPlatform(filename, txt_ext=0):
 def copyfileCustomPlatform(src, dest, txt_ext=0):
     shutil.copyfile(src, dest)
     fixForPlatform(dest, txt_ext=txt_ext)
-    (print("copying %s to" % src),)
+    (print(f"copying {src} to"),)
 
 
 def copyCustomPlatform(file, dist_dir, txt_ext=0):
-    new_filename = os.path.join(dist_dir, os.path.basename(file))
-    print("copying %s to" % file)
+    new_filename = Path(dist_dir) / Path(file).name
+    print(f"copying {file} to")
     shutil.copy(file, dist_dir)
     fixForPlatform(new_filename, txt_ext=txt_ext)
 
 
 def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg=""):
     if debug:
-        print(
-            "path=%s, subdir=%s, xslFilename=%s xsl path" % (path, subdir, xslFilename)
-        )
+        print(f"path={path}, subdir={subdir}, xslFilename={xslFilename} xsl path")
 
     # generate a full path to check
-    checkPath = os.path.realpath(os.path.join(path, subdir, xslFilename))
-    if os.path.isfile(checkPath):
+    checkPath = os.path.realpath(Path(path) / subdir / xslFilename)
+    if Path(checkPath).is_file():
         return checkPath
     if abort:
-        sys.exit("Can't find XSL: %s %s" % (checkPath, msg))
+        sys.exit(f"Can't find XSL: {checkPath} {msg}")
     else:
         return None
 
@@ -842,22 +839,22 @@ def getUserFilenameInput(prompt, filename):
 
     nofile = 1
     while nofile:
-        tempFilename = input("Please enter %s filename [%s]: " % (prompt, filename))
+        tempFilename = input(f"Please enter {prompt} filename [{filename}]: ")
 
         # if we accept default, still check that file still exists
         if tempFilename == "":
-            if os.path.isfile(filename):
+            if Path(filename).is_file():
                 nofile = 0
             else:
-                print("File '%s' does not exist" % filename)
+                print(f"File '{filename}' does not exist")
         # if we don't accept default, check that file exists and use
         # the user input as the filename
-        elif os.path.isfile(tempFilename):
+        elif Path(tempFilename).is_file():
             nofile = 0
             filename = tempFilename
         else:
             # otherwise return an error
-            print("File '%s' does not exist" % tempFilename)
+            print(f"File '{tempFilename}' does not exist")
 
     return filename
 
