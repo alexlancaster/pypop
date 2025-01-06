@@ -38,6 +38,7 @@
 import os
 import sys
 from configparser import ConfigParser
+from glob import glob
 from pathlib import Path
 
 
@@ -47,7 +48,7 @@ def main(argv=sys.argv):
     from PyPop.CommandLineInterface import get_pypop_cli
     from PyPop.Main import Main, checkXSLFile, getConfigInstance
     from PyPop.Meta import Meta
-    from PyPop.Utils import getUserFilenameInput, glob_with_pathlib
+    from PyPop.Utils import getUserFilenameInput, glob_with_pathlib  # noqa: F401
 
     ######################################################################
     # BEGIN: CHECK PATHS and FILEs
@@ -258,7 +259,8 @@ return for each prompt.""")
         # process, ensuring we expand any Unix-shell globbing-style
         # arguments
         for fileName in li:
-            globbedFiles = glob_with_pathlib(fileName)
+            # globbedFiles = glob_with_pathlib(fileName)
+            globbedFiles = glob(fileName)  # noqa: PTH207
             if len(globbedFiles) == 0:
                 # if no files were found for that glob, please exit and warn
                 # the user
