@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2024
@@ -59,7 +57,7 @@ def exponent_len(num):
 
 
 @ns
-def format_number_fixed_width(context, *args):
+def format_number_fixed_width(_context, *args):
     num = float(args[0])
     places = int(args[1])
     zeros_before_sig_figs = num_zeros(num)
