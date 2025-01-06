@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2023
@@ -54,7 +52,7 @@ class PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter)
 
 
 class CitationAction(Action):
-    def __call__(self, parser, namespace, values, option_string=None):
+    def __call__(self, parser, _, values, _option_string=None):
         citation_format = values or "apalike"
         citation_file_name = f"citation/CITATION.{citation_format}"
 
