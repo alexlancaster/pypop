@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2003. The Regents of the University of California (Regents)
@@ -46,7 +44,6 @@ from PyPop.Homozygosity import (
 class RandomBinsForHomozygosity:
     def __init__(
         self,
-        directoryName=None,
         logFile=None,
         untypedAllele="****",
         filename=None,
@@ -68,7 +65,8 @@ class RandomBinsForHomozygosity:
         self.debug = debug
         self.logFile = logFile
         self.alleleCountDict = {}
-        self.randomResultsFile = open(randomResultsFileName, "w")
+        # FIXME: don't require context manager, skip run SIM115
+        self.randomResultsFile = open(randomResultsFileName, "w")  # noqa: SIM115
         self.randomResultsFile.write(
             "\t".join(
                 "filename locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split()
@@ -77,7 +75,9 @@ class RandomBinsForHomozygosity:
         )
 
     def _dumpResults(
-        self, alleleCountsBefore=None, alleleCountsAfter=None, randMethod=None
+        self,
+        alleleCountsBefore=None,
+        alleleCountsAfter=None,
     ):
         # append the before and after allele counts to the dictionary
         # so we can look up all of the stats en masse
@@ -97,10 +97,10 @@ class RandomBinsForHomozygosity:
         )
 
         for s in stats:
-            for m in range(stats[s]):
-                s = list(map(str, s))
+            for _m in range(stats[s]):
+                s_mapped = list(map(str, s))
                 self.randomResultsFile.write(
-                    "\t".join([self.filename, self.locus] + s) + "\n"
+                    "\t".join([self.filename, self.locus, *s_mapped]) + "\n"
                 )
 
         self.randomResultsFile.close()
@@ -112,7 +112,7 @@ class RandomBinsForHomozygosity:
         if self.debug:
             print(alleleCounts)
 
-        if alleleCounts in self.alleleCountDict.keys():
+        if alleleCounts in self.alleleCountDict:
             self.alleleCountDict[alleleCounts] += 1
         else:
             self.alleleCountDict[alleleCounts] = 1
@@ -124,7 +124,7 @@ class RandomBinsForHomozygosity:
         alleleCountsBefore = alleleCountsBefore.values()
         alleleCountsAfter = alleleCountsAfter.values()
 
-        for i in range(self.binningReplicates):
+        for _i in range(self.binningReplicates):
             alleleCountsRand = copy(list(alleleCountsBefore))
 
             while len(alleleCountsRand) > len(alleleCountsAfter):
@@ -175,7 +175,7 @@ class RandomBinsForHomozygosity:
 
             try:
                 del polyseqSliced[self.locus + "*" + self.untypedAllele]
-            except:
+            except Exception:
                 if self.debug:
                     print("no untyped allele in polyseq")
 
@@ -253,12 +253,10 @@ class RandomBinsForHomozygosity:
 
             if binningAttempts > (self.binningReplicates * 100):
                 print(
-                    "FilterLog: Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates."
-                    % (self.locus, self.binningReplicates, binningAttemptsSuccessful)
+                    f"FilterLog: Locus {self.locus}: While attempting {self.binningReplicates} replicates of sequence-based random binning, overshot target too many times; exiting binning with only {binningAttemptsSuccessful} successful replicates."
                 )
                 self.logFile.writeln(
-                    "Locus %s: While attempting %d replicates of sequence-based random binning, overshot target too many times; exiting binning with only %d successful replicates."
-                    % (self.locus, self.binningReplicates, binningAttemptsSuccessful)
+                    f"Locus {self.locus}: While attempting {self.binningReplicates} replicates of sequence-based random binning, overshot target too many times; exiting binning with only {binningAttemptsSuccessful} successful replicates."
                 )
                 break
 
@@ -266,8 +264,7 @@ class RandomBinsForHomozygosity:
 
         # THIS GOES IN FILTER LOG FILE
         self.logFile.writeln(
-            "Tried %d times to get %d random binnings."
-            % (binningAttempts, binningAttemptsSuccessful)
+            f"Tried {binningAttempts} times to get {binningAttemptsSuccessful} random binnings."
         )
         self.logFile.writeln(
             "locus\tposition\ttimesDeleted\ttimesDeletedAll\tcollapses\tcollapsesWeighted"
