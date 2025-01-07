@@ -327,6 +327,7 @@ MODIFICATIONS.
       <xsl:text>Too many parameters for chi-square test.</xsl:text>
      </xsl:when>
      <xsl:when test="@role='no-common-genotypes'">
+       <!-- FIXME: 'commmon' -> 'common', but this will require regeneration of some unit test output and MD5 sums -->
       <xsl:text>No commmon genotypes; chi-square cannot be calculated</xsl:text>
      </xsl:when>
      <xsl:when test="@role='no-rare-genotypes'">
