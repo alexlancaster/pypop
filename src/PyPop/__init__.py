@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2017.
@@ -32,7 +30,10 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+import locale
+import logging
 import platform
+import sys
 
 __pkgname__ = "pypop-genomics"
 __version_scheme__ = "post-release"
@@ -58,11 +59,6 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
 
 platform_info = f"[Python {platform.python_version()} | {platform.platform()} | {platform.machine()}]"
 
-import locale
-import logging
-import platform
-import sys
-
 
 def setup_logging(debug=False, filename=None):
     """Provide defaults for logging."""
@@ -70,10 +66,7 @@ def setup_logging(debug=False, filename=None):
     if filename is None:
         filename = "-"
 
-    if filename == "-":
-        hand = logging.StreamHandler()
-    else:
-        hand = logging.FileHandler(filename)
+    hand = logging.StreamHandler() if filename == "-" else logging.FileHandler(filename)
 
     fmt = (
         "%(asctime)s %(levelname)s %(funcName)s: %(message)s"
@@ -88,7 +81,7 @@ def setup_logging(debug=False, filename=None):
     root_logger.handlers = []
     root_logger.addHandler(hand)
 
-    logging.debug("PyPop: %s" % __version__)
-    logging.debug("Python: %s" % sys.version.replace("\n", " "))
-    logging.debug("Platform: %s" % platform.platform())
-    logging.debug("Locale: %s" % locale.setlocale(locale.LC_ALL))
+    logging.debug("PyPop: %s", __version__)
+    logging.debug("Python: %s", sys.version.replace("\n", " "))
+    logging.debug("Platform: %s", platform.platform())
+    logging.debug("Locale: %s", locale.setlocale(locale.LC_ALL))

@@ -381,8 +381,8 @@ class Main:
 
                 # FIXME: need a better way that uses context manager
                 self.filterLogFile = XMLOutputStream(
-                    open(self.defaultFilterLogPath, "w")
-                )  # noqa: SIM115
+                    open(self.defaultFilterLogPath, "w")  # noqa: SIM115
+                )
 
                 if self.testMode:
                     self.filterLogFile.opentag(
