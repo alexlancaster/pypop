@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2003. The Regents of the University of California (Regents)
@@ -40,11 +38,12 @@
 
 ."""
 
-import os
 import re
 import string
 import sys
+from functools import reduce
 from operator import add
+from pathlib import Path
 
 from PyPop.Utils import StringMatrix
 
@@ -206,10 +205,8 @@ class AnthonyNolanFilter(Filter):
             if self.alleleFileFormat == "msf":
                 self._getMSFLinesForLocus(locus)
             else:
-                self.lines = (
-                    open(os.path.join(directoryName, locus + "_pt.txt"))
-                ).readlines()
-
+                with open(Path(directoryName) / locus + "_pt.txt") as fp:
+                    self.lines = fp.readlines()
             for line in self.lines:
                 matchobj = re.search(patt, line)
                 if matchobj:
@@ -258,8 +255,7 @@ class AnthonyNolanFilter(Filter):
             # now we start doing the actual filtering
             self.startFiltering()
 
-            rowCount = 0
-            for individ in self.matrix[locus]:
+            for rowCount, individ in enumerate(self.matrix[locus]):
                 # get current data out of matrix
                 cur_allele1, cur_allele2 = individ
 
@@ -272,9 +268,6 @@ class AnthonyNolanFilter(Filter):
 
                 if self.debug:
                     print(rowCount, self.matrix[rowCount, locus])
-
-                # increment row count
-                rowCount += 1
 
             # end filtering for this locus
             self.endFiltering()
@@ -307,7 +300,7 @@ class AnthonyNolanFilter(Filter):
 
         if alleleName in self.alleleLookupTable[self.locus]:
             if self.verboseFlag:
-                self.logFile.write("[%s exact match: ]" % alleleInfo)
+                self.logFile.write(f"[{alleleInfo} exact match: ]")
 
         else:
             expandedList = []
@@ -323,60 +316,54 @@ class AnthonyNolanFilter(Filter):
                     lcdList.append(dbAllele)
             if expandedList != []:
                 if self.verboseFlag:
-                    self.logFile.write("[%s close exact matches:" % alleleInfo)
+                    self.logFile.write(f"[{alleleInfo} close exact matches:")
                     for li in expandedList:
-                        self.logFile.write(" %s" % li)
+                        self.logFile.write(f" {li}")
                     self.logFile.write("]")
             elif extraList != []:
                 if self.verboseFlag:
                     self.logFile.write(
-                        "[%s close matches without trailing zeros:" % alleleInfo
+                        f"[{alleleInfo} close matches without trailing zeros:"
                     )
                     for li in extraList:
-                        self.logFile.write(" %s" % li)
+                        self.logFile.write(f" {li}")
                     self.logFile.write("]")
             elif lcdList != []:
                 if self.verboseFlag:
                     self.logFile.write(
-                        "[%s close un-zero-padded matches into:" % alleleInfo
+                        f"[{alleleInfo} close un-zero-padded matches into:"
                     )
                     for li in lcdList:
-                        self.logFile.write(" %s" % li)
+                        self.logFile.write(f" {li}")
                     self.logFile.write("]")
             elif len(alleleName) < self.numDigits and self.preserveLowresFlag:
                 if self.verboseFlag:
-                    self.logFile.write("[%s short, low res allele name" % alleleInfo)
+                    self.logFile.write(f"[{alleleInfo} short, low res allele name")
                     self.logFile.write("]")
                 retval = alleleName
             else:
-                if self.preserveUnknownFlag:
-                    retval = alleleName
-                else:
-                    retval = self.untypedAllele
+                retval = alleleName if self.preserveUnknownFlag else self.untypedAllele
                 if self.verboseFlag:
                     if alleleName == self.untypedAllele:
-                        self.logFile.write(
-                            "[%s untyped allele, do nothing]" % alleleInfo
-                        )
+                        self.logFile.write(f"[{alleleInfo} untyped allele, do nothing]")
                     elif len(alleleName) < self.numDigits:
                         self.logFile.write(
-                            "[%s TOO SHORT must be at least %d digits]"
-                            % (alleleInfo, self.numDigits)
+                            f"[{alleleInfo} TOO SHORT must be at least {self.numDigits} digits]"
                         )
                     else:
                         self.logFile.write(
-                            "[%s NOT FOUND; no close matches!] " % alleleInfo
+                            f"[{alleleInfo} NOT FOUND; no close matches!] "
                         )
 
         if retval == alleleName:
-            self.logFile.writeln(" -> no truncation use: %s" % retval)
+            self.logFile.writeln(f" -> no truncation use: {retval}")
         else:
-            self.logFile.writeln(" -> truncating to: %s" % retval)
+            self.logFile.writeln(f" -> truncating to: {retval}")
 
         return retval
 
     def addAllele(self, alleleName):
-        if alleleName not in self.translTable.keys():
+        if alleleName not in self.translTable:
             self.translTable[alleleName] = self.checkAlleleName(alleleName)
 
         filteredAllele = self.translTable[alleleName]
@@ -402,7 +389,7 @@ class AnthonyNolanFilter(Filter):
             prefix = allele[:-2]
             suffix = allele[-2:]
             if suffix == "00":
-                self.logFile.write("[%s unresolved allele] " % alleleInfo)
+                self.logFile.write(f"[{alleleInfo} unresolved allele] ")
 
                 # first check to see if a variant XXX0n exists in the
                 # population and choose the one with the highest
@@ -419,8 +406,7 @@ class AnthonyNolanFilter(Filter):
 
                 if testAllele:
                     self.logFile.writeln(
-                        " -> resolved to %s: (highest count %d in pop)"
-                        % (testAllele, maxSoFar)
+                        f" -> resolved to {testAllele}: (highest count {maxSoFar} in pop)"
                     )
                     self.translTable[allele] = testAllele
 
@@ -429,8 +415,8 @@ class AnthonyNolanFilter(Filter):
                 # lowest number of the form XXX0n
 
                 else:
-                    for i in xrange(1, 9):
-                        testAllele = "%s0%d" % (prefix, i)
+                    for i in range(1, 9):
+                        testAllele = f"{prefix}0%{i}"
 
                         # only check to 4 digits of the allele name
                         # against database i.e. if 03011 and 03012
@@ -444,16 +430,14 @@ class AnthonyNolanFilter(Filter):
                         for dbAllele in self.alleleLookupTable[self.locus]:
                             if dbAllele == testAllele:
                                 self.logFile.writeln(
-                                    " -> resolved to %s: (not found in pop, but exact match %s in database)"
-                                    % (testAllele, dbAllele)
+                                    f" -> resolved to {testAllele}: (not found in pop, but exact match {dbAllele} in database)"
                                 )
                                 self.translTable[allele] = testAllele
                                 foundMatch = 1
                                 break
                             if dbAllele[:4] == testAllele:
                                 self.logFile.writeln(
-                                    " -> resolved to %s: (not found in pop, but truncated match %s in database)"
-                                    % (testAllele, dbAllele)
+                                    f" -> resolved to {testAllele}: (not found in pop, but truncated match {dbAllele} in database)"
                                 )
                                 self.translTable[allele] = testAllele
                                 foundMatch = 1
@@ -520,23 +504,19 @@ class AnthonyNolanFilter(Filter):
 
         # if method was called without a single locus specified, we
         # should find the sequences for ALL loci
-        if locus == None:
-            locusList = self.matrix.colList
-        else:
-            locusList = [locus]
+        locusList = self.matrix.colList if locus is None else [locus]
 
-        for locus in locusList:
+        for the_locus in locusList:
             if self.debug:
                 print(
-                    "------> beginning sequence translation of locus: %s <------"
-                    % locus
+                    f"------> beginning sequence translation of locus: {the_locus} <------"
                 )
 
             # self.sequences is a dictionary, keyed on allele, used to
             # temporarily store full sequences
             self.sequences = {}
 
-            self._getMSFLinesForLocus(locus)
+            self._getMSFLinesForLocus(the_locus)
 
             # read the expected length of the alignment, as told by the msf file header
             for line in self.lines:
@@ -545,12 +525,10 @@ class AnthonyNolanFilter(Filter):
                     break
             try:
                 self.length = int(string.split(match.group())[1])
-            except:
+            except Exception:
                 # FIXME:  How do we want to handle a non-existent MSF header alignment length
-                raise RuntimeError(
-                    "could not find the alignment length from msf file %s."
-                    % self.filename
-                )
+                msg = f"could not find the alignment length from msf file {self.filename}."
+                raise RuntimeError(msg) from None
 
             # see where the header of the MSF file ends (demarcated by // )
             self.msfHead = 0
@@ -559,8 +537,7 @@ class AnthonyNolanFilter(Filter):
                     break
                 self.msfHead += 1
 
-            rowCount = 0
-            for individ in self.matrix[locus]:
+            for individ in self.matrix[the_locus]:
                 for allele in individ:
                     # if the allele hasn't been keyed yet, we'll have to get a sequence
                     if not self.sequences.has_key(allele):
@@ -574,9 +551,9 @@ class AnthonyNolanFilter(Filter):
                             self.sequences[allele] = "*" * self.length
 
                         # get the sequence if we can...
-                        elif allele in self.alleleLookupTable[locus]:
+                        elif allele in self.alleleLookupTable[the_locus]:
                             self.sequences[allele] = self._getSequenceFromLines(
-                                locus, allele
+                                the_locus, allele
                             )
 
                         # ...otherwise, try to find a good close match
@@ -589,16 +566,15 @@ class AnthonyNolanFilter(Filter):
                             allele6digits = allele[:4] + "0" + allele[4:5]
                             if self.debug:
                                 print(
-                                    "%s NOT found in msf file (probably because it is five digits), trying %s"
-                                    % (allele, allele6digits)
+                                    f"{allele} NOT found in msf file (probably because it is five digits), trying {allele6digits}"
                                 )
-                            if allele6digits in self.alleleLookupTable[locus]:
+                            if allele6digits in self.alleleLookupTable[the_locus]:
                                 self.sequences[allele] = self._getSequenceFromLines(
-                                    locus, allele6digits
+                                    the_locus, allele6digits
                                 )
                             else:
                                 self.sequences[allele] = self._getConsensusFromLines(
-                                    locus, allele6digits
+                                    the_locus, allele6digits
                                 )
                         ## FIXME: HLA-specific
                         ## also test for 7 digits
@@ -606,25 +582,24 @@ class AnthonyNolanFilter(Filter):
                             allele8digits = allele[:4] + "0" + allele[4:6]
                             if self.debug:
                                 print(
-                                    "%s NOT found in msf file (probably because it is seven digits), trying %s"
-                                    % (allele, allele8digits)
+                                    f"{allele} NOT found in msf file (probably because it is seven digits), trying {allele8digits}"
                                 )
-                            if allele8digits in self.alleleLookupTable[locus]:
+                            if allele8digits in self.alleleLookupTable[the_locus]:
                                 self.sequences[allele] = self._getSequenceFromLines(
-                                    locus, allele8digits
+                                    the_locus, allele8digits
                                 )
                             else:
                                 self.sequences[allele] = self._getConsensusFromLines(
-                                    locus, allele8digits
+                                    the_locus, allele8digits
                                 )
 
                         else:
                             self.sequences[allele] = self._getConsensusFromLines(
-                                locus, allele
+                                the_locus, allele
                             )
 
             if self.debug:
-                print("full sequence for locus", locus, self.sequences)
+                print("full sequence for locus", the_locus, self.sequences)
 
             # Make the self.unsequenedSite (normally '#') the standard null placeholder
             for allele in self.sequences:
@@ -641,7 +616,7 @@ class AnthonyNolanFilter(Filter):
             # so we can then build the polymorphic sequences
             # letter-by-letter.  keyed on 'locus*allele'
             for allele in self.sequences:
-                self.polyseq[locus + "*" + allele] = ""
+                self.polyseq[the_locus + "*" + allele] = ""
 
             # also initialize (with an empty list) polyseqpos
             # dictionary entry for this locus so we can append to it
@@ -649,7 +624,7 @@ class AnthonyNolanFilter(Filter):
             # files, the position will be relative to the official
             # IMGT/HLA sequence alignments (see
             # http://www.ebi.ac.uk/imgt/hla/nomen_pt2.html )
-            self.polyseqpos[locus] = []
+            self.polyseqpos[the_locus] = []
 
             # checks each position of each allele, counts the number
             # of unique characters (excepting . X and * characters)
@@ -659,12 +634,7 @@ class AnthonyNolanFilter(Filter):
                     letter = self.sequences[allele][pos]
                     ## FIXME: seems unnecessary to check '.' and 'X' because we have already
                     ## made them self.unsequencedSite above, check!!
-                    if (
-                        letter != "."
-                        and letter != "X"
-                        and letter != "*"
-                        and letter != self.unsequencedSite
-                    ):
+                    if letter not in (".", "X", "*", self.unsequencedSite):
                         uniqueCounter[letter] = 1
                 uniqueCount = len(uniqueCounter)
 
@@ -674,19 +644,19 @@ class AnthonyNolanFilter(Filter):
                 # because that is how humans count.)
                 if uniqueCount > 1:
                     for allele in self.sequences:
-                        self.polyseq[locus + "*" + allele] += self.sequences[allele][
-                            pos
-                        ]
-                    self.polyseqpos[locus].append(pos + 1)
+                        self.polyseq[the_locus + "*" + allele] += self.sequences[
+                            allele
+                        ][pos]
+                    self.polyseqpos[the_locus].append(pos + 1)
 
             # this block was used to output *complete* sequences for a pop file
             # (with all the positions, not just the polymorphic residues.)
-            if len(self.polyseqpos[locus]) > 1:
-                self.logFile.opentag("sequence", locus=locus)
+            if len(self.polyseqpos[the_locus]) > 1:
+                self.logFile.opentag("sequence", locus=the_locus)
                 self.logFile.writeln()
 
                 # this will give you the complete sequence of each individual
-                for individ in self.matrix[locus]:
+                for individ in self.matrix[the_locus]:
                     for allele in individ:
                         alleleString = "> " + allele
                         self.logFile.writeln(alleleString)
@@ -713,9 +683,7 @@ class AnthonyNolanFilter(Filter):
         # log to the -filter.xml file
         self.logFile.opentag("sequence-summary")
         self.logFile.writeln()
-        self.logFile.writeln(
-            "Sequence consensus method: %s" % self.sequenceFilterMethod
-        )
+        self.logFile.writeln(f"Sequence consensus method: {self.sequenceFilterMethod}")
 
         for locus in self.matrix.colList:
             alleleTally = {}
@@ -727,13 +695,13 @@ class AnthonyNolanFilter(Filter):
                         alleleTally[allele] = 1
 
             self.logFile.writeln("-------------------------")
-            self.logFile.writeln("locus: %s" % locus)
+            self.logFile.writeln(f"locus: {locus}")
 
             # makes the position numbers into a block of monospace, vertically oriented numbers
             if len(self.polyseqpos[locus]) > 0:
                 positionString = {}
                 longestPosition = len(str(max(self.polyseqpos[locus])))
-                for positionDigit in xrange(longestPosition, 0, -1):
+                for positionDigit in range(longestPosition, 0, -1):
                     positionString[positionDigit] = ""
                     for position in self.polyseqpos[locus]:
                         if len(str(position)) >= positionDigit:
@@ -742,7 +710,7 @@ class AnthonyNolanFilter(Filter):
                             ]
                         else:
                             positionString[positionDigit] += " "
-                for line in xrange(len(positionString.keys()), 0, -1):
+                for line in range(len(positionString.keys()), 0, -1):
                     self.logFile.writeln("\t\t" + positionString[line])
 
             li = alleleTally.keys()
@@ -757,10 +725,10 @@ class AnthonyNolanFilter(Filter):
                 )
             self.logFile.writeln()
             self.logFile.writeln(
-                "Total chromosomes: %d" % reduce(add, alleleTally.values())
+                f"Total chromosomes: {reduce(add, alleleTally.values())}"
             )
 
-            for position in xrange(len(self.polyseqpos[locus])):
+            for position in range(len(self.polyseqpos[locus])):
                 positionTally = {}
                 for allele in li:
                     letter = self.polyseq[locus + "*" + allele][position]
@@ -800,14 +768,11 @@ class AnthonyNolanFilter(Filter):
         seqMatrix = StringMatrix(rowCount, colList)
 
         for locus in self.matrix.colList:
-            individCount = 0
-            for individ in self.matrix[locus]:
+            for individCount, individ in enumerate(self.matrix[locus]):
                 name1 = locus + "*" + individ[0]
                 name2 = locus + "*" + individ[1]
 
-                posCount = 0
-
-                for pos in self.polyseqpos[locus]:
+                for posCount, pos in enumerate(self.polyseqpos[locus]):
                     letter1 = self.polyseq[name1][posCount]
                     letter2 = self.polyseq[name2][posCount]
 
@@ -827,10 +792,6 @@ class AnthonyNolanFilter(Filter):
                         individCount, locus + "_" + self._genOffsets(locus, pos)
                     ] = (letter1, letter2)
 
-                    posCount += 1
-
-                individCount += 1
-
         if self.debug:
             print(seqMatrix)
 
@@ -849,12 +810,7 @@ class AnthonyNolanFilter(Filter):
             "DPB1": 29,
         }
 
-        if offsets.has_key(locus):
-            str_pos = str(pos - offsets[locus])
-        else:
-            str_pos = str(pos)
-
-        return str_pos
+        return str(pos - offsets[locus]) if offsets.has_key(locus) else str(pos)
 
     def _getMSFLinesForLocus(self, locus):
         # FIXME: this code is specific to hla data
@@ -865,7 +821,8 @@ class AnthonyNolanFilter(Filter):
         # FIXME:  make the file name configurable
         self.filename = locus + self.sequenceFileSuffix + ".msf"
 
-        self.lines = open(os.path.join(self.directoryName, self.filename)).readlines()
+        with open(Path(self.directoryName) / self.filename) as fp:
+            self.lines = fp.readlines()
 
     def _getSequenceFromLines(self, locus=None, allele=None):
         # FIXME: this code is specific to hla data
@@ -887,8 +844,7 @@ class AnthonyNolanFilter(Filter):
             # pad with X's if the length is too short
             if self.debug:
                 print(
-                    "%s is found, PADDED with %d Xs so it equals alignment length (%d)."
-                    % (allele, self.length - len(seq), self.length)
+                    f"{allele} is found, PADDED with {self.length - len(seq)} Xs so it equals alignment length ({self.length})."
                 )
             seq += "X" * (self.length - len(seq))
 
@@ -896,13 +852,12 @@ class AnthonyNolanFilter(Filter):
             # truncate if length is too long (FIXME: this should at least raise a warning)
             if self.debug:
                 print(
-                    "%s is found, TRUNCATED by %d so it equals alignment length (%d)."
-                    % (allele, len(seq) - self.length, self.length)
+                    f"{allele} is found, TRUNCATED by {len(seq) - self.length} so it equals alignment length ({self.length})."
                 )
             seq = seq[: self.length - len(seq)]
 
         elif self.debug:
-            print("%s is found, length okay." % (allele))
+            print(f"{allele} is found, length okay.")
 
         return seq
 
@@ -915,13 +870,14 @@ class AnthonyNolanFilter(Filter):
         for alleleSplit in allele.split("/"):
             # we pad 5-digit alleles with a fifth position zero (FIXME:
             # this is HLA specific!)
+            # FIXME: rewrite to avoid the redefinition rule: PLW2901
             if len(alleleSplit) == 5 and alleleSplit.isdigit():
-                alleleSplit = alleleSplit[:4] + "0" + alleleSplit[4:5]
+                alleleSplit = alleleSplit[:4] + "0" + alleleSplit[4:5]  # noqa: PLW2901
 
             # if the allele is 4 dig, ending in 00, we can safely chop
             # this off, as it won't be found in the seq dict
             if len(alleleSplit) == 4 and alleleSplit[2:4] == "00":
-                alleleSplit = alleleSplit[:2]
+                alleleSplit = alleleSplit[:2]  # noqa: PLW2901
 
             for potentialMatch in self.alleleLookupTable[locus]:
                 for pos in range(len(potentialMatch)):
@@ -939,14 +895,13 @@ class AnthonyNolanFilter(Filter):
 
         if len(closestMatches) == 0:
             if self.debug:
-                print("%s NOT found in the msf file, no close matches found." % allele)
+                print(f"{allele} NOT found in the msf file, no close matches found.")
             seq = "*" * self.length
 
         elif len(closestMatches) == 1:
             if self.debug:
                 print(
-                    "%s NOT found in the msf file, %s is only close match, so using that."
-                    % (allele, closestMatches.keys()[0])
+                    f"{allele} NOT found in the msf file, {closestMatches.keys()[0]} is only close match, so using that."
                 )
             seq = closestMatches.values()[0]
 
@@ -964,12 +919,7 @@ class AnthonyNolanFilter(Filter):
                     ## same letter is otherwise present in 1 or more
                     ## other seqs)
                     if self.sequenceFilterMethod == "greedy":
-                        if (
-                            letter != "."
-                            and letter != "X"
-                            and letter != "*"
-                            and letter != self.unsequencedSite
-                        ):
+                        if letter not in (".", "X", "*", self.unsequencedSite):
                             uniqueCounter[letter] = 1
                             letterOfTheLaw = letter
                         else:
@@ -996,7 +946,7 @@ class AnthonyNolanFilter(Filter):
             if self.debug:
                 print(seq)
                 print(
-                    "%s NOT found in the msf file, so we use a consensus of " % allele,
+                    f"{allele} NOT found in the msf file, so we use a consensus of ",
                     closestMatches.keys(),
                 )
 
@@ -1018,7 +968,9 @@ class BinningFilter:
         self.binningDigits = binningDigits
         self.untypedAllele = untypedAllele
         self.customBinningDict = customBinningDict
+        self.filename = filename
         self.logFile = logFile
+        self.debug = debug
 
     def doDigitBinning(self, matrix=None):
         self.logFile.opentag("DigitBinningFilter")
@@ -1027,7 +979,7 @@ class BinningFilter:
         allele = ["", ""]
         for locus in matrix.colList:
             individCount = 0
-            for individ in matrix[locus]:
+            for individCount, individ in enumerate(matrix[locus]):
                 for i in range(2):
                     allele[i] = str(individ[i])  # FIXME: matrix type is `ndarray`
                     if (
@@ -1039,7 +991,6 @@ class BinningFilter:
                         self.logFile.writeln(" is being truncated to " + allele[i])
 
                 matrix[individCount, locus] = (allele[0], allele[1])
-                individCount += 1
 
         self.logFile.writeln("]]>")
         self.logFile.closetag("CustomBinningFilter")
@@ -1056,7 +1007,7 @@ class BinningFilter:
         for locus in matrix.colList:
             individCount = 0
 
-            if locus.lower() in self.customBinningDict.keys():
+            if locus.lower() in self.customBinningDict:
                 for individ in matrix[locus]:
                     for i in range(2):
                         individ[i] = str(
@@ -1111,8 +1062,6 @@ class BinningFilter:
 
             # check for close match(es)
             if len(testAllele) > 2:
-                ruleCounter = 0
-                matchTracker = {}
                 for potentialMatch in ruleSetSplit:
                     for digitSlice in range(len(testAllele) - 2):
                         if testAllele[: -digitSlice - 1] == potentialMatch:
@@ -1142,9 +1091,9 @@ class BinningFilter:
 
         if len(closeMatches) > 0:
             bestScore = 1000
-            for match in closeMatches:
-                if closeMatches[match] < bestScore:
-                    bestScore = closeMatches[match]
+            for match, score in closeMatches.items():
+                if score < bestScore:
+                    bestScore = score
                     finalMatch = match
             self.logFile.writeln(
                 "Close rule match: "
