@@ -41,6 +41,14 @@ import re
 import shutil
 import stat
 import sys
+import warnings
+from pathlib import Path
+
+warnings.warn(
+    "The module 'Arlequin' is deprecated and may be removed in a future release.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 
 class ArlequinWrapper:
@@ -67,11 +75,11 @@ class ArlequinWrapper:
         # instances of PyPop can be running without interference with
         # each other, note: this is specific to Unix and Windows
         # (possibly also MacOS X)
-        self.arlSubdir = "arlequinRuns-%d" % os.getpid()
+        self.arlSubdir = f"arlequinRuns-{os.getpid()}"
 
         # make a subdirectory
-        if not os.path.exists(self.arlSubdir):
-            os.mkdir(self.arlSubdir)
+        if not Path(self.arlSubdir).exists():
+            Path(self.arlSubdir).mkdir()
 
         self.arpFilename = arpFilename
         self.arsFilename = arsFilename
@@ -81,49 +89,41 @@ class ArlequinWrapper:
             self.arlResPrefix = self.arpFilename[:-4]
         else:
             sys.exit(
-                "Error: Arlequin filename: %s does not have a .arp suffix", arpFilename
+                f"Error: Arlequin filename: {arpFilename} does not have a .arp suffix"
             )
         if self.arsFilename[-4:] == ".ars":
             self.arsFilename = self.arsFilename
         else:
             sys.exit(
-                "Error: Arlequin settings filename: %s does not have a .ars suffix",
-                arpFilename,
+                f"Error: Arlequin settings filename: {arpFilename} does not have a .ars suffix"
             )
 
     def outputArpFile(self, group):
         dataLoci = [
-            l for l in group if len(self.matrix.filterOut(l, self.untypedAllele)) > 0
+            li for li in group if len(self.matrix.filterOut(li, self.untypedAllele)) > 0
         ]
 
-        if len(dataLoci) == 1:
-            keys = dataLoci[0]
-        else:
-            keys = ":".join(dataLoci)
+        keys = dataLoci[0] if len(dataLoci) == 1 else ":".join(dataLoci)
 
-        self.arpFile = open(os.path.join(self.arlSubdir, self.arpFilename), "w")
-
-        self._outputHeader(1)
-        self._outputSample(keys)
-
-        self.arpFile.close()
+        with open(Path(self.arlSubdir) / self.arpFilename, "w") as self.arpFile:
+            self._outputHeader(1)
+            self._outputSample(keys)
 
     def _outputHeader(self, groupCount):
         self.arpFile.write(
-            """[Profile]
+            f"""[Profile]
 
         Title=\"Arlequin sample run\"
 
-        NbSamples=%d
+        NbSamples={groupCount}
         GenotypicData=1
         GameticPhase=0
         DataType=STANDARD
         LocusSeparator=WHITESPACE
-        MissingData='%s'
+        MissingData='?'
         RecessiveData=0
         RecessiveAllele=\"null\"
         """
-            % (groupCount, "?")
         )
 
         self.arpFile.write("""
@@ -135,12 +135,11 @@ class ArlequinWrapper:
         numSamples = len(self.matrix[keys])
 
         self.arpFile.write(
-            """
-        SampleName=\"A pop with %d individuals from loci %s\"
-        SampleSize=%d
-        SampleData={
+            f"""
+        SampleName=\"A pop with {numSamples} individuals from loci {keys}\"
+        SampleSize={numSamples}
+        SampleData={{
         """
-            % (numSamples, keys, numSamples)
         )
 
         sampleNum = 1
@@ -162,8 +161,9 @@ class ArlequinWrapper:
             # sampleId 1 allele1-locus1 allele1-locus2
             #            allele2-locus1 allele2-locus2
 
-            self.arpFile.write("%10d 1 %s" % (sampleNum, even) + "\n")
-            self.arpFile.write("%13s%s" % (" ", odd) + "\n")
+            self.arpFile.write(f"{sampleNum:10d} 1 {even}\n")
+            self.arpFile.write(f"{' ':13}{odd}\n")
+
             sampleNum += 1
 
         self.arpFile.write("}")
@@ -179,33 +179,24 @@ class ArlequinWrapper:
 
         # add a colon ':' to the match, because all alleles in the original
         # data structure have a trailing colon
-        if data == self.untypedAllele + ":":
-            output = "?"
-        else:
-            output = data.replace(" ", "x")
-        return output
+        return "?" if data == self.untypedAllele + ":" else data.replace(" ", "x")
 
     def _outputArlRunTxt(self, txtFilename, arpFilename):
         """Outputs the run-time Arlequin program file."""
-        file = open(os.path.join(self.arlSubdir, txtFilename), "w")
-        file.write(
-            """%s
+        with open(Path(self.arlSubdir) / txtFilename, "w") as fp:
+            fp.write(
+                f"""{Path(Path.cwd()) / self.arlSubdir}
 use_interf_settings
-%s
+{Path(Path.cwd()) / self.arlSubdir / arpFilename}
 0
 0
 end"""
-            % (
-                os.path.join(os.getcwd(), self.arlSubdir),
-                os.path.join(os.getcwd(), self.arlSubdir, arpFilename),
             )
-        )
 
     def outputArsFile(self, arsFilename, arsContents):
         """Outputs the run-time Arlequin program file."""
-        file = open(os.path.join(self.arlSubdir, arsFilename), "w")
-        file.write(arsContents)
-        file.close()
+        with open(Path.join(self.arlSubdir) / arsFilename, "w") as fp:
+            fp.write(arsContents)
 
     def outputRunFiles(self):
         """Generates the expected '.txt' set-up files for Arlequin."""
@@ -219,7 +210,7 @@ end"""
         generated '.arp' file."""
 
         # save current directory
-        cwd = os.getcwd()
+        cwd = Path.cwd()
 
         # change into subdirectory
         os.chdir(self.arlSubdir)
@@ -232,7 +223,7 @@ end"""
 
         # fix permissions on result directory because Arlequin is
         # brain-dead with respect to file permissions on Unix
-        os.chmod(self.arlResPrefix + ".res", stat.S_IXGRP)
+        Path(self.arlResPrefix + ".res").chmod(stat.S_IXGRP)
 
         # restore original directory
         os.chdir(cwd)
@@ -376,14 +367,15 @@ KeepNullDistrib=0"""
         string 'monomorphic', rather than the tuple of values.
         """
 
-        outFile = os.path.join(
-            self.arlSubdir, self.arlResPrefix + ".res", self.arlResPrefix + ".htm"
+        outFile = (
+            Path(self.arlSubdir) / self.arlResPrefix
+            + ".res" / self.arlResPrefix
+            + ".htm"
         )
 
-        dataFound = 0
         headerFound = 0
 
-        patt1 = re.compile(r"Exact test using a Markov chain")
+        re.compile(r"Exact test using a Markov chain")
         patt2 = re.compile(
             r"Locus  #Genot     Obs.Heter.   Exp.Heter.  P. value     s.d.  Steps done"
         )
@@ -392,34 +384,37 @@ KeepNullDistrib=0"""
 
         hwExact = {}
 
-        for line in open(outFile).readlines():
-            matchobj2 = re.search(patt2, line)
-            if matchobj2:
-                headerFound = 1
-            if headerFound:
-                matchobj3 = re.search(patt3, line)
-                matchobj4 = re.search(patt4, line)
+        with open(outFile) as fp:
+            for line in fp:
+                matchobj2 = re.search(patt2, line)
+                if matchobj2:
+                    headerFound = 1
+                if headerFound:
+                    matchobj3 = re.search(patt3, line)
+                    matchobj4 = re.search(patt4, line)
 
-                # look for values
-                if matchobj3:
-                    if self.debug:
-                        print(matchobj3.groups())
-                    locus, numGeno, obsHet, expHet, pval, sd, steps = matchobj3.groups()
-                    hwExact[locus] = (
-                        int(numGeno),
-                        float(obsHet),
-                        float(expHet),
-                        float(pval),
-                        float(sd),
-                        int(steps),
-                    )
+                    # look for values
+                    if matchobj3:
+                        if self.debug:
+                            print(matchobj3.groups())
+                        locus, numGeno, obsHet, expHet, pval, sd, steps = (
+                            matchobj3.groups()
+                        )
+                        hwExact[locus] = (
+                            int(numGeno),
+                            float(obsHet),
+                            float(expHet),
+                            float(pval),
+                            float(sd),
+                            int(steps),
+                        )
 
-                # if not, check to see if monomorphic
-                elif matchobj4:
-                    locus = matchobj4.group(1)
-                    if self.debug:
-                        print("locus", locus, "is monomorphic")
-                    hwExact[locus] = "monomorphic"
+                    # if not, check to see if monomorphic
+                    elif matchobj4:
+                        locus = matchobj4.group(1)
+                        if self.debug:
+                            print("locus", locus, "is monomorphic")
+                        hwExact[locus] = "monomorphic"
 
         return hwExact
 
@@ -495,32 +490,30 @@ class ArlequinBatch:
             self.arlResPrefix = arpFilename[:-4]
         else:
             sys.exit(
-                "Error: Arlequin filename: %s does not have a .arp suffix", arpFilename
+                f"Error: Arlequin filename: {arpFilename} does not have a .arp suffix"
             )
         if arsFilename[-4:] == ".ars":
             self.arsFilename = arsFilename
         else:
             sys.exit(
-                "Error: Arlequin settings filename: %s does not have a .ars suffix",
-                arpFilename,
+                f"Error: Arlequin settings filename: {arpFilename} does not have a .ars suffix"
             )
 
     def _outputHeader(self, sampleCount):
         headerLines = []
         headerLines.append(
-            """[Profile]
+            f"""[Profile]
 
         Title=\"Arlequin sample run\"
-        NbSamples=%d
+        NbSamples={sampleCount}
 
              GenotypicData=1
              GameticPhase=0
              DataType=STANDARD
              LocusSeparator=WHITESPACE
-             MissingData='%s'
+             MissingData='{self.untypedAllele}'
              RecessiveData=0
              RecessiveAllele=\"null\" """
-            % (sampleCount, self.untypedAllele)
         )
 
         headerLines.append("""[Data]
@@ -538,18 +531,15 @@ class ArlequinBatch:
             print("_outputSample:chunk:", chunk)
         for line in data:
             words = line.split()
-            unphase1 = "%10s 1 " % words[self.idCol]
-            unphase2 = "%13s" % " "
+            unphase1 = f"{words[self.idCol]:10s} 1"
+            unphase2 = f"{' ':13s}"
             for i in chunk:
                 print(chunk, i)
                 allele = words[i]
                 # don't output individual if *any* loci is untyped
                 if allele == self.untypedAllele:
                     if self.debug:
-                        print(
-                            "untyped allele %s in (%s), (%s)"
-                            % (allele, unphase1, unphase2)
-                        )
+                        print(f"untyped allele {allele} in ({unphase1}), ({unphase2})")
                     break
                 if (chunk.index(i) + 1) % 2:
                     unphase1 = unphase1 + " " + allele
@@ -565,12 +555,11 @@ class ArlequinBatch:
 
         if len(samples) != 0:
             sampleLines.append(
-                """
+                f"""
 
-            SampleName=\"%s pop with %s individuals from loci %s\"
-            SampleSize= %s
-            SampleData={"""
-                % (self.arlResPrefix, len(samples) / 2, str(slice), len(samples) / 2)
+            SampleName=\"{self.arlResPrefix} pop with {len(samples) / 2} individuals from loci {slice!s}\"
+            SampleSize= {len(samples) / 2}
+            SampleData={{"""
             )
 
             sampleLines.append("\n")
@@ -623,34 +612,31 @@ class ArlequinBatch:
         # sanity check to ensure column number is even (2 alleles for
         # each loci)
         if colCount % 2 != 0:
-            sys.exit("Error: col count (%d) is not even" % colCount)
+            sys.exit(f"Error: col count ({colCount}) is not even")
         else:
             locusCount = int((colCount) / 2)
 
         # create default map order if none given
-        if self.mapOrder == None:
-            self.mapOrder = [i for i in range(1, locusCount + 1)]
+        if self.mapOrder is None:
+            self.mapOrder = list(range(1, locusCount + 1))
 
         # sanity check for map order if it is given
         elif locusCount <= len(self.mapOrder):
             sys.exit(
-                "Error: \
-            there are %d loci but %d were given to sort order"
-                % (locusCount, len(self.mapOrder))
+                f"Error: \
+            there are {locusCount} loci but {len(self.mapOrder)} were given to sort order"
             )
         else:
             for i in self.mapOrder:
                 if self.mapOrder.count(i) > 1:
                     sys.exit(
-                        "Error: \
-                    locus %d appears more than once in sort order"
-                        % i
+                        f"Error: \
+                    locus {i} appears more than once in sort order"
                     )
                 elif (i > locusCount) or (i < 0):
                     sys.exit(
-                        "Error: \
-                    locus %d out of range of number of loci"
-                        % i
+                        f"Error: \
+                    locus {i} out of range of number of loci"
                     )
 
         if self.debug:
@@ -697,26 +683,23 @@ class ArlequinBatch:
             print("sample count", sampleCount)
 
         # open specified arp
-        self.arpFile = open(self.arpFilename, "w")
-        for line in headerLines:
-            self.arpFile.write(line)
-        for line in totalSamples:
-            self.arpFile.write(line)
-        # close .arp file
-        self.arpFile.close()
+        with open(self.arpFilename, "w") as self.arpFile:
+            for line in headerLines:
+                self.arpFile.write(line)
+            for line in totalSamples:
+                self.arpFile.write(line)
 
     def _outputArlRunTxt(self, txtFilename, arpFilename):
         """Outputs the run-time Arlequin program file."""
-        file = open(txtFilename, "w")
-        file.write(
-            """%s
+        with open(txtFilename, "w") as fp:
+            fp.write(
+                f"""{Path.cwd()}
 use_interf_settings
-%s%s%s
+{Path.cwd() / arpFilename}
 0
 0
 end"""
-            % (os.getcwd(), os.getcwd(), os.sep, arpFilename)
-        )
+            )
 
     def _outputArlRunArs(self, systemArsFilename, arsFilename):
         """Outputs the run-time Arlequin program file."""
@@ -739,7 +722,7 @@ end"""
 
         # fix permissions on result directory because Arlequin is
         # brain-dead with respect to file permissions on Unix
-        os.chmod(self.arlResPrefix + ".res", stat.S_IXGRP)
+        Path(self.arlResPrefix + ".res").chmod(stat.S_IXGRP)
 
 
 # this is called if this module is executed standalone
@@ -845,7 +828,8 @@ genetics program.
         debug=debug,
     )
     # open file
-    fileData = open(inputFilename).readlines()
+    with open(inputFilename) as fp:
+        fileData = fp.readlines()
     # run data ignoring `ignoreLines' worth of data
     batch.outputArlequin(fileData[ignoreLines:])
     batch.outputRunFiles()
