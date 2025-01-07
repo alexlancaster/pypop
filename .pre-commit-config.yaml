@@ -42,5 +42,7 @@ repos:
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
 
+exclude: 'tests/data/.*|data/.*|website/reference/.*'
+
 ci:
   autoupdate_commit_msg: 'chore: update pre-commit hooks'
