@@ -41,6 +41,7 @@
 import re
 import string
 import sys
+from abc import ABC, abstractmethod
 from functools import reduce
 from operator import add
 from pathlib import Path
@@ -50,47 +51,57 @@ from PyPop.Utils import StringMatrix
 
 class SubclassError(Exception):
     def __init__(self):
-        pass
+        super().__init__()
 
     def __str__(self):
         return "Sub class must implement this method"
 
 
-class Filter:
+class Filter(ABC):
     """Abstract base class for Filters"""
 
     def __init__(self):
+        super().__init__()
+
+    @abstractmethod
+    def doFiltering(self, matrix=None):
         pass
 
-    def doFiltering(self, matrix=None):
-        raise SubclassError()
-
+    @abstractmethod
     def startFirstPass(self, locus):
-        raise SubclassError()
+        pass
 
+    @abstractmethod
     def checkAlleleName(self, alleleName):
-        raise SubclassError()
+        pass
 
+    @abstractmethod
     def addAllele(self, alleleName):
-        raise SubclassError()
+        pass
 
+    @abstractmethod
     def endFirstPass(self):
-        raise SubclassError()
+        pass
 
+    @abstractmethod
     def startFiltering(self):
-        raise SubclassError()
+        pass
 
+    @abstractmethod
     def filterAllele(self, alleleName):
-        raise SubclassError()
+        pass
 
+    @abstractmethod
     def endFiltering(self):
-        raise SubclassError()
+        pass
 
+    @abstractmethod
     def writeToLog(self, logstring=None):
-        raise SubclassError()
+        pass
 
+    @abstractmethod
     def cleanup(self):
-        raise SubclassError()
+        pass
 
 
 class PassThroughFilter(Filter):
