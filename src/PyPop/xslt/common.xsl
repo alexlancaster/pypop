@@ -156,7 +156,7 @@ MODIFICATIONS.
   <xsl:value-of select="$title"/><xsl:text> [</xsl:text><xsl:value-of select="../@name"/><xsl:text>]</xsl:text>
  </xsl:template>
 
- <!-- generates section (title w/ spacing designed to be overriden -->
+ <!-- generates section (title w/ spacing designed to be overridden -->
  <xsl:template name="section">
   <xsl:param name="level"/>
   <xsl:param name="title"/>
@@ -285,7 +285,7 @@ MODIFICATIONS.
 	<xsl:when test="not(allelecounts/@role='no-data')">
 	 <xsl:apply-templates select="*"/>
 	</xsl:when>
-	<!-- if no allele data is present supress processing and print message -->
+	<!-- if no allele data is present suppress processing and print message -->
 	<xsl:otherwise>
 	 <xsl:text> No data for this locus!</xsl:text>
 	</xsl:otherwise>

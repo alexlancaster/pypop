@@ -292,7 +292,7 @@ MODIFICATIONS.
    <xsl:otherwise>
 
     <!-- if the delimiter is found in the string, we must not be at
-     the end, and we return the portion before the delimter
+	 the end, and we return the portion before the delimiter
      (e.g. 'B:'), otherwise the n-th element is the end of the string,
      in which case we simply return the current string (e.g. 'C') -->
 

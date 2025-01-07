@@ -43,7 +43,7 @@ MODIFICATIONS.
 
  <xsl:param name="new-hardyweinberg-format" select="0"/>
 
- <!-- boiler-plate text that we may want to re-use -->
+ <!-- boiler-plate text that we may want to reuse -->
  <data:hardyweinberg-col-headers>
   <text col="observed">Observed</text>
   <text col="expected">Expected</text>
@@ -537,7 +537,7 @@ MODIFICATIONS.
 
     </xsl:when>
 
-    <!-- this deals with the situtation when there are some leftover cols -->
+    <!-- this deals with the situation when there are some leftover cols -->
     <xsl:when test="$pos=last() and $pos mod $hardyweinberg-cols-to-fit != 0">
 
      <xsl:variable name="end-col" select="position()"/>
@@ -576,7 +576,7 @@ MODIFICATIONS.
   <!-- two loops across allele names, will traverse the matrix -->
   <!-- because we need to use the alleles in count (frequency) order -->
   <!-- don't loop across the <genotype> nodes anymore, we use the loop -->
-  <!-- "indicies" to randomly access the given genotype node, using -->
+  <!-- "indices" to randomly access the given genotype node, using -->
   <!-- a genotype[row,col] format -->
 
 

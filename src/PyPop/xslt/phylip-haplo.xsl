@@ -10,7 +10,7 @@
  <!-- select "text" as output method -->
  <xsl:output method="text" encoding="utf8" omit-xml-declaration="yes"/>
 
- <!-- specify a default directory for the output .dat files that can be overriden -->
+ <!-- specify a default directory for the output .dat files that can be overridden -->
  <xsl:param name="outputDir" select="'./'"/>
 
  <data:phylip-loci>
