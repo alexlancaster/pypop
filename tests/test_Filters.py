@@ -2,8 +2,8 @@ from base import (
     DEFAULT_GOLD_OUTPUT_DIR,
     abspath_test_data,
     filecmp_ignore_newlines,
+    in_temp_dir,  # noqa: F401
     run_pypop_process,
-    in_temp_dir,
 )
 
 
