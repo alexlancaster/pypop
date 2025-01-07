@@ -94,7 +94,7 @@ if "CPATH" in os.environ:
 def path_to_src(source_path_list):
     new_source_list = []
     for file_path in source_path_list:
-        new_source_list.append(Path(src_dir) / file_path)
+        new_source_list.append(str(Path(src_dir) / file_path))
     return new_source_list
 
 
