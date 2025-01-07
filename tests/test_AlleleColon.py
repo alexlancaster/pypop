@@ -1,6 +1,9 @@
 import hashlib
 
-from base import run_pypop_process
+from base import (
+    in_temp_dir,  # noqa: F401
+    run_pypop_process,
+)
 
 
 def test_AlleleColon_HardyWeinberg():

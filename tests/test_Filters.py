@@ -3,6 +3,7 @@ from base import (
     abspath_test_data,
     filecmp_ignore_newlines,
     run_pypop_process,
+    in_temp_dir,
 )
 
 
