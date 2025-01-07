@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2003. The Regents of the University of California (Regents)
@@ -25,17 +23,28 @@
 # LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS
 # DOCUMENTATION, EVEN IF REGENTS HAS BEEN ADVISED OF THE POSSIBILITY
 # OF SUCH DAMAGE.
-import os
+
+# FIXME: exclude certain rules, since this functionality is deprecated
+# ruff: noqa: F403 F405 F841
+
+import warnings
+from pathlib import Path
 from threading import *
 
+from Main import Main, getConfigInstance
 from wxPython.wx import *
+
+warnings.warn(
+    "The module 'GUIApp' is deprecated and may be removed in a future release.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 ID_ABOUT = 101
 ID_OPEN_CONFIG = 102
 ID_OPEN_POP = 103
 ID_EXIT = 110
 
-from Main import Main, getConfigInstance
 
 # Define notification event for thread completion
 EVT_RESULT_ID = wxNewId()
@@ -100,7 +109,7 @@ class WorkerThread(Thread):
 class MainWindow(wxFrame):
     """Creates the main application window for PyPop."""
 
-    def __init__(self, parent, id, title, datapath=None, altpath=None, debugFlag=0):
+    def __init__(self, parent, _id, title, datapath=None, altpath=None, debugFlag=0):
         # set data, alt path
         self.datapath = datapath
         self.altpath = altpath
@@ -110,7 +119,7 @@ class MainWindow(wxFrame):
         self.dirname = "."
 
         self.popFilename = None
-        self.configFilename = os.path.join(self.dirname, "config.ini")
+        self.configFilename = Path(self.dirname) / "config.ini"
 
         wxFrame.__init__(
             self,
@@ -168,7 +177,7 @@ class MainWindow(wxFrame):
 
         self.Show(true)
 
-    def OnAbout(self, event):
+    def OnAbout(self, _event):
         d = wxMessageDialog(
             self, "PyPop: " "PYthon for POPulation Genetics", "About PyPop", wxOK
         )
@@ -176,17 +185,17 @@ class MainWindow(wxFrame):
         d.ShowModal()  # Shows it
         d.Destroy()  # finally destroy it when finished.
 
-    def OnExit(self, event):
+    def OnExit(self, _event):
         self.Close(true)  # Close the frame.
 
-    def _onOpen(self, event, type="*.*"):
+    def _onOpen(self, _event, type="*.*"):
         dlg = wxFileDialog(self, "Choose a file", self.dirname, "", type, wxOPEN)
         fullpath = None
         if dlg.ShowModal() == wxID_OK:
             filename = dlg.GetFilename()
             dirname = dlg.GetDirectory()
 
-            fullpath = os.path.join(dirname, filename)
+            fullpath = Path(dirname) / filename
 
             # f=open(os.path.join(self.dirname,self.filename),'r')
             # self.control.SetValue(f.read())
@@ -212,7 +221,7 @@ class MainWindow(wxFrame):
             self.popFilename = fullpath
             self.SetStatusText("pop file: " + self.popFilename, 0)
 
-    def OnRun(self, event):
+    def OnRun(self, _event):
         if self.popFilename:
             # Trigger the worker thread unless it's already busy
             if not self.worker:
@@ -222,7 +231,7 @@ class MainWindow(wxFrame):
         else:
             self.SetStatusText("Please select a population, before running")
 
-    def OnStop(self, event):
+    def OnStop(self, _event):
         # Flag the worker thread to stop if running
         if self.worker:
             self.SetStatusText("Trying to abort computation")
@@ -234,6 +243,6 @@ class MainWindow(wxFrame):
             self.SetStatusText("Computation aborted")
         else:
             # Process results here
-            self.SetStatusText("Computation Result: %s" % event.data)
+            self.SetStatusText(f"Computation Result: {event.data}")
         # In either event, the worker is done
         self.worker = None
