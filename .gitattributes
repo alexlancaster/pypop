@@ -15,6 +15,7 @@ _static/** linguist-generated
 # for the directory itself
 .gitattributes export-ignore
 .pre-commit-config.yaml export-ignore
+.mdformat.toml export-ignore
 /.github export-ignore
 /.github/** export-ignore
 /website export-ignore
