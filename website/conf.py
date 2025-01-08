@@ -183,7 +183,8 @@ bibtex_reference_style = "author_year_round"
 
 ## custom bibligraphy style
 
-from pybtex.style.template import field, first_of, optional, sentence
+# FIXME: should move this to top - currently doesn't work
+from pybtex.style.template import field, first_of, optional, sentence  # noqa: E402
 
 
 class AlphaInitialsStyle(AlphaStyle):
@@ -397,7 +398,8 @@ pdf_documents = [
 
 class MyLiteralInclude(LiteralInclude):
     def run(self):
-        if "builder_latex" in tags.tags:
+        # FIXME: missing tags
+        if "builder_latex" in tags.tags:  # noqa: F821
             self.options["tab-width"] = 15  # set default tab-width only in LaTeX mode
             print("LaTeX literalinclude options:", self.options)
 
