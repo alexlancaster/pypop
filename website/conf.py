@@ -15,21 +15,16 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import sys
+from dataclasses import dataclass, field
 from pathlib import Path
 
-from setuptools_scm import get_version
-
-from sphinx.directives.code import LiteralInclude
-
-from dataclasses import dataclass, field
-
 import sphinxcontrib.bibtex.plugin
+from pygments.formatters.latex import LatexFormatter
+from setuptools_scm import get_version
+from sphinx.directives.code import LiteralInclude
+from sphinx.highlighting import PygmentsBridge
 from sphinxcontrib.bibtex.style.referencing import BracketStyle
 from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferenceStyle
-
-from pygments.formatters.latex import LatexFormatter
-from sphinx.highlighting import PygmentsBridge
-
 
 sys.path.insert(0, Path("../src").resolve())
 
