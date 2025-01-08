@@ -1,14 +1,15 @@
 #!/usr/bin/env python
 import os.path
 import sys
-import string
-import numpy
+from pathlib import Path
 
-DIR = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(DIR, ".."))
+import numpy as np
 
-from PyPop.Utils import StringMatrix
+DIR = Path(__file__).parent.resolve()
+sys.path.insert(0, str(Path(DIR) / ".."))
+
 from PyPop.Haplo import Haplostats
+from PyPop.Utils import StringMatrix
 
 # here we try to match this haplo.stats example
 
@@ -58,6 +59,7 @@ control = {
 # need to make sure that this works with subMatrices
 
 import io
+
 from PyPop.Utils import XMLOutputStream
 
 xmlOutput = XMLOutputStream(io.StringIO())
@@ -97,9 +99,9 @@ print(" hap2_code:", hap2_code)
 # Print columns side-by-side for easier checking
 # NB: u_hap is trickier since it has n.loci entries per haplo
 print("hap_prob  u_hap_code u_hap(needs to be split for printing)")
-print(numpy.c_[hap_prob, u_hap_code])
+print(np.c_[hap_prob, u_hap_code])
 print("subj_id  hap1_code  hap2_code")
-print(numpy.c_[subj_id, hap1_code, hap2_code])
+print(np.c_[subj_id, hap1_code, hap2_code])
 #   for x1,x2,x3 in zip(hap_prob,u_hap,u_hap_code):
 #       print x1 + '\t\t' + x2 + '\t\t' + x3
 

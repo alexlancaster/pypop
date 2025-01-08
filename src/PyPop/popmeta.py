@@ -88,6 +88,6 @@ def main(argv=sys.argv):
 
 if __name__ == "__main__":
     DIR = Path(__file__).parent.resolve()
-    sys.path.insert(0, Path(DIR) / "..")
+    sys.path.insert(0, str(Path(DIR) / ".."))
 
     main()
