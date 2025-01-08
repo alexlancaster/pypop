@@ -162,7 +162,7 @@ typing-modules = ["mypackage._compat.typing"]
 "tests/**" = ["T20"]
 
 [tool.codespell]
-skip = './tests/data,./data'
+skip = './tests/data,./data,./src/slatkin-exact/README,./src/pval'
 count = true
 quiet-level = 3
 ignore-words-list = 'nd,Fallin,commmon'
