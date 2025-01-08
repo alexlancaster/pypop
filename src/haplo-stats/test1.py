@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import os.path
+import io
 import sys
 from pathlib import Path
 
@@ -8,8 +8,8 @@ import numpy as np
 DIR = Path(__file__).parent.resolve()
 sys.path.insert(0, str(Path(DIR) / ".."))
 
-from PyPop.Haplo import Haplostats
-from PyPop.Utils import StringMatrix
+from PyPop.Haplo import Haplostats  # noqa: E402
+from PyPop.Utils import StringMatrix, XMLOutputStream  # noqa: E402
 
 # here we try to match this haplo.stats example
 
@@ -58,9 +58,6 @@ control = {
 # FIXME: currently this assumes that geno StringMatrix contains only the loci required
 # need to make sure that this works with subMatrices
 
-import io
-
-from PyPop.Utils import XMLOutputStream
 
 xmlOutput = XMLOutputStream(io.StringIO())
 

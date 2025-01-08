@@ -1,14 +1,13 @@
 #!/usr/bin/env python
-import numpy
-import math
-import os
 import sys
-import itertools as it
+from pathlib import Path
 
-DIR = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, os.path.join(DIR, ".."))
+import numpy as np
 
-from PyPop.Haplo import _compute_LD
+DIR = Path(__file__).parent.resolve()
+sys.path.insert(0, str(Path(DIR) / ".."))
+
+from PyPop.Haplo import _compute_LD  # noqa: E402
 
 # pop locus1 allele1 locus2 allele2 haplo.freq
 # ex1      A      01      B      01        0.3
@@ -20,7 +19,7 @@ from PyPop.Haplo import _compute_LD
 
 # FIXME: these arrays have to be in same order
 # this is fragile and probably needs changing in main code
-haplos = numpy.array(
+haplos = np.array(
     [
         ["A1", "B1"],
         ["A2", "B1"],
@@ -31,6 +30,6 @@ haplos = numpy.array(
     ],
     dtype="O",
 )
-freqs = numpy.array([0.3, 0.0, 0.0, 0.5, 0.0, 0.2])
+freqs = np.array([0.3, 0.0, 0.0, 0.5, 0.0, 0.2])
 
 _compute_LD(haplos, freqs, compute_ALD=True, debug=True)
