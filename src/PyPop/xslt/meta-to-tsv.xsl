@@ -45,10 +45,10 @@ MODIFICATIONS.
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes" indent="no" encoding="UTF-8"/>
 
- <!-- specify a default directory for the output .tsv files that can be overriden -->
+ <!-- specify a default directory for the output .tsv files that can be overridden -->
  <xsl:param name="outputDir" select="'./'"/>
 
- <!-- specify a default prefix for all .tsv files that can be overriden -->
+ <!-- specify a default prefix for all .tsv files that can be overridden -->
  <xsl:param name="prefixTSV" select="''"/>
 
  <!-- generate overall file prefix -->
@@ -327,7 +327,7 @@ MODIFICATIONS.
       <!-- if either no-common-genotypes or too-many-parameters is found -->
       <!-- output the role attribute rather than a N/A '****' -->
       <!-- make sure that this node actually has data -->
-      <!-- should be fixed properly by outputing <hardyweinberg> with a -->
+      <!-- should be fixed properly by outputting <hardyweinberg> with a -->
       <!-- role="no-data" attribute -->
       <xsl:when test="$hw/common[@role='no-common-genotypes' or @role='too-many-parameters'] and $hw/samplesize!=0">
        <xsl:value-of select="$hw/common/@role"/>
@@ -507,7 +507,7 @@ MODIFICATIONS.
       <!-- if either no-common-genotypes or too-many-parameters is found -->
       <!-- output the role attribute rather than a N/A '****' -->
       <!-- make sure that this node actually has data -->
-      <!-- should be fixed properly by outputing <hardyweinberg> with a -->
+      <!-- should be fixed properly by outputting <hardyweinberg> with a -->
       <!-- role="no-data" attribute -->
       <xsl:when test="hardyweinberg/common[@role='no-common-genotypes' or @role='too-many-parameters'] and hardyweinberg/samplesize!=0">
        <xsl:value-of select="hardyweinberg/common/@role"/>
@@ -991,7 +991,7 @@ MODIFICATIONS.
 	 <xsl:with-param name="node" select="$pair/chisq"/>
 	</xsl:call-template>
 
-        <!-- not neeeded: repeats the existing 'haplotype.count' and
+        <!-- not needed: repeats the existing 'haplotype.count' and
              'haplotype.freq' columns
 
         <xsl:call-template name="output-field">

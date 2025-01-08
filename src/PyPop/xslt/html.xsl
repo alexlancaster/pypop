@@ -58,7 +58,7 @@ MODIFICATIONS.
   <xsl:value-of select="$title"/>
  </xsl:template>
 
- <!-- overriden <section> template -->
+ <!-- overridden <section> template -->
  <xsl:template name="section">
   <xsl:param name="level"/>
   <xsl:param name="title"/>

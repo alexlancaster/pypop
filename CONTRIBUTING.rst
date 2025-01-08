@@ -777,7 +777,7 @@ outside ``website`` like ``README.rst`` and ``CONTRIBUTING.rst``:
    -  ``biblio.rst``
    -  ``pypop.bib`` (BibTeX source file for bibliography)
 
--  ``html_root`` (any files or directories commited in this directory
+-  ``html_root`` (any files or directories committed in this directory
    will appear at the top-level of the website)
 
    -  ``psb-pypop.pdf`` (e.g. this resides at
@@ -866,7 +866,7 @@ documentation locally. Here’s an overview of how to do that:
 
       sphinx-build website _build
 
-6. view the local documention: you can open up browser and navigate to
+6. view the local documentation: you can open up browser and navigate to
    the ``index.html`` in the top-level of the newly-created ``_build``
    directory
 

@@ -115,7 +115,7 @@ large-scale population genetic analyses including:
     - 2020: pypop is no longer a Fedora package (to be replaced by PyPI package)
     - 2017: all new development is now in GitHub
 
-  * See the :ref:`PyPop Release History` in the `Python User Guide`
+  * See the :ref:`PyPop Release History` in the *Python User Guide*
     for even earlier history and full release notes.
 
 .. _guide-preface-2-start:
@@ -202,7 +202,7 @@ consult :cite:t:`lancaster_pypop_2003`,
 
 .. _acknowlegements:
 
-**Acknowlegements**
+**Acknowledgements**
 
 This work has benefited from the support of NIH grant AI49213 (13th
 IHW) and NIH/NIAID Contract number HHSN266200400076C

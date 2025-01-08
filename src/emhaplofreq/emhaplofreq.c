@@ -476,7 +476,7 @@ int main_proc(
       permute_alleles(data_ar, n_loci, n_recs);
 
       /* initialize values for first obs from last permu */
-      /* values for subsequent obs do not need inititialization */
+      /* values for subsequent obs do not need initialization */
       strcpy(pheno[0], "\0");
       for (i = 0; i < (int)pow(2, n_loci - 1); i++)
 	{

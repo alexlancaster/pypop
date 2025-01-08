@@ -34,7 +34,7 @@ MODIFICATIONS. */
 /************************************************************************
   program name: print_data.c
 
-  functio to print out the data
+  function to print out the data
 
   status: modified from g-t program
 

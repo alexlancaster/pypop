@@ -1,0 +1,5 @@
+number = true
+#exclude = [
+#	"CHANGELOG.md",
+#	"paper/**"
+#	]
