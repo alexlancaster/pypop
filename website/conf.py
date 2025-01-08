@@ -18,7 +18,9 @@ import sys
 from dataclasses import dataclass, field
 from pathlib import Path
 
+import pybtex.plugin
 import sphinxcontrib.bibtex.plugin
+from pybtex.style.formatting.alpha import Style as AlphaStyle
 from pygments.formatters.latex import LatexFormatter
 from setuptools_scm import get_version
 from sphinx.directives.code import LiteralInclude
@@ -181,9 +183,6 @@ bibtex_reference_style = "author_year_round"
 
 ## custom bibligraphy style
 
-
-import pybtex.plugin
-from pybtex.style.formatting.alpha import Style as AlphaStyle
 from pybtex.style.template import field, first_of, optional, sentence
 
 
