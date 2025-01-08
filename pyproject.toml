@@ -169,7 +169,7 @@ ignore-words-list = 'nd,Fallin,commmon'
 
 [tool.mdformat]
 number = true
-exclude = [
-	"NEWS.md",
-	"website/**"
-	]
+#exclude = [
+#	"NEWS.md",
+#	"website/**"
+#	]
