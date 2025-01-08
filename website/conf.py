@@ -26,7 +26,8 @@ from sphinx.highlighting import PygmentsBridge
 from sphinxcontrib.bibtex.style.referencing import BracketStyle
 from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferenceStyle
 
-sys.path.insert(0, Path("../src").resolve())
+sys.path.insert(0, str(Path("../src").resolve()))
+
 
 # -- General configuration ------------------------------------------------
 
