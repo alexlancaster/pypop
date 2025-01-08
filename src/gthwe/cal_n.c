@@ -35,7 +35,7 @@ MODIFICATIONS. */
 
   program name: cal_n.c
 
-  funtion to calculate n(i)
+  function to calculate n(i)
 
   status: modified from g-t program
 

@@ -34,7 +34,7 @@ MODIFICATIONS. */
 /************************************************************************
   program name: read_data.c
 
-  funtion to read data
+  function to read data
 
   status: modified from g-t program
 

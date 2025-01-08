@@ -30,7 +30,7 @@
 	* hwe.c (main): Pass in '1' (true) for generating XML open tags if
 	running from command line.
 	(run_data): New parameter, 'header'.  If true, output the XML
-	<hardyweinbergGuoThompson> tag, otherwise surpress it.
+	<hardyweinbergGuoThompson> tag, otherwise suppress it.
 	(run_randomization): Likewise new parameter.
 
 2005-05-05  Alex Lancaster  <alexl AT users.sourceforge.net>
@@ -224,7 +224,7 @@
 	total number of *gametes* _not_ genotypes.
 	Fixed serious bug in estimating new genotypes, use L() macro not
 	LL() macro which takes into account if matrix is not referenced
-	using lower-triangular co-ordinates, previously, genotype (n,m)
+	using lower-triangular coordinates, previously, genotype (n,m)
 	was being treated differently to (m,n), throwing off numbers.
 	Free() (c)alloced arrays, 's' and 'g'.
 	More debug tweakage throughout.
@@ -271,7 +271,7 @@
 
 	* to_calculate_log.c (log_factorial): Use gsl_sf_lnfact() function
 	from the GNU Scientific Library (GSL) in place of the original log
-	factorial function, which can't handle large enought numbers.
+	factorial function, which can't handle large enough numbers.
 
 	* random_choose.c (random_choose): Make work variable dynamically
 	allocated using calloc() and free() at end of function.

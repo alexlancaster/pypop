@@ -34,6 +34,7 @@ repos:
     rev: "v2.3.0"
     hooks:
       - id: codespell
+        args: [--toml, pyproject.toml]
         additional_dependencies:
           - tomli
   - repo: https://github.com/pre-commit/pygrep-hooks
@@ -42,6 +43,10 @@ repos:
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
+# FIXME: enable for debugging hooks
+#  - repo: meta
+#    hooks:
+#    - id: identity
 
 exclude: 'tests/data/.*|data/.*|website/reference/.*|src/obsolete/.*|website/html_root/.*'
 

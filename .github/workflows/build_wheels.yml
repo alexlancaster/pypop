@@ -73,7 +73,7 @@ jobs:
           VERSION_PYTHON_STYLE=$(GITHUB_REF_NAME=$GITHUB_REF_NAME python -c 'import os; from  packaging import version; print(str(version.Version(os.getenv("GITHUB_REF_NAME"))))')
           echo "VERSION_PYTHON_STYLE = $VERSION_PYTHON_STYLE"
           # cp .zenodo.json .zenodo.orig.json
-          # update the 'related_identifiers' to use exact tree and pypi packaage
+          # update the 'related_identifiers' to use exact tree and pypi package
           cat .zenodo.json | jq "(.related_identifiers[] | (select (.relation == \"isSourceOf\" and .resource_type == \"software\")) | select (.identifier | startswith(\"https://pypi.org/project/pypop-genomics\")).identifier) |= \"https://pypi.org/project/pypop-genomics/$VERSION_PYTHON_STYLE\""  |  jq "(.related_identifiers[] | (select (.relation == \"isSupplementTo\" and .resource_type == \"software\")) | select (.identifier | startswith(\"https://github.com/alexlancaster/pypop\")).identifier) |= \"https://github.com/alexlancaster/pypop/tree/$GITHUB_REF_NAME\"" > .zenodo.mod.json
           # update the version number
           echo "{\"version\": \"$GITHUB_REF_NAME\"}" | cat .zenodo.mod.json - | jq -s add > .zenodo.json
