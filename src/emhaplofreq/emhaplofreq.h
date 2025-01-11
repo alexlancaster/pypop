@@ -69,13 +69,6 @@ MODIFICATIONS. */
 #define xmlfprintf fprintf
 #endif
 
-/* include re-implemented drand48() on Windows */
-/*#if defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__WIN64__)
-#include "drand48.c"
-#define drand48(x) drand48_windows(x)
-#define srand48(x) srand48_windows(x)
-#endif */
-
 /*
  * macros to initialize elements of a given static array to `zero'
  * make sure that functions are `re-entrant' (i.e. don't carry bogus
