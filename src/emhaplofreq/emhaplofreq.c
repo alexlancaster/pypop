@@ -43,6 +43,14 @@ MODIFICATIONS. */
 
 #include "emhaplofreq.h"
 
+/* include re-implemented drand48() on Windows */
+#if defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__WIN64__)
+#include "drand48.c"
+#define drand48(x) drand48_windows(x)
+#define srand48(x) srand48_windows(x)
+#endif
+
+
 /***************** begin: function prototypes ***************************/
 
 void print_usage(void);
