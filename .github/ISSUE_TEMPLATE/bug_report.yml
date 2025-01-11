@@ -11,7 +11,7 @@ body:
     id: to-reproduce
     attributes:
       label: To reproduce the issue
-      description: List the steps to reproduce the behavior, including the full command-line. If your problem happens at run-time, please attach an include an `.ini` and `.pop` file that reproduces the problem. If it is not possible to include the full data set, please include a minimal `.ini` and `.pop` that is sufficient to reproduce the bug  
+      description: List the steps to reproduce the behavior, including the full command-line. If your problem happens at run-time, please attach an include an `.ini` and `.pop` file that reproduces the problem. If it is not possible to include the full data set, please include a minimal `.ini` and `.pop` that is sufficient to reproduce the bug
       placeholder:  |
         1. pip install pypop-genomics
         2. Download files `X.ini` and `Y.pop`

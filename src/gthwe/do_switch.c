@@ -1,7 +1,7 @@
 /* This file is part of PyPop
-  
+
   Copyright (C) 1992. Sun-Wei Guo.
-  Modifications Copyright (C) 1999, 2003, 2004. 
+  Modifications Copyright (C) 1999, 2003, 2004.
   The Regents of the University of California (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -38,7 +38,7 @@ MODIFICATIONS. */
   function to make switch according to given switchability and switch
   type.
 
-  status: modified from g-t program 
+  status: modified from g-t program
 
   date: 12/14/99
 

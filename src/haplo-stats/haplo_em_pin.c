@@ -1,20 +1,20 @@
 /* $Author: sinnwell $ */
-/* $Date: 2013/01/14 19:10:42 $ 
-*License: 
+/* $Date: 2013/01/14 19:10:42 $
+*License:
 *
-*Copyright 2003 Mayo Foundation for Medical Education and Research. 
+*Copyright 2003 Mayo Foundation for Medical Education and Research.
 *
-*This program is free software; you can redistribute it and/or modify it under the terms of 
-*the GNU General Public License as published by the Free Software Foundation; either 
+*This program is free software; you can redistribute it and/or modify it under the terms of
+*the GNU General Public License as published by the Free Software Foundation; either
 *version 2 of the License, or (at your option) any later version.
 *
-*This program is distributed in the hope that it will be useful, but WITHOUT ANY 
-*WARRANTY; without even the implied warranty of MERCHANTABILITY or 
-*FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+*This program is distributed in the hope that it will be useful, but WITHOUT ANY
+*WARRANTY; without even the implied warranty of MERCHANTABILITY or
+*FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
 *more details.
 *
-*You should have received a copy of the GNU General Public License along with this 
-*program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, 
+*You should have received a copy of the GNU General Public License along with this
+*program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
 *Boston, MA 02111-1307 USA
 *
 *For other licensing arrangements, please contact Daniel J. Schaid.
@@ -28,7 +28,7 @@
 *
 *phone: 507-284-0639
 *fax:      507-284-9542
-*email: schaid@@@@mayo.edu 
+*email: schaid@@@@mayo.edu
 */
 
 #include <stdio.h>
@@ -36,7 +36,7 @@
 #include <math.h>
 #include <string.h>
 #include <limits.h>
-//#include <R.h>  
+//#include <R.h>
 #include <Rmath.h>
 #include <nmath.h>
 #include "haplo_em_pin.h"
@@ -45,7 +45,7 @@
 
 /*************** Global vars ******************************************************/
 
-static int n_loci, *loci_used;               /* used for qsort functions         */   
+static int n_loci, *loci_used;               /* used for qsort functions         */
 static HAP **ret_hap_list;                    /* stored for later return to S+    */
 static HAPUNIQUE **ret_u_hap_list;
 static int ret_n_hap, ret_n_u_hap, ret_max_haps;
@@ -68,7 +68,7 @@ void haplo_em_pin(
    double  *min_prior,            /* trim haplo's with prior < min_prior            */
    double  *min_posterior,        /* trim subject's pair of haplos if               */
 				  /* post < min_posterior                           */
-   double  *tol,                  /* convergence tolerance for change in lnlike in  */ 
+   double  *tol,                  /* convergence tolerance for change in lnlike in  */
 				  /*  EM loop                                       */
    int    *insert_batch_size,    /* number of loci to insert in a batch before     */
                                   /*  each EM loop; order of inserted               */
@@ -82,7 +82,7 @@ void haplo_em_pin(
 				  /* generated at the start of each EM loop.        */
                                   /* 1 = Yes, 0 = No                                */
    int    *iseed1,               /* seeds for AS183 random unif                    */
-   int    *iseed2,	
+   int    *iseed2,
    int    *iseed3,
    int    *verbose)              /* indicator if verbose pringing during  run,     */
                                   /* for debugging. verbose=0 means no printing     */
@@ -117,7 +117,7 @@ void haplo_em_pin(
   }
 
   prior = (double *) Calloc(*max_haps, double);
- 
+
   if(prior==NULL){
     errmsg("could not alloc mem for prior");
   }
@@ -136,7 +136,7 @@ void haplo_em_pin(
 
 
   /* put geno data into haplo list */
-  
+
   pair_id = - 1;
   n_hap=0;
 
@@ -150,7 +150,7 @@ void haplo_em_pin(
     n_hap++;
 
     hap_list[indx1] = new_hap(i, pair_id, weight[i], 0.0, 1.0);
- 
+
     hap_list[indx2]  = new_hap(i, pair_id, weight[i], 0.0, 1.0);
 
     k=0;
@@ -212,11 +212,11 @@ void haplo_em_pin(
     /* sort according to subj id, hap pair id, after insert & expand */
     qsort(hap_list, n_hap, sizeof(HAP *), cmp_subId_hapPairId);
 
- 
+
     /* set post for newly expanded haplos */
     set_posterior(n_hap, hap_list, random_start);
 
-  
+
     if(*verbose){
       REprintf("\nhap_list after insert batch %i & set_post, before code haplo\n\n",n_batch);
       write_hap_list(hap_list, n_hap);
@@ -225,11 +225,11 @@ void haplo_em_pin(
     /* sort according to haplotype order - needed for computing unique haplos and their codes */
     qsort(hap_list, n_hap, sizeof(HAP *), cmp_hap);
 
- 
+
     /* compute hap codes when computing n_u_hap */
     n_u_hap= code_haps(n_hap, hap_list);
 
-  
+
     /* last sort before EM, according to subj id, then hap pair id */
      qsort(hap_list, n_hap, sizeof(HAP *), cmp_subId_hapPairId);
 
@@ -249,7 +249,7 @@ void haplo_em_pin(
 
       n_iter++;
 
-      hap_prior(n_hap, hap_list, prior, n_u_hap, *min_prior); 
+      hap_prior(n_hap, hap_list, prior, n_u_hap, *min_prior);
 
       n_trim = hap_posterior(n_hap, hap_list, prior, n_u_hap, *min_posterior, &lnlike);
 
@@ -265,12 +265,12 @@ void haplo_em_pin(
        if(iter==0) {
           lnlike_old = lnlike;
           continue;
-       } 
+       }
         else {
           if (fabs(lnlike - lnlike_old) < *tol){
             (*converge) = 1;
              break;
-          } 
+          }
           else {
 	    lnlike_old = lnlike;
 	  }
@@ -278,8 +278,8 @@ void haplo_em_pin(
 
      } /* end of EM loop */
 
-    if( (*converge)==0){        
-      /* Replaced with call to REprintf for 4.1.x  
+    if( (*converge)==0){
+      /* Replaced with call to REprintf for 4.1.x
 	 PROBLEM "failed to converge for batch %i after %i iterations", n_batch, n_iter
 	 RECOVER(NULL_ENTRY);
       */
@@ -295,12 +295,12 @@ void haplo_em_pin(
       /*REprintf("\nhap_list after EM and after divideKeep \n\n",n_trim);*/
       write_hap_list(hap_list, n_hap);
     }
-     
-   
+
+
     /* update priors, in case haplos were trimmed during posteior calculations */
-    
-    hap_prior(n_hap, hap_list, prior, n_u_hap, *min_prior); 
-    
+
+    hap_prior(n_hap, hap_list, prior, n_u_hap, *min_prior);
+
     if(*verbose){
       if( (*converge)==1){
 	REprintf("\n\nConverged after batch insertion, lnlike = %8.5f, n_iter = %i\n\n", lnlike, n_iter);
@@ -314,22 +314,22 @@ void haplo_em_pin(
 
 
   /* copy values to return to S */
- 
+
   *S_lnlike = lnlike;
 
   *n_hap_pairs = n_hap/2;
 
   /* Because some haplotypes may have been trimmed, we need to determine the number
      of unique haplotypes remaining after trimming */
- 
+
   /* sort according to haplotype code - needed for computing unique haplos */
- 
+
   qsort(hap_list, n_hap, sizeof(HAP *), cmp_hap_code);
- 
+
   n_u_hap = count_unique_haps(n_hap, hap_list);
   *S_n_u_hap = n_u_hap;
 
-  
+
  /* prepare to return info for unique haplotypes */
   u_hap_list = (HAPUNIQUE **) Calloc(n_u_hap, HAPUNIQUE *);
   if (!u_hap_list){
@@ -340,8 +340,8 @@ void haplo_em_pin(
 
   if(*verbose){
     REprintf("\nn_u_hap = %d\n",n_u_hap);
-    REprintf("\nunique haps\n\n"); 
-    write_unique_hap_list(u_hap_list, n_u_hap); 
+    REprintf("\nunique haps\n\n");
+    write_unique_hap_list(u_hap_list, n_u_hap);
   }
 
   ret_u_hap_list = u_hap_list;
@@ -357,7 +357,7 @@ void haplo_em_pin(
   }
 
 
-  /* the following ret (return) values are used for array sizes, for 
+  /* the following ret (return) values are used for array sizes, for
      copying data into S arrays, and for later freeing memory */
 
   ret_n_hap=n_hap;
@@ -377,7 +377,7 @@ void haplo_em_pin(
   }
   Free(geno);
   geno = NULL;
- 
+
 }
 
 /***********************************************************************************/
@@ -387,7 +387,7 @@ static HAP* new_hap(int id, int pair_id, double wt, double prior, double post){
   int *loc;
 
   result = (HAP *) Calloc(1, HAP);
- 
+
  if (!result){
   errmsg("could not alloc mem for new hap");
   }
@@ -404,7 +404,7 @@ static HAP* new_hap(int id, int pair_id, double wt, double prior, double post){
     Free(result);
   }
 
-  result->loci = loc; 
+  result->loci = loc;
 
   return result;
 }
@@ -416,7 +416,7 @@ static void write_hap_list(HAP** so, int n_hap){
 
   REprintf("subID     wt hapPairID hapCode keep");
   for(i=0;i<n_loci;i++){
-     if(loci_used[i]==0) continue; 
+     if(loci_used[i]==0) continue;
     REprintf(" L%2d",i);
   }
   REprintf("    post\n");
@@ -424,7 +424,7 @@ static void write_hap_list(HAP** so, int n_hap){
   for(i=0; i< n_hap ;i++){
     REprintf("%5d %6.4f %9d %7d %4i", so[i]->id, so[i]->wt, so[i]->pair_id,so[i]->code,so[i]->keep);
     for(j=0;j<n_loci;j++){
-       if(loci_used[j]==0) continue; 
+       if(loci_used[j]==0) continue;
       REprintf("%4d",so[i]->loci[j]);
     }
 
@@ -440,7 +440,7 @@ static void write_unique_hap_list(HAPUNIQUE** so, int n_hap){
 
   REprintf("hapCode keep");
   for(i=0;i<n_loci;i++){
-     if(loci_used[i]==0) continue; 
+     if(loci_used[i]==0) continue;
     REprintf(" L%2d",i);
   }
   REprintf("  prior\n");
@@ -448,7 +448,7 @@ static void write_unique_hap_list(HAPUNIQUE** so, int n_hap){
   for(i=0; i< n_hap ;i++){
     REprintf("%6d %4i",so[i]->code,so[i]->keep);
     for(j=0;j<n_loci;j++){
-       if(loci_used[j]==0) continue; 
+       if(loci_used[j]==0) continue;
       REprintf("%4d",so[i]->loci[j]);
     }
 
@@ -505,18 +505,18 @@ static int CDECL cmp_hap_code(const void *to_one, const void *to_two){
 /***********************************************************************************/
 
 static int CDECL cmp_subId_hapPairId(const void *to_one, const void *to_two){
- 
-  /* Using this comparision function with qsort results in a sort first on subj id, 
+
+  /* Using this comparision function with qsort results in a sort first on subj id,
     then on hap pair_id */
 
   HAP *one, *two;
   one = * (HAP **) to_one;
   two = * (HAP **) to_two;
- 
+
   if((one->id)  < (two->id)) return -1;
   if((one->id)  > (two->id)) return  1;
-  
- 
+
+
   if( (one->pair_id) < (two->pair_id)) return -1;
   if( (one->pair_id) > (two->pair_id)) return 1;
 
@@ -538,7 +538,7 @@ static void unique_haps(int n_hap, HAP **hap_list, HAPUNIQUE **u_hap_list,
 
   hs = hap_list;
   he = hap_list + n_hap;
- 
+
   while (hs < he) {
     h = hs;
     do {
@@ -565,9 +565,9 @@ static HAPUNIQUE* copy_hap_unique(HAP *old, double *prior) {
       errmsg("could not alloc mem for copy_hap_unique");
       Free(result);
     }
-    for (i=0; i<n_loci; i++) 
+    for (i=0; i<n_loci; i++)
 	result->loci[i] = old->loci[i];
-  } 
+  }
   return result;
 }
 
@@ -619,17 +619,17 @@ static int count_unique_haps(int n_hap, HAP **hap_list) {
 
 /***********************************************************************************/
 
-static int hap_enum(HAP ***hap_list_ptr, double **prior_ptr, int *max_haps, int *n_alleles, int insert_loc, 
+static int hap_enum(HAP ***hap_list_ptr, double **prior_ptr, int *max_haps, int *n_alleles, int insert_loc,
                 int n_hap, int *pair_id_ptr){
 
   int i,j, a_poss,a1_poss,a2_poss, a1, a2,a1_new,a2_new;
   int n_al, n_miss;
   HAP *h1, *h2, *h1_new, *h2_new;
- 
+
   j = n_hap - 1;
 
   loci_used[insert_loc] = 1;
- 
+
   for(i=0;i<(n_hap-1);i+=2){
 
     h1 = (*hap_list_ptr)[i];
@@ -644,9 +644,9 @@ static int hap_enum(HAP ***hap_list_ptr, double **prior_ptr, int *max_haps, int 
     n_miss = 0;
     if(a1==0) n_miss ++;
     if(a2==0) n_miss ++;
- 
+
   switch(n_miss){
- 
+
   case 0:
     if((a1!=a2) && (num_het(h1,h2) > 1) ){
 
@@ -658,7 +658,7 @@ static int hap_enum(HAP ***hap_list_ptr, double **prior_ptr, int *max_haps, int 
       insert_new_hap_pair(hap_list_ptr, prior_ptr, max_haps, insert_loc,
                        h1, h2, a2, a1, pair_id_ptr, &j);
 
- 
+
     }
     break;
 
@@ -681,14 +681,14 @@ static int hap_enum(HAP ***hap_list_ptr, double **prior_ptr, int *max_haps, int 
      if((a1_new!=a2_new) && (num_het(h1,h2) > 1) ){
 
         insert_new_hap_pair(hap_list_ptr, prior_ptr, max_haps, insert_loc,
-                       h1, h2, a2_new, a1_new, pair_id_ptr, &j); 
-   
+                       h1, h2, a2_new, a1_new, pair_id_ptr, &j);
+
      }
-  
+
      /* now consider all other values of missing allele */
 
      for(a_poss=2;a_poss<=n_al;a_poss++){
-       
+
         if(a1==0){
           a1_new = a_poss;
           a2_new = a2;
@@ -698,28 +698,28 @@ static int hap_enum(HAP ***hap_list_ptr, double **prior_ptr, int *max_haps, int 
          }
 
         insert_new_hap_pair(hap_list_ptr, prior_ptr, max_haps, insert_loc,
-                       h1, h2, a1_new, a2_new, pair_id_ptr, &j); 
-       
+                       h1, h2, a1_new, a2_new, pair_id_ptr, &j);
+
         /* pull out the newly inserted hap pair, to be used to
            determine number of heterozous sites, to determine
            whether new hap pair needs to be inserted */
- 
+
          h1_new = (*hap_list_ptr)[j-1];
          h2_new = (*hap_list_ptr)[j];
- 
+
         if((a1_new!=a2_new) && (num_het(h1_new,h2_new) > 1) ){
-  
+
            insert_new_hap_pair(hap_list_ptr, prior_ptr, max_haps, insert_loc,
-                       h1, h2, a2_new, a1_new, pair_id_ptr, &j); 
-           
+                       h1, h2, a2_new, a1_new, pair_id_ptr, &j);
+
         }
      }
      break;
-  
+
   case 2:
       /* over-write haps for first possible alleles, to fill in one
 	  possible haplotype pair, and expand if needed */
-    
+
      h1 ->loci[insert_loc] = 1;
      h2 ->loci[insert_loc] = 1;
      (*hap_list_ptr)[i]   = h1;
@@ -729,20 +729,20 @@ static int hap_enum(HAP ***hap_list_ptr, double **prior_ptr, int *max_haps, int 
        for(a2_poss=a1_poss; a2_poss<=n_al;a2_poss++){
 
 	 if( (a1_poss==1) && (a2_poss==1) ) continue; /* did this case above */
- 
+
          a1_new = a1_poss;
          a2_new = a2_poss;
- 
+
          insert_new_hap_pair(hap_list_ptr, prior_ptr, max_haps, insert_loc,
-                       h1, h2, a1_new, a2_new, pair_id_ptr, &j); 
-  
+                       h1, h2, a1_new, a2_new, pair_id_ptr, &j);
+
          h1_new = (*hap_list_ptr)[j-1];
          h2_new = (*hap_list_ptr)[j];
 
          if((a1_new!=a2_new) && (num_het(h1_new,h2_new) > 1) ){
 
              insert_new_hap_pair(hap_list_ptr, prior_ptr, max_haps, insert_loc,
-                       h1, h2, a2_new, a1_new, pair_id_ptr, &j); 
+                       h1, h2, a2_new, a1_new, pair_id_ptr, &j);
 
 	 }
        }
@@ -776,9 +776,9 @@ static HAP* copy_hap(HAP *old) {
       errmsg("could not alloc mem for copy_hap");
       Free(result);
     }
-    for (i=0; i<n_loci; i++) 
+    for (i=0; i<n_loci; i++)
 	result->loci[i] = old->loci[i];
-  } 
+  }
   return result;
 }
 
@@ -824,12 +824,12 @@ static void hap_prior(int n_hap, HAP** hap_list, double *prior, int n_u_hap,
 
   }
 
- 
+
 }
 
 /***********************************************************************************/
 
-static int hap_posterior(int n_hap, HAP **hap_list, double *prior, 
+static int hap_posterior(int n_hap, HAP **hap_list, double *prior,
                          int n_u_hap, double min_posterior, double *lnlike) {
 
 
@@ -843,14 +843,14 @@ static int hap_posterior(int n_hap, HAP **hap_list, double *prior,
   he = hap_list + n_hap;
   total_trim = 0;
   (*lnlike) = 0.0;
- 
+
   while (hs < he) {
 
     h = hs;
     tmp_wt = (*h)->wt;
     subtotal = 0.0;
     n_trim = 0;
- 
+
     /* numerator of post prob */
     do {
       id = (*h)->id;
@@ -862,10 +862,10 @@ static int hap_posterior(int n_hap, HAP **hap_list, double *prior,
       (*h)->post = (*h2)->post = gp;
       h = h2+1;
     } while ((h<he) && (((*h)->id)==id));
- 
+
     hn = h;
-    
- 
+
+
     if(subtotal > 0.0){
 
       /* check if need to trim by post */
@@ -930,7 +930,7 @@ static void set_posterior(int n_hap, HAP **hap_list, int *random_start){
        (*h1)->post = (*h2)->post = 1.0;
        hs++;
      }
-  } 
+  }
   else {
      while(hs < he){
        u = ranAS183();
@@ -944,7 +944,7 @@ static void set_posterior(int n_hap, HAP **hap_list, int *random_start){
 
 
   /* standardize so post sums to 1 per subject */
- 
+
     hs = hap_list;
     he = hap_list + n_hap;
 
@@ -961,7 +961,7 @@ static void set_posterior(int n_hap, HAP **hap_list, int *random_start){
 
       hn = h; /* new end for a subject */
 
-   
+
       for(h = hs; h < hn; h+=2){
         post = (*h)->post/subtotal;
         (*h)->post = post;
@@ -986,7 +986,7 @@ static int **int_matrix(int nrow, int ncol){
         /* allocate pointers to rows */
         m=(int **) Calloc(nrow, int *);
         if (!m) errmsg("mem alloc failure 1 in int_matrix");
-  
+
 	/* allocate vec of memory for each row */
         for(i=0;i<nrow;i++) {
           m[i]=(int *) Calloc(ncol, int);
@@ -1070,7 +1070,7 @@ void haplo_free_memory(void){
   for(i=0;i<ret_max_haps;i++){
     if(ret_hap_list[i] != NULL) {
       if(ret_hap_list[i]->loci != NULL) Free( ret_hap_list[i]->loci );
-      Free( ret_hap_list[i]); 
+      Free( ret_hap_list[i]);
     }
   }
 
@@ -1104,7 +1104,7 @@ void haplo_free_memory(void){
      original article.
 
      ix, iy and iz should be set to integer values between 1 and
-     30000 before the first entry. To do this, 
+     30000 before the first entry. To do this,
      first call ranAS183_seed(iseed1,iseed2,iseed3), where iseed#
      are 3 int seeds between 1 and 30000. The 3  seeds are
      saved, but ix,iy,iz can change.
@@ -1121,7 +1121,7 @@ static int ranAS183_seed(int iseed1, int iseed2, int iseed3)
   int error;
 
   error=1;
-  if( ( (iseed1 >=1) && (iseed1 <=30000)) && ( (iseed2 >=1) && (iseed2 <=30000) ) && 
+  if( ( (iseed1 >=1) && (iseed1 <=30000)) && ( (iseed2 >=1) && (iseed2 <=30000) ) &&
       ( (iseed3 >=1) && (iseed3 <=30000) )) error=0;
   if(error) return (error);
   ix = iseed1;
@@ -1150,7 +1150,7 @@ static void errmsg(char *string){
      Venables and Ripley */
 
   /* PROBLEM "%s", string RECOVER(NULL_ENTRY);
-     Replace with call to Rf_error for R 4.1.x 
+     Replace with call to Rf_error for R 4.1.x
   */
   //Rf_error(string, "%s");
   REprintf("%s", string);
@@ -1176,7 +1176,7 @@ static void divideKeep(HAP **hap_list, int n, int *nReturn)
   }
   }
 
- 
+
   for(i = 0; i<n; i++){
     if( hap_list[i]->keep == 0) continue;
      nValid++;
@@ -1195,7 +1195,7 @@ static void add_more_memory(HAP ***hap_list, double **prior,int *max_haps){
 
 
   /* check that max_haps will not exceed max limit for an int on a 32-bit processor */
-  
+
 
   if(*max_haps ==  INT_MAX)
     {
@@ -1205,8 +1205,8 @@ static void add_more_memory(HAP ***hap_list, double **prior,int *max_haps){
   if((*max_haps) > INT_MAX/2)
     {
       *max_haps = INT_MAX;
-    } 
-  else 
+    }
+  else
     {
       *max_haps = 2 * (*max_haps);
     }
@@ -1217,23 +1217,23 @@ static void add_more_memory(HAP ***hap_list, double **prior,int *max_haps){
     errmsg("could not realloc mem for prior");
   }
   *prior = new_prior;
-  
+
   HAP **new_hap_list = (HAP **) Realloc(*hap_list, *max_haps, HAP* );
   if(new_hap_list==NULL){
     errmsg("could not realloc mem for hap_list");
   }
   *hap_list = new_hap_list;
-  
+
   return;
 }
 
 /***********************************************************************************/
 
-static void insert_new_hap_pair(HAP ***hap_list_ptr, double **prior_ptr, 
+static void insert_new_hap_pair(HAP ***hap_list_ptr, double **prior_ptr,
                                 int *max_haps, int insert_loc,
-                                HAP *h1_old, HAP *h2_old, 
+                                HAP *h1_old, HAP *h2_old,
                                 int a1_new, int a2_new,
-                                int *pair_id_ptr, int *j){  
+                                int *pair_id_ptr, int *j){
 
   loci_used[insert_loc] = 1;
 
@@ -1245,7 +1245,7 @@ static void insert_new_hap_pair(HAP ***hap_list_ptr, double **prior_ptr,
   /* update pair id, to be used for both haplotypes */
 
  (*pair_id_ptr) ++;
- 
+
   /* By using divideKeep, the number of haploytpes (nhap) is reduced to only
      those with keep=1, but the memory for those with keep=0 is still in place.
      So, when adding new haplotypes to the 'end' of the list, nhap gives a count
@@ -1264,14 +1264,14 @@ static void insert_new_hap_pair(HAP ***hap_list_ptr, double **prior_ptr,
    {
      overwrite_hap((*hap_list_ptr)[*j], h1_old);
     }
-   else 
+   else
     {
      (*hap_list_ptr)[*j]  = copy_hap(h1_old);
     }
 
    (*hap_list_ptr)[*j]->loci[insert_loc] = a1_new;
    (*hap_list_ptr)[*j]->pair_id = (*pair_id_ptr);
- 
+
 
    /* Second haplotype */
 
@@ -1281,14 +1281,14 @@ static void insert_new_hap_pair(HAP ***hap_list_ptr, double **prior_ptr,
    {
       overwrite_hap((*hap_list_ptr)[*j], h2_old);
     }
-   else 
+   else
     {
      (*hap_list_ptr)[*j]  = copy_hap(h2_old);
     }
 
    (*hap_list_ptr)[*j]->loci[insert_loc] = a2_new;
    (*hap_list_ptr)[*j]->pair_id = (*pair_id_ptr);
- 
+
 
 
 }
@@ -1305,7 +1305,7 @@ static void overwrite_hap(HAP *new, HAP *old) {
     new->post    = old->post;
     new->code    = old->code;
     new->keep    = old->keep;
- 
+
 
     if(new->loci == NULL){
        new->loci = (int *) Calloc(n_loci, int);
@@ -1328,10 +1328,10 @@ void checkIntMax(int *intMax) {
   return ;
 }
 
-int haplo_em_pin_wrap(int n_loci, 
+int haplo_em_pin_wrap(int n_loci,
 	      int n_subject,
 	      double weight[],
-	      int n_alleles[], 
+	      int n_alleles[],
 	      int max_haps,
 	      int max_iter,
 	      int loci_insert_order[],
@@ -1346,7 +1346,7 @@ int haplo_em_pin_wrap(int n_loci,
 	      int verbose,
 	      int geno_vec[],
 
-	      /* the following are returned values */	      
+	      /* the following are returned values */
 	      int *converge,             /* convergence indicator for EM                   */
 	      double *S_lnlike,          /* lnlike from final EM                           */
 	      int *S_n_u_hap,            /* number of unique haplotypes                    */
@@ -1355,59 +1355,59 @@ int haplo_em_pin_wrap(int n_loci,
 
 {
   haplo_em_pin(
-	 &n_loci,              
-         &n_subject,          
-         weight,            
-         geno_vec,          
-         n_alleles,         
-         &max_haps,          
-         &max_iter,          
-         loci_insert_order, 
-         &min_prior,         
-         &min_posterior,     
-         &tol,               
-         &insert_batch_size, 
-         converge,          
-         S_lnlike,          
-         S_n_u_hap,         
-         n_hap_pairs,       
-         &random_start,      
-         &iseed1,            
+	 &n_loci,
+         &n_subject,
+         weight,
+         geno_vec,
+         n_alleles,
+         &max_haps,
+         &max_iter,
+         loci_insert_order,
+         &min_prior,
+         &min_posterior,
+         &tol,
+         &insert_batch_size,
+         converge,
+         S_lnlike,
+         S_n_u_hap,
+         n_hap_pairs,
+         &random_start,
+         &iseed1,
          &iseed2,
          &iseed3,
          &verbose
-	 );   
+	 );
   return 0;
 }
 
 int haplo_em_ret_info_wrap(
-       double S_n_u_hap,   // number of unique hapoltypes                           
-       int n_loci,         // number of loci                                        
-       int n_hap_pairs,    // number of pairs of loci over all subjects             
+       double S_n_u_hap,   // number of unique hapoltypes
+       int n_loci,         // number of loci
+       int n_hap_pairs,    // number of pairs of loci over all subjects
 
        /* all the following arguments are returned arrays */
        /* each array is prepended by the length of the array passed in from Python */
        /* all memory allocation is done in Python typemaps before body of function */
-       int hap_prob_len,   double *hap_prob, // probabilities for unique haplotypes, length= n_u_hap  
-       int u_hap_len,      int *u_hap,       // unique haplotype, length=n_u_hap * n_loci             
-       int u_hap_code_len, int *u_hap_code,  // code for unique haplotypes, length=n_u_hap            
-       int subj_id_len,    int *subj_id,     // subject id = index of subject                         
-       int post_len,       double *post,     // posterior probability of pair of haplotypes           
-       int hap1_code_len,  int *hap1_code,   // code for haplotype-1 of a pair, length=n_pairs        
+       int hap_prob_len,   double *hap_prob, // probabilities for unique haplotypes, length= n_u_hap
+       int u_hap_len,      int *u_hap,       // unique haplotype, length=n_u_hap * n_loci
+       int u_hap_code_len, int *u_hap_code,  // code for unique haplotypes, length=n_u_hap
+       int subj_id_len,    int *subj_id,     // subject id = index of subject
+       int post_len,       double *post,     // posterior probability of pair of haplotypes
+       int hap1_code_len,  int *hap1_code,   // code for haplotype-1 of a pair, length=n_pairs
        int hap2_code_len,  int *hap2_code    // code for haplotype-2 of a pair, length=n_pairs
 			   )
 {
   haplo_em_ret_info(
-       S_n_u_hap,   
-       n_loci,     
-       n_hap_pairs, 
-       hap_prob,   
-       u_hap, 
-       u_hap_code, 
-       subj_id,    
-       post,    
-       hap1_code, 
-       hap2_code  
+       S_n_u_hap,
+       n_loci,
+       n_hap_pairs,
+       hap_prob,
+       u_hap,
+       u_hap_code,
+       subj_id,
+       post,
+       hap1_code,
+       hap2_code
      );
 
 #if DEBUG
@@ -1445,7 +1445,7 @@ int main( void ) {
      /* example from haplo.stats: hla.demo[,c(17,18,21:24)]; label <-c("DQB","DRB","B") */
      int n_loci = 2;
      int n_subject = 5;
-     double weight[ ] = { 1, 1, 1, 1, 1 }; 
+     double weight[ ] = { 1, 1, 1, 1, 1 };
      int n_alleles[ ] = { 7, 7 };
      int max_haps = 18;
      int max_iter = 5000;
@@ -1505,28 +1505,28 @@ int main( void ) {
      printf("]\n");
 
      haplo_em_pin(
-		  &n_loci,              
-		  &n_subject,          
-		  weight,            
-		  geno_vec,          
-		  n_alleles,         
-		  &max_haps,          
-		  &max_iter,          
-		  loci_insert_order, 
-		  &min_prior,         
-		  &min_posterior,     
-		  &tol,               
-		  &insert_batch_size, 
-		  &converge,          
-		  &S_lnlike,          
-		  &S_n_u_hap,         
-		  &n_hap_pairs,       
-		  &random_start,      
-		  &iseed1,            
+		  &n_loci,
+		  &n_subject,
+		  weight,
+		  geno_vec,
+		  n_alleles,
+		  &max_haps,
+		  &max_iter,
+		  loci_insert_order,
+		  &min_prior,
+		  &min_posterior,
+		  &tol,
+		  &insert_batch_size,
+		  &converge,
+		  &S_lnlike,
+		  &S_n_u_hap,
+		  &n_hap_pairs,
+		  &random_start,
+		  &iseed1,
 		  &iseed2,
 		  &iseed3,
 		  &verbose
-		  );         
+		  );
 
     printf("...TEST0.1 (S_lnlike , converge): %14.5f %i\n", S_lnlike , converge); //RS added
     prod1 = S_n_u_hap * n_loci;
@@ -1539,18 +1539,18 @@ int main( void ) {
     post = (double *) Calloc(n_hap_pairs, double);
     hap1_code = (int *) Calloc(n_hap_pairs, int);
     hap2_code = (int *) Calloc(n_hap_pairs, int);
-   
+
     haplo_em_ret_info(
-       S_n_u_hap,   // number of unique hapoltypes                           
-       n_loci,     // number of loci                                        
-       n_hap_pairs, // number of pairs of loci over all subjects             
-       hap_prob,   // probabilities for unique haplotypes, length= n_u_hap  
-       u_hap, // unique haplotype, length=n_u_hap * n_loci             
-       u_hap_code,   // code for unique haplotypes, length=n_u_hap            
-       subj_id,    // subject id = index of subject                         
-       post,    // posterior probability of pair of haplotypes           
-       hap1_code,    // code for haplotype-1 of a pair, length=n_pairs        
-       hap2_code     // code for haplotype-2 of a pair, length=n_pairs        
+       S_n_u_hap,   // number of unique hapoltypes
+       n_loci,     // number of loci
+       n_hap_pairs, // number of pairs of loci over all subjects
+       hap_prob,   // probabilities for unique haplotypes, length= n_u_hap
+       u_hap, // unique haplotype, length=n_u_hap * n_loci
+       u_hap_code,   // code for unique haplotypes, length=n_u_hap
+       subj_id,    // subject id = index of subject
+       post,    // posterior probability of pair of haplotypes
+       hap1_code,    // code for haplotype-1 of a pair, length=n_pairs
+       hap2_code     // code for haplotype-2 of a pair, length=n_pairs
      );
 
     printf("inside main():\n");

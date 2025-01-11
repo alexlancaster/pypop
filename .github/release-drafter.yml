@@ -6,7 +6,7 @@ prerelease: false
 #prerelease-identifier: 'rc'
 include-pre-releases: false
 version-template: '$COMPLETE'
-commitish: 'main'
+commitish: 'main'   # codespell:ignore commitish
 categories:
   - title: 'Features'
     labels:
@@ -28,7 +28,7 @@ categories:
       - 'documentation'
 exclude-labels:
   - 'skip-changelog'
-category-template: '### $TITLE'      
+category-template: '### $TITLE'
 change-template: '- $TITLE by @$AUTHOR ([#$NUMBER]($URL))'
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
 version-resolver:
@@ -50,7 +50,7 @@ template: |
   <!-- START cut-and-paste to NEWS.md -->
 
   ## [$RESOLVED_VERSION] - YYYY-MM-DD
-  
+
   $CHANGES
 
   [$RESOLVED_VERSION]: https://github.com/$OWNER/$REPOSITORY/releases/tag/v$RESOLVED_VERSION

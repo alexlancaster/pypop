@@ -33,7 +33,7 @@ body:
       label: Is your issue related to other parts of the documentation?
       description: E.g., any parts of the documentation not included above, e.g. `DEV_NOTES.md`
       options:
-        - "No" 
+        - "No"
         - "Yes"
     validations:
       required: true
@@ -63,4 +63,3 @@ body:
       description: Add any other context or screenshots about the documentation here.
       placeholder: |
         Add any other context about the problem here.
-

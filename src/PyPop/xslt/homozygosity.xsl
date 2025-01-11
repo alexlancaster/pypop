@@ -1,7 +1,7 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California (Regents) 
+  Copyright (C) 2003. The Regents of the University of California (Regents)
   All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -31,12 +31,12 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS.
 -->
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
- <!-- ################  HOMOZYGOSITY STATISTICS ###################### --> 
- 
+ <!-- ################  HOMOZYGOSITY STATISTICS ###################### -->
+
  <xsl:template match="homozygosity">
   <xsl:call-template name="section">
    <xsl:with-param name="title">
@@ -63,9 +63,9 @@ MODIFICATIONS.
       <xsl:call-template name="newline"/>
       <xsl:text>*can't estimate expected homozygosity*</xsl:text>
      </xsl:when>
-     
+
      <xsl:otherwise>
-      
+
       <!-- print specified fields then do templates for pvalue -->
 
       <xsl:text>Observed F: </xsl:text>
@@ -108,9 +108,9 @@ MODIFICATIONS.
      <xsl:when test="@role='monomorphic'">
       <xsl:text>*Monomorphic, exact test cannot be run*</xsl:text>
      </xsl:when>
-     
+
      <xsl:otherwise>
-      
+
       <!-- print specified fields invoking the template for  -->
 
       <xsl:text>Observed F: </xsl:text>
@@ -145,7 +145,7 @@ MODIFICATIONS.
     </xsl:choose>
    </xsl:with-param>
   </xsl:call-template>
-  
+
  </xsl:template>
 
  <xsl:template match="homozygosityEWSlatkinExactPairwise">
@@ -157,37 +157,37 @@ MODIFICATIONS.
    <xsl:with-param name="length" select="15"/>
    <xsl:with-param name="type" select="'left'"/>
   </xsl:call-template>
-  
+
   <xsl:call-template name="justified-cell">
    <xsl:with-param name="padVar">F_obs</xsl:with-param>
    <xsl:with-param name="length" select="8"/>
    <xsl:with-param name="type" select="'right'"/>
   </xsl:call-template>
-  
+
   <xsl:call-template name="justified-cell">
    <xsl:with-param name="padVar">F_obs</xsl:with-param>
    <xsl:with-param name="length" select="8"/>
    <xsl:with-param name="type" select="'right'"/>
   </xsl:call-template>
-  
+
   <xsl:call-template name="justified-cell">
    <xsl:with-param name="padVar">Var(F)</xsl:with-param>
    <xsl:with-param name="length" select="8"/>
    <xsl:with-param name="type" select="'right'"/>
   </xsl:call-template>
-  
+
   <xsl:call-template name="justified-cell">
    <xsl:with-param name="padVar">F_nd</xsl:with-param>
    <xsl:with-param name="length" select="8"/>
    <xsl:with-param name="type" select="'right'"/>
   </xsl:call-template>
-  
+
   <xsl:call-template name="justified-cell">
    <xsl:with-param name="padVar"> p-value</xsl:with-param>
    <xsl:with-param name="length" select="8"/>
    <xsl:with-param name="type" select="'left'"/>
   </xsl:call-template>
-    
+
   <xsl:call-template name="newline"/>
 
   <xsl:for-each select="group">
@@ -209,19 +209,19 @@ MODIFICATIONS.
     <xsl:with-param name="length" select="8"/>
     <xsl:with-param name="type" select="'right'"/>
    </xsl:call-template>
-   
+
    <xsl:call-template name="justified-cell">
     <xsl:with-param name="padVar" select="homozygosityEWSlatkinExact/varHomozygosity"/>
     <xsl:with-param name="length" select="8"/>
     <xsl:with-param name="type" select="'right'"/>
    </xsl:call-template>
-   
+
    <xsl:call-template name="justified-cell">
     <xsl:with-param name="padVar" select="homozygosityEWSlatkinExact/normDevHomozygosity"/>
     <xsl:with-param name="length" select="8"/>
     <xsl:with-param name="type" select="'right'"/>
    </xsl:call-template>
-   
+
    <xsl:call-template name="justified-cell">
     <xsl:with-param name="padVar">
      <xsl:text> </xsl:text>
@@ -233,19 +233,19 @@ MODIFICATIONS.
     <xsl:with-param name="length" select="8"/>
     <xsl:with-param name="type" select="'left'"/>
    </xsl:call-template>
-  
-   
+
+
    <xsl:call-template name="newline"/>
   </xsl:for-each>
 
  </xsl:template>
- 
 
- <!-- ################  END HOMOZYGOSITY STATISTICS ###################### --> 
+
+ <!-- ################  END HOMOZYGOSITY STATISTICS ###################### -->
 
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"
@@ -253,4 +253,3 @@ sgml-indent-step: 1
 sgml-indent-data: 1
 End:
 -->
- 

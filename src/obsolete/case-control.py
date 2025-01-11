@@ -57,7 +57,7 @@ def recordSummary(data, popName, lociList):
     pattTotal = re.compile("          Totals.*")
     startrecording = 0
     mostsigsofar = ""
-    
+
     for line in data:
         if re.search(pattLabel, line):
             startrecording = 1
@@ -75,16 +75,16 @@ def recordSummary(data, popName, lociList):
     if totalsig == '':
         totalsig = '-'
 
-    # parse popName into <pop><chrom>-cases 
+    # parse popName into <pop><chrom>-cases
     pop = popName[:-(len("-cases")+1)]
     chrom = popName[-(len("-cases")+1)]
-    
+
     print(pop, chrom, mostsigsofar, totalsig)
 
     datatuple = (totalsig, mostsigsofar)
     # generate haplotype locus name
     locus = lociListSuffix(lociList)
-    
+
     if summaryTable.has_key(chrom):
         if summaryTable[chrom].has_key(locus):
             if summaryTable[chrom][locus].has_key(pop):
@@ -97,7 +97,7 @@ def recordSummary(data, popName, lociList):
         summaryTable[chrom] = \
                             OrderedDict([locus, OrderedDict([pop, datatuple])])
 
-    
+
 
 def printSummary():
     chroms = summaryTable.keys()
@@ -143,7 +143,7 @@ def genContingency(casesFilename, controlsFilename, ws, mapOrder, debug):
                                        ws,
                                        mapOrder,
                                        debug)
-    
+
     outputHaploFiles(casesArpFilename, casesHaplotypes)
     outputHaploFiles(controlsArpFilename, controlsHaplotypes)
 

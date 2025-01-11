@@ -87,19 +87,19 @@ reported.
    Allele Count (2n): 90
    Distinct alleles (k): 10
 
-   Counts ordered by frequency    | Counts ordered by name        
-   Name      Frequency (Count)    | Name      Frequency (Count)   
-   02:01      0.21111   19        | 01:01      0.13333   12        
-   03:01      0.15556   14        | 02:01      0.21111   19        
-   01:01      0.13333   12        | 02:10      0.10000   9         
-   25:01      0.12222   11        | 02:18      0.10000   9         
-   02:10      0.10000   9         | 03:01      0.15556   14        
-   02:18      0.10000   9         | 25:01      0.12222   11        
-   32:04      0.08889   8         | 32:04      0.08889   8         
-   69:01      0.04444   4         | 68:14      0.03333   3         
-   68:14      0.03333   3         | 69:01      0.04444   4         
-   74:03      0.01111   1         | 74:03      0.01111   1         
-   Total     1.00000   90         | Total     1.00000   90        
+   Counts ordered by frequency    | Counts ordered by name
+   Name      Frequency (Count)    | Name      Frequency (Count)
+   02:01      0.21111   19        | 01:01      0.13333   12
+   03:01      0.15556   14        | 02:01      0.21111   19
+   01:01      0.13333   12        | 02:10      0.10000   9
+   25:01      0.12222   11        | 02:18      0.10000   9
+   02:10      0.10000   9         | 03:01      0.15556   14
+   02:18      0.10000   9         | 25:01      0.12222   11
+   32:04      0.08889   8         | 32:04      0.08889   8
+   69:01      0.04444   4         | 68:14      0.03333   3
+   68:14      0.03333   3         | 69:01      0.04444   4
+   74:03      0.01111   1         | 74:03      0.01111   1
+   Total     1.00000   90         | Total     1.00000   90
 
 In the cases where there is no information for a locus, a message is
 displayed indicating lack of data.
@@ -136,7 +136,7 @@ the format ``observed/expected``.
    05:01 8/9.9  5/3.8  5/6.7  6/4.8
          02:01  03:01  04:01  05:01
                                 [Cols: 1 to 4]
-        
+
 
 The values in this matrix are used to test hypotheses of deviation from
 HWP. The output also includes the chi-square statistic, the number of
@@ -145,33 +145,33 @@ genotypes and is summarized in the following table:
 
 .. code-block:: text
 
-                         Observed    Expected  Chi-square   DoF   p-value   
+                         Observed    Expected  Chi-square   DoF   p-value
    ------------------------------------------------------------------------------
-               Common         N/A         N/A        4.65     1  0.0310*   
+               Common         N/A         N/A        4.65     1  0.0310*
    ------------------------------------------------------------------------------
-     Lumped genotypes         N/A         N/A        1.17     1  0.2797  
+     Lumped genotypes         N/A         N/A        1.17     1  0.2797
    ------------------------------------------------------------------------------
-      Common + lumped         N/A         N/A        5.82     1  0.0158* 
+      Common + lumped         N/A         N/A        5.82     1  0.0158*
    ------------------------------------------------------------------------------
-      All homozygotes          21       13.01        4.91     1  0.0268* 
+      All homozygotes          21       13.01        4.91     1  0.0268*
    ------------------------------------------------------------------------------
-    All heterozygotes          26       33.99        1.88     1  0.1706  
+    All heterozygotes          26       33.99        1.88     1  0.1706
    ------------------------------------------------------------------------------
-   Common heterozygotes by allele                                        
-                 02:01         15       20.78        1.61        0.2050      
-                 03:01         10       10.47        0.02        0.8850      
-                 04:01          9       16.31        3.28        0.0703      
-                 05:01         18       20.43        0.29        0.5915      
+   Common heterozygotes by allele
+                 02:01         15       20.78        1.61        0.2050
+                 03:01         10       10.47        0.02        0.8850
+                 04:01          9       16.31        3.28        0.0703
+                 05:01         18       20.43        0.29        0.5915
 
    ------------------------------------------------------------------------------
-   Common genotypes                                                      
-            02:01+02:01         8        5.11        1.63        0.2014      
-            02:01+04:01         3        6.93        2.23        0.1358      
-            02:01+05:01         8        9.89        0.36        0.5472      
-            04:01+05:01         5        6.70        0.43        0.5109      
+   Common genotypes
+            02:01+02:01         8        5.11        1.63        0.2014
+            02:01+04:01         3        6.93        2.23        0.1358
+            02:01+05:01         8        9.89        0.36        0.5472
+            04:01+05:01         5        6.70        0.43        0.5109
                   Total        24       28.63
    ------------------------------------------------------------------------------
-        
+
 
 -  **Common.**
 
@@ -186,9 +186,9 @@ genotypes and is summarized in the following table:
    .. code-block:: text
 
          No common genotypes; chi-square cannot be calculated
-         
 
-   The analysis of common genotypes may lead to a situtation where there
+
+   The analysis of common genotypes may lead to a situation where there
    are fewer classes (genotypes) than allele frequencies to estimate.
    This means that the analysis cannot be performed (degrees of freedom
    < 1). In such a case the following message is reported, explaining
@@ -197,7 +197,7 @@ genotypes and is summarized in the following table:
    .. code-block:: text
 
          Too many parameters for chi-square test.
-         
+
 
    To obviate this as much as possible, only alleles which occur in
    common genotypes are used in the calculation of degrees of freedom.
@@ -222,7 +222,7 @@ genotypes and is summarized in the following table:
    .. code-block:: text
 
          The total number of expected genotypes is less than 5
-           
+
 
    This may by remedied by combining rare alleles and recalculating
    overall chi-square value and degrees of freedom. (This would require
@@ -286,13 +286,13 @@ implementation.
    Dememorization steps: 2000
    Number of Markov chain samples: 1000
    Markov chain sample size: 1000
-   Std. error: 0.0009431 
+   Std. error: 0.0009431
    p-value (overall): 0.0537
 
 .. code-block:: text
 
    6.4. Guo and Thompson HardyWeinberg output(Arlequin's implementation) [DQA1]
-   ----------------------------------------------------------------------------- 
+   -----------------------------------------------------------------------------
    Observed heterozygosity: 0.553190
    Expected heterozygosity: 0.763900
    Std. deviation: 0.000630
@@ -460,14 +460,14 @@ that account for asymmetry when the number of alleles differs at two
 loci :cite:p:`thomson_conditional_2014`. Below we describe the measures, each of
 which is normalized to lie between zero and one.
 
-:math:`D'` 
+:math:`D'`
    Overall LD, summing contributions (:math:`D'_{ij}=D_{ij} /D_{max}`) of all the haplotypes in a
    multi-allelic two-locus system, can be measured using Hedrick's
    :math:`D'` statistic, using the products of allele frequencies at the
    loci, :math:`p_i` and :math:`q_j`, as weights.
 
 .. math::
-   
+
    {D}' = \sum_{i=1}^{I} {\sum_{j=1}^{J} {p_i } } q_j \left|{{D}'_{ij} } \right|
 
 :math:`W_n`
@@ -490,25 +490,25 @@ two alleles case
 
 :math:`W_{A/B}` and :math:`W_{B/A}`
    When there are different numbers of alleles at the two loci,
-   the direct correlation property for the :math:`r` correlation 
-   measure is not retained by :math:`W_n`, its multi-allelic extension. 
-   The complementary pair of conditional asymmetric LD (ALD) measures, 
-   :math:`W_{A/B}` and :math:`W_{B/A}`, were developed to extend the :math:`W_n` measure. 
-   :math:`W_{A/B}` is (inversely) related to the 
-   degree of variation of A locus alleles on haplotypes conditioned 
-   on B locus alleles. If there is no variation of A locus alleles 
+   the direct correlation property for the :math:`r` correlation
+   measure is not retained by :math:`W_n`, its multi-allelic extension.
+   The complementary pair of conditional asymmetric LD (ALD) measures,
+   :math:`W_{A/B}` and :math:`W_{B/A}`, were developed to extend the :math:`W_n` measure.
+   :math:`W_{A/B}` is (inversely) related to the
+   degree of variation of A locus alleles on haplotypes conditioned
+   on B locus alleles. If there is no variation of A locus alleles
    on haplotypes conditioned on B locus alleles, then :math:`W_{A/B} = 1`
-   :math:`W_{A/B} = W_{B/A} = W_n` when there is symmetry in the data and 
+   :math:`W_{A/B} = W_{B/A} = W_n` when there is symmetry in the data and
    thus for bi-allelic SNPs.
 
 .. math::
 
-   W_{A/B} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / q_j } } }{ 1 - F_A }} \right]^{\frac{1}{2}} 
+   W_{A/B} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / q_j } } }{ 1 - F_A }} \right]^{\frac{1}{2}}
 
 .. math::
 
-   W_{B/A} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / p_i } } }{ 1 - F_B }} \right]^{\frac{1}{2}} 
-   
+   W_{B/A} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / p_i } } }{ 1 - F_B }} \right]^{\frac{1}{2}}
+
 In addition to the LD measures described above, for each locus pair,
 we describe three additional measures related to the log-likelihood
 that are displayed in the output above:
@@ -517,7 +517,7 @@ that are displayed in the output above:
    the log-likelihood of obtaining the observed data given the inferred
    haplotype frequencies (``ln(L_1)`` in the output)
 
-:math:`\ln(L_0)`   
+:math:`\ln(L_0)`
    the log-likelihood of the data under the null hypothesis of linkage
    equilibrium (``ln(L_0)`` in the output)
 
@@ -535,7 +535,7 @@ that are displayed in the output above:
    generated (not shown in the example output above) will indicate how
    many permutations were carried out. The :math:`p`-value (also not
    shown) will be the fraction of permutations that results in values of
-   `S` greater or equal to that observed. A :math:`p < 0.05` is
+   :math:`S` greater or equal to that observed. A :math:`p < 0.05` is
    indicative of overall significant LD.
 
 Individual LD coefficients, :math:`D_{ij}`, are stored in the XML
@@ -571,22 +571,22 @@ corresponding approximate number of haplotypes (``# copies``).
 
 .. code-block:: text
 
-   Haplotypes sorted by name             | Haplotypes sorted by frequency     
-   haplotype         frequency # copies  | haplotype         frequency # copies  
-   01:01~13:01~04:02   0.02222   2.0     | 02:01~14:01~04:02   0.03335   3.0       
-   01:01~13:01~11:01   0.01111   1.0     | 32:04~14:01~08:02   0.03333   3.0       
-   01:01~14:01~09:01   0.01111   1.0     | 03:01~14:01~04:07   0.03333   3.0       
-   01:01~15:20~08:02   0.01111   1.0     | 03:01~13:01~04:02   0.03333   3.0       
-   01:01~18:01~04:07   0.01111   1.0     | 02:01~14:01~11:01   0.03332   3.0       
-   01:01~39:02~04:04   0.01111   1.0     | 03:01~15:20~08:02   0.02222   2.0       
-   01:01~39:02~16:02   0.01111   1.0     | 01:01~40:05~08:02   0.02222   2.0       
-   01:01~40:05~08:02   0.02222   2.0     | 03:01~39:02~04:02   0.02222   2.0       
-   01:01~81:01~08:02   0.01111   1.0     | 02:01~13:01~16:02   0.02222   2.0       
-   01:01~81:01~16:02   0.01111   1.0     | 02:18~14:01~04:04   0.02222   2.0       
-   02:01~13:01~16:02   0.02222   2.0     | 02:10~51:01~16:02   0.02222   2.0       
-   02:01~14:01~04:02   0.03335   3.0     | 02:18~14:01~16:02   0.02222   2.0       
-   02:01~14:01~04:04   0.01111   1.0     | 01:01~13:01~04:02   0.02222   2.0       
-   02:01~14:01~04:07   0.02222   2.0     | 25:01~40:05~08:02   0.02222   2.0       
-   02:01~14:01~08:02   0.01111   1.0     | 25:01~13:01~08:02   0.02222   2.0       
+   Haplotypes sorted by name             | Haplotypes sorted by frequency
+   haplotype         frequency # copies  | haplotype         frequency # copies
+   01:01~13:01~04:02   0.02222   2.0     | 02:01~14:01~04:02   0.03335   3.0
+   01:01~13:01~11:01   0.01111   1.0     | 32:04~14:01~08:02   0.03333   3.0
+   01:01~14:01~09:01   0.01111   1.0     | 03:01~14:01~04:07   0.03333   3.0
+   01:01~15:20~08:02   0.01111   1.0     | 03:01~13:01~04:02   0.03333   3.0
+   01:01~18:01~04:07   0.01111   1.0     | 02:01~14:01~11:01   0.03332   3.0
+   01:01~39:02~04:04   0.01111   1.0     | 03:01~15:20~08:02   0.02222   2.0
+   01:01~39:02~16:02   0.01111   1.0     | 01:01~40:05~08:02   0.02222   2.0
+   01:01~40:05~08:02   0.02222   2.0     | 03:01~39:02~04:02   0.02222   2.0
+   01:01~81:01~08:02   0.01111   1.0     | 02:01~13:01~16:02   0.02222   2.0
+   01:01~81:01~16:02   0.01111   1.0     | 02:18~14:01~04:04   0.02222   2.0
+   02:01~13:01~16:02   0.02222   2.0     | 02:10~51:01~16:02   0.02222   2.0
+   02:01~14:01~04:02   0.03335   3.0     | 02:18~14:01~16:02   0.02222   2.0
+   02:01~14:01~04:04   0.01111   1.0     | 01:01~13:01~04:02   0.02222   2.0
+   02:01~14:01~04:07   0.02222   2.0     | 25:01~40:05~08:02   0.02222   2.0
+   02:01~14:01~08:02   0.01111   1.0     | 25:01~13:01~08:02   0.02222   2.0
 
    ...

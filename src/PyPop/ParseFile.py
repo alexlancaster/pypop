@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2003. The Regents of the University of California (Regents)
@@ -35,27 +33,31 @@
 
 """Module for parsing data files.
 
-   Includes classes for parsing individuals genotyped at multiple loci
-   and classes for parsing literature data which only includes allele
-   counts."""
+Includes classes for parsing individuals genotyped at multiple loci
+and classes for parsing literature data which only includes allele
+counts."""
 
-import sys, os, string, types, re, operator
+import operator
 
-from PyPop.Utils import getStreamType, StringMatrix, OrderedDict, TextOutputStream
+from PyPop.Utils import OrderedDict, StringMatrix, getStreamType
+
 
 class ParseFile:
     """*Abstract* class for parsing a datafile.
 
     *Not to be instantiated.*"""
-    def __init__(self,
-                 filename,
-                 validPopFields=None,
-                 validSampleFields=None,
-                 separator='\t',
-                 fieldPairDesignator='_1:_2',
-                 alleleDesignator='*',
-                 popNameDesignator='+',
-                 debug=0):
+
+    def __init__(
+        self,
+        filename,
+        validPopFields=None,
+        validSampleFields=None,
+        separator="\t",
+        fieldPairDesignator="_1:_2",
+        alleleDesignator="*",
+        popNameDesignator="+",
+        debug=0,
+    ):
         """Constructor for ParseFile object.
 
         - 'filename': filename for the file to be parsed.
@@ -88,24 +90,23 @@ class ParseFile:
           debugging, '0')"""
 
         self.filename = filename
-        self.validPopFields=validPopFields
-        self.validSampleFields=validSampleFields
+        self.validPopFields = validPopFields
+        self.validSampleFields = validSampleFields
         self.debug = debug
         self.separator = separator
         self.fieldPairDesignator = fieldPairDesignator
-        self.alleleDesignator=alleleDesignator
+        self.alleleDesignator = alleleDesignator
         self.popNameDesignator = popNameDesignator
 
         # assume no population or sample data, until supplied
         self.popData = None
         self.sampleMap = None
-    
+
         # Reads and parses a given filename.
 
         self._sampleFileRead(self.filename)
 
-
-        if self.validPopFields == None:
+        if self.validPopFields is None:
             # skip parsing of metadata header
             self.sampleFirstLine = 1
         else:
@@ -121,7 +122,6 @@ class ParseFile:
 
             # parse the metadata
             self._mapPopHeaders()
-
 
         # gets the .ini file information for samples
         self.sampleFields = ParseFile._dbFieldsRead(self, self.validSampleFields)
@@ -158,9 +158,9 @@ class ParseFile:
 
         - Complains if the correct number of fields are not found for
         the metadata headers.
-        
+
         Returns a 2-tuple:
-        
+
         - a dictionary keyed by field name.
 
         - the total number of  metadata fields.
@@ -172,36 +172,39 @@ class ParseFile:
 
         # check to see if the correct number of fields found
         if len(fields) != len(fieldList) and self.debug:
-            print("warning: found", len(fields), "fields expected",
-                  len(fieldList), "fields")
-        
+            print(
+                "warning: found",
+                len(fields),
+                "fields expected",
+                len(fieldList),
+                "fields",
+            )
+
         i = 0
         assoc = OrderedDict()
         for field in fields:
-
             # strip the field of leading and trailing blanks because
-            # column name may inadvertantly contain these due to
+            # column name may inadvertently contain these due to
             # spreadsheet -> tab-delimited file format idiosyncrasies
-        
-            field = field.strip()
+
+            field_strip = field.strip()
 
             # check to see whether field is a valid key, and generate
             # the appropriate identifier, this is done as method call
             # so it can overwritten in subclasses of this abstract
             # class (i.e. the subclass will have 'knowledge' about the
             # nature of fields, but not this abstract class)
-            
+
             # If an asterisk character is given as the first item in
             # the valid fields list, then accept any field name (ie,
             # locus name) as valid.  This makes sense only in the
             # allelecount file context.
             if fieldList[0] == "*":
-                isValidKey, key = (1, field)
+                isValidKey, key = (1, field_strip)
             else:
-                isValidKey, key = self.genValidKey(field, fieldList)
-                
-            if isValidKey:
+                isValidKey, key = self.genValidKey(field_strip, fieldList)
 
+            if isValidKey:
                 # if key is one of pair already in map, add it to make
                 # a tuple at that key e.g. `HLA-A(2)' already exists
                 # and inserting `HLA-A', or `DQB1_1' and `DQB1_2' should
@@ -210,10 +213,10 @@ class ParseFile:
                 if assoc.has_key(key):
                     assoc[key] = assoc[key], i
                 else:
-                   assoc[key] = i
-                    
+                    assoc[key] = i
+
             elif self.debug:
-                print("warning: field name `%s' not valid" % field)
+                print(f"warning: field name `{field_strip}' not valid")
 
             i = i + 1
 
@@ -226,13 +229,12 @@ class ParseFile:
 
         *For internal use only*.
         """
-        with open(filename, 'r') as f:
+        with open(filename) as f:
             self.fileData = f.readlines()
 
     def _mapPopHeaders(self):
-
         """Create associations for field names and input columns.
-        
+
         Using the header information from the top of the file, creates
         a dictionary for the population-level data.
 
@@ -261,13 +263,18 @@ class ParseFile:
         # make sure pop data line matches number expected from metadata
         popDataFields = popDataLine.split(self.separator)
         if len(popDataFields) != fieldCount:
-            print("error: found", len(popDataFields),
-                  "fields expected", fieldCount, "fields")
+            print(
+                "error: found",
+                len(popDataFields),
+                "fields expected",
+                fieldCount,
+                "fields",
+            )
 
         # create a dictionary using the metadata field names as key
         # for the population data
         self.popData = OrderedDict()
-        for popField in self.popMap.keys():
+        for popField in self.popMap.keys():  # noqa: SIM118
             self.popData[popField] = popDataFields[self.popMap[popField]]
 
     def _mapSampleHeaders(self):
@@ -282,11 +289,12 @@ class ParseFile:
         *For internal use only*."""
 
         # get sample header metadata
-        sampleHeaderLine = self.fileData[self.sampleFirstLine-1].rstrip()
+        sampleHeaderLine = self.fileData[self.sampleFirstLine - 1].rstrip()
 
         # parse it
-        self.sampleMap, fieldCount = self._mapFields(sampleHeaderLine,
-                                                     self.sampleFields)
+        self.sampleMap, fieldCount = self._mapFields(
+            sampleHeaderLine, self.sampleFields
+        )
         # debugging only
         if self.debug:
             print("sample header line: ", sampleHeaderLine)
@@ -296,19 +304,22 @@ class ParseFile:
         # present for each sample
 
         for lineCount in range(self.sampleFirstLine, len(self.fileData)):
-
             # retrieve and strip newline
             line = self.fileData[lineCount].rstrip()
 
             # restore the data with the newline stripped
             self.fileData[lineCount] = line
-            
+
             fields = line.split(self.separator)
             if fieldCount != len(fields):
-                print("error: incorrect number of fields:", len(fields),
-                      "found, should have:", fieldCount,
-                      "\noffending line is:\n", line)
-
+                print(
+                    "error: incorrect number of fields:",
+                    len(fields),
+                    "found, should have:",
+                    fieldCount,
+                    "\noffending line is:\n",
+                    line,
+                )
 
     def getPopData(self):
         """Returns a dictionary of population data.
@@ -332,65 +343,62 @@ class ParseFile:
         Returns a 2-tuple `wrapper':
 
         - raw sample lines, *without*  header metadata.
-        
+
         - the field separator."""
-        return self.fileData[self.sampleFirstLine:], self.separator
-    
+        return self.fileData[self.sampleFirstLine :], self.separator
+
     def genSampleOutput(self, fieldList):
         """Prints the data specified in ordered field list.
 
         *Use is currently deprecated.*"""
 
-        #for field in fieldList:
-        #print string.strip(field) + self.separator,
+        # for field in fieldList:
+        # print string.strip(field) + self.separator,
         for lineCount in range(self.sampleFirstLine, len(self.fileData)):
             line = self.fileData[lineCount].strip()
             element = line.split(self.separator)
             for field in fieldList:
                 if self.sampleMap.has_key(field):
-                    print(element[self.sampleMap[field]]),
+                    (print(element[self.sampleMap[field]]),)
                 else:
                     print("can't find this field\n")
 
     def serializeMetadataTo(self, stream):
-        type = getStreamType(stream)
+        getStreamType(stream)
 
-        stream.opentag('populationdata')
+        stream.opentag("populationdata")
         stream.writeln()
 
         if self.popData:
-
-            for summary in self.popData.keys():
+            for summary in self.popData.keys():  # noqa: SIM118
                 # convert metadata name into a XML tag name
-                tagname = summary.replace(' ','-').lower()
+                tagname = summary.replace(" ", "-").lower()
                 stream.tagContents(tagname, self.popData[summary])
                 stream.writeln()
 
         # call subclass-specific metadata serialization
         self.serializeSubclassMetadataTo(stream)
-            
-        stream.closetag('populationdata')
+
+        stream.closetag("populationdata")
         stream.writeln()
+
 
 class ParseGenotypeFile(ParseFile):
     """Class to parse standard datafile in genotype form."""
-    
-    def __init__(self,
-                 filename,
-                 untypedAllele='****',
-                 **kw):
+
+    def __init__(self, filename, untypedAllele="****", **kw):
         """Constructor for ParseGenotypeFile.
 
         - 'filename': filename for the file to be parsed.
-        
+
         In addition to the arguments for the base class, this class
         accepts the following additional keywords:
 
         - 'untypedAllele': The designator for an untyped locus.  Defaults
         to '****'.
         """
-        self.untypedAllele=untypedAllele
-        
+        self.untypedAllele = untypedAllele
+
         ParseFile.__init__(self, filename, **kw)
 
         self._genDataStructures()
@@ -408,21 +416,20 @@ class ParseGenotypeFile(ParseFile):
         *For internal use only.*"""
 
         # assume there is no population column
-        
+
         popNameCol = None
 
         # create a map that only contains non-allele fields
         self.nonAlleleMap = OrderedDict()
 
         self.alleleMap = OrderedDict()
-        for key in self.sampleMap.keys():
-
+        for key in self.sampleMap.keys():  # noqa: SIM118
             # do we have the allele designator?
             if key[0] == self.alleleDesignator:
                 # remove allele designator, only necessary
                 # for initial splitting out of locus keys from
                 # other fields, and also make uppercase
-                locusKey = key[len(self.alleleDesignator):].upper()
+                locusKey = key[len(self.alleleDesignator) :].upper()
                 self.alleleMap[locusKey] = self.sampleMap[key]
             elif key[0] == self.popNameDesignator:
                 popNameCol = self.sampleMap[key]
@@ -430,17 +437,18 @@ class ParseGenotypeFile(ParseFile):
             else:
                 self.nonAlleleMap[key] = self.sampleMap[key]
 
-        if popNameCol == None:
+        if popNameCol is None:
             self.popName = None
         else:
             # save population name
-            self.popName = self.fileData[self.sampleFirstLine].split(self.separator)[popNameCol]
-
+            self.popName = self.fileData[self.sampleFirstLine].split(self.separator)[
+                popNameCol
+            ]
 
     def _genDataStructures(self):
         """Generates matrix only
-        
-        *For internal use only.*"""        
+
+        *For internal use only.*"""
 
         # generate alleleMap and population field name
         self._genInternalMaps()
@@ -448,10 +456,9 @@ class ParseGenotypeFile(ParseFile):
         sampleDataLines, separator = self.getFileData()
 
         if self.debug:
-            print('sampleMap keys:', self.sampleMap.keys())
-            print('sampleMap values:', self.sampleMap.values())
-            print('first line of data', sampleDataLines[0])
-
+            print("sampleMap keys:", self.sampleMap.keys())
+            print("sampleMap values:", self.sampleMap.values())
+            print("first line of data", sampleDataLines[0])
 
         # then total number of individuals in data file
         self.totalIndivCount = len(sampleDataLines)
@@ -466,21 +473,20 @@ class ParseGenotypeFile(ParseFile):
         self.extraKeys = self.nonAlleleMap.keys()
 
         # create an empty-list of lists to store all the row data
-        #self.individualsList = [[] for line in range(0, self.totalIndivCount)]
-        self.matrix = StringMatrix(self.totalIndivCount,
-                                   self.locusKeys,
-                                   self.extraKeys,
-                                   self.separator,
-                                   self.fileData[:self.sampleFirstLine-1])
+        # self.individualsList = [[] for line in range(0, self.totalIndivCount)]
+        self.matrix = StringMatrix(
+            self.totalIndivCount,
+            self.locusKeys,
+            self.extraKeys,
+            self.separator,
+            self.fileData[: self.sampleFirstLine - 1],
+        )
 
-        rowCount = 0
         # store all the non-allele meta-data
-        for line in sampleDataLines:
+        for rowCount, line in enumerate(sampleDataLines):
             fields = line.split(self.separator)
-            for key in self.nonAlleleMap.keys():
+            for key in self.nonAlleleMap.keys():  # noqa: SIM118
                 self.matrix[rowCount, key] = fields[self.nonAlleleMap[key]]
-
-            rowCount += 1
 
         if self.debug:
             print("before filling matrix with allele data")
@@ -488,8 +494,8 @@ class ParseGenotypeFile(ParseFile):
 
         for locus in self.locusKeys:
             if self.debug:
-               print("locus name:", locus)
-               print("column tuple:", self.alleleMap[locus])
+                print("locus name:", locus)
+                print("column tuple:", self.alleleMap[locus])
 
             col1, col2 = self.alleleMap[locus]
 
@@ -510,10 +516,10 @@ class ParseGenotypeFile(ParseFile):
                 # subtyping and storing tuple internally as two
                 # separate columns in the underlying array.
 
-                self.matrix[rowCount,locus] = (allele1, allele2)
-                
+                self.matrix[rowCount, locus] = (allele1, allele2)
+
                 if self.debug:
-                    print(rowCount, self.matrix[rowCount,locus])
+                    print(rowCount, self.matrix[rowCount, locus])
 
                 # increment row count
                 rowCount += 1
@@ -524,7 +530,7 @@ class ParseGenotypeFile(ParseFile):
         - 'field':  string with field name.
 
         - 'fieldList':  a dictionary of valid fields.
-        
+
         Check to see whether 'field' is a valid key, and generate the
         appropriate 'key'.  Returns a 2-tuple consisting of
         'isValidKey' boolean and the 'key'.
@@ -534,45 +540,43 @@ class ParseGenotypeFile(ParseFile):
         `knowledge' about the nature of fields, but the abstract
         class should not have)*"""
 
-        if (field in fieldList) or \
-           (self.alleleDesignator + field in fieldList):
+        if (
+            (field in fieldList)
+            or (self.alleleDesignator + field in fieldList)
+            or self.popNameDesignator + field in fieldList
+        ):
             isValidKey = 1
         else:
-            if self.popNameDesignator + field in fieldList:
-                isValidKey = 1
-            else:
-                isValidKey = 0
+            isValidKey = 0
 
         # generate the key that matches the one in the data file
         # format
 
         # if this is an `allele'-type field
         if self.alleleDesignator + field in fieldList:
-
             li = self.fieldPairDesignator.split(":")
 
             # if pair identifiers are both the same length and
             # non-zero (e.g. '_1' and '_2', then we can assume that
             # the underlying `stem' should be the field name with the
-            # pair identifer stripped off, otherwise simply use the
+            # pair identifier stripped off, otherwise simply use the
             # field name
-            
+
             if (len(li[0]) == len(li[1])) and (len(li[0]) != 0):
-                key = self.alleleDesignator + field[:-len(li[0])]
+                key = self.alleleDesignator + field[: -len(li[0])]
             else:
                 key = self.alleleDesignator + field
 
+        # this is the population field name
+        elif self.popNameDesignator + field in fieldList:
+            key = self.popNameDesignator + field
         else:
-            # this is the population field name
-            if self.popNameDesignator + field in fieldList:
-                key = self.popNameDesignator + field
-            else:
-                # this is a regular (non-`allele' type field)
-                key = field
+            # this is a regular (non-`allele' type field)
+            key = field
 
         if self.debug:
-            print("validKey: %d, key: %s" % (isValidKey, key))
-            
+            print(f"validKey: {isValidKey}, key: {key}")
+
         return isValidKey, key
 
     def getMatrix(self):
@@ -587,7 +591,7 @@ class ParseGenotypeFile(ParseFile):
 
         if self.popName:
             # if present in input , print population name
-            stream.tagContents('popname', self.popName)
+            stream.tagContents("popname", self.popName)
             stream.writeln()
 
 
@@ -602,11 +606,10 @@ class ParseAlleleCountFile(ParseFile):
     0102 20
     0103 33
     ...
-    
+
     *Currently a prototype implementation*."""
-    def __init__(self,
-                 filename,
-                 **kw):
+
+    def __init__(self, filename, **kw):
         ParseFile.__init__(self, filename, **kw)
         self._genDataStructures()
 
@@ -631,10 +634,10 @@ class ParseAlleleCountFile(ParseFile):
             totalAlleles += count
 
         if self.debug:
-            print('alleleTable', self.alleleTable)
-            print('sampleMap keys:', self.sampleMap.keys())
-            print('sampleMap values:', self.sampleMap.values())
-            
+            print("alleleTable", self.alleleTable)
+            print("sampleMap keys:", self.sampleMap.keys())
+            print("sampleMap values:", self.sampleMap.values())
+
         self.locusName = self.sampleMap.keys()[0]
 
         # turn this into a pseudo-genotype data matrix
@@ -650,26 +653,25 @@ class ParseAlleleCountFile(ParseFile):
         self.locusList = [self.locusName]
 
         # create an empty-list of lists to store all the row data
-        self.matrix = StringMatrix(self.totalIndivCount,
-                                   self.locusList,
-                                   self.separator)
+        self.matrix = StringMatrix(self.totalIndivCount, self.locusList, self.separator)
 
         # loop through alleles creating pseudo-genotypes
         rowCount = 0
         alleleCount = 0
-        for alleleName in self.alleleTable.keys():
-            for allele in range(0, self.alleleTable[alleleName]):
+        lastAlleleName = None
+        for alleleName in self.alleleTable:
+            for _allele in range(self.alleleTable[alleleName]):
                 # odd position (end of individual)
                 if operator.mod(alleleCount, 2):
                     genotype = (lastAlleleName, alleleName)
                     self.matrix[rowCount, self.locusName] = genotype
                     rowCount += 1
-                # even position (start of individual, remember first allele)  
+                # even position (start of individual, remember first allele)
                 else:
                     lastAlleleName = alleleName
                 alleleCount += 1
         if rowCount == (self.totalIndivCount - 1):
-            self.matrix[rowCount, self.locusName] = (lastAlleleName, '****')
+            self.matrix[rowCount, self.locusName] = (lastAlleleName, "****")
 
         if self.debug:
             print("generated pseudo-genotype matrix:")
@@ -690,7 +692,7 @@ class ParseAlleleCountFile(ParseFile):
         If the field in the input file match *any* of these keys,
         return the field and a valid match.
         """
-        if (field in fieldList):
+        if field in fieldList:
             isValidKey = 1
         else:
             # get the locus name, always the first in the list
@@ -701,17 +703,14 @@ class ParseAlleleCountFile(ParseFile):
             listOfValidLoci = name.split(":")
 
             # check to see if the locus is one of the valid ones
-            if (field in listOfValidLoci):
-                isValidKey = 1
-            else:
-                isValidKey = 0
+            isValidKey = 1 if field in listOfValidLoci else 0
 
         return isValidKey, field
 
     def serializeSubclassMetadataTo(self, stream):
         # nothing special is required here, so pass
         pass
-    
+
     def getAlleleTable(self):
         return self.alleleTable
 
@@ -726,10 +725,8 @@ class ParseAlleleCountFile(ParseFile):
         """
         return self.matrix
 
+
 # this test harness is called if this module is executed standalone
 if __name__ == "__main__":
-
     print("dummy test harness, currently a no-op")
-    #parsefile = ParseGenotypeFile(sys.argv[1], debug=1)
-
-
+    # parsefile = ParseGenotypeFile(sys.argv[1], debug=1)

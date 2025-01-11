@@ -1,7 +1,7 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California (Regents) 
+  Copyright (C) 2003. The Regents of the University of California (Regents)
   All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -31,11 +31,11 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS.
 -->
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
- <!-- ################  START FILTER OUTPUT  ############# --> 
+ <!-- ################  START FILTER OUTPUT  ############# -->
 
  <xsl:template match="translateTable">
 
@@ -44,7 +44,7 @@ MODIFICATIONS.
 
   <xsl:variable name="all-transl" select="translate"/>
   <xsl:variable name="unique-transl" select="translate[not(@input=preceding-sibling::translate/@input)]/@input"/>
-  
+
   <xsl:call-template name="newline"/>
   <xsl:for-each select="$unique-transl">
    <xsl:value-of select="."/>
@@ -57,15 +57,15 @@ MODIFICATIONS.
     <xsl:text>, </xsl:text>
    </xsl:if>
   </xsl:for-each>
-   
+
   <xsl:call-template name="newline"/>
 
  </xsl:template>
 
- <!-- ################  END FILTER OUTPUT  ############### --> 
+ <!-- ################  END FILTER OUTPUT  ############### -->
 
 </xsl:stylesheet>
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"
@@ -73,4 +73,3 @@ sgml-indent-step: 1
 sgml-indent-data: 1
 End:
 -->
- 

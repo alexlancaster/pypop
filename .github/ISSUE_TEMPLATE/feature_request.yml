@@ -14,7 +14,7 @@ body:
       label: A clear description of your feature request
       description: A clear and concise description of the feature request. Please make sure you include a concrete use-case of a specific problem that the feature would address.
       placeholder: |
-        I'm always frustrated when I do X [...] 
+        I'm always frustrated when I do X [...]
     validations:
       required: true
   - type: textarea

@@ -273,13 +273,13 @@ any non-whitespace character -->
 >
 
 <!ELEMENT xsl:variable %template;>
-<!ATTLIST xsl:variable 
+<!ATTLIST xsl:variable
   name %qname; #REQUIRED
   select %expr; #IMPLIED
 >
 
 <!ELEMENT xsl:param %template;>
-<!ATTLIST xsl:param 
+<!ATTLIST xsl:param
   name %qname; #REQUIRED
   select %expr; #IMPLIED
 >
@@ -290,13 +290,13 @@ any non-whitespace character -->
 >
 
 <!ELEMENT xsl:processing-instruction %char-template;>
-<!ATTLIST xsl:processing-instruction 
+<!ATTLIST xsl:processing-instruction
   name %avt; #REQUIRED
   %space-att;
 >
 
 <!ELEMENT xsl:element %template;>
-<!ATTLIST xsl:element 
+<!ATTLIST xsl:element
   name %avt; #REQUIRED
   namespace %avt; #IMPLIED
   use-attribute-sets %qnames; #IMPLIED
@@ -304,7 +304,7 @@ any non-whitespace character -->
 >
 
 <!ELEMENT xsl:attribute %char-template;>
-<!ATTLIST xsl:attribute 
+<!ATTLIST xsl:attribute
   name %avt; #REQUIRED
   namespace %avt; #IMPLIED
   %space-att;
@@ -327,4 +327,3 @@ any non-whitespace character -->
 
 <!ELEMENT xsl:fallback %template;>
 <!ATTLIST xsl:fallback %space-att;>
-

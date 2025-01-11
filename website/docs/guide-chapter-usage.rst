@@ -11,10 +11,10 @@ frequency data (as in :numref:`data-allelecount`),
 microsatellite data, SNP data, and nucleotide and amino acid sequence
 data.
 
-As mentioned in the installation chapter, a minimal working example 
-of a `configuration file (.ini) <https://github.com/alexlancaster/pypop/blob/main/tests/data/minimal.ini>`_, 
-and a `population file (.pop) <https://github.com/alexlancaster/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`_, 
-can be found by clicking the respective links. 
+As mentioned in the installation chapter, a minimal working example
+of a `configuration file (.ini) <https://github.com/alexlancaster/pypop/blob/main/tests/data/minimal.ini>`_,
+and a `population file (.pop) <https://github.com/alexlancaster/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`_,
+can be found by clicking the respective links.
 
 There are two ways to run PyPop:
 
@@ -59,7 +59,7 @@ In most cases, this will launch a console with the following:
    Copyright (C) 2007-2023 PyPop team.
    This is free software.  There is NO warranty; not even for
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    
+
    You may redistribute copies of PyPop under the terms of the GNU
    General Public License.  For more information about these
    matters, see the file named COPYING.
@@ -70,7 +70,7 @@ In most cases, this will launch a console with the following:
 Following this:
 
 1. the system file dialog will appear prompting you to select an
-   ``.ini`` :ref:`configuration file <guide-usage-configfile>`. 
+   ``.ini`` :ref:`configuration file <guide-usage-configfile>`.
 
 2. a second system file dialog will prompt you for a ``.pop``
    :ref:`data file <guide-usage-datafile>`.
@@ -80,7 +80,7 @@ Following this:
 
    .. code-block:: text
       :emphasize-lines: 5
-		
+
       PyPop is processing sample.pop ...
       PyPop run complete!
       XML output(s) can be found in: ['sample-out.xml']
@@ -89,7 +89,7 @@ Following this:
 
 4. when the run is completed, the last line will prompt you to press
    ``Enter`` to leave the console window (highlighted above).
-		
+
 If the system file GUI dialog does not appear (e.g. if you are running
 on a terminal without a display), it will fall-back to text-mode entry
 for the files, where you need to type the full (either relative or
@@ -104,14 +104,14 @@ absolute) paths to the files. The output should resemble:
    Copyright (C) 2007-2023 PyPop team.
    This is free software.  There is NO warranty; not even for
    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    
+
    You may redistribute copies of PyPop under the terms of the GNU
    General Public License.  For more information about these
    matters, see the file named COPYING.
-   
+
    To accept the default in brackets for each filename, simply press
    return for each prompt.
-      
+
    Please enter config filename [config.ini]: sample.ini
    Please enter population filename [no default]: sample.pop
    PyPop is processing sample.pop ...
@@ -120,12 +120,12 @@ absolute) paths to the files. The output should resemble:
    Plain text output(s) can be found in: ['sample-out.txt']
    Press Enter to continue...
 
-.. note::		
+.. note::
 
    Some messages with the prefix "LOG:" may appear during the console
    operation.  They are informational only and do not indicate
    improper operation of the program.
-   
+
 In both cases you should substitute the names of your own
 configuration (e.g., :file:`config.ini`) and population file (e.g.,
 :file:`Guatemalan.pop`) for :file:`sample.ini` and :file:`sample.pop`
@@ -208,7 +208,7 @@ highly polymorphic loci in your data set.
 
 
 .. _guide-usage-popmeta:
-      
+
 Using ``popmeta`` to aggregate results
 ======================================
 
@@ -248,7 +248,7 @@ Will result in files with a prefix, e.g. :file:`myoutput-1-locus-allele.tsv`.
    in a separate subdirectory, as the output ``.tsv`` files have
    fixed names, and will overwrite any files in the local directory with the
    same name.  See :ref:`guide-popmeta-cli` for the full list of options.
-      
+
 Note that a similar effect can be achieved directly from a ``pypop``
 run (assuming that the configuration file can be used for both
 ``.pop`` population files), by invoking ``pypop`` with the
@@ -272,7 +272,7 @@ supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
 
 ``pypop`` usage
 ---------------
-	
+
 .. argparse::
    :filename: src/PyPop/CommandLineInterface.py
    :func: get_pypop_cli
@@ -280,7 +280,7 @@ supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
    :nodescription:
    :noepilog:
    :nodefaultconst:
-      
+
 .. _guide-popmeta-cli:
 
 ``popmeta`` usage
@@ -293,7 +293,7 @@ supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
    :nodescription:
    :noepilog:
    :nodefaultconst:
-      
+
 .. _guide-usage-datafile:
 
 The data file
@@ -340,7 +340,7 @@ configuration to read in the data shown in
    :caption: Multi-locus allele-level genotype data
    :language: text
 
-This is an example of the simplest kind of data file. Note that the columns in the header 
+This is an example of the simplest kind of data file. Note that the columns in the header
 do not appear to align, but that is due to tab separation. You can copy and paste the data
 into a text editor to see the tabs.
 
@@ -374,7 +374,7 @@ and DQB1 loci) with microsatellite data (locus D6S2222).
    :name: data-nucleotide
    :caption: Sequence genotype data with header information
    :language: text
-     
+
 This example includes nucleotide sequence data: the TGFB1CDN10 locus
 consists of one nucleotide, the TGFBhapl locus is actually haplotype
 data, but PyPop simply treats each combination as a separate "allele"
@@ -384,7 +384,7 @@ for subsequent analysis.
    :name: data-allelecount
    :caption: Allele count data
    :language: text
-     
+
 PyPop can also process allele count data. However, you cannot mix allele
 count data and genotype data together in the one file.
 
@@ -471,10 +471,10 @@ is contained in :ref:`config-advanced`.
    :name: config-minimal-example
    :caption: Minimal config.ini file
    :emphasize-lines: 1,4,14,17,22,25
-   :language: ini		    
+   :language: ini
 
 **Configuration file sections** (highlighted above)
-   
+
 -  ``[General]``
 
    This section contains variables that control the overall behavior of
@@ -639,7 +639,7 @@ is contained in :ref:`config-advanced`.
 
 -  ``[HomozygosityEWSlatkinExact]``
 
-   The presence of this section enables Slatkin's :cite:yearpar:`slatkin_exact_1994` 
+   The presence of this section enables Slatkin's :cite:yearpar:`slatkin_exact_1994`
    implementation of the Ewens-Watterson exact test of neutrality.
 
    -  ``numReplicates``.
@@ -840,7 +840,7 @@ If you change the values and have problems, please let us **know**.
 
 ``[Filters]`` **extra section**
 
-When this section is present, it allows you to specify succesive filters
+When this section is present, it allows you to specify successive filters
 to the data.
 
 -  ``filtersToApply``.
@@ -969,7 +969,7 @@ an example:
     !07/08:05
 
 In the example above, ``A*03`` alleles will match to ``01/02/03``,
-except for ``A*03:06``, which will match to ``04/05/03:06``. In the output file, 
+except for ``A*03:06``, which will match to ``04/05/03:06``. In the output file,
 ``A*03:06`` will be replaced with ``04/05/03:06`` and other ``A*03`` alleles will
 be replaced with ``01/02/03``. If you place
 a ``!`` mark in front of the first allele name, that first name will be

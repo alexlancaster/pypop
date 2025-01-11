@@ -14,7 +14,7 @@ PyPop User Guide
 
       This guide is also available as a |guide_pdf_link|  |br|
       *Document revision:* |full_release|
-   
+
 .. only:: latex or pdf
 
    .. raw:: latex
@@ -32,15 +32,15 @@ PyPop User Guide
    .. include:: ../index.rst
       :start-after: guide-preface-2-start:
       :end-before: guide-preface-2-end:
-		   
+
    .. include:: ../../README.rst
       :start-after: guide-include-pypop-cite-start:
       :end-before: guide-include-pypop-cite-end:
-	 
+
    .. include:: ../index.rst
       :start-after: guide-preface-3-start:
       :end-before: guide-preface-3-end:
-		   
+
 
 **How to use this guide**
 

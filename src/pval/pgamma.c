@@ -699,7 +699,7 @@ double pgamma(double x, double alph, double scale, int lower_tail, int log_p)
  * MM: I've not (yet?) taken  logcf(), but the other four
  */
 
-
+
 #else
 /* R_USE_OLD_PGAMMA */
 /*
