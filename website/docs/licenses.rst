@@ -45,7 +45,7 @@ GNU General Public License
 --------------------------
 
 .. include:: ../../LICENSE
-   :literal:	     
+   :literal:
 
 License for PyPop documentation
 ===============================

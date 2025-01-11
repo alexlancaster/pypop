@@ -1,7 +1,7 @@
 # generates frozen standalone installation in a single directory
 
 # global imports
-import os, sys, shutil, string 
+import os, sys, shutil, string
 
 # location of Python Installer directory
 #INSTALLER = '/home/alex/src/python-installer'
@@ -19,7 +19,7 @@ def createObjects(script, type=type, INSTALLER=INSTALLER):
         exec_name = basename + '.exe'
     elif type == 'Linux':
         exec_name = basename
-    
+
     a = Analysis([INSTALLER + '/support/_mountzlib.py',
                   INSTALLER + '/support/useUnicode.py',
                   script],
@@ -78,7 +78,7 @@ PYTHONHOME=. LD_LIBRARY_PATH=$dir/%s $dir/%s/%s""" % (bin_dir, bin_dir, exec_nam
     # apply line ending fixes for Win32
     if type == 'Win32':
         convertLineEndings(filename, 2)
-        
+
 # get version from VERSION file
 VERSION = (open('VERSION', 'r').readline()).strip()
 
@@ -142,7 +142,7 @@ copyCustomPlatform('VERSION', os.path.join(dist_dir, bin_dir))
 copyfileCustomPlatform(os.path.join('data','samples',\
                                     'minimal-noheader-noids.ini'), \
                       os.path.join(dist_dir, 'sample.ini'))
-               
+
 copyfileCustomPlatform(os.path.join('data','samples',\
                                    'USAFEL-UchiTelle-noheader-noids.pop'), \
                       os.path.join(dist_dir, 'sample.pop'))

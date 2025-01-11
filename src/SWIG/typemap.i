@@ -59,7 +59,7 @@ MODIFICATIONS. */
 	  for (j = 0; j < size1; j++) {
 	    PyObject *p = PyList_GetItem(o, j);
 #ifdef DEBUG
-	    fprintf(stderr,"inner index: %d\n", j); 
+	    fprintf(stderr,"inner index: %d\n", j);
 #endif
 	    if (PyUnicode_Check(p)) {
 #ifdef DEBUG
@@ -72,7 +72,7 @@ MODIFICATIONS. */
 #endif
 	    }
 	    else {
-	      PyErr_SetString(PyExc_TypeError, 
+	      PyErr_SetString(PyExc_TypeError,
 			      "list must contain strings");
 	      free($1);
 	      return NULL;
@@ -80,7 +80,7 @@ MODIFICATIONS. */
 	  }
 	}
 	else {
-	  PyErr_SetString(PyExc_TypeError, 
+	  PyErr_SetString(PyExc_TypeError,
 			  "inner array must be a list");
 	  free($1);
 	  return NULL;
@@ -91,7 +91,7 @@ MODIFICATIONS. */
       exit(-1);
     }
   } else {
-    PyErr_SetString(PyExc_TypeError, 
+    PyErr_SetString(PyExc_TypeError,
 		    "outer array must be a list");
     free($1);
     return NULL;
@@ -127,7 +127,7 @@ MODIFICATIONS. */
 	  printf("$1[%d] = %d\n", i, (int)PyInt_AsLong(p));
 #endif
 	  $1[i] = (int)PyInt_AsLong(p);
-	} else {	      
+	} else {
 	  PyErr_SetString(PyExc_TypeError, "list must contain ints");
 	}
       }
@@ -170,7 +170,7 @@ MODIFICATIONS. */
 	  printf("$1[%d] = %g\n", i, (double)PyFloat_AsDouble(p));
 #endif
 	  $1[i] = (double)PyFloat_AsDouble(p);
-	} else {	      
+	} else {
 	  PyErr_SetString(PyExc_TypeError, "list must contain doubles");
 	}
       }
@@ -213,7 +213,7 @@ MODIFICATIONS. */
 %module outarg
 
 // This tells SWIG to treat an int * argument with name 'OutValue' as
-// an output value.  We'll append the value to the current result which 
+// an output value.  We'll append the value to the current result which
 // is guaranteed to be a List object by SWIG.
 
 %typemap(argout) int *OutValue {
@@ -366,7 +366,7 @@ MODIFICATIONS. */
   }
  }
 
-/* 
+/*
  * Local variables:
  * mode: c
  * End:

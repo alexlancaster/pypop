@@ -47,9 +47,9 @@ blank issue and describe your situation.  Here is a checklist:
   **single plaintext** output. E.g. here is an example error from
   running ``pypop`` on a badly formed ``.ini`` file:
 
-  .. code:: 
-	    
-     $ pypop -c minimal.ini USAFEL-UchiTelle-small.pop 
+  .. code::
+
+     $ pypop -c minimal.ini USAFEL-UchiTelle-small.pop
      Traceback (most recent call last):
        File "/home/user/.conda/envs/pypop/bin/pypop", line 8, in <module>
          sys.exit(main())
@@ -105,8 +105,8 @@ blank issue and describe your situation.  Here is a checklist:
   details). Note that you will likely need to `<clone the main
   repository_>`_ as the unit tests are not distributed with the binary
   wheels.
-  
-  
+
+
 Documentation improvements
 --------------------------
 
@@ -130,7 +130,7 @@ If you are proposing a feature:
 
 * Explain in detail how it would work.
 * Keep the scope as narrow as possible, to make it easier to implement.
-* Remember that this is a volunteer-driven project, and that code contributions are welcome 
+* Remember that this is a volunteer-driven project, and that code contributions are welcome
 
 Making a code contribution
 ==========================
@@ -256,7 +256,7 @@ If ``pytest`` is not already installed, you can install via:
 .. code-block:: shell
 
     pip install pytest
-   
+
 If you run into errors during your initial installationg, please first
 carefully repeat and/or check your installation. If you still get
 errors, file a bug, and include the output of ``pytest`` run in
@@ -267,7 +267,7 @@ verbose mode and capturing the output
    pytest -s -v tests
 
 .. admonition:: Preserving output from unit tests
-		
+
    Supplying the ``-v`` verbose option will preserve the run-time
    output of unit tests that write files to disk in temporary
    directories unique for each run (by default these directories are
@@ -276,11 +276,11 @@ verbose mode and capturing the output
    ```run_test_<test-name>_<unique_id>``, e.g. the directories created
    will look similar to the following:
 
-   .. code-block:: 
+   .. code-block::
 
       run_test_AlleleColon_HardyWeinberg_u3dnf99y
       run_test_USAFEL_49h_exhg
-		
+
 You should also continuously run ``pytest`` as you are developing your
 code, to ensure that you don't inadvertently break anything.
 
@@ -307,7 +307,7 @@ Here is an example:
 .. code-block:: markdown
 
     ### New features
-    
+
     - here goes my new additions, explain them shortly and well
     - this feature will require an an update to your `.ini` file
 
@@ -356,7 +356,7 @@ developer installation:
 
       git clone https://github.com/alexlancaster/pypop.git
       cd pypop
-   
+
 For most developers, we recommend using the miniconda approach
 described below.
 
@@ -524,7 +524,7 @@ dependencies.
    package, and installable (untested):
 
    .. code:: shell
-	     
+
       nuget install swig
 
 2. Install ``gsl``.
@@ -532,7 +532,7 @@ dependencies.
    * ``X64``: install the ``gsl`` package:
 
      .. code:: shell
-	     
+
         nuget install gsl-msvc14-x64 -Version 2.3.0.2779
 
    * ``ARM64``: The NuGet repository doesn't have an ARM64 version of
@@ -545,7 +545,7 @@ dependencies.
      repository run:
 
      .. code:: shell
-     
+
         nuget install gsl-msvc14-arm64 -Source "%CD%\\vendor-binaries
 
 3.  Before starting the build process, you  need to modify the environment
@@ -553,7 +553,7 @@ dependencies.
     ``gsl`` package, e.g. for ``X64``:
 
     .. code:: shell
-    
+
        CPATH="gsl-msvc14-x64.2.3.0.2779\\build\\native"
        LIBRARY_PATH="gsl-msvc14-x64.2.3.0.2779\\build\\native\\static"
 
@@ -636,7 +636,7 @@ make in your local code will be reflected in the installed version.
 3. The scripts ``pypop`` and ``popmeta`` will operate the same way,
    and any changes in the underlying Python ``.py`` files will be
    picked up by the scripts.
-   
+
 
 Cleaning up build
 ~~~~~~~~~~~~~~~~~
@@ -645,7 +645,7 @@ To clean up, first uninstall PyPop (whether you installed in editable
 mode or not):
 
 .. code-block:: shell
-  		
+
    pip uninstall pypop-genomics
 
 In addition, to clean-up any compiled files and force a recompilation
@@ -674,7 +674,7 @@ releases on the GitHub release page:
 
 Installing these packages is similar to installing via PyPI, except
 that you need to explicitly provide a URL to the release page.
-   
+
 1. First, visit the release page, and choose the release version you
    wish to install (usually the most recent), and note the release tag
    (e.g. ``v1.0.0``).
@@ -695,23 +695,23 @@ that you need to explicitly provide a URL to the release page.
    Python version and operating system automatically):
 
    .. code-block:: shell
-      
+
       pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/<TAG_NAME>
 
    where *<TAG_NAME>* is replaced with a specific tag, e.g. for the example given above, you would run:
 
    .. code-block:: shell
-   
+
       pip install pypop-genomics -f https://github.com/alexlancaster/pypop/releases/expanded_assets/v1.0.0
 
    You can also manually download the specific wheel from the github
    release webpage and install directly, e.g.:
 
    .. code-block:: shell
-   
+
       pip install pypop_genomics-1.0.0-cp311-cp311-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-   
-   
+
+
 Making a documentation or website contribution
 ==============================================
 
@@ -763,8 +763,8 @@ outside ``website`` like ``README.rst`` and ``CONTRIBUTING.rst``:
    http://pypop.org/)
 -  ``conf.py`` (Sphinx configuration file - project name and other
    global settings are stored here)
-   
--  ``docs`` (directory containing the source for the *PyPop User Guide*, which will eventually live at http://pypop.org/docs). 
+
+-  ``docs`` (directory containing the source for the *PyPop User Guide*, which will eventually live at http://pypop.org/docs).
 
    -  ``index.rst`` (source for the top-level of the *PyPop User Guide*)
    -  ``guide-chapter-install.rst`` (pulls in parts of the top-level ``README.rst``)
@@ -777,7 +777,7 @@ outside ``website`` like ``README.rst`` and ``CONTRIBUTING.rst``:
    -  ``biblio.rst``
    -  ``pypop.bib`` (BibTeX source file for bibliography)
 
--  ``html_root`` (any files or directories commited in this directory
+-  ``html_root`` (any files or directories committed in this directory
    will appear at the top-level of the website)
 
    -  ``psb-pypop.pdf`` (e.g. this resides at
@@ -855,8 +855,8 @@ documentation locally. Here’s an overview of how to do that:
 
 3. `clone the fork and add your fork as an upstream repository <Clone
    the main repository_>`_ on your local computer, and `make a new
-   branch`_. Note that you do not have to build the PyPop software first in order 
-   to build the documentation, you can build them separately. 
+   branch`_. Note that you do not have to build the PyPop software first in order
+   to build the documentation, you can build them separately.
 
 4. make your changes to your ``.rst`` files and/or ``conf.py``
 
@@ -866,7 +866,7 @@ documentation locally. Here’s an overview of how to do that:
 
       sphinx-build website _build
 
-6. view the local documention: you can open up browser and navigate to
+6. view the local documentation: you can open up browser and navigate to
    the ``index.html`` in the top-level of the newly-created ``_build``
    directory
 
@@ -961,7 +961,7 @@ To be included as an author on the paper, you *must* have
 1. either made multiple and regular contributions to the PyPop
    repository; or, have made other non-coding contributions (or both);
 2. have participated in the writing and reviewing of the paper.
-3. added your full name, affiliation, and (optionally) ORCID to the paper. 
+3. added your full name, affiliation, and (optionally) ORCID to the paper.
 4. written and/or read and review the manuscript in a timely manner and provide
    comments on the paper
 

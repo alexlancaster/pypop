@@ -1,7 +1,7 @@
 .. _guide-changes-authors:
 
 *******************
-Authors and history 
+Authors and history
 *******************
 
 .. include:: ../../AUTHORS.rst

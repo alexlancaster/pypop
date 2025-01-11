@@ -81,7 +81,7 @@ jobs:
       run: |
         echo "Installing GNU Scientific Library (GSL)..."
         sudo apt-get update
-        sudo apt-get install -y libgsl-dev        
+        sudo apt-get install -y libgsl-dev
         echo "Build PyPop extensions using script"
         pipx install -v -e .
 

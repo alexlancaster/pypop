@@ -1,7 +1,7 @@
 /* This file is part of PyPop
-  
+
   Copyright (C) 1992. Sun-Wei Guo.
-  Modifications Copyright (C) 1999, 2003, 2004. 
+  Modifications Copyright (C) 1999, 2003, 2004.
   The Regents of the University of California (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -35,7 +35,7 @@ MODIFICATIONS. */
 
   program name: cal_prob.c
 
-  function to calculate 
+  function to calculate
 
   status: modified from g-t program
 
@@ -46,40 +46,40 @@ MODIFICATIONS. */
 #include "hwe.h"
 
 double cal_prob(a, index, ln_p_old, actual_switch)
-  
+
      int *a;
      Index index;
      double ln_p_old;
      int *actual_switch;
-     
+
 {
-  
+
   double p1_ratio, p2_ratio;
   register double ln_p_new;
   double rand_num;
   int switch_ind, type;
   double new_rand();
   void test_switch(), do_switch();
-  
+
   *actual_switch = 0;
-  
+
   /* determine the switchability and direction of switch for given face */
-  
+
   test_switch(a, index, &switch_ind, &type, &p1_ratio, &p2_ratio);
-  
+
   switch (switch_ind)
     {
     case 0:	/* non-switchable */
-      
+
       ln_p_new = ln_p_old;   /* retain the pattern, probability unchanged */
       break;
-      
+
     case 1:	/* partially-switchable */
-      
+
       if (type == 1)
 	p1_ratio = p2_ratio;
       rand_num = new_rand();
-      
+
       if (rand_num < TRANS(p1_ratio))
 	{				/* switch w/ transition P TRANS */
 	  do_switch(a, index, type);
@@ -89,10 +89,10 @@ double cal_prob(a, index, ln_p_old, actual_switch)
       else		/* remain the same w/ P = 1 - TRANS */
 	ln_p_new = ln_p_old;			/* probability unchanged */
       break;
-      
+
     default:	/* fully switchable */
       rand_num = new_rand();
-      
+
       if (rand_num <= TRANS(p1_ratio))
 	{
 	  do_switch(a, index, 0);		/* D-switch */
@@ -109,7 +109,6 @@ double cal_prob(a, index, ln_p_old, actual_switch)
 	ln_p_new = ln_p_old;
       break;
     }
-  
+
   return (ln_p_new);
 }
-
