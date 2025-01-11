@@ -40,10 +40,10 @@ MODIFICATIONS. */
 
 /* prototype for internal inclusion */
 %{
-extern int main_proc(char *, char *, int, int, int, int, int, int, int, int, int, char [], char []);  
+extern int main_proc(char *, char *, int, int, int, int, int, int, int, int, int, char [], char []);
 %}
 
-/* 
+/*
  * Python entry point to program.
  *
  * Redeclare parameter to extern function as a 3 dimensional array.
@@ -54,7 +54,7 @@ extern int main_proc(char *, char *, int, int, int, int, int, int, int, int, int
 
 extern int main_proc(char *, char [MAX_ROWS][MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int, int, char [], char []);
 
-/* 
+/*
  * Local variables:
  * mode: c
  * End:

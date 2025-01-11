@@ -33,27 +33,37 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-import os
 import shutil
+from pathlib import Path
 
-citation_output_formats = ['apalike', 'bibtex', 'endnote', 'ris', 'codemeta', 'cff', 'schema.org', 'zenodo']
+citation_output_formats = [
+    "apalike",
+    "bibtex",
+    "endnote",
+    "ris",
+    "codemeta",
+    "cff",
+    "schema.org",
+    "zenodo",
+]
+
 
 def convert_citation_formats(build_lib, citation_path):
-
     from cffconvert import Citation
-    
-    # target directory for the CITATION file within the build directory
-    target_dir = os.path.join(build_lib, "PyPop", "citation")
 
-    # create the citation directory if it doesn’t exist
-    os.makedirs(target_dir, exist_ok=True)
+    # target directory for the CITATION file within the build directory
+    target_dir = Path(build_lib) / "PyPop" / "citation"
+
+    # create the citation directory if it doesn't exist
+    target_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy(citation_path, target_dir)
 
     # load the CITATION.cff content
-    cff = Citation(cffstr=open(citation_path).read())
+    with open(citation_path) as f:
+        cff = Citation(cffstr=f.read())
 
     # remove 'cff' from generated list - since we don't generate that
-    citation_output_formats.remove('cff')
+    citation_output_formats.remove("cff")
 
     for fmt in citation_output_formats:
         # use getattr to get the method based on the format string, remove periods in methods
@@ -62,12 +72,11 @@ def convert_citation_formats(build_lib, citation_path):
             converted_content = convert_method()
 
             # save the converted output (e.g., as CITATION.json)
-            with open(os.path.join(target_dir, "CITATION." + fmt), "w") as f:
+            with open(target_dir / f"CITATION.{fmt}", "w") as f:
                 f.write(converted_content)
         else:
             print(f"Conversion format '{fmt}' not supported.")
 
 
 if __name__ == "__main__":
-
     convert_citation_formats("src", "CITATION.cff")

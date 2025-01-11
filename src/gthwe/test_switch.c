@@ -1,7 +1,7 @@
 /* This file is part of PyPop
-  
+
   Copyright (C) 1992. Sun-Wei Guo.
-  Modifications Copyright (C) 1999, 2003, 2004. 
+  Modifications Copyright (C) 1999, 2003, 2004.
   The Regents of the University of California (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -34,14 +34,14 @@ MODIFICATIONS. */
 /***************************************************************************
   program name: test_switch.c
 
-  function to determine the switchability 
-  
+  function to determine the switchability
+
   switch_ind = 0 if non-switchable, 1 if partially-switchable, 2 if switchable.
 
   And it returns the switch type if switchable.
 
   switch_type = 0 if D-switchable and 1 if R-switchable;
-  
+
   But switch_dir = 0 if switch_ind = 2.
 
   In addition, it returns the probability ratio if appropriate.

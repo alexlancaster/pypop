@@ -2,7 +2,7 @@
 
 ## Release notes for in-progress features not yet officially documented or supported
 
-* New wrapper module `Haplostats`. This wraps a portion of the
+- New wrapper module `Haplostats`. This wraps a portion of the
   `haplo.stats` R package `haplo-stats` for haplotype
   estimation. [Implementation in alpha-phase - still working on this].
 
@@ -11,22 +11,23 @@
 ### External dependencies
 
 #### Build-time packages
-* `swig` (Simple Wrapper Interface Generator), this is packaged on all
+
+- `swig` (Simple Wrapper Interface Generator), this is packaged on all
   platforms, and is either installed during the `build_wheels.yml`
   GitHub Action by the platform's package manager, `RPM` (for Linux),
   `brew` (MacOS), or is part of the default runner image (Windows).
 
-* `gsl` (GNU Scientific Library), this is a library used by some C
+- `gsl` (GNU Scientific Library), this is a library used by some C
   extensions that needs to be available during compilation,
   specifically:
-  
-  * Linux: the `gsl-devel` CentOS package is installed at build time
-	and the dynamic library distributed with the generated wheel.
-  
-  * MacOS: the `gsl` package is installed via Homebrew, dynamic
+
+  - Linux: the `gsl-devel` CentOS package is installed at build time
+    and the dynamic library distributed with the generated wheel.
+
+  - MacOS: the `gsl` package is installed via Homebrew, dynamic
     library is also distributed with the wheel.
-  
-  * Windows: on X64 (AMD64) the `gsl-msvc14-x64` package is installed
+
+  - Windows: on X64 (AMD64) the `gsl-msvc14-x64` package is installed
     via the NuGet package repository, this includes a static version
     that is compiled into the final extension. Since the NuGet
     repository doesn't have an ARM64 version of `gsl`, we build a
@@ -34,23 +35,23 @@
     workflow. Triggering this workflow will build the package and also
     copy the `.nupkg` into the repo in the `vendor-binaries` folder so
     it is available at build-time.
-  
+
 #### Install-time packagess (available on PyPI)
 
-* `Numpy` (Numpy)
-* `lxml` (Python bindings)
-* `pytest` (Python test framework)
+- `Numpy` (Numpy)
+- `lxml` (Python bindings)
+- `pytest` (Python test framework)
 
 ### SWIG notes
 
-* Note that within ".i" wrappers, need to include function prototypes
-and SWIG wrappers, so functions are duplicated, see this
-[StackOverflow
-post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-python)
+- Note that within ".i" wrappers, need to include function prototypes
+  and SWIG wrappers, so functions are duplicated, see this
+  [StackOverflow
+  post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-python)
 
 ### macports.org
 
-* To install macports via the command-line you can run the following (substituting the current link):
+- To install macports via the command-line you can run the following (substituting the current link):
 
   ```shell
   curl -L 'https://github.com/macports/macports-base/releases/download/v2.4.1/MacPorts-2.4.1-10.12-Sierra.pkg' > MacPorts-2.4.1-10.12-Sierra.pkg
@@ -66,7 +67,7 @@ post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-py
 ```yaml
       - name: Download GSL artifact on Windows
         # no pre-compiled Windows ARM64 version of GNU Scientific Library (GSL)
-        # so we install our own build 
+        # so we install our own build
         # only runs on Windows when cross-compiling for ARM64
         if: false
         #if: runner.os == 'Windows' && contains(matrix.only, 'win_arm64')
@@ -83,7 +84,7 @@ post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-py
           GSL_PACKAGE_NAME=gsl-msvc14-arm64
           GSL_PACKAGE_FILE=${GSL_PACKAGE_NAME}.2.3.0.2779.nupkg
           NUGET_PACKAGE_DIR=nuget-packages
-          
+
           # attempt to download artifact if RUN_ID exists
           if [ -n "$RUN_ID" ]; then
             mkdir ${NUGET_PACKAGE_DIR}
@@ -96,7 +97,7 @@ post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-py
           if [ ! -f ${NUGET_PACKAGE_DIR}/${GSL_PACKAGE_FILE} ]; then
             echo "Artifact not found. Triggering new build..."
             gh workflow run nuget_gsl_arm64_package.yml --ref windows_arm64 -f reason="Artifact expired or missing"
-            echo "New build triggered. Please wait for completion before retrying."            
+            echo "New build triggered. Please wait for completion before retrying."
             exit 1  # exit with failure to indicate the need to rerun the workflow
           else
             ls ${NUGET_PACKAGE_DIR}/*.nupkg
@@ -107,7 +108,7 @@ post](https://stackoverflow.com/questions/66995429/cant-run-swig-tutorial-for-py
           nuget install ${GSL_PACKAGE_NAME} -Source $(pwd)/${NUGET_PACKAGE_DIR}
 ```
 
-#### Manually regenerate a GitHub release 
+#### Manually regenerate a GitHub release
 
 This can occur based on re-tagging after a change (e.g. after a Zenodo
 deposition). These has been disabled because they are done internally
@@ -171,62 +172,62 @@ job:
 ## Design notes
 
 (These should eventually be migrated back in the source code, so that,
-if and when we generate API docs, they will appear there.  They would
+if and when we generate API docs, they will appear there. They would
 need updating as part of that migration to make sure they are still
 accurate.)
 
-* `Main` is the primary interface to the PyPop modules.  Given a
-ConfigParser instance, which can be (1) created from a filename passed
-from command-line argument or (2) from values populated by the GUI
-(currently selected from an .ini file, but can ultimately be set
-directly from the GUI or values based from a form to a web server or
-the) it then runs the specified modules (outlined below).
+- `Main` is the primary interface to the PyPop modules. Given a
+  ConfigParser instance, which can be (1) created from a filename passed
+  from command-line argument or (2) from values populated by the GUI
+  (currently selected from an .ini file, but can ultimately be set
+  directly from the GUI or values based from a form to a web server or
+  the) it then runs the specified modules (outlined below).
 
-* `GUIApp` is the graphical front-end to PyPop which uses the
-"wxPython":http://www.wxpython.org GUI toolkit.  wxPython is a set of
-Python bindings to "wxWindows":http://www.wxwindows.org, which is an
-open-source cross-platform GUI widget toolkit which has a native look
-under GNU/Linux (GTK), Windows (MFC) and MacOS X (Aqua).  [as of 2023,
-this was removed]
+- `GUIApp` is the graphical front-end to PyPop which uses the
+  "wxPython":http://www.wxpython.org GUI toolkit. wxPython is a set of
+  Python bindings to "wxWindows":http://www.wxwindows.org, which is an
+  open-source cross-platform GUI widget toolkit which has a native look
+  under GNU/Linux (GTK), Windows (MFC) and MacOS X (Aqua). \[as of 2023,
+  this was removed\]
 
-* `ParseFile` is a base class which has most of the common functionality
-for reading files.
+- `ParseFile` is a base class which has most of the common functionality
+  for reading files.
 
-* `ParseGenotypeFile` is a subclass of `ParseFile` that deals with
-files that consist specifically of data with individual genotyped for
-one or more loci.
+- `ParseGenotypeFile` is a subclass of `ParseFile` that deals with
+  files that consist specifically of data with individual genotyped for
+  one or more loci.
 
-* `ParseAlleleCount` is another subclass of `ParseFile` that deals
-with files consisting of allele counts across a whole population.
+- `ParseAlleleCount` is another subclass of `ParseFile` that deals
+  with files consisting of allele counts across a whole population.
 
-* `HardyWeinberg` is a class that calculates Hardy-Weinberg
-statistics given genotype data for a single locus.
+- `HardyWeinberg` is a class that calculates Hardy-Weinberg
+  statistics given genotype data for a single locus.
 
-* `HardyWeinbergGuoThompson` a subclass of `HardyWeinberg` that uses the
-Guo & Thompson algorithm for calculating statistics.
+- `HardyWeinbergGuoThompson` a subclass of `HardyWeinberg` that uses the
+  Guo & Thompson algorithm for calculating statistics.
 
-* `HardyWeinbergGuoThompsonArlequin` a subclass of `HardyWeinberg`
-that uses the Arlequin implementation of the Guo & Thompson algorithm
-for calculating statistics.
+- `HardyWeinbergGuoThompsonArlequin` a subclass of `HardyWeinberg`
+  that uses the Arlequin implementation of the Guo & Thompson algorithm
+  for calculating statistics.
 
-* `Haplo` is an abstract base class for estimating haplotypes given
-genotype data.
+- `Haplo` is an abstract base class for estimating haplotypes given
+  genotype data.
 
-- `HaploArlequin` is a subclass of `Haplo` that uses Arlequin for
-estimation of haplotypes (obsolete).
+* `HaploArlequin` is a subclass of `Haplo` that uses Arlequin for
+  estimation of haplotypes (obsolete).
 
-* `Emhaplofreq` is a subclass of `Haplo` that uses `emhaplofreq` (Rich
-Single`s program) for the estimation of haplotypes and linkage
-disequilibrium values.
+- `Emhaplofreq` is a subclass of `Haplo` that uses `emhaplofreq` (Rich
+  Single\`s program) for the estimation of haplotypes and linkage
+  disequilibrium values.
 
-* `ArlequinWrapper` the underlying class that "wraps" the
-functionality of the "Arlequin":http://lgb.unige.ch/arlequin/ program
-(obsolete: this class, in turn, supplies `HaploArlequin` with required
-information).
+- `ArlequinWrapper` the underlying class that "wraps" the
+  functionality of the "Arlequin":http://lgb.unige.ch/arlequin/ program
+  (obsolete: this class, in turn, supplies `HaploArlequin` with required
+  information).
 
-* `Homozygosity` Calculates homozygosity statistics for a given locus,
-calculates the observed homozygosity and returns the approximate
-expected homozygosity statistics taken from previous simulation runs.
+- `Homozygosity` Calculates homozygosity statistics for a given locus,
+  calculates the observed homozygosity and returns the approximate
+  expected homozygosity statistics taken from previous simulation runs.
 
 Both file formats are assumed to have a population header information
 with, consisting of a line of column headers (population metadata)
@@ -242,15 +243,15 @@ platforms, or no longer work, and need to be updated. Keeping around
 in case of either old platforms or if there is interest in reviving
 the feature(s) in question.
 
-### Installing ```swig``` on certain Ubuntu releases
+### Installing `swig` on certain Ubuntu releases
 
 (obsoleted by newer Ubuntu releases)
 
 There is a bug in versions swig 3.0.6 to 3.0.10 that prevents swig on
-```xenial``` (which is version 3.0.8 of swig) working.  You will need
-to install the lastest version from source.
+`xenial` (which is version 3.0.8 of swig) working. You will need
+to install the latest version from source.
 
-1. Get swig dependency: 
+1. Get swig dependency:
 
    ```shell
    sudo apt install libpcre3-dev
@@ -270,7 +271,7 @@ to install the lastest version from source.
 
 ### Containerizing
 
-(WARNING: instructions are obsolete with the Python 3 port) 
+(WARNING: instructions are obsolete with the Python 3 port)
 
 To make pypop more portable (given that some of its dependencies are currently
 obsolete), it is possible to build a Singularity container which contains a
@@ -279,13 +280,13 @@ and some extra tools (`yum`, `rpm`, `less`, and `vim`) in case you need to do
 work inside the container.
 
 Singularity containers bind-mount many external directories by default (for
-example, `/home` and `/tmp`), with the container image kept read-only.  When
+example, `/home` and `/tmp`), with the container image kept read-only. When
 run inside the container, pypop will work on your files, even though they live
 outside the container.
 
-Singularity 2.3 or later is required in order to bootstrap this container.  The
+Singularity 2.3 or later is required in order to bootstrap this container. The
 container also must be bootstrapped & run on a Linux system, running the
-x86\_64 architecture, because that's the OS & architecture the container uses.
+x86_64 architecture, because that's the OS & architecture the container uses.
 
 To build pypop as a singularity container, once you have Singularity installed,
 perform these three steps:
@@ -297,56 +298,57 @@ perform these three steps:
 The above commands will give you a 2 GiB executable file named `image.img`.
 That is the container.
 
-The first command ensures that you are in the pypop source directory.  This is
+The first command ensures that you are in the pypop source directory. This is
 required because part of the bootstrap process copies the source into the
 container.
 
-The second command creates a 2 GiB (a 2048 MiB) container image.  This should
-be large enough, but you can increase or decrease it as you wish.  Note that if
+The second command creates a 2 GiB (a 2048 MiB) container image. This should
+be large enough, but you can increase or decrease it as you wish. Note that if
 you make it too small, the bootstrap might not have enough room to complete!
 
-The final command performs the bootstrap.  The bootstrap needs to be run as root, so you either need to use `sudo` (as shown in the example above) or you need to run the command in a root shell.  The bootstrap does a number of things:
+The final command performs the bootstrap. The bootstrap needs to be run as root, so you either need to use `sudo` (as shown in the example above) or you need to run the command in a root shell. The bootstrap does a number of things:
 
-* Mount the container image read/write.
-* Download and install the Fedora 25 GPG key.
-* Create a temporary Yum repo file, pointing to the Fedora 24 package archive.
-* Install the `basesystem` package; GCC, SWIG, and GSL; Python (both the
-* executable and development packages); and the Python modules for Numeric,
-libxml2, and libxslt.
-* Copy the entire pypop source directory into the container.
-* Build pypop (again, inside the container).
+- Mount the container image read/write.
+- Download and install the Fedora 25 GPG key.
+- Create a temporary Yum repo file, pointing to the Fedora 24 package archive.
+- Install the `basesystem` package; GCC, SWIG, and GSL; Python (both the
+- executable and development packages); and the Python modules for Numeric,
+  libxml2, and libxslt.
+- Copy the entire pypop source directory into the container.
+- Build pypop (again, inside the container).
 
 Once you have the container image, running it is as simple as executing
-`image.img`.  For example:
+`image.img`. For example:
 
-    akkornel@blargh-yakkety-typical:~/pypop$ ./image.img -V
-    pypop 0.8.0
-    Copyright (C) 2003-2005 Regents of the University of California
-    This is free software.  There is NO warranty; not even for
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-    
-    akkornel@blargh-yakkety-typical:~/pypop$ ./image.img -h
-    Usage: pypop [OPTION]... [INPUTFILE]...
-    Process and run population genetics statistics on one or more INPUTFILEs.
-    Expects to find a configuration file called 'config.ini' in the
-    current directory or in /usr/share/pypop/config.ini.
-    
-      -l, --use-libxslt    filter XML via XSLT using libxslt (default)
-      -s, --use-4suite     filter XML via XSLT using 4Suite
-      -x, --xsl=FILE       use XSLT translation file FILE
-      -h, --help           show this message
-      -c, --config=FILE    select alternative config file
-      -d, --debug          enable debugging output (overrides config file setting)
-      -i, --interactive    run in interactive mode, prompting user for file names
-      -g, --gui            run GUI (currently disabled)
-      -o, --outputdir=DIR  put output in directory DIR
-      -f, --filelist=FILE  file containing list of files (one per line) to process
-                            (mutually exclusive with supplying INPUTFILEs)
-          --generate-tsv   generate TSV output files (aka run 'popmeta')
-      -V, --version        print version of PyPop
-      
-      INPUTFILE   input text file
+```
+akkornel@blargh-yakkety-typical:~/pypop$ ./image.img -V
+pypop 0.8.0
+Copyright (C) 2003-2005 Regents of the University of California
+This is free software.  There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+akkornel@blargh-yakkety-typical:~/pypop$ ./image.img -h
+Usage: pypop [OPTION]... [INPUTFILE]...
+Process and run population genetics statistics on one or more INPUTFILEs.
+Expects to find a configuration file called 'config.ini' in the
+current directory or in /usr/share/pypop/config.ini.
+
+  -l, --use-libxslt    filter XML via XSLT using libxslt (default)
+  -s, --use-4suite     filter XML via XSLT using 4Suite
+  -x, --xsl=FILE       use XSLT translation file FILE
+  -h, --help           show this message
+  -c, --config=FILE    select alternative config file
+  -d, --debug          enable debugging output (overrides config file setting)
+  -i, --interactive    run in interactive mode, prompting user for file names
+  -g, --gui            run GUI (currently disabled)
+  -o, --outputdir=DIR  put output in directory DIR
+  -f, --filelist=FILE  file containing list of files (one per line) to process
+                        (mutually exclusive with supplying INPUTFILEs)
+      --generate-tsv   generate TSV output files (aka run 'popmeta')
+  -V, --version        print version of PyPop
+
+  INPUTFILE   input text file
+```
 
 Once built, the container image can be transferred to any other system which is
-running Linux x86\_64, and which has the same version of Singularity (or newer).
-
+running Linux x86_64, and which has the same version of Singularity (or newer).

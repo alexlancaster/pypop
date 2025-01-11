@@ -1,4 +1,4 @@
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:exslt="http://exslt.org/common"
@@ -14,7 +14,7 @@
 
  <!-- suppress output of random text -->
  <xsl:template match="text()"/>
- 
+
 
  <xsl:template match="/output">
   <allelelist-by-locus>
@@ -55,7 +55,7 @@
     </allele>
     </xsl:for-each>
 
-   </locus>   
+   </locus>
    <xsl:call-template name="newline"/>
    </xsl:for-each>
   </allelelist-by-locus>
@@ -63,7 +63,7 @@
 
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"

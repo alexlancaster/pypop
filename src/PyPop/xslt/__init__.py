@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # This file is part of PyPop
 
 # Copyright (C) 2024
@@ -38,29 +36,32 @@ Python XSLT extensions for handling things outside the scope of XSLT 1.0
 
 """
 
+from math import floor, inf, log10
+
 from lxml import etree
-from math import floor, log10, inf
 from numpy import format_float_scientific
 
-ns = etree.FunctionNamespace('http://pypop.org/lxml/functions')
-ns.prefix = 'es'
+ns = etree.FunctionNamespace("http://pypop.org/lxml/functions")
+ns.prefix = "es"
+
 
 def num_zeros(decimal):
     return inf if decimal == 0 else -floor(log10(abs(decimal))) - 1
+
 
 def exponent_len(num):
     # length of exponent, e.g.
     # "e-3', would be two characters ('-3')
     # "e-10" would be 3, ('-10')
-    return len(str(floor(log10(num)))) 
+    return len(str(floor(log10(num))))
+
 
 @ns
-def format_number_fixed_width(context, *args):
-
+def format_number_fixed_width(_context, *args):
     num = float(args[0])
     places = int(args[1])
     zeros_before_sig_figs = num_zeros(num)
-    
+
     if zeros_before_sig_figs >= places and zeros_before_sig_figs != inf:
         # get exponent size
         exponent_size = exponent_len(num)
@@ -69,21 +70,24 @@ def format_number_fixed_width(context, *args):
         # use all remaining characters for precision
         precision = places - total_exponent_size if places >= total_exponent_size else 0
         # now format it
-        retval = format_float_scientific(num, exp_digits=1, precision=precision, trim='-')
+        retval = format_float_scientific(
+            num, exp_digits=1, precision=precision, trim="-"
+        )
     else:
         retval = "{0:.{1}f}".format(num, places)
     return retval
 
-if __name__ == "__main__":
 
+if __name__ == "__main__":
     # some tests
-    
-    ns['format_number_fixed_width'] = format_number_fixed_width
-    
-    root = etree.XML('<a><b>0.0000043</b></a>')
+
+    ns["format_number_fixed_width"] = format_number_fixed_width
+
+    root = etree.XML("<a><b>0.0000043</b></a>")
     doc = etree.ElementTree(root)
 
-    xslt = etree.XSLT(etree.XML('''
+    xslt = etree.XSLT(
+        etree.XML("""
       <stylesheet version="1.0"
           xmlns="http://www.w3.org/1999/XSL/Transform"
           xmlns:es="http://pypop.org/lxml/functions">
@@ -94,8 +98,7 @@ if __name__ == "__main__":
        <text>]</text>
      </template>
       </stylesheet>
-    '''))
+    """)
+    )
 
     print(xslt(doc))
-    
-

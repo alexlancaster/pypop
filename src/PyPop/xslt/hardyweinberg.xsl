@@ -1,8 +1,8 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003-2006. 
-  The Regents of the University of California (Regents) 
+  Copyright (C) 2003-2006.
+  The Regents of the University of California (Regents)
   All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -32,7 +32,7 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS.
 -->
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:exslt="http://exslt.org/common"
@@ -43,7 +43,7 @@ MODIFICATIONS.
 
  <xsl:param name="new-hardyweinberg-format" select="0"/>
 
- <!-- boiler-plate text that we may want to re-use -->
+ <!-- boiler-plate text that we may want to reuse -->
  <data:hardyweinberg-col-headers>
   <text col="observed">Observed</text>
   <text col="expected">Expected</text>
@@ -69,18 +69,18 @@ MODIFICATIONS.
   <text col="stddev">Std. deviation</text>
  </data:hardyweinberg-guo-thompson-arlequin>
 
- <xsl:variable name="hw-col-headers" 
+ <xsl:variable name="hw-col-headers"
   select="document('')//data:hardyweinberg-col-headers/text"/>
 
- <xsl:variable name="hw-guo-thompson" 
+ <xsl:variable name="hw-guo-thompson"
   select="document('')//data:hardyweinberg-guo-thompson/text"/>
 
- <xsl:variable name="hw-guo-thompson-arlequin" 
+ <xsl:variable name="hw-guo-thompson-arlequin"
   select="document('')//data:hardyweinberg-guo-thompson-arlequin/text"/>
 
- <!-- ################  HARDY-WEINBERG STATISTICS ###################### --> 
+ <!-- ################  HARDY-WEINBERG STATISTICS ###################### -->
 
- <!-- find the maximum possible genotype length across the whole input file 
+ <!-- find the maximum possible genotype length across the whole input file
       use this as the column width -->
  <xsl:variable name="hardyweinberg-first-col-width">
    <xsl:variable name="max-row-len">
@@ -125,14 +125,14 @@ MODIFICATIONS.
 
      <!-- do genotype table -->
     <xsl:apply-templates select="genotypetable"/>
-    
+
     <xsl:call-template name="newline"/>
 
     <!-- indent first line of table -->
     <xsl:call-template name="prepend-pad">
      <xsl:with-param name="length" select="$hardyweinberg-first-col-width"/>
     </xsl:call-template>
-    
+
     <!-- print header for the individual stats -->
     <xsl:for-each select="$hw-col-headers">
      <xsl:variable name="width">
@@ -140,7 +140,7 @@ MODIFICATIONS.
        <xsl:when test="@colwidth">
 	<xsl:value-of select="@colwidth"/>
        </xsl:when>
-       <xsl:otherwise> 
+       <xsl:otherwise>
 	<xsl:value-of select="$hardyweinberg-col-width"/>
        </xsl:otherwise>
       </xsl:choose>
@@ -164,27 +164,27 @@ MODIFICATIONS.
       </xsl:otherwise>
      </xsl:choose>
     </xsl:for-each>
-    
+
     <!-- separator -->
     <xsl:call-template name="newline"/>
     <xsl:call-template name="separator"/>
     <xsl:call-template name="newline"/>
-    
+
     <!-- no do individual stats for each class -->
     <xsl:apply-templates select="common"/>
     <xsl:apply-templates select="lumped"/>
     <xsl:apply-templates select="commonpluslumped"/>
     <xsl:apply-templates select="heterozygotes|homozygotes"/>
-    
+
     <!-- do stats for all the heterozygotes and genotypes -->
     <xsl:apply-templates select="heterozygotesByAllele"/>
-    
+
     <xsl:apply-templates select="genotypetable" mode="genotypesByGenotype"/>
- 
+
    </xsl:with-param>
   </xsl:call-template>
  </xsl:template>
- 
+
  <!-- template to generate the (padded) cell ;-) -->
  <!-- this also handles the case when there is no tag because it -->
  <!-- will simply return a white-space padded cell of the right length -->
@@ -194,7 +194,7 @@ MODIFICATIONS.
 
   <!-- some columns may be left-justified, set this param to '0' if desired -->
   <xsl:param name="prepend" select="1"/>
-  
+
   <xsl:choose>
    <xsl:when test="$prepend=1">
     <xsl:call-template name="prepend-pad">
@@ -205,7 +205,7 @@ MODIFICATIONS.
    <xsl:otherwise>
     <!-- make sure there is at least two initial space -->
     <!-- FIXME: this entire table generation system is getting way too -->
-    <!-- kludgy, need to replace the entire system, with a clean, generic --> 
+    <!-- kludgy, need to replace the entire system, with a clean, generic -->
     <!-- system real soon now(TM) -->
     <xsl:text>  </xsl:text>
     <xsl:call-template name="append-pad">
@@ -218,7 +218,7 @@ MODIFICATIONS.
 
  <!-- template to generate the row -->
  <xsl:template name="hardyweinberg-gen-row">
-  
+
   <!-- create variables from the contents of the cells  -->
   <xsl:variable name="observed">
    <xsl:call-template name="hardyweinberg-gen-cell">
@@ -263,7 +263,7 @@ MODIFICATIONS.
   <xsl:variable name="chisqdf">
    <xsl:call-template name="hardyweinberg-gen-cell">
     <xsl:with-param name="node" select="chisqdf"/>
-    <xsl:with-param name="width" 
+    <xsl:with-param name="width"
      select="$hw-col-headers[@col='chisqdf']/@colwidth"/>
    </xsl:call-template>
   </xsl:variable>
@@ -300,16 +300,16 @@ MODIFICATIONS.
     </xsl:otherwise>
    </xsl:choose>
   </xsl:variable>
-  
-  
+
+
   <!-- indent table -->
   <xsl:call-template name="prepend-pad">
    <xsl:with-param name="length" select="$hardyweinberg-first-col-width"/>
    <xsl:with-param name="padVar" select="$type"/>
   </xsl:call-template>
-  
+
   <xsl:choose>
-   
+
    <xsl:when test="*">
     <!-- when the tag has content generate the row -->
     <xsl:call-template name="hardyweinberg-gen-row"/>
@@ -321,12 +321,13 @@ MODIFICATIONS.
 
     <!-- make an extra space, for case when following text is flush left -->
     <xsl:text> </xsl:text>
-  
+
     <xsl:choose>
      <xsl:when test="@role='too-many-parameters'">
       <xsl:text>Too many parameters for chi-square test.</xsl:text>
      </xsl:when>
      <xsl:when test="@role='no-common-genotypes'">
+       <!-- FIXME: 'commmon' -> 'common', but this will require regeneration of some unit test output and MD5 sums -->
       <xsl:text>No commmon genotypes; chi-square cannot be calculated</xsl:text>
      </xsl:when>
      <xsl:when test="@role='no-rare-genotypes'">
@@ -369,7 +370,7 @@ MODIFICATIONS.
   <xsl:text>Common heterozygotes by allele</xsl:text>
   <xsl:call-template name="newline"/>
   <xsl:for-each select="allele">
-   
+
    <!-- sort by allele name -->
    <xsl:sort select="@name" data-type="text"/>
    <!-- indent table with name of the allele -->
@@ -380,10 +381,10 @@ MODIFICATIONS.
    <!-- generate the row -->
    <xsl:call-template name="hardyweinberg-gen-row"/>
    <xsl:call-template name="newline"/>
-  </xsl:for-each>  
+  </xsl:for-each>
 
   <xsl:call-template name="newline"/>
-  
+
   <!-- separator -->
   <xsl:call-template name="separator"/>
   <xsl:call-template name="newline"/>
@@ -395,11 +396,11 @@ MODIFICATIONS.
   <xsl:text>Common genotypes</xsl:text>
   <xsl:call-template name="newline"/>
 
-  <xsl:for-each select="genotype[not(chisq/@role='not-calculated')]">  
+  <xsl:for-each select="genotype[not(chisq/@role='not-calculated')]">
    <xsl:sort select="@col" data-type="text"/>
    <!-- generate genotype name -->
    <xsl:variable name="name">
-    <xsl:value-of select="@col"/><xsl:value-of select="$GL-unphased-genotype-separator"/><xsl:value-of select="@row"/> 
+    <xsl:value-of select="@col"/><xsl:value-of select="$GL-unphased-genotype-separator"/><xsl:value-of select="@row"/>
    </xsl:variable>
 
   <!-- indent table with name of the genotype -->
@@ -451,18 +452,18 @@ MODIFICATIONS.
        </xsl:if>
    </xsl:for-each>
   </xsl:variable>
-  
+
   <xsl:variable name="unique-cols-new"
    select="exslt:node-set($unique-cols-nodes)/unique"/>
 
   <!-- old style: get the unique list of column (allele) names -->
   <!-- from <allelecount> section -->
- 
-  <xsl:variable name="unique-cols-old"
-   select="../../allelecounts/allele/@name"/> 
 
-  <xsl:variable name="unique-cols" 
-   select="$unique-cols-new[$new-hardyweinberg-format=1] | 
+  <xsl:variable name="unique-cols-old"
+   select="../../allelecounts/allele/@name"/>
+
+  <xsl:variable name="unique-cols"
+   select="$unique-cols-new[$new-hardyweinberg-format=1] |
    $unique-cols-old[$new-hardyweinberg-format=0]"/>
 
   <!-- save the current node -->
@@ -503,14 +504,14 @@ MODIFICATIONS.
 
   <!-- calculate the number of cols to fit (subtract one for the row -->
   <!-- allele names) -->
-  <xsl:variable name="hardyweinberg-cols-to-fit" 
+  <xsl:variable name="hardyweinberg-cols-to-fit"
    select="floor($page-width div $width) - 1"/>
 
   <!-- check each unique column and output a subtable whenever  -->
   <!-- the column header is a multiple of the cols to fit on the page -->
   <!-- sort by the count (frequency) taken from allelecounts/allele/count -->
   <xsl:for-each select="$unique-cols">
-   <xsl:sort select="../count" data-type="number" order="descending"/>   
+   <xsl:sort select="../count" data-type="number" order="descending"/>
 
    <xsl:variable name="pos" select="position()"/>
 
@@ -519,7 +520,7 @@ MODIFICATIONS.
     <xsl:when test="$pos mod $hardyweinberg-cols-to-fit = 0">
 
      <xsl:variable name="end-col" select="position()"/>
-     <xsl:variable name="start-col" 
+     <xsl:variable name="start-col"
       select="$end-col - $hardyweinberg-cols-to-fit + 1"/>
 
      <xsl:call-template name="gen-subtable">
@@ -537,11 +538,11 @@ MODIFICATIONS.
 
     </xsl:when>
 
-    <!-- this deals with the situtation when there are some leftover cols -->
+    <!-- this deals with the situation when there are some leftover cols -->
     <xsl:when test="$pos=last() and $pos mod $hardyweinberg-cols-to-fit != 0">
-     
+
      <xsl:variable name="end-col" select="position()"/>
-     <xsl:variable name="start-col" 
+     <xsl:variable name="start-col"
       select="$end-col - ($pos mod $hardyweinberg-cols-to-fit) + 1"/>
 
      <xsl:call-template name="gen-subtable">
@@ -576,29 +577,29 @@ MODIFICATIONS.
   <!-- two loops across allele names, will traverse the matrix -->
   <!-- because we need to use the alleles in count (frequency) order -->
   <!-- don't loop across the <genotype> nodes anymore, we use the loop -->
-  <!-- "indicies" to randomly access the given genotype node, using -->
+  <!-- "indices" to randomly access the given genotype node, using -->
   <!-- a genotype[row,col] format -->
 
 
   <xsl:for-each select="$unique-cols">
    <!-- sort by count (frequency) -->
-   <xsl:sort select="../count" data-type="number" order="descending"/>   
+   <xsl:sort select="../count" data-type="number" order="descending"/>
    <xsl:variable name="row" select="."/>
    <xsl:variable name="row-pos" select="position()"/>
-   
+
    <xsl:for-each select="$unique-cols">
     <!-- sort by count (frequency) -->
-    <xsl:sort select="../count" data-type="number" order="descending"/>   
+    <xsl:sort select="../count" data-type="number" order="descending"/>
     <xsl:variable name="col" select="."/>
     <xsl:variable name="col-pos" select="position()"/>
-    
+
     <!-- don't generate columns with position greater than the current -->
     <!-- row position, ensures that the matrix remains lower-triangular -->
     <xsl:if test="$col-pos &lt;= $row-pos">
-     
-     <!-- generate row name, only on first col and only if the row --> 
+
+     <!-- generate row name, only on first col and only if the row -->
      <!-- is part of this column processing -->
-     
+
      <xsl:if test="$col-pos=$start-col">
      <xsl:call-template name="newline"/>
      <xsl:call-template name="prepend-pad">
@@ -606,10 +607,10 @@ MODIFICATIONS.
       <xsl:with-param name="padVar" select="$row"/>
       </xsl:call-template>
      </xsl:if>
-     
+
      <!-- only output cell if in the current column range -->
 
-     <xsl:if test="$col-pos &gt;= $start-col and $col-pos &lt;= $end-col"> 
+     <xsl:if test="$col-pos &gt;= $start-col and $col-pos &lt;= $end-col">
 
       <xsl:variable name="cell">
 
@@ -617,28 +618,28 @@ MODIFICATIONS.
        <!-- as well as genotype[col,row], because original genotype XML -->
        <!-- only contains 1/2 * N-squared <genotype> lines, but the matrix -->
        <!-- itself *is* symmetric -->
-       <xsl:variable name="genotype" 
-	select="$node/genotype[(@row=$row and @col=$col) or 
+       <xsl:variable name="genotype"
+	select="$node/genotype[(@row=$row and @col=$col) or
 	(@row=$col and @col=$row)]"/>
 
        <xsl:value-of select="$genotype/observed"/><xsl:text>/</xsl:text>
-       
+
        <!-- round, format the decimal values of "observed" to nearest 0.1 -->
        <xsl:call-template name="round-to">
 	<xsl:with-param name="node" select="$genotype/expected"/>
 	<xsl:with-param name="places" select="1"/>
        </xsl:call-template>
       </xsl:variable>
-      
+
       <!-- output cell with padding -->
       <xsl:call-template name="prepend-pad">
        <xsl:with-param name="length" select="$col-len-max"/>
-       <xsl:with-param name="padVar" select="$cell"/> 
+       <xsl:with-param name="padVar" select="$cell"/>
       </xsl:call-template>
-      
+
      </xsl:if>
     </xsl:if>
-    
+
    </xsl:for-each>
 
 <!-- experimental code to generate lower-triangular matrix for p-vals
@@ -648,17 +649,17 @@ MODIFICATIONS.
 
    <xsl:for-each select="$unique-cols">
     <!-- sort by count (frequency) -->
-    <xsl:sort select="../count" data-type="number" order="descending"/>    
+    <xsl:sort select="../count" data-type="number" order="descending"/>
     <xsl:variable name="col" select="."/>
     <xsl:variable name="col-pos" select="position()"/>
-    
+
     <!-- don't generate columns with position greater than the current -->
     <!-- row position, ensures that the matrix remains lower-triangular -->
     <xsl:if test="$col-pos &lt;= $row-pos">
-     
-     <!-- generate row name, only on first col and only if the row --> 
+
+     <!-- generate row name, only on first col and only if the row -->
      <!-- is part of this column processing -->
-     
+
      <xsl:if test="$col-pos=$start-col">
      <xsl:call-template name="newline"/>
      <xsl:call-template name="prepend-pad">
@@ -666,10 +667,10 @@ MODIFICATIONS.
       <xsl:with-param name="padVar" select="' '"/>
       </xsl:call-template>
      </xsl:if>
-     
+
      <!-- only output cell if in the current column range -->
 
-     <xsl:if test="$col-pos &gt;= $start-col and $col-pos &lt;= $end-col"> 
+     <xsl:if test="$col-pos &gt;= $start-col and $col-pos &lt;= $end-col">
 
       <xsl:variable name="cell">
 
@@ -684,16 +685,16 @@ MODIFICATIONS.
        </xsl:call-template>
 
       </xsl:variable>
-      
+
       <!-- output cell with padding -->
       <xsl:call-template name="prepend-pad">
        <xsl:with-param name="length" select="$col-len-max"/>
-       <xsl:with-param name="padVar" select="$cell"/> 
+       <xsl:with-param name="padVar" select="$cell"/>
       </xsl:call-template>
-      
+
      </xsl:if>
     </xsl:if>
-    
+
    </xsl:for-each>
    </xsl:if>
 
@@ -706,12 +707,12 @@ MODIFICATIONS.
   <xsl:call-template name="prepend-pad">
    <xsl:with-param name="length" select="$row-len-max"/>
   </xsl:call-template>
-  
+
   <!-- create column footer -->
-  <xsl:for-each select="$unique-cols"> 
+  <xsl:for-each select="$unique-cols">
    <!-- sort by count (frequency) -->
-   <xsl:sort select="../count" data-type="number" order="descending" />   
-   
+   <xsl:sort select="../count" data-type="number" order="descending" />
+
    <!-- filter out appropriate subset of columns from unique-column list -->
    <!-- choose the start and end positions of columns *after* sort is -->
    <!-- performed so that reordered positions are consistent with row order -->
@@ -761,9 +762,9 @@ MODIFICATIONS.
      <xsl:when test="@role='too-large-matrix'">
       <xsl:text>Too large a matrix for 'gthwe' implementation of Guo and Thompson's exact test</xsl:text>
      </xsl:when>
-     
+
      <xsl:otherwise>
-      
+
       <xsl:choose>
        <!-- only when 1 is produced as a pvalue, we return an error -->
        <xsl:when test="normalize-space(pvalue)='1'">
@@ -778,19 +779,19 @@ MODIFICATIONS.
        <xsl:value-of select="samplingNum * samplingSize"/>
        <xsl:call-template name="newline"/>
       </xsl:if>
-      
+
       <xsl:for-each
        select="stderr|dememorizationSteps|samplingNum|samplingSize|steps">
        <xsl:variable name="node-name" select="name(.)"/>
-       <xsl:value-of 
-	select="$hw-guo-thompson[@col=$node-name]"/>  
+       <xsl:value-of
+	select="$hw-guo-thompson[@col=$node-name]"/>
        <xsl:text>: </xsl:text>
        <xsl:value-of select="."/>
        <xsl:call-template name="newline"/>
       </xsl:for-each>
-      
+
       <!-- do pvalue separately -->
-      <xsl:value-of select="$hw-guo-thompson[@col='pvalue']"/>  
+      <xsl:value-of select="$hw-guo-thompson[@col='pvalue']"/>
       <xsl:text> (overall): </xsl:text>
       <xsl:apply-templates select="pvalue[@type='overall']"/>
       <xsl:call-template name="newline"/>
@@ -808,7 +809,7 @@ MODIFICATIONS.
       -->
 
      </xsl:otherwise>
-     
+
     </xsl:choose>
    </xsl:with-param>
   </xsl:call-template>
@@ -817,10 +818,10 @@ MODIFICATIONS.
  <xsl:template name="indiv-genotypes">
   <xsl:param name="pvalues"/>
   <!-- do individual p-values -->
-  
-  <xsl:variable name="pvals-chen" 
+
+  <xsl:variable name="pvals-chen"
    select="$pvalues[@type='genotype' and @statistic='chen_statistic']"/>
-  <xsl:variable name="pvals-diff" 
+  <xsl:variable name="pvals-diff"
    select="$pvalues[@type='genotype' and @statistic='diff_statistic']"/>
 
   <xsl:if test="$pvals-chen or $pvals-diff">
@@ -853,14 +854,14 @@ MODIFICATIONS.
   <xsl:param name="pvals-loop"/>
   <xsl:param name="pvals-chen"/>
   <xsl:param name="pvals-diff"/>
-  
+
   <xsl:for-each select="$pvals-loop">
    <xsl:variable name="offset" select="position()"/>
    <xsl:variable name="chen-pval" select="$pvals-chen[$offset]"/>
    <xsl:variable name="diff-pval" select="$pvals-diff[$offset]"/>
-   
+
    <xsl:if test="$chen-pval &lt;= $indiv-geno-pval-cutoff or $diff-pval &lt;= $indiv-geno-pval-cutoff">
-    <xsl:variable name="indiv-genotype" 
+    <xsl:variable name="indiv-genotype"
      select="../genotypetable/genotype[$offset]"/>
     <xsl:value-of select="$indiv-genotype/@row"/>
     <xsl:value-of select="$GL-unphased-genotype-separator"/>
@@ -884,7 +885,7 @@ MODIFICATIONS.
      <xsl:otherwise><xsl:text>---</xsl:text></xsl:otherwise>
     </xsl:choose>
     <xsl:call-template name="newline"/>
-   </xsl:if> 
+   </xsl:if>
   </xsl:for-each>
  </xsl:template>
 
@@ -946,9 +947,9 @@ MODIFICATIONS.
        <xsl:value-of select="."/>
        <xsl:call-template name="newline"/>
       </xsl:for-each>
-      
+
       <!-- do pvalue separately -->
-      <xsl:value-of select="$hw-guo-thompson[@col='pvalue']"/>  
+      <xsl:value-of select="$hw-guo-thompson[@col='pvalue']"/>
       <xsl:text>: </xsl:text>
       <xsl:apply-templates select="pvalue"/>
       <xsl:call-template name="newline"/>
@@ -959,10 +960,10 @@ MODIFICATIONS.
   </xsl:call-template>
  </xsl:template>
 
- <!-- ################  END HARDY-WEINBERG STATISTICS  ############### --> 
+ <!-- ################  END HARDY-WEINBERG STATISTICS  ############### -->
 
 </xsl:stylesheet>
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"
@@ -970,4 +971,3 @@ sgml-indent-step: 1
 sgml-indent-data: 1
 End:
 -->
- 

@@ -5,7 +5,7 @@ PyPop contributors
 
 (Listed in alphabetical order)
 
-.. list-table:: 
+.. list-table::
    :widths: 18 22 28 30
    :header-rows: 1
    :class: longtable
@@ -39,7 +39,7 @@ PyPop contributors
      - University of São Paulo
      - Reviewed and tested PyPop, contributed some statistical analysis code.
    * - Mark P. Nelson
-     - 
+     -
      - University of California, Berkeley
      - Co-designer of Python framework: implemented and maintained
        Python modules, particularly the module for Hardy-Weinberg
@@ -54,7 +54,7 @@ PyPop contributors
      - `0000-0002-4387-3819 <https://orcid.org/0000-0002-4387-3819>`__
      - Lawrence Livermore National Laboratory
      - Contributed to the Python 3 port.
-   * - Owen Solberg 
+   * - Owen Solberg
      - `0000-0003-3060-9709 <https://orcid.org/0000-0003-3060-9709>`__
      -
      - Implemented filter modules, including conversion to allele name
@@ -62,7 +62,7 @@ PyPop contributors
    * - Jurriaan H. Spaaks
      - `0000-0002-7064-4069 <https://orcid.org/0000-0002-7064-4069>`__
      - Netherlands eScience Center
-     - Contributed to Zenodo upload GitHub action 
+     - Contributed to Zenodo upload GitHub action
    * - Glenys Thomson
      - `0000-0001-5235-4159 <https://orcid.org/0000-0001-5235-4159>`__
      - University of California, Berkeley
@@ -104,4 +104,3 @@ Included with permission, or via GPL-compatible licenses.
    http://www.r-project.org/ and is also licensed under the GNU General
    Public License (GPL). Minor modifications have been made to allow the
    module to build correctly.
-

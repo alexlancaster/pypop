@@ -35,4 +35,3 @@
 	(NR_END): Move #define to beginning of file.
 
 	* Start ChangeLog.
-

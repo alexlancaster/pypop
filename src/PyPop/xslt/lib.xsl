@@ -1,7 +1,7 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California (Regents) 
+  Copyright (C) 2003. The Regents of the University of California (Regents)
   All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -31,13 +31,13 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS.
 -->
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:es="http://pypop.org/lxml/functions">
 
  <xsl:param name="use-python-extensions" select="1"/>
-  
+
  <!-- contains a library of named templates not specific to any DTD or
  XML schema -->
 
@@ -69,7 +69,7 @@ MODIFICATIONS.
    <xsl:when test="$reps &gt; 0">
     <xsl:call-template name="raise-to-power-iter">
      <xsl:with-param name="multiplier" select="$multiplier"/>
-     <xsl:with-param name="accumulator" 
+     <xsl:with-param name="accumulator"
       select="$accumulator * $multiplier"/>
      <xsl:with-param name="reps" select="$reps - 1"/>
     </xsl:call-template>
@@ -88,7 +88,7 @@ MODIFICATIONS.
 
   <!-- first check that string is, indeed, a number -->
   <xsl:choose>
-   <xsl:when test= "string(number($node))!='NaN'"> 
+   <xsl:when test= "string(number($node))!='NaN'">
 
     <xsl:variable name="factor">
      <xsl:call-template name="raise-to-power">
@@ -111,7 +111,7 @@ MODIFICATIONS.
       </xsl:when>
       <xsl:otherwise>
 	<!-- otherwise, as a fallback, just round it (doesn't do the scientific notation) -->
-	<xsl:value-of 
+	<xsl:value-of
 	    select="format-number((round($factor * $node) div $factor),$format)"/>
       </xsl:otherwise>
     </xsl:choose>
@@ -120,8 +120,8 @@ MODIFICATIONS.
    <xsl:otherwise><xsl:value-of select="$node"/></xsl:otherwise>
   </xsl:choose>
  </xsl:template>
- 
- <xsl:template name="prepend-pad"> 
+
+ <xsl:template name="prepend-pad">
   <!-- recursive template to right justify and prepend-->
   <!-- the value with whatever padChar is passed in   -->
   <xsl:param name="padChar" select="' '"/>
@@ -136,13 +136,13 @@ MODIFICATIONS.
     </xsl:call-template>
    </xsl:when>
    <xsl:otherwise>
-    <xsl:value-of 
+    <xsl:value-of
      select="substring($padVar,string-length($padVar) -
      $length + 1)"/>
    </xsl:otherwise>
   </xsl:choose>
  </xsl:template>
- 
+
  <xsl:template name="append-pad">
   <!-- recursive template to left justify and append  -->
   <!-- the value with whatever padChar is passed in   -->
@@ -182,7 +182,7 @@ MODIFICATIONS.
     </xsl:otherwise>
    </xsl:choose>
   </xsl:variable>
-  
+
   <xsl:choose>
    <xsl:when test="$type='left'">
     <xsl:call-template name="append-pad">
@@ -202,7 +202,7 @@ MODIFICATIONS.
     <xsl:message terminate="yes">Justified type not implemented!</xsl:message>
    </xsl:otherwise>
   </xsl:choose>
-  
+
  </xsl:template>
 
  <!-- prints a newline -->
@@ -292,7 +292,7 @@ MODIFICATIONS.
    <xsl:otherwise>
 
     <!-- if the delimiter is found in the string, we must not be at
-     the end, and we return the portion before the delimter
+	 the end, and we return the portion before the delimiter
      (e.g. 'B:'), otherwise the n-th element is the end of the string,
      in which case we simply return the current string (e.g. 'C') -->
 
@@ -303,7 +303,7 @@ MODIFICATIONS.
      <xsl:otherwise><xsl:value-of select="$str"/>
      </xsl:otherwise>
     </xsl:choose>
-    
+
    </xsl:otherwise>
   </xsl:choose>
 
@@ -319,45 +319,45 @@ MODIFICATIONS.
 
   <!-- make sure that both columns have text -->
   <xsl:if test="contains($col1, '&#xA;') and contains($col2, '&#xA;')">
-   
+
    <!-- split first column into strings before and after newline -->
    <xsl:variable name="col1-before-nl">
     <xsl:if test="contains($col1, '&#xA;')">
-     <xsl:value-of 
+     <xsl:value-of
       select="substring-before($col1, '&#xA;')"/>
     </xsl:if>
    </xsl:variable>
-   
+
    <xsl:variable name="col1-after-nl">
     <xsl:if test="contains($col1, '&#xA;')">
-     <xsl:value-of 
+     <xsl:value-of
       select="substring-after($col1, '&#xA;')"/>
     </xsl:if>
    </xsl:variable>
 
-   <!-- split second column into strings before and after newline -->   
+   <!-- split second column into strings before and after newline -->
    <xsl:variable name="col2-before-nl">
     <xsl:if test="contains($col2, '&#xA;')">
-     <xsl:value-of 
+     <xsl:value-of
       select="substring-before($col2, '&#xA;')"/>
     </xsl:if>
    </xsl:variable>
-   
+
    <xsl:variable name="col2-after-nl">
     <xsl:if test="contains($col2, '&#xA;')">
-     <xsl:value-of 
+     <xsl:value-of
       select="substring-after($col2, '&#xA;')"/>
     </xsl:if>
    </xsl:variable>
-   
+
    <!-- output the concatenated strings before the newline -->
-   <xsl:value-of 
+   <xsl:value-of
     select="concat($col1-before-nl, $delim, $col2-before-nl, '&#xA;')"/>
 
    <!-- at least one of the remaining substrings should contain -->
    <!-- a newline -->
 
-   <xsl:if test="contains($col1-after-nl, '&#xA;') or 
+   <xsl:if test="contains($col1-after-nl, '&#xA;') or
     contains($col2-after-nl, '&#xA;')">
 
     <!-- recursively call template -->
@@ -373,13 +373,13 @@ MODIFICATIONS.
        <xsl:otherwise>
 	<xsl:call-template name="prepend-pad">
 	 <xsl:with-param name="padVar" select="'&#xA;'"/>
-	 <xsl:with-param name="length" 
+	 <xsl:with-param name="length"
 	  select="string-length($col1-before-nl)"/>
 	</xsl:call-template>
        </xsl:otherwise>
       </xsl:choose>
-     </xsl:with-param>     
-     
+     </xsl:with-param>
+
      <!-- likewise for column 2 -->
      <xsl:with-param name="col2">
       <xsl:choose>
@@ -398,7 +398,7 @@ MODIFICATIONS.
     </xsl:call-template>
    </xsl:if>
   </xsl:if>
-  
+
  </xsl:template>
 
  <xsl:template name="cleanString">
@@ -424,7 +424,7 @@ MODIFICATIONS.
   <xsl:param name="i" />
   <xsl:param name="max" />
   <xsl:param name="prefix"/>
-  <xsl:param name="suffix"/>  
+  <xsl:param name="suffix"/>
 
   <xsl:if test="$i &lt;= $max">
     <xsl:value-of select="$prefix"/><xsl:value-of select="$i"/><xsl:value-of select="$suffix"/>
@@ -433,14 +433,14 @@ MODIFICATIONS.
       <xsl:with-param name="i" select="$i + 1" />
       <xsl:with-param name="max" select="$max" />
       <xsl:with-param name="prefix" select="$prefix"/>
-      <xsl:with-param name="suffix" select="$suffix"/>      
+      <xsl:with-param name="suffix" select="$suffix"/>
     </xsl:call-template>
   </xsl:if>
 </xsl:template>
- 
+
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"

@@ -1,7 +1,7 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California (Regents) 
+  Copyright (C) 2003. The Regents of the University of California (Regents)
   All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -31,7 +31,7 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS.
 -->
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
@@ -42,7 +42,7 @@ MODIFICATIONS.
 
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"

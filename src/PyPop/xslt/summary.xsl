@@ -1,7 +1,7 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California (Regents) 
+  Copyright (C) 2003. The Regents of the University of California (Regents)
   All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -31,7 +31,7 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS.
 -->
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:exslt="http://exslt.org/common"
@@ -44,7 +44,7 @@ MODIFICATIONS.
 
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes"/>
- 
+
  <!-- suppress output of random text -->
  <xsl:template match="text()"/>
 
@@ -58,21 +58,21 @@ MODIFICATIONS.
   <xsl:for-each select="output/locus">
    <xsl:variable name="kmax">
     <xsl:call-template name="max-value">
-     <xsl:with-param name="path" 
+     <xsl:with-param name="path"
       select="population/allelecounts/distinctalleles"/>
     </xsl:call-template>
    </xsl:variable>
 
-<!--   
+<!--
    <xsl:variable name="all-allele-names"
     select="population/allelecounts[distinctalleles=$kmax]/allele/@name"/>
 -->
 
    <xsl:variable name="all-allele-names"
     select="population/allelecounts/allele[generate-id(.)=generate-id(key('alleles',@name))]/@name"/>
-   
+
    <xsl:variable name="locus-name" select="substring-after(@name, '*')"/>
-   
+
    <xsl:choose>
     <xsl:when test="$output='allele-summary'">
 
@@ -82,7 +82,7 @@ MODIFICATIONS.
      <xsl:text>=====================</xsl:text>
      <xsl:call-template name="newline"/>
      <xsl:call-template name="newline"/>
-     
+
      <xsl:for-each select="population[allelecounts[not(@role='no-data')]]">
       <xsl:text>=====================</xsl:text>
       <xsl:call-template name="newline"/>
@@ -90,7 +90,7 @@ MODIFICATIONS.
       <xsl:call-template name="newline"/>
       <xsl:apply-templates select="allelecounts"/>
      </xsl:for-each>
-      
+
     </xsl:when>
 
     <xsl:when test="$output='R-output'">
@@ -104,7 +104,7 @@ MODIFICATIONS.
        <xsl:with-param name="allele-list" select="allelecounts/allele"/>
        <xsl:with-param name="all-allele-names" select="$all-allele-names"/>
       </xsl:call-template>
-      
+
       <xsl:call-template name="R-by-count">
        <xsl:with-param name="kmax" select="$kmax"/>
        <xsl:with-param name="locus-name" select="$locus-name"/>
@@ -119,7 +119,7 @@ MODIFICATIONS.
     <xsl:when test="$output='all-alleles-by-locus'">
      <xsl:value-of select="$locus-name"/>
      <xsl:text>: </xsl:text>
-     <xsl:for-each select="$all-allele-names"> 
+     <xsl:for-each select="$all-allele-names">
       <xsl:sort/>
       <xsl:value-of select="."/>
       <xsl:text> </xsl:text>
@@ -128,10 +128,10 @@ MODIFICATIONS.
     </xsl:when>
    </xsl:choose>
 
-  </xsl:for-each>   
+  </xsl:for-each>
 
  </xsl:template>
- 
+
  <xsl:template name="R-init-vectors">
   <xsl:param name="kmax"/>
   <!-- initialize a vector with appropriate number of bins -->
@@ -170,7 +170,7 @@ MODIFICATIONS.
     </xsl:otherwise>
    </xsl:choose>
 <xsl:text>
-</xsl:text>   
+</xsl:text>
 <xsl:text>allele.names[</xsl:text><xsl:value-of select="position()"/>
    <xsl:text>] = "</xsl:text>
    <xsl:value-of select="$thename"/>
@@ -237,7 +237,7 @@ rm(allele.names)
 
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"

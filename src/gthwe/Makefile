@@ -1,7 +1,7 @@
 NAME   = hwe
 NAME2 = gthwe
 
-CC      = gcc 
+CC      = gcc
 
 # add this to "CFLAGS" if XML mode is desired: -DXML_OUTPUT=1
 # add this to "CFLAGS" if you don't want the allele frequency table
@@ -38,5 +38,3 @@ $(OBJS): hwe.h func.h
 
 clean:
 	rm  $(REMOVABLE)
-
-

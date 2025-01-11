@@ -10,9 +10,9 @@
 
 2003-03-03:
 
-- 'allelecount.py': add 'HomozygosityEWSlatkinExact' to calculate 
-  homozygosity. Suggested by Yingssu. (_yingssu_: 100%-COMPLETED 
-  2003-03-05).  
+- 'allelecount.py': add 'HomozygosityEWSlatkinExact' to calculate
+  homozygosity. Suggested by Yingssu. (_yingssu_: 100%-COMPLETED
+  2003-03-05).
 
 2002-10-17:
 
@@ -54,16 +54,16 @@
 
 - 'Emhaplofreq' : Conceive in more detail, the final output to feed into
   XML-ification (_diogo_: 100%-COMPLETED 2002).
-  
-  - decide on hierarchy of output files/sections 
 
-  - decide which input parameters are reported 
+  - decide on hierarchy of output files/sections
+
+  - decide which input parameters are reported
 
   - need p-value computation?
 
   - decide what currently hard-coded values in 'emhaplofreq.h' should
-    be user-configurable via 'config.ini' 
-  
+    be user-configurable via 'config.ini'
+
 - 'Emhaplofreq' : After XML-ification, start on XSL stylesheet to
   consolidate output: each pairwise locus/allele into single table
   (_alex_: 100%-COMPLETED 2002-09-01).
@@ -99,7 +99,7 @@
 2001-09-20:
 
 - 'gthwe' : Remove extraneous information from output: table,
-  #alleles, chunkinfo, stepinfo.  (_alex_: 100%-COMPLETED 2002) 
+  #alleles, chunkinfo, stepinfo.  (_alex_: 100%-COMPLETED 2002)
 
 - Longer-term: rationalize and/or modernize code (_diogo_ / _alex_ /
   _single_).
@@ -114,7 +114,7 @@
   deviations from the total number of individuals in each input
   file).  (_alex_: 100%-COMPLETED 2001-12-04)
 
-2001-09-13: 
+2001-09-13:
 
 - "getopt-ify" emphaplofreq so that all currently hardcoded parameters
   can be passed in via command-line options.  (_alex_: 100%-COMPLETED

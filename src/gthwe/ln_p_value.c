@@ -1,7 +1,7 @@
 /* This file is part of PyPop
-  
+
   Copyright (C) 1992. Sun-Wei Guo.
-  Modifications Copyright (C) 1999, 2003, 2004. 
+  Modifications Copyright (C) 1999, 2003, 2004.
   The Regents of the University of California (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -37,7 +37,7 @@ MODIFICATIONS. */
 
   function to compute the log p value for given genotype frequencies
 
-  status: modified from g-t program 
+  status: modified from g-t program
 
   date: 12/14/99
 
@@ -51,12 +51,12 @@ double ln_p_value(int *a, int no_allele, double constant)
   double ln_prob = 0.0;
   double log_factorial();
 
-#ifdef PERMU_DEBUG  
+#ifdef PERMU_DEBUG
   printf("const=%e, ", constant);
 #endif
   ln_prob = constant;
   temp = 0;
-  
+
   for (i = 0; i < no_allele; ++i)
     {
       for (j = 0; j < i; ++j)
@@ -66,7 +66,7 @@ double ln_p_value(int *a, int no_allele, double constant)
 	  ln_prob = ln_prob - log_factorial(a[l]);
 	}
       l = LL(i, i);
-      ln_prob = ln_prob - log_factorial(a[l]); 
+      ln_prob = ln_prob - log_factorial(a[l]);
     }
 
   ln_prob = ln_prob + (temp * log(2.0));
