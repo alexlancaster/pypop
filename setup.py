@@ -212,9 +212,6 @@ ext_HweEnum = Extension(
 ext_Emhaplofreq.depends = path_to_src(
     ["SWIG/typemap.i", "emhaplofreq/emhaplofreq.h", "emhaplofreq/drand48.c"]
 )
-ext_Pvalue.depends = path_to_src(
-    ["SWIG/typemap.i", "pval/Rconfig.h", "pval/Rmath.h", "pval/dpq.h", "pval/nmath.h"]
-)
 ext_Gthwe.depends = path_to_src(["SWIG/typemap.i", "gthwe/func.h", "gthwe/hwe.h"])
 ext_Haplostats.depends = path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pin.h"])
 

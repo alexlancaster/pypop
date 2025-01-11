@@ -42,7 +42,7 @@ from tempfile import TemporaryDirectory
 from PyPop.Arlequin import ArlequinExactHWTest
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
 # this can clash with a character within an allele identifier too easily
-from PyPop.Utils import GENOTYPE_SEPARATOR, getStreamType
+from PyPop.Utils import GENOTYPE_SEPARATOR, getStreamType, pval
 
 
 def _chen_statistic(genotype, alleleFreqs, genotypes, total_gametes):
