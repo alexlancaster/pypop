@@ -1,7 +1,7 @@
 /* This file is part of PyPop
-  
+
   Copyright (C) 1992. Sun-Wei Guo.
-  Modifications Copyright (C) 1999, 2003, 2004. 
+  Modifications Copyright (C) 1999, 2003, 2004.
   The Regents of the University of California (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -35,9 +35,9 @@ MODIFICATIONS. */
 
   program name: cal_n.c
 
-  funtion to calculate n(i)
+  function to calculate n(i)
 
-  status: modified from g-t program 
+  status: modified from g-t program
 
   date: 12/14/99
 
@@ -48,12 +48,12 @@ MODIFICATIONS. */
 void cal_n(int no_allele, int *a, int *n)
 {
   register int i, j, l;
-  
+
   for (i = 0; i < no_allele; ++i)
     {
       l = LL(i, i);
       n[i] = a[l];
-      
+
       for (j = 0; j < no_allele; ++j)
 	{
 	  l = L(i, j);
@@ -61,4 +61,3 @@ void cal_n(int no_allele, int *a, int *n)
 	}
     }
 }
-

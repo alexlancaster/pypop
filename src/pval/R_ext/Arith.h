@@ -22,7 +22,7 @@
 #define R_ARITH_H_
 
 #ifdef Macintosh
-#include <fp.h> 
+#include <fp.h>
 #else
 #include <math.h>
 #endif

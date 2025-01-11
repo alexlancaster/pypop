@@ -30,7 +30,7 @@
 	* hwe.c (main): Pass in '1' (true) for generating XML open tags if
 	running from command line.
 	(run_data): New parameter, 'header'.  If true, output the XML
-	<hardyweinbergGuoThompson> tag, otherwise surpress it.
+	<hardyweinbergGuoThompson> tag, otherwise suppress it.
 	(run_randomization): Likewise new parameter.
 
 2005-05-05  Alex Lancaster  <alexl AT users.sourceforge.net>
@@ -216,7 +216,7 @@
 	output.
 
 	* hwe.c (run_data): New num_genotypes variable, initialize just
-	once. 
+	once.
 	More fixes in permutation test, don't recalculate ln_p_observed,
 	because it will be based on a changed matrix.
 	Use num_genotypes in places where total was being used
@@ -224,7 +224,7 @@
 	total number of *gametes* _not_ genotypes.
 	Fixed serious bug in estimating new genotypes, use L() macro not
 	LL() macro which takes into account if matrix is not referenced
-	using lower-triangular co-ordinates, previously, genotype (n,m)
+	using lower-triangular coordinates, previously, genotype (n,m)
 	was being treated differently to (m,n), throwing off numbers.
 	Free() (c)alloced arrays, 's' and 'g'.
 	More debug tweakage throughout.
@@ -263,7 +263,7 @@
 2004-05-17  Alex Lancaster  <alex at berkeley dot edu>
 
 	* hwe.c (run_data): Don't hardcode length of a[] and n[] arrays,
-	make them simply be pointers.  
+	make them simply be pointers.
 	(run_data): After DEBUG, fflush() stdout.
 
 	sample.group and sample.size initializations were switched, switch
@@ -271,7 +271,7 @@
 
 	* to_calculate_log.c (log_factorial): Use gsl_sf_lnfact() function
 	from the GNU Scientific Library (GSL) in place of the original log
-	factorial function, which can't handle large enought numbers.
+	factorial function, which can't handle large enough numbers.
 
 	* random_choose.c (random_choose): Make work variable dynamically
 	allocated using calloc() and free() at end of function.
@@ -379,6 +379,3 @@
 	gthwe, hwe.c, hwe.h, ln_p_value.c, new_rand.c, print_data.c,
 	random_choose.c, read_data.c, select_index.c, stamp_time.c,
 	test_switch.c, to_calculate_log.c: New files.
-
-	
-

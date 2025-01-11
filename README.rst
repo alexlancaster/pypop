@@ -11,7 +11,7 @@ of significance for linkage disequilibrium (LD). Full documentation is
 available in the `PyPop User Guide <http://pypop.org/docs>`__.
 
 .. _guide-include-pypop-cite-start:
-		       
+
 **How to cite PyPop**
 
 If you write a paper that uses PyPop in your analysis, please cite
@@ -59,20 +59,20 @@ If you write a paper that uses PyPop in your analysis, please cite
        <https://zenodo.org/doi/10.5281/zenodo.10080667>`__. This DOI
        represents **all versions**, and will always resolve to the
        latest one.
-    
+
     2) When you are viewing the record, look for the **Versions** box
        in the right-sidebar. Here are listed all versions (including
        older versions).
-    
+
     3) Select and click the version-specific DOI that matches the
        specific version of PyPop that you used for your analysis.
-    
+
     4) Once you are visiting the Zenodo record for the specific version,
        under the **Citation** box in the right-sidebar, select the
        citation format you wish to use and click to copy the citation.
        It will contain link to the version-specific DOI, and be of the
        form:
-    
+
          Lancaster, AK et al. (YYYY) "PyPop: Python for Population
          Genomics" (Version X.Y.Z) [Computer
          software]. Zenodo. https://doi.org/10.5281/zenodo.XXXXX
@@ -80,12 +80,12 @@ If you write a paper that uses PyPop in your analysis, please cite
   Note that citation metadata for the current Zenodo record is also
   stored in `CITATION.cff
   <https://github.com/alexlancaster/pypop/blob/main/CITATION.cff>`__
-   
+
 .. _guide-include-pypop-cite-end:
 
 .. _guide-include-start:
 
-.. ATTENTION:: 
+.. ATTENTION::
 
    The package name for installation purposes is |pkgname| - to avoid
    conflicting with an unrelated package with the name ``pypop``
@@ -106,7 +106,7 @@ Otherwise, follow `these instructions <Install Python 3 and pip_>`_ to install P
 
 Once |pkgname| is installed, depending on your platform, you may also
 need to `adjust <Post-install PATH adjustments_>`_ your ``PATH``
-environment variable.  
+environment variable.
 
 **Upgrading** |pkgname|
 
@@ -121,11 +121,11 @@ environment variable.
    pip uninstall pypop-genomics
 
 **For more, including handling common installation issues, see the** `detailed installation instructions`_ **.**
-   
+
 Once you have installed |pkgname|, you can move on to try some
 `example runs <Examples_>`__.
-   
-   
+
+
 .. _guide_readme_examples:
 
 Examples
@@ -206,7 +206,7 @@ beyond the scope of this guide, we recommend starting here:
    https://wiki.python.org/moin/BeginnersGuide/Download
 
 Here are some additional platform-specific notes that may be helpful:
-   
+
 - Most Linux distributions come with Python 3 preinstalled. On most
   modern systems, ``pip`` and ``python`` will default to Python 3.
 
@@ -243,7 +243,7 @@ directly from  `PyPI <https://pypi.org/>`__.
    platform), you may need to follow the `developer installation
    instructions <http://pypop.org/docs/guide-chapter-contributing.html#installation-for-developers>`_ in the contributors
    guide.
-		
+
 **Upgrade an existing PyPop installation**
 
 To update an existing installation to a newer version, use the same
@@ -266,7 +266,7 @@ used, by appending the following:
    --extra-index-url https://test.pypi.org/simple/
 
 to the above ``pip`` commands.
-   
+
 **Issues with installation permission**
 
 By default, ``pip`` will attempt to install the |pkgname|
@@ -295,7 +295,7 @@ command, i.e.:
 
 This may be necessary in certain cases where ``pip install`` doesn't
 install into the expected user directory.
-   
+
 .. admonition:: Installing within a ``conda`` environment
 
    In the special case that you installing from within an activated
@@ -303,10 +303,10 @@ install into the expected user directory.
    then you should **not** add the ``--user`` because it will install
    it in ``~/.local/lib/`` rather than under the user-specific conda
    virtual environment in ``~/.conda/envs/``.
-		
+
 Post-install ``PATH`` adjustments
 ---------------------------------
-   
+
 You may need to adjust the ``PATH`` settings (especially on Windows)
 for the ``pypop`` scripts to be visible when run from your console
 application, without having to supply the full path to the ``pypop``
@@ -327,7 +327,7 @@ executable file.
   <https://www.computerhope.com/issues/ch000549.htm>`_, this may need
   additional help from your system administrator if your user doesn't
   have the right permissions, and also require a system reboot.
-   
+
 Uninstalling PyPop
 ------------------
 
@@ -337,8 +337,8 @@ To uninstall the current version of |pkgname|:
 
    pip uninstall pypop-genomics
 
-  
-   
+
+
 Support and development
 =======================
 
@@ -348,7 +348,7 @@ GitHub issue tracker (see our `bug reporting guidelines
 for more details on how to file a good bug report):
 
    https://github.com/alexlancaster/pypop/issues
-   
+
 **Please do not report bugs via private email to developers.**
 
 The development of the code for PyPop is via our GitHub project:
@@ -390,8 +390,8 @@ PyPop is distributed under the terms of GPLv2
    :target: https://pypi.python.org/pypi/pypop-genomics/
 
 .. |PyPI pyversions| image:: https://img.shields.io/pypi/pyversions/pypop-genomics.svg
-   :target: https://pypi.python.org/pypi/pypop-genomics/	    
-	    
+   :target: https://pypi.python.org/pypi/pypop-genomics/
+
 .. |GitHub release| image:: https://img.shields.io/github/release/alexlancaster/pypop.svg
    :target: https://github.com/alexlancaster/pypop/releases/
 
@@ -399,7 +399,7 @@ PyPop is distributed under the terms of GPLv2
     :target: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml
 
 .. |GitHub license| image:: https://img.shields.io/github/license/alexlancaster/pypop.svg
-   :target: https://github.com/alexlancaster/pypop/blob/main/LICENSE	     
+   :target: https://github.com/alexlancaster/pypop/blob/main/LICENSE
 
 .. |GitHub issues| image:: https://img.shields.io/github/issues/alexlancaster/pypop.svg
     :target: https://github.com/alexlancaster/pypop/issues
@@ -409,12 +409,12 @@ PyPop is distributed under the terms of GPLv2
 
 .. |DOI| image:: https://zenodo.org/badge/DOI/10.5281/zenodo.10080667.svg
    :target: https://doi.org/10.5281/zenodo.10080667
-      
+
 .. |GitHub version| image:: https://badge.fury.io/gh/alexlancaster%2Fpypop.svg
    :target: https://github.com/alexlancaster/pypop/
 
 .. |GitHub tag| image:: https://img.shields.io/github/tag/alexlancaster/pypop.svg
-   :target: https://github.com/alexlancaster/pypop/tags/	    
+   :target: https://github.com/alexlancaster/pypop/tags/
 
 .. |Website pypop.org| image:: https://img.shields.io/website-up-down-green-red/http/pypop.org.svg
-   :target: http://pypop.org/	    
+   :target: http://pypop.org/

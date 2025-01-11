@@ -1,7 +1,7 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California (Regents) 
+  Copyright (C) 2003. The Regents of the University of California (Regents)
   All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -31,7 +31,7 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS.
 -->
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:data="any-uri">
@@ -67,14 +67,14 @@ MODIFICATIONS.
  <xsl:variable name="GL-phased-genotype-separator" select="'~'"/>
 
  <xsl:template match="/">
-  <xsl:apply-templates/> 
+  <xsl:apply-templates/>
  </xsl:template>
- 
+
  <!-- suppress output of random text -->
  <xsl:template match="text()">
   <!--  <xsl:value-of select="."/>  -->
  </xsl:template>
- 
+
  <!-- BEGIN NAMED TEMPLATE FUNCTIONS -->
 
  <xsl:template name="get-significance">
@@ -95,7 +95,7 @@ MODIFICATIONS.
   <xsl:param name="lower"/>
   <xsl:param name="upper"/>
 
-   <!-- 
+   <!--
    a two tailed test implies testing both end of distribution:
 
    5%:    0.005 < p <= 0.025 OR 0.975 <= p < 0.995        (*)
@@ -113,7 +113,7 @@ MODIFICATIONS.
 
    <xsl:when test="($upper &lt;= 0.025) or ($lower &gt;= 0.975)">1</xsl:when>
 
-<!-- more strict test, that assumes we have an exact value, rather 
+<!-- more strict test, that assumes we have an exact value, rather
      a than range
 
   <xsl:when test="($upper &lt;= 0.00005)
@@ -127,7 +127,7 @@ MODIFICATIONS.
    <xsl:when test="($upper &lt;= 0.025 and $lower &gt; 0.005)
     or ($upper &lt;= 0.995 and $lower &gt; 0.975)">1</xsl:when>
 -->
- 
+
    <xsl:otherwise>0</xsl:otherwise>
   </xsl:choose>
  </xsl:template>
@@ -156,7 +156,7 @@ MODIFICATIONS.
   <xsl:value-of select="$title"/><xsl:text> [</xsl:text><xsl:value-of select="../@name"/><xsl:text>]</xsl:text>
  </xsl:template>
 
- <!-- generates section (title w/ spacing designed to be overriden -->
+ <!-- generates section (title w/ spacing designed to be overridden -->
  <xsl:template name="section">
   <xsl:param name="level"/>
   <xsl:param name="title"/>
@@ -183,11 +183,11 @@ MODIFICATIONS.
    </xsl:with-param>
    <xsl:with-param name="underline" select="$underline"/>
   </xsl:call-template>
-  
+
   <xsl:if test="not($text='')">
    <!-- <xsl:call-template name="newline"/>  -->
    <xsl:copy-of select="$text"/>
-   <xsl:call-template name="newline"/> 
+   <xsl:call-template name="newline"/>
   </xsl:if>
 
  </xsl:template>
@@ -206,14 +206,14 @@ MODIFICATIONS.
      <xsl:apply-templates select="."/>
     </xsl:when>
     <xsl:otherwise>
-     <xsl:value-of select="."/> 
+     <xsl:value-of select="."/>
     </xsl:otherwise>
    </xsl:choose>
 
- 
+
   <!-- if field has any attribute, print them out in brackets
    separated by commas -->
-   
+
    <xsl:if test="@*!=''">
     <xsl:text> (</xsl:text>
     <xsl:for-each select="@*">
@@ -224,18 +224,18 @@ MODIFICATIONS.
      </xsl:for-each>
     <xsl:text>)</xsl:text>
    </xsl:if>
-   
+
    <xsl:call-template name="newline"/>
 
   </xsl:for-each>
- </xsl:template> 
+ </xsl:template>
 
  <!-- END NAMED TEMPLATE FUNCTIONS -->
- 
- <!-- BEGIN MATCH TEMPLATE FUNCTIONS -->
- 
 
- <!-- ####################  METADATA OUTPUT ###################### -->  
+ <!-- BEGIN MATCH TEMPLATE FUNCTIONS -->
+
+
+ <!-- ####################  METADATA OUTPUT ###################### -->
 
  <!-- TOP-LEVEL XML ELEMENT -->
 
@@ -246,10 +246,10 @@ MODIFICATIONS.
   <xsl:call-template name="newline"/>
   <xsl:call-template name="newline"/>
 
- <!-- ####################  END METADATA OUTPUT ###################### -->  
+ <!-- ####################  END METADATA OUTPUT ###################### -->
 
- <!-- ####################  POPULATION OUTPUT ######################## -->  
-  
+ <!-- ####################  POPULATION OUTPUT ######################## -->
+
   <!-- print out population-level statistics and information -->
   <xsl:apply-templates select="filename|populationdata|summaryinfo"/>
 
@@ -273,7 +273,7 @@ MODIFICATIONS.
 
     <!-- loop through each locus in turn -->
     <xsl:for-each select="locus">
-     
+
      <!-- print each locus name -->
      <xsl:call-template name="section">
       <xsl:with-param name="title">Locus: <xsl:value-of select="@name"/></xsl:with-param>
@@ -285,12 +285,12 @@ MODIFICATIONS.
 	<xsl:when test="not(allelecounts/@role='no-data')">
 	 <xsl:apply-templates select="*"/>
 	</xsl:when>
-	<!-- if no allele data is present supress processing and print message -->
+	<!-- if no allele data is present suppress processing and print message -->
 	<xsl:otherwise>
 	 <xsl:text> No data for this locus!</xsl:text>
 	</xsl:otherwise>
        </xsl:choose>
-       
+
       </xsl:with-param>
      </xsl:call-template>
     </xsl:for-each>
@@ -316,7 +316,7 @@ MODIFICATIONS.
 
    <!-- only if multi-locus analyses have been performed, print out -->
    <!-- multi-locus population stats: estimation of haplotypes and LD -->
-  
+
    <xsl:call-template name="section">
     <xsl:with-param name="title">Multi-locus Analyses</xsl:with-param>
     <xsl:with-param name="level" select="1" />
@@ -325,14 +325,14 @@ MODIFICATIONS.
      <xsl:apply-templates select="emhaplofreq"/>
     </xsl:with-param>
    </xsl:call-template>
-   
+
   </xsl:if>
 
   <xsl:if test="haplostats">
 
    <!-- only if multi-locus analyses have been performed, print out -->
    <!-- multi-locus population stats: estimation of haplotypes and LD -->
-  
+
    <xsl:call-template name="section">
     <xsl:with-param name="title">Multi-locus Analyses [haplo-stats]</xsl:with-param>
     <xsl:with-param name="level" select="1" />
@@ -341,15 +341,15 @@ MODIFICATIONS.
      <xsl:apply-templates select="haplostats"/>
     </xsl:with-param>
    </xsl:call-template>
-   
+
   </xsl:if>
 
 
  </xsl:template>
- 
+
  <!-- leave filename blank, this is output in a different context  -->
  <xsl:template match="filename"/>
- 
+
  <!-- metadata `header' block -->
  <xsl:template match="populationdata">
   <xsl:call-template name="section">
@@ -379,7 +379,7 @@ MODIFICATIONS.
  length to use in padding for the population summary -->
  <xsl:param name="metadata-max-len">
   <xsl:call-template name="max-string-len">
-   <xsl:with-param name="path" 
+   <xsl:with-param name="path"
     select="document('')//data:pop-col-headers/text"/>
   </xsl:call-template>
  </xsl:param>
@@ -392,7 +392,7 @@ MODIFICATIONS.
   <xsl:variable name="node-name" select="name($field)"/>
 
   <!-- use the lookup-table to get the verbose (human-readable)
-   version of the metadata element if such an element does not  
+   version of the metadata element if such an element does not
    exist in the lookup-table, use the XML element name -->
   <xsl:call-template name="prepend-pad">
    <xsl:with-param name="padVar">
@@ -412,7 +412,7 @@ MODIFICATIONS.
   <xsl:value-of select="$field"/>
   <xsl:call-template name="newline"/>
  </xsl:template>
- 
+
  <!-- metadata totals -->
  <xsl:template match="summaryinfo">
   <xsl:call-template name="section">
@@ -423,7 +423,7 @@ MODIFICATIONS.
    </xsl:with-param>
   </xsl:call-template>
  </xsl:template>
- 
+
  <!-- these next 3 templates print out the same data which can be used
  in different contexts: both for population-level stats and individual
  loci -->
@@ -433,13 +433,13 @@ MODIFICATIONS.
   <xsl:value-of select="."/>
   <xsl:call-template name="newline"/>
  </xsl:template>
- 
+
  <xsl:template match="allelecount">
   <xsl:text>Allele Count (2n): </xsl:text>
   <xsl:value-of select="."/>
   <xsl:call-template name="newline"/>
  </xsl:template>
- 
+
  <xsl:template match="locuscount">
   <xsl:text>Total loci in file: </xsl:text>
   <xsl:value-of select="."/>
@@ -489,10 +489,10 @@ MODIFICATIONS.
   <xsl:call-template name="newline"/>
  </xsl:template>
 
- <!-- ####################  END POPULATION OUTPUT ##################### -->  
+ <!-- ####################  END POPULATION OUTPUT ##################### -->
 
- <!-- #################  ALLELE COUNT STATISTICS ###################### --> 
- 
+ <!-- #################  ALLELE COUNT STATISTICS ###################### -->
+
  <xsl:template match="allelecounts">
   <xsl:call-template name="section">
    <xsl:with-param name="title">
@@ -504,18 +504,18 @@ MODIFICATIONS.
    <xsl:with-param name="text">
 
     <xsl:choose>
-     
+
      <!-- if there's no data, don't do anything -->
      <xsl:when test="@role='no-data'">
       <xsl:text>No allele data!</xsl:text>
       <xsl:call-template name="newline"/>
      </xsl:when>
-     
+
      <xsl:otherwise>
-      
+
       <!-- do all the non-allelecount templates -->
       <xsl:apply-templates select="*[not(self::allele)]" />
-      
+
       <xsl:call-template name="newline"/>
 
       <xsl:variable name="allele-pad-len">
@@ -533,24 +533,24 @@ MODIFICATIONS.
 	  <xsl:with-param name="header" select="'(Count)'"/>
 	</xsl:call-template>
       </xsl:variable>
-      
+
       <!-- save header as a string to go at end of both tables -->
       <xsl:variable name="header-as-string">
        <xsl:call-template name="append-pad">
 	<xsl:with-param name="padVar" select="'Name'"/>
 	<xsl:with-param name="length" select="$allele-pad-len"/>
        </xsl:call-template>
-       
+
        <xsl:call-template name="append-pad">
 	<xsl:with-param name="padVar" select="'Frequency'"/>
 	<xsl:with-param name="length" select="$freq-pad-len"/>
        </xsl:call-template>
-       
+
        <xsl:call-template name="append-pad">
 	<xsl:with-param name="padVar" select="'(Count)'"/>
 	<xsl:with-param name="length" select="$count-pad-len"/>
        </xsl:call-template>
-       
+
        <xsl:call-template name="newline"/>
       </xsl:variable>
 
@@ -572,20 +572,20 @@ MODIFICATIONS.
       </xsl:variable>
 
       <!-- create the allele count outputs in strings -->
-      
+
       <!-- hold allele counts ordered by frequency in string -->
       <xsl:variable name="allelecounts-by-frequency">
-       
+
        <!-- create a header for table -->
        <xsl:call-template name="append-pad">
 	<xsl:with-param name="padVar" select="'Counts ordered by frequency'"/>
 	<xsl:with-param name="length" select="$allele-pad-len + $freq-pad-len + $count-pad-len"/>
        </xsl:call-template>
-       
+
        <xsl:call-template name="newline"/>
-       
+
        <xsl:value-of select="$header-as-string"/>
-       
+
        <!-- loop through each allele by count/frequency -->
        <xsl:for-each select="allele">
 	<xsl:sort select="count" data-type="number" order="descending"/>
@@ -610,21 +610,21 @@ MODIFICATIONS.
 
        <!-- print out the totals at end of table -->
        <xsl:value-of select="$totals-as-string"/>
-      </xsl:variable>      
-       
+      </xsl:variable>
+
       <!-- hold allele counts ordered by name in string -->
       <xsl:variable name="allelecounts-by-name">
-       
+
        <!-- create a header for table -->
        <xsl:call-template name="append-pad">
 	<xsl:with-param name="padVar" select="'Counts ordered by name'"/>
 	<xsl:with-param name="length" select="$allele-pad-len + $freq-pad-len + $count-pad-len"/>
        </xsl:call-template>
-       
+
        <xsl:call-template name="newline"/>
 
        <xsl:value-of select="$header-as-string"/>
-       
+
        <!-- loop through each allele by name-->
        <xsl:for-each select="allele">
 	<xsl:sort select="@name" data-type="text" order="ascending"/>
@@ -651,7 +651,7 @@ MODIFICATIONS.
        <xsl:value-of select="$totals-as-string"/>
 
       </xsl:variable>
-      
+
       <!-- paste the allelecounts ordered by frequency and name side-by-side -->
       <xsl:call-template name="paste-columns">
        <xsl:with-param name="col1" select="$allelecounts-by-frequency"/>
@@ -679,7 +679,7 @@ MODIFICATIONS.
   </xsl:call-template>
  </xsl:template>
 
- <!-- ############### END ALLELE COUNT STATISTICS ###################### --> 
+ <!-- ############### END ALLELE COUNT STATISTICS ###################### -->
 
  <!-- standard pvalue output, common to other modules -->
  <xsl:template match="pvalue" name="pvalue-func">
@@ -718,7 +718,7 @@ MODIFICATIONS.
   <xsl:param name="upper" select="upper"/>
 
   <xsl:value-of select="$lower"/><xsl:text disable-output-escaping="yes"> &lt; p &lt;= </xsl:text><xsl:value-of select="$upper"/>
-  <xsl:text> </xsl:text> 
+  <xsl:text> </xsl:text>
 
   <xsl:call-template name="append-pad">
    <xsl:with-param name="padChar">*</xsl:with-param>
@@ -733,10 +733,10 @@ MODIFICATIONS.
   </xsl:template>
 
  <!-- END MATCH TEMPLATE FUNCTIONS -->
- 
+
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"

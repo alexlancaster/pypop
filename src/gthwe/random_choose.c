@@ -1,7 +1,7 @@
 /* This file is part of PyPop
-  
+
   Copyright (C) 1992. Sun-Wei Guo.
-  Modifications Copyright (C) 1999, 2003, 2004. 
+  Modifications Copyright (C) 1999, 2003, 2004.
   The Regents of the University of California (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -32,7 +32,7 @@ TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS. */
 
 /***********************************************************************
-  function to randomly choose two integer numbers, k1 and k2, between 0 
+  function to randomly choose two integer numbers, k1 and k2, between 0
   and k - 1.  ( 0 <= k1 < k2 < k )
 
   status: modified from g-t program
@@ -76,4 +76,3 @@ void random_choose(int *k1, int *k2, int k)
 	}
 	free(work);
 }
-

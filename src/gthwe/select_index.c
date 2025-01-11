@@ -1,7 +1,7 @@
 /* This file is part of PyPop
-  
+
   Copyright (C) 1992. Sun-Wei Guo.
-  Modifications Copyright (C) 1999, 2003, 2004. 
+  Modifications Copyright (C) 1999, 2003, 2004.
   The Regents of the University of California (Regents) All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -92,4 +92,3 @@ void select_index(index, no_allele)
 
 	index->cst = (l == 1) ? pow((double)2, (double) k) : pow((double)2, -(double) k);
 }
-
