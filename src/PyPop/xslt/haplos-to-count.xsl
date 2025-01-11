@@ -1,7 +1,7 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California (Regents) 
+  Copyright (C) 2003. The Regents of the University of California (Regents)
   All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -31,7 +31,7 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS.
 -->
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
  xmlns:exsl="http://exslt.org/common"
@@ -45,7 +45,7 @@ MODIFICATIONS.
  <xsl:template match="text()"/>
 
  <xsl:param name="limit" select="0.0"/>
- 
+
  <xsl:template match="/">
   <xsl:apply-templates/>
  </xsl:template>
@@ -58,7 +58,7 @@ MODIFICATIONS.
  -->
 
  <xsl:template match="emhaplofreq/group[(string-length(@loci) -
-  string-length(translate(@loci, ':', '')))=2 and not(@role='no-data')]"> 
+  string-length(translate(@loci, ':', '')))=2 and not(@role='no-data')]">
 
   <xsl:text>filename	N	2N summed</xsl:text>
   <xsl:call-template name="newline"/>
@@ -67,7 +67,7 @@ MODIFICATIONS.
   <xsl:value-of select="individcount[@role='after-filtering']"/>
   <xsl:text>	</xsl:text>
   <xsl:value-of select="sum(haplotypefreq/haplotype/numCopies)"/>
-  
+
   <xsl:call-template name="newline"/>
 
   <xsl:variable name="loci-array" select="str:tokenize(@loci, ':')"/>
@@ -100,7 +100,7 @@ MODIFICATIONS.
 
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"
@@ -108,4 +108,3 @@ sgml-indent-step: 1
 sgml-indent-data: 1
 End:
 -->
- 

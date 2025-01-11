@@ -1,4 +1,4 @@
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
@@ -7,7 +7,7 @@
  <!-- select "text" as output method -->
  <xsl:output method="text" omit-xml-declaration="yes"/>
 
- <xsl:template match="hardyweinbergGuoThompson"/>	
+ <xsl:template match="hardyweinbergGuoThompson"/>
 
  <!--  <xsl:template match="emhaplofreq"/> -->
 
@@ -18,13 +18,13 @@
   <xsl:call-template name="newline"/>
 
   <xsl:choose>
-  
+
    <!-- if there's no data, don't do anything -->
    <xsl:when test="@role='no-data'">
     <xsl:text>No allele data!</xsl:text>
     <xsl:call-template name="newline"/>
    </xsl:when>
-   
+
    <xsl:otherwise>
     <!-- do all the non-allelecount templates -->
     <xsl:apply-templates select="*[not(self::allele)]"/>
@@ -34,7 +34,7 @@
     <!-- create a header for table -->
     <xsl:text>Name      Frequency (Count)</xsl:text>
     <xsl:call-template name="newline"/>
-    
+
     <!-- loop through each allele-->
     <xsl:for-each select="allele">
      <xsl:sort select="count" data-type="number" order="descending"/>
@@ -46,7 +46,7 @@
      </xsl:for-each>
      <xsl:call-template name="newline"/>
     </xsl:for-each>
-    
+
     <!-- print out the totals at end of table -->
     <xsl:call-template name="append-pad">
      <xsl:with-param name="padVar">Total</xsl:with-param>
@@ -84,7 +84,7 @@
 
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"

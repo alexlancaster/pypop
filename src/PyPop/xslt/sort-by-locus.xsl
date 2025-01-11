@@ -1,7 +1,7 @@
 <!--
 This file is part of PyPop
 
-  Copyright (C) 2003. The Regents of the University of California (Regents) 
+  Copyright (C) 2003. The Regents of the University of California (Regents)
   All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
@@ -31,7 +31,7 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS.
 -->
-<xsl:stylesheet 
+<xsl:stylesheet
  version='1.0'
  xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
@@ -67,20 +67,20 @@ MODIFICATIONS.
      <xsl:value-of select="@name"/>
     </xsl:attribute>
 
-    <xsl:call-template name="newline"/> 
+    <xsl:call-template name="newline"/>
 
     <xsl:for-each select="key('loci',@name)">
      <xsl:message><xsl:value-of select="allelecounts/allelecount"/> <xsl:value-of select="$two-en"/></xsl:message>
      <xsl:if test="allelecounts/allelecount &gt;= $two-en and allelecounts/distinctalleles &gt;= $k">
      <xsl:element name="population">
-      <xsl:call-template name="newline"/> 
+      <xsl:call-template name="newline"/>
 
-      <xsl:element name="popname">     
+      <xsl:element name="popname">
        <xsl:value-of select="../populationdata/popname"/>
       </xsl:element>
       <xsl:call-template name="newline"/>
 
-      <xsl:element name="filename">     
+      <xsl:element name="filename">
        <xsl:value-of select="../filename"/>
       </xsl:element>
       <xsl:call-template name="newline"/>
@@ -106,7 +106,7 @@ MODIFICATIONS.
 
 </xsl:stylesheet>
 
-<!-- 
+<!--
 Local variables:
 mode: xml
 sgml-default-dtd-file: "xsl.ced"

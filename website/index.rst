@@ -1,6 +1,6 @@
 .. _guide-preface-intro:
 
-=====================================   
+=====================================
 PyPop: Python for Population Genomics
 =====================================
 
@@ -23,19 +23,35 @@ large-scale population genetic analyses including:
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
+  * 2025-01-05: Pre-release `PyPop 1.1.3rc1
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.3-rc1>`__
+    is now available. Experimental wheels for Windows ARM64 are
+    available via `Test PyPI
+    <https://test.pypi.org/project/pypop-genomics/>`__. If you're on
+    Windows ARM64, install using:
+
+    .. code-block:: shell
+
+       pip install --pre --extra-index-url https://test.pypi.org/simple/ pypop-genomics
+
+    Please test and report issues `via the bug tracker
+    <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BWindows+ARM64+bug%5D%3A+Please+replace+this+with+a+clear+and+concise+description+of+your+bug>`__. Note
+    that if you are installing on a non-Windows ARM64, you can use the
+    regular PyPI repository:
+
+    .. code-block:: shell
+
+       pip install --pre pypop-genomics
+
   * 2024-11-18: `PyPop 1.1.2
     <https://github.com/alexlancaster/pypop/releases/tag/v1.1.2>`__
-    released and available on `PyPI
-    <https://pypi.org/project/pypop-genomics/>`__.
+    released: adds ``--citation`` command-line option to print citation
+    information and updates ``numpy`` to 2.1.3
 
-    - Add ``--citation`` command-line option to print citation
-      information for the installed release.
-    - ``numpy`` dependency update to 2.1.3
-	  
   * 2024-09-10: `PyPop 1.1.1
     <https://github.com/alexlancaster/pypop/releases/tag/v1.1.1>`__
     released, enables support for Python 3.13 and build Python 3.13 wheels.
-	  
+
   * 2024-05-30: `PyPop 1.1.0
     <https://github.com/alexlancaster/pypop/releases/tag/v1.1.0>`__
     released. Increases the minimum macOS requirements to Catalina
@@ -46,25 +62,25 @@ large-scale population genetic analyses including:
   * 2024-04-01: PyPop paper `published
     <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
     in *Frontiers in Immunology*, :ref:`see citing PyPop <citing-pypop>` for details.
-  * 2024-03-08: PyPop paper, provisionally accepted.
-  * 2024-02-24: `PyPop 1.0.2
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.0.2>`__
-    released. Code scanning updates and updated ``numpy`` to 1.26.4
-
-  * 2024-02-11: `PyPop 1.0.1
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.0.1>`__
-    released. Added support for ``ARM64`` for Windows and Linux, and
-    also ``muslinux`` wheels. Improved support for scientific notation.
-     
-  * 2024-02-01: `Preprint <https://zenodo.org/records/10602940>`__
-    describing 1.0.0 released on Zenodo.
-  * 2023-11-07: `PyPop 1.0.0
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.0.0>`__
-    released
 
   * More details, including recent previous releases:
 
-   .. toggle:: 
+   .. toggle::
+    - 2024-03-08: PyPop paper, provisionally accepted.
+    - 2024-02-24: `PyPop 1.0.2
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.0.2>`__
+      released. Code scanning updates and updated ``numpy`` to 1.26.4
+
+    - 2024-02-11: `PyPop 1.0.1
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.0.1>`__
+      released. Added support for ``ARM64`` for Linux, and also
+      ``muslinux`` wheels. Improved support for scientific notation.
+
+    - 2024-02-01: `Preprint <https://zenodo.org/records/10602940>`__
+      describing 1.0.0 released on Zenodo.
+    - 2023-11-07: `PyPop 1.0.0
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.0.0>`__
+      released
 
     - Highlights of PyPop 1.0.0 include:
 
@@ -78,7 +94,7 @@ large-scale population genetic analyses including:
         framework and PyPI package
       * and even more minor features and bug fixes... (see
         `NEWS.md <https://github.com/alexlancaster/pypop/blob/main/NEWS.md#100---2023-11-07>`__).
-      
+
     - 2023-11-04: release candidate 2 (1.0.0rc2) released. Fixes some
       missing TSV output.
     - 2023-11-01: release candidate 1 (1.0.0rc1) released.
@@ -98,12 +114,12 @@ large-scale population genetic analyses including:
     - 2022: 0.7.0 binaries deprecated.
     - 2020: pypop is no longer a Fedora package (to be replaced by PyPI package)
     - 2017: all new development is now in GitHub
-   
-  * See the :ref:`PyPop Release History` in the `Python User Guide`
+
+  * See the :ref:`PyPop Release History` in the *Python User Guide*
     for even earlier history and full release notes.
 
-.. _guide-preface-2-start:  
-   
+.. _guide-preface-2-start:
+
 PyPop is an object-oriented framework implemented in `Python
 <https://www.python.org/>`__, but also contains C extensions for some
 computationally intensive tasks. Output of analyses are stored in XML
@@ -175,7 +191,7 @@ Two previous papers are also available (but not necessary to cite):
   Scientific, Singapore, 2003) [`PubMed Central
   <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/>`__, `PDF
   (344 kB) <http://pypop.org/psb-pypop.pdf>`__].
-		
+
 PyPop was originally developed for the analysis of data for the 13th
 `International Histocompatiblity Workshop and Conference
 <http://www.ihwg.org/>`__ held in Seattle, Washington in 2002
@@ -186,7 +202,7 @@ consult :cite:t:`lancaster_pypop_2003`,
 
 .. _acknowlegements:
 
-**Acknowlegements**
+**Acknowledgements**
 
 This work has benefited from the support of NIH grant AI49213 (13th
 IHW) and NIH/NIAID Contract number HHSN266200400076C

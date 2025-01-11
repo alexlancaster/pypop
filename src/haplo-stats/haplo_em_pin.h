@@ -4,21 +4,21 @@
 /* $Locker:  $ */
 
 /*
-*License: 
+*License:
 *
-*Copyright 2003 Mayo Foundation for Medical Education and Research. 
+*Copyright 2003 Mayo Foundation for Medical Education and Research.
 *
-*This program is free software; you can redistribute it and/or modify it under the terms of 
-*the GNU General Public License as published by the Free Software Foundation; either 
+*This program is free software; you can redistribute it and/or modify it under the terms of
+*the GNU General Public License as published by the Free Software Foundation; either
 *version 2 of the License, or (at your option) any later version.
 *
-*This program is distributed in the hope that it will be useful, but WITHOUT ANY 
-*WARRANTY; without even the implied warranty of MERCHANTABILITY or 
-*FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for 
+*This program is distributed in the hope that it will be useful, but WITHOUT ANY
+*WARRANTY; without even the implied warranty of MERCHANTABILITY or
+*FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for
 *more details.
 *
-*You should have received a copy of the GNU General Public License along with this 
-*program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, 
+*You should have received a copy of the GNU General Public License along with this
+*program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
 *Boston, MA 02111-1307 USA
 *
 *For other licensing arrangements, please contact Daniel J. Schaid.
@@ -32,7 +32,7 @@
 *
 *phone: 507-284-0639
 *fax:      507-284-9542
-*email: schaid@mayo.edu 
+*email: schaid@mayo.edu
 */
 
 #define R_chk_calloc calloc
@@ -88,7 +88,7 @@ static int CDECL cmp_hap_code(const void *to_one, const void *to_two);
 
 static int code_haps(int n_hap, HAP **hap_list);
 
-static int hap_enum(HAP ***hap_list_ptr, double **prior_ptr, int *max_haps, int *n_alleles, int insert_loc, 
+static int hap_enum(HAP ***hap_list_ptr, double **prior_ptr, int *max_haps, int *n_alleles, int insert_loc,
 		     int n_hap, int *pair_id);
 
 static HAP* copy_hap(HAP *old);
@@ -98,7 +98,7 @@ static int num_het(HAP* h1,HAP* h2);
 static void hap_prior(int n_hap, HAP** hap_list, double *prior, int n_u_hap,
                       double min_prior);
 
-static int hap_posterior(int n_hap, HAP **hap_list, double *prior, 
+static int hap_posterior(int n_hap, HAP **hap_list, double *prior,
 			  int n_u_hap, double min_posterior, double *lnlike);
 
 static int **int_vec_to_mat(int *Yvec, int nrow, int ncol);
@@ -127,9 +127,9 @@ static void divideKeep(HAP **hap_list, int n, int *nReturn);
 
 static void add_more_memory(HAP ***hap_list, double **prior,int *max_haps);
 
-static void insert_new_hap_pair(HAP ***hap_list_ptr, double **prior_ptr, 
+static void insert_new_hap_pair(HAP ***hap_list_ptr, double **prior_ptr,
                                 int *max_haps, int insert_loc,
-                                HAP *h1_old, HAP *h2_old, 
+                                HAP *h1_old, HAP *h2_old,
                                 int a1_new, int a2_new,
                                 int *pair_id, int *j);
 

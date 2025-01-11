@@ -41,7 +41,7 @@ double pval(double chisq, double df) {
 
 int main(int argc, char **argv) {
   double df, chisq;
-  
+
   if(argc !=3)
     {
       fprintf(stderr, "Usage: pval <degreesoffreedom> <chisquarevalue>\n");
@@ -56,4 +56,3 @@ int main(int argc, char **argv) {
 
   return 0;
 }
-

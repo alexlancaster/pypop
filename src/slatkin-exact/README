@@ -24,8 +24,8 @@ tests as described in two papers in Genetical Research (1994, 64: 71-74) and
 
 There are two programs, the ENUMERATION and the MONTE CARLO.  ENUMERATION
 provides exact results for relatively small data sets by enumerating
-all possible configurations of the data for given value of n, the sample 
-size, and k, the number of allele.  MONTE CARLO performs a Monte Carlo simulation 
+all possible configurations of the data for given value of n, the sample
+size, and k, the number of allele.  MONTE CARLO performs a Monte Carlo simulation
 to provide approximate results and works on samples of any size.
 For a given data set, the results from MONTE CARLO should converge on those
 from ENUMERATE as the number of replicates increases.
@@ -37,8 +37,8 @@ line arguments.  You will have to check you manual to find out how to do it.
 
 The input for the two programs is different.
 
-For the ENUMERATE, the arguments are the elements of the configuration in 
-nonincreasing order.  You do not need to enter n and k.  If you enter 
+For the ENUMERATE, the arguments are the elements of the configuration in
+nonincreasing order.  You do not need to enter n and k.  If you enter
 9 2 1 1 1 1 1 as parameters, ENUMERATE should respond
 
 n = 16, k = 7, theta = 4.184877, F = 0.351563
@@ -54,7 +54,7 @@ MONTE CARLO should be used instead.  See the comment at the beginning of
 that program for its input format and use.
 
 On a Sun, you may have problems unless you have a gcc compiler, which is what
-I have used.  
+I have used.
 
 Montgomery Slatkin
 September 29, 1997

@@ -30,30 +30,30 @@ ANY, PROVIDED HEREUNDER IS PROVIDED "AS IS". REGENTS HAS NO OBLIGATION
 TO PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR
 MODIFICATIONS. */
 
-/* a translation from Richard Single's awk programme */ 
+/* a translation from Richard Single's awk programme */
 
-#define NAME_LEN    22       /* 10 chars for allele name, plus colon and null */ 
-#define LINE_LEN    132      /* RS changed from 120 to 132=6*2*(10+1) */ 
-#define MAX_ROWS    10000     /* increased from 1023                   */ 
+#define NAME_LEN    22       /* 10 chars for allele name, plus colon and null */
+#define LINE_LEN    132      /* RS changed from 120 to 132=6*2*(10+1) */
+#define MAX_ROWS    10000     /* increased from 1023                   */
 #define MAX_ALLELES 200      /* increased from 80 for a large dataset */
 #define MAX_LOCI    5
-#define MAX_COLS    MAX_LOCI * 2 
-                             /* max genotypes:  2^max_loci*max_rows */ 
+#define MAX_COLS    MAX_LOCI * 2
+                             /* max genotypes:  2^max_loci*max_rows */
 #define MAX_GENOS   300000    /* RS changed from 64*MAX_ROWS and then 20000 */
 #define MAX_HAPLOS  30000    /* RS added and changed declaration in main_proc */
- 
-#define CRITERION   0.000001 
+
+#define CRITERION   0.000001
 #define MAX_ITER    400      /* RS changed from 200 */
- 
-#define FALSE 0 
-#define TRUE  1 
- 
-#define MAX_INIT 50 
+
+#define FALSE 0
+#define TRUE  1
+
+#define MAX_INIT 50
 
 #define MAX_GENOS_PER_PHENO 64 /* 2^(max_loci - 1) */
 
 #define MAX_PERMU 1001
-#define MAX_INIT_FOR_PERMU 5 
+#define MAX_INIT_FOR_PERMU 5
 
 #ifdef EXTERNAL_MODE
 #define FP_ITER fp_out
@@ -76,7 +76,7 @@ MODIFICATIONS. */
 #define srand48(x) srand48_windows(x)
 #endif
 
-/* 
+/*
  * macros to initialize elements of a given static array to `zero'
  * make sure that functions are `re-entrant' (i.e. don't carry bogus
  * data over from previous invocations) and are therefore idempotent
