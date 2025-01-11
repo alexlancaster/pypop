@@ -483,7 +483,7 @@ int quantile_print(double *Fvals, int limit)
   /* for each quantile entry in the quants array */
   /* print out the entry at that position in the */
   /* array of F values.                          */
-  for(i = 0; i < sizeof(quants) / sizeof(double); i++)
+  for(size_t i = 0; i < sizeof(quants) / sizeof(double); i++)
     fprintf(stdout, "%-19.6f %.5f\n", Fvals[(int)(quants[i] * limit) - 1], quants[i]);
   fprintf(stdout, "\n");
 
