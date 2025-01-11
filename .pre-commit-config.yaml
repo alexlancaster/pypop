@@ -43,6 +43,16 @@ repos:
       - id: rst-backticks
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
+
+    # for checking C extension code
+#  - repo: https://github.com/ItsZcx/pre-commit-hooks
+#    rev: v1.4.0
+#    hooks:
+#      - id: clang-format
+#      - id: cppcheck
+#        files: \.(c|h)$
+#        args: ['--enable=style,warning,portability,performance,missingInclude']
+
 # FIXME: enable for debugging hooks
 #  - repo: meta
 #    hooks:

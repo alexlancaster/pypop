@@ -40,7 +40,7 @@ MODIFICATIONS. */
 
 /* prototype for internal inclusion */
 %{
-#include "emhaplofreq.h"  
+#include "emhaplofreq.h"
 extern int main_proc(char *, char [MAX_ROWS][MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int, int, char [], char []);
 %}
 
