@@ -534,13 +534,12 @@ class Emhaplofreq(Haplo):
 
                 with TemporaryDirectory() as tmp:
                     # generates temporary directory and filename, and cleans-up after block ends
-                    xml_tmp_filename = Path(tmp) / "emhaplofreq.out.xml"
+                    # need to convert from pathlib to string for C function
+                    xml_tmp_filename = str(Path(tmp) / "emhaplofreq.out.xml")
 
                     # pass this submatrix to the SWIG-ed C function
                     self._Emhaplofreq.main_proc(
-                        str(
-                            xml_tmp_filename
-                        ),  # need to convert from pathlib to string for C function
+                        xml_tmp_filename,
                         subMatrix,
                         lociCount,
                         groupNumIndiv,

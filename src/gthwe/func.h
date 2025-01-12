@@ -42,7 +42,7 @@ MODIFICATIONS. */
 
 ***************************************************************************/
 
-#include  <stdio.h>
+#include <stdio.h>
 
 char *ctime();
 long int longmult(long p, long q);
@@ -66,22 +66,22 @@ void select_index();
 void cal_n();
 void stamp_time();
 
-double diff_statistic(int i, int j, int total_gametes,
-		      int *allele_array, int *genotypes);
+double diff_statistic(int i, int j, int total_gametes, int *allele_array,
+                      int *genotypes);
 
-double chen_statistic (int i, int j, int total_gametes,
-		       int *allele_array, int *genotypes);
+double chen_statistic(int i, int j, int total_gametes, int *allele_array,
+                      int *genotypes);
 
 void init_stats(char *statistic_type,
-		double (*statistic_func) (int, int, int, int *, int *),
-		double *obs_normdev, int no_allele, int total_individuals,
-		int *allele_array, int *genotypes,  FILE *outfile);
+                double (*statistic_func)(int, int, int, int *, int *),
+                double *obs_normdev, int no_allele, int total_individuals,
+                int *allele_array, int *genotypes, FILE *outfile);
 
-void store_stats(char *statistic_type, double (*statistic_func)
-		 (int, int, int, int *, int *),
-		 double *obs_normdev, int *normdev_count,
-		 int no_allele, int total_individuals,
-		 int *allele_array, int *genotypes, FILE *outfile);
+void store_stats(char *statistic_type,
+                 double (*statistic_func)(int, int, int, int *, int *),
+                 double *obs_normdev, int *normdev_count, int no_allele,
+                 int total_individuals, int *allele_array, int *genotypes,
+                 FILE *outfile);
 
-void print_stats(char *statistic_type, int *normdev_count,
-		 int no_allele, double steps, FILE *outfile);
+void print_stats(char *statistic_type, int *normdev_count, int no_allele,
+                 double steps, FILE *outfile);
