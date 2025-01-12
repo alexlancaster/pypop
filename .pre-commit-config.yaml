@@ -67,6 +67,7 @@ repos:
 #    hooks:
 #    - id: identity
 
+# global excludes for all hooks
 exclude: 'tests/data/.*|data/.*|website/reference/.*|src/obsolete/.*|website/html_root/.*'
 
 ci:
