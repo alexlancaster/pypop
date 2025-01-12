@@ -42,15 +42,17 @@ replicates is more than sufficient but you can try different values to
 find out for yourself.
 */
 
-#include <stdio.h>
+#include <errno.h>
 #include <math.h>
 #include <stddef.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <errno.h>
 
-#define min(x, y)  (((x) < (y)) ? x : y)
-#define KLIMIT 100 /* changed from original 40--seen what HLA-B is up to now? */
+#define min(x, y) (((x) < (y)) ? x : y)
+#define KLIMIT                                                                 \
+  100 /* changed from original 40--seen what HLA-B is up to now?               \
+       */
 #define NR_END 1
 
 /* function prototypes for Slatkin's original */
@@ -75,8 +77,7 @@ static int seed;
 /* declare static global variables */
 static double theta, P_E, P_H, E_F, Var_F, F_obs;
 
-int main(int argc, char **argv)
-{
+int main(int argc, char **argv) {
   int k, n, maxrep, i;
   long start_time, finish_time, net_time;
   static int r_obs[KLIMIT];
@@ -85,18 +86,20 @@ int main(int argc, char **argv)
   /* = {0, 40, 3, 3, 1, 0}; */
 
   /*  Rwandan DRB1 data
-     int r_obs[] = {0, 95, 87, 81, 52, 44, 32, 32, 31, 27, 24, 23, 20, 19, 12, 6, 6, 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}; */
+     int r_obs[] = {0, 95, 87, 81, 52, 44, 32, 32, 31, 27, 24, 23, 20, 19, 12,
+     6, 6, 5, 4, 4, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
+     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0}; */
 
   /*  Bedouin DRB1 data
-     int r_obs[] = {0, 32, 32, 30, 18, 15, 14, 13, 11, 10, 7, 6, 6, 5, 4, 4, 3, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0};  */
+     int r_obs[] = {0, 32, 32, 30, 18, 15, 14, 13, 11, 10, 7, 6, 6, 5, 4, 4, 3,
+     2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0};  */
 
   /*  int r_obs[] = {0, YOUR DATA HERE, 0};  */
   /*  int r_obs[] = {0, 30, 62, 97, 15, 53, 18, 55, 35, 57, 14866,
      160, 439, 18, 356, 165, 40, 41, 14, 27, 36, 39, 23, 120, 209, 0};
      //  CF alleles from North Europe: P_H = 0.9977   */
 
-  if (argc < 2)
-  {
+  if (argc < 2) {
     fprintf(stderr, "Specify the number of replicates on the command line\n");
     exit(EXIT_FAILURE);
   }
@@ -106,8 +109,7 @@ int main(int argc, char **argv)
 
   maxrep = (int)strtol(argv[1], (char **)NULL, 10);
 
-  if(errno != 0)
-  {
+  if (errno != 0) {
     perror("\nToo many replicates requested");
     fprintf(stderr, "\n");
     exit(EXIT_FAILURE);
@@ -121,8 +123,7 @@ int main(int argc, char **argv)
   /* reconstruct array in format as expected by original program */
   /* with leading and trailing zeroes */
   r_obs[0] = 0;
-  for (i = 1; i <= k; i++)
-  {
+  for (i = 1; i <= k; i++) {
     r_obs[i] = atoi(argv[i + 1]);
     n += r_obs[i];
   }
@@ -145,11 +146,10 @@ int main(int argc, char **argv)
     fprintf(stdout, "Program took %4.2f minutes\n", net_time / 60.0);
 #endif
 
-  return(EXIT_SUCCESS);
+  return (EXIT_SUCCESS);
 }
 
-int main_proc(int r_obs[], int k, int n, int maxrep)
-{
+int main_proc(int r_obs[], int k, int n, int maxrep) {
   int initseed = 13840399;
   int i, j, repno, Ecount, Fcount;
   int *r_random;
@@ -165,19 +165,18 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
   void free_ivector(int *v, long nl, long nh);
   void gsrand(int seed);
 
-  double Ftot, Fsq_tot;	/* added by DM */
+  double Ftot, Fsq_tot; /* added by DM */
   double *Fvalues;
 
   gsrand(initseed);
 
   r_random = ivector(0, k + 1);
   r_random[0] = r_random[k + 1] = 0;
-  ranvec = vector(1, k - 1);	/* to avoid doing this in each replicate */
+  ranvec = vector(1, k - 1); /* to avoid doing this in each replicate */
 
   Fvalues = (double *)malloc(maxrep * sizeof(double));
 
-  if(!Fvalues)
-  {
+  if (!Fvalues) {
     perror("\nmalloc failed for Fvalues");
     fprintf(stderr, "\n");
     exit(EXIT_FAILURE);
@@ -188,8 +187,7 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
   b = matrix(1, k, 1, n);
   for (j = 1; j <= n; j++)
     b[1][j] = 1.0 / j;
-  for (i = 2; i <= k; i++)
-  {
+  for (i = 2; i <= k; i++) {
     b[i][i] = 1.0;
     for (j = i; j < n; j++)
       b[i][j + 1] = (i * b[i - 1][j] + j * b[i][j]) / (j + 1.0);
@@ -203,9 +201,7 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
   Fcount = 0;
   Ftot = Fsq_tot = (double)0;
 
-
-  for (repno = 0; repno < maxrep; repno++)
-  {
+  for (repno = 0; repno < maxrep; repno++) {
     generate(k, n, r_random, ranvec, b);
 
     /* lines for getting the expected F, DM, mpn */
@@ -225,13 +221,13 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
   P_E = (double)Ecount / maxrep;
   P_H = (double)Fcount / maxrep;
 
-/* begin calculating the expected F, and its variance. DM, AKL */
+  /* begin calculating the expected F, and its variance. DM, AKL */
 
   E_F = Ftot / (double)maxrep;
 
-  Var_F = (Fsq_tot - (Ftot*Ftot/(double)maxrep))/(double)maxrep;
+  Var_F = (Fsq_tot - (Ftot * Ftot / (double)maxrep)) / (double)maxrep;
 
-/* end calculating the expected F, and its variance. DM, AKL */
+  /* end calculating the expected F, and its variance. DM, AKL */
 
 #ifdef DISTRIBUTION_OUTPUT
   qsort((void *)Fvalues, (size_t)maxrep, sizeof(double), double_comp);
@@ -248,34 +244,30 @@ int main_proc(int r_obs[], int k, int n, int maxrep)
   free_ivector(r_random, 0, k + 1);
 
   return 0;
-}				/*  end, main_proc  */
+} /*  end, main_proc  */
 
-void print_results(int n, int k, int maxrep)
-{
+void print_results(int n, int k, int maxrep) {
 
-  fprintf(stdout, "\nn = %d, k = %d, theta = %g, F = %g, maxrep = %d\n",
-	 n, k, theta, F_obs, maxrep);
+  fprintf(stdout, "\nn = %d, k = %d, theta = %g, F = %g, maxrep = %d\n", n, k,
+          theta, F_obs, maxrep);
   fprintf(stdout, "P_E(approx) = %g\nP_H(approx) = %g\n", P_E, P_H);
   fprintf(stdout, "E(F) = %g\n", E_F);
   fprintf(stdout, "Var(F) = %g\n", Var_F);
 }
 
-void generate(int k, int n, int *r, double *ranvec, double **b)
-{
+void generate(int k, int n, int *r, double *ranvec, double **b) {
   double cum;
   int i, l, nleft;
 
   for (i = 1; i <= k - 1; i++)
     ranvec[i] = unif();
   nleft = n;
-  for (l = 1; l < k; l++)
-  {
+  for (l = 1; l < k; l++) {
     cum = 0.0;
-    for (i = 1; i <= nleft; i++)
-    {
+    for (i = 1; i <= nleft; i++) {
       cum += b[k - l][nleft - i] / (i * b[k - l + 1][nleft]);
       if (cum >= ranvec[l])
-	break;
+        break;
     }
     r[l] = i;
     nleft -= i;
@@ -283,8 +275,7 @@ void generate(int k, int n, int *r, double *ranvec, double **b)
   r[k] = nleft;
 }
 
-void print_config(int k, int *r)
-{
+void print_config(int k, int *r) {
   int i;
 
   fprintf(stdout, "(");
@@ -294,8 +285,7 @@ void print_config(int k, int *r)
   fprintf(stdout, "\n");
 }
 
-double ewens_stat(int *r)
-{
+double ewens_stat(int *r) {
   int *ipt;
   double coef;
 
@@ -305,8 +295,7 @@ double ewens_stat(int *r)
   return 1.0 / coef;
 }
 
-double F(int k, int n, int *r)
-{
+double F(int k, int n, int *r) {
   int i;
   double sum;
 
@@ -316,9 +305,8 @@ double F(int k, int n, int *r)
   return sum / (n * n);
 }
 
-double theta_est(int k_obs, int n)
-{
-/*  Estimates theta = 4N*mu using formula 9.26 in Ewens' book  */
+double theta_est(int k_obs, int n) {
+  /*  Estimates theta = 4N*mu using formula 9.26 in Ewens' book  */
   double kval(double theta, int n);
   double xlow, xhigh, xmid;
   double eps;
@@ -331,8 +319,7 @@ double theta_est(int k_obs, int n)
   xhigh = 10.0;
   while (kval(xhigh, n) < k_obs)
     xhigh *= 10.0;
-  while ((xhigh - xlow) > eps)
-  {
+  while ((xhigh - xlow) > eps) {
     xmid = (xhigh + xlow) / 2.0;
     if (kval(xmid, n) > k_obs)
       xhigh = xmid;
@@ -340,10 +327,9 @@ double theta_est(int k_obs, int n)
       xlow = xmid;
   }
   return xmid;
-}				/*  end, theta_est  */
+} /*  end, theta_est  */
 
-double kval(double x, int n)
-{
+double kval(double x, int n) {
   int i;
   double sum;
 
@@ -353,7 +339,6 @@ double kval(double x, int n)
   return sum;
 }
 
-
 double **matrix(long nrl, long nrh, long ncl, long nch)
 /* allocate a double matrix with subscript range m[nrl..nrh][ncl..nch] */
 {
@@ -362,15 +347,14 @@ double **matrix(long nrl, long nrh, long ncl, long nch)
   void nrerror(char error_text[]);
 
   /* allocate pointers to rows */
-  m = (double **)malloc((size_t) ((nrow + NR_END) * sizeof(double *)));
+  m = (double **)malloc((size_t)((nrow + NR_END) * sizeof(double *)));
   if (!m)
     nrerror("allocation failure 1 in matrix()");
   m += NR_END;
   m -= nrl;
 
   /* allocate rows and set pointers to them */
-  m[nrl] =
-    (double *)malloc((size_t) ((nrow * ncol + NR_END) * sizeof(double)));
+  m[nrl] = (double *)malloc((size_t)((nrow * ncol + NR_END) * sizeof(double)));
   if (!m[nrl])
     nrerror("allocation failure 2 in matrix()");
   m[nrl] += NR_END;
@@ -389,15 +373,14 @@ double *vector(long nl, long nh)
   double *v;
   void nrerror(char error_text[]);
 
-  v = (double *)malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(double)));
+  v = (double *)malloc((size_t)((nh - nl + 1 + NR_END) * sizeof(double)));
   if (!v)
     nrerror("allocation failure in vector()");
   return v - nl + NR_END;
 }
 
 /* free memory for double vector */
-void free_vector(double *v, long nl, long nh)
-{
+void free_vector(double *v, long nl, long nh) {
   /* shift pointer back to beginning to the */
   /* originally malloc'ed memory address */
   free(v + nl - NR_END);
@@ -409,48 +392,41 @@ int *ivector(long nl, long nh)
   int *v;
   void nrerror(char error_text[]);
 
-  v = (int *)malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(int)));
+  v = (int *)malloc((size_t)((nh - nl + 1 + NR_END) * sizeof(int)));
   if (!v)
     nrerror("allocation failure in ivector()");
   return v - nl + NR_END;
 }
 
 /* free memory for integer vector */
-void free_ivector(int *v, long nl, long nh)
-{
+void free_ivector(int *v, long nl, long nh) {
   /* shift pointer back to beginning to the */
   /* originally malloc'ed memory address */
   free(v + nl - NR_END);
 }
 
-void nrerror(char error_text[])
-{
+void nrerror(char error_text[]) {
   fprintf(stderr, "Run-time error...\n");
   fprintf(stderr, "%s\n", error_text);
   fprintf(stderr, "...now exiting to system...\n");
   exit(EXIT_FAILURE);
 }
 
-
 #define A 16807
 #define M 2147483647
 #define Q 127773
 #define R 2836
 
-void gsrand(int s)
-{
-  seed = s;
-}
+void gsrand(int s) { seed = s; }
 
 #define RM 2147483647.0
 
-double unif(void)			/* This is drand renamed to be consistent with my usage  */
+double unif(void) /* This is drand renamed to be consistent with my usage  */
 {
   return ((double)grand() / RM);
 }
 
-int grand(void)
-{
+int grand(void) {
   int test;
 
   test = A * (seed % Q) - R * (seed / Q);
@@ -461,20 +437,18 @@ int grand(void)
   return (seed);
 }
 
-int double_comp(const void *d1, const void *d2)
-{
+int double_comp(const void *d1, const void *d2) {
   double a = *(double *)d1;
   double b = *(double *)d2;
 
-  return((a < b) ? -1 : (a > b) ? 1 : 0);
+  return ((a < b) ? -1 : (a > b) ? 1 : 0);
 }
 
-int quantile_print(double *Fvals, int limit)
-{
+int quantile_print(double *Fvals, int limit) {
   int i;
-  double quants[] = {1.0, 0.99995, 0.9999, 0.9995, 0.999, 0.995, 0.99, \
-                     0.975, 0.95, 0.9, 0.5, 0.1, 0.05, 0.025, 0.01, \
-                     0.005, 0.001, 0.0005, 0.0001, 0.00005};
+  double quants[] = {1.0,   0.99995, 0.9999, 0.9995, 0.999,  0.995,  0.99,
+                     0.975, 0.95,    0.9,    0.5,    0.1,    0.05,   0.025,
+                     0.01,  0.005,   0.001,  0.0005, 0.0001, 0.00005};
 
   fprintf(stdout, "%-7s %d\n", "Count:", limit);
   fprintf(stdout, "%-7s %f\n", "Mean:", E_F);
@@ -483,8 +457,9 @@ int quantile_print(double *Fvals, int limit)
   /* for each quantile entry in the quants array */
   /* print out the entry at that position in the */
   /* array of F values.                          */
-  for(i = 0; i < sizeof(quants) / sizeof(double); i++)
-    fprintf(stdout, "%-19.6f %.5f\n", Fvals[(int)(quants[i] * limit) - 1], quants[i]);
+  for (size_t i = 0; i < sizeof(quants) / sizeof(double); i++)
+    fprintf(stdout, "%-19.6f %.5f\n", Fvals[(int)(quants[i] * limit) - 1],
+            quants[i]);
   fprintf(stdout, "\n");
 
   /* old debugging output */
@@ -497,31 +472,16 @@ int quantile_print(double *Fvals, int limit)
     fprintf(stdout, "%-12d%-.16f\n", i, Fvals[i]);
   */
 
-  return(0);
+  return (0);
 }
 
 /* functions for returning values to calling Python programme */
-double get_theta(void)
-{
-  return theta;
-}
+double get_theta(void) { return theta; }
 
-double get_prob_ewens(void)
-{
-  return P_E;
-}
+double get_prob_ewens(void) { return P_E; }
 
-double get_prob_homozygosity(void)
-{
-  return P_H;
-}
+double get_prob_homozygosity(void) { return P_H; }
 
-double get_mean_homozygosity(void)
-{
-  return E_F;
-}
+double get_mean_homozygosity(void) { return E_F; }
 
-double get_var_homozygosity(void)
-{
-  return Var_F;
-}
+double get_var_homozygosity(void) { return Var_F; }

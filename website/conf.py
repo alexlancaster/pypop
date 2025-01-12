@@ -232,7 +232,7 @@ html_short_title = "PyPop"
 #
 html_theme_options = {  # these are both piccolo theme-specific
     "source_url": "https://github.com/alexlancaster/pypop/",
-    "banner_text": 'Experimental Windows ARM64 wheels are available on Test PyPI<br/>See PyPop News on the <a href="http:/pypop.org/">home page</a> for installation details<br/>',
+    "banner_text": 'Experimental Windows ARM64 wheels are available on Test PyPI<br/>See PyPop News on the <a href="http://pypop.org/">home page</a> for installation details<br/>',
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
