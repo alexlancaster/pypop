@@ -265,7 +265,8 @@ This will result in either:
 If you attempt to commit to the repo, e.g. using a commandl like
 ``git commit -a``, pre-commit checks will run on your changed files, and
 behave as if ``pre-commit run`` had been called directly. Once all
-checks pass the ``git commit`` command will commit to the repository.
+checks pass the ``git commit`` command will commit to the repository and
+you can ``git push`` your changes.
 
 
 Keep your branch in sync with upstream
