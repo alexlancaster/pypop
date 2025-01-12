@@ -226,21 +226,21 @@ THese checks include checks to reformat code and catch errors in:
 * Check code and documentation for spelling errors (via ``codespell``)
 
 The results of these checks will be posted to the PR.
-  
+
 In addition, however, we highly recommend you enable ``pre-commit``
 checks in your local checkout, **before** you commit to your PR
 branch, so you can catch errors early.  Ensuring your code passes
 ``pre-commit`` checks will speed the merging of your PR into the
 ``main`` branch, as the code will already be in a good state for
 merging.
-  
+
 To enable checks, first ensure that ``pre-commit`` is installed (there
 is a PyPI package), and then install the hooks:
 
 .. code-block:: shell
 
     pip install pre-commit
-    pre-commit install --install-hooks		
+    pre-commit install --install-hooks
 
 To check your changes:
 
@@ -266,7 +266,7 @@ commit -a``, pre-commit checks will run on your changed files, and
 behave as if ``pre-commit run`` had been called directly. Once all
 checks pass the ``git commit`` command will commit to the repository.
 
-     
+
 Keep your branch in sync with upstream
 --------------------------------------
 
