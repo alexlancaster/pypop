@@ -252,7 +252,7 @@ This will result in either:
 
 1. All checks passing (no action needed)
 2. Some checks fail, this can be due either to:
-   * Code being reformated to coding standards (use ``git diff` to see
+   * Code being reformatted to coding standards (use ``git diff` to see
      the additional changes), but are otherwise OK. Generally, all you
      need to do then is to re-run the ``pre-commit run`` command, and
      it will proceed according to (1)
