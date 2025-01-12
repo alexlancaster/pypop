@@ -54,6 +54,7 @@ repos:
         # exclude where code is mostly from upstream source
         exclude: '^src/(pval|haplo-stats)/.*'
 
+# FIXME: enable for static C analysis hooks
 #  - repo: https://github.com/ItsZcx/pre-commit-hooks
 #    rev: v1.4.0
 #    hooks:
