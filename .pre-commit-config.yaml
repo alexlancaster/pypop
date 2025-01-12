@@ -44,19 +44,27 @@ repos:
       - id: rst-directive-colons
       - id: rst-inline-touching-normal
 
-    # for checking C extension code
+  # for checking C extension code
+  - repo: https://github.com/pre-commit/mirrors-clang-format
+    rev: v19.1.6
+    hooks:
+      - id: clang-format
+        args: ['--style=LLVM', '--verbose']
+        types_or: [c]
+        exclude: '^src/(pval|haplo-stats)/.*'
+
 #  - repo: https://github.com/ItsZcx/pre-commit-hooks
 #    rev: v1.4.0
 #    hooks:
-#      - id: clang-format
-#      - id: cppcheck
-#        files: \.(c|h)$
-#        args: ['--enable=style,warning,portability,performance,missingInclude']
+#     - id: cppcheck
+#       files: \.(c|h)$
+#       args: ['--enable=style,warning,portability,performance,missingInclude']
 
 # FIXME: enable for debugging hooks
 #  - repo: meta
 #    hooks:
 #    - id: identity
+#      exclude: '^src/(pval|haplo-stats)/.*'
 
 exclude: 'tests/data/.*|data/.*|website/reference/.*|src/obsolete/.*|website/html_root/.*'
 

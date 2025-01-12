@@ -45,23 +45,23 @@ MODIFICATIONS. */
 
 void stamp_time(t1, outfile)
 
-		 long t1;
-		 FILE **outfile;
+    long t1;
+FILE **outfile;
 
 {
-	char *ctime();
-	long t2, now;
-	long time();
+  char *ctime();
+  long t2, now;
+  long time();
 
-	time(&t2);
-	t2 -= t1;
-	time(&now);
+  time(&t2);
+  t2 -= t1;
+  time(&now);
 
 #ifndef XML_OUTPUT
-	fprintf(*outfile, "\nTotal elapsed time: %ld''\n", t2);
-	fprintf(*outfile, "Date and time: %s\n", ctime(&now));
+  fprintf(*outfile, "\nTotal elapsed time: %ld''\n", t2);
+  fprintf(*outfile, "Date and time: %s\n", ctime(&now));
 #else
-	xmlfprintf(*outfile, "<elapsed-time>%ld</elapsed-time>\n", t2);
-	xmlfprintf(*outfile, "<timestamp>%s</timestamp>\n", ctime(&now));
+  xmlfprintf(*outfile, "<elapsed-time>%ld</elapsed-time>\n", t2);
+  xmlfprintf(*outfile, "<timestamp>%s</timestamp>\n", ctime(&now));
 #endif
 }
