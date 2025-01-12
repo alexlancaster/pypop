@@ -259,11 +259,11 @@ This will result in either:
      and it will proceed according to (1)
    * An error is detected in the code that requires manual
      intervention (e.g. non-standard Python construct, formatting
-     issue, spelling error).  Please fix this and re-run your ``git
-     commit`` step until it passes.
+     issue, spelling error).  Please fix this and re-run your ``git commit``
+     step until it passes.
 
-If you attempt to commit to the repo, e.g. using a commandl like ``git
-commit -a``, pre-commit checks will run on your changed files, and
+If you attempt to commit to the repo, e.g. using a commandl like
+``git commit -a``, pre-commit checks will run on your changed files, and
 behave as if ``pre-commit run`` had been called directly. Once all
 checks pass the ``git commit`` command will commit to the repository.
 
