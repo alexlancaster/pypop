@@ -1599,7 +1599,7 @@ void emcalc(int *numgeno, int *obspheno, double *hap_freq, double *mle,
   if (ambig_sum == 0) {
     iter = 1;
     //*error_flag = 1 is no longer used since ambig_sum=0 is not an error
-    //8/23/03
+    // 8/23/03
     for (i = 0; i < n_haplo; i++) {
       hap_freq[i] = unambig[i] / (double)tot_hap;
       mle[i] = hap_freq[i];
