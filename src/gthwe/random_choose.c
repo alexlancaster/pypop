@@ -39,40 +39,36 @@ MODIFICATIONS. */
 
   date: 12/14/99
 ************************************************************************/
-#include "hwe.h"
 #include "func.h"
+#include "hwe.h"
 
-void random_choose(int *k1, int *k2, int k)
-{
-	register int temp, i, not_find;
-	double new_rand();
-	int *work= (int *)calloc(k, sizeof(int));
+void random_choose(int *k1, int *k2, int k) {
+  register int temp, i, not_find;
+  double new_rand();
+  int *work = (int *)calloc(k, sizeof(int));
 
-	for (i = 0; i < k; ++i)
-		work[i] = i;
+  for (i = 0; i < k; ++i)
+    work[i] = i;
 
-	*k1 = (int)(new_rand() * (double)k);
+  *k1 = (int)(new_rand() * (double)k);
 
+  --k;
 
-	--k;
+  for (i = *k1; i < k; ++i)
+    work[i] = i + 1;
 
-	for (i = *k1; i < k; ++i)
-		work[i] = i + 1;
+  not_find = 1;
 
-	not_find = 1;
+  while (not_find) {
+    i = (int)(new_rand() * (double)k);
+    *k2 = work[i];
+    not_find = 0;
+  }
 
-	while (not_find)
-	{
-		i = (int)(new_rand() * (double)k);
-		*k2 = work[i];
-		not_find = 0;
-	}
-
-	if (*k1 > *k2)
-	{
-		temp = *k1;
-		*k1 = *k2;
-		*k2 = temp;
-	}
-	free(work);
+  if (*k1 > *k2) {
+    temp = *k1;
+    *k1 = *k2;
+    *k2 = temp;
+  }
+  free(work);
 }

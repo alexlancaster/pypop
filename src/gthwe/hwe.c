@@ -44,17 +44,16 @@ MODIFICATIONS. */
 
 ************************************************************************/
 
-#include <time.h>
-#include <stdio.h>
 #include "hwe.h"
 #include "func.h"
 #include <math.h>
+#include <stdio.h>
+#include <time.h>
 
 unsigned long tausval, congrval;
 
 /* correct execution of this program: gthwe infile outfile */
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   int *genotypes, *allele_array;
 
   int no_allele, total;
@@ -67,7 +66,7 @@ int main(int argc, char *argv[])
 
   /* sanity check for existence of files */
   if (check_file(argc, argv, &infile, &outfile))
-		exit(1);
+    exit(1);
 
   printf("Just a second. \n");
 
@@ -75,7 +74,8 @@ int main(int argc, char *argv[])
      from run_data() */
 
   /* get the parameters and data from the file and read into variables */
-  if (read_data(&genotypes, &allele_array, &no_allele, &total, &sample, &infile, &title))
+  if (read_data(&genotypes, &allele_array, &no_allele, &total, &sample, &infile,
+                &title))
     exit(2);
 
   /* "de"-construct or "flatten" struct to pass to function, so
@@ -86,7 +86,8 @@ int main(int argc, char *argv[])
   size = sample.size;
 
   /* pass the parsed variables to do the main processing */
-  run_data(genotypes, allele_array, no_allele, total, step, group, size, title, outfile, 1, 0);
+  run_data(genotypes, allele_array, no_allele, total, step, group, size, title,
+           outfile, 1, 0);
 
   free(genotypes);
   free(allele_array);
@@ -96,51 +97,46 @@ int main(int argc, char *argv[])
 /*
  * init_rand(): initializes random number generator
  */
-long init_rand(int testing)
-{
+long init_rand(int testing) {
   register int i, j;
   unsigned long xxx[12];
 
-  unsigned long  conorig=0;
-  unsigned long  tauorig=0;
+  unsigned long conorig = 0;
+  unsigned long tauorig = 0;
   long t1;
   extern unsigned long congrval, tausval;
 
-  if (!testing)
-    {
-      srand(time(NULL));
-    }
-  else {
-    /* if invoked in testing mode, fix random number seed so output is deterministic */
+  if (!testing) {
+    srand(time(NULL));
+  } else {
+    /* if invoked in testing mode, fix random number seed so output is
+     * deterministic */
     srand(1234);
   }
 
   /* seeds selection for Splus type random number generator. */
   for (i = 0; i < 12; i++) {
 
-    xxx[i] = (unsigned long) (floor((64.0 * rand())/(RAND_MAX))) ;
-    if (xxx[i] == 64)
-      {
-	xxx[i] = 63;
-      }
-
+    xxx[i] = (unsigned long)(floor((64.0 * rand()) / (RAND_MAX)));
+    if (xxx[i] == 64) {
+      xxx[i] = 63;
+    }
   }
 
   for (j = 0; j < 6; ++j) {
-    tauorig =  (((tauorig + (xxx[j + 6] * (pow(2, (6 * j))))))) ;
-    conorig =  (((conorig + (xxx[j] * (pow(2, (6 * j)))))));
+    tauorig = (((tauorig + (xxx[j + 6] * (pow(2, (6 * j)))))));
+    conorig = (((conorig + (xxx[j] * (pow(2, (6 * j)))))));
   }
-  while (conorig > 4294967295. )
+  while (conorig > 4294967295.)
     conorig -= 4294967295.;
-  congrval = (unsigned long) conorig ;
-  while (tauorig > 4294967295. )
+  congrval = (unsigned long)conorig;
+  while (tauorig > 4294967295.)
     tauorig -= 4294967295.;
-  tausval = (unsigned long) tauorig;
+  tausval = (unsigned long)tauorig;
   time(&t1);
 
   return (t1);
 }
-
 
 /*
  * run_data(): does the main processing, given the data in variables,
@@ -148,15 +144,14 @@ long init_rand(int testing)
  * extension function in languages like Python using SWIG.
  */
 int run_data(int *genotypes, int *allele_array, int no_allele,
-	     int total_individuals, int thestep, int thegroup, int thesize,
-	     char *title,
+             int total_individuals, int thestep, int thegroup, int thesize,
+             char *title,
 #ifdef XML_OUTPUT
-	     char *outfilename,
+             char *outfilename,
 #else
-	     FILE *outfile,
+             FILE *outfile,
 #endif
-	     int header, int testing)
-{
+             int header, int testing) {
   int actual_switch, counter;
   Index index;
   double ln_p_observed, ln_p_simulated, p_mean, p_square;
@@ -186,7 +181,7 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
   if (header)
     xmlfprintf(outfile, "<hardyweinbergGuoThompson>\n");
   xmlfprintf(outfile, "<dememorizationSteps>%d</dememorizationSteps>\n",
-	  sample.step);
+             sample.step);
   xmlfprintf(outfile, "<samplingNum>%d</samplingNum>\n", sample.group);
   xmlfprintf(outfile, "<samplingSize>%d</samplingSize>\n", sample.size);
 #endif
@@ -199,15 +194,18 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
   cal_n(no_allele, genotypes, allele_array);
 
 #if DEBUG
-  printf("no_allele=%d, total_individuals=%d, thestep=%d, thegroup=%d, thesize=%d, title=%s, t1=%ld\n",no_allele, total_individuals, sample.step, sample.group, sample.size, title, t1);
-  for (i=0; i < no_allele; i++)
-    for (j=0; j <= i; j++)
-      printf("genotypes[%d, %d] = %d\n", i, j, genotypes[LL(i,j)]);
+  printf("no_allele=%d, total_individuals=%d, thestep=%d, thegroup=%d, "
+         "thesize=%d, title=%s, t1=%ld\n",
+         no_allele, total_individuals, sample.step, sample.group, sample.size,
+         title, t1);
+  for (i = 0; i < no_allele; i++)
+    for (j = 0; j <= i; j++)
+      printf("genotypes[%d, %d] = %d\n", i, j, genotypes[LL(i, j)]);
 
-  for (i=0; i < num_genotypes; i++)
+  for (i = 0; i < num_genotypes; i++)
     printf("genotypes[%d] = %d\n", i, genotypes[i]);
 
-  for (i=0; i < no_allele; i++)
+  for (i = 0; i < no_allele; i++)
     printf("allele_array[%d] = %d\n", i, allele_array[i]);
 
   printf("after looping through a, n!\n");
@@ -215,17 +213,14 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
   fflush(stdout);
 #endif
 
-
 #ifdef INDIVID_GENOTYPES
   double *obs_chen_statistic = (double *)calloc(num_genotypes, sizeof(double));
   double *obs_diff_statistic = (double *)calloc(num_genotypes, sizeof(double));
 
-  init_stats("chen_statistic", chen_statistic, obs_chen_statistic,
-	     no_allele, total_individuals,
-	     allele_array, genotypes, outfile);
-  init_stats("diff_statistic", diff_statistic, obs_diff_statistic,
-	     no_allele, total_individuals,
-	     allele_array, genotypes, outfile);
+  init_stats("chen_statistic", chen_statistic, obs_chen_statistic, no_allele,
+             total_individuals, allele_array, genotypes, outfile);
+  init_stats("diff_statistic", diff_statistic, obs_diff_statistic, no_allele,
+             total_individuals, allele_array, genotypes, outfile);
 
   int *chen_statistic_count = (int *)calloc(num_genotypes, sizeof(int));
   int *diff_statistic_count = (int *)calloc(num_genotypes, sizeof(int));
@@ -237,77 +232,74 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
 
   ln_p_simulated = ln_p_observed;
 
-  p_mean = p_square = (double) 0.0;
+  p_mean = p_square = (double)0.0;
 
-  result.p_value = result.se = (double) 0.0;	/* initialization */
+  result.p_value = result.se = (double)0.0; /* initialization */
 
   result.swch_count[0] = result.swch_count[1] = result.swch_count[2] = 0;
 
-  for (i = 0; i < sample.step; ++i)
-    {
-      /* de-memorization for given steps */
+  for (i = 0; i < sample.step; ++i) {
+    /* de-memorization for given steps */
 
+    select_index(&index, no_allele);
+
+    ln_p_simulated = cal_prob(genotypes, index, ln_p_simulated, &actual_switch);
+    ++result.swch_count[actual_switch];
+  }
+
+  for (i = 0; i < sample.group; ++i) {
+    counter = 0;
+
+    for (j = 0; j < sample.size; ++j) {
       select_index(&index, no_allele);
+      ln_p_simulated =
+          cal_prob(genotypes, index, ln_p_simulated, &actual_switch);
 
-      ln_p_simulated = cal_prob(genotypes, index, ln_p_simulated, &actual_switch);
+      if (LESS_OR_EQUAL(ln_p_simulated, ln_p_observed))
+        ++counter;
       ++result.swch_count[actual_switch];
-    }
-
-  for (i = 0; i < sample.group; ++i)
-    {
-      counter = 0;
-
-      for (j = 0; j < sample.size; ++j)
-	{
-	  select_index(&index, no_allele);
-	  ln_p_simulated = cal_prob(genotypes, index,
-				    ln_p_simulated, &actual_switch);
-
-	  if (LESS_OR_EQUAL(ln_p_simulated, ln_p_observed))
-	    ++counter;
-	  ++result.swch_count[actual_switch];
 
 #ifdef INDIVID_GENOTYPES
-	  store_stats("chen_statistic", chen_statistic, obs_chen_statistic,
-		      chen_statistic_count, no_allele, total_individuals,
-		      allele_array, genotypes, outfile);
-	  store_stats("diff_statistic", diff_statistic, obs_diff_statistic,
-		      diff_statistic_count, no_allele, total_individuals,
-		      allele_array, genotypes, outfile);
+      store_stats("chen_statistic", chen_statistic, obs_chen_statistic,
+                  chen_statistic_count, no_allele, total_individuals,
+                  allele_array, genotypes, outfile);
+      store_stats("diff_statistic", diff_statistic, obs_diff_statistic,
+                  diff_statistic_count, no_allele, total_individuals,
+                  allele_array, genotypes, outfile);
 #endif
-	}
-      p_simulated = (double) counter / sample.size;
-      p_mean += p_simulated;
-      p_square += p_simulated * p_simulated;
-
     }
+    p_simulated = (double)counter / sample.size;
+    p_mean += p_simulated;
+    p_square += p_simulated * p_simulated;
+  }
   p_mean /= sample.group;
   result.p_value = p_mean;
-  result.se = p_square / ((double) sample.group) / (sample.group - 1.0)
-    - p_mean / (sample.group - 1.0) * p_mean;
+  result.se = p_square / ((double)sample.group) / (sample.group - 1.0) -
+              p_mean / (sample.group - 1.0) * p_mean;
   result.se = sqrt(result.se);
 
   total_step = sample.step + sample.group * sample.size;
 
 #ifndef XML_OUTPUT
   fprintf(outfile, "Randomization test P-value: %7.4g  (%7.4g) \n",
-	  result.p_value, result.se);
+          result.p_value, result.se);
   fprintf(outfile, "Percentage of partial switches: %6.2f \n",
-	  result.swch_count[1] / total_step * 100);
+          result.swch_count[1] / total_step * 100);
   fprintf(outfile, "Percentage of full switches: %6.2f \n",
-	  result.swch_count[2] / total_step * 100);
+          result.swch_count[2] / total_step * 100);
   fprintf(outfile, "Percentage of all switches: %6.2f \n",
-	  (result.swch_count[1] + result.swch_count[2]) / total_step * 100);
+          (result.swch_count[1] + result.swch_count[2]) / total_step * 100);
 #else
-  xmlfprintf(outfile, "<pvalue type=\"overall\">%7.4g</pvalue><stderr>%7.4g</stderr>\n",
-	  result.p_value, result.se);
+  xmlfprintf(outfile,
+             "<pvalue type=\"overall\">%7.4g</pvalue><stderr>%7.4g</stderr>\n",
+             result.p_value, result.se);
   xmlfprintf(outfile, "<switches>\n");
   xmlfprintf(outfile, "<percent-partial>%6.2f</percent-partial>\n",
-	  result.swch_count[1] / total_step * 100);
+             result.swch_count[1] / total_step * 100);
   xmlfprintf(outfile, "<percent-full>%6.2f</percent-full>\n",
-	  result.swch_count[2] / total_step * 100);
+             result.swch_count[2] / total_step * 100);
   xmlfprintf(outfile, "<percent-all>%6.2f</percent-all>\n",
-	  (result.swch_count[1] + result.swch_count[2]) / total_step * 100);
+             (result.swch_count[1] + result.swch_count[2]) / total_step * 100);
   xmlfprintf(outfile, "</switches>\n");
 #endif
 
@@ -317,9 +309,9 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
   /* print pvalues for each genotype */
   /* correct for number of dememorisation steps? */
   print_stats("chen_statistic", chen_statistic_count, no_allele,
-	      total_step - sample.step, outfile);
+              total_step - sample.step, outfile);
   print_stats("diff_statistic", diff_statistic_count, no_allele,
-	      total_step - sample.step, outfile);
+              total_step - sample.step, outfile);
 
   /* free dynamically-allocated memory  */
   free(obs_chen_statistic);
@@ -338,14 +330,13 @@ int run_data(int *genotypes, int *allele_array, int no_allele,
 }
 
 int run_randomization(int *genotypes, int *allele_array, int no_allele,
-		      int total_individuals, int iterations,
+                      int total_individuals, int iterations,
 #ifdef XML_OUTPUT
-		      char *outfilename,
+                      char *outfilename,
 #else
-		      FILE *outfile,
+                      FILE *outfile,
 #endif
-		      int header, int testing)
-{
+                      int header, int testing) {
   double ln_p_observed;
   double constant;
   register int i, j, l;
@@ -370,8 +361,7 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
     printf("problem with opening file!\n");
   }
   if (header)
-    xmlfprintf(outfile,
-	    "\n<hardyweinbergGuoThompson type=\"monte-carlo\">\n");
+    xmlfprintf(outfile, "\n<hardyweinbergGuoThompson type=\"monte-carlo\">\n");
 
 #else
   fprintf(outfile, "Constant: %e, Observed: %e\n", constant, ln_p_observed);
@@ -382,12 +372,10 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   double *obs_chen_statistic = (double *)calloc(num_genotypes, sizeof(double));
   double *obs_diff_statistic = (double *)calloc(num_genotypes, sizeof(double));
 
-  init_stats("chen_statistic", chen_statistic, obs_chen_statistic,
-	     no_allele, total_individuals,
-	     allele_array, genotypes, outfile);
-  init_stats("diff_statistic", diff_statistic, obs_diff_statistic,
-	     no_allele, total_individuals,
-	     allele_array, genotypes, outfile);
+  init_stats("chen_statistic", chen_statistic, obs_chen_statistic, no_allele,
+             total_individuals, allele_array, genotypes, outfile);
+  init_stats("diff_statistic", diff_statistic, obs_diff_statistic, no_allele,
+             total_individuals, allele_array, genotypes, outfile);
 
   /* allocate memory for per-genotype counts */
   int *chen_statistic_count = (int *)calloc(num_genotypes, sizeof(int));
@@ -397,12 +385,12 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
 
   /* calculate the number of gametes */
   int total_gametes = 0;
-  for (i=0; i < no_allele; i++)
+  for (i = 0; i < no_allele; i++)
     total_gametes += allele_array[i];
 
 #ifdef PERMU_DEBUG
   printf("n = [");
-  for (i=0; i < no_allele; i++)
+  for (i = 0; i < no_allele; i++)
     printf("%d,", allele_array[i]);
   printf("]\n");
   printf("total gametes: %d\n", total_gametes);
@@ -412,8 +400,8 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   int gamete = 0;
 
   /* create index of gametes */
-  for (i=0; i < no_allele; i++)
-    for (j=0; j < allele_array[i]; j++) {
+  for (i = 0; i < no_allele; i++)
+    for (j = 0; j < allele_array[i]; j++) {
       s[gamete] = i;
       gamete++;
     }
@@ -421,18 +409,18 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
 #ifdef PERMU_DEBUG
   printf("before permutation");
   printf("s = [");
-  for (i=0; i < total_gametes; i++) {
+  for (i = 0; i < total_gametes; i++) {
     printf("%d,", s[i]);
   }
   printf("]\n");
 #endif
 
-  const gsl_rng_type * T;
-  gsl_rng * r;
+  const gsl_rng_type *T;
+  gsl_rng *r;
 
   gsl_rng_env_setup();
   T = gsl_rng_default;
-  r = gsl_rng_alloc (T);
+  r = gsl_rng_alloc(T);
 
   /* create empty genotype array */
   int *g = (int *)calloc(num_genotypes, sizeof(int));
@@ -442,23 +430,23 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   int K = 0;
 
   double ln_p_perm;
-  for (permu=0; permu < iterations; permu++) {
+  for (permu = 0; permu < iterations; permu++) {
     gsl_ran_shuffle(r, s, total_gametes, sizeof(int));
 
 #ifdef PERMU_DEBUG
     printf("after permutation: %d\n", permu);
     printf("s = [");
-    for (i=0; i < total_gametes; i++) {
+    for (i = 0; i < total_gametes; i++) {
       printf("%d,", s[i]);
     }
     printf("]\n");
     printf("pairs: ");
 #endif
 
-    for (i=0; i < total_gametes/2; i++) {
-      l = L(s[i*2],s[i*2+1]);
+    for (i = 0; i < total_gametes / 2; i++) {
+      l = L(s[i * 2], s[i * 2 + 1]);
 #ifdef PERMU_DEBUG
-      printf("(%d,%d)->%d, ", s[i*2], s[i*2+1], l);
+      printf("(%d,%d)->%d, ", s[i * 2], s[i * 2 + 1], l);
 #endif
       g[l]++;
     }
@@ -467,19 +455,20 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
     printf("\n");
 
     printf("g = [");
-    for (i=0; i < num_genotypes; i++)
+    for (i = 0; i < num_genotypes; i++)
       printf("%d,", g[i]);
     printf("]\n");
 
     printf("check that allele_array[] has not changed\n");
-    for (i=0; i < no_allele; i++)
+    for (i = 0; i < no_allele; i++)
       printf("allele_array[%d] = %d\n", i, allele_array[i]);
 #endif
 
     ln_p_perm = ln_p_value(g, no_allele, constant);
 
 #ifdef PERMU_DEBUG
-    printf("obs. log[Pr(f)] = %e, sim. log[Pr(g)] = %e\n", ln_p_observed, ln_p_perm);
+    printf("obs. log[Pr(f)] = %e, sim. log[Pr(g)] = %e\n", ln_p_observed,
+           ln_p_perm);
 #endif
 
     if (LESS_OR_EQUAL(ln_p_perm, ln_p_observed))
@@ -488,20 +477,20 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
 #ifdef INDIVID_GENOTYPES
     /* store the individual genotype stats */
     store_stats("chen_statistic", chen_statistic, obs_chen_statistic,
-		chen_statistic_count, no_allele,
-		total_individuals, allele_array, g, outfile);
+                chen_statistic_count, no_allele, total_individuals,
+                allele_array, g, outfile);
 
     store_stats("diff_statistic", diff_statistic, obs_diff_statistic,
-		diff_statistic_count, no_allele,
-		total_individuals, allele_array, g, outfile);
+                diff_statistic_count, no_allele, total_individuals,
+                allele_array, g, outfile);
 #endif
 
     /* go through genotype list, reset genotype array, g  */
-    for (i=0; i < num_genotypes; i++)
+    for (i = 0; i < num_genotypes; i++)
       g[i] = 0;
   }
 
-  double p_value = (double)K/iterations;
+  double p_value = (double)K / iterations;
 
 #ifdef XML_OUTPUT
   xmlfprintf(outfile, "<steps>%d</steps>\n", iterations);
@@ -513,10 +502,10 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
 
 #ifdef INDIVID_GENOTYPES
   /* print pvalues for each genotype */
-  print_stats("chen_statistic", chen_statistic_count,
-	      no_allele, iterations, outfile);
-  print_stats("diff_statistic", diff_statistic_count,
-	      no_allele, iterations, outfile);
+  print_stats("chen_statistic", chen_statistic_count, no_allele, iterations,
+              outfile);
+  print_stats("diff_statistic", diff_statistic_count, no_allele, iterations,
+              outfile);
 
   /* free dynamically-allocated memory for stats  */
   free(obs_chen_statistic);
@@ -525,7 +514,6 @@ int run_randomization(int *genotypes, int *allele_array, int no_allele,
   free(obs_diff_statistic);
   free(diff_statistic_count);
 #endif
-
 
   /* free dynamically-allocated memory  */
   free(g);

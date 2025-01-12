@@ -277,7 +277,7 @@ MODIFICATIONS. */
 #endif
 
   PyObject *list = PyList_New(array_size);
-  for (i = 0; i < array_size; ++i) {
+  for (size_t i = 0; i < (size_t)array_size; ++i) {
     PyList_SetItem(list, i, PyFloat_FromDouble($2[i]));
   }
 
@@ -327,7 +327,7 @@ MODIFICATIONS. */
 #endif
 
   PyObject *list = PyList_New(array_size);
-  for (i = 0; i < array_size; ++i) {
+  for (size_t i = 0; i < (size_t)array_size; ++i) {
     PyList_SetItem(list, i, PyInt_FromLong($2[i]));
   }
 
