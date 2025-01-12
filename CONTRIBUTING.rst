@@ -211,12 +211,12 @@ your unit tests. See `run unit tests with pytest`_.
 ``Pre-commit`` checks
 ---------------------
 
-All PRs submitted to PyPop ships will be automatically run through a
+All PRs submitted to PyPop will be automatically run through a
 series pre-configured ``pre-commit`` `checks
 <https://pre-commit.com/>`_ (called "hooks"), configured in the
 ``.pre-commit-config.yaml`` `YAML file
 <https://github.com/alexlancaster/pypop/blob/main/.pre-commit-config.yaml>`__.
-THese checks include checks to reformat code and catch errors in:
+These checks include checks to reformat code and catch errors in:
 
 * Python code (uses ``ruff`` and, ``ruff-format`` hooks)
 * C extension code (uses ``clang-format`` to format code according to
