@@ -51,6 +51,7 @@ repos:
       - id: clang-format
         args: ['--style=LLVM', '--verbose']
         types_or: [c]
+        # exclude where code is mostly from upstream source
         exclude: '^src/(pval|haplo-stats)/.*'
 
 #  - repo: https://github.com/ItsZcx/pre-commit-hooks
