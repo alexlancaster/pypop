@@ -46,75 +46,71 @@ MODIFICATIONS. */
 
 void print_data(a, no_allele, sample, outfile, title)
 
-		 int *a;
-		 int no_allele;
-		 char title[80];
-		 struct randomization sample;
-		 FILE **outfile;
-
+    int *a;
+int no_allele;
+char title[80];
+struct randomization sample;
+FILE **outfile;
 
 {
 
-	register int i, j, k, l;
-	char line[256];
+  register int i, j, k, l;
+  char line[256];
 
-	line[0] = '-';
+  line[0] = '-';
 
-	k = 1;
+  k = 1;
 
 #ifndef XML_OUTPUT
- 	fprintf(*outfile, "Data set: %s\n\n", title);
-	fprintf(*outfile, "Observed genotype frequencies: \n\n");
+  fprintf(*outfile, "Data set: %s\n\n", title);
+  fprintf(*outfile, "Observed genotype frequencies: \n\n");
 #else
- 	xmlfprintf(*outfile, "<name>%s</name>\n", title);
-	xmlfprintf(*outfile, "<frequencies kind=\"genotype\" type=\"observed\">\n");
+  xmlfprintf(*outfile, "<name>%s</name>\n", title);
+  xmlfprintf(*outfile, "<frequencies kind=\"genotype\" type=\"observed\">\n");
 #endif
 
-	for (i = 0; i < no_allele; ++i)
-	{
+  for (i = 0; i < no_allele; ++i) {
 
-		for (j = k; j < k + 5; ++j)
-			line[j] = '-';
+    for (j = k; j < k + 5; ++j)
+      line[j] = '-';
 
-		line[j] = STR_END;
-		k = j;
+    line[j] = STR_END;
+    k = j;
 
 #ifndef XML_OUTPUT
-		fprintf(*outfile, "%s\n", line);
+    fprintf(*outfile, "%s\n", line);
 
-		fprintf(*outfile, "|");
+    fprintf(*outfile, "|");
 #endif
-		for (j = 0; j <= i; ++j)
-		{
-			l = LL(i, j);
+    for (j = 0; j <= i; ++j) {
+      l = LL(i, j);
 #ifndef XML_OUTPUT
-			fprintf(*outfile, "%4d|", a[l]);
+      fprintf(*outfile, "%4d|", a[l]);
 #else
-			xmlfprintf(*outfile, "<count allele1=\"%d\" allele2=\"%d\">%d</count>\n", i, j, a[l]);
+      xmlfprintf(*outfile, "<count allele1=\"%d\" allele2=\"%d\">%d</count>\n",
+                 i, j, a[l]);
 #endif
-		}
+    }
 #ifndef XML_OUTPUT
-		fprintf(*outfile, "\n");
+    fprintf(*outfile, "\n");
 #else
-		xmlfprintf(*outfile, "\n");
+    xmlfprintf(*outfile, "\n");
 #endif
-	}
+  }
 
 #ifndef XML_OUTPUT
-	fprintf(*outfile, "%s\n\n", line);
-	fprintf(*outfile, "Total number of alleles: %2d\n\n", no_allele);
+  fprintf(*outfile, "%s\n\n", line);
+  fprintf(*outfile, "Total number of alleles: %2d\n\n", no_allele);
 
-	fprintf(*outfile, "Number of initial steps: %d\n", sample.step);
-	fprintf(*outfile, "Number of chunks: %d\n", sample.group);
-	fprintf(*outfile, "Size of each chunk: %d\n\n", sample.size);
+  fprintf(*outfile, "Number of initial steps: %d\n", sample.step);
+  fprintf(*outfile, "Number of chunks: %d\n", sample.group);
+  fprintf(*outfile, "Size of each chunk: %d\n\n", sample.size);
 #else
-	xmlfprintf(*outfile, "</frequencies>");
-	xmlfprintf(*outfile, "<allelecount>%d</allelecount>\n", no_allele);
+  xmlfprintf(*outfile, "</frequencies>");
+  xmlfprintf(*outfile, "<allelecount>%d</allelecount>\n", no_allele);
 
-	xmlfprintf(*outfile, "<initialsteps>%d</initialsteps>\n", sample.step);
-	xmlfprintf(*outfile, "<chunks>%d</chunks>\n", sample.group);
-	xmlfprintf(*outfile, "<chunksize>%d</chunksize>\n", sample.size);
+  xmlfprintf(*outfile, "<initialsteps>%d</initialsteps>\n", sample.step);
+  xmlfprintf(*outfile, "<chunks>%d</chunks>\n", sample.group);
+  xmlfprintf(*outfile, "<chunksize>%d</chunksize>\n", sample.size);
 #endif
-
-
 }

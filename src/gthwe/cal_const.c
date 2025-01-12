@@ -46,8 +46,7 @@ MODIFICATIONS. */
 **************************************************************************/
 #include "hwe.h"
 
-double cal_const(int no_allele, int *n, int total)
-{
+double cal_const(int no_allele, int *n, int total) {
   register int i;
   double constant;
   double log_factorial();

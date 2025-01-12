@@ -47,10 +47,10 @@ MODIFICATIONS. */
 
 double cal_prob(a, index, ln_p_old, actual_switch)
 
-     int *a;
-     Index index;
-     double ln_p_old;
-     int *actual_switch;
+int *a;
+Index index;
+double ln_p_old;
+int *actual_switch;
 
 {
 
@@ -67,48 +67,41 @@ double cal_prob(a, index, ln_p_old, actual_switch)
 
   test_switch(a, index, &switch_ind, &type, &p1_ratio, &p2_ratio);
 
-  switch (switch_ind)
-    {
-    case 0:	/* non-switchable */
+  switch (switch_ind) {
+  case 0: /* non-switchable */
 
-      ln_p_new = ln_p_old;   /* retain the pattern, probability unchanged */
-      break;
+    ln_p_new = ln_p_old; /* retain the pattern, probability unchanged */
+    break;
 
-    case 1:	/* partially-switchable */
+  case 1: /* partially-switchable */
 
-      if (type == 1)
-	p1_ratio = p2_ratio;
-      rand_num = new_rand();
+    if (type == 1)
+      p1_ratio = p2_ratio;
+    rand_num = new_rand();
 
-      if (rand_num < TRANS(p1_ratio))
-	{				/* switch w/ transition P TRANS */
-	  do_switch(a, index, type);
-	  ln_p_new = ln_p_old + log(p1_ratio);	/* ln P_after-switch */
-	  *actual_switch = 1;
-	}
-      else		/* remain the same w/ P = 1 - TRANS */
-	ln_p_new = ln_p_old;			/* probability unchanged */
-      break;
+    if (rand_num < TRANS(p1_ratio)) { /* switch w/ transition P TRANS */
+      do_switch(a, index, type);
+      ln_p_new = ln_p_old + log(p1_ratio); /* ln P_after-switch */
+      *actual_switch = 1;
+    } else                 /* remain the same w/ P = 1 - TRANS */
+      ln_p_new = ln_p_old; /* probability unchanged */
+    break;
 
-    default:	/* fully switchable */
-      rand_num = new_rand();
+  default: /* fully switchable */
+    rand_num = new_rand();
 
-      if (rand_num <= TRANS(p1_ratio))
-	{
-	  do_switch(a, index, 0);		/* D-switch */
-	  ln_p_new = ln_p_old + log(p1_ratio);	/* ln P_after-switch */
-	  *actual_switch = 2;
-	}
-      else if (rand_num <= TRANS(p1_ratio) + TRANS(p2_ratio))
-	{
-	  do_switch(a, index, 1);		/* R-switch */
-	  ln_p_new = ln_p_old + log(p2_ratio);
-	  *actual_switch = 2;
-	}
-      else
-	ln_p_new = ln_p_old;
-      break;
-    }
+    if (rand_num <= TRANS(p1_ratio)) {
+      do_switch(a, index, 0);              /* D-switch */
+      ln_p_new = ln_p_old + log(p1_ratio); /* ln P_after-switch */
+      *actual_switch = 2;
+    } else if (rand_num <= TRANS(p1_ratio) + TRANS(p2_ratio)) {
+      do_switch(a, index, 1); /* R-switch */
+      ln_p_new = ln_p_old + log(p2_ratio);
+      *actual_switch = 2;
+    } else
+      ln_p_new = ln_p_old;
+    break;
+  }
 
   return (ln_p_new);
 }
