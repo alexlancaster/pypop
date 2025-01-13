@@ -105,18 +105,18 @@ def path_to_src(source_path_list):
 swig_opts = ["-I{}".format(Path(src_dir) / "SWIG"), f"-I{Path(src_dir)}"]
 
 # define each extension
-ext_Emhaplofreq = Extension(
-    "PyPop._Emhaplofreq",
-    path_to_src(["emhaplofreq/emhaplofreq_wrap.i", "emhaplofreq/emhaplofreq.c"]),
-    swig_opts=swig_opts,
-    include_dirs=include_dirs + path_to_src(["emhaplofreq"]),
-    define_macros=[
-        ("__SWIG__", "1"),
-        ("DEBUG", "0"),
-        ("EXTERNAL_MODE", "1"),
-        ("XML_OUTPUT", "1"),
-    ],
-)
+# ext_Emhaplofreq = Extension(
+#     "PyPop._Emhaplofreq",
+#     path_to_src(["emhaplofreq/emhaplofreq_wrap.i", "emhaplofreq/emhaplofreq.c"]),
+#     swig_opts=swig_opts,
+#     include_dirs=include_dirs + path_to_src(["emhaplofreq"]),
+#     define_macros=[
+#         ("__SWIG__", "1"),
+#         ("DEBUG", "0"),
+#         ("EXTERNAL_MODE", "1"),
+#         ("XML_OUTPUT", "1"),
+#     ],
+# )
 # ext_EWSlatkinExact = Extension(
 #     "PyPop._EWSlatkinExact",
 #     path_to_src(["slatkin-exact/monte-carlo_wrap.i", "slatkin-exact/monte-carlo.c"]),
@@ -241,9 +241,9 @@ ext_HweEnum = Extension(
     ],
 )
 
-ext_Emhaplofreq.depends = path_to_src(
-    ["SWIG/typemap.i", "emhaplofreq/emhaplofreq.h", "emhaplofreq/drand48.c"]
-)
+# ext_Emhaplofreq.depends = path_to_src(
+#     ["SWIG/typemap.i", "emhaplofreq/emhaplofreq.h", "emhaplofreq/drand48.c"]
+# )
 ext_Pvalue.depends = path_to_src(
     ["SWIG/typemap.i", "pval/Rconfig.h", "pval/Rmath.h", "pval/dpq.h", "pval/nmath.h"]
 )
@@ -252,7 +252,7 @@ ext_Haplostats.depends = path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pi
 
 # default list of extensions to build
 extensions = [
-    ext_Emhaplofreq,
+    #    ext_Emhaplofreq,
     #    ext_EWSlatkinExact,
     ext_Pvalue,
     ext_Haplostats,
