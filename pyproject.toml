@@ -4,9 +4,7 @@ build-backend = "setuptools.build_meta:__legacy__"
 requires = ["setuptools>=42",
 	    "setuptools_scm[toml]>=6.2",
 	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
-	    "importlib-metadata; python_version <= '3.8'",
-	    "wheel",
-	    "swig"
+	    "importlib-metadata; python_version <= '3.8'"
 	    ]
 [project]
 name = "pypop-genomics"
