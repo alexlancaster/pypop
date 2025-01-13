@@ -64,16 +64,20 @@ class CleanCommand(clean.clean):
         DIR = Path(__file__).resolve().parent / src_dir
         # generate glob pattern from extension name and suffix
         ext_files = [
-            DIR / pkg_dir / ext.name.split(pkg_dir + ".").pop()
-            + ("*.pyd" if sys.platform == "win32" else "*.so")
+            DIR
+            / pkg_dir
+            / str(
+                ext.name.split(pkg_dir + ".").pop()
+                + ("*.pyd" if sys.platform == "win32" else "*.so")
+            )
             for ext in extensions
         ]
         for ext_file in ext_files:
             # FIXME: use `glob.glob` for the moment, Path.glob not working
-            for the_ext_file in glob(ext_file):  # noqa: PTH207
+            for the_ext_file in glob(str(ext_file)):  # noqa: PTH207
                 if Path(the_ext_file).exists():
                     print(f"Removing in-place extension {the_ext_file}")
-                    Path(ext_file).unlink()
+                    Path(the_ext_file).unlink()
         clean.clean.run(self)
 
 
@@ -288,7 +292,6 @@ citation_files = [
 citation_data_file_paths.extend(citation_files)
 
 
-# currently disabled (these are built in a github action)
 class CustomBuildPy(_build_py):
     def run(self):
         # do standard build process
@@ -306,11 +309,6 @@ class CustomBuildPy(_build_py):
 
             convert_citation_formats(build_lib, citation_path)
 
-
-# read the contents of your README file
-
-this_directory = Path(__file__).parent
-long_description = (this_directory / "README.rst").read_text()
 
 setup(
     # name=__pkgname__,
