@@ -46,7 +46,7 @@ MODIFICATIONS. */
 #define MAX_ITER    400      /* RS changed from 200 */
 
 #define FALSE 0
-#define TRUE  1
+#define TRUE 1
 
 #define MAX_INIT 50
 
@@ -69,13 +69,6 @@ MODIFICATIONS. */
 #define xmlfprintf fprintf
 #endif
 
-/* include re-implemented drand48() on Windows */
-#if defined(_WIN32) || defined(__WIN32__) || defined(_WIN64) || defined(__WIN64__)
-#include "drand48.c"
-#define drand48(x) drand48_windows(x)
-#define srand48(x) srand48_windows(x)
-#endif
-
 /*
  * macros to initialize elements of a given static array to `zero'
  * make sure that functions are `re-entrant' (i.e. don't carry bogus
@@ -84,14 +77,13 @@ MODIFICATIONS. */
  * in a shared library context.
  */
 
-#define INIT_STATIC_DIM1(type,id,size1) \
-memset(id, '\0', size1*sizeof(type))
+#define INIT_STATIC_DIM1(type, id, size1) memset(id, '\0', size1 * sizeof(type))
 
-#define INIT_STATIC_DIM2(type,id,size1,size2) \
-memset(id, '\0', size1*size2*sizeof(type))
+#define INIT_STATIC_DIM2(type, id, size1, size2)                               \
+  memset(id, '\0', size1 *size2 * sizeof(type))
 
-#define INIT_STATIC_DIM3(type,id,size1,size2,size3) \
-memset(id, '\0', size1*size2*size3*sizeof(type))
+#define INIT_STATIC_DIM3(type, id, size1, size2, size3)                        \
+  memset(id, '\0', size1 *size2 *size3 * sizeof(type))
 
 /*
  * macros to allocate memory for automatic variables in a function to
@@ -99,11 +91,12 @@ memset(id, '\0', size1*size2*size3*sizeof(type))
  * corresponding `free' must always be used at the end of the function
  */
 
-#define CALLOC_ARRAY_DIM1(type,name,size1) \
-type *name = (type *)calloc(size1, sizeof(type))
+#define CALLOC_ARRAY_DIM1(type, name, size1)                                   \
+  type *name = (type *)calloc(size1, sizeof(type))
 
-#define CALLOC_ARRAY_DIM2(type,name,size1,size2) \
-type (*name)[size2] = (type (*)[size2])calloc(size1*size2, sizeof(type))
+#define CALLOC_ARRAY_DIM2(type, name, size1, size2)                            \
+  type(*name)[size2] = (type(*)[size2])calloc(size1 * size2, sizeof(type))
 
-#define CALLOC_ARRAY_DIM3(type,name,size1,size2,size3) \
-type (*name)[size2][size3] = (type (*)[size2][size3])calloc(size1*size2*size3, sizeof(type))
+#define CALLOC_ARRAY_DIM3(type, name, size1, size2, size3)                     \
+  type(*name)[size2][size3] =                                                  \
+      (type(*)[size2][size3])calloc(size1 * size2 * size3, sizeof(type))

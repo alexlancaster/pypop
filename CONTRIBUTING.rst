@@ -208,6 +208,71 @@ regular pushes to your fork with comprehensible commit messages.
 While you are developing, you can execute ``pytest`` as needed to run
 your unit tests. See `run unit tests with pytest`_.
 
+``Pre-commit`` checks
+---------------------
+
+All PRs submitted to PyPop will be automatically run through a
+series pre-configured ``pre-commit`` `checks
+<https://pre-commit.com/>`_ (called "hooks"), configured in the
+``.pre-commit-config.yaml`` `YAML file
+<https://github.com/alexlancaster/pypop/blob/main/.pre-commit-config.yaml>`__.
+These checks include checks to reformat code and catch errors in:
+
+* Python code (uses ``ruff`` and, ``ruff-format`` hooks)
+* C extension code (uses ``clang-format`` to format code according to
+  the ``LLVM`` style)
+* Common formatting errors in documentation, including Markdown and
+  RST
+* Check code and documentation for spelling errors (via ``codespell``)
+
+This automated check will be run just once upon initial PR submission,
+and results posted on the PR. This may also result in changes to the
+code (mainly reformatting that can be applied automatically).  You
+will need to ensure that you pull these changes back to your local
+checkout before applying new changes.
+
+In addition, however, we highly recommend you enable ``pre-commit``
+checks in your *local checkout*, **before** you commit to your PR
+branch, so you can catch errors early.  Ensuring your code passes
+``pre-commit`` checks will speed the merging of your PR into the
+``main`` branch, as the code will already be in a good state for
+merging.
+
+To enable checks, first ensure that ``pre-commit`` is installed (there
+is a PyPI package), and then install the hooks:
+
+.. code-block:: shell
+
+    pip install pre-commit
+    pre-commit install --install-hooks
+
+To check your changes:
+
+.. code-block:: shell
+
+    pre-commit run
+
+This will result in either:
+
+1. All checks passing (no action needed)
+2. Some checks fail, this can be due either to:
+
+   * Code being reformatted to coding standards (use ``git diff`` to
+     see the additional changes), but are otherwise OK. Generally, all
+     you need to do then is to re-run the ``pre-commit run`` command,
+     and it will proceed according to (1)
+   * An error is detected in the code that requires manual
+     intervention (e.g. non-standard Python construct, formatting
+     issue, spelling error).  Please fix this and re-run your
+     ``pre-commit run`` step until it passes.
+
+If you attempt to commit to the repo, e.g. using a commandl like
+``git commit -a``, pre-commit checks will run on your changed files, and
+behave as if ``pre-commit run`` had been called directly. Once all
+checks pass the ``git commit`` command will commit to the repository and
+you can ``git push`` your changes.
+
+
 Keep your branch in sync with upstream
 --------------------------------------
 
@@ -324,15 +389,22 @@ developing new code you should also implement new test cases.**
 
 **Pull Request checklist**
 
-Before requesting a finale merge, you should:
+Before requesting a final merge, you should:
 
-1. Make sure your PR passes all ``pytest`` tests.
-2. Add unit tests if you are developing new features
-3. Update documentation when there's new API, functionality etc.
-4. In the submission for the PR, include a description of the changes,
+1. Make sure your PR passes all existing ``pytest`` tests.
+2. Add unit tests if you are developing new features and make sure these also pass.
+3. Run and address the `pre-commit checks as described above <Pre-commit checks_>`_.
+4. Update documentation when there's new API, functionality etc.
+5. In the submission for the PR, include a description of the changes,
    in markdown format, suitable for eventual inclusion in ``NEWS.md``.
-5. Add yourself to ``AUTHORS.rst``.
+6. Add yourself to ``AUTHORS.rst``.
 
+.. note::
+
+   Note that the ``pre-commit`` checks are automatically run on all
+   new PRs, and this may result in changes to your code, please
+   approve or otherwise ensure these changes make it back into your
+   development branch.
 
 Installation for developers
 ===========================

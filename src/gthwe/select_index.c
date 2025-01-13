@@ -46,49 +46,50 @@ MODIFICATIONS. */
 
 void select_index(index, no_allele)
 
-		 Index *index;
-		 int no_allele;
+    Index *index;
+int no_allele;
 
 {
 
-	void random_choose();
+  void random_choose();
 
-	int i1, i2, j1, j2;
-	int k = 0;
-	int l = 0;
+  int i1, i2, j1, j2;
+  int k = 0;
+  int l = 0;
 
-/* generate row indices */
+  /* generate row indices */
 
-	random_choose(&i1, &i2, no_allele);
+  random_choose(&i1, &i2, no_allele);
 
-	index->i1 = i1;
-	index->i2 = i2;
+  index->i1 = i1;
+  index->i2 = i2;
 
-/* generate column indices */
+  /* generate column indices */
 
-	random_choose(&j1, &j2, no_allele);
+  random_choose(&j1, &j2, no_allele);
 
-	index->j1 = j1;
-	index->j2 = j2;
+  index->j1 = j1;
+  index->j2 = j2;
 
-/* calculate Delta = d(i1,j1) + d(i1,j2) + d(i2,j1) + d(i2,j2) */
+  /* calculate Delta = d(i1,j1) + d(i1,j2) + d(i2,j1) + d(i2,j2) */
 
-	if (i1 == j1)
-		++k;
+  if (i1 == j1)
+    ++k;
 
-	if (i1 == j2)
-		++k;
+  if (i1 == j2)
+    ++k;
 
-	if (i2 == j1)
-		++k;
+  if (i2 == j1)
+    ++k;
 
-	if (i2 == j2)
-		++k;
+  if (i2 == j2)
+    ++k;
 
-	index->type = k;
+  index->type = k;
 
-	if ((i1 == j1) || (i2 == j2))
-		++l;
+  if ((i1 == j1) || (i2 == j2))
+    ++l;
 
-	index->cst = (l == 1) ? pow((double)2, (double) k) : pow((double)2, -(double) k);
+  index->cst =
+      (l == 1) ? pow((double)2, (double)k) : pow((double)2, -(double)k);
 }

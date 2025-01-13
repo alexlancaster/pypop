@@ -42,29 +42,29 @@ MODIFICATIONS. */
 
 ***************************************************************************/
 
-#include  <stdio.h>
-#include  <stdlib.h>
-#include  <math.h>
+#include <math.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-#include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
+#include <gsl/gsl_rng.h>
 #include <gsl/gsl_sys.h>
 
-#define  EPSILON     1e-6
-#define  GREATER_OR_EQUAL(a,b) (gsl_fcmp(a,b,EPSILON)>=0)
-#define  LESS_OR_EQUAL(a,b)    (gsl_fcmp(a,b,EPSILON)<=0)
+#define EPSILON 1e-6
+#define GREATER_OR_EQUAL(a, b) (gsl_fcmp(a, b, EPSILON) >= 0)
+#define LESS_OR_EQUAL(a, b) (gsl_fcmp(a, b, EPSILON) <= 0)
 
-#define  STR_END       '\0'
-#define  MAXRAND       RAND_MAX
+#define STR_END '\0'
+#define MAXRAND RAND_MAX
 
-#define  MIN(x, y)     ((x) < (y)) ? (x) : (y)
-#define  RATIO(u, v)   ( (double) (u) ) / ( 1.0 + (double) (v) )
-#define  TRANS(x)     (MIN(1.0, x))/2.0  /* transition probability */
+#define MIN(x, y) ((x) < (y)) ? (x) : (y)
+#define RATIO(u, v) ((double)(u)) / (1.0 + (double)(v))
+#define TRANS(x) (MIN(1.0, x)) / 2.0 /* transition probability */
 
-#define  LL(a, b)      a * ( a + 1 ) / 2  + b
-#define  L(a, b)       ( a < b ) ? b*(b + 1)/2 + a : a*(a+1)/2 + b
+#define LL(a, b) a *(a + 1) / 2 + b
+#define L(a, b) (a < b) ? b *(b + 1) / 2 + a : a *(a + 1) / 2 + b
 
-#define  EXPECT(a,b,c) ((double) a) / ((double) c) * ((double) b) / 2.0
+#define EXPECT(a, b, c) ((double)a) / ((double)c) * ((double)b) / 2.0
 
 #ifdef __SWIG__
 int pyfprintf(FILE *fp, const char *format, ...);
@@ -73,8 +73,7 @@ int pyfprintf(FILE *fp, const char *format, ...);
 #define xmlfprintf fprintf
 #endif
 
-typedef struct _Index
-{
+typedef struct _Index {
   int i1;
   int i2;
   int j1;
@@ -83,15 +82,13 @@ typedef struct _Index
   double cst;
 } Index;
 
-struct outcome
-{
-  double p_value;  /* mean p-value */
-  double se;       /* standard error of the p-value */
-  int swch_count[3];  /* switch counts for partial and full switch */
+struct outcome {
+  double p_value;    /* mean p-value */
+  double se;         /* standard error of the p-value */
+  int swch_count[3]; /* switch counts for partial and full switch */
 };
 
-struct randomization
-{
+struct randomization {
   int group; /* total number of chunks */
   int size;  /* size of a chunk */
   int step;  /* number of steps to de-memerization */

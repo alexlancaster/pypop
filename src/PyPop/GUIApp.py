@@ -179,7 +179,7 @@ class MainWindow(wxFrame):
 
     def OnAbout(self, _event):
         d = wxMessageDialog(
-            self, "PyPop: " "PYthon for POPulation Genetics", "About PyPop", wxOK
+            self, "PyPop: PYthon for POPulation Genetics", "About PyPop", wxOK
         )
         # Create a message dialog box
         d.ShowModal()  # Shows it
@@ -205,7 +205,7 @@ class MainWindow(wxFrame):
 
     def OnConfig(self, event):
         """Select config file"""
-        wildcard = "Configuration files (*.ini)|*.ini|" "All files (*.*)|*.*"
+        wildcard = "Configuration files (*.ini)|*.ini|All files (*.*)|*.*"
         fullpath = self._onOpen(event, type=wildcard)
 
         if fullpath:
@@ -214,7 +214,7 @@ class MainWindow(wxFrame):
 
     def OnPop(self, event):
         """Select pop file"""
-        wildcard = "Population files (*.pop)|*.pop|" "All files (*.*)|*.*"
+        wildcard = "Population files (*.pop)|*.pop|All files (*.*)|*.*"
         fullpath = self._onOpen(event, type=wildcard)
 
         if fullpath:
