@@ -60,11 +60,24 @@ name = "PyPop._EWSlatkinExact"
 sources = ["src/slatkin-exact/monte-carlo_wrap.i", "src/slatkin-exact/monte-carlo.c"]
 swig-opts = ["-Isrc/SWIG", "-Isrc"]
 
+[[tool.setuptools.ext-modules]]
+name = "PyPop._Emhaplofreq"
+sources = ["src/emhaplofreq/emhaplofreq_wrap.i", "src/emhaplofreq/emhaplofreq.c"]
+swig-opts = ["-Isrc/SWIG", "-Isrc"]
+include-dirs = ["src/emhaplofreq"]
+extra-compile-args = ["-D__SWIG__=1",
+                      "-DDEBUG=0",
+                      "-DEXTERNAL_MODE=1",
+                      "-DXML_OUTPUT=1"]
+depends = ["src/SWIG/typemap.i",
+          "src/emhaplofreq/emhaplofreq.h",
+          "src/emhaplofreq/drand48.c"]
+
 [tool.setuptools.dynamic]
 readme = { file = "README.rst", content-type = "text/x-rst" }
 
 [tool.setuptools_scm]
-version_file = "src/PyPop/_version.py"
+write_to = "src/PyPop/_version.py"
 version_scheme = "post-release"
 
 [tool.pytest.ini_options]
