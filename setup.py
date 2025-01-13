@@ -45,7 +45,7 @@ from setuptools import setup
 from setuptools.command.build_py import build_py as _build_py
 from setuptools.extension import Extension
 
-from src.PyPop import __pkgname__, __version_scheme__
+# from src.PyPop import __pkgname__, __version_scheme__
 from src.PyPop.citation import citation_output_formats, convert_citation_formats
 
 src_dir = "src"
@@ -113,12 +113,12 @@ ext_Emhaplofreq = Extension(
         ("XML_OUTPUT", "1"),
     ],
 )
-ext_EWSlatkinExact = Extension(
-    "PyPop._EWSlatkinExact",
-    path_to_src(["slatkin-exact/monte-carlo_wrap.i", "slatkin-exact/monte-carlo.c"]),
-    swig_opts=swig_opts,
-    include_dirs=include_dirs,
-)
+# ext_EWSlatkinExact = Extension(
+#    "PyPop._EWSlatkinExact",
+#    path_to_src(["slatkin-exact/monte-carlo_wrap.i", "slatkin-exact/monte-carlo.c"]),
+#    swig_opts=swig_opts,
+#    include_dirs=include_dirs,
+# )
 
 ext_Pvalue = Extension(
     "PyPop._Pvalue",
@@ -249,7 +249,7 @@ ext_Haplostats.depends = path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pi
 # default list of extensions to build
 extensions = [
     ext_Emhaplofreq,
-    ext_EWSlatkinExact,
+    # ext_EWSlatkinExact,
     ext_Pvalue,
     ext_Haplostats,
     ext_Gthwe,
@@ -313,63 +313,63 @@ this_directory = Path(__file__).parent
 long_description = (this_directory / "README.rst").read_text()
 
 setup(
-    name=__pkgname__,
-    use_scm_version={
-        "write_to": Path(src_dir) / pkg_dir / "_version.py",
-        "version_scheme": __version_scheme__,
-    },
-    description="PyPop: Python for Population Genomics",
-    long_description=long_description,
-    long_description_content_type="text/x-rst",
-    url="http://www.pypop.org/",
-    project_urls={
-        "Documentation": "http://pypop.org/docs/",
-        "Changelog": "https://github.com/alexlancaster/pypop/blob/main/NEWS.md",
-        "Source": "https://github.com/alexlancaster/pypop/",
-        "Tracker": "https://github.com/alexlancaster/pypop/issues",
-    },
-    author="Alex Lancaster",
-    maintainer="PyPop team",
-    license="GNU GPL",
-    platforms=["GNU/Linux", "Windows", "MacOS"],
-    keywords=[
-        "bioinformatics",
-        "population-genomics",
-        "evolutionary-biology",
-        "population-genetics",
-    ],
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "Intended Audience :: Science/Research",
-        "Topic :: Scientific/Engineering :: Bio-Informatics",
-        "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
-        "Operating System :: MacOS :: MacOS X",
-        "Operating System :: Microsoft :: Windows",
-        "Operating System :: POSIX :: Linux",
-    ],
-    package_dir={"": src_dir},
-    packages=["PyPop", "PyPop.xslt"],
-    package_data={
-        "PyPop.xslt": xslt_data_file_paths,
-        "PyPop": citation_data_file_paths,
-    },
-    install_requires=[
-        "numpy <= 2.2.1",
-        "lxml <= 5.3.0",
-        "importlib-resources; python_version <= '3.8'",
-        "importlib-metadata; python_version <= '3.8'",
-    ],
-    extras_require={
-        "test": ["pytest"]
-        # FIXME:  "psutil <= 5.9.5", not currently used, 5.9.6 and later had problems with building on Windows PyPy
-    },
-    entry_points={
-        "console_scripts": [
-            "pypop=PyPop.pypop:main",
-            "popmeta=PyPop.popmeta:main",
-            "pypop-interactive=PyPop.pypop:main_interactive",
-        ]
-    },
+    # name=__pkgname__,
+    # use_scm_version={
+    #    "write_to": Path(src_dir) / pkg_dir / "_version.py",
+    #    "version_scheme": __version_scheme__,
+    # },
+    # description="PyPop: Python for Population Genomics",
+    # long_description=long_description,
+    # long_description_content_type="text/x-rst",
+    # url="http://www.pypop.org/",
+    # project_urls={
+    #     "Documentation": "http://pypop.org/docs/",
+    #     "Changelog": "https://github.com/alexlancaster/pypop/blob/main/NEWS.md",
+    #     "Source": "https://github.com/alexlancaster/pypop/",
+    #     "Tracker": "https://github.com/alexlancaster/pypop/issues",
+    # },
+    # author="Alex Lancaster",
+    # maintainer="PyPop team",
+    # license="GNU GPL",
+    # platforms=["GNU/Linux", "Windows", "MacOS"],
+    # keywords=[
+    #     "bioinformatics",
+    #     "population-genomics",
+    #     "evolutionary-biology",
+    #     "population-genetics",
+    # ],
+    # classifiers=[
+    #     "Programming Language :: Python :: 3",
+    #     "Intended Audience :: Science/Research",
+    #     "Topic :: Scientific/Engineering :: Bio-Informatics",
+    #     "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+    #     "Operating System :: MacOS :: MacOS X",
+    #     "Operating System :: Microsoft :: Windows",
+    #     "Operating System :: POSIX :: Linux",
+    # ],
+    # package_dir={"": src_dir},
+    # packages=["PyPop", "PyPop.xslt"],
+    # package_data={
+    #     "PyPop.xslt": xslt_data_file_paths,
+    #     "PyPop": citation_data_file_paths,
+    # },
+    # install_requires=[
+    #     "numpy <= 2.2.1",
+    #     "lxml <= 5.3.0",
+    #     "importlib-resources; python_version <= '3.8'",
+    #     "importlib-metadata; python_version <= '3.8'",
+    # ],
+    # extras_require={
+    #     "test": ["pytest"]
+    #     # FIXME:  "psutil <= 5.9.5", not currently used, 5.9.6 and later had problems with building on Windows PyPy
+    # },
+    # entry_points={
+    #     "console_scripts": [
+    #         "pypop=PyPop.pypop:main",
+    #         "popmeta=PyPop.popmeta:main",
+    #         "pypop-interactive=PyPop.pypop:main_interactive",
+    #     ]
+    # },
     ext_modules=extensions,
     cmdclass={
         "clean": CleanCommand,

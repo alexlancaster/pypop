@@ -1,3 +1,71 @@
+[build-system]
+build-backend = "setuptools.build_meta:__legacy__"
+#build-backend = "setuptools.build_meta"
+requires = ["setuptools>=42",
+	    "setuptools_scm[toml]>=6.2",
+	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
+	    "importlib-metadata; python_version <= '3.8'",
+	    "wheel",
+	    "swig"
+	    ]
+[project]
+name = "pypop-genomics"
+description = "PyPop: Python for Population Genomics"
+license = { text = "GNU General Public License v2 or later (GPLv2+)" }
+authors = [{ name = "Alex Lancaster" }]
+maintainers = [{ name = "PyPop team" }]
+dynamic = ["readme", "version"]
+keywords = [
+    "bioinformatics",
+    "population-genomics",
+    "evolutionary-biology",
+    "population-genetics"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux"
+]
+dependencies = [
+    "numpy <= 2.2.1",
+    "lxml <= 5.3.0",
+    "importlib-resources; python_version <= '3.8'",
+    "importlib-metadata; python_version <= '3.8'"
+]
+optional-dependencies.test = ["pytest"]
+
+[project.urls]
+Documentation = "http://pypop.org/docs/"
+Changelog = "https://github.com/alexlancaster/pypop/blob/main/NEWS.md"
+Source = "https://github.com/alexlancaster/pypop/"
+Tracker = "https://github.com/alexlancaster/pypop/issues"
+
+[project.scripts]
+pypop = "PyPop.pypop:main"
+popmeta = "PyPop.popmeta:main"
+pypop-interactive = "PyPop.pypop:main_interactive"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+packages = ["PyPop", "PyPop.xslt"]
+ext-modules = [{ name = "PyPop._EWSlatkinExact", sources = ["src/slatkin-exact/monte-carlo_wrap.i", "src/slatkin-exact/monte-carlo.c"], swig-opts = ["-Isrc/SWIG", "-Isrc"]}]
+
+# FIXME: this doesn't yet work
+exclude-package-data = { "PyPop.xslt" = [
+     "cdv.xsl",
+     "nodesetup.xsl"]}
+
+[tool.setuptools.dynamic]
+readme = { file = "README.rst", content-type = "text/x-rst" }
+
+[tool.setuptools_scm]
+version_file = "src/PyPop/_version.py"
+version_scheme = "post-release"
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
@@ -105,17 +173,6 @@ before-all = 'nuget install gsl-msvc14-arm64 -Source "%CD%\\vendor-binaries"'
 # use local nuget package to install gsl on Windows ARM64, and manually supply paths
 inherit.environment = "append"
 environment = { CPATH="gsl-msvc14-arm64.2.3.0.2779\\\\build\\\\native\\\\include", LIBRARY_PATH="gsl-msvc14-arm64.2.3.0.2779\\\\build\\\\native\\\\lib" }
-
-[tool.setuptools_scm]
-write_to = "src/PyPop/_version.py"  # matches the path where version will be written
-
-[build-system]
-build-backend = "setuptools.build_meta:__legacy__"
-requires = ["setuptools>=42",
-	    "setuptools_scm[toml]>=6.2",
-	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
-	    "importlib-metadata; python_version <= '3.8'"
-	    ]
 
 [tool.ruff]
 target-version = "py37"
