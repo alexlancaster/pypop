@@ -50,12 +50,15 @@ pypop-interactive = "PyPop.pypop:main_interactive"
 [tool.setuptools]
 package-dir = { "" = "src" }
 packages = ["PyPop", "PyPop.xslt"]
-ext-modules = [{ name = "PyPop._EWSlatkinExact", sources = ["src/slatkin-exact/monte-carlo_wrap.i", "src/slatkin-exact/monte-carlo.c"], swig-opts = ["-Isrc/SWIG", "-Isrc"]}]
-
 # FIXME: this doesn't yet work
 exclude-package-data = { "PyPop.xslt" = [
      "cdv.xsl",
      "nodesetup.xsl"]}
+
+[[tool.setuptools.ext-modules]]
+name = "PyPop._EWSlatkinExact"
+sources = ["src/slatkin-exact/monte-carlo_wrap.i", "src/slatkin-exact/monte-carlo.c"]
+swig-opts = ["-Isrc/SWIG", "-Isrc"]
 
 [tool.setuptools.dynamic]
 readme = { file = "README.rst", content-type = "text/x-rst" }
