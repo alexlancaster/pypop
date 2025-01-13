@@ -113,12 +113,12 @@ ext_Emhaplofreq = Extension(
         ("XML_OUTPUT", "1"),
     ],
 )
-# ext_EWSlatkinExact = Extension(
-#    "PyPop._EWSlatkinExact",
-#    path_to_src(["slatkin-exact/monte-carlo_wrap.i", "slatkin-exact/monte-carlo.c"]),
-#    swig_opts=swig_opts,
-#    include_dirs=include_dirs,
-# )
+ext_EWSlatkinExact = Extension(
+    "PyPop._EWSlatkinExact",
+    path_to_src(["slatkin-exact/monte-carlo_wrap.i", "slatkin-exact/monte-carlo.c"]),
+    swig_opts=swig_opts,
+    include_dirs=include_dirs,
+)
 
 ext_Pvalue = Extension(
     "PyPop._Pvalue",
@@ -249,7 +249,7 @@ ext_Haplostats.depends = path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pi
 # default list of extensions to build
 extensions = [
     ext_Emhaplofreq,
-    # ext_EWSlatkinExact,
+    ext_EWSlatkinExact,
     ext_Pvalue,
     ext_Haplostats,
     ext_Gthwe,
