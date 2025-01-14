@@ -301,7 +301,7 @@ citation_files = [
 citation_data_file_paths.extend(citation_files)
 
 
-def parse_ext_modules_from_toml(toml_path, extensions):
+def add_more_ext_modules_from_toml(toml_path, extensions):
     with open(toml_path, "rb") as f:
         config = tomli.load(f)
 
@@ -364,10 +364,6 @@ class CustomBuildPy(_build_py):
             convert_citation_formats(build_lib, citation_path)
 
 
-all_extensions = parse_ext_modules_from_toml("pyproject.toml", extensions)
-# all_extensions = extensions
-print("all extensions:", all_extensions)
-
 setup(
     # name=__pkgname__,
     # use_scm_version={
@@ -426,7 +422,7 @@ setup(
     #         "pypop-interactive=PyPop.pypop:main_interactive",
     #     ]
     # },
-    ext_modules=all_extensions,
+    ext_modules=add_more_ext_modules_from_toml("extensions.toml", extensions),
     cmdclass={
         "clean": CleanCommand,
         # enable the custom build
