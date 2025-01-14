@@ -10,7 +10,8 @@ requires = ["setuptools>=42",
 [project]
 name = "pypop-genomics"
 description = "PyPop: Python for Population Genomics"
-license = { text = "GNU General Public License v2 or later (GPLv2+)" }
+license = "GPL-2.0-or-later"
+license-files = ["LICENSE"]
 authors = [{ name = "Alex Lancaster" }]
 maintainers = [{ name = "PyPop team" }]
 dynamic = ["readme", "version"]
@@ -38,6 +39,7 @@ dependencies = [
 optional-dependencies.test = ["pytest"]
 
 [project.urls]
+Homepage = "http://pypop.org/"
 Documentation = "http://pypop.org/docs/"
 Changelog = "https://github.com/alexlancaster/pypop/blob/main/NEWS.md"
 Source = "https://github.com/alexlancaster/pypop/"
