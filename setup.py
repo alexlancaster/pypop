@@ -43,6 +43,7 @@ from sysconfig import get_config_var
 
 import tomli
 from setuptools import setup
+from setuptools.command.build_ext import build_ext as _build_ext
 from setuptools.command.build_py import build_py as _build_py
 from setuptools.extension import Extension
 
@@ -82,15 +83,23 @@ class CleanCommand(clean.clean):
         clean.clean.run(self)
 
 
-# look for libraries in _PREFIX
-prefix = Path(get_config_var("prefix"))
-library_dirs = [str(prefix / "lib")]
-include_dirs = [str(prefix / "include")]
-# also look in LIBRARY_PATH, CPATH (needed for macports etc.)
-if "LIBRARY_PATH" in os.environ:
-    library_dirs += os.environ["LIBRARY_PATH"].rstrip(os.pathsep).split(os.pathsep)
-if "CPATH" in os.environ:
-    include_dirs += os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
+class CustomBuildExt(_build_ext):
+    def finalize_options(self):
+        super().finalize_options()
+
+        # look for libraries in _PREFIX
+        prefix = Path(get_config_var("prefix"))
+        self.library_dirs += [str(prefix / "lib")]
+        self.include_dirs += [str(prefix / "include")]
+        # also look in LIBRARY_PATH, CPATH (needed for macports etc.)
+        if "LIBRARY_PATH" in os.environ:
+            self.library_dirs += (
+                os.environ["LIBRARY_PATH"].rstrip(os.pathsep).split(os.pathsep)
+            )
+        if "CPATH" in os.environ:
+            self.include_dirs += (
+                os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
+            )
 
 
 # generate the appropriate relative path to source directory, given
@@ -149,7 +158,7 @@ ext_Pvalue = Extension(
         ]
     ),
     swig_opts=swig_opts,
-    include_dirs=include_dirs + path_to_src(["pval"]),
+    include_dirs=path_to_src(["pval"]),
     define_macros=[("MATHLIB_STANDALONE", "1")],
 )
 
@@ -198,7 +207,7 @@ ext_Haplostats = Extension(
     "PyPop._Haplostats",
     path_to_src(["haplo-stats/haplostats_wrap.i", "haplo-stats/haplo_em_pin.c"]),
     swig_opts=swig_opts,
-    include_dirs=include_dirs + path_to_src(["haplo-stats", "pval"]),
+    include_dirs=path_to_src(["haplo-stats", "pval"]),
     define_macros=[
         ("MATHLIB_STANDALONE", "1"),
         ("__SWIG__", "1"),
@@ -222,7 +231,6 @@ ext_HweEnum = Extension(
     ),
     swig_opts=swig_opts,
     include_dirs=[
-        *include_dirs,
         path_to_src(["hwe-enumeration/src/include"]),
         "/usr/include/glib-2.0",
         "/usr/include/glib-2.0/include",
@@ -423,5 +431,7 @@ setup(
         "clean": CleanCommand,
         # enable the custom build
         "build_py": CustomBuildPy,
+        # customize the build extension to read environment variables
+        "build_ext": CustomBuildExt,
     },
 )

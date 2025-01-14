@@ -96,7 +96,7 @@ sources = [
         "src/gthwe/statistics.c"]
 swig-opts = ["-Isrc/SWIG", "-Isrc"]
 include-dirs = ["src/gthwe"]
-#library_dirs = # look for libraries in PREFIX?
+library-dirs = []
 libraries=["gsl", "gslcblas"]
 extra-compile-args=["-D__SWIG__=1",
     "-DDEBUG=0",
