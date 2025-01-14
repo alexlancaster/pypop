@@ -41,6 +41,7 @@ from glob import glob
 from pathlib import Path
 from sysconfig import get_config_var
 
+import tomli
 from setuptools import setup
 from setuptools.command.build_py import build_py as _build_py
 from setuptools.extension import Extension
@@ -291,15 +292,10 @@ citation_files = [
 ]
 citation_data_file_paths.extend(citation_files)
 
-if sys.version_info >= (3, 11):
-    import tomllib
-else:
-    import tomli as tomllib
-
 
 def parse_ext_modules_from_toml(toml_path, extensions):
     with open(toml_path, "rb") as f:
-        config = tomllib.load(f)
+        config = tomli.load(f)
 
     ext_modules_config = (
         config.get("tool", {}).get("setuptools", {}).get("ext-modules", [])

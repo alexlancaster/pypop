@@ -3,9 +3,8 @@ build-backend = "setuptools.build_meta:__legacy__"
 #build-backend = "setuptools.build_meta"
 requires = ["setuptools>=42",
 	    "setuptools_scm[toml]>=6.2",
+	    "tomli",
 	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
-	    "tomli; python_version <= '3.7'",
-	    "tomllib; python_version > '3.7'",
 	    "importlib-metadata; python_version <= '3.8'"
 	    ]
 [project]
