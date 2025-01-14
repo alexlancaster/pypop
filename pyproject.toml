@@ -10,8 +10,7 @@ requires = ["setuptools>=42",
 [project]
 name = "pypop-genomics"
 description = "PyPop: Python for Population Genomics"
-license = "GPL-2.0-or-later"
-license-files = ["LICENSE"]
+license = { text = "GPL-2.0-or-later" }
 authors = [{ name = "Alex Lancaster" }]
 maintainers = [{ name = "PyPop team" }]
 dynamic = ["readme", "version"]
