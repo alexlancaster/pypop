@@ -49,25 +49,10 @@ popmeta = "PyPop.popmeta:main"
 pypop-interactive = "PyPop.pypop:main_interactive"
 
 [tool.setuptools]
-package-dir = { "" = "src" }
-packages = ["PyPop", "PyPop.xslt"]
 
-# FIXME: this doesn't yet work
-# [tool.setuptools.package-data]
-# "PyPop.xslt" = [
-#         "text.xsl",
-#         "html.xsl",
-#         "lib.xsl",
-#         "common.xsl",
-#         "filter.xsl",
-#         "hardyweinberg.xsl",
-#         "homozygosity.xsl",
-#         "emhaplofreq.xsl",
-#         "meta-to-tsv.xsl",
-#         "sort-by-locus.xsl",
-#         "haplolist-by-group.xsl",
-#         "phylip-allele.xsl",
-#         "phylip-haplo.xslt"]
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["PyPop", "PyPop.xslt"]
 
 [tool.setuptools.dynamic]
 readme = { file = "README.rst", content-type = "text/x-rst" }

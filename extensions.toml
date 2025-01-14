@@ -90,3 +90,36 @@ extra-compile-args = [
         "-DR_NO_REMAP=1"
     ]
 depends = ["src/SWIG/typemap.i", "src/haplo-stats/haplo_em_pin.h"]
+
+# FIXME: currently disabled, needs to be converted
+# ext_HweEnum = Extension(
+#     "PyPop._HweEnum",
+#     [
+#         "src/hwe-enumeration/src/hwe_enum_wrap.i",
+#         "src/hwe-enumeration/src/hwe_enum.c",
+#         "src/hwe-enumeration/src/factorial.c",
+#         "src/hwe-enumeration/src/main.c",
+#         "src/hwe-enumeration/src/common.c",
+#         "src/hwe-enumeration/src/statistics.c",
+#         "src/hwe-enumeration/src/external.c",
+#     ],
+#     swig_opts=["-Isrc/SWIG", "-Isrc"],
+#     include_dirs=[
+#         ["src/hwe-enumeration/src/include"],
+#         "/usr/include/glib-2.0",
+#         "/usr/include/glib-2.0/include",
+#         "/usr/lib/glib-2.0/include",
+#         "/usr/lib64/glib-2.0/include/",
+#         "/usr/include/libxml2",
+#         "/usr/include/gsl",
+#     ],
+#     libraries=["glib-2.0", "xml2", "popt", "m", "gsl", "gslcblas"],
+#     define_macros=[
+#         ("__SORT_TABLE__", "1"),
+#         ("g_fprintf", "pyfprintf"),
+#         ("VERSION", '"internal"'),
+#         ("PACKAGE_NAME", '"hwe-enumeration"'),
+#         ("INDIVID_GENOTYPES", "1"),
+#         ("HAVE_LIBGSL", "1"),
+#     ],
+# )

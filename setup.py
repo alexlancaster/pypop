@@ -47,22 +47,14 @@ from setuptools.command.build_ext import build_ext as _build_ext
 from setuptools.command.build_py import build_py as _build_py
 from setuptools.extension import Extension
 
-# from src.PyPop import __pkgname__, __version_scheme__
-from src.PyPop.citation import citation_output_formats, convert_citation_formats
-
-src_dir = "src"
-
-# distutils doesn't currently have an explicit way of setting CFLAGS,
-# it takes CFLAGS from the environment variable of the same name, so
-# we set the environment to emulate that.
-# os.environ['CFLAGS'] = '-funroll-loops'
+from src.PyPop.citation import convert_citation_formats
 
 
 class CleanCommand(clean.clean):
     """Customized clean command - removes in_place extension files if they exist"""
 
     def run(self):
-        DIR = Path(__file__).resolve().parent / src_dir
+        DIR = Path(__file__).resolve().parent / "src"
         # generate glob pattern from extension name and suffix
         ext_files = [
             DIR
@@ -101,118 +93,6 @@ class CustomBuildExt(_build_ext):
             )
 
 
-ext_HweEnum = Extension(
-    "PyPop._HweEnum",
-    [
-        "src/hwe-enumeration/src/hwe_enum_wrap.i",
-        "src/hwe-enumeration/src/hwe_enum.c",
-        "src/hwe-enumeration/src/factorial.c",
-        "src/hwe-enumeration/src/main.c",
-        "src/hwe-enumeration/src/common.c",
-        "src/hwe-enumeration/src/statistics.c",
-        "src/hwe-enumeration/src/external.c",
-    ],
-    swig_opts=["-Isrc/SWIG", "-Isrc"],
-    include_dirs=[
-        ["src/hwe-enumeration/src/include"],
-        "/usr/include/glib-2.0",
-        "/usr/include/glib-2.0/include",
-        "/usr/lib/glib-2.0/include",
-        "/usr/lib64/glib-2.0/include/",
-        "/usr/include/libxml2",
-        "/usr/include/gsl",
-    ],
-    libraries=["glib-2.0", "xml2", "popt", "m", "gsl", "gslcblas"],
-    define_macros=[
-        ("__SORT_TABLE__", "1"),
-        ("g_fprintf", "pyfprintf"),
-        ("VERSION", '"internal"'),
-        ("PACKAGE_NAME", '"hwe-enumeration"'),
-        ("INDIVID_GENOTYPES", "1"),
-        ("HAVE_LIBGSL", "1"),
-    ],
-)
-# most extensions moved to extensions.toml
-extensions = []
-# don't include HWEEnum
-# extensions.append(ext_HweEnum)
-
-xslt_data_file_paths = []
-# xslt files are in a subdirectory
-xslt_files = [
-    f + ".xsl"
-    for f in [
-        "text",
-        "html",
-        "lib",
-        "common",
-        "filter",
-        "hardyweinberg",
-        "homozygosity",
-        "emhaplofreq",
-        "meta-to-tsv",
-        "sort-by-locus",
-        "haplolist-by-group",
-        "phylip-allele",
-        "phylip-haplo",
-    ]
-]
-xslt_data_file_paths.extend(xslt_files)
-
-
-def add_more_ext_modules_from_toml(toml_path, extensions):
-    with open(toml_path, "rb") as f:
-        config = tomli.load(f)
-
-    ext_modules_config = (
-        config.get("tool", {}).get("setuptools", {}).get("ext-modules", [])
-    )
-    # ext_modules = []
-    # existing extensions names
-    existing_extensions = [ext.name for ext in extensions]
-    ext_modules = extensions
-
-    print("***********************************************")
-    print("parsing extensions in:", toml_path)
-    print("***********************************************")
-
-    print("existing extensions:", existing_extensions)
-
-    for ext in ext_modules_config:
-        if ext["name"] not in existing_extensions:
-            print("*******************************************")
-            print("Building extension:", ext["name"])
-            print("*******************************************")
-
-            ext_modules.append(
-                Extension(
-                    name=ext["name"],
-                    sources=ext.get("sources", []),
-                    swig_opts=ext.get("swig-opts", []),
-                    include_dirs=ext.get("include-dirs", []),
-                    libraries=ext.get("libraries", []),
-                    library_dirs=ext.get("library-dirs", []),
-                    extra_compile_args=ext.get("extra-compile-args", []),
-                    extra_link_args=ext.get("extra-link-args", []),
-                    depends=ext.get("depends", []),
-                )
-            )
-        else:
-            print("*******************************************")
-            print("Skipping extension:", ext, "already exists")
-            print("*******************************************")
-
-    return ext_modules
-
-
-citation_data_file_paths = []
-# citation files are in a subdirectory of PyPop, but not a separate module
-citation_files = [
-    str(Path("citation") / f"CITATION.{suffix}") for suffix in citation_output_formats
-]
-citation_data_file_paths.extend(citation_files)
-
-
 class CustomBuildPy(_build_py):
     def run(self):
         # do standard build process
@@ -231,17 +111,58 @@ class CustomBuildPy(_build_py):
             convert_citation_formats(build_lib, citation_path)
 
 
+# convert extensions defined in `toml_path` to extensions
+# FIXME: this is only necessary while we are building for Python
+# that doesn't support `ext-modules` within pyproject.toml
+
+
+def add_more_ext_modules_from_toml(toml_path, extensions):
+    with open(toml_path, "rb") as f:
+        config = tomli.load(f)
+
+    ext_modules_config = (
+        config.get("tool", {}).get("setuptools", {}).get("ext-modules", [])
+    )
+    # existing extensions names
+    existing_extensions = [ext.name for ext in extensions]
+    ext_modules = extensions
+
+    print("extensions in setup.py:", existing_extensions)
+    print("parsing extensions in:", toml_path)
+
+    for ext in ext_modules_config:
+        if ext["name"] not in existing_extensions:
+            print("creating extension configuration for:", ext["name"])
+
+            ext_modules.append(
+                Extension(
+                    name=ext["name"],
+                    sources=ext.get("sources", []),
+                    swig_opts=ext.get("swig-opts", []),
+                    include_dirs=ext.get("include-dirs", []),
+                    libraries=ext.get("libraries", []),
+                    library_dirs=ext.get("library-dirs", []),
+                    extra_compile_args=ext.get("extra-compile-args", []),
+                    extra_link_args=ext.get("extra-link-args", []),
+                    depends=ext.get("depends", []),
+                )
+            )
+        else:
+            print("skipping extension configuration:", ext, "already exists")
+
+    return ext_modules
+
+
+# extension configuration moved to extensions.toml
+# if there are any extensions that can't be converted to TOML, add them here
+extensions = []
+
 setup(
-    # package_dir={"": src_dir},
-    # packages=["PyPop", "PyPop.xslt"],
-    # package_data={
-    #     "PyPop.xslt": xslt_data_file_paths,
-    #     "PyPop": citation_data_file_paths,
-    # },
     ext_modules=add_more_ext_modules_from_toml("extensions.toml", extensions),
     cmdclass={
+        # custom clean command to remove extension files
         "clean": CleanCommand,
-        # enable the custom build
+        # enable the custom build for citations
         "build_py": CustomBuildPy,
         # customize the build extension to read environment variables
         "build_ext": CustomBuildExt,
