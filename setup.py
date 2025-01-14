@@ -51,7 +51,6 @@ from setuptools.extension import Extension
 from src.PyPop.citation import citation_output_formats, convert_citation_formats
 
 src_dir = "src"
-pkg_dir = "PyPop"
 
 # distutils doesn't currently have an explicit way of setting CFLAGS,
 # it takes CFLAGS from the environment variable of the same name, so
@@ -67,9 +66,9 @@ class CleanCommand(clean.clean):
         # generate glob pattern from extension name and suffix
         ext_files = [
             DIR
-            / pkg_dir
+            / "PyPop"
             / str(
-                ext.name.split(pkg_dir + ".").pop()
+                ext.name.split("PyPop.").pop()
                 + ("*.pyd" if sys.platform == "win32" else "*.so")
             )
             for ext in extensions
@@ -102,136 +101,20 @@ class CustomBuildExt(_build_ext):
             )
 
 
-# generate the appropriate relative path to source directory, given
-# paths within that source directory (this means we need to define
-# this directory in just one place
-def path_to_src(source_path_list):
-    new_source_list = []
-    for file_path in source_path_list:
-        new_source_list.append(str(Path(src_dir) / file_path))
-    return new_source_list
-
-
-swig_opts = ["-I{}".format(Path(src_dir) / "SWIG"), f"-I{Path(src_dir)}"]
-
-# define each extension
-# ext_Emhaplofreq = Extension(
-#     "PyPop._Emhaplofreq",
-#     path_to_src(["emhaplofreq/emhaplofreq_wrap.i", "emhaplofreq/emhaplofreq.c"]),
-#     swig_opts=swig_opts,
-#     include_dirs=include_dirs + path_to_src(["emhaplofreq"]),
-#     define_macros=[
-#         ("__SWIG__", "1"),
-#         ("DEBUG", "0"),
-#         ("EXTERNAL_MODE", "1"),
-#         ("XML_OUTPUT", "1"),
-#     ],
-# )
-# ext_EWSlatkinExact = Extension(
-#     "PyPop._EWSlatkinExact",
-#     path_to_src(["slatkin-exact/monte-carlo_wrap.i", "slatkin-exact/monte-carlo.c"]),
-#     swig_opts=swig_opts,
-#     include_dirs=include_dirs,
-# )
-
-ext_Pvalue = Extension(
-    "PyPop._Pvalue",
-    path_to_src(
-        [
-            "pval/pval_wrap.i",
-            "pval/pval.c",
-            "pval/pchisq.c",
-            "pval/chebyshev.c",
-            "pval/ftrunc.c",
-            "pval/lgamma.c",
-            "pval/mlutils.c",
-            "pval/pgamma.c",
-            "pval/fmin2.c",
-            "pval/fmax2.c",
-            "pval/dnorm.c",
-            "pval/dpois.c",
-            "pval/gamma.c",
-            "pval/bd0.c",
-            "pval/stirlerr.c",
-            "pval/lgammacor.c",
-            "pval/pnorm.c",
-        ]
-    ),
-    swig_opts=swig_opts,
-    include_dirs=path_to_src(["pval"]),
-    define_macros=[("MATHLIB_STANDALONE", "1")],
-)
-
-# ext_Gthwe_files = path_to_src(
-#     [
-#         "gthwe/gthwe_wrap.i",
-#         "gthwe/hwe.c",
-#         "gthwe/cal_const.c",
-#         "gthwe/cal_n.c",
-#         "gthwe/cal_prob.c",
-#         "gthwe/check_file.c",
-#         "gthwe/do_switch.c",
-#         "gthwe/new_rand.c",
-#         "gthwe/ln_p_value.c",
-#         "gthwe/to_calculate_log.c",
-#         "gthwe/print_data.c",
-#         "gthwe/random_choose.c",
-#         "gthwe/read_data.c",
-#         "gthwe/select_index.c",
-#         "gthwe/stamp_time.c",
-#         "gthwe/test_switch.c",
-#         "gthwe/statistics.c",
-#     ]
-# )
-
-
-# ext_Gthwe_macros = [
-#     ("__SWIG__", "1"),
-#     ("DEBUG", "0"),
-#     ("XML_OUTPUT", "1"),
-#     ("SUPPRESS_ALLELE_TABLE", "1"),
-#     ("INDIVID_GENOTYPES", "1"),
-# ]
-
-# ext_Gthwe = Extension(
-#     "PyPop._Gthwe",
-#     ext_Gthwe_files,
-#     swig_opts=swig_opts,
-#     include_dirs=include_dirs + path_to_src(["gthwe"]),
-#     library_dirs=library_dirs,
-#     libraries=["gsl", "gslcblas"],
-#     define_macros=ext_Gthwe_macros,
-# )
-
-ext_Haplostats = Extension(
-    "PyPop._Haplostats",
-    path_to_src(["haplo-stats/haplostats_wrap.i", "haplo-stats/haplo_em_pin.c"]),
-    swig_opts=swig_opts,
-    include_dirs=path_to_src(["haplo-stats", "pval"]),
-    define_macros=[
-        ("MATHLIB_STANDALONE", "1"),
-        ("__SWIG__", "1"),
-        ("DEBUG", "0"),
-        ("R_NO_REMAP", "1"),
-    ],
-)
-
 ext_HweEnum = Extension(
     "PyPop._HweEnum",
-    path_to_src(
-        [
-            "hwe-enumeration/src/hwe_enum_wrap.i",
-            "hwe-enumeration/src/hwe_enum.c",
-            "hwe-enumeration/src/factorial.c",
-            "hwe-enumeration/src/main.c",
-            "hwe-enumeration/src/common.c",
-            "hwe-enumeration/src/statistics.c",
-            "hwe-enumeration/src/external.c",
-        ]
-    ),
-    swig_opts=swig_opts,
+    [
+        "src/hwe-enumeration/src/hwe_enum_wrap.i",
+        "src/hwe-enumeration/src/hwe_enum.c",
+        "src/hwe-enumeration/src/factorial.c",
+        "src/hwe-enumeration/src/main.c",
+        "src/hwe-enumeration/src/common.c",
+        "src/hwe-enumeration/src/statistics.c",
+        "src/hwe-enumeration/src/external.c",
+    ],
+    swig_opts=["-Isrc/SWIG", "-Isrc"],
     include_dirs=[
-        path_to_src(["hwe-enumeration/src/include"]),
+        ["src/hwe-enumeration/src/include"],
         "/usr/include/glib-2.0",
         "/usr/include/glib-2.0/include",
         "/usr/lib/glib-2.0/include",
@@ -249,25 +132,8 @@ ext_HweEnum = Extension(
         ("HAVE_LIBGSL", "1"),
     ],
 )
-
-# ext_Emhaplofreq.depends = path_to_src(
-#     ["SWIG/typemap.i", "emhaplofreq/emhaplofreq.h", "emhaplofreq/drand48.c"]
-# )
-ext_Pvalue.depends = path_to_src(
-    ["SWIG/typemap.i", "pval/Rconfig.h", "pval/Rmath.h", "pval/dpq.h", "pval/nmath.h"]
-)
-# ext_Gthwe.depends = path_to_src(["SWIG/typemap.i", "gthwe/func.h", "gthwe/hwe.h"])
-ext_Haplostats.depends = path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pin.h"])
-
-# default list of extensions to build
-extensions = [
-    #    ext_Emhaplofreq,
-    #    ext_EWSlatkinExact,
-    ext_Pvalue,
-    ext_Haplostats,
-    #    ext_Gthwe,
-]
-
+# most extensions moved to extensions.toml
+extensions = []
 # don't include HWEEnum
 # extensions.append(ext_HweEnum)
 
@@ -292,13 +158,6 @@ xslt_files = [
     ]
 ]
 xslt_data_file_paths.extend(xslt_files)
-
-citation_data_file_paths = []
-# citation files are in a subdirectory of PyPop, but not a separate module
-citation_files = [
-    str(Path("citation") / f"CITATION.{suffix}") for suffix in citation_output_formats
-]
-citation_data_file_paths.extend(citation_files)
 
 
 def add_more_ext_modules_from_toml(toml_path, extensions):
@@ -346,6 +205,14 @@ def add_more_ext_modules_from_toml(toml_path, extensions):
     return ext_modules
 
 
+citation_data_file_paths = []
+# citation files are in a subdirectory of PyPop, but not a separate module
+citation_files = [
+    str(Path("citation") / f"CITATION.{suffix}") for suffix in citation_output_formats
+]
+citation_data_file_paths.extend(citation_files)
+
+
 class CustomBuildPy(_build_py):
     def run(self):
         # do standard build process
@@ -365,62 +232,11 @@ class CustomBuildPy(_build_py):
 
 
 setup(
-    # name=__pkgname__,
-    # use_scm_version={
-    #    "write_to": Path(src_dir) / pkg_dir / "_version.py",
-    #    "version_scheme": __version_scheme__,
-    # },
-    # description="PyPop: Python for Population Genomics",
-    # long_description=long_description,
-    # long_description_content_type="text/x-rst",
-    # url="http://www.pypop.org/",
-    # project_urls={
-    #     "Documentation": "http://pypop.org/docs/",
-    #     "Changelog": "https://github.com/alexlancaster/pypop/blob/main/NEWS.md",
-    #     "Source": "https://github.com/alexlancaster/pypop/",
-    #     "Tracker": "https://github.com/alexlancaster/pypop/issues",
-    # },
-    # author="Alex Lancaster",
-    # maintainer="PyPop team",
-    # license="GNU GPL",
-    # platforms=["GNU/Linux", "Windows", "MacOS"],
-    # keywords=[
-    #     "bioinformatics",
-    #     "population-genomics",
-    #     "evolutionary-biology",
-    #     "population-genetics",
-    # ],
-    # classifiers=[
-    #     "Programming Language :: Python :: 3",
-    #     "Intended Audience :: Science/Research",
-    #     "Topic :: Scientific/Engineering :: Bio-Informatics",
-    #     "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
-    #     "Operating System :: MacOS :: MacOS X",
-    #     "Operating System :: Microsoft :: Windows",
-    #     "Operating System :: POSIX :: Linux",
-    # ],
     # package_dir={"": src_dir},
     # packages=["PyPop", "PyPop.xslt"],
     # package_data={
     #     "PyPop.xslt": xslt_data_file_paths,
     #     "PyPop": citation_data_file_paths,
-    # },
-    # install_requires=[
-    #     "numpy <= 2.2.1",
-    #     "lxml <= 5.3.0",
-    #     "importlib-resources; python_version <= '3.8'",
-    #     "importlib-metadata; python_version <= '3.8'",
-    # ],
-    # extras_require={
-    #     "test": ["pytest"]
-    #     # FIXME:  "psutil <= 5.9.5", not currently used, 5.9.6 and later had problems with building on Windows PyPy
-    # },
-    # entry_points={
-    #     "console_scripts": [
-    #         "pypop=PyPop.pypop:main",
-    #         "popmeta=PyPop.popmeta:main",
-    #         "pypop-interactive=PyPop.pypop:main_interactive",
-    #     ]
     # },
     ext_modules=add_more_ext_modules_from_toml("extensions.toml", extensions),
     cmdclass={

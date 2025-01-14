@@ -52,3 +52,41 @@ extra-compile-args=["-D__SWIG__=1",
     "-DINDIVID_GENOTYPES=1",
 ]
 depends = ["src/SWIG/typemap.i", "src/gthwe/func.h", "src/gthwe/hwe.h"]
+
+[[tool.setuptools.ext-modules]]
+name = "PyPop._Pvalue"
+sources = [
+      "src/pval/pval_wrap.i",
+      "src/pval/pval.c",
+      "src/pval/pchisq.c",
+      "src/pval/chebyshev.c",
+      "src/pval/ftrunc.c",
+      "src/pval/lgamma.c",
+      "src/pval/mlutils.c",
+      "src/pval/pgamma.c",
+      "src/pval/fmin2.c",
+      "src/pval/fmax2.c",
+      "src/pval/dnorm.c",
+      "src/pval/dpois.c",
+      "src/pval/gamma.c",
+      "src/pval/bd0.c",
+      "src/pval/stirlerr.c",
+      "src/pval/lgammacor.c",
+      "src/pval/pnorm.c"]
+swig-opts = ["-Isrc/SWIG", "-Isrc"]
+include-dirs = ["src/pval"]
+extra-compile-args = ["-DMATHLIB_STANDALONE=1"]
+depends = ["src/SWIG/typemap.i", "src/pval/Rconfig.h", "src/pval/Rmath.h", "src/pval/dpq.h", "src/pval/nmath.h"]
+
+[[tool.setuptools.ext-modules]]
+name = "PyPop._Haplostats"
+sources = ["src/haplo-stats/haplostats_wrap.i", "src/haplo-stats/haplo_em_pin.c"]
+swig-opts = ["-Isrc/SWIG", "-Isrc"]
+include-dirs = ["src/haplo-stats", "src/pval"]
+extra-compile-args = [
+        "-DMATHLIB_STANDALONE=1",
+        "-D__SWIG__=1",
+        "-DDEBUG=0",
+        "-DR_NO_REMAP=1"
+    ]
+depends = ["src/SWIG/typemap.i", "src/haplo-stats/haplo_em_pin.h"]
