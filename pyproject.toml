@@ -4,6 +4,8 @@ build-backend = "setuptools.build_meta:__legacy__"
 requires = ["setuptools>=42",
 	    "setuptools_scm[toml]>=6.2",
 	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
+	    "tomli; python_version <= '3.7'",
+	    "tomlib; python_version > '3.7'",
 	    "importlib-metadata; python_version <= '3.8'"
 	    ]
 [project]
@@ -72,6 +74,38 @@ extra-compile-args = ["-D__SWIG__=1",
 depends = ["src/SWIG/typemap.i",
           "src/emhaplofreq/emhaplofreq.h",
           "src/emhaplofreq/drand48.c"]
+
+[[tool.setuptools.ext-modules]]
+name = "PyPop._Gthwe"
+sources = [
+        "src/gthwe/gthwe_wrap.i",
+        "src/gthwe/hwe.c",
+        "src/gthwe/cal_const.c",
+        "src/gthwe/cal_n.c",
+        "src/gthwe/cal_prob.c",
+        "src/gthwe/check_file.c",
+        "src/gthwe/do_switch.c",
+        "src/gthwe/new_rand.c",
+        "src/gthwe/ln_p_value.c",
+        "src/gthwe/to_calculate_log.c",
+        "src/gthwe/print_data.c",
+        "src/gthwe/random_choose.c",
+        "src/gthwe/read_data.c",
+        "src/gthwe/select_index.c",
+        "src/gthwe/stamp_time.c",
+        "src/gthwe/test_switch.c",
+        "src/gthwe/statistics.c"]
+swig-opts = ["-Isrc/SWIG", "-Isrc"]
+include-dirs = ["src/gthwe"]
+#library_dirs = # look for libraries in PREFIX?
+libraries=["gsl", "gslcblas"]
+extra-compile-args=["-D__SWIG__=1",
+    "-DDEBUG=0",
+    "-DXML_OUTPUT=1",
+    "-DSUPPRESS_ALLELE_TABLE=1",
+    "-DINDIVID_GENOTYPES=1",
+]
+depends = ["src/SWIG/typemap.i", "src/gthwe/func.h", "src/gthwe/hwe.h"]
 
 [tool.setuptools.dynamic]
 readme = { file = "README.rst", content-type = "text/x-rst" }

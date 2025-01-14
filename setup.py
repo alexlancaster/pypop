@@ -152,46 +152,46 @@ ext_Pvalue = Extension(
     define_macros=[("MATHLIB_STANDALONE", "1")],
 )
 
-ext_Gthwe_files = path_to_src(
-    [
-        "gthwe/gthwe_wrap.i",
-        "gthwe/hwe.c",
-        "gthwe/cal_const.c",
-        "gthwe/cal_n.c",
-        "gthwe/cal_prob.c",
-        "gthwe/check_file.c",
-        "gthwe/do_switch.c",
-        "gthwe/new_rand.c",
-        "gthwe/ln_p_value.c",
-        "gthwe/to_calculate_log.c",
-        "gthwe/print_data.c",
-        "gthwe/random_choose.c",
-        "gthwe/read_data.c",
-        "gthwe/select_index.c",
-        "gthwe/stamp_time.c",
-        "gthwe/test_switch.c",
-        "gthwe/statistics.c",
-    ]
-)
+# ext_Gthwe_files = path_to_src(
+#     [
+#         "gthwe/gthwe_wrap.i",
+#         "gthwe/hwe.c",
+#         "gthwe/cal_const.c",
+#         "gthwe/cal_n.c",
+#         "gthwe/cal_prob.c",
+#         "gthwe/check_file.c",
+#         "gthwe/do_switch.c",
+#         "gthwe/new_rand.c",
+#         "gthwe/ln_p_value.c",
+#         "gthwe/to_calculate_log.c",
+#         "gthwe/print_data.c",
+#         "gthwe/random_choose.c",
+#         "gthwe/read_data.c",
+#         "gthwe/select_index.c",
+#         "gthwe/stamp_time.c",
+#         "gthwe/test_switch.c",
+#         "gthwe/statistics.c",
+#     ]
+# )
 
 
-ext_Gthwe_macros = [
-    ("__SWIG__", "1"),
-    ("DEBUG", "0"),
-    ("XML_OUTPUT", "1"),
-    ("SUPPRESS_ALLELE_TABLE", "1"),
-    ("INDIVID_GENOTYPES", "1"),
-]
+# ext_Gthwe_macros = [
+#     ("__SWIG__", "1"),
+#     ("DEBUG", "0"),
+#     ("XML_OUTPUT", "1"),
+#     ("SUPPRESS_ALLELE_TABLE", "1"),
+#     ("INDIVID_GENOTYPES", "1"),
+# ]
 
-ext_Gthwe = Extension(
-    "PyPop._Gthwe",
-    ext_Gthwe_files,
-    swig_opts=swig_opts,
-    include_dirs=include_dirs + path_to_src(["gthwe"]),
-    library_dirs=library_dirs,
-    libraries=["gsl", "gslcblas"],
-    define_macros=ext_Gthwe_macros,
-)
+# ext_Gthwe = Extension(
+#     "PyPop._Gthwe",
+#     ext_Gthwe_files,
+#     swig_opts=swig_opts,
+#     include_dirs=include_dirs + path_to_src(["gthwe"]),
+#     library_dirs=library_dirs,
+#     libraries=["gsl", "gslcblas"],
+#     define_macros=ext_Gthwe_macros,
+# )
 
 ext_Haplostats = Extension(
     "PyPop._Haplostats",
@@ -247,7 +247,7 @@ ext_HweEnum = Extension(
 ext_Pvalue.depends = path_to_src(
     ["SWIG/typemap.i", "pval/Rconfig.h", "pval/Rmath.h", "pval/dpq.h", "pval/nmath.h"]
 )
-ext_Gthwe.depends = path_to_src(["SWIG/typemap.i", "gthwe/func.h", "gthwe/hwe.h"])
+# ext_Gthwe.depends = path_to_src(["SWIG/typemap.i", "gthwe/func.h", "gthwe/hwe.h"])
 ext_Haplostats.depends = path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pin.h"])
 
 # default list of extensions to build
@@ -256,7 +256,7 @@ extensions = [
     #    ext_EWSlatkinExact,
     ext_Pvalue,
     ext_Haplostats,
-    ext_Gthwe,
+    #    ext_Gthwe,
 ]
 
 # don't include HWEEnum
@@ -291,6 +291,56 @@ citation_files = [
 ]
 citation_data_file_paths.extend(citation_files)
 
+if sys.version_info >= (3, 11):
+    import tomllib
+else:
+    import tomli as tomllib
+
+
+def parse_ext_modules_from_toml(toml_path, extensions):
+    with open(toml_path, "rb") as f:
+        config = tomllib.load(f)
+
+    ext_modules_config = (
+        config.get("tool", {}).get("setuptools", {}).get("ext-modules", [])
+    )
+    # ext_modules = []
+    # existing extensions names
+    existing_extensions = [ext.name for ext in extensions]
+    ext_modules = extensions
+
+    print("***********************************************")
+    print("parsing extensions in:", toml_path)
+    print("***********************************************")
+
+    print("existing extensions:", existing_extensions)
+
+    for ext in ext_modules_config:
+        if ext["name"] not in existing_extensions:
+            print("*******************************************")
+            print("Building extension:", ext["name"])
+            print("*******************************************")
+
+            ext_modules.append(
+                Extension(
+                    name=ext["name"],
+                    sources=ext.get("sources", []),
+                    swig_opts=ext.get("swig-opts", []),
+                    include_dirs=ext.get("include-dirs", []),
+                    libraries=ext.get("libraries", []),
+                    library_dirs=ext.get("library-dirs", []),
+                    extra_compile_args=ext.get("extra-compile-args", []),
+                    extra_link_args=ext.get("extra-link-args", []),
+                    depends=ext.get("depends", []),
+                )
+            )
+        else:
+            print("*******************************************")
+            print("Skipping extension:", ext, "already exists")
+            print("*******************************************")
+
+    return ext_modules
+
 
 class CustomBuildPy(_build_py):
     def run(self):
@@ -309,6 +359,10 @@ class CustomBuildPy(_build_py):
 
             convert_citation_formats(build_lib, citation_path)
 
+
+all_extensions = parse_ext_modules_from_toml("pyproject.toml", extensions)
+# all_extensions = extensions
+print("all extensions:", all_extensions)
 
 setup(
     # name=__pkgname__,
@@ -368,7 +422,7 @@ setup(
     #         "pypop-interactive=PyPop.pypop:main_interactive",
     #     ]
     # },
-    ext_modules=extensions,
+    ext_modules=all_extensions,
     cmdclass={
         "clean": CleanCommand,
         # enable the custom build
