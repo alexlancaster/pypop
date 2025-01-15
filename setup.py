@@ -113,9 +113,20 @@ __pkgname__ = "{pkgname}"
 __version_scheme__ = "{version_scheme}"
         """
 
-        print("writing metadata to src/PyPop/_metadata.py")
+        # use setuptools' temp build directory
+        build_lib = self.get_finalized_command("build").build_lib
 
-        with Path("src/PyPop/_metadata.py").open("w") as f:
+        # write in temp build directory (to get included in wheel)
+        wheel_metadata_path = Path(build_lib) / "PyPop" / "_metadata.py"
+        print("writing metadata to be included in wheel", wheel_metadata_path)
+        with wheel_metadata_path.open("w") as f:
+            f.write(metadata_content)
+
+        # and write local directory (to be used during installation)
+        # FIXME: this is a bit messy
+        source_metadata_path = Path("src") / "PyPop" / "_metadata.py"
+        print("writing metadata for source", source_metadata_path)
+        with source_metadata_path.open("w") as f:
             f.write(metadata_content)
 
         # FIXME: need to delay this import because _metadata.py may
@@ -129,9 +140,6 @@ __version_scheme__ = "{version_scheme}"
             citation_path = "CITATION.cff"
 
             # then copy CITATION.cff to temp build directory
-            # use setuptools' temp build directory
-            build_lib = self.get_finalized_command("build").build_lib
-
             convert_citation_formats(build_lib, citation_path)
 
 
