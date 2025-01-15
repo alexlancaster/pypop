@@ -92,7 +92,7 @@ test-extras = ["test"]
 
 # don't try and install pypi packages that need build from source
 # this is mainly import during the testing phase
-environment = { PIP_ONLY_BINARY=":all:", PIP_VERBOSE="2" }
+environment = { PIP_ONLY_BINARY=":all:", PIP_VERBOSE="0" }
 
 # use pip and override the PIP_ONLY_BINARY=:all: during wheel generation
 # so that certain source-only build deps (like cffconvert) install
