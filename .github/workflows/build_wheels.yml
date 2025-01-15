@@ -249,6 +249,7 @@ jobs:
       - uses: actions/checkout@v4
         with:  # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
+          fetch-depth: 0
       - name: Build sdist
         run: pipx run build --sdist
       - uses: actions/upload-artifact@v4
