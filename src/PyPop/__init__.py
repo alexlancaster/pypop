@@ -36,7 +36,12 @@ import platform
 import sys
 
 # FIXME: ensure these need be remain synced with pyproject.toml
-from ._metadata import __pkgname__, __version_scheme__
+try:
+    from ._metadata import __pkgname__, __version_scheme__
+except ModuleNotFoundError:
+    sys.exit(
+        "PyPop metadata not found, PyPop has likely not been built, please build or install via `pip install` or `setup.py build`"
+    )
 
 try:
     import importlib.metadata as metadata_lib  # look for built-in
