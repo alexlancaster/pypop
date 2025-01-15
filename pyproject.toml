@@ -56,7 +56,7 @@ where = ["src"]
 include = ["PyPop", "PyPop.xslt"]
 
 [tool.setuptools.package-data]
-"PyPop" = ["citation/*"]
+"PyPop.citation" = ["CITATION*"]
 
 [tool.setuptools.dynamic]
 readme = { file = "README.rst", content-type = "text/x-rst" }
