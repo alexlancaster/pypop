@@ -164,19 +164,15 @@ def add_more_ext_modules_from_toml(toml_path, extensions):
 
     for ext in ext_modules_config:
         if ext["name"] not in existing_extensions:
-            print("creating extension configuration for:", ext["name"])
+            print("appending extension configuration for:", ext["name"])
+
+            # translate TOML keys to kwargs for Extension
+            kwargs = {k.replace("-", "_"): v for k, v in ext.items() if k != "name"}
 
             ext_modules.append(
                 Extension(
                     name=ext["name"],
-                    sources=ext.get("sources", []),
-                    swig_opts=ext.get("swig-opts", []),
-                    include_dirs=ext.get("include-dirs", []),
-                    libraries=ext.get("libraries", []),
-                    library_dirs=ext.get("library-dirs", []),
-                    extra_compile_args=ext.get("extra-compile-args", []),
-                    extra_link_args=ext.get("extra-link-args", []),
-                    depends=ext.get("depends", []),
+                    **kwargs,  # dynamically unpack keyword arguments
                 )
             )
         else:
