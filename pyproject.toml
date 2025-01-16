@@ -1,3 +1,70 @@
+[build-system]
+build-backend = "setuptools.build_meta:__legacy__"
+requires = ["setuptools>=42",
+	    "setuptools_scm[toml]>=6.2",
+	    "tomli",
+	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
+	    "importlib-metadata; python_version <= '3.8'"
+	    ]
+[project]
+name = "pypop-genomics"
+description = "PyPop: Python for Population Genomics"
+license = { text = "GPL-2.0-or-later" }
+authors = [{ name = "Alex Lancaster" }]
+maintainers = [{ name = "PyPop team" }]
+dynamic = ["readme", "version"]
+keywords = [
+    "bioinformatics",
+    "population-genomics",
+    "evolutionary-biology",
+    "population-genetics"
+]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Bio-Informatics",
+    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
+    "Operating System :: MacOS :: MacOS X",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: POSIX :: Linux"
+]
+dependencies = [
+    "numpy <= 2.2.1",
+    "lxml <= 5.3.0",
+    "SciPy <= 1.14.1",
+    "importlib-resources; python_version <= '3.8'",
+    "importlib-metadata; python_version <= '3.8'"
+]
+optional-dependencies.test = ["pytest"]
+
+[project.urls]
+Homepage = "http://pypop.org/"
+Documentation = "http://pypop.org/docs/"
+Changelog = "https://github.com/alexlancaster/pypop/blob/main/NEWS.md"
+Source = "https://github.com/alexlancaster/pypop/"
+Tracker = "https://github.com/alexlancaster/pypop/issues"
+
+[project.scripts]
+pypop = "PyPop.pypop:main"
+popmeta = "PyPop.popmeta:main"
+pypop-interactive = "PyPop.pypop:main_interactive"
+
+[tool.setuptools]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["PyPop", "PyPop.xslt"]
+
+[tool.setuptools.package-data]
+"PyPop" = ["citation/CITATION*"]
+
+[tool.setuptools.dynamic]
+readme = { file = "README.rst", content-type = "text/x-rst" }
+
+[tool.setuptools_scm]
+write_to = "src/PyPop/_version.py"
+version_scheme = "post-release"
+
 [tool.pytest.ini_options]
 minversion = "6.0"
 addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
@@ -25,7 +92,7 @@ test-extras = ["test"]
 
 # don't try and install pypi packages that need build from source
 # this is mainly import during the testing phase
-environment = { PIP_ONLY_BINARY=":all:" }
+environment = { PIP_ONLY_BINARY=":all:", PIP_VERBOSE="0" }
 
 # use pip and override the PIP_ONLY_BINARY=:all: during wheel generation
 # so that certain source-only build deps (like cffconvert) install
@@ -106,17 +173,6 @@ before-all = 'nuget install gsl-msvc14-arm64 -Source "%CD%\\vendor-binaries"'
 # use local nuget package to install gsl on Windows ARM64, and manually supply paths
 inherit.environment = "append"
 environment = { CPATH="gsl-msvc14-arm64.2.3.0.2779\\\\build\\\\native\\\\include", LIBRARY_PATH="gsl-msvc14-arm64.2.3.0.2779\\\\build\\\\native\\\\lib" }
-
-[tool.setuptools_scm]
-write_to = "src/PyPop/_version.py"  # matches the path where version will be written
-
-[build-system]
-build-backend = "setuptools.build_meta:__legacy__"
-requires = ["setuptools>=42",
-	    "setuptools_scm[toml]>=6.2",
-	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
-	    "importlib-metadata; python_version <= '3.8'"
-	    ]
 
 [tool.ruff]
 target-version = "py37"
