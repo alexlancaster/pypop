@@ -181,9 +181,93 @@ def add_more_ext_modules_from_toml(toml_path, extensions):
     return ext_modules
 
 
+# function to parse pyproject.toml and extract metadata for older Python versions
+def add_metadata_from_pyproject(toml_path):
+    # load the pyproject.toml file
+    with open(toml_path, encoding="utf-8") as f:
+        pyproject_data = tomli.load(f)
+
+    project_data = pyproject_data.get("project", {})
+    setuptools_data = pyproject_data.get("tool", {}).get("setuptools", {})
+    scm_data = pyproject_data.get("tool", {}).get("setuptools_scm", {})
+    dynamic_data = setuptools_data.get("dynamic", {})
+
+    # map fields
+    metadata = {
+        "name": project_data.get("name"),
+        "description": project_data.get("description"),
+        "license": project_data.get("license", {}).get("text"),
+        "author": ", ".join(
+            [author.get("name", "") for author in project_data.get("authors", [])]
+        ),
+        "maintainer": ", ".join(
+            [
+                maintainer.get("name", "")
+                for maintainer in project_data.get("maintainers", [])
+            ]
+        ),
+        "keywords": project_data.get("keywords", []),
+        "classifiers": project_data.get("classifiers", []),
+        "install_requires": project_data.get("dependencies", []),
+        "extras_require": {
+            "test": project_data.get("optional-dependencies", {}).get("test", [])
+        },
+        "project_urls": project_data.get("urls", {}),
+        "packages": setuptools_data.get("packages", {})
+        .get("find", {})
+        .get("include", []),
+        "package_dir": {
+            "": setuptools_data.get("packages", {})
+            .get("find", {})
+            .get("where", ["src"])[0]
+        },
+        "package_data": setuptools_data.get("package-data", {}),
+        "include_package_data": True,
+        "entry_points": {
+            "console_scripts": [
+                f"{script}={entry}"
+                for script, entry in project_data.get("scripts", {}).items()
+            ]
+        },
+    }
+
+    # handle dynamic fields like readme and version
+    if "readme" in project_data.get("dynamic", []):
+        readme_config = dynamic_data.get("readme", {})
+        readme_file = readme_config.get("file", "README.md")
+        mime_type = readme_config.get("content-type", "text/markdown")
+        try:
+            with open(readme_file, encoding="utf-8") as f:
+                metadata["long_description"] = f.read()
+            metadata["long_description_content_type"] = mime_type
+        except FileNotFoundError:
+            print(
+                f"Warning: Readme file '{readme_file}' not found. Skipping long description."
+            )
+
+    if "version" in project_data.get("dynamic", []):
+        # Use setuptools_scm to handle the dynamic version
+        metadata["use_scm_version"] = {
+            "write_to": scm_data.get("write_to", "src/PyPop/_version.py"),
+            "version_scheme": scm_data.get("version_scheme", "post-release"),
+        }
+
+    # Filter out None values
+    return {k: v for k, v in metadata.items() if v is not None}
+
+
 # extension configuration moved to extensions.toml
 # if there are any extensions that can't be converted to TOML, add them here
 extensions = []
+
+# check for older Python versions
+# FIXME: can drop this when we drop support for Python 3.6 wheels
+if sys.version_info < (3, 7):  # noqa: UP036
+    # populate metadata tags to send to `setup()` for backwards-compatibility
+    metadata = add_metadata_from_pyproject("pyproject.toml")
+else:
+    # otherwise use on pyproject.toml directly, don't need to send metadata to `setup()`
+    metadata = {}
 
 setup(
     ext_modules=add_more_ext_modules_from_toml("extensions.toml", extensions),
@@ -195,4 +279,5 @@ setup(
         # customize the build extension to read environment variables
         "build_ext": CustomBuildExt,
     },
+    **metadata,  # add metadata only for older Python or where applicable
 )

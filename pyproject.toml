@@ -56,7 +56,7 @@ where = ["src"]
 include = ["PyPop", "PyPop.xslt"]
 
 [tool.setuptools.package-data]
-"PyPop.citation" = ["CITATION*"]
+"PyPop" = ["citation/CITATION*"]
 
 [tool.setuptools.dynamic]
 readme = { file = "README.rst", content-type = "text/x-rst" }
@@ -80,7 +80,7 @@ testpaths = [
 [tool.cibuildwheel]
 enable = ["pypy"]             # explicitly enable, this will be required for cibuildwheel >= 3
 skip = ["*-win32", "*_i686",  # skip 32-bit builds
-        "cp36-*",             # drop support for Python 3.6 - can't handle modern pyproject.toml
+        #"cp36-*",             # drop support for Python 3.6 - can't handle modern pyproject.toml
         "pp37-*",             # skip certain PyPy configurations
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
         "cp313-musllinux_x86_64", # problem with this version
