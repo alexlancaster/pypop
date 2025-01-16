@@ -9,3 +9,4 @@ prune website
 prune data/*
 prune src/obsolete
 exclude setup.cfg
+recursive-exclude src/PyPop/xslt cdv.xsl disease.xsl nodeset.xsl haplos-to-count.xsl xsl.dtd

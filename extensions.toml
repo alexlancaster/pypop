@@ -1,0 +1,125 @@
+# FIXME: these live outside pyproject.toml for the moment because
+# setuptools >=75 which supports them is not available on Python <=3.7.
+# once we drop support for older Pythons we can merge back into
+# pyproject.toml
+
+[[tool.setuptools.ext-modules]]
+name = "PyPop._EWSlatkinExact"
+sources = ["src/slatkin-exact/monte-carlo_wrap.i", "src/slatkin-exact/monte-carlo.c"]
+swig-opts = ["-Isrc/SWIG", "-Isrc"]
+
+[[tool.setuptools.ext-modules]]
+name = "PyPop._Emhaplofreq"
+sources = ["src/emhaplofreq/emhaplofreq_wrap.i", "src/emhaplofreq/emhaplofreq.c"]
+swig-opts = ["-Isrc/SWIG", "-Isrc"]
+include-dirs = ["src/emhaplofreq"]
+extra-compile-args = ["-D__SWIG__=1",
+                      "-DDEBUG=0",
+                      "-DEXTERNAL_MODE=1",
+                      "-DXML_OUTPUT=1"]
+depends = ["src/SWIG/typemap.i",
+          "src/emhaplofreq/emhaplofreq.h",
+          "src/emhaplofreq/drand48.c"]
+
+[[tool.setuptools.ext-modules]]
+name = "PyPop._Gthwe"
+sources = [
+        "src/gthwe/gthwe_wrap.i",
+        "src/gthwe/hwe.c",
+        "src/gthwe/cal_const.c",
+        "src/gthwe/cal_n.c",
+        "src/gthwe/cal_prob.c",
+        "src/gthwe/check_file.c",
+        "src/gthwe/do_switch.c",
+        "src/gthwe/new_rand.c",
+        "src/gthwe/ln_p_value.c",
+        "src/gthwe/to_calculate_log.c",
+        "src/gthwe/print_data.c",
+        "src/gthwe/random_choose.c",
+        "src/gthwe/read_data.c",
+        "src/gthwe/select_index.c",
+        "src/gthwe/stamp_time.c",
+        "src/gthwe/test_switch.c",
+        "src/gthwe/statistics.c"]
+swig-opts = ["-Isrc/SWIG", "-Isrc"]
+include-dirs = ["src/gthwe"]
+library-dirs = []
+libraries=["gsl", "gslcblas"]
+extra-compile-args=["-D__SWIG__=1",
+    "-DDEBUG=0",
+    "-DXML_OUTPUT=1",
+    "-DSUPPRESS_ALLELE_TABLE=1",
+    "-DINDIVID_GENOTYPES=1",
+]
+depends = ["src/SWIG/typemap.i", "src/gthwe/func.h", "src/gthwe/hwe.h"]
+
+[[tool.setuptools.ext-modules]]
+name = "PyPop._Pvalue"
+sources = [
+      "src/pval/pval_wrap.i",
+      "src/pval/pval.c",
+      "src/pval/pchisq.c",
+      "src/pval/chebyshev.c",
+      "src/pval/ftrunc.c",
+      "src/pval/lgamma.c",
+      "src/pval/mlutils.c",
+      "src/pval/pgamma.c",
+      "src/pval/fmin2.c",
+      "src/pval/fmax2.c",
+      "src/pval/dnorm.c",
+      "src/pval/dpois.c",
+      "src/pval/gamma.c",
+      "src/pval/bd0.c",
+      "src/pval/stirlerr.c",
+      "src/pval/lgammacor.c",
+      "src/pval/pnorm.c"]
+swig-opts = ["-Isrc/SWIG", "-Isrc"]
+include-dirs = ["src/pval"]
+extra-compile-args = ["-DMATHLIB_STANDALONE=1"]
+depends = ["src/SWIG/typemap.i", "src/pval/Rconfig.h", "src/pval/Rmath.h", "src/pval/dpq.h", "src/pval/nmath.h"]
+
+[[tool.setuptools.ext-modules]]
+name = "PyPop._Haplostats"
+sources = ["src/haplo-stats/haplostats_wrap.i", "src/haplo-stats/haplo_em_pin.c"]
+swig-opts = ["-Isrc/SWIG", "-Isrc"]
+include-dirs = ["src/haplo-stats", "src/pval"]
+extra-compile-args = [
+        "-DMATHLIB_STANDALONE=1",
+        "-D__SWIG__=1",
+        "-DDEBUG=0",
+        "-DR_NO_REMAP=1"
+    ]
+depends = ["src/SWIG/typemap.i", "src/haplo-stats/haplo_em_pin.h"]
+
+# FIXME: currently disabled, needs to be converted
+# ext_HweEnum = Extension(
+#     "PyPop._HweEnum",
+#     [
+#         "src/hwe-enumeration/src/hwe_enum_wrap.i",
+#         "src/hwe-enumeration/src/hwe_enum.c",
+#         "src/hwe-enumeration/src/factorial.c",
+#         "src/hwe-enumeration/src/main.c",
+#         "src/hwe-enumeration/src/common.c",
+#         "src/hwe-enumeration/src/statistics.c",
+#         "src/hwe-enumeration/src/external.c",
+#     ],
+#     swig_opts=["-Isrc/SWIG", "-Isrc"],
+#     include_dirs=[
+#         ["src/hwe-enumeration/src/include"],
+#         "/usr/include/glib-2.0",
+#         "/usr/include/glib-2.0/include",
+#         "/usr/lib/glib-2.0/include",
+#         "/usr/lib64/glib-2.0/include/",
+#         "/usr/include/libxml2",
+#         "/usr/include/gsl",
+#     ],
+#     libraries=["glib-2.0", "xml2", "popt", "m", "gsl", "gslcblas"],
+#     define_macros=[
+#         ("__SORT_TABLE__", "1"),
+#         ("g_fprintf", "pyfprintf"),
+#         ("VERSION", '"internal"'),
+#         ("PACKAGE_NAME", '"hwe-enumeration"'),
+#         ("INDIVID_GENOTYPES", "1"),
+#         ("HAVE_LIBGSL", "1"),
+#     ],
+# )
