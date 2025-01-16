@@ -68,7 +68,7 @@ jobs:
 
           # need to generate _metadata.py manually since we are not
           # doing a `pip install` build
-          PKGNAME=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project][name])")
+          PKGNAME=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['name'])")
           VERSION_SCHEME=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['tool']['setuptools_scm']['version_scheme'])")
           echo "__pkgname__ = \"${PKGNAME}\"" > src/PyPop/_metadata.py
           echo "__version_scheme__ = \"${VERSION_SCHEME}\"" >> src/PyPop/_metadata.py
