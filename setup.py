@@ -41,339 +41,243 @@ from glob import glob
 from pathlib import Path
 from sysconfig import get_config_var
 
+import tomli
 from setuptools import setup
+from setuptools.command.build_ext import build_ext as _build_ext
 from setuptools.command.build_py import build_py as _build_py
 from setuptools.extension import Extension
-
-from src.PyPop import __pkgname__, __version_scheme__
-from src.PyPop.citation import citation_output_formats, convert_citation_formats
-
-src_dir = "src"
-pkg_dir = "PyPop"
-
-# distutils doesn't currently have an explicit way of setting CFLAGS,
-# it takes CFLAGS from the environment variable of the same name, so
-# we set the environment to emulate that.
-# os.environ['CFLAGS'] = '-funroll-loops'
 
 
 class CleanCommand(clean.clean):
     """Customized clean command - removes in_place extension files if they exist"""
 
     def run(self):
-        DIR = Path(__file__).resolve().parent / src_dir
+        DIR = Path(__file__).resolve().parent / "src"
         # generate glob pattern from extension name and suffix
         ext_files = [
-            DIR / pkg_dir / ext.name.split(pkg_dir + ".").pop()
-            + ("*.pyd" if sys.platform == "win32" else "*.so")
+            DIR
+            / "PyPop"
+            / str(
+                ext.name.split("PyPop.").pop()
+                + ("*.pyd" if sys.platform == "win32" else "*.so")
+            )
             for ext in extensions
         ]
         for ext_file in ext_files:
             # FIXME: use `glob.glob` for the moment, Path.glob not working
-            for the_ext_file in glob(ext_file):  # noqa: PTH207
+            for the_ext_file in glob(str(ext_file)):  # noqa: PTH207
                 if Path(the_ext_file).exists():
                     print(f"Removing in-place extension {the_ext_file}")
-                    Path(ext_file).unlink()
+                    Path(the_ext_file).unlink()
         clean.clean.run(self)
 
 
-# look for libraries in _PREFIX
-prefix = Path(get_config_var("prefix"))
-library_dirs = [str(prefix / "lib")]
-include_dirs = [str(prefix / "include")]
-# also look in LIBRARY_PATH, CPATH (needed for macports etc.)
-if "LIBRARY_PATH" in os.environ:
-    library_dirs += os.environ["LIBRARY_PATH"].rstrip(os.pathsep).split(os.pathsep)
-if "CPATH" in os.environ:
-    include_dirs += os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
+class CustomBuildExt(_build_ext):
+    def finalize_options(self):
+        super().finalize_options()
+
+        # look for libraries in _PREFIX
+        prefix = Path(get_config_var("prefix"))
+        self.library_dirs += [str(prefix / "lib")]
+        self.include_dirs += [str(prefix / "include")]
+        # also look in LIBRARY_PATH, CPATH (needed for macports etc.)
+        if "LIBRARY_PATH" in os.environ:
+            self.library_dirs += (
+                os.environ["LIBRARY_PATH"].rstrip(os.pathsep).split(os.pathsep)
+            )
+        if "CPATH" in os.environ:
+            self.include_dirs += (
+                os.environ["CPATH"].rstrip(os.pathsep).split(os.pathsep)
+            )
 
 
-# generate the appropriate relative path to source directory, given
-# paths within that source directory (this means we need to define
-# this directory in just one place
-def path_to_src(source_path_list):
-    new_source_list = []
-    for file_path in source_path_list:
-        new_source_list.append(str(Path(src_dir) / file_path))
-    return new_source_list
-
-
-swig_opts = ["-I{}".format(Path(src_dir) / "SWIG"), f"-I{Path(src_dir)}"]
-
-# define each extension
-ext_Emhaplofreq = Extension(
-    "PyPop._Emhaplofreq",
-    path_to_src(["emhaplofreq/emhaplofreq_wrap.i", "emhaplofreq/emhaplofreq.c"]),
-    swig_opts=swig_opts,
-    include_dirs=include_dirs + path_to_src(["emhaplofreq"]),
-    define_macros=[
-        ("__SWIG__", "1"),
-        ("DEBUG", "0"),
-        ("EXTERNAL_MODE", "1"),
-        ("XML_OUTPUT", "1"),
-    ],
-)
-ext_EWSlatkinExact = Extension(
-    "PyPop._EWSlatkinExact",
-    path_to_src(["slatkin-exact/monte-carlo_wrap.i", "slatkin-exact/monte-carlo.c"]),
-    swig_opts=swig_opts,
-    include_dirs=include_dirs,
-)
-
-ext_Pvalue = Extension(
-    "PyPop._Pvalue",
-    path_to_src(
-        [
-            "pval/pval_wrap.i",
-            "pval/pval.c",
-            "pval/pchisq.c",
-            "pval/chebyshev.c",
-            "pval/ftrunc.c",
-            "pval/lgamma.c",
-            "pval/mlutils.c",
-            "pval/pgamma.c",
-            "pval/fmin2.c",
-            "pval/fmax2.c",
-            "pval/dnorm.c",
-            "pval/dpois.c",
-            "pval/gamma.c",
-            "pval/bd0.c",
-            "pval/stirlerr.c",
-            "pval/lgammacor.c",
-            "pval/pnorm.c",
-        ]
-    ),
-    swig_opts=swig_opts,
-    include_dirs=include_dirs + path_to_src(["pval"]),
-    define_macros=[("MATHLIB_STANDALONE", "1")],
-)
-
-ext_Gthwe_files = path_to_src(
-    [
-        "gthwe/gthwe_wrap.i",
-        "gthwe/hwe.c",
-        "gthwe/cal_const.c",
-        "gthwe/cal_n.c",
-        "gthwe/cal_prob.c",
-        "gthwe/check_file.c",
-        "gthwe/do_switch.c",
-        "gthwe/new_rand.c",
-        "gthwe/ln_p_value.c",
-        "gthwe/to_calculate_log.c",
-        "gthwe/print_data.c",
-        "gthwe/random_choose.c",
-        "gthwe/read_data.c",
-        "gthwe/select_index.c",
-        "gthwe/stamp_time.c",
-        "gthwe/test_switch.c",
-        "gthwe/statistics.c",
-    ]
-)
-
-
-ext_Gthwe_macros = [
-    ("__SWIG__", "1"),
-    ("DEBUG", "0"),
-    ("XML_OUTPUT", "1"),
-    ("SUPPRESS_ALLELE_TABLE", "1"),
-    ("INDIVID_GENOTYPES", "1"),
-]
-
-ext_Gthwe = Extension(
-    "PyPop._Gthwe",
-    ext_Gthwe_files,
-    swig_opts=swig_opts,
-    include_dirs=include_dirs + path_to_src(["gthwe"]),
-    library_dirs=library_dirs,
-    libraries=["gsl", "gslcblas"],
-    define_macros=ext_Gthwe_macros,
-)
-
-ext_Haplostats = Extension(
-    "PyPop._Haplostats",
-    path_to_src(["haplo-stats/haplostats_wrap.i", "haplo-stats/haplo_em_pin.c"]),
-    swig_opts=swig_opts,
-    include_dirs=include_dirs + path_to_src(["haplo-stats", "pval"]),
-    define_macros=[
-        ("MATHLIB_STANDALONE", "1"),
-        ("__SWIG__", "1"),
-        ("DEBUG", "0"),
-        ("R_NO_REMAP", "1"),
-    ],
-)
-
-ext_HweEnum = Extension(
-    "PyPop._HweEnum",
-    path_to_src(
-        [
-            "hwe-enumeration/src/hwe_enum_wrap.i",
-            "hwe-enumeration/src/hwe_enum.c",
-            "hwe-enumeration/src/factorial.c",
-            "hwe-enumeration/src/main.c",
-            "hwe-enumeration/src/common.c",
-            "hwe-enumeration/src/statistics.c",
-            "hwe-enumeration/src/external.c",
-        ]
-    ),
-    swig_opts=swig_opts,
-    include_dirs=[
-        *include_dirs,
-        path_to_src(["hwe-enumeration/src/include"]),
-        "/usr/include/glib-2.0",
-        "/usr/include/glib-2.0/include",
-        "/usr/lib/glib-2.0/include",
-        "/usr/lib64/glib-2.0/include/",
-        "/usr/include/libxml2",
-        "/usr/include/gsl",
-    ],
-    libraries=["glib-2.0", "xml2", "popt", "m", "gsl", "gslcblas"],
-    define_macros=[
-        ("__SORT_TABLE__", "1"),
-        ("g_fprintf", "pyfprintf"),
-        ("VERSION", '"internal"'),
-        ("PACKAGE_NAME", '"hwe-enumeration"'),
-        ("INDIVID_GENOTYPES", "1"),
-        ("HAVE_LIBGSL", "1"),
-    ],
-)
-
-ext_Emhaplofreq.depends = path_to_src(
-    ["SWIG/typemap.i", "emhaplofreq/emhaplofreq.h", "emhaplofreq/drand48.c"]
-)
-ext_Pvalue.depends = path_to_src(
-    ["SWIG/typemap.i", "pval/Rconfig.h", "pval/Rmath.h", "pval/dpq.h", "pval/nmath.h"]
-)
-ext_Gthwe.depends = path_to_src(["SWIG/typemap.i", "gthwe/func.h", "gthwe/hwe.h"])
-ext_Haplostats.depends = path_to_src(["SWIG/typemap.i", "haplo-stats/haplo_em_pin.h"])
-
-# default list of extensions to build
-extensions = [
-    ext_Emhaplofreq,
-    ext_EWSlatkinExact,
-    ext_Pvalue,
-    ext_Haplostats,
-    ext_Gthwe,
-]
-
-# don't include HWEEnum
-# extensions.append(ext_HweEnum)
-
-xslt_data_file_paths = []
-# xslt files are in a subdirectory
-xslt_files = [
-    f + ".xsl"
-    for f in [
-        "text",
-        "html",
-        "lib",
-        "common",
-        "filter",
-        "hardyweinberg",
-        "homozygosity",
-        "emhaplofreq",
-        "meta-to-tsv",
-        "sort-by-locus",
-        "haplolist-by-group",
-        "phylip-allele",
-        "phylip-haplo",
-    ]
-]
-xslt_data_file_paths.extend(xslt_files)
-
-citation_data_file_paths = []
-# citation files are in a subdirectory of PyPop, but not a separate module
-citation_files = [
-    str(Path("citation") / f"CITATION.{suffix}") for suffix in citation_output_formats
-]
-citation_data_file_paths.extend(citation_files)
-
-
-# currently disabled (these are built in a github action)
 class CustomBuildPy(_build_py):
     def run(self):
         # do standard build process
         super().run()
 
+        # FIXME: bit of a hack to make sure that we mirror metadata
+        # from pyproject and don't hardcode it in PyPop/__init__.py
+
+        # read pyproject.toml
+        with Path("pyproject.toml").open("rb") as f:
+            pyproject_data = tomli.load(f)
+
+        # extract relevant metadata
+        pkgname = pyproject_data["project"]["name"]
+        version_scheme = pyproject_data["tool"]["setuptools_scm"]["version_scheme"]
+
+        # append additional metadata to _metadata.py
+        metadata_content = f"""# auto-generated by setup.py
+__pkgname__ = "{pkgname}"
+__version_scheme__ = "{version_scheme}"
+        """
+
+        # use setuptools' temp build directory
+        build_lib = self.get_finalized_command("build").build_lib
+
+        # write in temp build directory (to get included in wheel)
+        wheel_metadata_path = Path(build_lib) / "PyPop" / "_metadata.py"
+        print("writing metadata to be included in wheel", wheel_metadata_path)
+        with wheel_metadata_path.open("w") as f:
+            f.write(metadata_content)
+
+        # and write local directory (to be used during installation)
+        # FIXME: this is a bit messy
+        source_metadata_path = Path("src") / "PyPop" / "_metadata.py"
+        print("writing metadata for source", source_metadata_path)
+        with source_metadata_path.open("w") as f:
+            f.write(metadata_content)
+
+        # FIXME: need to delay this import because _metadata.py may
+        # not have been created yet
+        from src.PyPop.citation import convert_citation_formats
+
         # if not running from a CIBUILDWHEEL environment variable
-        # we need to create the citations
+        # we also need to create the citations
         if os.environ.get("CIBUILDWHEEL") != "1":
             # source citation path (single-source of truth)
             citation_path = "CITATION.cff"
 
             # then copy CITATION.cff to temp build directory
-            # use setuptools' temp build directory
-            build_lib = self.get_finalized_command("build").build_lib
-
             convert_citation_formats(build_lib, citation_path)
 
 
-# read the contents of your README file
+# convert extensions defined in `toml_path` to extensions
+# FIXME: this is only necessary while we are building for Python
+# that doesn't support `ext-modules` within pyproject.toml
 
-this_directory = Path(__file__).parent
-long_description = (this_directory / "README.rst").read_text()
+
+def add_more_ext_modules_from_toml(toml_path, extensions):
+    with open(toml_path, "rb") as f:
+        config = tomli.load(f)
+
+    ext_modules_config = (
+        config.get("tool", {}).get("setuptools", {}).get("ext-modules", [])
+    )
+    # existing extensions names
+    existing_extensions = [ext.name for ext in extensions]
+    ext_modules = extensions
+
+    print("extensions in setup.py:", existing_extensions)
+    print("parsing extensions in:", toml_path)
+
+    for ext in ext_modules_config:
+        if ext["name"] not in existing_extensions:
+            print("appending extension configuration for:", ext["name"])
+
+            # translate TOML keys to kwargs for Extension
+            kwargs = {k.replace("-", "_"): v for k, v in ext.items() if k != "name"}
+
+            ext_modules.append(
+                Extension(
+                    name=ext["name"],
+                    **kwargs,  # dynamically unpack keyword arguments
+                )
+            )
+        else:
+            print("skipping extension configuration:", ext, "already exists")
+
+    return ext_modules
+
+
+# function to parse pyproject.toml and extract metadata for older Python versions
+def add_metadata_from_pyproject(toml_path):
+    # load the pyproject.toml file
+    with open(toml_path, encoding="utf-8") as f:
+        pyproject_data = tomli.load(f)
+
+    project_data = pyproject_data.get("project", {})
+    setuptools_data = pyproject_data.get("tool", {}).get("setuptools", {})
+    scm_data = pyproject_data.get("tool", {}).get("setuptools_scm", {})
+    dynamic_data = setuptools_data.get("dynamic", {})
+
+    # map fields
+    metadata = {
+        "name": project_data.get("name"),
+        "description": project_data.get("description"),
+        "license": project_data.get("license", {}).get("text"),
+        "author": ", ".join(
+            [author.get("name", "") for author in project_data.get("authors", [])]
+        ),
+        "maintainer": ", ".join(
+            [
+                maintainer.get("name", "")
+                for maintainer in project_data.get("maintainers", [])
+            ]
+        ),
+        "keywords": project_data.get("keywords", []),
+        "classifiers": project_data.get("classifiers", []),
+        "install_requires": project_data.get("dependencies", []),
+        "extras_require": {
+            "test": project_data.get("optional-dependencies", {}).get("test", [])
+        },
+        "project_urls": project_data.get("urls", {}),
+        "packages": setuptools_data.get("packages", {})
+        .get("find", {})
+        .get("include", []),
+        "package_dir": {
+            "": setuptools_data.get("packages", {})
+            .get("find", {})
+            .get("where", ["src"])[0]
+        },
+        "package_data": setuptools_data.get("package-data", {}),
+        "include_package_data": True,
+        "entry_points": {
+            "console_scripts": [
+                f"{script}={entry}"
+                for script, entry in project_data.get("scripts", {}).items()
+            ]
+        },
+    }
+
+    # handle dynamic fields like readme and version
+    if "readme" in project_data.get("dynamic", []):
+        readme_config = dynamic_data.get("readme", {})
+        readme_file = readme_config.get("file", "README.md")
+        mime_type = readme_config.get("content-type", "text/markdown")
+        try:
+            with open(readme_file, encoding="utf-8") as f:
+                metadata["long_description"] = f.read()
+            metadata["long_description_content_type"] = mime_type
+        except FileNotFoundError:
+            print(
+                f"Warning: Readme file '{readme_file}' not found. Skipping long description."
+            )
+
+    if "version" in project_data.get("dynamic", []):
+        # Use setuptools_scm to handle the dynamic version
+        metadata["use_scm_version"] = {
+            "write_to": scm_data.get("write_to", "src/PyPop/_version.py"),
+            "version_scheme": scm_data.get("version_scheme", "post-release"),
+        }
+
+    # Filter out None values
+    return {k: v for k, v in metadata.items() if v is not None}
+
+
+# extension configuration moved to extensions.toml
+# if there are any extensions that can't be converted to TOML, add them here
+extensions = []
+
+# check for older Python versions
+# FIXME: can drop this when we drop support for Python 3.6 wheels
+if sys.version_info < (3, 7):  # noqa: UP036
+    # populate metadata tags to send to `setup()` for backwards-compatibility
+    metadata = add_metadata_from_pyproject("pyproject.toml")
+else:
+    # otherwise use on pyproject.toml directly, don't need to send metadata to `setup()`
+    metadata = {}
 
 setup(
-    name=__pkgname__,
-    use_scm_version={
-        "write_to": Path(src_dir) / pkg_dir / "_version.py",
-        "version_scheme": __version_scheme__,
-    },
-    description="PyPop: Python for Population Genomics",
-    long_description=long_description,
-    long_description_content_type="text/x-rst",
-    url="http://www.pypop.org/",
-    project_urls={
-        "Documentation": "http://pypop.org/docs/",
-        "Changelog": "https://github.com/alexlancaster/pypop/blob/main/NEWS.md",
-        "Source": "https://github.com/alexlancaster/pypop/",
-        "Tracker": "https://github.com/alexlancaster/pypop/issues",
-    },
-    author="Alex Lancaster",
-    maintainer="PyPop team",
-    license="GNU GPL",
-    platforms=["GNU/Linux", "Windows", "MacOS"],
-    keywords=[
-        "bioinformatics",
-        "population-genomics",
-        "evolutionary-biology",
-        "population-genetics",
-    ],
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "Intended Audience :: Science/Research",
-        "Topic :: Scientific/Engineering :: Bio-Informatics",
-        "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
-        "Operating System :: MacOS :: MacOS X",
-        "Operating System :: Microsoft :: Windows",
-        "Operating System :: POSIX :: Linux",
-    ],
-    package_dir={"": src_dir},
-    packages=["PyPop", "PyPop.xslt"],
-    package_data={
-        "PyPop.xslt": xslt_data_file_paths,
-        "PyPop": citation_data_file_paths,
-    },
-    install_requires=[
-        "numpy <= 2.2.1",
-        "lxml <= 5.3.0",
-        "importlib-resources; python_version <= '3.8'",
-        "importlib-metadata; python_version <= '3.8'",
-    ],
-    extras_require={
-        "test": ["pytest"]
-        # FIXME:  "psutil <= 5.9.5", not currently used, 5.9.6 and later had problems with building on Windows PyPy
-    },
-    entry_points={
-        "console_scripts": [
-            "pypop=PyPop.pypop:main",
-            "popmeta=PyPop.popmeta:main",
-            "pypop-interactive=PyPop.pypop:main_interactive",
-        ]
-    },
-    ext_modules=extensions,
+    ext_modules=add_more_ext_modules_from_toml("extensions.toml", extensions),
     cmdclass={
+        # custom clean command to remove extension files
         "clean": CleanCommand,
-        # enable the custom build
+        # enable the custom build for citations
         "build_py": CustomBuildPy,
+        # customize the build extension to read environment variables
+        "build_ext": CustomBuildExt,
     },
+    **metadata,  # add metadata only for older Python or where applicable
 )
