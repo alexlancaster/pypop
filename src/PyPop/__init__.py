@@ -35,8 +35,13 @@ import logging
 import platform
 import sys
 
-__pkgname__ = "pypop-genomics"
-__version_scheme__ = "post-release"
+# FIXME: ensure these need be remain synced with pyproject.toml
+try:
+    from ._metadata import __pkgname__, __version_scheme__
+except ModuleNotFoundError:
+    sys.exit(
+        "PyPop metadata not found, PyPop has likely not been built, please build or install via `pip install` or `setup.py build`"
+    )
 
 try:
     import importlib.metadata as metadata_lib  # look for built-in
@@ -53,7 +58,7 @@ except metadata_lib.PackageNotFoundError:
     )  # next try the version in repo
 
 copyright_message = """Copyright (C) 2003-2006 Regents of the University of California.
-Copyright (C) 2007-2023 PyPop team.
+Copyright (C) 2007-2025 PyPop team.
 This is free software.  There is NO warranty; not even for
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
 
