@@ -111,9 +111,6 @@ def get_sequence_directory(directory_str, debug=False):
         sys.exit(
             f"Absolute path {path_obj} for Anthony Nolan sequence files does not exist or is not a directory"
         )
-
-    print("BAR:", anthonynolanPath)
-
     return anthonynolanPath
 
 
