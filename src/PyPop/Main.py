@@ -33,6 +33,7 @@
 
 """Python population genetics statistics."""
 
+import os
 import sys
 import time
 from configparser import ConfigParser, NoOptionError, NoSectionError
@@ -624,13 +625,41 @@ class Main:
                 except Exception:
                     sequenceFileSuffix = "_prot"
                 try:
-                    anthonynolanPath = self.config.get(filterCall, "directory")
-                except Exception:
-                    anthonynolanPath = Path(self.datapath) / "anthonynolan" / "msf"
-                    if self.debug:
-                        print(
-                            f"LOG: Defaulting to system datapath {anthonynolanPath} for anthonynolanPath data"
+                    path_obj = Path(self.config.get(filterCall, "directory"))
+
+                    # if the path is relative, resolve it to an absolute path if it exists
+                    if not path_obj.is_absolute():
+                        if path_obj.exists() and path_obj.is_dir():
+                            path_obj = path_obj.resolve()
+                        elif os.environ.get(
+                            "CURRENT_TEST_DIRECTORY"
+                        ) and os.environ.get("PYTEST_VERSION"):
+                            # if we're running in a test environment, resolve paths relative to the parent of the "tests" directory
+                            path_obj = (
+                                Path(os.environ.get("CURRENT_TEST_DIRECTORY")).parent
+                                / path_obj
+                            )
+                        else:
+                            sys.exit(
+                                f"Relative path {path_obj} for AnthonyNolan sequence files does not exist or is not a directory."
+                            )
+
+                    # at this point, the path is absolute, now we need to check it exits
+                    if path_obj.exists() and path_obj.is_dir():
+                        anthonynolanPath = str(path_obj)
+                        if self.debug:
+                            print(
+                                f"Using  {anthonynolanPath} for AnthonyNolan data files"
+                            )
+                    else:
+                        sys.exit(
+                            f"Absolute path {path_obj} for Anthony Nolan sequence files does not exist or is not a directory"
                         )
+
+                except Exception:
+                    sys.exit(
+                        "Need to provide a path to the Anthony Nolan sequence files: no default"
+                    )
                 try:
                     sequenceFilterMethod = self.config.get(
                         filterCall, "sequenceConsensusMethod"
