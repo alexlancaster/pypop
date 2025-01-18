@@ -893,10 +893,8 @@ what was resolved and what could not be resolved.
    source distribution, and also can be found in the GitHub repo here
    (you can either clone the repo or download the files manually):
 
-   * ``txt``: `tests/data/anthonynolan/HIG-seq-pep-text/
-   <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/HIG-seq-pep-text>`_
-   * ``msf`` files `tests/data/anthonynolan/msf/
-   <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/msf>`_
+   * ``txt``: files: `tests/data/anthonynolan/HIG-seq-pep-text/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/HIG-seq-pep-text>`__
+   * ``msf`` files: `tests/data/anthonynolan/msf/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/msf>`__
 
 -  ``preserve-ambiguous``.
 
