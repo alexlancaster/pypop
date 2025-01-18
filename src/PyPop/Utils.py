@@ -590,11 +590,11 @@ class StringMatrix(container):
             col1 = col * 2
             col2 = col1 + 1
             # store each element in turn
-            self.array[(row, col1 + self.extraCount)] = asarray(
-                value1, dtype=self.dtype
+            self.array[(row, col1 + self.extraCount)] = (
+                value1 if type(value1) is str else asarray(value1, dtype=self.dtype)
             )
-            self.array[(row, col2 + self.extraCount)] = asarray(
-                value2, dtype=self.dtype
+            self.array[(row, col2 + self.extraCount)] = (
+                value2 if type(value2) is str else asarray(value2, dtype=self.dtype)
             )
 
         elif colName in self.extraList:
