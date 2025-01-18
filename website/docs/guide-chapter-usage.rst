@@ -882,11 +882,19 @@ what was resolved and what could not be resolved.
 
 -  ``directory``.
 
-   Specifies the path to the root of the sequence files. For ``txt``:
-   **[Default:**
-   :file:`{prefix}/share/PyPop/anthonynolan/HIG-seq-pep-text/`
-   **]**.  For ``msf`` files **[Default:**
-   :file:`{prefix}/share/PyPop/anthonynolan/msf/` **]**.
+   Specifies the path to the root of the sequence files. It can be
+   either relative or absolute. If it is relative, the path will be
+   resolved relative to the current working directory. **There are no
+   defaults.**
+
+   To save space, the current sequence files are not distributed as
+   part of the Python binary distributions ("wheels"), but are
+   incorporated into the unit tests, and distributed as part of the
+   source distribution, and also can be found in the GitHub repo here
+   (you can either clone the repo or download the files manually):
+
+   * ``txt``: files: `tests/data/anthonynolan/HIG-seq-pep-text/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/HIG-seq-pep-text>`__
+   * ``msf`` files: `tests/data/anthonynolan/msf/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/msf>`__
 
 -  ``preserve-ambiguous``.
 
@@ -920,9 +928,9 @@ filter sections, it will only will be used if present in the
 ``filtersToApply`` line specified above. If so enabled, your allele
 names will be translated into sequences, and all ensuing analyses will
 consider each position in the sequence to be a distinct locus. This
-filter makes use of the same msf format alignment files as used above in
-the AnthonyNolan filter. It does not work with the txt format alignment
-files.
+filter makes use of the same msf format alignment files as used above
+in the ``AnthonyNolan`` filter. **It does not work with the txt format
+alignment files.**
 
 -  ``sequenceFileSuffix``.
 
@@ -935,7 +943,7 @@ files.
 -  ``directory``.
 
    Specifies the path to the root of the sequence files, in the same
-   manner as in the AnthonyNolan section, above.
+   manner as in the ``AnthonyNolan`` section, above.
 
 ``[DigitBinning]`` **filter section**
 

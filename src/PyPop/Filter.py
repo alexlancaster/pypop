@@ -39,7 +39,6 @@
 ."""
 
 import re
-import string
 import sys
 from abc import ABC, abstractmethod
 from functools import reduce
@@ -227,7 +226,7 @@ class AnthonyNolanFilter(Filter):
                     #                        name = "C"
                     allele = matchobj.group(2)
 
-                    if self.alleleLookupTable.has_key(name):
+                    if name in self.alleleLookupTable:
                         if allele not in self.alleleLookupTable[name]:
                             self.alleleLookupTable[name].append(allele)
                     else:
@@ -379,7 +378,7 @@ class AnthonyNolanFilter(Filter):
 
         filteredAllele = self.translTable[alleleName]
 
-        if self.countTable.has_key(filteredAllele):
+        if filteredAllele in self.countTable:
             self.countTable[filteredAllele] += 1
         else:
             self.countTable[filteredAllele] = 1
@@ -389,7 +388,7 @@ class AnthonyNolanFilter(Filter):
             print("translation table:", self.translTable)
             print("count table:", self.countTable)
 
-        translKeys = self.translTable.keys()
+        translKeys = list(self.translTable.keys())
 
         for allele in translKeys:
             # check to see if we an allele of the form
@@ -478,7 +477,7 @@ class AnthonyNolanFilter(Filter):
                 if subname != transl:
                     self.logFile.emptytag("translate", input=subname, output=transl)
                     self.logFile.writeln()
-            transl = string.join(transl_collection, "/")
+            transl = "/".join(transl_collection)
             if alleleName != transl:
                 self.logFile.emptytag("translate", input=alleleName, output=transl)
                 self.logFile.writeln()
@@ -535,7 +534,7 @@ class AnthonyNolanFilter(Filter):
                 if match:
                     break
             try:
-                self.length = int(string.split(match.group())[1])
+                self.length = int(match.group().split()[1])
             except Exception:
                 # FIXME:  How do we want to handle a non-existent MSF header alignment length
                 msg = f"could not find the alignment length from msf file {self.filename}."
@@ -543,15 +542,14 @@ class AnthonyNolanFilter(Filter):
 
             # see where the header of the MSF file ends (demarcated by // )
             self.msfHead = 0
-            for line in self.lines:
-                if string.find(line, "//") != -1:
-                    break
-                self.msfHead += 1
+            for index, line in enumerate(self.lines):
+                if "//" in line:
+                    self.msfHead = index
 
             for individ in self.matrix[the_locus]:
                 for allele in individ:
                     # if the allele hasn't been keyed yet, we'll have to get a sequence
-                    if not self.sequences.has_key(allele):
+                    if allele not in self.sequences:
                         # FIXME: this code is specific to HLA data
                         # find "null alleles" (ending in "N")
                         # it makes a null allele
@@ -612,15 +610,13 @@ class AnthonyNolanFilter(Filter):
             if self.debug:
                 print("full sequence for locus", the_locus, self.sequences)
 
-            # Make the self.unsequenedSite (normally '#') the standard null placeholder
+            # Make the self.unsequencedSite (normally '#') the standard null placeholder
             for allele in self.sequences:
-                ##self.sequences[allele] = string.replace(self.sequences[allele],'.','*')
-                self.sequences[allele] = string.replace(
-                    self.sequences[allele], ".", self.unsequencedSite
+                self.sequences[allele] = self.sequences[allele].replace(
+                    ".", self.unsequencedSite
                 )
-                ##self.sequences[allele] = string.replace(self.sequences[allele],'X','*')
-                self.sequences[allele] = string.replace(
-                    self.sequences[allele], "X", self.unsequencedSite
+                self.sequences[allele] = self.sequences[allele].replace(
+                    "X", self.unsequencedSite
                 )
 
             # pre-populates the polyseq dictionary with empty strings,
@@ -721,10 +717,10 @@ class AnthonyNolanFilter(Filter):
                             ]
                         else:
                             positionString[positionDigit] += " "
-                for line in range(len(positionString.keys()), 0, -1):
+                for line in range(len(list(positionString.keys())), 0, -1):
                     self.logFile.writeln("\t\t" + positionString[line])
 
-            li = alleleTally.keys()
+            li = list(alleleTally.keys())
             li.sort()
             for allele in li:
                 self.logFile.writeln(
@@ -751,7 +747,7 @@ class AnthonyNolanFilter(Filter):
                 positionReportString = "Position: " + str(
                     self.polyseqpos[locus][position]
                 )
-                letters = positionTally.keys()
+                letters = list(positionTally.keys())
                 letters.sort()
                 for letter in letters:
                     positionReportString += (
@@ -821,7 +817,7 @@ class AnthonyNolanFilter(Filter):
             "DPB1": 29,
         }
 
-        return str(pos - offsets[locus]) if offsets.has_key(locus) else str(pos)
+        return str(pos - offsets[locus]) if locus in offsets else str(pos)
 
     def _getMSFLinesForLocus(self, locus):
         # FIXME: this code is specific to hla data
@@ -846,9 +842,10 @@ class AnthonyNolanFilter(Filter):
         regexp = re.compile(".*" + re.escape(name) + " .*")
         seq = ""
         for line in self.lines[self.msfHead :]:
-            if string.find(line, name + " ") != -1:
+            if line.find(name + " ") != -1:
                 match = re.search(regexp, line)
-                seq = seq + string.join(string.split(match.group())[1:], "")
+                seq += "".join(match.group().split()[1:])
+                # seq = seq + string.join(string.split(match.group())[1:], "")
 
         # check length of seq against what we expected from the msf header
         if len(seq) < self.length:
@@ -914,10 +911,10 @@ class AnthonyNolanFilter(Filter):
                 print(
                     f"{allele} NOT found in the msf file, {closestMatches.keys()[0]} is only close match, so using that."
                 )
-            seq = closestMatches.values()[0]
+            seq = next(iter(closestMatches.values()))
 
         else:
-            for pos in range(len(closestMatches.values()[0])):
+            for pos in range(len(next(iter(closestMatches.values())))):
                 # checks each position of each allele, counts the number
                 # of unique characters (excepting . X and * characters)
                 uniqueCounter = {}
@@ -958,7 +955,7 @@ class AnthonyNolanFilter(Filter):
                 print(seq)
                 print(
                     f"{allele} NOT found in the msf file, so we use a consensus of ",
-                    closestMatches.keys(),
+                    list(closestMatches.keys()),
                 )
 
         return seq
@@ -992,7 +989,7 @@ class BinningFilter:
             individCount = 0
             for individCount, individ in enumerate(matrix[locus]):
                 for i in range(2):
-                    allele[i] = str(individ[i])  # FIXME: matrix type is `ndarray`
+                    allele[i] = individ[i]
                     if (
                         allele[i] != self.untypedAllele
                         and len(allele[i]) > self.binningDigits
@@ -1021,9 +1018,6 @@ class BinningFilter:
             if locus.lower() in self.customBinningDict:
                 for individ in matrix[locus]:
                     for i in range(2):
-                        individ[i] = str(
-                            individ[i]
-                        )  # FIXME: matrix type is `ndarray` needs to be string for len() and other string operations
                         if len(individ[i].split("/")) > 1:
                             allele_collection = []
                             for subname in individ[i].split("/"):
@@ -1033,7 +1027,7 @@ class BinningFilter:
                                     )
                                 ]
 
-                            allele[i] = string.join(list(set(allele_collection)), "/")
+                            allele[i] = "/".join(list(set(allele_collection)))
 
                         else:
                             allele[i] = self.lookupCustomBinning(
@@ -1102,7 +1096,7 @@ class BinningFilter:
 
         if len(closeMatches) > 0:
             bestScore = 1000
-            for match, score in closeMatches.items():
+            for match, score in list(closeMatches.items()):
                 if score < bestScore:
                     bestScore = score
                     finalMatch = match
@@ -1145,7 +1139,7 @@ class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
 
         # now, translate alleles with count < lumpThreshold to "lump"
 
-        translKeys = self.translTable.keys()
+        translKeys = list(self.translTable.keys())
 
         for allele in translKeys:
             filteredAllele = self.translTable[allele]
