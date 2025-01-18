@@ -1,5 +1,7 @@
 import unittest
 
+import numpy as np
+
 from PyPop.Utils import StringMatrix, appendTo2dList
 
 
@@ -23,6 +25,41 @@ class StringMatrixTest(unittest.TestCase):
         assert A_matrix["A"] == [[0, 0], [0, 0], [0, 0]]
         assert A_matrix["B"] == [["B0", "B0"], ["B1", "B1"], [0, 0]]
         assert A_matrix["C"] == [[0, 0], [0, 0], [0, 0]]
+
+    def test_default_types(self):
+        # test types
+        # default unset values is a 0 (int)
+        # if set to an allele is a string (str)
+        # if set to a non-string it will be an ndarray
+        A_matrix = new_matrix()
+
+        # strings
+        A_matrix[0, "B"] = ("B0", "B0")
+        A_matrix[1, "B"] = ("B1", "B1")
+        A_matrix[2, "B"] = ("B2", "B3")
+
+        # ndarrays
+        A_matrix[0, "C"] = (2, 3)
+        A_matrix[1, "C"] = (1, 2)
+        A_matrix[2, "C"] = (3, 4)
+
+        # A locus is an "int" (default initialized value)
+        for individ in A_matrix["A"]:
+            allele1, allele2 = individ
+            assert type(allele1) is int
+            assert type(allele2) is int
+
+        # B locus is a "str" (set an allele)
+        for individ in A_matrix["B"]:
+            allele1, allele2 = individ
+            assert type(allele1) is str
+            assert type(allele2) is str
+
+        # C locus is an ndarray (default value if the allele was not assigned a string)
+        for individ in A_matrix["C"]:
+            allele1, allele2 = individ
+            assert type(allele1) is np.ndarray
+            assert type(allele2) is np.ndarray
 
     def test_copy(self):
         # check copies are independent

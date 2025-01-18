@@ -23,12 +23,10 @@ large-scale population genetic analyses including:
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
-  * 2025-01-05: Pre-release `PyPop 1.1.3rc1
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.3-rc1>`__
-    is now available. Experimental wheels for Windows ARM64 are
-    available via `Test PyPI
-    <https://test.pypi.org/project/pypop-genomics/>`__. If you're on
-    Windows ARM64, install using:
+  * 2025-01-16: Beta release `PyPop 1.2.0b2 <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0-b2>`__ is now available.
+    The next release will be 1.2.0 (skipping 1.1.3) as this release
+    includes major changes to the build system.  To test the experimental Windows ARM64 wheels in the `Test PyPI
+    <https://test.pypi.org/project/pypop-genomics/>`__ repo, run:
 
     .. code-block:: shell
 
@@ -42,6 +40,11 @@ large-scale population genetic analyses including:
     .. code-block:: shell
 
        pip install --pre pypop-genomics
+
+  * 2025-01-05: Pre-release `PyPop 1.1.3rc1
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.3-rc1>`__
+    is now available. Experimental wheels for Windows ARM64 are
+    added in this release.
 
   * 2024-11-18: `PyPop 1.1.2
     <https://github.com/alexlancaster/pypop/releases/tag/v1.1.2>`__

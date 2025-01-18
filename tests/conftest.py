@@ -4,7 +4,15 @@
 # adapted from pytest documentation
 # https://docs.pytest.org/en/latest/example/simple.html#control-skipping-of-tests-according-to-command-line-option
 
+import os
+from pathlib import Path
+
 import pytest
+
+# FIXME: a bit hacky
+# set an environment variable for the current test directory
+current_dir = Path(__file__).parent  # get the current test script directory
+os.environ["PYPOP_CURRENT_TEST_DIRECTORY"] = str(current_dir)
 
 
 def pytest_addoption(parser):
