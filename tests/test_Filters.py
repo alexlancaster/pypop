@@ -2,6 +2,7 @@ from base import (
     DEFAULT_GOLD_OUTPUT_DIR,
     abspath_test_data,
     filecmp_ignore_newlines,
+    filecmp_list_of_files,
     in_temp_dir,  # noqa: F401
     run_pypop_process,
 )
@@ -87,3 +88,18 @@ def test_Filters_CustomBinning_P_Filter():
             DEFAULT_GOLD_OUTPUT_DIR / "custom-binning-P-Filter" / out_filename
         )
         assert filecmp_ignore_newlines(out_filename, gold_out_filename)
+
+
+def test_Filters_Sequence_AnthonyNolan():
+    exit_code = run_pypop_process(
+        "./tests/data/sequence-nopoptests.ini",
+        "./tests/data/USAFEL-UchiTelle.pop",
+    )
+    # check exit code
+    assert exit_code == 0
+
+    # compare output
+    assert filecmp_list_of_files(
+        ["USAFEL-UchiTelle-filter.xml", "USAFEL-UchiTelle-out.txt"],
+        DEFAULT_GOLD_OUTPUT_DIR / "Filters_Sequence_AnthonyNolan",
+    )
