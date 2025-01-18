@@ -5,6 +5,7 @@ from base import (
     DEFAULT_GOLD_OUTPUT_DIR,
     abspath_test_data,
     filecmp_ignore_newlines,
+    filecmp_list_of_files,
     in_temp_dir,  # noqa: F401
     run_pypop_process,
 )
@@ -104,3 +105,9 @@ def test_Filters_Sequence_AnthonyNolan():
     )
     # check exit code
     assert exit_code == 0
+
+    # compare output
+    assert filecmp_list_of_files(
+        ["USAFEL-UchiTelle-filter.xml", "USAFEL-UchiTelle-out.txt"],
+        DEFAULT_GOLD_OUTPUT_DIR / "Filters_Sequence_AnthonyNolan",
+    )
