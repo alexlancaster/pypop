@@ -1,6 +1,3 @@
-import os
-from pathlib import Path
-
 from base import (
     DEFAULT_GOLD_OUTPUT_DIR,
     abspath_test_data,
@@ -94,11 +91,6 @@ def test_Filters_CustomBinning_P_Filter():
 
 
 def test_Filters_Sequence_AnthonyNolan():
-    # FIXME: a bit hacky
-    # set an environment variable for the current test directory
-    current_dir = Path(__file__).parent  # get the current test script directory
-    os.environ["CURRENT_TEST_DIRECTORY"] = str(current_dir)
-
     exit_code = run_pypop_process(
         "./tests/data/sequence-nopoptests.ini",
         "./tests/data/USAFEL-UchiTelle.pop",
