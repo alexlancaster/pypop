@@ -86,7 +86,6 @@ def getConfigInstance(configFilename=None, altpath=None):
 
 def get_sequence_directory(directory_str, debug=False):
     path_obj = Path(directory_str)
-    print("FOO:", path_obj)
 
     # if the path is relative, resolve it to an absolute path if it exists
     if not path_obj.is_absolute():
