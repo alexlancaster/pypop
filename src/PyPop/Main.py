@@ -91,11 +91,11 @@ def get_sequence_directory(directory_str, debug=False):
     if not path_obj.is_absolute():
         if path_obj.exists() and path_obj.is_dir():
             path_obj = path_obj.resolve()
-        elif os.environ.get("CURRENT_TEST_DIRECTORY") and os.environ.get(
-            "PYTEST_VERSION"
-        ):
+        elif os.environ.get("PYPOP_CURRENT_TEST_DIRECTORY"):
             # if we're running in a test environment, resolve paths relative to the parent of the "tests" directory
-            path_obj = Path(os.environ.get("CURRENT_TEST_DIRECTORY")).parent / path_obj
+            path_obj = (
+                Path(os.environ.get("PYPOP_CURRENT_TEST_DIRECTORY")).parent / path_obj
+            )
         else:
             sys.exit(
                 f"Relative path {path_obj} for AnthonyNolan sequence files does not exist or is not a directory."
