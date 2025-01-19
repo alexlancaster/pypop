@@ -75,7 +75,7 @@ Following this:
 2. a second system file dialog will prompt you for a ``.pop``
    :ref:`data file <guide-usage-datafile>`.
 
-3. after both files are selected the console will display the
+b3. after both files are selected the console will display the
    processing of the file:
 
    .. code-block:: text
@@ -793,31 +793,39 @@ conjunction with :program:`Arlequin`: ``[Arlequin]`` and
 
 -  ``permutationPrintFlag``.
 
+   .. warning::
+
+      If ``permutationPrintFlag`` is enabled it can *drastically*
+      increase the size of the output XML file on the order of the
+      product of the number of possible pairwise comparisons and
+      permutations. Machines with lower RAM and disk space may have
+      difficulty coping with this.
+
    Determines whether the likelihood ratio for each permutation will be
    logged to the XML output file, this is disabled by default.
    **[Default:** ``0`` **(i.e. OFF)]**.
 
-   .. warning::
+.. important::
 
-      If this is enabled it can *drastically* increase the size of the
-      output XML file on the order of the product of the number of
-      possible pairwise comparisons and permutations. Machines with
-      lower RAM and disk space may have difficulty coping with this.
+   .. deprecated:: 1.0.0
+       currently unmaintained and untested.
 
-``[Arlequin]`` **extra section**
 
-This section sets characteristics of the :program:`Arlequin`
-application if it has been installed (it must be installed separately
-from PyPop as we cannot distribute it). The options in this section
-are only used when a test requiring :program:`Arlequin`, such as it's
-implementation of Guo and Thompson's :cite:yearpar:`guo_performing_1992`
-Hardy-Weinberg exact test is invoked (see below).
+      ``[Arlequin]`` **extra section**
 
--  ``arlequinExec``.
+      This section sets characteristics of the :program:`Arlequin`
+      application if it has been installed (it must be installed
+      separately from PyPop as we cannot distribute it). The options
+      in this section are only used when a test requiring
+      :program:`Arlequin`, such as it's implementation of Guo and
+      Thompson's :cite:yearpar:`guo_performing_1992` Hardy-Weinberg
+      exact test is invoked (see below).
 
-   This option specifies where to find the :program:`Arlequin`
-   executable on your system. The default assumes it is on your system
-   path. **[Default:** :file:`arlecore.exe` **]**
+      -  ``arlequinExec``.
+
+         This option specifies where to find the :program:`Arlequin`
+         executable on your system. The default assumes it is on your
+         system path. **[Default:** :file:`arlecore.exe` **]**
 
 ``[HardyWeinbergGuoThompsonArlequin]`` **extra section**
 
@@ -871,10 +879,11 @@ to the data.
    single ``.pop`` file with all loci), followed by a colon ``:`` and
    an integer representing the step in the filtering process at which
    the output files should be generated. The integer ``0`` represents
-   the original input data, i.e. step before the filtering runs.
+   the original input data, i.e. step before the filtering runs,
+   integer ``1`` would be the data after the first filter is run, and
+   so on.
 
-   For example, with the following stanza in an ``.ini`` file, applied
-   to an input file ``NewPopulation.pop`` with a single locus ``A``:
+   For example, with the following stanza in an ``.ini`` file
 
    .. code-block:: ini
 
@@ -882,21 +891,44 @@ to the data.
       filtersToApply=Sequence
       makeNewPopFile=all-loci:1
 
-   This would apply the default sequence filter, generating a new file
-   ``NewPopulation-filtered.pop`` where the original ``A`` locus is
-   translated into columns where each new locus would consist of the
-   individual polymorphic residue position within the ``A``. For
-   example if there were two polymorphic positions at resideues 9 and
-   44, the ``NewPopulation-filtered.pop`` might look something like
-   this:
+      [Sequence]
+      directory=tests/data/anthonynolan/msf/
+
+   applied to an input file ``MyPopulation.pop`` with a single HLA
+   locus ``A`` :
 
    .. code-block:: text
 
-      A_9_1   A_9_2    A_44_1   A_44_2
-      F       F        K        R
-      Y       F        R        R
-      F       F        K        R
+      A_1       A_2
+      0101      0201
+      0210      03012
+      0101      0218
 
+   .. warning::
+
+      The current implementation of the ``Sequence`` filter only works
+      data with old-style HLA nomenclature, and uses the Anthony Nolan
+      MSF sequence files, see the :ref:`section for more details
+      <sequence_filter>`.
+
+   This would apply the ``Sequence`` filter options , generating a new
+   file ``MyPopulation-filtered.pop`` where the original HLA ``A``
+   locus is translated into columns where each new locus would consist
+   of the individual polymorphic amino acid residue position within
+   HLA ``A``, and then generate output files for that data at that
+   point. For example, the first two columns showing the first two
+   polymorphic positions at residues 9 (new locus ``A_9``) and 44 (new
+   locus ``A_42``), the ``NewPopulation-filtered.pop`` might look
+   something like this:
+
+   .. code-block:: text
+
+      A_9_1   A_9_2    A_44_1    A_44_2  ...
+      F       F        K         R       ...
+      Y       F        R         R       ...
+      F       F        K         R       ...
+
+.. _anthonynolan_filter:
 
 ``[AnthonyNolan]`` **filter section**
 
@@ -960,6 +992,8 @@ showing what was resolved and what could not be resolved.
    shorter than the default allele name length, usually 4 digits long.
    But if the preserve-unknown flag is set, this one has no effect,
    because all unknown alleles are preserved. **[Default:** ``0`` **]**.
+
+.. _sequence_filter:
 
 ``[Sequence]`` **filter section**
 
