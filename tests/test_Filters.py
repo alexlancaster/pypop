@@ -103,3 +103,18 @@ def test_Filters_Sequence_AnthonyNolan():
         ["USAFEL-UchiTelle-filter.xml", "USAFEL-UchiTelle-out.txt"],
         DEFAULT_GOLD_OUTPUT_DIR / "Filters_Sequence_AnthonyNolan",
     )
+
+
+def test_Filters_Sequence_AnthonyNolan_DumpFiltered():
+    exit_code = run_pypop_process(
+        "./tests/data/sequence-nopoptests-dump-filtered.ini",
+        "./tests/data/USAFEL-UchiTelle.pop",
+    )
+    # check exit code
+    assert exit_code == 0
+
+    # compare output
+    assert filecmp_list_of_files(
+        ["USAFEL-UchiTelle-filtered.pop"],
+        DEFAULT_GOLD_OUTPUT_DIR / "Filters_Sequence_AnthonyNolan_DumpFiltered",
+    )
