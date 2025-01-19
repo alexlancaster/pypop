@@ -860,17 +860,57 @@ to the data.
    reverse ordering, AnthonyNolan:Sequence, would be logical and perhaps
    even advisable.
 
+-  ``makeNewPopFile``.
+
+   This option creates intermediate population files (in the ``.pop``
+   format) before or after any filtering step. This allows the user to
+   save and inspect the output, and for running the output through
+   another PyPop process with potentially different parameters. The
+   format of the argument is either ``separate-loci`` (generating
+   separate ``.pop`` files for each of the loci) or ``all-loci`` (a
+   single ``.pop`` file with all loci), followed by a colon ``:`` and
+   an integer representing the step in the filtering process at which
+   the output files should be generated. The integer ``0`` represents
+   the original input data, i.e. step before the filtering runs.
+
+   For example, with the following stanza in an ``.ini`` file, applied
+   to an input file ``NewPopulation.pop`` with a single locus ``A``:
+
+   .. code-block:: ini
+
+      [Filters]
+      filtersToApply=Sequence
+      makeNewPopFile=all-loci:1
+
+   This would apply the default sequence filter, generating a new file
+   ``NewPopulation-filtered.pop`` where the original ``A`` locus is
+   translated into columns where each new locus would consist of the
+   individual polymorphic residue position within the ``A``. For
+   example if there were two polymorphic positions at resideues 9 and
+   44, the ``NewPopulation-filtered.pop`` might look something like
+   this:
+
+   .. code-block:: text
+
+      A_9_1   A_9_2    A_44_1   A_44_2
+      F       F        K        R
+      Y       F        R        R
+      F       F        K        R
+
+
 ``[AnthonyNolan]`` **filter section**
 
-This section is *only* useful for HLA data. Like all filter sections, it
-will only be used if present in the ``filtersToApply`` line specified
-above. If so enabled, your data will be filtered through the Anthony
-Nolan database of known HLA allele names before processing. The data
-files this filter relies on are *not* currently distributed with PyPop
-but can be obtained via the `IMGT ftp
-site <ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/>`__. Invocation of
-this filter will produce a ``popfile-filter.xml`` file output showing
-what was resolved and what could not be resolved.
+This section is *only* useful for HLA data. Like all filter sections,
+it will only be used if present in the ``filtersToApply`` line
+specified above. If so enabled, your data will be filtered through the
+Anthony Nolan database of known HLA allele names before
+processing. The data files this filter relies on are *not* currently
+distributed with PyPop within the binary installable packages
+("wheels"), but can be obtained as described in the ``directory``
+section, below, or the `IMGT ftp site
+<ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/>`__. Invocation of
+this filter will produce a ``<POPFILE>-filter.xml`` file output
+showing what was resolved and what could not be resolved.
 
 -  ``alleleFileFormat``.
 
@@ -888,10 +928,10 @@ what was resolved and what could not be resolved.
    defaults.**
 
    To save space, the current sequence files are not distributed as
-   part of the Python binary distributions ("wheels"), but are
-   incorporated into the unit tests, and distributed as part of the
-   source distribution, and also can be found in the GitHub repo here
-   (you can either clone the repo or download the files manually):
+   part of the wheels, but are incorporated into the unit tests, and
+   distributed as part of the source distribution, and also can be
+   found in the GitHub repo here (you can either clone the repo or
+   download the files manually):
 
    * ``txt``: files: `tests/data/anthonynolan/HIG-seq-pep-text/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/HIG-seq-pep-text>`__
    * ``msf`` files: `tests/data/anthonynolan/msf/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/msf>`__
