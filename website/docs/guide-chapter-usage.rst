@@ -839,25 +839,24 @@ modified.
          executable on your system. The default assumes it is on your
          system path. **[Default:** :file:`arlecore.exe` **]**
 
-``[HardyWeinbergGuoThompsonArlequin]`` extra section
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+      ``[HardyWeinbergGuoThompsonArlequin]`` extra section
 
-When this section is present, :program:`Arlequin`'s implementation of the
-Hardy-Weinberg exact test is run, using a Monte-Carlo Markov Chain
-implementation. By default this section is not enabled.
+      When this section is present, :program:`Arlequin`'s implementation of the
+      Hardy-Weinberg exact test is run, using a Monte-Carlo Markov Chain
+      implementation. By default this section is not enabled.
 
--  ``markovChainStepsHW``.
+      -  ``markovChainStepsHW``.
 
-   Length of steps in the Markov chain **[Default: 2500000]**.
+         Length of steps in the Markov chain **[Default: 2500000]**.
 
--  ``markovChainDememorisationStepsHW``.
+      -  ``markovChainDememorisationStepsHW``.
 
-   Number of steps of to “burn-in” the Markov chain before statistics
-   are collected.\ **[Default:** ``5000`` **]**
+         Number of steps of to “burn-in” the Markov chain before statistics
+         are collected.\ **[Default:** ``5000`` **]**
 
-The default values for options described above have proved to be optimal
-for us and if the options are not provided these defaults will be used.
-If you change the values and have problems, please let us **know**.
+      The default values for options described above have proved to be optimal
+      for us and if the options are not provided these defaults will be used.
+      If you change the values and have problems, please let us **know**.
 
 Advanced filtering sections
 ---------------------------
