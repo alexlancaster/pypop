@@ -709,6 +709,7 @@ conjunction with :program:`Arlequin`: ``[Arlequin]`` and
 ``[HardyWeinbergGuoThompsonArlequin]``.
 
 ``[General]`` **advanced options**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  ``txtOutFilename`` and ``xmlOutFilename``.
 
@@ -743,6 +744,7 @@ conjunction with :program:`Arlequin`: ``[Arlequin]`` and
    system-installed :file:`text.xsl` file.
 
 ``[ParseGenotypeFile]`` **advanced options**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  ``fieldPairDesignator``.
 
@@ -828,6 +830,7 @@ conjunction with :program:`Arlequin`: ``[Arlequin]`` and
          system path. **[Default:** :file:`arlecore.exe` **]**
 
 ``[HardyWeinbergGuoThompsonArlequin]`` **extra section**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When this section is present, :program:`Arlequin`'s implementation of the
 Hardy-Weinberg exact test is run, using a Monte-Carlo Markov Chain
@@ -847,6 +850,7 @@ for us and if the options are not provided these defaults will be used.
 If you change the values and have problems, please let us **know**.
 
 ``[Filters]`` **extra section**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When this section is present, it allows you to specify successive filters
 to the data.
@@ -931,6 +935,7 @@ to the data.
 .. _anthonynolan_filter:
 
 ``[AnthonyNolan]`` **filter section**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section is *only* useful for HLA data. Like all filter sections,
 it will only be used if present in the ``filtersToApply`` line
@@ -996,6 +1001,7 @@ showing what was resolved and what could not be resolved.
 .. _sequence_filter:
 
 ``[Sequence]`` **filter section**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section allows configuration of the sequence filter. Like all
 filter sections, it will only will be used if present in the
@@ -1020,6 +1026,7 @@ alignment files.**
    manner as in the ``AnthonyNolan`` section, above.
 
 ``[DigitBinning]`` **filter section**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section allows configuration of the DigitBinning filter. Like all
 filter sections, it will be used if present in the ``filtersToApply``
@@ -1032,6 +1039,7 @@ after the nth digit.
    truncation. **[Default:** ``4`` **]**.
 
 ``[CustomBinning]`` **filter section**
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section allows configuration of the CustomBinning filter. Like all
 filter sections, it will only be used if present in the
