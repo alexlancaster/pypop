@@ -475,219 +475,225 @@ is contained in :ref:`config-advanced`.
 
 **Configuration file sections** (highlighted above)
 
--  ``[General]``
+``[General]``
+~~~~~~~~~~~~~
+This section contains variables that control the overall behavior of
+PyPop.
 
-   This section contains variables that control the overall behavior of
-   PyPop.
+-  ``debug=0``.
 
-   -  ``debug=0``.
+   This setting is for debugging. Setting it to 1 will set off a
+   large amount of output of no interest to the general user. It
+   should not be used unless you are running into trouble and need to
+   communicate with the PyPop developers about the problems.
 
-      This setting is for debugging. Setting it to 1 will set off a
-      large amount of output of no interest to the general user. It
-      should not be used unless you are running into trouble and need to
-      communicate with the PyPop developers about the problems.
+Specifying data formats
 
--  Specifying data formats
+There are two possible formats: ``[ParseGenotypeFile]`` and
+``[ParseAlleleCountFile]``
 
-   There are two possible formats: ``[ParseGenotypeFile]`` and
-   ``[ParseAlleleCountFile]``
+``[ParseGenotypeFile]``.
+~~~~~~~~~~~~~~~~~~~~~~~~
 
-   ``[ParseGenotypeFile]``.
+If your data is genotype data, you will want a section labeled:
+``[ParseGenotypeFile]``.
 
-   If your data is genotype data, you will want a section labeled:
-   ``[ParseGenotypeFile]``.
+-  ``alleleDesignator``.
 
-   -  ``alleleDesignator``.
+   This option is used to tell PyPop what is allele data and what
+   isn't. You must use this symbol in :ref:```validSampleFields``
+   option. The default is ``*``. In general, you won't need to
+   change it. **[Default:** ``*`` **]**
 
-      This option is used to tell PyPop what is allele data and what
-      isn't. You must use this symbol in :ref:```validSampleFields``
-      option. The default is ``*``. In general, you won't need to
-      change it. **[Default:** ``*`` **]**
+-  ``untypedAllele``.
 
-   -  ``untypedAllele``.
-
-      This option is used to tell PyPop what symbol you have used in
-      your data files to represent untyped or unknown data
-      fields. These fields MAY NOT BE LEFT BLANK. You must use
-      something consistent that cannot be confused with real data
-      here. **[Default:** ``****`` **]**
+   This option is used to tell PyPop what symbol you have used in
+   your data files to represent untyped or unknown data
+   fields. These fields MAY NOT BE LEFT BLANK. You must use
+   something consistent that cannot be confused with real data
+   here. **[Default:** ``****`` **]**
 
 .. _validSampleFields:
 
-   -  ``validSampleFields``.
+-  ``validSampleFields``.
 
-      This option should contain the names of the loci immediately
-      preceding your genotype data (if it has three header lines, this
-      information will be on the third line, otherwise it will be the
-      first line of the file).\ **[There is no default, this option must
-      always be present]**
+   This option should contain the names of the loci immediately
+   preceding your genotype data (if it has three header lines, this
+   information will be on the third line, otherwise it will be the
+   first line of the file).\ **[There is no default, this option must
+   always be present]**
 
-      The format is as follows, for each sample field (which may either
-      be an identifying field for the sample such as ``populat``, or
-      contain allele data) create a new line where:
+   The format is as follows, for each sample field (which may either
+   be an identifying field for the sample such as ``populat``, or
+   contain allele data) create a new line where:
 
-      -  The first line (``validSampleFields=``) consists of the name of
-         your sample field (if it contains allele data, the name of the
-         field should be preceded by the character designated in the
-         ``alleleDesignator`` option above).
+   -  The first line (``validSampleFields=``) consists of the name of
+      your sample field (if it contains allele data, the name of the
+      field should be preceded by the character designated in the
+      ``alleleDesignator`` option above).
 
-      -  All subsequent lines after the first *must* be preceded by *one
-         space* (again if it contains allele data, the name of the field
-         should be preceded by the character designated in the
-         ``alleleDesignator`` option above).
+   -  All subsequent lines after the first *must* be preceded by *one
+      space* (again if it contains allele data, the name of the field
+      should be preceded by the character designated in the
+      ``alleleDesignator`` option above).
 
-      Here is an example:
+   Here is an example:
 
-      .. code-block:: text
+   .. code-block:: text
 
-         validSampleFields=*a_1
-          *a_2
-          *c_1
-          *c_2
-          *b_1
-          *b_2    Note initial space at start of line.
+      validSampleFields=*a_1
+       *a_2
+       *c_1
+       *c_2
+       *b_1
+       *b_2    Note initial space at start of line.
 
-      Here is example that includes identifying (non-allele data)
-      information such as sample id (``id``) and population name
-      (``populat``):
+   Here is example that includes identifying (non-allele data)
+   information such as sample id (``id``) and population name
+   (``populat``):
 
-      .. code-block:: text
+   .. code-block:: text
 
-         validSampleFields=populat
-          id
-          *a_1
-          *a_2
-          *c_1
-          *c_2
-          *b_1
-          *b_2
+      validSampleFields=populat
+       id
+       *a_1
+       *a_2
+       *c_1
+       *c_2
+       *b_1
+       *b_2
 
-   ``[ParseAlleleCountFile]``.
+``[ParseAlleleCountFile]``.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   If your data is not genotype data, but rather, data of the
-   allele-name count format, then you will want to use the
-   ``[ParseAlleleCountFile]`` section INSTEAD of the
-   ``[ParseGenotypeFile]`` section. The ``alleleDesignator`` and
-   ``untypedAllele`` options work identically to that described for
-   ``[ParseGenotypeFile]``.
+If your data is not genotype data, but rather, data of the
+allele-name count format, then you will want to use the
+``[ParseAlleleCountFile]`` section INSTEAD of the
+``[ParseGenotypeFile]`` section. The ``alleleDesignator`` and
+``untypedAllele`` options work identically to that described for
+``[ParseGenotypeFile]``.
 
-   -  ``validSampleFields``.
+-  ``validSampleFields``.
 
-      This option should contain either a single locus name or a
-      colon-separated list of all loci that will be in the data files
-      you intend to analyze using a specific ``.ini`` file. The
-      colon-separated list allows you to avoid changing the ``.ini``
-      file when running over a collection of data files containing
-      different loci. e.g.,
+   This option should contain either a single locus name or a
+   colon-separated list of all loci that will be in the data files
+   you intend to analyze using a specific ``.ini`` file. The
+   colon-separated list allows you to avoid changing the ``.ini``
+   file when running over a collection of data files containing
+   different loci. e.g.,
 
-      .. code-block:: text
+   .. code-block:: text
 
-         validSampleFields=A:B:C:DQA1:DQB1:DRB1:DPB1:DPA1
-          count
+      validSampleFields=A:B:C:DQA1:DQB1:DRB1:DPB1:DPA1
+       count
 
-      Note that each ``.pop`` file must contain only one locus (see
-      :ref:`the note <data-allelecount-note>` in
-      :numref:`data-allelecount`). Listing multiple loci simply
-      permits the same ``.ini`` file to be reused for each data file.
+   Note that each ``.pop`` file must contain only one locus (see
+   :ref:`the note <data-allelecount-note>` in
+   :numref:`data-allelecount`). Listing multiple loci simply
+   permits the same ``.ini`` file to be reused for each data file.
 
--  ``[HardyWeinberg]``
+``[HardyWeinberg]``
+~~~~~~~~~~~~~~~~~~~
 
-   Hardy-Weinberg analysis is enabled by the presence of this section.
+Hardy-Weinberg analysis is enabled by the presence of this section.
 
-   -  ``lumpBelow``.
+-  ``lumpBelow``.
 
-      This option value represents a cut-off value. Alleles with an
-      expected value equal to or less than ``lumpBelow`` will be lumped
-      together into a single category for the purpose of calculating the
-      degrees of freedom and overall ``p``-value for the chi-squared
-      Hardy-Weinberg test.
+   This option value represents a cut-off value. Alleles with an
+   expected value equal to or less than ``lumpBelow`` will be lumped
+   together into a single category for the purpose of calculating the
+   degrees of freedom and overall ``p``-value for the chi-squared
+   Hardy-Weinberg test.
 
--  ``[HardyWeinbergGuoThompson]``
+``[HardyWeinbergGuoThompson]``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   When this section is present, an implementation of the
-   Hardy-Weinberg exact test is run using the original
-   :cite:t:`guo_performing_1992` code, using a Monte-Carlo Markov
-   chain (MCMC). In addition, two measures (Chen and Diff) of the
-   goodness of it of individual genotypes are reported under this
-   option :cite:p:`chen_hardy-weinberg_1999`.  By default this section
-   is not enabled. This is a different implementation to the
-   :program:`Arlequin` version listed in :ref:`config-advanced`,
-   below.
+When this section is present, an implementation of the
+Hardy-Weinberg exact test is run using the original
+:cite:t:`guo_performing_1992` code, using a Monte-Carlo Markov
+chain (MCMC). In addition, two measures (Chen and Diff) of the
+goodness of it of individual genotypes are reported under this
+option :cite:p:`chen_hardy-weinberg_1999`.  By default this section
+is not enabled. This is a different implementation to the
+:program:`Arlequin` version listed in :ref:`config-advanced`,
+below.
 
-   -  ``dememorizationSteps``.
+-  ``dememorizationSteps``.
 
-      Number of steps of to “burn-in” the Markov chain before statistics
-      are collected.\ **[Default:** ``2000`` **]**
+   Number of steps of to “burn-in” the Markov chain before statistics
+   are collected.\ **[Default:** ``2000`` **]**
 
-   -  ``samplingNum``.
+-  ``samplingNum``.
 
-      Number of Markov chain samples **[Default:** ``1000`` **]**.
+   Number of Markov chain samples **[Default:** ``1000`` **]**.
 
-   -  ``samplingSize``.
+-  ``samplingSize``.
 
-      Markov chain sample size\ **[Default:** ``1000`` **]**.
+   Markov chain sample size\ **[Default:** ``1000`` **]**.
 
-   Note that the **total** number of steps in the Monte-Carlo Markov
-   chain is the product of ``samplingNum`` and ``samplingSize``, so the
-   default values described above would contain 1,000,000 (= 1000 x
-   1000) steps in the MCMC chain.
+Note that the **total** number of steps in the Monte-Carlo Markov
+chain is the product of ``samplingNum`` and ``samplingSize``, so the
+default values described above would contain 1,000,000 (= 1000 x
+1000) steps in the MCMC chain.
 
-   The default values for options described above have proved to be
-   optimal for us and if the options are not provided these defaults
-   will be used. If you change the values and have problems, please let
-   us **know**.
+The default values for options described above have proved to be
+optimal for us and if the options are not provided these defaults
+will be used. If you change the values and have problems, please let
+us **know**.
 
--  ``[HomozygosityEWSlatkinExact]``
+``[HomozygosityEWSlatkinExact]``
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-   The presence of this section enables Slatkin's :cite:yearpar:`slatkin_exact_1994`
-   implementation of the Ewens-Watterson exact test of neutrality.
+The presence of this section enables Slatkin's :cite:yearpar:`slatkin_exact_1994`
+implementation of the Ewens-Watterson exact test of neutrality.
 
-   -  ``numReplicates``.
+-  ``numReplicates``.
 
-      The default values have proved to be optimal for us. There is no
-      reason to change them unless you are particularly curious. If you
-      change the default values and have problems, please let us know.
+   The default values have proved to be optimal for us. There is no
+   reason to change them unless you are particularly curious. If you
+   change the default values and have problems, please let us know.
 
--  ``[Emhaplofreq]``
+``[Emhaplofreq]``
+~~~~~~~~~~~~~~~~~
 
-   The presence of this section enables haplotype frequency estimation and
-   calculation of linkage disequilibrium (LD) measures. *Please note that
-   PyPop assumes that the genotype data is* **unphased** *when estimating
-   haplotype frequencies and LD measures.*
+The presence of this section enables haplotype frequency estimation and
+calculation of linkage disequilibrium (LD) measures. *Please note that
+PyPop assumes that the genotype data is* **unphased** *when estimating
+haplotype frequencies and LD measures.*
 
-   -  ``lociToEstHaplo``.
+-  ``lociToEstHaplo``.
 
-      In this option you can list the multi-locus haplotypes for which
-      you wish the program to estimate and to calculate the LD. It
-      should be a comma-separated list of colon-joined loci. e.g.,
+   In this option you can list the multi-locus haplotypes for which
+   you wish the program to estimate and to calculate the LD. It
+   should be a comma-separated list of colon-joined loci. e.g.,
 
-      .. code-block:: text
+   .. code-block:: text
 
-         lociToEstHaplo=a:b:drb1,a:b:c,drb1:dqa1:dpb1,drb1:dqb1:dpb1
+      lociToEstHaplo=a:b:drb1,a:b:c,drb1:dqa1:dpb1,drb1:dqb1:dpb1
 
-   -  ``allPairwiseLD``.
+-  ``allPairwiseLD``.
 
-      Set this to ``1`` (one) if you want the program to calculate all
-      pairwise LD for your data, otherwise set this to ``0`` (zero).
+   Set this to ``1`` (one) if you want the program to calculate all
+   pairwise LD for your data, otherwise set this to ``0`` (zero).
 
 .. _config-allPairwiseLDWithPermu:
 
-   -  ``allPairwiseLDWithPermu``.
+-  ``allPairwiseLDWithPermu``.
 
-      Set this to a positive integer greater than 1 if you need to
-      determine the significance of the pairwise LD measures in the
-      previous section. The number you use is the number of permutations
-      that will be run to ascertain the significance (this should be at
-      least 1000 or greater). (Note this is done via permutation testing
-      performed after the pairwise LD test for all pairs of loci. Note
-      also that this test can take *DAYS* if your data is highly
-      polymorphic.)
+   Set this to a positive integer greater than 1 if you need to
+   determine the significance of the pairwise LD measures in the
+   previous section. The number you use is the number of permutations
+   that will be run to ascertain the significance (this should be at
+   least 1000 or greater). (Note this is done via permutation testing
+   performed after the pairwise LD test for all pairs of loci. Note
+   also that this test can take *DAYS* if your data is highly
+   polymorphic.)
 
-   -  ``numPermuInitCond``.
+-  ``numPermuInitCond``.
 
-      Set this to change the number of initial conditions used per
-      permutation. **[Default:** ``5`` **]**. (*Note: this parameter is only used
-      if* ``allPairwiseLDWithPermu`` *is set and nonzero*).
+   Set this to change the number of initial conditions used per
+   permutation. **[Default:** ``5`` **]**. (*Note: this parameter is only used
+   if* ``allPairwiseLDWithPermu`` *is set and nonzero*).
 
 .. _config-advanced:
 
@@ -704,12 +710,17 @@ be required for data that has sample identifiers as in
 above) and ``validPopFields`` (described below) will need to be
 modified.
 
-It also describes two extra sections related to using PyPop in
-conjunction with :program:`Arlequin`: ``[Arlequin]`` and
-``[HardyWeinbergGuoThompsonArlequin]``.
+.. important::
 
-``[General]`` **advanced options**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   .. deprecated:: 1.0.0
+       currently unmaintained and untested.
+
+      It also describes two sections related to the deprecated use of
+      PyPop in conjunction with :program:`Arlequin`: ``[Arlequin]``
+      and ``[HardyWeinbergGuoThompsonArlequin]``.
+
+``[General]`` advanced options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  ``txtOutFilename`` and ``xmlOutFilename``.
 
@@ -743,8 +754,8 @@ conjunction with :program:`Arlequin`: ``[Arlequin]`` and
    will not normally need to set this option, and the default is the
    system-installed :file:`text.xsl` file.
 
-``[ParseGenotypeFile]`` **advanced options**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``[ParseGenotypeFile]`` advanced options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  ``fieldPairDesignator``.
 
@@ -791,7 +802,7 @@ conjunction with :program:`Arlequin`: ``[Arlequin]`` and
        latit
        longit
 
-``[Emhaplofreq]`` **advanced options**
+``[Emhaplofreq]`` advanced options
 
 -  ``permutationPrintFlag``.
 
@@ -812,8 +823,7 @@ conjunction with :program:`Arlequin`: ``[Arlequin]`` and
    .. deprecated:: 1.0.0
        currently unmaintained and untested.
 
-
-      ``[Arlequin]`` **extra section**
+      ``[Arlequin]`` extra section
 
       This section sets characteristics of the :program:`Arlequin`
       application if it has been installed (it must be installed
@@ -829,8 +839,8 @@ conjunction with :program:`Arlequin`: ``[Arlequin]`` and
          executable on your system. The default assumes it is on your
          system path. **[Default:** :file:`arlecore.exe` **]**
 
-``[HardyWeinbergGuoThompsonArlequin]`` **extra section**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``[HardyWeinbergGuoThompsonArlequin]`` extra section
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When this section is present, :program:`Arlequin`'s implementation of the
 Hardy-Weinberg exact test is run, using a Monte-Carlo Markov Chain
@@ -849,8 +859,15 @@ The default values for options described above have proved to be optimal
 for us and if the options are not provided these defaults will be used.
 If you change the values and have problems, please let us **know**.
 
-``[Filters]`` **extra section**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Advanced filtering sections
+---------------------------
+
+This section describes additional advanced sections that can be used
+for applying filtering to both the input and output of the population
+data.
+
+``[Filters]`` extra section
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 When this section is present, it allows you to specify successive filters
 to the data.
@@ -934,8 +951,8 @@ to the data.
 
 .. _anthonynolan_filter:
 
-``[AnthonyNolan]`` **filter section**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``[AnthonyNolan]`` filter section
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section is *only* useful for HLA data. Like all filter sections,
 it will only be used if present in the ``filtersToApply`` line
@@ -1000,8 +1017,8 @@ showing what was resolved and what could not be resolved.
 
 .. _sequence_filter:
 
-``[Sequence]`` **filter section**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``[Sequence]`` filter section
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section allows configuration of the sequence filter. Like all
 filter sections, it will only will be used if present in the
@@ -1025,8 +1042,8 @@ alignment files.**
    Specifies the path to the root of the sequence files, in the same
    manner as in the ``AnthonyNolan`` section, above.
 
-``[DigitBinning]`` **filter section**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``[DigitBinning]`` filter section
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section allows configuration of the DigitBinning filter. Like all
 filter sections, it will be used if present in the ``filtersToApply``
@@ -1038,8 +1055,8 @@ after the nth digit.
    An integer that specifies how many digits to keep after the
    truncation. **[Default:** ``4`` **]**.
 
-``[CustomBinning]`` **filter section**
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+``[CustomBinning]`` filter section
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 This section allows configuration of the CustomBinning filter. Like all
 filter sections, it will only be used if present in the
