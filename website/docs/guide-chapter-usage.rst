@@ -75,7 +75,7 @@ Following this:
 2. a second system file dialog will prompt you for a ``.pop``
    :ref:`data file <guide-usage-datafile>`.
 
-b3. after both files are selected the console will display the
+3. after both files are selected the console will display the
    processing of the file:
 
    .. code-block:: text
