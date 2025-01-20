@@ -142,7 +142,7 @@ prompt`, aka a "DOS shell"; on MacOS or GNU/Linux: open the
 :program:`Terminal` application). Change to a directory where your
 ``.pop`` file is located, and type the command:
 
-.. code-block:: text
+.. code-block:: shell
 
    pypop Guatemalan.pop
 
@@ -158,7 +158,7 @@ supply the full path to the file. You can specify a particular
 configuration file for PyPop to use, by supplying the ``-c`` option as
 follows:
 
-.. code-block:: text
+.. code-block:: shell
 
    pypop -c newconfig.ini Guatemalan.pop
 
@@ -225,7 +225,7 @@ formats, such as the population genetic software (e.g.,
 Here is an example of a ``popmeta`` run, following on from the XML outputs
 generated in similar fashion in the previous ``pypop`` runs:
 
-.. code-block:: text
+.. code-block:: shell
 
    popmeta -o altdir Guatemalan-out.xml NorthAmerican-out.xml
 
@@ -453,14 +453,20 @@ format).
 
 .. _config-minimal:
 
-A minimal configuration file
-----------------------------
+A simple configuration file
+---------------------------
 
-Here we present a minimal ``.ini`` file corresponding to
-:numref:`data-minimal-noheader-noids` A section by section
-review of this file follows. (Note comment lines have been omitted in
-the above example for clarity). A description of more advanced options
-is contained in :ref:`config-advanced`.
+Here we present a simple ``.ini`` file corresponding to
+:numref:`data-minimal-noheader-noids` (Note comment lines have been
+omitted in the above example for clarity). After this we review the
+sections that are highlighted in the example below, starting with
+general settings, followed by :ref:`how to specify data formats
+<Specifying data formats>` and then :ref:`Analysis options`.
+
+Descriptions of more advanced options for the previously described
+sections and additional filtering sections are contained in
+:ref:`config-advanced` and :ref:`Advanced filtering sections`,
+respectively.
 
 .. config-minimal-example:
 
@@ -473,21 +479,22 @@ is contained in :ref:`config-advanced`.
    :emphasize-lines: 1,4,14,17,22,25
    :language: ini
 
-**Configuration file sections** (highlighted above)
+``[General]`` settings
+~~~~~~~~~~~~~~~~~~~~~~
 
-``[General]``
-~~~~~~~~~~~~~
 This section contains variables that control the overall behavior of
-PyPop.
+PyPop. Additional variables are described in
+:ref:`general-advanced-options`.
 
 -  ``debug=0``.
 
-   This setting is for debugging. Setting it to 1 will set off a
-   large amount of output of no interest to the general user. It
-   should not be used unless you are running into trouble and need to
-   communicate with the PyPop developers about the problems.
+   This setting enables verbose debugging messages. Setting it to
+   ``1`` will generate output that can be useful in diagnosing
+   problems. PyPop developers may ask you to enable it when reporting
+   on problems on the issue tracker.
 
 Specifying data formats
+-----------------------
 
 There are two possible formats: ``[ParseGenotypeFile]`` and
 ``[ParseAlleleCountFile]``
@@ -496,7 +503,8 @@ There are two possible formats: ``[ParseGenotypeFile]`` and
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
 If your data is genotype data, you will want a section labeled:
-``[ParseGenotypeFile]``.
+``[ParseGenotypeFile]`` (as shown in the
+:ref:`config-minimal-example`).
 
 -  ``alleleDesignator``.
 
@@ -539,20 +547,20 @@ If your data is genotype data, you will want a section labeled:
 
    Here is an example:
 
-   .. code-block:: text
+   .. code-block:: ini
 
       validSampleFields=*a_1
        *a_2
        *c_1
        *c_2
        *b_1
-       *b_2    Note initial space at start of line.
+       *b_2    # Note initial space at start of line.
 
    Here is example that includes identifying (non-allele data)
    information such as sample id (``id``) and population name
    (``populat``):
 
-   .. code-block:: text
+   .. code-block:: ini
 
       validSampleFields=populat
        id
@@ -582,7 +590,7 @@ allele-name count format, then you will want to use the
    file when running over a collection of data files containing
    different loci. e.g.,
 
-   .. code-block:: text
+   .. code-block:: ini
 
       validSampleFields=A:B:C:DQA1:DQB1:DRB1:DPB1:DPA1
        count
@@ -591,6 +599,12 @@ allele-name count format, then you will want to use the
    :ref:`the note <data-allelecount-note>` in
    :numref:`data-allelecount`). Listing multiple loci simply
    permits the same ``.ini`` file to be reused for each data file.
+
+Analysis options
+----------------
+
+These sections describe the primary analysis options that can be
+enabled for PyPop, as they are used in the simple example, above.
 
 ``[HardyWeinberg]``
 ~~~~~~~~~~~~~~~~~~~
@@ -667,7 +681,7 @@ haplotype frequencies and LD measures.*
    you wish the program to estimate and to calculate the LD. It
    should be a comma-separated list of colon-joined loci. e.g.,
 
-   .. code-block:: text
+   .. code-block:: ini
 
       lociToEstHaplo=a:b:drb1,a:b:c,drb1:dqa1:dpb1,drb1:dqb1:dpb1
 
@@ -718,6 +732,8 @@ modified.
       It also describes two sections related to the deprecated use of
       PyPop in conjunction with :program:`Arlequin`: ``[Arlequin]``
       and ``[HardyWeinbergGuoThompsonArlequin]``.
+
+.. _general-advanced-options:
 
 ``[General]`` advanced options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -777,7 +793,7 @@ modified.
    sample, then the first entry in your ``validSampleFields`` section
    should have a prefixed +, as below:
 
-   .. code-block:: text
+   .. code-block:: ini
 
       validSampleFields=+populat
        *a_1
@@ -793,7 +809,7 @@ modified.
    **[Default: required when a population data-block is present in data
    file]**, e.g.:
 
-   .. code-block:: text
+   .. code-block:: ini
 
       validPopFields=labcode
        method
