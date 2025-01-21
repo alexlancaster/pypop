@@ -358,7 +358,7 @@ class ParseFile:
             line = self.fileData[lineCount].strip()
             element = line.split(self.separator)
             for field in fieldList:
-                if self.sampleMap.has_key(field):
+                if field in self.sampleMap:
                     (print(element[self.sampleMap[field]]),)
                 else:
                     print("can't find this field\n")
@@ -623,7 +623,7 @@ class ParseAlleleCountFile(ParseFile):
             # convert to integer
             count = int(count)
             # check to see if key already exists
-            if self.alleleTable.has_key(allele):
+            if allele in self.alleleTable:
                 # if it does, increment the count
                 self.alleleTable[allele] += count
             else:
@@ -646,14 +646,16 @@ class ParseAlleleCountFile(ParseFile):
         if operator.mod(totalAlleles, 2):
             # if odd create an extra individual with one untyped
             # allele to pad out the alleles
-            self.totalIndivCount = totalAlleles / 2 + 1
+            self.totalIndivCount = (totalAlleles // 2) + 1
         else:
-            self.totalIndivCount = totalAlleles / 2
+            self.totalIndivCount = totalAlleles // 2
 
         self.locusList = [self.locusName]
 
         # create an empty-list of lists to store all the row data
-        self.matrix = StringMatrix(self.totalIndivCount, self.locusList, self.separator)
+        self.matrix = StringMatrix(
+            rowCount=self.totalIndivCount, colList=self.locusList, colSep=self.separator
+        )
 
         # loop through alleles creating pseudo-genotypes
         rowCount = 0

@@ -1,0 +1,60 @@
+Results of data analysis
+Performed on the 'allelecount-semityped.pop' file at: 
+
+
+Population Summary
+==================
+        populat: Blah
+  Typing method: PCR-SSOP
+      Ethnicity: Nowhere 
+        country: AM
+       Latitude: 99N
+      Longitude: 66E
+
+
+Population Totals
+_________________
+Sample Size (n): 15
+Allele Count (2n): 30
+Total loci in file: 1 [DPB1]
+Total loci with data: 1 [DPB1]
+
+
+Legend for all analyses
+_______________________
+
+    * = significant at the 5% level
+   ** = significant at the 1% level
+  *** = significant at the 0.1% level
+ **** = significant at the 0.01% level
+***** = significant at the 0.001% level
+   
+
+I. Single Locus Analyses
+========================
+
+1. Locus: DPB1
+______________
+
+1.1. Allele Counts [DPB1]
+-------------------------
+Untyped individuals: 0.5
+Sample Size (n): 14.5
+Allele Count (2n): 29
+Distinct alleles (k): 4
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+0201 0.31034   9       | 0101 0.17241   5       
+0301 0.31034   9       | 0201 0.31034   9       
+0202 0.20690   6       | 0202 0.20690   6       
+0101 0.17241   5       | 0301 0.31034   9       
+Total1.00000   29      | Total1.00000   29      
+
+
+1.2. Slatkin's implementation of EW homozygosity test of neutrality [DPB1]
+--------------------------------------------------------------------------
+Observed F: 0.2652, Expected F: 0.4775, Variance in F: 0.0183
+Normalized deviate of F (Fnd): -1.5678, p-value of F: 0.0061*
+
+

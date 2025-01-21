@@ -768,12 +768,29 @@ class AnthonyNolanFilter(Filter):
 
         rowCount = len(self.matrix[locus])
 
+        # copy across the non-allele data and header information by default
+        newExtraList = self.matrix.extraList[:] if self.matrix.extraList else None
+        newHeaderLines = self.matrix.headerLines[:] if self.matrix.headerLines else None
+
         if self.debug:
             print(rowCount)
             print(colList)
 
-        seqMatrix = StringMatrix(rowCount, colList)
+        seqMatrix = StringMatrix(
+            rowCount=rowCount,
+            colList=colList,
+            extraList=newExtraList,
+            headerLines=newHeaderLines,
+        )
 
+        # first do the metadata for each individual
+        for extra in self.matrix.extraList or []:
+            for rowCount, ele in enumerate(self.matrix[extra]):
+                # FIXME: each element in extraList as metadata should
+                # always be a single element, so get first element
+                seqMatrix[rowCount, extra] = ele[0]
+
+        # next do the allele data
         for locus in self.matrix.colList:
             for individCount, individ in enumerate(self.matrix[locus]):
                 name1 = locus + "*" + individ[0]
