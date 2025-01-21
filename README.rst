@@ -1,4 +1,4 @@
-|PyPI version shields.io| |Build status| |Website pypop.org| |GitHub license| |Citations| |DOI|
+|PyPI version shields.io| |Build status| |Pre-commit| |Website pypop.org| |GitHub license| |Citations| |DOI|
 
 PyPop: Python for Population Genomics
 =====================================
@@ -396,13 +396,13 @@ PyPop is distributed under the terms of GPLv2
    :target: https://github.com/alexlancaster/pypop/releases/
 
 .. |Build status| image:: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml/badge.svg?branch=main
-    :target: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml
+   :target: https://github.com/alexlancaster/pypop/actions/workflows/build_wheels.yml
 
 .. |GitHub license| image:: https://img.shields.io/github/license/alexlancaster/pypop.svg
    :target: https://github.com/alexlancaster/pypop/blob/main/LICENSE
 
 .. |GitHub issues| image:: https://img.shields.io/github/issues/alexlancaster/pypop.svg
-    :target: https://github.com/alexlancaster/pypop/issues
+   :target: https://github.com/alexlancaster/pypop/issues
 
 .. |Citations| image:: https://api.juleskreuer.eu/citation-badge.php?doi=10.1111/j.1399-0039.2006.00769.x
    :target: https://juleskreuer.eu/projekte/citation-badge/
@@ -418,3 +418,7 @@ PyPop is distributed under the terms of GPLv2
 
 .. |Website pypop.org| image:: https://img.shields.io/website-up-down-green-red/http/pypop.org.svg
    :target: http://pypop.org/
+
+.. |Pre-commit| image:: https://results.pre-commit.ci/badge/github/alexlancaster/pypop/main.svg
+   :target: https://results.pre-commit.ci/latest/github/alexlancaster/pypop/main
+   :alt: pre-commit.ci status

@@ -407,5 +407,16 @@ class MyLiteralInclude(LiteralInclude):
         return [node]
 
 
+def substitute_toc_maxdepth(app, _docname, source):
+    # determine the maxdepth for the builder
+    maxdepth_value = 4 if app.builder.name == "html" else 3
+
+    # modify the toctree directive by replacing maxdepth with value
+    # replace the `|toc_maxdepth|` placeholder in the source content
+    new_source = source[0].replace("|toc_maxdepth|", str(maxdepth_value))
+    source[0] = new_source  # Update the source with the modified content
+
+
 def setup(app):
     app.add_directive("literalinclude", MyLiteralInclude, override=True)
+    app.connect("source-read", substitute_toc_maxdepth)

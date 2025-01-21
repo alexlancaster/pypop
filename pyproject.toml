@@ -29,7 +29,7 @@ classifiers = [
     "Operating System :: POSIX :: Linux"
 ]
 dependencies = [
-    "numpy <= 2.2.1",
+    "numpy <= 2.2.2",
     "lxml <= 5.3.0",
     "SciPy <= 1.14.1",
     "importlib-resources; python_version <= '3.8'",

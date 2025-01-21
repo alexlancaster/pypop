@@ -701,10 +701,12 @@ class Main:
 
         # outputs pop file(s)
         if self.popDump:
-            originalMatrix = self.matrixHistory[0]
+            # FIXME: keep in case we want to output on the loci before
+            # split using, for example, a Sequence filter
+            originalMatrix = self.matrixHistory[0]  # noqa: F841
 
             if self.dumpType == "separate-loci":
-                for locus in originalMatrix.colList:
+                for locus in self.matrixHistory[self.dumpOrder].colList:
                     popDumpPath = (
                         self.defaultPopDumpPath + "-" + locus + "-filtered.pop"
                     )
