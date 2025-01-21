@@ -70,7 +70,7 @@ This guide to PyPop contains four main parts:
 
 .. toctree::
    :numbered: 2
-   :maxdepth: 3
+   :maxdepth: |toc_maxdepth|
 
    guide-chapter-install
    guide-chapter-usage
