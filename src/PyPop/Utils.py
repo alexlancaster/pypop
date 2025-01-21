@@ -402,7 +402,7 @@ class StringMatrix(container):
 
          This is used when the object is 'print'ed, i.e.
          a = StringMatrix(10, [1,2])
-        print a"""
+        print (a)"""
         if len(self.array.shape) > 0:
             return (self.__class__.__name__) + repr(self.array)[len("array") :]
         return (self.__class__.__name__) + "(" + repr(self.array) + ")"
@@ -430,9 +430,15 @@ class StringMatrix(container):
         stream.write("\n")
 
         # finally the matrix itself
-        for row in self.__getitem__(":".join(self.extraList) + ":" + locusList):
+
+        # prepend extra fields if they exist
+        all_cols = (
+            ":".join(self.extraList) + ":" + locusList if self.extraList else locusList
+        )
+
+        for row in self.__getitem__(all_cols):
             for elem in row:
-                stream.write(elem + self.colSep)
+                stream.write(str(elem) + self.colSep)  # convert element to str
             stream.write("\n")
 
     def copy(self):
@@ -495,7 +501,7 @@ class StringMatrix(container):
                     li.append(col1)
                     li.append(col2)
                 # now check in non-allele metadata
-                elif col in self.extraList:
+                elif (self.extraList is not None) and (col in self.extraList):
                     li.append(self.extraList.index(col))
                 else:
                     msg = f"can't find {col} column"
@@ -589,16 +595,18 @@ class StringMatrix(container):
             col1 = col * 2
             col2 = col1 + 1
             # store each element in turn
-            self.array[(row, col1 + self.extraCount)] = asarray(
-                value1, dtype=self.dtype
+            self.array[(row, col1 + self.extraCount)] = (
+                value1 if type(value1) is str else asarray(value1, dtype=self.dtype)
             )
-            self.array[(row, col2 + self.extraCount)] = asarray(
-                value2, dtype=self.dtype
+            self.array[(row, col2 + self.extraCount)] = (
+                value2 if type(value2) is str else asarray(value2, dtype=self.dtype)
             )
 
         elif colName in self.extraList:
             col = self.extraList.index(colName)
-            self.array[(row, col)] = asarray(value, self.dtype)
+            self.array[(row, col)] = (
+                value if type(value) is str else asarray(value, self.dtype)
+            )
         else:
             msg = f"can't find {col} column"
             raise KeyError(msg)

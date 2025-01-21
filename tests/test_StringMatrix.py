@@ -1,10 +1,17 @@
 import unittest
+from io import StringIO
+
+import numpy as np
 
 from PyPop.Utils import StringMatrix, appendTo2dList
 
 
 def new_matrix():
     return StringMatrix(3, ["A", "B", "C"])
+
+
+def new_matrix_with_popfields():
+    return StringMatrix(2, ["A", "B"], ["population", "ID"])
 
 
 class StringMatrixTest(unittest.TestCase):
@@ -23,6 +30,83 @@ class StringMatrixTest(unittest.TestCase):
         assert A_matrix["A"] == [[0, 0], [0, 0], [0, 0]]
         assert A_matrix["B"] == [["B0", "B0"], ["B1", "B1"], [0, 0]]
         assert A_matrix["C"] == [[0, 0], [0, 0], [0, 0]]
+
+    def test_dump(self):
+        # test dumping to a "file" of a matrix with only allele data
+        A_matrix = new_matrix()
+        A_matrix[0, "B"] = ("B0", "B0")
+        A_matrix[1, "B"] = ("B1", "B1")
+
+        with StringIO() as buffer:
+            A_matrix.dump(stream=buffer)
+            content = buffer.getvalue()
+
+            expected_content = (
+                "A_1\tA_2\tB_1\tB_2\tC_1\tC_2\t\n"
+                "0\t0\tB0\tB0\t0\t0\t\n"
+                "0\t0\tB1\tB1\t0\t0\t\n"
+                "0\t0\t0\t0\t0\t0\t\n"
+            )
+            assert content == expected_content
+
+        # test dumping to a "file" of a matrix with extra population
+        # and ID data
+        ext_matrix = new_matrix_with_popfields()
+        ext_matrix[0, "population"] = "Pop"
+        ext_matrix[0, "ID"] = "ID01"
+        ext_matrix[0, "A"] = ("A0", "A0")
+        ext_matrix[0, "B"] = ("B0", "B0")
+
+        ext_matrix[1, "population"] = "Pop"
+        ext_matrix[1, "ID"] = "ID02"
+        ext_matrix[1, "A"] = ("A1", "A2")
+        ext_matrix[1, "B"] = ("B1", "B1")
+
+        with StringIO() as buffer:
+            ext_matrix.dump(stream=buffer)
+            content = buffer.getvalue()
+
+            expected_content = (
+                "population\tID\tA_1\tA_2\tB_1\tB_2\t\n"
+                "Pop\tID01\tA0\tA0\tB0\tB0\t\n"
+                "Pop\tID02\tA1\tA2\tB1\tB1\t\n"
+            )
+            assert content == expected_content
+
+    def test_default_types(self):
+        # test types
+        # default unset values is a 0 (int)
+        # if set to an allele is a string (str)
+        # if set to a non-string it will be an ndarray
+        A_matrix = new_matrix()
+
+        # strings
+        A_matrix[0, "B"] = ("B0", "B0")
+        A_matrix[1, "B"] = ("B1", "B1")
+        A_matrix[2, "B"] = ("B2", "B3")
+
+        # ndarrays
+        A_matrix[0, "C"] = (2, 3)
+        A_matrix[1, "C"] = (1, 2)
+        A_matrix[2, "C"] = (3, 4)
+
+        # A locus is an "int" (default initialized value)
+        for individ in A_matrix["A"]:
+            allele1, allele2 = individ
+            assert type(allele1) is int
+            assert type(allele2) is int
+
+        # B locus is a "str" (set an allele)
+        for individ in A_matrix["B"]:
+            allele1, allele2 = individ
+            assert type(allele1) is str
+            assert type(allele2) is str
+
+        # C locus is an ndarray (default value if the allele was not assigned a string)
+        for individ in A_matrix["C"]:
+            allele1, allele2 = individ
+            assert type(allele1) is np.ndarray
+            assert type(allele2) is np.ndarray
 
     def test_copy(self):
         # check copies are independent
