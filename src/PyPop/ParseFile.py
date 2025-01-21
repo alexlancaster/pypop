@@ -646,14 +646,16 @@ class ParseAlleleCountFile(ParseFile):
         if operator.mod(totalAlleles, 2):
             # if odd create an extra individual with one untyped
             # allele to pad out the alleles
-            self.totalIndivCount = totalAlleles / 2 + 1
+            self.totalIndivCount = (totalAlleles // 2) + 1
         else:
-            self.totalIndivCount = totalAlleles / 2
+            self.totalIndivCount = totalAlleles // 2
 
         self.locusList = [self.locusName]
 
         # create an empty-list of lists to store all the row data
-        self.matrix = StringMatrix(self.totalIndivCount, self.locusList, self.separator)
+        self.matrix = StringMatrix(
+            rowCount=self.totalIndivCount, colList=self.locusList, colSep=self.separator
+        )
 
         # loop through alleles creating pseudo-genotypes
         rowCount = 0

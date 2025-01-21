@@ -769,8 +769,8 @@ class AnthonyNolanFilter(Filter):
         rowCount = len(self.matrix[locus])
 
         # copy across the non-allele data and header information by default
-        newExtraList = self.matrix.extraList[:]
-        newHeaderLines = self.matrix.headerLines[:]
+        newExtraList = self.matrix.extraList[:] if self.matrix.extraList else None
+        newHeaderLines = self.matrix.headerLines[:] if self.matrix.headerLines else None
 
         if self.debug:
             print(rowCount)
@@ -784,7 +784,7 @@ class AnthonyNolanFilter(Filter):
         )
 
         # first do the metadata for each individual
-        for extra in self.matrix.extraList:
+        for extra in self.matrix.extraList or []:
             for rowCount, ele in enumerate(self.matrix[extra]):
                 # FIXME: each element in extraList as metadata should
                 # always be a single element, so get first element
