@@ -358,7 +358,7 @@ class ParseFile:
             line = self.fileData[lineCount].strip()
             element = line.split(self.separator)
             for field in fieldList:
-                if self.sampleMap.has_key(field):
+                if field in self.sampleMap:
                     (print(element[self.sampleMap[field]]),)
                 else:
                     print("can't find this field\n")
@@ -623,7 +623,7 @@ class ParseAlleleCountFile(ParseFile):
             # convert to integer
             count = int(count)
             # check to see if key already exists
-            if self.alleleTable.has_key(allele):
+            if allele in self.alleleTable:
                 # if it does, increment the count
                 self.alleleTable[allele] += count
             else:
