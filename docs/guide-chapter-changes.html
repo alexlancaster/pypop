@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>5. Authors and history &#8212; PyPop: Python for Population Genomics 1.2.0rc1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/basic_mod.css?v=9b2032db" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <script src="../_static/documentation_options.js?v=9235ea19"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/js/theme.js"></script>
+    <script src="../_static/js/petite-vue.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="6. Licenses" href="licenses.html" />
+    <link rel="prev" title="4. Contributing to PyPop" href="guide-chapter-contributing.html" /> 
+  </head><body data-dark_mode_code_blocks="true">
+
+<div id="top_nav">
+    
+        <div id="notification_banner" data-banner-hiding="temporary" v-show="!permanentlyHidden">
+    <p v-if="visible" id="content">Experimental Windows ARM64 wheels are available on Test PyPI<br/>See PyPop News on the <a href="http://pypop.org/">home page</a> for installation details<br/></p>
+    <a class="close" href="#" @click.prevent="toggleVisible()">[[ visible ? '&#x25B2; HIDE' : '&#x25BC; SHOW BANNER' ]]</a>
+</div>
+
+<script>
+(function() {
+    const topNav = document.querySelector('#top_nav')
+    const notificationContent = document.querySelector('#notification_banner p#content').innerText
+    const localStorageKey = 'readNotification'
+    const bannerHiding = document.querySelector('#notification_banner').dataset['bannerHiding']
+    const cssVariableName = '--navbarHeight'
+    const rootElement = document.documentElement
+
+    /*************************************************************************/
+    // Local storage for remembering if the user has read the notification.
+
+    function checkAlreadyRead() {
+        return localStorage.getItem(localStorageKey) == notificationContent
+    }
+
+    function setRead() {
+        localStorage.setItem(localStorageKey, notificationContent)
+    }
+
+    function clearRead() {
+        localStorage.removeItem(localStorageKey)
+    }
+
+    const alreadyRead = checkAlreadyRead()
+    const permanentlyHidden = alreadyRead && bannerHiding == 'permanent'
+
+    /*************************************************************************/
+    // Updating a CSS variable so other elements adjust to the nav bar height.
+
+    function updateNavbarHeight() {
+        // Only update it if the delta is significant. Otherwise it causes
+        // unnecessary browser repaints.
+        const documentStyles = getComputedStyle(rootElement)
+        // We store the value in REM, so need to convert to pixels
+        const currentValue = parseFloat(
+            documentStyles.getPropertyValue(cssVariableName)
+        ) * parseFloat(documentStyles.fontSize)
+
+        const newValue = topNav.clientHeight
+
+        if (newValue - 5 > currentValue) {
+            console.log(`Updating ${cssVariableName} - overlapping`)
+            rootElement.style.setProperty(
+                cssVariableName, newValue + "px"
+            );
+        } else if (currentValue - newValue >= 30) {
+            console.log(`Updating ${cssVariableName} - gap too large`)
+            rootElement.style.setProperty(
+                cssVariableName, newValue + "px"
+            );
+        }
+    }
+
+    /*************************************************************************/
+    // After loading the page, and resizing the window, recalculate the nav bar
+    // height.
+
+    if (!permanentlyHidden) {
+        // This height is approximately correct when there's a banner, so
+        // shouldn't require any page reflow:
+        rootElement.style.setProperty(
+            '--navbarHeight', "5.5rem"
+        );
+
+        document.addEventListener("DOMContentLoaded", function() {
+            updateNavbarHeight()
+        });
+
+        var interval = undefined
+
+        window.addEventListener('resize', () => {
+            if (interval) {
+                clearTimeout(interval)
+            }
+            interval = setTimeout(() => {
+                console.log("Finished resizing")
+                updateNavbarHeight()
+            }, 100)
+        })
+    }
+
+    /*************************************************************************/
+
+    PetiteVue.createApp({
+        visible: !alreadyRead,
+        permanentlyHidden: permanentlyHidden,
+        bannerHiding: bannerHiding,
+        $delimiters: ['[[', ']]'],
+        toggleVisible() {
+            this.visible = !this.visible
+
+            if (this.visible) {
+                clearRead()
+            } else {
+                setRead()
+            }
+
+            if (!this.visible && bannerHiding == 'permanent') {
+                this.permanentlyHidden = true
+            }
+
+            // Run this after Vue has had time to update the DOM:
+            setTimeout(
+                updateNavbarHeight,
+                0
+            )
+        }
+    }).mount('#notification_banner')
+})()
+</script>
+    
+
+    <nav>
+        
+            
+        
+
+        <p id="toggle_sidebar">
+            <a href="#" title="Toggle sidebar">|||</a>
+        </p>
+        <h1><a href="../index.html" title="Go to homepage">PyPop</a></h1>
+            <a id="source_link" href="https://github.com/alexlancaster/pypop/">
+    
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+            <path fill="white" d="M 244.8,8 C 106.1,8 0,113.3 0,252 c 0,110.9 69.8,205.8 169.5,239.2 12.8,2.3 17.3,-5.6 17.3,-12.1 0,-6.2 -0.3,-40.4 -0.3,-61.4 0,0 -70,15 -84.7,-29.8 0,0 -11.4,-29.1 -27.8,-36.6 0,0 -22.9,-15.7 1.6,-15.4 0,0 24.9,2 38.6,25.8 21.9,38.6 58.6,27.5 72.9,20.9 2.3,-16 8.8,-27.1 16,-33.7 -55.9,-6.2 -112.3,-14.3 -112.3,-110.5 0,-27.5 7.6,-41.3 23.6,-58.9 -2.6,-6.5 -11.1,-33.3 2.6,-67.9 20.9,-6.5 69,27 69,27 20,-5.6 41.5,-8.5 62.8,-8.5 21.3,0 42.8,2.9 62.8,8.5 0,0 48.1,-33.6 69,-27 13.7,34.7 5.2,61.4 2.6,67.9 16,17.7 25.8,31.5 25.8,58.9 0,96.5 -58.9,104.2 -114.8,110.5 9.2,7.9 17,22.9 17,46.4 0,33.7 -0.3,75.4 -0.3,83.6 0,6.5 4.6,14.4 17.3,12.1 C 428.2,457.8 496,362.9 496,252 496,113.3 383.5,8 244.8,8 Z"/>
+        </svg>
+    
+</a>
+        
+
+        <a id="mode_toggle" href="#" @click.prevent="handleClick" :title="mode">
+    <template v-if="mode == 'light'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_light"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M67.48,18.073c1.913,-1.912 1.913,-5.018 0,-6.931c-1.912,-1.912 -5.018,-1.912 -6.931,0l-6.798,6.799c-1.912,1.912 -1.912,5.018 0,6.931c1.913,1.912 5.018,1.912 6.931,-0l6.798,-6.799Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.728,61.108c1.912,-1.913 1.912,-5.018 -0,-6.931c-1.913,-1.913 -5.019,-1.913 -6.931,-0l-6.799,6.798c-1.912,1.913 -1.912,5.019 0,6.931c1.913,1.913 5.019,1.913 6.931,0l6.799,-6.798Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.682,54.177c-1.913,-1.913 -5.018,-1.913 -6.931,-0c-1.912,1.913 -1.912,5.018 0,6.931l6.798,6.798c1.913,1.913 5.019,1.913 6.931,0c1.913,-1.912 1.913,-5.018 0,-6.931l-6.798,-6.798Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M4.901,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,-0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M18.929,11.142c-1.912,-1.912 -5.018,-1.912 -6.931,0c-1.912,1.913 -1.912,5.019 0,6.931l6.799,6.799c1.912,1.912 5.018,1.912 6.931,-0c1.912,-1.913 1.912,-5.019 -0,-6.931l-6.799,-6.799Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.108,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c-0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c-0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'dark'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_dark"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.901,2.196 -4.901,4.901c0,2.705 2.197,4.901 4.901,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.662,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.989,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.732,61.103c1.91,-1.91 1.91,-5.011 0,-6.921l-0.009,-0.01c-1.91,-1.91 -5.012,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.909,1.91 5.011,1.91 6.92,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.672,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.52,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l-0,-0.01c-0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.901,2.196 -4.901,4.901c0,2.704 2.197,4.9 4.901,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.73,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 -0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.098,34.623c-2.699,0 -4.891,2.192 -4.891,4.892l-0,0.019c-0,2.699 2.192,4.891 4.891,4.891c2.7,0 4.892,-2.192 4.892,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.892,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'darkest'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_darkest"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><path d="M39.315,23.791c8.684,-0 15.734,7.05 15.734,15.733c0,8.684 -7.05,15.734 -15.734,15.734c-8.683,0 -15.733,-7.05 -15.733,-15.734c-0,-8.683 7.05,-15.733 15.733,-15.733Zm0,4.737c6.069,0 10.997,4.927 10.997,10.996c-0,6.069 -4.928,10.996 -10.997,10.996c-6.068,0 -10.996,-4.927 -10.996,-10.996c0,-6.069 4.928,-10.996 10.996,-10.996Z" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.216,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.9,2.196 -4.9,4.901c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.666,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.99,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.737,61.103c1.909,-1.91 1.909,-5.011 -0,-6.921l-0.01,-0.01c-1.91,-1.91 -5.011,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.91,1.91 5.011,1.91 6.921,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.676,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.524,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l0,-0.01c0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.216,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901c-0,2.704 2.196,4.9 4.9,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.734,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.103,34.623c-2.7,0 -4.892,2.192 -4.892,4.892l-0,0.019c-0,2.699 2.192,4.891 4.892,4.891c2.699,0 4.891,-2.192 4.891,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.891,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+</a>
+
+<script>
+(function() {
+    const LOCAL_STORAGE_KEY = 'piccoloThemeMode'
+
+    var initialMode = localStorage.getItem(LOCAL_STORAGE_KEY)
+
+    if (initialMode) {
+        // Make sure the value in local storage is valid
+        if (['light', 'dark', 'darkest'].indexOf(initialMode) == -1) {
+            initialMode = 'light'
+            localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+        }
+    } else {
+        // Check if the client prefers dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            initialMode = 'dark'
+        } else {
+            initialMode = 'light'
+        }
+        localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+    }
+
+    document.documentElement.dataset.mode = initialMode
+
+    PetiteVue.createApp({
+        'mode': initialMode,
+        handleClick() {
+            let currentMode = this.mode
+
+            if (currentMode == 'light') {
+                this.mode = 'dark'
+            } else if (currentMode == 'dark') {
+                this.mode = 'darkest'
+            } else if (currentMode == 'darkest') {
+                this.mode = 'light'
+            }
+
+            document.documentElement.dataset.mode = this.mode
+            localStorage.setItem(LOCAL_STORAGE_KEY, this.mode)
+
+            console.log(this.mode)
+        }
+    }).mount('#mode_toggle')
+})()
+</script>
+            <p class="mobile_search_link">
+                <a href="../search.html" title="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 64" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+                        <path d="M14.873 40.009c-2.315-3.943-3.642-8.532-3.642-13.429C11.231 11.91 23.141 0 37.811 0s26.58 11.91 26.58 26.58-11.91 26.58-26.58 26.58a26.44 26.44 0 0 1-14.277-4.161L9.739 62.794a3.12 3.12 0 0 1-4.413 0L.913 58.382c-1.217-1.218-1.217-3.196 0-4.413l13.96-13.96zM37.811 8.054c10.225 0 18.526 8.301 18.526 18.526s-8.301 18.526-18.526 18.526-18.526-8.301-18.526-18.526S27.586 8.054 37.811 8.054z" fill="#fff" />
+                    </svg>
+                </a>
+            </p>
+        
+
+        <div class="searchbox_wrapper">
+            
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">PyPop User Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-install.html">1. Installing PyPop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-usage.html">2. Getting started with PyPop</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-instructions.html">3. Interpreting PyPop output</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-contributing.html">4. Contributing to PyPop</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">5. Authors and history</a></li>
+<li class="toctree-l2"><a class="reference internal" href="licenses.html">6. Licenses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="biblio.html">References</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary data sets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="http://pypop.org/popdata/">Solberg et al. (2008)</a></li>
+</ul>
+
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="authors-and-history">
+<span id="guide-changes-authors"></span><h1><span class="section-number">5. </span>Authors and history<a class="headerlink" href="#authors-and-history" title="Link to this heading">¶</a></h1>
+<section id="pypop-contributors">
+<span id="guide-preface-authors"></span><h2><span class="section-number">5.1. </span>PyPop contributors<a class="headerlink" href="#pypop-contributors" title="Link to this heading">¶</a></h2>
+<p>(Listed in alphabetical order)</p>
+<table class="longtable docutils align-default">
+<colgroup>
+<col style="width: 18.4%" />
+<col style="width: 22.4%" />
+<col style="width: 28.6%" />
+<col style="width: 30.6%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Author</p></th>
+<th class="head"><p>ORCiD</p></th>
+<th class="head"><p>Affiliation</p></th>
+<th class="head"><p>Contribution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Karl Kornel</p></td>
+<td><p><a class="reference external" href="https://orcid.org/0000-0001-5847-5330">0000-0001-5847-5330</a></p></td>
+<td><p>Stanford Research Computing Center</p></td>
+<td><p>Contributed containerization</p></td>
+</tr>
+<tr class="row-odd"><td><p>Alex Lancaster</p></td>
+<td><p><a class="reference external" href="https://orcid.org/0000-0002-0002-9263">0000-0002-0002-9263</a></p></td>
+<td><p>Amber Biology LLC,
+Ronin Institute</p></td>
+<td><p>Lead developer. Co-designer of Python framework: author of main
+engine, text file parser, Python extension module framework
+using SWIG, XML output and XSLT post-processing framework (to
+generate plain text and HTML output).</p></td>
+</tr>
+<tr class="row-even"><td><p>Steven J. Mack</p></td>
+<td><p><a class="reference external" href="https://orcid.org/0000-0001-9820-9547">0000-0001-9820-9547</a></p></td>
+<td><p>University of California, San Francisco</p></td>
+<td><p>Contributed bug reports, documentation, reviewed PRs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Michael P. Mariani</p></td>
+<td><p><a class="reference external" href="https://orcid.org/0000-0001-5852-0517">0000-0001-5852-0517</a></p></td>
+<td><p>Mariani Systems LLC and University of Vermont</p></td>
+<td><p>Contributed bug reports, documentation, reviewed PRs.</p></td>
+</tr>
+<tr class="row-even"><td><p>Diogo Meyer</p></td>
+<td><p><a class="reference external" href="https://orcid.org/0000-0002-7155-5674">0000-0002-7155-5674</a></p></td>
+<td><p>University of São Paulo</p></td>
+<td><p>Reviewed and tested PyPop, contributed some statistical analysis code.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Mark P. Nelson</p></td>
+<td></td>
+<td><p>University of California, Berkeley</p></td>
+<td><p>Co-designer of Python framework: implemented and maintained
+Python modules, particularly the module for Hardy-Weinberg
+analysis. Updated and maintained XSLT code.</p></td>
+</tr>
+<tr class="row-even"><td><p>Richard M. Single</p></td>
+<td><p><a class="reference external" href="https://orcid.org/0000-0001-6054-6505">0000-0001-6054-6505</a></p></td>
+<td><p>University of Vermont</p></td>
+<td><p>Author of haplotype frequency and linkage disequilibrium
+analysis module <code class="docutils literal notranslate"><span class="pre">emhaplofreq</span></code>.  Contributed documentation and
+testing/reviewing PRs.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Vanessa Sochat</p></td>
+<td><p><a class="reference external" href="https://orcid.org/0000-0002-4387-3819">0000-0002-4387-3819</a></p></td>
+<td><p>Lawrence Livermore National Laboratory</p></td>
+<td><p>Contributed to the Python 3 port.</p></td>
+</tr>
+<tr class="row-even"><td><p>Owen Solberg</p></td>
+<td><p><a class="reference external" href="https://orcid.org/0000-0003-3060-9709">0000-0003-3060-9709</a></p></td>
+<td></td>
+<td><p>Implemented filter modules, including conversion to allele name
+information to sequence data.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Jurriaan H. Spaaks</p></td>
+<td><p><a class="reference external" href="https://orcid.org/0000-0002-7064-4069">0000-0002-7064-4069</a></p></td>
+<td><p>Netherlands eScience Center</p></td>
+<td><p>Contributed to Zenodo upload GitHub action</p></td>
+</tr>
+<tr class="row-even"><td><p>Glenys Thomson</p></td>
+<td><p><a class="reference external" href="https://orcid.org/0000-0001-5235-4159">0000-0001-5235-4159</a></p></td>
+<td><p>University of California, Berkeley</p></td>
+<td><p>Principal investigator</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/ystsai">Yingssu Tsai</a></p></td>
+<td><p><a class="reference external" href="https://orcid.org/0009-0006-0162-6066">0009-0006-0162-6066</a></p></td>
+<td><p>University of California, Berkeley</p></td>
+<td><p>Implemented prototype of the allele names to sequence conversion
+filter module.</p></td>
+</tr>
+<tr class="row-even"><td><p>Gordon Webster</p></td>
+<td><p><a class="reference external" href="https://orcid.org/0009-0009-2862-0467">0009-0009-2862-0467</a></p></td>
+<td><p>Amber Biology LLC</p></td>
+<td><p>Contributed documentation and testing framework.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="third-party-modules">
+<h3>Third-party modules<a class="headerlink" href="#third-party-modules" title="Link to this heading">¶</a></h3>
+<p>Included with permission, or via GPL-compatible licenses.</p>
+<dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">gthwe</span></code></dt><dd><p>The Hardy-Weinberg “exact test” implementation is a modified version
+of Guo &amp; Thompson’s <span id="id3">(<a class="reference internal" href="biblio.html#id9" title="Guo, S. W. and Thompson, E. A. Performing the exact test of Hardy-Weinberg proportion for multiple alleles. Biometrics, 48(2):361–372, 1992. doi:10.2307/2532296.">Guo and Thompson, 1992</a>)</span> code. Dr. Sun-Wei Guo has
+kindly allowed us to release the code under the <a class="reference external" href="http://www.gnu.org/licenses/gpl.html">GNU General Public
+License</a>. Original code
+available at
+<a class="reference external" href="https://sites.stat.washington.edu/thompson/Genepi/Hardy.shtml">https://sites.stat.washington.edu/thompson/Genepi/Hardy.shtml</a></p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">slatkin-exact/monte-carlo.c</span></code></dt><dd><p>Montgomery Slatkin’s implementation of a Monte Carlo approximation
+of the Ewens-Watterson exact test of neutrality
+<span id="id4">(<a class="reference internal" href="biblio.html#id22" title="Slatkin, M. An exact test for neutrality based on the Ewens sampling distribution. Genetics Research, 64(1):71–74, 1994. doi:10.1017/S0016672300032560.">Slatkin, 1994</a>, <a class="reference internal" href="biblio.html#id21" title="Slatkin, M. A correction to the exact test based on the Ewens sampling distribution. Genetics Research, 68(3):259–260, 1996. doi:10.1017/S0016672300034236.">Slatkin, 1996</a>)</span>. Original code
+can be found at:
+<a class="reference external" href="http://ib.berkeley.edu/labs/slatkin/monty/Ewens_exact.program">http://ib.berkeley.edu/labs/slatkin/monty/Ewens_exact.program</a>.</p>
+</dd>
+<dt><code class="docutils literal notranslate"><span class="pre">pval</span></code></dt><dd><p>The code in the ‘<code class="docutils literal notranslate"><span class="pre">pval</span></code>’ directory (with the exception of
+‘<code class="docutils literal notranslate"><span class="pre">pval.c</span></code>’ the SWIG wrapper, <code class="docutils literal notranslate"><span class="pre">'pval_wrap.i</span></code>’ and the Makefile) is
+part of the R project’s ‘<code class="docutils literal notranslate"><span class="pre">nmath</span></code>’ numerical library
+<a class="reference external" href="http://www.r-project.org/">http://www.r-project.org/</a> and is also licensed under the GNU General
+Public License (GPL). Minor modifications have been made to allow the
+module to build correctly.</p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="pypop-release-history">
+<h2><span class="section-number">5.2. </span>PyPop Release History<a class="headerlink" href="#pypop-release-history" title="Link to this heading">¶</a></h2>
+<section id="id1">
+<h3><a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.1.2">1.1.2</a> - 2024-11-18<a class="headerlink" href="#id1" title="Link to this heading">¶</a></h3>
+<section id="features">
+<h4>Features<a class="headerlink" href="#features" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Add new command-line option <code class="docutils literal notranslate"><span class="pre">--citation</span></code> for installed version by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/228">#228</a>)</p></li>
+<li><p>enable PyPy 3.10 as numpy wheels now exist by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/219">#219</a>)</p></li>
+</ul>
+</section>
+<section id="internal">
+<h4>Internal<a class="headerlink" href="#internal" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Update numpy requirement from &lt;=2.1.2 to &lt;=2.1.3 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/226">#226</a>)</p></li>
+<li><p>update x86 runner to <code class="docutils literal notranslate"><span class="pre">macos-13</span></code>, pin <code class="docutils literal notranslate"><span class="pre">swig</span></code> version by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/227">#227</a>)</p></li>
+<li><p>Bump pypa/cibuildwheel from 2.21.2 to 2.21.3 in the actions group by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/225">#225</a>)</p></li>
+<li><p>Bump pypa/cibuildwheel from 2.21.1 to 2.21.2 in the actions group by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/224">#224</a>)</p></li>
+<li><p>Update numpy requirement from &lt;=2.1.1 to &lt;=2.1.2 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/223">#223</a>)</p></li>
+<li><p>Bump pypa/cibuildwheel from 2.20.0 to 2.21.1 in the actions group across 1 directory by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/222">#222</a>)</p></li>
+</ul>
+</section>
+<section id="documentation">
+<h4>Documentation<a class="headerlink" href="#documentation" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Add new command-line option <code class="docutils literal notranslate"><span class="pre">--citation</span></code> for installed version by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/228">#228</a>)</p></li>
+<li><p>Update to latest <code class="docutils literal notranslate"><span class="pre">sphinx</span></code> and add subtitle by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/220">#220</a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="id2">
+<h3><a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.1.1">1.1.1</a> - 2024-09-10<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<section id="id3">
+<h4>Features<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Enable support for Python 3.13 by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/217">#217</a>)</p></li>
+</ul>
+</section>
+<section id="bug-fixes">
+<h4>Bug Fixes<a class="headerlink" href="#bug-fixes" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Pin <code class="docutils literal notranslate"><span class="pre">gsl</span></code> bottles to 2.7.1 on macOS to preserve 10.15/Catalina on x86 and 11.0/Big Sur compatibility + update <code class="docutils literal notranslate"><span class="pre">cibuildwheels</span></code> by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/212">#212</a>)</p></li>
+</ul>
+</section>
+<section id="id4">
+<h4>Internal<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Update numpy requirement from &lt;=2.1.0 to &lt;=2.1.1 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/218">#218</a>)</p></li>
+<li><p>Update numpy requirement from &lt;=2.0.1 to &lt;=2.1.0 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/216">#216</a>)</p></li>
+<li><p>Update lxml requirement from &lt;=5.2.2 to &lt;=5.3.0 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/215">#215</a>)</p></li>
+<li><p>Bump pypa/cibuildwheel from 2.19.2 to 2.20.0 in the actions group by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/214">#214</a>)</p></li>
+<li><p>Update numpy requirement from &lt;=2.0.0 to &lt;=2.0.1 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/213">#213</a>)</p></li>
+<li><p>Update numpy requirement from &lt;=1.26.4 to &lt;=2.0.0 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/209">#209</a>)</p></li>
+<li><p>Bump pypa/cibuildwheel from 2.19.0 to 2.19.1 in the actions group by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/210">#210</a>)</p></li>
+<li><p>Bump pypa/cibuildwheel from 2.18.1 to 2.19.0 in the actions group by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/208">#208</a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="id5">
+<h3><a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.1.0">1.1.0</a> - 2024-05-30<a class="headerlink" href="#id5" title="Link to this heading">¶</a></h3>
+<p>This release increases the minimum macOS requirements to Catalina (Intel) and Big Sur (Silicon) to ensure binary compatibility with the GNU Scientific Library (<code class="docutils literal notranslate"><span class="pre">gsl</span></code>) on those platforms. Thanks to &#64;sjmack for testing.</p>
+<section id="id6">
+<h4>Internal<a class="headerlink" href="#id6" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Bump <code class="docutils literal notranslate"><span class="pre">cibuildwheel</span></code> from 2.17.0 to 2.18.1, increase minimum macOS requirements by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/206">#206</a>)</p></li>
+<li><p>Update lxml requirement from &lt;=5.2.1 to &lt;=5.2.2 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/205">#205</a>)</p></li>
+<li><p>Bump peaceiris/actions-gh-pages from 3 to 4 in the actions group by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/201">#201</a>)</p></li>
+<li><p>Update lxml requirement from &lt;=5.2.0 to &lt;=5.2.1 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/202">#202</a>)</p></li>
+<li><p>Update lxml requirement from &lt;=5.1.0 to &lt;=5.2.0 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/200">#200</a>)</p></li>
+<li><p>Enable native MacOS Apple Silicon runners by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/199">#199</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">cibuildwheel</span></code> GitHub action to 2.17.0 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/198">#198</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">softprops/action-gh-release</span></code> github action that uploads builds to releases by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/197">#197</a>)</p></li>
+</ul>
+</section>
+<section id="id7">
+<h4>Documentation<a class="headerlink" href="#id7" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>fix reversed links (#203) by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/204">#204</a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="id8">
+<h3><a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.0.2">1.0.2</a> - 2024-02-24<a class="headerlink" href="#id8" title="Link to this heading">¶</a></h3>
+<section id="id9">
+<h4>Bug Fixes<a class="headerlink" href="#id9" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Synchronize with upstream <code class="docutils literal notranslate"><span class="pre">haplo.stats</span></code>, fix some redundant checks by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/196">#196</a>)</p></li>
+</ul>
+</section>
+<section id="id10">
+<h4>Internal<a class="headerlink" href="#id10" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>customize code security scanning for C extensions by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/195">#195</a>)</p></li>
+<li><p>Update numpy requirement from &lt;=1.26.3 to &lt;=1.26.4 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/193">#193</a>)</p></li>
+</ul>
+</section>
+<section id="id11">
+<h4>Documentation<a class="headerlink" href="#id11" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Documentation updates including security policy by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/194">#194</a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="id12">
+<h3><a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.0.1">1.0.1</a> - 2024-02-11<a class="headerlink" href="#id12" title="Link to this heading">¶</a></h3>
+<section id="id13">
+<h4>Features<a class="headerlink" href="#id13" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">[CustomBinning]</span></code> filtering unit tests for G and P-codes by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/186">#186</a>)</p></li>
+</ul>
+</section>
+<section id="id14">
+<h4>Bug Fixes<a class="headerlink" href="#id14" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>switch to scientific notation when frequencies can’t be displayed as decimals by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/192">#192</a>)</p></li>
+<li><p>Port <code class="docutils literal notranslate"><span class="pre">[RandomBinningFilter]</span></code> to Python 3, include more complex filtering tests by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/187">#187</a>)</p></li>
+</ul>
+</section>
+<section id="id15">
+<h4>Internal<a class="headerlink" href="#id15" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Bump the <code class="docutils literal notranslate"><span class="pre">cibuildwheel</span></code> version from <code class="docutils literal notranslate"><span class="pre">2.16.4</span></code> to <code class="docutils literal notranslate"><span class="pre">2.16.5</span></code>: fixes Windows CI builds by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/189">#189</a>)</p></li>
+<li><p>Bump the version of <code class="docutils literal notranslate"><span class="pre">cibuildwheel</span></code> from 2.16.2 to 2.16.4 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/188">#188</a>)</p></li>
+<li><p>increase test strictness: make test warnings into errors by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/185">#185</a>)</p></li>
+<li><p>Enable wheels on <code class="docutils literal notranslate"><span class="pre">aarch64</span></code> architecture by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/184">#184</a>)</p></li>
+<li><p>Update <code class="docutils literal notranslate"><span class="pre">actions/upload-artifact</span></code> from 3 to 4 in Build on ARM64 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/183">#183</a>)</p></li>
+<li><p>Streamline continuous integration: reduce number of wheels, concurrency by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/182">#182</a>)</p></li>
+<li><p>Parallelize wheel builds, re-enable <code class="docutils literal notranslate"><span class="pre">musllinux</span></code> wheels for Python 3.9+ by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/181">#181</a>)</p></li>
+<li><p>Update lxml requirement from &lt;=5.0.0 to &lt;=5.1.0; disable PyPy 3.7 on Linux by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/178">#178</a>)</p></li>
+<li><p>Update numpy requirement from &lt;=1.26.2 to &lt;=1.26.3 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/177">#177</a>)</p></li>
+<li><p>Update lxml requirement from &lt;=4.9.4 to &lt;=5.0.0 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/174">#174</a>)</p></li>
+<li><p>Update lxml requirement from &lt;=4.9.3 to &lt;=4.9.4 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/173">#173</a>)</p></li>
+<li><p>update to <code class="docutils literal notranslate"><span class="pre">v4</span></code> of <code class="docutils literal notranslate"><span class="pre">download-artifact</span></code> / <code class="docutils literal notranslate"><span class="pre">upload-artifact</span></code> by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/172">#172</a>)</p></li>
+<li><p>Bump actions/setup-python from 4 to 5 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/168">#168</a>)</p></li>
+<li><p>Update numpy requirement from &lt;=1.26.1 to &lt;=1.26.2 by &#64;dependabot (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/167">#167</a>)</p></li>
+</ul>
+</section>
+<section id="id16">
+<h4>Documentation<a class="headerlink" href="#id16" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Link to new preprint in docs by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/190">#190</a>)</p></li>
+<li><p>Convert bibliography to bibtex by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/176">#176</a>)</p></li>
+<li><p>Convert <code class="docutils literal notranslate"><span class="pre">NEWS.rst</span></code> to <code class="docutils literal notranslate"><span class="pre">NEWS.md</span></code>, improve PDF documentation output by &#64;alexlancaster (<a class="reference external" href="https://github.com/alexlancaster/pypop/pull/175">#175</a>)</p></li>
+</ul>
+</section>
+</section>
+<section id="id17">
+<h3><a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.0.0">1.0.0</a> - 2023-11-07<a class="headerlink" href="#id17" title="Link to this heading">¶</a></h3>
+<p>PyPop 1.0.0 is the first official release of PyPop using Python 3, and
+the first release to be included on <a class="reference external" href="https://pypi.org/project/pypop-genomics/">PyPI</a>. In addition to using
+modern libraries, there are some new features, such as the new
+asymmetric LD measures, and better handling of TSV files, along with
+the typical slew of bug fixes. Many more changes are of an “under the
+hood” nature, such as a new unit testing and documentation framework,
+and are detailed below. Many people contributed to this latest
+release, which has been a while in coming. Thanks especially to all
+new contributors including Vanessa Sochat, Gordon Webster,
+Jurriaan H. Spaaks, Karl Kornel and Michael Mariani. Thanks also to
+all of our bug reporters, and ongoing contributors, especially Richard
+Single, Owen Solberg and Steve Mack.</p>
+<section id="new-features">
+<h4>New features<a class="headerlink" href="#new-features" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>PyPop now fully ported to run under Python 3 (thanks to Vanessa
+Sochat for major patch)</p></li>
+<li><p>Added new asymmetric linkage disequilibrium (ALD) calculations
+(thanks to Richard Single), see <a class="reference external" href="https://doi.org/10.1534/genetics.114.165266">Thomson &amp; Single, 2014</a>
+for more details. Added in both the plain text (<code class="docutils literal notranslate"><span class="pre">.txt</span></code>) as well as
+the <code class="docutils literal notranslate"><span class="pre">2-locus-summary.tsv</span></code> TSV file outputs.</p></li>
+<li><p>Improved tab-separated values (TSV) output file handling:</p>
+<ul>
+<li><p>old IHWG headers are disabled by default, so the <code class="docutils literal notranslate"><span class="pre">-disable-ihwg</span></code>
+option has been replaced by the <code class="docutils literal notranslate"><span class="pre">--enable-ihwg</span></code> option, which
+will re-enable them.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">popmeta</span></code>: allow TSV files to be put in separate directory with
+<code class="docutils literal notranslate"><span class="pre">-o</span></code>/ <code class="docutils literal notranslate"><span class="pre">--outputdir</span></code> command-lineoption for saving generated
+files.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pypop</span></code>: renamed <code class="docutils literal notranslate"><span class="pre">--generate-tsv</span></code> to <code class="docutils literal notranslate"><span class="pre">--enable-tsv</span></code></p></li>
+<li><p>dynamic generation of TSV files based on XML input, so the list of
+files is no longer hard-coded (thanks to Steve Mack for
+suggestion), this also adds support for haplotypes involving more
+than 4 loci</p></li>
+</ul>
+</li>
+<li><p>Preliminary support for Genotype List (GL) String
+(<a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3715123/">https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3715123/</a>)</p></li>
+<li><p>Added unit-tests using <code class="docutils literal notranslate"><span class="pre">pytest</span></code> testing framework.</p></li>
+<li><p>New documentation system using <code class="docutils literal notranslate"><span class="pre">sphinx</span></code>, replacing the old DocBook
+XML, to generate both the website and the <em>PyPop User Guide</em> (HTML
+and PDF):</p>
+<ul>
+<li><p>sphinx-based documentation is now written in ReStructuredText
+(<code class="docutils literal notranslate"><span class="pre">.rst</span></code>)</p></li>
+<li><p>improve <code class="docutils literal notranslate"><span class="pre">popmeta</span></code> and other documentation for command-line
+programs</p></li>
+<li><p>documentation additions and improvements from Richard Single,
+Michael Mariani, Gordon Webster and Steve Mack</p></li>
+<li><p>overhaul release process and add a contribution-guide to the
+<em>PyPop User Guide</em>.</p></li>
+<li><p>update documentation to use new HLA nomenclature throughout</p></li>
+</ul>
+</li>
+<li><p>PyPop now uses <code class="docutils literal notranslate"><span class="pre">numpy</span></code> in place of the old <code class="docutils literal notranslate"><span class="pre">Numeric</span></code> library
+<code class="docutils literal notranslate"><span class="pre">Numpy</span></code>, and <code class="docutils literal notranslate"><span class="pre">lxml</span></code> in place of <code class="docutils literal notranslate"><span class="pre">libxml_mod</span></code></p></li>
+</ul>
+</section>
+<section id="id18">
+<h4>Bug fixes<a class="headerlink" href="#id18" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>TSV file fixes:</p>
+<ul>
+<li><p>fix missing columns in TSV files (thanks to Steve Mack for report)</p></li>
+<li><p>fix headers in 3 and 4 locus TSV files</p></li>
+<li><p>output 2 locus haplotypes in TSV if they are explicitly specified
+(thanks to Steve Mack)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2-locus-haplo.tsv</span></code>: fixed missing output in <code class="docutils literal notranslate"><span class="pre">ld.d</span></code>,
+<code class="docutils literal notranslate"><span class="pre">ld.dprime</span></code>, <code class="docutils literal notranslate"><span class="pre">ld.chisq</span></code>, and <code class="docutils literal notranslate"><span class="pre">exp</span></code> columns (thanks to Nabil
+M for the report)</p></li>
+<li><p>rename, remove and add some columns headers, including the new
+<code class="docutils literal notranslate"><span class="pre">ALD</span></code> measures:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">2-locus-haplo.tsv</span></code>: rename columns: <code class="docutils literal notranslate"><span class="pre">allele</span></code> -&gt;
+<code class="docutils literal notranslate"><span class="pre">haplotype</span></code>, <code class="docutils literal notranslate"><span class="pre">exp</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">haplotype.no-ld.count</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2-locus-haplo.tsv</span></code>: remove <code class="docutils literal notranslate"><span class="pre">obs</span></code> and <code class="docutils literal notranslate"><span class="pre">obs.freq</span></code> columns
+which were duplicative of <code class="docutils literal notranslate"><span class="pre">haplotype.count</span></code> and
+<code class="docutils literal notranslate"><span class="pre">haplotype.freq</span></code>, respectively</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">2-locus-summary.tsv</span></code>: add two new ALD measure columns:
+<code class="docutils literal notranslate"><span class="pre">ald.1_2</span></code> and <code class="docutils literal notranslate"><span class="pre">ald.2_1</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">*-locus-summary.tsv</span></code>: rename columns for multilocus
+haplotypes for 3 or more loci, <code class="docutils literal notranslate"><span class="pre">allele</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">haplotype</span></code> and
+<code class="docutils literal notranslate"><span class="pre">locus</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">loci</span></code></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Fix <code class="docutils literal notranslate"><span class="pre">DigitBinning</span></code> and <code class="docutils literal notranslate"><span class="pre">CustomBinning</span></code> filters <code class="docutils literal notranslate"><span class="pre">[Filters]</span></code>
+(report from Steve Mack)</p></li>
+<li><p>Fix issues with using colons in alleles, and other separation
+issues (thanks to Steve Mack)</p></li>
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">~</span></code> as the genotype terminator rather than <code class="docutils literal notranslate"><span class="pre">|</span></code> (fixes some
+haplotype estimation bugs)</p></li>
+<li><p>Round all haplotype frequencies to 5 decimal places to avoid
+truncation issues (thanks to Steve Mack for report)</p></li>
+<li><p>Restore semi-GUI interactive mode by using built-in <code class="docutils literal notranslate"><span class="pre">TkInter</span></code> file
+dialog, and use more informative default “placeholder” file names</p></li>
+<li><p>Fix warnings generated by <code class="docutils literal notranslate"><span class="pre">numpy</span></code> and <code class="docutils literal notranslate"><span class="pre">re</span></code> libraries.</p></li>
+<li><p>Windows fixes:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">Emhaplofreq</span></code> will now give identical results on Windows as all
+other platform (needed to port POSIX-version of <code class="docutils literal notranslate"><span class="pre">drand48()</span></code> to
+Windows).</p></li>
+<li><p>Fixed <code class="docutils literal notranslate"><span class="pre">CustomBinning</span></code> filters that were failing on Windows.</p></li>
+<li><p>Enable all unit tests for Windows.</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id19">
+<h4>Internal<a class="headerlink" href="#id19" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Replace old <code class="docutils literal notranslate"><span class="pre">getopt</span></code> with <code class="docutils literal notranslate"><span class="pre">argparse</span></code> library</p></li>
+<li><p>Major code refactoring, including moving code into <code class="docutils literal notranslate"><span class="pre">src</span></code>
+directory, and using packages in <code class="docutils literal notranslate"><span class="pre">setup.py</span></code></p></li>
+<li><p>Added continuous integration via GitHub Actions for releases and
+website updates</p></li>
+<li><p>Prepare package for inclusion in <code class="docutils literal notranslate"><span class="pre">PyPI</span></code></p></li>
+<li><p>Add code examples used in documentation as unit tests</p></li>
+<li><p>Create GitHub action for upload to Zenodo (thanks to
+Jurriaan H. Spaaks)</p></li>
+<li><p>Support for arm64 builds on MacOS, e.g. M1-based Macs (thanks to
+Owen Solberg for report and extensive testing).</p></li>
+<li><p>Remove dependency on <code class="docutils literal notranslate"><span class="pre">psutil</span></code>, rarely needed.</p></li>
+<li><p>Only build wheels on platforms for which binary wheels are available
+for all dependencies.</p></li>
+</ul>
+</section>
+</section>
+<section id="id20">
+<h3><a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/PYPOP_SRC-0_7_0">0.7.0</a> - 2008-09-09<a class="headerlink" href="#id20" title="Link to this heading">¶</a></h3>
+<section id="id21">
+<h4>New features<a class="headerlink" href="#id21" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">makeNewPopFile</span></code> option has been changed. This option allows user to
+generate intermediate output of filtered files. Now option should
+be of the format: <code class="docutils literal notranslate"><span class="pre">type:order</span></code> where <code class="docutils literal notranslate"><span class="pre">type</span></code> is one of
+<code class="docutils literal notranslate"><span class="pre">separate-loci</span></code> or <code class="docutils literal notranslate"><span class="pre">all-loci</span></code> so that the user can specify whether
+a separate file should be generated for each locus
+(<code class="docutils literal notranslate"><span class="pre">separate-loci</span></code>) or a single file with all loci (<code class="docutils literal notranslate"><span class="pre">all-loci</span></code>).
+<code class="docutils literal notranslate"><span class="pre">order</span></code> should be the order in the filtering chain where the
+matrix is generated, there is no default, for example, for
+generating files after the first filter operation use <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+<li><p>New command-line option <code class="docutils literal notranslate"><span class="pre">--generate-tsv</span></code>, will generate the <code class="docutils literal notranslate"><span class="pre">.dat</span></code>
+tab-separated values (TSV) files on the the generated -out.xml
+files (aka “popmeta”) directly from pypop without needing to run
+additional script. Now output from pypop can be directly read
+into spreadsheet.</p></li>
+<li><p>New feature: add individual genotype tests to Hardy-Weinberg module
+(gthwe), now computes statistics based on individual genotypes in
+the HWP table. The <code class="docutils literal notranslate"><span class="pre">[HardyWeinbergGuoThompson]</span></code> or
+<code class="docutils literal notranslate"><span class="pre">[HardyWeinbergGuoThompsonMonteCarlo]</span></code> options must be enabled in the
+configuration “.ini” file in order for these tests to be carried out.</p></li>
+<li><p>Major improvements to custom and random binning filters (Owen Solberg).</p></li>
+<li><p>New feature: generate homozygosity values using the Ewens-Watterson test for
+all pairwise loci, or all sites within a gene for sequence data
+(<code class="docutils literal notranslate"><span class="pre">[homozygosityEWSlatkinExactPairwise]</span></code> in .ini file). Note: this
+really only works for sequence data where the phase for sites
+within an allele are known.</p></li>
+<li><p>Haplotype and LD estimation module <code class="docutils literal notranslate"><span class="pre">emhaplofreq</span></code> improvements</p>
+<ul>
+<li><p>improved memory usage and speed for emhaplofreq module.</p></li>
+<li><p>maximum sample size for emhaplofreq module increased from 1023 to
+5000 individuals.</p></li>
+<li><p>maximum length of allele names increased to 20</p></li>
+</ul>
+</li>
+</ul>
+</section>
+<section id="id22">
+<h4>Bug fixes<a class="headerlink" href="#id22" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Support Python 2.4 on GCC 4.0 platforms.</p></li>
+<li><p>Add missing initialisation for non-sequence data when processing
+haplotypes. Thanks to Jill Hollenbach for the report.</p></li>
+<li><p>Fix memory leak in xslt translation.</p></li>
+<li><p>Various fixes relating to parsing XML output.</p></li>
+<li><p>Fixed an incorrect parameter name.</p></li>
+<li><p>Handle some missing sections in .ini better. Thanks to
+Owen Solberg for report.</p></li>
+<li><p>Various build and installation fixes (SWIG, compilation flags)</p></li>
+<li><p>Make name of source package be lowercase “pypop”.</p></li>
+<li><p>Change data directory: /usr/share/pypop/ to /usr/share/PyPop/</p></li>
+<li><p>Print out warning when maximum length of allele exceeded, rather than
+crashing. Thanks to Steve Mack for report.</p></li>
+</ul>
+</section>
+<section id="other-issues">
+<h4>Other issues<a class="headerlink" href="#other-issues" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Sequence filter</p>
+<ul>
+<li><p>In the Sequence filter, add special case for Anthony Nolan HLA data:
+mark null alleles ending in “N” (e.g. HLA-B*5127N) as “missing
+data” (<code class="docutils literal notranslate"><span class="pre">****</span></code>).</p></li>
+<li><p>Also in Sequence, keep track of unsequenced sites separately
+(via unsequencedSites variable) from “untyped” (aka “missing
+data”). Treat unsequencedSite as a unique allele to make sure that
+those sites don’t get treated as having a consensus sequence if
+only one of the sequences in the the set of matches is typed.</p></li>
+<li><p>If no matching sequence is found in the MSF files, then return a
+sequence of * symbols (ie, will be treated as truly missing data,
+not untyped alleles.</p></li>
+<li><p>Add another special case for HLA data: test for 7 digits in allele names
+(e.g. if 2402101 is not found insert a zero after the first 4
+digits to form 24020101, and check for that). This is to cope
+with yet-another HLA nomenclature change.</p></li>
+</ul>
+</li>
+<li><p>Change semantics of batchsize, make “0” (default) process files separately
+if only R dat files is enabled. If batchsize not set explicitly
+(and therefore 0) set batchsize to <code class="docutils literal notranslate"><span class="pre">1</span></code> is PHYLIP mode is enabled.</p></li>
+</ul>
+</section>
+</section>
+<section id="id23">
+<h3>0.6.0 - 2005-04-13<a class="headerlink" href="#id23" title="Link to this heading">¶</a></h3>
+<section id="id24">
+<h4>New features<a class="headerlink" href="#id24" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Allow for odd allele counts when processing an allele count data
+(i.e “semi”-typing). When PyPop is dealing with data that is
+originally genotyped, the current default is preserved i.e. we
+dis-allow individuals that are typed at only allele, and set
+allowSemiTyped to false.</p></li>
+<li><p>New command-line option <code class="docutils literal notranslate"><span class="pre">-f</span></code> (long version <code class="docutils literal notranslate"><span class="pre">--filelist</span></code>) which
+accepts a file containing a list of files (one per line) to
+process (note that this is mutually exclusive with supplying
+INPUTFILEs, and will abort with an error message if you supply
+both simultaneously).</p></li>
+<li><p>In batch version, handle multiple INPUTFILEs supplied as command-line
+arguments and support Unix shell-globbing syntax (e.g. <code class="docutils literal notranslate"><span class="pre">pypop.py</span> <span class="pre">-c</span> <span class="pre">config.ini</span> <span class="pre">*.pop</span></code>). (NOTE: This is supported <em>only</em> in
+batch version, not in the interactive version, which expects one
+and only one file supplied by user.</p></li>
+<li><p>Allele count files can now be filtered through the filter apparatus
+(particularly the Sequence and AnthonyNolan) in the same was as
+genotype files transparently. [This has been enabled via a code
+refactor that treats allele count files as pseudo-genotype files
+for the purpose of filtering]. This change also resulted in the
+removal of the obsolete lookup-table-based homozygosity test.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--disable-ihwg</span></code> option to popmeta script to disable hardcoded
+generation of the IHWG header output, and use the output as
+defined in the header in the original .pop input text file. This
+is disabled by default to preserve backwards compatibility.</p></li>
+<li><p>Add <code class="docutils literal notranslate"><span class="pre">--batchsize</span></code> (<code class="docutils literal notranslate"><span class="pre">-b</span></code> short version) option for popmeta. Does the
+processing in “batches”. If set and greater than one, list of XML
+files is split into batchsize group. For example, if there are 20
+XML files and option is via using (“-b 2” or “–batchsize=2”) then
+the files will be processed in two batches, each consisting of 10
+files. If the number does not divide evenly, the last list will
+contain all the “left-over” files. This option is particularly
+useful with large XML files that may not fit in memory all at
+once. Note this option is mutually exclusive with the
+<code class="docutils literal notranslate"><span class="pre">--enable-PHYLIP</span></code> option because the PHYLIP output needs to
+calculate allele frequencies across all populations before
+generating files.</p></li>
+<li><p>New .ini file option: <code class="docutils literal notranslate"><span class="pre">[HardyWeinbergGuoThompsonMonteCarlo]</span></code>: add a plain
+Monte-Carlo (randomization, without the Markov chain test) test
+for the HardyWeinberg “exact test”. Add code for Guo &amp; Thompson
+test to distribution (now under GNU GPL).</p></li>
+</ul>
+</section>
+<section id="id25">
+<h4>Bug fixes<a class="headerlink" href="#id25" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>HardyWeinbergGuoThompson overall p-value test was numerically unstable
+because it attempted to check for equality in greater than or
+equal to constructs (“&lt;=”) which is not reliable in C. Replaced
+this with a GNU Scientific Library (GSL) function gsl_fcmp() which
+compares floats to within an EPSILON (defaults to 1e-6).</p></li>
+<li><p>Allow <code class="docutils literal notranslate"><span class="pre">HardyWeinbergGuoThompson</span></code> test to be run if at least two alleles
+present (test was originally failing with a <code class="docutils literal notranslate"><span class="pre">too-few-alleles</span></code>
+message if there were not at least 3 alleles). Thanks to Kristie
+Mather for the report.</p></li>
+<li><p>Checks to see if a locus is monomorphic, if it is, it generates an
+allele summary report, but skips the rest of the single locus
+analyses which do not make sense for monomorphic locus. Thanks to
+Steve Mack and Owen Solberg for the bug report(s).</p></li>
+<li><p>Now builds against recent versions of SWIG (no longer stuck at version
+1.3.9), should be compatible with versions of SWIG &gt; 1.3.10.
+(Tested against SWIG 1.3.21).</p></li>
+<li><p>Homozygosity module: Prevent math errors by in Slatkin’s exact test by
+forcing the homozygosity to be positive (only a problem for rare
+cases, when the result is so close to zero that the floating point
+algorithms cause a negative result.)</p></li>
+</ul>
+</section>
+</section>
+<section id="public-beta-2004-03-09">
+<h3>0.5.2 (public beta) - 2004-03-09<a class="headerlink" href="#public-beta-2004-03-09" title="Link to this heading">¶</a></h3>
+<section id="id26">
+<h4>Bug fixes<a class="headerlink" href="#id26" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Add missing RandomBinning.py file to source distribution
+Thanks to Hazael Maldonado Torres for the bug report.</p></li>
+<li><p>Fixed line endings for .bat scripts for Win32 so they work under
+Windows 98 thanks to Wendy Hartogensis for the bug report.</p></li>
+</ul>
+</section>
+</section>
+<section id="public-beta-2004-02-26">
+<h3>0.5.1 (public beta) - 2004-02-26<a class="headerlink" href="#public-beta-2004-02-26" title="Link to this heading">¶</a></h3>
+<section id="changes">
+<h4>Changes<a class="headerlink" href="#changes" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>New parameter <code class="docutils literal notranslate"><span class="pre">numInitCond</span></code>, number of initial conditions by the
+haplotype estimation and LD algorithm used before performing
+permutations. Defaults to 50.</p></li>
+<li><p>Remove some LOG messages/diagnostics that were erroneously implying
+an error to the user (if nothing is wrong, don’t say anything). Add
+some more useful messages for what is being done in haplo/LD
+estimation step.</p></li>
+<li><p>Add popmeta.py to the distribution: this is undocumented and unsupported
+as yet, it is at alpha stage only, use at your own risk!</p></li>
+</ul>
+</section>
+<section id="id27">
+<h4>Bug fixes<a class="headerlink" href="#id27" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Remember to output plaintext version of LD for specified loci.</p></li>
+</ul>
+</section>
+</section>
+<section id="public-beta-2003-12-31">
+<h3>0.5 (public beta) - 2003-12-31<a class="headerlink" href="#public-beta-2003-12-31" title="Link to this heading">¶</a></h3>
+<section id="id28">
+<h4>Changes<a class="headerlink" href="#id28" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>All Linux wrapper scripts no longer have .sh file suffixes for
+consistency with DOS (all DOS bat files can be executed without
+specifying the .bat extension).</p></li>
+</ul>
+</section>
+<section id="id29">
+<h4>Bug fixes<a class="headerlink" href="#id29" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Add wrapper scripts for interactive and batch mode for
+both DOS and Linux so that correct shared libraries are called.</p></li>
+<li><p>Pause and wait for user to press a key at end of DOS .bat file
+so that output can be viewed before window close.</p></li>
+<li><p>Set PYTHONHOME in wrapper scripts to prevent messages about
+missing &lt;prefix&gt; being displayed.</p></li>
+</ul>
+</section>
+</section>
+<section id="beta">
+<h3>0.4.3beta<a class="headerlink" href="#beta" title="Link to this heading">¶</a></h3>
+<section id="id30">
+<h4>Bug fixes<a class="headerlink" href="#id30" title="Link to this heading">¶</a></h4>
+<ul class="simple">
+<li><p>Fixed bug in processing of <code class="docutils literal notranslate"><span class="pre">popname</span></code> field.
+Thanks to Richard Single for the report.</p></li>
+</ul>
+</section>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+    
+        <div id="show_right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&lt;</span><span>Page contents</span></a></p>
+        </div>
+
+        <div id="right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&gt;</span><span>Page contents:</span></a></p>
+            <div class="page_toc">
+                <ul>
+<li><a class="reference internal" href="#">5. Authors and history</a><ul>
+<li><a class="reference internal" href="#pypop-contributors">5.1. PyPop contributors</a><ul>
+<li><a class="reference internal" href="#third-party-modules">Third-party modules</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#pypop-release-history">5.2. PyPop Release History</a><ul>
+<li><a class="reference internal" href="#id1">1.1.2 - 2024-11-18</a><ul>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#internal">Internal</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id2">1.1.1 - 2024-09-10</a><ul>
+<li><a class="reference internal" href="#id3">Features</a></li>
+<li><a class="reference internal" href="#bug-fixes">Bug Fixes</a></li>
+<li><a class="reference internal" href="#id4">Internal</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id5">1.1.0 - 2024-05-30</a><ul>
+<li><a class="reference internal" href="#id6">Internal</a></li>
+<li><a class="reference internal" href="#id7">Documentation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id8">1.0.2 - 2024-02-24</a><ul>
+<li><a class="reference internal" href="#id9">Bug Fixes</a></li>
+<li><a class="reference internal" href="#id10">Internal</a></li>
+<li><a class="reference internal" href="#id11">Documentation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id12">1.0.1 - 2024-02-11</a><ul>
+<li><a class="reference internal" href="#id13">Features</a></li>
+<li><a class="reference internal" href="#id14">Bug Fixes</a></li>
+<li><a class="reference internal" href="#id15">Internal</a></li>
+<li><a class="reference internal" href="#id16">Documentation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id17">1.0.0 - 2023-11-07</a><ul>
+<li><a class="reference internal" href="#new-features">New features</a></li>
+<li><a class="reference internal" href="#id18">Bug fixes</a></li>
+<li><a class="reference internal" href="#id19">Internal</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id20">0.7.0 - 2008-09-09</a><ul>
+<li><a class="reference internal" href="#id21">New features</a></li>
+<li><a class="reference internal" href="#id22">Bug fixes</a></li>
+<li><a class="reference internal" href="#other-issues">Other issues</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#id23">0.6.0 - 2005-04-13</a><ul>
+<li><a class="reference internal" href="#id24">New features</a></li>
+<li><a class="reference internal" href="#id25">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#public-beta-2004-03-09">0.5.2 (public beta) - 2004-03-09</a><ul>
+<li><a class="reference internal" href="#id26">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#public-beta-2004-02-26">0.5.1 (public beta) - 2004-02-26</a><ul>
+<li><a class="reference internal" href="#changes">Changes</a></li>
+<li><a class="reference internal" href="#id27">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#public-beta-2003-12-31">0.5 (public beta) - 2003-12-31</a><ul>
+<li><a class="reference internal" href="#id28">Changes</a></li>
+<li><a class="reference internal" href="#id29">Bug fixes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#beta">0.4.3beta</a><ul>
+<li><a class="reference internal" href="#id30">Bug fixes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+    
+
+      <div class="clearer"></div>
+    </div>
+    <div class="button_nav_wrapper">
+        <div class="button_nav">
+            <div class="left">
+                
+                <a href="guide-chapter-contributing.html">
+                    <span class="icon">&lt;</span><span><span class="section-number">4. </span>Contributing to PyPop</span></a>
+                
+            </div>
+
+            <div class="right">
+                
+                    <a href="licenses.html"><span><span class="section-number">6. </span>Licenses</span><span class="icon">&gt;</span></a>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2024 PyPop contributors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.0.2.
+    </div>
+
+<p id="theme_credit">Styled using the <a href="https://github.com/piccolo-orm/piccolo_theme">Piccolo Theme</a></p>
+  </body>
+</html>

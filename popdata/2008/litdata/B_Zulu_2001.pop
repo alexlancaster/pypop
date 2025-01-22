@@ -1,0 +1,30 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+B_Zulu_2001.pop	B	200	200	lit	Zulu_2001	African	01-SSA	Kwa-Zulu	3	belong to Natal Nguni linguistic division of central Bantu, blood donors of pure descent, living in Kwa-Zulu, Natal, South Africa	31.43S	29.4E	1	1	PCR-SSOP	{WMD+01}	Williams	2001	Analysis of the Distribution of HLA-B Alleles in Populations from Five Continents	Human Immunology	62	645-650			ZA	Middleton	1301266	22	1	Middleton et al 2000	N		N	N	N		HW, F, haplotype frequencies, LD			13th? - May be subset of ZAFHAM-Zulu.pop	YT
+B	count
+0702	9
+0705/0706	4
+0801	15
+1302	3
+1401	8
+1402	5
+1501	1
+1503	19
+1510	17
+1516	1
+1801	4
+3501	8
+3910	3
+4101	1
+4102	1
+4201	24
+4403	21
+4501	7
+4901	2
+5301	3
+5702	2
+5703	8
+5801	8
+5802	17
+6701	1
+8101	7
+8201	1

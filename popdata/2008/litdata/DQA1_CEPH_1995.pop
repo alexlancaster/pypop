@@ -1,0 +1,10 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQA1_CEPH_1995.pop	DQA1	248	248	lit	CEPH_1995	Caucasian	03-EUR	inexact	3	can be taken as a typical Northern European sample; 196 Utah, 44 French, 8 Amish	48.87N	2.33E	1	1	PCR-SSO	{KSG+95}	Klitz	1995	Discordant Patterns of Linkage Disequilibrium of the Peptide-Transporter Loci within the HLA Class II Region	American Journal of Human Genetics	57	1436-1444			US	Carrington	1301073	11	1		N		Y	N	N		LD			ceph	YT
+DQA1	count
+0101	35
+0102	51
+0103	11
+0201	35
+0301	53
+0401	8
+0501	55
