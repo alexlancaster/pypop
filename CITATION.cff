@@ -103,6 +103,10 @@ type: software
 url: http://pypop.org/
 doi: 10.5281/zenodo.14182367
 identifiers:
+  - description: PyPop homepage
+    type: url
+    value: http://pypop.org/
+    relation: IsSupplementTo
   - description: PyPop documentation
     type: url
     value: http://pypop.org/docs
