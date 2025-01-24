@@ -191,10 +191,11 @@ class AnthonyNolanFilter(Filter):
         self.logFile = logFile
 
         if self.alleleFileFormat == "msf":
+            # add colon ":" to support new-style nomenclature, e.g. "01:04"
             patt = re.compile(
                 "^ *Name: *([0-9a-zA-Z]+)"
                 + re.escape(self.alleleDesignator)
-                + "([0-9a-zA-Z]+)"
+                + "([0-9a-zA-Z:]+)"
             )
             ## These are the names of the loci used in pop files.
             ## These are also the official names specified by NCBI.
@@ -204,8 +205,9 @@ class AnthonyNolanFilter(Filter):
             loci = ["A", "C", "B", "DRA", "DRB1", "DQA1", "DQB1", "DPA1", "DPB1"]
 
         else:
+            # FIXME: create a variable for the regex
             patt = re.compile(
-                "^([0-9a-zA-Z]+)" + re.escape(self.alleleDesignator) + "([0-9a-zA-Z]+)"
+                "^([0-9a-zA-Z]+)" + re.escape(self.alleleDesignator) + "([0-9a-zA-Z:]+)"
             )
             loci = ["a", "b", "c", "dqa", "dqb", "dra", "drb", "dpb", "dpa"]
 
@@ -568,7 +570,6 @@ class AnthonyNolanFilter(Filter):
                         # ...otherwise, try to find a good close match
                         elif allele == self.untypedAllele:
                             self.sequences[allele] = "*" * self.length
-
                         # FIXME: this code is specific to HLA data
                         # deal with 5 digit allele codes and try again
                         elif len(allele) == 5 and allele.isdigit():
