@@ -14,21 +14,23 @@
 
 The MSF files used for the `Sequence` and `AnthonyNolan` filters are
 available on GitHub: https://github.com/ANHIG/IMGTHLA . The MSF files
-(both `_prot.msf` and `_nuc.msf` files) within the IMGTHLA repo is
-included in the repo with the `tests/data/anthonynolan/msf-<VERSION>`
-directory where `<VERSION>` is the version of the data file
-release. The command used to download these files is (run from within
-`tests/data/anthonynolan`):
+(both `_prot.msf` and `_nuc.msf` files) within the IMGTHLA repo are
+included in the repo within the
+`tests/data/anthonynolan/msf-<VERSION>` directory where `<VERSION>` is
+the version of the data file release. The command used to download
+these files is:
 
 ```
-VERSION=3.59.0-alpha && mkdir msf-${VERSION} && curl -L https://github.com/ANHIG/IMGTHLA/archive/refs/tags/v${VERSION}.tar.gz | tar -C msf-${VERSION} -xz --strip-components=2 "*/msf"
+VERSION=3.59.0-alpha && mkdir -p msf-${VERSION} && curl -L https://github.com/ANHIG/IMGTHLA/archive/refs/tags/v${VERSION}.tar.gz | tar -C msf-${VERSION} --exclude="*_gen.msf" -xz --strip-components=2 "*/msf"
 ```
+
+This should be run from within `tests/data/anthonynolan`.
 
 To update to more recent files, you can reuse the above command, but
 replace the `VERSION` with the more recent one. We recommend keeping
 only one recent version in the repo, but we also keep an old version
 (`msf-2.18.0`) for backward-compatibility for testing data with
-old-style HLA nomenclature
+old-style HLA nomenclature.
 
 ### External dependencies
 
