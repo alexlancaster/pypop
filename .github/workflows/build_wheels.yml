@@ -81,11 +81,11 @@ jobs:
 
           # insert version
           yq -i ".version = \"$GITHUB_REF_NAME\"" CITATION.cff
-          # update the 'related_identifiers' to use exact tree and pypi packaage
+          # update the 'related_identifiers' to use exact tree and pypi package
           yq -i "(.identifiers[] | select(.value == \"https://github.com/alexlancaster/pypop/tree*\") | .value) |= \"https://github.com/alexlancaster/pypop/tree/$GITHUB_REF_NAME\"" CITATION.cff
-          yq -i "(.identifiers[] | select(.value == \"https://pypi.org/project/pypop-genomics/*\") | .value) |= \"https://pypi.org/project/pypop-genomics/$VERSION_PYTHON_STYLE\"" CITATION.cff 
+          yq -i "(.identifiers[] | select(.value == \"https://pypi.org/project/pypop-genomics/*\") | .value) |= \"https://pypi.org/project/pypop-genomics/$VERSION_PYTHON_STYLE\"" CITATION.cff
           # temporarily remove DOI
-          yq -i eval "del(.doi)" CITATION.cff  
+          yq -i eval "del(.doi)" CITATION.cff
 
           # use pre-prelease of cffconvert 3.0.0
           pip install -U pip
@@ -94,7 +94,7 @@ jobs:
           cffconvert --format zenodo --infile CITATION.cff | jq 'del(.creators)' > .zenodo.citation.json
           # save creators separately, if they are included in the merge they get re-sorted
           cffconvert --format zenodo --infile CITATION.cff | jq '{creators, creators}' > .zenodo.creators.json
-          
+
           # need to do a "deep merge" to make sure 'related_identifiers' get merged properly
           # including updating the version number, followed by merging back with creators
           cat .zenodo.citation.json .zenodo.extras.json |jq -s 'def deepmerge(a;b):
@@ -109,11 +109,11 @@ jobs:
                 end)
               );
             deepmerge({}; .)' -S --indent 4 | cat .zenodo.creators.json - | jq -s add --indent 4 > .zenodo.json
-            
+
           # debugging only
           cat .zenodo.citation.json
           cat .zenodo.creators.json
-          cat .zenodo.json 
+          cat .zenodo.json
           rm .zenodo.citation.json .zenodo.creators.json
       - name: Push changes back to repo
         run: |
