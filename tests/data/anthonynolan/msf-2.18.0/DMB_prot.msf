@@ -1,0 +1,61 @@
+
+ temp.msf  MSF: 263  Type: N  January 01, 1776  12:00  Check: 1554 ..
+
+ Name: DMB*0101         Len:   263  Check:  8909  Weight:  1.00
+ Name: DMB*0102         Len:   263  Check:  7076  Weight:  1.00
+ Name: DMB*0103         Len:   263  Check:  7170  Weight:  1.00
+ Name: DMB*0104         Len:   263  Check:  8490  Weight:  1.00
+ Name: DMB*0105         Len:   263  Check:   411  Weight:  1.00
+ Name: DMB*0106         Len:   263  Check:   309  Weight:  1.00
+ Name: DMB*0107         Len:   263  Check:  9189  Weight:  1.00
+
+//
+
+       DMB*0101  MITFLPLLLG LSLGCTGAGG FVAHVESTCL LDDAGTPKDF TYCISFNKDL
+       DMB*0102  .......... .......... .......... .......... ..........
+       DMB*0103  .......... .......... .......... .......... ..........
+       DMB*0104  .......... .......... .......... .......... ..........
+       DMB*0105  .......... .......... .....ESTCL LDDAGTPKDF TYCISFNKDL
+       DMB*0106  .......... .........G FVAHVESTCL LDDAGTPKDF TYCIFFNKDL
+       DMB*0107  MITFLPLLLG LSLGCTGAGG FVAHVESACL LDDAGTPKDF TYCISFNKVL
+
+       DMB*0101  LTCWDPEENK MAPCEFGVLN SLANVLSQHL NQKDTLMQRL RNGLQNCATH
+       DMB*0102  .......... .......... .......... .......... ..........
+       DMB*0103  .......... .......... .......... .......... ..........
+       DMB*0104  .......... .......... .......... .......... ..........
+       DMB*0105  LTCWDPEENK MAPCEFGVLN SLANVLSQHL NQKDTLMQRL RNGLQNCATH
+       DMB*0106  LTCWDPEENK MAPCEFGVLN SLANVLSQHL NQKDTLMQRL RNGLQNCATH
+       DMB*0107  LTCWDPEENK MAPCEFGVLN NLANVLSQHL NQKDTLMQRL RNGLQNCATH
+
+       DMB*0101  TQPFWGSLTN RTRPPSVQVA KTTPFNTREP VMLACYVWGF YPAEVTITWR
+       DMB*0102  .......... ...PPSVQVA KTTPFNTREP VMLACYVWGF YPAEVTITWR
+       DMB*0103  .......... ...PPSVQVA KTTPFNTREP VMLACYVWGF YPAEVTITWR
+       DMB*0104  .......... .......... KTTPFNTREP VMLACYVWGF YPAEVTITWR
+       DMB*0105  TQPFWGSLTN RTRPPSVQVA KTTPFNTREP VMLACYVWGF YPAEVTITWR
+       DMB*0106  TQPFWGSLTN RTRPPSVQVA KTTPFNTREP VMLACYVWGF YPAEVTITWR
+       DMB*0107  TQPFWGSLTN RTRPPSVQVA KTTPFNTREP VMLACYVWGF YPAEVTITWR
+
+       DMB*0101  KNGKLVMPHS SAHKTAQPNG DWTYQTLSHL ALTPSYGDTY TCVVEHIGAP
+       DMB*0102  KNGKLVMPHS SEHKTAQPNG DWTYQTLSHL ALTPSYGDTY TCVVEHIGAP
+       DMB*0103  KNGKLVMPHS SAHKTAQPNG DWTYQTLSHL ALTPSYGDTY TCVVEHTGAP
+       DMB*0104  KNGKLVMPHS SVHKTAQPNG DWTYQTLSHL ALTPSYGDTY TCVVEHTGAP
+       DMB*0105  KNGKLVMPHS SVHKTAQPNG DWTYQTLSHL ALTPSYGDTY TCVVEHIGAP
+       DMB*0106  KNGKLVMPHS SEHKTAQPNG DWTYQTLSHL ALTPSYGDTY TCVVEHTGAP
+       DMB*0107  KNGKLVMPHS SAHKTAQPNG DWTYQTLSHL ALTPSYGDTY TCVVEHIGAP
+
+       DMB*0101  EPILRDWTPG LSPMQTLKVS VSAVTLGLGL IIFSLGVISW RRAGHSSYTP
+       DMB*0102  EPILRDW... .......... .......... .......... ..........
+       DMB*0103  EPILRDW... .......... .......... .......... ..........
+       DMB*0104  .......... .......... .......... .......... ..........
+       DMB*0105  .......... .......... .......... .......... ..........
+       DMB*0106  EPILRDW... .......... .......... .......... ..........
+       DMB*0107  EPILRDWTPG LSPMQTLKVS VSAVTLGLGL IIFSLGVISW RRAGHSSYTP
+
+       DMB*0101  LPGSNYSEGW HIS
+       DMB*0102  .......... ...
+       DMB*0103  .......... ...
+       DMB*0104  .......... ...
+       DMB*0105  .......... ...
+       DMB*0106  .......... ...
+       DMB*0107  LPGSNYSEGW HIS
+
