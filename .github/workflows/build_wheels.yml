@@ -173,7 +173,8 @@ jobs:
         id: msf_cache
         uses: actions/cache@v4
         with:
-          path: ~/.cache/msf-files-3.59.0-alpha
+          #path: ~/.cache/msf-files-3.59.0-alpha
+          path: .cache/msf-files-3.59.0-alpha
           key: pooch-cache-msf-files-3.59.0-alpha
           restore-keys: |
             pooch-cache-msf-files-3.59.0-alpha
@@ -244,7 +245,8 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           # restore to the workspace, not home directory
-          path: ~/.cache/${{ env.MSF_CACHE_DIR }}
+          #path: ~/.cache/${{ env.MSF_CACHE_DIR }}
+          path: .cache/${{ env.MSF_CACHE_DIR }}
           key: pooch-cache-${{ env.MSF_CACHE_DIR }}
           restore-keys: |
             pooch-cache-${{ env.MSF_CACHE_DIR }}
@@ -269,7 +271,7 @@ jobs:
             echo "macOS can handle default cache directory, so don't need to set POOCH_CACHE"
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
             echo "Searching for restored cache directory..."
-            find /c /d -type d -name "${MSF_CACHE_DIR}" 2>/dev/null || echo "Cache directory not found"
+            #find /c /d -type d -name "${MSF_CACHE_DIR}" 2>/dev/null || echo "Cache directory not found"
             echo "USERPROFILE: ${USERPROFILE}, HOME: ${HOME}"
             echo "POOCH_CACHE=C:\\Users\\runneradmin\\.cache\\${MSF_CACHE_DIR}" >> $GITHUB_ENV
           fi
