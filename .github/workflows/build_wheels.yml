@@ -259,12 +259,11 @@ jobs:
       - name: Do cache setup based on OS
         run: |
           echo "Setting POOCH_CACHE based on runner OS"
-          MSF_DIR="msf-files-3.59.0-alpha"
           if [[ "$RUNNER_OS" == "Linux" ]]; then
-            echo "POOCH_CACHE=/project/.cache/${MSF_CACHE_DIR} >> $GITHUB_ENV
+            echo "POOCH_CACHE=/project/.cache/${MSF_CACHE_DIR}" >> $GITHUB_ENV
             # copying files so they available to cibuildwheel containers
             mkdir -p $GITHUB_WORKSPACE/.cache/
-            cp -r ~/.cache/msf-files-3.59.0-alpha $GITHUB_WORKSPACE/.cache/
+            cp -r ~/.cache/${MSF_CACHE_DIR} $GITHUB_WORKSPACE/.cache/
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             echo "macOS can handle default cache directory, so don't need to set POOCH_CACHE"
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
