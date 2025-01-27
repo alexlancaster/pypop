@@ -166,11 +166,24 @@ jobs:
   # set up a shared cache for downloading data files (e.g. MSF files)
   # before matrix jobs
   setup-cache:
-    name: Setup Cache for remote files
+    name: Setup cache for remote files
     runs-on: ubuntu-latest
     steps:
+      - name: Set up cache for MSF files
+        id: msf_cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/msf-files-3.59.0-alpha
+          key: pooch-cache-msf-files-3.59.0-alpha
+          restore-keys: |
+            pooch-cache-msf-files-3.59.0-alpha
+            enableCrossOsArchive: true
+            fail-on-cache-miss: false
+
       - name: Preload MSF files into Cache
+        if: ${{ steps.msf_cache.outputs.cache-hit != 'true' }}
         run: |
+          echo "Cache not found or is outdated. Fetching MSF files..."
           pip install pooch requests
           python -c """
           import os
@@ -200,18 +213,14 @@ jobs:
 
           print('All MSF files fetched and cached successfully.')
           """
-        env:
-          POOCH_CACHE: ~/.cache/msf-files-3.59.0-alpha
 
-      - name: Set up cache for MSF files
+      - name: Save the cache for MSF files
+        if: ${{ steps.msf_cache.outputs.cache-hit != 'true' }}
         uses: actions/cache/save@v4
         with:
           path: ~/.cache/msf-files-3.59.0-alpha
           key: pooch-cache-msf-files-3.59.0-alpha
-          restore-keys: |
-            pooch-cache-msf-files-3.59.0-alpha
           enableCrossOsArchive: true
-          fail-on-cache-miss: false
 
   build_wheels:
     name: Build wheels on ${{ matrix.only }}
