@@ -232,6 +232,8 @@ jobs:
           key: pooch-cache-msf-files-3.59.0-alpha
           restore-keys: |
             pooch-cache-msf-files-3.59.0-alpha
+          enableCrossOsArchive: true
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
