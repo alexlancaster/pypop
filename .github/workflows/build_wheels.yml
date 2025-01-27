@@ -163,11 +163,27 @@ jobs:
            # otherwise just generate a test wheel Python 3.12 for 4 platform
            CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
 
+  # set up a shared cache for downloading data files (e.g. MSF files)
+  # before matrix jobs
+  setup-cache:
+    name: Setup Cache for MSF files
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up cache for Pooch
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/msf-files-3.59.0-alpha
+          #key: pooch-cache-${{ runner.os }}-${{ hashFiles('**/pooch_registry.json') }}
+          key: pooch-cache-msf-files-3.59.0-alpha
+          restore-keys: |
+            pooch-cache-msf-files-3.59.0-alpha
+
+
   build_wheels:
     name: Build wheels on ${{ matrix.only }}
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
     # this only results in changes upon production releases
-    needs: [publish_zenodo, skip_publish_zenodo, generate-wheels-matrix]
+    needs: [publish_zenodo, skip_publish_zenodo, generate-wheels-matrix, setup-cache]
     # trying solution here: https://github.com/actions/runner/issues/491#issuecomment-1507495166
     # so that it works if either job in "needs" completes
     if: always() && !cancelled() && !failure()
