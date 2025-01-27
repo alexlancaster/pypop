@@ -169,15 +169,6 @@ jobs:
     name: Setup Cache for remote files
     runs-on: ubuntu-latest
     steps:
-      - name: Set up cache for MSF files
-        uses: actions/cache/save@v4
-        with:
-          path: ~/.cache/msf-files-3.59.0-alpha
-          key: pooch-cache-msf-files-3.59.0-alpha
-          restore-keys: |
-            pooch-cache-msf-files-3.59.0-alpha
-          enableCrossOsArchive: true
-          fail-on-cache-miss: false
       - name: Preload MSF files into Cache
         run: |
           pip install pooch requests
@@ -210,6 +201,16 @@ jobs:
           """
         env:
           POOCH_CACHE: ~/.cache/msf-files-3.59.0-alpha
+
+      - name: Set up cache for MSF files
+        uses: actions/cache/save@v4
+        with:
+          path: ~/.cache/msf-files-3.59.0-alpha
+          key: pooch-cache-msf-files-3.59.0-alpha
+          restore-keys: |
+            pooch-cache-msf-files-3.59.0-alpha
+          enableCrossOsArchive: true
+          fail-on-cache-miss: false
 
   build_wheels:
     name: Build wheels on ${{ matrix.only }}
