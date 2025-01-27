@@ -178,7 +178,7 @@ jobs:
         uses: actions/cache@v4
         with:
           #path: ~/.cache/msf-files-3.59.0-alpha
-          path: .cache/msf-files-3.59.0-alpha
+          path: ${{ github.workspace}}/.cache/msf-files-3.59.0-alpha
           key: pooch-cache-msf-files-3.59.0-alpha
           restore-keys: |
             pooch-cache-msf-files-3.59.0-alpha
@@ -250,7 +250,7 @@ jobs:
         with:
           # restore to the workspace, not home directory
           #path: ~/.cache/${{ env.MSF_CACHE_DIR }}
-          path: .cache/${{ env.MSF_CACHE_DIR }}
+          path: ${{ github.workspace}}/.cache/${{ env.MSF_CACHE_DIR }}
           key: pooch-cache-${{ env.MSF_CACHE_DIR }}
           restore-keys: |
             pooch-cache-${{ env.MSF_CACHE_DIR }}
@@ -269,8 +269,8 @@ jobs:
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             echo "POOCH_CACHE=/project/.cache/${MSF_CACHE_DIR}" >> $GITHUB_ENV
             # copying files so they available to cibuildwheel containers
-            mkdir -p $GITHUB_WORKSPACE/.cache/
-            cp -r ~/.cache/${MSF_CACHE_DIR} $GITHUB_WORKSPACE/.cache/
+            #mkdir -p $GITHUB_WORKSPACE/.cache/
+            #cp -r ~/.cache/${MSF_CACHE_DIR} $GITHUB_WORKSPACE/.cache/
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             echo "macOS can handle default cache directory, so don't need to set POOCH_CACHE"
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
