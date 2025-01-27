@@ -247,6 +247,12 @@ jobs:
             pooch-cache-msf-files-3.59.0-alpha
           enableCrossOsArchive: true
 
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
+          ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
+
       - name: Check cache status on Windows
         if: ${{ matrix.os == 'windows-2019' }}
         run: |
@@ -269,12 +275,6 @@ jobs:
           ls -ld ~
           echo "current working directory"
           pwd
-
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
-          ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
@@ -323,7 +323,7 @@ jobs:
           # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
           CIBW_TEST_COMMAND: "pytest -s -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
           SETUPTOOLS_SCM_PRETEND_VERSION: ${{ env.VERSION }}
-          POOCH_CACHE: .cache/msf-files-3.59.0-alpha
+          POOCH_CACHE: /project/.cache/msf-files-3.59.0-alpha
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION POOCH_CACHE
         with:
           only: ${{ matrix.only }}
