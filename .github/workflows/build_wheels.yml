@@ -237,15 +237,11 @@ jobs:
         include: ${{ fromJson(needs.generate-wheels-matrix.outputs.include) }}
     steps:
 
-      - name: Create a workspace cache directory
-        run: |
-          mkdir ${{ github.workspace}}/.cache
-
       - name: Restore cache for MSF files
         uses: actions/cache/restore@v4
         with:
           # restore to the workspace, not home directory
-          path: ${{ github.workspace}}/.cache/msf-files-3.59.0-alpha
+          path: ~/.cache/msf-files-3.59.0-alpha
           key: pooch-cache-msf-files-3.59.0-alpha
           restore-keys: |
             pooch-cache-msf-files-3.59.0-alpha
@@ -254,11 +250,13 @@ jobs:
       - name: Check cache status on Windows
         if: ${{ matrix.os == 'windows-2019' }}
         run: |
+          ln -s ~/.cache/ ${{ github.workspace}}/.cache
           ls ${{ github.workspace }}
           echo ${USERPROFILE}
       - name: Check cache status on non-Windows
         if: ${{ matrix.os != 'windows-2019' }}
         run: |
+          ln -s ~/.cache/ ${{ github.workspace}}/.cache
           ls -l ${{ github.workspace }}/.cache/msf-files*
           ls -l ${{ github.workspace }}/.cache/
           ls -ld ${{ github.workspace }}/.cache
