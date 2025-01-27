@@ -225,6 +225,13 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.generate-wheels-matrix.outputs.include) }}
     steps:
+      - name: Restore cache for MSF files
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/msf-files-3.59.0-alpha
+          key: pooch-cache-msf-files-3.59.0-alpha
+          restore-keys: |
+            pooch-cache-msf-files-3.59.0-alpha
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
