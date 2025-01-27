@@ -857,11 +857,17 @@ class AnthonyNolanFilter(Filter):
             file_url = f"{base_url}{file_name}"
             print("file_url:", file_url)
 
+            # force to use cache directory in home directory
+            cache_dir = Path(
+                Path.expanduser("~"), ".cache", f"msf-files-{self.remoteMSF}"
+            )
+            print(f"cache dir: {cache_dir}")
+
             # use pooch.retrieve() to download and cache the file
             local_file = pooch.retrieve(
                 url=file_url,
                 known_hash=None,  # no hash validation; you can add a hash if desired
-                path=pooch.os_cache(f"msf-files-{self.remoteMSF}"),  # cache directory
+                path=cache_dir,
             )
 
             print(f"File downloaded to: {local_file}")
