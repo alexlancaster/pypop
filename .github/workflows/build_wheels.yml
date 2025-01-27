@@ -277,7 +277,7 @@ jobs:
         run: |
           echo "user cache directory"
           ls -ld ~/.cache/ || true
-          echo github workspace cache directory"
+          echo "github workspace cache directory"
           ls -ld "$GITHUB_WORKSPACE/.cache/" || true
           echo "updated POOCH_CACHE files"
           echo "${POOCH_CACHE}"
