@@ -173,11 +173,42 @@ jobs:
         uses: actions/cache@v3
         with:
           path: ~/.cache/msf-files-3.59.0-alpha
-          #key: pooch-cache-${{ runner.os }}-${{ hashFiles('**/pooch_registry.json') }}
           key: pooch-cache-msf-files-3.59.0-alpha
           restore-keys: |
             pooch-cache-msf-files-3.59.0-alpha
+          enableCrossOsArchive: false
+          fail-on-cache-miss: false
+      - name: Preload MSF files into Cache
+        run: |
+          python -c """
+          import os
+          import pooch
+          import requests
+          # Define the base URL and path for the MSF files
+          base_url = 'https://raw.githubusercontent.com/ANHIG/IMGTHLA/v3.59.0-alpha/msf/'
+          # Create cache directory
+          cache_dir = pooch.os_cache(msf-files-3.59.0-alpha')
 
+          # Fetch the directory listing of MSF files from GitHub (raw listing)
+          response = requests.get('https://api.github.com/repos/ANHIG/IMGTHLA/contents/msf?ref=v3.59.0-alpha')
+          files = response.json()
+
+          # Extract .msf files from the response
+          msf_files = [file['name'] for file in files if file['name'].endswith('.msf')]
+
+          # Create a pooch fetcher for the MSF files
+          registry = {file: None for file in msf_files}  # Replace None with actual hashes if available
+          fetcher = pooch.create(path=cache_dir, base_url=base_url, registry=registry)
+
+          # Fetch each MSF file
+          for file in msf_files:
+            print(f"Fetching {file}...")
+            fetcher.fetch(file)
+
+          print('All MSF files fetched and cached successfully.')
+          """
+        env:
+          POOCH_CACHE: ~/.cache/msf-files-3.59.0-alpha
 
   build_wheels:
     name: Build wheels on ${{ matrix.only }}
