@@ -975,9 +975,10 @@ section, below, or the `IMGT ftp site
 
 .. warning::
 
-   The current implementation of both the ``AnthonyNolan`` and
-   ``Sequence`` filters only works with data in old-style HLA
-   nomenclature.
+   The current implementation of the ``AnthonyNolan`` filter only
+   works with data in old-style HLA nomenclature.  However, the
+   ``Sequence`` filter has been ported to use new nomenclature, but
+   only by specifying a recent MSF files in the ``remoteMSF`` option
 
 Invocation of this filter will produce a ``<POPFILE>-filter.xml`` file
 output showing what was resolved and what could not be resolved.
