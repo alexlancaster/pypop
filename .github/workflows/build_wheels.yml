@@ -283,6 +283,12 @@ jobs:
             pooch-cache-msf-files-3.59.0-alpha
           enableCrossOsArchive: true
 
+      - name: Check cache status
+        run: |
+          ls -l ~/.cache/msf-files-3.59.0-alpha
+          ls -l ~/.cache
+          pwd
+
       - name: Build and test wheels
         uses: pypa/cibuildwheel@v2.22.0
         env:
