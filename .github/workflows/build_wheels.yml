@@ -238,8 +238,8 @@ jobs:
 
       - name: Check cache status
         run: |
-          ls -l ~/.cache/
-          ls -ld ~/.cache
+          #ls -l ~/.cache/
+          #ls -ld ~/.cache
           ls -ld ~
           pwd
 
