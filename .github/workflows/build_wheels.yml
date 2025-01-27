@@ -286,6 +286,7 @@ jobs:
           CIBW_TEST_COMMAND: "pytest -s -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
           SETUPTOOLS_SCM_PRETEND_VERSION: ${{ env.VERSION }}
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION
+          POOCH_CACHE: ~/.cache/msf-files-3.59.0-alpha
         with:
           only: ${{ matrix.only }}
           package-dir: .
