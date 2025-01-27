@@ -170,13 +170,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up cache for Pooch
-        uses: actions/cache@v3
+        uses: actions/cache/save@v4
         with:
           path: ~/.cache/msf-files-3.59.0-alpha
           key: pooch-cache-msf-files-3.59.0-alpha
           restore-keys: |
             pooch-cache-msf-files-3.59.0-alpha
-          enableCrossOsArchive: false
+          enableCrossOsArchive: true
           fail-on-cache-miss: false
       - name: Preload MSF files into Cache
         run: |
@@ -226,7 +226,7 @@ jobs:
         include: ${{ fromJson(needs.generate-wheels-matrix.outputs.include) }}
     steps:
       - name: Restore cache for MSF files
-        uses: actions/cache@v3
+        uses: actions/cache/restore@v4
         with:
           path: ~/.cache/msf-files-3.59.0-alpha
           key: pooch-cache-msf-files-3.59.0-alpha
