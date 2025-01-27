@@ -186,7 +186,7 @@ jobs:
           files = response.json()
 
           # Extract .msf files from the response
-          msf_files = [file['name'] for file in files if file['name'].endswith('.msf')]
+          msf_files = [file['name'] for file in files if file['name'].endswith('_prot.msf') or file['name'].endswith('_nuc.msf')]
 
           # Fetch each MSF file using pooch.retrieve
           for file in msf_files:
