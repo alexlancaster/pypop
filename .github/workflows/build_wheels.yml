@@ -227,6 +227,22 @@ jobs:
         include: ${{ fromJson(needs.generate-wheels-matrix.outputs.include) }}
     steps:
 
+      - name: Restore cache for MSF files
+        uses: actions/cache/restore@v4
+        with:
+          path: ~/.cache/msf-files-3.59.0-alpha
+          key: pooch-cache-msf-files-3.59.0-alpha
+          restore-keys: |
+            pooch-cache-msf-files-3.59.0-alpha
+          enableCrossOsArchive: true
+
+      - name: Check cache status
+        run: |
+          ls -l ~/.cache/
+          ls -ld ~/.cache
+          ls -ld ~
+          pwd
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
@@ -273,21 +289,6 @@ jobs:
           python --version
           python -m pip install git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert
           python src/PyPop/citation.py
-
-      - name: Restore cache for MSF files
-        uses: actions/cache/restore@v4
-        with:
-          path: ~/.cache/msf-files-3.59.0-alpha
-          key: pooch-cache-msf-files-3.59.0-alpha
-          restore-keys: |
-            pooch-cache-msf-files-3.59.0-alpha
-          enableCrossOsArchive: true
-
-      - name: Check cache status
-        run: |
-          ls -l ~/.cache/msf-files-3.59.0-alpha
-          ls -l ~/.cache
-          pwd
 
       - name: Build and test wheels
         uses: pypa/cibuildwheel@v2.22.0
