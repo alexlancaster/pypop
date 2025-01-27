@@ -264,15 +264,15 @@ jobs:
           mkdir -p $GITHUB_WORKSPACE/.cache/
           cp -r ~/.cache/msf-files-3.59.0-alpha $GITHUB_WORKSPACE/.cache/
           echo "files"
-          ls -l ${{ github.workspace }}/.cache/msf-files*
+          ls -la ${{ github.workspace }}/.cache/msf-files*
           echo "files in workspace cache"
-          ls -l ${{ github.workspace }}/.cache/
+          ls -la ${{ github.workspace }}/.cache/
           echo "directories in workspace cache"
-          ls -ld ${{ github.workspace }}/.cache
+          ls -lda ${{ github.workspace }}/.cache
           echo "directories in workspace"
-          ls -l ${{ github.workspace }}
+          ls -la ${{ github.workspace }}
           echo "directories in home directory"
-          ls -ld ~
+          ls -lda ~
           echo "current working directory"
           pwd
 
