@@ -188,14 +188,15 @@ jobs:
           # Extract .msf files from the response
           msf_files = [file['name'] for file in files if file['name'].endswith('.msf')]
 
-          # Create a pooch fetcher for the MSF files
-          #registry = {file: None for file in msf_files}  # Replace None with actual hashes if available
-          fetcher = pooch.create(path=cache_dir, base_url=base_url) #, registry=registry)
-
-          # Fetch each MSF file
+          # Fetch each MSF file using pooch.retrieve
           for file in msf_files:
             print(f'Fetching {file}...')
-            fetcher.fetch(file)
+            local_file = pooch.retrieve(
+              url=f'{base_url}{file}',  # Full URL to the file
+              known_hash=None,  # Pooch will calculate the hash automatically
+              path=cache_dir  # Cache location
+            )
+            print(f'Saved {local_file}...')
 
           print('All MSF files fetched and cached successfully.')
           """
