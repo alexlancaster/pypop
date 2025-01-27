@@ -250,14 +250,14 @@ jobs:
       - name: Check cache status on Windows
         if: ${{ matrix.os == 'windows-2019' }}
         run: |
-          ln -s ~/.cache/ ${{ github.workspace}}/.cache
+          ln -s ~/.cache/ ${{ github.workspace}}\.cache
           ls ${{ github.workspace }}
           echo ${USERPROFILE}
       - name: Check cache status on non-Windows
         if: ${{ matrix.os != 'windows-2019' }}
         run: |
-          mkdir -p $GITHUB_WORKSPACE/.cache/msf-files-3.59.0-alpha
-          cp -r ~/.cache/msf-files-3.59.0-alpha $GITHUB_WORKSPACE/.cache/msf-files-3.59.0-alpha
+          mkdir -p $GITHUB_WORKSPACE/.cache/
+          cp -r ~/.cache/msf-files-3.59.0-alpha $GITHUB_WORKSPACE/.cache/
           ls -l ${{ github.workspace }}/.cache/msf-files*
           ls -l ${{ github.workspace }}/.cache/
           ls -ld ${{ github.workspace }}/.cache
