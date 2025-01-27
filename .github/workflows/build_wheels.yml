@@ -236,6 +236,9 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.generate-wheels-matrix.outputs.include) }}
     steps:
+      - name: Set cache directory name
+        run: |
+          echo "MSF_CACHE_DIR=msf-files-3.59.0-alpha" >> $GITHUB_ENV
 
       - name: Restore cache for MSF files
         uses: actions/cache/restore@v4
@@ -253,28 +256,28 @@ jobs:
           # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
 
-      - name: Check cache status on Windows
-        if: ${{ matrix.os == 'windows-2019' }}
+      - name: Do cache setup based on OS
         run: |
-          ls -l ${{ github.workspace }}
-          echo ${USERPROFILE}
-      - name: Check cache status on non-Windows
-        if: ${{ matrix.os != 'windows-2019' }}
+          echo "Setting POOCH_CACHE based on runner OS"
+          MSF_DIR="msf-files-3.59.0-alpha"
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            echo "POOCH_CACHE=/project/.cache/${MSF_CACHE_DIR} >> $GITHUB_ENV
+            # copying files so they available to cibuildwheel containers
+            mkdir -p $GITHUB_WORKSPACE/.cache/
+            cp -r ~/.cache/msf-files-3.59.0-alpha $GITHUB_WORKSPACE/.cache/
+          elif [[ "$RUNNER_OS" == "macOS" ]]; then
+            echo "macOS can handle default cache directory, so don't need to set POOCH_CACHE"
+          elif [[ "$RUNNER_OS" == "Windows" ]]; then
+            echo "POOCH_CACHE=C:\\Users\\runneradmin\\.cache\\${MSF_CACHE_DIR}" >> $GITHUB_ENV
+          fi
+
+      - name: Check cache status
         run: |
-          mkdir -p $GITHUB_WORKSPACE/.cache/
-          cp -r ~/.cache/msf-files-3.59.0-alpha $GITHUB_WORKSPACE/.cache/
-          echo "files"
-          ls -la ${{ github.workspace }}/.cache/msf-files*
-          echo "files in workspace cache"
-          ls -la ${{ github.workspace }}/.cache/
-          echo "directories in workspace cache"
-          ls -lda ${{ github.workspace }}/.cache
-          echo "directories in workspace"
-          ls -la ${{ github.workspace }}
-          echo "directories in home directory"
-          ls -lda ~
+          echo "user cache directory"
+          ls -l ~/.cache/
+          echo updated "POOCH_CACHE" files
+          ls -la ${POOCH_CACHE}/.cache/msf-files*
           echo "current working directory"
-          pwd
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
@@ -323,7 +326,7 @@ jobs:
           # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
           CIBW_TEST_COMMAND: "pytest -s -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
           SETUPTOOLS_SCM_PRETEND_VERSION: ${{ env.VERSION }}
-          POOCH_CACHE: /project/.cache/msf-files-3.59.0-alpha
+          POOCH_CACHE: ${{ env.POOCH_CACHE }}
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION POOCH_CACHE
         with:
           only: ${{ matrix.only }}
