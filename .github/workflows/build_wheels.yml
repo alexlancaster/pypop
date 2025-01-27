@@ -169,6 +169,10 @@ jobs:
     name: Setup cache for remote files
     runs-on: ubuntu-latest
     steps:
+
+      # gets working directory setup
+      - uses: actions/checkout@v4
+
       - name: Set up cache for MSF files
         id: msf_cache
         uses: actions/cache@v4
