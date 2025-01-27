@@ -180,6 +180,7 @@ jobs:
           fail-on-cache-miss: false
       - name: Preload MSF files into Cache
         run: |
+          pip install pooch requests
           python -c """
           import os
           import pooch
