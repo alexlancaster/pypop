@@ -189,8 +189,8 @@ jobs:
           msf_files = [file['name'] for file in files if file['name'].endswith('.msf')]
 
           # Create a pooch fetcher for the MSF files
-          registry = {file: None for file in msf_files}  # Replace None with actual hashes if available
-          fetcher = pooch.create(path=cache_dir, base_url=base_url, registry=registry)
+          #registry = {file: None for file in msf_files}  # Replace None with actual hashes if available
+          fetcher = pooch.create(path=cache_dir, base_url=base_url) #, registry=registry)
 
           # Fetch each MSF file
           for file in msf_files:
@@ -237,11 +237,11 @@ jobs:
           enableCrossOsArchive: true
 
       - name: Check cache status on Windows
-        if: ${{ matrix.os == 'windows' }}
+        if: ${{ matrix.os == 'windows-2019' }}
         run: |
           echo ${USERPROFILE}
       - name: Check cache status on non-Windows
-        if: ${{ matrix.os != 'windows' }}
+        if: ${{ matrix.os != 'windows-2019' }}
         run: |
           ls -l ~/.cache/msf-files*
           ls -l ~/.cache/
