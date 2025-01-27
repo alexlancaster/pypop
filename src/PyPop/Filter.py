@@ -45,6 +45,8 @@ from functools import reduce
 from operator import add
 from pathlib import Path
 
+import pooch
+
 from PyPop.Utils import StringMatrix
 
 
@@ -153,6 +155,7 @@ class AnthonyNolanFilter(Filter):
     def __init__(
         self,
         directoryName=None,
+        remoteMSF=None,
         alleleFileFormat="msf",
         preserveAmbiguousFlag=0,
         preserveUnknownFlag=0,
@@ -169,6 +172,7 @@ class AnthonyNolanFilter(Filter):
         sequenceFilterMethod="strict",
     ):
         self.directoryName = directoryName
+        self.remoteMSF = remoteMSF
         self.alleleFileFormat = alleleFileFormat
         self.preserveAmbiguousFlag = preserveAmbiguousFlag
         self.preserveUnknownFlag = preserveUnknownFlag
@@ -837,16 +841,43 @@ class AnthonyNolanFilter(Filter):
 
         return str(pos - offsets[locus]) if locus in offsets else str(pos)
 
+    def _getMSFFilePath(self, locus):
+        """
+        fetches the path to the file locally or remotely (if remoteMSF option supplied)
+        """
+        if self.directoryName:
+            # Local file path
+            return Path(self.directoryName) / f"{locus}{self.sequenceFileSuffix}.msf"
+        if self.remoteMSF:
+            # remote file using pooch
+            base_url = f"https://raw.githubusercontent.com/ANHIG/IMGTHLA/v{self.remoteMSF}/msf/"
+            file_name = f"{locus}{self.sequenceFileSuffix}.msf"
+
+            # full URL to the file
+            file_url = f"{base_url}{file_name}"
+            print("file_url:", file_url)
+
+            # use pooch.retrieve() to download and cache the file
+            local_file = pooch.retrieve(
+                url=file_url,
+                known_hash=None,  # no hash validation; you can add a hash if desired
+                path=pooch.os_cache(f"msf-files-{self.remoteMSF}"),  # cache directory
+            )
+
+            print(f"File downloaded to: {local_file}")
+            return Path(local_file)
+
+        error_message = "Either directoryName or remoteMSF must be specified."
+        raise ValueError(error_message)
+
     def _getMSFLinesForLocus(self, locus):
         # FIXME: this code is specific to hla data
         # CORNER CASE! 'C' locus is called 'Cw' in data files
         #        if locus == 'C':
         #            locus = 'Cw'
 
-        # FIXME:  make the file name configurable
-        self.filename = locus + self.sequenceFileSuffix + ".msf"
-
-        with open(Path(self.directoryName) / self.filename) as fp:
+        msfFilePath = self._getMSFFilePath(locus)
+        with open(msfFilePath) as fp:
             self.lines = fp.readlines()
 
     def _getSequenceFromLines(self, locus=None, allele=None):

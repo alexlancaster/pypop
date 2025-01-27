@@ -653,14 +653,40 @@ class Main:
                     )
                 except Exception:
                     sequenceFileSuffix = "_prot"
+
                 try:
-                    anthonynolanPath = get_sequence_directory(
-                        self.config.get(filterCall, "directory"), debug=self.debug
-                    )
-                except Exception:
-                    sys.exit(
-                        "Need to provide a path to the Anthony Nolan sequence files: no default"
-                    )
+                    directory = self.config.get(filterCall, "directory", fallback=None)
+                    remoteMSF = self.config.get(filterCall, "remoteMSF", fallback=None)
+
+                    if not (directory or remoteMSF):
+                        # neither option is provided
+                        sys.exit(
+                            "Error: You must provide either a 'directory' or a 'remoteMSF' option in the configuration."
+                        )
+                    if directory and remoteMSF:
+                        # both options are provided
+                        sys.exit(
+                            "Error: 'directory' and 'remoteMSF' options are mutually exclusive. Provide only one."
+                        )
+                    # process the options
+                    if directory:
+                        anthonynolanPath = get_sequence_directory(
+                            directory, debug=self.debug
+                        )
+                        remoteMSF = None
+                    else:
+                        anthonynolanPath = None
+                except Exception as e:
+                    sys.exit(f"Error parsing the configuration: {e}")
+
+                # try:
+                #     anthonynolanPath = get_sequence_directory(
+                #         self.config.get(filterCall, "directory"), debug=self.debug
+                #     )
+                # except Exception:
+                #     sys.exit(
+                #         "Need to provide a path to the Anthony Nolan sequence files: no default"
+                #     )
                 try:
                     sequenceFilterMethod = self.config.get(
                         filterCall, "sequenceConsensusMethod"
@@ -673,6 +699,7 @@ class Main:
                 filter = AnthonyNolanFilter(
                     debug=self.debug,
                     directoryName=anthonynolanPath,
+                    remoteMSF=remoteMSF,
                     alleleFileFormat="msf",
                     alleleDesignator=self.alleleDesignator,
                     sequenceFileSuffix=sequenceFileSuffix,
