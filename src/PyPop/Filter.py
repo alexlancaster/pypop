@@ -859,7 +859,7 @@ class AnthonyNolanFilter(Filter):
 
             # force to use cache directory in home directory
             cache_dir = Path(
-                Path.expanduser("~"), ".cache", f"msf-files-{self.remoteMSF}"
+                Path("~").expanduser(), ".cache", f"msf-files-{self.remoteMSF}"
             )
             print(f"cache dir: {cache_dir}")
 
