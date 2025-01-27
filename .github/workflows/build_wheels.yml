@@ -257,6 +257,7 @@ jobs:
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
 
       - name: Do cache setup based on OS
+        shell: bash
         run: |
           echo "Setting POOCH_CACHE based on runner OS"
           if [[ "$RUNNER_OS" == "Linux" ]]; then
@@ -267,16 +268,19 @@ jobs:
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             echo "macOS can handle default cache directory, so don't need to set POOCH_CACHE"
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
+            echo: "USERPROFILE: ${USERPROFILE}, HOME: ${HOME}"
             echo "POOCH_CACHE=C:\\Users\\runneradmin\\.cache\\${MSF_CACHE_DIR}" >> $GITHUB_ENV
           fi
 
       - name: Check cache status
+        shell: bash
         run: |
           echo "user cache directory"
           ls -l ~/.cache/
           echo updated "POOCH_CACHE" files
-          ls -la ${POOCH_CACHE}/.cache/msf-files*
+          echo "${POOCH_CACHE}"
           echo "current working directory"
+          pwd
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
