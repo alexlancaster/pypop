@@ -228,7 +228,7 @@ jobs:
         uses: pypa/cibuildwheel@v2.22.0
         env:
           # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
-          CIBW_TEST_COMMAND: "pytest -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
+          CIBW_TEST_COMMAND: "pytest -s -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
           SETUPTOOLS_SCM_PRETEND_VERSION: ${{ env.VERSION }}
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION
         with:

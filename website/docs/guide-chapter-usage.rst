@@ -990,21 +990,44 @@ output showing what was resolved and what could not be resolved.
    Sequence Format <https://www.ebi.ac.uk/ipd/imgt/hla/download/>`__)
    **[Default:** ``msf`` **]**
 
--  ``directory``
+-  ``directory`` **or** ``remoteMSF``
 
-   Specifies the path to the root of the sequence files. It can be
-   either relative or absolute. If it is relative, the path will be
-   resolved relative to the current working directory. **There are no
-   defaults.**
+   This section expects there to exist *either* ``directory`` option
+   (which points to a local disk directory) or the ``remoteMSF``
+   option (which downloads MSF files on-the-fly) (but not both).
+   **There are no defaults.**
 
-   To save space, the current sequence files are not distributed as
-   part of the wheels, but are incorporated into the unit tests, and
-   distributed as part of the source distribution, and also can be
-   found in the GitHub repo here (you can either clone the repo or
-   download the files manually):
+   * ``directory``: Specifies the path to the root of the sequence
+     files. It can be either relative or absolute. If it is relative,
+     the path will be resolved relative to the current working
+     directory.
 
-   * ``txt``: files: `tests/data/anthonynolan/HIG-seq-pep-text/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/HIG-seq-pep-text>`__
-   * ``msf`` files: `tests/data/anthonynolan/msf/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/msf>`__
+     To save space, the current sequence files are not distributed as
+     part of the wheels, but are incorporated into the unit tests, and
+     distributed as part of the source distribution, and also can be
+     found in the GitHub repo here (you can either clone the repo or
+     download the files manually):
+
+     - ``txt``: files: `tests/data/anthonynolan/HIG-seq-pep-text/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/HIG-seq-pep-text>`__
+     - ``msf`` files: `tests/data/anthonynolan/msf/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/msf>`__
+
+   * ``remoteMSF``: Specifies the version (tag) of the remote ``msf``
+     directory in the `IMGT-HLA GitHub repo
+     <https://github.com/ANHIG/IMGTHLA/>`__.  If present, the remote
+     MSF files for the specified version will be downloaded on-demand,
+     and cached for later reuse.  For example:
+
+     .. code-block:: ini
+
+        [Sequence]
+        remoteMSF=3.59.0-alpha
+
+     would download the msf directory with ``v3.59.0-alpha`` tag,
+     i.e.: https://github.com/ANHIG/IMGTHLA/tree/v3.59.0-alpha/msf
+
+     Note that this option is only available for MSF files, there is
+     no equivalent for other file types.
+
 
 -  ``preserve-ambiguous``
 
@@ -1053,10 +1076,11 @@ alignment files.**
    wanted to use the nucleotide sequence files, you might use
    ``_nuc``.) **[Default:** ``_prot`` **]**.
 
--  ``directory``
+-  ``directory`` **or** ``remoteMSF``
 
-   Specifies the path to the root of the sequence files, in the same
-   manner as in the ``AnthonyNolan`` section, above.
+   Specifies the either path to the root of the sequence files
+   (``directory``), or the remote MSF version (``remoteMSF``) in the
+   same manner as in the ``AnthonyNolan`` section, above.
 
 ``[DigitBinning]`` filter section
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
