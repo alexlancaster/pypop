@@ -236,10 +236,16 @@ jobs:
             pooch-cache-msf-files-3.59.0-alpha
           enableCrossOsArchive: true
 
-      - name: Check cache status
+      - name: Check cache status on Windows
+        if: ${{ matrix.os == 'windows' }}
         run: |
-          #ls -l ~/.cache/
-          #ls -ld ~/.cache
+          echo ${USERPROFILE}
+      - name: Check cache status on non-Windows
+        if: ${{ matrix.os != 'windows' }}
+        run: |
+          ls -l ~/.cache/msf-files*
+          ls -l ~/.cache/
+          ls -ld ~/.cache
           ls -ld ~
           pwd
 
