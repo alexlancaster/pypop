@@ -38,6 +38,7 @@
 
 ."""
 
+import os
 import re
 import sys
 from abc import ABC, abstractmethod
@@ -858,16 +859,27 @@ class AnthonyNolanFilter(Filter):
             print("file_url:", file_url)
 
             # force to use cache directory in home directory
-            cache_dir = Path(
+            custom_cache_dir = Path(
                 Path("~").expanduser(), ".cache", f"msf-files-{self.remoteMSF}"
             )
-            print(f"cache dir: {cache_dir}")
+            print(f"looking for cache in home location: {custom_cache_dir}")
+
+            if not custom_cache_dir.exists():
+                # look in environment variable supplied by POOCH_CACHE
+                custom_cache_dir = Path(os.environ.get("POOCH_CACHE"))
+                if not custom_cache_dir.exists():
+                    print(
+                        "custom cache not found, falling back to pooch's default cache."
+                    )
+                    custom_cache_dir = pooch.os_cache(f"msf-files-{self.remoteMSF}")
+
+            print(f"Using cache directory: {custom_cache_dir}")
 
             # use pooch.retrieve() to download and cache the file
             local_file = pooch.retrieve(
                 url=file_url,
                 known_hash=None,  # no hash validation; you can add a hash if desired
-                path=cache_dir,
+                path=custom_cache_dir,
             )
 
             print(f"File downloaded to: {local_file}")
