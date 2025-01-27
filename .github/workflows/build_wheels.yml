@@ -202,7 +202,7 @@ jobs:
 
           # Fetch each MSF file
           for file in msf_files:
-            print(f"Fetching {file}...")
+            print(f'Fetching {file}...')
             fetcher.fetch(file)
 
           print('All MSF files fetched and cached successfully.')
