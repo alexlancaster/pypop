@@ -177,7 +177,7 @@ jobs:
         id: msf_cache
         uses: actions/cache@v4
         with:
-          path: ~/.cache/msf-files-3.59.0-alpha
+          path: msf-files-3.59.0-alpha
           key: pooch-cache-msf-files-3.59.0-alpha
           restore-keys: |
             pooch-cache-msf-files-3.59.0-alpha
@@ -196,7 +196,8 @@ jobs:
           # Define the base URL and path for the MSF files
           base_url = 'https://raw.githubusercontent.com/ANHIG/IMGTHLA/v3.59.0-alpha/msf/'
           # Create cache directory
-          cache_dir = pooch.os_cache('msf-files-3.59.0-alpha')
+          #cache_dir = pooch.os_cache('msf-files-3.59.0-alpha')
+          cache_dir = 'msf-files-3.59.0-alpha'
 
           # Fetch the directory listing of MSF files from GitHub (raw listing)
           response = requests.get('https://api.github.com/repos/ANHIG/IMGTHLA/contents/msf?ref=v3.59.0-alpha')
@@ -222,7 +223,7 @@ jobs:
         if: ${{ steps.msf_cache.outputs.cache-hit != 'true' }}
         uses: actions/cache/save@v4
         with:
-          path: ~/.cache/msf-files-3.59.0-alpha
+          path: msf-files-3.59.0-alpha
           key: pooch-cache-msf-files-3.59.0-alpha
           enableCrossOsArchive: true
 
@@ -248,7 +249,7 @@ jobs:
         uses: actions/cache/restore@v4
         with:
           # restore to the workspace, not home directory
-          path: ~/.cache/${{ env.MSF_CACHE_DIR }}
+          path: ${{ env.MSF_CACHE_DIR }}
           key: pooch-cache-${{ env.MSF_CACHE_DIR }}
           restore-keys: |
             pooch-cache-${{ env.MSF_CACHE_DIR }}
@@ -265,26 +266,26 @@ jobs:
         run: |
           echo "Setting POOCH_CACHE based on runner OS"
           if [[ "$RUNNER_OS" == "Linux" ]]; then
-            echo "POOCH_CACHE=/project/.cache/${MSF_CACHE_DIR}" >> $GITHUB_ENV
+            echo "POOCH_CACHE=/project/${MSF_CACHE_DIR}" >> $GITHUB_ENV
             # copying files so they available to cibuildwheel containers
-            mkdir -p $GITHUB_WORKSPACE/.cache/
-            cp -r ~/.cache/${MSF_CACHE_DIR} $GITHUB_WORKSPACE/.cache/
+            #mkdir -p $GITHUB_WORKSPACE/.cache/
+            #cp -r ~/.cache/${MSF_CACHE_DIR} $GITHUB_WORKSPACE/.cache/
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
             echo "macOS can handle default cache directory, so don't need to set POOCH_CACHE"
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
             echo "Searching for restored cache directory..."
             #find /c /d -type d -name "${MSF_CACHE_DIR}" 2>/dev/null || echo "Cache directory not found"
             echo "USERPROFILE: ${USERPROFILE}, HOME: ${HOME}"
-            echo "POOCH_CACHE=C:\\Users\\runneradmin\\.cache\\${MSF_CACHE_DIR}" >> $GITHUB_ENV
+            echo "POOCH_CACHE=${MSF_CACHE_DIR}" >> $GITHUB_ENV
           fi
 
       - name: Check cache status
         shell: bash
         run: |
           echo "user cache directory"
-          ls -ld ~/.cache/ || true
+          ls -ld ${MSF_CACHE_DIR} || true
           echo "github workspace cache directory"
-          ls -ld "$GITHUB_WORKSPACE/.cache/" || true
+          ls -ld "$GITHUB_WORKSPACE/${MSF_CACHE_DIR}" || true
           echo "updated POOCH_CACHE files"
           echo "${POOCH_CACHE}"
           ls -ld "${POOCH_CACHE}/*" || true
