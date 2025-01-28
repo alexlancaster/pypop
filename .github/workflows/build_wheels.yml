@@ -268,11 +268,12 @@ jobs:
           echo "Setting POOCH_CACHE based on runner OS"
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             # adding /project to path so  it works inside cibuildwheel containers
-            echo "POOCH_CACHE=/project/${MSF_CACHE_DIR}" >> $GITHUB_ENV
+            POOCH_CACHE="/project/${MSF_CACHE_DIR}"
           else
-            echo "POOCH_CACHE=${GITHUB_WORKSPACE}/${MSF_CACHE_DIR}" >> $GITHUB_ENV
+            POOCH_CACHE="${GITHUB_WORKSPACE}/${MSF_CACHE_DIR}"
           fi
           echo "POOCH_CACHE=${POOCH_CACHE}"
+          echo "POOCH_CACHE=${POOCH_CACHE}" >> $GITHUB_ENV
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
