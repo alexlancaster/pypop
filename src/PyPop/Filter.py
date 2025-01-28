@@ -866,7 +866,7 @@ class AnthonyNolanFilter(Filter):
 
             if not custom_cache_dir.exists():
                 # look in environment variable supplied by POOCH_CACHE
-                custom_cache_dir = Path(os.environ.get("POOCH_CACHE"))
+                custom_cache_dir = Path(os.environ.get("POOCH_CACHE")).resolve()
                 print(
                     f"looking for cache in POOCH_CACHE environment variable: {custom_cache_dir}"
                 )
