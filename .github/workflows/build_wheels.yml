@@ -254,6 +254,8 @@ jobs:
           restore-keys: |
             pooch-cache-${{ env.MSF_CACHE_DIR }}
           enableCrossOsArchive: true
+        env:
+          MSF_CACHE_DIR: ${{ env.MSF_CACHE_DIR }}
 
       - uses: actions/checkout@v4
         with:
