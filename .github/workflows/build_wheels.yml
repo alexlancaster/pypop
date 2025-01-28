@@ -150,8 +150,10 @@ jobs:
           else
             MATRIX=$(
               {
-              cibuildwheel --print-build-identifiers --platform linux \
+              cibuildwheel --print-build-identifiers --platform linux --archs x86_64 \
               | jq -nRc '{"only": inputs, "os": "ubuntu-20.04"}' \
+              cibuildwheel --print-build-identifiers --platform linux --archs aarch64 \
+              | jq -nRc '{"only": inputs, "os": "ubuntu-22.04-arm"}' \
               && cibuildwheel --print-build-identifiers --platform macos --archs x86_64 \
               | jq -nRc '{"only": inputs, "os": "macos-13"}' \
               && cibuildwheel --print-build-identifiers --platform macos --archs arm64 \
