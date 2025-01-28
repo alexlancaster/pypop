@@ -269,9 +269,7 @@ jobs:
           if [[ "$RUNNER_OS" == "Linux" ]]; then
             # adding /project to path so  it works inside cibuildwheel containers
             echo "POOCH_CACHE=/project/${MSF_CACHE_DIR}" >> $GITHUB_ENV
-          elif [[ "$RUNNER_OS" == "macOS" ]]; then
-            echo "POOCH_CACHE=${GITHUB_WORKSPACE}/${MSF_CACHE_DIR}" >> $GITHUB_ENV
-          elif [[ "$RUNNER_OS" == "Windows" ]]; then
+          else
             echo "POOCH_CACHE=${GITHUB_WORKSPACE}/${MSF_CACHE_DIR}" >> $GITHUB_ENV
           fi
           echo "POOCH_CACHE=${POOCH_CACHE}"
