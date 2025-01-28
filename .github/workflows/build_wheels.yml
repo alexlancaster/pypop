@@ -261,16 +261,6 @@ jobs:
           restore-keys: |
             pooch-cache-${{ env.MSF_CACHE_DIR }}
           enableCrossOsArchive: true
-        env:
-          MSF_CACHE_DIR: ${{ env.MSF_CACHE_DIR }}
-
-      - name: Post-restore check
-        shell: bash
-        run: |
-          echo "print working directory"
-          pwd
-          echo "post-cache restore contents of working directory"
-          ls -la
 
       - name: Do cache setup based on OS
         shell: bash
@@ -284,21 +274,6 @@ jobs:
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
             echo "POOCH_CACHE=${GITHUB_WORKSPACE}/${MSF_CACHE_DIR}" >> $GITHUB_ENV
           fi
-
-      - name: Check cache status
-        shell: bash
-        run: |
-          echo "user cache directory"
-          ls -ld ${MSF_CACHE_DIR} || true
-          echo "github workspace cache directory"
-          ls -ld "$GITHUB_WORKSPACE/${MSF_CACHE_DIR}" || true
-          echo "updated POOCH_CACHE files"
-          echo "${POOCH_CACHE}"
-          ls -ld "${POOCH_CACHE}/*" || true
-          echo "current working directory"
-          pwd
-          echo "contents of working directory"
-          ls -la
 
       - name: Set up QEMU
         if: runner.os == 'Linux'
