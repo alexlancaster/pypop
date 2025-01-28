@@ -277,18 +277,12 @@ jobs:
         run: |
           echo "Setting POOCH_CACHE based on runner OS"
           if [[ "$RUNNER_OS" == "Linux" ]]; then
+            # adding /project to path so  it works inside cibuildwheel containers
             echo "POOCH_CACHE=/project/${MSF_CACHE_DIR}" >> $GITHUB_ENV
-            # copying files so they available to cibuildwheel containers
-            #mkdir -p $GITHUB_WORKSPACE/.cache/
-            #cp -r ~/.cache/${MSF_CACHE_DIR} $GITHUB_WORKSPACE/.cache/
           elif [[ "$RUNNER_OS" == "macOS" ]]; then
-            echo "macOS can handle default cache directory, so don't need to set POOCH_CACHE"
-            echo "POOCH_CACHE=$(pwd)/${MSF_CACHE_DIR}" >> $GITHUB_ENV
+            echo "POOCH_CACHE=${GITHUB_WORKSPACE}/${MSF_CACHE_DIR}" >> $GITHUB_ENV
           elif [[ "$RUNNER_OS" == "Windows" ]]; then
-            echo "Searching for restored cache directory..."
-            #find /c /d -type d -name "${MSF_CACHE_DIR}" 2>/dev/null || echo "Cache directory not found"
-            echo "USERPROFILE: ${USERPROFILE}, HOME: ${HOME}"
-            echo "POOCH_CACHE=$(pwd)/${MSF_CACHE_DIR}" >> $GITHUB_ENV
+            echo "POOCH_CACHE=${GITHUB_WORKSPACE}/${MSF_CACHE_DIR}" >> $GITHUB_ENV
           fi
 
       - name: Check cache status
