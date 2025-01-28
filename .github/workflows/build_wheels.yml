@@ -49,7 +49,7 @@ on:
       - published
 
 env:
-  # set MSF cache directory name globally
+  # set MSF version and cache directory name globally
   MSF_VERSION: 3.59.0-alpha
   MSF_CACHE_DIR: msf-files-3.59.0-alpha
 
