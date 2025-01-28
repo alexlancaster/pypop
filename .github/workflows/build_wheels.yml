@@ -258,6 +258,12 @@ jobs:
         env:
           MSF_CACHE_DIR: ${{ env.MSF_CACHE_DIR }}
 
+      - name: Post-restore check
+        shell: bash
+        run: |
+          echo "post-cache restore contents of working directory"
+          ls -la
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
