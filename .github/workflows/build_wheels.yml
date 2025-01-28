@@ -294,7 +294,7 @@ jobs:
           ls -ld "${POOCH_CACHE}/*" || true
           echo "current working directory"
           pwd
-          echo contents of working directory"
+          echo "contents of working directory"
           ls -la
 
       - name: Set up QEMU
