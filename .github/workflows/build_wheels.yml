@@ -261,6 +261,8 @@ jobs:
       - name: Post-restore check
         shell: bash
         run: |
+          echo "print working directory"
+          pwd
           echo "post-cache restore contents of working directory"
           ls -la
 
