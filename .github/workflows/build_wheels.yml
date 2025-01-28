@@ -50,7 +50,8 @@ on:
 
 env:
   # set MSF cache directory name globally
-   MSF_CACHE_DIR: msf-files-3.59.0-alpha
+  MSF_VERSION: 3.59.0-alpha
+  MSF_CACHE_DIR: msf-files-${{ env.MSF_VERSION }}
 
 jobs:
   skip_publish_zenodo:
@@ -196,12 +197,12 @@ jobs:
           import pooch
           import requests
           # Define the base URL and path for the MSF files
-          base_url = 'https://raw.githubusercontent.com/ANHIG/IMGTHLA/v3.59.0-alpha/msf/'
+          base_url = 'https://raw.githubusercontent.com/ANHIG/IMGTHLA/v${MSF_VERSION}/msf/'
           # Create cache directory
           cache_dir = '${MSF_CACHE_DIR}'
 
           # Fetch the directory listing of MSF files from GitHub (raw listing)
-          response = requests.get('https://api.github.com/repos/ANHIG/IMGTHLA/contents/msf?ref=v3.59.0-alpha')
+          response = requests.get('https://api.github.com/repos/ANHIG/IMGTHLA/contents/msf?ref=v${MSF_VERSION}')
           files = response.json()
 
           # Extract .msf files from the response
