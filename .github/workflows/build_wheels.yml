@@ -198,7 +198,7 @@ jobs:
           # Define the base URL and path for the MSF files
           base_url = 'https://raw.githubusercontent.com/ANHIG/IMGTHLA/v3.59.0-alpha/msf/'
           # Create cache directory
-          cache_dir = ${MSF_CACHE_DIR}
+          cache_dir = '${MSF_CACHE_DIR}'
 
           # Fetch the directory listing of MSF files from GitHub (raw listing)
           response = requests.get('https://api.github.com/repos/ANHIG/IMGTHLA/contents/msf?ref=v3.59.0-alpha')
