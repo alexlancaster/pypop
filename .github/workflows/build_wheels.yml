@@ -246,6 +246,12 @@ jobs:
         run: |
           echo "MSF_CACHE_DIR=msf-files-3.59.0-alpha" >> $GITHUB_ENV
 
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
+          ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
+
       - name: Restore cache for MSF files
         uses: actions/cache/restore@v4
         with:
@@ -265,12 +271,6 @@ jobs:
           pwd
           echo "post-cache restore contents of working directory"
           ls -la
-
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
-          ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
 
       - name: Do cache setup based on OS
         shell: bash
