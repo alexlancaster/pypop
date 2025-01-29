@@ -1,0 +1,6 @@
+ pre {
+    tab-size: 12; /* Adjust as needed */
+    -moz-tab-size: 12;
+    -o-tab-size: 12;
+    -webkit-tab-size: 12;
+}

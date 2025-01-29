@@ -238,26 +238,13 @@ html_theme_options = {  # these are both piccolo theme-specific
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = []
+html_static_path = ["_static"]
+
+html_css_files = ["custom.css"]
 
 # put all files that should be root of the pypop.org/ webserver into this directory
 # and they will be included in the build directory (and therefore on the website)
 html_extra_path = ["html_root"]
-
-# Custom sidebar templates, must be a dictionary that maps document names
-# to template names.
-#
-# This is required for the alabaster theme
-# refs: http://alabaster.readthedocs.io/en/latest/installation.html#sidebars
-# html_sidebars = {
-#    'index': [],
-#    '**': [
-#        'relations.html',  # needs 'show_related': True theme option to display
-#        'searchbox.html',
-#    ]
-# }
-
-# html_sidebars = { 'index': [], '**': ['localtoc.html'] }
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -393,7 +380,9 @@ pdf_documents = [
 
 # override the default literalinclude directive
 # this sets the tab width only in LaTeX mode to make sure tab stops stay aligned
-# not needed in HTML case, because we want to preserve the tabs for cut-and-paste
+
+# in HTML case, because we want to preserve the tabs for cut-and-paste, we use
+# _static/custom.css to set tab-width
 
 
 class MyLiteralInclude(LiteralInclude):
