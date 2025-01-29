@@ -274,12 +274,6 @@ jobs:
           echo "POOCH_CACHE=${POOCH_CACHE}"
           echo "POOCH_CACHE=${POOCH_CACHE}" >> $GITHUB_ENV
 
-      - name: Set up QEMU
-        if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: all
-
       - name: Install a recent stable Python to handle Python deps
         uses: actions/setup-python@v5
         with:
