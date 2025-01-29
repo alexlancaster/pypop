@@ -168,12 +168,14 @@ jobs:
         run: |
           echo "CI_ONLY" $CI_ONLY
           if [ "$CI_ONLY" == "true" ]; then
-            MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp313-win_amd64','os':'windows-2019'},{'only':'cp313-win_arm64','os':'windows-2019'},{'only':'cp313-macosx_x86_64','os':'macos-13'}, {'only':'cp313-macosx_arm64','os':'macos-14'}]"
+            MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-20.04'},{'only':'cp313-manylinux_aarch64','os':'ubuntu-22.04-arm'},{'only':'cp313-win_amd64','os':'windows-2019'},{'only':'cp313-win_arm64','os':'windows-2019'},{'only':'cp313-macosx_x86_64','os':'macos-13'}, {'only':'cp313-macosx_arm64','os':'macos-14'}]"
           else
             MATRIX=$(
               {
-              cibuildwheel --print-build-identifiers --platform linux \
+              cibuildwheel --print-build-identifiers --platform linux --archs x86_64 \
               | jq -nRc '{"only": inputs, "os": "ubuntu-20.04"}' \
+              && cibuildwheel --print-build-identifiers --platform linux --archs aarch64 \
+              | jq -nRc '{"only": inputs, "os": "ubuntu-22.04-arm"}' \
               && cibuildwheel --print-build-identifiers --platform macos --archs x86_64 \
               | jq -nRc '{"only": inputs, "os": "macos-13"}' \
               && cibuildwheel --print-build-identifiers --platform macos --archs arm64 \
@@ -209,12 +211,6 @@ jobs:
           fetch-depth: 0
           # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
-
-      - name: Set up QEMU
-        if: runner.os == 'Linux'
-        uses: docker/setup-qemu-action@v3
-        with:
-          platforms: all
 
       - name: Install a recent stable Python to handle Python deps
         uses: actions/setup-python@v5
