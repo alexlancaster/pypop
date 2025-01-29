@@ -374,6 +374,7 @@ and DQB1 loci) with microsatellite data (locus D6S2222).
    :name: data-nucleotide
    :caption: Sequence genotype data with header information
    :language: text
+   :class: tab-width-15
 
 This example includes nucleotide sequence data: the TGFB1CDN10 locus
 consists of one nucleotide, the TGFBhapl locus is actually haplotype
