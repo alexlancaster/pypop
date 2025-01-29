@@ -185,12 +185,6 @@ jobs:
           # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
 
-      # - name: Set up QEMU
-      #   if: runner.os == 'Linux'
-      #   uses: docker/setup-qemu-action@v3
-      #   with:
-      #     platforms: all
-
       - name: Install a recent stable Python to handle Python deps
         uses: actions/setup-python@v5
         with:
