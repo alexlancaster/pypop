@@ -344,10 +344,11 @@ This is an example of the simplest kind of data file.
 
 .. note::
 
-   Note, depending on how you are viewing this documentation, the
-   columns may not appear to align with the header, but that is due to
-   how the tabs are rendered. You can copy and paste the data into a
-   text editor to see the tabs.
+   Depending on how you are viewing this documentation, in some of the
+   examples,the columns may not appear to align with their headers,
+   but that is purely due to how the tabs are rendered. If you
+   copy-and-paste the data into a text editor you should be able to
+   see that the columns are tab separated.
 
 .. literalinclude:: ../../tests/data/doc-examples/data-minimal-noheader.pop
    :name: data-minimal-noheader
