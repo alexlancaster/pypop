@@ -315,6 +315,12 @@ depending on the format of your data.
    :program:`LibreOffice`, export the file as tab-delimited text, in
    order to use it as PyPop data file.
 
+   Depending on how you are viewing this documentation, in some of the
+   examples below, the columns may not appear to align with their
+   headers, but that is purely due to how tabstops are rendered. If
+   you copy-and-paste the data into a text editor you should be able
+   to see that the columns are tab separated.
+
 As you will see in the following examples, population files begin with
 header information. In the simplest case, the first line contains the
 column headers for the genotype, allele count, or, sequence information
@@ -340,9 +346,7 @@ configuration to read in the data shown in
    :caption: Multi-locus allele-level genotype data
    :language: text
 
-This is an example of the simplest kind of data file. Note that the columns in the header
-do not appear to align, but that is due to tab separation. You can copy and paste the data
-into a text editor to see the tabs.
+This is an example of the simplest kind of data file.
 
 .. literalinclude:: ../../tests/data/doc-examples/data-minimal-noheader.pop
    :name: data-minimal-noheader
@@ -367,18 +371,20 @@ information.
    :caption: Multi-locus allele-level HLA genotype and microsatellite genotype data with header information
    :language: text
 
-This example mixes different kinds of data: HLA allele data (from DRB1
-and DQB1 loci) with microsatellite data (locus D6S2222).
+This example mixes different kinds of data: HLA allele data (from
+``DRB1`` and ``DQB1`` loci) with microsatellite data (locus
+``D6S2222``).
 
 .. literalinclude:: ../../tests/data/doc-examples/data-nucleotide.pop
    :name: data-nucleotide
    :caption: Sequence genotype data with header information
    :language: text
+   :class: tab-width-15
 
-This example includes nucleotide sequence data: the TGFB1CDN10 locus
-consists of one nucleotide, the TGFBhapl locus is actually haplotype
-data, but PyPop simply treats each combination as a separate "allele"
-for subsequent analysis.
+This example includes nucleotide sequence data: the ``TGFB1CDN10``
+locus consists of one nucleotide, the ``TGFBhapl`` locus is actually
+haplotype data, but PyPop simply treats each combination as a separate
+"allele" for subsequent analysis.
 
 .. literalinclude:: ../../tests/data/doc-examples/data-allelecount.pop
    :name: data-allelecount
@@ -789,7 +795,7 @@ modified.
 
    If you are analyzing data that contains a population name for each
    sample, then the first entry in your ``validSampleFields`` section
-   should have a prefixed +, as below:
+   should have a prefixed ``+``, as below:
 
    .. code-block:: ini
 
