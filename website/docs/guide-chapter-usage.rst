@@ -315,6 +315,12 @@ depending on the format of your data.
    :program:`LibreOffice`, export the file as tab-delimited text, in
    order to use it as PyPop data file.
 
+   Depending on how you are viewing this documentation, in some of the
+   examples below, the columns may not appear to align with their
+   headers, but that is purely due to how tabstops are rendered. If
+   you copy-and-paste the data into a text editor you should be able
+   to see that the columns are tab separated.
+
 As you will see in the following examples, population files begin with
 header information. In the simplest case, the first line contains the
 column headers for the genotype, allele count, or, sequence information
@@ -341,14 +347,6 @@ configuration to read in the data shown in
    :language: text
 
 This is an example of the simplest kind of data file.
-
-.. note::
-
-   Depending on how you are viewing this documentation, in some of the
-   examples,the columns may not appear to align with their headers,
-   but that is purely due to how the tabs are rendered. If you
-   copy-and-paste the data into a text editor you should be able to
-   see that the columns are tab separated.
 
 .. literalinclude:: ../../tests/data/doc-examples/data-minimal-noheader.pop
    :name: data-minimal-noheader
