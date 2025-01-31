@@ -935,7 +935,7 @@ to the data.
       makeNewPopFile=all-loci:1
 
       [Sequence]
-      directory=tests/data/anthonynolan/msf/
+      directory=tests/data/anthonynolan/msf-2.18.0/
 
    applied to an input file ``MyPopulation.pop`` with a single HLA
    locus ``A`` :
@@ -982,9 +982,9 @@ section, below, or the `IMGT ftp site
 .. warning::
 
    The current implementation of the ``AnthonyNolan`` filter only
-   works with data in old-style HLA nomenclature.  However, the
-   ``Sequence`` filter has been ported to use new nomenclature, but
-   only by specifying a recent version of the MSF files in the
+   works with data in old-style (pre-2010) HLA nomenclature.  However,
+   the ``Sequence`` filter has been ported to use new nomenclature,
+   but only by specifying a recent version of the MSF files in the
    ``remoteMSF`` option
 
 Invocation of this filter will produce a ``<POPFILE>-filter.xml`` file
@@ -1005,19 +1005,23 @@ output showing what was resolved and what could not be resolved.
    option (which downloads MSF files on-the-fly) (but not both).
    **There are no defaults.**
 
+    To save space, sequence files are not distributed as part of the
+    wheels, but are either downloaded on-the-fly, or (in the case of
+    the versions using old sequence nomenclature) are distributed as
+    part of the source distribution. They are then incorporated into
+    the unit tests.
+
    * ``directory``: Specifies the path to the root of the sequence
      files. It can be either relative or absolute. If it is relative,
      the path will be resolved relative to the current working
      directory.
 
-     To save space, the current sequence files are not distributed as
-     part of the wheels, but are incorporated into the unit tests, and
-     distributed as part of the source distribution, and also can be
-     found in the GitHub repo here (you can either clone the repo or
-     download the files manually):
+     A version (2.18.0) of the sequence files that use old (pre-2010)
+     nomenclature can be found in the GitHub repo here (you can either
+     clone the repo or download the files manually):
 
      - ``txt``: files: `tests/data/anthonynolan/HIG-seq-pep-text/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/HIG-seq-pep-text>`__
-     - ``msf`` files: `tests/data/anthonynolan/msf/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/msf>`__
+     - ``msf`` files: `tests/data/anthonynolan/msf-2.18.0/ <https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/msf-2.18.0>`__
 
    * ``remoteMSF``: Specifies the version (tag) of the remote ``msf``
      directory in the `IMGT-HLA GitHub repo
@@ -1031,11 +1035,11 @@ output showing what was resolved and what could not be resolved.
         remoteMSF=3.59.0-alpha
 
      would download the msf directory with ``v3.59.0-alpha`` tag,
-     i.e.: https://github.com/ANHIG/IMGTHLA/tree/v3.59.0-alpha/msf
+     i.e.: https://github.com/ANHIG/IMGTHLA/tree/v3.59.0-alpha/msf,
+     which at the time of writing, was the most recent release.
 
      Note that this option is only available for MSF files, there is
      no equivalent for other file types.
-
 
 -  ``preserve-ambiguous``
 
