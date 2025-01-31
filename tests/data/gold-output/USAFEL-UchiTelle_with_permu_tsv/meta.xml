@@ -1,5 +1,5 @@
 <!DOCTYPE meta [
-<!ENTITY ENTUSAFEL-UchiTelle-small-out.xml SYSTEM "file:///home/alex/shared/pypop/pypop-master/ld-popmeta/run_test_USAFEL_slatkin_guothompson_emhaplofreq_with_permu_hwulgrvg/USAFEL-UchiTelle-small-out.xml">
+<!ENTITY ENTUSAFEL-UchiTelle-small-out.xml SYSTEM "file:///tmp/pypop/run_test_USAFEL_slatkin_guothompson_emhaplofreq_with_permu_tsv_w7bpj02u/USAFEL-UchiTelle-small-out.xml">
 ]>
 <meta>
 &ENTUSAFEL-UchiTelle-small-out.xml;
