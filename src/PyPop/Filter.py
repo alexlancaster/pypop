@@ -186,6 +186,8 @@ class AnthonyNolanFilter(Filter):
         self.unsequencedSite = unsequencedSite
         self.sequenceFilterMethod = sequenceFilterMethod
 
+        self.msf_cache_dir = None  # default to  None
+
         if self.unsequencedSite == self.untypedAllele:
             sys.exit(
                 "Designator for unsequenced site and untyped allele cannot be the same!"
@@ -842,6 +844,31 @@ class AnthonyNolanFilter(Filter):
 
         return str(pos - offsets[locus]) if locus in offsets else str(pos)
 
+    def _checkCacheDir(self):
+        # checks and sets the MSF cache directory, just once
+        if not self.msf_cache_dir:
+            # before checking POOCH_CACHE determine pooch's default
+            # cache directory as fallback
+            self.msf_cache_dir = pooch.os_cache(f"msf-files-{self.remoteMSF}")
+
+            # ow check for existence of environment variable
+            # POOCH_CACHE
+            pooch_cache_env = os.environ.get("POOCH_CACHE")
+
+            if pooch_cache_env:
+                pooch_cache_dir = Path(pooch_cache_env).resolve()
+                if pooch_cache_dir.exists():
+                    print(
+                        f"LOG: found directory in POOCH_CACHE environment variable: {pooch_cache_dir}"
+                    )
+                    self.msf_cache_dir = pooch_cache_dir
+                else:
+                    print(
+                        f"LOG: POOCH_CACHE cache not found in {pooch_cache_dir}, falling back to pooch's default cache: {self.msf_cache_dir}"
+                    )
+            else:
+                print(f"LOG: using default cache directory: {self.msf_cache_dir}")
+
     def _getMSFFilePath(self, locus):
         """
         fetches the path to the file locally or remotely (if remoteMSF option supplied)
@@ -856,36 +883,23 @@ class AnthonyNolanFilter(Filter):
 
             # full URL to the file
             file_url = f"{base_url}{file_name}"
-            print("file_url:", file_url)
 
-            # force to use cache directory in home directory
-            custom_cache_dir = Path(
-                Path("~").expanduser(), ".cache", f"msf-files-{self.remoteMSF}"
-            )
-            print(f"looking for cache in home location: {custom_cache_dir}")
+            if self.debug:
+                print("file_url:", file_url)
 
-            if not custom_cache_dir.exists():
-                # look in environment variable supplied by POOCH_CACHE
-                custom_cache_dir = Path(os.environ.get("POOCH_CACHE")).resolve()
-                print(
-                    f"looking for cache in POOCH_CACHE environment variable: {custom_cache_dir}"
-                )
-                if not custom_cache_dir.exists():
-                    print(
-                        "custom cache not found, falling back to pooch's default cache."
-                    )
-                    custom_cache_dir = pooch.os_cache(f"msf-files-{self.remoteMSF}")
-
-            print(f"Using cache directory: {custom_cache_dir}")
+            # get MSF cache dir
+            self._checkCacheDir()
 
             # use pooch.retrieve() to download and cache the file
             local_file = pooch.retrieve(
                 url=file_url,
                 known_hash=None,  # no hash validation; you can add a hash if desired
-                path=custom_cache_dir,
+                path=self.msf_cache_dir,
             )
 
-            print(f"File downloaded to: {local_file}")
+            if self.debug:
+                print(f"File downloaded to: {local_file}")
+
             return Path(local_file)
 
         error_message = "Either directoryName or remoteMSF must be specified."
