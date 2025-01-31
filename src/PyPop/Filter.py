@@ -844,42 +844,43 @@ class AnthonyNolanFilter(Filter):
 
         return str(pos - offsets[locus]) if locus in offsets else str(pos)
 
-    def _checkCacheDir(self):
-        # checks and sets the MSF cache directory, just once
-        if not self.msf_cache_dir:
-            # before checking POOCH_CACHE determine pooch's default
-            # cache directory as fallback
-            self.msf_cache_dir = pooch.os_cache(f"msf-files-{self.remoteMSF}")
+    def _setCacheDir(self):
+        # before checking POOCH_CACHE determine pooch's default
+        # cache directory as fallback
+        self.msf_cache_dir = pooch.os_cache(f"msf-files-{self.remoteMSF}")
 
-            # ow check for existence of environment variable
-            # POOCH_CACHE
-            pooch_cache_env = os.environ.get("POOCH_CACHE")
+        # ow check for existence of environment variable
+        # POOCH_CACHE
+        pooch_cache_env = os.environ.get("POOCH_CACHE")
 
-            if pooch_cache_env:
-                pooch_cache_dir = Path(pooch_cache_env).resolve()
-                if pooch_cache_dir.exists():
-                    print(
-                        f"LOG: found directory in POOCH_CACHE environment variable: {pooch_cache_dir}"
-                    )
-                    self.msf_cache_dir = pooch_cache_dir
-                else:
-                    print(
-                        f"LOG: POOCH_CACHE cache not found in {pooch_cache_dir}, falling back to pooch's default cache: {self.msf_cache_dir}"
-                    )
+        if pooch_cache_env:
+            pooch_cache_dir = Path(pooch_cache_env).resolve()
+            if pooch_cache_dir.exists():
+                print(
+                    f"LOG: found directory in POOCH_CACHE environment variable: {pooch_cache_dir}"
+                )
+                self.msf_cache_dir = pooch_cache_dir
             else:
-                print(f"LOG: using default cache directory: {self.msf_cache_dir}")
+                print(
+                    f"LOG: POOCH_CACHE cache not found in {pooch_cache_dir}, falling back to pooch's default cache: {self.msf_cache_dir}"
+                )
+        else:
+            print(f"LOG: using default cache directory: {self.msf_cache_dir}")
 
     def _getMSFFilePath(self, locus):
         """
         fetches the path to the file locally or remotely (if remoteMSF option supplied)
         """
+
+        # first generate the file name to retrieve(same for both local and remote)
+        file_name = f"{locus}{self.sequenceFileSuffix}.msf"
+
         if self.directoryName:
             # Local file path
-            return Path(self.directoryName) / f"{locus}{self.sequenceFileSuffix}.msf"
+            return Path(self.directoryName) / file_name
         if self.remoteMSF:
             # remote file using pooch
             base_url = f"https://raw.githubusercontent.com/ANHIG/IMGTHLA/v{self.remoteMSF}/msf/"
-            file_name = f"{locus}{self.sequenceFileSuffix}.msf"
 
             # full URL to the file
             file_url = f"{base_url}{file_name}"
@@ -887,8 +888,9 @@ class AnthonyNolanFilter(Filter):
             if self.debug:
                 print("file_url:", file_url)
 
-            # get MSF cache dir
-            self._checkCacheDir()
+            # checks and sets the MSF cache directory, just once
+            if not self.msf_cache_dir:
+                self._setCacheDir()
 
             # use pooch.retrieve() to download and cache the file
             local_file = pooch.retrieve(
