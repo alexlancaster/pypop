@@ -1,6 +1,6 @@
 <dataanalysis xmlns:xi="http://www.w3.org/2001/XInclude" date="" role="ParseGenotypeFile">
 <filename>USAFEL-UchiTelle-small.pop</filename>
-<pypop-version>1.0.0b7.post25+geed1b00</pypop-version>
+<pypop-version>1.2.0rc1.post0+g37a34a63.d20250122</pypop-version>
 <populationdata>
 <labcode>USAFEL</labcode>
 <method>12th Workshop SSOP</method>
@@ -37,7 +37,7 @@
 <allele name="02:18">
 <frequency>0.06250 </frequency><count>1</count>
 </allele>
-<allele name="03:012">
+<allele name="03:01:02">
 <frequency>0.12500 </frequency><count>2</count>
 </allele>
 <allele name="25:01">
@@ -115,31 +115,31 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:012" id="10" col="01:01">
+<genotype row="03:01:02" id="10" col="01:01">
 <observed>0</observed>
 <expected>0.125000</expected>
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:012" id="11" col="02:01">
+<genotype row="03:01:02" id="11" col="02:01">
 <observed>0</observed>
 <expected>0.500000</expected>
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:012" id="12" col="02:10">
+<genotype row="03:01:02" id="12" col="02:10">
 <observed>1</observed>
 <expected>0.250000</expected>
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:012" id="13" col="02:18">
+<genotype row="03:01:02" id="13" col="02:18">
 <observed>0</observed>
 <expected>0.125000</expected>
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:012" id="14" col="03:012">
+<genotype row="03:01:02" id="14" col="03:01:02">
 <observed>0</observed>
 <expected>0.125000</expected>
 <chisq role="not-calculated"/>
@@ -169,7 +169,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="25:01" id="19" col="03:012">
+<genotype row="25:01" id="19" col="03:01:02">
 <observed>0</observed>
 <expected>0.250000</expected>
 <chisq role="not-calculated"/>
@@ -205,7 +205,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="32:04" id="25" col="03:012">
+<genotype row="32:04" id="25" col="03:01:02">
 <observed>1</observed>
 <expected>0.375000</expected>
 <chisq role="not-calculated"/>
@@ -247,7 +247,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="68:14" id="32" col="03:012">
+<genotype row="68:14" id="32" col="03:01:02">
 <observed>0</observed>
 <expected>0.125000</expected>
 <chisq role="not-calculated"/>
@@ -345,31 +345,31 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:012" id="10" col="01:01">
+<genotype row="03:01:02" id="10" col="01:01">
 <observed>0</observed>
 <expected>0.125000</expected>
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:012" id="11" col="02:01">
+<genotype row="03:01:02" id="11" col="02:01">
 <observed>0</observed>
 <expected>0.500000</expected>
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:012" id="12" col="02:10">
+<genotype row="03:01:02" id="12" col="02:10">
 <observed>1</observed>
 <expected>0.250000</expected>
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:012" id="13" col="02:18">
+<genotype row="03:01:02" id="13" col="02:18">
 <observed>0</observed>
 <expected>0.125000</expected>
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:012" id="14" col="03:012">
+<genotype row="03:01:02" id="14" col="03:01:02">
 <observed>0</observed>
 <expected>0.125000</expected>
 <chisq role="not-calculated"/>
@@ -399,7 +399,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="25:01" id="19" col="03:012">
+<genotype row="25:01" id="19" col="03:01:02">
 <observed>0</observed>
 <expected>0.250000</expected>
 <chisq role="not-calculated"/>
@@ -435,7 +435,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="32:04" id="25" col="03:012">
+<genotype row="32:04" id="25" col="03:01:02">
 <observed>1</observed>
 <expected>0.375000</expected>
 <chisq role="not-calculated"/>
@@ -477,7 +477,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="68:14" id="32" col="03:012">
+<genotype row="68:14" id="32" col="03:01:02">
 <observed>0</observed>
 <expected>0.125000</expected>
 <chisq role="not-calculated"/>
@@ -598,7 +598,7 @@
 <allele name="01:02">
 <frequency>0.20000 </frequency><count>4</count>
 </allele>
-<allele name="02:025">
+<allele name="02:10:06">
 <frequency>0.10000 </frequency><count>2</count>
 </allele>
 <allele name="03:07">
@@ -634,13 +634,13 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="02:025" id="1" col="01:02">
+<genotype row="02:10:06" id="1" col="01:02">
 <observed>1</observed>
 <expected>0.400000</expected>
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="02:025" id="2" col="02:025">
+<genotype row="02:10:06" id="2" col="02:10:06">
 <observed>0</observed>
 <expected>0.100000</expected>
 <chisq role="not-calculated"/>
@@ -652,7 +652,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:07" id="4" col="02:025">
+<genotype row="03:07" id="4" col="02:10:06">
 <observed>0</observed>
 <expected>0.400000</expected>
 <chisq role="not-calculated"/>
@@ -670,7 +670,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="06:05" id="7" col="02:025">
+<genotype row="06:05" id="7" col="02:10:06">
 <observed>0</observed>
 <expected>0.200000</expected>
 <chisq role="not-calculated"/>
@@ -694,7 +694,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="07:12" id="11" col="02:025">
+<genotype row="07:12" id="11" col="02:10:06">
 <observed>0</observed>
 <expected>0.200000</expected>
 <chisq role="not-calculated"/>
@@ -724,7 +724,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="08:04" id="16" col="02:025">
+<genotype row="08:04" id="16" col="02:10:06">
 <observed>0</observed>
 <expected>0.100000</expected>
 <chisq role="not-calculated"/>
@@ -760,7 +760,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="12:02" id="22" col="02:025">
+<genotype row="12:02" id="22" col="02:10:06">
 <observed>1</observed>
 <expected>0.200000</expected>
 <chisq role="not-calculated"/>
@@ -802,7 +802,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="15:07" id="29" col="02:025">
+<genotype row="15:07" id="29" col="02:10:06">
 <observed>0</observed>
 <expected>0.200000</expected>
 <chisq role="not-calculated"/>
@@ -850,7 +850,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="18:01" id="37" col="02:025">
+<genotype row="18:01" id="37" col="02:10:06">
 <observed>0</observed>
 <expected>0.100000</expected>
 <chisq role="not-calculated"/>
@@ -918,13 +918,13 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="02:025" id="1" col="01:02">
+<genotype row="02:10:06" id="1" col="01:02">
 <observed>1</observed>
 <expected>0.400000</expected>
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="02:025" id="2" col="02:025">
+<genotype row="02:10:06" id="2" col="02:10:06">
 <observed>0</observed>
 <expected>0.100000</expected>
 <chisq role="not-calculated"/>
@@ -936,7 +936,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="03:07" id="4" col="02:025">
+<genotype row="03:07" id="4" col="02:10:06">
 <observed>0</observed>
 <expected>0.400000</expected>
 <chisq role="not-calculated"/>
@@ -954,7 +954,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="06:05" id="7" col="02:025">
+<genotype row="06:05" id="7" col="02:10:06">
 <observed>0</observed>
 <expected>0.200000</expected>
 <chisq role="not-calculated"/>
@@ -978,7 +978,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="07:12" id="11" col="02:025">
+<genotype row="07:12" id="11" col="02:10:06">
 <observed>0</observed>
 <expected>0.200000</expected>
 <chisq role="not-calculated"/>
@@ -1008,7 +1008,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="08:04" id="16" col="02:025">
+<genotype row="08:04" id="16" col="02:10:06">
 <observed>0</observed>
 <expected>0.100000</expected>
 <chisq role="not-calculated"/>
@@ -1044,7 +1044,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="12:02" id="22" col="02:025">
+<genotype row="12:02" id="22" col="02:10:06">
 <observed>1</observed>
 <expected>0.200000</expected>
 <chisq role="not-calculated"/>
@@ -1086,7 +1086,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="15:07" id="29" col="02:025">
+<genotype row="15:07" id="29" col="02:10:06">
 <observed>0</observed>
 <expected>0.200000</expected>
 <chisq role="not-calculated"/>
@@ -1134,7 +1134,7 @@
 <chisq role="not-calculated"/>
 <pvalue role="not-calculated"/>
 </genotype>
-<genotype row="18:01" id="37" col="02:025">
+<genotype row="18:01" id="37" col="02:10:06">
 <observed>0</observed>
 <expected>0.100000</expected>
 <chisq role="not-calculated"/>
@@ -1389,17 +1389,17 @@ Percent of iterations with error_flag = 7:   0.000
 <iterConverged>22</iterConverged><loglikelihood>-36.043653</loglikelihood>
 <haplotype name="02:10~01:02~13:01"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
 <haplotype name="25:01~03:07~13:01"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
-<haplotype name="03:012~07:12~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="03:01:02~07:12~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="01:01~08:04~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="02:18~12:02~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="02:01~15:07~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="32:04~18:01~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
-<haplotype name="03:012~06:05~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="03:01:02~06:05~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="32:04~15:07~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="32:04~03:07~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="02:01~01:02~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="68:14~07:12~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
-<haplotype name="02:01~02:025~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:01~02:10:06~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="02:01~12:02~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 
 </haplotypefreq>
@@ -1413,16 +1413,16 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="02:10" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="02:10" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="02:10" second="06:05"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="02:10" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="03:012" second="01:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
-<allelepair first="03:012" second="07:12"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>0.42857</norm_dij><chisq>2.93878</chisq></allelepair>
-<allelepair first="03:012" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="03:012" second="12:02"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
-<allelepair first="03:012" second="03:07"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
-<allelepair first="03:012" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
-<allelepair first="03:012" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="03:012" second="06:05"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
-<allelepair first="03:012" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:10" second="02:10:06"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:01:02" second="01:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="03:01:02" second="07:12"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>0.42857</norm_dij><chisq>2.93878</chisq></allelepair>
+<allelepair first="03:01:02" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:01:02" second="12:02"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="03:01:02" second="03:07"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="03:01:02" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="03:01:02" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:01:02" second="06:05"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="03:01:02" second="02:10:06"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="01:01" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="01:01" second="07:12"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="01:01" second="08:04"><observed>1.00000</observed><expected>0.0625</expected><diseq>0.05859</diseq><norm_dij>1.00000</norm_dij><chisq>16.00000</chisq></allelepair>
@@ -1431,7 +1431,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="01:01" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="01:01" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="01:01" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
-<allelepair first="01:01" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="01:01" second="02:10:06"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="02:18" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="02:18" second="07:12"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="02:18" second="08:04"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
@@ -1440,7 +1440,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="02:18" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="02:18" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="02:18" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
-<allelepair first="02:18" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:18" second="02:10:06"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="02:01" second="01:02"><observed>1.00000</observed><expected>0.7500</expected><diseq>0.01562</diseq><norm_dij>0.11111</norm_dij><chisq>0.13675</chisq></allelepair>
 <allelepair first="02:01" second="07:12"><observed>0.00000</observed><expected>0.5000</expected><diseq>-0.03125</diseq><norm_dij>-1.00000</norm_dij><chisq>0.76190</chisq></allelepair>
 <allelepair first="02:01" second="08:04"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
@@ -1449,7 +1449,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="02:01" second="15:07"><observed>1.00000</observed><expected>0.5000</expected><diseq>0.03125</diseq><norm_dij>0.33333</norm_dij><chisq>0.76190</chisq></allelepair>
 <allelepair first="02:01" second="18:01"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
 <allelepair first="02:01" second="06:05"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
-<allelepair first="02:01" second="02:025"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>1.00000</norm_dij><chisq>3.20000</chisq></allelepair>
+<allelepair first="02:01" second="02:10:06"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>1.00000</norm_dij><chisq>3.20000</chisq></allelepair>
 <allelepair first="25:01" second="01:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="25:01" second="07:12"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="25:01" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
@@ -1458,7 +1458,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="25:01" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="25:01" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="25:01" second="06:05"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="25:01" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="25:01" second="02:10:06"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="32:04" second="01:02"><observed>0.00000</observed><expected>0.5625</expected><diseq>-0.03516</diseq><norm_dij>-1.00000</norm_dij><chisq>0.85207</chisq></allelepair>
 <allelepair first="32:04" second="07:12"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="32:04" second="08:04"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
@@ -1467,7 +1467,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="32:04" second="15:07"><observed>1.00000</observed><expected>0.3750</expected><diseq>0.03906</diseq><norm_dij>0.38462</norm_dij><chisq>1.46520</chisq></allelepair>
 <allelepair first="32:04" second="18:01"><observed>1.00000</observed><expected>0.1875</expected><diseq>0.05078</diseq><norm_dij>1.00000</norm_dij><chisq>4.62222</chisq></allelepair>
 <allelepair first="32:04" second="06:05"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
-<allelepair first="32:04" second="02:025"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="32:04" second="02:10:06"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="68:14" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="68:14" second="07:12"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
 <allelepair first="68:14" second="08:04"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
@@ -1476,28 +1476,28 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="68:14" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="68:14" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="68:14" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
-<allelepair first="68:14" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="68:14" second="02:10:06"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 </loci>
 <loci first="0" second="2">
-<allelepair first="02:10" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="03:012" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="01:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="02:18" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="02:01" second="13:01"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="25:01" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="32:04" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="68:14" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="02:10" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="03:01:02" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="01:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="02:18" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="02:01" second="13:01"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="25:01" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="32:04" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="68:14" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
 </loci>
 <loci first="1" second="2">
-<allelepair first="01:02" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="07:12" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="08:04" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="12:02" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="03:07" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="15:07" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="18:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="06:05" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="02:025" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="01:02" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="07:12" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="08:04" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="12:02" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="03:07" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="15:07" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="18:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="06:05" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="02:10:06" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
 </loci>
 <summary first="0" second="1">
 <ALD_1_2>0.76174</ALD_1_2><ALD_2_1>0.75337</ALD_2_1><wn>0.78174</wn><q><chisq>68.44444</chisq><dof>56</dof></q><dsummary>0.02579</dsummary><dprime>0.86447</dprime>
@@ -1597,17 +1597,17 @@ Percent of iterations with error_flag = 7:   0.000
 <iterConverged>22</iterConverged><loglikelihood>-36.043653</loglikelihood>
 <haplotype name="02:10~01:02"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
 <haplotype name="25:01~03:07"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
-<haplotype name="03:012~07:12"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="03:01:02~07:12"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="01:01~08:04"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="02:18~12:02"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="02:01~15:07"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="32:04~18:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
-<haplotype name="03:012~06:05"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="03:01:02~06:05"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="32:04~15:07"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="32:04~03:07"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="02:01~01:02"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="68:14~07:12"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
-<haplotype name="02:01~02:025"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:01~02:10:06"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="02:01~12:02"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 
 </haplotypefreq>
@@ -1621,16 +1621,16 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="02:10" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="02:10" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="02:10" second="06:05"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="02:10" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="03:012" second="01:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
-<allelepair first="03:012" second="07:12"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>0.42857</norm_dij><chisq>2.93878</chisq></allelepair>
-<allelepair first="03:012" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="03:012" second="12:02"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
-<allelepair first="03:012" second="03:07"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
-<allelepair first="03:012" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
-<allelepair first="03:012" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="03:012" second="06:05"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
-<allelepair first="03:012" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="02:10" second="02:10:06"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:01:02" second="01:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="03:01:02" second="07:12"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>0.42857</norm_dij><chisq>2.93878</chisq></allelepair>
+<allelepair first="03:01:02" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:01:02" second="12:02"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="03:01:02" second="03:07"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
+<allelepair first="03:01:02" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
+<allelepair first="03:01:02" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="03:01:02" second="06:05"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
+<allelepair first="03:01:02" second="02:10:06"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="01:01" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="01:01" second="07:12"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="01:01" second="08:04"><observed>1.00000</observed><expected>0.0625</expected><diseq>0.05859</diseq><norm_dij>1.00000</norm_dij><chisq>16.00000</chisq></allelepair>
@@ -1639,7 +1639,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="01:01" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="01:01" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="01:01" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
-<allelepair first="01:01" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="01:01" second="02:10:06"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="02:18" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="02:18" second="07:12"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="02:18" second="08:04"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
@@ -1648,7 +1648,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="02:18" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="02:18" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="02:18" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
-<allelepair first="02:18" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="02:18" second="02:10:06"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="02:01" second="01:02"><observed>1.00000</observed><expected>0.7500</expected><diseq>0.01562</diseq><norm_dij>0.11111</norm_dij><chisq>0.13675</chisq></allelepair>
 <allelepair first="02:01" second="07:12"><observed>0.00000</observed><expected>0.5000</expected><diseq>-0.03125</diseq><norm_dij>-1.00000</norm_dij><chisq>0.76190</chisq></allelepair>
 <allelepair first="02:01" second="08:04"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
@@ -1657,7 +1657,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="02:01" second="15:07"><observed>1.00000</observed><expected>0.5000</expected><diseq>0.03125</diseq><norm_dij>0.33333</norm_dij><chisq>0.76190</chisq></allelepair>
 <allelepair first="02:01" second="18:01"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
 <allelepair first="02:01" second="06:05"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.35556</chisq></allelepair>
-<allelepair first="02:01" second="02:025"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>1.00000</norm_dij><chisq>3.20000</chisq></allelepair>
+<allelepair first="02:01" second="02:10:06"><observed>1.00000</observed><expected>0.2500</expected><diseq>0.04688</diseq><norm_dij>1.00000</norm_dij><chisq>3.20000</chisq></allelepair>
 <allelepair first="25:01" second="01:02"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="25:01" second="07:12"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="25:01" second="08:04"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
@@ -1666,7 +1666,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="25:01" second="15:07"><observed>0.00000</observed><expected>0.2500</expected><diseq>-0.01562</diseq><norm_dij>-1.00000</norm_dij><chisq>0.32653</chisq></allelepair>
 <allelepair first="25:01" second="18:01"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="25:01" second="06:05"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
-<allelepair first="25:01" second="02:025"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
+<allelepair first="25:01" second="02:10:06"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="32:04" second="01:02"><observed>0.00000</observed><expected>0.5625</expected><diseq>-0.03516</diseq><norm_dij>-1.00000</norm_dij><chisq>0.85207</chisq></allelepair>
 <allelepair first="32:04" second="07:12"><observed>0.00000</observed><expected>0.3750</expected><diseq>-0.02344</diseq><norm_dij>-1.00000</norm_dij><chisq>0.52747</chisq></allelepair>
 <allelepair first="32:04" second="08:04"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
@@ -1675,7 +1675,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="32:04" second="15:07"><observed>1.00000</observed><expected>0.3750</expected><diseq>0.03906</diseq><norm_dij>0.38462</norm_dij><chisq>1.46520</chisq></allelepair>
 <allelepair first="32:04" second="18:01"><observed>1.00000</observed><expected>0.1875</expected><diseq>0.05078</diseq><norm_dij>1.00000</norm_dij><chisq>4.62222</chisq></allelepair>
 <allelepair first="32:04" second="06:05"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
-<allelepair first="32:04" second="02:025"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
+<allelepair first="32:04" second="02:10:06"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="68:14" second="01:02"><observed>0.00000</observed><expected>0.1875</expected><diseq>-0.01172</diseq><norm_dij>-1.00000</norm_dij><chisq>0.24615</chisq></allelepair>
 <allelepair first="68:14" second="07:12"><observed>1.00000</observed><expected>0.1250</expected><diseq>0.05469</diseq><norm_dij>1.00000</norm_dij><chisq>7.46667</chisq></allelepair>
 <allelepair first="68:14" second="08:04"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
@@ -1684,7 +1684,7 @@ Percent of iterations with error_flag = 7:   0.000
 <allelepair first="68:14" second="15:07"><observed>0.00000</observed><expected>0.1250</expected><diseq>-0.00781</diseq><norm_dij>-1.00000</norm_dij><chisq>0.15238</chisq></allelepair>
 <allelepair first="68:14" second="18:01"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 <allelepair first="68:14" second="06:05"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
-<allelepair first="68:14" second="02:025"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
+<allelepair first="68:14" second="02:10:06"><observed>0.00000</observed><expected>0.0625</expected><diseq>-0.00391</diseq><norm_dij>-1.00000</norm_dij><chisq>0.07111</chisq></allelepair>
 </loci>
 <summary first="0" second="1">
 <ALD_1_2>0.76174</ALD_1_2><ALD_2_1>0.75337</ALD_2_1><wn>0.78174</wn><q><chisq>68.44444</chisq><dof>56</dof></q><dsummary>0.02579</dsummary><dprime>0.86447</dprime>
@@ -1708,56 +1708,56 @@ Percent of iterations with error_flag = 7:   0.000
 <iterationsummary>
 <![CDATA[
 --- Iteration Summary for Original Data -------------------------------------------
-Init. condition   0: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition   1: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition   2: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition   3: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition   4: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition   5: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition   6: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition   7: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition   8: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition   9: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  10: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  11: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  12: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  13: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  14: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  15: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  16: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  17: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  18: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  19: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  20: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  21: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  22: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  23: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  24: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  25: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  26: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  27: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  28: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  29: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  30: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  31: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  32: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  33: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  34: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  35: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  36: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  37: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  38: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  39: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  40: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  41: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  42: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  43: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  44: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  45: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  46: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  47: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  48: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
-Init. condition  49: Log likelihood after 32763 iterations: -26.509492, error_flag: 0 
+Init. condition   0: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition   1: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition   2: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition   3: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition   4: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition   5: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition   6: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition   7: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition   8: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition   9: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  10: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  11: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  12: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  13: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  14: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  15: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  16: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  17: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  18: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  19: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  20: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  21: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  22: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  23: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  24: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  25: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  26: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  27: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  28: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  29: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  30: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  31: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  32: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  33: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  34: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  35: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  36: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  37: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  38: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  39: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  40: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  41: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  42: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  43: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  44: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  45: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  46: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  47: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  48: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
+Init. condition  49: Log likelihood after   0 iterations: -26.509492, error_flag: 0 
 ]]></iterationsummary>
 <haplotypefreq>
 <loginfo><![CDATA[
@@ -1781,11 +1781,11 @@ Percent of iterations with error_flag = 7:   0.000
 
 ]]></loginfo>
 <condition role="converged"/>
-<iterConverged>32763</iterConverged><loglikelihood>-26.509492</loglikelihood>
+<iterConverged>0</iterConverged><loglikelihood>-26.509492</loglikelihood>
 <haplotype name="02:01~13:01"><frequency>0.25000</frequency><numCopies>4.0</numCopies></haplotype>
 <haplotype name="32:04~13:01"><frequency>0.18750</frequency><numCopies>3.0</numCopies></haplotype>
 <haplotype name="02:10~13:01"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
-<haplotype name="03:012~13:01"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
+<haplotype name="03:01:02~13:01"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
 <haplotype name="25:01~13:01"><frequency>0.12500</frequency><numCopies>2.0</numCopies></haplotype>
 <haplotype name="01:01~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="02:18~13:01"><frequency>0.06250</frequency><numCopies>1.0</numCopies></haplotype>
@@ -1794,14 +1794,14 @@ Percent of iterations with error_flag = 7:   0.000
 </haplotypefreq>
 <linkagediseq>
 <loci first="0" second="1">
-<allelepair first="02:10" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="03:012" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="01:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="02:18" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="02:01" second="13:01"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="25:01" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="32:04" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="68:14" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="02:10" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="03:01:02" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="01:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="02:18" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="02:01" second="13:01"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="25:01" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="32:04" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="68:14" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
 </loci>
 <summary first="0" second="1">
 <ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>0.00000</chisq><dof>0</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>
@@ -1825,56 +1825,56 @@ Percent of iterations with error_flag = 7:   0.000
 <iterationsummary>
 <![CDATA[
 --- Iteration Summary for Original Data -------------------------------------------
-Init. condition   0: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition   1: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition   2: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition   3: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition   4: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition   5: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition   6: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition   7: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition   8: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition   9: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  10: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  11: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  12: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  13: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  14: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  15: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  16: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  17: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  18: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  19: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  20: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  21: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  22: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  23: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  24: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  25: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  26: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  27: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  28: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  29: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  30: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  31: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  32: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  33: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  34: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  35: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  36: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  37: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  38: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  39: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  40: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  41: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  42: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  43: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  44: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  45: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  46: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  47: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  48: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
-Init. condition  49: Log likelihood after 32763 iterations: -32.095322, error_flag: 0 
+Init. condition   0: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition   1: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition   2: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition   3: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition   4: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition   5: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition   6: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition   7: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition   8: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition   9: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  10: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  11: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  12: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  13: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  14: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  15: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  16: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  17: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  18: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  19: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  20: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  21: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  22: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  23: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  24: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  25: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  26: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  27: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  28: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  29: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  30: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  31: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  32: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  33: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  34: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  35: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  36: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  37: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  38: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  39: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  40: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  41: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  42: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  43: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  44: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  45: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  46: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  47: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  48: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
+Init. condition  49: Log likelihood after   0 iterations: -32.095322, error_flag: 0 
 ]]></iterationsummary>
 <haplotypefreq>
 <loginfo><![CDATA[
@@ -1898,7 +1898,7 @@ Percent of iterations with error_flag = 7:   0.000
 
 ]]></loginfo>
 <condition role="converged"/>
-<iterConverged>32763</iterConverged><loglikelihood>-32.095322</loglikelihood>
+<iterConverged>0</iterConverged><loglikelihood>-32.095322</loglikelihood>
 <haplotype name="03:07~13:01"><frequency>0.22222</frequency><numCopies>4.0</numCopies></haplotype>
 <haplotype name="01:02~13:01"><frequency>0.16667</frequency><numCopies>3.0</numCopies></haplotype>
 <haplotype name="06:05~13:01"><frequency>0.11111</frequency><numCopies>2.0</numCopies></haplotype>
@@ -1907,20 +1907,20 @@ Percent of iterations with error_flag = 7:   0.000
 <haplotype name="15:07~13:01"><frequency>0.11111</frequency><numCopies>2.0</numCopies></haplotype>
 <haplotype name="08:04~13:01"><frequency>0.05556</frequency><numCopies>1.0</numCopies></haplotype>
 <haplotype name="18:01~13:01"><frequency>0.05556</frequency><numCopies>1.0</numCopies></haplotype>
-<haplotype name="02:025~13:01"><frequency>0.05556</frequency><numCopies>1.0</numCopies></haplotype>
+<haplotype name="02:10:06~13:01"><frequency>0.05556</frequency><numCopies>1.0</numCopies></haplotype>
 
 </haplotypefreq>
 <linkagediseq>
 <loci first="0" second="1">
-<allelepair first="03:07" second="13:01"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="06:05" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="01:02" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="07:12" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="08:04" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="12:02" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="15:07" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="18:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
-<allelepair first="02:025" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>-nan</chisq></allelepair>
+<allelepair first="03:07" second="13:01"><observed>4.00000</observed><expected>4.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="06:05" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="01:02" second="13:01"><observed>3.00000</observed><expected>3.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="07:12" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="08:04" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="12:02" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="15:07" second="13:01"><observed>2.00000</observed><expected>2.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="18:01" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
+<allelepair first="02:10:06" second="13:01"><observed>1.00000</observed><expected>1.0000</expected><diseq>0.00000</diseq><norm_dij>0.00000</norm_dij><chisq>nan</chisq></allelepair>
 </loci>
 <summary first="0" second="1">
 <ALD_1_2>NA</ALD_1_2><ALD_2_1>NA</ALD_2_1><wn>NA</wn><q><chisq>0.00000</chisq><dof>0</dof></q><dsummary>NA</dsummary><dprime>NA</dprime>
