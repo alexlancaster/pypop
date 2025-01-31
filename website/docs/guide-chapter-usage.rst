@@ -1005,11 +1005,11 @@ output showing what was resolved and what could not be resolved.
    option (which downloads MSF files on-the-fly) (but not both).
    **There are no defaults.**
 
-    To save space, sequence files are not distributed as part of the
-    wheels, but are either downloaded on-the-fly, or (in the case of
-    the versions using old sequence nomenclature) are distributed as
-    part of the source distribution. They are then incorporated into
-    the unit tests.
+   To save space, sequence files are not distributed as part of the
+   wheels, but are either downloaded on-the-fly, or (in the case of
+   the versions using old sequence nomenclature) are distributed as
+   part of the source distribution. They are then incorporated into
+   the unit tests.
 
    * ``directory``: Specifies the path to the root of the sequence
      files. It can be either relative or absolute. If it is relative,
