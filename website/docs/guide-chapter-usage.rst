@@ -985,8 +985,8 @@ section, below, or the `IMGT ftp site
    works with data in old-style (pre-2010) HLA nomenclature.  However,
    the ``Sequence`` filter has been ported to use new nomenclature,
    but only by specifying a recent version of the Multiple Sequence
-   Format
-   ([MSF](https://tcoffee.org/Documentation/misc/Format%20Documentation.htm))
+   Format (`MSF
+   <https://tcoffee.org/Documentation/misc/Format%20Documentation.htm>`__))
    files in the ``remoteMSF`` option
 
 Invocation of this filter will produce a ``<POPFILE>-filter.xml`` file
