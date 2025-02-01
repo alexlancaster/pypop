@@ -1,0 +1,1450 @@
+Results of data analysis
+Performed on the 'USAFEL-UchiTelle-small.pop' file at: 
+
+
+Population Summary
+==================
+Population Name: UchiTelle
+       Lab code: USAFEL
+  Typing method: 12th Workshop SSOP
+      Ethnicity: Telle
+      Continent: NW Asia
+Collection site: Targen Village
+       Latitude: 41 deg 12 min N
+      Longitude: 94 deg 7 min E
+        complex: 1
+
+
+Population Totals
+_________________
+Sample Size (n): 10
+Allele Count (2n): 20
+Total loci in file: 91 [A_-14, A_12, A_47, A_65, A_66, A_69, A_70, A_73, A_77, A_79, A_80, A_82, A_83, A_84, A_85, A_86, A_93, A_98, A_100, A_102, A_108, A_110, A_118, A_120, A_132, A_143, A_147, A_149, A_150, A_154, A_155, A_157, A_175, A_177, A_180, A_182, A_185, A_186, A_204, A_206, A_215, A_216, A_229, A_276, A_299, A_317, A_344, C_-16, C_-8, C_6, C_9, C_11, C_16, C_21, C_24, C_35, C_71, C_79, C_83, C_86, C_96, C_101, C_102, C_104, C_106, C_110, C_120, C_121, C_123, C_145, C_166, C_170, C_177, C_187, C_208, C_217, C_227, C_252, C_286, C_294, C_300, C_306, C_308, C_318, C_328, C_343, C_344, C_345, C_346, C_371, C_384]
+Total loci with data: 91 [A_-14, A_12, A_47, A_65, A_66, A_69, A_70, A_73, A_77, A_79, A_80, A_82, A_83, A_84, A_85, A_86, A_93, A_98, A_100, A_102, A_108, A_110, A_118, A_120, A_132, A_143, A_147, A_149, A_150, A_154, A_155, A_157, A_175, A_177, A_180, A_182, A_185, A_186, A_204, A_206, A_215, A_216, A_229, A_276, A_299, A_317, A_344, C_6, C_9, C_11, C_16, C_21, C_24, C_35, C_71, C_79, C_83, C_86, C_96, C_101, C_102, C_104, C_106, C_110, C_120, C_121, C_123, C_145, C_166, C_170, C_177, C_187, C_208]
+
+
+Legend for all analyses
+_______________________
+
+    * = significant at the 5% level
+   ** = significant at the 1% level
+  *** = significant at the 0.1% level
+ **** = significant at the 0.01% level
+***** = significant at the 0.001% level
+   
+
+I. Single Locus Analyses
+========================
+
+1. Locus: A_-14
+_______________
+
+1.1. Allele Counts [A_-14]
+--------------------------
+Untyped individuals: 2.0
+Unsequenced sites: 8
+Sample Size (n): 3.0
+Allele Count (2n): 6
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+L    0.66667   4       | L    0.66667   4       
+V    0.33333   2       | V    0.33333   2       
+Total1.00000   6       | Total1.00000   6       
+
+
+
+2. Locus: A_12
+______________
+
+2.1. Allele Counts [A_12]
+-------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+F    0.68750   11      | F    0.68750   11      
+Y    0.31250   5       | Y    0.31250   5       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+3. Locus: A_47
+______________
+
+3.1. Allele Counts [A_47]
+-------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+R    0.93750   15      | K    0.06250   1       
+K    0.06250   1       | R    0.93750   15      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+4. Locus: A_65
+______________
+
+4.1. Allele Counts [A_65]
+-------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 4
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+G    0.43750   7       | E    0.06250   1       
+Q    0.37500   6       | G    0.43750   7       
+R    0.12500   2       | Q    0.37500   6       
+E    0.06250   1       | R    0.12500   2       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+5. Locus: A_66
+______________
+
+5.1. Allele Counts [A_66]
+-------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+E    0.87500   14      | E    0.87500   14      
+N    0.12500   2       | N    0.12500   2       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+6. Locus: A_69
+______________
+
+6.1. Allele Counts [A_69]
+-------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+N    0.56250   9       | K    0.43750   7       
+K    0.43750   7       | N    0.56250   9       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+7. Locus: A_70
+______________
+
+7.1. Allele Counts [A_70]
+-------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+V    0.93750   15      | M    0.06250   1       
+M    0.06250   1       | V    0.93750   15      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+8. Locus: A_73
+______________
+
+8.1. Allele Counts [A_73]
+-------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+H    0.81250   13      | H    0.81250   13      
+Q    0.18750   3       | Q    0.18750   3       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+9. Locus: A_77
+______________
+
+9.1. Allele Counts [A_77]
+-------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+D    0.56250   9       | D    0.56250   9       
+H    0.43750   7       | H    0.43750   7       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+10. Locus: A_79
+_______________
+
+10.1. Allele Counts [A_79]
+--------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 3
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+V    0.62500   10      | A    0.06250   1       
+E    0.31250   5       | E    0.31250   5       
+A    0.06250   1       | V    0.62500   10      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+11. Locus: A_80
+_______________
+
+11.1. Allele Counts [A_80]
+--------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 3
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+D    0.62500   10      | D    0.62500   10      
+S    0.31250   5       | N    0.06250   1       
+N    0.06250   1       | S    0.31250   5       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+12. Locus: A_82
+_______________
+
+12.1. Allele Counts [A_82]
+--------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+G    0.68750   11      | G    0.68750   11      
+R    0.31250   5       | R    0.31250   5       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+13. Locus: A_83
+_______________
+
+13.1. Allele Counts [A_83]
+--------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+T    0.68750   11      | I    0.31250   5       
+I    0.31250   5       | T    0.68750   11      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+14. Locus: A_84
+_______________
+
+14.1. Allele Counts [A_84]
+--------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+L    0.68750   11      | A    0.31250   5       
+A    0.31250   5       | L    0.68750   11      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+15. Locus: A_85
+_______________
+
+15.1. Allele Counts [A_85]
+--------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+R    0.68750   11      | L    0.31250   5       
+L    0.31250   5       | R    0.68750   11      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+16. Locus: A_86
+_______________
+
+16.1. Allele Counts [A_86]
+--------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+G    0.68750   11      | G    0.68750   11      
+R    0.31250   5       | R    0.31250   5       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+17. Locus: A_93
+_______________
+
+17.1. Allele Counts [A_93]
+--------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+A    0.81250   13      | A    0.81250   13      
+D    0.18750   3       | D    0.18750   3       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+18. Locus: A_98
+_______________
+
+18.1. Allele Counts [A_98]
+--------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+I    0.56250   9       | I    0.56250   9       
+V    0.43750   7       | V    0.43750   7       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+19. Locus: A_100
+________________
+
+19.1. Allele Counts [A_100]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 3
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+R    0.56250   9       | I    0.37500   6       
+I    0.37500   6       | M    0.06250   1       
+M    0.06250   1       | R    0.56250   9       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+20. Locus: A_102
+________________
+
+20.1. Allele Counts [A_102]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 3
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+Y    0.81250   13      | C    0.06250   1       
+F    0.12500   2       | F    0.12500   2       
+C    0.06250   1       | Y    0.81250   13      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+21. Locus: A_108
+________________
+
+21.1. Allele Counts [A_108]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+S    0.81250   13      | P    0.18750   3       
+P    0.18750   3       | S    0.81250   13      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+22. Locus: A_110
+________________
+
+22.1. Allele Counts [A_110]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+G    0.68750   11      | G    0.68750   11      
+W    0.31250   5       | W    0.31250   5       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+23. Locus: A_118
+________________
+
+23.1. Allele Counts [A_118]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 3
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+H    0.43750   7       | H    0.43750   7       
+R    0.43750   7       | Q    0.12500   2       
+Q    0.12500   2       | R    0.43750   7       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+24. Locus: A_120
+________________
+
+24.1. Allele Counts [A_120]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+D    0.56250   9       | D    0.56250   9       
+Y    0.43750   7       | Y    0.43750   7       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+25. Locus: A_132
+________________
+
+25.1. Allele Counts [A_132]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+K    0.50000   8       | K    0.50000   8       
+N    0.50000   8       | N    0.50000   8       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+26. Locus: A_143
+________________
+
+26.1. Allele Counts [A_143]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+M    0.93750   15      | K    0.06250   1       
+K    0.06250   1       | M    0.93750   15      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+27. Locus: A_147
+________________
+
+27.1. Allele Counts [A_147]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+I    0.50000   8       | I    0.50000   8       
+T    0.50000   8       | T    0.50000   8       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+28. Locus: A_149
+________________
+
+28.1. Allele Counts [A_149]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+K    0.87500   14      | K    0.87500   14      
+Q    0.12500   2       | Q    0.12500   2       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+29. Locus: A_150
+________________
+
+29.1. Allele Counts [A_150]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+H    0.50000   8       | H    0.50000   8       
+R    0.50000   8       | R    0.50000   8       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+30. Locus: A_154
+________________
+
+30.1. Allele Counts [A_154]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+A    0.87500   14      | A    0.87500   14      
+T    0.12500   2       | T    0.12500   2       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+31. Locus: A_155
+________________
+
+31.1. Allele Counts [A_155]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+A    0.93750   15      | A    0.93750   15      
+V    0.06250   1       | V    0.06250   1       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+32. Locus: A_157
+________________
+
+32.1. Allele Counts [A_157]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 3
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+V    0.50000   8       | A    0.06250   1       
+E    0.43750   7       | E    0.43750   7       
+A    0.06250   1       | V    0.50000   8       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+33. Locus: A_175
+________________
+
+33.1. Allele Counts [A_175]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 3
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+L    0.75000   12      | L    0.75000   12      
+W    0.18750   3       | R    0.06250   1       
+R    0.06250   1       | W    0.18750   3       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+34. Locus: A_177
+________________
+
+34.1. Allele Counts [A_177]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+A    0.93750   15      | A    0.93750   15      
+V    0.06250   1       | V    0.06250   1       
+Total1.00000   16      | Total1.00000   16      
+
+
+
+35. Locus: A_180
+________________
+
+35.1. Allele Counts [A_180]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+E    0.68750   11      | D    0.31250   5       
+D    0.31250   5       | E    0.68750   11      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+36. Locus: A_182
+________________
+
+36.1. Allele Counts [A_182]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+T    0.81250   13      | R    0.18750   3       
+R    0.18750   3       | T    0.81250   13      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+37. Locus: A_185
+________________
+
+37.1. Allele Counts [A_185]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+E    0.93750   15      | D    0.06250   1       
+D    0.06250   1       | E    0.93750   15      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+38. Locus: A_186
+________________
+
+38.1. Allele Counts [A_186]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+W    0.93750   15      | G    0.06250   1       
+G    0.06250   1       | W    0.93750   15      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+39. Locus: A_204
+________________
+
+39.1. Allele Counts [A_204]
+---------------------------
+Untyped individuals: 2.0
+Sample Size (n): 8.0
+Allele Count (2n): 16
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+T    0.93750   15      | A    0.06250   1       
+A    0.06250   1       | T    0.93750   15      
+Total1.00000   16      | Total1.00000   16      
+
+
+
+40. Locus: A_206
+________________
+
+40.1. Allele Counts [A_206]
+---------------------------
+Untyped individuals: 2.0
+Unsequenced sites: 8
+Sample Size (n): 3.0
+Allele Count (2n): 6
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+P    0.66667   4       | A    0.33333   2       
+A    0.33333   2       | P    0.66667   4       
+Total1.00000   6       | Total1.00000   6       
+
+
+
+41. Locus: A_215
+________________
+
+41.1. Allele Counts [A_215]
+---------------------------
+Untyped individuals: 2.0
+Unsequenced sites: 8
+Sample Size (n): 3.0
+Allele Count (2n): 6
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+P    0.66667   4       | A    0.33333   2       
+A    0.33333   2       | P    0.66667   4       
+Total1.00000   6       | Total1.00000   6       
+
+
+
+42. Locus: A_216
+________________
+
+42.1. Allele Counts [A_216]
+---------------------------
+Untyped individuals: 2.0
+Unsequenced sites: 8
+Sample Size (n): 3.0
+Allele Count (2n): 6
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+I    0.66667   4       | I    0.66667   4       
+V    0.33333   2       | V    0.33333   2       
+Total1.00000   6       | Total1.00000   6       
+
+
+
+43. Locus: A_229
+________________
+
+43.1. Allele Counts [A_229]
+---------------------------
+Untyped individuals: 2.0
+Unsequenced sites: 8
+Sample Size (n): 3.0
+Allele Count (2n): 6
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+G    0.66667   4       | G    0.66667   4       
+S    0.33333   2       | S    0.33333   2       
+Total1.00000   6       | Total1.00000   6       
+
+
+
+44. Locus: A_276
+________________
+
+44.1. Allele Counts [A_276]
+---------------------------
+Untyped individuals: 2.0
+Unsequenced sites: 8
+Sample Size (n): 3.0
+Allele Count (2n): 6
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+E    0.66667   4       | E    0.66667   4       
+Q    0.33333   2       | Q    0.33333   2       
+Total1.00000   6       | Total1.00000   6       
+
+
+
+45. Locus: A_299
+________________
+
+45.1. Allele Counts [A_299]
+---------------------------
+Untyped individuals: 2.0
+Unsequenced sites: 8
+Sample Size (n): 3.0
+Allele Count (2n): 6
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+L    0.66667   4       | L    0.66667   4       
+P    0.33333   2       | P    0.33333   2       
+Total1.00000   6       | Total1.00000   6       
+
+
+
+46. Locus: A_317
+________________
+
+46.1. Allele Counts [A_317]
+---------------------------
+Untyped individuals: 2.0
+Unsequenced sites: 8
+Sample Size (n): 3.0
+Allele Count (2n): 6
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+L    0.66667   4       | F    0.33333   2       
+F    0.33333   2       | L    0.66667   4       
+Total1.00000   6       | Total1.00000   6       
+
+
+
+47. Locus: A_344
+________________
+
+47.1. Allele Counts [A_344]
+---------------------------
+Untyped individuals: 2.0
+Unsequenced sites: 8
+Sample Size (n): 3.0
+Allele Count (2n): 6
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+T    0.66667   4       | S    0.33333   2       
+S    0.33333   2       | T    0.66667   4       
+Total1.00000   6       | Total1.00000   6       
+
+
+
+48. Locus: C_-16
+________________
+ No data for this locus!
+
+49. Locus: C_-8
+_______________
+ No data for this locus!
+
+50. Locus: C_6
+______________
+
+50.1. Allele Counts [C_6]
+-------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+R    0.80000   16      | K    0.20000   4       
+K    0.20000   4       | R    0.80000   16      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+51. Locus: C_9
+______________
+
+51.1. Allele Counts [C_9]
+-------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 3
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+Y    0.55000   11      | D    0.25000   5       
+D    0.25000   5       | F    0.20000   4       
+F    0.20000   4       | Y    0.55000   11      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+52. Locus: C_11
+_______________
+
+52.1. Allele Counts [C_11]
+--------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+A    0.80000   16      | A    0.80000   16      
+S    0.20000   4       | S    0.20000   4       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+53. Locus: C_16
+_______________
+
+53.1. Allele Counts [C_16]
+--------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+G    0.90000   18      | G    0.90000   18      
+S    0.10000   2       | S    0.10000   2       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+54. Locus: C_21
+_______________
+
+54.1. Allele Counts [C_21]
+--------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+R    0.60000   12      | H    0.40000   8       
+H    0.40000   8       | R    0.60000   12      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+55. Locus: C_24
+_______________
+
+55.1. Allele Counts [C_24]
+--------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+A    0.55000   11      | A    0.55000   11      
+S    0.45000   9       | S    0.45000   9       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+56. Locus: C_35
+_______________
+
+56.1. Allele Counts [C_35]
+--------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+R    0.85000   17      | Q    0.15000   3       
+Q    0.15000   3       | R    0.85000   17      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+57. Locus: C_71
+_______________
+
+57.1. Allele Counts [C_71]
+--------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+K    0.90000   18      | K    0.90000   18      
+N    0.10000   2       | N    0.10000   2       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+58. Locus: C_79
+_______________
+
+58.1. Allele Counts [C_79]
+--------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+T    0.75000   15      | A    0.25000   5       
+A    0.25000   5       | T    0.75000   15      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+59. Locus: C_83
+_______________
+
+59.1. Allele Counts [C_83]
+--------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+S    0.55000   11      | N    0.45000   9       
+N    0.45000   9       | S    0.55000   11      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+60. Locus: C_86
+_______________
+
+60.1. Allele Counts [C_86]
+--------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+N    0.55000   11      | K    0.45000   9       
+K    0.45000   9       | N    0.55000   11      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+61. Locus: C_96
+_______________
+
+61.1. Allele Counts [C_96]
+--------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+A    0.75000   15      | A    0.75000   15      
+D    0.25000   5       | D    0.25000   5       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+62. Locus: C_101
+________________
+
+62.1. Allele Counts [C_101]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+T    0.70000   14      | I    0.30000   6       
+I    0.30000   6       | T    0.70000   14      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+63. Locus: C_102
+________________
+
+63.1. Allele Counts [C_102]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 3
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+L    0.60000   12      | F    0.10000   2       
+I    0.30000   6       | I    0.30000   6       
+F    0.10000   2       | L    0.60000   12      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+64. Locus: C_104
+________________
+
+64.1. Allele Counts [C_104]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+R    0.70000   14      | R    0.70000   14      
+W    0.30000   6       | W    0.30000   6       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+65. Locus: C_106
+________________
+
+65.1. Allele Counts [C_106]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 3
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+Y    0.75000   15      | C    0.20000   4       
+C    0.20000   4       | F    0.05000   1       
+F    0.05000   1       | Y    0.75000   15      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+66. Locus: C_110
+________________
+
+66.1. Allele Counts [C_110]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+L    0.80000   16      | L    0.80000   16      
+V    0.20000   4       | V    0.20000   4       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+67. Locus: C_120
+________________
+
+67.1. Allele Counts [C_120]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+Y    0.90000   18      | H    0.10000   2       
+H    0.10000   2       | Y    0.90000   18      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+68. Locus: C_121
+________________
+
+68.1. Allele Counts [C_121]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+D    0.90000   18      | D    0.90000   18      
+N    0.10000   2       | N    0.10000   2       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+69. Locus: C_123
+________________
+
+69.1. Allele Counts [C_123]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 4
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+Y    0.40000   8       | F    0.20000   4       
+S    0.30000   6       | L    0.10000   2       
+F    0.20000   4       | S    0.30000   6       
+L    0.10000   2       | Y    0.40000   8       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+70. Locus: C_145
+________________
+
+70.1. Allele Counts [C_145]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+T    0.95000   19      | K    0.05000   1       
+K    0.05000   1       | T    0.95000   19      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+71. Locus: C_166
+________________
+
+71.1. Allele Counts [C_166]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+E    0.90000   18      | A    0.10000   2       
+A    0.10000   2       | E    0.90000   18      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+72. Locus: C_170
+________________
+
+72.1. Allele Counts [C_170]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 4
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+L    0.35000   7       | D    0.10000   2       
+R    0.35000   7       | L    0.35000   7       
+W    0.20000   4       | R    0.35000   7       
+D    0.10000   2       | W    0.20000   4       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+73. Locus: C_177
+________________
+
+73.1. Allele Counts [C_177]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 3
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+T    0.70000   14      | E    0.10000   2       
+L    0.20000   4       | L    0.20000   4       
+E    0.10000   2       | T    0.70000   14      
+Total1.00000   20      | Total1.00000   20      
+
+
+
+74. Locus: C_187
+________________
+
+74.1. Allele Counts [C_187]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+E    0.80000   16      | E    0.80000   16      
+K    0.20000   4       | K    0.20000   4       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+75. Locus: C_208
+________________
+
+75.1. Allele Counts [C_208]
+---------------------------
+Untyped individuals: 0.0
+Sample Size (n): 10.0
+Allele Count (2n): 20
+Distinct alleles (k): 2
+
+Counts ordered by frequ| Counts ordered by name 
+Name Frequency (Count) | Name Frequency (Count) 
+E    0.85000   17      | E    0.85000   17      
+K    0.15000   3       | K    0.15000   3       
+Total1.00000   20      | Total1.00000   20      
+
+
+
+76. Locus: C_217
+________________
+ No data for this locus!
+
+77. Locus: C_227
+________________
+ No data for this locus!
+
+78. Locus: C_252
+________________
+ No data for this locus!
+
+79. Locus: C_286
+________________
+ No data for this locus!
+
+80. Locus: C_294
+________________
+ No data for this locus!
+
+81. Locus: C_300
+________________
+ No data for this locus!
+
+82. Locus: C_306
+________________
+ No data for this locus!
+
+83. Locus: C_308
+________________
+ No data for this locus!
+
+84. Locus: C_318
+________________
+ No data for this locus!
+
+85. Locus: C_328
+________________
+ No data for this locus!
+
+86. Locus: C_343
+________________
+ No data for this locus!
+
+87. Locus: C_344
+________________
+ No data for this locus!
+
+88. Locus: C_345
+________________
+ No data for this locus!
+
+89. Locus: C_346
+________________
+ No data for this locus!
+
+90. Locus: C_371
+________________
+ No data for this locus!
+
+91. Locus: C_384
+________________
+ No data for this locus!
+
