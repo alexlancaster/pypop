@@ -24,8 +24,8 @@ authors:
     orcid: https://orcid.org/0000-0002-0002-9263
     affiliation:
       - Amber Biology LLC
-      - name: Ronin Institute
-        ror: https://ror.org/04awze035
+      - name: Institute for Globally Distributed Open Research and Education
+        ror: https://ror.org/01643wd06
   - family-names: Nelson
     given-names: Mark P.
     affiliation:
@@ -105,7 +105,7 @@ identifiers:
   - description: PyPop homepage
     type: url
     value: http://pypop.org/
-    relation: IsSupplementTo
+    relation: IsSupplementedBy
   - description: PyPop documentation
     type: url
     value: http://pypop.org/docs
