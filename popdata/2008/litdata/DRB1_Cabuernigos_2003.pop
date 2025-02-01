@@ -1,0 +1,22 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_Cabuernigos_2003.pop	DRB1	190	184	lit	Cabuernigos_2003	Caucasian	03-EUR	North Spain	2	from Cabuerniga region, people born and lived in area with ancestors from both parents living in area for three generations	43.23N	4.30W	0.968	1	reverse dot blot	{SGM+03}	Sanchez-Velasco	2003	HLA alleles in isolated populations from North Spain: Origin of the Basques and the ancient Iberians	Tissue Antigens	61	384-392	aarnaiz@med.ucm.es		ES	Arnaiz-Villena	1301024	11	3	Innogenetics, Belgium	N		N	N	N		HW, LD				YT
+DRB1	count
+0101	1
+0102	1
+0103	1
+1501	57
+0301	2
+0401	4
+0402	3
+0403	12
+0404	4
+0407	1
+0408	1
+1101	20
+1102	1
+1104	27
+0701	32
+0806	1
+1001	2
+1301	11
+1302	3
