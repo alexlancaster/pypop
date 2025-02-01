@@ -98,7 +98,7 @@ title: 'PyPop: Python for Population Genomics'
 repository-artifact: https://pypi.org/project/pypop-genomics/
 repository-code: https://github.com/alexlancaster/pypop/
 license: GPL-2.0-or-later
-version: v0.9.169
+version: v1.1.2
 type: software
 url: http://pypop.org/
 identifiers:
@@ -140,4 +140,4 @@ keywords:
   - Major histocompatibility complex
   - HLA
   - MHC
-doi: 10.5281/zenodo.14787539
+doi: 10.5281/zenodo.14182367

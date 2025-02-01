@@ -96,11 +96,7 @@ with a new DOI (connected to the original concept DOI of
 action that upon a production release with a new version and related
 GitHub tag.
 
-\*\*Note that this job is only run on the `main` branch only for
-production release
-
-- in addition the branch protection rule on `main` must be disabled
-  temporarily to allow the automatic commits to the repo.\*\*
+**Note that this job is only run on the `main` branch only for production release in addition the branch protection rule on `main` must be disabled temporarily to allow the automatic commits to the repo.**
 
 1. generates a `version:` keyword which is upserted back into the
    `CITATION.cff` file, by the Github Action
