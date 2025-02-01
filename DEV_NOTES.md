@@ -87,6 +87,53 @@ the version of the data file release.
 
 ## GitHub notes
 
+### Zenodo release process
+
+Every time a production release (i.e. not pre-release) is produced,
+the `build_wheel.yml` workflow also produces new Zenodo deposition
+with a new DOI (connected to the original concept DOI of
+`10.5281/zenodo.10080667`. This is automated via a job in the GitHub
+action that upon a production release with a new version and related
+GitHub tag.
+
+\*\*Note that this job is only run on the `main` branch only for
+production release
+
+- in addition the branch protection rule on `main` must be disabled
+  temporarily to allow the automatic commits to the repo.\*\*
+
+1. generates a `version:` keyword which is upserted back into the
+   `CITATION.cff` file, by the Github Action
+
+2. next, uses a local [customized
+   version](https://github.com/alexlancaster/cffconvert.git@combine_features)
+   of `cffconvert` that converts the `CITATION.cff` into to Zenodo
+   format, and also merges in the contents of the
+   `.zenodo.extras.json` file (which contains elements that don't have
+   a corresponding representation in `CITATION.cff`) into a new
+   `.zenodo.json` - the file that Zenodo needs to population it's
+   metadata.
+
+3. then this updated `CITATION.cff` is committed back to the repository
+
+4. the `zenodraft/action` is then used to create a draft deposition
+   with a new DOI on Zenodo connected to:
+   https://doi.org/10.5281/zenodo.10080667.
+
+5. this `zenodraft/action` also upserts the new `doi:` back into
+   `CITATION.cff`, then uploads the code and metadata to create a
+   draft deposition on Zenodo.
+
+6. finally, once the deposition is created, the `zenodraft/action`
+   then commits the `CITATION.cff` changes back to the repo and moves
+   the original tag to the updated version of the repo, and also
+   updates the github release.
+
+This ultimately results in a Zenodo deposition in draft mode that can
+be published after a check of the metadata, and also an updated
+repository where the code in tagged version of the repo matches the
+contents of the Zenodo deposition.
+
 ### Unused stanzas in `build_wheels.yml` workflow.
 
 #### Downloading GSL NuGet artifact from other workflow
