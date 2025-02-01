@@ -90,7 +90,7 @@ def test_Filters_CustomBinning_P_Filter():
         assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
 
-def test_Filters_Sequence():
+def test_Filters_Sequence_OldNomenclature():
     exit_code = run_pypop_process(
         "./tests/data/sequence-nopoptests.ini",
         "./tests/data/USAFEL-UchiTelle.pop",
@@ -101,7 +101,22 @@ def test_Filters_Sequence():
     # compare output
     assert filecmp_list_of_files(
         ["USAFEL-UchiTelle-filter.xml", "USAFEL-UchiTelle-out.txt"],
-        DEFAULT_GOLD_OUTPUT_DIR / "Filters_Sequence",
+        DEFAULT_GOLD_OUTPUT_DIR / "Filters_Sequence_OldNomenclature",
+    )
+
+
+def test_Filters_Sequence_NewNomenclature():
+    exit_code = run_pypop_process(
+        "./tests/data/sequence-nopoptests-msf-3.59.0-alpha.ini",
+        "./tests/data/USAFEL-UchiTelle-small.pop",
+    )
+    # check exit code
+    assert exit_code == 0
+
+    # compare output
+    assert filecmp_list_of_files(
+        ["USAFEL-UchiTelle-small-filter.xml", "USAFEL-UchiTelle-small-out.txt"],
+        DEFAULT_GOLD_OUTPUT_DIR / "Filters_Sequence_NewNomenclature",
     )
 
 

@@ -48,6 +48,11 @@ on:
     types:
       - published
 
+env:
+  # set MSF version and cache directory name globally
+  MSF_VERSION: 3.59.0-alpha
+  MSF_CACHE_DIR: msf-files-3.59.0-alpha
+
 jobs:
   skip_publish_zenodo:
     name: Non publication, Zenodo skip
@@ -192,11 +197,71 @@ jobs:
            # otherwise just generate a test wheel Python 3.12 for 4 platform
            CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
 
+
+  # set up a shared cache for downloading data files (e.g. MSF files)
+  # before matrix jobs
+  setup-cache:
+    name: Setup cache for remote files
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Set up cache for MSF files
+        id: msf_cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.MSF_CACHE_DIR }}
+          key: pooch-cache-${{ env.MSF_CACHE_DIR }}
+          restore-keys: |
+            pooch-cache-${{ env.MSF_CACHE_DIR }}
+            enableCrossOsArchive: true
+            fail-on-cache-miss: false
+
+      - name: Preload MSF files into Cache
+        if: ${{ steps.msf_cache.outputs.cache-hit != 'true' }}
+        run: |
+          echo "Cache not found or is outdated. Fetching MSF files..."
+          pip install pooch requests
+          python -c "
+          import os
+          import pooch
+          import requests
+          # Define the base URL and path for the MSF files
+          base_url = 'https://raw.githubusercontent.com/ANHIG/IMGTHLA/v${MSF_VERSION}/msf/'
+          # create cache directory
+          cache_dir = '${MSF_CACHE_DIR}'
+
+          # fetch the directory listing of MSF files from GitHub (raw listing)
+          response = requests.get('https://api.github.com/repos/ANHIG/IMGTHLA/contents/msf?ref=v${MSF_VERSION}')
+          files = response.json()
+
+          # extract only prot.msf and nuc.msf files from the response
+          msf_files = [file['name'] for file in files if file['name'].endswith('_prot.msf') or file['name'].endswith('_nuc.msf')]
+
+          # fetch each MSF file using pooch.retrieve
+          for file in msf_files:
+            print(f'Fetching {file}...')
+            local_file = pooch.retrieve(
+              url=f'{base_url}{file}',  # full URL to the file
+              known_hash=None,  # pooch will calculate the hash automatically
+              path=cache_dir  # cache location
+            )
+            print(f'Saved {local_file}...')
+
+          print('All MSF files fetched and cached successfully.')
+          "
+      - name: Save the cache for MSF files
+        if: ${{ steps.msf_cache.outputs.cache-hit != 'true' }}
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ env.MSF_CACHE_DIR }}
+          key: pooch-cache-${{ env.MSF_CACHE_DIR }}
+          enableCrossOsArchive: true
+
   build_wheels:
     name: Build wheels on ${{ matrix.only }}
     # depend on zenodo, to make sure updated CITATION.cff gets into builds
     # this only results in changes upon production releases
-    needs: [publish_zenodo, skip_publish_zenodo, generate-wheels-matrix]
+    needs: [publish_zenodo, skip_publish_zenodo, generate-wheels-matrix, setup-cache]
     # trying solution here: https://github.com/actions/runner/issues/491#issuecomment-1507495166
     # so that it works if either job in "needs" completes
     if: always() && !cancelled() && !failure()
@@ -206,11 +271,35 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.generate-wheels-matrix.outputs.include) }}
     steps:
+
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
+
+      - name: Restore cache for MSF files
+        uses: actions/cache/restore@v4
+        with:
+          # restore to the workspace, not home directory
+          path: ${{ env.MSF_CACHE_DIR }}
+          key: pooch-cache-${{ env.MSF_CACHE_DIR }}
+          restore-keys: |
+            pooch-cache-${{ env.MSF_CACHE_DIR }}
+          enableCrossOsArchive: true
+
+      - name: Do cache setup based on OS
+        shell: bash
+        run: |
+          echo "Setting POOCH_CACHE based on runner OS"
+          if [[ "$RUNNER_OS" == "Linux" ]]; then
+            # adding /project to path so  it works inside cibuildwheel containers
+            POOCH_CACHE="/project/${MSF_CACHE_DIR}"
+          else
+            POOCH_CACHE="${GITHUB_WORKSPACE}/${MSF_CACHE_DIR}"
+          fi
+          echo "POOCH_CACHE=${POOCH_CACHE}"
+          echo "POOCH_CACHE=${POOCH_CACHE}" >> $GITHUB_ENV
 
       - name: Install a recent stable Python to handle Python deps
         uses: actions/setup-python@v5
@@ -253,7 +342,8 @@ jobs:
           # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
           CIBW_TEST_COMMAND: "pytest -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
           SETUPTOOLS_SCM_PRETEND_VERSION: ${{ env.VERSION }}
-          CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION
+          POOCH_CACHE: ${{ env.POOCH_CACHE }}
+          CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION POOCH_CACHE
         with:
           only: ${{ matrix.only }}
           package-dir: .
