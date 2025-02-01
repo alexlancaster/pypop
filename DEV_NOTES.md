@@ -102,7 +102,7 @@ version and associated GitHub tag.
    `CITATION.cff` file
 
 2. next, uses a local [customized
-   version](https://github.com/alexlancaster/cffconvert.git@combine_features)
+   version](https://github.com/alexlancaster/cffconvert/tree/combine_features)
    of `cffconvert` that converts the `CITATION.cff` into to Zenodo
    format, and also merges in the contents of the
    `.zenodo.extras.json` file (which contains elements that don't have
