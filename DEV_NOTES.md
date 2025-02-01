@@ -92,14 +92,14 @@ the version of the data file release.
 Every time a production release (i.e. not pre-release) is produced,
 the `build_wheel.yml` workflow also produces new Zenodo deposition
 with a new DOI (connected to the original concept DOI of
-`10.5281/zenodo.10080667`. This is automated via a job in the GitHub
-action that upon a production release with a new version and related
-GitHub tag.
+`10.5281/zenodo.10080667`). This is automated via the `publish_zenodo`
+job in the GitHub Action that upon a production release with a new
+version and associated GitHub tag.
 
 **Note that this job is only run on the `main` branch only for production release in addition the branch protection rule on `main` must be disabled temporarily to allow the automatic commits to the repo.**
 
 1. generates a `version:` keyword which is upserted back into the
-   `CITATION.cff` file, by the Github Action
+   `CITATION.cff` file
 
 2. next, uses a local [customized
    version](https://github.com/alexlancaster/cffconvert.git@combine_features)
