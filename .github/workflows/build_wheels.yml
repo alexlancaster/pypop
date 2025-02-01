@@ -72,7 +72,7 @@ jobs:
     name: Production release, Zenodo publication
     runs-on: ubuntu-latest
     # "else" we *are* publishing something, only works for non-pre-releases on the main branch
-    if: github.event.release.target_commitish == 'citation-cff-zenodo' && github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
+    if: github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
     steps:
       - name: Checkout the contents of your repository
         uses: actions/checkout@v4
@@ -100,7 +100,7 @@ jobs:
           # save creators separately, if they are included in the merge they get re-sorted
           cffconvert --format zenodo --infile CITATION.cff | jq '{creators, creators}' > .zenodo.creators.json
 
-          # need to do a "deep merge" to make sure 'related_identifiers' get merged properly
+          # need to do a "deep merge" to make sure 'related_identifiers' from .zenodo.extra.json get merged properly
           # including updating the version number, followed by merging back with creators
           cat .zenodo.citation.json .zenodo.extras.json |jq -s 'def deepmerge(a;b):
             reduce b[] as $item (a;
@@ -145,7 +145,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ZENODO_ACCESS_TOKEN: ${{ secrets.ZENODO_ACCESS_TOKEN }}
         uses: zenodraft/action@0.13.3
-        # uses: alexlancaster/zenodraft-action@0.10.2
         with:
           concept: 10080667
           metadata: .zenodo.json
