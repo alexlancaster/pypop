@@ -38,12 +38,15 @@
 
 ."""
 
+import os
 import re
 import sys
 from abc import ABC, abstractmethod
 from functools import reduce
 from operator import add
 from pathlib import Path
+
+import pooch
 
 from PyPop.Utils import StringMatrix
 
@@ -153,6 +156,7 @@ class AnthonyNolanFilter(Filter):
     def __init__(
         self,
         directoryName=None,
+        remoteMSF=None,
         alleleFileFormat="msf",
         preserveAmbiguousFlag=0,
         preserveUnknownFlag=0,
@@ -169,6 +173,7 @@ class AnthonyNolanFilter(Filter):
         sequenceFilterMethod="strict",
     ):
         self.directoryName = directoryName
+        self.remoteMSF = remoteMSF
         self.alleleFileFormat = alleleFileFormat
         self.preserveAmbiguousFlag = preserveAmbiguousFlag
         self.preserveUnknownFlag = preserveUnknownFlag
@@ -181,6 +186,8 @@ class AnthonyNolanFilter(Filter):
         self.unsequencedSite = unsequencedSite
         self.sequenceFilterMethod = sequenceFilterMethod
 
+        self.msf_cache_dir = None  # default to  None
+
         if self.unsequencedSite == self.untypedAllele:
             sys.exit(
                 "Designator for unsequenced site and untyped allele cannot be the same!"
@@ -191,10 +198,11 @@ class AnthonyNolanFilter(Filter):
         self.logFile = logFile
 
         if self.alleleFileFormat == "msf":
+            # add colon ":" to support new-style nomenclature, e.g. "01:04"
             patt = re.compile(
                 "^ *Name: *([0-9a-zA-Z]+)"
                 + re.escape(self.alleleDesignator)
-                + "([0-9a-zA-Z]+)"
+                + "([0-9a-zA-Z:]+)"
             )
             ## These are the names of the loci used in pop files.
             ## These are also the official names specified by NCBI.
@@ -204,8 +212,9 @@ class AnthonyNolanFilter(Filter):
             loci = ["A", "C", "B", "DRA", "DRB1", "DQA1", "DQB1", "DPA1", "DPB1"]
 
         else:
+            # FIXME: create a variable for the regex
             patt = re.compile(
-                "^([0-9a-zA-Z]+)" + re.escape(self.alleleDesignator) + "([0-9a-zA-Z]+)"
+                "^([0-9a-zA-Z]+)" + re.escape(self.alleleDesignator) + "([0-9a-zA-Z:]+)"
             )
             loci = ["a", "b", "c", "dqa", "dqb", "dra", "drb", "dpb", "dpa"]
 
@@ -568,7 +577,6 @@ class AnthonyNolanFilter(Filter):
                         # ...otherwise, try to find a good close match
                         elif allele == self.untypedAllele:
                             self.sequences[allele] = "*" * self.length
-
                         # FIXME: this code is specific to HLA data
                         # deal with 5 digit allele codes and try again
                         elif len(allele) == 5 and allele.isdigit():
@@ -836,16 +844,77 @@ class AnthonyNolanFilter(Filter):
 
         return str(pos - offsets[locus]) if locus in offsets else str(pos)
 
+    def _setCacheDir(self):
+        # before checking POOCH_CACHE determine pooch's default
+        # cache directory as fallback
+        self.msf_cache_dir = pooch.os_cache(f"msf-files-{self.remoteMSF}")
+
+        # ow check for existence of environment variable
+        # POOCH_CACHE
+        pooch_cache_env = os.environ.get("POOCH_CACHE")
+
+        if pooch_cache_env:
+            pooch_cache_dir = Path(pooch_cache_env).resolve()
+            if pooch_cache_dir.exists():
+                print(
+                    f"LOG: found directory in POOCH_CACHE environment variable: {pooch_cache_dir}"
+                )
+                self.msf_cache_dir = pooch_cache_dir
+            else:
+                print(
+                    f"LOG: POOCH_CACHE cache not found in {pooch_cache_dir}, falling back to pooch's default cache: {self.msf_cache_dir}"
+                )
+        else:
+            print(f"LOG: using default cache directory: {self.msf_cache_dir}")
+
+    def _getMSFFilePath(self, locus):
+        """
+        fetches the path to the file locally or remotely (if remoteMSF option supplied)
+        """
+
+        # first generate the file name to retrieve(same for both local and remote)
+        file_name = f"{locus}{self.sequenceFileSuffix}.msf"
+
+        if self.directoryName:
+            # Local file path
+            return Path(self.directoryName) / file_name
+        if self.remoteMSF:
+            # remote file using pooch
+            base_url = f"https://raw.githubusercontent.com/ANHIG/IMGTHLA/v{self.remoteMSF}/msf/"
+
+            # full URL to the file
+            file_url = f"{base_url}{file_name}"
+
+            if self.debug:
+                print("file_url:", file_url)
+
+            # checks and sets the MSF cache directory, just once
+            if not self.msf_cache_dir:
+                self._setCacheDir()
+
+            # use pooch.retrieve() to download and cache the file
+            local_file = pooch.retrieve(
+                url=file_url,
+                known_hash=None,  # no hash validation; you can add a hash if desired
+                path=self.msf_cache_dir,
+            )
+
+            if self.debug:
+                print(f"File downloaded to: {local_file}")
+
+            return Path(local_file)
+
+        error_message = "Either directoryName or remoteMSF must be specified."
+        raise ValueError(error_message)
+
     def _getMSFLinesForLocus(self, locus):
         # FIXME: this code is specific to hla data
         # CORNER CASE! 'C' locus is called 'Cw' in data files
         #        if locus == 'C':
         #            locus = 'Cw'
 
-        # FIXME:  make the file name configurable
-        self.filename = locus + self.sequenceFileSuffix + ".msf"
-
-        with open(Path(self.directoryName) / self.filename) as fp:
+        msfFilePath = self._getMSFFilePath(locus)
+        with open(msfFilePath) as fp:
             self.lines = fp.readlines()
 
     def _getSequenceFromLines(self, locus=None, allele=None):
