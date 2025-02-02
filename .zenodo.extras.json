@@ -1,0 +1,36 @@
+{
+  "grants": [
+    {
+      "id": "10.13039/100000002::5U24AI049213-05",
+      "_comment": "13th IHWG workshop (5th year?)"
+    },
+    {
+      "id": "10.13039/100000002::1R13AI066863-01",
+      "_comment": "14th IHWG workshop"
+    },
+    {
+      "id": "10.13039/100000002::2R01GM035326-13A1",
+      "_comment": "Population genetics of the HLA region - RO1 grant"
+    },
+    {
+      "id": "10.13039/100000002::N01AI40076-11-0-2",
+      "_comment": "BISC Support Contract HHSN266200400076C"
+    }
+  ],
+  "related_identifiers": [
+    {
+      "scheme": "doi",
+      "identifier": "10.3389/fimmu.2024.1378512",
+      "relation": "isDescribedBy",
+      "resource_type": "publication-article"
+    }
+  ],
+  "additional_descriptions": [
+    {
+      "description": "<p>Main website: <a href=\"http://pypop.org/\">http://pypop.org/</a>.</p><p>Development is on GitHub: <a href=\"https://github.com/alexlancaster/pypop\">https://github.com/alexlancaster/pypop</a></p><p>Binary packages are available on PyPI: <a href=\"https://pypi.org/project/pypop-genomics/\">https://pypi.org/project/pypop-genomics/</a>.&nbsp;</p>",
+      "type": {
+        "id": "technical-info"
+      }
+    }
+  ]
+}
