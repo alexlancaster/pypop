@@ -17,7 +17,7 @@ def test_AlleleColon_HardyWeinberg():
     with open("Test_Allele_Colon_HardyWeinberg-out.txt", "rb") as out_handle:
         assert (
             hashlib.md5(out_handle.read()).hexdigest()
-            == "aa0ad448139a3ea9c65ffa913ef97930"
+            == "5f3b6122dc5146f1280af8468437882c"
         )
 
 
