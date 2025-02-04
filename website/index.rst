@@ -23,23 +23,27 @@ large-scale population genetic analyses including:
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
-  * 2025-01-16: Beta release `PyPop 1.2.0b2 <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0-b2>`__ is now available.
-    The next release will be 1.2.0 (skipping 1.1.3) as this release
-    includes major changes to the build system.  To test the experimental Windows ARM64 wheels in the `Test PyPI
-    <https://test.pypi.org/project/pypop-genomics/>`__ repo, run:
+  * 2025-02-04: `PyPop 1.2.0
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0>`__ is
+    released. This release includes updates and restoration of full
+    functionality for ``[Sequence]`` options as part of the
+    ``[Filters]``, including dynamic downloads of HLA sequence
+    data. It also includes major updates to documentation and uses new
+    HLA nomenclature throughout. Experimental support for wheels built
+    for Windows ARM64 is also available in the `Test PyPI
+    <https://test.pypi.org/project/pypop-genomics/>`__ repo, to test,
+    run:
 
     .. code-block:: shell
 
-       pip install --pre --extra-index-url https://test.pypi.org/simple/ pypop-genomics
+       pip install --extra-index-url https://test.pypi.org/simple/ pypop-genomics
 
     Please test and report issues `via the bug tracker
-    <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BWindows+ARM64+bug%5D%3A+Please+replace+this+with+a+clear+and+concise+description+of+your+bug>`__. Note
-    that if you are installing on a non-Windows ARM64, you can use the
-    regular PyPI repository:
+    <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BWindows+ARM64+bug%5D%3A+Please+replace+this+with+a+clear+and+concise+description+of+your+bug>`__.
 
-    .. code-block:: shell
-
-       pip install --pre pypop-genomics
+  * 2025-01-16: Beta release `PyPop 1.2.0b2
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0-b2>`__
+    is released.
 
   * 2025-01-05: Pre-release `PyPop 1.1.3rc1
     <https://github.com/alexlancaster/pypop/releases/tag/v1.1.3-rc1>`__

@@ -497,7 +497,7 @@ MODIFICATIONS.
      <xsl:value-of select="$cell-width-max"/>
     </xsl:when>
     <xsl:otherwise>
-     <xsl:value-of select="$row-len-max"/>
+     <xsl:value-of select="$row-len-max + 1"/>
     </xsl:otherwise>
    </xsl:choose>
   </xsl:variable>
