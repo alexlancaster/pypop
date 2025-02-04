@@ -7,6 +7,43 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.2.0] - 2025-02-04
+
+### Features
+
+- Add support for new HLA nomenclature including remote MSF sequence retrieval by @alexlancaster ([#252](https://github.com/alexlancaster/pypop/pull/252))
+- Build Linux (`aarch64`) using new ARM64 runners by @alexlancaster ([#250](https://github.com/alexlancaster/pypop/pull/250))
+- [EXPERIMENTAL] Build Windows ARM64-compatible wheels by @alexlancaster ([#235](https://github.com/alexlancaster/pypop/pull/235))
+
+### Bug Fixes
+
+- Update all HLA nomenclature to correct version 3 allele names in unit tests and documentation by @alexlancaster ([#251](https://github.com/alexlancaster/pypop/pull/251))
+- Restore `makeNewPops` and fix `ParseAlleleCount`, major doc upgrade by @alexlancaster ([#247](https://github.com/alexlancaster/pypop/pull/247))
+- Restore functionality for `[Sequence]` filters: Python 3 upgrades by @alexlancaster ([#244](https://github.com/alexlancaster/pypop/pull/244))
+- fix generation of `schema.org` citation format by @alexlancaster ([#233](https://github.com/alexlancaster/pypop/pull/233))
+
+### Internal
+
+- Generate `.zenodo.json` metadata from `CITATION.cff` by @alexlancaster ([#253](https://github.com/alexlancaster/pypop/pull/253))
+- Update numpy requirement from \<=2.2.1 to \<=2.2.2 by @[dependabot[bot]](https://github.com/apps/dependabot) ([#245](https://github.com/alexlancaster/pypop/pull/245))
+- Port metadata from `setup.py` to `pyproject.toml` by @alexlancaster ([#242](https://github.com/alexlancaster/pypop/pull/242))
+- Overhaul C extension code: `pre-commit` and fix compiler warnings by @alexlancaster ([#239](https://github.com/alexlancaster/pypop/pull/239))
+- Major cleanup of codebase: add and enforce `pre-commit` checks by @alexlancaster ([#238](https://github.com/alexlancaster/pypop/pull/238))
+- Bump stefanzweifel/git-auto-commit-action from 4 to 5 in the actions group by @[dependabot[bot]](https://github.com/apps/dependabot) ([#237](https://github.com/alexlancaster/pypop/pull/237))
+- Code cleanups: address warnings and add pre-commit checks by @alexlancaster ([#236](https://github.com/alexlancaster/pypop/pull/236))
+- Move `codeql` tests to `ubuntu-latest` by @alexlancaster ([#234](https://github.com/alexlancaster/pypop/pull/234))
+- Update numpy requirement from \<=2.2.0 to \<=2.2.1 by @[dependabot[bot]](https://github.com/apps/dependabot) ([#232](https://github.com/alexlancaster/pypop/pull/232))
+- Update numpy requirement from \<=2.1.3 to \<=2.2.0 by @[dependabot[bot]](https://github.com/apps/dependabot) ([#231](https://github.com/alexlancaster/pypop/pull/231))
+- Bump pypa/cibuildwheel from 2.21.3 to 2.22.0 in the actions group by @[dependabot[bot]](https://github.com/apps/dependabot) ([#230](https://github.com/alexlancaster/pypop/pull/230))
+- Bump actions/setup-python from 4 to 5 in the actions group by @[dependabot[bot]](https://github.com/apps/dependabot) ([#229](https://github.com/alexlancaster/pypop/pull/229))
+
+### Documentation
+
+- Update all HLA nomenclature to correct version 3 allele names in unit tests and documentation by @alexlancaster ([#251](https://github.com/alexlancaster/pypop/pull/251))
+- Update documentation for `makeNewPops` filter by @alexlancaster ([#247](https://github.com/alexlancaster/pypop/pull/247))
+- Documentation updates for `[Sequence]` filters: by @alexlancaster ([#244](https://github.com/alexlancaster/pypop/pull/244))
+- Add information on `pre-commit` checks by @alexlancaster ([#240](https://github.com/alexlancaster/pypop/pull/240))
+
 ## [1.1.2] - 2024-11-18
 
 ### Features
@@ -456,3 +493,4 @@ Single, Owen Solberg and Steve Mack.
 [1.1.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.0
 [1.1.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.1
 [1.1.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.2
+[1.2.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.0
