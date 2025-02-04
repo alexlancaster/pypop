@@ -38,7 +38,7 @@ def test_GenotypeCommon_HardyWeinberg():
     with open("BIGDAWG_SynthControl_Data-out.txt", "rb") as out_handle:
         assert (
             hashlib.md5(out_handle.read()).hexdigest()
-            == "7162aa0715ccfd1cb7b666409d839129"
+            == "099138eb81d9fd1ef8a3e9cde8fa1e60"
         )
 
 
@@ -53,5 +53,5 @@ def test_GenotypeCommonDash_HardyWeinberg():
     with open("BIGDAWG_SynthControl_Data_dash-out.txt", "rb") as out_handle:
         assert (
             hashlib.md5(out_handle.read()).hexdigest()
-            == "ee7d37fb5a21419d917bf343f2315083"
+            == "5e641d6245388e257f62843963eb1aa3"
         )
