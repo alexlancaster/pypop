@@ -30,12 +30,13 @@ large-scale population genetic analyses including:
     ``[Filters]``, including dynamic downloads of HLA sequence
     data. It also includes major updates to documentation and uses new
     HLA nomenclature throughout. Experimental support for wheels built
-    for Windows ARM64 is available in the `Test PyPI
-    <https://test.pypi.org/project/pypop-genomics/>`__ repo, run:
+    for Windows ARM64 is also available in the `Test PyPI
+    <https://test.pypi.org/project/pypop-genomics/>`__ repo, to test,
+    run:
 
     .. code-block:: shell
 
-       pip install --pre --extra-index-url https://test.pypi.org/simple/ pypop-genomics
+       pip install --extra-index-url https://test.pypi.org/simple/ pypop-genomics
 
     Please test and report issues `via the bug tracker
     <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BWindows+ARM64+bug%5D%3A+Please+replace+this+with+a+clear+and+concise+description+of+your+bug>`__.
