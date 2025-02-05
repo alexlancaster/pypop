@@ -39,7 +39,6 @@ dependencies = [
 
 [project.optional-dependencies]
 test = ["pytest", "pytest-benchmark[histogram]"]
-test-pval-benchmarking = ["scipy"]
 
 [project.urls]
 Homepage = "http://pypop.org/"
@@ -112,8 +111,6 @@ before-all="yum install -y swig gsl-devel"
 [[tool.cibuildwheel.overrides]]
 # run the benchmarking only on cp313
 select = "cp313-manylinux_aarch64"
-inherit.test-extras="append"
-test-extras = ["test-pval-benchmarking"]
 test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 
 [[tool.cibuildwheel.overrides]]
