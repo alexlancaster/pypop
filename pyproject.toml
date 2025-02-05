@@ -167,6 +167,7 @@ before-all = ["brew install --quiet ./swig--4.2.1.arm64_ventura.bottle.tar.gz 2>
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
+test-command = "pytest -v {package}/tests {env:PYTEST_OPTIONS:-}"
 
 [[tool.cibuildwheel.overrides]]
 # overrides for X86
