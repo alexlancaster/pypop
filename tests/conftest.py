@@ -1,4 +1,4 @@
-# add command-line option to pytest to skip certain slow tests
+# add command-line option to pytest to skip certain tests
 # provide an override to run them
 
 # adapted from pytest documentation
@@ -19,17 +19,43 @@ def pytest_addoption(parser):
     parser.addoption(
         "--runslow", action="store_true", default=False, help="run slow tests"
     )
+    parser.addoption(
+        "--pval-benchmarking",
+        action="store_true",
+        default=False,
+        help="do pvalue benchmarking, requires scipy installed",
+    )
 
 
 def pytest_configure(config):
     config.addinivalue_line("markers", "slow: mark test as slow to run")
+    config.addinivalue_line("markers", "pval_benchmarking: mark test as needing scipy")
 
 
 def pytest_collection_modifyitems(config, items):
-    if config.getoption("--runslow"):
-        # --runslow given in cli: do not skip slow tests
-        return
-    skip_slow = pytest.mark.skip(reason="need --runslow option to run")
+    if config.getoption("--pval-benchmarking"):
+        # only check for SciPy if --pval-benchmarking is requested
+        import importlib.util
+
+        scipy_available = importlib.util.find_spec("scipy") is not None
+
+        if not scipy_available:
+            skip_pval = pytest.mark.skip(
+                reason="scipy is required for --pval-benchmarking"
+            )
+        else:
+            skip_pval = None
+    else:
+        skip_pval = pytest.mark.skip(reason="need --pval-benchmarking option to run")
+
+    skip_slow = (
+        None
+        if config.getoption("--runslow")
+        else pytest.mark.skip(reason="need --runslow option to run")
+    )
+
     for item in items:
-        if "slow" in item.keywords:
+        if "slow" in item.keywords and skip_slow:
             item.add_marker(skip_slow)
+        if "pval_benchmarking" in item.keywords and skip_pval:
+            item.add_marker(skip_pval)
