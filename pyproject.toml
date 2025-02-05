@@ -37,8 +37,8 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = ["pytest"]
-test-pval-benchmarking = ["pytest-benchmark[histogram]", "scipy"]
+test = ["pytest", "pytest-benchmark[histogram]"]
+test-pval-benchmarking = ["scipy"]
 
 [project.urls]
 Homepage = "http://pypop.org/"
