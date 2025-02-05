@@ -1,6 +1,7 @@
 import os.path
 from unittest import mock
 
+import pytest
 from base import (
     DEFAULT_GOLD_OUTPUT_DIR,
     abspath_test_data,
@@ -11,9 +12,13 @@ from base import (
     xfail_windows,
 )
 
-def test_USAFEL_with_pval(benchmark):
 
-    exit_code = benchmark(run_pypop_process, './tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini', './tests/data/USAFEL-UchiTelle-small.pop')
+def test_USAFEL_with_pval(benchmark):
+    exit_code = benchmark(
+        run_pypop_process,
+        "./tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini",
+        "./tests/data/USAFEL-UchiTelle-small.pop",
+    )
     # check exit code
     assert exit_code == 0
 
@@ -25,18 +30,27 @@ def test_USAFEL_with_pval(benchmark):
 
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
-def test_USAFEL_with_scipy(benchmark):
 
-    with mock.patch('PyPop.HardyWeinberg.use_scipy', True) as new_scipy:
-        exit_code = benchmark(run_pypop_process, './tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini', './tests/data/USAFEL-UchiTelle-small.pop')
+@pytest.mark.pval_benchmarking
+def test_USAFEL_with_scipy(benchmark):
+    with mock.patch("PyPop.HardyWeinberg.use_scipy", True):
+        exit_code = benchmark(
+            run_pypop_process,
+            "./tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini",
+            "./tests/data/USAFEL-UchiTelle-small.pop",
+        )
         # check exit code
         assert exit_code == 0
 
         out_filename = "USAFEL-UchiTelle-small-out.txt"
-        gold_out_filename = abspath_test_data(os.path.join(DEFAULT_GOLD_OUTPUT_DIR, "USAFEL-UchiTelle-small-out-no-emhaplofreq-noguothompson-no-slatkin.txt"))
+        gold_out_filename = abspath_test_data(
+            DEFAULT_GOLD_OUTPUT_DIR
+            / "USAFEL-UchiTelle-small-out-no-emhaplofreq-noguothompson-no-slatkin.txt"
+        )
 
         assert filecmp_ignore_newlines(out_filename, gold_out_filename)
-    
+
+
 def test_USAFEL_slatkin():
     exit_code = run_pypop_process(
         "./tests/data/minimal-no-emhaplofreq-no-guothompson.ini",

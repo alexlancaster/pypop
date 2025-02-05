@@ -1,12 +1,14 @@
 import hashlib
 from unittest import mock
 
+import pytest
 from base import (
     in_temp_dir,  # noqa: F401
     run_pypop_process,
 )
 
 
+@pytest.mark.pval_benchmarking
 def test_GenotypeCommon_HardyWeinberg_scipy_pval(benchmark):
     with mock.patch("PyPop.HardyWeinberg.use_scipy", True):
         exit_code = benchmark(
@@ -25,6 +27,7 @@ def test_GenotypeCommon_HardyWeinberg_scipy_pval(benchmark):
             )
 
 
+@pytest.mark.pval_benchmarking
 def test_GenotypeCommon_HardyWeinberg_compiled_pval(benchmark):
     exit_code = benchmark(
         run_pypop_process,

@@ -41,21 +41,28 @@ from tempfile import TemporaryDirectory
 
 from PyPop import _Pvalue
 from PyPop.Arlequin import ArlequinExactHWTest
+
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
 # this can clash with a character within an allele identifier too easily
 from PyPop.Utils import GENOTYPE_SEPARATOR, getStreamType
 
-from scipy.stats import chi2
-from PyPop import _Pvalue
+use_scipy = False  # don't use scipy by default
+chi2 = None  # define chi2 globally
 
-use_scipy = False
+if use_scipy:
+    from scipy.stats import chi2
+
 
 def pval(chisq, dof):
-  if use_scipy:
-      p_value = 1 - chi2.cdf(chisq, dof)
-  else:
-    p_value  = _Pvalue.pval(chisq, dof)
-  return p_value
+    global chi2  # noqa: PLW0603
+    if use_scipy:
+        if chi2 is None:
+            from scipy.stats import chi2  # late import if needed
+        p_value = 1 - chi2.cdf(chisq, dof)
+    else:
+        p_value = _Pvalue.pval(chisq, dof)
+    return p_value
+
 
 def _chen_statistic(genotype, alleleFreqs, genotypes, total_gametes):
     total_indivs = total_gametes / 2
@@ -355,9 +362,7 @@ class HardyWeinberg:
                     squareMe * squareMe
                 ) / self.hetsExpectedByAllele[allele]
 
-                self.hetsPvalByAllele[allele] = pval(
-                    self.hetsChisqByAllele[allele], 1
-                )
+                self.hetsPvalByAllele[allele] = pval(self.hetsChisqByAllele[allele], 1)
 
                 if self.debug:
                     print("By Allele:    obs exp   chi        p")
@@ -395,9 +400,7 @@ class HardyWeinberg:
                 self.chisqByGenotype[genotype] = (
                     squareMe * squareMe
                 ) / self.expectedGenotypeCounts[genotype]
-                self.pvalByGenotype[genotype] = pval(
-                    self.chisqByGenotype[genotype], 1
-                )
+                self.pvalByGenotype[genotype] = pval(self.chisqByGenotype[genotype], 1)
 
                 if self.debug:
                     print("By Genotype:  obs exp   chi        p")
