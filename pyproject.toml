@@ -111,7 +111,7 @@ before-all="yum install -y swig gsl-devel"
 select = "cp313-manylinux_aarch64"
 inherit.test-extras="append"
 test-extras = ["test-pval-benchmarking"]
-inherit.test-command="replace"
+inherit.test-command="none"
 test-command = "pytest --pval-benchmarking -v {package}/tests"
 
 [[tool.cibuildwheel.overrides]]
