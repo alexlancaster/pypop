@@ -100,16 +100,23 @@ environment = { PIP_ONLY_BINARY=":all:", PIP_VERBOSE="0" }
 # so that certain source-only build deps (like cffconvert) install
 build-frontend = { name = "pip", args = ["--only-binary=:none:"] }
 
-[[tool.cibuildwheel.overrides]]
-# for latest CPython use newer manylinux image
-select = "cp312-*linux*"
-manylinux-x86_64-image = "manylinux_2_28"
-
 [tool.cibuildwheel.linux]
 # add aarch64 to default ("auto") architectures
 archs = ["auto", "aarch64"]
 # default linux wheels use CentOS-based runners, local cibuildwheel docker
 before-all="yum install -y swig gsl-devel"
+
+[[tool.cibuildwheel.overrides]]
+# run the benchmarking only on cp313
+select = "cp313-manylinux_aarch64"
+inherit.test-extras="append"
+test-extras = ["test-pval-benchmarking"]
+test-command = "pytest --pval-benchmarking -v {package}/tests"
+
+[[tool.cibuildwheel.overrides]]
+# for latest CPython use newer manylinux image
+select = "cp312-*linux*"
+manylinux-x86_64-image = "manylinux_2_28"
 
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
