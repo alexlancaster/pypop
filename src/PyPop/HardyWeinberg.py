@@ -39,10 +39,17 @@ from math import pow
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
+from scipy.stats import chi2
+
 from PyPop.Arlequin import ArlequinExactHWTest
+
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
 # this can clash with a character within an allele identifier too easily
-from PyPop.Utils import GENOTYPE_SEPARATOR, getStreamType, pval
+from PyPop.Utils import GENOTYPE_SEPARATOR, getStreamType
+
+
+def pval(chisq, dof):
+    return 1 - chi2.cdf(chisq, dof)
 
 
 def _chen_statistic(genotype, alleleFreqs, genotypes, total_gametes):
@@ -343,9 +350,7 @@ class HardyWeinberg:
                     squareMe * squareMe
                 ) / self.hetsExpectedByAllele[allele]
 
-                self.hetsPvalByAllele[allele] = pval(
-                    self.hetsChisqByAllele[allele], 1
-                )
+                self.hetsPvalByAllele[allele] = pval(self.hetsChisqByAllele[allele], 1)
 
                 if self.debug:
                     print("By Allele:    obs exp   chi        p")
@@ -383,9 +388,7 @@ class HardyWeinberg:
                 self.chisqByGenotype[genotype] = (
                     squareMe * squareMe
                 ) / self.expectedGenotypeCounts[genotype]
-                self.pvalByGenotype[genotype] = pval(
-                    self.chisqByGenotype[genotype], 1
-                )
+                self.pvalByGenotype[genotype] = pval(self.chisqByGenotype[genotype], 1)
 
                 if self.debug:
                     print("By Genotype:  obs exp   chi        p")
