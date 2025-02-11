@@ -53,14 +53,12 @@ template: |
 
   $CHANGES
 
-  ### Contributors
-
-  $CONTRIBUTORS
-
   [$RESOLVED_VERSION]: https://github.com/$OWNER/$REPOSITORY/releases/tag/v$RESOLVED_VERSION
 
   <!-- END cut-and-paste to NEWS.md -->
 
-  A full history of changes is available in [`NEWS.md`](https://github.com/$OWNER/$REPOSITORY/blob/main/NEWS.md).
+  **Committers:**  $CONTRIBUTORS
+
+  A history of changes is available in [`NEWS.md`](https://github.com/$OWNER/$REPOSITORY/blob/main/NEWS.md).
 
   **Full Changelog:** https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
