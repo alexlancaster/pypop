@@ -16,10 +16,9 @@ on:
       - 'data/**'
       - 'src/obsolete/**'
       - '.github/**'
+      - '!.github/workflows/build_wheels.yml'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
-    paths:
-      - '.github/workflows/build_wheels.yml'
   push:
     paths-ignore:
       - '**.md'
@@ -30,10 +29,9 @@ on:
       - 'data/**'
       - 'src/obsolete/**'
       - '.github/**'
+      - '!.github/workflows/build_wheels.yml'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
-    paths:
-      - '.github/workflows/build_wheels.yml'
   release:
     types:
       - published
