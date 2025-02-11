@@ -15,14 +15,8 @@ on:
       - 'website/**'
       - 'data/**'
       - 'src/obsolete/**'
-      - '.github/dependabot.yml'
-      - '.github/release-drafter.yml'
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/workflows/documentation.yaml'
-      - '.github/workflows/buildjet_arm64.yml'
-      - '.github/workflows/release-drafter.yml'
-      - '.github/workflows/codeql.yml'
-      - '.github/workflows/nuget_gsl_arm64_package.yml'
+      - '.github/**'
+      - '!.github/workflows/build_wheels.yml'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
   push:
@@ -34,14 +28,8 @@ on:
       - 'website/**'
       - 'data/**'
       - 'src/obsolete/**'
-      - '.github/dependabot.yml'
-      - '.github/release-drafter.yml'
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/workflows/documentation.yaml'
-      - '.github/workflows/buildjet_arm64.yml'
-      - '.github/workflows/release-drafter.yml'
-      - '.github/workflows/codeql.yml'
-      - '.github/workflows/nuget_gsl_arm64_package.yml'
+      - '.github/**'
+      - '!.github/workflows/build_wheels.yml'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
   release:
@@ -193,7 +181,7 @@ jobs:
           echo "platform matrix:" $MATRIX
         env:
            # only generate all wheels on releases, pull requests or commits to the main branch
-           # otherwise just generate a test wheel Python 3.12 for 4 platform
+           # otherwise just generate a test wheel Python 3.13 for 5 platform
            CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
 
 

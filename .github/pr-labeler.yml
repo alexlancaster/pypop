@@ -1,0 +1,1 @@
+skip-changelog: ['pre-commit-ci-*', 'skip-changelog-*']
