@@ -29,7 +29,7 @@ categories:
 exclude-labels:
   - 'skip-changelog'
 category-template: '### $TITLE'
-change-template: '- $TITLE by @$AUTHOR ([#$NUMBER]($URL))'
+change-template: '- $TITLE ([#$NUMBER]($URL))'
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
 version-resolver:
   major:
@@ -57,6 +57,8 @@ template: |
 
   <!-- END cut-and-paste to NEWS.md -->
 
-  A full history of changes is available in [`NEWS.md`](https://github.com/$OWNER/$REPOSITORY/blob/main/NEWS.md).
+  **Committers:**  $CONTRIBUTORS
+
+  A history of changes is available in [`NEWS.md`](https://github.com/$OWNER/$REPOSITORY/blob/main/NEWS.md).
 
   **Full Changelog:** https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
