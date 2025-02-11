@@ -15,16 +15,11 @@ on:
       - 'website/**'
       - 'data/**'
       - 'src/obsolete/**'
-      - '.github/dependabot.yml'
-      - '.github/release-drafter.yml'
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/workflows/documentation.yaml'
-      - '.github/workflows/buildjet_arm64.yml'
-      - '.github/workflows/release-drafter.yml'
-      - '.github/workflows/codeql.yml'
-      - '.github/workflows/nuget_gsl_arm64_package.yml'
+      - '.github/**'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
+    paths:
+      - '.github/workflows/build_wheels.yml'
   push:
     paths-ignore:
       - '**.md'
@@ -34,16 +29,11 @@ on:
       - 'website/**'
       - 'data/**'
       - 'src/obsolete/**'
-      - '.github/dependabot.yml'
-      - '.github/release-drafter.yml'
-      - '.github/ISSUE_TEMPLATE/**'
-      - '.github/workflows/documentation.yaml'
-      - '.github/workflows/buildjet_arm64.yml'
-      - '.github/workflows/release-drafter.yml'
-      - '.github/workflows/codeql.yml'
-      - '.github/workflows/nuget_gsl_arm64_package.yml'
+      - '.github/**'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
+    paths:
+      - '.github/workflows/build_wheels.yml'
   release:
     types:
       - published
