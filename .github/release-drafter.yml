@@ -29,7 +29,7 @@ categories:
 exclude-labels:
   - 'skip-changelog'
 category-template: '### $TITLE'
-change-template: '- $TITLE by @$AUTHOR ([#$NUMBER]($URL))'
+change-template: '- $TITLE ([#$NUMBER]($URL))'
 change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
 version-resolver:
   major:
@@ -52,6 +52,10 @@ template: |
   ## [$RESOLVED_VERSION] - YYYY-MM-DD
 
   $CHANGES
+
+  ### Contributors
+
+  $CONTRIBUTORS
 
   [$RESOLVED_VERSION]: https://github.com/$OWNER/$REPOSITORY/releases/tag/v$RESOLVED_VERSION
 
