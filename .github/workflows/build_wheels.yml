@@ -181,7 +181,7 @@ jobs:
           echo "platform matrix:" $MATRIX
         env:
            # only generate all wheels on releases, pull requests or commits to the main branch
-           # otherwise just generate a test wheel Python 3.12 for 4 platform
+           # otherwise just generate a test wheel Python 3.13 for 5 platform
            CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
 
 
