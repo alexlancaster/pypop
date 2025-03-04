@@ -85,6 +85,7 @@ enable = ["pypy"]             # explicitly enable, this will be required for cib
 skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "pp37-*",             # skip certain PyPy configurations
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
+	"pp311-*",            # no numpy wheels for PyPy 3.11
         "cp313-musllinux_x86_64", # problem with this version
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
@@ -108,9 +109,10 @@ archs = ["auto", "aarch64"]
 before-all="yum install -y swig gsl-devel"
 
 # Pin to cibuildwheel 2.22 versions of images
+# also use musllinux_1_1 image for x86_64 (musllinux_1_2 segfaults)
 manylinux-x86_64-image = "quay.io/pypa/manylinux2014_x86_64:2024.11.16-1"
 manylinux-aarch64-image = "quay.io/pypa/manylinux2014_aarch64:2024.11.16-1"
-musllinux-x86_64-image = "quay.io/pypa/musllinux_1_2_x86_64:2024.11.16-1"
+musllinux-x86_64-image = "quay.io/pypa/musllinux_1_1_x86_64:2024.10.26-1"
 musllinux-aarch64-image = "quay.io/pypa/musllinux_1_2_aarch64:2024.11.16-1"
 
 [[tool.cibuildwheel.overrides]]
@@ -123,7 +125,7 @@ test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 [[tool.cibuildwheel.overrides]]
 # for latest CPython use newer manylinux image
 select = "cp313-*linux*"
-manylinux-x86_64-image = "manylinux_2_28"
+manylinux-x86_64-image = "quay.io/pypa/manylinux2_28_x86_64:2024.11.16-1"
 
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
