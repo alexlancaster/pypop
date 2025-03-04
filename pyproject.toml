@@ -107,6 +107,12 @@ archs = ["auto", "aarch64"]
 # default linux wheels use CentOS-based runners, local cibuildwheel docker
 before-all="yum install -y swig gsl-devel"
 
+# Pin to cibuildwheel 2.22 versions of images
+manylinux-x86_64-image = "quay.io/pypa/manylinux2014_x86_64:2024.11.16-1"
+manylinux-aarch64-image = "quay.io/pypa/manylinux2014_aarch64:2024.11.16-1"
+musllinux-x86_64-image = "quay.io/pypa/musllinux_1_2_x86_64:2024.11.16-1"
+musllinux-aarch64-image = "quay.io/pypa/musllinux_1_2_aarch64:2024.11.16-1"
+
 [[tool.cibuildwheel.overrides]]
 # run the benchmarking only on cp313
 select = "cp313-manylinux_aarch64"
@@ -116,7 +122,7 @@ test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 
 [[tool.cibuildwheel.overrides]]
 # for latest CPython use newer manylinux image
-select = "cp312-*linux*"
+select = "cp313-*linux*"
 manylinux-x86_64-image = "manylinux_2_28"
 
 [[tool.cibuildwheel.overrides]]
@@ -124,7 +130,7 @@ manylinux-x86_64-image = "manylinux_2_28"
 select = "*musllinux*"
 before-all = "apk add swig gsl-dev"
 # restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)
-musllinux-x86_64-image="musllinux_1_1"
+#musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
 # use oras to get archived 2.7.1 bottles of `gsl` that has 10.15 (on x86) / 11.0 (on arm64) builds
