@@ -106,7 +106,7 @@ build-frontend = { name = "pip", args = ["--only-binary=:none:"] }
 # add aarch64 to default ("auto") architectures
 archs = ["auto", "aarch64"]
 # default linux wheels use CentOS-based runners, local cibuildwheel docker
-before-all="yum install -y swig gsl-devel"
+before-all=["pipx install -f swig==4.2.1.post0", "yum install -y swig gsl-devel"]
 
 # Pin to cibuildwheel 2.22 versions of images
 # also use musllinux_1_1 image for x86_64 (musllinux_1_2 segfaults)
