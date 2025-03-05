@@ -128,7 +128,7 @@ musllinux-x86_64-image="musllinux_1_1"
 # use oras to get archived 2.7.1 bottles of `gsl` that has 10.15 (on x86) / 11.0 (on arm64) builds
 # and archived 4.2.1 bottles of `swig` (swig 4.3.0 creates extensions that segfault)
 before-all = ["brew install --quiet oras",
-              "oras pull ghcr.io/homebrew/core/swig:4.2.1",
+              # "oras pull ghcr.io/homebrew/core/swig:4.2.1",
 	      "oras pull ghcr.io/homebrew/core/gsl:2.7.1"]
 # re-enable if we need to  do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
@@ -151,8 +151,8 @@ inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15/Catalina
 inherit.before-all="append"
 # install `swig` and the Catalina version of `gsl` to match
-before-all = ["brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2> /dev/null",
-	      "brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz 2> /dev/null"]
+before-all = [ "brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz 2> /dev/null"]
+# "brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2> /dev/null",
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
