@@ -86,6 +86,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "pp*",                # skip all PyPy (no scipy available)
         # "pp37-*"            # skip certain PyPy configurations
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
+	"pp311-*",            # no numpy wheels for PyPy 3.11
         "cp313-musllinux_x86_64", # problem with this version
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
@@ -106,7 +107,7 @@ build-frontend = { name = "pip", args = ["--only-binary=:none:"] }
 # add aarch64 to default ("auto") architectures
 archs = ["auto", "aarch64"]
 # default linux wheels use CentOS-based runners, local cibuildwheel docker
-before-all="yum install -y swig gsl-devel"
+before-all = ["pipx install -f swig==4.2.1.post0", "yum install -y gsl-devel"]
 
 [[tool.cibuildwheel.overrides]]
 # run the benchmarking only on cp313
@@ -114,15 +115,10 @@ select = "cp313-manylinux_aarch64"
 test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 
 [[tool.cibuildwheel.overrides]]
-# for latest CPython use newer manylinux image
-select = "cp312-*linux*"
-manylinux-x86_64-image = "manylinux_2_28"
-
-[[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
 select = "*musllinux*"
-before-all = "apk add swig gsl-dev"
-# restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)
+before-all = ["pipx install -f swig==4.2.1", "apk add gsl-dev"]
+# restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)P
 musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
