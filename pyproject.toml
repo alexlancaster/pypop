@@ -2,6 +2,7 @@
 build-backend = "setuptools.build_meta:__legacy__"
 requires = ["setuptools>=42",
 	    "setuptools_scm[toml]>=6.2",
+	    "swig==4.2.1",
 	    "tomli",
 	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
 	    "importlib-metadata; python_version <= '3.8'"
@@ -86,7 +87,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "pp37-*",             # skip certain PyPy configurations
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
 	"pp311-*",            # no numpy wheels for PyPy 3.11
-        #"cp313-musllinux_x86_64", # problem with this version
+        "cp313-musllinux_x86_64", # no lxml wheels for  musllinux_1_1 on cp313
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
@@ -106,7 +107,8 @@ build-frontend = { name = "pip", args = ["--only-binary=:none:"] }
 # add aarch64 to default ("auto") architectures
 archs = ["auto", "aarch64"]
 # default linux wheels use CentOS-based runners, local cibuildwheel docker
-before-all = ["pipx install -f swig==4.2.1.post0", "yum install -y gsl-devel"]
+before-all = ["yum install -y gsl-devel"]
+# "pipx install -f swig==4.2.1.post0",
 
 [[tool.cibuildwheel.overrides]]
 # run the benchmarking only on cp313
@@ -118,7 +120,7 @@ test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
 select = "*musllinux*"
-before-all = ["pipx install -f swig==4.2.1", "apk add gsl-dev"]
+before-all = ["apk add gsl-dev"]
 # restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)P
 musllinux-x86_64-image="musllinux_1_1"
 
