@@ -130,9 +130,9 @@ select = "cp313-*linux*"
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
 select = "*musllinux*"
-before-all = "apk add swig gsl-dev"
+before-all = ["pipx install -f swig==4.2.1.post0", "apk add gsl-dev"]
 # restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)
-musllinux-x86_64-image="musllinux_1_1"
+#musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
 # use oras to get archived 2.7.1 bottles of `gsl` that has 10.15 (on x86) / 11.0 (on arm64) builds
