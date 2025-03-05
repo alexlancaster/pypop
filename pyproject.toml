@@ -118,8 +118,8 @@ test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
 select = "*musllinux*"
-before-all = ["pipx install -f swig==4.2.1.post0", "apk add gsl-dev"]
-# restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)
+before-all = ["pipx install -f swig==4.2.1", "apk add gsl-dev"]
+# restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)P
 musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
