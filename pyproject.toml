@@ -125,7 +125,7 @@ test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 [[tool.cibuildwheel.overrides]]
 # for latest CPython use newer manylinux image
 select = "cp313-*linux*"
-manylinux-x86_64-image = "quay.io/pypa/manylinux2014_x86_64:2024.11.30-1"
+manylinux-x86_64-image = "quay.io/pypa/manylinux2014_x86_64:2024.11.24-1"
 
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
