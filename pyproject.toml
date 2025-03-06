@@ -2,6 +2,8 @@
 build-backend = "setuptools.build_meta:__legacy__"
 requires = ["setuptools>=42",
 	    "setuptools_scm[toml]>=6.2",
+	    "swig>=4.2.1,<=4.2.1.post0", # pin `swig` to 4.2.1 (swig 4.3.0 creates extensions that segfault)
+	                                 # fallback to 4.2.1 if a 4.2.1.post0 compatible package not available
 	    "tomli",
 	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
 	    "importlib-metadata; python_version <= '3.8'"
@@ -87,7 +89,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
         # "pp37-*"            # skip certain PyPy configurations
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
 	"pp311-*",            # no numpy wheels for PyPy 3.11
-        "cp313-musllinux_x86_64", # problem with this version
+        "cp313-musllinux_x86_64", # no lxml wheels for  musllinux_1_1 on cp313
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
@@ -107,7 +109,7 @@ build-frontend = { name = "pip", args = ["--only-binary=:none:"] }
 # add aarch64 to default ("auto") architectures
 archs = ["auto", "aarch64"]
 # default linux wheels use CentOS-based runners, local cibuildwheel docker
-before-all = ["pipx install -f swig==4.2.1.post0", "yum install -y gsl-devel"]
+before-all = ["yum install -y gsl-devel"]
 
 [[tool.cibuildwheel.overrides]]
 # run the benchmarking only on cp313
@@ -117,15 +119,19 @@ test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
 select = "*musllinux*"
-before-all = ["pipx install -f swig==4.2.1", "apk add gsl-dev"]
+before-all = ["apk add gsl-dev"]
 # restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)P
 musllinux-x86_64-image="musllinux_1_1"
 
+[[tool.cibuildwheel.overrides]]
+# use the recent `muslinux_1_2` on cp313
+# lxml for musllinux_1_1 does not exist for Python 3.13
+select = "cp313-musllinux_x86_64"
+musllinux-x86_64-image="musllinux_1_2"
+
 [tool.cibuildwheel.macos]
 # use oras to get archived 2.7.1 bottles of `gsl` that has 10.15 (on x86) / 11.0 (on arm64) builds
-# and archived 4.2.1 bottles of `swig` (swig 4.3.0 creates extensions that segfault)
 before-all = ["brew install --quiet oras",
-              "oras pull ghcr.io/homebrew/core/swig:4.2.1",
 	      "oras pull ghcr.io/homebrew/core/gsl:2.7.1"]
 # re-enable if we need to  do a per-build 'gsl' installation to force correct architecture when
 # cross-compiling (https://stackoverflow.com/a/75488269)
@@ -147,18 +153,16 @@ select = "*-macosx_x86_64"
 inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="10.15" } # target 10.15/Catalina
 inherit.before-all="append"
-# install `swig` and the Catalina version of `gsl` to match
-before-all = ["brew install --quiet ./swig--4.2.1.monterey.bottle.tar.gz 2> /dev/null",
-	      "brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz 2> /dev/null"]
+# install the Catalina version of `gsl` to match
+before-all = ["brew install --quiet ./gsl--2.7.1.catalina.bottle.tar.gz 2> /dev/null"]
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_arm64"
 inherit.environment="append"
 environment = { MACOSX_DEPLOYMENT_TARGET="11.0" } # target for 11.0/Big Sur
 inherit.before-all="append"
-# install `swig` and the Big Sur version of `gsl` to match
-before-all = ["brew install --quiet ./swig--4.2.1.arm64_ventura.bottle.tar.gz 2> /dev/null",
-              "brew install --quiet ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz 2> /dev/null"]
+# install the Big Sur version of `gsl` to match
+before-all = ["brew install --quiet ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz 2> /dev/null"]
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
