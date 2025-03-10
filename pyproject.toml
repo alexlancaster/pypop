@@ -2,7 +2,7 @@
 build-backend = "setuptools.build_meta:__legacy__"
 requires = ["setuptools>=42",
 	    "setuptools_scm[toml]>=6.2",
-	    "swig>=4.2.1,<=4.2.1.post0", # pin `swig` to 4.2.1 (swig 4.3.0 creates extensions that segfault)
+	    "swig>=4.2.1,<=4.3.0", # pin `swig` to 4.2.1 (swig 4.3.0 creates extensions that segfault)
 	                                 # fallback to 4.2.1 if a 4.2.1.post0 compatible package not available
 	    "tomli",
 	    "cffconvert @ git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert",
