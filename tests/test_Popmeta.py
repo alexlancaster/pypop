@@ -1,4 +1,4 @@
-import os.path
+from pathlib import Path
 
 from base import (
     DEFAULT_GOLD_OUTPUT_DIR,
@@ -31,7 +31,7 @@ def test_Popmeta():
     )
 
     # make sure only expected generated files exist
-    assert set(os.listdir()) == {*checked_filenames, "meta.xml"}
+    assert {p.name for p in Path().iterdir()} == {*checked_filenames, "meta.xml"}
 
 
 def test_Popmeta_Prefix():
@@ -57,4 +57,4 @@ def test_Popmeta_Prefix():
     )
 
     # make sure only expected generated files exist
-    assert set(os.listdir()) == {*checked_filenames, "meta.xml"}
+    assert {p.name for p in Path().iterdir()} == {*checked_filenames, "meta.xml"}
