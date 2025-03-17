@@ -1,4 +1,4 @@
-import os.path
+from pathlib import Path
 
 import pytest
 from base import (
@@ -30,4 +30,4 @@ def test_ManyOptions():
     assert exit_code == 0
 
     # FIXME: currently just checks presence of files, don't check contents
-    assert set(os.listdir()) == set(generated_filenames)
+    assert {p.name for p in Path().iterdir()} == set(generated_filenames)

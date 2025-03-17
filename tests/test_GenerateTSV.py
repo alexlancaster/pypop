@@ -1,4 +1,4 @@
-import os.path
+from pathlib import Path
 
 from base import (
     DEFAULT_GOLD_OUTPUT_DIR,
@@ -37,7 +37,9 @@ def test_GenerateTSV_2_locus():
     )
 
     # make sure only expected generated files exist
-    assert set(os.listdir()) == set(checked_filenames + generated_filenames_common)
+    assert {p.name for p in Path().iterdir()} == set(
+        checked_filenames + generated_filenames_common
+    )
 
 
 def test_GenerateTSV_2_locus_with_HW():
@@ -63,7 +65,9 @@ def test_GenerateTSV_2_locus_with_HW():
     )
 
     # make sure only expected generated files exist
-    assert set(os.listdir()) == set(checked_filenames + generated_filenames_common)
+    assert {p.name for p in Path().iterdir()} == set(
+        checked_filenames + generated_filenames_common
+    )
 
 
 def test_GenerateTSV_3_locus():
@@ -87,7 +91,9 @@ def test_GenerateTSV_3_locus():
     )
 
     # make sure only expected generated files exist
-    assert set(os.listdir()) == set(checked_filenames + generated_filenames_common)
+    assert {p.name for p in Path().iterdir()} == set(
+        checked_filenames + generated_filenames_common
+    )
 
 
 def test_GenerateTSV_4_locus():
@@ -111,7 +117,9 @@ def test_GenerateTSV_4_locus():
     )
 
     # make sure only expected generated files exist
-    assert set(os.listdir()) == set(checked_filenames + generated_filenames_common)
+    assert {p.name for p in Path().iterdir()} == set(
+        checked_filenames + generated_filenames_common
+    )
 
 
 def test_GenerateTSV_3_and_4_locus():
@@ -137,7 +145,9 @@ def test_GenerateTSV_3_and_4_locus():
     )
 
     # make sure only expected generated files exist
-    assert set(os.listdir()) == set(checked_filenames + generated_filenames_common)
+    assert {p.name for p in Path().iterdir()} == set(
+        checked_filenames + generated_filenames_common
+    )
 
 
 def test_GenerateTSV_5_locus():
@@ -161,4 +171,6 @@ def test_GenerateTSV_5_locus():
     )
 
     # make sure only expected generated files exist
-    assert set(os.listdir()) == set(checked_filenames + generated_filenames_common)
+    assert {p.name for p in Path().iterdir()} == set(
+        checked_filenames + generated_filenames_common
+    )
