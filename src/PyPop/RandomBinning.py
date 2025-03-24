@@ -69,7 +69,18 @@ class RandomBinsForHomozygosity:
         self.randomResultsFile = open(randomResultsFileName, "w")  # noqa: SIM115
         self.randomResultsFile.write(
             "\t".join(
-                "filename locus method theta prob_ewens prob_homozygosity mean_homozygosity obsv_homozygosity var_homozygosity normDevHomozygosity".split()
+                [
+                    "filename",
+                    "locus",
+                    "method",
+                    "theta",
+                    "prob_ewens",
+                    "prob_homozygosity",
+                    "mean_homozygosity",
+                    "obsv_homozygosity",
+                    "var_homozygosity",
+                    "normDevHomozygosity",
+                ]
             )
             + "\n"
         )
