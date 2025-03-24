@@ -1,4 +1,4 @@
-import os.path
+from pathlib import Path
 from unittest import mock
 
 import pytest
@@ -141,4 +141,6 @@ def test_USAFEL_slatkin_guothompson_emhaplofreq_with_permu_tsv():
     )
 
     # make sure only expected generated and expected files exist
-    assert set(os.listdir()) == set(checked_filenames + generated_filenames)
+    assert {p.name for p in Path().iterdir()} == set(
+        checked_filenames + generated_filenames
+    )

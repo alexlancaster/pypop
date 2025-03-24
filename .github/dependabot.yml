@@ -15,3 +15,6 @@ updates:
   directory: "/"
   schedule:
     interval: "weekly"
+  ignore:
+      - dependency-name: "swig"
+        versions: [">4.2.1.post0"]
