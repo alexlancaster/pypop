@@ -110,10 +110,9 @@ archs = ["auto", "aarch64"]
 # default linux wheels use CentOS-based runners, local cibuildwheel docker
 before-all = ["yum install -y gsl-devel"]
 manylinux-x86_64-image = "manylinux_2_28"
-manylinux-pypy-x86_64-image = "manylinux_2_28"
+manylinux-pypy_x86_64-image = "manylinux_2_28"
 manylinux-aarch64-image = "manylinux_2_28"
-manylinux-pypy-aarch64-image = "manylinux_2_28"
-
+manylinux-pypy_aarch64-image = "manylinux_2_28"
 
 [[tool.cibuildwheel.overrides]]
 # run the benchmarking only on cp313
