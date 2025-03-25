@@ -50,14 +50,33 @@ xfail_windows = pytest.mark.xfail(
     reason="certain tests currently fail on windows due to minor numerical issues",
 )
 
+
+def is_musllinux():
+    """Check if running on a musl-based Linux system."""
+    libc_name, libc_version = platform.libc_ver()
+    return sys.platform == "linux" and libc_name == "musl"
+
+
+def debug_musllinux_check():
+    """Print debug info about musllinux detection."""
+    print("=== musllinux detection debug ===")
+    print(f"sys.platform: {sys.platform}")
+    print(f"platform.libc_ver(): {platform.libc_ver()}")
+    print(f"platform.machine(): {platform.machine()}")
+    print("===============================")
+
+    if is_musllinux() and platform.machine() == "x86_64":
+        print("Skipping test due to musllinux_1_2 on x86_64")
+
+
+# call the debug function before applying the skip
+debug_musllinux_check()
+
 # global skip condition for musllinux_1_2 on x86_64
 skip_musllinux_x86_64 = pytest.mark.skipif(
-    sys.platform == "linux"
-    and "musl" in platform.libc_ver()[0]
-    and platform.machine() == "x86_64",
+    is_musllinux() and platform.machine() == "x86_64",
     reason="certain tests segfault or fail on musllinux_1_2, so skipping for now",
 )
-
 
 CUR_DIR = Path(__file__).parent.resolve()
 PARENT_DIR = Path(CUR_DIR) / ".."

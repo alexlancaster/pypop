@@ -92,7 +92,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
-test-command = "pytest -v {package}/tests ${PYTEST_OPTIONS}"
+test-command = "pytest -s -v {package}/tests ${PYTEST_OPTIONS}"
 # FIXME: can add "test-command" that would allow unit test output to be saved
 # "pytest -v {package}/tests && echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
 
