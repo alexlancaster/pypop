@@ -88,7 +88,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "pp37-*",             # skip certain PyPy configurations
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
 	"pp311-*",            # no numpy wheels for PyPy 3.11
-        "cp313-musllinux_x86_64", # no lxml wheels for  musllinux_1_1 on cp313
+        # "cp313-musllinux_x86_64", # no lxml wheels for  musllinux_1_1 on cp313
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
@@ -126,13 +126,17 @@ test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 # musl uses apk/apt
 select = "*musllinux*"
 before-all = ["apk add gsl-dev"]
-# restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)
-musllinux-x86_64-image="musllinux_1_2"
 
 [[tool.cibuildwheel.overrides]]
+# use musllinux_1_1 image for the time being on x86_64 (musllinux_1_2 segfaults)
+# except for cp313 (see below)
+select = "*-musllinux_x86_64"
+musllinux-x86_64-image="musllinux_1_1"
+
+[[tool.cibuildwheel.overrides]]
+select = "cp313-musllinux_x86_64"
 # use the recent `muslinux_1_2` on cp313
 # lxml for musllinux_1_1 does not exist for Python 3.13
-select = "cp313-musllinux_x86_64"
 musllinux-x86_64-image="musllinux_1_2"
 
 [tool.cibuildwheel.macos]
