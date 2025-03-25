@@ -34,6 +34,7 @@
 """This is a class of common functions for running PyPop tests"""
 
 import os.path
+import platform
 import shutil
 import subprocess
 import sys
@@ -48,6 +49,15 @@ xfail_windows = pytest.mark.xfail(
     sys.platform == "win32",
     reason="certain tests currently fail on windows due to minor numerical issues",
 )
+
+# global skip condition for musllinux_1_2 on x86_64
+skip_musllinux_x86_64 = pytest.mark.skipif(
+    sys.platform == "linux"
+    and "musl" in platform.libc_ver()[0]
+    and platform.machine() == "x86_64",
+    reason="certain tests segfault or fail on musllinux_1_2, so skipping for now",
+)
+
 
 CUR_DIR = Path(__file__).parent.resolve()
 PARENT_DIR = Path(CUR_DIR) / ".."
