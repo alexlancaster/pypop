@@ -126,8 +126,8 @@ test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 # musl uses apk/apt
 select = "*musllinux*"
 before-all = ["apk add gsl-dev"]
-# restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)P
-musllinux-x86_64-image="musllinux_1_1"
+# restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)
+musllinux-x86_64-image="musllinux_1_2"
 
 [[tool.cibuildwheel.overrides]]
 # use the recent `muslinux_1_2` on cp313
