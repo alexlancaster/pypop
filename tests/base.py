@@ -53,8 +53,28 @@ xfail_windows = pytest.mark.xfail(
 
 def is_musllinux():
     """Check if running on a musl-based Linux system."""
-    libc_name, libc_version = platform.libc_ver()
-    return sys.platform == "linux" and libc_name == "musl"
+    if sys.platform != "linux":
+        return False
+
+    # Check if `ldd` output contains 'musl'
+    try:
+        output = subprocess.check_output(
+            ["ldd", "--version"], stderr=subprocess.STDOUT, text=True
+        )
+        if "musl" in output:
+            return True
+    except Exception:
+        pass  # `ldd` might not exist
+
+    # Fallback: Check if running on Alpine (common musl distribution)
+    try:
+        with open("/etc/os-release") as f:
+            if "ID=alpine" in f.read():
+                return True
+    except FileNotFoundError:
+        pass
+
+    return False
 
 
 def debug_musllinux_check():
@@ -63,6 +83,26 @@ def debug_musllinux_check():
     print(f"sys.platform: {sys.platform}")
     print(f"platform.libc_ver(): {platform.libc_ver()}")
     print(f"platform.machine(): {platform.machine()}")
+    print("===============================")
+
+    # Run `ldd --version` to check if it's musl
+    try:
+        output = subprocess.check_output(
+            ["ldd", "--version"], stderr=subprocess.STDOUT, text=True
+        )
+        print("ldd --version output:")
+        print(output.strip())
+    except Exception as e:
+        print(f"ldd check failed: {e}")
+
+    # Check `/etc/os-release`
+    try:
+        with open("/etc/os-release") as f:
+            print("/etc/os-release contents:")
+            print(f.read().strip())
+    except FileNotFoundError:
+        print("/etc/os-release not found")
+
     print("===============================")
 
     if is_musllinux() and platform.machine() == "x86_64":
