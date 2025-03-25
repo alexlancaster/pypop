@@ -131,7 +131,7 @@ before-all = ["apk add gsl-dev"]
 # use musllinux_1_1 image for the time being on x86_64 (musllinux_1_2 segfaults)
 # except for cp313 (see below)
 select = "*-musllinux_x86_64"
-musllinux-x86_64-image="musllinux_1_1"
+musllinux-x86_64-image="musllinux_1_2"
 
 [[tool.cibuildwheel.overrides]]
 select = "cp313-musllinux_x86_64"
