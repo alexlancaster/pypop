@@ -109,6 +109,7 @@ build-frontend = { name = "pip", args = ["--only-binary=:none:"] }
 archs = ["auto", "aarch64"]
 # default linux wheels use CentOS-based runners, local cibuildwheel docker
 before-all = ["yum install -y gsl-devel"]
+# force use of newer `manylinux_2_28`: in cibuildwheel >= 3.0 it will be the default
 manylinux-x86_64-image = "manylinux_2_28"
 manylinux-pypy_x86_64-image = "manylinux_2_28"
 manylinux-aarch64-image = "manylinux_2_28"
