@@ -92,7 +92,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
-test-command = "pytest -s -v {package}/tests ${PYTEST_OPTIONS}"
+test-command = "pytest -v {package}/tests ${PYTEST_OPTIONS}"
 # FIXME: can add "test-command" that would allow unit test output to be saved
 # "pytest -v {package}/tests && echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
 
@@ -126,18 +126,10 @@ test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 # musl uses apk/apt
 select = "*musllinux*"
 before-all = ["apk add gsl-dev"]
-
-[[tool.cibuildwheel.overrides]]
-# use musllinux_1_1 image for the time being on x86_64 (musllinux_1_2 segfaults)
-# except for cp313 (see below)
-select = "*-musllinux_x86_64"
-musllinux-x86_64-image="musllinux_1_2"
-
-[[tool.cibuildwheel.overrides]]
-select = "cp313-musllinux_x86_64"
-# use the recent `muslinux_1_2` on cp313
-# lxml for musllinux_1_1 does not exist for Python 3.13
-musllinux-x86_64-image="musllinux_1_2"
+# FIXME: if we want to run the full tests, need to enable the below to force
+# musllinux_1_1 image for the time being on x86_64 (musllinux_1_2 segfaults on
+# any test involving emhaplofreq)
+# musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
 # use oras to get archived 2.7.1 bottles of `gsl` that has 10.15 (on x86) / 11.0 (on arm64) builds
