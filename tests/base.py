@@ -34,6 +34,7 @@
 """This is a class of common functions for running PyPop tests"""
 
 import os.path
+import platform
 import shutil
 import subprocess
 import sys
@@ -47,6 +48,84 @@ import pytest
 xfail_windows = pytest.mark.xfail(
     sys.platform == "win32",
     reason="certain tests currently fail on windows due to minor numerical issues",
+)
+
+
+def is_check_musllinux_enabled():
+    return False
+
+
+# FIXME: this is a somewhat hacky check to see if on musllinux
+def is_musllinux():
+    """Check if running on a musl-based Linux system."""
+
+    if sys.platform != "linux":
+        return False
+
+    # Check if `ldd` output contains 'musl'
+    try:
+        output = subprocess.check_output(
+            ["ldd", "--version"], stderr=subprocess.STDOUT, text=True
+        )
+        if "musl" in output:
+            return True
+    except Exception:
+        pass  # `ldd` might not exist
+
+    # Fallback: Check if running on Alpine (common musl distribution)
+    try:
+        with open("/etc/os-release") as f:
+            if "ID=alpine" in f.read():
+                return True
+    except FileNotFoundError:
+        pass
+
+    return False
+
+
+def debug_musllinux_check():
+    if not is_check_musllinux_enabled():
+        return
+
+    """Print debug info about musllinux detection."""
+    print("=== musllinux detection debug ===")
+    print(f"sys.platform: {sys.platform}")
+    print(f"platform.libc_ver(): {platform.libc_ver()}")
+    print(f"platform.machine(): {platform.machine()}")
+    print("===============================")
+
+    # Run `ldd --version` to check if it's musl
+    try:
+        output = subprocess.check_output(
+            ["ldd", "--version"], stderr=subprocess.STDOUT, text=True
+        )
+        print("ldd --version output:")
+        print(output.strip())
+    except Exception as e:
+        print(f"ldd check failed: {e}")
+
+    # Check `/etc/os-release`
+    try:
+        with open("/etc/os-release") as f:
+            print("/etc/os-release contents:")
+            print(f.read().strip())
+    except FileNotFoundError:
+        print("/etc/os-release not found")
+
+    print("===============================")
+
+    if is_musllinux() and platform.machine() == "x86_64":
+        print("Skipping test due to musllinux_1_2 on x86_64")
+
+
+# call the debug function before applying the skip
+debug_musllinux_check()
+
+# global skip condition for musllinux on x86_64
+# FIXME: currently disabled, to re-enable, change "False" to "True" in condition
+skip_musllinux_x86_64 = pytest.mark.skipif(
+    is_check_musllinux_enabled() and is_musllinux() and platform.machine() == "x86_64",
+    reason="certain tests segfault or fail on musllinux/x86_64, so skipping for now",
 )
 
 CUR_DIR = Path(__file__).parent.resolve()
