@@ -115,8 +115,9 @@ def debug_musllinux_check():
 debug_musllinux_check()
 
 # global skip condition for musllinux on x86_64
+# FIXME: currently disabled, to re-enable, change "False" to "True" in condition
 skip_musllinux_x86_64 = pytest.mark.skipif(
-    is_musllinux() and platform.machine() == "x86_64",
+    is_musllinux() and platform.machine() == "x86_64" and False,
     reason="certain tests segfault or fail on musllinux/x86_64, so skipping for now",
 )
 
