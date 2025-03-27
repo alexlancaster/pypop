@@ -88,7 +88,6 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
         "pp37-*",             # skip certain PyPy configurations
 	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
 	"pp311-*",            # no numpy wheels for PyPy 3.11
-        "cp313-musllinux_x86_64", # no lxml wheels for  musllinux_1_1 on cp313
         "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*"] # older musllinux missing numpy wheels
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
@@ -109,6 +108,11 @@ build-frontend = { name = "pip", args = ["--only-binary=:none:"] }
 archs = ["auto", "aarch64"]
 # default linux wheels use CentOS-based runners, local cibuildwheel docker
 before-all = ["yum install -y gsl-devel"]
+# force use of newer `manylinux_2_28`: in cibuildwheel >= 3.0 it will be the default
+manylinux-x86_64-image = "manylinux_2_28"
+manylinux-pypy_x86_64-image = "manylinux_2_28"
+manylinux-aarch64-image = "manylinux_2_28"
+manylinux-pypy_aarch64-image = "manylinux_2_28"
 
 [[tool.cibuildwheel.overrides]]
 # run the benchmarking only on cp313
@@ -121,14 +125,10 @@ test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
 # musl uses apk/apt
 select = "*musllinux*"
 before-all = ["apk add gsl-dev"]
-# restore musllinux_1_1 image for the time being (musllinux_1_2 segfaults)P
-musllinux-x86_64-image="musllinux_1_1"
-
-[[tool.cibuildwheel.overrides]]
-# use the recent `muslinux_1_2` on cp313
-# lxml for musllinux_1_1 does not exist for Python 3.13
-select = "cp313-musllinux_x86_64"
-musllinux-x86_64-image="musllinux_1_2"
+# FIXME: if we want to run the full tests, need to enable the below to force
+# musllinux_1_1 image for the time being on x86_64 (musllinux_1_2 segfaults on
+# any test involving emhaplofreq)
+# musllinux-x86_64-image="musllinux_1_1"
 
 [tool.cibuildwheel.macos]
 # use oras to get archived 2.7.1 bottles of `gsl` that has 10.15 (on x86) / 11.0 (on arm64) builds
