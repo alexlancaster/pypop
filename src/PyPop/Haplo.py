@@ -372,7 +372,7 @@ class Emhaplofreq(Haplo):
         permutationFlag=None,
         permutationPrintFlag=0,
         numInitCond=50,
-        numPermutations=1001,
+        numPermutations=1,
         numPermuInitCond=5,
         haploSuppressFlag=None,
         showHaplo=None,
@@ -384,7 +384,8 @@ class Emhaplofreq(Haplo):
         Format of 'locusKeys' is a string as per estHaplotypes():
 
         - permutationFlag: sets whether permutation test will be
-          performed.  No default.
+          performed.  No default. This should only be set if
+          numPermutation is non-zero.
 
         - permutationPrintFlag: sets whether the result from
           permutation output run will be included in the output XML.
@@ -394,7 +395,7 @@ class Emhaplofreq(Haplo):
           performing the permutation test. Default: 50.
 
         - numPermutations: sets number of permutations that will be
-          performed if 'permutationFlag' *is* set.  Default: 1001.
+          performed if 'permutationFlag' *is* set.  Default: 1.
 
         - numPermuInitConds: sets number of initial conditions tried
           per-permutation.  Default: 5.
@@ -664,6 +665,7 @@ class Emhaplofreq(Haplo):
         else:
             permuMode = "no-permu"
             permutationFlag = 0
+            numPermutations = 1  # FIXME: this translates to being max_permu in C program, needs to be at least one
 
         if mode is None:
             mode = "all-pairwise-ld-" + permuMode
