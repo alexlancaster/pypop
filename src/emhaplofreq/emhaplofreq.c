@@ -508,7 +508,6 @@ int main_proc(
         n_hetero++;
         if (strcmp(data_ar[0][col_0], data_ar[0][col_1]) > 0) {
           strcpy(buff, data_ar[0][col_0]);
-          /* strcpy(data_ar[0][col_0], data_ar[0][col_1]); */
           memmove(data_ar[0][col_0], data_ar[0][col_1],
                   strlen(data_ar[0][col_1]) + 1);
           strcpy(data_ar[0][col_1], buff);
@@ -572,7 +571,6 @@ int main_proc(
 
         if ((strcmp(data_ar[obs][col_0], data_ar[obs][col_1])) > 0) {
           strcpy(buff, data_ar[obs][col_0]);
-          /* strcpy(data_ar[obs][col_0], data_ar[obs][col_1]); */
           memmove(data_ar[obs][col_0], data_ar[obs][col_1],
                   strlen(data_ar[obs][col_1]) + 1);
           strcpy(data_ar[obs][col_1], buff);
