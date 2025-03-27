@@ -4,10 +4,12 @@ import pytest
 from base import (
     in_temp_dir,  # noqa: F401
     run_pypop_process,
+    skip_musllinux_x86_64,
 )
 
 
 @pytest.mark.slow
+@skip_musllinux_x86_64
 def test_ManyOptions():
     generated_filenames = [
         "BIGDAWG_SynthControl_Data_with_metadata-" + suffix

@@ -59,8 +59,8 @@ FILE *parse_args(int, char **, int *);
 /* argc, argv */
 /* returns open filehandle of input file */
 
-int read_infile(FILE *, char[MAX_ROWS][NAME_LEN],
-                char[MAX_ROWS][MAX_COLS][NAME_LEN], int *, char[1], char[1]);
+int read_infile(FILE *, char (*)[NAME_LEN], char (*)[MAX_COLS][NAME_LEN], int *,
+                char[1], char[1]);
 /* open filehandle for data, ref array, data array, number of records */
 /* returns number of loci */
 
@@ -70,8 +70,8 @@ int main_proc(
 #else
     FILE *fp_out,
 #endif
-    char[MAX_ROWS][MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int,
-    int, char[1], char[1]);
+    char (*)[MAX_COLS][NAME_LEN], int, int, int, int, int, int, int, int, int,
+    char GENOTYPE_SEPARATOR[], char GENOTYPE_TERMINATOR[]);
 /* data array, number of loci, number of records */
 /* main procedure that handles memory allocation and creation of arrays,
  * spawns the rest of the data preparation and processing functions,
@@ -115,20 +115,21 @@ void linkage_diseq(FILE *, double *, int (*)[MAX_LOCI], double (*)[MAX_ALLELES],
  * compute LD coefficients
  */
 
-void sort2bychar(char (*)[], double *, int);
+void sort2bychar(char (*)[LINE_LEN / 2], double *, int);
 /* haplo array, mle array, no. of haplotypes */
 /*
  * insertion sort in ascending order for 1st array also applied to 2nd array
  */
 
-void sort2byfloat(char (*)[], double *, int);
+void sort2byfloat(char (*)[LINE_LEN / 2], double *, int);
 /* haplo array, mle array, no. of haplotypes */
 /*
  * insertion sort in ascending order for 2nd array also applied to 1st array
  */
 
 void emcalc(int *, int *, double *, double *, int, int, int, int, int *,
-            int (*)[], int *, int *, double *, double *, int, int (*)[]);
+            int (*)[2], int *, int *, double *, double *, int,
+            int (*)[MAX_ROWS]);
 /* numgeno, obspheno, freq_zero, mle, n_haplo, n_unique_geno,
    n_unique_pheno, n_recs, xhaplo, xgeno, error_flag, iter_count, loglike,
    permu, gp */
@@ -136,14 +137,15 @@ void emcalc(int *, int *, double *, double *, int, int, int, int, int *,
  * perform EM iterations with results in the mle array
  */
 
-void haplo_freqs_no_ld(double *, double (*)[], int (*)[], int *, int, int);
+void haplo_freqs_no_ld(double *, double (*)[MAX_ALLELES], int (*)[MAX_LOCI],
+                       int *, int, int);
 /* freqs, allele_freq, haplocus, n_unique_allele, n_loci, n_haplo */
 /*
  * compute haplotype frequencies under no LD as products of allele frequencies
  */
 
-double loglikelihood(int *, double *, int *, int, int, int, int *, int (*)[],
-                     int, int (*)[]);
+double loglikelihood(int *, double *, int *, int, int, int, int *, int (*)[2],
+                     int, int (*)[MAX_ROWS]);
 /* numgeno, hap_freq, n_haplo, n_unique_geno, n_unique_pheno, xhaplo, xgeno,
  * permu, gp */
 /*
@@ -414,8 +416,13 @@ int main_proc(
   int permu_count; // RS 20031125
   double lr_mean, lr_sd, lr_z;
 
-  CALLOC_ARRAY_DIM1(double, like_ratio, max_permu);
-  CALLOC_ARRAY_DIM1(int, error_flag_permu, max_permu); // RS 20031125
+  /* FIXME: size of array needs be at least one because there is always at least
+   * one like_ratio */
+  /* this should ideally use the logic further down which sets max_permutations
+     to 1 if permutation test not run */
+  int permu_alloc_size = (max_permu > 0) ? max_permu : 1;
+  CALLOC_ARRAY_DIM1(double, like_ratio, permu_alloc_size);
+  CALLOC_ARRAY_DIM1(int, error_flag_permu, permu_alloc_size); // RS 20031125
 
   double pvalue = 0.0;
 
@@ -501,7 +508,8 @@ int main_proc(
         n_hetero++;
         if (strcmp(data_ar[0][col_0], data_ar[0][col_1]) > 0) {
           strcpy(buff, data_ar[0][col_0]);
-          strcpy(data_ar[0][col_0], data_ar[0][col_1]);
+          memmove(data_ar[0][col_0], data_ar[0][col_1],
+                  strlen(data_ar[0][col_1]) + 1);
           strcpy(data_ar[0][col_1], buff);
         }
       }
@@ -563,7 +571,8 @@ int main_proc(
 
         if ((strcmp(data_ar[obs][col_0], data_ar[obs][col_1])) > 0) {
           strcpy(buff, data_ar[obs][col_0]);
-          strcpy(data_ar[obs][col_0], data_ar[obs][col_1]);
+          memmove(data_ar[obs][col_0], data_ar[obs][col_1],
+                  strlen(data_ar[obs][col_1]) + 1);
           strcpy(data_ar[obs][col_1], buff);
         }
 
@@ -1380,7 +1389,7 @@ void linkage_diseq(FILE *fp_out, double(*mle), int (*hl)[MAX_LOCI],
 /* af: allele_frequencies array */
 {
   int i, j, k, l, m, coeff_count = 0;
-  double dmax, norm_dij = 0.0;
+  double dmax = 0.0, norm_dij = 0.0;
 
   static double dij[MAX_LOCI * (MAX_LOCI - 1) / 2][MAX_ALLELES][MAX_ALLELES];
 

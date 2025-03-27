@@ -3,6 +3,7 @@ import hashlib
 from base import (
     in_temp_dir,  # noqa: F401
     run_pypop_process,
+    skip_musllinux_x86_64,
 )
 
 
@@ -21,6 +22,7 @@ def test_AlleleColon_HardyWeinberg():
         )
 
 
+@skip_musllinux_x86_64
 def test_AlleleColon_Emhaplofreq():
     exit_code = run_pypop_process(
         "./tests/data/Test_Allele_Colon_Emhaplofreq.ini",
