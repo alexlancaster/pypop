@@ -416,17 +416,17 @@ int main_proc(
   int permu_count; // RS 20031125
   double lr_mean, lr_sd, lr_z;
 
-  printf("BEFORE like_ratio mem allocation: max_permu=%d\n", max_permu);
-
+  int permu_alloc_size = (max_permu > 0) ? max_permu + 1 : 2;
+  printf("BEFORE like_ratio mem allocation: permu_alloc_size=%d\n",
+         permu_alloc_size);
   /* FIXME: size of array needs be at least one because there is always at least
    * one like_ratio */
   /* this should ideally use the logic further down which sets max_permutations
      to 1 if permutation test not run */
-  CALLOC_ARRAY_DIM1(double, like_ratio, (max_permu > 0) ? max_permu : 1);
-  CALLOC_ARRAY_DIM1(int, error_flag_permu,
-                    (max_permu > 0) ? max_permu : 1); // RS 20031125
-
-  printf("AFTER like_ratio mem allocation: max_permu=%d\n", max_permu);
+  CALLOC_ARRAY_DIM1(double, like_ratio, permu_alloc_size);
+  CALLOC_ARRAY_DIM1(int, error_flag_permu, permu_alloc_size); // RS 20031125
+  printf("AFTER like_ratio mem allocation: permu_alloc_size=%d\n",
+         permu_alloc_size);
 
   double pvalue = 0.0;
 
@@ -1075,10 +1075,11 @@ int main_proc(
     like_ratio[permu] = -2.0 * (loglike0 - loglike_best);
     error_flag_permu[permu] = error_flag_best; // RS 20031125
 
-    printf("DEBUG: permu_flag=%d, permu=%d, max_permu=%d, max_permutations=%d, "
+    printf("DEBUG: permu_flag=%d, permu=%d, permu_alloc_size=%d, max_permu=%d, "
+           "max_permutations=%d, "
            "like_ratio[%d]=%g\n",
-           permu_flag, permu, max_permu, max_permutations, permu,
-           like_ratio[permu]);
+           permu_flag, permu, permu_alloc_size, max_permu, max_permutations,
+           permu, like_ratio[permu]);
 
   } /* end for (permu) */
 
