@@ -16,7 +16,9 @@ include-dirs = ["src/emhaplofreq"]
 extra-compile-args = ["-D__SWIG__=1",
                       "-DDEBUG=0",
                       "-DEXTERNAL_MODE=1",
-                      "-DXML_OUTPUT=1"]
+                      "-DXML_OUTPUT=1",
+		      "-g",
+		      "-O0"]
 depends = ["src/SWIG/typemap.i",
           "src/emhaplofreq/emhaplofreq.h",
           "src/emhaplofreq/drand48.c"]
