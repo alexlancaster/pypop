@@ -416,8 +416,13 @@ int main_proc(
   int permu_count; // RS 20031125
   double lr_mean, lr_sd, lr_z;
 
-  CALLOC_ARRAY_DIM1(double, like_ratio, max_permu);
-  CALLOC_ARRAY_DIM1(int, error_flag_permu, max_permu); // RS 20031125
+  /* FIXME: size of array needs be at least one because there is always at least
+   * one like_ratio */
+  /* this should ideally use the logic further down which sets max_permutations
+     to 1 if permutation test not run */
+  CALLOC_ARRAY_DIM1(double, like_ratio, (max_permu > 0) ? max_permu : 1);
+  CALLOC_ARRAY_DIM1(int, error_flag_permu,
+                    (max_permu > 0) ? max_permu : 1); // RS 20031125
 
   double pvalue = 0.0;
 
