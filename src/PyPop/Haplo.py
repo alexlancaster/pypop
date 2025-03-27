@@ -372,7 +372,8 @@ class Emhaplofreq(Haplo):
         permutationFlag=None,
         permutationPrintFlag=0,
         numInitCond=50,
-        numPermutations=1001,
+        # numPermutations=1001,
+        numPermutations=1,
         numPermuInitCond=5,
         haploSuppressFlag=None,
         showHaplo=None,
@@ -664,6 +665,7 @@ class Emhaplofreq(Haplo):
         else:
             permuMode = "no-permu"
             permutationFlag = 0
+            numPermutations = 1  # FIXME: this translates to being max_permu in C program, needs to be at least one
 
         if mode is None:
             mode = "all-pairwise-ld-" + permuMode
