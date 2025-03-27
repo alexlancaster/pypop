@@ -384,7 +384,8 @@ class Emhaplofreq(Haplo):
         Format of 'locusKeys' is a string as per estHaplotypes():
 
         - permutationFlag: sets whether permutation test will be
-          performed.  No default. If this is set, then it
+          performed.  No default. This should only be set if
+          numPermutation is non-zero.
 
         - permutationPrintFlag: sets whether the result from
           permutation output run will be included in the output XML.
