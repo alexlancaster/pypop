@@ -372,7 +372,6 @@ class Emhaplofreq(Haplo):
         permutationFlag=None,
         permutationPrintFlag=0,
         numInitCond=50,
-        # numPermutations=1001,
         numPermutations=1,
         numPermuInitCond=5,
         haploSuppressFlag=None,
@@ -385,7 +384,7 @@ class Emhaplofreq(Haplo):
         Format of 'locusKeys' is a string as per estHaplotypes():
 
         - permutationFlag: sets whether permutation test will be
-          performed.  No default.
+          performed.  No default. If this is set, then it
 
         - permutationPrintFlag: sets whether the result from
           permutation output run will be included in the output XML.
@@ -395,7 +394,7 @@ class Emhaplofreq(Haplo):
           performing the permutation test. Default: 50.
 
         - numPermutations: sets number of permutations that will be
-          performed if 'permutationFlag' *is* set.  Default: 1001.
+          performed if 'permutationFlag' *is* set.  Default: 1.
 
         - numPermuInitConds: sets number of initial conditions tried
           per-permutation.  Default: 5.
