@@ -51,6 +51,10 @@ xfail_windows = pytest.mark.xfail(
 )
 
 
+def is_check_musllinux_enabled():
+    return False
+
+
 # FIXME: this is a somewhat hacky check to see if on musllinux
 def is_musllinux():
     """Check if running on a musl-based Linux system."""
@@ -80,6 +84,9 @@ def is_musllinux():
 
 
 def debug_musllinux_check():
+    if not is_check_musllinux_enabled():
+        return
+
     """Print debug info about musllinux detection."""
     print("=== musllinux detection debug ===")
     print(f"sys.platform: {sys.platform}")
@@ -117,7 +124,7 @@ debug_musllinux_check()
 # global skip condition for musllinux on x86_64
 # FIXME: currently disabled, to re-enable, change "False" to "True" in condition
 skip_musllinux_x86_64 = pytest.mark.skipif(
-    is_musllinux() and platform.machine() == "x86_64" and False,
+    is_check_musllinux_enabled() and is_musllinux() and platform.machine() == "x86_64",
     reason="certain tests segfault or fail on musllinux/x86_64, so skipping for now",
 )
 
