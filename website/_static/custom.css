@@ -10,7 +10,7 @@ pre {
     tab-size: 15;
 }
 
-/* Hide only the top-level page title link in the sidebar, not its subheadings */
-div#right_sidebar .page_toc > ul > li:first-child > a.reference.internal {
+/* Only hide the top-level TOC title link on index.rst */
+html[data-content_root="./"] div#right_sidebar .page_toc > ul > li:first-child > a.reference.internal {
     display: none;
 }
