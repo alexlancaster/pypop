@@ -45,31 +45,6 @@ large-scale population genetic analyses including:
     dynamic downloads of HLA sequence data and major updates to
     documentation, using new HLA nomenclature throughout.
 
-  * 2025-01-16: Beta release `PyPop 1.2.0b2
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0-b2>`__
-    is released.
-
-  * 2025-01-05: Pre-release `PyPop 1.1.3rc1
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.3-rc1>`__
-    is now available. Experimental wheels for Windows ARM64 are
-    added in this release.
-
-  * 2024-11-18: `PyPop 1.1.2
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.2>`__
-    released: adds ``--citation`` command-line option to print citation
-    information and updates ``numpy`` to 2.1.3
-
-  * 2024-09-10: `PyPop 1.1.1
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.1>`__
-    released, enables support for Python 3.13 and build Python 3.13 wheels.
-
-  * 2024-05-30: `PyPop 1.1.0
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.0>`__
-    released. Increases the minimum macOS requirements to Catalina
-    (Intel) and Big Sur (Silicon) to ensure binary compatibility with
-    the GNU Scientific Library (`gsl`). Thanks to Steve Mack for
-    testing.
-
   * 2024-04-01: PyPop paper `published
     <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
     in *Frontiers in Immunology*, :ref:`see citing PyPop <citing-pypop>` for details.
@@ -77,6 +52,32 @@ large-scale population genetic analyses including:
   * More details, including recent previous releases:
 
    .. toggle::
+
+    - 2025-01-16: Beta release `PyPop 1.2.0b2
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0-b2>`__
+      is released.
+
+    - 2025-01-05: Pre-release `PyPop 1.1.3rc1
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.1.3-rc1>`__
+      is now available. Experimental wheels for Windows ARM64 are
+      added in this release.
+
+    - 2024-11-18: `PyPop 1.1.2
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.1.2>`__
+      released: adds ``--citation`` command-line option to print citation
+      information and updates ``numpy`` to 2.1.3
+
+    - 2024-09-10: `PyPop 1.1.1
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.1.1>`__
+      released, enables support for Python 3.13 and build Python 3.13 wheels.
+
+    - 2024-05-30: `PyPop 1.1.0
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.1.0>`__
+      released. Increases the minimum macOS requirements to Catalina
+      (Intel) and Big Sur (Silicon) to ensure binary compatibility with
+      the GNU Scientific Library (`gsl`). Thanks to Steve Mack for
+      testing.
+
     - 2024-03-08: PyPop paper, provisionally accepted.
     - 2024-02-24: `PyPop 1.0.2
       <https://github.com/alexlancaster/pypop/releases/tag/v1.0.2>`__
