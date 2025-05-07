@@ -27,8 +27,6 @@ If you write a paper that uses PyPop in your analysis, please cite
       `10.3389/fimmu.2024.1378512
       <https://doi.org/10.3389/fimmu.2024.1378512>`__
 
-      <!-- :cite:p:`lancaster_pypop_2024` -->
-
 * **and** a citation to the `Zenodo record
   <https://zenodo.org/records/10080667>`__ which includes a DOI for
   the version of the software you used in your analyses. Citing this
