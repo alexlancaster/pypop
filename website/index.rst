@@ -208,8 +208,9 @@ PyPop was originally developed for the analysis of data for the 13th
 <http://www.ihwg.org/>`__ held in Seattle, Washington in 2002
 :cite:p:`meyer_single_2007,single_haplotype_2007,single_statistical_2007`. For
 more details on the design and technical details of PyPop, please
-consult :cite:t:`lancaster_pypop_2024`, :cite:t:`lancaster_pypop_2003`,
-:cite:t:`lancaster_pypop_2007`, and :cite:t:`lancaster_software_2007`.
+consult :cite:t:`lancaster_pypop_2003`,
+:cite:t:`lancaster_pypop_2007`, :cite:t:`lancaster_software_2007`, and
+:cite:t:`lancaster_pypop_2024`.
 
 .. _acknowlegements:
 
