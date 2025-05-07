@@ -207,11 +207,11 @@ Two previous papers are also available (but not necessary to cite):
 PyPop was originally developed for the analysis of data for the 13th
 `International Histocompatiblity Workshop and Conference
 <http://www.ihwg.org/>`__ held in Seattle, Washington in 2002
-:cite:p:`meyer_single_2007,single_haplotype_2007,single_statistical_2007`. For
+(:cite:alp:`meyer_single_2007`, Single *et al.*
+:cite:year:`single_haplotype_2007{a},single_statistical_2007{b}`). For
 more details on the design and technical details of PyPop, please
-consult :cite:t:`lancaster_pypop_2003`,
-:cite:t:`lancaster_pypop_2007`, :cite:t:`lancaster_software_2007`, and
-:cite:t:`lancaster_pypop_2024`.
+consult Lancaster *et al.*
+:cite:yearpar:`lancaster_pypop_2003,lancaster_software_2007{a},lancaster_pypop_2007{b},lancaster_pypop_2024`.
 
 .. _acknowlegements:
 
