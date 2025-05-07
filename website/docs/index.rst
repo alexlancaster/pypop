@@ -33,6 +33,8 @@ PyPop User Guide
       :start-after: guide-preface-2-start:
       :end-before: guide-preface-2-end:
 
+   **How to cite PyPop**
+
    .. include:: ../../README.rst
       :start-after: guide-include-pypop-cite-start:
       :end-before: guide-include-pypop-cite-end:

@@ -9,3 +9,8 @@ pre {
 .tab-width-15 pre {
     tab-size: 15;
 }
+
+/* Hide only the top-level page title link in the sidebar, not its subheadings */
+div#right_sidebar .page_toc > ul > li:first-child > a.reference.internal {
+    display: none;
+}
