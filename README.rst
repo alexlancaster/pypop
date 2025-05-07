@@ -27,9 +27,7 @@ If you write a paper that uses PyPop in your analysis, please cite
       `10.3389/fimmu.2024.1378512
       <https://doi.org/10.3389/fimmu.2024.1378512>`__
 
-..
-
-      .. only:: html or pdf or latex
+      .. only:: html
 
          :cite:p:`lancaster_pypop_2024`
 
