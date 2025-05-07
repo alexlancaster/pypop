@@ -19,7 +19,7 @@ If you write a paper that uses PyPop in your analysis, please cite
 
 * our `2024 article
   <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
-  in *Frontiers in Immunology*:
+  in *Frontiers in Immunology* :cite:p:`lancaster_pypop_2024`:
 
       Lancaster AK, Single RM, Mack SJ, Sochat V, Mariani MP, Webster
       GD. (2024) "PyPop: A mature open-source software pipeline for

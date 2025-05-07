@@ -633,7 +633,7 @@ Hardy-Weinberg exact test is run using the original
 :cite:t:`guo_performing_1992` code, using a Monte-Carlo Markov
 chain (MCMC). In addition, two measures (Chen and Diff) of the
 goodness of it of individual genotypes are reported under this
-option :cite:p:`chen_hardy-weinberg_1999`.  By default this section
+option :cite:p:`chen_hardyweinberg_1999`.  By default this section
 is not enabled. This is a different implementation to the
 :program:`Arlequin` version listed in :ref:`config-advanced`,
 below.
