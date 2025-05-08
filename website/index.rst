@@ -149,7 +149,8 @@ previous :ref:`papers <citing-pypop>`.
 
 .. _guide-preface-2-end:
 
-**Installation and documentation**
+Installation and documentation
+------------------------------
 
 Documentation, including instructions on :doc:`installing
 <docs/guide-chapter-install>`, :doc:`using <docs/guide-chapter-usage>`
@@ -168,7 +169,8 @@ PyPop, is contained in the :ref:`PyPop User Guide
 
 .. _source-code:
 
-**Source code**
+Source code
+-----------
 
 PyPop is `free software
 <http://www.gnu.org/philosophy/free-sw.html>`__ (sometimes referred to
@@ -178,6 +180,9 @@ Public License, or GPL (https://www.gnu.org/licenses/gpl.html)
 (specifically GPLv2, but any later version applies).  All source code is
 available and maintained on our `GitHub website
 <https://github.com/alexlancaster/pypop>`__.
+
+Citing PyPop
+------------
 
 .. _citing-pypop:
 
@@ -215,7 +220,8 @@ consult Lancaster *et al.*
 
 .. _acknowlegements:
 
-**Acknowledgements**
+Acknowledgements
+----------------
 
 This work has benefited from the support of NIH grant AI49213 (13th
 IHW) and NIH/NIAID Contract number HHSN266200400076C
@@ -226,14 +232,14 @@ Marsh, Mark Grote and Leslie Louie for helpful comments and testing.
 
 .. _popdata-files:
 
-**Supplementary data files**
+Supplementary data files
+------------------------
 
 `Population data files and online supporting materials <popdata/>`__ for
 published studies listed in the :cite:t:`solberg_balancing_2008` meta-analysis paper.
 
-.. _immport-org:
-
-**ImmPort.org**
+ImmPort.org
+-----------
 
 PyPop is affiliated with https://ImmPort.org, the Immunology Database and
 Analysis Portal. The ImmPort system provides advanced information

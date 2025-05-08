@@ -9,3 +9,8 @@ pre {
 .tab-width-15 pre {
     tab-size: 15;
 }
+
+/* Only hide the top-level TOC title link on index.rst */
+html[data-content_root="./"] div#right_sidebar .page_toc > ul > li:first-child > a.reference.internal {
+    display: none;
+}
