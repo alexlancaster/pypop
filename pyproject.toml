@@ -77,7 +77,7 @@ xfail_strict = true
 # convert warnings to errors, except for ImportWarnings in numpy (needed for pp38)
 # FIXME: eventually we should be able to remove the numpy exception
 filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*"]
-log_cli_level = "info"
+log_cli_level = "INFO"
 testpaths = [
   "tests",
 ]
