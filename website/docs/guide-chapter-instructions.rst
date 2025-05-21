@@ -389,7 +389,7 @@ Multi-locus analyses
 
 Haplotype frequencies are estimated using the iterative
 Expectation-Maximization (EM) algorithm
-:cite:p:`dempster_maximum_1977,excoffier_maximum-likelihood_1995`. Multiple
+:cite:p:`dempster_maximum_1977,excoffier_maximumlikelihood_1995`. Multiple
 starting conditions are used to minimize the possibility of local
 maxima being reached by the EM iterations. The haplotype frequencies
 reported are those that correspond to the highest logarithm of the

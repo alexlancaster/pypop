@@ -7,31 +7,60 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.2.1] - 2025-04-29
+
+### Features
+
+- Add support for optional computation of `pval` using `scipy` and benchmarking tests ([#257](https://github.com/alexlancaster/pypop/pull/257))
+
+### Bug Fixes
+
+- update all Linux images: `musllinux_1_2`, `manylinux_2_28` + fix `musllinux` segfaults ([#272](https://github.com/alexlancaster/pypop/pull/272))
+- Ensure long allele names in HW genotype tables don't overlap ([#256](https://github.com/alexlancaster/pypop/pull/256))
+
+### Internal
+
+- Update lxml requirement from \<=5.3.2 to \<=5.4.0 ([#280](https://github.com/alexlancaster/pypop/pull/280))
+- Bump `pypa/cibuildwheel` from 2.23.2 to 2.23.3 and update runner to `ubuntu-22.04` ([#279](https://github.com/alexlancaster/pypop/pull/279))
+- Update lxml requirement from \<=5.3.1 to \<=5.3.2 ([#275](https://github.com/alexlancaster/pypop/pull/275))
+- Bump pypa/cibuildwheel from 2.23.1 to 2.23.2 in the actions group ([#273](https://github.com/alexlancaster/pypop/pull/273))
+- update all Linux images: `musllinux_1_2`, `manylinux_2_28` + fix `musllinux` segfaults ([#272](https://github.com/alexlancaster/pypop/pull/272))
+- Bump pypa/cibuildwheel from 2.23.0 to 2.23.1 in the actions group ([#270](https://github.com/alexlancaster/pypop/pull/270))
+- Update numpy requirement from \<=2.2.3 to \<=2.2.4 ([#269](https://github.com/alexlancaster/pypop/pull/269))
+- use `pathlib` rather than `os` + update pre-commit hooks ([#268](https://github.com/alexlancaster/pypop/pull/268))
+- Simplify `swig` installation via PyPI package, other build cleanups ([#265](https://github.com/alexlancaster/pypop/pull/265))
+- Bump pypa/cibuildwheel from 2.22.0 to 2.23.0 and pin `swig` on Linux ([#264](https://github.com/alexlancaster/pypop/pull/264))
+- Update numpy requirement from \<=2.2.2 to \<=2.2.3 ([#261](https://github.com/alexlancaster/pypop/pull/261))
+- Update lxml requirement from \<=5.3.0 to \<=5.3.1 ([#259](https://github.com/alexlancaster/pypop/pull/259))
+- Tidy workflow and PR labeler ([#260](https://github.com/alexlancaster/pypop/pull/260))
+
+**Contributors:**: @alexlancaster
+
 ## [1.2.0] - 2025-02-04
 
 ### Features
 
-- Add support for new HLA nomenclature including remote MSF sequence retrieval by @alexlancaster ([#252](https://github.com/alexlancaster/pypop/pull/252))
-- Build Linux (`aarch64`) using new ARM64 runners by @alexlancaster ([#250](https://github.com/alexlancaster/pypop/pull/250))
-- [EXPERIMENTAL] Build Windows ARM64-compatible wheels by @alexlancaster ([#235](https://github.com/alexlancaster/pypop/pull/235))
+- Add support for new HLA nomenclature including remote MSF sequence retrieval ([#252](https://github.com/alexlancaster/pypop/pull/252))
+- Build Linux (`aarch64`) using new ARM64 runners ([#250](https://github.com/alexlancaster/pypop/pull/250))
+- [EXPERIMENTAL] Build Windows ARM64-compatible wheels ([#235](https://github.com/alexlancaster/pypop/pull/235))
 
 ### Bug Fixes
 
-- Update all HLA nomenclature to correct version 3 allele names in unit tests and documentation by @alexlancaster ([#251](https://github.com/alexlancaster/pypop/pull/251))
-- Restore `makeNewPops` and fix `ParseAlleleCount`, major doc upgrade by @alexlancaster ([#247](https://github.com/alexlancaster/pypop/pull/247))
-- Restore functionality for `[Sequence]` filters: Python 3 upgrades by @alexlancaster ([#244](https://github.com/alexlancaster/pypop/pull/244))
-- fix generation of `schema.org` citation format by @alexlancaster ([#233](https://github.com/alexlancaster/pypop/pull/233))
+- Update all HLA nomenclature to correct version 3 allele names in unit tests and documentation ([#251](https://github.com/alexlancaster/pypop/pull/251))
+- Restore `makeNewPops` and fix `ParseAlleleCount`, major doc upgrade ([#247](https://github.com/alexlancaster/pypop/pull/247))
+- Restore functionality for `[Sequence]` filters: Python 3 upgrades ([#244](https://github.com/alexlancaster/pypop/pull/244))
+- fix generation of `schema.org` citation format ([#233](https://github.com/alexlancaster/pypop/pull/233))
 
 ### Internal
 
-- Generate `.zenodo.json` metadata from `CITATION.cff` by @alexlancaster ([#253](https://github.com/alexlancaster/pypop/pull/253))
+- Generate `.zenodo.json` metadata from `CITATION.cff` ([#253](https://github.com/alexlancaster/pypop/pull/253))
 - Update numpy requirement from \<=2.2.1 to \<=2.2.2 by @[dependabot[bot]](https://github.com/apps/dependabot) ([#245](https://github.com/alexlancaster/pypop/pull/245))
-- Port metadata from `setup.py` to `pyproject.toml` by @alexlancaster ([#242](https://github.com/alexlancaster/pypop/pull/242))
-- Overhaul C extension code: `pre-commit` and fix compiler warnings by @alexlancaster ([#239](https://github.com/alexlancaster/pypop/pull/239))
-- Major cleanup of codebase: add and enforce `pre-commit` checks by @alexlancaster ([#238](https://github.com/alexlancaster/pypop/pull/238))
+- Port metadata from `setup.py` to `pyproject.toml` ([#242](https://github.com/alexlancaster/pypop/pull/242))
+- Overhaul C extension code: `pre-commit` and fix compiler warnings ([#239](https://github.com/alexlancaster/pypop/pull/239))
+- Major cleanup of codebase: add and enforce `pre-commit` checks ([#238](https://github.com/alexlancaster/pypop/pull/238))
 - Bump stefanzweifel/git-auto-commit-action from 4 to 5 in the actions group by @[dependabot[bot]](https://github.com/apps/dependabot) ([#237](https://github.com/alexlancaster/pypop/pull/237))
-- Code cleanups: address warnings and add pre-commit checks by @alexlancaster ([#236](https://github.com/alexlancaster/pypop/pull/236))
-- Move `codeql` tests to `ubuntu-latest` by @alexlancaster ([#234](https://github.com/alexlancaster/pypop/pull/234))
+- Code cleanups: address warnings and add pre-commit checks ([#236](https://github.com/alexlancaster/pypop/pull/236))
+- Move `codeql` tests to `ubuntu-latest` ([#234](https://github.com/alexlancaster/pypop/pull/234))
 - Update numpy requirement from \<=2.2.0 to \<=2.2.1 by @[dependabot[bot]](https://github.com/apps/dependabot) ([#232](https://github.com/alexlancaster/pypop/pull/232))
 - Update numpy requirement from \<=2.1.3 to \<=2.2.0 by @[dependabot[bot]](https://github.com/apps/dependabot) ([#231](https://github.com/alexlancaster/pypop/pull/231))
 - Bump pypa/cibuildwheel from 2.21.3 to 2.22.0 in the actions group by @[dependabot[bot]](https://github.com/apps/dependabot) ([#230](https://github.com/alexlancaster/pypop/pull/230))
@@ -39,22 +68,24 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Documentation
 
-- Update all HLA nomenclature to correct version 3 allele names in unit tests and documentation by @alexlancaster ([#251](https://github.com/alexlancaster/pypop/pull/251))
-- Update documentation for `makeNewPops` filter by @alexlancaster ([#247](https://github.com/alexlancaster/pypop/pull/247))
-- Documentation updates for `[Sequence]` filters: by @alexlancaster ([#244](https://github.com/alexlancaster/pypop/pull/244))
-- Add information on `pre-commit` checks by @alexlancaster ([#240](https://github.com/alexlancaster/pypop/pull/240))
+- Update all HLA nomenclature to correct version 3 allele names in unit tests and documentation ([#251](https://github.com/alexlancaster/pypop/pull/251))
+- Update documentation for `makeNewPops` filter ([#247](https://github.com/alexlancaster/pypop/pull/247))
+- Documentation updates for `[Sequence]` filters: ([#244](https://github.com/alexlancaster/pypop/pull/244))
+- Add information on `pre-commit` checks ([#240](https://github.com/alexlancaster/pypop/pull/240))
+
+**Contributors:**: @alexlancaster
 
 ## [1.1.2] - 2024-11-18
 
 ### Features
 
-- Add new command-line option `--citation` for installed version by @alexlancaster ([#228](https://github.com/alexlancaster/pypop/pull/228))
-- enable PyPy 3.10 as numpy wheels now exist by @alexlancaster ([#219](https://github.com/alexlancaster/pypop/pull/219))
+- Add new command-line option `--citation` for installed version ([#228](https://github.com/alexlancaster/pypop/pull/228))
+- enable PyPy 3.10 as numpy wheels now exist ([#219](https://github.com/alexlancaster/pypop/pull/219))
 
 ### Internal
 
 - Update numpy requirement from \<=2.1.2 to \<=2.1.3 by @dependabot ([#226](https://github.com/alexlancaster/pypop/pull/226))
-- update x86 runner to `macos-13`, pin `swig` version by @alexlancaster ([#227](https://github.com/alexlancaster/pypop/pull/227))
+- update x86 runner to `macos-13`, pin `swig` version ([#227](https://github.com/alexlancaster/pypop/pull/227))
 - Bump pypa/cibuildwheel from 2.21.2 to 2.21.3 in the actions group by @dependabot ([#225](https://github.com/alexlancaster/pypop/pull/225))
 - Bump pypa/cibuildwheel from 2.21.1 to 2.21.2 in the actions group by @dependabot ([#224](https://github.com/alexlancaster/pypop/pull/224))
 - Update numpy requirement from \<=2.1.1 to \<=2.1.2 by @dependabot ([#223](https://github.com/alexlancaster/pypop/pull/223))
@@ -62,18 +93,20 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Documentation
 
-- Add new command-line option `--citation` for installed version by @alexlancaster ([#228](https://github.com/alexlancaster/pypop/pull/228))
-- Update to latest `sphinx` and add subtitle by @alexlancaster ([#220](https://github.com/alexlancaster/pypop/pull/220))
+- Add new command-line option `--citation` for installed version ([#228](https://github.com/alexlancaster/pypop/pull/228))
+- Update to latest `sphinx` and add subtitle ([#220](https://github.com/alexlancaster/pypop/pull/220))
+
+**Contributors:**: @alexlancaster
 
 ## [1.1.1] - 2024-09-10
 
 ### Features
 
-- Enable support for Python 3.13 by @alexlancaster ([#217](https://github.com/alexlancaster/pypop/pull/217))
+- Enable support for Python 3.13 ([#217](https://github.com/alexlancaster/pypop/pull/217))
 
 ### Bug Fixes
 
-- Pin `gsl` bottles to 2.7.1 on macOS to preserve 10.15/Catalina on x86 and 11.0/Big Sur compatibility + update `cibuildwheels` by @alexlancaster ([#212](https://github.com/alexlancaster/pypop/pull/212))
+- Pin `gsl` bottles to 2.7.1 on macOS to preserve 10.15/Catalina on x86 and 11.0/Big Sur compatibility + update `cibuildwheels` ([#212](https://github.com/alexlancaster/pypop/pull/212))
 
 ### Internal
 
@@ -97,62 +130,68 @@ This release increases the minimum macOS requirements to Catalina (Intel) and Bi
 - Bump peaceiris/actions-gh-pages from 3 to 4 in the actions group by @dependabot ([#201](https://github.com/alexlancaster/pypop/pull/201))
 - Update lxml requirement from \<=5.2.0 to \<=5.2.1 by @dependabot ([#202](https://github.com/alexlancaster/pypop/pull/202))
 - Update lxml requirement from \<=5.1.0 to \<=5.2.0 by @dependabot ([#200](https://github.com/alexlancaster/pypop/pull/200))
-- Enable native MacOS Apple Silicon runners by @alexlancaster ([#199](https://github.com/alexlancaster/pypop/pull/199))
+- Enable native MacOS Apple Silicon runners ([#199](https://github.com/alexlancaster/pypop/pull/199))
 - Update `cibuildwheel` GitHub action to 2.17.0 by @dependabot ([#198](https://github.com/alexlancaster/pypop/pull/198))
 - Update `softprops/action-gh-release` github action that uploads builds to releases by @dependabot ([#197](https://github.com/alexlancaster/pypop/pull/197))
 
 ### Documentation
 
-- fix reversed links (#203) by @alexlancaster ([#204](https://github.com/alexlancaster/pypop/pull/204))
+- fix reversed links (#203) ([#204](https://github.com/alexlancaster/pypop/pull/204))
+
+**Contributors:**: @alexlancaster
 
 ## [1.0.2] - 2024-02-24
 
 ### Bug Fixes
 
-- Synchronize with upstream `haplo.stats`, fix some redundant checks by @alexlancaster ([#196](https://github.com/alexlancaster/pypop/pull/196))
+- Synchronize with upstream `haplo.stats`, fix some redundant checks ([#196](https://github.com/alexlancaster/pypop/pull/196))
 
 ### Internal
 
-- customize code security scanning for C extensions by @alexlancaster ([#195](https://github.com/alexlancaster/pypop/pull/195))
+- customize code security scanning for C extensions ([#195](https://github.com/alexlancaster/pypop/pull/195))
 - Update numpy requirement from \<=1.26.3 to \<=1.26.4 by @dependabot ([#193](https://github.com/alexlancaster/pypop/pull/193))
 
 ### Documentation
 
-- Documentation updates including security policy by @alexlancaster ([#194](https://github.com/alexlancaster/pypop/pull/194))
+- Documentation updates including security policy ([#194](https://github.com/alexlancaster/pypop/pull/194))
+
+**Contributors:**: @alexlancaster
 
 ## [1.0.1] - 2024-02-11
 
 ### Features
 
-- Add `[CustomBinning]` filtering unit tests for G and P-codes by @alexlancaster ([#186](https://github.com/alexlancaster/pypop/pull/186))
+- Add `[CustomBinning]` filtering unit tests for G and P-codes ([#186](https://github.com/alexlancaster/pypop/pull/186))
 
 ### Bug Fixes
 
-- switch to scientific notation when frequencies can't be displayed as decimals by @alexlancaster ([#192](https://github.com/alexlancaster/pypop/pull/192))
-- Port `[RandomBinningFilter]` to Python 3, include more complex filtering tests by @alexlancaster ([#187](https://github.com/alexlancaster/pypop/pull/187))
+- switch to scientific notation when frequencies can't be displayed as decimals ([#192](https://github.com/alexlancaster/pypop/pull/192))
+- Port `[RandomBinningFilter]` to Python 3, include more complex filtering tests ([#187](https://github.com/alexlancaster/pypop/pull/187))
 
 ### Internal
 
 - Bump the `cibuildwheel` version from `2.16.4` to `2.16.5`: fixes Windows CI builds by @dependabot ([#189](https://github.com/alexlancaster/pypop/pull/189))
 - Bump the version of `cibuildwheel` from 2.16.2 to 2.16.4 by @dependabot ([#188](https://github.com/alexlancaster/pypop/pull/188))
-- increase test strictness: make test warnings into errors by @alexlancaster ([#185](https://github.com/alexlancaster/pypop/pull/185))
-- Enable wheels on `aarch64` architecture by @alexlancaster ([#184](https://github.com/alexlancaster/pypop/pull/184))
+- increase test strictness: make test warnings into errors ([#185](https://github.com/alexlancaster/pypop/pull/185))
+- Enable wheels on `aarch64` architecture ([#184](https://github.com/alexlancaster/pypop/pull/184))
 - Update `actions/upload-artifact` from 3 to 4 in Build on ARM64 by @dependabot ([#183](https://github.com/alexlancaster/pypop/pull/183))
-- Streamline continuous integration: reduce number of wheels, concurrency by @alexlancaster ([#182](https://github.com/alexlancaster/pypop/pull/182))
-- Parallelize wheel builds, re-enable `musllinux` wheels for Python 3.9+ by @alexlancaster ([#181](https://github.com/alexlancaster/pypop/pull/181))
+- Streamline continuous integration: reduce number of wheels, concurrency ([#182](https://github.com/alexlancaster/pypop/pull/182))
+- Parallelize wheel builds, re-enable `musllinux` wheels for Python 3.9+ ([#181](https://github.com/alexlancaster/pypop/pull/181))
 - Update lxml requirement from \<=5.0.0 to \<=5.1.0; disable PyPy 3.7 on Linux by @dependabot ([#178](https://github.com/alexlancaster/pypop/pull/178))
 - Update numpy requirement from \<=1.26.2 to \<=1.26.3 by @dependabot ([#177](https://github.com/alexlancaster/pypop/pull/177))
 - Update lxml requirement from \<=4.9.4 to \<=5.0.0 by @dependabot ([#174](https://github.com/alexlancaster/pypop/pull/174))
 - Update lxml requirement from \<=4.9.3 to \<=4.9.4 by @dependabot ([#173](https://github.com/alexlancaster/pypop/pull/173))
-- update to `v4` of `download-artifact` / `upload-artifact` by @alexlancaster ([#172](https://github.com/alexlancaster/pypop/pull/172))
+- update to `v4` of `download-artifact` / `upload-artifact` ([#172](https://github.com/alexlancaster/pypop/pull/172))
 - Bump actions/setup-python from 4 to 5 by @dependabot ([#168](https://github.com/alexlancaster/pypop/pull/168))
 - Update numpy requirement from \<=1.26.1 to \<=1.26.2 by @dependabot ([#167](https://github.com/alexlancaster/pypop/pull/167))
 
 ### Documentation
 
-- Link to new preprint in docs by @alexlancaster ([#190](https://github.com/alexlancaster/pypop/pull/190))
-- Convert bibliography to bibtex by @alexlancaster ([#176](https://github.com/alexlancaster/pypop/pull/176))
-- Convert `NEWS.rst` to `NEWS.md`, improve PDF documentation output by @alexlancaster ([#175](https://github.com/alexlancaster/pypop/pull/175))
+- Link to new preprint in docs ([#190](https://github.com/alexlancaster/pypop/pull/190))
+- Convert bibliography to bibtex ([#176](https://github.com/alexlancaster/pypop/pull/176))
+- Convert `NEWS.rst` to `NEWS.md`, improve PDF documentation output ([#175](https://github.com/alexlancaster/pypop/pull/175))
+
+**Contributors:**: @alexlancaster
 
 ## [1.0.0] - 2023-11-07
 
@@ -494,3 +533,4 @@ Single, Owen Solberg and Steve Mack.
 [1.1.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.1
 [1.1.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.2
 [1.2.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.0
+[1.2.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.1
