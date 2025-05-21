@@ -10,9 +10,10 @@ selection; estimates of haplotype frequencies and measures and tests
 of significance for linkage disequilibrium (LD). Full documentation is
 available in the `PyPop User Guide <http://pypop.org/docs>`__.
 
-.. _guide-include-pypop-cite-start:
+How to cite PyPop
+=================
 
-**How to cite PyPop**
+.. _guide-include-pypop-cite-start:
 
 If you write a paper that uses PyPop in your analysis, please cite
 **both**:
