@@ -23,16 +23,13 @@ large-scale population genetic analyses including:
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
-  * 2025-02-04: `PyPop 1.2.0
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0>`__ is
-    released. This release includes updates and restoration of full
-    functionality for ``[Sequence]`` options as part of the
-    ``[Filters]``, including dynamic downloads of HLA sequence
-    data. It also includes major updates to documentation and uses new
-    HLA nomenclature throughout. Experimental support for wheels built
-    for Windows ARM64 is also available in the `Test PyPI
-    <https://test.pypi.org/project/pypop-genomics/>`__ repo, to test,
-    run:
+  * 2025-04-29: `PyPop 1.2.1
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.2.1>`__ is
+    released. This release includes a bug fix in text output, and
+    internal changes and updates to dependencies. Experimental support
+    for wheels built for Windows ARM64 is also available in the `Test
+    PyPI <https://test.pypi.org/project/pypop-genomics/>`__ repo, to
+    test, run:
 
     .. code-block:: shell
 
@@ -41,38 +38,46 @@ large-scale population genetic analyses including:
     Please test and report issues `via the bug tracker
     <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BWindows+ARM64+bug%5D%3A+Please+replace+this+with+a+clear+and+concise+description+of+your+bug>`__.
 
-  * 2025-01-16: Beta release `PyPop 1.2.0b2
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0-b2>`__
-    is released.
-
-  * 2025-01-05: Pre-release `PyPop 1.1.3rc1
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.3-rc1>`__
-    is now available. Experimental wheels for Windows ARM64 are
-    added in this release.
-
-  * 2024-11-18: `PyPop 1.1.2
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.2>`__
-    released: adds ``--citation`` command-line option to print citation
-    information and updates ``numpy`` to 2.1.3
-
-  * 2024-09-10: `PyPop 1.1.1
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.1>`__
-    released, enables support for Python 3.13 and build Python 3.13 wheels.
-
-  * 2024-05-30: `PyPop 1.1.0
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.1.0>`__
-    released. Increases the minimum macOS requirements to Catalina
-    (Intel) and Big Sur (Silicon) to ensure binary compatibility with
-    the GNU Scientific Library (`gsl`). Thanks to Steve Mack for
-    testing.
+  * 2025-02-04: `PyPop 1.2.0
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0>`__ is
+    released: includes updates and restoration of full functionality
+    for ``[Sequence]`` options as part of the ``[Filters]``, including
+    dynamic downloads of HLA sequence data and major updates to
+    documentation, using new HLA nomenclature throughout.
 
   * 2024-04-01: PyPop paper `published
     <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
-    in *Frontiers in Immunology*, :ref:`see citing PyPop <citing-pypop>` for details.
+    in *Frontiers in Immunology*, :ref:`see citing PyPop <Citing PyPop>` for details.
 
   * More details, including recent previous releases:
 
    .. toggle::
+
+    - 2025-01-16: Beta release `PyPop 1.2.0b2
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0-b2>`__
+      is released.
+
+    - 2025-01-05: Pre-release `PyPop 1.1.3rc1
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.1.3-rc1>`__
+      is now available. Experimental wheels for Windows ARM64 are
+      added in this release.
+
+    - 2024-11-18: `PyPop 1.1.2
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.1.2>`__
+      released: adds ``--citation`` command-line option to print citation
+      information and updates ``numpy`` to 2.1.3
+
+    - 2024-09-10: `PyPop 1.1.1
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.1.1>`__
+      released, enables support for Python 3.13 and build Python 3.13 wheels.
+
+    - 2024-05-30: `PyPop 1.1.0
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.1.0>`__
+      released. Increases the minimum macOS requirements to Catalina
+      (Intel) and Big Sur (Silicon) to ensure binary compatibility with
+      the GNU Scientific Library (`gsl`). Thanks to Steve Mack for
+      testing.
+
     - 2024-03-08: PyPop paper, provisionally accepted.
     - 2024-02-24: `PyPop 1.0.2
       <https://github.com/alexlancaster/pypop/releases/tag/v1.0.2>`__
@@ -139,12 +144,14 @@ Although it can be run on any kind of genotype data, it has additional
 support for analyzing population genotype with allelic nomenclature
 from the human leukocyte antigen (HLA) region.
 
-An outline of PyPop can be found in our 2024 paper, and two
-previous :ref:`papers <citing-pypop>`.
+An outline of PyPop can be found in our 2024 paper
+:cite:`lancaster_pypop_2024`, and two previous :ref:`papers <Citing
+PyPop>`.
 
 .. _guide-preface-2-end:
 
-**Installation and documentation**
+Installation and documentation
+------------------------------
 
 Documentation, including instructions on :doc:`installing
 <docs/guide-chapter-install>`, :doc:`using <docs/guide-chapter-usage>`
@@ -163,7 +170,8 @@ PyPop, is contained in the :ref:`PyPop User Guide
 
 .. _source-code:
 
-**Source code**
+Source code
+-----------
 
 PyPop is `free software
 <http://www.gnu.org/philosophy/free-sw.html>`__ (sometimes referred to
@@ -174,7 +182,8 @@ Public License, or GPL (https://www.gnu.org/licenses/gpl.html)
 available and maintained on our `GitHub website
 <https://github.com/alexlancaster/pypop>`__.
 
-.. _citing-pypop:
+Citing PyPop
+------------
 
 .. include:: ../README.rst
    :start-after: guide-include-pypop-cite-start:
@@ -202,32 +211,36 @@ Two previous papers are also available (but not necessary to cite):
 PyPop was originally developed for the analysis of data for the 13th
 `International Histocompatiblity Workshop and Conference
 <http://www.ihwg.org/>`__ held in Seattle, Washington in 2002
-:cite:p:`meyer_single_2007,single_haplotype_2007,single_statistical_2007`. For
+(:cite:alp:`meyer_single_2007`, Single *et al.*
+:cite:year:`single_haplotype_2007{a},single_statistical_2007{b}`). For
 more details on the design and technical details of PyPop, please
-consult :cite:t:`lancaster_pypop_2003`,
-:cite:t:`lancaster_pypop_2007`, and :cite:t:`lancaster_software_2007`.
+consult Lancaster *et al.*
+:cite:yearpar:`lancaster_pypop_2003,lancaster_software_2007{a},lancaster_pypop_2007{b},lancaster_pypop_2024`.
 
-.. _acknowlegements:
+.. _guide-preface-3-end:
 
-**Acknowledgements**
+Acknowledgements
+----------------
+
+.. _guide-preface-acknowlegements-start:
 
 This work has benefited from the support of NIH grant AI49213 (13th
 IHW) and NIH/NIAID Contract number HHSN266200400076C
 N01-AI-40076. Thanks to Steven J. Mack, Kristie A. Mather, Steve G.E.
 Marsh, Mark Grote and Leslie Louie for helpful comments and testing.
 
-.. _guide-preface-3-end:
+.. _guide-preface-acknowlegements-end:
 
 .. _popdata-files:
 
-**Supplementary data files**
+Supplementary data files
+------------------------
 
 `Population data files and online supporting materials <popdata/>`__ for
 published studies listed in the :cite:t:`solberg_balancing_2008` meta-analysis paper.
 
-.. _immport-org:
-
-**ImmPort.org**
+ImmPort.org
+-----------
 
 PyPop is affiliated with https://ImmPort.org, the Immunology Database and
 Analysis Portal. The ImmPort system provides advanced information
