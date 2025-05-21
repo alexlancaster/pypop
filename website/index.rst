@@ -47,7 +47,7 @@ large-scale population genetic analyses including:
 
   * 2024-04-01: PyPop paper `published
     <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
-    in *Frontiers in Immunology*, :ref:`see citing PyPop <citing-pypop>` for details.
+    in *Frontiers in Immunology*, :ref:`see citing PyPop <Citing PyPop>` for details.
 
   * More details, including recent previous releases:
 
@@ -144,8 +144,9 @@ Although it can be run on any kind of genotype data, it has additional
 support for analyzing population genotype with allelic nomenclature
 from the human leukocyte antigen (HLA) region.
 
-An outline of PyPop can be found in our 2024 paper, and two
-previous :ref:`papers <citing-pypop>`.
+An outline of PyPop can be found in our 2024 paper
+:cite:`lancaster_pypop_2024`, and two previous :ref:`papers <Citing
+PyPop>`.
 
 .. _guide-preface-2-end:
 
@@ -184,8 +185,6 @@ available and maintained on our `GitHub website
 Citing PyPop
 ------------
 
-.. _citing-pypop:
-
 .. include:: ../README.rst
    :start-after: guide-include-pypop-cite-start:
    :end-before: guide-include-pypop-cite-end:
@@ -218,17 +217,19 @@ more details on the design and technical details of PyPop, please
 consult Lancaster *et al.*
 :cite:yearpar:`lancaster_pypop_2003,lancaster_software_2007{a},lancaster_pypop_2007{b},lancaster_pypop_2024`.
 
-.. _acknowlegements:
+.. _guide-preface-3-end:
 
 Acknowledgements
 ----------------
+
+.. _guide-preface-acknowlegements-start:
 
 This work has benefited from the support of NIH grant AI49213 (13th
 IHW) and NIH/NIAID Contract number HHSN266200400076C
 N01-AI-40076. Thanks to Steven J. Mack, Kristie A. Mather, Steve G.E.
 Marsh, Mark Grote and Leslie Louie for helpful comments and testing.
 
-.. _guide-preface-3-end:
+.. _guide-preface-acknowlegements-end:
 
 .. _popdata-files:
 
