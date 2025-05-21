@@ -1,0 +1,10 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Kaingang_2003.pop	DQB1	418	417	lit	Kaingang_2003	Amerindian	10-SAM	Brazil	1	700 people in Rio das Cobras	24.5S	51.6W	0.998	0.995	PCR-SSOP	{TPH+03}	Tsuneto	2003	HLA class II diversity in seven Amerindian populations. Clues about the origins of the Ache	Tissue Antigens	62	512-526	perler@ufpr.br		BR	Petzl-Erler	1301116	53	1		N		N	N	N						OS
+DQB1	count
+0501	12
+0603	1
+02	2
+0301	78
+0302	109
+030302	2
+0402	213
