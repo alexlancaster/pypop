@@ -172,7 +172,7 @@ jobs:
       - id: set-matrix-new
         run: |
           ./gen-wheel-matrix.sh 3.0.0
-          echo "platform:" $MATRIX
+          echo "platform matrix:" "${MATRIX[@]}"
         env:
            # only generate all wheels on releases, pull requests or commits to the main branch
            # otherwise just generate a test wheel Python 3.13 for 5 platform
