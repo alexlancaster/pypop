@@ -158,7 +158,9 @@ jobs:
         run: pipx install cibuildwheel==2.23.3
 
       - id: set-matrix-old
-        run: ./gen-wheel-matrix.sh 2.23.3
+        run: |
+          ./gen-wheel-matrix.sh 2.23.3
+          echo "platform matrix:" "$MATRIX"
         env:
            # only generate all wheels on releases, pull requests or commits to the main branch
            # otherwise just generate a test wheel Python 3.13 for 5 platform
@@ -172,7 +174,7 @@ jobs:
       - id: set-matrix-new
         run: |
           ./gen-wheel-matrix.sh 3.0.0
-          echo "platform matrix:" "${MATRIX[@]}"
+          echo "platform matrix:" "$MATRIX"
         env:
            # only generate all wheels on releases, pull requests or commits to the main branch
            # otherwise just generate a test wheel Python 3.13 for 5 platform
