@@ -346,7 +346,7 @@ jobs:
         run: |
           echo "Running cibuildwheel with version: ${{ matrix.cibw_version }}"
           pipx install cibuildwheel==${{ matrix.cibw_version }}
-          cibuildwheel --only ${{ matrix.only }} --output-dir wheelhouse --package . --config-file ./pyproject.toml
+          cibuildwheel --only ${{ matrix.only }} --output-dir wheelhouse --config-file ./pyproject.toml
         env:
           # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
           #CIBW_TEST_COMMAND: "pytest -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
