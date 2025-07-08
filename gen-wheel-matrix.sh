@@ -45,7 +45,7 @@ generate_matrix_entries() {
 MATRIX=$(generate_matrix_entries | jq -sc)
 
 # Output as GitHub Actions matrix JSON
-#echo "include=${MATRIX[@]}" >> $GITHUB_OUTPUT
+echo "include=$MATRIX" >> $GITHUB_OUTPUT
 
-echo "include=$(jq -c . <<< "$MATRIX")" >> $GITHUB_OUTPUT
+#echo "include=$(jq -c . <<< "$MATRIX")" >> $GITHUB_OUTPUT
 echo "platform:" "${MATRIX[@]}"
