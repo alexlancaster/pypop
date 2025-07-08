@@ -577,7 +577,7 @@ Windows
 
 You will need a compiler installed, the GitHub Action is tested using
 `Microsoft Visual Studio 17 2022
-<https://code.visualstudio.com/Download>`_ (you can also download `2019
+<https://visualstudio.microsoft.com/downloads/>`_ (you can also download `2019
 and earlier versions
 <https://visualstudio.microsoft.com/vs/older-downloads/>`_).  We also
 recommend that you setup the `NuGet package repository
