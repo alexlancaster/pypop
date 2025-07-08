@@ -40,6 +40,8 @@ from functools import reduce
 from operator import add
 from pathlib import Path
 
+# import C module
+from PyPop import _EWSlatkinExact
 from PyPop.DataTypes import Genotypes, checkIfSequenceData, getLocusPairs, getMetaLocus
 from PyPop.Utils import getStreamType
 
@@ -334,8 +336,6 @@ class HomozygosityEWSlatkinExact(Homozygosity):
             self.sampleCount = 0
 
         if self.sampleCount > 0:
-            from PyPop import _EWSlatkinExact
-
             self.EW = _EWSlatkinExact
 
             # create the correct array that module expect,

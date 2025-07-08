@@ -131,7 +131,7 @@ __version_scheme__ = "{version_scheme}"
 
         # FIXME: need to delay this import because _metadata.py may
         # not have been created yet
-        from src.PyPop.citation import convert_citation_formats
+        from src.PyPop.citation import convert_citation_formats  # noqa: PLC0415
 
         # if not running from a CIBUILDWHEEL environment variable
         # we also need to create the citations
