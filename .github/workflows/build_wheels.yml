@@ -345,7 +345,7 @@ jobs:
         #uses: pypa/cibuildwheel@v3.0.0
         run: |
           echo "Running cibuildwheel with version: ${{ matrix.cibw_version }}"
-          pipx uninstall cibuildwheel && pipx install cibuildwheel==${{ matrix.cibw_version }}
+          pipx install cibuildwheel==${{ matrix.cibw_version }}
           cibuildwheel --only ${{ matrix.only }} --output-dir wheelhouse --package . --config-file ./pyproject.toml
         env:
           # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
