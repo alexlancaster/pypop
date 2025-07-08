@@ -177,10 +177,12 @@ jobs:
            CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
       - name: Combine matrices
         run: |
-          COMBINED=$(jq -sc '.[0] + .[1]' <<< $'[
-            ${{ steps.set-matrix-old.outputs.include }},
-            ${{ steps.set-matrix-new.outputs.include }}
-          ]')
+          MATRIX_OLD="${{ steps.set-matrix-old.outputs.include }}"
+          MATRIX_NEW="${{ steps.set-matrix-new.outputs.include }}"
+          # Fallback to empty array if missing
+          [[ -z "$MATRIX_OLD" ]] && MATRIX_OLD="[]"
+          [[ -z "$MATRIX_NEW" ]] && MATRIX_NEW="[]"
+          COMBINED=$(jq -sc '.[0] + .[1]' <<< "[${MATRIX_OLD},${MATRIX_NEW}]")
           echo "include=$COMBINED" >> $GITHUB_OUTPUT
           echo "platform matrix: $COMBINED"
 
