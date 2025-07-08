@@ -9,7 +9,7 @@ FIXED_CI_MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-22.04'},{'only':
 # Handle fast CI case
 if [[ "${CI_ONLY:-false}" == "true" ]]; then
   if [[ "$CIBW_VERSION" == "3.0.0" ]]; then
-    echo "include=$FIXED_CI_MATRIX" #>> "$GITHUB_OUTPUT"
+    echo "include=$FIXED_CI_MATRIX" >> "$GITHUB_OUTPUT"
   fi
   # For 2.23.3 + CI_ONLY, output nothing
   exit 0
@@ -45,4 +45,4 @@ generate_matrix_entries() {
 MATRIX=$(generate_matrix_entries | jq -sc)
 
 # Output as GitHub Actions matrix JSON
-echo "include=${MATRIX[@]}" # >> $GITHUB_OUTPUT
+echo "include=${MATRIX[@]}" >> $GITHUB_OUTPUT
