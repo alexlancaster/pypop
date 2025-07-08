@@ -177,9 +177,12 @@ jobs:
            CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
       - name: Combine matrices
         run: |
-          COMBINED=$(jq -sc '.[0] + .[1]' <<<"[${{ steps.set-matrix-old.outputs.include }},${{ steps.set-matrix-new.outputs.include }}]")
+          COMBINED=$(jq -sc '.[0] + .[1]' <<< $'[
+            ${{ steps.set-matrix-old.outputs.include }},
+            ${{ steps.set-matrix-new.outputs.include }}
+          ]')
           echo "include=$COMBINED" >> $GITHUB_OUTPUT
-          echo "platform matrix:" $MATRIX
+          echo "platform matrix: $COMBINED"
 
   # set up a shared cache for downloading data files (e.g. MSF files)
 
