@@ -39,6 +39,9 @@ import time
 from configparser import ConfigParser, NoOptionError, NoSectionError
 from pathlib import Path
 
+# now use python3-lxml
+from lxml import etree
+
 from PyPop.DataTypes import Genotypes, getLumpedDataLevels
 from PyPop.Filter import AnthonyNolanFilter, BinningFilter
 from PyPop.Haplo import Emhaplofreq, Haplostats
@@ -1446,9 +1449,6 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             haplo.serializeEnd()
 
     def _genTextOutput(self):
-        # now use python3-lxml
-        from lxml import etree
-
         # read and parse stylesheet
         styledoc = etree.parse(self.xslFilename)
         style = etree.XSLT(styledoc)

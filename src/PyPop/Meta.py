@@ -201,14 +201,17 @@ class Meta:
 
         if not (metaXSLTDirectory):
             try:
-                from importlib.resources import files
+                # FIXME: lazy import because importlib not always
+                # available on all Python versions
+                from importlib.resources import files  # noqa: PLC0415
 
                 introspection_path = files("PyPop.xslt")
             except (
                 ModuleNotFoundError,
                 ImportError,
-            ):  # fallback to using backport if not found
-                from importlib_resources import files
+            ):  # FIXME: fallback to using backport if not found
+                # lazy import due to importlib availability
+                from importlib_resources import files  # noqa: PLC0415
 
                 introspection_path = files("PyPop.xslt").joinpath("")
 
