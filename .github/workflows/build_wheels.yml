@@ -183,6 +183,7 @@ jobs:
       #     echo 'include='$(jq -c '. + $other' --argjson other '${{ steps.set-matrix-new.outputs.include }}' <<< '${{ steps.set-matrix-old.outputs.include }}') >> $GITHUB_OUTPUT
 
       - name: Combine matrix outputs
+        id: set-matrix
         run: |
           MATRIX_OLD='${{ steps.set-matrix-old.outputs.include }}'
           MATRIX_NEW='${{ steps.set-matrix-new.outputs.include }}'
