@@ -160,7 +160,7 @@ jobs:
         run: |
           echo "CI_ONLY" $CI_ONLY
           if [ "$CI_ONLY" == "true" ]; then
-            MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-22.04'},{'only':'cp313-manylinux_aarch64','os':'ubuntu-22.04-arm'},{'only':'cp313-musllinux_x86_64','os':'ubuntu-22.04'},{'only':'cp313-musllinux_aarch64','os':'ubuntu-22.04-arm'},{'only':'cp313-win_amd64','os':'windows-2019'},{'only':'cp313-win_arm64','os':'windows-2019'},{'only':'cp313-macosx_x86_64','os':'macos-13'}, {'only':'cp313-macosx_arm64','os':'macos-14'}]"
+            MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-22.04'},{'only':'cp313-manylinux_aarch64','os':'ubuntu-22.04-arm'},{'only':'cp313-musllinux_x86_64','os':'ubuntu-22.04'},{'only':'cp313-musllinux_aarch64','os':'ubuntu-22.04-arm'},{'only':'cp313-win_amd64','os':'windows-2022'},{'only':'cp313-win_arm64','os':'windows-2022'},{'only':'cp313-macosx_x86_64','os':'macos-13'}, {'only':'cp313-macosx_arm64','os':'macos-14'}]"
           else
             MATRIX=$(
               {
@@ -173,7 +173,7 @@ jobs:
               && cibuildwheel --print-build-identifiers --platform macos --archs arm64 \
               | jq -nRc '{"only": inputs, "os": "macos-14"}' \
               && cibuildwheel --print-build-identifiers --platform windows \
-              | jq -nRc '{"only": inputs, "os": "windows-2019"}'
+              | jq -nRc '{"only": inputs, "os": "windows-2022"}'
             } | jq -sc
             )
           fi
