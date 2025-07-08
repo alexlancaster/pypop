@@ -41,15 +41,15 @@ from configparser import ConfigParser
 from glob import glob
 from pathlib import Path
 
+from PyPop import __version__ as version
+from PyPop import copyright_message, platform_info
+from PyPop.CommandLineInterface import get_pypop_cli
+from PyPop.Main import Main, checkXSLFile, getConfigInstance
+from PyPop.Meta import Meta
+from PyPop.Utils import getUserFilenameInput, glob_with_pathlib  # noqa: F401
+
 
 def main(argv=sys.argv):
-    from PyPop import __version__ as version
-    from PyPop import copyright_message, platform_info
-    from PyPop.CommandLineInterface import get_pypop_cli
-    from PyPop.Main import Main, checkXSLFile, getConfigInstance
-    from PyPop.Meta import Meta
-    from PyPop.Utils import getUserFilenameInput, glob_with_pathlib  # noqa: F401
-
     ######################################################################
     # BEGIN: CHECK PATHS and FILEs
     ######################################################################
@@ -138,14 +138,16 @@ matters, see the file named COPYING.
             print("datapath", datapath)
 
         try:
-            from importlib.resources import files
+            # FIXME: need lazy import to handle old Python version
+            # which didn't have built-in importlib library
+            from importlib.resources import files  # noqa: PLC0415
 
             mypath = files("PyPop.xslt")
         except (
             ModuleNotFoundError,
             ImportError,
-        ):  # fallback to using backport if not found
-            from importlib_resources import files
+        ):  # fallback to using backport if not found, need lazy import
+            from importlib_resources import files  # noqa: PLC0415
 
             mypath = files("PyPop.xslt").joinpath("")
 
@@ -200,9 +202,11 @@ matters, see the file named COPYING.
 
         print(interactive_message)
 
-        from _tkinter import TclError
-        from tkinter import Tk
-        from tkinter.filedialog import askopenfilename
+        # FIXME: keep these lazy import, unclear if they work on all
+        # platforms
+        from _tkinter import TclError  # noqa: PLC0415
+        from tkinter import Tk  # noqa: PLC0415
+        from tkinter.filedialog import askopenfilename  # noqa: PLC0415
 
         # read user input for both filenames
         try:
