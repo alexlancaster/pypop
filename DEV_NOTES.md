@@ -63,7 +63,7 @@ the version of the data file release.
     copy the `.nupkg` into the repo in the `vendor-binaries` folder so
     it is available at build-time.
 
-#### Install-time and run-time packagess (available on PyPI)
+#### Install-time and run-time packages (available on PyPI)
 
 - `Numpy` (Numpy)
 - `lxml` (Python bindings for XML and XST processing)
