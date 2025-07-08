@@ -10,7 +10,6 @@ from base import (
     in_temp_dir,  # noqa: F401
     run_pypop_process,
     skip_musllinux_x86_64,
-    xfail_windows,
 )
 
 
@@ -97,9 +96,6 @@ def test_USAFEL_slatkin_guothompson_emhaplofreq():
     assert filecmp_ignore_newlines(out_filename, gold_out_filename)
 
 
-# FIXME: error in one-line of 2-locus-haplo.tsv on Windows
-# ld.d is 0.01563 rather than 0.01562
-@xfail_windows
 @skip_musllinux_x86_64
 def test_USAFEL_slatkin_guothompson_emhaplofreq_with_permu_tsv():
     exit_code = run_pypop_process(
