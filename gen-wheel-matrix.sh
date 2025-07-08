@@ -4,7 +4,7 @@
 CIBW_VERSION="$1"
 
 # Fixed matrix for quick CI smoke tests
-FIXED_CI_MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-22.04'},{'only':'cp313-manylinux_aarch64','os':'ubuntu-22.04-arm'},{'only':'cp313-musllinux_x86_64','os':'ubuntu-22.04'},{'only':'cp313-musllinux_aarch64','os':'ubuntu-22.04-arm'},{'only':'cp313-win_amd64','os':'windows-2022'},{'only':'cp313-win_arm64','os':'windows-2022'},{'only':'cp313-macosx_x86_64','os':'macos-13'},{'only':'cp313-macosx_arm64','os':'macos-14'}]"
+FIXED_CI_MATRIX='[{"only":"cp313-manylinux_x86_64","os":"ubuntu-22.04"},{"only":"cp313-manylinux_aarch64","os":"ubuntu-22.04-arm"},{"only":"cp313-musllinux_x86_64","os":"ubuntu-22.04"},{"only":"cp313-musllinux_aarch64","os":"ubuntu-22.04-arm"},{"only":"cp313-win_amd64","os":"windows-2022"},{"only":"cp313-win_arm64","os":"windows-2022"},{"only":"cp313-macosx_x86_64","os":"macos-13"},{"only":"cp313-macosx_arm64","os":"macos-14"}]'
 
 # Handle fast CI case
 if [[ "${CI_ONLY:-false}" == "true" ]]; then
