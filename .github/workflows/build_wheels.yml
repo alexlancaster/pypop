@@ -181,10 +181,23 @@ jobs:
       #   id: combine-matrix
       #   run: |
       #     echo 'include='$(jq -c '. + $other' --argjson other '${{ steps.set-matrix-new.outputs.include }}' <<< '${{ steps.set-matrix-old.outputs.include }}') >> $GITHUB_OUTPUT
-      - name: Combine matrices
-        id: combine-matrix
+
+      - name: Combine matrix outputs
         run: |
-          echo "include=$(jq -c '. + $m2' --argjson m2 '${{ steps.set-matrix-new.outputs.include }}' <<< '${{ steps.set-matrix-old.outputs.include }}')" >> $GITHUB_OUTPUT
+          MATRIX_OLD="${{ steps.set-matrix-old.outputs.include }}"
+          MATRIX_NEW="${{ steps.set-matrix-new.outputs.include }}"
+
+          # Default to empty array if unset or empty
+          [[ -z "$MATRIX_OLD" ]] && MATRIX_OLD="[]"
+          [[ -z "$MATRIX_NEW" ]] && MATRIX_NEW="[]"
+
+          echo "MATRIX_OLD: $MATRIX_OLD"
+          echo "MATRIX_NEW: $MATRIX_NEW"
+
+          COMBINED=$(jq -c --argjson m1 "$MATRIX_OLD" --argjson m2 "$MATRIX_NEW" '$m1 + $m2' <<< '')
+          echo "include=$COMBINED" >> $GITHUB_OUTPUT
+          echo "Combined matrix: $COMBINED"
+          cat "$GITHUB_OUTPUT"
 
   # set up a shared cache for downloading data files (e.g. MSF files)
 
