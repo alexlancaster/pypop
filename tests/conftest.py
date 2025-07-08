@@ -34,8 +34,9 @@ def pytest_configure(config):
 
 def pytest_collection_modifyitems(config, items):
     if config.getoption("--pval-benchmarking"):
-        # only check for SciPy if --pval-benchmarking is requested
-        import importlib.util
+        # FIXME: only check for SciPy if --pval-benchmarking is requested
+        # so make this a lazy import
+        import importlib.util  # noqa: PLC0415
 
         scipy_available = importlib.util.find_spec("scipy") is not None
 
