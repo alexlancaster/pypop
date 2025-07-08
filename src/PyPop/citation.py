@@ -49,7 +49,8 @@ citation_output_formats = [
 
 
 def convert_citation_formats(build_lib, citation_path):
-    from cffconvert import Citation
+    # FIXME: currently doesn't work at top-level
+    from cffconvert import Citation  # noqa: PLC0415
 
     # target directory for the CITATION file within the build directory
     target_dir = Path(build_lib) / "PyPop" / "citation"

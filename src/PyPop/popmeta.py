@@ -36,13 +36,13 @@ import os
 import sys
 from pathlib import Path
 
+from PyPop import __version__ as version
+from PyPop import copyright_message
+from PyPop.CommandLineInterface import get_popmeta_cli
+from PyPop.Meta import Meta
+
 
 def main(argv=sys.argv):
-    from PyPop import __version__ as version
-    from PyPop import copyright_message
-    from PyPop.CommandLineInterface import get_popmeta_cli
-    from PyPop.Meta import Meta
-
     datapath = Path(sys.prefix) / "share" / "PyPop"
 
     parser = get_popmeta_cli(version=version, copyright_message=copyright_message)
