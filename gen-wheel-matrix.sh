@@ -48,3 +48,4 @@ MATRIX=$(generate_matrix_entries | jq -sc)
 #echo "include=${MATRIX[@]}" >> $GITHUB_OUTPUT
 
 echo "include=$(jq -c . <<< "$MATRIX")" >> $GITHUB_OUTPUT
+echo "platform:" ${MATRIX}
