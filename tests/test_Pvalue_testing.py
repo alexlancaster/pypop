@@ -2,6 +2,8 @@
 
 import pytest
 
+from PyPop.HardyWeinberg import pval
+
 chisq = 10.3
 dof = 2
 # expected = 0.0013303020906467733 for 1 dof
@@ -13,8 +15,6 @@ pytestmark = (
 
 
 def test_Pvalue(benchmark):
-    from PyPop.HardyWeinberg import pval
-
     result = benchmark(pval, chisq, dof)
     print(result)
 

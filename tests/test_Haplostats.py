@@ -1,11 +1,13 @@
 from operator import add
 
+import numpy as np
 import pytest
 from numpy import array
 from numpy.testing import assert_array_almost_equal
 
 from PyPop import _Haplostats
-from PyPop.Haplo import _compute_LD
+from PyPop.Haplo import Haplostats, _compute_LD
+from PyPop.Utils import StringMatrix
 
 
 def call_Haplostats(
@@ -321,11 +323,6 @@ def test_Haplostats_PyPopStringMatrix():
     except we are setting up via PyPop StringMatrix, and letting the class
     handle all the translation into the low-level variables for the wrapper
     """
-
-    import numpy as np
-
-    from PyPop.Haplo import Haplostats
-    from PyPop.Utils import StringMatrix
 
     control = {
         "max_iter": 5000,

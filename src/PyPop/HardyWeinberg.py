@@ -41,6 +41,8 @@ from tempfile import TemporaryDirectory
 
 from scipy.stats import chi2
 
+# import C module
+from PyPop import _Gthwe
 from PyPop.Arlequin import ArlequinExactHWTest
 
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
@@ -930,9 +932,6 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
             # flush stdout before running the G&T step
             sys.stdout.flush()
 
-        # import library only when necessary
-        from PyPop import _Gthwe
-
         if self.runMCMCTest:
             stream.opentag("hardyweinbergGuoThompson", allelelump=(f"{allelelump}"))
 
@@ -1006,7 +1005,8 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
     """
 
     def __init__(self, locusData=None, alleleCount=None, doOverall=0, **kw):
-        from PyPop import _HweEnum
+        # FIXME: lazy import, because currently we don't build this module
+        from PyPop import _HweEnum  # noqa: PLC0415
 
         self.HweEnumProcess = _HweEnum
 

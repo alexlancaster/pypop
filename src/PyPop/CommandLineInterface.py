@@ -56,8 +56,8 @@ class CitationAction(Action):
         citation_format = values or "apalike"
         citation_file_name = f"citation/CITATION.{citation_format}"
 
-        try:  # looking in installed package
-            from importlib.resources import files
+        try:  # looking in installed package, need to do lazy import
+            from importlib.resources import files  # noqa: PLC0415
 
             citation_file = files("PyPop").joinpath(citation_file_name)
             citation_text = citation_file.read_text()
@@ -65,9 +65,9 @@ class CitationAction(Action):
             ModuleNotFoundError,
             ImportError,
             FileNotFoundError,
-        ):  # fallback to using backport if not found
+        ):  # fallback to using backport if not found, needs a lazy import
             try:
-                from importlib_resources import files
+                from importlib_resources import files  # noqa: PLC0415
 
                 citation_file = files("PyPop").joinpath(citation_file_name)
                 citation_text = citation_file.read_text()
