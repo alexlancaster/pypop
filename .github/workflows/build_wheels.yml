@@ -184,8 +184,8 @@ jobs:
 
       - name: Combine matrix outputs
         run: |
-          MATRIX_OLD=${{ steps.set-matrix-old.outputs.include }}
-          MATRIX_NEW=${{ steps.set-matrix-new.outputs.include }}
+          MATRIX_OLD='${{ steps.set-matrix-old.outputs.include }}'
+          MATRIX_NEW='${{ steps.set-matrix-new.outputs.include }}'
 
           # Default to empty array if unset or empty
           [[ -z "$MATRIX_OLD" ]] && MATRIX_OLD="[]"
@@ -194,7 +194,7 @@ jobs:
           echo "MATRIX_OLD: $MATRIX_OLD"
           echo "MATRIX_NEW: $MATRIX_NEW"
 
-          COMBINED=$(jq -c --argjson m1 $MATRIX_OLD --argjson m2 $MATRIX_NEW '$m1 + $m2' <<< '')
+          COMBINED=$(jq -n -c --argjson m1 "$MATRIX_OLD" --argjson m2 "$MATRIX_NEW" '$m1 + $m2')
           echo "include=$COMBINED" >> $GITHUB_OUTPUT
           echo "Combined matrix: $COMBINED"
           cat "$GITHUB_OUTPUT"
