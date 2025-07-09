@@ -32,7 +32,7 @@ pipx install cibuildwheel==${CIBW_VERSION}
 # Handle fast CI case
 if [[ "${CI_ONLY:-false}" == "true" ]]; then
     if [[ "$MODE" == "modern" ]]; then
-        FIXED_CI_MATRIX=$(jq -c --arg ver "$CIBW_VERSION" '
+        FIXED_CI_MATRIX=$(jq -n -c --arg ver "$CIBW_VERSION" '
           [
             {"only":"cp313-manylinux_x86_64","os":"ubuntu-22.04","cibw_version": $ver},
             {"only":"cp313-manylinux_aarch64","os":"ubuntu-22.04-arm","cibw_version": $ver},
@@ -45,6 +45,7 @@ if [[ "${CI_ONLY:-false}" == "true" ]]; then
           ]
         ')
         echo "include=$FIXED_CI_MATRIX" >> "$GITHUB_OUTPUT"
+	echo "platform:" "${FIXED_CI_MATRIX}"
     else
         echo "include=[]" >> "$GITHUB_OUTPUT"
     fi
