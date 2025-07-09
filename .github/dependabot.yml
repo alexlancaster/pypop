@@ -19,7 +19,8 @@ updates:
       - dependency-name: "swig"
         versions: [">4.2.1.post0"]
 - package-ecosystem: "pip"
-  # Specify the directory for the requirements-ci.txt file used in CI
+  # Specify the directory for the requirements-*.txt files used by CI
+  # (wheels and docs)
   directory: "/.github/"
   schedule:
     interval: "weekly"
