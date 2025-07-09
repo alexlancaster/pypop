@@ -17,6 +17,7 @@ on:
       - 'src/obsolete/**'
       - '.github/**'
       - '!.github/workflows/build_wheels.yml'
+      - '!.github/scripts/gen-wheel-matrix.sh'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
   push:
@@ -30,6 +31,7 @@ on:
       - 'src/obsolete/**'
       - '.github/**'
       - '!.github/workflows/build_wheels.yml'
+      - '!.github/scripts/gen-wheel-matrix.sh'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
   release:
