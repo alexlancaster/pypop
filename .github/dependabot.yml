@@ -18,3 +18,8 @@ updates:
   ignore:
       - dependency-name: "swig"
         versions: [">4.2.1.post0"]
+- package-ecosystem: "pip"
+  # Specify the directory for the requirements-ci.txt file used in CI
+  directory: "/.github/"
+  schedule:
+    interval: "weekly"
