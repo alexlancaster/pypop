@@ -73,5 +73,5 @@ generate_matrix_entries() {
 }
 
 MATRIX=$(generate_matrix_entries | jq -sc)
-#echo "include=$MATRIX" >> "$GITHUB_OUTPUT"
+echo "include=$MATRIX" >> "$GITHUB_OUTPUT"
 echo "platform:" "${MATRIX}"
