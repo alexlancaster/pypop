@@ -18,6 +18,7 @@ on:
       - '.github/**'
       - '!.github/workflows/build_wheels.yml'
       - '!.github/scripts/gen-wheel-matrix.sh'
+      - '!.github/requirements-ci.txt'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
   push:
@@ -32,6 +33,7 @@ on:
       - '.github/**'
       - '!.github/workflows/build_wheels.yml'
       - '!.github/scripts/gen-wheel-matrix.sh'
+      - '!.github/requirements-ci.txt'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
   release:
