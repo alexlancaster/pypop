@@ -25,7 +25,7 @@ if [[ "$CIBW_VERSION" == "2.23.3" ]]; then
 elif [[ "$CIBW_VERSION" == "3.0.0" ]]; then
     GREP_FLAGS="-v"
     GREP_PATTERN="cp36|cp37"
-    export CIBW_ENABLE="pypy-eol"  # add `pypy-eol` for newer cibuildwheel
+    CIBW_ENABLE="pypy-eol"  # add `pypy-eol` for newer cibuildwheel
 else
     echo "Unsupported cibuildwheel version: $CIBW_VERSION"
     exit 2
@@ -33,7 +33,7 @@ fi
 
 generate_matrix_entries() {
     {
-        cibuildwheel --print-build-identifiers --platform linux --archs x86_64 \
+        CIBW_ENABLE=${CIBW_ENABLE} cibuildwheel --print-build-identifiers --platform linux --archs x86_64 \
             | grep $GREP_FLAGS -E "$GREP_PATTERN" | jq -nRc --arg ver "$CIBW_VERSION" '{"only": inputs, "os": "ubuntu-22.04", "cibw_version": $ver}' \
         && cibuildwheel --print-build-identifiers --platform linux --archs aarch64 \
             | grep $GREP_FLAGS -E "$GREP_PATTERN" | jq -nRc --arg ver "$CIBW_VERSION" '{"only": inputs, "os": "ubuntu-22.04-arm", "cibw_version": $ver}' \
@@ -47,7 +47,6 @@ generate_matrix_entries() {
 }
 
 MATRIX=$(generate_matrix_entries | jq -sc)
-
 # Output as GitHub Actions matrix JSON
 echo "include=$MATRIX" >> $GITHUB_OUTPUT
 echo "platform:" "${MATRIX}"
