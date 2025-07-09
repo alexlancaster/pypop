@@ -160,7 +160,6 @@ jobs:
       - id: set-matrix-old
         run: |
           ./gen-wheel-matrix.sh 2.23.3
-          echo "platform matrix:" "$MATRIX"
         env:
            # only generate all wheels on releases, pull requests or commits to the main branch
            # otherwise just generate a test wheel Python 3.13 for 5 platform
@@ -174,15 +173,10 @@ jobs:
       - id: set-matrix-new
         run: |
           ./gen-wheel-matrix.sh 3.0.0
-          echo "platform matrix:" "$MATRIX"
         env:
            # only generate all wheels on releases, pull requests or commits to the main branch
            # otherwise just generate a test wheel Python 3.13 for 5 platform
            CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
-      # - name: Combine matrices
-      #   id: combine-matrix
-      #   run: |
-      #     echo 'include='$(jq -c '. + $other' --argjson other '${{ steps.set-matrix-new.outputs.include }}' <<< '${{ steps.set-matrix-old.outputs.include }}') >> $GITHUB_OUTPUT
 
       - name: Combine matrix outputs
         id: set-matrix
@@ -191,15 +185,14 @@ jobs:
           MATRIX_NEW='${{ steps.set-matrix-new.outputs.include }}'
 
           # Default to empty array if unset or empty
-          [[ -z "$MATRIX_OLD" ]] && MATRIX_OLD="[]"
-          [[ -z "$MATRIX_NEW" ]] && MATRIX_NEW="[]"
+          #[[ -z "$MATRIX_OLD" ]] && MATRIX_OLD="[]"
+          #[[ -z "$MATRIX_NEW" ]] && MATRIX_NEW="[]"
 
           echo "MATRIX_OLD: $MATRIX_OLD"
           echo "MATRIX_NEW: $MATRIX_NEW"
 
           COMBINED=$(jq -n -c --argjson m1 "$MATRIX_OLD" --argjson m2 "$MATRIX_NEW" '$m1 + $m2')
           echo "include=$COMBINED" >> $GITHUB_OUTPUT
-          echo "Combined matrix: $COMBINED"
           cat "$GITHUB_OUTPUT"
 
   # set up a shared cache for downloading data files (e.g. MSF files)

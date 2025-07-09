@@ -8,23 +8,26 @@ FIXED_CI_MATRIX='[{"only":"cp313-manylinux_x86_64","os":"ubuntu-22.04","cibw_ver
 
 # Handle fast CI case
 if [[ "${CI_ONLY:-false}" == "true" ]]; then
-  if [[ "$CIBW_VERSION" == "3.0.0" ]]; then
-    echo "include=$FIXED_CI_MATRIX" >> "$GITHUB_OUTPUT"
-  fi
-  # For 2.23.3 + CI_ONLY, output nothing
-  exit 0
+    if [[ "$CIBW_VERSION" == "3.0.0" ]]; then
+	echo "include=$FIXED_CI_MATRIX" >> "$GITHUB_OUTPUT"
+    else
+	# For 2.23.3 + CI_ONLY, output empty list
+	echo "include=[]" >> $GITHUB_OUTPUT
+    fi
+    cat $GITHUB_OUTPUT
+    exit 0
 fi
 
 # Decide grep mode based on cibuildwheel version
 if [[ "$CIBW_VERSION" == "2.23.3" ]]; then
-  GREP_FLAGS=""
-  GREP_PATTERN="cp36|cp37"
+    GREP_FLAGS=""
+    GREP_PATTERN="cp36|cp37"
 elif [[ "$CIBW_VERSION" == "3.0.0" ]]; then
-  GREP_FLAGS="-v"
-  GREP_PATTERN="cp36|cp37"
+    GREP_FLAGS="-v"
+    GREP_PATTERN="cp36|cp37"
 else
-  echo "Unsupported cibuildwheel version: $CIBW_VERSION"
-  exit 2
+    echo "Unsupported cibuildwheel version: $CIBW_VERSION"
+    exit 2
 fi
 
 generate_matrix_entries() {
