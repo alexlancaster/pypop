@@ -151,6 +151,10 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       include: ${{ steps.set-matrix.outputs.include }}
+    env:
+      # only generate all wheels on releases, pull requests or commits to the main branch
+      # otherwise just generate a test wheel Python 3.13 for 5 platform
+      CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
     steps:
       - uses: actions/checkout@v4
       - name: Install cibuildwheel 2.23.3 (legacy)
@@ -158,20 +162,12 @@ jobs:
 
       - id: set-matrix-old
         run: .github/scripts/gen-wheel-matrix.sh 2.23.3
-        env:
-           # only generate all wheels on releases, pull requests or commits to the main branch
-           # otherwise just generate a test wheel Python 3.13 for 5 platform
-           CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
 
       - name: Install cibuildwheel 3.0.0 (current)
         run: pipx uninstall cibuildwheel && pipx install cibuildwheel==3.0.0
 
       - id: set-matrix-new
         run: .github/scripts/gen-wheel-matrix.sh 3.0.0
-        env:
-           # only generate all wheels on releases, pull requests or commits to the main branch
-           # otherwise just generate a test wheel Python 3.13 for 5 platform
-           CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
 
       - name: Combine matrix outputs
         id: set-matrix
