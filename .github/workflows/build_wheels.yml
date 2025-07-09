@@ -334,6 +334,7 @@ jobs:
           PYTEST_OPTIONS: "${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || ' ' }}"
           SETUPTOOLS_SCM_PRETEND_VERSION: ${{ env.VERSION }}
           POOCH_CACHE: ${{ env.POOCH_CACHE }}
+          CIBW_ENABLE: ${{ startsWith(matrix.cibw_version, '3.') && 'pypy-eol' || '' }}
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION POOCH_CACHE PYTEST_OPTIONS
         # with:
         #  only: ${{ matrix.only }}
