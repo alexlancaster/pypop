@@ -322,7 +322,6 @@ jobs:
           python src/PyPop/citation.py
 
       - name: Build and test wheels
-        #uses: pypa/cibuildwheel@v3.0.0
         run: |
           echo "Running cibuildwheel with version: ${{ matrix.cibw_version }}"
           python -m pip install --upgrade pip
@@ -334,13 +333,7 @@ jobs:
           PYTEST_OPTIONS: "${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || ' ' }}"
           SETUPTOOLS_SCM_PRETEND_VERSION: ${{ env.VERSION }}
           POOCH_CACHE: ${{ env.POOCH_CACHE }}
-          CIBW_ENABLE: ${{ startsWith(matrix.cibw_version, '3.') && 'pypy-eol' || '' }}
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION POOCH_CACHE PYTEST_OPTIONS
-        # with:
-        #  only: ${{ matrix.only }}
-        #  package-dir: .
-        #  output-dir: wheelhouse
-        #  config-file: "{package}/pyproject.toml"
 
       - uses: actions/upload-artifact@v4
         with:
