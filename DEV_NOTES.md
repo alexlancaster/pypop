@@ -63,11 +63,12 @@ the version of the data file release.
     copy the `.nupkg` into the repo in the `vendor-binaries` folder so
     it is available at build-time.
 
-#### Install-time packagess (available on PyPI)
+#### Install-time and run-time packages (available on PyPI)
 
 - `Numpy` (Numpy)
-- `lxml` (Python bindings)
-- `pytest` (Python test framework)
+- `lxml` (Python bindings for XML and XST processing)
+- `pooch` (for dynamic downloading of MSF files, see above)
+- `pytest` (Python test framework, optional for run-time testing)
 
 ### SWIG notes
 
