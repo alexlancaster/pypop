@@ -25,6 +25,7 @@ if [[ "$CIBW_VERSION" == "2.23.3" ]]; then
 elif [[ "$CIBW_VERSION" == "3.0.0" ]]; then
     GREP_FLAGS="-v"
     GREP_PATTERN="cp36|cp37"
+    CIBW_ENABLE="pypy-eol"  # add `pypy-eol` for newer cibuildwheel
 else
     echo "Unsupported cibuildwheel version: $CIBW_VERSION"
     exit 2
