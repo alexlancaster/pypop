@@ -15,6 +15,7 @@ on:
       - 'tests/data/doc-examples/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
+      - '.github/requirements-docs.txt'
       - '!website/README.md'
       - '!website/reference/**'
   pull_request:
@@ -26,6 +27,7 @@ on:
       - 'tests/data/doc-examples/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
+      - '.github/requirements-docs.txt'
       - '!website/README.md'
       - '!website/reference/**'
   release:
