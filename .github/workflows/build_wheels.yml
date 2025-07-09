@@ -157,17 +157,15 @@ jobs:
       CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
     steps:
       - uses: actions/checkout@v4
-      - name: Install cibuildwheel 2.23.3 (legacy)
-        run: pipx install cibuildwheel==2.23.3
+      - name: Install cibuildwheel 2.23.3 (legacy) and generate wheel list
+        id: set-matrix-old
+        # runs legacy (2.23.3)
+        run: .github/scripts/gen-wheel-matrix.sh legacy
 
-      - id: set-matrix-old
-        run: .github/scripts/gen-wheel-matrix.sh 2.23.3
-
-      - name: Install cibuildwheel 3.0.0 (current)
-        run: pipx uninstall cibuildwheel && pipx install cibuildwheel==3.0.0
-
-      - id: set-matrix-new
-        run: .github/scripts/gen-wheel-matrix.sh 3.0.0
+      - name: Install cibuildwheel modern (current) and generate wheel list
+        id: set-matrix-new
+        # runs modern (>=3.0.0)
+        run: .github/scripts/gen-wheel-matrix.sh modern
 
       - name: Combine matrix outputs
         id: set-matrix
