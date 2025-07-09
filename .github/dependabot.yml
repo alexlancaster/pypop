@@ -21,6 +21,6 @@ updates:
 - package-ecosystem: "pip"
   # Specify the directory for the requirements-*.txt files used by CI
   # (wheels and docs)
-  directory: "/.github/"
+  directory: "/.github"
   schedule:
     interval: "weekly"
