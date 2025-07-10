@@ -93,7 +93,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         # only update beta site if base and head branches match, not for forks
         # forks cannot access secrets to deploy, see: https://github.com/orgs/community/discussions/26829
-        if: ${{ (github.event.pull_request.base.repo.full_name == github.event.pull_request.head.repo.full_name) }}
+        # also dependabot jobs won't work either
+        if: ${{ (github.event.pull_request.base.repo.full_name == github.event.pull_request.head.repo.full_name) && github.actor != 'dependabot[bot]' }}
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: alexlancaster/beta.pypop.org
