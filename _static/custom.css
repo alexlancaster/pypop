@@ -1,0 +1,16 @@
+pre {
+    tab-size: 12; /* Adjust as needed */
+    -moz-tab-size: 12;
+    -o-tab-size: 12;
+    -webkit-tab-size: 12;
+}
+
+ /* override for a specific file using :class: */
+.tab-width-15 pre {
+    tab-size: 15;
+}
+
+/* Only hide the top-level TOC title link on index.rst */
+html[data-content_root="./"] div#right_sidebar .page_toc > ul > li:first-child > a.reference.internal {
+    display: none;
+}
