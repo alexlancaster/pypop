@@ -25,3 +25,16 @@ updates:
   schedule:
     interval: "weekly"
   versioning-strategy: increase
+  # group by dependency type
+  build-wheel-deps:
+    patterns:
+      - "cibuildwheel"
+    commit-message:
+      prefix: "wheels(deps)"
+      # include: "scope"  # optional
+  documentation-deps:
+    patterns:
+      - "*"
+    commit-message:
+      prefix: "docs(deps)"
+      # include: "scope"
