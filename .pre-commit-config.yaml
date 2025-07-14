@@ -17,7 +17,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.12.2"
+    rev: "v0.12.3"
     hooks:
       - id: ruff
         args: ["--show-fixes"] # FIXME: add "--exit-zero" to list to commit to ignore ruff fixes
@@ -46,7 +46,7 @@ repos:
 
   # for checking C extension code
   - repo: https://github.com/pre-commit/mirrors-clang-format
-    rev: v20.1.7
+    rev: v20.1.8
     hooks:
       - id: clang-format
         args: ['--style=LLVM', '--verbose']
