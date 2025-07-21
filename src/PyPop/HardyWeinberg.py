@@ -39,7 +39,8 @@ from math import pow
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-from PyPop import _Pvalue
+# import C module
+from PyPop import _Gthwe, _Pvalue
 from PyPop.Arlequin import ArlequinExactHWTest
 
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
@@ -57,7 +58,8 @@ def pval(chisq, dof):
     global chi2  # noqa: PLW0603
     if use_scipy:
         if chi2 is None:
-            from scipy.stats import chi2  # late import if needed
+            # late import if needed
+            from scipy.stats import chi2  # noqa: PLC0415
         p_value = 1 - chi2.cdf(chisq, dof)
     else:
         p_value = _Pvalue.pval(chisq, dof)
@@ -942,9 +944,6 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
             # flush stdout before running the G&T step
             sys.stdout.flush()
 
-        # import library only when necessary
-        from PyPop import _Gthwe
-
         if self.runMCMCTest:
             stream.opentag("hardyweinbergGuoThompson", allelelump=(f"{allelelump}"))
 
@@ -1018,7 +1017,8 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
     """
 
     def __init__(self, locusData=None, alleleCount=None, doOverall=0, **kw):
-        from PyPop import _HweEnum
+        # FIXME: lazy import, because currently we don't build this module
+        from PyPop import _HweEnum  # noqa: PLC0415
 
         self.HweEnumProcess = _HweEnum
 

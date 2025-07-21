@@ -44,6 +44,9 @@ from pathlib import Path, PurePath
 
 import pytest
 
+from PyPop.popmeta import main as main_popmeta
+from PyPop.pypop import main as main_pypop
+
 # global XFAIL condition for win32
 xfail_windows = pytest.mark.xfail(
     sys.platform == "win32",
@@ -223,13 +226,9 @@ def run_script_process_entry_point(script_name, args):
     print(argv)
 
     if script_name == "pypop":
-        from PyPop.pypop import main
-
-        ret_val = main(argv=argv)
+        ret_val = main_pypop(argv=argv)
     elif script_name == "popmeta":
-        from PyPop.popmeta import main
-
-        ret_val = main(argv=argv)
+        ret_val = main_popmeta(argv=argv)
     else:
         sys.exit("script:", script_name, "doesn't exist")
 

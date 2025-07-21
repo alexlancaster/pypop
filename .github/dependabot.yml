@@ -18,3 +18,21 @@ updates:
   ignore:
       - dependency-name: "swig"
         versions: [">4.2.1.post0"]
+- package-ecosystem: "pip"
+  # Specify the directory for the requirements-*.txt files used by CI
+  # (wheels and docs)
+  directory: "/.github"
+  schedule:
+    interval: "weekly"
+  versioning-strategy: increase
+  commit-message:
+    prefix: "python(CI deps)"
+    # include: "scope"  # optional
+  # group by dependency type
+  groups:
+    build-wheel-deps:
+      patterns:
+        - "cibuildwheel"
+    documentation-deps:
+      patterns:
+        - "*"

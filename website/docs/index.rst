@@ -6,14 +6,17 @@ PyPop User Guide
 
 .. only:: html
 
+   |guide_pdf_download_box|
+
    |guide_subtitle|
 
    |htmlauthor|
 
    .. admonition:: *Documenting release*  |version|  *of PyPop*.
 
-      This guide is also available as a |guide_pdf_link|  |br|
       *Document revision:* |full_release|
+
+      See :ref:`Citing PyPop` for how to cite PyPop in your publication.
 
 .. only:: latex or pdf
 
@@ -43,6 +46,11 @@ PyPop User Guide
       :start-after: guide-preface-3-start:
       :end-before: guide-preface-3-end:
 
+   **Acknowledgements**
+
+   .. include:: ../index.rst
+      :start-after: guide-preface-acknowlegements-start:
+      :end-before: guide-preface-acknowlegements-end:
 
 **How to use this guide**
 

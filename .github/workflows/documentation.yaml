@@ -15,6 +15,7 @@ on:
       - 'tests/data/doc-examples/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
+      - '.github/requirements-docs.txt'
       - '!website/README.md'
       - '!website/reference/**'
   pull_request:
@@ -26,6 +27,7 @@ on:
       - 'tests/data/doc-examples/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
+      - '.github/requirements-docs.txt'
       - '!website/README.md'
       - '!website/reference/**'
   release:
@@ -59,7 +61,7 @@ jobs:
       - uses: actions/setup-python@v5
       - name: Install dependencies
         run: |
-          pip install setuptools_scm sphinx==8.0.2 piccolo-theme myst_parser rst2pdf sphinx_togglebutton sphinx-argparse sphinx_copybutton sphinxcontrib-bibtex toml
+          pip install -r .github/requirements-docs.txt
           sudo apt clean
           sudo apt-get update
           sudo apt-get install --fix-missing -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
@@ -80,6 +82,10 @@ jobs:
           # create _build directory and move the PDF there
           mkdir _build
           cp _latexbuild/*.pdf _build/
+          # create a symlink from 'pypop-guide.pdf' to the latest version
+          cd _build/
+          ln -s pypop-guide*.pdf pypop-guide.pdf
+          cd -
           # now build the HTML
           sphinx-build website _build
 
@@ -87,7 +93,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         # only update beta site if base and head branches match, not for forks
         # forks cannot access secrets to deploy, see: https://github.com/orgs/community/discussions/26829
-        if: ${{ (github.event.pull_request.base.repo.full_name == github.event.pull_request.head.repo.full_name) }}
+        # also dependabot jobs won't work either
+        if: ${{ (github.event.pull_request.base.repo.full_name == github.event.pull_request.head.repo.full_name) && github.actor != 'dependabot[bot]' }}
         with:
           deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
           external_repository: alexlancaster/beta.pypop.org

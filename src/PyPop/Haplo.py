@@ -45,6 +45,8 @@ from tempfile import TemporaryDirectory
 
 import numpy as np
 
+# import the Python-to-C module wrappers
+from PyPop import _Emhaplofreq, _Haplostats
 from PyPop.Arlequin import ArlequinBatch
 from PyPop.DataTypes import checkIfSequenceData, getLocusPairs
 from PyPop.Utils import (
@@ -312,11 +314,6 @@ class Emhaplofreq(Haplo):
     def __init__(
         self, locusData, debug=0, untypedAllele="****", stream=None, testMode=False
     ):
-        # import the Python-to-C module wrapper
-        # lazy importation of module only upon instantiation of class
-        # to save startup costs of invoking dynamic library loader
-        from PyPop import _Emhaplofreq
-
         # assign module to an instance variable so it is available to
         # other methods in class
         self._Emhaplofreq = _Emhaplofreq
@@ -875,11 +872,6 @@ class Haplostats(Haplo):
     def __init__(
         self, locusData, debug=0, untypedAllele="****", stream=None, testMode=False
     ):
-        # import the Python-to-C module wrapper
-        # lazy importation of module only upon instantiation of class
-        # to save startup costs of invoking dynamic library loader
-        from PyPop import _Haplostats
-
         # assign module to an instance variable so it is available to
         # other methods in class
         self._Haplostats = _Haplostats
