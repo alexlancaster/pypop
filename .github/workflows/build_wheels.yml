@@ -17,6 +17,8 @@ on:
       - 'src/obsolete/**'
       - '.github/**'
       - '!.github/workflows/build_wheels.yml'
+      - '!.github/scripts/gen-wheel-matrix.sh'
+      - '!.github/requirements-ci.txt'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
   push:
@@ -30,6 +32,8 @@ on:
       - 'src/obsolete/**'
       - '.github/**'
       - '!.github/workflows/build_wheels.yml'
+      - '!.github/scripts/gen-wheel-matrix.sh'
+      - '!.github/requirements-ci.txt'
       - '.gitattributes'
       - '.pre-commit-config.yaml'
   release:
@@ -151,41 +155,33 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       include: ${{ steps.set-matrix.outputs.include }}
+    env:
+      # only generate all wheels on releases, pull requests or commits to the main branch
+      # otherwise just generate a test wheel Python 3.13 for 5 platform
+      CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
     steps:
       - uses: actions/checkout@v4
-      - name: Install cibuildwheel
-        # Nb. keep cibuildwheel version pin consistent with job below
-        run: pipx install cibuildwheel==2.23.3
-      - id: set-matrix
-        run: |
-          echo "CI_ONLY" $CI_ONLY
-          if [ "$CI_ONLY" == "true" ]; then
-            MATRIX="[{'only':'cp313-manylinux_x86_64','os':'ubuntu-22.04'},{'only':'cp313-manylinux_aarch64','os':'ubuntu-22.04-arm'},{'only':'cp313-musllinux_x86_64','os':'ubuntu-22.04'},{'only':'cp313-musllinux_aarch64','os':'ubuntu-22.04-arm'},{'only':'cp313-win_amd64','os':'windows-2022'},{'only':'cp313-win_arm64','os':'windows-2022'},{'only':'cp313-macosx_x86_64','os':'macos-13'}, {'only':'cp313-macosx_arm64','os':'macos-14'}]"
-          else
-            MATRIX=$(
-              {
-              cibuildwheel --print-build-identifiers --platform linux --archs x86_64 \
-              | jq -nRc '{"only": inputs, "os": "ubuntu-22.04"}' \
-              && cibuildwheel --print-build-identifiers --platform linux --archs aarch64 \
-              | jq -nRc '{"only": inputs, "os": "ubuntu-22.04-arm"}' \
-              && cibuildwheel --print-build-identifiers --platform macos --archs x86_64 \
-              | jq -nRc '{"only": inputs, "os": "macos-13"}' \
-              && cibuildwheel --print-build-identifiers --platform macos --archs arm64 \
-              | jq -nRc '{"only": inputs, "os": "macos-14"}' \
-              && cibuildwheel --print-build-identifiers --platform windows \
-              | jq -nRc '{"only": inputs, "os": "windows-2022"}'
-            } | jq -sc
-            )
-          fi
-          echo "include=$MATRIX" >> $GITHUB_OUTPUT
-          echo "platform matrix:" $MATRIX
-        env:
-           # only generate all wheels on releases, pull requests or commits to the main branch
-           # otherwise just generate a test wheel Python 3.13 for 5 platform
-           CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
+      - name: Install cibuildwheel 2.23.3 (legacy) and generate wheel list
+        id: set-matrix-old
+        # runs legacy (2.23.3)
+        run: .github/scripts/gen-wheel-matrix.sh legacy
 
+      - name: Install cibuildwheel modern (current) and generate wheel list
+        id: set-matrix-new
+        # runs modern (>=3.0.0)
+        run: .github/scripts/gen-wheel-matrix.sh modern
+
+      - name: Combine matrix outputs
+        id: set-matrix
+        run: |
+          MATRIX_OLD='${{ steps.set-matrix-old.outputs.include }}'
+          MATRIX_NEW='${{ steps.set-matrix-new.outputs.include }}'
+          COMBINED=$(jq -n -c --argjson m1 "$MATRIX_OLD" --argjson m2 "$MATRIX_NEW" '$m1 + $m2')
+          echo "include=$COMBINED" >> $GITHUB_OUTPUT
+          cat "$GITHUB_OUTPUT"
 
   # set up a shared cache for downloading data files (e.g. MSF files)
+
   # before matrix jobs
   setup-cache:
     name: Setup cache for remote files
@@ -324,7 +320,11 @@ jobs:
           python src/PyPop/citation.py
 
       - name: Build and test wheels
-        uses: pypa/cibuildwheel@v2.23.3
+        run: |
+          echo "Running cibuildwheel with version: ${{ matrix.cibw_version }}"
+          python -m pip install --upgrade pip
+          python -m pip install cibuildwheel==${{ matrix.cibw_version }}
+          cibuildwheel --only ${{ matrix.only }} --output-dir wheelhouse --config-file ./pyproject.toml
         env:
           # FIXME: only run the slow tests when doing regular pushes, or manual - not for PRs
           #CIBW_TEST_COMMAND: "pytest -v {package}/tests ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && '--runslow' || '' }}"
@@ -332,11 +332,6 @@ jobs:
           SETUPTOOLS_SCM_PRETEND_VERSION: ${{ env.VERSION }}
           POOCH_CACHE: ${{ env.POOCH_CACHE }}
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION POOCH_CACHE PYTEST_OPTIONS
-        with:
-          only: ${{ matrix.only }}
-          package-dir: .
-          output-dir: wheelhouse
-          config-file: "{package}/pyproject.toml"
 
       - uses: actions/upload-artifact@v4
         with:
