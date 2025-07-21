@@ -240,3 +240,6 @@ number = true
 #	"NEWS.md",
 #	"website/**"
 #	]
+
+[tool.repo-review]
+ignore = ["PY004"]
