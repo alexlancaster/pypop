@@ -241,5 +241,9 @@ number = true
 #	"website/**"
 #	]
 
-[tool.repo-review]
-ignore = ["PY004"]
+[tool.repo-review.ignore]
+PY004 = "docs in website not `docs` folder"
+PC111 = "doesn't use blacken directly (uses ruff)"
+PC140 = "doesn't use typechecker"
+MY = "no typechecker"
+RTD = "doesn't use read the docs"
