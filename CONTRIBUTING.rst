@@ -144,7 +144,7 @@ steps are:
 4. `installing a development version <Installation for developers_>`_ on your machine
 5. updating your branch when "upstream" (the main repository) has changes to include those changes in your local branch
 6. updating ``AUTHORS.rst``
-7. running code quality checks, like unit tests and ``pre-commit`` checks
+7. running code quality checks, like unit tests and ``pre-commit`` checks, using ``nox`` (or the tools directly)
 8. making a pull request (including a description of your changes
    suitable for inclusion in ``NEWS.md``)
 
