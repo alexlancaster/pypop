@@ -66,14 +66,8 @@ jobs:
       - name: Sphinx build
         run: |
 
-          # need to generate _metadata.py manually since we are not
-          # doing a `pip install` build
+          # need to generate _metadata.py manually since we are not doing a `pip install` build
           python src/script_build/generate_metadata.py src/PyPop/_metadata.py
-          #PKGNAME=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['name'])")
-          #VERSION_SCHEME=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['tool']['setuptools_scm']['version_scheme'])")
-          #echo "__pkgname__ = \"${PKGNAME}\"" > src/PyPop/_metadata.py
-          #echo "__version_scheme__ = \"${VERSION_SCHEME}\"" >> src/PyPop/_metadata.py
-
           # latex build in separate directory
           # it generates a lot of files we don't need to keep
           sphinx-build -b latex website _latexbuild
