@@ -27,13 +27,29 @@ def tests(session):
 
 @nox.session
 def docs(session):
-    """Build documentation with Sphinx."""
+    """Build HTML documentation with Sphinx."""
+    output_dir = session.posargs[0] if len(session.posargs) == 1 else "_htmlbuild"
+    print("generate HTML docs in:", output_dir)
     session.run(
         "python", "src/script_build/generate_metadata.py", "src/PyPop/_metadata.py"
     )  # needed because we aren't installing pypop
-    session.run("rm", "-rf", "_htmlbuild", external=True)
+    session.run("rm", "-rf", output_dir, external=True)
     session.install("-r", "website/requirements-docs.txt")
-    session.run("sphinx-build", "website", "_htmlbuild")
+    session.run("sphinx-build", "website", output_dir)
+
+
+@nox.session
+def docs_pdf(session):
+    """Build PDF documentation with Sphinx. Requires LaTeX to already be installed"""
+    output_dir = session.posargs[0] if len(session.posargs) == 1 else "_latexbuild"
+    print("generate PDF docs in:", output_dir)
+    session.run(
+        "python", "src/script_build/generate_metadata.py", "src/PyPop/_metadata.py"
+    )  # needed because we aren't installing pypop
+    session.run("rm", "-rf", output_dir, external=True)
+    session.install("-r", "website/requirements-docs.txt")
+    session.run("sphinx-build", "-b", "latex", "website", output_dir)
+    session.run("make", "-C", output_dir)
 
 
 @nox.session

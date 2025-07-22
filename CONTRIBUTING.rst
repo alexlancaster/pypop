@@ -981,12 +981,6 @@ documentation locally. Here’s an overview of how to do that:
 Building the PDF for the *PyPop User Guide* is a bit more involved, as
 you will need to have various TeX packages installed.
 
-   The commands in the "Sphinx build" section of the workflow
-   `.github/workflows/documentation.yaml <https://github.com/alexlancaster/pypop/blob/main/.github/workflows/documentation.yaml>`_
-   which are used to run the GitHub Action that builds the documentation
-   when it it deployed, is the best source for the most update-to-date
-   commands to run for the PDF, especially, and should be consulted if the instructions in this
-   document become out of date.
 
 1. install the LaTeX packages (these are packages needed for Ubuntu,
    they may be different on your distribution):
@@ -995,15 +989,32 @@ you will need to have various TeX packages installed.
 
       sudo apt-get install -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
 
-2. build the LaTeX and then compile the PDF:
+   .. admonition:: Ubuntu LaTeX packages
+
+      The most up to date list of LaTeX packages for Ubuntu are in the
+      "Sphinx build" section of the workflow
+      `.github/workflows/documentation.yaml
+      <https://github.com/alexlancaster/pypop/blob/main/.github/workflows/documentation.yaml>`_
+      that builds the documentation upon deployment. Consult this if
+      the list of packages, becomes out of date.
+
+2. build the LaTeX and then compile the PDF, using the ``nox`` command:
 
    .. code-block:: shell
 
-      sphinx-build -b latex website _latexbuild
-      make -C _latexbuild
+      nox -s docs_pdf
 
 3. the user guide will be generated in ``_latexbuild/pypop-guide.pdf``
 
+.. note::
+
+   To change the target output directory of either the HTML or PDF
+   documentation, you can supply the directory name on the ``nox``
+   command-line, after a ``--`` e.g.
+
+   .. code-block:: shell
+
+      nox -s docs -- output_dir
 
 Crediting contributors
 ======================

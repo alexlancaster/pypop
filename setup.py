@@ -112,21 +112,13 @@ class CustomBuildPy(_build_py):
         # write in temp build directory (to get included in wheel)
         wheel_metadata_path = Path(build_lib) / "PyPop" / "_metadata.py"
         print("writing metadata to be included in wheel", wheel_metadata_path)
-
         generate_metadata(wheel_metadata_path)
-
-        ##with wheel_metadata_path.open("w") as f:
-        ##    f.write(metadata_content)
 
         # and write local directory (to be used during installation)
         # FIXME: this is a bit messy
         source_metadata_path = Path("src") / "PyPop" / "_metadata.py"
         print("writing metadata for source", source_metadata_path)
-
         generate_metadata(source_metadata_path)
-
-        ##with source_metadata_path.open("w") as f:
-        ##    f.write(metadata_content)
 
         # FIXME: need to delay this import because _metadata.py may
         # not have been created yet
