@@ -2,6 +2,16 @@ import nox
 
 
 @nox.session
+def precommit(session):
+    """
+    Run all pre-commit hooks (code formatting, spell check, linting).
+    This mirrors checks applied in CI and on pull requests.
+    """
+    session.install("pre-commit")
+    session.run("pre-commit", "run", "--all-files")
+
+
+@nox.session
 def build(session):
     """Build the package (including binary extensions)."""
     session.install("build")
@@ -15,11 +25,12 @@ def tests(session):
     session.run("pytest")
 
 
-# @nox.session
-# def docs(session):
-#     """Build documentation with Sphinx."""
-#     session.install("sphinx")
-#     session.run("sphinx-build", "docs", "build/docs")
+@nox.session
+def docs(session):
+    """Build documentation with Sphinx."""
+    session.run("rm", "-rf", "_htmlbuild", external=True)
+    session.install("-r", "website/requirements-docs.txt")
+    session.run("sphinx-build", "website", "_htmlbuild")
 
 
 @nox.session

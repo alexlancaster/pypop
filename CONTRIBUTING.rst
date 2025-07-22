@@ -98,13 +98,12 @@ blank issue and describe your situation.  Here is a checklist:
 
 * **Run the test suite**. In many cases, especially if you are
   investigating a new platform (e.g. new architecture) developers may
-  ask you run the full test suite via ``pytest``, see `run unit tests
-  with pytest`_.  in "verbose" mode (i.e. ``pytest -v``).  If you do
-  this, please supply the output of the resulting temporary
-  directories on your issue (see the unit test section for more
-  details). Note that you will likely need to `<clone the main
-  repository_>`_ as the unit tests are not distributed with the binary
-  wheels.
+  ask you run the full test suite via ``pytest``, see `run unit
+  tests`_.  in "verbose" mode (i.e. ``pytest -v``).  If you do this,
+  please supply the output of the resulting temporary directories on
+  your issue (see the unit test section for more details). Note that
+  you will likely need to `<clone the main repository_>`_ as the unit
+  tests are not distributed with the binary wheels.
 
 
 Documentation improvements
@@ -145,7 +144,7 @@ steps are:
 4. `installing a development version <Installation for developers_>`_ on your machine
 5. updating your branch when "upstream" (the main repository) has changes to include those changes in your local branch
 6. updating ``AUTHORS.rst``
-7. checking unit tests pass
+7. running code quality checks, like unit tests and ``pre-commit`` checks
 8. making a pull request (including a description of your changes
    suitable for inclusion in ``NEWS.md``)
 
@@ -205,14 +204,86 @@ regular pushes to your fork with comprehensible commit messages.
     git commit # (add a nice commit message)
     git push myfork new_branch
 
-While you are developing, you can execute ``pytest`` as needed to run
-your unit tests. See `run unit tests with pytest`_.
+While you are developing, you should use ``nox`` to frequently run
+unit tests and check for code quality (or temporary wheels), as
+described in `use nox for testing and code quality`_.
 
-``Pre-commit`` checks
----------------------
+Use ``nox`` for testing and code quality
+----------------------------------------
 
-All PRs submitted to PyPop will be automatically run through a
-series pre-configured ``pre-commit`` `checks
+In addition to installing PyPop for development (see earlier
+sections), we recommend using `nox <https://nox.thea.codes/>`_ to
+simplify common developer tasks such as running tests, code formatting
+checks, and documentation builds.
+
+``nox`` runs tasks in isolated Python environments, ensuring
+consistency across contributors and CI pipelines.  Install ``nox``
+(within the same environment as used for your build and install):
+
+.. code-block:: shell
+
+    pip install nox
+
+You can list the current developer tasks available to run via ``nox``:
+
+.. code-block:: shell
+
+    nox -l
+
+**Important developer tasks run via** ``nox``
+
+Run unit tests
+~~~~~~~~~~~~~~
+
+To run the full (``pytest``-based) unit test suite:
+
+.. code-block:: shell
+
+    nox -s tests
+
+You should also frequently use ``nox`` to run the unit tests as you are
+developing your code, to ensure that you don't inadvertently break
+anything, especially before commits, or creating a Pull Request from
+your branch.
+
+These are exactly the same tests that will be performed online via
+Github Actions continuous integration (CI).  This project follows CI
+good practices (let us know if something can be improved).
+
+.. admonition:: Preserving output from unit tests
+
+   Running ``nox -s tests`` uses ``pytest`` within an isolated
+   environment. To debug tests or preserve output from temporary
+   directories, you may prefer to run ``pytest`` directly:
+
+   .. code-block:: shell
+
+      pytest -s -v tests
+
+   Supplying the ``-v`` verbose option will preserve the run-time
+   output of unit tests that write files to disk in temporary
+   directories unique for each run.  The format of the output
+   directories is ```run_test_<test-name>_<unique_id>``, e.g. the
+   directories created will look similar to the following:
+
+   .. code-block::
+
+      run_test_AlleleColon_HardyWeinberg_u3dnf99y
+      run_test_USAFEL_49h_exhg
+
+   These directories store per-test outputs but are normally deleted
+   unless output is preserved.
+
+If you run into errors during your initial installation, please first
+carefully repeat and/or check your installation. If you still get
+errors, file a bug, and include the output of ``pytest`` run in
+verbose mode and capturing the output, as described above.
+
+Run ``pre-commit`` checks
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+All pull requests (PRs) submitted to PyPop will be automatically run
+through a series pre-configured ``pre-commit`` `checks
 <https://pre-commit.com/>`_ (called "hooks"), configured in the
 ``.pre-commit-config.yaml`` `YAML file
 <https://github.com/alexlancaster/pypop/blob/main/.pre-commit-config.yaml>`__.
@@ -231,26 +302,11 @@ code (mainly reformatting that can be applied automatically).  You
 will need to ensure that you pull these changes back to your local
 checkout before applying new changes.
 
-In addition, however, we highly recommend you enable ``pre-commit``
-checks in your *local checkout*, **before** you commit to your PR
-branch, so you can catch errors early.  Ensuring your code passes
-``pre-commit`` checks will speed the merging of your PR into the
-``main`` branch, as the code will already be in a good state for
-merging.
-
-To enable checks, first ensure that ``pre-commit`` is installed (there
-is a PyPI package), and then install the hooks:
+To run these checks locally:
 
 .. code-block:: shell
 
-    pip install pre-commit
-    pre-commit install --install-hooks
-
-To check your changes:
-
-.. code-block:: shell
-
-    pre-commit run
+    nox -s precommit
 
 This will result in either:
 
@@ -259,19 +315,55 @@ This will result in either:
 
    * Code being reformatted to coding standards (use ``git diff`` to
      see the additional changes), but are otherwise OK. Generally, all
-     you need to do then is to re-run the ``pre-commit run`` command,
+     you need to do then is to re-run the ``nox -s precommit`` command,
      and it will proceed according to (1)
    * An error is detected in the code that requires manual
      intervention (e.g. non-standard Python construct, formatting
-     issue, spelling error).  Please fix this and re-run your
-     ``pre-commit run`` step until it passes.
+     issue, spelling error).  Please fix this and re-run your ``nox s
+     precommit`` step until it passes.
 
-If you attempt to commit to the repo, e.g. using a commandl like
+``pre-commit`` checks are the same checks that will be enforced
+automatically in your PR via GitHub Actions CI. Running them locally
+before submitting a PR will speed up acceptance.
+
+**Optional: pre-commit Git Hook**
+
+In addition, however, we highly recommend you enable ``pre-commit``
+Git hook in your *local checkout*, **before** you commit to your PR
+branch, so you can catch errors early.  Ensuring your code passes
+``pre-commit`` checks will speed the merging of your PR into the
+``main`` branch, as the code will already be in a good state for
+merging.
+
+To enable checks, first ensure that ``pre-commit`` is installed, and
+then install the hooks:
+
+.. code-block:: shell
+
+    pip install pre-commit
+    pre-commit install --install-hooks
+
+You can then manually trigger checks using ``pre-commit``
+(i.e. outside ``nox``):
+
+.. code-block:: shell
+
+    pre-commit run
+
+If you attempt to commit to the repo, e.g. using a command like
 ``git commit -a``, pre-commit checks will run on your changed files, and
 behave as if ``pre-commit run`` had been called directly. Once all
 checks pass the ``git commit`` command will commit to the repository and
 you can ``git push`` your changes.
 
+Build distribution packages
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To locally build sdist and wheel packages:
+
+.. code-block:: shell
+
+    nox -s build
 
 Keep your branch in sync with upstream
 --------------------------------------
@@ -305,57 +397,6 @@ Also add your name to the author table at :code:`AUTHORS.rst`, so you
 will also be included in the periodic Zenodo software releases (see
 also the section on `Crediting contributors`_).
 
-
-Run unit tests with ``pytest``
-------------------------------
-
-Once you have done your initial installation, you should first check
-that the build worked, by running the test suite, via ``pytest``:
-
-.. code-block:: shell
-
-   pytest tests
-
-If ``pytest`` is not already installed, you can install via:
-
-.. code-block:: shell
-
-    pip install pytest
-
-If you run into errors during your initial installationg, please first
-carefully repeat and/or check your installation. If you still get
-errors, file a bug, and include the output of ``pytest`` run in
-verbose mode and capturing the output
-
-.. code-block:: shell
-
-   pytest -s -v tests
-
-.. admonition:: Preserving output from unit tests
-
-   Supplying the ``-v`` verbose option will preserve the run-time
-   output of unit tests that write files to disk in temporary
-   directories unique for each run (by default these directories are
-   created for the duration of the unit tests and then are deleted
-   after the test is run).  The format of the output directories is
-   ```run_test_<test-name>_<unique_id>``, e.g. the directories created
-   will look similar to the following:
-
-   .. code-block::
-
-      run_test_AlleleColon_HardyWeinberg_u3dnf99y
-      run_test_USAFEL_49h_exhg
-
-You should also continuously run ``pytest`` as you are developing your
-code, to ensure that you don't inadvertently break anything.
-
-Also before creating a Pull Request from your branch, check that all
-the tests pass correctly, using the above.
-
-These are exactly the same tests that will be performed online via
-Github Actions continuous integration (CI).  This project follows CI
-good practices (let us know if something can be improved).
-
 Make a Pull Request
 -------------------
 
@@ -384,7 +425,7 @@ code, you can also make a pull request, even if you're not fully
 finished.
 
 **However, before submitting a Pull Request, verify your development branch passes all
-tests as** `described above <run unit tests with pytest_>`_ **. If you are
+tests as** `described above <run unit tests_>`_ **. If you are
 developing new code you should also implement new test cases.**
 
 **Pull Request checklist**
@@ -393,7 +434,7 @@ Before requesting a final merge, you should:
 
 1. Make sure your PR passes all existing ``pytest`` tests.
 2. Add unit tests if you are developing new features and make sure these also pass.
-3. Run and address the `pre-commit checks as described above <Pre-commit checks_>`_.
+3. Run and address the `pre-commit checks as described above <run pre-commit checks_>`_.
 4. Update documentation when there's new API, functionality etc.
 5. In the submission for the PR, include a description of the changes,
    in markdown format, suitable for eventual inclusion in ``NEWS.md``.
@@ -677,7 +718,7 @@ package.
 
       pip install --user .[test]
 
-3. PyPop is ready-to-use, you should `run unit tests with pytest`_.
+3. PyPop is ready-to-use, you should `run unit tests`_.
 
 4. if you later decide you want to switch to using the developer
    approach, below, follow the `cleaning up build`_ before
@@ -912,44 +953,40 @@ recommended** that you should make all changes in your own local fork,
 by cloning the repository on your computer and then building the
 documentation locally. Here’s an overview of how to do that:
 
-   The commands in the "Sphinx build" section of the workflow
-   `.github/workflows/documentation.yaml <https://github.com/alexlancaster/pypop/blob/main/.github/workflows/documentation.yaml>`_
-   which are used to run the GitHub Action that builds the documentation
-   when it it deployed, is the best source for the most update-to-date
-   commands to run, and should be consulted if the instructions in this
-   document become out of date.
+1. make a fork of pypop if you haven't already (see `previous section <Fork this repository_>`_)
 
-1. install sphinx and sphinx extensions
-
-   .. code-block:: shell
-
-      pip install -r website/requirements-docs.txt
-
-2. make a fork of pypop if you haven't already (see `previous section <Fork this repository_>`_)
-
-3. `clone the fork and add your fork as an upstream repository <Clone
+2. `clone the fork and add your fork as an upstream repository <Clone
    the main repository_>`_ on your local computer, and `make a new
    branch`_. Note that you do not have to build the PyPop software first in order
    to build the documentation, you can build them separately.
 
-4. make your changes to your ``.rst`` files and/or ``conf.py``
+3. make your changes to your ``.rst`` files and/or ``conf.py``
 
-5. build the HTML documentation:
+4. build the HTML documentation, using ``nox``, which creates a
+   temporary virtual environment with ``sphinx`` and sphinx extensions
+   (see `nox installation <Use nox for testing and code quality_>`_):
 
    .. code-block:: shell
 
-      sphinx-build website _build
+      nox -s docs
 
-6. view the local documentation: you can open up browser and navigate to
-   the ``index.html`` in the top-level of the newly-created ``_build``
+5. view the local documentation: you can open up browser and navigate to
+   the ``index.html`` in the top-level of the newly-created ``_htmlbuild``
    directory
 
-7. use ``git commit`` to commit your changes to your local fork.
+6. use ``git commit`` to commit your changes to your local fork.
 
-8. open up a pull-request against the upstream repository
+7. open up a pull-request against the upstream repository
 
 Building the PDF for the *PyPop User Guide* is a bit more involved, as
 you will need to have various TeX packages installed.
+
+   The commands in the "Sphinx build" section of the workflow
+   `.github/workflows/documentation.yaml <https://github.com/alexlancaster/pypop/blob/main/.github/workflows/documentation.yaml>`_
+   which are used to run the GitHub Action that builds the documentation
+   when it it deployed, is the best source for the most update-to-date
+   commands to run for the PDF, especially, and should be consulted if the instructions in this
+   document become out of date.
 
 1. install the LaTeX packages (these are packages needed for Ubuntu,
    they may be different on your distribution):
