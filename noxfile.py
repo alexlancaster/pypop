@@ -22,7 +22,7 @@ def build(session):
 def tests(session):
     """Run tests using pytest."""
     session.install(".[test]")  # assumes [test] includes pytest, etc.
-    session.run("pytest")
+    session.run("pytest", *session.posargs)
 
 
 @nox.session
@@ -43,3 +43,31 @@ def clean(session):
     session.run(
         "rm", "-rf", "build", "dist", "src/pypop_genomics.egg-info", external=True
     )
+
+
+@nox.session
+def sdist_test(session):
+    """Build sdist, install with test extras, and run tests."""
+    session.install("build")
+
+    # imports need to be after the installation to ensure they're only
+    # required in the virtual env
+
+    from pathlib import Path  # noqa: PLC0415
+
+    import build as pybuild  # noqa: PLC0415
+
+    # build the sdist programmatically
+    builder = pybuild.ProjectBuilder(".")
+    dist_dir = Path("dist")
+    dist_dir.mkdir(exist_ok=True)
+
+    sdist_file = builder.build("sdist", str(dist_dir))
+
+    session.log(f"built sdist: {sdist_file}")
+
+    # Install the sdist with test extras
+    session.install(sdist_file + "[test]")
+
+    # Run the tests
+    session.run("pytest", *session.posargs)
