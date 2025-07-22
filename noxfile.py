@@ -38,6 +38,8 @@ def docs(session):
 
 @nox.session
 def clean(session):
+    # FIXME: very basic, needs work
     """Clean build artifacts."""
-    session.run("./setup.py", "clean", "--all")
-    session.run("rm", "src/pypop_genomics.egg-info", external=True)
+    session.run(
+        "rm", "-rf", "build", "dist", "src/pypop_genomics.egg-info", external=True
+    )
