@@ -230,8 +230,8 @@ via ``nox``, by calling ``nox`` itself:
 
     nox -l
 
-We describe some of the tasks that recommend contributors run during
-development of code and PRs, below.
+We describe some of the tasks that we recommend contributors run
+regularly during development of code contributions, below.
 
 Run unit tests
 ~~~~~~~~~~~~~~
@@ -288,7 +288,14 @@ through a series pre-configured ``pre-commit`` `checks
 <https://pre-commit.com/>`_ (called "hooks"), configured in the
 ``.pre-commit-config.yaml`` `YAML file
 <https://github.com/alexlancaster/pypop/blob/main/.pre-commit-config.yaml>`__.
-These checks include checks to reformat code and catch errors in:
+
+To run these checks locally:
+
+.. code-block:: shell
+
+    nox -s precommit
+
+These checks reformat code and catch errors in:
 
 * Python code (uses ``ruff`` and, ``ruff-format`` hooks)
 * C extension code (uses ``clang-format`` to format code according to
@@ -297,19 +304,7 @@ These checks include checks to reformat code and catch errors in:
   RST
 * Check code and documentation for spelling errors (via ``codespell``)
 
-This automated check will be run just once upon initial PR submission,
-and results posted on the PR. This may also result in changes to the
-code (mainly reformatting that can be applied automatically).  You
-will need to ensure that you pull these changes back to your local
-checkout before applying new changes.
-
-To run these checks locally:
-
-.. code-block:: shell
-
-    nox -s precommit
-
-This will result in either:
+Running the ``precommit`` checks will result in either:
 
 1. All checks passing (no action needed)
 2. Some checks fail, this can be due either to:
@@ -320,42 +315,46 @@ This will result in either:
      and it will proceed according to (1)
    * An error is detected in the code that requires manual
      intervention (e.g. non-standard Python construct, formatting
-     issue, spelling error).  Please fix this and re-run your ``nox s
-     precommit`` step until it passes.
+     issue, spelling error).  Please fix this and re-run ``nox -s
+     precommit`` until it passes.
 
 ``pre-commit`` checks are the same checks that will be enforced
 automatically in your PR via GitHub Actions CI. Running them locally
-before submitting a PR will speed up acceptance.
+before submitting a PR will speed up acceptance.  The automated
+``pre-commit`` checks will be run just once upon initial PR
+submission, and results posted on the PR. This may also result in
+changes to the code (mainly reformatting that can be applied
+automatically).  You will need to ensure that you pull these changes
+back to your local checkout before applying new changes.
 
-**Optional: pre-commit Git Hook**
+.. admonition:: ``pre-commit`` Git Hook
 
-In addition, however, we highly recommend you enable ``pre-commit``
-Git hook in your *local checkout*, **before** you commit to your PR
-branch, so you can catch errors early.  Ensuring your code passes
-``pre-commit`` checks will speed the merging of your PR into the
-``main`` branch, as the code will already be in a good state for
-merging.
+   We highly recommend you enable ``pre-commit`` Git hook in your
+   *local checkout*, **before** you commit to your PR branch, so you
+   can catch errors early.  Ensuring your code passes ``pre-commit``
+   checks will speed the merging of your PR into the ``main`` branch,
+   as the code will already be in a good state for merging.
 
-To enable checks, first ensure that ``pre-commit`` is installed, and
-then install the hooks:
+   To enable checks, first ensure that ``pre-commit`` is installed, and
+   then install the hooks:
 
-.. code-block:: shell
+   .. code-block:: shell
 
-    pip install pre-commit
-    pre-commit install --install-hooks
+       pip install pre-commit
+       pre-commit install --install-hooks
 
-You can then manually trigger checks using ``pre-commit``
-(i.e. outside ``nox``):
+   You can then manually trigger checks using ``pre-commit``
+   (i.e. outside ``nox``):
 
-.. code-block:: shell
+   .. code-block:: shell
 
-    pre-commit run
+       pre-commit run
 
-If you attempt to commit to the repo, e.g. using a command like
-``git commit -a``, pre-commit checks will run on your changed files, and
-behave as if ``pre-commit run`` had been called directly. Once all
-checks pass the ``git commit`` command will commit to the repository and
-you can ``git push`` your changes.
+   If you attempt to commit to the repo, e.g. using a command like
+   ``git commit -a``, pre-commit checks will run on your changed files, and
+   behave as if ``pre-commit run`` had been called directly. Once all
+   checks pass the ``git commit`` command will commit to the repository and
+   you can ``git push`` your changes.
 
 Build distribution packages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
