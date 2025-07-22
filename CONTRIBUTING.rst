@@ -208,6 +208,32 @@ While you are developing, you should use ``nox`` to frequently run
 unit tests and check for code quality (or temporary wheels), as
 described in `use nox for testing and code quality`_.
 
+Keep your branch in sync with upstream
+--------------------------------------
+
+You should keep your branch in sync with the upstream ``main``
+branch. For that:
+
+.. code-block:: shell
+
+    git checkout main  # return to the main branch
+    git pull  # retrieve the latest source from the main repository
+    git checkout new_branch  # return to your devel branch
+    git merge --no-ff main  # merge the new code to your branch
+
+At this point you may need to solve merge conflicts if they exist. If you don't
+know how to do this, I suggest you start by reading the `official docs
+<https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-on-github>`_
+
+You can push to your fork now if you wish:
+
+.. code-block:: shell
+
+    git push myfork new_branch
+
+And, continue doing your developments are previously discussed.
+
+
 Use ``nox`` for testing and code quality
 ----------------------------------------
 
@@ -365,31 +391,6 @@ To locally build sdist and wheel packages for testing, you can run the
 .. code-block:: shell
 
     nox -s build
-
-Keep your branch in sync with upstream
---------------------------------------
-
-You should keep your branch in sync with the upstream ``main``
-branch. For that:
-
-.. code-block:: shell
-
-    git checkout main  # return to the main branch
-    git pull  # retrieve the latest source from the main repository
-    git checkout new_branch  # return to your devel branch
-    git merge --no-ff main  # merge the new code to your branch
-
-At this point you may need to solve merge conflicts if they exist. If you don't
-know how to do this, I suggest you start by reading the `official docs
-<https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/addressing-merge-conflicts/resolving-a-merge-conflict-on-github>`_
-
-You can push to your fork now if you wish:
-
-.. code-block:: shell
-
-    git push myfork new_branch
-
-And, continue doing your developments are previously discussed.
 
 Update ``AUTHORS.rst``
 ----------------------
