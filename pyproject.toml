@@ -25,7 +25,6 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Bio-Informatics",
-    "License :: OSI Approved :: GNU General Public License v2 or later (GPLv2+)",
     "Operating System :: MacOS :: MacOS X",
     "Operating System :: Microsoft :: Windows",
     "Operating System :: POSIX :: Linux"
@@ -77,7 +76,7 @@ xfail_strict = true
 # convert warnings to errors, except for ImportWarnings in numpy (needed for pp38)
 # FIXME: eventually we should be able to remove the numpy exception
 filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*"]
-log_cli_level = "info"
+log_cli_level = "INFO"
 testpaths = [
   "tests",
 ]
@@ -241,3 +240,10 @@ number = true
 #	"NEWS.md",
 #	"website/**"
 #	]
+
+[tool.repo-review.ignore]
+PY004 = "docs in website not `docs` folder"
+PC111 = "doesn't use blacken directly (uses ruff)"
+PC140 = "doesn't use typechecker"
+MY = "no typechecker"
+RTD = "doesn't use read the docs"
