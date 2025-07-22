@@ -15,7 +15,6 @@ on:
       - 'tests/data/doc-examples/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
-      - '.github/requirements-docs.txt'
       - '!website/README.md'
       - '!website/reference/**'
   pull_request:
@@ -27,7 +26,6 @@ on:
       - 'tests/data/doc-examples/**'
       - 'src/PyPop/CommandLineInterface.py'
       - '.github/workflows/documentation.yaml'
-      - '.github/requirements-docs.txt'
       - '!website/README.md'
       - '!website/reference/**'
   release:
@@ -61,7 +59,7 @@ jobs:
       - uses: actions/setup-python@v5
       - name: Install dependencies
         run: |
-          pip install -r .github/requirements-docs.txt
+          pip install -r website/requirements-docs.txt
           sudo apt clean
           sudo apt-get update
           sudo apt-get install --fix-missing -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
