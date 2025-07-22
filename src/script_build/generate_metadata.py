@@ -2,7 +2,7 @@
 
 from pathlib import Path
 
-import tomllib
+import tomli
 
 
 def generate_metadata(output_path):
@@ -11,7 +11,7 @@ def generate_metadata(output_path):
     """
 
     with open("pyproject.toml", "rb") as pyproj_file:
-        pyproject_data = tomllib.load(pyproj_file)
+        pyproject_data = tomli.load(pyproj_file)
         pkgname = pyproject_data["project"]["name"]
         version_scheme = pyproject_data["tool"]["setuptools_scm"]["version_scheme"]
 
