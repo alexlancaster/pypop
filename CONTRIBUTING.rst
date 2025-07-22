@@ -212,10 +212,9 @@ Use ``nox`` for testing and code quality
 ----------------------------------------
 
 In addition to installing PyPop for development (see earlier
-sections), we recommend using `nox <https://nox.thea.codes/>`_ to
-simplify common developer tasks such as running tests, code formatting
-checks, and documentation builds.
-
+sections), we have developed configurations for `nox
+<https://nox.thea.codes/>`_ to simplify common developer tasks such as
+running tests, code formatting checks, and documentation builds.
 ``nox`` runs tasks in isolated Python environments, ensuring
 consistency across contributors and CI pipelines.  Install ``nox``
 (within the same environment as used for your build and install):
@@ -224,13 +223,15 @@ consistency across contributors and CI pipelines.  Install ``nox``
 
     pip install nox
 
-You can list the current developer tasks available to run via ``nox``:
+You can list the currently configured developer tasks available to run
+via ``nox``, by calling ``nox`` itself:
 
 .. code-block:: shell
 
     nox -l
 
-**Important developer tasks run via** ``nox``
+We describe some of the tasks that recommend contributors run during
+development of code and PRs, below.
 
 Run unit tests
 ~~~~~~~~~~~~~~
@@ -359,7 +360,8 @@ you can ``git push`` your changes.
 Build distribution packages
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-To locally build sdist and wheel packages:
+To locally build sdist and wheel packages for testing, you can run the
+``build`` command:
 
 .. code-block:: shell
 
