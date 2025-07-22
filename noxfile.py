@@ -1,5 +1,7 @@
 import nox
 
+nox.options.sessions = ["precommit"]  # default session
+
 
 @nox.session
 def precommit(session):

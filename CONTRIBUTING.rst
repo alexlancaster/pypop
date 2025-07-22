@@ -228,7 +228,7 @@ via ``nox``, by calling ``nox`` itself:
 
 .. code-block:: shell
 
-    nox -l
+    nox --list
 
 We describe some of the tasks that we recommend contributors run
 regularly during development of code contributions, below.
@@ -240,12 +240,12 @@ To run the full (``pytest``-based) unit test suite:
 
 .. code-block:: shell
 
-    nox -s tests
+    nox --sessions tests
 
 You should also frequently use ``nox`` to run the unit tests as you are
 developing your code, to ensure that you don't inadvertently break
 anything, especially before commits, or creating a Pull Request from
-your branch.
+your branch. (``-s`` is the short option ``--sessions``).
 
 These are exactly the same tests that will be performed online via
 Github Actions continuous integration (CI).  This project follows CI
