@@ -28,6 +28,9 @@ def tests(session):
 @nox.session
 def docs(session):
     """Build documentation with Sphinx."""
+    session.run(
+        "python", "src/script_build/generate_metadata.py", "src/PyPop/_metadata.py"
+    )  # needed because we aren't installing pypop
     session.run("rm", "-rf", "_htmlbuild", external=True)
     session.install("-r", "website/requirements-docs.txt")
     session.run("sphinx-build", "website", "_htmlbuild")
@@ -36,6 +39,5 @@ def docs(session):
 @nox.session
 def clean(session):
     """Clean build artifacts."""
-    session.run(
-        "rm", "-rf", "build", "dist", "src/pypop_genomics.egg-info", external=True
-    )
+    session.run("./setup.py", "clean", "--all")
+    session.run("rm", "src/pypop_genomics.egg-info", external=True)
