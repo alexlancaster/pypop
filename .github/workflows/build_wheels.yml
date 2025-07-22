@@ -10,6 +10,7 @@ on:
     paths-ignore:
       - '**.md'
       - '**.rst'
+      - 'noxfile.py'
       - 'CITATION.cff'
       - '.zenodo.extras.json'
       - 'website/**'
@@ -25,6 +26,7 @@ on:
     paths-ignore:
       - '**.md'
       - '**.rst'
+      - 'noxfile.py'
       - 'CITATION.cff'
       - '.zenodo.extras.json'
       - 'website/**'
