@@ -133,7 +133,7 @@ def sdist_test(session):
 
 @nox.session
 def update_news(session):
-    """Update NEWS.md from latest GitHub *draft* release notes (if not already present)."""
+    """Update NEWS.md in local checkout from latest GitHub *draft* release notes (if not already present)."""
 
     session.log("Running update NEWS.md from latest release draft...")
     # session.run("gh", "--version", external=True)
@@ -197,7 +197,7 @@ def update_news(session):
 
 @nox.session
 def push_news(session):
-    """Push local changes to NEWS.md back to repo"""
+    """Commit and push local changes to NEWS.md back to repo"""
 
     news_filename = "NEWS.md"
     message = f"Update {news_filename} from latest draft release"
