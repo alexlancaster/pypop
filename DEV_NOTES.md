@@ -6,6 +6,34 @@
   `haplo.stats` R package `haplo-stats` for haplotype
   estimation. [Implementation in alpha-phase - still working on this].
 
+## Release-time notes
+
+`nox` is now used to automate common developer tasks, there is a list
+of tasks that are for contributors mentioned in
+[CONTRIBUTING.rst](./CONTRIBUTING.rst). There are also some tasks for
+release managers (these will require `gh` to be setup and configured)
+that can be `nox`-assisted.
+
+## Updating `NEWS.md`
+
+Release notes are automatically accumulated as PRs are merged through
+using the [Release
+Drafter](https://github.com/marketplace/actions/release-drafter)
+GitHub Action, so that they can be quickly pushed out upon tagging and
+building. However this release information should be included in the
+`NEWS.md` file and included in the release itself. Rather than cut
+and pasting from the GitHub release window, you can run the following
+which will pull it down and insert the release notes into the local
+checkout:
+
+```
+nox -s update_news
+```
+
+This also handles updating the date `YYYY-MM-DD` placeholder to today.
+Note that you still need to manually commit to the this *before* you
+actually "publish" the release itself.
+
 ## Build-time notes
 
 ### Data files
