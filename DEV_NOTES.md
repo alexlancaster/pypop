@@ -14,25 +14,62 @@ of tasks that are for contributors mentioned in
 release managers (these will require `gh` to be setup and configured)
 that can be `nox`-assisted.
 
-### Updating `NEWS.md`
+> Note that most of these tasks require interactive input, and the
+> tasks will ask you to double check `git diff` output and similar to
+> ensure that everything looks correct.
 
 Release notes are automatically accumulated as PRs are merged through
 using the [Release
 Drafter](https://github.com/marketplace/actions/release-drafter)
 GitHub Action, so that they can be quickly pushed out upon tagging and
 building. However this release information should be included in the
-`NEWS.md` file and included in the release itself. Rather than cut
-and pasting from the GitHub release window, you can run the following
-which will pull it down and insert the release notes into the local
-checkout:
+`NEWS.md` file and included in the release itself.
 
-```
+### Updating `NEWS.md`
+
+Rather than cut and pasting from the GitHub release window, you can
+run the following which will pull it down and insert the release notes
+into the local checkout:
+
+```shell
 nox -s update_news
 ```
 
 This also handles updating the date `YYYY-MM-DD` placeholder to today.
-Note that you still need to manually commit this to the repo
-**before** you actually "publish" the release.
+
+### Pushing `NEWS.md`
+
+This command will push any changes made to `NEWS.md` back to the
+current branch of the repo.
+
+```shell
+nox -s update_news
+```
+
+### Preparing a release
+
+```shell
+nox -s prepare_release
+```
+
+This automates a lot of the above manual steps of preparing a release
+for you. It will run the above `update_news` and `push_news` so that
+it is synced with the release notes, then it will also update the date
+in the release notes to be today's date, and adjust the branch if you
+are not pushing from `main` (useful sometimes when testing).
+
+At this point you should be able to visit the release in the GitHub
+editor and double-check everything looks good and then press the
+"Release" button manually.
+
+### Publish release
+
+```shell
+nox -s publish_release
+```
+
+This runs the above release prep, and then publish it for you. **Only
+run this if you are very confident everything looks good.**
 
 ## Build-time notes
 
@@ -55,7 +92,7 @@ nomenclature.
 If you want to manually download a version for local testing without
 using `pooch` you can run
 
-```
+```shell
 VERSION=3.59.0-alpha && mkdir -p msf-${VERSION} && curl -L https://github.com/ANHIG/IMGTHLA/archive/refs/tags/v${VERSION}.tar.gz | tar -C msf-${VERSION} --exclude="*_gen.msf" -xz --strip-components=2 "*/msf"
 ```
 
@@ -419,7 +456,7 @@ The final command performs the bootstrap. The bootstrap needs to be run as root,
 Once you have the container image, running it is as simple as executing
 `image.img`. For example:
 
-```
+```shell
 akkornel@blargh-yakkety-typical:~/pypop$ ./image.img -V
 pypop 0.8.0
 Copyright (C) 2003-2005 Regents of the University of California
