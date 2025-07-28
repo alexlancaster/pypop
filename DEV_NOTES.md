@@ -31,7 +31,7 @@ nox -s update_news
 ```
 
 This also handles updating the date `YYYY-MM-DD` placeholder to today.
-Note that you still need to manually commit to the this repo
+Note that you still need to manually commit this to the repo
 **before** you actually "publish" the release.
 
 ## Build-time notes
