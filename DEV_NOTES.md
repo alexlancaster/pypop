@@ -12,13 +12,11 @@
 of tasks that are for contributors mentioned in
 [CONTRIBUTING.rst](./CONTRIBUTING.rst). There are also some tasks for
 release managers (these will require `gh` to be setup and configured)
-that can be `nox`-assisted, run
+that can be `nox`-assisted, run the following to see a complete list:
 
 ```shell
 nox --list
 ```
-
-to see a complete list.
 
 > Note that most of these tasks require interactive input, and the
 > tasks will ask you to double check `git diff` output and similar to
