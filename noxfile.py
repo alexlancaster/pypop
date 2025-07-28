@@ -154,3 +154,123 @@ def update_news(session):
     news_path.write_text(new_contents, encoding="utf-8")
 
     session.log(f"Inserted release notes from draft '{tag_name}' into NEWS.md.")
+
+
+@nox.session
+def bump_release_date(session):
+    session.log("Fetching draft releases...")
+    result = subprocess.run(
+        ["gh", "api", "/repos/:owner/:repo/releases"],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    releases = json.loads(result.stdout)
+    drafts = [r for r in releases if r.get("draft")]
+    if not drafts:
+        session.error("No draft releases found.")
+
+    latest_draft = sorted(drafts, key=lambda r: r["created_at"], reverse=True)[0]
+    release_id = latest_draft["id"]
+    tag_name = latest_draft["tag_name"]
+    original_body = latest_draft.get("body", "")
+
+    if not original_body:
+        session.error(f"Draft release '{tag_name}' has no body content.")
+
+    session.log(f"Preparing ISO date substitution for release '{tag_name}'...")
+
+    # Regex to match both the placeholder and already substituted dates
+    # Matches "## [1.2.2] - YYYY-MM-DD" or "## [1.2.2] - 2023-03-10"
+
+    today = date.today().isoformat()
+
+    updated_body = re.sub(
+        r"(## \[\d+\.\d+\.\d+\] - )(?:\d{4}-\d{2}-\d{2}|YYYY-MM-DD)",
+        lambda m: m.group(1) + today,
+        original_body,
+    )
+
+    # Log the updated body (for preview)
+    session.log(f"Updated release body:\n{updated_body}")
+
+    proceed2 = input("Continue to bump release date? [y/N]: ").lower()
+    if proceed2 == "y":
+        session.log("Update the date in the release.")
+
+        # PATCH the body in-memory
+        payload = json.dumps({"body": updated_body})
+
+        payload = json.dumps(
+            {
+                "body": updated_body,
+                "tag_name": tag_name,  # preserve the original tag
+            }
+        )
+
+        subprocess.run(
+            [
+                "gh",
+                "api",
+                "--method",
+                "PATCH",
+                f"/repos/:owner/:repo/releases/{release_id}",
+                "--input",
+                "-",  # <- this tells gh to read from stdin
+            ],
+            input=payload.encode("utf-8"),
+            capture_output=True,
+            check=True,
+        )
+    else:
+        session.log("Skipping bumping release date")
+
+    return tag_name
+
+
+@nox.session
+def publish_release(session):
+    """Preview and prepare publishing the latest draft release. (Dry-run only)"""
+
+    # Confirm branch
+    current_branch = subprocess.run(
+        ["git", "rev-parse", "--abbrev-ref", "HEAD"],
+        check=False,
+        capture_output=True,
+        text=True,
+    ).stdout.strip()
+    if current_branch != "main":
+        session.warn(
+            f"Warning: You are on branch '{current_branch}', not 'main'. Proceeding in dry-run mode for testing."
+        )
+
+    session.log("Running update_news to sync NEWS.md from draft release...")
+    update_news(session)
+
+    session.log("Showing changes to NEWS.md:")
+    session.run("git", "diff", "NEWS.md")
+
+    proceed = input("Continue and commit NEWS.md update? [y/N]: ").lower()
+    if proceed != "y":
+        session.error("Aborted.")
+
+    session.log("Simulating commit (dry-run, not actually committing)...")
+    session.log(
+        "Command: git commit NEWS.md -m 'Update NEWS.md from latest draft release'"
+    )
+    session.log("Command: pre-commit run --all-files")
+
+    # Push the commit (dry-run only, not actually pushing)
+    session.log("Simulating git push (dry-run only)...")
+    session.log("Command: git push")
+
+    # bump github release date
+    tag_name = bump_release_date(session)
+
+    session.log("Dry-run only — simulating publish.")
+    session.log(f"Command: gh release edit {tag_name} --draft=false")
+
+    session.log("Waiting for GitHub Actions to finish...")
+    session.log("Command: git pull")
+
+    session.log("Release flow completed in dry-run mode.")
