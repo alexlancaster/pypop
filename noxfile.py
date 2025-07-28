@@ -8,6 +8,42 @@ import nox
 
 nox.options.sessions = ["precommit"]  # default session
 
+## helper functions
+
+
+def run_git_command(session, *args):
+    session.run("git", *args, external=True)
+
+
+def file_was_modified(filename):
+    """Returns True if file has unstaged changes."""
+    result = subprocess.run(
+        ["git", "diff", "--name-only"], stdout=subprocess.PIPE, text=True, check=True
+    )
+    return filename in result.stdout.splitlines()
+
+
+def commit_with_retry(session, filename, message):
+    committed = True  # whether a commit was done
+    try:
+        run_git_command(session, "commit", filename, "-m", message)
+    except nox.command.CommandFailed:
+        session.warn(
+            f"Commit failed, checking if {filename} was modified by pre-commit..."
+        )
+
+        # if file_was_modified(filename):
+        try:
+            session.log(f"{filename} modified. Re-staging and retrying commit.")
+            run_git_command(session, "commit", filename, "-m", message)
+        except nox.command.CommandFailed:
+            session.warn(
+                "Still failed. Skipping commit — possibly no changes to commit."
+            )
+            committed = False
+
+    return committed
+
 
 @nox.session
 def precommit(session):
@@ -99,7 +135,8 @@ def sdist_test(session):
 def update_news(session):
     """Update NEWS.md from latest GitHub *draft* release notes (if not already present)."""
 
-    session.run("gh", "--version", external=True)
+    session.log("Running update NEWS.md from latest release draft...")
+    # session.run("gh", "--version", external=True)
 
     # Step 1: Use gh api to list all releases
     result = subprocess.run(
@@ -139,7 +176,7 @@ def update_news(session):
     news_contents = news_path.read_text(encoding="utf-8")
     if section in news_contents:
         session.log("Section already present in NEWS.md; skipping.")
-        return
+        return None
 
     # Step 5: Insert above latest version header
     release_header_pattern = re.compile(r"^## \[\d+\.\d+\.\d+\]", re.MULTILINE)
@@ -154,6 +191,35 @@ def update_news(session):
     news_path.write_text(new_contents, encoding="utf-8")
 
     session.log(f"Inserted release notes from draft '{tag_name}' into NEWS.md.")
+
+    return "NEWS.md"
+
+
+@nox.session
+def push_news(session):
+    """Push local changes to NEWS.md back to repo"""
+
+    news_filename = "NEWS.md"
+    message = f"Update {news_filename} from latest draft release"
+
+    session.log(f"Showing changes to {news_filename}:")
+    run_git_command(session, "diff", f"{news_filename}")
+
+    proceed = input(
+        f"Continue and commit and push {news_filename} update? [y/N]: "
+    ).lower()
+    if proceed != "y":
+        session.log("Simulating commit (dry-run, not actually committing)...")
+        session.log(f"Command: git commit {news_filename} -m '{message}'")
+
+        session.log("Simulating git push (dry-run only)...")
+        session.log("Command: git push")
+    else:
+        commit_occurred = commit_with_retry(session, news_filename, message)
+        if commit_occurred:
+            run_git_command(session, "push")
+        else:
+            session.warn("no changes were committed, skipping git push...")
 
 
 @nox.session
@@ -229,8 +295,8 @@ def bump_release_date(session):
 
 
 @nox.session
-def publish_release(session):
-    """Preview and prepare publishing the latest draft release. (Dry-run only)"""
+def prepare_release(session):
+    """Prepare latest release draft with correct tag, target, and NEWS.md update."""
 
     # Confirm branch
     current_branch = subprocess.run(
@@ -239,38 +305,65 @@ def publish_release(session):
         capture_output=True,
         text=True,
     ).stdout.strip()
-    if current_branch != "main":
-        session.warn(
-            f"Warning: You are on branch '{current_branch}', not 'main'. Proceeding in dry-run mode for testing."
-        )
 
-    session.log("Running update_news to sync NEWS.md from draft release...")
+    session.log(f"Current branch: {current_branch}")
+
+    # Determine if we should override the release target
+    use_custom_target = current_branch != "main"
+
+    # update the NEWS.md file
     update_news(session)
 
-    session.log("Showing changes to NEWS.md:")
-    session.run("git", "diff", "NEWS.md")
+    # push it back to the repo, if changed
+    push_news(session)
 
-    proceed = input("Continue and commit NEWS.md update? [y/N]: ").lower()
-    if proceed != "y":
-        session.error("Aborted.")
-
-    session.log("Simulating commit (dry-run, not actually committing)...")
-    session.log(
-        "Command: git commit NEWS.md -m 'Update NEWS.md from latest draft release'"
-    )
-    session.log("Command: pre-commit run --all-files")
-
-    # Push the commit (dry-run only, not actually pushing)
-    session.log("Simulating git push (dry-run only)...")
-    session.log("Command: git push")
-
-    # bump github release date
+    # bump github release date, returns the current tag_name
     tag_name = bump_release_date(session)
 
-    session.log("Dry-run only — simulating publish.")
-    session.log(f"Command: gh release edit {tag_name} --draft=false")
+    if use_custom_target:
+        session.warn(
+            f"Branch is '{current_branch}', so release target will be set to that instead of 'main'."
+        )
+        edit_command = [
+            "gh",
+            "release",
+            "edit",
+            f"{tag_name}",
+            "--target",
+            current_branch,
+        ]
+    else:
+        edit_command = [
+            "gh",
+            "release",
+            "edit",
+            f"{tag_name}",
+        ]
+    proceed2 = input("Continue and update release? [y/N]: ").lower()
+    if proceed2 != "y":
+        session.log("Dry-run only — simulating publish.")
+        session.log(f"Command: {' '.join(edit_command)}")
+    else:
+        session.run(*edit_command, external=True)
 
-    session.log("Waiting for GitHub Actions to finish...")
-    session.log("Command: git pull")
+    return tag_name
 
-    session.log("Release flow completed in dry-run mode.")
+
+@nox.session
+def publish_release(session):
+    """Finalize publishing the release after preparing it."""
+    tag_name = prepare_release(session)
+
+    proceed = input("Continue and publish release on GitHub? [y/N]: ").lower()
+    if proceed != "y":
+        session.log(
+            "Dry-run only — you can publish the release manually via GitHub UI."
+        )
+        session.log(
+            f"To publish manually: https://github.com/<your-org>/<your-repo>/releases/tag/{tag_name}"
+        )
+    else:
+        session.run(
+            "gh", "release", "edit", f"{tag_name}", "--draft=false", external=True
+        )
+        session.log(f"Release: {tag_name} published.")

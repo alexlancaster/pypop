@@ -7,26 +7,6 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
-## [1.2.2] - 2025-07-28
-
-### Internal
-
-- Update numpy requirement from \<=2.2.4 to \<=2.3.1 ([#299](https://github.com/alexlancaster/pypop/pull/299))
-- python(CI deps): bump sphinx from 8.0.2 to 8.2.3 in /.github in the documentation-deps group ([#300](https://github.com/alexlancaster/pypop/pull/300))
-- python(CI deps): Bump cibuildwheel from 3.0.0 to 3.0.1 in /.github in the build-wheel-deps group ([#298](https://github.com/alexlancaster/pypop/pull/298))
-- Update `cibuildwheel` to 3.0.0 ([#291](https://github.com/alexlancaster/pypop/pull/291))
-- Update GSL build for new `windows-2022` runners and GH actions ([#295](https://github.com/alexlancaster/pypop/pull/295))
-- coding convention and pre-commit updates: move `import`s to top where possible ([#292](https://github.com/alexlancaster/pypop/pull/292))
-- Update Windows image for CI: `windows-2019` -> `windows-2022` ([#294](https://github.com/alexlancaster/pypop/pull/294))
-- Update lxml requirement from \<=5.4.0 to \<=6.0.0 ([#293](https://github.com/alexlancaster/pypop/pull/293))
-
-### Documentation
-
-- version `pip install` dependencies in documentation workflow to manage by dependabot ([#296](https://github.com/alexlancaster/pypop/pull/296))
-- fix PDF generation and other website upgrades ([#286](https://github.com/alexlancaster/pypop/pull/286))
-- Styling the homepage ([#283](https://github.com/alexlancaster/pypop/pull/283))
-- Add missing citations and fix display, cleanup news ([#282](https://github.com/alexlancaster/pypop/pull/282))
-
 ## [1.2.1] - 2025-04-29
 
 ### Features
@@ -554,4 +534,3 @@ Single, Owen Solberg and Steve Mack.
 [1.1.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.1.2
 [1.2.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.0
 [1.2.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.1
-[1.2.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.2
