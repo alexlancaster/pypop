@@ -14,7 +14,7 @@ of tasks that are for contributors mentioned in
 release managers (these will require `gh` to be setup and configured)
 that can be `nox`-assisted.
 
-## Updating `NEWS.md`
+### Updating `NEWS.md`
 
 Release notes are automatically accumulated as PRs are merged through
 using the [Release
