@@ -462,7 +462,7 @@ The final command performs the bootstrap. The bootstrap needs to be run as root,
 Once you have the container image, running it is as simple as executing
 `image.img`. For example:
 
-```shell
+```console
 akkornel@blargh-yakkety-typical:~/pypop$ ./image.img -V
 pypop 0.8.0
 Copyright (C) 2003-2005 Regents of the University of California
