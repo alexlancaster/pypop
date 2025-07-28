@@ -158,6 +158,8 @@ def update_news(session):
 
 @nox.session
 def bump_release_date(session):
+    """Bump release date in draft release to today."""
+
     session.log("Fetching draft releases...")
     result = subprocess.run(
         ["gh", "api", "/repos/:owner/:repo/releases"],
