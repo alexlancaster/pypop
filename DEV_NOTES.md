@@ -6,13 +6,19 @@
   `haplo.stats` R package `haplo-stats` for haplotype
   estimation. [Implementation in alpha-phase - still working on this].
 
-## Release-time notes
+## Release-time tasks
 
 `nox` is now used to automate common developer tasks, there is a list
 of tasks that are for contributors mentioned in
 [CONTRIBUTING.rst](./CONTRIBUTING.rst). There are also some tasks for
 release managers (these will require `gh` to be setup and configured)
-that can be `nox`-assisted.
+that can be `nox`-assisted, run
+
+```shell
+nox --list
+```
+
+to see a complete list.
 
 > Note that most of these tasks require interactive input, and the
 > tasks will ask you to double check `git diff` output and similar to
