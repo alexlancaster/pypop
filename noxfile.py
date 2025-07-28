@@ -201,8 +201,6 @@ def bump_release_date(session):
         session.log("Update the date in the release.")
 
         # PATCH the body in-memory
-        payload = json.dumps({"body": updated_body})
-
         payload = json.dumps(
             {
                 "body": updated_body,
