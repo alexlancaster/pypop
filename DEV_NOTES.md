@@ -43,8 +43,10 @@ This also handles updating the date `YYYY-MM-DD` placeholder to today.
 
 ### Pushing `NEWS.md`
 
-This command will push any changes made to `NEWS.md` back to the
-current branch of the repo.
+This command will commit and push, back to the current branch of the
+repo, if there were any changes made to `NEWS.md`. This includes any
+minor formatting changes that `pre-commit` tools like `ruff` run
+before the commit.
 
 ```shell
 nox -s push_news
