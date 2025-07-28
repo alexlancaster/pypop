@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import sys
 from pathlib import Path
 
 import tomli
@@ -25,5 +25,8 @@ __version_scheme__ = "{version_scheme}"
 
 
 if __name__ == "__main__":
-    output_path = Path("src/PyPop/_metadata.py")
+    if len(sys.argv) > 1:
+        output_path = Path(sys.argv[1])
+    else:
+        output_path = Path("src/PyPop/_metadata.py")
     generate_metadata(output_path)
