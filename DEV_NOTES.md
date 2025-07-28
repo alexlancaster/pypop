@@ -47,7 +47,7 @@ This command will push any changes made to `NEWS.md` back to the
 current branch of the repo.
 
 ```shell
-nox -s update_news
+nox -s push_news
 ```
 
 ### Preparing a release
