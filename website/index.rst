@@ -23,13 +23,14 @@ large-scale population genetic analyses including:
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
-  * 2025-04-29: `PyPop 1.2.1
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.2.1>`__ is
-    released. This release includes a bug fix in text output, and
-    internal changes and updates to dependencies. Experimental support
-    for wheels built for Windows ARM64 is also available in the `Test
-    PyPI <https://test.pypi.org/project/pypop-genomics/>`__ repo, to
-    test, run:
+  * 2025-07-29: `PyPop 1.2.2
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.2.2>`__ is
+    released. This release includes dependency updates and ``nox``
+    task framework useful for contributors and
+    developers. Experimental support for wheels built for Windows
+    ARM64 is also available in the `Test PyPI
+    <https://test.pypi.org/project/pypop-genomics/>`__ repo, to test,
+    run:
 
     .. code-block:: shell
 
@@ -38,12 +39,10 @@ large-scale population genetic analyses including:
     Please test and report issues `via the bug tracker
     <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BWindows+ARM64+bug%5D%3A+Please+replace+this+with+a+clear+and+concise+description+of+your+bug>`__.
 
-  * 2025-02-04: `PyPop 1.2.0
-    <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0>`__ is
-    released: includes updates and restoration of full functionality
-    for ``[Sequence]`` options as part of the ``[Filters]``, including
-    dynamic downloads of HLA sequence data and major updates to
-    documentation, using new HLA nomenclature throughout.
+  * 2025-04-29: `PyPop 1.2.1
+    <https://github.com/alexlancaster/pypop/releases/tag/v1.2.1>`__ is
+    released. This release includes a bug fix in text output, and
+    internal changes and updates to dependencies.
 
   * 2024-04-01: PyPop paper `published
     <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
@@ -52,6 +51,14 @@ large-scale population genetic analyses including:
   * More details, including recent previous releases:
 
    .. toggle::
+
+    - 2025-02-04: `PyPop 1.2.0
+      <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0>`__
+      is released: includes updates and restoration of full
+      functionality for ``[Sequence]`` options as part of the
+      ``[Filters]``, including dynamic downloads of HLA sequence data
+      and major updates to documentation, using new HLA nomenclature
+      throughout.
 
     - 2025-01-16: Beta release `PyPop 1.2.0b2
       <https://github.com/alexlancaster/pypop/releases/tag/v1.2.0-b2>`__
