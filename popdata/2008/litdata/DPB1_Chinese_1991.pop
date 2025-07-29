@@ -1,0 +1,15 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Chinese_1991.pop	DPB1	176	168	lit	Chinese_1991	Asian	05-SEA	Guan County in North China approx. 50 miles from Beijing	2	Unrelated healthy Northern Chinese	35.22N	110.75E	0.955	1	PCR-SSO		Gao	1991	DNA typing for HLA-DR, and -DP alleles in a Chinese population using the polymerase chain reaction (PCR) and oligonucleotide probes	Tissue Antigens	38	24-30	x.gao@cronfield.ac.uk	salamon	CN	Gao	1301087	36	3	Fernandez-Vina et al. 1990	N		N	N	N		LD	Salamon et al. 1999: F-A, Fnd-A			JGG
+DPB1	count
+0101	1
+0201	31
+0202	5
+0301	13
+0401	21
+0402	18
+0501	53
+0601	1
+0901	1
+1301	9
+1401	4
+1701	11

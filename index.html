@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="./">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyPop: Python for Population Genomics &#8212; PyPop: Python for Population Genomics 1.2.2 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="_static/basic_mod.css?v=9b2032db" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/custom.css?v=510bc853" />
+    <script src="_static/documentation_options.js?v=fd7cadf9"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/js/theme.js"></script>
+    <script src="_static/js/petite-vue.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PyPop User Guide" href="docs/index.html" /> 
+  </head><body data-dark_mode_code_blocks="true">
+
+<div id="top_nav">
+    
+        <div id="notification_banner" data-banner-hiding="temporary" v-show="!permanentlyHidden">
+    <p v-if="visible" id="content">Experimental Windows ARM64 wheels are available on Test PyPI<br/>See PyPop News on the <a href="http://pypop.org/">home page</a> for installation details<br/></p>
+    <a class="close" href="#" @click.prevent="toggleVisible()">[[ visible ? '&#x25B2; HIDE' : '&#x25BC; SHOW BANNER' ]]</a>
+</div>
+
+<script>
+(function() {
+    const topNav = document.querySelector('#top_nav')
+    const notificationContent = document.querySelector('#notification_banner p#content').innerText
+    const localStorageKey = 'readNotification'
+    const bannerHiding = document.querySelector('#notification_banner').dataset['bannerHiding']
+    const cssVariableName = '--navbarHeight'
+    const rootElement = document.documentElement
+
+    /*************************************************************************/
+    // Local storage for remembering if the user has read the notification.
+
+    function checkAlreadyRead() {
+        return localStorage.getItem(localStorageKey) == notificationContent
+    }
+
+    function setRead() {
+        localStorage.setItem(localStorageKey, notificationContent)
+    }
+
+    function clearRead() {
+        localStorage.removeItem(localStorageKey)
+    }
+
+    const alreadyRead = checkAlreadyRead()
+    const permanentlyHidden = alreadyRead && bannerHiding == 'permanent'
+
+    /*************************************************************************/
+    // Updating a CSS variable so other elements adjust to the nav bar height.
+
+    function updateNavbarHeight() {
+        // Only update it if the delta is significant. Otherwise it causes
+        // unnecessary browser repaints.
+        const documentStyles = getComputedStyle(rootElement)
+        // We store the value in REM, so need to convert to pixels
+        const currentValue = parseFloat(
+            documentStyles.getPropertyValue(cssVariableName)
+        ) * parseFloat(documentStyles.fontSize)
+
+        const newValue = topNav.clientHeight
+
+        if (newValue - 5 > currentValue) {
+            console.log(`Updating ${cssVariableName} - overlapping`)
+            rootElement.style.setProperty(
+                cssVariableName, newValue + "px"
+            );
+        } else if (currentValue - newValue >= 30) {
+            console.log(`Updating ${cssVariableName} - gap too large`)
+            rootElement.style.setProperty(
+                cssVariableName, newValue + "px"
+            );
+        }
+    }
+
+    /*************************************************************************/
+    // After loading the page, and resizing the window, recalculate the nav bar
+    // height.
+
+    if (!permanentlyHidden) {
+        // This height is approximately correct when there's a banner, so
+        // shouldn't require any page reflow:
+        rootElement.style.setProperty(
+            '--navbarHeight', "5.5rem"
+        );
+
+        document.addEventListener("DOMContentLoaded", function() {
+            updateNavbarHeight()
+        });
+
+        var interval = undefined
+
+        window.addEventListener('resize', () => {
+            if (interval) {
+                clearTimeout(interval)
+            }
+            interval = setTimeout(() => {
+                console.log("Finished resizing")
+                updateNavbarHeight()
+            }, 100)
+        })
+    }
+
+    /*************************************************************************/
+
+    PetiteVue.createApp({
+        visible: !alreadyRead,
+        permanentlyHidden: permanentlyHidden,
+        bannerHiding: bannerHiding,
+        $delimiters: ['[[', ']]'],
+        toggleVisible() {
+            this.visible = !this.visible
+
+            if (this.visible) {
+                clearRead()
+            } else {
+                setRead()
+            }
+
+            if (!this.visible && bannerHiding == 'permanent') {
+                this.permanentlyHidden = true
+            }
+
+            // Run this after Vue has had time to update the DOM:
+            setTimeout(
+                updateNavbarHeight,
+                0
+            )
+        }
+    }).mount('#notification_banner')
+})()
+</script>
+    
+
+    <nav>
+        
+            
+        
+
+        <p id="toggle_sidebar">
+            <a href="#" title="Toggle sidebar">|||</a>
+        </p>
+        <h1><a href="#" title="Go to homepage">PyPop</a></h1>
+            <a id="source_link" href="https://github.com/alexlancaster/pypop/">
+    
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512">
+            <path fill="white" d="M 244.8,8 C 106.1,8 0,113.3 0,252 c 0,110.9 69.8,205.8 169.5,239.2 12.8,2.3 17.3,-5.6 17.3,-12.1 0,-6.2 -0.3,-40.4 -0.3,-61.4 0,0 -70,15 -84.7,-29.8 0,0 -11.4,-29.1 -27.8,-36.6 0,0 -22.9,-15.7 1.6,-15.4 0,0 24.9,2 38.6,25.8 21.9,38.6 58.6,27.5 72.9,20.9 2.3,-16 8.8,-27.1 16,-33.7 -55.9,-6.2 -112.3,-14.3 -112.3,-110.5 0,-27.5 7.6,-41.3 23.6,-58.9 -2.6,-6.5 -11.1,-33.3 2.6,-67.9 20.9,-6.5 69,27 69,27 20,-5.6 41.5,-8.5 62.8,-8.5 21.3,0 42.8,2.9 62.8,8.5 0,0 48.1,-33.6 69,-27 13.7,34.7 5.2,61.4 2.6,67.9 16,17.7 25.8,31.5 25.8,58.9 0,96.5 -58.9,104.2 -114.8,110.5 9.2,7.9 17,22.9 17,46.4 0,33.7 -0.3,75.4 -0.3,83.6 0,6.5 4.6,14.4 17.3,12.1 C 428.2,457.8 496,362.9 496,252 496,113.3 383.5,8 244.8,8 Z"/>
+        </svg>
+    
+</a>
+        
+
+        <a id="mode_toggle" href="#" @click.prevent="handleClick" :title="mode">
+    <template v-if="mode == 'light'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_light"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M67.48,18.073c1.913,-1.912 1.913,-5.018 0,-6.931c-1.912,-1.912 -5.018,-1.912 -6.931,0l-6.798,6.799c-1.912,1.912 -1.912,5.018 0,6.931c1.913,1.912 5.018,1.912 6.931,-0l6.798,-6.799Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.728,61.108c1.912,-1.913 1.912,-5.018 -0,-6.931c-1.913,-1.913 -5.019,-1.913 -6.931,-0l-6.799,6.798c-1.912,1.913 -1.912,5.019 0,6.931c1.913,1.913 5.019,1.913 6.931,0l6.799,-6.798Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.682,54.177c-1.913,-1.913 -5.018,-1.913 -6.931,-0c-1.912,1.913 -1.912,5.018 0,6.931l6.798,6.798c1.913,1.913 5.019,1.913 6.931,0c1.913,-1.912 1.913,-5.018 0,-6.931l-6.798,-6.798Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M4.901,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901l-0,9.614c-0,2.705 2.196,4.901 4.9,4.901c2.705,-0 4.901,-2.196 4.901,-4.901l0,-9.614Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M18.929,11.142c-1.912,-1.912 -5.018,-1.912 -6.931,0c-1.912,1.913 -1.912,5.019 0,6.931l6.799,6.799c1.912,1.912 5.018,1.912 6.931,-0c1.912,-1.913 1.912,-5.019 -0,-6.931l-6.799,-6.799Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.108,34.623c-2.705,0 -4.901,2.196 -4.901,4.901c-0,2.705 2.196,4.901 4.901,4.901l9.614,0c2.705,0 4.901,-2.196 4.901,-4.901c-0,-2.705 -2.196,-4.901 -4.901,-4.901l-9.614,0Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'dark'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_dark"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><circle cx="39.311" cy="39.524" r="15.734" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.212,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.901,2.196 -4.901,4.901c0,2.705 2.197,4.901 4.901,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.662,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.989,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.732,61.103c1.91,-1.91 1.91,-5.011 0,-6.921l-0.009,-0.01c-1.91,-1.91 -5.012,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.909,1.91 5.011,1.91 6.92,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.672,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.52,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l-0,-0.01c-0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.212,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.901,2.196 -4.901,4.901c0,2.704 2.197,4.9 4.901,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.73,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 -0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.098,34.623c-2.699,0 -4.891,2.192 -4.891,4.892l-0,0.019c-0,2.699 2.192,4.891 4.891,4.891c2.7,0 4.892,-2.192 4.892,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.892,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+
+    <template v-if="mode == 'darkest'">
+        <svg width="100%" height="100%" viewBox="0 0 79 80" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;"><g id="mode_darkest"><rect id="Bounds" x="0" y="-0" width="78.623" height="79.049" style="fill:none;"/><path d="M39.315,23.791c8.684,-0 15.734,7.05 15.734,15.733c0,8.684 -7.05,15.734 -15.734,15.734c-8.683,0 -15.733,-7.05 -15.733,-15.734c-0,-8.683 7.05,-15.733 15.733,-15.733Zm0,4.737c6.069,0 10.997,4.927 10.997,10.996c-0,6.069 -4.928,10.996 -10.997,10.996c-6.068,0 -10.996,-4.927 -10.996,-10.996c0,-6.069 4.928,-10.996 10.996,-10.996Z" style="fill:#fff;"/><g id="beams"><g id="beam"><path id="beam1" serif:id="beam" d="M44.216,14.515c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,0 -4.9,2.196 -4.9,4.901c-0,2.705 2.196,4.901 4.9,4.901c2.705,0 4.901,-2.196 4.901,-4.901Z" style="fill:#fff;"/></g><g id="beam2" serif:id="beam"><path id="beam3" serif:id="beam" d="M60.666,24.892c1.902,-1.902 1.902,-4.99 0,-6.892l-0.04,-0.039c-1.901,-1.902 -4.989,-1.902 -6.891,-0c-1.901,1.901 -1.901,4.989 0,6.891l0.04,0.04c1.902,1.901 4.99,1.901 6.891,-0Z" style="fill:#fff;"/></g><g id="beam4" serif:id="beam"><path id="beam5" serif:id="beam" d="M25.737,61.103c1.909,-1.91 1.909,-5.011 -0,-6.921l-0.01,-0.01c-1.91,-1.91 -5.011,-1.91 -6.921,-0c-1.91,1.91 -1.91,5.011 -0,6.921l0.01,0.01c1.91,1.91 5.011,1.91 6.921,-0Z" style="fill:#fff;"/></g><g id="beam6" serif:id="beam"><path id="beam7" serif:id="beam" d="M60.676,54.167c-1.907,-1.907 -5.004,-1.907 -6.911,0l-0.02,0.02c-1.907,1.907 -1.907,5.004 0,6.911c1.907,1.907 5.004,1.907 6.911,-0l0.02,-0.02c1.907,-1.907 1.907,-5.004 0,-6.911Z" style="fill:#fff;"/></g><g id="beam8" serif:id="beam"><path id="beam9" serif:id="beam" d="M14.524,34.623c-2.702,0 -4.896,2.194 -4.896,4.896l0,0.01c0,2.702 2.194,4.896 4.896,4.896c2.702,0 4.896,-2.194 4.896,-4.896l0,-0.01c0,-2.702 -2.194,-4.896 -4.896,-4.896Z" style="fill:#fff;"/></g><g id="beam10" serif:id="beam"><path id="beam11" serif:id="beam" d="M44.216,64.534c0,-2.705 -2.196,-4.901 -4.901,-4.901c-2.704,-0 -4.9,2.196 -4.9,4.901c-0,2.704 2.196,4.9 4.9,4.9c2.705,0 4.901,-2.196 4.901,-4.9Z" style="fill:#fff;"/></g><g id="beam12" serif:id="beam"><path id="beam13" serif:id="beam" d="M25.734,17.943c-1.911,-1.911 -5.015,-1.911 -6.926,0l-0.005,0.005c-1.911,1.911 -1.911,5.015 0,6.926c1.911,1.911 5.015,1.911 6.926,0l0.005,-0.005c1.911,-1.911 1.911,-5.014 0,-6.926Z" style="fill:#fff;"/></g><g id="beam14" serif:id="beam"><path id="beam15" serif:id="beam" d="M64.103,34.623c-2.7,0 -4.892,2.192 -4.892,4.892l-0,0.019c-0,2.699 2.192,4.891 4.892,4.891c2.699,0 4.891,-2.192 4.891,-4.891l0,-0.019c0,-2.7 -2.192,-4.892 -4.891,-4.892Z" style="fill:#fff;"/></g></g></g></svg>
+    </template>
+</a>
+
+<script>
+(function() {
+    const LOCAL_STORAGE_KEY = 'piccoloThemeMode'
+
+    var initialMode = localStorage.getItem(LOCAL_STORAGE_KEY)
+
+    if (initialMode) {
+        // Make sure the value in local storage is valid
+        if (['light', 'dark', 'darkest'].indexOf(initialMode) == -1) {
+            initialMode = 'light'
+            localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+        }
+    } else {
+        // Check if the client prefers dark mode
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            initialMode = 'dark'
+        } else {
+            initialMode = 'light'
+        }
+        localStorage.setItem(LOCAL_STORAGE_KEY, initialMode)
+    }
+
+    document.documentElement.dataset.mode = initialMode
+
+    PetiteVue.createApp({
+        'mode': initialMode,
+        handleClick() {
+            let currentMode = this.mode
+
+            if (currentMode == 'light') {
+                this.mode = 'dark'
+            } else if (currentMode == 'dark') {
+                this.mode = 'darkest'
+            } else if (currentMode == 'darkest') {
+                this.mode = 'light'
+            }
+
+            document.documentElement.dataset.mode = this.mode
+            localStorage.setItem(LOCAL_STORAGE_KEY, this.mode)
+
+            console.log(this.mode)
+        }
+    }).mount('#mode_toggle')
+})()
+</script>
+            <p class="mobile_search_link">
+                <a href="search.html" title="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 65 64" fill-rule="evenodd" stroke-linejoin="round" stroke-miterlimit="2">
+                        <path d="M14.873 40.009c-2.315-3.943-3.642-8.532-3.642-13.429C11.231 11.91 23.141 0 37.811 0s26.58 11.91 26.58 26.58-11.91 26.58-26.58 26.58a26.44 26.44 0 0 1-14.277-4.161L9.739 62.794a3.12 3.12 0 0 1-4.413 0L.913 58.382c-1.217-1.218-1.217-3.196 0-4.413l13.96-13.96zM37.811 8.054c10.225 0 18.526 8.301 18.526 18.526s-8.301 18.526-18.526 18.526-18.526-8.301-18.526-18.526S27.586 8.054 37.811 8.054z" fill="#fff" />
+                    </svg>
+                </a>
+            </p>
+        
+
+        <div class="searchbox_wrapper">
+            
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </div>
+    </nav>
+</div>
+
+    
+      <div class="sphinxsidebar" role="navigation" aria-label="Main">
+        <div class="sphinxsidebarwrapper"><p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docs/index.html">PyPop User Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Supplementary data sets</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference external" href="http://pypop.org/popdata/">Solberg et al. (2008)</a></li>
+</ul>
+
+        </div>
+      </div>
+
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section id="pypop-python-for-population-genomics">
+<span id="guide-preface-intro"></span><h1>PyPop: Python for Population Genomics<a class="headerlink" href="#pypop-python-for-population-genomics" title="Link to this heading">¶</a></h1>
+<p id="guide-preface-1-start"><span id="news"></span><strong>PyPop (Python for Population Genomics)</strong> is an environment for doing
+large-scale population genetic analyses including:</p>
+<ul class="simple">
+<li><p>conformity to Hardy-Weinberg expectations</p></li>
+<li><p>tests for balancing or directional selection</p></li>
+<li><p>estimates of haplotype frequencies and measures and tests of
+significance for linkage disequilibrium (LD).</p></li>
+</ul>
+<div class="dropdown toggle-shown admonition" id="guide-preface-1-end">
+<p class="admonition-title">PyPop News</p>
+<ul>
+<li><p>2025-07-28: <a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.2.2">PyPop 1.2.2</a> is
+released. This release includes dependency updates and <code class="docutils literal notranslate"><span class="pre">nox</span></code>
+task framework useful for contributors and
+developers. Experimental support for wheels built for Windows
+ARM64 is also available in the <a class="reference external" href="https://test.pypi.org/project/pypop-genomics/">Test PyPI</a> repo, to test,
+run:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>--extra-index-url<span class="w"> </span>https://test.pypi.org/simple/<span class="w"> </span>pypop-genomics
+</pre></div>
+</div>
+<p>Please test and report issues <a class="reference external" href="https://github.com/alexlancaster/pypop/issues/new?assignees=&amp;labels=bug&amp;projects=&amp;template=bug_report.yml&amp;title=%5BWindows+ARM64+bug%5D%3A+Please+replace+this+with+a+clear+and+concise+description+of+your+bug">via the bug tracker</a>.</p>
+</li>
+<li><p>2025-04-29: <a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.2.1">PyPop 1.2.1</a> is
+released. This release includes a bug fix in text output, and
+internal changes and updates to dependencies.</p></li>
+<li><p>2024-04-01: PyPop paper <a class="reference external" href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full">published</a>
+in <em>Frontiers in Immunology</em>, <a class="reference internal" href="#citing-pypop"><span class="std std-ref">see citing PyPop</span></a> for details.</p></li>
+<li><p>More details, including recent previous releases:</p></li>
+</ul>
+<blockquote>
+<div><div class="toggle docutils container">
+<ul class="simple">
+<li><p>2025-02-04: <a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.2.0">PyPop 1.2.0</a>
+is released: includes updates and restoration of full
+functionality for <code class="docutils literal notranslate"><span class="pre">[Sequence]</span></code> options as part of the
+<code class="docutils literal notranslate"><span class="pre">[Filters]</span></code>, including dynamic downloads of HLA sequence data
+and major updates to documentation, using new HLA nomenclature
+throughout.</p></li>
+<li><p>2025-01-16: Beta release <a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.2.0-b2">PyPop 1.2.0b2</a>
+is released.</p></li>
+<li><p>2025-01-05: Pre-release <a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.1.3-rc1">PyPop 1.1.3rc1</a>
+is now available. Experimental wheels for Windows ARM64 are
+added in this release.</p></li>
+<li><p>2024-11-18: <a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.1.2">PyPop 1.1.2</a>
+released: adds <code class="docutils literal notranslate"><span class="pre">--citation</span></code> command-line option to print citation
+information and updates <code class="docutils literal notranslate"><span class="pre">numpy</span></code> to 2.1.3</p></li>
+<li><p>2024-09-10: <a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.1.1">PyPop 1.1.1</a>
+released, enables support for Python 3.13 and build Python 3.13 wheels.</p></li>
+<li><p>2024-05-30: <a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.1.0">PyPop 1.1.0</a>
+released. Increases the minimum macOS requirements to Catalina
+(Intel) and Big Sur (Silicon) to ensure binary compatibility with
+the GNU Scientific Library (<cite>gsl</cite>). Thanks to Steve Mack for
+testing.</p></li>
+<li><p>2024-03-08: PyPop paper, provisionally accepted.</p></li>
+<li><p>2024-02-24: <a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.0.2">PyPop 1.0.2</a>
+released. Code scanning updates and updated <code class="docutils literal notranslate"><span class="pre">numpy</span></code> to 1.26.4</p></li>
+<li><p>2024-02-11: <a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.0.1">PyPop 1.0.1</a>
+released. Added support for <code class="docutils literal notranslate"><span class="pre">ARM64</span></code> for Linux, and also
+<code class="docutils literal notranslate"><span class="pre">muslinux</span></code> wheels. Improved support for scientific notation.</p></li>
+<li><p>2024-02-01: <a class="reference external" href="https://zenodo.org/records/10602940">Preprint</a>
+describing 1.0.0 released on Zenodo.</p></li>
+<li><p>2023-11-07: <a class="reference external" href="https://github.com/alexlancaster/pypop/releases/tag/v1.0.0">PyPop 1.0.0</a>
+released</p></li>
+<li><p>Highlights of PyPop 1.0.0 include:</p>
+<ul>
+<li><p>PyPop now fully ported to Python 3.</p></li>
+<li><p>New asymmetric linkage disequilibrium (ALD) computations
+<span id="id1">(<a class="reference internal" href="docs/biblio.html#id25" title="Thomson, G. and Single, R. M. Conditional asymmetric linkage disequilibrium (ALD): extending the bi-allelic r² measure. Genetics, 198(1):321–331, 2014. doi:10.1534/genetics.114.165266.">Thomson and Single, 2014</a>)</span>:.</p></li>
+<li><p>Improved tab-separated values (TSV) output file handling.</p></li>
+<li><p>Preliminary support for <a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3715123/">Genotype List (GL) String</a>.</p></li>
+<li><p>Unit tests, new documentation system, continuous integration
+framework and PyPI package</p></li>
+<li><p>and even more minor features and bug fixes… (see
+<a class="reference external" href="https://github.com/alexlancaster/pypop/blob/main/NEWS.md#100---2023-11-07">NEWS.md</a>).</p></li>
+</ul>
+</li>
+<li><p>2023-11-04: release candidate 2 (1.0.0rc2) released. Fixes some
+missing TSV output.</p></li>
+<li><p>2023-11-01: release candidate 1 (1.0.0rc1) released.</p></li>
+<li><p>2023-10-27: seventh beta pre-release 1.0.0b7, Previous <code class="docutils literal notranslate"><span class="pre">arm64</span></code>
+issues have been resolved. Thanks to Owen Solberg for extensive
+testing and debugging.</p></li>
+<li><p>2023-10-13: fourth beta pre-release 1.0.0b4, . Although this
+release contains packages that will install on <code class="docutils literal notranslate"><span class="pre">arm64</span></code>/M1
+machines, these <code class="docutils literal notranslate"><span class="pre">arm64</span></code> packages should be considered as
+<strong>alpha</strong>-only and are strictly for testing only. Please do not
+use PyPop on M1 machines for any production analyses, until we
+fix some underlying <code class="docutils literal notranslate"><span class="pre">arm64</span></code> numerical issues.</p></li>
+<li><p>2023-10-10: second beta pre-release 1.0.0b2</p></li>
+<li><p>2023-09-26: first beta pre-release 1.0.0b1</p></li>
+<li><p>2023: ported to Python 3, pre-release alpha versions of 1.0.0
+under development - no formal release yet.</p></li>
+<li><p>2022: 0.7.0 binaries deprecated.</p></li>
+<li><p>2020: pypop is no longer a Fedora package (to be replaced by PyPI package)</p></li>
+<li><p>2017: all new development is now in GitHub</p></li>
+</ul>
+</div>
+</div></blockquote>
+<ul class="simple">
+<li><p>See the <a class="reference internal" href="docs/guide-chapter-changes.html#pypop-release-history"><span class="std std-ref">PyPop Release History</span></a> in the <em>Python User Guide</em>
+for even earlier history and full release notes.</p></li>
+</ul>
+</div>
+<p id="guide-preface-2-start">PyPop is an object-oriented framework implemented in <a class="reference external" href="https://www.python.org/">Python</a>, but also contains C extensions for some
+computationally intensive tasks. Output of analyses are stored in XML
+format for maximum downstream flexibility. PyPop also has an internal
+facility for additionally aggregating the output XML and generating
+output tab-separated (TSV) files, as well as well as generating a
+default plain text file summary for each population.</p>
+<p>Although it can be run on any kind of genotype data, it has additional
+support for analyzing population genotype with allelic nomenclature
+from the human leukocyte antigen (HLA) region.</p>
+<p>An outline of PyPop can be found in our 2024 paper
+<span id="id2">(<a class="reference internal" href="docs/biblio.html#id13" title="Lancaster, A. K., Single, R. M., Mack, S. J., Sochat, V., Mariani, M. P., and Webster, G. D. PyPop: A mature open-source software pipeline for population genomics. Frontiers in Immunology, 2024. doi:10.3389/fimmu.2024.1378512.">Lancaster <em>et al.</em>, 2024</a>)</span>, and two previous <a class="reference internal" href="#citing-pypop"><span class="std std-ref">papers</span></a>.</p>
+<section id="installation-and-documentation">
+<span id="guide-preface-2-end"></span><h2>Installation and documentation<a class="headerlink" href="#installation-and-documentation" title="Link to this heading">¶</a></h2>
+<p>Documentation, including instructions on <a class="reference internal" href="docs/guide-chapter-install.html"><span class="doc">installing</span></a>, <a class="reference internal" href="docs/guide-chapter-usage.html"><span class="doc">using</span></a>
+and <a class="reference internal" href="docs/guide-chapter-instructions.html"><span class="doc">interpreting output of</span></a>
+PyPop, is contained in the <a class="reference internal" href="docs/index.html#user-guide"><span class="std std-ref">PyPop User Guide</span></a>.</p>
+<div class="admonition-contact-and-questions admonition">
+<p class="admonition-title">Contact and questions</p>
+<p>Please file all questions, support requests, and bug reports via
+our <a class="reference external" href="https://github.com/alexlancaster/pypop/issues">GitHub issue tracker</a>. More details on
+how to file bug reports can be found in our <a class="reference internal" href="docs/guide-chapter-contributing.html#guide-contributing-bug-report"><span class="std std-ref">contributors
+chapter</span></a> of the <em>User Guide</em>.
+Please don’t email developers individually.</p>
+</div>
+</section>
+<section id="source-code">
+<span id="id3"></span><h2>Source code<a class="headerlink" href="#source-code" title="Link to this heading">¶</a></h2>
+<p>PyPop is <a class="reference external" href="http://www.gnu.org/philosophy/free-sw.html">free software</a> (sometimes referred to
+as <a class="reference external" href="https://opensource.org/">open source</a> software) and the
+source code is released under the terms of the “copyleft” GNU General
+Public License, or GPL (<a class="reference external" href="https://www.gnu.org/licenses/gpl.html">https://www.gnu.org/licenses/gpl.html</a>)
+(specifically GPLv2, but any later version applies).  All source code is
+available and maintained on our <a class="reference external" href="https://github.com/alexlancaster/pypop">GitHub website</a>.</p>
+</section>
+<section id="citing-pypop">
+<h2>Citing PyPop<a class="headerlink" href="#citing-pypop" title="Link to this heading">¶</a></h2>
+<p>If you write a paper that uses PyPop in your analysis, please cite
+<strong>both</strong>:</p>
+<ul>
+<li><p>our <a class="reference external" href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full">2024 article</a>
+in <em>Frontiers in Immunology</em>:</p>
+<blockquote>
+<div><p>Lancaster AK, Single RM, Mack SJ, Sochat V, Mariani MP, Webster
+GD. (2024) “PyPop: A mature open-source software pipeline for
+population genomics.”  <em>Front. Immunol.</em> <strong>15</strong>:1378512 doi:
+<a class="reference external" href="https://doi.org/10.3389/fimmu.2024.1378512">10.3389/fimmu.2024.1378512</a></p>
+</div></blockquote>
+</li>
+<li><p><strong>and</strong> a citation to the <a class="reference external" href="https://zenodo.org/records/10080667">Zenodo record</a> which includes a DOI for
+the version of the software you used in your analyses. Citing this
+record and DOI supports reproducibility by allowing researchers to
+to determine the exact version of PyPop used in any particular
+analysis. In addition, it allows retrieval of long-term software
+source-code archives, independent of the original developers.</p>
+<p>Here’s how to cite the correct version:</p>
+<ul>
+<li><p>If you have PyPop version 1.1.2 or later, currently installed, you
+can run:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>--citation
+</pre></div>
+</div>
+<p>which outputs the Zenodo record citation in the simple “APA”
+format (you can also choose from BibTeX, EndNote, RIS and other
+formats, see the section on <a class="reference external" href="http://pypop.org/docs/guide-chapter-usage.html#command-line-interfaces">command-line interfaces</a>
+in the <em>User Guide</em> for more details).</p>
+</li>
+<li><p>If you do not have PyPop installed, have a release of PyPop
+earlier than 1.1.2, or otherwise want to obtain the DOI and
+citation for specific versions, follow these steps:</p>
+<ol class="arabic">
+<li><p>First visit the DOI for the overall Zenodo record:
+<a class="reference external" href="https://zenodo.org/doi/10.5281/zenodo.10080667">10.5281/zenodo.10080667</a>. This DOI
+represents <strong>all versions</strong>, and will always resolve to the
+latest one.</p></li>
+<li><p>When you are viewing the record, look for the <strong>Versions</strong> box
+in the right-sidebar. Here are listed all versions (including
+older versions).</p></li>
+<li><p>Select and click the version-specific DOI that matches the
+specific version of PyPop that you used for your analysis.</p></li>
+<li><p>Once you are visiting the Zenodo record for the specific version,
+under the <strong>Citation</strong> box in the right-sidebar, select the
+citation format you wish to use and click to copy the citation.
+It will contain link to the version-specific DOI, and be of the
+form:</p>
+<blockquote>
+<div><p>Lancaster, AK et al. (YYYY) “PyPop: Python for Population
+Genomics” (Version X.Y.Z) [Computer
+software]. Zenodo. <a class="reference external" href="https://doi.org/10.5281/zenodo.XXXXX">https://doi.org/10.5281/zenodo.XXXXX</a></p>
+</div></blockquote>
+</li>
+</ol>
+</li>
+</ul>
+<p>Note that citation metadata for the current Zenodo record is also
+stored in <a class="reference external" href="https://github.com/alexlancaster/pypop/blob/main/CITATION.cff">CITATION.cff</a></p>
+</li>
+</ul>
+<p id="guide-preface-3-start">Two previous papers are also available (but not necessary to cite):</p>
+<ul class="simple">
+<li><p>Lancaster AK, Single RM, Solberg OD, Nelson MP, Thomson G (2007)
+“PyPop update - a software pipeline for large-scale multilocus
+population genomics” <em>Tissue Antigens</em> 69 (s1), 192-197.  [<a class="reference external" href="http://dx.doi.org/10.1111/j.1399-0039.2006.00769.x">journal
+page</a>,
+<a class="reference external" href="http://pypop.org/tissue-antigens-lancaster-2007.pdf">preprint PDF (112 kB)</a>].</p></li>
+<li><p>Lancaster A, Nelson MP, Single RM, Meyer D, Thomson G (2003)
+“PyPop: a software framework for population genomics: analyzing
+large-scale multi-locus genotype data”, in <em>Pacific Symposium on
+Biocomputing</em> vol. 8:514-525 (edited by R B Altman. et al., World
+Scientific, Singapore, 2003) [<a class="reference external" href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/">PubMed Central</a>, <a class="reference external" href="http://pypop.org/psb-pypop.pdf">PDF
+(344 kB)</a>].</p></li>
+</ul>
+<p>PyPop was originally developed for the analysis of data for the 13th
+<a class="reference external" href="http://www.ihwg.org/">International Histocompatiblity Workshop and Conference</a> held in Seattle, Washington in 2002
+(<span id="id4"><a class="reference internal" href="docs/biblio.html#id16" title="Meyer, D., Single, R. M., Mack, S. J., Lancaster, A. K., Nelson, M. P., Erlich, H. A., Fernández-Viña, M., and Thomson, G. Single locus polymorphism of classical HLA genes. In Hansen, J. A., editor, Immunobiology of the Human MHC: Proceedings of the 13th International Histocompatibility Workshop and Conference, volume I, pages 653–704. IHWG Press, Seattle, WA, 2007.">Meyer <em>et al.</em>, 2007</a></span>, Single <em>et al.</em>
+<span id="id5"><a class="reference internal" href="docs/biblio.html#id20" title="Single, R. M., Meyer, D., Mack, S. J., Lancaster, A. K., Nelson, M. P., Erlich, H. A., Fernández-Viña, M., and Thomson, G. Haplotype frequencies and linkage disequilibrium among classical HLA genes. In Hansen, J. A., editor, Immunobiology of the Human MHC: Proceedings of the 13th International Histocompatibility Workshop and Conference, volume I, pages 705–746. IHWG Press, Seattle, WA, 2007.">2007</a>a, <a class="reference internal" href="docs/biblio.html#id21" title="Single, R. M., Meyer, D., and Thomson, G. Statistical methods for analysis of population genetic data. In Hansen, J. A., editor, Immunobiology of the Human MHC: Proceedings of the 13th International Histocompatibility Workshop and Conference, volume I, pages 518–522. IHWG Press, Seattle, WA, 2007.">2007</a>b</span>). For
+more details on the design and technical details of PyPop, please
+consult Lancaster <em>et al.</em>
+<span id="id6">(<a class="reference internal" href="docs/biblio.html#id11" title="Lancaster, A., Nelson, M. P., Meyer, D., Single, R. M., and Thomson, G. PyPop: a software framework for population genomics: analyzing large-scale multi-locus genotype data. Pacific Symposium on Biocomputing, pages 514–525, 2003. URL: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3891851/ (accessed on 2024-01-04)">2003</a>, <a class="reference internal" href="docs/biblio.html#id14" title="Lancaster, A. K., Nelson, M. P., Single, R. M., Meyer, D., and Thomson, G. Software framework for the Biostatistics Core of the International Histocompatibility Working Group. In Hansen, J. A., editor, Immunobiology of the Human MHC: Proceedings of the 13th International Histocompatibility Workshop and Conference, volume I, pages 510–517. IHWG Press, Seattle, WA, 2007.">2007</a>a, <a class="reference internal" href="docs/biblio.html#id12" title="Lancaster, A. K., Single, R. M., Solberg, O. D., Nelson, M. P., and Thomson, G. PyPop update – a software pipeline for large-scale multilocus population genomics. Tissue Antigens, 69(s1):192–197, 2007. doi:10.1111/j.1399-0039.2006.00769.x.">2007</a>b, <a class="reference internal" href="docs/biblio.html#id13" title="Lancaster, A. K., Single, R. M., Mack, S. J., Sochat, V., Mariani, M. P., and Webster, G. D. PyPop: A mature open-source software pipeline for population genomics. Frontiers in Immunology, 2024. doi:10.3389/fimmu.2024.1378512.">2024</a>)</span>.</p>
+</section>
+<section id="acknowledgements">
+<span id="guide-preface-3-end"></span><h2>Acknowledgements<a class="headerlink" href="#acknowledgements" title="Link to this heading">¶</a></h2>
+<p id="guide-preface-acknowlegements-start">This work has benefited from the support of NIH grant AI49213 (13th
+IHW) and NIH/NIAID Contract number HHSN266200400076C
+N01-AI-40076. Thanks to Steven J. Mack, Kristie A. Mather, Steve G.E.
+Marsh, Mark Grote and Leslie Louie for helpful comments and testing.</p>
+</section>
+<section id="supplementary-data-files">
+<span id="popdata-files"></span><span id="guide-preface-acknowlegements-end"></span><h2>Supplementary data files<a class="headerlink" href="#supplementary-data-files" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="popdata/">Population data files and online supporting materials</a> for
+published studies listed in the <span id="id7">Solberg <em>et al.</em> (<a class="reference internal" href="docs/biblio.html#id24" title="Solberg, O. D., Mack, S. J., Lancaster, A. K., Single, R. M., Tsai, Y., Sanchez-Mazas, A., and Thomson, G. Balancing selection and heterogeneity across the classical human leukocyte antigen loci: A meta-analytic review of 497 population studies. Human Immunology, 69(7):443–464, 2008. doi:10.1016/j.humimm.2008.05.001.">2008</a>)</span> meta-analysis paper.</p>
+</section>
+<section id="immport-org">
+<h2>ImmPort.org<a class="headerlink" href="#immport-org" title="Link to this heading">¶</a></h2>
+<p>PyPop is affiliated with <a class="reference external" href="https://ImmPort.org">https://ImmPort.org</a>, the Immunology Database and
+Analysis Portal. The ImmPort system provides advanced information
+technology support in the production, analysis, archiving, and
+exchange of scientific data for the diverse community of life science
+researchers supported by NIAID/DAIT. The development of the ImmPort
+system was supported by the NIH/NIAID Bioinformatics Integration
+Support Contract (BISC), Phase II.</p>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+    
+        <div id="show_right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&lt;</span><span>Page contents</span></a></p>
+        </div>
+
+        <div id="right_sidebar">
+            <p><a class="toggle_right_sidebar" href="#"><span class="icon">&gt;</span><span>Page contents:</span></a></p>
+            <div class="page_toc">
+                <ul>
+<li><a class="reference internal" href="#">PyPop: Python for Population Genomics</a><ul>
+<li><a class="reference internal" href="#installation-and-documentation">Installation and documentation</a></li>
+<li><a class="reference internal" href="#source-code">Source code</a></li>
+<li><a class="reference internal" href="#citing-pypop">Citing PyPop</a></li>
+<li><a class="reference internal" href="#acknowledgements">Acknowledgements</a></li>
+<li><a class="reference internal" href="#supplementary-data-files">Supplementary data files</a></li>
+<li><a class="reference internal" href="#immport-org">ImmPort.org</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            </div>
+        </div>
+    
+
+      <div class="clearer"></div>
+    </div>
+    <div class="button_nav_wrapper">
+        <div class="button_nav">
+            <div class="left">
+                
+            </div>
+
+            <div class="right">
+                
+                    <a href="docs/index.html"><span>PyPop User Guide</span><span class="icon">&gt;</span></a>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div class="footer" role="contentinfo">
+    &#169; Copyright 2025 PyPop contributors.
+      Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    </div>
+
+<p id="theme_credit">Styled using the <a href="https://github.com/piccolo-orm/piccolo_theme">Piccolo Theme</a></p>
+  </body>
+</html>
