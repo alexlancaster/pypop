@@ -338,6 +338,8 @@ def prepare_release(session):
             "release",
             "edit",
             f"{tag_name}",
+            "--target",
+            "main",
         ]
     proceed2 = input("Continue and update release? [y/N]: ").lower()
     if proceed2 != "y":
