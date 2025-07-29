@@ -23,7 +23,7 @@ large-scale population genetic analyses including:
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
-  * 2025-07-29: `PyPop 1.2.2
+  * 2025-07-28: `PyPop 1.2.2
     <https://github.com/alexlancaster/pypop/releases/tag/v1.2.2>`__ is
     released. This release includes dependency updates and ``nox``
     task framework useful for contributors and
