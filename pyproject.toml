@@ -167,7 +167,8 @@ environment = { MACOSX_DEPLOYMENT_TARGET="11.0" } # target for 11.0/Big Sur
 inherit.before-all="append"
 # install the Big Sur version of `gsl` to match
 before-all = [
-    "ls -l ./gsl_oci/",
+    "ls -l ./gsl_oci",
+    "find ./gsl_oci",
     "ls -l ./gsl_oci/*/sha256-*big_sur*.tar.gz",
     "file ./gsl_oci/*/sha256-*big_sur*.tar.gz",
     "brew install --verbose --debug ./gsl_oci/blobs/sha256-*big_sur*.tar.gz"
