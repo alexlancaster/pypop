@@ -133,8 +133,8 @@ before-all = ["apk add gsl-dev"]
 [tool.cibuildwheel.macos]
 # use oras to get archived 2.7.1 bottles of `gsl` that has 10.15 (on x86) / 11.0 (on arm64) builds
 before-all = ["brew install --quiet oras",
-              "oras copy ghcr.io/homebrew/core/gsl:2.7.1 --to-oci-layout ./gsl_oci",
-	      #"oras pull ghcr.io/homebrew/core/gsl:2.7.1 --include-subject -o .",
+              #"oras copy ghcr.io/homebrew/core/gsl:2.7.1 --to-oci-layout ./gsl_oci",
+	      "oras pull ghcr.io/homebrew/core/gsl:2.7.1 --include-subject -o .",
 	    "ls -h"
 	   ]
 # re-enable if we need to  do a per-build 'gsl' installation to force correct architecture when
@@ -150,7 +150,7 @@ archs = ["arm64", "x86_64"]  # don't enable "universal2" binary
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_*"
 inherit.environment="append"
-environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", PYTHONFAULTHANDLER="1", HOMEBREW_GREP_WARNINGS="-e 'is available and more recent than version' -e 'Cannot verify the integrity of'" }
+environment = { CPATH="/opt/homebrew/include", LIBRARY_PATH="/opt/homebrew/lib", PYTHONFAULTHANDLER="1", HOMEBREW_DEVELOPER="1", HOMEBREW_GREP_WARNINGS="-e 'is available and more recent than version' -e 'Cannot verify the integrity of'" }
 
 [[tool.cibuildwheel.overrides]]
 select = "*-macosx_x86_64"
@@ -167,12 +167,7 @@ environment = { MACOSX_DEPLOYMENT_TARGET="11.0" } # target for 11.0/Big Sur
 inherit.before-all="append"
 # install the Big Sur version of `gsl` to match
 before-all = [
-    "ls -l ./gsl_oci",
-    "find ./gsl_oci",
-    "ls -l ./gsl_oci/*/sha256-*big_sur*.tar.gz",
-    "file ./gsl_oci/*/sha256-*big_sur*.tar.gz",
-    "brew install --verbose --debug ./gsl_oci/blobs/sha256-*big_sur*.tar.gz"
-    #"ls -l ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz", "file ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz", "brew install  --verbose --debug ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"
+    "ls -l ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz", "file ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz", "brew install  --verbose --debug ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"
     ]
 
 [tool.cibuildwheel.windows]
