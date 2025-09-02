@@ -385,6 +385,24 @@ platforms, or no longer work, and need to be updated. Keeping around
 in case of either old platforms or if there is interest in reviving
 the feature(s) in question.
 
+## Installing `brew` bottles on MacOS
+
+Only needed when cross compiling on MacOS, but since we have native
+ARM64 runners, this `brew` workaround is `pyproject.toml` no longer
+needed. Maybe useful if needed in situations where cross-compilation
+is needed.
+
+```toml
+# re-enable if we need to  do a per-build 'gsl' installation to force correct architecture when
+# cross-compiling (https://stackoverflow.com/a/75488269)
+before-build = [
+  "echo ARCHFLAGS = $ARCHFLAGS", # gets the arch at build-time
+  "if [[ $ARCHFLAGS == *arm64 ]]; then BOTTLE_TAG=arm64_big_sur gsl; else BOTTLE_TAG=x86_64_linux; fi",
+  "echo BOTTLE_TAG = $BOTTLE_TAG",
+]
+# force old bottle brew fetch --force --bottle-tag=arm64_monterey gsl; brew reinstall $(brew --cache --bottle-tag=arm64_monterey gsl)"
+```
+
 ### Installing `swig` on certain Ubuntu releases
 
 (obsoleted by newer Ubuntu releases)
