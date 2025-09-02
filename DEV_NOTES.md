@@ -385,7 +385,7 @@ platforms, or no longer work, and need to be updated. Keeping around
 in case of either old platforms or if there is interest in reviving
 the feature(s) in question.
 
-## Installing `brew` bottles on MacOS
+### Installing `brew` bottles on MacOS
 
 Only needed when cross compiling on MacOS, but since we have native
 ARM64 runners, this `brew` workaround is `pyproject.toml` no longer
