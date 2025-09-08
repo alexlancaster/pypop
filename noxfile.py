@@ -74,6 +74,7 @@ def docs(session):
     """Build HTML documentation with Sphinx."""
     output_dir = session.posargs[0] if len(session.posargs) == 1 else "_htmlbuild"
     print("generate HTML docs in:", output_dir)
+    session.install("tomli")
     session.run(
         "python", "src/script_build/generate_metadata.py", "src/PyPop/_metadata.py"
     )  # needed because we aren't installing pypop
@@ -87,6 +88,7 @@ def docs_pdf(session):
     """Build PDF documentation with Sphinx. Requires LaTeX to already be installed"""
     output_dir = session.posargs[0] if len(session.posargs) == 1 else "_latexbuild"
     print("generate PDF docs in:", output_dir)
+    session.install("tomli")
     session.run(
         "python", "src/script_build/generate_metadata.py", "src/PyPop/_metadata.py"
     )  # needed because we aren't installing pypop
