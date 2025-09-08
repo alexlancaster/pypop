@@ -40,6 +40,7 @@ def test_Multiple_Files_Absolute():
     # create a temporary filelist in the current working directory
     # can't use context manager because we need to manually delete
     tf = tempfile.NamedTemporaryFile("w", dir=".", suffix=".txt", delete=False)  # noqa: SIM115
+    tmpname = tf.name
     try:
         for f in test_files:
             tf.write(str(f) + "\n")
@@ -48,12 +49,12 @@ def test_Multiple_Files_Absolute():
         # run pypop process with the absolute path filelist
         exit_code = run_pypop_process(
             abspath_test_data("tests/data/Test_Allele_Colon_HardyWeinberg.ini"),
-            poplistfile=tf.name,
+            poplistfile=tmpname,
         )
         assert exit_code == 0
 
     finally:
-        Path(tf.name).unlink(missing_ok=True)  # clean up temp file
+        Path(tmpname).unlink(missing_ok=True)  # clean up temp file
 
     # check the generated files
     assert {
