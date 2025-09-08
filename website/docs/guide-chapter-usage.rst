@@ -21,12 +21,12 @@ There are two ways to run PyPop:
 -  interactive mode (where the program will prompt you to directly type
    the input it needs); and
 
--  batch mode (where you supply all the command line options the program
-   needs).
+-  command-line (or "batch") mode (where you supply all the command
+   line options the program needs).
 
 For the most simplest application of PyPop, where you wish to analyze
 a single population, the interactive mode is the simplest to use. We
-will describe this mode first then describe batch mode.
+will describe this mode first then describe command-line mode.
 
 .. note::
 
@@ -133,14 +133,16 @@ configuration (e.g., :file:`config.ini`) and population file (e.g.,
 sections on the :ref:`data file <guide-usage-datafile>` and
 :ref:`configuration file <guide-usage-configfile>`, below.
 
-Batch mode
-----------
+.. _guide-usage-command-line-mode:
 
-To run PyPop in the more common "batch mode", you can run PyPop from
-the console (as noted above, on Windows: open :program:`Command
-prompt`, aka a "DOS shell"; on MacOS or GNU/Linux: open the
-:program:`Terminal` application). Change to a directory where your
-``.pop`` file is located, and type the command:
+Command-line mode
+-----------------
+
+To run PyPop in the more common command-line (or "batch mode"), you
+can run PyPop from the console (as noted above, on Windows: open
+:program:`Command prompt`, aka a "DOS shell"; on MacOS or GNU/Linux:
+open the :program:`Terminal` application). Change to a directory where
+your ``.pop`` file is located, and type the command:
 
 .. code-block:: shell
 
@@ -151,7 +153,7 @@ prompt`, aka a "DOS shell"; on MacOS or GNU/Linux: open the
    If your system administrator has installed PyPop the name of the
    script may be renamed to something different.
 
-Batch mode assumes two things: that you have a file called
+Command-line mode assumes two things: that you have a file called
 :file:`config.ini` in your current folder and that you also have your
 population file is in the current folder, otherwise you will need to
 supply the full path to the file. You can specify a particular
@@ -162,6 +164,9 @@ follows:
 
    pypop -c newconfig.ini Guatemalan.pop
 
+Output to different directory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 You may also redirect the output to a different directory (which must
 already exist) by using the ``-o`` option:
 
@@ -169,24 +174,34 @@ already exist) by using the ``-o`` option:
 
    pypop -c newconfig.ini -o altdir Guatemalan.pop
 
+.. _guide-usage-filelist:
+
+Supplying a list of files
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
 If you have many ``.pop`` files with the same overall format
 (i.e. loci), you can process multiple input ``.pop`` files at once, by
 using the ``--filelist`` command-line option, and supplying a text
-file, that contains all the files to be processed on a separate lines:
+file ``FILELIST``, that contains a list of the files to be processed
+on separate lines, e.g.:
 
 .. code-block:: shell
 
    pypop -c config.ini --filelist popfilelist.txt
 
-.. note::
+.. important::
 
-   All files will be resolved relative to relative to the file
-   supplied to ``--filelist``.  For example, if your current working
-   directory looked like the following:
+   New behavior (introduced in 1.3.0): all files within ``FILELIST``
+   will be resolved relative to relative to the *parent* directory of
+   ``FILELIST``, **not** to the current working directory (the old
+   behavior).  This ensures that files can be more straightforwardly
+   located independently of where ``pypop`` is run from.
+
+   For example, if your current working directory looked like the
+   following:
 
    .. code-block:: text
 
-      data/
       data/popfilelist.txt
       data/file1.pop
       data/file2.pop
@@ -204,8 +219,8 @@ file, that contains all the files to be processed on a separate lines:
       file1.pop
       file2.pop
 
-   *Full absolute paths will be processed as-is, and will not be
-   treated as if they are relative to the filelist*.
+   **Full absolute paths will be processed as-is, and will not be
+   treated as if they are relative to the filelist.**
 
 Please see :ref:`guide-pypop-cli` for the full list of command-line
 options.
@@ -218,7 +233,7 @@ What happens when you run PyPop?
 The most common types of analysis will involve the editing of your
 :file:`config.ini` file to suit your data (see :ref:`the configuration
 file <guide-usage-configfile>`) followed by the selection of either
-the interactive or batch mode described above. If your input
+the interactive or command-line mode described above. If your input
 configuration file is :file:`{configfilename}` and your population
 file name is :file:`{popfilename}.txt` the initial output will be
 generated quickly, but your the PyPop execution will not be finished
