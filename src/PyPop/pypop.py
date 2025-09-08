@@ -246,21 +246,19 @@ return for each prompt.""")
         if fileList:
             # if we are providing the filelist
             # use list from file as list to check
-            # li = [f.strip('\n') for f in open(fileList).readlines()]
 
-            base_dir = (
-                Path(fileList.name).resolve().parent
-            )  # interpret paths relative to the fileList location
-            li = []
-            for line in fileList:
-                entry = line.strip()
-                if not entry:
-                    continue
-                p = Path(entry)
-                li.append(p if p.is_absolute() else (base_dir / p).resolve())
+            with open(fileList) as fileListHandle:
+                base_dir = (
+                    Path(fileListHandle.name).resolve().parent
+                )  # interpret paths relative to the fileListHandle location
+                li = []
+                for line in fileListHandle:
+                    entry = line.strip()
+                    if not entry:
+                        continue
+                    p = Path(entry)
+                    li.append(p if p.is_absolute() else (base_dir / p).resolve())
 
-            # li = [f.strip("\n") for f in fileList.readlines()]
-            fileList.close()  # make sure we close it
         elif popFilenames:
             # check number of arguments, must be at least one, but can be more
             # use args as list to check
