@@ -23,7 +23,7 @@ large-scale population genetic analyses including:
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
-  * 2025-09-08: : `PyPop 1.3.0
+  * 2025-09-08: `PyPop 1.3.0
     <https://github.com/alexlancaster/pypop/releases/tag/v1.3.0>`__ is
     released. Includes distribution of Python wheels 3.14.  Features a
     new behavior of the ``--filelist FILELIST`` option. Files listed
