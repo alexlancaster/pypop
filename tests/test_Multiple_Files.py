@@ -38,7 +38,7 @@ def test_Multiple_Files_Absolute():
     ]
 
     # create a temporary filelist in the current working directory
-    with tempfile.NamedTemporaryFile("w+", dir=".", delete=True) as tf:
+    with tempfile.NamedTemporaryFile("w", dir=".", delete=True) as tf:
         for f in test_files:
             tf.write(str(f) + "\n")
         tf.flush()  # ensure content is written
