@@ -58,7 +58,7 @@ jobs:
           echo "github.event.action: ${{ toJson(github.event.action) }}"
           echo "github.event.release.target_commitish: ${{ toJson(github.event.release.target_commitish) }}"
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
       - name: Install dependencies
         run: |
           pip install -r website/requirements-docs.txt

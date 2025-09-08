@@ -287,7 +287,7 @@ jobs:
           echo "POOCH_CACHE=${POOCH_CACHE}" >> $GITHUB_ENV
 
       - name: Install a recent stable Python to handle Python deps
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: 3.12
 
