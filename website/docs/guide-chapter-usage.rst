@@ -148,11 +148,6 @@ your ``.pop`` file is located, and type the command:
 
    pypop Guatemalan.pop
 
-.. note::
-
-   If your system administrator has installed PyPop the name of the
-   script may be renamed to something different.
-
 Command-line mode assumes two things: that you have a file called
 :file:`config.ini` in your current folder and that you also have your
 population file is in the current folder, otherwise you will need to
