@@ -174,13 +174,13 @@ already exist) by using the ``-o`` option:
 Supplying a list of files
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you have many ``.pop`` files with the same overall format (i.e. the
-same, or subset of the loci listed in the ``.ini`` file), you can
-process multiple input ``.pop`` files at once using a single ``.ini``
-file, by using the ``--filelist`` command-line option. You need to
-first create a text file ``FILELIST``, that contains a list of the
-``.pop`` files to be processed on separate lines, and then supply on
-the command-line, e.g.:
+If you have multiple ``.pop`` files with the same overall format
+(i.e. the same, or subset of, the loci listed in the ``.ini`` file),
+you can process those files at once using a single ``.ini`` file, by
+using the ``--filelist`` command-line option. You need to first create
+a text file ``FILELIST``, that contains a list of the ``.pop`` files
+to be processed on separate lines, and then supply that file on the
+command-line, e.g.:
 
 .. code-block:: shell
 
