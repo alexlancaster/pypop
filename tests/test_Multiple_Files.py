@@ -38,7 +38,9 @@ def test_Multiple_Files_Absolute():
     ]
 
     # create a temporary filelist in the current working directory
-    with tempfile.NamedTemporaryFile("w", dir=".", delete=True) as tf:
+    # can't use context manager because we need to manually delete
+    tf = tempfile.NamedTemporaryFile("w", dir=".", suffix=".txt", delete=False)  # noqa: SIM115
+    try:
         for f in test_files:
             tf.write(str(f) + "\n")
         tf.flush()  # ensure content is written
@@ -48,7 +50,12 @@ def test_Multiple_Files_Absolute():
             abspath_test_data("tests/data/Test_Allele_Colon_HardyWeinberg.ini"),
             poplistfile=tf.name,
         )
-    assert exit_code == 0
+        assert exit_code == 0
+
+    finally:
+        Path(tf.name).unlink(missing_ok=True)  # clean up temp file
+
+    # check the generated files
     assert {
         p.name for p in Path().iterdir() if p.is_file()
     } == generated_filenames_common
