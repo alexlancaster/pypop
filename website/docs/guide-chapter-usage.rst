@@ -169,6 +169,44 @@ already exist) by using the ``-o`` option:
 
    pypop -c newconfig.ini -o altdir Guatemalan.pop
 
+If you have many ``.pop`` files with the same overall format
+(i.e. loci), you can process multiple input ``.pop`` files at once, by
+using the ``--filelist`` command-line option, and supplying a text
+file, that contains all the files to be processed on a separate lines:
+
+.. code-block:: shell
+
+   pypop -c config.ini --filelist popfilelist.txt
+
+.. note::
+
+   All files will be resolved relative to relative to the file
+   supplied to ``--filelist``.  For example, if your current working
+   directory looked like the following:
+
+   .. code-block:: text
+
+      data/
+      data/popfilelist.txt
+      data/file1.pop
+      data/file2.pop
+
+   You would run ``pypop`` like:
+
+   .. code-block:: shell
+
+      pypop -c config.ini --filelist data/popfilelist.txt
+
+   and the contents of ``popfilelist.txt`` should be:
+
+   .. code-block:: text
+
+      file1.pop
+      file2.pop
+
+   *Full absolute paths will be processed as-is, and will not be
+   treated as if they are relative to the filelist*.
+
 Please see :ref:`guide-pypop-cli` for the full list of command-line
 options.
 
