@@ -138,7 +138,7 @@ sections on the :ref:`data file <guide-usage-datafile>` and
 Command-line mode
 -----------------
 
-To run PyPop in the more common command-line (or "batch mode"), you
+To run PyPop in the more common command-line (or "batch") mode, you
 can run PyPop from the console (as noted above, on Windows: open
 :program:`Command prompt`, aka a "DOS shell"; on MacOS or GNU/Linux:
 open the :program:`Terminal` application). Change to a directory where
@@ -179,11 +179,13 @@ already exist) by using the ``-o`` option:
 Supplying a list of files
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you have many ``.pop`` files with the same overall format
-(i.e. loci), you can process multiple input ``.pop`` files at once, by
-using the ``--filelist`` command-line option, and supplying a text
-file ``FILELIST``, that contains a list of the files to be processed
-on separate lines, e.g.:
+If you have many ``.pop`` files with the same overall format (i.e. the
+same, or subset of the loci listed in the ``.ini`` file), you can
+process multiple input ``.pop`` files at once using a single ``.ini``
+file, by using the ``--filelist`` command-line option. You need to
+first create a text file ``FILELIST``, that contains a list of the
+``.pop`` files to be processed on separate lines, and then supply on
+the command-line, e.g.:
 
 .. code-block:: shell
 
