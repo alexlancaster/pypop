@@ -53,7 +53,8 @@ def test_Multiple_Files_Absolute():
         )
         assert exit_code == 0
 
-    Path(tmpname).unlink(missing_ok=True)  # clean up temp file, after run completed
+    if Path(tmpname).exists():
+        Path(tmpname).unlink()  # clean up temp file, after run completed
 
     # check the generated files
     assert {
