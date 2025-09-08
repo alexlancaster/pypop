@@ -39,9 +39,9 @@ def test_Multiple_Files_Absolute():
 
     # create a temporary filelist in the current working directory
     # can't use context manager because we need to manually delete
-    tf = tempfile.NamedTemporaryFile("w", dir=".", suffix=".txt", delete=False)  # noqa: SIM115
-    tmpname = tf.name
-    try:
+    with tempfile.NamedTemporaryFile("w", dir=".", suffix=".txt", delete=False) as tf:
+        tmpname = tf.name
+
         for f in test_files:
             tf.write(str(f) + "\n")
         tf.flush()  # ensure content is written
@@ -53,8 +53,7 @@ def test_Multiple_Files_Absolute():
         )
         assert exit_code == 0
 
-    finally:
-        Path(tmpname).unlink(missing_ok=True)  # clean up temp file
+    Path(tmpname).unlink(missing_ok=True)  # clean up temp file, after run completed
 
     # check the generated files
     assert {
