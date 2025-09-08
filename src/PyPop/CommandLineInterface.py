@@ -238,7 +238,7 @@ current directory""",
     add_input(
         "-f",
         "--filelist",
-        help="file containing list of files (one per line) to process\n(mutually exclusive with supplying POPFILEs)",
+        help="file containing list of files (one per line) to process. files are resolved relative to FILELIST, unless absolute. mutually exclusive with supplying POPFILEs)",
         type=FileType("r"),
         default=None,
     )
