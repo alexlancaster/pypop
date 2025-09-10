@@ -57,7 +57,6 @@ extensions = [
     "sphinxarg.ext",
     "sphinx_copybutton",
     "sphinxcontrib.bibtex",
-    "sphinx_typo3_theme",
 ]
 
 # override user-agent so that linkcheck works
