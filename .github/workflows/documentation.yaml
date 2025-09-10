@@ -78,7 +78,7 @@ jobs:
         uses: xu-cheng/latex-action@v3
         with:
           working_directory: _latexbuild
-          root_file: _latexbuild/pypop-guide-1.3.0.tex
+          root_file: pypop-guide-1.3.0.tex
        # run: |
           #sudo apt clean
           #sudo apt-get update
