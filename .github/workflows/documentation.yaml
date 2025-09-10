@@ -75,7 +75,7 @@ jobs:
           sphinx-build -b latex website _latexbuild
       # Compile PDF (auto-detects the versioned .tex file)
       - name: Compile PDF
-        uses: xu-cheng/latex-action@v3
+        uses: xu-cheng/latex-action@v4
         with:
           working_directory: _latexbuild
           root_file: pypop-guide-1.3.0.tex
