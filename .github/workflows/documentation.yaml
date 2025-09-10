@@ -62,20 +62,28 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -r website/requirements-docs.txt
-          sudo apt clean
-          sudo apt-get update
-          sudo apt-get install --fix-missing -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
-      - name: Sphinx build
+      - name: Get metadata
         run: |
-
           # needed because tomli is used for backwards compatibility
           pip install tomli
           # need to generate _metadata.py manually since we are not doing a `pip install` build
           python src/script_build/generate_metadata.py src/PyPop/_metadata.py
+      - name: Build LaTeX sources
+        run: |
           # latex build in separate directory
           # it generates a lot of files we don't need to keep
           sphinx-build -b latex website _latexbuild
-          make -C _latexbuild
+      # Compile PDF (auto-detects the versioned .tex file)
+      - name: Compile PDF
+        uses: xu-cheng/latex-action@v3
+        with:
+          working_directory: _latexbuild
+       # run: |
+          #sudo apt clean
+          #sudo apt-get update
+          #sudo apt-get install --fix-missing -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
+      - name: Postprocess PDF
+        run: |
           # create _build directory and move the PDF there
           mkdir _build
           cp _latexbuild/*.pdf _build/
@@ -83,6 +91,8 @@ jobs:
           cd _build/
           ln -s pypop-guide*.pdf pypop-guide.pdf
           cd -
+      - name: Build HTML
+        run: |
           # now build the HTML
           sphinx-build website _build
 
