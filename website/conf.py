@@ -57,6 +57,7 @@ extensions = [
     "sphinxarg.ext",
     "sphinx_copybutton",
     "sphinxcontrib.bibtex",
+    "sphinx_typo3_theme",
 ]
 
 # override user-agent so that linkcheck works
@@ -78,7 +79,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "PyPop: Python for Population Genomics"
+# project = "PyPop: Python for Population Genomics"
+project = "PyPop"
 copyright = "2025 PyPop contributors"
 uc_copyright = "Copyright © 2003-2009 Regents of the University of California"
 gfdl_license_text = "Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A copy of the license is included in the License chapter."
@@ -254,7 +256,8 @@ bibtex_default_style = "alpha-initials"
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "piccolo_theme"
+# html_theme = "piccolo_theme"
+html_theme = "pydata_sphinx_theme"
 
 html_short_title = "PyPop"
 
@@ -263,9 +266,16 @@ html_short_title = "PyPop"
 # documentation.
 #
 html_theme_options = {  # these are both piccolo theme-specific
+    "show_nav_level": 3,
+    "navigation_depth": 3,
+    "collapse_navigation": False,
+    "secondary_sidebar_items": [],  # "page-toc"
     "source_url": "https://github.com/alexlancaster/pypop/",
-    "banner_text": 'PyPop 1.3.0 is released, including Python 3.14 wheels on PyPI<br/>See more on the <a href="http://pypop.org/">home page</a> for details<br/>',
+    "announcement": 'PyPop 1.3.0 is released, including Python 3.14 wheels on PyPI<br/>See more on the <a href="http://pypop.org/">home page</a> for details<br/>',
+    # "banner_text": 'PyPop 1.3.0 is released, including Python 3.14 wheels on PyPI<br/>See more on the <a href="http://pypop.org/">home page</a> for details<br/>',
 }
+
+html_sidebars = {"index": [], "**": ["sidebar-nav-bs", "page-toc"]}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
