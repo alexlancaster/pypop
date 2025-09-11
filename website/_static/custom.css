@@ -22,3 +22,8 @@ html[data-content_root="./"] div#right_sidebar .page_toc > ul > li:first-child >
 .bd-page-width {
   max-width: 100%;  /* default is 88rem */
 }
+
+/* vertical align logo table */
+table.logo-table td {
+    vertical-align: middle;
+}

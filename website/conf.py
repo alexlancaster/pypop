@@ -272,6 +272,15 @@ html_theme_options = {  # these are both piccolo theme-specific
     "source_url": "https://github.com/alexlancaster/pypop/",
     "announcement": 'PyPop 1.3.0 is released, including Python 3.14 wheels on PyPI<br/>See more on the <a href="http://pypop.org/">home page</a> for details<br/>',
     # "banner_text": 'PyPop 1.3.0 is released, including Python 3.14 wheels on PyPI<br/>See more on the <a href="http://pypop.org/">home page</a> for details<br/>',
+    "logo": {
+        # In a left-to-right context, screen readers will read the alt text
+        # first, then the text, so this example will be read as "P-G-G-P-Y
+        # (short pause) Home A pretty good geometry package"
+        "alt_text": "PyPop - Home",
+        "text": "PyPop",
+        "image_light": "../pypop-logo.png",
+        "image_dark": "../pypop-logo.png",
+    },
 }
 
 html_sidebars = {"index": [], "**": ["sidebar-nav-bs", "page-toc"]}
@@ -303,12 +312,22 @@ PygmentsBridge.latex_formatter = CustomLatexFormatter
 # latex_show_urls = 'inline'
 latex_show_urls = "footnote"
 
+# Copy logo so LaTeX can find it
+latex_additional_files = [
+    "../pypop-logo.png",
+]
+
+latex_logo = "../pypop-logo.png"
+
 # need to declare a template for the LaTeX preamble for later substitution
 
 my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
 \end{tabular}\kern-\tabcolsep\\\begin{tabular}[t]{c}%
 }%
 \setcounter{secnumdepth}{1}%
+
+\usepackage{graphicx}
+\graphicspath{{docs/_static/}{_static/}{./}}
 
 \usepackage{pagenote}
 \makepagenote
@@ -355,8 +374,10 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
        \pdfstringdefDisableCommands{\def\\{, }}% overwrite hyperref setup
        \hypersetup{pdfauthor={\@author}, pdftitle={\@title}}%
       \endgroup
+    \vspace{3em}
+    \makebox[\textwidth][c]{\scalebox{0.65}{\sphinxlogo}}
+    \vspace{3em}
     \begin{flushright}%
-      \sphinxlogo
       \py@HeaderFamily
       {\Huge \@title \par}
       {\Large SUBTITLE \par}
