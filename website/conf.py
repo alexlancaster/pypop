@@ -272,7 +272,7 @@ html_theme_options = {  # some are theme-specific
     },
     "navbar_align": "left",
     "github_url": "https://github.com/alexlancaster/pypop/",
-    "announcement": "https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/theme_update_website/website/_templates/announcement_banner.html",
+    "announcement": "https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html",
     "logo": {
         # In a left-to-right context, screen readers will read the alt text
         # first, then the text, so this example will be read as "P-G-G-P-Y
