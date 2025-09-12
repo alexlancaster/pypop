@@ -63,7 +63,7 @@ jobs:
           echo "github.event.release.target_commitish: ${{ toJson(github.event.release.target_commitish) }}"
 
       - uses: actions/setup-python@v6
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: |
           pip install -r website/requirements-docs.txt
       - name: Get metadata
@@ -83,6 +83,7 @@ jobs:
         with:
           working_directory: _latexbuild
           root_file: pypop-guide-*.tex
+          image: ghcr.io/xu-cheng/texlive-alpine:2025-1
        # run: |
           #sudo apt clean
           #sudo apt-get update
