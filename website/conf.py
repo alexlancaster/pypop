@@ -255,7 +255,6 @@ bibtex_default_style = "alpha-initials"
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-# html_theme = "piccolo_theme"
 html_theme = "pydata_sphinx_theme"
 
 html_short_title = "PyPop"
@@ -264,7 +263,7 @@ html_short_title = "PyPop"
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-html_theme_options = {  # these are both piccolo theme-specific
+html_theme_options = {  # some are theme-specific
     "show_nav_level": 3,
     "navigation_depth": 3,
     "collapse_navigation": False,
@@ -274,7 +273,6 @@ html_theme_options = {  # these are both piccolo theme-specific
     "navbar_align": "left",
     "github_url": "https://github.com/alexlancaster/pypop/",
     "announcement": "https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/theme_update_website/website/_templates/announcement_banner.html",
-    # "banner_text": 'PyPop 1.3.0 is released, including Python 3.14 wheels on PyPI<br/>See more on the <a href="http://pypop.org/">home page</a> for details<br/>',
     "logo": {
         # In a left-to-right context, screen readers will read the alt text
         # first, then the text, so this example will be read as "P-G-G-P-Y

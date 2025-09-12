@@ -1,5 +1,4 @@
 myst_parser==4.0.1
-piccolo-theme==0.24.0
 pydata-sphinx-theme==0.16.1
 rst2pdf==0.103.1
 setuptools_scm==9.2.0
