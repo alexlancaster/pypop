@@ -15,15 +15,39 @@ html[data-content_root="./"] div#right_sidebar .page_toc > ul > li:first-child >
     display: none;
 }
 
-/* .bd-main .bd-content .bd-article-container {
-  max-width: 100%;  /* default is 60em */
-} */
+.bd-main .bd-content .bd-article-container {
+  max-width: 90%;   default is 60em
+}
 
 .bd-page-width {
-  max-width: 100%;  /* default is 88rem */
+     max-width: 95%;   /* default is 88rem */
 }
 
 /* vertical align logo table */
 table.logo-table td {
     vertical-align: middle;
+}
+
+/* responsive table class */
+
+/* Only applies to HTML output */
+div.responsive-table table {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.responsive-table tr {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+}
+
+div.responsive-table td {
+  flex: 1 1 50%; /* side-by-side on wide screens */
+}
+
+@media (max-width: 600px) {
+  div.responsive-table td {
+    flex: 1 1 100%; /* stack cells on small screens */
+  }
 }

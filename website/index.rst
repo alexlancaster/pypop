@@ -6,31 +6,6 @@ PyPop: Python for Population Genomics
 
 .. _news:
 
-.. _guide-preface-1-start:
-
-.. tabularcolumns :: m{0.2\textwidth} m{0.75\textwidth}
-.. list-table::
-   :widths: 25 75
-   :header-rows: 0
-   :class: logo-table
-   :stub-columns: 0
-
-   * - .. image:: ../pypop-logo.png
-          :width: 120px
-          :align: center
-
-     - **PyPop (Python for Population Genomics)** is an environment for doing
-       large-scale population genetic analyses including:
-
-       -  conformity to Hardy-Weinberg expectations
-
-       -  tests for balancing or directional selection
-
-       - estimates of haplotype frequencies and measures and tests of
-         significance for linkage disequilibrium (LD).
-
-.. _guide-preface-1-end:
-
 .. admonition:: PyPop News
   :class: dropdown, toggle-shown
 
@@ -157,6 +132,34 @@ PyPop: Python for Population Genomics
 
   * See the :ref:`PyPop Release History` in the *Python User Guide*
     for even earlier history and full release notes.
+
+.. _guide-preface-1-start:
+
+.. container:: responsive-table-container
+
+   .. tabularcolumns :: m{0.2\textwidth} m{0.75\textwidth}
+   .. list-table::
+      :widths: 25 75
+      :header-rows: 0
+      :class: responsive-table
+      :stub-columns: 0
+
+      * - .. image:: ../pypop-logo.png
+             :width: 120px
+             :align: center
+
+        - **PyPop (Python for Population Genomics)** is an environment for doing
+          large-scale population genetic analyses including:
+
+          -  conformity to Hardy-Weinberg expectations
+
+          -  tests for balancing or directional selection
+
+          - estimates of haplotype frequencies and measures and tests of
+            significance for linkage disequilibrium (LD).
+
+.. _guide-preface-1-end:
+
 
 .. _guide-preface-2-start:
 
