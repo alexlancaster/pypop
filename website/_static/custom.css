@@ -28,26 +28,35 @@ table.logo-table td {
     vertical-align: middle;
 }
 
-/* responsive table class */
+/* containers */
 
-/* Only applies to HTML output */
-div.responsive-table table {
-  display: flex;
-  flex-wrap: wrap;
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
-div.responsive-table tr {
-  display: flex;
-  flex: 1 1 100%;
-  flex-wrap: wrap;
+.logo-cell {
+    flex: 0 0 20%;
+    text-align: center;
 }
 
-div.responsive-table td {
-  flex: 1 1 50%; /* side-by-side on wide screens */
+.text-cell {
+    flex: 1 0 75%;
 }
 
-@media (max-width: 600px) {
-  div.responsive-table td {
-    flex: 1 1 100%; /* stack cells on small screens */
+/* Mobile stacking */
+@media (max-width: 768px) {
+
+  .logo-container {
+      width: 100%;
+      flex-direction: column;   /* stack logo above text */
+      align-items: center;      /* optional: center horizontally */
   }
+  .logo-cell, .text-cell {
+      flex: 0 0 auto;           /* let them size naturally */
+      width: 100%;              /* optional: full width */
+      text-align: center;       /* optional: center content */
+  }
+
 }
