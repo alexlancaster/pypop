@@ -273,7 +273,7 @@ html_theme_options = {  # these are both piccolo theme-specific
     },
     "navbar_align": "left",
     "github_url": "https://github.com/alexlancaster/pypop/",
-    "announcement": 'PyPop 1.3.0 is released, including Python 3.14 wheels on PyPI<br/>See more on the <a href="http://pypop.org/">home page</a> for details<br/>',
+    "announcement": "https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/theme_update_website/website/_templates/announcement_banner.html",
     # "banner_text": 'PyPop 1.3.0 is released, including Python 3.14 wheels on PyPI<br/>See more on the <a href="http://pypop.org/">home page</a> for details<br/>',
     "logo": {
         # In a left-to-right context, screen readers will read the alt text
