@@ -83,9 +83,7 @@ jobs:
         with:
           working_directory: _latexbuild
           root_file: pypop-guide-*.tex
-          texlive_version: 2025
-          os: debian
-          scheme: full
+          docker_image: ghcr.io/xu-cheng/texlive-debian:20250701
        # run: |
           #sudo apt clean
           #sudo apt-get update
