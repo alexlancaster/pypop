@@ -15,10 +15,16 @@ html[data-content_root="./"] div#right_sidebar .page_toc > ul > li:first-child >
     display: none;
 }
 
-/* center only the top-level title on the index page */
-body[data-page="index"] .bd-content h1.page-title {
+/* Center only the top-level H1 on the index page */
+body[data-page="index"] article.bd-article > section > h1 {
   text-align: center;
 }
+
+/* Center only the top-level title on the index page */
+body[data-page="index"] #pypop-python-for-population-genomics > h1 {
+    text-align: center;
+}
+
 
 .bd-main .bd-content .bd-article-container {
   max-width: 90%;   default is 60em
