@@ -10,9 +10,14 @@ pre {
     tab-size: 15;
 }
 
-/* Only hide the top-level TOC title link on index.rst */
+/* only hide the top-level TOC title link on index.rst */
 html[data-content_root="./"] div#right_sidebar .page_toc > ul > li:first-child > a.reference.internal {
     display: none;
+}
+
+/* center only the top-level title on the index page */
+body[data-page="index"] .bd-content h1.page-title {
+  text-align: center;
 }
 
 .bd-main .bd-content .bd-article-container {
@@ -73,7 +78,7 @@ img.no-background {
   .logo-cell, .text-cell {
       flex: 0 0 auto;           /* let them size naturally */
       width: 100%;              /* optional: full width */
-      text-align: center;       /* optional: center content */
+      text-align: left;       /* optional: center content */
   }
 
 }
