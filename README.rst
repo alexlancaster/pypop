@@ -2,6 +2,7 @@
 
 .. image:: pypop-logo.png
    :width: 200px
+   :align: center
 
 PyPop: Python for Population Genomics
 =====================================
