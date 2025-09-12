@@ -288,6 +288,8 @@ html_theme_options = {  # these are both piccolo theme-specific
 
 html_logo = "../pypop-logo.png"
 
+html_favicon = "_static/pypop-favicon.ico"
+
 html_sidebars = {"index": [], "**": ["sidebar-nav-bs", "page-toc"]}
 
 # Add any paths that contain custom static files (such as style sheets) here,
