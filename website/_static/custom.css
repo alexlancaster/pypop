@@ -28,6 +28,23 @@ table.logo-table td {
     vertical-align: middle;
 }
 
+/* Show light logo by default, hide dark logo */
+.logo-light { display: inline; }
+.logo-dark  { display: none; }
+
+/* Switch for dark mode using prefers-color-scheme */
+@media (prefers-color-scheme: dark) {
+    .logo-light { display: none; }
+    .logo-dark  { display: inline; }
+}
+
+img.no-background {
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+
 /* containers */
 
 .logo-container {

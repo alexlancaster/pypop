@@ -11,6 +11,7 @@ PyPop: Python for Population Genomics
    .. container:: logo-cell
 
       .. image:: ../pypop-logo.png
+	 :class: no-background
          :width: 120px
          :align: center
 

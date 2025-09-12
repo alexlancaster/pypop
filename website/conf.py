@@ -281,10 +281,12 @@ html_theme_options = {  # these are both piccolo theme-specific
         # (short pause) Home A pretty good geometry package"
         "alt_text": "PyPop - Home",
         "text": "PyPop",
-        "image_light": "../pypop-logo.png",
-        "image_dark": "../pypop-logo.png",
+        # "image_light": "../pypop-logo.png",
+        # "image_dark": "../pypop-logo.png",
     },
 }
+
+html_logo = "../pypop-logo.png"
 
 html_sidebars = {"index": [], "**": ["sidebar-nav-bs", "page-toc"]}
 
@@ -292,7 +294,6 @@ html_sidebars = {"index": [], "**": ["sidebar-nav-bs", "page-toc"]}
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
-
 html_css_files = ["custom.css"]
 
 # put all files that should be root of the pypop.org/ webserver into this directory
