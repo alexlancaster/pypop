@@ -25,6 +25,7 @@ from pygments.formatters.latex import LatexFormatter
 from setuptools_scm import get_version
 from sphinx.directives.code import LiteralInclude
 from sphinx.highlighting import PygmentsBridge
+from sphinx.writers.latex import LaTeXTranslator as SphinxLaTeXTranslator
 from sphinxcontrib.bibtex.style.referencing import BracketStyle
 from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferenceStyle
 from sphinxcontrib.bibtex.style.referencing.extra_year import ExtraYearReferenceStyle
@@ -271,6 +272,7 @@ html_theme_options = {  # some are theme-specific
         "**": [],  # "page-toc"
     },
     "navbar_align": "left",
+    "pygments_light_style": "manni",
     "github_url": "https://github.com/alexlancaster/pypop/",
     "announcement": "https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html",
     "logo": {
@@ -363,6 +365,23 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
   }{}
 }{}{}
 
+% Reuse Sphinx styling for admonitions
+% We'll define a 'sphinxdeprecated' environment
+
+\usepackage{xcolor}
+\usepackage{tcolorbox} % loads breakable and skins libraries
+\tcbuselibrary{breakable} % only breakable boxes
+
+\newtcolorbox{sphinxdeprecated}[1][]{
+  breakable,
+  parbox=false,       % important: preserves normal line spacing
+  colback=yellow!10,
+  colframe=red!70!black,
+  sharp corners,
+  fonttitle=\bfseries,
+  title=Deprecated,
+  #1
+}
 % override default title page to add subtitle
 \makeatletter
 \renewcommand{\sphinxmaketitle}{%
@@ -472,6 +491,26 @@ def substitute_toc_maxdepth(app, _docname, source):
     source[0] = new_source  # Update the source with the modified content
 
 
+class CustomLaTeXTranslator(SphinxLaTeXTranslator):
+    def visit_versionmodified(self, node):
+        if node["type"] == "deprecated":
+            version = node.get("version", "")
+            title = "Deprecated"
+            if version:
+                title += f" since {version}"
+            self.body.append(rf"\begin{{sphinxdeprecated}}[title={title}]")
+        else:
+            super().visit_versionmodified(node)
+
+    def depart_versionmodified(self, node):
+        if node["type"] == "deprecated":
+            self.body.append(r"\end{sphinxdeprecated}")
+        else:
+            super().depart_versionmodified(node)
+
+
 def setup(app):
+    app.set_translator("latex", CustomLaTeXTranslator)
+
     app.add_directive("literalinclude", MyLiteralInclude, override=True)
     app.connect("source-read", substitute_toc_maxdepth)

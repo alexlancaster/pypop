@@ -171,20 +171,31 @@ already exist) by using the ``-o`` option:
 
 .. _guide-usage-filelist:
 
-Supplying a list of files
-~~~~~~~~~~~~~~~~~~~~~~~~~
+Supplying multiple ``.pop`` files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you have multiple ``.pop`` files with the same overall format
 (i.e. the same, or subset of, the loci listed in the ``.ini`` file),
-you can process those files at once using a single ``.ini`` file, by
-using the ``--filelist`` command-line option. You need to first create
-a text file ``FILELIST``, that contains a list of the ``.pop`` files
-to be processed on separate lines, and then supply that file on the
-command-line, e.g.:
+you can process those in one ``pypop`` invocation using a single
+``.ini`` file.  You either supply them directly on the command-line:
+
+.. code-block:: shell
+
+   pypop -c config.ini Guatemalan.pop NorthAmerican.pop
+
+or you use the ``--filelist`` command-line option:
 
 .. code-block:: shell
 
    pypop -c config.ini --filelist popfilelist.txt
+
+Where the text file ``popfilelist.txt`` contains a list of the
+``.pop`` files to be processed on separate lines, e.g.:
+
+.. code-block:: shell
+
+   Guatemalan.pop
+   NorthAmerican.pop
 
 .. important::
 
@@ -780,12 +791,10 @@ be required for data that has sample identifiers as in
 above) and ``validPopFields`` (described below) will need to be
 modified.
 
-.. important::
-
-   .. deprecated:: 1.0.0
-      The sections ``[Arlequin]`` and
-      ``[HardyWeinbergGuoThompsonArlequin]`` related to the
-      :program:`Arlequin` program as they are currently unmaintained.
+.. deprecated:: 1.0.0
+   The sections ``[Arlequin]`` and
+   ``[HardyWeinbergGuoThompsonArlequin]`` related to the
+   :program:`Arlequin` program as they are currently unmaintained.
 
 .. _general-advanced-options:
 
@@ -888,45 +897,43 @@ modified.
    logged to the XML output file, this is disabled by default.
    **[Default:** ``0`` **(i.e. OFF)]**.
 
-.. important::
+.. deprecated:: 1.0.0
+    currently unmaintained and untested.
 
-   .. deprecated:: 1.0.0
-       currently unmaintained and untested.
+   ``[Arlequin]`` extra section
 
-      ``[Arlequin]`` extra section
+   This section sets characteristics of the :program:`Arlequin`
+   application if it has been installed (it must be installed
+   separately from PyPop as we cannot distribute it). The options
+   in this section are only used when a test requiring
+   :program:`Arlequin`, such as it's implementation of Guo and
+   Thompson's :cite:yearpar:`guo_performing_1992` Hardy-Weinberg
+   exact test is invoked (see below).
 
-      This section sets characteristics of the :program:`Arlequin`
-      application if it has been installed (it must be installed
-      separately from PyPop as we cannot distribute it). The options
-      in this section are only used when a test requiring
-      :program:`Arlequin`, such as it's implementation of Guo and
-      Thompson's :cite:yearpar:`guo_performing_1992` Hardy-Weinberg
-      exact test is invoked (see below).
+   -  ``arlequinExec``
 
-      -  ``arlequinExec``
+      This option specifies where to find the :program:`Arlequin`
+      executable on your system. The default assumes it is on your
+      system path. **[Default:** :file:`arlecore.exe` **]**
 
-         This option specifies where to find the :program:`Arlequin`
-         executable on your system. The default assumes it is on your
-         system path. **[Default:** :file:`arlecore.exe` **]**
+   ``[HardyWeinbergGuoThompsonArlequin]`` extra section
 
-      ``[HardyWeinbergGuoThompsonArlequin]`` extra section
+   When this section is present, :program:`Arlequin`'s implementation of the
+   Hardy-Weinberg exact test is run, using a Monte-Carlo Markov Chain
+   implementation. By default this section is not enabled.
 
-      When this section is present, :program:`Arlequin`'s implementation of the
-      Hardy-Weinberg exact test is run, using a Monte-Carlo Markov Chain
-      implementation. By default this section is not enabled.
+   -  ``markovChainStepsHW``
 
-      -  ``markovChainStepsHW``
+      Length of steps in the Markov chain **[Default: 2500000]**.
 
-         Length of steps in the Markov chain **[Default: 2500000]**.
+   -  ``markovChainDememorisationStepsHW``
 
-      -  ``markovChainDememorisationStepsHW``
+      Number of steps of to “burn-in” the Markov chain before statistics
+      are collected.\ **[Default:** ``5000`` **]**
 
-         Number of steps of to “burn-in” the Markov chain before statistics
-         are collected.\ **[Default:** ``5000`` **]**
-
-      The default values for options described above have proved to be optimal
-      for us and if the options are not provided these defaults will be used.
-      If you change the values and have problems, please let us **know**.
+   The default values for options described above have proved to be optimal
+   for us and if the options are not provided these defaults will be used.
+   If you change the values and have problems, please let us **know**.
 
 Advanced filtering sections
 ---------------------------
