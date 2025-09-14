@@ -366,7 +366,7 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
 }{}{}
 
 % Reuse Sphinx styling for admonitions
-% We'll define a 'sphinxdeprecated' environment
+% We'll define a 'sphinxversionbox' environment
 
 \usepackage{xcolor}
 \usepackage{tcolorbox} % loads breakable and skins libraries
