@@ -376,7 +376,7 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
   breakable,
   parbox=false,   % important: preserves normal line spacing
   sharp corners,
-  fonttitle=\bfseries,
+  fonttitle=\bfseries\itshape,
   #1
 }
 

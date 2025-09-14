@@ -202,12 +202,11 @@ where the text file ``popfilelist.txt`` contains a list of the
 
    New behavior: all files within ``FILELIST`` will be resolved
    relative to relative to the *parent* directory of ``FILELIST``,
-   **not** to the current working directory (the old behavior).  This
-   ensures that files can be more straightforwardly located
-   independently of where ``pypop`` is run from.
+   **not** to the current working directory (the old behavior).
 
-   For example, if your current working directory looked like the
-   following:
+   This ensures that files can be more straightforwardly located
+   independently of where ``pypop`` is run from. For example, if your
+   current working directory looked like the following:
 
    .. code-block:: text
 
