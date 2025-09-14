@@ -372,16 +372,14 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
 \usepackage{tcolorbox} % loads breakable and skins libraries
 \tcbuselibrary{breakable} % only breakable boxes
 
-\newtcolorbox{sphinxdeprecated}[1][]{
+\newtcolorbox{sphinxversionbox}[1][]{
   breakable,
-  parbox=false,       % important: preserves normal line spacing
-  colback=yellow!10,
-  colframe=red!70!black,
+  parbox=false,   % important: preserves normal line spacing
   sharp corners,
   fonttitle=\bfseries,
-  title=Deprecated,
   #1
 }
+
 % override default title page to add subtitle
 \makeatletter
 \renewcommand{\sphinxmaketitle}{%
@@ -493,18 +491,34 @@ def substitute_toc_maxdepth(app, _docname, source):
 
 class CustomLaTeXTranslator(SphinxLaTeXTranslator):
     def visit_versionmodified(self, node):
-        if node["type"] == "deprecated":
-            version = node.get("version", "")
-            title = "Deprecated"
-            if version:
-                title += f" since {version}"
-            self.body.append(rf"\begin{{sphinxdeprecated}}[title={title}]")
+        vtype = node["type"]
+        version = node.get("version", "")
+        title, opts = "", ""
+
+        if vtype == "deprecated":
+            title = f"Deprecated since version {version}" if version else "Deprecated"
+            opts += "coltitle=black,colback=red!5,colframe=red!30!white"
+        elif vtype == "versionchanged":
+            title = f"Changed in version {version}" if version else "Changed"
+            # match warning style (orange, softened)
+            opts += "coltitle=black,colback=orange!10,colframe=orange!25!white"
+        elif vtype == "versionadded":
+            title = f"Added in version {version}" if version else "Added"
+            # soft green, like "tip" or "success" admonition
+            opts += "coltitle=black,colback=green!5,colframe=green!20!white"
+        elif vtype == "versionremoved":
+            title = f"Removed in version {version}" if version else "Removed"
+            opts += "colback=gray!5,colframe=red!50!black"
+
+        if opts:
+            self.body.append(rf"\begin{{sphinxversionbox}}[title={{{title}}},{opts}]")
         else:
             super().visit_versionmodified(node)
 
     def depart_versionmodified(self, node):
-        if node["type"] == "deprecated":
-            self.body.append(r"\end{sphinxdeprecated}")
+        vtype = node["type"]
+        if vtype in {"deprecated", "versionchanged", "versionadded", "versionremoved"}:
+            self.body.append(r"\end{sphinxversionbox}")
         else:
             super().depart_versionmodified(node)
 

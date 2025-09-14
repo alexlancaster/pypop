@@ -183,13 +183,14 @@ you can process those in one ``pypop`` invocation using a single
 
    pypop -c config.ini Guatemalan.pop NorthAmerican.pop
 
-or you use the ``--filelist`` command-line option:
+or you use the ``--filelist`` command-line option to pass in a file
+containing a list of files, i.e.:
 
 .. code-block:: shell
 
    pypop -c config.ini --filelist popfilelist.txt
 
-Where the text file ``popfilelist.txt`` contains a list of the
+where the text file ``popfilelist.txt`` contains a list of the
 ``.pop`` files to be processed on separate lines, e.g.:
 
 .. code-block:: shell
@@ -197,13 +198,13 @@ Where the text file ``popfilelist.txt`` contains a list of the
    Guatemalan.pop
    NorthAmerican.pop
 
-.. important::
+.. versionchanged:: 1.3.0
 
-   New behavior (introduced in 1.3.0): all files within ``FILELIST``
-   will be resolved relative to relative to the *parent* directory of
-   ``FILELIST``, **not** to the current working directory (the old
-   behavior).  This ensures that files can be more straightforwardly
-   located independently of where ``pypop`` is run from.
+   New behavior: all files within ``FILELIST`` will be resolved
+   relative to relative to the *parent* directory of ``FILELIST``,
+   **not** to the current working directory (the old behavior).  This
+   ensures that files can be more straightforwardly located
+   independently of where ``pypop`` is run from.
 
    For example, if your current working directory looked like the
    following:
