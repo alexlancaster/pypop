@@ -25,6 +25,7 @@ from pygments.formatters.latex import LatexFormatter
 from setuptools_scm import get_version
 from sphinx.directives.code import LiteralInclude
 from sphinx.highlighting import PygmentsBridge
+from sphinx.writers.latex import LaTeXTranslator as SphinxLaTeXTranslator
 from sphinxcontrib.bibtex.style.referencing import BracketStyle
 from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferenceStyle
 from sphinxcontrib.bibtex.style.referencing.extra_year import ExtraYearReferenceStyle
@@ -271,6 +272,7 @@ html_theme_options = {  # some are theme-specific
         "**": [],  # "page-toc"
     },
     "navbar_align": "left",
+    "pygments_light_style": "manni",
     "github_url": "https://github.com/alexlancaster/pypop/",
     "announcement": "https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html",
     "logo": {
@@ -362,6 +364,21 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
    \endgroup
   }{}
 }{}{}
+
+% Reuse Sphinx styling for admonitions
+% We'll define a 'sphinxversionbox' environment
+
+\usepackage{xcolor}
+\usepackage{tcolorbox} % loads breakable and skins libraries
+\tcbuselibrary{breakable} % only breakable boxes
+
+\newtcolorbox{sphinxversionbox}[1][]{
+  breakable,
+  parbox=false,   % important: preserves normal line spacing
+  sharp corners,
+  fonttitle=\bfseries\itshape,
+  #1
+}
 
 % override default title page to add subtitle
 \makeatletter
@@ -472,6 +489,42 @@ def substitute_toc_maxdepth(app, _docname, source):
     source[0] = new_source  # Update the source with the modified content
 
 
+class CustomLaTeXTranslator(SphinxLaTeXTranslator):
+    def visit_versionmodified(self, node):
+        vtype = node["type"]
+        version = node.get("version", "")
+        title, opts = "", ""
+
+        if vtype == "deprecated":
+            title = f"Deprecated since version {version}" if version else "Deprecated"
+            opts += "coltitle=black,colback=red!5,colframe=red!30!white"
+        elif vtype == "versionchanged":
+            title = f"Changed in version {version}" if version else "Changed"
+            # match warning style (orange, softened)
+            opts += "coltitle=black,colback=orange!10,colframe=orange!25!white"
+        elif vtype == "versionadded":
+            title = f"Added in version {version}" if version else "Added"
+            # soft green, like "tip" or "success" admonition
+            opts += "coltitle=black,colback=green!5,colframe=green!20!white"
+        elif vtype == "versionremoved":
+            title = f"Removed in version {version}" if version else "Removed"
+            opts += "colback=gray!5,colframe=red!50!black"
+
+        if opts:
+            self.body.append(rf"\begin{{sphinxversionbox}}[title={{{title}}},{opts}]")
+        else:
+            super().visit_versionmodified(node)
+
+    def depart_versionmodified(self, node):
+        vtype = node["type"]
+        if vtype in {"deprecated", "versionchanged", "versionadded", "versionremoved"}:
+            self.body.append(r"\end{sphinxversionbox}")
+        else:
+            super().depart_versionmodified(node)
+
+
 def setup(app):
+    app.set_translator("latex", CustomLaTeXTranslator)
+
     app.add_directive("literalinclude", MyLiteralInclude, override=True)
     app.connect("source-read", substitute_toc_maxdepth)

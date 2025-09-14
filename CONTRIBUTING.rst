@@ -47,7 +47,7 @@ blank issue and describe your situation.  Here is a checklist:
   **single plaintext** output. E.g. here is an example error from
   running ``pypop`` on a badly formed ``.ini`` file:
 
-  .. code::
+  .. code:: pytb
 
      $ pypop -c minimal.ini USAFEL-UchiTelle-small.pop
      Traceback (most recent call last):
