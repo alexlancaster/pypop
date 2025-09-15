@@ -1177,7 +1177,7 @@ class HardyWeinbergGuoThompsonArlequin:
 
             else:
                 # only one locus done at a time from output
-                genos, obsHet, expHet, pvalue, stddev, steps = self.output["1"]
+                _genos, obsHet, expHet, pvalue, stddev, steps = self.output["1"]
 
                 # generate output section
                 stream.opentag("hardyweinbergGuoThompsonArlequin")

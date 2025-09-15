@@ -762,7 +762,7 @@ class Main:
 
             # check to see if given locus is monomorphic and skip the
             # rest of the analysis for this particular if it is.
-            alleleTable, totalAlleles, untypedIndividuals, unsequencedIndividuals = (
+            alleleTable, _totalAlleles, _untypedIndividuals, _unsequencedIndividuals = (
                 self.input.getAlleleCountAt(locus)
             )
             numDistinctAlleles = len(alleleTable.keys())
