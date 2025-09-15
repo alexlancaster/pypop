@@ -453,7 +453,7 @@ class ParseGenotypeFile(ParseFile):
         # generate alleleMap and population field name
         self._genInternalMaps()
 
-        sampleDataLines, separator = self.getFileData()
+        sampleDataLines, _separator = self.getFileData()
 
         if self.debug:
             print("sampleMap keys:", self.sampleMap.keys())

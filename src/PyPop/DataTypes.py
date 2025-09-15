@@ -341,7 +341,7 @@ class Genotypes:
 
         # need to recalculate values
         if lumpValue != 0:
-            alleles, totalAlleles, untyped, unsequenced = self.freqcount[locus]
+            alleles, _totalAlleles, _untyped, _unsequenced = self.freqcount[locus]
 
             lumpedAlleles = {}
             listLumped = []

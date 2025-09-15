@@ -217,7 +217,7 @@ def run_script_process_shell(script_name, args):
     process = subprocess.Popen(
         cmd_line, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
     )
-    output, err = process.communicate()
+    _output, _err = process.communicate()
     return process.wait()  # wait until script completed
 
 
