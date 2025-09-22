@@ -320,6 +320,7 @@ jobs:
       - name: Generate citation formats
         run: |
           python --version
+          python -m pip install ruamel.yaml.clib==0.2.12
           python -m pip install git+https://github.com/alexlancaster/cffconvert.git@combine_features#egg=cffconvert
           python src/PyPop/citation.py
 
