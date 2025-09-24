@@ -267,8 +267,9 @@ autoapi_dirs = ["../src/PyPop"]
 autoapi_file_pattern = "*.py"
 autoapi_ignore = [
     "**/conf.py",  # ignore problematic file
-    #    "*/_version.py",
 ]
+autoapi_member_order = "groupwise"
+autoapi_options = ["members", "undoc-members", "show-inheritance"]
 
 # -- Options for LaTeX output ---------------------------------------------
 
