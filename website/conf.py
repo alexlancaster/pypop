@@ -15,7 +15,6 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 import sys
-from dataclasses import dataclass, field
 from pathlib import Path
 
 import pybtex.plugin
@@ -26,19 +25,9 @@ from setuptools_scm import get_version
 from sphinx.directives.code import LiteralInclude
 from sphinx.highlighting import PygmentsBridge
 from sphinx.writers.latex import LaTeXTranslator as SphinxLaTeXTranslator
-from sphinxcontrib.bibtex.style.referencing import BracketStyle
-from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferenceStyle
-from sphinxcontrib.bibtex.style.referencing.extra_year import ExtraYearReferenceStyle
-from sphinxcontrib.bibtex.style.template import (
-    join2,
-    post_text,
-    pre_text,
-    reference,
-    year,
-)
 
 sys.path.insert(0, str(Path("../src").resolve()))
-
+sys.path.insert(0, str(Path(__file__).parent))  # add website/ to path
 
 # -- General configuration ------------------------------------------------
 
@@ -58,6 +47,7 @@ extensions = [
     "sphinxarg.ext",
     "sphinx_copybutton",
     "sphinxcontrib.bibtex",
+    "autoapi.extension",
 ]
 
 # override user-agent so that linkcheck works
@@ -177,43 +167,14 @@ bibtex_bibfiles = ["pypop.bib"]
 ## remove space between citation and post-text, so that it supports
 ## output like: "Author (2024a, 2024b)"
 
-
-def bracket_style() -> BracketStyle:
-    return BracketStyle(
-        left="(",
-        right=")",
-    )
-
-
-@dataclass
-class MyReferenceStyle(AuthorYearReferenceStyle, ExtraYearReferenceStyle):
-    bracket_parenthetical: BracketStyle = field(default_factory=bracket_style)
-    bracket_textual: BracketStyle = field(default_factory=bracket_style)
-    bracket_author: BracketStyle = field(default_factory=bracket_style)
-    bracket_label: BracketStyle = field(default_factory=bracket_style)
-    bracket_year: BracketStyle = field(default_factory=bracket_style)
-
-    # override Separator between citation and post-text to drop comma and space
-    post_text_sep: str = ""
-
-    def inner(self, role_name):
-        # introspection to decide which parent class method to call
-        if role_name in {"year", "yearpar"}:
-            # append the pre and post text (original file does not do this)
-            return join2(sep1=self.pre_text_sep, sep2=self.post_text_sep)[
-                pre_text,
-                reference[year],
-                post_text,
-            ]
-        # call the inner method for AuthorYearReferenceStyle
-        return super(AuthorYearReferenceStyle, self).inner(role_name)
-
+from bibtex_styles import MyReferenceStyle  # noqa: E402
 
 sphinxcontrib.bibtex.plugin.register_plugin(
     "sphinxcontrib.bibtex.style.referencing", "author_year_round", MyReferenceStyle
 )
 
 bibtex_reference_style = "author_year_round"
+
 
 ## custom bibligraphy style
 
@@ -302,6 +263,12 @@ html_css_files = ["custom.css"]
 # and they will be included in the build directory (and therefore on the website)
 html_extra_path = ["html_root"]
 
+autoapi_dirs = ["../src/PyPop"]
+autoapi_file_pattern = "*.py"
+autoapi_ignore = [
+    "**/conf.py",  # ignore problematic file
+    #    "*/_version.py",
+]
 
 # -- Options for LaTeX output ---------------------------------------------
 
