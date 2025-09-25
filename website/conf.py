@@ -14,6 +14,7 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
+import shutil
 import sys
 from pathlib import Path
 
@@ -266,6 +267,10 @@ html_extra_path = ["html_root"]
 
 autoapi_dirs = ["../src/PyPop"]
 autoapi_type = "python"
+autoapi_root = "autoapi"
+autoapi_add_toctree_entry = False
+autoapi_keep_files = True
+autoapi_own_page_level = "module"
 autoapi_file_pattern = "*.py"
 autoapi_ignore = [
     "**/conf.py",
@@ -519,9 +524,16 @@ def skip_instance_vars(_app, what, _name, _obj, skip, _options):
     return True
 
 
+def prepare_autoapi_index(app):
+    dst = Path(app.srcdir) / "autoapi" / "index.rst"
+    src = Path(app.srcdir) / "_static" / "api_index_override.rst"
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy(src, dst)
+
+
 def setup(app):
+    app.connect("builder-inited", prepare_autoapi_index)
     app.connect("autoapi-skip-member", skip_instance_vars)
     app.set_translator("latex", CustomLaTeXTranslator)
-
     app.add_directive("literalinclude", MyLiteralInclude, override=True)
     app.connect("source-read", substitute_toc_maxdepth)
