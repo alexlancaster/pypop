@@ -30,6 +30,12 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+"""
+.. note::
+
+   A Python library for population genetics analyses.
+"""
+
 import locale
 import logging
 import platform

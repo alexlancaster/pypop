@@ -30,6 +30,10 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". CONTRIBUTORS HAVE NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+"""
+Command-line interface for PyPop scripts
+"""
+
 from argparse import (
     Action,
     ArgumentDefaultsHelpFormatter,
@@ -41,16 +45,18 @@ from pathlib import Path
 from PyPop import platform_info  # global info
 from PyPop.citation import citation_output_formats  # and citation formats
 
-"""Command-line interface for PyPop scripts
-"""
 
-
-# combine both kinds of formats
-class PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter):
-    pass
+class _PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter):
+    """
+    Class for combining both kinds of formats
+    """
 
 
 class CitationAction(Action):
+    """
+    A custom ``argparse`` ``Citation`` action to read the appropriate citation file format
+    """
+
     def __call__(self, parser, _, values, _option_string=None):
         citation_format = values or "apalike"
         citation_file_name = f"citation/CITATION.{citation_format}"
@@ -91,7 +97,13 @@ class CitationAction(Action):
 
 
 def get_parent_cli(version="", copyright_message=""):
-    # options common to both scripts
+    """
+    Command-line options common to all scripts
+
+    Args:
+        version (str): software version
+        copyright_message (str): override the copyright message
+    """
     parent_parser = ArgumentParser(add_help=False)
 
     # define function arguments as signatures - need to be added in child parser as part of the selection logic
@@ -159,6 +171,13 @@ def get_parent_cli(version="", copyright_message=""):
 
 
 def get_pypop_cli(version="", copyright_message=""):
+    """
+    Command-line options for ``pypop`` script
+
+    Args:
+        version (str): software version
+        copyright_message (str): override the copyright message
+    """
     parent_parser, ihwg_args, phylip_args, common_args, prefix_tsv_args = (
         get_parent_cli(version=version, copyright_message=copyright_message)
     )
@@ -170,7 +189,7 @@ def get_pypop_cli(version="", copyright_message=""):
 Expects to find a configuration file called 'config.ini' in the
 current directory""",
         epilog=copyright_message,
-        formatter_class=PyPopFormatter,
+        formatter_class=_PyPopFormatter,
     )
 
     add_pypop = pypop_parser.add_argument_group("Options for pypop").add_argument
@@ -252,6 +271,14 @@ current directory""",
 
 
 def get_popmeta_cli(version="", copyright_message=""):
+    """
+    Command-line options for ``popmeta`` script
+
+    Args:
+        version (str): software version
+        copyright_message (str): override the copyright message
+    """
+
     parent_parser, ihwg_args, phylip_args, common_args, prefix_tsv_args = (
         get_parent_cli(version=version, copyright_message=copyright_message)
     )
@@ -263,7 +290,7 @@ def get_popmeta_cli(version="", copyright_message=""):
         description="""Processes XMLFILEs and generates 'meta'-analyses. XMLFILE are
 expected to be the XML output files taken from runs of 'pypop'.  Will
 skip any XML files that are not well-formed XML.""",
-        formatter_class=PyPopFormatter,
+        formatter_class=_PyPopFormatter,
     )
 
     popmeta_parser.add_argument(

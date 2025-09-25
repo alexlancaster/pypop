@@ -34,7 +34,10 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 
-"""Module for exposing Arlequin functionality in Python."""
+"""
+.. deprecated:: 1.0.0
+   Module for exposing Arlequin functionality in Python.
+"""
 
 import os
 import re
