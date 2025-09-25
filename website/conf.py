@@ -48,6 +48,7 @@ extensions = [
     "sphinx_copybutton",
     "sphinxcontrib.bibtex",
     "autoapi.extension",
+    "sphinx.ext.napoleon",
 ]
 
 # override user-agent so that linkcheck works
@@ -264,12 +265,29 @@ html_css_files = ["custom.css"]
 html_extra_path = ["html_root"]
 
 autoapi_dirs = ["../src/PyPop"]
+autoapi_type = "python"
 autoapi_file_pattern = "*.py"
 autoapi_ignore = [
-    "**/conf.py",  # ignore problematic file
+    "**/conf.py",
 ]
 autoapi_member_order = "groupwise"
-autoapi_options = ["members", "undoc-members", "show-inheritance"]
+autoapi_options = [
+    "members",
+    "undoc-members",
+    "show-inheritance",
+    "show-module-summary",
+    "imported-members",
+]
+
+# concatenate the class and constructor
+autoapi_python_class_content = "both"
+
+# parse the doc strings as rST
+autoapi_python_use_autodoc_docstring = True
+
+# keep docs less verbose by skipping module names in front of each
+# class/method
+add_module_names = False
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -424,6 +442,7 @@ latex_elements = {
 
 latex_documents = [
     ("docs/index", guide_prefix + ".tex", guide_name, author, "manual"),
+    # ("autoapi/index", guide_prefix + "-api" + ".tex", "API " + guide_name, author, "manual"),
 ]
 pdf_documents = [
     ("docs/index", guide_prefix, guide_name, author),
@@ -491,7 +510,17 @@ class CustomLaTeXTranslator(SphinxLaTeXTranslator):
             super().depart_versionmodified(node)
 
 
+def skip_instance_vars(_app, what, _name, _obj, skip, _options):
+    # Only skip instance variables
+    if what != "attribute":
+        return skip
+    # Otherwise, assume it's an instance variable -> skip
+    # print("excluding:", what, name, skip)
+    return True
+
+
 def setup(app):
+    app.connect("autoapi-skip-member", skip_instance_vars)
     app.set_translator("latex", CustomLaTeXTranslator)
 
     app.add_directive("literalinclude", MyLiteralInclude, override=True)
