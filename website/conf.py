@@ -457,7 +457,7 @@ latex_documents = [
     ("docs/index", guide_prefix + ".tex", guide_name, author, "manual"),
     (
         "autoapi/index",
-        guide_prefix + "-api" + ".tex",
+        "pypop" + "-api" + ".tex",
         "PyPop API Reference",
         "Alex Lancaster",
         "howto",
