@@ -447,7 +447,7 @@ latex_elements = {
 
 latex_documents = [
     ("docs/index", guide_prefix + ".tex", guide_name, author, "manual"),
-    # ("autoapi/index", guide_prefix + "-api" + ".tex", "API " + guide_name, author, "manual"),
+    # ("autoapi/index", guide_prefix + "-api" + ".tex", "PyPop API Reference", "Alex Lancaster", "howto"),
 ]
 pdf_documents = [
     ("docs/index", guide_prefix, guide_name, author),

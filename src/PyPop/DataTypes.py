@@ -248,16 +248,14 @@ class Genotypes:
                 self.totalLociWithData += 1
 
     def getLocusList(self):
-        """Returns:
+        """
+        Returns:
             list: The list of loci.
 
-        .. note::
-
+        Note:
            The returned list filters out all loci that consist of
-           individuals that are all untyped.
-
-           the order of this list is now fixed for the lifetime
-           of the object.
+           individuals that are all untyped.  The order of returned
+           list is now fixed for the lifetime of the object.
         """
 
         # returns a clone of the locusKeys list, so that this instance
@@ -337,7 +335,7 @@ class Genotypes:
 
         Args:
             stream (TextOutputStream): the stream used for output
-            locus (str): locus to output
+            locus (str): locus
         """
         self.alleleTable, self.total, untypedIndividuals, unsequencedSites = (
             self.freqcount[locus]
@@ -347,6 +345,11 @@ class Genotypes:
         )
 
     def serializeAlleleCountDataTo(self, stream):
+        """Serialize allele count data for a specific locus
+
+        Args:
+            stream (TextOutputStream): the stream used for output
+        """
         stream.opentag("allelecounts")
 
         for locus in self.freqcount:
@@ -360,24 +363,19 @@ class Genotypes:
     def getLocusDataAt(self, locus, lumpValue=0):
         """Get the genotyped data for specified locus.
 
-        Given a ``locus``, return
-
         Args:
             locus (str): locus to use
-            lumpValue (int): the specified amount of lumping (Default: 0)
+            lumpValue (int): the specified amount of lumping (Default: ``0``).
 
         Returns:
             list: a list genotypes consisting of 2-tuples which
             contain each of the alleles for that individual in the
             list.
 
-        .. note::
-
-            list has filtered out all individuals that are untyped at
-            either chromosome.
-
-            data is sorted so that ``allele1`` < ``allele2``, alphabetically
-
+        Note:
+            The returned list has filtered out all individuals that
+            are untyped at either chromosome. Data is sorted so that
+            ``allele1`` < ``allele2``, alphabetically
         """
 
         # need to recalculate values
@@ -418,7 +416,7 @@ class Genotypes:
 
         Returns:
            dict: keyed by locus name of lists of 2-tuples as defined
-           by ``getLocusDataAt()``
+           by :meth:`getLocusDataAt()`
 
         """
         return self.locusTable

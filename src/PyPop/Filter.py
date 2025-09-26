@@ -31,12 +31,12 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Module for filtering data files.
+"""Module for pre-filtering data files.
 
-   Filters and cleans data before being accepted as input to PyPop
-   analysis routines.
+This module includes filters that modify or otherwise transform the
+input data before being passed to PyPop analysis.
 
-."""
+"""
 
 import os
 import re
@@ -52,6 +52,10 @@ from PyPop.Utils import StringMatrix
 
 
 class SubclassError(Exception):
+    """
+    Customized exception if a subclass doesn't implement required methods.
+    """
+
     def __init__(self):
         super().__init__()
 
@@ -60,7 +64,7 @@ class SubclassError(Exception):
 
 
 class Filter(ABC):
-    """Abstract base class for Filters"""
+    """Abstract base class for all Filters"""
 
     def __init__(self):
         super().__init__()
@@ -144,12 +148,14 @@ class PassThroughFilter(Filter):
 
 
 class AnthonyNolanFilter(Filter):
-    """Filters data via anthonynolan's allele call data.
+    """Filters data via Anthony Nolan's allele call data.
 
-    Allele call data files can be of either txt or msf formats.
-    txt files available at http://www.anthonynolan.com
-    msf files available at ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/
-    Use of msf files is required in order to translate allele codes
+    Allele call data files can be of either ``txt`` or ``msf`` formats.
+
+    - ``txt`` files available at http://www.anthonynolan.com
+    - ``msf`` files available at ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/
+
+    Use of ``msf`` files is required in order to translate allele codes
     into polymorphic sequence data.
     """
 
@@ -172,6 +178,64 @@ class AnthonyNolanFilter(Filter):
         debug=0,
         sequenceFilterMethod="strict",
     ):
+        """
+        Args:
+             directoryName (str): directory that AnthonyNolan allele data is located
+
+             remoteMSF (str): Specifies the version (tag) of the remote ``msf``
+                directory in the `IMGT-HLA GitHub repo
+                <https://github.com/ANHIG/IMGTHLA/>`__.  If present, the remote
+                MSF files for the specified version will be downloaded on-demand,
+                and cached for later reuse
+
+             alleleFileFormat (str, optional): file format,
+                can be ``txt`` or ``msf`` (default)
+
+             preserveAmbiguousFlag (int, optional): If set to ``0`` (default) then
+                ambiguitity is removed (e.g.  ``010101/0102/010301`` will
+                truncate this to ``0101``).  To preserve the ambiguity,
+                set the option to ``1`` (for this example, it will result
+                in a filtered allele "name" of ``0101/0102/0103``)
+
+             preserveUnknownFlag (int, optional): If set to ``0`` (default) replace
+                unknown alleles with the ``untypedAllele`` designator. To
+                keep unrecognized allele names set to ``1``.
+
+             preserveLowresFlag (int, optional): This option is similar to
+                ``preserveUnknownFlag``, but only applies to lowres
+                alleles. If set to ``1``, PyPop will keep allele names
+                that are shorter than the default allele name length,
+                usually 4 digits long.  But if  ``preserveUnknownFlag``
+                is set, this option has no effect, because all unknown
+                alleles are preserved.
+
+             alleleDesignator (str, optional): the designator used to indicate a locus name (default ``*``),
+
+             logFile (str, optional): log file
+
+             untypedAllele (str, optional): defaults to ``****``
+
+             unsequencedSite (str, optional): defaults to ``#``
+
+             sequenceFileSuffix (str, optional): Suffix for file names
+                used for finding sequences each allele. (e.g.,, if the
+                file for locus ``A`` is ``A_prot.msf``, then keep the
+                default be ``_prot``. For  nucleotide sequence files,
+                this would be set  ``_nuc``.
+
+             filename (str, optional): Currently not used
+
+             numDigits (int, optional): Number of digits used for HLA data (default ``4``)
+
+             verboseFlag (int, optional): Verbose output (default is on, i.e. ``1``)
+
+             debug (int, optional): Enable debugging (default, off ``0``),
+
+             sequenceFilterMethod (str, optional): matching alleles to
+               sequence, defaults to ``strict``, can also be
+               ``greedy``
+
+        """
         self.directoryName = directoryName
         self.remoteMSF = remoteMSF
         self.alleleFileFormat = alleleFileFormat
@@ -246,10 +310,17 @@ class AnthonyNolanFilter(Filter):
             print(self.alleleLookupTable)
 
     def doFiltering(self, matrix=None):
-        """Do filtering on StringMatrix
+        """Do filtering on the provided matrix
 
-        Given a StringMatrix, does the filtering on the matrix, and
-        returns it for further downstream processing"""
+        Args:
+
+           matrix (StringMatrix): matrix to be filteredng
+
+        Returns:
+
+           StringMatrix: returns processed matrix for further downstream processing
+
+        """
         self.matrix = matrix
 
         for locus in self.matrix.colList:
@@ -294,6 +365,14 @@ class AnthonyNolanFilter(Filter):
         return self.matrix
 
     def startFirstPass(self, locus):
+        """Start the first pass of filtering
+
+        Args:
+           locus (str): locus to start filtering
+
+        See also:
+           Must be paired with a subsequent :meth:`endFirstPass`
+        """
         self.locus = locus
         self.countTable = {}
         self.translTable = {}
@@ -305,9 +384,14 @@ class AnthonyNolanFilter(Filter):
     def checkAlleleName(self, alleleName):
         """Checks allele name against the database.
 
-        Returns the allele truncated to appropriate number of digits,
-        if it can't be found using any of the heuristics, return it as
-        an untyped allele (normally four asterisks)
+        Args:
+           alleleName (str):
+
+        Returns:
+
+          str: returns the original ``allele`` truncated to appropriate number of digits,
+          if it can't be found using any of the heuristics, return it as
+          an ``untypedAllele`` (normally ``****``).
         """
 
         # alleleInfo = self.filename + ":" + self.locus + ":" + alleleName
@@ -382,6 +466,12 @@ class AnthonyNolanFilter(Filter):
         return retval
 
     def addAllele(self, alleleName):
+        """Add allele to be filtered
+
+        Args:
+           alleleName (str):
+        """
+
         if alleleName not in self.translTable:
             self.translTable[alleleName] = self.checkAlleleName(alleleName)
 
@@ -393,6 +483,11 @@ class AnthonyNolanFilter(Filter):
             self.countTable[filteredAllele] = 1
 
     def endFirstPass(self):
+        """End first pass of filtering
+
+        See also:
+           Must be paired with a previous :meth:`startFirstPass`
+        """
         if self.debug:
             print("translation table:", self.translTable)
             print("count table:", self.countTable)
@@ -474,10 +569,24 @@ class AnthonyNolanFilter(Filter):
             print("after filtering:", self.translTable)
 
     def startFiltering(self):
+        """Start the main filtering.
+
+        See also:
+          must be paired with a subsequent :meth:`endFiltering`
+        """
         self.logFile.opentag("translateTable", locus=self.locus)
         self.logFile.writeln()
 
     def filterAllele(self, alleleName):
+        """Filter a specified allele
+
+        Args:
+           alleleName (str): allele to filter
+
+        Returns:
+           dict: return the translated allele
+        """
+
         if self.preserveAmbiguousFlag and len(alleleName.split("/")) > 1:
             transl_collection = []
             for subname in alleleName.split("/"):
@@ -499,17 +608,48 @@ class AnthonyNolanFilter(Filter):
         return transl
 
     def endFiltering(self):
+        """End filtering.
+
+        See Also:
+
+           Must be paired with a previous :meth:`startFiltering`
+        """
+
         self.logFile.closetag("translateTable")
         self.logFile.writeln()
 
     def writeToLog(self, logstring="\n"):
+        """Write a string to log
+
+        Args:
+           logstring (str): defaults to line feed
+        """
         self.logFile.writeln(logstring)
 
     def cleanup(self):
-        pass
+        """Do any cleanups."""
 
     ################# translation methods begin here
     def makeSeqDictionaries(self, matrix=None, locus=None):
+        """Make a sequence dictionary for a given locus.
+
+        Args:
+            matrix (StringMatrix): matrix to use.
+            locus (str): locus to use.
+
+        Returns:
+            tuple:
+
+                polyseq (dict): Keyed on ``locus*allele`` of all
+                allele sequences, containing **ONLY** the polymorphic
+                positions.
+
+                polyseqpos (dict): Keyed on ``locus`` of the positions
+                of the polymorphic residues which you find in
+                ``polyseq``.
+
+        """
+
         self.matrix = matrix
 
         # polyseq is a dictionary, keyed on 'locus*allele', of all
@@ -692,6 +832,16 @@ class AnthonyNolanFilter(Filter):
         return self.polyseq, self.polyseqpos
 
     def translateMatrix(self, matrix=None):
+        """Translate the whole matrix (all loci)
+
+        Args:
+            matrix (StringMatrix): matrix to translate
+
+        Returns:
+
+            StringMatrix: new instance with sequence data in columns
+        """
+
         self.matrix = matrix
         self.polyseq, self.polyseqpos = self.makeSeqDictionaries(self.matrix)
 
@@ -1048,7 +1198,8 @@ class AnthonyNolanFilter(Filter):
 
 
 class BinningFilter:
-    """Filters data through rules defined in one file for each locus."""
+    """Filters original data into "bins" through either digits (for
+    HLA alleles) or custom rules defined a file for each locus."""
 
     def __init__(
         self,
@@ -1059,6 +1210,25 @@ class BinningFilter:
         binningDigits=4,
         debug=0,
     ):
+        """
+        Args:
+
+           binningDigits (int, optional): defaults to ``4``
+
+           untypedAllele (str, optional): defaults to ``****``
+
+           customBinningDict (dict, optional): a custom binning dict, this is
+            keyed by locus, but each key consists of a series of
+            lines, each line containing ruleset of which alleles
+            belong in a given bin
+
+           filename (str, optional): filename (**unused**), defaults to ``None``
+
+           logFile (str): output logfile, must be set
+
+           debug (int, optional): enable debugging (defaults to none, i.e. ``0``)
+
+        """
         self.binningDigits = binningDigits
         self.untypedAllele = untypedAllele
         self.customBinningDict = customBinningDict
@@ -1067,6 +1237,19 @@ class BinningFilter:
         self.debug = debug
 
     def doDigitBinning(self, matrix=None):
+        """Do the **digit** binning on specified matrix.
+
+        Note:
+           Digit binning is done only if :attr:`binningDigits` is set.
+
+        Args:
+           matrix (StringMatrix): matrix to modify
+
+        Returns:
+           StringMatrix: the modified matrix
+
+        """
+
         self.logFile.opentag("DigitBinningFilter")
         self.logFile.writeln("<![CDATA[")
 
@@ -1093,6 +1276,17 @@ class BinningFilter:
         return matrix
 
     def doCustomBinning(self, matrix=None):
+        """Do the **custom** binning  on specified matrix.
+
+        Note:
+           Custom binning is done only if ``customBinningDict`` is set.
+
+        Args:
+           matrix (StringMatrix): matrix to modify
+
+        Returns:
+           StringMatrix: the modified matrix
+        """
         self.logFile.opentag("CustomBinningFilter")
         self.logFile.writeln("<![CDATA[")
 
@@ -1137,6 +1331,19 @@ class BinningFilter:
         return matrix
 
     def lookupCustomBinning(self, testAllele, locus):
+        """Apply custom binning rules to a given allele and locus
+        pair, and return result.
+
+        Args:
+
+           testAllele (str): allele to check
+           locus (str): locus to check
+
+        Returns:
+
+           str: binned (or not) allele
+
+        """
         exactMatches = []
         closeMatches = {}
 
@@ -1212,12 +1419,19 @@ class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
     """Filters data with an allelecount less than a threshold."""
 
     def __init__(self, lumpThreshold=None, **kw):
+        """
+        Args:
+           lumpThreshold (int): set threshold
+
+        Keyword Args:
+           kw: See :class:`AnthonyNolanFilter` for more keyword arguments
+        """
         self.lumpThreshold = lumpThreshold
         AnthonyNolanFilter.__init__(self, **kw)
 
     def endFirstPass(self):
-        """Do regular AnthonyNolanFilter then translate alleles with
-        count < lumpThreshold to 'lump'
+        """Process regular AnthonyNolanFilter then modify all alleles with
+        a count < ``lumpThreshold`` to ``lump``
 
         """
 
