@@ -30,10 +30,45 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-"""
+"""PyPop is a framework for performing population genetics analyses, originally
+designed as an end-to-end pipeline that reads configuration files and datasets
+and produces standardized outputs. While the primary workflow is file-based,
+most internal functionality is exposed as Python modules and classes.
+
 .. note::
 
-   A Python library for population genetics analyses.
+   This public API is primarily intended for developers who are
+   working on PyPop itself. PyPop is not yet optimized for use in
+   end-user programs (i.e. where data structures can be passed in and
+   out of the library) via a programmatic interface.  PyPop is mostly
+   used as a command-line script. However, it is possible to drive
+   PyPop programmatically by importing the :mod:`PyPop.Main` module.
+
+For example, you can instantiate a :class:`PyPop.Main.Main` object with
+a configuration instance and optional parameters:
+
+.. code-block:: python
+
+    from PyPop import Main
+    from PyPop.Config import ConfigFile
+
+    config = ConfigFile("example.ini")
+
+    application = Main(
+        config=config,
+        debugFlag=False,
+        fileName="datafile.txt",
+        datapath="data/",
+        xslFilename="transform.xsl",
+        xslFilenameDefault="default.xsl",
+        outputDir="results/",
+        version="1.0",
+        testMode=False,
+    )
+
+This creates an application instance that will process according to the
+given configuration and input files.
+
 """
 
 import locale

@@ -26,6 +26,10 @@
 
 # FIXME: exclude certain rules, since this functionality is deprecated
 # ruff: noqa: F403 F405 F841
+"""
+.. deprecated:: 1.0.0
+   Module for GUI
+"""
 
 import warnings
 from pathlib import Path
