@@ -335,21 +335,6 @@ accurate.)
 - `ParseAlleleCount` is another subclass of `ParseFile` that deals
   with files consisting of allele counts across a whole population.
 
-- `HardyWeinberg` is a class that calculates Hardy-Weinberg
-  statistics given genotype data for a single locus.
-
-- `HardyWeinbergGuoThompson` a subclass of `HardyWeinberg` that uses the
-  Guo & Thompson algorithm for calculating statistics.
-
-- `HardyWeinbergGuoThompsonArlequin` a subclass of `HardyWeinberg`
-  that uses the Arlequin implementation of the Guo & Thompson algorithm
-  for calculating statistics.
-
-- `ArlequinWrapper` the underlying class that "wraps" the
-  functionality of the "Arlequin":http://lgb.unige.ch/arlequin/ program
-  (obsolete: this class, in turn, supplies `HaploArlequin` with required
-  information).
-
 - `Homozygosity` Calculates homozygosity statistics for a given locus,
   calculates the observed homozygosity and returns the approximate
   expected homozygosity statistics taken from previous simulation runs.

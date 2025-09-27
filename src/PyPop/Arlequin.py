@@ -53,7 +53,9 @@ warnings.warn(
 
 
 class ArlequinWrapper:
-    """New wrapper for Arlequin"""
+    """The underlying class that "wraps" the functionality of the
+    `Arlequin <http://lgb.unige.ch/arlequin/>`_ program.
+    """
 
     def __init__(
         self,

@@ -106,28 +106,34 @@ def _chen_statistic(genotype, alleleFreqs, genotypes, total_gametes):
 
 
 class HardyWeinberg:
-    """Calculate Hardy-Weinberg statistics.
+    """Calculate Hardy-Weinberg statistics given genotype data for a
+    single locus.
 
     Given the observed genotypes for a locus, calculate the expected
     genotype counts based on Hardy Weinberg proportions for individual
     genotype values, and test for fit.
-
     """
 
     def __init__(
         self, locusData=None, alleleCount=None, lumpBelow=5, flagChenTest=0, debug=0
     ):
-        """Constructor.
+        """
+        Args:
 
-        - locusData and alleleCount to be provided by driver script
-          via a call to ParseFile.getLocusData(locus).
+          locusData (list): list of tuples of genotype ``(allele1, allele2)``
 
-        - lumpBelow: treat alleles with frequency less than this as if they
-          were in same class  (Default: 5)
+          alleleCount (tuple): a tuple consisting of a dictionary of
+           counts, total count and number of untyped individuals as
+           returned by :meth:`PyPop.DataTypes.Genotypes.getLocusDataAt`
 
-        - flagChenTest: if enabled do Chen's chi-square-based "corrected"
-          p-value (Default: 0 [False])
+          lumpBelow (int): lump alleles with frequency less than this
+            threshold as if they were in same class (Default: 5)
 
+          flagChenTest (int): if enabled (``1``) do Chen's
+            chi-square-based "corrected" p-value (Default: ``0``,
+            disabled)
+
+          debug (int): enable debugging (``1``)
         """
 
         self.locusData = locusData  # ordered tuples of genotypes
@@ -304,12 +310,13 @@ class HardyWeinberg:
         - create a count of observed and expected lumped together for
           genotypes with an expected value of less than lumpBelow
 
-        - Chi-square p-values are calculated with the _Pvalue extension
-          module called as an inline Python function, but is C code
-          compiled as a loadable shared library.  This code is based on
-          R's implementation of the chi-square test which is released
-          under the GNU GPL and as such, is redistributable with our
-          code, removing the need for an external program"""
+        - Chi-square p-values are calculated with the ``_Pvalue``
+          extension module called as an inline Python function, but is
+          C code compiled as a loadable shared library.  This code is
+          based on R's implementation of the chi-square test which is
+          released under the GNU GPL and as such, is redistributable
+          with our code, removing the need for an external program
+        """
 
         self.counterA = {}
         self.chisq = {}
@@ -577,6 +584,15 @@ class HardyWeinberg:
     ################################################################################
 
     def serializeTo(self, stream, allelelump=0):
+        """
+        Serialize output to specified XML stream.
+
+        Args:
+
+           stream (XMLOutputStream): write to specified XML stream (generally a file)
+
+           allelelump (int): record the allele lumping value
+        """
         getStreamType(stream)
 
         # stream serialization goes here
@@ -716,6 +732,12 @@ class HardyWeinberg:
         stream.writeln()
 
     def serializeXMLTableTo(self, stream):
+        """Serialize the genotype table.
+
+        Args:
+
+           stream (XMLOutputStream): XML stream
+        """
         sortedAlleles = self.observedAlleles[:]
         sortedAlleles.sort()
 
@@ -798,38 +820,40 @@ class HardyWeinberg:
 
 
 class HardyWeinbergGuoThompson(HardyWeinberg):
-    """Wrapper class for 'gthwe'
+    """A subclass of ``HardyWeinberg`` that uses the Guo & Thompson
+    (1992) algorithm for calculating statistics.
 
-    A wrapper for the Guo & Thompson program 'gthwe'.
+    This Python class wraps the functionality of the Guo & Thompson
+    program ``gthwe``.  In addition to the arguments for the base
+    class, this class accepts the following additional keywords:
 
-    - 'locusData', 'alleleCount':  As per base class.
+    Keyword Args:
 
-    In addition to the arguments for the base class, this class
-    accepts the following additional keywords:
+      runMCMCTest (int): If enabled (``1``) run the Monte Carlo-Markov chain
+       (MCMC) version of the test (what is normally referred to as
+       "Guo & Thompson"), default disabled (``0``)
 
-    - 'runMCMCTest': If enabled run the Monte Carlo-Markov chain (MCMC)
-      version of the test (what is normally referred to as "Guo &
-      Thompson")
+      runPlainMCTest (int): If enabled (``1``) run a plain Monte
+       Carlo/randomization without the Markov-chain version of the
+       test (this is also described in the original Guo & Thompson
+       *Biometrics* paper, but was not in their original program)
 
-    - 'runPlainMCTest': If enabled run a plain Monte Carlo/randomization
-      without the Markov-chain version of the test (this is also
-      described in the original "Guo & Thompson" Biometrics paper, but
-      was not in their original program)
+      dememorizationSteps (int): number of "dememorization" initial
+       steps for random number generator (default ``2000``).
 
+      samplingNum (int): the number of chunks for random number generator
+       (default ``1000``).
 
-    - 'dememorizationSteps': number of `dememorization' initial steps
-      for random number generator (default 2000).
+      samplingSize (int): size of each chunk (default ``1000``).
 
-    - 'samplingNum': the number of chunks for random number generator
-      (default 1000).
+      maxMatrixSize (int): maximum size of `flattened'
+       lower-triangular matrix of observed alleles (default ``250``).
 
-    - 'samplingSize': size of each chunk (default 1000).
-
-    - 'maxMatrixSize': maximum size of `flattened' lower-triangular matrix of
-       observed alleles (default 250).
-
-    - 'monteCarloSteps': number of steps for the plain Monte Carlo
+      monteCarloSteps (int): number of steps for the plain Monte Carlo
        randomization test (without Markov-chain)
+
+      testing (bool): testing mode, default ``False``
+
     """
 
     def __init__(
@@ -862,6 +886,12 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
         HardyWeinberg.__init__(self, locusData=locusData, alleleCount=alleleCount, **kw)
 
     def generateFlattenedMatrix(self):
+        """Generated a flattened version of the genotype matrix.
+
+        Returns:
+
+           list: a list of observed genotype counts
+        """
         self.sortedAlleles = self.observedAlleles
         self.sortedAlleles.sort()
 
@@ -910,6 +940,14 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
                 self.totalGametes += int(output)
 
     def dumpTable(self, locusName, stream, allelelump=0):
+        """Output table to stream
+
+        Args:
+
+          locusName (str): locus to output table
+          stream (XMLOutputStream): name of XML stream
+          allelelump (int): record allele lumping level (default ``0``)
+        """
         if locusName[0] == "*":
             locusName = locusName[1:]
 
@@ -1010,10 +1048,19 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
 
 class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
-    """Uses Hazael Maldonado Torres' exact enumeration test
+    """Hardy-Weinberg testing with Hazael Maldonado Torres' exact
+    enumeration test
 
-    - 'doOverall': if set to true ('1'), then do overall p-value test
-                   default is false ('0')
+    Warning:
+
+      This requires the ``Enumeration`` C code to be compiled
+      as a module using SWIG. By default this is currently disabled.
+
+    Args:
+
+      doOverall (int): if set to true (``1``), then do overall *p*-value test
+        default is false (``0``)
+
     """
 
     def __init__(self, locusData=None, alleleCount=None, doOverall=0, **kw):
@@ -1040,6 +1087,13 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
             self.chenPvals = self.HweEnumProcess.get_chen_statistic_pvalue_ext()
 
     def serializeTo(self, stream, allelelump=0):
+        """Serialize enumeration test output to stream
+
+        Args:
+
+          stream (XMLOutputStream): XML stream to use
+          allelelump (int): record allele lumping level (default ``0``)
+        """
         stream.opentag("hardyweinbergEnumeration", allelelump=(f"{allelelump}"))
 
         self.serializeXMLTableTo(stream)
@@ -1093,32 +1147,26 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
 
 
 class HardyWeinbergGuoThompsonArlequin:
-    """Wrapper class for 'Arlequin'.
+    """Class that uses the Arlequin implementation of the Guo &
+    Thompson algorithm for calculating statistics.
+
+    .. deprecated:: 1.0.0
 
     This class extracts the Hardy-Weinberg (HW) statistics using the
     Arlequin implementation of the HW exact test, by the following:
 
-    1. creates a subdirectory 'arlequinRuns' in which all the Arlequin
+    1. creates a subdirectory ``arlequinRuns`` in which all the Arlequin
        specific files are generated;
 
     2. then the specified arlequin executable is run, generating the
-       Arlequin output HTML files (*.htm);
+       Arlequin output HTML files (``*.htm``);
 
     3. the Arlequin output is then parsed for the relevant statistics;
 
-    4. lastly, the 'arlequinRuns' directory is removed.
+    4. lastly, the  ``arlequinRuns`` directory is removed.
 
-    Since the directory name 'arlequinRuns' is currently hardcoded, this
+    Since the directory name ``arlequinRuns`` is currently hardcoded, this
     has the consequence that this class cannot be invoked concurrently.
-
-    Parameters:
-
-    - 'markovChainStepsHW': Number of steps to use in Markov chain
-    (default: 100000).
-
-    - 'markovChainDememorisationStepsHW': "Burn-in" time for Markov
-    chain (default: 1000).
-
     """
 
     def __init__(
@@ -1131,6 +1179,17 @@ class HardyWeinbergGuoThompsonArlequin:
         untypedAllele="****",
         debug=None,
     ):
+        """
+        Args:
+
+          matrix (StringMatrix): matrix to extract locus from
+          locusName (str): locus to use
+          arlequinExec (str): name of Arlequin executable
+          markovChainStepsHW (int): number of steps to use in Markov chain (default: ``100000``).
+          markovChainDememorisationStepsHW (int): "Burn-in" time for Markov chain (default: ``1000``).
+          untypedAllele (str): untyped allele identifier
+          debug (int): enable debugging (``1``)
+        """
         self.matrix = matrix
         self.locusName = locusName
         self.debug = debug
@@ -1160,6 +1219,12 @@ class HardyWeinbergGuoThompsonArlequin:
             self.noDataFlag = 1
 
     def serializeTo(self, stream):
+        """Serialize output to stream
+
+        Args:
+
+           stream (XMLOutputStream): stream to serialize to
+        """
         if self.noDataFlag:
             stream.emptytag("hardyweinbergGuoThompsonArlequin", role="no-data")
             stream.writeln()
