@@ -325,13 +325,6 @@ accurate.)
   directly from the GUI or values based from a form to a web server or
   the) it then runs the specified modules (outlined below).
 
-- `GUIApp` is the graphical front-end to PyPop which uses the
-  "wxPython":http://www.wxpython.org GUI toolkit. wxPython is a set of
-  Python bindings to "wxWindows":http://www.wxwindows.org, which is an
-  open-source cross-platform GUI widget toolkit which has a native look
-  under GNU/Linux (GTK), Windows (MFC) and MacOS X (Aqua). \[as of 2023,
-  this was removed\]
-
 - `ParseFile` is a base class which has most of the common functionality
   for reading files.
 
@@ -351,16 +344,6 @@ accurate.)
 - `HardyWeinbergGuoThompsonArlequin` a subclass of `HardyWeinberg`
   that uses the Arlequin implementation of the Guo & Thompson algorithm
   for calculating statistics.
-
-- `Haplo` is an abstract base class for estimating haplotypes given
-  genotype data.
-
-* `HaploArlequin` is a subclass of `Haplo` that uses Arlequin for
-  estimation of haplotypes (obsolete).
-
-- `Emhaplofreq` is a subclass of `Haplo` that uses `emhaplofreq` (Rich
-  Single\`s program) for the estimation of haplotypes and linkage
-  disequilibrium values.
 
 - `ArlequinWrapper` the underlying class that "wraps" the
   functionality of the "Arlequin":http://lgb.unige.ch/arlequin/ program

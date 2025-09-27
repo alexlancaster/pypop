@@ -249,13 +249,13 @@ class Genotypes:
 
     def getLocusList(self):
         """
-        Returns:
-            list: The list of loci.
-
         Note:
            The returned list filters out all loci that consist of
            individuals that are all untyped.  The order of returned
            list is now fixed for the lifetime of the object.
+
+        Returns:
+            list: The list of loci.
         """
 
         # returns a clone of the locusKeys list, so that this instance
@@ -363,6 +363,11 @@ class Genotypes:
     def getLocusDataAt(self, locus, lumpValue=0):
         """Get the genotyped data for specified locus.
 
+        Note:
+            The returned list has filtered out all individuals that
+            are untyped at either chromosome. Data is sorted so that
+            ``allele1`` < ``allele2``, alphabetically
+
         Args:
             locus (str): locus to use
             lumpValue (int): the specified amount of lumping (Default: ``0``).
@@ -371,11 +376,6 @@ class Genotypes:
             list: a list genotypes consisting of 2-tuples which
             contain each of the alleles for that individual in the
             list.
-
-        Note:
-            The returned list has filtered out all individuals that
-            are untyped at either chromosome. Data is sorted so that
-            ``allele1`` < ``allele2``, alphabetically
         """
 
         # need to recalculate values

@@ -26,9 +26,17 @@
 
 # FIXME: exclude certain rules, since this functionality is deprecated
 # ruff: noqa: F403 F405 F841
-"""
+"""GUIApp was an implementation of a graphical front-end to PyPop
+
 .. deprecated:: 1.0.0
-   Module for GUI
+
+   It uses the `wxPython <http://www.wxpython.org>`_ GUI
+   toolkit. wxPython is a set of Python bindings to `wxWindows
+   <http://www.wxwindows.org>`_, which is an open-source
+   cross-platform GUI widget toolkit which has a native look under
+   GNU/Linux (GTK), Windows (MFC) and MacOS. As of 2023 and version
+   1.0.0, this was deprecated, and will be removed
+
 """
 
 import warnings
