@@ -102,12 +102,23 @@ copyright_message = """Copyright (C) 2003-2006 Regents of the University of Cali
 Copyright (C) 2007-2025 PyPop team.
 This is free software.  There is NO warranty; not even for
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
+"""
+copyright information used in ``--help`` screens and elsewhere
+"""
+
 
 platform_info = f"[Python {platform.python_version()} | {platform.platform()} | {platform.machine()}]"
+"""
+platform information used in ``--help`` screens and elsewhere
+"""
 
 
 def setup_logging(debug=False, filename=None):
-    """Provide defaults for logging."""
+    """Provide defaults for logging using the :mod:`logging` module.
+
+    Important:
+      Not currently used.
+    """
     level = logging.DEBUG if debug else logging.INFO
     if filename is None:
         filename = "-"
