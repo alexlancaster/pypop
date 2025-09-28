@@ -82,6 +82,22 @@ class HaploArlequin(Haplo):
     Delegates all calls Arlequin to an internally instantiated
     ArlequinBatch Python object called 'batch'.
 
+    Args:
+
+      arpFilename (str): Arlequin filename (must have ``.arp`` file
+       extension)
+      idCol (str): column in input file that contains the individual ``id``.
+      prefixCols (int): number of columns to ignore before allele data
+       starts
+      suffixCols (int): number of columns to ignore after allele data
+       stops
+      windowSize (int): size of sliding window
+      mapOrder (list): list order of columns if different to column order in file
+       (defaults to order in file)
+      untypedAllele (str):  (defaults to ``0``)
+      arlequinPrefix (str) : prefix for all Arlequin run-time files
+       (defaults to ``arl_run``).
+      debug (int): (defaults to ``0``, i.e. OFF)
     """
 
     def __init__(
@@ -96,25 +112,6 @@ class HaploArlequin(Haplo):
         arlequinPrefix="arl_run",
         debug=0,
     ):
-        """
-        Args:
-
-          arpFilename (str): Arlequin filename (must have ``.arp`` file
-           extension)
-          idCol (str): column in input file that contains the individual ``id``.
-          prefixCols (int): number of columns to ignore before allele data
-           starts
-          suffixCols (int): number of columns to ignore after allele data
-           stops
-          windowSize (int): size of sliding window
-          mapOrder (list): list order of columns if different to column order in file
-           (defaults to order in file)
-          untypedAllele (str):  (defaults to ``0``)
-          arlequinPrefix (str) : prefix for all Arlequin run-time files
-           (defaults to ``arl_run``).
-          debug (int): (defaults to ``0``, i.e. OFF)
-        """
-
         self.arpFilename = arpFilename
         self.arsFilename = "arl_run.ars"
         self.idCol = idCol
@@ -309,19 +306,18 @@ class Emhaplofreq(Haplo):
     This is essentially a wrapper to a Python extension built on top
     of the ``emhaplofreq`` command-line program.  Will refuse to
     estimate haplotypes longer than that defined by ``emhaplofreq``.
+
+    Args:
+       locusData (StringMatrix): a StringMatrix
+       debug (int): defaults to ``0`` (off)
+       untypedAllele (str): defaults to ``****``
+       stream (TextOutputStream): output file
+       testMode (bool): default is ``False``
     """
 
     def __init__(
         self, locusData, debug=0, untypedAllele="****", stream=None, testMode=False
     ):
-        """
-        Args:
-           locusData (StringMatrix): a StringMatrix
-           debug (int): defaults to ``0`` (off)
-           untypedAllele (str): defaults to ``****``
-           stream (TextOutputStream): output file
-           testMode (bool): default is ``False``
-        """
         # assign module to an instance variable so it is available to
         # other methods in class
         self._Emhaplofreq = _Emhaplofreq
@@ -392,11 +388,11 @@ class Emhaplofreq(Haplo):
         mode=None,
         testing=0,
     ):
-        """Internal method to call _Emhaplofreq shared library.
+        """Internal method to call ``_Emhaplofreq`` shared library.
 
         Args:
 
-          locusKeys(str): a string as per :meth:`Emhaplofreq.estHaplotypes`:
+          locusKeys (str): a string as per :meth:`Emhaplofreq.estHaplotypes`:
 
           permutationFlag (int): sets whether permutation test will be
            performed.  No default. This should only be set if
@@ -406,14 +402,14 @@ class Emhaplofreq(Haplo):
            permutation output run will be included in the output XML.
            Default: ``0`` (disabled).
 
-          numInitConds (int): sets number of initial conditions before
+          numInitCond (int): sets number of initial conditions before
            performing the permutation test. Default: ``50``.
 
           numPermutations (int): sets number of permutations that will
            be performed if ``permutationFlag`` *is* set.  Default:
            ``1``.
 
-          numPermuInitConds (int): sets number of initial conditions
+          numPermuInitCond (int): sets number of initial conditions
            tried per-permutation.  Default: ``5``.
 
           haploSuppressFlag (int): sets whether haplotype information
@@ -657,13 +653,14 @@ class Emhaplofreq(Haplo):
 
            numInitCond (int): number of initial conditions (default ``None``)
 
-           numPermutation (int): number of permutations (default ``None``)
+           numPermutations (int): number of permutations (default ``None``)
 
            numPermuInitCond (int): number of initial conditions for
-           each permutation (default ``None``)
+            each permutation (default ``None``)
 
         Example:
           See :meth:`estHaplotypes` for an example that estimates LD
+
         """
         self._runEmhaplofreq(
             locusKeys,
@@ -705,7 +702,7 @@ class Emhaplofreq(Haplo):
           numPermutations (int): sets number of permutations that will
            be performed. Default: ``None``.
 
-          numPermuInitConds (int): sets number of initial conditions
+          numPermuInitCond (int): sets number of initial conditions
            tried per-permutation. Default: ``None``.
 
           haploSuppressFlag (int): sets whether haplotype information
@@ -784,14 +781,17 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     Make standalone so it can be used by any class
 
     Args:
-
       haplos (list): list of haplotypes
-
       freqs (list): list of frequencies
-
-      computeALD (bool): whether to do asymmetric LD
-
+      compute_ALD (bool): whether to do asymmetric LD
       debug (bool): default to ``False`` (disabled)
+
+    Returns:
+      tuple: a tuple consisting of:
+        - dprime
+        - wn
+        - ALD_1_2
+        - ALD_2_1
     """
 
     unique_alleles1 = np.unique(haplos[:, 0])
@@ -936,19 +936,18 @@ class Haplostats(Haplo):
     """Haplotype and LD estimation implemented via ``haplo.stats``.
 
     This is a wrapper to a portion of the ``haplo.stats`` R package.
+
+    Args:
+       locusData (StringMatrix): a StringMatrix
+       debug (int): defaults to ``0`` (off)
+       untypedAllele (str): defaults to ``****``
+       stream (TextOutputStream): output file
+       testMode (bool): default is ``False``
     """
 
     def __init__(
         self, locusData, debug=0, untypedAllele="****", stream=None, testMode=False
     ):
-        """
-        Args:
-           locusData (StringMatrix): a StringMatrix
-           debug (int): defaults to ``0`` (off)
-           untypedAllele (str): defaults to ``****``
-           stream (TextOutputStream): output file
-           testMode (bool): default is ``False``
-        """
         # assign module to an instance variable so it is available to
         # other methods in class
         self._Haplostats = _Haplostats
@@ -991,24 +990,25 @@ class Haplostats(Haplo):
         self, locusKeys=None, weight=None, control=None, numInitCond=10, testMode=False
     ):
         """Estimate haplotypes for the submatrix given in
-        ``locusKeys``, if ``locusKeys`` is ``None``, assume entire
-        matrix.  LD is also estimated if there are ``locusKeys``
-        consisting of only two loci.
+        ``locusKeys``.
+
+        If ``locusKeys`` is ``None``, assume entire matrix.  LD is
+        also estimated if there are ``locusKeys`` consisting of only
+        two loci.
 
         Warning:
            FIXME: this does *not* yet remove missing data before haplotype estimations
 
         Args:
-
            locusKeys (str): see :meth:`Emhaplofreq.estHaplotypes` for format
-
            weight (list): set weights (default ``None``, which sets all weights equal)
-
            control (dict): a dictionary of control parameters
-
            numInitCond (int): number of initial conditions (default ``None``)
-
            testMode (bool): run in test mode default is ``False``
+
+        Returns:
+           tuple: multiple statistics
+
         """
 
         # if wildcard, or not set, do all matrix

@@ -241,3 +241,12 @@ PC111 = "doesn't use blacken directly (uses ruff)"
 PC140 = "doesn't use typechecker"
 MY = "no typechecker"
 RTD = "doesn't use read the docs"
+
+[tool.pydoclint]
+style = "google"                        # Google style
+# require-return = true                 # Require documenting returns
+# check-param-types = true              # Ensure param types are provided
+check-return-types = false              # Disable return type checking
+arg-type-hints-in-signature = false     # We don't use type hints in signature
+should-document-star-arguments = false  # don't require document **kwargs
+allow-init-docstring = true             # allow docstrin in init.py

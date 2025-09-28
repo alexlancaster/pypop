@@ -155,8 +155,6 @@ class AnthonyNolanFilter(Filter):
     - ``txt`` files available at http://www.anthonynolan.com
     - ``msf`` files available at ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/
 
-    Use of ``msf`` files is required in order to translate allele codes
-    into polymorphic sequence data.
     """
 
     def __init__(
@@ -178,62 +176,49 @@ class AnthonyNolanFilter(Filter):
         debug=0,
         sequenceFilterMethod="strict",
     ):
-        """
+        """Use of ``msf`` files is required in order to translate
+        allele codes into polymorphic sequence data.
+
         Args:
-             directoryName (str): directory that AnthonyNolan allele data is located
-
-             remoteMSF (str): Specifies the version (tag) of the remote ``msf``
-                directory in the `IMGT-HLA GitHub repo
-                <https://github.com/ANHIG/IMGTHLA/>`__.  If present, the remote
-                MSF files for the specified version will be downloaded on-demand,
-                and cached for later reuse
-
-             alleleFileFormat (str, optional): file format,
-                can be ``txt`` or ``msf`` (default)
-
-             preserveAmbiguousFlag (int, optional): If set to ``0`` (default) then
-                ambiguitity is removed (e.g.  ``010101/0102/010301`` will
-                truncate this to ``0101``).  To preserve the ambiguity,
-                set the option to ``1`` (for this example, it will result
-                in a filtered allele "name" of ``0101/0102/0103``)
-
-             preserveUnknownFlag (int, optional): If set to ``0`` (default) replace
-                unknown alleles with the ``untypedAllele`` designator. To
-                keep unrecognized allele names set to ``1``.
-
-             preserveLowresFlag (int, optional): This option is similar to
-                ``preserveUnknownFlag``, but only applies to lowres
-                alleles. If set to ``1``, PyPop will keep allele names
-                that are shorter than the default allele name length,
-                usually 4 digits long.  But if  ``preserveUnknownFlag``
-                is set, this option has no effect, because all unknown
-                alleles are preserved.
-
-             alleleDesignator (str, optional): the designator used to indicate a locus name (default ``*``),
-
-             logFile (str, optional): log file
-
-             untypedAllele (str, optional): defaults to ``****``
-
-             unsequencedSite (str, optional): defaults to ``#``
-
-             sequenceFileSuffix (str, optional): Suffix for file names
-                used for finding sequences each allele. (e.g.,, if the
-                file for locus ``A`` is ``A_prot.msf``, then keep the
-                default be ``_prot``. For  nucleotide sequence files,
-                this would be set  ``_nuc``.
-
-             filename (str, optional): Currently not used
-
-             numDigits (int, optional): Number of digits used for HLA data (default ``4``)
-
-             verboseFlag (int, optional): Verbose output (default is on, i.e. ``1``)
-
-             debug (int, optional): Enable debugging (default, off ``0``),
-
-             sequenceFilterMethod (str, optional): matching alleles to
-               sequence, defaults to ``strict``, can also be
-               ``greedy``
+            directoryName (str): directory that AnthonyNolan allele data is located
+            remoteMSF (str): Specifies the version (tag) of the remote ``msf``
+               directory in the `IMGT-HLA GitHub repo
+               <https://github.com/ANHIG/IMGTHLA/>`__.  If present, the remote
+               MSF files for the specified version will be downloaded on-demand,
+               and cached for later reuse
+            alleleFileFormat (str, optional): file format,
+               can be ``txt`` or ``msf`` (default)
+            preserveAmbiguousFlag (int, optional): If set to ``0`` (default) then
+               ambiguitity is removed (e.g.  ``010101/0102/010301`` will
+               truncate this to ``0101``).  To preserve the ambiguity,
+               set the option to ``1`` (for this example, it will result
+               in a filtered allele "name" of ``0101/0102/0103``)
+            preserveUnknownFlag (int, optional): If set to ``0`` (default) replace
+               unknown alleles with the ``untypedAllele`` designator. To
+               keep unrecognized allele names set to ``1``.
+            preserveLowresFlag (int, optional): This option is similar to
+               ``preserveUnknownFlag``, but only applies to lowres
+               alleles. If set to ``1``, PyPop will keep allele names
+               that are shorter than the default allele name length,
+               usually 4 digits long.  But if  ``preserveUnknownFlag``
+               is set, this option has no effect, because all unknown
+               alleles are preserved.
+            alleleDesignator (str, optional): the designator used to indicate a locus name (default ``*``),
+            logFile (str, optional): log file
+            untypedAllele (str, optional): defaults to ``****``
+            unsequencedSite (str, optional): defaults to ``#``
+            sequenceFileSuffix (str, optional): Suffix for file names
+               used for finding sequences each allele. (e.g.,, if the
+               file for locus ``A`` is ``A_prot.msf``, then keep the
+               default be ``_prot``. For  nucleotide sequence files,
+               this would be set  ``_nuc``.
+            filename (str, optional): Currently not used
+            numDigits (int, optional): Number of digits used for HLA data (default ``4``)
+            verboseFlag (int, optional): Verbose output (default is on, i.e. ``1``)
+            debug (int, optional): Enable debugging (default, off ``0``),
+            sequenceFilterMethod (str, optional): matching alleles to
+              sequence, defaults to ``strict``, can also be
+              ``greedy``
 
         """
         self.directoryName = directoryName
@@ -647,6 +632,10 @@ class AnthonyNolanFilter(Filter):
                 polyseqpos (dict): Keyed on ``locus`` of the positions
                 of the polymorphic residues which you find in
                 ``polyseq``.
+
+        Raises:
+            RuntimeError: If the alignment length could not be found
+             in the MSF header.
 
         """
 
@@ -1198,8 +1187,24 @@ class AnthonyNolanFilter(Filter):
 
 
 class BinningFilter:
-    """Filters original data into "bins" through either digits (for
-    HLA alleles) or custom rules defined a file for each locus."""
+    """Filters original data into "bins".
+
+    This can be done through either digits (for HLA alleles) or custom
+    rules defined a file for each locus.
+
+    Args:
+
+       customBinningDict (dict, optional): a custom binning dict, this is
+        keyed by locus, but each key consists of a series of
+        lines, each line containing ruleset of which alleles
+        belong in a given bin
+       logFile (str, optional): output logfilek, must be set
+       untypedAllele (str, optional): defaults to ``****``
+       filename (str, optional): filename (**unused**), defaults to ``None``
+       binningDigits (int, optional): defaults to ``4``
+       debug (int, optional): enable debugging (defaults to none, i.e. ``0``)
+
+    """
 
     def __init__(
         self,
@@ -1210,25 +1215,6 @@ class BinningFilter:
         binningDigits=4,
         debug=0,
     ):
-        """
-        Args:
-
-           binningDigits (int, optional): defaults to ``4``
-
-           untypedAllele (str, optional): defaults to ``****``
-
-           customBinningDict (dict, optional): a custom binning dict, this is
-            keyed by locus, but each key consists of a series of
-            lines, each line containing ruleset of which alleles
-            belong in a given bin
-
-           filename (str, optional): filename (**unused**), defaults to ``None``
-
-           logFile (str): output logfile, must be set
-
-           debug (int, optional): enable debugging (defaults to none, i.e. ``0``)
-
-        """
         self.binningDigits = binningDigits
         self.untypedAllele = untypedAllele
         self.customBinningDict = customBinningDict
@@ -1416,16 +1402,13 @@ class BinningFilter:
 
 
 class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
-    """Filters data with an allelecount less than a threshold."""
+    """Filters data with an allelecount less than a threshold.
+
+    Args:
+       lumpThreshold (int): set threshold
+    """
 
     def __init__(self, lumpThreshold=None, **kw):
-        """
-        Args:
-           lumpThreshold (int): set threshold
-
-        Keyword Args:
-           kw: See :class:`AnthonyNolanFilter` for more keyword arguments
-        """
         self.lumpThreshold = lumpThreshold
         AnthonyNolanFilter.__init__(self, **kw)
 

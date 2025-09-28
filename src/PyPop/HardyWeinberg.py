@@ -112,30 +112,24 @@ class HardyWeinberg:
     Given the observed genotypes for a locus, calculate the expected
     genotype counts based on Hardy Weinberg proportions for individual
     genotype values, and test for fit.
+
+    Args:
+
+      locusData (list): list of tuples of genotype ``(allele1, allele2)``
+      alleleCount (tuple): a tuple consisting of a dictionary of
+       counts, total count and number of untyped individuals as
+       returned by :meth:`PyPop.DataTypes.Genotypes.getLocusDataAt`
+      lumpBelow (int, optional): lump alleles with frequency less than this
+        threshold as if they were in same class (Default: 5)
+      flagChenTest (int, optional): if enabled (``1``) do Chen's
+        chi-square-based "corrected" p-value (Default: ``0``,
+        disabled)
+      debug (int, optional): enable debugging (``1``)
     """
 
     def __init__(
         self, locusData=None, alleleCount=None, lumpBelow=5, flagChenTest=0, debug=0
     ):
-        """
-        Args:
-
-          locusData (list): list of tuples of genotype ``(allele1, allele2)``
-
-          alleleCount (tuple): a tuple consisting of a dictionary of
-           counts, total count and number of untyped individuals as
-           returned by :meth:`PyPop.DataTypes.Genotypes.getLocusDataAt`
-
-          lumpBelow (int): lump alleles with frequency less than this
-            threshold as if they were in same class (Default: 5)
-
-          flagChenTest (int): if enabled (``1``) do Chen's
-            chi-square-based "corrected" p-value (Default: ``0``,
-            disabled)
-
-          debug (int): enable debugging (``1``)
-        """
-
         self.locusData = locusData  # ordered tuples of genotypes
         self.lumpBelow = lumpBelow
 
@@ -827,7 +821,13 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     program ``gthwe``.  In addition to the arguments for the base
     class, this class accepts the following additional keywords:
 
-    Keyword Args:
+    Args:
+
+      locusData (list): list of tuples of genotype ``(allele1, allele2)``
+
+      alleleCount (tuple): a tuple consisting of a dictionary of
+       counts, total count and number of untyped individuals as
+       returned by :meth:`PyPop.DataTypes.Genotypes.getLocusDataAt`
 
       runMCMCTest (int): If enabled (``1``) run the Monte Carlo-Markov chain
        (MCMC) version of the test (what is normally referred to as
@@ -886,12 +886,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
         HardyWeinberg.__init__(self, locusData=locusData, alleleCount=alleleCount, **kw)
 
     def generateFlattenedMatrix(self):
-        """Generated a flattened version of the genotype matrix.
-
-        Returns:
-
-           list: a list of observed genotype counts
-        """
+        """Generated a flattened version of the genotype matrix."""
         self.sortedAlleles = self.observedAlleles
         self.sortedAlleles.sort()
 
@@ -947,6 +942,9 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
           locusName (str): locus to output table
           stream (XMLOutputStream): name of XML stream
           allelelump (int): record allele lumping level (default ``0``)
+
+        Returns:
+           None: if an empty tag
         """
         if locusName[0] == "*":
             locusName = locusName[1:]
@@ -1058,6 +1056,10 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
 
     Args:
 
+      locusData (list): list of tuples of genotype ``(allele1, allele2)``
+      alleleCount (tuple): a tuple consisting of a dictionary of
+       counts, total count and number of untyped individuals as
+       returned by :meth:`PyPop.DataTypes.Genotypes.getLocusDataAt`
       doOverall (int): if set to true (``1``), then do overall *p*-value test
         default is false (``0``)
 
@@ -1167,6 +1169,15 @@ class HardyWeinbergGuoThompsonArlequin:
 
     Since the directory name ``arlequinRuns`` is currently hardcoded, this
     has the consequence that this class cannot be invoked concurrently.
+
+    Args:
+       matrix (StringMatrix): matrix to extract locus from
+       locusName (str): locus to use
+       arlequinExec (str): name of Arlequin executable
+       markovChainStepsHW (int): number of steps to use in Markov chain (default: ``100000``).
+       markovChainDememorisationStepsHW (int): "Burn-in" time for Markov chain (default: ``1000``).
+       untypedAllele (str): untyped allele identifier
+       debug (int): enable debugging (``1``)
     """
 
     def __init__(
@@ -1179,17 +1190,6 @@ class HardyWeinbergGuoThompsonArlequin:
         untypedAllele="****",
         debug=None,
     ):
-        """
-        Args:
-
-          matrix (StringMatrix): matrix to extract locus from
-          locusName (str): locus to use
-          arlequinExec (str): name of Arlequin executable
-          markovChainStepsHW (int): number of steps to use in Markov chain (default: ``100000``).
-          markovChainDememorisationStepsHW (int): "Burn-in" time for Markov chain (default: ``1000``).
-          untypedAllele (str): untyped allele identifier
-          debug (int): enable debugging (``1``)
-        """
         self.matrix = matrix
         self.locusName = locusName
         self.debug = debug

@@ -98,11 +98,19 @@ class CitationAction(Action):
 
 def get_parent_cli(version="", copyright_message=""):
     """
-    Command-line options common to all scripts
+    Command-line options common to all scripts.
 
     Args:
-        version (str): software version
-        copyright_message (str): override the copyright message
+        version (str): Software version.
+        copyright_message (str): Override the copyright message.
+
+    Returns:
+        tuple: A tuple of:
+            - parent_parser (ArgumentParser): The base parser.
+            - ihwg_args (tuple): Options for the IHWG module.
+            - phylip_args (tuple): Options for the Phylip module.
+            - common_args (tuple): Common options.
+            - prefix_tsv_args (tuple): TSV prefix options.
     """
     parent_parser = ArgumentParser(add_help=False)
 
@@ -177,6 +185,9 @@ def get_pypop_cli(version="", copyright_message=""):
     Args:
         version (str): software version
         copyright_message (str): override the copyright message
+
+    Returns:
+        ArgumentParser: parser for ``pypop``
     """
     parent_parser, ihwg_args, phylip_args, common_args, prefix_tsv_args = (
         get_parent_cli(version=version, copyright_message=copyright_message)
@@ -277,6 +288,9 @@ def get_popmeta_cli(version="", copyright_message=""):
     Args:
         version (str): software version
         copyright_message (str): override the copyright message
+
+    Returns:
+        ArgumentParser: parser for ``popmeta``
     """
 
     parent_parser, ihwg_args, phylip_args, common_args, prefix_tsv_args = (

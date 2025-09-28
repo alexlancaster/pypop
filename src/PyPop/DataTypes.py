@@ -97,7 +97,15 @@ def _serializeAlleleCountDataAt(
 
 class Genotypes:
     """
-    Base class that stores and caches basic genotype statistics."""
+    Base class that stores and caches basic genotype statistics.
+
+    Args:
+        matrix (StringMatrix): The ``StringMatrix`` to be converted into a ``Genotype`` instance
+        untypedAllele (str): The placeholder for an untyped allele site
+        unsequencedSite (bool): The identifier used for an unsequenced site (only used for sequence data)
+        allowSemiTyped (int): Whether or not to allow individuals that are typed at only one allele
+        debug (int): Switch on debugging
+    """
 
     def __init__(
         self,
@@ -107,18 +115,6 @@ class Genotypes:
         allowSemiTyped=0,
         debug=0,
     ):
-        """
-        Args:
-            matrix (StringMatrix): The ``StringMatrix`` to be converted into a ``Genotype`` instance
-            untypedAllele (str): The placeholder for an untyped allele site
-            unsequencedSite (bool): The identifier used for an unsequenced site (only used for sequence data)
-            allowSemiTyped (int): Whether or not to allow individuals that are typed at only one allele
-            debug (int): Switch on debugging
-
-        Returns:
-            None
-        """
-
         self.matrix = matrix
         self.untypedAllele = untypedAllele
         self.unsequencedSite = unsequencedSite
@@ -278,6 +274,7 @@ class Genotypes:
         """Get allele count for given locus.
 
         Args:
+           locus (str): locus
            lumpValue (int): the specified amount of lumping (Default: 0)
 
         Returns:
@@ -349,6 +346,9 @@ class Genotypes:
 
         Args:
             stream (TextOutputStream): the stream used for output
+
+        Returns:
+            int: always returns ``1``
         """
         stream.opentag("allelecounts")
 
@@ -435,12 +435,14 @@ class Genotypes:
 def checkIfSequenceData(matrix):
     """Heuristic check to determine whether we are analysing sequence.
 
+    Note:
+       The regex matches loci of the form ``A_32`` or ``A_-32``
+
     Args:
         matrix (StringMatrix): matrix to check
 
-    .. warning::
-
-       slight kludge: we use a regex to match anything in the form ``A_32`` or ``A_-32``
+    Returns:
+        int: if sequence, return ``1``, otherwise ``0``
     """
     locus = matrix.colList[0]
     return 1 if re.search("[a-zA-Z0-9]+_[-]?[0-9]+", locus) else 0
@@ -501,13 +503,14 @@ def getLumpedDataLevels(genotypeData, locus, lumpLevels):
     """Get lumped data for a specific locus
 
     Args:
+       genotypeData (Genotypes): genotype data to query
        locus (str): the locus
        lumpLevels (list): a list of integers representing lumping levels
 
     Returns:
-       dict: a dictionary of tuples with ``alleleCount`` and
-       ``locusData`` , keyed by ``locus``
-
+       dict: a dictionary of tuples:
+         - locusData: keyed by locus
+         - alleleCount:
     """
     lumpData = {}
     for level in lumpLevels:

@@ -237,7 +237,27 @@ end"""
 
 
 class ArlequinExactHWTest(ArlequinWrapper):
-    """Wraps the Arlequin Hardy-Weinberg exact functionality"""
+    """Wraps the Arlequin Hardy-Weinberg exact functionality.
+
+    Run Hardy-Weinberg exact test on list specified in ``lociList``.
+
+    Attributes:
+
+      hwExactTest (str): standard config options for Arlequin
+
+    Args:
+
+     matrix (StringMatrix): StringMatrix for testing
+
+     lociList (list): list of loci
+
+     markovChainStepsHW (int, optional): Number of steps to use in Markov chain
+      (default: ``100000``)
+
+     markovChainDememorisationStepsHW (int, optional): "Burn-in" time for Markov
+      chain (default: ``1000``).
+
+    """
 
     hwExactTest = """[Setting for Calculations]
 TaskNumber=32
@@ -321,17 +341,6 @@ KeepNullDistrib=0"""
         markovChainDememorisationStepsHW=1000,
         **kw,
     ):
-        """Setup run HW exact test.
-
-        Run Hardy-Weinberg exact test on list specified in 'lociList'.
-
-        - 'markovChainStepsHW': Number of steps to use in Markov chain
-          (default: 100000).
-
-        - 'markovChainDememorisationStepsHW': "Burn-in" time for
-          Markov chain (default: 1000).
-
-        """
         self.markovChainStepsHW = markovChainStepsHW
         self.markovChainDememorisationStepsHW = markovChainDememorisationStepsHW
 
@@ -431,7 +440,37 @@ class ArlequinBatch:
 
     Is used to provide a `batch' (command line) mode for generating
     appropriate Arlequin input files and for forking Arlequin
-    itself."""
+    itself.
+
+    Args:
+
+       arpFilename (str): Arlequin filename (must have ``.arp`` file
+        extension)
+
+       arsFilename (str): Arlequin settings filename (must have
+        ``.ars`` file extension)
+
+       idCol (str): column in input file that contains the individual
+        id.
+
+       prefixCols (int): number of columns to ignore before allele
+        data starts
+
+       suffixCols (int): number of columns to ignore after allele data
+        stops
+
+       windowSize (int): size of sliding window
+
+       mapOrder (list, optional): list order of columns if different to column
+        order in file (defaults to order in file)
+
+       untypedAllele (str, optional): (defaults to ``0``)
+
+       arlequinPrefix (str, optional): prefix for all Arlequin run-time files
+        (defaults to ``arl_run``).
+
+       debug (int): (defaults to ``0``)
+    """
 
     def __init__(
         self,
@@ -446,37 +485,6 @@ class ArlequinBatch:
         arlequinPrefix="arl_run",
         debug=0,
     ):
-        """Constructor for HaploArlequin object.
-
-        Expects:
-
-        - arpFilename: Arlequin filename (must have '.arp' file
-          extension)
-
-        - arsFilename: Arlequin settings filename (must have '.ars' file
-          extension)
-
-        - idCol: column in input file that contains the individual id.
-
-        - prefixCols: number of columns to ignore before allele data
-          starts
-
-        - suffixCols: number of columns to ignore after allele data
-          stops
-
-        - windowSize: size of sliding window
-
-        - mapOrder: list order of columns if different to column order in file
-          (defaults to order in file)
-
-        - untypedAllele:  (defaults to '0')
-
-        - arlequinPrefix: prefix for all Arlequin run-time files
-          (defaults to 'arl_run').
-
-        - debug: (defaults to 0)
-
-        """
         self.arpFilename = arpFilename
         self.arsFilename = arsFilename
         self.idCol = idCol
