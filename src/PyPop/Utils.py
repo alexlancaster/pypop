@@ -51,33 +51,75 @@ from numpy import asarray, take, zeros
 from numpy.lib.user_array import container
 
 GENOTYPE_SEPARATOR = "~"
+"""
+Separator between genotypes
+
+Example:
+
+  In a haplotype
+  ``01:01~13:01~04:02``
+"""
+
 GENOTYPE_TERMINATOR = "~"
+"""
+Terminator of genotypes
+
+Example:
+
+  ```02:01:01:01~``
+"""
 
 
 def glob_with_pathlib(pattern):
+    """
+    Use globbing with ``pathlib``
+
+    Args:
+       pattern (str): globbing pattern
+
+    Returns:
+       list: of pathlib globs
+    """
     path = Path(pattern).resolve()
     return list(path.parent.glob(path.name))
 
 
 class TextOutputStream:
-    """Output stream for writing text files."""
+    """Output stream for writing text files.
+
+    Args:
+       file (file): file handle
+    """
 
     def __init__(self, file):
         self.f = file
 
     def write(self, str):
+        """Write to stream.
+
+        Args:
+
+          str (str): string to write
+        """
         self.f.write(str)
 
     def writeln(self, str="\n"):
+        """Write a newline to stream.
+
+        Args:
+          str (str, optional): defaults to newline
+        """
         if str == "\n":
             self.f.write("\n")
         else:
             self.f.write(str + "\n")
 
     def close(self):
+        """Close stream."""
         self.f.close()
 
     def flush(self):
+        """Flush to disk."""
         self.f.flush()
 
 
@@ -100,38 +142,90 @@ class XMLOutputStream(TextOutputStream):
         return f"{tagname} {attr.strip()}"
 
     def opentag(self, tagname, **kw):
-        """Generate an open XML tag.
+        """Write an open XML tag to stream.
 
-        Generate an open XML tag.  Attributes are passed in the form
-        of optional named arguments, e.g. opentag('tagname',
-        role=something, id=else) will produce the result '<tagname
-        role="something" id="else"> Note that the attribute and values
-        are optional and if omitted produce '<tagname>'."""
+        Tag attributes passed as optional named keyword arguments.
 
+        Example:
+
+          ``opentag('tagname', role=something, id=else)``
+
+          produces the result:
+
+          ``<tagname role="something" id="else">``
+
+          Attribute and values are optional:
+
+          ``opentag('tagname')``
+
+          Produces:
+
+          ``<tagname>``
+
+        See also:
+           Must be be followed by a :meth:`closetag`.
+
+        Args:
+
+           tagname (str):  name of XML tag
+
+        """
         self.f.write(f"<{self._gentag(tagname, **kw)}>")
 
     def emptytag(self, tagname, **kw):
-        """Generate an empty XML tag.
+        """Write an empty XML tag to stream.
 
-        As per 'opentag()' but without content, i.e.:
+        This follows the same syntax as :meth:`opentag` but without
+        XML content (but can contain attributes).
 
-        '<tagname attr="val"/>'.
+        Example:
+
+          ```emptytag('tagname', attr='val')``
+
+          produces:
+
+          ``<tagname attr="val"/>``
+
+        Args:
+           tagname (str): name of XML tag
         """
         self.f.write(f"<{self._gentag(tagname, **kw)}/>")
 
     def closetag(self, tagname):
-        """Generate a closing XML tag.
+        """Write a closing XML tag to stream.
 
-        Generate a tag in the form: '</tagname>'.
+        Example:
+
+          ``closetag('tagname')``
+
+          Generate a tag in the form:
+
+          ``</tagname>``
+
+        See also:
+           Must be be preceded by a :meth:`opentag`.
+
+        Args:
+           tagname (str): name of XML tag
         """
         self.f.write(f"</{self._gentag(tagname)}>")
 
     def tagContents(self, tagname, content, **kw):
-        """Generate open and closing XML tags around contents.
+        """Write open and closing XML tags around contents to a
+        stream.
 
-        Generates tags in the form: '<tagname>content</tagname>'.
-        'content' must be a string.  Convert '&' and '<' and '>' into
-        valid XML equivalents.
+        Example:
+
+          ``tagContents('tagname', 'foo bar')``
+
+          produces:
+
+          ``<tagname>foo bar</tagname>```
+
+        Args:
+           tagname (str): name of XML tag
+           content (str): must only be a string. ``&``, ``<`` and
+            ``>`` are converted into valid XML equivalents.
 
         """
         self.opentag(tagname, **kw)
@@ -143,16 +237,25 @@ class XMLOutputStream(TextOutputStream):
 
 
 def getStreamType(stream):
-    """Return the type of stream.
+    """Get the type of stream.
 
-    Returns either 'xml' or 'text'.
+    Args:
+      stream (TextOutputStream|XMLOutputStream): stream to check
+
+    Returns:
+      string: either ``xml`` or ``text``.
     """
     return "xml" if isinstance(stream, XMLOutputStream) == 1 else "text"
 
 
 class OrderedDict:
-    """
-    Allows dict to have _ORDERED_ pairs
+    """A dictionary class with **ordered** pairs
+
+    .. deprecated:: 1.3.1
+
+       Will be removed in a later release, to be replaced by internal
+       Python version
+
     """
 
     __version__ = "1.1"
@@ -343,7 +446,12 @@ class OrderedDict:
 
 class Index:
     """
-    Returns an Index object for OrderedDict
+    Returns an Index object for :class:`OrderedDict``.
+
+    .. deprecated:: 1.3.1
+
+       Will be removed in a later release, to be replaced by internal
+       Python version
     """
 
     def __init__(self, i=0):
