@@ -313,27 +313,7 @@ job:
 
 ## Design notes
 
-(These should eventually be migrated back in the source code, so that,
-if and when we generate API docs, they will appear there. They would
-need updating as part of that migration to make sure they are still
-accurate.)
-
-- `ParseFile` is a base class which has most of the common functionality
-  for reading files.
-
-- `ParseGenotypeFile` is a subclass of `ParseFile` that deals with
-  files that consist specifically of data with individual genotyped for
-  one or more loci.
-
-- `ParseAlleleCount` is another subclass of `ParseFile` that deals
-  with files consisting of allele counts across a whole population.
-
-Both file formats are assumed to have a population header information
-with, consisting of a line of column headers (population metadata)
-followed by a line with the actual data, followed by the column
-headers for the samples (sample metadata) followed by the sample data
-itself (either individuals in the genotyped case, or alleles in the
-allele count case).
+API description migrated to source code docstrings.
 
 ## Obsolete notes
 
