@@ -272,7 +272,7 @@ html_css_files = ["custom.css"]
 # and they will be included in the build directory (and therefore on the website)
 html_extra_path = ["html_root"]
 
-autoapi_dirs = ["../src/PyPop"]
+autoapi_dirs = ["../src/PyPop", "../src/PyPop/xslt"]
 autoapi_type = "python"
 autoapi_root = "autoapi"
 autoapi_add_toctree_entry = False
