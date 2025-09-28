@@ -335,10 +335,6 @@ accurate.)
 - `ParseAlleleCount` is another subclass of `ParseFile` that deals
   with files consisting of allele counts across a whole population.
 
-- `Homozygosity` Calculates homozygosity statistics for a given locus,
-  calculates the observed homozygosity and returns the approximate
-  expected homozygosity statistics taken from previous simulation runs.
-
 Both file formats are assumed to have a population header information
 with, consisting of a line of column headers (population metadata)
 followed by a line with the actual data, followed by the column

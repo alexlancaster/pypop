@@ -287,6 +287,7 @@ autoapi_member_order = "groupwise"
 autoapi_options = [
     "members",
     "undoc-members",
+    #    "private-members",  # remove for production
     "show-inheritance",
     "show-module-summary",
     "imported-members",

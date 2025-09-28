@@ -47,6 +47,14 @@ from PyPop.Utils import getStreamType
 
 
 def getObservedHomozygosityFromAlleleData(alleleData):
+    """Get homozygosity from allele data
+
+    Args:
+       alleleData (list): list of allele counts
+
+    Returns:
+       float: observed homozygosity
+    """
     sum = 0.0
     sampleCount = reduce(add, alleleData)
     for alleleCount in alleleData:
@@ -62,21 +70,15 @@ class Homozygosity:
     Given allele count data for a given locus, calculates the observed
     homozygosity and returns the approximate expected homozygosity
     statistics taken from previous simulation runs.
+
+    Args:
+       alleleData (list): list of allele counts
+       rootPath (str): path to the root of the directory where the
+         pre-calculated expected homozygosity statistics can be found.
+       debug (int): flag to switch debugging on
     """
 
     def __init__(self, alleleData, rootPath=".", debug=0):
-        """Constructor for homozygosity statistics.
-
-        Given:
-
-        - 'alleleCountData': tuple consisting of a dictionary of alleles
-          with their associated counts and the total number of alleles.
-
-        - 'rootPath': path to the root of the directory where the
-          pre-calculated expected homozygosity statistics can be found.
-
-        - 'debug': flag to switch debugging on."""
-
         self.alleleData = alleleData
         self.numAlleles = len(self.alleleData)
         if self.numAlleles > 0:
@@ -94,7 +96,13 @@ class Homozygosity:
 
         If 2n > 2000, use 2000 anyway.
 
-        *Internal use only*"""
+        Args:
+           sampleCount (int): number of samples
+           numAlleles (int): number of alleles
+
+        Returns:
+           pathlib.Path: path to file
+        """
 
         decade, rem = divmod(sampleCount, 10)
         if rem >= 5:
@@ -112,13 +120,15 @@ class Homozygosity:
     def _checkCountRange(self, sampleCount):
         """Check range of total allele count is valid.
 
-        Only check whether sample size is too small
+        Only check whether sample size is too small If sample size is
+        too large, we will use 2000 anyway.
 
-        If sample size is too large, we will use 2000 anyway.
+        Args:
+           sampleCount (int): number of samples
 
-        Returns a boolean.
-
-        *Internal use only"""
+        Returns:
+           int: ``0`` if less than 15, otherwise, ``1``
+        """
         if sampleCount <= 15:
             return 0
         return 1
@@ -126,9 +136,12 @@ class Homozygosity:
     def _checkAlleleRange(self, numAlleles):
         """Check range of number of alleles is valid.
 
-        Returns a boolean.
+        Args:
+           numAlleles (int): number of samples
 
-        *Internal use only"""
+        Returns:
+           int: ``0`` if out of range, otherwise, ``1``
+        """
         if (numAlleles <= 1) or (numAlleles >= 101):
             return 0
         return 1
@@ -140,9 +153,9 @@ class Homozygosity:
         homozygosity data file for given allele count and total allele
         count.
 
-        Returns a boolean.
-
-        *Internal use only*"""
+        Returns:
+           int: ``1`` if in range, ``0`` if out of range
+        """
 
         if self._checkCountRange(self.sampleCount):
             if self._checkAlleleRange(self.numAlleles):
@@ -199,7 +212,11 @@ class Homozygosity:
     def getObservedHomozygosity(self):
         """Calculate and return observed homozygosity.
 
-        Available even if expected stats cannot be calculated"""
+        Available even if expected stats cannot be calculated.
+
+        Returns:
+          float: observed homozygosity
+        """
 
         sum = 0.0
 
@@ -220,18 +237,24 @@ class Homozygosity:
     def canGenerateExpectedStats(self):
         """Can expected homozygosity stats be calculated?
 
-        Returns true if expected homozygosity statistics can be
+        Returns ``1`` if expected homozygosity statistics can be
         calculated.  Should be called before attempting to get any
-        expected homozygosity statistics."""
+        expected homozygosity statistics.
+
+        Returns:
+           int: ``1`` if can be calculated, otherwise ``0``
+        """
 
         return self.expectedStatsFlag
 
     def getPValueRange(self):
         """Gets lower and upper bounds for p-value.
 
-        Returns a tuple of (lower, upper) bounds.
+        Only meaningful if :meth:`canGenerateExpectedStats` returns true.
 
-        Only meaningful if 'canGenerateExpectedStats()' returns true."""
+        Returns:
+          tuple:  (``lower``, ``upper``) bounds.
+        """
 
         upperBound = 999.0
         if self.debug:
@@ -253,29 +276,43 @@ class Homozygosity:
     def getCount(self):
         """Number of runs used to calculate statistics.
 
-        Only meaningful if 'canGenerateExpectedStats()' returns true."""
+        Only meaningful if :meth:`canGenerateExpectedStats` returns ``1``.
+
+        Returns:
+          int: number of runs
+        """
         return self.count
 
     def getExpectedHomozygosity(self):
         """Gets mean of expected homozygosity.
 
-        This is the estimate of the *expected* homozygosity.
+        This is the estimate of the *expected* homozygosity.  Only
+        meaningful if :meth:`canGenerateExpectedStats` returns true.
 
-        Only meaningful if 'canGenerateExpectedStats()' returns true."""
+        Returns:
+           float: mean of expected homozygosity
+        """
         return self.expectedHomozygosity
 
     def getVarExpectedHomozygosity(self):
         """Gets variance of expected homozygosity.
 
         This is the estimate of the variance *expected* homozygosity.
+        Only meaningful if :meth:`canGenerateExpectedStats` returns true.
 
-        Only meaningful if 'canGenerateExpectedStats()' returns true."""
+        Returns:
+           float: variance of expected homozygosity
+        """
         return self.varExpectedHomozygosity
 
     def getNormDevHomozygosity(self):
         """Gets normalized deviate of homozygosity.
 
-        Only meaningful if 'canGenerateExpectedStats()' returns true."""
+        Only meaningful if :meth:`canGenerateExpectedStats` returns true.
+
+        Returns:
+           float: normalized deviate of homozygosity
+        """
 
         sqrtVar = math.sqrt(self.getVarExpectedHomozygosity())
         self.normDevHomozygosity = (
@@ -284,6 +321,11 @@ class Homozygosity:
         return self.normDevHomozygosity
 
     def serializeHomozygosityTo(self, stream):
+        """Serialize homozygosity to a stream
+
+        Args:
+           stream (XMLOutputStream): stream to save to
+        """
         getStreamType(stream)
 
         if self.expectedStatsFlag:
@@ -321,6 +363,14 @@ class Homozygosity:
 
 
 class HomozygosityEWSlatkinExact(Homozygosity):
+    """Compute homozygosity using the Ewens-Watterson-Slatkin "exact test".
+
+    Args:
+       alleleData (list): list of allele counts
+       numReplicates (int): number or replicates for simulation.
+       debug (int): flag to switch debugging on
+    """
+
     def __init__(self, alleleData=None, numReplicates=10000, debug=0):
         self.alleleData = alleleData
 
@@ -328,6 +378,13 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         self.debug = debug
 
     def doCalcs(self, alleleData):
+        """
+        Run the computations
+
+        Args:
+           alleleData (list): list of allele counts
+        """
+
         self.alleleData = alleleData
         self.numAlleles = len(self.alleleData)
         if self.numAlleles > 0:
@@ -365,6 +422,17 @@ class HomozygosityEWSlatkinExact(Homozygosity):
             self.var_homozygosity = self.EW.get_var_homozygosity()
 
     def getHomozygosity(self):
+        """Get the homozygosity statistics
+
+        Returns:
+           tuple: tuple consisting of:
+             - theta
+             - prob_ewens
+             - prob_homozygosity
+             - mean_homozygosity
+             - obsv_homozygosity
+             - var_homozygosity
+        """
         return (
             self.theta,
             self.prob_ewens,
@@ -375,6 +443,11 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         )
 
     def serializeHomozygosityTo(self, stream):
+        """Serialize homozygosity to a stream
+
+        Args:
+           stream (XMLOutputStream): stream to save to
+        """
         self.doCalcs(self.alleleData)
 
         if self.getObservedHomozygosity() >= 1.0:
@@ -424,7 +497,19 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         stream.writeln()
 
     def returnBulkHomozygosityStats(self, alleleCountDict=None, binningMethod=None):
-        # this function is written to work with the RandomBinning module
+        """Get bulk homozygosity statistics for multiple allele counts
+
+        This function is designed to work with the
+        :mod:`PyPop.RandomBinning` submodule.
+
+        Args:
+           alleleCountDict (dict): dictionary of lists of allele counts
+           binningMethod (str): record the binning method used
+
+        Returns:
+           dict: dictionary of statistics
+
+        """
 
         resultsDict = {}
 
@@ -462,6 +547,15 @@ class HomozygosityEWSlatkinExact(Homozygosity):
 
 
 class HomozygosityEWSlatkinExactPairwise:
+    """Compute pairwise homozygosity using the Ewens-Watterson-Slatkin.
+
+    Args:
+       matrix (StringMatrix): matrix with multiple loci columns for pairwise comparison
+       numReplicates (int, optional): number or replicates for simulation.
+       untypedAllele (str, optional): untyped allele
+       debug (int, optional): flag to switch debugging on
+    """
+
     def __init__(self, matrix=None, numReplicates=10000, untypedAllele="****", debug=0):
         self.matrix = matrix
         self.numReplicates = numReplicates
@@ -471,6 +565,11 @@ class HomozygosityEWSlatkinExactPairwise:
         self.pairs = getLocusPairs(self.matrix, self.sequenceData)
 
     def serializeTo(self, stream):
+        """Serialize to a stream
+
+        Args:
+           stream (XMLOutputStream): stream to save to
+        """
         stream.opentag("homozygosityEWSlatkinExactPairwise")
         stream.writeln()
 
