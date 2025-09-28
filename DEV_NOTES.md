@@ -318,13 +318,6 @@ if and when we generate API docs, they will appear there. They would
 need updating as part of that migration to make sure they are still
 accurate.)
 
-- `Main` is the primary interface to the PyPop modules. Given a
-  ConfigParser instance, which can be (1) created from a filename passed
-  from command-line argument or (2) from values populated by the GUI
-  (currently selected from an .ini file, but can ultimately be set
-  directly from the GUI or values based from a form to a web server or
-  the) it then runs the specified modules (outlined below).
-
 - `ParseFile` is a base class which has most of the common functionality
   for reading files.
 

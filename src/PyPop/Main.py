@@ -31,7 +31,23 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Python population genetics statistics."""
+"""Module provides primary access to PyPop's population genetics
+statistics modules.
+
+This module handles processing :class:`ConfigParser` instance, which
+can be:
+
+- created from a filename passed from command-line argument oar;
+
+- from values populated by the GUI (for example,  selected from an
+  ``.ini`` file,
+
+- created programmatically as part of an external Python program
+
+The :class:`Main` coordinates runs the analysis packages specified in
+this :class:`ConfigParser` instance.
+
+"""
 
 import os
 import sys
@@ -69,8 +85,12 @@ from PyPop.Utils import (
 def getConfigInstance(configFilename=None, altpath=None):
     """Create and return ConfigParser instance.
 
-    Taken a specific .ini filename and an alternative path to search
-    if no .ini filename is given.
+    Args:
+       configFilename (str): a specified ``.ini`` filename
+       altpath (str): an alternative path to search if no ``.ini`` filename provided in configFilename
+
+    Returns:
+      ConfigParser: configuration object
     """
     config = ConfigParser()
 
@@ -88,6 +108,15 @@ def getConfigInstance(configFilename=None, altpath=None):
 
 
 def get_sequence_directory(directory_str, debug=False):
+    """Get the directory for the :class:`PyPop.Filter.AnthonyNolanFilter`
+
+    Args:
+       directory_str (str): directory to search
+       debug (bool): enable debugging
+
+    Returns:
+       str: path to sequence files
+    """
     path_obj = Path(directory_str)
 
     # if the path is relative, resolve it to an absolute path if it exists
@@ -119,15 +148,17 @@ def get_sequence_directory(directory_str, debug=False):
 class Main:
     """Main interface to the PyPop modules.
 
-    Given a config instance, which can be:
-
-    - created from a filename passed from command-line argument or;
-
-    - from values populated by the GUI (currently selected from an
-      .ini file, but can ultimately be set directly from the GUI or
-      values based from a form to a web server or the).
-
-    runs the specified modules.
+    Args:
+        config (ConfigParser): configure object
+        xslFilename (str): XSLT file to use
+        xslFilenameDefault (str): fallback file name
+        debugFlag (int): enable debugging (``1``)
+        fileName (str): input ``.pop`` file
+        datapath (str): root of data path
+        thread (str, optional): specified thread
+        outputDir (str): use a different output directory than default
+        version (str): current Python version for output
+        testMode (bool): enable testing mode
     """
 
     def __init__(
@@ -1469,9 +1500,19 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             convertLineEndings(self.txtOutPath, 2)
 
     def getXmlOutPath(self):
+        """Get name of XML file
+
+        Returns:
+           XMLOutputStream: return XML file name
+        """
         # return the name of the generated XML file
         return self.xmlOutPath
 
     def getTxtOutPath(self):
+        """Get name of ``.txt`` output file
+
+        Returns:
+           TextOutputStream: return txt file name
+        """
         # return the name of the generated plain text (.txt) file
         return self.txtOutPath

@@ -153,7 +153,36 @@ def translate_file_to_file(
 
 
 class Meta:
-    """Aggregates output from multiple population runs."""
+    """Aggregates output from multiple population runs.
+
+    Transform a specified list of ``.xml`` output files to ``.tsv``
+    tab-separated values (TSV) form.
+
+    Args:
+       popmetabinpath (str): the directory for where meta sources are kept
+
+       datapath (str): data where XSLT and other meta sources may be kept
+
+       metaXSLTDirectory (str): fallback XSLT directory
+
+       dump_meta (bool): create the ``meta.xml`` file (default to ``False,``)
+
+       TSV_output (bool): output ``.tsv`` tables by default (enabled by default). (such tables can be used by R)
+
+       prefixTSV (str): prefix to use for all ``.tsv`` files
+
+       PHYLIP_output (bool): create PHYLIP output (disabled by default)
+
+       ihwg_output (bool): by default, don't enable the 13th IHWG format headers
+
+       batchsize (int): size of batches to process separately (default
+         ``batchsize=0``, a separate batch for each file)
+
+       outputDir (str): output directory to write XML files to
+
+       xml_files (list): list of generate XML files
+
+    """
 
     def __init__(
         self,
@@ -169,23 +198,6 @@ class Meta:
         outputDir=None,
         xml_files=None,
     ):
-        """Transform a specified list of XML output files to *.tsv
-        tab-separated values (TSV) form.
-
-        Defaults:
-        # output .tsv tables by default (can be used by R)
-        TSV_output=True
-
-        # don't output PHYLIP by default
-        PHYLIP_output=False
-
-        # by default, don't enable the 13th IHWG format headers
-        ihwg_output = False
-
-        # by default process separately (batchsize=0)
-        batchsize = 0
-        """
-
         # set default parser to resolve the SYSTEM file entities, now
         # that the lxml > 5.0.0 default is to disable resolution.  but
         # disallow network access
