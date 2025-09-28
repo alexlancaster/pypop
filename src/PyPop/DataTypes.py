@@ -467,7 +467,8 @@ def getMetaLocus(locus, isSequenceData):
 
 
 def getLocusPairs(matrix, sequenceData):
-    """
+    """Get locus pairs for a given matrix.
+
     :param matrix: matrix
     :type matrix: StringMatrix
     :param sequenceData: is this sequence data?
@@ -522,11 +523,12 @@ def getLumpedDataLevels(genotypeData, locus, lumpLevels):
 
 
 class AlleleCounts:
-    """.. deprecated:: 0.6.0
-         this class is now obsolete, the Genotypes class
-         now holds allele count data as pseudo-genotype matrix.
+    """Deprecated class to store information in allele count form.
 
-    Class to store information in allele count form."""
+    .. deprecated:: 0.6.0
+         this class is now obsolete, the :class:`Genotypes` class
+         now holds allele count data as pseudo-genotype matrix.
+    """
 
     def __init__(self, alleleTable=None, locusName=None, debug=0):
         self.alleleTable = alleleTable
@@ -562,8 +564,6 @@ class AlleleCounts:
         """Serialize subclass-specific metadata.
 
         Specifically, total number of alleles and loci.
-
-        .. deprecated:: 0.6.0
         """
 
         stream.opentag("summaryinfo")
@@ -576,9 +576,6 @@ class AlleleCounts:
         stream.writeln()
 
     def serializeAlleleCountDataAt(self, stream, locus):
-        """
-        .. deprecated:: 0.6.0
-        """
         # call the class-independent function...
 
         alleleTable, total, untypedIndividuals, unsequencedSites = self.freqcount[locus]
@@ -587,14 +584,8 @@ class AlleleCounts:
         )
 
     def getAlleleCount(self):
-        """
-        .. deprecated:: 0.6.0
-        """
         return self.freqcount[self.locusName]
 
     def getLocusName(self):
-        """
-        .. deprecated:: 0.6.0
-        """
         # the first key is the name of the locus
         return self.locusName
