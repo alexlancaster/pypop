@@ -31,7 +31,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Python population genetics statistics."""
+"""Generating randomized sets allele counts for statistical analyses."""
 
 from copy import copy
 from random import randrange
@@ -42,6 +42,21 @@ from PyPop.Homozygosity import (
 
 
 class RandomBinsForHomozygosity:
+    """
+    Generate randomized sets of bins for homozygosity analysis.
+
+    Args:
+        logFile (str): output log file
+        untypedAllele (str, optional): untyped allele (default ``****``)
+        filename (str): input filename
+        numReplicates (int, optional): replicates (default ``10000``)
+        binningReplicates (int, optional): replicates for binning (default ``100``)
+        locus (str): locus name
+        xmlfile (XMLOutputStream, optional): output stream
+        debug (int, optional): enable debugging with ``1``, default is ``0``
+        randomResultsFileName (str): output file for the randomized results
+    """
+
     def __init__(
         self,
         logFile=None,
@@ -90,6 +105,14 @@ class RandomBinsForHomozygosity:
         alleleCountsBefore=None,
         alleleCountsAfter=None,
     ):
+        """Dump results to file
+
+        Args:
+
+           alleleCountsBefore (list): allele counts before binning
+           alleleCountsAfter (list): allele counts after binning
+        """
+
         # append the before and after allele counts to the dictionary
         # so we can look up all of the stats en masse
         self.alleleCountDict[tuple(alleleCountsBefore)] = "before"
@@ -117,6 +140,12 @@ class RandomBinsForHomozygosity:
         self.randomResultsFile.close()
 
     def _updateCountDict(self, alleleCounts=None):
+        """
+        Update counts.
+
+        Args:
+           alleleCounts (list): allele count list
+        """
         alleleCounts.sort()
         alleleCounts = tuple(alleleCounts)
 
@@ -129,6 +158,15 @@ class RandomBinsForHomozygosity:
             self.alleleCountDict[alleleCounts] = 1
 
     def randomMethod(self, alleleCountsBefore=None, alleleCountsAfter=None):
+        """
+        Do binning replicates with random-based method
+
+        Args:
+
+           alleleCountsBefore (list): allele counts before binning
+           alleleCountsAfter (list): allele counts after binning
+
+        """
         self.binningMethod = "random"
 
         # we don't need the dictionary in this case, just the counts
@@ -157,6 +195,18 @@ class RandomBinsForHomozygosity:
         polyseq=None,
         polyseqpos=None,
     ):
+        """Do binning replicates with sequence-based method
+
+        Args:
+
+           alleleCountsBefore (list): allele counts before binning
+           alleleCountsAfter (list): allele counts after binning
+           polyseq (dict): Keyed on ``locus*allele`` of all allele
+            sequences, containing **ONLY** the polymorphic positions.
+           polyseqpos (dict): Keyed on ``locus`` of the positions of
+            the polymorphic residues which you find in ``polyseq``.
+        """
+
         self.binningMethod = "sequence"
 
         binningAttempts = 0
