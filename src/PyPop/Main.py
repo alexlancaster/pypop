@@ -34,7 +34,7 @@
 """Module provides primary access to PyPop's population genetics
 statistics modules.
 
-This module handles processing :class:`ConfigParser` instance, which
+This module handles processing :class:`configparser.ConfigParser` instance, which
 can be:
 
 - created from a filename passed from command-line argument oar;
@@ -45,7 +45,7 @@ can be:
 - created programmatically as part of an external Python program
 
 The :class:`Main` coordinates runs the analysis packages specified in
-this :class:`ConfigParser` instance.
+this :class:`configparser.ConfigParser` instance.
 
 """
 
@@ -90,7 +90,7 @@ def getConfigInstance(configFilename=None, altpath=None):
        altpath (str): an alternative path to search if no ``.ini`` filename provided in configFilename
 
     Returns:
-      ConfigParser: configuration object
+      configparser.ConfigParser: configuration object
     """
     config = ConfigParser()
 
@@ -149,7 +149,7 @@ class Main:
     """Main interface to the PyPop modules.
 
     Args:
-        config (ConfigParser): configure object
+        config (configparser.ConfigParser): configure object
         xslFilename (str): XSLT file to use
         xslFilenameDefault (str): fallback file name
         debugFlag (int): enable debugging (``1``)
