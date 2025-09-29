@@ -46,10 +46,34 @@ ns.prefix = "es"
 
 
 def num_zeros(decimal):
+    """Count zeroes.
+
+    Args:
+       decimal (float): number to check
+
+    Returns:
+       int: number of zeroes in floating point number, or ``inf`` if number is zero
+    """
     return inf if decimal == 0 else -floor(log10(abs(decimal))) - 1
 
 
 def exponent_len(num):
+    """
+    Calculate space taken for exponent
+
+    Example:
+
+    >>> exponent_len(1e-03)
+    2
+    >>> exponent_len(1e-10)
+    3
+
+    Args:
+       num (float): input number
+
+    Returns:
+      int: length of exponent
+    """
     # length of exponent, e.g.
     # "e-3', would be two characters ('-3')
     # "e-10" would be 3, ('-10')
@@ -58,6 +82,20 @@ def exponent_len(num):
 
 @ns
 def format_number_fixed_width(_context, *args):
+    """Format number to fixed width
+
+    Note:
+      arguments from XSLT file: ``num`` and ``places`` are encoded in
+      ``*args``.
+
+    Args:
+       _context (obj): not used
+
+    Returns:
+
+       str: formatted number to fixed width
+
+    """
     num = float(args[0])
     places = int(args[1])
     zeros_before_sig_figs = num_zeros(num)

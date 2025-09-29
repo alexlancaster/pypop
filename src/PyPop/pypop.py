@@ -50,6 +50,13 @@ from PyPop.Utils import getUserFilenameInput, glob_with_pathlib  # noqa: F401
 
 
 def main(argv=sys.argv):
+    """
+    Entry point for ``pypop`` script
+
+    Args:
+       argv (list): list of command-line options (default is ``sys.argv``)
+    """
+
     ######################################################################
     # BEGIN: CHECK PATHS and FILEs
     ######################################################################
@@ -344,6 +351,13 @@ return for each prompt.""")
 
 
 def main_interactive(argv=sys.argv):
+    """
+    Entry point for interactive mode script ``pypop-interactive``.
+
+    Args:
+       argv (list): list of command-line options (default is ``sys.argv``)
+    """
+
     argv.append("-i")
     main(argv)
     input("Press Enter to exit...")

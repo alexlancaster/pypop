@@ -43,6 +43,12 @@ from PyPop.Meta import Meta
 
 
 def main(argv=sys.argv):
+    """Entry point for ``popmeta`` script
+
+    Args:
+       argv (list): list of command-line options (default is ``sys.argv``)
+    """
+
     datapath = Path(sys.prefix) / "share" / "PyPop"
 
     parser = get_popmeta_cli(version=version, copyright_message=copyright_message)
