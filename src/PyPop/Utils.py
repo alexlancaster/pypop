@@ -71,8 +71,7 @@ Example:
 
 
 def glob_with_pathlib(pattern):
-    """
-    Use globbing with ``pathlib``
+    """Use globbing with ``pathlib``
 
     Args:
        pattern (str): globbing pattern
@@ -98,7 +97,6 @@ class TextOutputStream:
         """Write to stream.
 
         Args:
-
           str (str): string to write
         """
         self.f.write(str)
@@ -147,7 +145,6 @@ class XMLOutputStream(TextOutputStream):
         Tag attributes passed as optional named keyword arguments.
 
         Example:
-
           ``opentag('tagname', role=something, id=else)``
 
           produces the result:
@@ -162,11 +159,10 @@ class XMLOutputStream(TextOutputStream):
 
           ``<tagname>``
 
-        See also:
+        See Also:
            Must be be followed by a :meth:`closetag`.
 
         Args:
-
            tagname (str):  name of XML tag
 
         """
@@ -179,7 +175,6 @@ class XMLOutputStream(TextOutputStream):
         XML content (but can contain attributes).
 
         Example:
-
           ```emptytag('tagname', attr='val')``
 
           produces:
@@ -195,14 +190,13 @@ class XMLOutputStream(TextOutputStream):
         """Write a closing XML tag to stream.
 
         Example:
-
           ``closetag('tagname')``
 
           Generate a tag in the form:
 
           ``</tagname>``
 
-        See also:
+        See Also:
            Must be be preceded by a :meth:`opentag`.
 
         Args:
@@ -215,7 +209,6 @@ class XMLOutputStream(TextOutputStream):
         stream.
 
         Example:
-
           ``tagContents('tagname', 'foo bar')``
 
           produces:
@@ -261,9 +254,7 @@ class OrderedDict:
     __version__ = "1.1"
 
     def __init__(self, hash=None):
-        """
-        Creates an ordered dict
-        """
+        """Creates an ordered dict"""
         if hash is None:
             hash = []
         self.__hash = {}
@@ -275,9 +266,7 @@ class OrderedDict:
             self.KEYS.append(k)
 
     def __addval__(self, key, value):
-        """
-        Internal function to add/change key-value pair (at end)
-        """
+        """Internal function to add/change key-value pair (at end)"""
         try:
             self.KEYS.index(key)
         except Exception:
@@ -287,9 +276,7 @@ class OrderedDict:
             self.__hash[key] = value
 
     def __setitem__(self, i, hash):
-        """
-        Adds key-value pairs (existing keys not moved)
-        """
+        """Adds key-value pairs (existing keys not moved)"""
         if type(i) is type(Index()):
             del self.__hash[self.KEYS[i.i]]
             if len(hash) != 1:
@@ -299,54 +286,40 @@ class OrderedDict:
             self.__addval__(i, hash)
 
     def __getitem__(self, key):
-        """
-        Returns value of given key
-        """
+        """Returns value of given key"""
         if type(key) is type(Index()):
             key = self.KEYS[key.i]
             return [key, self.__hash[key]]
         return self.__hash[key]
 
     def __len__(self):
-        """
-        Returns the number of pairs in the dict
-        """
+        """Returns the number of pairs in the dict"""
         return len(self.KEYS)
 
     def index(self, key):
-        """
-        Returns position of key in dict
-        """
+        """Returns position of key in dict"""
         return self.KEYS.index(key)
 
     def keys(self):
-        """
-        Returns list of keys in dict
-        """
+        """Returns list of keys in dict"""
         return self.KEYS
 
     def values(self):
-        """
-        Returns list of values in dict
-        """
+        """Returns list of values in dict"""
         ret = []
         for key in self.KEYS:
             ret.append(self.__hash[key])
         return ret
 
     def items(self):
-        """
-        Returns list of tuples of keys and values
-        """
+        """Returns list of tuples of keys and values"""
         ret = []
         for key in self.KEYS:
             ret.append((key, self.__hash[key]))
         return ret
 
     def insert(self, i, key, value):
-        """
-        Inserts a key-value pair at a given index
-        """
+        """Inserts a key-value pair at a given index"""
         InsertError = "Duplicate key entry"
         if key in self.__hash:
             raise InsertError
@@ -354,80 +327,58 @@ class OrderedDict:
         self.__hash[key] = value
 
     def remove(self, i):
-        """
-        Removes a key-value pair from the dict
-        """
+        """Removes a key-value pair from the dict"""
         del self.__hash[i]
         self.KEYS.remove(i)
 
     def __delitem__(self, i):
-        """
-        Removes a key-value pair from the dict
-        """
+        """Removes a key-value pair from the dict"""
         if type(i) is not type(Index()):
             i = Index(self.KEYS.index(i))
         del self.__hash[self.KEYS[i.i]]
         del self.KEYS[i.i]
 
     def reverse(self):
-        """
-        Reverses the order of the key-value pairs
-        """
+        """Reverses the order of the key-value pairs"""
         self.KEYS.reverse()
 
     def sort(self, cmp=0):
-        """
-        Sorts the dict (allows for sort algorithm)
-        """
+        """Sorts the dict (allows for sort algorithm)"""
         if cmp:
             self.KEYS.sort(cmp)
         else:
             self.KEYS.sort()
 
     def clear(self):
-        """
-        Clears all the entries in the dict
-        """
+        """Clears all the entries in the dict"""
         self.__hash = {}
         self.KEYS = []
 
     def copy(self):
-        """
-        Makes copy of dict, also of OrderdDict class
-        """
+        """Makes copy of dict, also of OrderdDict class"""
         hash = OrderedDict()
         hash.KEYS = self.KEYS[:]
         hash.__hash = self.__hash.copy()
         return hash
 
     def get(self, key):
-        """
-        Returns the value of a key
-        """
+        """Returns the value of a key"""
         return self.__hash[key]
 
     def has_key(self, key):
-        """
-        Looks for existence of key in dict
-        """
+        """Looks for existence of key in dict"""
         return key in self.__hash
 
     def update(self, dict):
-        """
-        Updates entries in a dict based on another
-        """
+        """Updates entries in a dict based on another"""
         self.__hash.update(dict)
 
     def count(self, key):
-        """
-        Finds occurrences of a key in a dict (0/1)
-        """
+        """Finds occurrences of a key in a dict (0/1)"""
         return key in self.__hash
 
     def __getslice__(self, i, j):
-        """
-        Returns an OrderedDict of key-value pairs from a dict
-        """
+        """Returns an OrderedDict of key-value pairs from a dict"""
         ret = []
         for x in range(i, j):
             ret.append(self.KEYS[x])
@@ -435,9 +386,7 @@ class OrderedDict:
         return OrderedDict(ret)
 
     def __setslice__(self, i, j, hash):
-        """
-        Sets a slice of elements from the dict
-        """
+        """Sets a slice of elements from the dict"""
         hash = list(hash)
         for x in range(i, j):
             k, v, hash = hash[0], hash[1], hash[2:]
@@ -445,8 +394,7 @@ class OrderedDict:
 
 
 class Index:
-    """
-    Returns an Index object for :class:`OrderedDict`.
+    """Returns an Index object for :class:`OrderedDict`.
 
     .. deprecated:: 1.3.1
 
@@ -467,7 +415,6 @@ class StringMatrix(container):
     access.
 
     Args:
-
        rowCount (int): number of rows in matrix
        colList (list): list of locus keys in a specified order
        extraList (list): other non-matrix metadata
@@ -515,7 +462,6 @@ class StringMatrix(container):
         """Override default representation.
 
         Example:
-
           This is used when the object is 'print'ed, i.e.
 
           .. code-block:: python
@@ -524,7 +470,6 @@ class StringMatrix(container):
               print (a)
 
         Returns:
-
            str: new string representation
         """
         if len(self.array.shape) > 0:
@@ -535,7 +480,6 @@ class StringMatrix(container):
         """Write file to a stream in original format.
 
         Args:
-
            locus (str, optional): write just specified locus, if
             omitted, default to all loci
            stream (TextOutputStream|XMLOutputStream|stdout): output stream
@@ -577,10 +521,8 @@ class StringMatrix(container):
         """Make a (deep) copy.
 
         Return:
-
             StringMatrix: a deep copy of the current object
         """
-
         # FIXME: currently this goes via the constructor, not sure if
         # there is a better way of doing this
 
@@ -624,7 +566,6 @@ class StringMatrix(container):
         """Get the item at given key (overrides built-in numpy).
 
         Example:
-
           This is called when instance is called to retrieve a position
 
           >>> li = matrix['A']
@@ -633,7 +574,6 @@ class StringMatrix(container):
           key (str): locus key
 
         Returns:
-
            list: a list (a single column vector if only one position
             specified), or list of lists: (a set of column vectors if
             several positions specified) of tuples for ``key``
@@ -700,7 +640,6 @@ class StringMatrix(container):
            KeyError: if locus can not be found.
 
         """
-
         if type(key) is str:
             colNames = key.split(":")
 
@@ -759,7 +698,6 @@ class StringMatrix(container):
             single string (for metadata)
 
         Raises:
-
            IndexError: if ``index`` is not a tuple
            ValueError: if ``value`` is not a tuple or string
            KeyError: if the ``index`` can't be found
@@ -807,7 +745,6 @@ class StringMatrix(container):
          natural sort.
 
         Args:
-
            key (str): loci to get
 
         Returns:
@@ -837,7 +774,6 @@ class StringMatrix(container):
           represented by integers
 
         """
-
         # FIXME: check whether we need to release memory
         # create a new copy
         newMatrix = self.copy()
@@ -857,16 +793,13 @@ class StringMatrix(container):
         row of the matrix.
 
         Warning:
-
           This does *not* do any involved handling of missing data as
           per ``geno.count.pairs`` from R ``haplo.stats`` module.
 
         Returns:
-
           list: each element is the number of pairs in row order
 
         """
-
         # FIXME: should these methods eventually be moved to the
         # :class:`PyPop.ParseFile.Genotype` class?
 
@@ -939,7 +872,6 @@ class StringMatrix(container):
         """Get a matrix grouped by specified key.
 
         Example:
-
           If matrix represents the following genotype ``[[A01, A02,
           B01, B02], [A11, A12, B11, B12]]``
 
@@ -996,7 +928,6 @@ class Group:
          'dd'
 
     Args:
-
         li (str|list): string or list
         size (int): size of grouping
 
@@ -1007,8 +938,7 @@ class Group:
         self.li = li
 
     def __getitem__(self, group):
-        """
-        Get the item by position.
+        """Get the item by position.
 
         Args:
            group (int): get the item by position
@@ -1096,7 +1026,6 @@ def convertLineEndings(file, mode):
           - ``2`` Unix to DOS
 
     """
-
     if mode == 1:
         if Path(file).is_dir():
             sys.exit(file + "Directory!")
@@ -1168,7 +1097,6 @@ def copyCustomPlatform(file, dist_dir, txt_ext=0):
        txt_ext (int, optional): if enabled (``1``) add a ``.txt`` extension
 
     """
-
     new_filename = Path(dist_dir) / Path(file).name
     print(f"copying {file} to")
     shutil.copy(file, dist_dir)
@@ -1179,7 +1107,6 @@ def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg="
     """Check XSL filename and return full path.
 
     Args:
-
        xslFilename (str): name of the XSL file
        path (str): root path to check
        subdir (str): subdirectory under ``path`` to check
@@ -1218,7 +1145,6 @@ def getUserFilenameInput(prompt, filename):
     Returns:
        str: name of file eventually selected
     """
-
     nofile = 1
     while nofile:
         tempFilename = input(f"Please enter {prompt} filename [{filename}]: ")
@@ -1245,7 +1171,6 @@ def splitIntoNGroups(alist, n=1):
     """Divides a list up into n parcels (plus whatever is left over)
 
     Example:
-
      >>> a = ['A', 'B', 'C', 'D', 'E']
      >>> splitIntoNGroups(a, 2)
      [['A', 'B'], ['C', 'D'], ['E']]

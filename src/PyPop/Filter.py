@@ -52,9 +52,7 @@ from PyPop.Utils import StringMatrix
 
 
 class SubclassError(Exception):
-    """
-    Customized exception if a subclass doesn't implement required methods.
-    """
+    """Customized exception if a subclass doesn't implement required methods."""
 
     def __init__(self):
         super().__init__()
@@ -298,11 +296,9 @@ class AnthonyNolanFilter(Filter):
         """Do filtering on the provided matrix
 
         Args:
-
            matrix (StringMatrix): matrix to be filteredng
 
         Returns:
-
            StringMatrix: returns processed matrix for further downstream processing
 
         """
@@ -355,7 +351,7 @@ class AnthonyNolanFilter(Filter):
         Args:
            locus (str): locus to start filtering
 
-        See also:
+        See Also:
            Must be paired with a subsequent :meth:`endFirstPass`
         """
         self.locus = locus
@@ -373,12 +369,10 @@ class AnthonyNolanFilter(Filter):
            alleleName (str):
 
         Returns:
-
           str: returns the original ``allele`` truncated to appropriate number of digits,
           if it can't be found using any of the heuristics, return it as
           an ``untypedAllele`` (normally ``****``).
         """
-
         # alleleInfo = self.filename + ":" + self.locus + ":" + alleleName
         alleleInfo = self.locus + ":" + alleleName
 
@@ -456,7 +450,6 @@ class AnthonyNolanFilter(Filter):
         Args:
            alleleName (str):
         """
-
         if alleleName not in self.translTable:
             self.translTable[alleleName] = self.checkAlleleName(alleleName)
 
@@ -470,7 +463,7 @@ class AnthonyNolanFilter(Filter):
     def endFirstPass(self):
         """End first pass of filtering
 
-        See also:
+        See Also:
            Must be paired with a previous :meth:`startFirstPass`
         """
         if self.debug:
@@ -556,7 +549,7 @@ class AnthonyNolanFilter(Filter):
     def startFiltering(self):
         """Start the main filtering.
 
-        See also:
+        See Also:
           must be paired with a subsequent :meth:`endFiltering`
         """
         self.logFile.opentag("translateTable", locus=self.locus)
@@ -571,7 +564,6 @@ class AnthonyNolanFilter(Filter):
         Returns:
            dict: return the translated allele
         """
-
         if self.preserveAmbiguousFlag and len(alleleName.split("/")) > 1:
             transl_collection = []
             for subname in alleleName.split("/"):
@@ -596,10 +588,8 @@ class AnthonyNolanFilter(Filter):
         """End filtering.
 
         See Also:
-
            Must be paired with a previous :meth:`startFiltering`
         """
-
         self.logFile.closetag("translateTable")
         self.logFile.writeln()
 
@@ -638,7 +628,6 @@ class AnthonyNolanFilter(Filter):
              in the MSF header.
 
         """
-
         self.matrix = matrix
 
         # polyseq is a dictionary, keyed on 'locus*allele', of all
@@ -827,10 +816,8 @@ class AnthonyNolanFilter(Filter):
             matrix (StringMatrix): matrix to translate
 
         Returns:
-
             StringMatrix: new instance with sequence data in columns
         """
-
         self.matrix = matrix
         self.polyseq, self.polyseqpos = self.makeSeqDictionaries(self.matrix)
 
@@ -1007,10 +994,7 @@ class AnthonyNolanFilter(Filter):
             print(f"LOG: using default cache directory: {self.msf_cache_dir}")
 
     def _getMSFFilePath(self, locus):
-        """
-        fetches the path to the file locally or remotely (if remoteMSF option supplied)
-        """
-
+        """Fetches the path to the file locally or remotely (if remoteMSF option supplied)"""
         # first generate the file name to retrieve(same for both local and remote)
         file_name = f"{locus}{self.sequenceFileSuffix}.msf"
 
@@ -1193,7 +1177,6 @@ class BinningFilter:
     rules defined a file for each locus.
 
     Args:
-
        customBinningDict (dict, optional): a custom binning dict, this is
         keyed by locus, but each key consists of a series of
         lines, each line containing ruleset of which alleles
@@ -1235,7 +1218,6 @@ class BinningFilter:
            StringMatrix: the modified matrix
 
         """
-
         self.logFile.opentag("DigitBinningFilter")
         self.logFile.writeln("<![CDATA[")
 
@@ -1321,12 +1303,10 @@ class BinningFilter:
         pair, and return result.
 
         Args:
-
            testAllele (str): allele to check
            locus (str): locus to check
 
         Returns:
-
            str: binned (or not) allele
 
         """
@@ -1417,7 +1397,6 @@ class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
         a count < ``lumpThreshold`` to ``lump``
 
         """
-
         AnthonyNolanFilter.endFirstPass(self)
 
         # now, translate alleles with count < lumpThreshold to "lump"

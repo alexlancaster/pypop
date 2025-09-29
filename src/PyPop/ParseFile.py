@@ -100,7 +100,6 @@ class ParseFile:
             (default: no debugging, ``0``)
 
         """
-
         self.filename = filename
         self.validPopFields = validPopFields
         self.validSampleFields = validSampleFields
@@ -167,7 +166,6 @@ class ParseFile:
         positions keyed by valid field names.
 
         Note:
-
          - Complains if a field name is not valid.
 
          - Complains if the correct number of fields are not found for
@@ -258,7 +256,6 @@ class ParseFile:
         present on each line .
 
         """
-
         # get population header metadata
         popHeaderLine = self.fileData[0].rstrip()
 
@@ -302,7 +299,6 @@ class ParseFile:
         on each line
 
         """
-
         # get sample header metadata
         sampleHeaderLine = self.fileData[self.sampleFirstLine - 1].rstrip()
 
@@ -340,7 +336,6 @@ class ParseFile:
         """Returns a dictionary of population data.
 
         Returns:
-
           dict: keyed by types specified in population metadata file
         """
         return self.popData
@@ -349,20 +344,17 @@ class ParseFile:
         """Returns dictionary of sample data.
 
         Returns:
-
           dict: each entry contains either a 2-tuple of column
            position or a single column position keyed by field
            originally specified in sample metadata file
 
         """
-
         return self.sampleMap
 
     def getFileData(self):
         """Returns the file data.
 
         Returns:
-
           tuple: a 2-tuple "wrapper":
 
           - str: raw sample lines, *without* header metadata.
@@ -375,7 +367,6 @@ class ParseFile:
 
         .. deprecated:: 0.7.0
         """
-
         # for field in fieldList:
         # print string.strip(field) + self.separator,
         for lineCount in range(self.sampleFirstLine, len(self.fileData)):
@@ -393,7 +384,6 @@ class ParseFile:
         Args:
            stream (XMLStreamOutput): output stream
         """
-
         getStreamType(stream)
 
         stream.opentag("populationdata")
@@ -420,7 +410,6 @@ class ParseGenotypeFile(ParseFile):
     genotyped for one or more loci.
 
     Args:
-
         filename (str): filename for the file to be parsed.
 
         untypedAllele (str, optional): The designator for an untyped locus.
@@ -444,8 +433,8 @@ class ParseGenotypeFile(ParseFile):
         Note that this is simply a transformed _subset_ of that
         returned by **getSampleMap()**
 
-        *For internal use only.*"""
-
+        *For internal use only.*
+        """
         # assume there is no population column
 
         popNameCol = None
@@ -479,8 +468,8 @@ class ParseGenotypeFile(ParseFile):
     def _genDataStructures(self):
         """Generates matrix only
 
-        *For internal use only.*"""
-
+        *For internal use only.*
+        """
         # generate alleleMap and population field name
         self._genInternalMaps()
 
@@ -569,8 +558,8 @@ class ParseGenotypeFile(ParseFile):
         *Note: this is explicitly done in the subclass of the abstract
         'ParseFile' class (i.e. since this subclass should have
         `knowledge' about the nature of fields, but the abstract
-        class should not have)*"""
-
+        class should not have)*
+        """
         if (
             (field in fieldList)
             or (self.alleleDesignator + field in fieldList)
@@ -619,7 +608,6 @@ class ParseGenotypeFile(ParseFile):
 
     def serializeSubclassMetadataTo(self, stream):
         """Serialize subclass-specific metadata."""
-
         if self.popName:
             # if present in input , print population name
             stream.tagContents("popname", self.popName)
@@ -718,26 +706,22 @@ class ParseAlleleCountFile(ParseFile):
         """Checks validity of a field.
 
         Args:
-
          field (str): field to check
          fieldList (str): list that ``field`` is checked against
 
         Returns:
-
           tuple: 2-tuple of:
 
           - boolean: whether key is valid
           - str: key
 
         Note:
-
           The first element in the ``fieldList`` is a locus name,
           which may contain many loci (delimited by colons ``:``).  If
           ``field`` in the input file match *any* of these keys , this
           method will return the field and a valid match.
 
-          Example:
-
+        Example:
             If the first element of ``fieldList`` is
             ``DQA1:DRA:DQB1``, then calling this function with
             ``field`` set to ``DRA``, this would return ``(True,
@@ -774,7 +758,6 @@ class ParseAlleleCountFile(ParseFile):
         Returns:
           dict: keyed by allele name with value count
         """
-
         return self.alleleTable
 
     def getLocusName(self):
@@ -783,7 +766,6 @@ class ParseAlleleCountFile(ParseFile):
         Returns:
            str: locus name
         """
-
         # the first key is the name of the locus
         return self.locusName
 

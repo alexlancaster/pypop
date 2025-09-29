@@ -103,7 +103,6 @@ class Homozygosity:
         Returns:
            pathlib.Path: path to file
         """
-
         decade, rem = divmod(sampleCount, 10)
         if rem >= 5:
             decade = decade + 1
@@ -156,7 +155,6 @@ class Homozygosity:
         Returns:
            int: ``1`` if in range, ``0`` if out of range
         """
-
         if self._checkCountRange(self.sampleCount):
             if self._checkAlleleRange(self.numAlleles):
                 # generate relative path name
@@ -217,7 +215,6 @@ class Homozygosity:
         Returns:
           float: observed homozygosity
         """
-
         sum = 0.0
 
         # cache floating point value
@@ -244,7 +241,6 @@ class Homozygosity:
         Returns:
            int: ``1`` if can be calculated, otherwise ``0``
         """
-
         return self.expectedStatsFlag
 
     def getPValueRange(self):
@@ -255,7 +251,6 @@ class Homozygosity:
         Returns:
           tuple:  (``lower``, ``upper``) bounds.
         """
-
         upperBound = 999.0
         if self.debug:
             print("quartiles")
@@ -313,7 +308,6 @@ class Homozygosity:
         Returns:
            float: normalized deviate of homozygosity
         """
-
         sqrtVar = math.sqrt(self.getVarExpectedHomozygosity())
         self.normDevHomozygosity = (
             self.getObservedHomozygosity() - self.getExpectedHomozygosity()
@@ -378,13 +372,11 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         self.debug = debug
 
     def doCalcs(self, alleleData):
-        """
-        Run the computations
+        """Run the computations
 
         Args:
            alleleData (list): list of allele counts
         """
-
         self.alleleData = alleleData
         self.numAlleles = len(self.alleleData)
         if self.numAlleles > 0:
@@ -510,7 +502,6 @@ class HomozygosityEWSlatkinExact(Homozygosity):
            dict: dictionary of statistics
 
         """
-
         resultsDict = {}
 
         for i in alleleCountDict:

@@ -114,7 +114,6 @@ class HardyWeinberg:
     genotype values, and test for fit.
 
     Args:
-
       locusData (list): list of tuples of genotype ``(allele1, allele2)``
       alleleCount (tuple): a tuple consisting of a dictionary of
        counts, total count and number of untyped individuals as
@@ -150,8 +149,8 @@ class HardyWeinberg:
 
     def _generateTables(self):
         """Manipulate the given genotype data to generate
-        the tables upon which the calculations will be based."""
-
+        the tables upon which the calculations will be based.
+        """
         self.alleleFrequencies = {}
         self.observedGenotypes = []
         self.observedAlleles = []  # need a uniqed list
@@ -311,7 +310,6 @@ class HardyWeinberg:
           released under the GNU GPL and as such, is redistributable
           with our code, removing the need for an external program
         """
-
         self.counterA = {}
         self.chisq = {}
         self.chisqPval = {}
@@ -578,11 +576,9 @@ class HardyWeinberg:
     ################################################################################
 
     def serializeTo(self, stream, allelelump=0):
-        """
-        Serialize output to specified XML stream.
+        """Serialize output to specified XML stream.
 
         Args:
-
            stream (XMLOutputStream): write to specified XML stream (generally a file)
 
            allelelump (int): record the allele lumping value
@@ -729,7 +725,6 @@ class HardyWeinberg:
         """Serialize the genotype table.
 
         Args:
-
            stream (XMLOutputStream): XML stream
         """
         sortedAlleles = self.observedAlleles[:]
@@ -822,7 +817,6 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
     class, this class accepts the following additional keywords:
 
     Args:
-
       locusData (list): list of tuples of genotype ``(allele1, allele2)``
 
       alleleCount (tuple): a tuple consisting of a dictionary of
@@ -938,7 +932,6 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
         """Output table to stream
 
         Args:
-
           locusName (str): locus to output table
           stream (XMLOutputStream): name of XML stream
           allelelump (int): record allele lumping level (default ``0``)
@@ -1050,12 +1043,10 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
     enumeration test
 
     Warning:
-
       This requires the ``Enumeration`` C code to be compiled
       as a module using SWIG. By default this is currently disabled.
 
     Args:
-
       locusData (list): list of tuples of genotype ``(allele1, allele2)``
       alleleCount (tuple): a tuple consisting of a dictionary of
        counts, total count and number of untyped individuals as
@@ -1092,7 +1083,6 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
         """Serialize enumeration test output to stream
 
         Args:
-
           stream (XMLOutputStream): XML stream to use
           allelelump (int): record allele lumping level (default ``0``)
         """
@@ -1222,7 +1212,6 @@ class HardyWeinbergGuoThompsonArlequin:
         """Serialize output to stream
 
         Args:
-
            stream (XMLOutputStream): stream to serialize to
         """
         if self.noDataFlag:

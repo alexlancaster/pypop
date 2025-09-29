@@ -32,9 +32,8 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-"""
-.. deprecated:: 1.0.0
-   Module for exposing Arlequin functionality in Python.
+""".. deprecated:: 1.0.0
+Module for exposing Arlequin functionality in Python.
 """
 
 import os
@@ -178,8 +177,8 @@ class ArlequinWrapper:
 
         Convert missing data using the untypedAllele parameter to
         class to the standard single character missing data signifier
-        '?' that Arlequin uses"""
-
+        '?' that Arlequin uses
+        """
         # add a colon ':' to the match, because all alleles in the original
         # data structure have a trailing colon
         return "?" if data == self.untypedAllele + ":" else data.replace(" ", "x")
@@ -210,8 +209,8 @@ end"""
 
         Forks a copy of 'arlecore.exe', which must be on 'PATH' to
         actually generate the desired statistics estimates from the
-        generated '.arp' file."""
-
+        generated '.arp' file.
+        """
         # save current directory
         cwd = Path.cwd()
 
@@ -242,11 +241,9 @@ class ArlequinExactHWTest(ArlequinWrapper):
     Run Hardy-Weinberg exact test on list specified in ``lociList``.
 
     Attributes:
-
       hwExactTest (str): standard config options for Arlequin
 
     Args:
-
      matrix (StringMatrix): StringMatrix for testing
 
      lociList (list): list of loci
@@ -378,7 +375,6 @@ KeepNullDistrib=0"""
         the contents of the dictionary element simply contains the
         string 'monomorphic', rather than the tuple of values.
         """
-
         outFile = (
             Path(self.arlSubdir) / self.arlResPrefix
             + ".res" / self.arlResPrefix
@@ -443,7 +439,6 @@ class ArlequinBatch:
     itself.
 
     Args:
-
        arpFilename (str): Arlequin filename (must have ``.arp`` file
         extension)
 
@@ -597,7 +592,6 @@ class ArlequinBatch:
         - window on current map order
            (a `slice' of the overall map order,  NOTE: starts at ONE!!).
         """
-
         newChunk = []
         slice = order[start : (window + start)]
         for x in slice:
@@ -610,7 +604,6 @@ class ArlequinBatch:
 
     def outputArlequin(self, data):
         """Outputs the specified .arp sample file."""
-
         if self.debug:
             print("Counted", len(data), "lines.")
         firstLine = data[0]
@@ -726,8 +719,8 @@ end"""
 
         Forks a copy of 'arlecore.exe', which must be on 'PATH' to
         actually generate the desired statistics estimates from the
-        generated '.arp' file."""
-
+        generated '.arp' file.
+        """
         # spawn external Arlequin process
         os.system("arlecore.exe")
 

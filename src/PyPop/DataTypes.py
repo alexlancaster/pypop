@@ -41,7 +41,6 @@ def _serializeAlleleCountDataAt(
     stream, alleleTable, total, untypedIndividuals, unsequencedSites
 ):
     """Function to actually do the output"""
-
     totalFreq = 0
     alleles = list(alleleTable.keys())
     alleles.sort()
@@ -96,8 +95,7 @@ def _serializeAlleleCountDataAt(
 
 
 class Genotypes:
-    """
-    Base class that stores and caches basic genotype statistics.
+    """Base class that stores and caches basic genotype statistics.
 
     Args:
         matrix (StringMatrix): The ``StringMatrix`` to be converted into a ``Genotype`` instance
@@ -127,12 +125,10 @@ class Genotypes:
         """Check alleles and update counts.
 
         Args:
-
            allele1 (str): allele 1
            allele2 (str): allele 2
            unsequencedSites (str): the value representing unsequenced sites
         """
-
         for phase in [allele1, allele2]:
             if phase not in {self.untypedAllele, self.unsequencedSite}:
                 if self.debug:
@@ -154,8 +150,8 @@ class Genotypes:
     def _genDataStructures(self):
         """Generates allele count and map data structures.
 
-        *For internal use only.*"""
-
+        *For internal use only.*
+        """
         self.locusKeys = self.matrix.colList
 
         # then total number of individuals in data file
@@ -253,8 +249,7 @@ class Genotypes:
                 self.totalLociWithData += 1
 
     def getLocusList(self):
-        """
-        Note:
+        """Note:
            The returned list filters out all loci that consist of
            individuals that are all untyped.  The order of returned
            list is now fixed for the lifetime of the object.
@@ -262,13 +257,12 @@ class Genotypes:
         Returns:
             list: The list of loci.
         """
-
         # returns a clone of the locusKeys list, so that this instance
         # variable can't be modified inadvertently
         return self.locusKeys[:]
 
     def getAlleleCount(self):
-        """allele count statistics for all loci.
+        """Allele count statistics for all loci.
 
         Returns:
             dict: a map of tuples where the key is the locus name.  Each
@@ -276,7 +270,6 @@ class Genotypes:
             containing counts, the total count at that locus and the
             number of untyped individuals.
         """
-
         return self.freqcount
 
     def getAlleleCountAt(self, locus, lumpValue=0):
@@ -287,12 +280,10 @@ class Genotypes:
            lumpValue (int): the specified amount of lumping (Default: 0)
 
         Returns:
-
            tuple: a tuple consisting of a map keyed by alleles
            containing counts, the total count at that locus, and
            number of untyped individuals.
         """
-
         # need to recalculate values
         if lumpValue != 0:
             alleles, totalAlleles, untyped, unsequenced = self.freqcount[locus]
@@ -319,7 +310,6 @@ class Genotypes:
         Args:
             stream (TextOutputStream): the stream used for output.
         """
-
         stream.opentag("summaryinfo")
         stream.writeln()
         stream.tagContents("indivcount", f"{self.totalIndivCount}")
@@ -386,7 +376,6 @@ class Genotypes:
             contain each of the alleles for that individual in the
             list.
         """
-
         # need to recalculate values
         if lumpValue != 0:
             alleles, _totalAlleles, _untyped, _unsequenced = self.freqcount[locus]
@@ -458,8 +447,7 @@ def checkIfSequenceData(matrix):
 
 
 def getMetaLocus(locus, isSequenceData):
-    """
-    Get the overall locus that this sequence belongs to
+    """Get the overall locus that this sequence belongs to
 
     Args:
         locus (str): Locus of interest.
@@ -485,7 +473,6 @@ def getLocusPairs(matrix, sequenceData):
     :return: Returns a list of all pairs of loci from a given ``StringMatrix``.
     :rtype: list
     """
-
     loci = matrix.colList
 
     li = []
@@ -574,7 +561,6 @@ class AlleleCounts:
 
         Specifically, total number of alleles and loci.
         """
-
         stream.opentag("summaryinfo")
         stream.writeln()
         stream.tagContents("allelecount", f"{self.totalAlleleCount}")

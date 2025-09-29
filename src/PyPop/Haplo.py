@@ -83,7 +83,6 @@ class HaploArlequin(Haplo):
     ArlequinBatch Python object called 'batch'.
 
     Args:
-
       arpFilename (str): Arlequin filename (must have ``.arp`` file
        extension)
       idCol (str): column in input file that contains the individual ``id``.
@@ -360,7 +359,7 @@ class Emhaplofreq(Haplo):
     def serializeStart(self):
         """Serialize start of XML output to the currently defined XML stream
 
-        See also:
+        See Also:
           must be paired with a subsequent :meth:`Emhaplofreq.serializeEnd`
         """
         self.stream.opentag("emhaplofreq")
@@ -369,7 +368,7 @@ class Emhaplofreq(Haplo):
     def serializeEnd(self):
         """Serialize end of XML output to the currently defined XML stream
 
-        See also:
+        See Also:
           must be paired with a previous :meth:`Emhaplofreq.serializeStart`
         """
         self.stream.closetag("emhaplofreq")
@@ -391,7 +390,6 @@ class Emhaplofreq(Haplo):
         """Internal method to call ``_Emhaplofreq`` shared library.
 
         Args:
-
           locusKeys (str): a string as per :meth:`Emhaplofreq.estHaplotypes`:
 
           permutationFlag (int): sets whether permutation test will be
@@ -424,7 +422,6 @@ class Emhaplofreq(Haplo):
            disabled)
 
         """
-
         # create an in-memory file instance to append output to
         # to; this remains in effect until end of method
         fp = io.StringIO()
@@ -607,7 +604,6 @@ class Emhaplofreq(Haplo):
         """Estimate haplotypes for listed groups in ``locusKeys``.
 
         Args:
-
            locusKeys (str): format is a string consisting of
 
               - comma (``,``) separated haplotypes blocks for which to
@@ -619,7 +615,6 @@ class Emhaplofreq(Haplo):
            numInitCond (int): number of initial conditions to use
 
         Example:
-
           ``*DQA1:*DPB1,*DRB1:*DQB1``, means to estimate haplotypes for
           ``DQA1`` and ``DPB1`` loci followed by estimation of haplotypes for
           ``DRB1`` and ``DQB1`` loci.
@@ -691,7 +686,6 @@ class Emhaplofreq(Haplo):
         optional permutation test on LD can be run.
 
         Args:
-
           permutationPrintFlag (int): sets whether the result from
            permutation output run will be included in the output XML.
            Default: ``0`` (disabled).
@@ -713,7 +707,6 @@ class Emhaplofreq(Haplo):
           mode (str): mode for haplotype output
 
         """
-
         if numPermutations > 0:
             permuMode = "with-permu"
             permutationFlag = 1
@@ -793,7 +786,6 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
         - ALD_1_2
         - ALD_2_1
     """
-
     unique_alleles1 = np.unique(haplos[:, 0])
     unique_alleles2 = np.unique(haplos[:, 1])
 
@@ -971,7 +963,7 @@ class Haplostats(Haplo):
     def serializeStart(self):
         """Serialize start of XML output to currently defined XML stream
 
-        See also:
+        See Also:
           must be paired with a subsequent :meth:`Haplostats.serializeEnd`
         """
         self.stream.opentag("haplostats")
@@ -980,7 +972,7 @@ class Haplostats(Haplo):
     def serializeEnd(self):
         """Serialize end of XML output to currently defined XML stream
 
-        See also:
+        See Also:
           must be paired with a previous :meth:`Haplostats.serializeStart`
         """
         self.stream.closetag("haplostats")
@@ -1010,7 +1002,6 @@ class Haplostats(Haplo):
            tuple: multiple statistics
 
         """
-
         # if wildcard, or not set, do all matrix
         if locusKeys in ("*", None):
             locusKeys = ":".join(self.matrix.colList)
@@ -1296,14 +1287,12 @@ class Haplostats(Haplo):
         """Estimate pairwise statistics for all pairs of loci.
 
         Args:
-
            weight (list): see :meth:`Haplostats.estHaplotypes`
 
            control (dict): see :meth:`Haplostats.estHaplotypes`
 
            numInitCond (int): see :meth:`Haplostats.estHaplotypes`
         """
-
         # FIXME: sequence data *not* currently supported for haplostats
         locusPairs = getLocusPairs(self.matrix, False)
         if self.debug:

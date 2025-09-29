@@ -42,8 +42,7 @@ from PyPop.Homozygosity import (
 
 
 class RandomBinsForHomozygosity:
-    """
-    Generate randomized sets of bins for homozygosity analysis.
+    """Generate randomized sets of bins for homozygosity analysis.
 
     Args:
         logFile (str): output log file
@@ -108,11 +107,9 @@ class RandomBinsForHomozygosity:
         """Dump results to file
 
         Args:
-
            alleleCountsBefore (list): allele counts before binning
            alleleCountsAfter (list): allele counts after binning
         """
-
         # append the before and after allele counts to the dictionary
         # so we can look up all of the stats en masse
         self.alleleCountDict[tuple(alleleCountsBefore)] = "before"
@@ -140,8 +137,7 @@ class RandomBinsForHomozygosity:
         self.randomResultsFile.close()
 
     def _updateCountDict(self, alleleCounts=None):
-        """
-        Update counts.
+        """Update counts.
 
         Args:
            alleleCounts (list): allele count list
@@ -158,11 +154,9 @@ class RandomBinsForHomozygosity:
             self.alleleCountDict[alleleCounts] = 1
 
     def randomMethod(self, alleleCountsBefore=None, alleleCountsAfter=None):
-        """
-        Do binning replicates with random-based method
+        """Do binning replicates with random-based method
 
         Args:
-
            alleleCountsBefore (list): allele counts before binning
            alleleCountsAfter (list): allele counts after binning
 
@@ -198,7 +192,6 @@ class RandomBinsForHomozygosity:
         """Do binning replicates with sequence-based method
 
         Args:
-
            alleleCountsBefore (list): allele counts before binning
            alleleCountsAfter (list): allele counts after binning
            polyseq (dict): Keyed on ``locus*allele`` of all allele
@@ -206,7 +199,6 @@ class RandomBinsForHomozygosity:
            polyseqpos (dict): Keyed on ``locus`` of the positions of
             the polymorphic residues which you find in ``polyseq``.
         """
-
         self.binningMethod = "sequence"
 
         binningAttempts = 0

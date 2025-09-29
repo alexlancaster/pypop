@@ -48,7 +48,6 @@ def main(argv=sys.argv):
     Args:
        argv (list): list of command-line options (default is ``sys.argv``)
     """
-
     datapath = Path(sys.prefix) / "share" / "PyPop"
 
     parser = get_popmeta_cli(version=version, copyright_message=copyright_message)
