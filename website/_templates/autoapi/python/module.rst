@@ -42,7 +42,7 @@ Submodules
 {% endif %}
 {% if deprecated_submodules %}
 Deprecated Submodules
---------------------
+---------------------
 
 .. toctree::
    :maxdepth: 1
