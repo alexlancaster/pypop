@@ -462,25 +462,34 @@ class Index:
 
 
 class StringMatrix(container):
-    """
-    StringMatrix is a subclass of NumPy (Numeric Python)
-    UserArray class, and uses NumPy to store the data in an efficient
-    array format, rather than internal Python lists.
+    """Matrix to hold a matrix of strings and other metadata from
+    input file to PyPop.
+
+    It is a subclass of NumPy's :class:`numpy.lib.user_array` class,
+    store the data in an efficient array format, using NumPy-style
+    access.
+
+    Args:
+
+       rowCount (int): number of rows in matrix
+       colList (list): list of locus keys in a specified order
+       extraList (list): other non-matrix metadata
+       colSep (str): column separator
+       headerLines (list): list of lines in the header of original file
+
     """
 
     def __init__(
         self, rowCount=None, colList=None, extraList=None, colSep="\t", headerLines=None
     ):
-        """Constructor for StringMatrix.
+        # colList is a mutable type so we freeze the list of locus
+        # keys in the original order in file by making a *clone* of
+        # the list of keys.
 
-        colList is a mutable type so we freeze the list of locus keys in
-        the original order in file by making a *clone* of the list of
-        keys.
-
-        the order of loci in the array will correspond to the original
-        file order, and we don't want this tampered with by the `callee'
-        function (i.e. effectively override the Python 'pass by
-        reference' default and 'pass by value')."""
+        # the order of loci in the array will correspond to the
+        # original file order, and we don't want this tampered with by
+        # the `callee' function (i.e. effectively override the Python
+        # 'pass by reference' default and 'pass by value').
 
         self.colList = colList[:]
 
@@ -508,15 +517,33 @@ class StringMatrix(container):
     def __repr__(self):
         """Override default representation.
 
-         This is used when the object is 'print'ed, i.e.
-         a = StringMatrix(10, [1,2])
-        print (a)"""
+        Example:
+
+          This is used when the object is 'print'ed, i.e.
+
+          .. code-block:: python
+
+              a = StringMatrix(10, [1,2])
+              print (a)
+
+        Returns:
+
+           str: new string representation
+        """
         if len(self.array.shape) > 0:
             return (self.__class__.__name__) + repr(self.array)[len("array") :]
         return (self.__class__.__name__) + "(" + repr(self.array) + ")"
 
     def dump(self, locus=None, stream=sys.stdout):
-        # write out file in original format
+        """Write file to a stream in original format.
+
+        Args:
+
+           locus (str, optional): write just specified locus, if
+            omitted, default to all loci
+           stream (TextOutputStream|XMLOutputStream|stdout): output stream
+
+        """
         # first write out header, if there is one
         if self.headerLines:
             for line in self.headerLines:
@@ -550,10 +577,16 @@ class StringMatrix(container):
             stream.write("\n")
 
     def copy(self):
-        """Make a (deep) copy of the StringMatrix
+        """Make a (deep) copy.
 
-        Currently this goes via the constructor, not sure if
-        there is a better way of doing this"""
+        Return:
+
+            StringMatrix: a deep copy of the current object
+        """
+
+        # FIXME: currently this goes via the constructor, not sure if
+        # there is a better way of doing this
+
         thecopy = StringMatrix(
             copy.deepcopy(self.rowCount),
             copy.deepcopy(self.colList),
@@ -567,26 +600,51 @@ class StringMatrix(container):
     def __deepcopy__(self, memo):
         """Create a deepcopy for copy.deepcopy
 
-        This simply calls self.copy() to allow
-        copy.deepcopy(matrixInstance) to Do The Right Thing"""
+        This simply calls ``self.copy()`` to allow
+        ``copy.deepcopy(matrixInstance)`` to work out of the box.
+
+        Args:
+           memo (dict): opaque object
+
+        Returns:
+          StringMatrix: copy of the matrix
+
+        """
         return self.copy()
 
     def __getslice__(self, i, j):
+        """Get slice (overrides built-in)
+
+        Warning:
+          Currently not supported for :class:`StringMatrix`
+
+        """
         msg = "slices not currently supported"
         raise Exception(msg)
         # return self._rc(self.array[i:j])
 
     def __getitem__(self, key):
-        """Override built in.
+        """Get the item at given key (overrides built-in numpy).
 
-        This is called when instance is called to retrieve a position
-        e.g.:
+        Example:
 
-        li = matrix['A']
+          This is called when instance is called to retrieve a position
 
-        returns a list (a single column vector if only one position
-        specified), or list of lists: (a set of column vectors if
-        several positions specified) of tuples for that position"""
+          >>> li = matrix['A']
+
+        Args:
+          key (str): locus key
+
+        Returns:
+
+           list: a list (a single column vector if only one position
+            specified), or list of lists: (a set of column vectors if
+            several positions specified) of tuples for ``key``
+
+        Raises:
+           KeyError: if key is not found, or of wrong type
+
+        """
         if type(key) is tuple:
             row, colName = key
             if colName in self.colList:
@@ -626,12 +684,24 @@ class StringMatrix(container):
         raise KeyError(msg)
 
     def getNewStringMatrix(self, key):
-        """Create an entirely new StringMatrix using only the columns supplied
-        in the keys.
+        """Create an entirely new StringMatrix using only the columns
+        supplied in the keys.
 
-        The format of the keys is identical to __getitem__ except that
-        it in this case returns a full StringMatrix instance which
-        includes all metadata
+        Note:
+          The format of the keys is identical to :meth:`__getitem__`
+          except that it returns a full ``StringMatrix`` instance
+          which includes all metadata
+
+        Args:
+           key (str): a string representing the loci, using the
+            ``locus1:locus2`` format
+
+        Returns:
+           StringMatrix: full instance
+
+        Raises:
+           KeyError: if locus can not be found.
+
         """
 
         if type(key) is str:
@@ -676,12 +746,28 @@ class StringMatrix(container):
         return newMatrix
 
     def __setitem__(self, index, value):
-        """Override built in.
+        """Set the value at an index (override built in).
 
-        This is called when instance is called to assign a value,
-        e.g.:
+        This is called when instance is called to assign a value.
 
-        matrix[3, 'A'] = (entry1, entry2)"""
+        Example:
+
+           .. code-block:: python
+
+              matrix[3, 'A'] = (entry1, entry2)
+
+        Args:
+           index (tuple): index into matrix
+           value (tuple|str): can set using a tuple of strings, or a
+            single string (for metadata)
+
+        Raises:
+
+           IndexError: if ``index`` is not a tuple
+           ValueError: if ``value`` is not a tuple or string
+           KeyError: if the ``index`` can't be found
+
+        """
         if type(index) is tuple:
             row, colName = index
         else:
@@ -720,8 +806,17 @@ class StringMatrix(container):
             raise KeyError(msg)
 
     def getUniqueAlleles(self, key):
-        """
-        Return a list of unique integers for given key sorted by allele name using natural sort
+        """Get list of unique alleles sorted by allele name using
+         natural sort.
+
+        Args:
+
+           key (str): loci to get
+
+        Returns:
+           list: list of unique integers sorted by allele name using
+             natural sort
+
         """
         uniqueAlleles = []
         for genotype in self.__getitem__(key):
@@ -733,12 +828,20 @@ class StringMatrix(container):
         return uniqueAlleles
 
     def convertToInts(self):
-        """
-        Convert matrix to integers: needed for haplo-stats
-        Note that integers start at 1 for compatibility with haplo-stats module
-        FIXME: check whether we need to release memory
+        """Convert the matrix to integers.
+
+        Note:
+          This function is used by the :class:`PyPop.Haplo.Haplostats`
+          class.  Note that integers start at 1 for compatibility with
+          haplo-stats module
+
+        Returns:
+          StringMatrix: matrix where the original allele names are now
+          represented by integers
+
         """
 
+        # FIXME: check whether we need to release memory
         # create a new copy
         newMatrix = self.copy()
         for colName in self.colList:
@@ -753,15 +856,22 @@ class StringMatrix(container):
         return newMatrix
 
     def countPairs(self):
-        """Given a matrix of genotypes (pairs of columns for each
-        locus), compute number of possible pairs of haplotypes for each
-        subject (the rows of the geno matrix)
+        """Compute the number of all possible pairs of haplotypes for each
+        row of the matrix.
 
-        FIXME: this does *not* do any involved handling of missing data
-        as per geno.count.pairs from haplo.stats
+        Warning:
 
-        FIXME: should these methods eventually be moved to Genotype class?
+          This does *not* do any involved handling of missing data as
+          per ``geno.count.pairs`` from R ``haplo.stats`` module.
+
+        Returns:
+
+          list: each element is the number of pairs in row order
+
         """
+
+        # FIXME: should these methods eventually be moved to the
+        # :class:`PyPop.ParseFile.Genotype` class?
 
         # count number of unique alleles at each loci
         n_alleles = {}
@@ -782,7 +892,14 @@ class StringMatrix(container):
 
     def flattenCols(self):
         """Flatten columns into a single list
-        FIXME: assumes entries are integers
+
+        Important:
+           Currently assumes entries are integers.
+
+        Returns:
+           list: all alleles, the two genotype columns concatenated
+            for each locus
+
         """
         flattened_matrix = []
 
@@ -799,10 +916,18 @@ class StringMatrix(container):
         return flattened_matrix
 
     def filterOut(self, key, blankDesignator):
-        """Returns a filtered matrix.
+        """Get locus in the matrix that has been filtered by a
+        designator.
 
-        When passed a designator, this method will return the rows of
-        the matrix that *do not* contain that designator at any rows"""
+        Args:
+           key (str): locus to filter
+           blankDesignator (str): string to exclude
+
+        Returns:
+           list: the rows of the matrix that *do not* contain
+            ``blankDesignator`` at any rows
+
+        """
 
         def f(x, designator=blankDesignator):
             for value in x:
@@ -814,14 +939,25 @@ class StringMatrix(container):
         return filtered_list[:]
 
     def getSuperType(self, key):
-        """Returns a matrix grouped by columns.
+        """Get a matrix grouped by specified key.
 
-        e.g if matrix is [[A01, A02, B01, B02], [A11, A12, B11, B12]]
+        Example:
 
-        then getSuperType('A:B') will return the matrix with the column
-        vector:
+          If matrix represents the following genotype ``[[A01, A02,
+          B01, B02], [A11, A12, B11, B12]]``
 
-        [[A01:B01, A02:B02], [A11:B11, A12:B12]]
+          then ``getSuperType('A:B')`` will return a new matrix with
+          the column vector with the alleles for each genotype
+          concatenated like so:
+
+          ``[[A01:B01, A02:B02], [A11:B11, A12:B12]]``
+
+        Args:
+           key (str): loci to group
+
+        Returns:
+           StringMatrix: a new matrix with the columns concatenated
+
         """
         li = self.__getitem__(key)
 
@@ -841,16 +977,51 @@ class StringMatrix(container):
 
 
 class Group:
-    # group a list or sequence by a given size
-    # example usage:
-    # for pair in Group('aabbccddee',2):
-    #   do something with pair.
+    """Group a list or sequence into non-overlapping chunks by a given
+    size.
+
+    Example:
+
+      .. code-block:: console
+
+         >>> for pair in Group('aabbccddee', 2):
+         ...    print(pair)
+         ...
+         aa
+         bb
+         cc
+         dd
+         ee
+         >>> a = Group('aabbccddee', 2)
+         >>> a[0]
+         'aa'
+         >>> a[3]
+         'dd'
+
+    Args:
+
+        li (str|list): string or list
+        size (int): size of grouping
+
+    """
 
     def __init__(self, li, size):
         self.size = size
         self.li = li
 
     def __getitem__(self, group):
+        """
+        Get the item by position.
+
+        Args:
+           group (int): get the item by position
+
+        Returns:
+           str|list: the value at that position
+
+        Raises:
+           IndexError: if ``group`` is out of bounds
+        """
         idx = group * self.size
         if idx > len(self.li):
             msg = "Out of range"
@@ -862,13 +1033,41 @@ class Group:
 
 
 def natural_sort_key(s, _nsre=re.compile(r"([0-9]+)")):
+    """Generate a key for natural (human-friendly) sorting.
+
+    This function splits a string into text and number components so that
+    numbers are compared by value instead of lexicographically. It is
+    intended for use as the ``key`` function in :meth:`list.sort` or
+    :func:`sorted`.
+
+    Example:
+        >>> items = ["item2", "item10", "item1"]
+        >>> sorted(items, key=natural_sort_key)
+        ['item1', 'item2', 'item10']
+
+    Args:
+        s (str): The string to split into text and number components.
+        _nsre (Pattern): Precompiled regular expression used internally
+            to split the string into digit and non-digit chunks. This is
+            not intended to be overridden in normal use.
+
+    Returns:
+        list: A list of strings and integers to be used as a sort key.
+    """
     return [
         int(text) if text.isdigit() else text.lower() for text in re.split(_nsre, s)
     ]
 
 
 def unique_elements(li):
-    """Gets the unique elements in a list"""
+    """Gets the unique elements in a list
+
+    Args:
+      li (list): a list
+
+    Returns:
+      list: unique elements
+    """
     d = {}
     length = len(li)
     map(operator.setitem, length * [d], li, length * [None])
@@ -876,11 +1075,31 @@ def unique_elements(li):
 
 
 def appendTo2dList(aList, appendStr=":"):
+    """Append a string to each element in a list.
+
+    Args:
+      aList (list): list to append to
+      appendStr (str): string to append
+
+    Returns:
+       list: a list with string appended to each element
+
+    """
     return [[f"{cell}{appendStr}" for cell in row] for row in aList]
 
 
 def convertLineEndings(file, mode):
-    # 1 - Unix to Mac, 2 - Unix to DOS
+    """Convert line endings based on platform
+
+    Args:
+        file (str): file name to convert
+        mode (int): Conversion mode, one of
+
+          - ``1`` Unix to Mac
+          - ``2`` Unix to DOS
+
+    """
+
     if mode == 1:
         if Path(file).is_dir():
             sys.exit(file + "Directory!")
@@ -906,6 +1125,13 @@ def convertLineEndings(file, mode):
 
 
 def fixForPlatform(filename, txt_ext=0):
+    """Fix for some Windws/MS-DOS platforms
+
+    Args:
+       filename (str): path to file
+       txt_ext (int, optional): if enabled (``1``) add a ``.txt`` extension
+
+    """
     # make file read-writeable by everybody
     Path(filename).chmod(stat.S_IFCHR)
 
@@ -923,12 +1149,29 @@ def fixForPlatform(filename, txt_ext=0):
 
 
 def copyfileCustomPlatform(src, dest, txt_ext=0):
+    """Copy file to file with fixes
+
+    Args:
+       src (str): source file
+       dest (str): source file
+       txt_ext (int, optional): if enabled (``1``) add a ``.txt`` extension
+
+    """
     shutil.copyfile(src, dest)
     fixForPlatform(dest, txt_ext=txt_ext)
     (print(f"copying {src} to"),)
 
 
 def copyCustomPlatform(file, dist_dir, txt_ext=0):
+    """Copy file to directory with fixes
+
+    Args:
+       file (str): source file
+       dist_dir (str): source directory
+       txt_ext (int, optional): if enabled (``1``) add a ``.txt`` extension
+
+    """
+
     new_filename = Path(dist_dir) / Path(file).name
     print(f"copying {file} to")
     shutil.copy(file, dist_dir)
@@ -936,6 +1179,22 @@ def copyCustomPlatform(file, dist_dir, txt_ext=0):
 
 
 def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg=""):
+    """Check XSL filename and return full path.
+
+    Args:
+
+       xslFilename (str): name of the XSL file
+       path (str): root path to check
+       subdir (str): subdirectory under ``path`` to check
+       abort (bool): if enabled (``True``) file isn't found, exit with
+        an error.  Default is ``False``
+       debug (bool): enable debug with ``True``
+       msg (str): output message on abort
+
+    Returns:
+       str: checked and validaated path
+
+    """
     if debug:
         print(f"path={path}, subdir={subdir}, xslFilename={xslFilename} xsl path")
 
@@ -950,8 +1209,18 @@ def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg="
 
 
 def getUserFilenameInput(prompt, filename):
-    """Read user input for a filename, check its existence, continue
-    requesting input until a valid filename is entered."""
+    """Get user filename input.
+
+    Read user input for a filename, check its existence, continue
+    requesting input until a valid filename is entered.
+
+    Args:
+       prompt (str): description of file
+       filename (str): default filename
+
+    Returns:
+       str: name of file eventually selected
+    """
 
     nofile = 1
     while nofile:
@@ -978,8 +1247,21 @@ def getUserFilenameInput(prompt, filename):
 def splitIntoNGroups(alist, n=1):
     """Divides a list up into n parcels (plus whatever is left over)
 
-    This class currently works with Python 2.2, but will eventually
-    use iterators, so ultimately will need least Python 2.3!"""
+    Example:
+
+     >>> a = ['A', 'B', 'C', 'D', 'E']
+     >>> splitIntoNGroups(a, 2)
+     [['A', 'B'], ['C', 'D'], ['E']]
+
+    Args:
+       alist (list): list to divide up
+       n (int): parcel size
+
+    Returns:
+       list: list of lists
+
+    """
+    # FIXME: This class should be ported to use Python 3 iterators
     # from itertools import islice
     # it = iter(alist)
 
