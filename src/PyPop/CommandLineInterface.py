@@ -106,7 +106,7 @@ def get_parent_cli(version="", copyright_message=""):
 
     Returns:
         tuple: A tuple of:
-            - parent_parser (ArgumentParser): The base parser.
+            - parent_parser (argparse.ArgumentParser): The base parser.
             - ihwg_args (tuple): Options for the IHWG module.
             - phylip_args (tuple): Options for the Phylip module.
             - common_args (tuple): Common options.
@@ -187,7 +187,7 @@ def get_pypop_cli(version="", copyright_message=""):
         copyright_message (str): override the copyright message
 
     Returns:
-        ArgumentParser: parser for ``pypop``
+        argparse.ArgumentParser: parser for ``pypop``
     """
     parent_parser, ihwg_args, phylip_args, common_args, prefix_tsv_args = (
         get_parent_cli(version=version, copyright_message=copyright_message)
@@ -290,7 +290,7 @@ def get_popmeta_cli(version="", copyright_message=""):
         copyright_message (str): override the copyright message
 
     Returns:
-        ArgumentParser: parser for ``popmeta``
+        argparse.ArgumentParser: parser for ``popmeta``
     """
 
     parent_parser, ihwg_args, phylip_args, common_args, prefix_tsv_args = (

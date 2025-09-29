@@ -124,6 +124,15 @@ class Genotypes:
         self._genDataStructures()
 
     def _checkAllele(self, allele1, allele2, unsequencedSites):
+        """Check alleles and update counts.
+
+        Args:
+
+           allele1 (str): allele 1
+           allele2 (str): allele 2
+           unsequencedSites (str): the value representing unsequenced sites
+        """
+
         for phase in [allele1, allele2]:
             if phase not in {self.untypedAllele, self.unsequencedSite}:
                 if self.debug:

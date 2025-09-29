@@ -446,7 +446,7 @@ class OrderedDict:
 
 class Index:
     """
-    Returns an Index object for :class:`OrderedDict``.
+    Returns an Index object for :class:`OrderedDict`.
 
     .. deprecated:: 1.3.1
 
@@ -455,9 +455,6 @@ class Index:
     """
 
     def __init__(self, i=0):
-        """
-        Creates an Index object for use with OrderedDict
-        """
         self.i = i
 
 
@@ -925,7 +922,7 @@ class StringMatrix(container):
 
         Returns:
            list: the rows of the matrix that *do not* contain
-            ``blankDesignator`` at any rows
+           ``blankDesignator`` at any rows
 
         """
 

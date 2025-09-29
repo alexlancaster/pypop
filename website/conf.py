@@ -50,6 +50,7 @@ extensions = [
     "sphinxcontrib.bibtex",
     "autoapi.extension",
     "sphinx.ext.napoleon",
+    "sphinx.ext.intersphinx",
 ]
 
 # override user-agent so that linkcheck works
@@ -287,7 +288,8 @@ autoapi_member_order = "groupwise"
 autoapi_options = [
     "members",
     "undoc-members",
-    #    "private-members",  # remove for production
+    #        "private-members",  # remove for production
+    #        "special-members",
     "show-inheritance",
     "show-module-summary",
     "imported-members",
@@ -302,6 +304,14 @@ autoapi_python_use_autodoc_docstring = True
 # keep docs less verbose by skipping module names in front of each
 # class/method
 add_module_names = False
+
+# create links to base python classes
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+    # you can add more, e.g.
+    "numpy": ("https://numpy.org/doc/stable/", None),
+}
+
 
 # -- Options for LaTeX output ---------------------------------------------
 
