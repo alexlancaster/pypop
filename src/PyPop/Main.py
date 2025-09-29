@@ -108,7 +108,7 @@ def getConfigInstance(configFilename=None, altpath=None):
 
 
 def get_sequence_directory(directory_str, debug=False):
-    """Get the directory for the :class:`PyPop.Filter.AnthonyNolanFilter`
+    """Get the directory for the :class:`PyPop.Filter.AnthonyNolanFilter`.
 
     Args:
        directory_str (str): directory to search
@@ -1500,7 +1500,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             convertLineEndings(self.txtOutPath, 2)
 
     def getXmlOutPath(self):
-        """Get name of XML file
+        """Get name of XML file.
 
         Returns:
            XMLOutputStream: return XML file name
@@ -1509,7 +1509,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
         return self.xmlOutPath
 
     def getTxtOutPath(self):
-        """Get name of ``.txt`` output file
+        """Get name of ``.txt`` output file.
 
         Returns:
            TextOutputStream: return txt file name

@@ -30,7 +30,7 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". CONTRIBUTORS HAVE NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-"""Command-line interface for PyPop scripts"""
+"""Command-line interface for PyPop scripts."""
 
 from argparse import (
     Action,
@@ -45,11 +45,11 @@ from PyPop.citation import citation_output_formats  # and citation formats
 
 
 class _PyPopFormatter(ArgumentDefaultsHelpFormatter, RawDescriptionHelpFormatter):
-    """Class for combining both kinds of formats"""
+    """Class for combining both kinds of formats."""
 
 
 class CitationAction(Action):
-    """A custom ``argparse`` ``Citation`` action to read the appropriate citation file format"""
+    """A custom ``argparse`` ``Citation`` action to read the appropriate citation file format."""
 
     def __call__(self, parser, _, values, _option_string=None):
         citation_format = values or "apalike"
@@ -172,7 +172,7 @@ def get_parent_cli(version="", copyright_message=""):
 
 
 def get_pypop_cli(version="", copyright_message=""):
-    """Command-line options for ``pypop`` script
+    """Command-line options for ``pypop`` script.
 
     Args:
         version (str): software version
@@ -274,7 +274,7 @@ current directory""",
 
 
 def get_popmeta_cli(version="", copyright_message=""):
-    """Command-line options for ``popmeta`` script
+    """Command-line options for ``popmeta`` script.
 
     Args:
         version (str): software version

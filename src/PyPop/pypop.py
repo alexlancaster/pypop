@@ -33,7 +33,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Python population genetics statistics."""
+"""Command-line interface for ``pypop``."""
 
 import os
 import sys
@@ -50,7 +50,7 @@ from PyPop.Utils import getUserFilenameInput, glob_with_pathlib  # noqa: F401
 
 
 def main(argv=sys.argv):
-    """Entry point for ``pypop`` script
+    """Entry point for ``pypop`` script.
 
     Args:
        argv (list): list of command-line options (default is ``sys.argv``)

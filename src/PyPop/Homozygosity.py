@@ -47,7 +47,7 @@ from PyPop.Utils import getStreamType
 
 
 def getObservedHomozygosityFromAlleleData(alleleData):
-    """Get homozygosity from allele data
+    """Get homozygosity from allele data.
 
     Args:
        alleleData (list): list of allele counts
@@ -315,7 +315,7 @@ class Homozygosity:
         return self.normDevHomozygosity
 
     def serializeHomozygosityTo(self, stream):
-        """Serialize homozygosity to a stream
+        """Serialize homozygosity to a stream.
 
         Args:
            stream (XMLOutputStream): stream to save to
@@ -372,7 +372,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         self.debug = debug
 
     def doCalcs(self, alleleData):
-        """Run the computations
+        """Run the computations.
 
         Args:
            alleleData (list): list of allele counts
@@ -414,7 +414,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
             self.var_homozygosity = self.EW.get_var_homozygosity()
 
     def getHomozygosity(self):
-        """Get the homozygosity statistics
+        """Get the homozygosity statistics.
 
         Returns:
            tuple: tuple consisting of:
@@ -435,7 +435,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         )
 
     def serializeHomozygosityTo(self, stream):
-        """Serialize homozygosity to a stream
+        """Serialize homozygosity to a stream.
 
         Args:
            stream (XMLOutputStream): stream to save to
@@ -489,7 +489,7 @@ class HomozygosityEWSlatkinExact(Homozygosity):
         stream.writeln()
 
     def returnBulkHomozygosityStats(self, alleleCountDict=None, binningMethod=None):
-        """Get bulk homozygosity statistics for multiple allele counts
+        """Get bulk homozygosity statistics for multiple allele counts.
 
         This function is designed to work with the
         :mod:`PyPop.RandomBinning` submodule.
@@ -556,7 +556,7 @@ class HomozygosityEWSlatkinExactPairwise:
         self.pairs = getLocusPairs(self.matrix, self.sequenceData)
 
     def serializeTo(self, stream):
-        """Serialize to a stream
+        """Serialize to a stream.
 
         Args:
            stream (XMLOutputStream): stream to save to

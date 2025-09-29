@@ -40,7 +40,7 @@ import string
 def _serializeAlleleCountDataAt(
     stream, alleleTable, total, untypedIndividuals, unsequencedSites
 ):
-    """Function to actually do the output"""
+    """Function to actually do the output."""
     totalFreq = 0
     alleles = list(alleleTable.keys())
     alleles.sort()
@@ -324,7 +324,7 @@ class Genotypes:
         stream.writeln()
 
     def serializeAlleleCountDataAt(self, stream, locus):
-        """Serialize locus count data for a specific locus
+        """Serialize locus count data for a specific locus.
 
         Specifically, total number of individuals and loci and
         population name.
@@ -341,7 +341,7 @@ class Genotypes:
         )
 
     def serializeAlleleCountDataTo(self, stream):
-        """Serialize allele count data for a specific locus
+        """Serialize allele count data for a specific locus.
 
         Args:
             stream (TextOutputStream): the stream used for output
@@ -420,7 +420,7 @@ class Genotypes:
         return self.locusTable
 
     def getIndividualsData(self):
-        """Get data for all individuals
+        """Get data for all individuals.
 
         Returns:
            StringMatrix: ``StringMatrix`` for all individuals
@@ -447,7 +447,7 @@ def checkIfSequenceData(matrix):
 
 
 def getMetaLocus(locus, isSequenceData):
-    """Get the overall locus that this sequence belongs to
+    """Get the overall locus that this sequence belongs to.
 
     Args:
         locus (str): Locus of interest.
@@ -497,7 +497,7 @@ def getLocusPairs(matrix, sequenceData):
 
 
 def getLumpedDataLevels(genotypeData, locus, lumpLevels):
-    """Get lumped data for a specific locus
+    """Get lumped data for a specific locus.
 
     Args:
        genotypeData (Genotypes): genotype data to query

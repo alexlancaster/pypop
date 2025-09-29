@@ -31,10 +31,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""
-Python XSLT extensions for handling things outside the scope of XSLT 1.0
-
-"""
+"""Python XSLT extensions for handling things outside the scope of XSLT 1.0."""
 
 from math import floor, inf, log10
 
@@ -58,11 +55,9 @@ def num_zeros(decimal):
 
 
 def exponent_len(num):
-    """
-    Calculate space taken for exponent
+    """Calculate space taken for exponent.
 
     Example:
-
     >>> exponent_len(1e-03)
     2
     >>> exponent_len(1e-10)
@@ -81,8 +76,8 @@ def exponent_len(num):
 
 
 @ns
-def format_number_fixed_width(_context, *args):
-    """Format number to fixed width
+def format_number_fixed_width(_context, *args):  # noqa: D417
+    """Format number to fixed width.
 
     Note:
       arguments from XSLT file: ``num`` and ``places`` are encoded in
@@ -92,7 +87,6 @@ def format_number_fixed_width(_context, *args):
        _context (obj): not used
 
     Returns:
-
        str: formatted number to fixed width
 
     """

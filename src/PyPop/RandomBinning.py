@@ -104,7 +104,7 @@ class RandomBinsForHomozygosity:
         alleleCountsBefore=None,
         alleleCountsAfter=None,
     ):
-        """Dump results to file
+        """Dump results to file.
 
         Args:
            alleleCountsBefore (list): allele counts before binning
@@ -154,7 +154,7 @@ class RandomBinsForHomozygosity:
             self.alleleCountDict[alleleCounts] = 1
 
     def randomMethod(self, alleleCountsBefore=None, alleleCountsAfter=None):
-        """Do binning replicates with random-based method
+        """Do binning replicates with random-based method.
 
         Args:
            alleleCountsBefore (list): allele counts before binning
@@ -189,7 +189,7 @@ class RandomBinsForHomozygosity:
         polyseq=None,
         polyseqpos=None,
     ):
-        """Do binning replicates with sequence-based method
+        """Do binning replicates with sequence-based method.
 
         Args:
            alleleCountsBefore (list): allele counts before binning

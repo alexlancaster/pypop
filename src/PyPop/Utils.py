@@ -71,7 +71,7 @@ Example:
 
 
 def glob_with_pathlib(pattern):
-    """Use globbing with ``pathlib``
+    """Use globbing with ``pathlib``.
 
     Args:
        pattern (str): globbing pattern
@@ -139,7 +139,7 @@ class XMLOutputStream(TextOutputStream):
             return f"{tagname}"
         return f"{tagname} {attr.strip()}"
 
-    def opentag(self, tagname, **kw):
+    def opentag(self, tagname, **kw):  # noqa: D417
         """Write an open XML tag to stream.
 
         Tag attributes passed as optional named keyword arguments.
@@ -168,7 +168,7 @@ class XMLOutputStream(TextOutputStream):
         """
         self.f.write(f"<{self._gentag(tagname, **kw)}>")
 
-    def emptytag(self, tagname, **kw):
+    def emptytag(self, tagname, **kw):  # noqa: D417
         """Write an empty XML tag to stream.
 
         This follows the same syntax as :meth:`opentag` but without
@@ -204,7 +204,7 @@ class XMLOutputStream(TextOutputStream):
         """
         self.f.write(f"</{self._gentag(tagname)}>")
 
-    def tagContents(self, tagname, content, **kw):
+    def tagContents(self, tagname, content, **kw):  # noqa: D417
         """Write open and closing XML tags around contents to a
         stream.
 
@@ -242,7 +242,7 @@ def getStreamType(stream):
 
 
 class OrderedDict:
-    """A dictionary class with **ordered** pairs
+    """A dictionary class with **ordered** pairs.
 
     .. deprecated:: 1.3.1
 
@@ -254,7 +254,7 @@ class OrderedDict:
     __version__ = "1.1"
 
     def __init__(self, hash=None):
-        """Creates an ordered dict"""
+        """Creates an ordered dict."""
         if hash is None:
             hash = []
         self.__hash = {}
@@ -266,7 +266,7 @@ class OrderedDict:
             self.KEYS.append(k)
 
     def __addval__(self, key, value):
-        """Internal function to add/change key-value pair (at end)"""
+        """Internal function to add/change key-value pair (at end)."""
         try:
             self.KEYS.index(key)
         except Exception:
@@ -276,7 +276,7 @@ class OrderedDict:
             self.__hash[key] = value
 
     def __setitem__(self, i, hash):
-        """Adds key-value pairs (existing keys not moved)"""
+        """Adds key-value pairs (existing keys not moved)."""
         if type(i) is type(Index()):
             del self.__hash[self.KEYS[i.i]]
             if len(hash) != 1:
@@ -286,40 +286,40 @@ class OrderedDict:
             self.__addval__(i, hash)
 
     def __getitem__(self, key):
-        """Returns value of given key"""
+        """Returns value of given key."""
         if type(key) is type(Index()):
             key = self.KEYS[key.i]
             return [key, self.__hash[key]]
         return self.__hash[key]
 
     def __len__(self):
-        """Returns the number of pairs in the dict"""
+        """Returns the number of pairs in the dict."""
         return len(self.KEYS)
 
     def index(self, key):
-        """Returns position of key in dict"""
+        """Returns position of key in dict."""
         return self.KEYS.index(key)
 
     def keys(self):
-        """Returns list of keys in dict"""
+        """Returns list of keys in dict."""
         return self.KEYS
 
     def values(self):
-        """Returns list of values in dict"""
+        """Returns list of values in dict."""
         ret = []
         for key in self.KEYS:
             ret.append(self.__hash[key])
         return ret
 
     def items(self):
-        """Returns list of tuples of keys and values"""
+        """Returns list of tuples of keys and values."""
         ret = []
         for key in self.KEYS:
             ret.append((key, self.__hash[key]))
         return ret
 
     def insert(self, i, key, value):
-        """Inserts a key-value pair at a given index"""
+        """Inserts a key-value pair at a given index."""
         InsertError = "Duplicate key entry"
         if key in self.__hash:
             raise InsertError
@@ -327,58 +327,58 @@ class OrderedDict:
         self.__hash[key] = value
 
     def remove(self, i):
-        """Removes a key-value pair from the dict"""
+        """Removes a key-value pair from the dict."""
         del self.__hash[i]
         self.KEYS.remove(i)
 
     def __delitem__(self, i):
-        """Removes a key-value pair from the dict"""
+        """Removes a key-value pair from the dict."""
         if type(i) is not type(Index()):
             i = Index(self.KEYS.index(i))
         del self.__hash[self.KEYS[i.i]]
         del self.KEYS[i.i]
 
     def reverse(self):
-        """Reverses the order of the key-value pairs"""
+        """Reverses the order of the key-value pairs."""
         self.KEYS.reverse()
 
     def sort(self, cmp=0):
-        """Sorts the dict (allows for sort algorithm)"""
+        """Sorts the dict (allows for sort algorithm)."""
         if cmp:
             self.KEYS.sort(cmp)
         else:
             self.KEYS.sort()
 
     def clear(self):
-        """Clears all the entries in the dict"""
+        """Clears all the entries in the dict."""
         self.__hash = {}
         self.KEYS = []
 
     def copy(self):
-        """Makes copy of dict, also of OrderdDict class"""
+        """Makes copy of dict, also of OrderdDict class."""
         hash = OrderedDict()
         hash.KEYS = self.KEYS[:]
         hash.__hash = self.__hash.copy()
         return hash
 
     def get(self, key):
-        """Returns the value of a key"""
+        """Returns the value of a key."""
         return self.__hash[key]
 
     def has_key(self, key):
-        """Looks for existence of key in dict"""
+        """Looks for existence of key in dict."""
         return key in self.__hash
 
     def update(self, dict):
-        """Updates entries in a dict based on another"""
+        """Updates entries in a dict based on another."""
         self.__hash.update(dict)
 
     def count(self, key):
-        """Finds occurrences of a key in a dict (0/1)"""
+        """Finds occurrences of a key in a dict (0/1)."""
         return key in self.__hash
 
     def __getslice__(self, i, j):
-        """Returns an OrderedDict of key-value pairs from a dict"""
+        """Returns an OrderedDict of key-value pairs from a dict."""
         ret = []
         for x in range(i, j):
             ret.append(self.KEYS[x])
@@ -386,7 +386,7 @@ class OrderedDict:
         return OrderedDict(ret)
 
     def __setslice__(self, i, j, hash):
-        """Sets a slice of elements from the dict"""
+        """Sets a slice of elements from the dict."""
         hash = list(hash)
         for x in range(i, j):
             k, v, hash = hash[0], hash[1], hash[2:]
@@ -537,7 +537,7 @@ class StringMatrix(container):
         return thecopy
 
     def __deepcopy__(self, memo):
-        """Create a deepcopy for copy.deepcopy
+        """Create a deepcopy for copy.deepcopy.
 
         This simply calls ``self.copy()`` to allow
         ``copy.deepcopy(matrixInstance)`` to work out of the box.
@@ -552,7 +552,7 @@ class StringMatrix(container):
         return self.copy()
 
     def __getslice__(self, i, j):
-        """Get slice (overrides built-in)
+        """Get slice (overrides built-in).
 
         Warning:
           Currently not supported for :class:`StringMatrix`
@@ -821,7 +821,7 @@ class StringMatrix(container):
         return n_pairs.tolist()
 
     def flattenCols(self):
-        """Flatten columns into a single list
+        """Flatten columns into a single list.
 
         Important:
            Currently assumes entries are integers.
@@ -987,7 +987,7 @@ def natural_sort_key(s, _nsre=re.compile(r"([0-9]+)")):
 
 
 def unique_elements(li):
-    """Gets the unique elements in a list
+    """Gets the unique elements in a list.
 
     Args:
       li (list): a list
@@ -1016,7 +1016,7 @@ def appendTo2dList(aList, appendStr=":"):
 
 
 def convertLineEndings(file, mode):
-    """Convert line endings based on platform
+    """Convert line endings based on platform.
 
     Args:
         file (str): file name to convert
@@ -1051,7 +1051,7 @@ def convertLineEndings(file, mode):
 
 
 def fixForPlatform(filename, txt_ext=0):
-    """Fix for some Windws/MS-DOS platforms
+    """Fix for some Windws/MS-DOS platforms.
 
     Args:
        filename (str): path to file
@@ -1075,7 +1075,7 @@ def fixForPlatform(filename, txt_ext=0):
 
 
 def copyfileCustomPlatform(src, dest, txt_ext=0):
-    """Copy file to file with fixes
+    """Copy file to file with fixes.
 
     Args:
        src (str): source file
@@ -1089,7 +1089,7 @@ def copyfileCustomPlatform(src, dest, txt_ext=0):
 
 
 def copyCustomPlatform(file, dist_dir, txt_ext=0):
-    """Copy file to directory with fixes
+    """Copy file to directory with fixes.
 
     Args:
        file (str): source file
@@ -1168,7 +1168,7 @@ def getUserFilenameInput(prompt, filename):
 
 
 def splitIntoNGroups(alist, n=1):
-    """Divides a list up into n parcels (plus whatever is left over)
+    """Divides a list up into n parcels (plus whatever is left over).
 
     Example:
      >>> a = ['A', 'B', 'C', 'D', 'E']

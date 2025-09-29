@@ -71,7 +71,7 @@ class Haplo:
 
 class HaploArlequin(Haplo):
     """HaploArlequin is a subclass of :class:``Haplo`` that performs haplotype
-    estimation implemented via Arlequin
+    estimation implemented via Arlequin.
 
     .. deprecated:: 1.0.0
 
@@ -357,7 +357,7 @@ class Emhaplofreq(Haplo):
         # self.fp = cStringIO.StringIO()
 
     def serializeStart(self):
-        """Serialize start of XML output to the currently defined XML stream
+        """Serialize start of XML output to the currently defined XML stream.
 
         See Also:
           must be paired with a subsequent :meth:`Emhaplofreq.serializeEnd`
@@ -366,7 +366,7 @@ class Emhaplofreq(Haplo):
         self.stream.writeln()
 
     def serializeEnd(self):
-        """Serialize end of XML output to the currently defined XML stream
+        """Serialize end of XML output to the currently defined XML stream.
 
         See Also:
           must be paired with a previous :meth:`Emhaplofreq.serializeStart`
@@ -771,7 +771,7 @@ class Emhaplofreq(Haplo):
 
 def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     """Compute LD for pairwise haplotypes from haplotype names and frequencies
-    Make standalone so it can be used by any class
+    Make standalone so it can be used by any class.
 
     Args:
       haplos (list): list of haplotypes
@@ -961,7 +961,7 @@ class Haplostats(Haplo):
             self.stream = XMLOutputStream(io.StringIO())
 
     def serializeStart(self):
-        """Serialize start of XML output to currently defined XML stream
+        """Serialize start of XML output to currently defined XML stream.
 
         See Also:
           must be paired with a subsequent :meth:`Haplostats.serializeEnd`
@@ -970,7 +970,7 @@ class Haplostats(Haplo):
         self.stream.writeln()
 
     def serializeEnd(self):
-        """Serialize end of XML output to currently defined XML stream
+        """Serialize end of XML output to currently defined XML stream.
 
         See Also:
           must be paired with a previous :meth:`Haplostats.serializeStart`

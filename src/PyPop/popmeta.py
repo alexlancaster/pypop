@@ -32,6 +32,8 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+"""Command-line interface for ``popmeta``."""
+
 import os
 import sys
 from pathlib import Path
@@ -43,7 +45,7 @@ from PyPop.Meta import Meta
 
 
 def main(argv=sys.argv):
-    """Entry point for ``popmeta`` script
+    """Entry point for ``popmeta`` script.
 
     Args:
        argv (list): list of command-line options (default is ``sys.argv``)

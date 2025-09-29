@@ -67,7 +67,7 @@ class ParseFile:
         popNameDesignator="+",
         debug=0,
     ):
-        """Base class
+        r"""Base class.
 
         Args:
            filename (str): filename for the file to be parsed.
@@ -379,7 +379,7 @@ class ParseFile:
                     print("can't find this field\n")
 
     def serializeMetadataTo(self, stream):
-        """Write metadata to stream
+        """Write metadata to stream.
 
         Args:
            stream (XMLStreamOutput): output stream
@@ -466,7 +466,7 @@ class ParseGenotypeFile(ParseFile):
             ]
 
     def _genDataStructures(self):
-        """Generates matrix only
+        """Generates matrix only.
 
         *For internal use only.*
         """
@@ -636,7 +636,7 @@ class ParseAlleleCountFile(ParseFile):
         self._genDataStructures()
 
     def _genDataStructures(self):
-        """Generate internal data structures"""
+        """Generate internal data structures."""
         sampleDataLines, separator = self.getFileData()
 
         self.alleleTable = {}
@@ -744,7 +744,7 @@ class ParseAlleleCountFile(ParseFile):
         return isValidKey, field
 
     def serializeSubclassMetadataTo(self, stream):
-        """Serialize subclass specific metadata
+        """Serialize subclass specific metadata.
 
         Args:
            stream (XMLOutputStream): output stream

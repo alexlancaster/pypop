@@ -58,11 +58,14 @@ class SubclassError(Exception):
         super().__init__()
 
     def __str__(self):
+        """Returns:
+        str: A warning to sub class.
+        """
         return "Sub class must implement this method"
 
 
 class Filter(ABC):
-    """Abstract base class for all Filters"""
+    """Abstract base class for all Filters."""
 
     def __init__(self):
         super().__init__()
@@ -293,7 +296,7 @@ class AnthonyNolanFilter(Filter):
             print(self.alleleLookupTable)
 
     def doFiltering(self, matrix=None):
-        """Do filtering on the provided matrix
+        """Do filtering on the provided matrix.
 
         Args:
            matrix (StringMatrix): matrix to be filteredng
@@ -346,7 +349,7 @@ class AnthonyNolanFilter(Filter):
         return self.matrix
 
     def startFirstPass(self, locus):
-        """Start the first pass of filtering
+        """Start the first pass of filtering.
 
         Args:
            locus (str): locus to start filtering
@@ -366,7 +369,7 @@ class AnthonyNolanFilter(Filter):
         """Checks allele name against the database.
 
         Args:
-           alleleName (str):
+           alleleName (str): allele name
 
         Returns:
           str: returns the original ``allele`` truncated to appropriate number of digits,
@@ -445,10 +448,10 @@ class AnthonyNolanFilter(Filter):
         return retval
 
     def addAllele(self, alleleName):
-        """Add allele to be filtered
+        """Add allele to be filtered.
 
         Args:
-           alleleName (str):
+           alleleName (str): process allele to be filtered
         """
         if alleleName not in self.translTable:
             self.translTable[alleleName] = self.checkAlleleName(alleleName)
@@ -461,7 +464,7 @@ class AnthonyNolanFilter(Filter):
             self.countTable[filteredAllele] = 1
 
     def endFirstPass(self):
-        """End first pass of filtering
+        """End first pass of filtering.
 
         See Also:
            Must be paired with a previous :meth:`startFirstPass`
@@ -556,7 +559,7 @@ class AnthonyNolanFilter(Filter):
         self.logFile.writeln()
 
     def filterAllele(self, alleleName):
-        """Filter a specified allele
+        """Filter a specified allele.
 
         Args:
            alleleName (str): allele to filter
@@ -594,7 +597,7 @@ class AnthonyNolanFilter(Filter):
         self.logFile.writeln()
 
     def writeToLog(self, logstring="\n"):
-        """Write a string to log
+        """Write a string to log.
 
         Args:
            logstring (str): defaults to line feed
@@ -810,7 +813,7 @@ class AnthonyNolanFilter(Filter):
         return self.polyseq, self.polyseqpos
 
     def translateMatrix(self, matrix=None):
-        """Translate the whole matrix (all loci)
+        """Translate the whole matrix (all loci).
 
         Args:
             matrix (StringMatrix): matrix to translate
@@ -994,7 +997,7 @@ class AnthonyNolanFilter(Filter):
             print(f"LOG: using default cache directory: {self.msf_cache_dir}")
 
     def _getMSFFilePath(self, locus):
-        """Fetches the path to the file locally or remotely (if remoteMSF option supplied)"""
+        """Fetches the path to the file locally or remotely (if remoteMSF option supplied)."""
         # first generate the file name to retrieve(same for both local and remote)
         file_name = f"{locus}{self.sequenceFileSuffix}.msf"
 
@@ -1394,7 +1397,7 @@ class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
 
     def endFirstPass(self):
         """Process regular AnthonyNolanFilter then modify all alleles with
-        a count < ``lumpThreshold`` to ``lump``
+        a count < ``lumpThreshold`` to ``lump``.
 
         """
         AnthonyNolanFilter.endFirstPass(self)

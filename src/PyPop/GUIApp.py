@@ -26,7 +26,7 @@
 
 # FIXME: exclude certain rules, since this functionality is deprecated
 # ruff: noqa: F403 F405 F841
-"""GUIApp was an implementation of a graphical front-end to PyPop
+"""GUIApp was an implementation of a graphical front-end to PyPop.
 
 .. deprecated:: 1.0.0
 
@@ -67,7 +67,7 @@ def EVT_RESULT(win, func):
 
 
 class ResultEvent(wxPyEvent):
-    """Simple event to carry arbitrary result data"""
+    """Simple event to carry arbitrary result data."""
 
     def __init__(self, data):
         wxPyEvent.__init__(self)
@@ -216,7 +216,7 @@ class MainWindow(wxFrame):
         return fullpath
 
     def OnConfig(self, event):
-        """Select config file"""
+        """Select config file."""
         wildcard = "Configuration files (*.ini)|*.ini|All files (*.*)|*.*"
         fullpath = self._onOpen(event, type=wildcard)
 
@@ -225,7 +225,7 @@ class MainWindow(wxFrame):
             self.SetStatusText("config file:" + self.configFilename, 0)
 
     def OnPop(self, event):
-        """Select pop file"""
+        """Select pop file."""
         wildcard = "Population files (*.pop)|*.pop|All files (*.*)|*.*"
         fullpath = self._onOpen(event, type=wildcard)
 

@@ -55,6 +55,15 @@ if use_scipy:
 
 
 def pval(chisq, dof):
+    """Calculate p-value.
+
+    Args:
+       chisq (float): Chi-square value
+       dof (int): degrees of freedom
+
+    Returns:
+       float: p-value
+    """
     global chi2  # noqa: PLW0603
     if use_scipy:
         if chi2 is None:
@@ -296,7 +305,7 @@ class HardyWeinberg:
 
     def _calcChisq(self):
         """First calculate the chi-squareds for the homozygotes
-        and heterozygotes,
+        and heterozygotes,.
 
         - then calculate the chi-squareds for the common genotypes.
 
@@ -929,7 +938,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
                 self.totalGametes += int(output)
 
     def dumpTable(self, locusName, stream, allelelump=0):
-        """Output table to stream
+        """Output table to stream.
 
         Args:
           locusName (str): locus to output table
@@ -1040,7 +1049,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
 class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
     """Hardy-Weinberg testing with Hazael Maldonado Torres' exact
-    enumeration test
+    enumeration test.
 
     Warning:
       This requires the ``Enumeration`` C code to be compiled
@@ -1080,7 +1089,7 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
             self.chenPvals = self.HweEnumProcess.get_chen_statistic_pvalue_ext()
 
     def serializeTo(self, stream, allelelump=0):
-        """Serialize enumeration test output to stream
+        """Serialize enumeration test output to stream.
 
         Args:
           stream (XMLOutputStream): XML stream to use
@@ -1209,7 +1218,7 @@ class HardyWeinbergGuoThompsonArlequin:
             self.noDataFlag = 1
 
     def serializeTo(self, stream):
-        """Serialize output to stream
+        """Serialize output to stream.
 
         Args:
            stream (XMLOutputStream): stream to serialize to
