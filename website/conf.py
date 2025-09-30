@@ -13,8 +13,8 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-import shutil
+"""Sphinx configuration."""
+
 import sys
 from pathlib import Path
 
@@ -58,6 +58,8 @@ extensions = [
 # user_agent= "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:121.0) Gecko/20100101 Firefox/121.0"
 
 # autosectionlabel_prefix_document = True
+# suppress warnings because autoapi generates many
+suppress_warnings = ["autosectionlabel.*"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -288,8 +290,8 @@ autoapi_member_order = "groupwise"
 autoapi_options = [
     "members",
     "undoc-members",
-    #        "private-members",  # remove for production
-    #        "special-members",
+    #           "private-members",  # remove for production
+    #           "special-members",
     "show-inheritance",
     "show-module-summary",
     "imported-members",
@@ -550,10 +552,28 @@ def skip_instance_vars(_app, what, _name, _obj, skip, _options):
 
 
 def prepare_autoapi_index(app):
+    src_override = Path(app.srcdir) / "_static" / "api_index_override.rst"
+    src_generated = Path(app.srcdir) / "autoapi" / "PyPop" / "index.rst"
     dst = Path(app.srcdir) / "autoapi" / "index.rst"
-    src = Path(app.srcdir) / "_static" / "api_index_override.rst"
+
+    # Read override content
+    override_content = src_override.read_text(encoding="utf-8")
+
+    # Read generated PyPop/index.rst content if it exists
+    generated_content = ""
+    if src_generated.exists():
+        generated_content = src_generated.read_text(encoding="utf-8")
+        # Delete the generated PyPop/index.rst so Sphinx doesn't process it separately
+        src_generated.unlink()
+
+    # Combine them: override first, then generated
+    final_content = override_content + "\n\n" + generated_content
+
+    # Ensure parent exists
     dst.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy(src, dst)
+
+    # Write final merged index.rst
+    dst.write_text(final_content, encoding="utf-8")
 
 
 def setup(app):

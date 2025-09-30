@@ -10,4 +10,4 @@ API Reference
    .. toctree::
       :maxdepth: 3
 
-.. include:: PyPop/index.rst
+.. contents of PyPop/index.rst will be concatenated here at runtime
