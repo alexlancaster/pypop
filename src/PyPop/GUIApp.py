@@ -75,8 +75,9 @@ class ResultEvent(wxPyEvent):
         self.data = data
 
 
-# Thread class that executes processing
 class WorkerThread(Thread):
+    """Thread class that executes processing."""
+
     def __init__(self, notify_window):
         Thread.__init__(self)
 
