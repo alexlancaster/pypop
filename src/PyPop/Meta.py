@@ -169,7 +169,7 @@ def translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None):
 def translate_file_to_file(
     xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None
 ):
-    """Transform XML file using XSLT and save to stdout.
+    """Transform XML file using XSLT and save to a file.
 
     Args:
       xslFilename (str): name of XSLT file

@@ -31,8 +31,8 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Module provides primary access to PyPop's population genetics
-statistics modules.
+"""Provides primary access to PyPop's population genetics statistics
+modules.
 
 This module handles processing :class:`configparser.ConfigParser` instance, which
 can be:
