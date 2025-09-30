@@ -472,11 +472,9 @@ class ArlequinBatch:
 
     Given a delimited text file of multi-locus genotype data: provides
     methods to output Arlequin format data files and runtime info and
-    execution of Arlequin itself.
-
-    Is used to provide a "batch" (i.e. command line) mode for
-    generating appropriate Arlequin input files and for forking
-    Arlequin itself.
+    execution of Arlequin itself. Used to provide a "batch"
+    (i.e. command line) mode for generating appropriate Arlequin input
+    files and for forking Arlequin itself.
 
     Args:
        arpFilename (str): Arlequin filename (must have ``.arp`` file
@@ -495,7 +493,7 @@ class ArlequinBatch:
        untypedAllele (str, optional): (defaults to ``0``)
        arlequinPrefix (str, optional): prefix for all Arlequin run-time files
         (defaults to ``arl_run``).
-       debug (int): (defaults to ``0``)
+       debug (int, optional): (defaults to ``0``)
 
     """
 
