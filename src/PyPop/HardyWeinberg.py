@@ -115,8 +115,7 @@ def _chen_statistic(genotype, alleleFreqs, genotypes, total_gametes):
 
 
 class HardyWeinberg:
-    """Calculate Hardy-Weinberg statistics given genotype data for a
-    single locus.
+    """Calculate Hardy-Weinberg statistics for a single locus.
 
     Given the observed genotypes for a locus, calculate the expected
     genotype counts based on Hardy Weinberg proportions for individual
@@ -133,6 +132,7 @@ class HardyWeinberg:
         chi-square-based "corrected" p-value (Default: ``0``,
         disabled)
       debug (int, optional): enable debugging (``1``)
+
     """
 
     def __init__(
@@ -157,9 +157,7 @@ class HardyWeinberg:
     ################################################################################
 
     def _generateTables(self):
-        """Manipulate the given genotype data to generate
-        the tables upon which the calculations will be based.
-        """
+        """Generate the internal frequency and count tables."""
         self.alleleFrequencies = {}
         self.observedGenotypes = []
         self.observedAlleles = []  # need a uniqed list
@@ -304,8 +302,10 @@ class HardyWeinberg:
     ################################################################################
 
     def _calcChisq(self):
-        """First calculate the chi-squareds for the homozygotes
-        and heterozygotes,.
+        """Compute chi-squared values.
+
+        - First calculate the chi-squareds for the homozygotes and
+          heterozygotes.
 
         - then calculate the chi-squareds for the common genotypes.
 
@@ -318,6 +318,7 @@ class HardyWeinberg:
           based on R's implementation of the chi-square test which is
           released under the GNU GPL and as such, is redistributable
           with our code, removing the need for an external program
+
         """
         self.counterA = {}
         self.chisq = {}
@@ -818,8 +819,7 @@ class HardyWeinberg:
 
 
 class HardyWeinbergGuoThompson(HardyWeinberg):
-    """A subclass of ``HardyWeinberg`` that uses the Guo & Thompson
-    (1992) algorithm for calculating statistics.
+    """Use Guo & Thompson (1992) algorithm for calculating statistics.
 
     This Python class wraps the functionality of the Guo & Thompson
     program ``gthwe``.  In addition to the arguments for the base
@@ -1048,8 +1048,7 @@ class HardyWeinbergGuoThompson(HardyWeinberg):
 
 
 class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
-    """Hardy-Weinberg testing with Hazael Maldonado Torres' exact
-    enumeration test.
+    """HW testing with Maldonado Torres' exact enumeration test.
 
     Warning:
       This requires the ``Enumeration`` C code to be compiled
@@ -1148,8 +1147,7 @@ class HardyWeinbergEnumeration(HardyWeinbergGuoThompson):
 
 
 class HardyWeinbergGuoThompsonArlequin:
-    """Class that uses the Arlequin implementation of the Guo &
-    Thompson algorithm for calculating statistics.
+    """Arlequin implementation of the Guo & Thompson algorithm.
 
     .. deprecated:: 1.0.0
 
@@ -1177,6 +1175,7 @@ class HardyWeinbergGuoThompsonArlequin:
        markovChainDememorisationStepsHW (int): "Burn-in" time for Markov chain (default: ``1000``).
        untypedAllele (str): untyped allele identifier
        debug (int): enable debugging (``1``)
+
     """
 
     def __init__(

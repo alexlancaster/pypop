@@ -205,8 +205,7 @@ class XMLOutputStream(TextOutputStream):
         self.f.write(f"</{self._gentag(tagname)}>")
 
     def tagContents(self, tagname, content, **kw):  # noqa: D417
-        """Write open and closing XML tags around contents to a
-        stream.
+        """Write XML tags around contents to a stream.
 
         Example:
           ``tagContents('tagname', 'foo bar')``
@@ -407,12 +406,11 @@ class Index:
 
 
 class StringMatrix(container):
-    """Matrix to hold a matrix of strings and other metadata from
-    input file to PyPop.
+    """Matrix of strings and other metadata from input file to PyPop.
 
-    It is a subclass of NumPy's :class:`numpy.lib.user_array` class,
-    store the data in an efficient array format, using NumPy-style
-    access.
+    ``StringMatrix`` is a subclass of NumPy's
+    :class:`numpy.lib.user_array` class, store the data in an
+    efficient array format, using NumPy-style access.
 
     Args:
        rowCount (int): number of rows in matrix
@@ -621,8 +619,7 @@ class StringMatrix(container):
         raise KeyError(msg)
 
     def getNewStringMatrix(self, key):
-        """Create an entirely new StringMatrix using only the columns
-        supplied in the keys.
+        """Create new StringMatrix containing specified loci.
 
         Note:
           The format of the keys is identical to :meth:`__getitem__`
@@ -741,8 +738,7 @@ class StringMatrix(container):
             raise KeyError(msg)
 
     def getUniqueAlleles(self, key):
-        """Get list of unique alleles sorted by allele name using
-         natural sort.
+        """Get naturally sorted list of unique alleles.
 
         Args:
            key (str): loci to get
@@ -789,8 +785,7 @@ class StringMatrix(container):
         return newMatrix
 
     def countPairs(self):
-        """Compute the number of all possible pairs of haplotypes for each
-        row of the matrix.
+        """Count all possible pairs of haplotypes for each matrix row.
 
         Warning:
           This does *not* do any involved handling of missing data as
@@ -846,8 +841,7 @@ class StringMatrix(container):
         return flattened_matrix
 
     def filterOut(self, key, blankDesignator):
-        """Get locus in the matrix that has been filtered by a
-        designator.
+        """Get matrix rows filtered by a designator.
 
         Args:
            key (str): locus to filter
@@ -906,8 +900,7 @@ class StringMatrix(container):
 
 
 class Group:
-    """Group a list or sequence into non-overlapping chunks by a given
-    size.
+    """Group list or sequence into non-overlapping chunks.
 
     Example:
 

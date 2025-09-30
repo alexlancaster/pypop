@@ -51,10 +51,7 @@ from PyPop.Utils import OrderedDict, StringMatrix, getStreamType
 
 
 class ParseFile:
-    """Base class which has most of the common functionality for
-    reading the two file formats.
-
-    """
+    """Common functionality for reading the two file formats."""
 
     def __init__(
         self,

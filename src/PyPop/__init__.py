@@ -30,10 +30,12 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-"""PyPop is a framework for performing population genetics analyses, originally
-designed as an end-to-end pipeline that reads configuration files and datasets
-and produces standardized outputs. While the primary workflow is file-based,
-most internal functionality is exposed as Python modules and classes.
+"""PyPop is a framework for performing population genetics analyses.
+
+Originally designed as an end-to-end pipeline that reads configuration
+files and datasets and produces standardized outputs. While the
+primary workflow is file-based, most internal functionality is exposed
+as Python modules and classes.
 
 .. note::
 

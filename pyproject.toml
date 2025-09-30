@@ -218,7 +218,6 @@ ignore = [
   "PLR09",    # Too many <...>
   "PLR2004",  # Magic value used in comparison
   "D107",  # Skip "missing docstring in __init__" if you merge class+init docstrings
-  "D205",  # blank line -- FIXME check what is needed
   "D102",  # missing docstring in method -- FIXME disable currently
 ]
 

@@ -62,16 +62,15 @@ from PyPop.Utils import (
 
 
 class Haplo:
-    """Haplo is an abstract base class for estimating haplotypes given
-     genotype data.
+    """Estimating haplotypes given genotype data.
 
-    A stub class (unimplemented).
+    This is abstract stub class (currently has no methods).
+
     """
 
 
 class HaploArlequin(Haplo):
-    """HaploArlequin is a subclass of :class:``Haplo`` that performs haplotype
-    estimation implemented via Arlequin.
+    """Performs haplotype estimation via Arlequin.
 
     .. deprecated:: 1.0.0
 
@@ -97,6 +96,7 @@ class HaploArlequin(Haplo):
       arlequinPrefix (str) : prefix for all Arlequin run-time files
        (defaults to ``arl_run``).
       debug (int): (defaults to ``0``, i.e. OFF)
+
     """
 
     def __init__(
@@ -236,19 +236,16 @@ KeepNullDistrib=0""")
         self.batch.runArlequin()
 
     def genHaplotypes(self):
-        """Gets the haplotype estimates back from Arlequin. Parses the
-        Arlequin output to retrieve the haplotype estimated data.
+        """Parses Arlequin output to retrieve estimated haplotypes.
 
         Returns:
            list: a list of the sliding ``windows`` which consists of tuples. Each tuple consists of:
 
            - freqs (dict): dictionary entry (the haplotype-frequency) key-value pairs.
-
            - popName (str): population name (original ``.arp`` file prefix)
-
            - sampleCount (int): sample count (number of samples for that window)
-
            - lociList (list): ordered list of loci considered
+
         """
         outFile = (
             self.batch.arlResPrefix + ".res" + os.sep + self.batch.arlResPrefix + ".htm"
@@ -299,8 +296,7 @@ KeepNullDistrib=0""")
 
 
 class Emhaplofreq(Haplo):
-    """Emhaplofreq is a subclass of Haplo that does haplotype and linkage
-    disequilibrium (LD) estimation via emhaplofreq.
+    """Haplotype and linkage disequilibrium (LD) estimation via emhaplofreq.
 
     This is essentially a wrapper to a Python extension built on top
     of the ``emhaplofreq`` command-line program.  Will refuse to
@@ -312,6 +308,7 @@ class Emhaplofreq(Haplo):
        untypedAllele (str): defaults to ``****``
        stream (TextOutputStream): output file
        testMode (bool): default is ``False``
+
     """
 
     def __init__(
@@ -601,7 +598,7 @@ class Emhaplofreq(Haplo):
         self.stream.flush()
 
     def estHaplotypes(self, locusKeys=None, numInitCond=None):
-        """Estimate haplotypes for listed groups in ``locusKeys``.
+        """Estimate haplotypes for listed loci in ``locusKeys``.
 
         Args:
            locusKeys (str): format is a string consisting of
@@ -638,8 +635,7 @@ class Emhaplofreq(Haplo):
         numPermutations=None,
         numPermuInitCond=None,
     ):
-        """Estimate linkage disequilibrium (LD) for listed groups in
-        ``locusKeys``.
+        """Estimate linkage disequilibrium (LD) for listed loci.
 
         Args:
            locusKeys (str): see :meth:`estHaplotypes`
@@ -681,9 +677,10 @@ class Emhaplofreq(Haplo):
         mode=None,
     ):
         """Estimate pairwise statistics for a given set of loci.
-        Depending on the flags passed, can be used to estimate both LD
-        (linkage disequilibrium) and HF (haplotype frequencies), an
-        optional permutation test on LD can be run.
+
+        Depending on the flags passed, this can be used to estimate
+        both LD (linkage disequilibrium) and HF (haplotype
+        frequencies), an optional permutation test on LD can be run.
 
         Args:
           permutationPrintFlag (int): sets whether the result from
@@ -770,7 +767,8 @@ class Emhaplofreq(Haplo):
 
 
 def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
-    """Compute LD for pairwise haplotypes from haplotype names and frequencies
+    """Compute LD for pairwise haplotypes from haplotype names and frequencies.
+
     Make standalone so it can be used by any class.
 
     Args:
@@ -981,8 +979,7 @@ class Haplostats(Haplo):
     def estHaplotypes(
         self, locusKeys=None, weight=None, control=None, numInitCond=10, testMode=False
     ):
-        """Estimate haplotypes for the submatrix given in
-        ``locusKeys``.
+        """Estimate haplotypes for listed loci in ``locusKeys``.
 
         If ``locusKeys`` is ``None``, assume entire matrix.  LD is
         also estimated if there are ``locusKeys`` consisting of only

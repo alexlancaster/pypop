@@ -249,7 +249,9 @@ class Genotypes:
                 self.totalLociWithData += 1
 
     def getLocusList(self):
-        """Note:
+        """Get the list of loci.
+
+        Note:
            The returned list filters out all loci that consist of
            individuals that are all untyped.  The order of returned
            list is now fixed for the lifetime of the object.

@@ -58,9 +58,7 @@ class SubclassError(Exception):
         super().__init__()
 
     def __str__(self):
-        """Returns:
-        str: A warning to sub class.
-        """
+        """Returns a warning to subclass."""
         return "Sub class must implement this method"
 
 
@@ -177,8 +175,7 @@ class AnthonyNolanFilter(Filter):
         debug=0,
         sequenceFilterMethod="strict",
     ):
-        """Use of ``msf`` files is required in order to translate
-        allele codes into polymorphic sequence data.
+        """Base class parameters.
 
         Args:
             directoryName (str): directory that AnthonyNolan allele data is located
@@ -187,8 +184,10 @@ class AnthonyNolanFilter(Filter):
                <https://github.com/ANHIG/IMGTHLA/>`__.  If present, the remote
                MSF files for the specified version will be downloaded on-demand,
                and cached for later reuse
-            alleleFileFormat (str, optional): file format,
-               can be ``txt`` or ``msf`` (default)
+            alleleFileFormat (str, optional): file format, can be
+               ``txt`` or ``msf`` (default). Use of ``msf`` files is
+               required in order to translate allele codes into
+               polymorphic sequence data.
             preserveAmbiguousFlag (int, optional): If set to ``0`` (default) then
                ambiguitity is removed (e.g.  ``010101/0102/010301`` will
                truncate this to ``0101``).  To preserve the ambiguity,
@@ -1302,8 +1301,7 @@ class BinningFilter:
         return matrix
 
     def lookupCustomBinning(self, testAllele, locus):
-        """Apply custom binning rules to a given allele and locus
-        pair, and return result.
+        """Apply custom binning rules to a allele and locus pair.
 
         Args:
            testAllele (str): allele to check
@@ -1396,8 +1394,10 @@ class AlleleCountAnthonyNolanFilter(AnthonyNolanFilter):
         AnthonyNolanFilter.__init__(self, **kw)
 
     def endFirstPass(self):
-        """Process regular AnthonyNolanFilter then modify all alleles with
-        a count < ``lumpThreshold`` to ``lump``.
+        """End first pass and then lump alleles.
+
+        First process regular :class:`AnthonyNolanFilter` then modify
+        all alleles with a ``count`` < ``lumpThreshold`` to ``lump``.
 
         """
         AnthonyNolanFilter.endFirstPass(self)
