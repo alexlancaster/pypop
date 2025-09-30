@@ -63,6 +63,7 @@ EVT_RESULT_ID = wxNewId()
 
 
 def EVT_RESULT(win, func):
+    """Thread completion."""
     win.Connect(-1, -1, EVT_RESULT_ID, func)
 
 

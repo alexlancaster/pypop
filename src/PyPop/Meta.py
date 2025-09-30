@@ -73,13 +73,31 @@ def _translate_string_to(xslFilename, inString, outFile, outputDir=None, params=
 
 
 def translate_string_to_stdout(xslFilename, inString, outputDir=None, params=None):
-    # save result to stdout "-"
+    """Transform XML string using XSLT and save to stdout.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inString (str): XML string
+      outputDir (str, optional): name of output directory
+      params (list, optional): list of XSLT parameters
+
+    """
     _translate_string_to(xslFilename, inString, "-", outputDir=outputDir, params=params)
 
 
 def translate_string_to_file(
     xslFilename, inString, outFile, outputDir=None, params=None
 ):
+    """Transform XML string using XSLT and save to file.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inString (str): XML string
+      outFile (str): name of output file
+      outputDir (str): name of output directory
+      params (list): list of XSLT parameters
+
+    """
     _translate_string_to(
         xslFilename, inString, outFile, outputDir=outputDir, params=params
     )
@@ -130,6 +148,18 @@ def _translate_file_to(
 
 
 def translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None):
+    """Transform XML file using XSLT and save to stdout.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inFile (str): name of input XML file
+      inputDir (str, optional): name of input directory
+      params (list, optional): list of XSLT parameters
+
+    Returns:
+      tuple: consisting of a bool (transformation successful) and str (output)
+
+    """
     retval, stdout = _translate_file_to(
         xslFilename, inFile, "-", inputDir=inputDir, params=params
     )
@@ -139,6 +169,19 @@ def translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None):
 def translate_file_to_file(
     xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None
 ):
+    """Transform XML file using XSLT and save to stdout.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inFile (str): name of input XML file
+      outFile (str): name of output file
+      inputDir (str, optional): name of input directory
+      outputDir (str, optional): name of output directory
+      params (list, optional): list of XSLT parameters
+
+    Returns:
+      bool: transformation successful
+    """
     retval, _output = _translate_file_to(
         xslFilename,
         inFile,
