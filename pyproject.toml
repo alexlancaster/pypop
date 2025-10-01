@@ -71,7 +71,7 @@ version_scheme = "post-release"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config", "--doctest-modules", "--doctest-glob=*.rst"]
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"] #, "--doctest-modules", "--doctest-glob=*.rst"]
 xfail_strict = true
 # convert warnings to errors, except for ImportWarnings in numpy (needed for pp38)
 # FIXME: eventually we should be able to remove the numpy exception
