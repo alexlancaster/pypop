@@ -462,10 +462,10 @@ class StringMatrix(container):
         Example:
           This is used when the object is 'print'ed, i.e.
 
-          .. code-block:: python
-
-              a = StringMatrix(10, [1,2])
-              print (a)
+          >>> a = StringMatrix(2, [1,2])
+          >>> print (a)
+          StringMatrix([[0, 0, 0, 0],
+                 [0, 0, 0, 0]], dtype=object)
 
         Returns:
            str: new string representation
@@ -566,7 +566,12 @@ class StringMatrix(container):
         Example:
           This is called when instance is called to retrieve a position
 
-          >>> li = matrix['A']
+          >>> matrix = StringMatrix(2, ["A", "B"])
+          >>> matrix [0, "A"] = ("A0_1", "A0_2")
+          >>> matrix [1, "A"] = ("A1_1", "A1_2")
+          >>> li = matrix["A"]
+          >>> print (li)
+          [['A0_1', 'A0_2'], ['A1_1', 'A1_2']]
 
         Args:
           key (str): locus key
@@ -866,14 +871,20 @@ class StringMatrix(container):
         """Get a matrix grouped by specified key.
 
         Example:
-          If matrix represents the following genotype ``[[A01, A02,
-          B01, B02], [A11, A12, B11, B12]]``
+          Return a new matrix with the column vector with the alleles
+          for each genotype concatenated like so:
 
-          then ``getSuperType('A:B')`` will return a new matrix with
-          the column vector with the alleles for each genotype
-          concatenated like so:
-
-          ``[[A01:B01, A02:B02], [A11:B11, A12:B12]]``
+          >>> matrix = StringMatrix(2, ["A", "B"])
+          >>> matrix[0, "A"] = ("A01", "A02")
+          >>> matrix[1, "A"] = ("A11", "A12")
+          >>> matrix[0, "B"] = ("B01", "B02")
+          >>> matrix[1, "B"] = ("B11", "B12")
+          >>> print(matrix)
+          StringMatrix([['A01', 'A02', 'B01', 'B02'],
+                 ['A11', 'A12', 'B11', 'B12']], dtype=object)
+          >>> matrix.getSuperType("A:B")
+          StringMatrix([['A01:B01', 'A02:B02'],
+                 ['A11:B11', 'A12:B12']], dtype=object)
 
         Args:
            key (str): loci to group
@@ -894,7 +905,8 @@ class StringMatrix(container):
         )
 
         for pos, i in enumerate(li):
-            newMatrix[pos, colName] = (i[0::2].join(":"), i[1::2].join(":"))
+            # newMatrix[pos, colName] = (i[0::2].join(":"), i[1::2].join(":"))
+            newMatrix[pos, colName] = (":".join(i[0::2]), ":".join(i[1::2]))
 
         return newMatrix
 
@@ -903,22 +915,20 @@ class Group:
     """Group list or sequence into non-overlapping chunks.
 
     Example:
+      >>> for pair in Group('aabbccddee', 2):
+      ...    print(pair)  # doctest: +NORMALIZE_WHITESPACE
+      ...
+      aa
+      bb
+      cc
+      dd
+      ee
 
-      .. code-block:: console
-
-         >>> for pair in Group('aabbccddee', 2):
-         ...    print(pair)
-         ...
-         aa
-         bb
-         cc
-         dd
-         ee
-         >>> a = Group('aabbccddee', 2)
-         >>> a[0]
-         'aa'
-         >>> a[3]
-         'dd'
+      >>> a = Group('aabbccddee', 2)
+      >>> a[0]
+      'aa'
+      >>> a[3]
+      'dd'
 
     Args:
         li (str|list): string or list
@@ -961,9 +971,9 @@ def natural_sort_key(s, _nsre=re.compile(r"([0-9]+)")):
     :func:`sorted`.
 
     Example:
-        >>> items = ["item2", "item10", "item1"]
-        >>> sorted(items, key=natural_sort_key)
-        ['item1', 'item2', 'item10']
+      >>> items = ["item2", "item10", "item1"]
+      >>> sorted(items, key=natural_sort_key)
+      ['item1', 'item2', 'item10']
 
     Args:
         s (str): The string to split into text and number components.
@@ -1164,9 +1174,9 @@ def splitIntoNGroups(alist, n=1):
     """Divides a list up into n parcels (plus whatever is left over).
 
     Example:
-     >>> a = ['A', 'B', 'C', 'D', 'E']
-     >>> splitIntoNGroups(a, 2)
-     [['A', 'B'], ['C', 'D'], ['E']]
+       >>> a = ['A', 'B', 'C', 'D', 'E']
+       >>> splitIntoNGroups(a, 2)
+       [['A', 'B'], ['C', 'D'], ['E']]
 
     Args:
        alist (list): list to divide up

@@ -31,7 +31,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Module for parsing data files.
+"""Parsing input population data files.
 
 Includes :class:`ParseGenotypeFile` for parsing individuals genotyped
 at multiple loci and :class:`ParseAlleleCountFile` for parsing

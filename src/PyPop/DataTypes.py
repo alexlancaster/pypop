@@ -31,7 +31,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Module for storing genotype and allele count data."""
+"""Data structures storing genotype and allele count data."""
 
 import re
 import string
@@ -95,7 +95,7 @@ def _serializeAlleleCountDataAt(
 
 
 class Genotypes:
-    """Base class that stores and caches basic genotype statistics.
+    """Stores genotypes and caches basic genotype statistics.
 
     Args:
         matrix (StringMatrix): The ``StringMatrix`` to be converted into a ``Genotype`` instance

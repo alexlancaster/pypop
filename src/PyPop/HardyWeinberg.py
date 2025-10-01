@@ -32,7 +32,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Module for calculating Hardy-Weinberg statistics."""
+"""Computing Hardy-Weinberg statistics on genotype data."""
 
 import sys
 from math import pow

@@ -26,7 +26,7 @@
 
 # FIXME: exclude certain rules, since this functionality is deprecated
 # ruff: noqa: F403 F405 F841
-"""GUIApp was an implementation of a graphical front-end to PyPop.
+"""Implementation of a graphical front-end to PyPop.
 
 .. deprecated:: 1.0.0
 
@@ -39,27 +39,30 @@
 
 """
 
-import warnings
 from pathlib import Path
 from threading import *
 
-from Main import Main, getConfigInstance
-from wxPython.wx import *
+import wx
 
-warnings.warn(
-    "The module 'GUIApp' is deprecated and may be removed in a future release.",
-    DeprecationWarning,
-    stacklevel=2,
-)
+from PyPop.Main import Main, getConfigInstance
+
+# warnings.warn(
+#    "The module 'GUIApp' is deprecated and may be removed in a future release.",
+#    DeprecationWarning,
+#    stacklevel=2,
+# )
 
 ID_ABOUT = 101
 ID_OPEN_CONFIG = 102
 ID_OPEN_POP = 103
 ID_EXIT = 110
 
-
-# Define notification event for thread completion
-EVT_RESULT_ID = wxNewId()
+# event for returning data from thread
+try:
+    EVT_RESULT_ID = wx.NewIdRef().Id
+except AttributeError:
+    # Fallback for older wxPython
+    EVT_RESULT_ID = wx.NewId()
 
 
 def EVT_RESULT(win, func):
@@ -67,12 +70,11 @@ def EVT_RESULT(win, func):
     win.Connect(-1, -1, EVT_RESULT_ID, func)
 
 
-class ResultEvent(wxPyEvent):
+class ResultEvent(wx.PyCommandEvent):
     """Simple event to carry arbitrary result data."""
 
     def __init__(self, data):
-        wxPyEvent.__init__(self)
-        self.SetEventType(EVT_RESULT_ID)
+        super().__init__(EVT_RESULT_ID)
         self.data = data
 
 
@@ -120,7 +122,7 @@ class WorkerThread(Thread):
         self._want_abort = 1
 
 
-class MainWindow(wxFrame):
+class MainWindow(wx.Frame):
     """Creates the main application window for PyPop."""
 
     def __init__(self, parent, _id, title, datapath=None, altpath=None, debugFlag=0):

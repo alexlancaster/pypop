@@ -39,6 +39,18 @@ from lxml import etree
 from numpy import format_float_scientific
 
 ns = etree.FunctionNamespace("http://pypop.org/lxml/functions")
+"""Function namespace for custom PyPop XSLT extension functions.
+
+This namespace allows registering Python functions that can be called
+directly from XSLT stylesheets.
+
+Attributes:
+    prefix (str): The namespace prefix used in XSLT stylesheets.  Here
+        it is set to ``"es"``, so extension functions are invoked as
+        ``es:format_number_fixed_width(...)``. See example in
+        :meth:`format_number_fixed_width`
+
+"""
 ns.prefix = "es"
 
 
@@ -58,10 +70,10 @@ def exponent_len(num):
     """Calculate space taken for exponent.
 
     Example:
-    >>> exponent_len(1e-03)
-    2
-    >>> exponent_len(1e-10)
-    3
+      >>> exponent_len(1e-03)
+      2
+      >>> exponent_len(1e-10)
+      3
 
     Args:
        num (float): input number
@@ -78,6 +90,25 @@ def exponent_len(num):
 @ns
 def format_number_fixed_width(_context, *args):  # noqa: D417
     """Format number to fixed width.
+
+    Example:
+      >>> ns["format_number_fixed_width"] = format_number_fixed_width
+      >>> root = etree.XML("<a><b>0.0000043</b></a>")
+      >>> doc = etree.ElementTree(root)
+      >>> xslt = etree.XSLT(etree.XML('''
+      ... <stylesheet version="1.0" xmlns="http://www.w3.org/1999/XSL/Transform" xmlns:es="http://pypop.org/lxml/functions">
+      ...  <output method="text" encoding="ASCII"/>
+      ...  <template match="/">
+      ...   <text>Yep [</text>
+      ...   <value-of select="es:format_number_fixed_width(string(/a/b), 5)"/>
+      ...   <text>]</text>
+      ...  </template>
+      ... </stylesheet>
+      ... '''))
+      >>>
+      >>> print(xslt(doc))
+      Yep [4.3e-6]
+
 
     Note:
       arguments from XSLT file: ``num`` and ``places`` are encoded in
@@ -108,29 +139,3 @@ def format_number_fixed_width(_context, *args):  # noqa: D417
     else:
         retval = "{0:.{1}f}".format(num, places)
     return retval
-
-
-if __name__ == "__main__":
-    # some tests
-
-    ns["format_number_fixed_width"] = format_number_fixed_width
-
-    root = etree.XML("<a><b>0.0000043</b></a>")
-    doc = etree.ElementTree(root)
-
-    xslt = etree.XSLT(
-        etree.XML("""
-      <stylesheet version="1.0"
-          xmlns="http://www.w3.org/1999/XSL/Transform"
-          xmlns:es="http://pypop.org/lxml/functions">
-     <output method="text" encoding="ASCII"/>
-     <template match="/">
-       <text>Yep [</text>
-       <value-of select="es:format_number_fixed_width(string(/a/b), 5)"/>
-       <text>]</text>
-     </template>
-      </stylesheet>
-    """)
-    )
-
-    print(xslt(doc))

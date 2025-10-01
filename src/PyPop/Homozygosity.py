@@ -31,7 +31,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Module for calculating homozygosity statistics."""
+"""Computing homozygosity statistics on genotype or allele counts."""
 
 import math
 import os

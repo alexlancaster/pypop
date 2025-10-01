@@ -31,7 +31,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Module for pre-filtering data files.
+"""Filters for pre-filtering of data files before analysis.
 
 This module includes filters that modify or otherwise transform the
 input data before being passed to PyPop analysis.
