@@ -776,15 +776,6 @@ class Main:
         loci = self.input.getLocusList()
 
         for locus in loci:
-            ##           if self.thread and self.thread._want_abort:
-            ##             from wxPython.wx import wxPostEvent
-            ##             from GUIApp import ResultEvent
-            ##             # Use a result of None to acknowledge the abort (of
-            ##             # course you can use whatever you'd like or even
-            ##             # a separate event type)
-            ##             wxPostEvent(self.thread._notify_window,ResultEvent(None))
-            ##             return
-
             self.xmlStream.opentag("locus", name=locus)
             self.xmlStream.writeln()
 
