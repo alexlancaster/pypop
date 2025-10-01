@@ -39,6 +39,7 @@
 
 """
 
+import warnings
 from pathlib import Path
 from threading import *
 
@@ -46,11 +47,11 @@ import wx
 
 from PyPop.Main import Main, getConfigInstance
 
-# warnings.warn(
-#    "The module 'GUIApp' is deprecated and may be removed in a future release.",
-#    DeprecationWarning,
-#    stacklevel=2,
-# )
+warnings.warn(
+    "The module 'GUIApp' is deprecated and may be removed in a future release.",
+    DeprecationWarning,
+    stacklevel=2,
+)
 
 ID_ABOUT = 101
 ID_OPEN_CONFIG = 102
