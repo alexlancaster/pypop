@@ -71,7 +71,7 @@ version_scheme = "post-release"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config", "--doctest-modules", "--doctest-glob=*.rst"]
 xfail_strict = true
 # convert warnings to errors, except for ImportWarnings in numpy (needed for pp38)
 # FIXME: eventually we should be able to remove the numpy exception
@@ -79,6 +79,9 @@ filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*depreca
 log_cli_level = "INFO"
 testpaths = [
   "tests",
+]
+norecursedirs = [
+ "tests/data"
 ]
 
 [tool.cibuildwheel]
@@ -92,7 +95,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
      ]
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
-test-command = "pytest -v {package}/tests ${PYTEST_OPTIONS}"
+test-command = "pytest -v {package}/src/PyPop {package}/tests  ${PYTEST_OPTIONS}"
 # FIXME: can add "test-command" that would allow unit test output to be saved
 # "pytest -v {package}/tests && echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
 
@@ -120,7 +123,7 @@ manylinux-pypy_aarch64-image = "manylinux_2_28"
 select = "cp313-manylinux_aarch64"
 inherit.test-extras = "append"
 test-extras = ["test-pval-benchmarking"]
-test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
+test-command = "pytest --pval-benchmarking -v {package}/tests {package}/src/PyPop ${PYTEST_OPTIONS}"
 
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
@@ -160,7 +163,7 @@ before-all = ["brew install --quiet ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"]
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
-test-command = "pytest -v {package}/tests %PYTEST_OPTIONS%"
+test-command = "pytest -v {package}/src/PyPop {package}/tests %PYTEST_OPTIONS%"
 
 [[tool.cibuildwheel.overrides]]
 # overrides for X86
@@ -254,7 +257,7 @@ RTD = "doesn't use read the docs"
 [tool.pydoclint]
 style = "google"                        # Google style
 # require-return = true                 # Require documenting returns
-# check-param-types = true              # Ensure param types are provided
+check-param-types = true              # Ensure param types are provided
 check-return-types = false              # Disable return type checking
 arg-type-hints-in-signature = false     # We don't use type hints in signature
 should-document-star-arguments = false  # don't require document **kwargs

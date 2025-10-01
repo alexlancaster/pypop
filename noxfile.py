@@ -1,3 +1,5 @@
+"""nox commands."""
+
 import json
 import re
 import subprocess
@@ -12,6 +14,7 @@ nox.options.sessions = ["precommit"]  # default session
 
 
 def run_git_command(session, *args):
+    """Run git command with arguments."""
     session.run("git", *args, external=True)
 
 
@@ -24,6 +27,7 @@ def file_was_modified(filename):
 
 
 def commit_with_retry(session, filename, message):
+    """Use git to commit to repo, and retry."""
     committed = True  # whether a commit was done
     try:
         run_git_command(session, "commit", filename, "-m", message)
@@ -47,8 +51,8 @@ def commit_with_retry(session, filename, message):
 
 @nox.session
 def precommit(session):
-    """
-    Run all pre-commit hooks (code formatting, spell check, linting).
+    """Run all pre-commit hooks (code formatting, spell check, linting).
+
     This mirrors checks applied in CI and on pull requests.
     """
     session.install("pre-commit")
@@ -64,9 +68,11 @@ def build(session):
 
 @nox.session
 def tests(session):
-    """Run tests using pytest."""
-    session.install(".[test]")  # assumes [test] includes pytest, etc.
-    session.run("pytest", *session.posargs)
+    """Run unit tests and doctests using pytest."""
+    session.install(".[test]")  # now install assumes [test] includes pytest, etc.
+    session.run(
+        "pytest", "src/PyPop", "tests", *session.posargs
+    )  # do docstring tests then unit tests
 
 
 @nox.session
@@ -85,7 +91,7 @@ def docs(session):
 
 @nox.session
 def docs_pdf(session):
-    """Build PDF documentation with Sphinx. Requires LaTeX to already be installed"""
+    """Build PDF documentation with Sphinx. Requires LaTeX to already be installed."""
     output_dir = session.posargs[0] if len(session.posargs) == 1 else "_latexbuild"
     print("generate PDF docs in:", output_dir)
     session.install("tomli")
@@ -136,7 +142,6 @@ def sdist_test(session):
 @nox.session
 def update_news(session):
     """Update NEWS.md in local checkout from latest GitHub *draft* release notes (if not already present)."""
-
     session.log("Running update NEWS.md from latest release draft...")
     # session.run("gh", "--version", external=True)
 
@@ -199,8 +204,7 @@ def update_news(session):
 
 @nox.session
 def push_news(session):
-    """Commit and push local changes to NEWS.md back to repo"""
-
+    """Commit and push local changes to NEWS.md back to repo."""
     news_filename = "NEWS.md"
     message = f"Update {news_filename} from latest draft release"
 
@@ -227,7 +231,6 @@ def push_news(session):
 @nox.session
 def bump_release_date(session):
     """Bump release date in draft release to today."""
-
     session.log("Fetching draft releases...")
     result = subprocess.run(
         ["gh", "api", "/repos/:owner/:repo/releases"],
@@ -299,7 +302,6 @@ def bump_release_date(session):
 @nox.session
 def prepare_release(session):
     """Prepare latest release draft with correct tag, target, and NEWS.md update."""
-
     # Confirm branch
     current_branch = subprocess.run(
         ["git", "rev-parse", "--abbrev-ref", "HEAD"],

@@ -117,6 +117,13 @@ guide_subtitle = "User Guide for Python for Population Genomics"
 guide_name_with_subtitle = f"{guide_name}: {guide_subtitle}"
 guide_pdf_url = f"../{guide_prefix}.pdf"
 
+apidocs_prefix = "pypop-api-" + release  # include version in PDF filename
+apidocs_name = "PyPop API Reference"
+apidocs_subtitle = "Developer documentation"
+apidocs_name_with_subtitle = f"{apidocs_name}: {apidocs_subtitle}"
+apidocs_pdf_url = f"../{apidocs_prefix}.pdf"
+
+
 # other substitutions
 rst_epilog = """
 .. |pkgname| replace:: {}
@@ -188,13 +195,15 @@ sphinxcontrib.bibtex.plugin.register_plugin(
 bibtex_reference_style = "author_year_round"
 
 
-## custom bibligraphy style
+##
 
 # FIXME: should move this to top - currently doesn't work
 from pybtex.style.template import field, first_of, optional, sentence  # noqa: E402
 
 
 class AlphaInitialsStyle(AlphaStyle):
+    """Custom bibligraphy style."""
+
     name = "alpha-initials"
     default_name_style = "lastfirst"  # put the lastname first
     default_label_style = "alpha"  # 'number' or 'alpha'
@@ -318,8 +327,12 @@ intersphinx_mapping = {
 # -- Options for LaTeX output ---------------------------------------------
 
 
-# set size of code output in LaTeX backend
 class CustomLatexFormatter(LatexFormatter):
+    """Customize LaTeX backend.
+
+    Set size of code output in LaTeX backend
+    """
+
     def __init__(self, **options):
         super().__init__(**options)
         self.verboptions = r"formatcom=\footnotesize"
@@ -439,8 +452,42 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
   \sphinxrestorepageanchorsetting
 }"""
 
+# Shared LaTeX maketitle template
+
+maketitle_template = r"""
+\newcommand\sphinxbackoftitlepage{%%
+  \sphinxstrong{%(doc_name_with_subtitle)s}\\ \\
+  %(copyright)s. \Copyright © %(year)s. \\ \\
+  %(gfdl_license_text)s \\ \\
+  \emph{Document revision}: %(full_release)s
+}
+\sphinxmaketitle
+"""
+
 # replace the template with the right SUBTITLE
-my_latex_preamble = my_latex_preamble_template.replace("SUBTITLE", guide_subtitle)
+guide_latex_preamble = my_latex_preamble_template.replace("SUBTITLE", guide_subtitle)
+
+# Fill in guide variables
+guide_maketitle = maketitle_template % {
+    "doc_name_with_subtitle": guide_name_with_subtitle,
+    "copyright": uc_copyright,
+    "year": copyright,
+    "gfdl_license_text": gfdl_license_text,
+    "full_release": full_release,
+}
+
+apidocs_latex_preamble = my_latex_preamble_template.replace(
+    "SUBTITLE", apidocs_subtitle
+)
+
+# fill in API variables
+apidocs_maketitle = maketitle_template % {
+    "doc_name_with_subtitle": apidocs_name_with_subtitle,
+    "copyright": uc_copyright,
+    "year": copyright,
+    "gfdl_license_text": gfdl_license_text,
+    "full_release": full_release,
+}
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
@@ -453,11 +500,11 @@ latex_elements = {
     "extraclassoptions": "openany,oneside",
     # Additional stuff for the LaTeX preamble.
     #
-    "preamble": my_latex_preamble,
+    "preamble": guide_latex_preamble,
     # Latex figure (float) alignment
     #
     # 'figure_align': 'htbp',
-    "maketitle": rf"\newcommand\sphinxbackoftitlepage{{\sphinxstrong{{{guide_name_with_subtitle}}}\\ \\{uc_copyright}. \\Copyright © {copyright}. \\ \\{gfdl_license_text} \\ \\\emph{{Document revision}}: {full_release}}}\sphinxmaketitle",
+    # "maketitle": rf"\newcommand\sphinxbackoftitlepage{{\sphinxstrong{{{guide_name_with_subtitle}}}\\ \\{uc_copyright}. \\Copyright © {copyright}. \\ \\{gfdl_license_text} \\ \\\emph{{Document revision}}: {full_release}}}\sphinxmaketitle",
     # margins
     "sphinxsetup": "hmargin=0.8in, vmargin={1in,0.9in}",
 }
@@ -467,27 +514,49 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 
 latex_documents = [
-    ("docs/index", guide_prefix + ".tex", guide_name, author, "manual"),
+    (
+        "docs/index",
+        guide_prefix + ".tex",
+        guide_name,
+        author,
+        "manual",
+        False,
+        {
+            "preamble": guide_latex_preamble,
+            "maketitle": guide_maketitle,
+            "sphinxsetup": "hmargin=0.8in, vmargin={1in,0.9in}",
+        },
+    ),
     (
         "autoapi/index",
-        "pypop" + "-api" + ".tex",
-        "PyPop API Reference",
+        apidocs_prefix + ".tex",
+        apidocs_name,
         "Alex Lancaster",
         "howto",
+        False,
+        {
+            "preamble": apidocs_latex_preamble,
+            "maketitle": apidocs_maketitle,
+            "sphinxsetup": "hmargin=0.8in, vmargin={1in,0.9in}",
+        },
     ),
 ]
 pdf_documents = [
     ("docs/index", guide_prefix, guide_name, author),
 ]
 
-# override the default literalinclude directive
-# this sets the tab width only in LaTeX mode to make sure tab stops stay aligned
-
-# in HTML case, because we want to preserve the tabs for cut-and-paste, we use
-# _static/custom.css to set tab-width
-
 
 class MyLiteralInclude(LiteralInclude):
+    """Override the default ``literalinclude`` directive.
+
+    This sets the tab width only in LaTeX mode to make sure tab stops
+    stay aligned.
+
+    in HTML case, because we want to preserve the tabs for cut-and-paste, we use
+    ``_static/custom.css`` to set tab-width
+
+    """
+
     def run(self):
         # FIXME: missing tags
         if "builder_latex" in tags.tags:  # noqa: F821
@@ -499,6 +568,7 @@ class MyLiteralInclude(LiteralInclude):
 
 
 def substitute_toc_maxdepth(app, _docname, source):
+    """Substitute toc maximum depth."""
     # determine the maxdepth for the builder
     maxdepth_value = 4 if app.builder.name == "html" else 3
 
@@ -509,6 +579,8 @@ def substitute_toc_maxdepth(app, _docname, source):
 
 
 class CustomLaTeXTranslator(SphinxLaTeXTranslator):
+    """Customize the output in the LaTeX case."""
+
     def visit_versionmodified(self, node):
         vtype = node["type"]
         version = node.get("version", "")
@@ -543,7 +615,7 @@ class CustomLaTeXTranslator(SphinxLaTeXTranslator):
 
 
 def skip_instance_vars(_app, what, _name, _obj, skip, _options):
-    # Only skip instance variables
+    """Skip documenting instance variables."""
     if what != "attribute":
         return skip
     # Otherwise, assume it's an instance variable -> skip
@@ -552,6 +624,7 @@ def skip_instance_vars(_app, what, _name, _obj, skip, _options):
 
 
 def prepare_autoapi_index(app):
+    """Substitute the top-level index to be generated."""
     src_override = Path(app.srcdir) / "_static" / "api_index_override.rst"
     src_generated = Path(app.srcdir) / "autoapi" / "PyPop" / "index.rst"
     dst = Path(app.srcdir) / "autoapi" / "index.rst"
@@ -577,6 +650,7 @@ def prepare_autoapi_index(app):
 
 
 def setup(app):
+    """Run the customization hooks."""
     app.connect("builder-inited", prepare_autoapi_index)
     app.connect("autoapi-skip-member", skip_instance_vars)
     app.set_translator("latex", CustomLaTeXTranslator)
