@@ -82,7 +82,9 @@ jobs:
         uses: xu-cheng/latex-action@v4
         with:
           working_directory: _latexbuild
-          root_file: pypop-guide-*.tex
+          root_file: |
+            pypop-guide-*.tex
+            pypop-api-*.tex
           docker_image: ghcr.io/xu-cheng/texlive-debian:20250701
       - name: Postprocess PDF
         run: |
