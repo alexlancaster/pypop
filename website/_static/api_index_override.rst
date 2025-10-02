@@ -1,6 +1,10 @@
 API Reference
 =============
 
+.. only:: html
+
+   |api_pdf_download_box|
+
 .. note::
 
    The API reference guide for PyPop is automatically generated from source code.

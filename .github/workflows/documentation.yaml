@@ -84,10 +84,6 @@ jobs:
           working_directory: _latexbuild
           root_file: pypop-guide-*.tex
           docker_image: ghcr.io/xu-cheng/texlive-debian:20250701
-       # run: |
-          #sudo apt clean
-          #sudo apt-get update
-          #sudo apt-get install --fix-missing -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
       - name: Postprocess PDF
         run: |
           # create _build directory and move the PDF there
@@ -96,6 +92,7 @@ jobs:
           # create a symlink from 'pypop-guide.pdf' to the latest version
           cd _build/
           ln -s pypop-guide*.pdf pypop-guide.pdf
+          ln -s pypop-api*.pdf pypop-api.pdf
           cd -
       - name: Build HTML
         run: |
