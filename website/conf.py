@@ -18,9 +18,6 @@
 import sys
 from pathlib import Path
 
-import pybtex.plugin
-import sphinxcontrib.bibtex.plugin
-from pybtex.style.formatting.alpha import Style as AlphaStyle
 from pygments.formatters.latex import LatexFormatter
 from setuptools_scm import get_version
 from sphinx.directives.code import LiteralInclude
@@ -194,52 +191,10 @@ bibtex_bibfiles = ["pypop.bib"]
 ## remove space between citation and post-text, so that it supports
 ## output like: "Author (2024a, 2024b)"
 
-from bibtex_styles import MyReferenceStyle  # noqa: E402
-
-sphinxcontrib.bibtex.plugin.register_plugin(
-    "sphinxcontrib.bibtex.style.referencing", "author_year_round", MyReferenceStyle
-)
+from bibtex_styles import AlphaInitialsStyle, MyReferenceStyle  # noqa: E402, F401
 
 bibtex_reference_style = "author_year_round"
-
-
-##
-
-# FIXME: should move this to top - currently doesn't work
-from pybtex.style.template import field, first_of, optional, sentence  # noqa: E402
-
-
-class AlphaInitialsStyle(AlphaStyle):
-    """Custom bibligraphy style."""
-
-    name = "alpha-initials"
-    default_name_style = "lastfirst"  # put the lastname first
-    default_label_style = "alpha"  # 'number' or 'alpha'
-    default_sorting_style = "author_year_title"
-
-    def __init__(self, **kwargs):
-        super().__init__(abbreviate_names=True, **kwargs)  # abbreviate initials
-
-    def format_web_refs(self, e):
-        # try for DOI, PubMed or EPrint first, only include URL if not present
-        return first_of[
-            sentence[
-                optional[self.format_eprint(e)],
-                optional[self.format_pubmed(e)],
-                optional[self.format_doi(e)],
-            ],
-            optional[
-                self.format_url(e), optional[" (accessed on ", field("urldate"), ")"]
-            ],
-        ]
-
-
-pybtex.plugin.register_plugin(
-    "pybtex.style.formatting", "alpha-initials", AlphaInitialsStyle
-)
-
 bibtex_default_style = "alpha-initials"
-
 
 # -- Options for HTML output ----------------------------------------------
 
