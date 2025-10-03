@@ -76,7 +76,8 @@ Here is an example of calling :class:`Main` programmatically:
 ... )
 LOG: no XSL file, skipping text output
 LOG: Data file has no header data block
-
+>>> application.getXmlOutPath()
+'my-out.xml'
 """
 
 import os
