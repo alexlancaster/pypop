@@ -30,7 +30,7 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-"""PyPop is a framework for performing population genetics analyses.
+r"""PyPop is a framework for performing population genetics analyses.
 
 Originally designed as an end-to-end pipeline that reads configuration
 files and datasets and produces standardized outputs. While the
@@ -46,30 +46,54 @@ as Python modules and classes.
    used as a command-line script. However, it is possible to drive
    PyPop programmatically by importing the :mod:`PyPop.Main` module.
 
-For example, you can instantiate a :class:`PyPop.Main.Main` object with
-a configuration instance and optional parameters:
+For example, you can instantiate a :class:`PyPop.Main.Main` object
+with a configuration instance and optional parameters. This creates an
+:class:`Main` instance which processes the data and outputs an XML
+file.
+
+>>> from PyPop.Main import Main
+>>> from configparser import ConfigParser, NoOptionError, NoSectionError
+>>>
+>>> config = ConfigParser()
+>>> config.read_dict({
+...     "ParseGenotypeFile": {"untypedAllele": "****",
+...                           "alleleDesignator": "*",
+...                           "validSampleFields": "*a_1\n*a_2"},
+...     "HardyWeinberg": {"lumpBelow": "5"}})
+>>>
+>>> pop_contents = '''a_1\ta_2
+... ****\t****
+... 01:01\t02:01
+... 02:10\t03:01:02
+... 01:01\t02:18
+... 25:01\t02:01
+... 02:10\t32:04
+... 03:01:02\t32:04'''
+>>> with open("my.pop", "w") as f:
+...     _ = f.write(pop_contents)
+...
+>>> application = Main(
+...     config=config,
+...     fileName="my.pop",
+...     version="fake",
+...     debugFlag=0,
+... )
+LOG: no XSL file, skipping text output
+LOG: Data file has no header data block
+
+We can query the ``Main`` instance to get the
+output XML file to use the :class:`Meta` to generate output ``TSV``
+files from the XML file.
 
 .. code-block:: python
 
-    from PyPop import Main
-    from PyPop.Config import ConfigFile
-
-    config = ConfigFile("example.ini")
-
-    application = Main(
-        config=config,
-        debugFlag=False,
-        fileName="datafile.txt",
-        datapath="data/",
-        xslFilename="transform.xsl",
-        xslFilenameDefault="default.xsl",
-        outputDir="results/",
-        version="1.0",
-        testMode=False,
-    )
-
-This creates an application instance that will process according to the
-given configuration and input files.
+   outXML = application.getXmlOutPath()
+   from PyPop.Meta import Meta
+   Meta (TSV_output=True, xml_files=[outXML])
+   ./1-locus-hardyweinberg.tsv
+   ./1-locus-summary.tsv
+   ./1-locus-allele.tsv
+   ./1-locus-genotype.tsv
 
 """
 

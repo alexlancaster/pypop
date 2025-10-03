@@ -31,10 +31,12 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Primary access to PyPop's population genetics statistics modules.
+r"""Primary access to PyPop's population genetics statistics modules.
 
-This module handles processing :class:`configparser.ConfigParser` instance, which
-can be:
+This module handles processing :class:`configparser.ConfigParser`
+instance.  The :class:`Main` class coordinates running the analysis
+packages specified in this :class:`configparser.ConfigParser` instance
+which can be:
 
 - created from a filename passed from command-line argument oar;
 
@@ -43,8 +45,37 @@ can be:
 
 - created programmatically as part of an external Python program
 
-The :class:`Main` coordinates runs the analysis packages specified in
-this :class:`configparser.ConfigParser` instance.
+Here is an example of calling :class:`Main` programmatically:
+
+>>> from PyPop.Main import Main
+>>> from configparser import ConfigParser, NoOptionError, NoSectionError
+>>>
+>>> config = ConfigParser()
+>>> config.read_dict({
+...     "ParseGenotypeFile": {"untypedAllele": "****",
+...                           "alleleDesignator": "*",
+...                           "validSampleFields": "*a_1\n*a_2"},
+...     "HardyWeinberg": {"lumpBelow": "5"}})
+>>>
+>>> pop_contents = '''a_1\ta_2
+... ****\t****
+... 01:01\t02:01
+... 02:10\t03:01:02
+... 01:01\t02:18
+... 25:01\t02:01
+... 02:10\t32:04
+... 03:01:02\t32:04'''
+>>> with open("my.pop", "w") as f:
+...     _ = f.write(pop_contents)
+...
+>>> application = Main(
+...     config=config,
+...     fileName="my.pop",
+...     version="fake",
+...     debugFlag=0,
+... )
+LOG: no XSL file, skipping text output
+LOG: Data file has no header data block
 
 """
 
@@ -210,7 +241,7 @@ class Main:
 
         try:
             self.debug = self.config.getboolean("General", "debug")
-        except NoOptionError:
+        except (NoOptionError, NoSectionError):
             self.debug = 0
         except ValueError:
             sys.exit("require a 0 or 1 as debug flag")
@@ -232,7 +263,7 @@ class Main:
                 sys.exit(
                     f"outFilePrefixType: {outFilePrefixType} must be 'filename' or 'date'"
                 )
-        except NoOptionError:
+        except (NoOptionError, NoSectionError):
             # just use default prefix
             uniquePrefix = prefixFileName
 
@@ -246,7 +277,7 @@ class Main:
             self.txtOutFilename = self.config.get("General", "txtOutFilename")
             if self.txtOutFilename == "":
                 self.txtOutFilename = defaultTxtOutFilename
-        except NoOptionError:
+        except (NoOptionError, NoSectionError):
             self.txtOutFilename = defaultTxtOutFilename
 
         #
@@ -257,7 +288,7 @@ class Main:
             self.xmlOutFilename = self.config.get("General", "xmlOutFilename")
             if self.xmlOutFilename == "":
                 self.xmlOutFilename = defaultXmlOutFilename
-        except NoOptionError:
+        except (NoOptionError, NoSectionError):
             self.xmlOutFilename = defaultXmlOutFilename
 
         #
@@ -311,7 +342,7 @@ class Main:
                     debug=self.debug,
                     msg="specified in .ini file",
                 )
-            except NoOptionError:
+            except (NoOptionError, NoSectionError):
                 # otherwise fall back to xslFilenameDefault
                 if self.debug:
                     print("xslFilename .ini option not set")
