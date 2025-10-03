@@ -147,17 +147,23 @@ def get_sequence_directory(directory_str, debug=False):
 class Main:
     """Main interface to the PyPop modules.
 
+    Runs the analyses and generates output XML file based on
+    configuration.  If an ``xslFilename`` or ``xslFilenameDefault`` is
+    provided, also generate a plain text output.  Otherwise no text
+    output is generated.
+
     Args:
         config (configparser.ConfigParser): configure object
-        xslFilename (str): XSLT file to use
-        xslFilenameDefault (str): fallback file name
-        debugFlag (int): enable debugging (``1``)
+        xslFilename (str, optional): XSLT file to use
+        xslFilenameDefault (str, optional): fallback file name
+        debugFlag (int, optional): enable debugging (``1``)
         fileName (str): input ``.pop`` file
-        datapath (str): root of data path
+        datapath (str, optional): root of data path
         thread (str, optional): specified thread
-        outputDir (str): use a different output directory than default
-        version (str): current Python version for output
-        testMode (bool): enable testing mode
+        outputDir (str, optional): use a different output directory than default
+        version (str, optional): current Python version for output
+        testMode (bool, optional): enable testing mode
+
     """
 
     def __init__(
@@ -312,9 +318,8 @@ class Main:
                 if self.xslFilenameDefault:
                     self.xslFilename = self.xslFilenameDefault
                 else:
-                    sys.exit(
-                        "No default XSL file found, must specify in .ini or on the command line"
-                    )
+                    # if no default XSL file found, then we skip text output
+                    print("LOG: no XSL file, skipping text output")
 
         elif self.debug:
             print("using user supplied version in: ", self.xslFilename)
@@ -537,8 +542,10 @@ class Main:
         # close XML stream
         self.xmlStream.close()
 
-        # lastly, generate the text output
-        self._genTextOutput()
+        # lastly, generate the text output if XSL file was specified,
+        # otherwise skip text output generation
+        if self.xslFilename:
+            self._genTextOutput()
 
     def _checkMSFOptions(self, filterCall):
         try:
@@ -1474,8 +1481,10 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
         styledoc = etree.parse(self.xslFilename)
         style = etree.XSLT(styledoc)
 
+        print(style)
         # read output XML file
         doc = etree.parse(self.xmlOutPath)
+        print(doc)
 
         # process via stylesheet
         result = style(doc, **{"new-hardyweinberg-format": "1"})
