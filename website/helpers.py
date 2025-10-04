@@ -100,8 +100,8 @@ def skip_instance_vars(_app, what, _name, _obj, skip, _options):
 def prepare_autoapi_index(app):
     """Substitute the top-level index to be generated."""
     src_override = Path(app.srcdir) / "_static" / "api_index_override.rst"
-    src_generated = Path(app.srcdir) / "autoapi" / "PyPop" / "index.rst"
-    dst = Path(app.srcdir) / "autoapi" / "index.rst"
+    src_generated = Path(app.srcdir) / "api" / "PyPop" / "index.rst"
+    dst = Path(app.srcdir) / "api" / "index.rst"
 
     # Read override content
     override_content = src_override.read_text(encoding="utf-8")

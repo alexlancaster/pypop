@@ -67,6 +67,10 @@ This guide to PyPop contains four main parts:
 - :doc:`guide-chapter-contributing` details how to contribute to
   ongoing PyPop code and documentation.
 
+.. only:: latex
+
+   References to the *API Reference* can be found in the |apidocs_pdf_link|
+
 .. only:: html
 
    **License terms**

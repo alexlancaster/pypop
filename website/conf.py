@@ -104,6 +104,50 @@ numfig = True
 togglebutton_hint = "Click to show"
 togglebutton_hint_hide = "Click to hide"
 
+
+# -- Options for Auto API output ----------------------------------------------
+
+autoapi_dirs = ["../src/PyPop"]
+autoapi_type = "python"
+autoapi_root = "api"
+autoapi_add_toctree_entry = False
+autoapi_keep_files = True
+autoapi_own_page_level = "module"
+autoapi_template_dir = "_templates/autoapi"
+autoapi_file_pattern = "*.py"
+autoapi_ignore = [
+    "**/conf.py",
+]
+autoapi_member_order = "groupwise"
+autoapi_options = [
+    "members",
+    "undoc-members",
+    #           "private-members",  # remove for production
+    #           "special-members",
+    "show-inheritance",
+    "show-module-summary",
+    "imported-members",
+]
+
+# concatenate the class and constructor
+autoapi_python_class_content = "both"
+
+# parse the doc strings as rST
+autoapi_python_use_autodoc_docstring = True
+
+# keep docs less verbose by skipping module names in front of each
+# class/method
+add_module_names = False
+
+# create links to base python classes
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+    # you can add more, e.g.
+    "numpy": ("https://numpy.org/doc/stable/", None),
+}
+
+# -- Options for declaring includes ----------------------------------------------
+
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
@@ -119,14 +163,15 @@ guide_prefix = "pypop-guide-" + release  # include version in PDF filename
 guide_name = "PyPop User Guide"
 guide_subtitle = "User Guide for Python for Population Genomics"
 guide_name_with_subtitle = f"{guide_name}: {guide_subtitle}"
-guide_pdf_url = f"../{guide_prefix}.pdf"
+guide_pdf_relative_file = f"../{guide_prefix}.pdf"
+guide_pdf_link = f"*{guide_name}*: `HTML <http://pypop.org/docs>`__ | `PDF <http://pypop.org/{guide_prefix}.pdf>`__"
 
 apidocs_prefix = "pypop-api-" + release  # include version in PDF filename
 apidocs_name = "PyPop API Reference"
 apidocs_subtitle = "Developer documentation"
 apidocs_name_with_subtitle = f"{apidocs_name}: {apidocs_subtitle}"
-apidocs_pdf_url = f"../{apidocs_prefix}.pdf"
-
+apidocs_pdf_relative_file = f"../{apidocs_prefix}.pdf"
+apidocs_pdf_link = f"*{apidocs_name}*: `HTML <http://pypop.org/{autoapi_root}>`__ | `PDF <http://pypop.org/{apidocs_prefix}.pdf>`__"
 
 # other substitutions
 rst_epilog = """
@@ -137,13 +182,15 @@ rst_epilog = """
 .. |uc_copyright| replace:: {}
 .. |copyright| replace:: {}
 .. |gfdl_license_text| replace:: {}
-.. |guide_pdf_url| replace:: {}
+.. |guide_pdf_relative_file| replace:: {}
+.. |guide_pdf_link| replace:: {}
 .. |guide_pdf_download_box| raw:: html
 
    <div style="text-align: right; font-size: 120%; margin-top: -1em; margin-bottom: 1em;">
    <a href="../{}.pdf">📥 PDF version</a>
    </div>
-.. |apidocs_pdf_url| replace:: {}
+.. |apidocs_pdf_relative_file| replace:: {}
+.. |apidocs_pdf_link| replace:: {}
 .. |api_pdf_download_box| raw:: html
 
    <div style="text-align: right; font-size: 120%; margin-top: -1em; margin-bottom: 1em;">
@@ -157,9 +204,11 @@ rst_epilog = """
     uc_copyright,
     copyright,
     gfdl_license_text,
-    guide_pdf_url,
+    guide_pdf_relative_file,
+    guide_pdf_link,
     guide_prefix,
-    apidocs_pdf_url,
+    apidocs_pdf_relative_file,
+    apidocs_pdf_link,
     apidocs_prefix,
 )
 
@@ -253,47 +302,6 @@ html_css_files = ["custom.css"]
 # put all files that should be root of the pypop.org/ webserver into this directory
 # and they will be included in the build directory (and therefore on the website)
 html_extra_path = ["html_root"]
-
-# -- Options for Auto API output ----------------------------------------------
-
-autoapi_dirs = ["../src/PyPop"]
-autoapi_type = "python"
-autoapi_root = "autoapi"
-autoapi_add_toctree_entry = False
-autoapi_keep_files = True
-autoapi_own_page_level = "module"
-autoapi_template_dir = "_templates/autoapi"
-autoapi_file_pattern = "*.py"
-autoapi_ignore = [
-    "**/conf.py",
-]
-autoapi_member_order = "groupwise"
-autoapi_options = [
-    "members",
-    "undoc-members",
-    #           "private-members",  # remove for production
-    #           "special-members",
-    "show-inheritance",
-    "show-module-summary",
-    "imported-members",
-]
-
-# concatenate the class and constructor
-autoapi_python_class_content = "both"
-
-# parse the doc strings as rST
-autoapi_python_use_autodoc_docstring = True
-
-# keep docs less verbose by skipping module names in front of each
-# class/method
-add_module_names = False
-
-# create links to base python classes
-intersphinx_mapping = {
-    "python": ("https://docs.python.org/3", None),
-    # you can add more, e.g.
-    "numpy": ("https://numpy.org/doc/stable/", None),
-}
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -478,7 +486,7 @@ latex_documents = [
         "manual",
     ),
     (
-        "autoapi/index",
+        "api/index",
         apidocs_prefix + ".tex",
         apidocs_name,
         "Alex Lancaster",

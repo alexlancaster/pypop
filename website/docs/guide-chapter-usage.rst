@@ -1223,21 +1223,24 @@ PyPop API examples
 ==================
 
 Here is a minimal example of using the :ref:`API <api-reference-top>`
-directly in your own Python program. This program reads a short
-``.pop`` :ref:`data file <guide-usage-datafile>` consisting of one
-locus with seven individuals, and rather than creating a
-:ref:`configuration file <guide-usage-configfile>`, we create a
-configuration object with the file format details and selecting a
-simple ``[HardyWeinberg]`` analysis.  It then performs the equivalent
-of the :ref:`popmeta script <guide-usage-popmeta>` and generates
-output TSV files.
+directly in your own Python program (documented in the *PyPop API
+Reference*). This program reads a short ``.pop`` :ref:`data file
+<guide-usage-datafile>` consisting of one locus with seven
+individuals, and rather than creating a :ref:`configuration file
+<guide-usage-configfile>`, we create a configuration object with the
+file format details and selecting a single ``[HardyWeinberg]``
+analysis.  It then performs the equivalent of the :ref:`popmeta script
+<guide-usage-popmeta>` and generates output TSV files.
 
 This is done by using :class:`PyPop.Main.Main` to generate the initial
 XML output, and then using :class:`PyPop.Meta.Meta` to process this
 XML to generate ``.tsv`` file output suitable for further
 analysis. Here the process, step-by-step:
 
-We first create the :class:`configparser.ConfigParser` instance:
+We first create the :class:`configparser.ConfigParser` instance (note
+that we specify the ``untypedAllele`` and ``alleleDesignators``
+explicitly, even though they are the same as defaults, they must
+always match the input file):
 
 >>> from PyPop.Main import Main
 >>> from configparser import ConfigParser
@@ -1250,7 +1253,10 @@ We first create the :class:`configparser.ConfigParser` instance:
 ...     "HardyWeinberg": {"lumpBelow": "5"}})
 >>>
 
-Next, we create a ``.pop`` text file (note the tab-spaces inline):
+Next, for testing purposes, we create a ``.pop`` text file (note the
+tab-spaces inline). (You could replace this with your own input file,
+or generate ``pop_contents`` from an existing data structure in your
+program):
 
 >>> pop_contents = '''a_1\ta_2
 ... ****\t****
@@ -1283,7 +1289,7 @@ We can query the ``Main`` instance to get the name of output XML file:
 'my-out.xml'
 
 Lastly, we pass this file to the :class:`PyPop.Meta.Meta` to generate
-output ``TSV`` files:
+output ``TSV`` files (as described in :ref:`guide-usage-popmeta`):
 
 >>> outXML = application.getXmlOutPath()
 >>> from PyPop.Meta import Meta
@@ -1293,8 +1299,9 @@ output ``TSV`` files:
 ./1-locus-allele.tsv
 ./1-locus-genotype.tsv
 
-These ``.tsv`` files could then be read into [pandas
-dataframe](https://pandas.pydata.org/) for further analysis.
+These ``.tsv`` files could then be read into another data structure
+(e.g. a `pandas dataframe <https://pandas.pydata.org>`_ ) for further
+analysis.
 
 
 .. [1]

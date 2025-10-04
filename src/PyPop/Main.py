@@ -45,7 +45,9 @@ which can be:
 
 - created programmatically as part of an external Python program
 
-Here is an example of calling :class:`Main` programmatically:
+Here is an example of calling :class:`Main` programmatically,
+explicitly specifying the ``untypedAllele`` and ``alleleDesignator``
+in the ``.pop`` file:
 
 >>> from PyPop.Main import Main
 >>> from configparser import ConfigParser, NoOptionError, NoSectionError
@@ -54,17 +56,12 @@ Here is an example of calling :class:`Main` programmatically:
 >>> config.read_dict({
 ...     "ParseGenotypeFile": {"untypedAllele": "****",
 ...                           "alleleDesignator": "*",
-...                           "validSampleFields": "*a_1\n*a_2"},
-...     "HardyWeinberg": {"lumpBelow": "5"}})
+...                           "validSampleFields": "*a_1\n*a_2"}})
 >>>
 >>> pop_contents = '''a_1\ta_2
 ... ****\t****
 ... 01:01\t02:01
-... 02:10\t03:01:02
-... 01:01\t02:18
-... 25:01\t02:01
-... 02:10\t32:04
-... 03:01:02\t32:04'''
+... 02:10\t03:01:02'''
 >>> with open("my.pop", "w") as f:
 ...     _ = f.write(pop_contents)
 ...
@@ -76,8 +73,7 @@ Here is an example of calling :class:`Main` programmatically:
 ... )
 LOG: no XSL file, skipping text output
 LOG: Data file has no header data block
->>> application.getXmlOutPath()
-'my-out.xml'
+
 """
 
 import os

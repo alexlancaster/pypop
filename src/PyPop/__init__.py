@@ -47,24 +47,24 @@ as Python modules and classes.
 
 It is possible to drive PyPop programmatically primarily via the
 :mod:`PyPop.Main` module.  For example, here we instantiate a
-:class:`PyPop.Main.Main` object with a configuration instance and
-optional parameters, and use this to generate output.  We first create
-the :class:`configparser.ConfigParser` instance (see
-:ref:`configuration file section in the User Guide
-<guide-usage-configfile>` for the description of the configuration
-options), supply this to the :class:`Main` class to perform the
-analysis, then get the name of output XML file, and pass to the
-:class:`Meta` for final TSV output (see also the :ref:`PyPop API
-Examples <guide-usage-examples-api>` in the *PyPop User Guide*).
+:class:`PyPop.Main.Main` object with a configuration instance with the
+default settings , and one analysis enabled and use this to generate
+output.  We first create the :class:`configparser.ConfigParser`
+instance (see :ref:`configuration file section
+<guide-usage-configfile>` in the *PyPop User Guide* for the
+description of the configuration options), supply this to the
+:class:`Main` class to perform the analysis, then get the name of
+output XML file, and pass to the :class:`Meta` for final TSV output
+(see also the :ref:`PyPop API Examples <guide-usage-examples-api>` in
+the *PyPop User Guide* for a step-by-step breakdown of use of the
+API).
 
 >>> from PyPop.Main import Main
 >>> from configparser import ConfigParser
 >>>
 >>> config = ConfigParser()
 >>> config.read_dict({
-...     "ParseGenotypeFile": {"untypedAllele": "****",
-...                           "alleleDesignator": "*",
-...                           "validSampleFields": "*a_1\n*a_2"},
+...     "ParseGenotypeFile": {"validSampleFields": "*a_1\n*a_2"},
 ...     "HardyWeinberg": {"lumpBelow": "5"}})
 >>>
 >>> pop_contents = '''a_1\ta_2
@@ -89,8 +89,6 @@ LOG: Data file has no header data block
 'my-out.xml'
 >>> outXML = application.getXmlOutPath()
 >>> from PyPop.Meta import Meta
->>> print(outXML)
-my-out.xml
 >>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
 ./1-locus-hardyweinberg.tsv
 ./1-locus-summary.tsv

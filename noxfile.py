@@ -71,7 +71,7 @@ def tests(session):
     """Run unit tests and doctests using pytest."""
     session.install(".[test]")  # now install assumes [test] includes pytest, etc.
     session.run(
-        "pytest", "-v", "--pyargs", "PyPop", "tests", *session.posargs
+        "pytest", "-v", "--pyargs", "PyPop", "website/docs", "tests", *session.posargs
     )  # do docstring tests then unit tests
 
 
