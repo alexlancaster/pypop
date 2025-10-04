@@ -1,3 +1,5 @@
+.. _api-reference-top:
+
 API Reference
 =============
 

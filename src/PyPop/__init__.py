@@ -45,12 +45,17 @@ as Python modules and classes.
    out of the library) via a programmatic interface.  PyPop is mostly
    used as a command-line script.
 
-It is possible to drive PyPop programmatically by using some of the
-modules, primarily the :mod:`PyPop.Main` module.  For example, you can
-instantiate a :class:`PyPop.Main.Main` object with a configuration
-instance and optional parameters, and use this to generate output.
-
-We first create the :class:`configparser.ConfigParser` instance:
+It is possible to drive PyPop programmatically primarily via the
+:mod:`PyPop.Main` module.  For example, here we instantiate a
+:class:`PyPop.Main.Main` object with a configuration instance and
+optional parameters, and use this to generate output.  We first create
+the :class:`configparser.ConfigParser` instance (see
+:ref:`configuration file section in the User Guide
+<guide-usage-configfile>` for the description of the configuration
+options), supply this to the :class:`Main` class to perform the
+analysis, then get the name of output XML file, and pass to the
+:class:`Meta` for final TSV output (see also the :ref:`PyPop API
+Examples <guide-usage-examples-api>` in the *PyPop User Guide*).
 
 >>> from PyPop.Main import Main
 >>> from configparser import ConfigParser
@@ -62,9 +67,6 @@ We first create the :class:`configparser.ConfigParser` instance:
 ...                           "validSampleFields": "*a_1\n*a_2"},
 ...     "HardyWeinberg": {"lumpBelow": "5"}})
 >>>
-
-Next, we create a ``.pop`` text file:
-
 >>> pop_contents = '''a_1\ta_2
 ... ****\t****
 ... 01:01\t02:01
@@ -76,10 +78,6 @@ Next, we create a ``.pop`` text file:
 >>> with open("my.pop", "w") as f:
 ...     _ = f.write(pop_contents)
 ...
-
-Now we create the :class:`PyPop.Main.Main` instance, using the ``config`` object
-to analyze ``my.pop`` data and output an XML file: ``my-out.xml``:
-
 >>> application = Main(
 ...     config=config,
 ...     fileName="my.pop",
@@ -87,16 +85,8 @@ to analyze ``my.pop`` data and output an XML file: ``my-out.xml``:
 ... )
 LOG: no XSL file, skipping text output
 LOG: Data file has no header data block
-
-We can query the ``Main`` instance to get the name of output XML file:
-``my-out.xml``
-
 >>> application.getXmlOutPath()
 'my-out.xml'
-
-and can then pass this file to the :class:`PyPop.Meta.Meta` to generate output
-``TSV`` files:
-
 >>> outXML = application.getXmlOutPath()
 >>> from PyPop.Meta import Meta
 >>> print(outXML)

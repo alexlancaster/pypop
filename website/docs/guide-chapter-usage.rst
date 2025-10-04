@@ -16,13 +16,16 @@ of a `configuration file (.ini) <https://github.com/alexlancaster/pypop/blob/mai
 and a `population file (.pop) <https://github.com/alexlancaster/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop>`_,
 can be found by clicking the respective links.
 
-There are two ways to run PyPop:
+There are three ways to run PyPop:
 
 -  interactive mode (where the program will prompt you to directly type
    the input it needs); and
 
 -  command-line (or "batch") mode (where you supply all the command
    line options the program needs).
+
+-  programmatically, by writing a Python program that uses the *API
+   Reference* (:ref:`API <api-reference-top>`).
 
 For the most simplest application of PyPop, where you wish to analyze
 a single population, the interactive mode is the simplest to use. We
@@ -233,6 +236,20 @@ where the text file ``popfilelist.txt`` contains a list of the
 Please see :ref:`guide-pypop-cli` for the full list of command-line
 options.
 
+.. _guide-usage-intro-api:
+
+Programmatic access to PyPop
+----------------------------
+
+It is also possible to use PyPop programmatically by writing a Python
+program that uses the Application Programmers Interface documented in
+the *API Reference* (:ref:`API <api-reference-top>`) directly.  While
+the primary use-case for PyPop is as a standalone command-line script,
+and is not fully optimized for use via a programmatic interface, most
+internal functionality is exposed as Python modules and classes.
+Examples of this use can be found in :ref:`guide-usage-examples-api`.
+
+
 .. _guide-usage-intro-run-details:
 
 What happens when you run PyPop?
@@ -266,7 +283,6 @@ hours, depending on how large your data set is and who else is using the
 system at the same time. Note that performing the
 ``allPairwiseLDWithPermu`` test may take several **days** if you have
 highly polymorphic loci in your data set.
-
 
 .. _guide-usage-popmeta:
 
@@ -672,6 +688,8 @@ Analysis options
 
 These sections describe the primary analysis options that can be
 enabled for PyPop, as they are used in the simple example, above.
+
+.. _guide-usage-config-hardyweinberg:
 
 ``[HardyWeinberg]``
 ~~~~~~~~~~~~~~~~~~~
@@ -1198,6 +1216,86 @@ important. The above rules are just dummy examples, provided to
 illustrate how the filter works. PyPop is distributed with a
 biologically relevant set of ``CustomBinning`` rules that have been
 compiled from several :cite:p:`mack_methods_2007,cano_common_2007` sources [2]_
+
+.. _guide-usage-examples-api:
+
+PyPop API examples
+==================
+
+Here is a minimal example of using the :ref:`API <api-reference-top>`
+directly in your own Python program. This program reads a short
+``.pop`` :ref:`data file <guide-usage-datafile>` consisting of one
+locus with seven individuals, and rather than creating a
+:ref:`configuration file <guide-usage-configfile>`, we create a
+configuration object with the file format details and selecting a
+simple ``[HardyWeinberg]`` analysis.  It then performs the equivalent
+of the :ref:`popmeta script <guide-usage-popmeta>` and generates
+output TSV files.
+
+This is done by using :class:`PyPop.Main.Main` to generate the initial
+XML output, and then using :class:`PyPop.Meta.Meta` to process this
+XML to generate ``.tsv`` file output suitable for further
+analysis. Here the process, step-by-step:
+
+We first create the :class:`configparser.ConfigParser` instance:
+
+>>> from PyPop.Main import Main
+>>> from configparser import ConfigParser
+>>>
+>>> config = ConfigParser()
+>>> config.read_dict({
+...     "ParseGenotypeFile": {"untypedAllele": "****",
+...                           "alleleDesignator": "*",
+...                           "validSampleFields": "*a_1\n*a_2"},
+...     "HardyWeinberg": {"lumpBelow": "5"}})
+>>>
+
+Next, we create a ``.pop`` text file (note the tab-spaces inline):
+
+>>> pop_contents = '''a_1\ta_2
+... ****\t****
+... 01:01\t02:01
+... 02:10\t03:01:02
+... 01:01\t02:18
+... 25:01\t02:01
+... 02:10\t32:04
+... 03:01:02\t32:04'''
+>>> with open("my.pop", "w") as f:
+...     _ = f.write(pop_contents)
+...
+
+Now we create the :class:`PyPop.Main.Main` instance, using the
+``config`` object to analyze the data in ``my.pop`` and output an XML
+file: ``my-out.xml``:
+
+>>> application = Main(
+...     config=config,
+...     fileName="my.pop",
+...     version="fake",
+... )
+LOG: no XSL file, skipping text output
+LOG: Data file has no header data block
+
+We can query the ``Main`` instance to get the name of output XML file:
+``my-out.xml``
+
+>>> application.getXmlOutPath()
+'my-out.xml'
+
+Lastly, we pass this file to the :class:`PyPop.Meta.Meta` to generate
+output ``TSV`` files:
+
+>>> outXML = application.getXmlOutPath()
+>>> from PyPop.Meta import Meta
+>>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
+./1-locus-hardyweinberg.tsv
+./1-locus-summary.tsv
+./1-locus-allele.tsv
+./1-locus-genotype.tsv
+
+These ``.tsv`` files could then be read into [pandas
+dataframe](https://pandas.pydata.org/) for further analysis.
+
 
 .. [1]
    These hardcoded numbers can be changed if you obtain the source code
