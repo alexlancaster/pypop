@@ -82,7 +82,8 @@ master_doc = "index"
 # General information about the project.
 # project = "PyPop: Python for Population Genomics"
 project = "PyPop"
-copyright = "Copyright (C) 2025 PyPop contributors"
+copyright = "2025 PyPop contributors"
+contribs_copyright = f"Copyright (C) {copyright}"
 uc_copyright = "Copyright © 2003-2009 Regents of the University of California"
 gfdl_license_text = "Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A copy of the license is included in the License chapter."
 
@@ -466,7 +467,7 @@ maketitle_template = r"""
 guide_maketitle = maketitle_template % {
     "doc_name_with_subtitle": guide_name_with_subtitle,
     "copyright": uc_copyright,
-    "extra_copyright": copyright,
+    "extra_copyright": contribs_copyright,
     "gfdl_license_text": gfdl_license_text,
     "full_release": full_release,
 }
@@ -474,7 +475,7 @@ guide_maketitle = maketitle_template % {
 # fill in API variables
 apidocs_maketitle = maketitle_template % {
     "doc_name_with_subtitle": apidocs_name_with_subtitle,
-    "copyright": copyright,
+    "copyright": contribs_copyright,
     "extra_copyright": "",
     "gfdl_license_text": gfdl_license_text,
     "full_release": full_release,
