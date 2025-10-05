@@ -82,7 +82,7 @@ master_doc = "index"
 # General information about the project.
 # project = "PyPop: Python for Population Genomics"
 project = "PyPop"
-copyright = "2025 PyPop contributors"
+copyright = "Copyright © 2025 PyPop contributors"
 uc_copyright = "Copyright © 2003-2009 Regents of the University of California"
 gfdl_license_text = "Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A copy of the license is included in the License chapter."
 
@@ -336,6 +336,8 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
 \renewcommand*{\notedivision}{\subsubsection*{\notesname}}
 \renewcommand*{\pagenotesubhead}[2]{}
 
+POINTSIZE
+
 \usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
 
 \makeatletter
@@ -453,7 +455,7 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
 maketitle_template = r"""
 \newcommand\sphinxbackoftitlepage{%%
   \sphinxstrong{%(doc_name_with_subtitle)s}\\ \\
-  %(copyright)s. \\Copyright © %(year)s. \\ \\
+  %(copyright)s. \\%(extra_copyright)s. \\ \\
   %(gfdl_license_text)s \\ \\
   \emph{Document revision}: %(full_release)s
 }
@@ -464,7 +466,7 @@ maketitle_template = r"""
 guide_maketitle = maketitle_template % {
     "doc_name_with_subtitle": guide_name_with_subtitle,
     "copyright": uc_copyright,
-    "year": copyright,
+    "extra_copyright": copyright,
     "gfdl_license_text": gfdl_license_text,
     "full_release": full_release,
 }
@@ -472,8 +474,8 @@ guide_maketitle = maketitle_template % {
 # fill in API variables
 apidocs_maketitle = maketitle_template % {
     "doc_name_with_subtitle": apidocs_name_with_subtitle,
-    "copyright": uc_copyright,
-    "year": copyright,
+    "copyright": copyright,
+    "extra_copyright": "",
     "gfdl_license_text": gfdl_license_text,
     "full_release": full_release,
 }
@@ -515,12 +517,12 @@ latex_documents = [
         "api/index",
         apidocs_prefix + ".tex",
         apidocs_name,
-        "Alex Lancaster",
+        "Alexander K. Lancaster",
         "howto",
         False,
         {
             "maketitle": apidocs_maketitle,
-            "placeholders": {"SUBTITLE": apidocs_subtitle},
+            "placeholders": {"SUBTITLE": apidocs_subtitle, "POINTSIZE": "9pt"},
         },
     ),
 ]

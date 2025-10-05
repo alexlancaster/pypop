@@ -190,7 +190,31 @@ def patch_latex_files(app, exception):
         for key, params in tex_file_map.items():
             if key in filename:
                 # 1) Apply placeholder substitutions
-                placeholders = params.get("placeholders", {})
+                placeholders = params.get("placeholders", {}).copy()
+
+                # --- Handle dynamic POINTSIZE substitution ---
+                pointsize = placeholders.get("POINTSIZE")
+                if pointsize:
+                    try:
+                        base = float(pointsize.replace("pt", ""))
+                        small = base - 1
+                        foot = base - 2
+                        placeholders["POINTSIZE"] = (
+                            r"\makeatletter"
+                            f"\n\\renewcommand\\normalsize{{\\@setfontsize\\normalsize{{{base:.1f}pt}}{{{base + 1:.1f}pt}}}}"
+                            f"\n\\renewcommand\\small{{\\@setfontsize\\small{{{small:.1f}pt}}{{{small + 1:.1f}pt}}}}"
+                            f"\n\\renewcommand\\footnotesize{{\\@setfontsize\\footnotesize{{{foot:.1f}pt}}{{{foot + 1:.1f}pt}}}}"
+                            "\n\\makeatother"
+                        )
+                    except ValueError:
+                        print(
+                            f"[helpers] Invalid POINTSIZE value in {filename}: {pointsize}"
+                        )
+                        placeholders["POINTSIZE"] = ""  # remove bad value
+                else:
+                    # Not set → replace placeholder with nothing
+                    placeholders["POINTSIZE"] = ""
+
                 for ph, val in placeholders.items():
                     text = text.replace(ph, val)
 
