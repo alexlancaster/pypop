@@ -172,6 +172,15 @@ def patch_latex_files(app, exception):
         return
 
     tex_file_map = getattr(app, "tex_file_map", {})
+
+    if not tex_file_map:
+        tex_file_map = {}
+        for doc in getattr(app.config, "latex_documents", []):
+            # last element can be overrides dict
+            overrides = doc[6] if len(doc) > 6 else {}
+            target = Path(doc[1]).stem
+            tex_file_map[target] = overrides
+
     tex_files = Path(app.outdir).glob("*.tex")
 
     for tex_file in tex_files:

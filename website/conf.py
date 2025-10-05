@@ -505,6 +505,11 @@ latex_documents = [
         guide_name,
         author,
         "manual",
+        False,
+        {
+            "maketitle": guide_maketitle,
+            "placeholders": {"SUBTITLE": guide_subtitle},
+        },
     ),
     (
         "api/index",
@@ -512,6 +517,11 @@ latex_documents = [
         apidocs_name,
         "Alex Lancaster",
         "howto",
+        False,
+        {
+            "maketitle": apidocs_maketitle,
+            "placeholders": {"SUBTITLE": apidocs_subtitle},
+        },
     ),
 ]
 pdf_documents = [
@@ -533,15 +543,4 @@ def setup(app):
     )  # fix literalinclude to respect tabs in LaTeX
     app.connect("source-read", substitute_toc_maxdepth)  # dynamic TOC depth
     app.connect("build-finished", renumber_footnotes)
-
-    app.tex_file_map = {
-        "pypop-guide": {
-            "maketitle": guide_maketitle,
-            "placeholders": {"SUBTITLE": guide_subtitle},
-        },
-        "pypop-api": {
-            "maketitle": apidocs_maketitle,
-            "placeholders": {"SUBTITLE": apidocs_subtitle},
-        },
-    }
     app.connect("build-finished", patch_latex_files)
