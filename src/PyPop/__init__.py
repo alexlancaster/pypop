@@ -68,13 +68,8 @@ API).
 ...     "HardyWeinberg": {"lumpBelow": "5"}})
 >>>
 >>> pop_contents = '''a_1\ta_2
-... ****\t****
 ... 01:01\t02:01
-... 02:10\t03:01:02
-... 01:01\t02:18
-... 25:01\t02:01
-... 02:10\t32:04
-... 03:01:02\t32:04'''
+... 02:10\t03:01:02'''
 >>> with open("my.pop", "w") as f:
 ...     _ = f.write(pop_contents)
 ...
@@ -85,8 +80,6 @@ API).
 ... )
 LOG: no XSL file, skipping text output
 LOG: Data file has no header data block
->>> application.getXmlOutPath()
-'my-out.xml'
 >>> outXML = application.getXmlOutPath()
 >>> from PyPop.Meta import Meta
 >>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE

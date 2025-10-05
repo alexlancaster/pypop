@@ -245,10 +245,9 @@ It is also possible to use PyPop programmatically by writing a Python
 program that uses the Application Programmers Interface documented in
 the *API Reference* (:ref:`API <api-reference-top>`) directly.  While
 the primary use-case for PyPop is as a standalone command-line script,
-and is not fully optimized for use via a programmatic interface, most
-internal functionality is exposed as Python modules and classes.
-Examples of this use can be found in :ref:`guide-usage-examples-api`.
-
+and is it not fully optimized for use via a programmatic interface,
+much functionality is exposed as Python modules and classes.  Examples
+of programmatic use can be found in :ref:`guide-usage-examples-api`.
 
 .. _guide-usage-intro-run-details:
 
@@ -1223,8 +1222,8 @@ PyPop API examples
 ==================
 
 Here is a minimal example of using the :ref:`API <api-reference-top>`
-directly in your own Python program (documented in the *PyPop API
-Reference*). This program reads a short ``.pop`` :ref:`data file
+(documented in the *PyPop API Reference*) directly in your own Python
+program. This program reads a short ``.pop`` :ref:`data file
 <guide-usage-datafile>` consisting of one locus with seven
 individuals, and rather than creating a :ref:`configuration file
 <guide-usage-configfile>`, we create a configuration object with the
@@ -1235,7 +1234,7 @@ analysis.  It then performs the equivalent of the :ref:`popmeta script
 This is done by using :class:`PyPop.Main.Main` to generate the initial
 XML output, and then using :class:`PyPop.Meta.Meta` to process this
 XML to generate ``.tsv`` file output suitable for further
-analysis. Here the process, step-by-step:
+analysis. Here is the process, step-by-step:
 
 We first create the :class:`configparser.ConfigParser` instance (note
 that we specify the ``untypedAllele`` and ``alleleDesignators``

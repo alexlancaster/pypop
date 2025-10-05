@@ -50,7 +50,7 @@ explicitly specifying the ``untypedAllele`` and ``alleleDesignator``
 in the ``.pop`` file:
 
 >>> from PyPop.Main import Main
->>> from configparser import ConfigParser, NoOptionError, NoSectionError
+>>> from configparser import ConfigParser
 >>>
 >>> config = ConfigParser()
 >>> config.read_dict({
@@ -69,7 +69,6 @@ in the ``.pop`` file:
 ...     config=config,
 ...     fileName="my.pop",
 ...     version="fake",
-...     debugFlag=0,
 ... )
 LOG: no XSL file, skipping text output
 LOG: Data file has no header data block
