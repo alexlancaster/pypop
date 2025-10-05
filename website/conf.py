@@ -30,6 +30,7 @@ from helpers import (
     CustomLaTeXTranslator,
     MyLiteralInclude,
     prepare_autoapi_index,
+    renumber_footnotes,
     skip_instance_vars,
     substitute_toc_maxdepth,
 )
@@ -334,6 +335,44 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
 \renewcommand*{\notedivision}{\subsubsection*{\notesname}}
 \renewcommand*{\pagenotesubhead}[2]{}
 
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+
+\makeatletter
+\@ifclassloaded{sphinxhowto}{
+  % "howto" class: no chapter, use \section
+  % Only for sphinxhowto class
+  % Redirect footnotes to pagenotes
+  \let\oldfootnote\footnote
+  \renewcommand{\footnote}[1]{\pagenote{#1}}
+
+  % Hook into top-level section (index) to print notes
+  \pretocmd{\index}{%
+    % only print footnotes if there are any
+    \ifnumcomp{\thepagenote}{>}{0}{%
+      \begingroup
+      \scriptsize
+      \linespread{0.5}%
+      \printnotes*%
+      \vfill
+      \endgroup
+    }{}%
+  }{}{}
+
+}{
+  % "manual" class: use \chapter
+  \pretocmd{\chapter}{%
+    \ifnumcomp{\thepagenote}{>}{0}{%
+      \begingroup
+      \scriptsize
+      \linespread{0.5}%
+      \printnotes*%
+      \vfill
+      \endgroup
+    }{}%
+  }{}{}
+}
+\makeatother
+
 \usepackage{environ}% http://ctan.org/pkg/environ
 
 \newcommand{\OverwriteEnviron}[1]{%
@@ -345,18 +384,6 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
   \NewEnviron{#1}%
 }
 
-\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
-\pretocmd{\chapter}{%
-  % only print chapter endnotes if there is at least one footnote
-  \ifnumcomp{\thepagenote}{>}{0}{
-   \begingroup
-   \scriptsize
-   \linespread{0.5} %regulate line spacing
-   \printnotes*
-   \vfill
-   \endgroup
-  }{}
-}{}{}
 
 % Reuse Sphinx styling for admonitions
 % We'll define a 'sphinxversionbox' environment
@@ -511,3 +538,5 @@ def setup(app):
         "literalinclude", MyLiteralInclude, override=True
     )  # fix literalinclude to respect tabs in LaTeX
     app.connect("source-read", substitute_toc_maxdepth)  # dynamic TOC depth
+
+    app.connect("build-finished", renumber_footnotes)

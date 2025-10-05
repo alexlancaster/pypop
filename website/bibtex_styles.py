@@ -47,7 +47,7 @@ class MyReferenceStyle(AuthorYearReferenceStyle, ExtraYearReferenceStyle):
     def inner(self, role_name):
         # introspection to decide which parent class method to call
         if role_name in {"year", "yearpar"}:
-            print("MyReferenceStyle:", role_name)
+            # print("MyReferenceStyle:", role_name)
             # append the pre and post text (original file does not do this)
             return join2(sep1=self.pre_text_sep, sep2=self.post_text_sep)[
                 pre_text,

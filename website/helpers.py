@@ -1,7 +1,9 @@
 """Customization and helper classes for conf.py."""
 
+import re
 from pathlib import Path
 
+from docutils import nodes
 from pygments.formatters.latex import LatexFormatter
 from sphinx.directives.code import LiteralInclude
 from sphinx.writers.latex import LaTeXTranslator as SphinxLaTeXTranslator
@@ -41,8 +43,26 @@ class CustomLatexFormatter(LatexFormatter):
         self.verboptions = r"formatcom=\footnotesize"
 
 
+PYTHON_STD_LIB_URLS = {
+    "https://docs.python.org/3/library/stdtypes.html",
+    "https://docs.python.org/3/library/functions.html",
+}
+
+# helpers.py
+
+
 class CustomLaTeXTranslator(SphinxLaTeXTranslator):
     """Customize the output in the LaTeX case."""
+
+    def visit_footnote(self, node: nodes.footnote):
+        refs = list(node.traverse(nodes.reference))
+        if refs and all(
+            any(r.get("refuri", "").startswith(u) for u in PYTHON_STD_LIB_URLS)
+            for r in refs
+        ):
+            # Skip the footnote entirely
+            raise nodes.SkipNode
+        super().visit_footnote(node)
 
     def visit_versionmodified(self, node):
         vtype = node["type"]
@@ -121,3 +141,26 @@ def prepare_autoapi_index(app):
 
     # Write final merged index.rst
     dst.write_text(final_content, encoding="utf-8")
+
+
+def renumber_footnotes(app, exception):
+    """Renumber all remaining LaTeX footnotes sequentially."""
+    if exception or app.builder.name != "latex":
+        return
+
+    tex_files = Path(app.outdir).glob("*.tex")
+    footnote_re = re.compile(r"(\\begin\{footnote\}\[(\d+)\])")
+
+    for tex_file in tex_files:
+        text = tex_file.read_text(encoding="utf-8")
+
+        counter = 0
+
+        def repl(_match):
+            nonlocal counter
+            counter += 1
+            return f"\\begin{{footnote}}[{counter}]"
+
+        new_text = footnote_re.sub(repl, text)
+        tex_file.write_text(new_text, encoding="utf-8")
+        print(f"[helpers] Renumbered {counter} footnotes in {tex_file.name}")
