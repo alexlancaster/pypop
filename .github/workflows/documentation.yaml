@@ -76,7 +76,7 @@ jobs:
         run: |
           # latex build in separate directory
           # it generates a lot of files we don't need to keep
-          sphinx-build -b latex website _latexbuild
+          sphinx-build -j 1 -b latex website _latexbuild
       # Compile PDF (auto-detects the versioned .tex file)
       - name: Compile PDF
         uses: xu-cheng/latex-action@v4
@@ -99,7 +99,7 @@ jobs:
       - name: Build HTML
         run: |
           # now build the HTML
-          sphinx-build website _build
+          sphinx-build -j 1 website _build
 
       - name: Deploy to beta site
         uses: peaceiris/actions-gh-pages@v4
