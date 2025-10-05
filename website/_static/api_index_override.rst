@@ -1,7 +1,7 @@
 .. _api-reference-top:
 
-API Reference
-=============
+PyPop API Reference
+====================
 
 .. only:: html
 
