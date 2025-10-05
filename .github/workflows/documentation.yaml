@@ -76,6 +76,7 @@ jobs:
         run: |
           # latex build in separate directory
           # it generates a lot of files we don't need to keep
+          sleep 10
           sphinx-build -j 1 -b latex website _latexbuild
       # Compile PDF (auto-detects the versioned .tex file)
       - name: Compile PDF
