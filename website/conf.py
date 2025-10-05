@@ -29,6 +29,7 @@ from helpers import (
     CustomLatexFormatter,
     CustomLaTeXTranslator,
     MyLiteralInclude,
+    patch_latex_files,
     prepare_autoapi_index,
     renumber_footnotes,
     skip_instance_vars,
@@ -459,9 +460,6 @@ maketitle_template = r"""
 \sphinxmaketitle
 """
 
-# replace the template with the right SUBTITLE
-guide_latex_preamble = my_latex_preamble_template.replace("SUBTITLE", guide_subtitle)
-
 # Fill in guide variables
 guide_maketitle = maketitle_template % {
     "doc_name_with_subtitle": guide_name_with_subtitle,
@@ -470,10 +468,6 @@ guide_maketitle = maketitle_template % {
     "gfdl_license_text": gfdl_license_text,
     "full_release": full_release,
 }
-
-apidocs_latex_preamble = my_latex_preamble_template.replace(
-    "SUBTITLE", apidocs_subtitle
-)
 
 # fill in API variables
 apidocs_maketitle = maketitle_template % {
@@ -492,10 +486,10 @@ latex_elements = {
     # make PDF shorter by allowing chapters to start immediately
     "extraclassoptions": "openany,oneside",
     # Additional stuff for the LaTeX preamble.
-    "preamble": guide_latex_preamble,
+    "preamble": my_latex_preamble_template,
     # Latex figure (float) alignment
     # 'figure_align': 'htbp',
-    "maketitle": guide_maketitle,
+    # "maketitle": r"\newcommand\sphinxbackoftitlepage{}\sphinxmaketitle",
     # margins
     "sphinxsetup": "hmargin=0.8in, vmargin={1in,0.9in}",
 }
@@ -538,5 +532,16 @@ def setup(app):
         "literalinclude", MyLiteralInclude, override=True
     )  # fix literalinclude to respect tabs in LaTeX
     app.connect("source-read", substitute_toc_maxdepth)  # dynamic TOC depth
-
     app.connect("build-finished", renumber_footnotes)
+
+    app.tex_file_map = {
+        "pypop-guide": {
+            "maketitle": guide_maketitle,
+            "placeholders": {"SUBTITLE": guide_subtitle},
+        },
+        "pypop-api": {
+            "maketitle": apidocs_maketitle,
+            "placeholders": {"SUBTITLE": apidocs_subtitle},
+        },
+    }
+    app.connect("build-finished", patch_latex_files)

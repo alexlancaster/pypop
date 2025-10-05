@@ -164,3 +164,37 @@ def renumber_footnotes(app, exception):
         new_text = footnote_re.sub(repl, text)
         tex_file.write_text(new_text, encoding="utf-8")
         print(f"[helpers] Renumbered {counter} footnotes in {tex_file.name}")
+
+
+def patch_latex_files(app, exception):
+    """Patch preamble and maketitle on a per-document basis."""
+    if exception or app.builder.name != "latex":
+        return
+
+    tex_file_map = getattr(app, "tex_file_map", {})
+    tex_files = Path(app.outdir).glob("*.tex")
+
+    for tex_file in tex_files:
+        text = tex_file.read_text(encoding="utf-8")
+        filename = tex_file.name
+
+        for key, params in tex_file_map.items():
+            if key in filename:
+                # 1) Apply placeholder substitutions
+                placeholders = params.get("placeholders", {})
+                for ph, val in placeholders.items():
+                    text = text.replace(ph, val)
+
+                # 2) Replace maketitle
+                maketitle = params.get("maketitle", "")
+                if maketitle:
+                    text = re.sub(
+                        r"^\\sphinxmaketitle\s*$",
+                        lambda _m, maketitle=maketitle: maketitle.strip(),
+                        text,
+                        flags=re.MULTILINE,
+                    )
+
+                tex_file.write_text(text, encoding="utf-8")
+                print(f"[helpers] Patched {filename}")
+                break
