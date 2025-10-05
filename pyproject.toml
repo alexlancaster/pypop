@@ -78,6 +78,7 @@ xfail_strict = true
 filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*"]
 log_cli_level = "INFO"
 testpaths = [
+  "website/docs",
   "tests",
 ]
 norecursedirs = [
