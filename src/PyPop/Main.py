@@ -174,10 +174,19 @@ def get_sequence_directory(directory_str, debug=False):
 class Main:
     """Main interface to the PyPop modules.
 
-    Runs the analyses and generates output XML file based on
-    configuration.  If an ``xslFilename`` or ``xslFilenameDefault`` is
-    provided, also generate a plain text output.  Otherwise no text
-    output is generated.
+    Runs the analyses specified in the configuration object provided
+    to the ``config`` parameter, and an input ``fileName``, and
+    generates an output XML file. The XML output file name, appends
+    ``-out.xml`` on to the stem of the provided ``fileName``.  For
+    example, if ``fileName="MyPopulation.pop"`` is provided as a
+    parameter, the output XML file will be ``MyPopulation-out.xml``.
+
+    .. versionchanged:: 1.4.0
+
+       If an ``xslFilename`` or ``xslFilenameDefault`` is provided,
+       also generate a plain text output.  Otherwise no text output is
+       generated. Previous to this version, if neither were provided,
+       the program would exit with an error.
 
     Args:
         config (configparser.ConfigParser): configure object
