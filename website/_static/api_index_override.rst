@@ -7,13 +7,27 @@ PyPop API Reference
 
    |api_pdf_download_box|
 
+   |apidocs_subtitle|
+
+   .. admonition:: *Documenting API for release*  |version|  *of PyPop*.
+
+      *Document revision:* |full_release|
+
+      This API reference guide for PyPop is automatically generated from source code.
+
 .. only:: latex
 
-   References to the *User Guide* can be found in the |guide_pdf_link|
+   References to the *User Guide* can be found in the
+   |guide_pdf_link|. This API reference guide for PyPop is
+   automatically generated from source code.
 
-.. note::
+.. only:: html
 
-   The API reference guide for PyPop is automatically generated from source code.
+   **License terms**
+
+   Copyright © |copyright|
+
+   |gfdl_license_text| (:ref:`gfdl`).
 
 .. only:: latex or pdf
 
