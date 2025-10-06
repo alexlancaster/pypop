@@ -76,16 +76,6 @@ jobs:
         run: |
           # latex build in separate directory
           # it generates a lot of files we don't need to keep
-          echo "Listing Python files:"
-          ls -lR src/PyPop
-          echo
-          echo "Checking file types and basic stats:"
-          for f in src/PyPop/*.py; do
-            echo "==> $f <=="
-            file "$f"
-            head -n 3 "$f"
-            wc -l "$f"
-          done
           sphinx-build -j 1 -b latex website _latexbuild
       # Compile PDF (auto-detects the versioned .tex file)
       - name: Compile PDF
