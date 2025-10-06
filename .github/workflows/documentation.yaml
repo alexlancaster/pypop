@@ -31,7 +31,7 @@ permissions:
   contents: write
 jobs:
   docs_noop:
-
+    runs-on: ubuntu-latest
     steps:
     - name: Debug commit paths and ref
       run: |
