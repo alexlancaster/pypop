@@ -21,7 +21,6 @@ from pathlib import Path
 from setuptools_scm import get_version
 from sphinx.highlighting import PygmentsBridge
 
-# sys.path.insert(0, str(Path("../src").resolve()))
 sys.path.insert(0, str(Path(__file__).parent))  # add website/ to path
 
 # local customizations

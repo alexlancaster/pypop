@@ -3,6 +3,7 @@
 import importlib.util
 import os
 import re
+import sys
 from pathlib import Path
 
 from docutils import nodes
@@ -251,4 +252,6 @@ def get_autoapi_dirs(package_name, fallback_dir):
     # fallback
     fallback = str(Path(fallback_dir).resolve())
     print(f"[get_autoapi_dirs] Using fallback source directory: {fallback}")
+    # ensure local sources are importable
+    sys.path.insert(0, str(fallback))
     return [fallback]
