@@ -21,7 +21,7 @@ from pathlib import Path
 from setuptools_scm import get_version
 from sphinx.highlighting import PygmentsBridge
 
-sys.path.insert(0, str(Path("../src").resolve()))
+# sys.path.insert(0, str(Path("../src").resolve()))
 sys.path.insert(0, str(Path(__file__).parent))  # add website/ to path
 
 # local customizations
@@ -29,6 +29,7 @@ from helpers import (
     CustomLatexFormatter,
     CustomLaTeXTranslator,
     MyLiteralInclude,
+    get_autoapi_dirs,
     patch_latex_files,
     prepare_autoapi_index,
     renumber_footnotes,
@@ -110,7 +111,9 @@ togglebutton_hint_hide = "Click to hide"
 
 # -- Options for Auto API output ----------------------------------------------
 
-autoapi_dirs = ["../src/PyPop"]
+# autoapi_dirs = ["../src/PyPop"]
+# need  first try a *released* version
+autoapi_dirs = get_autoapi_dirs("PyPop", "../src/PyPop")
 autoapi_type = "python"
 autoapi_root = "api"
 autoapi_add_toctree_entry = False

@@ -1,5 +1,7 @@
 """Customization and helper classes for conf.py."""
 
+import importlib.util
+import os
 import re
 from pathlib import Path
 
@@ -231,3 +233,22 @@ def patch_latex_files(app, exception):
                 tex_file.write_text(text, encoding="utf-8")
                 print(f"[helpers] Patched {filename}")
                 break
+
+
+def get_autoapi_dirs(package_name, fallback_dir):
+    """Get the autoapi from a released/installed version."""
+    if os.environ.get("PYPOP_DOCS_MODE", "") == "installed":
+        try:
+            spec = importlib.util.find_spec(package_name)
+            if spec and spec.origin:
+                installed_path = Path(spec.origin).parent
+                print(
+                    f"[get_autoapi_dirs] Using installed {package_name} from: {installed_path}"
+                )
+                return [str(installed_path)]
+        except Exception as e:
+            print(f"[helpers] Could not import installed package ({e})")
+    # fallback
+    fallback = str(Path(fallback_dir).resolve())
+    print(f"[get_autoapi_dirs] Using fallback source directory: {fallback}")
+    return [fallback]
