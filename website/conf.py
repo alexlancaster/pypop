@@ -343,6 +343,10 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
 \renewcommand*{\notedivision}{\subsubsection*{\notesname}}
 \renewcommand*{\pagenotesubhead}[2]{}
 
+% ensure pagenote counter is global and not reset per chapter/section
+%\counterwithout{pagenote}{chapter}  % if using manual
+\counterwithout{pagenote}{section}  % if using howto
+
 POINTSIZE
 
 \usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
@@ -352,11 +356,11 @@ POINTSIZE
   % "howto" class: no chapter, use \section
   % Only for sphinxhowto class
   % Redirect footnotes to pagenotes
-  \let\oldfootnote\footnote
-  \renewcommand{\footnote}[1]{\pagenote{#1}}
+  %\let\oldfootnote\footnote
+  %\renewcommand{\footnote}[1]{\pagenote{#1}}
 
   % Hook into top-level section (index) to print notes
-  \pretocmd{\index}{%
+  \pretocmd{\printindex}{%
     % only print footnotes if there are any
     \ifnumcomp{\thepagenote}{>}{0}{%
       \begingroup

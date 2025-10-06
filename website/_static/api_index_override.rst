@@ -17,6 +17,14 @@ PyPop API Reference
 
 .. only:: latex
 
+   .. raw:: latex
+
+      % Place contents of footnote in a \pagenote
+      \OverwriteEnviron{footnote}[4]{\pagenote{\BODY}}
+      % FIXME: disable footnotetext, don't play nice with pagenote
+      \OverwriteEnviron{footnotetext}[4]{\relax}
+      \renewcommand{\sphinxfootnotemark}[4]{\relax}
+
    References to the *User Guide* can be found in the
    |guide_pdf_link|. This API reference guide for PyPop is
    automatically generated from source code.
