@@ -130,6 +130,7 @@ autoapi_options = [
     "show-inheritance",
     "show-module-summary",
     "imported-members",
+    "show-inheritance-diagram",
 ]
 
 # concatenate the class and constructor

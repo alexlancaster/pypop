@@ -63,9 +63,12 @@ jobs:
           echo "github.event.release.target_commitish: ${{ toJson(github.event.release.target_commitish) }}"
 
       - uses: actions/setup-python@v6
-      - name: Install Python dependencies
+      - name: Install Python dependencies and graphviz
         run: |
           pip install -r website/requirements-docs.txt
+          sudo apt clean
+          sudo apt-get update
+          sudo apt-get install --fix-missing -y graphviz
       - name: Get metadata
         run: |
           # needed because tomli is used for backwards compatibility
