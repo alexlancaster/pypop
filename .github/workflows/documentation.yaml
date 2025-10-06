@@ -79,9 +79,7 @@ jobs:
           pip install -r website/requirements-docs.txt
       - name: Install graphviz for API diagrams
         run: |
-          sudo apt clean
-          sudo apt-get update
-          sudo apt-get install --fix-missing -y graphviz
+          sudo apt-get install -y --no-install-recommends graphviz
       - name: Get metadata
         run: |
           # needed because tomli is used for backwards compatibility
