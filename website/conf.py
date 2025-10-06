@@ -114,7 +114,7 @@ autoapi_dirs = ["../src/PyPop"]
 autoapi_type = "python"
 autoapi_root = "api"
 autoapi_add_toctree_entry = False
-autoapi_keep_files = False
+autoapi_keep_files = True
 autoapi_own_page_level = "module"
 autoapi_template_dir = "_templates/autoapi"
 autoapi_file_pattern = "*.py"
@@ -180,6 +180,7 @@ apidocs_pdf_link = f"*{apidocs_name}*: `HTML <http://pypop.org/{autoapi_root}>`_
 rst_epilog = """
 .. |pkgname| replace:: {}
 .. |guide_subtitle| replace:: **{}**
+.. |apidocs_subtitle| replace:: **{}**
 .. |htmlauthor| replace:: {}
 .. |full_release| replace:: {}
 .. |uc_copyright| replace:: {}
@@ -202,6 +203,7 @@ rst_epilog = """
 """.format(
     "``pypop-genomics``",
     guide_subtitle,
+    apidocs_subtitle,
     htmlauthor,
     full_release,
     uc_copyright,
