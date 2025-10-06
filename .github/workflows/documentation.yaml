@@ -38,6 +38,8 @@ jobs:
         echo "github.ref = $GITHUB_REF"
         echo "Modified files:"
         echo "${{ toJSON(github.event.commits.*.modified) }}"
+        echo "Other check Modified files:"
+        echo "${{ github.event.head_commit.modified }}"
         # no if: here; always run
 
     - name: Skip docs rebuild if only src/PyPop changes
