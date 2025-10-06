@@ -32,7 +32,7 @@ permissions:
 jobs:
   docs_noop:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main' && contains(join(github.event.commits.*.modified, ''), 'src/PyPop/')
+    if: github.ref == 'refs/heads/autoapi' && contains(join(github.event.commits.*.modified, ''), 'src/PyPop/')
     steps:
       - name: Skip docs rebuild
         run: echo "Only src/PyPop changes on main; skipping docs rebuild"
@@ -65,7 +65,7 @@ jobs:
         id: select-autoapi
         run: |
           mode="internal"
-          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+          if [[ "${GITHUB_REF}" == "refs/heads/autoapi ]]; then
              echo "Detected main branch (non-release): using installed package"
              mode="installed"
              pip install pypop-genomics  # only needed in this mode
