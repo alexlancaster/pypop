@@ -7,7 +7,7 @@ concurrency:
 on:
   workflow_dispatch:
   push:
-    paths:
+    paths: &docs_paths
       - '*.rst'
       - 'NEWS.md'
       - 'LICENSE'
@@ -20,18 +20,7 @@ on:
       - '!website/README.md'
       - '!website/reference/**'
   pull_request:
-    paths:
-      - '*.rst'
-      - 'NEWS.md'
-      - 'LICENSE'
-      - 'pypop-logo.png'
-      - 'website/**'
-      - 'tests/data/doc-examples/**'
-      - 'src/script_build/generate_metadata.py'
-      - '.github/workflows/documentation.yaml'
-      - '!website/_templates/announcement_banner.html'
-      - '!website/README.md'
-      - '!website/reference/**'
+    paths: *docs_paths
   release:
     types:
       - published
