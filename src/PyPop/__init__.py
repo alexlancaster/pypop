@@ -48,7 +48,7 @@ as Python modules and classes.
 It is possible to drive PyPop programmatically primarily via the
 :mod:`PyPop.Main` module.  For example, here we instantiate a
 :class:`PyPop.Main.Main` object with a configuration instance with the
-default settings , and one analysis enabled and use this to generate
+default settings, and one analysis enabled and use this to generate
 output.  We first create the :class:`configparser.ConfigParser`
 instance (see :ref:`configuration file section
 <guide-usage-configfile>` in the *PyPop User Guide* for the
