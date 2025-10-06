@@ -31,11 +31,18 @@ permissions:
   contents: write
 jobs:
   docs_noop:
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/autoapi' && contains(join(github.event.commits.*.modified, ' '), 'src/PyPop/')
+
     steps:
-      - name: Skip docs rebuild
-        run: echo "Only src/PyPop changes on main; skipping docs rebuild"
+    - name: Debug commit paths and ref
+      run: |
+        echo "github.ref = $GITHUB_REF"
+        echo "Modified files:"
+        echo "${{ toJSON(github.event.commits.*.modified) }}"
+        # no if: here; always run
+
+    - name: Skip docs rebuild if only src/PyPop changes
+      if: github.ref == 'refs/heads/autoapi' && contains(join(github.event.commits.*.modified, ' '), 'src/PyPop/')
+      run: echo "Only src/PyPop changes on main; skipping docs rebuild"
 
   docs:
     runs-on: ubuntu-latest
