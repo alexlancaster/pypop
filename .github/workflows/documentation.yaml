@@ -32,7 +32,7 @@ permissions:
 jobs:
   docs_noop:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/autoapi' && contains(join(github.event.commits.*.modified, ''), 'src/PyPop/')
+    if: github.ref == 'refs/heads/autoapi' && contains(join(github.event.commits.*.modified, ' '), 'src/PyPop/')
     steps:
       - name: Skip docs rebuild
         run: echo "Only src/PyPop changes on main; skipping docs rebuild"
