@@ -236,7 +236,7 @@ convention = "google"  # also "numpy" or "pep257"
 "tests/**" = ["T20"]
 
 [tool.codespell]
-skip = '*tests/data/*,.data/*,src/obsolete/*,src/slatkin-exact/README,src/pval/*,src/PyPop/xslt/xsl.dtd,src/haplo-stats/haplo_em_pin.c'
+skip = '*tests/data/*,.data/*,src/obsolete/*,src/slatkin-exact/README,src/pval/*,src/PyPop/xslt/xsl.dtd,src/haplo-stats/haplo_em_pin.c,website/requirements-docs.txt'
 count = true
 quiet-level = 3
 ignore-words-list = 'nd,Fallin,commmon'
