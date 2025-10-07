@@ -46,11 +46,11 @@ as Python modules and classes.
 It is possible to drive PyPop programmatically primarily via the
 :mod:`PyPop.Main` module. For example, here we instantiate a
 :class:`PyPop.Main.Main` object with a configuration instance with the
-default settings, and one analysis enabled and use this to generate
-output.  We first create the :class:`configparser.ConfigParser`
-instance (see :ref:`configuration file section
-<guide-usage-configfile>` in the *PyPop User Guide* for the
-description of the configuration options), supply this to the
+default settings, and one analysis enabled, together with an input
+``.pop`` file, and use this to generate output.  We first create the
+:class:`configparser.ConfigParser` instance (see :ref:`configuration
+file section <guide-usage-configfile>` in the *PyPop User Guide* for
+the description of the configuration options), supply this to the
 :class:`Main` class to perform the analysis, then get the name of
 output XML file, and pass to the :class:`Meta` for final TSV output
 (see also the :ref:`PyPop API examples <guide-usage-examples-api>` in
