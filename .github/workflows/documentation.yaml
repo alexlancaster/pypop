@@ -60,7 +60,7 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     needs: docs_noop
-    if: needs.docs_noop.outputs. == 'skipped' || needs.docs_noop.outputs.only_pypop != 'true'
+    if: needs.docs_noop.result == 'skipped' || needs.docs_noop.outputs.only_pypop != 'true'
     steps:
       - uses: actions/checkout@v5
         with:
