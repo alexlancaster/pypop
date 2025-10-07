@@ -30,8 +30,8 @@ classifiers = [
     "Operating System :: POSIX :: Linux"
 ]
 dependencies = [
-    "numpy <= 2.3.2",
-    "lxml <= 6.0.1",
+    "numpy <= 2.3.3",
+    "lxml <= 6.0.2",
     "SciPy <= 1.15.2",
     "pooch <= v1.8.2",
     "importlib-resources; python_version <= '3.8'",
@@ -84,13 +84,14 @@ testpaths = [
 [tool.cibuildwheel]
 enable = ["pypy"]             # explicitly enable, this will be required for cibuildwheel >= 3
 skip = ["*-win32", "*_i686",  # skip 32-bit builds
-        "pp*",                # skip all PyPy (no scipy available)
-        # "pp37-*"            # skip certain PyPy configurations
-	"pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
-	"pp311-*",            # no numpy wheels for PyPy 3.11
-	"cp39-musllinux_aarch64",   # no scipy for aarch64
-        "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*", # older musllinux missing numpy wheels
-	"cp314*"]             # temporary: skip CPython 3.14 until lxml wheels are available
+     "pp*",
+     #"pp37-*",             # skip certain PyPy configurations
+     "pp*_aarch64 ",       # no numpy wheels for aarch64 on PyPy
+     "pp311-*",            # no numpy wheels for PyPy 3.11
+     "cp39-musllinux_aarch64",   # no scipy for aarch64
+     "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*", # older musllinux missing numpy wheels
+     "cp314t*"             # lxml not yet built
+     ]
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
 test-command = "pytest -v {package}/tests ${PYTEST_OPTIONS}"

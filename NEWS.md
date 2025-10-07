@@ -7,6 +7,24 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.3.0] - 2025-09-08
+
+### Features
+
+- Change: filenames resolved relative to supplied `--filename` + enable Python 3.14 ([#318](https://github.com/alexlancaster/pypop/pull/318))
+
+### Internal
+
+- Bump actions/setup-python from 5 to 6 in the actions group ([#319](https://github.com/alexlancaster/pypop/pull/319))
+- Update MacOS `cibuildwheel` config to handle `brew` changes ([#317](https://github.com/alexlancaster/pypop/pull/317))
+- Update lxml requirement from \<=6.0.0 to \<=6.0.1 ([#314](https://github.com/alexlancaster/pypop/pull/314))
+- python(CI deps): bump cibuildwheel from 3.1.3 to 3.1.4 in /.github in the build-wheel-deps group ([#315](https://github.com/alexlancaster/pypop/pull/315))
+- Bump setuptools-scm from 9.1.1 to 9.2.0 ([#312](https://github.com/alexlancaster/pypop/pull/312))
+- Bump the actions group with 2 updates: `download-artifact` and `checkout` ([#309](https://github.com/alexlancaster/pypop/pull/309))
+- Bump setuptools-scm from 8.3.1 to 9.1.1 ([#310](https://github.com/alexlancaster/pypop/pull/310))
+- python(CI deps): bump cibuildwheel from 3.0.1 to 3.1.3 in /.github in the build-wheel-deps group ([#307](https://github.com/alexlancaster/pypop/pull/307))
+- Update numpy requirement from \<=2.3.1 to \<=2.3.2 ([#306](https://github.com/alexlancaster/pypop/pull/306))
+
 ## [1.2.2] - 2025-07-28
 
 ### Internal
@@ -557,3 +575,4 @@ Single, Owen Solberg and Steve Mack.
 [1.2.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.0
 [1.2.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.1
 [1.2.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.2
+[1.3.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.3.0

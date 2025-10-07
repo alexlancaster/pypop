@@ -25,6 +25,7 @@ from pygments.formatters.latex import LatexFormatter
 from setuptools_scm import get_version
 from sphinx.directives.code import LiteralInclude
 from sphinx.highlighting import PygmentsBridge
+from sphinx.writers.latex import LaTeXTranslator as SphinxLaTeXTranslator
 from sphinxcontrib.bibtex.style.referencing import BracketStyle
 from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferenceStyle
 from sphinxcontrib.bibtex.style.referencing.extra_year import ExtraYearReferenceStyle
@@ -78,7 +79,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = "PyPop: Python for Population Genomics"
+# project = "PyPop: Python for Population Genomics"
+project = "PyPop"
 copyright = "2025 PyPop contributors"
 uc_copyright = "Copyright © 2003-2009 Regents of the University of California"
 gfdl_license_text = "Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A copy of the license is included in the License chapter."
@@ -254,7 +256,7 @@ bibtex_default_style = "alpha-initials"
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = "piccolo_theme"
+html_theme = "pydata_sphinx_theme"
 
 html_short_title = "PyPop"
 
@@ -262,16 +264,38 @@ html_short_title = "PyPop"
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-html_theme_options = {  # these are both piccolo theme-specific
-    "source_url": "https://github.com/alexlancaster/pypop/",
-    "banner_text": 'Experimental Windows ARM64 wheels are available on Test PyPI<br/>See PyPop News on the <a href="http://pypop.org/">home page</a> for installation details<br/>',
+html_theme_options = {  # some are theme-specific
+    "show_nav_level": 3,
+    "navigation_depth": 3,
+    "collapse_navigation": False,
+    "secondary_sidebar_items": {
+        "**": [],  # "page-toc"
+    },
+    "navbar_align": "left",
+    "pygments_light_style": "manni",
+    "github_url": "https://github.com/alexlancaster/pypop/",
+    "announcement": "https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html",
+    "logo": {
+        # In a left-to-right context, screen readers will read the alt text
+        # first, then the text, so this example will be read as "P-G-G-P-Y
+        # (short pause) Home A pretty good geometry package"
+        "alt_text": "PyPop - Home",
+        "text": "PyPop",
+        # "image_light": "../pypop-logo.png",
+        # "image_dark": "../pypop-logo.png",
+    },
 }
+
+html_logo = "../pypop-logo.png"
+
+html_favicon = "_static/pypop-favicon.ico"
+
+html_sidebars = {"index": [], "**": ["sidebar-nav-bs", "page-toc"]}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ["_static"]
-
 html_css_files = ["custom.css"]
 
 # put all files that should be root of the pypop.org/ webserver into this directory
@@ -294,12 +318,22 @@ PygmentsBridge.latex_formatter = CustomLatexFormatter
 # latex_show_urls = 'inline'
 latex_show_urls = "footnote"
 
+# Copy logo so LaTeX can find it
+latex_additional_files = [
+    "../pypop-logo.png",
+]
+
+latex_logo = "../pypop-logo.png"
+
 # need to declare a template for the LaTeX preamble for later substitution
 
 my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
 \end{tabular}\kern-\tabcolsep\\\begin{tabular}[t]{c}%
 }%
 \setcounter{secnumdepth}{1}%
+
+\usepackage{graphicx}
+\graphicspath{{docs/_static/}{_static/}{./}}
 
 \usepackage{pagenote}
 \makepagenote
@@ -331,6 +365,21 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
   }{}
 }{}{}
 
+% Reuse Sphinx styling for admonitions
+% We'll define a 'sphinxversionbox' environment
+
+\usepackage{xcolor}
+\usepackage{tcolorbox} % loads breakable and skins libraries
+\tcbuselibrary{breakable} % only breakable boxes
+
+\newtcolorbox{sphinxversionbox}[1][]{
+  breakable,
+  parbox=false,   % important: preserves normal line spacing
+  sharp corners,
+  fonttitle=\bfseries\itshape,
+  #1
+}
+
 % override default title page to add subtitle
 \makeatletter
 \renewcommand{\sphinxmaketitle}{%
@@ -346,8 +395,10 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
        \pdfstringdefDisableCommands{\def\\{, }}% overwrite hyperref setup
        \hypersetup{pdfauthor={\@author}, pdftitle={\@title}}%
       \endgroup
+    \vspace{3em}
+    \makebox[\textwidth][c]{\scalebox{0.65}{\sphinxlogo}}
+    \vspace{3em}
     \begin{flushright}%
-      \sphinxlogo
       \py@HeaderFamily
       {\Huge \@title \par}
       {\Large SUBTITLE \par}
@@ -438,6 +489,42 @@ def substitute_toc_maxdepth(app, _docname, source):
     source[0] = new_source  # Update the source with the modified content
 
 
+class CustomLaTeXTranslator(SphinxLaTeXTranslator):
+    def visit_versionmodified(self, node):
+        vtype = node["type"]
+        version = node.get("version", "")
+        title, opts = "", ""
+
+        if vtype == "deprecated":
+            title = f"Deprecated since version {version}" if version else "Deprecated"
+            opts += "coltitle=black,colback=red!5,colframe=red!30!white"
+        elif vtype == "versionchanged":
+            title = f"Changed in version {version}" if version else "Changed"
+            # match warning style (orange, softened)
+            opts += "coltitle=black,colback=orange!10,colframe=orange!25!white"
+        elif vtype == "versionadded":
+            title = f"Added in version {version}" if version else "Added"
+            # soft green, like "tip" or "success" admonition
+            opts += "coltitle=black,colback=green!5,colframe=green!20!white"
+        elif vtype == "versionremoved":
+            title = f"Removed in version {version}" if version else "Removed"
+            opts += "colback=gray!5,colframe=red!50!black"
+
+        if opts:
+            self.body.append(rf"\begin{{sphinxversionbox}}[title={{{title}}},{opts}]")
+        else:
+            super().visit_versionmodified(node)
+
+    def depart_versionmodified(self, node):
+        vtype = node["type"]
+        if vtype in {"deprecated", "versionchanged", "versionadded", "versionremoved"}:
+            self.body.append(r"\end{sphinxversionbox}")
+        else:
+            super().depart_versionmodified(node)
+
+
 def setup(app):
+    app.set_translator("latex", CustomLaTeXTranslator)
+
     app.add_directive("literalinclude", MyLiteralInclude, override=True)
     app.connect("source-read", substitute_toc_maxdepth)

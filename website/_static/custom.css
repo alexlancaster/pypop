@@ -10,7 +10,81 @@ pre {
     tab-size: 15;
 }
 
-/* Only hide the top-level TOC title link on index.rst */
+/* only hide the top-level TOC title link on index.rst */
 html[data-content_root="./"] div#right_sidebar .page_toc > ul > li:first-child > a.reference.internal {
     display: none;
+}
+
+/* Center only the top-level H1 on the index page */
+body[data-page="index"] article.bd-article > section > h1 {
+  text-align: center;
+}
+
+/* Center only the top-level title on the index page */
+body[data-page="index"] #pypop-python-for-population-genomics > h1 {
+    text-align: center;
+}
+
+
+.bd-main .bd-content .bd-article-container {
+  max-width: 100%;   default is 60em
+}
+
+.bd-page-width {
+     max-width: 95%;   /* default is 88rem */
+}
+
+/* vertical align logo table */
+table.logo-table td {
+    vertical-align: middle;
+}
+
+/* Show light logo by default, hide dark logo */
+.logo-light { display: inline; }
+.logo-dark  { display: none; }
+
+/* Switch for dark mode using prefers-color-scheme */
+@media (prefers-color-scheme: dark) {
+    .logo-light { display: none; }
+    .logo-dark  { display: inline; }
+}
+
+img.no-background {
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+
+/* containers */
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-cell {
+    flex: 0 0 20%;
+    text-align: center;
+}
+
+.text-cell {
+    flex: 1 0 75%;
+}
+
+/* Mobile stacking */
+@media (max-width: 768px) {
+
+  .logo-container {
+      width: 100%;
+      flex-direction: column;   /* stack logo above text */
+      align-items: center;      /* optional: center horizontally */
+  }
+  .logo-cell, .text-cell {
+      flex: 0 0 auto;           /* let them size naturally */
+      width: 100%;              /* optional: full width */
+      text-align: left;       /* optional: center content */
+  }
+
 }

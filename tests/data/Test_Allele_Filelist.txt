@@ -1,0 +1,2 @@
+./Test_Allele_Colon_Emhaplofreq.pop
+./Test_Allele_Colon_HardyWeinberg.pop

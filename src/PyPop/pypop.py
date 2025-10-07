@@ -241,14 +241,24 @@ return for each prompt.""")
         print(f"PyPop is processing {fileNames[0]} ...")
 
     else:
-        # non-interactive mode: run in 'batch' mode
+        # non-interactive mode: run in 'batch'xb mode
 
         if fileList:
             # if we are providing the filelist
             # use list from file as list to check
-            # li = [f.strip('\n') for f in open(fileList).readlines()]
-            li = [f.strip("\n") for f in fileList.readlines()]
-            fileList.close()  # make sure we close it
+
+            with open(fileList) as fileListHandle:
+                base_dir = (
+                    Path(fileListHandle.name).resolve().parent
+                )  # interpret paths relative to the fileListHandle location
+                li = []
+                for line in fileListHandle:
+                    entry = line.strip()
+                    if not entry:
+                        continue
+                    p = Path(entry)
+                    li.append(p if p.is_absolute() else (base_dir / p).resolve())
+
         elif popFilenames:
             # check number of arguments, must be at least one, but can be more
             # use args as list to check
@@ -264,7 +274,7 @@ return for each prompt.""")
         # arguments
         for fileName in li:
             # globbedFiles = glob_with_pathlib(fileName)
-            globbedFiles = glob(fileName)  # noqa: PTH207
+            globbedFiles = glob(str(fileName))  # noqa: PTH207
             if len(globbedFiles) == 0:
                 # if no files were found for that glob, please exit and warn
                 # the user

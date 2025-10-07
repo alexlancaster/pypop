@@ -139,7 +139,7 @@ def translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None):
 def translate_file_to_file(
     xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None
 ):
-    retval, output = _translate_file_to(
+    retval, _output = _translate_file_to(
         xslFilename,
         inFile,
         outFile,
