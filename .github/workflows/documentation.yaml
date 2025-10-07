@@ -42,13 +42,14 @@ jobs:
       - name: Detect changed files
         id: changes
         run: |
+          set -x
           if [[ "${GITHUB_REF}" == "refs/heads/autoapi" ]] && \
           git diff --name-only HEAD^ | grep -q '^src/PyPop/'; then
             echo "Skipping docs rebuild!"
-            echo "docs_rebuild=false >> "$GITHUB_OUTPUT"
+            echo "docs_rebuild=false" >> "$GITHUB_OUTPUT"
           else
             echo "Do do docs rebuild!"
-            echo "docs_rebuild=true >> "$GITHUB_OUTPUT"
+            echo "docs_rebuild=true" >> "$GITHUB_OUTPUT"
           fi
 
   docs:
