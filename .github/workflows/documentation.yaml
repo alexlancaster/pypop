@@ -84,7 +84,7 @@ jobs:
 
       - name: Skip if on main and only src/PyPop changed
         run: |
-          if [[ "${GITHUB_REF}" == "refs/heads/autoapi ]] && \
+          if [[ "${GITHUB_REF}" == "refs/heads/autoapi" ]] && \
              git diff --name-only HEAD^ | grep -q '^src/PyPop/'; then
             echo "Skipping docs rebuild"
             exit 0
