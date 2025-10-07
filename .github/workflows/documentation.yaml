@@ -47,8 +47,8 @@ jobs:
         # no if: here; always run
     - name: Check changed files
       run: |
-        git fetch origin main
-        echo "Modified files since main:"
+        git fetch origin autoapi
+        echo "Modified files since autoapi:"
         git diff --name-only HEAD origin/autoapi
     - name: Skip docs rebuild if only src/PyPop changes
       if: github.ref == 'refs/heads/autoapi' && contains(join(github.event.commits.*.modified, ' '), 'src/PyPop/')
