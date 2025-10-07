@@ -77,7 +77,7 @@ jobs:
 
       - uses: actions/setup-python@v6
 
-      - name: Determine AutoAPI source and install Python deps
+      - name: Determine AutoAPI source + version metadata
         id: select-autoapi
         run: |
           mode="internal"
@@ -87,20 +87,20 @@ jobs:
              pip install pypop-genomics  # only needed in this mode
           else
              echo "Using internal source (tag or branch build)"
+             # needed because tomli is used for backwards compatibility
+             pip install tomli
+             #  in the internal case we generate _metadata.py manually
+             #  since we are not doing a `pip install` build
+             python src/script_build/generate_metadata.py src/PyPop/_metadata.py
           fi
           echo "PYPOP_DOCS_MODE=$mode" >> "$GITHUB_ENV"
 
+      - name: Install Python deps + graphviz for API diagrams
+        run: |
           # shared dependencies
           pip install -r website/requirements-docs.txt
-      - name: Install graphviz for API diagrams
-        run: |
           sudo apt-get install -y --no-install-recommends graphviz
-      - name: Get metadata
-        run: |
-          # needed because tomli is used for backwards compatibility
-          pip install tomli
-          # need to generate _metadata.py manually since we are not doing a `pip install` build
-          python src/script_build/generate_metadata.py src/PyPop/_metadata.py
+
       - name: Build LaTeX sources
         run: |
           # latex build in separate directory
