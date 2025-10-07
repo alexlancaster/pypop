@@ -1,5 +1,9 @@
 |PyPI version shields.io| |Build status| |Pre-commit| |Website pypop.org| |GitHub license| |Citations| |DOI|
 
+.. image:: pypop-logo.png
+   :width: 150px
+   :align: center
+
 PyPop: Python for Population Genomics
 =====================================
 

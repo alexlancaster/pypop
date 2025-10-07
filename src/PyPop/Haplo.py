@@ -1258,7 +1258,7 @@ class Haplostats(Haplo):
         )
 
         # values returned from haplo_em_pin
-        status1, converge, lnlike, n_u_hap, n_hap_pairs = tmp1
+        _status1, converge, lnlike, n_u_hap, n_hap_pairs = tmp1
 
         tmp2 = _Haplostats.haplo_em_ret_info_wrap(
             # input parameters
@@ -1276,7 +1276,9 @@ class Haplostats(Haplo):
         )
 
         # values returned from haplo_em_ret_info
-        status2, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = tmp2
+        _status2, hap_prob, u_hap, u_hap_code, subj_id, post, hap1_code, hap2_code = (
+            tmp2
+        )
 
         _Haplostats.haplo_free_memory()
 

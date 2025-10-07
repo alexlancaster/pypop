@@ -11,11 +11,13 @@ on:
       - '*.rst'
       - 'NEWS.md'
       - 'LICENSE'
+      - 'pypop-logo.png'
       - 'website/**'
       - 'tests/data/doc-examples/**'
       - 'src/PyPop/CommandLineInterface.py'
       - 'src/script_build/generate_metadata.py'
       - '.github/workflows/documentation.yaml'
+      - '!website/_templates/announcement_banner.html'
       - '!website/README.md'
       - '!website/reference/**'
   pull_request:
@@ -23,11 +25,13 @@ on:
       - '*.rst'
       - 'NEWS.md'
       - 'LICENSE'
+      - 'pypop-logo.png'
       - 'website/**'
       - 'tests/data/doc-examples/**'
       - 'src/PyPop/CommandLineInterface.py'
       - 'src/script_build/generate_metadata.py'
       - '.github/workflows/documentation.yaml'
+      - '!website/_templates/announcement_banner.html'
       - '!website/README.md'
       - '!website/reference/**'
   release:
@@ -58,24 +62,34 @@ jobs:
           echo "github.event.action: ${{ toJson(github.event.action) }}"
           echo "github.event.release.target_commitish: ${{ toJson(github.event.release.target_commitish) }}"
 
-      - uses: actions/setup-python@v5
-      - name: Install dependencies
+      - uses: actions/setup-python@v6
+      - name: Install Python dependencies
         run: |
           pip install -r website/requirements-docs.txt
-          sudo apt clean
-          sudo apt-get update
-          sudo apt-get install --fix-missing -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
-      - name: Sphinx build
+      - name: Get metadata
         run: |
-
           # needed because tomli is used for backwards compatibility
           pip install tomli
           # need to generate _metadata.py manually since we are not doing a `pip install` build
           python src/script_build/generate_metadata.py src/PyPop/_metadata.py
+      - name: Build LaTeX sources
+        run: |
           # latex build in separate directory
           # it generates a lot of files we don't need to keep
           sphinx-build -b latex website _latexbuild
-          make -C _latexbuild
+      # Compile PDF (auto-detects the versioned .tex file)
+      - name: Compile PDF
+        uses: xu-cheng/latex-action@v4
+        with:
+          working_directory: _latexbuild
+          root_file: pypop-guide-*.tex
+          docker_image: ghcr.io/xu-cheng/texlive-debian:20250701
+       # run: |
+          #sudo apt clean
+          #sudo apt-get update
+          #sudo apt-get install --fix-missing -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
+      - name: Postprocess PDF
+        run: |
           # create _build directory and move the PDF there
           mkdir _build
           cp _latexbuild/*.pdf _build/
@@ -83,6 +97,8 @@ jobs:
           cd _build/
           ln -s pypop-guide*.pdf pypop-guide.pdf
           cd -
+      - name: Build HTML
+        run: |
           # now build the HTML
           sphinx-build website _build
 
