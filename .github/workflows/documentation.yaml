@@ -32,7 +32,7 @@ permissions:
 jobs:
   docs_noop:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/autoapi'  # or 'refs/heads/autoapi' while testing
+    if: github.ref == 'refs/heads/main'  # or 'refs/heads/autoapi' while testing
     outputs:
       only_pypop: ${{ steps.changes.outputs.only_pypop }}
     steps:
