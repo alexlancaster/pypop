@@ -46,8 +46,7 @@ as Python modules and classes.
 It is possible, however, to drive PyPop programmatically primarily via
 the :mod:`PyPop.Main` module.
 
-Example:
-Here we instantiate a :class:`PyPop.Main.Main` object with a
+Example: Here we instantiate a :class:`PyPop.Main.Main` object with a
 configuration instance with the default settings, and one analysis
 enabled, together with an input ``.pop`` file, and use this to
 generate output.  We first create the
