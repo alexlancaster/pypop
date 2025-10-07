@@ -2,9 +2,11 @@
 
 ## Release notes for in-progress features not yet officially documented or supported
 
-- New wrapper module `Haplostats`. This wraps a portion of the
-  `haplo.stats` R package `haplo-stats` for haplotype
-  estimation. [Implementation in alpha-phase - still working on this].
+- New wrapper module `Haplostats`. This wraps a portion of the R
+  package
+  [`haplo.stats`](https://cran.r-project.org/package=haplo.stats) for
+  haplotype estimation. \[Implementation in alpha-phase - still working
+  on this\].
 
 ## Release-time tasks
 
