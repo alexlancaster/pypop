@@ -159,11 +159,24 @@ intersphinx_mapping = {
 # built documents.
 
 
-# The full version, including alpha/beta/rc tags, don't normalize for documentation
+# The full version of local copy, including alpha/beta/rc tags, don't
+# normalize for documentation
 full_release = get_version("..", normalize=True, version_scheme="post-release")
 # The version without the .post or .dev variants
 version = full_release.split(".post")[0]
 release = version  # make the release and version be the same
+
+# get the currently documented API version (default to checking
+# installed package)
+try:
+    import PyPop
+
+    print("sys.path:", sys.path)
+    api_version = PyPop.__version__
+    print(f"API is using installed package version: {api_version}")
+except ImportError:
+    api_version = full_release
+    print(f"Using local checkout version: {api_version}")
 
 guide_prefix = "pypop-guide-" + release  # include version in PDF filename
 guide_name = "PyPop User Guide"
@@ -186,6 +199,7 @@ rst_epilog = """
 .. |apidocs_subtitle| replace:: **{}**
 .. |htmlauthor| replace:: {}
 .. |full_release| replace:: {}
+.. |api_version| replace:: {}
 .. |uc_copyright| replace:: {}
 .. |copyright| replace:: {}
 .. |gfdl_license_text| replace:: {}
@@ -209,6 +223,7 @@ rst_epilog = """
     apidocs_subtitle,
     htmlauthor,
     full_release,
+    api_version,
     uc_copyright,
     copyright,
     gfdl_license_text,

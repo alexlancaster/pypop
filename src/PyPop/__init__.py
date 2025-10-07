@@ -47,9 +47,8 @@ It is possible, however, to drive PyPop programmatically primarily via
 the :mod:`PyPop.Main` module.
 
 Example: Here we instantiate a :class:`PyPop.Main.Main` object with a
-configuration instance with the default settings, and one analysis
-enabled, together with an input ``.pop`` file, and use this to
-generate an XML output file. We first create the
+configuration instance with the default settings, one analysis
+enabled, and an input ``.pop`` file. We first create the
 :class:`configparser.ConfigParser` instance (see :ref:`configuration
 file section <guide-usage-configfile>` in the *PyPop User Guide* for
 the description of the configuration options), supply this to the

@@ -12,7 +12,7 @@ PyPop User Guide
 
    |htmlauthor|
 
-   .. admonition:: *Documenting release*  |version|  *of PyPop*.
+   .. admonition:: *Documenting release*  |api_version|  *of PyPop*.
 
       *Document revision:* |full_release|
 

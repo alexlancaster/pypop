@@ -1,7 +1,7 @@
 .. _api-reference-top:
 
 PyPop API Reference
-====================
+===================
 
 .. only:: html
 
@@ -9,7 +9,7 @@ PyPop API Reference
 
    |apidocs_subtitle|
 
-   .. admonition:: *Documenting API for release*  |version|  *of PyPop*.
+   .. admonition:: *Documenting API for release*  |api_version|  *of PyPop*.
 
       *Document revision:* |full_release|
 
