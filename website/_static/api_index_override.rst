@@ -27,7 +27,7 @@ PyPop API Reference
 
    References to the *User Guide* can be found in the
    |guide_pdf_link|. This API reference guide for PyPop is
-   automatically generated from source code.
+   automatically generated from the |api_version| source code.
 
 .. only:: html
 
