@@ -39,11 +39,9 @@ as Python modules and classes.
 
 .. note::
 
-   This public API is primarily intended for developers who are
-   working on PyPop itself. PyPop is not yet optimized for use in
-   end-user programs (i.e. where data structures can be passed in and
-   out of the library) via a programmatic interface.  PyPop is mostly
-   used as a command-line script.
+   PyPop is not yet fully optimized for use in end-user programs via a
+   programmatic interface. Much of this public API is aimed at
+   developers who are working on PyPop itself.
 
 It is possible to drive PyPop programmatically primarily via the
 :mod:`PyPop.Main` module. For example, here we instantiate a
