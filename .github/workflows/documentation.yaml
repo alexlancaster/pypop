@@ -33,6 +33,10 @@ jobs:
   docs_noop:
     runs-on: ubuntu-latest
     steps:
+    - name: Checkout full repo history
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # fetch full history so we can diff branches
     - name: Debug commit paths and ref
       run: |
         echo "github.ref = $GITHUB_REF"
