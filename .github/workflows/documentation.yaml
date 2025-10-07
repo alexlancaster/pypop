@@ -32,31 +32,32 @@ permissions:
 jobs:
   docs_noop:
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/autoapi'  # or 'refs/heads/autoapi' while testing
     steps:
     - name: Checkout full repo history
       uses: actions/checkout@v4
       with:
         fetch-depth: 0  # fetch full history so we can diff branches
-    - name: Debug commit paths and ref
-      run: |
-        echo "github.ref = $GITHUB_REF"
-        echo "Modified files:"
-        echo "${{ toJSON(github.event.commits.*.modified) }}"
-        echo "Other check Modified files:"
-        echo "${{ github.event.head_commit.modified }}"
-        # no if: here; always run
-    - name: Check changed files
+    - name: Detect changed files
+      id: changes
       run: |
         git fetch origin ${{ github.event.before }} ${{ github.event.after }}
-        git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
+        echo "Changed files:"
+        git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | tee changed_files.txt
+        # Save whether all changed files are under src/PyPop/
+        if [ -s changed_files.txt ] && grep -vq '^src/PyPop/' changed_files.txt; then
+        echo "only_pypop=false" >> "$GITHUB_OUTPUT"
+        else
+        echo "only_pypop=true" >> "$GITHUB_OUTPUT"
+        fi
     - name: Skip docs rebuild if only src/PyPop changes
-      if: github.ref == 'refs/heads/autoapi' && contains(join(github.event.commits.*.modified, ' '), 'src/PyPop/')
+      if: steps.changes.outputs.only_pypop == 'true'
       run: echo "Only src/PyPop changes on main; skipping docs rebuild"
 
   docs:
     runs-on: ubuntu-latest
     needs: docs_noop
-    if: ${{ always() }}  # run unless skipped above
+    if: needs.docs_noop.result == 'skipped' || needs.docs_noop.outputs.only_pypop != 'true'
     steps:
       - uses: actions/checkout@v5
         with:
