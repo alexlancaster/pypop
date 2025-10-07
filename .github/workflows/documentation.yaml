@@ -47,7 +47,7 @@ jobs:
           changed_files=$(git diff --name-only HEAD^)
 
           # Skip rebuild only if there are changes and all are under src/PyPop/
-          if [[ "${GITHUB_REF}" == "refs/heads/autoapi" ]] && [[ -n "$changed_files" ]] && \
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]] && [[ -n "$changed_files" ]] && \
              ! echo "$changed_files" | grep -qv '^src/PyPop/'; then
               echo "Skipping docs rebuild!"
               echo "docs_rebuild=false" >> "$GITHUB_OUTPUT"
@@ -84,7 +84,7 @@ jobs:
         id: select-autoapi
         run: |
           mode="internal"
-          if [[ "${GITHUB_REF}" == "refs/heads/autoapi" ]]; then
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
              echo "Detected main branch (non-release): using installed package"
              mode="installed"
              pip install pypop-genomics  # only needed in this mode
