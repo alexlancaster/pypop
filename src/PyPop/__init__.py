@@ -53,7 +53,7 @@ enabled, and an input ``.pop`` file. We first create the
 file section <guide-usage-configfile>` in the *PyPop User Guide* for
 the description of the configuration options), supply this to the
 :class:`Main` class to perform the analysis, then get the name of
-output XML file, and pass to the :class:`Meta` for the final TSV
+output XML file, and pass it to the :class:`Meta` for the final TSV
 output (see also the :ref:`PyPop API examples
 <guide-usage-examples-api>` in the *PyPop User Guide* for a
 step-by-step breakdown of use of the API).
