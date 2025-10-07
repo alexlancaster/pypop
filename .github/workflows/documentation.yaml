@@ -41,7 +41,11 @@ jobs:
         echo "Other check Modified files:"
         echo "${{ github.event.head_commit.modified }}"
         # no if: here; always run
-
+    - name: Check changed files
+      run: |
+        git fetch origin main
+        echo "Modified files since main:"
+        git diff --name-only HEAD origin/autoapi
     - name: Skip docs rebuild if only src/PyPop changes
       if: github.ref == 'refs/heads/autoapi' && contains(join(github.event.commits.*.modified, ' '), 'src/PyPop/')
       run: echo "Only src/PyPop changes on main; skipping docs rebuild"
