@@ -50,7 +50,7 @@ jobs:
         echo "only_pypop=false"
         else
         echo "only_pypop=true" >> "$GITHUB_OUTPUT"
-        echo "only_pypop=false"
+        echo "only_pypop=true"
         fi
     - name: Skip docs rebuild if only src/PyPop changes
       if: steps.changes.outputs.only_pypop == 'true'
