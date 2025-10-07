@@ -7,6 +7,19 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.3.1] - 2025-10-07
+
+### Internal
+
+- Update lxml requirement from \<=6.0.1 to \<=6.0.2 ([#326](https://github.com/alexlancaster/pypop/pull/326))
+- python(CI deps): bump cibuildwheel from 3.1.4 to 3.2.0 in /.github in the build-wheel-deps group ([#328](https://github.com/alexlancaster/pypop/pull/328))
+- Update numpy requirement from \<=2.3.2 to \<=2.3.3 ([#324](https://github.com/alexlancaster/pypop/pull/324))
+
+### Documentation
+
+- Handle code change directives like changed, added, removed in PDF output ([#322](https://github.com/alexlancaster/pypop/pull/322))
+- Update theme to pydata-sphinx-theme, add logo + website refresh ([#321](https://github.com/alexlancaster/pypop/pull/321))
+
 ## [1.3.0] - 2025-09-08
 
 ### Features
@@ -576,3 +589,4 @@ Single, Owen Solberg and Steve Mack.
 [1.2.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.1
 [1.2.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.2
 [1.3.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.3.0
+[1.3.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.3.1
