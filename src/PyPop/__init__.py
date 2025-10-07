@@ -43,8 +43,8 @@ as Python modules and classes.
    programmatic interface. Much of this public API is aimed at
    developers who are working on PyPop itself.
 
-It is possible to drive PyPop programmatically primarily via the
-:mod:`PyPop.Main` module. For example, here we instantiate a
+It is possible, however, to drive PyPop programmatically primarily via
+the :mod:`PyPop.Main` module. For example, here we instantiate a
 :class:`PyPop.Main.Main` object with a configuration instance with the
 default settings, and one analysis enabled, together with an input
 ``.pop`` file, and use this to generate output.  We first create the
