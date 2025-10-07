@@ -33,7 +33,7 @@ jobs:
   docs_check:
     runs-on: ubuntu-latest
     outputs:
-      only_pypop: ${{ steps.changes.outputs.docs_rebuild }}
+      docs_rebuild: ${{ steps.changes.outputs.docs_rebuild }}
     steps:
       - name: Checkout full repo history
         uses: actions/checkout@v4
@@ -44,17 +44,17 @@ jobs:
         run: |
           if [[ "${GITHUB_REF}" == "refs/heads/autoapi" ]] && \
           git diff --name-only HEAD^ | grep -q '^src/PyPop/'; then
-            echo "Skipping docs rebuild"
+            echo "Skipping docs rebuild!"
             echo "docs_rebuild=false >> "$GITHUB_OUTPUT"
           else
-            echo "Do do docs rebuild"
+            echo "Do do docs rebuild!"
             echo "docs_rebuild=true >> "$GITHUB_OUTPUT"
           fi
 
   docs:
     runs-on: ubuntu-latest
     needs: docs_check
-    if: needs.docs_check.outputs.docs_rebuild != 'true'
+    if: needs.docs_check.outputs.docs_rebuild == 'true'
     steps:
       - uses: actions/checkout@v5
         with:
