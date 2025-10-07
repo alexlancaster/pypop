@@ -217,7 +217,7 @@ def run_script_process_shell(script_name, args):
     process = subprocess.Popen(
         cmd_line, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
     )
-    output, err = process.communicate()
+    _output, _err = process.communicate()
     return process.wait()  # wait until script completed
 
 
@@ -235,13 +235,24 @@ def run_script_process_entry_point(script_name, args):
     return 1 if ret_val else 0
 
 
-def run_pypop_process(inifile, popfile, args=None):
+def run_pypop_process(inifile, popfile=None, *, poplistfile=None, args=None):
     # convert relative data files to absolute
     if args is None:
         args = []
+
+    if popfile and poplistfile:
+        sys.exit("Cannot specify both popfile and poplistfile")
+
     inifile = abspath_test_data(inifile)
-    popfile = abspath_test_data(popfile)
-    pypop_args = ["-m", *args, "-c", inifile, popfile]
+    if popfile:
+        popfile = abspath_test_data(popfile)
+        pypop_args = ["-m", *args, "-c", inifile, popfile]
+    elif poplistfile:
+        poplistfile = abspath_test_data(poplistfile)
+        pypop_args = ["-m", *args, "--filelist", poplistfile, "-c", inifile]
+    else:
+        sys.exit("need to include either popfile or poplistfile")
+
     return run_script_process_entry_point("pypop", pypop_args)
 
 

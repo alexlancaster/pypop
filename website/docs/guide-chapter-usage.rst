@@ -21,12 +21,12 @@ There are two ways to run PyPop:
 -  interactive mode (where the program will prompt you to directly type
    the input it needs); and
 
--  batch mode (where you supply all the command line options the program
-   needs).
+-  command-line (or "batch") mode (where you supply all the command
+   line options the program needs).
 
 For the most simplest application of PyPop, where you wish to analyze
 a single population, the interactive mode is the simplest to use. We
-will describe this mode first then describe batch mode.
+will describe this mode first then describe command-line mode.
 
 .. note::
 
@@ -133,25 +133,22 @@ configuration (e.g., :file:`config.ini`) and population file (e.g.,
 sections on the :ref:`data file <guide-usage-datafile>` and
 :ref:`configuration file <guide-usage-configfile>`, below.
 
-Batch mode
-----------
+.. _guide-usage-command-line-mode:
 
-To run PyPop in the more common "batch mode", you can run PyPop from
-the console (as noted above, on Windows: open :program:`Command
-prompt`, aka a "DOS shell"; on MacOS or GNU/Linux: open the
-:program:`Terminal` application). Change to a directory where your
-``.pop`` file is located, and type the command:
+Command-line mode
+-----------------
+
+To run PyPop in the more common command-line (or "batch") mode, you
+can run PyPop from the console (as noted above, on Windows: open
+:program:`Command prompt`, aka a "DOS shell"; on MacOS or GNU/Linux:
+open the :program:`Terminal` application). Change to a directory where
+your ``.pop`` file is located, and type the command:
 
 .. code-block:: shell
 
    pypop Guatemalan.pop
 
-.. note::
-
-   If your system administrator has installed PyPop the name of the
-   script may be renamed to something different.
-
-Batch mode assumes two things: that you have a file called
+Command-line mode assumes two things: that you have a file called
 :file:`config.ini` in your current folder and that you also have your
 population file is in the current folder, otherwise you will need to
 supply the full path to the file. You can specify a particular
@@ -162,12 +159,76 @@ follows:
 
    pypop -c newconfig.ini Guatemalan.pop
 
+Output to different directory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 You may also redirect the output to a different directory (which must
 already exist) by using the ``-o`` option:
 
 .. code-block:: text
 
    pypop -c newconfig.ini -o altdir Guatemalan.pop
+
+.. _guide-usage-filelist:
+
+Supplying multiple ``.pop`` files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you have multiple ``.pop`` files with the same overall format
+(i.e. the same, or subset of, the loci listed in the ``.ini`` file),
+you can process those in one ``pypop`` invocation using a single
+``.ini`` file.  You either supply them directly on the command-line:
+
+.. code-block:: shell
+
+   pypop -c config.ini Guatemalan.pop NorthAmerican.pop
+
+or you use the ``--filelist`` command-line option to pass in a file
+containing a list of files, i.e.:
+
+.. code-block:: shell
+
+   pypop -c config.ini --filelist popfilelist.txt
+
+where the text file ``popfilelist.txt`` contains a list of the
+``.pop`` files to be processed on separate lines, e.g.:
+
+.. code-block:: shell
+
+   Guatemalan.pop
+   NorthAmerican.pop
+
+.. versionchanged:: 1.3.0
+
+   New behavior: all files within ``FILELIST`` will be resolved
+   relative to relative to the *parent* directory of ``FILELIST``,
+   **not** to the current working directory (the old behavior).
+
+   This ensures that files can be more straightforwardly located
+   independently of where ``pypop`` is run from. For example, if your
+   current working directory looked like the following:
+
+   .. code-block:: text
+
+      data/popfilelist.txt
+      data/file1.pop
+      data/file2.pop
+
+   You would run ``pypop`` like:
+
+   .. code-block:: shell
+
+      pypop -c config.ini --filelist data/popfilelist.txt
+
+   and the contents of ``popfilelist.txt`` should be:
+
+   .. code-block:: text
+
+      file1.pop
+      file2.pop
+
+   **Full absolute paths will be processed as-is, and will not be
+   treated as if they are relative to the filelist.**
 
 Please see :ref:`guide-pypop-cli` for the full list of command-line
 options.
@@ -180,7 +241,7 @@ What happens when you run PyPop?
 The most common types of analysis will involve the editing of your
 :file:`config.ini` file to suit your data (see :ref:`the configuration
 file <guide-usage-configfile>`) followed by the selection of either
-the interactive or batch mode described above. If your input
+the interactive or command-line mode described above. If your input
 configuration file is :file:`{configfilename}` and your population
 file name is :file:`{popfilename}.txt` the initial output will be
 generated quickly, but your the PyPop execution will not be finished
@@ -730,12 +791,10 @@ be required for data that has sample identifiers as in
 above) and ``validPopFields`` (described below) will need to be
 modified.
 
-.. important::
-
-   .. deprecated:: 1.0.0
-      The sections ``[Arlequin]`` and
-      ``[HardyWeinbergGuoThompsonArlequin]`` related to the
-      :program:`Arlequin` program as they are currently unmaintained.
+.. deprecated:: 1.0.0
+   The sections ``[Arlequin]`` and
+   ``[HardyWeinbergGuoThompsonArlequin]`` related to the
+   :program:`Arlequin` program as they are currently unmaintained.
 
 .. _general-advanced-options:
 
@@ -838,45 +897,43 @@ modified.
    logged to the XML output file, this is disabled by default.
    **[Default:** ``0`` **(i.e. OFF)]**.
 
-.. important::
+.. deprecated:: 1.0.0
+    currently unmaintained and untested.
 
-   .. deprecated:: 1.0.0
-       currently unmaintained and untested.
+   ``[Arlequin]`` extra section
 
-      ``[Arlequin]`` extra section
+   This section sets characteristics of the :program:`Arlequin`
+   application if it has been installed (it must be installed
+   separately from PyPop as we cannot distribute it). The options
+   in this section are only used when a test requiring
+   :program:`Arlequin`, such as it's implementation of Guo and
+   Thompson's :cite:yearpar:`guo_performing_1992` Hardy-Weinberg
+   exact test is invoked (see below).
 
-      This section sets characteristics of the :program:`Arlequin`
-      application if it has been installed (it must be installed
-      separately from PyPop as we cannot distribute it). The options
-      in this section are only used when a test requiring
-      :program:`Arlequin`, such as it's implementation of Guo and
-      Thompson's :cite:yearpar:`guo_performing_1992` Hardy-Weinberg
-      exact test is invoked (see below).
+   -  ``arlequinExec``
 
-      -  ``arlequinExec``
+      This option specifies where to find the :program:`Arlequin`
+      executable on your system. The default assumes it is on your
+      system path. **[Default:** :file:`arlecore.exe` **]**
 
-         This option specifies where to find the :program:`Arlequin`
-         executable on your system. The default assumes it is on your
-         system path. **[Default:** :file:`arlecore.exe` **]**
+   ``[HardyWeinbergGuoThompsonArlequin]`` extra section
 
-      ``[HardyWeinbergGuoThompsonArlequin]`` extra section
+   When this section is present, :program:`Arlequin`'s implementation of the
+   Hardy-Weinberg exact test is run, using a Monte-Carlo Markov Chain
+   implementation. By default this section is not enabled.
 
-      When this section is present, :program:`Arlequin`'s implementation of the
-      Hardy-Weinberg exact test is run, using a Monte-Carlo Markov Chain
-      implementation. By default this section is not enabled.
+   -  ``markovChainStepsHW``
 
-      -  ``markovChainStepsHW``
+      Length of steps in the Markov chain **[Default: 2500000]**.
 
-         Length of steps in the Markov chain **[Default: 2500000]**.
+   -  ``markovChainDememorisationStepsHW``
 
-      -  ``markovChainDememorisationStepsHW``
+      Number of steps of to “burn-in” the Markov chain before statistics
+      are collected.\ **[Default:** ``5000`` **]**
 
-         Number of steps of to “burn-in” the Markov chain before statistics
-         are collected.\ **[Default:** ``5000`` **]**
-
-      The default values for options described above have proved to be optimal
-      for us and if the options are not provided these defaults will be used.
-      If you change the values and have problems, please let us **know**.
+   The default values for options described above have proved to be optimal
+   for us and if the options are not provided these defaults will be used.
+   If you change the values and have problems, please let us **know**.
 
 Advanced filtering sections
 ---------------------------
