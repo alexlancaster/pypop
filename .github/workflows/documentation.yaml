@@ -47,10 +47,11 @@ jobs:
         # Save whether all changed files are under src/PyPop/
         if [ -s changed_files.txt ] && grep -vq '^src/PyPop/' changed_files.txt; then
         echo "only_pypop=false" >> "$GITHUB_OUTPUT"
+        echo "only_pypop=false"
         else
         echo "only_pypop=true" >> "$GITHUB_OUTPUT"
+        echo "only_pypop=false"
         fi
-        echo "$GITHUB_OUTPUT"
     - name: Skip docs rebuild if only src/PyPop changes
       if: steps.changes.outputs.only_pypop == 'true'
       run: |
