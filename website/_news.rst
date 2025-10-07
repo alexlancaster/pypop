@@ -1,11 +1,6 @@
-* 2025-09-08: `PyPop 1.3.0
-  <https://github.com/alexlancaster/pypop/releases/tag/v1.3.0>`__ is
-  released. Includes distribution of Python wheels 3.14.  Features a
-  new behavior of the ``--filelist FILELIST`` option. Files listed in
-  that file are resolved relative to the directory in which the
-  ``FILELIST`` is located, rather than the current working directory,
-  see the :ref:`command-line documentation <guide-usage-filelist>` for
-  more details.
+* 2025-10-07: `PyPop 1.3.1
+  <https://github.com/alexlancaster/pypop/releases/tag/v1.3.1>`__ is
+  released. Bump ``numpy`` and ``lxml`` dependencies.
 
   Experimental support for wheels built for Windows ARM64 is also
   available in the `Test PyPI
@@ -18,6 +13,14 @@
 
   Please test and report issues `via the bug tracker
   <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BWindows+ARM64+bug%5D%3A+Please+replace+this+with+a+clear+and+concise+description+of+your+bug>`__.
+
+
+* 2025-09-08: `PyPop 1.3.0
+  <https://github.com/alexlancaster/pypop/releases/tag/v1.3.0>`__ is
+  released, adds Python wheels 3.14 and new behavior of the
+  ``--filelist FILELIST`` (files are :ref:`resolved
+  <guide-usage-filelist>` relative to directory where ``FILELIST`` is
+  located, rather than working directory).
 
 * 2024-04-01: PyPop paper `published
   <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
