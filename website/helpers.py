@@ -250,8 +250,8 @@ def get_autoapi_dirs(package_name, fallback_dir):
         except Exception as e:
             print(f"[helpers] Could not import installed package ({e})")
     # fallback
-    fallback = str(Path(fallback_dir).resolve().parent)
+    fallback = str(Path(fallback_dir).resolve())
     print(f"[get_autoapi_dirs] Using fallback source directory: {fallback}")
     # ensure local sources are importable
-    sys.path.insert(0, str(fallback))
+    sys.path.insert(0, str(Path(fallback).parent))
     return [fallback]
