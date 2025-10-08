@@ -120,9 +120,9 @@ jobs:
           docker_image: ghcr.io/xu-cheng/texlive-debian:20250701
       - name: Postprocess PDF
         run: |
-          # create _build directory and move the PDF there
+          # create _build directory and move the PDFs there
           mkdir _build
-          cp _latexbuild/*.pdf _build/
+          cp _latexbuild/pypop-*.pdf _build/
           # create a symlink from 'pypop-guide.pdf' to the latest version
           cd _build/
           ln -s pypop-guide*.pdf pypop-guide.pdf
