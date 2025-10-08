@@ -3,22 +3,6 @@
 PyPop API Reference
 ===================
 
-.. only:: html
-
-   |api_pdf_download_box|
-
-   |apidocs_subtitle|
-
-.. admonition:: *Documenting API for release*  |api_version|  *of PyPop*.
-
-   *Document revision:* |full_release|
-
-   **License terms**
-
-   Copyright © |copyright|
-
-   |gfdl_license_text| (:ref:`gfdl`).
-
 .. only:: latex
 
    .. raw:: latex
@@ -29,13 +13,29 @@ PyPop API Reference
       \OverwriteEnviron{footnotetext}[4]{\relax}
       \renewcommand{\sphinxfootnotemark}[4]{\relax}
 
-.. note::
+.. only:: html
+
+   |api_pdf_download_box|
+
+   |apidocs_subtitle|
+
+.. admonition:: *Documenting API for release*  |api_version|  *of PyPop*.
+
+   *Document revision:* |full_release|
 
    This API reference guide for PyPop is automatically generated from
    the |api_version| source code via `sphinx-autoapi
    <https://github.com/readthedocs/sphinx-autoapi>`_.
 
+   Copyright © |copyright|
+
+   .. only:: html
+
+      **License terms** |gfdl_license_text| (:ref:`gfdl`)
+
    .. only:: latex
+
+      **License terms** |gfdl_license_text| (:ref:`api-gfdl`)
 
       References to the *User Guide* can be found in the
       |guide_pdf_link|.
@@ -44,5 +44,8 @@ PyPop API Reference
 
    .. toctree::
       :maxdepth: 3
+
+Introduction
+------------
 
 .. contents of PyPop/index.rst will be concatenated here at runtime

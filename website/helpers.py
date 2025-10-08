@@ -153,8 +153,30 @@ def prepare_autoapi_index(app):
         # Delete the generated PyPop/index.rst so Sphinx doesn't process it separately
         src_generated.unlink()
 
-    # Combine them: override first, then generated
-    final_content = override_content + "\n\n" + generated_content
+    gfdl_content = r"""
+.. only:: latex
+
+   .. raw:: latex
+
+      \begingroup
+      \footnotesize
+      \sphinxsetup{%
+      %TitleColor={named}{blue},
+      }
+
+   .. _api-gfdl:
+
+   .. include:: /docs/gfdl.rst
+
+   .. raw:: latex
+
+      \endgroup
+    """
+
+    # Combine them: override first, then generated, then the GFDL wrapped in an environment
+    final_content = (
+        override_content + "\n\n" + generated_content + "\n\n" + gfdl_content
+    )
 
     # Ensure parent exists
     dst.parent.mkdir(parents=True, exist_ok=True)
