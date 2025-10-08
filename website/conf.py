@@ -83,7 +83,7 @@ master_doc = "index"
 # project = "PyPop: Python for Population Genomics"
 project = "PyPop"
 copyright = "2025 PyPop contributors"
-contribs_copyright = f"Copyright (C) {copyright}"
+contribs_copyright = f"Copyright © {copyright}"
 uc_copyright = "Copyright © 2003-2009 Regents of the University of California"
 gfdl_license_text = "Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A copy of the license is included in the License chapter."
 
