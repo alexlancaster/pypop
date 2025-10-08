@@ -13,7 +13,11 @@ PyPop API Reference
 
       *Document revision:* |full_release|
 
-      This API reference guide for PyPop is automatically generated from source code.
+      This API reference guide for PyPop is automatically generated
+      from source code via `sphinx-autoapi
+      <https://github.com/readthedocs/sphinx-autoapi>`_.
+
+
 
 .. only:: latex
 
@@ -27,7 +31,8 @@ PyPop API Reference
 
    References to the *User Guide* can be found in the
    |guide_pdf_link|. This API reference guide for PyPop is
-   automatically generated from the |api_version| source code.
+   automatically generated from the |api_version| source code via
+   `sphinx-autoapi <https://github.com/readthedocs/sphinx-autoapi>`_.
 
 .. only:: html
 
