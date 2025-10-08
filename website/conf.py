@@ -548,7 +548,7 @@ latex_documents = [
         "howto",
         False,
         {
-            "maketitle": apidocs_maketitle,
+            # "maketitle": apidocs_maketitle,
             "placeholders": {
                 "SUBTITLE": apidocs_subtitle,
                 "POINTSIZE": "8pt",

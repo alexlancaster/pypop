@@ -9,15 +9,15 @@ PyPop API Reference
 
    |apidocs_subtitle|
 
-   .. admonition:: *Documenting API for release*  |api_version|  *of PyPop*.
+.. admonition:: *Documenting API for release*  |api_version|  *of PyPop*.
 
-      *Document revision:* |full_release|
+   *Document revision:* |full_release|
 
-      **License terms**
+   **License terms**
 
-      Copyright © |copyright|
+   Copyright © |copyright|
 
-      |gfdl_license_text| (:ref:`gfdl`).
+   |gfdl_license_text| (:ref:`gfdl`).
 
 .. only:: latex
 
