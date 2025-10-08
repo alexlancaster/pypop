@@ -369,9 +369,6 @@ POINTSIZE
 \@ifclassloaded{sphinxhowto}{
   % "howto" class: no chapter, use \section
   % Only for sphinxhowto class
-  % Redirect footnotes to pagenotes
-  %\let\oldfootnote\footnote
-  %\renewcommand{\footnote}[1]{\pagenote{#1}}
 
  \setcounter{tocdepth}{2}
 

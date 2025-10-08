@@ -18,12 +18,10 @@ PyPop User Guide
 
       See :ref:`Citing PyPop` for how to cite PyPop in your publication.
 
-      **License terms**
-
       |uc_copyright| |br|
       Copyright © |copyright|
 
-      |gfdl_license_text| (:ref:`gfdl`).
+      **License terms** |gfdl_license_text| (:ref:`gfdl`).
 
 .. only:: latex or pdf
 
@@ -61,7 +59,7 @@ PyPop User Guide
 
 **How to use this guide**
 
-This guide to PyPop contains four main parts:
+This guide to PyPop contains five main parts:
 
 - :doc:`guide-chapter-install` describes how to install PyPop,
   including pre-release binaries.
@@ -73,6 +71,10 @@ This guide to PyPop contains four main parts:
 
 - :doc:`guide-chapter-contributing` details how to contribute to
   ongoing PyPop code and documentation.
+
+- :doc:`guide-chapter-changes` acknowledges our contributors and
+  project history.
+
 
 .. only:: latex
 
