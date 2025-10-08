@@ -13,6 +13,12 @@ PyPop API Reference
 
       *Document revision:* |full_release|
 
+      **License terms**
+
+      Copyright © |copyright|
+
+      |gfdl_license_text| (:ref:`gfdl`).
+
 .. only:: latex
 
    .. raw:: latex
@@ -23,20 +29,16 @@ PyPop API Reference
       \OverwriteEnviron{footnotetext}[4]{\relax}
       \renewcommand{\sphinxfootnotemark}[4]{\relax}
 
-   References to the *User Guide* can be found in the
-   |guide_pdf_link|.
+.. note::
 
-This API reference guide for PyPop is automatically generated from the
-|api_version| source code via `sphinx-autoapi
-<https://github.com/readthedocs/sphinx-autoapi>`_.
+   This API reference guide for PyPop is automatically generated from
+   the |api_version| source code via `sphinx-autoapi
+   <https://github.com/readthedocs/sphinx-autoapi>`_.
 
-.. only:: html
+   .. only:: latex
 
-   **License terms**
-
-   Copyright © |copyright|
-
-   |gfdl_license_text| (:ref:`gfdl`).
+      References to the *User Guide* can be found in the
+      |guide_pdf_link|.
 
 .. only:: latex or pdf
 

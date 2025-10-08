@@ -18,6 +18,13 @@ PyPop User Guide
 
       See :ref:`Citing PyPop` for how to cite PyPop in your publication.
 
+      **License terms**
+
+      |uc_copyright| |br|
+      Copyright © |copyright|
+
+      |gfdl_license_text| (:ref:`gfdl`).
+
 .. only:: latex or pdf
 
    .. raw:: latex
@@ -70,15 +77,6 @@ This guide to PyPop contains four main parts:
 .. only:: latex
 
    References to the *API Reference* can be found in the |apidocs_pdf_link|
-
-.. only:: html
-
-   **License terms**
-
-   |uc_copyright| |br|
-   Copyright © |copyright|
-
-   |gfdl_license_text| (:ref:`gfdl`).
 
 .. _user-guide-toc:
 

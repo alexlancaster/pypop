@@ -30,31 +30,29 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-r"""PyPop is a framework for performing population genetics analyses.
+r"""**PyPop is a framework for performing population genetics analyses**.
 
-Originally designed as an end-to-end pipeline that reads configuration
-files and datasets and produces standardized outputs. While the
-primary workflow is file-based, most internal functionality is exposed
-as Python modules and classes.
+It was originally designed as an end-to-end pipeline that reads
+configuration files and datasets and produces standardized
+outputs. While the primary workflow is file-based, most internal
+functionality is exposed as Python modules and classes.
 
-.. note::
+.. important::
 
-   PyPop is not yet fully optimized for use in end-user programs via a
-   programmatic interface. Much of this public API is aimed at
-   developers who are working on PyPop itself.
+   PyPop is not yet fully optimized for use as a library in end-user
+   programs via a programmatic interface. Much of this public API is
+   aimed at developers who are working on PyPop itself.
 
 It is possible, however, to drive PyPop programmatically via the
-:mod:`PyPop.Main` module.
-
-Example: Here we instantiate a :class:`PyPop.Main.Main` object with a
-configuration instance with the default settings, one analysis
-enabled, and an input ``.pop`` file. We first create the
-:class:`configparser.ConfigParser` instance (see :ref:`configuration
-file section <guide-usage-configfile>` in the *PyPop User Guide* for
-the description of the configuration options), supply this to the
-:class:`Main` class to perform the analysis, then get the name of
-output XML file, and pass it to the :class:`Meta` for the final TSV
-output (see also the :ref:`PyPop API examples
+:mod:`PyPop.Main` module. In the example below, we instantiate a
+:class:`PyPop.Main.Main` object with a configuration instance with the
+default settings, one analysis enabled, and an input ``.pop`` file. We
+first create the :class:`configparser.ConfigParser` instance (see
+:ref:`configuration file section <guide-usage-configfile>` in the
+*PyPop User Guide* for the description of the configuration options),
+supply this to the :class:`Main` class to perform the analysis, then
+get the name of output XML file, and pass it to the :class:`Meta` for
+the final TSV output (see also the :ref:`PyPop API examples
 <guide-usage-examples-api>` in the *PyPop User Guide* for a
 step-by-step breakdown of use of the API).
 

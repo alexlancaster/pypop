@@ -120,11 +120,26 @@ def skip_instance_vars(_app, what, _name, _obj, skip, _options):
     return True
 
 
+def strip_first_title(rst_text):
+    """Matches a top-level title.
+
+    (one line, then = or - underline)
+    """
+    pattern = r"^.*\n[=]+\n\n?"
+    return re.sub(pattern, "", rst_text, count=1, flags=re.MULTILINE)
+
+
 def prepare_autoapi_index(app):
     """Substitute the top-level index to be generated."""
+    # don't hardcode, get this from config
+    autoapi_root = getattr(app.config, "autoapi_root", "")
     src_override = Path(app.srcdir) / "_static" / "api_index_override.rst"
-    src_generated = Path(app.srcdir) / "api" / "PyPop" / "index.rst"
-    dst = Path(app.srcdir) / "api" / "index.rst"
+    src_generated = Path(app.srcdir) / autoapi_root / "PyPop" / "index.rst"
+    dst = Path(app.srcdir) / autoapi_root / "index.rst"
+
+    print(
+        f"[helpers]: replace index: concatenate {src_override} with {src_generated} and put output in {dst}"
+    )
 
     # Read override content
     override_content = src_override.read_text(encoding="utf-8")
@@ -133,6 +148,8 @@ def prepare_autoapi_index(app):
     generated_content = ""
     if src_generated.exists():
         generated_content = src_generated.read_text(encoding="utf-8")
+        # FIXME: get ride of first title in the generated content, slightly hacky
+        generated_content = strip_first_title(generated_content)
         # Delete the generated PyPop/index.rst so Sphinx doesn't process it separately
         src_generated.unlink()
 

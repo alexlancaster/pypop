@@ -373,6 +373,8 @@ POINTSIZE
   %\let\oldfootnote\footnote
   %\renewcommand{\footnote}[1]{\pagenote{#1}}
 
+ \setcounter{tocdepth}{2}
+
   % Hook into top-level section (index) to print notes
   \pretocmd{\printindex}{%
     % only print footnotes if there are any
@@ -547,7 +549,10 @@ latex_documents = [
         False,
         {
             "maketitle": apidocs_maketitle,
-            "placeholders": {"SUBTITLE": apidocs_subtitle, "POINTSIZE": "9pt"},
+            "placeholders": {
+                "SUBTITLE": apidocs_subtitle,
+                "POINTSIZE": "8pt",
+            },
         },
     ),
 ]
