@@ -15,6 +15,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 """Sphinx configuration."""
 
+import os
 import sys
 from pathlib import Path
 
@@ -158,7 +159,6 @@ intersphinx_mapping = {
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 
-
 # The full version of local copy, including alpha/beta/rc tags, don't
 # normalize for documentation
 full_release = get_version("..", normalize=True, version_scheme="post-release")
@@ -166,17 +166,23 @@ full_release = get_version("..", normalize=True, version_scheme="post-release")
 version = full_release.split(".post")[0]
 release = version  # make the release and version be the same
 
-# get the currently documented API version (default to checking
-# installed package)
-try:
-    import PyPop
+# get the currently documented API version
+if os.environ.get("PYPOP_DOCS_MODE", "") == "installed":
+    # checking installed package
+    try:
+        import PyPop
 
-    print("sys.path:", sys.path)
-    api_version = PyPop.__version__
-    print(f"API is using installed package version: {api_version}")
-except ImportError:
+        print("[conf] sys.path:", sys.path)
+        api_version = PyPop.__version__
+        print(f"[conf] API is using installed package version: {api_version}")
+    except ImportError:
+        api_version = full_release
+        print(
+            f"[conf] Can't find installed version, fallback to internal API version: {api_version}"
+        )
+else:
     api_version = full_release
-    print(f"Using local checkout version: {api_version}")
+    print(f"[conf] Using internal API version: {api_version}")
 
 guide_prefix = "pypop-guide-" + release  # include version in PDF filename
 guide_name = "PyPop User Guide"

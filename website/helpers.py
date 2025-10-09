@@ -283,14 +283,15 @@ def get_autoapi_dirs(package_name, fallback_dir):
             if spec and spec.origin:
                 installed_path = Path(spec.origin).parent
                 print(
-                    f"[get_autoapi_dirs] Using installed {package_name} from: {installed_path}"
+                    f"[helpers] Using installed {package_name} from: {installed_path}"
                 )
                 return [str(installed_path)]
+            print(f"[helpers] {package_name} not found")
         except Exception as e:
             print(f"[helpers] Could not import installed package ({e})")
     # fallback
     fallback = str(Path(fallback_dir).resolve())
-    print(f"[get_autoapi_dirs] Using fallback source directory: {fallback}")
+    print(f"[helpers] Using internal source directory: {fallback}")
     # ensure local sources are importable
     sys.path.insert(0, str(Path(fallback).parent))
     return [fallback]
