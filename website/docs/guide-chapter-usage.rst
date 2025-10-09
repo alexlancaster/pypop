@@ -1241,11 +1241,9 @@ that we specify the ``untypedAllele`` and ``alleleDesignators``
 explicitly, even though they are the same as defaults, they must
 always match the input file):
 
->>> from PyPop.Main import Main
 >>> from configparser import ConfigParser
->>>
 >>> config = ConfigParser()
->>> config.read_dict({
+>>> config.read_dict({"General": {"debug": "0"},
 ...     "ParseGenotypeFile": {"untypedAllele": "****",
 ...                           "alleleDesignator": "*",
 ...                           "validSampleFields": "*a_1\n*a_2"},
@@ -1269,16 +1267,25 @@ program):
 ...     _ = f.write(pop_contents)
 ...
 
-Now we create the :class:`PyPop.Main.Main` instance, using the
-``config`` object to analyze the data in ``my.pop`` and output an XML
-file: ``my-out.xml``:
+Then we setup the XSLT transformation file that will generate a plain
+text output (``my-pop.txt``), along with the default XML output file:
+``my-out.xml``. [3]_
 
+>>> from PyPop.xslt import ns              # need for XSLT extensions
+>>> from importlib.resources import files  # get location from installation
+>>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
+
+Now we can create the :class:`PyPop.Main.Main` instance, using the
+``config`` object to analyze the data in ``my.pop`` :
+
+>>> from PyPop.Main import Main
 >>> application = Main(
 ...     config=config,
 ...     fileName="my.pop",
 ...     version="fake",
+...     xslFilename=xslFilename,
 ... )
-LOG: no XSL file, skipping text output
+... # doctest: +ELLIPSIS
 LOG: Data file has no header data block
 
 We can query the ``Main`` instance to get the name of output XML file:
@@ -1312,3 +1319,10 @@ analysis.
    The Anthony Nolan list of deleted allele names
    (https://github.com/ANHIG/IMGTHLA/blob/Latest/Deleted_alleles.txt); and the
    Ambiguous Allele Combinations, release 2.18.0 (https://www.ebi.ac.uk/ipd/imgt/hla/ambiguity).
+
+.. [3]
+   The expectation that :class:`PyPop.Main.Main` will generate a plain text
+   output (and thus setting up an XSLT file for that transformation)
+   will be removed in a future release, allowing for further
+   simplification of this example, by eliminating the requirement that
+   ``xslFilename`` is passed to the ``Main`` constructor.
