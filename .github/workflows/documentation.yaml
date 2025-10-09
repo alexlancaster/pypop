@@ -87,7 +87,9 @@ jobs:
           if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
              echo "Detected main branch (non-release): using installed package"
              mode="installed"
-             pip install pypop-genomics  # only needed in this mode
+             pip install pypop-genomics[test]  # only needed in this mode
+             # test user guide again released API
+             pytest -v -s --doctest-modules --doctest-glob='*.rst' website/docs/
           else
              echo "Using internal source (tag or branch build)"
              # needed because tomli is used for backwards compatibility
