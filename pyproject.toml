@@ -233,7 +233,7 @@ typing-modules = ["mypackage._compat.typing"]
 convention = "google"  # also "numpy" or "pep257"
 
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["T20"]
+"tests/**" = ["T20", "D100", "D103"]  # don't need docs on every unit test function
 
 [tool.codespell]
 skip = '*tests/data/*,.data/*,src/obsolete/*,src/slatkin-exact/README,src/pval/*,src/PyPop/xslt/xsl.dtd,src/haplo-stats/haplo_em_pin.c,website/requirements-docs.txt'
