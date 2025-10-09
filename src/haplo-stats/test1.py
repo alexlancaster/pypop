@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+"""Matching haplo.stats example."""
+
 import io
 import sys
 from pathlib import Path

@@ -88,3 +88,59 @@ img.no-background {
   }
 
 }
+
+/* Make AutoAPI summary tables scroll horizontally on small screens */
+table.docutils.autosummary {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+/* Better alignment */
+table.docutils.autosummary td,
+table.docutils.autosummary th {
+    text-align: left !important;
+    vertical-align: top;
+    padding: 0.4em 0.6em;
+}
+
+/* Responsive AutoAPI tables: collapse to blocks on small screens */
+@media (max-width: 768px) {
+    table.docutils.autosummary,
+    table.docutils.autosummary thead,
+    table.docutils.autosummary tbody,
+    table.docutils.autosummary tr,
+    table.docutils.autosummary td,
+    table.docutils.autosummary th {
+        display: block;
+        width: 100%;
+    }
+
+    /* Hide headers */
+    table.docutils.autosummary thead {
+        display: none;
+    }
+
+    /* Each row as a card */
+    table.docutils.autosummary tr {
+        margin: 0 0 1em 0;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 0.6em;
+    }
+
+    /* First cell = object name */
+    table.docutils.autosummary td:first-child {
+        font-weight: bold;
+        margin-bottom: 0.3em;
+        display: block;
+    }
+
+    /* Second cell = description */
+    table.docutils.autosummary td:nth-child(2) {
+        display: block;
+        padding-left: 0;
+    }
+}

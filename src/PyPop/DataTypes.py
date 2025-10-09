@@ -31,7 +31,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Module for storing genotype and allele count data."""
+"""Data structures storing genotype and allele count data."""
 
 import re
 import string
@@ -40,8 +40,7 @@ import string
 def _serializeAlleleCountDataAt(
     stream, alleleTable, total, untypedIndividuals, unsequencedSites
 ):
-    """Function to actually do the output"""
-
+    """Function to actually do the output."""
     totalFreq = 0
     alleles = list(alleleTable.keys())
     alleles.sort()
@@ -96,7 +95,15 @@ def _serializeAlleleCountDataAt(
 
 
 class Genotypes:
-    """Base class that stores and caches basic genotype statistics."""
+    """Stores genotypes and caches basic genotype statistics.
+
+    Args:
+        matrix (StringMatrix): The ``StringMatrix`` to be converted into a ``Genotype`` instance
+        untypedAllele (str): The placeholder for an untyped allele site
+        unsequencedSite (bool): The identifier used for an unsequenced site (only used for sequence data)
+        allowSemiTyped (int): Whether or not to allow individuals that are typed at only one allele
+        debug (int): Switch on debugging
+    """
 
     def __init__(
         self,
@@ -115,6 +122,13 @@ class Genotypes:
         self._genDataStructures()
 
     def _checkAllele(self, allele1, allele2, unsequencedSites):
+        """Check alleles and update counts.
+
+        Args:
+           allele1 (str): allele 1
+           allele2 (str): allele 2
+           unsequencedSites (str): the value representing unsequenced sites
+        """
         for phase in [allele1, allele2]:
             if phase not in {self.untypedAllele, self.unsequencedSite}:
                 if self.debug:
@@ -136,8 +150,8 @@ class Genotypes:
     def _genDataStructures(self):
         """Generates allele count and map data structures.
 
-        *For internal use only.*"""
-
+        *For internal use only.*
+        """
         self.locusKeys = self.matrix.colList
 
         # then total number of individuals in data file
@@ -235,38 +249,43 @@ class Genotypes:
                 self.totalLociWithData += 1
 
     def getLocusList(self):
-        """Returns the list of loci.
+        """Get the list of loci.
 
-        *Note: this list has filtered out all loci that consist
-        of individuals that are all untyped.*
+        Note:
+           The returned list filters out all loci that consist of
+           individuals that are all untyped.  The order of returned
+           list is now fixed for the lifetime of the object.
 
-        *Note 2: the order of this list is now fixed for the lifetime
-          of the object.*
+        Returns:
+            list: The list of loci.
         """
-
         # returns a clone of the locusKeys list, so that this instance
         # variable can't be modified inadvertently
         return self.locusKeys[:]
 
     def getAlleleCount(self):
-        """Return allele count statistics for all loci.
+        """Allele count statistics for all loci.
 
-        Return a map of tuples where the key is the locus name.  Each
-        tuple is a triple, consisting of a map keyed by alleles
-        containing counts, the total count at that locus and the
-        number of untyped individuals."""
-
+        Returns:
+            dict: a map of tuples where the key is the locus name.  Each
+            tuple is a triple, consisting of a map keyed by alleles
+            containing counts, the total count at that locus and the
+            number of untyped individuals.
+        """
         return self.freqcount
 
     def getAlleleCountAt(self, locus, lumpValue=0):
-        """Return allele count for given locus.
+        """Get allele count for given locus.
 
-        - 'lumpValue': the specified amount of lumping (Default: 0)
+        Args:
+           locus (str): locus
+           lumpValue (int): the specified amount of lumping (Default: 0)
 
-        Given a locus name, return a tuple: consisting of a map keyed
-        by alleles containing counts, the total count at that
-        locus, and number of untyped individuals."""
-
+        Returns:
+           tuple: a tuple consisting of a map keyed by alleles
+           containing counts, the total count at that locus, and
+           number of untyped individuals.
+        """
         # need to recalculate values
         if lumpValue != 0:
             alleles, totalAlleles, untyped, unsequenced = self.freqcount[locus]
@@ -288,8 +307,11 @@ class Genotypes:
         """Serialize subclass-specific metadata.
 
         Specifically, total number of individuals and loci and
-        population name."""
+        population name.
 
+        Args:
+            stream (TextOutputStream): the stream used for output.
+        """
         stream.opentag("summaryinfo")
         stream.writeln()
         stream.tagContents("indivcount", f"{self.totalIndivCount}")
@@ -304,8 +326,15 @@ class Genotypes:
         stream.writeln()
 
     def serializeAlleleCountDataAt(self, stream, locus):
-        """ """
+        """Serialize locus count data for a specific locus.
 
+        Specifically, total number of individuals and loci and
+        population name.
+
+        Args:
+            stream (TextOutputStream): the stream used for output
+            locus (str): locus
+        """
         self.alleleTable, self.total, untypedIndividuals, unsequencedSites = (
             self.freqcount[locus]
         )
@@ -314,6 +343,14 @@ class Genotypes:
         )
 
     def serializeAlleleCountDataTo(self, stream):
+        """Serialize allele count data for a specific locus.
+
+        Args:
+            stream (TextOutputStream): the stream used for output
+
+        Returns:
+            int: always returns ``1``
+        """
         stream.opentag("allelecounts")
 
         for locus in self.freqcount:
@@ -325,20 +362,22 @@ class Genotypes:
         return 1
 
     def getLocusDataAt(self, locus, lumpValue=0):
-        """Returns the genotyped data for specified locus.
+        """Get the genotyped data for specified locus.
 
-        Given a 'locus', return a list genotypes consisting of
-        2-tuples which contain each of the alleles for that individual
-        in the list.
+        Note:
+            The returned list has filtered out all individuals that
+            are untyped at either chromosome. Data is sorted so that
+            ``allele1`` < ``allele2``, alphabetically
 
-        - 'lumpValue': the specified amount of lumping (Default: 0)
+        Args:
+            locus (str): locus to use
+            lumpValue (int): the specified amount of lumping (Default: ``0``).
 
-        **Note:** *this list has filtered out all individuals that are
-        untyped at either chromosome.*
-
-        **Note 2:** data is sorted so that allele1 < allele2,
-        alphabetically"""
-
+        Returns:
+            list: a list genotypes consisting of 2-tuples which
+            contain each of the alleles for that individual in the
+            list.
+        """
         # need to recalculate values
         if lumpValue != 0:
             alleles, _totalAlleles, _untyped, _unsequenced = self.freqcount[locus]
@@ -373,31 +412,52 @@ class Genotypes:
         return (self.locusTable[locus])[:]
 
     def getLocusData(self):
-        """Returns the genotyped data for all loci.
+        """Get the genotyped data for all loci.
 
-        Returns a dictionary keyed by locus name of lists of 2-tuples
-        as defined by 'getLocusDataAt()'
+        Returns:
+           dict: keyed by locus name of lists of 2-tuples as defined
+           by :meth:`getLocusDataAt()`
+
         """
         return self.locusTable
 
     def getIndividualsData(self):
-        """Returns the individual data.
+        """Get data for all individuals.
 
-        Returns a 'StringMatrix'.
+        Returns:
+           StringMatrix: ``StringMatrix`` for all individuals
         """
         # return self.individualsData
         return self.matrix
 
 
+# FIXME: regex should be passed as a parameter
 def checkIfSequenceData(matrix):
-    # FIXME: hack to determine whether we are analysing sequence
-    # we use a regex to match anything in the form A_32 or A_-32
-    # this should be passed as a parameter
+    """Heuristic check to determine whether we are analysing sequence.
+
+    Note:
+       The regex matches loci of the form ``A_32`` or ``A_-32``
+
+    Args:
+        matrix (StringMatrix): matrix to check
+
+    Returns:
+        int: if sequence, return ``1``, otherwise ``0``
+    """
     locus = matrix.colList[0]
     return 1 if re.search("[a-zA-Z0-9]+_[-]?[0-9]+", locus) else 0
 
 
 def getMetaLocus(locus, isSequenceData):
+    """Get the overall locus that this sequence belongs to.
+
+    Args:
+        locus (str): Locus of interest.
+        isSequenceData (bool): whether this locus is sequence data
+
+    Returns:
+        str: The locus name, or ``None`` if not sequence data.
+    """
     if isSequenceData:
         metaLocus = string.split(string.split(locus, ":")[0], "_")[0]
     else:
@@ -406,10 +466,15 @@ def getMetaLocus(locus, isSequenceData):
 
 
 def getLocusPairs(matrix, sequenceData):
-    """
-    Returns a list of all pairs of loci from a given StringMatrix
-    """
+    """Get locus pairs for a given matrix.
 
+    :param matrix: matrix
+    :type matrix: StringMatrix
+    :param sequenceData: is this sequence data?
+    :type sequenceData: bool
+    :return: Returns a list of all pairs of loci from a given ``StringMatrix``.
+    :rtype: list
+    """
     loci = matrix.colList
 
     li = []
@@ -434,9 +499,18 @@ def getLocusPairs(matrix, sequenceData):
 
 
 def getLumpedDataLevels(genotypeData, locus, lumpLevels):
-    """Returns a dictionary of tuples with alleleCount and locusData
-    lumped by different levels specified as a list of integers."""
+    """Get lumped data for a specific locus.
 
+    Args:
+       genotypeData (Genotypes): genotype data to query
+       locus (str): the locus
+       lumpLevels (list): a list of integers representing lumping levels
+
+    Returns:
+       dict: a dictionary of tuples:
+         - locusData: keyed by locus
+         - alleleCount:
+    """
     lumpData = {}
     for level in lumpLevels:
         lumpData[level] = (
@@ -447,10 +521,12 @@ def getLumpedDataLevels(genotypeData, locus, lumpLevels):
 
 
 class AlleleCounts:
-    """WARNING: this class is now obsolete, the Genotypes class
-    now holds allele count data as pseudo-genotype matrix.
+    """Deprecated class to store information in allele count form.
 
-    Class to store information in allele count form."""
+    .. deprecated:: 0.6.0
+         this class is now obsolete, the :class:`Genotypes` class
+         now holds allele count data as pseudo-genotype matrix.
+    """
 
     def __init__(self, alleleTable=None, locusName=None, debug=0):
         self.alleleTable = alleleTable
@@ -487,7 +563,6 @@ class AlleleCounts:
 
         Specifically, total number of alleles and loci.
         """
-
         stream.opentag("summaryinfo")
         stream.writeln()
         stream.tagContents("allelecount", f"{self.totalAlleleCount}")

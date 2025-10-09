@@ -13,32 +13,29 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-#
+"""Sphinx configuration."""
+
+import os
 import sys
-from dataclasses import dataclass, field
 from pathlib import Path
 
-import pybtex.plugin
-import sphinxcontrib.bibtex.plugin
-from pybtex.style.formatting.alpha import Style as AlphaStyle
-from pygments.formatters.latex import LatexFormatter
 from setuptools_scm import get_version
-from sphinx.directives.code import LiteralInclude
 from sphinx.highlighting import PygmentsBridge
-from sphinx.writers.latex import LaTeXTranslator as SphinxLaTeXTranslator
-from sphinxcontrib.bibtex.style.referencing import BracketStyle
-from sphinxcontrib.bibtex.style.referencing.author_year import AuthorYearReferenceStyle
-from sphinxcontrib.bibtex.style.referencing.extra_year import ExtraYearReferenceStyle
-from sphinxcontrib.bibtex.style.template import (
-    join2,
-    post_text,
-    pre_text,
-    reference,
-    year,
+
+sys.path.insert(0, str(Path(__file__).parent))  # add website/ to path
+
+# local customizations
+from helpers import (
+    CustomLatexFormatter,
+    CustomLaTeXTranslator,
+    MyLiteralInclude,
+    get_autoapi_dirs,
+    patch_latex_files,
+    prepare_autoapi_index,
+    renumber_footnotes,
+    skip_instance_vars,
+    substitute_toc_maxdepth,
 )
-
-sys.path.insert(0, str(Path("../src").resolve()))
-
 
 # -- General configuration ------------------------------------------------
 
@@ -58,6 +55,9 @@ extensions = [
     "sphinxarg.ext",
     "sphinx_copybutton",
     "sphinxcontrib.bibtex",
+    "autoapi.extension",
+    "sphinx.ext.napoleon",
+    "sphinx.ext.intersphinx",
 ]
 
 # override user-agent so that linkcheck works
@@ -65,6 +65,8 @@ extensions = [
 # user_agent= "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:121.0) Gecko/20100101 Firefox/121.0"
 
 # autosectionlabel_prefix_document = True
+# suppress warnings because autoapi generates many
+suppress_warnings = ["autosectionlabel.*"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -82,6 +84,7 @@ master_doc = "index"
 # project = "PyPop: Python for Population Genomics"
 project = "PyPop"
 copyright = "2025 PyPop contributors"
+contribs_copyright = f"Copyright © {copyright}"
 uc_copyright = "Copyright © 2003-2009 Regents of the University of California"
 gfdl_license_text = "Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A copy of the license is included in the License chapter."
 
@@ -105,34 +108,117 @@ numfig = True
 togglebutton_hint = "Click to show"
 togglebutton_hint_hide = "Click to hide"
 
+
+# -- Options for Auto API output ----------------------------------------------
+
+# autoapi_dirs = ["../src/PyPop"]
+# need  first try a *released* version
+autoapi_dirs = get_autoapi_dirs("PyPop", "../src/PyPop")
+autoapi_type = "python"
+autoapi_root = "api"
+autoapi_add_toctree_entry = False
+autoapi_keep_files = True
+autoapi_own_page_level = "module"
+autoapi_template_dir = "_templates/autoapi"
+autoapi_file_pattern = "*.py"
+autoapi_ignore = [
+    "**/conf.py",
+]
+autoapi_member_order = "groupwise"
+autoapi_options = [
+    "members",
+    "undoc-members",
+    #           "private-members",  # remove for production
+    #           "special-members",
+    "show-inheritance",
+    "show-module-summary",
+    "imported-members",
+    "show-inheritance-diagram",
+]
+
+# concatenate the class and constructor
+autoapi_python_class_content = "both"
+
+# parse the doc strings as rST
+autoapi_python_use_autodoc_docstring = True
+
+# keep docs less verbose by skipping module names in front of each
+# class/method
+add_module_names = False
+
+# create links to base python classes
+intersphinx_mapping = {
+    "python": ("https://docs.python.org/3", None),
+    # you can add more, e.g.
+    "numpy": ("https://numpy.org/doc/stable/", None),
+}
+
+# -- Options for declaring includes ----------------------------------------------
+
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
 # built documents.
 
-
-# The full version, including alpha/beta/rc tags, don't normalize for documentation
+# The full version of local copy, including alpha/beta/rc tags, don't
+# normalize for documentation
 full_release = get_version("..", normalize=True, version_scheme="post-release")
 # The version without the .post or .dev variants
 version = full_release.split(".post")[0]
 release = version  # make the release and version be the same
 
+# get the currently documented API version
+if os.environ.get("PYPOP_DOCS_MODE", "") == "installed":
+    # checking installed package
+    try:
+        import PyPop
+
+        print("[conf] sys.path:", sys.path)
+        api_version = PyPop.__version__
+        print(f"[conf] API is using installed package version: {api_version}")
+    except ImportError:
+        api_version = full_release
+        print(
+            f"[conf] Can't find installed version, fallback to internal API version: {api_version}"
+        )
+else:
+    api_version = full_release
+    print(f"[conf] Using internal API version: {api_version}")
+
 guide_prefix = "pypop-guide-" + release  # include version in PDF filename
 guide_name = "PyPop User Guide"
 guide_subtitle = "User Guide for Python for Population Genomics"
 guide_name_with_subtitle = f"{guide_name}: {guide_subtitle}"
-guide_pdf_url = f"../{guide_prefix}.pdf"
+guide_pdf_relative_file = f"../{guide_prefix}.pdf"
+guide_pdf_link = f"*{guide_name}*: `HTML <http://pypop.org/docs>`__ | `PDF <http://pypop.org/{guide_prefix}.pdf>`__"
+
+apidocs_prefix = "pypop-api-" + release  # include version in PDF filename
+apidocs_name = "PyPop API Reference"
+apidocs_subtitle = "Developer documentation"
+apidocs_name_with_subtitle = f"{apidocs_name}: {apidocs_subtitle}"
+apidocs_pdf_relative_file = f"../{apidocs_prefix}.pdf"
+apidocs_pdf_link = f"*{apidocs_name}*: `HTML <http://pypop.org/{autoapi_root}>`__ | `PDF <http://pypop.org/{apidocs_prefix}.pdf>`__"
 
 # other substitutions
 rst_epilog = """
 .. |pkgname| replace:: {}
 .. |guide_subtitle| replace:: **{}**
+.. |apidocs_subtitle| replace:: **{}**
 .. |htmlauthor| replace:: {}
 .. |full_release| replace:: {}
+.. |api_version| replace:: {}
 .. |uc_copyright| replace:: {}
 .. |copyright| replace:: {}
 .. |gfdl_license_text| replace:: {}
-.. |guide_pdf_url| replace:: {}
+.. |guide_pdf_relative_file| replace:: {}
+.. |guide_pdf_link| replace:: {}
 .. |guide_pdf_download_box| raw:: html
+
+   <div style="text-align: right; font-size: 120%; margin-top: -1em; margin-bottom: 1em;">
+   <a href="../{}.pdf">📥 PDF version</a>
+   </div>
+.. |apidocs_pdf_relative_file| replace:: {}
+.. |apidocs_pdf_link| replace:: {}
+.. |api_pdf_download_box| raw:: html
 
    <div style="text-align: right; font-size: 120%; margin-top: -1em; margin-bottom: 1em;">
    <a href="../{}.pdf">📥 PDF version</a>
@@ -140,13 +226,19 @@ rst_epilog = """
 """.format(
     "``pypop-genomics``",
     guide_subtitle,
+    apidocs_subtitle,
     htmlauthor,
     full_release,
+    api_version,
     uc_copyright,
     copyright,
     gfdl_license_text,
-    guide_pdf_url,
+    guide_pdf_relative_file,
+    guide_pdf_link,
     guide_prefix,
+    apidocs_pdf_relative_file,
+    apidocs_pdf_link,
+    apidocs_prefix,
 )
 
 # The language for content autogenerated by Sphinx. Refer to documentation
@@ -159,7 +251,14 @@ rst_epilog = """
 # List of patterns, relative to source directory, that match files and
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
-exclude_patterns = ["_build", "README.md", "reference", "Thumbs.db", ".DS_Store"]
+exclude_patterns = [
+    "_build",
+    "README.md",
+    "reference",
+    "Thumbs.db",
+    ".DS_Store",
+    "_static",
+]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "sphinx"
@@ -167,7 +266,7 @@ pygments_style = "sphinx"
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = False
 
-# -- Bibligraphy output using sphinxcontrib-bibtex --------------------------------------
+# -- Bibligraphy output using sphinxcontrib-bibtex and pybtex --------------------------------------
 
 bibtex_bibfiles = ["pypop.bib"]
 
@@ -177,79 +276,10 @@ bibtex_bibfiles = ["pypop.bib"]
 ## remove space between citation and post-text, so that it supports
 ## output like: "Author (2024a, 2024b)"
 
-
-def bracket_style() -> BracketStyle:
-    return BracketStyle(
-        left="(",
-        right=")",
-    )
-
-
-@dataclass
-class MyReferenceStyle(AuthorYearReferenceStyle, ExtraYearReferenceStyle):
-    bracket_parenthetical: BracketStyle = field(default_factory=bracket_style)
-    bracket_textual: BracketStyle = field(default_factory=bracket_style)
-    bracket_author: BracketStyle = field(default_factory=bracket_style)
-    bracket_label: BracketStyle = field(default_factory=bracket_style)
-    bracket_year: BracketStyle = field(default_factory=bracket_style)
-
-    # override Separator between citation and post-text to drop comma and space
-    post_text_sep: str = ""
-
-    def inner(self, role_name):
-        # introspection to decide which parent class method to call
-        if role_name in {"year", "yearpar"}:
-            # append the pre and post text (original file does not do this)
-            return join2(sep1=self.pre_text_sep, sep2=self.post_text_sep)[
-                pre_text,
-                reference[year],
-                post_text,
-            ]
-        # call the inner method for AuthorYearReferenceStyle
-        return super(AuthorYearReferenceStyle, self).inner(role_name)
-
-
-sphinxcontrib.bibtex.plugin.register_plugin(
-    "sphinxcontrib.bibtex.style.referencing", "author_year_round", MyReferenceStyle
-)
+from bibtex_styles import AlphaInitialsStyle, MyReferenceStyle  # noqa: E402, F401
 
 bibtex_reference_style = "author_year_round"
-
-## custom bibligraphy style
-
-# FIXME: should move this to top - currently doesn't work
-from pybtex.style.template import field, first_of, optional, sentence  # noqa: E402
-
-
-class AlphaInitialsStyle(AlphaStyle):
-    name = "alpha-initials"
-    default_name_style = "lastfirst"  # put the lastname first
-    default_label_style = "alpha"  # 'number' or 'alpha'
-    default_sorting_style = "author_year_title"
-
-    def __init__(self, **kwargs):
-        super().__init__(abbreviate_names=True, **kwargs)  # abbreviate initials
-
-    def format_web_refs(self, e):
-        # try for DOI, PubMed or EPrint first, only include URL if not present
-        return first_of[
-            sentence[
-                optional[self.format_eprint(e)],
-                optional[self.format_pubmed(e)],
-                optional[self.format_doi(e)],
-            ],
-            optional[
-                self.format_url(e), optional[" (accessed on ", field("urldate"), ")"]
-            ],
-        ]
-
-
-pybtex.plugin.register_plugin(
-    "pybtex.style.formatting", "alpha-initials", AlphaInitialsStyle
-)
-
 bibtex_default_style = "alpha-initials"
-
 
 # -- Options for HTML output ----------------------------------------------
 
@@ -302,15 +332,7 @@ html_css_files = ["custom.css"]
 # and they will be included in the build directory (and therefore on the website)
 html_extra_path = ["html_root"]
 
-
 # -- Options for LaTeX output ---------------------------------------------
-
-
-# set size of code output in LaTeX backend
-class CustomLatexFormatter(LatexFormatter):
-    def __init__(self, **options):
-        super().__init__(**options)
-        self.verboptions = r"formatcom=\footnotesize"
 
 
 PygmentsBridge.latex_formatter = CustomLatexFormatter
@@ -341,6 +363,49 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
 \renewcommand*{\notedivision}{\subsubsection*{\notesname}}
 \renewcommand*{\pagenotesubhead}[2]{}
 
+% ensure pagenote counter is global and not reset per chapter/section
+%\counterwithout{pagenote}{chapter}  % if using manual
+\counterwithout{pagenote}{section}  % if using howto
+
+POINTSIZE
+
+\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
+
+\makeatletter
+\@ifclassloaded{sphinxhowto}{
+  % "howto" class: no chapter, use \section
+  % Only for sphinxhowto class
+
+ \setcounter{tocdepth}{2}
+
+  % Hook into top-level section (index) to print notes
+  \pretocmd{\printindex}{%
+    % only print footnotes if there are any
+    \ifnumcomp{\thepagenote}{>}{0}{%
+      \begingroup
+      \scriptsize
+      \linespread{0.5}%
+      \printnotes*%
+      \vfill
+      \endgroup
+    }{}%
+  }{}{}
+
+}{
+  % "manual" class: use \chapter
+  \pretocmd{\chapter}{%
+    \ifnumcomp{\thepagenote}{>}{0}{%
+      \begingroup
+      \scriptsize
+      \linespread{0.5}%
+      \printnotes*%
+      \vfill
+      \endgroup
+    }{}%
+  }{}{}
+}
+\makeatother
+
 \usepackage{environ}% http://ctan.org/pkg/environ
 
 \newcommand{\OverwriteEnviron}[1]{%
@@ -352,18 +417,6 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
   \NewEnviron{#1}%
 }
 
-\usepackage{etoolbox}% http://ctan.org/pkg/etoolbox
-\pretocmd{\chapter}{%
-  % only print chapter endnotes if there is at least one footnote
-  \ifnumcomp{\thepagenote}{>}{0}{
-   \begingroup
-   \scriptsize
-   \linespread{0.5} %regulate line spacing
-   \printnotes*
-   \vfill
-   \endgroup
-  }{}
-}{}{}
 
 % Reuse Sphinx styling for admonitions
 % We'll define a 'sphinxversionbox' environment
@@ -427,25 +480,48 @@ my_latex_preamble_template = r"""\DeclareRobustCommand{\and}{%
   \sphinxrestorepageanchorsetting
 }"""
 
-# replace the template with the right SUBTITLE
-my_latex_preamble = my_latex_preamble_template.replace("SUBTITLE", guide_subtitle)
+# Shared LaTeX maketitle template
+
+maketitle_template = r"""
+\newcommand\sphinxbackoftitlepage{%%
+  \sphinxstrong{%(doc_name_with_subtitle)s}\\ \\
+  %(copyright)s. \\%(extra_copyright)s. \\ \\
+  %(gfdl_license_text)s \\ \\
+  \emph{Document revision}: %(full_release)s
+}
+\sphinxmaketitle
+"""
+
+# Fill in guide variables
+guide_maketitle = maketitle_template % {
+    "doc_name_with_subtitle": guide_name_with_subtitle,
+    "copyright": uc_copyright,
+    "extra_copyright": contribs_copyright,
+    "gfdl_license_text": gfdl_license_text,
+    "full_release": full_release,
+}
+
+# fill in API variables
+apidocs_maketitle = maketitle_template % {
+    "doc_name_with_subtitle": apidocs_name_with_subtitle,
+    "copyright": contribs_copyright,
+    "extra_copyright": "",
+    "gfdl_license_text": gfdl_license_text,
+    "full_release": full_release,
+}
 
 latex_elements = {
     # The paper size ('letterpaper' or 'a4paper').
-    #
     # 'papersize': 'letterpaper',
     # The font size ('10pt', '11pt' or '12pt').
-    #
     # 'pointsize': '10pt',
     # make PDF shorter by allowing chapters to start immediately
     "extraclassoptions": "openany,oneside",
     # Additional stuff for the LaTeX preamble.
-    #
-    "preamble": my_latex_preamble,
+    "preamble": my_latex_preamble_template,
     # Latex figure (float) alignment
-    #
     # 'figure_align': 'htbp',
-    "maketitle": rf"\newcommand\sphinxbackoftitlepage{{\sphinxstrong{{{guide_name_with_subtitle}}}\\ \\{uc_copyright}. \\Copyright © {copyright}. \\ \\{gfdl_license_text} \\ \\\emph{{Document revision}}: {full_release}}}\sphinxmaketitle",
+    # "maketitle": r"\newcommand\sphinxbackoftitlepage{}\sphinxmaketitle",
     # margins
     "sphinxsetup": "hmargin=0.8in, vmargin={1in,0.9in}",
 }
@@ -455,76 +531,51 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 
 latex_documents = [
-    ("docs/index", guide_prefix + ".tex", guide_name, author, "manual"),
+    (
+        "docs/index",
+        guide_prefix + ".tex",
+        guide_name,
+        author,
+        "manual",
+        False,
+        {
+            "maketitle": guide_maketitle,
+            "placeholders": {"SUBTITLE": guide_subtitle},
+        },
+    ),
+    (
+        "api/index",
+        apidocs_prefix + ".tex",
+        apidocs_name,
+        "Alexander K. Lancaster",
+        "howto",
+        False,
+        {
+            # "maketitle": apidocs_maketitle,
+            "placeholders": {
+                "SUBTITLE": apidocs_subtitle,
+                "POINTSIZE": "8pt",
+            },
+        },
+    ),
 ]
 pdf_documents = [
     ("docs/index", guide_prefix, guide_name, author),
 ]
 
-# override the default literalinclude directive
-# this sets the tab width only in LaTeX mode to make sure tab stops stay aligned
-
-# in HTML case, because we want to preserve the tabs for cut-and-paste, we use
-# _static/custom.css to set tab-width
-
-
-class MyLiteralInclude(LiteralInclude):
-    def run(self):
-        # FIXME: missing tags
-        if "builder_latex" in tags.tags:  # noqa: F821
-            self.options["tab-width"] = 15  # set default tab-width only in LaTeX mode
-            print("LaTeX literalinclude options:", self.options)
-
-        node = LiteralInclude.run(self)[0]  # run original directive
-        return [node]
-
-
-def substitute_toc_maxdepth(app, _docname, source):
-    # determine the maxdepth for the builder
-    maxdepth_value = 4 if app.builder.name == "html" else 3
-
-    # modify the toctree directive by replacing maxdepth with value
-    # replace the `|toc_maxdepth|` placeholder in the source content
-    new_source = source[0].replace("|toc_maxdepth|", str(maxdepth_value))
-    source[0] = new_source  # Update the source with the modified content
-
-
-class CustomLaTeXTranslator(SphinxLaTeXTranslator):
-    def visit_versionmodified(self, node):
-        vtype = node["type"]
-        version = node.get("version", "")
-        title, opts = "", ""
-
-        if vtype == "deprecated":
-            title = f"Deprecated since version {version}" if version else "Deprecated"
-            opts += "coltitle=black,colback=red!5,colframe=red!30!white"
-        elif vtype == "versionchanged":
-            title = f"Changed in version {version}" if version else "Changed"
-            # match warning style (orange, softened)
-            opts += "coltitle=black,colback=orange!10,colframe=orange!25!white"
-        elif vtype == "versionadded":
-            title = f"Added in version {version}" if version else "Added"
-            # soft green, like "tip" or "success" admonition
-            opts += "coltitle=black,colback=green!5,colframe=green!20!white"
-        elif vtype == "versionremoved":
-            title = f"Removed in version {version}" if version else "Removed"
-            opts += "colback=gray!5,colframe=red!50!black"
-
-        if opts:
-            self.body.append(rf"\begin{{sphinxversionbox}}[title={{{title}}},{opts}]")
-        else:
-            super().visit_versionmodified(node)
-
-    def depart_versionmodified(self, node):
-        vtype = node["type"]
-        if vtype in {"deprecated", "versionchanged", "versionadded", "versionremoved"}:
-            self.body.append(r"\end{sphinxversionbox}")
-        else:
-            super().depart_versionmodified(node)
-
 
 def setup(app):
-    app.set_translator("latex", CustomLaTeXTranslator)
-
-    app.add_directive("literalinclude", MyLiteralInclude, override=True)
-    app.connect("source-read", substitute_toc_maxdepth)
+    """Run the customization hooks."""
+    app.connect("builder-inited", prepare_autoapi_index)  # override default index
+    app.connect(
+        "autoapi-skip-member", skip_instance_vars
+    )  # don't document instance variables in public API
+    app.set_translator(
+        "latex", CustomLaTeXTranslator
+    )  # handle version directives in LaTeX
+    app.add_directive(
+        "literalinclude", MyLiteralInclude, override=True
+    )  # fix literalinclude to respect tabs in LaTeX
+    app.connect("source-read", substitute_toc_maxdepth)  # dynamic TOC depth
+    app.connect("build-finished", renumber_footnotes)
+    app.connect("build-finished", patch_latex_files)
