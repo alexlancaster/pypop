@@ -1517,11 +1517,8 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
         styledoc = etree.parse(self.xslFilename)
         style = etree.XSLT(styledoc)
 
-        print(style)
         # read output XML file
         doc = etree.parse(self.xmlOutPath)
-        print(doc)
-
         # process via stylesheet
         result = style(doc, **{"new-hardyweinberg-format": "1"})
 
