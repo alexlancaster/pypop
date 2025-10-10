@@ -1271,6 +1271,10 @@ Then we setup the XSLT transformation file that will generate a plain
 text output (``my-pop.txt``), along with the default XML output file:
 ``my-out.xml``. [3]_
 
+.. warning::
+
+   Use of :func:`importlib.resources.files` requires Python version 3.9 or later.
+
 >>> from PyPop.xslt import ns              # need for XSLT extensions
 >>> from importlib.resources import files  # get location from installation
 >>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
