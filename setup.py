@@ -33,6 +33,7 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+"""Customize build environment for PyPop."""
 
 import os
 import sys
@@ -51,9 +52,7 @@ from src.script_build.generate_metadata import generate_metadata
 
 
 class CleanCommand(clean.clean):
-    """Customized clean command - removes in_place extension files if they exist
-    and _metadata.py
-    """
+    """Custom clean - removes in_place extension files and _metadata.py."""
 
     def run(self):
         DIR = Path(__file__).resolve().parent / "src"
@@ -83,6 +82,8 @@ class CleanCommand(clean.clean):
 
 
 class CustomBuildExt(_build_ext):
+    """Set compiler options to find libraries."""
+
     def finalize_options(self):
         super().finalize_options()
 
@@ -102,6 +103,13 @@ class CustomBuildExt(_build_ext):
 
 
 class CustomBuildPy(_build_py):
+    """Generate metadata needed before build.
+
+    Also not running from a CIBUILDWHEEL environment variable we also
+    need to create the citations.
+
+    """
+
     def run(self):
         # do standard build process
         super().run()
@@ -134,12 +142,10 @@ class CustomBuildPy(_build_py):
             convert_citation_formats(build_lib, citation_path)
 
 
-# convert extensions defined in `toml_path` to extensions
 # FIXME: this is only necessary while we are building for Python
 # that doesn't support `ext-modules` within pyproject.toml
-
-
 def add_more_ext_modules_from_toml(toml_path, extensions):
+    """Convert extensions defined in ``toml_path`` to extensions."""
     with open(toml_path, "rb") as f:
         config = tomli.load(f)
 
@@ -172,8 +178,8 @@ def add_more_ext_modules_from_toml(toml_path, extensions):
     return ext_modules
 
 
-# function to parse pyproject.toml and extract metadata for older Python versions
 def add_metadata_from_pyproject(toml_path):
+    """Parse pyproject.toml and extract metadata for older Python versions."""
     # load the pyproject.toml file
     with open(toml_path, encoding="utf-8") as f:
         pyproject_data = tomli.load(f)

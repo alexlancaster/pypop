@@ -73,13 +73,31 @@ def _translate_string_to(xslFilename, inString, outFile, outputDir=None, params=
 
 
 def translate_string_to_stdout(xslFilename, inString, outputDir=None, params=None):
-    # save result to stdout "-"
+    """Transform XML string using XSLT and save to stdout.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inString (str): XML string
+      outputDir (str, optional): name of output directory
+      params (list, optional): list of XSLT parameters
+
+    """
     _translate_string_to(xslFilename, inString, "-", outputDir=outputDir, params=params)
 
 
 def translate_string_to_file(
     xslFilename, inString, outFile, outputDir=None, params=None
 ):
+    """Transform XML string using XSLT and save to file.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inString (str): XML string
+      outFile (str): name of output file
+      outputDir (str): name of output directory
+      params (list): list of XSLT parameters
+
+    """
     _translate_string_to(
         xslFilename, inString, outFile, outputDir=outputDir, params=params
     )
@@ -130,6 +148,18 @@ def _translate_file_to(
 
 
 def translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None):
+    """Transform XML file using XSLT and save to stdout.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inFile (str): name of input XML file
+      inputDir (str, optional): name of input directory
+      params (list, optional): list of XSLT parameters
+
+    Returns:
+      tuple: consisting of a bool (transformation successful) and str (output)
+
+    """
     retval, stdout = _translate_file_to(
         xslFilename, inFile, "-", inputDir=inputDir, params=params
     )
@@ -139,6 +169,19 @@ def translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None):
 def translate_file_to_file(
     xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None
 ):
+    """Transform XML file using XSLT and save to a file.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inFile (str): name of input XML file
+      outFile (str): name of output file
+      inputDir (str, optional): name of input directory
+      outputDir (str, optional): name of output directory
+      params (list, optional): list of XSLT parameters
+
+    Returns:
+      bool: transformation successful
+    """
     retval, _output = _translate_file_to(
         xslFilename,
         inFile,
@@ -153,7 +196,36 @@ def translate_file_to_file(
 
 
 class Meta:
-    """Aggregates output from multiple population runs."""
+    """Aggregates output from multiple population runs.
+
+    Transform a specified list of ``.xml`` output files to ``.tsv``
+    tab-separated values (TSV) form.
+
+    Args:
+       popmetabinpath (str): the directory for where meta sources are kept
+
+       datapath (str): data where XSLT and other meta sources may be kept
+
+       metaXSLTDirectory (str): fallback XSLT directory
+
+       dump_meta (bool): create the ``meta.xml`` file (default to ``False,``)
+
+       TSV_output (bool): output ``.tsv`` tables by default (enabled by default). (such tables can be used by R)
+
+       prefixTSV (str): prefix to use for all ``.tsv`` files
+
+       PHYLIP_output (bool): create PHYLIP output (disabled by default)
+
+       ihwg_output (bool): by default, don't enable the 13th IHWG format headers
+
+       batchsize (int): size of batches to process separately (default
+         ``batchsize=0``, a separate batch for each file)
+
+       outputDir (str): output directory to write XML files to
+
+       xml_files (list): list of generate XML files
+
+    """
 
     def __init__(
         self,
@@ -169,23 +241,6 @@ class Meta:
         outputDir=None,
         xml_files=None,
     ):
-        """Transform a specified list of XML output files to *.tsv
-        tab-separated values (TSV) form.
-
-        Defaults:
-        # output .tsv tables by default (can be used by R)
-        TSV_output=True
-
-        # don't output PHYLIP by default
-        PHYLIP_output=False
-
-        # by default, don't enable the 13th IHWG format headers
-        ihwg_output = False
-
-        # by default process separately (batchsize=0)
-        batchsize = 0
-        """
-
         # set default parser to resolve the SYSTEM file entities, now
         # that the lxml > 5.0.0 default is to disable resolution.  but
         # disallow network access

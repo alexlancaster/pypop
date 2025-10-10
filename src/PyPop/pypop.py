@@ -33,7 +33,7 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Python population genetics statistics."""
+"""Command-line interface for ``pypop``."""
 
 import os
 import sys
@@ -50,6 +50,11 @@ from PyPop.Utils import getUserFilenameInput, glob_with_pathlib  # noqa: F401
 
 
 def main(argv=sys.argv):
+    """Entry point for ``pypop`` script.
+
+    Args:
+       argv (list): list of command-line options (default is ``sys.argv``)
+    """
     ######################################################################
     # BEGIN: CHECK PATHS and FILEs
     ######################################################################
@@ -344,14 +349,19 @@ return for each prompt.""")
 
 
 def main_interactive(argv=sys.argv):
+    """Entry point for interactive mode script ``pypop-interactive``.
+
+    Args:
+       argv (list): list of command-line options (default is ``sys.argv``)
+    """
     argv.append("-i")
     main(argv)
     input("Press Enter to exit...")
 
 
 if __name__ == "__main__":
-    DIR = Path(__file__).parent.resolve()
-    sys.path.insert(0, str(Path(DIR) / ".."))
-    sys.path.insert(0, str(Path(DIR) / "../src"))
+    _DIR = Path(__file__).parent.resolve()
+    sys.path.insert(0, str(Path(_DIR) / ".."))
+    sys.path.insert(0, str(Path(_DIR) / "../src"))
 
     main()

@@ -2,9 +2,11 @@
 
 ## Release notes for in-progress features not yet officially documented or supported
 
-- New wrapper module `Haplostats`. This wraps a portion of the
-  `haplo.stats` R package `haplo-stats` for haplotype
-  estimation. [Implementation in alpha-phase - still working on this].
+- New wrapper module `Haplostats`. This wraps a portion of the R
+  package
+  [`haplo.stats`](https://cran.r-project.org/package=haplo.stats) for
+  haplotype estimation. \[Implementation in alpha-phase - still working
+  on this\].
 
 ## Release-time tasks
 
@@ -313,70 +315,7 @@ job:
 
 ## Design notes
 
-(These should eventually be migrated back in the source code, so that,
-if and when we generate API docs, they will appear there. They would
-need updating as part of that migration to make sure they are still
-accurate.)
-
-- `Main` is the primary interface to the PyPop modules. Given a
-  ConfigParser instance, which can be (1) created from a filename passed
-  from command-line argument or (2) from values populated by the GUI
-  (currently selected from an .ini file, but can ultimately be set
-  directly from the GUI or values based from a form to a web server or
-  the) it then runs the specified modules (outlined below).
-
-- `GUIApp` is the graphical front-end to PyPop which uses the
-  "wxPython":http://www.wxpython.org GUI toolkit. wxPython is a set of
-  Python bindings to "wxWindows":http://www.wxwindows.org, which is an
-  open-source cross-platform GUI widget toolkit which has a native look
-  under GNU/Linux (GTK), Windows (MFC) and MacOS X (Aqua). \[as of 2023,
-  this was removed\]
-
-- `ParseFile` is a base class which has most of the common functionality
-  for reading files.
-
-- `ParseGenotypeFile` is a subclass of `ParseFile` that deals with
-  files that consist specifically of data with individual genotyped for
-  one or more loci.
-
-- `ParseAlleleCount` is another subclass of `ParseFile` that deals
-  with files consisting of allele counts across a whole population.
-
-- `HardyWeinberg` is a class that calculates Hardy-Weinberg
-  statistics given genotype data for a single locus.
-
-- `HardyWeinbergGuoThompson` a subclass of `HardyWeinberg` that uses the
-  Guo & Thompson algorithm for calculating statistics.
-
-- `HardyWeinbergGuoThompsonArlequin` a subclass of `HardyWeinberg`
-  that uses the Arlequin implementation of the Guo & Thompson algorithm
-  for calculating statistics.
-
-- `Haplo` is an abstract base class for estimating haplotypes given
-  genotype data.
-
-* `HaploArlequin` is a subclass of `Haplo` that uses Arlequin for
-  estimation of haplotypes (obsolete).
-
-- `Emhaplofreq` is a subclass of `Haplo` that uses `emhaplofreq` (Rich
-  Single\`s program) for the estimation of haplotypes and linkage
-  disequilibrium values.
-
-- `ArlequinWrapper` the underlying class that "wraps" the
-  functionality of the "Arlequin":http://lgb.unige.ch/arlequin/ program
-  (obsolete: this class, in turn, supplies `HaploArlequin` with required
-  information).
-
-- `Homozygosity` Calculates homozygosity statistics for a given locus,
-  calculates the observed homozygosity and returns the approximate
-  expected homozygosity statistics taken from previous simulation runs.
-
-Both file formats are assumed to have a population header information
-with, consisting of a line of column headers (population metadata)
-followed by a line with the actual data, followed by the column
-headers for the samples (sample metadata) followed by the sample data
-itself (either individuals in the genotyped case, or alleles in the
-allele count case).
+API description migrated to source code docstrings.
 
 ## Obsolete notes
 

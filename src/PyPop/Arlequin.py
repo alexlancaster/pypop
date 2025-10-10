@@ -32,9 +32,13 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+"""Provides Arlequin functionality in Python.
 
+.. deprecated:: 1.0.0
 
-"""Module for exposing Arlequin functionality in Python."""
+   Only works for an obsolete version of Arlequin.
+
+"""
 
 import os
 import re
@@ -52,7 +56,17 @@ warnings.warn(
 
 
 class ArlequinWrapper:
-    """New wrapper for Arlequin"""
+    """Wraps the functionality of the `Arlequin <http://lgb.unige.ch/arlequin/>`_ program.
+
+    Args:
+      matrix (StringMatrix): matrix
+      arlequinPrefix (str, optional): directory prefix (default ``arl_run``)
+      arlequinExec (str, optional): executable program (default ``arlecore.exe``)
+      untypedAllele (str, optional): untyped allele designator (default ``****``)
+      arpFilename (str, optional): default output file name (default ``output.arp``)
+      arsFilename (str, optional): default run file name (default ``arl_run.ars``)
+      debug (bool): enable debug (default off, i.e. ``None``)
+    """
 
     def __init__(
         self,
@@ -99,6 +113,11 @@ class ArlequinWrapper:
             )
 
     def outputArpFile(self, group):
+        """Output the ``.arp`` file.
+
+        Args:
+           group (list): list of loci to pass to Arlequin
+        """
         dataLoci = [
             li for li in group if len(self.matrix.filterOut(li, self.untypedAllele)) > 0
         ]
@@ -110,6 +129,11 @@ class ArlequinWrapper:
             self._outputSample(keys)
 
     def _outputHeader(self, groupCount):
+        """Output the header part of ``.arp`` file.
+
+        Args:
+           groupCount (int): number of groups
+        """
         self.arpFile.write(
             f"""[Profile]
 
@@ -132,6 +156,11 @@ class ArlequinWrapper:
 """)
 
     def _outputSample(self, keys):
+        """Output sample at loci.
+
+        Args:
+           keys (str): loci key
+        """
         numSamples = len(self.matrix[keys])
 
         self.arpFile.write(
@@ -171,18 +200,30 @@ class ArlequinWrapper:
     def _fixData(self, data):
         """Fix data for Arlequin input.
 
-        Convert embedded spaces to 'x'
+        1. Convert embedded spaces to ``x``
 
-        Convert missing data using the untypedAllele parameter to
-        class to the standard single character missing data signifier
-        '?' that Arlequin uses"""
+        2. Convert missing data using the ``untypedAllele`` parameter
+           to class to the standard single character missing data
+           signifier ``?`` that Arlequin uses
 
+        Args:
+           data (str): original allele
+
+        Returns:
+           str: corrected allele
+
+        """
         # add a colon ':' to the match, because all alleles in the original
         # data structure have a trailing colon
         return "?" if data == self.untypedAllele + ":" else data.replace(" ", "x")
 
     def _outputArlRunTxt(self, txtFilename, arpFilename):
-        """Outputs the run-time Arlequin program file."""
+        """Outputs the run-time Arlequin program file.
+
+        Args:
+           txtFilename (str): text file name
+           arpFilename (str): ``.arp`` file name
+        """
         with open(Path(self.arlSubdir) / txtFilename, "w") as fp:
             fp.write(
                 f"""{Path(Path.cwd()) / self.arlSubdir}
@@ -194,7 +235,12 @@ end"""
             )
 
     def outputArsFile(self, arsFilename, arsContents):
-        """Outputs the run-time Arlequin program file."""
+        """Outputs the run-time Arlequin program file.
+
+        Args:
+          arsFilename (str): name of file
+          arsContents (str): contents of file
+        """
         with open(Path.join(self.arlSubdir) / arsFilename, "w") as fp:
             fp.write(arsContents)
 
@@ -205,10 +251,10 @@ end"""
     def runArlequin(self):
         """Run the Arlequin haplotyping program.
 
-        Forks a copy of 'arlecore.exe', which must be on 'PATH' to
+        Forks a copy of ``arlecore.exe``, which must be on ``PATH`` to
         actually generate the desired statistics estimates from the
-        generated '.arp' file."""
-
+        generated ``.arp`` file.
+        """
         # save current directory
         cwd = Path.cwd()
 
@@ -229,12 +275,30 @@ end"""
         os.chdir(cwd)
 
     def cleanup(self):
-        # remove the working arlequin subdirectory
+        """Remove the working Arlequin subdirectory."""
         shutil.rmtree(self.arlSubdir)
 
 
 class ArlequinExactHWTest(ArlequinWrapper):
-    """Wraps the Arlequin Hardy-Weinberg exact functionality"""
+    """Wraps the Arlequin Hardy-Weinberg exact functionality.
+
+    Run Hardy-Weinberg exact test on list specified in ``lociList``.
+
+    Attributes:
+      hwExactTest (str): standard config options for Arlequin
+
+    Args:
+     matrix (StringMatrix): StringMatrix for testing
+
+     lociList (list): list of loci
+
+     markovChainStepsHW (int, optional): Number of steps to use in Markov chain
+      (default: ``100000``)
+
+     markovChainDememorisationStepsHW (int, optional): "Burn-in" time for Markov
+      chain (default: ``1000``).
+
+    """
 
     hwExactTest = """[Setting for Calculations]
 TaskNumber=32
@@ -318,17 +382,6 @@ KeepNullDistrib=0"""
         markovChainDememorisationStepsHW=1000,
         **kw,
     ):
-        """Setup run HW exact test.
-
-        Run Hardy-Weinberg exact test on list specified in 'lociList'.
-
-        - 'markovChainStepsHW': Number of steps to use in Markov chain
-          (default: 100000).
-
-        - 'markovChainDememorisationStepsHW': "Burn-in" time for
-          Markov chain (default: 1000).
-
-        """
         self.markovChainStepsHW = markovChainStepsHW
         self.markovChainDememorisationStepsHW = markovChainDememorisationStepsHW
 
@@ -346,27 +399,22 @@ KeepNullDistrib=0"""
     def getHWExactTest(self):
         """Returns a dictionary of loci.
 
-        Each dictionary element contains a tuple of the results from
-        the Arlequin implementation of the Hardy-Weinberg exact test,
-        namely:
+        Returns:
+          dict: Each dictionary element contains a tuple of the results from
+          the Arlequin implementation of the Hardy-Weinberg exact test,
+          namely:
 
-        - number of genotypes,
+          - number of genotypes,
+          - observed heterozygosity,
+          - expected heterozygosity,
+          - the p-value,
+          - the standard deviation,
+          - number of steps,
 
-        - observed heterozygosity,
-
-        - expected heterozygosity,
-
-        - the p-value,
-
-        - the standard deviation,
-
-        - number of steps,
-
-        If locus is monomorphic, the HW exact test can't be run, and
-        the contents of the dictionary element simply contains the
-        string 'monomorphic', rather than the tuple of values.
+          If locus is monomorphic, the HW exact test can't be run, and
+          the contents of the dictionary element simply contains the
+          string ``monomorphic``, rather than the tuple of values.
         """
-
         outFile = (
             Path(self.arlSubdir) / self.arlResPrefix
             + ".res" / self.arlResPrefix
@@ -420,15 +468,34 @@ KeepNullDistrib=0"""
 
 
 class ArlequinBatch:
-    """A Python `wrapper' class for Arlequin.
+    """A wrapper for running Arlequin from the command-line.
 
     Given a delimited text file of multi-locus genotype data: provides
     methods to output Arlequin format data files and runtime info and
-    execution of Arlequin itself.
+    execution of Arlequin itself. Used to provide a "batch"
+    (i.e. command line) mode for generating appropriate Arlequin input
+    files and for forking Arlequin itself.
 
-    Is used to provide a `batch' (command line) mode for generating
-    appropriate Arlequin input files and for forking Arlequin
-    itself."""
+    Args:
+       arpFilename (str): Arlequin filename (must have ``.arp`` file
+        extension)
+       arsFilename (str): Arlequin settings filename (must have
+        ``.ars`` file extension)
+       idCol (str): column in input file that contains the individual
+        id.
+       prefixCols (int): number of columns to ignore before allele
+        data starts
+       suffixCols (int): number of columns to ignore after allele data
+        stops
+       windowSize (int): size of sliding window
+       mapOrder (list, optional): list order of columns if different to column
+        order in file (defaults to order in file)
+       untypedAllele (str, optional): (defaults to ``0``)
+       arlequinPrefix (str, optional): prefix for all Arlequin run-time files
+        (defaults to ``arl_run``).
+       debug (int, optional): (defaults to ``0``)
+
+    """
 
     def __init__(
         self,
@@ -443,37 +510,6 @@ class ArlequinBatch:
         arlequinPrefix="arl_run",
         debug=0,
     ):
-        """Constructor for HaploArlequin object.
-
-        Expects:
-
-        - arpFilename: Arlequin filename (must have '.arp' file
-          extension)
-
-        - arsFilename: Arlequin settings filename (must have '.ars' file
-          extension)
-
-        - idCol: column in input file that contains the individual id.
-
-        - prefixCols: number of columns to ignore before allele data
-          starts
-
-        - suffixCols: number of columns to ignore after allele data
-          stops
-
-        - windowSize: size of sliding window
-
-        - mapOrder: list order of columns if different to column order in file
-          (defaults to order in file)
-
-        - untypedAllele:  (defaults to '0')
-
-        - arlequinPrefix: prefix for all Arlequin run-time files
-          (defaults to 'arl_run').
-
-        - debug: (defaults to 0)
-
-        """
         self.arpFilename = arpFilename
         self.arsFilename = arsFilename
         self.idCol = idCol
@@ -500,6 +536,14 @@ class ArlequinBatch:
             )
 
     def _outputHeader(self, sampleCount):
+        """Output header lines.
+
+        Args:
+           sampleCount (int): number of samples
+
+        Returns:
+          list: header lines
+        """
         headerLines = []
         headerLines.append(
             f"""[Profile]
@@ -523,6 +567,18 @@ class ArlequinBatch:
         return headerLines
 
     def _outputSample(self, data, chunk, slice):
+        """Output specific sample.
+
+        Args:
+           data (list): list of lines from input file
+           chunk (list): list of adjacent columns
+           slice (list): window of current order
+
+        Returns:
+           tuple: tuple consists of a list of lines (strings) and an
+           integer indicating whether sample is valid (``1``) or not
+           (``0``).
+        """
         # store output Arlequin-formatted genotypes in an array
         samples = []
         sampleLines = []
@@ -576,17 +632,25 @@ class ArlequinBatch:
         return sampleLines, validSample
 
     def _genChunk(self, offset, start, window, order):
-        """Generate a list of adjacent columns for '.arp' file.
+        """Generate a list of adjacent columns for ``.arp`` file.
 
-        Given a map 'order', generate the list of adjacent columns.
+        Given a loci "order", generate the list of adjacent columns.
 
-        Return a tuple consisting of two lists:
+        Args:
+           offset (int): offset
+           start (int): start position
+           window (int): window width
+           order (list): order of loci
 
-        - adjacent columns (NOTE: assumes column order starts at ZERO!!)
-        - window on current map order
-           (a `slice' of the overall map order,  NOTE: starts at ONE!!).
+        Returns:
+          tuple: tuple consists of two lists:
+
+          - adjacent columns (NOTE: assumes column order starts at
+            ZERO!!)
+          - window on current map order (a "slice" of the overall map
+            order, NOTE: starts at ONE!!).
+
         """
-
         newChunk = []
         slice = order[start : (window + start)]
         for x in slice:
@@ -598,8 +662,11 @@ class ArlequinBatch:
         return newChunk, slice
 
     def outputArlequin(self, data):
-        """Outputs the specified .arp sample file."""
+        """Outputs the specified .arp sample file.
 
+        Args:
+           data (list): list of lines of data.
+        """
         if self.debug:
             print("Counted", len(data), "lines.")
         firstLine = data[0]
@@ -690,7 +757,12 @@ class ArlequinBatch:
                 self.arpFile.write(line)
 
     def _outputArlRunTxt(self, txtFilename, arpFilename):
-        """Outputs the run-time Arlequin program file."""
+        """Outputs the run-time Arlequin program file.
+
+        Args:
+           txtFilename (str): text file name
+           arpFilename (str): ``.arp`` file name
+        """
         with open(txtFilename, "w") as fp:
             fp.write(
                 f"""{Path.cwd()}
@@ -702,21 +774,29 @@ end"""
             )
 
     def _outputArlRunArs(self, systemArsFilename, arsFilename):
-        """Outputs the run-time Arlequin program file."""
+        """Outputs the run-time Arlequin program file.
+
+        Args:
+           systemArsFilename (str): system (default) ``.ars`` file name
+           arsFilename (str): ``.ars`` file name
+        """
         shutil.copy(arsFilename, systemArsFilename)
 
     def outputRunFiles(self):
-        """Generates the expected '.txt' set-up files for Arlequin."""
+        """Generates the expected set-up files for Arlequin.
+
+        Includes ``.txt`` and ``.ars`` file names.
+        """
         self._outputArlRunTxt(self.arlequinPrefix + ".txt", self.arpFilename)
         self._outputArlRunArs(self.arlequinPrefix + ".ars", self.arsFilename)
 
     def runArlequin(self):
         """Run the Arlequin haplotyping program.
 
-        Forks a copy of 'arlecore.exe', which must be on 'PATH' to
+        Forks a copy of ``arlecore.exe``, which must be on ``PATH`` to
         actually generate the desired statistics estimates from the
-        generated '.arp' file."""
-
+        generated ``.arp`` file.
+        """
         # spawn external Arlequin process
         os.system("arlecore.exe")
 
