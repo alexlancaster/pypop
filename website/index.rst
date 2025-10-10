@@ -60,8 +60,9 @@ Installation and documentation
 Documentation, including instructions on :doc:`installing
 <docs/guide-chapter-install>`, :doc:`using <docs/guide-chapter-usage>`
 and :doc:`interpreting output of <docs/guide-chapter-instructions>`
-PyPop, is contained in the :ref:`PyPop User Guide
-<user-guide>`.
+PyPop, is contained in the :ref:`PyPop User Guide <user-guide>`.  We
+also provide an :doc:`api/index` for that describes the
+programmatic access to PyPop and for contributors to PyPop itself.
 
 .. admonition:: Contact and questions
 
@@ -161,6 +162,7 @@ Support Contract (BISC), Phase II.
    :hidden:
 
    docs/index
+   API <api/index>
 
 .. toctree::
    :maxdepth: 1

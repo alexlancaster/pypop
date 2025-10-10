@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+"""Generate metadata."""
+
 import sys
 from pathlib import Path
 
@@ -6,10 +8,7 @@ import tomli
 
 
 def generate_metadata(output_path):
-    """
-    Generate _metadata.py from pyproject.toml.
-    """
-
+    """Generate _metadata.py from pyproject.toml."""
     with open("pyproject.toml", "rb") as pyproj_file:
         pyproject_data = tomli.load(pyproj_file)
         pkgname = pyproject_data["project"]["name"]

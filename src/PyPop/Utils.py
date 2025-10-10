@@ -51,33 +51,73 @@ from numpy import asarray, take, zeros
 from numpy.lib.user_array import container
 
 GENOTYPE_SEPARATOR = "~"
+"""
+Separator between genotypes
+
+Example:
+
+  In a haplotype
+  ``01:01~13:01~04:02``
+"""
+
 GENOTYPE_TERMINATOR = "~"
+"""
+Terminator of genotypes
+
+Example:
+
+  ```02:01:01:01~``
+"""
 
 
 def glob_with_pathlib(pattern):
+    """Use globbing with ``pathlib``.
+
+    Args:
+       pattern (str): globbing pattern
+
+    Returns:
+       list: of pathlib globs
+    """
     path = Path(pattern).resolve()
     return list(path.parent.glob(path.name))
 
 
 class TextOutputStream:
-    """Output stream for writing text files."""
+    """Output stream for writing text files.
+
+    Args:
+       file (file): file handle
+    """
 
     def __init__(self, file):
         self.f = file
 
     def write(self, str):
+        """Write to stream.
+
+        Args:
+          str (str): string to write
+        """
         self.f.write(str)
 
     def writeln(self, str="\n"):
+        """Write a newline to stream.
+
+        Args:
+          str (str, optional): defaults to newline
+        """
         if str == "\n":
             self.f.write("\n")
         else:
             self.f.write(str + "\n")
 
     def close(self):
+        """Close stream."""
         self.f.close()
 
     def flush(self):
+        """Flush to disk."""
         self.f.flush()
 
 
@@ -99,39 +139,85 @@ class XMLOutputStream(TextOutputStream):
             return f"{tagname}"
         return f"{tagname} {attr.strip()}"
 
-    def opentag(self, tagname, **kw):
-        """Generate an open XML tag.
+    def opentag(self, tagname, **kw):  # noqa: D417
+        """Write an open XML tag to stream.
 
-        Generate an open XML tag.  Attributes are passed in the form
-        of optional named arguments, e.g. opentag('tagname',
-        role=something, id=else) will produce the result '<tagname
-        role="something" id="else"> Note that the attribute and values
-        are optional and if omitted produce '<tagname>'."""
+        Tag attributes passed as optional named keyword arguments.
 
+        Example:
+          ``opentag('tagname', role=something, id=else)``
+
+          produces the result:
+
+          ``<tagname role="something" id="else">``
+
+          Attribute and values are optional:
+
+          ``opentag('tagname')``
+
+          Produces:
+
+          ``<tagname>``
+
+        See Also:
+           Must be be followed by a :meth:`closetag`.
+
+        Args:
+           tagname (str):  name of XML tag
+
+        """
         self.f.write(f"<{self._gentag(tagname, **kw)}>")
 
-    def emptytag(self, tagname, **kw):
-        """Generate an empty XML tag.
+    def emptytag(self, tagname, **kw):  # noqa: D417
+        """Write an empty XML tag to stream.
 
-        As per 'opentag()' but without content, i.e.:
+        This follows the same syntax as :meth:`opentag` but without
+        XML content (but can contain attributes).
 
-        '<tagname attr="val"/>'.
+        Example:
+          ```emptytag('tagname', attr='val')``
+
+          produces:
+
+          ``<tagname attr="val"/>``
+
+        Args:
+           tagname (str): name of XML tag
         """
         self.f.write(f"<{self._gentag(tagname, **kw)}/>")
 
     def closetag(self, tagname):
-        """Generate a closing XML tag.
+        """Write a closing XML tag to stream.
 
-        Generate a tag in the form: '</tagname>'.
+        Example:
+          ``closetag('tagname')``
+
+          Generate a tag in the form:
+
+          ``</tagname>``
+
+        See Also:
+           Must be be preceded by a :meth:`opentag`.
+
+        Args:
+           tagname (str): name of XML tag
         """
         self.f.write(f"</{self._gentag(tagname)}>")
 
-    def tagContents(self, tagname, content, **kw):
-        """Generate open and closing XML tags around contents.
+    def tagContents(self, tagname, content, **kw):  # noqa: D417
+        """Write XML tags around contents to a stream.
 
-        Generates tags in the form: '<tagname>content</tagname>'.
-        'content' must be a string.  Convert '&' and '<' and '>' into
-        valid XML equivalents.
+        Example:
+          ``tagContents('tagname', 'foo bar')``
+
+          produces:
+
+          ``<tagname>foo bar</tagname>```
+
+        Args:
+           tagname (str): name of XML tag
+           content (str): must only be a string. ``&``, ``<`` and
+            ``>`` are converted into valid XML equivalents.
 
         """
         self.opentag(tagname, **kw)
@@ -143,24 +229,31 @@ class XMLOutputStream(TextOutputStream):
 
 
 def getStreamType(stream):
-    """Return the type of stream.
+    """Get the type of stream.
 
-    Returns either 'xml' or 'text'.
+    Args:
+      stream (TextOutputStream|XMLOutputStream): stream to check
+
+    Returns:
+      string: either ``xml`` or ``text``.
     """
     return "xml" if isinstance(stream, XMLOutputStream) == 1 else "text"
 
 
 class OrderedDict:
-    """
-    Allows dict to have _ORDERED_ pairs
+    """A dictionary class with **ordered** pairs.
+
+    .. deprecated:: 1.3.1
+
+       Will be removed in a later release, to be replaced by internal
+       Python version
+
     """
 
     __version__ = "1.1"
 
     def __init__(self, hash=None):
-        """
-        Creates an ordered dict
-        """
+        """Creates an ordered dict."""
         if hash is None:
             hash = []
         self.__hash = {}
@@ -172,9 +265,7 @@ class OrderedDict:
             self.KEYS.append(k)
 
     def __addval__(self, key, value):
-        """
-        Internal function to add/change key-value pair (at end)
-        """
+        """Internal function to add/change key-value pair (at end)."""
         try:
             self.KEYS.index(key)
         except Exception:
@@ -184,9 +275,7 @@ class OrderedDict:
             self.__hash[key] = value
 
     def __setitem__(self, i, hash):
-        """
-        Adds key-value pairs (existing keys not moved)
-        """
+        """Adds key-value pairs (existing keys not moved)."""
         if type(i) is type(Index()):
             del self.__hash[self.KEYS[i.i]]
             if len(hash) != 1:
@@ -196,54 +285,40 @@ class OrderedDict:
             self.__addval__(i, hash)
 
     def __getitem__(self, key):
-        """
-        Returns value of given key
-        """
+        """Returns value of given key."""
         if type(key) is type(Index()):
             key = self.KEYS[key.i]
             return [key, self.__hash[key]]
         return self.__hash[key]
 
     def __len__(self):
-        """
-        Returns the number of pairs in the dict
-        """
+        """Returns the number of pairs in the dict."""
         return len(self.KEYS)
 
     def index(self, key):
-        """
-        Returns position of key in dict
-        """
+        """Returns position of key in dict."""
         return self.KEYS.index(key)
 
     def keys(self):
-        """
-        Returns list of keys in dict
-        """
+        """Returns list of keys in dict."""
         return self.KEYS
 
     def values(self):
-        """
-        Returns list of values in dict
-        """
+        """Returns list of values in dict."""
         ret = []
         for key in self.KEYS:
             ret.append(self.__hash[key])
         return ret
 
     def items(self):
-        """
-        Returns list of tuples of keys and values
-        """
+        """Returns list of tuples of keys and values."""
         ret = []
         for key in self.KEYS:
             ret.append((key, self.__hash[key]))
         return ret
 
     def insert(self, i, key, value):
-        """
-        Inserts a key-value pair at a given index
-        """
+        """Inserts a key-value pair at a given index."""
         InsertError = "Duplicate key entry"
         if key in self.__hash:
             raise InsertError
@@ -251,80 +326,58 @@ class OrderedDict:
         self.__hash[key] = value
 
     def remove(self, i):
-        """
-        Removes a key-value pair from the dict
-        """
+        """Removes a key-value pair from the dict."""
         del self.__hash[i]
         self.KEYS.remove(i)
 
     def __delitem__(self, i):
-        """
-        Removes a key-value pair from the dict
-        """
+        """Removes a key-value pair from the dict."""
         if type(i) is not type(Index()):
             i = Index(self.KEYS.index(i))
         del self.__hash[self.KEYS[i.i]]
         del self.KEYS[i.i]
 
     def reverse(self):
-        """
-        Reverses the order of the key-value pairs
-        """
+        """Reverses the order of the key-value pairs."""
         self.KEYS.reverse()
 
     def sort(self, cmp=0):
-        """
-        Sorts the dict (allows for sort algorithm)
-        """
+        """Sorts the dict (allows for sort algorithm)."""
         if cmp:
             self.KEYS.sort(cmp)
         else:
             self.KEYS.sort()
 
     def clear(self):
-        """
-        Clears all the entries in the dict
-        """
+        """Clears all the entries in the dict."""
         self.__hash = {}
         self.KEYS = []
 
     def copy(self):
-        """
-        Makes copy of dict, also of OrderdDict class
-        """
+        """Makes copy of dict, also of OrderdDict class."""
         hash = OrderedDict()
         hash.KEYS = self.KEYS[:]
         hash.__hash = self.__hash.copy()
         return hash
 
     def get(self, key):
-        """
-        Returns the value of a key
-        """
+        """Returns the value of a key."""
         return self.__hash[key]
 
     def has_key(self, key):
-        """
-        Looks for existence of key in dict
-        """
+        """Looks for existence of key in dict."""
         return key in self.__hash
 
     def update(self, dict):
-        """
-        Updates entries in a dict based on another
-        """
+        """Updates entries in a dict based on another."""
         self.__hash.update(dict)
 
     def count(self, key):
-        """
-        Finds occurrences of a key in a dict (0/1)
-        """
+        """Finds occurrences of a key in a dict (0/1)."""
         return key in self.__hash
 
     def __getslice__(self, i, j):
-        """
-        Returns an OrderedDict of key-value pairs from a dict
-        """
+        """Returns an OrderedDict of key-value pairs from a dict."""
         ret = []
         for x in range(i, j):
             ret.append(self.KEYS[x])
@@ -332,9 +385,7 @@ class OrderedDict:
         return OrderedDict(ret)
 
     def __setslice__(self, i, j, hash):
-        """
-        Sets a slice of elements from the dict
-        """
+        """Sets a slice of elements from the dict."""
         hash = list(hash)
         for x in range(i, j):
             k, v, hash = hash[0], hash[1], hash[2:]
@@ -342,37 +393,45 @@ class OrderedDict:
 
 
 class Index:
-    """
-    Returns an Index object for OrderedDict
+    """Returns an Index object for :class:`OrderedDict`.
+
+    .. deprecated:: 1.3.1
+
+       Will be removed in a later release, to be replaced by internal
+       Python version
     """
 
     def __init__(self, i=0):
-        """
-        Creates an Index object for use with OrderedDict
-        """
         self.i = i
 
 
 class StringMatrix(container):
-    """
-    StringMatrix is a subclass of NumPy (Numeric Python)
-    UserArray class, and uses NumPy to store the data in an efficient
-    array format, rather than internal Python lists.
+    """Matrix of strings and other metadata from input file to PyPop.
+
+    ``StringMatrix`` is a subclass of NumPy's
+    :class:`numpy.lib.user_array` class, store the data in an
+    efficient array format, using NumPy-style access.
+
+    Args:
+       rowCount (int): number of rows in matrix
+       colList (list): list of locus keys in a specified order
+       extraList (list): other non-matrix metadata
+       colSep (str): column separator
+       headerLines (list): list of lines in the header of original file
+
     """
 
     def __init__(
         self, rowCount=None, colList=None, extraList=None, colSep="\t", headerLines=None
     ):
-        """Constructor for StringMatrix.
+        # colList is a mutable type so we freeze the list of locus
+        # keys in the original order in file by making a *clone* of
+        # the list of keys.
 
-        colList is a mutable type so we freeze the list of locus keys in
-        the original order in file by making a *clone* of the list of
-        keys.
-
-        the order of loci in the array will correspond to the original
-        file order, and we don't want this tampered with by the `callee'
-        function (i.e. effectively override the Python 'pass by
-        reference' default and 'pass by value')."""
+        # the order of loci in the array will correspond to the
+        # original file order, and we don't want this tampered with by
+        # the `callee' function (i.e. effectively override the Python
+        # 'pass by reference' default and 'pass by value').
 
         self.colList = colList[:]
 
@@ -400,15 +459,30 @@ class StringMatrix(container):
     def __repr__(self):
         """Override default representation.
 
-         This is used when the object is 'print'ed, i.e.
-         a = StringMatrix(10, [1,2])
-        print (a)"""
+        Example:
+          This is used when the object is 'print'ed, i.e.
+
+          >>> a = StringMatrix(2, [1,2])
+          >>> print (a)
+          StringMatrix([[0, 0, 0, 0],
+                 [0, 0, 0, 0]], dtype=object)
+
+        Returns:
+           str: new string representation
+        """
         if len(self.array.shape) > 0:
             return (self.__class__.__name__) + repr(self.array)[len("array") :]
         return (self.__class__.__name__) + "(" + repr(self.array) + ")"
 
     def dump(self, locus=None, stream=sys.stdout):
-        # write out file in original format
+        """Write file to a stream in original format.
+
+        Args:
+           locus (str, optional): write just specified locus, if
+            omitted, default to all loci
+           stream (TextOutputStream|XMLOutputStream|stdout): output stream
+
+        """
         # first write out header, if there is one
         if self.headerLines:
             for line in self.headerLines:
@@ -442,10 +516,14 @@ class StringMatrix(container):
             stream.write("\n")
 
     def copy(self):
-        """Make a (deep) copy of the StringMatrix
+        """Make a (deep) copy.
 
-        Currently this goes via the constructor, not sure if
-        there is a better way of doing this"""
+        Return:
+            StringMatrix: a deep copy of the current object
+        """
+        # FIXME: currently this goes via the constructor, not sure if
+        # there is a better way of doing this
+
         thecopy = StringMatrix(
             copy.deepcopy(self.rowCount),
             copy.deepcopy(self.colList),
@@ -457,28 +535,56 @@ class StringMatrix(container):
         return thecopy
 
     def __deepcopy__(self, memo):
-        """Create a deepcopy for copy.deepcopy
+        """Create a deepcopy for copy.deepcopy.
 
-        This simply calls self.copy() to allow
-        copy.deepcopy(matrixInstance) to Do The Right Thing"""
+        This simply calls ``self.copy()`` to allow
+        ``copy.deepcopy(matrixInstance)`` to work out of the box.
+
+        Args:
+           memo (dict): opaque object
+
+        Returns:
+          StringMatrix: copy of the matrix
+
+        """
         return self.copy()
 
     def __getslice__(self, i, j):
+        """Get slice (overrides built-in).
+
+        Warning:
+          Currently not supported for :class:`StringMatrix`
+
+        """
         msg = "slices not currently supported"
         raise Exception(msg)
         # return self._rc(self.array[i:j])
 
     def __getitem__(self, key):
-        """Override built in.
+        """Get the item at given key (overrides built-in numpy).
 
-        This is called when instance is called to retrieve a position
-        e.g.:
+        Example:
+          This is called when instance is called to retrieve a position
 
-        li = matrix['A']
+          >>> matrix = StringMatrix(2, ["A", "B"])
+          >>> matrix [0, "A"] = ("A0_1", "A0_2")
+          >>> matrix [1, "A"] = ("A1_1", "A1_2")
+          >>> li = matrix["A"]
+          >>> print (li)
+          [['A0_1', 'A0_2'], ['A1_1', 'A1_2']]
 
-        returns a list (a single column vector if only one position
-        specified), or list of lists: (a set of column vectors if
-        several positions specified) of tuples for that position"""
+        Args:
+          key (str): locus key
+
+        Returns:
+           list: a list (a single column vector if only one position
+            specified), or list of lists: (a set of column vectors if
+            several positions specified) of tuples for ``key``
+
+        Raises:
+           KeyError: if key is not found, or of wrong type
+
+        """
         if type(key) is tuple:
             row, colName = key
             if colName in self.colList:
@@ -518,14 +624,24 @@ class StringMatrix(container):
         raise KeyError(msg)
 
     def getNewStringMatrix(self, key):
-        """Create an entirely new StringMatrix using only the columns supplied
-        in the keys.
+        """Create new StringMatrix containing specified loci.
 
-        The format of the keys is identical to __getitem__ except that
-        it in this case returns a full StringMatrix instance which
-        includes all metadata
+        Note:
+          The format of the keys is identical to :meth:`__getitem__`
+          except that it returns a full ``StringMatrix`` instance
+          which includes all metadata
+
+        Args:
+           key (str): a string representing the loci, using the
+            ``locus1:locus2`` format
+
+        Returns:
+           StringMatrix: full instance
+
+        Raises:
+           KeyError: if locus can not be found.
+
         """
-
         if type(key) is str:
             colNames = key.split(":")
 
@@ -568,12 +684,27 @@ class StringMatrix(container):
         return newMatrix
 
     def __setitem__(self, index, value):
-        """Override built in.
+        """Set the value at an index (override built in).
 
-        This is called when instance is called to assign a value,
-        e.g.:
+        This is called when instance is called to assign a value.
 
-        matrix[3, 'A'] = (entry1, entry2)"""
+        Example:
+
+           .. code-block:: python
+
+              matrix[3, 'A'] = (entry1, entry2)
+
+        Args:
+           index (tuple): index into matrix
+           value (tuple|str): can set using a tuple of strings, or a
+            single string (for metadata)
+
+        Raises:
+           IndexError: if ``index`` is not a tuple
+           ValueError: if ``value`` is not a tuple or string
+           KeyError: if the ``index`` can't be found
+
+        """
         if type(index) is tuple:
             row, colName = index
         else:
@@ -612,8 +743,15 @@ class StringMatrix(container):
             raise KeyError(msg)
 
     def getUniqueAlleles(self, key):
-        """
-        Return a list of unique integers for given key sorted by allele name using natural sort
+        """Get naturally sorted list of unique alleles.
+
+        Args:
+           key (str): loci to get
+
+        Returns:
+           list: list of unique integers sorted by allele name using
+             natural sort
+
         """
         uniqueAlleles = []
         for genotype in self.__getitem__(key):
@@ -625,12 +763,19 @@ class StringMatrix(container):
         return uniqueAlleles
 
     def convertToInts(self):
-        """
-        Convert matrix to integers: needed for haplo-stats
-        Note that integers start at 1 for compatibility with haplo-stats module
-        FIXME: check whether we need to release memory
-        """
+        """Convert the matrix to integers.
 
+        Note:
+          This function is used by the :class:`PyPop.Haplo.Haplostats`
+          class.  Note that integers start at 1 for compatibility with
+          haplo-stats module
+
+        Returns:
+          StringMatrix: matrix where the original allele names are now
+          represented by integers
+
+        """
+        # FIXME: check whether we need to release memory
         # create a new copy
         newMatrix = self.copy()
         for colName in self.colList:
@@ -645,15 +790,18 @@ class StringMatrix(container):
         return newMatrix
 
     def countPairs(self):
-        """Given a matrix of genotypes (pairs of columns for each
-        locus), compute number of possible pairs of haplotypes for each
-        subject (the rows of the geno matrix)
+        """Count all possible pairs of haplotypes for each matrix row.
 
-        FIXME: this does *not* do any involved handling of missing data
-        as per geno.count.pairs from haplo.stats
+        Warning:
+          This does *not* do any involved handling of missing data as
+          per ``geno.count.pairs`` from R ``haplo.stats`` module.
 
-        FIXME: should these methods eventually be moved to Genotype class?
+        Returns:
+          list: each element is the number of pairs in row order
+
         """
+        # FIXME: should these methods eventually be moved to the
+        # :class:`PyPop.ParseFile.Genotype` class?
 
         # count number of unique alleles at each loci
         n_alleles = {}
@@ -673,8 +821,15 @@ class StringMatrix(container):
         return n_pairs.tolist()
 
     def flattenCols(self):
-        """Flatten columns into a single list
-        FIXME: assumes entries are integers
+        """Flatten columns into a single list.
+
+        Important:
+           Currently assumes entries are integers.
+
+        Returns:
+           list: all alleles, the two genotype columns concatenated
+            for each locus
+
         """
         flattened_matrix = []
 
@@ -691,10 +846,17 @@ class StringMatrix(container):
         return flattened_matrix
 
     def filterOut(self, key, blankDesignator):
-        """Returns a filtered matrix.
+        """Get matrix rows filtered by a designator.
 
-        When passed a designator, this method will return the rows of
-        the matrix that *do not* contain that designator at any rows"""
+        Args:
+           key (str): locus to filter
+           blankDesignator (str): string to exclude
+
+        Returns:
+           list: the rows of the matrix that *do not* contain
+           ``blankDesignator`` at any rows
+
+        """
 
         def f(x, designator=blankDesignator):
             for value in x:
@@ -706,14 +868,30 @@ class StringMatrix(container):
         return filtered_list[:]
 
     def getSuperType(self, key):
-        """Returns a matrix grouped by columns.
+        """Get a matrix grouped by specified key.
 
-        e.g if matrix is [[A01, A02, B01, B02], [A11, A12, B11, B12]]
+        Example:
+          Return a new matrix with the column vector with the alleles
+          for each genotype concatenated like so:
 
-        then getSuperType('A:B') will return the matrix with the column
-        vector:
+          >>> matrix = StringMatrix(2, ["A", "B"])
+          >>> matrix[0, "A"] = ("A01", "A02")
+          >>> matrix[1, "A"] = ("A11", "A12")
+          >>> matrix[0, "B"] = ("B01", "B02")
+          >>> matrix[1, "B"] = ("B11", "B12")
+          >>> print(matrix)
+          StringMatrix([['A01', 'A02', 'B01', 'B02'],
+                 ['A11', 'A12', 'B11', 'B12']], dtype=object)
+          >>> matrix.getSuperType("A:B")
+          StringMatrix([['A01:B01', 'A02:B02'],
+                 ['A11:B11', 'A12:B12']], dtype=object)
 
-        [[A01:B01, A02:B02], [A11:B11, A12:B12]]
+        Args:
+           key (str): loci to group
+
+        Returns:
+           StringMatrix: a new matrix with the columns concatenated
+
         """
         li = self.__getitem__(key)
 
@@ -727,22 +905,53 @@ class StringMatrix(container):
         )
 
         for pos, i in enumerate(li):
-            newMatrix[pos, colName] = (i[0::2].join(":"), i[1::2].join(":"))
+            # newMatrix[pos, colName] = (i[0::2].join(":"), i[1::2].join(":"))
+            newMatrix[pos, colName] = (":".join(i[0::2]), ":".join(i[1::2]))
 
         return newMatrix
 
 
 class Group:
-    # group a list or sequence by a given size
-    # example usage:
-    # for pair in Group('aabbccddee',2):
-    #   do something with pair.
+    """Group list or sequence into non-overlapping chunks.
+
+    Example:
+      >>> for pair in Group('aabbccddee', 2):
+      ...    print(pair)  # doctest: +NORMALIZE_WHITESPACE
+      ...
+      aa
+      bb
+      cc
+      dd
+      ee
+
+      >>> a = Group('aabbccddee', 2)
+      >>> a[0]
+      'aa'
+      >>> a[3]
+      'dd'
+
+    Args:
+        li (str|list): string or list
+        size (int): size of grouping
+
+    """
 
     def __init__(self, li, size):
         self.size = size
         self.li = li
 
     def __getitem__(self, group):
+        """Get the item by position.
+
+        Args:
+           group (int): get the item by position
+
+        Returns:
+           str|list: the value at that position
+
+        Raises:
+           IndexError: if ``group`` is out of bounds
+        """
         idx = group * self.size
         if idx > len(self.li):
             msg = "Out of range"
@@ -754,13 +963,41 @@ class Group:
 
 
 def natural_sort_key(s, _nsre=re.compile(r"([0-9]+)")):
+    """Generate a key for natural (human-friendly) sorting.
+
+    This function splits a string into text and number components so that
+    numbers are compared by value instead of lexicographically. It is
+    intended for use as the ``key`` function in :meth:`list.sort` or
+    :func:`sorted`.
+
+    Example:
+      >>> items = ["item2", "item10", "item1"]
+      >>> sorted(items, key=natural_sort_key)
+      ['item1', 'item2', 'item10']
+
+    Args:
+        s (str): The string to split into text and number components.
+        _nsre (Pattern): Precompiled regular expression used internally
+            to split the string into digit and non-digit chunks. This is
+            not intended to be overridden in normal use.
+
+    Returns:
+        list: A list of strings and integers to be used as a sort key.
+    """
     return [
         int(text) if text.isdigit() else text.lower() for text in re.split(_nsre, s)
     ]
 
 
 def unique_elements(li):
-    """Gets the unique elements in a list"""
+    """Gets the unique elements in a list.
+
+    Args:
+      li (list): a list
+
+    Returns:
+      list: unique elements
+    """
     d = {}
     length = len(li)
     map(operator.setitem, length * [d], li, length * [None])
@@ -768,11 +1005,30 @@ def unique_elements(li):
 
 
 def appendTo2dList(aList, appendStr=":"):
+    """Append a string to each element in a list.
+
+    Args:
+      aList (list): list to append to
+      appendStr (str): string to append
+
+    Returns:
+       list: a list with string appended to each element
+
+    """
     return [[f"{cell}{appendStr}" for cell in row] for row in aList]
 
 
 def convertLineEndings(file, mode):
-    # 1 - Unix to Mac, 2 - Unix to DOS
+    """Convert line endings based on platform.
+
+    Args:
+        file (str): file name to convert
+        mode (int): Conversion mode, one of
+
+          - ``1`` Unix to Mac
+          - ``2`` Unix to DOS
+
+    """
     if mode == 1:
         if Path(file).is_dir():
             sys.exit(file + "Directory!")
@@ -798,6 +1054,13 @@ def convertLineEndings(file, mode):
 
 
 def fixForPlatform(filename, txt_ext=0):
+    """Fix for some Windws/MS-DOS platforms.
+
+    Args:
+       filename (str): path to file
+       txt_ext (int, optional): if enabled (``1``) add a ``.txt`` extension
+
+    """
     # make file read-writeable by everybody
     Path(filename).chmod(stat.S_IFCHR)
 
@@ -815,12 +1078,28 @@ def fixForPlatform(filename, txt_ext=0):
 
 
 def copyfileCustomPlatform(src, dest, txt_ext=0):
+    """Copy file to file with fixes.
+
+    Args:
+       src (str): source file
+       dest (str): source file
+       txt_ext (int, optional): if enabled (``1``) add a ``.txt`` extension
+
+    """
     shutil.copyfile(src, dest)
     fixForPlatform(dest, txt_ext=txt_ext)
     (print(f"copying {src} to"),)
 
 
 def copyCustomPlatform(file, dist_dir, txt_ext=0):
+    """Copy file to directory with fixes.
+
+    Args:
+       file (str): source file
+       dist_dir (str): source directory
+       txt_ext (int, optional): if enabled (``1``) add a ``.txt`` extension
+
+    """
     new_filename = Path(dist_dir) / Path(file).name
     print(f"copying {file} to")
     shutil.copy(file, dist_dir)
@@ -828,6 +1107,21 @@ def copyCustomPlatform(file, dist_dir, txt_ext=0):
 
 
 def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg=""):
+    """Check XSL filename and return full path.
+
+    Args:
+       xslFilename (str): name of the XSL file
+       path (str): root path to check
+       subdir (str): subdirectory under ``path`` to check
+       abort (bool): if enabled (``True``) file isn't found, exit with
+        an error.  Default is ``False``
+       debug (bool): enable debug with ``True``
+       msg (str): output message on abort
+
+    Returns:
+       str: checked and validaated path
+
+    """
     if debug:
         print(f"path={path}, subdir={subdir}, xslFilename={xslFilename} xsl path")
 
@@ -842,9 +1136,18 @@ def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg="
 
 
 def getUserFilenameInput(prompt, filename):
-    """Read user input for a filename, check its existence, continue
-    requesting input until a valid filename is entered."""
+    """Get user filename input.
 
+    Read user input for a filename, check its existence, continue
+    requesting input until a valid filename is entered.
+
+    Args:
+       prompt (str): description of file
+       filename (str): default filename
+
+    Returns:
+       str: name of file eventually selected
+    """
     nofile = 1
     while nofile:
         tempFilename = input(f"Please enter {prompt} filename [{filename}]: ")
@@ -868,10 +1171,22 @@ def getUserFilenameInput(prompt, filename):
 
 
 def splitIntoNGroups(alist, n=1):
-    """Divides a list up into n parcels (plus whatever is left over)
+    """Divides a list up into n parcels (plus whatever is left over).
 
-    This class currently works with Python 2.2, but will eventually
-    use iterators, so ultimately will need least Python 2.3!"""
+    Example:
+       >>> a = ['A', 'B', 'C', 'D', 'E']
+       >>> splitIntoNGroups(a, 2)
+       [['A', 'B'], ['C', 'D'], ['E']]
+
+    Args:
+       alist (list): list to divide up
+       n (int): parcel size
+
+    Returns:
+       list: list of lists
+
+    """
+    # FIXME: This class should be ported to use Python 3 iterators
     # from itertools import islice
     # it = iter(alist)
 

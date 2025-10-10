@@ -26,13 +26,26 @@
 
 # FIXME: exclude certain rules, since this functionality is deprecated
 # ruff: noqa: F403 F405 F841
+"""Implementation of a graphical front-end to PyPop.
+
+.. deprecated:: 1.0.0
+
+   It uses the `wxPython <http://www.wxpython.org>`_ GUI
+   toolkit. wxPython is a set of Python bindings to `wxWindows
+   <http://www.wxwindows.org>`_, which is an open-source
+   cross-platform GUI widget toolkit which has a native look under
+   GNU/Linux (GTK), Windows (MFC) and MacOS. As of 2023 and version
+   1.0.0, this was deprecated, and will be removed
+
+"""
 
 import warnings
 from pathlib import Path
 from threading import *
 
-from Main import Main, getConfigInstance
-from wxPython.wx import *
+import wx
+
+from PyPop.Main import Main, getConfigInstance
 
 warnings.warn(
     "The module 'GUIApp' is deprecated and may be removed in a future release.",
@@ -45,26 +58,30 @@ ID_OPEN_CONFIG = 102
 ID_OPEN_POP = 103
 ID_EXIT = 110
 
-
-# Define notification event for thread completion
-EVT_RESULT_ID = wxNewId()
+# event for returning data from thread
+try:
+    EVT_RESULT_ID = wx.NewIdRef().Id
+except AttributeError:
+    # Fallback for older wxPython
+    EVT_RESULT_ID = wx.NewId()
 
 
 def EVT_RESULT(win, func):
+    """Thread completion."""
     win.Connect(-1, -1, EVT_RESULT_ID, func)
 
 
-class ResultEvent(wxPyEvent):
-    """Simple event to carry arbitrary result data"""
+class ResultEvent(wx.PyCommandEvent):
+    """Simple event to carry arbitrary result data."""
 
     def __init__(self, data):
-        wxPyEvent.__init__(self)
-        self.SetEventType(EVT_RESULT_ID)
+        super().__init__(EVT_RESULT_ID)
         self.data = data
 
 
-# Thread class that executes processing
 class WorkerThread(Thread):
+    """Thread class that executes processing."""
+
     def __init__(self, notify_window):
         Thread.__init__(self)
 
@@ -106,7 +123,7 @@ class WorkerThread(Thread):
         self._want_abort = 1
 
 
-class MainWindow(wxFrame):
+class MainWindow(wx.Frame):
     """Creates the main application window for PyPop."""
 
     def __init__(self, parent, _id, title, datapath=None, altpath=None, debugFlag=0):
@@ -204,7 +221,7 @@ class MainWindow(wxFrame):
         return fullpath
 
     def OnConfig(self, event):
-        """Select config file"""
+        """Select config file."""
         wildcard = "Configuration files (*.ini)|*.ini|All files (*.*)|*.*"
         fullpath = self._onOpen(event, type=wildcard)
 
@@ -213,7 +230,7 @@ class MainWindow(wxFrame):
             self.SetStatusText("config file:" + self.configFilename, 0)
 
     def OnPop(self, event):
-        """Select pop file"""
+        """Select pop file."""
         wildcard = "Population files (*.pop)|*.pop|All files (*.*)|*.*"
         fullpath = self._onOpen(event, type=wildcard)
 

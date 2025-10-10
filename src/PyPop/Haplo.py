@@ -32,7 +32,11 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 
-"""Module for estimating haplotypes."""
+"""Module for estimating haplotypes and linkage disequilibrium measures.
+
+Currently there are two implementations: :class:`Emhaplofreq` and
+:class:`Haplostats`.
+"""
 
 import io
 import itertools as it
@@ -58,21 +62,42 @@ from PyPop.Utils import (
 
 
 class Haplo:
-    """*Abstract* base class for haplotype parsing/output.
+    """Estimating haplotypes given genotype data.
 
-    Currently a stub class (unimplemented).
+    This is abstract stub class (currently has no methods).
+
     """
 
 
 class HaploArlequin(Haplo):
-    """Haplotype estimation implemented via Arlequin
+    """Performs haplotype estimation via Arlequin.
+
+    .. deprecated:: 1.0.0
 
     Outputs Arlequin format data files and runtime info, also runs and
     parses the resulting Arlequin data so it can be made available
     programmatically to rest of Python framework.
 
     Delegates all calls Arlequin to an internally instantiated
-    ArlequinBatch Python object called 'batch'."""
+    ArlequinBatch Python object called 'batch'.
+
+    Args:
+      arpFilename (str): Arlequin filename (must have ``.arp`` file
+       extension)
+      idCol (str): column in input file that contains the individual ``id``.
+      prefixCols (int): number of columns to ignore before allele data
+       starts
+      suffixCols (int): number of columns to ignore after allele data
+       stops
+      windowSize (int): size of sliding window
+      mapOrder (list): list order of columns if different to column order in file
+       (defaults to order in file)
+      untypedAllele (str):  (defaults to ``0``)
+      arlequinPrefix (str) : prefix for all Arlequin run-time files
+       (defaults to ``arl_run``).
+      debug (int): (defaults to ``0``, i.e. OFF)
+
+    """
 
     def __init__(
         self,
@@ -86,35 +111,6 @@ class HaploArlequin(Haplo):
         arlequinPrefix="arl_run",
         debug=0,
     ):
-        """Constructor for HaploArlequin object.
-
-        Expects:
-
-        - arpFilename: Arlequin filename (must have '.arp' file
-          extension)
-
-        - idCol: column in input file that contains the individual id.
-
-        - prefixCols: number of columns to ignore before allele data
-          starts
-
-        - suffixCols: number of columns to ignore after allele data
-          stops
-
-        - windowSize: size of sliding window
-
-        - mapOrder: list order of columns if different to column order in file
-          (defaults to order in file)
-
-        - untypedAllele:  (defaults to '0')
-
-        - arlequinPrefix: prefix for all Arlequin run-time files
-        (defaults to 'arl_run').
-
-        - debug: (defaults to 0)
-
-        """
-
         self.arpFilename = arpFilename
         self.arsFilename = "arl_run.ars"
         self.idCol = idCol
@@ -139,7 +135,11 @@ class HaploArlequin(Haplo):
         )
 
     def outputArlequin(self, data):
-        """Outputs the specified .arp sample file."""
+        """Outputs the specified ``.arp`` sample file.
+
+        Args:
+           data (list): list of strings containing the ``.arp`` sample file
+        """
         self.batch.outputArlequin(data)
 
     def _outputArlRunArs(self, arsFilename):
@@ -222,10 +222,10 @@ KeepNullDistrib=0""")
     def runArlequin(self):
         """Run the Arlequin haplotyping program.
 
-        Generates the expected '.txt' set-up files for Arlequin, then
-        forks a copy of 'arlecore.exe', which must be on 'PATH' to
+        Generates the expected ``.txt`` set-up files for Arlequin, then
+        forks a copy of ``arlecore.exe``, which must be on ``PATH`` to
         actually generate the haplotype estimates from the generated
-        '.arp' file.
+        ``.arp`` file.
         """
         # generate the `standard' run file
         self.batch._outputArlRunTxt(self.arlequinPrefix + ".txt", self.arpFilename)
@@ -236,21 +236,16 @@ KeepNullDistrib=0""")
         self.batch.runArlequin()
 
     def genHaplotypes(self):
-        """Gets the haplotype estimates back from Arlequin.
+        """Parses Arlequin output to retrieve estimated haplotypes.
 
-        Parses the Arlequin output to retrieve the haplotype estimated
-        data.  Returns a list of the sliding `windows' which consists
-        of tuples.
+        Returns:
+           list: a list of the sliding ``windows`` which consists of tuples. Each tuple consists of:
 
-        Each tuple consists of a:
+           - freqs (dict): dictionary entry (the haplotype-frequency) key-value pairs.
+           - popName (str): population name (original ``.arp`` file prefix)
+           - sampleCount (int): sample count (number of samples for that window)
+           - lociList (list): ordered list of loci considered
 
-        - dictionary entry (the haplotype-frequency) key-value pairs.
-
-        - population name (original '.arp' file prefix)
-
-        - sample count (number of samples for that window)
-
-        - ordered list of loci considered
         """
         outFile = (
             self.batch.arlResPrefix + ".res" + os.sep + self.batch.arlResPrefix + ".htm"
@@ -301,13 +296,18 @@ KeepNullDistrib=0""")
 
 
 class Emhaplofreq(Haplo):
-    """Haplotype and LD estimation implemented via emhaplofreq.
+    """Haplotype and linkage disequilibrium (LD) estimation via emhaplofreq.
 
     This is essentially a wrapper to a Python extension built on top
-    of the 'emhaplofreq' command-line program.
+    of the ``emhaplofreq`` command-line program.  Will refuse to
+    estimate haplotypes longer than that defined by ``emhaplofreq``.
 
-    Will refuse to estimate haplotypes longer than that defined by
-    'emhaplofreq'.
+    Args:
+       locusData (StringMatrix): a StringMatrix
+       debug (int): defaults to ``0`` (off)
+       untypedAllele (str): defaults to ``****``
+       stream (TextOutputStream): output file
+       testMode (bool): default is ``False``
 
     """
 
@@ -354,12 +354,20 @@ class Emhaplofreq(Haplo):
         # self.fp = cStringIO.StringIO()
 
     def serializeStart(self):
-        """Serialize start of XML output to XML stream"""
+        """Serialize start of XML output to the currently defined XML stream.
+
+        See Also:
+          must be paired with a subsequent :meth:`Emhaplofreq.serializeEnd`
+        """
         self.stream.opentag("emhaplofreq")
         self.stream.writeln()
 
     def serializeEnd(self):
-        """Serialize end of XML output to XML stream"""
+        """Serialize end of XML output to the currently defined XML stream.
+
+        See Also:
+          must be paired with a previous :meth:`Emhaplofreq.serializeStart`
+        """
         self.stream.closetag("emhaplofreq")
         self.stream.writeln()
 
@@ -376,32 +384,41 @@ class Emhaplofreq(Haplo):
         mode=None,
         testing=0,
     ):
-        """Internal method to call _Emhaplofreq shared library.
+        """Internal method to call ``_Emhaplofreq`` shared library.
 
-        Format of 'locusKeys' is a string as per estHaplotypes():
+        Args:
+          locusKeys (str): a string as per :meth:`Emhaplofreq.estHaplotypes`:
 
-        - permutationFlag: sets whether permutation test will be
-          performed.  No default. This should only be set if
-          numPermutation is non-zero.
+          permutationFlag (int): sets whether permutation test will be
+           performed.  No default. This should only be set if
+           ``numPermutation`` is non-zero.
 
-        - permutationPrintFlag: sets whether the result from
-          permutation output run will be included in the output XML.
-          Default: 0 (disabled).
+          permutationPrintFlag (int): sets whether the result from
+           permutation output run will be included in the output XML.
+           Default: ``0`` (disabled).
 
-        - numInitConds: sets number of initial conditions before
-          performing the permutation test. Default: 50.
+          numInitCond (int): sets number of initial conditions before
+           performing the permutation test. Default: ``50``.
 
-        - numPermutations: sets number of permutations that will be
-          performed if 'permutationFlag' *is* set.  Default: 1.
+          numPermutations (int): sets number of permutations that will
+           be performed if ``permutationFlag`` *is* set.  Default:
+           ``1``.
 
-        - numPermuInitConds: sets number of initial conditions tried
-          per-permutation.  Default: 5.
+          numPermuInitCond (int): sets number of initial conditions
+           tried per-permutation.  Default: ``5``.
 
-        - haploSuppressFlag: sets whether haplotype information is
-          generated in the output.   No default.
+          haploSuppressFlag (int): sets whether haplotype information
+           is generated in the output.  No default.
+
+          showHaplo (int): whether or not to show all haplotypes
+           (defaults to offf)
+
+          mode (str): mode for haplotype output
+
+          testing (int): whether in testing mode (default: ``0``,
+           disabled)
 
         """
-
         # create an in-memory file instance to append output to
         # to; this remains in effect until end of method
         fp = io.StringIO()
@@ -581,18 +598,24 @@ class Emhaplofreq(Haplo):
         self.stream.flush()
 
     def estHaplotypes(self, locusKeys=None, numInitCond=None):
-        """Estimate haplotypes for listed groups in 'locusKeys'.
+        """Estimate haplotypes for listed loci in ``locusKeys``.
 
-        Format of 'locusKeys' is a string consisting of:
+        Args:
+           locusKeys (str): format is a string consisting of
 
-        - comma (',') separated haplotypes blocks for which to estimate
-          haplotypes
+              - comma (``,``) separated haplotypes blocks for which to
+                estimate haplotypes
 
-        - within each `block', each locus is separated by colons (':')
+              - within each "block", each locus is separated by colons
+                ( ``:`` )
 
-        e.g. '*DQA1:*DPB1,*DRB1:*DQB1', means to est. haplotypes for
-         'DQA1' and 'DPB1' loci followed by est. of haplotypes for
-         'DRB1' and 'DQB1' loci.
+           numInitCond (int): number of initial conditions to use
+
+        Example:
+          ``*DQA1:*DPB1,*DRB1:*DQB1``, means to estimate haplotypes for
+          ``DQA1`` and ``DPB1`` loci followed by estimation of haplotypes for
+          ``DRB1`` and ``DQB1`` loci.
+
         """
         self._runEmhaplofreq(
             locusKeys=locusKeys,
@@ -612,19 +635,23 @@ class Emhaplofreq(Haplo):
         numPermutations=None,
         numPermuInitCond=None,
     ):
-        """Estimate linkage disequilibrium (LD) for listed groups in
-        'locusKeys'.
+        """Estimate linkage disequilibrium (LD) for listed loci.
 
-        Format of 'locusKeys' is a string consisting of:
+        Args:
+           locusKeys (str): see :meth:`estHaplotypes`
 
-        - comma (',') separated haplotypes blocks for which to estimate
-          haplotypes
+           permutationPrintFlag (int): print all permutations (default ``0``)
 
-        - within each `block', each locus is separated by colons (':')
+           numInitCond (int): number of initial conditions (default ``None``)
 
-        e.g. '*DQA1:*DPB1,*DRB1:*DQB1', means to est. LD for
-         'DQA1' and 'DPB1' loci followed by est. of LD for
-         'DRB1' and 'DQB1' loci.
+           numPermutations (int): number of permutations (default ``None``)
+
+           numPermuInitCond (int): number of initial conditions for
+            each permutation (default ``None``)
+
+        Example:
+          See :meth:`estHaplotypes` for an example that estimates LD
+
         """
         self._runEmhaplofreq(
             locusKeys,
@@ -649,13 +676,34 @@ class Emhaplofreq(Haplo):
         haplosToShow=None,
         mode=None,
     ):
-        """Run pairwise statistics.
+        """Estimate pairwise statistics for a given set of loci.
 
-        Estimate pairwise statistics for a given set of loci.
-        Depending on the flags passed, can be used to estimate both LD
-        (linkage disequilibrium) and HF (haplotype frequencies), an
-        optional permutation test on LD can be run"""
+        Depending on the flags passed, this can be used to estimate
+        both LD (linkage disequilibrium) and HF (haplotype
+        frequencies), an optional permutation test on LD can be run.
 
+        Args:
+          permutationPrintFlag (int): sets whether the result from
+           permutation output run will be included in the output XML.
+           Default: ``0`` (disabled).
+
+          numInitCond (int): sets number of initial conditions before
+           performing the permutation test. Default: ``None``.
+
+          numPermutations (int): sets number of permutations that will
+           be performed. Default: ``None``.
+
+          numPermuInitCond (int): sets number of initial conditions
+           tried per-permutation. Default: ``None``.
+
+          haploSuppressFlag (int): sets whether haplotype information
+           is generated in the output. Default: ``None``
+
+          haplosToShow (list): list of haplotypes to show in output
+
+          mode (str): mode for haplotype output
+
+        """
         if numPermutations > 0:
             permuMode = "with-permu"
             permutationFlag = 1
@@ -719,11 +767,23 @@ class Emhaplofreq(Haplo):
 
 
 def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
-    """Compute LD for pairwise haplotypes from haplotype names and frequencies
+    """Compute LD for pairwise haplotypes from haplotype names and frequencies.
 
-    Make standalone so it can be used by any class
+    Make standalone so it can be used by any class.
+
+    Args:
+      haplos (list): list of haplotypes
+      freqs (list): list of frequencies
+      compute_ALD (bool): whether to do asymmetric LD
+      debug (bool): default to ``False`` (disabled)
+
+    Returns:
+      tuple: a tuple consisting of:
+        - dprime
+        - wn
+        - ALD_1_2
+        - ALD_2_1
     """
-
     unique_alleles1 = np.unique(haplos[:, 0])
     unique_alleles2 = np.unique(haplos[:, 1])
 
@@ -863,10 +923,16 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
 
 
 class Haplostats(Haplo):
-    """Haplotype and LD estimation implemented via haplo-stats.
+    """Haplotype and LD estimation implemented via ``haplo.stats``.
 
-    This is a wrapper to a portion of the 'haplo.stats' R package
+    This is a wrapper to a portion of the ``haplo.stats`` R package.
 
+    Args:
+       locusData (StringMatrix): a StringMatrix
+       debug (int): defaults to ``0`` (off)
+       untypedAllele (str): defaults to ``****``
+       stream (TextOutputStream): output file
+       testMode (bool): default is ``False``
     """
 
     def __init__(
@@ -893,26 +959,46 @@ class Haplostats(Haplo):
             self.stream = XMLOutputStream(io.StringIO())
 
     def serializeStart(self):
-        """Serialize start of XML output to XML stream"""
+        """Serialize start of XML output to currently defined XML stream.
+
+        See Also:
+          must be paired with a subsequent :meth:`Haplostats.serializeEnd`
+        """
         self.stream.opentag("haplostats")
         self.stream.writeln()
 
     def serializeEnd(self):
-        """Serialize end of XML output to XML stream"""
+        """Serialize end of XML output to currently defined XML stream.
+
+        See Also:
+          must be paired with a previous :meth:`Haplostats.serializeStart`
+        """
         self.stream.closetag("haplostats")
         self.stream.writeln()
 
     def estHaplotypes(
         self, locusKeys=None, weight=None, control=None, numInitCond=10, testMode=False
     ):
-        """Estimate haplotypes for the submatrix given in locusKeys, if
-        locusKeys is None, assume entire matrix
+        """Estimate haplotypes for listed loci in ``locusKeys``.
 
-        LD is estimated if there are locusKeys consists of only two loci
+        If ``locusKeys`` is ``None``, assume entire matrix.  LD is
+        also estimated if there are ``locusKeys`` consisting of only
+        two loci.
 
-        FIXME: this does *not* yet remove missing data before haplotype estimations
+        Warning:
+           FIXME: this does *not* yet remove missing data before haplotype estimations
+
+        Args:
+           locusKeys (str): see :meth:`Emhaplofreq.estHaplotypes` for format
+           weight (list): set weights (default ``None``, which sets all weights equal)
+           control (dict): a dictionary of control parameters
+           numInitCond (int): number of initial conditions (default ``None``)
+           testMode (bool): run in test mode default is ``False``
+
+        Returns:
+           tuple: multiple statistics
+
         """
-
         # if wildcard, or not set, do all matrix
         if locusKeys in ("*", None):
             locusKeys = ":".join(self.matrix.colList)
@@ -1195,8 +1281,15 @@ class Haplostats(Haplo):
         )
 
     def allPairwise(self, weight=None, control=None, numInitCond=10):
-        """Estimate pairwise statistics for all pairs of loci."""
+        """Estimate pairwise statistics for all pairs of loci.
 
+        Args:
+           weight (list): see :meth:`Haplostats.estHaplotypes`
+
+           control (dict): see :meth:`Haplostats.estHaplotypes`
+
+           numInitCond (int): see :meth:`Haplostats.estHaplotypes`
+        """
         # FIXME: sequence data *not* currently supported for haplostats
         locusPairs = getLocusPairs(self.matrix, False)
         if self.debug:

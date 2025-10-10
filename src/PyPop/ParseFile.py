@@ -31,11 +31,19 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Module for parsing data files.
+"""Parsing input population data files.
 
-Includes classes for parsing individuals genotyped at multiple loci
-and classes for parsing literature data which only includes allele
-counts."""
+Includes :class:`ParseGenotypeFile` for parsing individuals genotyped
+at multiple loci and :class:`ParseAlleleCountFile` for parsing
+literature data which only includes allele counts.
+
+Both file formats are assumed to have a population header information
+with, consisting of a line of column headers (population metadata)
+followed by a line with the actual data, followed by the column
+headers for the samples (sample metadata) followed by the sample data
+itself (either individuals in the genotyped case, or alleles in the
+allele count case).
+"""
 
 import operator
 
@@ -43,9 +51,7 @@ from PyPop.Utils import OrderedDict, StringMatrix, getStreamType
 
 
 class ParseFile:
-    """*Abstract* class for parsing a datafile.
-
-    *Not to be instantiated.*"""
+    """Common functionality for reading the two file formats."""
 
     def __init__(
         self,
@@ -58,37 +64,39 @@ class ParseFile:
         popNameDesignator="+",
         debug=0,
     ):
-        """Constructor for ParseFile object.
+        r"""Base class.
 
-        - 'filename': filename for the file to be parsed.
+        Args:
+           filename (str): filename for the file to be parsed.
 
-        - 'validPopFields': a string consisting of valid headers (one
-           per line) for overall population data (no default)
+           validPopFields (str): valid headers (one per line) for
+            overall population data (no default)
 
-        - 'validSampleFields': a string consisting of valid headers
-           (one per line) for lines of sample data.  (no default)
+           validSampleFields (str): valid headers (one per line) for
+            lines of sample data.  (no default)
 
-        - 'separator': separator for adjacent fields (default: a tab
-           stop, '\\t').
+           separator (str, optional): separator for adjacent fields (default: a
+            tab stop, '\\t').
 
-        - 'fieldPairDesignator': a string which consists of additions
-          to the allele `stem' for fields grouped in pairs (allele
-          fields) [e.g. for `HLA-A', and `HLA-A(2)', then we use
-          ':(2)', for `DQA1_1' and `DQA1_2', then use use '_1:_2', the
-          latter case distinguishes both fields from the stem]
-          (default: ':(2)')
+           fieldPairDesignator (str, optional): consists of additions to the
+            allele `stem' for fields grouped in pairs (allele fields)
+            [e.g. for ``HLA-A`', and ``HLA-A(2)``, then we use
+            ``:(2)``, for ``DQA1_1`` and ``DQA1_2``, then use
+            ``_1:_2``, the latter case distinguishes both fields from
+            the stem] (default: ``:(2)``)
 
-        - 'alleleDesignator': The first character of the key which
-        determines whether this column contains allele data.  Defaults to
-        '*'
+           alleleDesignator (str, optional): first character of the key which
+            determines whether this column contains allele data.
+            Defaults to ``*``
 
-        - 'popNameDesignator': The first character of the key which
-        determines whether this column contains the population name.
-        Defaults to '+'
+           popNameDesignator (str, optional): first character of the key which
+            determines whether this column contains the population
+            name.  Defaults to ``+``
 
-        - 'debug': Switches debugging on if set to '1' (default: no
-          debugging, '0')"""
+           debug (int, optional): Switches debugging on if set to ``1``
+            (default: no debugging, ``0``)
 
+        """
         self.filename = filename
         self.validPopFields = validPopFields
         self.validSampleFields = validSampleFields
@@ -134,12 +142,13 @@ class ParseFile:
     def _dbFieldsRead(self, data):
         """Reads the valid key, value pairs.
 
-        Takes a string that is expected to consist of database field
-        names separated by newlines.
+        Args:
+          data (str): consists of database field names separated by
+           newlines.
 
-        Returns a tuple of field names.
-
-        *For internal use only.*"""
+        Returns:
+          tuple: tuple of field names.
+        """
         li = []
         for line in data.split():
             if self.debug:
@@ -148,25 +157,27 @@ class ParseFile:
         return tuple(li)
 
     def _mapFields(self, line, fieldList):
-        """Creates a list of valid database fields.
+        """Creates valid database fields.
 
-        From a separator delimited string, creates a list of valid
-        fields and creates a dictionary of positions keyed by valid
-        field names.
+        Creates a list of valid fields and creates a dictionary of
+        positions keyed by valid field names.
 
-        - Complains if a field name is not valid.
+        Note:
+         - Complains if a field name is not valid.
 
-        - Complains if the correct number of fields are not found for
-        the metadata headers.
+         - Complains if the correct number of fields are not found for
+           the metadata headers.
 
-        Returns a 2-tuple:
+        Args:
+          line (str): a separator delimited string
+          fieldList (list): list of fields
 
-        - a dictionary keyed by field name.
+        Returns:
+          tuple: 2-tuple of
 
-        - the total number of  metadata fields.
-
-        *For internal use only.*"""
-
+            - a dictionary keyed by field name.
+            - the total number of  metadata fields.
+        """
         # split line
         fields = line.split(self.separator)
 
@@ -225,9 +236,10 @@ class ParseFile:
     def _sampleFileRead(self, filename):
         """Reads filename into object.
 
-        Takes a filename and reads the file data into an instance variable.
+        Reads the file data into an instance variable.
 
-        *For internal use only*.
+        Args:
+          filename (str): filename
         """
         with open(filename) as f:
             self.fileData = f.readlines()
@@ -236,13 +248,11 @@ class ParseFile:
         """Create associations for field names and input columns.
 
         Using the header information from the top of the file, creates
-        a dictionary for the population-level data.
+        a dictionary for the population-level data.  Also validates
+        the file information for the correct number of fields are
+        present on each line .
 
-        Also validates the file information for the correct number of fields
-        are present on each line
-
-        *For internal use only*."""
-
+        """
         # get population header metadata
         popHeaderLine = self.fileData[0].rstrip()
 
@@ -281,13 +291,11 @@ class ParseFile:
         """Create the associations between field names and input columns.
 
         Using the header information from the top of the file, creates
-        associations for the sample data fields.
+        associations for the sample data fields.  Also validates the
+        file information for the correct number of fields are present
+        on each line
 
-        Also validates the file information for the correct number of fields
-        are present on each line
-
-        *For internal use only*."""
-
+        """
         # get sample header metadata
         sampleHeaderLine = self.fileData[self.sampleFirstLine - 1].rstrip()
 
@@ -324,34 +332,38 @@ class ParseFile:
     def getPopData(self):
         """Returns a dictionary of population data.
 
-        Dictionary is keyed by types specified in population metadata
-        file"""
+        Returns:
+          dict: keyed by types specified in population metadata file
+        """
         return self.popData
 
     def getSampleMap(self):
         """Returns dictionary of sample data.
 
-        Each dictionary position contains either a 2-tuple of column
-        position or a single column position keyed by field originally
-        specified in sample metadata file"""
+        Returns:
+          dict: each entry contains either a 2-tuple of column
+           position or a single column position keyed by field
+           originally specified in sample metadata file
 
+        """
         return self.sampleMap
 
     def getFileData(self):
-        """Returns file data.
+        """Returns the file data.
 
-        Returns a 2-tuple `wrapper':
+        Returns:
+          tuple: a 2-tuple "wrapper":
 
-        - raw sample lines, *without*  header metadata.
-
-        - the field separator."""
+          - str: raw sample lines, *without* header metadata.
+          - str: the field separator.
+        """
         return self.fileData[self.sampleFirstLine :], self.separator
 
     def genSampleOutput(self, fieldList):
         """Prints the data specified in ordered field list.
 
-        *Use is currently deprecated.*"""
-
+        .. deprecated:: 0.7.0
+        """
         # for field in fieldList:
         # print string.strip(field) + self.separator,
         for lineCount in range(self.sampleFirstLine, len(self.fileData)):
@@ -364,6 +376,11 @@ class ParseFile:
                     print("can't find this field\n")
 
     def serializeMetadataTo(self, stream):
+        """Write metadata to stream.
+
+        Args:
+           stream (XMLStreamOutput): output stream
+        """
         getStreamType(stream)
 
         stream.opentag("populationdata")
@@ -384,19 +401,19 @@ class ParseFile:
 
 
 class ParseGenotypeFile(ParseFile):
-    """Class to parse standard datafile in genotype form."""
+    """Class to parse standard datafile in genotype form.
+
+    Processes files that consist specifically of data with individual
+    genotyped for one or more loci.
+
+    Args:
+        filename (str): filename for the file to be parsed.
+
+        untypedAllele (str, optional): The designator for an untyped locus.
+         Defaults to ``****``.
+    """
 
     def __init__(self, filename, untypedAllele="****", **kw):
-        """Constructor for ParseGenotypeFile.
-
-        - 'filename': filename for the file to be parsed.
-
-        In addition to the arguments for the base class, this class
-        accepts the following additional keywords:
-
-        - 'untypedAllele': The designator for an untyped locus.  Defaults
-        to '****'.
-        """
         self.untypedAllele = untypedAllele
 
         ParseFile.__init__(self, filename, **kw)
@@ -413,8 +430,8 @@ class ParseGenotypeFile(ParseFile):
         Note that this is simply a transformed _subset_ of that
         returned by **getSampleMap()**
 
-        *For internal use only.*"""
-
+        *For internal use only.*
+        """
         # assume there is no population column
 
         popNameCol = None
@@ -446,10 +463,10 @@ class ParseGenotypeFile(ParseFile):
             ]
 
     def _genDataStructures(self):
-        """Generates matrix only
+        """Generates matrix only.
 
-        *For internal use only.*"""
-
+        *For internal use only.*
+        """
         # generate alleleMap and population field name
         self._genInternalMaps()
 
@@ -538,8 +555,8 @@ class ParseGenotypeFile(ParseFile):
         *Note: this is explicitly done in the subclass of the abstract
         'ParseFile' class (i.e. since this subclass should have
         `knowledge' about the nature of fields, but the abstract
-        class should not have)*"""
-
+        class should not have)*
+        """
         if (
             (field in fieldList)
             or (self.alleleDesignator + field in fieldList)
@@ -588,7 +605,6 @@ class ParseGenotypeFile(ParseFile):
 
     def serializeSubclassMetadataTo(self, stream):
         """Serialize subclass-specific metadata."""
-
         if self.popName:
             # if present in input , print population name
             stream.tagContents("popname", self.popName)
@@ -598,22 +614,26 @@ class ParseGenotypeFile(ParseFile):
 class ParseAlleleCountFile(ParseFile):
     """Class to parse datafile in allele count form.
 
-    Currently  only handles one locus per population, in format:
+    Input files consist of allele counts across a whole population.
+    Currently only handles one locus per population. Example:
 
-    <metadata-line1>
-    <metadata-line2>
-    DQA1 count
-    0102 20
-    0103 33
-    ...
+    .. code-block:: text
 
-    *Currently a prototype implementation*."""
+       <metadata-line1>
+       <metadata-line2>
+       DQA1 count
+       0102 20
+       0103 33
+       ...
+
+    """
 
     def __init__(self, filename, **kw):
         ParseFile.__init__(self, filename, **kw)
         self._genDataStructures()
 
     def _genDataStructures(self):
+        """Generate internal data structures."""
         sampleDataLines, separator = self.getFileData()
 
         self.alleleTable = {}
@@ -680,19 +700,30 @@ class ParseAlleleCountFile(ParseFile):
             print(self.matrix)
 
     def genValidKey(self, field, fieldList):
-        """Checks to  see validity of a field.
+        """Checks validity of a field.
 
-        Given a 'field', this is checked against the 'fieldList' and a
-        tuple of a boolean (key is valid) and a a key is returned.
+        Args:
+         field (str): field to check
+         fieldList (str): list that ``field`` is checked against
 
-        The first element in the 'fieldList' which is a locus name,
-        can match one of many loci (delimited by colons ':').  E.g. it
-        may look like:
+        Returns:
+          tuple: 2-tuple of:
 
-        'DQA1:DRA:DQB1'
+          - boolean: whether key is valid
+          - str: key
 
-        If the field in the input file match *any* of these keys,
-        return the field and a valid match.
+        Note:
+          The first element in the ``fieldList`` is a locus name,
+          which may contain many loci (delimited by colons ``:``).  If
+          ``field`` in the input file match *any* of these keys , this
+          method will return the field and a valid match.
+
+        Example:
+            If the first element of ``fieldList`` is
+            ``DQA1:DRA:DQB1``, then calling this function with
+            ``field`` set to ``DRA``, this would return ``(True,
+            DRA)``
+
         """
         if field in fieldList:
             isValidKey = 1
@@ -710,20 +741,36 @@ class ParseAlleleCountFile(ParseFile):
         return isValidKey, field
 
     def serializeSubclassMetadataTo(self, stream):
+        """Serialize subclass specific metadata.
+
+        Args:
+           stream (XMLOutputStream): output stream
+
+        """
         # nothing special is required here, so pass
-        pass
 
     def getAlleleTable(self):
+        """Get the current allele table.
+
+        Returns:
+          dict: keyed by allele name with value count
+        """
         return self.alleleTable
 
     def getLocusName(self):
+        """Get the locus name.
+
+        Returns:
+           str: locus name
+        """
         # the first key is the name of the locus
         return self.locusName
 
     def getMatrix(self):
-        """Returns the genotype data.
+        """Get the full genotype data.
 
-        Returns the genotype data in a 'StringMatrix' NumPy array.
+        Returns:
+          StringMatrix: containing all the genotype data
         """
         return self.matrix
 

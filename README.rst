@@ -1,6 +1,6 @@
 |PyPI version shields.io| |Build status| |Pre-commit| |Website pypop.org| |GitHub license| |Citations| |DOI|
 
-.. image:: pypop-logo.png
+.. image:: https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/pypop-logo.png
    :width: 150px
    :align: center
 

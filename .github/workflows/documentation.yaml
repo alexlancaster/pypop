@@ -7,33 +7,21 @@ concurrency:
 on:
   workflow_dispatch:
   push:
-    paths:
+    paths: &docs_paths
       - '*.rst'
       - 'NEWS.md'
       - 'LICENSE'
       - 'pypop-logo.png'
       - 'website/**'
+      - 'src/PyPop/**'
       - 'tests/data/doc-examples/**'
-      - 'src/PyPop/CommandLineInterface.py'
       - 'src/script_build/generate_metadata.py'
       - '.github/workflows/documentation.yaml'
       - '!website/_templates/announcement_banner.html'
       - '!website/README.md'
       - '!website/reference/**'
   pull_request:
-    paths:
-      - '*.rst'
-      - 'NEWS.md'
-      - 'LICENSE'
-      - 'pypop-logo.png'
-      - 'website/**'
-      - 'tests/data/doc-examples/**'
-      - 'src/PyPop/CommandLineInterface.py'
-      - 'src/script_build/generate_metadata.py'
-      - '.github/workflows/documentation.yaml'
-      - '!website/_templates/announcement_banner.html'
-      - '!website/README.md'
-      - '!website/reference/**'
+    paths: *docs_paths
   release:
     types:
       - published
@@ -42,8 +30,36 @@ on:
 permissions:
   contents: write
 jobs:
+  docs_check:
+    runs-on: ubuntu-latest
+    outputs:
+      docs_rebuild: ${{ steps.changes.outputs.docs_rebuild }}
+    steps:
+      - name: Checkout full repo history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # fetch full history so we can diff branches
+      - name: Detect changed files
+        id: changes
+        run: |
+          set -x
+          git diff --name-only 'HEAD^'
+          changed_files=$(git diff --name-only HEAD^)
+
+          # Skip rebuild only if there are changes and all are under src/PyPop/
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]] && [[ -n "$changed_files" ]] && \
+             ! echo "$changed_files" | grep -qv '^src/PyPop/'; then
+              echo "Skipping docs rebuild!"
+              echo "docs_rebuild=false" >> "$GITHUB_OUTPUT"
+          else
+              echo "Doing docs rebuild!"
+              echo "docs_rebuild=true" >> "$GITHUB_OUTPUT"
+          fi
+
   docs:
     runs-on: ubuntu-latest
+    needs: docs_check
+    if: needs.docs_check.outputs.docs_rebuild == 'true'
     steps:
       - uses: actions/checkout@v5
         with:
@@ -63,15 +79,33 @@ jobs:
           echo "github.event.release.target_commitish: ${{ toJson(github.event.release.target_commitish) }}"
 
       - uses: actions/setup-python@v6
-      - name: Install Python dependencies
+
+      - name: Determine AutoAPI source + version metadata
+        id: select-autoapi
         run: |
+          mode="internal"
+          if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
+             echo "Detected main branch (non-release): using installed package"
+             mode="installed"
+             pip install pypop-genomics[test]  # only needed in this mode
+             # test user guide again released API
+             pytest -v -s --doctest-modules --doctest-glob='*.rst' website/docs/
+          else
+             echo "Using internal source (tag or branch build)"
+             # needed because tomli is used for backwards compatibility
+             pip install tomli
+             #  in the internal case we generate _metadata.py manually
+             #  since we are not doing a `pip install` build
+             python src/script_build/generate_metadata.py src/PyPop/_metadata.py
+          fi
+          echo "PYPOP_DOCS_MODE=$mode" >> "$GITHUB_ENV"
+
+      - name: Install Python deps + graphviz for API diagrams
+        run: |
+          # shared dependencies
           pip install -r website/requirements-docs.txt
-      - name: Get metadata
-        run: |
-          # needed because tomli is used for backwards compatibility
-          pip install tomli
-          # need to generate _metadata.py manually since we are not doing a `pip install` build
-          python src/script_build/generate_metadata.py src/PyPop/_metadata.py
+          sudo apt-get install -y --no-install-recommends graphviz
+
       - name: Build LaTeX sources
         run: |
           # latex build in separate directory
@@ -82,20 +116,19 @@ jobs:
         uses: xu-cheng/latex-action@v4
         with:
           working_directory: _latexbuild
-          root_file: pypop-guide-*.tex
+          root_file: |
+            pypop-guide-*.tex
+            pypop-api-*.tex
           docker_image: ghcr.io/xu-cheng/texlive-debian:20250701
-       # run: |
-          #sudo apt clean
-          #sudo apt-get update
-          #sudo apt-get install --fix-missing -y latexmk texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-luatex texlive-xetex
       - name: Postprocess PDF
         run: |
-          # create _build directory and move the PDF there
+          # create _build directory and move the PDFs there
           mkdir _build
-          cp _latexbuild/*.pdf _build/
+          cp _latexbuild/pypop-*.pdf _build/
           # create a symlink from 'pypop-guide.pdf' to the latest version
           cd _build/
           ln -s pypop-guide*.pdf pypop-guide.pdf
+          ln -s pypop-api*.pdf pypop-api.pdf
           cd -
       - name: Build HTML
         run: |

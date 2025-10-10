@@ -15,6 +15,8 @@ def new_matrix_with_popfields():
 
 
 class StringMatrixTest(unittest.TestCase):
+    """Setup for unit tests of :class:`StringMatrix`."""
+
     def test_new(self):
         # check everything is zero upon first assignment
         A_matrix = new_matrix()
