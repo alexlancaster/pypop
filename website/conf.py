@@ -48,6 +48,7 @@ from helpers import (
 # ones.
 extensions = [
     "sphinx.ext.autodoc",
+    "sphinx.ext.doctest",
     "sphinx.ext.autosectionlabel",
     "myst_parser",
     "rst2pdf.pdfbuilder",
