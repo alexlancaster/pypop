@@ -5,7 +5,7 @@ import sys
 import pytest
 
 
-def pytest_collection_modifyitems(_config, items):
+def pytest_collection_modifyitems(config, items):  # noqa: ARG001
     """Skip tests for website rst in Python < 3.9."""
     if sys.version_info < (3, 9):
         skip = pytest.mark.skip(
