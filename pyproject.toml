@@ -71,14 +71,18 @@ version_scheme = "post-release"
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config"]
+addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config", "--doctest-modules", "--doctest-glob=*.rst"]
 xfail_strict = true
 # convert warnings to errors, except for ImportWarnings in numpy (needed for pp38)
 # FIXME: eventually we should be able to remove the numpy exception
 filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*"]
 log_cli_level = "INFO"
 testpaths = [
+  "website/docs",
   "tests",
+]
+norecursedirs = [
+ "tests/data"
 ]
 
 [tool.cibuildwheel]
@@ -94,7 +98,7 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
      ]
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
-test-command = "pytest -v {package}/tests ${PYTEST_OPTIONS}"
+test-command = ["pytest -v --pyargs PyPop  {package}/website/docs {package}/tests ${PYTEST_OPTIONS}"]
 # FIXME: can add "test-command" that would allow unit test output to be saved
 # "pytest -v {package}/tests && echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
 
@@ -120,7 +124,9 @@ manylinux-pypy_aarch64-image = "manylinux_2_28"
 [[tool.cibuildwheel.overrides]]
 # run the benchmarking only on cp313
 select = "cp313-manylinux_aarch64"
-test-command = "pytest --pval-benchmarking -v {package}/tests ${PYTEST_OPTIONS}"
+inherit.test-extras = "append"
+test-extras = ["test-pval-benchmarking"]
+test-command = ["pytest --pval-benchmarking -v --pyargs PyPop {package}/website/docs {package}/tests ${PYTEST_OPTIONS}"]
 
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
@@ -160,7 +166,7 @@ before-all = ["brew install --quiet ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"]
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
-test-command = "pytest -v {package}/tests %PYTEST_OPTIONS%"
+test-command = ["pytest -v --pyargs PyPop {package}/website/docs {package}/tests %PYTEST_OPTIONS%"]
 
 [[tool.cibuildwheel.overrides]]
 # overrides for X86
@@ -180,6 +186,8 @@ environment = { CPATH="gsl-msvc14-arm64.2.3.0.2779\\\\build\\\\native\\\\include
 
 [tool.ruff]
 target-version = "py37"
+# Enforce Google style argument docs
+
 
 [tool.ruff.lint]
 extend-select = [
@@ -206,6 +214,7 @@ extend-select = [
   "T20",      # flake8-print
   "UP",       # pyupgrade
   "YTT",      # flake8-2020
+  "D",         # all pydocstyle/PEP 257 checks
 ]
 ignore = [
   "T201",     # allow `print()`
@@ -214,16 +223,22 @@ ignore = [
   "ISC001",   # Conflicts with formatter
   "PLR09",    # Too many <...>
   "PLR2004",  # Magic value used in comparison
+  "D107",  # Skip "missing docstring in __init__" if you merge class+init docstrings
+  "D102",  # missing docstring in method -- FIXME disable currently
 ]
+
 typing-modules = ["mypackage._compat.typing"]
 # this won't work for Python 3.6, disable
 #isort.required-imports = ["from __future__ import annotations"]
 
+[tool.ruff.lint.pydocstyle]
+convention = "google"  # also "numpy" or "pep257"
+
 [tool.ruff.lint.per-file-ignores]
-"tests/**" = ["T20"]
+"tests/**" = ["T20", "D100", "D103"]  # don't need docs on every unit test function
 
 [tool.codespell]
-skip = '*tests/data/*,.data/*,src/obsolete/*,src/slatkin-exact/README,src/pval/*,src/PyPop/xslt/xsl.dtd,src/haplo-stats/haplo_em_pin.c'
+skip = '*tests/data/*,.data/*,src/obsolete/*,src/slatkin-exact/README,src/pval/*,src/PyPop/xslt/xsl.dtd,src/haplo-stats/haplo_em_pin.c,website/requirements-docs.txt'
 count = true
 quiet-level = 3
 ignore-words-list = 'nd,Fallin,commmon'
@@ -241,3 +256,12 @@ PC111 = "doesn't use blacken directly (uses ruff)"
 PC140 = "doesn't use typechecker"
 MY = "no typechecker"
 RTD = "doesn't use read the docs"
+
+[tool.pydoclint]
+style = "google"                        # Google style
+# require-return = true                 # Require documenting returns
+check-param-types = true              # Ensure param types are provided
+check-return-types = false              # Disable return type checking
+arg-type-hints-in-signature = false     # We don't use type hints in signature
+should-document-star-arguments = false  # don't require document **kwargs
+allow-init-docstring = true             # allow docstrin in init.py

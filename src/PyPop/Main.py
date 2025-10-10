@@ -31,7 +31,49 @@
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
-"""Python population genetics statistics."""
+r"""Primary access to PyPop's population genetics statistics modules.
+
+This module handles processing :class:`configparser.ConfigParser`
+instance.  The :class:`Main` class coordinates running the analysis
+packages specified in this :class:`configparser.ConfigParser` instance
+which can be:
+
+- created from a filename passed from command-line argument oar;
+
+- from values populated by the GUI (for example,  selected from an
+  ``.ini`` file,
+
+- created programmatically as part of an external Python program
+
+Here is an example of calling :class:`Main` programmatically,
+explicitly specifying the ``untypedAllele`` and ``alleleDesignator``
+in the ``.pop`` file:
+
+>>> from PyPop.Main import Main
+>>> from configparser import ConfigParser
+>>>
+>>> config = ConfigParser()
+>>> config.read_dict({
+...     "ParseGenotypeFile": {"untypedAllele": "****",
+...                           "alleleDesignator": "*",
+...                           "validSampleFields": "*a_1\n*a_2"}})
+>>>
+>>> pop_contents = '''a_1\ta_2
+... ****\t****
+... 01:01\t02:01
+... 02:10\t03:01:02'''
+>>> with open("my.pop", "w") as f:
+...     _ = f.write(pop_contents)
+...
+>>> application = Main(
+...     config=config,
+...     fileName="my.pop",
+...     version="fake",
+... )
+LOG: no XSL file, skipping text output
+LOG: Data file has no header data block
+
+"""
 
 import os
 import sys
@@ -69,8 +111,12 @@ from PyPop.Utils import (
 def getConfigInstance(configFilename=None, altpath=None):
     """Create and return ConfigParser instance.
 
-    Taken a specific .ini filename and an alternative path to search
-    if no .ini filename is given.
+    Args:
+       configFilename (str): a specified ``.ini`` filename
+       altpath (str): an alternative path to search if no ``.ini`` filename provided in configFilename
+
+    Returns:
+      configparser.ConfigParser: configuration object
     """
     config = ConfigParser()
 
@@ -88,6 +134,15 @@ def getConfigInstance(configFilename=None, altpath=None):
 
 
 def get_sequence_directory(directory_str, debug=False):
+    """Get the directory for the :class:`PyPop.Filter.AnthonyNolanFilter`.
+
+    Args:
+       directory_str (str): directory to search
+       debug (bool): enable debugging
+
+    Returns:
+       str: path to sequence files
+    """
     path_obj = Path(directory_str)
 
     # if the path is relative, resolve it to an absolute path if it exists
@@ -119,15 +174,32 @@ def get_sequence_directory(directory_str, debug=False):
 class Main:
     """Main interface to the PyPop modules.
 
-    Given a config instance, which can be:
+    Runs the analyses specified in the configuration object provided
+    to the ``config`` parameter, and an input ``fileName``, and
+    generates an output XML file. The XML output file name, appends
+    ``-out.xml`` on to the stem of the provided ``fileName``.  For
+    example, if ``fileName="MyPopulation.pop"`` is provided as a
+    parameter, the output XML file will be ``MyPopulation-out.xml``.
 
-    - created from a filename passed from command-line argument or;
+    .. versionchanged:: 1.4.0
 
-    - from values populated by the GUI (currently selected from an
-      .ini file, but can ultimately be set directly from the GUI or
-      values based from a form to a web server or the).
+       If an ``xslFilename`` or ``xslFilenameDefault`` is provided,
+       also generate a plain text output.  Otherwise no text output is
+       generated. Previous to this version, if neither were provided,
+       the program would exit with an error.
 
-    runs the specified modules.
+    Args:
+        config (configparser.ConfigParser): configure object
+        xslFilename (str, optional): XSLT file to use
+        xslFilenameDefault (str, optional): fallback file name
+        debugFlag (int, optional): enable debugging (``1``)
+        fileName (str): input ``.pop`` file
+        datapath (str, optional): root of data path
+        thread (str, optional): specified thread
+        outputDir (str, optional): use a different output directory than default
+        version (str, optional): current Python version for output
+        testMode (bool, optional): enable testing mode
+
     """
 
     def __init__(
@@ -174,7 +246,7 @@ class Main:
 
         try:
             self.debug = self.config.getboolean("General", "debug")
-        except NoOptionError:
+        except (NoOptionError, NoSectionError):
             self.debug = 0
         except ValueError:
             sys.exit("require a 0 or 1 as debug flag")
@@ -196,7 +268,7 @@ class Main:
                 sys.exit(
                     f"outFilePrefixType: {outFilePrefixType} must be 'filename' or 'date'"
                 )
-        except NoOptionError:
+        except (NoOptionError, NoSectionError):
             # just use default prefix
             uniquePrefix = prefixFileName
 
@@ -210,7 +282,7 @@ class Main:
             self.txtOutFilename = self.config.get("General", "txtOutFilename")
             if self.txtOutFilename == "":
                 self.txtOutFilename = defaultTxtOutFilename
-        except NoOptionError:
+        except (NoOptionError, NoSectionError):
             self.txtOutFilename = defaultTxtOutFilename
 
         #
@@ -221,7 +293,7 @@ class Main:
             self.xmlOutFilename = self.config.get("General", "xmlOutFilename")
             if self.xmlOutFilename == "":
                 self.xmlOutFilename = defaultXmlOutFilename
-        except NoOptionError:
+        except (NoOptionError, NoSectionError):
             self.xmlOutFilename = defaultXmlOutFilename
 
         #
@@ -275,16 +347,15 @@ class Main:
                     debug=self.debug,
                     msg="specified in .ini file",
                 )
-            except NoOptionError:
+            except (NoOptionError, NoSectionError):
                 # otherwise fall back to xslFilenameDefault
                 if self.debug:
                     print("xslFilename .ini option not set")
                 if self.xslFilenameDefault:
                     self.xslFilename = self.xslFilenameDefault
                 else:
-                    sys.exit(
-                        "No default XSL file found, must specify in .ini or on the command line"
-                    )
+                    # if no default XSL file found, then we skip text output
+                    print("LOG: no XSL file, skipping text output")
 
         elif self.debug:
             print("using user supplied version in: ", self.xslFilename)
@@ -507,8 +578,10 @@ class Main:
         # close XML stream
         self.xmlStream.close()
 
-        # lastly, generate the text output
-        self._genTextOutput()
+        # lastly, generate the text output if XSL file was specified,
+        # otherwise skip text output generation
+        if self.xslFilename:
+            self._genTextOutput()
 
     def _checkMSFOptions(self, filterCall):
         try:
@@ -746,15 +819,6 @@ class Main:
         loci = self.input.getLocusList()
 
         for locus in loci:
-            ##           if self.thread and self.thread._want_abort:
-            ##             from wxPython.wx import wxPostEvent
-            ##             from GUIApp import ResultEvent
-            ##             # Use a result of None to acknowledge the abort (of
-            ##             # course you can use whatever you'd like or even
-            ##             # a separate event type)
-            ##             wxPostEvent(self.thread._notify_window,ResultEvent(None))
-            ##             return
-
             self.xmlStream.opentag("locus", name=locus)
             self.xmlStream.writeln()
 
@@ -1455,7 +1519,6 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
 
         # read output XML file
         doc = etree.parse(self.xmlOutPath)
-
         # process via stylesheet
         result = style(doc, **{"new-hardyweinberg-format": "1"})
 
@@ -1469,9 +1532,19 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             convertLineEndings(self.txtOutPath, 2)
 
     def getXmlOutPath(self):
+        """Get name of XML file.
+
+        Returns:
+           XMLOutputStream: return XML file name
+        """
         # return the name of the generated XML file
         return self.xmlOutPath
 
     def getTxtOutPath(self):
+        """Get name of ``.txt`` output file.
+
+        Returns:
+           TextOutputStream: return txt file name
+        """
         # return the name of the generated plain text (.txt) file
         return self.txtOutPath

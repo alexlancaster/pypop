@@ -32,6 +32,8 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+"""Command-line interface for ``popmeta``."""
+
 import os
 import sys
 from pathlib import Path
@@ -43,6 +45,11 @@ from PyPop.Meta import Meta
 
 
 def main(argv=sys.argv):
+    """Entry point for ``popmeta`` script.
+
+    Args:
+       argv (list): list of command-line options (default is ``sys.argv``)
+    """
     datapath = Path(sys.prefix) / "share" / "PyPop"
 
     parser = get_popmeta_cli(version=version, copyright_message=copyright_message)
@@ -87,7 +94,7 @@ def main(argv=sys.argv):
 
 
 if __name__ == "__main__":
-    DIR = Path(__file__).parent.resolve()
-    sys.path.insert(0, str(Path(DIR) / ".."))
+    _DIR = Path(__file__).parent.resolve()
+    sys.path.insert(0, str(Path(_DIR) / ".."))
 
     main()

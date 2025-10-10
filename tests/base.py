@@ -31,7 +31,7 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 
-"""This is a class of common functions for running PyPop tests"""
+"""This is a class of common functions for running PyPop tests."""
 
 import os.path
 import platform
@@ -61,7 +61,6 @@ def is_check_musllinux_enabled():
 # FIXME: this is a somewhat hacky check to see if on musllinux
 def is_musllinux():
     """Check if running on a musl-based Linux system."""
-
     if sys.platform != "linux":
         return False
 

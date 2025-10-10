@@ -318,12 +318,13 @@ def test_Haplostats_UchiTelleClassI():
 
 
 def test_Haplostats_PyPopStringMatrix():
-    """
-    This is the same numerical example as test_Haplostats_Simple()
-    except we are setting up via PyPop StringMatrix, and letting the class
-    handle all the translation into the low-level variables for the wrapper
-    """
+    """Same numerical example as test_Haplostats_Simple().
 
+    Except we are setting up via PyPop StringMatrix, and letting the
+    class handle all the translation into the low-level variables for
+    the wrapper.
+
+    """
     control = {
         "max_iter": 5000,
         "min_posterior": 0.000000001,
@@ -483,9 +484,11 @@ def test_Haplostats_PyPopStringMatrix():
 
 
 def test_Haplostats_compute_LD_sym():
-    """
-    Test LD computations in a standalone mode
-    FIXME: if used standalone from Haplostats, move to another test module
+    """Test LD computations in a standalone mode.
+
+    FIXME: if used standalone from Haplostats, move to another test
+    module.
+
     """
     haplos = array([["A1", "B1"], ["A2", "B1"], ["A1", "B2"], ["A2", "B2"]], dtype="O")
     freqs = array([0.3, 0.1, 0.1, 0.5])
@@ -498,9 +501,11 @@ def test_Haplostats_compute_LD_sym():
 
 
 def test_Haplostats_compute_LD_assym():
-    """
-    Test LD computations in a standalone mode.
-    Note that in this example standard Dprime doesn't match the ALD values
+    """Test LD computations in a standalone mode.
+
+    Note that in this example standard Dprime doesn't match the ALD
+    values.
+
     """
     haplos = array(
         [

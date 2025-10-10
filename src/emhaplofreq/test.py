@@ -1,4 +1,10 @@
 #!/usr/bin/env python
+"""Local testing of Emhaplofreq module.
+
+Untested, likely obsolete. FIXME: should probably make any useful
+leftovers into doctests.
+
+"""
 
 import io
 import os

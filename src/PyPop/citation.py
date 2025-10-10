@@ -32,6 +32,7 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+"""Module for generating citation formats."""
 
 import shutil
 from pathlib import Path
@@ -46,9 +47,19 @@ citation_output_formats = [
     "schema.org",
     "zenodo",
 ]
+"""
+Valid citation output formats supported by ``cffconvert``
+"""
 
 
 def convert_citation_formats(build_lib, citation_path):
+    """Generate all supported citation formats.
+
+    Args:
+       build_lib (str): path to build directory when creating package
+       citation_path (str): path to standard ``CITATION.cff`` file
+
+    """
     # FIXME: currently doesn't work at top-level
     from cffconvert import Citation  # noqa: PLC0415
 
