@@ -46,24 +46,6 @@ from PyPop.DataTypes import Genotypes, checkIfSequenceData, getLocusPairs, getMe
 from PyPop.Utils import getStreamType
 
 
-def getObservedHomozygosityFromAlleleData(alleleData):
-    """Get homozygosity from allele data.
-
-    Args:
-       alleleData (list): list of allele counts
-
-    Returns:
-       float: observed homozygosity
-    """
-    sum = 0.0
-    sampleCount = reduce(add, alleleData)
-    for alleleCount in alleleData:
-        freq = float(alleleCount) / float(sampleCount)
-        sum += freq * freq
-
-    return sum
-
-
 class Homozygosity:
     """Calculate homozygosity statistics.
 
@@ -594,3 +576,21 @@ class HomozygosityEWSlatkinExactPairwise:
 
         stream.closetag("homozygosityEWSlatkinExactPairwise")
         stream.writeln()
+
+
+def getObservedHomozygosityFromAlleleData(alleleData):
+    """Get homozygosity from allele data.
+
+    Args:
+       alleleData (list): list of allele counts
+
+    Returns:
+       float: observed homozygosity
+    """
+    sum = 0.0
+    sampleCount = reduce(add, alleleData)
+    for alleleCount in alleleData:
+        freq = float(alleleCount) / float(sampleCount)
+        sum += freq * freq
+
+    return sum

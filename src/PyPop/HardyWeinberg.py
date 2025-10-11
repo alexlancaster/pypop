@@ -48,70 +48,11 @@ from PyPop.Arlequin import ArlequinExactHWTest
 from PyPop.Utils import GENOTYPE_SEPARATOR, getStreamType
 
 use_scipy = False  # don't use scipy by default
-chi2 = None  # define chi2 globally
+"""If ``True`` use ``scipy`` to compute pvalue, rather than internal ``pval``"""
+_chi2 = None  # define chi2 globally
 
 if use_scipy:
-    from scipy.stats import chi2
-
-
-def pval(chisq, dof):
-    """Calculate p-value.
-
-    Args:
-       chisq (float): Chi-square value
-       dof (int): degrees of freedom
-
-    Returns:
-       float: p-value
-    """
-    global chi2  # noqa: PLW0603
-    if use_scipy:
-        if chi2 is None:
-            # late import if needed
-            from scipy.stats import chi2  # noqa: PLC0415
-        p_value = 1 - chi2.cdf(chisq, dof)
-    else:
-        p_value = _Pvalue.pval(chisq, dof)
-    return p_value
-
-
-def _chen_statistic(genotype, alleleFreqs, genotypes, total_gametes):
-    total_indivs = total_gametes / 2
-
-    allele1, allele2 = genotype.split(GENOTYPE_SEPARATOR)
-    p_i = alleleFreqs[allele1]
-    p_j = alleleFreqs[allele2]
-
-    # get current genotype frequency
-    p_ij = genotypes[genotype] / float(total_indivs)
-
-    # get homozygous genotype frequencies, set to 0.0 if they aren't seen
-    try:
-        p_ii = genotypes[allele1 + GENOTYPE_SEPARATOR + allele1] / float(total_indivs)
-    except KeyError:
-        p_ii = 0.0
-    try:
-        p_jj = genotypes[allele2 + GENOTYPE_SEPARATOR + allele2] / float(total_indivs)
-    except KeyError:
-        p_jj = 0.0
-
-    if allele1 != allele2:
-        # heterozygote case
-
-        d = p_i * p_j - (0.5) * p_ij
-        var = (1.0 / float(total_gametes)) * (
-            p_i * p_j * ((1 - p_i) * (1 - p_j) + p_i * p_j)
-            + p_i * p_i * (p_jj - p_j * p_j)
-            + p_j * p_j * (p_ii - p_i * p_i)
-        )
-    else:
-        # homozygote case
-        d = p_i * p_i - p_ii
-        var = (1.0 / float(total_indivs)) * (
-            pow(p_i, 4.0) - (2 * pow(p_i, 3.0)) + (p_i * p_i)
-        )
-
-    return abs(d) * abs(d) / var
+    from scipy.stats import chi2 as _chi2
 
 
 class HardyWeinberg:
@@ -1256,3 +1197,63 @@ class HardyWeinbergGuoThompsonArlequin:
                 stream.writeln()
                 stream.closetag("hardyweinbergGuoThompsonArlequin")
                 stream.writeln()
+
+
+def pval(chisq, dof):
+    """Calculate p-value.
+
+    Args:
+       chisq (float): Chi-square value
+       dof (int): degrees of freedom
+
+    Returns:
+       float: p-value
+    """
+    global _chi2  # noqa: PLW0603
+    if use_scipy:
+        if _chi2 is None:
+            # late import if needed
+            from scipy.stats import chi2 as _chi2  # noqa: PLC0415
+        p_value = 1 - _chi2.cdf(chisq, dof)
+    else:
+        p_value = _Pvalue.pval(chisq, dof)
+    return p_value
+
+
+def _chen_statistic(genotype, alleleFreqs, genotypes, total_gametes):
+    total_indivs = total_gametes / 2
+
+    allele1, allele2 = genotype.split(GENOTYPE_SEPARATOR)
+    p_i = alleleFreqs[allele1]
+    p_j = alleleFreqs[allele2]
+
+    # get current genotype frequency
+    p_ij = genotypes[genotype] / float(total_indivs)
+
+    # get homozygous genotype frequencies, set to 0.0 if they aren't seen
+    try:
+        p_ii = genotypes[allele1 + GENOTYPE_SEPARATOR + allele1] / float(total_indivs)
+    except KeyError:
+        p_ii = 0.0
+    try:
+        p_jj = genotypes[allele2 + GENOTYPE_SEPARATOR + allele2] / float(total_indivs)
+    except KeyError:
+        p_jj = 0.0
+
+    if allele1 != allele2:
+        # heterozygote case
+
+        d = p_i * p_j - (0.5) * p_ij
+        var = (1.0 / float(total_gametes)) * (
+            p_i * p_j * ((1 - p_i) * (1 - p_j) + p_i * p_j)
+            + p_i * p_i * (p_jj - p_j * p_j)
+            + p_j * p_j * (p_ii - p_i * p_i)
+        )
+    else:
+        # homozygote case
+        d = p_i * p_i - p_ii
+        var = (1.0 / float(total_indivs)) * (
+            pow(p_i, 4.0) - (2 * pow(p_i, 3.0)) + (p_i * p_i)
+        )
+
+    return abs(d) * abs(d) / var

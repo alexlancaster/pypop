@@ -125,7 +125,8 @@ autoapi_file_pattern = "*.py"
 autoapi_ignore = [
     "**/conf.py",
 ]
-autoapi_member_order = "groupwise"
+# autoapi_member_order = "groupwise"
+autoapi_member_order = "source"
 autoapi_options = [
     "members",
     "undoc-members",

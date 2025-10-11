@@ -37,63 +37,6 @@ import re
 import string
 
 
-def _serializeAlleleCountDataAt(
-    stream, alleleTable, total, untypedIndividuals, unsequencedSites
-):
-    """Function to actually do the output."""
-    totalFreq = 0
-    alleles = list(alleleTable.keys())
-    alleles.sort()
-
-    # if all individuals are untyped then suppress itemized output
-    if len(alleles) == 0:
-        stream.emptytag("allelecounts", role="no-data")
-        stream.writeln()
-    else:
-        # if monomorphic generate a role to indicate this, but
-        # still generate the summary output
-        if len(alleles) == 1:
-            stream.opentag("allelecounts", role="monomorphic")
-        else:
-            stream.opentag("allelecounts")
-
-        stream.writeln()
-        stream.tagContents("untypedindividuals", f"{untypedIndividuals:.1f}")
-        stream.writeln()
-        stream.tagContents("unsequencedsites", f"{unsequencedSites}")
-        stream.writeln()
-        stream.tagContents("indivcount", f"{total / 2.0:.1f}")
-        stream.writeln()
-        stream.tagContents("allelecount", f"{total}")
-        stream.writeln()
-        stream.tagContents("distinctalleles", f"{len(alleleTable)}")
-        stream.writeln()
-
-        for allele in alleles:
-            freq = float(alleleTable[allele]) / float(total)
-            totalFreq += freq
-            strFreq = f"{freq:0.5f} "
-            strCount = f"{alleleTable[allele]}"
-
-            stream.opentag("allele", name=allele)
-            stream.writeln()
-            stream.tagContents("frequency", strFreq)
-            stream.tagContents("count", strCount)
-            stream.writeln()
-            stream.closetag("allele")
-
-            stream.writeln()
-
-        strTotalFreq = f"{totalFreq:0.5f}"
-        strTotal = f"{total}"
-
-        stream.tagContents("totalfrequency", strTotalFreq)
-        stream.writeln()
-        stream.tagContents("totalcount", strTotal)
-        stream.closetag("allelecounts")
-        stream.writeln()
-
-
 class Genotypes:
     """Stores genotypes and caches basic genotype statistics.
 
@@ -431,6 +374,131 @@ class Genotypes:
         return self.matrix
 
 
+class AlleleCounts:
+    """Deprecated class to store information in allele count form.
+
+    .. deprecated:: 0.6.0
+         this class is now obsolete, the :class:`Genotypes` class
+         now holds allele count data as pseudo-genotype matrix.
+    """
+
+    def __init__(self, alleleTable=None, locusName=None, debug=0):
+        self.alleleTable = alleleTable
+        self.locusName = locusName
+        self.debug = debug
+        self._genDataStructures()
+
+    def _genDataStructures(self):
+        total = 0
+        self.freqcount = {}
+
+        for allele in self.alleleTable:
+            total += self.alleleTable[allele]
+
+        # store in an iVar for the moment
+        self.totalAlleleCount = total
+
+        if self.debug:
+            print("alleleTable", self.alleleTable)
+
+        # simply reconstruct the 3-tuple as generated in
+        # ParseGenotypeFile: alleleTable (a map of counts keyed by
+        # allele), total allele count and the number of untyped
+        # individuals (in this case, by definition it is zero).
+        # then store in the same data structure as ParseGenotypeFile
+
+        # even though we only have a single locus, this will make it
+        # easy to generalize later
+
+        self.freqcount[self.locusName] = self.alleleTable, self.totalAlleleCount, 0, 0
+
+    def serializeSubclassMetadataTo(self, stream):
+        """Serialize subclass-specific metadata.
+
+        Specifically, total number of alleles and loci.
+        """
+        stream.opentag("summaryinfo")
+        stream.writeln()
+        stream.tagContents("allelecount", f"{self.totalAlleleCount}")
+        stream.writeln()
+        stream.tagContents("locuscount", f"{1}")
+        stream.writeln()
+        stream.closetag("summaryinfo")
+        stream.writeln()
+
+    def serializeAlleleCountDataAt(self, stream, locus):
+        # call the class-independent function...
+
+        alleleTable, total, untypedIndividuals, unsequencedSites = self.freqcount[locus]
+        _serializeAlleleCountDataAt(
+            stream, alleleTable, total, untypedIndividuals, unsequencedSites
+        )
+
+    def getAlleleCount(self):
+        return self.freqcount[self.locusName]
+
+    def getLocusName(self):
+        # the first key is the name of the locus
+        return self.locusName
+
+
+def _serializeAlleleCountDataAt(
+    stream, alleleTable, total, untypedIndividuals, unsequencedSites
+):
+    """Function to actually do the output."""
+    totalFreq = 0
+    alleles = list(alleleTable.keys())
+    alleles.sort()
+
+    # if all individuals are untyped then suppress itemized output
+    if len(alleles) == 0:
+        stream.emptytag("allelecounts", role="no-data")
+        stream.writeln()
+    else:
+        # if monomorphic generate a role to indicate this, but
+        # still generate the summary output
+        if len(alleles) == 1:
+            stream.opentag("allelecounts", role="monomorphic")
+        else:
+            stream.opentag("allelecounts")
+
+        stream.writeln()
+        stream.tagContents("untypedindividuals", f"{untypedIndividuals:.1f}")
+        stream.writeln()
+        stream.tagContents("unsequencedsites", f"{unsequencedSites}")
+        stream.writeln()
+        stream.tagContents("indivcount", f"{total / 2.0:.1f}")
+        stream.writeln()
+        stream.tagContents("allelecount", f"{total}")
+        stream.writeln()
+        stream.tagContents("distinctalleles", f"{len(alleleTable)}")
+        stream.writeln()
+
+        for allele in alleles:
+            freq = float(alleleTable[allele]) / float(total)
+            totalFreq += freq
+            strFreq = f"{freq:0.5f} "
+            strCount = f"{alleleTable[allele]}"
+
+            stream.opentag("allele", name=allele)
+            stream.writeln()
+            stream.tagContents("frequency", strFreq)
+            stream.tagContents("count", strCount)
+            stream.writeln()
+            stream.closetag("allele")
+
+            stream.writeln()
+
+        strTotalFreq = f"{totalFreq:0.5f}"
+        strTotal = f"{total}"
+
+        stream.tagContents("totalfrequency", strTotalFreq)
+        stream.writeln()
+        stream.tagContents("totalcount", strTotal)
+        stream.closetag("allelecounts")
+        stream.writeln()
+
+
 # FIXME: regex should be passed as a parameter
 def checkIfSequenceData(matrix):
     """Heuristic check to determine whether we are analysing sequence.
@@ -518,71 +586,3 @@ def getLumpedDataLevels(genotypeData, locus, lumpLevels):
             genotypeData.getAlleleCountAt(locus, lumpValue=level),
         )
     return lumpData
-
-
-class AlleleCounts:
-    """Deprecated class to store information in allele count form.
-
-    .. deprecated:: 0.6.0
-         this class is now obsolete, the :class:`Genotypes` class
-         now holds allele count data as pseudo-genotype matrix.
-    """
-
-    def __init__(self, alleleTable=None, locusName=None, debug=0):
-        self.alleleTable = alleleTable
-        self.locusName = locusName
-        self.debug = debug
-        self._genDataStructures()
-
-    def _genDataStructures(self):
-        total = 0
-        self.freqcount = {}
-
-        for allele in self.alleleTable:
-            total += self.alleleTable[allele]
-
-        # store in an iVar for the moment
-        self.totalAlleleCount = total
-
-        if self.debug:
-            print("alleleTable", self.alleleTable)
-
-        # simply reconstruct the 3-tuple as generated in
-        # ParseGenotypeFile: alleleTable (a map of counts keyed by
-        # allele), total allele count and the number of untyped
-        # individuals (in this case, by definition it is zero).
-        # then store in the same data structure as ParseGenotypeFile
-
-        # even though we only have a single locus, this will make it
-        # easy to generalize later
-
-        self.freqcount[self.locusName] = self.alleleTable, self.totalAlleleCount, 0, 0
-
-    def serializeSubclassMetadataTo(self, stream):
-        """Serialize subclass-specific metadata.
-
-        Specifically, total number of alleles and loci.
-        """
-        stream.opentag("summaryinfo")
-        stream.writeln()
-        stream.tagContents("allelecount", f"{self.totalAlleleCount}")
-        stream.writeln()
-        stream.tagContents("locuscount", f"{1}")
-        stream.writeln()
-        stream.closetag("summaryinfo")
-        stream.writeln()
-
-    def serializeAlleleCountDataAt(self, stream, locus):
-        # call the class-independent function...
-
-        alleleTable, total, untypedIndividuals, unsequencedSites = self.freqcount[locus]
-        _serializeAlleleCountDataAt(
-            stream, alleleTable, total, untypedIndividuals, unsequencedSites
-        )
-
-    def getAlleleCount(self):
-        return self.freqcount[self.locusName]
-
-    def getLocusName(self):
-        # the first key is the name of the locus
-        return self.locusName

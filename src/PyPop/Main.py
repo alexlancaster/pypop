@@ -108,69 +108,6 @@ from PyPop.Utils import (
 )
 
 
-def getConfigInstance(configFilename=None, altpath=None):
-    """Create and return ConfigParser instance.
-
-    Args:
-       configFilename (str): a specified ``.ini`` filename
-       altpath (str): an alternative path to search if no ``.ini`` filename provided in configFilename
-
-    Returns:
-      configparser.ConfigParser: configuration object
-    """
-    config = ConfigParser()
-
-    if Path(configFilename).is_file():
-        config.read(configFilename)
-    elif Path(altpath).is_file():
-        config.read(altpath)
-    else:
-        sys.exit("Could not find config file either in current directory or " + altpath)
-
-    if len(config.sections()) == 0:
-        sys.exit("No output defined!  Exiting...")
-
-    return config
-
-
-def get_sequence_directory(directory_str, debug=False):
-    """Get the directory for the :class:`PyPop.Filter.AnthonyNolanFilter`.
-
-    Args:
-       directory_str (str): directory to search
-       debug (bool): enable debugging
-
-    Returns:
-       str: path to sequence files
-    """
-    path_obj = Path(directory_str)
-
-    # if the path is relative, resolve it to an absolute path if it exists
-    if not path_obj.is_absolute():
-        if path_obj.exists() and path_obj.is_dir():
-            path_obj = path_obj.resolve()
-        elif os.environ.get("PYPOP_CURRENT_TEST_DIRECTORY"):
-            # if we're running in a test environment, resolve paths relative to the parent of the "tests" directory
-            path_obj = (
-                Path(os.environ.get("PYPOP_CURRENT_TEST_DIRECTORY")).parent / path_obj
-            )
-        else:
-            sys.exit(
-                f"Relative path {path_obj} for AnthonyNolan sequence files does not exist or is not a directory."
-            )
-
-    # at this point, the path is absolute, now we need to check it exits
-    if path_obj.exists() and path_obj.is_dir():
-        anthonynolanPath = str(path_obj)
-        if debug:
-            print(f"Using  {anthonynolanPath} for AnthonyNolan data files")
-    else:
-        sys.exit(
-            f"Absolute path {path_obj} for Anthony Nolan sequence files does not exist or is not a directory"
-        )
-    return anthonynolanPath
-
-
 class Main:
     """Main interface to the PyPop modules.
 
@@ -1548,3 +1485,66 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
         """
         # return the name of the generated plain text (.txt) file
         return self.txtOutPath
+
+
+def getConfigInstance(configFilename=None, altpath=None):
+    """Create and return ConfigParser instance.
+
+    Args:
+       configFilename (str): a specified ``.ini`` filename
+       altpath (str): an alternative path to search if no ``.ini`` filename provided in configFilename
+
+    Returns:
+      configparser.ConfigParser: configuration object
+    """
+    config = ConfigParser()
+
+    if Path(configFilename).is_file():
+        config.read(configFilename)
+    elif Path(altpath).is_file():
+        config.read(altpath)
+    else:
+        sys.exit("Could not find config file either in current directory or " + altpath)
+
+    if len(config.sections()) == 0:
+        sys.exit("No output defined!  Exiting...")
+
+    return config
+
+
+def get_sequence_directory(directory_str, debug=False):
+    """Get the directory for the :class:`PyPop.Filter.AnthonyNolanFilter`.
+
+    Args:
+       directory_str (str): directory to search
+       debug (bool): enable debugging
+
+    Returns:
+       str: path to sequence files
+    """
+    path_obj = Path(directory_str)
+
+    # if the path is relative, resolve it to an absolute path if it exists
+    if not path_obj.is_absolute():
+        if path_obj.exists() and path_obj.is_dir():
+            path_obj = path_obj.resolve()
+        elif os.environ.get("PYPOP_CURRENT_TEST_DIRECTORY"):
+            # if we're running in a test environment, resolve paths relative to the parent of the "tests" directory
+            path_obj = (
+                Path(os.environ.get("PYPOP_CURRENT_TEST_DIRECTORY")).parent / path_obj
+            )
+        else:
+            sys.exit(
+                f"Relative path {path_obj} for AnthonyNolan sequence files does not exist or is not a directory."
+            )
+
+    # at this point, the path is absolute, now we need to check it exits
+    if path_obj.exists() and path_obj.is_dir():
+        anthonynolanPath = str(path_obj)
+        if debug:
+            print(f"Using  {anthonynolanPath} for AnthonyNolan data files")
+    else:
+        sys.exit(
+            f"Absolute path {path_obj} for Anthony Nolan sequence files does not exist or is not a directory"
+        )
+    return anthonynolanPath
