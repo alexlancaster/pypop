@@ -1,0 +1,43 @@
+PyPop.xslt
+==========
+
+.. py:module:: PyPop.xslt
+
+.. autoapi-nested-parse::
+
+   Python XSLT extensions for handling things outside the scope of XSLT 1.0
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.xslt.ns
+   PyPop.xslt.root
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.xslt.num_zeros
+   PyPop.xslt.exponent_len
+   PyPop.xslt.format_number_fixed_width
+
+
+Package Contents
+----------------
+
+.. py:data:: ns
+
+.. py:function:: num_zeros(decimal)
+
+.. py:function:: exponent_len(num)
+
+.. py:function:: format_number_fixed_width(_context, *args)
+
+.. py:data:: root
+

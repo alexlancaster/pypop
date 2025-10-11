@@ -1,0 +1,733 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyPop.Haplo &#8212; PyPop 1.3.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=21eeb618" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=bb516dca"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/PyPop/Haplo/index';</script>
+    <link rel="icon" href="../../../_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="PyPop.HardyWeinberg" href="../HardyWeinberg/index.html" />
+    <link rel="prev" title="PyPop.GUIApp" href="../GUIApp/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.3.1" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Arlequin/index.html">PyPop.Arlequin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommandLineInterface/index.html">PyPop.CommandLineInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DataTypes/index.html">PyPop.DataTypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Filter/index.html">PyPop.Filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GUIApp/index.html">PyPop.GUIApp</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PyPop.Haplo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardyWeinberg/index.html">PyPop.HardyWeinberg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Homozygosity/index.html">PyPop.Homozygosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Main/index.html">PyPop.Main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Meta/index.html">PyPop.Meta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ParseFile/index.html">PyPop.ParseFile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RandomBinning/index.html">PyPop.RandomBinning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Utils/index.html">PyPop.Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citation/index.html">PyPop.citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popmeta/index.html">PyPop.popmeta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pypop/index.html">PyPop.pypop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xslt/index.html">PyPop.xslt</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Haplo"><code class="docutils literal notranslate"><span class="pre">Haplo</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.HaploArlequin"><code class="docutils literal notranslate"><span class="pre">HaploArlequin</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.HaploArlequin.outputArlequin"><code class="docutils literal notranslate"><span class="pre">HaploArlequin.outputArlequin()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.HaploArlequin.runArlequin"><code class="docutils literal notranslate"><span class="pre">HaploArlequin.runArlequin()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.HaploArlequin.genHaplotypes"><code class="docutils literal notranslate"><span class="pre">HaploArlequin.genHaplotypes()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Emhaplofreq"><code class="docutils literal notranslate"><span class="pre">Emhaplofreq</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Emhaplofreq.serializeStart"><code class="docutils literal notranslate"><span class="pre">Emhaplofreq.serializeStart()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Emhaplofreq.serializeEnd"><code class="docutils literal notranslate"><span class="pre">Emhaplofreq.serializeEnd()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Emhaplofreq.estHaplotypes"><code class="docutils literal notranslate"><span class="pre">Emhaplofreq.estHaplotypes()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Emhaplofreq.estLinkageDisequilibrium"><code class="docutils literal notranslate"><span class="pre">Emhaplofreq.estLinkageDisequilibrium()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Emhaplofreq.allPairwise"><code class="docutils literal notranslate"><span class="pre">Emhaplofreq.allPairwise()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Haplostats"><code class="docutils literal notranslate"><span class="pre">Haplostats</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Haplostats.serializeStart"><code class="docutils literal notranslate"><span class="pre">Haplostats.serializeStart()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Haplostats.serializeEnd"><code class="docutils literal notranslate"><span class="pre">Haplostats.serializeEnd()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Haplostats.estHaplotypes"><code class="docutils literal notranslate"><span class="pre">Haplostats.estHaplotypes()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.Haplo.Haplostats.allPairwise"><code class="docutils literal notranslate"><span class="pre">Haplostats.allPairwise()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">PyPop API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">PyPop.Haplo</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-PyPop.Haplo">
+<span id="pypop-haplo"></span><h1>PyPop.Haplo<a class="headerlink" href="#module-PyPop.Haplo" title="Link to this heading">#</a></h1>
+<p>Module for estimating haplotypes.</p>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.Haplo.Haplo" title="PyPop.Haplo.Haplo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Haplo</span></code></a></p></td>
+<td><p><em>Abstract</em> base class for haplotype parsing/output.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.Haplo.HaploArlequin" title="PyPop.Haplo.HaploArlequin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">HaploArlequin</span></code></a></p></td>
+<td><p>Haplotype estimation implemented via Arlequin</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.Haplo.Emhaplofreq" title="PyPop.Haplo.Emhaplofreq"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Emhaplofreq</span></code></a></p></td>
+<td><p>Haplotype and LD estimation implemented via emhaplofreq.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.Haplo.Haplostats" title="PyPop.Haplo.Haplostats"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Haplostats</span></code></a></p></td>
+<td><p>Haplotype and LD estimation implemented via haplo-stats.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.Haplo.Haplo">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Haplo</span></span><a class="headerlink" href="#PyPop.Haplo.Haplo" title="Link to this definition">#</a></dt>
+<dd><p><em>Abstract</em> base class for haplotype parsing/output.</p>
+<p>Currently a stub class (unimplemented).</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.Haplo.HaploArlequin">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">HaploArlequin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arpFilename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">idCol</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prefixCols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">suffixCols</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">windowSize</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapOrder</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">untypedAllele</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'0'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arlequinPrefix</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'arl_run'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.HaploArlequin" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyPop.Haplo.Haplo" title="PyPop.Haplo.Haplo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Haplo</span></code></a></p>
+<div class="graphviz"><img src="../../../_images/inheritance-32a8845d114d442109630ad99264e9624043e313.png" alt="Inheritance diagram of PyPop.Haplo.HaploArlequin" usemap="#inheritancebffa06ca3f" class="inheritance graphviz" /></div>
+<map id="inheritancebffa06ca3f" name="inheritancebffa06ca3f">
+<area shape="rect" id="node1" href="#PyPop.Haplo.Haplo" target="_top" title="*Abstract* base class for haplotype parsing/output." alt="" coords="5,5,77,31"/>
+<area shape="rect" id="node2" href="#PyPop.Haplo.HaploArlequin" target="_top" title="Haplotype estimation implemented via Arlequin" alt="" coords="96,5,211,31"/>
+</map><p>Haplotype estimation implemented via Arlequin</p>
+<p>Outputs Arlequin format data files and runtime info, also runs and
+parses the resulting Arlequin data so it can be made available
+programmatically to rest of Python framework.</p>
+<p>Delegates all calls Arlequin to an internally instantiated
+ArlequinBatch Python object called ‘batch’.</p>
+<p>Constructor for HaploArlequin object.</p>
+<p>Expects:</p>
+<ul class="simple">
+<li><p>arpFilename: Arlequin filename (must have ‘.arp’ file
+extension)</p></li>
+<li><p>idCol: column in input file that contains the individual id.</p></li>
+<li><p>prefixCols: number of columns to ignore before allele data
+starts</p></li>
+<li><p>suffixCols: number of columns to ignore after allele data
+stops</p></li>
+<li><p>windowSize: size of sliding window</p></li>
+<li><p>mapOrder: list order of columns if different to column order in file
+(defaults to order in file)</p></li>
+<li><p>untypedAllele:  (defaults to ‘0’)</p></li>
+<li><p>arlequinPrefix: prefix for all Arlequin run-time files</p></li>
+</ul>
+<p>(defaults to ‘arl_run’).</p>
+<ul class="simple">
+<li><p>debug: (defaults to 0)</p></li>
+</ul>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.HaploArlequin.outputArlequin">
+<span class="sig-name descname"><span class="pre">outputArlequin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.HaploArlequin.outputArlequin" title="Link to this definition">#</a></dt>
+<dd><p>Outputs the specified .arp sample file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.HaploArlequin.runArlequin">
+<span class="sig-name descname"><span class="pre">runArlequin</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.HaploArlequin.runArlequin" title="Link to this definition">#</a></dt>
+<dd><p>Run the Arlequin haplotyping program.</p>
+<p>Generates the expected ‘.txt’ set-up files for Arlequin, then
+forks a copy of ‘arlecore.exe’, which must be on ‘PATH’ to
+actually generate the haplotype estimates from the generated
+‘.arp’ file.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.HaploArlequin.genHaplotypes">
+<span class="sig-name descname"><span class="pre">genHaplotypes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.HaploArlequin.genHaplotypes" title="Link to this definition">#</a></dt>
+<dd><p>Gets the haplotype estimates back from Arlequin.</p>
+<p>Parses the Arlequin output to retrieve the haplotype estimated
+data.  Returns a list of the sliding <a href="#id1"><span class="problematic" id="id2">`</span></a>windows’ which consists
+of tuples.</p>
+<p>Each tuple consists of a:</p>
+<ul class="simple">
+<li><p>dictionary entry (the haplotype-frequency) key-value pairs.</p></li>
+<li><p>population name (original ‘.arp’ file prefix)</p></li>
+<li><p>sample count (number of samples for that window)</p></li>
+<li><p>ordered list of loci considered</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.Haplo.Emhaplofreq">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Emhaplofreq</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locusData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">untypedAllele</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'****'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">testMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.Emhaplofreq" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyPop.Haplo.Haplo" title="PyPop.Haplo.Haplo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Haplo</span></code></a></p>
+<div class="graphviz"><img src="../../../_images/inheritance-8abe039e852e1659fe25deb1f2d5769c43c3eeb2.png" alt="Inheritance diagram of PyPop.Haplo.Emhaplofreq" usemap="#inheritancec4c03b704b" class="inheritance graphviz" /></div>
+<map id="inheritancec4c03b704b" name="inheritancec4c03b704b">
+<area shape="rect" id="node1" href="#PyPop.Haplo.Emhaplofreq" target="_top" title="Haplotype and LD estimation implemented via emhaplofreq." alt="" coords="96,5,201,31"/>
+<area shape="rect" id="node2" href="#PyPop.Haplo.Haplo" target="_top" title="*Abstract* base class for haplotype parsing/output." alt="" coords="5,5,77,31"/>
+</map><p>Haplotype and LD estimation implemented via emhaplofreq.</p>
+<p>This is essentially a wrapper to a Python extension built on top
+of the ‘emhaplofreq’ command-line program.</p>
+<p>Will refuse to estimate haplotypes longer than that defined by
+‘emhaplofreq’.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.Emhaplofreq.serializeStart">
+<span class="sig-name descname"><span class="pre">serializeStart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.Emhaplofreq.serializeStart" title="Link to this definition">#</a></dt>
+<dd><p>Serialize start of XML output to XML stream</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.Emhaplofreq.serializeEnd">
+<span class="sig-name descname"><span class="pre">serializeEnd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.Emhaplofreq.serializeEnd" title="Link to this definition">#</a></dt>
+<dd><p>Serialize end of XML output to XML stream</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.Emhaplofreq.estHaplotypes">
+<span class="sig-name descname"><span class="pre">estHaplotypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locusKeys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numInitCond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.Emhaplofreq.estHaplotypes" title="Link to this definition">#</a></dt>
+<dd><p>Estimate haplotypes for listed groups in ‘locusKeys’.</p>
+<p>Format of ‘locusKeys’ is a string consisting of:</p>
+<ul class="simple">
+<li><p>comma (‘,’) separated haplotypes blocks for which to estimate
+haplotypes</p></li>
+<li><p>within each <a href="#id3"><span class="problematic" id="id4">`</span></a>block’, each locus is separated by colons (‘:’)</p></li>
+</ul>
+<dl class="simple">
+<dt>e.g. ‘<a href="#id5"><span class="problematic" id="id6">*</span></a>DQA1:<a href="#id7"><span class="problematic" id="id8">*</span></a>DPB1,*DRB1:<a href="#id9"><span class="problematic" id="id10">*</span></a>DQB1’, means to est. haplotypes for</dt><dd><p>‘DQA1’ and ‘DPB1’ loci followed by est. of haplotypes for
+‘DRB1’ and ‘DQB1’ loci.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.Emhaplofreq.estLinkageDisequilibrium">
+<span class="sig-name descname"><span class="pre">estLinkageDisequilibrium</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locusKeys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">permutationPrintFlag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numInitCond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numPermutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numPermuInitCond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.Emhaplofreq.estLinkageDisequilibrium" title="Link to this definition">#</a></dt>
+<dd><p>Estimate linkage disequilibrium (LD) for listed groups in
+‘locusKeys’.</p>
+<p>Format of ‘locusKeys’ is a string consisting of:</p>
+<ul class="simple">
+<li><p>comma (‘,’) separated haplotypes blocks for which to estimate
+haplotypes</p></li>
+<li><p>within each <a href="#id11"><span class="problematic" id="id12">`</span></a>block’, each locus is separated by colons (‘:’)</p></li>
+</ul>
+<dl class="simple">
+<dt>e.g. ‘<a href="#id13"><span class="problematic" id="id14">*</span></a>DQA1:<a href="#id15"><span class="problematic" id="id16">*</span></a>DPB1,*DRB1:<a href="#id17"><span class="problematic" id="id18">*</span></a>DQB1’, means to est. LD for</dt><dd><p>‘DQA1’ and ‘DPB1’ loci followed by est. of LD for
+‘DRB1’ and ‘DQB1’ loci.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.Emhaplofreq.allPairwise">
+<span class="sig-name descname"><span class="pre">allPairwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">permutationPrintFlag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numInitCond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numPermutations</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numPermuInitCond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">haploSuppressFlag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">haplosToShow</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.Emhaplofreq.allPairwise" title="Link to this definition">#</a></dt>
+<dd><p>Run pairwise statistics.</p>
+<p>Estimate pairwise statistics for a given set of loci.
+Depending on the flags passed, can be used to estimate both LD
+(linkage disequilibrium) and HF (haplotype frequencies), an
+optional permutation test on LD can be run</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.Haplo.Haplostats">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Haplostats</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locusData</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debug</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">untypedAllele</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'****'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stream</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">testMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.Haplostats" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#PyPop.Haplo.Haplo" title="PyPop.Haplo.Haplo"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Haplo</span></code></a></p>
+<div class="graphviz"><img src="../../../_images/inheritance-2f37a30a136e501c5dde4cbc2d0d5f74b43e4d05.png" alt="Inheritance diagram of PyPop.Haplo.Haplostats" usemap="#inheritanceef87d93455" class="inheritance graphviz" /></div>
+<map id="inheritanceef87d93455" name="inheritanceef87d93455">
+<area shape="rect" id="node1" href="#PyPop.Haplo.Haplo" target="_top" title="*Abstract* base class for haplotype parsing/output." alt="" coords="5,5,77,31"/>
+<area shape="rect" id="node2" href="#PyPop.Haplo.Haplostats" target="_top" title="Haplotype and LD estimation implemented via haplo&#45;stats." alt="" coords="96,5,188,31"/>
+</map><p>Haplotype and LD estimation implemented via haplo-stats.</p>
+<p>This is a wrapper to a portion of the ‘haplo.stats’ R package</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.Haplostats.serializeStart">
+<span class="sig-name descname"><span class="pre">serializeStart</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.Haplostats.serializeStart" title="Link to this definition">#</a></dt>
+<dd><p>Serialize start of XML output to XML stream</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.Haplostats.serializeEnd">
+<span class="sig-name descname"><span class="pre">serializeEnd</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.Haplostats.serializeEnd" title="Link to this definition">#</a></dt>
+<dd><p>Serialize end of XML output to XML stream</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.Haplostats.estHaplotypes">
+<span class="sig-name descname"><span class="pre">estHaplotypes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">locusKeys</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numInitCond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">testMode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.Haplostats.estHaplotypes" title="Link to this definition">#</a></dt>
+<dd><p>Estimate haplotypes for the submatrix given in locusKeys, if
+locusKeys is None, assume entire matrix</p>
+<p>LD is estimated if there are locusKeys consists of only two loci</p>
+<p>FIXME: this does <em>not</em> yet remove missing data before haplotype estimations</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.Haplo.Haplostats.allPairwise">
+<span class="sig-name descname"><span class="pre">allPairwise</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">control</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">numInitCond</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.Haplo.Haplostats.allPairwise" title="Link to this definition">#</a></dt>
+<dd><p>Estimate pairwise statistics for all pairs of loci.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../GUIApp/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyPop.GUIApp</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../HardyWeinberg/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">PyPop.HardyWeinberg</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

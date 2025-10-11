@@ -1,0 +1,4 @@
+<map id="inheritancebffa06ca3f" name="inheritancebffa06ca3f">
+<area shape="rect" id="node1" href="#PyPop.Haplo.Haplo" target="_top" title="*Abstract* base class for haplotype parsing/output." alt="" coords="5,5,77,31"/>
+<area shape="rect" id="node2" href="#PyPop.Haplo.HaploArlequin" target="_top" title="Haplotype estimation implemented via Arlequin" alt="" coords="96,5,211,31"/>
+</map>

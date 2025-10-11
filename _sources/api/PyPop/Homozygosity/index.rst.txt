@@ -1,0 +1,166 @@
+PyPop.Homozygosity
+==================
+
+.. py:module:: PyPop.Homozygosity
+
+.. autoapi-nested-parse::
+
+   Module for calculating homozygosity statistics.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.Homozygosity.Homozygosity
+   PyPop.Homozygosity.HomozygosityEWSlatkinExact
+   PyPop.Homozygosity.HomozygosityEWSlatkinExactPairwise
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.Homozygosity.getObservedHomozygosityFromAlleleData
+
+
+Module Contents
+---------------
+
+.. py:function:: getObservedHomozygosityFromAlleleData(alleleData)
+
+.. py:class:: Homozygosity(alleleData, rootPath='.', debug=0)
+
+   Calculate homozygosity statistics.
+
+   Given allele count data for a given locus, calculates the observed
+   homozygosity and returns the approximate expected homozygosity
+   statistics taken from previous simulation runs.
+
+   Constructor for homozygosity statistics.
+
+   Given:
+
+   - 'alleleCountData': tuple consisting of a dictionary of alleles
+     with their associated counts and the total number of alleles.
+
+   - 'rootPath': path to the root of the directory where the
+     pre-calculated expected homozygosity statistics can be found.
+
+   - 'debug': flag to switch debugging on.
+
+
+   .. py:method:: getObservedHomozygosity()
+
+      Calculate and return observed homozygosity.
+
+      Available even if expected stats cannot be calculated
+
+
+
+   .. py:method:: canGenerateExpectedStats()
+
+      Can expected homozygosity stats be calculated?
+
+      Returns true if expected homozygosity statistics can be
+      calculated.  Should be called before attempting to get any
+      expected homozygosity statistics.
+
+
+
+   .. py:method:: getPValueRange()
+
+      Gets lower and upper bounds for p-value.
+
+      Returns a tuple of (lower, upper) bounds.
+
+      Only meaningful if 'canGenerateExpectedStats()' returns true.
+
+
+
+   .. py:method:: getCount()
+
+      Number of runs used to calculate statistics.
+
+      Only meaningful if 'canGenerateExpectedStats()' returns true.
+
+
+
+   .. py:method:: getExpectedHomozygosity()
+
+      Gets mean of expected homozygosity.
+
+      This is the estimate of the *expected* homozygosity.
+
+      Only meaningful if 'canGenerateExpectedStats()' returns true.
+
+
+
+   .. py:method:: getVarExpectedHomozygosity()
+
+      Gets variance of expected homozygosity.
+
+      This is the estimate of the variance *expected* homozygosity.
+
+      Only meaningful if 'canGenerateExpectedStats()' returns true.
+
+
+
+   .. py:method:: getNormDevHomozygosity()
+
+      Gets normalized deviate of homozygosity.
+
+      Only meaningful if 'canGenerateExpectedStats()' returns true.
+
+
+
+   .. py:method:: serializeHomozygosityTo(stream)
+
+
+.. py:class:: HomozygosityEWSlatkinExact(alleleData=None, numReplicates=10000, debug=0)
+
+   Bases: :py:obj:`Homozygosity`
+
+   .. autoapi-inheritance-diagram:: PyPop.Homozygosity.HomozygosityEWSlatkinExact
+      :parts: 1
+
+
+   Calculate homozygosity statistics.
+
+   Given allele count data for a given locus, calculates the observed
+   homozygosity and returns the approximate expected homozygosity
+   statistics taken from previous simulation runs.
+
+   Constructor for homozygosity statistics.
+
+   Given:
+
+   - 'alleleCountData': tuple consisting of a dictionary of alleles
+     with their associated counts and the total number of alleles.
+
+   - 'rootPath': path to the root of the directory where the
+     pre-calculated expected homozygosity statistics can be found.
+
+   - 'debug': flag to switch debugging on.
+
+
+   .. py:method:: doCalcs(alleleData)
+
+
+   .. py:method:: getHomozygosity()
+
+
+   .. py:method:: serializeHomozygosityTo(stream)
+
+
+   .. py:method:: returnBulkHomozygosityStats(alleleCountDict=None, binningMethod=None)
+
+
+.. py:class:: HomozygosityEWSlatkinExactPairwise(matrix=None, numReplicates=10000, untypedAllele='****', debug=0)
+
+   .. py:method:: serializeTo(stream)
+
+

@@ -1,0 +1,202 @@
+PyPop.HardyWeinberg
+===================
+
+.. py:module:: PyPop.HardyWeinberg
+
+.. autoapi-nested-parse::
+
+   Module for calculating Hardy-Weinberg statistics.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.HardyWeinberg.use_scipy
+   PyPop.HardyWeinberg.chi2
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.HardyWeinberg.HardyWeinberg
+   PyPop.HardyWeinberg.HardyWeinbergGuoThompson
+   PyPop.HardyWeinberg.HardyWeinbergEnumeration
+   PyPop.HardyWeinberg.HardyWeinbergGuoThompsonArlequin
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.HardyWeinberg.pval
+
+
+Module Contents
+---------------
+
+.. py:data:: use_scipy
+   :value: False
+
+
+.. py:data:: chi2
+   :value: None
+
+
+.. py:function:: pval(chisq, dof)
+
+.. py:class:: HardyWeinberg(locusData=None, alleleCount=None, lumpBelow=5, flagChenTest=0, debug=0)
+
+   Calculate Hardy-Weinberg statistics.
+
+   Given the observed genotypes for a locus, calculate the expected
+   genotype counts based on Hardy Weinberg proportions for individual
+   genotype values, and test for fit.
+
+
+   Constructor.
+
+   - locusData and alleleCount to be provided by driver script
+     via a call to ParseFile.getLocusData(locus).
+
+   - lumpBelow: treat alleles with frequency less than this as if they
+     were in same class  (Default: 5)
+
+   - flagChenTest: if enabled do Chen's chi-square-based "corrected"
+     p-value (Default: 0 [False])
+
+
+
+   .. py:method:: serializeTo(stream, allelelump=0)
+
+
+   .. py:method:: serializeXMLTableTo(stream)
+
+
+.. py:class:: HardyWeinbergGuoThompson(locusData=None, alleleCount=None, runMCMCTest=0, runPlainMCTest=0, dememorizationSteps=2000, samplingNum=1000, samplingSize=1000, maxMatrixSize=250, monteCarloSteps=1000000, testing=False, **kw)
+
+   Bases: :py:obj:`HardyWeinberg`
+
+   .. autoapi-inheritance-diagram:: PyPop.HardyWeinberg.HardyWeinbergGuoThompson
+      :parts: 1
+
+
+   Wrapper class for 'gthwe'
+
+   A wrapper for the Guo & Thompson program 'gthwe'.
+
+   - 'locusData', 'alleleCount':  As per base class.
+
+   In addition to the arguments for the base class, this class
+   accepts the following additional keywords:
+
+   - 'runMCMCTest': If enabled run the Monte Carlo-Markov chain (MCMC)
+     version of the test (what is normally referred to as "Guo &
+     Thompson")
+
+   - 'runPlainMCTest': If enabled run a plain Monte Carlo/randomization
+     without the Markov-chain version of the test (this is also
+     described in the original "Guo & Thompson" Biometrics paper, but
+     was not in their original program)
+
+
+   - 'dememorizationSteps': number of `dememorization' initial steps
+     for random number generator (default 2000).
+
+   - 'samplingNum': the number of chunks for random number generator
+     (default 1000).
+
+   - 'samplingSize': size of each chunk (default 1000).
+
+   - 'maxMatrixSize': maximum size of `flattened' lower-triangular matrix of
+      observed alleles (default 250).
+
+   - 'monteCarloSteps': number of steps for the plain Monte Carlo
+      randomization test (without Markov-chain)
+
+   Constructor.
+
+   - locusData and alleleCount to be provided by driver script
+     via a call to ParseFile.getLocusData(locus).
+
+   - lumpBelow: treat alleles with frequency less than this as if they
+     were in same class  (Default: 5)
+
+   - flagChenTest: if enabled do Chen's chi-square-based "corrected"
+     p-value (Default: 0 [False])
+
+
+
+   .. py:method:: generateFlattenedMatrix()
+
+
+   .. py:method:: dumpTable(locusName, stream, allelelump=0)
+
+
+.. py:class:: HardyWeinbergEnumeration(locusData=None, alleleCount=None, doOverall=0, **kw)
+
+   Bases: :py:obj:`HardyWeinbergGuoThompson`
+
+   .. autoapi-inheritance-diagram:: PyPop.HardyWeinberg.HardyWeinbergEnumeration
+      :parts: 1
+
+
+   Uses Hazael Maldonado Torres' exact enumeration test
+
+   - 'doOverall': if set to true ('1'), then do overall p-value test
+                  default is false ('0')
+
+   Constructor.
+
+   - locusData and alleleCount to be provided by driver script
+     via a call to ParseFile.getLocusData(locus).
+
+   - lumpBelow: treat alleles with frequency less than this as if they
+     were in same class  (Default: 5)
+
+   - flagChenTest: if enabled do Chen's chi-square-based "corrected"
+     p-value (Default: 0 [False])
+
+
+
+   .. py:method:: serializeTo(stream, allelelump=0)
+
+
+.. py:class:: HardyWeinbergGuoThompsonArlequin(matrix=None, locusName=None, arlequinExec='arlecore.exe', markovChainStepsHW=100000, markovChainDememorisationStepsHW=1000, untypedAllele='****', debug=None)
+
+   Wrapper class for 'Arlequin'.
+
+   This class extracts the Hardy-Weinberg (HW) statistics using the
+   Arlequin implementation of the HW exact test, by the following:
+
+   1. creates a subdirectory 'arlequinRuns' in which all the Arlequin
+      specific files are generated;
+
+   2. then the specified arlequin executable is run, generating the
+      Arlequin output HTML files (*.htm);
+
+   3. the Arlequin output is then parsed for the relevant statistics;
+
+   4. lastly, the 'arlequinRuns' directory is removed.
+
+   Since the directory name 'arlequinRuns' is currently hardcoded, this
+   has the consequence that this class cannot be invoked concurrently.
+
+   Parameters:
+
+   - 'markovChainStepsHW': Number of steps to use in Markov chain
+   (default: 100000).
+
+   - 'markovChainDememorisationStepsHW': "Burn-in" time for Markov
+   chain (default: 1000).
+
+
+
+   .. py:method:: serializeTo(stream)
+
+
