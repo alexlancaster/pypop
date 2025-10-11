@@ -137,6 +137,9 @@ autoapi_options = [
     "show-inheritance-diagram",
 ]
 
+# graphviz options: reduce space around diagrams in LaTeX backend
+graphviz_dot_args = ["-Gmargin=0", "-Granksep=0.2"]
+
 # concatenate the class and constructor
 autoapi_python_class_content = "both"
 
