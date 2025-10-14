@@ -56,6 +56,11 @@ the final TSV output (see also the :ref:`PyPop API examples
 <guide-usage-examples-api>` in the *PyPop User Guide* for a
 step-by-step breakdown of use of the API).
 
+.. testsetup::
+
+   >>> import PyPop
+   >>> PyPop.setup_logger(doctest_mode=True)
+
 >>> from PyPop.Main import Main
 >>> from configparser import ConfigParser
 >>>
@@ -87,7 +92,6 @@ LOG: Data file has no header data block
 
 """
 
-import locale
 import logging
 import platform
 import sys
@@ -128,33 +132,62 @@ platform_info = f"[Python {platform.python_version()} | {platform.platform()} | 
 platform information used in ``--help`` screens and elsewhere
 """
 
+# Package-wide logger you should use in all modules
+logger = logging.getLogger("pypop")
 
-def setup_logging(debug=False, filename=None):
-    """Provide defaults for logging using the :mod:`logging` module.
 
-    Important:
-      Not currently used.
+def setup_logger(doctest_mode=False, debug_level=0, filename=None):
+    """Configure the 'pypop' logger with stdout/file handler, optional debug verbosity, and doctest mode.
+
+    Parameters
+    ----------
+    doctest_mode : bool
+        If True, forcibly rebinds the logger to sys.stdout and disables propagation
+        so doctests see output.
+    debug_level : int
+        0 = INFO (default), 1 = DEBUG, 2+ = very verbose DEBUG
+    filename : str | None
+        Optional file to log to. If None, logs to stdout.
     """
-    level = logging.DEBUG if debug else logging.INFO
-    if filename is None:
-        filename = "-"
+    if doctest_mode:
+        # Remove any existing StreamHandlers to avoid duplicates
+        for h in list(logger.handlers):
+            if isinstance(h, logging.StreamHandler):
+                logger.removeHandler(h)
 
-    hand = logging.StreamHandler() if filename == "-" else logging.FileHandler(filename)
+    # Determine log level
+    if debug_level <= 0:
+        level = logging.INFO
+    elif debug_level == 1:
+        level = logging.DEBUG  # could extend to TRACE later if desired
+    else:
+        level = logging.WARN  # could extend to TRACE later if desired
 
-    fmt = (
-        "%(asctime)s %(levelname)s %(funcName)s: %(message)s"
-        if level == logging.DEBUG
-        else "%(asctime)s %(message)s"
-    )
-    datefmt = "%Y.%m.%d %H:%M:%S"
-    hand.setFormatter(logging.Formatter(fmt, datefmt))
+    # Determine handler: file or stdout
+    if filename is None or filename == "-":
+        handler = logging.StreamHandler(sys.stdout)
+    else:
+        handler = logging.FileHandler(filename)
 
-    root_logger = logging.getLogger()
-    root_logger.setLevel(level)
-    root_logger.handlers = []
-    root_logger.addHandler(hand)
+    # Choose format based on verbosity
+    if level <= logging.INFO:
+        fmt = "LOG: %(message)s"
+        datefmt = None
+    else:
+        fmt = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
+        datefmt = "%Y.%m.%d %H:%M:%S"
 
-    logging.debug("PyPop: %s", __version__)
-    logging.debug("Python: %s", sys.version.replace("\n", " "))
-    logging.debug("Platform: %s", platform.platform())
-    logging.debug("Locale: %s", locale.setlocale(locale.LC_ALL))
+    handler.setLevel(level)
+    handler.setFormatter(logging.Formatter(fmt, datefmt))
+
+    # Remove old handlers to avoid duplicates
+    logger.handlers.clear()
+    logger.addHandler(handler)
+    logger.setLevel(level)
+
+    # Only propagate to root when not in doctest mode
+    logger.propagate = not doctest_mode
+
+
+# Run once at import to ensure default logging for normal usage
+setup_logger()

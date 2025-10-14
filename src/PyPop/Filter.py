@@ -48,6 +48,7 @@ from pathlib import Path
 
 import pooch
 
+from PyPop import logger
 from PyPop.Utils import StringMatrix
 
 
@@ -984,16 +985,16 @@ class AnthonyNolanFilter(Filter):
         if pooch_cache_env:
             pooch_cache_dir = Path(pooch_cache_env).resolve()
             if pooch_cache_dir.exists():
-                print(
-                    f"LOG: found directory in POOCH_CACHE environment variable: {pooch_cache_dir}"
+                logger.info(
+                    f"found directory in POOCH_CACHE environment variable: {pooch_cache_dir}"
                 )
                 self.msf_cache_dir = pooch_cache_dir
             else:
-                print(
-                    f"LOG: POOCH_CACHE cache not found in {pooch_cache_dir}, falling back to pooch's default cache: {self.msf_cache_dir}"
+                logger.info(
+                    f"POOCH_CACHE cache not found in {pooch_cache_dir}, falling back to pooch's default cache: {self.msf_cache_dir}"
                 )
         else:
-            print(f"LOG: using default cache directory: {self.msf_cache_dir}")
+            logger.info(f"using default cache directory: {self.msf_cache_dir}")
 
     def _getMSFFilePath(self, locus):
         """Fetches the path to the file locally or remotely (if remoteMSF option supplied)."""

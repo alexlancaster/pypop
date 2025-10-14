@@ -49,6 +49,11 @@ Here is an example of calling :class:`Main` programmatically,
 explicitly specifying the ``untypedAllele`` and ``alleleDesignator``
 in the ``.pop`` file:
 
+.. testsetup::
+
+   >>> import PyPop
+   >>> PyPop.setup_logger(doctest_mode=True)
+
 >>> from PyPop.Main import Main
 >>> from configparser import ConfigParser
 >>>
@@ -84,6 +89,7 @@ from pathlib import Path
 # now use python3-lxml
 from lxml import etree
 
+from PyPop import logger
 from PyPop.DataTypes import Genotypes, getLumpedDataLevels
 from PyPop.Filter import AnthonyNolanFilter, BinningFilter
 from PyPop.Haplo import Emhaplofreq, Haplostats
@@ -292,7 +298,8 @@ class Main:
                     self.xslFilename = self.xslFilenameDefault
                 else:
                     # if no default XSL file found, then we skip text output
-                    print("LOG: no XSL file, skipping text output")
+                    logger.info("no XSL file, skipping text output")
+                    # print("LOG: no XSL file, skipping text output")
 
         elif self.debug:
             print("using user supplied version in: ", self.xslFilename)
@@ -313,7 +320,8 @@ class Main:
             validPopFields = self.config.get(self.fileType, "validPopFields")
         except NoOptionError:
             validPopFields = None
-            print("LOG: Data file has no header data block")
+            logger.info("Data file has no header data block")
+            # print("LOG: Data file has no header data block")
             # sys.exit("No valid population fields defined")
 
         try:
@@ -1025,9 +1033,12 @@ class Main:
                     try:
                         arlequinExec = self.config.get("Arlequin", "arlequinExec")
                     except NoOptionError:
-                        print(
-                            "LOG: Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
+                        logger.info(
+                            "Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
                         )
+                        # print(
+                        #    "LOG: Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
+                        # )
 
                 try:
                     markovChainStepsHW = self.config.getint(
@@ -1157,9 +1168,13 @@ class Main:
                                     Path(self.datapath) / "anthonynolan" / "msf"
                                 )
                                 if self.debug:
-                                    print(
-                                        f"LOG: Defaulting to system datapath {anthonynolanPath} for anthonynolanPath data"
+                                    logger.info(
+                                        f"Defaulting to system datapath {anthonynolanPath} for anthonynolanPath data"
                                     )
+
+                                    # print(
+                                    #    f"LOG: Defaulting to system datapath {anthonynolanPath} for anthonynolanPath data"
+                                    # )
 
                             seqfilter = AnthonyNolanFilter(
                                 debug=self.debug,
@@ -1358,22 +1373,22 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                 sys.exit("permutationPrintFlag: option requires a 0 or 1 flag")
 
             if allPairwiseLD:
-                (print("LOG: estimating all pairwise LD:", end=" "),)
+                logger.info("estimating all pairwise LD ...")
+                # (print("LOG: estimating all pairwise LD:", end=" "),)
                 if allPairwiseLDWithPermu:
                     (
-                        print(
-                            f"with {allPairwiseLDWithPermu} permutations and {numPermuInitCond} initial conditions for each permutation",
-                            end=" ",
+                        logger.info(
+                            f"... with {allPairwiseLDWithPermu} permutations and {numPermuInitCond} initial conditions for each permutation",
                         ),
                     )
                     if permutationPrintFlag:
-                        print(
-                            "and each permutation output will be logged to XML", end=" "
+                        logger.info(
+                            "... and each permutation output will be logged to XML"
                         )
                     else:
-                        print()
+                        logger.info("")
                 else:
-                    print("with no permutation test")
+                    logger.info("... with no permutation test")
 
             # first set the list of 2-locus haplotypes to show to empty
             twoLocusHaplosToShow = []
@@ -1382,16 +1397,17 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                 locusKeys = self.config.get("Emhaplofreq", "lociToEstHaplo")
 
                 if locusKeys == "*":
-                    print(
-                        "LOG: wildcard '*' given for lociToEstHaplo, assume entire data set"
+                    logger.info(
+                        "wildcard '*' given for lociToEstHaplo, assume entire data set"
                     )
                     locusKeys = ":".join(self.input.getIndividualsData().colList)
-                (print("LOG: estimating haplotype frequencies for", end=" "),)
-
+                # (print("LOG: estimating haplotype frequencies for", end=" "),)
+                logger.info("estimating haplotype frequencies for ...")
                 # if we will be running allPairwise*, then exclude any two-locus
                 # haplotypes, since we will estimate them as part of 'all pairwise'
                 if allPairwiseLD:
-                    (print("all two locus haplotypes,", end=" "),)
+                    # (print("all two locus haplotypes,", end=" "),)
+                    logger.info("... all two locus haplotypes")
                     modLocusKeys = []
                     for group in locusKeys.split(","):
                         # if a two-locus haplo, add it to the list that allPairwise
@@ -1409,7 +1425,8 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                 # locus groups that remain after excluding two locus haplotypes
                 if locusKeys:
                     haplo.estHaplotypes(locusKeys=locusKeys, numInitCond=numInitCond)
-                    print(f"specific haplotypes: [{locusKeys}]")
+                    # print(f"specific haplotypes: [{locusKeys}]")
+                    logger.info(f"... specific haplotypes: [{locusKeys}]")
 
             except NoOptionError:
                 pass
@@ -1418,8 +1435,8 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                 locusKeysLD = self.config.get("Emhaplofreq", "lociToEstLD")
 
                 if locusKeysLD == "*":
-                    print(
-                        "LOG: wildcard '*' given for lociToEstLD, assume entire data set"
+                    logger.info(
+                        "wildcard '*' given for lociToEstLD, assume entire data set"
                     )
                     locusKeysLD = ":".join(self.input.getIndividualsData().colList)
 
@@ -1430,7 +1447,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                     numPermutations=1001,
                     numPermuInitCond=numPermuInitCond,
                 )
-                print(f"LOG: estimating LD for specific loci: [{locusKeysLD}]")
+                logger.info(f"estimating LD for specific loci: [{locusKeysLD}]")
 
             except NoOptionError:
                 pass
