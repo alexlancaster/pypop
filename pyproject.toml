@@ -38,7 +38,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-benchmark[histogram]"]
+test = ["pytest", "pytest-benchmark[histogram]", "pytest-docstringplus"]
 test-pval-benchmarking = ["scipy"]
 
 [project.urls]
