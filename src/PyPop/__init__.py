@@ -144,7 +144,7 @@ def setup_logger(doctest_mode=True, debug_level=0, filename=None):
        logger to sys.stdout and disables propagation so doctests see
        output.
       debug_level (int, optional): ``0`` = ``INFO`` (default), ``1`` =
-       ``DEBUG``, ``2``+ = very verbose ``DEBUG``
+       ``DEBUG``, ``2`` + = very verbose ``DEBUG``
       filename (str, optional): Optional file to log to. If ``None``,
        logs to ``stdout``.
 
