@@ -36,7 +36,7 @@ jobs:
       docs_rebuild: ${{ steps.changes.outputs.docs_rebuild }}
     steps:
       - name: Checkout full repo history
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0  # fetch full history so we can diff branches
       - name: Detect changed files
