@@ -1241,6 +1241,11 @@ that we specify the ``untypedAllele`` and ``alleleDesignators``
 explicitly, even though they are the same as defaults, they must
 always match the input file):
 
+.. testsetup::
+
+   >>> from PyPop import setup_logger
+   >>> setup_logger(doctest_mode=True)
+
 >>> from configparser import ConfigParser
 >>> config = ConfigParser()
 >>> config.read_dict({"General": {"debug": "0"},
