@@ -132,22 +132,22 @@ platform_info = f"[Python {platform.python_version()} | {platform.platform()} | 
 platform information used in ``--help`` screens and elsewhere
 """
 
-# Package-wide logger you should use in all modules
 logger = logging.getLogger("pypop")
+"""Package-wide logger used throughout a PyPop run."""
 
 
-def setup_logger(doctest_mode=False, debug_level=0, filename=None):
+def setup_logger(doctest_mode=True, debug_level=0, filename=None):
     """Configure the 'pypop' logger with stdout/file handler, optional debug verbosity, and doctest mode.
 
-    Parameters
-    ----------
-    doctest_mode : bool
-        If True, forcibly rebinds the logger to sys.stdout and disables propagation
-        so doctests see output.
-    debug_level : int
-        0 = INFO (default), 1 = DEBUG, 2+ = very verbose DEBUG
-    filename : str | None
-        Optional file to log to. If None, logs to stdout.
+    Args:
+      doctest_mode (bool, optional): If True, forcibly rebinds the
+       logger to sys.stdout and disables propagation so doctests see
+       output.
+      debug_level (int, optional): ``0`` = ``INFO`` (default), ``1`` =
+       ``DEBUG``, ``2``+ = very verbose ``DEBUG``
+      filename (str, optional): Optional file to log to. If ``None``,
+       logs to ``stdout``.
+
     """
     if doctest_mode:
         # Remove any existing StreamHandlers to avoid duplicates
