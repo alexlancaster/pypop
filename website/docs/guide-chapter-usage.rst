@@ -350,7 +350,7 @@ supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
 ---------------
 
 .. argparse::
-   :filename: src/PyPop/CommandLineInterface.py
+   :module: PyPop.CommandLineInterface
    :func: get_pypop_cli
    :prog: pypop
    :nodescription:
@@ -363,7 +363,7 @@ supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
 -----------------
 
 .. argparse::
-   :filename: src/PyPop/CommandLineInterface.py
+   :module: PyPop.CommandLineInterface
    :func: get_popmeta_cli
    :prog: popmeta
    :nodescription:
