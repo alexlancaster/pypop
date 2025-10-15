@@ -80,6 +80,7 @@ LOG: Data file has no header data block
 
 """
 
+import logging
 import os
 import sys
 import time
@@ -135,7 +136,6 @@ class Main:
         config (configparser.ConfigParser): configure object
         xslFilename (str, optional): XSLT file to use
         xslFilenameDefault (str, optional): fallback file name
-        debugFlag (int, optional): enable debugging (``1``)
         fileName (str): input ``.pop`` file
         datapath (str, optional): root of data path
         thread (str, optional): specified thread
@@ -150,7 +150,6 @@ class Main:
         config=None,
         xslFilename=None,
         xslFilenameDefault=None,
-        debugFlag=0,
         fileName=None,
         datapath=None,
         thread=None,
@@ -159,7 +158,6 @@ class Main:
         testMode=False,
     ):
         self.config = config
-        self.debugFlag = debugFlag
         self.fileName = fileName
         self.datapath = datapath
         self.xslFilename = xslFilename
@@ -188,17 +186,18 @@ class Main:
         # Parse "General" section
 
         try:
-            self.debug = self.config.getboolean("General", "debug")
+            debug_ini_enabled = self.config.getboolean("General", "debug")
         except (NoOptionError, NoSectionError):
-            self.debug = 0
+            debug_ini_enabled = 0
         except ValueError:
             sys.exit("require a 0 or 1 as debug flag")
 
-        # if "-d" command line option used, then respect that, overriding
-        # self.config file setting
+        # always first default "debug" to command-line status (set by pypop script)
+        # if it is not set by the command-line, then it is by default, disabled, but
+        # the config.ini file can enable it, so we override the logger status
 
-        if debugFlag == 1:
-            self.debug = 1
+        if not logger.isEnabledFor(logging.DEBUG) and debug_ini_enabled == 1:
+            # enable debug status, and override current setup
             setup_logger(debug_level=1)
 
         # generate file prefix
@@ -272,7 +271,7 @@ class Main:
             self.defaultFilterLogPath = self.defaultFilterLogFilename
             self.defaultPopDumpPath = self.defaultPopDumpFilename
 
-        if self.debug:
+        if logger.isEnabledFor(logging.DEBUG):
             for section in self.config.sections():
                 logger.debug(section)
                 for option in self.config.options(section):
@@ -721,9 +720,6 @@ class Main:
                     + "' is not recognized."
                 )
 
-        # if self.debug:
-        #    print("matrixHistory")
-        #    print(self.matrixHistory)
         logger.debug("matrixHistory ...")
         logger.debug(f"{self.matrixHistory} ...")
 
@@ -1093,13 +1089,12 @@ class Main:
                     # matrixHistory)
                     alleleCountsInitial = inputInitial.getAlleleCountAt(locus)[0]
 
-                    if self.debug:
-                        print(
-                            "alleleCountsInitial",
-                            len(alleleCountsInitial),
-                            alleleCountsInitial,
-                        )
-                        print("alleleCounts", len(alleleCounts), alleleCounts)
+                    logger.debug(
+                        "alleleCountsInitial %d %s",
+                        len(alleleCountsInitial),
+                        alleleCountsInitial,
+                    )
+                    logger.debug("alleleCounts %d %s", len(alleleCounts), alleleCounts)
 
                     randomResultsFileName = (
                         self.defaultFilterLogPath[:-4] + "-" + locus + "-randomized.tsv"

@@ -140,6 +140,39 @@ def get_parent_cli(version="", copyright_message=""):
             },
         ),
     ]
+
+    # Common logging options
+    logging_args = [
+        (
+            ["-d", "--debug"],
+            {
+                "help": "enable debugging output (sets log level to DEBUG and overrides config file setting)",
+                "action": "store_true",
+                "required": False,
+                "default": False,
+            },
+        ),
+        (
+            ["--log-level"],
+            {
+                "help": "set log level (overrides -d); one of: DEBUG, INFO, WARNING, ERROR, CRITICAL",
+                "choices": ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+                "default": None,
+            },
+        ),
+        (
+            ["--log-file"],
+            {
+                "help": "write logs to FILE instead of stdout",
+                "metavar": "FILE",
+                "default": None,
+            },
+        ),
+    ]
+
+    # Merge logging options into common args
+    common_args.extend(logging_args)
+
     ihwg_args = (
         "--enable-ihwg",
         {
@@ -210,14 +243,6 @@ current directory""",
         "-m",
         "--testmode",
         help="run PyPop in test mode for unit testing",
-        action="store_true",
-        required=False,
-        default=False,
-    )
-    add_pypop(
-        "-d",
-        "--debug",
-        help="enable debugging output (overrides config file setting)",
         action="store_true",
         required=False,
         default=False,

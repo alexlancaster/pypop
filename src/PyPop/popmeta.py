@@ -39,7 +39,7 @@ import sys
 from pathlib import Path
 
 from PyPop import __version__ as version
-from PyPop import copyright_message
+from PyPop import copyright_message, setup_logger
 from PyPop.CommandLineInterface import get_popmeta_cli
 from PyPop.Meta import Meta
 
@@ -66,6 +66,19 @@ def main(argv=sys.argv):
     ihwg_output = args.enable_ihwg
     batchsize = args.batchsize
     outputDir = args.outputdir
+
+    if args.log_level:
+        level = args.log_level.upper()
+    elif args.debug:
+        level = "DEBUG"
+    else:
+        level = "INFO"
+
+    setup_logger(
+        doctest_mode=False,
+        debug_level=0 if level == "INFO" else 1,
+        filename=args.log_file,
+    )
 
     if PHYLIP_output:
         batchsize = 1  #  set batch size to 1
