@@ -1075,7 +1075,8 @@ class Main:
                 # dictionary is still useful to have in case we have to do
                 # random binning.
                 hzExactObj = HomozygosityEWSlatkinExact(
-                    alleleCounts.values(), numReplicates=numReplicates, debug=self.debug
+                    alleleCounts.values(),
+                    numReplicates=numReplicates,
                 )
 
                 hzExactObj.serializeHomozygosityTo(self.xmlStream)
@@ -1200,7 +1201,6 @@ class Main:
                 matrix=self.input.getIndividualsData(),
                 numReplicates=numReplicates,
                 untypedAllele=self.untypedAllele,
-                debug=self.debug,
             )
             hz.serializeTo(self.xmlStream)
 

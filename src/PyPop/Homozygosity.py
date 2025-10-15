@@ -41,7 +41,7 @@ from operator import add
 from pathlib import Path
 
 # import C module
-from PyPop import _EWSlatkinExact
+from PyPop import _EWSlatkinExact, logger
 from PyPop.DataTypes import Genotypes, checkIfSequenceData, getLocusPairs, getMetaLocus
 from PyPop.Utils import getStreamType
 
@@ -57,10 +57,9 @@ class Homozygosity:
        alleleData (list): list of allele counts
        rootPath (str): path to the root of the directory where the
          pre-calculated expected homozygosity statistics can be found.
-       debug (int): flag to switch debugging on
     """
 
-    def __init__(self, alleleData, rootPath=".", debug=0):
+    def __init__(self, alleleData, rootPath="."):
         self.alleleData = alleleData
         self.numAlleles = len(self.alleleData)
         if self.numAlleles > 0:
@@ -69,8 +68,6 @@ class Homozygosity:
             self.sampleCount = 0
 
         self.rootPath = Path(rootPath)
-        self.debug = debug
-
         self.expectedStatsFlag = self._parseFile()
 
     def _genPathName(self, sampleCount, numAlleles):
@@ -160,32 +157,29 @@ class Homozygosity:
                             obsvHomo, pValue = [float(val) for val in lines[i].split()]
                             self.quantile.append((obsvHomo, pValue))
 
-                        if self.debug:
-                            print(
-                                self.count,
-                                self.expectedHomozygosity,
-                                self.varExpectedHomozygosity,
-                            )
-                            print(self.sampleCount, self.numAlleles)
-
-                        return 1
-
-                    if self.debug:
-                        print(self.sampleCount, self.numAlleles)
-                        print(
+                        logger.debug(
+                            "%d %g %g",
                             self.count,
                             self.expectedHomozygosity,
                             self.varExpectedHomozygosity,
                         )
-                        print(
-                            "Insufficient (",
-                            self.count,
-                            ") replicates observed for a valid analysis.",
-                        )
-            elif self.debug:
-                print(self.numAlleles, " is out of range of valid k!")
-        elif self.debug:
-            print(self.sampleCount, " is out of range of valid 2n!")
+                        logger.debug("%d %d", self.sampleCount, self.numAlleles)
+
+                        return 1
+
+                    logger.debug("%d %d", self.sampleCount, self.numAlleles)
+                    logger.debug(
+                        "%d %g %g",
+                        self.count,
+                        self.expectedHomozygosity,
+                        self.varExpectedHomozygosity,
+                    )
+                    logger.warning(
+                        "Insufficient (%d) replicates observed for a valid analysis.",
+                        self.count,
+                    )
+            logger.debug("%d is out of range of valid k!", self.numAlleles)
+        logger.debug("%d is out of range of valid 2n!", self.sampleCount)
 
         return 0
 
@@ -205,8 +199,7 @@ class Homozygosity:
 
         for alleleCount in self.alleleData:
             freq = float(alleleCount / sampleCount)
-            if self.debug:
-                print("allelecount = ", alleleCount, " freq = ", freq)
+            logger.debug("allelecount = %d freq = %g", alleleCount, freq)
             sum += freq * freq
 
             self.observedHomozygosity = sum
@@ -234,13 +227,11 @@ class Homozygosity:
           tuple:  (``lower``, ``upper``) bounds.
         """
         upperBound = 999.0
-        if self.debug:
-            print("quartiles")
-            print("homozyg  calcpVal pVal ")
+        logger.debug("quartiles")
+        logger.debug("homozyg  calcpVal pVal ")
         for val in self.quantile:
             obsvHomo, pVal = val
-            if self.debug:
-                print(f"{obsvHomo:08f} {pVal:08f}")
+            logger.debug(f"{obsvHomo:08f} {pVal:08f}")
             if self.observedHomozygosity > obsvHomo:
                 lowerBound = pVal
                 return lowerBound, upperBound
@@ -344,14 +335,11 @@ class HomozygosityEWSlatkinExact(Homozygosity):
     Args:
        alleleData (list): list of allele counts
        numReplicates (int): number or replicates for simulation.
-       debug (int): flag to switch debugging on
     """
 
-    def __init__(self, alleleData=None, numReplicates=10000, debug=0):
+    def __init__(self, alleleData=None, numReplicates=10000):
         self.alleleData = alleleData
-
         self.numReplicates = numReplicates
-        self.debug = debug
 
     def doCalcs(self, alleleData):
         """Run the computations.
@@ -371,20 +359,18 @@ class HomozygosityEWSlatkinExact(Homozygosity):
 
             # create the correct array that module expect,
             # by pre- and appending zeroes to the list
-            if self.debug:
-                print(list(self.alleleData))
-                print(type(self.alleleData))
+            logger.debug("%s", list(self.alleleData))
+            logger.debug("%s", type(self.alleleData))
 
             li = [0, *list(self.alleleData), 0]
 
-            if self.debug:
-                print(
-                    "args to slatkin exact test:",
-                    li,
-                    self.numAlleles,
-                    self.sampleCount,
-                    self.numReplicates,
-                )
+            logger.debug(
+                "args to slatkin exact test: %s %d %d %d",
+                li,
+                self.numAlleles,
+                self.sampleCount,
+                self.numReplicates,
+            )
 
             self.EW.main_proc(li, self.numAlleles, self.sampleCount, self.numReplicates)
 
@@ -526,13 +512,11 @@ class HomozygosityEWSlatkinExactPairwise:
        matrix (StringMatrix): matrix with multiple loci columns for pairwise comparison
        numReplicates (int, optional): number or replicates for simulation.
        untypedAllele (str, optional): untyped allele
-       debug (int, optional): flag to switch debugging on
     """
 
-    def __init__(self, matrix=None, numReplicates=10000, untypedAllele="****", debug=0):
+    def __init__(self, matrix=None, numReplicates=10000, untypedAllele="****"):
         self.matrix = matrix
         self.numReplicates = numReplicates
-        self.debug = debug
         self.untypedAllele = untypedAllele
         self.sequenceData = checkIfSequenceData(self.matrix)
         self.pairs = getLocusPairs(self.matrix, self.sequenceData)
@@ -567,7 +551,8 @@ class HomozygosityEWSlatkinExactPairwise:
 
             # only pass in count frequencies
             hz = HomozygosityEWSlatkinExact(
-                countData.values(), numReplicates=self.numReplicates, debug=self.debug
+                countData.values(),
+                numReplicates=self.numReplicates,
             )
 
             hz.serializeHomozygosityTo(stream)
