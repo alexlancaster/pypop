@@ -155,7 +155,11 @@ def get_parent_cli(version="", copyright_message=""):
         (
             ["--log-level"],
             {
-                "help": "set log level (overrides ``-d``); one of: ``DEBUG``, ``INFO``, ``WARNING``, ``ERROR``, ``CRITICAL``",
+                "help": """
+set log level (overrides ``-d``); one of: ``DEBUG``, ``INFO``, ``WARNING``, ``ERROR``, ``CRITICAL``
+
+.. versionadded:: 1.4.0
+                """,
                 "choices": ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
                 "default": None,
             },
@@ -163,7 +167,11 @@ def get_parent_cli(version="", copyright_message=""):
         (
             ["--log-file"],
             {
-                "help": "write logs to ``LOGFILE`` instead of ``stdout``",
+                "help": """
+write logs to ``LOGFILE`` instead of ``stdout``
+
+.. versionadded:: 1.4.0
+                """,
                 "metavar": "LOGFILE",
                 "default": None,
             },
@@ -223,10 +231,7 @@ def get_pypop_cli(version="", copyright_message=""):
         add_help=False,
         description="""Process and run population genetics statistics on one or more ``POPFILE`` s.
 Expects to find a configuration file called ``config.ini`` in the
-current directory
-
-.. versionadded:: 1.4.0 ``--log-level``, ``--log-file`` options for logging to file
-        """,
+current directory""",
         epilog=copyright_message,
         formatter_class=_PyPopFormatter,
     )
@@ -321,10 +326,7 @@ def get_popmeta_cli(version="", copyright_message=""):
         epilog=copyright_message,
         description="""Processes ``XMLFILEs`` and generates 'meta'-analyses. ``XMLFILE`` are
 expected to be the XML output files taken from runs of ``pypop``.  Will
-skip any XML files that are not well-formed XML.
-
-.. versionadded:: 1.4.0 ``--log-level``, ``--log-file`` options for logging to file
-        """,
+skip any XML files that are not well-formed XML.""",
         formatter_class=_PyPopFormatter,
     )
 
