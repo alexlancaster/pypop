@@ -136,6 +136,30 @@ logger = logging.getLogger("pypop")
 """Package-wide logger used throughout a PyPop run."""
 
 
+class _LevelBasedFormatter(logging.Formatter):
+    """Formatter that uses different formats for INFO vs DEBUG+."""
+
+    def __init__(
+        self,
+        info_fmt="LOG: %(message)s",
+        debug_fmt="%(asctime)s [%(levelname)s] %(name)s:%(module)s.%(funcName)s: %(message)s",
+        datefmt="%Y.%m.%d %H:%M:%S",
+    ):
+        super().__init__()
+        self.info_fmt = info_fmt
+        self.debug_fmt = debug_fmt
+        self.datefmt = datefmt
+
+        # Pre-create two internal formatters for speed
+        self._info_formatter = logging.Formatter(info_fmt)
+        self._debug_formatter = logging.Formatter(debug_fmt, datefmt)
+
+    def format(self, record):
+        if record.levelno == logging.INFO:
+            return self._info_formatter.format(record)
+        return self._debug_formatter.format(record)
+
+
 def setup_logger(doctest_mode=True, debug_level=0, filename=None):
     """Configure the 'pypop' logger with stdout/file handler, optional debug verbosity, and doctest mode.
 
@@ -161,7 +185,7 @@ def setup_logger(doctest_mode=True, debug_level=0, filename=None):
     elif debug_level == 1:
         level = logging.DEBUG  # could extend to TRACE later if desired
     else:
-        level = logging.WARN  # could extend to TRACE later if desired
+        level = logging.WARNING  # could extend to TRACE later if desired
 
     # Determine handler: file or stdout
     if filename is None or filename == "-":
@@ -169,17 +193,7 @@ def setup_logger(doctest_mode=True, debug_level=0, filename=None):
     else:
         handler = logging.FileHandler(filename)
 
-    # Choose format based on verbosity
-    if level <= logging.INFO:
-        fmt = "LOG: %(message)s"
-        datefmt = None
-    else:
-        fmt = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
-        datefmt = "%Y.%m.%d %H:%M:%S"
-
-    handler.setLevel(level)
-    handler.setFormatter(logging.Formatter(fmt, datefmt))
-
+    handler.setFormatter(_LevelBasedFormatter())
     # Remove old handlers to avoid duplicates
     logger.handlers.clear()
     logger.addHandler(handler)

@@ -89,7 +89,7 @@ from pathlib import Path
 # now use python3-lxml
 from lxml import etree
 
-from PyPop import logger
+from PyPop import logger, setup_logger
 from PyPop.DataTypes import Genotypes, getLumpedDataLevels
 from PyPop.Filter import AnthonyNolanFilter, BinningFilter
 from PyPop.Haplo import Emhaplofreq, Haplostats
@@ -199,6 +199,7 @@ class Main:
 
         if debugFlag == 1:
             self.debug = 1
+            setup_logger(debug_level=1)
 
         # generate file prefix
         try:
@@ -273,17 +274,16 @@ class Main:
 
         if self.debug:
             for section in self.config.sections():
-                print(section)
+                logger.debug(section)
                 for option in self.config.options(section):
-                    print(" ", option, "=", self.config.get(section, option))
+                    logger.debug(f" {option}={self.config.get(section, option)}")
 
         # if not provided on command line or provided check .ini
         # options, and use that location, if provided
         if self.xslFilename is None:
             try:
                 self.xslFilename = self.config.get("General", "xslFilename")
-                if self.debug:
-                    print("using .ini option for xslFilename:", self.xslFilename)
+                logger.debug("using .ini option for xslFilename: %s", self.xslFilename)
                 checkXSLFile(
                     self.xslFilename,
                     abort=1,
@@ -292,17 +292,14 @@ class Main:
                 )
             except (NoOptionError, NoSectionError):
                 # otherwise fall back to xslFilenameDefault
-                if self.debug:
-                    print("xslFilename .ini option not set")
+                logger.debug("xslFilename .ini option not set")
                 if self.xslFilenameDefault:
                     self.xslFilename = self.xslFilenameDefault
                 else:
                     # if no default XSL file found, then we skip text output
                     logger.info("no XSL file, skipping text output")
-                    # print("LOG: no XSL file, skipping text output")
 
-        elif self.debug:
-            print("using user supplied version in: ", self.xslFilename)
+        logger.debug(f"using user supplied version in: {self.xslFilename}")
 
         # check to see what kind of file we are parsing
 
@@ -545,7 +542,7 @@ class Main:
                 )
             # process the options
             if directory:
-                anthonynolanPath = get_sequence_directory(directory, debug=self.debug)
+                anthonynolanPath = get_sequence_directory(directory)
                 remoteMSF = None
             else:
                 anthonynolanPath = None
@@ -665,8 +662,7 @@ class Main:
                         customBinningDict[option] = (
                             self.config.get(filterCall, option)
                         ).split()
-                    if self.debug:
-                        print(customBinningDict)
+                    logger.debug("customBinningDict: %s", str(customBinningDict))
                 except Exception:
                     sys.exit("Could not parse the CustomBinning rules.")
                 filter = BinningFilter(
@@ -733,9 +729,11 @@ class Main:
                     + "' is not recognized."
                 )
 
-        if self.debug:
-            print("matrixHistory")
-            print(self.matrixHistory)
+        # if self.debug:
+        #    print("matrixHistory")
+        #    print(self.matrixHistory)
+        logger.debug("matrixHistory ...")
+        logger.debug(f"{self.matrixHistory} ...")
 
         # outputs pop file(s)
         if self.popDump:
@@ -945,8 +943,8 @@ class Main:
                             li2 = [int(i) for i in alleleLump2.split(",")]
                         else:
                             li2 = []
-                        li1.extend(li2)
-                        li = unique_elements(li1)
+                            li1.extend(li2)
+                            li = unique_elements(li1)
 
                         lumpData = getLumpedDataLevels(self.input, locus, li)
                         for level in lumpData:
@@ -1167,14 +1165,10 @@ class Main:
                                 anthonynolanPath = (
                                     Path(self.datapath) / "anthonynolan" / "msf"
                                 )
-                                if self.debug:
-                                    logger.info(
-                                        f"Defaulting to system datapath {anthonynolanPath} for anthonynolanPath data"
-                                    )
-
-                                    # print(
-                                    #    f"LOG: Defaulting to system datapath {anthonynolanPath} for anthonynolanPath data"
-                                    # )
+                                logger.debug(
+                                    "Defaulting to system datapath %s for anthonynolanPath data",
+                                    anthonynolanPath,
+                                )
 
                             seqfilter = AnthonyNolanFilter(
                                 debug=self.debug,
@@ -1401,7 +1395,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                         "wildcard '*' given for lociToEstHaplo, assume entire data set"
                     )
                     locusKeys = ":".join(self.input.getIndividualsData().colList)
-                # (print("LOG: estimating haplotype frequencies for", end=" "),)
+                    # (print("LOG: estimating haplotype frequencies for", end=" "),)
                 logger.info("estimating haplotype frequencies for ...")
                 # if we will be running allPairwise*, then exclude any two-locus
                 # haplotypes, since we will estimate them as part of 'all pairwise'
@@ -1529,12 +1523,11 @@ def getConfigInstance(configFilename=None, altpath=None):
     return config
 
 
-def get_sequence_directory(directory_str, debug=False):
+def get_sequence_directory(directory_str):
     """Get the directory for the :class:`PyPop.Filter.AnthonyNolanFilter`.
 
     Args:
        directory_str (str): directory to search
-       debug (bool): enable debugging
 
     Returns:
        str: path to sequence files
@@ -1550,6 +1543,7 @@ def get_sequence_directory(directory_str, debug=False):
             path_obj = (
                 Path(os.environ.get("PYPOP_CURRENT_TEST_DIRECTORY")).parent / path_obj
             )
+            logger.debug("in test environment, data files: %s", str(path_obj))
         else:
             sys.exit(
                 f"Relative path {path_obj} for AnthonyNolan sequence files does not exist or is not a directory."
@@ -1558,8 +1552,7 @@ def get_sequence_directory(directory_str, debug=False):
     # at this point, the path is absolute, now we need to check it exits
     if path_obj.exists() and path_obj.is_dir():
         anthonynolanPath = str(path_obj)
-        if debug:
-            print(f"Using  {anthonynolanPath} for AnthonyNolan data files")
+        logger.debug("Using %s for AnthonyNolan data files", anthonynolanPath)
     else:
         sys.exit(
             f"Absolute path {path_obj} for Anthony Nolan sequence files does not exist or is not a directory"
