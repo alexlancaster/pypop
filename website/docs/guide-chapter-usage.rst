@@ -238,16 +238,17 @@ options.
 
 .. _guide-usage-intro-api:
 
-Programmatic access to PyPop
-----------------------------
+Library (programmatic) mode
+---------------------------
 
-It is also possible to use PyPop programmatically by writing a Python
-program that uses the Application Programmers Interface documented in
-the *API Reference* (:ref:`API <api-reference-top>`) directly.  While
-the primary use-case for PyPop is as a standalone command-line script,
-and is it not fully optimized for use via a programmatic interface,
-much functionality is exposed as Python modules and classes.  Examples
-of programmatic use can be found in :ref:`guide-usage-examples-api`.
+It is also possible to use PyPop as a library (i.e. programmatically)
+by writing a Python program that uses the Application Programming
+Interface documented in the *API Reference* (:ref:`API
+<api-reference-top>`) directly.  While the primary use-case for PyPop
+is as a standalone command-line script, and is it not fully optimized
+for use via a programmatic interface, much functionality is exposed as
+Python modules and classes.  Examples of programmatic use can be found
+in :ref:`guide-usage-examples-api`.
 
 .. _guide-usage-intro-run-details:
 
@@ -339,10 +340,10 @@ Command-line interfaces
 =======================
 
 Described below is the usage for both programs, including a full list
-of the current command-line options and arguments.  Note that you can
-also view this full list of options from the program itself by
-supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
---help``, respectively.
+of the current command-line options and arguments for PyPop version
+|api_version|.  Note that you can also view this full list of options
+from the program itself by supplying the ``--help`` option,
+i.e. ``pypop --help``, or ``popmeta --help``, respectively.
 
 .. _guide-pypop-cli:
 
@@ -353,7 +354,6 @@ supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
    :module: PyPop.CommandLineInterface
    :func: get_pypop_cli
    :prog: pypop
-   :nodescription:
    :noepilog:
    :nodefaultconst:
 
@@ -366,7 +366,6 @@ supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
    :module: PyPop.CommandLineInterface
    :func: get_popmeta_cli
    :prog: popmeta
-   :nodescription:
    :noepilog:
    :nodefaultconst:
 
