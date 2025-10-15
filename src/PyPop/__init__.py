@@ -105,7 +105,7 @@ def critical_exit(message, *args):  # noqa: D417
     Args:
         message (str): Logging format string.
     """
-    logger.critical(message, *args)
+    logger.critical(message, *args, stacklevel=2)
     sys.exit(1)
 
 
