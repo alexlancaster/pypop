@@ -40,7 +40,7 @@ import sys
 from pathlib import Path
 
 from PyPop import __version__ as version
-from PyPop import copyright_message, setup_logger
+from PyPop import copyright_message, critical_exit, setup_logger
 from PyPop.CommandLineInterface import get_popmeta_cli
 from PyPop.Meta import Meta
 
@@ -81,8 +81,8 @@ def main(argv=sys.argv):
         batchsize = 1  #  set batch size to 1
 
     if outputDir and not outputDir.is_dir():
-        sys.exit(
-            f"'{outputDir}' is not a directory, please supply a valid output directory"
+        critical_exit(
+            "'%s' is not a directory, please supply a valid output directory", outputDir
         )
 
     # parse arguments

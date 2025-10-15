@@ -41,7 +41,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 # import C module
-from PyPop import _Gthwe, _Pvalue, logger
+from PyPop import _Gthwe, _Pvalue, critical_exit, logger
 from PyPop.Arlequin import ArlequinExactHWTest
 
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
@@ -232,14 +232,11 @@ class HardyWeinberg:
 
             total += value
         if abs(float(self.n) - total) > float(self.n) / 1000.0:
-            print("AAIIEE!")
-            print(
-                "Calculated sum of expected genotype counts is:",
+            critical_exit(
+                "AAIIEE!\n Calculated sum of expected genotype counts is: %g, but N is: %d",
                 total,
-                ", but N is:",
                 self.n,
             )
-            sys.exit()
 
     ################################################################################
 

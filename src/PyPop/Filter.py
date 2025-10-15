@@ -40,7 +40,6 @@ input data before being passed to PyPop analysis.
 
 import os
 import re
-import sys
 from abc import ABC, abstractmethod
 from functools import reduce
 from operator import add
@@ -48,7 +47,7 @@ from pathlib import Path
 
 import pooch
 
-from PyPop import logger
+from PyPop import critical_exit, logger
 from PyPop.Utils import StringMatrix
 
 
@@ -236,7 +235,7 @@ class AnthonyNolanFilter(Filter):
         self.msf_cache_dir = None  # default to  None
 
         if self.unsequencedSite == self.untypedAllele:
-            sys.exit(
+            critical_exit(
                 "Designator for unsequenced site and untyped allele cannot be the same!"
             )
 

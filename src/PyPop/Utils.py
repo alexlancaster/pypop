@@ -50,7 +50,7 @@ import numpy as np
 from numpy import asarray, take, zeros
 from numpy.lib.user_array import container
 
-from PyPop import logger
+from PyPop import critical_exit, logger
 
 GENOTYPE_SEPARATOR = "~"
 """
@@ -1032,22 +1032,22 @@ def convertLineEndings(file, mode):
     """
     if mode == 1:
         if Path(file).is_dir():
-            sys.exit(file + "Directory!")
+            critical_exit("%s Directory!", file)
         with open(file) as fp:
             data = fp.read()
             if "\0" in data:
-                sys.exit(file + "Binary!")
+                critical_exit("%s Binary!", file)
             newdata = re.sub("\r?\n", "\r", data)
         if newdata != data:
             with open(file, "w") as f:
                 f.write(newdata)
     elif mode == 2:
         if Path(file).is_dir():
-            sys.exit(file + "Directory!")
+            critical_exit("%s Directory!", file)
         with open(file) as fp:
             data = fp.read()
             if "\0" in data:
-                sys.exit(file + "Binary!")
+                critical_exit("%s Binary!", file)
             newdata = re.sub("\r(?!\n)|(?<!\r)\n", "\r\n", data)
         if newdata != data:
             with open(file, "w") as f:
@@ -1131,9 +1131,10 @@ def checkXSLFile(xslFilename, path="", subdir="", abort=False, msg=""):
     if Path(checkPath).is_file():
         return checkPath
     if abort:
-        sys.exit(f"Can't find XSL: {checkPath} {msg}")
+        critical_exit("Can't find XSL: %s %s", checkPath, msg)
     else:
-        return None
+        logger.warning("Can't find XSL: %s %s", checkPath, msg)
+    return None
 
 
 def getUserFilenameInput(prompt, filename):

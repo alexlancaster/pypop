@@ -43,7 +43,7 @@ from glob import glob
 from pathlib import Path
 
 from PyPop import __version__ as version
-from PyPop import copyright_message, logger, platform_info, setup_logger
+from PyPop import copyright_message, critical_exit, logger, platform_info, setup_logger
 from PyPop.CommandLineInterface import get_pypop_cli
 from PyPop.Main import Main, checkXSLFile, getConfigInstance
 from PyPop.Meta import Meta
@@ -280,7 +280,7 @@ return for each prompt.""")
             li = popFilenames
         # otherwise bail out with error
         else:
-            sys.exit(
+            critical_exit(
                 "ERROR: neither a list of files, nor a file containing a list was provided"
             )
 
@@ -293,7 +293,7 @@ return for each prompt.""")
             if len(globbedFiles) == 0:
                 # if no files were found for that glob, please exit and warn
                 # the user
-                sys.exit(f"Couldn't find file(s): {fileName}")
+                critical_exit("Couldn't find file(s): %s", fileName)
             else:
                 fileNames.extend(globbedFiles)
 

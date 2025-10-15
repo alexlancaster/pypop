@@ -48,7 +48,7 @@ import sys
 import warnings
 from pathlib import Path
 
-from PyPop import logger
+from PyPop import critical_exit, logger
 
 warnings.warn(
     "The module 'Arlequin' is deprecated and may be removed in a future release.",
@@ -101,14 +101,15 @@ class ArlequinWrapper:
             self.arpFilename = self.arpFilename
             self.arlResPrefix = self.arpFilename[:-4]
         else:
-            sys.exit(
-                f"Error: Arlequin filename: {arpFilename} does not have a .arp suffix"
+            critical_exit(
+                "Error: Arlequin filename: %s does not have a .arp suffix", arpFilename
             )
         if self.arsFilename[-4:] == ".ars":
             self.arsFilename = self.arsFilename
         else:
-            sys.exit(
-                f"Error: Arlequin settings filename: {arpFilename} does not have a .ars suffix"
+            critical_exit(
+                "Error: Arlequin settings filename: %s does not have a .ars suffix",
+                arpFilename,
             )
 
     def outputArpFile(self, group):
@@ -518,14 +519,15 @@ class ArlequinBatch:
             self.arpFilename = arpFilename
             self.arlResPrefix = arpFilename[:-4]
         else:
-            sys.exit(
-                f"Error: Arlequin filename: {arpFilename} does not have a .arp suffix"
+            critical_exit(
+                "Arlequin filename: %s does not have a .arp suffix", arpFilename
             )
         if arsFilename[-4:] == ".ars":
             self.arsFilename = arsFilename
         else:
-            sys.exit(
-                f"Error: Arlequin settings filename: {arpFilename} does not have a .ars suffix"
+            critical_exit(
+                "Arlequin settings filename: %s does not have a .ars suffix",
+                arpFilename,
             )
 
     def _outputHeader(self, sampleCount):
@@ -671,7 +673,7 @@ class ArlequinBatch:
         # sanity check to ensure column number is even (2 alleles for
         # each loci)
         if colCount % 2 != 0:
-            sys.exit(f"Error: col count ({colCount}) is not even")
+            critical_exit("col count (%d) is not even", colCount)
         else:
             locusCount = int((colCount) / 2)
 
@@ -681,22 +683,17 @@ class ArlequinBatch:
 
         # sanity check for map order if it is given
         elif locusCount <= len(self.mapOrder):
-            sys.exit(
-                f"Error: \
-            there are {locusCount} loci but {len(self.mapOrder)} were given to sort order"
+            critical_exit(
+                "there are %d loci but %d were given to sort order",
+                locusCount,
+                len(self.mapOrder),
             )
         else:
             for i in self.mapOrder:
                 if self.mapOrder.count(i) > 1:
-                    sys.exit(
-                        f"Error: \
-                    locus {i} appears more than once in sort order"
-                    )
+                    critical_exit("locus %s appears more than once in sort order", i)
                 elif (i > locusCount) or (i < 0):
-                    sys.exit(
-                        f"Error: \
-                    locus {i} out of range of number of loci"
-                    )
+                    critical_exit("locus %s out of range of number of loci", i)
 
         logger.debug(
             "First line %s has %d columns and %d allele pairs",
@@ -836,7 +833,7 @@ genetics program.
             ],
         )
     except GetoptError:
-        sys.exit(usage_message)
+        critical_exit(usage_message)
 
     # default options
     idCol = 0
@@ -871,11 +868,12 @@ genetics program.
         elif o in ("-d", "--debug"):
             debug = 1
         elif o in ("-h", "--help"):
-            sys.exit(usage_message)
+            print(usage_message)
+            sys.exit()
 
     # check number of arguments
     if len(args) != 3:
-        sys.exit(usage_message)
+        critical_exit(usage_message)
 
     # parse arguments
     inputFilename = args[0]

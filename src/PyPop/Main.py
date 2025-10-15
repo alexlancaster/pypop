@@ -90,7 +90,7 @@ from pathlib import Path
 # now use python3-lxml
 from lxml import etree
 
-from PyPop import logger, setup_logger
+from PyPop import critical_exit, logger, setup_logger
 from PyPop.DataTypes import Genotypes, getLumpedDataLevels
 from PyPop.Filter import AnthonyNolanFilter, BinningFilter
 from PyPop.Haplo import Emhaplofreq, Haplostats
@@ -190,7 +190,7 @@ class Main:
         except (NoOptionError, NoSectionError):
             debug_ini_enabled = 0
         except ValueError:
-            sys.exit("require a 0 or 1 as debug flag")
+            critical_exit("require a 0 or 1 as debug flag")
 
         # always first default "debug" to command-line status (set by pypop script)
         # if it is not set by the command-line, then it is by default, disabled, but
@@ -208,8 +208,9 @@ class Main:
             elif outFilePrefixType == "date":
                 uniquePrefix = f"{prefixFileName}-{datestr}-{timestr}"
             else:
-                sys.exit(
-                    f"outFilePrefixType: {outFilePrefixType} must be 'filename' or 'date'"
+                critical_exit(
+                    "outFilePrefixType: %s must be 'filename' or 'date'",
+                    outFilePrefixType,
                 )
         except (NoOptionError, NoSectionError):
             # just use default prefix
@@ -306,7 +307,7 @@ class Main:
         elif self.config.has_section("ParseAlleleCountFile"):
             self.fileType = "ParseAlleleCountFile"
         else:
-            sys.exit("File type is not recognised.  Exiting")
+            critical_exit("File type is not recognised.  Exiting")
 
         # Parse self.fileType section
 
@@ -317,12 +318,12 @@ class Main:
             validPopFields = None
             logger.info("Data file has no header data block")
             # print("LOG: Data file has no header data block")
-            # sys.exit("No valid population fields defined")
+            # critical_exit("No valid population fields defined")
 
         try:
             validSampleFields = self.config.get(self.fileType, "validSampleFields")
         except NoOptionError:
-            sys.exit("No valid sample fields defined")
+            critical_exit("No valid sample fields defined")
 
         try:
             self.alleleDesignator = self.config.get(self.fileType, "alleleDesignator")
@@ -388,7 +389,7 @@ class Main:
         # END PARSE: allelecount file (ParseAlleleCountFile)
 
         else:
-            sys.exit("Unrecognised file type")
+            critical_exit("Unrecognised file type")
 
         # we copy the parsed data to self.filtered, to be ready for
         # the gamut of filters coming
@@ -409,8 +410,9 @@ class Main:
                 if self.dumpType in ["separate-loci", "all-loci"]:
                     self.dumpOrder = int(self.dumpOrder)
                 else:
-                    sys.exit(
-                        f"{self.dumpType} is not a valid keyword for population dump: must be either 'separate-loci' or 'all-loci'"
+                    critical_exit(
+                        "%s is not a valid keyword for population dump: must be either 'separate-loci' or 'all-loci'",
+                        self.dumpType,
                     )
 
             except NoOptionError:
@@ -527,13 +529,13 @@ class Main:
 
             if not (directory or remoteMSF):
                 # neither option is provided
-                sys.exit(
-                    "Error: You must provide either a 'directory' or a 'remoteMSF' option in the [Sequence] config."
+                critical_exit(
+                    "You must provide either a 'directory' or a 'remoteMSF' option in the [Sequence] config."
                 )
             if directory and remoteMSF:
                 # both options are provided
-                sys.exit(
-                    "Error: 'directory' and 'remoteMSF' options are mutually exclusive. Provide only one in [Sequence] config."
+                critical_exit(
+                    "'directory' and 'remoteMSF' options are mutually exclusive. Provide only one in [Sequence] config."
                 )
             # process the options
             if directory:
@@ -542,7 +544,7 @@ class Main:
             else:
                 anthonynolanPath = None
         except Exception as e:
-            sys.exit(f"Error parsing the configuration: {e}")
+            critical_exit("Error parsing the configuration: %s", e)
 
         return anthonynolanPath, remoteMSF
 
@@ -586,9 +588,9 @@ class Main:
                 try:
                     filterType = self.config.get(filterCall, "filterType")
                 except Exception:
-                    sys.exit(
-                        "No valid filter type specified under filter heading "
-                        + filterCall
+                    critical_exit(
+                        "No valid filter type specified under filter heading %s",
+                        filterCall,
                     )
 
             if filterType == "AnthonyNolan":
@@ -638,6 +640,7 @@ class Main:
                     binningDigits = self.config.getint(filterCall, "binningDigits")
                 except Exception:
                     binningDigits = 4
+
                 filter = BinningFilter(
                     binningDigits=binningDigits,
                     untypedAllele=self.untypedAllele,
@@ -655,9 +658,10 @@ class Main:
                         customBinningDict[option] = (
                             self.config.get(filterCall, option)
                         ).split()
-                    logger.debug("customBinningDict: %s", str(customBinningDict))
+                        logger.debug("customBinningDict: %s", str(customBinningDict))
                 except Exception:
-                    sys.exit("Could not parse the CustomBinning rules.")
+                    critical_exit("Could not parse the CustomBinning rules.")
+
                 filter = BinningFilter(
                     customBinningDict=customBinningDict,
                     untypedAllele=self.untypedAllele,
@@ -712,12 +716,10 @@ class Main:
                 )
 
             else:
-                sys.exit(
-                    "The filter type '"
-                    + filterType
-                    + "' specified under filter heading '"
-                    + filterCall
-                    + "' is not recognized."
+                critical_exit(
+                    "The filter type '%s' specified under filter heading '%s' is not recognized.",
+                    filterType,
+                    filterCall,
                 )
 
         logger.debug("matrixHistory ...")
@@ -783,14 +785,14 @@ class Main:
                 except NoOptionError:
                     lumpBelow = 5
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     flagChenTest = self.config.getboolean("HardyWeinberg", "chenChisq")
                 except NoOptionError:
                     flagChenTest = 0
                 except ValueError:
-                    sys.exit("require a 0 or 1 as a Boolean flag")
+                    critical_exit("require a 0 or 1 as a Boolean flag")
 
                 hwObject = HardyWeinberg(
                     self.input.getLocusDataAt(locus),
@@ -821,7 +823,9 @@ class Main:
                 except NoOptionError:
                     pass
                 except ValueError:
-                    sys.exit("alleleLump: require comma-separated list of integers")
+                    critical_exit(
+                        "alleleLump: require comma-separated list of integers"
+                    )
 
             # Parse "HardyWeinbergGuoThompson"
             if (
@@ -851,7 +855,7 @@ class Main:
                 except (NoOptionError, NoSectionError):
                     dememorizationSteps = 2000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     samplingNum = self.config.getint(
@@ -860,7 +864,7 @@ class Main:
                 except (NoOptionError, NoSectionError):
                     samplingNum = 1000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     samplingSize = self.config.getint(
@@ -869,7 +873,7 @@ class Main:
                 except (NoOptionError, NoSectionError):
                     samplingSize = 1000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     maxMatrixSize = self.config.getint(
@@ -878,7 +882,7 @@ class Main:
                 except (NoOptionError, NoSectionError):
                     maxMatrixSize = 250
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     monteCarloSteps = self.config.getint(
@@ -887,7 +891,7 @@ class Main:
                 except (NoOptionError, NoSectionError):
                     monteCarloSteps = 1000000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 # Guo & Thompson implementation
                 hwObject = HardyWeinbergGuoThompson(
@@ -958,7 +962,9 @@ class Main:
                             self.xmlStream.writeln()
 
                     except ValueError:
-                        sys.exit("alleleLump: require comma-separated list of integers")
+                        critical_exit(
+                            "alleleLump: require comma-separated list of integers"
+                        )
 
             # FIXME: need a way to disable if too many
             # alleles/individuals in a given population.
@@ -974,7 +980,7 @@ class Main:
                 except NoOptionError:
                     doOverall = 0
                 except ValueError:
-                    sys.exit("doOverall: requires 0 or 1 as a boolean flag")
+                    critical_exit("doOverall: requires 0 or 1 as a boolean flag")
 
                 hwEnum = HardyWeinbergEnumeration(
                     locusData=self.input.getLocusDataAt(locus),
@@ -1006,7 +1012,9 @@ class Main:
                 except NoOptionError:
                     pass
                 except ValueError:
-                    sys.exit("alleleLump: require comma-separated list of integers")
+                    critical_exit(
+                        "alleleLump: require comma-separated list of integers"
+                    )
 
             if self.config.has_section("HardyWeinbergGuoThompsonArlequin"):
                 # default location for Arlequin executable
@@ -1030,7 +1038,7 @@ class Main:
                 except NoOptionError:
                     samplingNum = 100000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     markovChainDememorisationStepsHW = self.config.getint(
@@ -1040,7 +1048,7 @@ class Main:
                 except NoOptionError:
                     samplingNum = 100000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 hwArlequin = HardyWeinbergGuoThompsonArlequin(
                     self.input.getIndividualsData(),
@@ -1177,9 +1185,9 @@ class Main:
                             )
 
                         else:
-                            sys.exit(
-                                "Random binning method not recognized:"
-                                + self.binningMethod
+                            critical_exit(
+                                "Random binning method not recognized: %s",
+                                self.binningMethod,
                             )
 
                     self.filterLogFile.writeln("]]>")
@@ -1214,7 +1222,7 @@ class Main:
             except NoOptionError:
                 numInitCond = 10
             except ValueError:
-                sys.exit(
+                critical_exit(
                     "numInitCond: option requires an positive integer greater than 1"
                 )
 
@@ -1261,7 +1269,7 @@ class Main:
             except NoOptionError:
                 allPairwise = 0
             except ValueError:
-                sys.exit("require a 0 or 1 as a flag")
+                critical_exit("require a 0 or 1 as a flag")
 
             if allPairwise:
                 # do all pairwise statistics, which always includes LD
@@ -1298,7 +1306,7 @@ class Main:
             except NoOptionError:
                 allPairwiseLD = 0
             except ValueError:
-                sys.exit("require a 0 or 1 as a flag")
+                critical_exit("require a 0 or 1 as a flag")
 
             try:
                 allPairwiseLDWithPermu = self.config.getint(
@@ -1307,12 +1315,12 @@ class Main:
             except NoOptionError:
                 allPairwiseLDWithPermu = 0
             except ValueError:
-                sys.exit("allPairwiseLDWithPermu: option requires an integer")
+                critical_exit("allPairwiseLDWithPermu: option requires an integer")
 
             # FIXME: needed for backwards-compatibility, remove when not
             # needed
             if allPairwiseLDWithPermu == 1:
-                sys.exit("""ERROR: semantics of 'allPairwiseLDWithPerm' option have changed.
+                critical_exit("""semantics of 'allPairwiseLDWithPerm' option have changed.
 It is no longer a boolean variable to enable the permutation test.
 It should now contain the NUMBER of permutations desired.  A value of
 at least 1000 is recommended.  A value of '1' is not permitted.""")
@@ -1322,7 +1330,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             except NoOptionError:
                 numPermuInitCond = 5
             except ValueError:
-                sys.exit("numPermuInitCond: option requires an integer")
+                critical_exit("numPermuInitCond: option requires an integer")
 
             # Parse new [Emhaplofreq] option 'numInitCond', so that the
             # number of initial conditions for the *first* iteration LD
@@ -1333,7 +1341,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             except NoOptionError:
                 numInitCond = 50
             except ValueError:
-                sys.exit("numInitCond: option requires an integer")
+                critical_exit("numInitCond: option requires an integer")
 
             try:
                 permutationPrintFlag = self.config.getboolean(
@@ -1342,7 +1350,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             except NoOptionError:
                 permutationPrintFlag = 0
             except ValueError:
-                sys.exit("permutationPrintFlag: option requires a 0 or 1 flag")
+                critical_exit("permutationPrintFlag: option requires a 0 or 1 flag")
 
             if allPairwiseLD:
                 logger.info("estimating all pairwise LD ...")
@@ -1493,10 +1501,12 @@ def getConfigInstance(configFilename=None, altpath=None):
     elif Path(altpath).is_file():
         config.read(altpath)
     else:
-        sys.exit("Could not find config file either in current directory or " + altpath)
+        critical_exit(
+            "Could not find config file either in current directory or %s", altpath
+        )
 
     if len(config.sections()) == 0:
-        sys.exit("No output defined!  Exiting...")
+        critical_exit("No output defined!  Exiting...")
 
     return config
 
@@ -1523,8 +1533,9 @@ def get_sequence_directory(directory_str):
             )
             logger.debug("in test environment, data files: %s", str(path_obj))
         else:
-            sys.exit(
-                f"Relative path {path_obj} for AnthonyNolan sequence files does not exist or is not a directory."
+            critical_exit(
+                "Relative path %s for AnthonyNolan sequence files does not exist or is not a directory.",
+                path_obj,
             )
 
     # at this point, the path is absolute, now we need to check it exits
@@ -1532,7 +1543,8 @@ def get_sequence_directory(directory_str):
         anthonynolanPath = str(path_obj)
         logger.debug("Using %s for AnthonyNolan data files", anthonynolanPath)
     else:
-        sys.exit(
-            f"Absolute path {path_obj} for Anthony Nolan sequence files does not exist or is not a directory"
+        critical_exit(
+            "Absolute path %s for Anthony Nolan sequence files does not exist or is not a directory",
+            path_obj,
         )
     return anthonynolanPath

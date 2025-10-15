@@ -44,14 +44,13 @@ import logging
 import math
 import os
 import re
-import sys
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import numpy as np
 
 # import the Python-to-C module wrappers
-from PyPop import _Emhaplofreq, _Haplostats, logger
+from PyPop import _Emhaplofreq, _Haplostats, critical_exit, logger
 from PyPop.Arlequin import ArlequinBatch
 from PyPop.DataTypes import checkIfSequenceData, getLocusPairs
 from PyPop.Utils import (
@@ -113,7 +112,7 @@ class Emhaplofreq(Haplo):
         if stream:
             self.stream = stream
         else:
-            sys.exit(
+            critical_exit(
                 "Emhaplofreq constructor must be passed a stream, output is only available in stream form"
             )
 
@@ -194,7 +193,9 @@ class Emhaplofreq(Haplo):
         fp = io.StringIO()
 
         if (permutationFlag is None) or (haploSuppressFlag is None):
-            sys.exit("must pass a permutation or haploSuppressFlag to _runEmhaplofreq!")
+            critical_exit(
+                "must pass a permutation or haploSuppressFlag to _runEmhaplofreq!"
+            )
 
         # make all locus keys uppercase
         locusKeys = locusKeys.upper()
@@ -293,7 +294,7 @@ class Emhaplofreq(Haplo):
                         "<group {} {} {}>{}".format(modeAttr, lociAttr, haploAttr, "\n")
                     )
                 else:
-                    sys.exit("A 'mode' for emhaplofreq must be specified")
+                    critical_exit("A 'mode' for emhaplofreq must be specified")
 
                 ##                 if permutationFlag and haploSuppressFlag:
                 ##                     fp.write("<group mode=\"LD\" loci=\"%s\">%s" % (group, '\n'))
@@ -302,7 +303,7 @@ class Emhaplofreq(Haplo):
                 ##                 elif permutationFlag and haploSuppressFlag == 0:
                 ##                     fp.write("<group mode=\"haplo-LD\" loci=\"%s\">%s" % (group, '\n'))
                 ##                 else:
-                ##                     sys.exit("Unknown combination of permutationFlag and haploSuppressFlag")
+                ##                     critical_exit("Unknown combination of permutationFlag and haploSuppressFlag")
                 fp.write("\n")
 
                 fp.write(
@@ -769,15 +770,13 @@ class Haplostats(Haplo):
 
         subj_id = list(range(1, n_subject + 1))
         if n_loci < 2:
-            print("Must have at least 2 loci for haplotype estimation!")
-            sys.exit(-1)
+            critical_exit("Must have at least 2 loci for haplotype estimation!")
 
         # set up weight
         if not weight:
             weight = [1.0] * n_subject
         if len(weight) != n_subject:
-            print("Length of weight != number of subjects (nrow of geno)")
-            sys.exit(-1)
+            critical_exit("Length of weight != number of subjects (nrow of geno)")
 
         temp_geno = geno.convertToInts()  # simulates setupGeno
         geno_vec = temp_geno.flattenCols()  # gets the columns as integers
@@ -1359,7 +1358,9 @@ KeepNullDistrib=0""")
                             freq = float(cols[0]) * float(sampleCount)
                             freqs[haplotype] = freq
                         else:
-                            sys.exit(f"Error: unknown output in arlequin line: {line}")
+                            critical_exit(
+                                "Error: unknown output in arlequin line: %s", line
+                            )
                     else:
                         dataFound = 0
                         haplotypes.append((freqs, popName, sampleCount, lociList))

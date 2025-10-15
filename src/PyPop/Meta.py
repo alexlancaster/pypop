@@ -36,12 +36,11 @@
 """Module for collecting multiple population outputs."""
 
 import os
-import sys
 from pathlib import Path
 
 from lxml import etree
 
-from PyPop import logger
+from PyPop import critical_exit, logger
 from PyPop.Utils import checkXSLFile, splitIntoNGroups
 
 
@@ -136,8 +135,8 @@ class Meta:
                 metaXSLTDirectory = datapath
 
         if (batchsize > 1) and PHYLIP_output:
-            sys.exit(
-                "processing in batches and enabling PHYLIP are mutually exclusive options\n"
+            critical_exit(
+                "processing in batches and enabling PHYLIP are mutually exclusive options"
             )
 
         # create XSLT parameters

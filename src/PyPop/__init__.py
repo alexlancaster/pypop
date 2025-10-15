@@ -96,11 +96,24 @@ import logging
 import platform
 import sys
 
+logger = logging.getLogger(__name__)
+
+
+def critical_exit(message, *args):  # noqa: D417
+    """Log a CRITICAL message and exit with status 1.
+
+    Args:
+        message (str): Logging format string.
+    """
+    logger.critical(message, *args)
+    sys.exit(1)
+
+
 # FIXME: ensure these need be remain synced with pyproject.toml
 try:
     from ._metadata import __pkgname__, __version_scheme__
 except ModuleNotFoundError:
-    sys.exit(
+    critical_exit(
         "PyPop metadata not found, PyPop has likely not been built, please build or install via `pip install` or `setup.py build`"
     )
 
