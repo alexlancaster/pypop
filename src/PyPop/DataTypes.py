@@ -36,6 +36,8 @@
 import re
 import string
 
+from PyPop import logger
+
 
 class Genotypes:
     """Stores genotypes and caches basic genotype statistics.
@@ -45,7 +47,6 @@ class Genotypes:
         untypedAllele (str): The placeholder for an untyped allele site
         unsequencedSite (bool): The identifier used for an unsequenced site (only used for sequence data)
         allowSemiTyped (int): Whether or not to allow individuals that are typed at only one allele
-        debug (int): Switch on debugging
     """
 
     def __init__(
@@ -54,13 +55,11 @@ class Genotypes:
         untypedAllele="****",
         unsequencedSite=None,
         allowSemiTyped=0,
-        debug=0,
     ):
         self.matrix = matrix
         self.untypedAllele = untypedAllele
         self.unsequencedSite = unsequencedSite
         self.allowSemiTyped = allowSemiTyped
-        self.debug = debug
 
         self._genDataStructures()
 
@@ -74,11 +73,10 @@ class Genotypes:
         """
         for phase in [allele1, allele2]:
             if phase not in {self.untypedAllele, self.unsequencedSite}:
-                if self.debug:
-                    print("alleleTable:", self.alleleTable)
-                    print("alleleTable type:", type(self.alleleTable))
-                    print("phase:", phase)
-                    print("phase type:", type(phase))
+                logger.debug("alleleTable: %s", self.alleleTable)
+                logger.debug("alleleTable type: %s", type(self.alleleTable))
+                logger.debug("phase: %s", phase)
+                logger.debug("phase type: %s", type(phase))
                 if phase in self.alleleTable:
                     self.alleleTable[phase] += 1
                 else:
@@ -87,8 +85,7 @@ class Genotypes:
             else:
                 if self.unsequencedSite == phase:
                     unsequencedSites += 1
-                if self.debug:
-                    print(self.unsequencedSite, phase, unsequencedSites)
+                logger.debug(self.unsequencedSite, phase, unsequencedSites)
 
     def _genDataStructures(self):
         """Generates allele count and map data structures.
@@ -110,9 +107,8 @@ class Genotypes:
         self.locusTable = {}
 
         for locus in self.locusKeys:
-            if self.debug:
-                print(f"locus name: {locus}")
-                print(f"column tuple: {self.matrix[locus]}")
+            logger.debug("locus name: %s", locus)
+            logger.debug("column tuple: %s", self.matrix[locus])
 
             # initialise blank dictionary
             self.alleleTable = {}
@@ -133,13 +129,9 @@ class Genotypes:
             subMatrix = self.matrix[locus]
 
             for line in range(len(subMatrix)):
-                if self.debug:
-                    (print(rowCount, subMatrix[line]),)
-
+                logger.debug("%d %s", rowCount, subMatrix[line])
                 allele1, allele2 = [str(i) for i in subMatrix[line]]
-
-                if self.debug:
-                    print(allele1, allele2)
+                logger.debug("... %s %s", allele1, allele2)
 
                 # increment row count
                 rowCount += 1
@@ -160,8 +152,7 @@ class Genotypes:
                             unsequencedSites += 1
                         if self.unsequencedSite == allele2:
                             unsequencedSites += 1
-                        if self.debug:
-                            print(locus, allele1, allele2, unsequencedSites)
+                        logger.debug(locus, allele1, allele2, unsequencedSites)
                         continue
                 # if either allele is untyped it is we throw out the
                 # entire individual and go to the next individual
@@ -175,8 +166,7 @@ class Genotypes:
                 else:
                     self.locusTable[locus].append((allele1, allele2))
 
-                if self.debug:
-                    print(allele1, allele2, self.total)
+                logger.debug("%s %s, %d", allele1, allele2, self.total)
 
             # assign frequency, counts
             self.freqcount[locus] = (
@@ -337,7 +327,7 @@ class Genotypes:
                         lumpedAlleles["lump"] = count
                 else:
                     lumpedAlleles[allele] = count
-            ##print listLumped
+
             copyTable = (self.locusTable[locus])[:]
             newTable = []
             for li in copyTable:
@@ -345,9 +335,6 @@ class Genotypes:
                 newAllele1 = "lump" if allele1 in listLumped else allele1
                 newAllele2 = "lump" if allele2 in listLumped else allele2
                 newTable.append((newAllele1, newAllele2))
-
-            ##print copyTable
-            ##print newTable
 
             return newTable
         # returns a clone of the list, so that this instance variable
@@ -382,10 +369,9 @@ class AlleleCounts:
          now holds allele count data as pseudo-genotype matrix.
     """
 
-    def __init__(self, alleleTable=None, locusName=None, debug=0):
+    def __init__(self, alleleTable=None, locusName=None):
         self.alleleTable = alleleTable
         self.locusName = locusName
-        self.debug = debug
         self._genDataStructures()
 
     def _genDataStructures(self):
@@ -398,8 +384,7 @@ class AlleleCounts:
         # store in an iVar for the moment
         self.totalAlleleCount = total
 
-        if self.debug:
-            print("alleleTable", self.alleleTable)
+        logger.debug("alleleTable", self.alleleTable)
 
         # simply reconstruct the 3-tuple as generated in
         # ParseGenotypeFile: alleleTable (a map of counts keyed by

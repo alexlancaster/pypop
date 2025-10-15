@@ -450,7 +450,6 @@ class Main:
             untypedAllele=self.untypedAllele,
             unsequencedSite=self.unsequencedSite,
             allowSemiTyped=allowSemiTyped,
-            debug=self.debug,
         )
 
         # BEGIN common XML output section
@@ -623,7 +622,6 @@ class Main:
                     preserveLowresFlag = 0
 
                 filter = AnthonyNolanFilter(
-                    debug=self.debug,
                     directoryName=anthonynolanPath,
                     remoteMSF=remoteMSF,
                     alleleFileFormat=alleleFileFormat,
@@ -704,7 +702,6 @@ class Main:
                 anthonynolanPath, remoteMSF = self._checkMSFOptions(filterCall)
 
                 filter = AnthonyNolanFilter(
-                    debug=self.debug,
                     directoryName=anthonynolanPath,
                     remoteMSF=remoteMSF,
                     alleleFileFormat="msf",
@@ -1097,7 +1094,6 @@ class Main:
                     inputInitial = Genotypes(
                         matrix=self.matrixHistory[self.binningStartPoint],
                         untypedAllele=self.untypedAllele,
-                        debug=self.debug,
                     )
 
                     # as above, we create a dictionary of allele counts
@@ -1171,7 +1167,6 @@ class Main:
                                 )
 
                             seqfilter = AnthonyNolanFilter(
-                                debug=self.debug,
                                 directoryName=anthonynolanPath,
                                 alleleFileFormat="msf",
                                 alleleDesignator=self.alleleDesignator,
