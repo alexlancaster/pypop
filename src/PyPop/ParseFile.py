@@ -47,6 +47,7 @@ allele count case).
 
 import operator
 
+from PyPop import logger
 from PyPop.Utils import OrderedDict, StringMatrix, getStreamType
 
 
@@ -62,7 +63,6 @@ class ParseFile:
         fieldPairDesignator="_1:_2",
         alleleDesignator="*",
         popNameDesignator="+",
-        debug=0,
     ):
         r"""Base class.
 
@@ -93,14 +93,11 @@ class ParseFile:
             determines whether this column contains the population
             name.  Defaults to ``+``
 
-           debug (int, optional): Switches debugging on if set to ``1``
-            (default: no debugging, ``0``)
 
         """
         self.filename = filename
         self.validPopFields = validPopFields
         self.validSampleFields = validSampleFields
-        self.debug = debug
         self.separator = separator
         self.fieldPairDesignator = fieldPairDesignator
         self.alleleDesignator = alleleDesignator
@@ -123,18 +120,15 @@ class ParseFile:
 
             # gets the .ini file information for metadata
             self.popFields = ParseFile._dbFieldsRead(self, self.validPopFields)
-            if self.debug:
-                # debugging only
-                print("validPopFields:", self.validPopFields)
-                print("popFields:", self.popFields)
+            logger.debug("validPopFields: %s", self.validPopFields)
+            logger.debug("popFields: %s", self.popFields)
 
             # parse the metadata
             self._mapPopHeaders()
 
         # gets the .ini file information for samples
         self.sampleFields = ParseFile._dbFieldsRead(self, self.validSampleFields)
-        if self.debug:
-            print(self.sampleFields)
+        logger.debug(self.sampleFields)
 
         # always parse the samples, they must always exist!
         self._mapSampleHeaders()
@@ -151,8 +145,7 @@ class ParseFile:
         """
         li = []
         for line in data.split():
-            if self.debug:
-                print(line.rstrip())
+            logger.debug(line.rstrip())
             li.append(line.rstrip())
         return tuple(li)
 
@@ -182,13 +175,9 @@ class ParseFile:
         fields = line.split(self.separator)
 
         # check to see if the correct number of fields found
-        if len(fields) != len(fieldList) and self.debug:
-            print(
-                "warning: found",
-                len(fields),
-                "fields expected",
-                len(fieldList),
-                "fields",
+        if len(fields) != len(fieldList):
+            logger.warning(
+                "found %d fields expected %d fields", len(fields), len(fieldList)
             )
 
         i = 0
@@ -225,9 +214,8 @@ class ParseFile:
                     assoc[key] = assoc[key], i
                 else:
                     assoc[key] = i
-
-            elif self.debug:
-                print(f"warning: field name `{field_strip}' not valid")
+            else:
+                logger.warning("field name '%s' not valid", field_strip)
 
             i = i + 1
 
@@ -259,16 +247,12 @@ class ParseFile:
         # parse it
         self.popMap, fieldCount = self._mapFields(popHeaderLine, self.popFields)
 
-        # debugging only
-        if self.debug:
-            print("population header line: ", popHeaderLine)
-            print(self.popMap)
+        logger.debug("population header line: %s", popHeaderLine)
+        logger.debug(self.popMap)
 
         # get population data
         popDataLine = self.fileData[1].rstrip()
-        # debugging only
-        if self.debug:
-            print("population data line: ", popDataLine)
+        logger.debug("population data line: %s", popDataLine)
 
         # make sure pop data line matches number expected from metadata
         popDataFields = popDataLine.split(self.separator)
@@ -303,10 +287,8 @@ class ParseFile:
         self.sampleMap, fieldCount = self._mapFields(
             sampleHeaderLine, self.sampleFields
         )
-        # debugging only
-        if self.debug:
-            print("sample header line: ", sampleHeaderLine)
-            print(self.sampleMap)
+        logger.debug("sample header line: %s", sampleHeaderLine)
+        logger.debug(self.sampleMap)
 
         # check file data to see that correct number of fields are
         # present for each sample
@@ -472,10 +454,9 @@ class ParseGenotypeFile(ParseFile):
 
         sampleDataLines, _separator = self.getFileData()
 
-        if self.debug:
-            print("sampleMap keys:", self.sampleMap.keys())
-            print("sampleMap values:", self.sampleMap.values())
-            print("first line of data", sampleDataLines[0])
+        logger.debug("sampleMap keys: %s", self.sampleMap.keys())
+        logger.debug("sampleMap values: %s", self.sampleMap.values())
+        logger.debug("first line of data %s", sampleDataLines[0])
 
         # then total number of individuals in data file
         self.totalIndivCount = len(sampleDataLines)
@@ -505,14 +486,12 @@ class ParseGenotypeFile(ParseFile):
             for key in self.nonAlleleMap.keys():  # noqa: SIM118
                 self.matrix[rowCount, key] = fields[self.nonAlleleMap[key]]
 
-        if self.debug:
-            print("before filling matrix with allele data")
-            print(self.matrix)
+        logger.debug("before filling matrix with allele data")
+        logger.debug(self.matrix)
 
         for locus in self.locusKeys:
-            if self.debug:
-                print("locus name:", locus)
-                print("column tuple:", self.alleleMap[locus])
+            logger.debug("locus name: %s", locus)
+            logger.debug("column tuple: %s", self.alleleMap[locus])
 
             col1, col2 = self.alleleMap[locus]
 
@@ -535,8 +514,7 @@ class ParseGenotypeFile(ParseFile):
 
                 self.matrix[rowCount, locus] = (allele1, allele2)
 
-                if self.debug:
-                    print(rowCount, self.matrix[rowCount, locus])
+                logger.debug("%d %s", rowCount, self.matrix[rowCount, locus])
 
                 # increment row count
                 rowCount += 1
@@ -591,8 +569,7 @@ class ParseGenotypeFile(ParseFile):
             # this is a regular (non-`allele' type field)
             key = field
 
-        if self.debug:
-            print(f"validKey: {isValidKey}, key: {key}")
+        logger.debug("validKey: %s, key: %s", isValidKey, key)
 
         return isValidKey, key
 
@@ -653,10 +630,9 @@ class ParseAlleleCountFile(ParseFile):
             # increment total alleles found
             totalAlleles += count
 
-        if self.debug:
-            print("alleleTable", self.alleleTable)
-            print("sampleMap keys:", self.sampleMap.keys())
-            print("sampleMap values:", self.sampleMap.values())
+        logger.debug("alleleTable %s", self.alleleTable)
+        logger.debug("sampleMap keys: %s", self.sampleMap.keys())
+        logger.debug("sampleMap values: %s", self.sampleMap.values())
 
         self.locusName = self.sampleMap.keys()[0]
 
@@ -695,9 +671,8 @@ class ParseAlleleCountFile(ParseFile):
         if rowCount == (self.totalIndivCount - 1):
             self.matrix[rowCount, self.locusName] = (lastAlleleName, "****")
 
-        if self.debug:
-            print("generated pseudo-genotype matrix:")
-            print(self.matrix)
+        logger.debug("generated pseudo-genotype matrix:")
+        logger.debug(self.matrix)
 
     def genValidKey(self, field, fieldList):
         """Checks validity of a field.
@@ -773,9 +748,3 @@ class ParseAlleleCountFile(ParseFile):
           StringMatrix: containing all the genotype data
         """
         return self.matrix
-
-
-# this test harness is called if this module is executed standalone
-if __name__ == "__main__":
-    print("dummy test harness, currently a no-op")
-    # parsefile = ParseGenotypeFile(sys.argv[1], debug=1)

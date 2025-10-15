@@ -50,7 +50,7 @@ from tempfile import TemporaryDirectory
 import numpy as np
 
 # import the Python-to-C module wrappers
-from PyPop import _Emhaplofreq, _Haplostats
+from PyPop import _Emhaplofreq, _Haplostats, logger
 from PyPop.Arlequin import ArlequinBatch
 from PyPop.DataTypes import checkIfSequenceData, getLocusPairs
 from PyPop.Utils import (
@@ -213,10 +213,8 @@ class Emhaplofreq(Haplo):
             # get the actual number of loci being estimated
             lociCount = len(group.split(":"))
 
-            if self.debug:
-                print("number of loci for haplotype est:", lociCount)
-
-                print(lociCount, self._Emhaplofreq.MAX_LOCI)
+            logger.debug("number of loci for haplotype est: %d", lociCount)
+            logger.debug("%d %d", lociCount, self._Emhaplofreq.MAX_LOCI)
 
             if lociCount <= self._Emhaplofreq.MAX_LOCI:
                 # filter-out all individual untyped at any position

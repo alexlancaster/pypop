@@ -41,6 +41,7 @@ from pathlib import Path
 
 from lxml import etree
 
+from PyPop import logger
 from PyPop.Utils import checkXSLFile, splitIntoNGroups
 
 
@@ -171,8 +172,8 @@ class Meta:
                 etree.parse(xml_file)
                 wellformed_files.append(xml_file)
             except Exception:
-                print(f"{xml_file} is not well-formed XML:")
-                print(
+                logger.warning("%d is not well-formed XML:", xml_file)
+                logger.warning(
                     "  probably a problem with analysis not completing, skipping in meta analysis!"
                 )
 
@@ -316,11 +317,15 @@ class Meta:
                             if Path(dat).exists():
                                 Path(dat).rename(f"{dat}.{fileBatch}")
                             else:
-                                print(
-                                    "%{dat} in batch {fileBatch} doesn't exist - skipping"
+                                logger.info(
+                                    "%s in batch %d doesn't exist - skipping",
+                                    dat,
+                                    fileBatch,
                                 )
                         else:
-                            print("problem with generating {dat} in batch {fileBatch}")
+                            logger.warning(
+                                "problem with generating %d in batch %s", dat, fileBatch
+                            )
 
         # at end of entire processing, need to cat files together
         # this is a bit hacky
@@ -436,7 +441,7 @@ def _translate_file_to(
         if outFile == "-":  # this is stdout
             text_output = str(result)
             if len(text_output) > 0:  # only write something if none-empty
-                print(text_output)  # print it to screen
+                logger.info(text_output)  # print it to screen
                 output = text_output  # but also pass it back
 
         else:
@@ -448,8 +453,10 @@ def _translate_file_to(
         success = True
 
     except Exception as e:
-        print(e.args)
-        print(f"Can't process: {inFile} with stylesheet: {xslFilename}, skipping")
+        logger.warning(e.args)
+        logger.warning(
+            "Can't process: %s with stylesheet: %s, skipping", inFile, xslFilename
+        )
         success = False
 
     return success, output

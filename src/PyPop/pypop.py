@@ -156,9 +156,7 @@ matters, see the file named COPYING.
 
             mypath = files("PyPop.xslt").joinpath("")
 
-        xslFilenameDefault = checkXSLFile(
-            "text.xsl", mypath, abort=False, debug=debugFlag
-        )
+        xslFilenameDefault = checkXSLFile("text.xsl", mypath, abort=False)
 
         if xslFilenameDefault is None:
             # otherwise use heuristics for XSLT transformation file 'text.xsl'

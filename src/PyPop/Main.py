@@ -287,7 +287,6 @@ class Main:
                 checkXSLFile(
                     self.xslFilename,
                     abort=1,
-                    debug=self.debug,
                     msg="specified in .ini file",
                 )
             except (NoOptionError, NoSectionError):
@@ -363,7 +362,6 @@ class Main:
                 untypedAllele=self.untypedAllele,
                 popNameDesignator=popNameDesignator,
                 fieldPairDesignator=fieldPairDesignator,
-                debug=self.debug,
             )
 
             # if we are dealing with data that is originally genotyped
@@ -380,7 +378,6 @@ class Main:
                 validPopFields=validPopFields,
                 validSampleFields=validSampleFields,
                 separator="\t",
-                debug=self.debug,
             )
 
             # if we are dealing with data that is originally simply
@@ -643,7 +640,6 @@ class Main:
                 except Exception:
                     binningDigits = 4
                 filter = BinningFilter(
-                    debug=self.debug,
                     binningDigits=binningDigits,
                     untypedAllele=self.untypedAllele,
                     filename=self.fileName,
@@ -664,7 +660,6 @@ class Main:
                 except Exception:
                     sys.exit("Could not parse the CustomBinning rules.")
                 filter = BinningFilter(
-                    debug=self.debug,
                     customBinningDict=customBinningDict,
                     untypedAllele=self.untypedAllele,
                     filename=self.fileName,

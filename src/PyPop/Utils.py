@@ -50,6 +50,8 @@ import numpy as np
 from numpy import asarray, take, zeros
 from numpy.lib.user_array import container
 
+from PyPop import logger
+
 GENOTYPE_SEPARATOR = "~"
 """
 Separator between genotypes
@@ -1105,7 +1107,7 @@ def copyCustomPlatform(file, dist_dir, txt_ext=0):
     fixForPlatform(new_filename, txt_ext=txt_ext)
 
 
-def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg=""):
+def checkXSLFile(xslFilename, path="", subdir="", abort=False, msg=""):
     """Check XSL filename and return full path.
 
     Args:
@@ -1114,15 +1116,15 @@ def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg="
        subdir (str): subdirectory under ``path`` to check
        abort (bool): if enabled (``True``) file isn't found, exit with
         an error.  Default is ``False``
-       debug (bool): enable debug with ``True``
        msg (str): output message on abort
 
     Returns:
        str: checked and validaated path
 
     """
-    if debug:
-        print(f"path={path}, subdir={subdir}, xslFilename={xslFilename} xsl path")
+    logger.debug(
+        "path=%s, subdir=%s, xslFilename=%s xsl path", path, subdir, xslFilename
+    )
 
     # generate a full path to check
     checkPath = os.path.realpath(Path(path) / subdir / xslFilename)
