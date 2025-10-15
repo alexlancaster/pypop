@@ -1243,8 +1243,11 @@ always match the input file):
 
 .. testsetup::
 
-   >>> from PyPop import setup_logger
-   >>> setup_logger(doctest_mode=True)
+   >>> import pytest
+   >>> PyPop = pytest.importorskip("PyPop")
+   >>> if hasattr(PyPop, "setup_logger"):
+   ...    from PyPop import setup_logger
+   ...    setup_logger(doctest_mode=True)
 
 >>> from configparser import ConfigParser
 >>> config = ConfigParser()
