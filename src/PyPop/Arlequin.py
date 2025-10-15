@@ -48,6 +48,8 @@ import sys
 import warnings
 from pathlib import Path
 
+from PyPop import logger
+
 warnings.warn(
     "The module 'Arlequin' is deprecated and may be removed in a future release.",
     DeprecationWarning,
@@ -65,7 +67,6 @@ class ArlequinWrapper:
       untypedAllele (str, optional): untyped allele designator (default ``****``)
       arpFilename (str, optional): default output file name (default ``output.arp``)
       arsFilename (str, optional): default run file name (default ``arl_run.ars``)
-      debug (bool): enable debug (default off, i.e. ``None``)
     """
 
     def __init__(
@@ -76,14 +77,12 @@ class ArlequinWrapper:
         untypedAllele="****",
         arpFilename="output.arp",
         arsFilename="arl_run.ars",
-        debug=None,
     ):
         self.matrix = matrix
         self.untypedAllele = untypedAllele
         self.arlequinPrefix = arlequinPrefix
         self.arlequinExec = arlequinExec
         self.separator = "\t"
-        self.debug = debug
 
         # append PID to make directory name unique, so that multiple
         # instances of PyPop can be running without interference with
@@ -264,8 +263,7 @@ end"""
         # spawn external Arlequin process and store stdout
         stdout = os.popen(self.arlequinExec, "r").readlines()
 
-        if self.debug:
-            print("Arlequin stdout", stdout)
+        logger.debug("Arlequin stdout %s", stdout)
 
         # fix permissions on result directory because Arlequin is
         # brain-dead with respect to file permissions on Unix
@@ -443,8 +441,7 @@ KeepNullDistrib=0"""
 
                     # look for values
                     if matchobj3:
-                        if self.debug:
-                            print(matchobj3.groups())
+                        logger.debug(matchobj3.groups())
                         locus, numGeno, obsHet, expHet, pval, sd, steps = (
                             matchobj3.groups()
                         )
@@ -460,8 +457,7 @@ KeepNullDistrib=0"""
                     # if not, check to see if monomorphic
                     elif matchobj4:
                         locus = matchobj4.group(1)
-                        if self.debug:
-                            print("locus", locus, "is monomorphic")
+                        logger.debug("locus %s is monomorphic", locus)
                         hwExact[locus] = "monomorphic"
 
         return hwExact
@@ -493,7 +489,6 @@ class ArlequinBatch:
        untypedAllele (str, optional): (defaults to ``0``)
        arlequinPrefix (str, optional): prefix for all Arlequin run-time files
         (defaults to ``arl_run``).
-       debug (int, optional): (defaults to ``0``)
 
     """
 
@@ -508,7 +503,6 @@ class ArlequinBatch:
         mapOrder=None,
         untypedAllele="0",
         arlequinPrefix="arl_run",
-        debug=0,
     ):
         self.arpFilename = arpFilename
         self.arsFilename = arsFilename
@@ -519,7 +513,6 @@ class ArlequinBatch:
         self.windowSize = windowSize
         self.arlequinPrefix = arlequinPrefix
         self.untypedAllele = untypedAllele
-        self.debug = debug
 
         if arpFilename[-4:] == ".arp":
             self.arpFilename = arpFilename
@@ -583,8 +576,7 @@ class ArlequinBatch:
         samples = []
         sampleLines = []
 
-        if self.debug:
-            print("_outputSample:chunk:", chunk)
+        logger.debug("_outputSample:chunk: %s", chunk)
         for line in data:
             words = line.split()
             unphase1 = f"{words[self.idCol]:10s} 1"
@@ -594,8 +586,9 @@ class ArlequinBatch:
                 allele = words[i]
                 # don't output individual if *any* loci is untyped
                 if allele == self.untypedAllele:
-                    if self.debug:
-                        print(f"untyped allele {allele} in ({unphase1}), ({unphase2})")
+                    logger.debug(
+                        f"untyped allele {allele} in ({unphase1}), ({unphase2})"
+                    )
                     break
                 if (chunk.index(i) + 1) % 2:
                     unphase1 = unphase1 + " " + allele
@@ -667,8 +660,7 @@ class ArlequinBatch:
         Args:
            data (list): list of lines of data.
         """
-        if self.debug:
-            print("Counted", len(data), "lines.")
+        logger.debug("Counted %d lines.", len(data))
         firstLine = data[0]
 
         # calculate the number of loci from the number of columns
@@ -706,17 +698,13 @@ class ArlequinBatch:
                     locus {i} out of range of number of loci"
                     )
 
-        if self.debug:
-            print(
-                "First line",
-                firstLine,
-                "has",
-                cols,
-                "columns and",
-                locusCount,
-                "allele pairs",
-            )
-            print("Map order:", self.mapOrder)
+        logger.debug(
+            "First line %s has %d columns and %d allele pairs",
+            firstLine,
+            cols,
+            locusCount,
+        )
+        logger.debug("Map order: %s", self.mapOrder)
 
         # if windowSize is set to zero, the default to using
         # locusCount as windowSize
@@ -736,8 +724,7 @@ class ArlequinBatch:
             colChunk, locusSlice = self._genChunk(
                 self.prefixCols, locus, self.windowSize, self.mapOrder
             )
-            if self.debug:
-                print(locus, colChunk, locusSlice)
+            logger.debug("%s %s %s", locus, colChunk, locusSlice)
 
             # generate the sample
             sampleLines, validSample = self._outputSample(data, colChunk, locusSlice)
@@ -746,8 +733,7 @@ class ArlequinBatch:
 
         headerLines = self._outputHeader(sampleCount)
 
-        if self.debug:
-            print("sample count", sampleCount)
+        logger.debug("sample count %d", sampleCount)
 
         # open specified arp
         with open(self.arpFilename, "w") as self.arpFile:
@@ -905,7 +891,6 @@ genetics program.
         untypedAllele=untypedAllele,
         mapOrder=mapOrder,
         windowSize=windowSize,
-        debug=debug,
     )
     # open file
     with open(inputFilename) as fp:
