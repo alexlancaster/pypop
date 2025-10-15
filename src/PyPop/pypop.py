@@ -35,6 +35,7 @@
 
 """Command-line interface for ``pypop``."""
 
+import logging
 import os
 import sys
 from configparser import ConfigParser
@@ -112,17 +113,13 @@ matters, see the file named COPYING.
         )
 
     if args.log_level:
-        level = args.log_level.upper()
+        level = getattr(logging, args.log_level.upper())
     elif args.debug:
-        level = "DEBUG"
+        level = logging.DEBUG
     else:
-        level = "INFO"
+        level = logging.INFO
 
-    setup_logger(
-        doctest_mode=False,
-        debug_level=0 if level == "INFO" else 1,
-        filename=args.log_file,
-    )
+    setup_logger(level=level, filename=args.log_file, doctest_mode=False)
 
     configFilename = args.config
     xslFilename = args.xsl

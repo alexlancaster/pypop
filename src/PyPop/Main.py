@@ -198,7 +198,7 @@ class Main:
 
         if not logger.isEnabledFor(logging.DEBUG) and debug_ini_enabled == 1:
             # enable debug status, and override current setup
-            setup_logger(debug_level=1)
+            setup_logger(level=logging.DEBUG)
 
         # generate file prefix
         try:

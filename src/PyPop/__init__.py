@@ -160,17 +160,17 @@ class _LevelBasedFormatter(logging.Formatter):
         return self._debug_formatter.format(record)
 
 
-def setup_logger(doctest_mode=True, debug_level=0, filename=None):
+def setup_logger(level=logging.INFO, filename=None, doctest_mode=True):
     """Configure the 'pypop' logger with stdout/file handler, optional debug verbosity, and doctest mode.
 
     Args:
+      level (str, optional): ``INFO`` (default), ``DEBUG`` (more
+       detailed), ``WARNING``, ``CRITICAL``
+      filename (str, optional): Optional file to log to. If ``None``,
+       logs to ``stdout``.
       doctest_mode (bool, optional): If True, forcibly rebinds the
        logger to sys.stdout and disables propagation so doctests see
        output.
-      debug_level (int, optional): ``0`` = ``INFO`` (default), ``1`` =
-       ``DEBUG``, ``2`` + = very verbose ``DEBUG``
-      filename (str, optional): Optional file to log to. If ``None``,
-       logs to ``stdout``.
 
     """
     if doctest_mode:
@@ -178,14 +178,6 @@ def setup_logger(doctest_mode=True, debug_level=0, filename=None):
         for h in list(logger.handlers):
             if isinstance(h, logging.StreamHandler):
                 logger.removeHandler(h)
-
-    # Determine log level
-    if debug_level <= 0:
-        level = logging.INFO
-    elif debug_level == 1:
-        level = logging.DEBUG  # could extend to TRACE later if desired
-    else:
-        level = logging.WARNING  # could extend to TRACE later if desired
 
     # Determine handler: file or stdout
     if filename is None or filename == "-":
