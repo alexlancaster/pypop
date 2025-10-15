@@ -1130,7 +1130,6 @@ class Main:
                             binningReplicates=self.binningReplicates,
                             locus=locus,
                             xmlfile=self.xmlStream,
-                            debug=self.debug,
                             logFile=self.filterLogFile,
                             randomResultsFileName=randomResultsFileName,
                         )
@@ -1244,7 +1243,6 @@ class Main:
             # need to make sure that this works with subMatrices
             haplostats = Haplostats(
                 self.input.getIndividualsData(),
-                debug=self.debug,
                 untypedAllele=self.untypedAllele,
                 stream=self.xmlStream,
                 testMode=self.testMode,
@@ -1292,7 +1290,6 @@ class Main:
             # a wrapper around the emhaplofreq module
             haplo = Emhaplofreq(
                 self.input.getIndividualsData(),
-                debug=self.debug,
                 untypedAllele=self.untypedAllele,
                 stream=self.xmlStream,
                 testMode=self.testMode,

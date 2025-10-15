@@ -117,7 +117,7 @@ class RandomBinsForHomozygosity:
         logger.debug("alleleCountDict %s", self.alleleCountDict)
 
         hzExactObj = HomozygosityEWSlatkinExact(
-            numReplicates=self.numReplicates, debug=self.debug
+            numReplicates=self.numReplicates,
         )
         stats = hzExactObj.returnBulkHomozygosityStats(
             self.alleleCountDict, binningMethod=self.binningMethod

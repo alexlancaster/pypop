@@ -441,7 +441,7 @@ def _translate_file_to(
         if outFile == "-":  # this is stdout
             text_output = str(result)
             if len(text_output) > 0:  # only write something if none-empty
-                logger.info(text_output)  # print it to screen
+                print(text_output)  # print it to screen
                 output = text_output  # but also pass it back
 
         else:

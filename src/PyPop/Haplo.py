@@ -40,6 +40,7 @@ Currently there are two implementations: :class:`Emhaplofreq` and
 
 import io
 import itertools as it
+import logging
 import math
 import os
 import re
@@ -78,16 +79,13 @@ class Emhaplofreq(Haplo):
 
     Args:
        locusData (StringMatrix): a StringMatrix
-       debug (int): defaults to ``0`` (off)
        untypedAllele (str): defaults to ``****``
        stream (TextOutputStream): output file
        testMode (bool): default is ``False``
 
     """
 
-    def __init__(
-        self, locusData, debug=0, untypedAllele="****", stream=None, testMode=False
-    ):
+    def __init__(self, locusData, untypedAllele="****", stream=None, testMode=False):
         # assign module to an instance variable so it is available to
         # other methods in class
         self._Emhaplofreq = _Emhaplofreq
@@ -101,8 +99,6 @@ class Emhaplofreq(Haplo):
         rows, cols = self.matrix.shape
         self.totalNumIndiv = rows
         self.totalLociCount = cols / 2
-
-        self.debug = debug
 
         # initialize flag
         self.maxLociExceeded = 0
@@ -227,16 +223,16 @@ class Emhaplofreq(Haplo):
                 # being run on
                 groupNumIndiv = len(subMatrix)
 
-                if self.debug:
-                    print("debug: key for matrix:", group)
-                    print("debug: subMatrix:", subMatrix)
-                    print("debug: dump matrix in form for command-line input")
+                if logger.isEnabledFor(logging.DEBUG):
+                    logger.debug("key for matrix:", group)
+                    logger.debug("subMatrix:", subMatrix)
+                    logger.debug("dump matrix in form for command-line input")
                     for line in range(len(subMatrix)):
                         theline = subMatrix[line]
-                        (print("dummyid"),)
+                        logger.debug("dummyid")
                         for allele in range(len(theline)):
-                            (print(theline[allele], " "),)
-                        print()
+                            logger.debug(theline[allele], " ")
+                        logger.debug()
 
                 fp.write("\n")
 
@@ -348,11 +344,11 @@ class Emhaplofreq(Haplo):
 
                 fp.write("</group>")
 
-                if self.debug:
+                if logger.isEnabledFor(logging.DEBUG):
                     # in debug mode, print the in-memory file to sys.stdout
                     lines = fp.getvalue().split(os.linesep)
                     for i in lines:
-                        print("debug:", i)
+                        logger.debug("%s", i)
 
             else:
                 fp.write(
@@ -490,8 +486,7 @@ class Emhaplofreq(Haplo):
         self.sequenceData = checkIfSequenceData(self.matrix)
         li = getLocusPairs(self.matrix, self.sequenceData)
 
-        if self.debug:
-            print(li, len(li))
+        logger.debug(li, len(li))
 
         for pair in li:
             # generate the reversed order in case user
@@ -538,7 +533,7 @@ class Emhaplofreq(Haplo):
             #                      mode='all-pairwise-ld-with-permu')
 
 
-def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
+def _compute_LD(haplos, freqs, compute_ALD=False):
     """Compute LD for pairwise haplotypes from haplotype names and frequencies.
 
     Make standalone so it can be used by any class.
@@ -547,7 +542,6 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
       haplos (list): list of haplotypes
       freqs (list): list of frequencies
       compute_ALD (bool): whether to do asymmetric LD
-      debug (bool): default to ``False`` (disabled)
 
     Returns:
       tuple: a tuple consisting of:
@@ -623,12 +617,12 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
     dprime_den[d_ij >= 0] = den_ge0[d_ij >= 0]
     dprime_ij = d_ij / dprime_den
 
-    if debug:
-        print("dprime_den:", dprime_den)
+    if logger.isEnabledFor(logging.DEBUG):
+        logger.debug("dprime_den:", dprime_den)
 
-        print("i a_freq1 a_freq2 d_ij dprime hap_prob haplo")
+        logger.debug("i a_freq1 a_freq2 d_ij dprime hap_prob haplo")
         for i in range(num_allpossible_haplos):
-            print(
+            logger.debug(
                 i,
                 a_freq1[i],
                 a_freq2[i],
@@ -640,8 +634,7 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
 
     dp_temp = abs(dprime_ij) * a_freq1 * a_freq2
     dprime = dp_temp.sum()
-    if debug:
-        print("Dprime: ", dprime)
+    logger.debug("Dprime: %g", dprime)
 
     w_ij = (d_ij * d_ij) / (a_freq1 * a_freq2)
     w = w_ij.sum()
@@ -651,8 +644,7 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
         np.minimum(np.unique(alleles1).size * 1.0, np.unique(alleles2).size * 1.0) - 1.0
     )
     wn = np.sqrt(w / w_den)
-    if debug:
-        print("Wn: ", wn)
+    logger.debug("Wn: %g", wn)
 
     if compute_ALD:
         ## compute ALD
@@ -682,10 +674,9 @@ def _compute_LD(haplos, freqs, compute_ALD=False, debug=False):
         else:
             F_1_2_prime = (F_1_2 - F_1) / (1 - F_1)
             ALD_1_2 = math.sqrt(F_1_2_prime)
-        if debug:
-            print("ALD_1_2:", ALD_1_2)
-            print("ALD_2_1:", ALD_2_1)
-            # FIXME: NOT SURE YOU CAN ASSIGN nan IN ABOVE if()
+        logger.debug("ALD_1_2: %g", ALD_1_2)
+        logger.debug("ALD_2_1: %g", ALD_2_1)
+        # FIXME: NOT SURE YOU CAN ASSIGN nan IN ABOVE if()
     else:
         ALD_1_2 = None
         ALD_2_1 = None
@@ -701,15 +692,12 @@ class Haplostats(Haplo):
 
     Args:
        locusData (StringMatrix): a StringMatrix
-       debug (int): defaults to ``0`` (off)
        untypedAllele (str): defaults to ``****``
        stream (TextOutputStream): output file
        testMode (bool): default is ``False``
     """
 
-    def __init__(
-        self, locusData, debug=0, untypedAllele="****", stream=None, testMode=False
-    ):
+    def __init__(self, locusData, untypedAllele="****", stream=None, testMode=False):
         # assign module to an instance variable so it is available to
         # other methods in class
         self._Haplostats = _Haplostats
@@ -723,7 +711,6 @@ class Haplostats(Haplo):
         rows, cols = self.matrix.shape
         self.totalNumIndiv = rows
         self.totalLociCount = cols / 2
-        self.debug = debug
         self.testMode = testMode
         if stream:
             self.stream = stream
@@ -875,15 +862,14 @@ class Haplostats(Haplo):
                     # initial conditions, regardless of how the control['random_start'] is set
                     random_start = 1
 
-                if self.debug:
-                    print(
-                        "random seeds for initial condition",
-                        i,
-                        ":",
-                        iseed1,
-                        iseed2,
-                        iseed3,
-                    )
+                logger.debug(
+                    "random seeds for initial condition",
+                    i,
+                    ":",
+                    iseed1,
+                    iseed2,
+                    iseed3,
+                )
 
                 (
                     converge_new,
@@ -917,8 +903,7 @@ class Haplostats(Haplo):
                 )
 
                 if lnlike_new > lnlike:
-                    if self.debug:
-                        print("found a better lnlikelihood!", lnlike_new)
+                    logger.debug("found a better lnlikelihood! %g", lnlike_new)
                     # FIXME: need more elegant data structure
                     (
                         converge,
@@ -1004,7 +989,9 @@ class Haplostats(Haplo):
         # LD calculations, and only do and output to XML for two locus haplotypes
         if n_loci == 2:
             dprime, Wn, ALD_1_2, ALD_2_1 = _compute_LD(
-                haplotype, hap_prob, compute_ALD=True, debug=self.debug
+                haplotype,
+                hap_prob,
+                compute_ALD=True,
             )
 
             # output LD to XML
@@ -1064,8 +1051,7 @@ class Haplostats(Haplo):
         """
         # FIXME: sequence data *not* currently supported for haplostats
         locusPairs = getLocusPairs(self.matrix, False)
-        if self.debug:
-            print(locusPairs, len(locusPairs))
+        logger.debug("%s %d", locusPairs, len(locusPairs))
         for pair in locusPairs:
             self.estHaplotypes(
                 locusKeys=pair,
@@ -1188,7 +1174,6 @@ class HaploArlequin(Haplo):
       untypedAllele (str):  (defaults to ``0``)
       arlequinPrefix (str) : prefix for all Arlequin run-time files
        (defaults to ``arl_run``).
-      debug (int): (defaults to ``0``, i.e. OFF)
 
     """
 
@@ -1202,7 +1187,6 @@ class HaploArlequin(Haplo):
         mapOrder=None,
         untypedAllele="0",
         arlequinPrefix="arl_run",
-        debug=0,
     ):
         self.arpFilename = arpFilename
         self.arsFilename = "arl_run.ars"
@@ -1213,7 +1197,6 @@ class HaploArlequin(Haplo):
         self.arlequinPrefix = arlequinPrefix
         self.mapOrder = mapOrder
         self.untypedAllele = untypedAllele
-        self.debug = debug
 
         # arsFilename is default because we generate it
         self.batch = ArlequinBatch(
@@ -1224,7 +1207,6 @@ class HaploArlequin(Haplo):
             suffixCols=self.suffixCols,
             windowSize=self.windowSize,
             mapOrder=self.mapOrder,
-            debug=self.debug,
         )
 
     def outputArlequin(self, data):
@@ -1367,8 +1349,7 @@ KeepNullDistrib=0""")
 
                 if dataFound:
                     if line != os.linesep:
-                        if self.debug:
-                            print(line.rstrip())
+                        logger.debug(line.rstrip())
                         matchobj = re.search(patt3, line)
                         if matchobj:
                             cols = matchobj.group(1).split()
