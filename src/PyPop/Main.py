@@ -801,7 +801,6 @@ class Main:
                     self.input.getAlleleCountAt(locus),
                     lumpBelow=lumpBelow,
                     flagChenTest=flagChenTest,
-                    debug=self.debug,
                 )
 
                 # serialize HardyWeinberg
@@ -815,7 +814,9 @@ class Main:
                     for level in lumpData:
                         locusData, alleleData = lumpData[level]
                         hwObjectLump = HardyWeinberg(
-                            locusData, alleleData, lumpBelow=lumpBelow, debug=self.debug
+                            locusData,
+                            alleleData,
+                            lumpBelow=lumpBelow,
                         )
 
                         # serialize HardyWeinberg
@@ -903,7 +904,6 @@ class Main:
                     samplingSize=samplingSize,
                     maxMatrixSize=maxMatrixSize,
                     monteCarloSteps=monteCarloSteps,
-                    debug=self.debug,
                     testing=self.testMode,
                 )
 
@@ -952,7 +952,6 @@ class Main:
                                 samplingSize=samplingSize,
                                 maxMatrixSize=maxMatrixSize,
                                 monteCarloSteps=monteCarloSteps,
-                                debug=self.debug,
                                 testing=self.testMode,
                             )
 
@@ -985,7 +984,6 @@ class Main:
                     locusData=self.input.getLocusDataAt(locus),
                     alleleCount=self.input.getAlleleCountAt(locus),
                     doOverall=doOverall,
-                    debug=self.debug,
                 )
 
                 hwEnum.serializeTo(self.xmlStream)
@@ -1004,7 +1002,6 @@ class Main:
                             locusData=locusData,
                             alleleCount=alleleData,
                             doOverall=doOverall,
-                            debug=self.debug,
                         )
 
                         # serialize HardyWeinberg
@@ -1056,7 +1053,6 @@ class Main:
                     markovChainStepsHW=markovChainStepsHW,
                     markovChainDememorisationStepsHW=markovChainDememorisationStepsHW,
                     untypedAllele=self.untypedAllele,
-                    debug=self.debug,
                 )
                 hwArlequin.serializeTo(self.xmlStream)
 

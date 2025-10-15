@@ -224,15 +224,15 @@ class Emhaplofreq(Haplo):
                 groupNumIndiv = len(subMatrix)
 
                 if logger.isEnabledFor(logging.DEBUG):
-                    logger.debug("key for matrix:", group)
-                    logger.debug("subMatrix:", subMatrix)
+                    logger.debug("key for matrix: %s", group)
+                    logger.debug("subMatrix: %s", subMatrix)
                     logger.debug("dump matrix in form for command-line input")
                     for line in range(len(subMatrix)):
                         theline = subMatrix[line]
-                        logger.debug("dummyid")
+                        outLine = "dummyid "
                         for allele in range(len(theline)):
-                            logger.debug(theline[allele], " ")
-                        logger.debug()
+                            outLine += f"{theline[allele]} "
+                        logger.debug(outLine)
 
                 fp.write("\n")
 
@@ -486,7 +486,7 @@ class Emhaplofreq(Haplo):
         self.sequenceData = checkIfSequenceData(self.matrix)
         li = getLocusPairs(self.matrix, self.sequenceData)
 
-        logger.debug(li, len(li))
+        logger.debug("%s %d", li, len(li))
 
         for pair in li:
             # generate the reversed order in case user
