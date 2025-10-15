@@ -96,7 +96,8 @@ import logging
 import platform
 import sys
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("pypop")
+"""Package-wide logger used throughout a PyPop run."""
 
 
 def critical_exit(message, *args):  # noqa: D417
@@ -144,9 +145,6 @@ platform_info = f"[Python {platform.python_version()} | {platform.platform()} | 
 """
 platform information used in ``--help`` screens and elsewhere
 """
-
-logger = logging.getLogger("pypop")
-"""Package-wide logger used throughout a PyPop run."""
 
 
 class _LevelBasedFormatter(logging.Formatter):
