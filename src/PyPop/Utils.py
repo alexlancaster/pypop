@@ -367,8 +367,7 @@ class StringMatrix(container):
 
         """
         msg = "slices not currently supported"
-        raise Exception(msg)
-        # return self._rc(self.array[i:j])
+        raise Exception(msg)  # noqa: TRY002
 
     def __getitem__(self, key):
         """Get the item at given key (overrides built-in numpy).
