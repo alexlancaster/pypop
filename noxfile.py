@@ -3,12 +3,16 @@
 import json
 import re
 import subprocess
-from datetime import date
+from datetime import datetime
 from pathlib import Path
 
 import nox
+from zoneinfo import ZoneInfo
 
 nox.options.sessions = ["precommit"]  # default session
+
+# Eastern Time (handles DST automatically)
+ET = ZoneInfo("America/New_York")
 
 ## helper functions
 
@@ -176,7 +180,11 @@ def update_news(session):
     if not match:
         session.error("Could not find cut-and-paste section in draft release notes.")
 
-    section = match.group(1).strip().replace("YYYY-MM-DD", date.today().isoformat())
+    section = (
+        match.group(1)
+        .strip()
+        .replace("YYYY-MM-DD", datetime.now(tz=ET).date().isoformat())
+    )
 
     # Step 4: Check for duplication
     news_path = Path("NEWS.md")
@@ -256,7 +264,7 @@ def bump_release_date(session):
     # Regex to match both the placeholder and already substituted dates
     # Matches "## [1.2.2] - YYYY-MM-DD" or "## [1.2.2] - 2023-03-10"
 
-    today = date.today().isoformat()
+    today = datetime.now(tz=ET).date().isoformat()
 
     updated_body = re.sub(
         r"(## \[\d+\.\d+\.\d+\] - )(?:\d{4}-\d{2}-\d{2}|YYYY-MM-DD)",

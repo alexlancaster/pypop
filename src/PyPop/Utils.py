@@ -50,6 +50,8 @@ import numpy as np
 from numpy import asarray, take, zeros
 from numpy.lib.user_array import container
 
+from PyPop import logger
+
 GENOTYPE_SEPARATOR = "~"
 """
 Separator between genotypes
@@ -367,8 +369,7 @@ class StringMatrix(container):
 
         """
         msg = "slices not currently supported"
-        raise Exception(msg)
-        # return self._rc(self.array[i:j])
+        raise Exception(msg)  # noqa: TRY002
 
     def __getitem__(self, key):
         """Get the item at given key (overrides built-in numpy).
@@ -937,6 +938,18 @@ class Index:
 ### global FUNCTIONS start here
 
 
+def critical_exit(message, *args):  # noqa: D417
+    """Log a CRITICAL message and exit with status 1.
+
+    .. versionadded:: 1.4.0
+
+    Args:
+        message (str): Logging format string.
+    """
+    logger.critical(message, *args, stacklevel=2)
+    sys.exit(1)
+
+
 def getStreamType(stream):
     """Get the type of stream.
 
@@ -1031,22 +1044,22 @@ def convertLineEndings(file, mode):
     """
     if mode == 1:
         if Path(file).is_dir():
-            sys.exit(file + "Directory!")
+            critical_exit("%s Directory!", file)
         with open(file) as fp:
             data = fp.read()
             if "\0" in data:
-                sys.exit(file + "Binary!")
+                critical_exit("%s Binary!", file)
             newdata = re.sub("\r?\n", "\r", data)
         if newdata != data:
             with open(file, "w") as f:
                 f.write(newdata)
     elif mode == 2:
         if Path(file).is_dir():
-            sys.exit(file + "Directory!")
+            critical_exit("%s Directory!", file)
         with open(file) as fp:
             data = fp.read()
             if "\0" in data:
-                sys.exit(file + "Binary!")
+                critical_exit("%s Binary!", file)
             newdata = re.sub("\r(?!\n)|(?<!\r)\n", "\r\n", data)
         if newdata != data:
             with open(file, "w") as f:
@@ -1106,7 +1119,7 @@ def copyCustomPlatform(file, dist_dir, txt_ext=0):
     fixForPlatform(new_filename, txt_ext=txt_ext)
 
 
-def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg=""):
+def checkXSLFile(xslFilename, path="", subdir="", abort=False, msg=""):
     """Check XSL filename and return full path.
 
     Args:
@@ -1115,24 +1128,25 @@ def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg="
        subdir (str): subdirectory under ``path`` to check
        abort (bool): if enabled (``True``) file isn't found, exit with
         an error.  Default is ``False``
-       debug (bool): enable debug with ``True``
        msg (str): output message on abort
 
     Returns:
        str: checked and validaated path
 
     """
-    if debug:
-        print(f"path={path}, subdir={subdir}, xslFilename={xslFilename} xsl path")
+    logger.debug(
+        "path=%s, subdir=%s, xslFilename=%s xsl path", path, subdir, xslFilename
+    )
 
     # generate a full path to check
     checkPath = os.path.realpath(Path(path) / subdir / xslFilename)
     if Path(checkPath).is_file():
         return checkPath
     if abort:
-        sys.exit(f"Can't find XSL: {checkPath} {msg}")
+        critical_exit("Can't find XSL: %s %s", checkPath, msg)
     else:
-        return None
+        logger.warning("Can't find XSL: %s %s", checkPath, msg)
+    return None
 
 
 def getUserFilenameInput(prompt, filename):

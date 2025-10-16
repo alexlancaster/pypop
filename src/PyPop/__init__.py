@@ -56,6 +56,11 @@ the final TSV output (see also the :ref:`PyPop API examples
 <guide-usage-examples-api>` in the *PyPop User Guide* for a
 step-by-step breakdown of use of the API).
 
+.. testsetup::
+
+   >>> import PyPop
+   >>> PyPop.setup_logger(doctest_mode=True)
+
 >>> from PyPop.Main import Main
 >>> from configparser import ConfigParser
 >>>
@@ -87,16 +92,23 @@ LOG: Data file has no header data block
 
 """
 
-import locale
 import logging
 import platform
 import sys
+
+logger = logging.getLogger("pypop")
+"""Package-wide logger used throughout a PyPop run.
+
+.. versionadded:: 1.4.0
+"""
 
 # FIXME: ensure these need be remain synced with pyproject.toml
 try:
     from ._metadata import __pkgname__, __version_scheme__
 except ModuleNotFoundError:
-    sys.exit(
+    from PyPop import critical_exit
+
+    critical_exit(
         "PyPop metadata not found, PyPop has likely not been built, please build or install via `pip install` or `setup.py build`"
     )
 
@@ -129,32 +141,66 @@ platform information used in ``--help`` screens and elsewhere
 """
 
 
-def setup_logging(debug=False, filename=None):
-    """Provide defaults for logging using the :mod:`logging` module.
+class _LevelBasedFormatter(logging.Formatter):
+    """Formatter that uses different formats for INFO vs DEBUG+."""
 
-    Important:
-      Not currently used.
+    def __init__(
+        self,
+        info_fmt="LOG: %(message)s",
+        debug_fmt="%(asctime)s [%(levelname)s] %(name)s:%(module)s.%(funcName)s: %(message)s",
+        datefmt="%Y.%m.%d %H:%M:%S",
+    ):
+        super().__init__()
+        self.info_fmt = info_fmt
+        self.debug_fmt = debug_fmt
+        self.datefmt = datefmt
+
+        # Pre-create two internal formatters for speed
+        self._info_formatter = logging.Formatter(info_fmt)
+        self._debug_formatter = logging.Formatter(debug_fmt, datefmt)
+
+    def format(self, record):
+        if record.levelno == logging.INFO:
+            return self._info_formatter.format(record)
+        return self._debug_formatter.format(record)
+
+
+def setup_logger(level=logging.INFO, filename=None, doctest_mode=True):
+    """Configure the 'pypop' logger with stdout/file handler, optional debug verbosity, and doctest mode.
+
+    .. versionadded:: 1.4.0
+
+    Args:
+      level (str, optional): ``INFO`` (default), ``DEBUG`` (more
+       detailed), ``WARNING``, ``CRITICAL``
+      filename (str, optional): Optional file to log to. If ``None``,
+       logs to ``stdout``.
+      doctest_mode (bool, optional): If True, forcibly rebinds the
+       logger to sys.stdout and disables propagation so doctests see
+       output.
+
     """
-    level = logging.DEBUG if debug else logging.INFO
-    if filename is None:
-        filename = "-"
+    if doctest_mode:
+        # Remove any existing StreamHandlers to avoid duplicates
+        for h in list(logger.handlers):
+            if isinstance(h, logging.StreamHandler):
+                logger.removeHandler(h)
 
-    hand = logging.StreamHandler() if filename == "-" else logging.FileHandler(filename)
+    # Determine handler: file or stdout
+    if filename is None or filename == "-":
+        handler = logging.StreamHandler(sys.stdout)
+    else:
+        handler = logging.FileHandler(filename)
 
-    fmt = (
-        "%(asctime)s %(levelname)s %(funcName)s: %(message)s"
-        if level == logging.DEBUG
-        else "%(asctime)s %(message)s"
-    )
-    datefmt = "%Y.%m.%d %H:%M:%S"
-    hand.setFormatter(logging.Formatter(fmt, datefmt))
+    handler.setFormatter(_LevelBasedFormatter())
+    # Remove old handlers to avoid duplicates
+    logger.handlers.clear()
+    logger.addHandler(handler)
+    logger.setLevel(level)
 
-    root_logger = logging.getLogger()
-    root_logger.setLevel(level)
-    root_logger.handlers = []
-    root_logger.addHandler(hand)
+    # Only propagate to root when not in doctest mode
+    logger.propagate = not doctest_mode
 
-    logging.debug("PyPop: %s", __version__)
-    logging.debug("Python: %s", sys.version.replace("\n", " "))
-    logging.debug("Platform: %s", platform.platform())
-    logging.debug("Locale: %s", locale.setlocale(locale.LC_ALL))
+
+# Run once at import to ensure default logging for normal usage
+setup_logger()

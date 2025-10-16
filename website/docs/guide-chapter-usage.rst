@@ -238,16 +238,17 @@ options.
 
 .. _guide-usage-intro-api:
 
-Programmatic access to PyPop
-----------------------------
+Library (programmatic) mode
+---------------------------
 
-It is also possible to use PyPop programmatically by writing a Python
-program that uses the Application Programmers Interface documented in
-the *API Reference* (:ref:`API <api-reference-top>`) directly.  While
-the primary use-case for PyPop is as a standalone command-line script,
-and is it not fully optimized for use via a programmatic interface,
-much functionality is exposed as Python modules and classes.  Examples
-of programmatic use can be found in :ref:`guide-usage-examples-api`.
+It is also possible to use PyPop as a library (i.e. programmatically)
+by writing a Python program that uses the Application Programming
+Interface documented in the *API Reference* (:ref:`API
+<api-reference-top>`) directly.  While the primary use-case for PyPop
+is as a standalone command-line script, and is it not fully optimized
+for use via a programmatic interface, much functionality is exposed as
+Python modules and classes.  Examples of programmatic use can be found
+in :ref:`guide-usage-examples-api`.
 
 .. _guide-usage-intro-run-details:
 
@@ -339,10 +340,10 @@ Command-line interfaces
 =======================
 
 Described below is the usage for both programs, including a full list
-of the current command-line options and arguments.  Note that you can
-also view this full list of options from the program itself by
-supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
---help``, respectively.
+of the current command-line options and arguments for PyPop version
+|api_version|.  Note that you can also view this full list of options
+from the program itself by supplying the ``--help`` option,
+i.e. ``pypop --help``, or ``popmeta --help``, respectively.
 
 .. _guide-pypop-cli:
 
@@ -350,10 +351,9 @@ supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
 ---------------
 
 .. argparse::
-   :filename: src/PyPop/CommandLineInterface.py
+   :module: PyPop.CommandLineInterface
    :func: get_pypop_cli
    :prog: pypop
-   :nodescription:
    :noepilog:
    :nodefaultconst:
 
@@ -363,10 +363,9 @@ supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
 -----------------
 
 .. argparse::
-   :filename: src/PyPop/CommandLineInterface.py
+   :module: PyPop.CommandLineInterface
    :func: get_popmeta_cli
    :prog: popmeta
-   :nodescription:
    :noepilog:
    :nodefaultconst:
 
@@ -1236,83 +1235,91 @@ XML output, and then using :class:`PyPop.Meta.Meta` to process this
 XML to generate ``.tsv`` file output suitable for further
 analysis. Here is the process, step-by-step:
 
-We first create the :class:`configparser.ConfigParser` instance (note
-that we specify the ``untypedAllele`` and ``alleleDesignators``
-explicitly, even though they are the same as defaults, they must
-always match the input file):
+1. We first create the :class:`configparser.ConfigParser` instance
+   (note that we specify the ``untypedAllele`` and
+   ``alleleDesignators`` explicitly, even though they are the same as
+   defaults, they must always match the input file):
 
->>> from configparser import ConfigParser
->>> config = ConfigParser()
->>> config.read_dict({"General": {"debug": "0"},
-...     "ParseGenotypeFile": {"untypedAllele": "****",
-...                           "alleleDesignator": "*",
-...                           "validSampleFields": "*a_1\n*a_2"},
-...     "HardyWeinberg": {"lumpBelow": "5"}})
->>>
+   .. testsetup::
 
-Next, for testing purposes, we create a ``.pop`` text file (note the
-tab-spaces inline). (You could replace this with your own input file,
-or generate ``pop_contents`` from an existing data structure in your
-program):
+      >>> import pytest
+      >>> PyPop = pytest.importorskip("PyPop")
+      >>> if hasattr(PyPop, "setup_logger"):
+      ...    from PyPop import setup_logger
+      ...    setup_logger(doctest_mode=True)
 
->>> pop_contents = '''a_1\ta_2
-... ****\t****
-... 01:01\t02:01
-... 02:10\t03:01:02
-... 01:01\t02:18
-... 25:01\t02:01
-... 02:10\t32:04
-... 03:01:02\t32:04'''
->>> with open("my.pop", "w") as f:
-...     _ = f.write(pop_contents)
-...
+   >>> from configparser import ConfigParser
+   >>> config = ConfigParser()
+   >>> config.read_dict({"General": {"debug": "0"},
+   ...     "ParseGenotypeFile": {"untypedAllele": "****",
+   ...                           "alleleDesignator": "*",
+   ...                           "validSampleFields": "*a_1\n*a_2"},
+   ...     "HardyWeinberg": {"lumpBelow": "5"}})
+   >>>
 
-Then we setup the XSLT transformation file that will generate a plain
-text output (``my-pop.txt``), along with the default XML output file:
-``my-out.xml``. [3]_
+2. Next, for testing purposes, we create a ``.pop`` text file (note
+   the tab-spaces inline). (You could replace this with your own input
+   file, or generate ``pop_contents`` from an existing data structure
+   in your program):
 
-.. warning::
+   >>> pop_contents = '''a_1\ta_2
+   ... ****\t****
+   ... 01:01\t02:01
+   ... 02:10\t03:01:02
+   ... 01:01\t02:18
+   ... 25:01\t02:01
+   ... 02:10\t32:04
+   ... 03:01:02\t32:04'''
+   >>> with open("my.pop", "w") as f:
+   ...     _ = f.write(pop_contents)
+   ...
 
-   Use of :func:`importlib.resources.files` requires Python version 3.9 or later.
+3. Then we setup the XSLT transformation file that will generate a plain
+   text output (``my-pop.txt``), along with the default XML output file:
+   ``my-out.xml``. [3]_
 
->>> from PyPop.xslt import ns              # need for XSLT extensions
->>> from importlib.resources import files  # get location from installation
->>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
+   .. warning::
 
-Now we can create the :class:`PyPop.Main.Main` instance, using the
-``config`` object to analyze the data in ``my.pop`` :
+      Use of :func:`importlib.resources.files` requires Python version 3.9 or later.
 
->>> from PyPop.Main import Main
->>> application = Main(
-...     config=config,
-...     fileName="my.pop",
-...     version="fake",
-...     xslFilename=xslFilename,
-... )
-... # doctest: +ELLIPSIS
-LOG: Data file has no header data block
+   >>> from PyPop.xslt import ns              # need for XSLT extensions
+   >>> from importlib.resources import files  # get location from installation
+   >>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
 
-We can query the ``Main`` instance to get the name of output XML file:
-``my-out.xml``
+4. Now we can create the :class:`PyPop.Main.Main` instance, using the
+   ``config`` object to analyze the data in ``my.pop`` :
 
->>> application.getXmlOutPath()
-'my-out.xml'
+   >>> from PyPop.Main import Main
+   >>> application = Main(
+   ...     config=config,
+   ...     fileName="my.pop",
+   ...     version="fake",
+   ...     xslFilename=xslFilename,
+   ... )
+   ... # doctest: +ELLIPSIS
+   LOG: Data file has no header data block
 
-Lastly, we pass this file to the :class:`PyPop.Meta.Meta` to generate
-output ``TSV`` files (as described in :ref:`guide-usage-popmeta`):
+5. We can query the ``Main`` instance to get the name of output XML file:
+   ``my-out.xml``
 
->>> outXML = application.getXmlOutPath()
->>> from PyPop.Meta import Meta
->>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
-./1-locus-hardyweinberg.tsv
-./1-locus-summary.tsv
-./1-locus-allele.tsv
-./1-locus-genotype.tsv
+   >>> application.getXmlOutPath()
+   'my-out.xml'
 
-These ``.tsv`` files could then be read into another data structure
-(e.g. a `pandas dataframe <https://pandas.pydata.org>`_ ) for further
-analysis.
+6. Lastly, we pass this file to the :class:`PyPop.Meta.Meta` to
+   generate output ``TSV`` files (as described in
+   :ref:`guide-usage-popmeta`):
 
+   >>> outXML = application.getXmlOutPath()
+   >>> from PyPop.Meta import Meta
+   >>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
+   ./1-locus-hardyweinberg.tsv
+   ./1-locus-summary.tsv
+   ./1-locus-allele.tsv
+   ./1-locus-genotype.tsv
+
+7. These ``.tsv`` files could then be read into another data structure
+   (e.g. a `pandas dataframe <https://pandas.pydata.org>`_ ) for
+   further analysis.
 
 .. [1]
    These hardcoded numbers can be changed if you obtain the source code

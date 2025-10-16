@@ -49,6 +49,11 @@ Here is an example of calling :class:`Main` programmatically,
 explicitly specifying the ``untypedAllele`` and ``alleleDesignator``
 in the ``.pop`` file:
 
+.. testsetup::
+
+   >>> import PyPop
+   >>> PyPop.setup_logger(doctest_mode=True)
+
 >>> from PyPop.Main import Main
 >>> from configparser import ConfigParser
 >>>
@@ -75,6 +80,7 @@ LOG: Data file has no header data block
 
 """
 
+import logging
 import os
 import sys
 import time
@@ -84,6 +90,7 @@ from pathlib import Path
 # now use python3-lxml
 from lxml import etree
 
+from PyPop import logger, setup_logger
 from PyPop.DataTypes import Genotypes, getLumpedDataLevels
 from PyPop.Filter import AnthonyNolanFilter, BinningFilter
 from PyPop.Haplo import Emhaplofreq, Haplostats
@@ -104,6 +111,7 @@ from PyPop.Utils import (
     XMLOutputStream,
     checkXSLFile,
     convertLineEndings,
+    critical_exit,
     unique_elements,
 )
 
@@ -129,7 +137,6 @@ class Main:
         config (configparser.ConfigParser): configure object
         xslFilename (str, optional): XSLT file to use
         xslFilenameDefault (str, optional): fallback file name
-        debugFlag (int, optional): enable debugging (``1``)
         fileName (str): input ``.pop`` file
         datapath (str, optional): root of data path
         thread (str, optional): specified thread
@@ -144,7 +151,6 @@ class Main:
         config=None,
         xslFilename=None,
         xslFilenameDefault=None,
-        debugFlag=0,
         fileName=None,
         datapath=None,
         thread=None,
@@ -153,7 +159,6 @@ class Main:
         testMode=False,
     ):
         self.config = config
-        self.debugFlag = debugFlag
         self.fileName = fileName
         self.datapath = datapath
         self.xslFilename = xslFilename
@@ -182,17 +187,19 @@ class Main:
         # Parse "General" section
 
         try:
-            self.debug = self.config.getboolean("General", "debug")
+            debug_ini_enabled = self.config.getboolean("General", "debug")
         except (NoOptionError, NoSectionError):
-            self.debug = 0
+            debug_ini_enabled = 0
         except ValueError:
-            sys.exit("require a 0 or 1 as debug flag")
+            critical_exit("require a 0 or 1 as debug flag")
 
-        # if "-d" command line option used, then respect that, overriding
-        # self.config file setting
+        # always first default "debug" to command-line status (set by pypop script)
+        # if it is not set by the command-line, then it is by default, disabled, but
+        # the config.ini file can enable it, so we override the logger status
 
-        if debugFlag == 1:
-            self.debug = 1
+        if not logger.isEnabledFor(logging.DEBUG) and debug_ini_enabled == 1:
+            # enable debug status, and override current setup
+            setup_logger(level=logging.DEBUG)
 
         # generate file prefix
         try:
@@ -202,8 +209,9 @@ class Main:
             elif outFilePrefixType == "date":
                 uniquePrefix = f"{prefixFileName}-{datestr}-{timestr}"
             else:
-                sys.exit(
-                    f"outFilePrefixType: {outFilePrefixType} must be 'filename' or 'date'"
+                critical_exit(
+                    "outFilePrefixType: %s must be 'filename' or 'date'",
+                    outFilePrefixType,
                 )
         except (NoOptionError, NoSectionError):
             # just use default prefix
@@ -265,37 +273,33 @@ class Main:
             self.defaultFilterLogPath = self.defaultFilterLogFilename
             self.defaultPopDumpPath = self.defaultPopDumpFilename
 
-        if self.debug:
+        if logger.isEnabledFor(logging.DEBUG):
             for section in self.config.sections():
-                print(section)
+                logger.debug(section)
                 for option in self.config.options(section):
-                    print(" ", option, "=", self.config.get(section, option))
+                    logger.debug(f" {option}={self.config.get(section, option)}")
 
         # if not provided on command line or provided check .ini
         # options, and use that location, if provided
         if self.xslFilename is None:
             try:
                 self.xslFilename = self.config.get("General", "xslFilename")
-                if self.debug:
-                    print("using .ini option for xslFilename:", self.xslFilename)
+                logger.debug("using .ini option for xslFilename: %s", self.xslFilename)
                 checkXSLFile(
                     self.xslFilename,
                     abort=1,
-                    debug=self.debug,
                     msg="specified in .ini file",
                 )
             except (NoOptionError, NoSectionError):
                 # otherwise fall back to xslFilenameDefault
-                if self.debug:
-                    print("xslFilename .ini option not set")
+                logger.debug("xslFilename .ini option not set")
                 if self.xslFilenameDefault:
                     self.xslFilename = self.xslFilenameDefault
                 else:
                     # if no default XSL file found, then we skip text output
-                    print("LOG: no XSL file, skipping text output")
+                    logger.info("no XSL file, skipping text output")
 
-        elif self.debug:
-            print("using user supplied version in: ", self.xslFilename)
+        logger.debug(f"using user supplied version in: {self.xslFilename}")
 
         # check to see what kind of file we are parsing
 
@@ -304,7 +308,7 @@ class Main:
         elif self.config.has_section("ParseAlleleCountFile"):
             self.fileType = "ParseAlleleCountFile"
         else:
-            sys.exit("File type is not recognised.  Exiting")
+            critical_exit("File type is not recognised.  Exiting")
 
         # Parse self.fileType section
 
@@ -313,13 +317,14 @@ class Main:
             validPopFields = self.config.get(self.fileType, "validPopFields")
         except NoOptionError:
             validPopFields = None
-            print("LOG: Data file has no header data block")
-            # sys.exit("No valid population fields defined")
+            logger.info("Data file has no header data block")
+            # print("LOG: Data file has no header data block")
+            # critical_exit("No valid population fields defined")
 
         try:
             validSampleFields = self.config.get(self.fileType, "validSampleFields")
         except NoOptionError:
-            sys.exit("No valid sample fields defined")
+            critical_exit("No valid sample fields defined")
 
         try:
             self.alleleDesignator = self.config.get(self.fileType, "alleleDesignator")
@@ -358,7 +363,6 @@ class Main:
                 untypedAllele=self.untypedAllele,
                 popNameDesignator=popNameDesignator,
                 fieldPairDesignator=fieldPairDesignator,
-                debug=self.debug,
             )
 
             # if we are dealing with data that is originally genotyped
@@ -375,7 +379,6 @@ class Main:
                 validPopFields=validPopFields,
                 validSampleFields=validSampleFields,
                 separator="\t",
-                debug=self.debug,
             )
 
             # if we are dealing with data that is originally simply
@@ -387,7 +390,7 @@ class Main:
         # END PARSE: allelecount file (ParseAlleleCountFile)
 
         else:
-            sys.exit("Unrecognised file type")
+            critical_exit("Unrecognised file type")
 
         # we copy the parsed data to self.filtered, to be ready for
         # the gamut of filters coming
@@ -408,8 +411,9 @@ class Main:
                 if self.dumpType in ["separate-loci", "all-loci"]:
                     self.dumpOrder = int(self.dumpOrder)
                 else:
-                    sys.exit(
-                        f"{self.dumpType} is not a valid keyword for population dump: must be either 'separate-loci' or 'all-loci'"
+                    critical_exit(
+                        "%s is not a valid keyword for population dump: must be either 'separate-loci' or 'all-loci'",
+                        self.dumpType,
                     )
 
             except NoOptionError:
@@ -445,7 +449,6 @@ class Main:
             untypedAllele=self.untypedAllele,
             unsequencedSite=self.unsequencedSite,
             allowSemiTyped=allowSemiTyped,
-            debug=self.debug,
         )
 
         # BEGIN common XML output section
@@ -527,22 +530,22 @@ class Main:
 
             if not (directory or remoteMSF):
                 # neither option is provided
-                sys.exit(
-                    "Error: You must provide either a 'directory' or a 'remoteMSF' option in the [Sequence] config."
+                critical_exit(
+                    "You must provide either a 'directory' or a 'remoteMSF' option in the [Sequence] config."
                 )
             if directory and remoteMSF:
                 # both options are provided
-                sys.exit(
-                    "Error: 'directory' and 'remoteMSF' options are mutually exclusive. Provide only one in [Sequence] config."
+                critical_exit(
+                    "'directory' and 'remoteMSF' options are mutually exclusive. Provide only one in [Sequence] config."
                 )
             # process the options
             if directory:
-                anthonynolanPath = get_sequence_directory(directory, debug=self.debug)
+                anthonynolanPath = get_sequence_directory(directory)
                 remoteMSF = None
             else:
                 anthonynolanPath = None
         except Exception as e:
-            sys.exit(f"Error parsing the configuration: {e}")
+            critical_exit("Error parsing the configuration: %s", e)
 
         return anthonynolanPath, remoteMSF
 
@@ -586,9 +589,9 @@ class Main:
                 try:
                     filterType = self.config.get(filterCall, "filterType")
                 except Exception:
-                    sys.exit(
-                        "No valid filter type specified under filter heading "
-                        + filterCall
+                    critical_exit(
+                        "No valid filter type specified under filter heading %s",
+                        filterCall,
                     )
 
             if filterType == "AnthonyNolan":
@@ -618,7 +621,6 @@ class Main:
                     preserveLowresFlag = 0
 
                 filter = AnthonyNolanFilter(
-                    debug=self.debug,
                     directoryName=anthonynolanPath,
                     remoteMSF=remoteMSF,
                     alleleFileFormat=alleleFileFormat,
@@ -639,8 +641,8 @@ class Main:
                     binningDigits = self.config.getint(filterCall, "binningDigits")
                 except Exception:
                     binningDigits = 4
+
                 filter = BinningFilter(
-                    debug=self.debug,
                     binningDigits=binningDigits,
                     untypedAllele=self.untypedAllele,
                     filename=self.fileName,
@@ -657,12 +659,11 @@ class Main:
                         customBinningDict[option] = (
                             self.config.get(filterCall, option)
                         ).split()
-                    if self.debug:
-                        print(customBinningDict)
+                        logger.debug("customBinningDict: %s", str(customBinningDict))
                 except Exception:
-                    sys.exit("Could not parse the CustomBinning rules.")
+                    critical_exit("Could not parse the CustomBinning rules.")
+
                 filter = BinningFilter(
-                    debug=self.debug,
                     customBinningDict=customBinningDict,
                     untypedAllele=self.untypedAllele,
                     filename=self.fileName,
@@ -700,7 +701,6 @@ class Main:
                 anthonynolanPath, remoteMSF = self._checkMSFOptions(filterCall)
 
                 filter = AnthonyNolanFilter(
-                    debug=self.debug,
                     directoryName=anthonynolanPath,
                     remoteMSF=remoteMSF,
                     alleleFileFormat="msf",
@@ -717,17 +717,14 @@ class Main:
                 )
 
             else:
-                sys.exit(
-                    "The filter type '"
-                    + filterType
-                    + "' specified under filter heading '"
-                    + filterCall
-                    + "' is not recognized."
+                critical_exit(
+                    "The filter type '%s' specified under filter heading '%s' is not recognized.",
+                    filterType,
+                    filterCall,
                 )
 
-        if self.debug:
-            print("matrixHistory")
-            print(self.matrixHistory)
+        logger.debug("matrixHistory ...")
+        logger.debug(f"{self.matrixHistory} ...")
 
         # outputs pop file(s)
         if self.popDump:
@@ -789,21 +786,20 @@ class Main:
                 except NoOptionError:
                     lumpBelow = 5
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     flagChenTest = self.config.getboolean("HardyWeinberg", "chenChisq")
                 except NoOptionError:
                     flagChenTest = 0
                 except ValueError:
-                    sys.exit("require a 0 or 1 as a Boolean flag")
+                    critical_exit("require a 0 or 1 as a Boolean flag")
 
                 hwObject = HardyWeinberg(
                     self.input.getLocusDataAt(locus),
                     self.input.getAlleleCountAt(locus),
                     lumpBelow=lumpBelow,
                     flagChenTest=flagChenTest,
-                    debug=self.debug,
                 )
 
                 # serialize HardyWeinberg
@@ -817,7 +813,9 @@ class Main:
                     for level in lumpData:
                         locusData, alleleData = lumpData[level]
                         hwObjectLump = HardyWeinberg(
-                            locusData, alleleData, lumpBelow=lumpBelow, debug=self.debug
+                            locusData,
+                            alleleData,
+                            lumpBelow=lumpBelow,
                         )
 
                         # serialize HardyWeinberg
@@ -826,7 +824,9 @@ class Main:
                 except NoOptionError:
                     pass
                 except ValueError:
-                    sys.exit("alleleLump: require comma-separated list of integers")
+                    critical_exit(
+                        "alleleLump: require comma-separated list of integers"
+                    )
 
             # Parse "HardyWeinbergGuoThompson"
             if (
@@ -856,7 +856,7 @@ class Main:
                 except (NoOptionError, NoSectionError):
                     dememorizationSteps = 2000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     samplingNum = self.config.getint(
@@ -865,7 +865,7 @@ class Main:
                 except (NoOptionError, NoSectionError):
                     samplingNum = 1000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     samplingSize = self.config.getint(
@@ -874,7 +874,7 @@ class Main:
                 except (NoOptionError, NoSectionError):
                     samplingSize = 1000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     maxMatrixSize = self.config.getint(
@@ -883,7 +883,7 @@ class Main:
                 except (NoOptionError, NoSectionError):
                     maxMatrixSize = 250
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     monteCarloSteps = self.config.getint(
@@ -892,7 +892,7 @@ class Main:
                 except (NoOptionError, NoSectionError):
                     monteCarloSteps = 1000000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 # Guo & Thompson implementation
                 hwObject = HardyWeinbergGuoThompson(
@@ -905,7 +905,6 @@ class Main:
                     samplingSize=samplingSize,
                     maxMatrixSize=maxMatrixSize,
                     monteCarloSteps=monteCarloSteps,
-                    debug=self.debug,
                     testing=self.testMode,
                 )
 
@@ -937,8 +936,8 @@ class Main:
                             li2 = [int(i) for i in alleleLump2.split(",")]
                         else:
                             li2 = []
-                        li1.extend(li2)
-                        li = unique_elements(li1)
+                            li1.extend(li2)
+                            li = unique_elements(li1)
 
                         lumpData = getLumpedDataLevels(self.input, locus, li)
                         for level in lumpData:
@@ -954,7 +953,6 @@ class Main:
                                 samplingSize=samplingSize,
                                 maxMatrixSize=maxMatrixSize,
                                 monteCarloSteps=monteCarloSteps,
-                                debug=self.debug,
                                 testing=self.testMode,
                             )
 
@@ -965,7 +963,9 @@ class Main:
                             self.xmlStream.writeln()
 
                     except ValueError:
-                        sys.exit("alleleLump: require comma-separated list of integers")
+                        critical_exit(
+                            "alleleLump: require comma-separated list of integers"
+                        )
 
             # FIXME: need a way to disable if too many
             # alleles/individuals in a given population.
@@ -981,13 +981,12 @@ class Main:
                 except NoOptionError:
                     doOverall = 0
                 except ValueError:
-                    sys.exit("doOverall: requires 0 or 1 as a boolean flag")
+                    critical_exit("doOverall: requires 0 or 1 as a boolean flag")
 
                 hwEnum = HardyWeinbergEnumeration(
                     locusData=self.input.getLocusDataAt(locus),
                     alleleCount=self.input.getAlleleCountAt(locus),
                     doOverall=doOverall,
-                    debug=self.debug,
                 )
 
                 hwEnum.serializeTo(self.xmlStream)
@@ -1006,7 +1005,6 @@ class Main:
                             locusData=locusData,
                             alleleCount=alleleData,
                             doOverall=doOverall,
-                            debug=self.debug,
                         )
 
                         # serialize HardyWeinberg
@@ -1015,7 +1013,9 @@ class Main:
                 except NoOptionError:
                     pass
                 except ValueError:
-                    sys.exit("alleleLump: require comma-separated list of integers")
+                    critical_exit(
+                        "alleleLump: require comma-separated list of integers"
+                    )
 
             if self.config.has_section("HardyWeinbergGuoThompsonArlequin"):
                 # default location for Arlequin executable
@@ -1025,9 +1025,12 @@ class Main:
                     try:
                         arlequinExec = self.config.get("Arlequin", "arlequinExec")
                     except NoOptionError:
-                        print(
-                            "LOG: Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
+                        logger.info(
+                            "Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
                         )
+                        # print(
+                        #    "LOG: Location to Arlequin executable file not given: assume `arlecore.exe' is in user's PATH"
+                        # )
 
                 try:
                     markovChainStepsHW = self.config.getint(
@@ -1036,7 +1039,7 @@ class Main:
                 except NoOptionError:
                     samplingNum = 100000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 try:
                     markovChainDememorisationStepsHW = self.config.getint(
@@ -1046,7 +1049,7 @@ class Main:
                 except NoOptionError:
                     samplingNum = 100000
                 except ValueError:
-                    sys.exit("require integer value")
+                    critical_exit("require integer value")
 
                 hwArlequin = HardyWeinbergGuoThompsonArlequin(
                     self.input.getIndividualsData(),
@@ -1055,7 +1058,6 @@ class Main:
                     markovChainStepsHW=markovChainStepsHW,
                     markovChainDememorisationStepsHW=markovChainDememorisationStepsHW,
                     untypedAllele=self.untypedAllele,
-                    debug=self.debug,
                 )
                 hwArlequin.serializeTo(self.xmlStream)
 
@@ -1078,7 +1080,8 @@ class Main:
                 # dictionary is still useful to have in case we have to do
                 # random binning.
                 hzExactObj = HomozygosityEWSlatkinExact(
-                    alleleCounts.values(), numReplicates=numReplicates, debug=self.debug
+                    alleleCounts.values(),
+                    numReplicates=numReplicates,
                 )
 
                 hzExactObj.serializeHomozygosityTo(self.xmlStream)
@@ -1088,7 +1091,6 @@ class Main:
                     inputInitial = Genotypes(
                         matrix=self.matrixHistory[self.binningStartPoint],
                         untypedAllele=self.untypedAllele,
-                        debug=self.debug,
                     )
 
                     # as above, we create a dictionary of allele counts
@@ -1096,13 +1098,12 @@ class Main:
                     # matrixHistory)
                     alleleCountsInitial = inputInitial.getAlleleCountAt(locus)[0]
 
-                    if self.debug:
-                        print(
-                            "alleleCountsInitial",
-                            len(alleleCountsInitial),
-                            alleleCountsInitial,
-                        )
-                        print("alleleCounts", len(alleleCounts), alleleCounts)
+                    logger.debug(
+                        "alleleCountsInitial %d %s",
+                        len(alleleCountsInitial),
+                        alleleCountsInitial,
+                    )
+                    logger.debug("alleleCounts %d %s", len(alleleCounts), alleleCounts)
 
                     randomResultsFileName = (
                         self.defaultFilterLogPath[:-4] + "-" + locus + "-randomized.tsv"
@@ -1130,7 +1131,6 @@ class Main:
                             binningReplicates=self.binningReplicates,
                             locus=locus,
                             xmlfile=self.xmlStream,
-                            debug=self.debug,
                             logFile=self.filterLogFile,
                             randomResultsFileName=randomResultsFileName,
                         )
@@ -1156,13 +1156,12 @@ class Main:
                                 anthonynolanPath = (
                                     Path(self.datapath) / "anthonynolan" / "msf"
                                 )
-                                if self.debug:
-                                    print(
-                                        f"LOG: Defaulting to system datapath {anthonynolanPath} for anthonynolanPath data"
-                                    )
+                                logger.debug(
+                                    "Defaulting to system datapath %s for anthonynolanPath data",
+                                    anthonynolanPath,
+                                )
 
                             seqfilter = AnthonyNolanFilter(
-                                debug=self.debug,
                                 directoryName=anthonynolanPath,
                                 alleleFileFormat="msf",
                                 alleleDesignator=self.alleleDesignator,
@@ -1187,9 +1186,9 @@ class Main:
                             )
 
                         else:
-                            sys.exit(
-                                "Random binning method not recognized:"
-                                + self.binningMethod
+                            critical_exit(
+                                "Random binning method not recognized: %s",
+                                self.binningMethod,
                             )
 
                     self.filterLogFile.writeln("]]>")
@@ -1206,7 +1205,6 @@ class Main:
                 matrix=self.input.getIndividualsData(),
                 numReplicates=numReplicates,
                 untypedAllele=self.untypedAllele,
-                debug=self.debug,
             )
             hz.serializeTo(self.xmlStream)
 
@@ -1225,7 +1223,7 @@ class Main:
             except NoOptionError:
                 numInitCond = 10
             except ValueError:
-                sys.exit(
+                critical_exit(
                     "numInitCond: option requires an positive integer greater than 1"
                 )
 
@@ -1245,7 +1243,6 @@ class Main:
             # need to make sure that this works with subMatrices
             haplostats = Haplostats(
                 self.input.getIndividualsData(),
-                debug=self.debug,
                 untypedAllele=self.untypedAllele,
                 stream=self.xmlStream,
                 testMode=self.testMode,
@@ -1273,7 +1270,7 @@ class Main:
             except NoOptionError:
                 allPairwise = 0
             except ValueError:
-                sys.exit("require a 0 or 1 as a flag")
+                critical_exit("require a 0 or 1 as a flag")
 
             if allPairwise:
                 # do all pairwise statistics, which always includes LD
@@ -1293,7 +1290,6 @@ class Main:
             # a wrapper around the emhaplofreq module
             haplo = Emhaplofreq(
                 self.input.getIndividualsData(),
-                debug=self.debug,
                 untypedAllele=self.untypedAllele,
                 stream=self.xmlStream,
                 testMode=self.testMode,
@@ -1311,7 +1307,7 @@ class Main:
             except NoOptionError:
                 allPairwiseLD = 0
             except ValueError:
-                sys.exit("require a 0 or 1 as a flag")
+                critical_exit("require a 0 or 1 as a flag")
 
             try:
                 allPairwiseLDWithPermu = self.config.getint(
@@ -1320,12 +1316,12 @@ class Main:
             except NoOptionError:
                 allPairwiseLDWithPermu = 0
             except ValueError:
-                sys.exit("allPairwiseLDWithPermu: option requires an integer")
+                critical_exit("allPairwiseLDWithPermu: option requires an integer")
 
             # FIXME: needed for backwards-compatibility, remove when not
             # needed
             if allPairwiseLDWithPermu == 1:
-                sys.exit("""ERROR: semantics of 'allPairwiseLDWithPerm' option have changed.
+                critical_exit("""semantics of 'allPairwiseLDWithPerm' option have changed.
 It is no longer a boolean variable to enable the permutation test.
 It should now contain the NUMBER of permutations desired.  A value of
 at least 1000 is recommended.  A value of '1' is not permitted.""")
@@ -1335,7 +1331,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             except NoOptionError:
                 numPermuInitCond = 5
             except ValueError:
-                sys.exit("numPermuInitCond: option requires an integer")
+                critical_exit("numPermuInitCond: option requires an integer")
 
             # Parse new [Emhaplofreq] option 'numInitCond', so that the
             # number of initial conditions for the *first* iteration LD
@@ -1346,7 +1342,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             except NoOptionError:
                 numInitCond = 50
             except ValueError:
-                sys.exit("numInitCond: option requires an integer")
+                critical_exit("numInitCond: option requires an integer")
 
             try:
                 permutationPrintFlag = self.config.getboolean(
@@ -1355,25 +1351,25 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
             except NoOptionError:
                 permutationPrintFlag = 0
             except ValueError:
-                sys.exit("permutationPrintFlag: option requires a 0 or 1 flag")
+                critical_exit("permutationPrintFlag: option requires a 0 or 1 flag")
 
             if allPairwiseLD:
-                (print("LOG: estimating all pairwise LD:", end=" "),)
+                logger.info("estimating all pairwise LD ...")
+                # (print("LOG: estimating all pairwise LD:", end=" "),)
                 if allPairwiseLDWithPermu:
                     (
-                        print(
-                            f"with {allPairwiseLDWithPermu} permutations and {numPermuInitCond} initial conditions for each permutation",
-                            end=" ",
+                        logger.info(
+                            f"... with {allPairwiseLDWithPermu} permutations and {numPermuInitCond} initial conditions for each permutation",
                         ),
                     )
                     if permutationPrintFlag:
-                        print(
-                            "and each permutation output will be logged to XML", end=" "
+                        logger.info(
+                            "... and each permutation output will be logged to XML"
                         )
                     else:
-                        print()
+                        logger.info("")
                 else:
-                    print("with no permutation test")
+                    logger.info("... with no permutation test")
 
             # first set the list of 2-locus haplotypes to show to empty
             twoLocusHaplosToShow = []
@@ -1382,16 +1378,17 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                 locusKeys = self.config.get("Emhaplofreq", "lociToEstHaplo")
 
                 if locusKeys == "*":
-                    print(
-                        "LOG: wildcard '*' given for lociToEstHaplo, assume entire data set"
+                    logger.info(
+                        "wildcard '*' given for lociToEstHaplo, assume entire data set"
                     )
                     locusKeys = ":".join(self.input.getIndividualsData().colList)
-                (print("LOG: estimating haplotype frequencies for", end=" "),)
-
+                    # (print("LOG: estimating haplotype frequencies for", end=" "),)
+                logger.info("estimating haplotype frequencies for ...")
                 # if we will be running allPairwise*, then exclude any two-locus
                 # haplotypes, since we will estimate them as part of 'all pairwise'
                 if allPairwiseLD:
-                    (print("all two locus haplotypes,", end=" "),)
+                    # (print("all two locus haplotypes,", end=" "),)
+                    logger.info("... all two locus haplotypes")
                     modLocusKeys = []
                     for group in locusKeys.split(","):
                         # if a two-locus haplo, add it to the list that allPairwise
@@ -1409,7 +1406,8 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                 # locus groups that remain after excluding two locus haplotypes
                 if locusKeys:
                     haplo.estHaplotypes(locusKeys=locusKeys, numInitCond=numInitCond)
-                    print(f"specific haplotypes: [{locusKeys}]")
+                    # print(f"specific haplotypes: [{locusKeys}]")
+                    logger.info(f"... specific haplotypes: [{locusKeys}]")
 
             except NoOptionError:
                 pass
@@ -1418,8 +1416,8 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                 locusKeysLD = self.config.get("Emhaplofreq", "lociToEstLD")
 
                 if locusKeysLD == "*":
-                    print(
-                        "LOG: wildcard '*' given for lociToEstLD, assume entire data set"
+                    logger.info(
+                        "wildcard '*' given for lociToEstLD, assume entire data set"
                     )
                     locusKeysLD = ":".join(self.input.getIndividualsData().colList)
 
@@ -1430,7 +1428,7 @@ at least 1000 is recommended.  A value of '1' is not permitted.""")
                     numPermutations=1001,
                     numPermuInitCond=numPermuInitCond,
                 )
-                print(f"LOG: estimating LD for specific loci: [{locusKeysLD}]")
+                logger.info(f"estimating LD for specific loci: [{locusKeysLD}]")
 
             except NoOptionError:
                 pass
@@ -1504,20 +1502,21 @@ def getConfigInstance(configFilename=None, altpath=None):
     elif Path(altpath).is_file():
         config.read(altpath)
     else:
-        sys.exit("Could not find config file either in current directory or " + altpath)
+        critical_exit(
+            "Could not find config file either in current directory or %s", altpath
+        )
 
     if len(config.sections()) == 0:
-        sys.exit("No output defined!  Exiting...")
+        critical_exit("No output defined!  Exiting...")
 
     return config
 
 
-def get_sequence_directory(directory_str, debug=False):
+def get_sequence_directory(directory_str):
     """Get the directory for the :class:`PyPop.Filter.AnthonyNolanFilter`.
 
     Args:
        directory_str (str): directory to search
-       debug (bool): enable debugging
 
     Returns:
        str: path to sequence files
@@ -1533,18 +1532,20 @@ def get_sequence_directory(directory_str, debug=False):
             path_obj = (
                 Path(os.environ.get("PYPOP_CURRENT_TEST_DIRECTORY")).parent / path_obj
             )
+            logger.debug("in test environment, data files: %s", str(path_obj))
         else:
-            sys.exit(
-                f"Relative path {path_obj} for AnthonyNolan sequence files does not exist or is not a directory."
+            critical_exit(
+                "Relative path %s for AnthonyNolan sequence files does not exist or is not a directory.",
+                path_obj,
             )
 
     # at this point, the path is absolute, now we need to check it exits
     if path_obj.exists() and path_obj.is_dir():
         anthonynolanPath = str(path_obj)
-        if debug:
-            print(f"Using  {anthonynolanPath} for AnthonyNolan data files")
+        logger.debug("Using %s for AnthonyNolan data files", anthonynolanPath)
     else:
-        sys.exit(
-            f"Absolute path {path_obj} for Anthony Nolan sequence files does not exist or is not a directory"
+        critical_exit(
+            "Absolute path %s for Anthony Nolan sequence files does not exist or is not a directory",
+            path_obj,
         )
     return anthonynolanPath
