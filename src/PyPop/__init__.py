@@ -92,9 +92,11 @@ LOG: Data file has no header data block
 
 """
 
+import importlib
 import logging
 import platform
 import sys
+import warnings
 
 logger = logging.getLogger("pypop")
 """Package-wide logger used throughout a PyPop run.
@@ -125,6 +127,60 @@ except metadata_lib.PackageNotFoundError:
     __version__ = get_version(
         version_scheme=__version_scheme__, root="../..", relative_to=__file__
     )  # next try the version in repo
+
+
+# warnings.simplefilter("default", DeprecationWarning)
+
+# Map of old CamelCase module names to new lowercase ones
+_deprecated_modules = {
+    "PyPop.Arlequin": "PyPop.arlequin",
+    "PyPop.DataTypes": "PyPop.datatypes",
+    "PyPop.HardyWeinberg": "PyPop.hardyweinberg",
+    "PyPop.Homozygosity": "PyPop.homozygosity",
+    "PyPop.Haplo": "PyPop.haplo",
+    "PyPop.Filter": "PyPop.filters",
+    "PyPop.ParseFile": "PyPop.parsefiles",
+    "PyPop.RandomBinning": "PyPop.randombinning",
+    "PyPop.CommandLineInterface": "PyPop.command_line_interface",
+    "PyPop.Main": "PyPop.main",
+    "PyPop.Meta": "PyPop.meta",
+    "PyPop.Utils": "PyPop.utils",
+}
+
+
+def _install_deprecated_aliases():
+    """Register deprecated module aliases lazily (only when accessed)."""
+
+    class _DeprecatedModuleProxy:
+        def __init__(self, old_name, new_name):
+            self._old_name = old_name
+            self._new_name = new_name
+            self._real_module = None
+
+        def _load(self):
+            # print ("real module:", self._real_module)
+            if self._real_module is None:
+                self._real_module = importlib.import_module(self._new_name)
+                # print(f"Module '{self._old_name}' is deprecated; use '{self._new_name}' instead.")
+                warnings.warn(
+                    f"Module '{self._old_name}' is deprecated; use '{self._new_name}' instead.",
+                    DeprecationWarning,
+                    stacklevel=2,
+                )
+                sys.modules[self._old_name] = self._real_module
+            return self._real_module
+
+        def __getattr__(self, name):
+            return getattr(self._load(), name)
+
+    # Register proxies in sys.modules for lazy loading
+    for old_name, new_name in _deprecated_modules.items():
+        # print ("old_name:", old_name, "new_name:", new_name)
+        sys.modules.setdefault(old_name, _DeprecatedModuleProxy(old_name, new_name))
+
+
+_install_deprecated_aliases()
+
 
 copyright_message = """Copyright (C) 2003-2006 Regents of the University of California.
 Copyright (C) 2007-2025 PyPop team.

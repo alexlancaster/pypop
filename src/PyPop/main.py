@@ -93,7 +93,7 @@ from lxml import etree
 from PyPop import logger, setup_logger
 from PyPop.DataTypes import Genotypes, getLumpedDataLevels
 from PyPop.Filter import AnthonyNolanFilter, BinningFilter
-from PyPop.Haplo import Emhaplofreq, Haplostats
+from PyPop.haplo import Emhaplofreq, Haplostats
 from PyPop.HardyWeinberg import (
     HardyWeinberg,
     HardyWeinbergEnumeration,

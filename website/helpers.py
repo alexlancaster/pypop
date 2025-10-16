@@ -1,9 +1,12 @@
 """Customization and helper classes for conf.py."""
 
+import ast
+import contextlib
 import importlib.util
 import os
 import re
 import sys
+import textwrap
 from pathlib import Path
 
 from docutils import nodes
@@ -129,6 +132,43 @@ def strip_first_title(rst_text):
     return re.sub(pattern, "", rst_text, count=1, flags=re.MULTILINE)
 
 
+def _make_deprecations_block(app):
+    """Parse PyPop/__init__.py and generate an RST 'versionchanged' section."""
+    init_path = Path(app.srcdir) / ".." / "src" / "PyPop" / "__init__.py"
+    if not init_path.exists():
+        return ""
+
+    # Parse using AST to avoid executing anything
+    src = init_path.read_text(encoding="utf-8")
+    tree = ast.parse(src)
+
+    mapping = {}
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Assign):
+            for target in node.targets:
+                if getattr(target, "id", None) == "_deprecated_modules":
+                    with contextlib.suppress(Exception):
+                        mapping = ast.literal_eval(node.value)
+                    break
+
+    if not mapping:
+        return ""
+
+    # Format as RST
+    entries = "\n".join(
+        f"   - ``{old}`` → ``{new}``" for old, new in sorted(mapping.items())
+    )
+
+    return textwrap.dedent(
+        f"""
+.. versionchanged:: 1.4.0
+   The following modules have been renamed to conform to PEP 8:
+
+{entries}
+"""
+    )
+
+
 def prepare_autoapi_index(app):
     """Substitute the top-level index to be generated."""
     # don't hardcode, get this from config
@@ -153,6 +193,9 @@ def prepare_autoapi_index(app):
         # Delete the generated PyPop/index.rst so Sphinx doesn't process it separately
         src_generated.unlink()
 
+    # --- NEW: read deprecated modules from PyPop/__init__.py ---
+    deprecations_block = _make_deprecations_block(app)
+
     gfdl_content = r"""
 .. only:: latex
 
@@ -175,7 +218,13 @@ def prepare_autoapi_index(app):
 
     # Combine them: override first, then generated, then the GFDL wrapped in an environment
     final_content = (
-        override_content + "\n\n" + generated_content + "\n\n" + gfdl_content
+        override_content
+        + "\n\n"
+        + deprecations_block
+        + "\n\n"
+        + generated_content
+        + "\n\n"
+        + gfdl_content
     )
 
     # Ensure parent exists
