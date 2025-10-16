@@ -97,7 +97,10 @@ import platform
 import sys
 
 logger = logging.getLogger("pypop")
-"""Package-wide logger used throughout a PyPop run."""
+"""Package-wide logger used throughout a PyPop run.
+
+.. versionadded:: 1.4.0
+"""
 
 # FIXME: ensure these need be remain synced with pyproject.toml
 try:
@@ -164,6 +167,8 @@ class _LevelBasedFormatter(logging.Formatter):
 
 def setup_logger(level=logging.INFO, filename=None, doctest_mode=True):
     """Configure the 'pypop' logger with stdout/file handler, optional debug verbosity, and doctest mode.
+
+    .. versionadded:: 1.4.0
 
     Args:
       level (str, optional): ``INFO`` (default), ``DEBUG`` (more
