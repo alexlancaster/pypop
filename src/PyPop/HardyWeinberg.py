@@ -41,12 +41,12 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 
 # import C module
-from PyPop import _Gthwe, _Pvalue, critical_exit, logger
+from PyPop import _Gthwe, _Pvalue, logger
 from PyPop.Arlequin import ArlequinExactHWTest
 
 # FIXME: should remove the need for hardcoding a GENOTYPE_SEPARATOR
 # this can clash with a character within an allele identifier too easily
-from PyPop.Utils import GENOTYPE_SEPARATOR, getStreamType
+from PyPop.Utils import GENOTYPE_SEPARATOR, critical_exit, getStreamType
 
 use_scipy = False  # don't use scipy by default
 """If ``True`` use ``scipy`` to compute pvalue, rather than internal ``pval``"""

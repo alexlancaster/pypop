@@ -50,7 +50,7 @@ import numpy as np
 from numpy import asarray, take, zeros
 from numpy.lib.user_array import container
 
-from PyPop import critical_exit, logger
+from PyPop import logger
 
 GENOTYPE_SEPARATOR = "~"
 """
@@ -936,6 +936,18 @@ class Index:
 
 
 ### global FUNCTIONS start here
+
+
+def critical_exit(message, *args):  # noqa: D417
+    """Log a CRITICAL message and exit with status 1.
+
+    .. versionadded:: 1.4.0
+
+    Args:
+        message (str): Logging format string.
+    """
+    logger.critical(message, *args, stacklevel=2)
+    sys.exit(1)
 
 
 def getStreamType(stream):

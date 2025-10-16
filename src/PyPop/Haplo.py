@@ -50,7 +50,7 @@ from tempfile import TemporaryDirectory
 import numpy as np
 
 # import the Python-to-C module wrappers
-from PyPop import _Emhaplofreq, _Haplostats, critical_exit, logger
+from PyPop import _Emhaplofreq, _Haplostats, logger
 from PyPop.Arlequin import ArlequinBatch
 from PyPop.DataTypes import checkIfSequenceData, getLocusPairs
 from PyPop.Utils import (
@@ -58,6 +58,7 @@ from PyPop.Utils import (
     GENOTYPE_TERMINATOR,
     XMLOutputStream,
     appendTo2dList,
+    critical_exit,
 )
 
 

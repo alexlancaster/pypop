@@ -90,7 +90,7 @@ from pathlib import Path
 # now use python3-lxml
 from lxml import etree
 
-from PyPop import critical_exit, logger, setup_logger
+from PyPop import logger, setup_logger
 from PyPop.DataTypes import Genotypes, getLumpedDataLevels
 from PyPop.Filter import AnthonyNolanFilter, BinningFilter
 from PyPop.Haplo import Emhaplofreq, Haplostats
@@ -111,6 +111,7 @@ from PyPop.Utils import (
     XMLOutputStream,
     checkXSLFile,
     convertLineEndings,
+    critical_exit,
     unique_elements,
 )
 

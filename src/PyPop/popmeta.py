@@ -40,9 +40,10 @@ import sys
 from pathlib import Path
 
 from PyPop import __version__ as version
-from PyPop import copyright_message, critical_exit, setup_logger
+from PyPop import copyright_message, setup_logger
 from PyPop.CommandLineInterface import get_popmeta_cli
 from PyPop.Meta import Meta
+from PyPop.Utils import critical_exit
 
 
 def main(argv=sys.argv):

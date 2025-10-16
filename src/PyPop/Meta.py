@@ -40,8 +40,8 @@ from pathlib import Path
 
 from lxml import etree
 
-from PyPop import critical_exit, logger
-from PyPop.Utils import checkXSLFile, splitIntoNGroups
+from PyPop import logger
+from PyPop.Utils import checkXSLFile, critical_exit, splitIntoNGroups
 
 
 class Meta:

@@ -48,7 +48,8 @@ import sys
 import warnings
 from pathlib import Path
 
-from PyPop import critical_exit, logger
+from PyPop import logger
+from PyPop.Utils import critical_exit
 
 warnings.warn(
     "The module 'Arlequin' is deprecated and may be removed in a future release.",
