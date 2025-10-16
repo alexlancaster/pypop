@@ -1235,91 +1235,91 @@ XML output, and then using :class:`PyPop.Meta.Meta` to process this
 XML to generate ``.tsv`` file output suitable for further
 analysis. Here is the process, step-by-step:
 
-We first create the :class:`configparser.ConfigParser` instance (note
-that we specify the ``untypedAllele`` and ``alleleDesignators``
-explicitly, even though they are the same as defaults, they must
-always match the input file):
+1. We first create the :class:`configparser.ConfigParser` instance
+   (note that we specify the ``untypedAllele`` and
+   ``alleleDesignators`` explicitly, even though they are the same as
+   defaults, they must always match the input file):
 
-.. testsetup::
+   .. testsetup::
 
-   >>> import pytest
-   >>> PyPop = pytest.importorskip("PyPop")
-   >>> if hasattr(PyPop, "setup_logger"):
-   ...    from PyPop import setup_logger
-   ...    setup_logger(doctest_mode=True)
+      >>> import pytest
+      >>> PyPop = pytest.importorskip("PyPop")
+      >>> if hasattr(PyPop, "setup_logger"):
+      ...    from PyPop import setup_logger
+      ...    setup_logger(doctest_mode=True)
 
->>> from configparser import ConfigParser
->>> config = ConfigParser()
->>> config.read_dict({"General": {"debug": "0"},
-...     "ParseGenotypeFile": {"untypedAllele": "****",
-...                           "alleleDesignator": "*",
-...                           "validSampleFields": "*a_1\n*a_2"},
-...     "HardyWeinberg": {"lumpBelow": "5"}})
->>>
+   >>> from configparser import ConfigParser
+   >>> config = ConfigParser()
+   >>> config.read_dict({"General": {"debug": "0"},
+   ...     "ParseGenotypeFile": {"untypedAllele": "****",
+   ...                           "alleleDesignator": "*",
+   ...                           "validSampleFields": "*a_1\n*a_2"},
+   ...     "HardyWeinberg": {"lumpBelow": "5"}})
+   >>>
 
-Next, for testing purposes, we create a ``.pop`` text file (note the
-tab-spaces inline). (You could replace this with your own input file,
-or generate ``pop_contents`` from an existing data structure in your
-program):
+2. Next, for testing purposes, we create a ``.pop`` text file (note
+   the tab-spaces inline). (You could replace this with your own input
+   file, or generate ``pop_contents`` from an existing data structure
+   in your program):
 
->>> pop_contents = '''a_1\ta_2
-... ****\t****
-... 01:01\t02:01
-... 02:10\t03:01:02
-... 01:01\t02:18
-... 25:01\t02:01
-... 02:10\t32:04
-... 03:01:02\t32:04'''
->>> with open("my.pop", "w") as f:
-...     _ = f.write(pop_contents)
-...
+   >>> pop_contents = '''a_1\ta_2
+   ... ****\t****
+   ... 01:01\t02:01
+   ... 02:10\t03:01:02
+   ... 01:01\t02:18
+   ... 25:01\t02:01
+   ... 02:10\t32:04
+   ... 03:01:02\t32:04'''
+   >>> with open("my.pop", "w") as f:
+   ...     _ = f.write(pop_contents)
+   ...
 
-Then we setup the XSLT transformation file that will generate a plain
-text output (``my-pop.txt``), along with the default XML output file:
-``my-out.xml``. [3]_
+3. Then we setup the XSLT transformation file that will generate a plain
+   text output (``my-pop.txt``), along with the default XML output file:
+   ``my-out.xml``. [3]_
 
-.. warning::
+   .. warning::
 
-   Use of :func:`importlib.resources.files` requires Python version 3.9 or later.
+      Use of :func:`importlib.resources.files` requires Python version 3.9 or later.
 
->>> from PyPop.xslt import ns              # need for XSLT extensions
->>> from importlib.resources import files  # get location from installation
->>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
+   >>> from PyPop.xslt import ns              # need for XSLT extensions
+   >>> from importlib.resources import files  # get location from installation
+   >>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
 
-Now we can create the :class:`PyPop.Main.Main` instance, using the
-``config`` object to analyze the data in ``my.pop`` :
+4. Now we can create the :class:`PyPop.Main.Main` instance, using the
+   ``config`` object to analyze the data in ``my.pop`` :
 
->>> from PyPop.Main import Main
->>> application = Main(
-...     config=config,
-...     fileName="my.pop",
-...     version="fake",
-...     xslFilename=xslFilename,
-... )
-... # doctest: +ELLIPSIS
-LOG: Data file has no header data block
+   >>> from PyPop.Main import Main
+   >>> application = Main(
+   ...     config=config,
+   ...     fileName="my.pop",
+   ...     version="fake",
+   ...     xslFilename=xslFilename,
+   ... )
+   ... # doctest: +ELLIPSIS
+   LOG: Data file has no header data block
 
-We can query the ``Main`` instance to get the name of output XML file:
-``my-out.xml``
+5. We can query the ``Main`` instance to get the name of output XML file:
+   ``my-out.xml``
 
->>> application.getXmlOutPath()
-'my-out.xml'
+   >>> application.getXmlOutPath()
+   'my-out.xml'
 
-Lastly, we pass this file to the :class:`PyPop.Meta.Meta` to generate
-output ``TSV`` files (as described in :ref:`guide-usage-popmeta`):
+6. Lastly, we pass this file to the :class:`PyPop.Meta.Meta` to
+   generate output ``TSV`` files (as described in
+   :ref:`guide-usage-popmeta`):
 
->>> outXML = application.getXmlOutPath()
->>> from PyPop.Meta import Meta
->>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
-./1-locus-hardyweinberg.tsv
-./1-locus-summary.tsv
-./1-locus-allele.tsv
-./1-locus-genotype.tsv
+   >>> outXML = application.getXmlOutPath()
+   >>> from PyPop.Meta import Meta
+   >>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
+   ./1-locus-hardyweinberg.tsv
+   ./1-locus-summary.tsv
+   ./1-locus-allele.tsv
+   ./1-locus-genotype.tsv
 
-These ``.tsv`` files could then be read into another data structure
-(e.g. a `pandas dataframe <https://pandas.pydata.org>`_ ) for further
-analysis.
-
+7. These ``.tsv`` files could then be read into another data structure
+   (e.g. a `pandas dataframe <https://pandas.pydata.org>`_ ) for
+   further analysis.
 
 .. [1]
    These hardcoded numbers can be changed if you obtain the source code
