@@ -1,0 +1,154 @@
+.. _api-reference-top:
+
+PyPop API Reference
+===================
+
+.. only:: latex
+
+   .. raw:: latex
+
+      % Place contents of footnote in a \pagenote
+      \OverwriteEnviron{footnote}[4]{\pagenote{\BODY}}
+      % FIXME: disable footnotetext, don't play nice with pagenote
+      \OverwriteEnviron{footnotetext}[4]{\relax}
+      \renewcommand{\sphinxfootnotemark}[4]{\relax}
+
+.. only:: html
+
+   |api_pdf_download_box|
+
+   |apidocs_subtitle|
+
+.. admonition:: *Documenting API for release*  |api_version|  *of PyPop*.
+
+   *Document revision:* |full_release|
+
+   This API reference guide for PyPop is automatically generated from
+   the |api_version| source code via `sphinx-autoapi
+   <https://github.com/readthedocs/sphinx-autoapi>`_.
+
+   Copyright © |copyright|
+
+   .. only:: html
+
+      **License terms** |gfdl_license_text| (:ref:`gfdl`)
+
+   .. only:: latex
+
+      **License terms** |gfdl_license_text| (:ref:`api-gfdl`)
+
+      References to the *User Guide* can be found in the
+      |guide_pdf_link|.
+
+.. only:: latex or pdf
+
+   .. toctree::
+      :maxdepth: 3
+
+Introduction
+------------
+
+.. contents of PyPop/index.rst will be concatenated here at runtime
+
+
+.. py:module:: PyPop
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /api/PyPop/Arlequin/index
+   /api/PyPop/CommandLineInterface/index
+   /api/PyPop/DataTypes/index
+   /api/PyPop/Filter/index
+   /api/PyPop/GUIApp/index
+   /api/PyPop/Haplo/index
+   /api/PyPop/HardyWeinberg/index
+   /api/PyPop/Homozygosity/index
+   /api/PyPop/Main/index
+   /api/PyPop/Meta/index
+   /api/PyPop/ParseFile/index
+   /api/PyPop/RandomBinning/index
+   /api/PyPop/Utils/index
+   /api/PyPop/citation/index
+   /api/PyPop/popmeta/index
+   /api/PyPop/pypop/index
+   /api/PyPop/xslt/index
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.copyright_message
+   PyPop.platform_info
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.setup_logging
+
+
+Package Contents
+----------------
+
+.. py:data:: copyright_message
+   :value: Multiline-String
+
+   .. raw:: html
+
+      <details><summary>Show Value</summary>
+
+   .. code-block:: python
+
+      """Copyright (C) 2003-2006 Regents of the University of California.
+      Copyright (C) 2007-2025 PyPop team.
+      This is free software.  There is NO warranty; not even for
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
+
+   .. raw:: html
+
+      </details>
+
+
+
+.. py:data:: platform_info
+   :value: '[Python Uninferable | Uninferable | Uninferable]'
+
+
+.. py:function:: setup_logging(debug=False, filename=None)
+
+   Provide defaults for logging.
+
+
+
+
+
+.. only:: latex
+
+   .. raw:: latex
+
+      \begingroup
+      \footnotesize
+      \sphinxsetup{%
+      %TitleColor={named}{blue},
+      }
+
+   .. _api-gfdl:
+
+   .. include:: /docs/gfdl.rst
+
+   .. raw:: latex
+
+      \endgroup
+    

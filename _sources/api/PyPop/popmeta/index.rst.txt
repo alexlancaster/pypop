@@ -1,0 +1,29 @@
+PyPop.popmeta
+=============
+
+.. py:module:: PyPop.popmeta
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.popmeta.DIR
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.popmeta.main
+
+
+Module Contents
+---------------
+
+.. py:function:: main(argv=sys.argv)
+
+.. py:data:: DIR
+

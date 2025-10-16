@@ -1,0 +1,706 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyPop.GUIApp &#8212; PyPop 1.3.1 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../../../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=21eeb618" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../../../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../../../_static/documentation_options.js?v=bb516dca"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/PyPop/GUIApp/index';</script>
+    <link rel="icon" href="../../../_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="PyPop.Haplo" href="../Haplo/index.html" />
+    <link rel="prev" title="PyPop.Filter" href="../Filter/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.3.1" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="../../../_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../../../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="../../index.html">
+    API
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../Arlequin/index.html">PyPop.Arlequin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../CommandLineInterface/index.html">PyPop.CommandLineInterface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../DataTypes/index.html">PyPop.DataTypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Filter/index.html">PyPop.Filter</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">PyPop.GUIApp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Haplo/index.html">PyPop.Haplo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../HardyWeinberg/index.html">PyPop.HardyWeinberg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Homozygosity/index.html">PyPop.Homozygosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Main/index.html">PyPop.Main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Meta/index.html">PyPop.Meta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ParseFile/index.html">PyPop.ParseFile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RandomBinning/index.html">PyPop.RandomBinning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Utils/index.html">PyPop.Utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citation/index.html">PyPop.citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../popmeta/index.html">PyPop.popmeta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../pypop/index.html">PyPop.pypop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../xslt/index.html">PyPop.xslt</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#classes">Classes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-contents">Module Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.ID_ABOUT"><code class="docutils literal notranslate"><span class="pre">ID_ABOUT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.ID_OPEN_CONFIG"><code class="docutils literal notranslate"><span class="pre">ID_OPEN_CONFIG</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.ID_OPEN_POP"><code class="docutils literal notranslate"><span class="pre">ID_OPEN_POP</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.ID_EXIT"><code class="docutils literal notranslate"><span class="pre">ID_EXIT</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.EVT_RESULT_ID"><code class="docutils literal notranslate"><span class="pre">EVT_RESULT_ID</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.EVT_RESULT"><code class="docutils literal notranslate"><span class="pre">EVT_RESULT()</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.ResultEvent"><code class="docutils literal notranslate"><span class="pre">ResultEvent</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.WorkerThread"><code class="docutils literal notranslate"><span class="pre">WorkerThread</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.WorkerThread.run"><code class="docutils literal notranslate"><span class="pre">WorkerThread.run()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.WorkerThread.abort"><code class="docutils literal notranslate"><span class="pre">WorkerThread.abort()</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.MainWindow"><code class="docutils literal notranslate"><span class="pre">MainWindow</span></code></a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.MainWindow.OnAbout"><code class="docutils literal notranslate"><span class="pre">MainWindow.OnAbout()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.MainWindow.OnExit"><code class="docutils literal notranslate"><span class="pre">MainWindow.OnExit()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.MainWindow.OnConfig"><code class="docutils literal notranslate"><span class="pre">MainWindow.OnConfig()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.MainWindow.OnPop"><code class="docutils literal notranslate"><span class="pre">MainWindow.OnPop()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.MainWindow.OnRun"><code class="docutils literal notranslate"><span class="pre">MainWindow.OnRun()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.MainWindow.OnStop"><code class="docutils literal notranslate"><span class="pre">MainWindow.OnStop()</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.GUIApp.MainWindow.OnResult"><code class="docutils literal notranslate"><span class="pre">MainWindow.OnResult()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../../../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="../../index.html" class="nav-link">PyPop API Reference</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">PyPop.GUIApp</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="module-PyPop.GUIApp">
+<span id="pypop-guiapp"></span><h1>PyPop.GUIApp<a class="headerlink" href="#module-PyPop.GUIApp" title="Link to this heading">#</a></h1>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.GUIApp.ID_ABOUT" title="PyPop.GUIApp.ID_ABOUT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ID_ABOUT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.GUIApp.ID_OPEN_CONFIG" title="PyPop.GUIApp.ID_OPEN_CONFIG"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ID_OPEN_CONFIG</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.GUIApp.ID_OPEN_POP" title="PyPop.GUIApp.ID_OPEN_POP"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ID_OPEN_POP</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.GUIApp.ID_EXIT" title="PyPop.GUIApp.ID_EXIT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ID_EXIT</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.GUIApp.EVT_RESULT_ID" title="PyPop.GUIApp.EVT_RESULT_ID"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EVT_RESULT_ID</span></code></a></p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.GUIApp.ResultEvent" title="PyPop.GUIApp.ResultEvent"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ResultEvent</span></code></a></p></td>
+<td><p>Simple event to carry arbitrary result data</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.GUIApp.WorkerThread" title="PyPop.GUIApp.WorkerThread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WorkerThread</span></code></a></p></td>
+<td><p>A class that represents a thread of control.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.GUIApp.MainWindow" title="PyPop.GUIApp.MainWindow"><code class="xref py py-obj docutils literal notranslate"><span class="pre">MainWindow</span></code></a></p></td>
+<td><p>Creates the main application window for PyPop.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.GUIApp.EVT_RESULT" title="PyPop.GUIApp.EVT_RESULT"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EVT_RESULT</span></code></a>(win, func)</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="module-contents">
+<h2>Module Contents<a class="headerlink" href="#module-contents" title="Link to this heading">#</a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.GUIApp.ID_ABOUT">
+<span class="sig-name descname"><span class="pre">ID_ABOUT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">101</span></em><a class="headerlink" href="#PyPop.GUIApp.ID_ABOUT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.GUIApp.ID_OPEN_CONFIG">
+<span class="sig-name descname"><span class="pre">ID_OPEN_CONFIG</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">102</span></em><a class="headerlink" href="#PyPop.GUIApp.ID_OPEN_CONFIG" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.GUIApp.ID_OPEN_POP">
+<span class="sig-name descname"><span class="pre">ID_OPEN_POP</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">103</span></em><a class="headerlink" href="#PyPop.GUIApp.ID_OPEN_POP" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.GUIApp.ID_EXIT">
+<span class="sig-name descname"><span class="pre">ID_EXIT</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">110</span></em><a class="headerlink" href="#PyPop.GUIApp.ID_EXIT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.GUIApp.EVT_RESULT_ID">
+<span class="sig-name descname"><span class="pre">EVT_RESULT_ID</span></span><a class="headerlink" href="#PyPop.GUIApp.EVT_RESULT_ID" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.GUIApp.EVT_RESULT">
+<span class="sig-name descname"><span class="pre">EVT_RESULT</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">win</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.EVT_RESULT" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.GUIApp.ResultEvent">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">ResultEvent</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.ResultEvent" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">wxPyEvent</span></code></p>
+<div class="graphviz"><img src="../../../_images/inheritance-392576906bd39d971805b38b4c91dacd3acb4424.png" alt="Inheritance diagram of PyPop.GUIApp.ResultEvent" usemap="#inheritance28f06c0d3a" class="inheritance graphviz" /></div>
+<map id="inheritance28f06c0d3a" name="inheritance28f06c0d3a">
+<area shape="rect" id="node1" href="#PyPop.GUIApp.ResultEvent" target="_top" title="Simple event to carry arbitrary result data" alt="" coords="5,5,105,31"/>
+</map><p>Simple event to carry arbitrary result data</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.GUIApp.WorkerThread">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">WorkerThread</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">notify_window</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.WorkerThread" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/threading.html#threading.Thread" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">threading.Thread</span></code></a></p>
+<div class="graphviz"><img src="../../../_images/inheritance-2211ffc53e507188e850944a25699971933577aa.png" alt="Inheritance diagram of PyPop.GUIApp.WorkerThread" usemap="#inheritance8c3ee86bd8" class="inheritance graphviz" /></div>
+<map id="inheritance8c3ee86bd8" name="inheritance8c3ee86bd8">
+<area shape="rect" id="node1" href="https://docs.python.org/3/library/threading.html#threading.Thread" target="_top" title="A class that represents a thread of control." alt="" coords="5,5,77,31"/>
+<area shape="rect" id="node2" href="#PyPop.GUIApp.WorkerThread" target="_top" title="WorkerThread" alt="" coords="96,5,208,31"/>
+</map><p>A class that represents a thread of control.</p>
+<p>This class can be safely subclassed in a limited fashion. There are two ways
+to specify the activity: by passing a callable object to the constructor, or
+by overriding the run() method in a subclass.</p>
+<p>This constructor should always be called with keyword arguments. Arguments are:</p>
+<p><em>group</em> should be None; reserved for future extension when a ThreadGroup
+class is implemented.</p>
+<p><em>target</em> is the callable object to be invoked by the run()
+method. Defaults to None, meaning nothing is called.</p>
+<p><em>name</em> is the thread name. By default, a unique name is constructed of
+the form “Thread-N” where N is a small decimal number.</p>
+<p><em>args</em> is a list or tuple of arguments for the target invocation. Defaults to ().</p>
+<p><em>kwargs</em> is a dictionary of keyword arguments for the target
+invocation. Defaults to {}.</p>
+<p>If a subclass overrides the constructor, it must make sure to invoke
+the base class constructor (Thread.__init__()) before doing anything
+else to the thread.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.GUIApp.WorkerThread.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.WorkerThread.run" title="Link to this definition">#</a></dt>
+<dd><p>Method representing the thread’s activity.</p>
+<p>You may override this method in a subclass. The standard run() method
+invokes the callable object passed to the object’s constructor as the
+target argument, if any, with sequential and keyword arguments taken
+from the args and kwargs arguments, respectively.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.GUIApp.WorkerThread.abort">
+<span class="sig-name descname"><span class="pre">abort</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.WorkerThread.abort" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="PyPop.GUIApp.MainWindow">
+<em class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">MainWindow</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parent</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">datapath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">altpath</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">debugFlag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.MainWindow" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-obj docutils literal notranslate"><span class="pre">wxFrame</span></code></p>
+<div class="graphviz"><img src="../../../_images/inheritance-06c1fb1f2394bcb5d5e7d687358d42cc3f51a36e.png" alt="Inheritance diagram of PyPop.GUIApp.MainWindow" usemap="#inheritance6ca14ef2b8" class="inheritance graphviz" /></div>
+<map id="inheritance6ca14ef2b8" name="inheritance6ca14ef2b8">
+<area shape="rect" id="node1" href="#PyPop.GUIApp.MainWindow" target="_top" title="Creates the main application window for PyPop." alt="" coords="5,5,112,31"/>
+</map><p>Creates the main application window for PyPop.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.GUIApp.MainWindow.OnAbout">
+<span class="sig-name descname"><span class="pre">OnAbout</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.MainWindow.OnAbout" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.GUIApp.MainWindow.OnExit">
+<span class="sig-name descname"><span class="pre">OnExit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.MainWindow.OnExit" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.GUIApp.MainWindow.OnConfig">
+<span class="sig-name descname"><span class="pre">OnConfig</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.MainWindow.OnConfig" title="Link to this definition">#</a></dt>
+<dd><p>Select config file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.GUIApp.MainWindow.OnPop">
+<span class="sig-name descname"><span class="pre">OnPop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.MainWindow.OnPop" title="Link to this definition">#</a></dt>
+<dd><p>Select pop file</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.GUIApp.MainWindow.OnRun">
+<span class="sig-name descname"><span class="pre">OnRun</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.MainWindow.OnRun" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.GUIApp.MainWindow.OnStop">
+<span class="sig-name descname"><span class="pre">OnStop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.MainWindow.OnStop" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="PyPop.GUIApp.MainWindow.OnResult">
+<span class="sig-name descname"><span class="pre">OnResult</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">event</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.GUIApp.MainWindow.OnResult" title="Link to this definition">#</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../Filter/index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyPop.Filter</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="../Haplo/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">PyPop.Haplo</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../../../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 8.2.3.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

@@ -1,0 +1,253 @@
+PyPop.Filter
+============
+
+.. py:module:: PyPop.Filter
+
+.. autoapi-nested-parse::
+
+   Module for filtering data files.
+
+      Filters and cleans data before being accepted as input to PyPop
+      analysis routines.
+
+   .
+
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   PyPop.Filter.SubclassError
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.Filter.Filter
+   PyPop.Filter.PassThroughFilter
+   PyPop.Filter.AnthonyNolanFilter
+   PyPop.Filter.BinningFilter
+   PyPop.Filter.AlleleCountAnthonyNolanFilter
+
+
+Module Contents
+---------------
+
+.. py:exception:: SubclassError
+
+   Bases: :py:obj:`Exception`
+
+   .. autoapi-inheritance-diagram:: PyPop.Filter.SubclassError
+      :parts: 1
+
+
+   Common base class for all non-exit exceptions.
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+.. py:class:: Filter
+
+   Bases: :py:obj:`abc.ABC`
+
+   .. autoapi-inheritance-diagram:: PyPop.Filter.Filter
+      :parts: 1
+
+
+   Abstract base class for Filters
+
+
+   .. py:method:: doFiltering(matrix=None)
+      :abstractmethod:
+
+
+
+   .. py:method:: startFirstPass(locus)
+      :abstractmethod:
+
+
+
+   .. py:method:: checkAlleleName(alleleName)
+      :abstractmethod:
+
+
+
+   .. py:method:: addAllele(alleleName)
+      :abstractmethod:
+
+
+
+   .. py:method:: endFirstPass()
+      :abstractmethod:
+
+
+
+   .. py:method:: startFiltering()
+      :abstractmethod:
+
+
+
+   .. py:method:: filterAllele(alleleName)
+      :abstractmethod:
+
+
+
+   .. py:method:: endFiltering()
+      :abstractmethod:
+
+
+
+   .. py:method:: writeToLog(logstring=None)
+      :abstractmethod:
+
+
+
+   .. py:method:: cleanup()
+      :abstractmethod:
+
+
+
+.. py:class:: PassThroughFilter
+
+   Bases: :py:obj:`Filter`
+
+   .. autoapi-inheritance-diagram:: PyPop.Filter.PassThroughFilter
+      :parts: 1
+
+
+   A filter that doesn't change input data.
+
+
+   .. py:method:: doFiltering(matrix=None)
+
+
+   .. py:method:: startFirstPass(locus)
+
+
+   .. py:method:: checkAlleleName(alleleName)
+
+
+   .. py:method:: addAllele(alleleName)
+
+
+   .. py:method:: endFirstPass()
+
+
+   .. py:method:: startFiltering()
+
+
+   .. py:method:: filterAllele(alleleName)
+
+
+   .. py:method:: endFiltering()
+
+
+   .. py:method:: writeToLog(logstring=None)
+
+
+   .. py:method:: cleanup()
+
+
+.. py:class:: AnthonyNolanFilter(directoryName=None, remoteMSF=None, alleleFileFormat='msf', preserveAmbiguousFlag=0, preserveUnknownFlag=0, preserveLowresFlag=0, alleleDesignator='*', logFile=None, untypedAllele='****', unsequencedSite='#', sequenceFileSuffix='_prot', filename=None, numDigits=4, verboseFlag=1, debug=0, sequenceFilterMethod='strict')
+
+   Bases: :py:obj:`Filter`
+
+   .. autoapi-inheritance-diagram:: PyPop.Filter.AnthonyNolanFilter
+      :parts: 1
+
+
+   Filters data via anthonynolan's allele call data.
+
+   Allele call data files can be of either txt or msf formats.
+   txt files available at http://www.anthonynolan.com
+   msf files available at ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/
+   Use of msf files is required in order to translate allele codes
+   into polymorphic sequence data.
+
+
+   .. py:method:: doFiltering(matrix=None)
+
+      Do filtering on StringMatrix
+
+      Given a StringMatrix, does the filtering on the matrix, and
+      returns it for further downstream processing
+
+
+
+   .. py:method:: startFirstPass(locus)
+
+
+   .. py:method:: checkAlleleName(alleleName)
+
+      Checks allele name against the database.
+
+      Returns the allele truncated to appropriate number of digits,
+      if it can't be found using any of the heuristics, return it as
+      an untyped allele (normally four asterisks)
+
+
+
+   .. py:method:: addAllele(alleleName)
+
+
+   .. py:method:: endFirstPass()
+
+
+   .. py:method:: startFiltering()
+
+
+   .. py:method:: filterAllele(alleleName)
+
+
+   .. py:method:: endFiltering()
+
+
+   .. py:method:: writeToLog(logstring='\n')
+
+
+   .. py:method:: cleanup()
+
+
+   .. py:method:: makeSeqDictionaries(matrix=None, locus=None)
+
+
+   .. py:method:: translateMatrix(matrix=None)
+
+
+.. py:class:: BinningFilter(customBinningDict=None, logFile=None, untypedAllele='****', filename=None, binningDigits=4, debug=0)
+
+   Filters data through rules defined in one file for each locus.
+
+
+   .. py:method:: doDigitBinning(matrix=None)
+
+
+   .. py:method:: doCustomBinning(matrix=None)
+
+
+   .. py:method:: lookupCustomBinning(testAllele, locus)
+
+
+.. py:class:: AlleleCountAnthonyNolanFilter(lumpThreshold=None, **kw)
+
+   Bases: :py:obj:`AnthonyNolanFilter`
+
+   .. autoapi-inheritance-diagram:: PyPop.Filter.AlleleCountAnthonyNolanFilter
+      :parts: 1
+
+
+   Filters data with an allelecount less than a threshold.
+
+
+   .. py:method:: endFirstPass()
+
+      Do regular AnthonyNolanFilter then translate alleles with
+      count < lumpThreshold to 'lump'
+
+
+
+
