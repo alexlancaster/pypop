@@ -1,6 +1,7 @@
 import io
 import logging
 import sys
+from pathlib import Path
 
 import pytest
 
@@ -91,6 +92,16 @@ def test_cli_logger_combinations(
     assert ("warn" in output) == (expected_level <= logging.WARNING)
     assert ("error" in output) == (expected_level <= logging.ERROR)
     assert "crit" in output
+
+    # if a log file was specified, check that it exists and contains messages
+    if expected_file:
+        file_path = Path(expected_file)
+        assert file_path.exists(), f"Expected log file {file_path} not found"
+        content = file_path.read_text()
+        # At least one of the messages should appear in the file
+        assert any(
+            msg in content for msg in ["debug", "info", "warn", "error", "crit"]
+        ), f"No log messages found in {file_path}"
 
     # close all handlers to avoid PytestUnraisableExceptionWarning
     for h in logging.getLogger("pypop").handlers[:]:
