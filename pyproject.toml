@@ -238,7 +238,6 @@ ignore = [
   "N806",  # we don't currently require methods to be lowercase
   "N815",  # mixed case OK in class scope
   "N816",  # mixed case OK in global scope
-  "N999",  # we allow for non-snake case in module names
   "S101",  # allow assert
 ]
 

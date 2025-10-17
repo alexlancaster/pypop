@@ -91,6 +91,8 @@ LOG: Data file has no header data block
 ./1-locus-genotype.tsv
 
 """
+# allow package name itself to be CamelCase, even if modules are not
+# ruff: noqa: N999
 
 import logging
 import platform
