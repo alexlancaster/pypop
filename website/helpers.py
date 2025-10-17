@@ -1,7 +1,5 @@
 """Customization and helper classes for conf.py."""
 
-import ast
-import contextlib
 import importlib.util
 import os
 import re
@@ -132,31 +130,18 @@ def strip_first_title(rst_text):
     return re.sub(pattern, "", rst_text, count=1, flags=re.MULTILINE)
 
 
-def _make_deprecations_block(app):
-    """Parse PyPop/__init__.py and generate an RST 'versionchanged' section."""
-    init_path = Path(app.srcdir) / ".." / "src" / "PyPop" / "__init__.py"
-    if not init_path.exists():
-        return ""
-
-    # Parse using AST to avoid executing anything
-    src = init_path.read_text(encoding="utf-8")
-    tree = ast.parse(src)
-
-    mapping = {}
-    for node in ast.walk(tree):
-        if isinstance(node, ast.Assign):
-            for target in node.targets:
-                if getattr(target, "id", None) == "_deprecated_modules":
-                    with contextlib.suppress(Exception):
-                        mapping = ast.literal_eval(node.value)
-                    break
-
-    if not mapping:
+def _make_deprecations_block():
+    """Generate an RST 'versionchanged' section using deprecated_modules mapping."""
+    try:
+        # Import the mapping from the actual package
+        from PyPop._deprecations import deprecated_modules  # noqa: PLC0415
+    except ModuleNotFoundError:
+        print("[helpers] No deprecated_modules to exclude")
         return ""
 
     # Format as RST
     entries = "\n".join(
-        f"   - ``{old}`` → ``{new}``" for old, new in sorted(mapping.items())
+        f"   - ``{old}`` → ``{new}``" for old, new in sorted(deprecated_modules.items())
     )
 
     return textwrap.dedent(
@@ -194,7 +179,7 @@ def prepare_autoapi_index(app):
         src_generated.unlink()
 
     # --- NEW: read deprecated modules from PyPop/__init__.py ---
-    deprecations_block = _make_deprecations_block(app)
+    deprecations_block = _make_deprecations_block()
 
     gfdl_content = r"""
 .. only:: latex
