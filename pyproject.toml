@@ -94,7 +94,8 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
      "cp36-musllinux_*", "cp37-musllinux_*", "cp38-musllinux_*", # older musllinux missing numpy wheels
      "cp314t*"             # lxml not yet built
      ]
-test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
+#test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
+test-skip = ["*-win*", "cp38-macosx_arm64"]
 test-extras = ["test"]
 #test-command = ["pytest -v --pyargs PyPop  {package}/website/docs {package}/tests ${PYTEST_OPTIONS}"]
 test-command = ["pytest -v {package}/website/docs {package}/tests ${PYTEST_OPTIONS}"]
