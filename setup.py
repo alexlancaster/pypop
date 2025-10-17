@@ -48,7 +48,7 @@ from setuptools.command.build_ext import build_ext as _build_ext
 from setuptools.command.build_py import build_py as _build_py
 from setuptools.extension import Extension
 
-from src.script_build.generate_deprecations import generate_deprecated_stubs
+# from src.script_build.generate_deprecations import generate_deprecated_stubs
 from src.script_build.generate_metadata import generate_metadata
 
 
@@ -135,9 +135,9 @@ class CustomBuildPy(_build_py):
         # installation
         # FIXME: need to delay this import because _metadata.py may
         # not have been created yet
-        from src.PyPop._deprecations import deprecated_modules  # noqa: PLC0415
+        # from src.PyPop._deprecations import deprecated_modules
 
-        generate_deprecated_stubs(build_lib, deprecated_modules)
+        # generate_deprecated_stubs(build_lib, deprecated_modules)
 
         # FIXME: need to delay this import because _metadata.py may
         # not have been created yet

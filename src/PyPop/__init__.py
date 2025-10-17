@@ -96,6 +96,11 @@ import logging
 import platform
 import sys
 
+from ._deprecations import DeprecatedModuleFinder, deprecated_modules
+
+# insert finder at the very start of meta_path
+sys.meta_path.insert(0, DeprecatedModuleFinder(deprecated_modules))
+
 logger = logging.getLogger("pypop")
 """Package-wide logger used throughout a PyPop run.
 

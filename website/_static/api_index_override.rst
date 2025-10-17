@@ -1,7 +1,7 @@
 .. _api-reference-top:
 
-PyPop API Reference
-===================
+API Reference (|api_version|)
+=============================
 
 .. only:: latex
 
