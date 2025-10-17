@@ -1,6 +1,7 @@
 import importlib
 import importlib.abc
 import sys
+import warnings
 
 deprecated_modules = {
     "PyPop.Arlequin": "PyPop.arlequin",
@@ -18,6 +19,10 @@ deprecated_modules = {
 }
 
 
+class PyPopModuleRenameDeprecationWarning(DeprecationWarning):
+    """Deprecation warning for PyPop module renames."""
+
+
 class DeprecatedModuleFinder(importlib.abc.MetaPathFinder):
     def __init__(self, mapping):
         self.mapping = mapping
@@ -28,11 +33,11 @@ class DeprecatedModuleFinder(importlib.abc.MetaPathFinder):
             module = importlib.import_module(new_name)
             sys.modules[fullname] = module
 
-            # warnings.warn(
-            #    f"Module '{fullname}' is deprecated; use '{new_name}' instead",
-            #    DeprecationWarning,
-            #    stacklevel=2,
-            # )
+            warnings.warn(
+                f"Module '{fullname}' is deprecated; use '{new_name}' instead",
+                PyPopModuleRenameDeprecationWarning,
+                stacklevel=5,
+            )
 
             return module.__spec__
         return None

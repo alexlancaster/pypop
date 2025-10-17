@@ -75,7 +75,8 @@ addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config", "--doct
 xfail_strict = true
 # convert warnings to errors, except for ImportWarnings in numpy (needed for pp38)
 # FIXME: eventually we should be able to remove the numpy exception
-filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*"]
+# ignore the PyPop module rename warnings for the moment
+filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*", "ignore::PyPop._deprecations.PyPopModuleRenameDeprecationWarning"]
 log_cli_level = "INFO"
 testpaths = [
   "website/docs",
