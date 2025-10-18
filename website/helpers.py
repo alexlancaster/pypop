@@ -5,6 +5,7 @@ import os
 import re
 import sys
 import textwrap
+from collections import defaultdict
 from pathlib import Path
 
 from docutils import nodes
@@ -131,27 +132,177 @@ def strip_first_title(rst_text):
 
 
 def _make_deprecations_block():
-    """Generate an RST 'versionchanged' section using deprecated_modules mapping."""
+    """Generate an RST fragment documenting.
+
+      - renames (under .. versionchanged:: 1.4.0)
+      - already deprecated modules (.. deprecated:: <version>)
+      - scheduled removals and already-removed modules (.. versionremoved:: <version>).
+
+    Assumes `PyPop._deprecations.deprecated_modules` exists and has the structure:
+        {
+            "PyPop.OldName": {
+                "new": "PyPop.new_name",       # optional for rename
+                "reason": "human text",        # optional explanation
+                "deprecated": "X.Y.Z",         # optional: when deprecation started
+                "removal": "A.B.C",            # optional: planned removal version
+                "removed": "D.E.F",            # optional: already removed in this version
+            },
+            ...
+        }
+
+    Special handling: all renames are presented under versionchanged
+    1.4.0 (per project policy).
+
+    """
     try:
-        # Import the mapping from the actual package
         from PyPop._deprecations import deprecated_modules  # noqa: PLC0415
-    except ModuleNotFoundError:
-        print("[helpers] No deprecated_modules to exclude")
+    except Exception:
+        # If the package isn't importable (docs build in different context), try to load a local fallback
         return ""
 
-    # Format as RST
-    entries = "\n".join(
-        f"   - ``{old}`` → ``{new}``" for old, new in sorted(deprecated_modules.items())
-    )
+    # Prepare groups
+    renames = []  # (old, new, reason)
+    deprecated = []  # (old, new_or_None, reason, deprecated_version, removal_version)
+    removed = []  # (old, reason, removed_version)
 
-    return textwrap.dedent(
-        f"""
-.. versionchanged:: 1.4.0
-   The following modules have been renamed to conform to PEP 8:
+    for old, info in sorted(deprecated_modules.items()):
+        new = info.get("new")
+        reason = info.get("reason", "").strip()
+        dep_ver = info.get("deprecated") or info.get("introduced")  # support either key
+        removal_ver = info.get("removal")
+        removed_ver = info.get("removed")
 
-{entries}
-"""
-    )
+        if new:
+            # treat as a rename (changed in 1.4.0 per request)
+            renames.append((old, new, reason))
+        if dep_ver:
+            # show deprecation; include new if present
+            deprecated.append((old, new, reason, dep_ver, removal_ver))
+        if removed_ver:
+            removed.append((old, reason, removed_ver))
+
+    blocks = []
+
+    # 1) All module renames grouped under versionchanged:: 1.4.0
+    if renames:
+        entries = []
+        for old, new, reason in renames:
+            line = f"   - :mod:`{old}` → :mod:`{new}`"
+            if reason:
+                line += f"\n\n     {reason}"
+            entries.append(line)
+
+        block = textwrap.dedent(
+            f"""
+            .. versionchanged:: 1.4.0
+               The following modules have been renamed to conform to PEP 8 and improve clarity:
+
+            {chr(10).join(entries)}
+            """
+        )
+        blocks.append(block.strip("\n"))
+
+    # 2) Deprecated modules (one or more .. deprecated:: blocks, grouped by deprecation version)
+    if deprecated:
+        # group by deprecated version (so modules deprecated at different times get separate headings)
+        by_dep_ver = defaultdict(list)
+        for old, new, reason, dep_ver, removal_ver in deprecated:
+            by_dep_ver[dep_ver].append((old, new, reason, removal_ver))
+
+        for dep_ver in sorted(by_dep_ver):
+            entries = []
+            for old, new, reason, removal_ver in sorted(by_dep_ver[dep_ver]):
+                if new:
+                    line = f"   - :mod:`{old}` → :mod:`{new}`"
+                else:
+                    line = f"   - :mod:`{old}`"
+                if removal_ver:
+                    line += f" — scheduled for removal in {removal_ver}."
+                if reason:
+                    line += f"\n\n     {reason}"
+                entries.append(line)
+
+            block = textwrap.dedent(
+                f"""
+                .. deprecated:: {dep_ver}
+                   The following modules were marked deprecated in {dep_ver}:
+
+                {chr(10).join(entries)}
+                """
+            )
+            blocks.append(block.strip("\n"))
+
+    # 3) Already removed modules
+    if removed:
+        by_removed_ver = defaultdict(list)
+        for old, reason, removed_ver in removed:
+            by_removed_ver[removed_ver].append((old, reason))
+
+        for rem_ver in sorted(by_removed_ver):
+            entries = []
+            for old, reason in sorted(by_removed_ver[rem_ver]):
+                line = f"   - :mod:`{old}`"
+                if reason:
+                    line += f"\n\n     {reason}"
+                entries.append(line)
+
+            block = textwrap.dedent(
+                f"""
+                .. versionremoved:: {rem_ver}
+                   The following modules were removed in {rem_ver}:
+
+                {chr(10).join(entries)}
+                """
+            )
+            blocks.append(block.strip("\n"))
+
+    # Join all blocks with a blank line between them
+    if blocks:
+        return "\n\n".join(blocks) + "\n"
+    return ""
+
+
+def _pypop_process_deprecation(_app, what, name, obj, _options, lines):
+    """Sphinx `autodoc-process-docstring` handler.
+
+    - `what`   : "module", "class", "function", etc.
+    - `name`   : fully qualified name
+    - `obj`    : the Python object
+    - `options`: autodoc options
+    - `lines`  : list of docstring lines (modifiable in place).
+    """
+    try:
+        info = getattr(obj, "__pypop_deprecation__", None)
+    except Exception:
+        info = None
+
+    if not info:
+        print(f"[AutoAPI] nothing to do, can't inject {name}")
+        return  # nothing to do
+
+    print(f"[AutoAPI] Injecting deprecation into {name}")
+
+    # Build replacement lines: place the deprecation directive at the top
+    ver = info.get("version_warn", "1.4.0")
+    new = info.get("new_name")
+    deprecated_block = [f".. deprecated:: {ver}"]
+    if new:
+        # For functions use :func:, for classes you might want :class:
+        # We don't know exact type reliably here; autodoc passes `what` so we can pick
+        if what == "class":
+            deprecated_block.append(f"   Use :class:`{new}` instead.")
+        else:
+            deprecated_block.append(f"   Use :func:`{new}` instead.")
+
+    # Insert block at top of docstring lines with a blank line separator
+    # Avoid duplicating if user already added a deprecated:: line themselves
+    for line in lines:
+        if line.strip().startswith(".. deprecated::"):
+            return
+
+    # Prepend in reverse order so final docstring starts with the directive
+    for _i, line in enumerate(reversed([*deprecated_block, ""])):
+        lines.insert(0, line)
 
 
 def prepare_autoapi_index(app):

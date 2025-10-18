@@ -950,6 +950,9 @@ def critical_exit(message, *args):  # noqa: D417
     sys.exit(1)
 
 
+# from PyPop import deprecated_function
+
+
 def getStreamType(stream):
     """Get the type of stream.
 
@@ -960,6 +963,11 @@ def getStreamType(stream):
       string: either ``xml`` or ``text``.
     """
     return "xml" if isinstance(stream, XMLOutputStream) == 1 else "text"
+
+
+# @deprecated_function(new_func=get_stream_type, version_warn="1.4.0")
+# def getStreamType(stream):
+#    pass
 
 
 def glob_with_pathlib(pattern):
