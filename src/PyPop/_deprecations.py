@@ -65,6 +65,10 @@ deprecated_modules = {
         "reason": "PEP8 compliance.",
         "changed": "1.4.0",
     },
+    "PyPop.FooBar": {
+        "removed": "1.3.0",
+        "reason": "obsolete",
+    },
 }
 
 

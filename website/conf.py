@@ -119,24 +119,11 @@ autoapi_dirs = get_autoapi_dirs("PyPop", "../src/PyPop")
 autoapi_type = "python"
 autoapi_root = "api"
 autoapi_add_toctree_entry = False
-# autoapi_keep_files = True
+autoapi_keep_files = True
 autoapi_own_page_level = "module"
 autoapi_template_dir = "_templates/autoapi"
 autoapi_file_pattern = "*.py"
-
-# ignore deprecated API
-try:
-    from PyPop._deprecations import deprecated_modules
-
-    # exclude stubs from AutoAPI
-    autoapi_ignore = [
-        f"**/PyPop/{name.split('.')[-1]}.py" for name in deprecated_modules
-    ]
-    print("autoapi_ignore:", autoapi_ignore)
-except ModuleNotFoundError:
-    print("no stubs to ignore")
-    autoapi_ignore = []
-    # autoapi_ignore = [ "**/conf.py"]
+# autoapi_ignore = [ "**/conf.py"]
 
 autoapi_member_order = "source"
 autoapi_options = [

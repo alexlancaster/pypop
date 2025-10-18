@@ -132,134 +132,144 @@ def strip_first_title(rst_text):
 
 
 def _make_deprecations_block():
-    """Generate an RST fragment documenting.
+    """Generate an RST fragment documenting module renames, deprecations, and removals.
 
-      - renames (under .. versionchanged:: 1.4.0)
-      - already deprecated modules (.. deprecated:: <version>)
-      - scheduled removals and already-removed modules (.. versionremoved:: <version>).
+    This groups items by (status, version) and emits Sphinx directives with
+    correct indentation so the generated RST is valid.
 
-    Assumes `PyPop._deprecations.deprecated_modules` exists and has the structure:
+    Input format (PyPop._deprecations.deprecated_modules):
         {
             "PyPop.OldName": {
-                "new": "PyPop.new_name",       # optional for rename
-                "reason": "human text",        # optional explanation
-                "deprecated": "X.Y.Z",         # optional: when deprecation started
-                "removal": "A.B.C",            # optional: planned removal version
-                "removed": "D.E.F",            # optional: already removed in this version
+                "new": "PyPop.new_name",       # optional
+                "reason": "human text",        # optional
+                "changed": "X.Y.Z",            # optional -> versionchanged
+                "deprecated": "A.B.C",         # optional -> deprecated
+                "removal": "D.E.F",            # optional scheduled removal (informational)
+                "removed": "E.F.G",            # optional -> versionremoved
             },
             ...
         }
-
-    Special handling: all renames are presented under versionchanged
-    1.4.0 (per project policy).
-
     """
     try:
         from PyPop._deprecations import deprecated_modules  # noqa: PLC0415
     except Exception:
-        # If the package isn't importable (docs build in different context), try to load a local fallback
         return ""
 
-    # Prepare groups
-    renames = []  # (old, new, reason)
-    deprecated = []  # (old, new_or_None, reason, deprecated_version, removal_version)
-    removed = []  # (old, reason, removed_version)
+    INDENT = "   "
+    BULLET_PREFIX = INDENT + "- "
+    CONTINUE_INDENT = INDENT + "  "
 
+    # Group items by (status, version)
+    groups = defaultdict(list)
     for old, info in sorted(deprecated_modules.items()):
         new = info.get("new")
-        reason = info.get("reason", "").strip()
-        dep_ver = info.get("deprecated") or info.get("introduced")  # support either key
-        removal_ver = info.get("removal")
+        reason = (info.get("reason") or "").strip()
+        changed_ver = info.get("changed")
+        dep_ver = info.get("deprecated")
         removed_ver = info.get("removed")
+        removal_ver = info.get("removal")
 
-        if new:
-            # treat as a rename (changed in 1.4.0 per request)
-            renames.append((old, new, reason))
+        if changed_ver:
+            groups[("changed", changed_ver)].append((old, new, reason))
         if dep_ver:
-            # show deprecation; include new if present
-            deprecated.append((old, new, reason, dep_ver, removal_ver))
+            groups[("deprecated", dep_ver)].append((old, new, reason, removal_ver))
         if removed_ver:
-            removed.append((old, reason, removed_ver))
+            groups[("removed", removed_ver)].append((old, new, reason))
+
+    # Build version→status grouping
+    versions = defaultdict(lambda: {"changed": [], "deprecated": [], "removed": []})
+    for (status, version), items in groups.items():
+        versions[version][status].extend(items)
+
+    # Sort versions descending (semantic-like order)
+    def parse_ver(v):
+        try:
+            return tuple(map(int, v.split(".")))
+        except Exception:
+            return (0, 0, 0)
+
+    sorted_versions = sorted(versions.keys(), key=parse_ver, reverse=True)
 
     blocks = []
 
-    # 1) All module renames grouped under versionchanged:: 1.4.0
-    if renames:
-        entries = []
-        for old, new, reason in renames:
-            line = f"   - :mod:`{old}` → :mod:`{new}`"
-            if reason:
-                line += f"\n\n     {reason}"
-            entries.append(line)
+    for version in sorted_versions:
+        vdata = versions[version]
 
-        block = textwrap.dedent(
-            f"""
-            .. versionchanged:: 1.4.0
-               The following modules have been renamed to conform to PEP 8 and improve clarity:
+        # order: changed → deprecated → removed
+        for status in ("changed", "deprecated", "removed"):
+            items = vdata[status]
+            if not items:
+                continue
 
-            {chr(10).join(entries)}
-            """
-        )
-        blocks.append(block.strip("\n"))
+            lines = []
 
-    # 2) Deprecated modules (one or more .. deprecated:: blocks, grouped by deprecation version)
-    if deprecated:
-        # group by deprecated version (so modules deprecated at different times get separate headings)
-        by_dep_ver = defaultdict(list)
-        for old, new, reason, dep_ver, removal_ver in deprecated:
-            by_dep_ver[dep_ver].append((old, new, reason, removal_ver))
+            if status == "changed":
+                lines.append(f".. versionchanged:: {version}")
+                lines.append(
+                    INDENT + "The following modules were renamed or refactored:"
+                )
+                lines.append("")
+                for old, new, reason in sorted(items):
+                    lines.append(f"{BULLET_PREFIX}:mod:`{old}` → :mod:`{new}`")
+                    if reason:
+                        # lines.append("")
+                        wrapped = textwrap.wrap(reason, width=72)
+                        for ln in wrapped:
+                            lines.append(f"{CONTINUE_INDENT}{ln}")
+                    lines.append("")
 
-        for dep_ver in sorted(by_dep_ver):
-            entries = []
-            for old, new, reason, removal_ver in sorted(by_dep_ver[dep_ver]):
-                if new:
-                    line = f"   - :mod:`{old}` → :mod:`{new}`"
-                else:
-                    line = f"   - :mod:`{old}`"
-                if removal_ver:
-                    line += f" — scheduled for removal in {removal_ver}."
-                if reason:
-                    line += f"\n\n     {reason}"
-                entries.append(line)
+            elif status == "deprecated":
+                lines.append(f".. deprecated:: {version}")
+                lines.append(
+                    INDENT
+                    + f"The following modules were marked deprecated in {version}:"
+                )
+                lines.append("")
+                for old, new, reason, removal_ver in sorted(items):
+                    if new:
+                        lines.append(f"{BULLET_PREFIX}:mod:`{old}` → :mod:`{new}`")
+                    else:
+                        lines.append(f"{BULLET_PREFIX}:mod:`{old}`")
+                    if removal_ver:
+                        # lines.append("")
+                        lines.append(
+                            f"{CONTINUE_INDENT}**Scheduled for removal in {removal_ver}.**"
+                        )
+                        # lines.append(f"**Scheduled for removal in {removal_ver}.**")
+                    if reason:
+                        # lines.append("")
+                        wrapped = textwrap.wrap(reason, width=72)
+                        for ln in wrapped:
+                            lines.append(f"{CONTINUE_INDENT}{ln}")
+                    lines.append("")
 
-            block = textwrap.dedent(
-                f"""
-                .. deprecated:: {dep_ver}
-                   The following modules were marked deprecated in {dep_ver}:
+            elif status == "removed":
+                lines.append(f".. versionremoved:: {version}")
+                lines.append(
+                    INDENT + f"The following modules were removed in {version}:"
+                )
+                lines.append("")
+                for old, new, reason in sorted(items):
+                    lines.append(f"{BULLET_PREFIX}:mod:`{old}`")
+                    if new:
+                        # lines.append("")
+                        lines.append(
+                            f"{CONTINUE_INDENT}(previously replaced by :mod:`{new}`)"
+                        )
+                    if reason:
+                        # lines.append("")
+                        wrapped = textwrap.wrap(reason, width=72)
+                        for ln in wrapped:
+                            lines.append(f"{CONTINUE_INDENT}{ln}")
+                    lines.append("")
 
-                {chr(10).join(entries)}
-                """
-            )
-            blocks.append(block.strip("\n"))
+            while lines and lines[-1] == "":
+                lines.pop()
+            blocks.append("\n".join(lines))
 
-    # 3) Already removed modules
-    if removed:
-        by_removed_ver = defaultdict(list)
-        for old, reason, removed_ver in removed:
-            by_removed_ver[removed_ver].append((old, reason))
-
-        for rem_ver in sorted(by_removed_ver):
-            entries = []
-            for old, reason in sorted(by_removed_ver[rem_ver]):
-                line = f"   - :mod:`{old}`"
-                if reason:
-                    line += f"\n\n     {reason}"
-                entries.append(line)
-
-            block = textwrap.dedent(
-                f"""
-                .. versionremoved:: {rem_ver}
-                   The following modules were removed in {rem_ver}:
-
-                {chr(10).join(entries)}
-                """
-            )
-            blocks.append(block.strip("\n"))
-
-    # Join all blocks with a blank line between them
-    if blocks:
-        return "\n\n".join(blocks) + "\n"
-    return ""
+    if not blocks:
+        return ""
+    return "\n\n".join(blocks) + "\n"
 
 
 def _pypop_process_deprecation(_app, what, name, obj, _options, lines):
