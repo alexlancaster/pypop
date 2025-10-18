@@ -337,11 +337,21 @@ def prepare_autoapi_index(app):
         generated_content = strip_first_title(generated_content)
         src_generated.unlink()  # prevent Sphinx from processing it separately
 
+    # --- read API updates ---
+    try:
+        from PyPop import _deprecations  # noqa: PLC0415
+
+        # get the docstring
+        api_update_block = _deprecations.__doc__
+    except ImportError:
+        api_update_block = ""
+
     # --- read deprecations ---
     deprecations_block = _make_deprecations_block()
 
     # --- substitute placeholders ---
     final_content = template_content
+    final_content = final_content.replace("{{api_update_block}}", api_update_block)
     final_content = final_content.replace("{{deprecations_block}}", deprecations_block)
     final_content = final_content.replace("{{generated_api_index}}", generated_content)
 
