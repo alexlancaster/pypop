@@ -316,67 +316,44 @@ def _pypop_process_deprecation(_app, what, name, obj, _options, lines):
 
 
 def prepare_autoapi_index(app):
-    """Substitute the top-level index to be generated."""
-    # don't hardcode, get this from config
+    """Substitute the top-level index using a template file with placeholders.
+
+    Placeholders in api_index_override.rst:
+        {{deprecations_block}}    -> substituted with _make_deprecations_block() output
+        {{generated_api_index}}   -> substituted with the generated PyPop/index.rst content
+    """
     autoapi_root = getattr(app.config, "autoapi_root", "")
-    src_override = Path(app.srcdir) / "_static" / "api_index_override.rst"
+    template_path = Path(app.srcdir) / "_static" / "api_index_override.rst"
     src_generated = Path(app.srcdir) / autoapi_root / "PyPop" / "index.rst"
     dst = Path(app.srcdir) / autoapi_root / "index.rst"
 
     print(
-        f"[helpers]: replace index: concatenate {src_override} with {src_generated} and put output in {dst}"
+        f"[helpers]: generating API index from template {template_path}, "
+        f"generated index {src_generated} → {dst}"
     )
 
-    # Read override content
-    override_content = src_override.read_text(encoding="utf-8")
+    # --- read template ---
+    template_content = template_path.read_text(encoding="utf-8")
 
-    # Read generated PyPop/index.rst content if it exists
+    # --- read generated PyPop/index.rst content ---
     generated_content = ""
     if src_generated.exists():
         generated_content = src_generated.read_text(encoding="utf-8")
-        # FIXME: get ride of first title in the generated content, slightly hacky
         generated_content = strip_first_title(generated_content)
-        # Delete the generated PyPop/index.rst so Sphinx doesn't process it separately
-        src_generated.unlink()
+        src_generated.unlink()  # prevent Sphinx from processing it separately
 
-    # --- NEW: read deprecated modules from PyPop/__init__.py ---
+    # --- read deprecations ---
     deprecations_block = _make_deprecations_block()
 
-    gfdl_content = r"""
-.. only:: latex
+    # --- substitute placeholders ---
+    final_content = template_content
+    final_content = final_content.replace("{{deprecations_block}}", deprecations_block)
+    final_content = final_content.replace("{{generated_api_index}}", generated_content)
 
-   .. raw:: latex
-
-      \begingroup
-      \footnotesize
-      \sphinxsetup{%
-      %TitleColor={named}{blue},
-      }
-
-   .. _api-gfdl:
-
-   .. include:: /docs/gfdl.rst
-
-   .. raw:: latex
-
-      \endgroup
-    """
-
-    # Combine them: override first, then generated, then the GFDL wrapped in an environment
-    final_content = (
-        override_content
-        + "\n\n"
-        + deprecations_block
-        + "\n\n"
-        + generated_content
-        + "\n\n"
-        + gfdl_content
-    )
-
-    # Ensure parent exists
+    # --- ensure destination exists ---
     dst.parent.mkdir(parents=True, exist_ok=True)
 
-    # Write final merged index.rst
+    # --- write final merged index.rst ---
     dst.write_text(final_content, encoding="utf-8")
 
 
