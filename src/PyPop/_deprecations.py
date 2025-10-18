@@ -73,11 +73,17 @@ deprecated_modules = {
 
 
 class PyPopModuleRenameDeprecationWarning(DeprecationWarning):
-    """Deprecation warning for PyPop module renames."""
+    """Deprecation warning for PyPop module renames.
+
+    .. versionadded:: 1.4.0
+    """
 
 
 class DeprecatedModuleFinder(importlib.abc.MetaPathFinder):
-    """Meta path finder to intercept imports of deprecated modules."""
+    """Meta path finder to intercept imports of deprecated modules.
+
+    .. versionadded:: 1.4.0
+    """
 
     def __init__(self, mapping):
         """mapping: dict of old module -> dict with keys.

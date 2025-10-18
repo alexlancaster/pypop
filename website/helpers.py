@@ -220,10 +220,7 @@ def _make_deprecations_block():
 
             elif status == "deprecated":
                 lines.append(f".. deprecated:: {version}")
-                lines.append(
-                    INDENT
-                    + f"The following modules were marked deprecated in {version}:"
-                )
+                lines.append(INDENT + "The following modules were marked deprecated:")
                 lines.append("")
                 for old, new, reason, removal_ver in sorted(items):
                     if new:
@@ -245,9 +242,7 @@ def _make_deprecations_block():
 
             elif status == "removed":
                 lines.append(f".. versionremoved:: {version}")
-                lines.append(
-                    INDENT + f"The following modules were removed in {version}:"
-                )
+                lines.append(INDENT + "The following modules were removed:")
                 lines.append("")
                 for old, new, reason in sorted(items):
                     lines.append(f"{BULLET_PREFIX}:mod:`{old}`")

@@ -51,16 +51,16 @@ API changes
 Modules have been renamed to follow the lower-case convention of `PEP8
 <https://peps.python.org/pep-0008/#package-and-module-names>`_.  In
 addition to lowercasing, some have further renaming to clarify their
-purpose and follow standard conventions. User-created Python scripts
-that use the PyPop API will continue to work with the old module
-names, but raise a
-:exc:`~PyPop._deprecations.PyPopModuleRenameDeprecationWarning` (a
-custom :exc:`DeprecationWarning`). In the following minor release,
-1.5.0, the warnings will become :exc:`ModuleNotFoundError`. The
-backwards-compatible bindings will be completely removed in the next
-major release.  Command-line users of ``pypop`` will not be affected
-by these changes, which are completely internal, scripts will continue
-to work as normal.
+purpose and follow standard conventions. Backwards-compatibile
+bindings have been created that allow end-user Python scripts using
+the PyPop API to continue to work with the old module names.  However
+such use will raise a
+:exc:`~PyPop.PyPopModuleRenameDeprecationWarning` (a custom
+:exc:`DeprecationWarning`). In the following minor release, 1.5.0, the
+warnings will become more visible :exc:`UserWarning`. These bindings
+will be completely removed in the next major release.  Command-line
+users of ``pypop`` will not be affected by these changes, which are
+completely internal, scripts will continue to work as normal.
 
 {{deprecations_block}}
 
