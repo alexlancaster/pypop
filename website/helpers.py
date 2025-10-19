@@ -11,7 +11,25 @@ from pathlib import Path
 from docutils import nodes
 from pygments.formatters.latex import LatexFormatter
 from sphinx.directives.code import LiteralInclude
+from sphinx.ext.doctest import TestDirective
 from sphinx.writers.latex import LaTeXTranslator as SphinxLaTeXTranslator
+
+_orig_run = TestDirective.run
+
+
+def _patched_run(self):
+    """Hack to make testoutput look like console."""
+    nodes = _orig_run(self)
+    for node in nodes:
+        if (
+            getattr(node, "get", lambda _k, default=None: default)("testnodetype", None)
+            == "testoutput"
+        ):
+            node["language"] = "pycon"  # give console highlighting
+    return nodes
+
+
+TestDirective.run = _patched_run
 
 
 class MyLiteralInclude(LiteralInclude):

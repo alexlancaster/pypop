@@ -1230,8 +1230,8 @@ file format details and selecting a single ``[HardyWeinberg]``
 analysis.  It then performs the equivalent of the :ref:`popmeta script
 <guide-usage-popmeta>` and generates output TSV files.
 
-This is done by using :class:`PyPop.Main.Main` to generate the initial
-XML output, and then using :class:`PyPop.Meta.Meta` to process this
+This is done by using :class:`Main` to generate the initial
+XML output, and then using :class:`Meta` to process this
 XML to generate ``.tsv`` file output suitable for further
 analysis. Here is the process, step-by-step:
 
@@ -1310,8 +1310,8 @@ analysis. Here is the process, step-by-step:
          >>> from importlib.resources import files  # get location from installation
          >>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
 
-4. Now we can create the :class:`PyPop.Main.Main` instance, using the
-   ``config`` object to analyze the data in ``my.pop`` :
+4. Now we can create the :class:`Main` instance, using the ``config``
+   object to analyze the data in ``my.pop`` :
 
    .. only:: api_13
 
@@ -1336,6 +1336,8 @@ analysis. Here is the process, step-by-step:
         from PyPop.popanalysis import Main
         application = Main(config=config, fileName="my.pop", version="fake")
 
+      This runs and produces the following default logging output:
+
       .. testoutput::
 	 :skipif: 'api_14' not in __sphinx_tags__
 
@@ -1348,9 +1350,8 @@ analysis. Here is the process, step-by-step:
    >>> application.getXmlOutPath()
    'my-out.xml'
 
-6. Lastly, we pass this file to the :class:`PyPop.Meta.Meta` to
-   generate output ``TSV`` files (as described in
-   :ref:`guide-usage-popmeta`):
+6. Lastly, we pass this file to the :class:`Meta` to generate output
+   ``TSV`` files (as described in :ref:`guide-usage-popmeta`):
 
    .. only:: api_13
 
@@ -1373,6 +1374,8 @@ analysis. Here is the process, step-by-step:
 	 outXML = application.getXmlOutPath()
          from PyPop.popaggregate import Meta
          Meta (TSV_output=True, xml_files=[outXML])
+
+      The generated TSV files are listed on the console:
 
       .. testoutput::
          :skipif: 'api_14' not in __sphinx_tags__
