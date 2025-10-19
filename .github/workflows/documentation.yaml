@@ -100,6 +100,7 @@ jobs:
              sphinx-build -b doctest website/doctest/ _doctests
           else
              echo "Using internal source (tag or branch build)"
+             mode="installed"
              echo "PYPOP_DOCS_MODE=$mode" >> "$GITHUB_ENV"
              pip install pypop-genomics[test]  # only needed in this mode
              sphinx-build -b doctest website/doctest/ _doctests
