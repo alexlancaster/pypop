@@ -80,6 +80,12 @@ jobs:
 
       - uses: actions/setup-python@v6
 
+      - name: Install Python deps + graphviz for API diagrams
+        run: |
+          # shared dependencies
+          pip install -r website/requirements-docs.txt
+          sudo apt-get install -y --no-install-recommends graphviz
+
       - name: Determine AutoAPI source + version metadata
         id: select-autoapi
         run: |
@@ -87,24 +93,20 @@ jobs:
           if [[ "${GITHUB_REF}" == "refs/heads/main" ]]; then
              echo "Detected main branch (non-release): using installed package"
              mode="installed"
+             echo "PYPOP_DOCS_MODE=$mode" >> "$GITHUB_ENV"
              pip install pypop-genomics[test]  # only needed in this mode
              # test user guide again released API
-             pytest -v -s --doctest-modules --doctest-glob='*.rst' website/docs/
+             #pytest -v -s --doctest-modules --doctest-gloyb='*.rst' website/docs/
+             sphinx-build -b doctest website/doctest/ _doctests
           else
              echo "Using internal source (tag or branch build)"
+             echo "PYPOP_DOCS_MODE=$mode" >> "$GITHUB_ENV"
              # needed because tomli is used for backwards compatibility
              pip install tomli
              #  in the internal case we generate _metadata.py manually
              #  since we are not doing a `pip install` build
              python src/script_build/generate_metadata.py src/PyPop/_metadata.py
           fi
-          echo "PYPOP_DOCS_MODE=$mode" >> "$GITHUB_ENV"
-
-      - name: Install Python deps + graphviz for API diagrams
-        run: |
-          # shared dependencies
-          pip install -r website/requirements-docs.txt
-          sudo apt-get install -y --no-install-recommends graphviz
 
       - name: Build LaTeX sources
         run: |
