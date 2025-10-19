@@ -1235,7 +1235,7 @@ XML output, and then using :class:`Meta` to process this
 XML to generate ``.tsv`` file output suitable for further
 analysis. Here is the process, step-by-step:
 
-1. We first create the :class:`configparser.ConfigParser` instance
+*  We first create the :class:`configparser.ConfigParser` instance
    (note that we specify the ``untypedAllele`` and
    ``alleleDesignators`` explicitly, even though they are the same as
    defaults, they must always match the input file):
@@ -1275,7 +1275,7 @@ analysis. Here is the process, step-by-step:
                                    "validSampleFields": "*a_1\n*a_2"},
              "HardyWeinberg": {"lumpBelow": "5"}})
 
-2. Next, for testing purposes, we create a ``.pop`` text file (note
+*  Next, for testing purposes, we create a ``.pop`` text file (note
    the tab-spaces inline). (You could replace this with your own input
    file, or generate ``pop_contents`` from an existing data structure
    in your program):
@@ -1295,7 +1295,7 @@ analysis. Here is the process, step-by-step:
 
 .. only:: api_13
 
-   3. Then we setup the XSLT transformation file that will generate a plain
+   *  Then we setup the XSLT transformation file that will generate a plain
       text output (``my-pop.txt``), along with the default XML output file:
       ``my-out.xml``. [3]_
 
@@ -1310,7 +1310,7 @@ analysis. Here is the process, step-by-step:
          >>> from importlib.resources import files  # get location from installation
          >>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
 
-4. Now we can create the :class:`Main` instance, using the ``config``
+*  Now we can create the :class:`Main` instance, using the ``config``
    object to analyze the data in ``my.pop`` :
 
    .. only:: api_13
@@ -1344,13 +1344,13 @@ analysis. Here is the process, step-by-step:
 	 LOG: no XSL file, skipping text output
          LOG: Data file has no header data block
 
-5. We can query the ``Main`` instance to get the name of output XML file:
+*  We can query the ``Main`` instance to get the name of output XML file:
    ``my-out.xml``
 
    >>> application.getXmlOutPath()
    'my-out.xml'
 
-6. Lastly, we pass this file to the :class:`Meta` to generate output
+*  Lastly, we pass this file to the :class:`Meta` to generate output
    ``TSV`` files (as described in :ref:`guide-usage-popmeta`):
 
    .. only:: api_13
@@ -1386,7 +1386,7 @@ analysis. Here is the process, step-by-step:
          ./1-locus-allele.tsv
          ./1-locus-genotype.tsv
 
-7. These ``.tsv`` files could then be read into another data structure
+*  These ``.tsv`` files could then be read into another data structure
    (e.g. a `pandas dataframe <https://pandas.pydata.org>`_ ) for
    further analysis.
 
