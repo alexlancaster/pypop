@@ -389,7 +389,7 @@ def get_api_version_tag(full_release=None):
         print(f"[conf] Using internal API version: {api_version}")
 
     # create a tag for the API version to be used in user guide examples
-    api_tag = "api_14" if api_version > "1.3.1" else "api_l3"
+    api_tag = "api_14" if api_version > "1.3.1" else "api_13"
     print(f"[helpers] with  API {api_version}: tag: {api_tag}")
 
     return api_version, api_tag
