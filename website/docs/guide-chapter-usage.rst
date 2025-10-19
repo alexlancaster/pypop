@@ -1310,6 +1310,7 @@ analysis. Here is the process, step-by-step:
          >>> from importlib.resources import files  # get location from installation
          >>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
 
+
 *  Now we can create the :class:`Main` instance, using the ``config``
    object to analyze the data in ``my.pop`` :
 
@@ -1400,9 +1401,12 @@ analysis. Here is the process, step-by-step:
    (https://github.com/ANHIG/IMGTHLA/blob/Latest/Deleted_alleles.txt); and the
    Ambiguous Allele Combinations, release 2.18.0 (https://www.ebi.ac.uk/ipd/imgt/hla/ambiguity).
 
-.. [3]
-   The expectation that :class:`PyPop.Main.Main` will generate a plain text
-   output (and thus setting up an XSLT file for that transformation)
-   will be removed in a future release, allowing for further
-   simplification of this example, by eliminating the requirement that
-   ``xslFilename`` is passed to the ``Main`` constructor.
+.. only:: api_13
+
+   .. [3]
+      The expectation that :class:`PyPop.Main.Main` will generate a
+      plain text output (and thus setting up an XSLT file for that
+      transformation) will be removed in a future release, allowing
+      for further simplification of this example, by eliminating the
+      requirement that ``xslFilename`` is passed to the ``Main``
+      constructor.
