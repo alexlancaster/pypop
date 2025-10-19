@@ -1235,7 +1235,7 @@ The :class:`Main` class generates analysis results as XML, and then
 :class:`Meta` processes this XML to generate ``.tsv`` file output
 suitable for further analysis. Here is the process, step-by-step:
 
-*  First create the :class:`configparser.ConfigParser` instance from a
+*  First create the :class:`~configparser.ConfigParser` instance from a
    dictionary (note that ``untypedAllele`` and ``alleleDesignators``
    are specified explicitly, even though they are the same as
    defaults, they must always match the input file):
