@@ -1376,7 +1376,7 @@ suitable for further analysis. Here is the process, step-by-step:
    >>> application.getXmlOutPath()
    'my-out.xml'
 
-* Lastly, pass this file to the :class:`Meta` class to generate output
+*  Lastly, pass this file to the :class:`Meta` class to generate output
    ``TSV`` files (as described in :ref:`guide-usage-popmeta`):
 
    .. only:: api_13
