@@ -1220,24 +1220,24 @@ compiled from several :cite:p:`mack_methods_2007,cano_common_2007` sources [2]_
 PyPop API examples
 ==================
 
-Here is a minimal example of using the :ref:`API <api-reference-top>`
-(documented in the *PyPop API Reference*) directly in your own Python
-program. This program reads a short ``.pop`` :ref:`data file
-<guide-usage-datafile>` consisting of one locus with seven
-individuals, and rather than creating a :ref:`configuration file
-<guide-usage-configfile>`, we create a configuration object with the
-file format details and selecting a single ``[HardyWeinberg]``
-analysis.  It then performs the equivalent of the :ref:`popmeta script
-<guide-usage-popmeta>` and generates output TSV files.
+Here is a short example of how you can use the :ref:`API
+<api-reference-top>` (documented in the *PyPop API Reference*)
+directly in your own Python program. This program reads a short
+``.pop`` :ref:`data file <guide-usage-datafile>` consisting of one
+locus with seven individuals, and rather than reading from a
+:ref:`configuration file <guide-usage-configfile>`, it creates a
+configuration object with the file format details and enables a single
+``[HardyWeinberg]`` analysis. It then performs the equivalent of the
+:ref:`popmeta script <guide-usage-popmeta>` and generates output TSV
+files.
 
-This is done by using :class:`Main` to generate the initial
-XML output, and then using :class:`Meta` to process this
-XML to generate ``.tsv`` file output suitable for further
-analysis. Here is the process, step-by-step:
+The :class:`Main` class generates analysis results as XML, and then
+:class:`Meta` processes this XML to generate ``.tsv`` file output
+suitable for further analysis. Here is the process, step-by-step:
 
-*  We first create the :class:`configparser.ConfigParser` instance
-   (note that we specify the ``untypedAllele`` and
-   ``alleleDesignators`` explicitly, even though they are the same as
+*  First create the :class:`configparser.ConfigParser` instance from a
+   dictionary (note that ``untypedAllele`` and ``alleleDesignators``
+   are specified explicitly, even though they are the same as
    defaults, they must always match the input file):
 
    .. testsetup::
@@ -1275,28 +1275,49 @@ analysis. Here is the process, step-by-step:
                                    "validSampleFields": "*a_1\n*a_2"},
              "HardyWeinberg": {"lumpBelow": "5"}})
 
-*  Next, for testing purposes, we create a ``.pop`` text file (note
-   the tab-spaces inline). (You could replace this with your own input
-   file, or generate ``pop_contents`` from an existing data structure
-   in your program):
+*  Next, create a test ``.pop`` text file (note the tab-spaces
+   inline). (You could replace this with your own input file, or
+   generate ``pop_contents`` from an existing data structure in your
+   program):
 
-   >>> pop_contents = '''a_1\ta_2
-   ... ****\t****
-   ... 01:01\t02:01
-   ... 02:10\t03:01:02
-   ... 01:01\t02:18
-   ... 25:01\t02:01
-   ... 02:10\t32:04
-   ... 03:01:02\t32:04'''
-   >>> with open("my.pop", "w") as f:
-   ...     _ = f.write(pop_contents)
-   ...
+   .. only:: api_13
+
+      .. doctest::
+         :skipif: 'api_13' not in __sphinx_tags__
+
+         >>> pop_contents = '''a_1\ta_2
+         ... ****\t****
+         ... 01:01\t02:01
+         ... 02:10\t03:01:02
+         ... 01:01\t02:18
+         ... 25:01\t02:01
+         ... 02:10\t32:04
+         ... 03:01:02\t32:04'''
+         >>> with open("my.pop", "w") as f:
+         ...     _ = f.write(pop_contents)
+         ...
+
+   .. only:: api_14
+
+      .. testcode::
+         :skipif: 'api_14' not in __sphinx_tags__
+
+         pop_contents = '''a_1\ta_2
+         ****\t****
+         01:01\t02:01
+         02:10\t03:01:02
+         01:01\t02:18
+         25:01\t02:01
+         02:10\t32:04
+         03:01:02\t32:04'''
+         with open("my.pop", "w") as f:
+             f.write(pop_contents)
 
 
 .. only:: api_13
 
-   *  Then we setup the XSLT transformation file that will generate a plain
-      text output (``my-pop.txt``), along with the default XML output file:
+   *  Then setup the XSLT transformation to generate the plain text
+      output (``my-pop.txt``), along with the default XML output file:
       ``my-out.xml``. [3]_
 
       .. warning::
@@ -1311,8 +1332,8 @@ analysis. Here is the process, step-by-step:
          >>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
 
 
-*  Now we can create the :class:`Main` instance, using the ``config``
-   object to analyze the data in ``my.pop`` :
+*  Now create the :class:`Main` instance, using the ``config`` object
+   to run the analysis of data in ``my.pop``:
 
    .. only:: api_13
 
@@ -1337,7 +1358,8 @@ analysis. Here is the process, step-by-step:
         from PyPop.popanalysis import Main
         application = Main(config=config, fileName="my.pop", version="fake")
 
-      This runs and produces the following default logging output:
+      The analysis runs to completion and produces the following
+      default logging output to the console:
 
       .. testoutput::
 	 :skipif: 'api_14' not in __sphinx_tags__
@@ -1345,13 +1367,13 @@ analysis. Here is the process, step-by-step:
 	 LOG: no XSL file, skipping text output
          LOG: Data file has no header data block
 
-*  We can query the ``Main`` instance to get the name of output XML file:
-   ``my-out.xml``
+*  You can query the ``Main`` instance to get the name of the generated
+   output XML file: ``my-out.xml``
 
    >>> application.getXmlOutPath()
    'my-out.xml'
 
-*  Lastly, we pass this file to the :class:`Meta` to generate output
+*  Lastly, pass this file to the :class:`Meta` to generate output
    ``TSV`` files (as described in :ref:`guide-usage-popmeta`):
 
    .. only:: api_13
@@ -1376,7 +1398,7 @@ analysis. Here is the process, step-by-step:
          from PyPop.popaggregate import Meta
          Meta (TSV_output=True, xml_files=[outXML])
 
-      The generated TSV files are listed on the console:
+      The generated TSV files are listed in the console output:
 
       .. testoutput::
          :skipif: 'api_14' not in __sphinx_tags__
@@ -1387,9 +1409,9 @@ analysis. Here is the process, step-by-step:
          ./1-locus-allele.tsv
          ./1-locus-genotype.tsv
 
-*  These ``.tsv`` files could then be read into another data structure
-   (e.g. a `pandas dataframe <https://pandas.pydata.org>`_ ) for
-   further analysis.
+*  These listed ``.tsv`` files can then be read into another data
+   structure (e.g. a `pandas dataframe <https://pandas.pydata.org>`_ )
+   for further analysis.
 
 .. [1]
    These hardcoded numbers can be changed if you obtain the source code
