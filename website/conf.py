@@ -13,9 +13,8 @@
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
-"""Sphinx configuration."""
+"""Sphinx configuration for website."""
 
-import os
 import sys
 from pathlib import Path
 
@@ -30,6 +29,7 @@ from helpers import (
     CustomLaTeXTranslator,
     MyLiteralInclude,
     _pypop_process_deprecation,
+    get_api_version_tag,
     get_autoapi_dirs,
     patch_latex_files,
     prepare_autoapi_index,
@@ -170,28 +170,9 @@ full_release = get_version("..", normalize=True, version_scheme="post-release")
 version = full_release.split(".post")[0]
 release = version  # make the release and version be the same
 
-# get the currently documented API version
-if os.environ.get("PYPOP_DOCS_MODE", "") == "installed":
-    # checking installed package
-    try:
-        import PyPop
-
-        print("[conf] sys.path:", sys.path)
-        api_version = PyPop.__version__
-        print(f"[conf] API is using installed package version: {api_version}")
-    except ImportError:
-        api_version = full_release
-        print(
-            f"[conf] Can't find installed version, fallback to internal API version: {api_version}"
-        )
-else:
-    api_version = full_release
-    print(f"[conf] Using internal API version: {api_version}")
-
-# create a tag for the API version to be used in user guide examples
-api_tag = "api_14" if api_version > "1.3.1" else "api_l3"
+api_version, api_tag = get_api_version_tag(full_release=full_release)
+# add tag for the API version to be used in user guide examples
 tags.add(api_tag)  # noqa: F821
-print(f"[conf] with  API {api_version}: tag: {api_tag}")
 
 # define for "sphinx-build -b doctest" builds for conditional skipping
 doctest_global_setup = f"""
@@ -269,6 +250,7 @@ exclude_patterns = [
     "_build",
     "README.md",
     "reference",
+    "doctest",
     "Thumbs.db",
     ".DS_Store",
     "_static",

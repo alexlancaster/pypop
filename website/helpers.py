@@ -369,6 +369,32 @@ def prepare_autoapi_index(app):
         app.config.exclude_patterns.append(autoapi_root)
 
 
+def get_api_version_tag(full_release=None):
+    """Get the currently documented API version and tag."""
+    if os.environ.get("PYPOP_DOCS_MODE", "") == "installed":
+        # checking installed package
+        try:
+            import PyPop  # noqa: PLC0415
+
+            print("[conf] sys.path:", sys.path)
+            api_version = PyPop.__version__
+            print(f"[conf] API is using installed package version: {api_version}")
+        except ImportError:
+            api_version = full_release
+            print(
+                f"[conf] Can't find installed version, fallback to internal API version: {api_version}"
+            )
+    else:
+        api_version = full_release
+        print(f"[conf] Using internal API version: {api_version}")
+
+    # create a tag for the API version to be used in user guide examples
+    api_tag = "api_14" if api_version > "1.3.1" else "api_l3"
+    print(f"[helpers] with  API {api_version}: tag: {api_tag}")
+
+    return api_version, api_tag
+
+
 def renumber_footnotes(app, exception):
     """Renumber all remaining LaTeX footnotes sequentially."""
     if exception or app.builder.name != "latex":
