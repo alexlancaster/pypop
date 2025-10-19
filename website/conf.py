@@ -119,7 +119,7 @@ autoapi_dirs = get_autoapi_dirs("PyPop", "../src/PyPop")
 autoapi_type = "python"
 autoapi_root = "api"
 autoapi_add_toctree_entry = False
-autoapi_keep_files = True
+autoapi_keep_files = False
 autoapi_own_page_level = "module"
 autoapi_template_dir = "_templates/autoapi"
 autoapi_file_pattern = "*.py"
@@ -187,6 +187,16 @@ if os.environ.get("PYPOP_DOCS_MODE", "") == "installed":
 else:
     api_version = full_release
     print(f"[conf] Using internal API version: {api_version}")
+
+# create a tag for the API version to be used in user guide examples
+api_tag = "api_14" if api_version > "1.3.1" else "api_l3"
+tags.add(api_tag)  # noqa: F821
+print(f"[conf] with  API {api_version}: tag: {api_tag}")
+
+# define for "sphinx-build -b doctest" builds for conditional skipping
+doctest_global_setup = f"""
+__sphinx_tags__ = {list(tags)!r}
+"""  # noqa: F821
 
 guide_prefix = "pypop-guide-" + release  # include version in PDF filename
 guide_name = "PyPop User Guide"
@@ -263,6 +273,7 @@ exclude_patterns = [
     ".DS_Store",
     "_static",
 ]
+
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "sphinx"

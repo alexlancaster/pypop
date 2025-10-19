@@ -361,6 +361,13 @@ def prepare_autoapi_index(app):
     # --- write final merged index.rst ---
     dst.write_text(final_content, encoding="utf-8")
 
+    if app.builder and app.builder.name == "doctest":
+        # This is a doctest build
+        print(
+            f"[helpers] in {app.builder.name} backend, skip doctests in {autoapi_root}, handled by pytest"
+        )
+        app.config.exclude_patterns.append(autoapi_root)
+
 
 def renumber_footnotes(app, exception):
     """Renumber all remaining LaTeX footnotes sequentially."""

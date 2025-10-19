@@ -1242,20 +1242,38 @@ analysis. Here is the process, step-by-step:
 
    .. testsetup::
 
-      >>> import pytest
-      >>> PyPop = pytest.importorskip("PyPop")
-      >>> if hasattr(PyPop, "setup_logger"):
-      ...    from PyPop import setup_logger
-      ...    setup_logger(doctest_mode=True)
+      import pytest
+      PyPop = pytest.importorskip("PyPop")
+      if hasattr(PyPop, "setup_logger"):
+         from PyPop import setup_logger
+         setup_logger(doctest_mode=True)
 
-   >>> from configparser import ConfigParser
-   >>> config = ConfigParser()
-   >>> config.read_dict({"General": {"debug": "0"},
-   ...     "ParseGenotypeFile": {"untypedAllele": "****",
-   ...                           "alleleDesignator": "*",
-   ...                           "validSampleFields": "*a_1\n*a_2"},
-   ...     "HardyWeinberg": {"lumpBelow": "5"}})
-   >>>
+
+   .. only:: api_13
+
+      .. doctest::
+         :skipif: 'api_13' not in __sphinx_tags__
+
+         >>> from configparser import ConfigParser
+         >>> config = ConfigParser()
+         >>> config.read_dict({"General": {"debug": "0"},
+         ...     "ParseGenotypeFile": {"untypedAllele": "****",
+         ...                           "alleleDesignator": "*",
+         ...                           "validSampleFields": "*a_1\n*a_2"},
+         ...     "HardyWeinberg": {"lumpBelow": "5"}})
+         >>>
+
+   .. only:: api_14
+
+      .. testcode::
+         :skipif: 'api_14' not in __sphinx_tags__
+
+         from configparser import ConfigParser
+         config = ConfigParser()
+         config.read_dict({"ParseGenotypeFile": {"untypedAllele": "****",
+                                   "alleleDesignator": "*",
+                                   "validSampleFields": "*a_1\n*a_2"},
+             "HardyWeinberg": {"lumpBelow": "5"}})
 
 2. Next, for testing purposes, we create a ``.pop`` text file (note
    the tab-spaces inline). (You could replace this with your own input
@@ -1274,30 +1292,59 @@ analysis. Here is the process, step-by-step:
    ...     _ = f.write(pop_contents)
    ...
 
-3. Then we setup the XSLT transformation file that will generate a plain
-   text output (``my-pop.txt``), along with the default XML output file:
-   ``my-out.xml``. [3]_
 
-   .. warning::
+.. only:: api_13
 
-      Use of :func:`importlib.resources.files` requires Python version 3.9 or later.
+   3. Then we setup the XSLT transformation file that will generate a plain
+      text output (``my-pop.txt``), along with the default XML output file:
+      ``my-out.xml``. [3]_
 
-   >>> from PyPop.xslt import ns              # need for XSLT extensions
-   >>> from importlib.resources import files  # get location from installation
-   >>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
+      .. warning::
+
+         Use of :func:`importlib.resources.files` requires Python version 3.9 or later.
+
+      .. doctest::
+         :skipif: 'api_13' not in __sphinx_tags__
+
+         >>> from PyPop.xslt import ns              # need for XSLT extensions
+         >>> from importlib.resources import files  # get location from installation
+         >>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
 
 4. Now we can create the :class:`PyPop.Main.Main` instance, using the
    ``config`` object to analyze the data in ``my.pop`` :
 
-   >>> from PyPop.Main import Main
-   >>> application = Main(
-   ...     config=config,
-   ...     fileName="my.pop",
-   ...     version="fake",
-   ...     xslFilename=xslFilename,
-   ... )
-   ... # doctest: +ELLIPSIS
-   LOG: Data file has no header data block
+   .. only:: api_13
+
+      .. doctest::
+         :skipif: 'api_13' not in __sphinx_tags__
+
+         >>> from PyPop.Main import Main
+         >>> application = Main(
+         ...     config=config,
+         ...     fileName="my.pop",
+         ...     version="fake",
+         ...     xslFilename=xslFilename,
+         ... )
+         ... # doctest: +ELLIPSIS
+         LOG: Data file has no header data block
+
+   .. only:: api_14
+
+      .. testcode::
+        :skipif: 'api_14' not in __sphinx_tags__
+
+        from PyPop.popanalysis import Main
+        application = Main(
+             config=config,
+             fileName="my.pop",
+             version="fake",
+        )
+
+      .. testoutput::
+	 :skipif: 'api_14' not in __sphinx_tags__
+
+	 LOG: no XSL file, skipping text output
+         LOG: Data file has no header data block
 
 5. We can query the ``Main`` instance to get the name of output XML file:
    ``my-out.xml``
@@ -1309,13 +1356,36 @@ analysis. Here is the process, step-by-step:
    generate output ``TSV`` files (as described in
    :ref:`guide-usage-popmeta`):
 
-   >>> outXML = application.getXmlOutPath()
-   >>> from PyPop.Meta import Meta
-   >>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
-   ./1-locus-hardyweinberg.tsv
-   ./1-locus-summary.tsv
-   ./1-locus-allele.tsv
-   ./1-locus-genotype.tsv
+   .. only:: api_13
+
+      .. doctest::
+         :skipif: 'api_13' not in __sphinx_tags__
+
+         >>> outXML = application.getXmlOutPath()
+         >>> from PyPop.Meta import Meta
+         >>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
+         ./1-locus-hardyweinberg.tsv
+         ./1-locus-summary.tsv
+         ./1-locus-allele.tsv
+         ./1-locus-genotype.tsv
+
+   .. only:: api_14
+
+      .. testcode::
+         :skipif: 'api_14' not in __sphinx_tags__
+
+	 outXML = application.getXmlOutPath()
+         from PyPop.popaggregate import Meta
+         Meta (TSV_output=True, xml_files=[outXML])
+
+      .. testoutput::
+         :skipif: 'api_14' not in __sphinx_tags__
+         :options: +NORMALIZE_WHITESPACE
+
+         ./1-locus-hardyweinberg.tsv
+         ./1-locus-summary.tsv
+         ./1-locus-allele.tsv
+         ./1-locus-genotype.tsv
 
 7. These ``.tsv`` files could then be read into another data structure
    (e.g. a `pandas dataframe <https://pandas.pydata.org>`_ ) for
