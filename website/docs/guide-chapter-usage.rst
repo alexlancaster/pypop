@@ -735,8 +735,8 @@ default values described above would contain 1,000,000 (= 1000 x
 
 The default values for options described above have proved to be
 optimal for us and if the options are not provided these defaults will
-be used. If you change the values and have problems, please let us
-:ref:`know <guide-contributing-bug-report>`.
+be used. If you change the values and have problems, :ref:`please let
+us know <guide-contributing-bug-report>`.
 
 ``[HomozygosityEWSlatkinExact]``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -748,7 +748,8 @@ implementation of the Ewens-Watterson exact test of neutrality.
 
    The default values have proved to be optimal for us. There is no
    reason to change them unless you are particularly curious. If you
-   change the default values and have problems, please let us know.
+   change the default values and have problems, :ref:`please let us
+   know <guide-contributing-bug-report>`.
 
 ``[Emhaplofreq]``
 ~~~~~~~~~~~~~~~~~
@@ -947,9 +948,10 @@ modified.
       Number of steps of to “burn-in” the Markov chain before statistics
       are collected.\ **[Default:** ``5000`` **]**
 
-   The default values for options described above have proved to be optimal
-   for us and if the options are not provided these defaults will be used.
-   If you change the values and have problems, please let us **know**.
+   The default values for options described above have proved to be
+   optimal for us and if the options are not provided these defaults
+   will be used.  If you change the values and have problems,
+   :ref:`please let us know <guide-contributing-bug-report>`.
 
 Advanced filtering sections
 ---------------------------
