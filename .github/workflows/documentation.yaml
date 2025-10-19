@@ -103,7 +103,7 @@ jobs:
              mode="installed"
              echo "PYPOP_DOCS_MODE=$mode" >> "$GITHUB_ENV"
              pip install pypop-genomics[test]  # only needed in this mode
-             sphinx-build -b doctest website/doctest/ _doctests
+             PYPOP_DOCS_MODE="installed" sphinx-build -b doctest website/doctest/ _doctests
              # needed because tomli is used for backwards compatibility
              pip install tomli
              #  in the internal case we generate _metadata.py manually
