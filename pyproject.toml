@@ -38,7 +38,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-benchmark[histogram]", "pytest-doctestplus", "sphinx"]
+test = [
+  "pytest",
+  "pytest-benchmark[histogram]",
+  "pytest-doctestplus",
+  'sphinx; platform_python_implementation != "PyPy"',
+]
 test-pval-benchmarking = ["scipy"]
 
 [project.urls]
@@ -126,6 +131,11 @@ select = "cp314-manylinux_aarch64"
 inherit.test-extras = "append"
 test-extras = ["test-pval-benchmarking"]
 test-command = ["sphinx-build -b doctest {package}/website/doctest/ _doctests", "pytest --pval-benchmarking -v --pyargs PyPop {package}/tests ${PYTEST_OPTIONS}"]
+
+[[tool.cibuildwheel.overrides]]
+# skip sphinx doctest on PyPy: can't install sphinx
+select = "pp*"
+test-command = ["pytest --pval-benchmarking -v --pyargs PyPop {package}/tests ${PYTEST_OPTIONS}"]
 
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
