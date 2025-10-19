@@ -734,9 +734,9 @@ default values described above would contain 1,000,000 (= 1000 x
 1000) steps in the MCMC chain.
 
 The default values for options described above have proved to be
-optimal for us and if the options are not provided these defaults
-will be used. If you change the values and have problems, please let
-us **know**.
+optimal for us and if the options are not provided these defaults will
+be used. If you change the values and have problems, please let us
+:ref:`know <guide-contributing-bug-report>`.
 
 ``[HomozygosityEWSlatkinExact]``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -1227,9 +1227,9 @@ directly in your own Python program. This program reads a short
 locus with seven individuals, and rather than reading from a
 :ref:`configuration file <guide-usage-configfile>`, it creates a
 configuration object with the file format details and enables a single
-``[HardyWeinberg]`` analysis. It then performs the equivalent of the
-:ref:`popmeta script <guide-usage-popmeta>` and generates output TSV
-files.
+:ref:`[HardyWeinberg] <guide-usage-config-hardyweinberg>` analysis. It
+then performs the equivalent of the :ref:`popmeta script
+<guide-usage-popmeta>` and generates output TSV files.
 
 The :class:`Main` class generates analysis results as XML, and then
 :class:`Meta` processes this XML to generate ``.tsv`` file output
@@ -1264,6 +1264,9 @@ suitable for further analysis. Here is the process, step-by-step:
          >>>
 
    .. only:: api_14
+
+      (You can cut and paste the following code snippets directly into
+      an interactive Python session).
 
       .. testcode::
          :skipif: 'api_14' not in __sphinx_tags__
@@ -1367,13 +1370,13 @@ suitable for further analysis. Here is the process, step-by-step:
 	 LOG: no XSL file, skipping text output
          LOG: Data file has no header data block
 
-*  You can query the ``Main`` instance to get the name of the generated
-   output XML file: ``my-out.xml``
+*  You can query the :class:`Main` instance to get the name of the
+   generated output XML file: ``my-out.xml``
 
    >>> application.getXmlOutPath()
    'my-out.xml'
 
-*  Lastly, pass this file to the :class:`Meta` to generate output
+* Lastly, pass this file to the :class:`Meta` class to generate output
    ``TSV`` files (as described in :ref:`guide-usage-popmeta`):
 
    .. only:: api_13
