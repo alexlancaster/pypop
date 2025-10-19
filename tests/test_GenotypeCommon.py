@@ -10,7 +10,7 @@ from base import (
 
 @pytest.mark.pval_benchmarking
 def test_GenotypeCommon_HardyWeinberg_scipy_pval(benchmark):
-    with mock.patch("PyPop.HardyWeinberg.use_scipy", True):
+    with mock.patch("PyPop.hardyweinberg.use_scipy", True):
         exit_code = benchmark(
             run_pypop_process,
             "./tests/data/WS_BDCtrl_Test_HW.ini",

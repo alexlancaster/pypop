@@ -132,7 +132,7 @@ class DeprecatedModuleFinder(importlib.abc.MetaPathFinder):
             warnings.warn(
                 msg,
                 PyPopModuleRenameDeprecationWarning,
-                stacklevel=5,
+                stacklevel=4,
             )
 
             # Return the spec for the module so import machinery can continue

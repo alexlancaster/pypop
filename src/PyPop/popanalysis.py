@@ -54,7 +54,7 @@ in the ``.pop`` file:
    >>> import PyPop
    >>> PyPop.setup_logger(doctest_mode=True)
 
->>> from PyPop.Main import Main
+>>> from PyPop.popanalysis import Main
 >>> from configparser import ConfigParser
 >>>
 >>> config = ConfigParser()
@@ -91,22 +91,22 @@ from pathlib import Path
 from lxml import etree
 
 from PyPop import logger, setup_logger
-from PyPop.DataTypes import Genotypes, getLumpedDataLevels
-from PyPop.Filter import AnthonyNolanFilter, BinningFilter
-from PyPop.Haplo import Emhaplofreq, Haplostats
-from PyPop.HardyWeinberg import (
+from PyPop.datatypes import Genotypes, getLumpedDataLevels
+from PyPop.filters import AnthonyNolanFilter, BinningFilter
+from PyPop.haplo import Emhaplofreq, Haplostats
+from PyPop.hardyweinberg import (
     HardyWeinberg,
     HardyWeinbergEnumeration,
     HardyWeinbergGuoThompson,
     HardyWeinbergGuoThompsonArlequin,
 )
-from PyPop.Homozygosity import (
+from PyPop.homozygosity import (
     HomozygosityEWSlatkinExact,
     HomozygosityEWSlatkinExactPairwise,
 )
-from PyPop.ParseFile import ParseAlleleCountFile, ParseGenotypeFile
-from PyPop.RandomBinning import RandomBinsForHomozygosity
-from PyPop.Utils import (
+from PyPop.parsers import ParseAlleleCountFile, ParseGenotypeFile
+from PyPop.randombinning import RandomBinsForHomozygosity
+from PyPop.utils import (
     TextOutputStream,
     XMLOutputStream,
     checkXSLFile,

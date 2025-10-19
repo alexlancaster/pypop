@@ -41,9 +41,9 @@ from pathlib import Path
 
 from PyPop import __version__ as version
 from PyPop import copyright_message, setup_logger
-from PyPop.CommandLineInterface import get_popmeta_cli
-from PyPop.Meta import Meta
-from PyPop.Utils import critical_exit
+from PyPop.command_line_interface import get_popmeta_cli
+from PyPop.popaggregate import Meta
+from PyPop.utils import critical_exit
 
 
 def main(argv=sys.argv):

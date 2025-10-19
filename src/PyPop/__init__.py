@@ -61,7 +61,7 @@ step-by-step breakdown of use of the API).
    >>> import PyPop
    >>> PyPop.setup_logger(doctest_mode=True)
 
->>> from PyPop.Main import Main
+>>> from PyPop.popanalysis import Main
 >>> from configparser import ConfigParser
 >>>
 >>> config = ConfigParser()
@@ -83,7 +83,7 @@ step-by-step breakdown of use of the API).
 LOG: no XSL file, skipping text output
 LOG: Data file has no header data block
 >>> outXML = application.getXmlOutPath()
->>> from PyPop.Meta import Meta
+>>> from PyPop.popaggregate import Meta
 >>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
 ./1-locus-hardyweinberg.tsv
 ./1-locus-summary.tsv
