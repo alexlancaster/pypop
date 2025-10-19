@@ -1334,11 +1334,7 @@ analysis. Here is the process, step-by-step:
         :skipif: 'api_14' not in __sphinx_tags__
 
         from PyPop.popanalysis import Main
-        application = Main(
-             config=config,
-             fileName="my.pop",
-             version="fake",
-        )
+        application = Main(config=config, fileName="my.pop", version="fake")
 
       .. testoutput::
 	 :skipif: 'api_14' not in __sphinx_tags__
