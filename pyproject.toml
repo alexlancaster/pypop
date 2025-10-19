@@ -38,7 +38,15 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-test = ["pytest", "pytest-benchmark[histogram]", "pytest-doctestplus", "sphinx"]
+test = [
+  "pytest",
+  "pytest-benchmark[histogram]",
+  "pytest-doctestplus",
+  'sphinx; platform_python_implementation != "PyPy"',
+  'sphinx<6; platform_python_implementation == "PyPy"',
+  'jinja2<3.1; platform_python_implementation == "PyPy"',
+  'markupsafe<2.1; platform_python_implementation == "PyPy"',
+]
 test-pval-benchmarking = ["scipy"]
 
 [project.urls]
