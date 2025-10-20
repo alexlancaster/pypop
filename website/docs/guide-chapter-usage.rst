@@ -24,12 +24,16 @@ There are three ways to run PyPop:
 -  command-line (or "batch") mode (where you supply all the command
    line options the program needs).
 
--  programmatically, by writing a Python program that uses the *API
-   Reference* (:ref:`API <api-reference-top>`).
+-  library (or "programmatic") mode, by writing a Python program that
+   uses the *API Reference* (:ref:`API <api-reference-top>`).
+
+Running a population analysis
+=============================
 
 For the most simplest application of PyPop, where you wish to analyze
 a single population, the interactive mode is the simplest to use. We
-will describe this mode first then describe command-line mode.
+will describe this mode, then describe command-line mode, and finally
+library mode.
 
 .. note::
 
@@ -39,8 +43,8 @@ will describe this mode first then describe command-line mode.
    verified that you can run the main commands (see the
    :ref:`Examples` section).
 
-Interactive mode
-----------------
+Interactive mode (``pypop-interactive``)
+----------------------------------------
 
 To run PyPop in interactive mode, with a minimal "GUI", on Windows or
 MacOS, you can directly click on the ``pypop-interactive`` file in the
@@ -138,8 +142,8 @@ sections on the :ref:`data file <guide-usage-datafile>` and
 
 .. _guide-usage-command-line-mode:
 
-Command-line mode
------------------
+Command-line mode (``pypop``)
+-----------------------------
 
 To run PyPop in the more common command-line (or "batch") mode, you
 can run PyPop from the console (as noted above, on Windows: open
@@ -244,11 +248,12 @@ Library (programmatic) mode
 It is also possible to use PyPop as a library (i.e. programmatically)
 by writing a Python program that uses the Application Programming
 Interface documented in the *API Reference* (:ref:`API
-<api-reference-top>`) directly.  While the primary use-case for PyPop
-is as a standalone command-line script, and is it not fully optimized
-for use via a programmatic interface, much functionality is exposed as
-Python modules and classes.  Examples of programmatic use can be found
-in :ref:`guide-usage-examples-api`.
+<api-reference-top>`) directly to analyze a population file.  While
+the initial use-case for PyPop was as a standalone command-line
+script, it is being upgraded for better use via a programmatic
+interface, much functionality is exposed as Python modules and
+classes.  Examples of programmatic use can be found in
+:ref:`guide-usage-examples-api`.
 
 .. _guide-usage-intro-run-details:
 
@@ -286,8 +291,8 @@ highly polymorphic loci in your data set.
 
 .. _guide-usage-popmeta:
 
-Using ``popmeta`` to aggregate results
-======================================
+Aggregating results from multiple runs (``popmeta``)
+====================================================
 
 The ``popmeta`` script can aggregate results from a number of output
 XML files from individual populations into a set of tab-separated
@@ -336,38 +341,6 @@ run (assuming that the configuration file can be used for both
    pypop -c newconfig.ini -o altdir Guatemalan.pop NorthAmerican.pop --enable-tsv
 
 
-Command-line interfaces
-=======================
-
-Described below is the usage for both programs, including a full list
-of the current command-line options and arguments for PyPop version
-|api_version|.  Note that you can also view this full list of options
-from the program itself by supplying the ``--help`` option,
-i.e. ``pypop --help``, or ``popmeta --help``, respectively.
-
-.. _guide-pypop-cli:
-
-``pypop`` usage
----------------
-
-.. argparse::
-   :module: PyPop.CommandLineInterface
-   :func: get_pypop_cli
-   :prog: pypop
-   :noepilog:
-   :nodefaultconst:
-
-.. _guide-popmeta-cli:
-
-``popmeta`` usage
------------------
-
-.. argparse::
-   :module: PyPop.CommandLineInterface
-   :func: get_popmeta_cli
-   :prog: popmeta
-   :noepilog:
-   :nodefaultconst:
 
 .. _guide-usage-datafile:
 
@@ -1417,6 +1390,40 @@ suitable for further analysis. Here is the process, step-by-step:
 *  These listed ``.tsv`` files can then be read into another data
    structure (e.g. a `pandas dataframe <https://pandas.pydata.org>`_ )
    for further analysis.
+
+Command-line interfaces
+=======================
+
+Described below is the usage for both programs, including a full list
+of the current command-line options and arguments for PyPop version
+|api_version|.  Note that you can also view this full list of options
+from the program itself by supplying the ``--help`` option,
+i.e. ``pypop --help``, or ``popmeta --help``, respectively.
+
+.. _guide-pypop-cli:
+
+``pypop`` usage
+---------------
+
+.. argparse::
+   :module: PyPop.CommandLineInterface
+   :func: get_pypop_cli
+   :prog: pypop
+   :noepilog:
+   :nodefaultconst:
+
+.. _guide-popmeta-cli:
+
+``popmeta`` usage
+-----------------
+
+.. argparse::
+   :module: PyPop.CommandLineInterface
+   :func: get_popmeta_cli
+   :prog: popmeta
+   :noepilog:
+   :nodefaultconst:
+
 
 .. [1]
    These hardcoded numbers can be changed if you obtain the source code
