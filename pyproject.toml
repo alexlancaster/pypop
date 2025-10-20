@@ -102,7 +102,8 @@ skip = ["*-win32", "*_i686",  # skip 32-bit builds
      ]
 test-skip = ["*-win_arm64", "cp38-macosx_arm64"]
 test-extras = ["test"]
-test-command = ["sphinx-build -b doctest {package}/website/doctest _doctests", "pytest -v --pyargs PyPop {package}/tests ${PYTEST_OPTIONS}"]
+test-command = ["sphinx-build -b doctest {package}/website/doctest _doctests",
+	        "bash -c \"pytest -v --pyargs PyPop {package}/tests ${PYTEST_OPTIONS}\""]
 # FIXME: can add "test-command" that would allow unit test output to be saved
 # "pytest -v {package}/tests && echo {package} && ls && tar zcvf unit_tests_output.tar.gz run_test_* && cp unit_tests_output.tar.gz {package}/wheelhouse/"
 
@@ -130,12 +131,13 @@ manylinux-pypy_aarch64-image = "manylinux_2_28"
 select = "cp314-manylinux_aarch64"
 inherit.test-extras = "append"
 test-extras = ["test-pval-benchmarking"]
-test-command = ["sphinx-build -b doctest {package}/website/doctest/ _doctests", "pytest --pval-benchmarking -v --pyargs PyPop {package}/tests ${PYTEST_OPTIONS}"]
+test-command = ["sphinx-build -b doctest {package}/website/doctest/ _doctests",
+                "bash -c \"pytest --pval-benchmarking -v --pyargs PyPop {package}/tests ${PYTEST_OPTIONS}\""]
 
 [[tool.cibuildwheel.overrides]]
 # skip sphinx doctest on PyPy: can't install sphinx
 select = "pp*"
-test-command = ["pytest --pval-benchmarking -v --pyargs PyPop {package}/tests ${PYTEST_OPTIONS}"]
+test-command = ["bash -c \"pytest -v --pyargs PyPop {package}/tests ${PYTEST_OPTIONS}\""]
 
 [[tool.cibuildwheel.overrides]]
 # musl uses apk/apt
@@ -175,7 +177,7 @@ before-all = ["brew install --quiet ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"]
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
-test-command = ["sphinx-build -b doctest {package}/website/doctest _doctests", "pytest -v --pyargs PyPop {package}/tests %PYTEST_OPTIONS%"]
+# test-command = ["sphinx-build -b doctest {package}/website/doctest _doctests", "pytest -v --pyargs PyPop {package}/tests %PYTEST_OPTIONS%"]
 
 [[tool.cibuildwheel.overrides]]
 # overrides for X86
