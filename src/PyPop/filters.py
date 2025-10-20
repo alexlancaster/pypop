@@ -48,7 +48,7 @@ from pathlib import Path
 import pooch
 
 from PyPop import logger
-from PyPop.Utils import StringMatrix, critical_exit
+from PyPop.utils import StringMatrix, critical_exit
 
 
 class SubclassError(Exception):

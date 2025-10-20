@@ -48,7 +48,7 @@ allele count case).
 import operator
 
 from PyPop import logger
-from PyPop.Utils import OrderedDict, StringMatrix, getStreamType
+from PyPop.utils import OrderedDict, StringMatrix, getStreamType
 
 
 class ParseFile:

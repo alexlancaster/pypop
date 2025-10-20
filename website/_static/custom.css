@@ -144,3 +144,28 @@ table.docutils.autosummary th {
         padding-left: 0;
     }
 }
+
+div.versionremoved {
+  vertical-align: middle;
+  margin: 1.5625em auto;
+  padding: 0 0.6rem;
+  overflow: hidden;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  border-left: 0.2rem solid;
+  border-color: var(--pst-color-danger);
+  border-radius: 0.25rem; /* replace $admonition-border-radius with actual value if needed */
+  background-color: var(--pst-color-danger-bg);
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* approximate @include box-shadow */
+  content: var(--pst-icon-versionmodified-removed);
+}
+
+div.versionremoved > p {
+  margin-bottom: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+div.versionremoved a {
+  color: var(--pst-color-link-higher-contrast);
+}

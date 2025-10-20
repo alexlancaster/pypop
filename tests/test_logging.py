@@ -6,7 +6,7 @@ from pathlib import Path
 import pytest
 
 from PyPop import pypop, setup_logger
-from PyPop.CommandLineInterface import get_pypop_cli
+from PyPop.command_line_interface import get_pypop_cli
 
 
 @pytest.mark.parametrize(

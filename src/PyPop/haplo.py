@@ -51,9 +51,9 @@ import numpy as np
 
 # import the Python-to-C module wrappers
 from PyPop import _Emhaplofreq, _Haplostats, logger
-from PyPop.Arlequin import ArlequinBatch
-from PyPop.DataTypes import checkIfSequenceData, getLocusPairs
-from PyPop.Utils import (
+from PyPop.arlequin import ArlequinBatch
+from PyPop.datatypes import checkIfSequenceData, getLocusPairs
+from PyPop.utils import (
     GENOTYPE_SEPARATOR,
     GENOTYPE_TERMINATOR,
     XMLOutputStream,

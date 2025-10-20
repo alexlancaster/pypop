@@ -37,7 +37,7 @@ from copy import copy
 from random import randrange
 
 from PyPop import logger
-from PyPop.Homozygosity import (
+from PyPop.homozygosity import (
     HomozygosityEWSlatkinExact,
 )
 

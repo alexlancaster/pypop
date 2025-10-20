@@ -105,7 +105,9 @@ class CustomBuildExt(_build_ext):
 class CustomBuildPy(_build_py):
     """Generate metadata needed before build.
 
-    Also not running from a CIBUILDWHEEL environment variable we also
+    Includes generating deprecated module stubs if needed.
+
+    Also if we're not running from a CIBUILDWHEEL environment we also
     need to create the citations.
 
     """

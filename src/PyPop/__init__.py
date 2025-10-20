@@ -32,36 +32,40 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 r"""**PyPop is a framework for performing population genetics analyses**.
 
-It was originally designed as an end-to-end pipeline that reads
+PyPop was originally designed as an end-to-end pipeline that reads
 configuration files and datasets and produces standardized
 outputs. While the primary workflow is file-based, most internal
 functionality is exposed as Python modules and classes.
 
 .. important::
 
-   PyPop is not yet fully optimized for use as a library in end-user
-   programs via a programmatic interface. Much of this public API is
-   aimed at developers who are working on PyPop itself.
+   Updates to PyPop's API to better expose and streamline "library"
+   access to PyPop's functionality in end-user programs is still a
+   work-in-progress. Although this API is intended to serve end-users
+   and developers of PyPop, parts of it are not yet optimized for
+   end-users.
 
-It is possible, however, to drive PyPop programmatically via the
-:mod:`PyPop.Main` module. In the example below, we instantiate a
-:class:`PyPop.Main.Main` object with a configuration instance with the
-default settings, one analysis enabled, and an input ``.pop`` file. We
-first create the :class:`configparser.ConfigParser` instance (see
-:ref:`configuration file section <guide-usage-configfile>` in the
-*PyPop User Guide* for the description of the configuration options),
-supply this to the :class:`Main` class to perform the analysis, then
-get the name of output XML file, and pass it to the :class:`Meta` for
-the final TSV output (see also the :ref:`PyPop API examples
-<guide-usage-examples-api>` in the *PyPop User Guide* for a
-step-by-step breakdown of use of the API).
+Driving PyPop programmatically can be done via the
+:mod:`~PyPop.popanalysis` and :mod:`~PyPop.popaggregate` modules. In
+the example below, we run an simple analysis on a single input
+``.pop`` file and generate output TSV files. There are two main steps:
+
+1. Create the :class:`~configparser.ConfigParser` instance (see
+   :ref:`configuration file section <guide-usage-configfile>` in the
+   *PyPop User Guide* for the description of the configuration
+   options), supply this to the :class:`~PyPop.popanalysis.Main`
+   class, along with an input ``.pop`` file, to perform the analysis.
+
+2. Next get the name of output XML file from the generated ``Main``
+   instance, and pass it to the :class:`~PyPop.popaggregate.Meta` to
+   generate TSV output files.
 
 .. testsetup::
 
    >>> import PyPop
    >>> PyPop.setup_logger(doctest_mode=True)
 
->>> from PyPop.Main import Main
+>>> from PyPop.popanalysis import Main
 >>> from configparser import ConfigParser
 >>>
 >>> config = ConfigParser()
@@ -83,18 +87,37 @@ step-by-step breakdown of use of the API).
 LOG: no XSL file, skipping text output
 LOG: Data file has no header data block
 >>> outXML = application.getXmlOutPath()
->>> from PyPop.Meta import Meta
+>>> from PyPop.popaggregate import Meta
 >>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
 ./1-locus-hardyweinberg.tsv
 ./1-locus-summary.tsv
 ./1-locus-allele.tsv
 ./1-locus-genotype.tsv
 
+See Also:
+   The :ref:`PyPop API examples <guide-usage-examples-api>` in the
+   *PyPop User Guide* for a more detailed breakdown of use of the API.
+
 """
+# allow package name itself to be CamelCase, even if modules are not
+# ruff: noqa: N999
 
 import logging
 import platform
 import sys
+
+from ._deprecations import (
+    DeprecatedModuleFinder as _DeprecatedModuleFinder,
+)
+from ._deprecations import (
+    PyPopModuleRenameDeprecationWarning as PyPopModuleRenameDeprecationWarning,
+)
+from ._deprecations import (
+    deprecated_modules as _deprecated_modules,
+)
+
+# insert finder at the very start of meta_path
+sys.meta_path.insert(0, _DeprecatedModuleFinder(_deprecated_modules))
 
 logger = logging.getLogger("pypop")
 """Package-wide logger used throughout a PyPop run.
@@ -125,6 +148,7 @@ except metadata_lib.PackageNotFoundError:
     __version__ = get_version(
         version_scheme=__version_scheme__, root="../..", relative_to=__file__
     )  # next try the version in repo
+
 
 copyright_message = """Copyright (C) 2003-2006 Regents of the University of California.
 Copyright (C) 2007-2025 PyPop team.

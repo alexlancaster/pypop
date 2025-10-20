@@ -44,10 +44,10 @@ from pathlib import Path
 
 from PyPop import __version__ as version
 from PyPop import copyright_message, logger, platform_info, setup_logger
-from PyPop.CommandLineInterface import get_pypop_cli
-from PyPop.Main import Main, checkXSLFile, getConfigInstance
-from PyPop.Meta import Meta
-from PyPop.Utils import (  # noqa: F401
+from PyPop.command_line_interface import get_pypop_cli
+from PyPop.popaggregate import Meta
+from PyPop.popanalysis import Main, checkXSLFile, getConfigInstance
+from PyPop.utils import (  # noqa: F401
     critical_exit,
     getUserFilenameInput,
     glob_with_pathlib,

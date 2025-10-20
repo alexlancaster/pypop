@@ -42,8 +42,8 @@ from pathlib import Path
 
 # import C module
 from PyPop import _EWSlatkinExact, logger
-from PyPop.DataTypes import Genotypes, checkIfSequenceData, getLocusPairs, getMetaLocus
-from PyPop.Utils import getStreamType
+from PyPop.datatypes import Genotypes, checkIfSequenceData, getLocusPairs, getMetaLocus
+from PyPop.utils import getStreamType
 
 
 class Homozygosity:
