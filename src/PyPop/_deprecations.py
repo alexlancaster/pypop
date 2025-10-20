@@ -1,7 +1,8 @@
-"""API changes.
-------------
+"""API changes
+-----------
 
-Modules have been renamed to follow the lower-case convention of `PEP8
+In PyPop 1.4.0, modules have been renamed to follow the lower-case
+convention of `PEP8
 <https://peps.python.org/pep-0008/#package-and-module-names>`_.  In
 addition to lowercasing, some have further renaming to clarify their
 purpose and follow standard conventions. Backwards-compatibile
@@ -11,11 +12,18 @@ such use will raise a
 :exc:`~PyPop.PyPopModuleRenameDeprecationWarning` (a custom
 :exc:`DeprecationWarning`). In the following minor release, 1.5.0, the
 warnings will become more visible :exc:`UserWarning`. These bindings
-will be completely removed in the next major release.  Command-line
-users of ``pypop`` will not be affected by these changes, which are
-completely internal, scripts will continue to work as normal.
+will be completely removed in the next major release.
 
-"""  # noqa: D205
+Note:
+  Command-line users of ``pypop`` will not be affected by these
+  changes, which are completely internal, scripts will continue to
+  work with no changes needed in any configuration files.
+
+Below are the list of all API changes, including removals and any
+other ongoing API deprecations, and notifications of upcoming
+removals.
+
+"""  # noqa: D205 D415
 
 import importlib
 import importlib.abc
