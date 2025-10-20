@@ -132,9 +132,7 @@ select = "cp314-manylinux_x86_64"
 inherit.test-extras = "append"
 test-extras = ["test-pval-benchmarking"]
 inherit.environment = "append"
-environment = { PYTEST_OPTIONS="${PYTEST_OPTIONS:-} --pval-benchmarking" }
-#test-command = ["sphinx-build -b doctest {package}/website/doctest/ _doctests",
-#                "pytest --pval-benchmarking -v --pyargs PyPop {package}/tests"]
+environment = { PYTEST_OPTIONS="--runslow --pval-benchmarking" }
 
 [[tool.cibuildwheel.overrides]]
 # skip sphinx doctest on PyPy: can't install sphinx
