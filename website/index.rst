@@ -162,7 +162,7 @@ Support Contract (BISC), Phase II.
    :hidden:
 
    docs/index
-   API <api/index>
+   api/index
 
 .. toctree::
    :maxdepth: 1

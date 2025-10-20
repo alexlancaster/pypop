@@ -2,7 +2,7 @@
 
 import pytest
 
-from PyPop.HardyWeinberg import pval
+from PyPop.hardyweinberg import pval
 
 chisq = 10.3
 dof = 2

@@ -1,15 +1,67 @@
+# This file is part of PyPop
+
+# Copyright (C) 2025.
+# PyPop contributors
+
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2, or (at your option)
+# any later version.
+
+# This program is distributed in the hope that it will be useful, but
+# WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+# General Public License for more details.
+
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA
+# 02111-1307, USA.
+
+# IN NO EVENT SHALL REGENTS BE LIABLE TO ANY PARTY FOR DIRECT,
+# INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING
+# LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS
+# DOCUMENTATION, EVEN IF REGENTS HAS BEEN ADVISED OF THE POSSIBILITY
+# OF SUCH DAMAGE.
+
+# REGENTS SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT
+# LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+# FOR A PARTICULAR PURPOSE. THE SOFTWARE AND ACCOMPANYING
+# DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
+# IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
+# UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 """Customization and helper classes for conf.py."""
 
 import importlib.util
 import os
 import re
 import sys
+import textwrap
+from collections import defaultdict
 from pathlib import Path
 
 from docutils import nodes
 from pygments.formatters.latex import LatexFormatter
 from sphinx.directives.code import LiteralInclude
+from sphinx.ext.doctest import TestDirective
 from sphinx.writers.latex import LaTeXTranslator as SphinxLaTeXTranslator
+
+_orig_run = TestDirective.run
+
+
+def _patched_run(self):
+    """Hack to make testoutput look like console."""
+    nodes = _orig_run(self)
+    for node in nodes:
+        if (
+            getattr(node, "get", lambda _k, default=None: default)("testnodetype", None)
+            == "testoutput"
+        ):
+            node["language"] = "pycon"  # give console highlighting
+    return nodes
+
+
+TestDirective.run = _patched_run
 
 
 class MyLiteralInclude(LiteralInclude):
@@ -129,60 +181,225 @@ def strip_first_title(rst_text):
     return re.sub(pattern, "", rst_text, count=1, flags=re.MULTILINE)
 
 
+def _make_deprecations_block():
+    """Generate an RST fragment documenting module renames, deprecations, and removals.
+
+    This groups items by (status, version) and emits Sphinx directives with
+    correct indentation so the generated RST is valid.
+
+    Input format (PyPop._deprecations.deprecated_modules):
+        {
+            "PyPop.OldName": {
+                "new": "PyPop.new_name",       # optional
+                "reason": "human text",        # optional
+                "changed": "X.Y.Z",            # optional -> versionchanged
+                "deprecated": "A.B.C",         # optional -> deprecated
+                "removal": "D.E.F",            # optional scheduled removal (informational)
+                "removed": "E.F.G",            # optional -> versionremoved
+            },
+            ...
+        }
+    """
+    try:
+        from PyPop._deprecations import deprecated_modules  # noqa: PLC0415
+    except Exception:
+        return ""
+
+    INDENT = "   "
+    BULLET_PREFIX = INDENT + "- "
+    CONTINUE_INDENT = INDENT + "  "
+
+    # Group items by (status, version)
+    groups = defaultdict(list)
+    for old, info in sorted(deprecated_modules.items()):
+        new = info.get("new")
+        reason = (info.get("reason") or "").strip()
+        changed_ver = info.get("changed")
+        dep_ver = info.get("deprecated")
+        removed_ver = info.get("removed")
+        removal_ver = info.get("removal")
+
+        if changed_ver:
+            groups[("changed", changed_ver)].append((old, new, reason))
+        if dep_ver:
+            groups[("deprecated", dep_ver)].append((old, new, reason, removal_ver))
+        if removed_ver:
+            groups[("removed", removed_ver)].append((old, new, reason))
+
+    # Build version→status grouping
+    versions = defaultdict(lambda: {"changed": [], "deprecated": [], "removed": []})
+    for (status, version), items in groups.items():
+        versions[version][status].extend(items)
+
+    # Sort versions descending (semantic-like order)
+    def parse_ver(v):
+        try:
+            return tuple(map(int, v.split(".")))
+        except Exception:
+            return (0, 0, 0)
+
+    sorted_versions = sorted(versions.keys(), key=parse_ver, reverse=True)
+
+    blocks = []
+
+    for version in sorted_versions:
+        vdata = versions[version]
+
+        # order: changed → deprecated → removed
+        for status in ("changed", "deprecated", "removed"):
+            items = vdata[status]
+            if not items:
+                continue
+
+            lines = []
+
+            if status == "changed":
+                lines.append(f".. versionchanged:: {version}")
+                lines.append(
+                    INDENT + "The following modules were renamed or refactored:"
+                )
+                lines.append("")
+                for old, new, reason in sorted(items):
+                    lines.append(f"{BULLET_PREFIX}:mod:`{old}` → :mod:`{new}`")
+                    if reason:
+                        # lines.append("")
+                        wrapped = textwrap.wrap(reason, width=72)
+                        for ln in wrapped:
+                            lines.append(f"{CONTINUE_INDENT}{ln}")
+                    lines.append("")
+
+            elif status == "deprecated":
+                lines.append(f".. deprecated:: {version}")
+                lines.append(INDENT + "The following modules were marked deprecated:")
+                lines.append("")
+                for old, new, reason, removal_ver in sorted(items):
+                    if new:
+                        lines.append(f"{BULLET_PREFIX}:mod:`{old}` → :mod:`{new}`")
+                    else:
+                        lines.append(f"{BULLET_PREFIX}:mod:`{old}`")
+                    if removal_ver:
+                        # lines.append("")
+                        lines.append(
+                            f"{CONTINUE_INDENT}**Scheduled for removal in {removal_ver}.**"
+                        )
+                        # lines.append(f"**Scheduled for removal in {removal_ver}.**")
+                    if reason:
+                        # lines.append("")
+                        wrapped = textwrap.wrap(reason, width=72)
+                        for ln in wrapped:
+                            lines.append(f"{CONTINUE_INDENT}{ln}")
+                    lines.append("")
+
+            elif status == "removed":
+                lines.append(f".. versionremoved:: {version}")
+                lines.append(INDENT + "The following modules were removed:")
+                lines.append("")
+                for old, new, reason in sorted(items):
+                    lines.append(f"{BULLET_PREFIX}:mod:`{old}`")
+                    if new:
+                        # lines.append("")
+                        lines.append(
+                            f"{CONTINUE_INDENT}(previously replaced by :mod:`{new}`)"
+                        )
+                    if reason:
+                        # lines.append("")
+                        wrapped = textwrap.wrap(reason, width=72)
+                        for ln in wrapped:
+                            lines.append(f"{CONTINUE_INDENT}{ln}")
+                    lines.append("")
+
+            while lines and lines[-1] == "":
+                lines.pop()
+            blocks.append("\n".join(lines))
+
+    if not blocks:
+        return ""
+    return "\n\n".join(blocks) + "\n"
+
+
 def prepare_autoapi_index(app):
-    """Substitute the top-level index to be generated."""
-    # don't hardcode, get this from config
+    """Substitute the top-level index using a template file with placeholders.
+
+    Placeholders in api_index_override.rst:
+        {{deprecations_block}}    -> substituted with _make_deprecations_block() output
+        {{generated_api_index}}   -> substituted with the generated PyPop/index.rst content
+    """
     autoapi_root = getattr(app.config, "autoapi_root", "")
-    src_override = Path(app.srcdir) / "_static" / "api_index_override.rst"
+    template_path = Path(app.srcdir) / "_static" / "api_index_override.rst"
     src_generated = Path(app.srcdir) / autoapi_root / "PyPop" / "index.rst"
     dst = Path(app.srcdir) / autoapi_root / "index.rst"
 
     print(
-        f"[helpers]: replace index: concatenate {src_override} with {src_generated} and put output in {dst}"
+        f"[helpers]: generating API index from template {template_path}, "
+        f"generated index {src_generated} → {dst}"
     )
 
-    # Read override content
-    override_content = src_override.read_text(encoding="utf-8")
+    # --- read template ---
+    template_content = template_path.read_text(encoding="utf-8")
 
-    # Read generated PyPop/index.rst content if it exists
+    # --- read generated PyPop/index.rst content ---
     generated_content = ""
     if src_generated.exists():
         generated_content = src_generated.read_text(encoding="utf-8")
-        # FIXME: get ride of first title in the generated content, slightly hacky
         generated_content = strip_first_title(generated_content)
-        # Delete the generated PyPop/index.rst so Sphinx doesn't process it separately
-        src_generated.unlink()
+        src_generated.unlink()  # prevent Sphinx from processing it separately
 
-    gfdl_content = r"""
-.. only:: latex
+    # --- read API updates ---
+    try:
+        from PyPop import _deprecations  # noqa: PLC0415
 
-   .. raw:: latex
+        # get the docstring
+        api_update_block = _deprecations.__doc__
+    except ImportError:
+        api_update_block = ""
 
-      \begingroup
-      \footnotesize
-      \sphinxsetup{%
-      %TitleColor={named}{blue},
-      }
+    # --- read deprecations ---
+    deprecations_block = _make_deprecations_block()
 
-   .. _api-gfdl:
+    # --- substitute placeholders ---
+    final_content = template_content
+    final_content = final_content.replace("{{api_update_block}}", api_update_block)
+    final_content = final_content.replace("{{deprecations_block}}", deprecations_block)
+    final_content = final_content.replace("{{generated_api_index}}", generated_content)
 
-   .. include:: /docs/gfdl.rst
-
-   .. raw:: latex
-
-      \endgroup
-    """
-
-    # Combine them: override first, then generated, then the GFDL wrapped in an environment
-    final_content = (
-        override_content + "\n\n" + generated_content + "\n\n" + gfdl_content
-    )
-
-    # Ensure parent exists
+    # --- ensure destination exists ---
     dst.parent.mkdir(parents=True, exist_ok=True)
 
-    # Write final merged index.rst
+    # --- write final merged index.rst ---
     dst.write_text(final_content, encoding="utf-8")
+
+    if app.builder and app.builder.name == "doctest":
+        # This is a doctest build
+        print(
+            f"[helpers] in {app.builder.name} backend, skip doctests in {autoapi_root}, handled by pytest"
+        )
+        app.config.exclude_patterns.append(autoapi_root)
+
+
+def get_api_version_tag(full_release=None):
+    """Get the currently documented API version and tag."""
+    if os.environ.get("PYPOP_DOCS_MODE", "") == "installed":
+        # checking installed package
+        try:
+            import PyPop  # noqa: PLC0415
+
+            print("[conf] sys.path:", sys.path)
+            api_version = PyPop.__version__
+            print(f"[conf] API is using installed package version: {api_version}")
+        except ImportError:
+            api_version = full_release
+            print(
+                f"[conf] Can't find installed version, fallback to internal API version: {api_version}"
+            )
+    else:
+        api_version = full_release
+        print(f"[conf] Using internal API version: {api_version}")
+
+    # create a tag for the API version to be used in user guide examples
+    api_tag = "api_14" if api_version > "1.3.1" else "api_13"
+    print(f"[helpers] with  API {api_version}: tag: {api_tag}")
+
+    return api_version, api_tag
 
 
 def renumber_footnotes(app, exception):

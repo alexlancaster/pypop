@@ -6,8 +6,8 @@ from numpy import array
 from numpy.testing import assert_array_almost_equal
 
 from PyPop import _Haplostats
-from PyPop.Haplo import Haplostats, _compute_LD
-from PyPop.Utils import StringMatrix
+from PyPop.haplo import Haplostats, _compute_LD
+from PyPop.utils import StringMatrix
 
 
 def call_Haplostats(
