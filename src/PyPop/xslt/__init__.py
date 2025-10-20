@@ -32,6 +32,8 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 
 """Python XSLT extensions for handling things outside the scope of XSLT 1.0."""
+# allow package name itself to be CamelCase, even if modules are not
+# ruff: noqa: N999
 
 from math import floor, inf, log10
 
