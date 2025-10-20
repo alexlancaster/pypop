@@ -5,6 +5,7 @@
 # https://docs.pytest.org/en/latest/example/simple.html#control-skipping-of-tests-according-to-command-line-option
 
 import os
+import shlex
 from pathlib import Path
 
 import pytest
@@ -30,6 +31,23 @@ def pytest_addoption(parser):
 def pytest_configure(config):
     config.addinivalue_line("markers", "slow: mark test as slow to run")
     config.addinivalue_line("markers", "pval_benchmarking: mark test as needing scipy")
+
+    # read PYTEST_OPTIONS environment variable
+    options = os.environ.get("PYTEST_OPTIONS", "")
+    if not options:
+        return
+
+    # parse as a list of args (like shell would)
+    args = shlex.split(options)
+
+    # for each flag, set config.option.<name> to True
+    for arg in args:
+        if arg.startswith("--"):
+            name = arg.lstrip("-").replace("-", "_")
+            if not hasattr(config.option, name):
+                # only set existing options; ignore unrecognized
+                continue
+            setattr(config.option, name, True)
 
 
 def pytest_collection_modifyitems(config, items):
