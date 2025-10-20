@@ -45,7 +45,6 @@ from helpers import (
     CustomLatexFormatter,
     CustomLaTeXTranslator,
     MyLiteralInclude,
-    _pypop_process_deprecation,
     get_api_version_tag,
     get_autoapi_dirs,
     patch_latex_files,
@@ -581,7 +580,6 @@ pdf_documents = [
 def setup(app):
     """Run the customization hooks."""
     app.connect("builder-inited", prepare_autoapi_index)  # override default index
-    app.connect("autodoc-process-docstring", _pypop_process_deprecation)
     app.connect(
         "autoapi-skip-member", skip_instance_vars
     )  # don't document instance variables in public API

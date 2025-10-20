@@ -317,49 +317,6 @@ def _make_deprecations_block():
     return "\n\n".join(blocks) + "\n"
 
 
-def _pypop_process_deprecation(_app, what, name, obj, _options, lines):
-    """Sphinx `autodoc-process-docstring` handler.
-
-    - `what`   : "module", "class", "function", etc.
-    - `name`   : fully qualified name
-    - `obj`    : the Python object
-    - `options`: autodoc options
-    - `lines`  : list of docstring lines (modifiable in place).
-    """
-    try:
-        info = getattr(obj, "__pypop_deprecation__", None)
-    except Exception:
-        info = None
-
-    if not info:
-        print(f"[AutoAPI] nothing to do, can't inject {name}")
-        return  # nothing to do
-
-    print(f"[AutoAPI] Injecting deprecation into {name}")
-
-    # Build replacement lines: place the deprecation directive at the top
-    ver = info.get("version_warn", "1.4.0")
-    new = info.get("new_name")
-    deprecated_block = [f".. deprecated:: {ver}"]
-    if new:
-        # For functions use :func:, for classes you might want :class:
-        # We don't know exact type reliably here; autodoc passes `what` so we can pick
-        if what == "class":
-            deprecated_block.append(f"   Use :class:`{new}` instead.")
-        else:
-            deprecated_block.append(f"   Use :func:`{new}` instead.")
-
-    # Insert block at top of docstring lines with a blank line separator
-    # Avoid duplicating if user already added a deprecated:: line themselves
-    for line in lines:
-        if line.strip().startswith(".. deprecated::"):
-            return
-
-    # Prepend in reverse order so final docstring starts with the directive
-    for _i, line in enumerate(reversed([*deprecated_block, ""])):
-        lines.insert(0, line)
-
-
 def prepare_autoapi_index(app):
     """Substitute the top-level index using a template file with placeholders.
 
