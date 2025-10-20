@@ -128,11 +128,13 @@ manylinux-pypy_aarch64-image = "manylinux_2_28"
 
 [[tool.cibuildwheel.overrides]]
 # run the benchmarking only on cp314
-select = "cp314-manylinux_aarch64"
+select = "cp314-manylinux_x86_64"
 inherit.test-extras = "append"
 test-extras = ["test-pval-benchmarking"]
-test-command = ["sphinx-build -b doctest {package}/website/doctest/ _doctests",
-                "pytest --pval-benchmarking -v --pyargs PyPop {package}/tests"]
+inherit.environment = "append"
+environment = { PYTEST_OPTIONS="${PYTEST_OPTIONS:-} --pval-benchmarking" }
+#test-command = ["sphinx-build -b doctest {package}/website/doctest/ _doctests",
+#                "pytest --pval-benchmarking -v --pyargs PyPop {package}/tests"]
 
 [[tool.cibuildwheel.overrides]]
 # skip sphinx doctest on PyPy: can't install sphinx
@@ -177,7 +179,6 @@ before-all = ["brew install --quiet ./gsl--2.7.1.arm64_big_sur.bottle.tar.gz"]
 
 [tool.cibuildwheel.windows]
 archs = ["auto", "ARM64"]
-# test-command = ["sphinx-build -b doctest {package}/website/doctest _doctests", "pytest -v --pyargs PyPop {package}/tests %PYTEST_OPTIONS%"]
 
 [[tool.cibuildwheel.overrides]]
 # overrides for X86
