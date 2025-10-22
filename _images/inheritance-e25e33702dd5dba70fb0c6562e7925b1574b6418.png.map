@@ -1,0 +1,6 @@
+<map id="inheritance2f4d7d7f71" name="inheritance2f4d7d7f71">
+<area shape="rect" id="node1" href="https://docs.python.org/3/library/argparse.html#argparse.ArgumentDefaultsHelpFormatter" target="_top" title="Help message formatter which adds default values to argument help." alt="" coords="140,5,375,31"/>
+<area shape="rect" id="node3" href="#PyPop.CommandLineInterface.PyPopFormatter" target="_top" title="PyPopFormatter" alt="" coords="393,31,520,56"/>
+<area shape="rect" id="node2" title="Formatter for generating usage messages and argument help strings." alt="" coords="5,31,121,56"/>
+<area shape="rect" id="node4" href="https://docs.python.org/3/library/argparse.html#argparse.RawDescriptionHelpFormatter" target="_top" title="Help message formatter which retains any formatting in descriptions." alt="" coords="148,55,367,80"/>
+</map>

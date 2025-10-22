@@ -1,0 +1,380 @@
+PyPop.Utils
+===========
+
+.. py:module:: PyPop.Utils
+
+.. autoapi-nested-parse::
+
+   Module for common utility classes and functions.
+
+   Contains convenience classes for output of text and XML
+   files.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.Utils.GENOTYPE_SEPARATOR
+   PyPop.Utils.GENOTYPE_TERMINATOR
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.Utils.TextOutputStream
+   PyPop.Utils.XMLOutputStream
+   PyPop.Utils.OrderedDict
+   PyPop.Utils.Index
+   PyPop.Utils.StringMatrix
+   PyPop.Utils.Group
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.Utils.glob_with_pathlib
+   PyPop.Utils.getStreamType
+   PyPop.Utils.natural_sort_key
+   PyPop.Utils.unique_elements
+   PyPop.Utils.appendTo2dList
+   PyPop.Utils.convertLineEndings
+   PyPop.Utils.fixForPlatform
+   PyPop.Utils.copyfileCustomPlatform
+   PyPop.Utils.copyCustomPlatform
+   PyPop.Utils.checkXSLFile
+   PyPop.Utils.getUserFilenameInput
+   PyPop.Utils.splitIntoNGroups
+
+
+Module Contents
+---------------
+
+.. py:data:: GENOTYPE_SEPARATOR
+   :value: '~'
+
+
+.. py:data:: GENOTYPE_TERMINATOR
+   :value: '~'
+
+
+.. py:function:: glob_with_pathlib(pattern)
+
+.. py:class:: TextOutputStream(file)
+
+   Output stream for writing text files.
+
+
+   .. py:method:: write(str)
+
+
+   .. py:method:: writeln(str='\n')
+
+
+   .. py:method:: close()
+
+
+   .. py:method:: flush()
+
+
+.. py:class:: XMLOutputStream(file)
+
+   Bases: :py:obj:`TextOutputStream`
+
+   .. autoapi-inheritance-diagram:: PyPop.Utils.XMLOutputStream
+      :parts: 1
+
+
+   Output stream for writing XML files.
+
+
+   .. py:method:: opentag(tagname, **kw)
+
+      Generate an open XML tag.
+
+      Generate an open XML tag.  Attributes are passed in the form
+      of optional named arguments, e.g. opentag('tagname',
+      role=something, id=else) will produce the result '<tagname
+      role="something" id="else"> Note that the attribute and values
+      are optional and if omitted produce '<tagname>'.
+
+
+
+   .. py:method:: emptytag(tagname, **kw)
+
+      Generate an empty XML tag.
+
+      As per 'opentag()' but without content, i.e.:
+
+      '<tagname attr="val"/>'.
+
+
+
+   .. py:method:: closetag(tagname)
+
+      Generate a closing XML tag.
+
+      Generate a tag in the form: '</tagname>'.
+
+
+
+   .. py:method:: tagContents(tagname, content, **kw)
+
+      Generate open and closing XML tags around contents.
+
+      Generates tags in the form: '<tagname>content</tagname>'.
+      'content' must be a string.  Convert '&' and '<' and '>' into
+      valid XML equivalents.
+
+
+
+
+.. py:function:: getStreamType(stream)
+
+   Return the type of stream.
+
+   Returns either 'xml' or 'text'.
+
+
+.. py:class:: OrderedDict(hash=None)
+
+   Allows dict to have _ORDERED_ pairs
+
+   Creates an ordered dict
+
+
+   .. py:method:: index(key)
+
+      Returns position of key in dict
+
+
+
+   .. py:method:: keys()
+
+      Returns list of keys in dict
+
+
+
+   .. py:method:: values()
+
+      Returns list of values in dict
+
+
+
+   .. py:method:: items()
+
+      Returns list of tuples of keys and values
+
+
+
+   .. py:method:: insert(i, key, value)
+
+      Inserts a key-value pair at a given index
+
+
+
+   .. py:method:: remove(i)
+
+      Removes a key-value pair from the dict
+
+
+
+   .. py:method:: reverse()
+
+      Reverses the order of the key-value pairs
+
+
+
+   .. py:method:: sort(cmp=0)
+
+      Sorts the dict (allows for sort algorithm)
+
+
+
+   .. py:method:: clear()
+
+      Clears all the entries in the dict
+
+
+
+   .. py:method:: copy()
+
+      Makes copy of dict, also of OrderdDict class
+
+
+
+   .. py:method:: get(key)
+
+      Returns the value of a key
+
+
+
+   .. py:method:: has_key(key)
+
+      Looks for existence of key in dict
+
+
+
+   .. py:method:: update(dict)
+
+      Updates entries in a dict based on another
+
+
+
+   .. py:method:: count(key)
+
+      Finds occurrences of a key in a dict (0/1)
+
+
+
+.. py:class:: Index(i=0)
+
+   Returns an Index object for OrderedDict
+
+   Creates an Index object for use with OrderedDict
+
+
+.. py:class:: StringMatrix(rowCount=None, colList=None, extraList=None, colSep='\t', headerLines=None)
+
+   Bases: :py:obj:`numpy.lib.user_array.container`
+
+   .. autoapi-inheritance-diagram:: PyPop.Utils.StringMatrix
+      :parts: 1
+
+
+   StringMatrix is a subclass of NumPy (Numeric Python)
+   UserArray class, and uses NumPy to store the data in an efficient
+   array format, rather than internal Python lists.
+
+   Constructor for StringMatrix.
+
+   colList is a mutable type so we freeze the list of locus keys in
+   the original order in file by making a *clone* of the list of
+   keys.
+
+   the order of loci in the array will correspond to the original
+   file order, and we don't want this tampered with by the `callee'
+   function (i.e. effectively override the Python 'pass by
+   reference' default and 'pass by value').
+
+
+   .. py:method:: dump(locus=None, stream=sys.stdout)
+
+
+   .. py:method:: copy()
+
+      Make a (deep) copy of the StringMatrix
+
+      Currently this goes via the constructor, not sure if
+      there is a better way of doing this
+
+
+
+   .. py:method:: getNewStringMatrix(key)
+
+      Create an entirely new StringMatrix using only the columns supplied
+      in the keys.
+
+      The format of the keys is identical to __getitem__ except that
+      it in this case returns a full StringMatrix instance which
+      includes all metadata
+
+
+
+   .. py:method:: getUniqueAlleles(key)
+
+      Return a list of unique integers for given key sorted by allele name using natural sort
+
+
+
+   .. py:method:: convertToInts()
+
+      Convert matrix to integers: needed for haplo-stats
+      Note that integers start at 1 for compatibility with haplo-stats module
+      FIXME: check whether we need to release memory
+
+
+
+   .. py:method:: countPairs()
+
+      Given a matrix of genotypes (pairs of columns for each
+      locus), compute number of possible pairs of haplotypes for each
+      subject (the rows of the geno matrix)
+
+      FIXME: this does *not* do any involved handling of missing data
+      as per geno.count.pairs from haplo.stats
+
+      FIXME: should these methods eventually be moved to Genotype class?
+
+
+
+   .. py:method:: flattenCols()
+
+      Flatten columns into a single list
+      FIXME: assumes entries are integers
+
+
+
+   .. py:method:: filterOut(key, blankDesignator)
+
+      Returns a filtered matrix.
+
+      When passed a designator, this method will return the rows of
+      the matrix that *do not* contain that designator at any rows
+
+
+
+   .. py:method:: getSuperType(key)
+
+      Returns a matrix grouped by columns.
+
+      e.g if matrix is [[A01, A02, B01, B02], [A11, A12, B11, B12]]
+
+      then getSuperType('A:B') will return the matrix with the column
+      vector:
+
+      [[A01:B01, A02:B02], [A11:B11, A12:B12]]
+
+
+
+.. py:class:: Group(li, size)
+
+.. py:function:: natural_sort_key(s, _nsre=re.compile('([0-9]+)'))
+
+.. py:function:: unique_elements(li)
+
+   Gets the unique elements in a list
+
+
+.. py:function:: appendTo2dList(aList, appendStr=':')
+
+.. py:function:: convertLineEndings(file, mode)
+
+.. py:function:: fixForPlatform(filename, txt_ext=0)
+
+.. py:function:: copyfileCustomPlatform(src, dest, txt_ext=0)
+
+.. py:function:: copyCustomPlatform(file, dist_dir, txt_ext=0)
+
+.. py:function:: checkXSLFile(xslFilename, path='', subdir='', abort=False, debug=None, msg='')
+
+.. py:function:: getUserFilenameInput(prompt, filename)
+
+   Read user input for a filename, check its existence, continue
+   requesting input until a valid filename is entered.
+
+
+.. py:function:: splitIntoNGroups(alist, n=1)
+
+   Divides a list up into n parcels (plus whatever is left over)
+
+   This class currently works with Python 2.2, but will eventually
+   use iterators, so ultimately will need least Python 2.3!
+
+
