@@ -50,6 +50,8 @@ import numpy as np
 from numpy import asarray, take, zeros
 from numpy.lib.user_array import container
 
+from PyPop import logger
+
 GENOTYPE_SEPARATOR = "~"
 """
 Separator between genotypes
@@ -68,19 +70,6 @@ Example:
 
   ```02:01:01:01~``
 """
-
-
-def glob_with_pathlib(pattern):
-    """Use globbing with ``pathlib``.
-
-    Args:
-       pattern (str): globbing pattern
-
-    Returns:
-       list: of pathlib globs
-    """
-    path = Path(pattern).resolve()
-    return list(path.parent.glob(path.name))
 
 
 class TextOutputStream:
@@ -226,183 +215,6 @@ class XMLOutputStream(TextOutputStream):
         content = content.replace(">", "&gt;")
         self.f.write(content)
         self.closetag(tagname)
-
-
-def getStreamType(stream):
-    """Get the type of stream.
-
-    Args:
-      stream (TextOutputStream|XMLOutputStream): stream to check
-
-    Returns:
-      string: either ``xml`` or ``text``.
-    """
-    return "xml" if isinstance(stream, XMLOutputStream) == 1 else "text"
-
-
-class OrderedDict:
-    """A dictionary class with **ordered** pairs.
-
-    .. deprecated:: 1.3.1
-
-       Will be removed in a later release, to be replaced by internal
-       Python version
-
-    """
-
-    __version__ = "1.1"
-
-    def __init__(self, hash=None):
-        """Creates an ordered dict."""
-        if hash is None:
-            hash = []
-        self.__hash = {}
-        self.KEYS = []
-
-        while hash:
-            k, v, hash = hash[0], hash[1], hash[2:]
-            self.__hash[k] = v
-            self.KEYS.append(k)
-
-    def __addval__(self, key, value):
-        """Internal function to add/change key-value pair (at end)."""
-        try:
-            self.KEYS.index(key)
-        except Exception:
-            self.__hash[key] = value
-            self.KEYS.append(key)
-        else:
-            self.__hash[key] = value
-
-    def __setitem__(self, i, hash):
-        """Adds key-value pairs (existing keys not moved)."""
-        if type(i) is type(Index()):
-            del self.__hash[self.KEYS[i.i]]
-            if len(hash) != 1:
-                self.KEYS[i.i], hash = hash[0], hash[1:]
-            self.__hash[self.KEYS[i.i]] = hash[0]
-        else:
-            self.__addval__(i, hash)
-
-    def __getitem__(self, key):
-        """Returns value of given key."""
-        if type(key) is type(Index()):
-            key = self.KEYS[key.i]
-            return [key, self.__hash[key]]
-        return self.__hash[key]
-
-    def __len__(self):
-        """Returns the number of pairs in the dict."""
-        return len(self.KEYS)
-
-    def index(self, key):
-        """Returns position of key in dict."""
-        return self.KEYS.index(key)
-
-    def keys(self):
-        """Returns list of keys in dict."""
-        return self.KEYS
-
-    def values(self):
-        """Returns list of values in dict."""
-        ret = []
-        for key in self.KEYS:
-            ret.append(self.__hash[key])
-        return ret
-
-    def items(self):
-        """Returns list of tuples of keys and values."""
-        ret = []
-        for key in self.KEYS:
-            ret.append((key, self.__hash[key]))
-        return ret
-
-    def insert(self, i, key, value):
-        """Inserts a key-value pair at a given index."""
-        InsertError = "Duplicate key entry"
-        if key in self.__hash:
-            raise InsertError
-        self.KEYS.insert(i, key)
-        self.__hash[key] = value
-
-    def remove(self, i):
-        """Removes a key-value pair from the dict."""
-        del self.__hash[i]
-        self.KEYS.remove(i)
-
-    def __delitem__(self, i):
-        """Removes a key-value pair from the dict."""
-        if type(i) is not type(Index()):
-            i = Index(self.KEYS.index(i))
-        del self.__hash[self.KEYS[i.i]]
-        del self.KEYS[i.i]
-
-    def reverse(self):
-        """Reverses the order of the key-value pairs."""
-        self.KEYS.reverse()
-
-    def sort(self, cmp=0):
-        """Sorts the dict (allows for sort algorithm)."""
-        if cmp:
-            self.KEYS.sort(cmp)
-        else:
-            self.KEYS.sort()
-
-    def clear(self):
-        """Clears all the entries in the dict."""
-        self.__hash = {}
-        self.KEYS = []
-
-    def copy(self):
-        """Makes copy of dict, also of OrderdDict class."""
-        hash = OrderedDict()
-        hash.KEYS = self.KEYS[:]
-        hash.__hash = self.__hash.copy()
-        return hash
-
-    def get(self, key):
-        """Returns the value of a key."""
-        return self.__hash[key]
-
-    def has_key(self, key):
-        """Looks for existence of key in dict."""
-        return key in self.__hash
-
-    def update(self, dict):
-        """Updates entries in a dict based on another."""
-        self.__hash.update(dict)
-
-    def count(self, key):
-        """Finds occurrences of a key in a dict (0/1)."""
-        return key in self.__hash
-
-    def __getslice__(self, i, j):
-        """Returns an OrderedDict of key-value pairs from a dict."""
-        ret = []
-        for x in range(i, j):
-            ret.append(self.KEYS[x])
-            ret.append(self.__hash[self.KEYS[x]])
-        return OrderedDict(ret)
-
-    def __setslice__(self, i, j, hash):
-        """Sets a slice of elements from the dict."""
-        hash = list(hash)
-        for x in range(i, j):
-            k, v, hash = hash[0], hash[1], hash[2:]
-            self.__setitem__(Index(x), [k, v])
-
-
-class Index:
-    """Returns an Index object for :class:`OrderedDict`.
-
-    .. deprecated:: 1.3.1
-
-       Will be removed in a later release, to be replaced by internal
-       Python version
-    """
-
-    def __init__(self, i=0):
-        self.i = i
 
 
 class StringMatrix(container):
@@ -557,8 +369,7 @@ class StringMatrix(container):
 
         """
         msg = "slices not currently supported"
-        raise Exception(msg)
-        # return self._rc(self.array[i:j])
+        raise Exception(msg)  # noqa: TRY002
 
     def __getitem__(self, key):
         """Get the item at given key (overrides built-in numpy).
@@ -959,7 +770,209 @@ class Group:
         return self.li[idx : idx + self.size]
 
 
+class OrderedDict:
+    """A dictionary class with **ordered** pairs.
+
+    .. deprecated:: 1.3.1
+
+       Will be removed in a later release, to be replaced by internal
+       Python version
+
+    """
+
+    __version__ = "1.1"
+
+    def __init__(self, hash=None):
+        """Creates an ordered dict."""
+        if hash is None:
+            hash = []
+        self.__hash = {}
+        self.KEYS = []
+
+        while hash:
+            k, v, hash = hash[0], hash[1], hash[2:]
+            self.__hash[k] = v
+            self.KEYS.append(k)
+
+    def __addval__(self, key, value):
+        """Internal function to add/change key-value pair (at end)."""
+        try:
+            self.KEYS.index(key)
+        except Exception:
+            self.__hash[key] = value
+            self.KEYS.append(key)
+        else:
+            self.__hash[key] = value
+
+    def __setitem__(self, i, hash):
+        """Adds key-value pairs (existing keys not moved)."""
+        if type(i) is type(Index()):
+            del self.__hash[self.KEYS[i.i]]
+            if len(hash) != 1:
+                self.KEYS[i.i], hash = hash[0], hash[1:]
+            self.__hash[self.KEYS[i.i]] = hash[0]
+        else:
+            self.__addval__(i, hash)
+
+    def __getitem__(self, key):
+        """Returns value of given key."""
+        if type(key) is type(Index()):
+            key = self.KEYS[key.i]
+            return [key, self.__hash[key]]
+        return self.__hash[key]
+
+    def __len__(self):
+        """Returns the number of pairs in the dict."""
+        return len(self.KEYS)
+
+    def index(self, key):
+        """Returns position of key in dict."""
+        return self.KEYS.index(key)
+
+    def keys(self):
+        """Returns list of keys in dict."""
+        return self.KEYS
+
+    def values(self):
+        """Returns list of values in dict."""
+        ret = []
+        for key in self.KEYS:
+            ret.append(self.__hash[key])
+        return ret
+
+    def items(self):
+        """Returns list of tuples of keys and values."""
+        ret = []
+        for key in self.KEYS:
+            ret.append((key, self.__hash[key]))
+        return ret
+
+    def insert(self, i, key, value):
+        """Inserts a key-value pair at a given index."""
+        InsertError = "Duplicate key entry"
+        if key in self.__hash:
+            raise InsertError
+        self.KEYS.insert(i, key)
+        self.__hash[key] = value
+
+    def remove(self, i):
+        """Removes a key-value pair from the dict."""
+        del self.__hash[i]
+        self.KEYS.remove(i)
+
+    def __delitem__(self, i):
+        """Removes a key-value pair from the dict."""
+        if type(i) is not type(Index()):
+            i = Index(self.KEYS.index(i))
+        del self.__hash[self.KEYS[i.i]]
+        del self.KEYS[i.i]
+
+    def reverse(self):
+        """Reverses the order of the key-value pairs."""
+        self.KEYS.reverse()
+
+    def sort(self, cmp=0):
+        """Sorts the dict (allows for sort algorithm)."""
+        if cmp:
+            self.KEYS.sort(cmp)
+        else:
+            self.KEYS.sort()
+
+    def clear(self):
+        """Clears all the entries in the dict."""
+        self.__hash = {}
+        self.KEYS = []
+
+    def copy(self):
+        """Makes copy of dict, also of OrderdDict class."""
+        hash = OrderedDict()
+        hash.KEYS = self.KEYS[:]
+        hash.__hash = self.__hash.copy()
+        return hash
+
+    def get(self, key):
+        """Returns the value of a key."""
+        return self.__hash[key]
+
+    def has_key(self, key):
+        """Looks for existence of key in dict."""
+        return key in self.__hash
+
+    def update(self, dict):
+        """Updates entries in a dict based on another."""
+        self.__hash.update(dict)
+
+    def count(self, key):
+        """Finds occurrences of a key in a dict (0/1)."""
+        return key in self.__hash
+
+    def __getslice__(self, i, j):
+        """Returns an OrderedDict of key-value pairs from a dict."""
+        ret = []
+        for x in range(i, j):
+            ret.append(self.KEYS[x])
+            ret.append(self.__hash[self.KEYS[x]])
+        return OrderedDict(ret)
+
+    def __setslice__(self, i, j, hash):
+        """Sets a slice of elements from the dict."""
+        hash = list(hash)
+        for x in range(i, j):
+            k, v, hash = hash[0], hash[1], hash[2:]
+            self.__setitem__(Index(x), [k, v])
+
+
+class Index:
+    """Returns an Index object for :class:`OrderedDict`.
+
+    .. deprecated:: 1.3.1
+
+       Will be removed in a later release, to be replaced by internal
+       Python version
+    """
+
+    def __init__(self, i=0):
+        self.i = i
+
+
 ### global FUNCTIONS start here
+
+
+def critical_exit(message, *args):  # noqa: D417
+    """Log a CRITICAL message and exit with status 1.
+
+    .. versionadded:: 1.4.0
+
+    Args:
+        message (str): Logging format string.
+    """
+    logger.critical(message, *args, stacklevel=2)
+    sys.exit(1)
+
+
+def getStreamType(stream):
+    """Get the type of stream.
+
+    Args:
+      stream (TextOutputStream|XMLOutputStream): stream to check
+
+    Returns:
+      string: either ``xml`` or ``text``.
+    """
+    return "xml" if isinstance(stream, XMLOutputStream) == 1 else "text"
+
+
+def glob_with_pathlib(pattern):
+    """Use globbing with ``pathlib``.
+
+    Args:
+       pattern (str): globbing pattern
+
+    Returns:
+       list: of pathlib globs
+    """
+    path = Path(pattern).resolve()
+    return list(path.parent.glob(path.name))
 
 
 def natural_sort_key(s, _nsre=re.compile(r"([0-9]+)")):
@@ -1031,22 +1044,22 @@ def convertLineEndings(file, mode):
     """
     if mode == 1:
         if Path(file).is_dir():
-            sys.exit(file + "Directory!")
+            critical_exit("%s Directory!", file)
         with open(file) as fp:
             data = fp.read()
             if "\0" in data:
-                sys.exit(file + "Binary!")
+                critical_exit("%s Binary!", file)
             newdata = re.sub("\r?\n", "\r", data)
         if newdata != data:
             with open(file, "w") as f:
                 f.write(newdata)
     elif mode == 2:
         if Path(file).is_dir():
-            sys.exit(file + "Directory!")
+            critical_exit("%s Directory!", file)
         with open(file) as fp:
             data = fp.read()
             if "\0" in data:
-                sys.exit(file + "Binary!")
+                critical_exit("%s Binary!", file)
             newdata = re.sub("\r(?!\n)|(?<!\r)\n", "\r\n", data)
         if newdata != data:
             with open(file, "w") as f:
@@ -1106,7 +1119,7 @@ def copyCustomPlatform(file, dist_dir, txt_ext=0):
     fixForPlatform(new_filename, txt_ext=txt_ext)
 
 
-def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg=""):
+def checkXSLFile(xslFilename, path="", subdir="", abort=False, msg=""):
     """Check XSL filename and return full path.
 
     Args:
@@ -1115,24 +1128,25 @@ def checkXSLFile(xslFilename, path="", subdir="", abort=False, debug=None, msg="
        subdir (str): subdirectory under ``path`` to check
        abort (bool): if enabled (``True``) file isn't found, exit with
         an error.  Default is ``False``
-       debug (bool): enable debug with ``True``
        msg (str): output message on abort
 
     Returns:
        str: checked and validaated path
 
     """
-    if debug:
-        print(f"path={path}, subdir={subdir}, xslFilename={xslFilename} xsl path")
+    logger.debug(
+        "path=%s, subdir=%s, xslFilename=%s xsl path", path, subdir, xslFilename
+    )
 
     # generate a full path to check
     checkPath = os.path.realpath(Path(path) / subdir / xslFilename)
     if Path(checkPath).is_file():
         return checkPath
     if abort:
-        sys.exit(f"Can't find XSL: {checkPath} {msg}")
+        critical_exit("Can't find XSL: %s %s", checkPath, msg)
     else:
-        return None
+        logger.warning("Can't find XSL: %s %s", checkPath, msg)
+    return None
 
 
 def getUserFilenameInput(prompt, filename):

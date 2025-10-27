@@ -36,163 +36,12 @@
 """Module for collecting multiple population outputs."""
 
 import os
-import sys
 from pathlib import Path
 
 from lxml import etree
 
-from PyPop.Utils import checkXSLFile, splitIntoNGroups
-
-
-def _translate_string_to(xslFilename, inString, outFile, outputDir=None, params=None):
-    # do the transformation
-
-    # parse the stylesheet file
-    styledoc = etree.parse(xslFilename)
-
-    # setup the stylesheet instance
-    style = etree.XSLT(styledoc)
-
-    # parse the inline generated XML file
-    doc = etree.fromstring(inString)
-
-    # apply the stylesheet instance to the document instance
-    result = style(doc, **params) if params else style(doc)
-
-    # generate output path
-    outPath = outputDir / outFile if outputDir else outFile
-
-    result.write_output(outPath)
-
-    # use to dump directly to a string, problem is that it insists on
-    # outputting an XML declaration "<?xml ...?>", can't seem to
-    # suppress this
-    # outString = result.serialize()
-
-    # return outString
-
-
-def translate_string_to_stdout(xslFilename, inString, outputDir=None, params=None):
-    """Transform XML string using XSLT and save to stdout.
-
-    Args:
-      xslFilename (str): name of XSLT file
-      inString (str): XML string
-      outputDir (str, optional): name of output directory
-      params (list, optional): list of XSLT parameters
-
-    """
-    _translate_string_to(xslFilename, inString, "-", outputDir=outputDir, params=params)
-
-
-def translate_string_to_file(
-    xslFilename, inString, outFile, outputDir=None, params=None
-):
-    """Transform XML string using XSLT and save to file.
-
-    Args:
-      xslFilename (str): name of XSLT file
-      inString (str): XML string
-      outFile (str): name of output file
-      outputDir (str): name of output directory
-      params (list): list of XSLT parameters
-
-    """
-    _translate_string_to(
-        xslFilename, inString, outFile, outputDir=outputDir, params=params
-    )
-
-
-def _translate_file_to(
-    xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None
-):
-    # assuming empty output
-    output = None
-
-    # parse the stylesheet file
-    styledoc = etree.parse(xslFilename)
-
-    # setup the stylesheet instance
-    style = etree.XSLT(styledoc)
-
-    try:
-        # generate output path
-        inputPath = inputDir / inFile if inputDir else inFile
-
-        # parse the inline generated XML file
-        doc = etree.parse(inputPath)
-
-        # apply the stylesheet instance to the document instance
-        result = style(doc, **params) if params else style(doc)
-
-        if outFile == "-":  # this is stdout
-            text_output = str(result)
-            if len(text_output) > 0:  # only write something if none-empty
-                print(text_output)  # print it to screen
-                output = text_output  # but also pass it back
-
-        else:
-            # generate output path
-            outPath = outputDir / outFile if outputDir else outFile
-
-            result.write_output(outPath)
-
-        success = True
-
-    except Exception as e:
-        print(e.args)
-        print(f"Can't process: {inFile} with stylesheet: {xslFilename}, skipping")
-        success = False
-
-    return success, output
-
-
-def translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None):
-    """Transform XML file using XSLT and save to stdout.
-
-    Args:
-      xslFilename (str): name of XSLT file
-      inFile (str): name of input XML file
-      inputDir (str, optional): name of input directory
-      params (list, optional): list of XSLT parameters
-
-    Returns:
-      tuple: consisting of a bool (transformation successful) and str (output)
-
-    """
-    retval, stdout = _translate_file_to(
-        xslFilename, inFile, "-", inputDir=inputDir, params=params
-    )
-    return retval, stdout
-
-
-def translate_file_to_file(
-    xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None
-):
-    """Transform XML file using XSLT and save to a file.
-
-    Args:
-      xslFilename (str): name of XSLT file
-      inFile (str): name of input XML file
-      outFile (str): name of output file
-      inputDir (str, optional): name of input directory
-      outputDir (str, optional): name of output directory
-      params (list, optional): list of XSLT parameters
-
-    Returns:
-      bool: transformation successful
-    """
-    retval, _output = _translate_file_to(
-        xslFilename,
-        inFile,
-        outFile,
-        inputDir=inputDir,
-        outputDir=outputDir,
-        params=params,
-    )
-    return (
-        retval  # FIXME: don't use the output from a file->file transformation currently
-    )
+from PyPop import logger
+from PyPop.utils import checkXSLFile, critical_exit, splitIntoNGroups
 
 
 class Meta:
@@ -286,8 +135,8 @@ class Meta:
                 metaXSLTDirectory = datapath
 
         if (batchsize > 1) and PHYLIP_output:
-            sys.exit(
-                "processing in batches and enabling PHYLIP are mutually exclusive options\n"
+            critical_exit(
+                "processing in batches and enabling PHYLIP are mutually exclusive options"
             )
 
         # create XSLT parameters
@@ -322,8 +171,8 @@ class Meta:
                 etree.parse(xml_file)
                 wellformed_files.append(xml_file)
             except Exception:
-                print(f"{xml_file} is not well-formed XML:")
-                print(
+                logger.warning("%d is not well-formed XML:", xml_file)
+                logger.warning(
                     "  probably a problem with analysis not completing, skipping in meta analysis!"
                 )
 
@@ -467,11 +316,15 @@ class Meta:
                             if Path(dat).exists():
                                 Path(dat).rename(f"{dat}.{fileBatch}")
                             else:
-                                print(
-                                    "%{dat} in batch {fileBatch} doesn't exist - skipping"
+                                logger.info(
+                                    "%s in batch %d doesn't exist - skipping",
+                                    dat,
+                                    fileBatch,
                                 )
                         else:
-                            print("problem with generating {dat} in batch {fileBatch}")
+                            logger.warning(
+                                "problem with generating %d in batch %s", dat, fileBatch
+                            )
 
         # at end of entire processing, need to cat files together
         # this is a bit hacky
@@ -501,3 +354,156 @@ class Meta:
                 # if the file is empty, we remove it
                 if Path(dat).stat().st_size == 0:
                     os.remove(dat)
+
+
+def _translate_string_to(xslFilename, inString, outFile, outputDir=None, params=None):
+    # do the transformation
+
+    # parse the stylesheet file
+    styledoc = etree.parse(xslFilename)
+
+    # setup the stylesheet instance
+    style = etree.XSLT(styledoc)
+
+    # parse the inline generated XML file
+    doc = etree.fromstring(inString)
+
+    # apply the stylesheet instance to the document instance
+    result = style(doc, **params) if params else style(doc)
+
+    # generate output path
+    outPath = outputDir / outFile if outputDir else outFile
+
+    result.write_output(outPath)
+
+    # use to dump directly to a string, problem is that it insists on
+    # outputting an XML declaration "<?xml ...?>", can't seem to
+    # suppress this
+    # outString = result.serialize()
+
+    # return outString
+
+
+def translate_string_to_stdout(xslFilename, inString, outputDir=None, params=None):
+    """Transform XML string using XSLT and save to stdout.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inString (str): XML string
+      outputDir (str, optional): name of output directory
+      params (list, optional): list of XSLT parameters
+
+    """
+    _translate_string_to(xslFilename, inString, "-", outputDir=outputDir, params=params)
+
+
+def translate_string_to_file(
+    xslFilename, inString, outFile, outputDir=None, params=None
+):
+    """Transform XML string using XSLT and save to file.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inString (str): XML string
+      outFile (str): name of output file
+      outputDir (str): name of output directory
+      params (list): list of XSLT parameters
+
+    """
+    _translate_string_to(
+        xslFilename, inString, outFile, outputDir=outputDir, params=params
+    )
+
+
+def _translate_file_to(
+    xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None
+):
+    # assuming empty output
+    output = None
+
+    # parse the stylesheet file
+    styledoc = etree.parse(xslFilename)
+
+    # setup the stylesheet instance
+    style = etree.XSLT(styledoc)
+
+    try:
+        # generate output path
+        inputPath = inputDir / inFile if inputDir else inFile
+
+        # parse the inline generated XML file
+        doc = etree.parse(inputPath)
+
+        # apply the stylesheet instance to the document instance
+        result = style(doc, **params) if params else style(doc)
+
+        if outFile == "-":  # this is stdout
+            text_output = str(result)
+            if len(text_output) > 0:  # only write something if none-empty
+                print(text_output)  # print it to screen
+                output = text_output  # but also pass it back
+
+        else:
+            # generate output path
+            outPath = outputDir / outFile if outputDir else outFile
+
+            result.write_output(outPath)
+
+        success = True
+
+    except Exception as e:
+        logger.warning(e.args)
+        logger.warning(
+            "Can't process: %s with stylesheet: %s, skipping", inFile, xslFilename
+        )
+        success = False
+
+    return success, output
+
+
+def translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None):
+    """Transform XML file using XSLT and save to stdout.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inFile (str): name of input XML file
+      inputDir (str, optional): name of input directory
+      params (list, optional): list of XSLT parameters
+
+    Returns:
+      tuple: consisting of a bool (transformation successful) and str (output)
+
+    """
+    retval, stdout = _translate_file_to(
+        xslFilename, inFile, "-", inputDir=inputDir, params=params
+    )
+    return retval, stdout
+
+
+def translate_file_to_file(
+    xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None
+):
+    """Transform XML file using XSLT and save to a file.
+
+    Args:
+      xslFilename (str): name of XSLT file
+      inFile (str): name of input XML file
+      outFile (str): name of output file
+      inputDir (str, optional): name of input directory
+      outputDir (str, optional): name of output directory
+      params (list, optional): list of XSLT parameters
+
+    Returns:
+      bool: transformation successful
+    """
+    retval, _output = _translate_file_to(
+        xslFilename,
+        inFile,
+        outFile,
+        inputDir=inputDir,
+        outputDir=outputDir,
+        params=params,
+    )
+    return (
+        retval  # FIXME: don't use the output from a file->file transformation currently
+    )

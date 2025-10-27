@@ -35,6 +35,7 @@
 
 """Command-line interface for ``pypop``."""
 
+import logging
 import os
 import sys
 from configparser import ConfigParser
@@ -42,11 +43,15 @@ from glob import glob
 from pathlib import Path
 
 from PyPop import __version__ as version
-from PyPop import copyright_message, platform_info
-from PyPop.CommandLineInterface import get_pypop_cli
-from PyPop.Main import Main, checkXSLFile, getConfigInstance
-from PyPop.Meta import Meta
-from PyPop.Utils import getUserFilenameInput, glob_with_pathlib  # noqa: F401
+from PyPop import copyright_message, logger, platform_info, setup_logger
+from PyPop.command_line_interface import get_pypop_cli
+from PyPop.popaggregate import Meta
+from PyPop.popanalysis import Main, checkXSLFile, getConfigInstance
+from PyPop.utils import (  # noqa: F401
+    critical_exit,
+    getUserFilenameInput,
+    glob_with_pathlib,
+)
 
 
 def main(argv=sys.argv):
@@ -111,9 +116,17 @@ matters, see the file named COPYING.
             f"'{args.outputdir}' is not a directory, please supply a valid output directory"
         )
 
+    if args.log_level:
+        level = getattr(logging, args.log_level.upper())
+    elif args.debug:
+        level = logging.DEBUG
+    else:
+        level = logging.INFO
+
+    setup_logger(level=level, filename=args.log_file, doctest_mode=False)
+
     configFilename = args.config
     xslFilename = args.xsl
-    debugFlag = args.debug
     interactiveFlag = args.interactive
     generateTSV = args.enable_tsv
     prefixTSV = args.prefix_tsv
@@ -129,7 +142,7 @@ matters, see the file named COPYING.
     if xslFilename:
         # first, check the command supplied filename first, return canonical
         # location and abort if it is not found immediately
-        xslFilename = checkXSLFile(xslFilename, abort=True, debug=debugFlag)
+        xslFilename = checkXSLFile(xslFilename, abort=True)
         xslFilenameDefault = None
 
     else:
@@ -137,10 +150,9 @@ matters, see the file named COPYING.
         # return a valid path or None (but the value found here is always
         # overridden by options in the .ini file)
 
-        if debugFlag:
-            print("pypopbinpath", pypopbinpath)
-            print("binpath", binpath)
-            print("datapath", datapath)
+        logger.debug("pypopbinpath: %s", pypopbinpath)
+        logger.debug("binpath: %s", binpath)
+        logger.debug("datapath: %s", datapath)
 
         try:
             # FIXME: need lazy import to handle old Python version
@@ -156,20 +168,22 @@ matters, see the file named COPYING.
 
             mypath = files("PyPop.xslt").joinpath("")
 
-        xslFilenameDefault = checkXSLFile(
-            "text.xsl", mypath, abort=False, debug=debugFlag
-        )
+        xslFilenameDefault = checkXSLFile("text.xsl", mypath, abort=False)
 
         if xslFilenameDefault is None:
             # otherwise use heuristics for XSLT transformation file 'text.xsl'
             # check child directory 'xslt/' first
             xslFilenameDefault = checkXSLFile(
-                "text.xsl", pypopbinpath, "xslt", debug=debugFlag
+                "text.xsl",
+                pypopbinpath,
+                "xslt",
             )
             # if not found  check sibling directory '../PyPop/xslt/'
             if xslFilenameDefault is None:
                 xslFilenameDefault = checkXSLFile(
-                    "text.xsl", pypopbinpath, "../PyPop/xslt", debug=debugFlag
+                    "text.xsl",
+                    pypopbinpath,
+                    "../PyPop/xslt",
                 )
 
     ######################################################################
@@ -270,7 +284,7 @@ return for each prompt.""")
             li = popFilenames
         # otherwise bail out with error
         else:
-            sys.exit(
+            critical_exit(
                 "ERROR: neither a list of files, nor a file containing a list was provided"
             )
 
@@ -283,7 +297,7 @@ return for each prompt.""")
             if len(globbedFiles) == 0:
                 # if no files were found for that glob, please exit and warn
                 # the user
-                sys.exit(f"Couldn't find file(s): {fileName}")
+                critical_exit("Couldn't find file(s): %s", fileName)
             else:
                 fileNames.extend(globbedFiles)
 
@@ -299,7 +313,6 @@ return for each prompt.""")
 
         application = Main(
             config=config,
-            debugFlag=debugFlag,
             fileName=str(fileName),
             datapath=datapath,
             xslFilename=xslFilename,

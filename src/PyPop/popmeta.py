@@ -34,14 +34,16 @@
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
 """Command-line interface for ``popmeta``."""
 
+import logging
 import os
 import sys
 from pathlib import Path
 
 from PyPop import __version__ as version
-from PyPop import copyright_message
-from PyPop.CommandLineInterface import get_popmeta_cli
-from PyPop.Meta import Meta
+from PyPop import copyright_message, setup_logger
+from PyPop.command_line_interface import get_popmeta_cli
+from PyPop.popaggregate import Meta
+from PyPop.utils import critical_exit
 
 
 def main(argv=sys.argv):
@@ -67,12 +69,21 @@ def main(argv=sys.argv):
     batchsize = args.batchsize
     outputDir = args.outputdir
 
+    if args.log_level:
+        level = getattr(logging, args.log_level.upper())
+    elif args.debug:
+        level = logging.DEBUG
+    else:
+        level = logging.INFO
+
+    setup_logger(level=level, filename=args.log_file, doctest_mode=False)
+
     if PHYLIP_output:
         batchsize = 1  #  set batch size to 1
 
     if outputDir and not outputDir.is_dir():
-        sys.exit(
-            f"'{outputDir}' is not a directory, please supply a valid output directory"
+        critical_exit(
+            "'%s' is not a directory, please supply a valid output directory", outputDir
         )
 
     # parse arguments
