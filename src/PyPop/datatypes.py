@@ -36,62 +36,7 @@
 import re
 import string
 
-
-def _serializeAlleleCountDataAt(
-    stream, alleleTable, total, untypedIndividuals, unsequencedSites
-):
-    """Function to actually do the output."""
-    totalFreq = 0
-    alleles = list(alleleTable.keys())
-    alleles.sort()
-
-    # if all individuals are untyped then suppress itemized output
-    if len(alleles) == 0:
-        stream.emptytag("allelecounts", role="no-data")
-        stream.writeln()
-    else:
-        # if monomorphic generate a role to indicate this, but
-        # still generate the summary output
-        if len(alleles) == 1:
-            stream.opentag("allelecounts", role="monomorphic")
-        else:
-            stream.opentag("allelecounts")
-
-        stream.writeln()
-        stream.tagContents("untypedindividuals", f"{untypedIndividuals:.1f}")
-        stream.writeln()
-        stream.tagContents("unsequencedsites", f"{unsequencedSites}")
-        stream.writeln()
-        stream.tagContents("indivcount", f"{total / 2.0:.1f}")
-        stream.writeln()
-        stream.tagContents("allelecount", f"{total}")
-        stream.writeln()
-        stream.tagContents("distinctalleles", f"{len(alleleTable)}")
-        stream.writeln()
-
-        for allele in alleles:
-            freq = float(alleleTable[allele]) / float(total)
-            totalFreq += freq
-            strFreq = f"{freq:0.5f} "
-            strCount = f"{alleleTable[allele]}"
-
-            stream.opentag("allele", name=allele)
-            stream.writeln()
-            stream.tagContents("frequency", strFreq)
-            stream.tagContents("count", strCount)
-            stream.writeln()
-            stream.closetag("allele")
-
-            stream.writeln()
-
-        strTotalFreq = f"{totalFreq:0.5f}"
-        strTotal = f"{total}"
-
-        stream.tagContents("totalfrequency", strTotalFreq)
-        stream.writeln()
-        stream.tagContents("totalcount", strTotal)
-        stream.closetag("allelecounts")
-        stream.writeln()
+from PyPop import logger
 
 
 class Genotypes:
@@ -102,7 +47,6 @@ class Genotypes:
         untypedAllele (str): The placeholder for an untyped allele site
         unsequencedSite (bool): The identifier used for an unsequenced site (only used for sequence data)
         allowSemiTyped (int): Whether or not to allow individuals that are typed at only one allele
-        debug (int): Switch on debugging
     """
 
     def __init__(
@@ -111,13 +55,11 @@ class Genotypes:
         untypedAllele="****",
         unsequencedSite=None,
         allowSemiTyped=0,
-        debug=0,
     ):
         self.matrix = matrix
         self.untypedAllele = untypedAllele
         self.unsequencedSite = unsequencedSite
         self.allowSemiTyped = allowSemiTyped
-        self.debug = debug
 
         self._genDataStructures()
 
@@ -131,11 +73,10 @@ class Genotypes:
         """
         for phase in [allele1, allele2]:
             if phase not in {self.untypedAllele, self.unsequencedSite}:
-                if self.debug:
-                    print("alleleTable:", self.alleleTable)
-                    print("alleleTable type:", type(self.alleleTable))
-                    print("phase:", phase)
-                    print("phase type:", type(phase))
+                logger.debug("alleleTable: %s", self.alleleTable)
+                logger.debug("alleleTable type: %s", type(self.alleleTable))
+                logger.debug("phase: %s", phase)
+                logger.debug("phase type: %s", type(phase))
                 if phase in self.alleleTable:
                     self.alleleTable[phase] += 1
                 else:
@@ -144,8 +85,7 @@ class Genotypes:
             else:
                 if self.unsequencedSite == phase:
                     unsequencedSites += 1
-                if self.debug:
-                    print(self.unsequencedSite, phase, unsequencedSites)
+                logger.debug(self.unsequencedSite, phase, unsequencedSites)
 
     def _genDataStructures(self):
         """Generates allele count and map data structures.
@@ -167,9 +107,8 @@ class Genotypes:
         self.locusTable = {}
 
         for locus in self.locusKeys:
-            if self.debug:
-                print(f"locus name: {locus}")
-                print(f"column tuple: {self.matrix[locus]}")
+            logger.debug("locus name: %s", locus)
+            logger.debug("column tuple: %s", self.matrix[locus])
 
             # initialise blank dictionary
             self.alleleTable = {}
@@ -190,13 +129,9 @@ class Genotypes:
             subMatrix = self.matrix[locus]
 
             for line in range(len(subMatrix)):
-                if self.debug:
-                    (print(rowCount, subMatrix[line]),)
-
+                logger.debug("%d %s", rowCount, subMatrix[line])
                 allele1, allele2 = [str(i) for i in subMatrix[line]]
-
-                if self.debug:
-                    print(allele1, allele2)
+                logger.debug("... %s %s", allele1, allele2)
 
                 # increment row count
                 rowCount += 1
@@ -217,8 +152,7 @@ class Genotypes:
                             unsequencedSites += 1
                         if self.unsequencedSite == allele2:
                             unsequencedSites += 1
-                        if self.debug:
-                            print(locus, allele1, allele2, unsequencedSites)
+                        logger.debug(locus, allele1, allele2, unsequencedSites)
                         continue
                 # if either allele is untyped it is we throw out the
                 # entire individual and go to the next individual
@@ -232,8 +166,7 @@ class Genotypes:
                 else:
                     self.locusTable[locus].append((allele1, allele2))
 
-                if self.debug:
-                    print(allele1, allele2, self.total)
+                logger.debug("%s %s, %d", allele1, allele2, self.total)
 
             # assign frequency, counts
             self.freqcount[locus] = (
@@ -394,7 +327,7 @@ class Genotypes:
                         lumpedAlleles["lump"] = count
                 else:
                     lumpedAlleles[allele] = count
-            ##print listLumped
+
             copyTable = (self.locusTable[locus])[:]
             newTable = []
             for li in copyTable:
@@ -402,9 +335,6 @@ class Genotypes:
                 newAllele1 = "lump" if allele1 in listLumped else allele1
                 newAllele2 = "lump" if allele2 in listLumped else allele2
                 newTable.append((newAllele1, newAllele2))
-
-            ##print copyTable
-            ##print newTable
 
             return newTable
         # returns a clone of the list, so that this instance variable
@@ -429,6 +359,129 @@ class Genotypes:
         """
         # return self.individualsData
         return self.matrix
+
+
+class AlleleCounts:
+    """Deprecated class to store information in allele count form.
+
+    .. deprecated:: 0.6.0
+         this class is now obsolete, the :class:`Genotypes` class
+         now holds allele count data as pseudo-genotype matrix.
+    """
+
+    def __init__(self, alleleTable=None, locusName=None):
+        self.alleleTable = alleleTable
+        self.locusName = locusName
+        self._genDataStructures()
+
+    def _genDataStructures(self):
+        total = 0
+        self.freqcount = {}
+
+        for allele in self.alleleTable:
+            total += self.alleleTable[allele]
+
+        # store in an iVar for the moment
+        self.totalAlleleCount = total
+
+        logger.debug("alleleTable", self.alleleTable)
+
+        # simply reconstruct the 3-tuple as generated in
+        # ParseGenotypeFile: alleleTable (a map of counts keyed by
+        # allele), total allele count and the number of untyped
+        # individuals (in this case, by definition it is zero).
+        # then store in the same data structure as ParseGenotypeFile
+
+        # even though we only have a single locus, this will make it
+        # easy to generalize later
+
+        self.freqcount[self.locusName] = self.alleleTable, self.totalAlleleCount, 0, 0
+
+    def serializeSubclassMetadataTo(self, stream):
+        """Serialize subclass-specific metadata.
+
+        Specifically, total number of alleles and loci.
+        """
+        stream.opentag("summaryinfo")
+        stream.writeln()
+        stream.tagContents("allelecount", f"{self.totalAlleleCount}")
+        stream.writeln()
+        stream.tagContents("locuscount", f"{1}")
+        stream.writeln()
+        stream.closetag("summaryinfo")
+        stream.writeln()
+
+    def serializeAlleleCountDataAt(self, stream, locus):
+        # call the class-independent function...
+
+        alleleTable, total, untypedIndividuals, unsequencedSites = self.freqcount[locus]
+        _serializeAlleleCountDataAt(
+            stream, alleleTable, total, untypedIndividuals, unsequencedSites
+        )
+
+    def getAlleleCount(self):
+        return self.freqcount[self.locusName]
+
+    def getLocusName(self):
+        # the first key is the name of the locus
+        return self.locusName
+
+
+def _serializeAlleleCountDataAt(
+    stream, alleleTable, total, untypedIndividuals, unsequencedSites
+):
+    """Function to actually do the output."""
+    totalFreq = 0
+    alleles = list(alleleTable.keys())
+    alleles.sort()
+
+    # if all individuals are untyped then suppress itemized output
+    if len(alleles) == 0:
+        stream.emptytag("allelecounts", role="no-data")
+        stream.writeln()
+    else:
+        # if monomorphic generate a role to indicate this, but
+        # still generate the summary output
+        if len(alleles) == 1:
+            stream.opentag("allelecounts", role="monomorphic")
+        else:
+            stream.opentag("allelecounts")
+
+        stream.writeln()
+        stream.tagContents("untypedindividuals", f"{untypedIndividuals:.1f}")
+        stream.writeln()
+        stream.tagContents("unsequencedsites", f"{unsequencedSites}")
+        stream.writeln()
+        stream.tagContents("indivcount", f"{total / 2.0:.1f}")
+        stream.writeln()
+        stream.tagContents("allelecount", f"{total}")
+        stream.writeln()
+        stream.tagContents("distinctalleles", f"{len(alleleTable)}")
+        stream.writeln()
+
+        for allele in alleles:
+            freq = float(alleleTable[allele]) / float(total)
+            totalFreq += freq
+            strFreq = f"{freq:0.5f} "
+            strCount = f"{alleleTable[allele]}"
+
+            stream.opentag("allele", name=allele)
+            stream.writeln()
+            stream.tagContents("frequency", strFreq)
+            stream.tagContents("count", strCount)
+            stream.writeln()
+            stream.closetag("allele")
+
+            stream.writeln()
+
+        strTotalFreq = f"{totalFreq:0.5f}"
+        strTotal = f"{total}"
+
+        stream.tagContents("totalfrequency", strTotalFreq)
+        stream.writeln()
+        stream.tagContents("totalcount", strTotal)
+        stream.closetag("allelecounts")
+        stream.writeln()
 
 
 # FIXME: regex should be passed as a parameter
@@ -518,71 +571,3 @@ def getLumpedDataLevels(genotypeData, locus, lumpLevels):
             genotypeData.getAlleleCountAt(locus, lumpValue=level),
         )
     return lumpData
-
-
-class AlleleCounts:
-    """Deprecated class to store information in allele count form.
-
-    .. deprecated:: 0.6.0
-         this class is now obsolete, the :class:`Genotypes` class
-         now holds allele count data as pseudo-genotype matrix.
-    """
-
-    def __init__(self, alleleTable=None, locusName=None, debug=0):
-        self.alleleTable = alleleTable
-        self.locusName = locusName
-        self.debug = debug
-        self._genDataStructures()
-
-    def _genDataStructures(self):
-        total = 0
-        self.freqcount = {}
-
-        for allele in self.alleleTable:
-            total += self.alleleTable[allele]
-
-        # store in an iVar for the moment
-        self.totalAlleleCount = total
-
-        if self.debug:
-            print("alleleTable", self.alleleTable)
-
-        # simply reconstruct the 3-tuple as generated in
-        # ParseGenotypeFile: alleleTable (a map of counts keyed by
-        # allele), total allele count and the number of untyped
-        # individuals (in this case, by definition it is zero).
-        # then store in the same data structure as ParseGenotypeFile
-
-        # even though we only have a single locus, this will make it
-        # easy to generalize later
-
-        self.freqcount[self.locusName] = self.alleleTable, self.totalAlleleCount, 0, 0
-
-    def serializeSubclassMetadataTo(self, stream):
-        """Serialize subclass-specific metadata.
-
-        Specifically, total number of alleles and loci.
-        """
-        stream.opentag("summaryinfo")
-        stream.writeln()
-        stream.tagContents("allelecount", f"{self.totalAlleleCount}")
-        stream.writeln()
-        stream.tagContents("locuscount", f"{1}")
-        stream.writeln()
-        stream.closetag("summaryinfo")
-        stream.writeln()
-
-    def serializeAlleleCountDataAt(self, stream, locus):
-        # call the class-independent function...
-
-        alleleTable, total, untypedIndividuals, unsequencedSites = self.freqcount[locus]
-        _serializeAlleleCountDataAt(
-            stream, alleleTable, total, untypedIndividuals, unsequencedSites
-        )
-
-    def getAlleleCount(self):
-        return self.freqcount[self.locusName]
-
-    def getLocusName(self):
-        # the first key is the name of the locus
-        return self.locusName

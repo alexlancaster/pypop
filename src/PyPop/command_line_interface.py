@@ -126,7 +126,7 @@ def get_parent_cli(version="", copyright_message=""):
         (
             ["-o", "--outputdir"],
             {
-                "help": "put output in directory OUTPUTDIR",
+                "help": "put output in directory ``OUTPUTDIR``",
                 "required": False,
                 "type": Path,
                 "default": None,
@@ -140,6 +140,47 @@ def get_parent_cli(version="", copyright_message=""):
             },
         ),
     ]
+
+    # Common logging options
+    logging_args = [
+        (
+            ["-d", "--debug"],
+            {
+                "help": "enable debugging output (sets log level to ``DEBUG`` and overrides config file setting)",
+                "action": "store_true",
+                "required": False,
+                "default": False,
+            },
+        ),
+        (
+            ["--log-level"],
+            {
+                "help": """
+set log level (overrides ``-d``); one of: ``DEBUG``, ``INFO``, ``WARNING``, ``ERROR``, ``CRITICAL``
+
+.. versionadded:: 1.4.0
+                """,
+                "choices": ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+                "default": None,
+            },
+        ),
+        (
+            ["--log-file"],
+            {
+                "help": """
+write logs to ``LOGFILE`` instead of ``stdout``
+
+.. versionadded:: 1.4.0
+                """,
+                "metavar": "LOGFILE",
+                "default": None,
+            },
+        ),
+    ]
+
+    # Merge logging options into common args
+    common_args.extend(logging_args)
+
     ihwg_args = (
         "--enable-ihwg",
         {
@@ -161,7 +202,7 @@ def get_parent_cli(version="", copyright_message=""):
     prefix_tsv_args = (
         ["-p", "--prefix-tsv"],
         {
-            "help": "append PREFIX_TSV to the output TSV files",
+            "help": "append ``PREFIX_TSV`` to the output TSV files",
             "metavar": "PREFIX_TSV",
             "required": False,
             "default": None,
@@ -188,8 +229,8 @@ def get_pypop_cli(version="", copyright_message=""):
         prog="pypop",
         parents=[parent_parser],
         add_help=False,
-        description="""Process and run population genetics statistics on one or more POPFILEs.
-Expects to find a configuration file called 'config.ini' in the
+        description="""Process and run population genetics statistics on one or more ``POPFILE`` s.
+Expects to find a configuration file called ``config.ini`` in the
 current directory""",
         epilog=copyright_message,
         formatter_class=_PyPopFormatter,
@@ -215,17 +256,9 @@ current directory""",
         default=False,
     )
     add_pypop(
-        "-d",
-        "--debug",
-        help="enable debugging output (overrides config file setting)",
-        action="store_true",
-        required=False,
-        default=False,
-    )
-    add_pypop(
         "-x",
         "--xsl",
-        help="override the default XSLT translation with XSLFILE",
+        help="override the default XSLT translation with ``XSLFILE``",
         metavar="XSLFILE",
         required=False,
         default=None,
@@ -238,7 +271,7 @@ current directory""",
     add_tsv(
         "-t",
         "--enable-tsv",
-        help="generate TSV output files (aka run 'popmeta')",
+        help="generate TSV output files (aka run ``popmeta``)",
         action="store_true",
         required=False,
         default=False,
@@ -259,7 +292,7 @@ current directory""",
     add_input(
         "-f",
         "--filelist",
-        help="file containing list of files (one per line) to process. files are resolved relative to FILELIST, unless absolute. mutually exclusive with supplying POPFILEs)",
+        help="file containing list of files (one per line) to process. files are resolved relative to ``FILELIST``, unless absolute. mutually exclusive with supplying ``POPFILE``)",
         default=None,
     )
     add_input(
@@ -291,8 +324,8 @@ def get_popmeta_cli(version="", copyright_message=""):
         parents=[parent_parser],
         add_help=False,
         epilog=copyright_message,
-        description="""Processes XMLFILEs and generates 'meta'-analyses. XMLFILE are
-expected to be the XML output files taken from runs of 'pypop'.  Will
+        description="""Processes ``XMLFILEs`` and generates 'meta'-analyses. ``XMLFILE`` are
+expected to be the XML output files taken from runs of ``pypop``.  Will
 skip any XML files that are not well-formed XML.""",
         formatter_class=_PyPopFormatter,
     )
@@ -321,7 +354,7 @@ skip any XML files that are not well-formed XML.""",
     )
     add_popmeta(
         "--output-meta",
-        help="dump the meta output file to stdout, ignore xslt file",
+        help="dump the meta output file to ``stdout``, ignore xslt file",
         action="store_true",
         required=False,
         default=False,
@@ -344,7 +377,7 @@ skip any XML files that are not well-formed XML.""",
     add_xor_arg(
         "-b",
         "--batchsize",
-        help="process in batches of size total/FACTOR rather than all at once, by default do separately (batchsize=0)",
+        help="process in batches of size total/``FACTOR`` rather than all at once, by default do separately (``batchsize=0``)",
         type=int,
         metavar="FACTOR",
         required=False,

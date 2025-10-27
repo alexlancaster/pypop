@@ -3,7 +3,7 @@ from unittest import mock
 
 import pytest
 
-from PyPop.HardyWeinberg import pval
+from PyPop.hardyweinberg import pval
 
 chisq = 10.3
 dof = 2
@@ -17,7 +17,7 @@ pytestmark = (
 
 def test_SciPyPval(benchmark):
     # force using scipy
-    with mock.patch("PyPop.HardyWeinberg.use_scipy", True):
+    with mock.patch("PyPop.hardyweinberg.use_scipy", True):
         result = benchmark(pval, chisq, dof)
         print(result)
 

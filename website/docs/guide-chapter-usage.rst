@@ -24,12 +24,16 @@ There are three ways to run PyPop:
 -  command-line (or "batch") mode (where you supply all the command
    line options the program needs).
 
--  programmatically, by writing a Python program that uses the *API
-   Reference* (:ref:`API <api-reference-top>`).
+-  library (or "programmatic") mode, by writing a Python program that
+   uses the *API Reference* (:ref:`API <api-reference-top>`).
+
+Running a population analysis
+=============================
 
 For the most simplest application of PyPop, where you wish to analyze
 a single population, the interactive mode is the simplest to use. We
-will describe this mode first then describe command-line mode.
+will describe this mode, then describe command-line mode, and finally
+library mode.
 
 .. note::
 
@@ -39,8 +43,8 @@ will describe this mode first then describe command-line mode.
    verified that you can run the main commands (see the
    :ref:`Examples` section).
 
-Interactive mode
-----------------
+Interactive mode (``pypop-interactive``)
+----------------------------------------
 
 To run PyPop in interactive mode, with a minimal "GUI", on Windows or
 MacOS, you can directly click on the ``pypop-interactive`` file in the
@@ -138,8 +142,8 @@ sections on the :ref:`data file <guide-usage-datafile>` and
 
 .. _guide-usage-command-line-mode:
 
-Command-line mode
------------------
+Command-line mode (``pypop``)
+-----------------------------
 
 To run PyPop in the more common command-line (or "batch") mode, you
 can run PyPop from the console (as noted above, on Windows: open
@@ -238,16 +242,18 @@ options.
 
 .. _guide-usage-intro-api:
 
-Programmatic access to PyPop
-----------------------------
+Library (programmatic) mode
+---------------------------
 
-It is also possible to use PyPop programmatically by writing a Python
-program that uses the Application Programmers Interface documented in
-the *API Reference* (:ref:`API <api-reference-top>`) directly.  While
-the primary use-case for PyPop is as a standalone command-line script,
-and is it not fully optimized for use via a programmatic interface,
-much functionality is exposed as Python modules and classes.  Examples
-of programmatic use can be found in :ref:`guide-usage-examples-api`.
+It is also possible to use PyPop as a library (i.e. programmatically)
+by writing a Python program that uses the Application Programming
+Interface documented in the *API Reference* (:ref:`API
+<api-reference-top>`) directly to analyze a population file.  While
+the initial use-case for PyPop was as a standalone command-line
+script, it is being upgraded for better use via a programmatic
+interface, much functionality is exposed as Python modules and
+classes.  Examples of programmatic use can be found in
+:ref:`guide-usage-examples-api`.
 
 .. _guide-usage-intro-run-details:
 
@@ -285,8 +291,8 @@ highly polymorphic loci in your data set.
 
 .. _guide-usage-popmeta:
 
-Using ``popmeta`` to aggregate results
-======================================
+Aggregating results from multiple runs (``popmeta``)
+====================================================
 
 The ``popmeta`` script can aggregate results from a number of output
 XML files from individual populations into a set of tab-separated
@@ -335,40 +341,6 @@ run (assuming that the configuration file can be used for both
    pypop -c newconfig.ini -o altdir Guatemalan.pop NorthAmerican.pop --enable-tsv
 
 
-Command-line interfaces
-=======================
-
-Described below is the usage for both programs, including a full list
-of the current command-line options and arguments.  Note that you can
-also view this full list of options from the program itself by
-supplying the ``--help`` option, i.e. ``pypop --help``, or ``popmeta
---help``, respectively.
-
-.. _guide-pypop-cli:
-
-``pypop`` usage
----------------
-
-.. argparse::
-   :filename: src/PyPop/CommandLineInterface.py
-   :func: get_pypop_cli
-   :prog: pypop
-   :nodescription:
-   :noepilog:
-   :nodefaultconst:
-
-.. _guide-popmeta-cli:
-
-``popmeta`` usage
------------------
-
-.. argparse::
-   :filename: src/PyPop/CommandLineInterface.py
-   :func: get_popmeta_cli
-   :prog: popmeta
-   :nodescription:
-   :noepilog:
-   :nodefaultconst:
 
 .. _guide-usage-datafile:
 
@@ -735,9 +707,9 @@ default values described above would contain 1,000,000 (= 1000 x
 1000) steps in the MCMC chain.
 
 The default values for options described above have proved to be
-optimal for us and if the options are not provided these defaults
-will be used. If you change the values and have problems, please let
-us **know**.
+optimal for us and if the options are not provided these defaults will
+be used. If you change the values and have problems, :ref:`please let
+us know <guide-contributing-bug-report>`.
 
 ``[HomozygosityEWSlatkinExact]``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -749,7 +721,8 @@ implementation of the Ewens-Watterson exact test of neutrality.
 
    The default values have proved to be optimal for us. There is no
    reason to change them unless you are particularly curious. If you
-   change the default values and have problems, please let us know.
+   change the default values and have problems, :ref:`please let us
+   know <guide-contributing-bug-report>`.
 
 ``[Emhaplofreq]``
 ~~~~~~~~~~~~~~~~~
@@ -948,9 +921,10 @@ modified.
       Number of steps of to “burn-in” the Markov chain before statistics
       are collected.\ **[Default:** ``5000`` **]**
 
-   The default values for options described above have proved to be optimal
-   for us and if the options are not provided these defaults will be used.
-   If you change the values and have problems, please let us **know**.
+   The default values for options described above have proved to be
+   optimal for us and if the options are not provided these defaults
+   will be used.  If you change the values and have problems,
+   :ref:`please let us know <guide-contributing-bug-report>`.
 
 Advanced filtering sections
 ---------------------------
@@ -1221,97 +1195,235 @@ compiled from several :cite:p:`mack_methods_2007,cano_common_2007` sources [2]_
 PyPop API examples
 ==================
 
-Here is a minimal example of using the :ref:`API <api-reference-top>`
-(documented in the *PyPop API Reference*) directly in your own Python
-program. This program reads a short ``.pop`` :ref:`data file
-<guide-usage-datafile>` consisting of one locus with seven
-individuals, and rather than creating a :ref:`configuration file
-<guide-usage-configfile>`, we create a configuration object with the
-file format details and selecting a single ``[HardyWeinberg]``
-analysis.  It then performs the equivalent of the :ref:`popmeta script
+Here is a short example of how you can use the :ref:`API
+<api-reference-top>` (documented in the *PyPop API Reference*)
+directly in your own Python program. This program reads a short
+``.pop`` :ref:`data file <guide-usage-datafile>` consisting of one
+locus with seven individuals, and rather than reading from a
+:ref:`configuration file <guide-usage-configfile>`, it creates a
+configuration object with the file format details and enables a single
+:ref:`[HardyWeinberg] <guide-usage-config-hardyweinberg>` analysis. It
+then performs the equivalent of the :ref:`popmeta script
 <guide-usage-popmeta>` and generates output TSV files.
 
-This is done by using :class:`PyPop.Main.Main` to generate the initial
-XML output, and then using :class:`PyPop.Meta.Meta` to process this
-XML to generate ``.tsv`` file output suitable for further
-analysis. Here is the process, step-by-step:
+The :class:`Main` class generates analysis results as XML, and then
+:class:`Meta` processes this XML to generate ``.tsv`` file output
+suitable for further analysis. Here is the process, step-by-step:
 
-We first create the :class:`configparser.ConfigParser` instance (note
-that we specify the ``untypedAllele`` and ``alleleDesignators``
-explicitly, even though they are the same as defaults, they must
-always match the input file):
+*  First create the :class:`~configparser.ConfigParser` instance from a
+   dictionary (note that ``untypedAllele`` and ``alleleDesignators``
+   are specified explicitly, even though they are the same as
+   defaults, they must always match the input file):
 
->>> from configparser import ConfigParser
->>> config = ConfigParser()
->>> config.read_dict({"General": {"debug": "0"},
-...     "ParseGenotypeFile": {"untypedAllele": "****",
-...                           "alleleDesignator": "*",
-...                           "validSampleFields": "*a_1\n*a_2"},
-...     "HardyWeinberg": {"lumpBelow": "5"}})
->>>
+   .. testsetup::
 
-Next, for testing purposes, we create a ``.pop`` text file (note the
-tab-spaces inline). (You could replace this with your own input file,
-or generate ``pop_contents`` from an existing data structure in your
-program):
+      import pytest
+      PyPop = pytest.importorskip("PyPop")
+      if hasattr(PyPop, "setup_logger"):
+         from PyPop import setup_logger
+         setup_logger(doctest_mode=True)
 
->>> pop_contents = '''a_1\ta_2
-... ****\t****
-... 01:01\t02:01
-... 02:10\t03:01:02
-... 01:01\t02:18
-... 25:01\t02:01
-... 02:10\t32:04
-... 03:01:02\t32:04'''
->>> with open("my.pop", "w") as f:
-...     _ = f.write(pop_contents)
-...
 
-Then we setup the XSLT transformation file that will generate a plain
-text output (``my-pop.txt``), along with the default XML output file:
-``my-out.xml``. [3]_
+   .. only:: api_13
 
-.. warning::
+      .. doctest::
+         :skipif: 'api_13' not in __sphinx_tags__
 
-   Use of :func:`importlib.resources.files` requires Python version 3.9 or later.
+         >>> from configparser import ConfigParser
+         >>> config = ConfigParser()
+         >>> config.read_dict({"General": {"debug": "0"},
+         ...     "ParseGenotypeFile": {"untypedAllele": "****",
+         ...                           "alleleDesignator": "*",
+         ...                           "validSampleFields": "*a_1\n*a_2"},
+         ...     "HardyWeinberg": {"lumpBelow": "5"}})
+         >>>
 
->>> from PyPop.xslt import ns              # need for XSLT extensions
->>> from importlib.resources import files  # get location from installation
->>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
+   .. only:: api_14
 
-Now we can create the :class:`PyPop.Main.Main` instance, using the
-``config`` object to analyze the data in ``my.pop`` :
+      (You can cut and paste the following code snippets directly into
+      an interactive Python session).
 
->>> from PyPop.Main import Main
->>> application = Main(
-...     config=config,
-...     fileName="my.pop",
-...     version="fake",
-...     xslFilename=xslFilename,
-... )
-... # doctest: +ELLIPSIS
-LOG: Data file has no header data block
+      .. testcode::
+         :skipif: 'api_14' not in __sphinx_tags__
 
-We can query the ``Main`` instance to get the name of output XML file:
-``my-out.xml``
+         from configparser import ConfigParser
+         config = ConfigParser()
+         config.read_dict({"ParseGenotypeFile": {"untypedAllele": "****",
+                                   "alleleDesignator": "*",
+                                   "validSampleFields": "*a_1\n*a_2"},
+             "HardyWeinberg": {"lumpBelow": "5"}})
 
->>> application.getXmlOutPath()
-'my-out.xml'
+*  Next, create a test ``.pop`` text file (note the tab-spaces
+   inline). (You could replace this with your own input file, or
+   generate ``pop_contents`` from an existing data structure in your
+   program):
 
-Lastly, we pass this file to the :class:`PyPop.Meta.Meta` to generate
-output ``TSV`` files (as described in :ref:`guide-usage-popmeta`):
+   .. only:: api_13
 
->>> outXML = application.getXmlOutPath()
->>> from PyPop.Meta import Meta
->>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
-./1-locus-hardyweinberg.tsv
-./1-locus-summary.tsv
-./1-locus-allele.tsv
-./1-locus-genotype.tsv
+      .. doctest::
+         :skipif: 'api_13' not in __sphinx_tags__
 
-These ``.tsv`` files could then be read into another data structure
-(e.g. a `pandas dataframe <https://pandas.pydata.org>`_ ) for further
-analysis.
+         >>> pop_contents = '''a_1\ta_2
+         ... ****\t****
+         ... 01:01\t02:01
+         ... 02:10\t03:01:02
+         ... 01:01\t02:18
+         ... 25:01\t02:01
+         ... 02:10\t32:04
+         ... 03:01:02\t32:04'''
+         >>> with open("my.pop", "w") as f:
+         ...     _ = f.write(pop_contents)
+         ...
+
+   .. only:: api_14
+
+      .. testcode::
+         :skipif: 'api_14' not in __sphinx_tags__
+
+         pop_contents = '''a_1\ta_2
+         ****\t****
+         01:01\t02:01
+         02:10\t03:01:02
+         01:01\t02:18
+         25:01\t02:01
+         02:10\t32:04
+         03:01:02\t32:04'''
+         with open("my.pop", "w") as f:
+             f.write(pop_contents)
+
+
+.. only:: api_13
+
+   *  Then setup the XSLT transformation to generate the plain text
+      output (``my-pop.txt``), along with the default XML output file:
+      ``my-out.xml``. [3]_
+
+      .. warning::
+
+         Use of :func:`importlib.resources.files` requires Python version 3.9 or later.
+
+      .. doctest::
+         :skipif: 'api_13' not in __sphinx_tags__
+
+         >>> from PyPop.xslt import ns              # need for XSLT extensions
+         >>> from importlib.resources import files  # get location from installation
+         >>> xslFilename = str(files("PyPop.xslt") / "text.xsl")
+
+
+*  Now create the :class:`Main` instance, using the ``config`` object
+   to run the analysis of data in ``my.pop``:
+
+   .. only:: api_13
+
+      .. doctest::
+         :skipif: 'api_13' not in __sphinx_tags__
+
+         >>> from PyPop.Main import Main
+         >>> application = Main(
+         ...     config=config,
+         ...     fileName="my.pop",
+         ...     version="fake",
+         ...     xslFilename=xslFilename,
+         ... )
+         ... # doctest: +ELLIPSIS
+         LOG: Data file has no header data block
+
+   .. only:: api_14
+
+      .. testcode::
+        :skipif: 'api_14' not in __sphinx_tags__
+
+        from PyPop.popanalysis import Main
+        application = Main(config=config, fileName="my.pop", version="fake")
+
+      The analysis runs to completion and produces the following
+      default logging output to the console:
+
+      .. testoutput::
+	 :skipif: 'api_14' not in __sphinx_tags__
+
+	 LOG: no XSL file, skipping text output
+         LOG: Data file has no header data block
+
+*  You can query the :class:`Main` instance to get the name of the
+   generated output XML file: ``my-out.xml``
+
+   >>> application.getXmlOutPath()
+   'my-out.xml'
+
+*  Lastly, pass this file to the :class:`Meta` class to generate output
+   ``TSV`` files (as described in :ref:`guide-usage-popmeta`):
+
+   .. only:: api_13
+
+      .. doctest::
+         :skipif: 'api_13' not in __sphinx_tags__
+
+         >>> outXML = application.getXmlOutPath()
+         >>> from PyPop.Meta import Meta
+         >>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
+         ./1-locus-hardyweinberg.tsv
+         ./1-locus-summary.tsv
+         ./1-locus-allele.tsv
+         ./1-locus-genotype.tsv
+
+   .. only:: api_14
+
+      .. testcode::
+         :skipif: 'api_14' not in __sphinx_tags__
+
+	 outXML = application.getXmlOutPath()
+         from PyPop.popaggregate import Meta
+         Meta (TSV_output=True, xml_files=[outXML])
+
+      The generated TSV files are listed in the console output:
+
+      .. testoutput::
+         :skipif: 'api_14' not in __sphinx_tags__
+         :options: +NORMALIZE_WHITESPACE
+
+         ./1-locus-hardyweinberg.tsv
+         ./1-locus-summary.tsv
+         ./1-locus-allele.tsv
+         ./1-locus-genotype.tsv
+
+*  These listed ``.tsv`` files can then be read into another data
+   structure (e.g. a `pandas dataframe <https://pandas.pydata.org>`_ )
+   for further analysis.
+
+Command-line interfaces
+=======================
+
+Described below is the usage for both ``pypop`` and ``popmeta``,
+including a full list of the current command-line options and
+arguments for PyPop version |api_version|.  Note that you can also
+view this full list of options from the program itself by supplying
+the ``--help`` option, i.e. ``pypop --help``, or ``popmeta --help``,
+respectively.
+
+.. _guide-pypop-cli:
+
+``pypop`` usage
+---------------
+
+.. argparse::
+   :module: PyPop.CommandLineInterface
+   :func: get_pypop_cli
+   :prog: pypop
+   :noepilog:
+   :nodefaultconst:
+
+.. _guide-popmeta-cli:
+
+``popmeta`` usage
+-----------------
+
+.. argparse::
+   :module: PyPop.CommandLineInterface
+   :func: get_popmeta_cli
+   :prog: popmeta
+   :noepilog:
+   :nodefaultconst:
 
 
 .. [1]
@@ -1324,9 +1436,12 @@ analysis.
    (https://github.com/ANHIG/IMGTHLA/blob/Latest/Deleted_alleles.txt); and the
    Ambiguous Allele Combinations, release 2.18.0 (https://www.ebi.ac.uk/ipd/imgt/hla/ambiguity).
 
-.. [3]
-   The expectation that :class:`PyPop.Main.Main` will generate a plain text
-   output (and thus setting up an XSLT file for that transformation)
-   will be removed in a future release, allowing for further
-   simplification of this example, by eliminating the requirement that
-   ``xslFilename`` is passed to the ``Main`` constructor.
+.. only:: api_13
+
+   .. [3]
+      The expectation that :class:`PyPop.Main.Main` will generate a
+      plain text output (and thus setting up an XSLT file for that
+      transformation) will be removed in a future release, allowing
+      for further simplification of this example, by eliminating the
+      requirement that ``xslFilename`` is passed to the ``Main``
+      constructor.

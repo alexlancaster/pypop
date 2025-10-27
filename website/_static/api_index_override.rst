@@ -1,7 +1,7 @@
 .. _api-reference-top:
 
-PyPop API Reference
-===================
+API Reference (|api_version|)
+=============================
 
 .. only:: latex
 
@@ -45,7 +45,31 @@ PyPop API Reference
    .. toctree::
       :maxdepth: 3
 
-Introduction
-------------
 
-.. contents of PyPop/index.rst will be concatenated here at runtime
+{{api_update_block}}
+
+{{deprecations_block}}
+
+Package introduction
+--------------------
+
+{{generated_api_index}}
+
+.. only:: latex
+
+   .. raw:: latex
+
+      \begingroup
+      \footnotesize
+      \sphinxsetup{%
+      %TitleColor={named}{blue},
+      }
+
+   .. _api-gfdl:
+
+   .. include:: /docs/gfdl.rst
+
+   .. raw:: latex
+
+      \endgroup
+    """

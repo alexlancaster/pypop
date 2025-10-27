@@ -71,7 +71,7 @@ jobs:
 
       # Step 7: commit the nupkg file to vendor-binaries
       - name: Commit nupkg to vendor-binaries
-        uses: stefanzweifel/git-auto-commit-action@v6
+        uses: stefanzweifel/git-auto-commit-action@v7
         with:
           commit_message: "Update GSL ARM64 NuGet package: ${{ github.event.inputs.reason }}"
           file_pattern: "vendor-binaries/*.nupkg"

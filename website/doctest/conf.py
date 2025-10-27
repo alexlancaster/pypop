@@ -1,7 +1,6 @@
-#!/usr/bin/env python
 # This file is part of PyPop
 
-# Copyright (C) 2024.
+# Copyright (C) 2025.
 # PyPop contributors
 
 # This program is free software; you can redistribute it and/or modify
@@ -31,33 +30,33 @@
 # DOCUMENTATION, IF ANY, PROVIDED HEREUNDER IS PROVIDED "AS
 # IS". REGENTS HAS NO OBLIGATION TO PROVIDE MAINTENANCE, SUPPORT,
 # UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
-"""Generate metadata."""
+"""Sphinx configuration for doctests."""
 
+import os
 import sys
 from pathlib import Path
 
-import tomli
+# local customizations
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from helpers import get_api_version_tag
 
+extensions = [
+    "sphinx.ext.doctest",  # only this extension
+]
 
-def generate_metadata(output_path):
-    """Generate _metadata.py from pyproject.toml."""
-    with open("pyproject.toml", "rb") as pyproj_file:
-        pyproject_data = tomli.load(pyproj_file)
-        pkgname = pyproject_data["project"]["name"]
-        version_scheme = pyproject_data["tool"]["setuptools_scm"]["version_scheme"]
+# get the tags for exclusions
+api_version, api_tag = get_api_version_tag(
+    full_release=os.environ.get("SETUPTOOLS_SCM_PRETEND_VERSION", "")
+)
+# add tag for the API version to be used in user guide examples
+tags.add(api_tag)  # noqa: F821
 
-    metadata_content = f"""# auto-generated
-__pkgname__ = "{pkgname}"
-__version_scheme__ = "{version_scheme}"
-"""
+# define for "sphinx-build -b doctest" builds for conditional skipping
+# Any global setup for doctest
+doctest_global_setup = f"""
+__sphinx_tags__ = {list(tags)!r}
+"""  # noqa: F821
 
-    Path(output_path).write_text(metadata_content)
-    print(f"Generated {output_path}")
-
-
-if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        output_path = Path(sys.argv[1])
-    else:
-        output_path = Path("src/PyPop/_metadata.py")
-    generate_metadata(output_path)
+# Minimal source suffix / master doc
+source_suffix = ".rst"
+master_doc = "index"

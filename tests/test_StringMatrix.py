@@ -3,7 +3,7 @@ from io import StringIO
 
 import numpy as np
 
-from PyPop.Utils import StringMatrix, appendTo2dList
+from PyPop.utils import StringMatrix, appendTo2dList
 
 
 def new_matrix():

@@ -33,7 +33,7 @@ def test_USAFEL_with_pval(benchmark):
 
 @pytest.mark.pval_benchmarking
 def test_USAFEL_with_scipy(benchmark):
-    with mock.patch("PyPop.HardyWeinberg.use_scipy", True):
+    with mock.patch("PyPop.hardyweinberg.use_scipy", True):
         exit_code = benchmark(
             run_pypop_process,
             "./tests/data/minimal-no-emhaplofreq-no-guothompson-no-slatkin.ini",

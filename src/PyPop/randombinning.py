@@ -36,7 +36,8 @@
 from copy import copy
 from random import randrange
 
-from PyPop.Homozygosity import (
+from PyPop import logger
+from PyPop.homozygosity import (
     HomozygosityEWSlatkinExact,
 )
 
@@ -52,7 +53,6 @@ class RandomBinsForHomozygosity:
         binningReplicates (int, optional): replicates for binning (default ``100``)
         locus (str): locus name
         xmlfile (XMLOutputStream, optional): output stream
-        debug (int, optional): enable debugging with ``1``, default is ``0``
         randomResultsFileName (str): output file for the randomized results
     """
 
@@ -65,18 +65,15 @@ class RandomBinsForHomozygosity:
         binningReplicates=100,
         locus=None,
         xmlfile=None,
-        debug=0,
         randomResultsFileName=None,
     ):
         self.untypedAllele = untypedAllele
         self.binningReplicates = binningReplicates
         self.numReplicates = numReplicates
-        self.debug = debug
         self.locus = locus
         self.filename = filename.split(".")[-2]
         self.filename = self.filename.split("/")[-1]
         self.xmlStream = xmlfile
-        self.debug = debug
         self.logFile = logFile
         self.alleleCountDict = {}
         # FIXME: don't require context manager, skip run SIM115
@@ -115,13 +112,12 @@ class RandomBinsForHomozygosity:
         self.alleleCountDict[tuple(alleleCountsBefore)] = "before"
         self.alleleCountDict[tuple(alleleCountsAfter)] = "after"
 
-        if self.debug:
-            print("alleleCountsBefore", alleleCountsBefore)
-            print("alleleCountsAfter", alleleCountsAfter)
-            print("alleleCountDict", self.alleleCountDict)
+        logger.debug("alleleCountsBefore %s", alleleCountsBefore)
+        logger.debug("alleleCountsAfter %s", alleleCountsAfter)
+        logger.debug("alleleCountDict %s", self.alleleCountDict)
 
         hzExactObj = HomozygosityEWSlatkinExact(
-            numReplicates=self.numReplicates, debug=self.debug
+            numReplicates=self.numReplicates,
         )
         stats = hzExactObj.returnBulkHomozygosityStats(
             self.alleleCountDict, binningMethod=self.binningMethod
@@ -145,8 +141,7 @@ class RandomBinsForHomozygosity:
         alleleCounts.sort()
         alleleCounts = tuple(alleleCounts)
 
-        if self.debug:
-            print(alleleCounts)
+        logger.debug(alleleCounts)
 
         if alleleCounts in self.alleleCountDict:
             self.alleleCountDict[alleleCounts] += 1
@@ -229,8 +224,7 @@ class RandomBinsForHomozygosity:
             try:
                 del polyseqSliced[self.locus + "*" + self.untypedAllele]
             except Exception:
-                if self.debug:
-                    print("no untyped allele in polyseq")
+                logger.debug("no untyped allele in polyseq")
 
             while len(alleleCountsRand) > len(alleleCountsAfter):
                 seqLength = len(polyseqSliced.values()[0])
@@ -240,11 +234,10 @@ class RandomBinsForHomozygosity:
                 deleteHistoryAll[absolutePosToDelete] += 1
                 allelesToBin = []
 
-                if self.debug:
-                    print("polyseq", polyseqSliced)
-                    print("posToDelete", posToDelete)
-                    print("length of polyseq before", seqLength)
-                    print("alleles before binning", alleleCountsRand)
+                logger.debug("polyseq %s", polyseqSliced)
+                logger.debug("posToDelete %s", posToDelete)
+                logger.debug("length of polyseq before %s", seqLength)
+                logger.debug("alleles before binning %s", alleleCountsRand)
 
                 # deletes the selected character from each sequence
                 for allele in polyseqSliced:
@@ -284,11 +277,12 @@ class RandomBinsForHomozygosity:
                     del alleleCountsRand[allele]
                     del polyseqSliced[allele]
 
-                if self.debug:
-                    print("length of polyseq after", len(polyseqSliced.values()[0]))
-                    print("allelesToBin", allelesToBin)
-                    print("alleles after binning", alleleCountsRand)
-                    print("--------------------")
+                logger.debug(
+                    "length of polyseq after %d", len(polyseqSliced.values()[0])
+                )
+                logger.debug("allelesToBin %s", allelesToBin)
+                logger.debug("alleles after binning %s", alleleCountsRand)
+                logger.debug("--------------------")
 
             binningAttempts += 1
 
@@ -297,8 +291,9 @@ class RandomBinsForHomozygosity:
                 self._updateCountDict(alleleCountsRand.values())
 
             elif len(alleleCountsRand) < len(alleleCountsAfter):
-                if self.debug:
-                    print("=======================OVERSHOT TARGET!==================")
+                logger.debug(
+                    "=======================OVERSHOT TARGET!=================="
+                )
                 # restore counters to pre-overshoot counts
                 deleteHistory = copy(deleteHistorySaved)
                 collapseHistory = copy(collapseHistorySaved)

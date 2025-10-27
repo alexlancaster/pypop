@@ -1,7 +1,7 @@
 myst_parser==4.0.1
 pydata-sphinx-theme==0.16.1
 rst2pdf==0.103.1
-setuptools_scm==9.2.0
+setuptools_scm==9.2.2
 sphinx==8.2.3
 sphinx-argparse==0.5.2
 sphinx-autoapi==3.6.1
