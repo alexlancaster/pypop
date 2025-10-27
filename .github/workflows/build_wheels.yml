@@ -337,7 +337,7 @@ jobs:
           POOCH_CACHE: ${{ env.POOCH_CACHE }}
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION POOCH_CACHE PYTEST_OPTIONS
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: wheels-${{ matrix.only }}
           path: ./wheelhouse/*.whl
@@ -356,7 +356,7 @@ jobs:
           fetch-depth: 0
       - name: Build sdist
         run: pipx run build --sdist
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: sdist
           path: dist/*.tar.gz
@@ -368,7 +368,7 @@ jobs:
     # alternatively, to publish when a GitHub Release is created, use the following rule:
     if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v6
         with:
           # unpacks default artifact into dist/
           path: dist
@@ -388,7 +388,7 @@ jobs:
     # drop requirement of 'main', release to test_pypi to test releases
     if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v6
         with:
           # unpacks default artifact into dist/
           path: dist
@@ -406,7 +406,7 @@ jobs:
       id-token: write
     if: github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published' && always()  && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v6
         with:
           # unpacks default artifact into dist/
           path: dist
