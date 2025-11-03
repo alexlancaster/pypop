@@ -17,7 +17,7 @@ repos:
       - id: trailing-whitespace
 
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: "v0.14.2"
+    rev: "v0.14.3"
     hooks:
       - id: ruff
         args: ["--show-fixes"] # FIXME: add "--exit-zero" to list to commit to ignore ruff fixes
@@ -55,7 +55,7 @@ repos:
         exclude: '^src/(pval|haplo-stats)/.*'
 
   - repo: https://github.com/jsh9/pydoclint
-    rev: 0.7.6
+    rev: 0.8.1
     hooks:
       - id: pydoclint
 
