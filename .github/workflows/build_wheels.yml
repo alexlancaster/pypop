@@ -71,7 +71,7 @@ jobs:
     if: github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published' && github.event.release.prerelease == false
     steps:
       - name: Checkout the contents of your repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Upsert the version and related ids in the metadata in CITATION.cff
         run: |
           echo "GITHUB_REF_NAME = $GITHUB_REF_NAME | GITHUB_REF = $GITHUB_REF | GITHUB_EVENT_PATH = $GITHUB_EVENT_PATH"
@@ -164,7 +164,7 @@ jobs:
       # otherwise just generate a test wheel Python 3.13 for 5 platform
       CI_ONLY: ${{ github.event_name != 'release' && github.event_name != 'pull_request' && github.ref_name != 'main' && github.event_name != 'workflow_dispatch' }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Install cibuildwheel 2.23.3 (legacy) and generate wheel list
         id: set-matrix-old
         # runs legacy (2.23.3)
@@ -259,7 +259,7 @@ jobs:
         include: ${{ fromJson(needs.generate-wheels-matrix.outputs.include) }}
     steps:
 
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
           # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
@@ -337,7 +337,7 @@ jobs:
           POOCH_CACHE: ${{ env.POOCH_CACHE }}
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION POOCH_CACHE PYTEST_OPTIONS
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: wheels-${{ matrix.only }}
           path: ./wheelhouse/*.whl
@@ -350,13 +350,13 @@ jobs:
     if: always() && !cancelled() && !failure()
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:  # FIXME: if on a release, use the tag name, not original SHA because it might be changed (somewhat hacky)
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
           fetch-depth: 0
       - name: Build sdist
         run: pipx run build --sdist
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         with:
           name: sdist
           path: dist/*.tar.gz
@@ -368,7 +368,7 @@ jobs:
     # alternatively, to publish when a GitHub Release is created, use the following rule:
     if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v6
         with:
           # unpacks default artifact into dist/
           path: dist
@@ -388,7 +388,7 @@ jobs:
     # drop requirement of 'main', release to test_pypi to test releases
     if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v6
         with:
           # unpacks default artifact into dist/
           path: dist
@@ -406,7 +406,7 @@ jobs:
       id-token: write
     if: github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published' && always()  && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v5
+      - uses: actions/download-artifact@v6
         with:
           # unpacks default artifact into dist/
           path: dist
