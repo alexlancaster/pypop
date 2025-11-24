@@ -36,7 +36,7 @@ jobs:
       docs_rebuild: ${{ steps.changes.outputs.docs_rebuild }}
     steps:
       - name: Checkout full repo history
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0  # fetch full history so we can diff branches
       - name: Detect changed files
@@ -61,7 +61,7 @@ jobs:
     needs: docs_check
     if: needs.docs_check.outputs.docs_rebuild == 'true'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Check GitHub Action permissions
