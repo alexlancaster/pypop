@@ -1,0 +1,160 @@
+PyPop.GUIApp
+============
+
+.. py:module:: PyPop.GUIApp
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.GUIApp.ID_ABOUT
+   PyPop.GUIApp.ID_OPEN_CONFIG
+   PyPop.GUIApp.ID_OPEN_POP
+   PyPop.GUIApp.ID_EXIT
+   PyPop.GUIApp.EVT_RESULT_ID
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.GUIApp.ResultEvent
+   PyPop.GUIApp.WorkerThread
+   PyPop.GUIApp.MainWindow
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.GUIApp.EVT_RESULT
+
+
+Module Contents
+---------------
+
+.. py:data:: ID_ABOUT
+   :value: 101
+
+
+.. py:data:: ID_OPEN_CONFIG
+   :value: 102
+
+
+.. py:data:: ID_OPEN_POP
+   :value: 103
+
+
+.. py:data:: ID_EXIT
+   :value: 110
+
+
+.. py:data:: EVT_RESULT_ID
+
+.. py:function:: EVT_RESULT(win, func)
+
+.. py:class:: ResultEvent(data)
+
+   Bases: :py:obj:`wxPyEvent`
+
+   .. autoapi-inheritance-diagram:: PyPop.GUIApp.ResultEvent
+      :parts: 1
+
+
+   Simple event to carry arbitrary result data
+
+
+.. py:class:: WorkerThread(notify_window)
+
+   Bases: :py:obj:`threading.Thread`
+
+   .. autoapi-inheritance-diagram:: PyPop.GUIApp.WorkerThread
+      :parts: 1
+
+
+   A class that represents a thread of control.
+
+   This class can be safely subclassed in a limited fashion. There are two ways
+   to specify the activity: by passing a callable object to the constructor, or
+   by overriding the run() method in a subclass.
+
+
+   This constructor should always be called with keyword arguments. Arguments are:
+
+   *group* should be None; reserved for future extension when a ThreadGroup
+   class is implemented.
+
+   *target* is the callable object to be invoked by the run()
+   method. Defaults to None, meaning nothing is called.
+
+   *name* is the thread name. By default, a unique name is constructed of
+   the form "Thread-N" where N is a small decimal number.
+
+   *args* is a list or tuple of arguments for the target invocation. Defaults to ().
+
+   *kwargs* is a dictionary of keyword arguments for the target
+   invocation. Defaults to {}.
+
+   If a subclass overrides the constructor, it must make sure to invoke
+   the base class constructor (Thread.__init__()) before doing anything
+   else to the thread.
+
+
+
+   .. py:method:: run()
+
+      Method representing the thread's activity.
+
+      You may override this method in a subclass. The standard run() method
+      invokes the callable object passed to the object's constructor as the
+      target argument, if any, with sequential and keyword arguments taken
+      from the args and kwargs arguments, respectively.
+
+
+
+
+   .. py:method:: abort()
+
+
+.. py:class:: MainWindow(parent, _id, title, datapath=None, altpath=None, debugFlag=0)
+
+   Bases: :py:obj:`wxFrame`
+
+   .. autoapi-inheritance-diagram:: PyPop.GUIApp.MainWindow
+      :parts: 1
+
+
+   Creates the main application window for PyPop.
+
+
+   .. py:method:: OnAbout(_event)
+
+
+   .. py:method:: OnExit(_event)
+
+
+   .. py:method:: OnConfig(event)
+
+      Select config file
+
+
+
+   .. py:method:: OnPop(event)
+
+      Select pop file
+
+
+
+   .. py:method:: OnRun(_event)
+
+
+   .. py:method:: OnStop(_event)
+
+
+   .. py:method:: OnResult(event)
+
+

@@ -1,0 +1,31 @@
+PyPop.citation
+==============
+
+.. py:module:: PyPop.citation
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.citation.citation_output_formats
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.citation.convert_citation_formats
+
+
+Module Contents
+---------------
+
+.. py:data:: citation_output_formats
+   :value: ['apalike', 'bibtex', 'endnote', 'ris', 'codemeta', 'cff', 'schema.org', 'zenodo']
+
+
+.. py:function:: convert_citation_formats(build_lib, citation_path)
+

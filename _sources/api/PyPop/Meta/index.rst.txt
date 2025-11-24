@@ -1,0 +1,62 @@
+PyPop.Meta
+==========
+
+.. py:module:: PyPop.Meta
+
+.. autoapi-nested-parse::
+
+   Module for collecting multiple population outputs.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.Meta.Meta
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.Meta.translate_string_to_stdout
+   PyPop.Meta.translate_string_to_file
+   PyPop.Meta.translate_file_to_stdout
+   PyPop.Meta.translate_file_to_file
+
+
+Module Contents
+---------------
+
+.. py:function:: translate_string_to_stdout(xslFilename, inString, outputDir=None, params=None)
+
+.. py:function:: translate_string_to_file(xslFilename, inString, outFile, outputDir=None, params=None)
+
+.. py:function:: translate_file_to_stdout(xslFilename, inFile, inputDir=None, params=None)
+
+.. py:function:: translate_file_to_file(xslFilename, inFile, outFile, inputDir=None, outputDir=None, params=None)
+
+.. py:class:: Meta(popmetabinpath=None, datapath=None, metaXSLTDirectory=None, dump_meta=False, TSV_output=True, prefixTSV=None, PHYLIP_output=False, ihwg_output=False, batchsize=0, outputDir=None, xml_files=None)
+
+   Aggregates output from multiple population runs.
+
+   Transform a specified list of XML output files to *.tsv
+   tab-separated values (TSV) form.
+
+   Defaults:
+   # output .tsv tables by default (can be used by R)
+   TSV_output=True
+
+   # don't output PHYLIP by default
+   PHYLIP_output=False
+
+   # by default, don't enable the 13th IHWG format headers
+   ihwg_output = False
+
+   # by default process separately (batchsize=0)
+   batchsize = 0
+
+

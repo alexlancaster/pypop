@@ -1,0 +1,62 @@
+PyPop.Main
+==========
+
+.. py:module:: PyPop.Main
+
+.. autoapi-nested-parse::
+
+   Python population genetics statistics.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.Main.Main
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.Main.getConfigInstance
+   PyPop.Main.get_sequence_directory
+
+
+Module Contents
+---------------
+
+.. py:function:: getConfigInstance(configFilename=None, altpath=None)
+
+   Create and return ConfigParser instance.
+
+   Taken a specific .ini filename and an alternative path to search
+   if no .ini filename is given.
+
+
+.. py:function:: get_sequence_directory(directory_str, debug=False)
+
+.. py:class:: Main(config=None, xslFilename=None, xslFilenameDefault=None, debugFlag=0, fileName=None, datapath=None, thread=None, outputDir=None, version=None, testMode=False)
+
+   Main interface to the PyPop modules.
+
+   Given a config instance, which can be:
+
+   - created from a filename passed from command-line argument or;
+
+   - from values populated by the GUI (currently selected from an
+     .ini file, but can ultimately be set directly from the GUI or
+     values based from a form to a web server or the).
+
+   runs the specified modules.
+
+
+   .. py:method:: getXmlOutPath()
+
+
+   .. py:method:: getTxtOutPath()
+
+

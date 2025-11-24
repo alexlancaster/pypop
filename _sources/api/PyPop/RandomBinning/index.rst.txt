@@ -1,0 +1,30 @@
+PyPop.RandomBinning
+===================
+
+.. py:module:: PyPop.RandomBinning
+
+.. autoapi-nested-parse::
+
+   Python population genetics statistics.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.RandomBinning.RandomBinsForHomozygosity
+
+
+Module Contents
+---------------
+
+.. py:class:: RandomBinsForHomozygosity(logFile=None, untypedAllele='****', filename=None, numReplicates=10000, binningReplicates=100, locus=None, xmlfile=None, debug=0, randomResultsFileName=None)
+
+   .. py:method:: randomMethod(alleleCountsBefore=None, alleleCountsAfter=None)
+
+
+   .. py:method:: sequenceMethod(alleleCountsBefore=None, alleleCountsAfter=None, polyseq=None, polyseqpos=None)
+
+

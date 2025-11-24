@@ -1,0 +1,234 @@
+PyPop.Haplo
+===========
+
+.. py:module:: PyPop.Haplo
+
+.. autoapi-nested-parse::
+
+   Module for estimating haplotypes.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.Haplo.Haplo
+   PyPop.Haplo.HaploArlequin
+   PyPop.Haplo.Emhaplofreq
+   PyPop.Haplo.Haplostats
+
+
+Module Contents
+---------------
+
+.. py:class:: Haplo
+
+   *Abstract* base class for haplotype parsing/output.
+
+   Currently a stub class (unimplemented).
+
+
+.. py:class:: HaploArlequin(arpFilename, idCol, prefixCols, suffixCols, windowSize, mapOrder=None, untypedAllele='0', arlequinPrefix='arl_run', debug=0)
+
+   Bases: :py:obj:`Haplo`
+
+   .. autoapi-inheritance-diagram:: PyPop.Haplo.HaploArlequin
+      :parts: 1
+
+
+   Haplotype estimation implemented via Arlequin
+
+   Outputs Arlequin format data files and runtime info, also runs and
+   parses the resulting Arlequin data so it can be made available
+   programmatically to rest of Python framework.
+
+   Delegates all calls Arlequin to an internally instantiated
+   ArlequinBatch Python object called 'batch'.
+
+   Constructor for HaploArlequin object.
+
+   Expects:
+
+   - arpFilename: Arlequin filename (must have '.arp' file
+     extension)
+
+   - idCol: column in input file that contains the individual id.
+
+   - prefixCols: number of columns to ignore before allele data
+     starts
+
+   - suffixCols: number of columns to ignore after allele data
+     stops
+
+   - windowSize: size of sliding window
+
+   - mapOrder: list order of columns if different to column order in file
+     (defaults to order in file)
+
+   - untypedAllele:  (defaults to '0')
+
+   - arlequinPrefix: prefix for all Arlequin run-time files
+   (defaults to 'arl_run').
+
+   - debug: (defaults to 0)
+
+
+
+   .. py:method:: outputArlequin(data)
+
+      Outputs the specified .arp sample file.
+
+
+
+   .. py:method:: runArlequin()
+
+      Run the Arlequin haplotyping program.
+
+      Generates the expected '.txt' set-up files for Arlequin, then
+      forks a copy of 'arlecore.exe', which must be on 'PATH' to
+      actually generate the haplotype estimates from the generated
+      '.arp' file.
+
+
+
+   .. py:method:: genHaplotypes()
+
+      Gets the haplotype estimates back from Arlequin.
+
+      Parses the Arlequin output to retrieve the haplotype estimated
+      data.  Returns a list of the sliding `windows' which consists
+      of tuples.
+
+      Each tuple consists of a:
+
+      - dictionary entry (the haplotype-frequency) key-value pairs.
+
+      - population name (original '.arp' file prefix)
+
+      - sample count (number of samples for that window)
+
+      - ordered list of loci considered
+
+
+
+.. py:class:: Emhaplofreq(locusData, debug=0, untypedAllele='****', stream=None, testMode=False)
+
+   Bases: :py:obj:`Haplo`
+
+   .. autoapi-inheritance-diagram:: PyPop.Haplo.Emhaplofreq
+      :parts: 1
+
+
+   Haplotype and LD estimation implemented via emhaplofreq.
+
+   This is essentially a wrapper to a Python extension built on top
+   of the 'emhaplofreq' command-line program.
+
+   Will refuse to estimate haplotypes longer than that defined by
+   'emhaplofreq'.
+
+
+
+   .. py:method:: serializeStart()
+
+      Serialize start of XML output to XML stream
+
+
+
+   .. py:method:: serializeEnd()
+
+      Serialize end of XML output to XML stream
+
+
+
+   .. py:method:: estHaplotypes(locusKeys=None, numInitCond=None)
+
+      Estimate haplotypes for listed groups in 'locusKeys'.
+
+      Format of 'locusKeys' is a string consisting of:
+
+      - comma (',') separated haplotypes blocks for which to estimate
+        haplotypes
+
+      - within each `block', each locus is separated by colons (':')
+
+      e.g. '*DQA1:*DPB1,*DRB1:*DQB1', means to est. haplotypes for
+       'DQA1' and 'DPB1' loci followed by est. of haplotypes for
+       'DRB1' and 'DQB1' loci.
+
+
+
+   .. py:method:: estLinkageDisequilibrium(locusKeys=None, permutationPrintFlag=0, numInitCond=None, numPermutations=None, numPermuInitCond=None)
+
+      Estimate linkage disequilibrium (LD) for listed groups in
+      'locusKeys'.
+
+      Format of 'locusKeys' is a string consisting of:
+
+      - comma (',') separated haplotypes blocks for which to estimate
+        haplotypes
+
+      - within each `block', each locus is separated by colons (':')
+
+      e.g. '*DQA1:*DPB1,*DRB1:*DQB1', means to est. LD for
+       'DQA1' and 'DPB1' loci followed by est. of LD for
+       'DRB1' and 'DQB1' loci.
+
+
+
+   .. py:method:: allPairwise(permutationPrintFlag=0, numInitCond=None, numPermutations=None, numPermuInitCond=None, haploSuppressFlag=None, haplosToShow=None, mode=None)
+
+      Run pairwise statistics.
+
+      Estimate pairwise statistics for a given set of loci.
+      Depending on the flags passed, can be used to estimate both LD
+      (linkage disequilibrium) and HF (haplotype frequencies), an
+      optional permutation test on LD can be run
+
+
+
+.. py:class:: Haplostats(locusData, debug=0, untypedAllele='****', stream=None, testMode=False)
+
+   Bases: :py:obj:`Haplo`
+
+   .. autoapi-inheritance-diagram:: PyPop.Haplo.Haplostats
+      :parts: 1
+
+
+   Haplotype and LD estimation implemented via haplo-stats.
+
+   This is a wrapper to a portion of the 'haplo.stats' R package
+
+
+
+   .. py:method:: serializeStart()
+
+      Serialize start of XML output to XML stream
+
+
+
+   .. py:method:: serializeEnd()
+
+      Serialize end of XML output to XML stream
+
+
+
+   .. py:method:: estHaplotypes(locusKeys=None, weight=None, control=None, numInitCond=10, testMode=False)
+
+      Estimate haplotypes for the submatrix given in locusKeys, if
+      locusKeys is None, assume entire matrix
+
+      LD is estimated if there are locusKeys consists of only two loci
+
+      FIXME: this does *not* yet remove missing data before haplotype estimations
+
+
+
+   .. py:method:: allPairwise(weight=None, control=None, numInitCond=10)
+
+      Estimate pairwise statistics for all pairs of loci.
+
+
+

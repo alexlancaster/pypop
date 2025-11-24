@@ -1,0 +1,26 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+A_Svans_2001.pop	A	160	160	lit	Svans_2001	Caucasian	03-EUR	Georgia	2	adults in Mestia, regional center of Upper Svaneti and Svans living in Tbilisi	42.00N	43.30E	1	1	INNO-LIPA	{SL01}	Sanchez-Velasco	2001	The HLA class I and class II allele frequencies studied at the DNA level in the Svanetian population (Upper Caucasus) and their relationships to Western European populations	Tissue Antigens	58	223-233	fleyvaco@sarenet.es		GE	Leyva-Cobian	1301076	11	1	Innogenetics, Sanchez-Velasco et al. 1999	N		Y	N	N						YT
+A	count
+0101	9
+0201	34
+0202	6
+0204	3
+0205	1
+0208	2
+0216	1
+0220	1
+0301	22
+0302	1
+1101	20
+1104	2
+2402	21
+2403	2
+2501	3
+2601	10
+2901	2
+3101	3
+3102	2
+3201	2
+3301	2
+6801	10
+6802	1

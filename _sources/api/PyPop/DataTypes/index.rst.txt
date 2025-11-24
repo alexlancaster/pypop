@@ -1,0 +1,164 @@
+PyPop.DataTypes
+===============
+
+.. py:module:: PyPop.DataTypes
+
+.. autoapi-nested-parse::
+
+   Module for storing genotype and allele count data.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.DataTypes.Genotypes
+   PyPop.DataTypes.AlleleCounts
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.DataTypes.checkIfSequenceData
+   PyPop.DataTypes.getMetaLocus
+   PyPop.DataTypes.getLocusPairs
+   PyPop.DataTypes.getLumpedDataLevels
+
+
+Module Contents
+---------------
+
+.. py:class:: Genotypes(matrix=None, untypedAllele='****', unsequencedSite=None, allowSemiTyped=0, debug=0)
+
+   Base class that stores and caches basic genotype statistics.
+
+
+   .. py:method:: getLocusList()
+
+      Returns the list of loci.
+
+      *Note: this list has filtered out all loci that consist
+      of individuals that are all untyped.*
+
+      *Note 2: the order of this list is now fixed for the lifetime
+        of the object.*
+
+
+
+   .. py:method:: getAlleleCount()
+
+      Return allele count statistics for all loci.
+
+      Return a map of tuples where the key is the locus name.  Each
+      tuple is a triple, consisting of a map keyed by alleles
+      containing counts, the total count at that locus and the
+      number of untyped individuals.
+
+
+
+   .. py:method:: getAlleleCountAt(locus, lumpValue=0)
+
+      Return allele count for given locus.
+
+      - 'lumpValue': the specified amount of lumping (Default: 0)
+
+      Given a locus name, return a tuple: consisting of a map keyed
+      by alleles containing counts, the total count at that
+      locus, and number of untyped individuals.
+
+
+
+   .. py:method:: serializeSubclassMetadataTo(stream)
+
+      Serialize subclass-specific metadata.
+
+      Specifically, total number of individuals and loci and
+      population name.
+
+
+
+   .. py:method:: serializeAlleleCountDataAt(stream, locus)
+
+
+   .. py:method:: serializeAlleleCountDataTo(stream)
+
+
+   .. py:method:: getLocusDataAt(locus, lumpValue=0)
+
+      Returns the genotyped data for specified locus.
+
+      Given a 'locus', return a list genotypes consisting of
+      2-tuples which contain each of the alleles for that individual
+      in the list.
+
+      - 'lumpValue': the specified amount of lumping (Default: 0)
+
+      **Note:** *this list has filtered out all individuals that are
+      untyped at either chromosome.*
+
+      **Note 2:** data is sorted so that allele1 < allele2,
+      alphabetically
+
+
+
+   .. py:method:: getLocusData()
+
+      Returns the genotyped data for all loci.
+
+      Returns a dictionary keyed by locus name of lists of 2-tuples
+      as defined by 'getLocusDataAt()'
+
+
+
+   .. py:method:: getIndividualsData()
+
+      Returns the individual data.
+
+      Returns a 'StringMatrix'.
+
+
+
+.. py:function:: checkIfSequenceData(matrix)
+
+.. py:function:: getMetaLocus(locus, isSequenceData)
+
+.. py:function:: getLocusPairs(matrix, sequenceData)
+
+   Returns a list of all pairs of loci from a given StringMatrix
+
+
+.. py:function:: getLumpedDataLevels(genotypeData, locus, lumpLevels)
+
+   Returns a dictionary of tuples with alleleCount and locusData
+   lumped by different levels specified as a list of integers.
+
+
+.. py:class:: AlleleCounts(alleleTable=None, locusName=None, debug=0)
+
+   WARNING: this class is now obsolete, the Genotypes class
+   now holds allele count data as pseudo-genotype matrix.
+
+   Class to store information in allele count form.
+
+
+   .. py:method:: serializeSubclassMetadataTo(stream)
+
+      Serialize subclass-specific metadata.
+
+      Specifically, total number of alleles and loci.
+
+
+
+   .. py:method:: serializeAlleleCountDataAt(stream, locus)
+
+
+   .. py:method:: getAlleleCount()
+
+
+   .. py:method:: getLocusName()
+
+

@@ -1,0 +1,37 @@
+PyPop.pypop
+===========
+
+.. py:module:: PyPop.pypop
+
+.. autoapi-nested-parse::
+
+   Python population genetics statistics.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.pypop.DIR
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.pypop.main
+   PyPop.pypop.main_interactive
+
+
+Module Contents
+---------------
+
+.. py:function:: main(argv=sys.argv)
+
+.. py:function:: main_interactive(argv=sys.argv)
+
+.. py:data:: DIR
+
