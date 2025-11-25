@@ -30,7 +30,7 @@ classifiers = [
     "Operating System :: POSIX :: Linux"
 ]
 dependencies = [
-    "numpy <= 2.3.3",
+    "numpy <= 2.3.5",
     "lxml <= 6.0.2",
     "SciPy <= 1.16.2",
     "pooch <= v1.8.2",

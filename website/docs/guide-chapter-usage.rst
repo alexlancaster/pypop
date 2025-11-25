@@ -1394,11 +1394,12 @@ suitable for further analysis. Here is the process, step-by-step:
 Command-line interfaces
 =======================
 
-Described below is the usage for both programs, including a full list
-of the current command-line options and arguments for PyPop version
-|api_version|.  Note that you can also view this full list of options
-from the program itself by supplying the ``--help`` option,
-i.e. ``pypop --help``, or ``popmeta --help``, respectively.
+Described below is the usage for both ``pypop`` and ``popmeta``,
+including a full list of the current command-line options and
+arguments for PyPop version |api_version|.  Note that you can also
+view this full list of options from the program itself by supplying
+the ``--help`` option, i.e. ``pypop --help``, or ``popmeta --help``,
+respectively.
 
 .. _guide-pypop-cli:
 
