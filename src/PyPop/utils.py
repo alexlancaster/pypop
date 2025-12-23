@@ -220,9 +220,9 @@ class XMLOutputStream(TextOutputStream):
 class StringMatrix(Sequence):
     """Matrix of strings and other metadata from input file to PyPop.
 
-    ``StringMatrix`` is a subclass of NumPy's
-    :class:`numpy.lib.user_array` class, store the data in an
-    efficient array format, using NumPy-style access.
+    ``StringMatrix`` is a subclass of
+    :class:`collections.abc.Sequence` class, which stores the data in
+    an efficient array format, using NumPy-style access.
 
     Args:
        rowCount (int): number of rows in matrix
