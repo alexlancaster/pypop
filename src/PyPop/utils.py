@@ -44,11 +44,11 @@ import re
 import shutil
 import stat
 import sys
+from collections.abc import Sequence
 from pathlib import Path
 
 import numpy as np
 from numpy import asarray, take, zeros
-from numpy.lib.user_array import container
 
 from PyPop import logger
 
@@ -217,7 +217,7 @@ class XMLOutputStream(TextOutputStream):
         self.closetag(tagname)
 
 
-class StringMatrix(container):
+class StringMatrix(Sequence):
     """Matrix of strings and other metadata from input file to PyPop.
 
     ``StringMatrix`` is a subclass of NumPy's
@@ -264,8 +264,9 @@ class StringMatrix(container):
         self.array = zeros(
             (self.rowCount, self.colCount * 2 + self.extraCount), dtype="O"
         )
+        self.dtype = self.array.dtype
         self.shape = self.array.shape
-        self._typecode = self.array.dtype  # Numeric array.typecode()
+        self._typecode = self.array.dtype
         self.name = str(self.__class__).split()[0]
 
     def __repr__(self):
@@ -285,6 +286,17 @@ class StringMatrix(container):
         if len(self.array.shape) > 0:
             return (self.__class__.__name__) + repr(self.array)[len("array") :]
         return (self.__class__.__name__) + "(" + repr(self.array) + ")"
+
+    def __len__(self):
+        """Get number of rows (individuals) in the matrix.
+
+        This allows StringMatrix instances to be used with `len()`,
+        iteration, and other Python sequence protocols.
+
+        Returns:
+           int: number of rows in the matrix
+        """
+        return self.array.shape[0]
 
     def dump(self, locus=None, stream=sys.stdout):
         """Write file to a stream in original format.
