@@ -30,7 +30,7 @@ classifiers = [
     "Operating System :: POSIX :: Linux"
 ]
 dependencies = [
-    "numpy <= 2.3.5",
+    "numpy <= 2.4.0",
     "lxml <= 6.0.2",
     "pooch <= v1.8.2",
     "importlib-resources; python_version <= '3.8'",
@@ -80,7 +80,9 @@ addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config", "--doct
 xfail_strict = true
 # convert warnings to errors, except for ImportWarnings in numpy (needed for pp38)
 # FIXME: eventually we should be able to remove the numpy exception
-filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*"]
+# TODO: need to also move away from `user_array.container`: https://github.com/alexlancaster/pypop/issues/358
+filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*",
+	         "ignore:The numpy\\.lib\\.user_array\\.container class is deprecated:DeprecationWarning"]
 log_cli_level = "INFO"
 testpaths = [
   "website/docs",
