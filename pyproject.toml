@@ -80,9 +80,7 @@ addopts = ["-ra", "--showlocals", "--strict-markers", "--strict-config", "--doct
 xfail_strict = true
 # convert warnings to errors, except for ImportWarnings in numpy (needed for pp38)
 # FIXME: eventually we should be able to remove the numpy exception
-# TODO: need to also move away from `user_array.container`: https://github.com/alexlancaster/pypop/issues/358
-filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*",
-	         "ignore:The numpy\\.lib\\.user_array\\.container class is deprecated:DeprecationWarning"]
+filterwarnings = ["error", "default::ImportWarning", "ignore:.*Arlequin.*deprecated.*"]
 log_cli_level = "INFO"
 testpaths = [
   "website/docs",
