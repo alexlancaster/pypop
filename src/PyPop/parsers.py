@@ -211,7 +211,6 @@ class ParseFile:
                 # and inserting `HLA-A', or `DQB1_1' and `DQB1_2' should
                 # both be inserted at `DQB1'
 
-                # if assoc.has_key(key):
                 if key in assoc:
                     assoc[key] = assoc[key], i
                 else:
