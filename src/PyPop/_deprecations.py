@@ -124,6 +124,14 @@ deprecated_modules = {
         "reason": "Lowercased for PEP8 compliance.",
         "changed": "1.4.0",
     },
+    "PyPop.Utils.OrderedDict": {
+        "removed": "1.4.0",
+        "reason": "Obsolete, replaced with :class:`collections.OrderedDict`",
+    },
+    "PyPop.Utils.Index": {
+        "removed": "1.4.0",
+        "reason": "Obsolete, replaced with :class:`collections.OrderedDict` with it's own ``Index`` class",
+    },
     "PyPop.GUIApp": {
         "removed": "1.4.0",
         "reason": "Obsolete, never fully implemented a full ``wxPython`` UI. Replaced by built-in Tkinter file-picker",
@@ -153,10 +161,15 @@ class DeprecatedModuleFinder(importlib.abc.MetaPathFinder):
         self.mapping = mapping
 
     def find_spec(self, fullname, _path, _target=None):
-        if fullname in self.mapping:
-            info = self.mapping[fullname]
+        if fullname not in self.mapping:
+            return None
+
+        info = self.mapping[fullname]
+        reason = info.get("reason", "")
+
+        # ---- Case 1: renamed module ----
+        if "new" in info:
             new_name = info["new"]
-            reason = info.get("reason", "")
 
             # Import the replacement module
             module = importlib.import_module(new_name)
@@ -177,5 +190,15 @@ class DeprecatedModuleFinder(importlib.abc.MetaPathFinder):
 
             # Return the spec for the module so import machinery can continue
             return module.__spec__
+
+        # ---- Case 2: removed module ----
+        if "removed" in info:
+            removed_in = info["removed"]
+
+            msg = f"Module '{fullname}' was removed in PyPop {removed_in}."
+            if reason:
+                msg += f" {reason}"
+
+            raise ModuleNotFoundError(msg)
 
         return None

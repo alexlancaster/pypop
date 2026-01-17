@@ -194,7 +194,7 @@ jobs:
 
       - name: Set up cache for MSF files
         id: msf_cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ${{ env.MSF_CACHE_DIR }}
           key: pooch-cache-${{ env.MSF_CACHE_DIR }}
@@ -238,7 +238,7 @@ jobs:
           "
       - name: Save the cache for MSF files
         if: ${{ steps.msf_cache.outputs.cache-hit != 'true' }}
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: ${{ env.MSF_CACHE_DIR }}
           key: pooch-cache-${{ env.MSF_CACHE_DIR }}
@@ -266,7 +266,7 @@ jobs:
           ref: ${{ (github.event_name == 'release' && github.event.action == 'published') && github.ref_name || '' }}
 
       - name: Restore cache for MSF files
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           # restore to the workspace, not home directory
           path: ${{ env.MSF_CACHE_DIR }}
@@ -337,7 +337,7 @@ jobs:
           POOCH_CACHE: ${{ env.POOCH_CACHE }}
           CIBW_ENVIRONMENT_PASS_LINUX: SETUPTOOLS_SCM_PRETEND_VERSION POOCH_CACHE PYTEST_OPTIONS
 
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: wheels-${{ matrix.only }}
           path: ./wheelhouse/*.whl
@@ -356,7 +356,7 @@ jobs:
           fetch-depth: 0
       - name: Build sdist
         run: pipx run build --sdist
-      - uses: actions/upload-artifact@v5
+      - uses: actions/upload-artifact@v6
         with:
           name: sdist
           path: dist/*.tar.gz
@@ -368,7 +368,7 @@ jobs:
     # alternatively, to publish when a GitHub Release is created, use the following rule:
     if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           # unpacks default artifact into dist/
           path: dist
@@ -388,7 +388,7 @@ jobs:
     # drop requirement of 'main', release to test_pypi to test releases
     if: github.event_name == 'release' && github.event.action == 'published' && always() && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           # unpacks default artifact into dist/
           path: dist
@@ -406,7 +406,7 @@ jobs:
       id-token: write
     if: github.event.release.target_commitish == 'main' && github.event_name == 'release' && github.event.action == 'published' && always()  && !cancelled() && !failure()
     steps:
-      - uses: actions/download-artifact@v6
+      - uses: actions/download-artifact@v7
         with:
           # unpacks default artifact into dist/
           path: dist
