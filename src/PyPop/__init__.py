@@ -142,6 +142,7 @@ except (ModuleNotFoundError, ImportError):
 
 try:
     __version__ = metadata_lib.version(__pkgname__)  # use the installed version first
+    """PyPop version. If installed, this is the package version, otherwise it returns repository version."""
 except metadata_lib.PackageNotFoundError:
     from setuptools_scm import get_version
 

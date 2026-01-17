@@ -40,7 +40,7 @@ if [[ "${CI_ONLY:-false}" == "true" ]]; then
             {"only":"cp313-musllinux_aarch64","os":"ubuntu-22.04-arm","cibw_version": $ver},
             {"only":"cp313-win_amd64","os":"windows-2022","cibw_version": $ver},
             {"only":"cp313-win_arm64","os":"windows-2022","cibw_version": $ver},
-            {"only":"cp313-macosx_x86_64","os":"macos-13","cibw_version": $ver},
+            {"only":"cp313-macosx_x86_64","os":"macos-15-intel","cibw_version": $ver},
             {"only":"cp313-macosx_arm64","os":"macos-14","cibw_version": $ver},
             {"only":"cp314-manylinux_x86_64","os":"ubuntu-22.04","cibw_version": $ver}
           ]
@@ -64,7 +64,7 @@ generate_matrix_entries() {
             | jq -nRc --arg ver "$CIBW_VERSION" '{"only": inputs, "os": "ubuntu-22.04-arm", "cibw_version": $ver}' \
         && cibuildwheel --print-build-identifiers --platform macos --archs x86_64 \
             | grep $GREP_FLAGS -E "$GREP_PATTERN" \
-            | jq -nRc --arg ver "$CIBW_VERSION" '{"only": inputs, "os": "macos-13", "cibw_version": $ver}' \
+            | jq -nRc --arg ver "$CIBW_VERSION" '{"only": inputs, "os": "macos-15-intel", "cibw_version": $ver}' \
         && cibuildwheel --print-build-identifiers --platform macos --archs arm64 \
             | grep $GREP_FLAGS -E "$GREP_PATTERN" \
             | jq -nRc --arg ver "$CIBW_VERSION" '{"only": inputs, "os": "macos-14", "cibw_version": $ver}' \
