@@ -292,7 +292,7 @@ def _make_deprecations_block():
 
             elif status == "removed":
                 lines.append(f".. versionremoved:: {version}")
-                lines.append(INDENT + "The following modules were removed:")
+                lines.append(INDENT + "The following modules or classes were removed:")
                 lines.append("")
                 for old, new, reason in sorted(items):
                     lines.append(f"{BULLET_PREFIX}:mod:`{old}`")
