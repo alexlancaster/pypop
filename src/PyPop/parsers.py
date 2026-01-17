@@ -46,9 +46,10 @@ allele count case).
 """
 
 import operator
+from collections import OrderedDict
 
 from PyPop import logger
-from PyPop.utils import OrderedDict, StringMatrix, getStreamType
+from PyPop.utils import StringMatrix, getStreamType
 
 
 class ParseFile:
@@ -210,7 +211,7 @@ class ParseFile:
                 # and inserting `HLA-A', or `DQB1_1' and `DQB1_2' should
                 # both be inserted at `DQB1'
 
-                if assoc.has_key(key):
+                if key in assoc:
                     assoc[key] = assoc[key], i
                 else:
                     assoc[key] = i
@@ -465,10 +466,10 @@ class ParseGenotypeFile(ParseFile):
         self.totalLocusCount = len(self.alleleMap)
 
         # freeze the list of locusKeys in a particular order
-        self.locusKeys = self.alleleMap.keys()
+        self.locusKeys = list(self.alleleMap.keys())
 
         # freeze list of non-allel data
-        self.extraKeys = self.nonAlleleMap.keys()
+        self.extraKeys = list(self.nonAlleleMap.keys())
 
         # create an empty-list of lists to store all the row data
         # self.individualsList = [[] for line in range(0, self.totalIndivCount)]
@@ -634,7 +635,7 @@ class ParseAlleleCountFile(ParseFile):
         logger.debug("sampleMap keys: %s", self.sampleMap.keys())
         logger.debug("sampleMap values: %s", self.sampleMap.values())
 
-        self.locusName = self.sampleMap.keys()[0]
+        self.locusName = next(iter(self.sampleMap))
 
         # turn this into a pseudo-genotype data matrix
 

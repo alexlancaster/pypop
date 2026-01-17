@@ -44,11 +44,11 @@ import re
 import shutil
 import stat
 import sys
+from collections.abc import Sequence
 from pathlib import Path
 
 import numpy as np
 from numpy import asarray, take, zeros
-from numpy.lib.user_array import container
 
 from PyPop import logger
 
@@ -217,12 +217,17 @@ class XMLOutputStream(TextOutputStream):
         self.closetag(tagname)
 
 
-class StringMatrix(container):
+class StringMatrix(Sequence):
     """Matrix of strings and other metadata from input file to PyPop.
 
-    ``StringMatrix`` is a subclass of NumPy's
-    :class:`numpy.lib.user_array` class, store the data in an
-    efficient array format, using NumPy-style access.
+    ``StringMatrix`` is a subclass of
+    :class:`collections.abc.Sequence` and represents genotype or
+    locus-based data in a row-oriented matrix structure with
+    NumPy-style indexing and sequence semantics. Rows correspond to
+    individuals, and columns correspond to loci.
+
+    The object supports indexing, assignment, copying, and printing
+    using standard Python and NumPy idioms.
 
     Args:
        rowCount (int): number of rows in matrix
@@ -230,6 +235,46 @@ class StringMatrix(container):
        extraList (list): other non-matrix metadata
        colSep (str): column separator
        headerLines (list): list of lines in the header of original file
+
+    Note:
+      * ``len(matrix)`` returns the number of rows.
+      * Indexing retrieves data by locus or locus combinations.
+      * Assignment updates genotype or metadata values in place.
+      * Slicing over rows (e.g., ``matrix[i:j]``) is not currently supported.
+      * Deep copying produces a fully independent matrix.
+
+    Examples:
+       Create a matrix of two individuals with two loci and assign genotype data:
+
+       >>> matrix = StringMatrix(2, ["A", "B"])
+       >>> matrix [0, "A"] = ("A0_1", "A0_2")
+       >>> matrix [1, "A"] = ("A1_1", "A1_2")
+       >>> matrix [0, "B"] = ("B0_1", "B0_2")
+       >>> matrix [1, "B"] = ("B1_1", "B1_2")
+
+       Length of matrix is defined as the number of individuals in the
+       matrix:
+
+       >>> len(matrix)
+       2
+
+       Retrieve data for a single locus:
+
+       >>> matrix["A"]
+       [['A0_1', 'A0_2'], ['A1_1', 'A1_2']]
+
+       String representation:
+
+       >>> print (matrix)
+       StringMatrix([['A0_1', 'A0_2', 'B0_1', 'B0_2'],
+              ['A1_1', 'A1_2', 'B1_1', 'B1_2']], dtype=object)
+
+       Copying the matrix:
+
+       >>> import copy
+       >>> m2 = copy.deepcopy(matrix)
+       >>> m2 is matrix
+       False
 
     """
 
@@ -264,20 +309,13 @@ class StringMatrix(container):
         self.array = zeros(
             (self.rowCount, self.colCount * 2 + self.extraCount), dtype="O"
         )
+        self.dtype = self.array.dtype
         self.shape = self.array.shape
-        self._typecode = self.array.dtype  # Numeric array.typecode()
+        self._typecode = self.array.dtype
         self.name = str(self.__class__).split()[0]
 
     def __repr__(self):
         """Override default representation.
-
-        Example:
-          This is used when the object is 'print'ed, i.e.
-
-          >>> a = StringMatrix(2, [1,2])
-          >>> print (a)
-          StringMatrix([[0, 0, 0, 0],
-                 [0, 0, 0, 0]], dtype=object)
 
         Returns:
            str: new string representation
@@ -285,6 +323,147 @@ class StringMatrix(container):
         if len(self.array.shape) > 0:
             return (self.__class__.__name__) + repr(self.array)[len("array") :]
         return (self.__class__.__name__) + "(" + repr(self.array) + ")"
+
+    def __len__(self):
+        """Get number of rows (individuals) in the matrix.
+
+        This allows ``StringMatrix`` instances to be used with
+        `len()`, iteration, and other Python sequence protocols.
+
+        Returns:
+           int: number of rows in the matrix
+
+        """
+        return self.array.shape[0]
+
+    def __deepcopy__(self, memo):
+        """Create a deepcopy for ``copy.deepcopy``.
+
+        This simply calls ``self.copy()`` to allow
+        ``copy.deepcopy(matrixInstance)`` to work out of the box.
+
+        Args:
+           memo (dict): opaque object
+
+        Returns:
+          StringMatrix: copy of the matrix
+
+        """
+        return self.copy()
+
+    def __getslice__(self, i, j):
+        """Get slice (overrides built-in).
+
+        Warning:
+          Currently not supported for :class:`StringMatrix`
+
+        """
+        msg = "slices not currently supported"
+        raise Exception(msg)  # noqa: TRY002
+
+    def __getitem__(self, key):
+        """Get the item at given key (overrides built-in numpy).
+
+        Args:
+          key (str): locus key
+
+        Returns:
+           list: a list (a single column vector if only one position
+           specified), or list of lists: (a set of column vectors if
+           several positions specified) of tuples for ``key``
+
+        Raises:
+           KeyError: if key is not found, or of wrong type
+
+        """
+        if type(key) is tuple:
+            row, colName = key
+            if colName in self.colList:
+                col = self.extraCount + self.colList.index(colName)
+            else:
+                msg = f"can't find {colName} column"
+                raise KeyError(msg)
+            return self.array[(row, col)]
+        if type(key) is str:
+            colNames = key.split(":")
+            li = []
+            for col in colNames:
+                # check first in list of alleles
+                if col in self.colList:
+                    # get relative location in list
+                    relativeLoc = self.colList.index(col)
+                    # calculate real locations in array
+                    col1 = relativeLoc * 2 + self.extraCount
+                    col2 = col1 + 1
+                    li.append(col1)
+                    li.append(col2)
+                # now check in non-allele metadata
+                elif (self.extraList is not None) and (col in self.extraList):
+                    li.append(self.extraList.index(col))
+                else:
+                    msg = f"can't find {col} column"
+                    raise KeyError(msg)
+
+            if len(colNames) == 1:
+                # return simply the pair of columns at that location as
+                # a list
+                return take(self.array, tuple(li[0:2]), 1).tolist()
+            # return the matrix consisting of column vectors
+            # of the designated keys
+            return take(self.array, tuple(li), 1).tolist()
+        msg = "keys must be a string or tuple"
+        raise KeyError(msg)
+
+    def __setitem__(self, index, value):
+        """Set the value at an index (override built in).
+
+        Args:
+           index (tuple): index into matrix
+           value (tuple|str): can set using a tuple of strings, or a
+            single string (for metadata)
+
+        Raises:
+           IndexError: if ``index`` is not a tuple
+           ValueError: if ``value`` is not a tuple or string
+           KeyError: if the ``index`` can't be found
+
+        """
+        if type(index) is tuple:
+            row, colName = index
+        else:
+            msg = "index is not a tuple"
+            raise IndexError(msg)
+        if type(value) is tuple:
+            value1, value2 = value
+        elif type(value) is str:
+            # don't need to do anything
+            pass
+        else:
+            msg = "value being assigned is not a tuple"
+            raise ValueError(msg)
+
+        if colName in self.colList:
+            # find the location in order in the array
+            col = self.colList.index(colName)
+            # calculate the offsets to the actual array location
+            col1 = col * 2
+            col2 = col1 + 1
+            # store each element in turn
+            self.array[(row, col1 + self.extraCount)] = (
+                value1 if type(value1) is str else asarray(value1, dtype=self.dtype)
+            )
+            self.array[(row, col2 + self.extraCount)] = (
+                value2 if type(value2) is str else asarray(value2, dtype=self.dtype)
+            )
+
+        elif colName in self.extraList:
+            col = self.extraList.index(colName)
+            self.array[(row, col)] = (
+                value if type(value) is str else asarray(value, self.dtype)
+            )
+        else:
+            msg = f"can't find {col} column"
+            raise KeyError(msg)
 
     def dump(self, locus=None, stream=sys.stdout):
         """Write file to a stream in original format.
@@ -346,94 +525,6 @@ class StringMatrix(container):
         thecopy.array = self.array.copy()
         return thecopy
 
-    def __deepcopy__(self, memo):
-        """Create a deepcopy for copy.deepcopy.
-
-        This simply calls ``self.copy()`` to allow
-        ``copy.deepcopy(matrixInstance)`` to work out of the box.
-
-        Args:
-           memo (dict): opaque object
-
-        Returns:
-          StringMatrix: copy of the matrix
-
-        """
-        return self.copy()
-
-    def __getslice__(self, i, j):
-        """Get slice (overrides built-in).
-
-        Warning:
-          Currently not supported for :class:`StringMatrix`
-
-        """
-        msg = "slices not currently supported"
-        raise Exception(msg)  # noqa: TRY002
-
-    def __getitem__(self, key):
-        """Get the item at given key (overrides built-in numpy).
-
-        Example:
-          This is called when instance is called to retrieve a position
-
-          >>> matrix = StringMatrix(2, ["A", "B"])
-          >>> matrix [0, "A"] = ("A0_1", "A0_2")
-          >>> matrix [1, "A"] = ("A1_1", "A1_2")
-          >>> li = matrix["A"]
-          >>> print (li)
-          [['A0_1', 'A0_2'], ['A1_1', 'A1_2']]
-
-        Args:
-          key (str): locus key
-
-        Returns:
-           list: a list (a single column vector if only one position
-            specified), or list of lists: (a set of column vectors if
-            several positions specified) of tuples for ``key``
-
-        Raises:
-           KeyError: if key is not found, or of wrong type
-
-        """
-        if type(key) is tuple:
-            row, colName = key
-            if colName in self.colList:
-                col = self.extraCount + self.colList.index(colName)
-            else:
-                msg = f"can't find {colName} column"
-                raise KeyError(msg)
-            return self.array[(row, col)]
-        if type(key) is str:
-            colNames = key.split(":")
-            li = []
-            for col in colNames:
-                # check first in list of alleles
-                if col in self.colList:
-                    # get relative location in list
-                    relativeLoc = self.colList.index(col)
-                    # calculate real locations in array
-                    col1 = relativeLoc * 2 + self.extraCount
-                    col2 = col1 + 1
-                    li.append(col1)
-                    li.append(col2)
-                # now check in non-allele metadata
-                elif (self.extraList is not None) and (col in self.extraList):
-                    li.append(self.extraList.index(col))
-                else:
-                    msg = f"can't find {col} column"
-                    raise KeyError(msg)
-
-            if len(colNames) == 1:
-                # return simply the pair of columns at that location as
-                # a list
-                return take(self.array, tuple(li[0:2]), 1).tolist()
-            # return the matrix consisting of column vectors
-            # of the designated keys
-            return take(self.array, tuple(li), 1).tolist()
-        msg = "keys must be a string or tuple"
-        raise KeyError(msg)
-
     def getNewStringMatrix(self, key):
         """Create new StringMatrix containing specified loci.
 
@@ -494,65 +585,6 @@ class StringMatrix(container):
         newMatrix.array = self.array[:, newExtraPos]
         return newMatrix
 
-    def __setitem__(self, index, value):
-        """Set the value at an index (override built in).
-
-        This is called when instance is called to assign a value.
-
-        Example:
-
-           .. code-block:: python
-
-              matrix[3, 'A'] = (entry1, entry2)
-
-        Args:
-           index (tuple): index into matrix
-           value (tuple|str): can set using a tuple of strings, or a
-            single string (for metadata)
-
-        Raises:
-           IndexError: if ``index`` is not a tuple
-           ValueError: if ``value`` is not a tuple or string
-           KeyError: if the ``index`` can't be found
-
-        """
-        if type(index) is tuple:
-            row, colName = index
-        else:
-            msg = "index is not a tuple"
-            raise IndexError(msg)
-        if type(value) is tuple:
-            value1, value2 = value
-        elif type(value) is str:
-            # don't need to do anything
-            pass
-        else:
-            msg = "value being assigned is not a tuple"
-            raise ValueError(msg)
-
-        if colName in self.colList:
-            # find the location in order in the array
-            col = self.colList.index(colName)
-            # calculate the offsets to the actual array location
-            col1 = col * 2
-            col2 = col1 + 1
-            # store each element in turn
-            self.array[(row, col1 + self.extraCount)] = (
-                value1 if type(value1) is str else asarray(value1, dtype=self.dtype)
-            )
-            self.array[(row, col2 + self.extraCount)] = (
-                value2 if type(value2) is str else asarray(value2, dtype=self.dtype)
-            )
-
-        elif colName in self.extraList:
-            col = self.extraList.index(colName)
-            self.array[(row, col)] = (
-                value if type(value) is str else asarray(value, self.dtype)
-            )
-        else:
-            msg = f"can't find {col} column"
-            raise KeyError(msg)
-
     def getUniqueAlleles(self, key):
         """Get naturally sorted list of unique alleles.
 
@@ -561,7 +593,7 @@ class StringMatrix(container):
 
         Returns:
            list: list of unique integers sorted by allele name using
-             natural sort
+           natural sort
 
         """
         uniqueAlleles = []
@@ -577,7 +609,7 @@ class StringMatrix(container):
         """Convert the matrix to integers.
 
         Note:
-          This function is used by the :class:`PyPop.Haplo.Haplostats`
+          This function is used by the :class:`PyPop.haplo.Haplostats`
           class.  Note that integers start at 1 for compatibility with
           haplo-stats module
 
@@ -639,7 +671,7 @@ class StringMatrix(container):
 
         Returns:
            list: all alleles, the two genotype columns concatenated
-            for each locus
+           for each locus
 
         """
         flattened_matrix = []
@@ -768,171 +800,6 @@ class Group:
             msg = "Out of range"
             raise IndexError(msg)
         return self.li[idx : idx + self.size]
-
-
-class OrderedDict:
-    """A dictionary class with **ordered** pairs.
-
-    .. deprecated:: 1.3.1
-
-       Will be removed in a later release, to be replaced by internal
-       Python version
-
-    """
-
-    __version__ = "1.1"
-
-    def __init__(self, hash=None):
-        """Creates an ordered dict."""
-        if hash is None:
-            hash = []
-        self.__hash = {}
-        self.KEYS = []
-
-        while hash:
-            k, v, hash = hash[0], hash[1], hash[2:]
-            self.__hash[k] = v
-            self.KEYS.append(k)
-
-    def __addval__(self, key, value):
-        """Internal function to add/change key-value pair (at end)."""
-        try:
-            self.KEYS.index(key)
-        except Exception:
-            self.__hash[key] = value
-            self.KEYS.append(key)
-        else:
-            self.__hash[key] = value
-
-    def __setitem__(self, i, hash):
-        """Adds key-value pairs (existing keys not moved)."""
-        if type(i) is type(Index()):
-            del self.__hash[self.KEYS[i.i]]
-            if len(hash) != 1:
-                self.KEYS[i.i], hash = hash[0], hash[1:]
-            self.__hash[self.KEYS[i.i]] = hash[0]
-        else:
-            self.__addval__(i, hash)
-
-    def __getitem__(self, key):
-        """Returns value of given key."""
-        if type(key) is type(Index()):
-            key = self.KEYS[key.i]
-            return [key, self.__hash[key]]
-        return self.__hash[key]
-
-    def __len__(self):
-        """Returns the number of pairs in the dict."""
-        return len(self.KEYS)
-
-    def index(self, key):
-        """Returns position of key in dict."""
-        return self.KEYS.index(key)
-
-    def keys(self):
-        """Returns list of keys in dict."""
-        return self.KEYS
-
-    def values(self):
-        """Returns list of values in dict."""
-        ret = []
-        for key in self.KEYS:
-            ret.append(self.__hash[key])
-        return ret
-
-    def items(self):
-        """Returns list of tuples of keys and values."""
-        ret = []
-        for key in self.KEYS:
-            ret.append((key, self.__hash[key]))
-        return ret
-
-    def insert(self, i, key, value):
-        """Inserts a key-value pair at a given index."""
-        InsertError = "Duplicate key entry"
-        if key in self.__hash:
-            raise InsertError
-        self.KEYS.insert(i, key)
-        self.__hash[key] = value
-
-    def remove(self, i):
-        """Removes a key-value pair from the dict."""
-        del self.__hash[i]
-        self.KEYS.remove(i)
-
-    def __delitem__(self, i):
-        """Removes a key-value pair from the dict."""
-        if type(i) is not type(Index()):
-            i = Index(self.KEYS.index(i))
-        del self.__hash[self.KEYS[i.i]]
-        del self.KEYS[i.i]
-
-    def reverse(self):
-        """Reverses the order of the key-value pairs."""
-        self.KEYS.reverse()
-
-    def sort(self, cmp=0):
-        """Sorts the dict (allows for sort algorithm)."""
-        if cmp:
-            self.KEYS.sort(cmp)
-        else:
-            self.KEYS.sort()
-
-    def clear(self):
-        """Clears all the entries in the dict."""
-        self.__hash = {}
-        self.KEYS = []
-
-    def copy(self):
-        """Makes copy of dict, also of OrderdDict class."""
-        hash = OrderedDict()
-        hash.KEYS = self.KEYS[:]
-        hash.__hash = self.__hash.copy()
-        return hash
-
-    def get(self, key):
-        """Returns the value of a key."""
-        return self.__hash[key]
-
-    def has_key(self, key):
-        """Looks for existence of key in dict."""
-        return key in self.__hash
-
-    def update(self, dict):
-        """Updates entries in a dict based on another."""
-        self.__hash.update(dict)
-
-    def count(self, key):
-        """Finds occurrences of a key in a dict (0/1)."""
-        return key in self.__hash
-
-    def __getslice__(self, i, j):
-        """Returns an OrderedDict of key-value pairs from a dict."""
-        ret = []
-        for x in range(i, j):
-            ret.append(self.KEYS[x])
-            ret.append(self.__hash[self.KEYS[x]])
-        return OrderedDict(ret)
-
-    def __setslice__(self, i, j, hash):
-        """Sets a slice of elements from the dict."""
-        hash = list(hash)
-        for x in range(i, j):
-            k, v, hash = hash[0], hash[1], hash[2:]
-            self.__setitem__(Index(x), [k, v])
-
-
-class Index:
-    """Returns an Index object for :class:`OrderedDict`.
-
-    .. deprecated:: 1.3.1
-
-       Will be removed in a later release, to be replaced by internal
-       Python version
-    """
-
-    def __init__(self, i=0):
-        self.i = i
 
 
 ### global FUNCTIONS start here

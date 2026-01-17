@@ -146,7 +146,7 @@ autoapi_options = [
     "members",
     "undoc-members",
     #           "private-members",  # remove for production
-    #           "special-members",
+    "special-members",
     "show-inheritance",
     "show-module-summary",
     "imported-members",
