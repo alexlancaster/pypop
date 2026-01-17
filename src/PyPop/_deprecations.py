@@ -124,6 +124,14 @@ deprecated_modules = {
         "reason": "Lowercased for PEP8 compliance.",
         "changed": "1.4.0",
     },
+    "PyPop.Utils.OrderedDict": {
+        "removed": "1.4.0",
+        "reason": "Obsolete, replaced with :class:`collections.OrderedDict`",
+    },
+    "PyPop.Utils.Index": {
+        "removed": "1.4.0",
+        "reason": "Obsolete, replaced with :class:`collections.OrderedDict` with it's own ``Index`` class",
+    },
     "PyPop.GUIApp": {
         "removed": "1.4.0",
         "reason": "Obsolete, never fully implemented a full ``wxPython`` UI. Replaced by built-in Tkinter file-picker",
