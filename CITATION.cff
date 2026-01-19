@@ -1,8 +1,23 @@
 cff-version: 1.3.0
 message: >-
-  If you use this software, please cite both the software itself, as well as the article Lancaster AK et al. (2024) <a href="https://doi.org/10.3389/fimmu.2024.1378512">PyPop: A mature open-source software pipeline for population genomics</a>. <i>Front. Immunol.</i> <b>15</b>:1378512. doi: 10.3389/fimmu.2024.1378512
+  If you use this software, please cite both the software itself, as well as the
+  article Lancaster AK et al. (2024) <a
+  href="https://doi.org/10.3389/fimmu.2024.1378512">PyPop: A mature open-source
+  software pipeline for population genomics</a>. <i>Front. Immunol.</i>
+  <b>15</b>:1378512. doi: 10.3389/fimmu.2024.1378512
 abstract: >-
-  <p>PyPop for Population Genomics (<a href="http://pypop.org/">PyPop</a>) is a Python program for processing genotype and allele data and running population genetic analyses, including conformity to Hardy-Weinberg expectations; tests for balancing or directional selection; estimates of haplotype frequencies and measures and tests of significance for linkage disequilibrium (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream flexibility. PyPop also has an internal facility for additionally aggregating the output XML and generating output tab-separated values (TSV) files, as well as default plain text files for each population. Although it can be run on any kind of genotype data, it has additional support for analyzing population genotype with allelic nomenclature from the human leukocyte antigen (HLA) region.</p>
+  <p>PyPop for Population Genomics (<a href="http://pypop.org/">PyPop</a>) is a
+  Python program for processing genotype and allele data and running population
+  genetic analyses, including conformity to Hardy-Weinberg expectations; tests
+  for balancing or directional selection; estimates of haplotype frequencies and
+  measures and tests of significance for linkage disequilibrium
+  (LD).&nbsp;Output of analyses are stored in XML format for maximum downstream
+  flexibility. PyPop also has an internal facility for additionally aggregating
+  the output XML and generating output tab-separated values (TSV) files, as well
+  as default plain text files for each population. Although it can be run on any
+  kind of genotype data, it has additional support for analyzing population
+  genotype with allelic nomenclature from the human leukocyte antigen (HLA)
+  region.</p>
 authors:
   - family-names: Lancaster
     given-names: Alexander K.
@@ -125,3 +140,4 @@ keywords:
   - Major histocompatibility complex
   - HLA
   - MHC
+doi: 10.5281/zenodo.18307000
