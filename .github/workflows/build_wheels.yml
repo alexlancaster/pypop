@@ -24,8 +24,6 @@ on:
       - '.gitattributes'
       - '.pre-commit-config.yaml'
   push:
-    tags-ignore:
-      - '*'   # don't make a separate build on tag pushes
     paths-ignore: *ignore_paths
   release:
     types:
