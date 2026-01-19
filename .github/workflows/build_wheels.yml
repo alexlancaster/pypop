@@ -7,7 +7,7 @@ concurrency:
 on:
   workflow_dispatch:
   pull_request:
-    paths-ignore:
+    paths-ignore: &ignore_paths
       - '**.md'
       - '**.rst'
       - 'noxfile.py'
@@ -24,22 +24,9 @@ on:
       - '.gitattributes'
       - '.pre-commit-config.yaml'
   push:
-    paths-ignore:
-      - '**.md'
-      - '**.rst'
-      - 'noxfile.py'
-      - 'CITATION.cff'
-      - 'pypop-logo.png'
-      - '.zenodo.extras.json'
-      - 'website/**'
-      - 'data/**'
-      - 'src/obsolete/**'
-      - '.github/**'
-      - '!.github/workflows/build_wheels.yml'
-      - '!.github/scripts/gen-wheel-matrix.sh'
-      - '!.github/requirements-ci.txt'
-      - '.gitattributes'
-      - '.pre-commit-config.yaml'
+    tags-ignore:
+      - '*'   # don't make a separate build on tag pushes
+    paths-ignore: *ignore_paths
   release:
     types:
       - published
@@ -123,10 +110,14 @@ jobs:
           git config --global user.email "username@users.noreply.github.com"
           git checkout -b $GITHUB_REF_NAME-with-upserting-changes-pre-upload
           git add CITATION.cff
-          git commit -m "Upserted version into CITATION.cff"
-          git checkout ${{ github.event.release.target_commitish }}
-          git merge $GITHUB_REF_NAME-with-upserting-changes-pre-upload
-          git push origin ${{ github.event.release.target_commitish }}
+          if ! git diff --cached --quiet; then
+            git commit -m "Upserted version into CITATION.cff"
+            git checkout ${{ github.event.release.target_commitish }}
+            git merge $GITHUB_REF_NAME-with-upserting-changes-pre-upload
+            git push origin ${{ github.event.release.target_commitish }}
+          else
+            echo "No changes to CITATION.cff; skipping commit"
+          fi
       - name: Clean-up and remove files not for export
         run: |
           # FIXME: removing files marked with 'export-ignore' 'set' in .gitattributes
