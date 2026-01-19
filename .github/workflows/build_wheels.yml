@@ -24,6 +24,8 @@ on:
       - '.gitattributes'
       - '.pre-commit-config.yaml'
   push:
+    branches:
+      - '**'
     paths-ignore: *ignore_paths
   release:
     types:
