@@ -102,7 +102,7 @@ blank issue and describe your situation.  Here is a checklist:
   tests`_.  in "verbose" mode (i.e. ``pytest -v``).  If you do this,
   please supply the output of the resulting temporary directories on
   your issue (see the unit test section for more details). Note that
-  you will likely need to `<clone the main repository_>`_ as the unit
+  you will likely need to `clone the main repository`_ as the unit
   tests are not distributed with the binary wheels.
 
 

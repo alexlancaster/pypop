@@ -263,6 +263,7 @@ rst_epilog = """
 # directories to ignore when looking for source files.
 # This patterns also effect to html_static_path and html_extra_path
 exclude_patterns = [
+    "_news.rst",  # already include'd
     "_build",
     "README.md",
     "reference",
@@ -311,6 +312,7 @@ html_theme_options = {  # some are theme-specific
     "show_nav_level": 3,
     "navigation_depth": 3,
     "collapse_navigation": False,
+    "primary_sidebar_end": ["indices.html"],
     "secondary_sidebar_items": {
         "**": [],  # "page-toc"
     },
