@@ -80,6 +80,10 @@ This guide to PyPop contains five main parts:
 
    References to the *API Reference* can be found in the |apidocs_pdf_link|
 
+.. only:: html
+
+   **Full Table of Contents**
+
 .. _user-guide-toc:
 
 .. toctree::
