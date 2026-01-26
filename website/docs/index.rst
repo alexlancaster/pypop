@@ -45,7 +45,13 @@ PyPop User Guide
 
    .. include:: ../../README.rst
       :start-after: guide-include-pypop-cite-start:
-      :end-before: guide-include-pypop-cite-end:
+      :end-before: guide-include-pypop-zenodo-start:
+
+   .. admonition:: Zenodo details
+
+      .. include:: ../../README.rst
+         :start-after: guide-include-pypop-zenodo-start:
+         :end-before: guide-include-pypop-zenodo-end:
 
    .. include:: ../index.rst
       :start-after: guide-preface-3-start:
