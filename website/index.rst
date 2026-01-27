@@ -92,7 +92,14 @@ Citing PyPop
 
 .. include:: ../README.rst
    :start-after: guide-include-pypop-cite-start:
-   :end-before: guide-include-pypop-cite-end:
+   :end-before: guide-include-pypop-zenodo-start:
+
+.. admonition:: Click for Zenodo details
+   :class: dropdown
+
+   .. include:: ../README.rst
+      :start-after: guide-include-pypop-zenodo-start:
+      :end-before: guide-include-pypop-zenodo-end:
 
 .. _guide-preface-3-start:
 
