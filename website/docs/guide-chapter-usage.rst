@@ -673,7 +673,7 @@ sample file with a single locus in :numref:`data-allelecount`.
 
 Note also that only analyses that can be performed on allele count
 data (i.e. that don't require full genotype information) can be
-performed.  This means that other than the automatically generated
+enabled.  This means that other than the automatically generated
 single locus statistics, only :ref:`guide-usage-config-homozygosity`
 can be enabled. Hardy-Weinberg and haplotype and LD analyses are not
 available.
