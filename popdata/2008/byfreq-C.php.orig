@@ -1,0 +1,2227 @@
+<php>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<html>
+<head>
+	<title>HLA-C alleles, sorted by allele frequency</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<!-- "G_PLUGIN_FOR_HTML" -->
+<style><!--
+tt {
+	font-family: courier;
+}
+td {
+	font-family: helvetica, sans-serif;
+}
+caption {
+	font-family: helvetica, sans-serif;
+	font-size: 14pt;
+	text-align: left;
+}
+--></style>
+</head>
+<body>
+
+<p>View this table <a href="byallele-C.php">sorted by allele name</a>.
+<br>Jump to locus:  <a href="byfreq-A.php">A</a>, <a href="byfreq-C.php">C</a>, <a href="byfreq-B.php">B</a>, <a href="byfreq-DRB1.php">DRB1</a>, <a href="byfreq-DQ.php">DQA1 and DQB1</a>, <a href="byfreq-DP.php">DPA1 and DPB1</a>.
+<br>Or return to <a href="../index.html">main page</a>.</p>
+<p>Explanation of column headers: 
+<ul>
+<li><b>Year</b> is the year the allele was first described in the literature.</li>
+<li><b>CWD</b> indicates that the allele is considered Common and Well Documented by Cano et. al. (2007)
+<a href="http://dx.doi.org/10.1016/j.humimm.2007.01.014">[DOI]</a> <a href="http://www.ncbi.nlm.nih.gov/pubmed/17462507">[PubMed]</a>.</li>
+<li><b>Freq</b> is the overall average frequency, across all population samples included in Solberg et. al. (2008).
+<a href="http://dx.doi.org/10.1016/j.humimm.2008.05.001">[DOI]</a> <a href="http://www.ncbi.nlm.nih.gov/pubmed/18638659">[PubMed]</a></li>
+<li><b>Regions</b> is the number of world regions the allele appears in.</li>
+<li>The <b>Map</b> link provides a geographical interpolation of allele frequency, using only non-migrant populations (maps are not available for a few alleles because of this). 
+<br>N.B.: The maps should be considered crude approximations of regional patterns.</p></li>
+</ul>
+
+ 
+<p><table border="1">
+<caption>HLA-C alleles, sorted by allele frequency</caption>
+<tr>
+<td>Locus</td>
+<td>Allele</td>
+<td>Year</td>
+<td>CWD</td>
+<td>Freq</td>
+<td>Regions</td>
+<td>Map</td>
+</tr>
+
+
+
+<tr>
+<td>C</td>
+<td>Cw*0702</td>
+<td>1985</td>
+<td>CWD</td>
+<td>0.13101</td>
+<td>11</td>
+<td><A HREF=maps/Cw-0702.gif><IMG border=0 SRC=maps/Cw-0702-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0401</td>
+<td>1989</td>
+<td>CWD</td>
+<td>0.11177</td>
+<td>11</td>
+<td><A HREF=maps/Cw-0401.gif><IMG border=0 SRC=maps/Cw-0401-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0304</td>
+<td>1984</td>
+<td>CWD</td>
+<td>0.09132</td>
+<td>11</td>
+<td><A HREF=maps/Cw-0304.gif><IMG border=0 SRC=maps/Cw-0304-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0102</td>
+<td>1987</td>
+<td>CWD</td>
+<td>0.08481</td>
+<td>11</td>
+<td><A HREF=maps/Cw-0102.gif><IMG border=0 SRC=maps/Cw-0102-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0701</td>
+<td>1989</td>
+<td>CWD</td>
+<td>0.06887</td>
+<td>10</td>
+<td><A HREF=maps/Cw-0701.gif><IMG border=0 SRC=maps/Cw-0701-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0602</td>
+<td>1989</td>
+<td>CWD</td>
+<td>0.06160</td>
+<td>11</td>
+<td><A HREF=maps/Cw-0602.gif><IMG border=0 SRC=maps/Cw-0602-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0303</td>
+<td>1992</td>
+<td>CWD</td>
+<td>0.05580</td>
+<td>11</td>
+<td><A HREF=maps/Cw-0303.gif><IMG border=0 SRC=maps/Cw-0303-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0801</td>
+<td>1989</td>
+<td>CWD</td>
+<td>0.04522</td>
+<td>11</td>
+<td><A HREF=maps/Cw-0801.gif><IMG border=0 SRC=maps/Cw-0801-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1502</td>
+<td>1989</td>
+<td>CWD</td>
+<td>0.03362</td>
+<td>11</td>
+<td><A HREF=maps/Cw-1502.gif><IMG border=0 SRC=maps/Cw-1502-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1202</td>
+<td>1988</td>
+<td>CWD</td>
+<td>0.03191</td>
+<td>9</td>
+<td><A HREF=maps/Cw-1202.gif><IMG border=0 SRC=maps/Cw-1202-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0202</td>
+<td>1988</td>
+<td>CWD</td>
+<td>0.02805</td>
+<td>10</td>
+<td><A HREF=maps/Cw-0202.gif><IMG border=0 SRC=maps/Cw-0202-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0501</td>
+<td>1989</td>
+<td>CWD</td>
+<td>0.02614</td>
+<td>9</td>
+<td><A HREF=maps/Cw-0501.gif><IMG border=0 SRC=maps/Cw-0501-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1402</td>
+<td>1989</td>
+<td>CWD</td>
+<td>0.02539</td>
+<td>9</td>
+<td><A HREF=maps/Cw-1402.gif><IMG border=0 SRC=maps/Cw-1402-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0302</td>
+<td>1992</td>
+<td>CWD</td>
+<td>0.02461</td>
+<td>10</td>
+<td><A HREF=maps/Cw-0302.gif><IMG border=0 SRC=maps/Cw-0302-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1601</td>
+<td>1989</td>
+<td>CWD</td>
+<td>0.02420</td>
+<td>9</td>
+<td><A HREF=maps/Cw-1601.gif><IMG border=0 SRC=maps/Cw-1601-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0802</td>
+<td>1991</td>
+<td>CWD</td>
+<td>0.02017</td>
+<td>10</td>
+<td><A HREF=maps/Cw-0802.gif><IMG border=0 SRC=maps/Cw-0802-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1203</td>
+<td>1994</td>
+<td>CWD</td>
+<td>0.01959</td>
+<td>10</td>
+<td><A HREF=maps/Cw-1203.gif><IMG border=0 SRC=maps/Cw-1203-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0403</td>
+<td>1996</td>
+<td>CWD</td>
+<td>0.01942</td>
+<td>7</td>
+<td><A HREF=maps/Cw-0403.gif><IMG border=0 SRC=maps/Cw-0403-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1701</td>
+<td>1997</td>
+<td>CWD</td>
+<td>0.01880</td>
+<td>8</td>
+<td><A HREF=maps/Cw-1701.gif><IMG border=0 SRC=maps/Cw-1701-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1403</td>
+<td>1995</td>
+<td>CWD</td>
+<td>0.01471</td>
+<td>6</td>
+<td><A HREF=maps/Cw-1403.gif><IMG border=0 SRC=maps/Cw-1403-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0704</td>
+<td>1994</td>
+<td>CWD</td>
+<td>0.01467</td>
+<td>10</td>
+<td><A HREF=maps/Cw-0704.gif><IMG border=0 SRC=maps/Cw-0704-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1801</td>
+<td>1996</td>
+<td>CWD</td>
+<td>0.00635</td>
+<td>5</td>
+<td><A HREF=maps/Cw-1801.gif><IMG border=0 SRC=maps/Cw-1801-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0803</td>
+<td>1992</td>
+<td>CWD</td>
+<td>0.00505</td>
+<td>5</td>
+<td><A HREF=maps/Cw-0803.gif><IMG border=0 SRC=maps/Cw-0803-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1505</td>
+<td>1994</td>
+<td>CWD</td>
+<td>0.00427</td>
+<td>9</td>
+<td><A HREF=maps/Cw-1505.gif><IMG border=0 SRC=maps/Cw-1505-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0404</td>
+<td>1997</td>
+<td>CWD</td>
+<td>0.00413</td>
+<td>6</td>
+<td><A HREF=maps/Cw-0404.gif><IMG border=0 SRC=maps/Cw-0404-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1602</td>
+<td>1994</td>
+<td>CWD</td>
+<td>0.00287</td>
+<td>8</td>
+<td><A HREF=maps/Cw-1602.gif><IMG border=0 SRC=maps/Cw-1602-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1503</td>
+<td>1992</td>
+<td>CWD</td>
+<td>0.00256</td>
+<td>5</td>
+<td><A HREF=maps/Cw-1503.gif><IMG border=0 SRC=maps/Cw-1503-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0210</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00242</td>
+<td>3</td>
+<td><A HREF=maps/Cw-0210.gif><IMG border=0 SRC=maps/Cw-0210-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0407</td>
+<td>1999</td>
+<td>CWD</td>
+<td>0.00222</td>
+<td>7</td>
+<td><A HREF=maps/Cw-0407.gif><IMG border=0 SRC=maps/Cw-0407-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0804</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00171</td>
+<td>5</td>
+<td><A HREF=maps/Cw-0804.gif><IMG border=0 SRC=maps/Cw-0804-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0806</td>
+<td>2001</td>
+<td>CWD</td>
+<td>0.00133</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0806.gif><IMG border=0 SRC=maps/Cw-0806-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0703</td>
+<td>1985</td>
+<td> </td>
+<td>0.00126</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0703.gif><IMG border=0 SRC=maps/Cw-0703-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1604</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00123</td>
+<td>7</td>
+<td><A HREF=maps/Cw-1604.gif><IMG border=0 SRC=maps/Cw-1604-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1507</td>
+<td>1999</td>
+<td>CWD</td>
+<td>0.00113</td>
+<td>6</td>
+<td><A HREF=maps/Cw-1507.gif><IMG border=0 SRC=maps/Cw-1507-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0103</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00109</td>
+<td>5</td>
+<td><A HREF=maps/Cw-0103.gif><IMG border=0 SRC=maps/Cw-0103-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1504</td>
+<td>1994</td>
+<td>CWD</td>
+<td>0.00106</td>
+<td>6</td>
+<td><A HREF=maps/Cw-1504.gif><IMG border=0 SRC=maps/Cw-1504-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0717</td>
+<td>2002</td>
+<td> </td>
+<td>0.00099</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0717.gif><IMG border=0 SRC=maps/Cw-0717-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0305</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00092</td>
+<td>6</td>
+<td><A HREF=maps/Cw-0305.gif><IMG border=0 SRC=maps/Cw-0305-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1204</td>
+<td>1996</td>
+<td>CWD</td>
+<td>0.00089</td>
+<td>7</td>
+<td><A HREF=maps/Cw-1204.gif><IMG border=0 SRC=maps/Cw-1204-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0708</td>
+<td>1998</td>
+<td> </td>
+<td>0.00061</td>
+<td>5</td>
+<td><A HREF=maps/Cw-0708.gif><IMG border=0 SRC=maps/Cw-0708-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0705</td>
+<td>1996</td>
+<td>CWD</td>
+<td>0.00061</td>
+<td>3</td>
+<td><A HREF=maps/Cw-0705.gif><IMG border=0 SRC=maps/Cw-0705-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1508</td>
+<td>1999</td>
+<td> </td>
+<td>0.00048</td>
+<td>5</td>
+<td><A HREF=maps/Cw-1508.gif><IMG border=0 SRC=maps/Cw-1508-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0306</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00038</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0306.gif><IMG border=0 SRC=maps/Cw-0306-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0316</td>
+<td>2004</td>
+<td>CWD</td>
+<td>0.00031</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0316.gif><IMG border=0 SRC=maps/Cw-0316-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0502</td>
+<td>2001</td>
+<td>CWD</td>
+<td>0.00031</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0502.gif><IMG border=0 SRC=maps/Cw-0502-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0714</td>
+<td>2000</td>
+<td> </td>
+<td>0.00027</td>
+<td>4</td>
+<td><A HREF=maps/Cw-0714.gif><IMG border=0 SRC=maps/Cw-0714-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0406</td>
+<td>1999</td>
+<td>CWD</td>
+<td>0.00027</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0406.gif><IMG border=0 SRC=maps/Cw-0406-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0603</td>
+<td>1998</td>
+<td> </td>
+<td>0.00024</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0603.gif><IMG border=0 SRC=maps/Cw-0603-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0203</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00024</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0203.gif><IMG border=0 SRC=maps/Cw-0203-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0606</td>
+<td>2000</td>
+<td> </td>
+<td>0.00020</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0606.gif><IMG border=0 SRC=maps/Cw-0606-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0707</td>
+<td>1997</td>
+<td> </td>
+<td>0.00017</td>
+<td>3</td>
+<td><A HREF=maps/Cw-0707.gif><IMG border=0 SRC=maps/Cw-0707-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0309</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00017</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0309.gif><IMG border=0 SRC=maps/Cw-0309-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0604</td>
+<td>1999</td>
+<td>CWD</td>
+<td>0.00017</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0604.gif><IMG border=0 SRC=maps/Cw-0604-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0104</td>
+<td>1999</td>
+<td> </td>
+<td>0.00017</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0104.gif><IMG border=0 SRC=maps/Cw-0104-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1205</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00014</td>
+<td>3</td>
+<td><A HREF=maps/Cw-1205.gif><IMG border=0 SRC=maps/Cw-1205-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0307</td>
+<td>2001</td>
+<td>CWD</td>
+<td>0.00014</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0307.gif><IMG border=0 SRC=maps/Cw-0307-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0410</td>
+<td>2002</td>
+<td> </td>
+<td>0.00014</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0410.gif><IMG border=0 SRC=maps/Cw-0410-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0710</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00014</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0710.gif><IMG border=0 SRC=maps/Cw-0710-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0315</td>
+<td>2002</td>
+<td> </td>
+<td>0.00010</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0315.gif><IMG border=0 SRC=maps/Cw-0315-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1404</td>
+<td>2000</td>
+<td>CWD</td>
+<td>0.00010</td>
+<td>1</td>
+<td><A HREF=maps/Cw-1404.gif><IMG border=0 SRC=maps/Cw-1404-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0713</td>
+<td>1999</td>
+<td> </td>
+<td>0.00007</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0713.gif><IMG border=0 SRC=maps/Cw-0713-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0805</td>
+<td>1998</td>
+<td> </td>
+<td>0.00007</td>
+<td>2</td>
+<td><A HREF=maps/Cw-0805.gif><IMG border=0 SRC=maps/Cw-0805-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0204</td>
+<td>2000</td>
+<td> </td>
+<td>0.00007</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0204.gif><IMG border=0 SRC=maps/Cw-0204-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0312</td>
+<td>1999</td>
+<td> </td>
+<td>0.00007</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0312.gif><IMG border=0 SRC=maps/Cw-0312-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0608</td>
+<td>2002</td>
+<td> </td>
+<td>0.00007</td>
+<td>1</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1207</td>
+<td>1999</td>
+<td> </td>
+<td>0.00007</td>
+<td>1</td>
+<td><A HREF=maps/Cw-1207.gif><IMG border=0 SRC=maps/Cw-1207-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1509</td>
+<td>1999</td>
+<td>CWD</td>
+<td>0.00007</td>
+<td>1</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0106</td>
+<td>2002</td>
+<td> </td>
+<td>0.00003</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0106.gif><IMG border=0 SRC=maps/Cw-0106-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0308</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00003</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0308.gif><IMG border=0 SRC=maps/Cw-0308-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0310</td>
+<td>1999</td>
+<td>CWD</td>
+<td>0.00003</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0310.gif><IMG border=0 SRC=maps/Cw-0310-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0313</td>
+<td>2002</td>
+<td> </td>
+<td>0.00003</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0313.gif><IMG border=0 SRC=maps/Cw-0313-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0504</td>
+<td>2001</td>
+<td> </td>
+<td>0.00003</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0504.gif><IMG border=0 SRC=maps/Cw-0504-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0609</td>
+<td>2002</td>
+<td> </td>
+<td>0.00003</td>
+<td>1</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0729</td>
+<td>2004</td>
+<td> </td>
+<td>0.00003</td>
+<td>1</td>
+<td><A HREF=maps/Cw-0729.gif><IMG border=0 SRC=maps/Cw-0729-t.gif></A></td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0813</td>
+<td>2005</td>
+<td> </td>
+<td>0.00003</td>
+<td>1</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1608</td>
+<td>2005</td>
+<td> </td>
+<td>0.00003</td>
+<td>1</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1704</td>
+<td>2005</td>
+<td> </td>
+<td>0.00003</td>
+<td>1</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0105</td>
+<td>2002</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0107</td>
+<td>2002</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0108</td>
+<td>2002</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0109</td>
+<td>2002</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0110</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0111</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0112</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0113</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0114</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0115</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0116</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0117</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0118</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0205</td>
+<td>2001</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0206</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0207</td>
+<td>2003</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0208</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0209</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0211</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0212</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0213</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0214</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0215</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0216</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0217</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0218</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0311</td>
+<td>1999</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0314</td>
+<td>2004</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0317</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0318</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0319</td>
+<td>2005</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0321</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0322</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0323</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0324</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0325</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0326</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0327</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0328</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0329</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0330</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0331</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0332</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0333</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0334</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0335</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0336</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0337</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0338</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0339</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0340</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0405</td>
+<td>1998</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0408</td>
+<td>2002</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0411</td>
+<td>2003</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0412</td>
+<td>2003</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0413</td>
+<td>2005</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0414</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0415</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0416</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0417</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0418</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0419</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0420</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0421</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0423</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0424</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0425</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0426</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0427</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0505</td>
+<td>2004</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0506</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0507</td>
+<td>2003</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0508</td>
+<td>2003</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0509</td>
+<td>2005</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0510</td>
+<td>2005</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0511</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0512</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0513</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0514</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0515</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0516</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0605</td>
+<td>1999</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0607</td>
+<td>2000</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0610</td>
+<td>2003</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0611</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0612</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0613</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0614</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0615</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0616</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0709</td>
+<td>1998</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0712</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0715</td>
+<td>2001</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0716</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0719</td>
+<td>2004</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0720</td>
+<td>2003</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0721</td>
+<td>2003</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0722</td>
+<td>2003</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0723</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0724</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0725</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0726</td>
+<td>2004</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0727</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0728</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0730</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0731</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0732</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0733</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0734</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0735</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0736</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0737</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0738</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0739</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0740</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0741</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0742</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0743</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0744</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0745</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0746</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0747</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0748</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0807</td>
+<td>2002</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0808</td>
+<td>2000</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0809</td>
+<td>2001</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0810</td>
+<td>2003</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0811</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0812</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*0814</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1206</td>
+<td>1998</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1208</td>
+<td>2002</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1209</td>
+<td>2003</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1210</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1211</td>
+<td>2003</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1212</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1213</td>
+<td>2004</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1214</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1215</td>
+<td>2004</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1216</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1217</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1218</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1219</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1220</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1221</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1405</td>
+<td>2002</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1406</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1407</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1408</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1506</td>
+<td>1998</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1510</td>
+<td>2001</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1511</td>
+<td>2004</td>
+<td>CWD</td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1512</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1514</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1515</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1516</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1517</td>
+<td>2006</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1518</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1519</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1520</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1606</td>
+<td>2003</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1607</td>
+<td>2005</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1609</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+<tr>
+<td>C</td>
+<td>Cw*1803</td>
+<td>2007</td>
+<td> </td>
+<td>0.00000</td>
+<td>0</td>
+<td> </td>
+</tr>
+
+
+</table>
+</body>
+</html>

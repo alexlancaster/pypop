@@ -1,0 +1,14 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+Cw_NewCaledonians_2001.pop	Cw	90	90	lit	NewCaledonians_2001	South Pacific Islanders	06-OCE	New Caledonia	2		21.5S	165.5E	1	1	PCR-SSO	{MAC+01}	Main	2001	The Peopling of New Guinea: Evidence from Class I Human Leukocyte Antigen	Human Biology	73	365-383			NC	Main	1301161	38	1	primer description in paper, Gao et al. 1994	N		N	N	N		LD, Nei's Genetic Distance				JGG
+C	count
+0102	34
+0303	3
+0304	5
+0401	15
+0403	10
+0702	9
+0801	2
+0802	1
+1202	4
+1203	2
+1502	5

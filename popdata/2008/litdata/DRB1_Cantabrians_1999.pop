@@ -1,0 +1,32 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_Cantabrians_1999.pop	DRB1	400	393	lit	Cantabrians_1999	Caucasian	03-EUR	Spain	2	unrelated healthy individuals, non-Pasiego	40.00N	4.00W	0.983	1	INNO-LIPA	{SEdD+99}	Sanchez-Velasco	1999	HLA-DR, DQ nucleotide sequence polymorphisms in the Pasiegos (Pas valleys, Northern Spain) and comparison of the allelic and haplotypic frequencies with those of other European populations	Tissue Antigens	53	65-73	fleyvaco@sarenet.es		SP	Leyva-Cobian	1301024	11	1	Innogenetics, Belgium	N		Y	N	N		phylogenetics trees, genetic distance				YT
+DRB1	count
+0101	41
+0102	9
+0103	4
+1501	51
+1502	2
+1503	8
+1601	10
+0301	41
+0401	27
+0402	10
+0403	10
+0404	6
+1101	3
+1103	2
+1104	17
+1201	1
+1301	31
+1302	18
+1303	1
+1305	1
+1308	1
+1401	14
+0701	62
+0801	11
+0803	1
+0804	2
+0805	2
+0806	2
+0901	5

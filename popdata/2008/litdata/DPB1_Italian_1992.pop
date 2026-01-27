@@ -1,0 +1,18 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Italian_1992.pop	DPB1	174	174	lit	Italian_1992	Caucasian	03-EUR	Italy	3	healthy blood donors	42.83N	12.83E	1	1	PCR-SSOP	{MBB+92}	Mazzola	1992	Immunoglobulin and HLA-DP genes contribute to the susceptibility to juvenile dermatitis herpetiformis	European Journal of Immunogenetics	19	129-139			IT	Amoroso	1301110	11	1	Boehringer Mannheim kit	N		N	N	Y	juvenile dermatitis herpetiformis					YT
+DPB1	count
+0101	10
+0201	25
+0202	2
+0301	21
+0401	66
+0402	21
+0501	2
+0601	4
+0801	1
+0901	5
+1001	3
+1101	5
+1401	6
+1501	1
+1701	2

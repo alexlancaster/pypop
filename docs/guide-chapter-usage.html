@@ -1,0 +1,2003 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>2. Getting started with PyPop &#8212; PyPop 1.4.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=deb9c837" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9172181d"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/guide-chapter-usage';</script>
+    <link rel="icon" href="../_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="3. Interpreting PyPop output" href="guide-chapter-instructions.html" />
+    <link rel="prev" title="1. Installing PyPop" href="guide-chapter-install.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.4.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="../_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-install.html">1. Installing PyPop</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Getting started with PyPop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-instructions.html">3. Interpreting PyPop output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-contributing.html">4. Contributing to PyPop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-changes.html">5. Authors and history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licenses.html">6. Licenses</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">References</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">2.1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#running-a-population-analysis">2.2. Running a population analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interactive-mode-pypop-interactive">Interactive mode (<code class="docutils literal notranslate"><span class="pre">pypop-interactive</span></code>)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#command-line-mode-pypop">Command-line mode (<code class="docutils literal notranslate"><span class="pre">pypop</span></code>)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#output-to-different-directory">Output to different directory</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#supplying-multiple-pop-files">Supplying multiple <code class="docutils literal notranslate"><span class="pre">.pop</span></code> files</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#library-programmatic-mode">Library (programmatic) mode</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-happens-when-you-run-pypop">What happens when you run PyPop?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregating-results-from-multiple-runs-popmeta">2.3. Aggregating results from multiple runs (<code class="docutils literal notranslate"><span class="pre">popmeta</span></code>)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-data-file">2.4. The data file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#sample-files">Sample files</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#genotype-sample-files">Genotype sample files</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#allele-count-sample-files">Allele count sample files</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#missing-data">Missing data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-configuration-file">2.5. The configuration file</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#a-simple-configuration-file">A simple configuration file</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#general-settings"><code class="docutils literal notranslate"><span class="pre">[General]</span></code> settings</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#specifying-data-formats">Specifying data formats</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parsegenotypefile"><code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parseallelecountfile"><code class="docutils literal notranslate"><span class="pre">[ParseAlleleCountFile]</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-options">Analysis options</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hardyweinberg"><code class="docutils literal notranslate"><span class="pre">[HardyWeinberg]</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#hardyweinbergguothompson"><code class="docutils literal notranslate"><span class="pre">[HardyWeinbergGuoThompson]</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#homozygosityewslatkinexact"><code class="docutils literal notranslate"><span class="pre">[HomozygosityEWSlatkinExact]</span></code></a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#emhaplofreq"><code class="docutils literal notranslate"><span class="pre">[Emhaplofreq]</span></code></a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-options">Advanced options</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#general-advanced-options"><code class="docutils literal notranslate"><span class="pre">[General]</span></code> advanced options</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parsegenotypefile-and-parseallelecountfile-common-options"><code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code> and <code class="docutils literal notranslate"><span class="pre">[ParseAlleleCountFile]</span></code> common options</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#parsegenotypefile-advanced-option"><code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code> advanced option</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#emhaplofreq-advanced-options"><code class="docutils literal notranslate"><span class="pre">[Emhaplofreq]</span></code> advanced options</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-filtering-sections">Advanced filtering sections</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#filters-extra-section"><code class="docutils literal notranslate"><span class="pre">[Filters]</span></code> extra section</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#anthonynolan-filter-section"><code class="docutils literal notranslate"><span class="pre">[AnthonyNolan]</span></code> filter section</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sequence-filter-section"><code class="docutils literal notranslate"><span class="pre">[Sequence]</span></code> filter section</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#digitbinning-filter-section"><code class="docutils literal notranslate"><span class="pre">[DigitBinning]</span></code> filter section</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#custombinning-filter-section"><code class="docutils literal notranslate"><span class="pre">[CustomBinning]</span></code> filter section</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#pypop-api-examples">2.6. PyPop API examples</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#command-line-interfaces">2.7. Command-line interfaces</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pypop-usage"><code class="docutils literal notranslate"><span class="pre">pypop</span></code> usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.CommandLineInterface-get_pypop_cli-options-for-pypop">Options for pypop</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.CommandLineInterface-get_pypop_cli-tsv-output-options">TSV output options</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.CommandLineInterface-get_pypop_cli-mutually-exclusive-input-options">Mutually exclusive input options</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popmeta-usage"><code class="docutils literal notranslate"><span class="pre">popmeta</span></code> usage</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.CommandLineInterface-get_popmeta_cli-positional-arguments">Positional Arguments</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.CommandLineInterface-get_popmeta_cli-options-for-popmeta">Options for popmeta</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.CommandLineInterface-get_popmeta_cli-mutually-exclusive-popmeta-options">Mutually exclusive popmeta options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="../genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="../py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">PyPop User Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">2. </span>Getting started with PyPop</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="getting-started-with-pypop">
+<h1><span class="section-number">2. </span>Getting started with PyPop<a class="headerlink" href="#getting-started-with-pypop" title="Link to this heading">#</a></h1>
+<section id="introduction">
+<h2><span class="section-number">2.1. </span>Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>You may use <strong class="program">PyPop</strong> to analyze many different kinds of data, including
+allele-level genotype data (as in <a class="reference internal" href="#data-minimal-noheader-noids"><span class="std std-numref">Listing 2.1</span></a>), allele-level
+frequency data (as in <a class="reference internal" href="#data-allelecount"><span class="std std-numref">Listing 2.6</span></a>),
+microsatellite data, SNP data, and nucleotide and amino acid sequence
+data.</p>
+<p>As mentioned in the installation chapter, a minimal working example
+of a <a class="reference external" href="https://github.com/alexlancaster/pypop/blob/main/tests/data/minimal.ini">configuration file (.ini)</a>,
+and a <a class="reference external" href="https://github.com/alexlancaster/pypop/blob/main/tests/data/USAFEL-UchiTelle-small.pop">population file (.pop)</a>,
+can be found by clicking the respective links.</p>
+<p>There are three ways to run PyPop:</p>
+<ul class="simple">
+<li><p>interactive mode (where the program will prompt you to directly type
+the input it needs); and</p></li>
+<li><p>command-line (or “batch”) mode (where you supply all the command
+line options the program needs).</p></li>
+<li><p>library (or “programmatic”) mode, by writing a Python program that
+uses the <em>API Reference</em> (<a class="reference internal" href="../api/index.html#api-reference-top"><span class="std std-ref">API</span></a>).</p></li>
+</ul>
+</section>
+<section id="running-a-population-analysis">
+<h2><span class="section-number">2.2. </span>Running a population analysis<a class="headerlink" href="#running-a-population-analysis" title="Link to this heading">#</a></h2>
+<p>For the most simplest application of PyPop, where you wish to analyze
+a single population, the interactive mode is the simplest to use. We
+will describe this mode, then describe command-line mode, and finally
+library mode.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following assumes you have already <a class="reference internal" href="guide-chapter-install.html#installing-pypop"><span class="std std-ref">installed PyPop</span></a>, done any <a class="reference internal" href="guide-chapter-install.html#post-install-path-adjustments"><span class="std std-ref">post-install adjustments</span></a> needed for your platform, and
+verified that you can run the main commands (see the
+<a class="reference internal" href="guide-chapter-install.html#examples"><span class="std std-ref">Examples</span></a> section).</p>
+</div>
+<section id="interactive-mode-pypop-interactive">
+<h3>Interactive mode (<code class="docutils literal notranslate"><span class="pre">pypop-interactive</span></code>)<a class="headerlink" href="#interactive-mode-pypop-interactive" title="Link to this heading">#</a></h3>
+<p>To run PyPop in interactive mode, with a minimal “GUI”, on Windows or
+MacOS, you can directly click on the <code class="docutils literal notranslate"><span class="pre">pypop-interactive</span></code> file in the
+directory where the scripts were installed (see <a class="reference internal" href="guide-chapter-install.html#post-install-path-adjustments"><span class="std std-ref">post-install
+adjustments</span></a>).</p>
+<p>You can also type <code class="docutils literal notranslate"><span class="pre">pypop-interactive</span></code> after starting a console
+application on all platforms (on MacOS and GNU/Linux, this is normally
+the <strong class="program">Terminal</strong> program, on Windows, it’s <strong class="program">Command
+prompt</strong>).</p>
+<p>In most cases, this will launch a console with the following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PyPop: Python for Population Genomics (1.0.0)
+[Python 3.10.9 | Linux.x86_64-x86_64 | x86_64]
+Copyright (C) 2003-2006 Regents of the University of California
+Copyright (C) 2007-2023 PyPop team.
+This is free software.  There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+You may redistribute copies of PyPop under the terms of the GNU
+General Public License.  For more information about these
+matters, see the file named COPYING.
+
+Select both an &#39;.ini&#39; configuration file and a &#39;.pop&#39; file via the
+system file dialog.
+</pre></div>
+</div>
+<p>Following this:</p>
+<ol class="arabic">
+<li><p>the system file dialog will appear prompting you to select an
+<code class="docutils literal notranslate"><span class="pre">.ini</span></code> <a class="reference internal" href="#guide-usage-configfile"><span class="std std-ref">configuration file</span></a>.</p></li>
+<li><p>a second system file dialog will prompt you for a <code class="docutils literal notranslate"><span class="pre">.pop</span></code>
+<a class="reference internal" href="#guide-usage-datafile"><span class="std std-ref">data file</span></a>.</p></li>
+<li><p>after both files are selected the console will display the
+processing of the file:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PyPop is processing sample.pop ...
+PyPop run complete!
+XML output(s) can be found in: [&#39;sample-out.xml&#39;]
+Plain text output(s) can be found in: [&#39;sample-out.txt&#39;]
+<span class="hll">Press Enter to continue...
+</span></pre></div>
+</div>
+</li>
+<li><p>when the run is completed, the last line will prompt you to press
+<code class="docutils literal notranslate"><span class="pre">Enter</span></code> to leave the console window (highlighted above).</p></li>
+</ol>
+<p>If the system file GUI dialog does not appear (e.g. if you are running
+on a terminal without a display), it will fall-back to text-mode entry
+for the files, where you need to type the full (either relative or
+absolute) paths to the files. The output should resemble:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>PyPop: Python for Population Genomics (1.0.0)
+[Python 3.10.9 | Linux.x86_64-x86_64 | x86_64]
+Copyright (C) 2003-2006 Regents of the University of California
+Copyright (C) 2007-2023 PyPop team.
+This is free software.  There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+You may redistribute copies of PyPop under the terms of the GNU
+General Public License.  For more information about these
+matters, see the file named COPYING.
+
+To accept the default in brackets for each filename, simply press
+return for each prompt.
+<span class="hll">
+</span><span class="hll">Please enter config filename [config.ini]: sample.ini
+</span>Please enter population filename [no default]: sample.pop
+PyPop is processing sample.pop ...
+PyPop run complete!
+XML output(s) can be found in: [&#39;sample-out.xml&#39;]
+Plain text output(s) can be found in: [&#39;sample-out.txt&#39;]
+Press Enter to continue...
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some messages with the prefix “LOG:” may appear during the console
+operation.  They are informational only and do not indicate
+improper operation of the program.</p>
+</div>
+<p>In both cases you should substitute the names of your own
+configuration (e.g., <code class="file docutils literal notranslate"><span class="pre">config.ini</span></code>) and population file (e.g.,
+<code class="file docutils literal notranslate"><span class="pre">Guatemalan.pop</span></code>) for <code class="file docutils literal notranslate"><span class="pre">sample.ini</span></code> and <code class="file docutils literal notranslate"><span class="pre">sample.pop</span></code>
+(highlighted above). The formats for these files are described in the
+sections on the <a class="reference internal" href="#guide-usage-datafile"><span class="std std-ref">data file</span></a> and
+<a class="reference internal" href="#guide-usage-configfile"><span class="std std-ref">configuration file</span></a>, below.</p>
+</section>
+<section id="command-line-mode-pypop">
+<span id="guide-usage-command-line-mode"></span><h3>Command-line mode (<code class="docutils literal notranslate"><span class="pre">pypop</span></code>)<a class="headerlink" href="#command-line-mode-pypop" title="Link to this heading">#</a></h3>
+<p>To run PyPop in the more common command-line (or “batch”) mode, you
+can run PyPop from the console (as noted above, on Windows: open
+<strong class="program">Command prompt</strong>, aka a “DOS shell”; on MacOS or GNU/Linux:
+open the <strong class="program">Terminal</strong> application). Change to a directory where
+your <code class="docutils literal notranslate"><span class="pre">.pop</span></code> file is located, and type the command:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>Guatemalan.pop
+</pre></div>
+</div>
+<p>Command-line mode assumes two things: that you have a file called
+<code class="file docutils literal notranslate"><span class="pre">config.ini</span></code> in your current folder and that you also have your
+population file is in the current folder, otherwise you will need to
+supply the full path to the file. You can specify a particular
+configuration file for PyPop to use, by supplying the <code class="docutils literal notranslate"><span class="pre">-c</span></code> option as
+follows:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>-c<span class="w"> </span>newconfig.ini<span class="w"> </span>Guatemalan.pop
+</pre></div>
+</div>
+<section id="output-to-different-directory">
+<h4>Output to different directory<a class="headerlink" href="#output-to-different-directory" title="Link to this heading">#</a></h4>
+<p>You may also redirect the output to a different directory (which must
+already exist) by using the <code class="docutils literal notranslate"><span class="pre">-o</span></code> option:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pypop -c newconfig.ini -o altdir Guatemalan.pop
+</pre></div>
+</div>
+</section>
+<section id="supplying-multiple-pop-files">
+<span id="guide-usage-filelist"></span><h4>Supplying multiple <code class="docutils literal notranslate"><span class="pre">.pop</span></code> files<a class="headerlink" href="#supplying-multiple-pop-files" title="Link to this heading">#</a></h4>
+<p>If you have multiple <code class="docutils literal notranslate"><span class="pre">.pop</span></code> files with the same overall format
+(i.e. the same, or subset of, the loci listed in the <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file),
+you can process those in one <code class="docutils literal notranslate"><span class="pre">pypop</span></code> invocation using a single
+<code class="docutils literal notranslate"><span class="pre">.ini</span></code> file.  You either supply them directly on the command-line:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>-c<span class="w"> </span>config.ini<span class="w"> </span>Guatemalan.pop<span class="w"> </span>NorthAmerican.pop
+</pre></div>
+</div>
+<p>or you use the <code class="docutils literal notranslate"><span class="pre">--filelist</span></code> command-line option to pass in a file
+containing a list of files, i.e.:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>-c<span class="w"> </span>config.ini<span class="w"> </span>--filelist<span class="w"> </span>popfilelist.txt
+</pre></div>
+</div>
+<p>where the text file <code class="docutils literal notranslate"><span class="pre">popfilelist.txt</span></code> contains a list of the
+<code class="docutils literal notranslate"><span class="pre">.pop</span></code> files to be processed on separate lines, e.g.:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Guatemalan.pop
+NorthAmerican.pop
+</pre></div>
+</div>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.3.0: </span>New behavior: all files within <code class="docutils literal notranslate"><span class="pre">FILELIST</span></code> will be resolved
+relative to relative to the <em>parent</em> directory of <code class="docutils literal notranslate"><span class="pre">FILELIST</span></code>,
+<strong>not</strong> to the current working directory (the old behavior).</p>
+<p>This ensures that files can be more straightforwardly located
+independently of where <code class="docutils literal notranslate"><span class="pre">pypop</span></code> is run from. For example, if your
+current working directory looked like the following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>data/popfilelist.txt
+data/file1.pop
+data/file2.pop
+</pre></div>
+</div>
+<p>You would run <code class="docutils literal notranslate"><span class="pre">pypop</span></code> like:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>-c<span class="w"> </span>config.ini<span class="w"> </span>--filelist<span class="w"> </span>data/popfilelist.txt
+</pre></div>
+</div>
+<p>and the contents of <code class="docutils literal notranslate"><span class="pre">popfilelist.txt</span></code> should be:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>file1.pop
+file2.pop
+</pre></div>
+</div>
+<p><strong>Full absolute paths will be processed as-is, and will not be
+treated as if they are relative to the filelist.</strong></p>
+</div>
+<p>Please see <a class="reference internal" href="#guide-pypop-cli"><span class="std std-ref">pypop usage</span></a> for the full list of command-line
+options.</p>
+</section>
+</section>
+<section id="library-programmatic-mode">
+<span id="guide-usage-intro-api"></span><h3>Library (programmatic) mode<a class="headerlink" href="#library-programmatic-mode" title="Link to this heading">#</a></h3>
+<p>It is also possible to use PyPop as a library (i.e. programmatically)
+by writing a Python program that uses the Application Programming
+Interface documented in the <em>API Reference</em> (<a class="reference internal" href="../api/index.html#api-reference-top"><span class="std std-ref">API</span></a>) directly to analyze a population file.  While
+the initial use-case for PyPop was as a standalone command-line
+script, it is being upgraded for better use via a programmatic
+interface, much functionality is exposed as Python modules and
+classes.  Examples of programmatic use can be found in
+<a class="reference internal" href="#guide-usage-examples-api"><span class="std std-ref">PyPop API examples</span></a>.</p>
+</section>
+<section id="what-happens-when-you-run-pypop">
+<span id="guide-usage-intro-run-details"></span><h3>What happens when you run PyPop?<a class="headerlink" href="#what-happens-when-you-run-pypop" title="Link to this heading">#</a></h3>
+<p>The most common types of analysis will involve the editing of your
+<code class="file docutils literal notranslate"><span class="pre">config.ini</span></code> file to suit your data (see <a class="reference internal" href="#guide-usage-configfile"><span class="std std-ref">the configuration
+file</span></a>) followed by the selection of either
+the interactive or command-line mode described above. If your input
+configuration file is <code class="file docutils literal notranslate"><em><span class="pre">configfilename</span></em></code> and your population
+file name is <code class="file docutils literal notranslate"><em><span class="pre">popfilename</span></em><span class="pre">.txt</span></code> the initial output will be
+generated quickly, but your the PyPop execution will not be finished
+until the text output file named <code class="file docutils literal notranslate"><em><span class="pre">popfilename</span></em><span class="pre">-out.txt</span></code> has
+been created. A successful run will produce two output files:
+<code class="file docutils literal notranslate"><em><span class="pre">popfilename</span></em><span class="pre">-out.xml</span></code>, <code class="file docutils literal notranslate"><em><span class="pre">popfilename</span></em><span class="pre">-out.txt</span></code>. A third
+output file will be created if you are using the Anthony Nolan HLA
+filter option for HLA data to check your input for valid/known HLA
+alleles: <code class="file docutils literal notranslate"><span class="pre">popfilename-filter.xml</span></code>).</p>
+<p>The <code class="file docutils literal notranslate"><span class="pre">popfilename-out.xml</span></code> file is the primary output created by
+PyPop and the human-readable <code class="file docutils literal notranslate"><span class="pre">popfilename-out.txt</span></code> file is a
+summary of the complete XML output. The XML output can be further
+transformed into plain text TSV files, either directly via <code class="docutils literal notranslate"><span class="pre">pypop</span></code>
+if invoked on multiple input files (using the <code class="docutils literal notranslate"><span class="pre">--enable-tsv</span></code> option,
+see <a class="reference internal" href="#guide-pypop-cli"><span class="std std-ref">pypop usage</span></a>), or via the <code class="docutils literal notranslate"><span class="pre">popmeta</span></code> tool that
+aggregates results from different <code class="docutils literal notranslate"><span class="pre">pypop</span></code> runs (see
+<a class="reference internal" href="#guide-usage-popmeta"><span class="std std-ref">Aggregating results from multiple runs (popmeta)</span></a>).</p>
+<p>A typical PyPop run might take anywhere from a few of minutes to a few
+hours, depending on how large your data set is and who else is using the
+system at the same time. Note that performing the
+<code class="docutils literal notranslate"><span class="pre">allPairwiseLDWithPermu</span></code> test may take several <strong>days</strong> if you have
+highly polymorphic loci in your data set.</p>
+</section>
+</section>
+<section id="aggregating-results-from-multiple-runs-popmeta">
+<span id="guide-usage-popmeta"></span><h2><span class="section-number">2.3. </span>Aggregating results from multiple runs (<code class="docutils literal notranslate"><span class="pre">popmeta</span></code>)<a class="headerlink" href="#aggregating-results-from-multiple-runs-popmeta" title="Link to this heading">#</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">popmeta</span></code> script can aggregate results from a number of output
+XML files from individual populations into a set of tab-separated
+(TSV) files containing summary statistics via customized XSLT
+(eXtensible Stylesheet Language for Transformations) stylesheets.
+These TSV files can be directly imported into a spreadsheet or
+statistical software (e.g., <strong class="program">R</strong>, <strong class="program">SAS</strong>).  In
+addition, there is some preliminary support for export into other
+formats, such as the population genetic software (e.g.,
+<strong class="program">PHYLIP</strong>).</p>
+<p>Here is an example of a <code class="docutils literal notranslate"><span class="pre">popmeta</span></code> run, following on from the XML outputs
+generated in similar fashion in the previous <code class="docutils literal notranslate"><span class="pre">pypop</span></code> runs:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>popmeta<span class="w"> </span>-o<span class="w"> </span>altdir<span class="w"> </span>Guatemalan-out.xml<span class="w"> </span>NorthAmerican-out.xml
+</pre></div>
+</div>
+<p>This will generate a number of <code class="docutils literal notranslate"><span class="pre">.tsv</span></code> files, in the output directory
+<code class="docutils literal notranslate"><span class="pre">altdir</span></code>, of the form <code class="file docutils literal notranslate"><span class="pre">1-locus-allele.tsv</span></code>,
+<code class="file docutils literal notranslate"><span class="pre">1-locus-summary.tsv</span></code>, etc.</p>
+<p>You can also supply a prefix to the command-line option
+<code class="docutils literal notranslate"><span class="pre">--prefix-tsv</span></code> so that all <code class="docutils literal notranslate"><span class="pre">.tsv</span></code> files are given a prefix, e.g.,</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>popmeta -o altdir --prefix-tsv myoutput Guatemalan-out.xml NorthAmerican-out.xml
+</pre></div>
+</div>
+<p>Will result in files with a prefix, e.g. <code class="file docutils literal notranslate"><span class="pre">myoutput-1-locus-allele.tsv</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It’s highly recommended to use the <code class="docutils literal notranslate"><span class="pre">-o</span></code> option to save the output
+in a separate subdirectory, as the output <code class="docutils literal notranslate"><span class="pre">.tsv</span></code> files have
+fixed names, and will overwrite any files in the local directory with the
+same name.  See <a class="reference internal" href="#guide-popmeta-cli"><span class="std std-ref">popmeta usage</span></a> for the full list of options.</p>
+</div>
+<p>Note that a similar effect can be achieved directly from a <code class="docutils literal notranslate"><span class="pre">pypop</span></code>
+run (assuming that the configuration file can be used for both
+<code class="docutils literal notranslate"><span class="pre">.pop</span></code> population files), by invoking <code class="docutils literal notranslate"><span class="pre">pypop</span></code> with the
+<code class="docutils literal notranslate"><span class="pre">--enable-tsv</span></code> option:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pypop -c newconfig.ini -o altdir Guatemalan.pop NorthAmerican.pop --enable-tsv
+</pre></div>
+</div>
+</section>
+<section id="the-data-file">
+<span id="guide-usage-datafile"></span><h2><span class="section-number">2.4. </span>The data file<a class="headerlink" href="#the-data-file" title="Link to this heading">#</a></h2>
+<section id="sample-files">
+<h3>Sample files<a class="headerlink" href="#sample-files" title="Link to this heading">#</a></h3>
+<p>Data can be input either as genotypes, or in an allele count format,
+depending on the format of your data.</p>
+<div class="admonition-data-files-are-tab-delimited admonition">
+<p class="admonition-title">Data files are tab-delimited</p>
+<p>These population files are plain text files, such as you might save
+out of the <strong class="program">Notepad</strong> application on Windows (or
+<strong class="program">Emacs</strong>). The columns are all tab-delimited, so you can
+include spaces in your labels. If you have your data in a
+spreadsheet application, such as <strong class="program">Excel</strong> or
+<strong class="program">LibreOffice</strong>, export the file as tab-delimited text, in
+order to use it as PyPop data file.</p>
+<p>Depending on how you are viewing this documentation, in some of the
+examples below, the columns may not appear to align with their
+headers, but that is purely due to how tabstops are rendered. If
+you copy-and-paste the data into a text editor you should be able
+to see that the columns are tab separated.</p>
+</div>
+<p>As you will see in the following examples, population files begin with
+header information. In the simplest case, the first line contains the
+column headers for the genotype, allele count, or, sequence information
+from the population. If the file contains a population data-block, then
+the first line consists of headers identifying the data on the second
+line, and the third line contains the column headers for the genotype or
+allele count information.</p>
+<section id="genotype-sample-files">
+<h4>Genotype sample files<a class="headerlink" href="#genotype-sample-files" title="Link to this heading">#</a></h4>
+<p>For genotype data, each locus corresponds to two columns in the
+population file. The locus name must repeated, with a suffix such as
+<code class="docutils literal notranslate"><span class="pre">_1</span></code>, <code class="docutils literal notranslate"><span class="pre">_2</span></code> (the default) or <code class="docutils literal notranslate"><span class="pre">_a</span></code>, <code class="docutils literal notranslate"><span class="pre">_b</span></code> and must match the
+format defined in the <code class="file docutils literal notranslate"><span class="pre">config.ini</span></code> (see <a class="reference internal" href="#validsamplefields"><span class="std std-ref">validSampleFields</span></a>). Although PyPop needs this distinction to be
+made, phase is NOT assumed, and if known it is ignored.</p>
+<p><a class="reference internal" href="#config-minimal-example"><span class="std std-numref">Listing 2.7</span></a> shows the relevant lines for the
+configuration to read in the data shown in
+<a class="reference internal" href="#data-minimal-noheader-noids"><span class="std std-numref">Listing 2.1</span></a> and <a class="reference internal" href="#data-minimal-noheader"><span class="std std-numref">Listing 2.2</span></a>.</p>
+<div class="literal-block-wrapper docutils container" id="data-minimal-noheader-noids">
+<div class="code-block-caption"><span class="caption-number">Listing 2.1 </span><span class="caption-text">Multi-locus allele-level genotype data</span><a class="headerlink" href="#data-minimal-noheader-noids" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>a_1	a_2	c_1	c_2	b_1	b_2
+****	****	01:02	02:10:06	13:01	18:01:02
+01:01	02:01	03:07	06:05	14:01	39:02:01
+02:10	03:01:02	07:12	01:02	15:20	13:01
+01:01	02:18	08:04	12:02	35:09:01	40:05
+25:01	02:01	15:07	03:07	51:01:03	14:01
+02:10	32:04	18:01	01:02	78:02:01	13:01
+03:01:02	32:04	15:07	06:05	51:01:03	39:02:01
+</pre></div>
+</div>
+</div>
+<p>This is an example of the simplest kind of data file.</p>
+<div class="literal-block-wrapper docutils container" id="data-minimal-noheader">
+<div class="code-block-caption"><span class="caption-number">Listing 2.2 </span><span class="caption-text">Multi-locus allele-level HLA genotype data with sample information</span><a class="headerlink" href="#data-minimal-noheader" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>populat	id	a_1	a_2	c_1	c_2	b_1	b_2
+UchiTelle	UT900-23	****	****	01:02	02:10:06	13:01	18:01:02
+UchiTelle	UT900-24	01:01	02:01	03:07	06:05	14:01	39:02:01
+UchiTelle	UT900-25	02:10	03:01:02	07:12	01:02	15:20	13:01
+UchiTelle	UT900-26	01:01	02:18	08:04	12:02	35:09:01	40:05
+UchiTelle	UT910-01	25:01	02:01	15:07	03:07	51:01:03	14:01
+UchiTelle	UT910-02	02:10	32:04	18:01	01:02	78:02:01	13:01
+UchiTelle	UT910-03	03:01:02	32:04	15:07	06:05	51:01:03	39:02:01
+</pre></div>
+</div>
+</div>
+<p>This example shows a data file which has non-allele data in some
+columns, here we have population (<code class="docutils literal notranslate"><span class="pre">populat</span></code>) and sample identifiers
+(<code class="docutils literal notranslate"><span class="pre">id</span></code>).</p>
+<div class="literal-block-wrapper docutils container" id="data-hla">
+<div class="code-block-caption"><span class="caption-number">Listing 2.3 </span><span class="caption-text">Multi-locus allele-level HLA genotype data with sample and header information</span><a class="headerlink" href="#data-hla" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>labcode	method	ethnic	contin	collect	latit	longit
+USAFEL	12th Workshop SSOP	Telle	NW Asia	Targen Village	41 deg 12 min N	94 deg 7 min E
+populat	id	a_1	a_2	c_1	c_2	b_1	b_2
+UchiTelle	UT900-23	****	****	01:02	02:10:06	13:01	18:01:02
+UchiTelle	UT900-24	01:01	02:01	03:07	06:05	14:01	39:02:01
+UchiTelle	UT900-25	02:10	03:01:02	07:12	01:02	15:20	13:01
+UchiTelle	UT900-26	01:01	02:18	08:04	12:02	35:09:01	40:05
+UchiTelle	UT910-01	25:01	02:01	15:07	03:07	51:01:03	14:01
+UchiTelle	UT910-02	02:10	32:04	18:01	01:02	78:02:01	13:01
+UchiTelle	UT910-03	03:01:02	32:04	15:07	06:05	51:01:03	39:02:01
+</pre></div>
+</div>
+</div>
+<p>This is an example of a data file which is identical to
+<a class="reference internal" href="#data-minimal-noheader"><span class="std std-numref">Listing 2.2</span></a>, but which includes population level
+information.</p>
+<div class="literal-block-wrapper docutils container" id="data-hla-microsat">
+<div class="code-block-caption"><span class="caption-number">Listing 2.4 </span><span class="caption-text">Multi-locus allele-level HLA genotype and microsatellite genotype data with header information</span><a class="headerlink" href="#data-hla-microsat" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>labcode	ethnic	complex
+USAFEL	****	0
+populat	id	drb1_1	drb1_2	dqb1_1	dqb1_2	d6s2222_1	d6s2222_2
+UchiTelle	HJK_2	01	03:01	02:01	05:01	249	249
+UchiTelle	HJK_1	03:01	03:01	02:01	02:01	249	249
+UchiTelle	HJK_3	01	03:01	02:01	05:01	249	249
+UchiTelle	HJK_4	01	03:01	02:01	05:01	249	249
+UchiTelle	MYU_2	02	04:01	03:02	06:02	247	249
+UchiTelle	MYU_1	03:01	03:01	02:01	02:01	247	249
+UchiTelle	MYU_3	03:01	04:01	02:01	03:02	249	249
+UchiTelle	MYU_4	03:01	04:01	02:01	03:02	247	249
+</pre></div>
+</div>
+</div>
+<p>This example mixes different kinds of data: HLA allele data (from
+<code class="docutils literal notranslate"><span class="pre">DRB1</span></code> and <code class="docutils literal notranslate"><span class="pre">DQB1</span></code> loci) with microsatellite data (locus
+<code class="docutils literal notranslate"><span class="pre">D6S2222</span></code>).</p>
+<div class="literal-block-wrapper docutils container" id="data-nucleotide">
+<div class="code-block-caption"><span class="caption-number">Listing 2.5 </span><span class="caption-text">Sequence genotype data with header information</span><a class="headerlink" href="#data-nucleotide" title="Link to this code">#</a></div>
+<div class="tab-width-15 highlight-text notranslate"><div class="highlight"><pre><span></span>labcode	file
+BLOGGS	C_New
+popName	ID	TGFB1cdn10(1)	TGFB1cdn10(2)	TGFBhapl(1)	TGFBhapl(2)
+Urboro	XQ-1	C	T	CG	TG
+Urboro	XQ-2	C	C	CG	CG
+Urboro	XQ-5	C	T	CG	TG
+Urboro	XQ-21	C	T	CG	TG
+Urboro	XQ-7	C	T	CG	TG
+Urboro	XQ-20	C	T	CG	TG
+Urboro	XQ-6	T	T	TG	TG
+Urboro	XQ-8	C	T	CG	TG
+Urboro	XQ-9	T	T	TG	TG
+Urboro	XQ-10	C	T	CG	TG
+</pre></div>
+</div>
+</div>
+<p>This example includes nucleotide sequence data: the <code class="docutils literal notranslate"><span class="pre">TGFB1CDN10</span></code>
+locus consists of one nucleotide, the <code class="docutils literal notranslate"><span class="pre">TGFBhapl</span></code> locus is actually
+haplotype data, but PyPop simply treats each combination as a separate
+“allele” for subsequent analysis.</p>
+</section>
+<section id="allele-count-sample-files">
+<h4>Allele count sample files<a class="headerlink" href="#allele-count-sample-files" title="Link to this heading">#</a></h4>
+<p>PyPop can also process allele count data, of the kind shown in
+<a class="reference internal" href="#data-allelecount"><span class="std std-numref">Listing 2.6</span></a>. Like genotype sample files, allele count
+sample files may also include a header (see <a class="reference internal" href="#validpopfields"><span class="std std-ref">validPopFields</span></a>), however, you cannot mix allele count data and
+genotype data together in the one sample file.</p>
+<div class="literal-block-wrapper docutils container" id="data-allelecount">
+<div class="code-block-caption"><span class="caption-number">Listing 2.6 </span><span class="caption-text">Allele count data without a header block (a corresponding <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file is found in <a class="reference internal" href="#config-minimal-allelecount"><span class="std std-numref">Listing 2.8</span></a>)</span><a class="headerlink" href="#data-allelecount" title="Link to this code">#</a></div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>dqa1	count
+01:01	31
+01:02	37
+01:03	17
+02:01	21
+03:01	32
+04:01	9
+05:01	35
+</pre></div>
+</div>
+</div>
+<div class="admonition note" id="data-allelecount-note">
+<p class="admonition-title">Note</p>
+<p>Currently each <code class="docutils literal notranslate"><span class="pre">.pop</span></code> file can only contain allele count data for
+<em>one locus</em>. In order to process multiple loci for one population you
+must create a separate <code class="docutils literal notranslate"><span class="pre">.pop</span></code> for each locus.</p>
+</div>
+</section>
+</section>
+<section id="missing-data">
+<h3>Missing data<a class="headerlink" href="#missing-data" title="Link to this heading">#</a></h3>
+<p>Untyped or missing data may be represented in a variety of ways. The
+default value for untyped or missing data is a series of four asterisks
+(<code class="docutils literal notranslate"><span class="pre">****</span></code>) as specified by the <code class="file docutils literal notranslate"><span class="pre">config.ini</span></code>. You may not “represent”
+untyped data by leaving a column blank, nor may you represent a
+homozygote by leaving the second column blank. All cells for which you
+have data must include data, and all cells for which you do not have
+data must also be filled in, using a missing data value.</p>
+<p>For individuals who were not typed at all loci, the data in loci for
+which they are typed will be used on all single-locus analyses for that
+individual and locus, so that you see the value of the number of
+individuals (<code class="docutils literal notranslate"><span class="pre">n</span></code>) vary from locus to locus in the output. These
+individuals’ data will also be used for multi-locus analyses. Only the
+loci that contain no missing data will be included in any multi-locus
+analysis.</p>
+<p>If an individual is only partially typed at a locus, it will be treated
+as if it were completely untyped, and data for that individual for that
+locus will be dropped from ALL analyses.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul class="simple">
+<li><p>Do not leave trailing blank lines at the end of your data file, as
+this currently causes PyPop to terminate with an error message
+that takes experience to diagnose.</p></li>
+<li><p>For haplotype estimation and linkage disequilibrium calculations
+(i.e., the emhaplofreq part of the program) you are currently
+restricted to a maximum of seven loci per haplotype request. For
+haplotype estimation there is a limit of 5000 for the number of
+individuals (<code class="docutils literal notranslate"><span class="pre">n</span></code>) <a class="footnote-reference brackets" href="#id10" id="id1" role="doc-noteref"><span class="fn-bracket">[</span>1<span class="fn-bracket">]</span></a></p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="the-configuration-file">
+<span id="guide-usage-configfile"></span><h2><span class="section-number">2.5. </span>The configuration file<a class="headerlink" href="#the-configuration-file" title="Link to this heading">#</a></h2>
+<p>The sets of population genetic analyses that are run on your population
+data file and the manner in which the data file is interpreted by PyPop
+is controlled by a configuration file, the default name for which is
+<code class="file docutils literal notranslate"><span class="pre">config.ini</span></code>. This is another plain text file consisting of comments
+(which are lines that start with a semi-colon), sections (which are
+lines with labels in square brackets), and options (which are lines
+specifying settings relevant to that section in the <code class="docutils literal notranslate"><span class="pre">option=value</span></code>
+format).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If any option runs over one line (such as <code class="docutils literal notranslate"><span class="pre">validSampleFields</span></code>) then
+the second and subsequent lines must be indented by exactly <strong>one
+space</strong>.</p>
+</div>
+<section id="a-simple-configuration-file">
+<span id="config-minimal"></span><h3>A simple configuration file<a class="headerlink" href="#a-simple-configuration-file" title="Link to this heading">#</a></h3>
+<p>Here we present a simple <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file corresponding to
+<a class="reference internal" href="#data-minimal-noheader-noids"><span class="std std-numref">Listing 2.1</span></a> (Note comment lines have been
+omitted in the above example for clarity). After this we review the
+sections that are highlighted in the example below, starting with
+general settings, followed by <a class="reference internal" href="#specifying-data-formats"><span class="std std-ref">how to specify data formats</span></a> and then <a class="reference internal" href="#analysis-options"><span class="std std-ref">Analysis options</span></a>.</p>
+<p>Descriptions of more advanced options for the previously described
+sections and additional filtering sections are contained in
+<a class="reference internal" href="#config-advanced"><span class="std std-ref">Advanced options</span></a> and <a class="reference internal" href="#advanced-filtering-sections"><span class="std std-ref">Advanced filtering sections</span></a>,
+respectively.</p>
+<div class="literal-block-wrapper docutils container" id="config-minimal-example">
+<div class="code-block-caption"><span class="caption-number">Listing 2.7 </span><span class="caption-text">Minimal <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file for genotype data</span><a class="headerlink" href="#config-minimal-example" title="Link to this code">#</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="hll"><span class="k">[General]</span>
+</span><span class="na">debug</span><span class="o">=</span><span class="s">0</span>
+
+<span class="hll"><span class="k">[ParseGenotypeFile]</span>
+</span><span class="na">untypedAllele</span><span class="o">=</span><span class="s">****</span>
+<span class="na">alleleDesignator</span><span class="o">=</span><span class="s">*</span>
+<span class="na">validSampleFields</span><span class="o">=</span><span class="s">*a_1</span>
+<span class="w"> </span><span class="na">*a_2</span>
+<span class="w"> </span><span class="na">*c_1</span>
+<span class="w"> </span><span class="na">*c_2</span>
+<span class="w"> </span><span class="na">*b_1</span>
+<span class="w"> </span><span class="na">*b_2</span>
+
+<span class="hll"><span class="k">[HardyWeinberg]</span>
+</span><span class="na">lumpBelow</span><span class="o">=</span><span class="s">5</span>
+
+<span class="hll"><span class="k">[HardyWeinbergGuoThompson]</span>
+</span><span class="na">dememorizationSteps</span><span class="o">=</span><span class="s">2000</span>
+<span class="na">samplingNum</span><span class="o">=</span><span class="s">1000</span>
+<span class="na">samplingSize</span><span class="o">=</span><span class="s">1000</span>
+
+<span class="hll"><span class="k">[HomozygosityEWSlatkinExact]</span>
+</span><span class="na">numReplicates</span><span class="o">=</span><span class="s">10000</span>
+
+<span class="hll"><span class="k">[Emhaplofreq]</span>
+</span><span class="na">allPairwiseLD</span><span class="o">=</span><span class="s">1</span>
+<span class="na">allPairwiseLDWithPermu</span><span class="o">=</span><span class="s">0</span>
+<span class="c1">;;numPermuInitCond=5</span>
+</pre></div>
+</div>
+</div>
+<section id="general-settings">
+<h4><code class="docutils literal notranslate"><span class="pre">[General]</span></code> settings<a class="headerlink" href="#general-settings" title="Link to this heading">#</a></h4>
+<p>This section contains variables that control the overall behavior of
+PyPop. Additional variables are described in
+<a class="reference internal" href="#general-advanced-options"><span class="std std-ref">[General] advanced options</span></a>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">debug=0</span></code></p>
+<p>This setting enables verbose debugging messages. Setting it to
+<code class="docutils literal notranslate"><span class="pre">1</span></code> will generate output that can be useful in diagnosing
+problems. PyPop developers may ask you to enable it when reporting
+on problems on the issue tracker.</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="specifying-data-formats">
+<h3>Specifying data formats<a class="headerlink" href="#specifying-data-formats" title="Link to this heading">#</a></h3>
+<p>There are two possible formats: <code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code> and
+<code class="docutils literal notranslate"><span class="pre">[ParseAlleleCountFile]</span></code></p>
+<section id="parsegenotypefile">
+<h4><code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code><a class="headerlink" href="#parsegenotypefile" title="Link to this heading">#</a></h4>
+<p>If your data is genotype data, you will want a section labeled:
+<code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code> (as shown in the
+<a class="reference internal" href="#config-minimal-example"><span class="std std-ref">Minimal .ini file for genotype data</span></a>).</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alleleDesignator</span></code></p>
+<p>This option is used to tell PyPop what is allele data and what
+isn’t. You must use this symbol in :ref:<code class="docutils literal notranslate"><span class="pre">`validSampleFields</span></code>
+option. The default is <code class="docutils literal notranslate"><span class="pre">*</span></code> In general, you won’t need to
+change it. <strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">*</span></code> <strong>]</strong></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">untypedAllele</span></code></p>
+<p>This option is used to tell PyPop what symbol you have used in
+your data files to represent untyped or unknown data
+fields. These fields MAY NOT BE LEFT BLANK. You must use
+something consistent that cannot be confused with real data
+here. <strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">****</span></code> <strong>]</strong></p>
+</li>
+</ul>
+<ul id="validsamplefields">
+<li><p><code class="docutils literal notranslate"><span class="pre">validSampleFields</span></code></p>
+<p>This option should contain the names of the loci immediately
+preceding your genotype data (if it has three header lines, this
+information will be on the third line, otherwise it will be the
+first line of the file).<strong>[There is no default, this option must
+always be present]</strong></p>
+<p>The format is as follows, for each sample field (which may either
+be an identifying field for the sample such as <code class="docutils literal notranslate"><span class="pre">populat</span></code>, or
+contain allele data) create a new line where:</p>
+<ul class="simple">
+<li><p>The first line (<code class="docutils literal notranslate"><span class="pre">validSampleFields=</span></code>) consists of the name of
+your sample field (if it contains allele data, the name of the
+field should be preceded by the character designated in the
+<code class="docutils literal notranslate"><span class="pre">alleleDesignator</span></code> option above).</p></li>
+<li><p>All subsequent lines after the first <em>must</em> be preceded by <em>one
+space</em> (again if it contains allele data, the name of the field
+should be preceded by the character designated in the
+<code class="docutils literal notranslate"><span class="pre">alleleDesignator</span></code> option above).</p></li>
+</ul>
+<p>Here is an example:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">validSampleFields</span><span class="o">=</span><span class="s">*a_1</span>
+<span class="w"> </span><span class="na">*a_2</span>
+<span class="w"> </span><span class="na">*c_1</span>
+<span class="w"> </span><span class="na">*c_2</span>
+<span class="w"> </span><span class="na">*b_1</span>
+<span class="w"> </span><span class="na">*b_2    # Note initial space at start of line.</span>
+</pre></div>
+</div>
+<p>Here is example that includes identifying (non-allele data)
+information such as sample id (<code class="docutils literal notranslate"><span class="pre">id</span></code>) and population name
+(<code class="docutils literal notranslate"><span class="pre">populat</span></code>):</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">validSampleFields</span><span class="o">=</span><span class="s">populat</span>
+<span class="w"> </span><span class="na">id</span>
+<span class="w"> </span><span class="na">*a_1</span>
+<span class="w"> </span><span class="na">*a_2</span>
+<span class="w"> </span><span class="na">*c_1</span>
+<span class="w"> </span><span class="na">*c_2</span>
+<span class="w"> </span><span class="na">*b_1</span>
+<span class="w"> </span><span class="na">*b_2</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="parseallelecountfile">
+<h4><code class="docutils literal notranslate"><span class="pre">[ParseAlleleCountFile]</span></code><a class="headerlink" href="#parseallelecountfile" title="Link to this heading">#</a></h4>
+<p>If your data is not genotype data, but rather, data of the
+allele-name count format, then you will want to use the
+<code class="docutils literal notranslate"><span class="pre">[ParseAlleleCountFile]</span></code> section INSTEAD of the
+<code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code> section. The <code class="docutils literal notranslate"><span class="pre">alleleDesignator</span></code> and
+<code class="docutils literal notranslate"><span class="pre">untypedAllele</span></code> options work identically to that described for
+<code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code>.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">validSampleFields</span></code></p>
+<p>This option should contain either a single locus name or a
+colon-separated list of all loci that will be in the data files
+you intend to analyze using a specific <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file. The
+colon-separated list allows you to avoid changing the <code class="docutils literal notranslate"><span class="pre">.ini</span></code>
+file when running over a collection of data files containing
+different loci. e.g.,</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">validSampleFields</span><span class="o">=</span><span class="s">A:B:C:DQA1:DQB1:DRB1:DPB1:DPA1</span>
+<span class="w"> </span><span class="na">count</span>
+</pre></div>
+</div>
+<p>Note that each <code class="docutils literal notranslate"><span class="pre">.pop</span></code> file must contain only one locus (see
+<a class="reference internal" href="#data-allelecount-note"><span class="std std-ref">the note</span></a> in
+<a class="reference internal" href="#data-allelecount"><span class="std std-numref">Listing 2.6</span></a>). Listing multiple loci simply
+permits the same <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file to be reused for each data file.</p>
+</li>
+</ul>
+<p>Below is a minimal <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file that can be used to process the
+sample file with a single locus in <a class="reference internal" href="#data-allelecount"><span class="std std-numref">Listing 2.6</span></a>.</p>
+<div class="literal-block-wrapper docutils container" id="config-minimal-allelecount">
+<div class="code-block-caption"><span class="caption-number">Listing 2.8 </span><span class="caption-text">Minimal <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file for allele count data in <a class="reference internal" href="#data-allelecount"><span class="std std-numref">Listing 2.6</span></a></span><a class="headerlink" href="#config-minimal-allelecount" title="Link to this code">#</a></div>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[ParseAlleleCountFile]</span>
+<span class="na">validSampleFields</span><span class="o">=</span><span class="s">dqa1</span>
+<span class="w"> </span><span class="na">count</span>
+
+<span class="k">[HomozygosityEWSlatkinExact]</span>
+<span class="na">numReplicates</span><span class="o">=</span><span class="s">10000</span>
+</pre></div>
+</div>
+</div>
+<p>Note also that only analyses that can be performed on allele count
+data (i.e. that don’t require full genotype information) can be
+enabled.  This means that other than the automatically generated
+single locus statistics, only <a class="reference internal" href="#guide-usage-config-homozygosity"><span class="std std-ref">[HomozygosityEWSlatkinExact]</span></a>
+can be enabled. Hardy-Weinberg and haplotype and LD analyses are not
+available.</p>
+</section>
+</section>
+<section id="analysis-options">
+<h3>Analysis options<a class="headerlink" href="#analysis-options" title="Link to this heading">#</a></h3>
+<p>These sections describe the primary analysis options that can be
+enabled for PyPop, as they are used in the simple example, above.</p>
+<section id="hardyweinberg">
+<span id="guide-usage-config-hardyweinberg"></span><h4><code class="docutils literal notranslate"><span class="pre">[HardyWeinberg]</span></code><a class="headerlink" href="#hardyweinberg" title="Link to this heading">#</a></h4>
+<p>Hardy-Weinberg analysis is enabled by the presence of this section.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">lumpBelow</span></code></p>
+<p>This option value represents a cut-off value. Alleles with an
+expected value equal to or less than <code class="docutils literal notranslate"><span class="pre">lumpBelow</span></code> will be lumped
+together into a single category for the purpose of calculating the
+degrees of freedom and overall <code class="docutils literal notranslate"><span class="pre">p</span></code>-value for the chi-squared
+Hardy-Weinberg test.</p>
+</li>
+</ul>
+</section>
+<section id="hardyweinbergguothompson">
+<h4><code class="docutils literal notranslate"><span class="pre">[HardyWeinbergGuoThompson]</span></code><a class="headerlink" href="#hardyweinbergguothompson" title="Link to this heading">#</a></h4>
+<p>When this section is present, an implementation of the
+Hardy-Weinberg exact test is run using the original
+<span id="id2">Guo and Thompson (<a class="reference internal" href="biblio.html#id9" title="Guo, S. W. and Thompson, E. A. Performing the exact test of Hardy-Weinberg proportion for multiple alleles. Biometrics, 48(2):361–372, 1992. arXiv:2532296, doi:10.2307/2532296.">1992</a>)</span> code, using a Monte-Carlo Markov
+chain (MCMC). In addition, two measures (Chen and Diff) of the
+goodness of it of individual genotypes are reported under this
+option <span id="id3">(<a class="reference internal" href="biblio.html#id3" title="Chen, J. J., Hollenbach, J. A., Trachtenberg, E. A., Just, J. J., Carrington, M., Ronningen, K. S., Begovich, A. B., King, M.-C., McWeeney, S. K., Mack, S. J., Erlich, H. A., and Thomson, G. Hardy-Weinberg testing for HLA class II (DRB1, DQA1, DQB1, and DPB1) loci in 26 human ethnic groups. Tissue Antigens, 54(6):533–542, 1999. doi:10.1034/j.1399-0039.1999.540601.x.">Chen <em>et al.</em>, 1999</a>)</span>.  By default this section
+is not enabled. This is a different implementation to the
+<strong class="program">Arlequin</strong> version listed in <a class="reference internal" href="#config-advanced"><span class="std std-ref">Advanced options</span></a>,
+below.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">dememorizationSteps</span></code></p>
+<p>Number of steps of to “burn-in” the Markov chain before statistics
+are collected.<strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">2000</span></code> <strong>]</strong></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">samplingNum</span></code></p>
+<p>Number of Markov chain samples <strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">1000</span></code> <strong>]</strong>.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">samplingSize</span></code></p>
+<p>Markov chain sample size<strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">1000</span></code> <strong>]</strong>.</p>
+</li>
+</ul>
+<p>Note that the <strong>total</strong> number of steps in the Monte-Carlo Markov
+chain is the product of <code class="docutils literal notranslate"><span class="pre">samplingNum</span></code> and <code class="docutils literal notranslate"><span class="pre">samplingSize</span></code>, so the
+default values described above would contain 1,000,000 (= 1000 x
+1000) steps in the MCMC chain.</p>
+<p>The default values for options described above have proved to be
+optimal for us and if the options are not provided these defaults will
+be used. If you change the values and have problems, <a class="reference internal" href="guide-chapter-contributing.html#guide-contributing-bug-report"><span class="std std-ref">please let
+us know</span></a>.</p>
+</section>
+<section id="homozygosityewslatkinexact">
+<span id="guide-usage-config-homozygosity"></span><h4><code class="docutils literal notranslate"><span class="pre">[HomozygosityEWSlatkinExact]</span></code><a class="headerlink" href="#homozygosityewslatkinexact" title="Link to this heading">#</a></h4>
+<p>The presence of this section enables Slatkin’s <span id="id4">(<a class="reference internal" href="biblio.html#id23" title="Slatkin, M. An exact test for neutrality based on the Ewens sampling distribution. Genetics Research, 64(1):71–74, 1994. doi:10.1017/S0016672300032560.">1994</a>)</span>
+implementation of the Ewens-Watterson exact test of neutrality.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">numReplicates</span></code></p>
+<p>The default values have proved to be optimal for us. There is no
+reason to change them unless you are particularly curious. If you
+change the default values and have problems, <a class="reference internal" href="guide-chapter-contributing.html#guide-contributing-bug-report"><span class="std std-ref">please let us
+know</span></a>.</p>
+</li>
+</ul>
+</section>
+<section id="emhaplofreq">
+<span id="guide-usage-config-emhaplofreq"></span><h4><code class="docutils literal notranslate"><span class="pre">[Emhaplofreq]</span></code><a class="headerlink" href="#emhaplofreq" title="Link to this heading">#</a></h4>
+<p>The presence of this section enables haplotype frequency estimation and
+calculation of linkage disequilibrium (LD) measures. <em>Please note that
+PyPop assumes that the genotype data is</em> <strong>unphased</strong> <em>when estimating
+haplotype frequencies and LD measures.</em></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">lociToEstHaplo</span></code></p>
+<p>In this option you can list the multi-locus haplotypes for which
+you wish the program to estimate and to calculate the LD. It
+should be a comma-separated list of colon-joined loci. e.g.,</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">lociToEstHaplo</span><span class="o">=</span><span class="s">a:b:drb1,a:b:c,drb1:dqa1:dpb1,drb1:dqb1:dpb1</span>
+</pre></div>
+</div>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">allPairwiseLD</span></code></p>
+<p>Set this to <code class="docutils literal notranslate"><span class="pre">1</span></code> (one) if you want the program to calculate all
+pairwise LD for your data, otherwise set this to <code class="docutils literal notranslate"><span class="pre">0</span></code> (zero).</p>
+</li>
+</ul>
+<ul id="config-allpairwiseldwithpermu">
+<li><p><code class="docutils literal notranslate"><span class="pre">allPairwiseLDWithPermu</span></code></p>
+<p>Set this to a positive integer greater than 1 if you need to
+determine the significance of the pairwise LD measures in the
+previous section. The number you use is the number of permutations
+that will be run to ascertain the significance (this should be at
+least 1000 or greater). (Note this is done via permutation testing
+performed after the pairwise LD test for all pairs of loci. Note
+also that this test can take <em>DAYS</em> if your data is highly
+polymorphic.)</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">numPermuInitCond</span></code></p>
+<p>Set this to change the number of initial conditions used per
+permutation. <strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">5</span></code> <strong>]</strong>. (<em>Note: this parameter is only used
+if</em> <code class="docutils literal notranslate"><span class="pre">allPairwiseLDWithPermu</span></code> <em>is set and nonzero</em>).</p>
+</li>
+</ul>
+</section>
+</section>
+<section id="advanced-options">
+<span id="config-advanced"></span><h3>Advanced options<a class="headerlink" href="#advanced-options" title="Link to this heading">#</a></h3>
+<p>The following section describes additional options to previously
+described sections. Most of the time these options can be omitted and
+PyPop will choose defaults, however these advanced options do offer
+greater control over the application. In particular, customization will
+be required for data that has sample identifiers as in
+<a class="reference internal" href="#data-minimal-noheader"><span class="std std-numref">Listing 2.2</span></a> or header data block as in
+<a class="reference internal" href="#data-hla"><span class="std std-numref">Listing 2.3</span></a> and both <code class="docutils literal notranslate"><span class="pre">validSampleFields</span></code> (described
+above) and <code class="docutils literal notranslate"><span class="pre">validPopFields</span></code> (described below) will need to be
+modified.</p>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.0.0: </span>The sections <code class="docutils literal notranslate"><span class="pre">[Arlequin]</span></code> and
+<code class="docutils literal notranslate"><span class="pre">[HardyWeinbergGuoThompsonArlequin]</span></code> related to the
+<strong class="program">Arlequin</strong> program as they are currently unmaintained.</p>
+</div>
+<section id="general-advanced-options">
+<span id="id5"></span><h4><code class="docutils literal notranslate"><span class="pre">[General]</span></code> advanced options<a class="headerlink" href="#general-advanced-options" title="Link to this heading">#</a></h4>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">txtOutFilename</span></code> and <code class="docutils literal notranslate"><span class="pre">xmlOutFilename</span></code></p>
+<p>If you wish to specify a particular name for the output file, which
+you want to remain identical over several runs, you can set these
+two items to particular values. The default is to have the program
+select the output filename, which can be controlled by the next
+variable. <strong>[Default: not used]</strong></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">outFilePrefixType</span></code></p>
+<p>This option can either be omitted entirely (in which case the
+default will be <code class="docutils literal notranslate"><span class="pre">filename</span></code>) or be set in several ways. The
+default is set as <code class="docutils literal notranslate"><span class="pre">filename</span></code>, which will result in three output
+files named <code class="file docutils literal notranslate"><span class="pre">original-filename-minus-suffix-out.xml</span></code>,
+<code class="file docutils literal notranslate"><span class="pre">original-filename-minus-suffix-out.txt</span></code>, and
+<code class="file docutils literal notranslate"><span class="pre">original-filename-minus-suffix-filter.xml</span></code>. <strong>[Default:</strong>
+<code class="docutils literal notranslate"><span class="pre">filename</span></code> <strong>]</strong></p>
+<p>If you set the value to <code class="docutils literal notranslate"><span class="pre">date</span></code> instead of filename, you’ll get the
+date incorporated in the filename as follows:
+<code class="file docutils literal notranslate"><span class="pre">original-filename-minus-suffix-YYYY-nn-dd-HH-MM-SS-out.</span><em><span class="pre">xml,txt</span></em></code>.
+e.g., <code class="file docutils literal notranslate"><span class="pre">USAFEL-UchiTelle-2003-09-21-01-29-35-out.xml</span></code> (where Y, n,
+d, H, M, S refer to year, month, day, hour, minute and second,
+respectively).</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">xslFilename</span></code></p>
+<p>This option specifies where to find the XSLT file to use for
+transforming PyPop’s xml output into human-readable form. Most users
+will not normally need to set this option, and the default is the
+system-installed <code class="file docutils literal notranslate"><span class="pre">text.xsl</span></code> file.</p>
+</li>
+</ul>
+</section>
+<section id="parsegenotypefile-and-parseallelecountfile-common-options">
+<h4><code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code> and <code class="docutils literal notranslate"><span class="pre">[ParseAlleleCountFile]</span></code> common options<a class="headerlink" href="#parsegenotypefile-and-parseallelecountfile-common-options" title="Link to this heading">#</a></h4>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">popNameDesignator</span></code></p>
+<p>There is a special designator to mark the population name field,
+which is usually the first field in the data block. <strong>[Default:</strong>
+<code class="docutils literal notranslate"><span class="pre">+</span></code> <strong>]</strong></p>
+<p>If you are analyzing data that contains a population name for each
+sample, then the first entry in your <code class="docutils literal notranslate"><span class="pre">validSampleFields</span></code> section
+should have a prefixed <code class="docutils literal notranslate"><span class="pre">+</span></code>, as below:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">validSampleFields</span><span class="o">=</span><span class="s">+populat</span>
+<span class="w"> </span><span class="na">*a_1</span>
+<span class="w"> </span><span class="na">*a_2</span>
+<span class="w"> </span><span class="na">...</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<ul id="validpopfields">
+<li><p><code class="docutils literal notranslate"><span class="pre">validPopFields</span></code></p>
+<p>If you are analyzing data with an initial two line population header
+block information as in <a class="reference internal" href="#data-hla"><span class="std std-ref">Multi-locus allele-level HLA genotype data with sample and header information</span></a>, then you will
+need to set this option. In this case, it should contain the field
+names in the first line of the header information of your file.
+<strong>[Default: required when a population data-block is present in data
+file]</strong>, e.g.:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="na">validPopFields</span><span class="o">=</span><span class="s">labcode</span>
+<span class="w"> </span><span class="na">method</span>
+<span class="w"> </span><span class="na">ethnic</span>
+<span class="w"> </span><span class="na">country</span>
+<span class="w"> </span><span class="na">latit</span>
+<span class="w"> </span><span class="na">longit</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="parsegenotypefile-advanced-option">
+<h4><code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code> advanced option<a class="headerlink" href="#parsegenotypefile-advanced-option" title="Link to this heading">#</a></h4>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">fieldPairDesignator</span></code></p>
+<p>This option allows you to override the coding for the headers for
+each pair of alleles at each locus; it must match the entry in the
+config file under <code class="docutils literal notranslate"><span class="pre">validSampleFields</span></code> and the entries in your
+population data file. If you want to use something other than <code class="docutils literal notranslate"><span class="pre">_1</span></code>
+and <code class="docutils literal notranslate"><span class="pre">_2</span></code>, change this option, for instance, to use letters and
+parentheses, change it as follows: <code class="docutils literal notranslate"><span class="pre">fieldPairDesignator=(a):(b)</span></code>
+<strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">_1:_2</span></code> <strong>]</strong></p>
+</li>
+</ul>
+</section>
+<section id="emhaplofreq-advanced-options">
+<h4><code class="docutils literal notranslate"><span class="pre">[Emhaplofreq]</span></code> advanced options<a class="headerlink" href="#emhaplofreq-advanced-options" title="Link to this heading">#</a></h4>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">permutationPrintFlag</span></code></p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">permutationPrintFlag</span></code> is enabled it can <em>drastically</em>
+increase the size of the output XML file on the order of the
+product of the number of possible pairwise comparisons and
+permutations. Machines with lower RAM and disk space may have
+difficulty coping with this.</p>
+</div>
+<p>Determines whether the likelihood ratio for each permutation will be
+logged to the XML output file, this is disabled by default.
+<strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code> <strong>(i.e. OFF)]</strong>.</p>
+</li>
+</ul>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.0.0: </span>currently unmaintained and untested.</p>
+<p><code class="docutils literal notranslate"><span class="pre">[Arlequin]</span></code> extra section</p>
+<p>This section sets characteristics of the <strong class="program">Arlequin</strong>
+application if it has been installed (it must be installed
+separately from PyPop as we cannot distribute it). The options
+in this section are only used when a test requiring
+<strong class="program">Arlequin</strong>, such as it’s implementation of Guo and
+Thompson’s <span id="id6">(<a class="reference internal" href="biblio.html#id9" title="Guo, S. W. and Thompson, E. A. Performing the exact test of Hardy-Weinberg proportion for multiple alleles. Biometrics, 48(2):361–372, 1992. arXiv:2532296, doi:10.2307/2532296.">1992</a>)</span> Hardy-Weinberg
+exact test is invoked (see below).</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">arlequinExec</span></code></p>
+<p>This option specifies where to find the <strong class="program">Arlequin</strong>
+executable on your system. The default assumes it is on your
+system path. <strong>[Default:</strong> <code class="file docutils literal notranslate"><span class="pre">arlecore.exe</span></code> <strong>]</strong></p>
+</li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">[HardyWeinbergGuoThompsonArlequin]</span></code> extra section</p>
+<p>When this section is present, <strong class="program">Arlequin</strong>’s implementation of the
+Hardy-Weinberg exact test is run, using a Monte-Carlo Markov Chain
+implementation. By default this section is not enabled.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">markovChainStepsHW</span></code></p>
+<p>Length of steps in the Markov chain <strong>[Default: 2500000]</strong>.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">markovChainDememorisationStepsHW</span></code></p>
+<p>Number of steps of to “burn-in” the Markov chain before statistics
+are collected.<strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">5000</span></code> <strong>]</strong></p>
+</li>
+</ul>
+<p>The default values for options described above have proved to be
+optimal for us and if the options are not provided these defaults
+will be used.  If you change the values and have problems,
+<a class="reference internal" href="guide-chapter-contributing.html#guide-contributing-bug-report"><span class="std std-ref">please let us know</span></a>.</p>
+</div>
+</section>
+</section>
+<section id="advanced-filtering-sections">
+<h3>Advanced filtering sections<a class="headerlink" href="#advanced-filtering-sections" title="Link to this heading">#</a></h3>
+<p>This section describes additional advanced sections that can be used
+for applying filtering to both the input and output of the population
+data.</p>
+<section id="filters-extra-section">
+<h4><code class="docutils literal notranslate"><span class="pre">[Filters]</span></code> extra section<a class="headerlink" href="#filters-extra-section" title="Link to this heading">#</a></h4>
+<p>When this section is present, it allows you to specify successive filters
+to the data.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">filtersToApply</span></code></p>
+<p>Here you specify which filters you want applied to the data and the
+order in which you want them applied. The format is
+<code class="docutils literal notranslate"><span class="pre">`FILTER[:FILTER]*</span></code>, i.e. a series of colon-delimited
+filters. Currently there are four predefined filter:
+<code class="docutils literal notranslate"><span class="pre">AnthonyNolan</span></code>, <code class="docutils literal notranslate"><span class="pre">Sequence</span></code>, <code class="docutils literal notranslate"><span class="pre">DigitBinning</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">CustomBinning</span></code>. If you specify one or more of these filters, you
+will get the default behavior of the filter. If you wish to modify
+the default behavior, you should add a section with the same name
+as the specified filter(s). See next section for more on
+this. Please note that, while you are allowed to specify any
+ordering for the filters, some orderings may not make sense. For
+example, the ordering <code class="docutils literal notranslate"><span class="pre">Sequence:AnthonyNolan</span></code> would not make
+sense (because as far as PyPop is concerned, your alleles are now
+amino acid residues.) However, the reverse ordering,
+<code class="docutils literal notranslate"><span class="pre">AnthonyNolan:Sequence</span></code>, would be logical and perhaps even
+advisable.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">makeNewPopFile</span></code></p>
+<p>This option creates intermediate population files (in the <code class="docutils literal notranslate"><span class="pre">.pop</span></code>
+format) before or after any filtering step. This allows the user to
+save and inspect the output, and for running the output through
+another PyPop process with potentially different parameters. The
+format of the argument is:
+<code class="docutils literal notranslate"><span class="pre">{all-loci|separate-loci}:&lt;NUMBER&gt;</span></code>. Where <code class="docutils literal notranslate"><span class="pre">separate-loci</span></code>
+generates separate <code class="docutils literal notranslate"><span class="pre">.pop</span></code> files for each of the loci, and
+<code class="docutils literal notranslate"><span class="pre">all-loci</span></code> generates a <em>single</em> <code class="docutils literal notranslate"><span class="pre">.pop</span></code> file with all loci.
+<code class="docutils literal notranslate"><span class="pre">&lt;NUMBER&gt;</span></code> is an integer representing the step in the filtering
+process at which the output files should be generated. So <code class="docutils literal notranslate"><span class="pre">0</span></code>
+represents the original input data, i.e. the step before the
+filtering runs, whereas <code class="docutils literal notranslate"><span class="pre">1</span></code> would be the data after the first
+filter is run, and so on.</p>
+<p>For example, with the following stanza in an <code class="docutils literal notranslate"><span class="pre">.ini</span></code> file</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Filters]</span>
+<span class="na">filtersToApply</span><span class="o">=</span><span class="s">Sequence</span>
+<span class="na">makeNewPopFile</span><span class="o">=</span><span class="s">all-loci:1</span>
+
+<span class="k">[Sequence]</span>
+<span class="na">directory</span><span class="o">=</span><span class="s">tests/data/anthonynolan/msf-2.18.0/</span>
+</pre></div>
+</div>
+<p>applied to an input file <code class="docutils literal notranslate"><span class="pre">MyPopulation.pop</span></code> with a single HLA
+locus <code class="docutils literal notranslate"><span class="pre">A</span></code> :</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>A_1       A_2
+0101      0201
+0210      03012
+0101      0218
+</pre></div>
+</div>
+<p>This would apply the <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> filter options , generating a new
+file <code class="docutils literal notranslate"><span class="pre">MyPopulation-filtered.pop</span></code> where the original HLA <code class="docutils literal notranslate"><span class="pre">A</span></code>
+locus is translated into columns where each new locus would consist
+of the individual polymorphic amino acid residue position within
+HLA <code class="docutils literal notranslate"><span class="pre">A</span></code>, and then generate output files for that data at that
+point. For example, the first two columns showing the first two
+polymorphic positions at residues 9 (new locus <code class="docutils literal notranslate"><span class="pre">A_9</span></code>) and 44 (new
+locus <code class="docutils literal notranslate"><span class="pre">A_42</span></code>), the <code class="docutils literal notranslate"><span class="pre">NewPopulation-filtered.pop</span></code> might look
+something like this:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>A_9_1   A_9_2    A_44_1    A_44_2  ...
+F       F        K         R       ...
+Y       F        R         R       ...
+F       F        K         R       ...
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="anthonynolan-filter-section">
+<span id="anthonynolan-filter"></span><h4><code class="docutils literal notranslate"><span class="pre">[AnthonyNolan]</span></code> filter section<a class="headerlink" href="#anthonynolan-filter-section" title="Link to this heading">#</a></h4>
+<p>This section is <em>only</em> useful for HLA data. Like all filter sections,
+it will only be used if present in the <code class="docutils literal notranslate"><span class="pre">filtersToApply</span></code> line
+specified above. If so enabled, your data will be filtered through the
+Anthony Nolan database of known HLA allele names before
+processing. The data files this filter relies on are <em>not</em> currently
+distributed with PyPop within the binary installable packages
+(“wheels”), but can be obtained as described in the <code class="docutils literal notranslate"><span class="pre">directory</span></code>
+section, below, or the <a class="reference external" href="ftp://ftp.ebi.ac.uk/pub/databases/imgt/mhc/hla/">IMGT ftp site</a>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The current implementation of the <code class="docutils literal notranslate"><span class="pre">AnthonyNolan</span></code> filter only
+works with data in old-style (pre-2010) HLA nomenclature.  However,
+the <code class="docutils literal notranslate"><span class="pre">Sequence</span></code> filter has been ported to use new nomenclature,
+but only by specifying a recent version of the Multiple Sequence
+Format (<a class="reference external" href="https://tcoffee.org/Documentation/misc/Format%20Documentation.htm">MSF</a>))
+files in the <code class="docutils literal notranslate"><span class="pre">remoteMSF</span></code> option</p>
+</div>
+<p>Invocation of this filter will produce a <code class="docutils literal notranslate"><span class="pre">&lt;POPFILE&gt;-filter.xml</span></code> file
+output showing what was resolved and what could not be resolved.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">alleleFileFormat</span></code></p>
+<p>This options specifies which of the formats the Anthony Nolan
+allele data will be used. The option can be set to either <code class="docutils literal notranslate"><span class="pre">txt</span></code>
+(for the plain free text format) or <code class="docutils literal notranslate"><span class="pre">msf</span></code> (for the <a class="reference external" href="https://www.ebi.ac.uk/ipd/imgt/hla/download/">Multiple
+Sequence Format</a>)
+<strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">msf</span></code> <strong>]</strong></p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">directory</span></code> <strong>or</strong> <code class="docutils literal notranslate"><span class="pre">remoteMSF</span></code></p>
+<p>This section expects there to exist <em>either</em> <code class="docutils literal notranslate"><span class="pre">directory</span></code> option
+(which points to a local disk directory) or the <code class="docutils literal notranslate"><span class="pre">remoteMSF</span></code>
+option (which downloads MSF files on-the-fly) (but not both).
+<strong>There are no defaults.</strong></p>
+<p>To save space, sequence files are not distributed as part of the
+wheels, but are either downloaded on-the-fly, or (in the case of
+the versions using old sequence nomenclature) are distributed as
+part of the source distribution. They are then incorporated into
+the unit tests.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">directory</span></code>: Specifies the path to the root of the sequence
+files. It can be either relative or absolute. If it is relative,
+the path will be resolved relative to the current working
+directory.</p>
+<p>A version (2.18.0) of the sequence files that use old (pre-2010)
+nomenclature can be found in the GitHub repo here (you can either
+clone the repo or download the files manually):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">txt</span></code>: files: <a class="reference external" href="https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/HIG-seq-pep-text">tests/data/anthonynolan/HIG-seq-pep-text/</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">msf</span></code> files: <a class="reference external" href="https://github.com/alexlancaster/pypop/tree/main/tests/data/anthonynolan/msf-2.18.0">tests/data/anthonynolan/msf-2.18.0/</a></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">remoteMSF</span></code>: Specifies the version (tag) of the remote <code class="docutils literal notranslate"><span class="pre">msf</span></code>
+directory in the <a class="reference external" href="https://github.com/ANHIG/IMGTHLA/">IMGT-HLA GitHub repo</a>.  If present, the remote
+MSF files for the specified version will be downloaded on-demand,
+and cached for later reuse.  For example:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Sequence]</span>
+<span class="na">remoteMSF</span><span class="o">=</span><span class="s">3.59.0-alpha</span>
+</pre></div>
+</div>
+<p>would download the msf directory with <code class="docutils literal notranslate"><span class="pre">v3.59.0-alpha</span></code> tag,
+i.e.: <a class="github reference external" href="https://github.com/ANHIG/IMGTHLA/tree/v3.59.0-alpha/msf">ANHIG/IMGTHLA</a>,
+which at the time of writing, was the most recent release.</p>
+<p>Note that this option is only available for MSF files, there is
+no equivalent for other file types.</p>
+</li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preserve-ambiguous</span></code></p>
+<p>The default behavior of the <code class="docutils literal notranslate"><span class="pre">AnthonyNolan</span></code> filter is to ignore
+allele ambiguity (“slash”) notation. This notation, common in the
+literature, looks like: <code class="docutils literal notranslate"><span class="pre">010101/0102/010301</span></code>. The default behavior
+will simply truncate this to <code class="docutils literal notranslate"><span class="pre">0101</span></code>. If you want to preserve the
+notation, set the option to <code class="docutils literal notranslate"><span class="pre">1</span></code>. This will result in a filtered
+allele “name” of <code class="docutils literal notranslate"><span class="pre">0101/0102/0103</span></code> in the above hypothetical
+example. <strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code> <strong>]</strong>.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preserve-unknown</span></code></p>
+<p>The default behavior of the <code class="docutils literal notranslate"><span class="pre">AnthonyNolan</span></code> filter is to replace
+unknown alleles with the <code class="docutils literal notranslate"><span class="pre">untypedAllele</span></code> designator. If you want
+the filter to keep allele names it does not recognize, set the option
+to <code class="docutils literal notranslate"><span class="pre">1</span></code>. <strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code> <strong>]</strong>.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">preserve-lowres</span></code></p>
+<p>This option is similar to <code class="docutils literal notranslate"><span class="pre">preserve-unknown</span></code>, but only applies to
+lowres alleles. If set to <code class="docutils literal notranslate"><span class="pre">1</span></code>, PyPop will keep allele names that are
+shorter than the default allele name length, usually 4 digits long.
+But if the preserve-unknown flag is set, this one has no effect,
+because all unknown alleles are preserved. <strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">0</span></code> <strong>]</strong>.</p>
+</li>
+</ul>
+</section>
+<section id="sequence-filter-section">
+<span id="sequence-filter"></span><h4><code class="docutils literal notranslate"><span class="pre">[Sequence]</span></code> filter section<a class="headerlink" href="#sequence-filter-section" title="Link to this heading">#</a></h4>
+<p>This section allows configuration of the sequence filter. Like all
+filter sections, it will only will be used if present in the
+<code class="docutils literal notranslate"><span class="pre">filtersToApply</span></code> line specified above. If so enabled, your allele
+names will be translated into sequences, and all ensuing analyses will
+consider each position in the sequence to be a distinct locus. This
+filter makes use of the same msf format alignment files as used above
+in the <code class="docutils literal notranslate"><span class="pre">AnthonyNolan</span></code> filter. <strong>It does not work with the txt format
+alignment files.</strong></p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">sequenceFileSuffix</span></code></p>
+<p>Determines the files that will be examined in order to read in a
+sequence for each allele. (ie, if the file for locus A is
+<code class="file docutils literal notranslate"><span class="pre">A_prot.msf</span></code>, the value would be <code class="docutils literal notranslate"><span class="pre">_prot</span></code> whereas if you
+wanted to use the nucleotide sequence files, you might use
+<code class="docutils literal notranslate"><span class="pre">_nuc</span></code>.) <strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">_prot</span></code> <strong>]</strong>.</p>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">directory</span></code> <strong>or</strong> <code class="docutils literal notranslate"><span class="pre">remoteMSF</span></code></p>
+<p>Specifies the either path to the root of the sequence files
+(<code class="docutils literal notranslate"><span class="pre">directory</span></code>), or the remote MSF version (<code class="docutils literal notranslate"><span class="pre">remoteMSF</span></code>) in the
+same manner as in the <code class="docutils literal notranslate"><span class="pre">AnthonyNolan</span></code> section, above.</p>
+</li>
+</ul>
+</section>
+<section id="digitbinning-filter-section">
+<h4><code class="docutils literal notranslate"><span class="pre">[DigitBinning]</span></code> filter section<a class="headerlink" href="#digitbinning-filter-section" title="Link to this heading">#</a></h4>
+<p>This section allows configuration of the DigitBinning filter. Like all
+filter sections, it will be used if present in the <code class="docutils literal notranslate"><span class="pre">filtersToApply</span></code>
+line specified above. If so enabled, your allele names will be truncated
+after the nth digit.</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">binningDigits</span></code></p>
+<p>An integer that specifies how many digits to keep after the
+truncation. <strong>[Default:</strong> <code class="docutils literal notranslate"><span class="pre">4</span></code> <strong>]</strong>.</p>
+</li>
+</ul>
+</section>
+<section id="custombinning-filter-section">
+<h4><code class="docutils literal notranslate"><span class="pre">[CustomBinning]</span></code> filter section<a class="headerlink" href="#custombinning-filter-section" title="Link to this heading">#</a></h4>
+<p>This section allows configuration of the CustomBinning filter. Like all
+filter sections, it will only be used if present in the
+<code class="docutils literal notranslate"><span class="pre">filtersToApply</span></code> line specified above.</p>
+<p>You can provide a set of custom rules for replacing allele names. Allele
+names should be separated by <code class="docutils literal notranslate"><span class="pre">/</span></code> marks. This filter matches any allele
+names that are exactly the same as the ones you list here, and will also
+find “close matches” (but only if there are no exact matches.). Here is
+an example:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>A=01/02/03
+ 04/05/03:06
+ !06/12:01/13:01
+ !07/08:05
+</pre></div>
+</div>
+<p>In the example above, <code class="docutils literal notranslate"><span class="pre">A*03</span></code> alleles will match to <code class="docutils literal notranslate"><span class="pre">01/02/03</span></code>,
+except for <code class="docutils literal notranslate"><span class="pre">A*03:06</span></code>, which will match to <code class="docutils literal notranslate"><span class="pre">04/05/03:06</span></code>. In the output file,
+<code class="docutils literal notranslate"><span class="pre">A*03:06</span></code> will be replaced with <code class="docutils literal notranslate"><span class="pre">04/05/03:06</span></code> and other <code class="docutils literal notranslate"><span class="pre">A*03</span></code> alleles will
+be replaced with <code class="docutils literal notranslate"><span class="pre">01/02/03</span></code>. If you place
+a <code class="docutils literal notranslate"><span class="pre">!</span></code> mark in front of the first allele name, that first name will be
+used as the “new name” for the binned group (for example, <code class="docutils literal notranslate"><span class="pre">A*08:05</span></code>
+will be called <code class="docutils literal notranslate"><span class="pre">07</span></code> in the custom-binned data.) Note that the space at
+the beginning of the lines (following the first line of each locus) is
+important. The above rules are just dummy examples, provided to
+illustrate how the filter works. PyPop is distributed with a
+biologically relevant set of <code class="docutils literal notranslate"><span class="pre">CustomBinning</span></code> rules that have been
+compiled from several <span id="id7">(<a class="reference internal" href="biblio.html#id2" title="Cano, P., Klitz, W., Mack, S. J., Maiers, M., Marsh, S. G. E., Noreen, H., Reed, E. F., Senitzer, D., Setterholm, M., Smith, A., and Fernández-Viña, M. Common and well-documented HLA alleles: report of the Ad-Hoc committee of the american society for histocompatiblity and immunogenetics. Human Immunology, 68(5):392–417, 2007. doi:10.1016/j.humimm.2007.01.014.">Cano <em>et al.</em>, 2007</a>, <a class="reference internal" href="biblio.html#id15" title="Mack, S. J., Sanchez-Mazas, A., Meyer, D., Single, R. M., Tsai, Y., and Erlich, H. A. Methods used in the generation and preparation of data for analysis in the 13th International Histocompatibility Workshop. In Hansen, J. A., editor, Immunobiology of the Human MHC: Proceedings of the 13th International Histocompatibility Workshop and Conference, volume I, pages 564–579. IHWG Press, Seattle, WA, 2007.">Mack <em>et al.</em>, 2007</a>)</span> sources <a class="footnote-reference brackets" href="#id11" id="id8" role="doc-noteref"><span class="fn-bracket">[</span>2<span class="fn-bracket">]</span></a></p>
+</section>
+</section>
+</section>
+<section id="pypop-api-examples">
+<span id="guide-usage-examples-api"></span><h2><span class="section-number">2.6. </span>PyPop API examples<a class="headerlink" href="#pypop-api-examples" title="Link to this heading">#</a></h2>
+<p>Here is a short example of how you can use the <a class="reference internal" href="../api/index.html#api-reference-top"><span class="std std-ref">API</span></a> (documented in the <em>PyPop API Reference</em>)
+directly in your own Python program. This program reads a short
+<code class="docutils literal notranslate"><span class="pre">.pop</span></code> <a class="reference internal" href="#guide-usage-datafile"><span class="std std-ref">data file</span></a> consisting of one
+locus with seven individuals, and rather than reading from a
+<a class="reference internal" href="#guide-usage-configfile"><span class="std std-ref">configuration file</span></a>, it creates a
+configuration object with the file format details and enables a single
+<a class="reference internal" href="#guide-usage-config-hardyweinberg"><span class="std std-ref">[HardyWeinberg]</span></a> analysis. It
+then performs the equivalent of the <a class="reference internal" href="#guide-usage-popmeta"><span class="std std-ref">popmeta script</span></a> and generates output TSV files.</p>
+<p>The <code class="xref py py-class docutils literal notranslate"><span class="pre">Main</span></code> class generates analysis results as XML, and then
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Meta</span></code> processes this XML to generate <code class="docutils literal notranslate"><span class="pre">.tsv</span></code> file output
+suitable for further analysis. Here is the process, step-by-step:</p>
+<ul>
+<li><p>First create the <a class="reference external" href="https://docs.python.org/3/library/configparser.html#configparser.ConfigParser" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigParser</span></code></a> instance from a
+dictionary (note that <code class="docutils literal notranslate"><span class="pre">untypedAllele</span></code> and <code class="docutils literal notranslate"><span class="pre">alleleDesignators</span></code>
+are specified explicitly, even though they are the same as
+defaults, they must always match the input file):</p>
+<p>(You can cut and paste the following code snippets directly into
+an interactive Python session).</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">configparser</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigParser</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">()</span>
+<span class="n">config</span><span class="o">.</span><span class="n">read_dict</span><span class="p">({</span><span class="s2">&quot;ParseGenotypeFile&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;untypedAllele&quot;</span><span class="p">:</span> <span class="s2">&quot;****&quot;</span><span class="p">,</span>
+                          <span class="s2">&quot;alleleDesignator&quot;</span><span class="p">:</span> <span class="s2">&quot;*&quot;</span><span class="p">,</span>
+                          <span class="s2">&quot;validSampleFields&quot;</span><span class="p">:</span> <span class="s2">&quot;*a_1</span><span class="se">\n</span><span class="s2">*a_2&quot;</span><span class="p">},</span>
+    <span class="s2">&quot;HardyWeinberg&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;lumpBelow&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">}})</span>
+</pre></div>
+</div>
+</li>
+<li><p>Next, create a test <code class="docutils literal notranslate"><span class="pre">.pop</span></code> text file (note the tab-spaces
+inline). (You could replace this with your own input file, or
+generate <code class="docutils literal notranslate"><span class="pre">pop_contents</span></code> from an existing data structure in your
+program):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pop_contents</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;a_1</span><span class="se">\t</span><span class="s1">a_2</span>
+<span class="s1">****</span><span class="se">\t</span><span class="s1">****</span>
+<span class="s1">01:01</span><span class="se">\t</span><span class="s1">02:01</span>
+<span class="s1">02:10</span><span class="se">\t</span><span class="s1">03:01:02</span>
+<span class="s1">01:01</span><span class="se">\t</span><span class="s1">02:18</span>
+<span class="s1">25:01</span><span class="se">\t</span><span class="s1">02:01</span>
+<span class="s1">02:10</span><span class="se">\t</span><span class="s1">32:04</span>
+<span class="s1">03:01:02</span><span class="se">\t</span><span class="s1">32:04&#39;&#39;&#39;</span>
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;my.pop&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pop_contents</span><span class="p">)</span>
+</pre></div>
+</div>
+</li>
+</ul>
+<ul>
+<li><p>Now create the <code class="xref py py-class docutils literal notranslate"><span class="pre">Main</span></code> instance, using the <code class="docutils literal notranslate"><span class="pre">config</span></code> object
+to run the analysis of data in <code class="docutils literal notranslate"><span class="pre">my.pop</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">PyPop.popanalysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">Main</span>
+<span class="n">application</span> <span class="o">=</span> <span class="n">Main</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">fileName</span><span class="o">=</span><span class="s2">&quot;my.pop&quot;</span><span class="p">,</span> <span class="n">version</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The analysis runs to completion and produces the following
+default logging output to the console:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="go">LOG: no XSL file, skipping text output</span>
+<span class="go">LOG: Data file has no header data block</span>
+</pre></div>
+</div>
+</li>
+<li><p>You can query the <code class="xref py py-class docutils literal notranslate"><span class="pre">Main</span></code> instance to get the name of the
+generated output XML file: <code class="docutils literal notranslate"><span class="pre">my-out.xml</span></code></p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">application</span><span class="o">.</span><span class="n">getXmlOutPath</span><span class="p">()</span>
+<span class="go">&#39;my-out.xml&#39;</span>
+</pre></div>
+</div>
+</li>
+<li><p>Lastly, pass this file to the <code class="xref py py-class docutils literal notranslate"><span class="pre">Meta</span></code> class to generate output
+<code class="docutils literal notranslate"><span class="pre">TSV</span></code> files (as described in <a class="reference internal" href="#guide-usage-popmeta"><span class="std std-ref">Aggregating results from multiple runs (popmeta)</span></a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">outXML</span> <span class="o">=</span> <span class="n">application</span><span class="o">.</span><span class="n">getXmlOutPath</span><span class="p">()</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">PyPop.popaggregate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Meta</span>
+<span class="n">Meta</span> <span class="p">(</span><span class="n">TSV_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">xml_files</span><span class="o">=</span><span class="p">[</span><span class="n">outXML</span><span class="p">])</span>
+</pre></div>
+</div>
+<p>The generated TSV files are listed in the console output:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="go">./1-locus-hardyweinberg.tsv</span>
+<span class="go">./1-locus-summary.tsv</span>
+<span class="go">./1-locus-allele.tsv</span>
+<span class="go">./1-locus-genotype.tsv</span>
+</pre></div>
+</div>
+</li>
+<li><p>These listed <code class="docutils literal notranslate"><span class="pre">.tsv</span></code> files can then be read into another data
+structure (e.g. a <a class="reference external" href="https://pandas.pydata.org">pandas dataframe</a> )
+for further analysis.</p></li>
+</ul>
+</section>
+<section id="command-line-interfaces">
+<h2><span class="section-number">2.7. </span>Command-line interfaces<a class="headerlink" href="#command-line-interfaces" title="Link to this heading">#</a></h2>
+<p>Described below is the usage for both <code class="docutils literal notranslate"><span class="pre">pypop</span></code> and <code class="docutils literal notranslate"><span class="pre">popmeta</span></code>,
+including a full list of the current command-line options and
+arguments for PyPop version 1.4.0.  Note that you can also
+view this full list of options from the program itself by supplying
+the <code class="docutils literal notranslate"><span class="pre">--help</span></code> option, i.e. <code class="docutils literal notranslate"><span class="pre">pypop</span> <span class="pre">--help</span></code>, or <code class="docutils literal notranslate"><span class="pre">popmeta</span> <span class="pre">--help</span></code>,
+respectively.</p>
+<section id="pypop-usage">
+<span id="guide-pypop-cli"></span><h3><code class="docutils literal notranslate"><span class="pre">pypop</span></code> usage<a class="headerlink" href="#pypop-usage" title="Link to this heading">#</a></h3>
+<p><p>Process and run population genetics statistics on one or more <code class="docutils literal notranslate"><span class="pre">POPFILE</span></code> s.
+Expects to find a configuration file called <code class="docutils literal notranslate"><span class="pre">config.ini</span></code> in the
+current directory</p>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">pypop</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">citation</span> <span class="p">[{</span><span class="n">apalike</span><span class="p">,</span><span class="n">bibtex</span><span class="p">,</span><span class="n">endnote</span><span class="p">,</span><span class="n">ris</span><span class="p">,</span><span class="n">codemeta</span><span class="p">,</span><span class="n">cff</span><span class="p">,</span><span class="n">schema</span><span class="o">.</span><span class="n">org</span><span class="p">,</span><span class="n">zenodo</span><span class="p">}]]</span>
+             <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUTPUTDIR</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">V</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">d</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="n">level</span> <span class="p">{</span><span class="n">DEBUG</span><span class="p">,</span><span class="n">INFO</span><span class="p">,</span><span class="n">WARNING</span><span class="p">,</span><span class="n">ERROR</span><span class="p">,</span><span class="n">CRITICAL</span><span class="p">}]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="n">file</span> <span class="n">LOGFILE</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">c</span> <span class="n">CONFIG</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">m</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">x</span> <span class="n">XSLFILE</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">t</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">ihwg</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">phylip</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">PREFIX_TSV</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">i</span><span class="p">]</span>
+             <span class="p">[</span><span class="o">-</span><span class="n">f</span> <span class="n">FILELIST</span><span class="p">]</span>
+             <span class="p">[</span><span class="n">POPFILE</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<section id="PyPop.CommandLineInterface-get_pypop_cli-options-for-pypop">
+<h4>Options for pypop<a class="headerlink" href="#PyPop.CommandLineInterface-get_pypop_cli-options-for-pypop" title="Link to this heading">#</a></h4>
+<dl class="option-list">
+<dt><kbd>--citation</kbd></dt>
+<dd><p>Possible choices: apalike, bibtex, endnote, ris, codemeta, cff, schema.org, zenodo</p>
+<p>generate citation to PyPop for this version of PyPop</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'apalike'</span></code></p>
+</dd>
+<dt><kbd>-o, --outputdir</kbd></dt>
+<dd><p>put output in directory <code class="docutils literal notranslate"><span class="pre">OUTPUTDIR</span></code></p>
+</dd>
+<dt><kbd>-V, --version</kbd></dt>
+<dd><p>show program’s version number and exit</p>
+</dd>
+<dt><kbd>-d, --debug</kbd></dt>
+<dd><p>enable debugging output (sets log level to <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> and overrides config file setting)</p>
+</dd>
+<dt><kbd>--log-level</kbd></dt>
+<dd><p>Possible choices: DEBUG, INFO, WARNING, ERROR, CRITICAL</p>
+<p>set log level (overrides <code class="docutils literal notranslate"><span class="pre">-d</span></code>); one of: <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, <code class="docutils literal notranslate"><span class="pre">INFO</span></code>, <code class="docutils literal notranslate"><span class="pre">WARNING</span></code>, <code class="docutils literal notranslate"><span class="pre">ERROR</span></code>, <code class="docutils literal notranslate"><span class="pre">CRITICAL</span></code></p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.4.0.</span></p>
+</div>
+</dd>
+<dt><kbd>--log-file</kbd></dt>
+<dd><p>write logs to <code class="docutils literal notranslate"><span class="pre">LOGFILE</span></code> instead of <code class="docutils literal notranslate"><span class="pre">stdout</span></code></p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.4.0.</span></p>
+</div>
+</dd>
+<dt><kbd>-c, --config</kbd></dt>
+<dd><p>select config file</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'config.ini'</span></code></p>
+</dd>
+<dt><kbd>-m, --testmode</kbd></dt>
+<dd><p>run PyPop in test mode for unit testing</p>
+</dd>
+<dt><kbd>-x, --xsl</kbd></dt>
+<dd><p>override the default XSLT translation with <code class="docutils literal notranslate"><span class="pre">XSLFILE</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="PyPop.CommandLineInterface-get_pypop_cli-tsv-output-options">
+<h4>TSV output options<a class="headerlink" href="#PyPop.CommandLineInterface-get_pypop_cli-tsv-output-options" title="Link to this heading">#</a></h4>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">--enable-*</span></code> and <code class="docutils literal notranslate"><span class="pre">--prefix-tsv</span></code> options are only valid if <code class="docutils literal notranslate"><span class="pre">--enable-tsv</span></code>/<code class="docutils literal notranslate"><span class="pre">-t</span></code> is also supplied</p>
+<dl class="option-list">
+<dt><kbd>-t, --enable-tsv</kbd></dt>
+<dd><p>generate TSV output files (aka run <code class="docutils literal notranslate"><span class="pre">popmeta</span></code>)</p>
+</dd>
+<dt><kbd>--enable-ihwg</kbd></dt>
+<dd><p>enable 13th IWHG workshop populationdata default headers</p>
+</dd>
+<dt><kbd>--enable-phylip</kbd></dt>
+<dd><p>enable generation of PHYLIP <code class="docutils literal notranslate"><span class="pre">.phy</span></code> files</p>
+</dd>
+<dt><kbd>-p, --prefix-tsv</kbd></dt>
+<dd><p>append <code class="docutils literal notranslate"><span class="pre">PREFIX_TSV</span></code> to the output TSV files</p>
+</dd>
+</dl>
+</section>
+<section id="PyPop.CommandLineInterface-get_pypop_cli-mutually-exclusive-input-options">
+<h4>Mutually exclusive input options<a class="headerlink" href="#PyPop.CommandLineInterface-get_pypop_cli-mutually-exclusive-input-options" title="Link to this heading">#</a></h4>
+<dl class="option-list">
+<dt><kbd>-i, --interactive</kbd></dt>
+<dd><p>run in interactive mode, prompting user for file names</p>
+</dd>
+<dt><kbd>-f, --filelist</kbd></dt>
+<dd><p>file containing list of files (one per line) to process. files are resolved relative to <code class="docutils literal notranslate"><span class="pre">FILELIST</span></code>, unless absolute. mutually exclusive with supplying <code class="docutils literal notranslate"><span class="pre">POPFILE</span></code>)</p>
+</dd>
+<dt><kbd>POPFILE</kbd></dt>
+<dd><p>input population (<code class="docutils literal notranslate"><span class="pre">.pop</span></code>) file(s)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code></p>
+</dd>
+</dl>
+</section>
+</section>
+<section id="popmeta-usage">
+<span id="guide-popmeta-cli"></span><h3><code class="docutils literal notranslate"><span class="pre">popmeta</span></code> usage<a class="headerlink" href="#popmeta-usage" title="Link to this heading">#</a></h3>
+<p><p>Processes <code class="docutils literal notranslate"><span class="pre">XMLFILEs</span></code> and generates ‘meta’-analyses. <code class="docutils literal notranslate"><span class="pre">XMLFILE</span></code> are
+expected to be the XML output files taken from runs of <code class="docutils literal notranslate"><span class="pre">pypop</span></code>.  Will
+skip any XML files that are not well-formed XML.</p>
+</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usage</span><span class="p">:</span> <span class="n">popmeta</span> <span class="p">[</span><span class="o">-</span><span class="n">h</span><span class="p">]</span>
+               <span class="p">[</span><span class="o">--</span><span class="n">citation</span> <span class="p">[{</span><span class="n">apalike</span><span class="p">,</span><span class="n">bibtex</span><span class="p">,</span><span class="n">endnote</span><span class="p">,</span><span class="n">ris</span><span class="p">,</span><span class="n">codemeta</span><span class="p">,</span><span class="n">cff</span><span class="p">,</span><span class="n">schema</span><span class="o">.</span><span class="n">org</span><span class="p">,</span><span class="n">zenodo</span><span class="p">}]]</span>
+               <span class="p">[</span><span class="o">-</span><span class="n">o</span> <span class="n">OUTPUTDIR</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">V</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">d</span><span class="p">]</span>
+               <span class="p">[</span><span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="n">level</span> <span class="p">{</span><span class="n">DEBUG</span><span class="p">,</span><span class="n">INFO</span><span class="p">,</span><span class="n">WARNING</span><span class="p">,</span><span class="n">ERROR</span><span class="p">,</span><span class="n">CRITICAL</span><span class="p">}]</span>
+               <span class="p">[</span><span class="o">--</span><span class="n">log</span><span class="o">-</span><span class="n">file</span> <span class="n">LOGFILE</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">p</span> <span class="n">PREFIX_TSV</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">disable</span><span class="o">-</span><span class="n">tsv</span><span class="p">]</span>
+               <span class="p">[</span><span class="o">--</span><span class="n">output</span><span class="o">-</span><span class="n">meta</span><span class="p">]</span> <span class="p">[</span><span class="o">-</span><span class="n">x</span> <span class="n">XSLDIR</span><span class="p">]</span> <span class="p">[</span><span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">ihwg</span><span class="p">]</span>
+               <span class="p">[</span><span class="o">--</span><span class="n">enable</span><span class="o">-</span><span class="n">phylip</span> <span class="o">|</span> <span class="o">-</span><span class="n">b</span> <span class="n">FACTOR</span><span class="p">]</span>
+               <span class="n">XMLFILE</span> <span class="p">[</span><span class="n">XMLFILE</span> <span class="o">...</span><span class="p">]</span>
+</pre></div>
+</div>
+<section id="PyPop.CommandLineInterface-get_popmeta_cli-positional-arguments">
+<h4>Positional Arguments<a class="headerlink" href="#PyPop.CommandLineInterface-get_popmeta_cli-positional-arguments" title="Link to this heading">#</a></h4>
+<dl class="option-list">
+<dt><kbd>XMLFILE</kbd></dt>
+<dd><p>XML (<code class="docutils literal notranslate"><span class="pre">.xml</span></code>) file(s) generated by pypop runs</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">[]</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="PyPop.CommandLineInterface-get_popmeta_cli-options-for-popmeta">
+<h4>Options for popmeta<a class="headerlink" href="#PyPop.CommandLineInterface-get_popmeta_cli-options-for-popmeta" title="Link to this heading">#</a></h4>
+<dl class="option-list">
+<dt><kbd>--citation</kbd></dt>
+<dd><p>Possible choices: apalike, bibtex, endnote, ris, codemeta, cff, schema.org, zenodo</p>
+<p>generate citation to PyPop for this version of PyPop</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">'apalike'</span></code></p>
+</dd>
+<dt><kbd>-o, --outputdir</kbd></dt>
+<dd><p>put output in directory <code class="docutils literal notranslate"><span class="pre">OUTPUTDIR</span></code></p>
+</dd>
+<dt><kbd>-V, --version</kbd></dt>
+<dd><p>show program’s version number and exit</p>
+</dd>
+<dt><kbd>-d, --debug</kbd></dt>
+<dd><p>enable debugging output (sets log level to <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> and overrides config file setting)</p>
+</dd>
+<dt><kbd>--log-level</kbd></dt>
+<dd><p>Possible choices: DEBUG, INFO, WARNING, ERROR, CRITICAL</p>
+<p>set log level (overrides <code class="docutils literal notranslate"><span class="pre">-d</span></code>); one of: <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code>, <code class="docutils literal notranslate"><span class="pre">INFO</span></code>, <code class="docutils literal notranslate"><span class="pre">WARNING</span></code>, <code class="docutils literal notranslate"><span class="pre">ERROR</span></code>, <code class="docutils literal notranslate"><span class="pre">CRITICAL</span></code></p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.4.0.</span></p>
+</div>
+</dd>
+<dt><kbd>--log-file</kbd></dt>
+<dd><p>write logs to <code class="docutils literal notranslate"><span class="pre">LOGFILE</span></code> instead of <code class="docutils literal notranslate"><span class="pre">stdout</span></code></p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.4.0.</span></p>
+</div>
+</dd>
+<dt><kbd>-p, --prefix-tsv</kbd></dt>
+<dd><p>append <code class="docutils literal notranslate"><span class="pre">PREFIX_TSV</span></code> to the output TSV files</p>
+</dd>
+<dt><kbd>--disable-tsv</kbd></dt>
+<dd><p>disable generation of <code class="docutils literal notranslate"><span class="pre">.tsv</span></code> TSV files</p>
+</dd>
+<dt><kbd>--output-meta</kbd></dt>
+<dd><p>dump the meta output file to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>, ignore xslt file</p>
+</dd>
+<dt><kbd>-x, --xsldir</kbd></dt>
+<dd><p>use specified directory to find meta XSLT</p>
+</dd>
+<dt><kbd>--enable-ihwg</kbd></dt>
+<dd><p>enable 13th IWHG workshop populationdata default headers</p>
+</dd>
+</dl>
+</section>
+<section id="PyPop.CommandLineInterface-get_popmeta_cli-mutually-exclusive-popmeta-options">
+<h4>Mutually exclusive popmeta options<a class="headerlink" href="#PyPop.CommandLineInterface-get_popmeta_cli-mutually-exclusive-popmeta-options" title="Link to this heading">#</a></h4>
+<dl class="option-list">
+<dt><kbd>--enable-phylip</kbd></dt>
+<dd><p>enable generation of PHYLIP <code class="docutils literal notranslate"><span class="pre">.phy</span></code> files</p>
+</dd>
+<dt><kbd>-b, --batchsize</kbd></dt>
+<dd><p>process in batches of size total/<code class="docutils literal notranslate"><span class="pre">FACTOR</span></code> rather than all at once, by default do separately (<code class="docutils literal notranslate"><span class="pre">batchsize=0</span></code>)</p>
+<p>Default: <code class="docutils literal notranslate"><span class="pre">0</span></code></p>
+</dd>
+</dl>
+</section>
+<aside class="footnote-list brackets">
+<aside class="footnote brackets" id="id10" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">1</a><span class="fn-bracket">]</span></span>
+<p>These hardcoded numbers can be changed if you obtain the source code
+yourself and change the appropriate #define <code class="docutils literal notranslate"><span class="pre">emhaplofreq.h</span></code> and
+recompile the program.</p>
+</aside>
+<aside class="footnote brackets" id="id11" role="doc-footnote">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">2</a><span class="fn-bracket">]</span></span>
+<p>The Anthony Nolan list of deleted allele names
+(<a class="github reference external" href="https://github.com/ANHIG/IMGTHLA/blob/Latest/Deleted_alleles.txt">ANHIG/IMGTHLA</a>); and the
+Ambiguous Allele Combinations, release 2.18.0 (<a class="reference external" href="https://www.ebi.ac.uk/ipd/imgt/hla/ambiguity">https://www.ebi.ac.uk/ipd/imgt/hla/ambiguity</a>).</p>
+</aside>
+</aside>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="guide-chapter-install.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Installing PyPop</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="guide-chapter-instructions.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Interpreting PyPop output</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

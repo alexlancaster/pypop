@@ -1,0 +1,13 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_OkhotskEvenki_2002.pop	DQB1	50	50	lit	OkhotskEvenki_2002	Siberian	08-NEA	southern Siberia	1	population 20000 individuals, inhabit area from Lower Yenisey River to the Sea of Okhotsk, samples from Chumikan, Udinskoye, Tugur, Torom settlements by the Okhotsk Sea in Tugur-Chumikan Administrative District of Khabarovsk	60.00N	100.00E	1	0.98	PCR-SSCP	{UTS+02}	Uinuk-ool	2002	Origin and affinities of indigenous Siberian populations as revealed by HLA class II gene frequencies	Human Genetics	110	209-226	tanya@tuebingen.mpg.de		RU	Uinuk-ool		38s	1	primers listed	N		Y	N	N		F, LD				YT
+DQB1	count
+0201/0202	3
+0301/0309	10
+0302	6
+0303	13
+0402	6
+0501	3
+0502	3
+0503	1
+0602/0611	4
+0603/0614	1

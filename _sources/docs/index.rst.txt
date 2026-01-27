@@ -1,0 +1,112 @@
+.. _user-guide:
+
+################
+PyPop User Guide
+################
+
+.. only:: html
+
+   |guide_pdf_download_box|
+
+   |guide_subtitle|
+
+   |htmlauthor|
+
+   .. admonition:: *Documenting release*  |api_version|  *of PyPop*.
+
+      *Document revision:* |full_release|
+
+      See :ref:`Citing PyPop` for how to cite PyPop in your publication.
+
+      |uc_copyright| |br|
+      Copyright © |copyright|
+
+      **License terms** |gfdl_license_text| (:ref:`gfdl`).
+
+.. only:: latex or pdf
+
+   .. raw:: latex
+
+      % Place contents of footnote in a \pagenote
+      \OverwriteEnviron{footnote}[4]{\pagenote{\BODY}}
+      % FIXME: disable footnotetext, don't play nice with pagenote
+      \OverwriteEnviron{footnotetext}[4]{\relax}
+      \renewcommand{\sphinxfootnotemark}[4]{\relax}
+
+   .. include:: ../index.rst
+      :start-after: guide-preface-1-start:
+      :end-before: guide-preface-1-end:
+
+   .. include:: ../index.rst
+      :start-after: guide-preface-2-start:
+      :end-before: guide-preface-2-end:
+
+   **How to cite PyPop**
+
+   .. include:: ../../README.rst
+      :start-after: guide-include-pypop-cite-start:
+      :end-before: guide-include-pypop-zenodo-start:
+
+   .. admonition:: Zenodo details
+
+      .. include:: ../../README.rst
+         :start-after: guide-include-pypop-zenodo-start:
+         :end-before: guide-include-pypop-zenodo-end:
+
+   .. include:: ../index.rst
+      :start-after: guide-preface-3-start:
+      :end-before: guide-preface-3-end:
+
+   **Acknowledgements**
+
+   .. include:: ../index.rst
+      :start-after: guide-preface-acknowlegements-start:
+      :end-before: guide-preface-acknowlegements-end:
+
+**How to use this guide**
+
+This guide to PyPop contains five main parts:
+
+- :doc:`guide-chapter-install` describes how to install PyPop,
+  including pre-release binaries.
+
+- :doc:`guide-chapter-usage` describes how to run PyPop.
+
+- :doc:`guide-chapter-instructions` details the population genetic
+  methods and statistics that PyPop computes.
+
+- :doc:`guide-chapter-contributing` details how to contribute to
+  ongoing PyPop code and documentation.
+
+- :doc:`guide-chapter-changes` acknowledges our contributors and
+  project history.
+
+
+.. only:: latex
+
+   References to the *API Reference* can be found in the |apidocs_pdf_link|
+
+.. only:: html
+
+   **Full Table of Contents**
+
+.. _user-guide-toc:
+
+.. toctree::
+   :numbered: 2
+   :maxdepth: |toc_maxdepth|
+
+   guide-chapter-install
+   guide-chapter-usage
+   guide-chapter-instructions
+   guide-chapter-contributing
+   guide-chapter-changes
+   licenses
+
+.. toctree::
+
+   biblio
+
+.. |br| raw:: html
+
+   <br/>

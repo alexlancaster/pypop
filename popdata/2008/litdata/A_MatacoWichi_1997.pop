@@ -1,0 +1,9 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+A_MatacoWichi_1997.pop	A	88	88	lit	MatacoWichi_1997	Amerindian	10-SAM	Argentina	1	Gran Chaco area in northeastern Argentina	34.00S	64.00W	1	1	PCR-SSOP	{FLM+97}	Fernandez-Vina	1997	Dissimilar evolution of B-locus versus A-locus and class II loci of the HLA region in South American Indian tribes	Tissue Antigens	50	233-250			AR	Stastny	1301253	53	1	Gao et al 1990, all Amerindian alleles	N		Y	N	N		HW, aa pockets, F, LD			12th? - Checked, not evident	YT
+A	count
+0201	19
+0219	7
+2402	9
+2403	10
+3101	34
+68012	9

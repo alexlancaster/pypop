@@ -1,0 +1,810 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>API Reference (1.4.0) &#8212; PyPop 1.4.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=deb9c837" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9172181d"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'api/index';</script>
+    <link rel="icon" href="../_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="PyPop.citation" href="PyPop/citation/index.html" />
+    <link rel="prev" title="References" href="../docs/biblio.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.4.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="../_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../docs/index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="PyPop/citation/index.html">PyPop.citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/command_line_interface/index.html">PyPop.command_line_interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/datatypes/index.html">PyPop.datatypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/filters/index.html">PyPop.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/haplo/index.html">PyPop.haplo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/hardyweinberg/index.html">PyPop.hardyweinberg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/homozygosity/index.html">PyPop.homozygosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/parsers/index.html">PyPop.parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/popaggregate/index.html">PyPop.popaggregate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/popanalysis/index.html">PyPop.popanalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/popmeta/index.html">PyPop.popmeta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/pypop/index.html">PyPop.pypop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/randombinning/index.html">PyPop.randombinning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/utils/index.html">PyPop.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/xslt/index.html">PyPop.xslt</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="PyPop/arlequin/index.html">PyPop.arlequin - DEPRECATED</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#api-changes">API changes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#module-PyPop">Package introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#submodules">Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#deprecated-submodules">Deprecated Submodules</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#attributes">Attributes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#exceptions">Exceptions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#functions">Functions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#package-contents">Package Contents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.PyPopModuleRenameDeprecationWarning"><code class="docutils literal notranslate"><span class="pre">PyPopModuleRenameDeprecationWarning</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.logger"><code class="docutils literal notranslate"><span class="pre">logger</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.__version__"><code class="docutils literal notranslate"><span class="pre">__version__</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.copyright_message"><code class="docutils literal notranslate"><span class="pre">copyright_message</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.platform_info"><code class="docutils literal notranslate"><span class="pre">platform_info</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#PyPop.setup_logger"><code class="docutils literal notranslate"><span class="pre">setup_logger()</span></code></a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="../genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="../py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">API Reference (1.4.0)</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="api-reference-api-version">
+<span id="api-reference-top"></span><h1>API Reference (1.4.0)<a class="headerlink" href="#api-reference-api-version" title="Link to this heading">#</a></h1>
+<p><div style="text-align: right; font-size: 120%; margin-top: -1em; margin-bottom: 1em;">
+<a href="../pypop-api-1.4.0.pdf">📥 PDF version</a>
+</div></p>
+<p><strong>Developer documentation</strong></p>
+<div class="admonition-documenting-api-for-release-api-version-of-pypop admonition">
+<p class="admonition-title"><em>Documenting API for release</em>  1.4.0  <em>of PyPop</em>.</p>
+<p><em>Document revision:</em> 1.4.0.post8+gc935a7b36</p>
+<p>This API reference guide for PyPop is automatically generated from
+the 1.4.0 source code via <a class="reference external" href="https://github.com/readthedocs/sphinx-autoapi">sphinx-autoapi</a>.</p>
+<p>Copyright © 2025 PyPop contributors</p>
+<p><strong>License terms</strong> Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A copy of the license is included in the License chapter. (<a class="reference internal" href="../docs/licenses.html#gfdl"><span class="std std-ref">GNU Free Documentation License</span></a>)</p>
+</div>
+<section id="api-changes">
+<h2>API changes<a class="headerlink" href="#api-changes" title="Link to this heading">#</a></h2>
+<p>In PyPop 1.4.0, modules have been renamed to follow the lower-case
+convention of <a class="reference external" href="https://peps.python.org/pep-0008/#package-and-module-names">PEP8</a>.  In
+addition to lowercasing, some have further renaming to clarify their
+purpose and follow standard conventions. Backwards-compatibile
+bindings have been created that allow end-user Python scripts using
+the PyPop API to continue to work with the old module names.  However
+such use will raise a
+<a class="reference internal" href="#PyPop.PyPopModuleRenameDeprecationWarning" title="PyPop.PyPopModuleRenameDeprecationWarning"><code class="xref py py-exc docutils literal notranslate"><span class="pre">PyPopModuleRenameDeprecationWarning</span></code></a> (a custom
+<a class="reference external" href="https://docs.python.org/3/library/exceptions.html#DeprecationWarning" title="(in Python v3.14)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">DeprecationWarning</span></code></a>). In the following minor release, 1.5.0, the
+warnings will become more visible <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#UserWarning" title="(in Python v3.14)"><code class="xref py py-exc docutils literal notranslate"><span class="pre">UserWarning</span></code></a>. These bindings
+will be completely removed in the next major release.</p>
+<dl class="simple">
+<dt>Note:</dt><dd><p>Command-line users of <code class="docutils literal notranslate"><span class="pre">pypop</span></code> will not be affected by these
+changes, which are completely internal, scripts will continue to
+work with no changes needed in any configuration files.</p>
+</dd>
+</dl>
+<p>Below are the list of all API changes, including removals and any
+other ongoing API deprecations, and notifications of upcoming
+removals.</p>
+<div class="versionchanged">
+<p><span class="versionmodified changed">Changed in version 1.4.0: </span>The following modules were renamed or refactored:</p>
+<ul class="simple">
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.CommandLineInterface</span></code> → <a class="reference internal" href="PyPop/command_line_interface/index.html#module-PyPop.command_line_interface" title="PyPop.command_line_interface"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.command_line_interface</span></code></a>
+Lowercased for PEP8 compliance; underscores separate readable words.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.DataTypes</span></code> → <a class="reference internal" href="PyPop/datatypes/index.html#module-PyPop.datatypes" title="PyPop.datatypes"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.datatypes</span></code></a>
+Lowercased for PEP8 compliance and consistency with plural naming for
+data structures.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.Filter</span></code> → <a class="reference internal" href="PyPop/filters/index.html#module-PyPop.filters" title="PyPop.filters"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.filters</span></code></a>
+Lowercased and clarified plural form since module defines multiple
+filter functions.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.Haplo</span></code> → <a class="reference internal" href="PyPop/haplo/index.html#module-PyPop.haplo" title="PyPop.haplo"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.haplo</span></code></a>
+Lowercased for PEP8 compliance.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.HardyWeinberg</span></code> → <a class="reference internal" href="PyPop/hardyweinberg/index.html#module-PyPop.hardyweinberg" title="PyPop.hardyweinberg"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.hardyweinberg</span></code></a>
+Lowercased for PEP8 compliance.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.Homozygosity</span></code> → <a class="reference internal" href="PyPop/homozygosity/index.html#module-PyPop.homozygosity" title="PyPop.homozygosity"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.homozygosity</span></code></a>
+Lowercased for PEP8 compliance.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.Main</span></code> → <a class="reference internal" href="PyPop/popanalysis/index.html#module-PyPop.popanalysis" title="PyPop.popanalysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.popanalysis</span></code></a>
+Lowercased and renamed for clarity; represents per-population analysis
+rather than script entry point.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.Meta</span></code> → <a class="reference internal" href="PyPop/popaggregate/index.html#module-PyPop.popaggregate" title="PyPop.popaggregate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.popaggregate</span></code></a>
+Lowercased and renamed for clarity; aggregates results across
+populations, not ‘metadata’.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.ParseFile</span></code> → <a class="reference internal" href="PyPop/parsers/index.html#module-PyPop.parsers" title="PyPop.parsers"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.parsers</span></code></a>
+Lowercased for and renamed for clarity: module parses multiple file
+types, not just one file.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.RandomBinning</span></code> → <a class="reference internal" href="PyPop/randombinning/index.html#module-PyPop.randombinning" title="PyPop.randombinning"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.randombinning</span></code></a>
+Lowercased for PEP8 compliance.</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.Utils</span></code> → <a class="reference internal" href="PyPop/utils/index.html#module-PyPop.utils" title="PyPop.utils"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.utils</span></code></a>
+Lowercased for PEP8 compliance.</p></li>
+</ul>
+</div>
+<div class="versionremoved">
+<p><span class="versionmodified removed">Removed in version 1.4.0: </span>The following modules or classes were removed:</p>
+<ul class="simple">
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.GUIApp</span></code>
+Obsolete, never fully implemented a full <code class="docutils literal notranslate"><span class="pre">wxPython</span></code> UI. Replaced by
+built-in Tkinter file-picker</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.Utils.Index</span></code>
+Obsolete, replaced with <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a> with it’s own
+<code class="docutils literal notranslate"><span class="pre">Index</span></code> class</p></li>
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.Utils.OrderedDict</span></code>
+Obsolete, replaced with <a class="reference external" href="https://docs.python.org/3/library/collections.html#collections.OrderedDict" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code></a></p></li>
+</ul>
+</div>
+<div class="deprecated">
+<p><span class="versionmodified deprecated">Deprecated since version 1.0.0: </span>The following modules were marked deprecated:</p>
+<ul class="simple">
+<li><p><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.Arlequin</span></code> → <a class="reference internal" href="PyPop/arlequin/index.html#module-PyPop.arlequin" title="PyPop.arlequin"><code class="xref py py-mod docutils literal notranslate"><span class="pre">PyPop.arlequin</span></code></a>
+<strong>Scheduled for removal in 1.5.0.</strong>
+Lowercased for PEP8 compliance.</p></li>
+</ul>
+</div>
+</section>
+<section id="module-PyPop">
+<span id="package-introduction"></span><h2>Package introduction<a class="headerlink" href="#module-PyPop" title="Link to this heading">#</a></h2>
+<p><strong>PyPop is a framework for performing population genetics analyses</strong>.</p>
+<p>PyPop was originally designed as an end-to-end pipeline that reads
+configuration files and datasets and produces standardized
+outputs. While the primary workflow is file-based, most internal
+functionality is exposed as Python modules and classes.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Updates to PyPop’s API to better expose and streamline “library”
+access to PyPop’s functionality in end-user programs is still a
+work-in-progress. Although this API is intended to serve end-users
+and developers of PyPop, parts of it are not yet optimized for
+end-users.</p>
+</div>
+<p>Driving PyPop programmatically can be done via the
+<a class="reference internal" href="PyPop/popanalysis/index.html#module-PyPop.popanalysis" title="PyPop.popanalysis"><code class="xref py py-mod docutils literal notranslate"><span class="pre">popanalysis</span></code></a> and <a class="reference internal" href="PyPop/popaggregate/index.html#module-PyPop.popaggregate" title="PyPop.popaggregate"><code class="xref py py-mod docutils literal notranslate"><span class="pre">popaggregate</span></code></a> modules. In
+the example below, we run an simple analysis on a single input
+<code class="docutils literal notranslate"><span class="pre">.pop</span></code> file and generate output TSV files. There are two main steps:</p>
+<ol class="arabic simple">
+<li><p>Create the <a class="reference external" href="https://docs.python.org/3/library/configparser.html#configparser.ConfigParser" title="(in Python v3.14)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ConfigParser</span></code></a> instance (see
+<a class="reference internal" href="../docs/guide-chapter-usage.html#guide-usage-configfile"><span class="std std-ref">configuration file section</span></a> in the
+<em>PyPop User Guide</em> for the description of the configuration
+options), supply this to the <a class="reference internal" href="PyPop/popanalysis/index.html#PyPop.popanalysis.Main" title="PyPop.popanalysis.Main"><code class="xref py py-class docutils literal notranslate"><span class="pre">Main</span></code></a>
+class, along with an input <code class="docutils literal notranslate"><span class="pre">.pop</span></code> file, to perform the analysis.</p></li>
+<li><p>Next get the name of output XML file from the generated <code class="docutils literal notranslate"><span class="pre">Main</span></code>
+instance, and pass it to the <a class="reference internal" href="PyPop/popaggregate/index.html#PyPop.popaggregate.Meta" title="PyPop.popaggregate.Meta"><code class="xref py py-class docutils literal notranslate"><span class="pre">Meta</span></code></a> to
+generate TSV output files.</p></li>
+</ol>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">PyPop.popanalysis</span><span class="w"> </span><span class="kn">import</span> <span class="n">Main</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">configparser</span><span class="w"> </span><span class="kn">import</span> <span class="n">ConfigParser</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span> <span class="o">=</span> <span class="n">ConfigParser</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">config</span><span class="o">.</span><span class="n">read_dict</span><span class="p">({</span>
+<span class="gp">... </span>    <span class="s2">&quot;ParseGenotypeFile&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;validSampleFields&quot;</span><span class="p">:</span> <span class="s2">&quot;*a_1</span><span class="se">\n</span><span class="s2">*a_2&quot;</span><span class="p">},</span>
+<span class="gp">... </span>    <span class="s2">&quot;HardyWeinberg&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;lumpBelow&quot;</span><span class="p">:</span> <span class="s2">&quot;5&quot;</span><span class="p">}})</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pop_contents</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;a_1</span><span class="se">\t</span><span class="s1">a_2</span>
+<span class="gp">... </span><span class="s1">01:01</span><span class="se">\t</span><span class="s1">02:01</span>
+<span class="gp">... </span><span class="s1">02:10</span><span class="se">\t</span><span class="s1">03:01:02&#39;&#39;&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;my.pop&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">_</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pop_contents</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">application</span> <span class="o">=</span> <span class="n">Main</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">fileName</span><span class="o">=</span><span class="s2">&quot;my.pop&quot;</span><span class="p">,</span>
+<span class="gp">... </span>    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;fake&quot;</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">LOG: no XSL file, skipping text output</span>
+<span class="go">LOG: Data file has no header data block</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">outXML</span> <span class="o">=</span> <span class="n">application</span><span class="o">.</span><span class="n">getXmlOutPath</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span><span class="w"> </span><span class="nn">PyPop.popaggregate</span><span class="w"> </span><span class="kn">import</span> <span class="n">Meta</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">_</span> <span class="o">=</span> <span class="n">Meta</span> <span class="p">(</span><span class="n">TSV_output</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">xml_files</span><span class="o">=</span><span class="p">[</span><span class="n">outXML</span><span class="p">])</span>
+<span class="go">./1-locus-hardyweinberg.tsv</span>
+<span class="go">./1-locus-summary.tsv</span>
+<span class="go">./1-locus-allele.tsv</span>
+<span class="go">./1-locus-genotype.tsv</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>The <a class="reference internal" href="../docs/guide-chapter-usage.html#guide-usage-examples-api"><span class="std std-ref">PyPop API examples</span></a> in the
+<em>PyPop User Guide</em> for a more detailed breakdown of use of the API.</p>
+</div>
+</section>
+<section id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/citation/index.html">PyPop.citation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/command_line_interface/index.html">PyPop.command_line_interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/datatypes/index.html">PyPop.datatypes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/filters/index.html">PyPop.filters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/haplo/index.html">PyPop.haplo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/hardyweinberg/index.html">PyPop.hardyweinberg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/homozygosity/index.html">PyPop.homozygosity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/parsers/index.html">PyPop.parsers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/popaggregate/index.html">PyPop.popaggregate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/popanalysis/index.html">PyPop.popanalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/popmeta/index.html">PyPop.popmeta</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/pypop/index.html">PyPop.pypop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/randombinning/index.html">PyPop.randombinning</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/utils/index.html">PyPop.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/xslt/index.html">PyPop.xslt</a></li>
+</ul>
+</div>
+</section>
+<section id="deprecated-submodules">
+<h2>Deprecated Submodules<a class="headerlink" href="#deprecated-submodules" title="Link to this heading">#</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="PyPop/arlequin/index.html">PyPop.arlequin - DEPRECATED</a></li>
+</ul>
+</div>
+</section>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.logger" title="PyPop.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">logger</span></code></a></p></td>
+<td><p>Package-wide logger used throughout a PyPop run.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.__version__" title="PyPop.__version__"><code class="xref py py-obj docutils literal notranslate"><span class="pre">__version__</span></code></a></p></td>
+<td><p>PyPop version. If installed, this is the package version, otherwise it returns repository version.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.copyright_message" title="PyPop.copyright_message"><code class="xref py py-obj docutils literal notranslate"><span class="pre">copyright_message</span></code></a></p></td>
+<td><p>copyright information used in <code class="docutils literal notranslate"><span class="pre">--help</span></code> screens and elsewhere</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#PyPop.platform_info" title="PyPop.platform_info"><code class="xref py py-obj docutils literal notranslate"><span class="pre">platform_info</span></code></a></p></td>
+<td><p>platform information used in <code class="docutils literal notranslate"><span class="pre">--help</span></code> screens and elsewhere</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="exceptions">
+<h2>Exceptions<a class="headerlink" href="#exceptions" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.PyPopModuleRenameDeprecationWarning" title="PyPop.PyPopModuleRenameDeprecationWarning"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PyPopModuleRenameDeprecationWarning</span></code></a></p></td>
+<td><p>Deprecation warning for PyPop module renames.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">#</a></h2>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#PyPop.setup_logger" title="PyPop.setup_logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">setup_logger</span></code></a>([level, filename, doctest_mode])</p></td>
+<td><p>Configure the 'pypop' logger with stdout/file handler, optional debug verbosity, and doctest mode.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="package-contents">
+<h2>Package Contents<a class="headerlink" href="#package-contents" title="Link to this heading">#</a></h2>
+<dl class="py exception">
+<dt class="sig sig-object py" id="PyPop.PyPopModuleRenameDeprecationWarning">
+<span class="property"><span class="k"><span class="pre">exception</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">PyPopModuleRenameDeprecationWarning</span></span><a class="headerlink" href="#PyPop.PyPopModuleRenameDeprecationWarning" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#DeprecationWarning" title="(in Python v3.14)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DeprecationWarning</span></code></a></p>
+<div class="graphviz"><img src="../_images/inheritance-92ff7343804496cbcc5f642cbe75ba9620001a09.png" alt="Inheritance diagram of PyPop.PyPopModuleRenameDeprecationWarning" class="inheritance graphviz" /></div>
+<p>Deprecation warning for PyPop module renames.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.4.0.</span></p>
+</div>
+<p>Initialize self.  See help(type(self)) for accurate signature.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.logger">
+<span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#PyPop.logger" title="Link to this definition">#</a></dt>
+<dd><p>Package-wide logger used throughout a PyPop run.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.4.0.</span></p>
+</div>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.__version__">
+<span class="sig-name descname"><span class="pre">__version__</span></span><a class="headerlink" href="#PyPop.__version__" title="Link to this definition">#</a></dt>
+<dd><p>PyPop version. If installed, this is the package version, otherwise it returns repository version.</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.copyright_message">
+<span class="sig-name descname"><span class="pre">copyright_message</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">Multiline-String</span></span><a class="headerlink" href="#PyPop.copyright_message" title="Link to this definition">#</a></dt>
+<dd><details><summary>Show Value</summary><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;Copyright (C) 2003-2006 Regents of the University of California.</span>
+<span class="sd">Copyright (C) 2007-2025 PyPop team.</span>
+<span class="sd">This is free software.  There is NO warranty; not even for</span>
+<span class="sd">MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+</details><p>copyright information used in <code class="docutils literal notranslate"><span class="pre">--help</span></code> screens and elsewhere</p>
+</dd></dl>
+
+<dl class="py data">
+<dt class="sig sig-object py" id="PyPop.platform_info">
+<span class="sig-name descname"><span class="pre">platform_info</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'[Python</span> <span class="pre">Uninferable</span> <span class="pre">|</span> <span class="pre">Uninferable</span> <span class="pre">|</span> <span class="pre">Uninferable]'</span></span><a class="headerlink" href="#PyPop.platform_info" title="Link to this definition">#</a></dt>
+<dd><p>platform information used in <code class="docutils literal notranslate"><span class="pre">--help</span></code> screens and elsewhere</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="PyPop.setup_logger">
+<span class="sig-name descname"><span class="pre">setup_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">level</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">logging.INFO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">doctest_mode</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#PyPop.setup_logger" title="Link to this definition">#</a></dt>
+<dd><p>Configure the ‘pypop’ logger with stdout/file handler, optional debug verbosity, and doctest mode.</p>
+<div class="versionadded">
+<p><span class="versionmodified added">Added in version 1.4.0.</span></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>level</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – <code class="docutils literal notranslate"><span class="pre">INFO</span></code> (default), <code class="docutils literal notranslate"><span class="pre">DEBUG</span></code> (more
+detailed), <code class="docutils literal notranslate"><span class="pre">WARNING</span></code>, <code class="docutils literal notranslate"><span class="pre">CRITICAL</span></code></p></li>
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) – Optional file to log to. If <code class="docutils literal notranslate"><span class="pre">None</span></code>,
+logs to <code class="docutils literal notranslate"><span class="pre">stdout</span></code>.</p></li>
+<li><p><strong>doctest_mode</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If True, forcibly rebinds the
+logger to sys.stdout and disables propagation so doctests see
+output.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../docs/biblio.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">References</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="PyPop/citation/index.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">PyPop.citation</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

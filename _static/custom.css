@@ -1,0 +1,171 @@
+pre {
+    tab-size: 12; /* Adjust as needed */
+    -moz-tab-size: 12;
+    -o-tab-size: 12;
+    -webkit-tab-size: 12;
+}
+
+ /* override for a specific file using :class: */
+.tab-width-15 pre {
+    tab-size: 15;
+}
+
+/* only hide the top-level TOC title link on index.rst */
+html[data-content_root="./"] div#right_sidebar .page_toc > ul > li:first-child > a.reference.internal {
+    display: none;
+}
+
+/* Center only the top-level H1 on the index page */
+body[data-page="index"] article.bd-article > section > h1 {
+  text-align: center;
+}
+
+/* Center only the top-level title on the index page */
+body[data-page="index"] #pypop-python-for-population-genomics > h1 {
+    text-align: center;
+}
+
+
+.bd-main .bd-content .bd-article-container {
+  max-width: 100%;   default is 60em
+}
+
+.bd-page-width {
+     max-width: 95%;   /* default is 88rem */
+}
+
+/* vertical align logo table */
+table.logo-table td {
+    vertical-align: middle;
+}
+
+/* Show light logo by default, hide dark logo */
+.logo-light { display: inline; }
+.logo-dark  { display: none; }
+
+/* Switch for dark mode using prefers-color-scheme */
+@media (prefers-color-scheme: dark) {
+    .logo-light { display: none; }
+    .logo-dark  { display: inline; }
+}
+
+img.no-background {
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+
+/* containers */
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-cell {
+    flex: 0 0 20%;
+    text-align: center;
+}
+
+.text-cell {
+    flex: 1 0 75%;
+}
+
+/* Mobile stacking */
+@media (max-width: 768px) {
+
+  .logo-container {
+      width: 100%;
+      flex-direction: column;   /* stack logo above text */
+      align-items: center;      /* optional: center horizontally */
+  }
+  .logo-cell, .text-cell {
+      flex: 0 0 auto;           /* let them size naturally */
+      width: 100%;              /* optional: full width */
+      text-align: left;       /* optional: center content */
+  }
+
+}
+
+/* Make AutoAPI summary tables scroll horizontally on small screens */
+table.docutils.autosummary {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    margin: 1em 0;
+}
+
+/* Better alignment */
+table.docutils.autosummary td,
+table.docutils.autosummary th {
+    text-align: left !important;
+    vertical-align: top;
+    padding: 0.4em 0.6em;
+}
+
+/* Responsive AutoAPI tables: collapse to blocks on small screens */
+@media (max-width: 768px) {
+    table.docutils.autosummary,
+    table.docutils.autosummary thead,
+    table.docutils.autosummary tbody,
+    table.docutils.autosummary tr,
+    table.docutils.autosummary td,
+    table.docutils.autosummary th {
+        display: block;
+        width: 100%;
+    }
+
+    /* Hide headers */
+    table.docutils.autosummary thead {
+        display: none;
+    }
+
+    /* Each row as a card */
+    table.docutils.autosummary tr {
+        margin: 0 0 1em 0;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 0.6em;
+    }
+
+    /* First cell = object name */
+    table.docutils.autosummary td:first-child {
+        font-weight: bold;
+        margin-bottom: 0.3em;
+        display: block;
+    }
+
+    /* Second cell = description */
+    table.docutils.autosummary td:nth-child(2) {
+        display: block;
+        padding-left: 0;
+    }
+}
+
+div.versionremoved {
+  vertical-align: middle;
+  margin: 1.5625em auto;
+  padding: 0 0.6rem;
+  overflow: hidden;
+  page-break-inside: avoid;
+  break-inside: avoid;
+  border-left: 0.2rem solid;
+  border-color: var(--pst-color-danger);
+  border-radius: 0.25rem; /* replace $admonition-border-radius with actual value if needed */
+  background-color: var(--pst-color-danger-bg);
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* approximate @include box-shadow */
+  content: var(--pst-icon-versionmodified-removed);
+}
+
+div.versionremoved > p {
+  margin-bottom: 0.6rem;
+  margin-top: 0.6rem;
+}
+
+div.versionremoved a {
+  color: var(--pst-color-link-higher-contrast);
+}

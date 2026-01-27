@@ -1,0 +1,28 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_Nu_2007.pop	DRB1	214	211	lit	Nu_2007	Asian	05-SEA	China	3	Tibeto-Burman speakers and resided in the Nujiang Lisu Autonomous Prefecture Yunnan Province of southwest China	27.29N	99.75E	0.986	1			Chen	2007	Origin of Tibeto-Burman speakers: Evidence from HLA allele distribution in Lisu and Nu inhabiting Yunnan of China	Human Immunology	68	550-559																			ODS
+DRB1	count
+120201	49
+080302	36
+140401	27
+140101	22
+150101	15
+150201	12
+1504	8
+040501	7
+080201	4
+090102	4
+110101	4
+110401	3
+010101	2
+040101	2
+040301	2
+110601	2
+1312	2
+1410	2
+160201	2
+030101	1
+0406	1
+040701	1
+100101	1
+120101	1
+130101	1

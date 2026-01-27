@@ -1,0 +1,7 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+A_Kogui_2000.pop	A	100	100	lit	Kogui_2000	Amerindian	10-SAM	Colombia	2	Kogui tribe of Columbia, Amerindian tribe, Macro-Chibcha linguistic stock, living in low mountain region of Sierra Nevada, in northern Colombia	4.00N	72.00W	1	1	PCR-SSOP	{MWM+00}	Middleton	2000	Analysis of the Distribution of HLA-A Alleles in Populations from Five Continents	Human Immunology	61	1048-1052			CO	Middleton		53	1	Williams et al 1997, 1999	N		N	N	N		HW				YT
+A	count
+0201	2
+2402101	48
+31012	25
+68012	25

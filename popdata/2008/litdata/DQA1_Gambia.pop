@@ -1,0 +1,10 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+DQA1_Gambia.pop	DQA1	292	292	mid	Gambia	Black	01-SSA	GAMBIA	0	Some alleles separated by a slash (DQB1*0602/06111, 0603/0614, 0302   /0307 could not be distinguished. In all cases frequency is given for fi   rst allele.	13N	15W	1	1	SSOP		ANN BEGOVICH	2000	Begovich AB, et al. HLA-DQ haplotypes in 15 different populatio   ns. In: The Major Histocompatibility Complex: Evoluion, Structure and Fu   nction. Ed. M.Kasahara. Springer Verlag, pp412-426. Begovich AB. Tissue   Antigens 2001: 57: 424-439.				Ann.Begovich@celeradiagnostics.com		146	Not Known	ANTHROPOLOGY STUDY	DM
+DQA1	count
+0101	32
+0102	65
+0103	9
+0201	15
+03	35
+0401	19
+0501	117

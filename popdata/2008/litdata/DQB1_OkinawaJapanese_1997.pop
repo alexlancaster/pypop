@@ -1,0 +1,17 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_OkinawaJapanese_1997.pop	DQB1	258	258	lit	OkinawaJapanese_1997	Asian	08-NEA	Okinawa, Japan	2	42 men and 87 women, age 20 to 75	36.00N	138.00E	1	1	PCR-RFLP	{ASI97}	Akisaka	1997	Molecular genetic studies on DNA polymorphism of the HLA class II genes associated with human longevity	Tissue Antigens	50	489-493			JP	Akisaka	1301166	38	1	Inoko et al 1993, Ota et al 1992	N		N	N	Y	longevity				13th? - No, JPNTKN-Ryukuan.pop has only locus A	YT
+DQB1	count
+0201	2
+0301	47
+0302	21
+0303	21
+0401	52
+0402	12
+0501	6
+0502	3
+0503	6
+0601	28
+0602	37
+0603	3
+0604	13
+0605	7

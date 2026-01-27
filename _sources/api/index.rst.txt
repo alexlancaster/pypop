@@ -1,0 +1,370 @@
+.. _api-reference-top:
+
+API Reference (|api_version|)
+=============================
+
+.. only:: latex
+
+   .. raw:: latex
+
+      % Place contents of footnote in a \pagenote
+      \OverwriteEnviron{footnote}[4]{\pagenote{\BODY}}
+      % FIXME: disable footnotetext, don't play nice with pagenote
+      \OverwriteEnviron{footnotetext}[4]{\relax}
+      \renewcommand{\sphinxfootnotemark}[4]{\relax}
+
+.. only:: html
+
+   |api_pdf_download_box|
+
+   |apidocs_subtitle|
+
+.. admonition:: *Documenting API for release*  |api_version|  *of PyPop*.
+
+   *Document revision:* |full_release|
+
+   This API reference guide for PyPop is automatically generated from
+   the |api_version| source code via `sphinx-autoapi
+   <https://github.com/readthedocs/sphinx-autoapi>`_.
+
+   Copyright © |copyright|
+
+   .. only:: html
+
+      **License terms** |gfdl_license_text| (:ref:`gfdl`)
+
+   .. only:: latex
+
+      **License terms** |gfdl_license_text| (:ref:`api-gfdl`)
+
+      References to the *User Guide* can be found in the
+      |guide_pdf_link|.
+
+.. only:: latex or pdf
+
+   .. toctree::
+      :maxdepth: 3
+
+
+API changes
+-----------
+
+In PyPop 1.4.0, modules have been renamed to follow the lower-case
+convention of `PEP8
+<https://peps.python.org/pep-0008/#package-and-module-names>`_.  In
+addition to lowercasing, some have further renaming to clarify their
+purpose and follow standard conventions. Backwards-compatibile
+bindings have been created that allow end-user Python scripts using
+the PyPop API to continue to work with the old module names.  However
+such use will raise a
+:exc:`~PyPop.PyPopModuleRenameDeprecationWarning` (a custom
+:exc:`DeprecationWarning`). In the following minor release, 1.5.0, the
+warnings will become more visible :exc:`UserWarning`. These bindings
+will be completely removed in the next major release.
+
+Note:
+  Command-line users of ``pypop`` will not be affected by these
+  changes, which are completely internal, scripts will continue to
+  work with no changes needed in any configuration files.
+
+Below are the list of all API changes, including removals and any
+other ongoing API deprecations, and notifications of upcoming
+removals.
+
+
+
+.. versionchanged:: 1.4.0
+   The following modules were renamed or refactored:
+
+   - :mod:`PyPop.CommandLineInterface` → :mod:`PyPop.command_line_interface`
+     Lowercased for PEP8 compliance; underscores separate readable words.
+
+   - :mod:`PyPop.DataTypes` → :mod:`PyPop.datatypes`
+     Lowercased for PEP8 compliance and consistency with plural naming for
+     data structures.
+
+   - :mod:`PyPop.Filter` → :mod:`PyPop.filters`
+     Lowercased and clarified plural form since module defines multiple
+     filter functions.
+
+   - :mod:`PyPop.Haplo` → :mod:`PyPop.haplo`
+     Lowercased for PEP8 compliance.
+
+   - :mod:`PyPop.HardyWeinberg` → :mod:`PyPop.hardyweinberg`
+     Lowercased for PEP8 compliance.
+
+   - :mod:`PyPop.Homozygosity` → :mod:`PyPop.homozygosity`
+     Lowercased for PEP8 compliance.
+
+   - :mod:`PyPop.Main` → :mod:`PyPop.popanalysis`
+     Lowercased and renamed for clarity; represents per-population analysis
+     rather than script entry point.
+
+   - :mod:`PyPop.Meta` → :mod:`PyPop.popaggregate`
+     Lowercased and renamed for clarity; aggregates results across
+     populations, not 'metadata'.
+
+   - :mod:`PyPop.ParseFile` → :mod:`PyPop.parsers`
+     Lowercased for and renamed for clarity: module parses multiple file
+     types, not just one file.
+
+   - :mod:`PyPop.RandomBinning` → :mod:`PyPop.randombinning`
+     Lowercased for PEP8 compliance.
+
+   - :mod:`PyPop.Utils` → :mod:`PyPop.utils`
+     Lowercased for PEP8 compliance.
+
+.. versionremoved:: 1.4.0
+   The following modules or classes were removed:
+
+   - :mod:`PyPop.GUIApp`
+     Obsolete, never fully implemented a full ``wxPython`` UI. Replaced by
+     built-in Tkinter file-picker
+
+   - :mod:`PyPop.Utils.Index`
+     Obsolete, replaced with :class:`collections.OrderedDict` with it's own
+     ``Index`` class
+
+   - :mod:`PyPop.Utils.OrderedDict`
+     Obsolete, replaced with :class:`collections.OrderedDict`
+
+.. deprecated:: 1.0.0
+   The following modules were marked deprecated:
+
+   - :mod:`PyPop.Arlequin` → :mod:`PyPop.arlequin`
+     **Scheduled for removal in 1.5.0.**
+     Lowercased for PEP8 compliance.
+
+
+Package introduction
+--------------------
+
+.. py:module:: PyPop
+
+.. autoapi-nested-parse::
+
+   **PyPop is a framework for performing population genetics analyses**.
+
+   PyPop was originally designed as an end-to-end pipeline that reads
+   configuration files and datasets and produces standardized
+   outputs. While the primary workflow is file-based, most internal
+   functionality is exposed as Python modules and classes.
+
+   .. important::
+
+      Updates to PyPop's API to better expose and streamline "library"
+      access to PyPop's functionality in end-user programs is still a
+      work-in-progress. Although this API is intended to serve end-users
+      and developers of PyPop, parts of it are not yet optimized for
+      end-users.
+
+   Driving PyPop programmatically can be done via the
+   :mod:`~PyPop.popanalysis` and :mod:`~PyPop.popaggregate` modules. In
+   the example below, we run an simple analysis on a single input
+   ``.pop`` file and generate output TSV files. There are two main steps:
+
+   1. Create the :class:`~configparser.ConfigParser` instance (see
+      :ref:`configuration file section <guide-usage-configfile>` in the
+      *PyPop User Guide* for the description of the configuration
+      options), supply this to the :class:`~PyPop.popanalysis.Main`
+      class, along with an input ``.pop`` file, to perform the analysis.
+
+   2. Next get the name of output XML file from the generated ``Main``
+      instance, and pass it to the :class:`~PyPop.popaggregate.Meta` to
+      generate TSV output files.
+
+   .. testsetup::
+
+      >>> import PyPop
+      >>> PyPop.setup_logger(doctest_mode=True)
+
+   >>> from PyPop.popanalysis import Main
+   >>> from configparser import ConfigParser
+   >>>
+   >>> config = ConfigParser()
+   >>> config.read_dict({
+   ...     "ParseGenotypeFile": {"validSampleFields": "*a_1\n*a_2"},
+   ...     "HardyWeinberg": {"lumpBelow": "5"}})
+   >>>
+   >>> pop_contents = '''a_1\ta_2
+   ... 01:01\t02:01
+   ... 02:10\t03:01:02'''
+   >>> with open("my.pop", "w") as f:
+   ...     _ = f.write(pop_contents)
+   ...
+   >>> application = Main(
+   ...     config=config,
+   ...     fileName="my.pop",
+   ...     version="fake",
+   ... )
+   LOG: no XSL file, skipping text output
+   LOG: Data file has no header data block
+   >>> outXML = application.getXmlOutPath()
+   >>> from PyPop.popaggregate import Meta
+   >>> _ = Meta (TSV_output=True, xml_files=[outXML])   # doctest: +NORMALIZE_WHITESPACE
+   ./1-locus-hardyweinberg.tsv
+   ./1-locus-summary.tsv
+   ./1-locus-allele.tsv
+   ./1-locus-genotype.tsv
+
+   .. seealso::
+
+      The :ref:`PyPop API examples <guide-usage-examples-api>` in the
+      *PyPop User Guide* for a more detailed breakdown of use of the API.
+
+
+
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /api/PyPop/citation/index
+   /api/PyPop/command_line_interface/index
+   /api/PyPop/datatypes/index
+   /api/PyPop/filters/index
+   /api/PyPop/haplo/index
+   /api/PyPop/hardyweinberg/index
+   /api/PyPop/homozygosity/index
+   /api/PyPop/parsers/index
+   /api/PyPop/popaggregate/index
+   /api/PyPop/popanalysis/index
+   /api/PyPop/popmeta/index
+   /api/PyPop/pypop/index
+   /api/PyPop/randombinning/index
+   /api/PyPop/utils/index
+   /api/PyPop/xslt/index
+
+Deprecated Submodules
+---------------------
+
+.. toctree::
+   :maxdepth: 1
+
+   PyPop.arlequin - DEPRECATED </api/PyPop/arlequin/index>
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.logger
+   PyPop.__version__
+   PyPop.copyright_message
+   PyPop.platform_info
+
+
+Exceptions
+----------
+
+.. autoapisummary::
+
+   PyPop.PyPopModuleRenameDeprecationWarning
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.setup_logger
+
+
+Package Contents
+----------------
+
+.. py:exception:: PyPopModuleRenameDeprecationWarning
+
+   Bases: :py:obj:`DeprecationWarning`
+
+   .. autoapi-inheritance-diagram:: PyPop.PyPopModuleRenameDeprecationWarning
+      :parts: 1
+
+
+   Deprecation warning for PyPop module renames.
+
+   .. versionadded:: 1.4.0
+
+   Initialize self.  See help(type(self)) for accurate signature.
+
+
+.. py:data:: logger
+
+   Package-wide logger used throughout a PyPop run.
+
+   .. versionadded:: 1.4.0
+
+.. py:data:: __version__
+
+   PyPop version. If installed, this is the package version, otherwise it returns repository version.
+
+.. py:data:: copyright_message
+   :value: Multiline-String
+
+   .. raw:: html
+
+      <details><summary>Show Value</summary>
+
+   .. code-block:: python
+
+      """Copyright (C) 2003-2006 Regents of the University of California.
+      Copyright (C) 2007-2025 PyPop team.
+      This is free software.  There is NO warranty; not even for
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE."""
+
+   .. raw:: html
+
+      </details>
+
+
+
+   copyright information used in ``--help`` screens and elsewhere
+
+.. py:data:: platform_info
+   :value: '[Python Uninferable | Uninferable | Uninferable]'
+
+
+   platform information used in ``--help`` screens and elsewhere
+
+.. py:function:: setup_logger(level=logging.INFO, filename=None, doctest_mode=True)
+
+   Configure the 'pypop' logger with stdout/file handler, optional debug verbosity, and doctest mode.
+
+   .. versionadded:: 1.4.0
+
+   :param level: ``INFO`` (default), ``DEBUG`` (more
+                 detailed), ``WARNING``, ``CRITICAL``
+   :type level: str, optional
+   :param filename: Optional file to log to. If ``None``,
+                    logs to ``stdout``.
+   :type filename: str, optional
+   :param doctest_mode: If True, forcibly rebinds the
+                        logger to sys.stdout and disables propagation so doctests see
+                        output.
+   :type doctest_mode: bool, optional
+
+
+
+
+.. only:: latex
+
+   .. raw:: latex
+
+      \begingroup
+      \footnotesize
+      \sphinxsetup{%
+      %TitleColor={named}{blue},
+      }
+
+   .. _api-gfdl:
+
+   .. include:: /docs/gfdl.rst
+
+   .. raw:: latex
+
+      \endgroup
+    """

@@ -1,0 +1,1018 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>3. Interpreting PyPop output &#8212; PyPop 1.4.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=deb9c837" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9172181d"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/guide-chapter-instructions';</script>
+    <link rel="icon" href="../_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="4. Contributing to PyPop" href="guide-chapter-contributing.html" />
+    <link rel="prev" title="2. Getting started with PyPop" href="guide-chapter-usage.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.4.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="../_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-install.html">1. Installing PyPop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-usage.html">2. Getting started with PyPop</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Interpreting PyPop output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-contributing.html">4. Contributing to PyPop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-changes.html">5. Authors and history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licenses.html">6. Licenses</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">References</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#population-summary">3.1. Population summary</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#single-locus-analyses">3.2. Single locus analyses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#basic-allele-count-information">Basic allele count information</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chi-square-test-for-deviation-from-hardy-weinberg-proportions-hwp">Chi-square test for deviation from Hardy-Weinberg proportions (HWP).</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exact-test-for-deviation-from-hwp">Exact test for deviation from HWP</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-ewens-watterson-homozygosity-test-of-neutrality">The Ewens-Watterson homozygosity test of neutrality</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#multi-locus-analyses">3.3. Multi-locus analyses</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#all-pairwise-ld">All pairwise LD</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#haplotype-frequency-estimation">Haplotype frequency estimation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="../genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="../py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">PyPop User Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">3. </span>Interpreting PyPop output</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="interpreting-pypop-output">
+<h1><span class="section-number">3. </span>Interpreting PyPop output<a class="headerlink" href="#interpreting-pypop-output" title="Link to this heading">#</a></h1>
+<p>As mentioned in <a class="reference internal" href="guide-chapter-usage.html#guide-usage-intro-run-details"><span class="std std-ref">What happens when you run PyPop?</span></a>, The XML file
+is the primary output created by PyPop and contains the complete set of
+results. The text output, generated from the XML file via XSLT, contains
+a human-readable summary of the XML results. Below we discuss the output
+contained in this text file.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The text output we discuss below is strictly intended for
+consumption by an end-user, or incorporation into a paper. You
+should never extract information from this text file output to
+perform any downstream analyses (e.g. don’t take the values in the
+output and paste them into another program).  This is because the
+results are rounded for space, and you may lose a lot of precision
+if you use any floating-point output in further analyses.</p>
+<p>You should use the <a class="reference internal" href="guide-chapter-usage.html#guide-usage-popmeta"><span class="std std-ref">TSV outputs</span></a> for
+maximum precision (which, in turn, are derived from the raw XML
+output) for such analyses.</p>
+</div>
+<section id="population-summary">
+<span id="instructions-pop-summary"></span><h2><span class="section-number">3.1. </span>Population summary<a class="headerlink" href="#population-summary" title="Link to this heading">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">Population</span> <span class="pre">Summary</span></code> is generated for each dataset analyzed. This
+summary provides basic demographic information and summarizes
+information about the sample size.</p>
+<p>Sample output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Population Summary
+==================
+Population Name: UchiTelle
+       Lab code: USAFEL
+  Typing method: 12th Workshop SSOP
+      Ethnicity: Telle
+      Continent: NW Asia
+Collection site: Targen Village
+       Latitude: 41 deg 12 min N
+      Longitude: 94 deg 7 min E
+
+Population Totals
+_________________
+Sample Size (n): 47
+Allele Count (2n): 94
+Total Loci in file: 9
+Total Loci with data: 8
+</pre></div>
+</div>
+</section>
+<section id="single-locus-analyses">
+<span id="instructions-locus-info"></span><h2><span class="section-number">3.2. </span>Single locus analyses<a class="headerlink" href="#single-locus-analyses" title="Link to this heading">#</a></h2>
+<section id="basic-allele-count-information">
+<span id="instructions-allelecounts"></span><h3>Basic allele count information<a class="headerlink" href="#basic-allele-count-information" title="Link to this heading">#</a></h3>
+<p>Information relevant to individual loci is reported. Sample size and
+allele counts will differ among loci if not all individuals were typed
+at each locus. Untyped individuals are those for which one or two
+alleles were not reported. The alleles are listed in descending
+frequency (and count) in the left hand column, and are sorted
+numerically in the right column. The number of distinct alleles <code class="docutils literal notranslate"><span class="pre">k</span></code> is
+reported.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>I. Single Locus Analyses
+========================
+
+1. Locus: A
+___________
+
+1.1. Allele Counts [A]
+----------------------
+Untyped individuals: 2
+Sample Size (n): 45
+Allele Count (2n): 90
+Distinct alleles (k): 10
+
+Counts ordered by frequency    | Counts ordered by name
+Name      Frequency (Count)    | Name      Frequency (Count)
+02:01      0.21111   19        | 01:01      0.13333   12
+03:01      0.15556   14        | 02:01      0.21111   19
+01:01      0.13333   12        | 02:10      0.10000   9
+25:01      0.12222   11        | 02:18      0.10000   9
+02:10      0.10000   9         | 03:01      0.15556   14
+02:18      0.10000   9         | 25:01      0.12222   11
+32:04      0.08889   8         | 32:04      0.08889   8
+69:01      0.04444   4         | 68:14      0.03333   3
+68:14      0.03333   3         | 69:01      0.04444   4
+74:03      0.01111   1         | 74:03      0.01111   1
+Total     1.00000   90         | Total     1.00000   90
+</pre></div>
+</div>
+<p>In the cases where there is no information for a locus, a message is
+displayed indicating lack of data.</p>
+<p>Sample output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>4. Locus: DRA
+_____________
+ No data for this locus!
+</pre></div>
+</div>
+</section>
+<section id="chi-square-test-for-deviation-from-hardy-weinberg-proportions-hwp">
+<span id="instructions-hardyweinberg"></span><h3>Chi-square test for deviation from Hardy-Weinberg proportions (HWP).<a class="headerlink" href="#chi-square-test-for-deviation-from-hardy-weinberg-proportions-hwp" title="Link to this heading">#</a></h3>
+<p>For each locus, the observed genotype counts are compared to those
+expected under Hardy Weinberg proportions (HWP). A triangular matrix
+reports observed and expected genotype counts. If the matrix is more
+than 80 characters, the output is split into different sections. Each
+cell contains the observed and expected number for a given genotype in
+the format <code class="docutils literal notranslate"><span class="pre">observed/expected</span></code>.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>6.2. HardyWeinberg [DQA1]
+-------------------------
+Table of genotypes, format of each cell is: observed/expected.
+
+02:01 8/5.1
+03:01 4/4.0  1/0.8
+04:01 3/6.9  1/2.7  6/2.3
+05:01 8/9.9  5/3.8  5/6.7  6/4.8
+      02:01  03:01  04:01  05:01
+                             [Cols: 1 to 4]
+</pre></div>
+</div>
+<p>The values in this matrix are used to test hypotheses of deviation from
+HWP. The output also includes the chi-square statistic, the number of
+degrees of freedom and associated <span class="math notranslate nohighlight">\(p\)</span>-value for a number of classes of
+genotypes and is summarized in the following table:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>                      Observed    Expected  Chi-square   DoF   p-value
+------------------------------------------------------------------------------
+            Common         N/A         N/A        4.65     1  0.0310*
+------------------------------------------------------------------------------
+  Lumped genotypes         N/A         N/A        1.17     1  0.2797
+------------------------------------------------------------------------------
+   Common + lumped         N/A         N/A        5.82     1  0.0158*
+------------------------------------------------------------------------------
+   All homozygotes          21       13.01        4.91     1  0.0268*
+------------------------------------------------------------------------------
+ All heterozygotes          26       33.99        1.88     1  0.1706
+------------------------------------------------------------------------------
+Common heterozygotes by allele
+              02:01         15       20.78        1.61        0.2050
+              03:01         10       10.47        0.02        0.8850
+              04:01          9       16.31        3.28        0.0703
+              05:01         18       20.43        0.29        0.5915
+
+------------------------------------------------------------------------------
+Common genotypes
+         02:01+02:01         8        5.11        1.63        0.2014
+         02:01+04:01         3        6.93        2.23        0.1358
+         02:01+05:01         8        9.89        0.36        0.5472
+         04:01+05:01         5        6.70        0.43        0.5109
+               Total        24       28.63
+------------------------------------------------------------------------------
+</pre></div>
+</div>
+<ul>
+<li><p><strong>Common.</strong></p>
+<p>The result for goodness of fit to HWP using only the genotypes with
+at least <code class="docutils literal notranslate"><span class="pre">lumpBelow</span></code> expected counts (the common genotypes) (in the
+output shown throughout this example <code class="docutils literal notranslate"><span class="pre">lumpBelow</span></code> is equal to 5).</p>
+<p>If the dataset contains no genotypes with expected counts equal or
+greater than <code class="docutils literal notranslate"><span class="pre">lumpBelow</span></code>, then there are no common genotypes and
+the following message is reported:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>No common genotypes; chi-square cannot be calculated
+</pre></div>
+</div>
+<p>The analysis of common genotypes may lead to a situation where there
+are fewer classes (genotypes) than allele frequencies to estimate.
+This means that the analysis cannot be performed (degrees of freedom
+&lt; 1). In such a case the following message is reported, explaining
+why the analysis could not be performed:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Too many parameters for chi-square test.
+</pre></div>
+</div>
+<p>To obviate this as much as possible, only alleles which occur in
+common genotypes are used in the calculation of degrees of freedom.</p>
+</li>
+<li><p><strong>Lumped genotypes.</strong></p>
+<p>The result for goodness of fit to HWP for the pooled set of genotypes
+that individually have less than <code class="docutils literal notranslate"><span class="pre">lumpBelow</span></code> expected counts.</p>
+<p>The pooling procedure is designed to avoid carrying out the
+chi-square goodness of fit test in cases where there are low expected
+counts, which could lead to spurious rejection of HWP. However, in
+certain cases it may not be possible to carry out this pooling
+approach. The interpretation of results based on lumped genotypes
+will depend on the particular genotypes that are combined in this
+class.</p>
+<p>If the sum of expected counts in the lumped class does not add up to
+<code class="docutils literal notranslate"><span class="pre">lumpBelow</span></code>, then the test for the lumped genotypes cannot be
+calculated and the following message is reported:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>The total number of expected genotypes is less than 5
+</pre></div>
+</div>
+<p>This may by remedied by combining rare alleles and recalculating
+overall chi-square value and degrees of freedom. (This would require
+appropriate manipulation of the data set by hand and is not a feature
+of PyPop).</p>
+</li>
+<li><p><strong>Common + lumped.</strong></p>
+<p>The result for goodness of fit to HWP for both the common and the
+lumped genotypes.</p>
+</li>
+<li><p><strong>All homozygotes.</strong></p>
+<p>The result for goodness of fit to HWP for the pooled set of
+homozygous genotypes.</p>
+</li>
+<li><p><strong>All heterozygotes.</strong></p>
+<p>The result for goodness of fit to HWP for the pooled set of
+heterozygous genotypes.</p>
+</li>
+<li><p><strong>Common heterozygotes.</strong></p>
+<p>The common heterozygotes by allele section summarizes the observed
+and expected number of counts of all heterozygotes carrying a
+specific allele with expected value GE <code class="docutils literal notranslate"><span class="pre">lumpBelow</span></code>.</p>
+</li>
+<li><p><strong>Common genotypes.</strong></p>
+<p>The common genotypes by genotype section lists observed, expected,
+chi-square and <span class="math notranslate nohighlight">\(p\)</span>-values for all observed genotypes with expected
+values GE <code class="docutils literal notranslate"><span class="pre">lumpBelow</span></code>.</p>
+</li>
+</ul>
+</section>
+<section id="exact-test-for-deviation-from-hwp">
+<span id="instructions-hardyweinberg-exact"></span><h3>Exact test for deviation from HWP<a class="headerlink" href="#exact-test-for-deviation-from-hwp" title="Link to this heading">#</a></h3>
+<p>If enabled in the configuration file, the exact test for deviations
+from HWP will be output. The exact test uses the method of
+<span id="id1">Guo and Thompson (<a class="reference internal" href="biblio.html#id9" title="Guo, S. W. and Thompson, E. A. Performing the exact test of Hardy-Weinberg proportion for multiple alleles. Biometrics, 48(2):361–372, 1992. arXiv:2532296, doi:10.2307/2532296.">1992</a>)</span>. The <span class="math notranslate nohighlight">\(p\)</span>-value provided describes
+how probable the observed set of genotypes is, with respect to a large
+sample of other genotypic configurations (conditioned on the same
+allele frequencies and <span class="math notranslate nohighlight">\(2n\)</span>).  <span class="math notranslate nohighlight">\(p\)</span>-values lower than 0.05
+can be interpreted as evidence that the sample does not fit HWP. In
+addition, those individual genotypes deviating significantly
+(<span class="math notranslate nohighlight">\(p&lt; 0.05\)</span>) from expected HWP as computed with the Chen and
+“diff” measures are reported.</p>
+<p>There are two implementations for this test, the first using the gthwe
+implementation originally due to Guo &amp; Thompson, but modified by John
+Chen, the second being Arlequin’s
+<span id="id2">(<a class="reference internal" href="biblio.html#id7" title="Excoffier, L. and Lischer, H. E. L. Arlequin suite ver 3.5: a new series of programs to perform population genetics analyses under Linux and Windows. Molecular Ecology Resources, 10(3):564–567, 2010. doi:10.1111/j.1755-0998.2010.02847.x.">Excoffier and Lischer, 2010</a>, <a class="reference internal" href="biblio.html#id18" title="Schneider, S., Kueffer, J.-M., Roessli, D., and Excoffier, L. Arlequin: A software for population genetics data analysis. Ver 2.000. Genetics and Biometry Lab, Dept. of Anthropology, University of Geneva, 2000. URL: http://cmpg.unibe.ch/software/arlequin/ (accessed on 2024-01-06)">Schneider <em>et al.</em>, 2000</a>)</span>
+implementation.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>6.3. Guo and Thompson HardyWeinberg output [DQA1]
+-------------------------------------------------
+Total steps in MCMC: 1000000
+Dememorization steps: 2000
+Number of Markov chain samples: 1000
+Markov chain sample size: 1000
+Std. error: 0.0009431
+p-value (overall): 0.0537
+</pre></div>
+</div>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>6.4. Guo and Thompson HardyWeinberg output(Arlequin&#39;s implementation) [DQA1]
+-----------------------------------------------------------------------------
+Observed heterozygosity: 0.553190
+Expected heterozygosity: 0.763900
+Std. deviation: 0.000630
+Dememorization steps: 100172
+p-value: 0.0518
+</pre></div>
+</div>
+<p>Note that in the Arlequin implementation, the output is slightly
+different, and the only directly comparable value between the two
+implementation is the <span class="math notranslate nohighlight">\(p\)</span>-value. These <span class="math notranslate nohighlight">\(p\)</span>-values may be slightly
+different, but should agree to within one significant figure.</p>
+</section>
+<section id="the-ewens-watterson-homozygosity-test-of-neutrality">
+<span id="instructions-homozygosity"></span><h3>The Ewens-Watterson homozygosity test of neutrality<a class="headerlink" href="#the-ewens-watterson-homozygosity-test-of-neutrality" title="Link to this heading">#</a></h3>
+<p>For each locus, we implement the Ewens-Watterson homozygosity test of
+neutrality <span id="id3">(<a class="reference internal" href="biblio.html#id6" title="Ewens, W. J. The sampling theory of selectively neutral alleles. Theoretical Population Biology, 3(1):87–112, 1972. doi:10.1016/0040-5809(72)90035-4.">Ewens, 1972</a>, <a class="reference internal" href="biblio.html#id26" title="Watterson, G. A. The homozygosity test of neutrality. Genetics, 88(2):405–417, 1978. doi:10.1093/genetics/88.2.405.">Watterson, 1978</a>)</span>. We use the term
+<em>observed homozygosity</em> to denote the homozygosity statistic
+(<span class="math notranslate nohighlight">\(F\)</span>), computed as the sum of the squared allele
+frequencies. This value is compared to the <em>expected homozygosity</em>
+which is computed by simulation under neutrality/equilibrium
+expectations, for the same sample size (<span class="math notranslate nohighlight">\(2n\)</span>) and number of
+unique alleles (<span class="math notranslate nohighlight">\(k\)</span>). Note that the homozygosity <code class="docutils literal notranslate"><span class="pre">F</span></code>
+statistic, <span class="math notranslate nohighlight">\(F=\sum_{i=1}^{k}p_{i}^{2}\)</span>, is often referred to as
+the <em>expected homozygosity</em> (with <em>expectation</em> referring to HWP) to
+distinguish it from the observed proportion of homozygotes. We avoid
+referring to the observed <span class="math notranslate nohighlight">\(F\)</span> statistic as the “<em>observed
+expected homozygosity</em>” (to simplify and hopefully avoid confusion)
+since the homozygosity test of neutrality is concerned with
+comparisons of observed results to expectations under neutrality. Both
+the <em>observed</em> statistic (based on the actual data) and <em>expected</em>
+statistic (based on simulations under neutrality) used in this test
+are computed as the sum of the squared allele frequencies.</p>
+<p>The <em>normalized deviate of the homozygosity</em> (<span class="math notranslate nohighlight">\(F_{nd}\)</span>) is the
+difference between the <em>observed homozygosity</em> and <em>expected
+homozygosity</em>, divided by the square root of the variance of the
+expected homozygosity (also obtained by simulations;
+<span id="id4">(<a class="reference internal" href="biblio.html#id17" title="Salamon, H., Klitz, W., Easteal, S., Gao, X., Erlich, H. A., Fernandez-Viña, M., Trachtenberg, E. A., McWeeney, S. K., Nelson, M. P., and Thomson, G. Evolution of HLA class II molecules: Allelic and amino acid site variability across populations. Genetics, 152(1):393–400, 1999. doi:10.1093/genetics/152.1.393.">Salamon <em>et al.</em>, 1999</a>)</span>).  Significant negative normalized
+deviates imply <em>observed homozygosity</em> values lower than <em>expected
+homozygosity</em>, in the direction of balancing selection. Significant
+positive values are in the direction of directional selection.</p>
+<p>The <span class="math notranslate nohighlight">\(p\)</span>-value in the last row of the output is the probability of
+obtaining a homozygosity <span class="math notranslate nohighlight">\(F\)</span> statistic under neutral evolution that is
+less than or equal to the observed <span class="math notranslate nohighlight">\(F\)</span> statistic. It is computed based
+on the null distribution of homozygosity <span class="math notranslate nohighlight">\(F\)</span> values simulated under
+neutrality/equilibrium conditions for the same sample size (<span class="math notranslate nohighlight">\(2n\)</span>) and
+number of unique alleles (<span class="math notranslate nohighlight">\(k\)</span>). For a one-tailed test of the null
+hypothesis of neutrality against the alternative of balancing selection,
+<span class="math notranslate nohighlight">\(p\)</span>-values less than 0.05 are considered significant at the 0.05
+level. For a two-tailed test against the alternative of either balancing
+or directional selection, <span class="math notranslate nohighlight">\(p\)</span>-values less than 0.025 or greater than
+0.975 can be considered significant at the 0.05 level.</p>
+<p>The standard implementation of the test uses a Monte-Carlo
+implementation of the exact test written by Slatkin
+<span id="id5">(<a class="reference internal" href="biblio.html#id23" title="Slatkin, M. An exact test for neutrality based on the Ewens sampling distribution. Genetics Research, 64(1):71–74, 1994. doi:10.1017/S0016672300032560.">1994</a>, <a class="reference internal" href="biblio.html#id22" title="Slatkin, M. A correction to the exact test based on the Ewens sampling distribution. Genetics Research, 68(3):259–260, 1996. doi:10.1017/S0016672300034236.">1996</a>)</span>. A Markov-chain
+Monte Carlo method is used to obtain the null distribution of the
+homozygosity statistic under neutrality. The reported <span class="math notranslate nohighlight">\(p\)</span>-values
+are one-tailed (against the alternative of balancing selection), but
+can be interpreted for a two-tailed test by considering either extreme
+of the distribution (&lt; 0.025 or &gt; 0.975) at the 0.05 level.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1.6. Slatkin&#39;s implementation of EW homozygosity test of neutrality [A]
+-----------------------------------------------------------------------
+Observed F: 0.1326, Expected F: 0.2654, Variance in F: 0.0083
+Normalized deviate of F (Fnd): -1.4603, p-value of F: 0.0029**
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The version of this test based on tables of simulated percentiles of
+the Ewens-Watterson statistics is now disabled by default and its use
+is deprecated in preference to the Slatkin exact test described
+above, however some older PyPop runs may include output, so it is
+documented here for completeness. This version differs from the
+Monte-Carlo Markov Chain version described above in that the data is
+simulated under neutrality to obtain the required statistics.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1.4. Ewens-Watterson homozygosity test of neutrality [A]
+--------------------------------------------------------
+Observed F: 0.1326, Expected F: 0.2651, Normalized deviate (Fnd): -1.4506
+p-value range: 0.0000 &lt; p &lt;= 0.0100 *
+</pre></div>
+</div>
+</div>
+</section>
+</section>
+<section id="multi-locus-analyses">
+<span id="instructions-haplo"></span><h2><span class="section-number">3.3. </span>Multi-locus analyses<a class="headerlink" href="#multi-locus-analyses" title="Link to this heading">#</a></h2>
+<p>Haplotype frequencies are estimated using the iterative
+Expectation-Maximization (EM) algorithm
+<span id="id6">(<a class="reference internal" href="biblio.html#id5" title="Dempster, A. P., Laird, N. M., and Rubin, D. B. Maximum Likelihood from Incomplete Data Via the EM Algorithm. Journal of the Royal Statistical Society: Series B (Methodological), 39(1):1–38, 1977. doi:10.1111/j.2517-6161.1977.tb01600.x.">Dempster <em>et al.</em>, 1977</a>, <a class="reference internal" href="biblio.html#id8" title="Excoffier, L. and Slatkin, M. Maximum-likelihood estimation of molecular haplotype frequencies in a diploid population. Molecular Biology and Evolution, 12(5):921–927, 1995. doi:10.1093/oxfordjournals.molbev.a040269.">Excoffier and Slatkin, 1995</a>)</span>. Multiple
+starting conditions are used to minimize the possibility of local
+maxima being reached by the EM iterations. The haplotype frequencies
+reported are those that correspond to the highest logarithm of the
+sample likelihood found over the different starting conditions and are
+labeled as the maximum likelihood estimates (MLE).</p>
+<p>The output provides the names of loci for which haplotype frequencies
+were estimated, the number of individual genotypes in the dataset
+(<code class="docutils literal notranslate"><span class="pre">before-filtering</span></code>), the number of genotypes that have data for all
+loci for which haplotype estimation will be performed
+(<code class="docutils literal notranslate"><span class="pre">after-filtering</span></code>), the number of unique phenotypes (unphased
+genotypes), the number of unique phased genotypes, the total number of
+possible haplotypes that are compatible with the genotypic data (many of
+these will have an estimated frequency of zero), and the log-likelihood
+of the observed genotypes under the assumption of linkage equilibrium.</p>
+<section id="all-pairwise-ld">
+<span id="instructions-pairwise-ld"></span><h3>All pairwise LD<a class="headerlink" href="#all-pairwise-ld" title="Link to this heading">#</a></h3>
+<p>A series of linkage disequilibrium (LD) measures are provided for each
+pair of loci, as shown in the sample output below.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>II. Multi-locus Analyses
+========================
+
+Haplotype/ linkage disequlibrium (LD) statistics
+________________________________________________
+
+Pairwise LD estimates
+---------------------
+Locus pair        D      D&#39;      Wn  ln(L_1) ln(L_0)      S  ALD_1_2  ALD_2_1
+A:C         0.01465 0.49229 0.39472  -289.09 -326.81  75.44  0.41435  0.37525
+A:B         0.01491 0.50895 0.40145  -293.47 -330.84  74.73  0.40726  0.39512
+A:DRB1      0.01299 0.42896 0.38416  -282.00 -309.16  54.32  0.32934  0.38370
+A:DQA1      0.01219 0.33413 0.36466  -269.57 -286.08  33.02  0.25803  0.34897
+A:DQB1      0.01356 0.39266 0.37495  -275.58 -297.62  44.07  0.29931  0.37489
+A:DPA1      0.01681 0.32397 0.36666  -219.78 -226.97  14.38  0.19446  0.35360
+A:DPB1      0.01362 0.42240 0.40404  -237.85 -262.06  48.42  0.33848  0.41739
+C:B         0.04125 0.88739 0.85752  -210.37 -342.68 264.63  0.84781  0.86104
+C:DRB1      0.01698 0.48046 0.47513  -280.34 -317.66  74.62  0.32308  0.47691
+C:DQA1      0.02072 0.47797 0.49368  -263.23 -293.74  61.01  0.31386  0.50338
+C:DQB1      0.01766 0.45793 0.49879  -269.55 -305.28  71.46  0.30479  0.50122
+C:DPA1      0.02039 0.41030 0.46438  -224.72 -236.52  23.61  0.21172  0.46433
+C:DPB1      0.01898 0.46453 0.37002  -242.45 -268.46  52.01  0.33462  0.45327
+B:DRB1      0.01723 0.50254 0.41712  -286.79 -320.50  67.42  0.32654  0.43913
+B:DQA1      0.01845 0.44225 0.43582  -271.36 -296.59  50.45  0.28877  0.44993
+B:DQB1      0.01958 0.49040 0.43654  -277.30 -308.13  61.65  0.31328  0.45679
+B:DPA1      0.01875 0.37441 0.40117  -229.76 -239.16  18.80  0.20689  0.40443
+B:DPB1      0.01898 0.46082 0.38001  -247.84 -272.77  49.86  0.32227  0.45680
+DRB1:DQA1   0.06138 0.92556 0.92465  -164.06 -271.56 214.99  0.82051  0.93006
+DRB1:DQB1   0.06058 1.00000 1.00000  -147.74 -283.10 270.72  0.93302  1.00000
+
+...
+</pre></div>
+</div>
+<p>For each locus pair, we report three measures of overall linkage
+disequilibrium. <span class="math notranslate nohighlight">\(D'\)</span>  <span id="id7">(<a class="reference internal" href="biblio.html#id10" title="Hedrick, P. W. Gametic disequilibrium measures: proceed with caution. Genetics, 117(2):331–341, 1987. doi:10.1093/genetics/117.2.331.">Hedrick, 1987</a>)</span> weights the contribution to
+LD of specific allele pairs by the product of their allele frequencies
+(<code class="docutils literal notranslate"><span class="pre">D'</span></code> in the output); <span class="math notranslate nohighlight">\(W_n\)</span>  <span id="id8">(<a class="reference internal" href="biblio.html#id4" title="Cramér, H. Mathematical Methods of Statistics. Princeton University Press, Princeton, NJ, 1946. ISBN 978-0-691-00547-8.">Cramér, 1946</a>)</span> is a re-expression
+of the chi-square statistic for deviations between observed and
+expected haplotype frequencies (<code class="docutils literal notranslate"><span class="pre">W_n</span></code> in the
+output)). <span class="math notranslate nohighlight">\(W_{A/B}\)</span> and <span class="math notranslate nohighlight">\(W_{B/A}\)</span> (<code class="docutils literal notranslate"><span class="pre">ALD_1_2</span></code> and
+<code class="docutils literal notranslate"><span class="pre">ALD_2_1</span></code>, respectively in the output) are extensions of <span class="math notranslate nohighlight">\(W_n\)</span>
+that account for asymmetry when the number of alleles differs at two
+loci <span id="id9">(<a class="reference internal" href="biblio.html#id25" title="Thomson, G. and Single, R. M. Conditional asymmetric linkage disequilibrium (ALD): extending the bi-allelic r² measure. Genetics, 198(1):321–331, 2014. doi:10.1534/genetics.114.165266.">Thomson and Single, 2014</a>)</span>. Below we describe the measures, each of
+which is normalized to lie between zero and one.</p>
+<dl class="simple">
+<dt><span class="math notranslate nohighlight">\(D'\)</span></dt><dd><p>Overall LD, summing contributions (<span class="math notranslate nohighlight">\(D'_{ij}=D_{ij} /D_{max}\)</span>) of all the haplotypes in a
+multi-allelic two-locus system, can be measured using Hedrick’s
+<span class="math notranslate nohighlight">\(D'\)</span> statistic, using the products of allele frequencies at the
+loci, <span class="math notranslate nohighlight">\(p_i\)</span> and <span class="math notranslate nohighlight">\(q_j\)</span>, as weights.</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[{D}' = \sum_{i=1}^{I} {\sum_{j=1}^{J} {p_i } } q_j \left|{{D}'_{ij} } \right|\]</div>
+<dl class="simple">
+<dt><span class="math notranslate nohighlight">\(W_n\)</span></dt><dd><p>Also known as Cramer’s V Statistic <span id="id10">(<a class="reference internal" href="biblio.html#id4" title="Cramér, H. Mathematical Methods of Statistics. Princeton University Press, Princeton, NJ, 1946. ISBN 978-0-691-00547-8.">Cramér, 1946</a>)</span>, <span class="math notranslate nohighlight">\(W_n\)</span>, is a
+second overall measure of LD between two loci. It is a re-expression
+of the Chi-square statistic, <span class="math notranslate nohighlight">\(X^2_{LD}\)</span>, normalized
+to be between zero and one. When there are only two alleles per
+locus, <span class="math notranslate nohighlight">\(W_n\)</span> is equivalent to the correlation coefficient
+between the two loci, defined as:</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[W_n = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / p_i } q_j } }{\min (I - 1,J - 1)}} \right]^{\frac{1}{2}} = \left[ {\frac{X_{LD}^2 / 2N}{\min (I - 1,J - 1)}}\right]^{\frac{1}{2}}\]</div>
+<dl class="simple">
+<dt>two alleles case</dt><dd><p>When there are only two alleles per locus, <span class="math notranslate nohighlight">\(W_n\)</span> is equivalent
+to the correlation coefficient between the two loci, defined as
+<span class="math notranslate nohighlight">\(r =\sqrt {D_{11} / p_1 p_2 q_1 q_2 }\)</span>.</p>
+</dd>
+<dt><span class="math notranslate nohighlight">\(W_{A/B}\)</span> and <span class="math notranslate nohighlight">\(W_{B/A}\)</span></dt><dd><p>When there are different numbers of alleles at the two loci,
+the direct correlation property for the <span class="math notranslate nohighlight">\(r\)</span> correlation
+measure is not retained by <span class="math notranslate nohighlight">\(W_n\)</span>, its multi-allelic extension.
+The complementary pair of conditional asymmetric LD (ALD) measures,
+<span class="math notranslate nohighlight">\(W_{A/B}\)</span> and <span class="math notranslate nohighlight">\(W_{B/A}\)</span>, were developed to extend the <span class="math notranslate nohighlight">\(W_n\)</span> measure.
+<span class="math notranslate nohighlight">\(W_{A/B}\)</span> is (inversely) related to the
+degree of variation of A locus alleles on haplotypes conditioned
+on B locus alleles. If there is no variation of A locus alleles
+on haplotypes conditioned on B locus alleles, then <span class="math notranslate nohighlight">\(W_{A/B} = 1\)</span>
+<span class="math notranslate nohighlight">\(W_{A/B} = W_{B/A} = W_n\)</span> when there is symmetry in the data and
+thus for bi-allelic SNPs.</p>
+</dd>
+</dl>
+<div class="math notranslate nohighlight">
+\[W_{A/B} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / q_j } } }{ 1 - F_A }} \right]^{\frac{1}{2}}\]</div>
+<div class="math notranslate nohighlight">
+\[W_{B/A} = \left[ {\frac{\sum_{i=1}^{I} {\sum_{j=1}^{J}{D_{ij}^2 / p_i } } }{ 1 - F_B }} \right]^{\frac{1}{2}}\]</div>
+<p>In addition to the LD measures described above, for each locus pair,
+we describe three additional measures related to the log-likelihood
+that are displayed in the output above:</p>
+<dl class="simple">
+<dt><span class="math notranslate nohighlight">\(\ln(L_1)\)</span></dt><dd><p>the log-likelihood of obtaining the observed data given the inferred
+haplotype frequencies (<code class="docutils literal notranslate"><span class="pre">ln(L_1)</span></code> in the output)</p>
+</dd>
+<dt><span class="math notranslate nohighlight">\(\ln(L_0)\)</span></dt><dd><p>the log-likelihood of the data under the null hypothesis of linkage
+equilibrium (<code class="docutils literal notranslate"><span class="pre">ln(L_0)</span></code> in the output)</p>
+</dd>
+<dt><span class="math notranslate nohighlight">\(S\)</span></dt><dd><p>the statistic (<code class="docutils literal notranslate"><span class="pre">S</span></code> in the output) is defined as twice the
+difference between these likelihoods. <span class="math notranslate nohighlight">\(S\)</span> has an asymptotic
+chi-square distribution, but the null distribution of <span class="math notranslate nohighlight">\(S\)</span> is
+better approximated using a randomization procedure. If a
+permutation test is requested (by setting the option
+<code class="docutils literal notranslate"><span class="pre">allPairwiseLDWithPermu</span></code> to a a number greater than zero in the
+<a class="reference internal" href="guide-chapter-usage.html#config-allpairwiseldwithpermu"><span class="std std-ref">.ini file</span></a>), the empirical
+distribution of <span class="math notranslate nohighlight">\(S\)</span> is generated by shuffling genotypes among
+individuals, separately for each locus, thus creating linkage
+equilibrium. The additional column <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">permu</span></code> that will be
+generated (not shown in the example output above) will indicate how
+many permutations were carried out. The <span class="math notranslate nohighlight">\(p\)</span>-value (also not
+shown) will be the fraction of permutations that results in values of
+<span class="math notranslate nohighlight">\(S\)</span> greater or equal to that observed. A <span class="math notranslate nohighlight">\(p &lt; 0.05\)</span> is
+indicative of overall significant LD.</p>
+</dd>
+</dl>
+<p>Individual LD coefficients, <span class="math notranslate nohighlight">\(D_{ij}\)</span>, are stored in the XML
+output file, but are not printed in the default text output. They can
+be accessed in the summary text files created by the <code class="docutils literal notranslate"><span class="pre">popmeta</span></code>
+script (see <a class="reference internal" href="guide-chapter-usage.html#guide-usage-intro-run-details"><span class="std std-ref">What happens when you run PyPop?</span></a>).</p>
+</section>
+<section id="haplotype-frequency-estimation">
+<span id="instructions-haplotype-freqs"></span><h3>Haplotype frequency estimation<a class="headerlink" href="#haplotype-frequency-estimation" title="Link to this heading">#</a></h3>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Haplotype frequency est. for loci: A:B:DRB1
+-------------------------------------------
+Number of individuals: 47 (before-filtering)
+Number of individuals: 45 (after-filtering)
+Unique phenotypes: 45
+Unique genotypes: 113
+Number of haplotypes: 188
+Loglikelihood under linkage equilibrium [ln(L_0)]: -472.700542
+Loglikelihood obtained via the EM algorithm [ln(L_1)]: -340.676530
+Number of iterations before convergence: 67
+</pre></div>
+</div>
+<p>The estimated haplotype frequencies are sorted alphanumerically by
+haplotype name (left side), or in decreasing frequency (right side).
+Only haplotypes estimated at a frequency of 0.00001 or larger are
+reported. The first column gives the allele names in each of the three
+loci, the second column provides the maximum likelihood estimate for
+their frequencies, (<code class="docutils literal notranslate"><span class="pre">frequency</span></code>), and the third column gives the
+corresponding approximate number of haplotypes (<code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">copies</span></code>).</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Haplotypes sorted by name             | Haplotypes sorted by frequency
+haplotype         frequency # copies  | haplotype         frequency # copies
+01:01~13:01~04:02   0.02222   2.0     | 02:01~14:01~04:02   0.03335   3.0
+01:01~13:01~11:01   0.01111   1.0     | 32:04~14:01~08:02   0.03333   3.0
+01:01~14:01~09:01   0.01111   1.0     | 03:01~14:01~04:07   0.03333   3.0
+01:01~15:20~08:02   0.01111   1.0     | 03:01~13:01~04:02   0.03333   3.0
+01:01~18:01~04:07   0.01111   1.0     | 02:01~14:01~11:01   0.03332   3.0
+01:01~39:02~04:04   0.01111   1.0     | 03:01~15:20~08:02   0.02222   2.0
+01:01~39:02~16:02   0.01111   1.0     | 01:01~40:05~08:02   0.02222   2.0
+01:01~40:05~08:02   0.02222   2.0     | 03:01~39:02~04:02   0.02222   2.0
+01:01~81:01~08:02   0.01111   1.0     | 02:01~13:01~16:02   0.02222   2.0
+01:01~81:01~16:02   0.01111   1.0     | 02:18~14:01~04:04   0.02222   2.0
+02:01~13:01~16:02   0.02222   2.0     | 02:10~51:01~16:02   0.02222   2.0
+02:01~14:01~04:02   0.03335   3.0     | 02:18~14:01~16:02   0.02222   2.0
+02:01~14:01~04:04   0.01111   1.0     | 01:01~13:01~04:02   0.02222   2.0
+02:01~14:01~04:07   0.02222   2.0     | 25:01~40:05~08:02   0.02222   2.0
+02:01~14:01~08:02   0.01111   1.0     | 25:01~13:01~08:02   0.02222   2.0
+
+...
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="guide-chapter-usage.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Getting started with PyPop</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="guide-chapter-contributing.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Contributing to PyPop</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

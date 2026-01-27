@@ -1,0 +1,804 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyPop User Guide &#8212; PyPop 1.4.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=deb9c837" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9172181d"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/index';</script>
+    <link rel="icon" href="../_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="1. Installing PyPop" href="guide-chapter-install.html" />
+    <link rel="prev" title="PyPop: Python for Population Genomics" href="../index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.4.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="../_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="#">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-install.html">1. Installing PyPop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-usage.html">2. Getting started with PyPop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-instructions.html">3. Interpreting PyPop output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-contributing.html">4. Contributing to PyPop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-changes.html">5. Authors and history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licenses.html">6. Licenses</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">References</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="../genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="../py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis">PyPop User Guide</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="pypop-user-guide">
+<span id="user-guide"></span><h1>PyPop User Guide<a class="headerlink" href="#pypop-user-guide" title="Link to this heading">#</a></h1>
+<p><div style="text-align: right; font-size: 120%; margin-top: -1em; margin-bottom: 1em;">
+<a href="../pypop-guide-1.4.0.pdf">📥 PDF version</a>
+</div></p>
+<p><strong>User Guide for Python for Population Genomics</strong></p>
+<p>Alexander K. Lancaster, Mark P. Nelson, Diogo Meyer, Richard M. Single, Owen D. Solberg</p>
+<div class="admonition-documenting-release-api-version-of-pypop admonition">
+<p class="admonition-title"><em>Documenting release</em>  1.4.0  <em>of PyPop</em>.</p>
+<p><em>Document revision:</em> 1.4.0.post8+gc935a7b36</p>
+<p>See <a class="reference internal" href="../index.html#citing-pypop"><span class="std std-ref">Citing PyPop</span></a> for how to cite PyPop in your publication.</p>
+<p>Copyright © 2003-2009 Regents of the University of California <br/>
+Copyright © 2025 PyPop contributors</p>
+<p><strong>License terms</strong> Permission is granted to copy, distribute and/or modify this document under the terms of the GNU Free Documentation License, Version 1.2 or any later version published by the Free Software Foundation; with no Invariant Sections no Front-Cover Texts and no Back-Cover Texts. A copy of the license is included in the License chapter. (<a class="reference internal" href="licenses.html#gfdl"><span class="std std-ref">GNU Free Documentation License</span></a>).</p>
+</div>
+<p><strong>How to use this guide</strong></p>
+<p>This guide to PyPop contains five main parts:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="guide-chapter-install.html"><span class="doc">Installing PyPop</span></a> describes how to install PyPop,
+including pre-release binaries.</p></li>
+<li><p><a class="reference internal" href="guide-chapter-usage.html"><span class="doc">Getting started with PyPop</span></a> describes how to run PyPop.</p></li>
+<li><p><a class="reference internal" href="guide-chapter-instructions.html"><span class="doc">Interpreting PyPop output</span></a> details the population genetic
+methods and statistics that PyPop computes.</p></li>
+<li><p><a class="reference internal" href="guide-chapter-contributing.html"><span class="doc">Contributing to PyPop</span></a> details how to contribute to
+ongoing PyPop code and documentation.</p></li>
+<li><p><a class="reference internal" href="guide-chapter-changes.html"><span class="doc">Authors and history</span></a> acknowledges our contributors and
+project history.</p></li>
+</ul>
+<p><strong>Full Table of Contents</strong></p>
+<div class="toctree-wrapper compound" id="user-guide-toc">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-install.html">1. Installing PyPop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-install.html#quickstart-guide">1.1. Quickstart Guide</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-install.html#examples">1.2. Examples</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-install.html#checking-version-and-installation">Checking version and installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-install.html#run-a-minimal-dataset">Run a minimal dataset:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-install.html#detailed-installation-instructions">1.3. Detailed installation instructions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-install.html#install-python-3-and-pip">Install Python 3 and <code class="docutils literal notranslate"><span class="pre">pip</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-install.html#install-package-from-pypi">Install package from PyPI</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-install.html#post-install-path-adjustments">Post-install <code class="docutils literal notranslate"><span class="pre">PATH</span></code> adjustments</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-install.html#uninstalling-pypop">Uninstalling PyPop</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-install.html#support-and-development">1.4. Support and development</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-usage.html">2. Getting started with PyPop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-usage.html#introduction">2.1. Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-usage.html#running-a-population-analysis">2.2. Running a population analysis</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#interactive-mode-pypop-interactive">Interactive mode (<code class="docutils literal notranslate"><span class="pre">pypop-interactive</span></code>)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#command-line-mode-pypop">Command-line mode (<code class="docutils literal notranslate"><span class="pre">pypop</span></code>)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#output-to-different-directory">Output to different directory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#supplying-multiple-pop-files">Supplying multiple <code class="docutils literal notranslate"><span class="pre">.pop</span></code> files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#library-programmatic-mode">Library (programmatic) mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#what-happens-when-you-run-pypop">What happens when you run PyPop?</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-usage.html#aggregating-results-from-multiple-runs-popmeta">2.3. Aggregating results from multiple runs (<code class="docutils literal notranslate"><span class="pre">popmeta</span></code>)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-usage.html#the-data-file">2.4. The data file</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#sample-files">Sample files</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#genotype-sample-files">Genotype sample files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#allele-count-sample-files">Allele count sample files</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#missing-data">Missing data</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-usage.html#the-configuration-file">2.5. The configuration file</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#a-simple-configuration-file">A simple configuration file</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#general-settings"><code class="docutils literal notranslate"><span class="pre">[General]</span></code> settings</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#specifying-data-formats">Specifying data formats</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#parsegenotypefile"><code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#parseallelecountfile"><code class="docutils literal notranslate"><span class="pre">[ParseAlleleCountFile]</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#analysis-options">Analysis options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#hardyweinberg"><code class="docutils literal notranslate"><span class="pre">[HardyWeinberg]</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#hardyweinbergguothompson"><code class="docutils literal notranslate"><span class="pre">[HardyWeinbergGuoThompson]</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#homozygosityewslatkinexact"><code class="docutils literal notranslate"><span class="pre">[HomozygosityEWSlatkinExact]</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#emhaplofreq"><code class="docutils literal notranslate"><span class="pre">[Emhaplofreq]</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#advanced-options">Advanced options</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#general-advanced-options"><code class="docutils literal notranslate"><span class="pre">[General]</span></code> advanced options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#parsegenotypefile-and-parseallelecountfile-common-options"><code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code> and <code class="docutils literal notranslate"><span class="pre">[ParseAlleleCountFile]</span></code> common options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#parsegenotypefile-advanced-option"><code class="docutils literal notranslate"><span class="pre">[ParseGenotypeFile]</span></code> advanced option</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#emhaplofreq-advanced-options"><code class="docutils literal notranslate"><span class="pre">[Emhaplofreq]</span></code> advanced options</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#advanced-filtering-sections">Advanced filtering sections</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#filters-extra-section"><code class="docutils literal notranslate"><span class="pre">[Filters]</span></code> extra section</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#anthonynolan-filter-section"><code class="docutils literal notranslate"><span class="pre">[AnthonyNolan]</span></code> filter section</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#sequence-filter-section"><code class="docutils literal notranslate"><span class="pre">[Sequence]</span></code> filter section</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#digitbinning-filter-section"><code class="docutils literal notranslate"><span class="pre">[DigitBinning]</span></code> filter section</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#custombinning-filter-section"><code class="docutils literal notranslate"><span class="pre">[CustomBinning]</span></code> filter section</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-usage.html#pypop-api-examples">2.6. PyPop API examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-usage.html#command-line-interfaces">2.7. Command-line interfaces</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#pypop-usage"><code class="docutils literal notranslate"><span class="pre">pypop</span></code> usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#PyPop.CommandLineInterface-get_pypop_cli-options-for-pypop">Options for pypop</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#PyPop.CommandLineInterface-get_pypop_cli-tsv-output-options">TSV output options</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#PyPop.CommandLineInterface-get_pypop_cli-mutually-exclusive-input-options">Mutually exclusive input options</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-usage.html#popmeta-usage"><code class="docutils literal notranslate"><span class="pre">popmeta</span></code> usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#PyPop.CommandLineInterface-get_popmeta_cli-positional-arguments">Positional Arguments</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#PyPop.CommandLineInterface-get_popmeta_cli-options-for-popmeta">Options for popmeta</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-usage.html#PyPop.CommandLineInterface-get_popmeta_cli-mutually-exclusive-popmeta-options">Mutually exclusive popmeta options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-instructions.html">3. Interpreting PyPop output</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-instructions.html#population-summary">3.1. Population summary</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-instructions.html#single-locus-analyses">3.2. Single locus analyses</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-instructions.html#basic-allele-count-information">Basic allele count information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-instructions.html#chi-square-test-for-deviation-from-hardy-weinberg-proportions-hwp">Chi-square test for deviation from Hardy-Weinberg proportions (HWP).</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-instructions.html#exact-test-for-deviation-from-hwp">Exact test for deviation from HWP</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-instructions.html#the-ewens-watterson-homozygosity-test-of-neutrality">The Ewens-Watterson homozygosity test of neutrality</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-instructions.html#multi-locus-analyses">3.3. Multi-locus analyses</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-instructions.html#all-pairwise-ld">All pairwise LD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-instructions.html#haplotype-frequency-estimation">Haplotype frequency estimation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-contributing.html">4. Contributing to PyPop</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-contributing.html#reporting-and-requesting">4.1. Reporting and requesting</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#did-you-find-a-bug">Did you find a bug?</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#documentation-improvements">Documentation improvements</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#feature-requests-and-feedback">Feature requests and feedback</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-contributing.html#making-a-code-contribution">4.2. Making a code contribution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#fork-this-repository">Fork this repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#clone-the-main-repository">Clone the main repository</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#make-a-new-branch">Make a new branch</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#build-locally-and-make-your-changes">Build locally and make your changes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#keep-your-branch-in-sync-with-upstream">Keep your branch in sync with upstream</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#use-nox-for-testing-and-code-quality">Use <code class="docutils literal notranslate"><span class="pre">nox</span></code> for testing and code quality</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-contributing.html#run-unit-tests">Run unit tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-contributing.html#run-pre-commit-checks">Run <code class="docutils literal notranslate"><span class="pre">pre-commit</span></code> checks</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-contributing.html#build-distribution-packages">Build distribution packages</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#update-authors-rst">Update <code class="docutils literal notranslate"><span class="pre">AUTHORS.rst</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#make-a-pull-request">Make a Pull Request</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-contributing.html#installation-for-developers">4.3. Installation for developers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#install-the-build-environment">Install the build environment</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-contributing.html#install-build-environment-via-miniconda-recommended">Install build environment via miniconda (recommended)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-contributing.html#install-build-environment-via-system-packages-advanced">Install build environment via system packages (advanced)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#build-pypop">Build PyPop</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-contributing.html#build-and-install-not-recommended-for-developers">Build-and-install (not recommended for developers)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-contributing.html#build-and-install-developer-mode-recommended-for-developers">Build-and-install developer-mode (recommended for developers)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-contributing.html#cleaning-up-build">Cleaning up build</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-contributing.html#install-package-from-github-releases">4.4. Install package from GitHub Releases</a></li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-contributing.html#making-a-documentation-or-website-contribution">4.5. Making a documentation or website contribution</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#structure">Structure</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#modifying-documentation">Modifying documentation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-contributing.html#minor-modifications">Minor modifications</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-contributing.html#major-modifications">Major modifications</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-contributing.html#crediting-contributors">4.6. Crediting contributors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#authors-rst-news-md-and-github-release-notes"><code class="docutils literal notranslate"><span class="pre">AUTHORS.rst</span></code>, <code class="docutils literal notranslate"><span class="pre">NEWS.md</span></code> and GitHub Release Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#authorship-on-zenodo-archives-of-releases">Authorship on Zenodo archives of releases</a></li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-contributing.html#scientific-publications-papers">Scientific publications (papers)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-changes.html">5. Authors and history</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-changes.html#pypop-contributors">5.1. PyPop contributors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#third-party-modules">Third-party modules</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="guide-chapter-changes.html#pypop-release-history">5.2. PyPop Release History</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id5">1.4.0 - 2026-01-19</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#features">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#bug-fixes">Bug Fixes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#internal">Internal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#documentation">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id6">1.3.1 - 2025-10-07</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id7">Internal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id8">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id9">1.3.0 - 2025-09-08</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id10">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id11">Internal</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id12">1.2.2 - 2025-07-28</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id13">Internal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id14">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id15">1.2.1 - 2025-04-29</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id16">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id17">Bug Fixes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id18">Internal</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id19">1.2.0 - 2025-02-04</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id20">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id21">Bug Fixes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id22">Internal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id23">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id24">1.1.2 - 2024-11-18</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id25">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id26">Internal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id27">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id28">1.1.1 - 2024-09-10</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id29">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id30">Bug Fixes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id31">Internal</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id32">1.1.0 - 2024-05-30</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id33">Internal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id34">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id35">1.0.2 - 2024-02-24</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id36">Bug Fixes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id37">Internal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id38">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id39">1.0.1 - 2024-02-11</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id40">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id41">Bug Fixes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id42">Internal</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id43">Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id44">1.0.0 - 2023-11-07</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#new-features">New features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id45">Bug fixes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id46">Internal</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id47">0.7.0 - 2008-09-09</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id48">New features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id49">Bug fixes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#other-issues">Other issues</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#id50">0.6.0 - 2005-04-13</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id51">New features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id52">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#public-beta-2004-03-09">0.5.2 (public beta) - 2004-03-09</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id53">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#public-beta-2004-02-26">0.5.1 (public beta) - 2004-02-26</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#changes">Changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id54">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#public-beta-2003-12-31">0.5 (public beta) - 2003-12-31</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id55">Changes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id56">Bug fixes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="guide-chapter-changes.html#beta">0.4.3beta</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="guide-chapter-changes.html#id57">Bug fixes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="licenses.html">6. Licenses</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="licenses.html#license-terms-for-pypop">6.1. License terms for PyPop</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="licenses.html#gpl">GNU General Public License</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="licenses.html#license-for-pypop-documentation">6.2. License for PyPop documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="licenses.html#gnu-free-documentation-license">GNU Free Documentation License</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">References</a></li>
+</ul>
+</div>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyPop: Python for Population Genomics</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="guide-chapter-install.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Installing PyPop</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

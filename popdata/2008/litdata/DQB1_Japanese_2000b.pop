@@ -1,0 +1,18 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DQB1_Japanese_2000b.pop	DQB1	742	742	lit	Japanese_2000b	Asian	08-NEA	Japan	3	unrelated healthy apheresis blood donors living in central Japan region	36.00N	138.00E	1	1	PCR-RFLP, PCR-SSP	{SOY+00}	Saito	2000	Allele frequencies and haplotypic associations defined by allelic DNA typing at HLA class I and class II loci in the Japanese populations	Tissue Antigens	56	522-529	otamasao@sch.md.shinshu-u.ac.jp		JP	Ota	1301112	34	1	Uryu et al. 1990, Nomura et al. 1991, Sengar et al. 1994	N		Y	N	N		LD			12th? - Checked, not evident	YT
+DQB1	count
+0202	2
+0301	84
+0302	80
+0303	100
+0306	1
+0401	85
+0402	29
+0501	56
+0502	26
+0503	20
+0601	136
+0602	61
+0603	5
+0604	54
+0609	3

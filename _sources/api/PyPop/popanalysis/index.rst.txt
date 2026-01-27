@@ -1,0 +1,156 @@
+PyPop.popanalysis
+=================
+
+.. py:module:: PyPop.popanalysis
+
+.. autoapi-nested-parse::
+
+   Primary access to PyPop's population genetics statistics modules.
+
+   This module handles processing :class:`configparser.ConfigParser`
+   instance.  The :class:`Main` class coordinates running the analysis
+   packages specified in this :class:`configparser.ConfigParser` instance
+   which can be:
+
+   - created from a filename passed from command-line argument oar;
+
+   - from values populated by the GUI (for example,  selected from an
+     ``.ini`` file,
+
+   - created programmatically as part of an external Python program
+
+   Here is an example of calling :class:`Main` programmatically,
+   explicitly specifying the ``untypedAllele`` and ``alleleDesignator``
+   in the ``.pop`` file:
+
+   .. testsetup::
+
+      >>> import PyPop
+      >>> PyPop.setup_logger(doctest_mode=True)
+
+   >>> from PyPop.popanalysis import Main
+   >>> from configparser import ConfigParser
+   >>>
+   >>> config = ConfigParser()
+   >>> config.read_dict({
+   ...     "ParseGenotypeFile": {"untypedAllele": "****",
+   ...                           "alleleDesignator": "*",
+   ...                           "validSampleFields": "*a_1\n*a_2"}})
+   >>>
+   >>> pop_contents = '''a_1\ta_2
+   ... ****\t****
+   ... 01:01\t02:01
+   ... 02:10\t03:01:02'''
+   >>> with open("my.pop", "w") as f:
+   ...     _ = f.write(pop_contents)
+   ...
+   >>> application = Main(
+   ...     config=config,
+   ...     fileName="my.pop",
+   ...     version="fake",
+   ... )
+   LOG: no XSL file, skipping text output
+   LOG: Data file has no header data block
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.popanalysis.Main
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.popanalysis.getConfigInstance
+   PyPop.popanalysis.get_sequence_directory
+
+
+Module Contents
+---------------
+
+.. py:class:: Main(config=None, xslFilename=None, xslFilenameDefault=None, fileName=None, datapath=None, thread=None, outputDir=None, version=None, testMode=False)
+
+   Main interface to the PyPop modules.
+
+   Runs the analyses specified in the configuration object provided
+   to the ``config`` parameter, and an input ``fileName``, and
+   generates an output XML file. The XML output file name, appends
+   ``-out.xml`` on to the stem of the provided ``fileName``.  For
+   example, if ``fileName="MyPopulation.pop"`` is provided as a
+   parameter, the output XML file will be ``MyPopulation-out.xml``.
+
+   .. versionchanged:: 1.4.0
+
+      If an ``xslFilename`` or ``xslFilenameDefault`` is provided,
+      also generate a plain text output.  Otherwise no text output is
+      generated. Previous to this version, if neither were provided,
+      the program would exit with an error.
+
+   :param config: configure object
+   :type config: configparser.ConfigParser
+   :param xslFilename: XSLT file to use
+   :type xslFilename: str, optional
+   :param xslFilenameDefault: fallback file name
+   :type xslFilenameDefault: str, optional
+   :param fileName: input ``.pop`` file
+   :type fileName: str
+   :param datapath: root of data path
+   :type datapath: str, optional
+   :param thread: specified thread
+   :type thread: str, optional
+   :param outputDir: use a different output directory than default
+   :type outputDir: str, optional
+   :param version: current Python version for output
+   :type version: str, optional
+   :param testMode: enable testing mode
+   :type testMode: bool, optional
+
+
+   .. py:method:: getXmlOutPath()
+
+      Get name of XML file.
+
+      :returns: return XML file name
+      :rtype: XMLOutputStream
+
+
+
+   .. py:method:: getTxtOutPath()
+
+      Get name of ``.txt`` output file.
+
+      :returns: return txt file name
+      :rtype: TextOutputStream
+
+
+
+.. py:function:: getConfigInstance(configFilename=None, altpath=None)
+
+   Create and return ConfigParser instance.
+
+   :param configFilename: a specified ``.ini`` filename
+   :type configFilename: str
+   :param altpath: an alternative path to search if no ``.ini`` filename provided in configFilename
+   :type altpath: str
+
+   :returns: configuration object
+   :rtype: configparser.ConfigParser
+
+
+.. py:function:: get_sequence_directory(directory_str)
+
+   Get the directory for the :class:`PyPop.Filter.AnthonyNolanFilter`.
+
+   :param directory_str: directory to search
+   :type directory_str: str
+
+   :returns: path to sequence files
+   :rtype: str
+
+

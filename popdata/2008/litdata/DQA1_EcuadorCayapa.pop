@@ -1,0 +1,7 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+DQA1_EcuadorCayapa.pop	DQA1	166	166	mid	EcuadorCayapa	Amerindian	10-SAM	ECUADOR	2	Some alleles separated by a slash (DQB1*0602/06111, 0603/0614, 0302   /0307 could not be distinguished. In all cases frequency is given for fi   rst allele.	2S	77W	1	1	SSOP		ANN BEGOVICH	2000	Begovich AB, et al. HLA-DQ haplotypes in 15 different populatio   ns. In: The Major Histocompatibility Complex: Evoluion, Structure and Fu   nction. Ed. M.Kasahara. Springer Verlag, pp412-426. Begovich AB. Tissue   Antigens 2001: 57: 424-439.				Ann.Begovich@celeradiagnostics.com		83	Not Known	ANTHROPOLOGY STUDY	DM
+DQA1	count
+0102	1
+03	103
+0401	35
+0501	27

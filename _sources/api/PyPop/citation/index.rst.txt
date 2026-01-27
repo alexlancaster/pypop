@@ -1,0 +1,46 @@
+PyPop.citation
+==============
+
+.. py:module:: PyPop.citation
+
+.. autoapi-nested-parse::
+
+   Module for generating citation formats.
+
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   PyPop.citation.citation_output_formats
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.citation.convert_citation_formats
+
+
+Module Contents
+---------------
+
+.. py:data:: citation_output_formats
+   :value: ['apalike', 'bibtex', 'endnote', 'ris', 'codemeta', 'cff', 'schema.org', 'zenodo']
+
+
+   Valid citation output formats supported by ``cffconvert``
+
+.. py:function:: convert_citation_formats(build_lib, citation_path)
+
+   Generate all supported citation formats.
+
+   :param build_lib: path to build directory when creating package
+   :type build_lib: str
+   :param citation_path: path to standard ``CITATION.cff`` file
+   :type citation_path: str
+
+

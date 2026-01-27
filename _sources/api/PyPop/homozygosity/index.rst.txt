@@ -1,0 +1,237 @@
+PyPop.homozygosity
+==================
+
+.. py:module:: PyPop.homozygosity
+
+.. autoapi-nested-parse::
+
+   Computing homozygosity statistics on genotype or allele counts.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.homozygosity.Homozygosity
+   PyPop.homozygosity.HomozygosityEWSlatkinExact
+   PyPop.homozygosity.HomozygosityEWSlatkinExactPairwise
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.homozygosity.getObservedHomozygosityFromAlleleData
+
+
+Module Contents
+---------------
+
+.. py:class:: Homozygosity(alleleData, rootPath='.')
+
+   Calculate homozygosity statistics.
+
+   Given allele count data for a given locus, calculates the observed
+   homozygosity and returns the approximate expected homozygosity
+   statistics taken from previous simulation runs.
+
+   :param alleleData: list of allele counts
+   :type alleleData: list
+   :param rootPath: path to the root of the directory where the
+                    pre-calculated expected homozygosity statistics can be found.
+   :type rootPath: str
+
+
+   .. py:method:: getObservedHomozygosity()
+
+      Calculate and return observed homozygosity.
+
+      Available even if expected stats cannot be calculated.
+
+      :returns: observed homozygosity
+      :rtype: float
+
+
+
+   .. py:method:: canGenerateExpectedStats()
+
+      Can expected homozygosity stats be calculated?
+
+      Returns ``1`` if expected homozygosity statistics can be
+      calculated.  Should be called before attempting to get any
+      expected homozygosity statistics.
+
+      :returns: ``1`` if can be calculated, otherwise ``0``
+      :rtype: int
+
+
+
+   .. py:method:: getPValueRange()
+
+      Gets lower and upper bounds for p-value.
+
+      Only meaningful if :meth:`canGenerateExpectedStats` returns true.
+
+      :returns: (``lower``, ``upper``) bounds.
+      :rtype: tuple
+
+
+
+   .. py:method:: getCount()
+
+      Number of runs used to calculate statistics.
+
+      Only meaningful if :meth:`canGenerateExpectedStats` returns ``1``.
+
+      :returns: number of runs
+      :rtype: int
+
+
+
+   .. py:method:: getExpectedHomozygosity()
+
+      Gets mean of expected homozygosity.
+
+      This is the estimate of the *expected* homozygosity.  Only
+      meaningful if :meth:`canGenerateExpectedStats` returns true.
+
+      :returns: mean of expected homozygosity
+      :rtype: float
+
+
+
+   .. py:method:: getVarExpectedHomozygosity()
+
+      Gets variance of expected homozygosity.
+
+      This is the estimate of the variance *expected* homozygosity.
+      Only meaningful if :meth:`canGenerateExpectedStats` returns true.
+
+      :returns: variance of expected homozygosity
+      :rtype: float
+
+
+
+   .. py:method:: getNormDevHomozygosity()
+
+      Gets normalized deviate of homozygosity.
+
+      Only meaningful if :meth:`canGenerateExpectedStats` returns true.
+
+      :returns: normalized deviate of homozygosity
+      :rtype: float
+
+
+
+   .. py:method:: serializeHomozygosityTo(stream)
+
+      Serialize homozygosity to a stream.
+
+      :param stream: stream to save to
+      :type stream: XMLOutputStream
+
+
+
+.. py:class:: HomozygosityEWSlatkinExact(alleleData=None, numReplicates=10000)
+
+   Bases: :py:obj:`Homozygosity`
+
+   .. autoapi-inheritance-diagram:: PyPop.homozygosity.HomozygosityEWSlatkinExact
+      :parts: 1
+
+
+   Compute homozygosity using the Ewens-Watterson-Slatkin "exact test".
+
+   :param alleleData: list of allele counts
+   :type alleleData: list
+   :param numReplicates: number or replicates for simulation.
+   :type numReplicates: int
+
+
+   .. py:method:: doCalcs(alleleData)
+
+      Run the computations.
+
+      :param alleleData: list of allele counts
+      :type alleleData: list
+
+
+
+   .. py:method:: getHomozygosity()
+
+      Get the homozygosity statistics.
+
+      :returns:
+
+                tuple consisting of:
+                  - theta
+                  - prob_ewens
+                  - prob_homozygosity
+                  - mean_homozygosity
+                  - obsv_homozygosity
+                  - var_homozygosity
+      :rtype: tuple
+
+
+
+   .. py:method:: serializeHomozygosityTo(stream)
+
+      Serialize homozygosity to a stream.
+
+      :param stream: stream to save to
+      :type stream: XMLOutputStream
+
+
+
+   .. py:method:: returnBulkHomozygosityStats(alleleCountDict=None, binningMethod=None)
+
+      Get bulk homozygosity statistics for multiple allele counts.
+
+      This function is designed to work with the
+      :mod:`PyPop.RandomBinning` submodule.
+
+      :param alleleCountDict: dictionary of lists of allele counts
+      :type alleleCountDict: dict
+      :param binningMethod: record the binning method used
+      :type binningMethod: str
+
+      :returns: dictionary of statistics
+      :rtype: dict
+
+
+
+.. py:class:: HomozygosityEWSlatkinExactPairwise(matrix=None, numReplicates=10000, untypedAllele='****')
+
+   Compute pairwise homozygosity using the Ewens-Watterson-Slatkin.
+
+   :param matrix: matrix with multiple loci columns for pairwise comparison
+   :type matrix: StringMatrix
+   :param numReplicates: number or replicates for simulation.
+   :type numReplicates: int, optional
+   :param untypedAllele: untyped allele
+   :type untypedAllele: str, optional
+
+
+   .. py:method:: serializeTo(stream)
+
+      Serialize to a stream.
+
+      :param stream: stream to save to
+      :type stream: XMLOutputStream
+
+
+
+.. py:function:: getObservedHomozygosityFromAlleleData(alleleData)
+
+   Get homozygosity from allele data.
+
+   :param alleleData: list of allele counts
+   :type alleleData: list
+
+   :returns: observed homozygosity
+   :rtype: float
+
+

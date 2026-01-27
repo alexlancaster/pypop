@@ -1,0 +1,722 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>1. Installing PyPop &#8212; PyPop 1.4.0 documentation</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=8878045cc6db502f8baf" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=deb9c837" />
+  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=8878045cc6db502f8baf"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf" />
+
+    <script src="../_static/documentation_options.js?v=9172181d"></script>
+    <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+    <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js?v=1ae7504c"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/guide-chapter-install';</script>
+    <link rel="icon" href="../_static/pypop-favicon.ico"/>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="2. Getting started with PyPop" href="guide-chapter-usage.html" />
+    <link rel="prev" title="PyPop User Guide" href="index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="1.4.0" />
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+  <aside class="bd-header-announcement d-print-none d-none" aria-label="Announcement" data-pst-announcement-url="https://raw.githubusercontent.com/alexlancaster/pypop/refs/heads/main/website/_templates/announcement_banner.html"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class=" navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../_static/pypop-logo.png" class="logo__image only-light" alt="PyPop - Home"/>
+    <img src="../_static/pypop-logo.png" class="logo__image only-dark pst-js-only" alt="PyPop - Home"/>
+  
+  
+    <p class="title logo__title">PyPop</p>
+  
+</a></div>
+    
+  </div>
+  
+  <div class=" navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          
+          
+            <div class="navbar-item">
+<nav>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+<li class="nav-item current active">
+  <a class="nav-link nav-internal" href="index.html">
+    PyPop User Guide
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-internal" href="../api/index.html">
+    API Reference (1.4.0)
+  </a>
+</li>
+
+
+<li class="nav-item ">
+  <a class="nav-link nav-external" href="http://pypop.org/popdata/">
+    Solberg et al. (2008)
+  </a>
+</li>
+
+  </ul>
+</nav></div>
+          
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/alexlancaster/pypop/" title="GitHub" class="nav-link pst-navbar-icon" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">1. Installing PyPop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-usage.html">2. Getting started with PyPop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-instructions.html">3. Interpreting PyPop output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-contributing.html">4. Contributing to PyPop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="guide-chapter-changes.html">5. Authors and history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="licenses.html">6. Licenses</a></li>
+</ul>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="biblio.html">References</a></li>
+</ul>
+</div>
+</nav></div>
+        <div class="sidebar-primary-item">
+<div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#quickstart-guide">1.1. Quickstart Guide</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#examples">1.2. Examples</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#checking-version-and-installation">Checking version and installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-a-minimal-dataset">Run a minimal dataset:</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#detailed-installation-instructions">1.3. Detailed installation instructions</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-python-3-and-pip">Install Python 3 and <code class="docutils literal notranslate"><span class="pre">pip</span></code></a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-package-from-pypi">Install package from PyPI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#post-install-path-adjustments">Post-install <code class="docutils literal notranslate"><span class="pre">PATH</span></code> adjustments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uninstalling-pypop">Uninstalling PyPop</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#support-and-development">1.4. Support and development</a></li>
+</ul>
+  </nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item"><nav class="sidebar-indices-items" aria-labelledby="pst-indices-navigation-heading-2">
+  <p id="pst-indices-navigation-heading-2" class="sidebar-indices-items__title" role="heading" aria-level="1">Indices</p>
+  <ul class="indices-link">
+        <li class="toctree-l1">
+          <a class="reference internal"
+             href="../genindex.html"
+             accesskey="I">General Index</a>
+        </li>
+        <li class="toctree-l1">
+          <a class="reference internal" href="../py-modindex.html">Python Module Index</a>
+        </li>
+  </ul>
+</nav></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+
+<nav aria-label="Breadcrumb" class="d-print-none">
+  <ul class="bd-breadcrumbs">
+    
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="../index.html" class="nav-link" aria-label="Home">
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+    
+    <li class="breadcrumb-item"><a href="index.html" class="nav-link">PyPop User Guide</a></li>
+    
+    <li class="breadcrumb-item active" aria-current="page"><span class="ellipsis"><span class="section-number">1. </span>Installing PyPop</span></li>
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section id="installing-pypop">
+<h1><span class="section-number">1. </span>Installing PyPop<a class="headerlink" href="#installing-pypop" title="Link to this heading">#</a></h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The package name for installation purposes is <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code> - to avoid
+conflicting with an unrelated package with the name <code class="docutils literal notranslate"><span class="pre">pypop</span></code>
+already on <a class="reference external" href="https://pypi.org">PyPI</a>.</p>
+</div>
+<section id="quickstart-guide">
+<h2><span class="section-number">1.1. </span>Quickstart Guide<a class="headerlink" href="#quickstart-guide" title="Link to this heading">#</a></h2>
+<p><strong>Installing</strong> <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code></p>
+<p>If you already have Python and <code class="docutils literal notranslate"><span class="pre">pip</span></code> installed, install using the following:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pypop-genomics
+</pre></div>
+</div>
+<p>Otherwise, follow <a class="reference internal" href="#install-python-3-and-pip">these instructions</a> to install Python 3 and pip.</p>
+<p>Once <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code> is installed, depending on your platform, you may also
+need to <a class="reference internal" href="#post-install-path-adjustments">adjust</a> your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>
+environment variable.</p>
+<p><strong>Upgrading</strong> <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pypop-genomics
+</pre></div>
+</div>
+<p><strong>Uninstalling</strong> <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code></p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>pypop-genomics
+</pre></div>
+</div>
+<p><strong>For more, including handling common installation issues, see the</strong> <a class="reference internal" href="#detailed-installation-instructions">detailed installation instructions</a> <strong>.</strong></p>
+<p>Once you have installed <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code>, you can move on to try some
+<a class="reference internal" href="#examples">example runs</a>.</p>
+</section>
+<section id="examples">
+<span id="guide-readme-examples"></span><h2><span class="section-number">1.2. </span>Examples<a class="headerlink" href="#examples" title="Link to this heading">#</a></h2>
+<p>These are examples of how to check that the program is installed and
+some minimal use cases.</p>
+<section id="checking-version-and-installation">
+<h3>Checking version and installation<a class="headerlink" href="#checking-version-and-installation" title="Link to this heading">#</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>--version
+</pre></div>
+</div>
+<p>This simply reports the version number and other information about
+PyPop, and indirectly checks that the program is installed. If all is
+well, you should see something like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>pypop 1.0.0
+[Python 3.10.9 | Linux.x86_64-x86_64 | x86_64]
+Copyright (C) 2003-2006 Regents of the University of California.
+Copyright (C) 2007-2023 PyPop team.
+This is free software.  There is NO warranty; not even for
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+</pre></div>
+</div>
+<p>You can also run <code class="docutils literal notranslate"><span class="pre">pypop</span> <span class="pre">--help</span></code> to see a full list and explanation
+of all the options available.</p>
+</section>
+<section id="run-a-minimal-dataset">
+<h3>Run a minimal dataset:<a class="headerlink" href="#run-a-minimal-dataset" title="Link to this heading">#</a></h3>
+<p>Download test <code class="docutils literal notranslate"><span class="pre">.ini</span></code> and <code class="docutils literal notranslate"><span class="pre">.pop</span></code> files: <a class="reference external" href="https://raw.githubusercontent.com/alexlancaster/pypop/main/tests/data/minimal.ini">minimal.ini</a>
+and <a class="reference external" href="https://raw.githubusercontent.com/alexlancaster/pypop/main/tests/data/USAFEL-UchiTelle-small.pop">USAFEL-UchiTelle-small.pop</a>.
+You can then run them</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>-c<span class="w">  </span>minimal.ini<span class="w"> </span>USAFEL-UchiTelle-small.pop
+</pre></div>
+</div>
+<p>If you have already cloned the git repository and it is your working
+directory, you can simply run</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pypop<span class="w"> </span>-c<span class="w">  </span>tests/data/minimal.ini<span class="w"> </span>tests/data/USAFEL-UchiTelle-small.pop
+</pre></div>
+</div>
+<p>This will generate the following two files, an XML output file and a
+plain text version:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">USAFEL</span><span class="o">-</span><span class="n">UchiTelle</span><span class="o">-</span><span class="n">small</span><span class="o">-</span><span class="n">out</span><span class="o">.</span><span class="n">xml</span>
+<span class="n">USAFEL</span><span class="o">-</span><span class="n">UchiTelle</span><span class="o">-</span><span class="n">small</span><span class="o">-</span><span class="n">out</span><span class="o">.</span><span class="n">txt</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="detailed-installation-instructions">
+<h2><span class="section-number">1.3. </span>Detailed installation instructions<a class="headerlink" href="#detailed-installation-instructions" title="Link to this heading">#</a></h2>
+<p>There are three main steps:</p>
+<ol class="arabic simple">
+<li><p>install Python and <code class="docutils literal notranslate"><span class="pre">pip</span></code></p></li>
+<li><p>install package from PyPI</p></li>
+<li><p>adjusting your <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable after installation</p></li>
+</ol>
+<section id="install-python-3-and-pip">
+<h3>Install Python 3 and <code class="docutils literal notranslate"><span class="pre">pip</span></code><a class="headerlink" href="#install-python-3-and-pip" title="Link to this heading">#</a></h3>
+<p>A full description of installing Python and <code class="docutils literal notranslate"><span class="pre">pip</span></code> on your system is
+beyond the scope of this guide, we recommend starting here:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://wiki.python.org/moin/BeginnersGuide/Download">https://wiki.python.org/moin/BeginnersGuide/Download</a></p>
+</div></blockquote>
+<p>Here are some additional platform-specific notes that may be helpful:</p>
+<ul class="simple">
+<li><p>Most Linux distributions come with Python 3 preinstalled. On most
+modern systems, <code class="docutils literal notranslate"><span class="pre">pip</span></code> and <code class="docutils literal notranslate"><span class="pre">python</span></code> will default to Python 3.</p></li>
+<li><p>MacOS 10.9 (Jaguar) up until 12.3 (Catalina), used to ship with
+Python 2 pre-installed, but it now has to be manually installed.
+See the <a class="reference external" href="https://docs.python.org/3/using/mac.html">MacOS quick-start guide</a> in the official
+documentation for how to install Python 3. (Note that if Python is
+installed on Mac via the MacOS developer tools, it may include the
+version <code class="docutils literal notranslate"><span class="pre">3</span></code> suffix on commands, e.g. <code class="docutils literal notranslate"><span class="pre">python3</span></code> and <code class="docutils literal notranslate"><span class="pre">pip3</span></code>, so
+modify the below, accordingly).</p></li>
+<li><p>For Windows, see also the <a class="reference external" href="https://docs.python.org/3/using/windows.html">Windows quick-start guide</a> in the official
+documentation. Running <code class="docutils literal notranslate"><span class="pre">python</span></code> in the Windows command terminal
+in Windows 11 and later will launch the installer for the
+Microsoft-maintained Windows package of Python 3.</p></li>
+</ul>
+</section>
+<section id="install-package-from-pypi">
+<h3>Install package from PyPI<a class="headerlink" href="#install-package-from-pypi" title="Link to this heading">#</a></h3>
+<p>Once you have both python and <code class="docutils literal notranslate"><span class="pre">pip</span></code> installed, you can use <code class="docutils literal notranslate"><span class="pre">pip</span></code>
+to install pre-compiled binary “wheels” of <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code>
+directly from  <a class="reference external" href="https://pypi.org/">PyPI</a>.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pypop-genomics
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If, for whatever reason, you cannot use the these binaries
+(e.g. the pre-compiled binaries are not available for your
+platform), you may need to follow the <a class="reference external" href="http://pypop.org/docs/guide-chapter-contributing.html#installation-for-developers">developer installation
+instructions</a> in the contributors
+guide.</p>
+</div>
+<p><strong>Upgrade an existing PyPop installation</strong></p>
+<p>To update an existing installation to a newer version, use the same
+command as above, but add the <code class="docutils literal notranslate"><span class="pre">--upgrade</span></code> (short version: <code class="docutils literal notranslate"><span class="pre">-U</span></code>)
+flag, i.e.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>pypop-genomics
+</pre></div>
+</div>
+<p><strong>Installing from Test PyPI</strong></p>
+<p>From time to time, we may make available packages on the <a class="reference external" href="https://test.pypi.org/">Test PyPI</a> instance, rather than the through the main
+instance. The above installation and updating instructions can be
+used, by appending the following:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>--extra-index-url<span class="w"> </span>https://test.pypi.org/simple/
+</pre></div>
+</div>
+<p>to the above <code class="docutils literal notranslate"><span class="pre">pip</span></code> commands.</p>
+<p><strong>Issues with installation permission</strong></p>
+<p>By default, <code class="docutils literal notranslate"><span class="pre">pip</span></code> will attempt to install the <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code>
+package wherever the current Python installation is installed.  This
+location may be a user-specific virtual environment (like <code class="docutils literal notranslate"><span class="pre">conda</span></code>,
+see below), or a system-wide installation. On many Unix-based systems,
+Python will generally already be pre-installed in a “system-wide”
+location (e.g. under <code class="docutils literal notranslate"><span class="pre">/usr/lib</span></code>) which is read-only for regular
+users. (This can also be true for system-installed versions of Python
+on Windows and MacOS.)</p>
+<p>When <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> cannot install in a read-only system-wide
+location , <code class="docutils literal notranslate"><span class="pre">pip</span></code> will gracefully “fall-back” to installing just for
+you in your home directory (typically <code class="docutils literal notranslate"><span class="pre">~/.local/lib/python&lt;VER&gt;</span></code>
+where <code class="docutils literal notranslate"><span class="pre">&lt;VER&gt;</span></code> is the version number of your current Python). In
+general, this is what is wanted, so the above instructions are
+normally sufficient.</p>
+<p>However, you can also explicitly set installation to be in the user
+directory, by adding the <code class="docutils literal notranslate"><span class="pre">--user</span></code> command-line option to the <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code>
+command, i.e.:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>pypop-genomics<span class="w"> </span>--user
+</pre></div>
+</div>
+<p>This may be necessary in certain cases where <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span></code> doesn’t
+install into the expected user directory.</p>
+<div class="admonition-installing-within-a-conda-environment admonition">
+<p class="admonition-title">Installing within a <code class="docutils literal notranslate"><span class="pre">conda</span></code> environment</p>
+<p>In the special case that you installing from within an activated
+user-specific <code class="docutils literal notranslate"><span class="pre">conda</span></code> virtual environment that provides Python,
+then you should <strong>not</strong> add the <code class="docutils literal notranslate"><span class="pre">--user</span></code> because it will install
+it in <code class="docutils literal notranslate"><span class="pre">~/.local/lib/</span></code> rather than under the user-specific conda
+virtual environment in <code class="docutils literal notranslate"><span class="pre">~/.conda/envs/</span></code>.</p>
+</div>
+</section>
+<section id="post-install-path-adjustments">
+<h3>Post-install <code class="docutils literal notranslate"><span class="pre">PATH</span></code> adjustments<a class="headerlink" href="#post-install-path-adjustments" title="Link to this heading">#</a></h3>
+<p>You may need to adjust the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> settings (especially on Windows)
+for the <code class="docutils literal notranslate"><span class="pre">pypop</span></code> scripts to be visible when run from your console
+application, without having to supply the full path to the <code class="docutils literal notranslate"><span class="pre">pypop</span></code>
+executable file.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Pay close attention to the “WARNINGS” that are shown during the
+<code class="docutils literal notranslate"><span class="pre">pip</span></code> installation, they will often note which directories need to
+be added to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
+</div>
+<ul class="simple">
+<li><p>On Linux and MacOS, systems this is normally fairly simple and only
+requires edit of the shell <code class="docutils literal notranslate"><span class="pre">.profile</span></code>, or similar and addition of
+the <code class="docutils literal notranslate"><span class="pre">$HOME/.local/bin</span></code> to the <code class="docutils literal notranslate"><span class="pre">PATH</span></code> variable, followed by a
+restart of the terminal.</p></li>
+<li><p>For Windows, however, as noted in most online <a class="reference external" href="https://www.computerhope.com/issues/ch000549.htm">instructions</a>, this may need
+additional help from your system administrator if your user doesn’t
+have the right permissions, and also require a system reboot.</p></li>
+</ul>
+</section>
+<section id="uninstalling-pypop">
+<h3>Uninstalling PyPop<a class="headerlink" href="#uninstalling-pypop" title="Link to this heading">#</a></h3>
+<p>To uninstall the current version of <code class="docutils literal notranslate"><span class="pre">pypop-genomics</span></code>:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>uninstall<span class="w"> </span>pypop-genomics
+</pre></div>
+</div>
+</section>
+</section>
+<section id="support-and-development">
+<h2><span class="section-number">1.4. </span>Support and development<a class="headerlink" href="#support-and-development" title="Link to this heading">#</a></h2>
+<p>Please submit any bug reports, feature requests or questions, via our
+GitHub issue tracker (see our <a class="reference external" href="http://pypop.org/docs/guide-chapter-contributing.html#reporting-and-requesting">bug reporting guidelines</a>
+for more details on how to file a good bug report):</p>
+<blockquote>
+<div><p><a class="github reference external" href="https://github.com/alexlancaster/pypop/issues">alexlancaster/pypop#issues</a></p>
+</div></blockquote>
+<p><strong>Please do not report bugs via private email to developers.</strong></p>
+<p>The development of the code for PyPop is via our GitHub project:</p>
+<blockquote>
+<div><p><a class="github reference external" href="https://github.com/alexlancaster/pypop">alexlancaster/pypop</a></p>
+</div></blockquote>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="index.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">PyPop User Guide</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="guide-chapter-usage.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Getting started with PyPop</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../_static/scripts/bootstrap.js?digest=8878045cc6db502f8baf"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=8878045cc6db502f8baf"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright 2025 PyPop contributors.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 9.1.0.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item">
+<p class="theme-version">
+  <!-- # L10n: Setting the PST URL as an argument as this does not need to be localized -->
+  Built with the <a href="https://pydata-sphinx-theme.readthedocs.io/en/stable/index.html">PyData Sphinx Theme</a> 0.16.1.
+</p></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

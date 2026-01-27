@@ -1,0 +1,92 @@
+PyPop.command_line_interface
+============================
+
+.. py:module:: PyPop.command_line_interface
+
+.. autoapi-nested-parse::
+
+   Command-line interface for PyPop scripts.
+
+
+
+Classes
+-------
+
+.. autoapisummary::
+
+   PyPop.command_line_interface.CitationAction
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   PyPop.command_line_interface.get_parent_cli
+   PyPop.command_line_interface.get_pypop_cli
+   PyPop.command_line_interface.get_popmeta_cli
+
+
+Module Contents
+---------------
+
+.. py:class:: CitationAction(option_strings, dest, nargs=None, const=None, default=None, type=None, choices=None, required=False, help=None, metavar=None)
+
+   Bases: :py:obj:`argparse.Action`
+
+   .. autoapi-inheritance-diagram:: PyPop.command_line_interface.CitationAction
+      :parts: 1
+
+
+   A custom ``argparse`` ``Citation`` action to read the appropriate citation file format.
+
+
+   .. py:method:: __call__(parser, _, values, _option_string=None)
+
+
+.. py:function:: get_parent_cli(version='', copyright_message='')
+
+   Command-line options common to all scripts.
+
+   :param version: Software version.
+   :type version: str
+   :param copyright_message: Override the copyright message.
+   :type copyright_message: str
+
+   :returns:
+
+             A tuple of:
+                 - parent_parser (argparse.ArgumentParser): The base parser.
+                 - ihwg_args (tuple): Options for the IHWG module.
+                 - phylip_args (tuple): Options for the Phylip module.
+                 - common_args (tuple): Common options.
+                 - prefix_tsv_args (tuple): TSV prefix options.
+   :rtype: tuple
+
+
+.. py:function:: get_pypop_cli(version='', copyright_message='')
+
+   Command-line options for ``pypop`` script.
+
+   :param version: software version
+   :type version: str
+   :param copyright_message: override the copyright message
+   :type copyright_message: str
+
+   :returns: parser for ``pypop``
+   :rtype: argparse.ArgumentParser
+
+
+.. py:function:: get_popmeta_cli(version='', copyright_message='')
+
+   Command-line options for ``popmeta`` script.
+
+   :param version: software version
+   :type version: str
+   :param copyright_message: override the copyright message
+   :type copyright_message: str
+
+   :returns: parser for ``popmeta``
+   :rtype: argparse.ArgumentParser
+
+

@@ -1,0 +1,16 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DRB1_Nganasan_2004.pop	DRB1	48	48	lit	Nganasan_2004	Siberian	08-NEA	Nganasan	1		69.26N	88.05E	1	1	PCR-SSCP	{UTD+04}	Uinuk-ool	2004	Variation of HLA class II genes in the Nganasan and ket, two aboriginal Siberian Populations	European Journal of Immunogenetics	31	43-51	tanya@tuebinen.mpg.de		RU	Sukernik		38s	1		N		Y	N	N						KD
+DRB1	count
+0101	1
+0401	1
+0403	6
+0701	5
+0801	1
+0901	12
+1101	8
+1106	1
+1201/1206	6
+1301	2
+1401	2
+1403	2
+1501	1

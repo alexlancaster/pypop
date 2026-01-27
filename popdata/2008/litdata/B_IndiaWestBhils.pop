@@ -1,0 +1,22 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	n	fam	source	initials
+B_IndiaWestBhils.pop	B	100	100	mid	IndiaWestBhils	Indo-European	04-SWA	INDIA	3	The Bhils are one of the largest tribes concentrated in Western Mad   hya Pradesh, Eastern Gujarat and Northern Maharastra in India.	19N	76E	1	1	SSOP		Dr.U.Shankarkumar	1996	J.Human Ecology 10(3):173-8 1999.http://www.krepublishers.com				shankarkumar16@hotmail.com		50	Grandparents live at same location	ANTHROPOLOGY STUDY	DM
+B	count
+0804	4
+0805	4
+1302	4
+1502	4
+1536	1
+1807	5
+2704	2
+3503	9
+3506	3
+3517	2
+3701	1
+3802	4
+4006	19
+4011	2
+4409	3
+4802	3
+5110	12
+5303	9
+5801	9

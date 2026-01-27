@@ -1,0 +1,10 @@
+filename	locus	chromosomes	count_sum	dataset	popname	ethnicity	region	country	geo	popnotes	latit	longit	completeness	resolution	method	citation	author	year	title	journal	volume	pages	email	redundancy	country_lab	lab_pi	ua_ethnic_code	ethnic_code	freq_code	typing_comments	admixture	admixture_ethnicities	haplotyped?	genotyped?	controls?	disease	analyses_theirs	analyses_others	analyses_ours	mack_comments	initials
+DPB1_Cayapa_2001.pop	DPB1	166	166	lit	Cayapa_2001	Amerindian	10-SAM	Ecuador	2	population of 3600, define themselves as Chachi	2.00S	77.30W	1	1	PCR-SSOP	{BMM+01}	Begovich	2001	Genetic variability and linkage disquilibrium within the HLA-DP region: analysis of 15 different populations	Tissue Antigens	57	424-439	Ann.Begovich@Roche.com		EC	Begovich		53	1		N		Y	N	Y	Kaposi's sarcoma	F, LD			12th? - May be subset of trachtenberg-cayapa.pop	YT
+DPB1	count
+0201	7
+0301	1
+0401	2
+0402	76
+1301	9
+1401	70
+2701	1
