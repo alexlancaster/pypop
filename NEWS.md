@@ -7,6 +7,47 @@ concatenated release notes.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org).
 
+## [1.4.0] - 2026-01-19
+
+### Features
+
+- API changes (non-breaking): lowercase and rename modules (PEP8) and update docs ([#336](https://github.com/alexlancaster/pypop/pull/336))
+- Unify PyPop logging using system `logger`; improve CLI/docs, and enhance tests. ([#335](https://github.com/alexlancaster/pypop/pull/335))
+- Major revamp of docs: add API, update docstrings, allow for no text output mode for `Main` ([#330](https://github.com/alexlancaster/pypop/pull/330))
+
+### Bug Fixes
+
+- Obsolete `utils.OrderedDict`: replace with built-in `collections.OrderedDict` ([#367](https://github.com/alexlancaster/pypop/pull/367))
+- Replace deprecated `numpy.lib.user_array.container` in `StringMatrix` ([#359](https://github.com/alexlancaster/pypop/pull/359))
+
+### Internal
+
+- Bump sphinx-togglebutton from 0.3.2 to 0.4.4 ([#365](https://github.com/alexlancaster/pypop/pull/365))
+- Bump sphinx from 8.2.3 to 9.1.0 ([#360](https://github.com/alexlancaster/pypop/pull/360))
+- Bump myst-parser from 4.0.1 to 5.0.0 ([#366](https://github.com/alexlancaster/pypop/pull/366))
+- python(CI deps): bump cibuildwheel from 3.3.0 to 3.3.1 in /.github in the build-wheel-deps group ([#364](https://github.com/alexlancaster/pypop/pull/364))
+- Bump rst2pdf from 0.103.1 to 0.104 ([#362](https://github.com/alexlancaster/pypop/pull/362))
+- Update numpy requirement from \<=2.4.0 to \<=2.4.1 ([#363](https://github.com/alexlancaster/pypop/pull/363))
+- Update numpy requirement from \<=2.3.5 to \<=2.4.0 ([#357](https://github.com/alexlancaster/pypop/pull/357))
+- Bump the actions group with 3 updates ([#355](https://github.com/alexlancaster/pypop/pull/355))
+- `macos-13` GitHub runner deprecated, moving to `macos-15-intel` ([#342](https://github.com/alexlancaster/pypop/pull/342))
+- Bump actions/checkout from 5 to 6 in the actions group ([#349](https://github.com/alexlancaster/pypop/pull/349))
+- python(CI deps): bump cibuildwheel from 3.2.1 to 3.3.0 in /.github in the build-wheel-deps group ([#347](https://github.com/alexlancaster/pypop/pull/347))
+- Update numpy requirement from \<=2.3.4 to \<=2.3.5 ([#346](https://github.com/alexlancaster/pypop/pull/346))
+- Bump the actions group with 2 updates ([#341](https://github.com/alexlancaster/pypop/pull/341))
+- Update numpy requirement from \<=2.3.3 to \<=2.3.4 ([#339](https://github.com/alexlancaster/pypop/pull/339))
+- Bump setuptools-scm from 9.2.1 to 9.2.2 ([#338](https://github.com/alexlancaster/pypop/pull/338))
+- Bump the actions group with 3 updates ([#333](https://github.com/alexlancaster/pypop/pull/333))
+- python(CI deps): bump cibuildwheel from 3.2.0 to 3.2.1 in /.github in the build-wheel-deps group ([#334](https://github.com/alexlancaster/pypop/pull/334))
+- Bump setuptools-scm from 9.2.0 to 9.2.1 ([#332](https://github.com/alexlancaster/pypop/pull/332))
+- Major revamp of docs: add API, update docstrings, allow for no text output mode for `Main` ([#330](https://github.com/alexlancaster/pypop/pull/330))
+
+### Documentation
+
+- Refactor doctests, enable documentation of dunder methods by default in API docs ([#368](https://github.com/alexlancaster/pypop/pull/368))
+- API changes (non-breaking): lowercase and rename modules (PEP8) and update docs ([#336](https://github.com/alexlancaster/pypop/pull/336))
+- Major revamp of docs: add API, update docstrings, allow for no text output mode for `Main` ([#330](https://github.com/alexlancaster/pypop/pull/330))
+
 ## [1.3.1] - 2025-10-07
 
 ### Internal
@@ -590,3 +631,4 @@ Single, Owen Solberg and Steve Mack.
 [1.2.2]: https://github.com/alexlancaster/pypop/releases/tag/v1.2.2
 [1.3.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.3.0
 [1.3.1]: https://github.com/alexlancaster/pypop/releases/tag/v1.3.1
+[1.4.0]: https://github.com/alexlancaster/pypop/releases/tag/v1.4.0
