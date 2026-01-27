@@ -23,3 +23,13 @@ def test_DataMinimalNoHeader():
     )
     # check exit code
     assert exit_code == 0
+
+
+@skip_musllinux_x86_64
+def test_DataMinimalAlleleCount():
+    exit_code = run_pypop_process(
+        "./tests/data/doc-examples/config-minimal-allelecount.ini",
+        "./tests/data/doc-examples/data-allelecount.pop",
+    )
+    # check exit code
+    assert exit_code == 0

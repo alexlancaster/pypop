@@ -377,13 +377,15 @@ the first line consists of headers identifying the data on the second
 line, and the third line contains the column headers for the genotype or
 allele count information.
 
-Note that for genotype data, each locus corresponds to two columns in
-the population file. The locus name must repeated, with a suffix such as
-``_1``, ``_2`` (the default) or ``_a``, ``_b`` and must match the format
-defined in the :file:`config.ini` (see
-:ref:`validSampleFields <validSampleFields>`). Although PyPop needs this
-distinction to be made, phase is NOT assumed, and if known it is
-ignored.
+Genotype sample files
+~~~~~~~~~~~~~~~~~~~~~
+
+For genotype data, each locus corresponds to two columns in the
+population file. The locus name must repeated, with a suffix such as
+``_1``, ``_2`` (the default) or ``_a``, ``_b`` and must match the
+format defined in the :file:`config.ini` (see :ref:`validSampleFields
+<validSampleFields>`). Although PyPop needs this distinction to be
+made, phase is NOT assumed, and if known it is ignored.
 
 :numref:`config-minimal-example` shows the relevant lines for the
 configuration to read in the data shown in
@@ -434,13 +436,19 @@ locus consists of one nucleotide, the ``TGFBhapl`` locus is actually
 haplotype data, but PyPop simply treats each combination as a separate
 "allele" for subsequent analysis.
 
+Allele count sample files
+~~~~~~~~~~~~~~~~~~~~~~~~~
+
+PyPop can also process allele count data, of the kind shown in
+:numref:`data-allelecount`. Like genotype sample files, allele count
+sample files may also include a header (see :ref:`validPopFields
+<validPopFields>`), however, you cannot mix allele count data and
+genotype data together in the one sample file.
+
 .. literalinclude:: ../../tests/data/doc-examples/data-allelecount.pop
    :name: data-allelecount
-   :caption: Allele count data
+   :caption: Allele count data without a header block (a corresponding ``.ini`` file is found in :numref:`config-minimal-allelecount`)
    :language: text
-
-PyPop can also process allele count data. However, you cannot mix allele
-count data and genotype data together in the one file.
 
 .. note::
    :name: data-allelecount-note
@@ -448,7 +456,6 @@ count data and genotype data together in the one file.
    Currently each ``.pop`` file can only contain allele count data for
    *one locus*. In order to process multiple loci for one population you
    must create a separate ``.pop`` for each locus.
-
 
 Missing data
 ------------
@@ -524,12 +531,12 @@ respectively.
 
 .. config-minimal-example:
 
-.. Minimal ``config.ini`` file
+.. Minimal ``.ini`` file
 .. ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. literalinclude:: ../../tests/data/doc-examples/config-minimal-example.ini
    :name: config-minimal-example
-   :caption: Minimal config.ini file
+   :caption: Minimal ``.ini`` file for genotype data
    :emphasize-lines: 1,4,14,17,22,25
    :language: ini
 
@@ -654,6 +661,23 @@ allele-name count format, then you will want to use the
    :numref:`data-allelecount`). Listing multiple loci simply
    permits the same ``.ini`` file to be reused for each data file.
 
+.. config-minimal-allelecount:
+
+Below is a minimal ``.ini`` file that can be used to process the
+sample file with a single locus in :numref:`data-allelecount`.
+
+.. literalinclude:: ../../tests/data/doc-examples/config-minimal-allelecount.ini
+   :name: config-minimal-allelecount
+   :caption: Minimal ``.ini`` file for allele count data in :numref:`data-allelecount`
+   :language: ini
+
+Note also that only analyses that can be performed on allele count
+data (i.e. that don't require full genotype information) can be
+performed.  This means that other than the automatically generated
+single locus statistics, only :ref:`guide-usage-config-homozygosity`
+can be enabled. Hardy-Weinberg and haplotype and LD analyses are not
+available.
+
 Analysis options
 ----------------
 
@@ -711,6 +735,8 @@ optimal for us and if the options are not provided these defaults will
 be used. If you change the values and have problems, :ref:`please let
 us know <guide-contributing-bug-report>`.
 
+.. _guide-usage-config-homozygosity:
+
 ``[HomozygosityEWSlatkinExact]``
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -723,6 +749,8 @@ implementation of the Ewens-Watterson exact test of neutrality.
    reason to change them unless you are particularly curious. If you
    change the default values and have problems, :ref:`please let us
    know <guide-contributing-bug-report>`.
+
+.. _guide-usage-config-emhaplofreq:
 
 ``[Emhaplofreq]``
 ~~~~~~~~~~~~~~~~~
@@ -823,18 +851,8 @@ modified.
    will not normally need to set this option, and the default is the
    system-installed :file:`text.xsl` file.
 
-``[ParseGenotypeFile]`` advanced options
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
--  ``fieldPairDesignator``
-
-   This option allows you to override the coding for the headers for
-   each pair of alleles at each locus; it must match the entry in the
-   config file under ``validSampleFields`` and the entries in your
-   population data file. If you want to use something other than ``_1``
-   and ``_2``, change this option, for instance, to use letters and
-   parentheses, change it as follows: ``fieldPairDesignator=(a):(b)``
-   **[Default:** ``_1:_2`` **]**
+``[ParseGenotypeFile]`` and ``[ParseAlleleCountFile]`` common options
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -  ``popNameDesignator``
 
@@ -853,6 +871,8 @@ modified.
        *a_2
        ...
 
+.. _validPopFields:
+
 -  ``validPopFields``
 
    If you are analyzing data with an initial two line population header
@@ -870,6 +890,20 @@ modified.
        country
        latit
        longit
+
+``[ParseGenotypeFile]`` advanced option
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-  ``fieldPairDesignator``
+
+   This option allows you to override the coding for the headers for
+   each pair of alleles at each locus; it must match the entry in the
+   config file under ``validSampleFields`` and the entries in your
+   population data file. If you want to use something other than ``_1``
+   and ``_2``, change this option, for instance, to use letters and
+   parentheses, change it as follows: ``fieldPairDesignator=(a):(b)``
+   **[Default:** ``_1:_2`` **]**
+
 
 ``[Emhaplofreq]`` advanced options
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
