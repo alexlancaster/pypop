@@ -1,10 +1,10 @@
-* 2025-10-10: Add initial version of :doc:`api/index` automatically
-  generated from code to document code for developers and users (see
-  :ref:`guide-usage-examples-api`).
-
-* 2025-10-07: `PyPop 1.3.1
-  <https://github.com/alexlancaster/pypop/releases/tag/v1.3.1>`__ is
-  released. Bump ``numpy`` and ``lxml`` dependencies.
+* 2026-01-19: `PyPop 1.4.0
+  <https://github.com/alexlancaster/pypop/releases/tag/v1.4.0>`__ is
+  released. This release updates module names for PEP8 compliance,
+  unifies logging, and revamps the *PyPop User Guide* and
+  :doc:`generated documentation <api/index>` with API coverage and
+  optional no-text output mode. It also fixes deprecated code, updates
+  dependencies, and modernizes CI tooling for smoother builds.
 
   Experimental support for wheels built for Windows ARM64 is also
   available in the `Test PyPI
@@ -18,6 +18,13 @@
   Please test and report issues `via the bug tracker
   <https://github.com/alexlancaster/pypop/issues/new?assignees=&labels=bug&projects=&template=bug_report.yml&title=%5BWindows+ARM64+bug%5D%3A+Please+replace+this+with+a+clear+and+concise+description+of+your+bug>`__.
 
+* 2025-10-10: Add initial version of :doc:`api/index` automatically
+  generated from code to document code for developers and users (see
+  :ref:`guide-usage-examples-api`).
+
+* 2025-10-07: `PyPop 1.3.1
+  <https://github.com/alexlancaster/pypop/releases/tag/v1.3.1>`__
+  bumps ``numpy`` and ``lxml`` dependencies.
 
 * 2024-04-01: PyPop paper `published
   <https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2024.1378512/full>`__
