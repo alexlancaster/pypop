@@ -32,7 +32,7 @@ classifiers = [
 dependencies = [
     "numpy <= 2.4.2",
     "lxml <= 6.0.2",
-    "pooch <= v1.8.2",
+    "pooch <=1.9.0",
     "importlib-resources; python_version <= '3.8'",
     "importlib-metadata; python_version <= '3.8'"
 ]
